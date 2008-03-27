@@ -1,0 +1,42 @@
+[vfs.browser.path]
+C:\\ted\\checkouts\\mathrider\\src\\examples
+C:\\ted\\checkouts\\mathrider\\src
+C:\\ted\\checkouts\\mathrider
+C:\\ted\\checkouts\\mathrider\\build\\mathrider_core
+[vfs.browser.filter]
+*\[^~#\]
+[action]
+Misc/Yacas_Run
+save
+help
+about
+insert-newline
+global-options
+paste
+prev-line
+copy
+close-buffer
+backspace
+new-file
+save-as
+open-file
+geogebra
+eval-selection
+select-all
+log-viewer
+console
+error-list-show
+[console.JYacas]
+Load(\"/ted/checkouts/mathrider/src/examples/Plot2D.ys\");
+Load(\"/ted/checkouts/mathrider/src/examples/loop.ys\");
+Load(\"/ted/checkouts/mathrider/src/examples/ForEach.ys\");
+Load(\"/ted/checkouts/mathrider/src/examples/compute.ys\");
+3+5
+Load(\"/ted/checkouts/mathrider/src/examples/test2.ys\");
+[clipboard]
+//Press <shift><enter> in this window to run me.
+Plot2D(Sin(x)/x,-10:10)
+create a list of all even integers from 2 to 20 and compute the product of all those integers except those divisible by 3
+\[\n  Local(L,i,answer);\n  L:={};\n  i:=2;\n  /* Make a list of all even integers from 2 to 20 */\n  While (i<=20)\n  \[\n    L := Append(L,i);\n    i := i + 2;\n  \];\n  /* Now calculate the product of all of \n     these numbers that are not divisible by 3 */\n  answer := 1;\n  ForEach(i,L)\n    If (Mod(i, 3)!=0, answer := answer * i);\n  /* And return the answer */\n  answer;\n\];
+ForEach(item, 1 .. 10) Echo(item);
+myAppletStub

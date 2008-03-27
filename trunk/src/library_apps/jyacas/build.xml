@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- $Id: build.xml,v 1.6 2005/02/02 01:20:15 tkosan Exp $ -->
+
+<project id="jyacas" name="jyacas" default="help" basedir="." >
+	<description>
+		Build file for the Java version of Yacas.
+	</description>
+	
+	<property name="version" value=".01" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	
+	
+	<target id="noop" name="noop" description="Do nothing." />
+	
+	<target name="init">
+		<tstamp>
+			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+	
+	<target name="compile" depends="init"
+		description="Compiles the application" >
+		<echo message="${compile.source}." />
+	
+		<javac 
+			source="${compile.source}"
+			target="${compile.target}" 
+			srcdir="${src.dir}"
+			destdir="${build.classes.dir}"
+			debug="on"
+			deprecation="on"
+			optimize="off">
+			<classpath refid="build_classpath" />
+			<include name="**/*.java" />
+		</javac>
+		
+	</target>
+	
+	<target id="dist" name="dist" depends="compile" >
+	
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${src.dir}/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	
+		<mkdir dir="${build.dir}/dist" />
+		
+		<jar jarfile="${build.dir}/dist/jyacas.jar"
+			basedir="${build.classes.dir}" update="true" >
+			<manifest> 
+				<section name="jyacas" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>
+			<include name="**/*" />
+		</jar> 
+	</target>
+
+	
+	
+</project>

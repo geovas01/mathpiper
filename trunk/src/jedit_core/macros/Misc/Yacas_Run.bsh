@@ -1,0 +1,34 @@
+//Run the yacas script that is in the current buffer.
+
+import org.mathrider.jyacasplugin.JYacasInterpreter;
+
+buffer.save(view,null);
+
+path = buffer.getPath();
+
+
+if(path.endsWith(".ys")){
+	
+	//Remove Windows drive letter from the path.
+	if(path.indexOf(":") != -1){
+		path = path.split(":")[1];
+		
+		//Chance window's backslashes to forward slashes.
+		path = path.replace("\\","/");
+		System.out.println(path);
+	}
+		
+	runCommandInConsole(view,"JYacas","Load(\""+path+"\");");
+	//interpreter=JYacasInterpreter.getInstance();
+	
+
+	//result = interpreter.evaluate("Load(\""+path+"\");");
+	
+	//System.out.println(result);
+}
+
+
+
+
+
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

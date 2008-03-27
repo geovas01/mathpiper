@@ -1,0 +1,91 @@
+MathRider with JavaYacas.
+
+As promised, here is an alpha version of MathRider which contains JYacas
+if anyone would like to play with it:
+
+    http://sage.ssu.portsmouth.oh.us/mathrider/
+
+Here is a screen shot of MathRider 
+
+    http://sage.ssu.portsmouth.oh.us/mathrider/mathrider_screenshot_1.png
+
+
+
+And here are instructions for testing it:
+
+1) Make sure you have a current version of Java (Java 6) installed (http://java.com).
+
+2) Download the mathrider_xxx_dist_.03.zip file and extract it.
+
+3) Run the application by executing the windows_run.bat script or the run.sh
+script.
+
+
+Playing with JYacas:
+
+1)  The lower left window contains consoles.  Switch the console to
+JYacas by pressing the little black inverted triangle which is near
+the word "System".  Select the JYacas console and when it comes up,
+enter expressions and execute them by pressing <enter>.
+
+2) The Yacas programs in the text windows can be executed by placing
+the cursor in a window and pressing <shift><enter>.  The output will
+be displayed in the JYacas console window.
+
+
+For the rest of the testing you are going to need to use your
+imagination and try to envision what MathRider can become as opposed
+to what it currently is.
+
+Plugins:
+
+1) GeoGebra works but it is not connected to JYacas yet.  Its main use
+at this point is to show how MathRider plugins work.  At the right
+side of the window is a small tab that has "Geogebra" written on it.
+Press this tab a number of times to see what happens (GeoGebra should
+be shown and hidden as you press the button.)
+
+2) You can also press the tabs at the bottom of the screen which read
+"Activity Log", "Console", and "Error List".  These are all plugins
+and you can show them or hide them as needed.
+
+3) Go back to the Geogebra plugin and press the small black inverted
+triangle that is near it.  A popup menu will appear which has menu
+items such as "Float", "Dock at Top", etc.  Select the "Float" menu
+item and see what happens.
+
+4) The Geogebra plugin was detached from the main window so it can be
+resized and placed where needed.  Select the inverted black triangle
+on the floating windows and try docking the Geogebra plugin back to
+the main window again, perhaps in a different position.
+
+5) Try moving the plugins at the bottom of the screen around the same
+way (and try not to have too much fun doing this :-)
+
+6) Go to the "Plugins" menu at the top of the screen and select the
+Calculator plugin.  You can also play with docking and undocking it if
+you would like.
+
+
+The future (more imagination needed).
+
+1) Go back to the "Plugins" menu at the top of the screen and select
+the "Plugin manager" menu.  When it comes up select the "Install" tab
+and wait for a few moments.  A list of programmer-oriented plugins
+will appear that can be downloaded from the Internet and plugged into
+MathRider.  Click on any plugin's name to read about what it does.
+Now, imagine that these programmer-oriented plugins were replaced by
+dozens of mathematics-oriented plugins.  This is one part of the
+vision I have for MathRider.
+
+2) Just for fun, select the CharacterMap plugin by checking its
+checkbox and install it by pressing the "Install" button.  After it is
+finished downloading from the internet, close the plugin manager, find
+the CharacterMap plugin in the "Plugins" menu, launch it, and
+experiment with docking it.
+
+Finally, whatever configuration the plugins are in when you close
+MathRider, they will be preserved when it is launched again.
+
+
+
