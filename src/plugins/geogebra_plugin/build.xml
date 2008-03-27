@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- $Id: build.xml,v 1.6 2005/02/02 01:20:15 tkosan Exp $ -->
+
+<project name="geogebra_plugin" default="dist" basedir=".">
+	<description>
+		Build file for the Geogebra plugin.
+	</description>
+	
+	<property name="version" value=".01" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	
+	
+	<target id="noop" name="noop" description="Do nothing." />
+	
+	<target name="init">
+		<tstamp>
+			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+	
+	<target name="compile" depends="init"
+		description="Compiles the application" >
+
+		<!-- Two ways to print path information.
+		<property name="myclasspath" refid="build_classpath"/>
+		
+		<echo message="Classpath = ${myclasspath}"/>
+		
+		
+		<pathconvert pathsep="${line.separator}|   |- "
+			property="echo.path.compile"
+			refid="build_classpath">
+		</pathconvert>
+
+
+		<echo message="|- compile classpath"/>
+		<echo message="|   |"/>
+		<echo message="|   |- ${echo.path.compile}"/>
+		-->
+
+
+	
+		<javac 
+			source="${compile.source}"
+			target="${compile.target}" 
+			srcdir="${src.dir}"
+			destdir="${build.classes.dir}"
+			debug="on"
+			deprecation="on"
+			optimize="off">
+			<classpath refid="build_classpath" />
+			<include name="**/*.java" />
+		</javac>
+		
+	</target>
+	
+	
+	<target name="dist" depends="compile">
+	
+		<mkdir dir="${build.dir}/dist" />
+		
+		<copy todir="${build.dir}/classes">
+			<fileset dir="./src" >
+				<include name="**/*.props"/>
+				<include name="**/*.html"/>
+				<include name="**/*.gif"/>
+				<include name="actions.xml"/>
+				<include name="dockables.xml"/>
+				<include name="services.xml"/>
+			</fileset>
+		</copy>
+		
+		<jar jarfile="${build.dir}/dist/geogebra_plugin.jar">
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*.class"/>
+				<include name="**/*.props"/>
+				<include name="**/*.html"/>
+				<include name="**/*.gif"/>
+				<include name="actions.xml"/>
+				<include name="dockables.xml"/>
+				<include name="services.xml"/>
+			</fileset>
+			<manifest> 
+				<section name="geogebra_plugin" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>
+		</jar>
+	</target>
+	
+
+
+	
+	
+</project>

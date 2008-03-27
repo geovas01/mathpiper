@@ -1,0 +1,54 @@
+Development notes.
+
+:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wordWrap=soft:
+
+{{{====To Do
++ Change Geogebra to GeoGebra globally.
+- Fix GeoGebra docking menu overwriting problem.
+- Add usage information to the JYacas console.
++ Make the JYacas console the default console application.
++ Make a JYacas mode file.
++ Obtain line number when JYacas encounters an error when executing a file.
++ Include Yacas documentation in JYacas plugin.
++ Perhaps run JYacas in its own thread so that the application does not lock up during execution.
++ Check to make sure that at least Sun's Java 5 is installed.
+
+}}}
+
+{{{====jedit_gui.props
+}}}
+
+
+{{{====How to stop a calculation.
+
+  public void StopCurrentCalculation()
+  {
+    yacas.env.iEvalDepth = yacas.env.iMaxEvalDepth+100;
+  }
+}}}
+
+{{{====Should the Plot2D and Plot3D returned data interfaces be unified?
+}}}
+
+
+{{{====Determining if an error was encountered.
+
+String response = yacas.Evaluate(expression);
+
+if (yacas.iError != null)
+{
+  AddLinesStatic(48,"Error> ",yacas.iError);
+}
+}}}
+
+
+{{{===="Notebook" thoughts.
+
+One could create a html-based notebook like the Sage notebook but perhaps it would be better to create a 100% Applet-based notebook which would use a layout manager to lay components out in a vertical fasion.  The mathrider application can generate online notebooks which is similar to the way that GeoGebra generates online viewers.
+}}}
+
+{{{====Calculator thoughts.
+- Include multiple calculator plugins and create a way for them to interoperate with JYacas.
+}}}
+
+

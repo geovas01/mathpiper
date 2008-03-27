@@ -1,0 +1,82 @@
+# Properties file for JYacas plugin
+# $Id: JYacas.props 6876 2006-09-02 20:39:49Z jchoyt $
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.name=JYacas
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.docs=index.html
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.jyacasplugin.JYacasPlugin..longdescription=description.html
+#}}}
+
+
+
+
+jyacas.shell.msg.info=\nJYacas Shell \n\
+
+
+jyacas.shell.msg.usage=See http://yacas.sourceforge.net for information on how to use Yacas.
+
+
+
+# plugin menu
+plugin.org.mathrider.jyacasplugin.JYacasPlugin.menu=jyacas \
+	- \
+	jyacas.choose-file \
+	jyacas.save-file \
+	jyacas.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+jyacas.label=jyacas
+
+# action labels for actions supplied by actions.xml
+jyacas.choose-file.label=Choose notepad file
+jyacas.save-file.label=Save notepad file
+jyacas.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.jyacas.option-pane=jyacas
+
+# Option pane activation BeanShell snippet
+options.jyacas.code=new org.mathrider.jyacasplugin.JYacasOptionPane();
+
+# Option pane labels
+options.jyacas.label=jyacas
+options.jyacas.file=File:
+options.jyacas.choose-file=Choose
+options.jyacas.choose-file.title=Choose a notepad file
+options.jyacas.choose-font=Font:
+options.jyacas.show-filepath.title=Display notepad file path
+
+# window title
+jyacas.title=JYacas
+
+# window toolbar buttons
+jyacas.choose-file.icon=Open.png
+jyacas.save-file.icon=Save.png
+jyacas.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.jyacas.show-filepath=true
+options.jyacas.font=Monospaced
+options.jyacas.fontstyle=0
+options.jyacas.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.jyacas.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

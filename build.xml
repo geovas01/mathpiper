@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- $Id: build.xml,v 1.6 2005/02/02 01:20:15 tkosan Exp $ -->
+
+<project name="mathrider" default="help" basedir="." >
+	<description>
+		Main build file for the MathRider project.
+	</description> 
+	
+	<!-- Misc properties -->
+	<property name="master.compile.source" value="1.5" />
+	<property name="master.compile.target" value="1.5" />
+	<property environment="env" />
+	<property name="version" value=".03" />
+	
+	
+	<!-- Set top directories -->
+	<property name="master.src.dir" value="${basedir}/src" />
+	<property name="master.lib.dir" value="${basedir}/lib" />
+	
+	
+	<!-- Set build directories -->
+	<property name="master.build.dir" value="${basedir}/build" />
+	<property name="plugins.src.dir" value="${master.src.dir}/plugins" />
+	<property name="plugins.build.dir" value="${master.build.dir}/plugins" />
+	<property name="plugins.jars.dir" value="${master.build.dir}/mathrider/jars" />
+	<property name="library_apps.src.dir" value="${master.src.dir}/library_apps" />
+	<property name="library_apps.build.dir" value="${master.build.dir}/library_apps" />
+	<property name="dist.build.dir" value="${master.build.dir}/dist" />
+	
+
+	<!-- Set distribution directories -->
+	
+	<property name="master.dist.dir" value="${build.dir}/dist"/>
+	
+	<!-- Set classpaths -->
+	<path id="build_classpath">
+		<!--<pathelement path="${build.classes}" /> -->
+		<pathelement path="${master.lib.dir}/jedit.jar" />
+		<pathelement path="${master.lib.dir}/jars/ErrorList.jar" />
+		<pathelement path="${master.lib.dir}/jars/plugin.jar" />
+		<pathelement path="${plugins.jars.dir}/jyacas.jar" />
+		<pathelement path="${master.lib.dir}/jars/ProjectViewer.jar" />
+		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
+		<pathelement path="${master.lib.dir}/jars/Console.jar" />
+		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
+		<pathelement path="${plugins.jars.dir}/jyacas_plugin.jar" />
+		
+	</path>
+	
+	
+<!-- Targets -->
+
+	<target id="clean" name="clean" 
+		description="Deletes the master build directory" >
+		
+		<echo message="Removing the build directory...." />
+		<delete dir="${master.build.dir}" />
+	</target>
+
+	<target id="init" name="init">
+		<tstamp>
+			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<mkdir dir="${master.build.dir}" />
+	</target>
+
+
+	<target id="call-jyacas" name="call-jyacas" depends="init" >
+		<ant dir="${library_apps.src.dir}/jyacas" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/jyacas"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${library_apps.src.dir}/jyacas/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+	</target>
+	
+	<target id="call-geogebra" name="call-geogebra" depends="init" >
+		<ant dir="${library_apps.src.dir}/geogebra" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/geogebra"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${library_apps.src.dir}/geogebra"/>
+			<reference refid="build_classpath"/>
+		</ant>
+	</target>
+	
+	<target id="call-jyacas_plugin" name="call-jyacas_plugin" depends="call-jyacas" >
+		<ant dir="${plugins.src.dir}/jyacas_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/jyacas_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/jyacas_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/jyacas_plugin/dist/jyacas_plugin.jar" todir="${plugins.jars.dir}"/>
+
+		
+	</target>
+	
+	
+	<target id="call-geogebra_plugin" name="call-geogebra_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/geogebra_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/geogebra_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/geogebra_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/geogebra_plugin/dist/geogebra_plugin.jar" todir="${plugins.jars.dir}"/>
+
+		
+	</target>
+	
+	
+	
+	<target id="call-all-plugins" name="call-all-plugins" depends="call-jyacas_plugin, call-geogebra_plugin" />
+	
+	
+	
+	
+	<target name="mathrider" depends="init" description="Creates complete mathrider application." >
+		
+		<mkdir dir="${master.build.dir}/mathrider" />
+	
+		<!-- Copy jedit image to build directory. -->
+		<copy todir="${master.build.dir}/mathrider">
+			<fileset dir="${master.src.dir}/jedit_core" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
+		
+		<!-- Copy examples directory. -->
+		<copy todir="${master.build.dir}/mathrider/examples">
+			<fileset dir="${master.src.dir}/examples" >
+				<include name="**/*" />
+			</fileset>
+		</copy>			
+		
+		<!-- Copy jedit.jar and plugin jars into mathrider directory. -->
+		<copy todir="${master.build.dir}/mathrider">
+			<fileset dir="${master.lib.dir}" >
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		
+		
+
+		<antcall target="call-jyacas">
+			<param name="target" value="dist"/>
+		</antcall>
+		<copy file="${library_apps.build.dir}/jyacas/dist/jyacas.jar" todir="${plugins.jars.dir}"/>
+		
+	</target>
+
+	
+	
+
+	<target id="noop" name="noop" description="Do nothing." >
+		<antcall target="call-all">
+			<param name="target" value="noop" />
+		</antcall>
+	</target>
+	
+	
+	
+	
+	<!-- zip distribution target. -->
+	<target name="dist" depends=""
+		description="zips the application for distribution." >
+		
+		<delete dir="${dist.build.dir}" />
+		<mkdir dir="${dist.build.dir}" />
+
+		<jar jarfile="${dist.build.dir}/mathrider_dist${version}.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**"
+		 whenmanifestonly="skip" >
+			<manifest> 
+				<section name="MathRider" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>
+
+		</jar>	
+
+	</target>	
+	
+	
+	<!-- tar cjfp mathrider_linux_dist.03.tar.bz2 mathrider/ -->
+
+
+	
+</project>

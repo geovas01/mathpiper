@@ -1,0 +1,29 @@
+<!-- Action definition file for JYacas plugin -->
+<!-- $Id: actions.xml 5152 2004-12-05 04:37:06Z spestov $
+-->
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+	<ACTION NAME="jyacas.choose-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.jyacasplugin.JYacasPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.jyacasplugin.JYacasPlugin.NAME).chooseFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="jyacas.save-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.jyacasplugin.JYacasPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.jyacasplugin.JYacasPlugin.NAME).saveFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="jyacas.copy-to-buffer">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.jyacasplugin.JYacasPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.jyacasplugin.JYacasPlugin.NAME).copyToBuffer();
+		</CODE>
+	</ACTION>
+</ACTIONS>
+

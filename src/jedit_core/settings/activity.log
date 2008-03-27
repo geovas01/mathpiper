@@ -1,0 +1,221 @@
+Log file created on Wed Mar 19 02:14:42 EDT 2008
+IMPORTANT:
+Because updating this file after every log message would kill
+performance, it will be *incomplete* unless you invoke the
+Utilities->Troubleshooting->Update Activity Log on Disk command!
+2:14:42 AM [message] Log: When reporting bugs, please include the following information:
+2:14:42 AM [message] Log: java.version=1.6.0_04
+2:14:42 AM [message] Log: java.vm.version=10.0-b19
+2:14:42 AM [message] Log: java.runtime.version=1.6.0_04-b12
+2:14:42 AM [message] Log: java.vendor=Sun Microsystems Inc.
+2:14:42 AM [message] Log: java.compiler=null
+2:14:42 AM [message] Log: os.name=Windows Vista
+2:14:42 AM [message] Log: os.version=6.0
+2:14:42 AM [message] Log: os.arch=x86
+2:14:42 AM [message] Log: user.home=.
+2:14:42 AM [message] Log: java.home=C:\Program Files\Java\jdk1.6.0_04\jre
+2:14:42 AM [message] Log: java.class.path=./jedit.jar;./jars/jyacas.jar;./jars/geogebra.jar;./jars/geogebra_properties.jar;JmolApplet.jar;netscape.jar
+2:14:42 AM [debug] MiscUtilities: Saving backup of file "C:\ted\checkouts\mathrider\build\mathrider_core\settings\activity.log" to "C:\ted\checkouts\mathrider\build\mathrider_core\settings\settings-backup\activity.log~1~"
+2:14:42 AM [notice] jEdit: jEdit version 4.3pre12
+2:14:42 AM [message] jEdit: Settings directory is C:\ted\checkouts\mathrider\build\mathrider_core\settings
+2:14:42 AM [message] jEdit: jEdit home directory is C:\ted\checkouts\mathrider\build\mathrider_core
+2:14:42 AM [debug] ActionSet: Loading actions from jar:file:/C:/ted/checkouts/mathrider/build/mathrider_core/jedit.jar!/org/gjt/sp/jedit/actions.xml
+2:14:42 AM [debug] DockableWindowManager: Loading dockables from jar:file:/C:/ted/checkouts/mathrider/build/mathrider_core/jedit.jar!/org/gjt/sp/jedit/dockables.xml
+2:14:42 AM [debug] EditBus: SearchSettingsChanged[source=null]
+2:14:42 AM [notice] jEdit: Loading plugins from C:\ted\checkouts\mathrider\build\mathrider_core\jars
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\BufferTabs.jar,class=buffertabs.BufferTabsPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\Calculator.jar,class=ise.plugin.calculator.CalculatorPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\Code2HTML.jar,class=code2html.Code2HTMLPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\CommonControls.jar,class=CommonControlsPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\Console.jar,class=console.ConsolePlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\ErrorList.jar,class=errorlist.ErrorListPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\geogebra.jar]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\geogebra_plugin.jar,class=org.mathrider.geogebraplugin.GeogebraPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\JmolApplet.jar]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\jyacas.jar]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\jyacas_plugin.jar,class=org.mathrider.jyacasplugin.JYacasPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\kappalayout.jar]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\LatestVersion.jar,class=LatestVersionPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\LaTeXTools.jar,class=uk.co.antroy.latextools.LaTeXPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\netscape.jar]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\ProjectViewer.jar,class=projectviewer.ProjectPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\QuickNotepad.jar,class=QuickNotepadPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\SideKick.jar,class=sidekick.SideKickPlugin]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\swing-worker.jar]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\swingx-bean.jar]
+2:14:42 AM [debug] EditBus: PluginUpdate[what=LOADED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\swingx-ws.jar]
+2:14:42 AM [notice] jEdit: Loading plugins from C:\ted\checkouts\mathrider\build\mathrider_core\settings\jars
+2:14:42 AM [message] HistoryModel: Loading history
+2:14:42 AM [message] BufferHistory: Loading C:\ted\checkouts\mathrider\build\mathrider_core\settings\recent.xml
+2:14:42 AM [message] KillRing: Loading C:\ted\checkouts\mathrider\build\mathrider_core\settings\killring.xml
+2:14:42 AM [debug] jEdit: SOCKS proxy disabled
+2:14:42 AM [debug] jEdit: HTTP proxy disabled
+2:14:42 AM [debug] EditBus: PropertiesChanged[source=null]
+2:14:42 AM [message] jEdit: Loading mode catalog file C:\ted\checkouts\mathrider\build\mathrider_core\modes\catalog
+2:14:42 AM [message] jEdit: Loading mode catalog file C:\ted\checkouts\mathrider\build\mathrider_core\settings\modes\catalog
+2:14:42 AM [debug] PluginJAR: Activating buffertabs.BufferTabsPlugin because of startup
+2:14:42 AM [debug] PluginJAR: Opening C:\ted\checkouts\mathrider\build\mathrider_core\jars\BufferTabs.jar
+2:14:42 AM [debug] EditBus: PluginUpdate[what=ACTIVATED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\BufferTabs.jar,class=buffertabs.BufferTabsPlugin]
+2:14:42 AM [debug] PluginJAR: Activating console.ConsolePlugin because of startup
+2:14:42 AM [debug] PluginJAR: Opening C:\ted\checkouts\mathrider\build\mathrider_core\jars\Console.jar
+2:14:42 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:14:42 AM [debug] ConsolePlugin: Loaded 15 Actions
+2:14:42 AM [debug] EditBus: PluginUpdate[what=ACTIVATED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\Console.jar,class=console.ConsolePlugin]
+2:14:42 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:14:42 AM [debug] PluginJAR: Activating sidekick.SideKickPlugin because of startup
+2:14:42 AM [debug] PluginJAR: Opening C:\ted\checkouts\mathrider\build\mathrider_core\jars\SideKick.jar
+2:14:42 AM [debug] EditBus: PluginUpdate[what=ACTIVATED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\SideKick.jar,class=sidekick.SideKickPlugin]
+2:14:42 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:14:42 AM [debug] Macros: Registered beanshell macro handler
+2:14:42 AM [debug] EditBus: DynamicMenuChanged[menu=macros,source=null]
+2:14:42 AM [message] BeanShell: Running script C:\ted\checkouts\mathrider\build\mathrider_core\startup\getGraphicsEnvironment.bsh
+2:14:43 AM [message] BeanShell: Running script C:\ted\checkouts\mathrider\build\mathrider_core\startup\startup.bsh
+2:14:43 AM [debug] String: BeanShell interpreter version 2.0b4-jedit
+2:14:43 AM [message] BeanShell: Running script C:\ted\checkouts\mathrider\build\mathrider_core\settings\startup\mathrider_startup.bsh
+2:14:43 AM [debug] EditBus: BufferUpdate[what=LOAD_STARTED,view=null,source=Untitled-1 (C:\ted\checkouts\mathrider\build\mathrider_core\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=CREATED,view=null,source=Untitled-1 (C:\ted\checkouts\mathrider\build\mathrider_core\)]
+2:14:43 AM [message] PerspectiveManager: Loading C:\ted\checkouts\mathrider\build\mathrider_core\settings\perspective.xml
+2:14:43 AM [debug] EditBus: BufferUpdate[what=LOAD_STARTED,view=null,source=compute.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=CLOSED,view=null,source=Untitled-1 (C:\ted\checkouts\mathrider\build\mathrider_core\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=CREATED,view=null,source=compute.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=LOAD_STARTED,view=null,source=ForEach.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=CREATED,view=null,source=ForEach.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=LOAD_STARTED,view=null,source=loop.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=CREATED,view=null,source=loop.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=LOAD_STARTED,view=null,source=Plot2D.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:43 AM [debug] EditBus: BufferUpdate[what=CREATED,view=null,source=Plot2D.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:43 AM [debug] EditBus: BufferChanging[what=BUFFER_CHANGING,source=org.gjt.sp.jedit.EditPane[inactive]]
+2:14:43 AM [debug] EditBus: EditPaneUpdate[what=CREATED,source=org.gjt.sp.jedit.EditPane[inactive]]
+2:14:44 AM [debug] DockableWindowManager: Loading dockables from jeditresource:/Console.jar!/dockables.xml
+2:14:44 AM [debug] PluginJAR: Opening C:\ted\checkouts\mathrider\build\mathrider_core\jars\ErrorList.jar
+2:14:44 AM [debug] EditBus: PluginUpdate[what=ACTIVATED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\ErrorList.jar,class=errorlist.ErrorListPlugin]
+2:14:44 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:14:44 AM [debug] EditBus: DockableWindowUpdate[what=ACTIVATED,dockable=console,source=org.gjt.sp.jedit.gui.DockableWindowManager[,0,0,0x0,invalid,layout=org.gjt.sp.jedit.gui.DockableLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]]
+2:14:44 AM [debug] DockableWindowManager: Loading dockables from jeditresource:/geogebra_plugin.jar!/dockables.xml
+2:14:44 AM [debug] PluginJAR: Opening C:\ted\checkouts\mathrider\build\mathrider_core\jars\geogebra_plugin.jar
+2:14:44 AM [debug] EditBus: PluginUpdate[what=ACTIVATED,exit=false,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\geogebra_plugin.jar,class=org.mathrider.geogebraplugin.GeogebraPlugin]
+2:14:44 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.filename
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.type
+2:14:44 AM [notice] AWT-EventQueue-0: null
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.showToolBar
+2:14:44 AM [notice] AWT-EventQueue-0: true
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.showToolBarHelp
+2:14:44 AM [notice] AWT-EventQueue-0: true
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.customToolBar
+2:14:44 AM [notice] AWT-EventQueue-0: null
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.showMenuBar
+2:14:44 AM [notice] AWT-EventQueue-0: false
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.showResetIcon
+2:14:44 AM [notice] AWT-EventQueue-0: true
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.showAlgebraInput
+2:14:44 AM [notice] AWT-EventQueue-0: true
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.framePossible
+2:14:44 AM [notice] AWT-EventQueue-0: false
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.enableRightClick
+2:14:44 AM [notice] AWT-EventQueue-0: true
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.enableShiftDragZoom
+2:14:44 AM [notice] AWT-EventQueue-0: null
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.language
+2:14:44 AM [notice] AWT-EventQueue-0: null
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.country
+2:14:44 AM [notice] AWT-EventQueue-0: null
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.bgcolor
+2:14:44 AM [notice] AWT-EventQueue-0: null
+2:14:44 AM [notice] AWT-EventQueue-0: TEDDD: geogebra.applet.borderColor
+2:14:44 AM [notice] AWT-EventQueue-0: null
+2:14:45 AM [debug] EditBus: DockableWindowUpdate[what=ACTIVATED,dockable=geogebra,source=org.gjt.sp.jedit.gui.DockableWindowManager[,0,0,0x0,invalid,layout=org.gjt.sp.jedit.gui.DockableLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]]
+2:14:45 AM [debug] EditBus: ViewUpdate[what=CREATED,source=org.gjt.sp.jedit.View[active]]
+2:14:46 AM [debug] EditBus: EditorStarted[source=null]
+2:14:46 AM [message] jEdit: Startup complete
+2:14:46 AM [debug] WorkThread: Work request thread starting [jEdit I/O #2]
+2:14:46 AM [debug] WorkThread: Work request thread starting [jEdit I/O #1]
+2:14:46 AM [debug] WorkThread: Work request thread starting [jEdit I/O #3]
+2:14:46 AM [debug] WorkThread: Running in work thread: [id=2,run=org.gjt.sp.jedit.bufferio.BufferLoadRequest[compute.ys (C:\ted\checkouts\mathrider\src\examples\)]]
+2:14:46 AM [debug] WorkThread: Running in work thread: [id=4,run=org.gjt.sp.jedit.bufferio.BufferLoadRequest[ForEach.ys (C:\ted\checkouts\mathrider\src\examples\)]]
+2:14:46 AM [debug] WorkThread: Running in work thread: [id=8,run=org.gjt.sp.jedit.bufferio.BufferLoadRequest[Plot2D.ys (C:\ted\checkouts\mathrider\src\examples\)]]
+2:14:46 AM [debug] WorkThread: Running in work thread: [id=6,run=org.gjt.sp.jedit.bufferio.BufferLoadRequest[loop.ys (C:\ted\checkouts\mathrider\src\examples\)]]
+2:14:46 AM [debug] WorkThread: Work request thread starting [jEdit I/O #4]
+2:14:46 AM [debug] EditBus: ViewUpdate[what=VIEW_ACTIVATED,source=org.gjt.sp.jedit.View[active]]
+2:14:46 AM [debug] JEditTextArea: InputMethodSupport is activated
+2:14:46 AM [notice] jEdit: Loading edit mode C:\ted\checkouts\mathrider\build\mathrider_core\modes\text.xml
+2:14:46 AM [debug] EditBus: BufferUpdate[what=PROPERTIES_CHANGED,view=null,source=Untitled-1 (C:\ted\checkouts\mathrider\build\mathrider_core\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=LOADED,view=null,source=Untitled-1 (C:\ted\checkouts\mathrider\build\mathrider_core\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=PROPERTIES_CHANGED,view=null,source=compute.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=LOADED,view=null,source=compute.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=PROPERTIES_CHANGED,view=null,source=ForEach.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=LOADED,view=null,source=ForEach.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=PROPERTIES_CHANGED,view=null,source=loop.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=LOADED,view=null,source=loop.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=PROPERTIES_CHANGED,view=null,source=Plot2D.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:46 AM [debug] EditBus: BufferUpdate[what=LOADED,view=null,source=Plot2D.ys (C:\ted\checkouts\mathrider\src\examples\)]
+2:14:46 AM [debug] EditBus: DynamicMenuChanged[menu=recent-files,source=null]
+2:14:49 AM [debug] EditBus: BufferChanging[what=BUFFER_CHANGING,source=org.gjt.sp.jedit.EditPane[active]]
+2:14:49 AM [debug] EditBus: DynamicMenuChanged[menu=recent-files,source=null]
+2:14:49 AM [debug] EditBus: EditPaneUpdate[what=BUFFER_CHANGED,source=org.gjt.sp.jedit.EditPane[active]]
+2:14:49 AM [debug] SideKick: No parser
+2:14:49 AM [debug] SideKickParsedData: Setting parsed data of org.gjt.sp.jedit.View[active] to sidekick.SideKickParsedData@1d47b2b
+2:14:49 AM [debug] EditBus: SideKickUpdate[source=null]
+2:14:52 AM [debug] EditBus: BufferChanging[what=BUFFER_CHANGING,source=org.gjt.sp.jedit.EditPane[active]]
+2:14:52 AM [debug] EditBus: DynamicMenuChanged[menu=recent-files,source=null]
+2:14:52 AM [debug] EditBus: EditPaneUpdate[what=BUFFER_CHANGED,source=org.gjt.sp.jedit.EditPane[active]]
+2:14:52 AM [debug] SideKick: No parser
+2:14:52 AM [debug] SideKickParsedData: Setting parsed data of org.gjt.sp.jedit.View[active] to sidekick.SideKickParsedData@3fbbfc
+2:14:52 AM [debug] EditBus: SideKickUpdate[source=null]
+2:15:06 AM [debug] EditBus: BufferChanging[what=BUFFER_CHANGING,source=org.gjt.sp.jedit.EditPane[active]]
+2:15:06 AM [debug] EditBus: DynamicMenuChanged[menu=recent-files,source=null]
+2:15:06 AM [debug] EditBus: EditPaneUpdate[what=BUFFER_CHANGED,source=org.gjt.sp.jedit.EditPane[active]]
+2:15:06 AM [debug] SideKick: No parser
+2:15:06 AM [debug] SideKickParsedData: Setting parsed data of org.gjt.sp.jedit.View[active] to sidekick.SideKickParsedData@fa39d7
+2:15:06 AM [debug] EditBus: SideKickUpdate[source=null]
+2:15:12 AM [debug] EditBus: BufferChanging[what=BUFFER_CHANGING,source=org.gjt.sp.jedit.EditPane[active]]
+2:15:12 AM [debug] EditBus: DynamicMenuChanged[menu=recent-files,source=null]
+2:15:12 AM [debug] EditBus: EditPaneUpdate[what=BUFFER_CHANGED,source=org.gjt.sp.jedit.EditPane[active]]
+2:15:12 AM [debug] SideKick: No parser
+2:15:12 AM [debug] SideKickParsedData: Setting parsed data of org.gjt.sp.jedit.View[active] to sidekick.SideKickParsedData@1f1680f
+2:15:12 AM [debug] EditBus: SideKickUpdate[source=null]
+2:15:12 AM [debug] MiscUtilities: Saving backup of file "C:\ted\checkouts\mathrider\build\mathrider_core\settings\perspective.xml" to "C:\ted\checkouts\mathrider\build\mathrider_core\settings\settings-backup\perspective.xml~1~"
+2:15:19 AM [debug] EditBus: EditorExitRequested[source=org.gjt.sp.jedit.View[active]]
+2:15:19 AM [message] PerspectiveManager: Saving C:\ted\checkouts\mathrider\build\mathrider_core\settings\perspective.xml
+2:15:19 AM [debug] MiscUtilities: Saving backup of file "C:\ted\checkouts\mathrider\build\mathrider_core\settings\perspective.xml" to "C:\ted\checkouts\mathrider\build\mathrider_core\settings\settings-backup\perspective.xml~1~"
+2:15:19 AM [debug] EditBus: DynamicMenuChanged[menu=recent-files,source=null]
+2:15:19 AM [debug] EditBus: ViewUpdate[what=CLOSED,source=org.gjt.sp.jedit.View[active]]
+2:15:19 AM [debug] EditBus: DynamicMenuChanged[menu=recent-files,source=null]
+2:15:19 AM [debug] EditBus: EditPaneUpdate[what=DESTROYED,source=org.gjt.sp.jedit.EditPane[active]]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=DEACTIVATED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\BufferTabs.jar,class=buffertabs.BufferTabsPlugin]
+2:15:19 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\BufferTabs.jar,class=buffertabs.BufferTabsPlugin]
+2:15:19 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\Calculator.jar,class=ise.plugin.calculator.CalculatorPlugin]
+2:15:19 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\Code2HTML.jar,class=code2html.Code2HTMLPlugin]
+2:15:19 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\CommonControls.jar,class=CommonControlsPlugin]
+2:15:19 AM [debug] EditBus: DynamicMenuChanged[menu=plugin.console.ConsolePlugin.menu,source=null]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=DEACTIVATED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\Console.jar,class=console.ConsolePlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\Console.jar,class=console.ConsolePlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=DEACTIVATED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\ErrorList.jar,class=errorlist.ErrorListPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\ErrorList.jar,class=errorlist.ErrorListPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\geogebra.jar]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=DEACTIVATED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\geogebra_plugin.jar,class=org.mathrider.geogebraplugin.GeogebraPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\geogebra_plugin.jar,class=org.mathrider.geogebraplugin.GeogebraPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\JmolApplet.jar]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\jyacas.jar]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\jyacas_plugin.jar,class=org.mathrider.jyacasplugin.JYacasPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\kappalayout.jar]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\LatestVersion.jar,class=LatestVersionPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\LaTeXTools.jar,class=uk.co.antroy.latextools.LaTeXPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\netscape.jar]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\ProjectViewer.jar,class=projectviewer.ProjectPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\QuickNotepad.jar,class=QuickNotepadPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=DEACTIVATED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\SideKick.jar,class=sidekick.SideKickPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\SideKick.jar,class=sidekick.SideKickPlugin]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\swing-worker.jar]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\swingx-bean.jar]
+2:15:19 AM [debug] EditBus: PluginUpdate[what=UNLOADED,exit=true,source=C:\ted\checkouts\mathrider\build\mathrider_core\jars\swingx-ws.jar]
+2:15:19 AM [debug] EditBus: EditorExiting[source=null]
+2:15:19 AM [message] BufferHistory: Saving C:\ted\checkouts\mathrider\build\mathrider_core\settings\recent.xml
+2:15:19 AM [debug] MiscUtilities: Saving backup of file "C:\ted\checkouts\mathrider\build\mathrider_core\settings\recent.xml" to "C:\ted\checkouts\mathrider\build\mathrider_core\settings\settings-backup\recent.xml~1~"
+2:15:19 AM [message] KillRing: Saving C:\ted\checkouts\mathrider\build\mathrider_core\settings\killring.xml
+2:15:19 AM [debug] MiscUtilities: Saving backup of file "C:\ted\checkouts\mathrider\build\mathrider_core\settings\killring.xml" to "C:\ted\checkouts\mathrider\build\mathrider_core\settings\settings-backup\killring.xml~1~"
+2:15:19 AM [debug] MiscUtilities: Saving backup of file "C:\ted\checkouts\mathrider\build\mathrider_core\settings\properties" to "C:\ted\checkouts\mathrider\build\mathrider_core\settings\settings-backup\properties~1~"
