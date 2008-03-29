@@ -1,0 +1,110 @@
+//Run the yacas script that is in the current buffer.
+
+import org.mathrider.jyacasplugin.JYacasInterpreter;
+import java.io.File;
+import java.io.BufferedWriter;
+
+buffer.save(view,null);
+
+path = buffer.getPath();
+
+
+if(path.endsWith(".ys")){
+	
+	//Remove Windows drive letter from the path.
+	if(path.indexOf(":") != -1){
+		path = path.split(":")[1];
+		
+		//Chance window's backslashes to forward slashes.
+		path = path.replace("\\","/");
+		//System.out.println(path);
+	}
+		
+	runCommandInConsole(view,"JYacas","Load(\""+path+"\");");
+	//interpreter=JYacasInterpreter.getInstance();
+	
+
+	//result = interpreter.evaluate("Load(\""+path+"\");");
+	
+	//System.out.println(result);
+}else if (path.endsWith(".mrn")){
+	textArea.selectFold();
+	text = textArea.getSelectedText();
+	textArea.setSelection(null);
+	text = text.substring(3,text.length()-3);
+	
+	try {
+        // Create temp file.
+        File tempFile = File.createTempFile("mathrider", ".mrn_tmp");
+    
+        // Delete temp file when program exits.
+        tempFile.deleteOnExit();
+    
+        // Write to temp file
+        BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
+        out.write(text);
+        out.close();
+		
+		//selection  = textArea.getSelection()[0];
+		//start = selection.getStart()+3;
+		//end = selection.getEnd()-3;
+    	
+		interpreter = JYacasInterpreter.getInstance();
+		
+		result = "";
+		try 
+		{   
+			tempFilePath = tempFile.getAbsolutePath();
+			
+			//Remove Windows drive letter from the path.
+			if(tempFilePath.indexOf(":") != -1){
+				tempFilePath = tempFilePath.split(":")[1];
+		
+				//Change window's backslashes to forward slashes.
+				tempFilePath = tempFilePath.replace("\\","/");
+			}//end if
+		
+			System.out.println(tempFilePath);
+			result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
+			System.out.println("Out> " + result);
+				
+				
+		}catch(net.sf.yacas.Yacasexception ye) 
+		{
+			result = ye.getMessage();
+		}
+		
+		
+		if(result != null){
+			//Determine how many lines are in the result.
+			numberOfLines = 0;
+			charIndex = 0;
+			while(charIndex != result.length()){
+				if(result.charAt(charIndex) == "\n"){
+					numberOfLines++;
+				}
+				charIndex++;
+			}//end while
+			System.out.println(numberOfLines);
+			
+			
+			//Make room under fold for output and place output there.
+			
+			
+			
+		}//end if.
+		
+			
+		
+    } catch (IOException e) {
+		e.printStackTrace();
+    }
+	
+
+	
+
+}//end else if.
+	
+
+
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
