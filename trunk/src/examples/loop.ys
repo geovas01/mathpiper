@@ -1,4 +1,4 @@
-//Press <shift><enter> in this window to run me.
+//Press <shift><enter> in this window to run this code.
 
 Echo(1+3); 
 
@@ -9,9 +9,4 @@ While(x < 100)
   Write(x);
   x := x + 1;  
 ]; 
-
-
-
-
-dfdf
 
