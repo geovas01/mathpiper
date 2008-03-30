@@ -2,9 +2,16 @@
 
 Echo(1+3); 
 
+
 x := 1;
 While(x < 100) 
 [
   Write(x);
   x := x + 1;  
 ]; 
+
+
+
+
+dfdf
+
