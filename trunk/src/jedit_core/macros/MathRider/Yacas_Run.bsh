@@ -32,20 +32,37 @@ if(path.endsWith(".ys")){
 }else if (path.endsWith(".mrn")){
 	textArea.selectFold();
 	foldSelection  = textArea.getSelection()[0];
-	text = textArea.getSelectedText();
-	textArea.setSelection(null);
+	foldSelectionEnd = foldSelection.getEnd();
+	codeStartLine = foldSelection.getStartLine()+1;
+	codeEndLine = foldSelection.getEndLine()-1;
+	codeStartIndex = foldSelection.getStart(textArea.getBuffer(),codeStartLine);
+	codeEndIndex = foldSelection.getEnd(textArea.getBuffer(),codeEndLine);
+	codeSelection = new Range(codeStartIndex, codeEndIndex);
+	textArea.setSelection(codeSelection);
+
 	
-	text = text.substring(3,text.length()-3);
-	
+	allFoldText = textArea.getSelectedText().trim();
+	textArea.setSelection(null);  
+//	
+//	//text = text.substring(3,text.length()-3);
+//	
 	//Do not include subfold as JYacas code.
-	subFoldIndex = text.indexOf("{{{");
+	subFoldIndex = allFoldText.indexOf("{{{");
 	if(subFoldIndex != -1)
 	{
-		text = text.substring(0,subFoldIndex);
+		yacasCodeText = allFoldText.substring(0,subFoldIndex).trim();
 	}
-	yacasCodeLength = text.length();
+	else
+	{
+		yacasCodeText = allFoldText;
+	}
+
+//	noCrLf = text.replace("\n","").replace("\r","");
+	yacasCodeLength = yacasCodeText.length();
+	yacasCodeEndIndex = codeStartIndex + yacasCodeLength;
 	
-System.out.println("PPPP " + text);
+	textArea.setCaretPosition(yacasCodeEndIndex);
+
 	
 	try {
         // Create temp file.
@@ -56,7 +73,7 @@ System.out.println("PPPP " + text);
     
         // Write to temp file
         BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
-        out.write(text);
+        out.write(yacasCodeText);
         out.close();
 		
 		//selection  = textArea.getSelection()[0];
@@ -80,7 +97,7 @@ System.out.println("PPPP " + text);
 		
 			//System.out.println(tempFilePath);
 			result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
-System.out.println("Out> " + result);
+			//System.out.println("Out> " + result);
 				
 				
 		}catch(net.sf.yacas.Yacasexception ye) 
@@ -99,75 +116,38 @@ System.out.println("Out> " + result);
 				}
 				charIndex++;
 			}//end while
-			//System.out.println(numberOfLines);
 			
 			
 			//Make room at the end of the current fold for output and place output there.
 			currentCaretPosition = textArea.getCaretPosition();
-			start = foldSelection.getStart();
-			end = foldSelection.getEnd();
-			//textArea.setCaretPosition(end);
-			endOfYacasCode = start + yacasCodeLength;
-			
-			
-			restOfBufferText = textArea.getText(endOfYacasCode,textArea.getBufferLength()-endOfYacasCode);
-//System.out.println("PPPPPP " + restOfBufferText);
 
-			
-			if(subFoldIndex != -1)
-			{
-				//If there is a subfold present.
-				
-				endSubFoldIndex = restOfBufferText.indexOf("}}}")-3;
-				
-				rangeSelection = new Range(endOfYacasCode,endOfYacasCode + endSubFoldIndex);
-			/*
-				if(nextFoldOffset == -1)
-				{
-					//Last cell.
-					rangeSelection = new Range(end,textArea.getBufferLength());
-				}//end if
-				else
-				{
-					//Between cells.
-					rangeSelection = new Range(end,end + nextFoldOffset);
-				}//end if/else.
-*/		
-			}//end if.
-			else
-			{
-				//No subfold present.
-				
-				rangeSelection = new Range(endOfYacasCode, (end-3));
-System.out.println("PPPP " + endOfYacasCode + "    " + (end-3));
-			}
+
+			rangeSelection = new Range(yacasCodeEndIndex, codeEndIndex);
 			
 			textArea.setSelection(rangeSelection);
 			
 		
-void printResult()
-{
-	void run()
-	{
-		//System.out.println("PPPP " + buffer.isEditable());
-		///textArea.indentSelectedLines();
-		result = result.replaceAll("\n","\n      ");
-		textArea.setSelectedText("\n\n     {{{\n      " + result + "\n     }}}\n",false);
-		
-		
+			void displayResult()
+			{
+				//Buffer update needs to be done later in the AWT thread because of needing
+				// to wait for the buffer to be saved (which was requested earlier).
+				void run()
+				{
 			
+					result = result.replaceAll("\n","\n      ");
+					textArea.setSelectedText("\n\n     {{{\n      " + result + "\n     }}}\n",false);
+			 
+					textArea.setCaretPosition(currentCaretPosition);
+					
+					buffer.save(view,null);
+				}
+				VFSManager.runInAWTThread(this);
 			
-		//textArea.insert("\n" + result + "\n\n",false);   
-		textArea.setCaretPosition(currentCaretPosition);
-		
-		buffer.save(view,null);
-	}
-	VFSManager.runInAWTThread(this);
+			}//end method.
+			
+			displayResult();
+						
 
-}
-printResult();
-			
-			//textArea.setEditable(true);
 	
 			
 			
