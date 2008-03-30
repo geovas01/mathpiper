@@ -3,6 +3,8 @@
 import org.mathrider.jyacasplugin.JYacasInterpreter;
 import java.io.File;
 import java.io.BufferedWriter;
+import org.gjt.sp.jedit.textarea.Selection.Range;
+import org.gjt.sp.jedit.textarea.Selection;
 
 buffer.save(view,null);
 
@@ -29,9 +31,21 @@ if(path.endsWith(".ys")){
 	//System.out.println(result);
 }else if (path.endsWith(".mrn")){
 	textArea.selectFold();
+	foldSelection  = textArea.getSelection()[0];
 	text = textArea.getSelectedText();
 	textArea.setSelection(null);
+	
 	text = text.substring(3,text.length()-3);
+	
+	//Do not include subfold as JYacas code.
+	subFoldIndex = text.indexOf("{{{");
+	if(subFoldIndex != -1)
+	{
+		text = text.substring(0,subFoldIndex);
+	}
+	yacasCodeLength = text.length();
+	
+System.out.println("PPPP " + text);
 	
 	try {
         // Create temp file.
@@ -64,9 +78,9 @@ if(path.endsWith(".ys")){
 				tempFilePath = tempFilePath.replace("\\","/");
 			}//end if
 		
-			System.out.println(tempFilePath);
+			//System.out.println(tempFilePath);
 			result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
-			System.out.println("Out> " + result);
+System.out.println("Out> " + result);
 				
 				
 		}catch(net.sf.yacas.Yacasexception ye) 
@@ -85,10 +99,78 @@ if(path.endsWith(".ys")){
 				}
 				charIndex++;
 			}//end while
-			System.out.println(numberOfLines);
+			//System.out.println(numberOfLines);
 			
 			
-			//Make room under fold for output and place output there.
+			//Make room at the end of the current fold for output and place output there.
+			currentCaretPosition = textArea.getCaretPosition();
+			start = foldSelection.getStart();
+			end = foldSelection.getEnd();
+			//textArea.setCaretPosition(end);
+			endOfYacasCode = start + yacasCodeLength;
+			
+			
+			restOfBufferText = textArea.getText(endOfYacasCode,textArea.getBufferLength()-endOfYacasCode);
+//System.out.println("PPPPPP " + restOfBufferText);
+
+			
+			if(subFoldIndex != -1)
+			{
+				//If there is a subfold present.
+				
+				endSubFoldIndex = restOfBufferText.indexOf("}}}")-3;
+				
+				rangeSelection = new Range(endOfYacasCode,endOfYacasCode + endSubFoldIndex);
+			/*
+				if(nextFoldOffset == -1)
+				{
+					//Last cell.
+					rangeSelection = new Range(end,textArea.getBufferLength());
+				}//end if
+				else
+				{
+					//Between cells.
+					rangeSelection = new Range(end,end + nextFoldOffset);
+				}//end if/else.
+*/		
+			}//end if.
+			else
+			{
+				//No subfold present.
+				
+				rangeSelection = new Range(endOfYacasCode, (end-3));
+System.out.println("PPPP " + endOfYacasCode + "    " + (end-3));
+			}
+			
+			textArea.setSelection(rangeSelection);
+			
+		
+void printResult()
+{
+	void run()
+	{
+		//System.out.println("PPPP " + buffer.isEditable());
+		///textArea.indentSelectedLines();
+		result = result.replaceAll("\n","\n      ");
+		textArea.setSelectedText("\n\n     {{{\n      " + result + "\n     }}}\n",false);
+		
+		
+			
+			
+		//textArea.insert("\n" + result + "\n\n",false);   
+		textArea.setCaretPosition(currentCaretPosition);
+		
+		buffer.save(view,null);
+	}
+	VFSManager.runInAWTThread(this);
+
+}
+printResult();
+			
+			//textArea.setEditable(true);
+	
+			
+			
 			
 			
 			
