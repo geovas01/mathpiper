@@ -11,7 +11,7 @@
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
 	<property environment="env" />
-	<property name="version" value=".03" />
+	<property name="version" value=".05" />
 	
 	
 	<!-- Set top directories -->
@@ -125,6 +125,7 @@
 	<target name="mathrider" depends="init" description="Creates complete mathrider application." >
 		
 		<mkdir dir="${master.build.dir}/mathrider" />
+		<mkdir dir="${master.build.dir}/mathrider/tmp" />
 	
 		<!-- Copy jedit image to build directory. -->
 		<copy todir="${master.build.dir}/mathrider">
@@ -190,6 +191,35 @@
 	
 	
 	<!-- tar cjfp mathrider_linux_dist.03.tar.bz2 mathrider/ -->
+	
+	
+	<target id="update-source" name="update-source" description="Copies updated configuration files from build to source directory." >
+		
+		<!-- Copy properties file. -->
+		<copy file="${master.build.dir}/mathrider/settings/properties" 
+		todir="${master.src.dir}/jedit_core/settings"/>
+		
+		<!-- Copy perspective file. -->
+		<copy file="${master.build.dir}/mathrider/settings/perspective.xml" 
+		todir="${master.src.dir}/jedit_core/settings"/>
+		
+		
+		<!-- Copy examples. -->
+		<copy todir="${master.src.dir}/examples">
+			<fileset dir="${master.build.dir}/mathrider/examples" >
+				<include name="**/*" />
+			</fileset>
+		</copy>	
+		
+		<!-- Copy MathRider scripts. -->
+		<copy todir="${master.src.dir}/jedit_core/macros/MathRider">
+			<fileset dir="${master.build.dir}/mathrider/Macros/MathRider" >
+				<include name="**/*" />
+			</fileset>
+		</copy>	
+		
+		
+	</target>
 
 
 	
