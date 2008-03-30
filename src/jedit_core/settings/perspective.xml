@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE PERSPECTIVE SYSTEM "perspective.dtd">
 <PERSPECTIVE>
-<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">./examples/compute.ys</BUFFER>
-<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">./examples/ForEach.ys</BUFFER>
-<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">./examples/loop.ys</BUFFER>
-<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">./examples/Plot2D.ys</BUFFER>
+<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">C:\ted\checkouts\mathrider\build\mathrider\examples\compute.ys</BUFFER>
+<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">C:\ted\checkouts\mathrider\build\mathrider\examples\ForEach.ys</BUFFER>
+<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">C:\ted\checkouts\mathrider\build\mathrider\examples\loop.ys</BUFFER>
+<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">C:\ted\checkouts\mathrider\build\mathrider\examples\notebook1.mrn</BUFFER>
+<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">C:\ted\checkouts\mathrider\build\mathrider\examples\Plot2D.ys</BUFFER>
 <VIEW PLAIN="FALSE"><PANES>
-".\\examples\\loop.ys" buffer
+"C:\\ted\\checkouts\\mathrider\\build\\mathrider\\examples\\loop.ys" buffer
 </PANES>
-<GEOMETRY X="92" Y="96" WIDTH="892" HEIGHT="569" EXT_STATE="6" />
-<DOCKING LEFT="" TOP="" RIGHT="geogebra" BOTTOM="console" LEFT_POS="725" TOP_POS="393" RIGHT_POS="514" BOTTOM_POS="259" />
+<GEOMETRY X="2" Y="2" WIDTH="1086" HEIGHT="770" EXT_STATE="0" />
+<DOCKING LEFT="" TOP="" RIGHT="geogebra" BOTTOM="console" LEFT_POS="725" TOP_POS="393" RIGHT_POS="514" BOTTOM_POS="218" />
 </VIEW>
 </PERSPECTIVE>
