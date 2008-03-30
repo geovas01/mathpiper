@@ -1,3 +1,3 @@
-//Press <shift><enter> in this window to run me.
+//Press <shift><enter> in this window to run this code.
 
 Plot2D(Sin(x)/x,-10:10);
