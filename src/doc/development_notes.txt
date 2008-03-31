@@ -7,11 +7,12 @@ Development notes.
 - Fix GeoGebra docking menu overwriting problem.
 - Add usage information to the JYacas console.
 + Make the JYacas console the default console application.
-+ Make a JYacas mode file.
+- Make a JYacas mode file.
 + Obtain line number when JYacas encounters an error when executing a file.
 + Include Yacas documentation in JYacas plugin.
 + Perhaps run JYacas in its own thread so that the application does not lock up during execution.
 + Check to make sure that at least Sun's Java 5 is installed.
++ Add shortcut and button for inserting a fold into a .mrn file.
 
 }}}
 
