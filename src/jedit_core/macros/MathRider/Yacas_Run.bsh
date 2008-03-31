@@ -41,7 +41,10 @@ if(path.endsWith(".ys")){
 	textArea.setSelection(codeSelection);
 
 	
-	allFoldText = textArea.getSelectedText().trim();
+	allFoldText = textArea.getSelectedText().replaceAll("\\s+$", "");
+	//replaceAll("^\\s+", "");Remove whitespace at end of string.
+	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
+	
 	textArea.setSelection(null);  
 //	
 //	//text = text.substring(3,text.length()-3);
@@ -50,7 +53,7 @@ if(path.endsWith(".ys")){
 	subFoldIndex = allFoldText.indexOf("{{{");
 	if(subFoldIndex != -1)
 	{
-		yacasCodeText = allFoldText.substring(0,subFoldIndex).trim();
+		yacasCodeText = allFoldText.substring(0,subFoldIndex).replaceAll("\\s+$", "");
 	}
 	else
 	{
@@ -83,6 +86,7 @@ if(path.endsWith(".ys")){
 		interpreter = JYacasInterpreter.getInstance();
 		
 		result = "";
+		status = "";
 		try 
 		{   
 			tempFilePath = tempFile.getAbsolutePath();
@@ -97,12 +101,15 @@ if(path.endsWith(".ys")){
 		
 			//System.out.println(tempFilePath);
 			result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
+			result = result.substring(5,result.length());//Remove True: which is returned by Load.
+			status = "Output:";
 			//System.out.println("Out> " + result);
 				
 				
 		}catch(net.sf.yacas.Yacasexception ye) 
 		{
 			result = ye.getMessage();
+			status = "Error:";
 		}
 		
 		
@@ -126,6 +133,8 @@ if(path.endsWith(".ys")){
 			
 			textArea.setSelection(rangeSelection);
 			
+			result = result.trim();
+			
 		
 			void displayResult()
 			{
@@ -135,7 +144,7 @@ if(path.endsWith(".ys")){
 				{
 			
 					result = result.replaceAll("\n","\n      ");
-					textArea.setSelectedText("\n\n     {{{\n      " + result + "\n     }}}\n",false);
+					textArea.setSelectedText("\n\n     {{{" + status + "\n      "+ result + "\n     }}}\n",false);
 			 
 					textArea.setCaretPosition(currentCaretPosition);
 					
