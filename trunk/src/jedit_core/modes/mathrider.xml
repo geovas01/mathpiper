@@ -32,6 +32,11 @@
 			<END>    }}}</END>
 		</SPAN>
 
+        <SPAN TYPE="LITERAL1" ESCAPE="\" NO_LINE_BREAK="TRUE">
+			<BEGIN>"</BEGIN>
+			<END>"</END>
+		</SPAN>
+
 
 
 		<EOL_SPAN TYPE="COMMENT2">//</EOL_SPAN>
