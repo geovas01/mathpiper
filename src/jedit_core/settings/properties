@@ -1,5 +1,5 @@
 #jEdit properties
-#Sun Mar 30 17:09:30 EDT 2008
+#Sun Mar 30 22:54:32 EDT 2008
 buffer.maxLineLen=100
 buffer.folding=explicit
 helpviewer.width=1162
@@ -96,6 +96,7 @@ plugin-blacklist.QuickNotepad.jar=false
 plugin-blacklist.yacas.jar=false
 MathRider/Yacas_Run.shortcut=S+ENTER
 log-viewer.width=660
+plugin-blacklist.FoldViewer.jar=false
 view.status.background=\#ffffff
 search.regexp.toggle=false
 plugin-blacklist.swingx-ws.jar=false
