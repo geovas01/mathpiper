@@ -13,10 +13,18 @@ Development notes.
 + Perhaps run JYacas in its own thread so that the application does not lock up during execution.
 + Check to make sure that at least Sun's Java 5 is installed.
 + Add shortcut and button for inserting a fold into a .mrn file.
-
++ Add quotes to mode.
++ Change // and /**/ to same color in mode.
 }}}
 
+
+{{{Yacas bugs.
++Why do some commands return True: while others return True with no : (Like Function);
+}}}
+
+
 {{{====jedit_gui.props
+insert-newline-indent.shortcut=  //Turn off auto indent after newline.
 }}}
 
 
