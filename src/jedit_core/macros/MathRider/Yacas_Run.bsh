@@ -59,6 +59,8 @@ if(path.endsWith(".ys")){
 	{
 		yacasCodeText = allFoldText;
 	}
+	
+	System.out.println("YYYY: " + yacasCodeText);
 
 //	noCrLf = text.replace("\n","").replace("\r","");
 	yacasCodeLength = yacasCodeText.length();
@@ -100,11 +102,10 @@ if(path.endsWith(".ys")){
 			}//end if
 		
 			//System.out.println(tempFilePath);
+
 			result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
-			result = result.substring(5,result.length());//Remove True: which is returned by Load.
-			status = "Output:";
 			//System.out.println("Out> " + result);
-				
+			
 				
 		}catch(net.sf.yacas.Yacasexception ye) 
 		{
@@ -113,7 +114,23 @@ if(path.endsWith(".ys")){
 		}
 		
 		
-		if(result != null){
+		if(result != null )
+		{
+			
+			if(result.startsWith("True:"))
+			{
+				result = result.substring(5,result.length());//Remove True: which is returned by Load.
+			}
+			else if (result.startsWith("True"))
+			{
+				result = result.substring(4,result.length());//Remove True which is returned by Load.
+			}
+				
+			
+			status = "Output:";
+			//System.out.println("Out> " + result);
+			
+			
 			//Determine how many lines are in the result.
 			numberOfLines = 0;
 			charIndex = 0;
@@ -157,17 +174,13 @@ if(path.endsWith(".ys")){
 			displayResult();
 						
 
-	
-			
-			
-			
-			
-			
 		}//end if.
 		
 			
 		
-    } catch (IOException e) {
+    } 
+	catch (IOException e) 
+	{
 		e.printStackTrace();
     }
 	
