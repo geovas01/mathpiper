@@ -8,6 +8,7 @@ log-viewer.extendedState=0
 view.extendedState=0
 error-list.dock-position=bottom
 plugin-options.last=buffertabs
+code2html.wrap=100
 tip.show=false
 buffertabs.icons=true
 view.y=2
@@ -34,8 +35,7 @@ search.width=496
 buffertabs.close-tab-on.double-left-click=true
 plugin-options.height=528
 view.status.foreground=\#000000
-plugin-blacklist.geogebra.jar=false
-insert-newline-indent.shortcut=
+plugin-blacklist.geogebra.jar=false=
 plugin-blacklist.Code2HTML.jar=false
 hypersearch-results.y=50
 hypersearch-results.x=50
