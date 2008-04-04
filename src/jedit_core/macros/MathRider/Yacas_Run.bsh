@@ -31,12 +31,13 @@ if(path.endsWith(".ys")){
 	//System.out.println(result);
 }else if (path.endsWith(".mrn")){
 	textArea.selectFold();
-	foldSelection  = textArea.getSelection()[0];
-	foldSelectionEnd = foldSelection.getEnd();
-	codeStartLine = foldSelection.getStartLine()+1;
-	codeEndLine = foldSelection.getEndLine()-1;
-	codeStartIndex = foldSelection.getStart(textArea.getBuffer(),codeStartLine);
-	codeEndIndex = foldSelection.getEnd(textArea.getBuffer(),codeEndLine);
+	fold  = textArea.getSelection()[0];
+	foldStart = fold.getStart();
+	foldEnd = fold.getEnd();
+	codeStartLine = fold.getStartLine()+1;
+	codeEndLine = fold.getEndLine()-1;
+	codeStartIndex = fold.getStart(textArea.getBuffer(),codeStartLine);
+	codeEndIndex = fold.getEnd(textArea.getBuffer(),codeEndLine);
 	codeSelection = new Range(codeStartIndex, codeEndIndex);
 	textArea.setSelection(codeSelection);
 
@@ -49,24 +50,24 @@ if(path.endsWith(".ys")){
 //	
 //	//text = text.substring(3,text.length()-3);
 //	
-	//Do not include subfold as JYacas code.
+	//Do not include subfold as code.
 	subFoldIndex = allFoldText.indexOf("{{{");
 	if(subFoldIndex != -1)
 	{
-		yacasCodeText = allFoldText.substring(0,subFoldIndex).replaceAll("\\s+$", "");
+		codeText = allFoldText.substring(0,subFoldIndex).replaceAll("\\s+$", "");
 	}
 	else
 	{
-		yacasCodeText = allFoldText;
+		codeText = allFoldText;
 	}
 	
-	System.out.println("YYYY: " + yacasCodeText);
+	//System.out.println("YYYY: " + codeText);
 
 //	noCrLf = text.replace("\n","").replace("\r","");
-	yacasCodeLength = yacasCodeText.length();
-	yacasCodeEndIndex = codeStartIndex + yacasCodeLength;
+	isolatedCodeLength = codeText.length();
+	isolatedCodeEndIndex = codeStartIndex + isolatedCodeLength;
 	
-	textArea.setCaretPosition(yacasCodeEndIndex);
+	textArea.setCaretPosition(isolatedCodeEndIndex);
 
 	
 	try {
@@ -78,106 +79,115 @@ if(path.endsWith(".ys")){
     
         // Write to temp file
         BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
-        out.write(yacasCodeText);
+        out.write(codeText);
         out.close();
 		
-		//selection  = textArea.getSelection()[0];
-		//start = selection.getStart()+3;
-		//end = selection.getEnd()-3;
-    	
-		interpreter = JYacasInterpreter.getInstance();
-		
-		result = "";
-		status = "";
-		try 
-		{   
-			tempFilePath = tempFile.getAbsolutePath();
-			
-			//Remove Windows drive letter from the path.
-			if(tempFilePath.indexOf(":") != -1){
-				tempFilePath = tempFilePath.split(":")[1];
-		
-				//Change window's backslashes to forward slashes.
-				tempFilePath = tempFilePath.replace("\\","/");
-			}//end if
-		
-			//System.out.println(tempFilePath);
 
-			result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
-			//System.out.println("Out> " + result);
-			
-				
-		}catch(net.sf.yacas.Yacasexception ye) 
+    		
+		//Obtain fold type.
+		
+		
+		
+		
+		if(true)
 		{
-			result = ye.getMessage();
-			status = "Error:";
-		}
-		
-		
-		if(result != null )
-		{
+			//JYacas section.
+			interpreter = JYacasInterpreter.getInstance();
 			
-			if(result.startsWith("True:"))
-			{
-				result = result.substring(5,result.length());//Remove True: which is returned by Load.
-			}
-			else if (result.startsWith("True"))
-			{
-				result = result.substring(4,result.length());//Remove True which is returned by Load.
-			}
+			result = "";
+			status = "";
+			try 
+			{   
+				tempFilePath = tempFile.getAbsolutePath();
 				
+				//Remove Windows drive letter from the path.
+				if(tempFilePath.indexOf(":") != -1){
+					tempFilePath = tempFilePath.split(":")[1];
 			
-			status = "Output:";
-			//System.out.println("Out> " + result);
+					//Change window's backslashes to forward slashes.
+					tempFilePath = tempFilePath.replace("\\","/");
+				}//end if
 			
-			
-			//Determine how many lines are in the result.
-			numberOfLines = 0;
-			charIndex = 0;
-			while(charIndex != result.length()){
-				if(result.charAt(charIndex) == "\n"){
-					numberOfLines++;
-				}
-				charIndex++;
-			}//end while
-			
-			
-			//Make room at the end of the current fold for output and place output there.
-			currentCaretPosition = textArea.getCaretPosition();
-
-
-			rangeSelection = new Range(yacasCodeEndIndex, codeEndIndex);
-			
-			textArea.setSelection(rangeSelection);
-			
-			result = result.trim();
-			
-		
-			void displayResult()
-			{
-				//Buffer update needs to be done later in the AWT thread because of needing
-				// to wait for the buffer to be saved (which was requested earlier).
-				void run()
-				{
-			
-					result = result.replaceAll("\n","\n      ");
-					textArea.setSelectedText("\n\n     {{{" + status + "\n      "+ result + "\n     }}}\n",false);
-			 
-					textArea.setCaretPosition(currentCaretPosition);
+				//System.out.println(tempFilePath);
+        	
+				result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
+	//Sy	stem.out.println("Out> " + result);
+				
 					
-					buffer.save(view,null);
+			}catch(net.sf.yacas.Yacasexception ye) 
+			{
+				result = ye.getMessage();
+				status = "Error:";
+			}
+			
+			
+			if(result != null )
+			{
+				
+				if(result.startsWith("True:"))
+				{
+					result = result.substring(5,result.length());//Remove True: which is returned by Load.
 				}
-				VFSManager.runInAWTThread(this);
+				else if (result.startsWith("True"))
+				{
+					result = result.substring(4,result.length());//Remove True which is returned by Load.
+				}
+					
+				
+				status = "Output:";
+				//System.out.println("Out> " + result);
+				
+				
+				//Determine how many lines are in the result.
+				numberOfLines = 0;
+				charIndex = 0;
+				while(charIndex != result.length()){
+					if(result.charAt(charIndex) == "\n"){
+						numberOfLines++;
+					}
+					charIndex++;
+				}//end while
+				
+				
+				//Make room at the end of the current fold for output and place output there.
+				currentCaretPosition = textArea.getCaretPosition();
+        	
+        	
+				rangeSelection = new Range(isolatedCodeEndIndex, codeEndIndex);
+				
+				textArea.setSelection(rangeSelection);
+				
+				result = result.trim();
+				
 			
-			}//end method.
-			
-			displayResult();
+				void displayResult()
+				{
+					//Buffer update needs to be done later in the AWT thread because of needing
+					// to wait for the buffer to be saved (which was requested earlier).
+					void run()
+					{
+				
+						result = result.replaceAll("\n","\n      ");
+						textArea.setSelectedText("\n\n     {{{" + status + "\n      "+ result + "\n     }}}\n",false);
+				 
+						textArea.setCaretPosition(currentCaretPosition);
 						
-
-		}//end if.
-		
+						buffer.save(view,null);
+					}
+					VFSManager.runInAWTThread(this);
+				
+				}//end method.
+				
+				displayResult();
+							
+        	
+			}//end if.
 			
-		
+				
+		}//end if.
+		else if(true)
+		{
+		}//end else
     } 
 	catch (IOException e) 
 	{

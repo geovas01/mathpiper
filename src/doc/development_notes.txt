@@ -12,24 +12,32 @@ Development notes.
 + Include Yacas documentation in JYacas plugin.
 + Perhaps run JYacas in its own thread so that the application does not lock up during execution.
 + Check to make sure that at least Sun's Java 5 is installed.
-+ Change file format from .mrn to .mathrider.
-+ Add shortcut and button for inserting a fold into a .mathrider file.
++ Change file format from .mrn to .mathrider (maybe leave .mrn to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
++ Add shortcut and button for inserting a fold into a .mrn file.
 - Add quotes to mode.
 + Change // and /**/ to same color in mode.
 + Tag folds by type, for example %yacas, %latex, %uasm65, %equation.
 + Perhaps add properties to a fold like manipulate=true:output=latex.
++ Have Yacas console use the text area font size (like svn does).
++ Check if Yacas remembers variable values between sessions.
++ IsPrime's output is not shown.
++ Copy default type into empty {{{ }}} folds.
+
 }}}
 
-{{{Fold modes
+{{{Fold types
 + yacas - Executes yacas code.
 + cas - Executes code using the default cas system.
-+ manipulate - allows user to manipulate an equation or inequality.
++ manipulate - Allows user to manipulate an equation or inequality.
 + latex - Displays latex code using the default latex viewer.
 + geogebra - Sends geogebra commands to geogebra.
 + plot2d - Plots functions using the default 2d plotting program.
 + jmol - Sends jmol commands to jmol.
 + plot3d - Plots functions using the default 3d plotting program.
 + spreadsheet - Sends spreadsheet data to the default spreadsheet program.
++ beanshell - Sends code to beanshell.  Useful for creating GUIs, text scripts, etc.
++ html.
++ sql.
 
 }}}
 
