@@ -32,10 +32,13 @@ if(path.endsWith(".ys")){
 }else if (path.endsWith(".mrn")){
 	textArea.selectFold();
 	fold  = textArea.getSelection()[0];
-	foldStart = fold.getStart();
-	foldEnd = fold.getEnd();
-	codeStartLine = fold.getStartLine()+1;
-	codeEndLine = fold.getEndLine()-1;
+	foldStartIndex = fold.getStart();
+	foldEndIndex = fold.getEnd();
+	foldStartLine = fold.getStartLine();
+	foldEndLine = fold.getEndLine();
+	foldStartLineText = textArea.getLineText(foldStartLine);
+	codeStartLine = foldStartLine+1;
+	codeEndLine = foldEndLine-1;
 	codeStartIndex = fold.getStart(textArea.getBuffer(),codeStartLine);
 	codeEndIndex = fold.getEnd(textArea.getBuffer(),codeEndLine);
 	codeSelection = new Range(codeStartIndex, codeEndIndex);
@@ -85,11 +88,20 @@ if(path.endsWith(".ys")){
 
     		
 		//Obtain fold type.
+		defaultFoldType = "%yacas";
+		
+		if(foldStartLineText.indexOf("%") == -1)
+		{
+			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
+		}
+		else
+		{
+			foldStartSelection = null;
+		}//end else.
 		
 		
 		
-		
-		if(true)
+		if(foldStartLineText.indexOf(defaultFoldType) != -1 || (defaultFoldType.equals("%yacas") && foldStartLineText.indexOf("%") == -1) )
 		{
 			//JYacas section.
 			interpreter = JYacasInterpreter.getInstance();
@@ -166,10 +178,21 @@ if(path.endsWith(".ys")){
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()
 					{
-				
+						
 						result = result.replaceAll("\n","\n      ");
 						textArea.setSelectedText("\n\n     {{{" + status + "\n      "+ result + "\n     }}}\n",false);
 				 
+						//If fold type was blank, set it to the default fold type.
+						if(foldStartSelection != null)
+						{
+							textArea.setSelection(foldStartSelection);
+							line = textArea.getSelectedText();
+							line = line.replaceFirst("\\{\\{\\{", "{{{" + defaultFoldType);
+							textArea.setSelectedText(line);
+							textArea.setSelection(null);
+						}//end if
+						
+						
 						textArea.setCaretPosition(currentCaretPosition);
 						
 						buffer.save(view,null);
@@ -185,8 +208,9 @@ if(path.endsWith(".ys")){
 			
 				
 		}//end if.
-		else if(true)
+		else if(foldStartLineText.indexOf("%beanshell") != -1)
 		{
+			System.out.println("PPPPP Beanshell");
 		}//end else
     } 
 	catch (IOException e) 
