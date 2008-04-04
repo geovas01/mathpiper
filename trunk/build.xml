@@ -193,40 +193,44 @@
 	<!-- tar cjfp mathrider_linux_dist.03.tar.bz2 mathrider/ -->
 	
 	
-	<target id="update-source" name="update-source" description="Copies updated configuration files from build to source directory." >
-		
-		<!-- Copy properties file. 
+	
+	<target id="backcopy-property" name="backcopy-property" description="Copies property file from build to source directory." > 
 		<copy file="${master.build.dir}/mathrider/settings/properties" 
 		todir="${master.src.dir}/jedit_core/settings"/>
-		-->
-		
-		<!-- Copy perspective file. 
+	</target>
+
+	<target id="backcopy-perspective" name="backcopy-perspective" description="Copies perspective file from build to source directory." > 
 		<copy file="${master.build.dir}/mathrider/settings/perspective.xml" 
 		todir="${master.src.dir}/jedit_core/settings"/>
-		-->
-		
-		
-		<!-- Copy examples. 
+	</target>
+	
+	
+	<target id="backcopy-examples" name="backcopy-examples" description="Copies examples from build to source directory." > 
 		<copy todir="${master.src.dir}/examples">
 			<fileset dir="${master.build.dir}/mathrider/examples" >
 				<include name="**/*" />
 			</fileset>
-		</copy>	-->
-		
-		<!-- Copy MathRider scripts. -->
-		<copy todir="${master.src.dir}/jedit_core/macros/MathRider">
+		</copy>
+	</target>
+	
+	<target id="backcopy-macros" name="backcopy-macros" description="Copies macros from build to source directory." > 
+				<copy todir="${master.src.dir}/jedit_core/macros/MathRider">
 			<fileset dir="${master.build.dir}/mathrider/Macros/MathRider" >
 				<include name="**/*" />
 			</fileset>
 		</copy>	
-		
-		<!-- Copy mode file. -->
+	</target>
+	
+	<target id="backcopy-mode" name="backcopy-mode" description="Copies mode file from build to source directory." > 
 		<copy file="${master.build.dir}/mathrider/modes/mathrider.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
-		
-		
 	</target>
+	
+	<target id="backcopy-all" 
+		name="backcopy-all" 
+		description="Copies all configuration files from build to source directory."
+		depends="backcopy-property, backcopy-perspective, backcopy-examples, backcopy-macros, backcopy-mode">
 
-
+	</target>	
 	
 </project>
