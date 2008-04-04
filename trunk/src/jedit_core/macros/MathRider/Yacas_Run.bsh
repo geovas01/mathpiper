@@ -43,6 +43,9 @@ if(path.endsWith(".ys")){
 	codeEndIndex = fold.getEnd(textArea.getBuffer(),codeEndLine);
 	codeSelection = new Range(codeStartIndex, codeEndIndex);
 	textArea.setSelection(codeSelection);
+	
+
+
 
 	
 	allFoldText = textArea.getSelectedText().replaceAll("\\s+$", "");
@@ -50,6 +53,11 @@ if(path.endsWith(".ys")){
 	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
 	
 	textArea.setSelection(null);  
+	
+	
+	//Note: Add code to determine if <shift><enter> was executed outside of a fold.
+	
+
 //	
 //	//text = text.substring(3,text.length()-3);
 //	
@@ -99,15 +107,17 @@ if(path.endsWith(".ys")){
 			foldStartSelection = null;
 		}//end else.
 		
+
+		result = "";
+		status = "";
 		
-		
+		///{{{ Yacas.
 		if(foldStartLineText.indexOf(defaultFoldType) != -1 || (defaultFoldType.equals("%yacas") && foldStartLineText.indexOf("%") == -1) )
 		{
 			//JYacas section.
 			interpreter = JYacasInterpreter.getInstance();
 			
-			result = "";
-			status = "";
+
 			try 
 			{   
 				tempFilePath = tempFile.getAbsolutePath();
@@ -123,13 +133,14 @@ if(path.endsWith(".ys")){
 				//System.out.println(tempFilePath);
         	
 				result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
+				status = "%output ";
 	//Sy	stem.out.println("Out> " + result);
 				
 					
 			}catch(net.sf.yacas.Yacasexception ye) 
 			{
 				result = ye.getMessage();
-				status = "Error:";
+				status = "%error ";
 			}
 			
 			
@@ -144,11 +155,45 @@ if(path.endsWith(".ys")){
 				{
 					result = result.substring(4,result.length());//Remove True which is returned by Load.
 				}
+			}//end if.}}}
 					
+		}//end if }}}
+		else if(foldStartLineText.indexOf("%beanshell") != -1)
+		{
+			import bsh.Interpreter;
+			interpreter = new Interpreter();
+			try 
+			{   
+				tempFilePath = tempFile.getAbsolutePath();
 				
-				status = "Output:";
-				//System.out.println("Out> " + result);
+				//Remove Windows drive letter from the path.
+				//if(tempFilePath.indexOf(":") != -1){
+				//	tempFilePath = tempFilePath.split(":")[1];
+			//
+			//		//Change window's backslashes to forward slashes.
+			//		tempFilePath = tempFilePath.replace("\\","/");
+			//	}//end if
+			
+				//System.out.println(tempFilePath);
+        	
+				interpreter.source(tempFilePath);
+				result = "";
+	//System.out.println("tempFilePath: " + tempFilePath);
+				status = "%output ";
+	//Sy	stem.out.println("Out> " + result);
 				
+					
+			}catch(Exception e) 
+			{
+				result = e.getMessage();
+				status = "%error ";
+			}
+		}//end else
+//**************		
+
+
+				
+
 				
 				//Determine how many lines are in the result.
 				numberOfLines = 0;
@@ -187,7 +232,7 @@ if(path.endsWith(".ys")){
 						{
 							textArea.setSelection(foldStartSelection);
 							line = textArea.getSelectedText();
-							line = line.replaceFirst("\\{\\{\\{", "{{{" + defaultFoldType);
+							line = line.replaceFirst("\\{\\{\\{", "\u007b\u007b\u007b" + defaultFoldType);
 							textArea.setSelectedText(line);
 							textArea.setSelection(null);
 						}//end if
@@ -204,14 +249,9 @@ if(path.endsWith(".ys")){
 				displayResult();
 							
         	
-			}//end if.
 			
 				
-		}//end if.
-		else if(foldStartLineText.indexOf("%beanshell") != -1)
-		{
-			System.out.println("PPPPP Beanshell");
-		}//end else
+
     } 
 	catch (IOException e) 
 	{
