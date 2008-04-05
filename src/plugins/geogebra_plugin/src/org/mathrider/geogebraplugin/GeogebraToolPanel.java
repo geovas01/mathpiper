@@ -3,8 +3,7 @@ package org.mathrider.geogebraplugin;
 /*
  * GeogebraToolPanel.java
  * part of the Geogebra plugin for the jEdit text editor
- * Copyright (C) 2001 John Gellene
- * jgellene@nyc.rr.com
+ * Copyright (C) 2008 Ted Kosan.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -48,7 +47,7 @@ public class GeogebraToolPanel extends JPanel {
 		Box labelBox = new Box(BoxLayout.Y_AXIS);
 		labelBox.add(Box.createGlue());
 
-		label = new JLabel(pad.getFilename());
+		label = new JLabel("test");
 		label.setVisible(jEdit.getProperty(
 				GeogebraPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
@@ -60,11 +59,12 @@ public class GeogebraToolPanel extends JPanel {
 
 		add(Box.createGlue());
 
-		add(makeCustomButton("jyacas.choose-file", new ActionListener() {
+		add(makeCustomButton("geogebra.reset", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				GeogebraToolPanel.this.pad.chooseFile();
+				GeogebraToolPanel.this.pad.reset();
 			}
 		}));
+		/*
 		add(makeCustomButton("jyacas.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				GeogebraToolPanel.this.pad.saveFile();
@@ -76,7 +76,9 @@ public class GeogebraToolPanel extends JPanel {
 						GeogebraToolPanel.this.pad.copyToBuffer();
 					}
 				}));
-	}
+		*/
+		
+	}//end constructor.
 
 	void propertiesChanged() {
 		label.setText(pad.getFilename());
