@@ -8,8 +8,10 @@ import org.gjt.sp.jedit.textarea.Selection;
 import errorlist.*;
 
 
+//Note: This code needs to be moved to a Java object.
 errorSource = new DefaultErrorSource("MathRider");
 ErrorSource.registerErrorSource(errorSource);
+
 
 buffer.save(view,null);
 
@@ -169,7 +171,7 @@ if(path.endsWith(".ys")){
 			import bsh.Interpreter;
 			interpreter = new Interpreter();
 			interpreter.eval("import geogebra.GeoGebraApplet;");
-			interpreter.eval("geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();");
+			interpreter.eval("ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();");
 			
 			try 
 			{   
@@ -198,6 +200,9 @@ if(path.endsWith(".ys")){
 			import geogebra.GeoGebraApplet;
 			geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 			
+			//Clear geogebra.
+			geogebra.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+			
 			lines = codeText.split("\n");
 			
 			result = "GeoGebra updated.";
@@ -214,16 +219,17 @@ if(path.endsWith(".ys")){
 				
 				if(returnFlag == false)
 				{
-					errorLine = foldStartLine + lineIndex+2 +".";
-					result = "Error on line " + errorLine;
+					errorLine = foldStartLine + lineIndex+2;
+					result = "Error on line " + errorLine + ".";
 					status = "%error";
 					
 					filePath = textArea.getBuffer().getPath();
 			
 					errorSource.clear();
-					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine, 0, 0, "Hello" ) );
+
+					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, "Hello" ) );
 			
-					jEdit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+					jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
 					
 					break;
 				}//end if.
