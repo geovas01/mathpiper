@@ -3,8 +3,7 @@ package org.mathrider.jyacasplugin;
 /*
  * JYacasPlugin.java
  * part of the JYacas plugin for the jEdit text editor
- * Copyright (C) 2001 John Gellene
- * jgellene@nyc.rr.com
+ * Copyright (C) 2008 Ted Kosan
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
