@@ -9,8 +9,8 @@ import errorlist.*;
 
 
 //Note: This code needs to be moved to a Java object.
-errorSource = new DefaultErrorSource("MathRider");
-ErrorSource.registerErrorSource(errorSource);
+//errorSource = new DefaultErrorSource("MathRider");
+//ErrorSource.registerErrorSource(errorSource);
 
 
 buffer.save(view,null);
@@ -122,6 +122,7 @@ if(path.endsWith(".ys")){
 		if(foldStartLineText.indexOf(defaultFoldType) != -1 || (defaultFoldType.equals("%yacas") && foldStartLineText.indexOf("%") == -1) )
 		{
 			//JYacas section.
+			
 			interpreter = JYacasInterpreter.getInstance();
 			
 
@@ -197,6 +198,8 @@ if(path.endsWith(".ys")){
 	///{{{ *** %geogebra ***
 		else if(foldStartLineText.indexOf("%geogebra") != -1)
 		{
+			errorSource = JYacasInterpreter.getErrorSource();
+			
 			import geogebra.GeoGebraApplet;
 			geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 			

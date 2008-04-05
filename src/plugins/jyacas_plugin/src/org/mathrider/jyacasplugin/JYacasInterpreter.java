@@ -6,6 +6,9 @@ import console.Output;
 
 import java.io.*;
 
+
+import errorlist.*;
+
 /**
  *
  * @author tk
@@ -17,6 +20,8 @@ import java.io.*;
 	private static JYacasInterpreter instance = null;
     private CYacas jyacas;
 	private StringOutput stringOutput;
+	
+	private static DefaultErrorSource errorSource;
  
     /** Creates a new instance of YacasInterpreter */
     protected JYacasInterpreter() throws Yacasexception {
@@ -82,6 +87,18 @@ import java.io.*;
 				return result;
 			}
     }//end method.
+	
+	
+	public static DefaultErrorSource getErrorSource()
+	{
+		if(errorSource == null)
+		{
+			errorSource = new DefaultErrorSource("MathRider");
+			ErrorSource.registerErrorSource(errorSource);
+		}//end if.
+
+		return errorSource;
+	}//end method.
     
 
     
