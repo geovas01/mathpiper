@@ -24,9 +24,9 @@ package org.mathrider.geogebraplugin;
  */
 
 interface GeogebraActions {
-	void chooseFile();
+	void reset();
 
-	void saveFile();
+	//void saveFile();
 
-	void copyToBuffer();
+	//void copyToBuffer();
 }

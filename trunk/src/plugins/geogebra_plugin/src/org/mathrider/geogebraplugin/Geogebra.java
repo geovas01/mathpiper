@@ -186,7 +186,7 @@ public class Geogebra extends JPanel
      
     // {{{ removeNotify
 	public void removeNotify() {
-		saveFile();
+		//saveFile();
 		super.removeNotify();
 		EditBus.removeFromBus(this);
 	}
@@ -195,19 +195,8 @@ public class Geogebra extends JPanel
 	// GeogebraActions implementation
 
     // {{{
-	public void saveFile() {
-		/*
-		if (filename == null || filename.length() == 0)
-			return;
-		try {
-			FileWriter out = new FileWriter(filename);
-			out.write(textArea.getText());
-			out.close();
-		} catch (IOException ioe) {
-			Log.log(Log.ERROR, Geogebra.class,
-					"Could not write notepad text to " + filename);
-		}
-		*/
+	public void reset() {
+		geoGebraApplet.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
 	}
     // }}}
     
