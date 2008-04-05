@@ -77,7 +77,7 @@ public class Geogebra extends JPanel
 
 	private GeogebraToolPanel toolPanel;
 	
-	private GeoGebraApplet geoGebraApplet;
+	private static GeoGebraApplet geoGebraApplet;
     // }}}
 
     // {{{ Constructor
@@ -123,6 +123,14 @@ public class Geogebra extends JPanel
     // }}}
 
     // {{{ Member Functions
+	
+	
+	// {{{ getGeoGebraApplet
+	public static geogebra.GeoGebraApplet getGeoGebraApplet()
+	{
+		return geoGebraApplet;
+	}//end method
+	// }}}
     
     // {{{ focusOnDefaultComponent
 	public void focusOnDefaultComponent() {

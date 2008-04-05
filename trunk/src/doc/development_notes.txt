@@ -20,9 +20,10 @@ Development notes.
 + Perhaps add properties to a fold like manipulate=true:output=latex.
 + Have Yacas console use the text area font size (like svn does).
 + Check if Yacas remembers variable values between sessions.
-+ IsPrime's output is not shown.
 + Copy default type into empty {{{ }}} folds.
-
++ Why doesn't =, :=, etc. highlight?
++ Add dependency code for geogebra, errorlist, etc.
++ Register a single error source instance and make it accessible to the <shift><click> macro.
 }}}
 
 {{{Fold types
@@ -39,16 +40,39 @@ Development notes.
 + html.
 + sql.
 
+
+
 }}}
 
 
 {{{Yacas bugs.
 +Why do some commands return True: while others return True with no : (Like Function);
 +What is FWatom in the factors.rep repository?
+===
+
+//What prime factors do the numbers 21, 42, and 56 have in common.
+a := {};
+a := Append(a,Factors(21));
+a := Append(a,Factors(42));
+a := Append(a,Factors(56));
+
+//a := Flatten(a);
+Echo(a);
+
+     {{{%output 
+      {{3,1},{7,1}} {{2,1},{3,1},{7,1}} {{2,3},{7,1}}
+     }}}
+
+Why is this list missing commas and curly braces?
++++
 }}}
 
 {{{Yacas enhancements.
 +Multivariate factoring.
+}}}
+
+{{{Yacas questions.
++ How does one expand 2^3 into 2*2*2?
 }}}
 
 
