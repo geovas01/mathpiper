@@ -102,9 +102,12 @@ if(path.endsWith(".ys")){
 		
 
     		
-		//Obtain fold type.
+		
 		defaultFoldType = "%yacas";
 		
+		
+		
+		//If there is no fold type, select start line so that the default fold type can be added.
 		if(foldStartLineText.indexOf("%") == -1)
 		{
 			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
@@ -112,6 +115,26 @@ if(path.endsWith(".ys")){
 		else
 		{
 			foldStartSelection = null;
+			
+			//Obtain fold type.
+			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
+			foldTypePropertyStrings = typeText.split(",");
+			
+			foldType = foldTypePropertyStrings[0];
+			
+			foldProperties = null;
+			if(foldTypePropertyStrings.length != 1)
+			{
+				foldProperties = new java.util.Hashtable();
+				for(x = 1; x < foldTypePropertyStrings.length; x++)
+				{
+					property = foldTypePropertyStrings[x].split("=");
+					key = property[0].trim();
+					value = property[1].trim().replaceAll("\"","");
+					foldProperties.put(key,value);
+				}//end for.
+			}//end if.
+			
 		}//end else.
 		
 
@@ -167,7 +190,7 @@ if(path.endsWith(".ys")){
 					
 		}//end if }}}
 	///{{{ *** %beanshell ***
-		else if(foldStartLineText.indexOf("%beanshell") != -1)
+		else if(foldType.equalsIgnoreCase("%beanshell"))
 		{
 			import bsh.Interpreter;
 			interpreter = new Interpreter();
@@ -196,15 +219,23 @@ if(path.endsWith(".ys")){
 		// end %beanshell }}}
 	
 	///{{{ *** %geogebra ***
-		else if(foldStartLineText.indexOf("%geogebra") != -1)
+		else if(foldType.equalsIgnoreCase("%geogebra")) //(foldStartLineText.indexOf("%geogebra") != -1)
 		{
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "geogebra" );
+			
 			errorSource = JYacasInterpreter.getErrorSource();
 			
 			import geogebra.GeoGebraApplet;
 			geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 			
-			//Clear geogebra.
-			geogebra.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+		
+			if(foldProperties != null && foldProperties.get("clear").equalsIgnoreCase("true") )
+			{
+				//Clear geogebra.
+				geogebra.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+				
+			}//end if.
+			
 			
 			lines = codeText.split("\n");
 			
@@ -218,23 +249,37 @@ if(path.endsWith(".ys")){
 			for(lineIndex = 0; lineIndex < lineCount; lineIndex++)
 			{
 				//System.out.println("YYYYY" + lines[lineIndex]);
-				returnFlag = geogebra.evalCommand(lines[lineIndex]);
 				
-				if(returnFlag == false)
+				if(lines[lineIndex].trim().length() != 0 && ! lines[lineIndex].trim().startsWith("//"))
 				{
-					errorLine = foldStartLine + lineIndex+2;
-					result = "Error on line " + errorLine + ".";
-					status = "%error";
+				    endOfLineCommentIndex = lines[lineIndex].indexOf("//");
+					if(endOfLineCommentIndex != -1)
+					{
+						currentLine = lines[lineIndex].split("//")[0];
+					}
+					else
+					{
+						currentLine = lines[lineIndex].trim();
+					}//end if.
 					
-					filePath = textArea.getBuffer().getPath();
-			
-					errorSource.clear();
-
-					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, "Hello" ) );
-			
-					jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+					returnFlag = geogebra.evalCommand(currentLine);
 					
-					break;
+					if(returnFlag == false)
+					{
+						errorLine = foldStartLine + lineIndex+2;
+						result = "Error on line " + errorLine + ".";
+						status = "%error";
+						
+						filePath = textArea.getBuffer().getPath();
+			    	
+						errorSource.clear();
+                	
+						errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, "Hello" ) );
+			    	
+						jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+						
+						break;      
+					}//end if.
 				}//end if.
 			}//end for.
 			
