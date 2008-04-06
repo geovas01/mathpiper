@@ -35,6 +35,7 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import org.gjt.sp.jedit.EBComponent;
@@ -101,19 +102,27 @@ public class HotEqn extends JPanel
 			this.setPreferredSize(new Dimension(500, 250));
 
 		hotEqn = new sHotEqn();
+		hotEqn.setFontsizes(18,18,18,18);
 		
 
 // Now try to get an applet stub for this class.
 
-        MathriderAppletStub stub = new MathriderAppletStub(this,
-               hotEqn, "hoteqn.applet.", "http://localhost/");
+        //MathriderAppletStub stub = new MathriderAppletStub(this,
+               //hotEqn, "hoteqn.applet.", "http://localhost/");
         
-		hotEqn.setStub(stub);
-
-		add(BorderLayout.CENTER, hotEqn);
+		//hotEqn.setStub(stub);
+		JScrollPane scrollPane = new JScrollPane(hotEqn,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		JPanel spacerPanel = new JPanel();
+		spacerPanel.setBackground(java.awt.Color.WHITE);
+		spacerPanel.add(new JLabel(" "));
+		scrollPane.setRowHeaderView(spacerPanel);
+		add(BorderLayout.CENTER,scrollPane);
+		
+	
 // Initialize and start the applet
-        hotEqn.init();
-        hotEqn.start();
+       // hotEqn.init();
+       // hotEqn.start();
 
 		
 
@@ -125,7 +134,7 @@ public class HotEqn extends JPanel
 	
 	
 	// {{{ gethotEqn
-	public static hoteqn.hotEqn gethotEqn()
+	public static atp.sHotEqn getHotEqn()
 	{
 		return hotEqn;
 	}//end method

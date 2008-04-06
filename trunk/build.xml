@@ -45,6 +45,7 @@
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
 		<pathelement path="${plugins.jars.dir}/jyacas_plugin.jar" />
+		<pathelement path="${master.lib.dir}/jars/hoteqn.jar" />
 		
 	</path>
 	
@@ -112,12 +113,24 @@
 		
 		<copy file="${plugins.build.dir}/geogebra_plugin/dist/geogebra_plugin.jar" todir="${plugins.jars.dir}"/>
 
+	</target>
+	
+
+	<target id="call-hoteqn_plugin" name="call-hoteqn_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/hoteqn_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/hoteqn_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/hoteqn_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
 		
+		<copy file="${plugins.build.dir}/hoteqn_plugin/dist/hoteqn_plugin.jar" todir="${plugins.jars.dir}"/>
+
 	</target>
 	
 	
-	
-	<target id="call-all-plugins" name="call-all-plugins" depends="call-jyacas_plugin, call-geogebra_plugin" />
+	<target id="call-all-plugins" name="call-all-plugins" depends="call-jyacas_plugin, call-geogebra_plugin, call-hoteqn_plugin" />
 	
 	
 	

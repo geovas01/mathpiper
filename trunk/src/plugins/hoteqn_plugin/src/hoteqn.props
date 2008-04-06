@@ -54,7 +54,7 @@ plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.menu=hoteqn \
 hoteqn.label=hoteqn
 
 # action labels for actions supplied by actions.xml
-hoteqn.reset.label=Reset GeoGebra
+hoteqn.reset.label=Reset HotEqn
 hoteqn.save-file.label=Save notepad file
 hoteqn.copy-to-buffer.label=Copy notepad to buffer
 
@@ -68,7 +68,7 @@ options.hoteqn.code=new org.mathrider.hoteqnplugin.HotEqnOptionPane();
 options.hoteqn.label=hoteqn
 options.hoteqn.file=File:
 options.hoteqn.reset=Reset
-options.hoteqn.reset.title=Reset GeoGebra
+options.hoteqn.reset.title=Reset HotEqn
 options.hoteqn.choose-font=Font:
 options.hoteqn.show-filepath.title=Display notepad file path
 

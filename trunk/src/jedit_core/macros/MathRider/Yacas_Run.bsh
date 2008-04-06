@@ -289,6 +289,55 @@ if(path.endsWith(".ys")){
 		//end %geogebra }}}
 
 				
+	///{{{ *** %hoteqn ***
+		else if(foldType.equalsIgnoreCase("%hoteqn")) //(foldStartLineText.indexOf("%geogebra") != -1)
+		{
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "hoteqn" );
+			
+			errorSource = JYacasInterpreter.getErrorSource();
+			
+			//import geogebra.GeoGebraApplet;
+			hotEqn = org.mathrider.hoteqnplugin.HotEqn.getHotEqn();
+			
+		
+			if(foldProperties != null && foldProperties.get("clear").equalsIgnoreCase("true") )
+			{
+				hotEqn.setEquation("");
+			}//end if.
+			
+			
+			//lines = codeText.split("\n");
+			
+
+			
+			//lineCount = lines.length;
+			//lineIndex = 0;
+
+			hotEqn.setEquation(codeText);
+			result = "HotEqn updated.";
+			status = "%output";
+			
+					/*
+					if(returnFlag == false)
+					{
+						errorLine = foldStartLine + lineIndex+2;
+						result = "Error on line " + errorLine + ".";
+						status = "%error";
+						
+						filePath = textArea.getBuffer().getPath();
+			    	
+						errorSource.clear();
+                	
+						errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, "Hello" ) );
+			    	
+						jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+						
+						break;      
+					}//end if.
+					*/
+
+		}//end else
+		//end %hoteqn }}}
 
 				
 				//Determine how many lines are in the result.
