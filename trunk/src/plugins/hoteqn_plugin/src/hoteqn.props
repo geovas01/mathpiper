@@ -1,0 +1,103 @@
+# Properties file for HotEqn plugin
+# $Id: Hoteqn.props 6876 2006-09-02 20:39:49Z  $
+
+
+#{{{ 
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.name=HotEqn
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.docs=index.html
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin..longdescription=description.html
+#}}}
+
+
+
+
+hoteqn.shell.msg.info=\nHotEqn Shell \n\
+	  Test.\n\n
+
+hoteqn.shell.msg.usage=The Ant shell supports the following commands:\n\
+		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
+		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
+		 * "?"\t\t\t\t-- lists the available build files and usage\n\
+		 * "=build_file_number"\t\t-- changes the current build file to the number identified by "?"\n\
+		 * "+[full_path_to_file]"\t\t-- load this build file into Ant Farm. Searches up the current\n\
+				   \t\t\t\t   buffer's directory tree for a "build.xml" file to load if a \n\
+				 \t\t\t\t   file is not specified. Re-loads the build file if it is already\n\
+				 \t\t\t\t   loaded.\n\n
+
+
+
+
+
+# plugin menu
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.menu=hoteqn \
+	- \
+	hoteqn.reset \
+	hoteqn.save-file \
+	hoteqn.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+hoteqn.label=hoteqn
+
+# action labels for actions supplied by actions.xml
+hoteqn.reset.label=Reset GeoGebra
+hoteqn.save-file.label=Save notepad file
+hoteqn.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.hoteqn.option-pane=hoteqn
+
+# Option pane activation BeanShell snippet
+options.hoteqn.code=new org.mathrider.hoteqnplugin.HotEqnOptionPane();
+
+# Option pane labels
+options.hoteqn.label=hoteqn
+options.hoteqn.file=File:
+options.hoteqn.reset=Reset
+options.hoteqn.reset.title=Reset GeoGebra
+options.hoteqn.choose-font=Font:
+options.hoteqn.show-filepath.title=Display notepad file path
+
+# window title
+hoteqn.title=HotEqn
+
+# window toolbar buttons
+hoteqn.reset.icon=Clear.png
+hoteqn.save-file.icon=Save.png
+hoteqn.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.hoteqn.show-filepath=true
+options.hoteqn.font=Monospaced
+options.hoteqn.fontstyle=0
+options.hoteqn.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.hoteqn.filepath=
+
+
+#
+hoteqn.applet.filename=
+hoteqn.applet.framePossible=false
+hoteqn.applet.showResetIcon=true
+hoteqn.applet.enableRightClick=true
+hoteqn.applet.showMenuBar=false
+hoteqn.applet.showToolBar=true
+hoteqn.applet.showToolBarHelp=true
+hoteqn.applet.showAlgebraInput=true
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
