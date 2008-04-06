@@ -58,18 +58,65 @@ if(path.endsWith(".ys")){
 	allFoldText = textArea.getSelectedText().replaceAll("\\s+$", "");
 	//replaceAll("^\\s+", "");Remove whitespace at end of string.
 	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
+  System.out.println("YYYY allFoldText: " + allFoldText); 
 	
 	textArea.setSelection(null);  
 	
 	
-	//Note: Add code to determine if <shift><enter> was executed outside of a fold.
-	
+		//{{{ Fold type.
+	//	defaultFoldType = "%yacas";
+		
 
-//	
-//	//text = text.substring(3,text.length()-3);
-//	
+			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
+			
+			//Obtain fold type.
+			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
+			foldTypePropertyStrings = typeText.split(",");
+			
+			foldType = foldTypePropertyStrings[0];
+			foldType = foldType.trim();
+			
+			foldProperties = null;
+			if(foldTypePropertyStrings.length != 1)
+			{
+				foldProperties = new java.util.Hashtable();
+				for(x = 1; x < foldTypePropertyStrings.length; x++)
+				{
+					property = foldTypePropertyStrings[x].split("=");
+					key = property[0].trim();
+					value = property[1].trim().replaceAll("\"","");
+					foldProperties.put(key,value);
+				}//end for.
+			}//end if.
+			//}}}
+
+	
+	
+/*	endDollarSignIndex = -1;
+	if(foldType.equalsIgnoreCase("%hoteqn"))
+	{
+		startDollarSignIndex = allFoldText.indexOf("$");
+		if(startDollarSignIndex != -1)
+		{
+			endDollarSignIndex = allFoldText.indexOf("$", startDollarSignIndex+1);
+		}//end if.
+
+	}//end if.
+	*/		
+	foldSections = allFoldText.split("%yacas|%output|%geogebra|%beanshell|%hoteqn|%error");
+	codeText = foldSections[0];
+	codeText = codeText.replaceAll("\\s+$", "");
+/*	
 	//Do not include subfold as code.
-	subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b");
+	if(endDollarSignIndex != -1)
+	{
+		subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b", endDollarSignIndex+1);
+	}
+	else
+	{
+		subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b");
+	}//end else.
+	
 	if(subFoldIndex != -1)
 	{
 		codeText = allFoldText.substring(0,subFoldIndex).replaceAll("\\s+$", "");
@@ -78,8 +125,8 @@ if(path.endsWith(".ys")){
 	{
 		codeText = allFoldText;
 	}
-	
-	//System.out.println("YYYY: " + codeText);
+*/	
+   System.out.println("YYYY: codeText " + codeText);
 
 //	noCrLf = text.replace("\n","").replace("\r","");
 	isolatedCodeLength = codeText.length();
@@ -99,50 +146,16 @@ if(path.endsWith(".ys")){
         BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
         out.write(codeText);
         out.close();
-		
+		                                                                                        
 
-    		
-		
-		defaultFoldType = "%yacas";
-		
-		
-		
-		//If there is no fold type, select start line so that the default fold type can be added.
-		if(foldStartLineText.indexOf("%") == -1)
-		{
-			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
-		}
-		else
-		{
-			foldStartSelection = null;
-			
-			//Obtain fold type.
-			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
-			foldTypePropertyStrings = typeText.split(",");
-			
-			foldType = foldTypePropertyStrings[0];
-			
-			foldProperties = null;
-			if(foldTypePropertyStrings.length != 1)
-			{
-				foldProperties = new java.util.Hashtable();
-				for(x = 1; x < foldTypePropertyStrings.length; x++)
-				{
-					property = foldTypePropertyStrings[x].split("=");
-					key = property[0].trim();
-					value = property[1].trim().replaceAll("\"","");
-					foldProperties.put(key,value);
-				}//end for.
-			}//end if.
-			
-		}//end else.
+
 		
 
 		result = "";
 		status = "";
 		
 		///{{{ *** %yacas ***.
-		if(foldStartLineText.indexOf(defaultFoldType) != -1 || (defaultFoldType.equals("%yacas") && foldStartLineText.indexOf("%") == -1) )
+		if(foldType.equalsIgnoreCase("%yacas"))    
 		{
 			//JYacas section.
 			
@@ -164,7 +177,16 @@ if(path.endsWith(".ys")){
 				//System.out.println(tempFilePath);
         	
 				result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
-				status = "%output ";
+				if(result.indexOf("$") != -1)
+				{
+					result = result.replace("\"$","$");
+					result = result.replace("$\"","$");
+					status = "%hoteqn ";
+				}
+				else
+				{
+					status = "%output ";
+				}
 	//Sy	stem.out.println("Out> " + result);
 				
 					
@@ -288,7 +310,7 @@ if(path.endsWith(".ys")){
 		}//end else
 		//end %geogebra }}}
 
-				
+				                                                                                
 	///{{{ *** %hoteqn ***
 		else if(foldType.equalsIgnoreCase("%hoteqn")) //(foldStartLineText.indexOf("%geogebra") != -1)
 		{
@@ -370,9 +392,9 @@ if(path.endsWith(".ys")){
 					{
 						
 						result = result.replaceAll("\n","\n      ");
-						textArea.setSelectedText("\n\n     {{{" + status + "\n      "+ result + "\n     }}}\n",false);
+						textArea.setSelectedText("\n\n     " + status + "\n      "+ result + "\n     %end\n",false);
 				 
-						//If fold type was blank, set it to the default fold type.
+						/*//If fold type was blank, set it to the default fold type.
 						if(foldStartSelection != null)
 						{
 							textArea.setSelection(foldStartSelection);
@@ -381,7 +403,7 @@ if(path.endsWith(".ys")){
 							textArea.setSelectedText(line);
 							textArea.setSelection(null);
 						}//end if
-						
+						  */
 						
 						textArea.setCaretPosition(currentCaretPosition);
 						
