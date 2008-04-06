@@ -37,6 +37,7 @@ if(path.endsWith(".ys")){
 	
 	//System.out.println(result);
 }else if (path.endsWith(".mrn")){
+	currentCaretPosition = textArea.getCaretPosition();
 	textArea.selectFold();
 	fold  = textArea.getSelection()[0];
 	foldStartIndex = fold.getStart();
@@ -58,7 +59,7 @@ if(path.endsWith(".ys")){
 	allFoldText = textArea.getSelectedText().replaceAll("\\s+$", "");
 	//replaceAll("^\\s+", "");Remove whitespace at end of string.
 	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
-  System.out.println("YYYY allFoldText: " + allFoldText); 
+  //System.out.println("YYYY allFoldText: " + allFoldText); 
 	
 	textArea.setSelection(null);  
 	
@@ -76,10 +77,11 @@ if(path.endsWith(".ys")){
 			foldType = foldTypePropertyStrings[0];
 			foldType = foldType.trim();
 			
-			foldProperties = null;
+			foldProperties = new java.util.Hashtable();
+			foldProperties.put("mode","");
+			foldProperties.put("collapse","false");
 			if(foldTypePropertyStrings.length != 1)
 			{
-				foldProperties = new java.util.Hashtable();
 				for(x = 1; x < foldTypePropertyStrings.length; x++)
 				{
 					property = foldTypePropertyStrings[x].split("=");
@@ -126,7 +128,7 @@ if(path.endsWith(".ys")){
 		codeText = allFoldText;
 	}
 */	
-   System.out.println("YYYY: codeText " + codeText);
+//   System.out.println("YYYY: codeText " + codeText);
 
 //	noCrLf = text.replace("\n","").replace("\r","");
 	isolatedCodeLength = codeText.length();
@@ -153,6 +155,7 @@ if(path.endsWith(".ys")){
 
 		result = "";
 		status = "";
+		collapseFold = foldProperties.get("collapse");
 		
 		///{{{ *** %yacas ***.
 		if(foldType.equalsIgnoreCase("%yacas"))    
@@ -181,11 +184,11 @@ if(path.endsWith(".ys")){
 				{
 					result = result.replace("\"$","$");
 					result = result.replace("$\"","$");
-					status = "%hoteqn ";
+					status = "%hoteqn";
 				}
 				else
 				{
-					status = "%output ";
+					status = "%geogebra";
 				}
 	//Sy	stem.out.println("Out> " + result);
 				
@@ -251,7 +254,7 @@ if(path.endsWith(".ys")){
 			geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 			
 		
-			if(foldProperties != null && foldProperties.get("clear").equalsIgnoreCase("true") )
+			if(foldProperties.get("clear").equalsIgnoreCase("true") )
 			{
 				//Clear geogebra.
 				geogebra.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
@@ -259,52 +262,60 @@ if(path.endsWith(".ys")){
 			}//end if.
 			
 			
-			lines = codeText.split("\n");
+			
 			
 			result = "GeoGebra updated.";
 			status = "%output";
-			
-			lineCount = lines.length;
-			lineIndex = 0;
-
-			
-			for(lineIndex = 0; lineIndex < lineCount; lineIndex++)
+			if(foldProperties.get("mode").equalsIgnoreCase("xml") )
 			{
-				//System.out.println("YYYYY" + lines[lineIndex]);
+				geogebra.setXML(codeText);
+			}
+			else
+			{
+				lines = codeText.split("\n");
 				
-				if(lines[lineIndex].trim().length() != 0 && ! lines[lineIndex].trim().startsWith("//"))
+				lineCount = lines.length;
+				lineIndex = 0;
+            	
+				
+				for(lineIndex = 0; lineIndex < lineCount; lineIndex++)
 				{
-				    endOfLineCommentIndex = lines[lineIndex].indexOf("//");
-					if(endOfLineCommentIndex != -1)
-					{
-						currentLine = lines[lineIndex].split("//")[0];
-					}
-					else
-					{
-						currentLine = lines[lineIndex].trim();
-					}//end if.
+					//System.out.println("YYYYY" + lines[lineIndex]);
 					
-					returnFlag = geogebra.evalCommand(currentLine);
-					
-					if(returnFlag == false)
+					if(lines[lineIndex].trim().length() != 0 && ! lines[lineIndex].trim().startsWith("//"))
 					{
-						errorLine = foldStartLine + lineIndex+2;
-						result = "Error on line " + errorLine + ".";
-						status = "%error";
+					    endOfLineCommentIndex = lines[lineIndex].indexOf("//");
+						if(endOfLineCommentIndex != -1)
+						{
+							currentLine = lines[lineIndex].split("//")[0];
+						}
+						else
+						{
+							currentLine = lines[lineIndex].trim();
+						}//end if.
 						
-						filePath = textArea.getBuffer().getPath();
-			    	
-						errorSource.clear();
-                	
-						errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, "Hello" ) );
-			    	
-						jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+						returnFlag = geogebra.evalCommand(currentLine);
 						
-						break;      
+						if(returnFlag == false)
+						{
+							errorLine = foldStartLine + lineIndex+2;
+							result = "Error on line " + errorLine + ".";
+							status = "%error";
+							
+							filePath = textArea.getBuffer().getPath();
+				    	
+							errorSource.clear();
+            	    	
+							errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, currentLine ) );
+				    	
+							jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+							
+							break;      
+						}//end if.
 					}//end if.
-				}//end if.
-			}//end for.
-			
+				}//end for.
+
+			}//end else
 			
 			
 		}//end else
@@ -322,7 +333,7 @@ if(path.endsWith(".ys")){
 			hotEqn = org.mathrider.hoteqnplugin.HotEqn.getHotEqn();
 			
 		
-			if(foldProperties != null && foldProperties.get("clear").equalsIgnoreCase("true") )
+			if(foldProperties.get("clear").equalsIgnoreCase("true") )
 			{
 				hotEqn.setEquation("");
 			}//end if.
@@ -374,7 +385,7 @@ if(path.endsWith(".ys")){
 				
 				
 				//Make room at the end of the current fold for output and place output there.
-				currentCaretPosition = textArea.getCaretPosition();
+				//currentCaretPosition = textArea.getCaretPosition();
         	
         	
 				rangeSelection = new Range(isolatedCodeEndIndex, codeEndIndex);
@@ -406,6 +417,11 @@ if(path.endsWith(".ys")){
 						  */
 						
 						textArea.setCaretPosition(currentCaretPosition);
+						
+						if(collapseFold.equalsIgnoreCase("true"))
+						{
+							textArea.collapseFold();
+						}//end if.
 						
 						buffer.save(view,null);
 					}
