@@ -1,4 +1,4 @@
-package org.mathrider.geogebraplugin;
+package org.mathrider.hoteqnplugin;
 
 /*
  * HotEqnToolPanel.java
@@ -59,7 +59,7 @@ public class HotEqnToolPanel extends JPanel {
 
 		add(Box.createGlue());
 
-		add(makeCustomButton("geogebra.reset", new ActionListener() {
+		add(makeCustomButton("hoteqn.reset", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				HotEqnToolPanel.this.pad.reset();
 			}

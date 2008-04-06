@@ -1,4 +1,4 @@
-package org.mathrider.geogebraplugin;
+package org.mathrider.hoteqnplugin;
 
 /*
  * HotEqn.java
@@ -49,7 +49,7 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 
-import geogebra.GeoGebraApplet;
+import hoteqn.HotEqnApplet;
 // }}}
 
 // {{{ HotEqn class
@@ -76,7 +76,7 @@ public class HotEqn extends JPanel
 
 	private HotEqnToolPanel toolPanel;
 	
-	private static GeoGebraApplet geoGebraApplet;
+	private static HotEqnApplet hotEqnApplet;
     // }}}
 
     // {{{ Constructor
@@ -100,20 +100,20 @@ public class HotEqn extends JPanel
 		if (floating)
 			this.setPreferredSize(new Dimension(500, 250));
 
-		geoGebraApplet = new GeoGebraApplet();
+		hotEqnApplet = new HotEqnApplet();
 		
 
 // Now try to get an applet stub for this class.
 
         MathriderAppletStub stub = new MathriderAppletStub(this,
-               geoGebraApplet, "geogebra.applet.", "http://localhost/");
+               hotEqnApplet, "hoteqn.applet.", "http://localhost/");
         
-		geoGebraApplet.setStub(stub);
+		hotEqnApplet.setStub(stub);
 
-		add(BorderLayout.CENTER, geoGebraApplet);
+		add(BorderLayout.CENTER, hotEqnApplet);
 // Initialize and start the applet
-        geoGebraApplet.init();
-        geoGebraApplet.start();
+        hotEqnApplet.init();
+        hotEqnApplet.start();
 
 		
 
@@ -124,10 +124,10 @@ public class HotEqn extends JPanel
     // {{{ Member Functions
 	
 	
-	// {{{ getGeoGebraApplet
-	public static geogebra.GeoGebraApplet getGeoGebraApplet()
+	// {{{ getHotEqnApplet
+	public static hoteqn.HotEqnApplet getHotEqnApplet()
 	{
-		return geoGebraApplet;
+		return hotEqnApplet;
 	}//end method
 	// }}}
     
@@ -195,7 +195,7 @@ public class HotEqn extends JPanel
 
     // {{{
 	public void reset() {
-		geoGebraApplet.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+		//hotEqnApplet.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <hoteqn format=\"2.5\"> </hoteqn>");
 	}
     // }}}
     
