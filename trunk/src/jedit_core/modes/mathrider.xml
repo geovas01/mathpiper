@@ -53,7 +53,7 @@
         
 		<SPAN TYPE="MARKUP" >
 			<BEGIN>     %geogebra</BEGIN>
-			<END>     %geogebra</END>
+			<END>     %end</END>
 		</SPAN>
         
 		<SPAN TYPE="MARKUP" >
