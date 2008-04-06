@@ -103,7 +103,7 @@ public class MathriderAppletStub extends Object implements AppletStub
      public String getParameter(String paramName)
      {
           
-	     System.out.println("TEDDD: " +GeogebraPlugin.NAME + ".applet."+paramName);
+
 	   String prop = jEdit.getProperty(GeogebraPlugin.NAME + ".applet."+paramName);
 	  //String prop = System.getProperty(appletName+paramName);
 	  	System.out.println(prop);
