@@ -1,0 +1,425 @@
+//Demo 1
+
+%yacas,description="loop"
+x := 1;
+While(x < 100) 
+[
+  Write(x);
+  x := x + 1;  
+];
+
+     %output 
+      1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
+     %end
+
+%end
+
+
+%yacas,description="series"
+Echo(1 .. 100);
+
+     %output 
+      1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100
+     %end
+
+%end
+
+
+%yacas,description="factors"
+/* Factor each of the following into prime factors: 8,11,14,18,24,29. */
+
+a := {8,11,14,18,24,29};
+ForEach(x,a)
+    Echo(x,"- ", Factor(x));
+
+     %output 
+      8 - 2^3 
+      11 - 11 
+      14 - 2*7 
+      18 - 2*3^2 
+      24 - 2^3*3 
+      29 - 29
+     %end
+
+%end
+
+
+%yacas
+Clear();
+f(x) = 11*x-2*x^2;
+Write(f(x));
+
+     %geogebra
+      11*x-2*x^2
+     %end
+
+%end
+
+
+%yacas
+df := D(x) f(x);
+Write(df);
+
+     %geogebra
+      11-4*x
+     %end
+
+%end
+
+
+
+%geogebra,clear="true"
+f(x)=2*sin(x)
+
+     %output
+      GeoGebra updated.
+     %end
+
+%end
+
+%geogebra,clear="false"
+a = 2
+(2,0)
+t = Tangent[a, f]
+
+     %output
+      GeoGebra updated.
+     %end
+
+%end
+
+
+%geogebra,name="slope",mode="xml",collapse="true",clear="true"
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="2.7">
+<gui>
+	<show algebraView="true" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
+	<splitDivider loc="196" locVertical="400" horizontal="true"/>
+	<font  size="12"/>
+</gui>
+<euclidianView>
+	<coordSystem xZero="174.75" yZero="350.0" scale="30.0" yscale="30.0"/>
+	<evSettings axes="true" grid="false" pointCapturing="0" pointStyle="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="64" g="64" b="64"/>
+	<gridColor r="192" g="192" b="192"/>
+	<lineStyle axes="1" grid="10"/>
+	<axis id="0" label="" unitLabel="" showNumbers="true"/>
+	<axis id="1" label="" unitLabel="" showNumbers="true"/>
+</euclidianView>
+<kernel>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="Concept of Derivative I" author="Judith Preiner" date="March 17, 2007">
+	<worksheetText above="Below you can see the graph of a quadratic polynomial f(x) = a x^2 + b x + c and a point A that lies on its graph. " below="Assignments"/>
+<element type="numeric" label="a">
+	<value val="0.7"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<labelOffset x="-2" y="6"/>
+	<labelMode val="1"/>
+	<slider min="0" max="5.0" absoluteScreenLocation="true" width="100.0" x="6.0" y="24.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<element type="numeric" label="b">
+	<value val="2.8"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<labelOffset x="-2" y="7"/>
+	<labelMode val="1"/>
+	<slider min="0" max="5.0" absoluteScreenLocation="true" width="100.0" x="6.0" y="47.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<element type="numeric" label="c">
+	<value val="0.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<labelOffset x="-1" y="7"/>
+	<labelMode val="1"/>
+	<slider min="-5.0" max="5.0" absoluteScreenLocation="true" width="100.0" x="6.0" y="70.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<expression label="f" exp="f(x) =c + b * Sin(a * x)" />
+<element type="function" label="f">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<lineStyle thickness="5" type="0"/>
+</element><command name="Point">
+	<input a0="f"/>
+	<output a0="P"/>
+</command>
+<element type="point" label="P">
+	<show object="true" label="true"/>
+	<objColor r="0" g="153" b="0" alpha="0.0"/>
+	<labelOffset x="-15" y="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="4.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Tangent">
+	<input a0="P" a1="f"/>
+	<output a0="t"/>
+</command>
+<element type="line" label="t">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="204" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-2.0" y="1.0" z="-4.0"/>
+	<lineStyle thickness="3" type="0"/>
+	<eqnStyle style="explicit"/>
+</element>
+<command name="Slope">
+	<input a0="t"/>
+	<output a0="m"/>
+</command>
+<element type="numeric" label="m">
+	<value val="2.0"/>
+	<show object="true" label="true"/>
+	<objColor r="204" g="0" b="0" alpha="0.1"/>
+	<labelMode val="1"/>
+	<lineStyle thickness="2" type="0"/>
+	<breakpoint val="false"/>
+</element>
+<expression label="M" exp="(x(P), m)" type="point" />
+<element type="point" label="M">
+	<show object="true" label="true"/>
+	<objColor r="255" g="153" b="0" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="2.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="2"/>
+</element>
+</construction>
+</geogebra>
+
+     %output
+      GeoGebra updated.
+     %end
+
+%end
+
+
+
+%geogebra,name="area_under_curve",mode="xml",clear="true"
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="2.7">
+<gui>
+	<show algebraView="false" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
+	<splitDivider loc="250" locVertical="400" horizontal="true"/>
+	<font  size="14"/>
+	<consProtColumns  col0="true" col1="true" col2="true" col3="false" col4="true" col5="false"/>
+	<consProtocol useColors="true" showOnlyBreakpoints="false"/>
+</gui>
+<euclidianView>
+	<coordSystem xZero="175.85741811175342" yZero="300.2967244701349" scale="87.39884393063582" yscale="87.39884393063582"/>
+	<evSettings axes="true" grid="false" pointCapturing="0" pointStyle="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="64" g="64" b="64"/>
+	<gridColor r="192" g="192" b="192"/>
+	<lineStyle axes="1" grid="10"/>
+	<axis id="0" label="" unitLabel="" showNumbers="true"/>
+	<axis id="1" label="" unitLabel="" showNumbers="true"/>
+</euclidianView>
+<kernel>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="Ober- und Untersumme" author="" date="">
+<element type="numeric" label="n">
+	<value val="5.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<labelMode val="1"/>
+	<slider min="1.0" max="50.0" absoluteScreenLocation="true" width="100.0" x="198.0" y="358.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="1.0"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<expression label ="f" exp="f(x) = x³ - x² - x + 2"/>
+<element type="function" label="f">
+	<show object="false" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<lineStyle thickness="2" type="0"/>
+</element><command name="Segment">
+	<input a0="(-1, 0)" a1="(1.7, 0)"/>
+	<output a0="s"/>
+</command>
+<element type="segment" label="s">
+	<show object="false" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="2.7" z="-0.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="explicit"/>
+	<outlyingIntersections val="true"/>
+	<keepTypeOnTransform val="false"/>
+</element>
+<command name="Point">
+	<input a0="s"/>
+	<output a0="B"/>
+</command>
+<element type="point" label="B">
+	<show object="true" label="false"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<labelOffset x="4" y="28"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="1.19157848324515" y="0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<expression label="b" exp="x(B)" />
+<element type="numeric" label="b">
+	<value val="1.19157848324515"/>
+	<show object="false" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<labelMode val="1"/>
+	<breakpoint val="false"/>
+</element>
+<command name="Point">
+	<input a0="s"/>
+	<output a0="A"/>
+</command>
+<element type="point" label="A">
+	<show object="true" label="false"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<labelOffset x="-18" y="28"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="-0.6314814814814815" y="0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<expression label="a" exp="x(A)" />
+<element type="numeric" label="a">
+	<value val="-0.6314814814814815"/>
+	<show object="false" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<labelMode val="1"/>
+	<breakpoint val="false"/>
+</element>
+<element type="point" label="C">
+	<show object="false" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="-0.5" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="UpperSum">
+	<input a0="f" a1="a" a2="b" a3="n"/>
+	<output a0="O"/>
+</command>
+<element type="numeric" label="O">
+	<value val="3.193496014678794"/>
+	<show object="true" label="false"/>
+	<objColor r="102" g="102" b="255" alpha="0.1"/>
+	<labelMode val="1"/>
+	<lineStyle thickness="2" type="0"/>
+	<breakpoint val="false"/>
+</element>
+<command name="LowerSum">
+	<input a0="f" a1="a" a2="b" a3="n"/>
+	<output a0="U"/>
+</command>
+<element type="numeric" label="U">
+	<value val="2.6806083925654347"/>
+	<show object="true" label="false"/>
+	<objColor r="153" g="51" b="0" alpha="0.25"/>
+	<labelMode val="1"/>
+	<lineStyle thickness="2" type="0"/>
+	<breakpoint val="false"/>
+</element>
+<command name="Function">
+	<input a0="f" a1="-1.3" a2="1.8"/>
+	<output a0="g"/>
+</command>
+<element type="function" label="g">
+	<show object="true" label="false"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<labelMode val="2"/>
+	<breakpoint val="false"/>
+	<lineStyle thickness="4" type="0"/>
+</element><expression label="T1" exp="&quot;a = &quot; + (x(A))" />
+<element type="text" label="T1">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<fixed val="true"/>
+	<breakpoint val="false"/>
+	<startPoint exp="A"/>
+	<labelOffset x="-19" y="29"/>
+</element>
+<expression label="T2" exp="&quot;b = &quot; + (x(B))" />
+<element type="text" label="T2">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<fixed val="true"/>
+	<breakpoint val="false"/>
+	<startPoint exp="B"/>
+	<labelOffset x="-10" y="29"/>
+</element>
+<expression label="T4" exp="&quot;Lower sum = &quot; + U" />
+<element type="text" label="T4">
+	<show object="true" label="true"/>
+	<objColor r="204" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<startPoint  x="-1.8023589065255736" y="2.8524029982363324" z="1.0"/>
+</element>
+<expression label="T5" exp="&quot;Upper sum = &quot; + O" />
+<element type="text" label="T5">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="204" alpha="0.0"/>
+	<fixed val="true"/>
+	<breakpoint val="false"/>
+	<startPoint  x="-1.7909171075837744" y="3.1346340388007063" z="1.0"/>
+</element>
+<expression label="T6" exp="&quot;Difference = &quot; + (abs(O - U))" />
+<element type="text" label="T6">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<startPoint  x="-1.7718474426807762" y="2.55873015873016" z="1.0"/>
+</element>
+</construction>
+</geogebra>
+
+     %output
+      GeoGebra updated.
+     %end
+
+%end
+
+
+
+
+
+
+
+
+
+
+
