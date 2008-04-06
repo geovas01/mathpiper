@@ -24,6 +24,7 @@ Development notes.
 + Why doesn't =, :=, etc. highlight?
 + Add dependency code for geogebra, errorlist, etc.
 + Register a single error source instance and make it accessible to the <shift><click> macro.
++ Do better syntax checking on fold properties.
 }}}
 
 {{{Fold types

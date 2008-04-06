@@ -46,7 +46,7 @@ geogebra.shell.msg.usage=The Ant shell supports the following commands:\n\
 # plugin menu
 plugin.org.mathrider.geogebraplugin.GeogebraPlugin.menu=geogebra \
 	- \
-	geogebra.reset \
+	geogebra.clear \
 	geogebra.save-file \
 	geogebra.copy-to-buffer
 
@@ -54,7 +54,7 @@ plugin.org.mathrider.geogebraplugin.GeogebraPlugin.menu=geogebra \
 geogebra.label=geogebra
 
 # action labels for actions supplied by actions.xml
-geogebra.reset.label=Reset GeoGebra
+geogebra.reset.label=Clear GeoGebra
 geogebra.save-file.label=Save notepad file
 geogebra.copy-to-buffer.label=Copy notepad to buffer
 
@@ -67,8 +67,8 @@ options.geogebra.code=new org.mathrider.geogebraplugin.GeogebraOptionPane();
 # Option pane labels
 options.geogebra.label=geogebra
 options.geogebra.file=File:
-options.geogebra.reset=Reset
-options.geogebra.reset.title=Reset GeoGebra
+options.geogebra.reset=Clear
+options.geogebra.reset.title=Clear GeoGebra
 options.geogebra.choose-font=Font:
 options.geogebra.show-filepath.title=Display notepad file path
 

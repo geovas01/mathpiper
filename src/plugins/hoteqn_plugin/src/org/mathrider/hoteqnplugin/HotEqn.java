@@ -103,6 +103,7 @@ public class HotEqn extends JPanel
 
 		hotEqn = new sHotEqn();
 		hotEqn.setFontsizes(18,18,18,18);
+		hotEqn.setEquation("");
 		
 
 // Now try to get an applet stub for this class.
@@ -204,7 +205,7 @@ public class HotEqn extends JPanel
 
     // {{{
 	public void reset() {
-		//hotEqn.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <hoteqn format=\"2.5\"> </hoteqn>");
+		hotEqn.setEquation("");
 	}
     // }}}
     

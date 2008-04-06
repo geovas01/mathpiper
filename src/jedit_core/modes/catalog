@@ -238,6 +238,9 @@
 
 <MODE NAME="maple"		FILE="maple.xml"
 				FILE_NAME_GLOB="*.{mpl,mws}" />
+				
+<MODE NAME="mathrider"		FILE="mathrider.xml"
+				FILE_NAME_GLOB="*.{ys,mrn}" />
 
 <MODE NAME="ml"			FILE="ml.xml"
 				FILE_NAME_GLOB="*.{sml,ml}" />
@@ -475,9 +478,6 @@
 
 <MODE NAME="xsl"		FILE="xsl.xml"
 				FILE_NAME_GLOB="*.xsl" />
-
-<MODE NAME="mathrider"		FILE="mathrider.xml"
-				FILE_NAME_GLOB="*.{ys,mrn}" />
 
 <MODE NAME="zpt"		FILE="zpt.xml"
 				FILE_NAME_GLOB="*.{pt,zpt}"/>

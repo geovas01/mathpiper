@@ -46,7 +46,7 @@ hoteqn.shell.msg.usage=The Ant shell supports the following commands:\n\
 # plugin menu
 plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.menu=hoteqn \
 	- \
-	hoteqn.reset \
+	hoteqn.clear \
 	hoteqn.save-file \
 	hoteqn.copy-to-buffer
 
@@ -54,7 +54,7 @@ plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.menu=hoteqn \
 hoteqn.label=hoteqn
 
 # action labels for actions supplied by actions.xml
-hoteqn.reset.label=Reset HotEqn
+hoteqn.reset.label=Clear HotEqn
 hoteqn.save-file.label=Save notepad file
 hoteqn.copy-to-buffer.label=Copy notepad to buffer
 
@@ -67,8 +67,8 @@ options.hoteqn.code=new org.mathrider.hoteqnplugin.HotEqnOptionPane();
 # Option pane labels
 options.hoteqn.label=hoteqn
 options.hoteqn.file=File:
-options.hoteqn.reset=Reset
-options.hoteqn.reset.title=Reset HotEqn
+options.hoteqn.reset=Clear
+options.hoteqn.reset.title=Clear HotEqn
 options.hoteqn.choose-font=Font:
 options.hoteqn.show-filepath.title=Display notepad file path
 
