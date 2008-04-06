@@ -49,7 +49,7 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 
-import hoteqn.HotEqnApplet;
+import atp.sHotEqn;
 // }}}
 
 // {{{ HotEqn class
@@ -76,7 +76,7 @@ public class HotEqn extends JPanel
 
 	private HotEqnToolPanel toolPanel;
 	
-	private static HotEqnApplet hotEqnApplet;
+	private static sHotEqn hotEqn;
     // }}}
 
     // {{{ Constructor
@@ -100,20 +100,20 @@ public class HotEqn extends JPanel
 		if (floating)
 			this.setPreferredSize(new Dimension(500, 250));
 
-		hotEqnApplet = new HotEqnApplet();
+		hotEqn = new sHotEqn();
 		
 
 // Now try to get an applet stub for this class.
 
         MathriderAppletStub stub = new MathriderAppletStub(this,
-               hotEqnApplet, "hoteqn.applet.", "http://localhost/");
+               hotEqn, "hoteqn.applet.", "http://localhost/");
         
-		hotEqnApplet.setStub(stub);
+		hotEqn.setStub(stub);
 
-		add(BorderLayout.CENTER, hotEqnApplet);
+		add(BorderLayout.CENTER, hotEqn);
 // Initialize and start the applet
-        hotEqnApplet.init();
-        hotEqnApplet.start();
+        hotEqn.init();
+        hotEqn.start();
 
 		
 
@@ -124,10 +124,10 @@ public class HotEqn extends JPanel
     // {{{ Member Functions
 	
 	
-	// {{{ getHotEqnApplet
-	public static hoteqn.HotEqnApplet getHotEqnApplet()
+	// {{{ gethotEqn
+	public static hoteqn.hotEqn gethotEqn()
 	{
-		return hotEqnApplet;
+		return hotEqn;
 	}//end method
 	// }}}
     
@@ -195,7 +195,7 @@ public class HotEqn extends JPanel
 
     // {{{
 	public void reset() {
-		//hotEqnApplet.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <hoteqn format=\"2.5\"> </hoteqn>");
+		//hotEqn.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <hoteqn format=\"2.5\"> </hoteqn>");
 	}
     // }}}
     
