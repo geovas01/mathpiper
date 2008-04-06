@@ -1,4 +1,4 @@
-package org.mathrider.geogebraplugin;
+package org.mathrider.hoteqnplugin;
 
 import java.applet.*;
 import java.util.*;

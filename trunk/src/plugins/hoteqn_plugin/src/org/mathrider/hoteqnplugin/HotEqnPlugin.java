@@ -1,4 +1,4 @@
-package org.mathrider.geogebraplugin;
+package org.mathrider.hoteqnplugin;
 
 /*
  * HotEqnPlugin.java
@@ -30,6 +30,6 @@ import org.gjt.sp.jedit.EditPlugin;
  * @author Ted Kosan
  */
 public class HotEqnPlugin extends EditPlugin {
-	public static final String NAME = "geogebra";
-	public static final String OPTION_PREFIX = "options.geogebra.";
+	public static final String NAME = "hoteqn";
+	public static final String OPTION_PREFIX = "options.hoteqn.";
 }
