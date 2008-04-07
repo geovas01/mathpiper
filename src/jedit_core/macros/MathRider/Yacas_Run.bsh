@@ -80,6 +80,7 @@ if(path.endsWith(".ys")){
 			foldProperties = new java.util.Hashtable();
 			foldProperties.put("mode","");
 			foldProperties.put("collapse","false");
+			foldProperties.put("clear","false");
 			if(foldTypePropertyStrings.length != 1)
 			{
 				for(x = 1; x < foldTypePropertyStrings.length; x++)
@@ -221,6 +222,7 @@ if(path.endsWith(".ys")){
 			interpreter = new Interpreter();
 			interpreter.eval("import geogebra.GeoGebraApplet;");
 			interpreter.eval("ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();");
+			interpreter.set("jEdit",jEdit);
 			
 			try 
 			{   
