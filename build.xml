@@ -11,7 +11,7 @@
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
 	<property environment="env" />
-	<property name="version" value=".10" />
+	<property name="version" value=".12" />
 	
 	
 	<!-- Set top directories -->
@@ -203,7 +203,8 @@
 	</target>	
 	
 	
-	<!-- tar cjfp mathrider_linux_dist.03.tar.bz2 mathrider/ -->
+	<!-- tar cjfp mathrider_linux_dist_v.10.tar.bz2 mathrider/
+	Also make sure to manually edit perspective file for now.-->
 	
 	
 	

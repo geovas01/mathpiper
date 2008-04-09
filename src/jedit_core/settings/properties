@@ -13,6 +13,7 @@ tip.show=false
 buffertabs.icons=true
 view.y=2
 plugin-blacklist.jyacas.jar=false
+buffer.encoding=UTF-8
 view.x=27
 buffer.noTabs=true
 view.fracFontMetrics=true

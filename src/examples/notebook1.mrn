@@ -258,7 +258,7 @@ demonstration.
 	<fixed val="false"/>
 	<breakpoint val="false"/>
 </element>
-<expression label ="f" exp="f(x) = x³ - x² - x + 2"/>
+<expression label ="f" exp="f(x) = xÂ³ - xÂ² - x + 2"/>
 <element type="function" label="f">
 	<show object="false" label="true"/>
 	<objColor r="0" g="0" b="0" alpha="0.0"/>
