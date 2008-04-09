@@ -1,6 +1,5 @@
 <!-- Action definition file for JYacas plugin -->
-<!-- $Id: actions.xml 5152 2004-12-05 04:37:06Z spestov $
--->
+
 
 <!DOCTYPE ACTIONS SYSTEM "actions.dtd">
 

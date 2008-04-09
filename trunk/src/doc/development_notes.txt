@@ -28,6 +28,8 @@ Development notes.
 + Use ShortCutSaver plugin for .mrn shortcut keys (maybe like <shift><enter>.
 + Study TextAutocomplete plugin for ideas on keyword autocompletion.
 + Fix problem where %output folds don't cause extra %ends but %error folds do.
++ Figure out a way to output the result of the last expression in a fold without Writing or Echoing.
++ Implement symbolic arithmetic so that m := 144 == 20 * a + b; n := 136 == 10 * a + b;c := m-n; works.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -63,8 +65,9 @@ Initial release:
 
 
 {{{Yacas bugs.
-+Why do some commands return True: while others return True with no : (Like Function);
-+What is FWatom in the factors.rep repository?
++ Why do some commands return True: while others return True with no : (Like Function);
++ What is FWatom in the factors.rep repository?
++ PrettyPrinter'Set: TexForm should be TeXForm.
 ===
 
 //What prime factors do the numbers 21, 42, and 56 have in common.

@@ -1,10 +1,19 @@
+//Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 package org.mathrider.jyacasplugin;
 
-/*
- * JYacasPlugin.java
- * part of the JYacas plugin for the jEdit text editor
- * Copyright (C) 2008 Ted Kosan
- *
+import org.gjt.sp.jedit.EditPlugin;
+
+/**
+ * The JYacas plugin
+ * 
+ * @author Ted Kosan
+ */
+public class JYacasPlugin extends EditPlugin {
+	public static final String NAME = "jyacas";
+	public static final String OPTION_PREFIX = "options.jyacas.";
+}//end class.
+
+/* {{{ License.
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -18,18 +27,4 @@ package org.mathrider.jyacasplugin;
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id: JYacasPlugin.java 5275 2005-09-10 19:40:17Z ezust $
- */
-
-import org.gjt.sp.jedit.EditPlugin;
-
-/**
- * The JYacas plugin
- * 
- * @author Ted Kosan
- */
-public class JYacasPlugin extends EditPlugin {
-	public static final String NAME = "jyacas";
-	public static final String OPTION_PREFIX = "options.jyacas.";
-}
+ */ //}}}
