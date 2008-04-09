@@ -221,7 +221,8 @@ if(path.endsWith(".ys")){
 			import bsh.Interpreter;
 			interpreter = new Interpreter();
 			interpreter.eval("import geogebra.GeoGebraApplet;");
-			interpreter.eval("ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();");
+			ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+			interpreter.set("ggb",ggb);
 			interpreter.set("jEdit",jEdit);
 			
 			try 

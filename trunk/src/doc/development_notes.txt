@@ -3,28 +3,44 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wordWrap=soft:
 
 {{{====To Do
-+ Change Geogebra to GeoGebra globally.
-- Fix GeoGebra docking menu overwriting problem.
-- Add usage information to the JYacas console.
-+ Make the JYacas console the default console application.
-- Make a JYacas mode file.
-+ Obtain line number when JYacas encounters an error when executing a file.
-+ Include Yacas documentation in JYacas plugin.
-+ Perhaps run JYacas in its own thread so that the application does not lock up during execution.
-+ Check to make sure that at least Sun's Java 5 is installed.
-+ Change file format from .mrn to .mathrider (maybe leave .mrn to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
-+ Add shortcut and button for inserting a fold into a .mrn file.
-- Add quotes to mode.
-+ Change // and /**/ to same color in mode.
-+ Tag folds by type, for example %yacas, %latex, %uasm65, %equation.
-+ Perhaps add properties to a fold like manipulate=true:output=latex.
-+ Have Yacas console use the text area font size (like svn does).
-+ Check if Yacas remembers variable values between sessions.
-+ Copy default type into empty {{{ }}} folds.
-+ Why doesn't =, :=, etc. highlight?
++ Add default fold which will set default fold properties like output="output".
 + Add dependency code for geogebra, errorlist, etc.
-+ Register a single error source instance and make it accessible to the <shift><click> macro.
++ Add output property for folds.
++ Add shortcut and button for inserting a fold into a .mrn file.
++ Allow properties to not use quotes around the value.
++ Change Geogebra to GeoGebra globally.
++ Change file format from .mrn to .mathrider (maybe leave .mrn to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
++ Check if Yacas remembers variable values between sessions.
++ Check to make sure that at least Sun's Java 5 is installed.
 + Do better syntax checking on fold properties.
++ Have Yacas console use the text area font size (like svn does).
++ Include Yacas documentation in JYacas plugin.
++ Make the JYacas console the default console application.
++ Obtain line number when JYacas encounters an error when executing a file.
++ Perhaps run JYacas in its own thread so that the application does not lock up during execution.
++ Register a single error source instance and make it accessible to the <shift><click> macro.
++ Why doesn't =, :=, etc. highlight?
++ Macro which brings up checkbox for all properties for a % fold command when it is shift clicked.
++ Macro: right click menu which allows inserting of fold template.
++ Place MathRider variables in standard jEdit beanshell environment.
++ Use the ContextMenu plugin to create a special popup menu for .mrn files.
++ Add dock sidekick plugin to the right side of the screen and have it show outline of .mrn files.
++ Use ShortCutSaver plugin for .mrn shortcut keys (maybe like <shift><enter>.
++ Study TextAutocomplete plugin for ideas on keyword autocompletion.
++ Fix problem where %output folds don't cause extra %ends but %error folds do.
+- Add quotes to mode.
+- Add usage information to the JYacas console.
+- Change // and /**/ to same color in mode.
+- Fix GeoGebra docking menu overwriting problem.
+- Make a JYacas mode file.
+- Perhaps add properties to a fold like manipulate=true:output=latex.
+- Tag folds by type, for example %yacas, %latex, %uasm65, %equation.
+
+Initial release:
++ Documentation: Main mathrider, all plugins.
++ Add GPL statement to all source code files.
++ Check GPL statements on plugins.
+
 }}}
 
 {{{Fold types
