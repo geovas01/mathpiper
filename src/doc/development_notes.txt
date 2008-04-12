@@ -27,9 +27,12 @@ Development notes.
 + Add dock sidekick plugin to the right side of the screen and have it show outline of .mrn files.
 + Use ShortCutSaver plugin for .mrn shortcut keys (maybe like <shift><enter>.
 + Study TextAutocomplete plugin for ideas on keyword autocompletion.
-+ Fix problem where %output folds don't cause extra %ends but %error folds do.
+- Fix problem where %output folds don't cause extra %ends but %error folds do.
 + Figure out a way to output the result of the last expression in a fold without Writing or Echoing.
 + Implement symbolic arithmetic so that m := 144 == 20 * a + b; n := 136 == 10 * a + b;c := m-n; works.
++ Make fold types a property for use by Shift_Enter.bsh file, mode file, and the configurable fold handler plugin.
++ Allow help on a Yacas function to be brought up by ???ing on it (including the source code of the function).
++ Check to see if we can remove the C: stripping code from Shift_Enter.bsh with this: file:///C:/ted/download/yacas_manual/refchapter26.html#c26".
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -45,7 +48,7 @@ Initial release:
 
 }}}
 
-{{{Fold types
+{{{Fold types (Make sure to add fold types in Shift_Enter.bsh file, mode file and configurable fold handler plugin.)
 + yacas - Executes yacas code.
 + cas - Executes code using the default cas system.
 + manipulate - Allows user to manipulate an equation or inequality.
@@ -58,6 +61,7 @@ Initial release:
 + beanshell - Sends code to beanshell.  Useful for creating GUIs, text scripts, etc.
 + html.
 + sql.
++ buffer - Code is held in a separate buffer.  May be useful for large blocks of code.
 
 
 

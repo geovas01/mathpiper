@@ -97,7 +97,20 @@
 		</ant>
 		
 		<copy file="${plugins.build.dir}/jyacas_plugin/dist/jyacas_plugin.jar" todir="${plugins.jars.dir}"/>
-
+		
+	</target>
+	
+	
+	<target id="call-yacas_docs_plugin" name="call-yacas_docs_plugin" >
+		<ant dir="${plugins.src.dir}/yacas_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/yacas_docs_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/yacas_docs_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/yacas_docs_plugin/dist/yacas_docs_plugin.jar" todir="${plugins.jars.dir}"/> 
 		
 	</target>
 	
@@ -130,7 +143,8 @@
 	</target>
 	
 	
-	<target id="call-all-plugins" name="call-all-plugins" depends="call-jyacas_plugin, call-geogebra_plugin, call-hoteqn_plugin" />
+	<target id="call-all-plugins" name="call-all-plugins" depends="call-jyacas_plugin,
+		call-yacas_docs_plugin, call-geogebra_plugin, call-hoteqn_plugin" />
 	
 	
 	
