@@ -1,2 +1,2 @@
 GUIUtilities.setIconPath("jeditresource:/nicons.jar!/icons/");
-GUIUtilities.setIconPath("jeditresource:/tangothemes.jar!/");
+GUIUtilities.setIconPath("jeditresource:/tangoicons.jar!/");
