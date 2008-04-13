@@ -1,0 +1,2557 @@
+<html>
+<head>
+  <title>Predicates</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c24">
+
+</a>
+(directly go to documentation on : <a href="refchapter24.html#!=" target='Chapters' title="test for "not equal"">!=</a>, <a href="refchapter24.html#=" target='Chapters' title="test for equality of expressions">=</a>, <a href="refchapter24.html#Not" target='Chapters' title="logical negation">Not</a>, <a href="refchapter24.html#And" target='Chapters' title="logical conjunction">And</a>, <a href="refchapter24.html#Or" target='Chapters' title="logical disjunction">Or</a>, <a href="refchapter24.html#IsFreeOf" target='Chapters' title="test whether expression depends on variable">IsFreeOf</a>, <a href="refchapter24.html#IsZeroVector" target='Chapters' title="test whether list contains only zeroes">IsZeroVector</a>, <a href="refchapter24.html#IsNonObject" target='Chapters' title="test whether argument is not an <b><tt>Object()</tt></b>">IsNonObject</a>, <a href="refchapter24.html#IsEven" target='Chapters' title="test for an even integer">IsEven</a>, <a href="refchapter24.html#IsOdd" target='Chapters' title="test for an odd integer">IsOdd</a>, <a href="refchapter24.html#IsEvenFunction" target='Chapters' title="Return true if function is an even function, False otherwise">IsEvenFunction</a>, <a href="refchapter24.html#IsOddFunction" target='Chapters' title="Return true if function is an odd function, False otherwise">IsOddFunction</a>, <a href="refchapter24.html#IsFunction" target='Chapters' title="test for a composite object">IsFunction</a>, <a href="refchapter24.html#IsAtom" target='Chapters' title="test for an atom">IsAtom</a>, <a href="refchapter24.html#IsString" target='Chapters' title="test for an string">IsString</a>, <a href="refchapter24.html#IsNumber" target='Chapters' title="test for a number">IsNumber</a>, <a href="refchapter24.html#IsList" target='Chapters' title="test for a list">IsList</a>, <a href="refchapter24.html#IsNumericList" target='Chapters' title="test for a list of numbers">IsNumericList</a>, <a href="refchapter24.html#IsBound" target='Chapters' title="test for a bound variable">IsBound</a>, <a href="refchapter24.html#IsBoolean" target='Chapters' title="test for a Boolean value">IsBoolean</a>, <a href="refchapter24.html#IsNegativeNumber" target='Chapters' title="test for a negative number">IsNegativeNumber</a>, <a href="refchapter24.html#IsNegativeInteger" target='Chapters' title="test for a negative integer">IsNegativeInteger</a>, <a href="refchapter24.html#IsPositiveNumber" target='Chapters' title="test for a positive number">IsPositiveNumber</a>, <a href="refchapter24.html#IsPositiveInteger" target='Chapters' title="test for a positive integer">IsPositiveInteger</a>, <a href="refchapter24.html#IsNotZero" target='Chapters' title="test for a nonzero number">IsNotZero</a>, <a href="refchapter24.html#IsNonZeroInteger" target='Chapters' title="test for a nonzero integer">IsNonZeroInteger</a>, <a href="refchapter24.html#IsInfinity" target='Chapters' title="test for an infinity">IsInfinity</a>, <a href="refchapter24.html#IsPositiveReal" target='Chapters' title="test for a numerically positive value">IsPositiveReal</a>, <a href="refchapter24.html#IsNegativeReal" target='Chapters' title="test for a numerically negative value">IsNegativeReal</a>, <a href="refchapter24.html#IsConstant" target='Chapters' title="test for a constant">IsConstant</a>, <a href="refchapter24.html#IsGaussianInteger" target='Chapters' title="test for a Gaussian integer">IsGaussianInteger</a>, <a href="refchapter24.html#MatchLinear" target='Chapters' title="match an expression to a polynomial of degree one in a variable">MatchLinear</a>, <a href="refchapter24.html#HasExpr" target='Chapters' title="check for expression containing a subexpression">HasExpr</a>, <a href="refchapter24.html#HasExprArith" target='Chapters' title="check for expression containing a subexpression">HasExprArith</a>, <a href="refchapter24.html#HasExprSome" target='Chapters' title="check for expression containing a subexpression">HasExprSome</a>, <a href="refchapter24.html#HasFunc" target='Chapters' title="check for expression containing a function">HasFunc</a>, <a href="refchapter24.html#HasFuncArith" target='Chapters' title="check for expression containing a function">HasFuncArith</a>, <a href="refchapter24.html#HasFuncSome" target='Chapters' title="check for expression containing a function">HasFuncSome</a>.
+)<h1>
+24. Predicates
+</h1>
+
+A predicate is a function that returns a boolean value, i.e. <b><tt>True</tt></b> or <b><tt>False</tt></b>. Predicates are
+often used in patterns, For instance, a rule that only holds for a
+positive integer would use a pattern such as <b><tt>n_IsPositiveInteger</tt></b>.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#!=" target='Chapters' title="test for "not equal"">!=</a></td>
+<td>test for "not equal"</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#=" target='Chapters' title="test for equality of expressions">=</a></td>
+<td>test for equality of expressions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#Not" target='Chapters' title="logical negation">Not</a></td>
+<td>logical negation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#And" target='Chapters' title="logical conjunction">And</a></td>
+<td>logical conjunction</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#Or" target='Chapters' title="logical disjunction">Or</a></td>
+<td>logical disjunction</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsFreeOf" target='Chapters' title="test whether expression depends on variable">IsFreeOf</a></td>
+<td>test whether expression depends on variable</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsZeroVector" target='Chapters' title="test whether list contains only zeroes">IsZeroVector</a></td>
+<td>test whether list contains only zeroes</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsNonObject" target='Chapters' title="test whether argument is not an <b><tt>Object()</tt></b>">IsNonObject</a></td>
+<td>test whether argument is not an <b><tt>Object()</tt></b></td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsEven" target='Chapters' title="test for an even integer">IsEven</a></td>
+<td>test for an even integer</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsOdd" target='Chapters' title="test for an odd integer">IsOdd</a></td>
+<td>test for an odd integer</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsEvenFunction" target='Chapters' title="Return true if function is an even function, False otherwise">IsEvenFunction</a></td>
+<td>Return true if function is an even function, False otherwise</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsOddFunction" target='Chapters' title="Return true if function is an odd function, False otherwise">IsOddFunction</a></td>
+<td>Return true if function is an odd function, False otherwise</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsFunction" target='Chapters' title="test for a composite object">IsFunction</a></td>
+<td>test for a composite object</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsAtom" target='Chapters' title="test for an atom">IsAtom</a></td>
+<td>test for an atom</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsString" target='Chapters' title="test for an string">IsString</a></td>
+<td>test for an string</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsNumber" target='Chapters' title="test for a number">IsNumber</a></td>
+<td>test for a number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsList" target='Chapters' title="test for a list">IsList</a></td>
+<td>test for a list</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsNumericList" target='Chapters' title="test for a list of numbers">IsNumericList</a></td>
+<td>test for a list of numbers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsBound" target='Chapters' title="test for a bound variable">IsBound</a></td>
+<td>test for a bound variable</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsBoolean" target='Chapters' title="test for a Boolean value">IsBoolean</a></td>
+<td>test for a Boolean value</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsNegativeNumber" target='Chapters' title="test for a negative number">IsNegativeNumber</a></td>
+<td>test for a negative number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsNegativeInteger" target='Chapters' title="test for a negative integer">IsNegativeInteger</a></td>
+<td>test for a negative integer</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsPositiveNumber" target='Chapters' title="test for a positive number">IsPositiveNumber</a></td>
+<td>test for a positive number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsPositiveInteger" target='Chapters' title="test for a positive integer">IsPositiveInteger</a></td>
+<td>test for a positive integer</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsNotZero" target='Chapters' title="test for a nonzero number">IsNotZero</a></td>
+<td>test for a nonzero number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsNonZeroInteger" target='Chapters' title="test for a nonzero integer">IsNonZeroInteger</a></td>
+<td>test for a nonzero integer</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsInfinity" target='Chapters' title="test for an infinity">IsInfinity</a></td>
+<td>test for an infinity</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsPositiveReal" target='Chapters' title="test for a numerically positive value">IsPositiveReal</a></td>
+<td>test for a numerically positive value</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsNegativeReal" target='Chapters' title="test for a numerically negative value">IsNegativeReal</a></td>
+<td>test for a numerically negative value</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsConstant" target='Chapters' title="test for a constant">IsConstant</a></td>
+<td>test for a constant</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#IsGaussianInteger" target='Chapters' title="test for a Gaussian integer">IsGaussianInteger</a></td>
+<td>test for a Gaussian integer</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#MatchLinear" target='Chapters' title="match an expression to a polynomial of degree one in a variable">MatchLinear</a></td>
+<td>match an expression to a polynomial of degree one in a variable</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#HasExpr" target='Chapters' title="check for expression containing a subexpression">HasExpr</a></td>
+<td>check for expression containing a subexpression</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#HasExprArith" target='Chapters' title="check for expression containing a subexpression">HasExprArith</a></td>
+<td>check for expression containing a subexpression</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#HasExprSome" target='Chapters' title="check for expression containing a subexpression">HasExprSome</a></td>
+<td>check for expression containing a subexpression</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#HasFunc" target='Chapters' title="check for expression containing a function">HasFunc</a></td>
+<td>check for expression containing a function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#HasFuncArith" target='Chapters' title="check for expression containing a function">HasFuncArith</a></td>
+<td>check for expression containing a function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter24.html#HasFuncSome" target='Chapters' title="check for expression containing a function">HasFuncSome</a></td>
+<td>check for expression containing a function</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="!=">
+
+</a>
+<a name="!=">
+
+</a>
+<h3>
+<hr>!= -- test for "not equal"
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+e1 != e2
+</pre></tr>
+</table>
+Precedence:
+
+90
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>e1</tt></b>, <b><tt>e2</tt></b> -- expressions to be compared
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Both expressions are evaluated and compared. If they turn out to be
+equal, the result is <b><tt>False</tt></b>. Otherwise, the result
+is <b><tt>True</tt></b>.
+
+
+<p>
+The expression <b><tt>e1 != e2</tt></b> is equivalent to <b><tt>Not(e1 = e2)</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 1 != 2;
+Out&gt; True;
+In&gt; 1 != 1;
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?=" target="Chapters">
+=
+</a>
+.<a name="=">
+
+</a>
+<a name="=">
+
+</a>
+<h3>
+<hr>= -- test for equality of expressions
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+e1 = e2
+</pre></tr>
+</table>
+Precedence:
+
+90
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>e1</tt></b>, <b><tt>e2</tt></b> -- expressions to be compared
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Both expressions are evaluated and compared. If they turn out to be equal, the
+result is <b><tt>True</tt></b>. Otherwise, the result is <b><tt>False</tt></b>. The function <b><tt>Equals</tt></b> does
+the same.
+
+
+<p>
+Note that the test is on syntactic equality, not mathematical equality. Hence
+even if the result is <b><tt>False</tt></b>, the expressions can still be
+<i>mathematically</i> equal; see the examples below. Put otherwise, this
+function tests whether the two expressions would be displayed in the same way
+if they were printed.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; e1 := (x+1) * (x-1);
+Out&gt; (x+1)*(x-1);
+In&gt; e2 := x^2 - 1;
+Out&gt; x^2-1;
+
+In&gt; e1 = e2;
+Out&gt; False;
+In&gt; Expand(e1) = e2;
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?!=" target="Chapters">
+!=
+</a>
+, <a href="ref.html?Equals" target="Chapters">
+Equals
+</a>
+.<a name="Not">
+
+</a>
+<a name="not">
+
+</a>
+<h3>
+<hr>Not -- logical negation
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Not expr
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- a boolean expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Not returns the logical negation of the argument expr. If <b><tt>expr</tt></b> is
+<b><tt>False</tt></b> it returns <b><tt>True</tt></b>, and if <b><tt>expr</tt></b> is <b><tt>True</tt></b>, <b><tt>Not expr</tt></b> returns <b><tt>False</tt></b>.
+If the argument is neither <b><tt>True</tt></b> nor <b><tt>False</tt></b>, it returns the entire
+expression with evaluated arguments.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Not True
+Out&gt; False;
+In&gt; Not False
+Out&gt; True;
+In&gt; Not(a)
+Out&gt; Not a;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?And" target="Chapters">
+And
+</a>
+, <a href="ref.html?Or" target="Chapters">
+Or
+</a>
+.<a name="And">
+
+</a>
+<a name="and">
+
+</a>
+<h3>
+<hr>And -- logical conjunction
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+a1 And a2
+</pre></tr>
+</table>
+Precedence:
+
+1000
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+And(a1, a2, a3, ..., aN)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>a</tt></b>1, ..., <b><tt>a</tt></b>N -- boolean values (may evaluate to <b><tt>True</tt></b> or <b><tt>False</tt></b>)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns <b><tt>True</tt></b> if all arguments are true. The
+<b><tt>And</tt></b> operation is "lazy", i.e. it returns <b><tt>False</tt></b> as soon as a <b><tt>False</tt></b> argument
+is found (from left to right). If an argument other than <b><tt>True</tt></b> or
+<b><tt>False</tt></b> is encountered a new <b><tt>And</tt></b> expression is returned with all
+arguments that didn't evaluate to <b><tt>True</tt></b> or <b><tt>False</tt></b> yet.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; True And False
+Out&gt; False;
+In&gt; And(True,True)
+Out&gt; True;
+In&gt; False And a
+Out&gt; False;
+In&gt; True And a
+Out&gt; And(a);
+In&gt; And(True,a,True,b)
+Out&gt; b And a;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Or" target="Chapters">
+Or
+</a>
+, <a href="ref.html?Not" target="Chapters">
+Not
+</a>
+.<a name="Or">
+
+</a>
+<a name="or">
+
+</a>
+<h3>
+<hr>Or -- logical disjunction
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+a1 Or a2
+</pre></tr>
+</table>
+Precedence:
+
+1010
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Or(a1, a2, a3, ..., aN)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>a</tt></b>1, ..., <b><tt>a</tt></b>N -- boolean expressions (may evaluate to <b><tt>True</tt></b> or <b><tt>False</tt></b>)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns <b><tt>True</tt></b> if an argument is encountered
+that is true (scanning from left to right). The
+<b><tt>Or</tt></b> operation is "lazy", i.e. it returns <b><tt>True</tt></b> as soon as a <b><tt>True</tt></b> argument
+is found (from left to right). If an argument other than <b><tt>True</tt></b> or
+<b><tt>False</tt></b> is encountered, an unevaluated <b><tt>Or</tt></b> expression is returned with all
+arguments that didn't evaluate to <b><tt>True</tt></b> or <b><tt>False</tt></b> yet.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; True Or False
+Out&gt; True;
+In&gt; False Or a
+Out&gt; Or(a);
+In&gt; Or(False,a,b,True)
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?And" target="Chapters">
+And
+</a>
+, <a href="ref.html?Not" target="Chapters">
+Not
+</a>
+.<a name="IsFreeOf">
+
+</a>
+<a name="isfreeof">
+
+</a>
+<h3>
+<hr>IsFreeOf -- test whether expression depends on variable
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsFreeOf(var, expr)
+IsFreeOf({var, ...}, expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+<b><tt>var</tt></b> -- variable to look for in "expr"
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function checks whether the expression "expr" (after being
+evaluated) depends on the variable "var". It returns <b><tt>False</tt></b> if this is the case and <b><tt>True</tt></b>
+otherwise.
+
+
+<p>
+The second form test whether the expression depends on <i>any</i> of
+the variables named in the list. The result is <b><tt>True</tt></b> if none of the variables appear in the expression and <b><tt>False</tt></b> otherwise.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsFreeOf(x, Sin(x));
+Out&gt; False;
+In&gt; IsFreeOf(y, Sin(x));
+Out&gt; True;
+In&gt; IsFreeOf(x, D(x) a*x+b);
+Out&gt; True;
+In&gt; IsFreeOf({x,y}, Sin(x));
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+The third command returns <b><tt>True</tt></b> because the
+expression <b><tt>D(x) a*x+b</tt></b> evaluates to <b><tt>a</tt></b>, which does not depend on <b><tt>x</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Contains" target="Chapters">
+Contains
+</a>
+.<a name="IsZeroVector">
+
+</a>
+<a name="iszerovector">
+
+</a>
+<h3>
+<hr>IsZeroVector -- test whether list contains only zeroes
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsZeroVector(list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>list</tt></b> -- list to compare against the zero vector
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The only argument given to <b><tt>IsZeroVector</tt></b> should be
+a list. The result is <b><tt>True</tt></b> if the list contains
+only zeroes and <b><tt>False</tt></b> otherwise.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsZeroVector({0, x, 0});
+Out&gt; False;
+In&gt; IsZeroVector({x-x, 1 - D(x) x});
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsList" target="Chapters">
+IsList
+</a>
+, <a href="ref.html?ZeroVector" target="Chapters">
+ZeroVector
+</a>
+.<a name="IsNonObject">
+
+</a>
+<a name="isnonobject">
+
+</a>
+<h3>
+<hr>IsNonObject -- test whether argument is not an <b><tt>Object()</tt></b>
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNonObject(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- the expression to examine
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns <b><tt>True</tt></b> if "expr" is not of
+the form <b><tt>Object(...)</tt></b> and <b><tt>False</tt></b>
+otherwise.
+
+
+<p>
+
+<h5>
+Bugs
+</h5>
+In fact, the result is always <b><tt>True</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Object" target="Chapters">
+Object
+</a>
+.<a name="IsEven">
+
+</a>
+<a name="iseven">
+
+</a>
+<h3>
+<hr>IsEven -- test for an even integer
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsEven(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- integer to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether the integer "n" is even. An integer is
+even if it is divisible by two. Hence the even numbers are 0, 2, 4, 6,
+8, 10, etc., and -2, -4, -6, -8, -10, etc.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsEven(4);
+Out&gt; True;
+In&gt; IsEven(-1);
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsOdd" target="Chapters">
+IsOdd
+</a>
+, <a href="ref.html?IsInteger" target="Chapters">
+IsInteger
+</a>
+.<a name="IsOdd">
+
+</a>
+<a name="isodd">
+
+</a>
+<h3>
+<hr>IsOdd -- test for an odd integer
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsOdd(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- integer to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether the integer "n" is odd. An integer is
+odd if it is not divisible by two. Hence the odd numbers are 1, 3, 5,
+7, 9, etc., and -1, -3, -5, -7, -9, etc.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsOdd(4);
+Out&gt; False;
+In&gt; IsOdd(-1);
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsEven" target="Chapters">
+IsEven
+</a>
+, <a href="ref.html?IsInteger" target="Chapters">
+IsInteger
+</a>
+.<a name="IsEvenFunction">
+
+</a>
+<a name="isevenfunction">
+
+</a>
+<h3>
+<hr>IsEvenFunction -- Return true if function is an even function, False otherwise
+</h3>
+<a name="IsOddFunction">
+
+</a>
+<a name="isoddfunction">
+
+</a>
+<h3>
+<hr>IsOddFunction -- Return true if function is an odd function, False otherwise
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsEvenFunction(expression,variable)
+IsOddFunction(expression,variable)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expression</tt></b> -- mathematical expression
+<b><tt>variable</tt></b> -- variable
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These functions return True if Yacas can determine that the
+function is even or odd respectively. Even functions are
+defined to be functions that have the property:
+
+
+<p>
+
+<p><center><b>f(x)=f(-x) </b></center></p>
+
+
+
+<p>
+And odd functions have the property:
+
+
+<p>
+
+<p><center><b>f(x)= -f(-x) </b></center></p>
+
+
+
+<p>
+<b><tt>Sin(x)</tt></b> is an example of an odd function, and <b><tt>Cos(x)</tt></b>
+is an example of an even function.
+
+
+<p>
+As a side note, one can decompose a function into an
+even and an odd part:
+
+
+<p>
+
+<p><center><b>f(x)=f _even(x)+f _odd(x) </b></center></p>
+
+
+
+<p>
+Where 
+
+
+<p>
+
+<p><center><b>f _even(x)=(f(x)+f(-x))/2 </b></center></p>
+
+
+
+<p>
+and
+
+
+<p>
+
+<p><center><b> f _odd(x)=(f(x)-f(-x))/2 </b></center></p>
+
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsEvenFunction(Cos(b*x),x)
+Out&gt; True
+In&gt; IsOddFunction(Cos(b*x),x)
+Out&gt; False
+In&gt; IsOddFunction(Sin(b*x),x)
+Out&gt; True
+In&gt; IsEvenFunction(Sin(b*x),x)
+Out&gt; False
+In&gt; IsEvenFunction(1/x^2,x)
+Out&gt; True
+In&gt; IsEvenFunction(1/x,x)
+Out&gt; False
+In&gt; IsOddFunction(1/x,x)
+Out&gt; True
+In&gt; IsOddFunction(1/x^2,x)
+Out&gt; False
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+.<a name="IsFunction">
+
+</a>
+<a name="isfunction">
+
+</a>
+<h3>
+<hr>IsFunction -- test for a composite object
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsFunction(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether "expr" is a composite object, i.e. not an
+atom. This includes not only obvious functions such as <b><tt>f(x)</tt></b>, but also expressions such as <b><tt>x+5</tt></b> and lists.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsFunction(x+5);
+Out&gt; True;
+In&gt; IsFunction(x);
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsAtom" target="Chapters">
+IsAtom
+</a>
+, <a href="ref.html?IsList" target="Chapters">
+IsList
+</a>
+, <a href="ref.html?Type" target="Chapters">
+Type
+</a>
+.<a name="IsAtom">
+
+</a>
+<a name="isatom">
+
+</a>
+<h3>
+<hr>IsAtom -- test for an atom
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsAtom(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether "expr" is an atom. Numbers, strings, and
+variables are all atoms.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsAtom(x+5);
+Out&gt; False;
+In&gt; IsAtom(5);
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsFunction" target="Chapters">
+IsFunction
+</a>
+, <a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+, <a href="ref.html?IsString" target="Chapters">
+IsString
+</a>
+.<a name="IsString">
+
+</a>
+<a name="isstring">
+
+</a>
+<h3>
+<hr>IsString -- test for an string
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsString(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether "expr" is a string. A string is a text
+within quotes, e.g. <b><tt>"duh"</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsString("duh");
+Out&gt; True;
+In&gt; IsString(duh);
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsAtom" target="Chapters">
+IsAtom
+</a>
+, <a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+.<a name="IsNumber">
+
+</a>
+<a name="isnumber">
+
+</a>
+<h3>
+<hr>IsNumber -- test for a number
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNumber(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether "expr" is a number. There are two kinds
+of numbers, integers (e.g. 6) and reals (e.g. -2.75 or 6.0). Note that a
+complex number is represented by the <b><tt>Complex</tt></b>
+function, so <b><tt>IsNumber</tt></b> will return <b><tt>False</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsNumber(6);
+Out&gt; True;
+In&gt; IsNumber(3.25);
+Out&gt; True;
+In&gt; IsNumber(I);
+Out&gt; False;
+In&gt; IsNumber("duh");
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsAtom" target="Chapters">
+IsAtom
+</a>
+, <a href="ref.html?IsString" target="Chapters">
+IsString
+</a>
+, <a href="ref.html?IsInteger" target="Chapters">
+IsInteger
+</a>
+, <a href="ref.html?IsPositiveNumber" target="Chapters">
+IsPositiveNumber
+</a>
+, <a href="ref.html?IsNegativeNumber" target="Chapters">
+IsNegativeNumber
+</a>
+, <a href="ref.html?Complex" target="Chapters">
+Complex
+</a>
+.<a name="IsList">
+
+</a>
+<a name="islist">
+
+</a>
+<h3>
+<hr>IsList -- test for a list
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsList(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether "expr" is a list. A list is a sequence
+between curly braces, e.g. <b><tt>{2, 3, 5}</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsList({2,3,5});
+Out&gt; True;
+In&gt; IsList(2+3+5);
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsFunction" target="Chapters">
+IsFunction
+</a>
+.<a name="IsNumericList">
+
+</a>
+<a name="isnumericlist">
+
+</a>
+<h3>
+<hr>IsNumericList -- test for a list of numbers
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNumericList({list})
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>{list}</tt></b> -- a list
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns <b><tt>True</tt></b> when called on a list of numbers or expressions that evaluate to numbers using <b><tt>N()</tt></b>. Returns <b><tt>False</tt></b> otherwise.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+.<a name="IsBound">
+
+</a>
+<a name="isbound">
+
+</a>
+<h3>
+<hr>IsBound -- test for a bound variable
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsBound(var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>var</tt></b> -- variable to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether the variable "var" is bound, i.e. whether
+it has been assigned a value. The argument "var" is not evaluated.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsBound(x);
+Out&gt; False;
+In&gt; x := 5;
+Out&gt; 5;
+In&gt; IsBound(x);
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsAtom" target="Chapters">
+IsAtom
+</a>
+.<a name="IsBoolean">
+
+</a>
+<a name="isboolean">
+
+</a>
+<h3>
+<hr>IsBoolean -- test for a Boolean value
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsBoolean(expression)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expression</tt></b> -- an expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+IsBoolean returns True if the argument is of a boolean type.
+This means it has to be either True, False, or an expression involving
+functions that return a boolean result, e.g.
+<b><tt>=</tt></b>, <b><tt>&gt;</tt></b>, <b><tt>&lt;</tt></b>, <b><tt>&gt;=</tt></b>, <b><tt>&lt;=</tt></b>, <b><tt>!=</tt></b>, <b><tt>And</tt></b>, <b><tt>Not</tt></b>, <b><tt>Or</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsBoolean(a)
+Out&gt; False;
+In&gt; IsBoolean(True)
+Out&gt; True;
+In&gt; IsBoolean(a And b)
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?True" target="Chapters">
+True
+</a>
+, <a href="ref.html?False" target="Chapters">
+False
+</a>
+.<a name="IsNegativeNumber">
+
+</a>
+<a name="isnegativenumber">
+
+</a>
+<h3>
+<hr>IsNegativeNumber -- test for a negative number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNegativeNumber(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- number to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>IsNegativeNumber(n)</tt></b> evaluates to <b><tt>True</tt></b> if <b> n</b> is (strictly) negative, i.e.
+if <b> n&lt;0</b>. If <b><tt>n</tt></b> is not a number, the functions return <b><tt>False</tt></b>. 
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsNegativeNumber(6);
+Out&gt; False;
+In&gt; IsNegativeNumber(-2.5);
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+, <a href="ref.html?IsPositiveNumber" target="Chapters">
+IsPositiveNumber
+</a>
+, <a href="ref.html?IsNotZero" target="Chapters">
+IsNotZero
+</a>
+, <a href="ref.html?IsNegativeInteger" target="Chapters">
+IsNegativeInteger
+</a>
+, <a href="ref.html?IsNegativeReal" target="Chapters">
+IsNegativeReal
+</a>
+.<a name="IsNegativeInteger">
+
+</a>
+<a name="isnegativeinteger">
+
+</a>
+<h3>
+<hr>IsNegativeInteger -- test for a negative integer
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNegativeInteger(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- integer to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether the integer <b><tt>n</tt></b> is (strictly)
+negative. The negative integers are -1, -2, -3, -4, -5, etc. If
+<b><tt>n</tt></b> is not a integer, the function returns <b><tt>False</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsNegativeInteger(31);
+Out&gt; False;
+In&gt; IsNegativeInteger(-2);
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsPositiveInteger" target="Chapters">
+IsPositiveInteger
+</a>
+, <a href="ref.html?IsNonZeroInteger" target="Chapters">
+IsNonZeroInteger
+</a>
+, <a href="ref.html?IsNegativeNumber" target="Chapters">
+IsNegativeNumber
+</a>
+.<a name="IsPositiveNumber">
+
+</a>
+<a name="ispositivenumber">
+
+</a>
+<h3>
+<hr>IsPositiveNumber -- test for a positive number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsPositiveNumber(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- number to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>IsPositiveNumber(n)</tt></b> evaluates to <b><tt>True</tt></b> if <b> n</b> is (strictly) positive, i.e.
+if <b> n&gt;0</b>. If <b><tt>n</tt></b> is not a number the function returns <b><tt>False</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsPositiveNumber(6);
+Out&gt; True;
+In&gt; IsPositiveNumber(-2.5);
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+, <a href="ref.html?IsNegativeNumber" target="Chapters">
+IsNegativeNumber
+</a>
+, <a href="ref.html?IsNotZero" target="Chapters">
+IsNotZero
+</a>
+, <a href="ref.html?IsPositiveInteger" target="Chapters">
+IsPositiveInteger
+</a>
+, <a href="ref.html?IsPositiveReal" target="Chapters">
+IsPositiveReal
+</a>
+.<a name="IsPositiveInteger">
+
+</a>
+<a name="ispositiveinteger">
+
+</a>
+<h3>
+<hr>IsPositiveInteger -- test for a positive integer
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsPositiveInteger(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- integer to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether the integer <b><tt>n</tt></b> is (strictly) positive. The
+positive integers are 1, 2, 3, 4, 5, etc. If <b><tt>n</tt></b> is not a integer, the
+function returns <b><tt>False</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsPositiveInteger(31);
+Out&gt; True;
+In&gt; IsPositiveInteger(-2);
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsNegativeInteger" target="Chapters">
+IsNegativeInteger
+</a>
+, <a href="ref.html?IsNonZeroInteger" target="Chapters">
+IsNonZeroInteger
+</a>
+, <a href="ref.html?IsPositiveNumber" target="Chapters">
+IsPositiveNumber
+</a>
+.<a name="IsNotZero">
+
+</a>
+<a name="isnotzero">
+
+</a>
+<h3>
+<hr>IsNotZero -- test for a nonzero number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNotZero(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- number to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>IsNotZero(n)</tt></b> evaluates to <b><tt>True</tt></b> if <b><tt>n</tt></b> is not zero. In case <b><tt>n</tt></b> is not a
+number, the function returns <b><tt>False</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsNotZero(3.25);
+Out&gt; True;
+In&gt; IsNotZero(0);
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+, <a href="ref.html?IsPositiveNumber" target="Chapters">
+IsPositiveNumber
+</a>
+, <a href="ref.html?IsNegativeNumber" target="Chapters">
+IsNegativeNumber
+</a>
+, <a href="ref.html?IsNonZeroInteger" target="Chapters">
+IsNonZeroInteger
+</a>
+.<a name="IsNonZeroInteger">
+
+</a>
+<a name="isnonzerointeger">
+
+</a>
+<h3>
+<hr>IsNonZeroInteger -- test for a nonzero integer
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNonZeroInteger(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- integer to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether the integer <b><tt>n</tt></b> is not zero. If <b><tt>n</tt></b> is
+not an integer, the result is <b><tt>False</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsNonZeroInteger(0)
+Out&gt; False;
+In&gt; IsNonZeroInteger(-2)
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsPositiveInteger" target="Chapters">
+IsPositiveInteger
+</a>
+, <a href="ref.html?IsNegativeInteger" target="Chapters">
+IsNegativeInteger
+</a>
+, <a href="ref.html?IsNotZero" target="Chapters">
+IsNotZero
+</a>
+.<a name="IsInfinity">
+
+</a>
+<a name="isinfinity">
+
+</a>
+<h3>
+<hr>IsInfinity -- test for an infinity
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsInfinity(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tests whether <b><tt>expr</tt></b> is an infinity. This is only the
+case if <b><tt>expr</tt></b> is either <b><tt>Infinity</tt></b> or <b><tt>-Infinity</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsInfinity(10^1000);
+Out&gt; False;
+In&gt; IsInfinity(-Infinity);
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Integer" target="Chapters">
+Integer
+</a>
+.<a name="IsPositiveReal">
+
+</a>
+<a name="ispositivereal">
+
+</a>
+<h3>
+<hr>IsPositiveReal -- test for a numerically positive value
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsPositiveReal(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tries to approximate "expr" numerically. It returns <b><tt>True</tt></b> if this approximation is positive. In case no
+approximation can be found, the function returns <b><tt>False</tt></b>. Note that round-off errors may cause incorrect
+results.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsPositiveReal(Sin(1)-3/4);
+Out&gt; True;
+In&gt; IsPositiveReal(Sin(1)-6/7);
+Out&gt; False;
+In&gt; IsPositiveReal(Exp(x));
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+The last result is because <b><tt>Exp(x)</tt></b> cannot be
+numerically approximated if <b><tt>x</tt></b> is not known. Hence
+Yacas can not determine the sign of this expression.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsNegativeReal" target="Chapters">
+IsNegativeReal
+</a>
+, <a href="ref.html?IsPositiveNumber" target="Chapters">
+IsPositiveNumber
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+.<a name="IsNegativeReal">
+
+</a>
+<a name="isnegativereal">
+
+</a>
+<h3>
+<hr>IsNegativeReal -- test for a numerically negative value
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNegativeReal(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to test
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tries to approximate <b><tt>expr</tt></b> numerically. It returns <b><tt>True</tt></b> if this approximation is negative. In case no
+approximation can be found, the function returns <b><tt>False</tt></b>. Note that round-off errors may cause incorrect
+results.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsNegativeReal(Sin(1)-3/4);
+Out&gt; False;
+In&gt; IsNegativeReal(Sin(1)-6/7);
+Out&gt; True;
+In&gt; IsNegativeReal(Exp(x));
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+The last result is because <b><tt>Exp(x)</tt></b> cannot be
+numerically approximated if <b><tt>x</tt></b> is not known. Hence
+Yacas can not determine the sign of this expression.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsPositiveReal" target="Chapters">
+IsPositiveReal
+</a>
+, <a href="ref.html?IsNegativeNumber" target="Chapters">
+IsNegativeNumber
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+.<a name="IsConstant">
+
+</a>
+<a name="isconstant">
+
+</a>
+<h3>
+<hr>IsConstant -- test for a constant
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsConstant(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- some expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>IsConstant</tt></b> returns <b><tt>True</tt></b> if the
+expression is some constant or a function with constant arguments. It
+does this by checking that no variables are referenced in the
+expression. <b><tt>Pi</tt></b> is considered a constant.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsConstant(Cos(x))
+Out&gt; False;
+In&gt; IsConstant(Cos(2))
+Out&gt; True;
+In&gt; IsConstant(Cos(2+x))
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+, <a href="ref.html?IsInteger" target="Chapters">
+IsInteger
+</a>
+, <a href="ref.html?VarList" target="Chapters">
+VarList
+</a>
+.<a name="IsGaussianInteger">
+
+</a>
+<a name="isgaussianinteger">
+
+</a>
+<h3>
+<hr>IsGaussianInteger -- test for a Gaussian integer
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsGaussianInteger(z)
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>z</tt></b> -- a complex or real number	
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns <b><tt>True</tt></b> if the argument is a Gaussian integer and <b><tt>False</tt></b> otherwise.
+A Gaussian integer is a generalization
+of integers into the complex plane. A complex number <b> a+b*I</b> is a Gaussian
+integer if and only if <b> a</b> and <b> b</b> are integers.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsGaussianInteger(5)
+Out&gt; True;
+In&gt; IsGaussianInteger(5+6*I)
+Out&gt; True;
+In&gt; IsGaussianInteger(1+2.5*I)
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsGaussianUnit" target="Chapters">
+IsGaussianUnit
+</a>
+, <a href="ref.html?IsGaussianPrime" target="Chapters">
+IsGaussianPrime
+</a>
+.<a name="MatchLinear">
+
+</a>
+<a name="matchlinear">
+
+</a>
+<h3>
+<hr>MatchLinear -- match an expression to a polynomial of degree one in a variable
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MatchLinear(x,expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- variable to express the univariate polynomial in
+
+
+<p>
+<b><tt>expr</tt></b> -- expression to match
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>MatchLinear</tt></b> tries to match an expression to a linear (degree less than
+two) polynomial. The function returns <b><tt>True</tt></b> if it could match, and
+it stores the resulting coefficients in the variables "<b><tt>a</tt></b>" and "<b><tt>b</tt></b>"
+as a side effect. The function calling this predicate should declare
+local variables "<b><tt>a</tt></b>" and "<b><tt>b</tt></b>" for this purpose.
+<b><tt>MatchLinear</tt></b> tries to match to constant coefficients which don't
+depend on the variable passed in, trying to find a form "<b><tt>a*x+b</tt></b>"
+with "<b><tt>a</tt></b>" and "<b><tt>b</tt></b>" not depending on <b><tt>x</tt></b> if <b><tt>x</tt></b> is given as the variable.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; MatchLinear(x,(R+1)*x+(T-1))
+Out&gt; True;
+In&gt; {a,b};
+Out&gt; {R+1,T-1};
+In&gt; MatchLinear(x,Sin(x)*x+(T-1))
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Integrate" target="Chapters">
+Integrate
+</a>
+.<a name="HasExpr">
+
+</a>
+<a name="hasexpr">
+
+</a>
+<h3>
+<hr>HasExpr -- check for expression containing a subexpression
+</h3>
+<a name="HasExprArith">
+
+</a>
+<a name="hasexprarith">
+
+</a>
+<h3>
+<hr>HasExprArith -- check for expression containing a subexpression
+</h3>
+<a name="HasExprSome">
+
+</a>
+<a name="hasexprsome">
+
+</a>
+<h3>
+<hr>HasExprSome -- check for expression containing a subexpression
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+HasExpr(expr, x)
+HasExprArith(expr, x)
+HasExprSome(expr, x, list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression
+
+
+<p>
+<b><tt>x</tt></b> -- a subexpression to be found
+
+
+<p>
+<b><tt>list</tt></b> -- list of function atoms to be considered "transparent"
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The command <b><tt>HasExpr</tt></b> returns <b><tt>True</tt></b> if the expression <b><tt>expr</tt></b> contains a literal subexpression <b><tt>x</tt></b>. The expression is recursively traversed.
+
+
+<p>
+The command <b><tt>HasExprSome</tt></b> does the same, except it only looks at arguments of a given <b><tt>list</tt></b> of functions. All other functions become "opaque" (as if they do not contain anything).
+
+
+<p>
+<b><tt>HasExprArith</tt></b> is defined through <b><tt>HasExprSome</tt></b> to look only at arithmetic operations <b><tt>+</tt></b>, <b><tt>-</tt></b>, <b><tt>*</tt></b>, <b><tt>/</tt></b>.
+
+
+<p>
+Note that since the operators "<b><tt>+</tt></b>" and "<b><tt>-</tt></b>" are prefix as well as infix operators, it is currently required to use <b><tt>Atom("+")</tt></b> to obtain the unevaluated atom "<b><tt>+</tt></b>".
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; HasExpr(x+y*Cos(Ln(z)/z), z)
+Out&gt; True;
+In&gt; HasExpr(x+y*Cos(Ln(z)/z), Ln(z))
+Out&gt; True;
+In&gt; HasExpr(x+y*Cos(Ln(z)/z), z/Ln(z))
+Out&gt; False;
+In&gt; HasExprArith(x+y*Cos(Ln(x)/x), z)
+Out&gt; False;
+In&gt; HasExprSome({a+b*2,c/d},c/d,{List})
+Out&gt; True;
+In&gt; HasExprSome({a+b*2,c/d},c,{List})
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FuncList" target="Chapters">
+FuncList
+</a>
+, <a href="ref.html?VarList" target="Chapters">
+VarList
+</a>
+, <a href="ref.html?HasFunc" target="Chapters">
+HasFunc
+</a>
+.<a name="HasFunc">
+
+</a>
+<a name="hasfunc">
+
+</a>
+<h3>
+<hr>HasFunc -- check for expression containing a function
+</h3>
+<a name="HasFuncArith">
+
+</a>
+<a name="hasfuncarith">
+
+</a>
+<h3>
+<hr>HasFuncArith -- check for expression containing a function
+</h3>
+<a name="HasFuncSome">
+
+</a>
+<a name="hasfuncsome">
+
+</a>
+<h3>
+<hr>HasFuncSome -- check for expression containing a function
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+HasFunc(expr, func)
+HasFuncArith(expr, func)
+HasFuncSome(expr, func, list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression
+
+
+<p>
+<b><tt>func</tt></b> -- a function atom to be found
+
+
+<p>
+<b><tt>list</tt></b> -- list of function atoms to be considered "transparent"
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The command <b><tt>HasFunc</tt></b> returns <b><tt>True</tt></b> if the expression <b><tt>expr</tt></b> contains a function <b><tt>func</tt></b>. The expression is recursively traversed.
+
+
+<p>
+The command <b><tt>HasFuncSome</tt></b> does the same, except it only looks at arguments of a given <b><tt>list</tt></b> of functions. Arguments of all other functions become "opaque" (as if they do not contain anything).
+
+
+<p>
+<b><tt>HasFuncArith</tt></b> is defined through <b><tt>HasFuncSome</tt></b> to look only at arithmetic operations <b><tt>+</tt></b>, <b><tt>-</tt></b>, <b><tt>*</tt></b>, <b><tt>/</tt></b>.
+
+
+<p>
+Note that since the operators "<b><tt>+</tt></b>" and "<b><tt>-</tt></b>" are prefix as well as infix operators, it is currently required to use <b><tt>Atom("+")</tt></b> to obtain the unevaluated atom "<b><tt>+</tt></b>".
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; HasFunc(x+y*Cos(Ln(z)/z), Ln)
+Out&gt; True;
+In&gt; HasFunc(x+y*Cos(Ln(z)/z), Sin)
+Out&gt; False;
+In&gt; HasFuncArith(x+y*Cos(Ln(x)/x), Cos)
+Out&gt; True;
+In&gt; HasFuncArith(x+y*Cos(Ln(x)/x), Ln)
+Out&gt; False;
+In&gt; HasFuncSome({a+b*2,c/d},/,{List})
+Out&gt; True;
+In&gt; HasFuncSome({a+b*2,c/d},*,{List})
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FuncList" target="Chapters">
+FuncList
+</a>
+, <a href="ref.html?VarList" target="Chapters">
+VarList
+</a>
+, <a href="ref.html?HasExpr" target="Chapters">
+HasExpr
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>
