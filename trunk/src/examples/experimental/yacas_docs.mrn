@@ -6,7 +6,10 @@ import java.util.ArrayList;
 JEditorPane editorPane = new JEditorPane();
 editorPane.setEditable(false);
 editorPane.addHyperlinkListener(this);
-java.net.URL helpURL =new java.net.URL( "file:///C:/ted/download/yacas_manual/refchapter26.html#c26");
+//java.net.URL helpURL =new java.net.URL( "file:///C:/ted/download/yacas_manual/refchapter26.html#c26");
+
+java.net.URL helpURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("yacas_manual/Algochapter1.html");
+
 if (helpURL != null) {
     try {
         editorPane.setPage(helpURL);
