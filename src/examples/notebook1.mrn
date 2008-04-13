@@ -697,6 +697,16 @@ Write(TeXForm(Solve(a,x)));
 %end
 
 
+%yacas
+/*Execute this Yacas code and then press <shift><enter> in its output fold
+to render the LaTeX expression it generates.
+*/
+a := (2*x)*(x+3)*(x+4);
+b := Expand(a);
+Write(TeXForm(b));
+
+%end
+
 
 %beanshell
 /*This code demonstrates that any GUI interfaces can be created for use

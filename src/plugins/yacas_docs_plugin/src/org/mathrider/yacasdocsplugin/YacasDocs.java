@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JEditorPane;
 
 import org.gjt.sp.jedit.EBComponent;
 import org.gjt.sp.jedit.EBMessage;
@@ -31,6 +32,7 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 import org.gjt.sp.jedit.bsh.Interpreter;
+
 
 //import bsh.Interpreter;
 
@@ -56,12 +58,15 @@ public class YacasDocs extends JPanel
 	private View view;
 
 	private boolean floating;
+	private JScrollPane scrollPane;
 
 	//private YacasDocsTextArea textArea;
 
 	private YacasDocsToolPanel toolPanel;
 	
 	private static YacasDocs yacasDocs;
+	
+	private JEditorPane editorPane;
 	
 	//private static sHotEqn hotEqn;
     // }}}
@@ -99,7 +104,10 @@ public class YacasDocs extends JPanel
                //hotEqn, "hoteqn.applet.", "http://localhost/");
         
 		//hotEqn.setStub(stub);
-		JScrollPane scrollPane = new JScrollPane(null,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		
+		editorPane = new JEditorPane();
+		//JScrollPane editorScrollPane = new JScrollPane(editorPane);
+		scrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		JPanel spacerPanel = new JPanel();
 		spacerPanel.setBackground(java.awt.Color.WHITE);
@@ -198,19 +206,28 @@ public class YacasDocs extends JPanel
 		//hotEqn.setEquation("");
 		//System.out.println("YYYYY2: " + YacasDocs.class.getResource("yacas_manual/Algochapter1.html"));
 		
+
+		
+		
 		Interpreter interpreter = new Interpreter();
 		
 		try
 		{
-			java.net.URL helpURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("scripts/Yacas_Docs.bsh");
-		//System.out.println("YYYYY2: " + helpURL.toString());
+			//java.net.URL docsURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("scripts/Yacas_Docs.bsh");
+			java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/yacas_docs_plugin/src/scripts/Yacas_Docs.bsh");
+
+			//System.out.println("YYYYY2: " + helpURL.toString());
 		
-		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(helpURL.openStream() ));
-		try {
-			interpreter.eval( sourceIn );
-		} finally {
-			sourceIn.close();
-		}
+		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(docsURL.openStream() ));
+			try {
+				interpreter.set("yacasHelpPanel",this);
+				interpreter.set("editorScrollPane",scrollPane);
+				interpreter.set("editorPane",editorPane);
+				interpreter.set("view",view);
+				interpreter.eval( sourceIn );
+			} finally {
+				sourceIn.close();
+			}
 		
 			//interpreter.source(jeditresource:/yacas_docs_plugin.jar!/scripts/Yacas_Docs.bsh);
 		}
@@ -288,4 +305,4 @@ public class YacasDocs extends JPanel
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 
-// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
