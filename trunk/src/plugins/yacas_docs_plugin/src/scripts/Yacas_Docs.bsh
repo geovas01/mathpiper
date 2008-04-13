@@ -2,25 +2,40 @@
 import javax.swing.*;
 import javax.swing.event.*;
 import java.util.ArrayList;
+import org.gjt.sp.jedit.jEdit;
 
-JEditorPane editorPane = new JEditorPane();
+//JEditorPane editorPane = new JEditorPane();
 editorPane.setEditable(false);
 editorPane.addHyperlinkListener(this);
-java.net.URL helpURL =new java.net.URL( "file:///C:/ted/download/yacas_manual/refchapter26.html#c26");
-if (helpURL != null) {
+//java.net.URL helpURL =new java.net.URL( "file:///C:/ted/download/yacas_manual/refchapter26.html#c26");
+java.net.URL docURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("yacas_manual/codingchapters.html");
+
+if (docURL != null) {
     try {
-        editorPane.setPage(helpURL);
+        editorPane.setPage(docURL);
     } catch (IOException e) {
-        System.err.println("Attempted to read a bad URL: " + helpURL);
+        System.err.println("Attempted to read a bad URL: " + docURL);
     }
 } else {
     System.err.println("Couldn't find file: TextSamplerDemoHelp.html");
 }
 
 //Put the editor pane in a scroll pane.
-JScrollPane editorScrollPane = new JScrollPane(editorPane);
+//JScrollPane editorScrollPane = new JScrollPane(editorPane);
+
+
 editorScrollPane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+//yacasHelpPanel.remove(oldComponent);
+//yacasHelpPanel.add(java.awt.BorderLayout.CENTER, editorScrollPane);
+//yacasHelpPanel.revalidate();
+
+
+//yacasHelpPanel.invalidate();
+//yacasHelpPanel.validate(); 
+//view.getContentPane().invalidate();
+//view.getContentPane().validate();
 //editorScrollPane.setPreferredSize(new Dimension(250, 145));
 //editorScrollPane.setMinimumSize(new Dimension(10, 10));
 
@@ -30,59 +45,68 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 docker = jEdit.getActiveView().getDockableWindowManager();
-frame = new javax.swing.JFrame();
-guiBox = new Box(BoxLayout.Y_AXIS);
-messageTextField = new JTextField();
-guiBox.add(messageTextField);
-button1 = new JButton("Close GeoGebra");
-button1.setBackground(Color.green);
-button1.addActionListener(this);
-guiBox.add(button1);
-button2 = new JButton("Open GeoGebra");
-button2.setBackground(Color.yellow);
-button2.addActionListener(this);
-guiBox.add(button2);
-contentPane = frame.getContentPane();
-contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
-frame.pack();
-frame.setAlwaysOnTop(true);
-frame.setTitle("MathRider");
-frame.setSize(new Dimension(400, 400));
-frame.setResizable(true);
-frame.setPreferredSize(new Dimension(250, 200));
-frame.setLocationRelativeTo(null); // added
-frame.show();
-
-actionPerformed(event)
-{
-    src = event.getSource();
-
-    if (src == button1)
-    {
-      messageTextField.setText("GeoGebra closed.");
-      docker.hideDockableWindow( "geogebra" );
-    }
-    else if (src == button2)
-    {
-      messageTextField.setText("GeoGebra opened.");
-      docker.showDockableWindow( "geogebra" );
-    }
-
-}//end method
 
 
+//frame = new javax.swing.JFrame();
+//guiBox = new Box(BoxLayout.Y_AXIS);
+//messageTextField = new JTextField();
+//guiBox.add(messageTextField);
+//button1 = new JButton("Close GeoGebra");
+//button1.setBackground(Color.green);
+//button1.addActionListener(this);
+//guiBox.add(button1);
+//button2 = new JButton("Open GeoGebra");
+//button2.setBackground(Color.yellow);
+//button2.addActionListener(this);
+//guiBox.add(button2);
+//
+//contentPane = frame.getContentPane();
+//contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
+//frame.pack();
+//frame.setAlwaysOnTop(true);
+//frame.setTitle("MathRider");
+//frame.setSize(new Dimension(400, 400));
+//frame.setResizable(true);
+//frame.setPreferredSize(new Dimension(400, 400));
+//frame.setLocationRelativeTo(null);
+//frame.show();
+//
+//actionPerformed(event)
+//{
+//    src = event.getSource();
+//
+//    if (src == button1)
+//    {
+//      messageTextField.setText("GeoGebra closed.");
+//      docker.hideDockableWindow( "geogebra" );
+//    }
+//    else if (src == button2)
+//    {
+//      messageTextField.setText("GeoGebra opened.");
+//      docker.showDockableWindow( "geogebra" );
+//    }
+//
+//}//end method
+//
+//
 
 hyperlinkUpdate(event)
 {
   url = event.getURL();
-  System.out.println("YYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
+  //System.out.println("YYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
   if(event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
   {
     reference = url.getRef();
     query = url.getQuery();
+    
+    System.out.println("YYYY: " + "url: " + url + "  path: " + url.getPath() );
+    
     if(reference != null)
     {
         editorPane.setPage(url);
+	
+
+
     }
     else
     {   
@@ -93,10 +117,12 @@ hyperlinkUpdate(event)
             path = path.replaceFirst("ref.html", match);
             path = path + "#" + query;
             path = "file://" + path;
-            System.out.println("TTT path: " + path );
+            //System.out.println("TTT path: " + path );
             url2 = new URL(path);
-            editorPane.setPage(url2);
-        }//end if
+            editorPane.setPage(url2); 
+	    
+
+        }//end if 
     }
     
   }//end if.  + getRef())

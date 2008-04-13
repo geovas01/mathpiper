@@ -1,6 +1,6 @@
 Development notes.
 
-:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wordWrap=soft:
+:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:wordWrap=soft:
 
 {{{====To Do
 + Add default fold which will set default fold properties like output="output".
@@ -33,6 +33,7 @@ Development notes.
 + Make fold types a property for use by Shift_Enter.bsh file, mode file, and the configurable fold handler plugin.
 + Allow help on a Yacas function to be brought up by ???ing on it (including the source code of the function).
 + Check to see if we can remove the C: stripping code from Shift_Enter.bsh with this: file:///C:/ted/download/yacas_manual/refchapter26.html#c26".
++ Allow multiple output folds to be generated.  For example, both %latex and normal %output.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
