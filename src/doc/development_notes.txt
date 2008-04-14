@@ -25,7 +25,7 @@ Development notes.
 + Place MathRider variables in standard jEdit beanshell environment.
 + Use the ContextMenu plugin to create a special popup menu for .mrn files.
 + Add dock sidekick plugin to the right side of the screen and have it show outline of .mrn files.
-+ Use ShortCutSaver plugin for .mrn shortcut keys (maybe like <shift><enter>.
++ Use ShortCutSaver plugin for .mrn shortcut keys (maybe like <shift><enter>).
 + Study TextAutocomplete plugin for ideas on keyword autocompletion.
 - Fix problem where %output folds don't cause extra %ends but %error folds do.
 + Figure out a way to output the result of the last expression in a fold without Writing or Echoing.
@@ -34,6 +34,11 @@ Development notes.
 + Allow help on a Yacas function to be brought up by ???ing on it (including the source code of the function).
 + Check to see if we can remove the C: stripping code from Shift_Enter.bsh with this: file:///C:/ted/download/yacas_manual/refchapter26.html#c26".
 + Allow multiple output folds to be generated.  For example, both %latex and normal %output.
++ Allow source code for any function in the standard library to be brought up in the editor (like Sage ?? command).
++ Allow font size to be adjusted for any TextArea.
++ Allow Yacas Docs JEditorPane to be scrolled with the up and down arrows.
++ Allow Yacas Docs JEditorPane to save bookmarks.
++ Show "breadcrumb trail" at the top of the Yacas Docs window.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -89,7 +94,8 @@ Echo(a);
      }}}
 
 Why is this list missing commas and curly braces?
-+++
+===
++ Link from HoldArg to HoldArgNr in HoldArg documentation is broken.
 }}}
 
 {{{Yacas enhancements.

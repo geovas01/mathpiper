@@ -121,6 +121,7 @@ public class YacasDocs extends JPanel
 		scrollPane.setRowHeaderView(spacerPanel);
 		add(BorderLayout.CENTER,scrollPane);
 		
+		initDocViewer();
 	
 // Initialize and start the applet
        // hotEqn.init();
@@ -205,23 +206,17 @@ public class YacasDocs extends JPanel
 	}
     // }}}
     
-	// YacasDocsActions implementation
-
+	
     // {{{ reset()
-	public void reset() {
-		//hotEqn.setEquation("");
-		//System.out.println("YYYYY2: " + YacasDocs.class.getResource("yacas_manual/Algochapter1.html"));
-		
-
-		
-		
-		
-		
+	public void initDocViewer() {
+	
 		try
 		{
+			//Note: this is in development mode.  Switch comment to other line for distribution.
 			//java.net.URL docsURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("scripts/Yacas_Docs.bsh");
 			java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/yacas_docs_plugin/src/scripts/Yacas_Docs.bsh");
 
+			
 			//System.out.println("YYYYY2: " + helpURL.toString());
 		
 		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(docsURL.openStream() ));
@@ -244,6 +239,18 @@ public class YacasDocs extends JPanel
 
 	}//end method.
     // }}}
+
+	
+	
+	// YacasDocsActions implementation
+
+	
+	//{{{ reset()
+	public void reset()
+	{
+	}//end method.
+	//}}}
+	
     
 	
 	// {{{ home()
