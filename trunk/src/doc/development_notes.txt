@@ -39,6 +39,8 @@ Development notes.
 + Allow Yacas Docs JEditorPane to be scrolled with the up and down arrows.
 + Allow Yacas Docs JEditorPane to save bookmarks.
 + Show "breadcrumb trail" at the top of the Yacas Docs window.
++ Perhaps dynamically set the mode of .mrn files by what kind of fold the cursor is placed in.
++ Check MathAdd and other functions not being looked up in Yacas Docs.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -78,6 +80,7 @@ Initial release:
 + Why do some commands return True: while others return True with no : (Like Function);
 + What is FWatom in the factors.rep repository?
 + PrettyPrinter'Set: TexForm should be TeXForm.
++ Random, RandomSeed in same string in .js array.
 ===
 
 //What prime factors do the numbers 21, 42, and 56 have in common.

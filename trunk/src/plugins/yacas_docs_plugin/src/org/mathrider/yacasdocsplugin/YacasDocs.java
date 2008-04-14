@@ -207,7 +207,7 @@ public class YacasDocs extends JPanel
     // }}}
     
 	
-    // {{{ reset()
+    // {{{ initDocViewer()
 	public void initDocViewer() {
 	
 		try
@@ -221,7 +221,7 @@ public class YacasDocs extends JPanel
 		
 		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(docsURL.openStream() ));
 			try {
-				bshInterpreter.set("yacasHelpPanel",this);
+				bshInterpreter.set("yacasDocPanel",this);
 				bshInterpreter.set("editorScrollPane",scrollPane);
 				bshInterpreter.set("editorPane",editorPane);
 				bshInterpreter.set("view",view);
