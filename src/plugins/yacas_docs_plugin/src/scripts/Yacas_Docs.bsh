@@ -5,6 +5,590 @@ import java.util.ArrayList;
 import org.gjt.sp.jedit.jEdit;
 
 
+//{{{ functions JList
+
+//{{{ functions array.
+  functions = new String[] 
+{ 
+"Abs",
+"Add",
+"Append",
+"Apply",
+"ArcCos",
+"ArcSin",
+"ArcTan",
+"Arg",
+"Array'Create",
+"Array'CreateFromList",
+"Array'Get",
+"Array'Set",
+"Array'Size",
+"Array'ToList",
+"Assert",
+"Assoc",
+"AssocDelete",
+"AssocIndices",
+"Atom",
+"BaseVector",
+"Bernoulli",
+"BernoulliDistribution",
+"BigOh",
+"Bin",
+"BinomialDistribution",
+"BinSplitData",
+"BinSplitFinal",
+"BinSplitNum",
+"BitAnd",
+"BitOr",
+"BitXor",
+"Bodied",
+"BracketRational",
+"BubbleSort",
+"Builtin'Precision'Get",
+"Builtin'Precision'Set",
+"CachedConstant",
+"CanProve",
+"Catalan",
+"CatalanNumber",
+"Ceil",
+"CForm",
+"CharacteristicEquation",
+"Check",
+"ChiSquareTest",
+"Cholesky",
+"Clear",
+"ClearError",
+"ClearErrors",
+"Coef",
+"CoFactor",
+"Complex",
+"Concat",
+"ConcatStrings",
+"Conjugate",
+"Contains",
+"Content",
+"ContFrac",
+"ContFracEval",
+"ContFracList",
+"Cos",
+"Count",
+"CrossProduct",
+"Curl",
+"CurrentFile",
+"CurrentLine",
+"Cyclotomic",
+"D",
+"Decimal",
+"DefaultTokenizer",
+"DefLoad",
+"DefMacroRuleBase",
+"DefMacroRuleBaseListed",
+"Degree",
+"Delete",
+"Denom",
+"DestructiveAppend",
+"DestructiveDelete",
+"DestructiveInsert",
+"DestructiveReplace",
+"DestructiveReverse",
+"Determinant",
+"Diagonal",
+"DiagonalMatrix",
+"Difference",
+"Div",
+"Diverge",
+"Divisors",
+"DivisorsList",
+"DivisorsSum",
+"Dot",
+"Drop",
+"DumpErrors",
+"Echo",
+"EigenValues",
+"EigenVectors",
+"Eliminate",
+"EndOfFile",
+"Equals",
+"Euler",
+"Eulerian",
+"Eval",
+"EvalFormula",
+"EvaluateHornerScheme",
+"Exp",
+"Expand",
+"ExpandBrackets",
+"ExtraInfo'Get",
+"ExtraInfo'Set",
+"Factor",
+"FactorialSimplify",
+"Factorize",
+"Factors",
+"FermatNumber",
+"FillList",
+"Find",
+"FindFile",
+"FindFunction",
+"FindRealRoots",
+"FlatCopy",
+"Flatten",
+"Floor",
+"For",
+"ForEach",
+"FromBase",
+"FromFile",
+"FromString",
+"FullForm",
+"FuncList",
+"FuncListArith",
+"FuncListSome",
+"Function",
+"Gamma",
+"GarbageCollect",
+"GaussianFactors",
+"GaussianGcd",
+"GaussianNorm",
+"Gcd",
+"GenericTypeName",
+"GetCoreError",
+"GetError",
+"GetErrorTableau",
+"GetTime",
+"GlobalPop",
+"GlobalPush",
+"GoldenRatio",
+"GreaterThan",
+"GuessRational",
+"HarmonicNumber",
+"HasExpr",
+"HasExprArith",
+"HasExprSome",
+"HasFunc",
+"HasFuncArith",
+"HasFuncSome",
+"Head",
+"HeapSort",
+"HessianMatrix",
+"HilbertInverseMatrix",
+"HilbertMatrix",
+"Hold",
+"HoldArg",
+"HoldArgNr",
+"Horner",
+"I",
+"Identity",
+"If",
+"Im",
+"Infinity",
+"Infix",
+"InNumericMode",
+"InProduct",
+"Insert",
+"Integrate",
+"Intersection",
+"IntLog",
+"IntNthRoot",
+"IntPowerNum",
+"InVerboseMode",
+"Inverse",
+"InverseTaylor",
+"IsAmicablePair",
+"IsAtom",
+"IsBodied",
+"IsBoolean",
+"IsBound",
+"IsCarmichaelNumber",
+"IsCFormable",
+"IsComposite",
+"IsConstant",
+"IsCoprime",
+"IsDiagonal",
+"IsError",
+"IsEven",
+"IsEvenFunction",
+"IsFreeOf",
+"IsFunction",
+"IsGaussianInteger",
+"IsGaussianPrime",
+"IsGaussianUnit",
+"IsGeneric",
+"IsHermitian",
+"IsIdempotent",
+"IsInfinity",
+"IsInfix",
+"IsIrregularPrime",
+"IsList",
+"IsLowerTriangular",
+"IsMatrix",
+"IsNegativeInteger",
+"IsNegativeNumber",
+"IsNegativeReal",
+"IsNonObject",
+"IsNonZeroInteger",
+"IsNotZero",
+"IsNumber",
+"IsNumericList",
+"IsOdd",
+"IsOddFunction",
+"IsOrthogonal",
+"IsPositiveInteger",
+"IsPositiveNumber",
+"IsPositiveReal",
+"IsPostfix",
+"IsPrefix",
+"IsPrime",
+"IsPrimePower",
+"IsPromptShown",
+"IsQuadraticResidue",
+"IsRational",
+"IsScalar",
+"IsSkewSymmetric",
+"IsSmallPrime",
+"IsSquareFree",
+"IsSquareMatrix",
+"IsString",
+"IsSymmetric",
+"IsTwinPrime",
+"IsUnitary",
+"IsUpperTriangular",
+"IsVector",
+"IsZero",
+"IsZeroVector",
+"JacobianMatrix",
+"JacobiSymbol",
+"KnownFailure",
+"LagrangeInterpolant",
+"LambertW",
+"LaplaceTransform",
+"Lcm",
+"LeadingCoef",
+"LeftPrecedence",
+"LegendreSymbol",
+"Length",
+"LessThan",
+"LeviCivita",
+"Limit",
+"LispRead",
+"LispReadListed",
+"List",
+"Listify",
+"Ln",
+"LnCombine",
+"LnExpand",
+"Load",
+"Local",
+"LocalSymbols",
+"LogicTest",
+"LogicVerify",
+"Macro",
+"MakeVector",
+"Map",
+"MapArgs",
+"MapSingle",
+"MatchLinear",
+"MathAbs",
+"MathAdd",
+"MathAnd",
+"MathArcCos",
+"MathArcCosh",
+"MathArcSin",
+"MathArcSinh",
+"MathArcTan",
+"MathArcTanh",
+"MathCeil",
+"MathCos",
+"MathCosh",
+"MathDiv",
+"MathDivide",
+"MathExp",
+"MathFloor",
+"MathGcd",
+"MathGetExactBits",
+"MathLog",
+"MathMod",
+"MathMultiply",
+"MathNot",
+"MathOr",
+"MathPower",
+"MathSetExactBits",
+"MathSin",
+"MathSinh",
+"MathSqrt",
+"MathSubtract",
+"MathTan",
+"MathTanh",
+"MatrixPower",
+"MatrixSolve",
+"Max",
+"MaxEvalDepth",
+"MaximumBound",
+"Min",
+"MinimumBound",
+"Minor",
+"Mod",
+"Moebius",
+"MoebiusDivisorsList",
+"Monic",
+"MultiplyNum",
+"N",
+"NearRational",
+"NewLine",
+"Newton",
+"NewtonNum",
+"NextPrime",
+"NFunction",
+"Nl",
+"NonN",
+"Normalize",
+"Not",
+"NrArgs",
+"Nth",
+"NthRoot",
+"Numer",
+"NumRealRoots",
+"Object",
+"OdeOrder",
+"OdeSolve",
+"OdeTest",
+"OldSolve",
+"OMDef",
+"OMForm",
+"OMRead",
+"OpLeftPrecedence",
+"OpPrecedence",
+"OpRightPrecedence",
+"OrthoG",
+"OrthogonalBasis",
+"OrthoGSum",
+"OrthoH",
+"OrthoHSum",
+"OrthoL",
+"OrthoLSum",
+"OrthonormalBasis",
+"OrthoP",
+"OrthoPoly",
+"OrthoPolySum",
+"OrthoPSum",
+"OrthoT",
+"OrthoTSum",
+"OrthoU",
+"OrthoUSum",
+"Outer",
+"PAdicExpand",
+"Partition",
+"PatchLoad",
+"PatchString",
+"PDF",
+"Permutations",
+"Pi",
+"Plot2D",
+"Plot3DS",
+"Pop",
+"PopBack",
+"PopFront",
+"Postfix",
+"Prefix",
+"PrettyForm",
+"PrimitivePart",
+"PrintList",
+"Prog",
+"ProperDivisors",
+"ProperDivisorsSum",
+"Pslq",
+"PSolve",
+"Push",
+"RadSimp",
+"RamanujanSum",
+"Random",
+"RandomIntegerMatrix",
+"RandomIntegerVector",
+"RandomPoly",
+"RandomSeed",
+"RandVerifyArithmetic",
+"Rationalize",
+"Re",
+"Read",
+"ReadCmdLineString",
+"ReadToken",
+"RemoveDuplicates",
+"Replace",
+"Retract",
+"Reverse",
+"ReversePoly",
+"RightAssociative",
+"RightPrecedence",
+"Rng",
+"RngCreate",
+"RngSeed",
+"Round",
+"RoundTo",
+"Rule",
+"RuleBase",
+"RuleBaseArgList",
+"RuleBaseListed",
+"Secure",
+"Select",
+"Set",
+"SetGlobalLazyVariable",
+"ShiftLeft",
+"ShiftRight",
+"Sign",
+"Simplify",
+"Sin",
+"Solve",
+"SolveMatrix",
+"Space",
+"Sparsity",
+"Sqrt",
+"SquareFree",
+"SquareFreeDivisorsList",
+"StirlingNumber1",
+"String",
+"StringMid'Get",
+"StringMid'Set",
+"Subfactorial",
+"Subst",
+"SuchThat",
+"Sum",
+"SumForDivisors",
+"SumTaylorNum",
+"Swap",
+"SylvesterMatrix",
+"SystemCall",
+"Table",
+"TableForm",
+"Tail",
+"Take",
+"Tan",
+"Taylor",
+"TestYacas",
+"TeXForm",
+"Time",
+"ToBase",
+"ToeplitzMatrix",
+"ToFile",
+"ToStdout",
+"ToString",
+"Trace",
+"TraceExp",
+"TraceRule",
+"TraceStack",
+"Transpose",
+"TrapError",
+"TrigSimpCombine",
+"TruncRadian",
+"Type",
+"Undefined",
+"UnFence",
+"UnFlatten",
+"Union",
+"UniqueConstant",
+"UnList",
+"Until",
+"Use",
+"V",
+"VandermondeMatrix",
+"VarList",
+"VarListArith",
+"VarListSome",
+"Verify",
+"VerifyArithmetic",
+"VerifyDiv",
+"While",
+"WithValue",
+"Write",
+"WriteString",
+"WronskianMatrix",
+"XmlExplodeTag",
+"XmlTokenizer",
+"ZeroMatrix",
+"ZeroVector",
+"Zeta"
+};
+//}}}
+  
+     listPanel = new JPanel();
+  
+//    listPanel.setLayout(new BorderLayout());
+    list = new JList(functions);
+    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    list.addListSelectionListener(this);
+    JScrollPane pane = new JScrollPane(list);
+//    JButton button = new JButton("Print");
+//    button.addActionListener(this);
+
+//    listPanel.add(pane, BorderLayout.CENTER);
+//    listPanel.add(button, BorderLayout.SOUTH);
+ 
+    yacasDocPanel.add(pane, BorderLayout.WEST);
+
+//    JFrame frame = new JFrame("Simple List Example");
+    //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+//    frame.setContentPane(listPanel);
+//    frame.setSize(250, 200);
+//    frame.setVisible(true);
+ 
+
+
+  // An inner class to respond to clicks on the Print button
+
+    
+    
+    valueChanged(e)
+    {
+        if (e.getValueIsAdjusting())
+          return;
+        index = e.getFirstIndex();
+	item = list.getSelectedValue();
+        
+        //System.out.println("IIIII Item: " + list.getSelectedValue());
+		
+	//System.out.println("MMMMMM match: " + findFileForFunction(item));
+
+
+        chapter = findFileForFunction(item);
+        if(! chapter.equals(""))
+        {
+            //path = url.getPath();
+//	    path = urlString;
+//            path = path.replaceFirst("ref.html", match);
+	    
+	
+	    docPart = "yacas_manual/" + chapter;
+	    //System.out.println("   QQQ path: " + path  + "   docPart: " + docPart + "  chapter: " + chapter);
+	    urlWithChapter = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+
+	    
+            //path = path + "#" + query;
+           // path = "file://" + path;
+           // System.out.println("TTT path: " + path );
+            //url = new URL(path);
+        
+	    if (urlWithChapter != null) {
+	    try { 
+
+		    
+		    addChapter = urlWithChapter.toExternalForm() + "#" + item;
+		    editorPane.setPage(new URL(addChapter));
+		    //editorPane.setPage(urlWithChapter);
+		    //System.out.println(   "QRQRQR " + " urlWithChapter: " + urlWithChapter + " Chapter: " + Chapter + "  addChapter: " + addChapter + " item: " + item);
+		    //editorPane.scrollToReference(Chapter);
+	    } catch (IOException e) {
+		    System.err.println("Attempted to read a bad URL: " + urlWithChapter);
+	    }
+	    } 
+	    else {
+		    System.err.println("Couldn't find file: " + urlWithChapter );
+	    }//end else	    
+
+        }//end if 
+
+  }//end method.
+///}}}
+
+
+
+//{{{ home
 home()
 {
 	java.net.URL docURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("yacas_manual/books2.html");
@@ -19,10 +603,10 @@ home()
 		System.err.println("Couldn't find file: " + docURL );
 	}//end else
 	
-}//end method.
+}//end method.}}}
 
 
-//yacasHelpPanel.remove(oldComponent);
+//yacasDocPanel.remove(oldComponent);
 
 //JEditorPane editorPane = new JEditorPane();
 editorPane.setEditable(false);
@@ -39,12 +623,12 @@ editorScrollPane.setVerticalScrollBarPolicy(
 
 
 home();
-//yacasHelpPanel.add(java.awt.BorderLayout.CENTER, editorScrollPane);
-//yacasHelpPanel.revalidate();
+//yacasDocPanel.add(java.awt.BorderLayout.CENTER, editorScrollPane);
+//yacasDocPanel.revalidate();
 
 
-//yacasHelpPanel.invalidate();
-//yacasHelpPanel.validate(); 
+//yacasDocPanel.invalidate();
+//yacasDocPanel.validate(); 
 //view.getContentPane().invalidate();
 //view.getContentPane().validate();
 //editorScrollPane.setPreferredSize(new Dimension(250, 145));
@@ -165,7 +749,7 @@ hyperlinkUpdate(event)
 		    addQuery = urlWithQuery.toExternalForm() + "#"+query;
 		    editorPane.setPage(new URL(addQuery));
 		    //editorPane.setPage(urlWithQuery);
-		    System.out.println(   "QRQRQR " + " urlWithQuery: " + urlWithQuery + " query: " + query + "  addQuery: " + addQuery);
+		    //System.out.println(   "QRQRQR " + " urlWithQuery: " + urlWithQuery + " query: " + query + "  addQuery: " + addQuery);
 		    //editorPane.scrollToReference(query);
 	    } catch (IOException e) {
 		    System.err.println("Attempted to read a bad URL: " + urlWithQuery);
@@ -262,7 +846,8 @@ funcs_refchapter4 = new String[]{
 , "Limit"
 };
 funcs_refchapter5 = new String[]{
-"Random, RandomSeed"
+"Random"
+,"RandomSeed"
 , "RngCreate"
 , "RngSeed"
 , "Rng"
@@ -751,7 +1336,7 @@ funcs_refchapter32 = new String[]{
 
 
 
-findFileForFunctionInrefprog(seach) {
+findFileForFunctionInrefprog(seach2) {
 funcs_refprogchapter1 = new String[]{};
 funcs_refprogchapter2 = new String[]{
 "/*"
@@ -879,45 +1464,45 @@ funcs_refprogchapter9 = new String[]{
 };
 funcs_refprogchapter10 = new String[]{
 };
-  if (containsFunc(funcs_refprogchapter1,seach))
+  if (containsFunc(funcs_refprogchapter1,seach2))
     return "refprogchapter1.html";
-  if (containsFunc(funcs_refprogchapter2,seach))
+  if (containsFunc(funcs_refprogchapter2,seach2))
     return "refprogchapter2.html";
-  if (containsFunc(funcs_refprogchapter3,seach))
+  if (containsFunc(funcs_refprogchapter3,seach2))
     return "refprogchapter3.html";
-  if (containsFunc(funcs_refprogchapter4,seach))
+  if (containsFunc(funcs_refprogchapter4,seach2))
     return "refprogchapter4.html";
-  if (containsFunc(funcs_refprogchapter5,seach))
+  if (containsFunc(funcs_refprogchapter5,seach2))
     return "refprogchapter5.html";
-  if (containsFunc(funcs_refprogchapter6,seach))
+  if (containsFunc(funcs_refprogchapter6,seach2))
     return "refprogchapter6.html";
-  if (containsFunc(funcs_refprogchapter7,seach))
+  if (containsFunc(funcs_refprogchapter7,seach2))
     return "refprogchapter7.html";
-  if (containsFunc(funcs_refprogchapter8,seach))
+  if (containsFunc(funcs_refprogchapter8,seach2))
     return "refprogchapter8.html";
-  if (containsFunc(funcs_refprogchapter9,seach))
+  if (containsFunc(funcs_refprogchapter9,seach2))
     return "refprogchapter9.html";
-  if (containsFunc(funcs_refprogchapter10,seach))
+  if (containsFunc(funcs_refprogchapter10,seach2))
     return "refprogchapter10.html";
   return "";
 }//end method.
 
 
-findFileForFunction(seach)
+findFileForFunction(seach3)
 {
   file = "";
   if (file.equals(""))
-    file = findFileForFunctionInref(seach);
+    file = findFileForFunctionInref(seach3);
   if (file.equals(""))
-    file = findFileForFunctionInrefprog(seach);
+    file = findFileForFunctionInrefprog(seach3);
   return file;
 }//end method.
 
-containsFunc(chapter,func)
+containsFunc(chapterx,func)
 {
-  for (i=0;i<chapter.length;i++)
+  for (i=0;i<chapterx.length;i++)
   {
-    if (chapter[i].equals(func))
+    if (chapterx[i].equals(func))
       return true;
   }
   return false;
