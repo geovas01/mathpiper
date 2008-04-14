@@ -8,6 +8,21 @@ import org.gjt.sp.jedit.textarea.Selection;
 import errorlist.*;
 
 
+
+stripWindowsDriveLetter(tempFilePath)
+{
+	//Remove Windows drive letter from the path.
+	if(tempFilePath.indexOf(":") != -1)
+	{
+		tempFilePath = tempFilePath.split(":")[1];
+			
+		//Change window's backslashes to forward slashes.
+		tempFilePath = tempFilePath.replace("\\","/");
+	}//end if
+	
+	return tempFilePath;
+}//end method.
+
 //Note: This code needs to be moved to a Java object.
 //errorSource = new DefaultErrorSource("MathRider");
 //ErrorSource.registerErrorSource(errorSource);
@@ -170,13 +185,7 @@ if(path.endsWith(".ys")){
 			{   
 				tempFilePath = tempFile.getAbsolutePath();
 				
-				//Remove Windows drive letter from the path.
-				if(tempFilePath.indexOf(":") != -1){
-					tempFilePath = tempFilePath.split(":")[1];
-			
-					//Change window's backslashes to forward slashes.
-					tempFilePath = tempFilePath.replace("\\","/");
-				}//end if
+				tempFilePath = stripWindowsDriveLetter(tempFilePath);
 			
 				//System.out.println(tempFilePath);
         	
@@ -378,16 +387,16 @@ if(path.endsWith(".ys")){
 	///{{{ *** %html ***
 		else if(foldType.equalsIgnoreCase("%html")) 
 		{
-			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "yacasdocs" );
+			//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "yacasdocs" );
 			
-			result = "HotEqn updated.";
+			result = "";
 			status = "%output";
 			
 			try 
 			{   
 				tempFilePath = tempFile.getAbsolutePath();
-				
-				
+				tempFilePath = stripWindowsDriveLetter(tempFilePath);
+				tempFilePath = "file://" + tempFilePath;
 				frame = new javax.swing.JFrame();
 				contentPane = frame.getContentPane();
 				JEditorPane editorPane = new JEditorPane();
@@ -395,10 +404,10 @@ if(path.endsWith(".ys")){
 				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				editorPane.setEditable(false);
 				//editorPane.addHyperlinkListener(this);
-				java.net.URL url = new java.net.URL(tempFilePath);
+				//java.net.URL url = new java.net.URL(tempFilePath);
 				if (url != null) 
 				{
-					editorPane.setPage(url);
+					editorPane.setPage(tempFilePath);
 					contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
 					frame.pack();
 					frame.setAlwaysOnTop(true);
@@ -511,6 +520,9 @@ if(path.endsWith(".ys")){
 	
 
 }//end else if.
+
+
+
 
 /* {{{ License.
  * This program is free software; you can redistribute it and/or
