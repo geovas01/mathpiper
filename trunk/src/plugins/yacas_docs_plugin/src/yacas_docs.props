@@ -53,6 +53,7 @@ yacasdocs.label=yacasdocs
 
 # action labels for actions supplied by actions.xml
 yacasdocs.reset.label=Clear YacasDocs
+yacasdocs.home.label=Home
 yacasdocs.save-file.label=Save notepad file
 yacasdocs.copy-to-buffer.label=Copy notepad to buffer
 
@@ -66,6 +67,7 @@ options.yacasdocs.code=new org.mathrider.yacasdocsplugin.YacasDocsOptionPane();
 options.yacasdocs.label=yacasdocs
 options.yacasdocs.file=File:
 options.yacasdocs.reset=Clear
+options.yacasdocs.home=Hlear
 options.yacasdocs.reset.title=Clear YacasDocs
 options.yacasdocs.choose-font=Font:
 options.yacasdocs.show-filepath.title=Display notepad file path
@@ -75,6 +77,7 @@ yacasdocs.title=YacasDocs
 
 # window toolbar buttons
 yacasdocs.reset.icon=Clear.png
+yacasdocs.home.icon=Home.png
 yacasdocs.save-file.icon=Save.png
 yacasdocs.copy-to-buffer.icon=CopyToBuffer.png
 

@@ -201,7 +201,7 @@ public class YacasDocs extends JPanel
     
 	// YacasDocsActions implementation
 
-    // {{{
+    // {{{ reset()
 	public void reset() {
 		//hotEqn.setEquation("");
 		//System.out.println("YYYYY2: " + YacasDocs.class.getResource("yacas_manual/Algochapter1.html"));
@@ -235,32 +235,16 @@ public class YacasDocs extends JPanel
 		{
 			e.printStackTrace();
 		}
-//			interpreter.set("helpURL",helpURL);
-//			interpreter.set("jEdit",jEdit);
-//			YacasDocs.class.getResource("/scripts/Yacas_Docs.bsh")
-//			
-//			
-//						try 
-//			{   
-//				tempFilePath = tempFile.getAbsolutePath();
-//
-//				//System.out.println(tempFilePath);
-//
-//				interpreter.source(tempFilePath);
-//				result = "";
-//	//System.out.println("tempFilePath: " + tempFilePath);
-//				status = "%output ";
-//	//Sy	stem.out.println("Out> " + result);
-//				
-//					
-//			}catch(Exception e) 
-//			{
-//				result = e.getMessage();
-//				status = "%error ";
-//			}
-	}
+
+	}//end method.
     // }}}
     
+	
+	// {{{ home()
+	public void home() {
+	}//end method.
+    // }}}
+	
     // {{{ chooseFile
 	public void chooseFile() {
 		/*

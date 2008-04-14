@@ -106,7 +106,7 @@ if(path.endsWith(".ys")){
 
 	}//end if.
 	*/		
-	foldSections = allFoldText.split("%yacas|%output|%geogebra|%beanshell|%hoteqn|%error");
+	foldSections = allFoldText.split("%yacas|%output|%geogebra|%beanshell|%hoteqn|%error|%html");
 	codeText = foldSections[0];
 	codeText = codeText.replaceAll("\\s+$", "");
 /*	
@@ -375,7 +375,70 @@ if(path.endsWith(".ys")){
 		}//end else
 		//end %hoteqn }}}
 
+	///{{{ *** %html ***
+		else if(foldType.equalsIgnoreCase("%html")) 
+		{
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "yacasdocs" );
+			
+			result = "HotEqn updated.";
+			status = "%output";
+			
+			try 
+			{   
+				tempFilePath = tempFile.getAbsolutePath();
 				
+				
+				frame = new javax.swing.JFrame();
+				contentPane = frame.getContentPane();
+				JEditorPane editorPane = new JEditorPane();
+				JScrollPane editorScrollPane = new JScrollPane(editorPane);
+				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				editorPane.setEditable(false);
+				//editorPane.addHyperlinkListener(this);
+				java.net.URL url = new java.net.URL(tempFilePath);
+				if (url != null) 
+				{
+					editorPane.setPage(url);
+					contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
+					frame.pack();
+					frame.setAlwaysOnTop(true);
+					frame.setTitle("MathRider");
+					frame.setSize(new Dimension(400, 400));
+					frame.setResizable(true);
+					frame.setPreferredSize(new Dimension(400, 400));
+					frame.setLocationRelativeTo(null);
+					frame.show();
+				}//end if.
+
+			}catch(Exception e) 
+			{
+				result = e.getMessage();
+				status = "%error ";
+			}
+			
+					/*
+					if(returnFlag == false)
+					{
+						errorLine = foldStartLine + lineIndex+2;
+						result = "Error on line " + errorLine + ".";
+						status = "%error";
+						
+						filePath = textArea.getBuffer().getPath();
+			    	
+						errorSource.clear();
+                	
+						errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, "Hello" ) );
+			    	
+						jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+						
+						break;      
+					}//end if.
+					*/
+
+		}//end else
+		//end %html }}}
+
+//===================================================================================
 				//Determine how many lines are in the result.
 				numberOfLines = 0;
 				charIndex = 0;
