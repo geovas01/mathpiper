@@ -68,6 +68,8 @@ public class YacasDocs extends JPanel
 	
 	private JEditorPane editorPane;
 	
+	Interpreter bshInterpreter;
+	
 	//private static sHotEqn hotEqn;
     // }}}
 
@@ -82,6 +84,9 @@ public class YacasDocs extends JPanel
 	public YacasDocs(View view, String position) {
 		super(new BorderLayout());
 		yacasDocs = this;
+		
+		bshInterpreter = new Interpreter();
+		
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
@@ -106,6 +111,7 @@ public class YacasDocs extends JPanel
 		//hotEqn.setStub(stub);
 		
 		editorPane = new JEditorPane();
+		editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
 		//JScrollPane editorScrollPane = new JScrollPane(editorPane);
 		scrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
@@ -209,7 +215,7 @@ public class YacasDocs extends JPanel
 
 		
 		
-		Interpreter interpreter = new Interpreter();
+		
 		
 		try
 		{
@@ -220,16 +226,16 @@ public class YacasDocs extends JPanel
 		
 		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(docsURL.openStream() ));
 			try {
-				interpreter.set("yacasHelpPanel",this);
-				interpreter.set("editorScrollPane",scrollPane);
-				interpreter.set("editorPane",editorPane);
-				interpreter.set("view",view);
-				interpreter.eval( sourceIn );
+				bshInterpreter.set("yacasHelpPanel",this);
+				bshInterpreter.set("editorScrollPane",scrollPane);
+				bshInterpreter.set("editorPane",editorPane);
+				bshInterpreter.set("view",view);
+				bshInterpreter.eval( sourceIn );
 			} finally {
 				sourceIn.close();
 			}
 		
-			//interpreter.source(jeditresource:/yacas_docs_plugin.jar!/scripts/Yacas_Docs.bsh);
+			//bshInterpreter.source(jeditresource:/yacas_docs_plugin.jar!/scripts/Yacas_Docs.bsh);
 		}
 		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
 		{
@@ -241,7 +247,16 @@ public class YacasDocs extends JPanel
     
 	
 	// {{{ home()
-	public void home() {
+	public void home() 
+	{
+		try {
+			bshInterpreter.eval( "home();" );
+		
+		}
+		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
+		{
+			e.printStackTrace();
+		}
 	}//end method.
     // }}}
 	
