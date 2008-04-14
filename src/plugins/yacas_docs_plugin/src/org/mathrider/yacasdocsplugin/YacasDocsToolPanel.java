@@ -39,11 +39,20 @@ public class YacasDocsToolPanel extends JPanel {
 
 		add(Box.createGlue());
 
-		add(makeCustomButton("hoteqn.reset", new ActionListener() {
+		add(makeCustomButton("yacasdocs.reset", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				YacasDocsToolPanel.this.pad.reset();
 			}
 		}));
+		
+		add(Box.createGlue());
+
+		add(makeCustomButton("yacasdocs.home", new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				YacasDocsToolPanel.this.pad.home();
+			}
+		}));
+		
 		/*
 		add(makeCustomButton("jyacas.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {

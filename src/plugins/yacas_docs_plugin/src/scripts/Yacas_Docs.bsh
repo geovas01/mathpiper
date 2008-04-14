@@ -4,11 +4,13 @@ import javax.swing.event.*;
 import java.util.ArrayList;
 import org.gjt.sp.jedit.jEdit;
 
+//yacasHelpPanel.remove(oldComponent);
+
 //JEditorPane editorPane = new JEditorPane();
 editorPane.setEditable(false);
 editorPane.addHyperlinkListener(this);
 //java.net.URL helpURL =new java.net.URL( "file:///C:/ted/download/yacas_manual/refchapter26.html#c26");
-java.net.URL docURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("yacas_manual/codingchapters.html");
+java.net.URL docURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("yacas_manual/books2.html");
 
 if (docURL != null) {
     try {
@@ -17,7 +19,7 @@ if (docURL != null) {
         System.err.println("Attempted to read a bad URL: " + docURL);
     }
 } else {
-    System.err.println("Couldn't find file: TextSamplerDemoHelp.html");
+    System.err.println("Couldn't find file: " + docURL );
 }
 
 //Put the editor pane in a scroll pane.
@@ -27,7 +29,7 @@ if (docURL != null) {
 editorScrollPane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-//yacasHelpPanel.remove(oldComponent);
+
 //yacasHelpPanel.add(java.awt.BorderLayout.CENTER, editorScrollPane);
 //yacasHelpPanel.revalidate();
 
@@ -93,37 +95,95 @@ docker = jEdit.getActiveView().getDockableWindowManager();
 hyperlinkUpdate(event)
 {
   url = event.getURL();
-  //System.out.println("YYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
+  System.out.println("    YYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
   if(event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
   {
     reference = url.getRef();
     query = url.getQuery();
     
-    System.out.println("YYYY: " + "url: " + url + "  path: " + url.getPath() );
+    urlStringForm = url.toString();
+
+    urlString = urlStringForm.substring(urlStringForm.indexOf("!/")+2,urlStringForm.length());
+    
+System.out.println("    YYYYXX: " + "url: " + url +"  path: " + url.getPath() + "   urlString: " + urlString + "   url StringForm: " + urlStringForm);
+
+    
     
     if(reference != null)
     {
-        editorPane.setPage(url);
-	
+        docPart = urlString.substring(0,urlString.indexOf("#"));
 
+	urlWithReference = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 
+        if (urlWithReference != null) {
+	    try { 
+
+		    editorPane.setPage(urlWithReference);
+		    editorPane.scrollToReference(reference);
+	    } catch (IOException e) {
+		    System.err.println("Attempted to read a bad URL: " + urlWithReference);
+	    }
+	    } 
+	    else {
+		    System.err.println("Couldn't find file: " + urlWithReference );
+	    }//end else
     }
-    else
+    else if(query != null)
     {   
         match = findFileForFunctionInref(query);
         if(! match.equals(""))
         {
-            path = url.getPath();
+            //path = url.getPath();
+	    path = urlString;
             path = path.replaceFirst("ref.html", match);
-            path = path + "#" + query;
-            path = "file://" + path;
-            //System.out.println("TTT path: " + path );
-            url2 = new URL(path);
-            editorPane.setPage(url2); 
 	    
+	
+	    docPart = path.substring(0,path.indexOf("?"));
+	    //System.out.println("   QQQ path: " + path  + "   docPart: " + docPart + "  match: " + match);
+	    urlWithQuery = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+
+	    
+            //path = path + "#" + query;
+           // path = "file://" + path;
+           // System.out.println("TTT path: " + path );
+            //url = new URL(path);
+        
+	    if (urlWithQuery != null) {
+	    try { 
+
+		    editorPane.setPage(urlWithQuery);
+		    
+		   System.out.println(   "QRQRQR " + query);
+		    editorPane.scrollToReference(query);
+	    } catch (IOException e) {
+		    System.err.println("Attempted to read a bad URL: " + urlWithQuery);
+	    }
+	    } 
+	    else {
+		    System.err.println("Couldn't find file: " + urlWithQuery );
+	    }//end else	    
 
         }//end if 
     }
+    else
+    {
+	    	urlNormal = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource(urlString);
+
+        if (urlNormal != null) {
+	    try { 
+
+		    editorPane.setPage(urlNormal);
+		    editorPane.scrollToReference(reference);
+	    } catch (IOException e) {
+		    System.err.println("Attempted to read a bad URL: " + urlNormal);
+	    }
+	    } 
+	    else {
+		    System.err.println("Couldn't find file: " + urlNormal );
+	    }//end else
+    }//end else. 
+    
+    
     
   }//end if.  + getRef())
 }//end method.

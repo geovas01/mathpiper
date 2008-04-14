@@ -30,6 +30,7 @@
         <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%hoteqn</EOL_SPAN>
 		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%end</EOL_SPAN>
         <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%beanshell</EOL_SPAN>
+	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%html</EOL_SPAN>
 
 
 
@@ -61,7 +62,12 @@
 		<SPAN TYPE="MARKUP" >
 			<BEGIN>     %beanshell</BEGIN>
 			<END>     %end</END>
-		</SPAN>        
+		</SPAN>  
+		
+		<SPAN TYPE="MARKUP" >
+			<BEGIN>     %html</BEGIN>
+			<END>     %end</END>
+		</SPAN>
         
         
         
