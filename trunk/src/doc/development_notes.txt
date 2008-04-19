@@ -9,7 +9,7 @@ Development notes.
 + Add shortcut and button for inserting a fold into a .mws file.
 + Allow properties to not use quotes around the value.
 + Change Geogebra to GeoGebra globally.
-+ Change file format from .mws to .mathrider (maybe leave .mws to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
+- Change file format from .mrn to .mathrider (maybe leave .mrn to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
 + Check if Yacas remembers variable values between sessions.
 + Check to make sure that at least Sun's Java 5 is installed.
 + Do better syntax checking on fold properties.
@@ -43,6 +43,7 @@ Development notes.
 + Check MathAdd and other functions not being looked up in Yacas Docs.
 + Allow folds to call other folds.
 + Allow GUI components to call folds.
++ Add uasm65 mode.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
