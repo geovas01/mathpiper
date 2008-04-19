@@ -6,10 +6,10 @@ Development notes.
 + Add default fold which will set default fold properties like output="output".
 + Add dependency code for geogebra, errorlist, etc.
 + Add output property for folds.
-+ Add shortcut and button for inserting a fold into a .mrn file.
++ Add shortcut and button for inserting a fold into a .mws file.
 + Allow properties to not use quotes around the value.
 + Change Geogebra to GeoGebra globally.
-+ Change file format from .mrn to .mathrider (maybe leave .mrn to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
++ Change file format from .mws to .mathrider (maybe leave .mws to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
 + Check if Yacas remembers variable values between sessions.
 + Check to make sure that at least Sun's Java 5 is installed.
 + Do better syntax checking on fold properties.
@@ -23,9 +23,9 @@ Development notes.
 + Macro which brings up checkbox for all properties for a % fold command when it is shift clicked.
 + Macro: right click menu which allows inserting of fold template.
 + Place MathRider variables in standard jEdit beanshell environment.
-+ Use the ContextMenu plugin to create a special popup menu for .mrn files.
-+ Add dock sidekick plugin to the right side of the screen and have it show outline of .mrn files.
-+ Use ShortCutSaver plugin for .mrn shortcut keys (maybe like <shift><enter>).
++ Use the ContextMenu plugin to create a special popup menu for .mws files.
++ Add dock sidekick plugin to the right side of the screen and have it show outline of .mws files.
++ Use ShortCutSaver plugin for .mws shortcut keys (maybe like <shift><enter>).
 + Study TextAutocomplete plugin for ideas on keyword autocompletion.
 - Fix problem where %output folds don't cause extra %ends but %error folds do.
 + Figure out a way to output the result of the last expression in a fold without Writing or Echoing.
@@ -39,8 +39,10 @@ Development notes.
 + Allow Yacas Docs JEditorPane to be scrolled with the up and down arrows.
 + Allow Yacas Docs JEditorPane to save bookmarks.
 + Show "breadcrumb trail" at the top of the Yacas Docs window.
-+ Perhaps dynamically set the mode of .mrn files by what kind of fold the cursor is placed in.
++ Perhaps dynamically set the mode of .mws files by what kind of fold the cursor is placed in.
 + Check MathAdd and other functions not being looked up in Yacas Docs.
++ Allow folds to call other folds.
++ Allow GUI components to call folds.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -81,6 +83,36 @@ Initial release:
 + What is FWatom in the factors.rep repository?
 + PrettyPrinter'Set: TexForm should be TeXForm.
 + Random, RandomSeed in same string in .js array.
++ Wiesner Thomas to yacas-devel
+	
+I'm writing a small tutorial on CAS for hobby electronics.
+However, when I tried to solve a transcendental equation numerically, I
+encountered a Problem:
+
+RL:=1
+
+equ:=10e3*(2.68e-9*(Exp((9.75*Ln(IC/(7e-18*((4500-(68*IC+25500*IC+375*IC*RL))
+/23625+1)))+25500*IC+68*IC)/0.3588e2)-1)+IC/375)+(2*(9.75*Ln(IC
+/(7e-18*((4500-(68*IC+25500*IC+375*IC*RL))/23625+1)))
++25500*IC+68*IC))/750-12==0
+
+Newton(equ[1], IC, 0.01, 1e-6) simply returns 'Undefined', but the equation has
+a (real) solution at 0.0051042 which can be found with Octave, for example.
+
+Additionally I don't understand why
+ Re(1/(I*w*c))
+gives
+ 1/(Complex(0,1)*w*c)
+as result, but the correct result is simply 0. I thought, maybe yacas assumes
+that w and c may be complex, but
+ Re(1/(I*Re(w*c)))
+doesn't work, too.
+
+Well, I thought maybe you want to know that.
+
+ mfg Thomas Wiesner
+ 
+ 
 ===
 
 //What prime factors do the numbers 21, 42, and 56 have in common.
