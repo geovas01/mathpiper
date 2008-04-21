@@ -230,13 +230,14 @@ if(path.endsWith(".ys")){
 	///{{{ *** %beanshell ***
 		else if(foldType.equalsIgnoreCase("%beanshell"))
 		{
-			buffer.setMode("beanshell");
+			//buffer.setMode("beanshell");
 			import bsh.Interpreter;
 			interpreter = new Interpreter();
 			interpreter.eval("import geogebra.GeoGebraApplet;");
 			ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 			interpreter.set("ggb",ggb);
 			interpreter.set("jEdit",jEdit);
+			interpreter.set("returnError","none");
 			
 			try 
 			{   
@@ -253,8 +254,28 @@ if(path.endsWith(".ys")){
 					
 			}catch(EvalError e) 
 			{
-				errorText = e.getErrorText();
-				errorLineNumber = e.getErrorLineNumber();
+				System.out.println(" XXXX ERROR: " + interpreter.get("returnError"));
+				System.out.println(" XXX Beanshell Exception: " + e.getMessage());
+				
+				message = e.getMessage();
+				
+				//Note: ugly hack to work around EvalError object sometimes throwing null pointer exceptions 
+				// when either getErrorText() or getErrorLineNumber() is called. 
+				if(message.indexOf("line") == -1)
+				{
+					errorText = e.getErrorText();
+					errorLineNumber = e.getErrorLineNumber();
+				}
+				else
+				{
+					errorText = e.getMessage();
+					errorLineNumber = Integer.parseInt( errorText.substring(errorText.indexOf("line") + 5, errorText.indexOf(",")));
+				}
+				
+				
+
+
+				
 
 				status = "%error ";
 							
@@ -301,7 +322,7 @@ if(path.endsWith(".ys")){
 			status = "%output";
 			if(foldProperties.get("mode").equalsIgnoreCase("xml") )
 			{
-				buffer.setMode("xml");
+				//buffer.setMode("xml");
 				geogebra.setXML(codeText);
 			}
 			else
