@@ -2,13 +2,17 @@
 #Sun Apr 06 13:41:08 EDT 2008
 buffer.maxLineLen=100
 plugin-blacklist.ConfigurableFoldHandler.jar=false
+plugin-blacklist.yacas_docs_plugin.jar=false
 buffer.folding=custom
 helpviewer.width=1162
 vfs.browser.last-filter=*[^~\#]
+yacasdocs.width=508
 log-viewer.extendedState=0
+yacasdocs.height=299
 view.extendedState=0
 error-list.dock-position=bottom
 plugin-options.last=configurablefoldhandler
+yacasdocs.dock-position=right
 tip.show=false
 buffertabs.icons=true
 view.y=2
