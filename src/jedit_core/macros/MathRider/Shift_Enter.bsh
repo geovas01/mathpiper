@@ -338,7 +338,7 @@ if(path.endsWith(".ys")){
 			
 			result = "GeoGebra updated.";
 			status = "%output";
-			if(foldProperties.get("output").equalsIgnoreCase("xml") )
+			if(foldProperties.get("input").equalsIgnoreCase("xml") )
 			{
 				//buffer.setMode("xml");
 				geogebra.setXML(codeText);
@@ -536,8 +536,18 @@ if(path.endsWith(".ys")){
 				status = "%error ";
 			}
 		}//end else
-
+		
+		
+	///{{{ *** %uasm65 ***
+		else if(foldType.equalsIgnoreCase("%output"))
+		{
+			return; //For now.
+		}
 		//end %uasm65 }}}
+		else
+		{
+			return;
+		}//end if/else
 
 //===================================================================================
 				//Determine how many lines are in the result.

@@ -43,7 +43,7 @@ ForEach(x,a)
 
 
 
-%yacas
+%yacas,output="geogebra"
 //Define a function and graph it by pressing <shift><enter> in the output fold.
 
 Clear(x);
@@ -54,7 +54,7 @@ Write(f(x));
 
 
 
-%yacas
+%yacas,output="geogebra"
 //Calculate the derivative of the function in the previous cell and graph it by
 // pressing <shift><enter> in the output fold.
 
@@ -669,10 +669,6 @@ demonstration.
 
 </geogebra>
 
-     %output
-      GeoGebra updated.
-     %end
-
 %end
 
 
@@ -680,7 +676,6 @@ demonstration.
 //Execute this fold to render the LaTeX expression it contains.
 %hoteqn
     $2\sum_{i=1}^n a_i \;\int_a^b f_i(x)g_i(x)\,dx$
-
 
 %end
 
@@ -737,7 +732,6 @@ MathRider
 
 </html>
 
-
 %end
 
 
@@ -789,10 +783,6 @@ actionPerformed(event)
     }
 
 }
-
-     %output 
-      
-     %end
 
 %end
 
