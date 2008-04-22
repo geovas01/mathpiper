@@ -32,6 +32,7 @@
         <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%beanshell</EOL_SPAN>
 	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%html</EOL_SPAN>
 	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%uasm65</EOL_SPAN>
+	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%group</EOL_SPAN>
 
 
 
@@ -74,7 +75,11 @@
 			<BEGIN>     %uasm65</BEGIN>
 			<END>     %end</END>
 		</SPAN>
-        
+		
+		<SPAN TYPE="MARKUP" >
+			<BEGIN>     %group</BEGIN>
+			<END>     %end</END>
+		</SPAN>
         
         
 

@@ -44,6 +44,8 @@ Development notes.
 + Allow folds to call other folds.
 + Allow GUI components to call folds.
 + Add uasm65 mode.
++ Fold output property could specify multiple properties by entering normal|latex.
++ Allow YacasDocs to show either the docs for a core function or its source code.  Open source code in a buffer.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -86,33 +88,35 @@ Initial release:
 + Random, RandomSeed in same string in .js array.
 + Wiesner Thomas to yacas-devel
 	
-I'm writing a small tutorial on CAS for hobby electronics.
-However, when I tried to solve a transcendental equation numerically, I
-encountered a Problem:
-
-RL:=1
-
-equ:=10e3*(2.68e-9*(Exp((9.75*Ln(IC/(7e-18*((4500-(68*IC+25500*IC+375*IC*RL))
-/23625+1)))+25500*IC+68*IC)/0.3588e2)-1)+IC/375)+(2*(9.75*Ln(IC
-/(7e-18*((4500-(68*IC+25500*IC+375*IC*RL))/23625+1)))
-+25500*IC+68*IC))/750-12==0
-
-Newton(equ[1], IC, 0.01, 1e-6) simply returns 'Undefined', but the equation has
-a (real) solution at 0.0051042 which can be found with Octave, for example.
-
-Additionally I don't understand why
- Re(1/(I*w*c))
-gives
- 1/(Complex(0,1)*w*c)
-as result, but the correct result is simply 0. I thought, maybe yacas assumes
-that w and c may be complex, but
- Re(1/(I*Re(w*c)))
-doesn't work, too.
-
-Well, I thought maybe you want to know that.
-
- mfg Thomas Wiesner
+	I'm writing a small tutorial on CAS for hobby electronics.
+	However, when I tried to solve a transcendental equation numerically, I
+	encountered a Problem:
+	
+	RL:=1
+	
+	equ:=10e3*(2.68e-9*(Exp((9.75*Ln(IC/(7e-18*((4500-(68*IC+25500*IC+375*IC*RL))
+	/23625+1)))+25500*IC+68*IC)/0.3588e2)-1)+IC/375)+(2*(9.75*Ln(IC
+	/(7e-18*((4500-(68*IC+25500*IC+375*IC*RL))/23625+1)))
+	+25500*IC+68*IC))/750-12==0
+	
+	Newton(equ[1], IC, 0.01, 1e-6) simply returns 'Undefined', but the equation has
+	a (real) solution at 0.0051042 which can be found with Octave, for example.
+	
+	Additionally I don't understand why
+	 Re(1/(I*w*c))
+	gives
+	 1/(Complex(0,1)*w*c)
+	as result, but the correct result is simply 0. I thought, maybe yacas assumes
+	that w and c may be complex, but
+	 Re(1/(I*Re(w*c)))
+	doesn't work, too.
+	
+	Well, I thought maybe you want to know that.
+	
+	 mfg Thomas Wiesner
  
++ The Load command kills the contents of % which makes it impossible to access the
+	result of the last evaluation.
  
 ===
 
