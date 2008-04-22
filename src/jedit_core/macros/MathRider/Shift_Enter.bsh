@@ -95,7 +95,8 @@ if(path.endsWith(".ys")){
 			foldType = foldType.trim();
 			
 			foldProperties = new java.util.Hashtable();
-			foldProperties.put("mode","");
+			foldProperties.put("input","");
+			foldProperties.put("output","output");
 			foldProperties.put("collapse","false");
 			foldProperties.put("clear","false");
 			if(foldTypePropertyStrings.length != 1)
@@ -123,7 +124,7 @@ if(path.endsWith(".ys")){
 
 	}//end if.
 	*/		
-	foldSections = allFoldText.split("%yacas|%output|%geogebra|%beanshell|%hoteqn|%error|%html");
+	foldSections = allFoldText.split("%yacas|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
 	codeText = foldSections[0];
 	codeText = codeText.replaceAll("\\s+$", "");
 /*	
@@ -192,15 +193,43 @@ if(path.endsWith(".ys")){
 				//System.out.println(tempFilePath);
         	
 				result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
-				if(result.indexOf("$") != -1)
+				
+				if(result != null )
 				{
+				
+					if(result.startsWith("True:"))
+					{
+						result = result.substring(5,result.length());//Remove True: which is returned by Load.
+					}
+					else if (result.startsWith("True"))
+					{
+						result = result.substring(4,result.length());//Remove True which is returned by Load.
+					}
+				}//end if.}}}
+				
+				//Note: Since Load returns "True", it kills what was in %.
+				//lastResult = interpreter.evaluate("%");
+				//System.out.println(" XXXXX: " + lastResult);
+				
+				if(foldProperties.get("output").equalsIgnoreCase("latex") )
+				{
+					result = interpreter.evaluate("TeXForm(" + result + ");");
 					result = result.replace("\"$","$");
 					result = result.replace("$\"","$");
 					status = "%hoteqn";
 				}
-				else
+				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
+				{	
+					result = interpreter.evaluate("OMForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
 				{
 					status = "%geogebra";
+				}
+				else
+				{
+					status = "%output";
 				}
 	//Sy	stem.out.println("Out> " + result);
 				
@@ -212,18 +241,7 @@ if(path.endsWith(".ys")){
 			}
 			
 			
-			if(result != null )
-			{
-				
-				if(result.startsWith("True:"))
-				{
-					result = result.substring(5,result.length());//Remove True: which is returned by Load.
-				}
-				else if (result.startsWith("True"))
-				{
-					result = result.substring(4,result.length());//Remove True which is returned by Load.
-				}
-			}//end if.}}}
+
 					
 		}//end if }}}
 		
@@ -320,7 +338,7 @@ if(path.endsWith(".ys")){
 			
 			result = "GeoGebra updated.";
 			status = "%output";
-			if(foldProperties.get("mode").equalsIgnoreCase("xml") )
+			if(foldProperties.get("output").equalsIgnoreCase("xml") )
 			{
 				//buffer.setMode("xml");
 				geogebra.setXML(codeText);
