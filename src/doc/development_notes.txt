@@ -46,6 +46,8 @@ Development notes.
 + Add uasm65 mode.
 + Fold output property could specify multiple properties by entering normal|latex.
 + Allow YacasDocs to show either the docs for a core function or its source code.  Open source code in a buffer.
++ Make indent level of output one more level than the indent level of the fold.
++ Fix problem of Yacas not being able to find file on other drive othern than the current drive.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.

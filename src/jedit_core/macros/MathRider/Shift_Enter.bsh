@@ -72,7 +72,7 @@ if(path.endsWith(".ys")){
 
 
 
-	
+	//Remove the whitespace at the end of the selected fold text.
 	allFoldText = textArea.getSelectedText().replaceAll("\\s+$", "");
 	//replaceAll("^\\s+", "");Remove whitespace at end of string.
 	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
@@ -87,6 +87,29 @@ if(path.endsWith(".ys")){
 
 			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
 			
+			
+			//Determine the indend character and how much the fold is indented by.  Then, create a string
+			//that indents one more level for the output fold.
+			indentCharType = foldStartLineText.charAt(0);
+			if(indentCharType == 9 || indentCharType == 32)
+			{
+				indentAmount = new StringBuffer();
+				for(indentCount = 0; foldStartLineText.charAt(indentCount) == indentCharType; indentCount++)
+				{
+					indentAmount.append(indentCharType);
+				}//end for.
+				//System.out.println("XXXXXXX " + indentCount);
+				
+				if(indentCharType == 9)
+				{indentAmount.append("\t");
+				}
+				else
+				{
+					indentAmount.append("    ");
+				}//end if/else/
+			}//end if.
+				
+				
 			//Obtain fold type.
 			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
 			foldTypePropertyStrings = typeText.split(",");
@@ -579,8 +602,10 @@ if(path.endsWith(".ys")){
 					void run()
 					{
 						
-						result = result.replaceAll("\n","\n      ");
-						textArea.setSelectedText("\n\n     " + status + "\n      "+ result + "\n     %end\n",false);
+						result = result.replaceAll("\n","\n" + indendAmount);//("\n","\n      ");
+						textArea.setSelectedText("\n\n" + indentAmount + status + "\n" + indentAmount + "  " + result + "\n" + indentAmount + "%end\n",false);
+						
+						//("\n\n     " + status + "\n      "+ result + "\n     %end\n",false);
 				 
 						/*//If fold type was blank, set it to the default fold type.
 						if(foldStartSelection != null)
