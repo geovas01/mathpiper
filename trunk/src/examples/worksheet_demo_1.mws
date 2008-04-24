@@ -209,9 +209,9 @@ a, b, and c to change the sin wave.
 </construction>
 </geogebra>
 
-     %output
-      GeoGebra updated.
-     %end
+void%output
+void  GeoGebra updated.
+void%end
 
 %end
 
@@ -668,6 +668,10 @@ demonstration.
 </construction>
 
 </geogebra>
+
+void%output
+void  GeoGebra updated.
+void%end
 
 %end
 

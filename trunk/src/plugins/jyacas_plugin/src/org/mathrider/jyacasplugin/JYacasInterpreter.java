@@ -20,6 +20,7 @@ import errorlist.*;
 	private static JYacasInterpreter instance = null;
     private CYacas jyacas;
 	private StringOutput stringOutput;
+	java.util.zip.ZipFile scriptsZip;
 	
 	private static DefaultErrorSource errorSource;
  
@@ -43,7 +44,13 @@ import errorlist.*;
          instance = new JYacasInterpreter();
       }
       return instance;
-   }
+   }//end method.
+   
+   
+   public java.util.zip.ZipFile getScriptsZip()
+   {
+	   return scriptsZip;
+   }//end method.
  
     /** Searches for the file yacas.jar and passes its absolute path to the Yacas interpreter.
      * This method searches in the classpath (declared i.e. in MANIFEST.MF) for the file yacasinit.ys.
@@ -57,16 +64,15 @@ import errorlist.*;
         String detect = detectURL.getPath(); // file:/home/av/src/lib/yacas.yar!/yacasinit.ys
         String archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/yacas.jar
  
-        java.util.zip.ZipFile z;
         try {
-            z = new java.util.zip.ZipFile(new java.io.File(new java.net.URI(archive)));
+            scriptsZip = new java.util.zip.ZipFile(new java.io.File(new java.net.URI(archive)));
         } catch (Exception e) {
             System.err.println(e.toString());
             return false;
         }
  
         // Pass the absolute path of yacas.jar to Yacas.
-        LispStandard.zipFile = z;
+        LispStandard.zipFile = scriptsZip;
  
         return true;
     }

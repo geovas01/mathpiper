@@ -39,11 +39,22 @@ public class YacasDocsToolPanel extends JPanel {
 
 		add(Box.createGlue());
 
-		add(makeCustomButton("yacasdocs.reset", new ActionListener() {
+		
+		//View source button.
+		String toolTip = jEdit.getProperty("yacasdocs.source.label");
+		javax.swing.JButton b = new javax.swing.JButton(jEdit.getProperty("yacasdocs.source.button-text"));
+		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				YacasDocsToolPanel.this.pad.reset();
+				YacasDocsToolPanel.this.pad.source();
 			}
-		}));
+		});
+		
+		b.setEnabled(true);
+
+		b.setToolTipText(toolTip);
+		add(b);
+		
+		
 		
 		add(Box.createGlue());
 

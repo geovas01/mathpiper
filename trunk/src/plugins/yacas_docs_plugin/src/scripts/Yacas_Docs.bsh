@@ -1,8 +1,8 @@
-
 import javax.swing.*;
 import javax.swing.event.*;
 import java.util.ArrayList;
 import org.gjt.sp.jedit.jEdit;
+import org.mathrider.jyacasplugin.JYacasInterpreter;
 
 
 //{{{ functions JList
@@ -581,7 +581,7 @@ import org.gjt.sp.jedit.jEdit;
 		    System.err.println("Couldn't find file: " + urlWithChapter );
 	    }//end else	    
 
-        }//end if 
+     }//end if 
 
   }//end method.
 ///}}}
@@ -605,6 +605,24 @@ home()
 	
 }//end method.}}}
 
+
+//{{{source()
+source()
+{
+	interpreter = JYacasInterpreter.getInstance();
+	item = list.getSelectedValue();
+	
+	try{
+		location = interpreter.evaluate("FindFunction(\"" + item + "\");");
+		System.out.println("XXXXXXXX name: " + item + "  location: " + location);
+	}catch(net.sf.yacas.Yacasexception ye) 
+	{
+		ye.printStackTrace();
+	}
+	
+}//end source.
+
+//}}}
 
 //yacasDocPanel.remove(oldComponent);
 
@@ -1506,7 +1524,7 @@ containsFunc(chapterx,func)
       return true;
   }
   return false;
-}
+}//end method.
 
 
-
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:

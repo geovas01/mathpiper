@@ -245,6 +245,20 @@ public class YacasDocs extends JPanel
 	// YacasDocsActions implementation
 
 	
+	//{{{ source()
+	public void source()
+	{
+		try {
+			bshInterpreter.eval( "source();" );
+		
+		}
+		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
+		{
+			e.printStackTrace();
+		}
+	}//end method.
+	//}}}
+	
 	//{{{ reset()
 	public void reset()
 	{
