@@ -78,7 +78,7 @@ if(path.endsWith(".ys")){
 	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
   //System.out.println("YYYY allFoldText: " + allFoldText); 
 	
-	textArea.setSelection(null);  
+	textArea.setSelection(null);
 	
 	
 		//{{{ Fold type.
@@ -88,17 +88,18 @@ if(path.endsWith(".ys")){
 			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
 			
 			
-			//Determine the indend character and how much the fold is indented by.  Then, create a string
+			//Determine the indent character and how much the fold is indented by.  Then, create a string
 			//that indents one more level for the output fold.
 			indentCharType = foldStartLineText.charAt(0);
+			indentAmount = new StringBuffer();
 			if(indentCharType == 9 || indentCharType == 32)
 			{
-				indentAmount = new StringBuffer();
+				
 				for(indentCount = 0; foldStartLineText.charAt(indentCount) == indentCharType; indentCount++)
 				{
 					indentAmount.append(indentCharType);
 				}//end for.
-				//System.out.println("XXXXXXX " + indentCount);
+				
 				
 				if(indentCharType == 9)
 				{indentAmount.append("\t");
@@ -108,10 +109,23 @@ if(path.endsWith(".ys")){
 					indentAmount.append("    ");
 				}//end if/else/
 			}//end if.
+			else
+			{
+				indentAmount.append("    ");
+			}//end else.
 				
 				
 			//Obtain fold type.
 			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
+			
+			//Remove // commenf from line if present.
+			if((commentIndex = typeText.indexOf("//")) != -1)
+			{
+				//System.out.println("XXXXXXX " + typeText);
+				typeText = typeText.substring(0,commentIndex);
+				
+			}//end if.
+			
 			foldTypePropertyStrings = typeText.split(",");
 			
 			foldType = foldTypePropertyStrings[0];
