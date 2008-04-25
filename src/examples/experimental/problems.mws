@@ -1,0 +1,81 @@
+%group
+
+    %yacas,output="geogebra"  //Note: make indent level of output one more level than the indent level of the fold.  
+        Write(2+2);
+
+        %geogebra
+          4
+        %end
+
+    %end
+        
+%end
+
+
+%beanshell
+import java.io.*;
+//Print the contents of the Yacas script zip file.
+ instance = org.mathrider.jyacasplugin.JYacasInterpreter.getInstance();
+ scriptZip = instance.getScriptsZip();
+ entries = scriptZip.entries();
+ 
+ while( entries.hasMoreElements())
+ {
+    element = entries.nextElement();
+    System.out.println("XXXXX " + element);
+ }
+ 
+ entry = scriptZip.getEntry("assoc.rep/code.ys");
+ System.out.println("YYYYYY " + entry);
+ 
+ fis = scriptZip.getInputStream(entry);
+ //
+ 
+         // Create temp file.
+        File tempFile = File.createTempFile("mathrider", ".ys");
+    
+        // Delete temp file when program exits.
+        tempFile.deleteOnExit();
+    
+	//File originFile = new File("c:\\file1.txt");
+    //File destinationFile = new File("c:\\file1.txt");
+    //if (!originFile.exists() || destinationFile.exists()) {
+      //return;
+    //}
+    try {
+      byte[] readData = new byte[1024];
+      //FileInputStream fis = new FileInputStream(originFile);
+      FileOutputStream fos = new FileOutputStream(tempFile);
+      int i = fis.read(readData);
+
+      while (i != -1) {
+        fos.write(readData, 0, i);
+        i = fis.read(readData);
+      }
+      fis.close();
+      fos.flush();
+      fos.close();
+    } catch (IOException e) {
+      System.out.println(e);
+    }//end try/catch.
+    
+    
+    
+    //textArea = org.gjt.sp.jedit.jEdit.createTextArea();
+    
+    activeView = org.gjt.sp.jedit.jEdit.getActiveView();
+    
+    buffer = org.gjt.sp.jedit.jEdit.openFile(activeView, tempFile.getAbsolutePath());
+    
+   // jf = new javax.swing.JFrame();
+   // cf = jf.getContentPane();
+   // cf.add(textArea);
+   // jf.show();
+
+    %output 
+      
+    %end
+
+%end
+
+                  
