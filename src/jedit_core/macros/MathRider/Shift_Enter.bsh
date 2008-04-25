@@ -9,18 +9,22 @@ import errorlist.*;
 import org.gjt.sp.jedit.bsh.EvalError;
 
 
-
-stripWindowsDriveLetter(tempFilePath)
+                
+ChangeToForwardSlash(tempFilePath)
 {
-	//Remove Windows drive letter from the path.
-	if(tempFilePath.indexOf(":") != -1)
-	{
-		tempFilePath = tempFilePath.split(":")[1];
-			
-		//Change window's backslashes to forward slashes.
-		tempFilePath = tempFilePath.replace("\\","/");
-	}//end if
-	
+// 	//Remove Windows drive letter from the path.
+// 	if(tempFilePath.indexOf(":") != -1)
+// 	{
+// 		tempFilePath = tempFilePath.split(":")[1];
+// 			
+// 		//Change window's backslashes to forward slashes.
+// 		tempFilePath = tempFilePath.replace("\\","/");
+// 	}//end if
+//
+
+//Change window's backslashes to forward slashes.
+ 	tempFilePath = tempFilePath.replace("\\","/");
+
 	return tempFilePath;
 }//end method.
 
@@ -225,7 +229,7 @@ if(path.endsWith(".ys")){
 			{   
 				tempFilePath = tempFile.getAbsolutePath();
 				
-				tempFilePath = stripWindowsDriveLetter(tempFilePath);
+				tempFilePath = ChangeToForwardSlash(tempFilePath);
 			
 				//System.out.println(tempFilePath);
         	
@@ -493,8 +497,8 @@ if(path.endsWith(".ys")){
 			try 
 			{   
 				tempFilePath = tempFile.getAbsolutePath();
-				tempFilePath = stripWindowsDriveLetter(tempFilePath);
-				tempFilePath = "file://" + tempFilePath;
+				tempFilePath = ChangeToForwardSlash(tempFilePath);
+				tempFilePath = "file:///" + tempFilePath;
 				frame = new javax.swing.JFrame();
 				contentPane = frame.getContentPane();
 				JEditorPane editorPane = new JEditorPane();
