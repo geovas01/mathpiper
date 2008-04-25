@@ -30,9 +30,9 @@ import java.io.*;
  
  fis = scriptZip.getInputStream(entry);
  //
- 
+        entry = entry.toString().replaceAll("/","-");
          // Create temp file.
-        File tempFile = File.createTempFile("mathrider", ".ys");
+        File tempFile = File.createTempFile(entry, ".ys");
     
         // Delete temp file when program exits.
         tempFile.deleteOnExit();
@@ -65,15 +65,31 @@ import java.io.*;
     
     activeView = org.gjt.sp.jedit.jEdit.getActiveView();
     
-    buffer = org.gjt.sp.jedit.jEdit.openFile(activeView, tempFile.getAbsolutePath());
+    //buffer = org.gjt.sp.jedit.jEdit.openFile(activeView, tempFile.getAbsolutePath());
     
    // jf = new javax.swing.JFrame();
    // cf = jf.getContentPane();
    // cf.add(textArea);
    // jf.show();
+   
+   
+				void delayDisplay()
+				{
+					//Buffer update needs to be done later in the AWT thread because of needing
+					// to wait for the buffer to be saved (which was requested earlier).
+					void run()
+					{
+						buffer = org.gjt.sp.jedit.jEdit.openFile(activeView, tempFile.getAbsolutePath());//
 
-    %output 
-      
+					}
+					org.gjt.sp.jedit.io.VFSManager.runInAWTThread(this);
+				
+				}//end method.
+				
+	delayDisplay();
+
+    %error 
+      Sourced file: C:\DOCUME~1\Ted\LOCALS~1\Temp\mathrider49640.mws_tmp : Cannot access field: toString, on object: assoc.rep/code.ys entry .toString .replaceAll ( "/" , "-" )  Line: 33
     %end
 
 %end

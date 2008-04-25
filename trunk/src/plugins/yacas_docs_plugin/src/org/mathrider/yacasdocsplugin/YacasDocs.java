@@ -225,6 +225,7 @@ public class YacasDocs extends JPanel
 				bshInterpreter.set("editorScrollPane",scrollPane);
 				bshInterpreter.set("editorPane",editorPane);
 				bshInterpreter.set("view",view);
+				bshInterpreter.set("toolPanel",this.toolPanel);
 				bshInterpreter.eval( sourceIn );
 			} finally {
 				sourceIn.close();

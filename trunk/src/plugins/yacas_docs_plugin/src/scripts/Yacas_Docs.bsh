@@ -570,6 +570,7 @@ import org.mathrider.jyacasplugin.JYacasInterpreter;
 		    
 		    addChapter = urlWithChapter.toExternalForm() + "#" + item;
 		    editorPane.setPage(new URL(addChapter));
+			toolPanel.sourceButtonEnabled(true);
 		    //editorPane.setPage(urlWithChapter);
 		    //System.out.println(   "QRQRQR " + " urlWithChapter: " + urlWithChapter + " Chapter: " + Chapter + "  addChapter: " + addChapter + " item: " + item);
 		    //editorPane.scrollToReference(Chapter);
@@ -591,6 +592,8 @@ import org.mathrider.jyacasplugin.JYacasInterpreter;
 //{{{ home
 home()
 {
+	toolPanel.sourceButtonEnabled(false);
+	
 	java.net.URL docURL = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource("yacas_manual/books2.html");
 
 	if (docURL != null) {
@@ -614,18 +617,42 @@ source()
 	
 	try{
 		location = interpreter.evaluate("FindFunction(\"" + item + "\");");
-		System.out.println("XXXXXXXX name: " + item + "  location: " + location);
+		
 	}catch(net.sf.yacas.Yacasexception ye) 
 	{
 		ye.printStackTrace();
 	}
+	finally
+	{
+		System.out.println("XXXXXXXX name: " + item + "  location: " + location);
+	}//finally.
 	
 	
 	
-	//Place script in tempory file.
-		//try {
-        // Create temp file.
-        File tempFile = File.createTempFile("mathrider", ".mws_tmp");
+import java.io.*;
+//Print the contents of the Yacas script zip file.
+ instance = org.mathrider.jyacasplugin.JYacasInterpreter.getInstance();
+ scriptZip = instance.getScriptsZip();
+ entries = scriptZip.entries();
+ 
+ //while( entries.hasMoreElements())
+ //{
+ //   element = entries.nextElement();
+ //   System.out.println("XXXXX " + element);
+ //}
+ 
+ location = location.replaceAll("\"","");
+ entry = scriptZip.getEntry(location);//location.trim());//"assoc.rep/code.ys"); 
+ 
+ if(entry != null)
+ {
+ System.out.println("YYYYYY " + entry);
+ 
+ fis = scriptZip.getInputStream(entry);
+ //
+        entry = entry.toString().replaceAll("/","-");
+         // Create temp file.
+        File tempFile = File.createTempFile(entry, ".ys");
     
         // Delete temp file when program exits.
         tempFile.deleteOnExit();
@@ -637,8 +664,8 @@ source()
     //}
     try {
       byte[] readData = new byte[1024];
-      FileInputStream fis = new FileInputStream(originFile);
-      FileOutputStream fos = new FileOutputStream(destinationFile);
+      //FileInputStream fis = new FileInputStream(originFile);
+      FileOutputStream fos = new FileOutputStream(tempFile);
       int i = fis.read(readData);
 
       while (i != -1) {
@@ -646,12 +673,45 @@ source()
         i = fis.read(readData);
       }
       fis.close();
+      fos.flush();
       fos.close();
     } catch (IOException e) {
       System.out.println(e);
     }//end try/catch.
+    
+    
+    
+    //textArea = org.gjt.sp.jedit.jEdit.createTextArea();
+    
+    activeView = org.gjt.sp.jedit.jEdit.getActiveView();
+    
+    //buffer = org.gjt.sp.jedit.jEdit.openFile(activeView, tempFile.getAbsolutePath());
+    
+   // jf = new javax.swing.JFrame();
+   // cf = jf.getContentPane();
+   // cf.add(textArea);
+   // jf.show();
+   
+   
+				void delayDisplay()
+				{
+					//Buffer update needs to be done later in the AWT thread because of needing
+					// to wait for the buffer to be saved (which was requested earlier).
+					void run()
+					{
+						buffer = org.gjt.sp.jedit.jEdit.openFile(activeView, tempFile.getAbsolutePath());//
 
-
+					}
+					org.gjt.sp.jedit.io.VFSManager.runInAWTThread(this);
+				
+				}//end method.
+				
+	delayDisplay();
+ }
+ else
+ {
+	 org.gjt.sp.jedit.Macros.message(org.gjt.sp.jedit.jEdit.getActiveView(), "Source file for (" + item + ") not found.");
+ }//end if/else.
 	
 }//end source.
 
