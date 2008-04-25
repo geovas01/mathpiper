@@ -19,6 +19,8 @@ public class YacasDocsToolPanel extends JPanel {
 	private YacasDocs pad;
 
 	private JLabel label;
+	
+	private javax.swing.JButton sourceButton;
 
 	public YacasDocsToolPanel(YacasDocs qnpad) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -42,17 +44,17 @@ public class YacasDocsToolPanel extends JPanel {
 		
 		//View source button.
 		String toolTip = jEdit.getProperty("yacasdocs.source.label");
-		javax.swing.JButton b = new javax.swing.JButton(jEdit.getProperty("yacasdocs.source.button-text"));
-		b.addActionListener(new ActionListener() {
+		sourceButton = new javax.swing.JButton(jEdit.getProperty("yacasdocs.source.button-text"));
+		sourceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				YacasDocsToolPanel.this.pad.source();
 			}
 		});
 		
-		b.setEnabled(true);
+		sourceButton.setEnabled(false);
 
-		b.setToolTipText(toolTip);
-		add(b);
+		sourceButton.setToolTipText(toolTip);
+		add(sourceButton);
 		
 		
 		
@@ -79,6 +81,11 @@ public class YacasDocsToolPanel extends JPanel {
 		*/
 		
 	}//end constructor.
+	
+	public void sourceButtonEnabled(Boolean state)
+	{
+		sourceButton.setEnabled(state);
+	}//end method.
 
 	void propertiesChanged() {
 		label.setText(pad.getFilename());
