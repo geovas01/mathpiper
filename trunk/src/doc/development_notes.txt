@@ -3,9 +3,9 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:wordWrap=soft:
 
 {{{====To Do
-+ Add default fold which will set default fold properties like output="output".
+- Add default fold which will set default fold properties like output="output".
 + Add dependency code for geogebra, errorlist, etc.
-+ Add output property for folds.
+- Add output property for folds.
 + Add shortcut and button for inserting a fold into a .mws file.
 + Allow properties to not use quotes around the value.
 + Change Geogebra to GeoGebra globally.
@@ -14,7 +14,7 @@ Development notes.
 + Check to make sure that at least Sun's Java 5 is installed.
 + Do better syntax checking on fold properties.
 + Have Yacas console use the text area font size (like svn does).
-+ Include Yacas documentation in JYacas plugin.
+- Include Yacas documentation in JYacas plugin.
 + Make the JYacas console the default console application.
 + Obtain line number when JYacas encounters an error when executing a file.
 + Perhaps run JYacas in its own thread so that the application does not lock up during execution.
@@ -29,12 +29,12 @@ Development notes.
 + Study TextAutocomplete plugin for ideas on keyword autocompletion.
 - Fix problem where %output folds don't cause extra %ends but %error folds do.
 + Figure out a way to output the result of the last expression in a fold without Writing or Echoing.
-+ Implement symbolic arithmetic so that m := 144 == 20 * a + b; n := 136 == 10 * a + b;c := m-n; works.
 + Make fold types a property for use by Shift_Enter.bsh file, mode file, and the configurable fold handler plugin.
 + Allow help on a Yacas function to be brought up by ???ing on it (including the source code of the function).
-+ Check to see if we can remove the C: stripping code from Shift_Enter.bsh with this: file:///C:/ted/download/yacas_manual/refchapter26.html#c26".
++ Check to see if we can remove the C: stripping code from Shift_Enter.bsh with this: file:///C:/ted/download/yacas_manual/refchapter26.html#c26". (Doesn't work, must fix bug in Yacas itself).
 + Allow multiple output folds to be generated.  For example, both %latex and normal %output.
-+ Allow source code for any function in the standard library to be brought up in the editor (like Sage ?? command).
++ Add autoexecute parameter which automatically executes an output fold.
+- Allow source code for any function in the standard library to be brought up in the editor (like Sage ?? command).
 + Allow font size to be adjusted for any TextArea.
 + Allow Yacas Docs JEditorPane to be scrolled with the up and down arrows.
 + Allow Yacas Docs JEditorPane to save bookmarks.
@@ -45,8 +45,8 @@ Development notes.
 + Allow GUI components to call folds.
 + Add uasm65 mode.
 + Fold output property could specify multiple properties by entering normal|latex.
-+ Allow YacasDocs to show either the docs for a core function or its source code.  Open source code in a buffer.
-+ Make indent level of output one more level than the indent level of the fold.
+ Allow YacasDocs to show either the docs for a core function or its source code.  (Open source code in a buffer).
+- Make indent level of output one more level than the indent level of the fold.
 + Fix problem of Yacas not being able to find file on other drive othern than the current drive.
 + Check toc.xml error in help.
 + Allow YacasDocs to have tabbed viewing area.  Allow right click on hyperlink to have option of opening in a new tab.
@@ -121,6 +121,7 @@ Initial release:
  
 + The Load command kills the contents of % which makes it impossible to access the
 	result of the last evaluation.
++ Implement symbolic arithmetic so that m := 144 == 20 * a + b; n := 136 == 10 * a + b;c := m-n; works.
  
 ===
 

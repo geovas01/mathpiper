@@ -1,7 +1,7 @@
 package net.sf.yacas;
 
 
-public class LispStandard //tk: made this class public so that zipfile could be accessed.
+public class LispStandard //Note:tk: made this class public so that zipfile could be accessed.
 {
   static boolean IsNumber(String ptr, boolean aAllowFloat)
   {

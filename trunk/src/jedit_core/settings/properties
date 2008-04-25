@@ -172,3 +172,4 @@ console.dock-position=bottom
 log-viewer.height=518
 search.find.value=\\n+%end
 help-menu=about help tip-of-the-day
+helpviewer.toc.welcome=Welcome to MathRider
