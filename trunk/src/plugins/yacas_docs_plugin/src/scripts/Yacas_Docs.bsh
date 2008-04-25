@@ -620,6 +620,39 @@ source()
 		ye.printStackTrace();
 	}
 	
+	
+	
+	//Place script in tempory file.
+		//try {
+        // Create temp file.
+        File tempFile = File.createTempFile("mathrider", ".mws_tmp");
+    
+        // Delete temp file when program exits.
+        tempFile.deleteOnExit();
+    
+	//File originFile = new File("c:\\file1.txt");
+    //File destinationFile = new File("c:\\file1.txt");
+    //if (!originFile.exists() || destinationFile.exists()) {
+      //return;
+    //}
+    try {
+      byte[] readData = new byte[1024];
+      FileInputStream fis = new FileInputStream(originFile);
+      FileOutputStream fos = new FileOutputStream(destinationFile);
+      int i = fis.read(readData);
+
+      while (i != -1) {
+        fos.write(readData, 0, i);
+        i = fis.read(readData);
+      }
+      fis.close();
+      fos.close();
+    } catch (IOException e) {
+      System.out.println(e);
+    }//end try/catch.
+
+
+	
 }//end source.
 
 //}}}
