@@ -9,6 +9,7 @@ class StdFileInput extends StringInput
   public StdFileInput(String aFileName, InputStatus aStatus) throws Exception
   {
     super(new StringBuffer(),aStatus);
+    //System.out.println("YYYYYY " + aFileName);//Note:tk: remove.
     FileInputStream stream = new FileInputStream(aFileName);
     int c;
     while (true)
