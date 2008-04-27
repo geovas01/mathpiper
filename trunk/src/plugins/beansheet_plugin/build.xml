@@ -65,6 +65,7 @@
 		<copy todir="${build.dir}/classes">
 			<fileset dir="./src" >
 				<include name="**/*.props"/>
+				<include name="**/*.properties"/>
 				<include name="**/*.html"/>
 				<include name="**/*.gif"/>
 				<include name="**/*.bsh"/>
@@ -78,6 +79,7 @@
 			<fileset dir="${build.classes.dir}">
 				<include name="**/*.class"/>
 				<include name="**/*.props"/>
+				<include name="**/*.properties"/>
 				<include name="**/*.html"/>
 				<include name="**/*.gif"/>
 				<include name="**/*.bsh"/>

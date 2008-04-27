@@ -196,7 +196,7 @@ public class Main
 		Main.showNewFrame(false);
 	}
 
-	public static void showNewFrame(boolean showSplashScreen)
+	public static JFrame showNewFrame(boolean showSplashScreen)
 	{
 		// frame
         final JFrame frame = new JFrame(Main.getConstant("frame.title"));
@@ -426,13 +426,14 @@ public class Main
 		moduleContext.init();
 
 		table.requestFocus();
-
-        EventQueue.invokeLater(new Runnable()
-        {
-			public void run()
-			{
-        		frame.setVisible(true);
-			}
-		});
-    }
-}
+//Note: tk.
+//        EventQueue.invokeLater(new Runnable()
+//        {
+//			public void run()
+//			{
+//        		frame.setVisible(true);
+//			}
+//		});
+	return frame;
+    }//end method.
+}//end class.
