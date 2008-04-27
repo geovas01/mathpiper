@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!-- Dockable component definition file for YacasHelpPlugin plugin -->
+<!-- $Id: dockables.xml 4474 2003-02-09 20:37:14Z spestov $
+-->
+
+<!DOCTYPE DOCKABLES SYSTEM "dockables.dtd">
+
+<!-- YacasHelpPlugin dockable windows -->
+
+<DOCKABLES>
+	<DOCKABLE NAME="beansheet">
+		new org.mathrider.beansheetplugin.BeanSheet(view, position);
+	</DOCKABLE>
+</DOCKABLES>

@@ -1,0 +1,105 @@
+# Properties file for BeanSheet plugin.
+
+#{{{ 
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.name=BeanSheet
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.docs=index.html
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin..longdescription=description.html
+#}}}
+
+
+
+
+beansheet.shell.msg.info=\nBeanSheet Shell \n\
+	  Test.\n\n
+
+beansheet.shell.msg.usage=The Ant shell supports the following commands:\n\
+		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
+		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
+		 * "?"\t\t\t\t-- lists the available build files and usage\n\
+		 * "=build_file_number"\t\t-- changes the current build file to the number identified by "?"\n\
+		 * "+[full_path_to_file]"\t\t-- load this build file into Ant Farm. Searches up the current\n\
+				   \t\t\t\t   buffer's directory tree for a "build.xml" file to load if a \n\
+				 \t\t\t\t   file is not specified. Re-loads the build file if it is already\n\
+				 \t\t\t\t   loaded.\n\n
+
+
+
+
+
+# plugin menu
+plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.menu=beansheet \
+	- \
+	beansheet.clear \
+	beansheet.save-file \
+	beansheet.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+beansheet.label=beansheet
+
+# action labels for actions supplied by actions.xml
+beansheet.source.label=View Source
+beansheet.source.button-text=Source
+beansheet.home.label=Home
+beansheet.save-file.label=Save notepad file
+beansheet.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.beansheet.option-pane=beansheet
+
+# Option pane activation BeanShell snippet
+options.beansheet.code=new org.mathrider.beansheetplugin.BeanSheetOptionPane();
+
+# Option pane labels
+options.beansheet.label=beansheet
+options.beansheet.file=File:
+options.beansheet.source=Source
+options.beansheet.home=Hlear
+options.beansheet.source.title=View Source
+options.beansheet.choose-font=Font:
+options.beansheet.show-filepath.title=Display notepad file path
+
+# window title
+beansheet.title=BeanSheet
+
+# window toolbar buttons
+#beansheet.source.icon=Clear.png
+beansheet.home.icon=Home.png
+beansheet.save-file.icon=Save.png
+beansheet.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.beansheet.show-filepath=true
+options.beansheet.font=Monospaced
+options.beansheet.fontstyle=0
+options.beansheet.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.beansheet.filepath=
+
+
+#
+#beansheet.applet.filename=
+#beansheet.applet.framePossible=false
+#beansheet.applet.showSourceIcon=true
+#beansheet.applet.enableRightClick=true
+#beansheet.applet.showMenuBar=false
+#beansheet.applet.showToolBar=true
+#beansheet.applet.showToolBarHelp=true
+#beansheet.applet.showAlgebraInput=true
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
