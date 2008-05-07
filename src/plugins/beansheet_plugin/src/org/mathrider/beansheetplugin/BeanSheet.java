@@ -64,11 +64,13 @@ public class BeanSheet extends JPanel
 
 	private BeanSheetToolPanel toolPanel;
 	
-	private static BeanSheet yacasDocs;
+	private static BeanSheet beanSheet;
 	
-	private JEditorPane editorPane;
+    static JPanel beanSheetPanel;
 	
-	Interpreter bshInterpreter;
+	//private JEditorPane editorPane;
+	
+	//Interpreter bshInterpreter;
 	
 	//private static sHotEqn hotEqn;
     // }}}
@@ -83,14 +85,15 @@ public class BeanSheet extends JPanel
 	 */
 	public BeanSheet(View view, String position) {
 		super(new BorderLayout());
-		yacasDocs = this;
+		beanSheet = this;
 		
-		bshInterpreter = new Interpreter();
+//		bshInterpreter = new Interpreter();
 		
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
-
+		beanSheetPanel = zinger.bsheet.Main.getInstance();
+		add(beanSheetPanel);   
 
 		this.toolPanel = new BeanSheetToolPanel(this);
 		add(BorderLayout.NORTH, this.toolPanel);
@@ -110,18 +113,20 @@ public class BeanSheet extends JPanel
         
 		//hotEqn.setStub(stub);
 		
-		editorPane = new JEditorPane();
-		editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
-		//JScrollPane editorScrollPane = new JScrollPane(editorPane);
-		scrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-		JPanel spacerPanel = new JPanel();
-		spacerPanel.setBackground(java.awt.Color.WHITE);
-		spacerPanel.add(new JLabel(" "));
-		scrollPane.setRowHeaderView(spacerPanel);
-		add(BorderLayout.CENTER,scrollPane);
+//		editorPane = new JEditorPane();
+//		editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+//		//JScrollPane editorScrollPane = new JScrollPane(editorPane);
+//		scrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+//			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+//		JPanel spacerPanel = new JPanel();
+//		spacerPanel.setBackground(java.awt.Color.WHITE);
+//		spacerPanel.add(new JLabel(" "));
+//		scrollPane.setRowHeaderView(spacerPanel);
+//		add(BorderLayout.CENTER,scrollPane);
 		
-		initDocViewer();
+//		initDocViewer(); 
+
+
 	
 // Initialize and start the applet
        // hotEqn.init();
@@ -142,7 +147,7 @@ public class BeanSheet extends JPanel
 	// {{{ getBeanSheet
 	public static BeanSheet getBeanSheet()
 	{	
-		return BeanSheet.yacasDocs;  
+		return BeanSheet.beanSheet;  
 	}//end method
 	// }}}
     
@@ -208,37 +213,37 @@ public class BeanSheet extends JPanel
     
 	
     // {{{ initDocViewer()
-	public void initDocViewer() {
-	
-		try
-		{
-			//Note: this is in development mode.  Switch comment to other line for distribution.
-			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("scripts/Yacas_Docs.bsh");
-			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/bean_sheet_plugin/src/scripts/Yacas_Docs.bsh");
-
-			
-			//System.out.println("YYYYY2: " + helpURL.toString());
-		
-		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(docsURL.openStream() ));
-			try {
-				bshInterpreter.set("yacasDocPanel",this);
-				bshInterpreter.set("editorScrollPane",scrollPane);
-				bshInterpreter.set("editorPane",editorPane);
-				bshInterpreter.set("view",view);
-				bshInterpreter.set("toolPanel",this.toolPanel);
-				bshInterpreter.eval( sourceIn );
-			} finally {
-				sourceIn.close();
-			}
-		
-			//bshInterpreter.source(jeditresource:/bean_sheet_plugin.jar!/scripts/Yacas_Docs.bsh);
-		}
-		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
-		{
-			e.printStackTrace();
-		}
-
-	}//end method.
+//	public void initDocViewer() {
+//	
+//		try
+//		{
+//			//Note: this is in development mode.  Switch comment to other line for distribution.
+//			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("scripts/Yacas_Docs.bsh");
+//			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/bean_sheet_plugin/src/scripts/Yacas_Docs.bsh");
+//
+//			
+//			//System.out.println("YYYYY2: " + helpURL.toString());
+//		
+//		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(docsURL.openStream() ));
+//			try {
+//				bshInterpreter.set("yacasDocPanel",this);
+//				bshInterpreter.set("editorScrollPane",scrollPane);
+//				bshInterpreter.set("editorPane",editorPane);
+//				bshInterpreter.set("view",view);
+//				bshInterpreter.set("toolPanel",this.toolPanel);
+//				bshInterpreter.eval( sourceIn );
+//			} finally {
+//				sourceIn.close();
+//			}
+//		
+//			//bshInterpreter.source(jeditresource:/bean_sheet_plugin.jar!/scripts/Yacas_Docs.bsh);
+//		}
+//		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
+//		{
+//			e.printStackTrace();
+//		}
+//
+//	}//end method.
     // }}}
 
 	
@@ -247,18 +252,18 @@ public class BeanSheet extends JPanel
 
 	
 	//{{{ source()
-	public void source()
-	{
-		try {
-			bshInterpreter.eval( "source();" );
-		
-		}
-		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
-		{
-			e.printStackTrace();
-		}
-	}//end method.
-	//}}}
+//	public void source()
+//	{
+//		try {
+//			bshInterpreter.eval( "source();" );
+//		
+//		}
+//		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
+//		{
+//			e.printStackTrace();
+//		}
+//	}//end method.
+	//}}}             
 	
 	//{{{ reset()
 	public void reset()
@@ -269,18 +274,18 @@ public class BeanSheet extends JPanel
     
 	
 	// {{{ home()
-	public void home() 
-	{
-		try {
-			bshInterpreter.eval( "home();" );
-		
-		}
-		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
-		{
-			e.printStackTrace();
-		}
-	}//end method.
-    // }}}
+//	public void home() 
+//	{
+//		try {
+//			bshInterpreter.eval( "home();" );
+//		
+//		}
+//		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
+//		{
+//			e.printStackTrace();
+//		}
+//	}//end method.
+//    // }}}
 	
     // {{{ chooseFile
 	public void chooseFile() {

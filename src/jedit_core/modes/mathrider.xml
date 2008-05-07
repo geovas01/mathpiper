@@ -37,48 +37,48 @@
 
 
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %hoteqn</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%hoteqn</BEGIN>
+			<END>%end</END>
 		</SPAN>
         
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %yacas</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%yacas</BEGIN>
+			<END>%end</END>
 		</SPAN>
         
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %output</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%output</BEGIN>
+			<END>%end</END>
 		</SPAN>
         
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %error</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%error</BEGIN>
+			<END>%end</END>
 		</SPAN>
         
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %geogebra</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%geogebra</BEGIN>
+			<END>%end</END>
 		</SPAN>
         
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %beanshell</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%beanshell</BEGIN>
+			<END>%end</END>
 		</SPAN>  
 		
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %html</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%html</BEGIN>
+			<END>%end</END>
 		</SPAN>
 		
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %uasm65</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%uasm65</BEGIN>
+			<END>%end</END>
 		</SPAN>
 		
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>     %group</BEGIN>
-			<END>     %end</END>
+			<BEGIN>%group</BEGIN>
+			<END>%end</END>
 		</SPAN>
         
         

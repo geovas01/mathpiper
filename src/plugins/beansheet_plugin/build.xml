@@ -72,6 +72,7 @@
 				<include name="actions.xml"/>
 				<include name="dockables.xml"/>
 				<include name="services.xml"/>
+				<include name="**/*.jar"/>
 			</fileset>
 		</copy>
 		
@@ -86,6 +87,7 @@
 				<include name="actions.xml"/>
 				<include name="dockables.xml"/>
 				<include name="services.xml"/>
+				<include name="**/*.jar"/>
 			</fileset>
 			<manifest> 
 				<section name="beansheet_plugin" >

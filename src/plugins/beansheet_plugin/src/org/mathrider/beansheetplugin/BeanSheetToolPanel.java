@@ -10,17 +10,20 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 import org.gjt.sp.jedit.GUIUtilities;
 import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.gui.RolloverButton;
 
-public class BeanSheetToolPanel extends JPanel {
+public class BeanSheetToolPanel extends JPanel  implements ActionListener {
 	private BeanSheet pad;
 
 	private JLabel label;
 	
 	private javax.swing.JButton sourceButton;
+	
+	zinger.bsheet.PopUpCellEditor popUpCellEditor;
 
 	public BeanSheetToolPanel(BeanSheet qnpad) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -42,29 +45,39 @@ public class BeanSheetToolPanel extends JPanel {
 		add(Box.createGlue());
 
 		
-		//View source button.
-		String toolTip = jEdit.getProperty("beansheet.source.label");
-		sourceButton = new javax.swing.JButton(jEdit.getProperty("beansheet.source.button-text"));
-		sourceButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				BeanSheetToolPanel.this.pad.source();
-			}
-		});
-		
-		sourceButton.setEnabled(false);
+//		//View source button.
+//		String toolTip = jEdit.getProperty("beansheet.source.label");
+//		sourceButton = new javax.swing.JButton(jEdit.getProperty("beansheet.source.button-text"));
+//		sourceButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent evt) {
+//				BeanSheetToolPanel.this.pad.source();
+//			}
+//		});
+//		sourceButton.setEnabled(false);
+//		sourceButton.setToolTipText(toolTip);
+//		add(sourceButton);
+//		
 
-		sourceButton.setToolTipText(toolTip);
-		add(sourceButton);
-		
-		
-		
-		add(Box.createGlue());
+		//Cell editor.
+		String toolTip = "Edit cell"; //jEdit.getProperty("beansheet.source.label");
+		JButton cellEditButton = new javax.swing.JButton("Cell editor"); //jEdit.getProperty("beansheet.source.button-text"));
+		popUpCellEditor = new zinger.bsheet.PopUpCellEditor(zinger.bsheet.Main.moduleContext.getTable());
+		cellEditButton.addActionListener(this);
+		cellEditButton.setEnabled(true);
+		cellEditButton.setToolTipText(toolTip);
+		add(cellEditButton);
 
-		add(makeCustomButton("beansheet.home", new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				BeanSheetToolPanel.this.pad.home();
-			}
-		}));
+		
+		
+		//add(Box.createGlue());
+                //
+		//add(makeCustomButton("beansheet.home", new ActionListener() {
+		//	public void actionPerformed(ActionEvent evt) {
+		//		BeanSheetToolPanel.this.pad.home();
+		//	}
+		//}));
+		
+		
 		
 		/*
 		add(makeCustomButton("jyacas.save-file", new ActionListener() {
@@ -106,6 +119,13 @@ public class BeanSheetToolPanel extends JPanel {
 		}
 		b.setToolTipText(toolTip);
 		return b;
+	}//end method.
+	
+	
+	public void actionPerformed(ActionEvent evt) {
+		System.out.println("MMMMMMM PopUpCellEditor button pressed");
+		this.popUpCellEditor.run();
+		 //BeanSheet.beanSheetPanel.moduleContext.getTable());  //BeanSheetToolPanel.this.pad.source();
 	}
 
 }//end class.

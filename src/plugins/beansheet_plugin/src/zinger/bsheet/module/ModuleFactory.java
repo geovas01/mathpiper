@@ -85,12 +85,55 @@ public class ModuleFactory
 			return null;
 		}
 		File moduleDir = new File(this.getModuleHomeDir(), moduleDirName);
+		//File moduleDir = this.getModuleHomeDir();
+		//Note:tk.
+		//System.out.println("RRRRRRRR dir: " + moduleDir + "  exists: " + moduleDir.exists() );
+		String[] tfiles = moduleDir.list();
+		//System.out.println("RRRRRRRR tfiles: " + tfiles);
+		//if(tfiles != null)
+		//{
+		//for(int x = 0; x<tfiles.length;x++)
+		//	{
+		//		System.out.println("RRRRRRRR : " + tfiles[x]);
+		//	}
+		//}
+		//
 		return moduleDir.listFiles(this.propertiesFileFilter);
 	}
 
 	public File getModuleHomeDir()
-	{
-		URL url = this.getClass().getClassLoader().getResource("zinger/bsheet/constants.properties");
+	{	
+		URL url = null;
+		//url = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("module");
+		//url = this.getClass().getClassLoader().getResource("module");
+	//url = java.lang.ClassLoader.getSystemResource("module");
+//		System.out.println("RRRRRRRR33 " + url + "  path: " + url.getPath() + " protocol: " + url.getProtocol() );
+//		
+//		File dir = null;
+//		try
+//		{
+//			//url = new URL(url.getFile());
+//			
+//			System.out.println("RRRRRRRR4 file" + url.getFile() );
+//			dir = new File(url.getFile());
+//			System.out.println("RRRRRRRR5 " + dir );
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//		finally
+//		{
+//			//System.out.println("RRRRRRRR6 " + dir);
+//			return dir;
+//		}
+//		
+		//===
+		
+//		url = this.getClass().getClassLoader().getResource("zinger/bsheet/constants.properties"); //Note:tk:
+//		//java.net.URL url = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("zinger/bsheet/constants.properties");
+//		
+
 		if(url == null)
 		{
 			return null;
@@ -100,6 +143,7 @@ public class ModuleFactory
 			try
 			{
 				url = new URL(url.getFile());
+				System.out.println("RRRRRRRR jar url" + url);
 			}
 			catch(MalformedURLException ex)
 			{
@@ -136,7 +180,7 @@ public class ModuleFactory
 			file = file.getParentFile();
 		}
 		return file;
-	}
+	}//end method.
 
 	public Module loadModule(File modDescriptor) throws IOException, ModuleLoadException
 	{

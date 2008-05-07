@@ -193,3 +193,8 @@ One could create a html-based notebook like the Sage notebook but perhaps it wou
 {{{====Tango icons
 http://sourceforge.net/tracker/index.php?func=detail&aid=1755992&group_id=588&atid=300588
 }}}
+
+{{{====Beansheet
++ Changing alignment of cells that have different fonts sets all cells to the same font.
+
+}}}

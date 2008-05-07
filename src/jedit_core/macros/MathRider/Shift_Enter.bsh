@@ -295,7 +295,7 @@ if(path.endsWith(".ys")){
 			interpreter.eval("import geogebra.GeoGebraApplet;");
 			ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 			interpreter.set("ggb",ggb);
-			interpreter.set("jEdit",jEdit);
+			interpreter.set("jEdit",org.gjt.sp.jedit.jEdit);
 			interpreter.set("returnError","none");
 			
 			try 
@@ -619,9 +619,11 @@ if(path.endsWith(".ys")){
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()
 					{
-						
-						result = result.replaceAll("\n","\n" + indendAmount);//("\n","\n      ");
-						textArea.setSelectedText("\n\n" + indentAmount + status + "\n" + indentAmount + "  " + result + "\n" + indentAmount + "%end\n",false);
+					System.out.println(result);
+						result = result.trim();
+						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
+						result = indentAmount + "  " + result;
+						textArea.setSelectedText("\n\n" + indentAmount + status + "\n" + result + "\n" + indentAmount + "%end\n",false);
 						
 						//("\n\n     " + status + "\n      "+ result + "\n     %end\n",false);
 				 

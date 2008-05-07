@@ -33,10 +33,12 @@ import zinger.util.*;
 
 public class Main
 {
+	public static ModuleContext moduleContext; //Note:tk: Engineer this better.
     protected static class EditFieldTableSelectionListener implements ListSelectionListener, ActionListener
     {
         private final JTextComponent textComponent;
         private final JTable table;
+	
 
         public EditFieldTableSelectionListener(JTextComponent textComponent, JTable table)
         {
@@ -141,7 +143,7 @@ public class Main
     public static void main(String[] args)
     {
 		System.setProperty("swing.defaultlaf", "javax.swing.plaf.metal.MetalLookAndFeel");
-		Main.showNewFrame(true);
+		//Main.showNewFrame(true);
 	}
 
 	public static synchronized Window getSplashScreen(Window owner)
@@ -193,20 +195,21 @@ public class Main
 
 	public static void showNewFrame()
 	{
-		Main.showNewFrame(false);
+//		Main.showNewFrame(false);
 	}
 
-	public static JFrame showNewFrame(boolean showSplashScreen)
+	public static JPanel getInstance()
 	{
 		// frame
-        final JFrame frame = new JFrame(Main.getConstant("frame.title"));
-        frame.setIconImage(frame.getToolkit().createImage(Main.class.getClassLoader().getResource(Main.getConstant("frame.icon"))));
-
+        //final JFrame frame = new JFrame(Main.getConstant("frame.title"));
+       // frame.setIconImage(frame.getToolkit().createImage(Main.class.getClassLoader().getResource(Main.getConstant("frame.icon"))));
+       
+       
         // splash screen
-        if(showSplashScreen)
-        {
-        	Main.showSplashScreen(frame);
-		}
+//        if(showSplashScreen)
+//        {
+//        	Main.showSplashScreen(frame);
+//	}
 
 		// table model
         BSHTableModel model = new BSHTableModel(Integer.parseInt(Main.getConstant("table.rows.count")), Integer.parseInt(Main.getConstant("table.cols.count")));
@@ -333,35 +336,35 @@ public class Main
         menuBar.add(tableMenu);
 
 		// frame setup
-        frame.setContentPane(contentPane);
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-
-        GraphicsEnvironment grenv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        int w;
-        String wStr = Main.getConstant("frame.width");
-        if(wStr == null)
-        {
-			w = (int)((float)grenv.getMaximumWindowBounds().getWidth() * Float.parseFloat(Main.getConstant("frame.width.fraction")));
-		}
-		else
-		{
-			w = Integer.parseInt(wStr);
-		}
-
-		int h;
-		String hStr = Main.getConstant("frame.height");
-		if(hStr == null)
-		{
-			h = (int)((float)grenv.getMaximumWindowBounds().getHeight() * Float.parseFloat(Main.getConstant("frame.height.fraction")));
-		}
-		else
-		{
-			h = Integer.parseInt(hStr);
-		}
-
-        frame.setSize(w, h);
-        frame.setJMenuBar(menuBar);
-        frame.setLocationRelativeTo(null);
+//        frame.setContentPane(contentPane);
+//        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//
+//        GraphicsEnvironment grenv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        int w;
+//        String wStr = Main.getConstant("frame.width");
+//        if(wStr == null)
+//        {
+//			w = (int)((float)grenv.getMaximumWindowBounds().getWidth() * Float.parseFloat(Main.getConstant("frame.width.fraction")));
+//		}
+//		else
+//		{
+//			w = Integer.parseInt(wStr);
+//		}
+//
+//		int h;
+//		String hStr = Main.getConstant("frame.height");
+//		if(hStr == null)
+//		{
+//			h = (int)((float)grenv.getMaximumWindowBounds().getHeight() * Float.parseFloat(Main.getConstant("frame.height.fraction")));
+//		}
+//		else
+//		{
+//			h = Integer.parseInt(hStr);
+//		}
+//
+//        frame.setSize(w, h);
+//        frame.setJMenuBar(menuBar);
+//        frame.setLocationRelativeTo(null);
 
         // persistence manager
         PersistenceManager impexp = new PersistenceManager(table);
@@ -377,7 +380,8 @@ public class Main
 
         newItem.addActionListener(Main.NEW_DOCUMENT_LISTENER);
 
-        frame.addWindowListener(impexp);
+        //frame.addWindowListener(impexp);  
+	
 
         // popup cell editor
         PopUpCellEditor cellEditor = new PopUpCellEditor(table);
@@ -422,8 +426,8 @@ public class Main
         cellSortItem.addActionListener(sort);
 
 		// module context
-		ModuleContext moduleContext = new ModuleContext(table, menuBar, impexp, tableModifier, formatEditor, model.bsh);
-		moduleContext.init();
+		Main.moduleContext = new ModuleContext(table, menuBar, impexp, tableModifier, formatEditor, model.bsh);
+		Main.moduleContext.init();
 
 		table.requestFocus();
 //Note: tk.
@@ -434,6 +438,6 @@ public class Main
 //        		frame.setVisible(true);
 //			}
 //		});
-	return frame;
+	return contentPane;
     }//end method.
 }//end class.
