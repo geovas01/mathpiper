@@ -209,10 +209,6 @@ a, b, and c to change the sin wave.
 </construction>
 </geogebra>
 
-void%output
-void  GeoGebra updated.
-void%end
-
 %end
 
 
@@ -669,10 +665,6 @@ demonstration.
 
 </geogebra>
 
-void%output
-void  GeoGebra updated.
-void%end
-
 %end
 
 
@@ -685,25 +677,25 @@ void%end
 
 
 
-%yacas
+%yacas,output="latex"
 /*Execute this Yacas code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
 a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
-Write(TeXForm(b));
+Write(b);
 
 %end
 
 
 
-%yacas
+%yacas,output="latex"
 /*Execute this Yacas code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
 Clear(x);
 a := x^3 - 2*x - 7 == 0;
-Write(TeXForm(Solve(a,x)));
+Write(Solve(a,x));
 
 %end
 
@@ -752,12 +744,12 @@ frame = new javax.swing.JFrame();
 guiBox = new Box(BoxLayout.Y_AXIS);
 messageTextField = new JTextField();
 guiBox.add(messageTextField);
-button1 = new JButton("Close GeoGebra");
-button1.setBackground(Color.red);
+button1 = new JButton("Open GeoGebra");
+button1.setBackground(Color.green);
 button1.addActionListener(this);
 guiBox.add(button1);
-button2 = new JButton("Open GeoGebra");
-button2.setBackground(Color.green);
+button2 = new JButton("Close GeoGebra");
+button2.setBackground(Color.red);
 button2.addActionListener(this);
 guiBox.add(button2);
 contentPane = frame.getContentPane();
@@ -777,13 +769,13 @@ actionPerformed(event)
 
     if (src == button1)
     {
-      messageTextField.setText("GeoGebra closed.");
-      docker.hideDockableWindow( "geogebra" );
+      messageTextField.setText("GeoGebra opened.");
+      docker.showDockableWindow( "geogebra" );
     }
     else if (src == button2)
     {
-      messageTextField.setText("GeoGebra opened.");
-      docker.showDockableWindow( "geogebra" );
+      messageTextField.setText("GeoGebra closed.");
+      docker.hideDockableWindow( "geogebra" );
     }
 
 }

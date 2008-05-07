@@ -94,9 +94,13 @@ public class ModuleContext
 
 	public void init()
 	{
+		System.out.println("XXXXXX Module init..");//Note:tk.
 		for(Iterator iterator = ModuleFactory.INSTANCE.getModules().iterator(); iterator.hasNext(); )
 		{
-			((Module)iterator.next()).addContext(this);
+			
+			Module mod = (Module)iterator.next();
+			System.out.println("MMMMMM Module found. " + mod);//Note:tk.
+			mod.addContext(this);
 		}
 	}
 }
