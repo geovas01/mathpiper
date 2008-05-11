@@ -8,10 +8,14 @@
 \usepackage{color}
 \usepackage{calc}
 \usepackage{hyperref}
+\usepackage{lineno}
 %\usepackage{lastpage} % total page count
+
 \hypersetup{colorlinks=true, linkcolor=blue, filecolor=blue, urlcolor=blue}
 % Outline numbering
-\setcounter{secnumdepth}{0}
+\setcounter{secnumdepth}{10}
+%\setcounter{tocdepth}{10}
+
 % Pages styles (master pages)
 \makeatletter
 \newcommand\ps@Standard{%
@@ -21,9 +25,11 @@
 \renewcommand\@evenfoot{}%
 \setlength\paperwidth{8.5in}\setlength\paperheight{11in}\setlength\voffset{-1in}\setlength\hoffset{-1in}\setlength\topmargin{0.7874in}\setlength\headheight{12pt}\setlength\headsep{0.1965in}\setlength\footskip{12pt+0cm}\setlength\textheight{11in-0.7874in-0.7874in-0.1965in-12pt-0cm-12pt}\setlength\oddsidemargin{0.7874in}\setlength\textwidth{8.5in-0.7874in-0.7874in}
 \renewcommand\thepage{\arabic{page}}
+
 \setlength{\skip\footins}{0.0398in}\renewcommand\footnoterule{\vspace*{-0.0071in}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.0071in}}\vspace*{0.0398in}}
 }
 \makeatother
+
 \pagestyle{Standard}
 
 %{{{
@@ -31,18 +37,15 @@
 
 
 
-\clearpage
+\frontmatter
 
-\begin{center}
-\begin{minipage}{2.7in}
-{\centering\bfseries
-MathRider For Newbies
-\par}
 
-{\centering\sffamily\bfseries
-by Ted Kosan
-\par}
-\end{minipage}\end{center}
+\title{MathRider For Newbies}
+
+
+\author{Ted Kosan}
+\maketitle
+
 \begin{center}
 \begin{minipage}{3in}
 
@@ -58,8 +61,21 @@ Copyright \textsf{{\textcopyright}} 2008 by Ted Kosan
 \ This work is licensed under the Creative Commons
 Attribution{}-ShareAlike 3.0 License. To view a copy of this license,
 visit http://creativecommons.org/licenses/by{}-sa/3.0/
-\end{minipage}\end{center}
-\setcounter{tocdepth}{10}
+\end{minipage}
+\end{center}
+
+
+
+
+% Running line numbers:
+\linenumbers
+
+
+This book is dedicated to Steve Yegge and his blog entry
+{\textquotedbl}Math Every Day{\textquotedbl} (
+http://steve.yegge.googlepages.com/math{}-every{}-day)
+
+
 \renewcommand\contentsname{Table of Contents}
 \tableofcontents
 
@@ -68,11 +84,10 @@ visit http://creativecommons.org/licenses/by{}-sa/3.0/
 
 
 %{{{preface
-\section[Preface]{Preface}
-\subsection[Dedication]{Dedication}
-This book is dedicated to Steve Yegge and his blog entry
-{\textquotedbl}Math Every Day{\textquotedbl} (
-http://steve.yegge.googlepages.com/math{}-every{}-day).
+\part[Preface]{Preface}
+%\addcontentsline{toc}{subsection}{Preface}
+
+.
 
 \subsection{Acknowledgments}
 The following people have provided feedback on this book (if I forgot to
@@ -94,8 +109,11 @@ The support group for this book can be accessed at:
 \bigskip
 %}}}
 
+\mainmatter
 
-\section[Introduction]{Introduction}
+
+
+\chapter[Introduction]{Introduction}
 MathRider is an open source mathematics computing environment (MCE) for
 performing symbolic and numerical computations. \ Mathematics computing
 \ environments are complex and it takes a significant amount of time
@@ -106,7 +124,7 @@ beginner a while to become an expert at using MathRider, but
 fortunately one does not need to be a MathRider expert in order to
 begin using it to solve problems.
 
-\subsection[What Is A Mathematics Computing Environment?]{What Is A Mathematics Computing Environment?}
+\section[What Is A Mathematics Computing Environment?]{What Is A Mathematics Computing Environment?}
 A mathematics computing environment is a set of computer programs that
 are able to automatically perform a wide range of symbolic and numeric
 mathematics calculation algorithms. \ Calculation algorithms exist for
@@ -200,7 +218,7 @@ always be available to whomever wants it. \ This means that people can
 use the environment for as long as there is interest in it and they can
 also enhance it as desired.
 
-\subsection[What Is MathRider?]{What Is MathRider?}
+\section[What Is MathRider?]{What Is MathRider?}
 MathRider is an open source mathematics computing environment that
 inputs mathematics in textual form and displays it in either textual
 form or traditional form. \ \ MathRider uses Yacas as its default
@@ -267,7 +285,7 @@ first and then come back to this book when you are finished with them.
 The MathRider website (mathrider.org) contains more information about
 MathRider along with other MathRider resources.
 
-\subsection[Accessing MathRider As A Web Service]{Accessing MathRider As A Web Service}
+\section[Accessing MathRider As A Web Service]{Accessing MathRider As A Web Service}
 
 \bigskip
 
@@ -327,7 +345,7 @@ more text is entered into them. When a worksheet is first created, an
 initial cell is placed at the top of its work area and this is where
 you will normally begin entering text.
 
-\subsection[Entering Source Code Into A MathRider Cell]{Entering Source Code Into A MathRider Cell}
+\section[Entering Source Code Into A MathRider Cell]{Entering Source Code Into A MathRider Cell}
 Lets begin exploring MathRider by using it as a simple calculator.
 \ Place your mouse cursor inside of the cell that is at the top of your
 worksheet. \ Notice that the cursor is automatically placed against the
@@ -430,9 +448,9 @@ and execute it.
 
 \bigskip
 
-\section[MathRider Programming Fundamentals]{MathRider
+\chapter[MathRider Programming Fundamentals]{MathRider
 Programming Fundamentals}
-\subsection[\ 3.1 Objects, Values, And Expressions]{\ 3.1 Objects,
+\section[Objects, Values, And Expressions]{Objects,
 Values, And Expressions}
 The source code lines
 
@@ -526,7 +544,7 @@ see the type information for is by placing the object within the
 parentheses which are to the right of the the name
 {\textquotesingle}type{\textquotesingle}.
 
-\ 3.2 Operators
+\section[Operators]{Operators}
 
 In the above expressions, the characters +, $-$, *, /, \^{} are called
 operators and their purpose is to tell MathRider what operations to
@@ -624,7 +642,7 @@ Subtracting a negative number results in a positive number:
 
 \ \ \ \ 3
 
-\ 3.3 Operator Precedence
+\section[Operator Precedence]{Operator Precedence}
 
 When expressions contain more than 1 operator, MathRider uses a set of
 rules called operator precedence to determine the order in which the
@@ -701,8 +719,8 @@ the second expression, the * operator is executed next, and so on.
 \ The last expression shows that the final result after all of the
 operators have been evaluated is 4.
 
-\subsection[\ 3.4 Changing The Order Of Operations In An
-Expression]{\ 3.4 Changing The Order Of Operations In An Expression}
+\section[Changing The Order Of Operations In An
+Expression]{Changing The Order Of Operations In An Expression}
 The default order of operations for an expression can be changed by
 grouping various parts of the expression within parentheses.
 \ Parentheses force the code that is placed inside of them to be
@@ -775,7 +793,7 @@ evaluated left to right.
 
 +, $-$ Finally, addition and subtraction are evaluated left to right.
 
-\subsection[\ 3.5 Variables]{\ 3.5 Variables}
+\section[Variables]{Variables}
 A variable is a name that can be associated with a memory address so
 that humans can refer to bit pattern symbols in memory using a name
 instead of a number. \ One way to create variables in MathRider is
@@ -915,14 +933,14 @@ type(a)
 
 Data types and the type command will be covered more fully later.
 
-\subsection[\ 3.6 Statements]{\ 3.6 Statements}
+\section[Statements]{Statements}
 Statements are the part of a programming language that is used to encode
 algorithm logic. \ Unlike expressions, statements do not return objects
 and they \ are used because of the various effects they are able to
 produce. \ Statements can contain both expressions and statements and
 programs are constructed by using a sequence of statements.
 
-\ 3.6.1 The print Statement
+\subsection[The print Statement]{The print Statement}
 
 If more than one expression in a cell generates a displayable result,
 the cell will only display the result from the bottommost expression.
@@ -1064,7 +1082,7 @@ a;b;c
 
 18
 
-\subsection[\ 3.7 Strings]{\ 3.7 Strings}
+\section[Strings]{Strings}
 A string is a type of object that is used to hold text{}-based
 information. \ The typical expression that is used to create a string
 object consists of text which is enclosed within either double quotes
@@ -1091,7 +1109,7 @@ type(a)
 \ \ \ \ {\textless}type
 {\textquotesingle}str{\textquotesingle}{\textgreater}
 
-\subsection[\ 3.8 Comments]{\ 3.8 Comments}
+\section[Comments]{Comments}
 Source code can often be difficult to understand and therefore all
 programming languages provide the ability for comments to be included
 in the code. \ Comments are used to explain what the code near them is
@@ -1161,7 +1179,7 @@ print x
 
 \ \ \ \ 3
 
-\subsection[\ 3.9 Conditional Operators]{\ 3.9 Conditional Operators}
+\section[Conditional Operators]{Conditional Operators}
 A conditional operator is an operator that is used to compare two
 objects. \ Expressions that contain conditional operators return a
 boolean object and a boolean object is one that can either be True or
@@ -1399,7 +1417,7 @@ evaluated left to right.
 ==,{\textless}{\textgreater},!=,{\textless},{\textless}=,{\textgreater},{\textgreater}=
 \ \ \ Finally, conditional operators are evaluated.
 
-\ 3.10 Making Decisions With The if Statement
+\section[Making Decisions With The if Statement]{Making Decisions With The if Statement}
 
 All programming languages provide the ability to make decisions and the
 most commonly used statement for making decisions in MathRider is the
@@ -1560,7 +1578,7 @@ This time the expression x {\textgreater} 4 returns a False object which
 causes the if statement to not execute the statements that are inside
 of it.
 
-\subsection[\ 3.11 The and, or, And not Boolean Operators]{\ 3.11 The
+\section[The and, or, And not Boolean Operators]{The
 and, or, And not Boolean Operators}
 Sometimes one wants to check if two or more expressions are all true and
 the way to do this is with the and operator:
@@ -1710,7 +1728,7 @@ or
 
 \bigskip
 
-\subsection[\ 3.12 Looping With The while Statement]{\ 3.12 Looping With
+\section[Looping With The while Statement]{Looping With
 The while Statement}
 Many kinds of machines, including computers, derive much of their power
 from the principle of repeated cycling. \ MathRider provides a number
@@ -1956,7 +1974,8 @@ In order to achieve this result, this program had to initialize x to
 {\textgreater}= 1) to continue looping, and decrement x by subtracting
 1 from it instead of adding 1 to it.
 
-\ 3.13 Long{}-Running Loops, Infinite Loops, And Interrupting Execution
+\section[Long-Running Loops, Infinite Loops, And Interrupting Execution]{
+Long-Running Loops, Infinite Loops, And Interrupting Execution}
 
 It is easy to create a loop that will execute a large number of times,
 or even an infinite number of times, either on purpose or by mistake.
@@ -2008,8 +2027,7 @@ a worksheet is restarted, however, all variables are set back to their
 initial conditions so the cells that assigned values to these variables
 will each need to be executed again. 
 
-\subsection[\ 3.14 Inserting And Deleting Worksheet Cells]{\ 3.14
-Inserting And Deleting Worksheet Cells}
+\section[Inserting And Deleting Worksheet Cells]{Inserting And Deleting Worksheet Cells}
 If you need to insert a new worksheet cell between two existing
 worksheet cells, move your mouse cursor between the two cells just
 above the bottom one and a horizontal blue bar will appear. \ Click on
@@ -2024,8 +2042,7 @@ it is empty. \ Make sure the cursor is in the now empty cell and then
 press the backspace key on your keyboard. \ The cell will then be
 deleted.
 
-\subsection[\ 3.15 Introduction To More Advanced Object Types]{\ 3.15
-Introduction To More Advanced Object Types}
+\section[Introduction To More Advanced Object Types]{Introduction To More Advanced Object Types}
 Up to this point, we have only used objects of type
 {\textquotesingle}sage.rings.integer.Integer{\textquotesingle} and of
 type {\textquotesingle}str{\textquotesingle}. \ However, MathRider
@@ -2034,7 +2051,7 @@ types that can be used for a wide variety of purposes. \ The following
 sections introduce two additional mathematical object types and two
 nonmathematical object types. 
 
-\subsection[\ 3.15.1 Rational Numbers]{\ 3.15.1 Rational Numbers}
+\section[Rational Numbers]{Rational Numbers}
 Rational numbers are held in objects of type
 sage.rings.rational.Rational. \ The following example prints the type
 of the rational number 1/2, assigns 1/2 to variable x, prints x, and
@@ -2098,7 +2115,7 @@ type(x)
 \ \ \ \ {\textless}type
 {\textquotesingle}sage.rings.rational.Rational{\textquotesingle}{\textgreater}
 
-\ 3.15.2 Real Numbers
+\subsection[Real Numbers]{Real Numbers}
 
 Real numbers are held in objects of type
 sage.rings.real\_mpfr.RealNumber. \ The following example prints the
@@ -2160,7 +2177,8 @@ type(x)
 \ \ \ \ {\textless}type
 {\textquotesingle}sage.rings.real\_mpfr.RealNumber{\textquotesingle}{\textgreater}
 
-\ 3.15.3 Objects That Hold Sequences Of Other Objects: Lists And Tuples
+\subsection[Objects That Hold Sequences Of Other Objects: Lists And Tuples]{
+Objects That Hold Sequences Of Other Objects: Lists And Tuples}
 
 The list object type is designed to hold other objects in an ordered
 collection or sequence. \ Lists are very flexible and they are one of
@@ -2276,7 +2294,7 @@ x;x[0];x[3];x;type(x)
 
 \bigskip
 
-\ 3.15.3.1 Tuple Packing And Unpacking
+\subsubsection[Tuple Packing And Unpacking]{Tuple Packing And Unpacking}
 
 When multiple values separated by commas are assigned to a single
 variable, the values are automatically placed into a tuple and this is
@@ -2315,7 +2333,7 @@ A requirement with tuple unpacking is that the number of objects in the
 tuple must match the number of variables on the left side of the equals
 sign.
 
-\subsection[\ 3.16 Using while Loops With Lists And Tuples]{\ 3.16 Using
+\section[Using while Loops With Lists And Tuples]{Using
 while Loops With Lists And Tuples}
 Statements that loop can be used to select each object in a list or a
 tuple in turn so that an operation can be performed on these objects.
@@ -2389,7 +2407,7 @@ position{\textquotedbl}, y
 
 53 was found in the list at position 3
 
-\subsection[\ 3.17 The in Operator]{\ 3.17 The in Operator}
+\section[The in Operator]{The in Operator}
 Looping is such a useful capability that MathRider even has an operator
 called in that loops internally. \ The in operator is able to
 automatically search a list to determine if it contains a given object.
@@ -2429,7 +2447,7 @@ False
 
 True
 
-\subsection[\ 3.18 Looping With The for Statement]{\ 3.18 Looping With
+\section[Looping With The for Statement]{Looping With
 The for Statement}
 The for statement uses a loop to index through a list or tuple like the
 while statement does, but it is more flexible and automatic. \ Here is
@@ -2493,7 +2511,7 @@ for x in [50,51,52,53,54,55,56,57,58,59]:
 
 59
 
-\subsection[\ 3.19 Functions]{\ 3.19 Functions}
+\section[Functions]{Functions}
 Programming functions are statements that consist of named blocks of
 code that can be executed one or more times by being called from other
 parts of the program. \ Functions can have objects passed to them from
@@ -2516,8 +2534,7 @@ Function names use all lower case letters. \ If a function name contains
 more than one word (like calculatesum) an underscore can be placed
 between the words to improve readability (calculate\_sum).
 
-\subsection[\ 3.20 Functions Are Defined Using the def Statement]{\ 3.20
-Functions Are Defined Using the def Statement}
+\section[Functions Are Defined Using the def Statement]{Functions Are Defined Using the def Statement}
 The statement that is used to define a function is called def and its
 syntax specification is as follows:
 
@@ -2617,7 +2634,7 @@ function returns is being assigned to the variable
 The second function call is similar to the first call, except it passes
 different numbers (4, 5) to the function.
 
-\subsection[\ 3.21 A Subset Of Functions Included In MathRider]{\ 3.21 A
+\section[A Subset Of Functions Included In MathRider]{A
 Subset Of Functions Included In MathRider}
 MathRider includes a large number of pre{}-written functions that can be
 used for a wide variety of purposes. \ Table 3 contains a subset of
@@ -3444,8 +3461,7 @@ from each of the argument sequences.
 
 Table 3: Subset of MathRider functions
 
-\subsection[\ 3.22 Obtaining Information On MathRider Functions]{\ 3.22
-Obtaining Information On MathRider Functions}
+\section[Obtaining Information On MathRider Functions]{Obtaining Information On MathRider Functions}
 Table 3 includes a list of functions along with a short description of
 what each one does. \ This is not enough information, however, to show
 how to actually use these functions. \ One way to obtain additional
@@ -3531,8 +3547,8 @@ two question marks {\textquotesingle}??{\textquotesingle} after a
 function name and press the {\textless}tab{\textgreater} key, the
 function{\textquotesingle}s source code will be displayed.
 
-\subsection[\ 3.23 Information Is Also Available On User{}-Entered
-Functions]{\ 3.23 Information Is Also Available On User{}-Entered
+\section[Information Is Also Available On User{}-Entered
+Functions]{Information Is Also Available On User{}-Entered
 Functions}
 The information service can also be used to obtain information on
 user{}-entered functions and a better understanding of how the
@@ -3604,7 +3620,8 @@ Docstring:
 This shows that the information that is displayed about a function is
 obtained from the function{\textquotesingle}s source code.
 
-\ 3.24 Examples Which Use Functions Included With MathRider
+\section[Examples Which Use Functions Included With MathRider]{
+Examples Which Use Functions Included With MathRider}
 
 The following short programs show how some of the functions listed in
 Table 3 are used:
@@ -3744,7 +3761,8 @@ c
 
 [(1, 6), (2, 7), (3, 8), (4, 9), (5, 10)]
 
-\ 3.25 Using srange() And zip() With The for Statement
+\section[Using srange() And zip() With The for Statement]{
+Using srange() And zip() With The for Statement}
 
 Instead of manually creating a sequence for use by a for statement,
 srange() can be used to create the sequence automatically:
@@ -3789,7 +3807,7 @@ for (a,b) in zip(t1,t2):
 
 4 9
 
-\subsection[\ 3.26 List Comprehensions]{\ 3.26 List Comprehensions}
+\section[List Comprehensions]{List Comprehensions}
 Up to this point we have seen that if statements, for loops, lists, and
 functions are each extremely powerful when used individually and
 together. \ What is even more powerful, however, is a special statement
@@ -3872,13 +3890,12 @@ the output list.
 
 \bigskip
 
-\section[\ 4 Object Oriented Programming]{\ 4 Object Oriented
+\chapter[Object Oriented Programming]{Object Oriented
 Programming}
 
 \bigskip
 
-\subsection[\ 4.7 Obtaining Information On MathRider Objects]{\ 4.7
-Obtaining Information On MathRider Objects}
+\section[Obtaining Information On MathRider Objects]{Obtaining Information On MathRider Objects}
 Type the following code into a cell and execute it:
 
 
@@ -4118,7 +4135,8 @@ x.is\_prime()
 
 True
 
-\ 4.8 The List Object{\textquotesingle}s Methods
+\section[The List Object{\textquotesingle}s Methods]{
+The List Object{\textquotesingle}s Methods}
 
 Lists are objects and therefore they contain methods that provide useful
 capabilities:
@@ -4196,7 +4214,8 @@ print a
 
 [1, 2, 4, 6, 7, 8]
 
-\ 4.9 Extending Classes With Inheritence
+\section[Extending Classes With Inheritence]{
+Extending Classes With Inheritence}
 
 Object technologies are subtle and powerful. \ They possess a number of
 mechanisms for dealing with complexity and class inheritance is one of
@@ -4365,9 +4384,9 @@ ArmyPrivate inherits from Person.
 
 \bigskip
 
-\section[\ 5 Miscellaneous Topics]{\ 5 Miscellaneous Topics}
-\subsection[\ 5.1 Referencing The Result Of The Previous
-Operation]{\ 5.1 Referencing The Result Of The Previous Operation}
+\chapter[Miscellaneous Topics]{Miscellaneous Topics}
+\section[Referencing The Result Of The Previous
+Operation]{Referencing The Result Of The Previous Operation}
 When working on a problem that spans multiple cells in a worksheet, it
 is often desirable to reference the result of the previous operation.
 \ The underscore symbol {\textquotesingle}\_{\textquotesingle} is used
@@ -4408,7 +4427,7 @@ a
 
 22
 
-\subsection[\ 5.2 Exceptions]{\ 5.2 Exceptions}
+\section[Exceptions]{Exceptions}
 In order to assure that MathRider programs have a uniform way to handle
 exceptional conditions that might occur while they are running, an
 exception display and handling mechanism is built into the MathRider
@@ -4496,7 +4515,7 @@ MathRider user to look at the source code if needed in order to
 determine if the exception was caused by a bug in MathRider or a bug in
 the code that was entered. \ 
 
-\subsection[\ 5.3 Obtaining Numeric Results]{\ 5.3 Obtaining Numeric
+\section[Obtaining Numeric Results]{Obtaining Numeric
 Results}
 One sometimes needs to obtain the numeric approximate of an object and
 MathRider provides a number of ways to accomplish this. \ One way is to
@@ -4569,7 +4588,7 @@ print a.n(prec=20)
 
 1.3333
 
-\subsection[\ 5.4 Style Guide For Expressions]{\ 5.4 Style Guide For
+\section[Style Guide For Expressions]{Style Guide For
 Expressions}
 Always surround the following binary operators with a single space on
 either side: assignment {\textquotesingle}={\textquotesingle},
@@ -4598,7 +4617,7 @@ argument or a default parameter value:
 
 a.n(digits=5)
 
-\subsection[\ 5.5 Built{}-in Constants]{\ 5.5 Built{}-in Constants}
+\section[Built{}-in Constants]{Built{}-in Constants}
 MathRider has a number of mathematical constants built into it and the
 following is a list of some of the more common ones:
 
@@ -4701,7 +4720,7 @@ print pi.n()
 If the restore() function is called with no parameters, all reassigned
 constants are restored to their original values.
 
-\ 5.6 Roots
+\section[Roots]{Roots}
 
 The sqrt() function can be used to obtain the square root of a value,
 but a more general technique is used to obtain other roots of a value.
@@ -4725,7 +4744,7 @@ Due to the order of operations, the rational number 1/3 needs to be
 placed within parentheses in order for it to be evaluated as an
 exponent.
 
-\subsection[\ 5.7 Symbolic Variables]{\ 5.7 Symbolic Variables}
+\section[Symbolic Variables]{Symbolic Variables}
 Up to this point, all of the variables we have used have been created
 during assignment time. \ For example, in the following code the
 variable w is created and then the number 8 is assigned to it:
@@ -4839,7 +4858,7 @@ Exception (click to the left for traceback):
 
 NameError: name {\textquotesingle}y{\textquotesingle} is not defined
 
-\subsection[\ 5.8 Symbolic Expressions]{\ 5.8 Symbolic Expressions}
+\section[Symbolic Expressions]{Symbolic Expressions}
 Expressions that contain symbolic variables are called symbolic
 expressions. \ In the following example, b is defined to be a symbolic
 variable and then it is used to create the symbolic expression 2*b:
@@ -4906,7 +4925,7 @@ y
 
 (b + 5)*(b + 8)
 
-\subsection[\ 5.9 Expanding And Factoring]{\ 5.9 Expanding And
+\section[Expanding And Factoring]{Expanding And
 Factoring}
 If the expanded form of the expression from the previous section is
 needed, it is easily obtained by calling the expand() method (this
@@ -4948,7 +4967,8 @@ method:
 
 2 * 3\^{}2 * 5
 
-\ 5.10 Miscellaneous Symbolic Expression Examples
+\section[Miscellaneous Symbolic Expression Examples]{
+Miscellaneous Symbolic Expression Examples}
 
 
 \bigskip
@@ -4982,7 +5002,8 @@ var({\textquotesingle}a,b,c{\textquotesingle})
 
 a*(2*a + 5)
 
-\ 5.11 Passing Values To Symbolic Expressions
+\section[Passing Values To Symbolic Expressions]{
+}
 
 If values are passed to a symbolic expressions, they will be evaluated
 and a result will be returned. \ If the expression only has one
@@ -5015,8 +5036,7 @@ a(x=2, y=3)
 
 7
 
-\subsection[\ 5.12 Symbolic Equations and The solve() Function]{\ 5.12
-Symbolic Equations and The solve() Function}
+\section[Symbolic Equations and The solve() Function]{Symbolic Equations and The solve() Function}
 In addition to working with symbolic expressions, MathRider is also able
 to work with symbolic equations:
 
@@ -5100,7 +5120,8 @@ solve([a,b,c,d], i1,i2,i3,v0)
 Notice that, when more than one equation is passed to solve(), they need
 to be placed into a list.
 
-\ 5.13 Symbolic Mathematical Functions
+\section[Symbolic Mathematical Functions]{
+Symbolic Mathematical Functions}
 
 MathRider has the ability to define functions using mathematical syntax.
 \ The following example shows a function f being defined that uses x as
@@ -5212,8 +5233,8 @@ for num in a:
 
 81
 
-\subsection[\ 5.14 Finding Roots Graphically And Numerically With The
-find\_root() Method]{\ 5.14 Finding Roots Graphically And Numerically
+\section[Finding Roots Graphically And Numerically With The
+find\_root() Method]{Finding Roots Graphically And Numerically
 With The find\_root() Method}
 Sometimes equations cannot be solved algebraically and the solve()
 function indicates this by returning a copy of the input it was passed.
@@ -5273,8 +5294,8 @@ f.find\_root({}-10,10)
 The {}-10 and +10 that are passed to the find\_root() method tell it the
 interval within which it should look for roots.
 
-\subsection[\ 5.15 Displaying Mathematical Objects In Traditional
-Form]{\ 5.15 Displaying Mathematical Objects In Traditional Form}
+\section[Displaying Mathematical Objects In Traditional
+Form]{Displaying Mathematical Objects In Traditional Form}
 Earlier it was indicated that MathRider is able to display mathematical
 objects in either text form or traditional form. \ Up until this point,
 we have been using text form which is the default. \ If one wants to
@@ -5314,8 +5335,8 @@ show(z)
 
 \bigskip
 
-\subsection[\ 5.15.1 LaTeX Is Used To Display Objects In Traditional
-Mathematics Form]{\ 5.15.1 LaTeX Is Used To Display Objects In
+\section[LaTeX Is Used To Display Objects In Traditional
+Mathematics Form]{LaTeX Is Used To Display Objects In
 Traditional Mathematics Form}
 LaTex (pronounced l\=a{}-tek, http://en.wikipedia.org/wiki/LaTeX) is a
 document markup language which is able to work with a wide range of
@@ -5351,7 +5372,7 @@ The jsMath package which is referenced in \ is the software that the
 MathRider Notebook uses to translate LaTeX input into traditional
 mathematics form output.
 
-\subsection[\ 5.16 Sets]{\ 5.16 Sets}
+\section[Sets]{Sets}
 The following example shows operations that MathRider can perform on
 sets:
 
@@ -5413,8 +5434,8 @@ a.intersection(b)
 
 \{0\}
 
-\section[\ 6 2D Plotting]{\ 6 2D Plotting}
-\subsection[\ 6.1 The plot() And show() Functions]{\ 6.1 The plot() And
+\chapter[2D Plotting]{2D Plotting}
+\section[The plot() And show() Functions]{The plot() And
 show() Functions}
 MathRider provides a number of ways to generate 2D plots of mathematical
 functions and one of these ways is to use the plot() function in
@@ -5487,8 +5508,8 @@ show(plot(v,0,.1),xmin=0, xmax=.05, ymin=0, ymax=100, figsize=[3,3])
 
 \bigskip
 
-\subsection[\ 6.1.1 Combining Plots And Changing The Plotting
-Color]{\ 6.1.1 Combining Plots And Changing The Plotting Color}
+\subsection[Combining Plots And Changing The Plotting
+Color]{Combining Plots And Changing The Plotting Color}
 Sometimes it is necessary to combine one or more plots into a single
 plot. \ The following example combines 6 plots using the show()
 function:
@@ -5542,8 +5563,8 @@ assigned to the rgbcolor parameter contains three values between 0 and
 plot should have, and the third value specifies how much blue the plot
 should have.
 
-\subsubsection[\ 6.1.2 Combining Graphics With A Graphics
-Object]{\ 6.1.2 Combining Graphics With A Graphics Object}
+\subsection[Combining Graphics With A Graphics
+Object]{Combining Graphics With A Graphics Object}
 It is often useful to combine various kinds of graphics into one image.
 \ In the following example, 6 points are plotted along with a text
 label for each plot:
@@ -5643,7 +5664,7 @@ show(g)
 
 \bigskip
 
-\subsection[\ 6.2 Advanced Plotting With matplotlib]{\ 6.2 Advanced
+\section[Advanced Plotting With matplotlib]{Advanced
 Plotting With matplotlib}
 MathRider uses the matplotlib (http://matplotlib.sourceforge.net)
 library for its plotting needs and if one requires more control over
@@ -5652,7 +5673,8 @@ matplotlib can be used directly. \ While a complete explanation of how
 matplotlib works is beyond the scope of this book, this section
 provides examples that should help you to begin using it.
 
-\ 6.2.1 Plotting Data From Lists With Grid Lines And Axes Labels
+\subsection[Plotting Data From Lists With Grid Lines And Axes Labels]{
+Plotting Data From Lists With Grid Lines And Axes Labels}
 
 
 \bigskip
@@ -5707,7 +5729,7 @@ canvas.print\_figure({\textquotesingle}ex1\_linear.png{\textquotesingle})
 
 \bigskip
 
-\subsubsection[\ 6.2.2 Plotting With A Logarithmic Y Axis]{\ 6.2.2
+\subsection[Plotting With A Logarithmic Y Axis]{
 Plotting With A Logarithmic Y Axis}
 
 \bigskip
@@ -5763,7 +5785,7 @@ canvas.print\_figure({\textquotesingle}ex2\_log.png{\textquotesingle})
 
 \bigskip
 
-\subsubsection[\ 6.2.3 Two Plots With Labels Inside Of The Plot]{\ 6.2.3
+\subsection[Two Plots With Labels Inside Of The Plot]{
 Two Plots With Labels Inside Of The Plot}
 
 \bigskip
@@ -5832,7 +5854,7 @@ canvas.print\_figure({\textquotesingle}ex5\_log.png{\textquotesingle})
 
 \bigskip
 
-\section[\ 7 MathRider Usage Styles]{\ 7 MathRider Usage Styles}
+\chapter[MathRider Usage Styles]{MathRider Usage Styles}
 MathRider is an extremely flexible environment and therefore there are
 multiple ways to use it. \ In this chapter, two MathRider usage styles
 are discussed and they are called the Speed style and the OpenOffice
@@ -5856,10 +5878,10 @@ with minimal effort. \ This presentation style is useful for creating
 homework submissions, reports, articles, books, etc. and this book was
 developed using this style.
 
-\subsection[\ 7.1 The Speed Usage Style]{\ 7.1 The Speed Usage Style}
+\section[The Speed Usage Style]{The Speed Usage Style}
 (In development...)
 
-\subsection[\ 7.2 The OpenOffice Presentation Usage Style]{\ 7.2 The
+\section[The OpenOffice Presentation Usage Style]{The
 OpenOffice Presentation Usage Style}
 (In development...)
 
@@ -5869,66 +5891,66 @@ OpenOffice Presentation Usage Style}
 
 \bigskip
 
-\section[\ 8 High School Math Problems (most of the problems are still
-in development)]{\ 8 High School Math Problems (most of the problems
+\chapter[High School Math Problems]{High School Math Problems (most of the problems
 are still in development)}
-\subsection[\ 8.1 Pre{}-Algebra]{\ 8.1 Pre{}-Algebra}
+
+\section[Pre{}-Algebra]{Pre{}-Algebra}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Pre-algebra}{http://en.wikipedia.org/wiki/Pre{}-algebra}
 
 (In development...)
 
-\subsubsection[\ 8.1.1 Equations]{\ 8.1.1 Equations}
+\subsection[Equations]{Equations}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Equation}{http://en.wikipedia.org/wiki/Equation}
 
 (In development...)
 
-\subsubsection[\ 8.1.2 Expressions]{\ 8.1.2 Expressions}
+\subsection[Expressions]{Expressions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Mathematical_expression}{http://en.wikipedia.org/wiki/Mathematical\_expression}
 
 (In development...)
 
-\subsubsection[\ 8.1.3 Geometry]{\ 8.1.3 Geometry}
+\subsection[Geometry]{Geometry}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Geometry}{http://en.wikipedia.org/wiki/Geometry}
 
 (In development...)
 
-\subsubsection[\ 8.1.4 Inequalities]{\ 8.1.4 Inequalities}
+\subsection[Inequalities]{Inequalities}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Inequality}{http://en.wikipedia.org/wiki/Inequality}
 
 (In development...)
 
-\subsubsection[\ 8.1.5 Linear Functions]{\ 8.1.5 Linear Functions}
+\subsection[Linear Functions]{Linear Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Linear_functions}{http://en.wikipedia.org/wiki/Linear\_functions}
 
 (In development...)
 
-\subsubsection[\ 8.1.6 Measurement]{\ 8.1.6 Measurement}
+\subsection[Measurement]{Measurement}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Measurement}{http://en.wikipedia.org/wiki/Measurement}
 
 (In development...)
 
-\subsubsection[\ 8.1.7 Nonlinear Functions]{\ 8.1.7 Nonlinear Functions}
+\subsection[Nonlinear Functions]{Nonlinear Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Nonlinear_system}{http://en.wikipedia.org/wiki/Nonlinear\_system}
 
 (In development...)
 
-\subsubsection[\ 8.1.8 Number Sense And Operations]{\ 8.1.8 Number Sense
+\subsection[Number Sense And Operations]{Number Sense
 And Operations}
 Wikipedia entry.
 
@@ -5940,8 +5962,8 @@ Wikipedia entry.
 
 (In development...)
 
-\paragraph[\ 8.1.8.1 Express an integer fraction in lowest
-terms]{\ 8.1.8.1 Express an integer fraction in lowest terms}
+\subsubsection[Express an integer fraction in lowest
+terms]{Express an integer fraction in lowest terms}
 {\textquotedbl}{\textquotedbl}{\textquotedbl}
 
 Problem:
@@ -6020,7 +6042,7 @@ automatically reduced to lowest terms:
 
 6/7
 
-\subsubsection[\ 8.1.9 Polynomial Functions]{\ 8.1.9 Polynomial
+\subsection[Polynomial Functions]{Polynomial
 Functions}
 Wikipedia entry.
 
@@ -6028,14 +6050,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsection[\ 8.2 Algebra]{\ 8.2 Algebra}
+\section[Algebra]{Algebra}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Algebra_1}{http://en.wikipedia.org/wiki/Algebra\_1}
 
 (In development...)
 
-\subsubsection[\ 8.2.1 Absolute Value Functions]{\ 8.2.1 Absolute Value
+\subsection[Absolute Value Functions]{Absolute Value
 Functions}
 Wikipedia entry.
 
@@ -6043,50 +6065,50 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 8.2.2 Complex Numbers]{\ 8.2.2 Complex Numbers}
+\subsection[Complex Numbers]{Complex Numbers}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Complex_numbers}{http://en.wikipedia.org/wiki/Complex\_numbers}
 
 (In development...)
 
-\subsubsection[\ 8.2.3 Composite Functions]{\ 8.2.3 Composite Functions}
+\subsection[Composite Functions]{Composite Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Composite_function}{http://en.wikipedia.org/wiki/Composite\_function}
 
 (In development...)
 
-\subsubsection[\ 8.2.4 Conics]{\ 8.2.4 Conics}
+\subsection[Conics]{Conics}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Conics}{http://en.wikipedia.org/wiki/Conics}
 
 (In development...)
 
-\subsubsection[\ 8.2.5 Data Analysis]{\ 8.2.5 Data Analysis}
+\subsection[Data Analysis]{Data Analysis}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Data_analysis}{http://en.wikipedia.org/wiki/Data\_analysis}
 
 (In development...)
 
-\section[\ 9 Discrete Mathematics ]{\ 9 Discrete Mathematics }
+\subsection[\ 9 Discrete Mathematics ]{\ 9 Discrete Mathematics }
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Discrete_mathematics}{http://en.wikipedia.org/wiki/Discrete\_mathematics}
 
 (In development...)
 
-\subsubsection[\ 9.1.1 Equations]{\ 9.1.1 Equations}
+\subsection[Equations]{Equations}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Equation}{http://en.wikipedia.org/wiki/Equation}
 
 (In development...)
 
-\paragraph[\ 9.1.1.1 Express a symbolic fraction in lowest
-terms]{\ 9.1.1.1 Express a symbolic fraction in lowest terms}
+\subsubsection[Express a symbolic fraction in lowest
+terms]{Express a symbolic fraction in lowest terms}
 {\textquotedbl}{\textquotedbl}{\textquotedbl}
 
 Problem:
@@ -6239,8 +6261,8 @@ z.simplify\_rational()
 
 \bigskip
 
-\paragraph[\ 9.1.1.2 Determine the product of two symbolic
-fractions]{\ 9.1.1.2 Determine the product of two symbolic fractions}
+\subsubsection[Determine the product of two symbolic
+fractions]{Determine the product of two symbolic fractions}
 Perform the indicated operation: 
 
 
@@ -6291,7 +6313,7 @@ show(a)
 
 \bigskip
 
-\paragraph[\ 9.1.1.3 Solve a linear equation for x]{\ 9.1.1.3 Solve a
+\subsubsection[Solve a linear equation for x]{Solve a
 linear equation for x}
 Solve 
 
@@ -6365,8 +6387,8 @@ solve(a,x)
 
 [x == 3]
 
-\paragraph[\ 9.1.1.4 Solve a linear equation which has
-fractions]{\ 9.1.1.4 Solve a linear equation which has fractions}
+\subsubsection[Solve a linear equation which has
+fractions]{Solve a linear equation which has fractions}
 Solve 
 
 
@@ -6532,7 +6554,7 @@ solve(a,x)
 
 \bigskip
 
-\subsubsection[\ 9.1.2 Exponential Functions]{\ 9.1.2 Exponential
+\subsection[Exponential Functions]{Exponential
 Functions}
 Wikipedia entry.
 
@@ -6540,35 +6562,35 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.1.3 Exponents]{\ 9.1.3 Exponents}
+\subsection[Exponents]{Exponents}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Exponent}{http://en.wikipedia.org/wiki/Exponent}
 
 (In development...)
 
-\subsubsection[\ 9.1.4 Expressions]{\ 9.1.4 Expressions}
+\subsection[Expressions]{Expressions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Expression_(mathematics)}{http://en.wikipedia.org/wiki/Expression\_(mathematics)}
 
 (In development...)
 
-\subsubsection[\ 9.1.5 Inequalities]{\ 9.1.5 Inequalities}
+\subsection[Inequalities]{Inequalities}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Inequality}{http://en.wikipedia.org/wiki/Inequality}
 
 (In development...)
 
-\subsubsection[\ 9.1.6 Inverse Functions]{\ 9.1.6 Inverse Functions}
+\subsection[Inverse Functions]{Inverse Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Inverse_function}{http://en.wikipedia.org/wiki/Inverse\_function}
 
 (In development...)
 
-\subsubsection[\ 9.1.7 Linear Equations And Functions]{\ 9.1.7 Linear
+\subsection[Linear Equations And Functions]{Linear
 Equations And Functions}
 Wikipedia entry.
 
@@ -6576,14 +6598,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.1.8 Linear Programming]{\ 9.1.8 Linear Programming}
+\subsection[Linear Programming]{Linear Programming}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Linear_programming}{http://en.wikipedia.org/wiki/Linear\_programming}
 
 (In development...)
 
-\subsubsection[\ 9.1.9 Logarithmic Functions]{\ 9.1.9 Logarithmic
+\subsection[Logarithmic Functions]{Logarithmic
 Functions}
 Wikipedia entry.
 
@@ -6591,21 +6613,21 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.1.10 Logistic Functions]{\ 9.1.10 Logistic Functions}
+\subsection[Logistic Functions]{Logistic Functions}
 Wikipedia entry.
 
 http://en.wikipedia.org/wiki/Logistic\_function
 
 (In development...)
 
-\subsubsection[\ 9.1.11 Matrices]{\ 9.1.11 Matrices}
+\subsection[Matrices]{Matrices}
 Wikipedia entry.
 
 http://en.wikipedia.org/wiki/Matrix\_(mathematics)
 
 (In development...)
 
-\subsubsection[\ 9.1.12 Parametric Equations]{\ 9.1.12 Parametric
+\subsection[Parametric Equations]{Parametric
 Equations}
 Wikipedia entry.
 
@@ -6613,7 +6635,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.1.13 Piecewise Functions]{\ 9.1.13 Piecewise
+\subsection[Piecewise Functions]{Piecewise
 Functions}
 Wikipedia entry.
 
@@ -6621,7 +6643,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.1.14 Polynomial Functions]{\ 9.1.14 Polynomial
+\subsection[Polynomial Functions]{Polynomial
 Functions}
 Wikipedia entry.
 
@@ -6629,14 +6651,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.1.15 Power Functions]{\ 9.1.15 Power Functions}
+\subsection[Power Functions]{Power Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Power_function}{http://en.wikipedia.org/wiki/Power\_function}
 
 (In development...)
 
-\subsubsection[\ 9.1.16 Quadratic Functions]{\ 9.1.16 Quadratic
+\subsection[Quadratic Functions]{Quadratic
 Functions}
 Wikipedia entry.
 
@@ -6644,35 +6666,35 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.1.17 Radical Functions]{\ 9.1.17 Radical Functions}
+\subsection[Radical Functions]{Radical Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Nth_root}{http://en.wikipedia.org/wiki/Nth\_root}
 
 (In development...)
 
-\subsubsection[\ 9.1.18 Rational Functions]{\ 9.1.18 Rational Functions}
+\subsection[Rational Functions]{Rational Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Rational_function}{http://en.wikipedia.org/wiki/Rational\_function}
 
 (In development...)
 
-\subsubsection[\ 9.1.19 Sequences]{\ 9.1.19 Sequences}
+\subsection[Sequences]{Sequences}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Sequence}{http://en.wikipedia.org/wiki/Sequence}
 
 (In development...)
 
-\subsubsection[\ 9.1.20 Series]{\ 9.1.20 Series}
+\subsection[Series]{Series}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Series_mathematics}{http://en.wikipedia.org/wiki/Series\_mathematics}
 
 (In development...)
 
-\subsubsection[\ 9.1.21 Systems of Equations]{\ 9.1.21 Systems of
+\subsection[Systems of Equations]{Systems of
 Equations}
 Wikipedia entry.
 
@@ -6680,14 +6702,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.1.22 Transformations]{\ 9.1.22 Transformations}
+\subsection[Transformations]{Transformations}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Transformation_(geometry)}{http://en.wikipedia.org/wiki/Transformation\_(geometry)}
 
 (In development...)
 
-\subsubsection[\ 9.1.23 Trigonometric Functions]{\ 9.1.23 Trigonometric
+\subsection[Trigonometric Functions]{Trigonometric
 Functions}
 Wikipedia entry.
 
@@ -6695,7 +6717,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsection[\ 9.2 Precalculus And Trigonometry]{\ 9.2 Precalculus And
+\section[Precalculus And Trigonometry]{Precalculus And
 Trigonometry}
 Wikipedia entry.
 
@@ -6708,56 +6730,56 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 9.2.1 Binomial Theorem]{\ 9.2.1 Binomial Theorem}
+\subsection[Binomial Theorem]{Binomial Theorem}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Binomial_theorem}{http://en.wikipedia.org/wiki/Binomial\_theorem}
 
 (In development...)
 
-\subsubsection[\ 9.2.2 Complex Numbers]{\ 9.2.2 Complex Numbers}
+\subsection[Complex Numbers]{Complex Numbers}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Complex_numbers}{http://en.wikipedia.org/wiki/Complex\_numbers}
 
 (In development...)
 
-\subsubsection[\ 9.2.3 Composite Functions]{\ 9.2.3 Composite Functions}
+\subsection[Composite Functions]{Composite Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Composite_function}{http://en.wikipedia.org/wiki/Composite\_function}
 
 (In development...)
 
-\subsubsection[\ 9.2.4 Conics]{\ 9.2.4 Conics}
+\subsection[Conics]{Conics}
 Wikipedia entry.
 
 http://en.wikipedia.org/wiki/Conics
 
 (In development...)
 
-\subsubsection[\ 9.2.5 Data Analysis]{\ 9.2.5 Data Analysis}
+\subsection[Data Analysis]{Data Analysis}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Data_analysis}{http://en.wikipedia.org/wiki/Data\_analysis}
 
 (In development...)
 
-\section[\ 10 Discrete Mathematics]{\ 10 Discrete Mathematics}
+\subsection[\ 10 Discrete Mathematics]{\ 10 Discrete Mathematics}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Discrete_mathematics}{http://en.wikipedia.org/wiki/Discrete\_mathematics}
 
 (In development...)
 
-\subsubsection[\ 10.1.1 Equations]{\ 10.1.1 Equations}
+\subsection[Equations]{Equations}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Equation}{http://en.wikipedia.org/wiki/Equation}
 
 (In development...)
 
-\subsubsection[\ 10.1.2 Exponential Functions]{\ 10.1.2 Exponential
+\subsection[Exponential Functions]{Exponential
 Functions}
 Wikipedia entry.
 
@@ -6765,14 +6787,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.3 Inverse Functions]{\ 10.1.3 Inverse Functions}
+\subsection[Inverse Functions]{Inverse Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Inverse_function}{http://en.wikipedia.org/wiki/Inverse\_function}
 
 (In development...)
 
-\subsubsection[\ 10.1.4 Logarithmic Functions]{\ 10.1.4 Logarithmic
+\subsection[Logarithmic Functions]{Logarithmic
 Functions}
 Wikipedia entry.
 
@@ -6780,14 +6802,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.5 Logistic Functions]{\ 10.1.5 Logistic Functions}
+\subsection[Logistic Functions]{Logistic Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Logistic_function}{http://en.wikipedia.org/wiki/Logistic\_function}
 
 (In development...)
 
-\subsubsection[\ 10.1.6 Matrices And Matrix Algebra]{\ 10.1.6 Matrices
+\subsection[Matrices And Matrix Algebra]{Matrices
 And Matrix Algebra}
 Wikipedia entry.
 
@@ -6795,7 +6817,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.7 Mathematical Analysis]{\ 10.1.7 Mathematical
+\subsection[Mathematical Analysis]{Mathematical
 Analysis}
 Wikipedia entry.
 
@@ -6803,7 +6825,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.8 Parametric Equations]{\ 10.1.8 Parametric
+\subsection[Parametric Equations]{Parametric
 Equations}
 Wikipedia entry.
 
@@ -6811,7 +6833,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.9 Piecewise Functions]{\ 10.1.9 Piecewise
+\subsection[Piecewise Functions]{Piecewise
 Functions}
 Wikipedia entry.
 
@@ -6819,14 +6841,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.10 Polar Equations]{\ 10.1.10 Polar Equations}
+\subsection[Polar Equations]{Polar Equations}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Polar_equation}{http://en.wikipedia.org/wiki/Polar\_equation}
 
 (In development...)
 
-\subsubsection[\ 10.1.11 Polynomial Functions]{\ 10.1.11 Polynomial
+\subsection[Polynomial Functions]{Polynomial
 Functions}
 Wikipedia entry.
 
@@ -6834,14 +6856,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.12 Power Functions]{\ 10.1.12 Power Functions}
+\subsection[Power Functions]{Power Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Power_function}{http://en.wikipedia.org/wiki/Power\_function}
 
 (In development...)
 
-\subsubsection[\ 10.1.13 Quadratic Functions]{\ 10.1.13 Quadratic
+\subsection[Quadratic Functions]{Quadratic
 Functions}
 Wikipedia entry.
 
@@ -6849,14 +6871,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.14 Radical Functions]{\ 10.1.14 Radical Functions}
+\subsection[Radical Functions]{Radical Functions}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Nth_root}{http://en.wikipedia.org/wiki/Nth\_root}
 
 (In development...)
 
-\subsubsection[\ 10.1.15 Rational Functions]{\ 10.1.15 Rational
+\subsection[Rational Functions]{Rational
 Functions}
 Wikipedia entry.
 
@@ -6864,35 +6886,35 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.16 Real Numbers]{\ 10.1.16 Real Numbers}
+\subsection[Real Numbers]{Real Numbers}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Real_number}{http://en.wikipedia.org/wiki/Real\_number}
 
 (In development...)
 
-\subsubsection[\ 10.1.17 Sequences]{\ 10.1.17 Sequences}
+\subsection[Sequences]{Sequences}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Sequence}{http://en.wikipedia.org/wiki/Sequence}
 
 (In development...)
 
-\subsubsection[\ 10.1.18 Series]{\ 10.1.18 Series}
+\subsection[Series]{Series}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Series_(mathematics)}{http://en.wikipedia.org/wiki/Series\_(mathematics)}
 
 (In development...)
 
-\subsubsection[\ 10.1.19 Sets]{\ 10.1.19 Sets}
+\subsection[Sets]{Sets}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Set}{http://en.wikipedia.org/wiki/Set}
 
 (In development...)
 
-\subsubsection[\ 10.1.20 Systems of Equations]{\ 10.1.20 Systems of
+\subsection[Systems of Equations]{Systems of
 Equations}
 Wikipedia entry.
 
@@ -6900,14 +6922,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.21 Transformations]{\ 10.1.21 Transformations}
+\subsection[Transformations]{Transformations}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Transformation_(geometry)}{http://en.wikipedia.org/wiki/Transformation\_(geometry)}
 
 (In development...)
 
-\subsubsection[\ 10.1.22 Trigonometric Functions]{\ 10.1.22
+\subsection[Trigonometric Functions]{
 Trigonometric Functions}
 Wikipedia entry.
 
@@ -6915,42 +6937,42 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.1.23 Vectors]{\ 10.1.23 Vectors}
+\subsection[Vectors]{Vectors}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Vector}{http://en.wikipedia.org/wiki/Vector}
 
 (In development...)
 
-\subsection[\ 10.2 Calculus]{\ 10.2 Calculus}
+\section[Calculus]{Calculus}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Calculus}{http://en.wikipedia.org/wiki/Calculus}
 
 (In development...)
 
-\subsubsection[\ 10.2.1 Derivatives]{\ 10.2.1 Derivatives}
+\subsection[Derivatives]{Derivatives}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Derivative}{http://en.wikipedia.org/wiki/Derivative}
 
 (In development...)
 
-\subsubsection[\ 10.2.2 Integrals]{\ 10.2.2 Integrals}
+\subsection[Integrals]{Integrals}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Integral}{http://en.wikipedia.org/wiki/Integral}
 
 (In development...)
 
-\subsubsection[\ 10.2.3 Limits]{\ 10.2.3 Limits}
+\subsection[Limits]{Limits}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Limit_(mathematics)}{http://en.wikipedia.org/wiki/Limit\_(mathematics)}
 
 (In development...)
 
-\subsubsection[\ 10.2.4 Polynomial Approximations And Series]{\ 10.2.4
+\subsection[Polynomial Approximations And Series]{
 Polynomial Approximations And Series}
 Wikipedia entry.
 
@@ -6958,21 +6980,21 @@ Wikipedia entry.
 
 (In development...)
 
-\subsection[\ 10.3 Statistics]{\ 10.3 Statistics}
+\section[Statistics]{Statistics}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Statistics}{http://en.wikipedia.org/wiki/Statistics}
 
 (In development...)
 
-\subsubsection[\ 10.3.1 Data Analysis]{\ 10.3.1 Data Analysis}
+\subsection[Data Analysis]{Data Analysis}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Data_analysis}{http://en.wikipedia.org/wiki/Data\_analysis}
 
 (In development...)
 
-\subsubsection[\ 10.3.2 Inferential Statistics]{\ 10.3.2 Inferential
+\subsection[Inferential Statistics]{Inferential
 Statistics}
 Wikipedia entry.
 
@@ -6980,7 +7002,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.3.3 Normal Distributions]{\ 10.3.3 Normal
+\subsection[Normal Distributions]{Normal
 Distributions}
 Wikipedia entry.
 
@@ -6988,7 +7010,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.3.4 One Variable Analysis]{\ 10.3.4 One Variable
+\subsection[One Variable Analysis]{One Variable
 Analysis}
 Wikipedia entry.
 
@@ -6996,7 +7018,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.3.5 Probability And Simulation]{\ 10.3.5 Probability
+\subsection[Probability And Simulation]{Probability
 And Simulation}
 Wikipedia entry.
 
@@ -7004,7 +7026,7 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 10.3.6 Two Variable Analysis]{\ 10.3.6 Two Variable
+\subsection[Two Variable Analysis]{Two Variable
 Analysis}
 Wikipedia entry.
 
@@ -7012,39 +7034,39 @@ Wikipedia entry.
 
 (In development...)
 
-\section[\ 11 High School Science Problems]{\ 11 High School Science
+\chapter[\ 11 High School Science Problems]{\ 11 High School Science
 Problems}
 (In development...)
 
-\subsection[\ 11.1 Physics]{\ 11.1 Physics}
+\section[Physics]{Physics}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Physics}{http://en.wikipedia.org/wiki/Physics}
 
 (In development...)
 
-\subsubsection[\ 11.1.1 Atomic Physics]{\ 11.1.1 Atomic Physics}
+\subsection[Atomic Physics]{Atomic Physics}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Atomic_physics}{http://en.wikipedia.org/wiki/Atomic\_physics}
 
 (In development...)
 
-\subsubsection[\ 11.1.2 Circular Motion]{\ 11.1.2 Circular Motion}
+\subsection[Circular Motion]{Circular Motion}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Circular_motion}{http://en.wikipedia.org/wiki/Circular\_motion}
 
 (In development...)
 
-\subsubsection[\ 11.1.3 Dynamics]{\ 11.1.3 Dynamics}
+\subsection[Dynamics]{Dynamics}
 Wikipedia entry.
 
 http://en.wikipedia.org/wiki/Dynamics\_(physics)
 
 (In development...)
 
-\subsubsection[\ 11.1.4 Electricity And Magnetism]{\ 11.1.4 Electricity
+\subsection[Electricity And Magnetism]{Electricity
 And Magnetism}
 Wikipedia entry.
 
@@ -7057,154 +7079,154 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 11.1.5 Fluids]{\ 11.1.5 Fluids}
+\subsection[Fluids]{Fluids}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Fluids}{http://en.wikipedia.org/wiki/Fluids}
 
 (In development...)
 
-\subsubsection[\ 11.1.6 Kinematics]{\ 11.1.6 Kinematics}
+\subsection[Kinematics]{Kinematics}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Kinematics}{http://en.wikipedia.org/wiki/Kinematics}
 
 (In development...)
 
-\subsubsection[\ 11.1.7 Light]{\ 11.1.7 Light}
+\subsection[Light]{Light}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Light}{http://en.wikipedia.org/wiki/Light}
 
 (In development...)
 
-\subsubsection[\ 11.1.8 Optics]{\ 11.1.8 Optics}
+\subsection[Optics]{Optics}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Optics}{http://en.wikipedia.org/wiki/Optics}
 
 (In development...)
 
-\subsubsection[\ 11.1.9 Relativity]{\ 11.1.9 Relativity}
+\subsection[Relativity]{Relativity}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Relativity}{http://en.wikipedia.org/wiki/Relativity}
 
 (In development...)
 
-\subsubsection[\ 11.1.10 Rotational Motion]{\ 11.1.10 Rotational Motion}
+\subsection[Rotational Motion]{Rotational Motion}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Rotational_motion}{http://en.wikipedia.org/wiki/Rotational\_motion}
 
 (In development...)
 
-\subsubsection[\ 11.1.11 Sound]{\ 11.1.11 Sound}
+\subsection[Sound]{Sound}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Sound}{http://en.wikipedia.org/wiki/Sound}
 
 (In development...)
 
-\subsubsection[\ 11.1.12 Waves]{\ 11.1.12 Waves}
+\subsection[Waves]{Waves}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Waves}{http://en.wikipedia.org/wiki/Waves}
 
 (In development...)
 
-\subsubsection[\ 11.1.13 Thermodynamics]{\ 11.1.13 Thermodynamics}
+\subsection[Thermodynamics]{Thermodynamics}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Thermodynamics}{http://en.wikipedia.org/wiki/Thermodynamics}
 
 (In development...)
 
-\subsubsection[\ 11.1.14 Work]{\ 11.1.14 Work}
+\subsection[Work]{Work}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Mechanical_work}{http://en.wikipedia.org/wiki/Mechanical\_work}
 
 (In development...)
 
-\subsubsection[\ 11.1.15 Energy]{\ 11.1.15 Energy}
+\subsection[Energy]{Energy}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Energy}{http://en.wikipedia.org/wiki/Energy}
 
 (In development...)
 
-\subsubsection[\ 11.1.16 Momentum]{\ 11.1.16 Momentum}
+\subsection[Momentum]{Momentum}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Momentum}{http://en.wikipedia.org/wiki/Momentum}
 
 (In development...)
 
-\subsubsection[\ 11.1.17 Boiling]{\ 11.1.17 Boiling}
+\subsection[Boiling]{Boiling}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Boiling}{http://en.wikipedia.org/wiki/Boiling}
 
 (In development...)
 
-\subsubsection[\ 11.1.18 Buoyancy]{\ 11.1.18 Buoyancy}
+\subsection[Buoyancy]{Buoyancy}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Bouyancy}{http://en.wikipedia.org/wiki/Bouyancy}
 
 (In development...)
 
-\subsubsection[\ 11.1.19 Convection]{\ 11.1.19 Convection}
+\subsection[Convection]{Convection}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Convection}{http://en.wikipedia.org/wiki/Convection}
 
 (In development...)
 
-\subsubsection[\ 11.1.20 Density]{\ 11.1.20 Density}
+\subsection[Density]{Density}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Density}{http://en.wikipedia.org/wiki/Density}
 
 (In development...)
 
-\subsubsection[\ 11.1.21 Diffusion]{\ 11.1.21 Diffusion}
+\subsection[Diffusion]{Diffusion}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Diffusion}{http://en.wikipedia.org/wiki/Diffusion}
 
 (In development...)
 
-\subsubsection[\ 11.1.22 Freezing]{\ 11.1.22 Freezing}
+\subsection[Freezing]{Freezing}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Freezing}{http://en.wikipedia.org/wiki/Freezing}
 
 (In development...)
 
-\subsubsection[\ 11.1.23 Friction]{\ 11.1.23 Friction}
+\subsection[Friction]{Friction}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Friction}{http://en.wikipedia.org/wiki/Friction}
 
 (In development...)
 
-\subsubsection[\ 11.1.24 Heat Transfer]{\ 11.1.24 Heat Transfer}
+\subsection[Heat Transfer]{Heat Transfer}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Heat_transfer}{http://en.wikipedia.org/wiki/Heat\_transfer}
 
 (In development...)
 
-\subsubsection[\ 11.1.25 Insulation]{\ 11.1.25 Insulation}
+\subsection[Insulation]{Insulation}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Insulation}{http://en.wikipedia.org/wiki/Insulation}
 
 (In development...)
 
-\subsubsection[\ 11.1.26 Newton{\textquotesingle}s Laws]{\ 11.1.26
+\subsection[Newton{\textquotesingle}s Laws]{
 Newton{\textquotesingle}s Laws}
 Wikipedia entry.
 
@@ -7212,14 +7234,14 @@ Wikipedia entry.
 
 (In development...)
 
-\subsubsection[\ 11.1.27 Pressure]{\ 11.1.27 Pressure}
+\subsection[Pressure]{Pressure}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Pressure}{http://en.wikipedia.org/wiki/Pressure}
 
 (In development...)
 
-\subsubsection[\ 11.1.28 Pulleys]{\ 11.1.28 Pulleys}
+\subsection[Pulleys]{Pulleys}
 Wikipedia entry.
 
 \href{http://en.wikipedia.org/wiki/Pulley}{http://en.wikipedia.org/wiki/Pulley}
@@ -7232,9 +7254,8 @@ Wikipedia entry.
 
 \bigskip
 
-\section[\ 12]{\ 12}
-\clearpage\section{Fundamentals Of Computation}
-\subsection[\ 12.1 What Is A Computer?]{\ 12.1 What Is A Computer?}
+\chapter{Fundamentals Of Computation}
+\section[What Is A Computer?]{What Is A Computer?}
 
 \bigskip
 
@@ -7265,7 +7286,7 @@ world of ideas. \ Since these two worlds are separate from each other,
 the only way that physical objects can manipulate objects in the world
 of ideas is through remote control via symbols.
 
-\ 12.2 What Is A Symbol?
+\section[What Is A Symbol?]{What Is A Symbol?}
 
 A symbol is an object that is used to represent another object.
 \ Drawing 5 shows an example of a symbol of a telephone which is used
@@ -7279,7 +7300,8 @@ printed on a flat surface ( like a piece of paper ). \ In general,
 though, any type of physical matter ( or property of physical matter )
 that is arranged into a pattern can be used as a symbol.
 
-\ 12.3 Computers Use Bit Patterns As Symbols
+\section[Computers Use Bit Patterns As Symbols]{
+Computers Use Bit Patterns As Symbols}
 
 Symbols which are made of physical matter can represent all types of
 physical objects, but they can also be used to represent nonphysical
@@ -7358,7 +7380,7 @@ as shown in Drawing 9.
 
 \bigskip
 
-\subsection[\ 12.4 Contextual Meaning]{\ 12.4 Contextual Meaning}
+\section[Contextual Meaning]{Contextual Meaning}
 At this point you may be wondering {\textquotedbl}how one can determine
 what the bit patterns in a memory location, or a set of memory
 locations, mean?{\textquotedbl} \ The answer to this question is that a
@@ -7384,7 +7406,7 @@ pattern, but a human can have that bit pattern mean anything they wish.
 single memory location, the pattern can be spread across more than one
 location.
 
-\subsection[\ 12.5 Variables]{\ 12.5 Variables}
+\section[Variables]{Variables}
 Computers are very good at remembering numbers and this allows them to
 keep track of numerous addresses with ease. \ Humans, however, are not
 nearly as good at remembering numbers as computers are and so a concept
@@ -7423,7 +7445,7 @@ beyond the capacity of even the most advanced computer. \ Therefore,
 computers usually work with models of objects instead of complete
 representations of them.
 
-\subsection[\ 12.6 Models]{\ 12.6 Models}
+\section[Models]{Models}
 A model is a simplified representation of an object that only references
 some of its attributes. Examples of typical object attributes include
 weight, height, strength, and color. \ The attributes that are selected
@@ -7516,7 +7538,7 @@ attribute, but no mechanism has been given yet that would allow the
 variable{\textquotesingle}s to change. \ A computer without the ability
 to change the contents of its variables would be practically useless.
 
-\subsection[\ 12.7 Machine Language]{\ 12.7 Machine Language}
+\section[Machine Language]{Machine Language}
 Earlier is was stated that bit patterns in a computer{\textquotesingle}s
 memory locations can be used to represent any ideas that a human can
 think of. \ If memory locations can represent any idea, this means that
@@ -7793,7 +7815,7 @@ program language, and the programmer typed
 {\textquotesingle}print{\textquotesingle}, this would be a syntax
 error.
 
-\subsection[\ 12.8 Compilers And Interpreters]{\ 12.8 Compilers And
+\section[Compilers And Interpreters]{Compilers And
 Interpreters}
 There are two types of programs that are commonly used to convert a
 higher level language into machine language. \ The first kind of
@@ -7828,7 +7850,7 @@ historically important languages. Here is a link to a website that
 lists a number of the historically important computer languages:
 \ http://en.wikipedia.org/wiki/Timeline\_of\_programming\_languages 
 
-\subsection[\ 12.9 Algorithms]{\ 12.9 Algorithms}
+\section[Algorithms]{Algorithms}
 A computer programmer certainly needs to know at least one programming
 language, but when a programmer solves a problem, they do it at a level
 that is higher in abstraction than even the more abstract computer
@@ -7974,7 +7996,7 @@ that it leads to the desired solution. \ After the steps have been
 developed and recorded in a document, however, they can be followed
 over and over again by people who need to solve the given problem.
 
-\subsection[\ 12.10 Computation]{\ 12.10 Computation}
+\section[Computation]{Computation}
 It is fairly easy to understand how a human is able to follow the steps
 of an algorithm, but it is more difficult to understand how computer
 can perform these steps when its microprocessor is only capable of
@@ -8141,7 +8163,8 @@ high{}-level language is automatically done by either a compiler or an
 interpreter. \ This is why most of the time, programmers use a
 high{}-level language to develop in instead of machine language.
 
-\ 12.11 Diagrams Can Be Used To Record Algorithms
+\section[Diagrams Can Be Used To Record Algorithms]{
+Diagrams Can Be Used To Record Algorithms}
 
 Earlier it was mentioned that not only can an algorithm can be recorded
 in a natural language like English but it can also be recorded using
@@ -8156,7 +8179,8 @@ activities) that are part of some piece of logic. \ The following is an
 example which shows how an algorithm can be represented in an Activity
 diagram.
 
-\ 12.12 Calculating The Sum Of The Numbers Between 1 And 10
+\section[Calculating The Sum Of The Numbers Between 1 And 10]{
+Calculating The Sum Of The Numbers Between 1 And 10}
 
 The first thing that needs to be done with a problem before it can be
 analyzed and solved is to describe it clearly and accurately. \ Here is
@@ -8200,8 +8224,8 @@ When the point where no more errors in the logic can be found, the
 developer can stop being the problem solver and pass the algorithm over
 to the coder so it can be encoded into a programming language.
 
-\subsection[\ 12.13 The Mathematics Part Of Mathematics Computing
-Systems]{\ 12.13 The Mathematics Part Of Mathematics Computing Systems}
+\section[The Mathematics Part Of Mathematics Computing
+Systems]{The Mathematics Part Of Mathematics Computing Systems}
 Mathematics has been described as the {\textquotedbl}science of
 patterns{\textquotedbl} 2. \ Here is a definition for pattern:
 
@@ -8290,5 +8314,8 @@ Notes:
 + Create link to {\textquotedbl}algorithm{\textquotedbl}.
 
 +
+
+\backmatter
+
 \end{document}
 %}}}
