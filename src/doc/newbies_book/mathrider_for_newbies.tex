@@ -1,0 +1,8321 @@
+% This file was converted to LaTeX by Writer2LaTeX ver. 0.4b
+% see http://www.hj-gym.dk/~hj/writer2latex for more info
+\documentclass[12pt,twoside]{book}
+\usepackage[ascii]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+\usepackage{hyperref}
+\usepackage{lineno}
+%\usepackage{lastpage} % total page count
+
+\hypersetup{colorlinks=true, linkcolor=blue, filecolor=blue, urlcolor=blue}
+% Outline numbering
+\setcounter{secnumdepth}{10}
+%\setcounter{tocdepth}{10}
+
+% Pages styles (master pages)
+\makeatletter
+\newcommand\ps@Standard{%
+\renewcommand\@oddhead{v1.24 {}- 04/29/08\hfill MathRider For Newbies\hfill \thepage{}}% \pageref{LastPage}
+\renewcommand\@evenhead{\@oddhead}%
+\renewcommand\@oddfoot{}%
+\renewcommand\@evenfoot{}%
+\setlength\paperwidth{8.5in}\setlength\paperheight{11in}\setlength\voffset{-1in}\setlength\hoffset{-1in}\setlength\topmargin{0.7874in}\setlength\headheight{12pt}\setlength\headsep{0.1965in}\setlength\footskip{12pt+0cm}\setlength\textheight{11in-0.7874in-0.7874in-0.1965in-12pt-0cm-12pt}\setlength\oddsidemargin{0.7874in}\setlength\textwidth{8.5in-0.7874in-0.7874in}
+\renewcommand\thepage{\arabic{page}}
+
+\setlength{\skip\footins}{0.0398in}\renewcommand\footnoterule{\vspace*{-0.0071in}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.0071in}}\vspace*{0.0398in}}
+}
+\makeatother
+
+\pagestyle{Standard}
+
+%{{{
+\begin{document}
+
+
+
+\frontmatter
+
+
+\title{MathRider For Newbies}
+
+
+\author{Ted Kosan}
+\maketitle
+
+\begin{center}
+\begin{minipage}{3in}
+
+\bigskip
+
+{\centering
+Copyright \textsf{{\textcopyright}} 2008 by Ted Kosan
+\par}
+
+
+\bigskip
+
+\ This work is licensed under the Creative Commons
+Attribution{}-ShareAlike 3.0 License. To view a copy of this license,
+visit http://creativecommons.org/licenses/by{}-sa/3.0/
+\end{minipage}
+\end{center}
+
+
+
+
+% Running line numbers:
+\linenumbers
+
+
+This book is dedicated to Steve Yegge and his blog entry
+{\textquotedbl}Math Every Day{\textquotedbl} (
+http://steve.yegge.googlepages.com/math{}-every{}-day)
+
+
+\renewcommand\contentsname{Table of Contents}
+\tableofcontents
+
+\bigskip
+
+
+
+%{{{preface
+\part[Preface]{Preface}
+%\addcontentsline{toc}{subsection}{Preface}
+
+.
+
+\subsection{Acknowledgments}
+The following people have provided feedback on this book (if I forgot to
+include your name on this list, please email me at ted.kosan at
+gmail.com):
+
+xxx
+
+
+\bigskip
+
+\subsection[Support Groups]{Support Groups}
+The support group for this book can be accessed at:
+
+\href{http://mathrider.groups.curriki.org}{http://mathrider.groups.curriki.org}
+
+
+
+\bigskip
+%}}}
+
+\mainmatter
+
+
+
+\chapter[Introduction]{Introduction}
+MathRider is an open source mathematics computing environment (MCE) for
+performing symbolic and numerical computations. \ Mathematics computing
+\ environments are complex and it takes a significant amount of time
+and effort to become proficient at using one. \ The amount of power
+that a mathematics computing environment makes available to a user,
+however, is well worth the effort needed to learn one. \ It will take a
+beginner a while to become an expert at using MathRider, but
+fortunately one does not need to be a MathRider expert in order to
+begin using it to solve problems.
+
+\section[What Is A Mathematics Computing Environment?]{What Is A Mathematics Computing Environment?}
+A mathematics computing environment is a set of computer programs that
+are able to automatically perform a wide range of symbolic and numeric
+mathematics calculation algorithms. \ Calculation algorithms exist for
+almost all areas of mathematics and new algorithms are constantly being
+developed. \ Another name for this kind of software is a Computer
+Algebra System (CAS).
+
+
+\bigskip
+
+A significant number of computer algebra systems have been created since
+the 1960s and the following list contains some of the more popular
+ones:
+
+
+\bigskip
+
+\href{http://en.wikipedia.org/wiki/Comparison_of_computer_algebra_systems}{http://en.wikipedia.org/wiki/Comparison\_of\_computer\_algebra\_systems}
+
+
+\bigskip
+
+Some environments are highly specialized and some are general purpose.
+\ Some allow mathematics to be displayed and entered in traditional
+form (which is what is found in most math textbooks), some are able to
+display traditional form mathematics but need to have it input as text,
+and some are only able to have mathematics displayed and entered as
+text.
+
+
+\bigskip
+
+As an example of the difference between traditional mathematics form and
+text form, here is a formula which is displayed in traditional form:
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+and here is the same formula in text form:
+
+
+\bigskip
+
+A == x\^{}2 + 4*h*x
+
+
+\bigskip
+
+Most mathematics computing environments contain some kind of
+mathematics{}-oriented high{}-level programming language. This allows
+software programs to be developed which have access to the mathematics
+algorithms which are included in the environment. \ Some of these
+mathematics{}-oriented programming languages were created specifically
+for the environment they work in while others are built around an
+existing programming language.
+
+
+\bigskip
+
+Some mathematics computing environments are proprietary and need to be
+purchased while others are open source and available for free. \ Both
+kinds of environments possess similar core capabilities, but they
+usually differ in other areas.
+
+
+\bigskip
+
+Proprietary environments tend to be more polished than open source
+environments and they often have graphical user interfaces that make
+inputting and manipulating mathematics in traditional form relatively
+easy. \ However, proprietary environments also have drawbacks. \ One
+drawback is that there is always a chance that the company that owns it
+may go out of business and this may make the environment unavailable
+for further use. \ Another drawback is that users are unable to enhance
+a proprietary environment because the environment{\textquotesingle}s
+source code is not made available to users.
+
+
+\bigskip
+
+Some open source mathematics computing environments do not have
+graphical user interfaces, but their user interfaces are adequate for
+most purposes and the environment{\textquotesingle}s source code will
+always be available to whomever wants it. \ This means that people can
+use the environment for as long as there is interest in it and they can
+also enhance it as desired.
+
+\section[What Is MathRider?]{What Is MathRider?}
+MathRider is an open source mathematics computing environment that
+inputs mathematics in textual form and displays it in either textual
+form or traditional form. \ \ MathRider uses Yacas as its default
+computation engine, but in theory other computer algebra systems can be
+used. \ This means that expert MathRider users must also be expert
+Yacas programmers. \ Some knowledge of the Yacas programming language
+is so critical to being able to successfully use MathRider that a
+user{\textquotesingle}s knowledge of Yacas can be used to help
+determine their level of MathRider expertise. (see Table 1)
+
+
+\bigskip
+
+Level
+
+Knowledge
+
+MathRider Expert
+
+Knows Yacas well and MathRider well.
+
+MathRider Novice
+
+Knows Yacas but has only used MathRider for a short while.
+
+MathRider Newbie
+
+Does not know Yacas but has been exposed to at least 1 programming
+language.
+
+Programming Newbie
+
+Does not know how a computer works and has never programmed before.
+
+Table 1: MathRider user experience levels
+
+
+\bigskip
+
+This book is for MathRider Newbies. \ It assumes the reader has been
+exposed to at least 1 programming language, but has never programmed in
+Yacas (if your understanding of how computer programming works needs
+refreshing, you may want to read through the Fundamentals Of Computing
+section of this book.) \ This book will teach you enough Yacas to begin
+solving problems with MathRider. \ It will help you to become a
+MathRider Novice, but you will need to learn Yacas from books that are
+dedicated to it before you can become a MathRider Expert. \ 
+
+
+\bigskip
+
+If you are a programming newbie, this book will probably be too advanced
+for you. \ I have written a series of free books called The Professor
+and Pat Programming Series (http://professorandpat.org) and they are
+designed for programming newbies. \ If you are a programming newbie and
+are interested in learning how to use MathRider, you might be
+interested in working through the Professor and Pat Programming books
+first and then come back to this book when you are finished with them.
+\ 
+
+
+\bigskip
+
+The MathRider website (mathrider.org) contains more information about
+MathRider along with other MathRider resources.
+
+\section[Accessing MathRider As A Web Service]{Accessing MathRider As A Web Service}
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+Physical mathematics notebooks contain worksheets and therefore
+MathRider{\textquotesingle}s virtual notebook contains worksheets too.
+\ The worksheet management page allows worksheets to be created,
+deleted, published on the Internet, etc. \ Since this is a newly
+created Notebook, it does not contain any worksheets yet. \ 
+
+
+\bigskip
+
+Create a new worksheet now by selecting the New Worksheet link. \ A
+worksheet can either use special mathematics fonts to display
+mathematics in traditional form or it can use images of these fonts.
+\ If the computer you are working on does not have mathematics fonts
+installed, the worksheet will display a message which indicates that it
+will use its built{}-in image fonts as an alternative. (see ) 
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+Worksheets contain 1 or more cells which are used to enter source code
+that will be executed by MathRider. \ Cells have rectangles drawn
+around them as shown in Figure 6 and they are able to grow larger as
+more text is entered into them. When a worksheet is first created, an
+initial cell is placed at the top of its work area and this is where
+you will normally begin entering text.
+
+\section[Entering Source Code Into A MathRider Cell]{Entering Source Code Into A MathRider Cell}
+Lets begin exploring MathRider by using it as a simple calculator.
+\ Place your mouse cursor inside of the cell that is at the top of your
+worksheet. \ Notice that the cursor is automatically placed against the
+left side of a new cell. \ You must always begin each line of MathRider
+source code at the left side of a cell with no indenting (unless you
+are instructed to do otherwise).
+
+
+\bigskip
+
+Type the following text, but do not press the enter key:
+
+
+\bigskip
+
+2 + 3
+
+
+\bigskip
+
+your worksheet should now look like Drawing 1.
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+At this point you have 2 choices. \ You can either press the enter key
+{\textless}enter{\textgreater} or you can hold down the shift key and
+press the enter key
+{\textless}shift{\textgreater}{\textless}enter{\textgreater}. \ If you
+simply press the enter key, the cell will expand and drop the cursor
+down to the next line so you can continue entering source code.
+
+
+\bigskip
+
+If you press shift and enter, however, the Worksheet will take all the
+source code that has been typed into the cell and send it to the
+MathRider server through the network so the server can execute the
+code. \ When MathRider is given source code to execute, it will first
+process it using software called the MathRider preprocessor. \ The
+preprocessor converts MathRider source code into Python source code so
+that it can be executed using the Python environment that MathRider is
+built upon.
+
+
+\bigskip
+
+The converted source code is then passed to the Python environment where
+it is compiled into a special form of machine language called Python
+bytecode. \ The bytecode is then executed by a program that emulates a
+hardware CPU and this program is called the Python interpreter. 
+
+
+\bigskip
+
+Sometimes the server is able to execute the code quickly and sometimes
+it will take a while. \ While the code is being executed by the server,
+the Worksheet will display a small green vertical bar beneath the cell
+towards the left side of the window as shown in Drawing 2.
+
+
+\bigskip
+
+
+\bigskip
+
+When the server is finished executing the source code, the green bar
+will disappear. \ If a displayable result was generated, this result is
+sent back to the Worksheet and the Worksheet then displays it in the
+area that is directly beneath the cell that the request was submitted
+from.
+
+
+\bigskip
+
+Press shift and enter in your cell now and in a few moments you should
+see a result that looks like Drawing 3.
+
+
+\bigskip
+
+If code was submitted for execution from the bottom cell in the
+Notebook, a blank cell is automatically added beneath this cell when
+the server has finished executing the code.
+
+
+\bigskip
+
+Now enter the source code that is shown in the second cell in Drawing 4
+and execute it.
+
+
+
+
+\bigskip
+
+\chapter[MathRider Programming Fundamentals]{MathRider
+Programming Fundamentals}
+\section[Objects, Values, And Expressions]{Objects,
+Values, And Expressions}
+The source code lines
+
+
+\bigskip
+
+2 + 3 
+
+
+\bigskip
+
+and 
+
+
+\bigskip
+
+5 + 6*21/18 {}- 2\^{}3
+
+
+\bigskip
+
+are both called expressions and the following is a definition of what an
+expression is:
+
+
+\bigskip
+
+An expression in a programming language is a combination of values,
+variables, operators, and functions that are interpreted (evaluated)
+according to the particular rules of precedence and of association for
+a particular programming language, which computes and then produces
+another value. The expression is said to evaluate to that value. As in
+mathematics, the expression is (or can be said to have) its evaluated
+value; the expression is a representation of that value.
+(http://en.wikipedia.org/wiki/Expression\_(programming))
+
+
+\bigskip
+
+In a computer, a value is a pattern of bits in one or more memory
+locations that mean something when interpreted using a given context.
+\ In MathRider, patterns of bits in memory that have meaning are called
+objects. \ MathRider itself is built with objects and the data that
+MathRider programs process are also represented as objects. \ Objects
+are explained in more depth in Chapter 4.
+
+
+\bigskip
+
+In the above expressions, 2, 3, 5, 6, 21, and 18 are objects that are
+interpreted using a context called the sage.rings.integer.Integer
+context. \ Contexts that can be associated with objects are called
+types and an object that is of type sage.rings.integer.Integer is used
+to represent integers.
+
+
+\bigskip
+
+There is a command in MathRider called type() which will return the type
+of any object that is passed to it. \ Lets have the type() command tell
+us what the type of the objects 3 and 21 are by executing the following
+code: (Note: from this point forward, the source code that is to be
+entered into a cell, and any results that need to be displayed, will be
+given without using a graphic worksheet screen capture.)
+
+
+\bigskip
+
+type(3)
+
+{\textbar}
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.integer.Integer{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+type(21)
+
+{\textbar}
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.integer.Integer{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+The way that a person tells the type() command what object they want to
+see the type information for is by placing the object within the
+parentheses which are to the right of the the name
+{\textquotesingle}type{\textquotesingle}.
+
+\section[Operators]{Operators}
+
+In the above expressions, the characters +, $-$, *, /, \^{} are called
+operators and their purpose is to tell MathRider what operations to
+perform on the objects in an expression. \ For example, in the
+expression 2 + 3, the addition operator + tells MathRider to add the
+integer 2 to the integer 3 and return the result. \ Since both the
+objects 2 and 3 are of type sage.rings.integer.Integer, the result that
+is obtained by adding them together will also be an object of type
+sage.rings.integer.Integer.
+
+
+\bigskip
+
+The subtraction operator is $-$, the multiplication operator is *, / is
+the division operator, \% is the remainder operator, and \^{} is the
+exponent operator. \ MathRider has more operators in addition to these
+and more information about them can be found in Python documentation.
+
+
+\bigskip
+
+The following examples show the $-$, *, /,\%, and \^{} operators being
+used:
+
+
+\bigskip
+
+5 {}- 2
+
+{\textbar}
+
+3
+
+
+\bigskip
+
+3*4
+
+{\textbar}
+
+12
+
+
+\bigskip
+
+30/3
+
+{\textbar}
+
+10
+
+
+\bigskip
+
+8\%5
+
+{\textbar}
+
+3
+
+
+\bigskip
+
+2\^{}3
+
+{\textbar}
+
+8
+
+
+\bigskip
+
+The $-$ character can also be used to indicate a negative number:
+
+
+\bigskip
+
+{}-3
+
+{\textbar}
+
+\ \ \ \ {}-3
+
+
+\bigskip
+
+Subtracting a negative number results in a positive number:
+
+
+\bigskip
+
+{}- {}-3
+
+{\textbar}
+
+\ \ \ \ 3
+
+\section[Operator Precedence]{Operator Precedence}
+
+When expressions contain more than 1 operator, MathRider uses a set of
+rules called operator precedence to determine the order in which the
+operators are applied to the objects in the expression. \ Operator
+precedence is also referred to as the order of operations. \ Operators
+with higher precedence are evaluated before operators with lower
+precedence. \ The following table shows a subset of
+MathRider{\textquotesingle}s operator precedence rules with higher
+precedence operators being placed higher in the table:
+
+
+\bigskip
+
+\^{} Exponents are evaluated right to left.
+
+
+\bigskip
+
+*,\%,/ Then multiplication, remainder, and division operations are
+evaluated left to right.
+
+
+\bigskip
+
++, $-$ Finally, addition and subtraction are evaluated left to right.
+
+
+\bigskip
+
+Lets manually apply these precedence rules to the multi{}-operator
+expression we used earlier. \ Here is the expression in source code
+form:
+
+
+\bigskip
+
+5 + 6*21/18 {}- 2\^{}3
+
+
+\bigskip
+
+And here it is in traditional form:
+
+
+\bigskip
+
+
+\bigskip
+
+According to the precedence rules, this is the order in which MathRider
+evaluates the operations in this expression:
+
+
+\bigskip
+
+5 + 6*21/18 {}- 2\^{}3
+
+5 + 6*21/18 {}- 8
+
+5 + 126/18 {}- 8
+
+5 + 7 {}- 8
+
+12 {}- 8
+
+4
+
+
+\bigskip
+
+Starting with the first expression, MathRider evaluates the \^{}
+operator first which results in the 8 in the expression below it. \ In
+the second expression, the * operator is executed next, and so on.
+\ The last expression shows that the final result after all of the
+operators have been evaluated is 4.
+
+\section[Changing The Order Of Operations In An
+Expression]{Changing The Order Of Operations In An Expression}
+The default order of operations for an expression can be changed by
+grouping various parts of the expression within parentheses.
+\ Parentheses force the code that is placed inside of them to be
+evaluated before any other operators are evaluated. \ \ For example,
+the expression 2 + 4*5 evaluates to 22 using the default precedence
+rules:
+
+
+\bigskip
+
+2 + 4*5
+
+{\textbar}
+
+\ \ \ \ 22
+
+
+\bigskip
+
+If parentheses are placed around 4 + 5, however, the addition is forced
+to be evaluated before the multiplication and the result is 30:
+
+
+
+(2 + 4)*5
+
+{\textbar}
+
+\ \ \ \ 30
+
+
+\bigskip
+
+Parentheses can also be nested and nested parentheses are evaluated from
+the most deeply nested parentheses outward:
+
+
+\bigskip
+
+((2 + 4)*3)*5
+
+{\textbar}
+
+\ \ \ \ 90
+
+
+\bigskip
+
+Since parentheses are evaluated before any other operators, they are
+placed at the top of the precedence table:
+
+
+\bigskip
+
+() Parentheses are evaluated from the inside out.
+
+
+\bigskip
+
+\^{} Then exponents are evaluated right to left.
+
+
+\bigskip
+
+*,\%,/ Then multiplication, remainder, and division operations are
+evaluated left to right.
+
+
+\bigskip
+
++, $-$ Finally, addition and subtraction are evaluated left to right.
+
+\section[Variables]{Variables}
+A variable is a name that can be associated with a memory address so
+that humans can refer to bit pattern symbols in memory using a name
+instead of a number. \ One way to create variables in MathRider is
+through assignment and it consists of placing the name of a variable
+you would like to create on the left side of an equals sign
+{\textquotesingle}={\textquotesingle} and an expression on the right
+side of the equals sign. \ When the expression returns an object, the
+object is assigned to the variable. 
+
+
+\bigskip
+
+In the following example, a variable called box is created and the
+number 7 is assigned to it:
+
+
+\bigskip
+
+box = 7
+
+{\textbar}
+
+
+\bigskip
+
+Notice that unlike earlier examples, a displayable result is not
+returned to the worksheet because the result was placed in the variable
+box. \ If you want to see the contents of box, type its name into a
+blank cell and then evaluate the cell:
+
+
+\bigskip
+
+box
+
+{\textbar}
+
+\ \ \ \ 7
+
+
+\bigskip
+
+As can be seen in this example, variables that are created in a given
+cell in a worksheet are also available to the other cells in a
+worksheet. \ Variables exist in a worksheet as long as the worksheet is
+open, but when the worksheet is closed, the variables are lost. \ When
+the worksheet is reopened, the variables will need to be created again
+by evaluating the cells they are assigned in. \ Variables can be saved
+before a worksheet is closed and then loaded when the worksheet is
+opened again, but this is an advanced topic which will be covered
+later.
+
+
+\bigskip
+
+MathRider variables are also case sensitive. \ This means that MathRider
+takes into account the case of each letter in a variable name when it
+is deciding if two or more variable names are the same variable or not.
+\ For example, the variable name Box and the variable name box are not
+the same variable because the first variable name starts with an upper
+case {\textquotesingle}B{\textquotesingle} and the second variable name
+starts with a lower case {\textquotesingle}b{\textquotesingle}.
+
+
+\bigskip
+
+Programs are able to have more than 1 variable and here is a more
+sophisticated example which uses 3 variables:
+
+
+\bigskip
+
+a = 2
+
+{\textbar}
+
+
+\bigskip
+
+b = 3
+
+{\textbar}
+
+
+\bigskip
+
+a + b
+
+{\textbar}
+
+\ \ \ \ 5
+
+
+\bigskip
+
+answer = a + b
+
+{\textbar}
+
+
+\bigskip
+
+answer
+
+{\textbar}
+
+\ \ \ \ 5
+
+
+\bigskip
+
+The part of an expression that is on the right side of an equals sign
+{\textquotesingle}={\textquotesingle} is always evaluated first and the
+result is then assigned to the variable that is on the left side of the
+equals sign.
+
+
+\bigskip
+
+When a variable is passed to the type() command, the type of the object
+that the variable is assigned to is returned:
+
+
+\bigskip
+
+a = 4
+
+type(a)
+
+{\textbar}
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.integer.Integer{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+Data types and the type command will be covered more fully later.
+
+\section[Statements]{Statements}
+Statements are the part of a programming language that is used to encode
+algorithm logic. \ Unlike expressions, statements do not return objects
+and they \ are used because of the various effects they are able to
+produce. \ Statements can contain both expressions and statements and
+programs are constructed by using a sequence of statements.
+
+\subsection[The print Statement]{The print Statement}
+
+If more than one expression in a cell generates a displayable result,
+the cell will only display the result from the bottommost expression.
+\ For example, this program creates 3 variables and then attempts to
+display the contents of these variables:
+
+
+\bigskip
+
+a = 1
+
+b = 2
+
+c = 3
+
+a
+
+b
+
+c
+
+{\textbar}
+
+\ \ \ \ 3
+
+
+\bigskip
+
+In MathRider, programs are executed one line at a time, starting at the
+topmost line of code and working downwards from there. \ In this
+example, the line a = 1 is executed first, then the line b = 2 is
+executed, and so on. \ Notice, however, that even though we wanted to
+see what was in all 3 variables, only the content of the last variable
+was displayed.
+
+
+\bigskip
+
+MathRider has a statement called print that allows the results of
+expressions to be displayed regardless of where they are located in the
+cell. \ This example is similar to the previous one except print
+statements are used to display the contents of all 3 variables:
+
+
+\bigskip
+
+a = 1
+
+b = 2
+
+c = 3
+
+print a
+
+print b
+
+print c
+
+{\textbar}
+
+\ \ \ \ 1
+
+\ \ \ \ 2
+
+\ \ \ \ 3
+
+
+\bigskip
+
+The print statement will also print multiple results on the same line if
+commas are placed between the expressions that are passed to it:
+
+
+\bigskip
+
+a = 1
+
+b = 2
+
+c = 3*6
+
+print a,b,c
+
+{\textbar}
+
+\ \ \ 1 2 18
+
+
+\bigskip
+
+When a comma is placed after a variable or object which is being passed
+to the print statement, it tells the statement not to drop the cursor
+down to the next line after it is finished printing. \ Therefore, the
+next time a print statement is executed, it will place its output on
+the same line as the previous print statement{\textquotesingle}s
+output.
+
+
+\bigskip
+
+Another way to display multiple results from a cell is by using
+semicolons {\textquotesingle};{\textquotesingle}. \ In MathRider,
+semicolons can be placed after statements as optional terminators, but
+most of the time one will only see them used to place multiple
+statements on the same line. \ \ The following example shows semicolons
+being used to allow variables a, b, and c to be initialized on one
+line:
+
+
+\bigskip
+
+a=1;b=2;c=3
+
+print a,b,c
+
+{\textbar}
+
+1 2 3
+
+The next example shows how semicolons can be also used to output
+multiple results from a cell:
+
+
+\bigskip
+
+a = 1
+
+b = 2
+
+c = 3*6
+
+a;b;c
+
+{\textbar}
+
+1
+
+2
+
+18
+
+\section[Strings]{Strings}
+A string is a type of object that is used to hold text{}-based
+information. \ The typical expression that is used to create a string
+object consists of text which is enclosed within either double quotes
+or single quotes. \ Strings can be referenced by variables just like
+numbers can and strings can also be displayed by the print statement.
+\ The following example assigns a string object to the variable
+{\textquotesingle}a{\textquotesingle}, prints the string object that
+{\textquotesingle}a{\textquotesingle} references, and then also
+displays its type:
+
+
+\bigskip
+
+a = {\textquotedbl}Hello, I am a string.{\textquotedbl}
+
+print a
+
+type(a)
+
+{\textbar}
+
+\ \ \ \ Hello, I am a string.
+
+\ \ \ \ {\textless}type
+{\textquotesingle}str{\textquotesingle}{\textgreater}
+
+\section[Comments]{Comments}
+Source code can often be difficult to understand and therefore all
+programming languages provide the ability for comments to be included
+in the code. \ Comments are used to explain what the code near them is
+doing and they are \ usually meant to be read by a human looking at the
+source code. \ Comments are ignored when the program is executed.
+
+
+\bigskip
+
+There are two ways that MathRider allows comments to be added to source
+code. \ The first way is by placing a pound sign
+{\textquotesingle}\#{\textquotesingle} to the left of any text that is
+meant to serve as a comment. \ The text from the pound sign to the end
+of the line the pound sign is on will be treated as a comment. \ Here
+is a program that contains comments which use a pound sign:
+
+
+\bigskip
+
+\#This is a comment.
+
+x = 2 \#Set the variable x equal to 2.
+
+print x
+
+{\textbar}
+
+\ \ \ \ 2
+
+
+\bigskip
+
+When this program is executed, the text that starts with a pound sign is
+ignored.
+
+
+\bigskip
+
+The second way to add comments to a MathRider program is by enclosing
+the comments in a set of triple quotes. \ This option is useful when a
+comment is too large to fit on one line. \ This program shows a triple
+quoted comment:
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+This is a longer comment and it uses
+
+more than one line. The following
+
+code assigns the number 3 to variable
+
+x and then it prints x.
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+
+\bigskip
+
+x = 3
+
+print x 
+
+{\textbar}
+
+\ \ \ \ 3
+
+\section[Conditional Operators]{Conditional Operators}
+A conditional operator is an operator that is used to compare two
+objects. \ Expressions that contain conditional operators return a
+boolean object and a boolean object is one that can either be True or
+False. \ Table 2 shows the conditional operators that MathRider uses:
+
+
+\bigskip
+
+Operator
+
+Description
+
+\ \ x == y
+
+Returns True if the two objects are equal and False if they are not
+equal. \ Notice that == performs a comparison and not an assignment
+like = does.
+
+\ \ x {\textless}{\textgreater} y
+
+Returns True if the objects are not equal and False if they are equal.
+
+\ \ x != y
+
+Returns True if the objects are not equal and False if they are equal.
+
+\ \ x {\textless} y
+
+Returns True if the left object is less than the right object and False
+if the left object is not less than the right object.
+
+\ \ x {\textless}= y
+
+Returns True if the left object is less than or equal to the right
+object and False if the left object is not less than or equal to the
+right object.
+
+\ \ x {\textgreater} y
+
+Returns True if the left object is greater than the right object and
+False if the left object is not greater than the right object.
+
+\ \ x {\textgreater}= y
+
+Returns True if the left object is greater than or equal to the right
+object and False if the left object is not greater than or equal to the
+right object.
+
+Table 2: Conditional Operators
+
+
+\bigskip
+
+The following examples show each of the conditional operators in Table 2
+being used to compare objects that have been placed into variables x
+and y:
+
+
+\bigskip
+
+\# Example 1.
+
+x = 2
+
+y = 3 
+
+
+\bigskip
+
+print x, {\textquotedbl}=={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x == y
+
+print x, {\textquotedbl}{\textless}{\textgreater}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless}{\textgreater} y
+
+print x, {\textquotedbl}!={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x != y
+
+print x, {\textquotedbl}{\textless}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless} y
+
+print x, {\textquotedbl}{\textless}={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless}= y
+
+print x, {\textquotedbl}{\textgreater}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textgreater} y
+
+print x, {\textquotedbl}{\textgreater}={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textgreater}= y
+
+{\textbar}
+
+\ \ \ \ 2 == 3 : False
+
+\ \ \ \ 2 {\textless}{\textgreater} 3 : True
+
+\ \ \ \ 2 != 3 : True
+
+\ \ \ \ 2 {\textless} 3 : True
+
+\ \ \ \ 2 {\textless}= 3 : True
+
+\ \ \ \ 2 {\textgreater} 3 : False
+
+\ \ \ \ 2 {\textgreater}= 3 : False
+
+
+\bigskip
+
+\# Example 2.
+
+x = 2
+
+y = 2 \ 
+
+
+\bigskip
+
+print x, {\textquotedbl}=={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x == y
+
+print x, {\textquotedbl}{\textless}{\textgreater}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless}{\textgreater} y
+
+print x, {\textquotedbl}!={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x != y
+
+print x, {\textquotedbl}{\textless}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless} y
+
+print x, {\textquotedbl}{\textless}={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless}= y
+
+print x, {\textquotedbl}{\textgreater}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textgreater} y
+
+print x, {\textquotedbl}{\textgreater}={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textgreater}= y
+
+{\textbar}
+
+\ \ \ \ 2 == 2 : True
+
+\ \ \ \ 2 {\textless}{\textgreater} 2 : False
+
+\ \ \ \ 2 != 2 : False
+
+\ \ \ \ 2 {\textless} 2 : False
+
+\ \ \ \ 2 {\textless}= 2 : True
+
+\ \ \ \ 2 {\textgreater} 2 : False
+
+\ \ \ \ 2 {\textgreater}= 2 : True
+
+
+\bigskip
+
+\# Example 3.
+
+x = 3
+
+y = 2 \ 
+
+
+\bigskip
+
+print x, {\textquotedbl}=={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x == y
+
+print x, {\textquotedbl}{\textless}{\textgreater}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless}{\textgreater} y
+
+print x, {\textquotedbl}!={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x != y
+
+print x, {\textquotedbl}{\textless}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless} y
+
+print x, {\textquotedbl}{\textless}={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textless}= y
+
+print x, {\textquotedbl}{\textgreater}{\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textgreater} y
+
+print x, {\textquotedbl}{\textgreater}={\textquotedbl}, y,
+{\textquotedbl}:{\textquotedbl}, x {\textgreater}= y
+
+{\textbar}
+
+\ \ \ \ 3 == 2 : False
+
+\ \ \ \ 3 {\textless}{\textgreater} 2 : True
+
+\ \ \ \ 3 != 2 : True
+
+\ \ \ \ 3 {\textless} 2 : False
+
+\ \ \ \ 3 {\textless}= 2 : False
+
+\ \ \ \ 3 {\textgreater} 2 : True
+
+\ \ \ \ 3 {\textgreater}= 2 : True
+
+
+\bigskip
+
+Conditional operators are placed at a lower level of precedence than the
+other operators we have covered to this point:
+
+
+\bigskip
+
+() Parentheses are evaluated from the inside out.
+
+
+\bigskip
+
+\^{} Then exponents are evaluated right to left.
+
+
+\bigskip
+
+*,\%,/ Then multiplication, remainder, and division operations are
+evaluated left to right.
+
+
+\bigskip
+
++, $-$ Then addition and subtraction are evaluated left to right.
+
+
+\bigskip
+
+==,{\textless}{\textgreater},!=,{\textless},{\textless}=,{\textgreater},{\textgreater}=
+\ \ \ Finally, conditional operators are evaluated.
+
+\section[Making Decisions With The if Statement]{Making Decisions With The if Statement}
+
+All programming languages provide the ability to make decisions and the
+most commonly used statement for making decisions in MathRider is the
+if statement.
+
+
+\bigskip
+
+A simplified syntax specification for the if statement is as follows:
+
+
+\bigskip
+
+if {\textless}expression{\textgreater}:
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ .
+
+\ \ \ \ .
+
+\ \ \ \ .
+
+
+\bigskip
+
+The way an if statement works is that it evaluates the expression to its
+immediate right and then looks at the object that is returned. \ If
+this object is {\textquotedbl}true{\textquotedbl}, the statements that
+are inside the if statement are executed. \ If the object is
+{\textquotedbl}false{\textquotedbl}, the statements inside of the if
+are not executed.
+
+
+\bigskip
+
+In MathRider, an object is {\textquotedbl}true{\textquotedbl} if it is
+nonzero or nonempty and it is {\textquotedbl}false{\textquotedbl} if it
+is zero or empty. \ An expression that contains one or more conditional
+operators will return a boolean object which will be either True or
+False.
+
+
+\bigskip
+
+The way that statements are placed inside of a statement is by putting a
+colon {\textquotesingle}:{\textquotesingle} at the end of the
+statement{\textquotesingle}s header and then placing one or more
+statements underneath it. \ The statements that are placed underneath
+an enclosing statement must each be indented one or more tabs or spaces
+from the left side of the enclosing statement. \ All indented
+statements, however, must be indented the same way and the same amount.
+\ One or more statements that are indented like this are referred to as
+a block of code.
+
+
+\bigskip
+
+The following program uses an if statement to determine if the number in
+variable x is greater than 5. \ If x is greater than 5, the program
+will print {\textquotedbl}Greater{\textquotedbl} and then
+{\textquotedbl}End of program{\textquotedbl}.
+
+
+\bigskip
+
+x = 6
+
+
+\bigskip
+
+print x {\textgreater} 5
+
+
+\bigskip
+
+if x {\textgreater} 5:
+
+\ \ \ \ print x
+
+\ \ \ \ print {\textquotedbl}Greater{\textquotedbl}
+
+
+\bigskip
+
+print {\textquotedbl}End of program{\textquotedbl}
+
+{\textbar}
+
+\ \ \ \ True
+
+\ \ \ \ 6
+
+\ \ \ \ Greater
+
+\ \ \ \ End of program
+
+In this program, x has been set to 6 and therefore the expression x
+{\textgreater} 5 is true. \ When this expression is printed, it prints
+the boolean object True because 6 is greater than 5.
+
+
+\bigskip
+
+When the if statement evaluates the expression and determines it is
+True, it then executes the print statements that are inside of it and
+the contents of variable x are printed along with the string
+{\textquotedbl}Greater{\textquotedbl}. \ If additional statements
+needed to be placed within the if statement, they would have been added
+underneath the print statements at the same level of indenting.
+
+
+\bigskip
+
+Finally, the last print statement prints the string {\textquotedbl}End
+of program{\textquotedbl} regardless of what the if statement does.
+
+
+\bigskip
+
+Here is the same program except that x has been set to 4 instead of 6:
+
+
+\bigskip
+
+x = 4
+
+
+\bigskip
+
+print x {\textgreater} 5
+
+
+\bigskip
+
+if x {\textgreater} 5:
+
+\ \ \ \ print x
+
+\ \ \ \ print {\textquotedbl}Greater.{\textquotedbl}
+
+
+\bigskip
+
+print {\textquotedbl}End of program.{\textquotedbl}
+
+{\textbar}
+
+\ \ \ \ False
+
+\ \ \ \ End of program.
+
+This time the expression x {\textgreater} 4 returns a False object which
+causes the if statement to not execute the statements that are inside
+of it.
+
+\section[The and, or, And not Boolean Operators]{The
+and, or, And not Boolean Operators}
+Sometimes one wants to check if two or more expressions are all true and
+the way to do this is with the and operator:
+
+
+\bigskip
+
+a = 7
+
+b = 9
+
+print a {\textless} 5 and b {\textless} 10
+
+print a {\textgreater} 5 and b {\textgreater} 10
+
+print a {\textless} 5 and b {\textgreater} 10
+
+print a {\textgreater} 5 and b {\textless} 10
+
+if a {\textgreater} 5 and b {\textless} 10:
+
+\ \ \ \ print {\textquotedbl}These expressions are both
+true.{\textquotedbl}
+
+{\textbar}
+
+False
+
+False
+
+False
+
+True
+
+These expressions are both true.
+
+
+\bigskip
+
+At other times one wants to determine if at least one expression in a
+group is true and this is done with the or operator:
+
+
+\bigskip
+
+a = 7
+
+b = 9
+
+print a {\textless} 5 or b {\textless} 10
+
+print a {\textgreater} 5 or b {\textgreater} 10
+
+print a {\textgreater} 5 or b {\textless} 10
+
+print a {\textless} 5 or b {\textgreater} 10
+
+
+\bigskip
+
+if a {\textless} 5 or b {\textless} 10:
+
+\ \ \ \ print {\textquotedbl}At least one of these expressions is
+true.{\textquotedbl}
+
+{\textbar}
+
+True
+
+True
+
+True
+
+False
+
+At least one of these expressions is true.
+
+Finally, the not operator can be used to change a True result to a False
+result, and a False result to a True result:
+
+
+\bigskip
+
+a = 7
+
+print a {\textgreater} 5
+
+print not a {\textgreater} 5
+
+{\textbar}
+
+True
+
+False
+
+Boolean operators are placed at a lower level of precedence than the
+other operators we have covered to this point:
+
+
+\bigskip
+
+() Parentheses are evaluated from the inside out.
+
+
+\bigskip
+
+\^{} Then exponents are evaluated right to left.
+
+
+\bigskip
+
+*,\%,/ Then multiplication, remainder, and division operations are
+evaluated left to right.
+
+
+\bigskip
+
++, $-$ Then addition and subtraction are evaluated left to right.
+
+
+\bigskip
+
+==,{\textless}{\textgreater},!=,{\textless},{\textless}=,{\textgreater},{\textgreater}=
+\ \ \ Then conditional operators are evaluated.
+
+
+\bigskip
+
+not The boolean operators are evaluated last.
+
+
+\bigskip
+
+and 
+
+
+\bigskip
+
+or 
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+\section[Looping With The while Statement]{Looping With
+The while Statement}
+Many kinds of machines, including computers, derive much of their power
+from the principle of repeated cycling. \ MathRider provides a number
+of ways to implement repeated cycling in a program and these ways range
+from straight{}-forward to subtle. \ \ We will begin discussing looping
+in MathRider by starting with the straight{}-forward while statement.
+
+
+\bigskip
+
+The syntax specification for the while statement is as follows:
+
+
+
+while {\textless}expression{\textgreater}:
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ .
+
+\ \ \ \ .
+
+\ \ \ \ .
+
+
+\bigskip
+
+The while statement is similar to the if statement except it will
+repeatedly execute the statements it contains as long as the expression
+to the right of its header is true. \ As soon as the expression returns
+a False object, the while statement skips the statements it contains
+and execution continues with the statement that immediately follows the
+while statement (if there is one). 
+
+
+\bigskip
+
+The following example program uses a while loop to print the integers
+from 1 to 10:
+
+
+\bigskip
+
+\# Print the integers from 1 to 10.
+
+
+\bigskip
+
+x = 1 \ \#Initialize a counting variable to 1 outside of the loop.
+
+
+\bigskip
+
+while x {\textless}= 10:
+
+\ \ \ \ print x
+
+\ \ \ \ x = x + 1 \ \#Increment x by 1.
+
+{\textbar}
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+In this program, a single variable called x is created. \ It is used to
+tell the print statement which integer to print and it is also used in
+the expression that determines if the while loop should continue to
+loop or not.
+
+
+\bigskip
+
+When the program is executed, 1 is placed into x and then the while
+statement is \ entered. \ The expression x {\textless}= 10 becomes 1
+{\textless}= 10 and, since 1 is less than or equal to 10, a boolean
+object containing True is returned by the expression.
+
+
+\bigskip
+
+The while statement sees that the expression returned a true object and
+therefore it executes all of the statements inside of itself from top
+to bottom. \ 
+
+
+\bigskip
+
+The print statement prints the current contents of x (which is 1) then x
+= x + 1 is executed. \ 
+
+
+\bigskip
+
+The expression x = x + 1 is a standard expression form that is used in
+many programming languages. \ Each time an expression in this form is
+evaluated, it increases the variable it contains by 1. \ Another way to
+describe the effect this expression has on x is to say that it
+increments x by 1.
+
+
+\bigskip
+
+In this case x contains 1 and, after the expression is evaluated, x
+contains 2.
+
+
+\bigskip
+
+After the last statement inside of a while statement is executed, the
+while statement reevaluates the expression to the right of its header
+to determine whether it should continue looping or not. \ Since x is 2
+at this point, the expression returns True and the code inside the
+while statement is executed again. \ This loop will be repeated until x
+is incremented to 11 and the expression returns False.
+
+
+\bigskip
+
+The previous program can be adjusted in a number of ways to achieve
+different results. \ For example, the following program prints the
+integers from 1 to 100 by increasing the 10 in the expression which is
+at the right side of the while header to 100. \ A comma has been placed
+after the print statement so that its output is displayed on the same
+line until it encounters the right side of the window.
+
+
+\bigskip
+
+\# Print the integers from 1 to 100.
+
+
+\bigskip
+
+x = 1 
+
+
+\bigskip
+
+while x {\textless}= 100:
+
+\ \ \ \ print x,
+
+\ \ \ \ x = x + 1 \ \#Increment x by 1.
+
+{\textbar}
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
+
+28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51
+
+52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
+
+76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
+
+100 
+
+The following program prints the odd integers from 1 to 99 by changing
+the increment value in the increment expression from 1 to 2:
+
+
+\bigskip
+
+\# Print the odd integers from 1 to 99.
+
+
+\bigskip
+
+x = 1 
+
+
+\bigskip
+
+while x {\textless}= 100:
+
+\ \ \ \ print x,
+
+\ \ \ \ x = x + 2 \ \#Increment x by 2.
+
+{\textbar}
+
+1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49 51
+
+53 55 57 59 61 63 65 67 69 71 73 75 77 79 81 83 85 87 89 91 93 95 97 99 
+
+Finally, this program prints the numbers from 1 to 100 in reverse order:
+
+
+\bigskip
+
+\# Print the integers from 1 to 100 in reverse order.
+
+
+\bigskip
+
+x = 100 
+
+
+
+while x {\textgreater}= 1:
+
+\ \ \ \ print x,
+
+\ \ \ \ x = x {}- 1 \ \#Decrement x by 1.
+
+{\textbar}
+
+100 99 98 97 96 95 94 93 92 91 90 89 88 87 86 85 84 83 82 81 80 79 78 77
+
+76 75 74 73 72 71 70 69 68 67 66 65 64 63 62 61 60 59 58 57 56 55 54 53
+
+52 51 50 49 48 47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 29
+
+28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2
+
+1 
+
+
+\bigskip
+
+In order to achieve this result, this program had to initialize x to
+100, check to see if x was greater than or equal to 1 (x
+{\textgreater}= 1) to continue looping, and decrement x by subtracting
+1 from it instead of adding 1 to it.
+
+\section[Long-Running Loops, Infinite Loops, And Interrupting Execution]{
+Long-Running Loops, Infinite Loops, And Interrupting Execution}
+
+It is easy to create a loop that will execute a large number of times,
+or even an infinite number of times, either on purpose or by mistake.
+\ When you execute a program that contains an infinite loop, it will
+run until you tell MathRider to interrupt its execution. \ This is done
+by selecting the Action menu which is near the upper left part of the
+worksheet and then selecting the Interrupt menu item. \ Programs with
+long{}-running loops can be interrupted this way too. \ In both cases,
+the vertical green execution bar will indicate that the program is
+currently executing and the green bar will disappear after the program
+has been interrupted. 
+
+
+\bigskip
+
+This program contains an infinite loop:
+
+
+\bigskip
+
+\#Infinite loop example program.
+
+
+\bigskip
+
+x = 1
+
+while x {\textless} 10:
+
+\ \ \ \ answer = x + 1
+
+{\textbar}
+
+
+\bigskip
+
+Since the contents of x is never changed inside the loop, the expression
+x {\textless} 10 always evaluates to True which causes the loop to
+continue looping.
+
+
+\bigskip
+
+Execute this program now and then interrupt it using the
+worksheet{\textquotesingle}s Interrupt command. \ Sometimes simply
+interrupting the worksheet is not enough to stop execution and then you
+will need to select Action {}-{\textgreater} Restart worksheet. \ When
+a worksheet is restarted, however, all variables are set back to their
+initial conditions so the cells that assigned values to these variables
+will each need to be executed again. 
+
+\section[Inserting And Deleting Worksheet Cells]{Inserting And Deleting Worksheet Cells}
+If you need to insert a new worksheet cell between two existing
+worksheet cells, move your mouse cursor between the two cells just
+above the bottom one and a horizontal blue bar will appear. \ Click on
+this blue bar and a new cell will be inserted into the worksheet at
+that point.
+
+
+\bigskip
+
+If you want to delete a cell, delete all of the text in the cell so that
+it is empty. \ Make sure the cursor is in the now empty cell and then
+press the backspace key on your keyboard. \ The cell will then be
+deleted.
+
+\section[Introduction To More Advanced Object Types]{Introduction To More Advanced Object Types}
+Up to this point, we have only used objects of type
+{\textquotesingle}sage.rings.integer.Integer{\textquotesingle} and of
+type {\textquotesingle}str{\textquotesingle}. \ However, MathRider
+includes a large number of mathematical and nonmathematical object
+types that can be used for a wide variety of purposes. \ The following
+sections introduce two additional mathematical object types and two
+nonmathematical object types. 
+
+\section[Rational Numbers]{Rational Numbers}
+Rational numbers are held in objects of type
+sage.rings.rational.Rational. \ The following example prints the type
+of the rational number 1/2, assigns 1/2 to variable x, prints x, and
+then displays the type of the object that x references:
+
+print type(1/2)
+
+x = 1/2
+
+print x
+
+type(x)
+
+{\textbar}
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.rational.Rational{\textquotesingle}{\textgreater}
+
+\ \ \ \ 1/2
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.rational.Rational{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+The following code was entered into a separate cell in the worksheet
+after the previous code was executed. \ It shows two rational numbers
+being added together and the result, which is also a rational number,
+being assigned to the variable y:
+
+y = x + 3/4
+
+print y
+
+type(y)
+
+{\textbar}
+
+\ \ \ \ 5/4
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.rational.Rational{\textquotesingle}{\textgreater}
+
+If a rational number is added to an integer number, the result is placed
+into an object of type sage.rings.rational.Rational:
+
+
+\bigskip
+
+x = 1 + 1/2
+
+print x
+
+type(x)
+
+{\textbar}
+
+\ \ \ \ 3/2
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.rational.Rational{\textquotesingle}{\textgreater}
+
+\subsection[Real Numbers]{Real Numbers}
+
+Real numbers are held in objects of type
+sage.rings.real\_mpfr.RealNumber. \ The following example prints the
+type of the real number .5, assigns .5 to variable x, prints x, and
+then displays the type of the object that x references:
+
+print type(.5)
+
+x = .5
+
+print x
+
+type(x)
+
+{\textbar}
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.real\_mpfr.RealNumber{\textquotesingle}{\textgreater}
+
+\ \ \ \ 0.500000000000000
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.real\_mpfr.RealNumber{\textquotesingle}{\textgreater}
+
+The following code was entered in a separate cell in the worksheet after
+the previous code was executed. \ It shows two real numbers being added
+together and the result, which is also a real number, being assigned to
+the variable y:
+
+y = x + .75
+
+print y
+
+type(y)
+
+{\textbar}
+
+\ \ \ \ 1.25000000000000
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.real\_mpfr.RealNumber{\textquotesingle}{\textgreater}
+
+If a real number is added to a rational number, the result is placed
+into an object of type sage.rings.real\_mpfr.RealNumber:
+
+
+\bigskip
+
+x = 1/2 + .75
+
+print x
+
+type(x)
+
+{\textbar}
+
+\ \ \ \ 1.25000000000000
+
+\ \ \ \ {\textless}type
+{\textquotesingle}sage.rings.real\_mpfr.RealNumber{\textquotesingle}{\textgreater}
+
+\subsection[Objects That Hold Sequences Of Other Objects: Lists And Tuples]{
+Objects That Hold Sequences Of Other Objects: Lists And Tuples}
+
+The list object type is designed to hold other objects in an ordered
+collection or sequence. \ Lists are very flexible and they are one of
+the most heavily used object types in MathRider. \ Lists can hold
+objects of any type, they can grow and shrink as needed, and they can
+be nested. \ Objects in a list can be accessed by their position in the
+list and they can also be replaced by other objects. \ A
+list{\textquotesingle}s ability to grow, shrink, and have its contents
+changed makes it a mutable object type.
+
+One way to create a list is by placing 0 or more objects or expressions
+inside of a pair of square braces. \ The following program begins by
+printing the type of a list. \ It then creates a list that contains the
+numbers 50, 51, 52, and 53, assigns it to the variable x, and prints x.
+
+Next, it prints the objects that are in positions 0 and 3, replaces the
+53 at position 3 with 100, prints x again, and finally prints the type
+of the object that x refers to:
+
+
+\bigskip
+
+print type([])
+
+x = [50,51,52,53]
+
+print x
+
+print x[0]
+
+print x[3]
+
+x[3] = 100
+
+print x
+
+type(x)
+
+{\textbar}
+
+{\textless}type {\textquotesingle}list{\textquotesingle}{\textgreater}
+
+[50, 51, 52, 53]
+
+50
+
+53
+
+[50, 51, 52, 100]
+
+{\textless}type {\textquotesingle}list{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+Notice that the first object in a list is placed at position 0 instead
+of position 1 and that this makes the position of the last object in
+the list 1 less than the length of the list. \ Also notice that an
+object in a list is accessed by placing a pair of square brackets,
+which contain its position number, to the right of a variable that
+references the list.
+
+The next example shows that different types of objects can be placed
+into a list:
+
+
+\bigskip
+
+x = [1, 1/2, .75, {\textquotesingle}Hello{\textquotesingle},
+[50,51,52,53]]
+
+print x
+
+{\textbar}
+
+[1, 1/2, 0.750000000000000, {\textquotesingle}Hello{\textquotesingle},
+[50, 51, 52, 53]]
+
+Tuples are also sequences and are similar to lists except they are
+immutable. \ \ They are created using a pair of parentheses instead of
+a pair of square brackets and being immutable means that once a tuple
+object has been created, it cannot grow, shrink, or change the objects
+it contains. \ 
+
+The following program is similar to the first example list program,
+except it uses a tuple instead of a list, it does not try to change the
+object in position 4, and it uses the semicolon technique to display
+multiple results instead of print statements:
+
+
+\bigskip
+
+print type(())
+
+x = (50,51,52,53)
+
+x;x[0];x[3];x;type(x)
+
+{\textbar}
+
+{\textless}type {\textquotesingle}tuple{\textquotesingle}{\textgreater}
+
+(50, 51, 52, 53)
+
+50
+
+53
+
+(50, 51, 52, 53)
+
+{\textless}type {\textquotesingle}tuple{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+\subsubsection[Tuple Packing And Unpacking]{Tuple Packing And Unpacking}
+
+When multiple values separated by commas are assigned to a single
+variable, the values are automatically placed into a tuple and this is
+called tuple packing:
+
+
+\bigskip
+
+t = 1,2
+
+t
+
+{\textbar}
+
+(1, 2)
+
+When a tuple is assigned to multiple variables which are separated by
+commas, this is called tuple unpacking:
+
+
+\bigskip
+
+a,b,c = (1,2,3)
+
+a;b;c
+
+{\textbar}
+
+1
+
+2
+
+3
+
+A requirement with tuple unpacking is that the number of objects in the
+tuple must match the number of variables on the left side of the equals
+sign.
+
+\section[Using while Loops With Lists And Tuples]{Using
+while Loops With Lists And Tuples}
+Statements that loop can be used to select each object in a list or a
+tuple in turn so that an operation can be performed on these objects.
+\ The following program uses a while loop to print each of the objects
+in a list:
+
+
+\bigskip
+
+\#Print each object in the list.
+
+x = [50,51,52,53,54,55,56,57,58,59]
+
+y = 0
+
+while y {\textless}= 9:
+
+\ \ \ \ print x[y]
+
+\ \ \ \ y = y + 1
+
+{\textbar}
+
+50
+
+51
+
+52
+
+53
+
+54
+
+55
+
+56
+
+57
+
+58
+
+59
+
+
+\bigskip
+
+A loop can also be used to search through a list. \ The following
+program uses a while loop and an if statement to search through a list
+to see if it contains the number 53. \ If 53 is found in the list, a
+message is printed.
+
+
+\bigskip
+
+\#Determine if 53 is in the list.
+
+x = [50,51,52,53,54,55,56,57,58,59]
+
+y = 0
+
+while y {\textless}= 9:
+
+\ \ \ \ if x[y] == 53:
+
+\ \ \ \ \ \ \ \ print {\textquotedbl}53 was found in the list at
+position{\textquotedbl}, y
+
+\ \ \ \ y = y + 1
+
+{\textbar}
+
+53 was found in the list at position 3
+
+\section[The in Operator]{The in Operator}
+Looping is such a useful capability that MathRider even has an operator
+called in that loops internally. \ The in operator is able to
+automatically search a list to determine if it contains a given object.
+\ If it finds the object, it will return True and if it
+doesn{\textquotesingle}t find the object, it will return False. \ The
+following programs shows both cases: 
+
+
+\bigskip
+
+print 53 in [50,51,52,53,54,55,56,57,58,59]
+
+print 75 in [50,51,52,53,54,55,56,57,58,59]
+
+{\textbar}
+
+True
+
+False
+
+
+\bigskip
+
+The not operator can also be used with the in operator to change its
+result:
+
+
+\bigskip
+
+print 53 not in [50,51,52,53,54,55,56,57,58,59]
+
+print 75 not in [50,51,52,53,54,55,56,57,58,59]
+
+{\textbar}
+
+False
+
+True
+
+\section[Looping With The for Statement]{Looping With
+The for Statement}
+The for statement uses a loop to index through a list or tuple like the
+while statement does, but it is more flexible and automatic. \ Here is
+a simplified syntax specification for the for statement:
+
+
+\bigskip
+
+for {\textless}target{\textgreater} in {\textless}object{\textgreater}:
+
+ {\textless}statement{\textgreater}
+
+ {\textless}statement{\textgreater}
+
+ {\textless}statement{\textgreater}
+
+.
+
+.
+
+.
+
+
+\bigskip
+
+In this syntax, {\textless}target{\textgreater} is usually a variable
+and {\textless}object{\textgreater} is usually an object that contains
+other objects. \ In the remainder of this section, lets assume that
+{\textless}object{\textgreater} is a list. \ The for statement will
+select each object in the list in turn, assign it to
+{\textless}target{\textgreater}, and then execute the statements that
+are inside its indented code block. \ The following program shows a for
+statement being used to print all of the items in a list:
+
+
+\bigskip
+
+for x in [50,51,52,53,54,55,56,57,58,59]:
+
+\ \ \ \ print x
+
+{\textbar}
+
+50
+
+51
+
+52
+
+53
+
+54
+
+55
+
+56
+
+57
+
+58
+
+59
+
+\section[Functions]{Functions}
+Programming functions are statements that consist of named blocks of
+code that can be executed one or more times by being called from other
+parts of the program. \ Functions can have objects passed to them from
+the calling code and they can also return objects back to the calling
+code. \ An example of a function is the type() command which we have
+been using to determine the types of objects.
+
+
+\bigskip
+
+Functions are one way that MathRider enables code to be reused. \ Most
+programming languages allow code to be reused in this way, although in
+other languages these type of code reuse statements are sometimes
+called subroutines or procedures.
+
+
+\bigskip
+
+Function names use all lower case letters. \ If a function name contains
+more than one word (like calculatesum) an underscore can be placed
+between the words to improve readability (calculate\_sum).
+
+\section[Functions Are Defined Using the def Statement]{Functions Are Defined Using the def Statement}
+The statement that is used to define a function is called def and its
+syntax specification is as follows:
+
+
+\bigskip
+
+def {\textless}function name{\textgreater}(arg1, arg2, ... argN):
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ {\textless}statement{\textgreater}
+
+\ \ \ \ .
+
+\ \ \ \ .
+
+\ \ \ \ .
+
+
+\bigskip
+
+The def statement contains a header which includes the
+function{\textquotesingle}s name along with the arguments that can be
+passed to it. \ A function can have 0 or more arguments and these
+arguments are placed within parentheses. \ The statements that are to
+be executed when the function is called are placed inside the function
+using an indented block of code. \ 
+
+
+\bigskip
+
+The following program defines a function called addnums which takes two
+numbers as arguments, adds them together, and returns their sum back to
+the calling code using a return statement:
+
+
+\bigskip
+
+def addnums(num1, num2):
+
+\ \ \ \ {\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+\ \ \ \ Returns the sum of num1 and num2.
+
+\ \ \ \ {\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+\ \ \ \ answer = num1 + num2
+
+\ \ \ \ return answer
+
+
+\bigskip
+
+\#Call the function and have it add 2 to 3.
+
+a = addnums(2, 3)
+
+print a
+
+
+
+\#Call the function and have it add 4 to 5.
+
+b = addnums(4, 5)
+
+print b
+
+{\textbar}
+
+5
+
+9
+
+The first time this function is called, it is passed the numbers 2 and 3
+and these numbers are assigned to the variables num1 and num2
+respectively. \ Argument variables that have objects passed to them
+during a function call can be used within the function as needed.
+
+
+\bigskip
+
+Notice that when the function returns back to the caller, the object
+that was placed to the right of the return statement is made available
+to the calling code. \ It is almost as if the function itself is
+replaced with the object it returns. \ Another way to think about a
+returned object is that it is sent out of the left side of the function
+name in the calling code, through the equals sign, and is assigned to
+the variable. \ In the first function call, the object that the
+function returns is being assigned to the variable
+{\textquotesingle}a{\textquotesingle} and then this object is printed.
+
+
+\bigskip
+
+The second function call is similar to the first call, except it passes
+different numbers (4, 5) to the function.
+
+\section[A Subset Of Functions Included In MathRider]{A
+Subset Of Functions Included In MathRider}
+MathRider includes a large number of pre{}-written functions that can be
+used for a wide variety of purposes. \ Table 3 contains a subset of
+these functions and a longer list of functions can be found in
+MathRider{\textquotesingle}s documentation. \ A more complete list of
+functions can be found in the MathRider Reference Manual.
+
+Function Name
+
+Description
+
+abs
+
+Return the absolute value of the argument.
+
+acos
+
+The arccosine function.
+
+add
+
+Returns the sum of a sequence of numbers (NOT strings) plus the value of
+parameter {\textquotesingle}start{\textquotesingle}. \ When the
+sequence is empty, returns start.
+
+additive\_order
+
+Return the additive order of x.
+
+asin 
+
+The arcsine function.
+
+atan
+
+The arctangent function.
+
+binomial
+
+Return the binomial coefficient.
+
+ceil
+
+The ceiling function.
+
+combinations
+
+A combination of a multiset (a list of objects which may contain the
+same object several times) mset is an unordered selection without
+repetitions and is represented by a sorted sublist of mset. \ Returns
+the set of all combinations of the multiset mset with k elements.
+
+complex
+
+Create a complex number from a real part and an optional imaginary part.
+\ This is equivalent to (real + imag*1j) where imag defaults to 0.
+
+cos
+
+The cosine function.
+
+cosh
+
+The hyperbolic cosine function.
+
+coth
+
+The hyperbolic cotangent function.
+
+csch
+
+The hyperbolic cosecant function.
+
+denominator
+
+Return the denominator of x.
+
+derivative
+
+The derivative of f.
+
+det
+
+Return the determinant of x.
+
+diff
+
+The derivative of f.
+
+dir
+
+Return an alphabetized list of names comprising (some of) the attributes
+of the given object, and of attributes reachable from it.
+
+divisors
+
+Returns a list of all positive integer divisors.
+
+dumps
+
+Dump obj to a string s. \ To recover obj, use loads(s).
+
+e
+
+The base of the natural logarithm.
+
+eratosthenes
+
+Return a list of the primes {\textless}= n.
+
+exists
+
+If S contains an element x such that P(x) is True, this function returns
+True and the element x. \ Otherwise it returns False and None.
+
+exp
+
+The exponential function, exp(x) = e\^{}x.
+
+expand
+
+Returns the expanded form of a polynomial.
+
+factor
+
+Returns the factorization of the integer n as a sorted list of tuples
+(p,e).
+
+factorial
+
+Compute the factorial of n, which is the product of 1 * 2 * 3 ...
+(n{}-1) n.
+
+fibonacci
+
+Returns then n{}-th Fibonacci number.
+
+fibonacci\_sequence
+
+Returns an iterator over the Fibonacci sequence, for all fibonacci
+numbers f\_n from n = start up to (but not including) n = stop.
+
+fibonacci\_xrange
+
+Returns an iterator over all of the Fibonacci numbers in the given
+range, including f\_n = start up to, but not including, f\_n = stop.
+
+find\_root
+
+Numerically find a root of f on the closed interval [a,b (or [b,a]) if
+possible, where f is a function in the one variable.
+
+floor
+
+The floor function.
+
+forall
+
+If P(x) is true every x in S, return True and None. \ If there is some
+element x in S such that P is not True, return False and x.
+
+forget
+
+Forget the given assumption, or call with no arguments to forget all
+assumptions. \ Here an assumption is some sort of symbolic constraint.
+
+function
+
+Create a formal symbolic function with the name *s*.
+
+gaussian\_binomial
+
+Return the gaussian binomial.
+
+gcd
+
+The greatest common divisor of a and b.
+
+generic\_power
+
+The m{}-th power of a, where m is a non{}-negative.
+
+get\_memory\_usage
+
+Return memory usage.
+
+hex
+
+Return the hexadecimal representation of an integer or long integer.
+
+imag
+
+Return the imaginary part of x.
+
+imaginary
+
+Return the imaginary part of a complex number.
+
+integer\_ceil
+
+Return the ceiling of x.
+
+integer\_floor
+
+Return the largest integer {\textless}= x.
+
+integral \ \ \ \ 
+
+Return an indefinite integral of an object x.
+
+integrate \ \ \ \ 
+
+The integral of f.
+
+interval \ \ \ \ 
+
+Integers between a and b inclusive (a and b integers).
+
+is\_AlgebraElement
+
+Return True if x is of type AlgebraElement.
+
+is\_commutative
+
+
+\bigskip
+
+is\_ComplexNumber
+
+
+
+is\_even
+
+Return whether or not an integer x is even, e.g., divisible by 2.
+
+is\_Functor 
+
+
+\bigskip
+
+is\_Infinite 
+
+
+\bigskip
+
+is\_Integer 
+
+
+\bigskip
+
+is\_odd 
+
+Return whether or not x is odd. \ This is by definition the complement
+of is\_even.
+
+is\_power\_of\_two
+
+This function returns True if and only if n is a power of 2
+
+is\_prime
+
+Returns True if x is prime, and False otherwise.
+
+is\_prime\_power \ \ \ \ 
+
+Returns True if x is a prime power, and False otherwise.
+
+is\_pseudoprime
+
+Returns True if x is a pseudo{}-prime, and False otherwise.
+
+is\_RealNumber
+
+Return True if x is of type RealNumber, meaning that it is an element of
+the MPFR real field with some precision.
+
+is\_Set
+
+Returns true if x is a MathRider Set.
+
+is\_square
+
+Returns whether or not n is square, and if n is a square also returns
+the square root. \ If n is not square, also returns None.
+
+is\_SymbolicExpression
+
+
+\bigskip
+
+isqrt
+
+Return an integer square root, i.e., the floor of a square root.
+
+laplace
+
+Attempts to compute and return the Laplace transform of self.
+
+latex
+
+Use latex(...) to typeset a MathRider object.
+
+lcm
+
+The least common multiple of a and b, or if a is a list and b is omitted
+the least common multiple of all elements of v.
+
+len
+
+Returns the number of items of a sequence or mapping.
+
+lim
+
+Return the limit as the variable v approaches a from the given
+direction.
+
+limit
+
+Return the limit as the variable v approaches a from the given
+direction.
+
+list
+
+list() {}-{\textgreater} new list, list(sequence) {}-{\textgreater} new
+list initialized from sequence{\textquotesingle}s items
+
+list\_plot
+
+list\_plot takes a single list of data, in which case it forms a list of
+tuples (i,di) where i goes from 0 to len(data){}-1 and di is the ith
+data value, and puts points at those tuple values. \ list\_plot also
+takes a list of tuples (dxi, dyi) where dxi is the ith data
+representing the x{}-value, and dyi is the ith y{}-value if
+plotjoined=True, then a line spanning all the data is drawn instead.
+
+load
+
+Load MathRider object from the file with name filename, which will have
+an .sobj extension added if it doesn{\textquotesingle}t have one.
+\ NOTE: There is also a special MathRider command (that is not
+available in Python) called load that you use by typing sage: load
+filename.sage
+
+loads
+
+Recover an object x that has been dumped to a string s using s =
+dumps(x).
+
+log
+
+The natural logarithm of the real number 2.
+
+matrix
+
+Create a matrix.
+
+max
+
+With a single iterable argument, return its largest item. \ With two or
+more arguments, return the largest argument.
+
+min
+
+With a single iterable argument, return its smallest item. \ With two or
+more arguments, return the smallest argument.
+
+minimal\_polynomial
+
+Return the minimal polynomial of x.
+
+mod
+
+
+\bigskip
+
+mrange
+
+Return the multirange list with given sizes and type.
+
+mul
+
+Return the product of the elements in the list x.
+
+next\_prime
+
+The next prime greater than the integer n.
+
+next\_prime\_power
+
+The next prime power greater than the integer n. \ If n is a prime
+
+norm
+
+Return the norm of x.
+
+normalvariate
+
+Normal distribution.
+
+nth\_prime
+
+
+\bigskip
+
+number\_of\_arrangements
+
+Returns the size of arrangements(mset,k).
+
+number\_of\_combinations
+
+Returns the size of combinations(mset,k).
+
+number\_of\_derangements
+
+Returns the size of derangements(mset).
+
+number\_of\_divisors
+
+Return the number of divisors of the integer n.
+
+number\_of\_permutations
+
+Returns the size of permutations(mset).
+
+numerator
+
+Return the numerator of x.
+
+numerical\_integral
+
+Returns the numerical integral of the function on the interval from xmin
+to xmax and an error bound.
+
+numerical\_sqrt
+
+Return a square root of x.
+
+oct
+
+Return the octal representation of an integer or long integer.
+
+order
+
+Return the order of x. \ If x is a ring or module element, this is the
+additive order of x.
+
+parametric\_plot
+
+parametric\_plot takes two functions as a list or a tuple and make a
+plot with the first function giving the x coordinates and the second
+function giving the y coordinates.
+
+parent
+
+Return x.parent() if defined, or type(x) if not.
+
+permutations
+
+A permutation is represented by a list that contains exactly the same
+elements as mset, but possibly in different order.
+
+pg
+
+Permutation groups. \ In MathRider a permutation is represented as
+either a string that defines a permutation using disjoint cycle
+notation, or a list of tuples, which represent disjoint cycles.
+
+pi
+
+The ratio of a circle{\textquotesingle}s circumference to its diameter.
+
+plot
+
+
+\bigskip
+
+pow
+
+With two arguments, equivalent to x\^{}y. \ With three arguments,
+equivalent to (x\^{}y) \% z, but may be more efficient (e.g. for longs)
+
+power\_mod
+
+The m{}-th power of a modulo the integer n.
+
+prange
+
+List of all primes between start and stop{}-1, inclusive.
+
+previous\_prime
+
+The largest prime {\textless} n.
+
+previous\_prime\_power
+
+The largest prime power {\textless} n.
+
+prime\_divisors
+
+The prime divisors of the integer n, sorted in increasing order.
+
+prime\_factors
+
+The prime divisors of the integer n, sorted in increasing order.
+
+prime\_powers
+
+List of all positive primes powers between start and stop{}-1,
+inclusive.
+
+primes
+
+Returns an iterator over all primes between start and stop{}-1,
+inclusive.
+
+primes\_first\_n
+
+Return the first n primes.
+
+prod
+
+Return the product of the elements in the list x.
+
+quo
+
+Return the quotient object x/y, e.g., a quotient of numbers or of a
+polynomial ring x by the ideal generated by y, etc.
+
+quotient
+
+Return the quotient object x/y, e.g., a quotient of numbers or of a
+polynomial ring x by the ideal generated by y, etc.
+
+random
+
+Returns a random number in the interval [0, 1].
+
+random\_prime
+
+Returns a random prime p between 2 and n (i.e. 2 {\textless}= p
+{\textless}= n).
+
+randrange
+
+Choose a random item from range(start, stop[, step]).
+
+range
+
+Returns a list containing an arithmetic progression of integers.
+
+rational\_reconstruction
+
+This function tries to compute x/y, where x/y is rational number.
+
+real
+
+Return the real part of x.
+
+reduce
+
+Apply a function of two arguments cumulatively to the items of a
+sequence, from left to right, so as to reduce the sequence to a single
+value.
+
+repr
+
+Return the canonical string representation of the object.
+
+reset
+
+Delete all user defined variables, reset all globals variables back to
+their default state, and reset all interfaces to other computer algebra
+systems. \ If vars is specified, just restore the value of vars and
+leave all other variables alone (i.e., call restore).
+
+restore
+
+Restore predefined global variables to their default values.
+
+round
+
+Round a number to a given precision in decimal digits (default 0
+digits). \ This always returns a real double field element.
+
+sample
+
+Chooses k unique random elements from a population sequence.
+
+save
+
+Save obj to the file with name filename, which will have an .sobj
+extension added if it doesn{\textquotesingle}t have one. \ This will
+*replace* the contents of filename.
+
+save\_session
+
+Save all variables that can be saved wto the given filename.
+
+search
+
+Return (True,i) where i is such that v[i] == x if there is such an i, or
+(False,j) otherwise, where j is the position that a should be inserted
+so that v remains sorted.
+
+search\_doc
+
+Full text search of the MathRider HTML documentation for lines
+containing s.
+
+search\_src
+
+Search sage source code for lines containing s.
+
+sec
+
+The secant function.
+
+sech
+
+The hyperbolic secant function.
+
+seed
+
+
+\bigskip
+
+seq
+
+A mutable list of elements with a common guaranteed universe, which can
+be set immutable.
+
+set
+
+Build an unordered collection of unique elements.
+
+show
+
+Show a graphics object x.
+
+show\_default
+
+Set the default for showing plots using the following commands: plot,
+parametric\_plot, polar\_plot, and list\_plot.
+
+shuffle
+
+
+\bigskip
+
+sigma
+
+Return the sum of the k{}-th powers of the divisors of n.
+
+simplify
+
+Simplify the expression f.
+
+sin
+
+The sine function.
+
+sinh
+
+The hyperbolic sine function.
+
+sleep
+
+
+\bigskip
+
+slice
+
+Create a slice object. \ This is used for extended slicing (e.g.
+a[0:10:2]).
+
+slide
+
+Use latex(...) to typeset a MathRider object. \ Use \%slide instead to
+typeset slides.
+
+solve
+
+Algebraically solve an equation or system of equations for given
+variables.
+
+sorted
+
+
+\bigskip
+
+sqrt
+
+The square root function. This is a symbolic square root.
+
+square\_free\_part
+
+Return the square free part of x, i.e., a divisor z such that x = z
+y\^{}2, for a perfect square y\^{}2.
+
+srange
+
+Return list of numbers {\textbackslash}code\{a, a+step, ..., a+k*step\},
+where a+k*step {\textless} b and a+(k+1)*step {\textgreater} b. \ The
+type of the entries in the list are the type of the starting value.
+
+str
+
+Return a nice string representation of the object.
+
+subfactorial
+
+Subfactorial or rencontres numbers, or derangements: number of
+permutations of \$n\$ elements with no fixed points.
+
+sum
+
+Returns the sum of a sequence of numbers (NOT strings) plus the value of
+parameter {\textquotesingle}start{\textquotesingle}
+
+super
+
+Typically used to call a cooperative superclass method.
+
+symbolic\_expression 
+
+
+\bigskip
+
+sys
+
+This module provides access to some objects used or maintained by the
+interpreter and to functions that interact strongly with the
+interpreter.
+
+tan
+
+The tangent function.
+
+tanh
+
+The hyperbolic tangent function.
+
+taylor
+
+Expands self in a truncated Taylor or Laurent series in the variable v
+around the point a, containing terms through (x {}- a)\^{}n.
+
+transpose
+
+
+\bigskip
+
+trial\_division
+
+Return the smallest prime divisor {\textless}= bound of the positive
+integer n, or n if there is no such prime.
+
+two\_squares
+
+Write the integer n as a sum of two integer squares if possible;
+otherwise raise a ValueError.
+
+type
+
+Returns an object{\textquotesingle}s type.
+
+union
+
+Return the union of x and y, as a list.
+
+uniq
+
+Return the sublist of all elements in the list x that is sorted and is
+such that the entries in the sublist are unique.
+
+valuation
+
+The exact power of p{\textgreater}0 that divides the integer m.
+
+var
+
+Create a symbolic variable with the name *s*.
+
+vars
+
+Without arguments, equivalent to locals(). \ With an argument,
+equivalent to object.\_\_dict\_\_.
+
+vector
+
+Return a vector over R with given entries.
+
+version
+
+Return the version of MathRider.
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+
+view
+
+Compute a latex representation of each object in objects. \ NOTE: In
+notebook mode this function simply embeds a png image in the output 
+
+walltime
+
+Return the wall time.
+
+xgcd
+
+Returns triple of integers (g,s,t) such that g = s*a+t*b = gcd(a,b).
+
+xinterval
+
+Iterator over the integers between a and b, inclusive.
+
+xrange
+
+Like range(), but instead of returning a list, returns an object that
+generates the numbers in the range on demand.
+
+zip
+
+Return a list of tuples, where each tuple contains the i{}-th element
+from each of the argument sequences.
+
+Table 3: Subset of MathRider functions
+
+\section[Obtaining Information On MathRider Functions]{Obtaining Information On MathRider Functions}
+Table 3 includes a list of functions along with a short description of
+what each one does. \ This is not enough information, however, to show
+how to actually use these functions. \ One way to obtain additional
+information on any function is to type its name followed by a question
+mark {\textquotesingle}?{\textquotesingle} into a worksheet cell then
+press the {\textless}tab{\textgreater} key:
+
+
+\bigskip
+
+is\_even?{\textless}tab{\textgreater}
+
+{\textbar}
+
+File: /opt/sage{}-2.7.1{}-debian{}-32bit{}-i686{}-      
+
+Linux/local/lib/python2.5/site{}-packages/sage/misc/functional.py  
+
+Type: \ \ \ \ \ \ \ \ \ \ {\textless}type
+{\textquotesingle}function{\textquotesingle}{\textgreater}        
+
+Definition: \ \ \ \ is\_even(x)         
+
+Docstring:            
+
+              
+
+\ \ \ \ Return whether or not an integer x is even, e.g., divisible by
+2.
+
+              
+
+\ \ \ \ EXAMPLES:            
+
+\ \ \ \ \ \ \ \ sage: is\_even({}-1)         
+
+\ \ \ \ \ \ \ \ False            
+
+\ \ \ \ \ \ \ \ sage: is\_even(4)          
+
+\ \ \ \ \ \ \ \ True            
+
+\ \ \ \ \ \ \ \ sage: is\_even({}-2)         
+
+\ \ \ \ \ \ \ \ True            
+
+
+\bigskip
+
+A gray window will then be shown which contains the following
+information about the function:
+
+
+\bigskip
+
+File: Gives the name of the file that contains the source code that
+implements the function. \ This is useful if you would like to locate
+the file to see how the function is implemented or to edit it.
+
+
+\bigskip
+
+Type: Indicates the type of the object that the name passed to the
+information service refers to.
+
+
+\bigskip
+
+Definition: Shows how the function is called.
+
+
+\bigskip
+
+Docstring: Displays the documentation string that has been placed into
+the source code of this function.
+
+
+\bigskip
+
+You may obtain help on any of the functions listed in Table 3, or the
+MathRider reference manual, using this technique. \ Also, if you place
+two question marks {\textquotesingle}??{\textquotesingle} after a
+function name and press the {\textless}tab{\textgreater} key, the
+function{\textquotesingle}s source code will be displayed.
+
+\section[Information Is Also Available On User{}-Entered
+Functions]{Information Is Also Available On User{}-Entered
+Functions}
+The information service can also be used to obtain information on
+user{}-entered functions and a better understanding of how the
+information service works can be gained by trying this at least once.
+
+
+\bigskip
+
+If you have not already done so in your current worksheet, type in the
+addnums function again and execute it: 
+
+
+\bigskip
+
+def addnums(num1, num2):
+
+\ \ \ \ {\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+\ \ \ \ Returns the sum of num1 and num2.
+
+\ \ \ \ {\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+\ \ \ \ answer = num1 + num2
+
+\ \ \ \ return answer
+
+
+\bigskip
+
+\#Call the function and have it add 2 to 3.
+
+a = addnums(2, 3)
+
+print a
+
+{\textbar}
+
+5
+
+
+\bigskip
+
+Then obtain information on this newly{}-entered function using the
+technique from the previous section:
+
+
+\bigskip
+
+addnums?{\textless}tab{\textgreater}
+
+{\textbar}
+
+File: /home/sage/sage\_notebook/worksheets/root/9/code/8.py   
+
+Type: {\textless}type
+{\textquotesingle}function{\textquotesingle}{\textgreater}          
+
+Definition: addnums(num1, num2)        
+
+Docstring:            
+
+              
+
+\ \ \ \ Returns the sum of num1 and num2.       
+
+
+\bigskip
+
+This shows that the information that is displayed about a function is
+obtained from the function{\textquotesingle}s source code.
+
+\section[Examples Which Use Functions Included With MathRider]{
+Examples Which Use Functions Included With MathRider}
+
+The following short programs show how some of the functions listed in
+Table 3 are used:
+
+\ 
+
+\#Determine the sum of the numbers 1 through 10.
+
+add([1,2,3,4,5,6,7,8,9,10])
+
+{\textbar}
+
+55
+
+
+\bigskip
+
+\#Cosine of 1 radian.
+
+cos(1.0)
+
+{\textbar}
+
+0.540302305868140
+
+\#Determine the denominator of 15/64.
+
+denominator(15/64)
+
+{\textbar}
+
+64
+
+
+\bigskip
+
+\#Obtain a list that contains all positive 
+
+\#integer divisors of 20.
+
+divisors(20)
+
+{\textbar}
+
+[1, 2, 4, 5, 10, 20]
+
+
+\bigskip
+
+\#Determine the greatest common divisor of 40 and 132.
+
+gcd(40,132)
+
+{\textbar}
+
+4
+
+
+\bigskip
+
+\#Determine the product of 2, 3, and 4.
+
+mul([2,3,4])
+
+{\textbar}
+
+24
+
+
+\bigskip
+
+\#Determine the length of a list.
+
+a = [1,2,3,4,5,6,7]
+
+len(a)
+
+{\textbar}
+
+7
+
+
+\bigskip
+
+\#Create a list which contains the integers 0 through 10.
+
+a = srange(11)
+
+a
+
+{\textbar}
+
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+\#Create a list which contains real numbers between
+
+\#0.0 and 10.5 in steps of .5.
+
+a = srange(11,step=.5)
+
+a
+
+{\textbar}
+
+[0.0000000, 0.5000000, 1.000000, 1.500000, 2.000000, 2.500000, 3.000000,
+3.500000, 4.000000, 4.500000, 5.000000, 5.500000, 6.000000, 6.500000,
+7.000000, 7.500000, 8.000000, 8.500000, 9.000000, 9.500000, 10.00000,
+10.50000]
+
+\#Create a list which contains the integers {}-5 through 5.
+
+a = srange({}-5,6)
+
+a
+
+{\textbar}
+
+[{}-5, {}-4, {}-3, {}-2, {}-1, 0, 1, 2, 3, 4, 5]
+
+\#The zip() function takes multiple sequences and groups
+
+\#parallel members inside tuples in an output list. \ One
+
+\#application this is useful for is creating points from
+
+\#table data so they can be plotted.
+
+a = [1,2,3,4,5]
+
+b = [6,7,8,9,10]
+
+c = zip(a,b)
+
+c
+
+{\textbar}
+
+[(1, 6), (2, 7), (3, 8), (4, 9), (5, 10)]
+
+\section[Using srange() And zip() With The for Statement]{
+Using srange() And zip() With The for Statement}
+
+Instead of manually creating a sequence for use by a for statement,
+srange() can be used to create the sequence automatically:
+
+
+\bigskip
+
+for t in srange(6):
+
+\ \ \ \ print t,
+
+{\textbar}
+
+0 1 2 3 4 5
+
+
+\bigskip
+
+The for statement can also be used to loop through multiple sequences in
+parallel using the zip() function:
+
+
+\bigskip
+
+t1 = (0,1,2,3,4)
+
+t2 = (5,6,7,8,9)
+
+for (a,b) in zip(t1,t2):
+
+\ \ \ \ print a,b
+
+{\textbar}
+
+0 5
+
+1 6
+
+2 7
+
+3 8
+
+4 9
+
+\section[List Comprehensions]{List Comprehensions}
+Up to this point we have seen that if statements, for loops, lists, and
+functions are each extremely powerful when used individually and
+together. \ What is even more powerful, however, is a special statement
+called a list comprehension which allows them to be used together with
+a minimum amount of syntax.
+
+
+\bigskip
+
+Here is the simplified syntax for a list comprehension:
+
+
+\bigskip
+
+[ expression for variable in sequence [if condition] ]
+
+
+\bigskip
+
+What a list comprehension does is to loop through a sequence placing
+each sequence member into the specified variable in turn. \ The
+expression also contains the variable and, as each member is placed
+into the variable, the expression is evaluated and the result is placed
+into a new list. \ When all of the members in the sequence have been
+processed, the new list is returned.
+
+
+
+In the following example, t is the variable, 2*t is the expression, and
+[1,2,3,4,5] is the sequence:
+
+
+\bigskip
+
+a = [2*t for t in [0,1,2,3,4,5]]
+
+a
+
+{\textbar}
+
+[0, 2, 4, 6, 8, 10]
+
+Instead of manually creating the sequence, the srange() function is
+often used to create it automatically:
+
+
+\bigskip
+
+a = [2*t for t in srange(6)]
+
+a
+
+{\textbar}
+
+[0, 2, 4, 6, 8, 10]
+
+An optional if statement can also be used in a list comprehension to
+filter the results that are placed in the new list:
+
+
+\bigskip
+
+a = [b\^{}2 for b in range(20) if b \% 2 == 0]
+
+a
+
+{\textbar}
+
+[0, 4, 16, 36, 64, 100, 144, 196, 256, 324]
+
+In this case, only results that are evenly divisible by 2 are placed in
+the output list.
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+\chapter[Object Oriented Programming]{Object Oriented
+Programming}
+
+\bigskip
+
+\section[Obtaining Information On MathRider Objects]{Obtaining Information On MathRider Objects}
+Type the following code into a cell and execute it:
+
+
+\bigskip
+
+x = 5
+
+print type(x)
+
+{\textbar}
+
+{\textless}type
+{\textquotesingle}sage.rings.integer.Integer{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+We have already used the type() function to determine the type of an
+integer, but now we can explain what a type is in more detail. \ Enter
+sage.rings.integer.Integer followed by a question mark
+{\textquotesingle}?{\textquotesingle} into a new cell and then press
+the {\textless}tab{\textgreater} key:
+
+
+\bigskip
+
+sage.rings.integer.Integer?{\textless}tab{\textgreater}
+
+{\textbar}
+
+File:/opt/sage{}-2.7.1{}-debian{}-32bit{}-i686{}-Linux/local/lib/python2.5/site{}-packages/sage/rings/integer.so
+
+
+Type: \ \ {\textless}type
+{\textquotesingle}sage.rings.integer.Integer{\textquotesingle}{\textgreater}
+
+
+Definition: sage.rings.integer.Integer([noargspec]) 
+
+
+\bigskip
+
+Docstring: 
+
+
+\bigskip
+
+\ \ \ \ \ \ \ \ The class\{Integer\} class represents arbitrary
+precision 
+
+\ \ \ \ \ \ \ \ integers. \ It derives from the class\{Element\} class,
+so 
+
+\ \ \ \ \ \ \ \ integers can be used as ring elements anywhere in
+MathRider. 
+
+
+\bigskip
+
+\ \ \ \ \ \ \ \ begin\{notice\} 
+
+\ \ \ \ \ \ \ \ The class class\{Integer\} is implemented in Pyrex, 
+
+\ \ \ \ \ \ \ \ as a wrapper of the GMP mpz\_t integer type. 
+
+\ \ \ \ \ \ \ \ end\{notice\} 
+
+
+\bigskip
+
+This information indicates that sage.rings.integer.Integer is really a
+class that is able to create Integer objects. \ \ Also, if you place
+two questions marks {\textquotesingle}??{\textquotesingle} after a
+class name and press the {\textless}tab{\textgreater} key, the
+class{\textquotesingle}s source code will be displayed.
+
+
+\bigskip
+
+Now, in a separate cell type x. and then press the
+{\textless}tab{\textgreater} key:
+
+
+\bigskip
+
+x.{\textless}tab{\textgreater}
+
+{\textbar}
+
+x.additive\_order \ \ \ \ \ \ \ \ x.gcd
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.numerator
+
+x.base\_base\_extend \ \ \ \ \ \ x.inverse\_mod
+\ \ \ \ \ \ \ \ \ \ x.ord
+
+x.inverse\_of\_unit \ \ \ \ \ \ \ x.order
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.parent
+
+x.base\_extend \ \ \ \ \ \ \ \ \ \ \ x.is\_nilpotent
+\ \ \ \ \ \ \ \ \ x.plot
+
+x.base\_extend\_canonical \ x.is\_one
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.powermodm\_ui
+
+x.is\_perfect\_power \ \ \ \ \ \ x.powermod
+\ \ \ \ \ \ \ \ \ \ \ \ \ x.quo\_rem
+
+x.base\_extend\_recursive \ x.is\_power
+\ \ \ \ \ \ \ \ \ \ \ \ \ x.rename
+
+x.base\_ring \ \ \ \ \ \ \ \ \ \ \ \ \ x.is\_power\_of
+\ \ \ \ \ \ \ \ \ \ x.reset\_name
+
+x.binary \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.is\_prime
+\ \ \ \ \ \ \ \ \ \ \ \ \ x.save
+
+x.category \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.is\_prime\_power
+\ \ \ \ \ \ \ x.set\_si
+
+x.ceil \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.is\_pseudoprime
+\ \ \ \ \ \ \ x.set\_str
+
+x.coprime\_integers \ \ \ \ \ \ x.is\_square
+\ \ \ \ \ \ \ \ \ \ \ \ x.sqrt
+
+x.crt \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.is\_squarefree
+\ \ \ \ \ \ \ \ x.sqrt\_approx
+
+x.db \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.is\_unit
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ x.square\_free\_part
+
+x.degree \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.is\_zero
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ x.str
+
+x.denominator \ \ \ \ \ \ \ \ \ \ \ x.isqrt
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.substitute
+
+x.digits \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.jacobi
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.test\_bit
+
+x.div \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.kronecker
+\ \ \ \ \ \ \ \ \ \ \ \ x.val\_unit
+
+x.lcm \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.subs
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.valuation
+
+x.divides \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.leading\_coefficient
+\ \ x.version
+
+x.dump \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.list
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.xgcd
+
+x.dumps \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.mod
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.parent
+
+x.exact\_log \ \ \ \ \ \ \ \ \ \ \ \ \ x.multiplicative\_order \ x.plot
+
+x.factor \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.next\_prime
+\ \ \ \ \ \ \ \ \ \ \ x.rename
+
+x.factorial \ \ \ \ \ \ \ \ \ \ \ \ \ x.next\_probable\_prime
+\ \ x.reset\_name
+
+x.floor \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x.nth\_root
+\ \ \ \ \ \ \ \ \ \ \ \ \ x.powermodm\_ui
+
+
+\bigskip
+
+A gray window will be displayed which contains all of the methods that
+the object contains. \ If any of these methods is selected with the
+mouse, its name will be placed into the cell after the dot operator as
+a convenience. \ For now, select the is\_prime method. \ When its name
+is placed into the cell, type a question mark
+{\textquotesingle}?{\textquotesingle} after it and press the
+{\textless}tab{\textgreater} key in order to obtain information on this
+method:
+
+
+\bigskip
+
+x.is\_prime?
+
+{\textbar}
+
+File:
+\ \ \ \ \ \ /opt/sage{}-2.7.1{}-debian{}-32bit{}-i686{}-Linux/local/lib/python/site{}-packages/sage/rings/integer/pyx
+
+Type: \ \ \ \ \ \ {\textless}type
+{\textquotesingle}builtin\_function\_or\_method
+{\textquotesingle}{\textgreater}
+
+Definition: x.is\_prime()
+
+
+\bigskip
+
+Docstring: 
+
+
+\bigskip
+
+\ \ \ \ \ \ \ \ \ \ \ \ Retuns True if self is prime 
+
+
+\bigskip
+
+\ \ \ \ \ \ \ \ \ \ \ \ EXAMPLES: 
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sage: z = 2\^{}31 {}- 1 
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sage: z.is\_prime() 
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ True 
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sage: z = 2\^{}31 
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sage: z.is\_prime() 
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ False 
+
+
+\bigskip
+
+The Definition section indicates that the is\_prime() method is called
+without passing any arguments to it and the Docstring section indicates
+that the method will return True if the object is prime. \ The
+following code shows the variable x (which still contains 5) being used
+to call the is\_prime() method:
+
+
+\bigskip
+
+x.is\_prime()
+
+{\textbar}
+
+True
+
+\section[The List Object{\textquotesingle}s Methods]{
+The List Object{\textquotesingle}s Methods}
+
+Lists are objects and therefore they contain methods that provide useful
+capabilities:
+
+
+\bigskip
+
+a = []
+
+a.{\textless}tab{\textgreater}
+
+{\textbar}
+
+a.append \ \ a.extend \ \ a.insert \ \ a.remove \ \ a.sort 
+
+a.count \ \ \ a.index \ \ \ a.pop \ \ \ \ \ a.reverse 
+
+
+\bigskip
+
+The following programs demonstrate some of a list
+object{\textquotesingle}s methods:
+
+
+\bigskip
+
+\# Append an object to the end of a list.
+
+a = [1,2,3,4,5,6]
+
+print a
+
+a.append(7)
+
+print a
+
+{\textbar}
+
+[1, 2, 3, 4, 5, 6]
+
+[1, 2, 3, 4, 5, 6, 7]
+
+
+\bigskip
+
+\# Insert an object into a list.
+
+a = [1,2,4,5]
+
+print a
+
+a.insert(2,3)
+
+print a
+
+{\textbar}
+
+[1, 2, 4, 5]
+
+[1, 2, 3, 4, 5]
+
+\# Sort the contents of a list.
+
+a = [8,2,7,1,6,4]
+
+print a
+
+a.sort()
+
+print a
+
+{\textbar}
+
+[8, 2, 7, 1, 6, 4]
+
+[1, 2, 4, 6, 7, 8]
+
+\section[Extending Classes With Inheritence]{
+Extending Classes With Inheritence}
+
+Object technologies are subtle and powerful. \ They possess a number of
+mechanisms for dealing with complexity and class inheritance is one of
+them. \ Class inheritance is the ability of a class to obtain or
+inherit all of the instance variables and methods of another class
+(called a parent class, super class, or base class) using a minimal
+amount of code. \ A class that inherits from a parent class is called a
+child class or sub class. \ This means that a child class can do
+everything its parent can do along with any additional functionality
+that is programmed into the child. \ 
+
+
+\bigskip
+
+The following program demonstrates class inheritance by having a Person
+class inherit from the built{}-in object class and having an
+ArmyPrivate class inherit from the Person class:
+
+
+\bigskip
+
+class Person(object):
+
+ def \_\_init\_\_(self):
+
+  self.rank = {\textquotedbl}I am just a Person, I have no
+rank.{\textquotedbl}
+
+\ \ 
+
+ def \_\_str\_\_(self):
+
+  return {\textquotedbl}str: {\textquotedbl} + self.rank
+
+  
+
+ def \_\_repr\_\_(self):
+
+  return {\textquotedbl}repr: {\textquotedbl} + self.rank
+
+
+\bigskip
+
+
+\bigskip
+
+class ArmyPrivate(Person):
+
+ def \_\_init\_\_(self):
+
+  self.rank = {\textquotedbl}ArmyPrivate.{\textquotedbl}
+
+
+\bigskip
+
+
+\bigskip
+
+a = object()
+
+print type(a)
+
+
+
+b = Person()
+
+print type(b)
+
+
+\bigskip
+
+c = ArmyPrivate()
+
+print type(c)
+
+{\textbar}
+
+{\textless}type {\textquotesingle}object{\textquotesingle}{\textgreater}
+
+{\textless}class
+{\textquotesingle}\_\_main\_\_.Person{\textquotesingle}{\textgreater}
+
+{\textless}class
+{\textquotesingle}\_\_main\_\_.ArmyPrivate{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+
+\bigskip
+
+After the classes have been created, this program instantiates an object
+of type object which is assigned to variable
+{\textquotesingle}a{\textquotesingle}, an object of type Person which
+is assigned to variable {\textquotesingle}b{\textquotesingle}, and an
+object of type ArmyPrivate which is assigned to variable
+{\textquotesingle}c{\textquotesingle}.
+
+
+\bigskip
+
+The following code can be used to display the inheritance hierarchy of
+any object. \ If it is executed in a separate cell after the above
+program has been executed, the inheritance hierarchy of the ArmyPrivate
+class is displayed (don{\textquotesingle}t worry about trying to
+understand how this code works. \ Just use it for now.):
+
+
+\bigskip
+
+\#Display the inheritance hierarchy of an object. \ Note:
+don{\textquotesingle}t worry \#about trying to understand how this
+program works. \ Just use it for \#now.
+
+def class\_hierarchy(cls, indent):
+
+\ \ \ \ print {\textquotesingle}.{\textquotesingle}*indent, cls
+
+\ \ \ \ for supercls in cls.\_\_bases\_\_:
+
+\ \ \ \ \ \ \ \ class\_hierarchy(supercls, indent+1)
+
+
+\bigskip
+
+def instance\_hierarchy(inst):
+
+\ \ \ \ print {\textquotesingle}Inheritance hierarchy
+of{\textquotesingle}, inst
+
+\ \ \ \ class\_hierarchy(inst.\_\_class\_\_, 3)
+
+
+\bigskip
+
+z = ArmyPrivate()
+
+
+\bigskip
+
+instance\_hierarchy(z)
+
+{\textbar}
+
+Inheritance hierarchy of str: ArmyPrivate
+
+... {\textless}class
+{\textquotesingle}\_\_main\_\_.ArmyPrivate{\textquotesingle}{\textgreater}
+
+.... {\textless}class
+{\textquotesingle}\_\_main\_\_.Person{\textquotesingle}{\textgreater}
+
+..... {\textless}type
+{\textquotesingle}object{\textquotesingle}{\textgreater}
+
+The instance\_hierarchy function will display the inheritance hierarchy
+of any object that is passed to it. \ In this case, an ArmyPrivate
+object was instantiated and passed to the instance\_hierarchy function
+and the object{\textquotesingle}s inheritance hierarchy was displayed.
+\ Notice that the topmost class in the hierarchy, which is the object
+class, was printed last and that Person inherits from object and
+ArmyPrivate inherits from Person.
+
+\ 
+
+
+\bigskip
+
+\chapter[Miscellaneous Topics]{Miscellaneous Topics}
+\section[Referencing The Result Of The Previous
+Operation]{Referencing The Result Of The Previous Operation}
+When working on a problem that spans multiple cells in a worksheet, it
+is often desirable to reference the result of the previous operation.
+\ The underscore symbol {\textquotesingle}\_{\textquotesingle} is used
+for this purpose as shown in the following example:
+
+
+\bigskip
+
+2 + 3
+
+{\textbar}
+
+5
+
+\_
+
+{\textbar}
+
+5
+
+
+\bigskip
+
+\_ + 6
+
+{\textbar}
+
+11
+
+
+\bigskip
+
+a = \_ * 2
+
+a
+
+{\textbar}
+
+22
+
+\section[Exceptions]{Exceptions}
+In order to assure that MathRider programs have a uniform way to handle
+exceptional conditions that might occur while they are running, an
+exception display and handling mechanism is built into the MathRider
+platform. \ This section covers only displayed exceptions because
+exception handling is an advanced topic that is beyond the scope of
+this document.
+
+
+\bigskip
+
+The following code causes an exception to occur and information about
+the exception is then displayed:
+
+
+\bigskip
+
+1/0
+
+{\textbar}
+
+Exception (click to the left for traceback):
+
+...
+
+ZeroDivisionError: Rational division by zero
+
+
+\bigskip
+
+Since 1/0 is an undefined mathematical operation, MathRider is unable to
+perform the calculation. \ It stops execution of the program and
+generates an exception to inform other areas of the program or the user
+about this problem. \ If no other part of the program handles the
+exception, a text explanation of the exception is displayed. \ In this
+case, the exception informs the user that a ZeroDivisionError has
+occurred and that this was caused by an attempt to perform
+{\textquotedbl}rational division by zero{\textquotedbl}.
+
+
+\bigskip
+
+Most of the time, this is enough information for the user to locate the
+problem in the source code and fix it. \ Sometimes, however, the user
+needs more information in order to locate the problem and therefore the
+exception indicates that if the mouse is clicked to the left of the
+displayed exception text, additional information will be displayed:
+
+
+\bigskip
+
+Traceback (most recent call last):
+
+\ \ File {\textquotedbl}{\textquotedbl}, line 1, in 
+
+\ \ File
+{\textquotedbl}/home/sage/sage\_notebook/worksheets/tkosan/2/code/2.py{\textquotedbl},
+ line 4, in 
+
+\ \ \ \ Integer(1)/Integer(0)
+
+\ \ File
+{\textquotedbl}/opt/sage{}-2.8.3{}-linux{}-32bit{}-debian{}-4.0{}-i686{}-
+Linux/data/extcode/sage/{\textquotedbl}, line 1, in 
+
+\ \ \ \ 
+
+\ \ File {\textquotedbl}element.pyx{\textquotedbl}, line 1471, in
+element.RingElement.\_\_div\_\_
+
+\ \ File {\textquotedbl}element.pyx{\textquotedbl}, line 1485, in
+element.RingElement.\_div\_c
+
+\ \ File {\textquotedbl}integer.pyx{\textquotedbl}, line 735, in
+integer.Integer.\_div\_c\_impl
+
+\ \ File {\textquotedbl}integer\_ring.pyx{\textquotedbl}, line 185, in
+integer\_ring.IntegerRing\_class.\_div
+
+ZeroDivisionError: Rational division by zero
+
+This additional information shows a trace of all the code in the
+MathRider library that was in use when the exception occurred along
+with the names of the files that \ hold the code. \ It allows an expert
+MathRider user to look at the source code if needed in order to
+determine if the exception was caused by a bug in MathRider or a bug in
+the code that was entered. \ 
+
+\section[Obtaining Numeric Results]{Obtaining Numeric
+Results}
+One sometimes needs to obtain the numeric approximate of an object and
+MathRider provides a number of ways to accomplish this. \ One way is to
+use the n() function and another way is to use the n() method. \ The
+following example shows both of these being used:
+
+
+\bigskip
+
+a = 3/4
+
+print a
+
+print n(a)
+
+print a.n()
+
+{\textbar}
+
+3/4
+
+0.750000000000000
+
+0.750000000000000
+
+The number of digits returned can be adjusted by using the digits
+parameter:
+
+
+\bigskip
+
+a = 3/4
+
+print a.n(digits=30)
+
+{\textbar}
+
+0.7500000000000000000000000000000
+
+
+\bigskip
+
+and the number of bits of precision can be adjusted by using the prec
+parameter:
+
+
+\bigskip
+
+a = 4/3
+
+print a.n(prec=2)
+
+print a.n(prec=3)
+
+print a.n(prec=4)
+
+print a.n(prec=10)
+
+print a.n(prec=20)
+
+{\textbar}
+
+1.5
+
+1.2
+
+1.4
+
+1.3
+
+1.3333
+
+\section[Style Guide For Expressions]{Style Guide For
+Expressions}
+Always surround the following binary operators with a single space on
+either side: assignment {\textquotesingle}={\textquotesingle},
+augmented assignment (+=, $-$=, etc.), comparisons (==, {\textless},
+{\textgreater}, !=, {\textless}{\textgreater}, {\textless}=,
+{\textgreater}=, in, not in, is, is not), Booleans (and, or, not).
+
+
+\bigskip
+
+Use spaces around the + and $-$ arithmetic operators and no spaces
+around the * , /, \%, and \^{} arithmetic operators:
+
+x = x + 1
+
+x = x*3 $-$ 5\%2
+
+c = (a + b)/(a $-$ b)
+
+
+\bigskip
+
+Do not use spaces around the equals sign
+{\textquotesingle}={\textquotesingle} when used to indicate a keyword
+argument or a default parameter value:
+
+a.n(digits=5)
+
+\section[Built{}-in Constants]{Built{}-in Constants}
+MathRider has a number of mathematical constants built into it and the
+following is a list of some of the more common ones:
+
+
+\bigskip
+
+Pi, pi: The ratio of the circumference to the diameter of a circle.
+
+
+\bigskip
+
+E, e: Base of the natural logarithm.
+
+
+\bigskip
+
+I, i: The imaginary unit quantity.
+
+\ \ \ \ \ 
+
+log2: The natural logarithm of the real number 2.
+
+
+\bigskip
+
+Infinity, infinity: Can have + or $-$ placed before it to indicate
+positive or negative infinity.
+
+
+\bigskip
+
+The following examples show constants being used:
+
+
+\bigskip
+
+a = pi.n()
+
+b = e.n()
+
+c = i.n()
+
+a,b,c
+
+{\textbar}
+
+(3.14159265358979, 2.71828182845905, 1.00000000000000*I)
+
+
+\bigskip
+
+r = 4
+
+a = 2*pi*r
+
+a,a.n()
+
+{\textbar}
+
+(8*pi, 25.1327412287183)
+
+Constants in MathRider are defined as global variables and a global
+variable is a variable that is accessible by most MathRider code,
+including inside of functions and methods. \ Since constants are simply
+variables that have a constant object assigned to them, the variables
+can be reassigned if needed but then the constant object is lost. \ If
+one needs to have a constant reassigned to the variable it is normally
+associated with, the restore() function can be used. \ The following
+program shows how the variable pi can have the object 7 assigned to it
+and then have its default constant assigned to it again by passing its
+name inside of quotes to the restore() function:
+
+
+\bigskip
+
+print pi.n()
+
+
+\bigskip
+
+pi = 7
+
+print pi
+
+
+\bigskip
+
+restore({\textquotesingle}pi{\textquotesingle})
+
+print pi.n()
+
+{\textbar}
+
+3.14159265358979
+
+7
+
+3.14159265358979
+
+If the restore() function is called with no parameters, all reassigned
+constants are restored to their original values.
+
+\section[Roots]{Roots}
+
+The sqrt() function can be used to obtain the square root of a value,
+but a more general technique is used to obtain other roots of a value.
+\ For example, if one wanted to obtain the cube root of 8:
+
+
+\bigskip
+
+8 would be raised to the 1/3 power:
+
+8\^{}(1/3)
+
+{\textbar}
+
+2
+
+
+\bigskip
+
+Due to the order of operations, the rational number 1/3 needs to be
+placed within parentheses in order for it to be evaluated as an
+exponent.
+
+\section[Symbolic Variables]{Symbolic Variables}
+Up to this point, all of the variables we have used have been created
+during assignment time. \ For example, in the following code the
+variable w is created and then the number 8 is assigned to it:
+
+
+\bigskip
+
+w = 7
+
+w
+
+{\textbar}
+
+7
+
+
+
+But what if you needed to work with variables that are not assigned to
+any specific values? \ The following code attempts to print the value
+of the variable z, but z has not been assigned a value yet so an
+exception is returned:
+
+
+\bigskip
+
+print z
+
+{\textbar}
+
+Exception (click to the left for traceback):
+
+...
+
+NameError: name {\textquotesingle}z{\textquotesingle} is not defined
+
+
+\bigskip
+
+In mathematics, {\textquotedbl}unassigned variables{\textquotedbl} are
+used all the time. \ Since MathRider is mathematics oriented software,
+it has the ability to work with unassigned variables. \ In MathRider,
+unassigned variables are called symbolic variables and they are defined
+using the var() function. \ When a worksheet is first opened, the
+variable x is automatically defined to be a symbolic variable and it
+will remain so unless it is assigned another value in your code.
+
+
+\bigskip
+
+The following code was executed on a newly{}-opened worksheet:
+
+
+\bigskip
+
+print x
+
+type(x)
+
+{\textbar}
+
+x
+
+{\textless}class
+{\textquotesingle}sage.calculus.calculus.SymbolicVariable{\textquotesingle}{\textgreater}
+
+Notice that the variable x has had an object of type SymbolicVariable
+automatically assigned to it by the MathRider environment.
+
+
+\bigskip
+
+If you would like to also use y and z as symbolic variables, the var()
+function needs to be used to do this. \ One can either enter
+var({\textquotesingle}x,y{\textquotesingle}) or var({\textquotesingle}x
+y{\textquotesingle}). \ The var() function is designed to accept one or
+more variable names inside of a string and the names can either be
+separated by commas or spaces.
+
+
+\bigskip
+
+The following program shows var() being used to initialize y and z to be
+symbolic variables:
+
+
+\bigskip
+
+var({\textquotesingle}y,z{\textquotesingle})
+
+y,z
+
+{\textbar}
+
+(y, z)
+
+After one or more symbolic variables have been defined, the reset()
+function can be used to undefine them:
+
+
+\bigskip
+
+reset({\textquotesingle}y,z{\textquotesingle})
+
+y,z
+
+{\textbar}
+
+Exception (click to the left for traceback):
+
+...
+
+NameError: name {\textquotesingle}y{\textquotesingle} is not defined
+
+\section[Symbolic Expressions]{Symbolic Expressions}
+Expressions that contain symbolic variables are called symbolic
+expressions. \ In the following example, b is defined to be a symbolic
+variable and then it is used to create the symbolic expression 2*b:
+
+
+\bigskip
+
+var({\textquotesingle}b{\textquotesingle})
+
+type(2*b)
+
+{\textbar}
+
+{\textless}class
+{\textquotesingle}sage.calculus.calculus.SymbolicArithmetic{\textquotesingle}{\textgreater}
+
+As can be seen by this example, the symbolic expression 2*b was placed
+into an object of type SymbolicArithmetic. \ The expression can also be
+assigned to a variable:
+
+
+\bigskip
+
+m = 2*b
+
+type(m)
+
+{\textbar}
+
+{\textless}class
+{\textquotesingle}sage.calculus.calculus.SymbolicArithmetic{\textquotesingle}{\textgreater}
+
+The following program creates two symbolic expressions, assigns them to
+variables, and then performs operations on them:
+
+
+\bigskip
+
+m = 2*b
+
+n = 3*b
+
+m+n, m{}-n, m*n, m/n
+
+{\textbar}
+
+(5*b, {}-b, 6*b\^{}2, 2/3)
+
+Here is another example that multiplies two symbolic expressions
+together:
+
+
+\bigskip
+
+m = 5 + b
+
+n = 8 + b
+
+y = m*n
+
+y
+
+{\textbar}
+
+(b + 5)*(b + 8)
+
+\section[Expanding And Factoring]{Expanding And
+Factoring}
+If the expanded form of the expression from the previous section is
+needed, it is easily obtained by calling the expand() method (this
+example assumes the cells in the previous section have been run):
+
+
+\bigskip
+
+z = y.expand()
+
+z
+
+{\textbar}
+
+b\^{}2 + 13*b + 40
+
+The expanded form of the expression has been assigned to variable z and
+the factored form can be obtained from z by using the factor() method:
+
+
+\bigskip
+
+z.factor()
+
+{\textbar}
+
+(b + 5)*(b + 8)
+
+By the way, a number can be factored without being assigned to a
+variable by placing parentheses around it and calling its factor()
+method:
+
+
+\bigskip
+
+(90).factor()
+
+{\textbar}
+
+2 * 3\^{}2 * 5
+
+\section[Miscellaneous Symbolic Expression Examples]{
+Miscellaneous Symbolic Expression Examples}
+
+
+\bigskip
+
+var({\textquotesingle}a,b,c{\textquotesingle})
+
+
+\bigskip
+
+(5*a + b + 4*c) + (2*a + 3*b + c)
+
+{\textbar}
+
+5*c + 4*b + 7*a
+
+(a + b) {}- (x + 2*b)
+
+{\textbar}
+
+{}-x {}- b + a
+
+3*a\^{}2 {}- a*(a {}-5)
+
+{\textbar}
+
+3*a\^{}2 {}- (a {}- 5)*a
+
+\_.factor()
+
+{\textbar}
+
+a*(2*a + 5)
+
+\section[Passing Values To Symbolic Expressions]{
+}
+
+If values are passed to a symbolic expressions, they will be evaluated
+and a result will be returned. \ If the expression only has one
+variable, then the value can simply be passed to it as follows:
+
+
+\bigskip
+
+a = x\^{}2
+
+a(5)
+
+{\textbar}
+
+25
+
+However, if the expression has two or more variables, each variable
+needs to have a value assigned to it by name:
+
+
+\bigskip
+
+var({\textquotesingle}y{\textquotesingle})
+
+a = x\^{}2 + y
+
+a(x=2, y=3)
+
+{\textbar}
+
+7
+
+\section[Symbolic Equations and The solve() Function]{Symbolic Equations and The solve() Function}
+In addition to working with symbolic expressions, MathRider is also able
+to work with symbolic equations:
+
+
+\bigskip
+
+var({\textquotesingle}a{\textquotesingle})
+
+type(x\^{}2 == 16*a\^{}2)
+
+{\textbar}
+
+{\textless}class
+{\textquotesingle}sage.calculus.equations.SymbolicEquation{\textquotesingle}{\textgreater}
+
+As can be seen by this example, the symbolic equation x\^{}2 ==
+16*a\^{}2 was placed into an object of type SymbolicEquation. \ A
+symbolic equation needs to use double equals
+{\textquotesingle}=={\textquotesingle} so that it can be assigned to a
+variable using a single equals {\textquotesingle}={\textquotesingle}
+like this:
+
+
+\bigskip
+
+m = x\^{}2 == 16*a\^{}2
+
+m, type(m)
+
+{\textbar}
+
+(x\^{}2 == 16*a\^{}2, {\textless}class
+{\textquotesingle}sage.calculus.equations.SymbolicEquation{\textquotesingle}{\textgreater})
+
+Many symbolic equations can be solved algebraically using the solve()
+function:
+
+
+\bigskip
+
+solve(m, a)
+
+{\textbar}
+
+[a == {}-x/4, a == x/4]
+
+The first parameter in the solve() function accepts a symbolic equation
+and the second parameter accepts the symbolic variable to be solved
+for.
+
+
+\bigskip
+
+The solve() function can also solve simultaneous equations:
+
+
+\bigskip
+
+var({\textquotesingle}i1,i2,i3,v0{\textquotesingle})
+
+
+\bigskip
+
+a = (i1 {}- i3)*2 + (i1 {}- i2)*5 + 10 {}- 25 == 0
+
+b = (i2 {}- i3)*3 + i2*1 {}- 10 + (i2 {}- i1)*5 == 0
+
+c = i3*14 + (i3 {}- i2)*3 + (i3 {}- i1)*2 {}- ({}-3*v0) == 0
+
+d = v0 == (i2 {}- i3)*3
+
+
+\bigskip
+
+solve([a,b,c,d], i1,i2,i3,v0)
+
+{\textbar}
+
+[[i1 == 4, i2 == 3, i3 == {}-1, v0 == 12]]
+
+Notice that, when more than one equation is passed to solve(), they need
+to be placed into a list.
+
+\section[Symbolic Mathematical Functions]{
+Symbolic Mathematical Functions}
+
+MathRider has the ability to define functions using mathematical syntax.
+\ The following example shows a function f being defined that uses x as
+a variable:
+
+
+\bigskip
+
+f(x) = x\^{}2
+
+f, type(f)
+
+{\textbar}
+
+(x {\textbar}{}-{}-{\textgreater} x\^{}2,
+{\textless}class{\textquotesingle}sage.calculus.calculus.CallableSymbolicExpression{\textquotesingle}{\textgreater})
+
+Objects created this way are of type CallableSymbolicExpression which
+means they can be called as shown in the following example:
+
+
+\bigskip
+
+f(4), f(50), f(.2)
+
+{\textbar}
+
+(16, 2500, 0.040000000000000010)
+
+Here is an example that uses the above CallableSymbolicExpression inside
+of a loop:
+
+
+\bigskip
+
+a = 0
+
+while a {\textless}= 9:
+
+\ \ \ \ f(a)
+
+\ \ \ \ a = a + 1
+
+{\textbar}
+
+0
+
+1
+
+4
+
+9
+
+16
+
+25
+
+36
+
+49
+
+64
+
+81
+
+
+\bigskip
+
+The following example accomplishes the same work that the previous
+example did, except it uses more advanced language features:
+
+
+\bigskip
+
+a = srange(10)
+
+a
+
+{\textbar}
+
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+\bigskip
+
+for num in a:
+
+\ \ \ \ f(num)
+
+{\textbar}
+
+0
+
+1
+
+4
+
+9
+
+16
+
+25
+
+36
+
+49
+
+64
+
+81
+
+\section[Finding Roots Graphically And Numerically With The
+find\_root() Method]{Finding Roots Graphically And Numerically
+With The find\_root() Method}
+Sometimes equations cannot be solved algebraically and the solve()
+function indicates this by returning a copy of the input it was passed.
+\ This is shown in the following example:
+
+
+\bigskip
+
+f(x) = sin(x) {}- x {}- pi/2
+
+eqn = (f == 0)
+
+solve(eqn, x)
+
+{\textbar}
+
+[x == (2*sin(x) {}- pi)/2]
+
+
+\bigskip
+
+However, equations that cannot be solved algebraically can be solved
+both graphically and numerically. \ The following example shows the
+above equation being solved graphically:
+
+
+\bigskip
+
+show(plot(f,{}-10,10))
+
+{\textbar}
+
+
+\bigskip
+
+This graph indicates that the root for this equation is a little greater
+than {}-2.5.
+
+
+\bigskip
+
+The following example shows the equation being solved more precisely
+using the find\_root() method:
+
+
+\bigskip
+
+f.find\_root({}-10,10)
+
+{\textbar}
+
+{}-2.309881460010057
+
+
+\bigskip
+
+The {}-10 and +10 that are passed to the find\_root() method tell it the
+interval within which it should look for roots.
+
+\section[Displaying Mathematical Objects In Traditional
+Form]{Displaying Mathematical Objects In Traditional Form}
+Earlier it was indicated that MathRider is able to display mathematical
+objects in either text form or traditional form. \ Up until this point,
+we have been using text form which is the default. \ If one wants to
+display a mathematical object in traditional form, the show() function
+can be used. \ The following example creates a mathematical expression
+and then displays it in both text form and traditional form:
+
+
+\bigskip
+
+var({\textquotesingle}y,b,c{\textquotesingle})
+
+z = (3*y\^{}(2*b))/(4*x\^{}c)\^{}2
+
+
+\bigskip
+
+\#Display the expression in text form.
+
+z
+
+{\textbar}
+
+3*y\^{}(2*b)/(16*x\^{}(2*c))
+
+\#Display the expression in traditional form.
+
+show(z)
+
+{\textbar}
+
+
+\bigskip
+
+ 
+
+
+\bigskip
+
+\section[LaTeX Is Used To Display Objects In Traditional
+Mathematics Form]{LaTeX Is Used To Display Objects In
+Traditional Mathematics Form}
+LaTex (pronounced l\=a{}-tek, http://en.wikipedia.org/wiki/LaTeX) is a
+document markup language which is able to work with a wide range of
+mathematical symbols. \ MathRider objects will provide LaTeX
+descriptions of themselves when their latex() methods are called. \ The
+LaTeX description of an object can also be obtained by passing it to
+the latex() function:
+
+
+\bigskip
+
+a = (2*x\^{}2)/7
+
+latex(a)
+
+{\textbar}
+
+{\textbackslash}frac\{\{2 {\textbackslash}cdot \{x\}\^{}\{2\} \}\}\{7\}
+
+When this result is fed into LaTeX display software, it will generate
+traditional mathematics form output similar to the following:
+
+
+\bigskip
+
+
+\bigskip
+
+
+\bigskip
+
+The jsMath package which is referenced in \ is the software that the
+MathRider Notebook uses to translate LaTeX input into traditional
+mathematics form output.
+
+\section[Sets]{Sets}
+The following example shows operations that MathRider can perform on
+sets:
+
+
+\bigskip
+
+a = Set([0,1,2,3,4])
+
+b = Set([5,6,7,8,9,0])
+
+a,b
+
+{\textbar}
+
+(\{0, 1, 2, 3, 4\}, \{0, 5, 6, 7, 8, 9\})
+
+
+\bigskip
+
+a.cardinality()
+
+{\textbar}
+
+5
+
+
+\bigskip
+
+3 in a
+
+{\textbar}
+
+True
+
+
+\bigskip
+
+3 in b
+
+{\textbar}
+
+False
+
+
+\bigskip
+
+a.union(b)
+
+{\textbar}
+
+\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}
+
+
+\bigskip
+
+a.intersection(b)
+
+{\textbar}
+
+\{0\}
+
+\chapter[2D Plotting]{2D Plotting}
+\section[The plot() And show() Functions]{The plot() And
+show() Functions}
+MathRider provides a number of ways to generate 2D plots of mathematical
+functions and one of these ways is to use the plot() function in
+conjunction with the show() function. \ The following example shows a
+symbolic expression being passed to the plot() function as its first
+parameter. \ The second parameter indicates where plotting should begin
+on the X axis and the third parameter indicates where plotting should
+end:
+
+a = x\^{}2
+
+b = plot(a, 0, 10)
+
+type(b)
+
+{\textbar}
+
+\ \ {\textless}class
+{\textquotesingle}sage.plot.plot.Graphics{\textquotesingle}{\textgreater}
+
+
+\bigskip
+
+Notice that the plot() function does not display the plot. \ Instead, it
+creates an object of type sage.plot.plot.Graphics and this object
+contains the plot data. \ The show() function can then be used to
+display the plot:
+
+
+\bigskip
+
+show(b)
+
+{\textbar}
+
+
+\bigskip
+
+The show() function has 4 parameters called xmin, xmax, ymin, and ymax
+that can be used to adjust what part of the plot is displayed. \ It
+also has a figsize parameter which determines how large the image will
+be. \ The following example shows xmin and xmax being used to display
+the plot between 0 and .05 on the X axis. \ Notice that the plot()
+function can be used as the first parameter to the show() function in
+order to save typing effort (Note: if any other symbolic variable other
+than x is used, it must first be declared with the var() function):
+
+
+\bigskip
+
+v = 400*e\^{}({}-100*x)*sin(200*x)
+
+show(plot(v,0,.1),xmin=0, xmax=.05, figsize=[3,3])
+
+{\textbar}
+
+
+\bigskip
+
+The ymin and ymax parameters can be used to adjust how much of the y
+axis is displayed in the above plot:
+
+
+\bigskip
+
+show(plot(v,0,.1),xmin=0, xmax=.05, ymin=0, ymax=100, figsize=[3,3])
+
+{\textbar}
+
+
+\bigskip
+
+\subsection[Combining Plots And Changing The Plotting
+Color]{Combining Plots And Changing The Plotting Color}
+Sometimes it is necessary to combine one or more plots into a single
+plot. \ The following example combines 6 plots using the show()
+function:
+
+
+\bigskip
+
+var({\textquotesingle}t{\textquotesingle})
+
+p1 = t/4E5
+
+p2 = (5*(t {}- 8)/2 {}- 10)/1000000
+
+p3 = (t {}- 12)/400000
+
+p4 = 0.0000004*(t {}- 30)
+
+p5 = 0.0000004*(t {}- 30)
+
+p6 = {}-0.0000006*(6 {}- 3*(t {}- 46)/2)
+
+
+
+g1 = plot(p1,0,6,rgbcolor=(0,.2,1))
+
+g2 = plot(p2,6,12,rgbcolor=(1,0,0))
+
+g3 = plot(p3,12,16,rgbcolor=(0,.7,1))
+
+g4 = plot(p4,16,30,rgbcolor=(.3,1,0))
+
+g5 = plot(p5,30,36,rgbcolor=(1,0,1))
+
+g6 = plot(p6,36,50,rgbcolor=(.2,.5,.7))
+
+
+\bigskip
+
+show(g1+g2+g3+g4+g5+g6,xmin=0, xmax=50, ymin={}-.00001, ymax=.00001)
+
+{\textbar}
+
+
+\bigskip
+
+Notice that the color of each plot can be changed using the rgbcolor
+parameter. \ RGB stands for Red, Green, and Blue and the tuple that is
+assigned to the rgbcolor parameter contains three values between 0 and
+1. \ The first value specifies how much red the plot should have
+(between 0 and 100\%), the second value specifies how much green the
+plot should have, and the third value specifies how much blue the plot
+should have.
+
+\subsection[Combining Graphics With A Graphics
+Object]{Combining Graphics With A Graphics Object}
+It is often useful to combine various kinds of graphics into one image.
+\ In the following example, 6 points are plotted along with a text
+label for each plot:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Plot the following points on a graph:
+
+
+\bigskip
+
+A (0,0)
+
+B (9,23)
+
+C ({}-15,20)
+
+D (22,{}-12)
+
+E ({}-5,{}-12)
+
+F ({}-22,{}-4)
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+
+\bigskip
+
+\#Create a Graphics object which will be used to hold multiple 
+
+\# graphics objects. \ These graphics objects will be displayed
+
+\# on the same image.
+
+g = Graphics()
+
+
+\bigskip
+
+\#Create a list of points and add them to the graphics object.
+
+points=[(0,0), (9,23), ({}-15,20), (22,{}-12), ({}-5,{}-12),
+({}-22,{}-4)]
+
+g += point(points)
+
+
+\bigskip
+
+\#Add labels for the points to the graphics object.
+
+for (pnt,letter) in
+zip(points,[{\textquotesingle}A{\textquotesingle},{\textquotesingle}B{\textquotesingle},{\textquotesingle}C{\textquotesingle},{\textquotesingle}D{\textquotesingle},{\textquotesingle}E{\textquotesingle},{\textquotesingle}F{\textquotesingle}]):
+
+\ \ \ \ g += text(letter,(pnt[0]{}-1.5, pnt[1]{}-1.5))
+
+
+\bigskip
+
+\#Display the combined graphics objects.
+
+show(g,figsize=[5,4])
+
+{\textbar}
+
+
+\bigskip
+
+First, an empty Graphics object is instantiated and a list of plotted
+points are created using the point() function. \ These plotted points
+are then added to the Graphics object using the += operator. \ Next, a
+label for each point is added to the Graphics object using a for loop.
+\ Finally, the Graphics object is displayed in the worksheet using the
+show() function.
+
+
+\bigskip
+
+Even after being displayed, the Graphics object still contains all of
+the graphics that have been placed into it and more graphics can be
+added to it as needed. \ For example, if a line needed to be drawn
+between points C and D, the following code can be executed in a
+separate cell to accomplish this:
+
+
+\bigskip
+
+g += line([({}-15,20), (22,{}-12)])
+
+show(g)
+
+{\textbar}
+
+
+\bigskip
+
+
+\bigskip
+
+\section[Advanced Plotting With matplotlib]{Advanced
+Plotting With matplotlib}
+MathRider uses the matplotlib (http://matplotlib.sourceforge.net)
+library for its plotting needs and if one requires more control over
+plotting than the plot() function provides, the capabilities of
+matplotlib can be used directly. \ While a complete explanation of how
+matplotlib works is beyond the scope of this book, this section
+provides examples that should help you to begin using it.
+
+\subsection[Plotting Data From Lists With Grid Lines And Axes Labels]{
+Plotting Data From Lists With Grid Lines And Axes Labels}
+
+
+\bigskip
+
+x = [1921, 1923, 1925, 1927, 1929, 1931, 1933]
+
+y = [ .05, .6, 4.0, 7.0, 12.0, 15.5, 18.5]
+
+
+\bigskip
+
+from matplotlib.backends.backend\_agg import FigureCanvasAgg as
+{\textbackslash} FigureCanvas
+
+from matplotlib.figure import Figure
+
+from matplotlib.ticker import *
+
+fig = Figure()
+
+canvas = FigureCanvas(fig)
+
+ax = fig.add\_subplot(111)
+
+ax.xaxis.set\_major\_formatter( FormatStrFormatter(
+{\textquotesingle}\%d{\textquotesingle} ))
+
+ax.yaxis.set\_major\_locator( MaxNLocator(10) )
+
+ax.yaxis.set\_major\_formatter( FormatStrFormatter(
+{\textquotesingle}\%d{\textquotesingle} ))
+
+ax.yaxis.grid(True, linestyle={\textquotesingle}{}-{\textquotesingle},
+which={\textquotesingle}minor{\textquotesingle})
+
+ax.grid(True, linestyle={\textquotesingle}{}-{\textquotesingle},
+linewidth=.5)
+
+ax.set\_title({\textquotesingle}US Radios Percentage
+Gains{\textquotesingle})
+
+ax.set\_xlabel({\textquotesingle}Year{\textquotesingle})
+
+ax.set\_ylabel({\textquotesingle}Radios{\textquotesingle})
+
+ax.plot(x,y, {\textquotesingle}go{}-{\textquotesingle}, linewidth=1.0 )
+
+canvas.print\_figure({\textquotesingle}ex1\_linear.png{\textquotesingle})
+
+{\textbar}
+
+
+\bigskip
+
+\subsection[Plotting With A Logarithmic Y Axis]{
+Plotting With A Logarithmic Y Axis}
+
+\bigskip
+
+x = [1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933]
+
+y = [ 4.61,5.24, 10.47, 20.24, 28.83, 43.40, 48.34, 50.80]
+
+
+\bigskip
+
+from matplotlib.backends.backend\_agg import FigureCanvasAgg as
+{\textbackslash} FigureCanvas
+
+from matplotlib.figure import Figure
+
+from matplotlib.ticker import *
+
+fig = Figure()
+
+canvas = FigureCanvas(fig)
+
+ax = fig.add\_subplot(111)
+
+ax.xaxis.set\_major\_formatter( FormatStrFormatter(
+{\textquotesingle}\%d{\textquotesingle} ))
+
+ax.yaxis.set\_major\_locator( MaxNLocator(10) )
+
+ax.yaxis.set\_major\_formatter( FormatStrFormatter(
+{\textquotesingle}\%d{\textquotesingle} ))
+
+ax.yaxis.grid(True, linestyle={\textquotesingle}{}-{\textquotesingle},
+which={\textquotesingle}minor{\textquotesingle})
+
+ax.grid(True, linestyle={\textquotesingle}{}-{\textquotesingle},
+linewidth=.5)
+
+ax.set\_title({\textquotesingle}Distance in millions of miles flown by
+transport airplanes in the US{\textquotesingle})
+
+ax.set\_xlabel({\textquotesingle}Year{\textquotesingle})
+
+ax.set\_ylabel({\textquotesingle}Distance{\textquotesingle})
+
+ax.semilogy(x,y, {\textquotesingle}go{}-{\textquotesingle},
+linewidth=1.0 )
+
+canvas.print\_figure({\textquotesingle}ex2\_log.png{\textquotesingle})
+
+{\textbar}
+
+
+\bigskip
+
+\subsection[Two Plots With Labels Inside Of The Plot]{
+Two Plots With Labels Inside Of The Plot}
+
+\bigskip
+
+x = [20,30,40,50,60,70,80,90,100]
+
+y = [3690,2830,2130,1575,1150,875,735,686,650]
+
+z = [120,680,1860,3510,4780,5590,6060,6340,6520]
+
+
+\bigskip
+
+from matplotlib.backends.backend\_agg import FigureCanvasAgg as
+{\textbackslash} FigureCanvas
+
+from matplotlib.figure import Figure
+
+from matplotlib.ticker import *
+
+from matplotlib.dates import *
+
+fig = Figure()
+
+canvas = FigureCanvas(fig)
+
+ax = fig.add\_subplot(111)
+
+ax.xaxis.set\_major\_formatter( FormatStrFormatter(
+{\textquotesingle}\%d{\textquotesingle} ))
+
+ax.yaxis.set\_major\_locator( MaxNLocator(10) )
+
+ax.yaxis.set\_major\_formatter( FormatStrFormatter(
+{\textquotesingle}\%d{\textquotesingle} ))
+
+ax.yaxis.grid(True, linestyle={\textquotesingle}{}-{\textquotesingle},
+which={\textquotesingle}minor{\textquotesingle})
+
+ax.grid(True, linestyle={\textquotesingle}{}-{\textquotesingle},
+linewidth=.5)
+
+ax.set\_title({\textquotesingle}Number of trees vs. total volume of
+wood{\textquotesingle})
+
+ax.set\_xlabel({\textquotesingle}Age{\textquotesingle})
+
+ax.set\_ylabel({\textquotesingle}{\textquotesingle})
+
+ax.semilogy(x,y, {\textquotesingle}bo{}-{\textquotesingle},
+linewidth=1.0 )
+
+ax.semilogy(x,z, {\textquotesingle}go{}-{\textquotesingle},
+linewidth=1.0 )
+
+ax.annotate({\textquotesingle}N{\textquotesingle}, xy=(550, 248),
+\ xycoords={\textquotesingle}figure pixels{\textquotesingle})
+
+ax.annotate({\textquotesingle}V{\textquotesingle}, xy=(180, 230),
+\ xycoords={\textquotesingle}figure pixels{\textquotesingle})
+
+canvas.print\_figure({\textquotesingle}ex5\_log.png{\textquotesingle})
+
+{\textbar}
+
+
+\bigskip
+
+\chapter[MathRider Usage Styles]{MathRider Usage Styles}
+MathRider is an extremely flexible environment and therefore there are
+multiple ways to use it. \ In this chapter, two MathRider usage styles
+are discussed and they are called the Speed style and the OpenOffice
+Presentation style.
+
+
+\bigskip
+
+The Speed usage style is designed to solve problems as quickly as
+possible by minimizing the amount of effort that is devoted to making
+results look good. \ This style has been found to be especially useful
+for solving end of chapter problems that are usually present in
+mathematics related textbooks.
+
+
+\bigskip
+
+The OpenOffice Presentation style is designed to allow a person with no
+mathematical document creation skills to develop mathematical documents
+with minimal effort. \ This presentation style is useful for creating
+homework submissions, reports, articles, books, etc. and this book was
+developed using this style.
+
+\section[The Speed Usage Style]{The Speed Usage Style}
+(In development...)
+
+\section[The OpenOffice Presentation Usage Style]{The
+OpenOffice Presentation Usage Style}
+(In development...)
+
+
+\bigskip
+
+
+\bigskip
+
+\chapter[High School Math Problems]{High School Math Problems (most of the problems
+are still in development)}
+
+\section[Pre{}-Algebra]{Pre{}-Algebra}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Pre-algebra}{http://en.wikipedia.org/wiki/Pre{}-algebra}
+
+(In development...)
+
+\subsection[Equations]{Equations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Equation}{http://en.wikipedia.org/wiki/Equation}
+
+(In development...)
+
+\subsection[Expressions]{Expressions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Mathematical_expression}{http://en.wikipedia.org/wiki/Mathematical\_expression}
+
+(In development...)
+
+\subsection[Geometry]{Geometry}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Geometry}{http://en.wikipedia.org/wiki/Geometry}
+
+(In development...)
+
+\subsection[Inequalities]{Inequalities}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Inequality}{http://en.wikipedia.org/wiki/Inequality}
+
+(In development...)
+
+\subsection[Linear Functions]{Linear Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Linear_functions}{http://en.wikipedia.org/wiki/Linear\_functions}
+
+(In development...)
+
+\subsection[Measurement]{Measurement}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Measurement}{http://en.wikipedia.org/wiki/Measurement}
+
+(In development...)
+
+\subsection[Nonlinear Functions]{Nonlinear Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Nonlinear_system}{http://en.wikipedia.org/wiki/Nonlinear\_system}
+
+(In development...)
+
+\subsection[Number Sense And Operations]{Number Sense
+And Operations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Number_sense}{http://en.wikipedia.org/wiki/Number\_sense}
+
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Operation_(mathematics)}{http://en.wikipedia.org/wiki/Operation\_(mathematics)}
+
+(In development...)
+
+\subsubsection[Express an integer fraction in lowest
+terms]{Express an integer fraction in lowest terms}
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Problem:
+
+Express 90/105 in lowest terms.
+
+
+\bigskip
+
+Solution:
+
+One way to solve this problem is to factor both the numerator and the
+denominator into prime factors, find the common factors, and then
+divide both the numerator and denominator by these factors.
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+n = 90
+
+d = 105
+
+print n,n.factor()
+
+print d,d.factor()
+
+{\textbar}
+
+Numerator: 2 * 3\^{}2 * 5
+
+Denominator: 3 * 5 * 7
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+It can be seen that the factors 3 and 5 each appear once in both the
+numerator and denominator, so we divide both the numerator and
+denominator by 3*5:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+n2 = n/(3*5)
+
+d2 = d/(3*5)
+
+print {\textquotedbl}Numerator2:{\textquotedbl},n2
+
+print {\textquotedbl}Denominator2:{\textquotedbl},d2
+
+{\textbar}
+
+Numerator2: 6
+
+Denominator2: 7
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Therefore, 6/7 is 90/105 expressed in lowest terms.
+
+
+\bigskip
+
+This problem could also have been solved more directly by simply
+entering 90/105 into a cell because rational number objects are
+automatically reduced to lowest terms:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+90/105
+
+{\textbar}
+
+6/7
+
+\subsection[Polynomial Functions]{Polynomial
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Polynomial_function}{http://en.wikipedia.org/wiki/Polynomial\_function}
+
+(In development...)
+
+\section[Algebra]{Algebra}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Algebra_1}{http://en.wikipedia.org/wiki/Algebra\_1}
+
+(In development...)
+
+\subsection[Absolute Value Functions]{Absolute Value
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Absolute_value}{http://en.wikipedia.org/wiki/Absolute\_value}
+
+(In development...)
+
+\subsection[Complex Numbers]{Complex Numbers}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Complex_numbers}{http://en.wikipedia.org/wiki/Complex\_numbers}
+
+(In development...)
+
+\subsection[Composite Functions]{Composite Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Composite_function}{http://en.wikipedia.org/wiki/Composite\_function}
+
+(In development...)
+
+\subsection[Conics]{Conics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Conics}{http://en.wikipedia.org/wiki/Conics}
+
+(In development...)
+
+\subsection[Data Analysis]{Data Analysis}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Data_analysis}{http://en.wikipedia.org/wiki/Data\_analysis}
+
+(In development...)
+
+\subsection[\ 9 Discrete Mathematics ]{\ 9 Discrete Mathematics }
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Discrete_mathematics}{http://en.wikipedia.org/wiki/Discrete\_mathematics}
+
+(In development...)
+
+\subsection[Equations]{Equations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Equation}{http://en.wikipedia.org/wiki/Equation}
+
+(In development...)
+
+\subsubsection[Express a symbolic fraction in lowest
+terms]{Express a symbolic fraction in lowest terms}
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Problem:
+
+Express (6*x\^{}2 {}- b) / (b {}- 6*a*b) in lowest terms, where a and b
+represent positive integers.
+
+
+\bigskip
+
+Solution:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+
+\bigskip
+
+var({\textquotesingle}a,b{\textquotesingle})
+
+n = 6*a\^{}2 {}- a
+
+d = b {}- 6 * a * b
+
+print n
+
+print {\textquotedbl}
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {}-{}-{}-{}-{}-{}-{}-{}-{}-{\textquotedbl}
+
+print d
+
+{\textbar}
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 6
+a \ {}- a
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {}-{}-{}-{}-{}-{}-{}-{}-{}-
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b
+{}- 6 a b
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+We begin by factoring both the numerator and the denominator and then
+looking for common factors:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+n2 = n.factor()
+
+d2 = d.factor()
+
+print {\textquotedbl}Factored
+numerator:{\textquotedbl},n2.\_\_repr\_\_()
+
+print {\textquotedbl}Factored
+denominator:{\textquotedbl},d2.\_\_repr\_\_()
+
+{\textbar}
+
+Factored numerator: a*(6*a {}- 1)
+
+Factored denominator: {}-(6*a {}- 1)*b
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+At first, it does not appear that the numerator and denominator contain
+any common factors. \ If the denominator is studied further, however,
+it can be seen that if (1 {}- 6 a) is multiplied by {}-1, 
+
+(6 a {}- 1) is the result and this factor is also present
+
+in the numerator. \ Therefore, our next step is to multiply both the
+numerator and denominator by {}-1:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+n3 = n2 * {}-1
+
+d3 = d2 * {}-1
+
+print {\textquotedbl}Numerator * {}-1:{\textquotedbl},n3.\_\_repr\_\_()
+
+print {\textquotedbl}Denominator *
+{}-1:{\textquotedbl},d3.\_\_repr\_\_()
+
+{\textbar}
+
+Numerator * {}-1: {}-a*(6*a {}- 1)
+
+Denominator * {}-1: (6*a {}- 1)*b
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Now, both the numerator and denominator can be divided by (6*a {}- 1) in
+order to reduce each to lowest terms:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+common\_factor = 6*a {}- 1
+
+n4 = n3 / common\_factor
+
+d4 = d3 / common\_factor
+
+print n4
+
+print {\textquotedbl}
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {}-{}-{}-{\textquotedbl}
+
+print d4
+
+{\textbar}
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {}-
+a
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {}-{}-{}-
+
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+The problem could also have been solved more directly using a
+SymbolicArithmetic object:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+z = n/d
+
+z.simplify\_rational()
+
+{\textbar}
+
+{}-a/b
+
+
+\bigskip
+
+\subsubsection[Determine the product of two symbolic
+fractions]{Determine the product of two symbolic fractions}
+Perform the indicated operation: 
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Since symbolic expressions are usually automatically simplified, all
+that needs to be done with this problem is to enter the expression and
+assign it to a variable:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+
+\bigskip
+
+var({\textquotesingle}y{\textquotesingle})
+
+a = (x/(2*y))\^{}2 * ((4*y\^{}2)/(3*x))\^{}3
+
+
+\bigskip
+
+\#Display the expression in text form:
+
+a
+
+{\textbar}
+
+16*y\^{}4/(27*x)
+
+
+\bigskip
+
+
+\bigskip
+
+\#Display the expression in traditional form:
+
+show(a)
+
+{\textbar}
+
+ 
+
+ 
+
+
+\bigskip
+
+\subsubsection[Solve a linear equation for x]{Solve a
+linear equation for x}
+Solve 
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Like terms will automatically be combined when this equation is placed
+into a SymbolicEquation object:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+a = 5*x + 2*x {}- 8 == 5*x {}- 3*x + 7
+
+a
+
+{\textbar}
+
+7*x {}- 8 == 2*x + 7
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+First, lets move the x terms to the left side of the equation by
+subtracting 2x from each side. (Note: remember that the underscore
+{\textquotesingle}\_{\textquotesingle} holds the result of the last
+cell that was executed:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+\_ {}- 2*x
+
+{\textbar}
+
+5*x {}- 8 == 7
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Next, add 8 to both sides:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+\_+8
+
+{\textbar}
+
+5*x == 15
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Finally, divide both sides by 5 to determine the solution:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+\_/5
+
+{\textbar}
+
+x == 3
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+This problem could also have been solved automatically using the solve()
+function:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+solve(a,x)
+
+{\textbar}
+
+[x == 3]
+
+\subsubsection[Solve a linear equation which has
+fractions]{Solve a linear equation which has fractions}
+Solve 
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+The first step is to place the equation into a SymbolicEquation object.
+\ It is good idea to then display the equation so that you can verify
+that it was entered correctly:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+a = (16*x {}- 13)/6 == (3*x + 5)/2 {}- (4 {}- x)/3
+
+a
+
+{\textbar}
+
+(16*x {}- 13)/6 == (3*x + 5)/2 {}- (4 {}- x)/3
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+In this case, it is difficult to see if this equation has been entered
+correctly when it is displayed in text form so lets also display it in
+traditional form:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+show(a)
+
+{\textbar}
+
+
+\bigskip
+
+
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+The next step is to determine the least common denominator (LCD) of the
+fractions in this equation so the fractions can be removed:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+lcm([6,2,3])
+
+{\textbar}
+
+6
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+The LCD of this equation is 6 so multiplying it by 6 removes the
+fractions:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+b = a*6
+
+b
+
+{\textbar}
+
+16*x {}- 13 == 6*((3*x + 5)/2 {}- (4 {}- x)/3)
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+The right side of this equation is still in factored form so expand it:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+c = b.expand()
+
+c
+
+{\textbar}
+
+16*x {}- 13 == 11*x + 7
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Transpose the 11x to the left side of the equals sign by subtracting 11x
+from the SymbolicEquation:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+d = c {}- 11*x
+
+d
+
+{\textbar}
+
+5*x {}- 13 == 7
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Transpose the {}-13 to the right side of the equals sign by adding 13 to
+the SymbolicEquation:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+e = d + 13
+
+e
+
+{\textbar}
+
+5*x == 20
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+Finally, dividing the SymbolicEquation by 5 will leave x by itself on
+the left side of the equals sign and produce the solution:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+f = e / 5
+
+f
+
+{\textbar}
+
+x == 4
+
+
+\bigskip
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+This problem could have also be solved automatically using the solve()
+function:
+
+{\textquotedbl}{\textquotedbl}{\textquotedbl}
+
+solve(a,x)
+
+{\textbar}
+
+[x == 4]
+
+
+\bigskip
+
+
+\bigskip
+
+\subsection[Exponential Functions]{Exponential
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Exponential_function}{http://en.wikipedia.org/wiki/Exponential\_function}
+
+(In development...)
+
+\subsection[Exponents]{Exponents}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Exponent}{http://en.wikipedia.org/wiki/Exponent}
+
+(In development...)
+
+\subsection[Expressions]{Expressions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Expression_(mathematics)}{http://en.wikipedia.org/wiki/Expression\_(mathematics)}
+
+(In development...)
+
+\subsection[Inequalities]{Inequalities}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Inequality}{http://en.wikipedia.org/wiki/Inequality}
+
+(In development...)
+
+\subsection[Inverse Functions]{Inverse Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Inverse_function}{http://en.wikipedia.org/wiki/Inverse\_function}
+
+(In development...)
+
+\subsection[Linear Equations And Functions]{Linear
+Equations And Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Linear_functions}{http://en.wikipedia.org/wiki/Linear\_functions}
+
+(In development...)
+
+\subsection[Linear Programming]{Linear Programming}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Linear_programming}{http://en.wikipedia.org/wiki/Linear\_programming}
+
+(In development...)
+
+\subsection[Logarithmic Functions]{Logarithmic
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Logarithmic_function}{http://en.wikipedia.org/wiki/Logarithmic\_function}
+
+(In development...)
+
+\subsection[Logistic Functions]{Logistic Functions}
+Wikipedia entry.
+
+http://en.wikipedia.org/wiki/Logistic\_function
+
+(In development...)
+
+\subsection[Matrices]{Matrices}
+Wikipedia entry.
+
+http://en.wikipedia.org/wiki/Matrix\_(mathematics)
+
+(In development...)
+
+\subsection[Parametric Equations]{Parametric
+Equations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Parametric_equation}{http://en.wikipedia.org/wiki/Parametric\_equation}
+
+(In development...)
+
+\subsection[Piecewise Functions]{Piecewise
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Piecewise_function}{http://en.wikipedia.org/wiki/Piecewise\_function}
+
+(In development...)
+
+\subsection[Polynomial Functions]{Polynomial
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Polynomial_function}{http://en.wikipedia.org/wiki/Polynomial\_function}
+
+(In development...)
+
+\subsection[Power Functions]{Power Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Power_function}{http://en.wikipedia.org/wiki/Power\_function}
+
+(In development...)
+
+\subsection[Quadratic Functions]{Quadratic
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Quadratic_function}{http://en.wikipedia.org/wiki/Quadratic\_function}
+
+(In development...)
+
+\subsection[Radical Functions]{Radical Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Nth_root}{http://en.wikipedia.org/wiki/Nth\_root}
+
+(In development...)
+
+\subsection[Rational Functions]{Rational Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Rational_function}{http://en.wikipedia.org/wiki/Rational\_function}
+
+(In development...)
+
+\subsection[Sequences]{Sequences}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Sequence}{http://en.wikipedia.org/wiki/Sequence}
+
+(In development...)
+
+\subsection[Series]{Series}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Series_mathematics}{http://en.wikipedia.org/wiki/Series\_mathematics}
+
+(In development...)
+
+\subsection[Systems of Equations]{Systems of
+Equations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/System_of_equations}{http://en.wikipedia.org/wiki/System\_of\_equations}
+
+(In development...)
+
+\subsection[Transformations]{Transformations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Transformation_(geometry)}{http://en.wikipedia.org/wiki/Transformation\_(geometry)}
+
+(In development...)
+
+\subsection[Trigonometric Functions]{Trigonometric
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Trigonometric_function}{http://en.wikipedia.org/wiki/Trigonometric\_function}
+
+(In development...)
+
+\section[Precalculus And Trigonometry]{Precalculus And
+Trigonometry}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Precalculus}{http://en.wikipedia.org/wiki/Precalculus}
+
+
+\bigskip
+
+\href{http://en.wikipedia.org/wiki/Trigonometry}{http://en.wikipedia.org/wiki/Trigonometry}
+
+(In development...)
+
+\subsection[Binomial Theorem]{Binomial Theorem}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Binomial_theorem}{http://en.wikipedia.org/wiki/Binomial\_theorem}
+
+(In development...)
+
+\subsection[Complex Numbers]{Complex Numbers}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Complex_numbers}{http://en.wikipedia.org/wiki/Complex\_numbers}
+
+(In development...)
+
+\subsection[Composite Functions]{Composite Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Composite_function}{http://en.wikipedia.org/wiki/Composite\_function}
+
+(In development...)
+
+\subsection[Conics]{Conics}
+Wikipedia entry.
+
+http://en.wikipedia.org/wiki/Conics
+
+(In development...)
+
+\subsection[Data Analysis]{Data Analysis}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Data_analysis}{http://en.wikipedia.org/wiki/Data\_analysis}
+
+(In development...)
+
+\subsection[\ 10 Discrete Mathematics]{\ 10 Discrete Mathematics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Discrete_mathematics}{http://en.wikipedia.org/wiki/Discrete\_mathematics}
+
+(In development...)
+
+\subsection[Equations]{Equations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Equation}{http://en.wikipedia.org/wiki/Equation}
+
+(In development...)
+
+\subsection[Exponential Functions]{Exponential
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Equation}{http://en.wikipedia.org/wiki/Equation}
+
+(In development...)
+
+\subsection[Inverse Functions]{Inverse Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Inverse_function}{http://en.wikipedia.org/wiki/Inverse\_function}
+
+(In development...)
+
+\subsection[Logarithmic Functions]{Logarithmic
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Logarithmic_function}{http://en.wikipedia.org/wiki/Logarithmic\_function}
+
+(In development...)
+
+\subsection[Logistic Functions]{Logistic Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Logistic_function}{http://en.wikipedia.org/wiki/Logistic\_function}
+
+(In development...)
+
+\subsection[Matrices And Matrix Algebra]{Matrices
+And Matrix Algebra}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Matrix_(mathematics)}{http://en.wikipedia.org/wiki/Matrix\_(mathematics)}
+
+(In development...)
+
+\subsection[Mathematical Analysis]{Mathematical
+Analysis}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Mathematical_analysis}{http://en.wikipedia.org/wiki/Mathematical\_analysis}
+
+(In development...)
+
+\subsection[Parametric Equations]{Parametric
+Equations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Parametric_equation}{http://en.wikipedia.org/wiki/Parametric\_equation}
+
+(In development...)
+
+\subsection[Piecewise Functions]{Piecewise
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Piecewise_function}{http://en.wikipedia.org/wiki/Piecewise\_function}
+
+(In development...)
+
+\subsection[Polar Equations]{Polar Equations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Polar_equation}{http://en.wikipedia.org/wiki/Polar\_equation}
+
+(In development...)
+
+\subsection[Polynomial Functions]{Polynomial
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Polynomial_function}{http://en.wikipedia.org/wiki/Polynomial\_function}
+
+(In development...)
+
+\subsection[Power Functions]{Power Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Power_function}{http://en.wikipedia.org/wiki/Power\_function}
+
+(In development...)
+
+\subsection[Quadratic Functions]{Quadratic
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Quadratic_function}{http://en.wikipedia.org/wiki/Quadratic\_function}
+
+(In development...)
+
+\subsection[Radical Functions]{Radical Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Nth_root}{http://en.wikipedia.org/wiki/Nth\_root}
+
+(In development...)
+
+\subsection[Rational Functions]{Rational
+Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Rational_function}{http://en.wikipedia.org/wiki/Rational\_function}
+
+(In development...)
+
+\subsection[Real Numbers]{Real Numbers}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Real_number}{http://en.wikipedia.org/wiki/Real\_number}
+
+(In development...)
+
+\subsection[Sequences]{Sequences}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Sequence}{http://en.wikipedia.org/wiki/Sequence}
+
+(In development...)
+
+\subsection[Series]{Series}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Series_(mathematics)}{http://en.wikipedia.org/wiki/Series\_(mathematics)}
+
+(In development...)
+
+\subsection[Sets]{Sets}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Set}{http://en.wikipedia.org/wiki/Set}
+
+(In development...)
+
+\subsection[Systems of Equations]{Systems of
+Equations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/System_of_equations}{http://en.wikipedia.org/wiki/System\_of\_equations}
+
+(In development...)
+
+\subsection[Transformations]{Transformations}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Transformation_(geometry)}{http://en.wikipedia.org/wiki/Transformation\_(geometry)}
+
+(In development...)
+
+\subsection[Trigonometric Functions]{
+Trigonometric Functions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Trigonometric_function}{http://en.wikipedia.org/wiki/Trigonometric\_function}
+
+(In development...)
+
+\subsection[Vectors]{Vectors}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Vector}{http://en.wikipedia.org/wiki/Vector}
+
+(In development...)
+
+\section[Calculus]{Calculus}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Calculus}{http://en.wikipedia.org/wiki/Calculus}
+
+(In development...)
+
+\subsection[Derivatives]{Derivatives}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Derivative}{http://en.wikipedia.org/wiki/Derivative}
+
+(In development...)
+
+\subsection[Integrals]{Integrals}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Integral}{http://en.wikipedia.org/wiki/Integral}
+
+(In development...)
+
+\subsection[Limits]{Limits}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Limit_(mathematics)}{http://en.wikipedia.org/wiki/Limit\_(mathematics)}
+
+(In development...)
+
+\subsection[Polynomial Approximations And Series]{
+Polynomial Approximations And Series}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Convergent_series}{http://en.wikipedia.org/wiki/Convergent\_series}
+
+(In development...)
+
+\section[Statistics]{Statistics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Statistics}{http://en.wikipedia.org/wiki/Statistics}
+
+(In development...)
+
+\subsection[Data Analysis]{Data Analysis}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Data_analysis}{http://en.wikipedia.org/wiki/Data\_analysis}
+
+(In development...)
+
+\subsection[Inferential Statistics]{Inferential
+Statistics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Inferential_statistics}{http://en.wikipedia.org/wiki/Inferential\_statistics}
+
+(In development...)
+
+\subsection[Normal Distributions]{Normal
+Distributions}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Normal_distribution}{http://en.wikipedia.org/wiki/Normal\_distribution}
+
+(In development...)
+
+\subsection[One Variable Analysis]{One Variable
+Analysis}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Univariate}{http://en.wikipedia.org/wiki/Univariate}
+
+(In development...)
+
+\subsection[Probability And Simulation]{Probability
+And Simulation}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Probability}{http://en.wikipedia.org/wiki/Probability}
+
+(In development...)
+
+\subsection[Two Variable Analysis]{Two Variable
+Analysis}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Multivariate}{http://en.wikipedia.org/wiki/Multivariate}
+
+(In development...)
+
+\chapter[\ 11 High School Science Problems]{\ 11 High School Science
+Problems}
+(In development...)
+
+\section[Physics]{Physics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Physics}{http://en.wikipedia.org/wiki/Physics}
+
+(In development...)
+
+\subsection[Atomic Physics]{Atomic Physics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Atomic_physics}{http://en.wikipedia.org/wiki/Atomic\_physics}
+
+(In development...)
+
+\subsection[Circular Motion]{Circular Motion}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Circular_motion}{http://en.wikipedia.org/wiki/Circular\_motion}
+
+(In development...)
+
+\subsection[Dynamics]{Dynamics}
+Wikipedia entry.
+
+http://en.wikipedia.org/wiki/Dynamics\_(physics)
+
+(In development...)
+
+\subsection[Electricity And Magnetism]{Electricity
+And Magnetism}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Electricity}{http://en.wikipedia.org/wiki/Electricity}
+
+
+\bigskip
+
+\href{http://en.wikipedia.org/wiki/Magnetism}{http://en.wikipedia.org/wiki/Magnetism}
+
+(In development...)
+
+\subsection[Fluids]{Fluids}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Fluids}{http://en.wikipedia.org/wiki/Fluids}
+
+(In development...)
+
+\subsection[Kinematics]{Kinematics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Kinematics}{http://en.wikipedia.org/wiki/Kinematics}
+
+(In development...)
+
+\subsection[Light]{Light}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Light}{http://en.wikipedia.org/wiki/Light}
+
+(In development...)
+
+\subsection[Optics]{Optics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Optics}{http://en.wikipedia.org/wiki/Optics}
+
+(In development...)
+
+\subsection[Relativity]{Relativity}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Relativity}{http://en.wikipedia.org/wiki/Relativity}
+
+(In development...)
+
+\subsection[Rotational Motion]{Rotational Motion}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Rotational_motion}{http://en.wikipedia.org/wiki/Rotational\_motion}
+
+(In development...)
+
+\subsection[Sound]{Sound}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Sound}{http://en.wikipedia.org/wiki/Sound}
+
+(In development...)
+
+\subsection[Waves]{Waves}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Waves}{http://en.wikipedia.org/wiki/Waves}
+
+(In development...)
+
+\subsection[Thermodynamics]{Thermodynamics}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Thermodynamics}{http://en.wikipedia.org/wiki/Thermodynamics}
+
+(In development...)
+
+\subsection[Work]{Work}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Mechanical_work}{http://en.wikipedia.org/wiki/Mechanical\_work}
+
+(In development...)
+
+\subsection[Energy]{Energy}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Energy}{http://en.wikipedia.org/wiki/Energy}
+
+(In development...)
+
+\subsection[Momentum]{Momentum}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Momentum}{http://en.wikipedia.org/wiki/Momentum}
+
+(In development...)
+
+\subsection[Boiling]{Boiling}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Boiling}{http://en.wikipedia.org/wiki/Boiling}
+
+(In development...)
+
+\subsection[Buoyancy]{Buoyancy}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Bouyancy}{http://en.wikipedia.org/wiki/Bouyancy}
+
+(In development...)
+
+\subsection[Convection]{Convection}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Convection}{http://en.wikipedia.org/wiki/Convection}
+
+(In development...)
+
+\subsection[Density]{Density}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Density}{http://en.wikipedia.org/wiki/Density}
+
+(In development...)
+
+\subsection[Diffusion]{Diffusion}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Diffusion}{http://en.wikipedia.org/wiki/Diffusion}
+
+(In development...)
+
+\subsection[Freezing]{Freezing}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Freezing}{http://en.wikipedia.org/wiki/Freezing}
+
+(In development...)
+
+\subsection[Friction]{Friction}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Friction}{http://en.wikipedia.org/wiki/Friction}
+
+(In development...)
+
+\subsection[Heat Transfer]{Heat Transfer}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Heat_transfer}{http://en.wikipedia.org/wiki/Heat\_transfer}
+
+(In development...)
+
+\subsection[Insulation]{Insulation}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Insulation}{http://en.wikipedia.org/wiki/Insulation}
+
+(In development...)
+
+\subsection[Newton{\textquotesingle}s Laws]{
+Newton{\textquotesingle}s Laws}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Newtons_laws}{http://en.wikipedia.org/wiki/Newtons\_laws}
+
+(In development...)
+
+\subsection[Pressure]{Pressure}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Pressure}{http://en.wikipedia.org/wiki/Pressure}
+
+(In development...)
+
+\subsection[Pulleys]{Pulleys}
+Wikipedia entry.
+
+\href{http://en.wikipedia.org/wiki/Pulley}{http://en.wikipedia.org/wiki/Pulley}
+
+(In development...)
+
+
+\bigskip
+
+
+\bigskip
+
+\chapter{Fundamentals Of Computation}
+\section[What Is A Computer?]{What Is A Computer?}
+
+\bigskip
+
+Many people think computers are difficult to understand because they are
+complex. \ Computers are indeed complex, but this is not why they are
+difficult to understand. \ Computers are difficult to understand
+because only a small part of a computer exists in the physical world.
+\ The physical part of a computer is the only part a human can see and
+the rest of a computer exists in a nonphysical world which is
+invisible. \ This invisible world is the world of ideas and most of a
+computer exists as ideas in this nonphysical world.
+
+
+\bigskip
+
+The key to understanding computers is to understand that the purpose of
+these idea{}-based machines is to automatically manipulate ideas of all
+types. \ The name {\textquotesingle}computer{\textquotesingle} is not
+very helpful for describing what computers really are and perhaps a
+better name for them would be Idea Manipulation Devices or IMDs.
+
+
+\bigskip
+
+Since ideas are nonphysical objects, they cannot be brought into the
+physical world and neither can physical objects be brought into the
+world of ideas. \ Since these two worlds are separate from each other,
+the only way that physical objects can manipulate objects in the world
+of ideas is through remote control via symbols.
+
+\section[What Is A Symbol?]{What Is A Symbol?}
+
+A symbol is an object that is used to represent another object.
+\ Drawing 5 shows an example of a symbol of a telephone which is used
+to represent a physical telephone.
+
+
+\bigskip
+
+The symbol of a telephone shown in Drawing 5 is usually created with ink
+printed on a flat surface ( like a piece of paper ). \ In general,
+though, any type of physical matter ( or property of physical matter )
+that is arranged into a pattern can be used as a symbol.
+
+\section[Computers Use Bit Patterns As Symbols]{
+Computers Use Bit Patterns As Symbols}
+
+Symbols which are made of physical matter can represent all types of
+physical objects, but they can also be used to represent nonphysical
+objects in the world of ideas. \ ( see Drawing 6 )
+
+
+\bigskip
+
+
+\bigskip
+
+Among the simplest symbols that can be formed out of physical matter are
+bits and patterns of bits. \ A single bit can only be placed into two
+states which are the on state and the off state. When written, typed,
+or drawn, a bit in the on state is represented by the numeral 1 and
+when it is in the off state it is represented by the numeral 0.
+\ Patterns of bits look like the following when they are written,
+typed, or drawn: 101, 100101101, 0101001100101, 10010.
+
+
+\bigskip
+
+Drawing 7 shows how bit patterns can be used just as easily as any other
+symbols made of physical matter to represent nonphysical ideas.
+
+
+\bigskip
+
+
+\bigskip
+
+Other methods for forming physical matter into bits and bit patterns
+include: varying the tone of an audio signal between two frequencies,
+turning a light on and off, placing or removing a magnetic field on the
+surface of an object, and changing the voltage level between two levels
+in an electronic device. \ Most computers use the last method to hold
+bit patterns that represent ideas.
+
+
+\bigskip
+
+A computer{\textquotesingle}s internal memory consists of numerous
+{\textquotedbl}boxes{\textquotedbl} called memory locations and each
+memory location contains a bit pattern that can be used to represent an
+idea. \ Most computers contain millions of memory locations which allow
+them to easily reference millions of ideas at the same time. \ Larger
+computers contain billions of memory locations. \ For example, a
+typical personal computer purchased in 2007 contains over 1 billion
+memory locations. \ 
+
+
+\bigskip
+
+Drawing 8 shows a section of the internal memory of a small computer
+along with the bit patterns that this memory contains.
+
+
+\bigskip
+
+
+\bigskip
+
+Each of the millions of bit pattern symbols in a
+computer{\textquotesingle}s internal memory are capable of representing
+any idea a human can think of. \ The large number of bit patterns that
+most computers contain, however, would be difficult to keep track of
+without the use of some kind of organizing system. \ 
+
+
+\bigskip
+
+The system that computers use to keep track of the many bit patterns
+they contain consists of giving each memory location a unique address
+as shown in Drawing 9.
+
+
+\bigskip
+
+\section[Contextual Meaning]{Contextual Meaning}
+At this point you may be wondering {\textquotedbl}how one can determine
+what the bit patterns in a memory location, or a set of memory
+locations, mean?{\textquotedbl} \ The answer to this question is that a
+concept called contextual meaning gives bit patterns their meaning.
+
+
+\bigskip
+
+Context is the circumstances within which an event happens or the
+environment within which something is placed. \ Contextual meaning,
+therefore, is the meaning that a context gives to the events or things
+that are placed within it. \ 
+
+
+\bigskip
+
+Most people use contextual meaning every day, but they are not aware of
+it. \ Contextual meaning is a very powerful concept and it is what
+enables a computer{\textquotesingle}s memory locations to reference any
+idea that a human can think of. \ Each memory location can hold a bit
+pattern, but a human can have that bit pattern mean anything they wish.
+\ If more bits are needed to hold a given pattern than are present in a
+single memory location, the pattern can be spread across more than one
+location.
+
+\section[Variables]{Variables}
+Computers are very good at remembering numbers and this allows them to
+keep track of numerous addresses with ease. \ Humans, however, are not
+nearly as good at remembering numbers as computers are and so a concept
+called a variable was invented to solve this problem.
+
+
+\bigskip
+
+A variable is a name that can be associated with a memory address so
+that humans can refer to bit pattern symbols in memory using a name
+instead of a number. \ Drawing 10 shows four variables that have been
+associated with 4 memory addresses inside of a computer.
+
+
+\bigskip
+
+The variable names garage\_width and garage\_length are referencing
+memory locations that hold patterns that represent the dimensions of a
+garage and the variable names x and y are referencing memory locations
+that might represent numbers in an equation. \ Even though this
+description of the above variables is accurate, it is fairly tedious to
+use and therefore most of the time people just say or write something
+like ``the variable garage\_length holds the length of the garage.''
+
+
+\bigskip
+
+A variable is used to symbolically represent an attribute of an object.
+\ Even though a typical personal computer is capable of holding
+millions of variables, most objects possess a greater number of
+attributes than the capacity of most computers can hold. \ For example,
+a 1 kilogram rock contains approximately
+10,000,000,000,000,000,000,000,000 atoms. 1 \ Representing even just
+the positions of this rock{\textquotesingle}s atoms is currently well
+beyond the capacity of even the most advanced computer. \ Therefore,
+computers usually work with models of objects instead of complete
+representations of them.
+
+\section[Models]{Models}
+A model is a simplified representation of an object that only references
+some of its attributes. Examples of typical object attributes include
+weight, height, strength, and color. \ The attributes that are selected
+for modeling are chosen for a given purpose. \ The more attributes that
+are represented in the model, the more expensive the model is to make.
+\ Therefore, only those attributes that are absolutely needed to
+achieve a given purpose are usually represented in a model. \ The
+process of selecting only some of an object{\textquotesingle}s
+attributes when developing a model of it is called abstraction.
+
+
+\bigskip
+
+The following is an example which illustrates the process of problem
+solving using models. \ Suppose we wanted to build a garage that could
+hold 2 cars along with a workbench, a set of storage shelves, and a
+riding lawn mower. \ Assuming that the garage will have an adequate
+ceiling height, and that we do not want to build the garage any larger
+than it needs to be for our stated purpose, how could an adequate
+length and width be determined for the garage?
+
+
+\bigskip
+
+One strategy for determining the size of the garage is to build perhaps
+10 garages of various sizes in a large field. \ When the garages are
+finished, take 2 cars to the field along with a workbench, a set of
+storage shelves, and a riding lawn mower. \ Then, place these items
+into each garage in turn to see which is the smallest one that these
+items will fit into without being too cramped. \ 
+
+
+\bigskip
+
+The test garages in the field can then be discarded and a garage which
+is the same size as the one that was chosen could be built at the
+desired location. \ Unfortunately, 11 garages would need to be built
+using this strategy instead of just one and this would be very
+expensive and inefficient.
+
+
+\bigskip
+
+A way to solve this problem less expensively is by using a model of the
+garage and models of the items that will be placed inside it. \ Since
+we only want to determine the dimensions of the
+garage{\textquotesingle}s floor, we can make a scaled down model of
+just its floor using a piece of paper.
+
+
+\bigskip
+
+Each of the items that will be placed into the garage could also be
+represented by scaled{}-down pieces of paper. \ Then, the pieces of
+paper that represent the items can be placed on top of the the large
+piece of paper that represents the floor and these smaller pieces of
+paper can be moved around to see how they fit. \ If the items are too
+cramped, a larger piece of paper can be cut to represent the floor and,
+if the items have too much room, a smaller piece of paper for the floor
+can be cut.
+
+
+\bigskip
+
+When a good fit is found, the length and width of the piece of paper
+that represents the floor can be measured and then these measurements
+can be scaled up to the units used for the full{}-size garage. \ With
+this method, only a few pieces of paper are needed to solve the problem
+instead of 10 full{}-size garages that will later be discarded.
+
+
+\bigskip
+
+The only attributes of the full{}-sized objects that were copied to the
+pieces of paper were the object{\textquotesingle}s length and width.
+\ As this example shows, paper models are significantly easier to work
+with than the objects they represent. \ However, computer variables are
+even easier to use for modeling than paper or almost any other kind of
+modeling mechanism. \ 
+
+
+\bigskip
+
+At this point, though, the paper{}-based modeling technique has one
+important advantage over the computer variables we have look at. \ The
+paper model was able to be changed by moving the item models around and
+changing the size of the paper garage floor. \ The variables we have
+discussed so have been given the ability to represent an object
+attribute, but no mechanism has been given yet that would allow the
+variable{\textquotesingle}s to change. \ A computer without the ability
+to change the contents of its variables would be practically useless.
+
+\section[Machine Language]{Machine Language}
+Earlier is was stated that bit patterns in a computer{\textquotesingle}s
+memory locations can be used to represent any ideas that a human can
+think of. \ If memory locations can represent any idea, this means that
+they can reference ideas that represent instructions which tell a
+computer how to automatically manipulate the variables in its memory.
+
+
+\bigskip
+
+The part of a computer that follows the instructions that are in its
+memory is called a Central Processing Unit ( CPU ) or a microprocessor.
+\ When a microprocessor is following instructions in its memory, it is
+also said to be running them or executing them.
+
+
+\bigskip
+
+Microprocessors are categorized into families and each microprocessor
+family has its own set of instructions ( called an instruction set )
+that is different than the instructions that other microprocessor
+family{\textquotesingle}s use. \ A microprocessor{\textquotesingle}s
+instruction set represents the building blocks of a language that can
+be used to tell it what to do. \ This language is formed by placing
+sequences of instructions from the instruction set into memory and it
+the only language that a microprocessor is able to understand. \ Since
+this is the only language a microprocessor is able to understand, it is
+called machine language. \ A sequence of machine language instructions
+is called a computer program and a person who creates sequences of
+machine language instructions in order to tell the computer what to do
+is called a programmer.
+
+
+\bigskip
+
+We will now look at what the instruction set of a simple microprocessor
+looks like along with a simple program which has been developed using
+this instruction set.
+
+
+\bigskip
+
+Here is the instruction set for the 6500 family of microprocessors:
+
+
+\bigskip
+
+ADC \ ADd memory to accumulator with Carry.
+
+AND \ AND memory with accumulator.
+
+ASL \ Arithmetic Shift Left one bit.
+
+BCC \ Branch on Carry Clear.
+
+BCS \ Branch on Carry Set.
+
+BEQ \ Branch on result EQual to zero.
+
+BIT \ test BITs in accumulator with memory.
+
+BMI \ Branch on result MInus.
+
+BNE \ Branch on result Not Equal to zero.
+
+BPL \ Branch on result PLus).
+
+BRK \ force Break.
+
+BVC \ Branch on oVerflow flag Clear.
+
+BVS \ Branch on oVerflow flag Set.
+
+CLC \ CLear Carry flag.
+
+CLD \ CLear Decimal mode.
+
+CLI \ CLear Interrupt disable flag.
+
+CLV \ CLear oVerflow flag.
+
+CMP \ CoMPare memory and accumulator.
+
+CPX \ ComPare memory and index X.
+
+CPY \ ComPare memory and index Y.
+
+DEC \ DECrement memory by one.
+
+DEX \ DEcrement register S by one.
+
+DEY \ DEcrement register Y by one.
+
+EOR \ Exclusive OR memory with accumulator.
+
+INC \ INCrement memory by one.
+
+INX \ INcrement register X by one.
+
+INY \ INcrement register Y by one.
+
+JMP \ JuMP to new memory location.
+
+JSR \ Jump to SubRoutine.
+
+LDA \ LoaD Accumulator from memory.
+
+LDX \ LoaD X register from memory.
+
+LDY \ LoaD Y register from memory.
+
+LSR \ Logical Shift Right one bit.
+
+NOP \ No OPeration.
+
+ORA \ OR memory with Accumulator.
+
+PHA \ PusH Accumulator on stack.
+
+PHP \ PusH Processor status on stack.
+
+PLA \ PuLl Accumulator from stack.
+
+PLP \ PuLl Processor status from stack.
+
+ROL \ ROtate Left one bit.
+
+ROR \ ROtate Right one bit.
+
+RTI \ ReTurn from Interrupt.
+
+RTS \ ReTurn from Subroutine.
+
+SBC \ SuBtract with Carry.
+
+SEC \ SEt Carry flag.
+
+SED \ SEt Decimal mode.
+
+SEI \ SEt Interrupt disable flag.
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+
+STA \ STore Accumulator in memory.
+
+STX \ STore Register X in memory.
+
+STY \ STore Register Y in memory.
+
+TAX \ Transfer Accumulator to register X.
+
+TAY \ Transfer Accumulator to register Y.
+
+TSX \ Transfer Stack pointer to register X.
+
+TXA \ Transfer register X to Accumulator.
+
+TXS \ Transfer register X to Stack pointer.
+
+TYA \ Transfer register Y to Accumulator. \ \ 
+
+
+\bigskip
+
+The following is a small program which has been written using the 6500
+family{\textquotesingle}s instruction set. \ The purpose of the program
+is to calculate the sum of the 10 numbers which have been placed into
+memory started at address 0200 hexadecimal.
+
+
+\bigskip
+
+Here are the 10 numbers in memory ( which are printed in blue ) along
+with the memory location that the sum will be stored into ( which is
+printed in red ). \ 0200 here is the address in memory of the first
+number.
+
+
+\bigskip
+
+0200 \ 01 02 03 04 05 06 07 08 {}- 09 0A 00 00 00 00 00 00
+\ ................
+
+\ 
+
+Here is a program that will calculate the sum of these 10 numbers:
+
+
+\bigskip
+
+0250 \ A2 00 \ \ \ \ LDX \#00h
+
+0252 \ A9 00 \ \ \ \ LDA \#00h
+
+0254 \ 18 \ \ \ \ \ \ \ CLC 
+
+0255 \ 7D 00 02 \ ADC 0200h,X
+
+0258 \ E8 \ \ \ \ \ \ \ INX 
+
+0259 \ E0 0A \ \ \ \ CPX \#0Ah
+
+025B \ D0 F8 \ \ \ \ BNE 0255h
+
+025D \ 8D 0A 02 \ STA 020Ah
+
+0260 \ 00 \ \ \ \ \ \ \ BRK 
+
+...
+
+
+\bigskip
+
+After the program was executed, the sum it calculated was stored in
+memory. \ The sum was determined to be 37 hex ( which is 55 decimal )
+and it is shown here printed in red:
+
+
+\bigskip
+
+0200 \ 01 02 03 04 05 06 07 08 {}- 09 0A 37 00 00 00 00 00
+\ ..........7.....
+
+
+\bigskip
+
+Of course, you are not expected to understand how this assembly language
+program works. \ The purpose for showing it to you is so you can see
+what a program that uses a microprocessor{\textquotesingle}s
+instruction set looks like.
+
+
+\bigskip
+
+Low Level Languages And High Level Languages
+
+Even though programmers are able to program a computer using the
+instructions in its instruction set, this is a tedious task. \ The
+early computer programmers wanted to develop programs in a language
+that was more like a natural language, English for example, than the
+machine language that microprocessors understand. \ Machine language is
+considered to be a low level languages because it was designed to be
+simple so that it could be easily executed by the circuits in a
+microprocessor. \ 
+
+
+\bigskip
+
+Programmers then figured out ways to use low level languages to create
+the high level languages that they wanted to program in. \ This is when
+languages like FORTRAN ( in 1957 ), ALGOL ( in 1958 ), LISP ( in 1959
+), COBOL ( in 1960 ), BASIC ( in 1964 ) and C ( 1972 ) were created.
+\ Ultimately, a microprocessor is only capable of understanding machine
+language and therefore all programs that are written in a high level
+language must be converted into machine language before they can be
+executed by a microprocessor.
+
+
+\bigskip
+
+The rules that indicate how to properly type in code for a given
+programming language are called syntax rules. \ If a programmer does
+not follow the language{\textquotesingle}s syntax rules when typing in
+a program, the software that transforms the source code into machine
+language will become confused and then issue what is called a syntax
+error.
+
+
+\bigskip
+
+As an example of what a syntax error might look like, consider the word
+{\textquotesingle}print{\textquotesingle}. \ If the word
+{\textquotesingle}print{\textquotesingle} was a command in a given
+program language, and the programmer typed
+{\textquotesingle}pvint{\textquotesingle} instead of
+{\textquotesingle}print{\textquotesingle}, this would be a syntax
+error.
+
+\section[Compilers And Interpreters]{Compilers And
+Interpreters}
+There are two types of programs that are commonly used to convert a
+higher level language into machine language. \ The first kind of
+program is called a compiler and it takes a high{}-level
+language{\textquotesingle}s source code ( which is usually in typed
+form ) as its input and converts it into machine language. \ After the
+machine language equivalent of the source code has been generated, it
+can be loaded into a computer{\textquotesingle}s memory and executed.
+\ The compiled version of a program can also be saved on a storage
+device and loaded into a computer{\textquotesingle}s memory whenever it
+is needed.
+
+
+\bigskip
+
+The second type of program that is commonly used to convert a
+high{}-level language into machine language is called an interpreter.
+\ Instead of converting source code into machine language like a
+compiler does, an interpreter reads the source code ( usually one line
+at a time ), determines what actions this line of source code is
+suppose to accomplish, and then it performs these actions. \ It then
+looks at the next line of source code underneath the one it just
+finished interpreting, it determines what actions this next line of
+code wants done, it performs these actions, and so on.
+
+
+\bigskip
+
+Thousands of computer languages have been created since the
+1940{\textquotesingle}s, but there are currently around 2 to 3 hundred
+historically important languages. Here is a link to a website that
+lists a number of the historically important computer languages:
+\ http://en.wikipedia.org/wiki/Timeline\_of\_programming\_languages 
+
+\section[Algorithms]{Algorithms}
+A computer programmer certainly needs to know at least one programming
+language, but when a programmer solves a problem, they do it at a level
+that is higher in abstraction than even the more abstract computer
+languages. \ 
+
+
+\bigskip
+
+After the problem is solved, then the solution is encoded into a
+programming language. \ It is almost as if a programmer is actually two
+people. \ The first person is the problem solver and the second person
+is the coder. 
+
+
+\bigskip
+
+For simpler problems, many programmers create algorithms in their minds
+and encode these algorithm directly into a programming language. \ They
+switch back and forth between being the problem solver and the coder
+during this process.
+
+
+\bigskip
+
+With more complex programs, however, the problem solving phase and the
+coding phase are more distinct. \ The algorithm which solves a given
+problem is is developed using means other than a programming language
+and then it is recored in a document. \ This document is then passed
+from the problem solver to the coder for encoding into a programming
+language.
+
+
+\bigskip
+
+The first thing that a problem solver will do with a problem is to
+analyze it. \ This is an extremely important step because if a problem
+is not analyzed, then it can not be properly solved. \ To analyze
+something means to break it down into its component parts and then
+these parts are studied to determine how they work. \ A well known
+saying is {\textquotesingle}divide and conquer{\textquotesingle} and
+when a difficult problem is analyzed, it is broken down into smaller
+problems which are each simpler to solve than the overall problem.
+\ The problem solver then develops an algorithm to solve each of the
+simpler problems and, when these algorithms are combined, they form the
+solution to the overall problem.
+
+
+\bigskip
+
+An algorithm ( pronounced al{}-gor{}-rhythm ) is a sequence of
+instructions which describe how to accomplish a given task. \ These
+instructions can be expressed in various ways including writing them in
+natural languages ( like English ), drawing diagrams of them, and
+encoding them in a programming language. \ 
+
+
+\bigskip
+
+The concept of an algorithm came from the various procedures that
+mathematicians developed for solving mathematical problems, like
+calculating the sum of 2 numbers or calculating their product.
+
+
+\bigskip
+
+Algorithms can also be used to solve more general problems. \ For
+example, the following algorithm could have been followed by a person
+who wanted to solve the garage sizing problem using paper models:
+
+
+\bigskip
+
+1) Measure the length and width of each item that will be placed into
+the garage using metric units and record these measurements. 
+
+
+\bigskip
+
+2) Divide the measurements from step 1 by 100 then cut out pieces of
+paper that match these dimensions to serve as models of the original
+items.
+
+
+\bigskip
+
+3) Cut out a piece of paper which is 1.5 times as long as the model of
+the largest car and 3 times wider than it to serve as a model of the
+garage floor.
+
+
+\bigskip
+
+4) Locate where the garage doors will be placed on the model of the
+garage floor, mark the locations with a pencil, and place the models of
+both cars on top of the model of the garage floor, just within the
+perimeter of the paper and between the two pencil marks.
+
+
+\bigskip
+
+5) Place the models of the items on top of the model of the garage floor
+in the empty space that is not being occupied by the models of the
+cars.
+
+
+\bigskip
+
+6) Move the models of the items into various positions within this empty
+space to determine how well all the items will fit within this size
+garage.
+
+
+\bigskip
+
+7) If the fit is acceptable, go to step 10.
+
+
+\bigskip
+
+8) If there is not enough room in the garage, increase the length
+dimension, the width dimension ( or both dimensions ) of the garage
+floor model by 10\%, create a new garage floor model, and go to step 4.
+
+
+
+9) If there is too much room in the garage, decrease the length
+dimension, the width dimension ( or both dimensions ) of the garage
+model by 10\%, create a new garage floor model, and go to step 4.
+
+
+\bigskip
+
+10) \ Measure the length and width dimensions of the garage floor model,
+multiply these dimensions by 100, and then build the garage using these
+larger dimensions.
+
+
+\bigskip
+
+As can be seen with this example, an algorithm often contains a
+significant number of steps because it needs to be detailed enough so
+that it leads to the desired solution. \ After the steps have been
+developed and recorded in a document, however, they can be followed
+over and over again by people who need to solve the given problem.
+
+\section[Computation]{Computation}
+It is fairly easy to understand how a human is able to follow the steps
+of an algorithm, but it is more difficult to understand how computer
+can perform these steps when its microprocessor is only capable of
+executing simple machine language instructions.
+
+
+\bigskip
+
+In order to understand how a microprocessor is able to perform the steps
+in an algorithm, one must first understand what computation ( which is
+also known as calculation ) is. \ Lets search for some good definitions
+of each of these words on the Internet and read what they have to
+say.''
+
+
+\bigskip
+
+Here are two definitions for the word computation:
+
+
+\bigskip
+
+1) The manipulation of numbers or symbols according to fixed rules.
+Usually applied to the operations of an automatic electronic computer,
+but by extension to some processes performed by minds or brains. (
+www.informatics.susx.ac.uk/books/computers{}-and{}-thought/gloss/node1.html
+)
+
+
+\bigskip
+
+2) A computation can be seen as a purely physical phenomenon occurring
+inside a closed physical system called a computer. Examples of such
+physical systems include digital computers, quantum computers, DNA
+computers, molecular computers, analog computers or wetware computers.
+(
+www.informatics.susx.ac.uk/books/computers{}-and{}-thought/gloss/node1.html
+)
+
+
+\bigskip
+
+
+\bigskip
+
+These two definitions indicate that computation is the
+{\textquotedbl}manipulation of numbers or symbols according to fixed
+rules{\textquotedbl} and that it {\textquotedbl}can be seen as a purely
+physical phenomenon occurring inside a closed physical system called a
+computer.{\textquotedbl} \ Both definitions indicate that the machines
+we normally think of as computers are just one type of computer and
+that other types of closed physical systems can also act as computers.
+\ These other types of computers include DNA computers, molecular
+computers, analog computers, and wetware computers ( or brains ).
+
+
+\bigskip
+
+The following two definitions for calculation shed light on the kind of
+rules that normal computers, brains, and other types of computers use:
+
+
+\bigskip
+
+1) A calculation is a deliberate process for transforming one or more
+inputs into one or more results. \ ( en.wikipedia.org/wiki/Calculation
+)
+
+
+\bigskip
+
+2) Calculation: the procedure of calculating; determining something by
+mathematical or logical methods ( wordnet.princeton.edu/perl/webwn )
+
+
+\bigskip
+
+These definitions for calculation indicate that it {\textquotedbl}is a
+deliberate process for transforming one or more inputs into one or more
+results{\textquotedbl} and that this is done {\textquotedbl}by
+mathematical or logical methods{\textquotedbl}. \ We do not yet
+completely understand what mathematical and logical methods brains use
+to perform calculations, but rapid progress is being made in this area.
+
+
+\bigskip
+
+The second definition for calculation uses the word logic and this word
+needs to be defined before we can proceed:
+
+
+\bigskip
+
+The logic of a system is the whole structure of rules that must be used
+for any reasoning within that system. Most of mathematics is based upon
+a well{}-understood structure of rules and is considered to be highly
+logical. It is always necessary to state, or otherwise have it
+understood, what rules are being used before any logic can be applied.
+( ddi.cs.uni{}-potsdam.de/Lehre/TuringLectures/MathNotions.htm )
+
+
+\bigskip
+
+Reasoning is the process of using predefined rules to move from one
+point in a system to another point in the system. \ For example, when a
+person adds 2 numbers together on a piece of paper, they must follow
+the rules of the addition algorithm in order to obtain a correct sum.
+\ The addition algorithm{\textquotesingle}s rules are its logic and,
+when someone applies these rules during a calculation, they are
+reasoning with the rules.
+
+
+\bigskip
+
+Lets now apply these concepts to the question about how a computer can
+perform the steps of an algorithm when its microprocessor is only
+capable of executing simple machine language instructions. \ When a
+person develops an algorithm, the steps in the algorithm are usually
+stated as high{}-level tasks which do not contain all of the smaller
+steps that are necessary to perform each task.
+
+
+\bigskip
+
+For example, a person might write a step that states
+{\textquotedbl}Drive from New York to San Francisco.{\textquotedbl}
+\ This large step can be broken down into smaller steps that contain
+instructions such as {\textquotedbl}turn left at the intersection, go
+west for 10 kilometers, etc.{\textquotedbl} \ If all of the smaller
+steps in a larger step are completed, then the larger step is completed
+too.
+
+
+\bigskip
+
+A human that needs to perform this large driving step would usually be
+able to figure out what smaller steps need to be performed in order
+accomplish it. \ Computers are extremely stupid, however, and before
+any algorithm can be executed on a computer, the
+algorithm{\textquotesingle}s steps must be broken down into smaller
+steps, and these smaller steps must be broken down into even small
+steps, until the steps are simple enough to be performed by the
+instruction set of a microprocessor.
+
+
+\bigskip
+
+Sometimes only a few smaller steps are needed to implement a larger
+step, but sometimes hundreds or even thousands of smaller steps are
+required. \ Hundreds or thousands of smaller steps will translate into
+hundreds or thousands of machine language instructions when the
+algorithm is converted into machine language.
+
+
+\bigskip
+
+If machine language was the only language that computers could be
+programmed in, then most algorithms would be too large to be placed
+into a computer by a human. \ An algorithm that is encoded into a
+high{}-level language, however, does not need to be broken down into as
+many smaller steps as would be needed with machine language. \ The hard
+work of further breaking down an algorithm that has been encoded into a
+high{}-level language is automatically done by either a compiler or an
+interpreter. \ This is why most of the time, programmers use a
+high{}-level language to develop in instead of machine language.
+
+\section[Diagrams Can Be Used To Record Algorithms]{
+Diagrams Can Be Used To Record Algorithms}
+
+Earlier it was mentioned that not only can an algorithm can be recorded
+in a natural language like English but it can also be recorded using
+diagrams. \ You may be surprised to learn, however, that a whole
+diagram{}-based language has been created which allows all aspects of a
+program to be designed by {\textquotesingle}problem
+solvers{\textquotesingle}, including the algorithms that a program
+uses. \ This language is call UML which stands for Unified Modeling
+Language. \ One of UML{\textquotesingle}s diagrams is called an
+Activity diagram and it can be used to show the sequence of steps (or
+activities) that are part of some piece of logic. \ The following is an
+example which shows how an algorithm can be represented in an Activity
+diagram.
+
+\section[Calculating The Sum Of The Numbers Between 1 And 10]{
+Calculating The Sum Of The Numbers Between 1 And 10}
+
+The first thing that needs to be done with a problem before it can be
+analyzed and solved is to describe it clearly and accurately. \ Here is
+a short description for the problem we will solve with an algorithm:
+
+
+\bigskip
+
+Description: In this problem, the sum of the numbers between 1 and 10
+inclusive needs to be determined.
+
+
+\bigskip
+
+Inclusive here means that the numbers 1 and 10 will be included in the
+sum. \ Since this is a fairly simple problem we will not need to spend
+too much time analyzing it. \ Drawing 11 shows an algorithm for solving
+this problem that has been placed into an Activity diagram.
+
+
+\bigskip
+
+
+\bigskip
+
+An algorithms and its Activity diagram are developed at the same time.
+During the development process, variables are created as needed and
+their names are usually recorded in a list along with their
+descriptions. \ The developer \ periodically starts at the entry point
+and walks through the logic to make sure it is correct. \ Simulation
+boxes are placed next to each variable so that they can be use to
+record and update how the logic is changing the
+variable{\textquotesingle}s values. \ During a walk{}-through, errors
+are usually found and these need to be fixed by moving flow arrows and
+adjusting the text that is inside of the activity rectangles.
+
+
+\bigskip
+
+When the point where no more errors in the logic can be found, the
+developer can stop being the problem solver and pass the algorithm over
+to the coder so it can be encoded into a programming language.
+
+\section[The Mathematics Part Of Mathematics Computing
+Systems]{The Mathematics Part Of Mathematics Computing Systems}
+Mathematics has been described as the {\textquotedbl}science of
+patterns{\textquotedbl} 2. \ Here is a definition for pattern:
+
+
+\bigskip
+
+1) Systematic arrangement...
+
+\ (http://www.answers.com/topic/pattern)
+
+
+\bigskip
+
+And here is a definition for system:
+
+
+\bigskip
+
+1) A group of interacting, interrelated, or interdependent elements
+forming a complex whole.
+
+
+\bigskip
+
+2) An organized set of interrelated ideas or principles.
+
+(http://www.answers.com/topic/system)
+
+
+\bigskip
+
+Therefore, mathematics can be though of as a science that deals with the
+systematic properties of physical and nonphysical objects. \ The reason
+that mathematics is so powerful is that all physical and nonphysical
+objects posses systematic properties and therefore, mathematics is a
+means by which these objects can be understood and manipulated.
+
+
+\bigskip
+
+The more mathematics a person knows, the more control they are able to
+have over the physical world. \ This makes mathematics one of the most
+useful and exciting areas of knowledge a person can possess.
+
+
+\bigskip
+
+Traditionally, learning mathematics also required learning the numerous
+tedious and complex algorithms that were needed to perform written
+calculations with mathematics. \ Usually over 50\% of the content of
+the typical traditional math textbook is devoted to teaching
+writing{}-based algorithms and an even higher percentage of the time a
+person spends working through a textbook is spent manually working
+these algorithms.
+
+
+\bigskip
+
+For most people, learning and performing tedious, complex
+written{}-calculation algorithms is so difficult and mind{}-numbingly
+boring that they never get a chance to see that the
+{\textquotedbl}mathematics{\textquotedbl} part of mathematics is
+extremely exciting, powerful, and beautiful.
+
+
+\bigskip
+
+The bad news is that writing{}-based calculation algorithms will always
+be tedious, complex, and boring. \ The good news is that the invention
+of mathematics computing environments has significantly reduced the
+need for people to use writing{}-based calculation algorithms.
+
+
+\bigskip
+
+
+\bigskip
+
+Notes:
+
+
+\bigskip
+
++ Create link to {\textquotedbl}computation{\textquotedbl}.
+
++ Create link to {\textquotedbl}algorithm{\textquotedbl}.
+
++
+
+\backmatter
+
+\end{document}
+%}}}
