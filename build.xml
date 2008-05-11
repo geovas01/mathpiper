@@ -274,7 +274,56 @@
 		description="Copies all configuration files from build to source directory."
 		depends="backcopy-property, backcopy-perspective, backcopy-examples, backcopy-macros, backcopy-mode">
 
-	</target>	
+	</target>
+	
+	
+	
+	<target id="latex" name="latex" depends=""
+		description="Compiles newbies book." >
+		
+		<delete file="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.dvi" />
+
+		<exec executable="latex">
+			<arg value="-output-directory=${master.src.dir}/doc/newbies_book" />
+			<arg value="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.tex"/>
+
+		</exec>
+
+	</target>
+	
+	<target id="pdflatex" name="pdflatex" depends=""
+		description="Compiles newbies book." >
+
+		<exec executable="pdflatex">
+			    <arg value="-c-style-errors"/>
+			    <arg value="-output-directory=${master.src.dir}/doc/newbies_book" />
+			    <arg value="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.tex"/>
+
+		</exec>
+
+	</target>
+	
+	<target id="dvi" name="dvi" depends="latex"
+		description="Views newbies book." >
+
+		<exec executable="yap">
+
+			    <arg value="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.dvi"/>
+
+		</exec>
+		
+	</target>
+	
+	<target id="pdf" name="pdf" depends="pdflatex" 
+		description="Views newbies book." >
+
+		<exec executable="C:/Program Files/Adobe/Reader 8.0/Reader/AcroRd32">
+
+			    <arg value="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.pdf"/>
+
+		</exec>
+		
+	</target>
 	
 </project>
 
