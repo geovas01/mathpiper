@@ -51,6 +51,7 @@ Development notes.
 + Check toc.xml error in help.
 + Allow YacasDocs to have tabbed viewing area.  Allow right click on hyperlink to have option of opening in a new tab.
 + Figure out a way to have the geogebra fold set properties on mathematical objects with non-XML code.
++ Deselect item in function list when "home" is selected in YacasDocs.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -63,6 +64,7 @@ Initial release:
 + Documentation: Main mathrider, all plugins.
 + Add GPL statement to all source code files.
 + Check GPL statements on plugins.
++ Add license for fire icon http://commons.wikimedia.org/wiki/Image:Exquisite-k3b.png.
 
 }}}
 
@@ -87,10 +89,13 @@ Initial release:
 
 
 {{{Yacas bugs.
++ Why does c := Sum(i,1,10,1/i*(i+1));Write(N(c)); Not convert c to a floating point value?
++ JYacasInterpreter is sometimes not found in BeanShell script.  Problem occures in YacasDocs "Source" request. (Note: Put exception checking on all scripts);
 + Why do some commands return True: while others return True with no : (Like Function);
 + What is FWatom in the factors.rep repository?
 + PrettyPrinter'Set: TexForm should be TeXForm.
 + Random, RandomSeed in same string in .js array.
++ CachedConstant hyberlink in InNumericMode documentation is broken.
 + Wiesner Thomas to yacas-devel
 	
 	I'm writing a small tutorial on CAS for hobby electronics.
