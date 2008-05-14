@@ -9,6 +9,8 @@
 \usepackage{calc}
 \usepackage{hyperref}
 \usepackage{lineno}
+%\usepackage{epic,eepic} 
+\usepackage{pst-all} 
 %\usepackage{lastpage} % total page count
 
 
@@ -93,12 +95,31 @@ The support group for this book can be accessed at:
 \addtolength{\parskip}{\baselineskip}
 %\renewcommand{\baselinestretch}{.8} 	% Uncomment for 1.5 spacing between lines
 \parindent 0pt		  % sets leading space for paragraphs
+
 \chapter[Introduction]{Introduction}
 MathRider is an open source mathematics computing environment (MCE) for performing symbolic and numerical computations. Mathematics computing environments are complex and it takes a significant amount of time and effort to become proficient at using one. The amount of power that a mathematics computing environment makes available to a user, however, is well worth the effort needed to learn one. It will take a beginner a while to become an expert at using MathRider, but fortunately one does not need to be a MathRider expert in order to begin using it to solve problems.
 
+
+%\include{diagrams/circle.pic}
+
+\ifx\JPicScale\undefined\def\JPicScale{1}\fi
+\psset{unit=\JPicScale mm}
+\psset{linewidth=0.3,dotsep=1,hatchwidth=0.3,hatchsep=1.5,shadowsize=1,dimen=middle}
+\psset{dotsize=0.7 2.5,dotscale=1 1,fillcolor=black}
+\psset{arrowsize=1 2,arrowlength=1,arrowinset=0.25,tbarsize=0.7 5,bracketlength=0.15,rbracketlength=0.15}
+\begin{pspicture}(0,0)(97.5,75)
+\rput{0}(25,65){\psellipse[](0,0)(10,-10)}
+\rput{0}(75,52.5){\psellipse[](0,0)(22.5,-2.5)}
+\psline(95,35)(30,50)
+\end{pspicture}
+
+
+
 \section[What Is A Mathematics Computing Environment?]{What Is A Mathematics Computing Environment?}
 
-A mathematics computing environment is a set of computer programs that are able to automatically perform a wide range of symbolic and numeric mathematics calculation algorithms. Calculation algorithms exist for almost all areas of mathematics and new algorithms are constantly being developed. Another name for this kind of software is a Computer Algebra System (CAS). 
+A mathematics computing environment is a set of computer programs that are able to work together in order to help a user solve mathematics-oriented problems.  
+
+are able to automatically perform a wide range of symbolic and numeric mathematics calculation algorithms. Calculation algorithms exist for almost all areas of mathematics and new algorithms are constantly being developed. Another name for this kind of software is a Computer Algebra System (CAS). 
 
 A significant number of computer algebra systems have been created since the 1960s and the following list contains some of the more popular ones:
 
