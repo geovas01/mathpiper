@@ -1,6 +1,6 @@
 Development notes.
 
-:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:wordWrap=soft:
+:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:wrap=soft:
 
 {{{====To Do
 - Add default fold which will set default fold properties like output="output".
@@ -90,6 +90,30 @@ Initial release:
 
 {{{Yacas bugs.
 + Why does c := Sum(i,1,10,1/i*(i+1));Write(N(c)); Not convert c to a floating point value?
++ If e is not defined, why is Ln(e) in this result?
+%yacas
+
+df := D(x) 40*e^(-15000*x)*Sin(30000*x);
+Write(df);
+
+    %output
+      40*e^(-15000*x)*30000*Cos(30000*x)+(-40)*e^(-15000*x)*15000*Ln(e)*Sin(30000*x)
+    %end
+
+%end
+
++ Why is Ln(2.71828) in this result?
+%yacas
+e := 2.71828;
+df := D(x) 40*e^(-15000*x)*Sin(30000*x);
+Write(df);
+
+    %output
+      40*2.71828^(-15000*x)*30000*Cos(30000*x)+(-40)*2.71828^(-15000*x)*15000*Ln(2.71828)*Sin(30000*x)
+    %end
+
+%end
++ 
 + JYacasInterpreter is sometimes not found in BeanShell script.  Problem occures in YacasDocs "Source" request. (Note: Put exception checking on all scripts);
 + Why do some commands return True: while others return True with no : (Like Function);
 + What is FWatom in the factors.rep repository?

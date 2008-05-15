@@ -113,11 +113,13 @@ The {D} function also accepts an argument specifying how often the derivative ha
 Analytic functions
 
 Many of the usual analytic functions have been defined in the Yacas library. Examples are Exp(1), Sin(2), ArcSin(1/2), Sqrt(2). These will not evaluate to a numeric result in general, unless the result is an integer, like Sqrt(4). If asked to reduce the result to a numeric approximation with the function N, then Yacas will do so, as for example in N(Sqrt(2),50).
+
 Variables
 
 Yacas supports variables. You can set the value of a variable with the := infix operator, as in a:=1;. The variable can then be used in expressions, and everywhere where it is referred to, it will be replaced by its value, a.
 
 To clear a variable binding, execute Clear(a);. A variable will evaluate to itself after a call to clear it (so after the call to clear a above, calling a should now return a). This is one of the properties of the evaluation scheme of Yacas; when some object can not be evaluated or transformed any further, it is returned as the final result.
+
 Functions
 
 The := operator can also be used to define simple functions: f(x):=2*x*x. will define a new function, f, that accepts one argument and returns twice the square of that argument. This function can now be called, f(a). You can change the definition of a function by defining it again.
@@ -125,11 +127,13 @@ The := operator can also be used to define simple functions: f(x):=2*x*x. will d
 One and the same function name such as f may define different functions if they take different numbers of arguments. One can define a function f which takes one argument, as for example f(x):=x^2;, or two arguments, f(x,y):=x*y;. If you clicked on both links, both functions should now be defined, and f(a) calls the one function whereas f(a,b) calls the other.
 
 Yacas is very flexible when it comes to types of mathematical objects. Functions can in general accept or return any type of argument.
+
 Boolean expressions and predicates
 
 Yacas predefines True and False as boolean values. Functions returning boolean values are called predicates. For example, IsNumber() and IsInteger() are predicates defined in the Yacas environment. For example, try IsNumber(2+x);, or IsInteger(15/5);.
 
 There are also comparison operators. Typing 2 > 1 would return True. You can also use the infix operators And and Or, and the prefix operator Not, to make more complex boolean expressions. For example, try True And False, True Or False, True And Not(False).
+
 Strings and lists
 
 In addition to numbers and variables, Yacas supports strings and lists. Strings are simply sequences of characters enclosed by double quotes, for example: "this is a string with \"quotes\" in it".
@@ -187,7 +191,7 @@ There is another, slightly longer but equivalent way of writing the second rule:
 
 The underscore after the function object denotes a "postpredicate" that should return True or else there is no match. This predicate may be a complicated expression involving several logical operations, unlike the simple checking of just one predicate in the n_IsIntegerGreaterThanZero construct. The postpredicate can also use the variable n (without the underscore).
 
-Precedence values for rules are given by a number followed by the # infix operator (and the transformation rule after it). This number determines the ordering of precedence for the pattern matching rules, with 0 the lowest allowed precedence value, i.e. rules with precedence 0 will be tried first. Multiple rules can have the same number: this just means that it doesn't matter what order these patterns are tried in. If no number is supplied, 0 is assumed. In our example, the rule f(0) <-- 1 must be applied earlier than the recursive rule, or else the recursion will never terminate. But as long as there are no other rules concerning the function f, the assignment of numbers 10 and 20 is arbitrary, and they could have been 500 and 501 just as well. It is usually a good idea however to keep some space between these numbers, so you have room to insert new transformation rules later on.
+Precedence values for rules are given by a number followed by the # infix operator (and the transformation rule after it). This number determines the ordering of precedence for the pattern matching rules, with 0 the lowest allowed precedence value, i.e. rules with precedence 0 will be tried first. Multiple rules can have the same number: this just means that it doesn't matter what order these patterns are tried in. If no number is supplied, 0 is assumed. In our example, the rule f(0) <-- 1 must be applied earlier than the recursive rule, or else the recursion will never terminate. But as long as there are no other rules concerning the function f, the assignment of numbers 10 and 20 is arbitrary, and they could have been 500 and 501 just as well. It is usually a good idea however to keep some space between these numbers, so you have room to insert new transformation rules later on.   Note:***********************************************************************************************
 
 Predicates can be combined: for example, {IsIntegerGreaterThanZero()} could also have been defined as:
 
@@ -211,6 +215,8 @@ Some more examples of rules (not made clickable because their equivalents are al
 The last rule has no explicit precedence specified in it (the precedence zero will be assigned automatically by the system).
 
 Yacas will first try to match the pattern as a template. Names preceded or followed by an underscore can match any one object: a number, a function, a list, etc. Yacas will assign the relevant variables as local variables within the rule, and try the predicates as stated in the pattern. The post-predicate (defined after the pattern) is tried after all these matched. As an example, the simplification rule _x - _x <--0 specifies that the two objects at left and at right of the minus sign should be the same for this transformation rule to apply.
+
+
 Local simplification rules
 
 Sometimes you have an expression, and you want to use specific simplification rules on it that should not be universally applied. This can be done with the /: and the /:: operators. Suppose we have the expression containing things such as Ln(a*b), and we want to change these into Ln(a)+Ln(b). The easiest way to do this is using the /: operator as follows:
@@ -351,3 +357,4 @@ Also, any expression can be converted to a list by the function Listify or back 
 Note that the first element of the list is the name of the function +Atom("+") and that the subexpression b*(c+d) was not converted to list form. Listify just took the top node of the expression.
 
 This concludes the online tutorial. A good place to go next is the "Yacas Journal", which has some examples small but useful programs written in Yacas to do specific calculations. 
+:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:wrap=soft:
