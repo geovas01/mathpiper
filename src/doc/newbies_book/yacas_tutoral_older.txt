@@ -1,4 +1,4 @@
-Introduction to Yacas: tutorial and examples
+Introduction to Yacas: tutorial and examples 
 
     * Getting started with Yacas
           o Introduction
