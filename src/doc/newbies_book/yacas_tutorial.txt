@@ -191,7 +191,7 @@ There is another, slightly longer but equivalent way of writing the second rule:
 
 The underscore after the function object denotes a "postpredicate" that should return True or else there is no match. This predicate may be a complicated expression involving several logical operations, unlike the simple checking of just one predicate in the n_IsIntegerGreaterThanZero construct. The postpredicate can also use the variable n (without the underscore).
 
-Precedence values for rules are given by a number followed by the # infix operator (and the transformation rule after it). This number determines the ordering of precedence for the pattern matching rules, with 0 the lowest allowed precedence value, i.e. rules with precedence 0 will be tried first. Multiple rules can have the same number: this just means that it doesn't matter what order these patterns are tried in. If no number is supplied, 0 is assumed. In our example, the rule f(0) <-- 1 must be applied earlier than the recursive rule, or else the recursion will never terminate. But as long as there are no other rules concerning the function f, the assignment of numbers 10 and 20 is arbitrary, and they could have been 500 and 501 just as well. It is usually a good idea however to keep some space between these numbers, so you have room to insert new transformation rules later on.   Note:***********************************************************************************************
+Precedence values for rules are given by a number followed by the # infix operator (and the transformation rule after it). This number determines the ordering of precedence for the pattern matching rules, with 0 the lowest allowed precedence value, i.e. rules with precedence 0 will be tried first. Multiple rules can have the same number: this just means that it doesn't matter what order these patterns are tried in. If no number is supplied, 0 is assumed. In our example, the rule f(0) <-- 1 must be applied earlier than the recursive rule, or else the recursion will never terminate. But as long as there are no other rules concerning the function f, the assignment of numbers 10 and 20 is arbitrary, and they could have been 500 and 501 just as well. It is usually a good idea however to keep some space between these numbers, so you have room to insert new transformation rules later on.   
 
 Predicates can be combined: for example, {IsIntegerGreaterThanZero()} could also have been defined as:
 
@@ -231,6 +231,7 @@ Note that for these local rules, <- should be used instead of <--. Using latter 
 The /: operator traverses an expression from the top down, trying to apply the rules from the beginning of the list of rules to the end of the list of rules. If no rules can be applied to the whole expression, it will try the sub-expressions of the expression being analyzed.
 
 It might be sometimes necessary to use the /:: operator, which repeatedly applies the /: operator until the result does not change any more. Caution is required, since rules can contradict each other, and that could result in an infinite loop. To detect this situation, just use /: repeatedly on the expression. The repetitive nature should become apparent.
+
 Programming essentials
 
 An important feature of Yacas is its programming language which allows you to create your own programs for doing calculations. This section describes some constructs and functions for control flow.
@@ -238,6 +239,7 @@ An important feature of Yacas is its programming language which allows you to cr
 Looping can be done with the function ForEach. There are more options, but ForEach is the simplest to use for now and will suffice for this turorial. The statement form ForEach(x, list) body executes its body for each element of the list and assigns the variable x to that element each time. The statement form While(predicate) body repeats execution of the expression represented by body until evaluation of the expression represented by predicate returns False.
 
 This example loops over the integers from one to three, and writes out a line for each, multiplying the integer by 3 and displaying the result with the function Echo: ForEach(x,1 .. 5) Echo(x," times 3 equals ",3*x);
+
 Compound statements
 
 Multiple statements can be grouped together using the [ and ] brackets. The compound [a; Echo("In the middle"); 1+2;]; evaluates a, then the echo command, and finally evaluates 1+2, and returns the result of evaluating the last statement 1+2.
@@ -275,7 +277,7 @@ We used a shorter form of If(predicate, body) with only one body which is execut
 
 The above example is not the shortest possible way to write out the algorithm. It is written out in a procedural way, where the program explains step by step what the computer should do. There is nothing fundamentally wrong with the approach of writing down a program in a procedural way, but the symbolic nature of Yacas also allows you to write it in a more concise, elegant, compact way, by combining function calls.
 
-There is nothing wrong with procedural style, but there is amore 'functional' approach to the same problem would go as follows below. The advantage of the functional approach is that it is shorter and more concise (the difference is cosmetic mostly).
+There is nothing wrong with procedural style, but there is a more 'functional' approach to the same problem would go as follows below. The advantage of the functional approach is that it is shorter and more concise (the difference is cosmetic mostly).
 
 Before we show how to do the same calculation in a functional style, we need to explain what a "pure function" is, as you will need it a lot when programming in a functional style. We will jump in with an example that should be self-explanatory. Consider the expression Lambda({x,y},x+y). This has two arguments, the first listing x and y, and the second an expression. We can use this construct with the function Apply as follows: Apply(Lambda({x,y},x+y),{2,3}). The result should be 5, the result of adding 2 and 3. The expression starting with Lambda is essentially a prescription for a specific operation, where it is stated that it accepts 2 arguments, and returns the two arguments added together. In this case, since the operation was so simple, we could also have used the name of a function to apply the arguments to, the addition operator in this case Apply("+",{2,3}). When the operations become more complex however, the Lambda construct becomes more useful.
 
@@ -287,6 +289,7 @@ The numbers 6, 12 and 18 have been correctly filtered out. Here you see one exam
 All that remains is to factor the items in this list. For this we can use UnFlatten. Two examples of the use of UnFlatten are UnFlatten({a,b,c},"*",1) and UnFlatten({a,b,c},"+",0). The 0 and 1 are a base element to start with when grouping the arguments in to an expression (hence it is zero for addition and 1 for multiplication).
 
 Now we have all the ingredients to finally do the same calculation we did above in a procedural way, but this time we can do it in a functional style, and thus captured in one concise single line: UnFlatten(Select(Lambda({n},Mod(n,3)!=0),2*(1 .. 10)),"*",1). As was mentioned before, the choice between the two is mostly a matter of style.
+
 Macros
 
 One of the powerful constructs in Yacas is the construct of a macro. In its essence, a macro is a prescription to create another program before executing the program. An example perhaps explains it best. Evaluate the following expression Macro(for,{st,pr,in,bd}) [(@st);While(@pr)[(@bd);(@in);];];. This expression defines a macro that allows for looping. Yacas has a For function already, but this is how it could be defined in one line (In Yacas the For function is bodied, we left that out here for clarity, as the example is about macros).
@@ -296,11 +299,13 @@ To see it work just type for(i:=0,i<3,i:=i+1,Echo(i)). You will see the count fr
 The construct works as follows; The expression defining the macro sets up a macro named for with four arguments. On the right is the body of the macro. This body contains expressions of the form @var. These are replaced by the values passed in on calling the macro. After all the variables have been replaced, the resulting expression is evaluated. In effect a new program has been created. Such macro constructs come from LISP, and are famous for allowing you to almost design your own programming language constructs just for your own problem at hand. When used right, macros can greatly simplify the task of writing a program.
 
 You can also use the back-quote ` to expand a macro in-place. It takes on the form `(expression), where the expression can again contain sub-expressions of the form @variable. These instances will be replaced with the values of these variables.
+
 The practice of programming in Yacas
 
 When you become more proficient in working with Yacas you will be doing more and more sophisticated calculations. For such calculations it is generally necessary to write little programs. In real life you will usually write these programs in a text editor, and then start Yacas, load the text file you just wrote, and try out the calculation. Generally this is an iterative process, where you go back to the text editor to modify something, and then go back to Yacas, type restart and then reload the file.
 
 On this site you can run Yacas in a little window called a Yacas calculation center (the same as the one below this tutorial). On page there is tab that contains a Yacas calculation center. If you click on that tab you will be directed to a larger calculation center than the one below this tutorial. In this page you can easily switch between doing a calculation and editing a program to load at startup. We tried to make the experience match the general use of Yacas on a desktop as much as possible. The Yacas journal (which you see when you go to the Yacas web site) contains examples of calculations done before by others.
+
 Defining your own operators
 
 Large part of the Yacas system is defined in the scripting language itself. This includes the definitions of the operators it accepts, and their precedences. This means that you too can define your own operators. This section shows you how to do that.
@@ -318,6 +323,7 @@ We have used the name ## but we could have used any other name such as xx or F o
 There is currently one limitation in Yacas: once a function name is declared as infix (prefix, postfix) or bodied, it will always be interpreted that way. If we declare a function f to be bodied, we may later define different functions named f with different numbers of arguments, however all of these functions must be bodied.
 
 When you use infix operators and either a prefix of postfix operator next to it you can run in to a situation where Yacas can not quite figure out what you typed. This happens when the operators are right next to each other and all consist of symbols (and could thus in principle form a single operator). Yacas will raise an error in that case. This can be avoided by inserting spaces.
+
 Some assorted programming topics
 
 One use of lists is the associative list, sometimes called a dictionary in other programming languages, which is implemented in Yacas simply as a list of key-value pairs. Keys must be strings and values may be any objects. Associative lists can also work as mini-databases, where a name is associated to an object. As an example, first enter record:={}; to set up an empty record. After that, we can fill arbitrary fields in this record:
@@ -333,6 +339,7 @@ Assignment of multiple variables is also possible using lists. For instance, eva
 When assigning variables, the right hand side is evaluated before it is assigned. Thus a:=2*2 will set a to 4. This is however not the case for functions. When entering f(x):=x+x the right hand side, x+x, is not evaluated before being assigned. This can be forced by using Eval(). Defining f(x) with f(x):=Eval(x+x) will tell the system to first evaluate x+x (which results in 2*x) before assigning it to the user function f. This specific example is not a very useful one but it will come in handy when the operation being performed on the right hand side is expensive. For example, if we evaluate a Taylor series expansion before assigning it to the user-defined function, the engine doesn't need to create the Taylor series expansion each time that user-defined function is called.
 
 The imaginary unit i is denoted I and complex numbers can be entered as either expressions involving I, as for example 1+I*2, or explicitly as Complex(a,b) for a+ib. The form Complex(re,im) is the way Yacas deals with complex numbers internally.
+
 Linear Algebra
 
 Vectors of fixed dimension are represented as lists of their components. The list {1, 2+x, 3*Sin(p)} would be a three-dimensional vector with components 1, 2+x and 3*Sin(p). Matrices are represented as a lists of lists.
@@ -340,9 +347,11 @@ Vectors of fixed dimension are represented as lists of their components. The lis
 Vector components can be assigned values just like list items, since they are in fact list items. If we first set up a variable called "vector" to contain a three-dimensional vector with the command vector:=ZeroVector(3); (you can verify that it is indeed a vector with all components set to zero by evaluating vector), you can change elements of the vector just like you would the elements of a list (seeing as it is represented as a list). For example, to set the second element to two, just evaluate vector[2] := 2;. This results in a new value for vector.
 
 Yacas can perform multiplication of matrices, vectors and numbers as usual in linear algebra. The standard Yacas script library also includes taking the determinant and inverse of a matrix, finding eigenvectors and eigenvalues (in simple cases) and solving linear sets of equations, such as A * x = b where A is a matrix, and x and b are vectors. As a little example to wetten your appetite, we define a Hilbert matrix: hilbert:=HilbertMatrix(3). We can then calculate the determinant with Determinant(hilbert), or the inverse with Inverse(hilbert). There are several more matrix operations supported. See the reference manual for more details.
+
 "Threading" of functions
 
 Some functions in Yacas can be "threaded". This means that calling the function with a list as argument will result in a list with that function being called on each item in the list. E.g. Sin({a,b,c}); will result in {Sin(a),Sin(b),Sin(c)}. This functionality is implemented for most normal analytic functions and arithmetic operators.
+
 Functions as lists
 
 For some work it pays to understand how things work under the hood. Internally, Yacas represents all atomic expressions (numbers and variables) as strings and all compound expressions as lists, like LISP. Try FullForm(a+b*c); and you will see the text (+ a (* b c )) appear on the screen. This function is occasionally useful, for example when trying to figure out why a specific transformation rule does not work on a specific expression.
@@ -357,4 +366,5 @@ Also, any expression can be converted to a list by the function Listify or back 
 Note that the first element of the list is the name of the function +Atom("+") and that the subexpression b*(c+d) was not converted to list form. Listify just took the top node of the expression.
 
 This concludes the online tutorial. A good place to go next is the "Yacas Journal", which has some examples small but useful programs written in Yacas to do specific calculations. 
+
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:wrap=soft:
