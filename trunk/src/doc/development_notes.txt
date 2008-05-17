@@ -52,6 +52,8 @@ Development notes.
 + Allow YacasDocs to have tabbed viewing area.  Allow right click on hyperlink to have option of opening in a new tab.
 + Figure out a way to have the geogebra fold set properties on mathematical objects with non-XML code.
 + Deselect item in function list when "home" is selected in YacasDocs.
++ In YacasDocs, allow functions to be listed either alphabetically or in groups.
++ Change "jEdit Home Directory" to "MathRider Home Directory".
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
