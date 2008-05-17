@@ -167,7 +167,6 @@
 	<target name="mathrider" depends="init" description="Creates complete mathrider application." >
 		
 		<mkdir dir="${master.build.dir}/mathrider" />
-		<mkdir dir="${master.build.dir}/mathrider/tmp" />
 	
 		<!-- Copy jedit image to build directory. -->
 		<copy todir="${master.build.dir}/mathrider">
