@@ -504,6 +504,36 @@ import org.mathrider.jyacasplugin.JYacasInterpreter;
 "ZeroVector",
 "Zeta"
 };
+
+numericFunctions = new String[]
+{
+"MathAbs",
+"MathAdd",
+"MathArcCos",
+"MathArcCosh",
+"MathArcSin",
+"MathArcSinh",
+"MathArcTan",
+"MathArcTanh",
+"MathCeil",
+"MathCos",
+"MathCosh",
+"MathDiv",
+"MathDivide",
+"MathExp",
+"MathFloor",
+"MathGcd",
+"MathLog",
+"MathMod",
+"MathMultiply",
+"MathPower",
+"MathSin",
+"MathSinh",
+"MathSqrt",
+"MathSubtract",
+"MathTan",
+"MathTanh"
+};
 //}}}
   
      listPanel = new JPanel();
@@ -539,46 +569,78 @@ import org.mathrider.jyacasplugin.JYacasInterpreter;
         if (e.getValueIsAdjusting())
           return;
         index = e.getFirstIndex();
-	item = list.getSelectedValue();
+		item = list.getSelectedValue();
         
         //System.out.println("IIIII Item: " + list.getSelectedValue());
 		
 	//System.out.println("MMMMMM match: " + findFileForFunction(item));
 
+		
+		//Determine if function is a numeric Math function.
+		match = false;
+		for(index = 0; index < numericFunctions.length ;index++)
+		{
+			if(item.equalsIgnoreCase(numericFunctions[index]))
+			{
+				match = true;
+				break;
+			}//end if.
+		}//end for.
 
-        chapter = findFileForFunction(item);
-        if(! chapter.equals(""))
-        {
+		if(match == true)
+		{
+			docPart = "yacas_manual/refprogchapter5.html";
+			item = "Math...";
+		}
+		else
+		{
+			chapter = findFileForFunction(item);
+			if(! chapter.equals(""))
+			{
             //path = url.getPath();
 //	    path = urlString;
 //            path = path.replaceFirst("ref.html", match);
 	    
 	
-	    docPart = "yacas_manual/" + chapter;
+	    		docPart = "yacas_manual/" + chapter;
 	    //System.out.println("   QQQ path: " + path  + "   docPart: " + docPart + "  chapter: " + chapter);
-	    urlWithChapter = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+	    		
 
 	    
             //path = path + "#" + query;
            // path = "file://" + path;
            // System.out.println("TTT path: " + path );
             //url = new URL(path);
-        
-	    if (urlWithChapter != null) {
-	    try { 
+			
+			}//end if
+			else
+			{
+				docPart = null;
+			}//end else.
+		}//end else.
+		
 
-		    
-		    addChapter = urlWithChapter.toExternalForm() + "#" + item;
-		    editorPane.setPage(new URL(addChapter));
-			toolPanel.sourceButtonEnabled(true);
-		    //editorPane.setPage(urlWithChapter);
-		    //System.out.println(   "QRQRQR " + " urlWithChapter: " + urlWithChapter + " Chapter: " + Chapter + "  addChapter: " + addChapter + " item: " + item);
-		    //editorPane.scrollToReference(Chapter);
-	    } catch (IOException e) {
-		    System.err.println("Attempted to read a bad URL: " + urlWithChapter);
-	    }
-	    } 
-	    else {
+	
+
+	if(docPart != null)
+	{
+        urlWithChapter = jEdit.getPlugin("org.mathrider.yacasdocsplugin.YacasDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+	    if (urlWithChapter != null) 
+		{
+		    try 
+			{ 
+			    addChapter = urlWithChapter.toExternalForm() + "#" + item;
+			    editorPane.setPage(new URL(addChapter));
+				toolPanel.sourceButtonEnabled(true);
+			    //editorPane.setPage(urlWithChapter);
+			    //System.out.println(   "QRQRQR " + " urlWithChapter: " + urlWithChapter + " Chapter: " + Chapter + "  addChapter: " + addChapter + " item: " + item);
+			    //editorPane.scrollToReference(Chapter);
+		    } catch (IOException e) {
+			    System.err.println("Attempted to read a bad URL: " + urlWithChapter);
+		    }
+		} 
+	    else 
+		{
 		    System.err.println("Couldn't find file: " + urlWithChapter );
 	    }//end else	    
 
