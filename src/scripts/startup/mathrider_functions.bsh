@@ -1,0 +1,17 @@
+outputValue = "";
+
+output(value)
+{
+    outputValue = value;
+}
+
+println(value)
+{
+    System.out.println(value);
+}
+
+print(value)
+{
+    System.out.print(value);
+}
+
