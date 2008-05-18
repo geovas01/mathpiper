@@ -17,6 +17,7 @@ import errorlist.*;
 
  public class JYacasInterpreter { // extends LispOutput {
 
+//	private static org.gjt.sp.jedit.bsh.Interpreter bshInstance;
 	private static JYacasInterpreter instance = null;
     private CYacas jyacas;
 	private StringOutput stringOutput;
@@ -45,6 +46,24 @@ import errorlist.*;
       }
       return instance;
    }//end method.
+   
+   
+   //This provides a bsh instance that can be shared by the whole application.
+   //Note:tk:look into finding a better place to put this.
+//   public static org.gjt.sp.jedit.bsh.Interpreter getBshInstance()
+//   {
+//      if(bshInstance == null) {
+//         	bshInstance = new org.gjt.sp.jedit.bsh.Interpreter();
+//		 	//bshInstance.eval("import geogebra.GeoGebraApplet;");
+//			//bshInstance.set("ggb",org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet());
+//			//bshInstance.set("jEdit",org.gjt.sp.jedit.jEdit);
+//			//bshInstance.set("returnError","none");
+//      }
+//      return bshInstance;
+//   }//end method.
+   
+   
+
    
    
    public java.util.zip.ZipFile getScriptsZip()

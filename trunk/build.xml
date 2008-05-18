@@ -191,6 +191,14 @@
 		</copy>
 		
 		
+		<!-- Copy support scipts to jars directory -->
+		<mkdir dir="${plugins.jars.dir}/scripts" />
+		<copy todir="${plugins.jars.dir}/scripts">
+			<fileset dir="${master.src.dir}/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
 
 		<antcall target="call-jyacas">
 			<param name="target" value="dist"/>

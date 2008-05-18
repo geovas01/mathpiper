@@ -8,7 +8,6 @@ import org.gjt.sp.jedit.textarea.Selection;
 import errorlist.*;
 import org.gjt.sp.jedit.bsh.EvalError;
 
-
                 
 ChangeToForwardSlash(tempFilePath)
 {
@@ -140,6 +139,9 @@ if(path.endsWith(".ys")){
 			foldProperties.put("output","output");
 			foldProperties.put("collapse","false");
 			foldProperties.put("clear","false");
+			foldProperties.put("description","");
+			foldProperties.put("macro","");
+			foldProperties.put("scope","local");
 			if(foldTypePropertyStrings.length != 1)
 			{
 				for(x = 1; x < foldTypePropertyStrings.length; x++)
@@ -289,23 +291,64 @@ if(path.endsWith(".ys")){
 	///{{{ *** %beanshell ***
 		else if(foldType.equalsIgnoreCase("%beanshell"))
 		{
+			
 			//buffer.setMode("beanshell");
-			import bsh.Interpreter;
-			interpreter = new Interpreter();
-			interpreter.eval("import geogebra.GeoGebraApplet;");
-			ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
-			interpreter.set("ggb",ggb);
-			interpreter.set("jEdit",org.gjt.sp.jedit.jEdit);
-			interpreter.set("returnError","none");
+			
+			scope = foldProperties.get("scope");
+			if(scope.equalsIgnoreCase("global"))
+			{
+				//bshInterpreter = JYacasInterpreter.getBshInstance();
+				bshInterpreter = bsi;
+			}
+			else
+			{
+
+				import bsh.Interpreter;
+				bshInterpreter = new Interpreter();
+				bshInterpreter.eval("import geogebra.GeoGebraApplet;");
+				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+				bshInterpreter.set("ggb",ggb);
+				bshInterpreter.set("jEdit",org.gjt.sp.jedit.jEdit);
+				bshInterpreter.set("returnError","none");
+				
+			
+			}//end if.
 			
 			try 
 			{   
 				tempFilePath = tempFile.getAbsolutePath();
 
 				//System.out.println(tempFilePath);
+				
+				bshInterpreter.set("outputValue","");
 
-				interpreter.source(tempFilePath);
-				result = "";
+				bshInterpreter.source(tempFilePath);
+				
+				
+				//Print content of print statement if present. 
+				
+				
+				outputValue = bshInterpreter.get("outputValue");
+				//print("BBBB " + outputValue);
+				if(outputValue == void || outputValue == "")
+				{
+					result = "";
+				}
+				else
+				{
+					if(outputValue instanceof String)
+					{
+						result = outputValue;
+					}
+					else
+					{
+						result = String.valueOf(outputValue);
+					}//end else.
+					
+					outputValue = "";
+					
+				}
+				
 	//System.out.println("tempFilePath: " + tempFilePath);
 				status = "%output ";
 	//Sy	stem.out.println("Out> " + result);
@@ -313,7 +356,7 @@ if(path.endsWith(".ys")){
 					
 			}catch(EvalError e) 
 			{
-				System.out.println(" XXXX ERROR: " + interpreter.get("returnError"));
+				System.out.println(" XXXX ERROR: " + bshInterpreter.get("returnError"));
 				System.out.println(" XXX Beanshell Exception: " + e.getMessage());
 				
 				message = e.getMessage();
@@ -612,6 +655,24 @@ if(path.endsWith(".ys")){
 				
 				result = result.trim();
 				
+				
+				//Send output to a macro if the macro is specified.
+				macro = foldProperties.get("macro");
+				//print("YYYYY " + macro);
+				if(! macro.equalsIgnoreCase(""))
+				{
+					//bshInterpreter = JYacasInterpreter.getBshInstance();
+					bshInterpreter = bsi;
+					//print("XXXX " + bshInterpreter.getNameSpace().getMethods());
+					globalMethods = bshInterpreter.getNameSpace().getMethods();
+					for( method : globalMethods )
+						print(method);
+					
+					bshInterpreter.eval(macro+"(\"" + result + "\");");
+					//print("AAAA " + a);
+				    //bshInterpreter.invokeMethod(macro, new Object [] {result} );
+					
+				}//end if.
 			
 				void displayResult()
 				{
@@ -619,7 +680,7 @@ if(path.endsWith(".ys")){
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()
 					{
-					System.out.println(result);
+					//System.out.println(result);
 						result = result.trim();
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
