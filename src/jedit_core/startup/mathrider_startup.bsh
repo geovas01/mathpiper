@@ -1,0 +1,8 @@
+bsi = new org.gjt.sp.jedit.bsh.Interpreter();
+//bsi.eval("import geogebra.GeoGebraApplet;");
+//ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+//bsi.set("ggb",ggb);
+bsi.source("jars/scripts/startup/mathrider_functions.bsh");
+//globalMethods = bsi.getNameSpace().getMethods();
+//	for( method : globalMethods )
+//	    print(method);
