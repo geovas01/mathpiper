@@ -299,6 +299,10 @@ if(path.endsWith(".ys")){
 			{
 				//bshInterpreter = JYacasInterpreter.getBshInstance();
 				bshInterpreter = bsi;
+				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+				bshInterpreter.set("ggb",ggb);
+				bshInterpreter.set("jEdit",org.gjt.sp.jedit.jEdit);
+				bshInterpreter.set("returnError","none");
 			}
 			else
 			{
@@ -714,9 +718,6 @@ if(path.endsWith(".ys")){
 				
 				displayResult();
 							
-        	
-			
-				
 
     } 
 	catch (IOException e) 
