@@ -191,7 +191,7 @@
 		</copy>
 		
 		
-		<!-- Copy support scipts to jars directory -->
+		<!-- Copy support scripts to jars directory -->
 		<mkdir dir="${plugins.jars.dir}/scripts" />
 		<copy todir="${plugins.jars.dir}/scripts">
 			<fileset dir="${master.src.dir}/scripts" >
@@ -274,6 +274,22 @@
 	<target id="backcopy-mode" name="backcopy-mode" description="Copies mode file from build to source directory." > 
 		<copy file="${master.build.dir}/mathrider/modes/mathrider.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
+	</target>
+	
+	<target id="backcopy-support-scripts" name="backcopy-support-scripts" description="Copies support scripts from build to source directory." > 
+		<copy todir="${master.src.dir}/scripts">
+			<fileset dir="${master.build.dir}/mathrider/jars/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>	
+	</target>
+	
+	<target id="backcopy-startup-scripts" name="backcopy-startup-scripts" description="Copies startup scripts from build to source directory." > 
+		<copy todir="${master.src.dir}/jedit_core/startup">
+			<fileset dir="${master.build.dir}/mathrider/startup" >
+				<include name="**/*" />
+			</fileset>
+		</copy>	
 	</target>
 	
 	<target id="backcopy-all" 
