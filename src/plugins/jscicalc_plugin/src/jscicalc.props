@@ -1,0 +1,105 @@
+# Properties file for JSciCalc plugin.
+
+#{{{ 
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.name=JSciCalc
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.docs=index.html
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin..longdescription=description.html
+#}}}
+
+
+
+
+jscicalc.shell.msg.info=\nJSciCalc Shell \n\
+	  Test.\n\n
+
+jscicalc.shell.msg.usage=The Ant shell supports the following commands:\n\
+		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
+		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
+		 * "?"\t\t\t\t-- lists the available build files and usage\n\
+		 * "=build_file_number"\t\t-- changes the current build file to the number identified by "?"\n\
+		 * "+[full_path_to_file]"\t\t-- load this build file into Ant Farm. Searches up the current\n\
+				   \t\t\t\t   buffer's directory tree for a "build.xml" file to load if a \n\
+				 \t\t\t\t   file is not specified. Re-loads the build file if it is already\n\
+				 \t\t\t\t   loaded.\n\n
+
+
+
+
+
+# plugin menu
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.menu=jscicalc \
+	- \
+	jscicalc.clear \
+	jscicalc.save-file \
+	jscicalc.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+jscicalc.label=jscicalc
+
+# action labels for actions supplied by actions.xml
+jscicalc.source.label=View Source
+jscicalc.source.button-text=Source
+jscicalc.home.label=Home
+jscicalc.save-file.label=Save notepad file
+jscicalc.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.jscicalc.option-pane=jscicalc
+
+# Option pane activation BeanShell snippet
+options.jscicalc.code=new org.mathrider.jscicalcplugin.JSciCalcOptionPane();
+
+# Option pane labels
+options.jscicalc.label=jscicalc
+options.jscicalc.file=File:
+options.jscicalc.source=Source
+options.jscicalc.home=Hlear
+options.jscicalc.source.title=View Source
+options.jscicalc.choose-font=Font:
+options.jscicalc.show-filepath.title=Display notepad file path
+
+# window title
+jscicalc.title=JSciCalc
+
+# window toolbar buttons
+#jscicalc.source.icon=Clear.png
+jscicalc.home.icon=Home.png
+jscicalc.save-file.icon=Save.png
+jscicalc.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.jscicalc.show-filepath=true
+options.jscicalc.font=Monospaced
+options.jscicalc.fontstyle=0
+options.jscicalc.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.jscicalc.filepath=
+
+
+#
+#jscicalc.applet.filename=
+#jscicalc.applet.framePossible=false
+#jscicalc.applet.showSourceIcon=true
+#jscicalc.applet.enableRightClick=true
+#jscicalc.applet.showMenuBar=false
+#jscicalc.applet.showToolBar=true
+#jscicalc.applet.showToolBarHelp=true
+#jscicalc.applet.showAlgebraInput=true
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

@@ -1,0 +1,69 @@
+Java Scientific Calculator
+==========================
+
+To compile this application/applet you will need Sun Java 2 1.5.0 or an equivalent
+Java compiler. You cannot use Java 1.4.x or earlier.
+
+You should have within this directory, three subdirectories: button, pobject and
+icons: icon contains some image files. The other two subdirectories contain some of
+the java source and must be compiled.
+
+I recommend you compile the application outside of the source tree. I use a
+subdirectory called build and compile with the source in the jscical
+subdirectory as follows. The instructions are for a unix system.
+
+First set up build directory.
+
+$ jar xvf jscicalc.jar
+$ mkdir build
+$ mkdir build/jscicalc
+$ cp jscicalc/jar_cmf build/jscicalc/
+$ mkdir build/jscicalc/icons
+$ cp jscicalc/icons/* build/jscicalc/icons
+
+Then compile class files.
+
+$ javac -d build/ jscicalc/*.java
+$ javac -d build/ jscicalc/button/*.java
+$ javac -d build/ jscicalc/pobject/*.java
+$ javac -d build/ jscicalc/complex/*.java
+
+Then create jar file to contain them.
+
+$ cd build
+$ jar cmvf jscicalc/jar_cmf jscicalc.jar jscicalc/
+
+Now you can place jscicalc.jar wherever you like and run it using
+
+$ java -jar jscicalc.jar
+
+==================================================================================
+
+Creating documentation
+======================
+
+You'll probably want to do this if you want to modify or embed the calculator in
+something else.
+
+First set up documentation directory.
+
+$ cd .. (one level below jscicalc)
+$ mkdir doc
+$ mkdir doc/jscicalc
+$ cp jscicalc/Doxyfile doc/jscicalc/
+
+Create documentation using Doxygen (http://www.stack.nl/~dimitri/doxygen/).
+
+$ cd doc/jscicalc
+$ doxygen
+
+The documentation gets created in subdirectories, notably the HTML subdirectory.
+
+Alternatively, you should can use javadoc.
+
+==================================================================================
+
+Creating Source code
+====================
+
+jar cvf jscicalc.jar jscicalc/*.java jscicalc/README jscicalc/jar_cmf jscicalc/COPYING jscicalc/pobject/*.java jscicalc/complex/*.java jscicalc/expression/*.java jscicalc/icons/*.png jscicalc/icons/*.ico jscicalc/icons/README jscicalc/icons/LICENSE.crystalsvg  jscicalc/button/*.java
