@@ -46,8 +46,9 @@
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
 		<pathelement path="${plugins.jars.dir}/jyacas_plugin.jar" />
 		<pathelement path="${master.lib.dir}/jars/hoteqn.jar" />  
-		<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
+		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />
+		-->
 	</path>
 	
 	
@@ -142,7 +143,19 @@
 		<copy file="${plugins.build.dir}/hoteqn_plugin/dist/hoteqn_plugin.jar" todir="${plugins.jars.dir}"/>
 
 	</target>
-	
+
+	<target id="call-jscicalc_plugin" name="call-jscicalc_plugin" >
+		<ant dir="${plugins.src.dir}/jscicalc_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/jscicalc_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/jscicalc_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/jscicalc_plugin/dist/jscicalc_plugin.jar" todir="${plugins.jars.dir}"/> 
+		
+	</target>
 	
 	<target id="call-beansheet_plugin" name="call-beansheet_plugin" >
 		<ant dir="${plugins.src.dir}/beansheet_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
