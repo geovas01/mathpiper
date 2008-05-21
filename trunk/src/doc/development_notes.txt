@@ -59,6 +59,7 @@ Development notes.
 + RuleBaseListed link in Echo documentation is broken.
 + If GeoGebra has not been executed yet, then the ggb BeanShell variable will contain a null reference.
 + Add multiple fold properties capability like this: %yacas,output="latex,autoexecute".
++ Update YacasDocs to refer to the Java implementation instead of the C implementation.
 + If bottom fold is executed, append a new fold of that type at the bottom of the document.
 + Add function that allows JYacas to execute Java/BeanShell code.
 - Add quotes to mode.
@@ -103,6 +104,7 @@ Initial release:
 
 
 {{{Yacas bugs.
++ CDF link is broken in the PDF YacasDocs document.
 + TestYacas function should be renamed something more general like IsEquiv so that it can be used in other contexts.  For example, students learning how to manipulate an equation would find this function very useful.
 + Why does c := Sum(i,1,10,1/i*(i+1));Write(N(c)); Not convert c to a floating point value?
 + If e is not defined, why is Ln(e) in this result?
