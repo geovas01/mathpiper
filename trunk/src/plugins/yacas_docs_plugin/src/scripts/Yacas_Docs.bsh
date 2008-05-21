@@ -2,7 +2,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.util.ArrayList;
 import org.gjt.sp.jedit.jEdit;
-import org.mathrider.jyacasplugin.JYacasInterpreter;
+//import org.mathrider.jyacasplugin.JYacasInterpreter;
 
 
 //{{{ functions JList
@@ -674,7 +674,7 @@ home()
 //{{{source()
 source()
 {
-	interpreter = JYacasInterpreter.getInstance();
+	interpreter = jYacasInterpreter; //Note:tk:JYacasInterpreter.getInstance(); 
 	item = list.getSelectedValue();
 	
 	try{
@@ -693,7 +693,7 @@ source()
 	
 import java.io.*;
 //Print the contents of the Yacas script zip file.
- instance = org.mathrider.jyacasplugin.JYacasInterpreter.getInstance();
+ instance = jYacasInterpreter; //Note:tk:JYacasInterpreter.getInstance();
  scriptZip = instance.getScriptsZip();
  entries = scriptZip.entries();
  
