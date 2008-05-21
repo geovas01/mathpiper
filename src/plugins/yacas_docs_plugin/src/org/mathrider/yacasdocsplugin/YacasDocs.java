@@ -33,6 +33,8 @@ import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 import org.gjt.sp.jedit.bsh.Interpreter;
 
+import org.mathrider.jyacasplugin.JYacasInterpreter;
+
 
 //import bsh.Interpreter;
 
@@ -227,6 +229,7 @@ public class YacasDocs extends JPanel
 				bshInterpreter.set("view",view);
 				bshInterpreter.set("toolPanel",this.toolPanel);
 				bshInterpreter.eval( sourceIn );
+				bshInterpreter.set("jYacasInterpreter",JYacasInterpreter.getInstance());//Note:tk:fixing race condition.
 			} finally {
 				sourceIn.close();
 			}
