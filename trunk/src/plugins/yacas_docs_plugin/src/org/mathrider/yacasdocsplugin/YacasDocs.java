@@ -117,10 +117,10 @@ public class YacasDocs extends JPanel
 		//JScrollPane editorScrollPane = new JScrollPane(editorPane);
 		scrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-		JPanel spacerPanel = new JPanel();
-		spacerPanel.setBackground(java.awt.Color.WHITE);
-		spacerPanel.add(new JLabel(" "));
-		scrollPane.setRowHeaderView(spacerPanel);
+		//JPanel spacerPanel = new JPanel();
+		//spacerPanel.setBackground(java.awt.Color.WHITE);
+		//spacerPanel.add(new JLabel(" "));
+		//scrollPane.setRowHeaderView(spacerPanel);
 		add(BorderLayout.CENTER,scrollPane);
 		
 		initDocViewer();
