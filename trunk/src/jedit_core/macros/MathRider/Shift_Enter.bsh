@@ -256,7 +256,7 @@ if(path.endsWith(".ys")){
 				
 				if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
-					result = interpreter.evaluate("TeXForm(" + result + ");");
+					result = interpreter.evaluate("TeXForm(Hold(" + result + "));");
 					result = result.replace("\"$","$");
 					result = result.replace("$\"","$");
 					status = "%hoteqn";

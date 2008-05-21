@@ -45,7 +45,7 @@ Development notes.
 + Allow GUI components to call folds.
 + Add uasm65 mode.
 + Fold output property could specify multiple properties by entering normal|latex.
- Allow YacasDocs to show either the docs for a core function or its source code.  (Open source code in a buffer).
+- Allow YacasDocs to show either the docs for a core function or its source code.  (Open source code in a buffer).
 - Make indent level of output one more level than the indent level of the fold.
 + Fix problem of Yacas not being able to find file on other drive othern than the current drive.
 + Check toc.xml error in help.
@@ -56,6 +56,11 @@ Development notes.
 + Deselect item in function list when "home" is selected in YacasDocs.
 + In YacasDocs, allow functions to be listed either alphabetically or in groups.
 + Change "jEdit Home Directory" to "MathRider Home Directory".
++ RuleBaseListed link in Echo documentation is broken.
++ If GeoGebra has not been executed yet, then the ggb BeanShell variable will contain a null reference.
++ Add multiple fold properties capability like this: %yacas,output="latex,autoexecute".
++ If bottom fold is executed, append a new fold of that type at the bottom of the document.
++ Add function that allows JYacas to execute Java/BeanShell code.
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -70,6 +75,11 @@ Initial release:
 + Check GPL statements on plugins.
 + Add license for fire icon http://commons.wikimedia.org/wiki/Image:Exquisite-k3b.png.
 
+}}}
+
+
+{{{ Macro ideas:
++ Multiple_Latex: accepts a list of values to convert to TeXForm and display.
 }}}
 
 {{{Fold types (Make sure to add fold types in Shift_Enter.bsh file, mode file and configurable fold handler plugin.)
@@ -93,6 +103,7 @@ Initial release:
 
 
 {{{Yacas bugs.
++ TestYacas function should be renamed something more general like IsEquiv so that it can be used in other contexts.  For example, students learning how to manipulate an equation would find this function very useful.
 + Why does c := Sum(i,1,10,1/i*(i+1));Write(N(c)); Not convert c to a floating point value?
 + If e is not defined, why is Ln(e) in this result?
 %yacas
@@ -118,7 +129,8 @@ Write(df);
 
 %end
 + 
-+ JYacasInterpreter is sometimes not found in BeanShell script.  Problem occures in YacasDocs "Source" request. (Note: Put exception checking on all scripts);
+- JYacasInterpreter is sometimes not found in BeanShell script.  Problem occures in YacasDocs "Source" request. 
++ Put exception checking on all scripts;
 + Why do some commands return True: while others return True with no : (Like Function);
 + What is FWatom in the factors.rep repository?
 + PrettyPrinter'Set: TexForm should be TeXForm.
@@ -216,7 +228,9 @@ if (yacas.iError != null)
 
 {{{===="Notebook" thoughts.
 
-One could create a html-based notebook like the Sage notebook but perhaps it would be better to create a 100% Applet-based notebook which would use a layout manager to lay components out in a vertical fasion.  The mathrider application can generate online notebooks which is similar to the way that GeoGebra generates online viewers.
++ One could create a html-based notebook like the Sage notebook but perhaps it would be better to create a 100% Applet-based notebook which would use a layout manager to lay components out in a vertical fasion.  The mathrider application can generate online notebooks which is similar to the way that GeoGebra generates online viewers.
+
++ Perhaps it would be useful to put together text documents in a mrw file so that macros can be developed in the same document as the text ?
 }}}
 
 {{{====Calculator thoughts.
