@@ -103,7 +103,7 @@
 	</target>
 	
 	
-	<target id="call-yacas_docs_plugin" name="call-yacas_docs_plugin" >
+	<target id="call-yacas_docs_plugin" name="call-yacas_docs_plugin" depends="call-jyacas_plugin">
 		<ant dir="${plugins.src.dir}/yacas_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/yacas_docs_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
