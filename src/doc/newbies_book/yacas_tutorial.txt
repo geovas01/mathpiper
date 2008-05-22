@@ -47,6 +47,7 @@ When a few characters have been typed, the command line will use the characters 
 Commands spanning multiple lines can (and actually have to) be entered by using a trailing backslash \ at end of each continued line. For example, clicking on 2+3+ will result in an error, but entering the same with a backslash at the end and then entering another expression will concatenate the two lines and evaluate the concatenated input.
 
 Incidentally, any text Yacas prints without a prompt is either a message printed by a function as a side-effect, or an error message. Resulting values of expressions are always printed after an Out> prompt.
+
 Yacas as a symbolic calculator
 
 We are ready to try some calculations. Yacas uses a C-like infix syntax and is case-sensitive. Here are some exact manipulations with fractions for a start: 1/14+5/21*(30-(1+1/2)*5^2);
