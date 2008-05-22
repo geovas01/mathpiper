@@ -485,7 +485,7 @@ import org.gjt.sp.jedit.jEdit;
 "UnList",
 "Until",
 "Use",
-"V",
+"V, InVerboseMode",
 "VandermondeMatrix",
 "VarList",
 "VarListArith",
@@ -861,7 +861,7 @@ docker = jEdit.getActiveView().getDockableWindowManager();
 hyperlinkUpdate(event)
 {
   url = event.getURL();
-//System.out.println("    YYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
+System.out.println("YYYYacsDocsYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
   if(event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
   {
     reference = url.getRef();
