@@ -1,6 +1,6 @@
 Development notes.
 
-:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:wrap=soft:
+:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wrap=soft:
 
 {{{====To Do
 - Add default fold which will set default fold properties like output="output".
@@ -25,6 +25,7 @@ Development notes.
 + Place MathRider variables in standard jEdit beanshell environment.
 + Use the ContextMenu plugin to create a special popup menu for .mws files.
 + Add dock sidekick plugin to the right side of the screen and have it show outline of .mws files.
++ "If none of the predicates are true, the function is returned with its arguments evaluated." Should "evaluated" be "unevaluated" here? (section 1.5 of the programmer's manual.
 + Use ShortCutSaver plugin for .mws shortcut keys (maybe like <shift><enter>).
 + Study TextAutocomplete plugin for ideas on keyword autocompletion.
 - Fix problem where %output folds don't cause extra %ends but %error folds do.
@@ -61,7 +62,14 @@ Development notes.
 + Add multiple fold properties capability like this: %yacas,output="latex,autoexecute".
 + Update YacasDocs to refer to the Java implementation instead of the C implementation.
 + If bottom fold is executed, append a new fold of that type at the bottom of the document.
+"accapt" needs an "s" in YacasDocs for Write function.
 + Add function that allows JYacas to execute Java/BeanShell code.
++ Create a QTOT plugin for logging Quiet Time On Task hours.
++ Create a JXTA plugin for collaboration.
++ Perhaps create JYacas console fold so console sessions can be preserved?
++ Backslashes \ do not continue lines in JYacas console.
+- JYacasInterpreter is sometimes not found in BeanShell script.  Problem occures in YacasDocs "Source" request. 
++ Put exception checking on all scripts;
 - Add quotes to mode.
 - Add usage information to the JYacas console.
 - Change // and /**/ to same color in mode.
@@ -79,11 +87,11 @@ Initial release:
 }}}
 
 
-{{{ Macro ideas:
+{{{ MACRO IDEAS:
 + Multiple_Latex: accepts a list of values to convert to TeXForm and display.
 }}}
 
-{{{Fold types (Make sure to add fold types in Shift_Enter.bsh file, mode file and configurable fold handler plugin.)
+{{{FOLD TYPES (Make sure to add fold types in Shift_Enter.bsh file, mode file and configurable fold handler plugin.)
 + yacas - Executes yacas code.
 + cas - Executes code using the default cas system.
 + manipulate - Allows user to manipulate an equation or inequality.
@@ -103,10 +111,47 @@ Initial release:
 }}}
 
 
-{{{Yacas bugs.
+{{{YACAS BUGS.
+---- exponent bug.
++ 
+#Sage calculates this.
+var('k');
+a = (1-x^2^k) * (1+x^2^k)
+a,expand(a)
+    ((1 - x^2^k)*(x^2^k + 1), 1 - x^(2*2^k))
+
+//But yacas calculates this.
+%yacas
+    a := (1-x^2^k) * (1+x^2^k);
+    Write(Simplify(a));
+
+    %output
+      1-x^2^k^2
+    %end
+
+%end
+
+
+In> TestYacas(1-x^2^k^2,1 - x^(2*2^k))
+Out> False:
+******************
+none: -1 
+1-x^2^k^2 evaluates to 
+1-x^2^k^2
+ which differs from 
+1-x^2^(k+1)
+ by 
+x^2^(k+1)-x^2^k^2
+******************
+
+----
++ Postfix function should be able to take only 1 argument, but it says it needs 2.
 + CDF link is broken in the PDF YacasDocs document.
 + TestYacas function should be renamed something more general like IsEquiv so that it can be used in other contexts.  For example, students learning how to manipulate an equation would find this function very useful.
 + Why does c := Sum(i,1,10,1/i*(i+1));Write(N(c)); Not convert c to a floating point value?
++ Why doesn't this work? "Object argument accessors in the form of
+expr[ index ]. These are mapped internally to Nth(expr,index). The value of index=0 returns the operator of the object, index=1 the first argument, etc. So, if expr is foo(bar), then expr[0] returns foo, and expr[1] returns bar. Since lists of the form {...} are essentially the same as List(...), the same accessors can be used on lists."
+
 + If e is not defined, why is Ln(e) in this result?
 %yacas
 
@@ -130,12 +175,12 @@ Write(df);
     %end
 
 %end
-+ 
-- JYacasInterpreter is sometimes not found in BeanShell script.  Problem occures in YacasDocs "Source" request. 
-+ Put exception checking on all scripts;
+
+
 + Why do some commands return True: while others return True with no : (Like Function);
 + What is FWatom in the factors.rep repository?
 + PrettyPrinter'Set: TexForm should be TeXForm.
++Note: the variable names "foreach..." have been chosen so they won't get confused with normal variables you use. This is a major design flaw in this language. Suppose there was a local variable foreachitem, defined in the calling function, and used in foreachbody. These two would collide, and the interpreter would use only the last defined version. In general, when writing a function that calls Eval(), it is a good idea to use variable names that can not collide with user's variables. This is generally the single largest cause of bugs when writing programs in Yacas. This issue should be addressed in the future.
 + Random, RandomSeed in same string in .js array.
 + CachedConstant hyberlink in InNumericMode documentation is broken.
 + Wiesner Thomas to yacas-devel
