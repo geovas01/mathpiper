@@ -1,6 +1,6 @@
 Development notes.
 
-:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wrap=soft:
+:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=:wrap=soft:
 
 {{{====To Do
 - Add default fold which will set default fold properties like output="output".
@@ -30,6 +30,7 @@ Development notes.
 + Study TextAutocomplete plugin for ideas on keyword autocompletion.
 - Fix problem where %output folds don't cause extra %ends but %error folds do.
 + Figure out a way to output the result of the last expression in a fold without Writing or Echoing.
++ Find the documentation for Apart and Together.
 + Make fold types a property for use by Shift_Enter.bsh file, mode file, and the configurable fold handler plugin.
 + Allow help on a Yacas function to be brought up by ???ing on it (including the source code of the function).
 + Check to see if we can remove the C: stripping code from Shift_Enter.bsh with this: file:///C:/ted/download/yacas_manual/refchapter26.html#c26". (Doesn't work, must fix bug in Yacas itself).
@@ -237,7 +238,40 @@ Why is this list missing commas and curly braces?
 }}}
 
 {{{Yacas enhancements.
-+Multivariate factoring.
++ Multivariate factoring.
+----
++ Regular expressions
+The regular expressions plugin
+This plugin allows for text processing using regular expressions. The GPL'ed package pcre is included for this purpose (pcre stands for Perl compatible regular expressions).
+
+To use the plugin, the plugin has to be loaded through:
+
+Use("pcre");
+
+The pcre plugin offers two principal functions: PcreLexer and PcreNextToken. PcreLexer sets up and initializes the tokenizer to scan for a set of regular expressions. A call to PcreNextToken returns the result of the scan in the current file, starting from the current position.
+
+PcreLexer does not interfere with normal reading of a file. When normal read calls are made, the default tokenizer is used. The tokenizer set up by PcreLexer is only used when PcreNextToken is called.
+
+The syntax for PcreLexer is:
+
+PcreLexer(tokens);
+
+The argument tokens is a list of token definitions. A token definition in turn is a list, with the first element a string containing the regular expression, and the second containing an atom that can describe the type of the token (for easy recognition later).
+
+Calling PcreNextToken() will then return the first matching token from the current input.
+
+The following example sets up the tokenizer to recognize either an integer, or a word consisting only of lowercase letters.
+
+In> DllLoad("pcre")
+Out> True
+In> PcreLexer({{"[0-9]+",Integer},{"[a-z]+",Word}})
+Out> True
+In> FromString("123abc")PcreNextToken()
+Out> {"123",Integer}
+In> FromString("===abc")PcreNextToken()
+Out> {"abc",Word}
+
+----
 }}}
 
 {{{Yacas questions.
@@ -291,5 +325,33 @@ http://sourceforge.net/tracker/index.php?func=detail&aid=1755992&group_id=588&at
 
 {{{====Beansheet
 + Changing alignment of cells that have different fonts sets all cells to the same font.
+
+}}}
+
+
+{{{ ====HotEqn bugs.
+%yacas,output="latex"
+
+a := Hold( ((k+1)/(2*k)) * (1-(1/(K+1)^2)) );
+
+Write(a);
+
+    %hoteqn
+      $\frac{k + 1}{2 k}  \left( 1 - \frac{1}{\left( K + 1\right)  ^{2}} \right) $
+
+        %output
+          HotEqn updated.
+        %end
+
+    %end
+
+%end
+----
+}}}
+
+
+{{{ CONTEXT DEPENDENT "RIGHT CLICK" POPUP MENU
++ On fold header: Dialog which allows properties to selected graphically.
++ In fold: Pop up list of commands depending on fold type.
 
 }}}
