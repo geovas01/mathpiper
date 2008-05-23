@@ -266,6 +266,26 @@ if(path.endsWith(".ys")){
 					result = interpreter.evaluate("OMForm(" + result + ");");
 					status = "%output";
 				}
+				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
+				{	
+					result = interpreter.evaluate("PrettyForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("c") )
+				{	
+					result = interpreter.evaluate("CForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
+				{	
+					result = interpreter.evaluate("FullForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("table") )
+				{	
+					result = interpreter.evaluate("TableForm(" + result + ");");
+					status = "%output";
+				}
 				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
 				{
 					status = "%geogebra";
