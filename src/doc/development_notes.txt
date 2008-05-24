@@ -62,6 +62,7 @@ Development notes.
 + If GeoGebra has not been executed yet, then the ggb BeanShell variable will contain a null reference.
 + Add multiple fold properties capability like this: %yacas,output="latex,autoexecute".
 + Update YacasDocs to refer to the Java implementation instead of the C implementation.
++ Capital vs. lower case variables in an expression causes evaluation errors if not caught.  Perhaps some way to highlight these case differences can be created?
 + If bottom fold is executed, append a new fold of that type at the bottom of the document.
 "accapt" needs an "s" in YacasDocs for Write function.
 + Add function that allows JYacas to execute Java/BeanShell code.
