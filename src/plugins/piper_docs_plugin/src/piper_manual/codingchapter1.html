@@ -1,0 +1,985 @@
+<html>
+<head>
+  <title>Piper under the hood</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c1">
+
+</a>
+<h1>
+1. Piper under the hood
+</h1>
+<p> </p>
+This part of the manual is a somewhat in-depth explanation of the
+Piper programming language and environment. It assumes that you have worked
+through the introductory tutorial. You should consult the function reference about how to use the various Piper functions mentioned here.
+
+
+<p>
+
+<a name="c1s1">
+
+</a>
+<h2>
+<hr>1.1 The Piper architecture
+</h2>
+Piper is designed as a small core engine that interprets a library
+of scripts. The core engine provides the syntax parser and a number of
+hard-wired functions, such as <b><tt>Set()</tt></b> or
+<b><tt>MathExp()</tt></b> which cannot be redefined by the user. The script
+library resides in the scripts directory "<b><tt>scripts/</tt></b>" and
+contains higher-level definitions of functions and constants. The library
+scripts are on equal footing with any code the user executes interactively
+or any files the user loads.
+
+
+<p>
+Generally, all core functions have plain names and almost all are not
+"bodied" or infix operators. The file <b><tt>corefunctions.h</tt></b> in the source
+tree lists declarations of all kernel functions callable from Piper; consult it for reference.
+For many of the core functions, the script library already provides
+convenient aliases. For instance, the addition operator "<b><tt>+</tt></b>" is defined in
+the script <b><tt>scripts/standard</tt></b> while the actual addition of
+numbers is performed through the built-in function
+<b><tt>MathAdd</tt></b>.
+
+
+<p>
+
+<a name="c1s2">
+
+</a>
+<h2>
+<hr>1.2 Startup, scripts and <b><tt>.def</tt></b> files
+</h2>
+When Piper is first started or restarted, it executes the script
+<b><tt>piperinit.pi</tt></b> in the scripts directory. This script may load some other
+scripts. In order to start up quickly, Piper does not execute all other
+library scripts at first run or at restart. It only executes the file
+<b><tt>piperinit.pi</tt></b> and all <b><tt>.def</tt></b> files in the scripts. The <b><tt>.def</tt></b> files tell the system where it can find definitions
+for various library functions. Library is divided into "packages" stored in "repository" directories. For example, the function <b><tt>ArcTan</tt></b> is defined in the <b><tt>stdfuncs</tt></b> package; the library file is <b><tt>stdfuncs.rep/</tt></b><b><tt>code.pi</tt></b> and the <b><tt>.def</tt></b> file is <b><tt>stdfuncs.rep</tt></b><b><tt>/code.pi.def</tt></b>. The function <b><tt>ArcTan</tt></b>
+mentioned in the <b><tt>.def</tt></b> file, therefore Piper will know to load the package
+<b><tt>stdfuncs</tt></b> when the user invokes <b><tt>ArcTan</tt></b>. This way Piper
+knows where to look for any given function without actually loading the
+file where the function is defined.
+
+
+<p>
+There is one exception to the strategy of delayed loading of the library
+scripts. Namely, the syntax definitions of infix, prefix, postfix and bodied
+functions, such as <b><tt>Infix("*",4)</tt></b> cannot be delayed (it is currently in the
+file <b><tt>stdopers.pi</tt></b>). If it were delayed, the Piper parser would encounter <b><tt>1+2</tt></b>
+(typed by the user) and generate a syntax error before it has a chance to load
+the definition of the operator "<b><tt>+</tt></b>".
+
+
+<p>
+
+<a name="c1s3">
+
+</a>
+<h2>
+<hr>1.3 Object types
+</h2>
+Piper supports two basic kinds of objects: atoms and compounds. Atoms are (integer or real, arbitrary-precision) numbers such as <b><tt>2.71828</tt></b>, symbolic variables such as <b><tt>A3</tt></b> and character strings. Compounds include functions and expressions, e.g. <b><tt>Cos(a-b)</tt></b> and lists, e.g. <b><tt>{1+a,2+b,3+c}</tt></b>.
+
+
+<p>
+The type of an object is returned by the built-in function <b><tt>Type</tt></b>, for example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Type(a);
+Out&gt; "";
+In&gt; Type(F(x));
+Out&gt; "F";
+In&gt; Type(x+y);
+Out&gt; "+";
+In&gt; Type({1,2,3});
+Out&gt; "List";
+</pre></tr>
+</table>
+
+
+<p>
+Internally, atoms are stored as strings and compounds as lists. (The Piper
+lexical analyzer is case-sensitive, so <b><tt>List</tt></b> and
+<b><tt>list</tt></b> are different atoms.) The functions
+<b><tt>String()</tt></b> and <b><tt>Atom()</tt></b> convert between atoms and
+strings. A Piper list <b><tt>{1,2,3}</tt></b> is internally a list
+<b><tt>(List 1 2 3)</tt></b> which is the same as a function call
+<b><tt>List(1,2,3)</tt></b> and for this reason the "type" of a list is the
+string <b><tt>"List"</tt></b>. During evaluation, atoms can be interpreted as
+numbers, or as variables that may be bound to some value, while compounds are
+interpreted as function calls.
+
+
+<p>
+Note that atoms that result from an <b><tt>Atom()</tt></b> call may be
+invalid and never evaluate to anything. For example,
+<b><tt>Atom(3X)</tt></b> is an atom with string representation "3X" but
+with no other properties.
+
+
+<p>
+Currently, no other lowest-level objects are provided by the core engine besides numbers, atoms, strings, and lists. There is, however, a possibility to link some externally compiled code that will provide additional types of objects.
+Those will be available in Piper as "generic objects."
+For example, fixed-size arrays are implemented in this way.
+
+
+<p>
+
+<a name="c1s4">
+
+</a>
+<h2>
+<hr>1.4 Piper evaluation scheme
+</h2>
+Evaluation of an object is performed either explicitly by the built-in 
+command <b><tt>Eval()</tt></b> or implicitly when assigning variables or calling functions 
+with the object as argument (except when a function does not evaluate that 
+argument). Evaluation of an object can be explicitly inhibited using <b><tt>Hold()</tt></b>. 
+To make a function not evaluate one of its arguments, a <b><tt>HoldArg(funcname, argname)</tt></b> 
+must be declared for that function.
+
+
+<p>
+Internally, all expressions are either atoms or lists (perhaps nested). Use
+<b><tt>FullForm()</tt></b> to see the internal form of an expression. A Piper list expression
+written as <b><tt>{a, b}</tt></b> is represented internally as <b><tt>(List a b)</tt></b>, equivalently to
+a function call <b><tt>List(a,b)</tt></b>.
+
+
+<p>
+Evaluation of an atom goes as follows: if the atom is bound locally as a
+variable, the object it is bound to is returned, otherwise, if it is bound as a
+global variable then that is returned. Otherwise, the atom is returned
+unevaluated.
+Note that if an atom is bound to an expression, that expression is considered as final and is not evaluated again.
+
+
+<p>
+Internal lists of atoms are generally interpreted in the following way: the first
+atom of the list is some command, and the atoms following in the list are
+considered the arguments. The engine first tries to find out if it is a
+built-in command (core function). In that case, the function is executed.
+Otherwise, it could be a user-defined function (with a "rule database"),
+and in that case the rules from the database are applied to it. If none of
+the rules are applicable, or if no rules are defined for it, the object is
+returned unevaluated.
+
+
+<p>
+Application of a rule to an expression transforms it into a different
+expression to which other rules may be applicable. Transformation by matching
+rules continues until no more rules are applicable, or until a "terminating"
+rule is encountered. A "terminating" rule is one that returns <b><tt>Hold()</tt></b> or
+<b><tt>UnList()</tt></b> of some expression. Calling these functions gives an unevaluated
+expression because it terminates the process of evaluation itself.
+
+
+<p>
+The main properties of this scheme are the following. When objects are
+assigned to variables, they generally are evaluated (except if you are
+using the <b><tt>Hold()</tt></b> function) because assignment
+<b><tt>var := value</tt></b> is really a function call to
+<b><tt>Set(var, value)</tt></b> and this function evaluates its second
+argument (but not its first argument). When referencing that variable
+again, the object which is its value will not be re-evaluated. Also, the
+default behavior of the engine is to return the original expression if it
+could not be evaluated. This is a desired behavior if evaluation is used
+for simplifying expressions.
+
+
+<p>
+One major design flaw in Piper (one that other functional languages like
+LISP also have) is that when some expression is re-evaluated in another
+environment, the local variables contained in the expression to be
+evaluated might have a different meaning. In this case it might be useful
+to use the functions <b><tt>LocalSymbols</tt></b> and
+<b><tt>TemplateFunction</tt></b>. Calling
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LocalSymbols(a,b)
+a*b;
+</pre></tr>
+</table>
+results in "<b><tt>a</tt></b>" and "<b><tt>b</tt></b>" in the multiplication being substituted with
+unique symbols that can not clash with other variables that may be used
+elsewhere. Use <b><tt>TemplateFunction</tt></b> instead of
+<b><tt>Function</tt></b> to define a function whose parameters should be
+treated as unique symbols.
+
+
+<p>
+Consider the following example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f1(x):=Apply("+",{x,x});
+Out&gt; True
+</pre></tr>
+</table>
+
+
+<p>
+The function <b><tt>f1</tt></b> simply adds its argument to itself. Now calling 
+this function with some argument:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f1(Sin(a))
+Out&gt; 2*Sin(a)
+</pre></tr>
+</table>
+
+
+<p>
+yields the expected result. However, if we pass as an argument an 
+expression containing the variable <b><tt>x</tt></b>, things go wrong:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f1(Sin(x))
+Out&gt; 2*Sin(Sin(x))
+</pre></tr>
+</table>
+
+
+<p>
+This happens because within the function, <b><tt>x</tt></b> is bound to <b><tt>Sin(x)</tt></b>,
+and since it is passed as an argument to <b><tt>Apply</tt></b> it will be re-evaluated,
+resulting in <b><tt>Sin(Sin(x))</tt></b>. <b><tt>TemplateFunction</tt></b> solves this by making sure
+the arguments can not collide like this (by using <b><tt>LocalSymbols</tt></b>:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; TemplateFunction("f2",{x}) Apply("+",{x,x});
+Out&gt; True
+In&gt; f2(Sin(a))
+Out&gt; 2*Sin(a)
+In&gt; f2(Sin(x))
+Out&gt; 2*Sin(x)
+</pre></tr>
+</table>
+
+
+<p>
+In general one has to be careful when functions like <b><tt>Apply</tt></b>, <b><tt>Map</tt></b> 
+or <b><tt>Eval</tt></b> (or derivatives) are used.
+
+
+<p>
+
+<a name="c1s5">
+
+</a>
+<h2>
+<hr>1.5 Rules
+</h2>
+<i>Rules</i> are special properties of functions that
+are applied when the function object is being evaluated. A function object could
+have just one rule bound to it; this is similar to a "subroutine" having a "function
+body" in usual procedural languages. However, Piper function objects can
+also have several rules bound to them. This is analogous of having several
+alternative "function bodies" that are executed under different
+circumstances. This design is more suitable for symbolic manipulations.
+
+
+<p>
+A function is identified by its name as returned by <b><tt>Type</tt></b>
+and the number of arguments, or "arity". The same name can be used with
+different arities to define different functions: <b><tt>f(x)</tt></b> is
+said to "have arity 1" and <b><tt>f(x,y)</tt></b> has arity 2. Each of
+these functions may possess its own set of specific rules, which we shall
+call a "rule database" of a function.
+
+
+<p>
+Each function should be first declared with the built-in command
+<b><tt>RuleBase</tt></b> as follows:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RuleBase("FunctionName",{argument list});
+</pre></tr>
+</table>
+
+
+<p>
+So, a new (and empty) rule database for <b><tt>f(x,y)</tt></b> could be
+created by typing <b><tt>RuleBase("f",{x,y})</tt></b>. The names for the
+arguments "x" and "y" here are arbitrary, but they will be globally stored
+and must be later used in descriptions of particular rules for the function
+<b><tt>f</tt></b>. After the new rulebase declaration, the evaluation engine of Piper
+will begin to really recognize <b><tt>f</tt></b> as a function, even though no function
+body or equivalently no rules have been defined for it yet.
+
+
+<p>
+The shorthand operator <b><tt>:=</tt></b> for creating user functions that
+we illustrated in the tutorial is actually defined in the scripts and it
+makes the requisite call to the <b><tt>RuleBase()</tt></b> function.
+After a <b><tt>RuleBase()</tt></b> call you can specify parsing
+properties for the function; for example, you could make it an
+infix or bodied operator.
+
+
+<p>
+Now we can add some rules to the rule database for a function. A rule
+simply states that if a specific function object with a specific arity is
+encountered in  an expression and if a certain predicate is true, then
+Piper should replace this function with some other expression. To tell Piper about a new rule you can use the built-in <b><tt>Rule</tt></b> command. This command is what does the real work for the somewhat more aesthetically pleasing <b><tt>... # ... &lt;-- ...</tt></b> construct we have seen in the tutorial. You do not have to call <b><tt>RuleBase()</tt></b> explicitly if you use that construct.
+
+
+<p>
+Here is the general syntax for a <b><tt>Rule()</tt></b> call:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Rule("foo", arity, precedence, pred) body;
+</pre></tr>
+</table>
+This specifies that for function <b><tt>foo</tt></b> with given
+<b><tt>arity</tt></b> (<b><tt>foo(a,b)</tt></b> has arity 2), there is a
+rule that if <b><tt>pred</tt></b> is true, then <b><tt>body</tt></b>
+should be evaluated, and the original expression replaced by the result.
+Predicate and body can use the symbolic names of arguments that were
+declared in the <b><tt>RuleBase</tt></b> call.
+
+
+<p>
+All rules for a given function can be erased with a call to <b><tt>Retract(funcname, arity)</tt></b>. This is useful, for instance, when too many rules have been entered in the interactive mode. This call undefines the function and also invalidates the <b><tt>RuleBase</tt></b> declaration.
+
+
+<p>
+You can specify that function arguments are not evaluated before they are
+bound to the parameter: <b><tt>HoldArg("foo",a)</tt></b> would then
+declare that the a arguments in both <b><tt>foo(a)</tt></b> and <b><tt>foo(a,b)</tt></b> should not be evaluated before bound to <b><tt>a</tt></b>. Here
+the argument name <b><tt>a</tt></b> should be the same as that used in the <b><tt>RuleBase()</tt></b> call when declaring these functions.
+Inhibiting evaluation of certain arguments is useful for procedures
+performing actions based partly on a variable in the expression, such as
+integration, differentiation, looping, etc., and will be typically used for
+functions that are algorithmic and procedural by
+nature.
+
+
+<p>
+Rule-based programming normally makes heavy use of recursion and it is
+important to control the order in which replacement rules are to be
+applied. For this purpose, each rule is given a <i>precedence</i>.
+Precedences go from low to high, so all rules with precedence 0 will be
+tried before any rule with precedence 1.
+
+
+<p>
+You can assign several rules to one and the same function, as long as some of the predicates differ. If none of the predicates are true,
+the function is returned with its arguments evaluated.
+
+
+<p>
+This scheme is slightly slower for ordinary functions that just have one
+rule (with the predicate <b><tt>True</tt></b>), but it is a desired
+behavior for symbolic manipulation. You can gradually build up your own functions, incrementally testing their properties.
+
+
+<p>
+
+<a name="c1s6">
+
+</a>
+<h2>
+<hr>1.6 Examples of using rules
+</h2>
+As a simple illustration, here are the actual <b><tt>RuleBase()</tt></b>
+and <b><tt>Rule()</tt></b> calls needed to define the factorial function:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; RuleBase("f",{n});
+Out&gt; True;
+In&gt; Rule("f", 1, 10, n=0) 1;
+Out&gt; True;
+In&gt; Rule("f", 1, 20, IsInteger(n) \
+  And n&gt;0) n*f(n-1);
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+This definition is entirely equivalent to the one in the tutorial. <b><tt>f(4)</tt></b>
+should now return 24, while <b><tt>f(a)</tt></b> should return just <b><tt>f(a)</tt></b> if <b><tt>a</tt></b> is not
+bound to any value.
+
+
+<p>
+The <b><tt>Rule</tt></b> commands in this example specified two rules for function <b><tt>f</tt></b>
+with arity 1: one rule with precedence 10 and predicate <b><tt>n=0</tt></b>, and another with precedence 20 and the predicate that returns <b><tt>True</tt></b> only
+if <b><tt>n</tt></b> is a positive integer. Rules with lowest precedence get evaluated
+first, so the rule with precedence 10 will be tried before the rule with
+precedence 20. Note that the predicates and the body use the name "n"
+declared by the <b><tt>RuleBase()</tt></b> call.
+
+
+<p>
+After declaring <b><tt>RuleBase()</tt></b> for a function, you could
+tell the parser to treat this function as a postfix operator:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Postfix("f");
+Out&gt; True;
+In&gt; 4 f;
+Out&gt; 24;
+</pre></tr>
+</table>
+
+
+<p>
+There is already a function <b><tt>Function</tt></b> defined in the
+standard scripts that allows you to construct simple functions. An example
+would be
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Function ("FirstOf", {list})  list[1] ;
+</pre></tr>
+</table>
+
+
+<p>
+which simply returns the first element of a list. This could also have
+been written as
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Function("FirstOf", {list})
+[
+  list[1] ;
+];
+</pre></tr>
+</table>
+
+
+<p>
+As mentioned before, the brackets <b><tt>[ ]</tt></b> are also used to combine multiple
+operations to be performed one after the other. The result of the last
+performed action is returned.
+
+
+<p>
+Finally, the function <b><tt>FirstOf</tt></b> could also have been
+defined by typing
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FirstOf(list):=list[1] ;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="c1s7">
+
+</a>
+<h2>
+<hr>1.7 Structured programming and control flow
+</h2>
+Some functions useful for control flow are already defined in Piper's standard library. Let's look at a possible definition of a looping function <b><tt>ForEach</tt></b>. We shall here consider a somewhat simple-minded definition, while the actual <b><tt>ForEach</tt></b> as defined in the standard script "controlflow" is a little more sophisticated.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Function("ForEach",{foreachitem,
+  foreachlist,foreachbody})
+[
+   Local(foreachi,foreachlen);
+   foreachlen:=Length(foreachlist);
+   foreachi:=0;
+   While (foreachi &lt; foreachlen)
+   [
+     foreachi++;
+     MacroLocal(foreachitem);
+     MacroSet(foreachitem,
+	   foreachlist[foreachi]);
+     Eval(foreachbody);
+   ];
+];
+
+Bodied("ForEach");
+UnFence("ForEach",3);
+HoldArg("ForEach",foreachitem);
+HoldArg("ForEach",foreachbody);
+</pre></tr>
+</table>
+
+
+<p>
+Functions like this should probably be defined in a separate file. You can
+load such a file with the command <b><tt>Load("file")</tt></b>. This is an example of a macro-like function.  Let's first look at the last few
+lines. There is a <b><tt>Bodied(...)</tt></b> call, which states that the syntax for the function <b><tt>ForEach()</tt></b> is <b><tt>ForEach(item,{list}) body;</tt></b>
+-- that is, the last argument to the command <b><tt>ForEach</tt></b> should be outside its
+brackets. <b><tt>UnFence(...)</tt></b> states that this function can use the local
+variables of the calling function. This is necessary, since the body to be
+evaluated for each item will probably use some local variables from that
+surrounding.
+
+
+<p>
+Finally, <b><tt>HoldArg("function",argument)</tt></b> specifies that
+the argument "<b><tt>argument</tt></b>" should not be evaluated before being
+bound to that variable. This holds for <b><tt>foreachitem</tt></b> and
+<b><tt>foreachbody</tt></b>, since <b><tt>foreachitem</tt></b> specifies
+a variable to be set to that value, and <b><tt>foreachbody</tt></b> is the
+expression that should be evaluated <i>after</i> that variable
+is set.
+
+
+<p>
+Inside the body of the function definition there are calls to <b><tt>Local(...)</tt></b>.
+<b><tt>Local()</tt></b> declares some local variable that will only be visible within a block
+<b><tt>[ ... ]</tt></b>. The command <b><tt>MacroLocal()</tt></b> works almost the same. The difference is
+that it evaluates its arguments before performing the action on it. This is
+needed in this case, because the variable <b><tt>foreachitem</tt></b> is bound to a variable
+to be used as the loop iterator, and it is <i>the variable it is bound to</i>
+that we want to make local, not <b><tt>foreachitem</tt></b> itself. <b><tt>MacroSet()</tt></b> works
+similarly: it does the same as <b><tt>Set()</tt></b> except that it also first evaluates the
+first argument, thus setting the variable requested by the user of this
+function. The <b><tt>Macro</tt></b>... functions in the built-in functions generally perform
+the same action as their non-macro versions, apart from evaluating an argument
+it would otherwise not evaluate.
+
+
+<p>
+To see the function in action, you could type:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ForEach(i,{1,2,3}) [Write(i); NewLine();];
+</pre></tr>
+</table>
+This should print 1, 2 and 3, each on a new line.
+
+
+<p>
+Note: the variable names "foreach..." have been chosen so they won't get
+confused with normal variables you use. This is a major design flaw in this
+language. Suppose there was a local variable <b><tt>foreachitem</tt></b>, defined in the
+calling function, and used in <b><tt>foreachbody</tt></b>. These two would collide, and the
+interpreter would use only the last defined version. In general, when writing a
+function that calls <b><tt>Eval()</tt></b>, it is a good idea to use variable names that can
+not collide with user's variables. This is generally the single largest cause
+of bugs when writing programs in Piper. This issue should be addressed in the
+future.
+
+
+<p>
+
+<a name="c1s8">
+
+</a>
+<h2>
+<hr>1.8 Additional syntactic sugar
+</h2>
+The parser is extended slightly to allow for fancier constructs.
+
+
+<p>
+<ul><li>Lists, e.g. </li><b><tt>{a,b}</tt></b>. This then
+is parsed into the internal notation <b><tt>(List a b)</tt></b> , but
+will be printed again as <b><tt>{a,b};</tt></b>
+<li>Statement blocks such as
+</li><b><tt>[</tt></b> statement1 <b><tt>;</tt></b> statement2<b><tt>;];</tt></b>. This
+is parsed into a Lisp object <b><tt>(Prog</tt></b> <b><tt>(</tt></b>statement1 <b><tt>)</tt></b> <b><tt>(</tt></b>statement2 <b><tt>))</tt></b>, and printed out again in the proper form.
+<li> Object argument accessors in the form of
+</li><b><tt>expr[ index ]</tt></b>. These
+are mapped internally to <b><tt>Nth(expr,index)</tt></b>. The value of <b><tt>index</tt></b>=0 returns the
+operator of the object, <b><tt>index</tt></b>=1 the first argument, etc. So,
+if <b><tt>expr</tt></b> is <b><tt>foo(bar)</tt></b>, then
+<b><tt>expr[0]</tt></b> returns <b><tt>foo</tt></b>, and
+<b><tt>expr[1]</tt></b> returns <b><tt>bar</tt></b>. Since lists of the form
+<b><tt>{...}</tt></b> are essentially the same as
+<b><tt>List(...)</tt></b>, the same accessors
+can be used on lists.
+</ul>
+
+<p>
+<ul><li>Function blocks such as
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+While (i &lt; 10)
+  [
+	Write(i);
+	i:=i+1;
+  ];
+</pre></tr>
+</table>
+The expression directly following the <b><tt>While(...)</tt></b> block is added as a last argument to the <b><tt>While(...)</tt></b> call. So <b><tt>While(a)b;</tt></b> is parsed to the internal form <b><tt>(While a b).</tt></b>
+</ul>
+
+<p>
+This scheme allows coding the algorithms in an almost C-like syntax.
+
+
+<p>
+Strings are generally represented with quotes around them, e.g.
+"this is a string". Backslash <b><tt>\</tt></b> in a string will unconditionally add the
+next character to the string, so a quote can be added with <b><tt>\"</tt></b> (a backslash-quote sequence).
+
+
+<p>
+
+<a name="c1s9">
+
+</a>
+<h2>
+<hr>1.9 Using "Macro rules" (e.g. <b><tt>NFunction</tt></b>)
+</h2>
+The Piper language allows to have rules whose definitions are generated at
+runtime. In other words, it is possible to write rules (or "functions") that,
+as a side-effect, will define other rules, and those other rules will depend on
+some parts of the expression the original function was applied to.
+
+
+<p>
+This is accomplished using functions <b><tt>MacroRuleBase</tt></b>, <b><tt>MacroRule</tt></b>, <b><tt>MacroRulePattern</tt></b>. These functions evaluate their arguments (including the rule name, predicate and body) and define the rule that results from this evaluation.
+
+
+<p>
+Normal, "non-Macro" calls such as <b><tt>Rule()</tt></b> will not evaluate their arguments and this is a desired feature. For example, suppose we defined a new predicate like this,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RuleBase("IsIntegerOrString, {x});
+Rule("IsIntegerOrString", 1, 1, True)
+	IsInteger(x) And IsString(x);
+</pre></tr>
+</table>
+If the <b><tt>Rule()</tt></b> call were to evaluate its arguments, then the "body" argument,
+<b><tt>IsInteger(x) And IsString(x)</tt></b>, would be evaluated to <b><tt>False</tt></b> since <b><tt>x</tt></b> is an
+atom, so we would have defined the predicate to be always <b><tt>False</tt></b>, which is not
+at all what we meant to do. For this reason, the <b><tt>Rule</tt></b> calls do not evaluate
+their arguments.
+
+
+<p>
+Consider however the following situation. Suppose we have a function
+<b><tt>f(arglist)</tt></b> where <b><tt>arglist</tt></b> is its list of arguments, and suppose we want to
+define a function <b><tt>Nf(arglist)</tt></b> with the same arguments which will evaluate
+<b><tt>f(arglist)</tt></b> and return only when all arguments from <b><tt>arglist</tt></b> are numbers, and
+return unevaluated <b><tt>Nf(arglist)</tt></b> otherwise. This can of course be done by a usual rule such as
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Rule("Nf", 3, 0, IsNumericList({x,y,z}))
+  &lt;-- "f" @ {x,y,z};
+</pre></tr>
+</table>
+Here <b><tt>IsNumericList</tt></b> is a predicate that checks whether all elements of a given
+list are numbers. (We deliberately used a <b><tt>Rule</tt></b> call instead of an
+easier-to-read <b><tt>&lt;--</tt></b> operator to make it easier to compare with what follows.)
+
+
+<p>
+However, this will have to be done for every function <b><tt>f</tt></b> separately. We would
+like to define a procedure that will define <b><tt>Nf</tt></b>, given <i>any</i> function
+<b><tt>f</tt></b>. We would like to use it like this:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+NFunction("Nf", "f", {x,y,z});
+</pre></tr>
+</table>
+After this function call we expect to be able to use the function <b><tt>Nf</tt></b>.
+
+
+<p>
+Here is how we could naively try to implement <b><tt>NFunction</tt></b> (and fail):
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+NFunction(new'name, old'name, arg'list) := [
+  MacroRuleBase(new'name, arg'list);
+  MacroRule(new'name, Length(arg'list), 0,
+    IsNumericList(arg'list)
+    )
+  new'name @ arg'list;
+];
+</pre></tr>
+</table>
+
+
+<p>
+Now, this just does not do anything remotely right. <b><tt>MacroRule</tt></b> evaluates its 
+arguments. Since <b><tt>arg'list</tt></b> is an atom and not a list of numbers at the time we are defining this,
+<b><tt>IsNumericList(arg'list)</tt></b> will evaluate to <b><tt>False</tt></b> and the new
+rule will be defined with a predicate that is always <b><tt>False</tt></b>, i.e. it will be
+never applied.
+
+
+<p>
+The right way to figure this out is to realize that the <b><tt>MacroRule</tt></b> call
+evaluates all its arguments and passes the results to a <b><tt>Rule</tt></b> call. So we need
+to see exactly what <b><tt>Rule()</tt></b> call we need to produce and then we need to
+prepare the arguments of <b><tt>MacroRule</tt></b> so that they evaluate to the right values.
+The <b><tt>Rule()</tt></b> call we need is something like this:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Rule("actual new name", &lt;actual # of args&gt;, 0,
+  IsNumericList({actual arg list})
+)  "actual new name" @ {actual arg list};
+</pre></tr>
+</table>
+
+
+<p>
+Note that we need to produce expressions such as <b><tt>"new name" @ arg'list</tt></b> and not <i>results</i> of evaluation of these expressions. We can produce these expressions by using <b><tt>UnList()</tt></b>, e.g.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+UnList({Atom("@"), "Sin", {x}})
+</pre></tr>
+</table>
+produces
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+"Sin" @ {x};
+</pre></tr>
+</table>
+but not <b><tt>Sin(x)</tt></b>, and
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+UnList({IsNumericList, {1,2,x}})
+</pre></tr>
+</table>
+produces the expression
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsNumericList({1,2,x});
+</pre></tr>
+</table>
+which is not further evaluated.
+
+
+<p>
+Here is a second version of <b><tt>NFunction()</tt></b> that works:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+NFunction(new'name, old'name, arg'list) := [
+  MacroRuleBase(new'name, arg'list);
+  MacroRule(new'name, Length(arg'list), 0,
+    UnList({IsNumericList, arg'list})
+  )
+    UnList({Atom("@"), old'name, arg'list});
+];
+</pre></tr>
+</table>
+Note that we used <b><tt>Atom("@")</tt></b> rather than just the bare atom <b><tt>@</tt></b> because <b><tt>@</tt></b> is
+a prefix operator and prefix operator names as bare atoms do not parse (they
+would be confused with applications of a prefix operator to what follows).
+
+
+<p>
+Finally, there is a more concise (but less general) way of defining
+<b><tt>NFunction()</tt></b> for functions with known number of arguments, using the
+backquoting mechanism. The backquote operation will first substitute variables
+in an expression, without evaluating anything else, and then will evaluate the
+resulting expression a second time. The code for functions of just one variable may look like this:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+N1Function(new'name, old'name) :=
+	`( @new'name(x_IsNumber) &lt;-- @old'name(x) );
+</pre></tr>
+</table>
+This executes a little slower than the above version, because the backquote
+needs to traverse the expression twice, but makes for much more readable code.
+
+
+<p>
+
+<a name="c1s10">
+
+</a>
+<h2>
+<hr>1.10 Macro expansion
+</h2>
+Piper supports macro expansion (back-quoting). An expression can be
+back-quoted by putting a <b><tt>`</tt></b> in front of it. Within the back-quoted
+expression, all atoms that have a <b><tt>@</tt></b> in front of them get replaced
+with the value of that atom (treated as a variable), and then the
+resulting expression is evaluated:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x:=y
+Out&gt; y;
+In&gt; `(@x:=2)
+Out&gt; 2;
+In&gt; x
+Out&gt; y;
+In&gt; y
+Out&gt; 2;
+</pre></tr>
+</table>
+
+
+<p>
+This is useful in cases where within an expression one sub-expression
+is not evaluated. For instance, transformation rules can be built
+dynamically, before being declared. This is a particularly powerful
+feature that allows a programmer to write programs that write programs.
+The idea is borrowed from Lisp.
+
+
+<p>
+As the above example shows, there are similarities with the <b><tt>Macro...</tt></b>
+functions, that serve the same purpose for specific expressions.
+For example, for the above code, one could also have called <b><tt>MacroSet</tt></b>:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; MacroSet(x,3)
+Out&gt; True;
+In&gt; x
+Out&gt; y;
+In&gt; y
+Out&gt; 3;
+</pre></tr>
+</table>
+
+
+<p>
+The difference is that <b><tt>MacroSet</tt></b>, and in general the <b><tt>Macro...</tt></b>
+functions, are faster than their back-quoted counterparts.
+This is because with back-quoting, first a new expression is 
+built before it is evaluated. The advantages of back-quoting
+are readability and flexibility (the number of <b><tt>Macro...</tt></b>
+functions is limited, whereas back-quoting can be used anywhere).
+
+
+<p>
+When an <b><tt>@</tt></b> operator is placed in front of a function call, the
+function call is replaced:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; plus:=Add
+Out&gt; Add;
+In&gt; `(@plus(1,2,3))
+Out&gt; 6;
+</pre></tr>
+</table>
+
+
+<p>
+Application of pure functions is also possible (as of version 1.0.53)
+by using macro expansion:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; pure:={{a,b},a+b}; 
+Out&gt; {{a,b},a+b};
+In&gt; ` @pure(2,3); 
+Out&gt; 5;
+</pre></tr>
+</table>
+
+
+<p>
+Pure (nameless) functions are useful for declaring a temporary function,
+that has functionality depending on the current environment it is in,
+or as a way to call driver functions. In the case of drivers (interfaces
+to specific functionality), a variable can be bound to a function to 
+be evaluated to perform a specific task. That way several drivers can
+be around, with one bound to the variables holding the functions that
+will be called.
+
+
+<p>
+
+<a name="c1s11">
+
+</a>
+<h2>
+<hr>1.11 Scope of variable bindings
+</h2>
+When setting variables or retrieving variable values, variables are
+automatically bound global by default. You can explicitly specify variables to
+be local to a block such as a function body; this will make them invisible
+outside the block. Blocks have the form <b><tt>[</tt></b> statement1<b><tt>;</tt></b> statement2<b><tt>;</tt></b> <b><tt>]</tt></b> and local variables are declared by the
+<b><tt>Local()</tt></b> function.
+
+
+<p>
+When entering a block, a new stack frame is pushed for the local variables; it
+means that the code inside a block doesn't see the local variables of the <i>caller</i> either!
+You can tell the interpreter that a function should see local variables of the
+calling environment; to do this, declare
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+UnFence(funcname, arity)
+</pre></tr>
+</table>
+on that function.
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

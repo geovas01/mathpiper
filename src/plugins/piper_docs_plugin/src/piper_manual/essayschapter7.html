@@ -1,0 +1,1921 @@
+<html>
+<head>
+  <title>The Piper arithmetic library</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c7">
+
+</a>
+<h1>
+7. The Piper arithmetic library
+</h1>
+<p> </p>
+<a name="c7s1">
+
+</a>
+<h2>
+<hr>7.1 Introduction
+</h2>
+<b><tt>Piper</tt></b> comes with its own arbitrary-precision arithmetic library,
+to reduce dependencies on other software.
+
+
+<p>
+This part describes how the arithmetic library is embedded into
+<b><tt>Piper</tt></b>.
+
+
+<p>
+
+<a name="c7s2">
+
+</a>
+<h2>
+<hr>7.2 The link between the interpreter and the arithmetic library
+</h2>
+The <b><tt>Piper</tt></b> interpreter has the concept of an <i>atom</i>, an object
+which has a string representation.
+Numbers are also atoms and are initially entered into Piper as decimal strings.
+<h6>There are functions to work with numbers in non-decimal bases, but direct input/output of numbers is supported only in decimal notation.</h6>As soon as a calculation needs
+to be performed, the string representation is used to construct
+an object representing the number, in an internal representation that
+the arithmetic library can work with.
+
+
+<p>
+The basic layout is as follows: there is one class <b><tt>BigNumber</tt></b> that offers basic numerical functions,
+arithmetic operations such as addition and multiplication, through a set of class methods.
+Integers and floating-point numbers are handled by the same class.
+
+
+<p>
+The <b><tt>BigNumber</tt></b> class delegates the actual arithmetic operations to the auxiliary classes <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b>.
+These two classes are direct wrappers of an underlying arithmetic library.
+The library implements a particular internal representation of numbers.
+
+
+<p>
+The responsibility of the class <b><tt>BigNumber</tt></b> is to perform precision tracking, floating-point formatting, error reporting, type checking and so on, while <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b> only concern themselves with low-level arithmetic operations on integer and floating-point numbers respectively.
+In this way Piper isolates higher-level features like precision tracking from the lower-level arithmetic operations.
+The number objects in a library should only be able to convert themselves to/from a string and perform basic arithmetic.
+It should be easy to wrap a generic arithmetic library into a <b><tt>BigNumber</tt></b> implementation.
+
+
+<p>
+It is impossible to have several alternative number libraries operating at the same time.
+[In principle, one might write the classes <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b>
+as wrappers of two different arithmetic libraries, one for integers and the other for floats,
+but at any rate one cannot have two different libraries for integers at the same time.]
+Having several libraries in the same Piper session does not seem to be very useful;
+it would also incur a lot of overhead because one would have to convert the numbers from one internal library representation to another.
+For performance benchmarking or for testing purposes one can compile separate versions of <b><tt>Piper</tt></b> configured with different arithmetic libraries.
+
+
+<p>
+To embed an arbitrary-precision arithmetic library into Piper, one needs to write two wrapper classes, <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b>.
+(Alternatively, one could write a full <b><tt>BigNumber</tt></b> wrapper class but that would result in code duplication unless the library happens to implement a large portion of the <b><tt>BigNumber</tt></b> API.
+There is already a reference implementation of <b><tt>BigNumber</tt></b> through <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b> in the file <b><tt>numbers.cpp</tt></b>.)
+The required API for the <b><tt>BigNumber</tt></b> class is described below.
+
+
+<p>
+
+<a name="c7s3">
+
+</a>
+<h2>
+<hr>7.3 Interface of the <b><tt>BigNumber</tt></b> class
+</h2>
+The following C++ code demonstrates how to use the objects of the <b><tt>BigNumber</tt></b> class.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+// Calculate z=x+y where x=10 and y=15
+BigNumber x("10",100,10);
+BigNumber y("15",100,10);
+BigNumber z;
+z.Add(x,y,10));    
+// cast the result to a string
+LispString  str;
+z.ToString(str,10);
+</pre></tr>
+</table>
+The behaviour is such that in the above example <b><tt>z</tt></b> will contain the result of adding <b><tt>x</tt></b> and
+<b><tt>y</tt></b>, without modifying <b><tt>x</tt></b> or <b><tt>y</tt></b>.
+This is equivalent to <b><tt>z:=x+y</tt></b> in Piper.
+
+
+<p>
+A calculation might modify one of its arguments.
+This might happen when one argument passed in is actually the 
+object performing the calculation itself. For example, if a calculation
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Add(x,y);
+</pre></tr>
+</table>
+were issued, the result would be assigned to <b><tt>x</tt></b>, and the old value of <b><tt>x</tt></b> is deleted.
+This is equivalent to the Piper code <b><tt>x:=x+y</tt></b>.
+In this case a specific implementation might opt to perform the operation
+destructively ("in-place"). Some operations can be performed much more efficiently in-place, without copying the arguments.
+Among them are for example <b><tt>Negate</tt></b>, <b><tt>Add</tt></b>, <b><tt>ShiftLeft</tt></b>, <b><tt>ShiftRight</tt></b>.
+
+
+<p>
+Therefore, all class methods of <b><tt>BigNumber</tt></b> that allow a <b><tt>BigNumber</tt></b> object as an argument should behave correctly when called destructively on the same <b><tt>BigNumber</tt></b> object.
+The result must be exactly the same as if all arguments were copied to temporary locations before performing tasks on them, with no other side-effects.
+For instance, if the
+specific object representing the number inside the numeric class
+is shared with other objects, it should not allow the destructive
+operation, as then other objects might start behaving differently.
+
+
+<p>
+The basic arithmetic class <b><tt>BigNumber</tt></b> defines some simple arithmetic operations,
+through which other more elaborate functions can be built.
+Particular implementations of the multiple-precision library are wrapped by the <b><tt>BigNumber</tt></b> class, and the rest of the Piper core should only use the <b><tt>BigNumber</tt></b> API.
+
+
+<p>
+This API will not be completely exposed to Piper scripts, because some of these functions are too low-level.
+Among the low-level functions, only those that are very useful for optimization will be available to the Piper scripts.
+(For the functions that seem to be useful for Piper, suggested Piper bindings are given below.)  
+But the full API will be available to C++ plugins, so that multiple-precision algorithms could be efficiently implemented when performance is critical.
+Intermediate-level arithmetic functions such as <b><tt>MathAdd</tt></b>, <b><tt>MathDiv</tt></b>, <b><tt>MathMod</tt></b> and so on could be implemented either in the Piper core or in plugins, through this low-level API.
+The library scripts will be able to transform numerical expressions such as <b><tt>x:=y+z</tt></b> into calls of these intermediate-level functions.
+
+
+<p>
+
+<a name="multiple-precision facility!requirements">
+
+</a>
+Here we list the basic arithmetic operations that need to be implemented by a multiple-precision class <b><tt>BigNumber</tt></b>.
+The operations are divided into several categories for convenience.
+Equivalent Piper script code is given, as well as examples of C++ usage.
+
+
+<p>
+
+<h5>
+1. Input/output operations.
+</h5>
+<ul><li></li><b><tt>BigNumber::SetTo</tt></b> -- Construct a number from a string in given base.
+The format is the standard integer, fixed-point and floating-point representations of numbers.
+When the string does not contain the period character "<b><tt>.</tt></b>" or the exponent character "<b><tt>e</tt></b>" (the exponent character "<b><tt>@</tt></b>" should be used for <b>base&gt;10</b>),
+the result is an integer number and the precision argument is ignored.
+Otherwise, the result is a floating-point number
+rounded to a given number of <i>base digits</i>.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.SetTo("2.e-19", 100, 10);
+</pre></tr>
+</table>
+Here we encounter a problem of ambiguous hexadecimal exponent:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.SetTo("2a8c.e2", 100, 16);
+</pre></tr>
+</table>
+It is not clear whether the above number is in exponential notation or not.
+But this is hopefully not a frequently encountered situation.
+We may assume that the exponent character for <b> base&gt;10</b> is "<b><tt>@</tt></b>" and not "<b><tt>e</tt></b>".
+<li>The same function is overloaded to construct a number from a platform number (a 32-bit integer or a double precision value).
+C++:
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.SetTo(12345); y.SetTo(-0.001);
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::ToString</tt></b> -- Print a number to a string in a given precision and in a given base.
+The precision is given as the number of digits in the given base.
+The value should be rounded to that number of significant base digits.
+(Integers are printed exactly, regardless of the given precision.)
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.ToString(buffer, 200, 16); // hexadecimal
+x.ToString(buffer, 40, 10); // decimal
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::Double</tt></b> -- Obtain an approximate representation of <b><tt>x</tt></b> as double-precision value.
+(The conversion may cause overflow or underflow, in which case the result is undefined.)
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+double a=x.Double();
+</pre></tr>
+</table>
+</ul>
+
+<p>
+
+<h5>
+2. Basic object manipulation.
+</h5>
+These operations, as a rule, do not need to change the numerical value of the object.
+<ul><li></li><b><tt>BigNumber::SetTo</tt></b> -- Copy a number, <b><tt>x := y</tt></b>.
+This operation should copy the numerical value exactly, without change.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.SetTo(y);
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::Equals</tt></b> -- Compare two numbers for equality, <b><tt>x = y</tt></b>.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Equals(y)==true;
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathEquals(x,y)
+</pre></tr>
+</table>
+The values are compared arithmetically, their internal precision may differ, and integers may be compared to floats.
+Two floats are considered "equal" when their values coincide within their precision.
+It is only guaranteed that <b><tt>Equals</tt></b> returns true for equal integers, for an integer and a floating-point number with the same integer value, and for two exactly bit-by-bit equal floating-point numbers.
+Floating-point comparison may be unreliable due to roundoff error and particular internal representations.
+So it may happen that after <b><tt>y:=x+1;</tt></b> <b><tt>y:=y-1;</tt></b> the comparison
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+y.Equals(x)
+</pre></tr>
+</table>
+will return <b><tt>false</tt></b>, although such cases should be rare.
+<li></li><b><tt>BigNumber::IsInt</tt></b> -- Check whether the number <b><tt>x</tt></b> is of integer or floating type.
+(Both types are represented by the same class <b><tt>BigNumber</tt></b>, and we need to be able to distinguish them.)
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.IsInt()==true;
+</pre></tr>
+</table>
+Piper: part of the implementation of <b><tt>IsInteger(x)</tt></b>.
+<li></li><b><tt>BigNumber::IsIntValue</tt></b> -- Check whether the number <b><tt>x</tt></b> has an integer value.
+(Not the same as the previous function, because a floating-point type can also have an integer value.)
+Always returns <b><tt>true</tt></b> on objects of integer type.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.IsIntValue()==true;
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FloatIsInt(x)
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::BecomeInt</tt></b>, <b><tt>BigNumber::BecomeFloat</tt></b> -- Change the type of a number from integer to float without changing the numerical value.
+The precision is either set automatically (to enough digits to hold the integer), or explicitly to a given number of bits. (Roundoff might occur.)
+Change the type from float to integer, rounding off if necessary.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.BecomeInt(); x.BecomeFloat();
+x.BecomeFloat(100);
+</pre></tr>
+</table>
+</ul>
+
+<p>
+
+<h5>
+3. Basic arithmetic operations.
+</h5>
+Note that here "precision" always means the number of significant <i>bits</i>, i.e. digits in the base 2, <i>not decimal digits</i>.
+<ul><li></li><b><tt>BigNumber::LessThan</tt></b> -- Compare two objects, <b><tt>x&lt;y</tt></b>. Returns <b><tt>true</tt></b> if the numerical comparison holds, regardless of the value types (integer or float).
+If the numbers are equal up to their precision, the comparison returns <b><tt>false</tt></b>.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.LessThan(y)==true;
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LessThan(x,y)
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::Floor</tt></b> -- Compute the integer part of a number, <b><tt>x := Floor(y)</tt></b>.
+This function should round toward algebraically smaller integers, as usual.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Floor(y);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathFloor(x)
+</pre></tr>
+</table>
+If there are enough digits in <b><tt>x</tt></b> to compute its integer part, then the result is an exact integer.
+Otherwise the floating-point value <b><tt>x</tt></b> is returned unchanged and an error message may be printed.
+<li></li><b><tt>BigNumber::GetExactBits</tt></b> -- Report the current precision of a number <b><tt>x</tt></b> in bits.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+prec=x.GetExactBits();
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+GetExactBits(x)
+</pre></tr>
+</table>
+Every floating-point number contains information about how many significant bits of mantissa it currently has.
+A particular implementation may hold more bits for convenience but the additional bits may be incorrect.
+[Integer numbers are always exact and do not have a concept of precision.
+The function <b><tt>GetExactBits</tt></b> should not be used on integers;
+it will return a meaningless result.]
+The precision of a number object is changed automatically by arithmetic operations, by conversions from strings (to the given precision), or manually by the function <b><tt>SetExactBits</tt></b>.
+It is not strictly guaranteed that <b><tt>GetExactBits</tt></b> returns the number of correct bits.
+Rather, this number of bits is intended as rough lower bound of the real achieved precision.
+(It is difficult to accurately track the round-off errors accumulated after many operations, without a time-consuming interval arithmetic or another similar technique.)
+Note: the number of bits is a platform signed integer (C++ type <b><tt>long</tt></b>).
+<li></li><b><tt>BigNumber::SetExactBits</tt></b> -- Set the precision of a number <b><tt>x</tt></b> 
+<i>and truncate</i> (or expand) it to a given floating-point precision of <b><tt>n</tt></b> bits.
+This function has an effect of converting the number to the floating-point type with <b><tt>n</tt></b> significant bits of mantissa.
+The <b><tt>BigNumber</tt></b> object is changed.
+[No effect on integers.]
+Note that the <b><tt>Floor</tt></b> function is not similar to <b><tt>SetExactBits</tt></b> because
+1) <b><tt>Floor</tt></b> always converts to an integer value while <b><tt>SetExactBits</tt></b> converts to a floating-point value,
+2) <b><tt>Floor</tt></b> always decreases the number while <b><tt>SetExactBits</tt></b> tries to find the closest approximation.
+For example, if <b> x= -1123.38</b> then <b><tt>x.SetExactBits(1)</tt></b> should return "<b><tt>-1024.</tt></b>" which is the best one-bit floating-point approximation.
+However, <b><tt>Floor(-1123.38)</tt></b> returns <b><tt>-1124</tt></b>
+(the largest integer not greater than <b><tt>-1123.38</tt></b>).
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.SetExactBits(300);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+SetExactBits(x, 300)
+</pre></tr>
+</table>
+Note: the number of bits is a platform signed integer (C++ type <b><tt>long</tt></b>).
+<li></li><b><tt>BigNumber::Add</tt></b> -- Add two numbers, <b><tt>x := y+z</tt></b>, at given precision.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Add(y,z, 300);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathAdd(x,y)
+</pre></tr>
+</table>
+When subtracting almost equal numbers, a loss of precision will occur.
+The precision of the result will be adjusted accordingly.
+<li></li><b><tt>BigNumber::Negate</tt></b> -- Negate a number, <b><tt>x := -y</tt></b>.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Negate(y);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathNegate(x)
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::Multiply</tt></b> -- Multiply two numbers, <b><tt>x := y*z</tt></b>, at given precision.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Multiply(y,z, 300);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathMultiply(x,y)
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::Divide</tt></b> -- Divide two numbers, <b><tt>x := y/z</tt></b>, at given precision.
+(Integers are divided exactly as integers and the "precision" argument is ignored.)
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Divide(y,z, 300);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathDivide(x,y)
+</pre></tr>
+</table>
+</ul>
+
+<p>
+
+<h5>
+4. Auxiliary operations.
+</h5>
+Some additional operations useful for optimization purposes.
+These operations can be efficiently implemented with a binary-based internal representation of big numbers.
+<ul><li></li><b><tt>BigNumber::IsSmall</tt></b> -- Check whether the number <b><tt>x</tt></b> fits into a platform type <b><tt>long</tt></b> or <b><tt>double</tt></b>. (Optimization of comparison.)
+This test should helps avoid unnecessary calculations with big numbers.
+Note that the semantics of this operation is different for integers and for floats.
+An integer is "small" only when it fits into a platform <b><tt>long</tt></b> integer.
+A float is "small" when it can be approximated by a platform <b><tt>double</tt></b> (that is, when its decimal exponent is smaller than 1021).
+For example, a <b><tt>BigNumber</tt></b> representing <b> Pi</b> to 1000 digits is "small" because it can be approximated by a platform float.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.IsSmall()==true;
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathIsSmall(x)
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::MultiplyAdd</tt></b> -- Multiply two numbers and add to the third, <b><tt>x := x+y*z</tt></b>, at given precision. (Optimization of a frequently used operation.)
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.MultiplyAdd(y,z, 300);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathMultiplyAdd(x,y,z)
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::Mod</tt></b> -- Obtain the remainder modulo an integer, <b><tt>x:=Mod(y,n)</tt></b>.
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Mod(y,n);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathMod(x,n)
+</pre></tr>
+</table>
+(Optimization of integer division, important for number theory applications.)
+The integer modulus <b><tt>n</tt></b> is a big number.
+The function is undefined for floating-point numbers.
+<li></li><b><tt>BigNumber::Sign</tt></b> -- Obtain the sign of the number <b><tt>x</tt></b> (result is <b><tt>-1</tt></b>, <b><tt>0</tt></b> or <b><tt>1</tt></b>). (Optimization of comparison with 0.)
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+int sign_of_x = x.Sign();
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathSign(x)
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::BitCount</tt></b> -- Obtain
+the integer part of the binary logarithm of the absolute value of <b><tt>x</tt></b>.
+For integers, this function counts the significant bits, i.e. the number of bits needed to represent the integer.
+This function is not to be confused with the number of bits that are set to 1, sometimes called the "population count" of an integer number.
+The population count of 4 (binary "100") is 1, and the bit count of 4 is 3.
+</ul>
+
+<p>
+For floating-point numbers, <b><tt>BitCount</tt></b> should return the binary exponent of the number (with sign), like the integer output of the standard C function <b><tt>frexp</tt></b>.
+More formally: if <b> n=BitCount(x)</b>, and <b>x!=0</b>, then <b> 1/2&lt;=Abs(x)*2^(-n)&lt;1</b>.
+The bit count of an integer or a floating <b> 0</b> is arbitrarily defined to be 1.
+(Optimization of the binary logarithm.)
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.BitCount();
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathBitCount(x)
+</pre></tr>
+</table>
+Note: the return type of the bit count is a platform signed integer (C++ type <b><tt>long</tt></b>).  
+<ul><li></li><b><tt>BigNumber::ShiftLeft</tt></b>, <b><tt>BigNumber::ShiftRight</tt></b> -- Bit-shift the number (multiply or divide by the <b> n</b>-th power of <b> 2</b>), <b><tt>x := y &gt;&gt; n</tt></b>, <b><tt>x := y &lt;&lt; n</tt></b>.
+For integers, this operation can be efficiently implemented because it has hardware support.
+For floats, this operation is usually also much more efficient than multiplication or division by 2 (cf. the standard C function <b><tt>ldexp</tt></b>).
+(Optimization of multiplication and division by a power of 2.)
+Note that the shift amount is a platform signed integer (C++ type <b><tt>long</tt></b>).
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.ShiftLeft(y, n); x.ShiftRight(y, n);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ShiftLeft(x,n); ShiftRight(x,n);
+</pre></tr>
+</table>
+<li></li><b><tt>BigNumber::BitAnd</tt></b>, <b><tt>BigNumber::BitOr</tt></b>, <b><tt>BigNumber::BitXor</tt></b>, <b><tt>BigNumber::BitNot</tt></b> -- Perform bitwise arithmetic, like in C: <b><tt>x = y&amp;z</tt></b>, <b><tt>x = y|z</tt></b>, <b><tt>x = y^z</tt></b>, <b><tt>x = ~y</tt></b>.
+This should be implemented only for integers.
+Integer values are interpreted as bit sequences starting from the least significant bit.
+(Optimization of operations on bit streams and some arithmetic involving powers of 2.)
+C++:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.BitAnd(y,z); x.BitOr(y,z);
+x.BitXor(y,z); x.BitNot(y);
+</pre></tr>
+</table>
+Piper:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+BitAnd(x,y); BitOr(y,z);
+BitXor(y,z); BitNot(y);
+</pre></tr>
+</table>
+</ul>
+
+<p>
+The API includes only the most basic operations.
+All other mathematical functions such as GCD, power, logarithm, cosine
+and so on, can be efficiently implemented using this basic interface.
+
+
+<p>
+Note that generally the arithmetic functions will set the type of the resulting object to the type of the result of the operation.
+For example, operations that only apply to integers (<b><tt>Mod</tt></b>, <b><tt>BitAnd</tt></b> etc.) will set the type of the resulting object to integer if it is a float.
+The results of these operations on non-integer arguments are undefined.
+
+
+<p>
+
+<a name="c7s4">
+
+</a>
+<h2>
+<hr>7.4 Precision of arithmetic operations
+</h2>
+All operations on integers are exact.
+Integers must grow or shrink when necessary, limited only by system memory.
+But floating-point numbers need some precision management.
+
+
+<p>
+In some arithmetic operations (add, multiply, divide) the working precision is given explicitly.
+For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Add(y,z,100)
+</pre></tr>
+</table>
+will add <b><tt>y</tt></b> to <b><tt>z</tt></b> and put the result into <b><tt>x</tt></b>, truncating it to at most 100 bits of mantissa, if necessary.
+(The precision is given in bits, not in decimal digits, because when dealing with low-level operations it is much more natural to think in terms of bits.)
+If the numbers <b><tt>y</tt></b>, <b><tt>z</tt></b> have fewer than 100 bits of mantissa each, then their sum will not be precise to all 100 digits.
+That is fine;
+but it is important that the sum should not contain <i>more</i> than 100 digits.
+Floating-point values, unlike integers, only grow up to the given number of significant bits and then a round-off <i>must</i> occur.
+Otherwise we will be wasting a lot of time on computations with many meaningless digits.
+
+
+<p>
+
+<h3>
+<hr>Automatic precision tracking
+</h3>
+The precision of arithmetic operations on floating-point numbers can be maintained automatically.
+A rigorous way to do it would be to represent each imprecise real number <b>x</b> by an interval with rational bounds within which <b> x</b> is guaranteed to be.
+This is usually called "interval arithmetic."
+A result of an interval-arithmetic calculation is "exact" in the sense that the actual (unknown) number <b> x</b> is <i>always</i> within the resulting interval.
+However, interval arithmetic is computationally expensive and at any rate the width of the resulting interval is not guaranteed to be small enough for a particular application.
+
+
+<p>
+For the Piper arithmetic library, a "poor man's interval arithmetic" is proposed where the precision is represented by the "number of correct bits".
+The precision is not tracked exactly but almost always adequately.
+The purpose of this kind of rough precision tracking is to catch a critical roundoff error or to
+indicate an unexpected loss of precision in numerical calculations.
+
+
+<p>
+Suppose we have two floating-point numbers <b> x</b> and <b> y</b> and we know that they have certain numbers of correct mantissa bits, say <b> m</b> and <b> n</b>.
+In other words, <b> x</b> is an approximation to an unknown real number <b> x'=x*(1+delta)</b> and we know that <b>Abs(delta)&lt;2^(-m)</b>; and similarly <b>y'=y*(1+epsilon)</b> with <b>Abs(epsilon)&lt;2^(-n)</b>.
+Here <b>delta</b> and <b> epsilon</b> are the relative errors for <b> x</b> and <b> y</b>.
+Typically <b> delta</b> and <b> epsilon</b> are much smaller than <b> 1</b>.
+
+
+<p>
+Suppose that every floating-point number knows the number of its correct digits.
+We can symbolically represent such numbers as pairs <b><tt>{x,m}</tt></b> or <b><tt>{y,n}</tt></b>.
+When we perform an arithmetic operation on numbers, we need to update the precision component as well.
+
+
+<p>
+Now we shall consider the basic arithmetic operations to see how the precision is updated.
+
+
+<p>
+
+<h5>
+Multiplication
+</h5>
+If we need to multiply <b> x</b> and <b> y</b>, the correct answer is <b> x'*y'</b> but we only know an approximation to it, <b> x*y</b>.
+We can estimate the precision by <b> x'*y'=x*y*(1+delta)*(1+epsilon)</b> and it follows that the relative precision is at most <b>delta+epsilon</b>.
+But we only represent the relative errors by the number of bits.
+The whole idea of the simplified precision tracking is to avoid costly operations connected with precision.
+So instead of tracking the number <b> delta+epsilon</b> exactly, we represent it roughly: either set the error of <b> x*y</b> to the larger of the errors of <b> x</b> and <b> y</b>, or double the error.
+
+
+<p>
+More formally, we have the estimates <b> Abs(delta)&lt;2^(-m)</b>, <b>Abs(epsilon)&lt;2^(-n)</b> and we need a similar estimate <b>Abs(r)&lt;2^(-p)</b> for <b>r=delta+epsilon</b>.
+
+
+<p>
+If the two numbers <b> x</b> and <b> y</b> have the same number of correct bits, we should double the error (i.e. decrease the number of significant bits by 1).
+But if they don't have the same number of bits, we cannot really estimate the error very well.
+To be on the safe side, we might double the error if the numbers <b> x</b> and <b> y</b> have almost the same number of significant bits, and leave the error constant if the numbers of significant bits of <b> x</b> and <b> y</b> are very different.
+
+
+<p>
+The answer expressed as a formula is <b> p=Min(m,n)</b> if <b>Abs(m-n)&gt;=D</b> and <b> p=Min(m,n)-1</b> otherwise.
+Here <b> D</b> is a constant that expresses our tolerance for error.
+In the current implementation, <b> D=1</b>.
+
+
+<p>
+If one of the operands is a floating zero <b> x</b>=<b><tt>{0.,m}</tt></b> (see below) and <b> x</b>=<b><tt>{x,n}</tt></b>, then <b> p=m-BitCount(x)+1</b>.
+This is the same formula as above, if we pretend that the bit count of <b><tt>{0.,m}</tt></b> is equal to <b> 1-m</b>.
+
+
+<p>
+
+<h5>
+Division
+</h5>
+Division is multiplication by the inverse number.
+When we take the inverse of <b> x*(1+delta)</b>, we obtain approximately <b>1/x*(1-delta)</b>.
+The relative precision does not change when we take the inverse.
+So the handling of precision is exactly the same as for the multiplication.
+
+
+<p>
+
+<h5>
+Addition
+</h5>
+Addition is more complicated because the absolute rather than the relative precision plays the main role,
+and because there may be roundoff errors associated with subtracting almost equal numbers.
+
+
+<p>
+Formally, we have the relative precision <b>r</b> of <b> x+y</b> as
+
+<p><center><b> r=(delta*x+epsilon*y)/(x+y).</b></center></p>
+
+We have the bounds on <b>delta</b> and <b> epsilon</b>:
+
+<p><center><b>[Abs(delta)&lt;2^(-m);Abs(epsilon)&lt;2^(-n);],</b></center></p>
+
+and we need to find a bit bound on <b>r</b>, i.e. an integer <b> p</b> such that <b> Abs(r)&lt;2^(-p)</b>.
+But we cannot estimate <b>p</b> without first computing <b> x+y</b> and analyzing the relative magnitude of <b> x</b> and <b> y</b>.
+To perform this estimate, we need to use the bit counts of <b> x</b> and <b> y</b> and on <b> x+y</b>.
+Let these bit counts be <b> a</b>, <b> b</b> and <b> c</b>, so that <b> Abs(x)&lt;2^a</b>, <b> Abs(y)&lt;2^b</b>, and <b> 2^(c-1)&lt;=Abs(x+y)&lt;2^c</b>.
+(At first we assume that <b> x!=0</b>, <b> y!=0</b>, and <b> x+y!=0</b>.)
+Now we can estimate <b> r</b> as
+
+<p><center><b> r&lt;=Abs((x*2^(-m))/(x+y))+Abs((y*2^(-n))/(x+y))&lt;=2^(a+1-m-c)+2^(b+1-n-c).</b></center></p>
+
+This is formally similar to multiplying two numbers with <b>a+1-m-c</b> and <b> b+1-m-c</b> correct bits.
+As in the case of multiplication, we may take the minimum of the two numbers, or double one of them if they are almost equal.
+
+
+<p>
+Note that there is one important case when we can estimate the precision better than this.
+Suppose <b> x</b> and <b> y</b> have the same sign; then there is no cancellation when we compute <b> x+y</b>.
+The above formula for <b> r</b> gives an estimate
+
+<p><center><b> r&lt;Max(Abs(delta),Abs(epsilon)) </b></center></p>
+
+and therefore the precision of the result is at least <b>p=Min(m,n)</b>.
+
+
+<p>
+If one of the operands is a floating zero represented by <b>x</b>=<b><tt>{0.,m}</tt></b> (see below), then the calculation of the error is formally the same as in the case <b> x</b>=<b><tt>{1.,m}</tt></b>.
+This is as if the bit count of <b><tt>{0.,m}</tt></b> were equal to <b> 1</b> (unlike the case of multiplication).
+
+
+<p>
+Finally, if the sum <b> x+y</b> is a floating zero but <b> x!=0</b> and <b> y!=0</b>,
+then it must be that <b> a=b</b>.
+In that case we represent <b> x+y</b> as <b><tt>{0.,p}</tt></b>, where <b> p=Min(m,n)-a</b>.
+
+
+<p>
+
+<h5>
+Computations with a given target precision
+</h5>
+Using these rules, we can maintain a bound on the numerical errors of all calculations.
+But sometimes we know in advance that we shall not be needing any more than a certain number of digits of the answer,
+and we would like to avoid an unnecessarily high precision and reduce the computation time.
+How can we combine an explicitly specified precision, for example, in the function
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x.Add(y,z,100)
+</pre></tr>
+</table>
+with the automatic precision tracking?
+
+
+<p>
+We should truncate one or both of the arguments to a smaller precision before starting the operation.
+For the multiplication as well as for the addition, the precision tracking involves a comparison of two binary exponents <b> 2^(-g)</b> and <b>2^(-h)</b> to obtain an estimate on <b>2^(-g)+2^(-h)</b>.
+Here <b>g</b> and <b> h</b> are some integers that are easy to obtain during the computation.
+For instance, the multiplication involves <b> g=m</b> and <b> h=n</b>.
+This comparison will immediately show which of the arguments dominates the error.
+
+
+<p>
+The ideal situation would be when one of these exponentials is much smaller than the other, but not very much smaller (that would be a waste of precision).
+In other words, we should aim for <b> Abs(g-h)&lt;8</b> or so, where <b> 8</b> is the number of guard bits we would like to maintain.
+(Generally it is a good idea to have at least 8 guard bits;
+somewhat more guard bits do not slow down the calculation very much, but 200 guard bits would be surely an overkill.)
+Then the number that is much more precise than necessary can be truncated.
+
+
+<p>
+For example, if we find that <b> g=250</b> and <b> h=150</b>, then we can safely truncate <b> x</b> to <b> 160</b> bits or so;
+if, in addition, we need only <b> 130</b> bits of final precision,
+then we could truncate both <b> x</b> and <b> y</b> to about <b> 140</b> bits.
+
+
+<p>
+Note that when we need to subtract two almost equal numbers, there will be a necessary loss of precision,
+and it may be impossible to decide on the target precision before performing the subtraction.
+Therefore the subtraction will have to be performed using all available digits.
+
+
+<p>
+
+<h5>
+The floating zero
+</h5>
+There is a difference between an integer zero and a floating-point zero.
+An integer zero is exact, so the result of <b><tt>0*1.1</tt></b> is exactly zero (also an integer).
+However, <b><tt>x:=1.1-1.1</tt></b> is a floating-point zero (a "floating zero" for short) of which we can only be sure about the first digit after the decimal point, i.e. <b><tt>x=0.0</tt></b>.
+The number <b><tt>x</tt></b> might represent <b><tt>0.01</tt></b> or <b><tt>-0.02</tt></b> for all we know.
+
+
+<p>
+It is impossible to track the <i>relative</i> precision of a floating zero, but it is possible to track the <i>absolute</i> precision.
+Suppose we store the bit count of the absolute precision, just as we store the bit count of the relative precision with nonzero floats.
+Thus we represent a floating zero as a pair <b><tt>{0.,n}</tt></b> where <b> n</b> is an integer, and the meaning of this is a number between <b>-2^(-n)</b> and <b>2^(-n)</b>.
+
+
+<p>
+We can now perform some arithmetic operations on the floating zero.
+Addition and multiplication are handled similarly to the non-zero case, except that we interpret <b><tt>n</tt></b> as the absolute error rather than the relative error.
+This does not present any problems.
+For example, the error estimates for addition is the same as if we had a number <b>1</b> with relative error <b> 2^(-n)</b> instead of <b><tt>{0.,n}</tt></b>.
+With multiplication of <b><tt>{x,m}</tt></b> by <b><tt>{0.,n}</tt></b>, the result is again a floating zero <b><tt>{0.,p}</tt></b>, and the new estimate of <i>absolute</i> precision is <b>p=n-BitCount(x)+1</b>.
+
+
+<p>
+The division by the floating zero, negative powers, and the logarithm of the floating zero are not representable in our arithmetic because, interpreted as intervals, they would correspond to infinite ranges.
+The bit count of the floating zero is therefore undefined.
+However, we can define a positive power of the floating zero (the result is again a floating zero).
+
+
+<p>
+The sign of the floating zero is defined as (integer) 0.
+(Then we can quickly check whether a given number is a zero.)
+
+
+<p>
+
+<h3>
+<hr>Comparison of floats
+</h3>
+Suppose we need to compare floating-point numbers <b><tt>x</tt></b> and <b><tt>y</tt></b>.
+In the strict mathematical sense this is an unsolvable problem
+because we may need in principle arbitrarily many digits of <b><tt>x</tt></b> and <b><tt>y</tt></b>
+before we can say that they are equal. In other words, "zero-testing is
+uncomputable". So we need to relax the mathematical rigor somewhat.
+
+
+<p>
+Suppose that <b><tt>x=12.0</tt></b> and <b><tt>y=12.00</tt></b>. Then in fact <b><tt>x</tt></b> might represent a number
+such as <b><tt>12.01</tt></b>, while <b><tt>y</tt></b> might represent <b><tt>11.999</tt></b>.
+There may be two approaches: first, "12.0" is not equal to "12.00"
+because <b><tt>x</tt></b> and <b><tt>y</tt></b> <i>might</i> represent different numbers.  Second, "12.0"
+is equal to "12.00" because <b><tt>x</tt></b> and <b><tt>y</tt></b> <i>might</i> also represent equal
+numbers. A logical continuation of the
+first approach is that "12.0" is not even equal to another copy
+of "12.0"  because they <i>might</i> represent different numbers, e.g. if we
+compute <b><tt>x=6.0+6.0</tt></b> and <b><tt>y=24.0/2.0</tt></b>, the roundoff errors <i>might</i> be
+different.
+
+
+<p>
+Here is an illustration in support for the idea that the comparison <b><tt>12.0=12</tt></b> should
+return <b><tt>True</tt></b>. Suppose we are writing an algorithm for computing the
+power, <b><tt>x^y</tt></b>. This is much faster if <b><tt>y</tt></b> is an integer because we can use
+the binary squaring algorithm. So we need to detect whether <b><tt>y</tt></b> is an
+integer. Now suppose we are given <b><tt>x=13.3</tt></b> and <b><tt>y=12.0</tt></b>. Clearly we should
+use the integer powering algorithm, even though technically <b><tt>y</tt></b> is a
+float.
+(To be sure, we should check that the integer powering algorithm generates enough significant digits.)
+
+
+<p>
+However, the opposite approach is also completely possible: no two floating-point numbers should be considered equal, except perhaps when one is a bit-for-bit exact copy of the other and when we haven't yet performed any arithmetic on them.
+
+
+<p>
+It seems that no algorithm really needs a test for equality of floats.
+The two useful comparisons on floats <b> x</b>, <b> y</b> seem to be the following:
+<ul><li>whether </li><b> Abs(x-y)&lt;epsilon</b> where <b> epsilon</b> is a given floating-point number representing the precision,
+<li>whether </li><b> x</b> is positive, negative, or zero.
+</ul>
+
+<p>
+Given these predicates, it seems that any floating-point algorithm can be implemented
+just as efficiently as with any "reasonable" definition of the floating-point equality.
+
+
+<p>
+
+<h3>
+<hr>How to increase of the working precision
+</h3>
+Suppose that in a <b><tt>Piper</tt></b> session we declare <b><tt>Builtin'Precision'Set(5)</tt></b>, write <b><tt>x:=0.1</tt></b>, 
+and then increase 
+precision to 10 digits. What is <b><tt>x</tt></b> now? There are several approaches:
+
+
+<p>
+1) The number <b><tt>x</tt></b> stays the same but further calculations are done with 10
+digits. In terms of the internal binary representation, the number is
+padded with binary zeros. This means that now e.g. <b><tt>1+x</tt></b> will not be equal
+to 1.1 but to something like 1.100000381 (to 10 digits). And actually x
+itself should evaluate to 0.1000003815 now. This was 0.1 to 5 digits but
+it looks a little different if we print it to 10 digits.
+(A "binary-padded decimal".)
+
+
+<p>
+This problem may look horrible at first sight -- "how come I can't write
+0.1 any more??" -- but this seems so because we are used to
+calculations in decimals with a fixed precision, and the operation such
+as "increase precision by 10 digits" is largely unfamiliar to us except
+in decimals. This seems to be mostly a cosmetic problem. In a real
+calculation, we shouldn't be writing "0.1" when we need an exact number
+<b><tt>1/10</tt></b>.
+When we request to increase precision in the middle of a calculation, this mistake surfaces and gives unexpected results.
+
+
+<p>
+2) When precision is increased, the number <b><tt>x</tt></b> takes its decimal
+representation, pads it with zeros, and converts back to the internal
+representation, just so that the appearance of "1.100000381" does not
+jar our eyes. (Note that the number <b><tt>x</tt></b> does not become "more precise"  
+if we pad it with decimal zeros instead of binary zeros, unless we made
+a mistake and wrote "0.1" instead an exact fraction 1/10.) 
+
+
+<p>
+With this approach, each number <b><tt>x</tt></b> that doesn't currently have enough
+digits must change in a complicated way. This will mean a performance
+hit in all calculations that require dynamically changing precision
+(Newton's method and some other fast algorithms require this). In these
+calculations, the roundoff error introduced by "1.100000381" is
+automatically compensated and the algorithm will work equally well no
+matter how we extend <b><tt>x</tt></b> to more digits; but it's a lot slower to go 
+through the decimal representation every time.
+
+
+<p>
+3) The approach currently being implemented in <b><tt>Piper</tt></b> is a compromise between the above two.
+We distinguish number objects that were given by the user as decimal strings
+(and not as results of calculations), for instance <b><tt>x:=1.2</tt></b>,
+from number objects that are results of calculations, for instance <b><tt>y:=1.2*1.4</tt></b>.
+Objects of the first kind are interpreted as exact rational numbers given by a decimal fraction,
+while objects of the second kind are interpreted as inexact floating-point numbers known to a limited precision.
+Suppose <b><tt>x</tt></b> and <b><tt>y</tt></b> are first assigned as indicated, with the precision of 5 digits each,
+then the precision is increased to 10 digits
+and <b><tt>x</tt></b> and <b><tt>y</tt></b> are used in some calculation.
+At this point <b><tt>x</tt></b> will be converted from the string representation "<b><tt>1.2</tt></b>" to 10 decimal digits, effectively making <b><tt>1.2</tt></b> a shorthand for <b><tt>1.200000000</tt></b>.
+But the value of <b><tt>y</tt></b> will be binary-padded in some efficient way and may be different from <b><tt>1.680000000</tt></b>.
+
+
+<p>
+In this way, efficiency is not lost (there are no repeated conversions from binary to decimal and back),
+and yet the cosmetic problem of binary-padded decimals does not appear.
+An explicitly given decimal string such as "<b><tt>1.2</tt></b>" is interpreted as a shorthand for <b><tt>1.2000</tt></b>...
+with as many zeroes as needed for any currently selected precision.
+But numbers that are results of arithmetic operations are not converted back to
+a decimal representation for zero-padding.
+Here are some example calculations:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Builtin'Precision'Set(5)
+Out&gt; True
+In&gt; x:=1.2
+Out&gt; 1.2
+In&gt; y:=N(1/3)
+Out&gt; 0.33333
+</pre></tr>
+</table>
+The number <b><tt>y</tt></b> is a result of a calculation and has a limited precision.
+Now we shall increase the precision:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Builtin'Precision'Set(20)
+Out&gt; True
+In&gt; y
+Out&gt; 0.33333
+</pre></tr>
+</table>
+The number <b><tt>y</tt></b> is printed with 5 digits, because it knows that it has only 5 correct digits.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; y+0
+Out&gt; 0.33333333325572311878
+</pre></tr>
+</table>
+In a calculation, <b><tt>y</tt></b> was binary-padded, so the last digits are incorrect.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x+0
+Out&gt; 1.2
+</pre></tr>
+</table>
+However, <b><tt>x</tt></b> has not been padded and remains an "exact" <b><tt>1.2</tt></b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; z:=y+0
+Out&gt; 0.33333333325572311878
+In&gt; Builtin'Precision'Set(40)
+Out&gt; True
+In&gt; z
+Out&gt; 0.33333333325572311878
+</pre></tr>
+</table>
+Now we can see how the number <b><tt>z</tt></b> is padded again:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; z+0
+Out&gt; 0.33333333325572311878204345703125
+</pre></tr>
+</table>
+
+
+<p>
+
+<h3>
+<hr>The meaning of the <b><tt>Builtin'Precision'Set()</tt></b> call
+</h3>
+The user calls <b><tt>Builtin'Precision'Set()</tt></b> to specify the "wanted number of digits."
+We could use different interpretations of the user's wish:
+The first interpretation is that <b><tt>Builtin'Precision'Set(10)</tt></b> means "I want all answers
+of all calculations to contain 10 correct digits".
+The second interpretation is "I want all calculations with floating-point numbers done
+using at least 10 digits".
+
+
+<p>
+Suppose we have floating-point numbers <b><tt>x</tt></b> and <b><tt>y</tt></b>, known only to 2 and 3 significant
+digits respectively. For example, <b><tt>x=1.6</tt></b> and <b><tt>y=2.00</tt></b>. These <b><tt>x</tt></b> and <b><tt>y</tt></b> are
+results of previous calculations and we do not have any more digits than this.  If we now say
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Builtin'Precision'Set(10);
+x*y;
+</pre></tr>
+</table>
+then clearly the system cannot satisfy the first interpretation because there
+aren't enough digits of <b> x</b> and <b> y</b> to find 10 digits of <b> x*y</b>.
+But we
+can satisfy the second interpretation, even if we print "3.2028214767" instead of the expected <b><tt>3.2</tt></b>.
+The garbage after the third digit is unavoidable 
+and harmless unless our calculation really depends on having 10 correct 
+digits of <b> x*y</b>.
+The garbage digits can be suppressed when the number is printed, so that the user will never see them.
+But if our calculation depends on the way we choose the extra digits, then we are using a bad algorithm.
+
+
+<p>
+The first interpretation of <b><tt>Builtin'Precision'Set()</tt></b> is only possible to satisfy if
+we are given a self-contained calculation with integer
+numbers. For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+N(Sin(Sqrt(3/2)-10^(20)), 50)
+</pre></tr>
+</table>
+This can be computed to 50 digits with some effort,
+but only if
+we are smart enough to use 70 digits in the calculation of the argument
+of <b><tt>Sin()</tt></b>.)
+(This level of smartness is currently not implemented in the <b><tt>N</tt></b> function.)
+The result of this calculation will have 50 digits and 
+not a digit more; we cannot put the result inside another expression 
+and expect full precision in all cases.
+This seems to be a separate task, "compute something with <b><tt>n</tt></b> digits 
+no matter what", and not a general routine to be followed at all times.
+
+
+<p>
+So it seems that the second interpretation of <b><tt>Builtin'Precision'Set(n)</tt></b>, namely:
+"please use <b><tt>n</tt></b> digits in all calculations now", is more
+sensible as a general-purpose prescription.
+
+
+<p>
+But this interpretation does not mean that all numbers will be
+<i>printed</i> with <b><tt>n</tt></b> digits. Let's look at a particular case (for simplicity we are talking about
+decimal digits but in the implementation they will be binary digits).
+Suppose we have <b><tt>x</tt></b> precise to 10 digits and <b><tt>y</tt></b> precise to 20 digits, and
+the user says <b><tt>Builtin'Precision'Set(50)</tt></b> and <b><tt>z:=1.4+x*y</tt></b>. What happens now in this
+calculation? (Assume that <b><tt>x</tt></b> and <b><tt>y</tt></b> are small numbers of order 1; the
+other cases are similar.)
+
+
+<p>
+First, the number "1.4" is now interpreted as being precise to 50 
+digits, i.e. "1.4000000...0" but not more than 50 digits.
+
+
+<p>
+Then we compute <b><tt>x*y</tt></b> using their internal representations. The result is 
+good only to 10 digits, and it knows this. We do not compute 50 digits 
+of the product <b><tt>x*y</tt></b>, it would be pointless and a waste of time.
+
+
+<p>
+Then we add <b><tt>x*y</tt></b> to 1.4000...0. The sum, however, will be precise only to
+10 digits. We can do one of the two things now: (a) we could pad <b><tt>x*y</tt></b>
+with 40 more zero digits and obtain a 50-digit result. However, this
+result will only be correct to 10 digits. (b) we could truncate 1.4 to
+10 digits (1.400000000) and obtain the sum to 10 digits.
+In both cases the result will "know" that it only has 10 correct digits.
+
+
+<p>
+It seems that the option (b) is better because we do not waste time with extra digits.
+
+
+<p>
+The result is a number that is precise to 10 digits. However, the user
+wants to see this result with 50 digits. Even if we chose the option
+(a), we would have had some bogus digits, in effect, 40 digits of
+somewhat random round-off error. Should we print 10 correct digits and
+40 bogus digits? It seems better to print only 10 correct
+digits in this case.
+
+
+<p>
+If we choose this route, then the only effect of <b><tt>Builtin'Precision'Set(50)</tt></b> will be to 
+interpret a literal constant <b><tt>1.4</tt></b> as a 50-digit number. All other numbers already know their 
+real precision and will not invent any bogus digits.
+
+
+<p>
+In some calculations, however, we do want to explicitly extend the precision of a
+number to some more digits. For example, in Newton's method we are given
+a first approximation <b> x[0]</b> to a root of <b>f(x)=0</b> and we want to have more
+digits of that root. Then we need to pad <b> x[0]</b> with some more digits and
+re-evaluate <b>f(x[0])</b> to more digits (this is needed to get a better
+approximation to the root). This padding operation seems rather
+special and directed at a particular number, not at all numbers at
+once. For example, if <b>f(x)</b> itself contains some floating-point numbers,
+then we should be unable to evaluate it with higher precision than
+allowed by the precision of these numbers.
+So it seems that we need access to these two low-level operations: the
+padding and the query of current precision.
+The proposed interface is <b><tt>GetExactBits(x)</tt></b> and <b><tt>SetExactBits(x,n)</tt></b>.
+These operations are directed at a particular number object <b><tt>x</tt></b>.
+
+
+<p>
+
+<h3>
+<hr>Summary of arbitrary-precision semantics
+</h3>
+<ul><li>All integers are always exact; all floats carry an error estimate, which is stored as the number of correct bits of mantissa they have.
+Symbolically, each float is a pair </li><b><tt>{x,n}</tt></b> where <b><tt>x</tt></b> is a floating-point value and <b><tt>n</tt></b> is a (platform) integer value.
+If <b>x!=0</b>, then the relative error of <b> x</b> is estimated as <b> 2^(-n)</b>.
+A number <b><tt>{x,n}</tt></b> with <b>x!=0</b> stands for an interval between <b> x*(1-2^(-n))</b> and <b>x*(1+2^(-n))</b>.
+This integer <b><tt>n</tt></b> is returned by <b><tt>GetExactBits(x)</tt></b>
+and can be modified by <b><tt>SetExactBits(x,n)</tt></b> (see below).
+Error estimates are not guaranteed to be correct in all cases, but they should give sensible <i>lower</i> bounds on the error.
+For example, if <b><tt>{x,n}={123.456,3}</tt></b>, the error estimate says that <b><tt>x</tt></b> is known to at most 3 bits and therefore the result of <b>1/(x-123)</b> is completely undefined becase <b>x</b> cannot be distinguished from <b><tt>0</tt></b>.
+The purpose of the precision tracking mechanism is to catch catastrophic
+losses of numerical precision in cases like these,
+not to provide a precise round-off error estimates.
+In most cases it is better to let the program continue even with loss of precision than have it aborted due to a false round-off alarm.
+<li>When printing a float, we print only as many digits as needed to represent the float value to its current precision.
+When reading a float, we reserve enough precision to preserve all given digits.
+</li><li>The number 0 is either an integer </li><b><tt>0</tt></b> or a floating-point <b><tt>0.</tt></b>
+(a "floating zero" for short).
+For a floating zero, the "number of exact bits" means the absolute error, not the relative error.
+It means that the symbolic pair <b><tt>{0.,n}</tt></b> represents all number <b> x</b> in the interval <b>-2^(-n)&lt;=x&lt;=2^(-n)</b>.
+A floating zero can be obtained either by subtracting almost equal numbers or by squaring a very imprecise number.
+In both cases the possible result can be close to zero and the precision of the initial numbers is insufficient to distinguish it from zero.
+<li>An integer and a float are equal only if the float contains this
+integer value within its precision interval.
+Two floats are equal only if their values differ by less than the largest of their error estimates (i.e. if their precision intervals intersect).
+In particular, it means that an integer zero is always equal to any floating zero, and that any two floating zeros are equal.
+It follows that if </li><b><tt>x=y</tt></b>, then for any floating zeros <b><tt>x+0.=y+0.</tt></b> and <b><tt>x-y=0.</tt></b> as well.
+(So this arithmetic is not obviously inconsistent.)
+<li>The Piper function </li><b><tt>IsInteger(x)</tt></b> returns <b><tt>True</tt></b> if <b><tt>x</tt></b> has integer <i>type</i>;
+<b><tt>IsIntValue(x)</tt></b> returns <b><tt>True</tt></b> if <b><tt>x</tt></b> has either integer type or floating type but an integer value within its precision.
+For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsInteger(0)  =True
+IsIntValue(1.)=True
+IsInteger(1.) =False
+</pre></tr>
+</table>
+<li>The Piper function </li><b><tt>Builtin'Precision'Set(n)</tt></b> sets a global parameter that controls the precision of
+<i>newly created floats</i>.
+It does not modify previously created floating-point numbers
+and has no effect on copying floats or on any integer calculations.
+New float objects can be created in three ways (aside from simple copying from other floats):
+from literal strings, from integers, and from calculations with other floats.
+For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x:=1.33;
+y:=x/3;
+</pre></tr>
+</table>
+Here <b><tt>x</tt></b> is created from a literal string <b><tt>"1.33"</tt></b>,
+a temporary float is created from an integer <b><tt>3</tt></b>,
+and <b><tt>y</tt></b> is created as a result of division of two floats.
+Converting an integer to a float is similar to converting from a literal string representing the integer.
+A new number object created from a literal string must have at least as many bits of mantissa as is required to represent the value given by the string.
+The string might be very long but we want to retain all information from a string, so we may have to make the number much more precise than currently declared with <b><tt>Builtin'Precision'Set</tt></b>.
+<h6>Note that the argument <b><tt>n</tt></b> of <b><tt>Builtin'Precision'Set(n)</tt></b> means <i>decimal</i> digits, not bits. This is more convenient for <b><tt>Piper</tt></b> sessions.</h6>But if the necessary number of digits to represent the string is less than <b><tt>n</tt></b>, then the new number object will have the number of bits that corresponds to <b><tt>n</tt></b> decimal digits.
+Thus, in creating objects from strings or from integers, <b><tt>Builtin'Precision'Set</tt></b> sets the <i>minimum</i> precision of the resulting floating-point number.
+On the other hand, a new number object created from a calculation will already have an error estimate and will "know" its real precision.
+But a directive <b><tt>Builtin'Precision'Set(n)</tt></b> indicates that we are only interested in <b>n</b> digits of a result.
+Therefore, a calculation should not generate <i>more</i> digits than
+<b><tt>n</tt></b>, even if its operands have more digits.
+Thus, in creating objects from operations, <b><tt>Builtin'Precision'Set</tt></b> sets the <i>maximum</i> precision of the resulting floating-point number.
+<li></li><b><tt>SetExactBits(x,n)</tt></b> will make the number <b><tt>x</tt></b> think that it has <b><tt>n</tt></b> exact
+bits. If <b><tt>x</tt></b> had more exact bits before, then it may be rounded. If <b><tt>x</tt></b>
+had fewer exact bits before, then it may be padded. (The way the padding is done
+is up to the internal representation, but the padding operation must be 
+efficient and should not change the value of the number beyond its original
+precision.)
+<li>All arithmetic operations and all kernel-supported numerical function
+calls are performed with precision estimates, so that all results know
+how precise they really are. Then in most cases it
+will be unnecessary to call </li><b><tt>SetExactBits</tt></b> or <b><tt>GetExactBits</tt></b> explicitly.
+This will be needed only in certain numerical applications that need to control the working precision for efficiency.
+</ul>
+
+<p>
+
+<h3>
+<hr>Formal definitions of precision tracking
+</h3>
+Here we shall consider arithmetic operations on floats <b> x</b> and <b> y</b>, represented as pairs <b><tt>{x,m}</tt></b> and <b><tt>{y,n}</tt></b>.
+The result of the operation is <b> z</b>, represented as a pair <b><tt>{z,p}</tt></b>.
+Here <b><tt>x</tt></b>, <b><tt>y</tt></b>, <b><tt>z</tt></b> are floats and <b><tt>m</tt></b>, <b><tt>n</tt></b>, <b><tt>p</tt></b> are integers.
+
+
+<p>
+We give formulae for <b> p</b> in terms of <b> x</b>, <b> y</b>, <b> m</b>, and <b> n</b>.
+Sometimes the bit count of a number <b> x</b> is needed; it is denoted <b> B(x)</b> for brevity.
+
+
+<p>
+
+<h5>
+Formal definitions
+</h5>
+A pair <b><tt>{x,m}</tt></b> where <b>x</b> is a floating-point value and <b> m</b> is an integer value (the "number of correct bits") denotes a real number between <b> x*(1-2^(-m))</b> and <b>x*(1+2^(-m))</b> when <b>x!=0</b>,
+and a real number between <b>-2^(-m)</b> and <b>2^(-m)</b> when <b>x=0</b> (a "floating zero").
+
+
+<p>
+The bit count <b> B(x)</b> is an integer function of <b>x</b> defined for real <b> x!=0</b> by
+
+<p><center><b> B(x):=1+Floor(Ln(Abs(x))/Ln(2)).</b></center></p>
+
+This function also satisfies
+
+<p><center><b>2^(B(x)-1)&lt;=Abs(x)&lt;2^B(x).</b></center></p>
+
+For example, <b>B(1/4)= -1</b>, <b> B(1)=B(3/2)=1</b>, <b> B(4)=3</b>.
+The bit count of zero is arbitrarily set to 1.
+For integer <b> x</b>, the value <b> B(x)</b> is the number of bits needed to write the binary representation of <b>x</b>.
+
+
+<p>
+The bit count function can be usually computed in <i>constant</i> time because the usual representation of long numbers is by arrays of platform integers and a binary exponent.
+The length of the array of digits is usually available at no computational cost.
+
+
+<p>
+The <i>absolute</i> error <b> Delta[x]</b> of <b><tt>{x,n}</tt></b> is of order <b>Abs(x)*2^(-n)</b>.
+Given the bit count of <b>x</b>, this can be estimated from as 
+
+<p><center><b> 2^(B(x)-n-1)&lt;=Delta[x]&lt;2^(B(x)-n).</b></center></p>
+
+So the bit count of <b>Delta[x]</b> is <b>B(x)-n</b>.
+
+
+<p>
+
+<h5>
+<b><tt>Floor()</tt></b>
+</h5>
+The function <b><tt>Floor({x,m})</tt></b> gives an integer result if there are enough digits to determine it exactly, and otherwise returns the unchanged floating-point number.
+The condition for <b><tt>Floor({x,m})</tt></b> to give an exact result is
+
+<p><center><b> m&gt;=B(x).</b></center></p>
+
+
+
+<p>
+
+<h5>
+<b><tt>BecomeFloat()</tt></b>
+</h5>
+The function <b><tt>BecomeFloat(n)</tt></b> will convert an integer to a float with at least <b>n</b> digits of precision.
+If <b><tt>x</tt></b> is the original integer value, then the result is <b><tt>{x,p}</tt></b> where <b> p=Max(n,B(x))</b>.
+
+
+<p>
+
+<h5>
+Underflow check
+</h5>
+It is possible to have a number <b><tt>{x,n}</tt></b> with <b>x!=0</b> such that <b><tt>{0.,m}={x,n}</tt></b> for some <b> m</b>.
+This would mean that the floating zero <b><tt>{0.,m}</tt></b> is not precise enough to be distinguished from <b><tt>{x,n}</tt></b>, i.e.
+
+<p><center><b> Abs(x)&lt;2^(-m).</b></center></p>
+
+This situation is normal.
+But it would be meaningless to have a number <b><tt>{x,n}</tt></b> with <b>x!=0</b> and a precision interval that contains <b> 0</b>.
+Such <b><tt>{x,n}</tt></b> will in effect be equal to <i>any</i> zero <b><tt>{0.,m}</tt></b>, because we do not know enough digits of <b><tt>x</tt></b> to distinguish <b><tt>{x,n}</tt></b> from zero.
+
+
+<p>
+From the definition of <b><tt>{x,n}</tt></b> with <b> x!=0</b> it follows that 0 can be within the precision interval only if <b> n&lt;= -1</b>.
+Therefore, we should transform any number <b><tt>{x,n}</tt></b> such that <b> x!=0</b> and <b> n&lt;= -1</b>
+into a floating zero <b><tt>{0.,p}</tt></b> where
+
+<p><center><b> p=n-B(x).</b></center></p>
+
+(Now it is not necessarily true that <b>p&gt;=0</b>.)
+This check should be performed at any point where a new precision estimate <b><tt>n</tt></b> is obtained for a number <b><tt>x</tt></b> and where a cancellation may occur (e.g. after a subtraction).
+Then we may assume that any given float is already reduced to zero if possible.
+
+
+<p>
+
+<h5>
+<b><tt>Equals()</tt></b>
+</h5>
+We need to compare <b><tt>{x,m}</tt></b> and <b><tt>{y,n}</tt></b>.
+
+
+<p>
+First, we can quickly check that the values <b> x</b> and <b> y</b> have the same nonzero signs and the same bit counts, <b> B(x)=B(y)</b>.
+If <b>x&gt;0</b> and <b> y&lt;0</b> or vice versa, or if <b> B(x)=B(y)</b>, then the two numbers are definitely unequal.
+We can also check whether both <b>x=y=0</b>; if this is the case, then we know that <b><tt>{x,m}={y,n}</tt></b> because any two zeros are equal.
+
+
+<p>
+However, a floating zero can be sometimes equal to a nonzero number.
+So we should now exclude this possibility:
+<b><tt>{0.,m}={y,n}</tt></b> if and only if <b> Abs(y)&lt;2^(-m)</b>.
+This condition is equivalent to 
+<p><center><b>B(y)&lt; -m.</b></center></p>
+
+
+
+<p>
+If these checks do not provide the answer, the only possibility left is when
+<b> x!=0</b> and <b> y!=0</b> and <b> B(x)=B(y)</b>.
+
+
+<p>
+Now we can consider two cases: (1) both <b>x</b> and <b> y</b> are floats, (2) one is a float and the other is an integer.
+
+
+<p>
+In the first case, <b><tt>{x,m}={y,n}</tt></b> if and only if the following condition holds:
+
+<p><center><b> Abs(x-y)&lt;Max(2^(-m)*Abs(x),2^(-n)*Abs(y)).</b></center></p>
+
+This is a somewhat complicated condition but its evaluation does not require any long multiplications, only long additions, bit shifts and comparisons.
+
+
+<p>
+It is now necessary to compute <b>x-y</b> (one long addition);
+this computation needs to be done with <b> Min(m,n)</b> bits of precision.
+
+
+<p>
+After computing <b>x-y</b>, we can avoid the full evaluation of the complicated condition by first checking some easier conditions on <b> x-y</b>.
+If <b> x-y=0</b> as floating-point numbers ("exact cancellation"), then certainly <b><tt>{x,m}={y,n}</tt></b>.
+Otherwise we can assume that <b> x-y!=0</b> and check:
+<ul><li>A sufficient (but not a necessary) condition:
+if </li><b> B(x-y)&lt;=B(x)-Min(m,n)-1</b> then <b><tt>{x,m}={y,n}</tt></b>.
+<li>A necessary (but not a sufficient) condition is:
+if </li><b> B(x-y)&gt;B(x)-Min(m,n)+1</b> then <b><tt>{x,m}!={y,n}</tt></b>.
+</ul>
+
+<p>
+If neither of these conditions can give us the answer,
+we have to evaluate the full condition by computing <b> Abs(x)*2^(-m)</b> and <b>Abs(x)*2^(-m)</b> and comparing with <b>Abs(x-y)</b>.
+
+
+<p>
+In the second case, one of the numbers is an integer <b><tt>x</tt></b> and the other is a float <b><tt>{y,n}</tt></b>.
+Then <b><tt>x={y,n}</tt></b> if and only if 
+<p><center><b>Abs(x-y)&lt;2^(-n)*Abs(y).</b></center></p>
+
+For the computation of <b>x-y</b>, we need to convert <b><tt>x</tt></b> into a float with precision of <b> n</b> digits, i.e. replace the integer <b><tt>x</tt></b> by a float <b><tt>{x,n}</tt></b>.
+Then we may use the procedure for the first case (two floats) instead of implementing a separate comparison procedure for integers.
+
+
+<p>
+
+<h5>
+<b><tt>LessThan()</tt></b>
+</h5>
+If <b><tt>{x,m}</tt></b>=<b><tt>{y,n}</tt></b> according to the comparison function <b><tt>Equals()</tt></b>, then the predicate <b><tt>LessThan</tt></b> is false.
+Otherwise it is true if and only if <b> x&lt;y</b> as floats.
+
+
+<p>
+
+<h5>
+<b><tt>IsIntValue()</tt></b>
+</h5>
+To check whether <b><tt>{x,n}</tt></b> has an integer value within its precision, we first need to check that <b><tt>{x,n}</tt></b> has enough digits to compute <b> Floor(x)</b>=<b><tt>Floor(x)</tt></b> accurately.
+If not (if <b>n&lt;B(x)</b>), then we conclude that <b>x</b> has an integer value.
+Otherwise we compute <b> y:=x-Floor(x)</b> as a float value (without precision control) to <b><tt>n</tt></b> bits.
+If <b>y</b> is exactly zero as a float value, then <b> x</b> has an integer value.
+Otherwise <b><tt>{x,n}</tt></b> has an integer value if and only if <b> B(y)&lt; -n</b>.
+
+
+<p>
+This procedure is basically the same as comparing <b><tt>{x,n}</tt></b> with <b><tt>Floor(x)</tt></b>.
+
+
+<p>
+
+<h5>
+<b><tt>Sign()</tt></b>
+</h5>
+The sign of <b><tt>{x,n}</tt></b> is defined as the sign of the float value <b> x</b>.
+(The number <b><tt>{x,n}</tt></b> should have been reduced to a floating zero if necessary.)
+
+
+<p>
+
+<h5>
+Addition and subtraction (<b><tt>Add</tt></b>, <b><tt>Negate</tt></b>)
+</h5>
+We need to add <b><tt>{x,m}</tt></b> and <b><tt>{y,n}</tt></b> to get the result <b><tt>{z,p}</tt></b>.
+Subtraction is the same as addition, except we negate the second number.
+When we negate a number, its precision never changes.
+
+
+<p>
+First consider the case when <b> x+y!=0</b>.
+
+
+<p>
+If <b> x</b> is zero, i.e. <b><tt>{0.,m}</tt></b> (but <b> x+y!=0</b>), then the situation with precision is the same as if <b> x</b> were <b><tt>{1.,m}</tt></b>, because then the relative precision is equal to the absolute precision.
+In that case we take the bit count of <b> x</b> as <b> B(0)=1</b> and proceed by the same route.
+
+
+<p>
+First, we should decide whether it is necessary to add the given numbers.
+It may be unnecessary if e.g. <b> x+y&lt;=&gt;x</b> within precision of <b> x</b>
+(we may say that a "total underflow" occurred during addition).
+To check for this, we need to estimate the absolute errors of <b> x</b> and <b> y</b>:
+
+<p><center><b> 2^(B(x)-m-1)&lt;=Delta[x]&lt;2^(B(x)-m),</b></center></p>
+
+
+<p><center><b>2^(B(y)-n-1)&lt;=Delta[y]&lt;2^(B(y)-n).</b></center></p>
+
+Addition is not necessary if <b>Abs(x)&lt;=Delta[y]</b> or if <b>Abs(y)&lt;=Delta[x]</b>.
+Since we should rather perform an addition than wrongly dismiss it as unnecessary, we should use a sufficient condition here: if
+
+<p><center><b>B(x)&lt;=B(y)-n-1 </b></center></p>
+
+then we can neglect <b> x</b> and set <b> z=y</b>, <b> p=n-Dist(B(x),B(y)-n-1)</b>.
+(We subtract one bit from the precision of <b>y</b> in case the magnitude of <b> x</b> is close to the absolute error of <b> y</b>.)
+Also, if
+
+<p><center><b> B(y)&lt;=B(x)-m-1 </b></center></p>
+
+then we can neglect <b> y</b> and set <b> z=x</b>, <b> p=m-Dist(B(y),B(x)-m-1)</b>.
+
+
+<p>
+Suppose none of these checks were successful.
+Now, the float value <b>z=x+y</b> needs to be calculated.
+To find it, we need the target precision of only
+
+<p><center><b> 1+Max(B(x),B(y))-Max(B(x)-m,B(y)-n) </b></center></p>
+
+bits.
+(An easier upper bound on this is <b>1+Max(m,n)</b> but this is wasteful when <b>x</b> and <b> y</b> have very different precisions.)
+
+
+<p>
+Then we compute <b> B(z)</b> and determine the precision <b>p</b> as
+
+<p><center><b> p=Min(m-B(x),n-B(y))+B(z) </b></center></p>
+
+
+<p><center><b>-1-Dist(m-B(x),n-B(y)),</b></center></p>
+
+where the auxiliary function <b>Dist(a,b)</b> is defined as <b>0</b> when <b> Abs(a-b)&gt;2</b> and <b> 1</b> otherwise.
+<h6>The definition of <b> Dist(a,b)</b> is necessarily approximate; if we replace <b>2</b> by a larger number, we shall be overestimating the error in more cases.</h6>
+
+<p>
+In the case when <b> x</b> and <b> y</b> have the same sign, we have a potentially better estimate <b> p=Min(m,n)</b>.
+We should take this value if it is larger than the value obtained from the above formula.
+
+
+<p>
+Also, the above formula is underestimating the precision of the result by 1 bit if the result <i>and</i> the absolute error are dominated by one of the summands.
+In this case the absolute error should be unchanged save for the <b>Dist</b> term, i.e. the above formula needs to be incremented by 1.
+The condition for this is <b> B(x)&gt;B(y)</b> and <b>B(x)-m&gt;B(y)-n</b>, or the same for <b> y</b> instead of <b> x</b>.
+
+
+<p>
+The result is now <b><tt>{z,p}</tt></b>.
+
+
+<p>
+Note that the obtained value of <b> p</b> may be negative (total underflow) even though we have first checked for underflow.
+In that case, we need to transform <b><tt>{z,p}</tt></b> into a floating zero, as usual.
+
+
+<p>
+Now consider the case when <b> z:=x+y=0</b>.
+
+
+<p>
+This is only possible when <b> B(x)=B(y)</b>.
+Then the result is <b><tt>{0.,p}</tt></b> where <b>p</b> is found as
+
+<p><center><b> p=1+Min(m,n)-B(x)-Dist(m,n).</b></center></p>
+
+Note that this is the same formula as in the general case, if we define <b>B(z)=B(0):=1</b>.
+Therefore with this definition of the bit count one can use one formula for the precision of addition in all cases.
+
+
+<p>
+If the addition needs to be performed with a given maximum precision <b> P</b>, and it turns out that <b> p&gt;P</b>, then we may truncate the final result to <b> P</b> digits and set its precision to <b> P</b> instead.
+(It is advisable to leave a few bits untruncated as guard bits.)
+However, the first operation <b><tt>z:=x+y</tt></b> must be performed with the precision specified above, or else we run the danger of losing significant digits of <b> z</b>.
+
+
+<p>
+
+<h5>
+Adding integers to floats
+</h5>
+If an integer <b><tt>x</tt></b> needs to be added to a float <b><tt>{y,n}</tt></b>, then we should formally use the same procedure as if <b><tt>x</tt></b> had infinitely many precise bits.
+In practice we can take some shortcuts.
+
+
+<p>
+It is enough to convert the integer to a float <b><tt>{x,m}</tt></b> with a certain finite precision <b> m</b> and then follow the general procedure for adding floats.
+The precision <b> m</b> must be large enough so that the absolute error of <b><tt>{x,m}</tt></b> is smaller than the absolute error of <b><tt>{y,n}</tt></b>: <b> B(x)-m&lt;=B(y)-n-1</b>, hence
+
+<p><center><b> m&gt;=1+n+B(x)-B(y).</b></center></p>
+
+In practice we may allow for a few guard bits over the minimum <b>m</b> given by this formula.
+
+
+<p>
+Sometimes the formula gives a negative value for the minimum <b> m</b>;
+this means underflow while adding the integer (e.g. adding 1 to 1.11e150).
+In this case we do not need to perform any addition at all.
+
+
+<p>
+
+<h5>
+Multiplication
+</h5>
+We need to multiply <b><tt>{x,m}</tt></b> and <b><tt>{y,n}</tt></b> to get the result <b><tt>{z,p}</tt></b>.
+
+
+<p>
+First consider the case when <b> x!=0</b> and <b> y!=0</b>.
+The resulting value is <b> z=x*y</b> and the precision is
+
+<p><center><b> p=Min(m,n)-Dist(m,n).</b></center></p>
+
+
+
+<p>
+If one of the numbers is an integer <b><tt>x</tt></b>, and the other is a float <b><tt>{y,n}</tt></b>, it is enough to convert <b><tt>x</tt></b> to a float with somewhat more than <b>n</b> bits, e.g. <b><tt>{x,n+3}</tt></b>, so that the <b> Dist</b> function does not decrement the precision of the result.
+
+
+<p>
+Now consider the case when <b><tt>{x,m}</tt></b>=<b><tt>{0,m}</tt></b> but <b> y!=0</b>.
+The result <b> z=0</b> and the resulting precision is
+
+<p><center><b> p=m-B(y)+1.</b></center></p>
+
+
+
+<p>
+Finally, consider the case when <b><tt>{x,m}</tt></b>=<b><tt>{0,m}</tt></b> and <b><tt>{y,n}</tt></b>=<b><tt>{0,n}</tt></b>.
+The result <b> z=0</b> and the resulting precision is
+
+<p><center><b> p=m+n.</b></center></p>
+
+
+
+<p>
+The last two formulae are the same if we defined the bit count of <b><tt>{0.,m}</tt></b> as <b> 1-m</b>.
+This differs from the "standard" definition of <b> B(0)=1</b>.
+(The "standard" definition is convenient for the handling of addition.)
+With this non-standard definition, we may use the unified formula
+
+<p><center><b> p=2-B(x)-B(y) </b></center></p>
+
+for the case when one of <b>x</b>, <b> y</b> is a floating zero.
+
+
+<p>
+If the multiplication needs to be performed to a given target precision <b> P</b> which is larger than the estimate <b> p</b>, then we can save time by truncating both operands to <b> P</b> digits before performing the multiplication.
+(It is advisable to leave a few bits untruncated as guard bits.)
+
+
+<p>
+
+<h5>
+Division
+</h5>
+Division is handled essentially in the same way as multiplication.
+The relative precision of <b><tt>x/y</tt></b> is the same as the relative precision of <b><tt>x*y</tt></b> as long as both <b> x!=0</b> and <b> y!=0</b>.
+
+
+<p>
+When <b> x=0</b> and <b> y!=0</b>, the result of division <b><tt>{0.,m}/{y,n}</tt></b> is a floating zero <b><tt>{0.,p}</tt></b> where <b> p=m+B(y)-1</b>.
+When <b> x</b> is an integer zero, the result is also an integer zero.
+
+
+<p>
+Division by an integer zero or by a floating zero is not permitted.
+The code should signal a zero division error.
+
+
+<p>
+
+<h5>
+<b><tt>ShiftLeft()</tt></b>, <b><tt>ShiftRight()</tt></b>
+</h5>
+These operations efficiently multiply a number by a positive or negative power of <b> 2</b>.
+Since <b> 2</b> is an exact integer, the precision handling is similar to that of multiplication of floats by integers.
+
+
+<p>
+If the number <b><tt>{x,n}</tt></b> is nonzero, then only <b> x</b> changes by shifting but <b> n</b> does not change;
+if <b><tt>{x,n}</tt></b> is a floating zero, then <b> x</b> does not change and <b> n</b> is decremented (<b><tt>ShiftLeft</tt></b>) or incremented (<b><tt>ShiftRight</tt></b>) by the shift amount:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+{x, n} &lt;&lt; s = {x&lt;&lt;s, n};
+{0.,n} &lt;&lt; s = {0., n-s};
+{x, n} &gt;&gt; s = {x&gt;&gt;s, n};
+{0.,n} &gt;&gt; s = {0., n+s};
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="c7s5">
+
+</a>
+<h2>
+<hr>7.5 Implementation notes
+</h2>
+<h3>
+<hr>Large exponents
+</h3>
+The <b><tt>BigNumber</tt></b> API does not support large exponents for floating-point numbers.
+A floating-point number <b>x</b> is equivalent to two integers <b> M</b>, <b> N</b> such that <b> x=M*2^N</b>. Here <b> M</b> is the (denormalized) mantissa and <b> N</b> is the (binary) exponent.
+The integer <b> M</b> must be a "big integer" that may represent thousands of significant bits.
+But the exponent <b> N</b> is a platform signed integer (C++ type <b><tt>long</tt></b>) which is at least <b><tt>2^31</tt></b>, allowing a vastly larger range than platform floating-point types.
+One would expect that this range of exponents is enough for most real-world applications.
+In the future this limitation may be relaxed if one uses a 64-bit platform.
+(A 64-bit platform seems to be a better choice for heavy-duty multiple-precision computations than a 32-bit platform.)
+However, code should not depend on having 64-bit exponent range.
+
+
+<p>
+We could have implemented the exponent <b> N</b> as a big integer
+but this would be inefficient most of the time, slowing down the calculations.
+Arithmetic with floating-point numbers requires only very simple operations on their exponents (basically, addition and comparisons).
+These operations would be dominated by the overhead of dealing with big integers, compared with platform integers.
+
+
+<p>
+A known issue with limited exponents is the floating-point overflow and exponent underflow.
+(This is not the same underflow as with adding <b> 1</b> to a very small number.)
+When the exponent becomes too large to be represented by a platform signed integer type,
+the code must signal an overflow error (e.g. if the exponent is above <b> 2^31</b>)
+or an underflow error (e.g. if the exponent is negative and below <b>-2^31</b>).
+
+
+<p>
+
+<h3>
+<hr>Library versions of mathematical functions
+</h3>
+It is usually the case that a multiple-precision library implements some basic mathematical functions such as the square root.
+A library implementation may be already available and more efficient than an implementation using the API of the wrapper class <b><tt>BigNumber</tt></b>.
+In this case it is desirable to wrap the library implementation of the mathematical function, rather than use a suboptimal implementation.
+This could be done in two ways.
+
+
+<p>
+First, we recognize that we shall only have one particular numerical library linked with Piper, and we do not have to compile our implementation of the square root if this library already contains a good implementation.
+We can use conditional compilation directives (<b><tt>#ifdef</tt></b>) to exclude our square root code and to insert a library wrapper instead.
+This scheme could be automated, so that appropriate <b><tt>#define</tt></b>s are automatically created for all functions that are already available in the given multiple-precision library, and the corresponding Piper kernel code that uses the <b><tt>BigNumber</tt></b> API is automatically replaced by library wrappers.
+
+
+<p>
+Second, we might compile the library wrapper as a plugin, replacing the script-level square root function with a plugin-supplied function.
+This solution is easier in some ways because it doesn't require any changes to the Piper core, only to the script library.
+However, the library wrapper will only be available to the Piper scripts and not to the Piper core functions.
+The basic assumption of the plugin architecture is that plugins can provide new external objects and functions to the scripts, but plugins cannot modify anything in the kernel.
+So plugins can replace a function defined in the scripts, but cannot replace a kernel function.
+Suppose that some other function, such as a computation of the elliptic integral which heavily uses the square root, were implemented in the core using the <b><tt>BigNumber</tt></b> API.
+Then it will not be able to use the square root function supplied by the plugin because it has been already compiled into the Piper kernel.
+
+
+<p>
+Third, we might put all functions that use the basic API (<b><tt>MathSqrt</tt></b>, <b><tt>MathSin</tt></b> etc.) into the script library and not into the Piper kernel.
+When Piper is compiled with a particular numerical library, the functions available from the library will also be compiled as the kernel versions of <b><tt>MathSqrt</tt></b>, <b><tt>MathPower</tt></b> and so on
+(using conditional compilation or configured at build time).
+Since Piper tries to call the kernel functions before the script library functions, the available kernel versions of <b><tt>MathSqrt</tt></b> etc. will supersede the script versions, but other functions such as <b><tt>BesselJ</tt></b> will be used from the script library.
+The only drawback of this scheme is that a plugin will not be able to use the faster versions of the functions, unless the plugin was compiled specifically with the requirement of the particular numerical library.
+
+
+<p>
+So it appears that either the first or the third solution is viable.
+
+
+<p>
+
+<h3>
+<hr>Converting from bits to digits and back
+</h3>
+One task frequently needed by the arithmetic library is to convert a precision in (decimal) digits to binary bits and back.
+(We consider the decimal base to be specific; the same considerations apply to conversions between any other bases.)
+The kernel implements auxiliary routines <b><tt>bits_to_digits</tt></b> and <b><tt>digits_to_bits</tt></b> for this purpose.
+
+
+<p>
+Suppose that the mantissa of a floating-point number is known to <b> d</b> decimal digits.
+It means that the relative error is no more than <b> 0.5*10^(-d)</b>.
+The mantissa is represented internally as a binary number.
+The number <b>b</b> of precise bits of mantissa should be determined from the equation <b> 10^(-d)=2^(-b)</b>, which gives <b>b=d*Ln(10)/Ln(2)</b>.
+
+
+<p>
+One potential problem with the conversions is that of incorrect rounding.
+It is impossible to represent <b>d</b> decimal digits by some exact number <b> b</b> of binary bits.
+Therefore the actual value of <b> b</b> must be a little different from the theoretical one.
+Then suppose we perform the inverse operation on <b> b</b> to obtain the corresponding number of precise decimal digits;
+there is a danger that we shall obtain a number <b> d'</b> that is different from <b> d</b>.
+
+
+<p>
+To avoid this danger, the following trick is used.
+The binary base 2 is the least of all possible bases, so successive powers of 2 are more frequent than successive powers of 10 or of any other base.
+Therefore for any power of 10 there will be a unique power of 2 that is the first one above it.
+
+
+<p>
+The recipe to obtain this power of 2 is simple:
+one should round <b> d*Ln(10)/Ln(2)</b> upwards using the <b><tt>Ceil</tt></b> function,
+but <b>b*Ln(2)/Ln(10)</b> should be rounded downwards using the <b><tt>Floor</tt></b> function.
+
+
+<p>
+This procedure will make sure that the number of bits <b>b</b> is high enough to represent all information in the <b> d</b> decimal digits;
+at the same time, the number <b> d</b> will be correctly restored from <b> b</b>.
+So when a user requests <b> d</b> decimal digits of precision, Piper may simply compute the corresponding value of <b> b</b> and store it.
+The precision of <b> b</b> digits is enough to hold the required information, and the precision <b> d</b> can be easily computed given <b> b</b>.
+
+
+<p>
+
+<h3>
+<hr>The internal storage of BigNumber objects
+</h3>
+An object of type <b><tt>BigNumber</tt></b> represents a number (and contains all
+information relevant to the number), and offers an interface to
+operations on it, dispatching the operations to an underlying
+arbitrary precision arithmetic library.
+
+
+<p>
+Higher up, Piper only knows about objects derived from <b><tt>LispObject</tt></b>.
+Specifically, there are objects of class <b><tt>LispAtom</tt></b> which represent
+an atom. 
+
+
+<p>
+Symbolic and string atoms are uniquely represented by the result returned by
+the <b><tt>String()</tt></b> method. 
+For number atoms, there is a separate class, <b><tt>LispNumber</tt></b>. Objects
+of class <b><tt>LispNumber</tt></b> also have a <b><tt>String()</tt></b> method in case
+a string representation of a number is needed, but the main 
+uniquely identifying piece of information is the object of
+class <b><tt>BigNumber</tt></b> stored inside a <b><tt>LispNumber</tt></b> object.
+This object is accessed using the <b><tt>Number()</tt></b> method of class <b><tt>LispNumber</tt></b>.
+
+
+<p>
+The life cycle of a <b><tt>LispNumber</tt></b> is as follows:
+
+
+<p>
+<ul><li>A </li><b><tt>LispNumber</tt></b> can be born when the parser reads in a numeric
+atom. In such a case an object of type <b><tt>LispNumber</tt></b> is created instead
+of the <b><tt>LispAtom</tt></b>. The <b><tt>LispNumber</tt></b> constructor stores
+the string representation but does not yet create
+an object of type <b><tt>BigNumber</tt></b> from the string representation.
+The <b><tt>BigNumber</tt></b> object is later automatically created from the string representation.
+This is done by the <b><tt>Number(precision)</tt></b> method the first time it is requested.
+String conversion is deferred to save time when reading scripts.
+<li>Suppose the </li><b><tt>Number</tt></b> method is called; then a <b><tt>BigNumber</tt></b> object will be created from the string representation, using the current precision.
+This is where the string conversion takes place.
+If later the precision is increased, the string conversion will be performed again.
+This allows to hold a number such as <b><tt>1.23</tt></b> and interpret it effectively as an exact rational <b><tt>123/100</tt></b>.
+<li>For an arithmetic calculation, say addition, two arguments are passed in,
+and their internal objects should be of class </li><b><tt>LispNumber</tt></b>, so that the
+function doing the addition can get at the <b><tt>BigNumber</tt></b> objects
+by calling the <b><tt>Number()</tt></b> method.
+[This method will not attempt to create a number from the string representation
+if a numerical representation is already available.]
+The function that performs the arithmetic
+then creates a new <b><tt>BigNumber</tt></b>, stores the result of the calculation
+in it, and creates a new <b><tt>LispNumber</tt></b> by constructing it with the
+new <b><tt>BigNumber</tt></b>.
+The result is a <b><tt>LispNumber</tt></b> with a <b><tt>BigNumber</tt></b>
+inside it but without any string representation.
+Other operations can proceed to use this <b><tt>BigNumber</tt></b>
+stored inside the <b><tt>LispNumber</tt></b>. This is in effect the second way a
+<b><tt>LispNumber</tt></b> can be born.
+Since the string representation is not available in this case, no string conversions are performed any more.
+If precision is increased, there is no way to obtain any more digits of the number.
+<li>Right at the end, when a result needs to be printed to screen,
+the printer will call the </li><b><tt>String()</tt></b> method of the <b><tt>LispNumber</tt></b> object
+to get a string representation.
+The obtained (decimal) string representation of the number is also
+stored in the <b><tt>LispNumber</tt></b>, to avoid repeated conversions.
+</ul>
+
+<p>
+In order to fully support the <b><tt>LispNumber</tt></b> object, the function in the
+kernel that determines if two objects are the same needs to know about
+<b><tt>LispNumber</tt></b>. This is required to get valid behaviour. Pattern matching
+for instance uses comparisons of this type, so comparisons are performed
+often and need to be efficient.
+
+
+<p>
+The other functions working on numbers can, in principle, call the
+<b><tt>String()</tt></b> method, but that induces conversions from <b><tt>BigNumber</tt></b>
+to string, which are relatively expensive operations. For efficiency
+reasons, the functions dealing with numeric input should call the
+<b><tt>Number()</tt></b> method, operate on the <b><tt>BigNumber</tt></b> returned, and
+return a <b><tt>LispNumber</tt></b> constructed with a <b><tt>BigNumber</tt></b>. A function
+can call <b><tt>String()</tt></b> and return a <b><tt>LispNumber</tt></b> constructed with 
+a string representation, but it will be less efficient.
+
+
+<p>
+
+<h5>
+Precision tracking inside LispNumber
+</h5>
+There are various subtle details when dealing with precision.
+A number gets constructed with a certain precision, but a
+higher precision might be needed later on. That is the reason there
+is the <b><tt>aPrecision</tt></b> argument to the <b><tt>Number()</tt></b> method. 
+
+
+<p>
+When a <b><tt>BigNumber</tt></b> is constructed from a decimal string, one has to specify a desired precision (in decimal digits).
+Internally, <b><tt>BigNumber</tt></b> objects store numbers in binary and will allocate enough bits to cover the desired precision.
+However, if the given string has more digits than the given precision, the <b><tt>BigNumber</tt></b> object will not truncate it but will allocate more bits so that
+the information given in the decimal string is not lost.
+If later the string
+representation of the <b><tt>BigNumber</tt></b> object is requested, the produced string will match the string from which the <b><tt>BigNumber</tt></b> object was created.
+
+
+<p>
+Internally, the <b><tt>BigNumber</tt></b> object knows how many precise bits it has.
+The number of precise digits might be greater than the currently requested precision.
+But a truncation of precision will only occur when performing arithmetic operations.
+This behavior is desired, for example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Builtin'Precision'Set(6)
+Out&gt; True;
+In&gt; x:=1.23456789
+Out&gt; 1.23456789;
+In&gt; x+1.111
+Out&gt; 2.345567;
+In&gt; x
+Out&gt; 1.23456789;
+</pre></tr>
+</table>
+In this example, we would like to keep all information we have about <b><tt>x</tt></b> and not truncate it to 6 digits.
+But when we add a number to <b><tt>x</tt></b>, the result is only precise to 6 digits.
+
+
+<p>
+This behavior is implemented by storing the string representation <b><tt>"1.23456789"</tt></b> in the <b><tt>LispNumber</tt></b> object <b><tt>x</tt></b>.
+When an arithmetic calculation such as <b><tt>x+1.111</tt></b> is requested, the <b><tt>Number</tt></b> method is called on <b><tt>x</tt></b>.
+This method, when called for the first time, converts the string representation into a <b><tt>BigNumber</tt></b> object.
+That <b><tt>BigNumber</tt></b> object will have 28 bits to cover the 9 significant digits of the number, not the 19 bits normally required for 6 decimal digits of precision.
+But the result of an arithmetic calculation is not computed with more than 6 decimal digits.
+Later when <b><tt>x</tt></b> needs to be printed, the full string representation is available so it is printed.
+
+
+<p>
+If now we increase precision to 20 digits, the object <b><tt>x</tt></b> will be interpreted as 1.23456789 with 12 zeros at the end.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Builtin'Precision'Set(20)
+Out&gt; True;
+In&gt; x+0.000000000001
+Out&gt; 1.234567890001;
+</pre></tr>
+</table>
+This behavior is more intuitive to people who are used to decimal fractions.
+
+
+<p>
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

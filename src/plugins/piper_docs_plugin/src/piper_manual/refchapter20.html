@@ -1,0 +1,939 @@
+<html>
+<head>
+  <title>Special polynomials</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c20">
+
+</a>
+(directly go to documentation on : <a href="refchapter20.html#OrthoP" target='Chapters' title="Legendre and Jacobi orthogonal polynomials">OrthoP</a>, <a href="refchapter20.html#OrthoH" target='Chapters' title="Hermite orthogonal polynomials">OrthoH</a>, <a href="refchapter20.html#OrthoG" target='Chapters' title="Gegenbauer orthogonal polynomials">OrthoG</a>, <a href="refchapter20.html#OrthoL" target='Chapters' title="Laguerre orthogonal polynomials">OrthoL</a>, <a href="refchapter20.html#OrthoT" target='Chapters' title="Chebyshev polynomials">OrthoT</a>, <a href="refchapter20.html#OrthoU" target='Chapters' title="Chebyshev polynomials">OrthoU</a>, <a href="refchapter20.html#OrthoPSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoPSum</a>, <a href="refchapter20.html#OrthoHSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoHSum</a>, <a href="refchapter20.html#OrthoLSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoLSum</a>, <a href="refchapter20.html#OrthoGSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoGSum</a>, <a href="refchapter20.html#OrthoTSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoTSum</a>, <a href="refchapter20.html#OrthoUSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoUSum</a>, <a href="refchapter20.html#OrthoPoly" target='Chapters' title="internal function for constructing orthogonal polynomials">OrthoPoly</a>, <a href="refchapter20.html#OrthoPolySum" target='Chapters' title="internal function for computing series of orthogonal polynomials">OrthoPolySum</a>.
+)<h1>
+20. Special polynomials
+</h1>
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoP" target='Chapters' title="Legendre and Jacobi orthogonal polynomials">OrthoP</a></td>
+<td>Legendre and Jacobi orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoH" target='Chapters' title="Hermite orthogonal polynomials">OrthoH</a></td>
+<td>Hermite orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoG" target='Chapters' title="Gegenbauer orthogonal polynomials">OrthoG</a></td>
+<td>Gegenbauer orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoL" target='Chapters' title="Laguerre orthogonal polynomials">OrthoL</a></td>
+<td>Laguerre orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoT" target='Chapters' title="Chebyshev polynomials">OrthoT</a></td>
+<td>Chebyshev polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoU" target='Chapters' title="Chebyshev polynomials">OrthoU</a></td>
+<td>Chebyshev polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoPSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoPSum</a></td>
+<td>sums of series of orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoHSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoHSum</a></td>
+<td>sums of series of orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoLSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoLSum</a></td>
+<td>sums of series of orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoGSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoGSum</a></td>
+<td>sums of series of orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoTSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoTSum</a></td>
+<td>sums of series of orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoUSum" target='Chapters' title="sums of series of orthogonal polynomials">OrthoUSum</a></td>
+<td>sums of series of orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoPoly" target='Chapters' title="internal function for constructing orthogonal polynomials">OrthoPoly</a></td>
+<td>internal function for constructing orthogonal polynomials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter20.html#OrthoPolySum" target='Chapters' title="internal function for computing series of orthogonal polynomials">OrthoPolySum</a></td>
+<td>internal function for computing series of orthogonal polynomials</td>
+</tr>
+</table></center>
+<a name="OrthoP">
+
+</a>
+<a name="orthop">
+
+</a>
+<h3>
+<hr>OrthoP -- Legendre and Jacobi orthogonal polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthoP(n, x);
+OrthoP(n, a, b, x);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- degree of polynomial
+
+
+<p>
+<b><tt>x</tt></b> -- point to evaluate polynomial at
+
+
+<p>
+<b><tt>a</tt></b>, <b><tt>b</tt></b> -- parameters for Jacobi polynomial
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The first calling format with two arguments evaluates the Legendre polynomial
+of degree <b><tt>n</tt></b> at the point <b><tt>x</tt></b>. The second form does the same for the Jacobi
+polynomial with parameters <b><tt>a</tt></b> and <b><tt>b</tt></b>, which should be both greater than -1.
+
+
+<p>
+The Jacobi polynomials are orthogonal with respect to the weight
+function <b>(1-x)^a*(1+x)^b</b> on the interval [-1,1]. They satisfy the
+recurrence relation
+
+<p><center><b> P(n,a,b,x)=(2*n+a+b-1)/(2*n+a+b-2)*</b></center></p>
+
+
+<p><center><b>(a^2-b^2+x*(2*n+a+b-2)*(n+a+b))/(2*n*(n+a+b))*P(n-1,a,b,x) </b></center></p>
+
+
+<p><center><b>-((n+a-1)*(n+b-1)*(2*n+a+b))/(n*(n+a+b)*(2*n+a+b-2))*P(n-2,a,b,x) </b></center></p>
+
+for <b>n&gt;1</b>, with
+<b> P(0,a,b,x)=1</b>,
+
+<p><center><b> P(1,a,b,x)=(a-b)/2+x*(1+(a+b)/2).</b></center></p>
+
+
+
+<p>
+
+
+<p>
+Legendre polynomials are a special case of Jacobi polynomials with the
+specific parameter values <b>a=b=0</b>. So they form an orthogonal system
+with respect to the weight function identically equal to 1 on the
+interval [-1,1], and they satisfy the recurrence relation
+
+<p><center><b> P(n,x)=(2*n-1)*x/(2*n)*P(n-1,x)-(n-1)/n*P(n-2,x) </b></center></p>
+
+for <b>n&gt;1</b>, with
+<b> P(0,x)=1</b>,
+<b> P(1,x)=x</b>.
+
+
+<p>
+
+
+<p>
+Most of the work is performed by the internal function <b><tt>OrthoPoly</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; PrettyPrinter'Set("PrettyForm");
+
+True
+
+In&gt; OrthoP(3, x);
+
+    /      2     \
+    | 5 * x    3 |
+x * | ------ - - |
+    \   2      2 /
+
+In&gt; OrthoP(3, 1, 2, x);
+
+1       /     / 21 * x   7 \   7 \
+- + x * | x * | ------ - - | - - |
+2       \     \   2      2 /   2 /
+
+In&gt; Expand(%)
+
+      3        2
+21 * x  - 7 * x  - 7 * x + 1
+----------------------------
+             2
+
+In&gt; OrthoP(3, 1, 2, 0.5);
+
+-0.8124999999
+
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthoPSum" target="Chapters">
+OrthoPSum
+</a>
+, <a href="ref.html?OrthoG" target="Chapters">
+OrthoG
+</a>
+, <a href="ref.html?OrthoPoly" target="Chapters">
+OrthoPoly
+</a>
+.<a name="OrthoH">
+
+</a>
+<a name="orthoh">
+
+</a>
+<h3>
+<hr>OrthoH -- Hermite orthogonal polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthoH(n, x);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- degree of polynomial
+
+
+<p>
+<b><tt>x</tt></b> -- point to evaluate polynomial at
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function evaluates the Hermite polynomial of degree <b><tt>n</tt></b> at the
+point <b><tt>x</tt></b>.
+
+
+<p>
+The Hermite polynomials are orthogonal with respect to the weight
+function <b> Exp(-x^2/2)</b> on the entire real axis. They satisfy the
+recurrence relation
+
+<p><center><b>H(n,x)=2*x*H(n-1,x)-2*(n-1)*H(n-2,x) </b></center></p>
+
+for <b>n&gt;1</b>, with
+<b> H(0,x)=1</b>,
+<b> H(1,x)=2*x</b>.
+
+
+<p>
+Most of the work is performed by the internal function <b><tt>OrthoPoly</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OrthoH(3, x);
+Out&gt; x*(8*x^2-12);
+In&gt; OrthoH(6, 0.5);
+Out&gt; 31;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthoHSum" target="Chapters">
+OrthoHSum
+</a>
+, <a href="ref.html?OrthoPoly" target="Chapters">
+OrthoPoly
+</a>
+.<a name="OrthoG">
+
+</a>
+<a name="orthog">
+
+</a>
+<h3>
+<hr>OrthoG -- Gegenbauer orthogonal polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthoG(n, a, x);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- degree of polynomial
+
+
+<p>
+<b><tt>a</tt></b> -- parameter
+
+
+<p>
+<b><tt>x</tt></b> -- point to evaluate polynomial at
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function evaluates the Gegenbauer (or ultraspherical) polynomial
+with parameter <b><tt>a</tt></b> and degree <b><tt>n</tt></b> at the point <b><tt>x</tt></b>. The
+parameter <b><tt>a</tt></b> should be greater than -1/2.
+
+
+<p>
+The Gegenbauer polynomials are orthogonal with respect to the weight
+function <b>(1-x^2)^(a-1/2)</b> on the interval [-1,1]. Hence they are
+connected to the Jacobi polynomials via 
+
+<p><center><b>G(n,a,x)=P(n,a-1/2,a-1/2,x).</b></center></p>
+
+They satisfy the recurrence relation
+
+<p><center><b>G(n,a,x)=2*(1+(a-1)/n)*x*G(n-1,a,x) </b></center></p>
+
+
+<p><center><b>-(1+2*(a-2)/n)*G(n-2,a,x) </b></center></p>
+
+for <b>n&gt;1</b>, with
+<b> G(0,a,x)=1</b>,
+<b> G(1,a,x)=2*x</b>.
+
+
+<p>
+
+
+<p>
+Most of the work is performed by the internal function <b><tt>OrthoPoly</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OrthoG(5, 1, x);
+Out&gt; x*((32*x^2-32)*x^2+6);
+In&gt; OrthoG(5, 2, -0.5);
+Out&gt; 2;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthoP" target="Chapters">
+OrthoP
+</a>
+, <a href="ref.html?OrthoT" target="Chapters">
+OrthoT
+</a>
+, <a href="ref.html?OrthoU" target="Chapters">
+OrthoU
+</a>
+, <a href="ref.html?OrthoGSum" target="Chapters">
+OrthoGSum
+</a>
+, <a href="ref.html?OrthoPoly" target="Chapters">
+OrthoPoly
+</a>
+.<a name="OrthoL">
+
+</a>
+<a name="orthol">
+
+</a>
+<h3>
+<hr>OrthoL -- Laguerre orthogonal polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthoL(n, a, x);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- degree of polynomial
+
+
+<p>
+<b><tt>a</tt></b> -- parameter
+
+
+<p>
+<b><tt>x</tt></b> -- point to evaluate polynomial at
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function evaluates the Laguerre polynomial with parameter <b><tt>a</tt></b>
+and degree <b><tt>n</tt></b> at the point <b><tt>x</tt></b>. The parameter <b><tt>a</tt></b> should be
+greater than -1.
+
+
+<p>
+The Laguerre polynomials are orthogonal with respect to the weight
+function <b> x^a*Exp(-x)</b> on the positive real axis. They satisfy the
+recurrence relation
+
+<p><center><b>L(n,a,x)=(2+(a-1-x)/n)*L(n-1,a,x) </b></center></p>
+
+
+<p><center><b>-(1-(a-1)/n)*L(n-2,a,x) </b></center></p>
+
+for <b>n&gt;1</b>, with 
+<b> L(0,a,x)=1</b>,
+<b> L(1,a,x)=a+1-x</b>.
+
+
+<p>
+
+
+<p>
+Most of the work is performed by the internal function <b><tt>OrthoPoly</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OrthoL(3, 1, x);
+Out&gt; x*(x*(2-x/6)-6)+4;
+In&gt; OrthoL(3, 1/2, 0.25);
+Out&gt; 1.2005208334;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthoLSum" target="Chapters">
+OrthoLSum
+</a>
+, <a href="ref.html?OrthoPoly" target="Chapters">
+OrthoPoly
+</a>
+.<a name="OrthoT">
+
+</a>
+<a name="orthot">
+
+</a>
+<h3>
+<hr>OrthoT -- Chebyshev polynomials
+</h3>
+<a name="OrthoU">
+
+</a>
+<a name="orthou">
+
+</a>
+<h3>
+<hr>OrthoU -- Chebyshev polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthoT(n, x);
+OrthoU(n, x);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- degree of polynomial
+
+
+<p>
+<b><tt>x</tt></b> -- point to evaluate polynomial at
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These functions evaluate the Chebyshev polynomials of the first kind
+<b> T(n,x)</b> and of the second kind <b>U(n,x)</b>, of degree "n" at the point "x". (The
+name of this Russian mathematician is also sometimes spelled "Tschebyscheff".)
+
+
+<p>
+The Chebyshev polynomials are orthogonal with respect to the weight
+function <b>(1-x^2)^(-1/2)</b>. Hence they are a special case of the Gegenbauer
+polynomials <b>G(n,a,x)</b>, with <b>a=0</b>. They satisfy the recurrence relations
+
+<p><center><b> T(n,x)=2*x*T(n-1,x)-T(n-2,x),</b></center></p>
+
+
+<p><center><b>U(n,x)=2*x*U(n-1,x)-U(n-2,x) </b></center></p>
+
+for <b>n&gt;1</b>, with
+<b> T(0,x)=1</b>,
+<b> T(1,x)=x</b>,
+<b> U(0,x)=1</b>,
+<b> U(1,x)=2*x</b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OrthoT(3, x);
+Out&gt; 2*x*(2*x^2-1)-x;
+In&gt; OrthoT(10, 0.9);
+Out&gt; -0.2007474688;
+In&gt; OrthoU(3, x);
+Out&gt; 4*x*(2*x^2-1);
+In&gt; OrthoU(10, 0.9);
+Out&gt; -2.2234571776;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthoG" target="Chapters">
+OrthoG
+</a>
+, <a href="ref.html?OrthoTSum" target="Chapters">
+OrthoTSum
+</a>
+, <a href="ref.html?OrthoUSum" target="Chapters">
+OrthoUSum
+</a>
+, <a href="ref.html?OrthoPoly" target="Chapters">
+OrthoPoly
+</a>
+.<a name="OrthoPSum">
+
+</a>
+<a name="orthopsum">
+
+</a>
+<h3>
+<hr>OrthoPSum -- sums of series of orthogonal polynomials
+</h3>
+<a name="OrthoHSum">
+
+</a>
+<a name="orthohsum">
+
+</a>
+<h3>
+<hr>OrthoHSum -- sums of series of orthogonal polynomials
+</h3>
+<a name="OrthoLSum">
+
+</a>
+<a name="ortholsum">
+
+</a>
+<h3>
+<hr>OrthoLSum -- sums of series of orthogonal polynomials
+</h3>
+<a name="OrthoGSum">
+
+</a>
+<a name="orthogsum">
+
+</a>
+<h3>
+<hr>OrthoGSum -- sums of series of orthogonal polynomials
+</h3>
+<a name="OrthoTSum">
+
+</a>
+<a name="orthotsum">
+
+</a>
+<h3>
+<hr>OrthoTSum -- sums of series of orthogonal polynomials
+</h3>
+<a name="OrthoUSum">
+
+</a>
+<a name="orthousum">
+
+</a>
+<h3>
+<hr>OrthoUSum -- sums of series of orthogonal polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthoPSum(c, x);
+OrthoPSum(c, a, b, x);
+OrthoHSum(c, x);
+OrthoLSum(c, a, x);
+OrthoGSum(c, a, x);
+OrthoTSum(c, x);
+OrthoUSum(c, x);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>c</tt></b> -- list of coefficients
+
+
+<p>
+<b><tt>a</tt></b>, <b><tt>b</tt></b> -- parameters of specific polynomials
+
+
+<p>
+<b><tt>x</tt></b> -- point to evaluate polynomial at
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These functions evaluate the sum of series of orthogonal polynomials at the point <b><tt>x</tt></b>, with given list of coefficients <b><tt>c</tt></b> of the series and fixed polynomial parameters <b><tt>a</tt></b>, <b><tt>b</tt></b> (if applicable).
+
+
+<p>
+The list of coefficients starts with the lowest order, so that for example
+OrthoLSum(c, a, x) = c[1] L[0](a,x) + c[2] L[1](a,x) + ... + c[N] L[N-1](a,x).
+
+
+<p>
+See pages for specific orthogonal polynomials for more details on the parameters of the polynomials.
+
+
+<p>
+Most of the work is performed by the internal function <b><tt>OrthoPolySum</tt></b>. The individual polynomials entering the series are not computed, only the sum of the series.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Expand(OrthoPSum({1,0,0,1/7,1/8}, 3/2, \
+  2/3, x));
+Out&gt; (7068985*x^4)/3981312+(1648577*x^3)/995328+
+(-3502049*x^2)/4644864+(-4372969*x)/6967296
++28292143/27869184;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthoP" target="Chapters">
+OrthoP
+</a>
+, <a href="ref.html?OrthoG" target="Chapters">
+OrthoG
+</a>
+, <a href="ref.html?OrthoH" target="Chapters">
+OrthoH
+</a>
+, <a href="ref.html?OrthoL" target="Chapters">
+OrthoL
+</a>
+, <a href="ref.html?OrthoT" target="Chapters">
+OrthoT
+</a>
+, <a href="ref.html?OrthoU" target="Chapters">
+OrthoU
+</a>
+, <a href="ref.html?OrthoPolySum" target="Chapters">
+OrthoPolySum
+</a>
+.<a name="OrthoPoly">
+
+</a>
+<a name="orthopoly">
+
+</a>
+<h3>
+<hr>OrthoPoly -- internal function for constructing orthogonal polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthoPoly(name, n, par, x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string containing name of orthogonal family
+
+
+<p>
+<b><tt>n</tt></b> -- degree of the polynomial
+
+
+<p>
+<b><tt>par</tt></b> -- list of values for the parameters
+
+
+<p>
+<b><tt>x</tt></b> -- point to evaluate at
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function is used internally to construct orthogonal
+polynomials. It returns the <b><tt>n</tt></b>-th polynomial from the family
+<b><tt>name</tt></b> with parameters <b><tt>par</tt></b> at the point <b><tt>x</tt></b>.
+
+
+<p>
+All known families are stored in the association list returned by the function <b><tt>KnownOrthoPoly()</tt></b>. The name serves as key. At the moment
+the following names are known to Piper: <b><tt>"Jacobi"</tt></b>, <b><tt>"Gegenbauer"</tt></b>, <b><tt>"Laguerre"</tt></b>, <b><tt>"Hermite"</tt></b>, <b><tt>"Tscheb1"</tt></b>,
+and <b><tt>"Tscheb2"</tt></b>. The value associated to the key
+is a pure function that takes two arguments: the order <b><tt>n</tt></b> and the
+extra parameters <b><tt>p</tt></b>, and returns a list of two lists: the first list
+contains the coefficients <b><tt>A,B</tt></b> of the n=1 polynomial, i.e. <b> A+B*x</b>;
+the second list contains the coefficients <b><tt>A,B,C</tt></b> in the recurrence
+relation, i.e. <b> P[n]=(A+B*x)*P[n-1]+C*P[n-2]</b>. (There are
+only 3 coefficients in the second list, because none of the polynomials use <b>C+D*x</b> instead of <b> C</b> in the recurrence relation. This is assumed in the implementation!)
+
+
+<p>
+If the argument <b><tt>x</tt></b> is numerical, the function <b><tt>OrthoPolyNumeric</tt></b> is called. Otherwise, the function <b><tt>OrthoPolyCoeffs</tt></b> computes a list of coefficients, and
+<b><tt>EvaluateHornerScheme</tt></b> converts this list into a
+polynomial expression.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthoP" target="Chapters">
+OrthoP
+</a>
+, <a href="ref.html?OrthoG" target="Chapters">
+OrthoG
+</a>
+, <a href="ref.html?OrthoH" target="Chapters">
+OrthoH
+</a>
+, <a href="ref.html?OrthoL" target="Chapters">
+OrthoL
+</a>
+, <a href="ref.html?OrthoT" target="Chapters">
+OrthoT
+</a>
+, <a href="ref.html?OrthoU" target="Chapters">
+OrthoU
+</a>
+, <a href="ref.html?OrthoPolySum" target="Chapters">
+OrthoPolySum
+</a>
+.<a name="OrthoPolySum">
+
+</a>
+<a name="orthopolysum">
+
+</a>
+<h3>
+<hr>OrthoPolySum -- internal function for computing series of orthogonal polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthoPolySum(name, c, par, x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string containing name of orthogonal family
+
+
+<p>
+<b><tt>c</tt></b> -- list of coefficients
+
+
+<p>
+<b><tt>par</tt></b> -- list of values for the parameters
+
+
+<p>
+<b><tt>x</tt></b> -- point to evaluate at
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function is used internally to compute series of orthogonal polynomials.
+It is similar to the function <b><tt>OrthoPoly</tt></b> and returns the result of the
+summation of series of polynomials from the family <b><tt>name</tt></b> with parameters <b><tt>par</tt></b>
+at the point <b><tt>x</tt></b>, where <b><tt>c</tt></b> is the list of coefficients of the series.
+
+
+<p>
+The algorithm used to compute the series without first computing the individual polynomials is the Clenshaw-Smith recurrence scheme.
+(See the algorithms book for explanations.)
+
+
+<p>
+If the argument <b><tt>x</tt></b> is numerical, the function <b><tt>OrthoPolySumNumeric</tt></b> is called.
+Otherwise, the function <b><tt>OrthoPolySumCoeffs</tt></b> computes the list of coefficients
+of the resulting polynomial, and <b><tt>EvaluateHornerScheme</tt></b> converts this list into
+a polynomial expression.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthoPSum" target="Chapters">
+OrthoPSum
+</a>
+, <a href="ref.html?OrthoGSum" target="Chapters">
+OrthoGSum
+</a>
+, <a href="ref.html?OrthoHSum" target="Chapters">
+OrthoHSum
+</a>
+, <a href="ref.html?OrthoLSum" target="Chapters">
+OrthoLSum
+</a>
+, <a href="ref.html?OrthoTSum" target="Chapters">
+OrthoTSum
+</a>
+, <a href="ref.html?OrthoUSum" target="Chapters">
+OrthoUSum
+</a>
+, <a href="ref.html?OrthoPoly" target="Chapters">
+OrthoPoly
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

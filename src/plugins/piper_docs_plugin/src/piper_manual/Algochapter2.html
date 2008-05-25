@@ -1,0 +1,710 @@
+<html>
+<head>
+  <title>Number theory algorithms</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c2">
+
+</a>
+<h1>
+2. Number theory algorithms
+</h1>
+This chapter describes the algorithms used for computing various number-theoretic functions.
+We call "number-theoretic" any function that takes integer arguments,
+produces integer values, and is of interest to number theory.
+
+<p> </p>
+
+<p>
+
+<a name="c2s1">
+
+</a>
+<h2>
+<hr>2.1 Euclidean GCD algorithms
+</h2>
+<a name="GCD!binary Euclidean method">
+
+</a>
+The main algorithm for the calculation of the GCD of two integers
+is the binary Euclidean algorithm.
+It is based on the following identities: <b>Gcd(a,b)=Gcd(b,a)</b>,
+<b>Gcd(a,b)=Gcd(a-b,b)</b>, and for odd <b>b</b>, <b> Gcd(2*a,b)=Gcd(a,b)</b>.
+Thus we can produce a sequence of pairs with the same GCD as the original two numbers, and each pair will be at most half the size of the previous pair.
+The number of steps is logarithmic in the number of digits in <b>a</b>, <b> b</b>.
+The only operations needed for this algorithm are binary shifts and subtractions (no modular division is necessary).
+The low-level function for this is <b><tt>MathGcd</tt></b>.
+
+
+<p>
+To speed up the calculation when one of the numbers is much larger than another, one could use the property <b> Gcd(a,b)=Gcd(a,Mod(a,b))</b>.
+This will introduce an additional modular division into the algorithm; this is a slow operation when the numbers are large.
+
+
+<p>
+
+<a name="c2s2">
+
+</a>
+<h2>
+<hr>2.2 Prime numbers: the Miller-Rabin test and its improvements
+</h2>
+<a name="primality testing">
+
+</a>
+Small prime numbers
+
+$p<=65537$
+are simply stored in a precomputed table as an array of bits; the bits corresponding to prime numbers are set to 1.
+This makes primality testing on small numbers very quick.
+This is implemented by the function <b><tt>FastIsPrime</tt></b>.
+
+
+<p>
+Primality of larger numbers is tested by the function <b><tt>IsPrime</tt></b> that uses the
+Miller-Rabin algorithm.
+<h6>Initial implementation and documentation was supplied by Christian Obrecht.</h6>This algorithm is deterministic (guaranteed correct within a certain running time) for
+"small" numbers <b>n&lt;3.4*10^13</b> and probabilistic
+(correct with high probability but not guaranteed) for larger numbers.
+In other words, the Miller-Rabin test
+could sometimes flag a large number <b> n</b> as prime when in fact <b> n</b> is
+composite; but the probability for this to happen can be made extremely
+small. The basic reference is [Rabin 1980].
+We also implemented some of the improvements suggested in [Davenport 1992].
+
+
+<p>
+
+<a name="primality testing!Fermat test">
+
+</a>
+<a name="primality testing!Miller-Rabin algorithm">
+
+</a>
+The idea of the Miller-Rabin algorithm is to improve the Fermat primality test. If <b> n</b> is prime, then for any <b> x</b> we have <b> Gcd(n,x)=1</b>. Then by Fermat's "little theorem", <b> x^(n-1):=Mod(1,n)</b>. (This is really a simple statement; if <b>n</b> is prime, then <b> n-1</b> nonzero remainders modulo <b> n</b>: 1, 2, ..., <b> n-1</b> form a cyclic multiplicative group.) Therefore we pick some "base" integer <b> x</b> and compute <b> Mod(x^(n-1),n)</b>; this is a quick computation even if <b>n</b> is large. If this value is not equal to <b> 1</b> for some base <b> x</b>, then <b> n</b> is definitely not prime.
+However, we cannot test <i>every</i> base <b> x&lt;n</b>; instead we test only some <b> x</b>, so it may happen that we miss the right values of <b> x</b> that would expose the non-primality of <b> n</b>.
+So Fermat's test sometimes fails, i.e. says that <b> n</b> is a prime when <b> n</b> is in fact not a prime.
+Also there are infinitely many integers called "Carmichael numbers" which are not prime but pass the Fermat test for every base.
+
+
+<p>
+The Miller-Rabin algorithm improves on this by using the property that for prime <b> n</b> there are no nontrivial square roots of unity in the ring of integers modulo <b> n</b> (this is Lagrange's theorem). In other words, if <b> x^2:=Mod(1,n)</b> for some <b>x</b>, then <b> x</b> must be equal to <b> 1</b> or <b>-1</b> modulo <b> n</b>. (Since <b> n-1</b> is equal to <b>-1</b> modulo <b> n</b>, we have <b> n-1</b> as a trivial square root of unity modulo <b> n</b>.
+Note that even if <b> n</b> is prime there may be nontrivial divisors of <b> 1</b>, for example, <b> 2*49:=Mod(1,97)</b>.)
+
+
+<p>
+We can check that <b>n</b> is odd before applying any primality test. (A test <b> n^2:=Mod(1,24)</b> guarantees that <b>n</b> is not divisible by <b> 2</b> or <b> 3</b>.
+For large <b> n</b> it is faster to first compute <b> Mod(n,24)</b> rather than <b>n^2</b>, or test <b> n</b> directly.)
+Then we note that in Fermat's test the number <b> n-1</b> is certainly a composite number because <b> n-1</b> is even. So if we first find the largest power of <b> 2</b> in <b> n-1</b> and decompose <b> n-1=2^r*q</b> with <b> q</b> odd, then <b> x^(n-1):=Mod(a^2^r,n)</b> where <b>a:=Mod(x^q,n)</b>. (Here <b>r&gt;=1</b> since <b> n</b> is odd.) In other words, the number <b> Mod(x^(n-1),n)</b> is obtained by repeated squaring of the number <b>a</b>.
+We get a sequence of <b> r</b> repeated squares: <b> a</b>, <b> a^2</b>, ..., <b> a^2^r</b>.
+The last element of this sequence must be <b> 1</b> if <b> n</b> passes the Fermat test.
+(If it does not pass, <b> n</b> is definitely a composite number.)
+If <b> n</b> passes the Fermat test, the last-but-one element <b> a^2^(r-1)</b> of the sequence of squares is a square root of unity modulo <b>n</b>.
+We can check whether this square root is non-trivial (i.e. not equal to <b> 1</b> or <b>-1</b> modulo <b> n</b>). If it is non-trivial, then <b> n</b> definitely cannot be a prime. If it is trivial and equal to <b> 1</b>, we can check the preceding element, and so on. If an element is equal to <b>-1</b>, we cannot say anything, i.e. the test passes (<b> n</b> is "probably a prime").
+
+
+<p>
+This procedure can be summarized like this:
+<ul><li>Find the largest power of </li><b> 2</b> in <b> n-1</b> and an odd number <b> q</b> such that <b> n-1=2^r*q</b>.
+<li>Select the "base number" </li><b> x&lt;n</b>. Compute the sequence <b> a:=Mod(x^q,n)</b>, <b>a^2</b>, <b> a^4</b>, ..., <b> a^2^r</b> by repeated squaring modulo <b> n</b>. This sequence contains at least two elements since <b> r&gt;=1</b>.
+<li>If </li><b> a=1</b> or <b> a=n-1</b>, the test passes on the base number <b> x</b>. Otherwise, the test passes if at least one of the elements of the sequence is equal to <b> n-1</b> and fails if none of them are equal to <b> n-1</b>. 
+This simplified procedure works because the first element that is equal to <b> 1</b> <i>must</i> be preceded by a <b>-1</b>, or else we would find a nontrivial root of unity.
+</ul>
+
+<p>
+Here is a more formal definition.
+An odd integer <b> n</b> is called <i>strongly-probably-prime</i> for base <b> b</b> if
+<b> b^q:=Mod(1,n)</b>
+or
+<b>b^(q*2^i):=Mod(n-1,n)</b> for some <b>i</b> such that <b> 0&lt;=i&lt;r</b>,
+where <b> q</b> and <b> r</b> are such that <b> q</b> is odd and <b> n-1=q*2^r</b>.
+
+
+<p>
+A practical application of this procedure needs to select particular base numbers. 
+It is advantageous (according to [Pomerance <i>et al.</i> 1980]) to choose <i>prime</i> numbers <b> b</b> as bases, because for a composite base <b> b=p*q</b>, if <b> n</b> is a strong pseudoprime for both <b> p</b> and <b> q</b>, then it is very probable that <b> n</b> is a strong pseudoprime also for <b> b</b>, so composite bases rarely give new information.
+
+
+<p>
+An additional check suggested by [Davenport 1992] is activated if <b> r&gt;2</b> (i.e. if <b> n:=Mod(1,8)</b> which is true for only 1/4 of all odd numbers).
+If <b>i&gt;=1</b> is found such that <b> b^(q*2^i):=Mod(n-1,n)</b>, then <b>b^(q*2^(i-1))</b> is a square root of <b>-1</b> modulo <b> n</b>.
+If <b> n</b> is prime, there may be only two different square roots of <b>-1</b>.
+Therefore we should store the set of found values of roots of <b>-1</b>; if there are more than two such roots, then we woill find some roots <b> s1</b>, <b> s2</b> of <b>-1</b> such that <b> s1+s2!=Mod(0,n)</b>.
+But <b>s1^2-s2^2:=Mod(0,n)</b>.
+Therefore <b>n</b> is definitely composite, e.g. <b> Gcd(s1+s2,n)&gt;1</b>. This check costs very little computational effort but guards against some strong pseudoprimes.
+
+
+<p>
+Yet another small improvement comes from [Damgard <i>et al.</i> 1993].
+They found that the strong primality test sometimes (rarely) passes on
+composite numbers <b> n</b> for more than <b> 1/8</b> of all bases <b> x&lt;n</b> if <b> n</b> is such
+that either <b> 3*n+1</b> or <b> 8*n+1</b> is a perfect square, or if <b> n</b> is a
+Carmichael number. Checking Carmichael numbers is slow, but it is easy to show that
+if <b> n</b> is a large enough prime number, then neither <b> 3*n+1</b>, nor <b> 8*n+1</b>,
+nor any <b> s*n+1</b> with small integer <b> s</b> can be a perfect square.
+[If
+<b> s*n+1=r^2</b>, then <b> s*n=(r-1)*(r+1)</b>.]
+Testing for a perfect square is quick
+and does not slow down the algorithm.
+This is however not
+implemented in Piper because it seems that perfect squares are too rare
+for this improvement to be significant.
+
+
+<p>
+
+<a name="primality testing!strong pseudoprimes">
+
+</a>
+If an integer is not "strongly-probably-prime" for a given base <b>b</b>, then it is
+a composite number.
+However, the converse statement is false, i.e. "strongly-probably-prime" numbers can actually be composite.
+Composite strongly-probably-prime numbers for
+base <b> b</b> are called <i>strong pseudoprimes</i> for base <b> b</b>. There is a theorem that if <b> n</b> is
+composite, then among all numbers <b> b</b> such that <b> 1&lt;b&lt;n</b>, at most one fourth
+are such that <b> n</b> is a strong pseudoprime for base <b> b</b>.
+Therefore if <b> n</b> is strongly-probably-prime for many bases, then the probability for <b> n</b> to be composite is very small.
+
+
+<p>
+For numbers less than <b> B=34155071728321</b>, exhaustive
+<h6>And surely exhausting.</h6>computations have shown
+that there are no strong pseudoprimes simultaneously for bases 2, 3, 5, 7, 11, 13
+and 17. This gives a simple and reliable primality test for integers below <b> B</b>.
+If <b> n&gt;=B</b>, the Rabin-Miller method consists in checking if <b> n</b> is
+strongly-probably-prime for <b> k</b> base numbers <b> b</b>.
+The base numbers are chosen to be consecutive "weak pseudoprimes" that are easy to generate (see below the function <b><tt>NextPseudoPrime</tt></b>).
+
+
+<p>
+
+<a name="primality testing!Miller-Rabin algorithm!choosing the bases">
+
+</a>
+In the implemented routine <b><tt>RabinMiller</tt></b>, the number of bases <b> k</b> is chosen to
+make the probability of erroneously passing the test <b> p&lt;10^(-25)</b>. (Note that
+this is <i>not</i> the same as the probability to give an incorrect answer,
+because all numbers that do not pass the test are definitely composite.) The
+probability for the test to pass mistakenly on a given number is found as
+follows.
+Suppose the number of bases <b>k</b> is fixed. Then the probability for a
+given composite number to pass the test is less than <b> p[f]=4^(-k)</b>. The
+probability for a given number <b>n</b> to be prime is roughly <b> p[p]=1/Ln(n)</b> and to
+be composite <b>p[c]=1-1/Ln(n)</b>. Prime numbers never fail the test.
+Therefore, the probability for the test to pass is <b>p[f]*p[c]+p[p]</b> and the probability to pass erroneously is
+
+<p><center><b>p=(p[f]*p[c])/(p[f]*p[c]+p[p])&lt;Ln(n)*4^(-k).</b></center></p>
+
+To make <b>p&lt;epsilon</b>, it is enough to select <b> k=1/Ln(4)*(Ln(n)-Ln(epsilon))</b>.
+
+
+<p>
+Before calling <b><tt>MillerRabin</tt></b>, the function <b><tt>IsPrime</tt></b> performs two quick
+checks:
+first, for <b>n&gt;=4</b> it checks that <b> n</b> is not divisible by 2 or 3 
+(all primes larger than 4 must satisfy this);
+second, for <b> n&gt;257</b>, it checks that <b> n</b> does not contain small prime factors <b> p&lt;=257</b>.
+This is checked by evaluating the GCD of <b> n</b> with the precomputed product of all primes up to 257.
+The computation of the GCD is quick and saves time in case a
+small prime factor is present.
+
+
+<p>
+
+<a name="NextPrime@\relax <b><tt>NextPrime</tt></b>">
+
+</a>
+There is also a function <b><tt>NextPrime(n)</tt></b> that returns the smallest prime number larger than <b><tt>n</tt></b>. 
+This function uses a sequence 5,7,11,13,... generated by the function <b><tt>NextPseudoPrime</tt></b>.
+This sequence contains numbers not divisible by 2 or 3 (but perhaps divisible by 5,7,...).
+The function <b><tt>NextPseudoPrime</tt></b> is very fast because it does not perform a full primality test.
+
+
+<p>
+The function <b><tt>NextPrime</tt></b> however does check each of these pseudoprimes using <b><tt>IsPrime</tt></b> and finds the first prime number.
+
+
+<p>
+
+<a name="c2s3">
+
+</a>
+<h2>
+<hr>2.3 Factorization of integers
+</h2>
+<a name="factorization of integers">
+
+</a>
+<a name="Factor@\relax <b><tt>Factor</tt></b>">
+
+</a>
+When we find from the primality test that an integer <b>n</b> is composite, we usually do not obtain any factors of <b> n</b>.
+Factorization is implemented by functions <b><tt>Factor</tt></b> and <b><tt>Factors</tt></b>.
+Both functions use the same algorithms to find all prime factors of a given integer <b> n</b>.
+(Before doing this, the primality checking algorithm is used to detect whether <b> n</b> is a prime number.)
+Factorization consists of repeatedly finding a factor, i.e. an 
+integer <b> f</b> such that <b> Mod(n,f)=0</b>, and dividing <b> n</b> by <b> f</b>.
+(Of course, each fastor <b> f</b> needs to be factorized too.)
+
+
+<p>
+
+<a name="factorization of integers!small prime factors">
+
+</a>
+First we determine whether the number <b> n</b> contains "small" prime
+factors <b> p&lt;=257</b>. A quick test is to find the GCD of <b> n</b> and the
+product of all primes up to <b> 257</b>: if the GCD is greater than 1, then
+<b> n</b> has at least one small prime factor. (The product of primes is
+precomputed.) If this is the case, the trial division algorithm is
+used: <b> n</b> is divided by all prime numbers <b> p&lt;=257</b> until a factor is
+found. <b><tt>NextPseudoPrime</tt></b> is used to generate the sequence of candidate
+divisors <b> p</b>.
+
+
+<p>
+
+<a name="factorization of integers!checking for prime powers">
+
+</a>
+After separating small prime factors, we test whether the number <b> n</b> is an integer power of a prime number, i.e. whether <b> n=p^s</b> for some prime number <b> p</b> and an integer <b> s&gt;=1</b>. This is tested by the following algorithm. We already know that <b> n</b> is not prime and that <b> n</b> does not contain any small prime factors up to 257. Therefore if <b> n=p^s</b>, then <b> p&gt;257</b> and <b> 2&lt;=s&lt;s[0]=Ln(n)/Ln(257)</b>. In other words, we only need to look for powers not greater than <b>s[0]</b>. This number can be approximated by the "integer logarithm" of <b>n</b> in base 257 (routine <b><tt>IntLog(n, 257)</tt></b>).
+
+
+<p>
+Now we need to check whether <b> n</b> is of the form <b> p^s</b> for <b> s=2</b>, 3, ..., <b> s[0]</b>. Note that if for example <b>n=p^24</b> for some <b> p</b>, then the square root of <b> n</b> will already be an integer, <b> n^(1/2)=p^12</b>. Therefore it is enough to test whether <b> n^(1/s)</b> is an integer for all <i>prime</i> values of <b>s</b> up to <b> s[0]</b>, and then we will definitely discover whether <b>n</b> is a power of some other integer.
+The testing is performed using the integer <b> n</b>-th root function <b><tt>IntNthRoot</tt></b> which quickly computes the integer part of <b> n</b>-th root of an integer number. If we discover that <b> n</b> has an integer root <b> p</b> of order <b> s</b>, we have to check that <b> p</b> itself is a prime power (we use the same algorithm recursively). The number <b> n</b> is a prime power if and only if <b> p</b> is itself a prime power. If we find no integer roots of orders <b> s&lt;=s[0]</b>, then <b>n</b> is not a prime power.
+
+
+<p>
+
+<a name="factorization of integers!Pollard's "rho" algorithm">
+
+</a>
+If the number <b> n</b> is not a prime power, the Pollard "rho" algorithm is applied [Pollard 1978]. The Pollard "rho" algorithm takes an irreducible polynomial, e.g. <b> p(x)=x^2+1</b> and builds a sequence of integers <b> x[k+1]:=Mod(p(x[k]),n)</b>, starting from <b>x[0]=2</b>. For each <b> k</b>, the value <b> x[2*k]-x[k]</b> is attempted as possibly containing a common factor with <b>n</b>. The GCD of <b> x[2*k]-x[k]</b> with <b>n</b> is computed, and if <b> Gcd(x[2*k]-x[k],n)&gt;1</b>, then that GCD value divides <b> n</b>.
+
+
+<p>
+The idea behind the "rho" algorithm is to generate an effectively
+random sequence of trial numbers <b> t[k]</b> that may have a common factor
+with <b>n</b>. The efficiency of this algorithm is determined by the size of
+the smallest factor <b> p</b> of <b> n</b>. Suppose <b> p</b> is the smallest prime
+factor of <b> n</b> and suppose we generate a random sequence of integers
+<b> t[k]</b> such that <b>1&lt;=t[k]&lt;n</b>. It is clear that, on the average, a
+fraction <b> 1/p</b> of these integers will be divisible by <b> p</b>. Therefore
+(if <b> t[k]</b> are truly random) we should need on the average <b>p</b> tries
+until we find <b> t[k]</b> which is accidentally divisible by <b>p</b>. In
+practice, of course, we do not use a truly random sequence and the
+number of tries before we find a factor <b> p</b> may be significantly
+different from <b> p</b>. The quadratic polynomial seems to help reduce the
+number of tries in most cases.
+
+
+<p>
+But the Pollard "rho" algorithm may actually enter an infinite loop
+when the sequence <b> x[k]</b> repeats itself without giving any factors of
+<b>n</b>. For example, the unmodified "rho" algorithm starting from <b> x[0]=2</b>
+loops on the number <b> 703</b>. The loop is detected by comparing <b> x[2*k]</b> and
+<b>x[k]</b>. When these two quantities become equal to each other for the
+first time, the loop may not yet have occurred so the value of GCD is
+set to 1 and the sequence is continued. But when the equality of
+<b>x[2*k]</b> and <b>x[k]</b> occurs many times, it indicates that the algorithm
+has entered a loop. A solution is to randomly choose a different
+starting number <b>x[0]</b> when a loop occurs and try factoring again, and
+keep trying new random starting numbers between 1 and <b>n</b> until a
+non-looping sequence is found. The current implementation stops after
+100 restart attempts and prints an error message, "failed to factorize
+number".
+
+
+<p>
+A better (and faster) integer factoring algorithm needs to be implemented in Piper.
+
+
+<p>
+
+<a name="factorization of integers!overview of algorithms">
+
+</a>
+Modern factoring algorithms are all probabilistic (i.e. they do not
+guarantee a particular finishing time) and fall into three categories:
+<ul><li>Methods that work well (i.e. quickly) if there is a relatively
+small factor </li><b> p</b> of <b> n</b> (even if <b> n</b> itself is large).
+Pollard's "rho"
+algorithm belongs to this category. The fastest in this category is
+Lenstra's elliptic curves method (ECM).
+<li>Methods that work equally quickly regardless of the size of factors
+(but slower with larger </li><b> n</b>). These are the continued fractions method
+and the various "sieve" methods. The current best is the "General Number Field
+Sieve" (GNFS) but it is quite a complicated algorithm requiring
+operations with high-order algebraic numbers. The next best one is the
+"Multiple Polynomial Quadratic Sieve" (MPQS).
+<li>Methods that are suitable only for numbers of special
+"interesting" form, e.g. Fermat numbers </li><b> 2^2^k-1</b> or generally
+numbers of the form <b> r^s+a</b> where <b> s</b> is large but <b> r</b> and <b> a</b> are very
+small integers. The best method seems to be the "Special Number
+Field Sieve" which is a faster variant of the GNFS adapted to the problem.
+</ul>
+
+<p>
+There is ample literature describing these algorithms.
+
+
+<p>
+
+<a name="c2s4">
+
+</a>
+<h2>
+<hr>2.4 The Jacobi symbol
+</h2>
+A number <b>m</b> is a "quadratic residue modulo <b> n</b>" if there exists a number <b> k</b> such that <b> k^2:=Mod(m,n)</b>.
+
+
+<p>
+The Legendre symbol (<b>m</b>/<b> n</b>) is defined as <b>+1</b> if <b> m</b> is a quadratic residue modulo <b> n</b> and <b>-1</b> if it is a non-residue.
+The Legendre symbol is equal to <b> 0</b> if <b> m/n</b> is an integer.
+
+
+<p>
+The Jacobi symbol <b>[m/n;]</b> is defined as the product of the Legendre symbols of the prime factors <b>f[i]</b> of <b>n=f[1]^p[1]*...*f[s]^p[s]</b>,
+
+<p><center><b>[m/n;]:=[m/f[1];]^p[1]*...*[m/f[s];]^p[s].</b></center></p>
+
+(Here we used the same notation <b>[a/b;]</b> for the Legendre and the Jacobi symbols; this is confusing but seems to be the current practice.)
+The Jacobi symbol is equal to <b>0</b> if <b> m</b>, <b> n</b> are not mutually prime (have a common factor).
+The Jacobi symbol and the Legendre symbol have values <b>+1</b>, <b>-1</b> or <b> 0</b>.
+
+
+<p>
+The Jacobi symbol can be efficiently computed without knowing the full factorization of the number <b> n</b>.
+The currently used method is based on the following four identities for the Jacobi symbol:
+<ul><li></li><b>[a/1;]=1</b>.
+<li></li><b>[2/b;]=(-1)^((b^2-1)/8)</b>.
+<li></li><b>[(a*b)/c;]=[a/c;]*[b/c;]</b>.
+<li>If </li><b>a:=Mod(b,c)</b>, then <b>[a/c;]=[b/c;]</b>.
+<li>If </li><b>a</b>, <b> b</b> are both odd, then <b>[a/b;]=[b/a;]*(-1)^((a-1)*(b-1)/4)</b>.
+</ul>
+
+<p>
+Using these identities, we can recursively reduce the computation of the Jacobi symbol <b>[a/b;]</b> to the computation of the Jacobi symbol for numbers that are on the average half as large.
+This is similar to the fast "binary" Euclidean algorithm for the computation of the GCD.
+The number of levels of recursion is logarithmic in the arguments <b>a</b>, <b> b</b>.
+
+
+<p>
+More formally, Jacobi symbol <b>[a/b;]</b> is computed by the following algorithm.
+(The number <b>b</b> must be an odd positive integer, otherwise the result is undefined.)
+<ul><li>If </li><b> b=1</b>, return <b> 1</b> and stop. If <b> a=0</b>, return <b> 0</b> and stop. Otherwise, replace <b>[a/b;]</b> by <b>[Mod(a,b)/b;]</b> (identity 4).
+<li>Find the largest power of </li><b>2</b> that divides <b> a</b>. Say, <b> a=2^s*c</b> where <b> c</b> is odd.
+Replace <b>[a/b;]</b> by <b>[c/b;]*(-1)^(s*(b^2-1)/8)</b> (identities 2 and 3).
+<li>Now that </li><b>c&lt;b</b>, replace <b>[c/b;]</b> by <b>[b/c;]*(-1)^((b-1)*(c-1)/4)</b> (identity 5).
+<li>Continue to step 1.
+</li></ul>
+
+<p>
+Note that the arguments <b>a</b>, <b> b</b> may be very large integers and we should avoid performing multiplications of these numbers.
+We can compute <b>(-1)^((b-1)*(c-1)/4)</b> without multiplications. This expression is equal to <b>1</b> if either <b> b</b> or <b> c</b> is equal to 1 mod 4; it is equal to <b>-1</b> only if both <b> b</b> and <b> c</b> are equal to 3 mod 4.
+Also, <b>(-1)^((b^2-1)/8)</b> is equal to <b>1</b> if either <b> b:=1</b> or <b> b:=7</b> mod 8, and it is equal to <b>-1</b> if <b> b:=3</b> or <b> b:=5</b> mod 8.
+Of course, if <b> s</b> is even, none of this needs to be computed.
+
+
+<p>
+
+<a name="c2s5">
+
+</a>
+<h2>
+<hr>2.5 Integer partitions
+</h2>
+<a name="partitions of an integer">
+
+</a>
+A partition of an integer <b>n</b> is a way of writing <b> n</b> as the sum of positive integers, where the order of these integers is unimportant.
+For example, there are 3 ways to write the number 3 in this way: <b> 3=1+1+1</b>, <b> 3=1+2</b>, <b> 3=3</b>.
+The function <b><tt>PartitionsP</tt></b> counts the number of such partitions. 
+
+
+<p>
+
+<a name="partitions of an integer!by Rademacher-Hardy-Ramanujan series">
+
+</a>
+<h3>
+<hr>Large <b> n</b>
+</h3>
+The first algorithm used to compute this function uses the Rademacher-Hardy-Ramanujan (RHR) theorem and is efficient for large <b> n</b>.
+(See for example [Ahlgren <i>et al.</i> 2001].)
+The number of partitions <b> P(n)</b> is equal to an infinite sum:
+
+
+<p>
+
+<p><center><b>P(n)=1/(Pi*Sqrt(2))*Sum(k,1,Infinity,Sqrt(k)*A(k,n)*S(k,n)),</b></center></p>
+
+where the functions <b>A</b> and <b> S</b> are defined as follows:
+
+
+<p>
+
+<p><center><b> S(k,n):=(Deriv(n)Sinh(Pi/k*Sqrt(2/3*(n-1/24)))/Sqrt(n-1/24)) </b></center></p>
+
+
+
+<p>
+
+<p><center><b>A(k,n):=Sum(l,1,k,delta(Gcd(l,k),1)*Exp(-2*Pi*I*(l*n)/k+Pi*I*B(k,l))),</b></center></p>
+
+where <b>delta(x,y)</b> is the Kronecker delta function (so that the summation goes only over integers <b>l</b> which are mutually prime with <b> k</b>) and <b> B</b> is defined by
+
+<p><center><b> B(k,l):=Sum(j,1,k-1,j/k*(l*j/k-Floor(l*j/k)-1/2)).</b></center></p>
+
+
+
+<p>
+The first term of the series gives, at large <b>n</b>, the Hardy-Ramanujan asymptotic estimate,
+
+<p><center><b> P(n)&lt;&gt;P _0(n):=1/(4*n*Sqrt(3))*Exp(Pi*Sqrt((2*n)/3)).</b></center></p>
+
+The absolute value of each term decays quickly,
+so after <b>O(Sqrt(n))</b> terms the series gives an answer that is very close to the integer result.
+
+
+<p>
+There exist estimates of the error of this series, but they are complicated.
+The series is sufficiently well-behaved and it is easier to determine the truncation point heuristically.
+Each term of the series is either 0 (when all terms in <b>A(k,n)</b> happen to cancel) or has a magnitude which is not very much larger than the magnitude of the previous nonzero term.
+(But the series is not actually monotonic.)
+In the current implementation, the series is truncated when <b>Abs(A(k,n)*S(n)*Sqrt(k))</b> becomes smaller than <b>0.1</b> for the first time;
+in any case, the maximum number of calculated terms is <b> 5+Sqrt(n)/2</b>.
+One can show that asymptotically for large <b> n</b>, the required number of terms is less than <b> mu/Ln(mu)</b>, where <b>mu:=Pi*Sqrt((2*n)/3)</b>.
+
+
+<p>
+[Ahlgren <i>et al.</i> 2001] mention that there exist explicit constants <b>B[1]</b> and <b>B[2]</b> such that
+
+<p><center><b>Abs(P(n)-Sum(k,1,B[1]*Sqrt(n),A(k,n)))&lt;B[2]*n^(-1/4).</b></center></p>
+
+
+
+<p>
+The floating-point precision necessary to obtain the integer result must be at least the number of digits in the first term <b>P _0(n)</b>, i.e.
+
+<p><center><b>Prec&gt;(Pi*Sqrt(2/3*n)-Ln(4*n*Sqrt(3)))/Ln(10).</b></center></p>
+
+However, Piper currently uses the fixed-point precision model.
+Therefore, the current implementation divides the series by <b>P _0(n)</b> and computes all terms to <b>Prec</b> digits.
+
+
+<p>
+The RHR algorithm requires <b> O((n/Ln(n))^(3/2))</b> operations, of which <b>O(n/Ln(n))</b> are long multiplications at precision <b>Prec&lt;&gt;O(Sqrt(n))</b> digits.
+The computational cost is therefore <b>O(n/Ln(n)*M(Sqrt(n)))</b>.
+
+
+<p>
+
+<a name="partitions of an integer!by recurrence relation">
+
+</a>
+<h3>
+<hr>Small <b>n</b>
+</h3>
+The second, simpler algorithm involves a recurrence relation
+
+<p><center><b> P[n]=Sum(k,1,n,(-1)^(k+1)*(P[n-k*(3*k-1)/2]+P[n-k*(3*k+1)/2])).</b></center></p>
+
+The sum can be written out as
+
+<p><center><b>P(n-1)+P(n-2)-P(n-5)-P(n-7)+...,</b></center></p>
+
+where 1, 2, 5, 7, ... is the "generalized pentagonal sequence" generated by the pairs <b>k*(3*k-1)/2</b>, <b> k*(3*k+1)/2</b> for <b> k=1</b>, 2, ...
+The recurrence starts from <b> P(0)=1</b>, <b> P(1)=1</b>.
+(This is implemented as <b><tt>PartitionsP'recur</tt></b>.)
+
+
+<p>
+The sum is actually not over all <b> k</b> up to <b> n</b> but is truncated when the pentagonal sequence grows above <b> n</b>.
+Therefore, it contains only <b> O(Sqrt(n))</b> terms.
+However, computing <b>P(n)</b> using the recurrence relation requires computing and storing <b>P(k)</b> for all <b>1&lt;=k&lt;=n</b>.
+No long multiplications are necessary, but the number of long additions of numbers with <b> Prec&lt;&gt;O(Sqrt(n))</b> digits is <b>O(n^(3/2))</b>.
+Therefore the computational cost is <b>O(n^2)</b>.
+This is asymptotically slower than the RHR algorithm even if a slow <b>O(n^2)</b> multiplication is used.
+With internal Piper math, the recurrence relation is faster for <b>n&lt;300</b> or so,
+and for larger <b> n</b> the RHR algorithm is faster.
+
+
+<p>
+
+<a name="c2s6">
+
+</a>
+<h2>
+<hr>2.6 Miscellaneous functions
+</h2>
+<a name="divisors">
+
+</a>
+The function <b><tt>Divisors</tt></b> currently returns the number of divisors of integer, while <b><tt>DivisorsSum</tt></b> returns the sum of these divisors.
+(The current
+algorithms need to factor the number.) The following theorem is used:
+
+
+<p>
+Let <b>p[1]^k[1]*...*p[r]^k[r]</b> be the prime factorization of <b>n</b>, where <b> r</b> is the
+number of prime factors and <b> k[r]</b> is the multiplicity of the <b>r</b>-th factor. Then
+
+<p><center><b> Divisors(n)=(k[1]+1)*...*(k[r]+1),</b></center></p>
+
+
+<p><center><b>DivisorsSum(n)=(p[1]^(k[1]+1)-1)/(p[1]-1)*...*(p[r]^(k[r]+1)-1)/(p[r]-1).</b></center></p>
+
+
+
+<p>
+
+<a name="divisors!proper">
+
+</a>
+The functions <b><tt>ProperDivisors</tt></b> and <b><tt>ProperDivisorsSum</tt></b> are functions that do the same as the above functions,
+except they do not consider the number <b>n</b> as a divisor for itself.
+These functions are defined by:
+
+
+<p>
+<b> ProperDivisors(n)=Divisors(n)-1</b>,
+
+
+<p>
+<b> ProperDivisorsSum(n)=DivisorsSum(n)-n</b>.
+
+
+<p>
+Another number-theoretic function is <b><tt>Moebius</tt></b>, defined as
+follows:
+<b> Moebius(n)=(-1)^r</b> if no factors of <b> n</b> are repeated, <b> Moebius(n)=0</b> if
+some factors are repeated, and <b> Moebius(n)=1</b> if <b> n=1</b>.
+This again requires to factor the number <b> n</b> completely and investigate the
+properties of its prime factors. From
+the definition, it can be seen that if <b> n</b> is prime, then <b> Moebius(n)= -1</b>. The predicate
+<b><tt>IsSquareFree(n)</tt></b> then reduces to <b> Moebius(n)!=0</b>, which means that no factors of <b> n</b> are repeated.
+
+
+<p>
+
+<a name="c2s7">
+
+</a>
+<h2>
+<hr>2.7 Gaussian integers
+</h2>
+<a name="Gaussian integers">
+
+</a>
+A "Gaussian integer" is a complex number of the form <b>z=a+b*I</b>, where <b> a</b> and 
+<b> b</b> are ordinary (rational) integers.
+<h6>To distinguish ordinary integers from Gaussian integers, the ordinary integers (with no imaginary part) are called "rational integers".</h6>The ring of Gaussian integers is usually
+denoted by <b> Z</b>[<b> I</b>] in the mathematical literature. It is an example of a ring of
+algebraic integers.
+
+
+<p>
+The function <b><tt>GaussianNorm</tt></b> computes the norm <b> N(z)=a^2+b^2</b> of <b> z</b>.
+The norm
+plays a fundamental role in the arithmetic of Gaussian integers, since it has
+the multiplicative property:
+
+<p><center><b> N(z.w)=N(z).N(w).</b></center></p>
+
+
+
+<p>
+A unit of a ring is an element that divides any other element of the ring.
+There are four units in the Gaussian integers: <b>1</b>, <b>-1</b>, <b> I</b>, <b>-I</b>. They are 
+exactly the Gaussian integers whose norm is <b> 1</b>. The predicate <b><tt>IsGaussianUnit</tt></b> 
+tests for a Gaussian unit.
+
+
+<p>
+Two Gaussian integers <b> z</b> and <b> w</b> are "associated" is <b> z/w</b> is a unit. 
+For example, <b> 2+I</b> and <b>-1+2*I</b> are associated. 
+
+
+<p>
+A Gaussian integer is called prime if it is only divisible by the units and by
+its associates. It can be shown that the primes in the ring of Gaussian 
+integers are:
+<ul><li></li><b> 1+i</b> and its associates.
+<li>The rational (ordinary) primes of the form </li><b> 4*n+3</b>.
+<li>The factors </li><b> a+b*I</b> of rational primes <b> p</b> of the form <b> p=4*n+1</b>, whose norm is <b> p=a^2+b^2</b>. 
+</ul>
+
+<p>
+For example, <b> 7</b> is prime as a Gaussian integer, while <b> 5</b> is not, since
+<b> 5=(2+I)*(2-I)</b>.
+Here <b>2+I</b> is a Gaussian prime.
+
+
+<p>
+
+<a name="Factors@\relax <b><tt>Factors</tt></b>">
+
+</a>
+The ring of Gaussian integers is an example of an Euclidean ring, i.e. a ring 
+where there is a division algorithm.
+This makes it possible to compute the greatest common divisor using Euclid's algorithm. This is what the function <b><tt>GaussianGcd</tt></b> computes. 
+
+
+<p>
+As a consequence, one can prove a version of the fundamental 
+theorem of arithmetic for this ring: The expression of a Gaussian 
+integer as a product of primes is unique, apart from the order of primes, the
+presence of units, and the ambiguities between associated primes.
+
+
+<p>
+The function <b><tt>GaussianFactors</tt></b> finds this expression of a Gaussian integer 
+<b> z</b> as the product of Gaussian primes, and returns the result
+as a list of pairs <b><tt>{p,e}</tt></b>, where <b> p</b> is a Gaussian prime and <b> e</b> is the corresponding exponent.
+To do that, an auxiliary function called <b><tt>GaussianFactorPrime</tt></b> is used. This 
+function finds a factor of a rational prime of the form <b> 4*n+1</b>. We 
+compute  <b> a:=(2*n)!</b> (mod p). By Wilson's theorem <b>a^2</b> is congruent to
+<b>-1</b> (mod <b> p</b>), and it follows that <b> p</b> divides <b>(a+I)*(a-I)=a^2+1</b> in the 
+Gaussian  integers. The desired factor is then the <b><tt>GaussianGcd</tt></b> of <b> a+I</b> 
+and <b> p</b>. If the result is <b> a+b*I</b>, then <b> p=a^2+b^2</b>. 
+
+
+<p>
+If <b> z</b> is a rational (i.e. real) integer, we factor <b> z</b> in the Gaussian integers by first 
+factoring it in the rational integers, and after that by factoring each of 
+the integer prime factors in the Gaussian integers.
+
+
+<p>
+If <b> z</b> is not a rational integer, we find its possible Gaussian prime factors
+by first factoring its norm <b> N(z)</b> and then computing the exponent of each of 
+the factors of <b>N(z)</b> in the decomposition of <b>z</b>.
+
+
+<p>
+
+<h3>
+<hr>References for Gaussian integers
+</h3>
+<ul><li>G. H. Hardy and E. M. Wright,
+</li><i>An Introduction to the Theory of Numbers</i>. Oxford University Press (1945).
+<li>H. Pollard,
+</li><i>The theory of Algebraic Numbers</i>. Wiley, New York (1965).
+</ul>
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

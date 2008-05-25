@@ -1,0 +1,3123 @@
+<html>
+<head>
+  <title>Input/output and plotting</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c28">
+
+</a>
+(directly go to documentation on : <a href="refchapter28.html#FullForm" target='Chapters' title="print an expression in LISP-format">FullForm</a>, <a href="refchapter28.html#Echo" target='Chapters' title="high-level printing routine">Echo</a>, <a href="refchapter28.html#PrettyForm" target='Chapters' title="print an expression nicely with ASCII art">PrettyForm</a>, <a href="refchapter28.html#EvalFormula" target='Chapters' title="print an evaluation nicely with ASCII art">EvalFormula</a>, <a href="refchapter28.html#TeXForm" target='Chapters' title="export expressions to <b>LaTeX</b>">TeXForm</a>, <a href="refchapter28.html#CForm" target='Chapters' title="export expression to C++ code">CForm</a>, <a href="refchapter28.html#IsCFormable" target='Chapters' title="check possibility to export expression to C++ code">IsCFormable</a>, <a href="refchapter28.html#Write" target='Chapters' title="low-level printing routine">Write</a>, <a href="refchapter28.html#WriteString" target='Chapters' title="low-level printing routine for strings">WriteString</a>, <a href="refchapter28.html#Space" target='Chapters' title="print one or more spaces">Space</a>, <a href="refchapter28.html#NewLine" target='Chapters' title="print one or more newline characters">NewLine</a>, <a href="refchapter28.html#FromFile" target='Chapters' title="connect current input to a file">FromFile</a>, <a href="refchapter28.html#FromString" target='Chapters' title="connect current input to a string">FromString</a>, <a href="refchapter28.html#ToFile" target='Chapters' title="connect current output to a file">ToFile</a>, <a href="refchapter28.html#ToString" target='Chapters' title="connect current output to a string">ToString</a>, <a href="refchapter28.html#Read" target='Chapters' title="read an expression from current input">Read</a>, <a href="refchapter28.html#ToStdout" target='Chapters' title="select initial output stream for output">ToStdout</a>, <a href="refchapter28.html#ReadCmdLineString" target='Chapters' title="read an expression from command line and return in string">ReadCmdLineString</a>, <a href="refchapter28.html#LispRead" target='Chapters' title="read expressions in LISP syntax">LispRead</a>, <a href="refchapter28.html#LispReadListed" target='Chapters' title="read expressions in LISP syntax">LispReadListed</a>, <a href="refchapter28.html#ReadToken" target='Chapters' title="read a token from current input">ReadToken</a>, <a href="refchapter28.html#Load" target='Chapters' title="evaluate all expressions in a file">Load</a>, <a href="refchapter28.html#Use" target='Chapters' title="load a file, but not twice">Use</a>, <a href="refchapter28.html#DefLoad" target='Chapters' title="load a <b><tt>.def</tt></b> file">DefLoad</a>, <a href="refchapter28.html#FindFile" target='Chapters' title="find a file in the current path">FindFile</a>, <a href="refchapter28.html#PatchLoad" target='Chapters' title="execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in file">PatchLoad</a>, <a href="refchapter28.html#Nl" target='Chapters' title="the newline character">Nl</a>, <a href="refchapter28.html#V, InVerboseMode" target='Chapters' title="set verbose output mode">V, InVerboseMode</a>, <a href="refchapter28.html#Plot2D" target='Chapters' title="adaptive two-dimensional plotting">Plot2D</a>, <a href="refchapter28.html#Plot3DS" target='Chapters' title="three-dimensional (surface) plotting">Plot3DS</a>, <a href="refchapter28.html#XmlExplodeTag" target='Chapters' title="convert XML strings to tag objects">XmlExplodeTag</a>, <a href="refchapter28.html#DefaultTokenizer" target='Chapters' title="select the default syntax tokenizer for parsing the input">DefaultTokenizer</a>, <a href="refchapter28.html#XmlTokenizer" target='Chapters' title="select an XML syntax tokenizer for parsing the input">XmlTokenizer</a>, <a href="refchapter28.html#OMForm" target='Chapters' title="convert Piper expression to OpenMath">OMForm</a>, <a href="refchapter28.html#OMRead" target='Chapters' title="convert expression from OpenMath to Piper expression">OMRead</a>, <a href="refchapter28.html#OMDef" target='Chapters' title="define translations from Piper to OpenMath and vice-versa.">OMDef</a>.
+)<h1>
+28. Input/output and plotting
+</h1>
+
+This chapter contains commands to use for input and output and plotting. All output
+commands write to the same destination stream, called the "current
+output". This is initially the screen, but may be
+redirected by some commands. Similarly, most input commands
+read from the "current input" stream, which can also be redirected. The
+exception to this rule are the commands for reading script files,
+which simply read a specified file.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#FullForm" target='Chapters' title="print an expression in LISP-format">FullForm</a></td>
+<td>print an expression in LISP-format</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Echo" target='Chapters' title="high-level printing routine">Echo</a></td>
+<td>high-level printing routine</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#PrettyForm" target='Chapters' title="print an expression nicely with ASCII art">PrettyForm</a></td>
+<td>print an expression nicely with ASCII art</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#EvalFormula" target='Chapters' title="print an evaluation nicely with ASCII art">EvalFormula</a></td>
+<td>print an evaluation nicely with ASCII art</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#TeXForm" target='Chapters' title="export expressions to <b>LaTeX</b>">TeXForm</a></td>
+<td>export expressions to <b>LaTeX</b></td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#CForm" target='Chapters' title="export expression to C++ code">CForm</a></td>
+<td>export expression to C++ code</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#IsCFormable" target='Chapters' title="check possibility to export expression to C++ code">IsCFormable</a></td>
+<td>check possibility to export expression to C++ code</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Write" target='Chapters' title="low-level printing routine">Write</a></td>
+<td>low-level printing routine</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#WriteString" target='Chapters' title="low-level printing routine for strings">WriteString</a></td>
+<td>low-level printing routine for strings</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Space" target='Chapters' title="print one or more spaces">Space</a></td>
+<td>print one or more spaces</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#NewLine" target='Chapters' title="print one or more newline characters">NewLine</a></td>
+<td>print one or more newline characters</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#FromFile" target='Chapters' title="connect current input to a file">FromFile</a></td>
+<td>connect current input to a file</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#FromString" target='Chapters' title="connect current input to a string">FromString</a></td>
+<td>connect current input to a string</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#ToFile" target='Chapters' title="connect current output to a file">ToFile</a></td>
+<td>connect current output to a file</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#ToString" target='Chapters' title="connect current output to a string">ToString</a></td>
+<td>connect current output to a string</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Read" target='Chapters' title="read an expression from current input">Read</a></td>
+<td>read an expression from current input</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#ToStdout" target='Chapters' title="select initial output stream for output">ToStdout</a></td>
+<td>select initial output stream for output</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#ReadCmdLineString" target='Chapters' title="read an expression from command line and return in string">ReadCmdLineString</a></td>
+<td>read an expression from command line and return in string</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#LispRead" target='Chapters' title="read expressions in LISP syntax">LispRead</a></td>
+<td>read expressions in LISP syntax</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#LispReadListed" target='Chapters' title="read expressions in LISP syntax">LispReadListed</a></td>
+<td>read expressions in LISP syntax</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#ReadToken" target='Chapters' title="read a token from current input">ReadToken</a></td>
+<td>read a token from current input</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Load" target='Chapters' title="evaluate all expressions in a file">Load</a></td>
+<td>evaluate all expressions in a file</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Use" target='Chapters' title="load a file, but not twice">Use</a></td>
+<td>load a file, but not twice</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#DefLoad" target='Chapters' title="load a <b><tt>.def</tt></b> file">DefLoad</a></td>
+<td>load a <b><tt>.def</tt></b> file</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#FindFile" target='Chapters' title="find a file in the current path">FindFile</a></td>
+<td>find a file in the current path</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#PatchLoad" target='Chapters' title="execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in file">PatchLoad</a></td>
+<td>execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in file</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Nl" target='Chapters' title="the newline character">Nl</a></td>
+<td>the newline character</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#V, InVerboseMode" target='Chapters' title="set verbose output mode">V, InVerboseMode</a></td>
+<td>set verbose output mode</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Plot2D" target='Chapters' title="adaptive two-dimensional plotting">Plot2D</a></td>
+<td>adaptive two-dimensional plotting</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#Plot3DS" target='Chapters' title="three-dimensional (surface) plotting">Plot3DS</a></td>
+<td>three-dimensional (surface) plotting</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#XmlExplodeTag" target='Chapters' title="convert XML strings to tag objects">XmlExplodeTag</a></td>
+<td>convert XML strings to tag objects</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#DefaultTokenizer" target='Chapters' title="select the default syntax tokenizer for parsing the input">DefaultTokenizer</a></td>
+<td>select the default syntax tokenizer for parsing the input</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#XmlTokenizer" target='Chapters' title="select an XML syntax tokenizer for parsing the input">XmlTokenizer</a></td>
+<td>select an XML syntax tokenizer for parsing the input</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#OMForm" target='Chapters' title="convert Piper expression to OpenMath">OMForm</a></td>
+<td>convert Piper expression to OpenMath</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#OMRead" target='Chapters' title="convert expression from OpenMath to Piper expression">OMRead</a></td>
+<td>convert expression from OpenMath to Piper expression</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter28.html#OMDef" target='Chapters' title="define translations from Piper to OpenMath and vice-versa.">OMDef</a></td>
+<td>define translations from Piper to OpenMath and vice-versa.</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="FullForm">
+
+</a>
+<a name="fullform">
+
+</a>
+<h3>
+<hr>FullForm -- print an expression in LISP-format
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FullForm(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to be printed in LISP-format
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Evaluates "expr", and prints it in LISP-format on the current
+output. It is followed by a newline. The evaluated expression is also
+returned.
+
+
+<p>
+This can be useful if you want to study the internal representation of
+a certain expression.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FullForm(a+b+c);
+(+ (+ a b )c )
+Out&gt; a+b+c;
+In&gt; FullForm(2*I*b^2);
+(* (Complex 0 2 )(^ b 2 ))
+Out&gt; Complex(0,2)*b^2;
+</pre></tr>
+</table>
+
+
+<p>
+The first example shows how the expression <b><tt>a+b+c</tt></b> is
+internally represented. In the second example, <b><tt>2*I</tt></b> is
+first evaluated to <b><tt>Complex(0,2)</tt></b> before the expression
+is printed.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?LispRead" target="Chapters">
+LispRead
+</a>
+, <a href="ref.html?Listify" target="Chapters">
+Listify
+</a>
+, <a href="ref.html?Unlist" target="Chapters">
+Unlist
+</a>
+.<a name="Echo">
+
+</a>
+<a name="echo">
+
+</a>
+<h3>
+<hr>Echo -- high-level printing routine
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Echo(item)
+Echo(list)
+Echo(item,item,item,...)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>item</tt></b> -- the item to be printed
+
+
+<p>
+<b><tt>list</tt></b> -- a list of items to be printed
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+If passed a single item, <b><tt>Echo</tt></b> will evaluate it and print it to the
+current output, followed by a newline. If <b><tt>item</tt></b> is a string, it is
+printed without quotation marks.
+
+
+<p>
+If there is one argument, and it is a list, <b><tt>Echo</tt></b> will print all the
+entries in the list subsequently to the current output, followed by a
+newline. Any strings in the list are printed without quotation
+marks. All other entries are followed by a space.
+
+
+<p>
+<b><tt>Echo</tt></b> can be called with a variable number of arguments, they will all
+be printed, followed by a newline.
+
+
+<p>
+<b><tt>Echo</tt></b> always returns <b><tt>True</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Echo(5+3);
+ 8
+Out&gt; True;
+In&gt; Echo({"The square of two is ", 2*2});
+The square of two is 4
+Out&gt; True;
+In&gt; Echo("The square of two is ", 2*2);
+The square of two is 4 
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+Note that one must use the second calling format if one wishes to
+print a list:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Echo({a,b,c});
+a b c
+Out&gt; True;
+In&gt; Echo({{a,b,c}});
+{a,b,c}
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?PrettyForm" target="Chapters">
+PrettyForm
+</a>
+, <a href="ref.html?Write" target="Chapters">
+Write
+</a>
+, <a href="ref.html?WriteString" target="Chapters">
+WriteString
+</a>
+, <a href="ref.html?RuleBaseListed" target="Chapters">
+RuleBaseListed
+</a>
+.<a name="PrettyForm">
+
+</a>
+<a name="prettyform">
+
+</a>
+<h3>
+<hr>PrettyForm -- print an expression nicely with ASCII art
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+PrettyForm(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>PrettyForm</tt></b> renders an expression in a nicer way, using ascii art.
+This is generally useful when the result of a calculation is more
+complex than a simple number.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Taylor(x,0,9)Sin(x)
+Out&gt; x-x^3/6+x^5/120-x^7/5040+x^9/362880;
+In&gt; PrettyForm(%)
+
+     3    5      7       9
+    x    x      x       x
+x - -- + --- - ---- + ------
+    6    120   5040   362880
+
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?EvalFormula" target="Chapters">
+EvalFormula
+</a>
+, <a href="ref.html?PrettyPrinter'Set" target="Chapters">
+PrettyPrinter'Set
+</a>
+.<a name="EvalFormula">
+
+</a>
+<a name="evalformula">
+
+</a>
+<h3>
+<hr>EvalFormula -- print an evaluation nicely with ASCII art
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+EvalFormula(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Show an evaluation in a nice way, using <b><tt>PrettyPrinter'Set</tt></b>
+to show 'input = output'.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; EvalFormula(Taylor(x,0,7)Sin(x))
+
+                                      3    5
+                                     x    x  
+Taylor( x , 0 , 5 , Sin( x ) ) = x - -- + ---
+                                     6    120
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?PrettyForm" target="Chapters">
+PrettyForm
+</a>
+.<a name="TeXForm">
+
+</a>
+<a name="texform">
+
+</a>
+<h3>
+<hr>TeXForm -- export expressions to <b>LaTeX</b>
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+TeXForm(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression to be exported
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>TeXForm</tt></b> returns a string containing a <b> LaTeX</b> representation of the Piper expression <b><tt>expr</tt></b>. Currently the exporter handles most expression types but not all.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; TeXForm(Sin(a1)+2*Cos(b1))
+Out&gt; "$\sin a_{1} + 2 \cos b_{1}$";
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?PrettyForm" target="Chapters">
+PrettyForm
+</a>
+, <a href="ref.html?CForm" target="Chapters">
+CForm
+</a>
+.<a name="CForm">
+
+</a>
+<a name="cform">
+
+</a>
+<h3>
+<hr>CForm -- export expression to C++ code
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CForm(expr)
+
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to be exported
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>CForm</tt></b> returns a string containing C++ code that attempts to implement the Piper expression <b><tt>expr</tt></b>. Currently the exporter handles most expression types but not all.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; CForm(Sin(a1)+2*Cos(b1));
+Out&gt; "sin(a1) + 2 * cos(b1)";
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?PrettyForm" target="Chapters">
+PrettyForm
+</a>
+, <a href="ref.html?TeXForm" target="Chapters">
+TeXForm
+</a>
+, <a href="ref.html?IsCFormable" target="Chapters">
+IsCFormable
+</a>
+.<a name="IsCFormable">
+
+</a>
+<a name="iscformable">
+
+</a>
+<h3>
+<hr>IsCFormable -- check possibility to export expression to C++ code
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsCFormable(expr)
+IsCFormable(expr, funclist)
+
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to be exported (this argument is not evaluated)
+
+
+<p>
+<b><tt>funclist</tt></b> -- list of "allowed" function atoms
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>IsCFormable</tt></b> returns <b><tt>True</tt></b> if the Piper expression <b><tt>expr</tt></b> can be exported
+into C++ code. This is a check whether the C++ exporter <b><tt>CForm</tt></b> can be safely
+used on the expression.
+
+
+<p>
+A Piper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. <b><tt>UnList</tt></b> cannot be exported). All variables and constants are considered exportable.
+
+
+<p>
+The verbose option prints names of functions that are not exportable.
+
+
+<p>
+The second calling format of <b><tt>IsCFormable</tt></b> can be used to "allow" certain function names that will be available in the C++ code.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsCFormable(Sin(a1)+2*Cos(b1))
+Out&gt; True;
+In&gt; V(IsCFormable(1+func123(b1)))
+IsCFormable: Info: unexportable function(s):
+  func123
+Out&gt; False;
+</pre></tr>
+</table>
+This returned <b><tt>False</tt></b> because the function <b><tt>func123</tt></b> is not available in C++. We can
+explicitly allow this function and then the expression will be considered
+exportable:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsCFormable(1+func123(b1), {func123})
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?CForm" target="Chapters">
+CForm
+</a>
+, <a href="ref.html?V" target="Chapters">
+V
+</a>
+.<a name="Write">
+
+</a>
+<a name="write">
+
+</a>
+<h3>
+<hr>Write -- low-level printing routine
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Write(expr, ...)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to be printed
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The expression "expr" is evaluated and written to the current
+output. Note that Write accept an arbitrary number of arguments, all
+of which are written to the current output (see second
+example). <b><tt>Write</tt></b> always returns <b><tt>True</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Write(1);
+1Out&gt; True;
+In&gt; Write(1,2);
+ 1 2Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+Write does not write a newline, so the <b><tt>Out&gt;</tt></b> prompt
+immediately follows the output of <b><tt>Write</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Echo" target="Chapters">
+Echo
+</a>
+, <a href="ref.html?WriteString" target="Chapters">
+WriteString
+</a>
+.<a name="WriteString">
+
+</a>
+<a name="writestring">
+
+</a>
+<h3>
+<hr>WriteString -- low-level printing routine for strings
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+WriteString(string)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>string</tt></b> -- the string to be printed
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The expression "string" is evaluated and written to the current
+output without quotation marks. The argument should be a
+string. WriteString always returns True.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Write("Hello, world!");
+"Hello, world!"Out&gt; True;
+In&gt; WriteString("Hello, world!");
+Hello, world!Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+This example clearly shows the difference between Write and
+WriteString. Note that Write and WriteString do not write a newline,
+so the <b><tt>Out&gt;</tt></b> prompt immediately follows the output.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Echo" target="Chapters">
+Echo
+</a>
+, <a href="ref.html?Write" target="Chapters">
+Write
+</a>
+.<a name="Space">
+
+</a>
+<a name="space">
+
+</a>
+<h3>
+<hr>Space -- print one or more spaces
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Space()
+Space(nr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>nr</tt></b> -- the number of spaces to print
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The command <b><tt>Space()</tt></b> prints one space on the
+current output. The second form prints <b><tt>nr</tt></b> spaces on the current
+output. The result is always True.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Space(5);
+     Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Echo" target="Chapters">
+Echo
+</a>
+, <a href="ref.html?Write" target="Chapters">
+Write
+</a>
+, <a href="ref.html?NewLine" target="Chapters">
+NewLine
+</a>
+.<a name="NewLine">
+
+</a>
+<a name="newline">
+
+</a>
+<h3>
+<hr>NewLine -- print one or more newline characters
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+NewLine()
+NewLine(nr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>nr</tt></b> -- the number of newline characters to print
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The command <b><tt>NewLine()</tt></b> prints one newline character
+on the current output. The second form prints "nr" newlines on the
+current output. The result is always True.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; NewLine();
+
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Echo" target="Chapters">
+Echo
+</a>
+, <a href="ref.html?Write" target="Chapters">
+Write
+</a>
+, <a href="ref.html?Space" target="Chapters">
+Space
+</a>
+.<a name="FromFile">
+
+</a>
+<a name="fromfile">
+
+</a>
+<h3>
+<hr>FromFile -- connect current input to a file
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FromFile(name) body
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> - string, the name of the file to read
+
+
+<p>
+<b><tt>body</tt></b> - expression to be evaluated
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The current input is connected to the file "name". Then the expression
+"body" is evaluated. If some functions in "body" try to read
+from current input, they will now read from the file "name". Finally, the
+file is closed and the result of evaluating "body" is returned.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+Suppose that the file <b><tt>foo</tt></b> contains
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+2 + 5;
+</pre></tr>
+</table>
+
+
+<p>
+Then we can have the following dialogue:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FromFile("foo") res := Read();
+Out&gt; 2+5;
+In&gt; FromFile("foo") res := ReadToken();
+Out&gt; 2;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?ToFile" target="Chapters">
+ToFile
+</a>
+, <a href="ref.html?FromString" target="Chapters">
+FromString
+</a>
+, <a href="ref.html?Read" target="Chapters">
+Read
+</a>
+, <a href="ref.html?ReadToken" target="Chapters">
+ReadToken
+</a>
+.<a name="FromString">
+
+</a>
+<a name="fromstring">
+
+</a>
+<h3>
+<hr>FromString -- connect current input to a string
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FromString(str) body;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>str</tt></b> -- a string containing the text to parse
+
+
+<p>
+<b><tt>body</tt></b> -- expression to be evaluated
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The commands in "body" are executed, but everything that is read
+from the current input is now read from the string "str". The
+result of "body" is returned.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FromString("2+5; this is never read") \
+  res := Read();
+Out&gt; 2+5;
+In&gt; FromString("2+5; this is never read") \
+  res := Eval(Read());
+Out&gt; 7;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?ToString" target="Chapters">
+ToString
+</a>
+, <a href="ref.html?FromFile" target="Chapters">
+FromFile
+</a>
+, <a href="ref.html?Read" target="Chapters">
+Read
+</a>
+, <a href="ref.html?ReadToken" target="Chapters">
+ReadToken
+</a>
+.<a name="ToFile">
+
+</a>
+<a name="tofile">
+
+</a>
+<h3>
+<hr>ToFile -- connect current output to a file
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ToFile(name) body
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string, the name of the file to write the result to
+
+
+<p>
+<b><tt>body</tt></b> -- expression to be evaluated
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The current output is connected to the file "name". Then the expression
+"body" is evaluated. Everything that the commands in "body" print
+to the current output, ends up in the file "name". Finally, the
+file is closed and the result of evaluating "body" is returned.
+
+
+<p>
+If the file is opened again, the old contents will be overwritten.
+This is a limitation of <b><tt>ToFile</tt></b>: one cannot append to a file that has already been created.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+Here is how one can create a file with C code to evaluate an expression:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ToFile("expr1.c") WriteString(
+  CForm(Sqrt(x-y)*Sin(x)) );
+Out&gt; True;
+</pre></tr>
+</table>
+The file <b><tt>expr1.c</tt></b> was created in the current working directory and it
+contains the line
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+sqrt(x-y)*sin(x)
+</pre></tr>
+</table>
+
+
+<p>
+As another example, take a look at the following command:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; [ Echo("Result:");  \
+  PrettyForm(Taylor(x,0,9) Sin(x)); ];
+Result:
+
+     3    5      7       9
+    x    x      x       x
+x - -- + --- - ---- + ------
+    6    120   5040   362880
+
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+Now suppose one wants to send the output of this command to a
+file. This can be achieved as follows:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ToFile("out") [ Echo("Result:");  \
+  PrettyForm(Taylor(x,0,9) Sin(x)); ];
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+After this command the file <b><tt>out</tt></b> contains:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Result:
+
+     3    5      7       9
+    x    x      x       x
+x - -- + --- - ---- + ------
+    6    120   5040   362880
+
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FromFile" target="Chapters">
+FromFile
+</a>
+, <a href="ref.html?ToString" target="Chapters">
+ToString
+</a>
+, <a href="ref.html?Echo" target="Chapters">
+Echo
+</a>
+, <a href="ref.html?Write" target="Chapters">
+Write
+</a>
+, <a href="ref.html?WriteString" target="Chapters">
+WriteString
+</a>
+, <a href="ref.html?PrettyForm" target="Chapters">
+PrettyForm
+</a>
+, <a href="ref.html?Taylor" target="Chapters">
+Taylor
+</a>
+.<a name="ToString">
+
+</a>
+<a name="tostring">
+
+</a>
+<h3>
+<hr>ToString -- connect current output to a string
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ToString() body
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>body</tt></b> -- expression to be evaluated
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The commands in "body" are executed. Everything that is printed on
+the current output, by <b><tt>Echo</tt></b> for instance, is
+collected in a string and this string is returned.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; str := ToString() [ WriteString(  \
+  "The square of 8 is "); Write(8^2); ];
+Out&gt; "The square of 8 is  64";
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FromFile" target="Chapters">
+FromFile
+</a>
+, <a href="ref.html?ToString" target="Chapters">
+ToString
+</a>
+, <a href="ref.html?Echo" target="Chapters">
+Echo
+</a>
+, <a href="ref.html?Write" target="Chapters">
+Write
+</a>
+, <a href="ref.html?WriteString" target="Chapters">
+WriteString
+</a>
+.<a name="Read">
+
+</a>
+<a name="read">
+
+</a>
+<h3>
+<hr>Read -- read an expression from current input
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Read()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Read an expression from the current input, and return it unevaluated. When
+the end of an input file is encountered, the token atom <b><tt>EndOfFile</tt></b> is returned.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FromString("2+5;") Read();
+Out&gt; 2+5;
+In&gt; FromString("") Read();
+Out&gt; EndOfFile;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FromFile" target="Chapters">
+FromFile
+</a>
+, <a href="ref.html?FromString" target="Chapters">
+FromString
+</a>
+, <a href="ref.html?LispRead" target="Chapters">
+LispRead
+</a>
+, <a href="ref.html?ReadToken" target="Chapters">
+ReadToken
+</a>
+, <a href="ref.html?Write" target="Chapters">
+Write
+</a>
+.<a name="ToStdout">
+
+</a>
+<a name="tostdout">
+
+</a>
+<h3>
+<hr>ToStdout -- select initial output stream for output
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ToStdout() body
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>body</tt></b> -- expression to be evaluated
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+When using <b><tt>ToString</tt></b> or <b><tt>ToFile</tt></b>, it might happen that something needs to be
+written to the standard default initial output (typically the screen). <b><tt>ToStdout</tt></b> can be used to select this stream.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ToString()[Echo("aaaa");ToStdout()Echo("bbbb");];
+bbbb
+Out&gt; "aaaa
+"
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?ToString" target="Chapters">
+ToString
+</a>
+, <a href="ref.html?ToFile" target="Chapters">
+ToFile
+</a>
+.<a name="ReadCmdLineString">
+
+</a>
+<a name="readcmdlinestring">
+
+</a>
+<h3>
+<hr>ReadCmdLineString -- read an expression from command line and return in string
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ReadCmdLineString(prompt)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>prompt</tt></b> -- string representing the prompt shown on screen
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function allows for interactive input similar to the command line.
+When using this function, the history from the command line is also available.
+
+
+<p>
+The result is returned in a string, so it still needs to be parsed.
+
+
+<p>
+This function will typically be used in situations where one wants a custom 
+read-eval-print loop. 
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+The following defines a function that when invoked keeps asking
+for an expression (the <i>read</i> step), and then takes 
+the derivative of it (the <i>eval</i> step) and then 
+uses PrettyForm to display the result (the <i>print</i> step).
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ReEvPr() := \
+In&gt;   While(True) [ \
+In&gt;     PrettyForm(Deriv(x) \
+In&gt;      FromString(ReadCmdLineString("Deriv&gt; "):";")Read()); \
+In&gt; ];
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+Then one can invoke the command, from which the following interaction
+might follow:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ReEvPr()
+Deriv&gt; Sin(a^2*x/b)
+
+   /  2     \         
+   | a  * x |    2    
+Cos| ------ | * a  * b
+   \   b    /         
+----------------------
+           2          
+          b           
+
+Deriv&gt; Sin(x)
+
+Cos( x )
+
+Deriv&gt; 
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Read" target="Chapters">
+Read
+</a>
+, <a href="ref.html?LispRead" target="Chapters">
+LispRead
+</a>
+, <a href="ref.html?LispReadListed" target="Chapters">
+LispReadListed
+</a>
+.<a name="LispRead">
+
+</a>
+<a name="lispread">
+
+</a>
+<h3>
+<hr>LispRead -- read expressions in LISP syntax
+</h3>
+<a name="LispReadListed">
+
+</a>
+<a name="lispreadlisted">
+
+</a>
+<h3>
+<hr>LispReadListed -- read expressions in LISP syntax
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LispRead()
+LispReadListed()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The function <b><tt>LispRead</tt></b> reads an expression in the LISP syntax from the current input, and returns
+it unevaluated. When the end of an input file is encountered, the
+special token atom <b><tt>EndOfFile</tt></b> is returned.
+
+
+<p>
+The Piper expression <b><tt>a+b</tt></b> is written in the LISP syntax as <b><tt>(+ a b)</tt></b>. The advantage of this syntax is that it is
+less ambiguous than the infix operator grammar that Piper uses by
+default.
+
+
+<p>
+The function <b><tt>LispReadListed</tt></b> reads a LISP expression and returns
+it in a list, instead of the form usual to Piper (expressions).
+The result can be thought of as applying <b><tt>Listify</tt></b> to <b><tt>LispRead</tt></b>.
+The function <b><tt>LispReadListed</tt></b> is more useful for reading arbitrary LISP expressions, because the 
+first object in a list can be itself a list (this is never the case for Piper expressions where the first object in a list is always a function atom).
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FromString("(+ a b)") LispRead();
+Out&gt; a+b;
+In&gt; FromString("(List (Sin x) (- (Cos x)))") \
+  LispRead();
+Out&gt; {Sin(x),-Cos(x)};
+In&gt; FromString("(+ a b)")LispRead()
+Out&gt; a+b;
+In&gt; FromString("(+ a b)")LispReadListed()
+Out&gt; {+,a,b};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FromFile" target="Chapters">
+FromFile
+</a>
+, <a href="ref.html?FromString" target="Chapters">
+FromString
+</a>
+, <a href="ref.html?Read" target="Chapters">
+Read
+</a>
+, <a href="ref.html?ReadToken" target="Chapters">
+ReadToken
+</a>
+, <a href="ref.html?FullForm" target="Chapters">
+FullForm
+</a>
+.<a name="ReadToken">
+
+</a>
+<a name="readtoken">
+
+</a>
+<h3>
+<hr>ReadToken -- read a token from current input
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ReadToken()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Read a token from the current input, and return it unevaluated.
+The returned object is a Piper atom (not a string).
+When
+the end of an input file is encountered, the token atom <b><tt>EndOfFile</tt></b> is returned.
+
+
+<p>
+A token is for computer languages what a word is for human languages:
+it is the smallest unit in which a command can be divided, so that the
+semantics (that is the meaning) of the command is in some sense a
+combination of the semantics of the tokens. Hence <b><tt>a := foo</tt></b> consists of three tokens, namely <b><tt>a</tt></b>, <b><tt>:=</tt></b>, and <b><tt>foo</tt></b>.
+
+
+<p>
+The parsing of the string depends on the syntax of the language.
+The part of the kernel that does the parsing is the "tokenizer".
+Piper can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives <b><tt>DefaultTokenizer</tt></b> or <b><tt>XmlTokenizer</tt></b>.
+Setting a tokenizer is a global action that affects all <b><tt>ReadToken</tt></b> calls.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FromString("a := Sin(x)") While \
+  ((tok := ReadToken()) != EndOfFile) \
+  Echo(tok);
+a
+:=
+Sin
+(
+x
+)
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+We can read some junk too:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FromString("-$3")ReadToken();
+Out&gt; -$;
+</pre></tr>
+</table>
+The result is an atom with the string representation <b><tt>-$</tt></b>.
+Piper assumes that <b><tt>-$</tt></b> is an operator symbol yet to be defined.
+The "<b><tt>3</tt></b>" will be in the next token.
+(The results will be different if a non-default tokenizer is selected.)
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FromFile" target="Chapters">
+FromFile
+</a>
+, <a href="ref.html?FromString" target="Chapters">
+FromString
+</a>
+, <a href="ref.html?Read" target="Chapters">
+Read
+</a>
+, <a href="ref.html?LispRead" target="Chapters">
+LispRead
+</a>
+, <a href="ref.html?DefaultTokenizer" target="Chapters">
+DefaultTokenizer
+</a>
+.<a name="Load">
+
+</a>
+<a name="load">
+
+</a>
+<h3>
+<hr>Load -- evaluate all expressions in a file
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Load(name)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string, name of the file to load
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The file "name" is opened. All expressions in the file are read and
+evaluated. <b><tt>Load</tt></b> always returns <b><tt>true</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Use" target="Chapters">
+Use
+</a>
+, <a href="ref.html?DefLoad" target="Chapters">
+DefLoad
+</a>
+, <a href="ref.html?DefaultDirectory" target="Chapters">
+DefaultDirectory
+</a>
+, <a href="ref.html?FindFile" target="Chapters">
+FindFile
+</a>
+.<a name="Use">
+
+</a>
+<a name="use">
+
+</a>
+<h3>
+<hr>Use -- load a file, but not twice
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Use(name)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string, name of the file to load
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+If the file "name" has been loaded before, either by an earlier call
+to <b><tt>Use</tt></b> or via the <b><tt>DefLoad</tt></b>
+mechanism, nothing happens. Otherwise all expressions in the file are
+read and evaluated. <b><tt>Use</tt></b> always returns <b><tt>true</tt></b>.
+
+
+<p>
+The purpose of this function is to make sure that the file will at
+least have been loaded, but is not loaded twice.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Load" target="Chapters">
+Load
+</a>
+, <a href="ref.html?DefLoad" target="Chapters">
+DefLoad
+</a>
+, <a href="ref.html?DefaultDirectory" target="Chapters">
+DefaultDirectory
+</a>
+.<a name="DefLoad">
+
+</a>
+<a name="defload">
+
+</a>
+<h3>
+<hr>DefLoad -- load a <b><tt>.def</tt></b> file
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+DefLoad(name)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string, name of the file (without <b><tt>.def</tt></b> suffix)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The suffix <b><tt>.def</tt></b> is appended to "name" and the
+file with this name is loaded. It should contain a list of functions,
+terminated by a closing brace \} (the end-of-list delimiter). This
+tells the system to load the file "name" as soon as the user calls
+one of the functions named in the file (if not done so already). This
+allows for faster startup times, since not all of the rules databases
+need to be loaded, just the descriptions on which files to load for
+which functions.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Load" target="Chapters">
+Load
+</a>
+, <a href="ref.html?Use" target="Chapters">
+Use
+</a>
+, <a href="ref.html?DefaultDirectory" target="Chapters">
+DefaultDirectory
+</a>
+.<a name="FindFile">
+
+</a>
+<a name="findfile">
+
+</a>
+<h3>
+<hr>FindFile -- find a file in the current path
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FindFile(name)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string, name of the file or directory to find
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The result of this command is the full path to the file that would be
+opened when the command <b><tt>Load(name)</tt></b> would be
+invoked. This means that the input directories are subsequently
+searched for a file called "name". If such a file is not found, <b><tt>FindFile</tt></b> returns an empty string.
+
+
+<p>
+<b><tt>FindFile("")</tt></b> returns the name of the default directory (the first one on the search path).
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Load" target="Chapters">
+Load
+</a>
+, <a href="ref.html?DefaultDirectory" target="Chapters">
+DefaultDirectory
+</a>
+.<a name="PatchLoad">
+
+</a>
+<a name="patchload">
+
+</a>
+<h3>
+<hr>PatchLoad -- execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in file
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+PatchLoad(name)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string, name of the file to "patch"
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>PatchLoad</tt></b> loads in a file and outputs the contents to the current
+output. The file can contain blocks delimited by <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b>
+(meaning "Piper Begin" and "Piper End"). The piece of text between
+such delimiters is treated as a separate file with Piper instructions,
+which is then loaded and executed. All output of write statements
+in that block will be written to the same current output.
+
+
+<p>
+This is similar to the way PHP works. You can have a static text file
+with dynamic content generated by Piper.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?PatchString" target="Chapters">
+PatchString
+</a>
+, <a href="ref.html?Load" target="Chapters">
+Load
+</a>
+.<a name="Nl">
+
+</a>
+<a name="nl">
+
+</a>
+<h3>
+<hr>Nl -- the newline character
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Nl()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns a string with one element in it, namely a newline
+character. This may be useful for building strings to send to some
+output in the end.
+
+
+<p>
+Note that the second letter in the name of this command is a lower
+case <b><tt>L</tt></b> (from "line").
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; WriteString("First line" : Nl() : "Second line" : Nl());
+First line
+Second line
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?NewLine" target="Chapters">
+NewLine
+</a>
+.<a name="V">
+
+</a>
+<a name="InVerboseMode">
+
+</a>
+<a name="V, InVerboseMode">
+
+</a>
+<a name="v, inverbosemode">
+
+</a>
+<h3>
+<hr>V, InVerboseMode -- set verbose output mode
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+V(expression)
+InVerboseMode()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expression</tt></b> -- expression to be evaluated in verbose mode
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The function <b><tt>V(expression)</tt></b> will evaluate the expression in 
+verbose mode. Various parts of Piper can show extra information
+about the work done while doing a calculation when using <b><tt>V</tt></b>.
+
+
+<p>
+In verbose mode, <b><tt>InVerboseMode()</tt></b> will return <b><tt>True</tt></b>, otherwise
+it will return <b><tt>False</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OldSolve({x+2==0},{x})
+Out&gt; {{-2}};
+In&gt; V(OldSolve({x+2==0},{x}))
+Entering OldSolve
+From  x+2==0  it follows that  x  = -2 
+   x+2==0  simplifies to  True 
+Leaving OldSolve
+Out&gt; {{-2}};
+In&gt; InVerboseMode()
+Out&gt; False
+In&gt; V(InVerboseMode())
+Out&gt; True
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Echo" target="Chapters">
+Echo
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?OldSolve" target="Chapters">
+OldSolve
+</a>
+.<a name="Plot2D">
+
+</a>
+<a name="plot2d">
+
+</a>
+<h3>
+<hr>Plot2D -- adaptive two-dimensional plotting
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Plot2D(f(x))
+Plot2D(f(x), a:b)
+Plot2D(f(x), a:b, option=value)
+Plot2D(f(x), a:b, option=value, ...)
+Plot2D(list, ...)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>f(x)</tt></b> -- unevaluated expression containing one variables (function to be plotted)
+
+
+<p>
+<b><tt>list</tt></b> -- list of functions to plot
+
+
+<p>
+<b><tt>a</tt></b>, <b><tt>b</tt></b> -- numbers, plotting range in the <b> x</b> coordinate
+
+
+<p>
+<b><tt>option</tt></b> -- atom, option name
+
+
+<p>
+<b><tt>value</tt></b> -- atom, number or string (value of option)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The routine <b><tt>Plot2D</tt></b> performs adaptive plotting of one or several functions
+of one variable in the specified range.
+The result is presented as a line given by the equation <b> y=f(x)</b>.
+Several functions can be plotted at once.
+Various plotting options can be specified.
+Output can be directed to a plotting program (the default is to use
+<b><tt>data</tt></b>) to a list of values.
+
+
+<p>
+The function parameter <b><tt>f(x)</tt></b> must evaluate to a Piper expression containing
+at most one variable. (The variable does not have to be called <b><tt>x</tt></b>.)
+Also, <b><tt>N(f(x))</tt></b> must evaluate to a real (not complex) numerical value when given a numerical value of the argument <b><tt>x</tt></b>.
+If the function <b><tt>f(x)</tt></b> does not satisfy these requirements, an error is raised.
+
+
+<p>
+Several functions may be specified as a list and they do not have to depend on the same variable, for example, <b><tt>{f(x), g(y)}</tt></b>.
+The functions will be plotted on the same graph using the same coordinate ranges.
+
+
+<p>
+If you have defined a function which accepts a number but does not
+accept an undefined variable, <b><tt>Plot2D</tt></b> will fail to plot it.
+Use <b><tt>NFunction</tt></b> to overcome this difficulty.
+
+
+<p>
+Data files are created in a temporary directory <b><tt>/tmp/plot.tmp/</tt></b> unless otherwise requested.
+File names
+and other information is printed if <b><tt>InVerboseMode()</tt></b> returns <b><tt>True</tt></b> on using <b><tt>V()</tt></b>.
+
+
+<p>
+The current algorithm uses Newton-Cotes quadratures and some heuristics for error estimation (see <a href="Algochapter3.html#c3s1" target="Chapters">
+The Piper book of algorithms, Chapter 3, Section 1
+</a>
+).
+The initial grid of <b><tt>points+1</tt></b> points is refined between any grid points <b>a</b>, <b> b</b> if the integral
+<b> Integrate(x,a,b)f(x)</b> is not approximated to the given precision by
+the existing grid.
+
+
+<p>
+Default plotting range is <b><tt>-5:5</tt></b>. Range can also be specified as <b><tt>x= -5:5</tt></b> (note the mandatory space separating "<b><tt>=</tt></b>" and "<b><tt>-</tt></b>");
+currently the variable name <b><tt>x</tt></b> is ignored in this case.
+
+
+<p>
+Options are of the form <b><tt>option=value</tt></b>. Currently supported option names
+are: "points", "precision", "depth", "output", "filename", "yrange". Option values
+are either numbers or special unevaluated atoms such as <b><tt>data</tt></b>.
+If you need to use the names of these atoms
+in your script, strings can be used. Several option/value pairs may be specified (the function <b><tt>Plot2D</tt></b> has a variable number of arguments).
+
+
+<p>
+<ul><li></li><b><tt>yrange</tt></b>: the range of ordinates to use for plotting, e.g.
+<b><tt>yrange=0:20</tt></b>. If no range is specified, the default is usually to
+leave the choice to the plotting backend. 
+<li></li><b><tt>points</tt></b>: initial number of points (default 23) -- at least that
+many points will be plotted. The initial grid of this many points will be
+adaptively refined. 
+<li></li><b><tt>precision</tt></b>: graphing precision (default <b>10^(-6)</b>). This is interpreted as the relative precision of computing the integral of <b>f(x)-Min(f(x))</b> using the grid points. For a smooth, non-oscillating function this value should be roughly 1/(number of screen pixels in the plot).
+<li></li><b><tt>depth</tt></b>: max. refinement depth, logarithmic (default 5) -- means there will be at most <b>2^depth</b> extra points per initial grid point.
+<li></li><b><tt>output</tt></b>: name of the plotting backend. Supported names: <b><tt>data</tt></b> (default).
+The <b><tt>data</tt></b> backend will return the data as a list of pairs such as <b><tt>{{x1,y1}, {x2,y2}, ...}</tt></b>.
+<li></li><b><tt>filename</tt></b>: specify name of the created data file. For example: <b><tt>filename="data1.txt"</tt></b>.
+The default is the name <b><tt>"output.data"</tt></b>.
+Note that if several functions are plotted, the data files will have a number appended to the given name, for example <b><tt>data.txt1</tt></b>, <b><tt>data.txt2</tt></b>.
+</ul>
+
+<p>
+Other options may be supported in the future.
+
+
+<p>
+The current implementation can deal with a singularity within the plotting range only if the function <b><tt>f(x)</tt></b> returns <b><tt>Infinity</tt></b>, <b><tt>-Infinity</tt></b> or
+<b><tt>Undefined</tt></b> at the singularity.
+If the function <b><tt>f(x)</tt></b> generates a numerical error and fails at a
+singularity, <b><tt>Plot2D</tt></b> will fail if one of the grid points falls on the
+singularity.
+(All grid points are generated by bisection so in principle the
+endpoints and the <b><tt>points</tt></b> parameter could be chosen to avoid numerical
+singularities.)
+
+
+<p>
+*WIN32
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?V" target="Chapters">
+V
+</a>
+, <a href="ref.html?NFunction" target="Chapters">
+NFunction
+</a>
+, <a href="ref.html?Plot3DS" target="Chapters">
+Plot3DS
+</a>
+.<a name="Plot3DS">
+
+</a>
+<a name="plot3ds">
+
+</a>
+<h3>
+<hr>Plot3DS -- three-dimensional (surface) plotting
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Plot3DS(f(x,y))
+Plot3DS(f(x,y), a:b, c:d)
+Plot3DS(f(x,y), a:b, c:d, option=value)
+Plot3DS(f(x,y), a:b, c:d, option=value, ...)
+Plot3DS(list, ...)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>f(x,y)</tt></b> -- unevaluated expression containing two variables (function to be plotted)
+
+
+<p>
+<b><tt>list</tt></b> -- list of functions to plot
+
+
+<p>
+<b><tt>a</tt></b>, <b><tt>b</tt></b>, <b><tt>c</tt></b>, <b><tt>d</tt></b> -- numbers, plotting ranges in the <b> x</b> and <b> y</b> coordinates
+
+
+<p>
+<b><tt>option</tt></b> -- atom, option name
+
+
+<p>
+<b><tt>value</tt></b> -- atom, number or string (value of option)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The routine <b><tt>Plot3DS</tt></b> performs adaptive plotting of a function
+of two variables in the specified ranges.
+The result is presented as a surface given by the equation <b> z=f(x,y)</b>.
+Several functions can be plotted at once, by giving a list of functions.
+Various plotting options can be specified.
+Output can be directed to a plotting program (the default is to use
+<b><tt>data</tt></b>), to a list of values.
+
+
+<p>
+The function parameter <b><tt>f(x,y)</tt></b> must evaluate to a Piper expression containing
+at most two variables. (The variables do not have to be called <b><tt>x</tt></b> and <b><tt>y</tt></b>.)
+Also, <b><tt>N(f(x,y))</tt></b> must evaluate to a real (not complex) numerical value when given numerical values of the arguments <b><tt>x</tt></b>, <b><tt>y</tt></b>.
+If the function <b><tt>f(x,y)</tt></b> does not satisfy these requirements, an error is raised.
+
+
+<p>
+Several functions may be specified as a list but they have to depend on the same symbolic variables, for example, <b><tt>{f(x,y), g(y,x)}</tt></b>, but not <b><tt>{f(x,y), g(a,b)}</tt></b>.
+The functions will be plotted on the same graph using the same coordinate ranges.
+
+
+<p>
+If you have defined a function which accepts a number but does not
+accept an undefined variable, <b><tt>Plot3DS</tt></b> will fail to plot it.
+Use <b><tt>NFunction</tt></b> to overcome this difficulty.
+
+
+<p>
+Data files are created in a temporary directory <b><tt>/tmp/plot.tmp/</tt></b> unless otherwise requested.
+File names
+and other information is printed if <b><tt>InVerboseMode()</tt></b> returns <b><tt>True</tt></b> on using <b><tt>V()</tt></b>.
+
+
+<p>
+The current algorithm uses Newton-Cotes cubatures and some heuristics for error estimation (see <a href="Algochapter3.html#c3s1" target="Chapters">
+The Piper book of algorithms, Chapter 3, Section 1
+</a>
+).
+The initial rectangular grid of <b><tt>xpoints+1</tt></b>*<b><tt>ypoints+1</tt></b> points is refined within any rectangle where the integral
+of <b>f(x,y)</b> is not approximated to the given precision by
+the existing grid.
+
+
+<p>
+Default plotting range is <b><tt>-5:5</tt></b> in both coordinates.
+A range can also be specified with a variable name, e.g. <b><tt>x= -5:5</tt></b> (note the mandatory space separating "<b><tt>=</tt></b>" and "<b><tt>-</tt></b>").
+The variable name <b><tt>x</tt></b> should be the same as that used in the function <b><tt>f(x,y)</tt></b>.
+If ranges are not given with variable names, the first variable encountered in the function <b><tt>f(x,y)</tt></b> is associated with the first of the two ranges.
+
+
+<p>
+Options are of the form <b><tt>option=value</tt></b>. Currently supported option names
+are "points", "xpoints", "ypoints", "precision", "depth", "output", "filename", "xrange", "yrange", "zrange". Option values
+are either numbers or special unevaluated atoms such as <b><tt>data</tt></b>.
+If you need to use the names of these atoms
+in your script, strings can be used (e.g. <b><tt>output="data"</tt></b>). Several option/value pairs may be specified (the function <b><tt>Plot3DS</tt></b> has a variable number of arguments).
+
+
+<p>
+<ul><li></li><b><tt>xrange</tt></b>, <b><tt>yrange</tt></b>: optionally override coordinate ranges. Note that <b><tt>xrange</tt></b> is always the first variable and <b><tt>yrange</tt></b> the second variable, regardless of the actual variable names.
+<li></li><b><tt>zrange</tt></b>: the range of the <b>z</b> axis to use for plotting, e.g.
+<b><tt>zrange=0:20</tt></b>. If no range is specified, the default is usually to
+leave the choice to the plotting backend. Automatic choice based on actual values may
+give visually inadequate plots if the function has a singularity.
+<li></li><b><tt>points</tt></b>, <b><tt>xpoints</tt></b>, <b><tt>ypoints</tt></b>: initial number of points (default 10 each) -- at least that
+many points will be plotted in each coordinate.
+The initial grid of this many points will be
+adaptively refined.
+If <b><tt>points</tt></b> is specified, it serves as a default for both <b><tt>xpoints</tt></b> and <b><tt>ypoints</tt></b>; this value may be overridden by <b><tt>xpoints</tt></b> and <b><tt>ypoints</tt></b> values.
+<li></li><b><tt>precision</tt></b>: graphing precision (default <b> 0.01</b>). This is interpreted as the relative precision of computing the integral of <b> f(x,y)-Min(f(x,y))</b> using the grid points. For a smooth, non-oscillating function this value should be roughly 1/(number of screen pixels in the plot).
+<li></li><b><tt>depth</tt></b>: max. refinement depth, logarithmic (default 3) -- means there will be at most <b>2^depth</b> extra points per initial grid point (in each coordinate).
+<li></li><b><tt>output</tt></b>: name of the plotting backend. Supported names: <b><tt>data</tt></b> (default).
+The <b><tt>data</tt></b> backend will return the data as a list of triples such as <b><tt>{{x1, y1, z1}, {x2, y2, z2}, ...}</tt></b>.
+</ul>
+
+<p>
+Other options may be supported in the future.
+
+
+<p>
+The current implementation can deal with a singularity within the plotting range only if the function <b><tt>f(x,y)</tt></b> returns <b><tt>Infinity</tt></b>, <b><tt>-Infinity</tt></b> or
+<b><tt>Undefined</tt></b> at the singularity.
+If the function <b><tt>f(x,y)</tt></b> generates a numerical error and fails at a
+singularity, <b><tt>Plot3DS</tt></b> will fail only if one of the grid points falls on the
+singularity.
+(All grid points are generated by bisection so in principle the
+endpoints and the <b><tt>xpoints</tt></b>, <b><tt>ypoints</tt></b> parameters could be chosen to avoid numerical
+singularities.)
+
+
+<p>
+The <b><tt>filename</tt></b> option is optional if using graphical backends, but can be used to specify the location of the created data file.
+
+
+<p>
+*WIN32
+
+
+<p>
+Same limitations as <b><tt>Plot2D</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Plot3DS(a*b^2)
+Out&gt; True;
+In&gt; V(Plot3DS(Sin(x)*Cos(y),x=0:20, y=0:20,depth=3))
+CachedConstant: Info: constant Pi is being 
+  recalculated at precision 10
+CachedConstant: Info: constant Pi is being
+  recalculated at precision 11
+Plot3DS: using 1699  points for function Sin(x)*Cos(y)
+Plot3DS: max. used 8 subdivisions for Sin(x)*Cos(y)
+Plot3DS'datafile: created file '/tmp/plot.tmp/data1'
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?V" target="Chapters">
+V
+</a>
+, <a href="ref.html?NFunction" target="Chapters">
+NFunction
+</a>
+, <a href="ref.html?Plot2D" target="Chapters">
+Plot2D
+</a>
+.<a name="XmlExplodeTag">
+
+</a>
+<a name="xmlexplodetag">
+
+</a>
+<h3>
+<hr>XmlExplodeTag -- convert XML strings to tag objects
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+XmlExplodeTag(xmltext)
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>xmltext</tt></b> -- string containing some XML tokens
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>XmlExplodeTag</tt></b> parses the first XML token in <b><tt>xmltext</tt></b>
+and returns a Piper expression.
+
+
+<p>
+The following subset of XML syntax is supported currently:
+
+
+<p>
+<ul><li></li><b><tt>&lt;TAG [options]&gt;</tt></b> -- an opening tag
+<li></li><b><tt>&lt;/TAG [options]&gt;</tt></b> -- a closing tag
+<li></li><b><tt>&lt;TAG [options] /&gt;</tt></b> -- an open/close tag
+<li>plain (non-tag) text
+</li></ul>
+
+<p>
+The tag options take the form <b><tt>paramname="value"</tt></b>.
+
+
+<p>
+If given an XML tag, <b><tt>XmlExplodeTag</tt></b> returns a structure of the form <b><tt>XmlTag(name,params,type)</tt></b>.
+In the returned object,
+<b><tt>name</tt></b> is the (capitalized) tag name, <b><tt>params</tt></b> is an assoc list with
+the options (key fields capitalized), and type can be either "Open", "Close" or "OpenClose".
+
+
+<p>
+If given a plain text string, the same string is returned.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; XmlExplodeTag("some plain text")
+Out&gt; "some plain text";
+In&gt; XmlExplodeTag("&lt;a name=\"blah blah\"
+  align=\"left\"&gt;")
+Out&gt; XmlTag("A",{{"ALIGN","left"},
+  {"NAME","blah blah"}},"Open");
+In&gt; XmlExplodeTag("&lt;/p&gt;")
+Out&gt; XmlTag("P",{},"Close");
+In&gt; XmlExplodeTag("&lt;br/&gt;")
+Out&gt; XmlTag("BR",{},"OpenClose");
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?XmlTokenizer" target="Chapters">
+XmlTokenizer
+</a>
+.<a name="DefaultTokenizer">
+
+</a>
+<a name="defaulttokenizer">
+
+</a>
+<h3>
+<hr>DefaultTokenizer -- select the default syntax tokenizer for parsing the input
+</h3>
+<a name="XmlTokenizer">
+
+</a>
+<a name="xmltokenizer">
+
+</a>
+<h3>
+<hr>XmlTokenizer -- select an XML syntax tokenizer for parsing the input
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+DefaultTokenizer()
+XmlTokenizer()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+A "tokenizer" is an internal routine in the kernel that parses the input into Piper expressions.
+This affects all input typed in by a user at the prompt and also the input redirected from files or strings using <b><tt>FromFile</tt></b> and <b><tt>FromString</tt></b> and read using <b><tt>Read</tt></b> or <b><tt>ReadToken</tt></b>.
+
+
+<p>
+The Piper environment currently supports some experimental tokenizers for 
+various syntaxes. <b><tt>DefaultTokenizer</tt></b> switches to the tokenizer used for
+default Piper syntax. <b><tt>XmlTokenizer</tt></b> switches to an XML syntax.
+Note that setting the tokenizer is a global side effect.
+One typically needs
+to switch back to the default tokenizer when finished reading the special syntax.
+
+
+<p>
+Care needs to be taken when kernel errors are raised during a non-default tokenizer operation (as with any global change in the environment).
+Errors need to be
+caught with the <b><tt>TrapError</tt></b> function. The error handler code should re-instate
+the default tokenizer,
+or else the user will be unable to continue the session
+(everything a user types will be parsed using a non-default tokenizer).
+
+
+<p>
+When reading XML syntax, the supported formats are the same as those of <b><tt>XmlExplodeTag</tt></b>.
+The parser does not validate anything in the XML input.
+After an XML token has been read in, it can be converted into an
+Piper expression with <b><tt>XmlExplodeTag</tt></b>.
+Note that when reading XML, any plain text between tags is returned as one token.
+Any malformed XML will be treated as plain text.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; [XmlTokenizer(); q:=ReadToken(); \
+  DefaultTokenizer();q;]
+&lt;a&gt;Out&gt; &lt;a&gt;;
+</pre></tr>
+</table>
+
+
+<p>
+Note that:
+<ul><li>after switching to </li><b><tt>XmlTokenizer</tt></b> the <b><tt>In&gt;</tt></b> prompt disappeared; the user typed <b><tt>&lt;a&gt;</tt></b> and the <b><tt>Out&gt;</tt></b> prompt with the resulting expression appeared.
+<li>The resulting expression is an atom with the string representation </li><b><tt>&lt;a&gt;</tt></b>;
+it is <i>not</i> a string.
+</ul>
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OMRead" target="Chapters">
+OMRead
+</a>
+, <a href="ref.html?TrapError" target="Chapters">
+TrapError
+</a>
+, <a href="ref.html?XmlExplodeTag" target="Chapters">
+XmlExplodeTag
+</a>
+, <a href="ref.html?ReadToken" target="Chapters">
+ReadToken
+</a>
+, <a href="ref.html?FromFile" target="Chapters">
+FromFile
+</a>
+, <a href="ref.html?FromString" target="Chapters">
+FromString
+</a>
+.<a name="OMForm">
+
+</a>
+<a name="omform">
+
+</a>
+<h3>
+<hr>OMForm -- convert Piper expression to OpenMath
+</h3>
+<a name="OMRead">
+
+</a>
+<a name="omread">
+
+</a>
+<h3>
+<hr>OMRead -- convert expression from OpenMath to Piper expression
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OMForm(expression)
+OMRead()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expression</tt></b> -- expression to convert
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>OMForm</tt></b> prints an OpenMath representation of the input parameter <b><tt>expression</tt></b>
+to standard output. <b><tt>OMRead</tt></b> reads an OpenMath expression from standard
+input and returns a normal Piper expression that matches the input OpenMath
+expression.
+
+
+<p>
+If a Piper symbol does not have a mapping defined by <b><tt>OMDef</tt></b>, it is translated
+to and from OpenMath as the OpenMath symbol in the CD "piper" with the same
+name as it has in Piper.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; str:=ToString()OMForm(2+Sin(a*3))
+Out&gt; "&lt;OMOBJ&gt;
+  &lt;OMA&gt;
+    &lt;OMS cd="arith1" name="plus"/&gt;
+    &lt;OMI&gt;2&lt;/OMI&gt;
+    &lt;OMA&gt;
+      &lt;OMS cd="transc1" name="sin"/&gt;
+      &lt;OMA&gt;
+        &lt;OMS cd="arith1" name="times"/&gt;
+        &lt;OMV name="a"/&gt;
+        &lt;OMI&gt;3&lt;/OMI&gt;
+      &lt;/OMA&gt;
+    &lt;/OMA&gt;
+  &lt;/OMA&gt;
+&lt;/OMOBJ&gt;
+";
+In&gt; FromString(str)OMRead()
+Out&gt; 2+Sin(a*3);
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OMForm(NotDefinedInOpenMath(2+3))
+&lt;OMOBJ&gt;
+  &lt;OMA&gt;
+    &lt;OMS cd="piper" name="NotDefinedInOpenMath"/&gt;
+    &lt;OMA&gt;
+      &lt;OMS cd="arith1" name="plus"/&gt;
+      &lt;OMI&gt;2&lt;/OMI&gt;
+      &lt;OMI&gt;3&lt;/OMI&gt;
+    &lt;/OMA&gt;
+  &lt;/OMA&gt;
+&lt;/OMOBJ&gt;
+Out&gt; True
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?XmlTokenizer" target="Chapters">
+XmlTokenizer
+</a>
+, <a href="ref.html?XmlExplodeTag" target="Chapters">
+XmlExplodeTag
+</a>
+, <a href="ref.html?OMDef" target="Chapters">
+OMDef
+</a>
+.<a name="OMDef">
+
+</a>
+<a name="omdef">
+
+</a>
+<h3>
+<hr>OMDef -- define translations from Piper to OpenMath and vice-versa.
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OMDef(piperForm, cd, name)
+OMDef(piperForm, cd, name, piperToOM)
+OMDef(piperForm, cd, name, piperToOM, omToPiper)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>piperForm</tt></b> -- string with the name of a Piper symbol, or a Piper expression
+
+
+<p>
+<b><tt>cd</tt></b> -- OpenMath Content Dictionary for the symbol
+
+
+<p>
+<b><tt>name</tt></b> -- OpenMath name for the symbol
+
+
+<p>
+<b><tt>piperToOM</tt></b> -- rule for translating an application of that symbol in Piper into an OpenMath expression
+
+
+<p>
+<b><tt>omToPiper</tt></b> -- rule for translating an OpenMath expression into an application of this symbol in Piper
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>OMDef</tt></b> defines the translation rules for symbols between the Piper
+representation and <b><tt>OpenMath</tt></b>.
+The first parameter, <b><tt>piperForm</tt></b>, can be a string or an expression. The
+difference is that when giving an expression only the <b><tt>omToPiper</tt></b> translation
+is defined, and it uses the exact expression given. This is used for <b><tt>OpenMath</tt></b>
+symbols that must be translated into a whole subexpression in Piper, such
+as <b><tt>set1:emptyset</tt></b> which gets translated to an empty list as follows:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OMDef( {}, "set1","emptyset" )
+Out&gt; True
+In&gt; FromString("&lt;OMOBJ&gt;&lt;OMS cd=\"set1\" name=\"emptyset\"/&gt;&lt;/OMOBJ&gt; ")OMRead()
+Out&gt; {}
+In&gt; IsList(%)
+Out&gt; True
+</pre></tr>
+</table>
+Otherwise, a symbol that is not inside an application (OMA) gets translated to
+the Piper atom with the given name:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OMDef( "EmptySet", "set1","emptyset" )
+Warning: the mapping for set1:emptyset was already defined as {} , but is redefined now as EmptySet
+Out&gt; True
+In&gt; FromString("&lt;OMOBJ&gt;&lt;OMS cd=\"set1\" name=\"emptyset\"/&gt;&lt;/OMOBJ&gt; ")OMRead()
+Out&gt; EmptySet
+</pre></tr>
+</table>
+
+
+<p>
+The definitions for the symbols in the Piper
+library are in the <b><tt>*.rep</tt></b> script subdirectories. In those modules for which
+the mappings are defined, there is a file called <b><tt>om.pi</tt></b> that contains the
+<b><tt>OMDef</tt></b> calls. Those files are loaded in <b><tt>openmath.rep/om.pi</tt></b>, so any new
+file must be added to the list there, at the end of the file.
+
+
+<p>
+A rule is represented as a list of expressions. Since both OM and
+Piper expressions are actually lists, the syntax is the same in both
+directions. There are two template forms that are expanded before the
+translation:
+
+
+<p>
+<ul><li></li><b><tt>$</tt></b>: this symbol stands for the translation of the symbol applied
+in the original expression.
+</ul>
+
+<p>
+<ul><li></li><b><tt>_path</tt></b>: a path into the original expression (list) to extract an
+element, written as an underscore applied to an integer or a list of integers.
+  Those integers are indexes into expressions, and integers in a list are
+  applied recursively starting at the original expression.
+  For example, <b><tt>_2</tt></b> means the second parameter of the expression, while
+  <b><tt>_{3,2,1}</tt></b> means the first parameter of the second parameter of the third
+  parameter of the original expression.
+</ul>
+
+<p>
+They can appear anywhere in the rule as expressions or subexpressions.
+
+
+<p>
+Finally, several alternative rules can be specified by joining them with
+the <b><tt>|</tt></b> symbol, and each of them can be annotated with a post-predicate
+applied with the underscore <b><tt>_</tt></b> symbol, in the style of Piper' simplification
+rules. Only the first alternative rule that matches is applied, so the more
+specific rules must be written first.
+
+
+<p>
+There are special symbols recognized by <b><tt>OMForm</tt></b> to output <b><tt>OpenMath</tt></b>
+constructs that have no specific parallel in Piper, such as an OpenMath
+symbol having a <b><tt>CD</tt></b> and <b><tt>name</tt></b>: Piper symbols have only a name.
+Those special symbols are:
+
+
+<p>
+<ul><li></li><b><tt>OMS(cd, name)</tt></b>: <b><tt>&lt;OMS cd="cd" name="name"&gt;</tt></b>
+<li></li><b><tt>OMA(f x y ...)</tt></b>: <b><tt>&lt;OMA&gt;f x y ...&lt;/OMA&gt;</tt></b>
+<li></li><b><tt>OMBIND(binderSymbol, bvars, expression)</tt></b>: <b><tt>&lt;OMBIND&gt;binderSymbol bvars expression&lt;/OMBIND&gt;</tt></b>, where <b><tt>bvars</tt></b> must be produced by using <b><tt>OMBVAR(...)</tt></b>.
+<li></li><b><tt>OMBVAR(x y ...)</tt></b>: <b><tt>&lt;OMBVAR&gt;x y ...&lt;/OMBVAR&gt;</tt></b>
+<li></li><b><tt>OME(...)</tt></b>: <b><tt>&lt;OME&gt;...&lt;/OME&gt;</tt></b>
+</ul>
+
+<p>
+When translating from OpenMath to Piper, we just store unknown symbols as
+<b><tt>OMS("cd", "name")</tt></b>. This way we don't have to bother defining bogus symbols
+for concepts that Piper does not handle, and we can evaluate expressions that
+contain them.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OMDef( "Sqrt" ,  "arith1", "root", { $, _1, 2 }, $(_1)_(_2=2) | (_1^(1/_2)) );
+Out&gt; True
+In&gt; OMForm(Sqrt(3))
+&lt;OMOBJ&gt;
+  &lt;OMA&gt;
+    &lt;OMS cd="arith1" name="root"/&gt;
+    &lt;OMI&gt;3&lt;/OMI&gt;
+    &lt;OMI&gt;2&lt;/OMI&gt;
+  &lt;/OMA&gt;
+&lt;/OMOBJ&gt;
+Out&gt; True
+In&gt; FromString("&lt;OMOBJ&gt;&lt;OMA&gt;&lt;OMS cd=\"arith1\" name=\"root\"/&gt;&lt;OMI&gt;16&lt;/OMI&gt;&lt;OMI&gt;2&lt;/OMI&gt;&lt;/OMA&gt;&lt;/OMOBJ&gt; ")OMRead()
+Out&gt; Sqrt(16)
+In&gt; FromString("&lt;OMOBJ&gt;&lt;OMA&gt;&lt;OMS cd=\"arith1\" name=\"root\"/&gt;&lt;OMI&gt;16&lt;/OMI&gt;&lt;OMI&gt;3&lt;/OMI&gt;&lt;/OMA&gt;&lt;/OMOBJ&gt; ")OMRead()
+Out&gt; 16^(1/3)
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OMDef("Limit", "limit1", "limit", \
+      {  $, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)  \
+      |{ $, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Right) \
+      |{ $, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },      \
+      { $, _{3,2,1}, _1, Left,  _{3,3}}_(_2=OMS("limit1", "below")) \
+      |{$, _{3,2,1}, _1, Right, _{3,3}}_(_2=OMS("limit1", "above")) \
+      |{$, _{3,2,1}, _1, _{3,3}}                                    \
+     );
+In&gt; OMForm(Limit(x,0) Sin(x)/x)
+&lt;OMOBJ&gt;
+  &lt;OMA&gt;
+    &lt;OMS cd="limit1" name="limit"/&gt;
+    &lt;OMI&gt;0&lt;/OMI&gt;
+    &lt;OMS cd="limit1" name="both_sides"/&gt;
+    &lt;OMBIND&gt;
+      &lt;OMS cd="fns1" name="lambda"/&gt;
+      &lt;OMBVAR&gt;
+        &lt;OMV name="x"/&gt;
+      &lt;/OMBVAR&gt;
+      &lt;OMA&gt;
+        &lt;OMS cd="arith1" name="divide"/&gt;
+        &lt;OMA&gt;
+          &lt;OMS cd="transc1" name="sin"/&gt;
+          &lt;OMV name="x"/&gt;
+        &lt;/OMA&gt;
+        &lt;OMV name="x"/&gt;
+      &lt;/OMA&gt;
+    &lt;/OMBIND&gt;
+  &lt;/OMA&gt;
+&lt;/OMOBJ&gt;
+Out&gt; True
+In&gt; OMForm(Limit(x,0,Right) 1/x)
+&lt;OMOBJ&gt;
+  &lt;OMA&gt;
+    &lt;OMS cd="limit1" name="limit"/&gt;
+    &lt;OMI&gt;0&lt;/OMI&gt;
+    &lt;OMS cd="limit1" name="above"/&gt;
+    &lt;OMBIND&gt;
+      &lt;OMS cd="fns1" name="lambda"/&gt;
+      &lt;OMBVAR&gt;
+        &lt;OMV name="x"/&gt;
+      &lt;/OMBVAR&gt;
+      &lt;OMA&gt;
+        &lt;OMS cd="arith1" name="divide"/&gt;
+        &lt;OMI&gt;1&lt;/OMI&gt;
+        &lt;OMV name="x"/&gt;
+      &lt;/OMA&gt;
+    &lt;/OMBIND&gt;
+  &lt;/OMA&gt;
+&lt;/OMOBJ&gt;
+Out&gt; True
+In&gt; FromString(ToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
+Out&gt; Limit(x,0,Right)1/x
+In&gt; %
+Out&gt; Infinity
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OMForm" target="Chapters">
+OMForm
+</a>
+, <a href="ref.html?OMRead" target="Chapters">
+OMRead
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

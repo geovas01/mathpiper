@@ -1,0 +1,669 @@
+<html>
+<head>
+  <title>Symbolic solvers</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c12">
+
+</a>
+(directly go to documentation on : <a href="refchapter12.html#Solve" target='Chapters' title="solve an equation">Solve</a>, <a href="refchapter12.html#OldSolve" target='Chapters' title="old version of <b><tt>Solve</tt></b>">OldSolve</a>, <a href="refchapter12.html#SuchThat" target='Chapters' title="special purpose solver">SuchThat</a>, <a href="refchapter12.html#Eliminate" target='Chapters' title="substitute and simplify">Eliminate</a>, <a href="refchapter12.html#PSolve" target='Chapters' title="solve a polynomial equation">PSolve</a>, <a href="refchapter12.html#MatrixSolve" target='Chapters' title="solve a system of equations">MatrixSolve</a>.
+)<h1>
+12. Symbolic solvers
+</h1>
+By solving one tries to find a mathematical object that meets certain criteria. This chapter documents the functions that are available to help find solutions to specific types of problems.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter12.html#Solve" target='Chapters' title="solve an equation">Solve</a></td>
+<td>solve an equation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter12.html#OldSolve" target='Chapters' title="old version of <b><tt>Solve</tt></b>">OldSolve</a></td>
+<td>old version of <b><tt>Solve</tt></b></td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter12.html#SuchThat" target='Chapters' title="special purpose solver">SuchThat</a></td>
+<td>special purpose solver</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter12.html#Eliminate" target='Chapters' title="substitute and simplify">Eliminate</a></td>
+<td>substitute and simplify</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter12.html#PSolve" target='Chapters' title="solve a polynomial equation">PSolve</a></td>
+<td>solve a polynomial equation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter12.html#MatrixSolve" target='Chapters' title="solve a system of equations">MatrixSolve</a></td>
+<td>solve a system of equations</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="Solve">
+
+</a>
+<a name="solve">
+
+</a>
+<h3>
+<hr>Solve -- solve an equation
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Solve(eq, var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>eq</tt></b> -- equation to solve
+
+
+<p>
+<b><tt>var</tt></b> -- variable to solve for
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command tries to solve an equation. If <b><tt>eq</tt></b> does not contain the
+<b><tt>==</tt></b> operator, it is assumed that the user wants to solve $eq ==
+0$. The result is a list of equations of the form <b><tt>var == value</tt></b>, each
+representing a solution of the given equation. The <b><tt>Where</tt></b> operator
+can be used to substitute this solution in another expression. If the
+given equation <b><tt>eq</tt></b> does not have any solutions, or if <b><tt>Solve</tt></b> is
+unable to find any, then an empty list is returned.
+
+
+<p>
+The current implementation is far from perfect. In particular, the
+user should keep the following points in mind:
+<ul><li></li><b><tt>Solve</tt></b> cannot solve all equations. If it is given a equation
+it can not solve, it raises an error via <b><tt>Check</tt></b>. Unfortunately, this
+is not displayed by the inline pretty-printer; call <b><tt>PrettyPrinter'Set</tt></b> to
+change this. If an equation cannot be solved analytically, you may
+want to call <b><tt>Newton</tt></b> to get a numerical solution.
+<li>Systems of equations are not handled yet. For linear systems,
+</li><b><tt>MatrixSolve</tt></b> can be used. The old version of <b><tt>Solve</tt></b>, with the name
+<b><tt>OldSolve</tt></b> might be able to solve nonlinear systems of equations.
+<li>The periodicity of the trigonometric functions </li><b><tt>Sin</tt></b>, <b><tt>Cos</tt></b>,
+and <b><tt>Tan</tt></b> is not taken into account. The same goes for the (imaginary)
+periodicity of <b><tt>Exp</tt></b>. This causes <b><tt>Solve</tt></b> to miss solutions.
+<li>It is assumed that all denominators are nonzero. Hence, a
+solution reported by </li><b><tt>Solve</tt></b> may in fact fail to be a solution because
+a denominator vanishes.
+<li>In general, it is wise not to have blind trust in the results
+returned by </li><b><tt>Solve</tt></b>. A good strategy is to substitute the solutions
+back in the equation.
+</ul>
+
+<p>
+
+<h5>
+Examples:
+</h5>
+First a simple example, where everything works as it should. The
+quadratic equation <b>x^2+x==0</b> is solved. Then the result is
+checked by substituting it back in the quadratic.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; quadratic := x^2+x;
+Out&gt; x^2+x;
+In&gt; Solve(quadratic, x);
+Out&gt; {x==0,x==(-1)};
+In&gt; quadratic Where %;
+Out&gt; {0,0};
+</pre></tr>
+</table>
+
+
+<p>
+If one tries to solve the equation <b> Exp(x)==Sin(x)</b>, one finds that
+<b><tt>Solve</tt></b> can not do this.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; PrettyPrinter'Set("DefaultPrint");
+Out&gt; True;
+In&gt; Solve(Exp(x) == Sin(x), x);
+Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
+Out&gt; {};
+</pre></tr>
+</table>
+
+
+<p>
+The equation <b>Cos(x)==1/2</b> has an infinite number of solutions,
+namely <b> x==(2*k+1/3)*Pi</b> and <b> x==(2*k-1/3)*Pi</b> for any
+integer <b> k</b>. However, <b><tt>Solve</tt></b> only reports the solutions with <b> k==0</b>.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Solve(Cos(x) == 1/2, x);
+Out&gt; {x==Pi/3,x== -Pi/3};
+</pre></tr>
+</table>
+
+
+<p>
+For the equation <b> x/Sin(x)==0</b>, a spurious solution at <b> x==0</b> is
+returned. However, the fraction is undefined at that point.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Solve(x / Sin(x) == 0, x);
+Out&gt; {x==0};
+</pre></tr>
+</table>
+
+
+<p>
+At first sight, the equation <b> Sqrt(x)==a</b> seems to have the solution
+<b> x==a^2</b>. However, this is not true for eg. <b> a== -1</b>.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; PrettyPrinter'Set("DefaultPrint");
+Out&gt; True;
+In&gt; Solve(Sqrt(x) == a, x);
+Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
+Out&gt; {};
+In&gt; Solve(Sqrt(x) == 2, x);
+Out&gt; {x==4};
+In&gt; Solve(Sqrt(x) == -1, x);
+Out&gt; {};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Check" target="Chapters">
+Check
+</a>
+, <a href="ref.html?MatrixSolve" target="Chapters">
+MatrixSolve
+</a>
+, <a href="ref.html?Newton" target="Chapters">
+Newton
+</a>
+, <a href="ref.html?OldSolve" target="Chapters">
+OldSolve
+</a>
+, <a href="ref.html?PrettyPrinter'Set" target="Chapters">
+PrettyPrinter'Set
+</a>
+, <a href="ref.html?PSolve" target="Chapters">
+PSolve
+</a>
+, <a href="ref.html?Where" target="Chapters">
+Where
+</a>
+, <a href="ref.html?==" target="Chapters">
+==
+</a>
+.<a name="OldSolve">
+
+</a>
+<a name="oldsolve">
+
+</a>
+<h3>
+<hr>OldSolve -- old version of <b><tt>Solve</tt></b>
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OldSolve(eq, var)
+OldSolve(eqlist, varlist)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>eq</tt></b> -- single identity equation
+
+
+<p>
+<b><tt>var</tt></b> -- single variable
+
+
+<p>
+<b><tt>eqlist</tt></b> -- list of identity equations
+
+
+<p>
+<b><tt>varlist</tt></b> -- list of variables
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This is an older version of <b><tt>Solve</tt></b>. It is retained for two
+reasons. The first one is philosophical: it is good to have multiple
+algorithms available. The second reason is more practical: the newer
+version cannot handle systems of equations, but <b><tt>OldSolve</tt></b> can.
+
+
+<p>
+This command tries to solve one or more equations. Use the first form
+to solve a single equation and the second one for systems of
+equations.
+
+
+<p>
+The first calling sequence solves the equation "eq" for the variable
+"var". Use the <b><tt>==</tt></b> operator to form the equation.
+The value of "var" which satisfies the equation, is returned. Note
+that only one solution is found and returned.
+
+
+<p>
+To solve a system of equations, the second form should be used. It
+solves the system of equations contained in the list "eqlist" for
+the variables appearing in the list "varlist". A list of results is
+returned, and each result is a list containing the values of the
+variables in "varlist". Again, at most a single solution is
+returned.
+
+
+<p>
+The task of solving a single equation is simply delegated to <b><tt>SuchThat</tt></b>. Multiple equations are solved recursively:
+firstly, an equation is sought in which one of the variables occurs
+exactly once; then this equation is solved with <b><tt>SuchThat</tt></b>; and finally the solution is substituted in the
+other equations by <b><tt>Eliminate</tt></b> decreasing the number
+of equations by one. This suffices for all linear equations and a
+large group of simple nonlinear equations.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OldSolve(a+x*y==z,x)
+Out&gt; (z-a)/y;
+In&gt; OldSolve({a*x+y==0,x+z==0},{x,y})
+Out&gt; {{-z,z*a}};
+</pre></tr>
+</table>
+
+
+<p>
+This means that "x = (z-a)/y" is a solution of the first equation
+and that "x = -z", "y = z*a" is a solution of the systems of
+equations in the second command.
+
+
+<p>
+An example which <b><tt>OldSolve</tt></b> cannot solve:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OldSolve({x^2-x == y^2-y,x^2-x == y^3+y},{x,y});
+Out&gt; {};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Solve" target="Chapters">
+Solve
+</a>
+, <a href="ref.html?SuchThat" target="Chapters">
+SuchThat
+</a>
+, <a href="ref.html?Eliminate" target="Chapters">
+Eliminate
+</a>
+, <a href="ref.html?PSolve" target="Chapters">
+PSolve
+</a>
+, <a href="ref.html?==" target="Chapters">
+==
+</a>
+.<a name="SuchThat">
+
+</a>
+<a name="suchthat">
+
+</a>
+<h3>
+<hr>SuchThat -- special purpose solver
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+SuchThat(expr, var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to make zero
+
+
+<p>
+<b><tt>var</tt></b> -- variable (or subexpression) to solve for
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This functions tries to find a value of the variable "var" which
+makes the expression "expr" zero. It is also possible to pass a
+subexpression as "var", in which case <b><tt>SuchThat</tt></b>
+will try to solve for that subexpression.
+
+
+<p>
+Basically, only expressions in which "var" occurs only once are
+handled; in fact, <b><tt>SuchThat</tt></b> may even give wrong
+results if the variables occurs more than once. This is a consequence
+of the implementation, which repeatedly applies the inverse of the top
+function until the variable "var" is reached.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; SuchThat(a+b*x, x)
+Out&gt; (-a)/b;
+In&gt; SuchThat(Cos(a)+Cos(b)^2, Cos(b))
+Out&gt; Cos(a)^(1/2);
+In&gt; A:=Expand(a*x+b*x+c, x)
+Out&gt; (a+b)*x+c;
+In&gt; SuchThat(A, x)
+Out&gt; (-c)/(a+b);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Solve" target="Chapters">
+Solve
+</a>
+, <a href="ref.html?OldSolve" target="Chapters">
+OldSolve
+</a>
+, <a href="ref.html?Subst" target="Chapters">
+Subst
+</a>
+, <a href="ref.html?Simplify" target="Chapters">
+Simplify
+</a>
+.<a name="Eliminate">
+
+</a>
+<a name="eliminate">
+
+</a>
+<h3>
+<hr>Eliminate -- substitute and simplify
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Eliminate(var, value, expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>var</tt></b> -- variable (or subexpression) to substitute
+
+
+<p>
+<b><tt>value</tt></b> -- new value of "var"
+
+
+<p>
+<b><tt>expr</tt></b> -- expression in which the substitution should take place
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function uses <b><tt>Subst</tt></b> to replace all instances
+of the variable (or subexpression) "var" in the expression "expr"
+with "value", calls <b><tt>Simplify</tt></b> to simplify the
+resulting expression, and returns the result.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Subst(Cos(b), c) (Sin(a)+Cos(b)^2/c)
+Out&gt; Sin(a)+c^2/c;
+In&gt; Eliminate(Cos(b), c, Sin(a)+Cos(b)^2/c)
+Out&gt; Sin(a)+c;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?SuchThat" target="Chapters">
+SuchThat
+</a>
+, <a href="ref.html?Subst" target="Chapters">
+Subst
+</a>
+, <a href="ref.html?Simplify" target="Chapters">
+Simplify
+</a>
+.<a name="PSolve">
+
+</a>
+<a name="psolve">
+
+</a>
+<h3>
+<hr>PSolve -- solve a polynomial equation
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+PSolve(poly, var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>poly</tt></b> -- a polynomial in "var"
+
+
+<p>
+<b><tt>var</tt></b> -- a variable
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This commands returns a list containing the roots of "poly",
+considered as a polynomial in the variable "var". If there is only
+one root, it is not returned as a one-entry list but just by
+itself. A double root occurs twice in the result, and similarly for
+roots of higher multiplicity. All polynomials of degree up to 4 are
+handled.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; PSolve(b*x+a,x)
+Out&gt; -a/b;
+In&gt; PSolve(c*x^2+b*x+a,x)
+Out&gt; {(Sqrt(b^2-4*c*a)-b)/(2*c),(-(b+
+Sqrt(b^2-4*c*a)))/(2*c)};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Solve" target="Chapters">
+Solve
+</a>
+, <a href="ref.html?Factor" target="Chapters">
+Factor
+</a>
+.<a name="MatrixSolve">
+
+</a>
+<a name="matrixsolve">
+
+</a>
+<h3>
+<hr>MatrixSolve -- solve a system of equations
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MatrixSolve(A,b)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>A</tt></b> -- coefficient matrix
+
+
+<p>
+<b><tt>b</tt></b> -- row vector
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>MatrixSolve</tt></b> solves the matrix equations <b><tt>A*x = b</tt></b> using Gaussian Elimination
+with Backward substitution. If your matrix is triangular or diagonal, it will
+be recognized as such and a faster algorithm will be used.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A:={{2,4,-2,-2},{1,2,4,-3},{-3,-3,8,-2},{-1,1,6,-3}};
+Out&gt; {{2,4,-2,-2},{1,2,4,-3},{-3,-3,8,-2},{-1,1,6,-3}};
+In&gt; b:={-4,5,7,7};
+Out&gt; {-4,5,7,7};
+In&gt; MatrixSolve(A,b);
+Out&gt; {1,2,3,4};
+</pre></tr>
+</table>
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

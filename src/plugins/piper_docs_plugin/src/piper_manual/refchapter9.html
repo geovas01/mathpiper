@@ -1,0 +1,452 @@
+<html>
+<head>
+  <title>Complex numbers</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c9">
+
+</a>
+(directly go to documentation on : <a href="refchapter9.html#Complex" target='Chapters' title="construct a complex number">Complex</a>, <a href="refchapter9.html#Re" target='Chapters' title="real part of a complex number">Re</a>, <a href="refchapter9.html#Im" target='Chapters' title="imaginary part of a complex number">Im</a>, <a href="refchapter9.html#I" target='Chapters' title="imaginary unit">I</a>, <a href="refchapter9.html#Conjugate" target='Chapters' title="complex conjugate">Conjugate</a>, <a href="refchapter9.html#Arg" target='Chapters' title="argument of a complex number">Arg</a>.
+)<h1>
+9. Complex numbers
+</h1>
+Piper understands the concept of a complex number,
+and has a few functions that allow manipulation of complex
+numbers.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter9.html#Complex" target='Chapters' title="construct a complex number">Complex</a></td>
+<td>construct a complex number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter9.html#Re" target='Chapters' title="real part of a complex number">Re</a></td>
+<td>real part of a complex number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter9.html#Im" target='Chapters' title="imaginary part of a complex number">Im</a></td>
+<td>imaginary part of a complex number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter9.html#I" target='Chapters' title="imaginary unit">I</a></td>
+<td>imaginary unit</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter9.html#Conjugate" target='Chapters' title="complex conjugate">Conjugate</a></td>
+<td>complex conjugate</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter9.html#Arg" target='Chapters' title="argument of a complex number">Arg</a></td>
+<td>argument of a complex number</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="Complex">
+
+</a>
+<a name="complex">
+
+</a>
+<h3>
+<hr>Complex -- construct a complex number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Complex(r, c)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>r</tt></b> -- real part
+
+
+<p>
+<b><tt>c</tt></b> -- imaginary part
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function represents the complex number "r + I*c", where "I"
+is the imaginary unit. It is the standard representation used in Piper
+to represent complex numbers. Both "r" and "c" are supposed to be
+real.
+
+
+<p>
+Note that, at the moment, many functions in Piper assume that all
+numbers are real unless it is obvious that it is a complex
+number. Hence <b><tt>Im(Sqrt(x))</tt></b> evaluates to <b><tt>0</tt></b> which is only true for nonnegative "x".
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; I
+Out&gt; Complex(0,1);
+In&gt; 3+4*I
+Out&gt; Complex(3,4);
+In&gt; Complex(-2,0)
+Out&gt; -2;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Re" target="Chapters">
+Re
+</a>
+, <a href="ref.html?Im" target="Chapters">
+Im
+</a>
+, <a href="ref.html?I" target="Chapters">
+I
+</a>
+, <a href="ref.html?Abs" target="Chapters">
+Abs
+</a>
+, <a href="ref.html?Arg" target="Chapters">
+Arg
+</a>
+.<a name="Re">
+
+</a>
+<a name="re">
+
+</a>
+<h3>
+<hr>Re -- real part of a complex number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Re(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the real part of the complex number "x".
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Re(5)
+Out&gt; 5;
+In&gt; Re(I)
+Out&gt; 0;
+In&gt; Re(Complex(3,4))
+Out&gt; 3;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Complex" target="Chapters">
+Complex
+</a>
+, <a href="ref.html?Im" target="Chapters">
+Im
+</a>
+.<a name="Im">
+
+</a>
+<a name="im">
+
+</a>
+<h3>
+<hr>Im -- imaginary part of a complex number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Im(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the imaginary part of the complex number "x".
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Im(5)
+Out&gt; 0;
+In&gt; Im(I)
+Out&gt; 1;
+In&gt; Im(Complex(3,4))
+Out&gt; 4;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Complex" target="Chapters">
+Complex
+</a>
+, <a href="ref.html?Re" target="Chapters">
+Re
+</a>
+.<a name="I">
+
+</a>
+<a name="i">
+
+</a>
+<h3>
+<hr>I -- imaginary unit
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+I
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This symbol represents the imaginary unit, which equals the square
+root of -1. It evaluates to <b><tt>Complex(0,1)</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; I
+Out&gt; Complex(0,1);
+In&gt; I = Sqrt(-1)
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Complex" target="Chapters">
+Complex
+</a>
+.<a name="Conjugate">
+
+</a>
+<a name="conjugate">
+
+</a>
+<h3>
+<hr>Conjugate -- complex conjugate
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Conjugate(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the complex conjugate of "x". The complex
+conjugate of <b>a+I*b</b> is <b> a-I*b</b>. This function assumes that all
+unbound variables are real.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Conjugate(2)
+Out&gt; 2;
+In&gt; Conjugate(Complex(a,b))
+Out&gt; Complex(a,-b);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Complex" target="Chapters">
+Complex
+</a>
+, <a href="ref.html?Re" target="Chapters">
+Re
+</a>
+, <a href="ref.html?Im" target="Chapters">
+Im
+</a>
+.<a name="Arg">
+
+</a>
+<a name="arg">
+
+</a>
+<h3>
+<hr>Arg -- argument of a complex number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Arg(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the argument of "x". The argument is the angle
+with the positive real axis in the Argand diagram, or the angle
+"phi" in the polar representation <b> r*Exp(I*phi)</b> of "x". The
+result is in the range (<b>-Pi</b>, <b> Pi</b>], that is, excluding <b>-Pi</b> but including <b> Pi</b>. The
+argument of 0 is <b><tt>Undefined</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Arg(2)
+Out&gt; 0;
+In&gt; Arg(-1)
+Out&gt; Pi;
+In&gt; Arg(1+I)
+Out&gt; Pi/4;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Abs" target="Chapters">
+Abs
+</a>
+, <a href="ref.html?Sign" target="Chapters">
+Sign
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

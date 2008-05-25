@@ -1,0 +1,640 @@
+<html>
+<head>
+  <title>Glossary</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c8">
+
+</a>
+<h1>
+8. Glossary
+</h1>
+This is a short glossary of terms frequently used in the <b><tt>Piper</tt></b> documentation.
+
+<p> </p>
+<a name="glossary">
+
+</a>
+
+<p>
+
+<a name="arity">
+
+</a>
+<h3>
+<hr>arity
+</h3>
+"Arity" is the number of arguments of a function.
+For example, the function <b><tt>Cos(x)</tt></b> has one argument and so we say that "<b><tt>Cos</tt></b> has arity 1".
+Arity of a function can be 0, 1, 2, ...
+
+
+<p>
+<b><tt>Piper</tt></b> allows to define functions with the same name but different arities, and different rules corresponding to these arities will be used.
+Also, it is possible to define a function with optional arguments, for example, <b><tt>Plot2D</tt></b> is one such function.
+Such functions can have any arity larger or equal to a certain minimum arity (the number of non-optional arguments).
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Function" target="Chapters">
+Function
+</a>
+, <a href="ref.html?OpPrecedence" target="Chapters">
+OpPrecedence
+</a>
+, <a href="ref.html?Rule" target="Chapters">
+Rule
+</a>
+.<a name="array">
+
+</a>
+<h3>
+<hr>array
+</h3>
+An array is a container object that can hold a fixed number of other Piper objects in it.
+Individual elements of an array can be accessed using the <b><tt>[]</tt></b> operation.
+Most list operations also work on arrays.
+
+
+<p>
+Arrays are faster than lists but the array size cannot be changed.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Array'Create" target="Chapters">
+Array'Create
+</a>
+.<a name="atoms">
+
+</a>
+<h3>
+<hr>atoms
+</h3>
+Atoms are basic Piper objects that are used to represent symbols, numbers, and function names.
+An atom has a string representation which is shown when it is displayed.
+For example, <b><tt>3.14159</tt></b>, <b><tt>x</tt></b>, <b><tt>A123</tt></b>, <b><tt>+</tt></b>, <b><tt>"good morning"</tt></b> are atoms.
+
+
+<p>
+Atoms can be of type string, number, or symbol. For example, <b><tt>y1</tt></b> is a symbolic atom, <b><tt>954</tt></b> is a number atom, and <b><tt>""</tt></b> is an (empty) string atom.
+Symbolic atoms are normally used in <b><tt>Piper</tt></b> to denote mathematical unknowns and function names. Number and string atoms are used to denote values.
+
+
+<p>
+A symbolic atom can be bound to a value (in which case it becomes a variable), or to a rule or several rules (in which case it becomes a function).
+An atom can also have a property object.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Atom" target="Chapters">
+Atom
+</a>
+, <a href="ref.html?String" target="Chapters">
+String
+</a>
+.<a name="CAS">
+
+</a>
+<h3>
+<hr>CAS
+</h3>
+Abbreviation for "computer algebra system". <b><tt>Piper</tt></b> is a CAS.
+
+
+<p>
+
+<a name="constants">
+
+</a>
+<h3>
+<hr>constants
+</h3>
+Constants such as <b><tt>I</tt></b>, <b><tt>Pi</tt></b> or <b><tt>GoldenRatio</tt></b> are symbolic atoms that are specially interpreted by <b><tt>Piper</tt></b>.
+For example, there are simplification rules that transform expressions such as <b><tt>Sin(Pi)</tt></b> into <b><tt>0</tt></b>.
+When requesting a numerical evaluation of a constant, the numerical value is given to the current value as set with <b><tt>N</tt></b>.
+
+
+<p>
+Some constants take a long time to compute and therefore they are cached at the highest precision computed so far.
+These are the "cached constants".
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?CachedConstant" target="Chapters">
+CachedConstant
+</a>
+, <a href="ref.html?Pi" target="Chapters">
+Pi
+</a>
+, <a href="ref.html?GoldenRatio" target="Chapters">
+GoldenRatio
+</a>
+, <a href="ref.html?CatalanConstant" target="Chapters">
+CatalanConstant
+</a>
+, <a href="ref.html?gamma" target="Chapters">
+gamma
+</a>
+, <a href="ref.html?I" target="Chapters">
+I
+</a>
+.<a name="equations">
+
+</a>
+<a name="==@\relax <b><tt>==</tt></b>">
+
+</a>
+<h3>
+<hr>equations
+</h3>
+To denote symbolic equations, the operator <b><tt>==</tt></b> is used.
+This operator does not assign or compare its sides.
+For example, the expression <b><tt>Sin(x)==1</tt></b> is kept unevaluated and can be passed as argument to functions.
+For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Solve(Sin(x)==1, x)
+Out&gt; {x==Pi/2};
+</pre></tr>
+</table>
+
+
+<p>
+The symbolic equation operator <b><tt>==</tt></b> is also useful to represent solutions of equations or to specify substitutions, give options, and so on.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Solve" target="Chapters">
+Solve
+</a>
+, <a href="ref.html?Where" target="Chapters">
+Where
+</a>
+, <a href="ref.html?Plot2D" target="Chapters">
+Plot2D
+</a>
+.<a name="functions">
+
+</a>
+<h3>
+<hr>functions
+</h3>
+A function is a symbolic atom that is bound to a rule or several rules.
+A function can have none, one, or more arguments.
+Functions can also have a variable number of arguments.
+Arguments of functions are arbitrary Piper objects.
+
+
+<p>
+Functions can be evaluated, that is, the rules bound to them may be executed.
+For example, <b><tt>Cos(Pi+0)</tt></b> is an expression that contains two functions and four atoms.
+The atom <b><tt>Pi</tt></b> is a symbolic atom which is normally not bound to anything.
+The atom <b><tt>0</tt></b> is a numeric atom.
+
+
+<p>
+The atoms <b><tt>Cos</tt></b> and <b><tt>+</tt></b> are symbolic atoms which are bound to appropriate simplification rules.
+So these two atoms are functions.
+Note that these functions have different syntax.
+<b><tt>Cos</tt></b> is a normal function which takes its arguments in parentheses.
+The atom <b><tt>+</tt></b> is a function with special syntax because "<b><tt>+</tt></b>" is placed between its arguments and no parentheses are used.
+
+
+<p>
+The rules to which <b><tt>+</tt></b> is bound are such that the expression <b><tt>Pi+0</tt></b> is evaluated to the symbolic atom <b><tt>Pi</tt></b>.
+The rules for <b><tt>Cos</tt></b> are such that the expression <b><tt>Cos(Pi)</tt></b> is evaluated to the numeric atom <b><tt>-1</tt></b>.
+The example <b><tt>Piper</tt></b> session is:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Cos(Pi+0)
+Out&gt; -1;
+</pre></tr>
+</table>
+
+
+<p>
+Some functions are built-in and implemented in C++, while others are library functions.
+
+
+<p>
+The built-in functions are usually less flexible than the library functions because they cannot be left unevaluated.
+Given incorrect arguments, a built-in function will generate an error.
+However, a user-defined function may simply return unevaluated in such cases.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Function" target="Chapters">
+Function
+</a>
+, <a href="ref.html?Rule" target="Chapters">
+Rule
+</a>
+, <a href="ref.html?<--" target="Chapters">
+<--
+</a>
+.<a name="lists">
+
+</a>
+<h3>
+<hr>lists
+</h3>
+A list is a basic <b><tt>Piper</tt></b> container object. A list is written as e.g. <b><tt>{a, b, c}</tt></b> or <b><tt>{}</tt></b> (empty list).
+Individual elements of a list can be accessed using the <b><tt>[]</tt></b> operation.
+Lists can be concatenated, and individual elements can be removed or inserted.
+
+
+<p>
+Lists are ubiquitous in <b><tt>Piper</tt></b>.
+Most data structures in the standard library is based on lists.
+
+
+<p>
+Lists are also used internally to represent <b><tt>Piper</tt></b> expressions.
+For example, the expression <b><tt>Cos(x+1)</tt></b> is represented internally as a nested list:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FullForm( Cos(x+1) )
+(Cos 
+    (+ x 1 ))
+Out&gt; Cos(x+1);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?List" target="Chapters">
+List
+</a>
+, <a href="ref.html?Listify" target="Chapters">
+Listify
+</a>
+, <a href="ref.html?UnList" target="Chapters">
+UnList
+</a>
+, <a href="ref.html?Length" target="Chapters">
+Length
+</a>
+, <a href="ref.html?FullForm" target="Chapters">
+FullForm
+</a>
+.<a name="matrices">
+
+</a>
+<h3>
+<hr>matrices
+</h3>
+A matrix is represented as a list of lists.
+Matrices are represented in the "row-major" order: a matrix is a list of rows, and each row is a list of its elements.
+
+
+<p>
+Some basic linear algebra operations on matrices are supported.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Determinant" target="Chapters">
+Determinant
+</a>
+, <a href="ref.html?Identity" target="Chapters">
+Identity
+</a>
+, <a href="ref.html?IsDiagonal" target="Chapters">
+IsDiagonal
+</a>
+, <a href="ref.html?EigenValues" target="Chapters">
+EigenValues
+</a>
+.<a name="operators">
+
+</a>
+<h3>
+<hr>operators
+</h3>
+Operators are functions that have special syntax declared for them.
+An operator can be "bodied", infix, prefix or postfix.
+Because of this, operators must have precedence.
+
+
+<p>
+Apart from the syntax, operators are exactly the same as any other functions, they can have rules bound to them in the same way.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Bodied" target="Chapters">
+Bodied
+</a>
+, <a href="ref.html?Infix" target="Chapters">
+Infix
+</a>
+, <a href="ref.html?Prefix" target="Chapters">
+Prefix
+</a>
+, <a href="ref.html?Postfix" target="Chapters">
+Postfix
+</a>
+.<a name="plotting">
+
+</a>
+<h3>
+<hr>plotting
+</h3>
+Plotting is currently supported via the <b><tt>Plot2D</tt></b> and <b><tt>Plot3DS</tt></b> functions.
+Functions of one or two variables can be plotted on given intervals with a given precision.
+<b><tt>Piper</tt></b> generates all numerical data for plots.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Plot2D" target="Chapters">
+Plot2D
+</a>
+, <a href="ref.html?Plot3DS" target="Chapters">
+Plot3DS
+</a>
+.<a name="precedence">
+
+</a>
+<h3>
+<hr>precedence
+</h3>
+Precedence is a property of the syntax of an operator that specifies how it is parsed.
+Only operators, i.e. functions with special syntax, can have precedence.
+Precedence values are nonnegative integers: 0, 1, ...
+Lower numbers bind more tightly.
+
+
+<p>
+For example, the operator "<b><tt>+</tt></b>" binds less tightly
+(i.e. has a <i>higher</i> precedence value)
+than the operator "<b><tt>*</tt></b>" and so the expression <b><tt>a+b*c</tt></b>
+is parsed as <b><tt>a+(b*c)</tt></b>, as one would expect.
+
+
+<p>
+Infix operators can have different left-side and right-side precedence.
+For example, the infix operator "<b><tt>-</tt></b>" has left precedence
+
+70
+and right precedence
+
+40
+-- this allows us to parse expressions such as <b><tt>a-b+c</tt></b> correctly, as <b>a-b+c</b>, and not as <b> a-(b+c)</b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Bodied" target="Chapters">
+Bodied
+</a>
+, <a href="ref.html?OpPrecedence" target="Chapters">
+OpPrecedence
+</a>
+, <a href="ref.html?OpLeftPrecedence" target="Chapters">
+OpLeftPrecedence
+</a>
+, <a href="ref.html?OpRightPrecedence" target="Chapters">
+OpRightPrecedence
+</a>
+.<a name="properties">
+
+</a>
+<h3>
+<hr>properties
+</h3>
+Properties are special additional objects (tags) that can be tied to expressions.
+For example, the expression <b><tt>1+x</tt></b> may be tagged by an expression <b><tt>y</tt></b> by the command
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; a:= ExtraInfo'Set(1+x,y);
+Out&gt; 1+x;
+</pre></tr>
+</table>
+Now <b><tt>a</tt></b> refers to an expression <b><tt>1+x</tt></b> which is different from all other copies of <b><tt>1+x</tt></b> because it is tagged by <b><tt>y</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?ExtraInfo'Get" target="Chapters">
+ExtraInfo'Get
+</a>
+, <a href="ref.html?ExtraInfo'Set" target="Chapters">
+ExtraInfo'Set
+</a>
+.<a name="rules">
+
+</a>
+<h3>
+<hr>rules
+</h3>
+Rules are the principal mechanism of expression evaluation in <b><tt>Piper</tt></b>.
+A rule specifies that a certain symbolic expression is to be replaced by another expression.
+If no rule that matches a given symbolic expression can be found, the expression is left unevaluated.
+This is usually the desired behavior for a CAS.
+For example, a user can type
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; func1(x+0)
+Out&gt; func1(x);
+</pre></tr>
+</table>
+and use an undefined function <b><tt>func1</tt></b>.
+Since no rules are defined for the function <b><tt>func1</tt></b>, it is not evaluated, but its argument has been simplified.
+
+
+<p>
+Only expressions containing functions can be evaluated by rules.
+(Atoms are evaluated only if they are bound to a value.)
+
+
+<p>
+Several rules can be defined for a given function.
+Rules can be erased or added at run time.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Rule" target="Chapters">
+Rule
+</a>
+, <a href="ref.html?<--" target="Chapters">
+<--
+</a>
+, <a href="ref.html?Retract" target="Chapters">
+Retract
+</a>
+.<a name="strings">
+
+</a>
+<h3>
+<hr>strings
+</h3>
+A string is an atom with character string value, for example, <b><tt>"abcd"</tt></b>.
+Individual characters of the string can be accessed using the <b><tt>[]</tt></b> operation.
+Some string manipulation functions are supported.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?String" target="Chapters">
+String
+</a>
+, <a href="ref.html?StringMid'Get" target="Chapters">
+StringMid'Get
+</a>
+, <a href="ref.html?StringMid'Set" target="Chapters">
+StringMid'Set
+</a>
+.<a name="syntax">
+
+</a>
+<h3>
+<hr>syntax
+</h3>
+<b><tt>Piper</tt></b> uses an infix syntax similar to C or Fortran.
+However, the syntax is entirely user-defined and very flexible.
+Infix, prefix, postfix operators can be defined, as well as "bodied" functions.
+This allows to write mathematical expressions more comfortably, for example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; D(x) Sin(x)+1
+Out&gt; Cos(x);
+</pre></tr>
+</table>
+
+
+<p>
+Functions with special syntax can have different precedence.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Bodied" target="Chapters">
+Bodied
+</a>
+, <a href="ref.html?Infix" target="Chapters">
+Infix
+</a>
+, <a href="ref.html?Prefix" target="Chapters">
+Prefix
+</a>
+, <a href="ref.html?Postfix" target="Chapters">
+Postfix
+</a>
+, <a href="ref.html?OpPrecedence" target="Chapters">
+OpPrecedence
+</a>
+.<a name="variables">
+
+</a>
+<h3>
+<hr>variables
+</h3>
+Variables are symbolic atoms bound to a "value".
+Value is any Piper object, such as an atom or a list.
+For example, after executing
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; a := 1
+Out&gt; 1;
+</pre></tr>
+</table>
+the symbolic atom <b><tt>a</tt></b> becomes a variable bound to a value, the numeric atom <b><tt>1</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Eval" target="Chapters">
+Eval
+</a>
+, <a href="ref.html?:=" target="Chapters">
+:=
+</a>
+, <a href="ref.html?Clear" target="Chapters">
+Clear
+</a>
+.<a name="warranty">
+
+</a>
+<h3>
+<hr>warranty
+</h3>
+<b><tt>Piper</tt></b> is Free Software ("logiciel libre") and comes with <b><tt>NO WARRANTY</tt></b>.
+See <a href="refprogchapter1.html#c1s2" target="Chapters">
+the appropriate section of the GPL
+</a>
+ for full information.
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

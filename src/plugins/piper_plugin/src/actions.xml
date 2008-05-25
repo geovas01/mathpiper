@@ -1,0 +1,28 @@
+<!-- Action definition file for Piper plugin -->
+
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+	<ACTION NAME="piper.choose-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.piperplugin.PiperPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.piperplugin.PiperPlugin.NAME).chooseFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="piper.save-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.piperplugin.PiperPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.piperplugin.PiperPlugin.NAME).saveFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="piper.copy-to-buffer">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.piperplugin.PiperPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.piperplugin.PiperPlugin.NAME).copyToBuffer();
+		</CODE>
+	</ACTION>
+</ACTIONS>
+

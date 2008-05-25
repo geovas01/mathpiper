@@ -1,0 +1,1709 @@
+<html>
+<head>
+  <title>Arithmetic and other operations on numbers</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c2">
+
+</a>
+(directly go to documentation on : <a href="refchapter2.html#+" target='Chapters' title="arithmetic addition">+</a>, <a href="refchapter2.html#-" target='Chapters' title="arithmetic subtraction or negation">-</a>, <a href="refchapter2.html#*" target='Chapters' title="arithmetic multiplication">*</a>, <a href="refchapter2.html#/" target='Chapters' title="arithmetic division">/</a>, <a href="refchapter2.html#^" target='Chapters' title="arithmetic power">^</a>, <a href="refchapter2.html#Div" target='Chapters' title="Determine divisor of two mathematical objects">Div</a>, <a href="refchapter2.html#Mod" target='Chapters' title="Determine remainder of two mathematical objects after dividing one by the other">Mod</a>, <a href="refchapter2.html#Gcd" target='Chapters' title="greatest common divisor">Gcd</a>, <a href="refchapter2.html#Lcm" target='Chapters' title="least common multiple">Lcm</a>, <a href="refchapter2.html#<<" target='Chapters' title="binary shift left operator"><<</a>, <a href="refchapter2.html#>>" target='Chapters' title="binary shift right operator">>></a>, <a href="refchapter2.html#FromBase" target='Chapters' title="conversion of a number from non-decimal base to decimal base">FromBase</a>, <a href="refchapter2.html#ToBase" target='Chapters' title="conversion of a number in decimal base to non-decimal base">ToBase</a>, <a href="refchapter2.html#N" target='Chapters' title="try determine numerical approximation of expression">N</a>, <a href="refchapter2.html#Rationalize" target='Chapters' title="convert floating point numbers to fractions">Rationalize</a>, <a href="refchapter2.html#ContFrac" target='Chapters' title="continued fraction expansion">ContFrac</a>, <a href="refchapter2.html#Decimal" target='Chapters' title="decimal representation of a rational">Decimal</a>, <a href="refchapter2.html#Floor" target='Chapters' title="round a number downwards">Floor</a>, <a href="refchapter2.html#Ceil" target='Chapters' title="round a number upwards">Ceil</a>, <a href="refchapter2.html#Round" target='Chapters' title="round a number to the nearest integer">Round</a>, <a href="refchapter2.html#Min" target='Chapters' title="minimum of a number of values">Min</a>, <a href="refchapter2.html#Max" target='Chapters' title="maximum of a number of values">Max</a>, <a href="refchapter2.html#Numer" target='Chapters' title="numerator of an expression">Numer</a>, <a href="refchapter2.html#Denom" target='Chapters' title="denominator of an expression">Denom</a>, <a href="refchapter2.html#Pslq" target='Chapters' title="search for integer relations between reals">Pslq</a>.
+)<h1>
+2. Arithmetic and other operations on numbers
+</h1>
+Besides the usual arithmetical operations, Piper defines some more advanced operations on
+numbers. Many of them also work on polynomials.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#+" target='Chapters' title="arithmetic addition">+</a></td>
+<td>arithmetic addition</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#-" target='Chapters' title="arithmetic subtraction or negation">-</a></td>
+<td>arithmetic subtraction or negation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#*" target='Chapters' title="arithmetic multiplication">*</a></td>
+<td>arithmetic multiplication</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#/" target='Chapters' title="arithmetic division">/</a></td>
+<td>arithmetic division</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#^" target='Chapters' title="arithmetic power">^</a></td>
+<td>arithmetic power</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Div" target='Chapters' title="Determine divisor of two mathematical objects">Div</a></td>
+<td>Determine divisor of two mathematical objects</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Mod" target='Chapters' title="Determine remainder of two mathematical objects after dividing one by the other">Mod</a></td>
+<td>Determine remainder of two mathematical objects after dividing one by the other</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Gcd" target='Chapters' title="greatest common divisor">Gcd</a></td>
+<td>greatest common divisor</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Lcm" target='Chapters' title="least common multiple">Lcm</a></td>
+<td>least common multiple</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#<<" target='Chapters' title="binary shift left operator"><<</a></td>
+<td>binary shift left operator</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#>>" target='Chapters' title="binary shift right operator">>></a></td>
+<td>binary shift right operator</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#FromBase" target='Chapters' title="conversion of a number from non-decimal base to decimal base">FromBase</a></td>
+<td>conversion of a number from non-decimal base to decimal base</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#ToBase" target='Chapters' title="conversion of a number in decimal base to non-decimal base">ToBase</a></td>
+<td>conversion of a number in decimal base to non-decimal base</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#N" target='Chapters' title="try determine numerical approximation of expression">N</a></td>
+<td>try determine numerical approximation of expression</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Rationalize" target='Chapters' title="convert floating point numbers to fractions">Rationalize</a></td>
+<td>convert floating point numbers to fractions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#ContFrac" target='Chapters' title="continued fraction expansion">ContFrac</a></td>
+<td>continued fraction expansion</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Decimal" target='Chapters' title="decimal representation of a rational">Decimal</a></td>
+<td>decimal representation of a rational</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Floor" target='Chapters' title="round a number downwards">Floor</a></td>
+<td>round a number downwards</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Ceil" target='Chapters' title="round a number upwards">Ceil</a></td>
+<td>round a number upwards</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Round" target='Chapters' title="round a number to the nearest integer">Round</a></td>
+<td>round a number to the nearest integer</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Min" target='Chapters' title="minimum of a number of values">Min</a></td>
+<td>minimum of a number of values</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Max" target='Chapters' title="maximum of a number of values">Max</a></td>
+<td>maximum of a number of values</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Numer" target='Chapters' title="numerator of an expression">Numer</a></td>
+<td>numerator of an expression</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Denom" target='Chapters' title="denominator of an expression">Denom</a></td>
+<td>denominator of an expression</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter2.html#Pslq" target='Chapters' title="search for integer relations between reals">Pslq</a></td>
+<td>search for integer relations between reals</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="+">
+
+</a>
+<a name="+">
+
+</a>
+<h3>
+<hr>+ -- arithmetic addition
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x+y
++x
+</pre></tr>
+</table>
+Precedence:
+
+70
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> and <b><tt>y</tt></b> -- objects for which arithmetic addition is defined
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The addition operators can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+
+<p>
+These operators are implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 2+3
+Out&gt; 5;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="-">
+
+</a>
+<a name="-">
+
+</a>
+<h3>
+<hr>- -- arithmetic subtraction or negation
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x-y
+</pre></tr>
+</table>
+Precedence: left-side:
+
+70
+, right-side:
+
+40
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+-x
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> and <b><tt>y</tt></b> -- objects for which subtraction is defined
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The subtraction operators can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+
+<p>
+These operators are implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 2-3
+Out&gt; -1;
+In&gt; - 3
+Out&gt; -3;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="*">
+
+</a>
+<a name="*">
+
+</a>
+<h3>
+<hr>* -- arithmetic multiplication
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x*y
+</pre></tr>
+</table>
+Precedence:
+
+40
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> and <b><tt>y</tt></b> -- objects for which arithmetic multiplication is defined
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The multiplication operator can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+
+<p>
+This operator is implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 2*3
+Out&gt; 6;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="/">
+
+</a>
+<a name="/">
+
+</a>
+<h3>
+<hr>/ -- arithmetic division
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x/y
+</pre></tr>
+</table>
+Precedence:
+
+30
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> and <b><tt>y</tt></b> -- objects for which arithmetic division is defined
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The division operator can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+
+<p>
+This operator is implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 6/2
+Out&gt; 3;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="^">
+
+</a>
+<a name="^">
+
+</a>
+<h3>
+<hr>^ -- arithmetic power
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+x^y
+</pre></tr>
+</table>
+Precedence:
+
+20
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> and <b><tt>y</tt></b> -- objects for which arithmetic operations are defined
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These are the basic arithmetic operations. They can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+
+<p>
+These operators are implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 2^3
+Out&gt; 8;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="Div">
+
+</a>
+<a name="div">
+
+</a>
+<h3>
+<hr>Div -- Determine divisor of two mathematical objects
+</h3>
+<a name="Mod">
+
+</a>
+<a name="mod">
+
+</a>
+<h3>
+<hr>Mod -- Determine remainder of two mathematical objects after dividing one by the other
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Div(x,y)
+Mod(x,y)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b>, <b><tt>y</tt></b> -- integers or univariate polynomials
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Div</tt></b> performs integer division and <b><tt>Mod</tt></b> returns the remainder after division. <b><tt>Div</tt></b> and
+<b><tt>Mod</tt></b> are also defined for polynomials.
+
+
+<p>
+If <b><tt>Div(x,y)</tt></b> returns "a" and <b><tt>Mod(x,y)</tt></b> equals "b", then these numbers satisfy <b>x=a*y+b</b> and <b> 0&lt;=b&lt;y</b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Div(5,3)
+Out&gt; 1;
+In&gt; Mod(5,3)
+Out&gt; 2;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Gcd" target="Chapters">
+Gcd
+</a>
+, <a href="ref.html?Lcm" target="Chapters">
+Lcm
+</a>
+.<a name="Gcd">
+
+</a>
+<a name="gcd">
+
+</a>
+<h3>
+<hr>Gcd -- greatest common divisor
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Gcd(n,m)
+Gcd(list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b>, <b><tt>m</tt></b> -- integers or Gaussian integers or univariate polynomials
+
+
+<p>
+<b><tt>list</tt></b> -- a list of all integers or all univariate polynomials
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the greatest common divisor of "n" and "m".
+The gcd is the largest number that divides "n" and "m".  It is
+also known as the highest common factor (hcf).  The library code calls
+<b><tt>MathGcd</tt></b>, which is an internal function.  This
+function implements the "binary Euclidean algorithm" for determining the
+greatest common divisor:
+
+
+<p>
+
+<h5>
+Routine for calculating <b><tt>Gcd(n,m)</tt></b>
+</h5>
+<ul><li>if </li><b> n=m</b> then return <b> n</b>
+<li>if both </li><b> n</b> and <b> m</b> are even then return <b> 2*Gcd(n/2,m/2)</b>
+<li>if exactly one of </li><b>n</b> or <b> m</b> (say <b> n</b>) is even then return <b> Gcd(n/2,m)</b>
+<li>if both </li><b>n</b> and <b> m</b> are odd and, say, <b> n&gt;m</b> then return <b> Gcd((n-m)/2,m)</b>
+</ul>
+
+<p>
+This is a rather fast algorithm on computers that can efficiently shift
+integers. When factoring Gaussian integers, a slower recursive algorithm is used.
+
+
+<p>
+If the second calling form is used, <b><tt>Gcd</tt></b> will
+return the greatest common divisor of all the integers or polynomials
+in "list". It uses the identity
+
+<p><center><b>Gcd(a,b,c)=Gcd(Gcd(a,b),c).</b></center></p>
+
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Gcd(55,10)
+Out&gt; 5;
+In&gt; Gcd({60,24,120})
+Out&gt; 12;
+In&gt; Gcd( 7300 + 12*I, 2700 + 100*I)
+Out&gt; Complex(-4,4);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Lcm" target="Chapters">
+Lcm
+</a>
+.<a name="Lcm">
+
+</a>
+<a name="lcm">
+
+</a>
+<h3>
+<hr>Lcm -- least common multiple
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Lcm(n,m)
+Lcm(list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b>, <b><tt>m</tt></b> -- integers or univariate polynomials
+<b><tt>list</tt></b>	 -- list of integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command returns the least common multiple of "n" and "m" or all of
+the integers in the list <b><tt>list</tt></b>.
+The least common multiple of two numbers "n" and "m" is the lowest
+number which is an integer multiple of both "n" and "m".
+It is calculated with the formula
+
+<p><center><b>Lcm(n,m)=Div(n*m,Gcd(n,m)).</b></center></p>
+
+
+
+<p>
+This means it also works on polynomials, since <b><tt>Div</tt></b>, <b><tt>Gcd</tt></b> and multiplication are also defined for
+them.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Lcm(60,24)
+Out&gt; 120;
+In&gt; Lcm({3,5,7,9})
+Out&gt; 315;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Gcd" target="Chapters">
+Gcd
+</a>
+.<a name="<<">
+
+</a>
+<a name="<<">
+
+</a>
+<h3>
+<hr><< -- binary shift left operator
+</h3>
+<a name=">>">
+
+</a>
+<a name=">>">
+
+</a>
+<h3>
+<hr>>> -- binary shift right operator
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+n&lt;&lt;m
+n&gt;&gt;m
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b>, <b><tt>m</tt></b> -- integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These operators shift integers to the left or to the right.
+They are similar to the C shift operators. These are sign-extended
+shifts, so they act as multiplication or division by powers of 2.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 1 &lt;&lt; 10
+Out&gt; 1024;
+In&gt; -1024 &gt;&gt; 10
+Out&gt; -1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="FromBase">
+
+</a>
+<a name="frombase">
+
+</a>
+<h3>
+<hr>FromBase -- conversion of a number from non-decimal base to decimal base
+</h3>
+<a name="ToBase">
+
+</a>
+<a name="tobase">
+
+</a>
+<h3>
+<hr>ToBase -- conversion of a number in decimal base to non-decimal base
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FromBase(base,"string")
+ToBase(base, number)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>base</tt></b> -- integer, base to convert to/from
+
+
+<p>
+<b><tt>number</tt></b> -- integer, number to write out in a different base
+
+
+<p>
+<b><tt>"string"</tt></b> -- string representing a number in a different base
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+In Piper, all numbers are written in decimal notation (base 10).
+The two functions <b><tt>FromBase</tt></b>, <b><tt>ToBase</tt></b> convert numbers between base 10 and a different base.
+Numbers in non-decimal notation are represented by strings.
+
+
+<p>
+<b><tt>FromBase</tt></b> converts an integer, written as a string in base
+<b><tt>base</tt></b>, to base 10. <b><tt>ToBase</tt></b> converts <b><tt>number</tt></b>,
+written in base 10, to base <b><tt>base</tt></b>.
+
+
+<p>
+
+
+<p>
+Non-integer arguments are not supported.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+Write the binary number <b><tt>111111</tt></b> as a decimal number:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FromBase(2,"111111")
+Out&gt; 63;
+</pre></tr>
+</table>
+
+
+<p>
+Write the (decimal) number <b><tt>255</tt></b> in hexadecimal notation:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ToBase(16,255)
+Out&gt; "ff";
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?PAdicExpand" target="Chapters">
+PAdicExpand
+</a>
+.<a name="N">
+
+</a>
+<a name="n">
+
+</a>
+<h3>
+<hr>N -- try determine numerical approximation of expression
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+N(expression)
+N(expression, precision)
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expression</tt></b> -- expression to evaluate
+
+
+<p>
+<b><tt>precision</tt></b> -- integer, precision to use
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The function <b><tt>N</tt></b> instructs <b><tt>Piper</tt></b> to try to coerce an expression in to a numerical approximation to the
+expression <b><tt>expr</tt></b>, using <b><tt>prec</tt></b> digits precision if the second calling
+sequence is used, and the default precision otherwise. This overrides the normal
+behaviour, in which expressions are kept in symbolic form (eg. <b><tt>Sqrt(2)</tt></b> instead of <b><tt>1.41421</tt></b>).
+
+
+<p>
+Application of the <b><tt>N</tt></b> operator will make Piper
+calculate floating point representations of functions whenever
+possible. In addition, the variable <b><tt>Pi</tt></b> is bound to
+the value of <b>Pi</b> calculated at the current precision.
+(This value is a "cached constant", so it is not recalculated each time <b><tt>N</tt></b> is used, unless the precision is increased.)
+
+
+<p>
+<b><tt>N</tt></b> is a macro. Its argument <b><tt>expr</tt></b> will only 
+be evaluated after switching to numeric mode.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 1/2
+Out&gt; 1/2;
+In&gt; N(1/2)
+Out&gt; 0.5;
+In&gt; Sin(1)
+Out&gt; Sin(1);
+In&gt; N(Sin(1),10)
+Out&gt; 0.8414709848;
+In&gt; Pi
+Out&gt; Pi;
+In&gt; N(Pi,20)
+Out&gt; 3.14159265358979323846;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Pi" target="Chapters">
+Pi
+</a>
+.<a name="Rationalize">
+
+</a>
+<a name="rationalize">
+
+</a>
+<h3>
+<hr>Rationalize -- convert floating point numbers to fractions
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Rationalize(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression containing real numbers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command converts every real number in the expression "expr"
+into a rational number. This is useful when a calculation needs to be
+done on floating point numbers and the algorithm is unstable.
+Converting the floating point numbers to rational numbers will force
+calculations to be done with infinite precision (by using rational
+numbers as representations).
+
+
+<p>
+It does this by finding the smallest integer <b> n</b> such that multiplying
+the number with <b> 10^n</b> is an integer. Then it divides by <b> 10^n</b> again,
+depending on the internal gcd calculation to reduce the resulting
+division of integers.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; {1.2,3.123,4.5}
+Out&gt; {1.2,3.123,4.5};
+In&gt; Rationalize(%)
+Out&gt; {6/5,3123/1000,9/2};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsRational" target="Chapters">
+IsRational
+</a>
+.<a name="ContFrac">
+
+</a>
+<a name="contfrac">
+
+</a>
+<h3>
+<hr>ContFrac -- continued fraction expansion
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ContFrac(x)
+ContFrac(x, depth)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- number or polynomial to expand in continued fractions
+
+
+<p>
+<b><tt>depth</tt></b> -- integer, maximum required depth of result
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command returns the continued fraction expansion of <b><tt>x</tt></b>, which
+should be either a floating point number or a polynomial. If
+<b><tt>depth</tt></b> is not specified, it defaults to 6. The remainder is
+denoted by <b><tt>rest</tt></b>.
+
+
+<p>
+This is especially useful for polynomials, since series expansions
+that converge slowly will typically converge a lot faster if
+calculated using a continued fraction expansion.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; PrettyForm(ContFrac(N(Pi)))
+
+             1
+--------------------------- + 3
+           1
+----------------------- + 7
+        1
+------------------ + 15
+      1
+-------------- + 1
+   1
+-------- + 292
+rest + 1
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Out&gt; True;
+In&gt; PrettyForm(ContFrac(x^2+x+1, 3))
+
+       x
+---------------- + 1
+         x
+1 - ------------
+       x
+    -------- + 1
+    rest + 1
+
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?PAdicExpand" target="Chapters">
+PAdicExpand
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+.<a name="Decimal">
+
+</a>
+<a name="decimal">
+
+</a>
+<h3>
+<hr>Decimal -- decimal representation of a rational
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Decimal(frac)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>frac</tt></b> -- a rational number
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the infinite decimal representation of a
+rational number <b><tt>frac</tt></b>.  It returns a list, with the first element
+being the number before the decimal point and the last element the
+sequence of digits that will repeat forever. All the intermediate list
+elements are the initial digits before the period sets in.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Decimal(1/22)
+Out&gt; {0,0,{4,5}};
+In&gt; N(1/22,30)
+Out&gt; 0.045454545454545454545454545454;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?N" target="Chapters">
+N
+</a>
+.<a name="Floor">
+
+</a>
+<a name="floor">
+
+</a>
+<h3>
+<hr>Floor -- round a number downwards
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Floor(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- a number
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns <b> Floor(x)</b>, the largest integer smaller than or equal to <b>x</b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Floor(1.1)
+Out&gt; 1;
+In&gt; Floor(-1.1)
+Out&gt; -2;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Ceil" target="Chapters">
+Ceil
+</a>
+, <a href="ref.html?Round" target="Chapters">
+Round
+</a>
+.<a name="Ceil">
+
+</a>
+<a name="ceil">
+
+</a>
+<h3>
+<hr>Ceil -- round a number upwards
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Ceil(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- a number
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns <b> Ceil(x)</b>, the smallest integer larger than or equal to <b>x</b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Ceil(1.1)
+Out&gt; 2;
+In&gt; Ceil(-1.1)
+Out&gt; -1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Floor" target="Chapters">
+Floor
+</a>
+, <a href="ref.html?Round" target="Chapters">
+Round
+</a>
+.<a name="Round">
+
+</a>
+<a name="round">
+
+</a>
+<h3>
+<hr>Round -- round a number to the nearest integer
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Round(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- a number
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the integer closest to <b> x</b>. Half-integers
+(i.e. numbers of the form <b> n+0.5</b>, with <b> n</b> an integer) are
+rounded upwards.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Round(1.49)
+Out&gt; 1;
+In&gt; Round(1.51)
+Out&gt; 2;
+In&gt; Round(-1.49)
+Out&gt; -1;
+In&gt; Round(-1.51)
+Out&gt; -2;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Floor" target="Chapters">
+Floor
+</a>
+, <a href="ref.html?Ceil" target="Chapters">
+Ceil
+</a>
+.<a name="Min">
+
+</a>
+<a name="min">
+
+</a>
+<h3>
+<hr>Min -- minimum of a number of values
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Min(x,y)
+Min(list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b>, <b><tt>y</tt></b> -- pair of values to determine the minimum of
+
+
+<p>
+<b><tt>list</tt></b> -- list of values from which the minimum is sought
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the minimum value of its argument(s). If the
+first calling sequence is used, the smaller of "x" and "y" is
+returned. If one uses the second form, the smallest of the entries in
+"list" is returned. In both cases, this function can only be used
+with numerical values and not with symbolic arguments.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Min(2,3);
+Out&gt; 2;
+In&gt; Min({5,8,4});
+Out&gt; 4;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Max" target="Chapters">
+Max
+</a>
+, <a href="ref.html?Sum" target="Chapters">
+Sum
+</a>
+.<a name="Max">
+
+</a>
+<a name="max">
+
+</a>
+<h3>
+<hr>Max -- maximum of a number of values
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Max(x,y)
+Max(list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b>, <b><tt>y</tt></b> -- pair of values to determine the maximum of
+
+
+<p>
+<b><tt>list</tt></b> -- list of values from which the maximum is sought
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the maximum value of its argument(s). If the
+first calling sequence is used, the larger of "x" and "y" is
+returned. If one uses the second form, the largest of the entries in
+"list" is returned. In both cases, this function can only be used
+with numerical values and not with symbolic arguments.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Max(2,3);
+Out&gt; 3;
+In&gt; Max({5,8,4});
+Out&gt; 8;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Min" target="Chapters">
+Min
+</a>
+, <a href="ref.html?Sum" target="Chapters">
+Sum
+</a>
+.<a name="Numer">
+
+</a>
+<a name="numer">
+
+</a>
+<h3>
+<hr>Numer -- numerator of an expression
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Numer(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to determine numerator of
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function determines the numerator of the rational expression
+"expr" and returns it. As a special case, if its argument is numeric
+but not rational, it returns this number. If "expr" is neither
+rational nor numeric, the function returns unevaluated.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Numer(2/7)
+Out&gt; 2;
+In&gt; Numer(a / x^2)
+Out&gt; a;
+In&gt; Numer(5)
+Out&gt; 5;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Denom" target="Chapters">
+Denom
+</a>
+, <a href="ref.html?IsRational" target="Chapters">
+IsRational
+</a>
+, <a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+.<a name="Denom">
+
+</a>
+<a name="denom">
+
+</a>
+<h3>
+<hr>Denom -- denominator of an expression
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Denom(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to determine denominator of
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function determines the denominator of the rational expression
+"expr" and returns it. As a special case, if its argument is numeric
+but not rational, it returns <b><tt>1</tt></b>. If "expr" is
+neither rational nor numeric, the function returns unevaluated.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Denom(2/7)
+Out&gt; 7;
+In&gt; Denom(a / x^2)
+Out&gt; x^2;
+In&gt; Denom(5)
+Out&gt; 1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Numer" target="Chapters">
+Numer
+</a>
+, <a href="ref.html?IsRational" target="Chapters">
+IsRational
+</a>
+, <a href="ref.html?IsNumber" target="Chapters">
+IsNumber
+</a>
+.<a name="Pslq">
+
+</a>
+<a name="pslq">
+
+</a>
+<h3>
+<hr>Pslq -- search for integer relations between reals
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Pslq(xlist,precision)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>xlist</tt></b> -- list of numbers
+
+
+<p>
+<b><tt>precision</tt></b> -- required number of digits precision of calculation
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function is an integer relation detection algorithm. This means
+that, given the numbers <b> x[i]</b> in the list "xlist", it tries
+to find integer coefficients <b>a[i]</b> such that
+<b>a[1]*x[1]</b> + ... + <b>a[n]*x[n]=0</b>.
+The list of integer coefficients is returned.
+
+
+<p>
+The numbers in "xlist" must evaluate to floating point numbers if
+the <b><tt>N</tt></b> operator is applied on them.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Pslq({ 2*Pi+3*Exp(1), Pi, Exp(1) },20)
+Out&gt; {1,-2,-3};
+</pre></tr>
+</table>
+
+
+<p>
+Note: in this example the system detects correctly that
+<b> 1*(2*Pi+3*e)+(-2)*Pi+(-3)*e=0</b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?N" target="Chapters">
+N
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>
