@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+
+<project id="piper" name="piper" default="help" basedir="." >
+	<description>
+		Build file for Piper.
+	</description>
+	
+	<property name="version" value=".01" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	
+	
+	<target id="noop" name="noop" description="Do nothing." />
+	
+	<target name="init">
+		<tstamp>
+			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+	
+	<target name="compile" depends="init"
+		description="Compiles the application" >
+		<echo message="${compile.source}." />
+	
+		<javac 
+			source="${compile.source}"
+			target="${compile.target}" 
+			srcdir="${src.dir}"
+			destdir="${build.classes.dir}"
+			debug="on"
+			deprecation="on"
+			optimize="off">
+			<classpath refid="build_classpath" />
+			<include name="**/*.java" />
+		</javac>
+		
+	</target>
+	
+	<target id="dist" name="dist" depends="compile" >
+	
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${src.dir}/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	
+		<mkdir dir="${build.dir}/dist" />
+		
+		<jar jarfile="${build.dir}/dist/piper.jar"
+			basedir="${build.classes.dir}" update="true" >
+			<manifest> 
+				<section name="piper" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>
+			<include name="**/*" />
+		</jar> 
+	</target>
+
+</project>
+
+<!-- {{{ License.
+/*
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+ }}} -->
