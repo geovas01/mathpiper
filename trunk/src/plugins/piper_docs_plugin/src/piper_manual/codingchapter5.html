@@ -1,0 +1,565 @@
+<html>
+<head>
+  <title>Piper programming pitfalls</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c5">
+
+</a>
+<h1>
+5. Piper programming pitfalls
+</h1>
+<p> </p>
+No programming language is without programming pitfalls, and
+<b><tt>Piper</tt></b> has its fair share of pitfalls.
+
+
+<p>
+
+<a name="c5s1">
+
+</a>
+<h2>
+<hr>5.1 All rules are global
+</h2>
+All rules are global, and a consequence is that rules can clash or 
+silently shadow each other, if the user defines two rules with the 
+same patterns and predicates but different bodies.
+
+
+<p>
+For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(0) &lt;-- 1
+Out&gt; True;
+In&gt; f(x_IsConstant) &lt;-- Sin(x)/x
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+This can happen in practice, if care is not taken. Here two 
+transformation rules are defined which both have the same precedence 
+(since their precedence was not explicitly set). In that case 
+<b><tt>Piper</tt></b> gets to decide which one to try first. 
+Such problems can also occur where one transformation rule (possibly
+defined in some other file) has a wrong precedence, and thus masks
+another transformation rule. It is necessary to think of a scheme
+for assigning precedences first. In many cases, the order in which transformation
+rules are applied is important.
+
+
+<p>
+In the above example, because <b><tt>Piper</tt></b> gets to decide which rule
+to try first, it is possible that f(0) invokes the second rule,
+which would then mask the first so the first rule is never called.
+Indeed, in <b><tt>Piper</tt></b> version 1.0.51, 
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(0)
+Out&gt; Undefined;
+</pre></tr>
+</table>
+
+
+<p>
+The order the rules are applied in is undefined if the precedences
+are the same. The precedences should only be the same if order
+does not matter. This is the case if, for instance, the two rules apply to different argument patters that could not possibly
+mask each other.
+
+
+<p>
+The solution could have been either:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 10 # f(0) &lt;-- 1
+Out&gt; True;
+In&gt; 20 # f(x_IsConstant) &lt;-- Sin(x)/x
+Out&gt; True;
+In&gt; f(0)
+Out&gt; 1;
+</pre></tr>
+</table>
+or
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(0) &lt;-- 1
+Out&gt; True;
+In&gt; f(x_IsConstant)_(x != 0) &lt;-- Sin(x)/x
+Out&gt; True;
+In&gt; f(0)
+Out&gt; 1;
+</pre></tr>
+</table>
+
+
+<p>
+So either the rules should have distinct precedences, or they should have
+mutually exclusive predicates, so that they do not collide.
+
+
+<p>
+
+<a name="c5s2">
+
+</a>
+<h2>
+<hr>5.2 Objects that look like functions
+</h2>
+An expression that looks like a "function", for example <b><tt>AbcDef(x,y)</tt></b>, is in fact
+either a call to a "core function" or  to a "user function", and there 
+is a huge difference between the behaviors. Core functions immediately 
+evaluate to something, while user functions are really just symbols to which
+evaluation rules may or may not be applied. 
+
+
+<p>
+For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; a+b
+Out&gt; a+b;
+In&gt; 2+3
+Out&gt; 5;
+In&gt; MathAdd(a,b)
+In function "MathAdd" : 
+bad argument number 1 (counting from 1)
+The offending argument a evaluated to a
+CommandLine(1) : Invalid argument
+
+In&gt; MathAdd(2,3)
+Out&gt; 5;
+</pre></tr>
+</table>
+
+
+<p>
+The <b><tt>+</tt></b> operator will return the object unsimplified if the arguments
+are not numeric. The <b><tt>+</tt></b> operator is defined in the standard scripts.
+<b><tt>MathAdd</tt></b>, however, is a function defined in the "core" to
+performs the numeric addition. It can only do this if the arguments
+are numeric and it fails on symbolic arguments.  (The <b><tt>+</tt></b> operator calls <b><tt>MathAdd</tt></b> after it has verified that
+the arguments passed to it are numeric.)
+
+
+<p>
+A core function such as <b><tt>MathAdd</tt></b> can never return unevaluated, but an operator such as "<b><tt>+</tt></b>" is a "user function"
+which might or might not be evaluated to something.
+
+
+<p>
+A user function does not have to be defined before it is used. A consequence of this is that a typo in a function name or a variable name 
+will always go unnoticed.
+For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(x_IsInteger,y_IsInteger) &lt;-- Mathadd(x,y)
+Out&gt; True;
+In&gt; f(1,2)
+Out&gt; Mathadd(1,2);
+</pre></tr>
+</table>
+Here we made a typo: we should have written <b><tt>MathAdd</tt></b>, but wrote
+<b><tt>Mathadd</tt></b> instead. <b><tt>Piper</tt></b> happily assumed that we mean a new and (so far) undefined "user function" <b><tt>Mathadd</tt></b> and returned the expression unevaluated.
+
+
+<p>
+In the above example it was easy to spot the error. But this feature becomes more dangerous when it this mistake
+is made in a part of some procedure. A call that should have
+been made to an internal function, if a typo was made, passes
+silently without error and returns unevaluated.
+The real problem occurs if we meant to call a function that has side-effects
+and we  not use its return value. In this case we shall not immediately find
+that the function was not evaluated, but instead we shall encounter a
+mysterious bug later.
+
+
+<p>
+
+<a name="c5s3">
+
+</a>
+<h2>
+<hr>5.3 Guessing when arguments are evaluated and when not
+</h2>
+If your new function does not work as expected, there is a good chance
+that it happened because you did not expect some expression which is an argument
+to be passed to a function to be evaluated when it is in fact evaluated, or vice versa. 
+
+
+<p>
+For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; p:=Sin(x)
+Out&gt; Sin(x);
+In&gt; D(x)p
+Out&gt; Cos(x);
+In&gt; y:=x
+Out&gt; x;
+In&gt; D(y)p
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+Here the first argument to the differentiation function is not
+evaluated, so <b><tt>y</tt></b> is not evaluated to <b><tt>x</tt></b>, and <b><tt>D(y)p</tt></b> is indeed 0.
+
+
+<p>
+
+<h3>
+<hr>The confusing effect of <b><tt>HoldArg</tt></b>
+</h3>
+The problem of distinguishing evaluated and unevaluated objects becomes worse when we need to create a function that does not evaluate its arguments.
+
+
+<p>
+Since in <b><tt>Piper</tt></b> evaluation starts from the bottom of the expression tree, all "user functions" will appear to evaluate their arguments by default. But sometimes it is convenient to prohibit evaluation of a particular argument (using <b><tt>HoldArg</tt></b> or <b><tt>HoldArgNr</tt></b>).
+
+
+<p>
+For example, suppose we need a function <b><tt>A(x,y)</tt></b> that, as a side-effect, assigns the variable <b><tt>x</tt></b> to the sum of <b><tt>x</tt></b> and <b><tt>y</tt></b>. This function will be called when <b><tt>x</tt></b> already has some value, so clearly the argument <b><tt>x</tt></b> in <b><tt>A(x,y)</tt></b> should be unevaluated. It is possible to make this argument unevaluated by putting <b><tt>Hold()</tt></b> on it and always calling <b><tt>A(Hold(x), y)</tt></b>, but this is not very convenient and easy to forget. It would be better to define <b><tt>A</tt></b> so that it always keeps its first argument unevaluated.
+
+
+<p>
+If we define a rule base for <b><tt>A</tt></b> and declare <b><tt>HoldArg</tt></b>,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Function() A(x,y);
+HoldArg("A", x);
+</pre></tr>
+</table>
+then we shall encounter a difficulty when working with the argument <b><tt>x</tt></b> inside of a rule body for <b><tt>A</tt></b>. For instance, the simple-minded implementation
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+A(_x, _y) &lt;-- (x := x+y);
+</pre></tr>
+</table>
+does not work:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; [ a:=1; b:=2; A(a,b);]
+Out&gt; a+2;
+</pre></tr>
+</table>
+In other words, the <b><tt>x</tt></b> inside the body of <b><tt>A(x,y)</tt></b> did not evaluate to <b><tt>1</tt></b>
+when we called the function <b><tt>:=</tt></b>. Instead, it was left unevaluated as the atom
+<b><tt>x</tt></b> on the left hand side of <b><tt>:=</tt></b>, since <b><tt>:=</tt></b> does not evaluate its left
+argument. It however evaluates its right argument, so the <b><tt>y</tt></b> argument was
+evaluated to <b><tt>2</tt></b> and the <b><tt>x+y</tt></b> became <b><tt>a+2</tt></b>.
+
+
+<p>
+The evaluation of <b><tt>x</tt></b> in the body of <b><tt>A(x,y)</tt></b> was prevented by the <b><tt>HoldArg</tt></b>
+declaration. So in the body, <b><tt>x</tt></b> will just be the atom <b><tt>x</tt></b>, unless it is
+evaluated again. If you pass <b><tt>x</tt></b> to other functions, they will just get
+the atom <b><tt>x</tt></b>. Thus in our example, we passed <b><tt>x</tt></b> to the function <b><tt>:=</tt></b>, thinking that it will get <b><tt>a</tt></b>, but it got an unevaluated atom <b><tt>x</tt></b> on the left side and proceeded with that.
+
+
+<p>
+We need an explicit evaluation of <b><tt>x</tt></b> in this case. It can be performed using
+<b><tt>Eval</tt></b>, or with backquoting, or by using a core function that evaluates its
+argument. Here is some code that illustrates these three possibilities:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+A(_x, _y) &lt;-- [ Local(z); z:=Eval(x); z:=z+y; ]
+</pre></tr>
+</table>
+(using explicit evaluation) or
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+A(_x, _y) &lt;-- `(@x := @x + y);
+</pre></tr>
+</table>
+(using backquoting) or
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+A(_x, _y) &lt;-- MacroSet(x, x+y);
+</pre></tr>
+</table>
+(using a core function <b><tt>MacroSet</tt></b> that evaluates its first argument).
+
+
+<p>
+However, beware of a clash of names when using explicit evaluations (as
+explained above). In other words, the function <b><tt>A</tt></b> as defined
+above will not work correctly if we give it a variable also named <b><tt>x</tt></b>. The
+<b><tt>LocalSymbols</tt></b> call should be used to get around this problem.
+
+
+<p>
+Another caveat is that when we call another function that does not evaluate its
+argument, we need to substitute an explicitly evaluated <b><tt>x</tt></b> into it. A frequent
+case is the following: suppose we have a function <b><tt>B(x,y)</tt></b> that  does not
+evaluate <b><tt>x</tt></b>, and we need to write an interface function <b><tt>B(x)</tt></b> which will just
+call <b><tt>B(x,0)</tt></b>. We should use an explicit evaluation of <b><tt>x</tt></b> to accomplish this, for example
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+B(_x) &lt;-- `B(@x,0);
+</pre></tr>
+</table>
+or
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+B(_x) &lt;-- B @ {x, 0};
+</pre></tr>
+</table>
+Otherwise <b><tt>B(x,y)</tt></b> will not get the correct value of its first parameter <b><tt>x</tt></b>.
+
+
+<p>
+
+<h3>
+<hr>Special behavior of <b><tt>Hold</tt></b>, <b><tt>UnList</tt></b> and <b><tt>Eval</tt></b>
+</h3>
+When an expression is evaluated, all matching rules are applied to it repeatedly until no more rules match. Thus an expression is "completely" evaluated. There are, however, two cases when recursive application of rules is stopped at a certain point, leaving an expression not "completely" evaluated:
+
+
+<p>
+<ul><li>The expression which is the result of a call to a Piper core function is
+not evaluated further, even if some rules apply to it.
+</li><li>The expression is a variable that has a value assigned to it; for
+example, the variable </li><b><tt>x</tt></b> might have the expression <b><tt>y+1</tt></b> as the value. That
+value is not evaluated again, so even if <b><tt>y</tt></b> has been assigned another value,
+say, <b><tt>y=2</tt></b> a Piper expression such as <b><tt>2*x+1</tt></b> will evaluate to <b><tt>2*(y+1)+1</tt></b> and
+not to <b><tt>7</tt></b>. Thus, a variable can have some unevaluated expression as its value
+and the expression will not be re-evaluated when the variable is used.
+</ul>
+
+<p>
+The first possibility is mostly without consequence because  almost all core
+functions return a simple atom that does not require further evaluation.
+However, there are two core functions that can return a complicated expression:
+<b><tt>Hold</tt></b> and <b><tt>UnList</tt></b>. Thus, these functions can produce arbitrarily complicated
+Piper expressions that will be left unevaluated.
+For example, the result of 
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+UnList({Sin, 0})
+</pre></tr>
+</table>
+is the same as the result of
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Hold(Sin(0))
+</pre></tr>
+</table>
+and is the unevaluated expression <b><tt>Sin(0)</tt></b> rather than <b><tt>0</tt></b>.
+
+
+<p>
+Typically you want to use <b><tt>UnList</tt></b> because you need to construct a
+function call out of some objects that you have. But you need to call
+<b><tt>Eval(UnList(...))</tt></b> to actually evaluate this function call. For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; UnList({Sin, 0})
+Out&gt; Sin(0);
+In&gt; Eval(UnList({Sin, 0}))
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+In effect, evaluation can be stopped with <b><tt>Hold</tt></b> or <b><tt>UnList</tt></b> and can be
+explicitly restarted by using <b><tt>Eval</tt></b>. If several levels of un-evaluation are
+used, such as <b><tt>Hold(Hold(...))</tt></b>, then the same number of <b><tt>Eval</tt></b> calls will be
+needed to fully evaluate an expression.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; a:=Hold(Sin(0))
+Out&gt; Sin(0);
+In&gt; b:=Hold(a)
+Out&gt; a;
+In&gt; c:=Hold(b)
+Out&gt; b;
+In&gt; Eval(c)
+Out&gt; a;
+In&gt; Eval(Eval(c))
+Out&gt; Sin(0);
+In&gt; Eval(Eval(Eval(c)))
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+A function <b><tt>FullEval</tt></b> can be defined for "complete" evaluation of expressions, as follows:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LocalSymbols(x,y)
+[
+  FullEval(_x) &lt;-- FullEval(x,Eval(x));
+  10 # FullEval(_x,_x) &lt;-- x;
+  20 # FullEval(_x,_y) &lt;-- FullEval(y,Eval(y));
+];
+</pre></tr>
+</table>
+Then the example above will be concluded with:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FullEval(c);
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h3>
+<hr>Correctness of parameters to functions is not checked
+</h3>
+Because <b><tt>Piper</tt></b> does not enforce type checking of arguments,
+it is possible to call functions with invalid arguments. The default
+way functions in <b><tt>Piper</tt></b> should deal with situations where an action can not
+be performed, is to return the expression unevaluated. A function should 
+know when it is failing to perform a task. The typical symptoms are 
+errors that seem obscure, but just mean the function called should have
+checked that it can perform the action on the object.
+
+
+<p>
+For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 10 # f(0) &lt;-- 1;
+Out&gt; True;
+In&gt; 20 # f(_n) &lt;-- n*f(n-1);
+Out&gt; True;
+In&gt; f(3)
+Out&gt; 6;
+In&gt; f(1.3)
+CommandLine(1): Max evaluation stack depth reached.
+</pre></tr>
+</table>
+
+
+<p>
+Here, the function <b><tt>f</tt></b> is defined to be a factorial function,
+but the function fails to check that its argument is a positive
+integer, and thus exhausts the stack when called with a non-integer
+argument.
+A better way would be to write
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 20 # f(n_IsPositiveInteger) &lt;-- n*f(n-1);
+</pre></tr>
+</table>
+Then the function would have returned unevaluated when passed a non-integer or a symbolic expression.
+
+
+<p>
+
+<a name="c5s4">
+
+</a>
+<h2>
+<hr>5.4 Evaluating variables in the wrong scope
+</h2>
+There is a subtle problem that occurs when <b><tt>Eval</tt></b> is used
+in a function, combined with local variables. The following
+example perhaps illustrates it:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f1(x):=[Local(a);a:=2;Eval(x);];
+Out&gt; True;
+In&gt; f1(3)
+Out&gt; 3;
+In&gt; f1(a)
+Out&gt; 2;
+</pre></tr>
+</table>
+
+
+<p>
+Here the last call should have returned <b><tt>a</tt></b>, but it returned <b><tt>2</tt></b>,
+because <b><tt>x</tt></b> was assigned the value <b><tt>a</tt></b>, and <b><tt>a</tt></b> was assigned
+locally the value of <b><tt>2</tt></b>, and <b><tt>x</tt></b> gets re-evaluated. This problem
+occurs when the expression being evaluated contains variables which
+are also local variables in the function body. The solution is to use
+the <b><tt>LocalSymbols</tt></b> function for all local variables defined in the body.
+
+
+<p>
+The following illustrates this:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f2(x):=LocalSymbols(a)[Local(a);a:=2;Eval(x);];
+Out&gt; True;
+In&gt; f1(3)
+Out&gt; 3;
+In&gt; f2(a)
+Out&gt; a;
+</pre></tr>
+</table>
+
+
+<p>
+Here <b><tt>f2</tt></b> returns the correct result. <b><tt>x</tt></b> was assigned the value <b><tt>a</tt></b>,
+but the <b><tt>a</tt></b> within the function body is made distinctly different
+from the one referred to by <b><tt>x</tt></b> (which, in a sense, refers to a global
+<b><tt>a</tt></b>), by using <b><tt>LocalSymbols</tt></b>.
+
+
+<p>
+This problem generally occurs when defining functions that re-evaluate
+one of its arguments, typically functions that perform a loop of some
+sort, evaluating a body at each iteration.
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

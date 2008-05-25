@@ -1,0 +1,105 @@
+# Properties file for PiperDocs plugin.
+
+#{{{ 
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.name=PiperDocs
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.docs=index.html
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin..longdescription=description.html
+#}}}
+
+
+
+
+piperdocs.shell.msg.info=\nPiperDocs Shell \n\
+	  Test.\n\n
+
+piperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
+		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
+		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
+		 * "?"\t\t\t\t-- lists the available build files and usage\n\
+		 * "=build_file_number"\t\t-- changes the current build file to the number identified by "?"\n\
+		 * "+[full_path_to_file]"\t\t-- load this build file into Ant Farm. Searches up the current\n\
+				   \t\t\t\t   buffer's directory tree for a "build.xml" file to load if a \n\
+				 \t\t\t\t   file is not specified. Re-loads the build file if it is already\n\
+				 \t\t\t\t   loaded.\n\n
+
+
+
+
+
+# plugin menu
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.menu=piperdocs \
+	- \
+	piperdocs.clear \
+	piperdocs.save-file \
+	piperdocs.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+piperdocs.label=piperdocs
+
+# action labels for actions supplied by actions.xml
+piperdocs.source.label=View Source
+piperdocs.source.button-text=Source
+piperdocs.home.label=Home
+piperdocs.save-file.label=Save notepad file
+piperdocs.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.piperdocs.option-pane=piperdocs
+
+# Option pane activation BeanShell snippet
+options.piperdocs.code=new org.mathrider.piperdocsplugin.PiperDocsOptionPane();
+
+# Option pane labels
+options.piperdocs.label=piperdocs
+options.piperdocs.file=File:
+options.piperdocs.source=Source
+options.piperdocs.home=Hlear
+options.piperdocs.source.title=View Source
+options.piperdocs.choose-font=Font:
+options.piperdocs.show-filepath.title=Display notepad file path
+
+# window title
+piperdocs.title=PiperDocs
+
+# window toolbar buttons
+#piperdocs.source.icon=Clear.png
+piperdocs.home.icon=Home.png
+piperdocs.save-file.icon=Save.png
+piperdocs.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.piperdocs.show-filepath=true
+options.piperdocs.font=Monospaced
+options.piperdocs.fontstyle=0
+options.piperdocs.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.piperdocs.filepath=
+
+
+#
+#piperdocs.applet.filename=
+#piperdocs.applet.framePossible=false
+#piperdocs.applet.showSourceIcon=true
+#piperdocs.applet.enableRightClick=true
+#piperdocs.applet.showMenuBar=false
+#piperdocs.applet.showToolBar=true
+#piperdocs.applet.showToolBarHelp=true
+#piperdocs.applet.showAlgebraInput=true
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

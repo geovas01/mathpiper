@@ -1,0 +1,452 @@
+<html>
+<head>
+  <title>Mathematical constants</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c26">
+
+</a>
+(directly go to documentation on : <a href="refchapter26.html#Infinity" target='Chapters' title="constant representing mathematical infinity">Infinity</a>, <a href="refchapter26.html#Pi" target='Chapters' title="mathematical constant, <b>pi</b>">Pi</a>, <a href="refchapter26.html#Undefined" target='Chapters' title="constant signifying an undefined result">Undefined</a>, <a href="refchapter26.html#GoldenRatio" target='Chapters' title="the Golden Ratio">GoldenRatio</a>, <a href="refchapter26.html#Catalan" target='Chapters' title="Catalan's Constant">Catalan</a>, <a href="refchapter26.html#gamma" target='Chapters' title="Euler's constant <b> gamma</b>">gamma</a>.
+)<h1>
+26. Mathematical constants
+</h1>
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter26.html#Infinity" target='Chapters' title="constant representing mathematical infinity">Infinity</a></td>
+<td>constant representing mathematical infinity</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter26.html#Pi" target='Chapters' title="mathematical constant, <b>pi</b>">Pi</a></td>
+<td>mathematical constant, <b>pi</b></td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter26.html#Undefined" target='Chapters' title="constant signifying an undefined result">Undefined</a></td>
+<td>constant signifying an undefined result</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter26.html#GoldenRatio" target='Chapters' title="the Golden Ratio">GoldenRatio</a></td>
+<td>the Golden Ratio</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter26.html#Catalan" target='Chapters' title="Catalan's Constant">Catalan</a></td>
+<td>Catalan's Constant</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter26.html#gamma" target='Chapters' title="Euler's constant <b> gamma</b>">gamma</a></td>
+<td>Euler's constant <b> gamma</b></td>
+</tr>
+</table></center>
+<a name="Infinity">
+
+</a>
+<a name="infinity">
+
+</a>
+<h3>
+<hr>Infinity -- constant representing mathematical infinity
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Infinity
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Infinity represents infinitely large values. It can be the result of certain
+calculations.
+
+
+<p>
+Note that for most analytic functions Piper understands <b><tt>Infinity</tt></b> as a positive number.
+Thus <b><tt>Infinity*2</tt></b> will return <b><tt>Infinity</tt></b>, and <b><tt>a &lt; Infinity</tt></b> will evaluate to <b><tt>True</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 2*Infinity
+Out&gt; Infinity;
+In&gt; 2&lt;Infinity
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="Pi">
+
+</a>
+<a name="pi">
+
+</a>
+<h3>
+<hr>Pi -- mathematical constant, <b>pi</b>
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Pi
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Pi symbolically represents the exact value of <b> pi</b>. When the <b><tt>N()</tt></b> function is
+used, <b><tt>Pi</tt></b> evaluates to a numerical value according to the current precision.
+It is better to use <b><tt>Pi</tt></b> than <b><tt>N(Pi)</tt></b> except in numerical calculations, because exact
+simplification will be possible.
+
+
+<p>
+This is a "cached constant" which is recalculated only when precision is increased.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Sin(3*Pi/2)
+Out&gt; -1;
+In&gt; Pi+1
+Out&gt; Pi+1;
+In&gt; N(Pi)
+Out&gt; 3.14159265358979323846;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?CachedConstant" target="Chapters">
+CachedConstant
+</a>
+.<a name="Undefined">
+
+</a>
+<a name="undefined">
+
+</a>
+<h3>
+<hr>Undefined -- constant signifying an undefined result
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Undefined
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Undefined</tt></b> is a token that can be returned by a function when it considers
+its input to be invalid or when no meaningful answer can be given. The result is then "undefined".
+
+
+<p>
+Most functions also return <b><tt>Undefined</tt></b> when evaluated on it.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 2*Infinity
+Out&gt; Infinity;
+In&gt; 0*Infinity
+Out&gt; Undefined;
+In&gt; Sin(Infinity);
+Out&gt; Undefined;
+In&gt; Undefined+2*Exp(Undefined);
+Out&gt; Undefined;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Infinity" target="Chapters">
+Infinity
+</a>
+.<a name="GoldenRatio">
+
+</a>
+<a name="goldenratio">
+
+</a>
+<h3>
+<hr>GoldenRatio -- the Golden Ratio
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+GoldenRatio
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These functions compute the "golden ratio"
+
+<p><center><b> phi&lt;=&gt;1.6180339887&lt;=&gt;(1+Sqrt(5))/2.</b></center></p>
+
+
+
+<p>
+The ancient Greeks defined the "golden ratio" as follows:
+If one divides a length 1 into two pieces <b> x</b> and <b> 1-x</b>, such that the ratio of 1 to <b> x</b> is the same as the ratio of <b> x</b> to <b> 1-x</b>, then <b> 1/x&lt;=&gt;1.618</b>... is the "golden ratio".
+
+
+<p>
+The constant is available symbolically as <b><tt>GoldenRatio</tt></b> or numerically through <b><tt>N(GoldenRatio)</tt></b>.
+This is a "cached constant" which is recalculated only when precision is increased.
+The numerical value of the constant can also be obtained as <b><tt>N(GoldenRatio)</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x:=GoldenRatio - 1
+Out&gt; GoldenRatio-1;
+In&gt; N(x)
+Out&gt; 0.6180339887;
+In&gt; N(1/GoldenRatio)
+Out&gt; 0.6180339887;
+In&gt; V(N(GoldenRatio,20));
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CachedConstant: Info: constant GoldenRatio is
+being recalculated at precision 20 
+Out&gt; 1.6180339887498948482;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?CachedConstant" target="Chapters">
+CachedConstant
+</a>
+.<a name="Catalan">
+
+</a>
+<a name="catalan">
+
+</a>
+<h3>
+<hr>Catalan -- Catalan's Constant
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Catalan
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These functions compute Catalan's Constant <b> Catalan&lt;=&gt;0.9159655941</b>.
+
+
+<p>
+The constant is available symbolically as <b><tt>Catalan</tt></b> or numerically through <b><tt>N(Catalan)</tt></b> with <b><tt>N(...)</tt></b> the usual operator used to try to coerce an expression in to a numeric approximation of that expression.
+This is a "cached constant" which is recalculated only when precision is increased.
+The numerical value of the constant can also be obtained as <b><tt>N(Catalan)</tt></b>.
+The low-level numerical computations are performed by the routine <b><tt>CatalanConstNum</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; N(Catalan)
+Out&gt; 0.9159655941;
+In&gt; DirichletBeta(2)
+Out&gt; Catalan;
+In&gt; V(N(Catalan,20))
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CachedConstant: Info: constant Catalan is
+being recalculated at precision 20
+Out&gt; 0.91596559417721901505;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?CachedConstant" target="Chapters">
+CachedConstant
+</a>
+.<a name="gamma">
+
+</a>
+<a name="gamma">
+
+</a>
+<h3>
+<hr>gamma -- Euler's constant <b> gamma</b>
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+gamma
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These functions compute Euler's constant <b> gamma&lt;=&gt;0.57722</b>...
+
+
+<p>
+The constant is available symbolically as <b><tt>gamma</tt></b> or numerically through using the usual function <b><tt>N(...)</tt></b> to get a numeric result, <b><tt>N(gamma)</tt></b>.
+This is a "cached constant" which is recalculated only when precision is increased.
+The numerical value of the constant can also be obtained as <b><tt>N(gamma)</tt></b>.
+The low-level numerical computations are performed by the routine <b><tt>GammaConstNum</tt></b>.
+
+
+<p>
+Note that Euler's Gamma function <b> Gamma(x)</b> is the capitalized <b><tt>Gamma</tt></b> in Piper.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; gamma+Pi
+Out&gt; gamma+Pi;
+In&gt; N(gamma+Pi)
+Out&gt; 3.7188083184;
+In&gt; V(N(gamma,20))
+
+CachedConstant: Info: constant gamma is being
+  recalculated at precision 20 
+GammaConstNum: Info: used 56 iterations at
+  working precision 24 
+Out&gt; 0.57721566490153286061;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Gamma" target="Chapters">
+Gamma
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?CachedConstant" target="Chapters">
+CachedConstant
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

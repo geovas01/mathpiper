@@ -1,0 +1,1020 @@
+<html>
+<head>
+  <title><b><tt>Piper</tt></b>: A do-it-yourself symbolic algebra environment</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c1">
+
+</a>
+<h1>
+1. <b><tt>Piper</tt></b>: A do-it-yourself symbolic algebra environment
+</h1>
+<p> </p>
+A much shorter and more polished version of this paper is published as: Ayal Z. Pinkus and Serge Winitzki,
+"<i>PIPER: a do-it-yourself computer algebra system</i>", Lecture Notes in Artificial Intelligence 2385, pp. 332 - 336 (Springer-Verlag, 2002).
+
+
+<p>
+
+<h5>
+by Ayal Zwi Pinkus and Serge Winitzki
+</h5>
+<h3>
+<hr>Abstract
+</h3>
+We describe the design and implementation of <b><tt>Piper</tt></b>, a free computer
+algebra system currently under development.  The system consists of a core
+interpreter and a library of scripts that implement symbolic algebra
+functionality.  The interpreter provides a high-level weakly typed functional
+language designed for quick prototyping of computer algebra algorithms, but the
+language is suitable for all kinds of symbolic manipulation. It supports
+conditional term rewriting of symbolic expression trees, closures (pure
+functions) and delayed evaluation, dynamic creation of transformation rules,
+arbitrary-precision numerical calculations, and flexible user-defined syntax
+using infix notation.  The library of scripts currently provides basic
+numerical and symbolic algebra functionality, such as polynomials and
+elementary functions, limits, derivatives and (limited) integration, solution
+of (simple) equations. The main advantages of <b><tt>Piper</tt></b> are: free (GPL)
+software; a
+flexible and easy-to-use programming language with a comfortable and adjustable
+syntax; cross-platform portability and small resource requirements; and extensibility.
+
+
+<p>
+
+<a name="c1s1">
+
+</a>
+<h2>
+<hr>1.1 Introduction
+</h2>
+<b><tt>Piper</tt></b> is a computer algebra system (CAS) which has been in development since the beginning of 1999.
+The goal was to make a small system that allows to easily prototype and
+research symbolic mathematics algorithms. A secondary future goal is to evolve
+<b><tt>Piper</tt></b> into a full-blown general purpose CAS.
+
+
+<p>
+<b><tt>Piper</tt></b> is primarily intended to be a research tool for easy
+exploration and prototyping of algorithms of symbolic
+computation.  The main advantage of <b><tt>Piper</tt></b> is its rich and flexible
+scripting language. The language is closely related to LISP <b><tt>WH89</tt></b> but has
+a recursive descent infix grammar parser <b><tt>ASU86</tt></b> which supports defining 
+infix operators at run time similarly to Prolog <b><tt>B86</tt></b>, and includes 
+expression transformation (term rewriting) as a basic feature of the
+language.
+
+
+<p>
+The <b><tt>Piper</tt></b> language interpreter comes with a library of scripts that implement a set of computer algebra features. The <b><tt>Piper</tt></b> script library
+is in active development and at the present stage does not offer the rich functionality of
+industrial-strength systems such as <b><tt>Mathematica</tt></b> or <b><tt>Maple</tt></b>.
+Extensive
+implementation of algorithms of symbolic computation is one of the future
+development goals.
+
+
+<p>
+<b><tt>Piper</tt></b> handles input and output in plain ASCII,
+either interactively or in batch mode. (A graphical interface is under development.) There is also an optional plugin mechanism
+whereby external libraries can be linked into the system to provide extra
+functionality. Basic facilities are in place to compile Piper scripts
+to C++ so they can be compiled into plugins.
+
+
+<p>
+
+<a name="c1s2">
+
+</a>
+<h2>
+<hr>1.2 Basic design
+</h2>
+<b><tt>Piper</tt></b> consists of a ``core engine" (kernel), which is an interpreter
+for the <b><tt>Piper</tt></b> scripting language, and a library of script code.
+
+
+<p>
+The
+<b><tt>Piper</tt></b> engine has been implemented in a subset of C++ which is
+supported by almost all C++ compilers.
+The design goals for <b><tt>Piper</tt></b> core engine are: portability,
+self-containment (no dependence on extra libraries or packages), ease of
+implementing algorithms, code transparency, and flexibility. The <b><tt>Piper</tt></b>
+system as a whole falls into the ``prototype/hacker" rather than into the
+``axiom/algebraic" category, according to the terminology of Fateman
+<b><tt>F90</tt></b>. There are relatively few specific design decisions related to
+mathematics, but instead the emphasis is made on extensibility.
+
+
+<p>
+The kernel offers sufficiently rich but basic functionality through a limited
+number of core functions. This core functionality includes substitutions and
+rewriting of symbolic expression trees, an infix syntax parser, and arbitrary
+precision numerics. The kernel does not contain any definitions of symbolic
+mathematical operations and tries to be as general and free as possible of
+predefined notions or policies in the domain of symbolic computation.
+
+
+<p>
+The plugin inter-operability mechanism allows extension of the <b><tt>Piper</tt></b> kernel and the use of external libraries, e.g. GUI toolkits or implementations of special-purpose algorithms. A simple C++ API is provided for writing ``stubs'' that make external functions appear in <b><tt>Piper</tt></b> as new core functions. Plugins are on the same footing as the <b><tt>Piper</tt></b> kernel and can in principle manipulate all <b><tt>Piper</tt></b> internal structures. Plugins can be compiled either statically or dynamically as shared libraries to be loaded at runtime from <b><tt>Piper</tt></b> scripts. 
+In addition, <b><tt>Piper</tt></b> scripts can be compiled to C++ code for further
+compilation into a plugin. Systems that don't support plugins can then
+link these modules in statically. The system can also be run without
+the plugins, for debugging and development purposes. The scripts
+will be interpreted in that case.
+
+
+<p>
+The script library contains declarations of transformation rules and of function
+syntax (prefix, infix etc.). The intention is that all symbolic manipulation algorithms, definitions
+of mathematical functions etc. should be held in the script library and not in the kernel. The
+only exception so far is for a very small number of mathematical or utility
+functions that are frequently used; they are compiled into the core for speed.
+
+
+<p>
+
+<h3>
+<hr>Portability
+</h3>
+<b><tt>Piper</tt></b> is designed to be as platform-independent as possible.
+All platform-specific parts have been clearly separated to facilitate porting.
+Even the standard C++ library is considered to be platform-specific, as there
+exist  platforms without support for the standard C++ library (e.g. the
+EPOC32 platform).
+
+
+<p>
+The primary development platform is GNU/Linux. Currently <b><tt>Piper</tt></b> runs under
+various Unix variants, Windows environments, Psion organizers (EPOC32),
+Ipaq PDAs,
+BeOS, and Apple iMacs. Creating an executable for another platform (including embedded platforms)
+should not be difficult.
+
+
+<p>
+
+<h3>
+<hr>A self-contained system
+</h3>
+<b><tt>Piper</tt></b> should work as a standalone package, requiring minimum support from other
+operating system components. <b><tt>Piper</tt></b> takes input and output in plain ASCII,
+either interactively or in batch mode. (An optional graphical interface is under development.) The system comes with its own
+(unoptimized) arbitrary precision arithmetic module but could be compiled to
+use another arbitrary precision arithmetic library; currently linking to <b><tt>gmp</tt></b>
+is experimentally supported. There is also an optional plugin mechanism
+whereby external libraries can be linked into the system to provide extra
+functionality.
+
+
+<p>
+Self-containment is a requirement if the program is to be easy to port. A
+dependency on libraries that might not be available on other platforms would
+reduce portability. On the other hand, <b><tt>Piper</tt></b> can be compiled with a complement
+of external libraries on "production" platforms.
+
+
+<p>
+
+<h3>
+<hr>Ease of use
+</h3>
+<b><tt>Piper</tt></b> is used mainly by executing programs written in the <b><tt>Piper</tt></b> script
+language. A design goal is to create a high-level language that allows the user
+to conveniently express symbolic algorithms. A few lines of user code should go
+a long way.
+
+
+<p>
+One major advantage of <b><tt>Piper</tt></b> is the flexibility of its syntax. Although <b><tt>Piper</tt></b>
+works internally as a LISP-style interpreter, all user interaction is through
+the <b><tt>Piper</tt></b> script language which has a flexible infix grammar. Infix operators
+are defined by the user and may contain non-alphabetic characters such as "<b><tt>=</tt></b>"
+or "<b><tt>#</tt></b>". This means that the user interacts with <b><tt>Piper</tt></b> using a comfortable and adjustable infix syntax,
+rather than a LISP-style syntax. The user can introduce such syntactic
+conventions as are most convenient for a given problem.
+
+
+<p>
+For example, the <b><tt>Piper</tt></b> script library defines infix operators "<b><tt>+</tt></b>", "<b><tt>*</tt></b>" and so
+on with conventional precedence, so that an algebraic expression can be entered
+in the familiar infix form such as
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+(x+1)^2 - (y-2*z)/(y+3) + Sin(x*Pi/2)
+</pre></tr>
+</table>
+
+
+<p>
+Once such infix operators are defined, it is possible to describe new
+transformation rules directly using the new syntax. This makes it easy to
+develop simplification or evaluation procedures adapted to a particular
+problem.
+
+
+<p>
+Suppose the user needs to reorder expressions containing non-commutative creation and
+annihilation operators of quantum field theory. It takes about 20 lines of
+<b><tt>Piper</tt></b> script code to define an infix operation "<b><tt>**</tt></b>" to express non-commutative
+multiplication with the appropriate commutation relations and to automatically
+normal-order all expressions involving these symbols and other (commutative)
+factors. Once the operator <b><tt>**</tt></b> is defined (with precedence 40),
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Infix("**", 40);
+</pre></tr>
+</table>
+the rules that express distributivity of the operation <b><tt>**</tt></b> with
+respect to addition may look like this:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+15 # (_x + _y) ** _z &lt;-- x ** z + y ** z;
+15 # _z ** (_x + _y) &lt;-- z ** x + z ** y;
+</pre></tr>
+</table>
+Here, <b><tt>15 #</tt></b> is a specification of the rule precedence, <b><tt>_x</tt></b> denotes a
+pattern-matching variable <b><tt>x</tt></b> and the expression to the right of <b><tt>&lt;--</tt></b> is to be
+substituted instead of a matched expression on the left hand side. Since all
+transformation rules are applied recursively, these two lines of code are enough for the <b><tt>Piper</tt></b>
+engine to expand all brackets in any expression containing the infix operators
+<b><tt>**</tt></b> and <b><tt>+</tt></b>.
+
+
+<p>
+Rule-based programming is not the only method that can be used in <b><tt>Piper</tt></b> scripts;
+there are alternatives that may be more useful in some situations. For example,
+the familiar <b><tt>if</tt></b> / <b><tt>else</tt></b> constructs, <b><tt>For</tt></b>, <b><tt>ForEach</tt></b> loops are
+defined in the script library for the convenience of users.
+
+
+<p>
+Standard patterns of procedural programming, such as subroutines that
+return values, with code blocks and temporary local variables, are also
+available. (A "subroutine" is implemented as a new "ground term" with a single
+rule defined for it.) Users may freely combine rules with C-like
+procedures or LISP-like list processing primitives such as <b><tt>Head()</tt></b>,
+<b><tt>Tail()</tt></b>.
+
+
+<p>
+
+<h3>
+<hr>Code clarity vs. speed
+</h3>
+Speed is obviously an important factor. For <b><tt>Piper</tt></b>, where a choice had to be
+made between speed and clarity of code, clarity was chosen. <b><tt>Piper</tt></b> is mainly a
+prototyping system and its future maintainability is more important.
+
+
+<p>
+This means that special-purpose systems designed for specific types of
+calculations, as well as heavily optimized industrial-strength computer algebra
+systems, will outperform <b><tt>Piper</tt></b>. However, special-purpose or optimized external
+libraries can be dynamically linked into <b><tt>Piper</tt></b> using the plugin mechanism.
+
+
+<p>
+
+<h3>
+<hr>Flexible, "policy-free" engine
+</h3>
+The core engine of the <b><tt>Piper</tt></b> system interprets the Piper script language.
+The reason to implement yet another LISP-based custom language interpreter
+instead of taking an already existing one was to have full control over the
+design of the system and to make it self-contained.
+While most of the features of the <b><tt>Piper</tt></b> script language are "syntactic sugar" on top of a LISP 
+interpreter, some features not commonly found in LISP systems were added.
+
+
+<p>
+The script library contains declarations of transformation rules and of function
+syntax (prefix, infix etc.). The intention is that all symbolic manipulation algorithms, definitions
+of mathematical functions and so on should be held in the script library and not in the kernel. The
+only exception so far is for a very small number of mathematical or utility
+functions that are frequently used; they are compiled into the core for speed.
+
+
+<p>
+For example, the mathematical operator "<b><tt>+</tt></b>" is an infix operator defined in the
+library scripts. To the kernel, this operator is on the same footing as any
+other function defined by the user and can be redefined. The <b><tt>Piper</tt></b> kernel
+itself does not store any properties for this operator. Instead it relies
+entirely on the script library to provide transformation rules for manipulating
+expressions involving the operator "<b><tt>+</tt></b>". In this way, the kernel does not need
+to anticipate all possible meanings of the operator "<b><tt>+</tt></b>" that users might need
+in their calculations.
+
+
+<p>
+This policy-free scheme means that <b><tt>Piper</tt></b> is highly configurable through its
+scripting language. It is possible to create an entirely different symbolic
+manipulation engine based on the same C++ kernel, with different syntax and
+different naming  conventions, by simply using another script library instead
+of the current library scripts. An example of the flexibility of the <b><tt>Piper</tt></b>
+system is a sample script <b><tt>wordproblems.pi</tt></b> that comes with the distribution. It contains a set of rule
+definitions that make <b><tt>Piper</tt></b> recognize simple English sentences, such as "Tom
+has 3 apples" or "Jane gave an apple to Tom", as valid <b><tt>Piper</tt></b> expressions. <b><tt>Piper</tt></b>
+can then "evaluate" these sentences to <b><tt>True</tt></b> or <b><tt>False</tt></b> according to
+the semantics of the current situation described in them.
+
+
+<p>
+The "policy-free" concept extends to typing: strong typing is not required by
+the kernel, but can be easily enforced by the  scripts if needed for a
+particular problem. The language offers features, but does not enforce their
+use.
+Here is an example of a policy implemented in the script library:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+61 # x_IsPositiveNumber ^ y_IsPositiveNumber 
+      &lt;-- MathPower(x,y);
+</pre></tr>
+</table>
+By this rule, expressions of the form <b><tt>x^y</tt></b> (representing powers <b>x^y</b>) are
+evaluated and replaced by a number if and only if <b><tt>x</tt></b> and <b><tt>y</tt></b> are positive
+numerical constants. (The function <b><tt>MathPower</tt></b> is  defined in the kernel.) If
+this simplification by default is not desirable, the user could erase this rule
+from the library
+and have a CAS without this feature.
+
+
+<p>
+
+<a name="c1s3">
+
+</a>
+<h2>
+<hr>1.3 The <b><tt>Piper</tt></b> kernel functionality
+</h2>
+<b><tt>Piper</tt></b> script is a functional language based on various ideas that seemed useful
+for an implementation of CAS: list-based data structures, object properties,
+and functional programming (a la LISP); term rewriting [BN98] with
+pattern matching somewhat along the lines of Mathematica; user-defined infix
+operators a la PROLOG; delayed evaluation of expressions; and
+arbitrary-precision arithmetic.
+Garbage collection is implemented through reference counting.
+
+
+<p>
+The kernel provides three basic data types: numbers,
+strings, and atoms, and two container types: list and static array (for speed).
+Atoms are implemented as strings that can be assigned values and evaluated.
+Boolean values are simply atoms <b><tt>True</tt></b> and <b><tt>False</tt></b>. Numbers are 
+represented by objects on which arithmetic can be performed
+immediately. Expression trees, association (hash) tables,
+stacks, and closures (pure functions) are all implemented using nested lists. In
+addition, more data types can be provided by plugins. Kernel primitives are
+available for arbitrary-precision arithmetic, string manipulation, array and
+list access and manipulation, for basic control flow, for assigning variables (atoms) and for defining rules for functions (atoms with a function syntax).
+
+
+<p>
+The interpreter engine recursively evaluates expression trees according to
+user-defined transformation rules from the script library.
+Evaluation proceeds bottom-up, that is, for each function term, the arguments are evaluated first and then the function is applied to these values.
+
+
+<p>
+A <b><tt>HoldArg()</tt></b> primitive is provided to not evaluate certain arguments of
+certain functions before passing them on as parameters to these functions. The
+<b><tt>Hold()</tt></b> and <b><tt>Eval()</tt></b> primitives, similarly to LISP's <b><tt>QUOTE</tt></b> and <b><tt>EVAL</tt></b>, can
+be used to stop the recursive application of rules at a certain point and
+obtain an unevaluated expression, or to initiate evaluation of an expression
+which was previously held unevaluated.
+
+
+<p>
+When an expression can not be transformed any further, that is, when no more rules apply to it, the expression is returned
+unevaluated. For instance, a variable that is not assigned a value will
+return unevaluated. This is a desired behavior in a symbolic manipulation
+system. Evaluation is treated as a form of ``simplification", in
+that evaluating an expression returns a simplified form of the
+input expression.
+
+
+<p>
+Rules are matched by a pattern expression which can contain <i>pattern variables</i>, i.e. atoms marked by the "<b><tt>_</tt></b>" operator. During matching, each pattern variable atom becomes a local variable and is tentatively assigned the subexpression being matched. For example, the pattern <b><tt>_x + _y</tt></b> can match an expression <b><tt>a*x+b</tt></b> and then the pattern variable <b><tt>x</tt></b> will be assigned the value <b><tt>a*x</tt></b> (unevaluated) and the variable <b><tt>y</tt></b> will have the value <b><tt>b</tt></b>.
+
+
+<p>
+This type of semantic matching has been frequently implemented before in
+various term rewriting systems (see, e.g., [C86]). However, the <b><tt>Piper</tt></b> language
+offers its users an ability to create a much more flexible and powerful term
+rewriting system than one based on a fixed set of rules. Here are some of the features:
+
+
+<p>
+First, transformation rules in <b><tt>Piper</tt></b> have predicates that control whether a
+rule should be applied to an expression. Predicates can be any <b><tt>Piper</tt></b>
+expressions that evaluate to the atoms <b><tt>True</tt></b> or <b><tt>False</tt></b> and are typically
+functions of pattern variables. A predicate could check the types or
+values of certain subexpressions of the matching context (see the <b><tt>_x ^ _y</tt></b>
+example in the previous subsection).
+
+
+<p>
+Second, rules are assigned a precedence value (a positive integer) that
+controls the order of rules to be attempted. Thus <b><tt>Piper</tt></b> provides somewhat better control
+over the automatic recursion than the pattern-matching system of <b><tt>Mathematica</tt></b>
+which does not allow for rule precedence.
+The interpreter will first apply the rule that matches the argument pattern,
+for which the predicate returns <b><tt>True</tt></b>, and which has the least precedence.
+
+
+<p>
+Third, new rules can be defined dynamically as a side-effect of evaluation.
+This means that there is no predefined "ranking alphabet" of "ground terms" (in
+the terminology of [TATA99]), in other words, no fixed set of functions with
+predefined arities. It is also possible to define a "rule closure" that defines
+rules depending on its arguments, or to erase rules. Thus, a <b><tt>Piper</tt></b> script
+library (although it is read-only) does not represent a fixed tree rewriting
+automaton. An implementation of machine learning is possible in <b><tt>Piper</tt></b> (among
+other things). For example, when the module <b><tt>wordproblems.pi</tt></b> (mentioned in the previous subsection) "learns" from the
+user input that <b><tt>apple</tt></b> is a countable object, it defines a new postfix
+operator <b><tt>apples</tt></b> and a rule for its evaluation, so the expression <b><tt>3 apples</tt></b> is later parsed as a
+function <b><tt>apples(3)</tt></b> and evaluated according to the rule.
+
+
+<p>
+Fourth, <b><tt>Piper</tt></b> expressions can be "tagged" (assigned a "property object" a la
+LISP) and tags can be checked by predicates in rules or used in the evaluation.
+
+
+<p>
+Fifth, the scope of variables can be controlled. In addition to having its own
+local variables, a function can be allowed to access local variables of its
+calling environment (the <b><tt>UnFence()</tt></b> primitive).
+It is also possible to encapsulate a group of variables and functions into a
+"module", making some of them inaccessible from the outside (the <b><tt>LocalSymbols()</tt></b> primitive).
+The scoping of variables is a "policy decision", to be enforced by the script
+which  defines the function. This flexibility is by design and allows to easily
+modify the behavior of the interpreter, effectively changing the language
+as needed.
+
+
+<p>
+
+<a name="c1s4">
+
+</a>
+<h2>
+<hr>1.4 The <b><tt>Piper</tt></b> scripting language
+</h2>
+The <b><tt>Piper</tt></b> interpreter is sufficiently powerful so that the functions 
+<b><tt>For</tt></b>, <b><tt>ForEach</tt></b>, <b><tt>if</tt></b>, <b><tt>else</tt></b> etc., as well as the convenient shorthand
+"...<b><tt>&lt;--</tt></b>..." for defining new rules, can be defined in the script library
+itself rather than in the kernel. This power is fully given to the user, since
+the library scripts are on the same footing as any user-defined code. Some
+library functions are intended mainly as tools available to a <b><tt>Piper</tt></b> user to
+make algorithm implementation more comfortable. Below are some examples of the features provided by the <b><tt>Piper</tt></b> script language.
+
+
+<p>
+<b><tt>Piper</tt></b> supports "function overloading": it allows a user to declare functions
+<b><tt>f(x)</tt></b> and <b><tt>f(x,y)</tt></b>, each having their own set of transformation rules. Of
+course, different rules can be defined for the same function name with the same
+number of arguments (arity) but with different argument patterns or different
+predicates.
+
+
+<p>
+Simple transformations on expressions can be performed using rules. For
+instance, if we need to expand the natural logarithm in an expression, we could
+use the following rules:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+log(_x * _y) &lt;-- log(x) + log(y);
+log(_x ^ _n) &lt;-- n * log(x);
+</pre></tr>
+</table>
+These two rules define a new symbolic function <b><tt>log</tt></b> which will not be evaluated
+but only transformed if one of these two rules are applicable. The symbol <b><tt>_</tt></b>, as before, indicates that the following atom is a pattern variable that matches subexpressions.
+
+
+<p>
+After entering these two rules, the following interactive session is possible:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; log(a*x^2)
+
+log( a ) + 2 * log( x )
+</pre></tr>
+</table>
+
+
+<p>
+Integration of the new function <b><tt>log</tt></b> can be defined by adding a rule for the
+<b><tt>AntiDeriv</tt></b> function atom,
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+AntiDeriv(_x,log(_x)) &lt;-- x*log(x)-x;
+</pre></tr>
+</table>
+Now <b><tt>Piper</tt></b> can do integrations involving the newly defined <b><tt>log</tt></b> function, for example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Integrate(x)log(a*x^n)
+
+log( a ) * x + n * ( x * log( x ) - x ) + C18
+
+In&gt; Integrate(x,B,C)log(a*x^n)
+
+log( a ) * C + n * ( C * log( C ) - C ) -
+
+( log( a ) * B + n * ( B * log( B ) - B ) )
+</pre></tr>
+</table>
+
+
+<p>
+Rules are applied when their associated patterns match and when their
+predicates return <b><tt>True</tt></b>. Rules also have precedence, an integer value
+to indicate which rules need to be applied first. Using these features, a
+recursive implementation of the integer factorial function may look like this
+in <b><tt>Piper</tt></b> script,
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+10 # Factorial(_n) _ (n=0) &lt;-- 1;
+20 # Factorial(n_IsInteger) _ (n&gt;0) &lt;--
+  n*Factorial(n-1);
+</pre></tr>
+</table>
+Here the rules have precedence 10 and 20, so that the first rule will be tried first and the recursion will stop when <b>n=0</b> is reached.
+
+
+<p>
+Rule-based programming can be freely combined with procedural programming when
+the latter is a more appropriate method. For example, here is a function that
+computes (<b> Mod(x^n,m)</b>) efficiently:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+powermod(x_IsPositiveInteger, 
+   n_IsPositiveInteger,
+   m_IsPositiveInteger) &lt;--
+[
+  Local(result);
+  result:=1;
+  x:=Mod(x,m);
+  While(n != 0)
+  [
+    if ((n&amp;1) = 1)
+	[
+      result := Mod(result*x,m);
+    ];
+    x := Mod(x*x,m);
+    n := n&gt;&gt;1;
+  ];
+  result;
+];
+</pre></tr>
+</table>
+
+
+<p>
+Interaction with the function <b><tt>powermod(x,n,m)</tt></b> would then look like this:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; powermod(2,10,100)
+Out&gt; 24;
+In&gt; Mod(2^10,100)
+Out&gt; 24;
+In&gt; powermod(23234234,2342424234,232423424)
+Out&gt; 210599936;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="c1s5">
+
+</a>
+<h2>
+<hr>1.5 Currently supported CAS features
+</h2>
+<b><tt>Piper</tt></b> consists of approximately 22000 lines of C++ code and  13000 lines of 
+scripting code, with 170 functions defined in the C++ kernel and 600 functions
+defined  in the scripting language. These numbers are deceptively small. The
+program is written in clean and simple style to keep it maintainable. Excessive
+optimization tends to bloat software and make it less readable.
+
+
+<p>
+A base of mathematical capabilities has already been implemented in the script
+library (the primary sources of inspiration were the books [K98], [GG99] and
+[B86]). The script library is currently under active development.  The
+following section demonstrates a few facilities already offered in the  current
+system.
+
+
+<p>
+Basic operations of elementary calculus have been implemented:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Limit(n,Infinity)(1+(1/n))^n
+
+Exp( 1 )
+
+In&gt; Limit(h,0) (Sin(x+h)-Sin(x))/h
+
+Cos( x )
+
+In&gt; Taylor(x,0,5)ArcSin(x)
+
+     3        5
+    x    3 * x 
+x + -- + ------
+    6      40  
+
+In&gt; InverseTaylor(x,0,5)Sin(x)
+
+     5    3    
+3 * x    x     
+------ + -- + x
+  40     6     
+
+In&gt; Integrate(x,a,b)Ln(x)+x
+
+                   2   /                    2 \
+                  b    |                   a  |
+b * Ln( b ) - b + -- - | a * Ln( a ) - a + -- |
+                  2    \                   2  /
+
+In&gt; Integrate(x)1/(x^2-1)
+
+Ln( 2 * ( x - 1 ) )   Ln( 2 * ( x + 1 ) )      
+------------------- - ------------------- + C38
+         2                     2               
+
+In&gt; Integrate(x)Sin(a*x)^2*Cos(b*x)
+
+Sin( b * x )   Sin( -2 * x * a + b * x )   
+------------ - ------------------------- - 
+   2 * b          4 * ( -2 * a + b )       
+
+Sin( -2 * x * a - b * x )      
+------------------------- + C39
+   4 * ( -2 * a - b )          
+
+In&gt; OdeSolve(y''==4*y)
+
+C193 * Exp( -2 * x ) + C195 * Exp( 2 * x )
+</pre></tr>
+</table>
+
+
+<p>
+Solving systems of equations has been implemented using a generalized Gaussian
+elimination scheme:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Solve( {x+y+z==6, 2*x+y+2*z==10, \ 
+In&gt; x+3*y+z==10}, \ 
+In&gt;      {x,y,z} ) [1]
+Out&gt; {4-z,2,z};
+</pre></tr>
+</table>
+(The solution of this underdetermined system is returned as a vector, so <b>x=4-z</b>, <b> y=2</b>, and <b> z</b> remains arbitrary.)
+
+
+<p>
+A small theorem prover [B86] using a resolution principle is offered:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; CanProve(P Or (Not P And Not Q))
+
+Not( Q ) Or P
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; CanProve(a &gt; 3 And a &lt; 2)
+
+False
+</pre></tr>
+</table>
+
+
+<p>
+Various exact and arbitrary-precision numerical algorithms have been
+implemented:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; N(1/7,40);    // evaluate to 40 digits
+Out&gt; 0.1428571428571428571428571428571428571428;
+In&gt; Decimal(1/7);    // obtain decimal period
+Out&gt; {0,{1,4,2,8,5,7}};
+In&gt; N(LnGamma(1.234+2.345*I)); // gamma-function
+Out&gt; Complex(-2.13255691127918,0.70978922847121);
+</pre></tr>
+</table>
+
+
+<p>
+Various domain-specific expression simplifiers are available:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; RadSimp(Sqrt(9+4*Sqrt(2)))
+
+Sqrt( 8 ) + 1
+
+In&gt; TrigSimpCombine(Sin(x)^2+Cos(x)^2)
+
+1
+
+In&gt; TrigSimpCombine(Cos(x/2)^2-Sin(x/2)^2)
+
+Cos( x )
+
+In&gt; GcdReduce((x^2+2*x+1)/(x^2-1),x)
+
+x + 1
+-----
+x - 1
+</pre></tr>
+</table>
+
+
+<p>
+Univariate polynomials are supported in a dense representation, 
+and multivariate polynomials in a sparse representation:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Factor(x^6+9*x^5+21*x^4-5*x^3-54*x^2-12*x+40)
+
+         3            2            
+( x + 2 )  * ( x - 1 )  * ( x + 5 )
+
+In&gt; Apart(1/(x^2-x-2))
+
+      1               1      
+------------- - -------------
+3 * ( x - 2 )   3 * ( x + 1 )
+
+In&gt; Together(%)
+
+         9         
+-------------------
+     2             
+9 * x  - 9 * x - 18
+
+In&gt; Simplify(%)
+
+     1     
+----------
+ 2        
+x  - x - 2
+
+</pre></tr>
+</table>
+
+
+<p>
+Various "syntactic sugar" functions are defined to more easily enter
+expressions:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Ln(x*y) /: { Ln(_a*_b) &lt;- Ln(a) + Ln(b) }
+
+Ln( x ) + Ln( y )
+
+In&gt; Add(x^(1 .. 5))
+
+     2    3    4    5
+x + x  + x  + x  + x 
+
+In&gt; Select("IsPrime", 1 .. 15)
+Out&gt; {2,3,5,7,11,13};
+
+</pre></tr>
+</table>
+Groebner bases [GG99] have been implemented:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Groebner({x*(y-1),y*(x-1)})
+
+/           \
+| x * y - x |
+|           |
+| x * y - y |
+|           |
+| y - x     |
+|           |
+|  2        |
+| y  - y    |
+\           /
+</pre></tr>
+</table>
+(From this it  follows that <b> x=y</b>, and <b> x^2=x</b> so <b> x</b> is <b> 0</b> or <b> 1</b>.)
+
+
+<p>
+Symbolic inverses of matrices:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Inverse({{a,b},{c,d}})
+
+/                                      \
+| /       d       \ /    -( b )     \  |
+| | ------------- | | ------------- |  |
+| \ a * d - b * c / \ a * d - b * c /  |
+|                                      |
+| /    -( c )     \ /       a       \  |
+| | ------------- | | ------------- |  |
+| \ a * d - b * c / \ a * d - b * c /  |
+\                                      /
+</pre></tr>
+</table>
+
+
+<p>
+This list of features is not exhaustive. 
+
+
+<p>
+
+<a name="c1s6">
+
+</a>
+<h2>
+<hr>1.6 Interface
+</h2>
+Currently, <b><tt>Piper</tt></b> is primarily a text-oriented application with interactive
+interface through the text console. Commands are entered and evaluated line by
+line; files containing longer code may be loaded and evaluated. A "notebook"
+interface under the GNU Emacs editor is available. There is also an experimental
+graphical interface (<b><tt>proteus</tt></b>) for Unix and Windows environments.
+
+
+<p>
+Debugging facilities are implemented, allowing to trace execution of a
+function, trace application of a given rule pattern, examine the stack when
+recursion did not terminate, or an online debugger from the
+command line. An experimental debug version of the <b><tt>Piper</tt></b>
+executable that provides more detailed information can be compiled.
+
+
+<p>
+
+<a name="c1s7">
+
+</a>
+<h2>
+<hr>1.7 Documentation
+</h2>
+The documentation for the <b><tt>Piper</tt></b> is extensive and is actively updated, following
+the development of the system. Documentation currently consists of two tutorial
+guides (user's introduction and programmer's introduction), a collection of
+essays that describe some advanced features in more detail, and a full
+reference manual.
+
+
+<p>
+<b><tt>Piper</tt></b> currently comes with its own document formatting module that allows 
+maintenance of documentation in a special plain text format with a minimal 
+markup.
+This text format is automatically converted to HTML, <b>LaTeX</b>, PostScript and
+PDF formats. The HTML version of the documentation is hyperlinked and is used
+as online help available from the <b><tt>Piper</tt></b> prompt.
+
+
+<p>
+
+<a name="c1s8">
+
+</a>
+<h2>
+<hr>1.8 Future plans
+</h2>
+The long-term goal for <b><tt>Piper</tt></b> is to become an industrial-strength CAS and to
+remain a flexible research tool for easy prototyping of various methods of
+symbolic calculations. <b><tt>Piper</tt></b> is meant to be a repository and a
+testbed for such algorithm prototypes.
+
+
+<p>
+The plugin facility will be extended in the future, so that a rich set of extra
+additional libraries (especially free software libraries), system-specific as
+well as mathematics-oriented, should be loadable from the <b><tt>Piper</tt></b> system. The
+issue of speed is also continuously being addressed. 
+
+
+<p>
+
+<a name="c1s9">
+
+</a>
+<h2>
+<hr>1.9 References
+</h2>
+[ASU86] A. Aho, R. Sethi and J. Ullman, <i>Compilers (Principles, Techniques and Tools)</i>, Addison-Wesley, 1986.
+
+
+<p>
+[B86] I. Bratko, <i>Prolog (Programming for Artificial Intelligence)</i>, Addison-Wesley, 1986.
+
+
+<p>
+[BN98] F. Baader and T. Nipkow, <i>Term rewriting and all that</i>, Cambridge University Press, 1998.
+
+
+<p>
+[C86] G. Cooperman, <i>A semantic matcher for computer algebra</i>, in Proceedings of the symposium on symbolic and algebraic computation (1986), Waterloo, Ontario, Canada (ACM Press, NY).
+
+
+<p>
+[F90] R. Fateman, <i>On the design and construction of algebraic manipulation systems</i>, also published as: ACM Proceedings of the ISSAC-90, Tokyo, Japan.
+
+
+<p>
+[GG99] J. von zur Gathen and J. Gerhard, <i>Modern Computer Algebra</i>, Cambridge University Press, 1999.
+
+
+<p>
+[K98] D. Knuth, <i>The Art of Computer Programming (Volume 2, Seminumerical Algorithms)</i>, Addison-Wesley, 1998.
+
+
+<p>
+[TATA99] H. Comon, M. Dauchet, R. Gilleron, F. Jacquemard, D. Lugiez, S. Tison, and M. Tommasi, <i>Tree Automata Techniques and Applications</i>, 1999, online book: <a href="http://www.grappa.univ-lille3.fr/tata">
+http://www.grappa.univ-lille3.fr/tata
+</a>
+
+
+
+<p>
+[W96] S. Wolfram, <i>The Mathematica book</i>, Wolfram Media, Champain, 1996.
+
+
+<p>
+[WH89] P. Winston and B. Horn, <i>LISP</i>, Addison-Wesley, 1989.
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

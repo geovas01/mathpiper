@@ -1,0 +1,663 @@
+<html>
+<head>
+  <title>Evaluation of expressions</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c2">
+
+</a>
+<h1>
+2. Evaluation of expressions
+</h1>
+<p> </p>
+When programming in some language, it helps to have a mental
+model of what goes on behind the scenes when evaluating expressions,
+or in this case simplifying expressions.
+
+
+<p>
+This section aims to explain how evaluation (and simplification)
+of expressions works internally, in <b><tt>Piper</tt></b>.
+
+
+<p>
+
+<a name="c2s1">
+
+</a>
+<h2>
+<hr>2.1 The LISP heritage
+</h2>
+<h3>
+<hr>Representation of expressions
+</h3>
+Much of the inner workings is based on how LISP-like languages
+are built up. When an expression is entered, or composed in some
+fashion, it is converted into a prefix form much like you get
+in LISP:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+a+b    -&gt;    (+ a b)
+Sin(a) -&gt;    (Sin a)
+</pre></tr>
+</table>
+Here the sub-expression is changed into a list of so-called "atoms", 
+where the first atom is a function name of the function to be 
+invoked, and the atoms following are the arguments to be passed in
+as parameters to that function. 
+
+
+<p>
+<b><tt>Piper</tt></b> has the function <b><tt>FullForm</tt></b> to show the internal representation:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FullForm(a+b)
+(+ a b )
+Out&gt; a+b;
+In&gt; FullForm(Sin(a))
+(Sin a )
+Out&gt; Sin(a);
+In&gt; FullForm(a+b+c)
+(+ (+ a b )c )
+Out&gt; a+b+c;
+</pre></tr>
+</table>
+
+
+<p>
+The internal representation is very close to what <b><tt>FullForm</tt></b> shows
+on screen. <b><tt>a+b+c</tt></b> would be <b><tt>(+ (+ a b )c )</tt></b> internally, or:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+()
+|
+|
++  -&gt; () -&gt; c
+       |
+       |
+       + -&gt; a -&gt; b
+</pre></tr>
+</table>
+
+
+<p>
+
+<h3>
+<hr>Evaluation
+</h3>
+An expression like described above is done in the following manner:
+first the arguments are evaluated (if they need to be evaluated,
+<b><tt>Piper</tt></b> can be told to not evaluate certain parameters to functions),
+and only then are these arguments passed in to the function for
+evaluation. They are passed in by binding local variables to the
+values, so these arguments are available as local values.
+
+
+<p>
+For instance, suppose we are evaluating <b><tt>2*3+4</tt></b>. This first gets
+changed to the internal representation <b><tt>(+ (* 2 3 )4 )</tt></b>. Then,
+during evaluation, the top expression refers to function "<b><tt>+</tt></b>".
+Its arguments are <b><tt>(* 2 3)</tt></b> and <b><tt>4</tt></b>. First <b><tt>(* 2 3)</tt></b> gets evaluated.
+This is a function call to the function "<b><tt>*</tt></b>" with arguments <b><tt>2</tt></b>
+and <b><tt>3</tt></b>, which evaluate to themselves. Then the function "<b><tt>*</tt></b>" is
+invoked with these arguments. The <b><tt>Piper</tt></b> standard script library
+has code that accepts numeric input and performs the multiplication
+numerically, resulting in <b><tt>6</tt></b>. 
+
+
+<p>
+The second argument to the top-level "<b><tt>+</tt></b>" is <b><tt>4</tt></b>, which evaluates
+to itself. 
+
+
+<p>
+Now, both arguments to the "<b><tt>+</tt></b>" function have been evaluated, and
+the results are <b><tt>6</tt></b> and <b><tt>4</tt></b>. Now the "<b><tt>+</tt></b>" function is invoked.
+This function also has code in the script library to actually
+perform the addition when the arguments are numeric, so the result
+is 10:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FullForm(Hold(2*3+4))
+(+ (* 2 3 )4 )
+Out&gt; 2*3+4;
+In&gt; 2*3+4
+Out&gt; 10;
+</pre></tr>
+</table>
+
+
+<p>
+Note that in <b><tt>Piper</tt></b>, the script language does not define a "<b><tt>+</tt></b>" function
+in the core. This and other functions are all implemented in the script library.
+The feature "when the arguments to "<b><tt>+</tt></b>" are numeric, perform the numeric
+addition" is considered to be a "policy" which should be configurable.
+It should not be a part of the core language.
+
+
+<p>
+It is surprisingly difficult to keep in mind that evaluation is 
+bottom up, and that arguments are evaluated before the function call
+is evaluated. In some sense, you might feel that the evaluation of the 
+arguments is part of evaluation of the function. It is not. Arguments
+are evaluated before the function gets called.
+
+
+<p>
+Suppose we define the function <b><tt>f</tt></b>, which adds two numbers, and
+traces itself, as:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(a,b):= \
+In&gt; [\
+In&gt; Local(result);\
+In&gt; Echo("Enter f with arguments ",a,b);\
+In&gt; result:=a+b;\
+In&gt; Echo("Leave f with result ",result);\
+In&gt; result;\
+In&gt; ];
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+Then the following interaction shows this principle:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(f(2,3),4)
+Enter f with arguments 2 3 
+Leave f with result 5 
+Enter f with arguments 5 4 
+Leave f with result 9 
+Out&gt; 9;
+</pre></tr>
+</table>
+
+
+<p>
+The first Enter/Leave combination is for <b><tt>f(2,3)</tt></b>, and only then is
+the outer call to <b><tt>f</tt></b> entered.
+
+
+<p>
+This has important consequences for the way <b><tt>Piper</tt></b> simplifies
+expressions: the expression trees are traversed bottom up, as 
+the lowest parts of the expression trees are simplified first,
+before being passed along up to the calling function. 
+
+
+<p>
+
+<a name="c2s2">
+
+</a>
+<h2>
+<hr>2.2 <b><tt>Piper</tt></b>-specific extensions for CAS implementations
+</h2>
+<b><tt>Piper</tt></b> has a few language features specifically designed for use
+when implementing a CAS.
+
+
+<p>
+
+<h3>
+<hr>The transformation rules
+</h3>
+Working with transformation rules is explained in the introduction
+and tutorial book. This section mainly deals with how <b><tt>Piper</tt></b>
+works with transformation rules under the hood.
+
+
+<p>
+A transformation rule consists of two parts: a condition that
+an expression should match, and a result to be substituted for
+the expression if the condition holds. The most common way
+to specify a condition is a pattern to be matched to an expression.
+
+
+<p>
+A pattern is again simply an expression, stored in internal format:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FullForm(a_IsInteger+b_IsInteger*(_x))
+(+ (_ a IsInteger )(* (_ b IsInteger )(_ x )))
+Out&gt; a _IsInteger+b _IsInteger*_x;
+</pre></tr>
+</table>
+
+
+<p>
+<b><tt>Piper</tt></b> maintains structures of transformation rules, and tries
+to match them to the expression being evaluated. It first tries
+to match the structure of the pattern to the expression. In the above
+case, it tries to match to <b><tt>a+b*x</tt></b>. If this matches, local variables
+<b><tt>a</tt></b>, <b><tt>b</tt></b> and <b><tt>x</tt></b> are declared and assigned the sub-trees of the expression
+being matched. Then the predicates are tried on each of them: in this
+case, <b><tt>IsInteger(a)</tt></b> and <b><tt>IsInteger(b)</tt></b> should both return <b><tt>True</tt></b>.
+
+
+<p>
+Not shown in the above case, are post-predicates. They get evaluated
+afterwards. This post-predicate must also evaluate to <b><tt>True</tt></b>.
+If the structure of the expression matches the structure of the 
+pattern, and all predicates evaluate to <b><tt>True</tt></b>, the pattern matches
+and the transformation rule is applied, meaning the right hand side
+is evaluated, with the local variables mentioned in the pattern
+assigned. This evaluation means all transformation rules are re-applied
+to the right-hand side of the expression.
+
+
+<p>
+Note that the arguments to a function are evaluated first, and only
+then is the function itself called. So the arguments are evaluated,
+and then the transformation rules applied on it. The main function
+defines its parameters also, so these get assigned to local variables
+also, before trying the patterns with their associated local variables.
+
+
+<p>
+Here is an example making the fact that the names in a pattern are
+local variables more explicit:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f1(_x,_a) &lt;-- x+a
+Out&gt; True;
+In&gt; f2(_x,_a) &lt;-- [Local(a); x+a;];
+Out&gt; True;
+In&gt; f1(1,2)
+Out&gt; 3;
+In&gt; f2(1,2)
+Out&gt; a+1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h3>
+<hr>Using different rules in different cases
+</h3>
+In a lot of cases, the algorithm to be invoked depends on the type
+of the arguments. Or the result depends on the form of the input
+expression. This results in the typical "case" or "switch" statement,
+where the code to evaluate to determine the result depends on the 
+form of the input expression, or the type of the arguments, or some other conditions.
+
+
+<p>
+<b><tt>Piper</tt></b> allows to define several transformation rules
+for one and the same function, if the rules are to be applied under different conditions.
+
+
+<p>
+Suppose the function
+<b><tt>f</tt></b> is defined, a factorial function:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+10 # f(0) &lt;-- 1;
+20 # f(n_IsPositiveInteger) &lt;-- n*f(n-1);
+</pre></tr>
+</table>
+
+
+<p>
+Then interaction can look like:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(3)
+Out&gt; 6;
+In&gt; f(a)
+Out&gt; f(a);
+</pre></tr>
+</table>
+
+
+<p>
+If the left hand side is matched by the expression being considered,
+then the right hand side is evaluated. A subtle but important thing
+to note is that this means that the whole body of transformation rules
+is thus re-applied to the right-hand side of the <b><tt>&lt;--</tt></b> operator.
+
+
+<p>
+Evaluation goes bottom-up, evaluating (simplifying) the lowest parts
+of a tree first, but for a tree that matches a transformation rule,
+the substitution essentially means return the result of evaluating the
+right-hand side. Transformation rules are re-applied, on the right hand
+side of the transformation rule, and the original expression can be thought
+of as been substituted by the result of evaluating this right-hand side,
+which is supposed to be a "simpler" expression, or a result closer to what
+the user wants.
+
+
+<p>
+Internally, the function <b><tt>f</tt></b> is built up to resemble the following
+pseudo-code:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+f(n)
+{
+   if (n = 1)
+     return 1;
+   else if (IsPositiveInteger(n))
+     return n*f(n-1);
+   else return f(n) unevaluated;
+}
+</pre></tr>
+</table>
+
+
+<p>
+The transformation rules are thus combined into one big 
+statement that gets executed, with each transformation 
+rule being a if-clause in the statement to be evaluated.
+Transformation rules can be spread over different files,
+and combined in functional groups. This adds to the readability.
+The alternative is to write the full body of each function as
+one big routine, which becomes harder to maintain as the function
+becomes larger and larger, and hard or impossible to extend.
+
+
+<p>
+One nice feature is that functionality is easy to extend without
+modifying the original source code:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Ln(x*y)
+Out&gt; Ln(x*y);
+In&gt; Ln(_x*_y) &lt;-- Ln(x) + Ln(y)
+Out&gt; True;
+In&gt; Ln(x*y)
+Out&gt; Ln(x)+Ln(y);
+</pre></tr>
+</table>
+
+
+<p>
+This is generally not advisable, due to the fact that it alters
+the behavior of the entire system. But it can be useful in some
+instances. For instance, when introducing a new function <b><tt>f(x)</tt></b>,
+one can decide to define a derivative explicitly, and a way
+to simplify it numerically:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(_x)_InNumericMode() &lt;-- Exp(x)
+Out&gt; True;
+In&gt; (Deriv(_x)f(_y)) &lt;-- f(y)*(Deriv(x)y);
+Out&gt; True;
+In&gt; f(2)
+Out&gt; f(2);
+In&gt; N(f(2))
+Out&gt; 7.3890560989;
+In&gt; Exp(2)
+Out&gt; Exp(2);
+In&gt; N(Exp(2))
+Out&gt; 7.3890560989;
+In&gt; D(x)f(a*x)
+Out&gt; f(a*x)*a;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h3>
+<hr>The "Evaluation is Simplification" hack
+</h3>
+One of the ideas behind the <b><tt>Piper</tt></b> scripting language is that evaluation
+is used for simplifying expressions.
+One consequence of this is that
+objects can be returned unevaluated when they can not be simplified
+further. This happens to variables that are not assigned, functions that
+are not defined, or function invocations where the arguments passed
+in as parameters are not actually handled by any code in the scripts.
+An integral that can not be performed by <b><tt>Piper</tt></b> should be returned 
+unevaluated:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 2+3
+Out&gt; 5;
+In&gt; a+b
+Out&gt; a+b;
+In&gt; Sin(a)
+Out&gt; Sin(a);
+In&gt; Sin(0)
+Out&gt; 0;
+In&gt; Integrate(x)Ln(x)
+Out&gt; x*Ln(x)-x;
+In&gt; Integrate(x)Ln(Sin(x))
+Out&gt; Integrate(x)Ln(Sin(x));
+In&gt; a!
+Out&gt; a!;
+In&gt; 3!
+Out&gt; 6;
+</pre></tr>
+</table>
+
+
+<p>
+Other languages usually do not allow evaluation of unbound variables,
+or undefined functions. In <b><tt>Piper</tt></b>, these are interpreted as some yet
+undefined global variables or functions, and returned unevaluated.
+
+
+<p>
+
+<a name="c2s3">
+
+</a>
+<h2>
+<hr>2.3 Destructive operations
+</h2>
+<b><tt>Piper</tt></b> tries to keep as few copies of objects in memory as
+possible. Thus when assigning the value of one variable to another,
+a reference is copied, and both variables refer to the same memory,
+physically. This is relevant for programming; for example, one
+should use <b><tt>FlatCopy</tt></b> to actually make a new copy of an object.
+Another feature relevant to reference semantics is "destructive 
+operations"; these are functions that modify their arguments rather than work on a copy. Destructive operations on lists are generally recognized 
+because their name starts with "Destructive",
+e.g. <b><tt>DestructiveDelete</tt></b>. One other destructive
+operation is assignment of a list element through <b><tt>list[index] := ...</tt></b>.
+
+
+<p>
+Some examples to illustrate destructive operations on lists:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x1:={a,b,c}
+Out&gt; {a,b,c};
+</pre></tr>
+</table>
+A list <b><tt>x1</tt></b> is created.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FullForm(x1)
+(List a b c )
+Out&gt; {a,b,c};
+In&gt; x2:=z:x1
+Out&gt; {z,a,b,c};
+</pre></tr>
+</table>
+A new list <b><tt>x2</tt></b> is <b><tt>z</tt></b> appended to <b><tt>x1</tt></b>. The <b><tt>:</tt></b> operation creates a copy of <b><tt>x1</tt></b> before appending, so <b><tt>x1</tt></b> is unchanged by this.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FullForm(x2)
+(List z a b c )
+Out&gt; {z,a,b,c};
+In&gt; x2[1]:=y
+Out&gt; True;
+</pre></tr>
+</table>
+We have modified the first element of <b><tt>x2</tt></b>, but <b><tt>x1</tt></b> is still the same.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x2
+Out&gt; {y,a,b,c};
+In&gt; x1
+Out&gt; {a,b,c};
+In&gt; x2[2]:=A
+Out&gt; True;
+</pre></tr>
+</table>
+We have modified the second element of <b><tt>x2</tt></b>, but <b><tt>x1</tt></b> is still the same.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x2
+Out&gt; {y,A,b,c};
+In&gt; x1
+Out&gt; {a,b,c};
+In&gt; x2:=x1
+Out&gt; {A,b,c};
+</pre></tr>
+</table>
+Now <b><tt>x2</tt></b> and <b><tt>x1</tt></b> refer to the same list.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x2[1]:=A
+Out&gt; True;
+</pre></tr>
+</table>
+We have modified the first element of <b><tt>x2</tt></b>, and <b><tt>x1</tt></b> is also modified.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x2
+Out&gt; {A,b,c};
+In&gt; x1
+Out&gt; {A,b,c};
+</pre></tr>
+</table>
+
+
+<p>
+A programmer should always be cautious when dealing with 
+destructive operations. Sometimes it is not desirable to 
+change the original expression.
+The language deals with it this way because of performance considerations.
+Operations can be made non-destructive by using <b><tt>FlatCopy</tt></b>:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x1:={a,b,c}
+Out&gt; {a,b,c};
+In&gt; DestructiveReverse(x1)
+Out&gt; {c,b,a};
+In&gt; x1
+Out&gt; {a};
+In&gt; x1:={a,b,c}
+Out&gt; {a,b,c};
+In&gt; DestructiveReverse(FlatCopy(x1))
+Out&gt; {c,b,a};
+In&gt; x1
+Out&gt; {a,b,c};
+</pre></tr>
+</table>
+
+
+<p>
+<b><tt>FlatCopy</tt></b> copies the elements of an expression only at the top level of nesting.
+This means that if a list contains sub-lists, they are not copied, but
+references to them are copied instead:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; dict1:={}
+Out&gt; {};
+In&gt; dict1["name"]:="John";
+Out&gt; True;
+In&gt; dict2:=FlatCopy(dict1)
+Out&gt; {{"name","John"}};
+In&gt; dict2["name"]:="Mark";
+Out&gt; True;
+In&gt; dict1
+Out&gt; {{"name","Mark"}};
+</pre></tr>
+</table>
+
+
+<p>
+A workaround for this is to use <b><tt>Subst</tt></b> to copy the entire tree:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; dict1:={}
+Out&gt; {};
+In&gt; dict1["name"]:="John";
+Out&gt; True;
+In&gt; dict2:=Subst(a,a)(dict1)
+Out&gt; {{"name","John"}};
+In&gt; dict2["name"]:="Mark";
+Out&gt; True;
+In&gt; dict1
+Out&gt; {{"name","John"}};
+In&gt; dict2
+Out&gt; {{"name","Mark"}};
+</pre></tr>
+</table>
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

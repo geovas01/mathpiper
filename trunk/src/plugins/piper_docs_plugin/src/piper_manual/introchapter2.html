@@ -1,0 +1,444 @@
+<html>
+<head>
+  <title>Examples</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c2">
+
+</a>
+<h1>
+2. Examples
+</h1>
+<p> </p>
+This is a small tour of the capabilities <b><tt>Piper</tt></b> currently offers. Note
+that this list of examples is far from complete. <b><tt>Piper</tt></b> contains a few
+hundred commands, of which only a few are shown here.
+
+
+<p>
+Additional example calculations including the results can be found
+here:
+
+
+<p>
+<ul><li>A selection of calculations from the </li><a href="essayschapter2.html#c2">
+Wester benchmark
+</a>
+.
+<li>Some additional </li><a href="mybench2.html">
+example calculations
+</a>
+ that <b><tt>Piper</tt></b> can currently perform.
+</ul>
+
+<p>
+
+<a name="c2s1">
+
+</a>
+<h2>
+<hr>2.1 Using Piper from the console
+</h2>
+<h3>
+<hr>Command-line options
+</h3>
+
+<p>
+
+<a name="command-line options!summary">
+
+</a>
+The default operation of <b><tt>Piper</tt></b> is to run in the interactive console mode. <b><tt>Piper</tt></b> accepts several options that modify its operation.
+Here is a summary of options:
+
+
+<p>
+<ul><li></li><i>filename</i> ... (read and execute a file or several files)
+<li></li><b><tt>-c</tt></b> (omit line prompts)
+<li></li><b><tt>-d</tt></b> (print default directory)
+<li></li><b><tt>-v</tt></b> (print version information)
+<li></li><b><tt>-f</tt></b> (execute standard input as one statement)
+<li></li><b><tt>-p</tt></b> (do not use terminal capabilities)
+<li></li><b><tt>-t</tt></b> (enable extra history features)
+<li></li><b><tt>--archive</tt></b> <i>filename</i> (use a given library archive file)
+<li></li><b><tt>--init</tt></b> <i>filename</i> (use a given initial file)
+<li></li><b><tt>--patchload</tt></b> (use <b><tt>PatchLoad</tt></b> to load files)
+<li></li><b><tt>--read-eval-print</tt></b> <i>expression</i> (call this expression for the read-eval-print loop)
+<li></li><b><tt>--rootdir</tt></b> <i>directory</i> (specify default directory for scripts)
+<li></li><b><tt>--server</tt></b> <i>port</i> (start <b><tt>Piper</tt></b> as a network server on given port)
+<li></li><b><tt>--single-user-server</tt></b> (If in server mode, start it in single-user mode)
+<li></li><b><tt>--verbose-debug</tt></b> (turn on showing some additional debugging information on screen)
+<li></li><b><tt>--disable-compiled-plugins</tt></b> (disable loading of compiled plugins, loading the script versions instead)
+<li></li><b><tt>--stacksize</tt></b> <i>size</i> (change size of stack arguments are stored on)
+<li></li><b><tt>--execute</tt></b> <i>expression</i> (run expression from the command line)
+</ul>
+
+<p>
+Options can be combined, for example
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper -pc filename
+</pre></tr>
+</table>
+will read and execute the file <b><tt>filename</tt></b> non-interactively without using terminal capabilities and without printing prompts.
+
+
+<p>
+Here is a more detailed description of the command-line options.
+
+
+<p>
+
+<a name="command-line options">
+
+</a>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper -c
+</pre></tr>
+</table>
+Inhibit printing of prompts <b><tt>In&gt;</tt></b> and <b><tt>Out&gt;</tt></b>. Useful for non-interactive sessions.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper -f
+</pre></tr>
+</table>
+Reads standard input as one file, but executes only the first statement in it. (You may want to use a statement block to have several statements executed.)
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper -p
+</pre></tr>
+</table>
+Does not use terminal capabilities, no fancy editing on the command line and no escape sequences printed. Useful for non-interactive sessions.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper -t
+</pre></tr>
+</table>
+Enable some extra history recall functionality in console mode: after executing a command from the history list, the next unmodified command from the history list will be automatically entered on the command line.
+
+
+<p>
+
+<a name="executing script files">
+
+</a>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper [options] {filename}
+</pre></tr>
+</table>
+Reads and executes commands in the filename and exits. Equivalent to <b><tt>Load()</tt></b>.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper -v
+</pre></tr>
+</table>
+Prints version information and exits.
+(This is the same information as returned by <b><tt>Version()</tt></b>.)
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper -d
+</pre></tr>
+</table>
+Prints the path to the <b><tt>Piper</tt></b> default library directory (this information is compiled into the <b><tt>Piper</tt></b> executable) and exits.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --patchload
+</pre></tr>
+</table>
+Will load every file on the command line with the <b><tt>PatchLoad</tt></b> command instead of the normal <b><tt>Load</tt></b> command,
+This is useful for generating HTML pages for a
+web site using the <b><tt>Piper</tt></b> scripting language, much like you can do with
+the PHP scripting language.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --init [file]
+</pre></tr>
+</table>
+Tells the system to load <b><tt>file</tt></b> as the initialization file. By default
+it loads the file <b><tt>piperinit.pi</tt></b> from the scripts directory. Thus for
+customization one has two options: write a <b><tt>~/.piperrc</tt></b> file
+with initialization code (as it is loaded after the initialization
+script is loaded), or write a custom initialization script that first
+uses <b><tt>piperinit.pi</tt></b> and adds some extra custom code.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --read-eval-print [expression]
+</pre></tr>
+</table>
+Call <b><tt>expression</tt></b> for the read-eval-print loop. The default 
+read-eval-print loop is implemented in the initialization 
+script <b><tt>piperinit.pi</tt></b> as the function <b><tt>REP</tt></b>.
+The default behavior is therefore equivalent to <b><tt>--read-eval-print</tt></b> <b><tt>REP()</tt></b>.
+
+
+<p>
+There is also a fallback read-eval-print
+loop in the kernel; it can be invoked by passing an empty
+string to this command line option, as <b><tt>--read-eval-print ""</tt></b>.
+
+
+<p>
+An alternative way to replace the default read-eval-print
+loop is to write a custom initialization script that implements
+the read-eval-print loop function <b><tt>REP()</tt></b> instead of <b><tt>piperinit.pi</tt></b>.
+
+
+<p>
+Care has to be taken with this option because a Piper session may
+become unusable if the read-eval-print expression doesn't function correctly.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --server &lt;port&gt;
+</pre></tr>
+</table>
+On some platforms server mode can be enabled at build time by passing the
+flag <b><tt>--enable-server</tt></b> to the <b><tt>./configure</tt></b> script. <b><tt>Piper</tt></b>
+then allows you to pass the flag <b><tt>--server</tt></b> with a port number
+behind it, and the <b><tt>Piper</tt></b> executable will listen to the socket
+behind that port instead of waiting for user input on the console.
+
+
+<p>
+Commands can be sent to the server by sending a text line as
+one block of data, and the server will respond back with another text block. 
+
+
+<p>
+One can test this function by using <b><tt>telnet</tt></b>. First, set up
+the server by calling
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --server 9734
+</pre></tr>
+</table>
+and then invoke <b><tt>telnet</tt></b> in another window, for example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+telnet 127.0.0.1 9734
+</pre></tr>
+</table>
+Then type a line of Piper input and hit Enter.
+The result will be one line that you will get back from the Piper server.
+
+
+<p>
+Some security measures and resource management measures have been 
+taken. No more than 10 connections can be alive at any time, 
+a calculation cannot take more than 30 seconds, and <b><tt>Piper</tt></b>
+operates in the <i>secure</i> mode, much like calling an expression
+by passing it as an argument to the <b><tt>Secure</tt></b> function.
+This means that no system calls are allowed, and no writing to
+local files, amongst other things. Something that has not been 
+taken care of yet is memory use. A calculation could take up all
+memory, but not for longer than 30 seconds. 
+
+
+<p>
+The server is single-threaded, but has persistent sessions for
+at most 10 users at a time, from which it can service requests
+in a sequential order. To make the service multi-threaded, a
+solution might be to have a proxy in front of the service listening
+to the port, redirecting it to different processes which get
+started up for users (this has not been tried yet).
+
+
+<p>
+The flag --single-user-server can be passed on to instruct <b><tt>piper</tt></b>
+to start in single-user mode. In this mode, unsecure operations can
+be performed (like reading from and writing to files), and the calculation
+may take more than 30 seconds. The <b><tt>piper</tt></b> process will automatically be
+shut down when the last session is closed or when "Exit();" is sent.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --rootdir [directory]
+</pre></tr>
+</table>
+Tells the system where to find the library scripts. Here, <b><tt>directory</tt></b> is a
+path that is passed to <b><tt>DefaultDirectory</tt></b>. It is also possible to give a
+list of directories, separated by a colon, e.g. 
+<b><tt>piper --rootdir scripts/:morescripts/</tt></b>.
+Note that it is not necessary to append a trailing slash to the directory names.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --archive [file]
+</pre></tr>
+</table>
+Use a compressed archive instead of the script library.
+
+
+<p>
+
+<a name="using compressed libraries">
+
+</a>
+<b><tt>Piper</tt></b> has an experimental system where files can be compressed into
+one file, and accessed through this command line option. The advantages
+are:
+
+
+<p>
+<ul><li>Smaller disk/memory use (useful if </li><b><tt>Piper</tt></b> is used on small hand-held computers).
+<li>No problems with directory path separators: "</li><b><tt>path</tt></b>/<b><tt>file</tt></b>" will always
+resolve to the right file, no matter what platform (read: Windows) it runs on.
+<li>The start-up time of the program might improve a little, since 
+a smaller file is loaded from disk (disk access being slow), and then decompressed
+in memory, which might be a lot faster than loading from disk.
+</li></ul>
+
+<p>
+An additional savings is due to the fact that the script files are 
+stripped from white spaces and comments, making them smaller and faster loading.
+
+
+<p>
+To prepare the compressed library archive, run <b><tt>./configure</tt></b>
+with the command line option <b><tt>--enable-archive</tt></b>.
+
+
+<p>
+The result should be the archive file <b><tt>scripts.dat</tt></b>.
+Then launch <b><tt>Piper</tt></b> with the command line option <b><tt>--archive scripts.dat</tt></b>,
+with the file <b><tt>scripts.dat</tt></b> in the current directory.
+
+
+<p>
+The reason that the <b><tt>scripts.dat</tt></b> file is not built automatically is
+that it is not tested, at this time, that the build process works on all
+platforms.
+(Right now it works on Unix, MacOSX, and Win32.)
+
+
+<p>
+Alternatively, configure Piper with
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+./configure --enable-archive
+</pre></tr>
+</table>
+and the archive file <b><tt>scripts.dat</tt></b> will be created in the <b><tt>ramscripts/</tt></b>
+subdirectory.
+
+
+<p>
+When an archive is present, Piper will try to load it before it looks for scripts from the library directories.
+Typing 
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+make archivetest -f makefile.compressor
+</pre></tr>
+</table>
+in the <b><tt>ramscripts/</tt></b> directory runs all the test scripts using the archived
+files.
+
+
+<p>
+The currently supported compression schemes are uncompressed
+and compressed with <b><tt>minilzo</tt></b>. Script file stripping (removing whitespace
+and comments) may be disabled by editing <b><tt>compressor.cpp</tt></b> (variable <b><tt>strip_script</tt></b>).
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --disable-compiled-plugins
+</pre></tr>
+</table>
+
+
+<p>
+Disable loading of compiled scripts, in favor of scripts themselves.
+This is useful when developing the scripts that need to be compiled
+in the end, or when the scripts have not been compiled yet.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --stacksize &lt;size&gt;
+</pre></tr>
+</table>
+Piper maintains an internal stack for arguments. For nested function calls, all arguments currently used are on this stack. The size of this stack is
+50000 be  default. 
+
+
+<p>
+For a function that would take 4 arguments and has one return value, there would be 5 places reserved on this stack, and the function could call itself recursively 10000 steps deep.
+
+
+<p>
+This differs from the MaxEvalDepth mechanism. The MaxEvalDepth mechanism
+allows one to specify the number of separate stack frames (number of calls, 
+nested), instead of the number of arguments pushed on the stack. MaxEvalDepth
+was introduced to protect the normal <b><tt>C++</tt></b> stack.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+piper --execute &lt;expression&gt;
+</pre></tr>
+</table>
+This instructs Piper to run a certain expression, passed in over the command line, before dropping to the read-eval-print loop. This can be used to load a file before dropping to the command line without exiting (if there are files to run specified on the command line, Piper will exit after running these scripts). Alternatively, the expression can exit the interpreter immediately by calling <b><tt>Exit();</tt></b>. When used in combination with <b><tt>-pc</tt></b>, the Piper interpreter can be used to calculate something and print the result to standard output. Example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+user% ./piper -pc --execute '[Echo("answer ",D(x)Sin(x));Exit();]'
+answer Cos(x) 
+user% 
+</pre></tr>
+</table>
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,394 @@
+<html>
+<head>
+  <title>M. Wester's CAS benchmark and <b><tt>Piper</tt></b></title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c2">
+
+</a>
+<h1>
+2. M. Wester's CAS benchmark and <b><tt>Piper</tt></b>
+</h1>
+<p> </p>
+In his 1994 paper <i>Review of CAS mathematical capabilities</i>, Michael Wester has put forward 123 problems that a reasonable computer algebra system should be able to solve and tested the then current versions of various commercial CAS on this list.
+
+
+<p>
+Below is the list of Wester's problems with the corresponding <b><tt>Piper</tt></b> code. "OK" means a satisfactory solution, "BUG" means that <b><tt>Piper</tt></b> gives a wrong solution or breaks down, "NO" means that the relevant functionality is not yet implemented.
+
+
+<p>
+<b><tt>Piper</tt></b> version:
+
+1.2.1
+
+<p>
+<ul><li>(OK) </li><b>50!</b>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(25!, 15511210043330985984000000);
+Verify(50!, (26***50)*25!);
+</pre></tr>
+</table>
+<li>(OK) Factorize </li><b>50!</b>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Factors(50!), {{2,47},{3,22},{5,12},
+  {7,8},{11,4},{13,3},{17,2},{19,2},{23,2},
+  {29,1},{31,1},{37,1},{41,1},{43,1},{47,1}});
+</pre></tr>
+</table>
+<li>(OK) </li><b>1/2+...+1/10=4861/2520</b>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Sum(n,2,10,1/n) , 4861/2520);
+</pre></tr>
+</table>
+<li>(OK) Evaluate </li><b> e^(Pi*Sqrt(163))</b> to 50 decimal digits
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(N(1000000000000*(-262537412640768744 +
+  Exp(Pi*Sqrt(163))), 50)&gt; -0.75, True);
+</pre></tr>
+</table>
+<li>(OK) Evaluate the Bessel function </li><b>J[2]</b> numerically at <b>z=1+I</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+NumericEqual(N(BesselJ(2, 1+I)),
+  0.4157988694e-1+I*0.2473976415,Builtin'Precision'Get());
+</pre></tr>
+</table>
+<li>(OK) Obtain period of decimal fraction 1/7=0.(142857).
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Decimal(1/7), {0,{1,4,2,8,5,7}});
+</pre></tr>
+</table>
+<li>Continued fraction of 3.1415926535.
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify([Local(p,r);p:=Builtin'Precision'Get();Builtin'Precision'Set(12);r:=ContFracList(3.1415926535, 6);Builtin'Precision'Set(p);r;],
+  {3,7,15,1,292,1});
+</pre></tr>
+</table>
+<li>(OK) </li><b> Sqrt(2*Sqrt(3)+4)=1+Sqrt(3)</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(RadSimp(Sqrt(2*Sqrt(3)+4)), 1+Sqrt(3));
+</pre></tr>
+</table>
+<li>(OK) </li><b>Sqrt(14+3*Sqrt(3+2*Sqrt(5-12*Sqrt(3-2*Sqrt(2)))))=3+Sqrt(2)</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(RadSimp(Sqrt(14+3*Sqrt(3+2*Sqrt(5-12
+  *Sqrt(3-2*Sqrt(2)))))), 3+Sqrt(2));
+</pre></tr>
+</table>
+<li>(OK) </li><b>2*Infinity-3=Infinity</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(2*Infinity-3, Infinity);
+</pre></tr>
+</table>
+<li>(NO) Standard deviation of the sample (1, 2, 3, 4, 5).
+</li><li>(NO) Hypothesis testing with </li><b> t</b>-distribution.
+<li>(NO) Hypothesis testing with normal distribution (M. Wester probably meant the </li><b> chi^2</b> distribution).
+<li>(OK) </li><b>(x^2-4)/(x^2+4*x+4)=(x-2)/(x+2)</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(GcdReduce((x^2-4)/(x^2+4*x+4),x),
+  (x-2)/(x+2));
+</pre></tr>
+</table>
+<li>(NO) </li><b>(Exp(x)-1)/(Exp(x/2)+1)=Exp(x/2)-1</b>.
+<li>(OK) Expand </li><b>(1+x)^20</b>, take derivative and factorize.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Factor(D(x) Expand((1+x)^20));
+</pre></tr>
+</table>
+<li>(BUG/NO) Factorize </li><b> x^100-1</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Factor(x^100-1);
+</pre></tr>
+</table>
+(returns the same expression unfactorized)
+<li>(NO) Factorize </li><b> x^4-3*x^2+1</b> in the field of rational numbers extended by roots of <b> x^2-x-1</b>.
+<li>(NO) Factorize </li><b> x^4-3*x^2+1</b> mod 5.
+<li>(BUG) Partial fraction decomposition of </li><b>(x^2+2*x+3)/(x^3+4*x^2+5*x+2)</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Apart((x^2+2*x+3)/(x^3+4*x^2+5*x+2), x);
+</pre></tr>
+</table>
+(does not obtain full partial fraction representation for higher-degree polynomials, e.g. <b>p(x)</b>/<b>(x+a)^n</b>)
+<li>(NO) Assuming </li><b> x&gt;=y</b>, <b> y&gt;=z</b>, <b> z&gt;=x</b>, deduce <b> x=z</b>.
+<li>(NO) Assuming </li><b> x&gt;y</b>, <b> y&gt;0</b>, deduce <b> 2*x^2&gt;2*y^2</b>.
+<li>(NO) Solve the inequality </li><b> Abs(x-1)&gt;2</b>.
+<li>(NO) Solve the inequality </li><b>(x-1)*...*(x-5)&lt;0</b>.
+<li>(NO) </li><b> Cos(3*x)/Cos(x)=Cos(x)^2-3*Sin(x)^2</b> or similar equivalent combination.
+<li>(NO) </li><b> Cos(3*x)/Cos(x)=2*Cos(2*x)-1</b>.
+<li>(OK) Define rewrite rules to match </li><b> Cos(3*x)/Cos(x)=Cos(x)^2-3*Sin(x)^2</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Cos(3*_x)/Cos(_x) &lt;-- Cos(x)^2-3*Sin(x)^2;
+</pre></tr>
+</table>
+<li>(OK) </li><b> Sqrt(997)-997^3^(1/6)=0</b>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(RadSimp(Sqrt(997)-(997^3)^(1/6)), 0);
+</pre></tr>
+</table>
+<li>(OK) </li><b> Sqrt(99983)-99983^3^(1/6)=0</b>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(RadSimp(Sqrt(99983)-(99983^3)^(1/6))
+  , 0);
+</pre></tr>
+</table>
+<li>(OK) </li><b>(2^(1/3)+4^(1/3))^2-6*(2^(1/3)+4^(1/3))-6=0</b>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(RadSimp((2^(1/3)+4^(1/3))^3-6*(2^(1/3)+
+  4^(1/3))-6), 0);
+</pre></tr>
+</table>
+<li>(NO) </li><b> Ln(Tan(x/2+Pi/4))-ArcSinh(Tan(x))=0</b>
+<li>(NO) Numerically, the expression </li><b> Ln(Tan(x/2+Pi/4))-ArcSinh(Tan(x))=0</b> and its derivative at <b> x=0</b> are zero.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Ln(Tan(x/2+Pi/4))-ArcSinh(Tan(x));
+D(x)(Ln(Tan(x/2+Pi/4))-ArcSinh(Tan(x)));
+</pre></tr>
+</table>
+<li>(NO) </li><b> Ln((2*Sqrt(r)+1)/Sqrt(4*r+4*Sqrt(r)+1))=0</b>.
+<li>(NO) </li><b>(4*r+4*Sqrt(r)+1)^(Sqrt(r)/(2*Sqrt(r)+1))*(2*Sqrt(r)+1)^(2*Sqrt(r)+1)^(-1)-2*Sqrt(r)-1=0</b>, assuming <b> r&gt;0</b>.
+<li>(OK) Obtain real and imaginary parts of </li><b> Ln(3+4*I)</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(
+  Hold({ {x}, {Re(x), Im(x)}}) @ Ln(3+4*I)
+  , {Ln(5),ArcTan(4/3)});
+</pre></tr>
+</table>
+<li>(BUG) Obtain real and imaginary parts of </li><b>Tan(x+I*y)</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Hold({ {x}, {Re(x), Im(x)}}) @ Tan(x+I*y);
+</pre></tr>
+</table>
+<li>(BUG) Simplify </li><b>Ln(Exp(z))</b> to <b>z</b> for <b>-Pi&lt;Im(z)&lt;=Pi</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Simplify(Ln(Exp(z))), z);
+</pre></tr>
+</table>
+(no conditions on <b> z</b> are used)
+<li>(NO) Assuming </li><b> Re(x)&gt;0</b>, <b> Re(y)&gt;0</b>, deduce <b> x^(1/n)*y^(1/n)-(x*y)^(1/n)=0</b>.
+<li>(NO) Transform equations, </li><b>(x==2)/2+(1==1)=&gt;x/2+1==2</b>.  
+<li>(BUG) Solve </li><b> Exp(x)=1</b> and get all solutions.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Solve(Exp(x)==1,x), {x==0});
+</pre></tr>
+</table>
+(get only one solution)
+<li>(BUG) Solve </li><b> Tan(x)=1</b> and get all solutions.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Solve(Tan(x)==1,x), {x==Pi/4});
+</pre></tr>
+</table>
+(get only one solution)
+<li>(OK) Solve a degenerate 3x3 linear system.
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Simplify({x+y+z==6,2*x+y+2*z==10,x+3*y+z==10} Where Solve({x+y+z==6, 2*x+y+2*z==10,x+3*y+z==10}, {x,y,z})), {{0==0,0==0,0==0}});
+</pre></tr>
+</table>
+(the new routine <b><tt>Solve</tt></b> cannot do this yet)
+<li>(OK) Invert a 2x2 symbolic matrix.
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Simplify(Inverse({{a,b},{1,a*b}})),
+  {{a/(a^2-1), -1/(a^2-1)},
+  {-1/(b*(a^2-1)), a/(b*(a^2-1))}});
+</pre></tr>
+</table>
+<li>(BUG) Compute the determinant of the 4x4 Vandermonde matrix.
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Factor(Determinant(VandermondeMatrix
+  ({a,b,c,d})));
+</pre></tr>
+</table>
+(this does not factor correctly)
+<li>(OK) Find eigenvalues of a 3x3 integer matrix.
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(EigenValues({{5,-3,-7},{-2,1,2},
+  {2,-3,-4}}) , {1,3,-2});
+</pre></tr>
+</table>
+<li>(OK) Verify some standard limits found by L'Hopital's rule:
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Limit(x,Infinity) (1+1/x)^x, Exp(1));
+Verify(Limit(x,0) (1-Cos(x))/x^2, 1/2);
+</pre></tr>
+</table>
+<li>(OK) </li><b> D(x)Abs(x)</b>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(D(x) Abs(x), Sign(x));
+</pre></tr>
+</table>
+<li>(OK) </li><b>(Integrate(x)Abs(x))=Abs(x)*x/2</b>
+</ul>
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Simplify(Integrate(x) Abs(x)),
+  Abs(x)*x/2);
+</pre></tr>
+</table>
+<ul><li>(OK) Compute derivative of </li><b> Abs(x)</b>, piecewise defined.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(D(x)if(x&lt;0) (-x) else x,
+  Simplify(if(x&lt;0) -1 else 1));
+</pre></tr>
+</table>
+<li>(OK) Integrate </li><b>Abs(x)</b>, piecewise defined.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Simplify(Integrate(x)
+  if(x&lt;0) (-x) else x),
+  Simplify(if(x&lt;0) (-x^2/2) else x^2/2));
+</pre></tr>
+</table>
+<li>(OK) Taylor series of </li><b>1/Sqrt(1-v^2/c^2)</b> at <b>v=0</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+S := Taylor(v,0,4) 1/Sqrt(1-v^2/c^2);
+TestPiper(S, 1+v^2/(2*c^2)+3/8*v^4/c^4);
+</pre></tr>
+</table>
+Note: The result of <b><tt>Taylor</tt></b> is not in convenient form but is equivalent.
+<li>(OK) Compute the Taylor expansion of the inverse square of the above.
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+TestPiper(Taylor(v,0,4) 1/S^2, 1-v^2/c^2);
+</pre></tr>
+</table>
+Note: The result of <b><tt>Taylor</tt></b> is not in convenient form but is equivalent.
+<li>(OK) (Taylor expansion of </li><b> Sin(x)</b>)/(Taylor expansion of <b>Cos(x)</b>) = (Taylor expansion of <b>Tan(x)</b>).
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+TestPiper(Taylor(x,0,5)(Taylor(x,0,5)Sin(x))/
+  (Taylor(x,0,5)Cos(x)), Taylor(x,0,5)Tan(x));
+</pre></tr>
+</table>
+<li>(BUG) Taylor expansion of </li><b>Ln(x)^a*Exp(-b*x)</b> at <b>x=1</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+//Taylor(x,1,3)(Ln(x))^a*Exp(-b*x);
+</pre></tr>
+</table>
+(bugs in Deriv manipulation)
+<li>(BUG) Taylor expansion of </li><b> Ln(Sin(x)/x)</b> at <b>x=0</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+//Taylor(x,0,5) Ln(Sin(x)/x);
+</pre></tr>
+</table>
+(never stops)
+<li>(NO) Compute </li><b> n</b>-th term of the Taylor series of <b> Ln(Sin(x)/x)</b> at <b>x=0</b>.
+<li>(NO) Compute </li><b> n</b>-th term of the Taylor series of <b> Exp(-x)*Sin(x)</b> at <b>x=0</b>.
+<li>(OK) Solve </li><b> x=Sin(y)+Cos(y)</b> for <b>y</b> as Taylor series in <b> x</b> at <b> x=1</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+TestPiper(InverseTaylor(y,0,4) Sin(y)+Cos(y),
+  (y-1)+(y-1)^2/2+2*(y-1)^3/3+(y-1)^4);
+</pre></tr>
+</table>
+Note that <b><tt>InverseTaylor</tt></b> does not give the series in terms of <b> x</b> but in terms of <b> y</b> which is semantically wrong. But other CAS do the same.
+<li>(OK) Compute Legendre polynomials directly from Rodrigues's formula, </li><b> P[n]=1/(2*n)!! *(Deriv(x,n)(x^2-1)^n)</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+P(n,x) := Simplify( 1/(2*n)!! *
+  Deriv(x,n) (x^2-1)^n );
+TestPiper(P(4,x), (35*x^4)/8+(-15*x^2)/4+3/8);
+</pre></tr>
+</table>
+<li>(OK) Compute Legendre polynomials </li><b>P[n]</b> recursively.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(OrthoP(4,x)
+  , 3/8+((35*x^2)/8-15/4)*x^2);
+</pre></tr>
+</table>
+<li>(OK) Compute Legendre polynomial </li><b>P[4]</b> at <b>x=1</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(OrthoP(4,1), 1);
+</pre></tr>
+</table>
+<li>(OK) Define the polynomial </li><b> p=Sum(i,1,5,a[i]*x^i)</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+p:=Sum(i,1,5,a[i]*x^i);
+Verify(p, a[1]*x+a[2]*x^2+a[3]*x^3
+  +a[4]*x^4+a[5]*x^5);
+</pre></tr>
+</table>
+<li>(OK) Convert the above to Horner's form.
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(Horner(p, x), ((((a[5]*x+a[4])*x
+  +a[3])*x+a[2])*x+a[1])*x);
+</pre></tr>
+</table>
+<li>(NO) Convert the result of problem 127 to Fortran syntax.
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CForm(Horner(p, x));
+</pre></tr>
+</table>
+<li>(OK) Verify that </li><b>True And False=False</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(True And False, False);
+</pre></tr>
+</table>
+<li>(OK) Prove </li><b> x</b> Or Not <b> x</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(CanProve(x Or Not x), True);
+</pre></tr>
+</table>
+<li>(OK) Prove </li><b> x Or y Or x And y=&gt;x Or y</b>.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Verify(CanProve(x Or y Or x And y =&gt; x Or y)
+  , True);
+</pre></tr>
+</table>
+</ul>
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

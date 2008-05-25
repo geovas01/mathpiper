@@ -1,0 +1,1278 @@
+<html>
+<head>
+  <title>Symbolic algebra algorithms</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c1">
+
+</a>
+<h1>
+1. Symbolic algebra algorithms
+</h1>
+<p> </p>
+<a name="c1s1">
+
+</a>
+<h2>
+<hr>1.1 Sparse representations
+</h2>
+<h3>
+<hr>The sparse tree data structure
+</h3>
+Piper has a sparse tree object for use as a storage for storing 
+(key,value) pairs for which the following properties hold:
+
+
+<p>
+<ul><li>(key, value1) + (key, value2) = (key, value1+value2)
+</li></ul>
+
+<p>
+In addition, for multiplication the following rule is obeyed:
+
+
+<p>
+<ul><li>(key1, value1) * (key2, value2) = (key1+key2, value1*value2)
+</li></ul>
+
+<p>
+The last is optional. For multivariate polynomials (described elsewhere)
+both hold, but for matrices, only the addition property holds.
+The function <b><tt>MultiplyAddSparseTrees</tt></b> (described below) should not
+be used in these cases.
+
+
+<p>
+
+<h3>
+<hr>Internal structure
+</h3>
+A key is defined to be a list of integer numbers (<b>n[1]</b>, ..., <b>n[m]</b>).
+Thus for a two-dimensional key, one item in the sparse tree database
+could be reflected as the (key,value) pair <b><tt> {{1,2},3} </tt></b>, which states that 
+element <b><tt>(1,2)</tt></b> has value <b><tt>3</tt></b>. (Note: this is not the way it is stored
+in the database!).
+
+
+<p>
+The storage is recursive. The sparse tree begins with a list of 
+objects <b><tt> {n1,tree1} </tt></b> for values of <b><tt>n1</tt></b> for the first item in the
+key. The <b><tt>tree1</tt></b> part then contains a sub-tree for all the items
+in the database for which the value of the first item in the key is <b><tt>n1</tt></b>.
+
+
+<p>
+The above single element could be created with 
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; r:=CreateSparseTree({1,2},3)
+Out&gt; {{1,{{2,3}}}};
+</pre></tr>
+</table>
+<b><tt>CreateSparseTree</tt></b> makes a database with exactly one item.
+Items can now be obtained from the sparse tree with <b><tt>SparseTreeGet</tt></b>.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; SparseTreeGet({1,2},r)
+Out&gt; 3;
+In&gt; SparseTreeGet({1,3},r)
+Out&gt; 0;
+</pre></tr>
+</table>
+And values can also be set or changed:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; SparseTreeSet({1,2},r,Current+5)
+Out&gt; 8;
+In&gt; r
+Out&gt; {{1,{{2,8}}}};
+In&gt; SparseTreeSet({1,3},r,Current+5)
+Out&gt; 5;
+In&gt; r
+Out&gt; {{1,{{3,5},{2,8}}}};
+</pre></tr>
+</table>
+The variable <b><tt>Current</tt></b> represents the current value, and can
+be used to determine the new value. <b><tt>SparseTreeSet</tt></b> destructively
+modifies the original, and returns the new value. If the key
+pair was not found, it is added to the tree.
+
+
+<p>
+The sparse tree can be traversed, one element at a time, with 
+<b><tt>SparseTreeScan</tt></b>:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; SparseTreeScan(Hold({{k,v},Echo({k,v})}),2,r)
+{1,3} 5 
+{1,2} 8 
+</pre></tr>
+</table>
+
+
+<p>
+An example of the use of this function could be multiplying a
+sparse matrix with a sparse vector, where the entire matrix
+can be scanned with <b><tt>SparseTreeScan</tt></b>, and each non-zero matrix element
+<b>A[i][j]</b> can then be multiplied with a vector element <b>v[j]</b>,
+and the result added to a sparse vector <b>w[i]</b>, using the 
+<b><tt>SparseTreeGet</tt></b> and <b><tt>SparseTreeSet</tt></b> functions.
+Multiplying two sparse matrices would require two nested calls
+to <b><tt>SparseTreeScan</tt></b> to multiply every item from one matrix with
+an element from the other, and add it to the appropriate element 
+in the resulting sparse matrix.
+
+
+<p>
+When the matrix elements <b>A[i][j]</b> are defined by a function
+<b>f(i,j)</b> (which can be considered a dense representation), 
+and it needs to be multiplied with a sparse vector <b>v[j]</b>,
+it is better to iterate over the sparse vector <b>v[j]</b>.
+Representation defines the most efficient algorithm to use
+in this case.
+
+
+<p>
+The API to sparse trees is:
+<ul><li></li><b><tt>CreateSparseTree(coefs,fact)</tt></b> - 
+Create a sparse tree with one monomial, where 'coefs' is the 
+key, and 'fact' the value. 'coefs' should be a list of integers.
+<li></li><b><tt>SparseTreeMap(op,depth,tree)</tt></b> - 
+Walk over the sparse tree, one element at a time, and apply the 
+function "op" on the arguments (key,value). The 'value' in the
+tree is replaced by the value returned by the <b><tt>op</tt></b> function. 'depth'
+signifies the dimension of the tree (number of indices in the key).
+<li></li><b><tt>SparseTreeScan(op,depth,tree)</tt></b> - 
+Same as SparseTreeMap, but without changing elements.
+<li></li><b><tt>AddSparseTrees(depth,x,y)</tt></b>, <b><tt>MultiplyAddSparseTrees(depth,x,y,coefs,fact)</tt></b> -
+Add sparse tree 'y' to sparse tree 'x', destructively.
+in the <b><tt>MultiplyAdd</tt></b> case, the monomials are treated as 
+if they were multiplied by a monomial with coefficients 
+with the (key,value) pair (coefs,fact). 'depth'
+signifies the dimension of the tree (number of indices in the key).
+<li></li><b><tt>SparseTreeGet(key,tree)</tt></b> - 
+return value stored for key in the tree.
+<li></li><b><tt>SparseTreeSet(key,tree,newvalue)</tt></b> - 
+change the value stored for the key to newvalue. If the key was not found then
+<b><tt>newvalue</tt></b> is stored as a new item. The variable <b><tt>Current</tt></b> is set to the
+old value (or zero if the key didn't exist in the tree) before evaluating
+<b><tt>newvalue</tt></b>. 
+</ul>
+
+<p>
+
+<a name="c1s2">
+
+</a>
+<h2>
+<hr>1.2 Implementation of multivariate polynomials
+</h2>
+This section describes the implementation of multivariate
+polynomials in Piper.
+
+
+<p>
+Concepts and ideas are taken from the books [Davenport <i>et al.</i> 1989] and [von zur Gathen <i>et al.</i> 1999].
+
+
+<p>
+
+<h3>
+<hr>Definitions
+</h3>
+The following definitions define multivariate polynomials,
+and the functions defined on them that are of interest
+for using such multivariates.
+
+
+<p>
+A <i>term</i> is an object which can be written as 
+
+
+<p>
+
+<p><center><b>c*x[1]^n[1]*x[2]^n[2]*...*x[m]^n[m] </b></center></p>
+
+for <b>m</b> variables (<b> x[1]</b>, ..., <b>x[m]</b>). The numbers <b>n[m]</b>
+are integers. <b>c</b> is called a <i>coefficient</i>, and 
+<b> x[1]^n[1]*x[2]^n[2]*...*x[m]^n[m]</b> a <i>monomial</i>.
+
+
+<p>
+A <i>multivariate polynomial</i> is taken to be a sum over terms.
+
+
+<p>
+We write <b>c[a]*x^a</b> for a term, where <b> a</b> is a list of
+powers for the monomial, and <b> c[a]</b> the <i>coefficient</i> of the 
+term.
+
+
+<p>
+It is useful to define an ordering of monomials, to be able to 
+determine a canonical form of a multivariate. 
+
+
+<p>
+For the currently implemented code the <i>lexicographic order</i> has 
+been chosen:
+
+
+<p>
+<ul><li>first an ordering of variables is chosen, ( </li><b>x[1]</b>, ..., <b>x[m]</b>)
+<li>for the exponents of a monomial, </li><b>a</b> = (<b> a[1]</b>, ..., <b>a[m]</b>) the
+lexicographic order first looks at the first exponent, <b>a[1]</b>,
+to determine which of the two monomials comes first in the multivariate.
+If the two exponents are the same, the next exponent is considered.
+</ul>
+
+<p>
+This method is called <i>lexicographic</i> because it is similar
+to the way words are ordered in a usual dictionary. 
+
+
+<p>
+For all algorithms (including division) there is some freedom in 
+the ordering of monomials. One interesting advantage of the lexicographic
+order is that it can be implemented with a recursive data structure, 
+where the first variable, <b>x[1]</b> can be treated as the main variable,
+thus presenting it as a univariate polynomial in <b>x[1]</b> with all its
+terms grouped together.
+
+
+<p>
+Other orderings can be used, by re-implementing a part of the
+code dealing with multivariate polynomials, and then selecting
+the new code to be used as a driver, as will be described later
+on.
+
+
+<p>
+Given the above ordering, the following definitions can be stated:
+
+
+<p>
+For a non-zero <i>multivariate polynomial</i>
+
+
+<p>
+
+<p><center><b>f=Sum(a,a[max],a[min],c[a]*x^a) </b></center></p>
+
+
+
+<p>
+with a monomial order:
+
+
+<p>
+<ul><li></li><b>c[a]*x^a</b> is a <i>term</i> of the multivariate.
+<li>the </li><i>multidegree</i> of <b> f</b> is <b> mdeg(f):=a[max]</b>.
+<li>the </li><i>leading coefficient</i> of <b>f</b> is <b> lc(f):=c[mdeg(f)]</b>,
+for the first term with non-zero coefficient.
+<li>the </li><i>leading monomial</i> of <b>f</b> is <b> lm(f):=x^mdeg(f)</b>.
+<li>the </li><i>leading term</i> of <b>f</b> is <b> lt(f):=lc(f)*lm(f)</b>.
+</ul>
+
+<p>
+The above define access to the leading monomial, which is used for
+divisions, gcd calculations and the like. Thus an implementation 
+needs be able to determine <b><tt> {mdeg(f),lc(f)} </tt></b> . Note the similarity
+with the (key,value) pairs described in the sparse tree section.
+<b>mdeg(f)</b> can be thought of as a 'key', and <b>lc(f)</b> as a 'value'.
+
+
+<p>
+The <i>multicontent</i>, <b>multicont(f)</b>, is defined to be a term that
+divides all the terms in <b>f</b>, and is the term described by
+(<b> Min(a)</b>, <b>Gcd(c)</b>), with <b>Gcd(c)</b> the GCD of all the coefficients,
+and <b>Min(a)</b> the lowest exponents for each variable, occurring
+in <b>f</b> for which <b> c</b> is non-zero.
+
+
+<p>
+The <i>multiprimitive part</i> is then defined as <b> pp(f):=f</b>/<b> multicont(f)</b>.
+
+
+<p>
+For a multivariate polynomial, the obvious addition and (distributive)
+multiplication rules hold:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+(a+b) + (c+d) := a+b+c+d 
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+a*(b+c) := (a*b)+(a*c)
+</pre></tr>
+</table>
+
+
+<p>
+These are supported in the Piper system through a multiply-add operation:
+
+<p><center><b>muadd(f,t,g):=f+t*g.</b></center></p>
+
+This allows for both adding two polynomials (<b> t:=1</b>), or multiplication
+of two polynomials by scanning one polynomial, and multiplying each term
+of the scanned polynomial with the other polynomial, and adding the result
+to the polynomial that will be returned. Thus there should be an efficient
+<b><tt>muadd</tt></b> operation in the system.
+
+
+<p>
+
+<h3>
+<hr>Representation
+</h3>
+For the representation of polynomials, on computers it is natural to do this
+in an array: (<b> a[1]</b>, <b>a[2]</b>, ..., <b>a[n]</b>) for a univariate polynomial, and the equivalent
+for multivariates. This is called a <i>dense</i> representation, because all
+the coefficients are stored, even if they are zero. 
+Computers are efficient at dealing with arrays. However, in the case of 
+multivariate polynomials, arrays can become
+rather large, requiring a lot of storage and processing power even
+to add two such polynomials. For instance, <b>x^200*y^100*z^300+1</b>
+could take 6000000 places in an array for the coefficients. Of course
+variables could be substituted for the single factors, <b> p:=x^200</b>
+etc., but it requires an additional ad hoc step.
+
+
+<p>
+An alternative is to store only the terms for which the coefficients
+are non-zero. This adds a little overhead to polynomials that could
+efficiently be stored in a dense representation, but it is still
+little memory, whereas large sparse polynomials are stored in 
+acceptable memory too. It is of importance to still be able to
+add, multiply divide and get the leading term of a multivariate
+polynomial, when the polynomial is stored in a sparse representation.
+
+
+<p>
+For the representation, the data structure containing the 
+<b><tt>(exponents,coefficient)</tt></b> pair can be viewed as a database
+holding <b><tt>(key,value)</tt></b> pairs, where the list of exponents is
+the key, and the coefficient of the term is the value stored
+for that key. Thus, for a variable set <b><tt>{x,y}</tt></b> the list <b><tt>{{1,2},3}</tt></b>
+represents <b> 3*x*y^2</b>.
+
+
+<p>
+Piper stores multivariates internally as <b><tt>MultiNomial (vars, terms)</tt></b>,
+where <b><tt>vars</tt></b> is the ordered list of variables, and terms some 
+object storing all the <b><tt>(key, value)</tt></b> pairs representing the terms.
+Note we keep the storage vague: the <b><tt>terms</tt></b> placeholder is 
+implemented by other code, as a database of terms. The specific
+representation can be configured at startup (this is described
+in more detail below).
+
+
+<p>
+For the current version, Piper uses the 'sparse tree' representation,
+which is a recursive sparse representation. 
+For example, for a variable set <b><tt>{x,y,z}</tt></b>, the 'terms' object
+contains a list of objects of form <b><tt>{deg,terms}</tt></b>, one for each degree <b><tt>deg</tt></b>
+for the variable 'x' occurring in the polynomial. The 'terms'
+part of this object is then a sub-sparse tree for the variables <b><tt>{y,z}</tt></b>.
+
+
+<p>
+An explicit example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; MM(3*x^2+y)
+Out&gt; MultiNomial({x,y},{{2,{{0,3}}},{0,{{1,1},
+  {0,0}}}});
+</pre></tr>
+</table>
+The first item in the main list is <b><tt>{2,{{0,3}}}</tt></b>, which states that
+there is a term of the form <b> x^2*y^0*3</b>. The second item 
+states that there are two terms, <b> x^0*y^1*1</b> and <b> x^0*y^0*0=0</b>.
+
+
+<p>
+This representation is sparse:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; r:=MM(x^1000+x)
+Out&gt; MultiNomial({x},{{1000,1},{1,1}});
+</pre></tr>
+</table>
+and allows for easy multiplication:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; r*r
+Out&gt; MultiNomial({x},{{2000,1},{1001,2},
+  {2,1},{0,0}});
+In&gt; NormalForm(%)
+Out&gt; x^2000+2*x^1001+x^2;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h3>
+<hr>Internal code organization
+</h3>
+The implementation of multivariates can be divided in three levels.
+
+
+<p>
+At the top level are the routines callable by the user or the rest
+of the system: MultiDegree, MultiDivide, MultiGcd, Groebner, etc.
+In general, this is the level implementing the operations actually
+desired.
+
+
+<p>
+The middle level does the book-keeping of the <b><tt>MultiNomial(vars,terms)</tt></b>
+expressions, using the functionality offered by the lowest level.
+
+
+<p>
+For the current system, the middle level is in 
+<b><tt>multivar.rep/ sparsenomial.pi</tt></b>, and it uses the sparse tree representation
+implemented in <b><tt>sparsetree.pi</tt></b>.
+
+
+<p>
+The middle level is called the 'driver', and can be changed, or 
+re-implemented if necessary. For instance, in case calculations need
+to be done for which dense representations are actually acceptable,
+one could write C++ implementing above-mentioned database
+structure, and then write a middle-level driver using the code.
+The driver can then be selected at startup. In the file 'piperinit.pi'
+the default driver is chosen, but this can be overridden in the 
+<b><tt>.piperrc</tt></b> file or some file that is loaded, or at the command line,
+as long as it is done before the multivariates module is loaded (which
+loads the selected driver). Driver selection is as simple as setting
+a global variable to contain a file name of the file implementing the
+driver:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Set(MultiNomialDriver,
+  "multivar.rep/sparsenomial.pi");
+</pre></tr>
+</table>
+where "multivar.rep/sparsenomial.pi" is the file implementing the 
+driver (this is also the default driver, so the above command would
+not change any thing).
+
+
+<p>
+The choice was made for static configuration of the driver before
+the system starts up because it is expected that there will in 
+general be one best way of doing it, given a certain system with
+a certain set of libraries installed on the operating system,
+and for a specific version of Piper. The best version can then
+be selected at start up, as a configuration step. The advantage
+of static selection is that no overhead is imposed: there is no
+performance penalty for the abstraction layers between the three levels.
+
+
+<p>
+
+<h3>
+<hr>Driver interface
+</h3>
+The driver should implement the following interface:
+
+
+<p>
+<ul><li></li><b><tt>CreateTerm(vars,{exp,coef})</tt></b> - 
+create a multivariate polynomial with one term, in the
+variables defined in 'var', with the (key,value) pair
+(coefs,fact)
+<li></li><b><tt>MultiNomialAdd(multi1, multi2) </tt></b> -
+add two multivars, and (possibly) destructively modify multi1 to contain
+the result: [ multi1 := multi1 + multi2; multi1; ];
+<li></li><b><tt>MultiNomialMultiplyAdd(multi1, multi2,exp,coef)</tt></b> - 
+add two multivars, and (possibly) destructively modify multi1 to contain
+the result. multi2 is considered multiplied by a term
+represented by the (key,value) pair (exp,coef).
+[ multi1 := multi1 + term * multi2; multi1; ];
+<li></li><b><tt>MultiNomialNegate(multi)</tt></b> - 
+negate a multivar, returning -multi, and destructively changing
+the original. [ multi := - multi; multi1; ];
+<li></li><b><tt>MultiNomialMultiply(multi1,multi2)</tt></b> - 
+Multiply two multivars, and (possibly) destructively modify multi1 to contain
+the result, returning the result: [ multi1 := multi1 * multi2; multi1; ];
+<li></li><b><tt>NormalForm(multi)</tt></b> - 
+convert MultiNomial to normal form (as would be typed in be the user).
+This is part of the driver because the driver might be able to do
+this more efficiently than code above it which can use ScanMultiNomial.
+<li></li><b><tt>MultiLeadingTerm(multi)</tt></b> - 
+return the (key,value) pair (mdeg(f),lc(f)) representing the leading
+term. This is all the information needed about the leading term, 
+and thus the leading coefficient and multidegree can be extracted from it.
+<li></li><b><tt>MultiDropLeadingZeroes(multi)</tt></b> - 
+remove leading terms with zero factors.
+<li></li><b><tt>MultiTermLess(x,y)</tt></b> - 
+for two (key,value) pairs, return <b><tt>True</tt></b> if <b> x&lt;y</b>, where the operation <b><tt>&lt;</tt></b> is the one used for
+the representation, and <b><tt>False</tt></b> otherwise.
+<li></li><b><tt>ScanMultiNomial(op,multi)</tt></b> - 
+traverse all the terms of the multivariate, applying the
+function 'op' to each (key,value) pair (exp,coef). The monomials
+are traversed in the ordering defined by MultiTermLess. 'op' should
+be a function accepting two arguments.
+<li></li><b><tt>MultiZero(multi)</tt></b> - 
+return <b><tt>True</tt></b> if the multivariate is zero (all coefficients are zero),
+<b><tt>False</tt></b> otherwise.
+</ul>
+
+<p>
+
+<a name="c1s3">
+
+</a>
+<h2>
+<hr>1.3 Integration
+</h2>
+Integration can be performed by the function <b><tt>Integrate</tt></b>, which
+has two calling conventions:
+
+
+<p>
+<ul><li>Integrate(variable) expression
+</li><li>Integrate(variable, from, to) expression
+</li></ul>
+
+<p>
+Integrate can have its own set of rules for specific integrals,
+which might return a correct answer immediately. Alternatively,
+it calls the function AntiDeriv, to see if the anti-derivative
+can be determined for the integral requested. If this is the
+case, the anti-derivative is used to compose the output.
+
+
+<p>
+If the integration algorithm cannot perform the integral, the
+expression is returned unsimplified.
+
+
+<p>
+
+<h3>
+<hr>The integration algorithm
+</h3>
+This section describes the steps taken in doing integration.
+
+
+<p>
+
+<h3>
+<hr>General structure
+</h3>
+The integration starts at the function <b><tt>Integrate</tt></b>, but the
+task is delegated to other functions, one after the other.
+Each function can deem the integral unsolvable, and thus return
+the integral unevaluated. These different functions offer
+hooks for adding new types of integrals to be handled.
+
+
+<p>
+
+<h3>
+<hr>Expression clean-up
+</h3>
+Integration starts by first cleaning up the expression, by
+calling <b><tt>TrigSimpCombine</tt></b> to simplify expressions containing
+multiplications of trigonometric functions into additions of
+trigonometric functions (for which the integration rules are
+trivial), and then passing the result to <b><tt>Simplify</tt></b>.
+
+
+<p>
+
+<h3>
+<hr>Generalized integration rules
+</h3>
+For the function <b><tt>AntiDeriv</tt></b>, which is responsible for finding
+the anti-derivative of a function, the code splits up expressions
+according to the additive properties of integration, eg. integration
+of <b>a+b</b> is the same as integrating <b> a</b> + integrating <b> b</b>.
+
+
+<p>
+<ul><li>Polynomials which can be expressed as univariate polynomials 
+in the variable to be integrated over are handled by one integration rule.
+</li><li>Expressions of the form </li><b> p*f(x)</b>, where <b>p</b> represents a 
+univariate polynomial, and <b> f(x)</b> an integrable function, are handled
+by a special integration rule. This transformation rule has to be designed
+carefully not to invoke infinite recursion.
+<li>Rational functions, </li><b>f(x)/g(x)</b> with both <b>f(x)</b> and
+<b>g(x)</b> univariate polynomials, is handled separately also, using
+partial fraction expansion to reduce rational function to a sum
+of simpler expressions.
+</ul>
+
+<p>
+
+<h3>
+<hr>Integration tables
+</h3>
+For elementary functions, Piper uses integration tables. For instance,
+the fact that the anti-derivative of <b>Cos(x)</b> is <b>Sin(x)</b> is
+declared in an integration table.
+
+
+<p>
+For the purpose of setting up the integration table, a few
+declaration functions have been defined, which use some
+generalized pattern matchers to be more flexible in recognizing
+expressions that are integrable.
+
+
+<p>
+
+<h3>
+<hr>Integrating simple functions of a variable
+</h3>
+For functions like <b>Sin(x)</b> the anti-derivative can be declared
+with the function <b><tt>IntFunc</tt></b>. 
+
+
+<p>
+The calling sequence for <b><tt>IntFunc</tt></b> is
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IntFunc(variable,pattern,antiderivative)
+</pre></tr>
+</table>
+
+
+<p>
+For instance, for the function <b>Cos(x)</b> there is a declaration:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IntFunc(x,Cos(_x),Sin(x));
+</pre></tr>
+</table>
+
+
+<p>
+The fact that the second argument is a pattern means that each
+occurrence of the variable to be matched should be referred
+to as <b><tt>_x</tt></b>, as in the example above.
+
+
+<p>
+IntFunc generalizes the integration implicitly, in that it will
+set up the system to actually recognize expressions of the form
+<b>Cos(a*x+b)</b>, and return <b>Sin(a*x+b)/a</b> automatically.
+This means that the variables <b> a</b> and <b> b</b> are reserved, and
+can not be used in the pattern. Also, the variable used (in this 
+case, <b><tt>_x</tt></b> is actually matched to the expression passed in to the
+function, and the variable <b><tt>var</tt></b> is the real variable being integrated
+over. To clarify: suppose the user wants to integrate <b> Cos(c*y+d)</b>
+over <b>y</b>, then the following variables are set:
+
+
+<p>
+<ul><li></li><b><tt>a</tt></b> = <b> c</b>
+<li></li><b><tt>b</tt></b> = <b> d</b>
+<li></li><b><tt>x</tt></b> = <b> a*y+b</b>
+<li></li><b><tt>var</tt></b> = <b> x</b>
+</ul>
+
+<p>
+When functions are multiplied by constants, that situation is
+handled by the integration rule that can deal with univariate
+polynomials multiplied by functions, as a constant is a polynomial
+of degree zero.
+
+
+<p>
+
+<h3>
+<hr>Integrating functions containing expressions of the form <b> a*x^2+b</b>
+</h3>
+There are numerous expressions containing sub-expressions of the form
+<b> a*x^2+b</b> which can easily be integrated.
+
+
+<p>
+The general form for declaring anti-derivatives for such expressions
+is:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IntPureSquare(variable, pattern, sign2, sign0,
+  antiderivative)
+</pre></tr>
+</table>
+Here <b><tt>IntPureSquare</tt></b> uses <b><tt>MatchPureSquared</tt></b> to match the expression.
+
+
+<p>
+The expression is searched for the pattern, where the variable
+can match to a sub-expression of the form <b> a*x^2+b</b>, and
+for which both <b> a</b> and <b> b</b> are numbers and <b> a*sign2&gt;0</b>
+and <b> b*sign0&gt;0</b>.
+
+
+<p>
+As an example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IntPureSquare(x,num_IsFreeOf(var)/(_x),
+  1,1,(num/(a*Sqrt(b/a)))*
+  ArcTan(var/Sqrt(b/a)));
+</pre></tr>
+</table>
+declares that the anti-derivative of <b> c/(a*x^2+b)</b> is
+
+<p><center><b>c/(a*Sqrt(b/a))*ArcTan(x/Sqrt(b/a)),</b></center></p>
+
+if both <b>a</b> and <b> b</b> are positive numbers.
+
+
+<p>
+
+<a name="c1s4">
+
+</a>
+<h2>
+<hr>1.4 Transforms
+</h2>
+Currently the only tranform defined is <b><tt>LaplaceTransform</tt></b>,
+which has the calling convention:
+
+
+<p>
+<ul><li>LaplaceTransform(var1,var2,func)
+</li></ul>
+
+<p>
+It has been setup much like the integration algorithm. 
+If the transformation algorithm cannot perform the transform, the
+expression (in theory) is returned unsimplified. Some cases
+may still erroneously return <b><tt>Undefined</tt></b> or <b><tt>Infinity</tt></b>.
+
+
+<p>
+
+<h3>
+<hr>The <b><tt>LaplaceTransform</tt></b> algorithm
+</h3>
+This section describes the steps taken in doing a Laplace 
+transform.
+
+
+<p>
+
+<h3>
+<hr>General structure
+</h3>
+<b><tt>LaplaceTransform</tt></b> is immediately handed off to <b><tt>LapTran</tt></b>.
+This is done because if the last <b><tt>LapTran</tt></b> rule is met, the
+Laplace transform couldn't be found and it can then return
+<b><tt>LaplaceTransform</tt></b> unevaluated.
+
+
+<p>
+
+<h3>
+<hr>Operational Properties
+</h3>
+The first rules that are matched against utilize the various
+operational properties of <b><tt>LaplaceTransform</tt></b>, such as: 
+
+
+<p>
+<ul><li>Linearity Properties
+</li><li>Shift properties, i.e. multiplying the function by an exponential
+</li><li></li><b>y*x^n=(-1)^n*(Deriv(x,n)LaplaceTransform(x,x[2],y))</b>
+<li></li><b>y/x=(Integrate(x[2],x[2],Infinity)LapTran(x,x[2],y))</b>
+</ul>
+
+<p>
+The last operational property dealing with integration is not
+yet fully bug-tested, it sometimes returns <b><tt>Undefined</tt></b> or <b><tt>Infinity</tt></b>
+if the integral returns such. 
+
+
+<p>
+
+<h3>
+<hr>Transform tables
+</h3>
+For elementary functions, Piper uses transform tables. For instance,
+the fact that the Laplace transform of <b>Cos(t)</b> is <b>s/(s^2+1)</b> is
+declared in a transform table.
+
+
+<p>
+For the purpose of setting up the transform table, a few
+declaration functions have been defined, which use some
+generalized pattern matchers to be more flexible in recognizing
+expressions that are transformable.
+
+
+<p>
+
+<h3>
+<hr>Transforming simple functions 
+</h3>
+For functions like <b>Sin(t)</b> the transform can be declared
+with the function <b><tt>LapTranDef</tt></b>. 
+
+
+<p>
+The calling sequence for <b><tt>LapTranDef</tt></b> is
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LapTranDef( in, out )
+</pre></tr>
+</table>
+
+
+<p>
+Currently <b><tt>in</tt></b> must be a variable of <b><tt>_t</tt></b> and <b><tt>out</tt></b> must be a function
+of <b><tt>s</tt></b>.
+For instance, for the function <b>Cos(t)</b> there is a declaration:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LapTranDef( Cos(_t),                    s/(s^2+1) );
+</pre></tr>
+</table>
+
+
+<p>
+The fact that the first argument is a pattern means that each
+occurrence of the variable to be matched should be referred
+to as <b><tt>_t</tt></b>, as in the example above.
+
+
+<p>
+<b><tt>LapTranDef</tt></b> generalizes the transform implicitly, in that it will
+set up the system to actually recognize expressions of the form
+<b>Cos(a*t)</b> and <b>Cos(t/a)</b> , and return the appropriate answer.
+The way this is done is by three separate rules for case of <b><tt>t</tt></b> itself,
+<b><tt>a*t</tt></b> and <b><tt>t/a</tt></b>. This is similar to the <b><tt>MatchLinear</tt></b> function that 
+<b><tt>Integrate</tt></b> uses, except <b><tt>LaplaceTransforms</tt></b> must have <b><tt>b=0</tt></b>.
+
+
+<p>
+
+<h3>
+<hr>Further Directions
+</h3>
+Currenlty <b>Sin(t)*Cos(t)</b> cannot be transformed, because it requires
+a convolution integral. This will be implemented soon. The inverse
+laplace transform will be implement soon also.
+
+<a name="c1s5">
+
+</a>
+<h2>
+<hr>1.5 Finding real roots of polynomials
+</h2>
+<a name="real roots">
+
+</a>
+This section deals with finding roots of polynomials in the field 
+of real numbers.
+
+
+<p>
+Without loss of generality, the coefficients <b>a[i]</b> of a polynomial
+
+<p><center><b>p=a[n]*x^n+...+a[0] </b></center></p>
+
+can be considered
+to be rational numbers, as real-valued numbers are truncated in 
+practice, when doing calculations on a computer.
+
+
+<p>
+Assuming that the leading coefficient <b>a[n]=1</b>, the polynomial <b> p</b> can also be written as
+
+<p><center><b> p=p[1]^n[1]*...*p[m]^n[m],</b></center></p>
+
+where <b>p[i]</b> are the <b>m</b> distinct irreducible monic factors of the form
+<b> p[i]=x-x[i]</b>, and <b>n[i]</b> are multiplicities of the factors. Here the roots
+are <b>x[i]</b> and some of them may be complex. However, complex roots of a
+polynomial with real coefficients always come in conjugate pairs, so the
+corresponding irreducible factors should be taken as <b>p[i]=x^2+c[i]*x+d[i]</b>. In
+this case, there will be less than <b>m</b> irreducible factors, and all
+coefficients will be real.
+
+
+<p>
+
+<a name="square free decomposition">
+
+</a>
+To find roots, it is useful to first remove the
+multiplicities, i.e. to convert the polynomial to one with multiplicity 1
+for all irreducible factors, i.e. find the polynomial <b> p[1]*...*p[m]</b>. This is called the "square-free part" of the original polynomial <b>p</b>.
+
+
+<p>
+The square-free part of the polynomial <b> p</b> can be easily found using the polynomial GCD algorithm.
+The derivative of a polynomial <b> p</b>
+can be written as:
+
+<p><center><b> p'=Sum(i,1,m,p[1]^n[1]*...*n[i]*p[i]^(n[i]-1)*(D(x)p[i])*...*p[m]^n[m]).</b></center></p>
+
+
+
+<p>
+The g.c.d. of <b>p</b> and <b> p'</b> equals
+
+<p><center><b> Gcd(p,p')=Factorize(i,1,m,p[i]^(n[i]-1)).</b></center></p>
+ 
+So if we divide <b>p</b> by <b> Gcd(p,p')</b>, we get
+the square-free part of the polynomial:
+
+<p><center><b>SquareFree(p):=Div(p,Gcd(p,p'))=p[1]*...*p[m].</b></center></p>
+
+
+
+<p>
+In what follows we shall assume that all polynomials are square-free
+with rational coefficients.
+Given any polynomial, we can apply the functions <b><tt>SquareFree</tt></b> and <b><tt>Rationalize</tt></b> and reduce it to this form.
+The function <b><tt>Rationalize</tt></b> converts all numbers in an expression to
+rational numbers. The function <b><tt>SquareFree</tt></b> returns the square-free
+part of a polynomial. For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Expand((x+1.5)^5)
+Out&gt; x^5+7.5*x^4+22.5*x^3+33.75*x^2+25.3125*x
++7.59375;
+In&gt; SquareFree(Rationalize(%))
+Out&gt; x/5+3/10;
+In&gt; Simplify(%*5)
+Out&gt; (2*x+3)/2;
+In&gt; Expand(%)
+Out&gt; x+3/2;
+</pre></tr>
+</table>
+
+
+<p>
+
+
+<p>
+
+<h3>
+<hr>Sturm sequences
+</h3>
+<a name="real roots!Sturm sequences">
+
+</a>
+For a polynomial <b>p(x)</b> of degree <b>n</b>, the Sturm sequence
+<b> p[0]</b>, <b>p[1]</b>, ... <b>p[n]</b> is defined by the following
+equations (following the book [Davenport <i>et al.</i> 1989]):
+
+
+<p>
+
+<p><center><b>p[0]=p(x),</b></center></p>
+
+
+<p><center><b>p[1]=p'(x),</b></center></p>
+
+
+<p><center><b>p[i]= -remainder(p[i-2],p[i-1]),</b></center></p>
+
+where <b>remainder(p,q)</b> is the remainder of division of polynomials
+<b>p</b>,  <b> q</b>.
+
+
+<p>
+The polynomial <b> p</b> can be assumed to have no multiple factors, and thus <b> p</b> and
+<b> p'</b> are relatively prime. The sequence of polynomials in the 
+Sturm sequence are (up to a minus sign) the consecutive polynomials generated  by 
+Euclid's algorithm for the calculation of a 
+greatest common divisor for <b> p</b> and <b> p'</b>, so the last 
+polynomial <b> p[n]</b> will be a constant.
+
+
+<p>
+In Piper, the function <b><tt>SturmSequence(p)</tt></b>  returns the Sturm sequence of <b>p</b>,
+assuming <b> p</b> is a univariate polynomial in <b> x</b>, <b> p=p(x)</b>.
+
+
+<p>
+
+<a name="real roots!variations in Sturm sequences">
+
+</a>
+Given a Sturm sequence <b>S=SturmSequence(p)</b> of a polynomial <b>p</b>, 
+the <i>variation</i> in the Sturm sequence <b> V(S,y)</b> is the number
+of sign changes in the sequence <b>p[0]</b>, <b>p[1]</b> , ... , <b>p[n]</b>, evaluated at point <b>y</b>, and
+disregarding zeroes in the sequence.
+
+
+<p>
+Sturm's theorem states that if <b> a</b> and <b> b</b> are two real numbers
+which are not roots of <b> p</b>, and <b> a&lt;b</b>, then the number of 
+roots between <b> a</b> and <b> b</b> is <b> V(S,a)-V(S,b)</b>. A proof can
+be found in Knuth, <i>The Art of Computer Programming, Volume 2, Seminumerical Algorithms</i>. 
+
+
+<p>
+For <b>a</b> and <b> b</b>, the values <b>-Infinity</b> and <b> Infinity</b>
+can also be used. In these cases, <b> V(S,Infinity)</b> is the number
+of sign changes between the leading coefficients of the elements
+of the Sturm sequence, and <b>V(S,-Infinity)</b> the same, but with
+a minus sign for the leading coefficients for which the degree is
+odd.
+
+
+<p>
+
+<a name="real roots!number of">
+
+</a>
+Thus, the number of real roots of a polynomial is 
+<b>V(S,-Infinity)-V(S,Infinity)</b>. The function
+<b><tt>NumRealRoots(p)</tt></b> returns the number of real roots of <b>p</b>.
+
+
+<p>
+The function <b><tt>SturmVariations(S,y)</tt></b> returns the number of sign changes between
+the elements in the Sturm sequence <b> S</b>, at point <b> x=y</b>:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; p:=x^2-1
+Out&gt; x^2-1;
+In&gt; S:=SturmSequence(p)
+Out&gt; {x^2-1,2*x,1};
+In&gt; SturmVariations(S,-Infinity)- \
+SturmVariations(S,Infinity)
+Out&gt; 2;
+In&gt; NumRealRoots(p)
+Out&gt; 2;
+In&gt; p:=x^2+1
+Out&gt; x^2+1;
+In&gt; S:=SturmSequence(p)
+Out&gt; {x^2+1,2*x,-1};
+In&gt; SturmVariations(S,-Infinity)- \
+SturmVariations(S,Infinity)
+Out&gt; 0;
+In&gt; NumRealRoots(p)
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h3>
+<hr>Finding bounds on real roots
+</h3>
+<a name="real roots!bounds on">
+
+</a>
+Armed with the variations in the Sturm sequence given in the
+previous section, we can now find the number of real roots
+in a range  (<b> a</b>,<b> b</b>), for <b> a&lt;b</b>. We can thus bound all the roots
+by subdividing ranges until there is only one root in each range.
+To be able to start this process, we first need some upper bounds of
+the roots, or an interval that contains all roots. Davenport gives limits on the roots
+of a polynomial given the coefficients of the polynomial, as
+
+
+<p>
+
+<p><center><b> Abs(a)&lt;=Max(Abs(a[n-1]/a[n]),Abs(a[n-2]/a[n])^(1/2),...,Abs(a[0]/a[n])^(1/n)),</b></center></p>
+
+for all real roots <b>a</b> of <b> p</b>. This gives the upper bound on the
+absolute value of the roots of the polynomial in question.
+if <b> p(0)!=0</b>, the minimum bound can be obtained also by considering
+the upper bound of <b> p(1/x)*x^n</b>, and taking <b> 1/bound</b>.
+
+
+<p>
+We thus know that given 
+
+<p><center><b> a[max]=MaximumBound(p) </b></center></p>
+
+and
+
+<p><center><b>a[min]=MinimumBound(p) </b></center></p>
+
+for all roots <b>a</b> of polynomial, either 
+
+<p><center><b>-a[max]&lt;=a&lt;= -a[min] </b></center></p>
+
+or
+
+<p><center><b>a[min]&lt;=a&lt;=a[max].</b></center></p>
+
+
+
+<p>
+Now we can start the search for the bounds on all roots. The search
+starts with initial upper and lower bounds on ranges, subdividing
+ranges until a range contains only one root, and adding that range
+to the resulting list of bounds. If, when dividing a range, the middle
+of the range lands on a root, care must be taken, because the bounds
+should not be on a root themselves. This can be solved by observing
+that if <b>c</b> is a root, <b> p</b> contains a factor <b> x-c</b>, and thus
+taking <b> p(x+c)</b> results in a polynomial with all the roots shifted 
+by a constant <b>-c</b>, and the root <b> c</b> moved to zero, e.g. <b> p(x+c)</b>
+contains a factor <b>x</b>. Thus a new ranges to the left and right of
+<b> c</b> can be determined by first calculating the minimum bound <b> M</b>
+of <b> p(x+c)/x</b>. When the original range was (<b> a</b>,<b> b</b>), and <b> c=(a+b)/2</b>
+is a root, the new ranges should become (<b> a</b>,<b> c-M</b>) and (<b> c+M</b>,<b> b</b>).
+
+
+<p>
+In Piper, <b><tt>MimimumBound(p)</tt></b> returns the lower bound described above,
+and <b><tt>MaximumBound(p)</tt></b> returns the upper bound on the roots in <b> p</b>.
+These bounds are returned as rational numbers.
+<b><tt>BoundRealRoots(p)</tt></b> returns a list with sublists with the bounds on
+the roots of a polynomial:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; p:=(x+20)*(x+10)
+Out&gt; (x+20)*(x+10);
+In&gt; MinimumBound(p)
+Out&gt; 10/3;
+In&gt; MaximumBound(p)
+Out&gt; 60;
+In&gt; BoundRealRoots(p)
+Out&gt; {{-95/3,-35/2},{-35/2,-10/3}};
+In&gt; N(%)
+Out&gt; {{-31.6666666666,-17.5},
+  {-17.5,-3.3333333333}};
+</pre></tr>
+</table>
+
+
+<p>
+It should be noted that since all calculations are done with rational
+numbers, the algorithm for bounding the roots is very robust. This is
+important, as the roots can be very unstable for small variations
+in the coefficients of the polynomial in question (see Davenport).
+
+
+<p>
+
+<h3>
+<hr>Finding real roots given the bounds on the roots
+</h3>
+<a name="real roots!finding">
+
+</a>
+Given the bounds on the real roots as determined in the previous section,
+two methods for finding roots are available: the secant method or the Newton method, where the function is locally approximated
+by a line, and extrapolated to find a new estimate for a root. This 
+method converges quickly when "sufficiently" near a root, but can easily fail otherwise.
+The secant method can easily send the search to infinity.
+
+
+<p>
+The bisection method is more robust, but slower. It works by taking 
+the middle of the range, and checking signs of the polynomial to select the half-range where the root is.
+As there is only one root
+in the range (<b> a</b>,<b> b</b>), in general it will be true that <b> p(a)*p(b)&lt;0</b>,
+which is assumed by this method.
+
+
+<p>
+Piper finds the roots by first trying the secant method, starting
+in the middle of the range, <b> c=(a+b)/2</b>. If this fails the bisection
+method is tried.
+
+
+<p>
+The function call to find the real roots of a polynomial <b> p</b> in variable <b> x</b>
+is <b><tt>FindRealRoots(p)</tt></b>, for example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; p:=Expand((x+3.1)*(x-6.23))
+Out&gt; x^2-3.13*x-19.313;
+In&gt; FindRealRoots(p)
+Out&gt; {-3.1,6.23};
+In&gt; p:=Expand((x+3.1)^3*(x-6.23))
+Out&gt; x^4+3.07*x^3-29.109*x^2-149.8199\ 
+In&gt; *x-185.59793;
+In&gt; p:=SquareFree(Rationalize( \ 
+In&gt; Expand((x+3.1)^3*(x-6.23))))
+Out&gt; (-160000*x^2+500800*x+3090080)/2611467;
+In&gt; FindRealRoots(p)
+Out&gt; {-3.1,6.23};
+</pre></tr>
+</table>
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

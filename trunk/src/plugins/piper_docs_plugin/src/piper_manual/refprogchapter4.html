@@ -1,0 +1,616 @@
+<html>
+<head>
+  <title>Error reporting</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c4">
+
+</a>
+(directly go to documentation on : <a href="refprogchapter4.html#Check" target='Chapters' title="report "hard" errors">Check</a>, <a href="refprogchapter4.html#TrapError" target='Chapters' title="trap "hard" errors">TrapError</a>, <a href="refprogchapter4.html#GetCoreError" target='Chapters' title="get "hard" error string">GetCoreError</a>, <a href="refprogchapter4.html#Assert" target='Chapters' title="signal "soft" custom error">Assert</a>, <a href="refprogchapter4.html#DumpErrors" target='Chapters' title="simple error handlers">DumpErrors</a>, <a href="refprogchapter4.html#ClearErrors" target='Chapters' title="simple error handlers">ClearErrors</a>, <a href="refprogchapter4.html#IsError" target='Chapters' title="check for custom error">IsError</a>, <a href="refprogchapter4.html#GetError" target='Chapters' title="custom errors handlers">GetError</a>, <a href="refprogchapter4.html#ClearError" target='Chapters' title="custom errors handlers">ClearError</a>, <a href="refprogchapter4.html#GetErrorTableau" target='Chapters' title="custom errors handlers">GetErrorTableau</a>, <a href="refprogchapter4.html#CurrentFile" target='Chapters' title="return current input file">CurrentFile</a>, <a href="refprogchapter4.html#CurrentLine" target='Chapters' title="return current line number on input">CurrentLine</a>.
+)<h1>
+4. Error reporting
+</h1>
+
+This chapter contains commands useful for reporting errors to the user.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#Check" target='Chapters' title="report "hard" errors">Check</a></td>
+<td>report "hard" errors</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#TrapError" target='Chapters' title="trap "hard" errors">TrapError</a></td>
+<td>trap "hard" errors</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#GetCoreError" target='Chapters' title="get "hard" error string">GetCoreError</a></td>
+<td>get "hard" error string</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#Assert" target='Chapters' title="signal "soft" custom error">Assert</a></td>
+<td>signal "soft" custom error</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#DumpErrors" target='Chapters' title="simple error handlers">DumpErrors</a></td>
+<td>simple error handlers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#ClearErrors" target='Chapters' title="simple error handlers">ClearErrors</a></td>
+<td>simple error handlers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#IsError" target='Chapters' title="check for custom error">IsError</a></td>
+<td>check for custom error</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#GetError" target='Chapters' title="custom errors handlers">GetError</a></td>
+<td>custom errors handlers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#ClearError" target='Chapters' title="custom errors handlers">ClearError</a></td>
+<td>custom errors handlers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#GetErrorTableau" target='Chapters' title="custom errors handlers">GetErrorTableau</a></td>
+<td>custom errors handlers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#CurrentFile" target='Chapters' title="return current input file">CurrentFile</a></td>
+<td>return current input file</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter4.html#CurrentLine" target='Chapters' title="return current line number on input">CurrentLine</a></td>
+<td>return current line number on input</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="Check">
+
+</a>
+<a name="check">
+
+</a>
+<h3>
+<hr>Check -- report "hard" errors
+</h3>
+<a name="TrapError">
+
+</a>
+<a name="traperror">
+
+</a>
+<h3>
+<hr>TrapError -- trap "hard" errors
+</h3>
+<a name="GetCoreError">
+
+</a>
+<a name="getcoreerror">
+
+</a>
+<h3>
+<hr>GetCoreError -- get "hard" error string
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Check(predicate,"error text")
+TrapError(expression,errorHandler)
+GetCoreError()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>predicate</tt></b> -- expression returning <b><tt>True</tt></b> or <b><tt>False</tt></b>
+
+
+<p>
+<b><tt>"error text"</tt></b> -- string to print on error
+
+
+<p>
+<b><tt>expression</tt></b> -- expression to evaluate (causing potential error)
+
+
+<p>
+<b><tt>errorHandler</tt></b> -- expression to be called to handle error
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+If <b><tt>predicate</tt></b> does not evaluate to <b><tt>True</tt></b>,
+the current operation will be stopped, the string <b><tt>"error text"</tt></b> will be printed, and control will be returned immediately to the command line. This facility can be used to assure that some condition
+is satisfied during evaluation of expressions (guarding
+against critical internal errors).
+
+
+<p>
+A "soft" error reporting facility that does not stop the execution is provided by the function <b><tt>Assert</tt></b>.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; [Check(1=0,"bad value"); Echo(OK);]
+In function "Check" : 
+CommandLine(1) : "bad value"
+</pre></tr>
+</table>
+
+
+<p>
+Note that <b><tt>OK</tt></b> is not printed.
+
+
+<p>
+TrapError evaluates its argument <b><tt>expression</tt></b>, returning the
+result of evaluating <b><tt>expression</tt></b>. If an error occurs,
+<b><tt>errorHandler</tt></b> is evaluated, returning its return value in stead.
+
+
+<p>
+GetCoreError returns a string describing the core error.
+TrapError and GetCoreError can be used in combination to write
+a custom error handler. 
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Assert" target="Chapters">
+Assert
+</a>
+.<a name="Assert">
+
+</a>
+<a name="assert">
+
+</a>
+<h3>
+<hr>Assert -- signal "soft" custom error
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Assert("str", expr) pred
+Assert("str") pred
+Assert() pred
+</pre></tr>
+</table>
+Precedence:
+
+60000
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>pred</tt></b> -- predicate to check
+
+
+<p>
+<b><tt>"str"</tt></b> -- string to classify the error
+
+
+<p>
+<b><tt>expr</tt></b> -- expression, error object
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Assert</tt></b> is a global error reporting mechanism. It can be used to check for
+errors and report them. An error is considered to occur when the predicate
+<b><tt>pred</tt></b> evaluates to anything except <b><tt>True</tt></b>. In this case, the function returns
+<b><tt>False</tt></b> and an error object is created and posted to the global error tableau.
+Otherwise the function returns <b><tt>True</tt></b>.
+
+
+<p>
+Unlike the "hard" error function <b><tt>Check</tt></b>, the function <b><tt>Assert</tt></b> does not stop
+the execution of the program.
+
+
+<p>
+The error object consists of the string <b><tt>"str"</tt></b> and an arbitrary
+expression <b><tt>expr</tt></b>. The string should be used to classify the kind of error that
+has occurred, for example "domain" or "format". The error object can be any expression that might be useful for handling the error later;
+for example, a list of erroneous values and explanations.
+The association list of error objects is currently obtainable through
+the function <b><tt>GetErrorTableau()</tt></b>.
+
+
+<p>
+If the parameter <b><tt>expr</tt></b> is missing, <b><tt>Assert</tt></b> substitutes <b><tt>True</tt></b>. If both optional parameters <b><tt>"str"</tt></b> and <b><tt>expr</tt></b> are missing, <b><tt>Assert</tt></b> creates an error of class <b><tt>"generic"</tt></b>.
+
+
+<p>
+Errors can be handled by a
+custom error handler in the portion of the code that is able to handle a certain class of
+errors. The functions <b><tt>IsError</tt></b>, <b><tt>GetError</tt></b> and <b><tt>ClearError</tt></b> can be used.
+
+
+<p>
+Normally, all errors posted to the error tableau during evaluation of an expression should
+be eventually printed to the screen. This is the behavior of prettyprinters
+<b><tt>DefaultPrint</tt></b>, <b><tt>Print</tt></b>, <b><tt>PrettyForm</tt></b> and <b><tt>TeXForm</tt></b> (but not of the
+inline prettyprinter, which is enabled by default); they call
+<b><tt>DumpErrors</tt></b> after evaluating the expression. 
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Assert("bad value", "must be zero") 1=0
+Out&gt; False;
+In&gt; Assert("bad value", "must be one") 1=1
+Out&gt; True;
+In&gt; IsError()
+Out&gt; True;
+In&gt; IsError("bad value")
+Out&gt; True;
+In&gt; IsError("bad file")
+Out&gt; False;
+In&gt; GetError("bad value");
+Out&gt; "must be zero";
+In&gt; DumpErrors()
+Error: bad value: must be zero
+Out&gt; True;
+</pre></tr>
+</table>
+No more errors left:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsError()
+Out&gt; False;
+In&gt; DumpErrors()
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsError" target="Chapters">
+IsError
+</a>
+, <a href="ref.html?DumpErrors" target="Chapters">
+DumpErrors
+</a>
+, <a href="ref.html?Check" target="Chapters">
+Check
+</a>
+, <a href="ref.html?GetError" target="Chapters">
+GetError
+</a>
+, <a href="ref.html?ClearError" target="Chapters">
+ClearError
+</a>
+, <a href="ref.html?ClearErrors" target="Chapters">
+ClearErrors
+</a>
+, <a href="ref.html?GetErrorTableau" target="Chapters">
+GetErrorTableau
+</a>
+.<a name="DumpErrors">
+
+</a>
+<a name="dumperrors">
+
+</a>
+<h3>
+<hr>DumpErrors -- simple error handlers
+</h3>
+<a name="ClearErrors">
+
+</a>
+<a name="clearerrors">
+
+</a>
+<h3>
+<hr>ClearErrors -- simple error handlers
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+DumpErrors()
+ClearErrors()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>DumpErrors</tt></b> is a simple error handler for the global error reporting mechanism. It prints all errors posted using <b><tt>Assert</tt></b> and clears the error tableau.
+
+
+<p>
+<b><tt>ClearErrors</tt></b> is a trivial error handler that does nothing except it clears the tableau.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Assert" target="Chapters">
+Assert
+</a>
+, <a href="ref.html?IsError" target="Chapters">
+IsError
+</a>
+.<a name="IsError">
+
+</a>
+<a name="iserror">
+
+</a>
+<h3>
+<hr>IsError -- check for custom error
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsError()
+IsError("str")
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"str"</tt></b> -- string to classify the error
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>IsError()</tt></b> returns <b><tt>True</tt></b> if any custom errors have been reported using <b><tt>Assert</tt></b>.
+The second form takes a parameter <b><tt>"str"</tt></b> that designates the class of the
+error we are interested in. It returns <b><tt>True</tt></b> if any errors of the given class
+<b><tt>"str"</tt></b> have been reported.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?GetError" target="Chapters">
+GetError
+</a>
+, <a href="ref.html?ClearError" target="Chapters">
+ClearError
+</a>
+, <a href="ref.html?Assert" target="Chapters">
+Assert
+</a>
+, <a href="ref.html?Check" target="Chapters">
+Check
+</a>
+.<a name="GetError">
+
+</a>
+<a name="geterror">
+
+</a>
+<h3>
+<hr>GetError -- custom errors handlers
+</h3>
+<a name="ClearError">
+
+</a>
+<a name="clearerror">
+
+</a>
+<h3>
+<hr>ClearError -- custom errors handlers
+</h3>
+<a name="GetErrorTableau">
+
+</a>
+<a name="geterrortableau">
+
+</a>
+<h3>
+<hr>GetErrorTableau -- custom errors handlers
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+GetError("str")
+ClearError("str")
+GetErrorTableau()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"str"</tt></b> -- string to classify the error
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These functions can be used to create a custom error handler.
+
+
+<p>
+<b><tt>GetError</tt></b> returns the error object if a custom error of class <b><tt>"str"</tt></b> has been
+reported using <b><tt>Assert</tt></b>, or <b><tt>False</tt></b> if no errors of this class have been
+reported.
+
+
+<p>
+<b><tt>ClearError("str")</tt></b> deletes the same error object that is returned by
+<b><tt>GetError("str")</tt></b>. It deletes at most one error object. It returns <b><tt>True</tt></b> if an
+object was found and deleted, and <b><tt>False</tt></b> otherwise.
+
+
+<p>
+<b><tt>GetErrorTableau()</tt></b> returns the entire association list of currently reported errors.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x:=1
+Out&gt; 1;
+In&gt; Assert("bad value", {x,"must be zero"}) x=0
+Out&gt; False;
+In&gt; GetError("bad value")
+Out&gt; {1, "must be zero"};
+In&gt; ClearError("bad value");
+Out&gt; True;
+In&gt; IsError()
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsError" target="Chapters">
+IsError
+</a>
+, <a href="ref.html?Assert" target="Chapters">
+Assert
+</a>
+, <a href="ref.html?Check" target="Chapters">
+Check
+</a>
+, <a href="ref.html?ClearErrors" target="Chapters">
+ClearErrors
+</a>
+.<a name="CurrentFile">
+
+</a>
+<a name="currentfile">
+
+</a>
+<h3>
+<hr>CurrentFile -- return current input file
+</h3>
+<a name="CurrentLine">
+
+</a>
+<a name="currentline">
+
+</a>
+<h3>
+<hr>CurrentLine -- return current line number on input
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CurrentFile()
+CurrentLine()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The functions <b><tt>CurrentFile</tt></b> and <b><tt>CurrentLine</tt></b> return a string
+with the file name of the current file and the current line 
+of input respectively.
+
+
+<p>
+These functions are most useful in batch file calculations, where
+there is a need to determine at which line an error occurred.
+One can define a function 
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+tst() := Echo({CurrentFile(),CurrentLine()});
+</pre></tr>
+</table>
+which can then be inserted into the input file at various places,
+to see how far the interpreter reaches before an error occurs.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Echo" target="Chapters">
+Echo
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

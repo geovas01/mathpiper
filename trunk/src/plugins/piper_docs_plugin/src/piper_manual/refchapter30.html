@@ -1,0 +1,332 @@
+<html>
+<head>
+  <title>Probability and Statistics</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c30">
+
+</a>
+(directly go to documentation on : <a href="refchapter30.html#BernoulliDistribution" target='Chapters' title="Bernoulli distribution">BernoulliDistribution</a>, <a href="refchapter30.html#BinomialDistribution" target='Chapters' title="binomial distribution">BinomialDistribution</a>, <a href="refchapter30.html#tDistribution" target='Chapters' title="Student's <b> t</b> distribution">tDistribution</a>, <a href="refchapter30.html#PDF" target='Chapters' title="probability density function">PDF</a>, <a href="refchapter30.html#ChiSquareTest" target='Chapters' title="Pearson's ChiSquare test">ChiSquareTest</a>.
+)<h1>
+30. Probability and Statistics
+</h1>
+
+Each distribution is represented as an entity. For each distribution
+known to the system the consistency of parameters is checked. If
+the parameters for a distribution are invalid, the functions return
+<b><tt>Undefined</tt></b>.
+For example, <b><tt>NormalDistribution</tt></b><b><tt>(a,-1)</tt></b> evaluates to
+<b><tt>Undefined</tt></b>, because of negative variance.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter30.html#BernoulliDistribution" target='Chapters' title="Bernoulli distribution">BernoulliDistribution</a></td>
+<td>Bernoulli distribution</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter30.html#BinomialDistribution" target='Chapters' title="binomial distribution">BinomialDistribution</a></td>
+<td>binomial distribution</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter30.html#tDistribution" target='Chapters' title="Student's <b> t</b> distribution">tDistribution</a></td>
+<td>Student's <b> t</b> distribution</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter30.html#PDF" target='Chapters' title="probability density function">PDF</a></td>
+<td>probability density function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter30.html#ChiSquareTest" target='Chapters' title="Pearson's ChiSquare test">ChiSquareTest</a></td>
+<td>Pearson's ChiSquare test</td>
+</tr>
+</table></center>
+<a name="c30s1">
+
+</a>
+<h2>
+<hr>30.1 Probability
+</h2>
+
+<p>
+
+<a name="BernoulliDistribution">
+
+</a>
+<a name="bernoullidistribution">
+
+</a>
+<h3>
+<hr>BernoulliDistribution -- Bernoulli distribution
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+BernoulliDistribution(p)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>p</tt></b> -- number, probability of an event in a single trial
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+A random variable has a Bernoulli distribution with probability <b><tt>p</tt></b> if
+it can be interpreted as an indicator of an event, where <b><tt>p</tt></b> is the
+probability to observe the event in a single trial.
+
+
+<p>
+Numerical value of <b><tt>p</tt></b> must satisfy <b>0&lt;p&lt;1</b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?BinomialDistribution" target="Chapters">
+BinomialDistribution
+</a>
+.<a name="BinomialDistribution">
+
+</a>
+<a name="binomialdistribution">
+
+</a>
+<h3>
+<hr>BinomialDistribution -- binomial distribution
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+BinomialDistribution(p,n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>p</tt></b> -- number, probability to observe an event in single trial
+
+
+<p>
+<b><tt>n</tt></b> -- number of trials
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Suppose we repeat a trial <b><tt>n</tt></b> times, the probability to observe an
+event in a single trial is <b><tt>p</tt></b> and outcomes in all trials are mutually
+independent. Then the number of trials when the event occurred
+is distributed according to the binomial distribution. The probability
+of that is <b><tt>BinomialDistribution</tt></b><b><tt>(p,n)</tt></b>.
+
+
+<p>
+Numerical value of <b><tt>p</tt></b> must satisfy <b> 0&lt;p&lt;1</b>. Numerical value
+of <b><tt>n</tt></b> must be a positive integer. 
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?BernoulliDistribution" target="Chapters">
+BernoulliDistribution
+</a>
+.<a name="tDistribution">
+
+</a>
+<a name="tdistribution">
+
+</a>
+<h3>
+<hr>tDistribution -- Student's <b> t</b> distribution
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+{tDistribution}(m)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>m</tt></b> -- integer, number of degrees of freedom
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+
+<p>
+Let <b> Y</b> and <b> Z</b> be independent random variables, <b> Y</b> have the 
+NormalDistribution(0,1), <b><tt>Z</tt></b> have ChiSquareDistribution(m). Then 
+<b> Y/Sqrt(Z/m)</b> has tDistribution(m).
+
+
+<p>
+Numerical value of <b><tt>m</tt></b> must be positive integer.
+
+
+<p>
+
+<a name="PDF">
+
+</a>
+<a name="pdf">
+
+</a>
+<h3>
+<hr>PDF -- probability density function
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+PDF(dist,x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>dist</tt></b> -- a distribution type
+
+
+<p>
+<b><tt>x</tt></b> -- a value of random variable
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+If <b><tt>dist</tt></b> is a discrete distribution, then <b><tt>PDF</tt></b> returns the
+probability for a random variable with distribution <b><tt>dist</tt></b> to take a
+value of <b><tt>x</tt></b>. If <b><tt>dist</tt></b> is a continuous distribution, then <b><tt>PDF</tt></b>
+returns the density function at point <b>x</b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?CDF" target="Chapters">
+CDF
+</a>
+.<a name="c30s2">
+
+</a>
+<h2>
+<hr>30.2 Statistics
+</h2>
+<a name="ChiSquareTest">
+
+</a>
+<a name="chisquaretest">
+
+</a>
+<h3>
+<hr>ChiSquareTest -- Pearson's ChiSquare test
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ChiSquareTest(observed,expected)
+ChiSquareTest(observed,expected,params)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>observed</tt></b> -- list of observed frequencies
+
+
+<p>
+<b><tt>expected</tt></b> -- list of expected frequencies
+
+
+<p>
+<b><tt>params</tt></b> -- number of estimated parameters
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>ChiSquareTest</tt></b> is intended to find out if our sample was drawn from a
+given distribution or not. To find this out, one has to calculate
+observed frequencies into certain intervals and expected ones. To
+calculate expected frequency the formula <b>n[i]:=n*p[i]</b> must be used,
+where <b>p[i]</b> is the probability measure of <b>i</b>-th interval, and <b> n</b> is
+the total number of observations. If any of the parameters of the
+distribution were estimated, this number is given as
+<b><tt>params</tt></b>.
+
+
+<p>
+The function returns a list of three local substitution rules. First
+of them contains the test statistic, the second contains the value of the parameters, and
+the last one contains the degrees of freedom. 
+
+
+<p>
+The test statistic is distributed as ChiSquareDistribution.
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

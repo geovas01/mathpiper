@@ -1,0 +1,2085 @@
+<html>
+<head>
+  <title>Programming</title>
+  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c2">
+
+</a>
+(directly go to documentation on : <a href="refprogchapter2.html#/*" target='Chapters' title="Start of comment">/*</a>, <a href="refprogchapter2.html#*/" target='Chapters' title="end of comment">*/</a>, <a href="refprogchapter2.html#//" target='Chapters' title="Beginning of one-line comment">//</a>, <a href="refprogchapter2.html#Prog" target='Chapters' title="block of statements">Prog</a>, <a href="refprogchapter2.html#[" target='Chapters' title="beginning of block of statements">[</a>, <a href="refprogchapter2.html#]" target='Chapters' title="end of block of statements">]</a>, <a href="refprogchapter2.html#Bodied" target='Chapters' title="define function syntax (bodied function)">Bodied</a>, <a href="refprogchapter2.html#Infix" target='Chapters' title="define function syntax (infix operator)">Infix</a>, <a href="refprogchapter2.html#Postfix" target='Chapters' title="define function syntax (postfix operator)">Postfix</a>, <a href="refprogchapter2.html#Prefix" target='Chapters' title="define function syntax (prefix operator)">Prefix</a>, <a href="refprogchapter2.html#IsBodied" target='Chapters' title="check for function syntax">IsBodied</a>, <a href="refprogchapter2.html#IsInfix" target='Chapters' title="check for function syntax">IsInfix</a>, <a href="refprogchapter2.html#IsPostfix" target='Chapters' title="check for function syntax">IsPostfix</a>, <a href="refprogchapter2.html#IsPrefix" target='Chapters' title="check for function syntax">IsPrefix</a>, <a href="refprogchapter2.html#OpPrecedence" target='Chapters' title="get operator precedence">OpPrecedence</a>, <a href="refprogchapter2.html#OpLeftPrecedence" target='Chapters' title="get operator precedence">OpLeftPrecedence</a>, <a href="refprogchapter2.html#OpRightPrecedence" target='Chapters' title="get operator precedence">OpRightPrecedence</a>, <a href="refprogchapter2.html#RightAssociative" target='Chapters' title="declare associativity">RightAssociative</a>, <a href="refprogchapter2.html#LeftPrecedence" target='Chapters' title="set operator precedence">LeftPrecedence</a>, <a href="refprogchapter2.html#RightPrecedence" target='Chapters' title="set operator precedence">RightPrecedence</a>, <a href="refprogchapter2.html#RuleBase" target='Chapters' title="define function with a fixed number of arguments">RuleBase</a>, <a href="refprogchapter2.html#RuleBaseListed" target='Chapters' title="define function with variable number of arguments">RuleBaseListed</a>, <a href="refprogchapter2.html#Rule" target='Chapters' title="define a rewrite rule">Rule</a>, <a href="refprogchapter2.html#HoldArg" target='Chapters' title="mark argument as not evaluated">HoldArg</a>, <a href="refprogchapter2.html#Retract" target='Chapters' title="erase rules for a function">Retract</a>, <a href="refprogchapter2.html#UnFence" target='Chapters' title="change local variable scope for a function">UnFence</a>, <a href="refprogchapter2.html#HoldArgNr" target='Chapters' title="specify argument as not evaluated">HoldArgNr</a>, <a href="refprogchapter2.html#RuleBaseArgList" target='Chapters' title="obtain list of arguments">RuleBaseArgList</a>, <a href="refprogchapter2.html#MacroSet" target='Chapters' title="define rules in functions">MacroSet</a>, <a href="refprogchapter2.html#MacroClear" target='Chapters' title="define rules in functions">MacroClear</a>, <a href="refprogchapter2.html#MacroLocal" target='Chapters' title="define rules in functions">MacroLocal</a>, <a href="refprogchapter2.html#MacroRuleBase" target='Chapters' title="define rules in functions">MacroRuleBase</a>, <a href="refprogchapter2.html#MacroRuleBaseListed" target='Chapters' title="define rules in functions">MacroRuleBaseListed</a>, <a href="refprogchapter2.html#MacroRule" target='Chapters' title="define rules in functions">MacroRule</a>, <a href="refprogchapter2.html#Backquoting" target='Chapters' title="macro expansion (LISP-style backquoting)">Backquoting</a>, <a href="refprogchapter2.html#DefMacroRuleBase" target='Chapters' title="define a function as a macro">DefMacroRuleBase</a>, <a href="refprogchapter2.html#DefMacroRuleBaseListed" target='Chapters' title="define macro with variable number of arguments">DefMacroRuleBaseListed</a>, <a href="refprogchapter2.html#ExtraInfo'Set, ExtraInfo'Get" target='Chapters' title="annotate objects with additional information">ExtraInfo'Set, ExtraInfo'Get</a>, <a href="refprogchapter2.html#GarbageCollect" target='Chapters' title="do garbage collection on unused memory">GarbageCollect</a>, <a href="refprogchapter2.html#FindFunction" target='Chapters' title="find the library file where a function is defined">FindFunction</a>, <a href="refprogchapter2.html#Secure" target='Chapters' title="guard the host OS">Secure</a>.
+)<h1>
+2. Programming
+</h1>
+This chapter describes functions useful for writing Piper scripts.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#/*" target='Chapters' title="Start of comment">/*</a></td>
+<td>Start of comment</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#*/" target='Chapters' title="end of comment">*/</a></td>
+<td>end of comment</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#//" target='Chapters' title="Beginning of one-line comment">//</a></td>
+<td>Beginning of one-line comment</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Prog" target='Chapters' title="block of statements">Prog</a></td>
+<td>block of statements</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#[" target='Chapters' title="beginning of block of statements">[</a></td>
+<td>beginning of block of statements</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#]" target='Chapters' title="end of block of statements">]</a></td>
+<td>end of block of statements</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Bodied" target='Chapters' title="define function syntax (bodied function)">Bodied</a></td>
+<td>define function syntax (bodied function)</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Infix" target='Chapters' title="define function syntax (infix operator)">Infix</a></td>
+<td>define function syntax (infix operator)</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Postfix" target='Chapters' title="define function syntax (postfix operator)">Postfix</a></td>
+<td>define function syntax (postfix operator)</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Prefix" target='Chapters' title="define function syntax (prefix operator)">Prefix</a></td>
+<td>define function syntax (prefix operator)</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#IsBodied" target='Chapters' title="check for function syntax">IsBodied</a></td>
+<td>check for function syntax</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#IsInfix" target='Chapters' title="check for function syntax">IsInfix</a></td>
+<td>check for function syntax</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#IsPostfix" target='Chapters' title="check for function syntax">IsPostfix</a></td>
+<td>check for function syntax</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#IsPrefix" target='Chapters' title="check for function syntax">IsPrefix</a></td>
+<td>check for function syntax</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#OpPrecedence" target='Chapters' title="get operator precedence">OpPrecedence</a></td>
+<td>get operator precedence</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#OpLeftPrecedence" target='Chapters' title="get operator precedence">OpLeftPrecedence</a></td>
+<td>get operator precedence</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#OpRightPrecedence" target='Chapters' title="get operator precedence">OpRightPrecedence</a></td>
+<td>get operator precedence</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#RightAssociative" target='Chapters' title="declare associativity">RightAssociative</a></td>
+<td>declare associativity</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#LeftPrecedence" target='Chapters' title="set operator precedence">LeftPrecedence</a></td>
+<td>set operator precedence</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#RightPrecedence" target='Chapters' title="set operator precedence">RightPrecedence</a></td>
+<td>set operator precedence</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#RuleBase" target='Chapters' title="define function with a fixed number of arguments">RuleBase</a></td>
+<td>define function with a fixed number of arguments</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#RuleBaseListed" target='Chapters' title="define function with variable number of arguments">RuleBaseListed</a></td>
+<td>define function with variable number of arguments</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Rule" target='Chapters' title="define a rewrite rule">Rule</a></td>
+<td>define a rewrite rule</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#HoldArg" target='Chapters' title="mark argument as not evaluated">HoldArg</a></td>
+<td>mark argument as not evaluated</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Retract" target='Chapters' title="erase rules for a function">Retract</a></td>
+<td>erase rules for a function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#UnFence" target='Chapters' title="change local variable scope for a function">UnFence</a></td>
+<td>change local variable scope for a function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#HoldArgNr" target='Chapters' title="specify argument as not evaluated">HoldArgNr</a></td>
+<td>specify argument as not evaluated</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#RuleBaseArgList" target='Chapters' title="obtain list of arguments">RuleBaseArgList</a></td>
+<td>obtain list of arguments</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#MacroSet" target='Chapters' title="define rules in functions">MacroSet</a></td>
+<td>define rules in functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#MacroClear" target='Chapters' title="define rules in functions">MacroClear</a></td>
+<td>define rules in functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#MacroLocal" target='Chapters' title="define rules in functions">MacroLocal</a></td>
+<td>define rules in functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#MacroRuleBase" target='Chapters' title="define rules in functions">MacroRuleBase</a></td>
+<td>define rules in functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#MacroRuleBaseListed" target='Chapters' title="define rules in functions">MacroRuleBaseListed</a></td>
+<td>define rules in functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#MacroRule" target='Chapters' title="define rules in functions">MacroRule</a></td>
+<td>define rules in functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Backquoting" target='Chapters' title="macro expansion (LISP-style backquoting)">Backquoting</a></td>
+<td>macro expansion (LISP-style backquoting)</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#DefMacroRuleBase" target='Chapters' title="define a function as a macro">DefMacroRuleBase</a></td>
+<td>define a function as a macro</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#DefMacroRuleBaseListed" target='Chapters' title="define macro with variable number of arguments">DefMacroRuleBaseListed</a></td>
+<td>define macro with variable number of arguments</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#ExtraInfo'Set, ExtraInfo'Get" target='Chapters' title="annotate objects with additional information">ExtraInfo'Set, ExtraInfo'Get</a></td>
+<td>annotate objects with additional information</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#GarbageCollect" target='Chapters' title="do garbage collection on unused memory">GarbageCollect</a></td>
+<td>do garbage collection on unused memory</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#FindFunction" target='Chapters' title="find the library file where a function is defined">FindFunction</a></td>
+<td>find the library file where a function is defined</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter2.html#Secure" target='Chapters' title="guard the host OS">Secure</a></td>
+<td>guard the host OS</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="/*">
+
+</a>
+<a name="/*">
+
+</a>
+<h3>
+<hr>/* -- Start of comment
+</h3>
+<a name="*/">
+
+</a>
+<a name="*/">
+
+</a>
+<h3>
+<hr>*/ -- end of comment
+</h3>
+<a name="//">
+
+</a>
+<a name="//">
+
+</a>
+<h3>
+<hr>// -- Beginning of one-line comment
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+/* comment */
+// comment
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Introduce a comment block in a source file, similar to C++ comments.
+<b><tt>//</tt></b> makes everything until the end of the line a comment, while <b><tt>/*</tt></b> and <b><tt>*/</tt></b> may delimit a multi-line comment.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+a+b; // get result
+a + /* add them */ b;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="Prog">
+
+</a>
+<a name="prog">
+
+</a>
+<h3>
+<hr>Prog -- block of statements
+</h3>
+<a name="[">
+
+</a>
+<a name="[">
+
+</a>
+<h3>
+<hr>[ -- beginning of block of statements
+</h3>
+<a name="]">
+
+</a>
+<a name="]">
+
+</a>
+<h3>
+<hr>] -- end of block of statements
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Prog(statement1, statement2, ...)
+[ statement1; statement2; ... ]
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>statement1</tt></b>, <b><tt>statement2</tt></b> -- expressions
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The <b><tt>Prog</tt></b> and the <b><tt>[ ... ]</tt></b> construct have the same effect: they evaluate all
+arguments in order and return the result of the last evaluated expression.
+
+
+<p>
+<b><tt>Prog(a,b);</tt></b> is the same as typing <b><tt>[a;b;];</tt></b> and is very useful for writing out
+function bodies. The <b><tt>[ ... ]</tt></b> construct is a syntactically nicer version of the
+<b><tt>Prog</tt></b> call; it is converted into <b><tt>Prog(...)</tt></b> during the parsing stage.
+
+
+<p>
+
+<a name="Bodied">
+
+</a>
+<a name="bodied">
+
+</a>
+<h3>
+<hr>Bodied -- define function syntax (bodied function)
+</h3>
+<a name="Infix">
+
+</a>
+<a name="infix">
+
+</a>
+<h3>
+<hr>Infix -- define function syntax (infix operator)
+</h3>
+<a name="Postfix">
+
+</a>
+<a name="postfix">
+
+</a>
+<h3>
+<hr>Postfix -- define function syntax (postfix operator)
+</h3>
+<a name="Prefix">
+
+</a>
+<a name="prefix">
+
+</a>
+<h3>
+<hr>Prefix -- define function syntax (prefix operator)
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Bodied("op", precedence)
+Infix("op")
+Infix("op", precedence)
+Postfix("op")
+Postfix("op", precedence)
+Prefix("op")
+Prefix("op", precedence)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"op"</tt></b> -- string, the name of a function
+
+
+<p>
+<b><tt>precedence</tt></b> -- nonnegative integer (evaluated)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Declares a special syntax for the function to be parsed as a bodied, infix, postfix,
+or prefix operator.
+
+
+<p>
+"Bodied" functions have all arguments except the first one inside parentheses and the last argument outside, for example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+For(pre, condition, post) statement;
+</pre></tr>
+</table>
+Here the function <b><tt>For</tt></b> has 4 arguments and the last argument is placed outside the parentheses.
+The <b><tt>precedence</tt></b> of a "bodied" function refers to how tightly the last argument is bound to the parentheses.
+This makes a difference when the last argument contains other operators.
+For example, when taking the derivative
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+D(x) Sin(x)+Cos(x)
+</pre></tr>
+</table>
+both <b><tt>Sin</tt></b> and <b><tt>Cos</tt></b> are under the derivative because the bodied function <b><tt>D</tt></b> binds less tightly than the infix operator "<b><tt>+</tt></b>".
+
+
+<p>
+"Infix" functions must have two arguments and are syntactically placed between their arguments.
+Names of infix functions can be arbitrary, although for reasons of readability they are usually made of non-alphabetic characters.
+
+
+<p>
+"Prefix" functions must have one argument and are syntactically placed before their argument.
+"Postfix" functions must have one argument and are syntactically placed after their argument.
+
+
+<p>
+Function name can be any string but meaningful usage and readability would
+require it to be either made up entirely of letters or entirely of non-letter
+characters (such as "+", ":" etc.).
+Precedence is optional (will be set to 0 by default).
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; YY x := x+1;
+CommandLine(1) : Error parsing expression
+
+In&gt; Prefix("YY", 2)
+Out&gt; True;
+In&gt; YY x := x+1;
+Out&gt; True;
+In&gt; YY YY 2*3
+Out&gt; 12;
+In&gt; Infix("##", 5)
+Out&gt; True;
+In&gt; a ## b ## c
+Out&gt; a##b##c;
+</pre></tr>
+</table>
+
+
+<p>
+Note that, due to a current parser limitation, a function atom that is declared prefix cannot be used by itself as an argument.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; YY
+CommandLine(1) : Error parsing expression
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#IsBodied" target="Chapters">
+IsBodied
+</a>
+, <a href="refprogchapter2.html#OpPrecedence" target="Chapters">
+OpPrecedence
+</a>
+.<a name="IsBodied">
+
+</a>
+<a name="isbodied">
+
+</a>
+<h3>
+<hr>IsBodied -- check for function syntax
+</h3>
+<a name="IsInfix">
+
+</a>
+<a name="isinfix">
+
+</a>
+<h3>
+<hr>IsInfix -- check for function syntax
+</h3>
+<a name="IsPostfix">
+
+</a>
+<a name="ispostfix">
+
+</a>
+<h3>
+<hr>IsPostfix -- check for function syntax
+</h3>
+<a name="IsPrefix">
+
+</a>
+<a name="isprefix">
+
+</a>
+<h3>
+<hr>IsPrefix -- check for function syntax
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsBodied("op")
+IsInfix("op")
+IsPostfix("op")
+IsPrefix("op")
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"op"</tt></b> -- string, the name of a function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Check whether the function with given name <b><tt>"op"</tt></b> has been declared as a
+"bodied", infix, postfix, or prefix operator, and  return <b><tt>True</tt></b> or <b><tt>False</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; IsInfix("+");
+Out&gt; True;
+In&gt; IsBodied("While");
+Out&gt; True;
+In&gt; IsBodied("Sin");
+Out&gt; False;
+In&gt; IsPostfix("!");
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#Bodied" target="Chapters">
+Bodied
+</a>
+, <a href="refprogchapter2.html#OpPrecedence" target="Chapters">
+OpPrecedence
+</a>
+.<a name="OpPrecedence">
+
+</a>
+<a name="opprecedence">
+
+</a>
+<h3>
+<hr>OpPrecedence -- get operator precedence
+</h3>
+<a name="OpLeftPrecedence">
+
+</a>
+<a name="opleftprecedence">
+
+</a>
+<h3>
+<hr>OpLeftPrecedence -- get operator precedence
+</h3>
+<a name="OpRightPrecedence">
+
+</a>
+<a name="oprightprecedence">
+
+</a>
+<h3>
+<hr>OpRightPrecedence -- get operator precedence
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OpPrecedence("op")
+OpLeftPrecedence("op")
+OpRightPrecedence("op")
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"op"</tt></b> -- string, the name of a function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns the precedence of the function named "op" which should have been declared as a bodied function or an infix, postfix, or prefix operator. Generates an error message if the string str does not represent a type of function that can have precedence.
+
+
+<p>
+For infix operators, right precedence can differ from left precedence. Bodied functions and prefix operators cannot have left precedence, while postfix operators cannot have right precedence; for these operators, there is only one value of precedence.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OpPrecedence("+")
+Out&gt; 6;
+In&gt; OpLeftPrecedence("!")
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="RightAssociative">
+
+</a>
+<a name="rightassociative">
+
+</a>
+<h3>
+<hr>RightAssociative -- declare associativity
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RightAssociative("op")
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"op"</tt></b> -- string, the name of a function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This makes the operator right-associative. For example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RightAssociative("*")
+</pre></tr>
+</table>
+would make multiplication right-associative. Take care not to abuse this
+function, because the reverse, making an infix operator left-associative, is
+not implemented. (All infix operators are by default left-associative until
+they are declared to be right-associative.)
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#OpPrecedence" target="Chapters">
+OpPrecedence
+</a>
+.<a name="LeftPrecedence">
+
+</a>
+<a name="leftprecedence">
+
+</a>
+<h3>
+<hr>LeftPrecedence -- set operator precedence
+</h3>
+<a name="RightPrecedence">
+
+</a>
+<a name="rightprecedence">
+
+</a>
+<h3>
+<hr>RightPrecedence -- set operator precedence
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LeftPrecedence("op",precedence)
+RightPrecedence("op",precedence)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"op"</tt></b> -- string, the name of a function
+
+
+<p>
+<b><tt>precedence</tt></b> -- nonnegative integer
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>"op"</tt></b> should be an infix operator. This function call tells the
+infix expression printer to bracket the left or right hand side of
+the expression if its precedence is larger than precedence.
+
+
+<p>
+This functionality was required in order to display expressions like <b><tt>a-(b-c)</tt></b>
+correctly. Thus, <b><tt>a+b+c</tt></b> is the same as <b><tt>a+(b+c)</tt></b>, but <b><tt>a-(b-c)</tt></b> is not
+the same as <b><tt>a-b-c</tt></b>.
+
+
+<p>
+Note that the left and right precedence of an infix operator does not affect the way Piper interprets expressions typed by the user. You cannot make Piper parse <b><tt>a-b-c</tt></b> as <b><tt>a-(b-c)</tt></b> unless you declare the operator "<b><tt>-</tt></b>" to be right-associative.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#OpPrecedence" target="Chapters">
+OpPrecedence
+</a>
+, <a href="refprogchapter2.html#OpLeftPrecedence" target="Chapters">
+OpLeftPrecedence
+</a>
+, <a href="refprogchapter2.html#OpRightPrecedence" target="Chapters">
+OpRightPrecedence
+</a>
+, <a href="refprogchapter2.html#RightAssociative" target="Chapters">
+RightAssociative
+</a>
+.<a name="RuleBase">
+
+</a>
+<a name="rulebase">
+
+</a>
+<h3>
+<hr>RuleBase -- define function with a fixed number of arguments
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RuleBase(name,params)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string, name of function
+
+
+<p>
+<b><tt>params</tt></b> -- list of arguments to function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Define a new rules table entry for a
+function "name", with <b><tt>params</tt></b> as the parameter list. Name can be
+either a string or simple atom.
+
+
+<p>
+In the context of the transformation rule declaration facilities
+this is a useful function in that it allows the stating of argument
+names that can he used with HoldArg.
+
+
+<p>
+Functions can be overloaded: the same function can be defined
+with different number of arguments.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#MacroRuleBase" target="Chapters">
+MacroRuleBase
+</a>
+, <a href="refprogchapter2.html#RuleBaseListed" target="Chapters">
+RuleBaseListed
+</a>
+, <a href="refprogchapter2.html#MacroRuleBaseListed" target="Chapters">
+MacroRuleBaseListed
+</a>
+, <a href="refprogchapter2.html#HoldArg" target="Chapters">
+HoldArg
+</a>
+, <a href="refprogchapter2.html#Retract" target="Chapters">
+Retract
+</a>
+.<a name="RuleBaseListed">
+
+</a>
+<a name="rulebaselisted">
+
+</a>
+<h3>
+<hr>RuleBaseListed -- define function with variable number of arguments
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RuleBaseListed("name", params)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"name"</tt></b> -- string, name of function
+
+
+<p>
+<b><tt>params</tt></b> -- list of arguments to function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The command <b><tt>RuleBaseListed</tt></b> defines a new function. It essentially works the
+same way as <b><tt>RuleBase</tt></b>, except that it declares a new function with a variable
+number of arguments. The list of parameters <b><tt>params</tt></b> determines the smallest
+number of arguments that the new function will accept. If the number of
+arguments passed to the new function is larger than the number of parameters in
+<b><tt>params</tt></b>, then the last argument actually passed to the new function will be a
+list containing all the remaining arguments.
+
+
+<p>
+A function defined using <b><tt>RuleBaseListed</tt></b> will appear to have the arity equal
+to the number of parameters in the <b><tt>param</tt></b> list, and it can accept any number
+of arguments greater or equal than that. As a consequence, it will be impossible to define a new function with the same name and with a greater arity.
+
+
+<p>
+The function body will know that the function is passed more arguments than the
+length of the <b><tt>param</tt></b> list, because the last argument will then be a list. The
+rest then works like a <b><tt>RuleBase</tt></b>-defined function with a fixed number of
+arguments. Transformation rules can be defined for the new function as usual.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+The definitions
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RuleBaseListed("f",{a,b,c})
+10 # f(_a,_b,{_c,_d}) &lt;--
+  Echo({"four args",a,b,c,d});
+20 # f(_a,_b,c_IsList) &lt;--
+  Echo({"more than four args",a,b,c});
+30 # f(_a,_b,_c) &lt;-- Echo({"three args",a,b,c});
+</pre></tr>
+</table>
+give the following interaction:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; f(A)
+Out&gt; f(A);
+In&gt; f(A,B)
+Out&gt; f(A,B);
+In&gt; f(A,B,C)
+three args A B C 
+Out&gt; True;
+In&gt; f(A,B,C,D)
+four args A B C D 
+Out&gt; True;
+In&gt; f(A,B,C,D,E)
+more than four args A B {C,D,E} 
+Out&gt; True;
+In&gt; f(A,B,C,D,E,E)
+more than four args A B {C,D,E,E} 
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+The function <b><tt>f</tt></b> now appears to occupy all arities greater than 3:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; RuleBase("f", {x,y,z,t});
+CommandLine(1) : Rule base with this arity
+  already defined
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#RuleBase" target="Chapters">
+RuleBase
+</a>
+, <a href="refprogchapter2.html#Retract" target="Chapters">
+Retract
+</a>
+, <a href="refchapter28.html#Echo" target="Chapters">
+Echo
+</a>
+.<a name="Rule">
+
+</a>
+<a name="rule">
+
+</a>
+<h3>
+<hr>Rule -- define a rewrite rule
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Rule("operator", arity,
+  precedence, predicate) body
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"operator"</tt></b> -- string, name of function
+
+
+<p>
+<b><tt>arity</tt></b>, <b><tt>precedence</tt></b> -- integers
+
+
+<p>
+<b><tt>predicate</tt></b> -- function returning boolean
+
+
+<p>
+<b><tt>body</tt></b> -- expression, body of rule
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Define a rule for the function "operator" with
+"arity", "precedence", "predicate" and
+"body". The "precedence" goes from low to high: rules with low precedence will be applied first.
+
+
+<p>
+The arity for a rules database equals the number of arguments. Different
+rules data bases can be built for functions with the same name but with
+a different number of arguments.
+
+
+<p>
+Rules with a low precedence value will be tried before rules with a high value, so
+a rule with precedence 0 will be tried before a rule with precedence 1.
+
+
+<p>
+
+<a name="HoldArg">
+
+</a>
+<a name="holdarg">
+
+</a>
+<h3>
+<hr>HoldArg -- mark argument as not evaluated
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+HoldArg("operator",parameter)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"operator"</tt></b> -- string, name of a function
+
+
+<p>
+<b><tt>parameter</tt></b> -- atom, symbolic name of parameter
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Specify that parameter should
+not be evaluated before used. This will be
+declared for all arities of "operator", at the moment
+this function is called, so it is best called
+after all <b><tt>RuleBase</tt></b> calls for this operator.
+"operator" can be a string or atom specifying the 
+function name.
+
+
+<p>
+The <b><tt>parameter</tt></b> must be an atom from the list of symbolic 
+arguments used when calling <b><tt>RuleBase</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#RuleBase" target="Chapters">
+RuleBase
+</a>
+, <a href="refprogchapter2.html#HoldArgNr" target="Chapters">
+HoldArgNr
+</a>
+, <a href="refprogchapter2.html#RuleBaseArgList" target="Chapters">
+RuleBaseArgList
+</a>
+.<a name="Retract">
+
+</a>
+<a name="retract">
+
+</a>
+<h3>
+<hr>Retract -- erase rules for a function
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Retract("function",arity)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"function"</tt></b> -- string, name of function
+
+
+<p>
+<b><tt>arity</tt></b> -- positive integer
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Remove a rulebase for the function named <b><tt>"function"</tt></b> with the specific <b><tt>arity</tt></b>, if it exists at all. This will make
+Piper forget all rules defined for a given function. Rules for functions with
+the same name but different arities are not affected.
+
+
+<p>
+Assignment <b><tt>:=</tt></b> of a function does this to the function being (re)defined.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#RuleBaseArgList" target="Chapters">
+RuleBaseArgList
+</a>
+, <a href="refprogchapter2.html#RuleBase" target="Chapters">
+RuleBase
+</a>
+, <a href="refchapter27.html#:=" target="Chapters">
+:=
+</a>
+.<a name="UnFence">
+
+</a>
+<a name="unfence">
+
+</a>
+<h3>
+<hr>UnFence -- change local variable scope for a function
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+UnFence("operator",arity)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"operator"</tt></b> -- string, name of function
+
+
+<p>
+<b><tt>arity</tt></b> -- positive integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+When applied to a user function, the bodies
+defined for the rules for "operator" with given
+arity can see the local variables from the calling
+function. This is useful for defining macro-like
+procedures (looping and such).
+
+
+<p>
+The standard library functions <b><tt>For</tt></b> and <b><tt>ForEach</tt></b> use <b><tt>UnFence</tt></b>.
+
+
+<p>
+
+<a name="HoldArgNr">
+
+</a>
+<a name="holdargnr">
+
+</a>
+<h3>
+<hr>HoldArgNr -- specify argument as not evaluated
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+HoldArgNr("function", arity, argNum)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"function"</tt></b> -- string, function name
+
+
+<p>
+<b><tt>arity</tt></b>, <b><tt>argNum</tt></b> -- positive integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Declares the argument numbered <b><tt>argNum</tt></b> of the function named <b><tt>"function"</tt></b> with
+specified <b><tt>arity</tt></b> to be unevaluated ("held"). Useful if you don't know symbolic
+names of parameters, for instance, when the function was not declared using an
+explicit <b><tt>RuleBase</tt></b> call. Otherwise you could use <b><tt>HoldArg</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#HoldArg" target="Chapters">
+HoldArg
+</a>
+, <a href="refprogchapter2.html#RuleBase" target="Chapters">
+RuleBase
+</a>
+.<a name="RuleBaseArgList">
+
+</a>
+<a name="rulebasearglist">
+
+</a>
+<h3>
+<hr>RuleBaseArgList -- obtain list of arguments
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RuleBaseArgList("operator", arity)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"operator"</tt></b> -- string, name of function
+
+
+<p>
+<b><tt>arity</tt></b> -- integer
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns a list of atoms, symbolic parameters specified in the <b><tt>RuleBase</tt></b> call
+for the function named <b><tt>"operator"</tt></b> with the specific <b><tt>arity</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#RuleBase" target="Chapters">
+RuleBase
+</a>
+, <a href="refprogchapter2.html#HoldArgNr" target="Chapters">
+HoldArgNr
+</a>
+, <a href="refprogchapter2.html#HoldArg" target="Chapters">
+HoldArg
+</a>
+.<a name="MacroSet">
+
+</a>
+<a name="macroset">
+
+</a>
+<h3>
+<hr>MacroSet -- define rules in functions
+</h3>
+<a name="MacroClear">
+
+</a>
+<a name="macroclear">
+
+</a>
+<h3>
+<hr>MacroClear -- define rules in functions
+</h3>
+<a name="MacroLocal">
+
+</a>
+<a name="macrolocal">
+
+</a>
+<h3>
+<hr>MacroLocal -- define rules in functions
+</h3>
+<a name="MacroRuleBase">
+
+</a>
+<a name="macrorulebase">
+
+</a>
+<h3>
+<hr>MacroRuleBase -- define rules in functions
+</h3>
+<a name="MacroRuleBaseListed">
+
+</a>
+<a name="macrorulebaselisted">
+
+</a>
+<h3>
+<hr>MacroRuleBaseListed -- define rules in functions
+</h3>
+<a name="MacroRule">
+
+</a>
+<a name="macrorule">
+
+</a>
+<h3>
+<hr>MacroRule -- define rules in functions
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Description:
+</h5>
+These functions have the same effect as their non-macro counterparts, except
+that their arguments are evaluated before the required action is performed.
+This is useful in macro-like procedures or in functions that need to define new
+rules based on parameters.
+
+
+<p>
+Make sure that the arguments of <b><tt>Macro</tt></b>... commands evaluate to expressions that would normally be used in the non-macro versions!
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refchapter27.html#Set" target="Chapters">
+Set
+</a>
+, <a href="refchapter27.html#Clear" target="Chapters">
+Clear
+</a>
+, <a href="refchapter27.html#Local" target="Chapters">
+Local
+</a>
+, <a href="refprogchapter2.html#RuleBase" target="Chapters">
+RuleBase
+</a>
+, <a href="refprogchapter2.html#Rule" target="Chapters">
+Rule
+</a>
+, <a href="refprogchapter2.html#Backquoting" target="Chapters">
+Backquoting
+</a>
+.<a name="`@\relax <b><tt>`</tt></b>">
+
+</a>
+<a name="Backquoting">
+
+</a>
+<a name="backquoting">
+
+</a>
+<h3>
+<hr>Backquoting -- macro expansion (LISP-style backquoting)
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+`(expression)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expression</tt></b> -- expression containing "<b><tt>@var</tt></b>" combinations to substitute the value of variable "<b><tt>var</tt></b>"
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Backquoting is a macro substitution mechanism. A backquoted <b><tt>expression</tt></b>
+is evaluated in two stages: first, variables prefixed by <b><tt>@</tt></b> are evaluated
+inside an expression, and second, the new expression is evaluated.
+
+
+<p>
+To invoke this functionality, a backquote <b><tt>`</tt></b> needs to be placed in front of
+an expression. Parentheses around the expression are needed because the
+backquote binds tighter than other operators.
+
+
+<p>
+The expression should contain some variables (assigned atoms) with the special
+prefix operator <b><tt>@</tt></b>. Variables prefixed by <b><tt>@</tt></b> will be evaluated even if they
+are inside function arguments that are normally not evaluated (e.g. functions
+declared with <b><tt>HoldArg</tt></b>). If the <b><tt>@var</tt></b> pair is in place of a function name,
+e.g. "<b><tt>@f(x)</tt></b>", then at the first stage of evaluation the function name itself
+is replaced, not the return value of the function (see example); so at the
+second stage of evaluation, a new function may be called.
+
+
+<p>
+One way to view backquoting is to view it as a parametric expression
+generator. <b><tt>@var</tt></b> pairs get substituted with the value of the variable <b><tt>var</tt></b>
+even in contexts where nothing would be evaluated. This effect can be also
+achieved using <b><tt>UnList</tt></b> and <b><tt>Hold</tt></b> but the resulting code is much more
+difficult to read and maintain.
+
+
+<p>
+This operation is relatively slow since a new expression is built
+before it is evaluated, but nonetheless backquoting is a powerful mechanism
+that sometimes allows to greatly simplify code.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+This example defines a function that automatically evaluates to a number as
+soon as the argument is a number (a lot of functions  do this only when inside
+a <b><tt>N(...)</tt></b> section).
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Decl(f1,f2) := \
+In&gt;   `(@f1(x_IsNumber) &lt;-- N(@f2(x)));
+Out&gt; True;
+In&gt; Decl(nSin,Sin)
+Out&gt; True;
+In&gt; Sin(1)
+Out&gt; Sin(1);
+In&gt; nSin(1)
+Out&gt; 0.8414709848;
+</pre></tr>
+</table>
+
+
+<p>
+This example assigns the expression <b><tt>func(value)</tt></b> to variable <b><tt>var</tt></b>. Normally
+the first argument of <b><tt>Set</tt></b> would be unevaluated.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; SetF(var,func,value) := \
+In&gt;     `(Set(@var,@func(@value)));
+Out&gt; True;
+In&gt; SetF(a,Sin,x)
+Out&gt; True;
+In&gt; a
+Out&gt; Sin(x);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#MacroSet" target="Chapters">
+MacroSet
+</a>
+, <a href="refprogchapter2.html#MacroLocal" target="Chapters">
+MacroLocal
+</a>
+, <a href="refprogchapter2.html#MacroRuleBase" target="Chapters">
+MacroRuleBase
+</a>
+, <a href="refchapter23.html#Hold" target="Chapters">
+Hold
+</a>
+, <a href="refprogchapter2.html#HoldArg" target="Chapters">
+HoldArg
+</a>
+, <a href="refprogchapter2.html#DefMacroRuleBase" target="Chapters">
+DefMacroRuleBase
+</a>
+.<a name="DefMacroRuleBase">
+
+</a>
+<a name="defmacrorulebase">
+
+</a>
+<h3>
+<hr>DefMacroRuleBase -- define a function as a macro
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+DefMacroRuleBase(name,params)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>name</tt></b> -- string, name of a function
+
+
+<p>
+<b><tt>params</tt></b> -- list of arguments
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>DefMacroRuleBase</tt></b> is similar to <b><tt>RuleBase</tt></b>, with the difference that it declares a macro,
+instead of a function.
+After this call, rules can be defined for the function "<b><tt>name</tt></b>", but their interpretation will be different.
+
+
+<p>
+With the usual functions, the evaluation model is that of the <i>applicative-order model of 
+substitution</i>, meaning that first the arguments are evaluated, and then the function 
+is applied to the result of evaluating these arguments. The function is entered, and the
+code inside the function can not access local variables outside of its own local variables.
+
+
+<p>
+With macros, the evaluation model is that of the <i>normal-order model of substitution</i>,
+meaning that all occurrences of variables in an expression are first substituted into the 
+body of the macro, and only then is the resulting expression evaluated <i>in its
+calling environment</i>. This is important, because then in principle a macro body
+can access the local variables from the calling environment, whereas functions can not do that.
+
+
+<p>
+As an example, suppose there is a function <b><tt>square</tt></b>, which squares its argument, and a function
+<b><tt>add</tt></b>, which adds its arguments. Suppose the definitions of these functions are:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+add(x,y) &lt;-- x+y;
+</pre></tr>
+</table>
+and
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+square(x) &lt;-- x*x;
+</pre></tr>
+</table>
+In applicative-order mode (the usual way functions are evaluated), in the following expression
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+add(square(2),square(3))
+</pre></tr>
+</table>
+first the arguments to <b><tt>add</tt></b> get evaluated. So, first <b><tt>square(2)</tt></b> is evaluated.
+To evaluate this, first <b><tt>2</tt></b> is evaluated, but this evaluates to itself. Then
+the <b><tt>square</tt></b> function is applied to it, <b><tt>2*2</tt></b>, which returns 4. The same
+is done for <b><tt>square(3)</tt></b>, resulting in <b><tt>9</tt></b>. Only then, after evaluating these two
+arguments, <b><tt>add</tt></b> is applied to them, which is equivalent to
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+add(4,9)
+</pre></tr>
+</table>
+resulting in calling <b><tt>4+9</tt></b>, which in turn results in <b><tt>13</tt></b>.
+
+
+<p>
+In contrast, when <b><tt>add</tt></b> is a macro, the arguments to <b><tt>add</tt></b> are first
+expanded. So 
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+add(square(2),square(3))
+</pre></tr>
+</table>
+first expands to 
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+square(2) + square(3)
+</pre></tr>
+</table>
+and then this expression is evaluated, as if the user had written it directly.
+In other words, <b><tt>square(2)</tt></b> is not evaluated before the macro has been fully expanded.
+
+
+<p>
+
+
+<p>
+Macros are useful for customizing syntax, and compilers can potentially
+greatly optimize macros, as they can be inlined in the calling environment,
+and optimized accordingly. 
+
+
+<p>
+There are disadvantages, however. In interpreted mode, macros are slower,
+as the requirement for substitution means that a new expression to be evaluated
+has to be created on the fly. Also, when one of the parameters to the macro
+occur more than once in the body of the macro, it is evaluated multiple times.
+
+
+<p>
+When defining transformation rules for macros, the variables to be substituted
+need to be preceded by the <b><tt>@</tt></b> operator, similar to the back-quoting mechanism.
+Apart from that, the two are similar, and all transformation rules can also be
+applied to macros.
+
+
+<p>
+Macros can co-exist with functions with the same name but different arity.
+For instance, one can have a function <b><tt>foo(a,b)</tt></b>
+with two arguments, and a macro <b><tt>foo(a,b,c)</tt></b> with three arguments.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+The following example defines a function <b><tt>myfor</tt></b>, and shows one use, referencing
+a variable <b><tt>a</tt></b> from the calling environment.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; DefMacroRuleBase("myfor",{init,pred,inc,body})
+Out&gt; True;
+In&gt; myfor(_init,_pred,_inc,_body)&lt;--[@init;While(@pred)[@body;@inc;];True;];
+Out&gt; True;
+In&gt; a:=10
+Out&gt; 10;
+In&gt; myfor(i:=1,i&lt;10,i++,Echo(a*i))
+10 
+20 
+30 
+40 
+50 
+60 
+70 
+80 
+90 
+Out&gt; True;
+In&gt; i
+Out&gt; 10;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#RuleBase" target="Chapters">
+RuleBase
+</a>
+, <a href="refprogchapter2.html#Backquoting" target="Chapters">
+Backquoting
+</a>
+, <a href="refprogchapter2.html#DefMacroRuleBaseListed" target="Chapters">
+DefMacroRuleBaseListed
+</a>
+.<a name="DefMacroRuleBaseListed">
+
+</a>
+<a name="defmacrorulebaselisted">
+
+</a>
+<h3>
+<hr>DefMacroRuleBaseListed -- define macro with variable number of arguments
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+DefMacroRuleBaseListed("name", params)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>"name"</tt></b> -- string, name of function
+
+
+<p>
+<b><tt>params</tt></b> -- list of arguments to function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This does the same as <b><tt>DefMacroRuleBase</tt></b> (define a macro), but with a variable
+number of arguments, similar to <b><tt>RuleBaseListed</tt></b>.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refprogchapter2.html#RuleBase" target="Chapters">
+RuleBase
+</a>
+, <a href="refprogchapter2.html#RuleBaseListed" target="Chapters">
+RuleBaseListed
+</a>
+, <a href="refprogchapter2.html#Backquoting" target="Chapters">
+Backquoting
+</a>
+, <a href="refprogchapter2.html#DefMacroRuleBase" target="Chapters">
+DefMacroRuleBase
+</a>
+.<a name="object properties">
+
+</a>
+<a name="ExtraInfo'Set">
+
+</a>
+<a name="ExtraInfo'Get">
+
+</a>
+<a name="ExtraInfo'Set, ExtraInfo'Get">
+
+</a>
+<a name="extrainfo'set, extrainfo'get">
+
+</a>
+<h3>
+<hr>ExtraInfo'Set, ExtraInfo'Get -- annotate objects with additional information
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ExtraInfo'Set(expr,tag)
+ExtraInfo'Get(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- any expression
+
+
+<p>
+<b><tt>tag</tt></b> -- tag information (any other expression)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Sometimes it is useful to be able to add extra tag information to "annotate"
+objects or to label them as having certain "properties". The functions
+<b><tt>ExtraInfo'Set</tt></b> and <b><tt>ExtraInfo'Get</tt></b> enable this.
+
+
+<p>
+The function <b><tt>ExtraInfo'Set</tt></b> returns the tagged expression, leaving
+the original expression alone. This means there is a common pitfall:
+be sure to assign the returned value to a variable, or the tagged
+expression is lost when the temporary object is destroyed.
+
+
+<p>
+The original expression is left unmodified, and the tagged expression
+returned, in order to keep the atomic objects small. To tag an
+object, a new type of object is created from the old object, with
+one added property (the tag). The tag can be any expression whatsoever.
+
+
+<p>
+The function <b><tt>ExtraInfo'Get(x)</tt></b> retrieves this tag expression from an object
+<b><tt>x</tt></b>. If an object has no tag, it looks the same as if it had a tag with value
+<b><tt>False</tt></b>.
+
+
+<p>
+No part of the Piper core uses tags in a way that is visible to the outside
+world, so for specific purposes a programmer can devise a format to use for tag
+information. Association lists (hashes) are a natural fit for this, although it
+is not required and a tag can be any object (except the atom <b><tt>False</tt></b> because it
+is indistinguishable from having no tag information). Using association lists
+is highly advised since it is most likely to be the format used by other parts
+of the library, and one needs to avoid clashes with other library code.
+Typically, an object will either have no tag or a tag which is an associative
+list (perhaps empty). A script that uses tagged objects will check whether an
+object has a tag and if so, will add or modify certain entries of the
+association list, preserving any other tag information.
+
+
+<p>
+Note that <b><tt>FlatCopy</tt></b> currently does <i>not</i> copy the tag information (see
+examples).
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; a:=2*b
+Out&gt; 2*b;
+In&gt; a:=ExtraInfo'Set(a,{{"type","integer"}})
+Out&gt; 2*b;
+In&gt; a
+Out&gt; 2*b;
+In&gt; ExtraInfo'Get(a)
+Out&gt; {{"type","integer"}};
+In&gt; ExtraInfo'Get(a)["type"]
+Out&gt; "integer";
+In&gt; c:=a
+Out&gt; 2*b;
+In&gt; ExtraInfo'Get(c)
+Out&gt; {{"type","integer"}};
+In&gt; c
+Out&gt; 2*b;
+In&gt; d:=FlatCopy(a);
+Out&gt; 2*b;
+In&gt; ExtraInfo'Get(d)
+Out&gt; False;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refchapter21.html#Assoc" target="Chapters">
+Assoc
+</a>
+, <a href="refchapter27.html#:=" target="Chapters">
+:=
+</a>
+.<a name="GarbageCollect">
+
+</a>
+<a name="garbagecollect">
+
+</a>
+<h3>
+<hr>GarbageCollect -- do garbage collection on unused memory
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+GarbageCollect()
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>GarbageCollect</tt></b> garbage-collects unused memory. The Piper system
+uses a reference counting system for most objects, so this call
+is usually not necessary. 
+
+
+<p>
+Reference counting refers to bookkeeping where in each object a 
+counter is held, keeping track of the number of parts in the system 
+using that object. When this count drops to zero, the object is 
+automatically removed. Reference counting is not the fastest way
+of doing garbage collection, but it can be implemented in a very
+clean way with very little code.
+
+
+<p>
+Among the most important objects that are not reference counted are
+the strings. <b><tt>GarbageCollect</tt></b> collects these and disposes of them
+when they are not used any more. 
+
+
+<p>
+<b><tt>GarbageCollect</tt></b> is useful when doing a lot of text processing,
+to clean up the text buffers. It is not highly needed, but it keeps
+memory use low.
+
+
+<p>
+
+<a name="FindFunction">
+
+</a>
+<a name="findfunction">
+
+</a>
+<h3>
+<hr>FindFunction -- find the library file where a function is defined
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FindFunction(function)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>function</tt></b> -- string, the name of a function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function is useful for quickly finding the file where a standard library
+function is defined. It is likely to only be useful for developers. The
+function <b><tt>FindFunction</tt></b> scans the <b><tt>.def</tt></b> files that were loaded at start-up.
+This means that functions that are not listed in <b><tt>.def</tt></b> files will not be found with <b><tt>FindFunction</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FindFunction("Sum")
+Out&gt; "sums.rep/code.pi";
+In&gt; FindFunction("Integrate")
+Out&gt; "integrate.rep/code.pi";
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html#Vi" target="Chapters">
+Vi
+</a>
+.<a name="Secure">
+
+</a>
+<a name="secure">
+
+</a>
+<h3>
+<hr>Secure -- guard the host OS
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Secure(body)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>body</tt></b> -- expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Secure</tt></b> evaluates <b><tt>body</tt></b> in a "safe" environment, where files cannot be opened
+and system calls are not allowed. This can help protect the system
+when e.g. a script is sent over the
+Internet to be evaluated on a remote computer, which is potentially unsafe.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="refchapter23.html#SystemCall" target="Chapters">
+SystemCall
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>
