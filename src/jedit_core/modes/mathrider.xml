@@ -25,7 +25,7 @@
 			<END>*/</END>
 		</SPAN>
 
-		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%yacas</EOL_SPAN>
+		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%piper</EOL_SPAN>
         <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%geogebra</EOL_SPAN>
         <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%hoteqn</EOL_SPAN>
 		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%end</EOL_SPAN>
@@ -42,7 +42,7 @@
 		</SPAN>
         
 		<SPAN TYPE="MARKUP" >
-			<BEGIN>%yacas</BEGIN>
+			<BEGIN>%piper</BEGIN>
 			<END>%end</END>
 		</SPAN>
         
@@ -596,7 +596,7 @@
 			<KEYWORD2>TableForm</KEYWORD2>
 			<KEYWORD2>Take</KEYWORD2>
 			<KEYWORD2>TeXForm</KEYWORD2>
-			<KEYWORD2>TestYacas</KEYWORD2>
+			<KEYWORD2>TestPiper</KEYWORD2>
 			<KEYWORD2>ToFile</KEYWORD2>
 			<KEYWORD2>ToStdout</KEYWORD2>
 			<KEYWORD2>ToeplitzMatrix</KEYWORD2>

@@ -136,8 +136,8 @@ public class JSciCalc extends JPanel
        // hotEqn.start();
 
 		
-	 //  System.out.println("YYYYY1: " + this.getClass().getResource("yacas_manual/Algolchapter1.html"));
-	 //  System.out.println("YYYYY2: " + this.getClass().getResource("/yacas_manual/Algolchapter1.html"));
+	 //  System.out.println("YYYYY1: " + this.getClass().getResource("piper_manual/Algolchapter1.html"));
+	 //  System.out.println("YYYYY2: " + this.getClass().getResource("/piper_manual/Algolchapter1.html"));
 	  
 	   //java.net.URL imageURL = JBasicBuilderToolPanel.class.getResource( jEdit.getProperty(name + ".icon") );
 	   
@@ -221,15 +221,15 @@ public class JSciCalc extends JPanel
 //		try
 //		{
 //			//Note: this is in development mode.  Switch comment to other line for distribution.
-//			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.jscicalcplugin.JSciCalcPlugin").getPluginJAR().getClassLoader().getResource("scripts/Yacas_Docs.bsh");
-//			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/bean_sheet_plugin/src/scripts/Yacas_Docs.bsh");
+//			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.jscicalcplugin.JSciCalcPlugin").getPluginJAR().getClassLoader().getResource("scripts/Piper_Docs.bsh");
+//			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/bean_sheet_plugin/src/scripts/Piper_Docs.bsh");
 //
 //			
 //			//System.out.println("YYYYY2: " + helpURL.toString());
 //		
 //		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(docsURL.openStream() ));
 //			try {
-//				bshInterpreter.set("yacasDocPanel",this);
+//				bshInterpreter.set("piperDocPanel",this);
 //				bshInterpreter.set("editorScrollPane",scrollPane);
 //				bshInterpreter.set("editorPane",editorPane);
 //				bshInterpreter.set("view",view);
@@ -239,7 +239,7 @@ public class JSciCalc extends JPanel
 //				sourceIn.close();
 //			}
 //		
-//			//bshInterpreter.source(jeditresource:/bean_sheet_plugin.jar!/scripts/Yacas_Docs.bsh);
+//			//bshInterpreter.source(jeditresource:/bean_sheet_plugin.jar!/scripts/Piper_Docs.bsh);
 //		}
 //		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
 //		{

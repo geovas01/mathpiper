@@ -82,12 +82,12 @@ public class JSciCalcToolPanel extends JPanel  implements ActionListener {
 		
 		
 		/*
-		add(makeCustomButton("jyacas.save-file", new ActionListener() {
+		add(makeCustomButton("piper.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				JSciCalcToolPanel.this.pad.saveFile();
 			}
 		}));
-		add(makeCustomButton("jyacas.copy-to-buffer",
+		add(makeCustomButton("piper.copy-to-buffer",
 				new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						JSciCalcToolPanel.this.pad.copyToBuffer();

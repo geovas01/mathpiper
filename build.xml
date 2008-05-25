@@ -39,12 +39,12 @@
 		<pathelement path="${master.lib.dir}/jedit.jar" />
 		<pathelement path="${master.lib.dir}/jars/ErrorList.jar" />
 		<pathelement path="${master.lib.dir}/jars/plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/jyacas.jar" />
+		<pathelement path="${plugins.jars.dir}/piper.jar" />
 		<pathelement path="${master.lib.dir}/jars/ProjectViewer.jar" />
 		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
-		<pathelement path="${plugins.jars.dir}/jyacas_plugin.jar" />
+		<pathelement path="${plugins.jars.dir}/piper_plugin.jar" />
 		<pathelement path="${master.lib.dir}/jars/hoteqn.jar" />  
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />
@@ -69,12 +69,12 @@
 	</target>
 
 
-	<target id="call-jyacas" name="call-jyacas" depends="init" >
-		<ant dir="${library_apps.src.dir}/jyacas" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/jyacas"/>
+	<target id="call-piper" name="call-piper" depends="init" >
+		<ant dir="${library_apps.src.dir}/piper" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/piper"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/jyacas/src"/>
+			<property name="src.dir" value="${library_apps.src.dir}/piper/src"/>
 			<reference refid="build_classpath"/>
 		</ant>
 	</target>
@@ -89,30 +89,30 @@
 		</ant>
 	</target>
 	
-	<target id="call-jyacas_plugin" name="call-jyacas_plugin" depends="call-jyacas" >
-		<ant dir="${plugins.src.dir}/jyacas_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/jyacas_plugin"/>
+	<target id="call-piper_plugin" name="call-piper_plugin" depends="call-piper" >
+		<ant dir="${plugins.src.dir}/piper_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/piper_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/jyacas_plugin/src"/>
+			<property name="src.dir" value="${plugins.src.dir}/piper_plugin/src"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
-		<copy file="${plugins.build.dir}/jyacas_plugin/dist/jyacas_plugin.jar" todir="${plugins.jars.dir}"/>
+		<copy file="${plugins.build.dir}/piper_plugin/dist/piper_plugin.jar" todir="${plugins.jars.dir}"/>
 		
 	</target>
 	
 	
-	<target id="call-yacas_docs_plugin" name="call-yacas_docs_plugin" depends="call-jyacas_plugin">
-		<ant dir="${plugins.src.dir}/yacas_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/yacas_docs_plugin"/>
+	<target id="call-piper_docs_plugin" name="call-piper_docs_plugin" depends="call-piper_plugin">
+		<ant dir="${plugins.src.dir}/piper_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/piper_docs_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/yacas_docs_plugin/src"/>
+			<property name="src.dir" value="${plugins.src.dir}/piper_docs_plugin/src"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
-		<copy file="${plugins.build.dir}/yacas_docs_plugin/dist/yacas_docs_plugin.jar" todir="${plugins.jars.dir}"/> 
+		<copy file="${plugins.build.dir}/piper_docs_plugin/dist/piper_docs_plugin.jar" todir="${plugins.jars.dir}"/> 
 		
 	</target>
 	
@@ -171,8 +171,8 @@
 	</target>
 	
 	
-	<target id="call-all-plugins" name="call-all-plugins" depends="call-jyacas_plugin,
-		call-yacas_docs_plugin, call-geogebra_plugin, call-hoteqn_plugin" />
+	<target id="call-all-plugins" name="call-all-plugins" depends="call-piper_plugin,
+		call-piper_docs_plugin, call-geogebra_plugin, call-hoteqn_plugin" />
 	
 	
 	
@@ -213,10 +213,10 @@
 		</copy>
 		
 
-		<antcall target="call-jyacas">
+		<antcall target="call-piper">
 			<param name="target" value="dist"/>
 		</antcall>
-		<copy file="${library_apps.build.dir}/jyacas/dist/jyacas.jar" todir="${plugins.jars.dir}"/>
+		<copy file="${library_apps.build.dir}/piper/dist/piper.jar" todir="${plugins.jars.dir}"/>
 		
 	</target>
 

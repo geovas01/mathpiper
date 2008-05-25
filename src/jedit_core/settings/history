@@ -6,7 +6,7 @@ C:\\ted\\checkouts\\mathrider\\build\\mathrider_core
 [vfs.browser.filter]
 *\[^~#\]
 [action]
-Misc/Yacas_Run
+Misc/Piper_Run
 save
 help
 about
@@ -26,13 +26,13 @@ select-all
 log-viewer
 console
 error-list-show
-[console.JYacas]
-Load(\"/ted/checkouts/mathrider/src/examples/Plot2D.ys\");
-Load(\"/ted/checkouts/mathrider/src/examples/loop.ys\");
-Load(\"/ted/checkouts/mathrider/src/examples/ForEach.ys\");
-Load(\"/ted/checkouts/mathrider/src/examples/compute.ys\");
+[console.Piper]
+Load(\"/ted/checkouts/mathrider/src/examples/Plot2D.pi\");
+Load(\"/ted/checkouts/mathrider/src/examples/loop.pi\");
+Load(\"/ted/checkouts/mathrider/src/examples/ForEach.pi\");
+Load(\"/ted/checkouts/mathrider/src/examples/compute.pi\");
 3+5
-Load(\"/ted/checkouts/mathrider/src/examples/test2.ys\");
+Load(\"/ted/checkouts/mathrider/src/examples/test2.pi\");
 [clipboard]
 //Press <shift><enter> in this window to run me.
 Plot2D(Sin(x)/x,-10:10)

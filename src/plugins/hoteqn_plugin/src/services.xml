@@ -1,7 +1,7 @@
 <!DOCTYPE SERVICES SYSTEM "services.dtd">
 
 <SERVICES>
-	<!--<SERVICE CLASS="console.Shell" NAME="JYacas">
+	<!--<SERVICE CLASS="console.Shell" NAME="Piper">
                 new org.mathrider.geogebra.GeogebraShell();
         </SERVICE>-->
 </SERVICES>
