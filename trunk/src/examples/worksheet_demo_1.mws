@@ -9,7 +9,7 @@
     in the Folding menu at the top of the window.
 */
 
-%yacas,description="loop"
+%piper,description="loop"
 //Loop demonstration.
 
 x := 1;
@@ -23,7 +23,7 @@ While(x < 100)
 
 
 
-%yacas,description="series"
+%piper,description="series"
 //Automatically generate a sequence of numbers.
 
 Echo(1 .. 100);
@@ -32,7 +32,7 @@ Echo(1 .. 100);
 
 
 
-%yacas,description="factors"
+%piper,description="factors"
 //Factor each of the following into prime factors: 8,11,14,18,24,29.
 
 a := {8,11,14,18,24,29};
@@ -43,7 +43,7 @@ ForEach(x,a)
 
 
 
-%yacas,output="geogebra"
+%piper,output="geogebra"
 //Define a function and graph it by pressing <shift><enter> in the output fold.
 
 Clear(x);
@@ -54,7 +54,7 @@ Write(f(x));
 
 
 
-%yacas,output="geogebra"
+%piper,output="geogebra"
 //Calculate the derivative of the function in the previous cell and graph it by
 // pressing <shift><enter> in the output fold.
 
@@ -677,8 +677,8 @@ demonstration.
 
 
 
-%yacas,output="latex"
-/*Execute this Yacas code and then press <shift><enter> in its output fold
+%piper,output="latex"
+/*Execute this Piper code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
 a := (2*x)*(x+3)*(x+4);
@@ -689,8 +689,8 @@ Write(b);
 
 
 
-%yacas,output="latex"
-/*Execute this Yacas code and then press <shift><enter> in its output fold
+%piper,output="latex"
+/*Execute this Piper code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
 Clear(x);

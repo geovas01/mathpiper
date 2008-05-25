@@ -33,7 +33,7 @@ Development notes.
 + Find the documentation for Apart and Together.
 + Make fold types a property for use by Shift_Enter.bsh file, mode file, and the configurable fold handler plugin.
 + Allow help on a Yacas function to be brought up by ???ing on it (including the source code of the function).
-+ Check to see if we can remove the C: stripping code from Shift_Enter.bsh with this: file:///C:/ted/download/yacas_manual/refchapter26.html#c26". (Doesn't work, must fix bug in Yacas itself).
++ Check to see if we can remove the C: stripping code from Shift_Enter.bsh with this: file:///C:/ted/download/piper_manual/refchapter26.html#c26". (Doesn't work, must fix bug in Yacas itself).
 + Allow multiple output folds to be generated.  For example, both %latex and normal %output.
 + Add autoexecute parameter which automatically executes an output fold.
 - Allow source code for any function in the standard library to be brought up in the editor (like Sage ?? command).
@@ -60,7 +60,7 @@ Development notes.
 + Change "jEdit Home Directory" to "MathRider Home Directory".
 + RuleBaseListed link in Echo documentation is broken.
 + If GeoGebra has not been executed yet, then the ggb BeanShell variable will contain a null reference.
-+ Add multiple fold properties capability like this: %yacas,output="latex,autoexecute".
++ Add multiple fold properties capability like this: %piper,output="latex,autoexecute".
 + Update YacasDocs to refer to the Java implementation instead of the C implementation.
 + Capital vs. lower case variables in an expression causes evaluation errors if not caught.  Perhaps some way to highlight these case differences can be created?
 + If bottom fold is executed, append a new fold of that type at the bottom of the document.
@@ -78,7 +78,7 @@ Development notes.
 - Fix GeoGebra docking menu overwriting problem.
 - Make a JYacas mode file.
 - Perhaps add properties to a fold like manipulate=true:output=latex.
-- Tag folds by type, for example %yacas, %latex, %uasm65, %equation.
+- Tag folds by type, for example %piper, %latex, %uasm65, %equation.
 
 Initial release:
 + Documentation: Main mathrider, all plugins.
@@ -94,7 +94,7 @@ Initial release:
 }}}
 
 {{{FOLD TYPES (Make sure to add fold types in Shift_Enter.bsh file, mode file and configurable fold handler plugin.)
-+ yacas - Executes yacas code.
++ piper - Executes piper code.
 + cas - Executes code using the default cas system.
 + manipulate - Allows user to manipulate an equation or inequality.
 + latex - Displays latex code using the default latex viewer.
@@ -122,8 +122,8 @@ a = (1-x^2^k) * (1+x^2^k)
 a,expand(a)
     ((1 - x^2^k)*(x^2^k + 1), 1 - x^(2*2^k))
 
-//But yacas calculates this.
-%yacas
+//But piper calculates this.
+%piper
     a := (1-x^2^k) * (1+x^2^k);
     Write(Simplify(a));
 
@@ -155,7 +155,7 @@ x^2^(k+1)-x^2^k^2
 expr[ index ]. These are mapped internally to Nth(expr,index). The value of index=0 returns the operator of the object, index=1 the first argument, etc. So, if expr is foo(bar), then expr[0] returns foo, and expr[1] returns bar. Since lists of the form {...} are essentially the same as List(...), the same accessors can be used on lists."
 
 + If e is not defined, why is Ln(e) in this result?
-%yacas
+%piper
 
 df := D(x) 40*e^(-15000*x)*Sin(30000*x);
 Write(df);
@@ -167,7 +167,7 @@ Write(df);
 %end
 
 + Why is Ln(2.71828) in this result?
-%yacas
+%piper
 e := 2.71828;
 df := D(x) 40*e^(-15000*x)*Sin(30000*x);
 Write(df);
@@ -185,7 +185,7 @@ Write(df);
 +Note: the variable names "foreach..." have been chosen so they won't get confused with normal variables you use. This is a major design flaw in this language. Suppose there was a local variable foreachitem, defined in the calling function, and used in foreachbody. These two would collide, and the interpreter would use only the last defined version. In general, when writing a function that calls Eval(), it is a good idea to use variable names that can not collide with user's variables. This is generally the single largest cause of bugs when writing programs in Yacas. This issue should be addressed in the future.
 + Random, RandomSeed in same string in .js array.
 + CachedConstant hyberlink in InNumericMode documentation is broken.
-+ Wiesner Thomas to yacas-devel
++ Wiesner Thomas to piper-devel
 	
 	I'm writing a small tutorial on CAS for hobby electronics.
 	However, when I tried to solve a transcendental equation numerically, I
@@ -205,7 +205,7 @@ Write(df);
 	 Re(1/(I*w*c))
 	gives
 	 1/(Complex(0,1)*w*c)
-	as result, but the correct result is simply 0. I thought, maybe yacas assumes
+	as result, but the correct result is simply 0. I thought, maybe piper assumes
 	that w and c may be complex, but
 	 Re(1/(I*Re(w*c)))
 	doesn't work, too.
@@ -289,7 +289,7 @@ insert-newline-indent.shortcut=  //Turn off auto indent after newline.
 
   public void StopCurrentCalculation()
   {
-    yacas.env.iEvalDepth = yacas.env.iMaxEvalDepth+100;
+    piper.env.iEvalDepth = piper.env.iMaxEvalDepth+100;
   }
 }}}
 
@@ -299,11 +299,11 @@ insert-newline-indent.shortcut=  //Turn off auto indent after newline.
 
 {{{====Determining if an error was encountered.
 
-String response = yacas.Evaluate(expression);
+String response = piper.Evaluate(expression);
 
-if (yacas.iError != null)
+if (piper.iError != null)
 {
-  AddLinesStatic(48,"Error> ",yacas.iError);
+  AddLinesStatic(48,"Error> ",piper.iError);
 }
 }}}
 
@@ -331,7 +331,7 @@ http://sourceforge.net/tracker/index.php?func=detail&aid=1755992&group_id=588&at
 
 
 {{{ ====HotEqn bugs.
-%yacas,output="latex"
+%piper,output="latex"
 
 a := Hold( ((k+1)/(2*k)) * (1-(1/(K+1)^2)) );
 

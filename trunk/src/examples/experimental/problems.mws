@@ -1,6 +1,6 @@
 %group
 
-    %yacas,output="geogebra"  //Note: make indent level of output one more level than the indent level of the fold.  
+    %piper,output="geogebra"  //Note: make indent level of output one more level than the indent level of the fold.  
         Write(2+2);
 
         %geogebra
@@ -14,8 +14,8 @@
 
 %beanshell
 import java.io.*;
-//Print the contents of the Yacas script zip file.
- instance = org.mathrider.jyacasplugin.JYacasInterpreter.getInstance();
+//Print the contents of the Piper script zip file.
+ instance = org.mathrider.jpiperplugin.JPiperInterpreter.getInstance();
  scriptZip = instance.getScriptsZip();
  entries = scriptZip.entries();
  
@@ -25,14 +25,14 @@ import java.io.*;
     System.out.println("XXXXX " + element);
  }
  
- entry = scriptZip.getEntry("assoc.rep/code.ys");
+ entry = scriptZip.getEntry("assoc.rep/code.pi");
  System.out.println("YYYYYY " + entry);
  
  fis = scriptZip.getInputStream(entry);
  //
         entry = entry.toString().replaceAll("/","-");
          // Create temp file.
-        File tempFile = File.createTempFile(entry, ".ys");
+        File tempFile = File.createTempFile(entry, ".pi");
     
         // Delete temp file when program exits.
         tempFile.deleteOnExit();
@@ -89,13 +89,13 @@ import java.io.*;
 	delayDisplay();
 
     %error 
-      Sourced file: C:\DOCUME~1\Ted\LOCALS~1\Temp\mathrider49640.mws_tmp : Cannot access field: toString, on object: assoc.rep/code.ys entry .toString .replaceAll ( "/" , "-" )  Line: 33
+      Sourced file: C:\DOCUME~1\Ted\LOCALS~1\Temp\mathrider49640.mws_tmp : Cannot access field: toString, on object: assoc.rep/code.pi entry .toString .replaceAll ( "/" , "-" )  Line: 33
     %end
 
 %end
 
 
-%yacas
+%piper
 c := Sum(i,1,11,1/(i*(i+1)));
 Write(V(N(c)));
 
@@ -108,7 +108,7 @@ Write(N(f));
 
 %end
 
-%yacas
+%piper
 k := 10;
 g := k/(k+1) + 1/((k+1) * ((k+1)+1));
 h := (k+1) / (k+1)+1;
@@ -120,7 +120,7 @@ Write(g, h);
 
 %end
 
-%yacas
+%piper
 Set(e,2.71828182847786963038);
 f(x) = N((.6*10^-6)* D(x) 40*(e^(-15000*x))*Sin(30000*x));
 Write(f(x));
@@ -132,7 +132,7 @@ Write(f(x));
 %end
 f(x) := (.6*10^-6) *
 
-%yacas
+%piper
 Set(e,Exp(1));
 a := (.6*10^-6) * N((.6*10^-6)* D(x) 40*(e^(-15000*x))*Sin(30000*x));
 Write(a);
@@ -143,7 +143,7 @@ Write(a);
 
 %end
 
-%yacas
+%piper
 Set(e,2.71828);
 df := D(x) 40*e^(-15000*x)*Sin(30000*x);
 Write(df);
@@ -154,7 +154,7 @@ Write(df);
 
 %end
 
-%yacas
+%piper
 Write(25!);
 
     %output
@@ -163,7 +163,7 @@ Write(25!);
 
 %end
 
-%yacas
+%piper
 b := (6*a + 5) / (a + 2);
 Write(b);
 
@@ -173,7 +173,7 @@ Write(b);
 
 %end
 
-%yacas
+%piper
 c := 
 
 
@@ -184,7 +184,7 @@ d := k * e(k-1);
 
 
 
-%yacas
+%piper
 
 e := 2.71828;
 d(x) := N(Eval((0.6*10^-6) * D(x) 40*(e^(-15000*x))*Sin(30000*x) ));
@@ -203,7 +203,7 @@ Write(y);
 
 
 
-%yacas,macro="P2D_GeoGebra"
+%piper,macro="P2D_GeoGebra"
 f(a) := (6*a + 5)/(a+2);
 b := 1;
 ForEach(x,1 .. 10)
@@ -223,15 +223,157 @@ ForEach(x,1 .. 10)
 %beanshell,name="P2D_GeoGebra",scope="global"
 
 
-P2D_GeoGebra(nums)
+P2D_GeoGebra(str)
 {
-    output(nums);
+    vals = str.split(" ");
+    
+    x = 0;
+    for(val:vals)
+    {
+        ggb.evalCommand("(" + x++ +"," + val + ")");
+    }//end for.
+
+    output(str);
+    
 }
 
-P2D_GeoGebra(6);
+data = "3.66666666666666666667 4.76470588235294117647 4.96521739130434782609 4.99500624219725343321 4.99928609673389255756 4.99989800341688553433 4.99998542884723967725 4.99999791840241548584 4.99999970262882806839 4.99999995751840220508";
+P2D_GeoGebra(data);
 
     %output 
-      6
+      3.66666666666666666667 4.76470588235294117647 4.96521739130434782609 4.99500624219725343321 4.99928609673389255756 4.99989800341688553433 4.99998542884723967725 4.99999791840241548584 4.99999970262882806839 4.99999995751840220508
+    %end
+
+%end
+
+
+%piper,output="latex"
+    /* This is a great example problem to use in MathRider.
+    1) Enter expression.
+    2) If it is a complicated expression, view it in LaTeX form to make sure it has been entered
+    correctly.  In this problem, if parentheses are not placed around the exponents then then the
+    expression is evaluated differently than if they are present.
+    3) Adjust the expression until it is correct.
+    */
+    
+    a :=((1-x^(2*k))/(1-x))*((1-x^(2*(k+1)))/(1-x));
+    Write(a);
+
+    %hoteqn
+      $\frac{\left( 1 - x ^{2 \left( k + 1\right) }\right)  \left( 1 - x ^{2 k}\right) }{\left( 1 - x\right)  ^{2}} $
+    %end
+
+%end
+
+%piper, output="latex"
+
+Write(Simplify(a));
+
+    %hoteqn
+      $\frac{x ^{2 k + 2 \left( k + 1\right) } - x ^{2 \left( k + 1\right) } + 1 - x ^{2 k}}{x ^{2} - 2 x + 1} $
+
+        %output
+          HotEqn updated.
+        %end
+
+    %end
+
+%end
+
+
+
+
+%piper,output=""
+
+    
+    a := (((1-x^(2*k))/(1-x))*(1 + x^(2*(k+1)-1)));
+    Write(Simplify(a));
+
+    %output
+      (x^(2*(k+1)-1)-x^(2*k+2*(k+1)-1)+1-x^(2*k))/(1-x)
+    %end
+
+%end
+
+
+
+%piper,output=""
+
+    
+    a := Hold(((1-x^(2^k))/(1-x))*(1 + x^(2^((k+1)-1))));
+    b := Hold((1-x^(2^(k+1)))/(1-x));
+    Write(a:Eval(a):Simplify(a));
+    //Write(TestPiper(a,b));
+
+    %output
+      (1-x^2^k)/(1-x)*(1+x^2^(k+1-1)):((x^2^k+1)*(1-x^2^k))/(1-x):(1-x^2^k^2)/(1-x)
+    %end
+
+%end
+
+
+
+%piper,output="latex"
+
+    
+    a :=  Hold((1+x^2^k) * (1-x^2^k) );
+    b := Hold( 1/2 *(k+1)*(k+2) );
+    Write(a:Simplify(a));
+
+    %hoteqn
+      $\left( 1 + x ^{2 ^{k}}\right)  \left( 1 - x ^{2 ^{k}}\right) :1 - x ^{2 ^{k ^{2}}}$
+
+        %output
+          HotEqn updated.
+        %end
+
+    %end
+
+%end
+
+%piper
+    a := (1-x^2^k) * (1+x^2^k);
+    Write(Simplify(FullForm(a)));
+
+    %output
+      (* 
+          (- 1 
+            (^ x 
+              (^ 2 k )))
+          (+ 
+            (^ x 
+              (^ 2 k ))1 ))
+      1-x^2^k^2
+    %end
+
+%end
+
+%piper
+
+a := FromString("(* 
+          (- 1 
+            (^ x 
+              (^ 2 k )))
+          (+ 
+            (^ x 
+              (^ 2 k ))1 ))") LispRead();
+              
+Write(a);
+
+    %output
+      (1-x^2^k)*(x^2^k+1)
+    %end
+
+%end
+
+%piper
+
+a := FromString("(* 3 (MathSin 4))") LispRead();
+              
+Write(Eval(a));
+
+    %output
+      -2.2704074859
     %end
 
 %end
@@ -240,11 +382,48 @@ P2D_GeoGebra(6);
 
 
 
+%piper
+//Why doesn't this work?
+a := FromString("(+ 5 .5 2.5  )") LispRead();
+              
+Write(Eval(a));
+
+    %output
+      +(5,.5,2.5)
+    %end
+
+%end
 
 
+%piper
+//Why doesn't this work?
+a := FromString("(+ 1 2 3)") LispRead();
+              
+Write(a);
+
+    %output
+      +(1,2,3)
+    %end
+
+%end
+
+%piper,output=""
+//Good example problem for newbies book.  From problem 19 in "Mathematical Reasoning".
+a(k) := (k+2)/(2*k+2);
+b(k) := ( ((k+1)/(2*k)) * (1-(1/(k+1)^2) ) );
+c(k) := (k+1)/(2*k) - (k+1)/(2*k*(k+1)^2);
+d(k) := (k^3+3*k^2+2*k)/(2*k^3+4*k^2+2*k);
+e(k) := (k^2+3*k+2)/(2*k^2+4*k+2);
 
 
+//Write(d(k));
+Write(TestPiper(a(k),e(k)));
+//Write(Together(c(k)));
+//Write(Simplify(c(k)));
+//Write(Factor(Numer(Together(c(k)))):Factor(Denom(Together(c(k)))));
 
+    %output
+      True
+    %end
 
-
-                  
+%end

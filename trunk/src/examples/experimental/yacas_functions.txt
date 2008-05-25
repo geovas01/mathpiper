@@ -448,7 +448,7 @@ Tail
 Take
 Tan
 Taylor
-TestYacas
+TestPiper
 TeXForm
 Time
 ToBase

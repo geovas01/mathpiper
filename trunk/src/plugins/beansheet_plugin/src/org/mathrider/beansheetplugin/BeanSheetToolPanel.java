@@ -80,12 +80,12 @@ public class BeanSheetToolPanel extends JPanel  implements ActionListener {
 		
 		
 		/*
-		add(makeCustomButton("jyacas.save-file", new ActionListener() {
+		add(makeCustomButton("piper.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				BeanSheetToolPanel.this.pad.saveFile();
 			}
 		}));
-		add(makeCustomButton("jyacas.copy-to-buffer",
+		add(makeCustomButton("piper.copy-to-buffer",
 				new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						BeanSheetToolPanel.this.pad.copyToBuffer();

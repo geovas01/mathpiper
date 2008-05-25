@@ -40,7 +40,7 @@ For Unix, compilation basically amounts to the standard sequence
 make
 make install
 
-This will install the binaries to /usr/local/bin and the library files to /usr/local/share/yacas/.
+This will install the binaries to /usr/local/bin and the library files to /usr/local/share/piper/.
 
 The arbitrary precision math in Yacas will be generally faster if you compile Yacas with the libgmp library (the option --with-numlib=gmp for the configure script). Precompiled Red Hat (RPM) and Debian (DEB) packages are also available.
 
@@ -51,7 +51,7 @@ make texdocs
 or, alternatively, by passing --enable-ps-doc or --enable-pdf-doc to ./configure when building Yacas. In the latter case, the documentation will be automatically rebuilt every time the documentation changes (which is useful when maintaining the documentation).
 
 Using the console mode
-You can run Yacas in the console mode simply by typing yacas. The Yacas command prompt looks like this:
+You can run Yacas in the console mode simply by typing piper. The Yacas command prompt looks like this:
 
 In>
 
@@ -545,59 +545,59 @@ The default operation of Yacas is to run in the interactive console mode. Yacas 
 
 Options can be combined, for example
 
-yacas -pc filename
+piper -pc filename
 
 will read and execute the file filename non-interactively without using terminal capabilities and without printing prompts.
 
 Here is a more detailed description of the command-line options.
 
-yacas -c
+piper -c
 
 Inhibit printing of prompts In> and Out>. Useful for non-interactive sessions.
 
-yacas -f
+piper -f
 
 Reads standard input as one file, but executes only the first statement in it. (You may want to use a statement block to have several statements executed.)
 
-yacas -p
+piper -p
 
 Does not use terminal capabilities, no fancy editing on the command line and no escape sequences printed. Useful for non-interactive sessions.
 
-yacas -t
+piper -t
 
 Enable some extra history recall functionality in console mode: after executing a command from the history list, the next unmodified command from the history list will be automatically entered on the command line.
 
-yacas [options] {filename}
+piper [options] {filename}
 
 Reads and executes commands in the filename and exits. Equivalent to Load().
 
-yacas -v
+piper -v
 
 Prints version information and exits. (This is the same information as returned by Version().)
 
-yacas -d
+piper -d
 
 Prints the path to the Yacas default library directory (this information is compiled into the Yacas executable) and exits.
 
-yacas --patchload
+piper --patchload
 
 Will load every file on the command line with the PatchLoad command instead of the normal Load command, This is useful for generating HTML pages for a web site using the Yacas scripting language, much like you can do with the PHP scripting language.
 
-yacas --init [file]
+piper --init [file]
 
-Tells the system to load file as the initialization file. By default it loads the file yacasinit.ys from the scripts directory. Thus for customization one has two options: write a ~/.yacasrc file with initialization code (as it is loaded after the initialization script is loaded), or write a custom initialization script that first uses yacasinit.ys and adds some extra custom code.
+Tells the system to load file as the initialization file. By default it loads the file piperinit.ys from the scripts directory. Thus for customization one has two options: write a ~/.piperrc file with initialization code (as it is loaded after the initialization script is loaded), or write a custom initialization script that first uses piperinit.ys and adds some extra custom code.
 
-yacas --read-eval-print [expression]
+piper --read-eval-print [expression]
 
-Call expression for the read-eval-print loop. The default read-eval-print loop is implemented in the initialization script yacasinit.ys as the function REP. The default behavior is therefore equivalent to --read-eval-print REP.
+Call expression for the read-eval-print loop. The default read-eval-print loop is implemented in the initialization script piperinit.ys as the function REP. The default behavior is therefore equivalent to --read-eval-print REP.
 
 There is also a fallback read-eval-print loop in the kernel; it can be invoked by passing an empty string to this command line option, as --read-eval-print "".
 
-An alternative way to replace the default read-eval-print loop is to write a custom initialization script that implements the read-eval-print loop function REP() instead of yacasinit.ys.
+An alternative way to replace the default read-eval-print loop is to write a custom initialization script that implements the read-eval-print loop function REP() instead of piperinit.ys.
 
 Care has to be taken with this option because a Yacas session may become unusable if the read-eval-print expression doesn't function correctly.
 
-yacas --server <port>
+piper --server <port>
 
 On some platforms server mode can be enabled at build time by passing the flag --enable-server to the ./configure script. Yacas then allows you to pass the flag --server with a port number behind it, and the Yacas executable will listen to the socket behind that port instead of waiting for user input on the console.
 
@@ -605,7 +605,7 @@ Commands can be sent to the server by sending a text line as one block of data, 
 
 One can test this function by using telnet. First, set up the server by calling
 
-yacas --server 9734
+piper --server 9734
 
 and then invoke telnet in another window, for example:
 
@@ -617,15 +617,15 @@ Some security measures and resource management measures have been taken. No more
 
 The server is single-threaded, but has persistent sessions for at most 10 users at a time, from which it can service requests in a sequenial order. To make the service multi-threaded, a solution might be to have a proxy in front of the service listening to the port, redirecting it to different processes which get started up for users (this has not been tried yet).
 
-yacas --rootdir [directory]
+piper --rootdir [directory]
 
-Tells the system where to find the library scripts. Here, directory is a path that is passed to DefaultDirectory. It is also possible to give a list of directories, separated by a colon, e.g. yacas --rootdir scripts/:morescripts/. Note that it is not necessary to append a trailing slash to the directory names.
+Tells the system where to find the library scripts. Here, directory is a path that is passed to DefaultDirectory. It is also possible to give a list of directories, separated by a colon, e.g. piper --rootdir scripts/:morescripts/. Note that it is not necessary to append a trailing slash to the directory names.
 
-yacas --dlldir [directory]
+piper --dlldir [directory]
 
-Tells the system where to find the plugins. Here directory is a path that is passed to DllDirectory. It is also possible to give a list of directories separated by a colon. The default value is specified at compile time, usually /usr/local/lib/yacas.
+Tells the system where to find the plugins. Here directory is a path that is passed to DllDirectory. It is also possible to give a list of directories separated by a colon. The default value is specified at compile time, usually /usr/local/lib/piper.
 
-yacas --archive [file]
+piper --archive [file]
 
 Use a compressed archive instead of the script library.
 
@@ -657,16 +657,16 @@ in the ramscripts/ directory runs all the test scripts using the archived files.
 
 The currently supported compression schemes are uncompressed and compressed with minilzo. Script file stripping (removing whitespace and comments) may be disabled by editing compressor.cpp (variable strip_script).
 
-yacas --disable-compiled-plugins
+piper --disable-compiled-plugins
 
 Disable loading of compiled scripts, in favor of scripts themselves. This is useful when developing the scripts that need to be compiled in the end, or when the scripts have not been compiled yet.
 
 Client/server usage
-In addition to the interactive console sessions, a remote persistent session facility is provided through the script yacas_client. (This is currently only supported on Unix platforms.) By means of this script, the user can configure third-party applications to pass commands to a constantly running "Yacas server" and get output. The "Yacas server" is automatically started by yacas_client. It may run on a remote computer; in that case the user should have a user account on the remote computer and privileges to execute yacas_client there, as well as rsh or ssh access. The purpose of yacas_client is to enable users to pass commands to Yacas within a persistent session while running another application such as a text editor.
+In addition to the interactive console sessions, a remote persistent session facility is provided through the script piper_client. (This is currently only supported on Unix platforms.) By means of this script, the user can configure third-party applications to pass commands to a constantly running "Yacas server" and get output. The "Yacas server" is automatically started by piper_client. It may run on a remote computer; in that case the user should have a user account on the remote computer and privileges to execute piper_client there, as well as rsh or ssh access. The purpose of piper_client is to enable users to pass commands to Yacas within a persistent session while running another application such as a text editor.
 
-The script yacas_client reads Yacas commands from the standard input and passes them to the running "Yacas server"; it then waits 2 seconds and prints whatever output Yacas produced up to this time. Usage may look like this:
+The script piper_client reads Yacas commands from the standard input and passes them to the running "Yacas server"; it then waits 2 seconds and prints whatever output Yacas produced up to this time. Usage may look like this:
 
-8:20pm Unix>echo "x:=3" | yacas_client
+8:20pm Unix>echo "x:=3" | piper_client
 Starting server.
 [editvi] [gnuplot]
 True;
@@ -678,23 +678,23 @@ To see example commands, keep typing
   Example();
 In> x:=3
 Out> 3;
-In> 8:21pm Unix>echo "x:=3+x" | yacas_client
+In> 8:21pm Unix>echo "x:=3+x" | piper_client
 In> x:=3+x
 Out> 6;
-In> 8:23pm Unix>yacas_client -stop
+In> 8:23pm Unix>piper_client -stop
 In> quit
 Quitting...
 Server stopped.
 8:23pm Unix>
 
-Persistence of the session means that Yacas remembered the value of x between invocations of yacas_client. If there is not enough time for Yacas to produce output within 2 seconds, the output will be displayed the next time you call yacas_client.
+Persistence of the session means that Yacas remembered the value of x between invocations of piper_client. If there is not enough time for Yacas to produce output within 2 seconds, the output will be displayed the next time you call piper_client.
 
-The "Yacas server" is started automatically when first used and can be stopped either by quitting Yacas or by an explicit option yacas_client -stop, in which case yacas_client does not read standard input.
+The "Yacas server" is started automatically when first used and can be stopped either by quitting Yacas or by an explicit option piper_client -stop, in which case piper_client does not read standard input.
 
-The script yacas_client reads standard input and writes to standard output, so it can be used via remote shell execution. For example, if an account "user" on a remote computer "remote.host" is accessible through ssh, then yacas_client can be used remotely, like this:
+The script piper_client reads standard input and writes to standard output, so it can be used via remote shell execution. For example, if an account "user" on a remote computer "remote.host" is accessible through ssh, then piper_client can be used remotely, like this:
 
 echo "x:=2;" | \
-  ssh user@remote.host yacas_client
+  ssh user@remote.host piper_client
 
 On a given host computer running the "Yacas server", each user currently may have only one persistent Yacas session.
 

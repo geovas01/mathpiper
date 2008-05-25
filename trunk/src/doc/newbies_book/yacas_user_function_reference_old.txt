@@ -143,59 +143,59 @@ The default operation of Yacas is to run in the interactive console mode. Yacas 
 
 Options can be combined, for example
 
-yacas -pc filename
+piper -pc filename
 
 will read and execute the file filename non-interactively without using terminal capabilities and without printing prompts.
 
 Here is a more detailed description of the command-line options.
 
-yacas -c
+piper -c
 
 Inhibit printing of prompts In> and Out>. Useful for non-interactive sessions.
 
-yacas -f
+piper -f
 
 Reads standard input as one file, but executes only the first statement in it. (You may want to use a statement block to have several statements executed.)
 
-yacas -p
+piper -p
 
 Does not use terminal capabilities, no fancy editing on the command line and no escape sequences printed. Useful for non-interactive sessions.
 
-yacas -t
+piper -t
 
 Enable some extra history recall functionality in console mode: after executing a command from the history list, the next unmodified command from the history list will be automatically entered on the command line.
 
-yacas [options] {filename}
+piper [options] {filename}
 
 Reads and executes commands in the filename and exits. Equivalent to Load().
 
-yacas -v
+piper -v
 
 Prints version information and exits. (This is the same information as returned by Version().)
 
-yacas -d
+piper -d
 
 Prints the path to the Yacas default library directory (this information is compiled into the Yacas executable) and exits.
 
-yacas --patchload
+piper --patchload
 
 Will load every file on the command line with the PatchLoad command instead of the normal Load command, This is useful for generating HTML pages for a web site using the Yacas scripting language, much like you can do with the PHP scripting language.
 
-yacas --init [file]
+piper --init [file]
 
-Tells the system to load file as the initialization file. By default it loads the file yacasinit.ys from the scripts directory. Thus for customization one has two options: write a ~/.yacasrc file with initialization code (as it is loaded after the initialization script is loaded), or write a custom initialization script that first uses yacasinit.ys and adds some extra custom code.
+Tells the system to load file as the initialization file. By default it loads the file piperinit.ys from the scripts directory. Thus for customization one has two options: write a ~/.piperrc file with initialization code (as it is loaded after the initialization script is loaded), or write a custom initialization script that first uses piperinit.ys and adds some extra custom code.
 
-yacas --read-eval-print [expression]
+piper --read-eval-print [expression]
 
-Call expression for the read-eval-print loop. The default read-eval-print loop is implemented in the initialization script yacasinit.ys as the function REP. The default behavior is therefore equivalent to --read-eval-print REP.
+Call expression for the read-eval-print loop. The default read-eval-print loop is implemented in the initialization script piperinit.ys as the function REP. The default behavior is therefore equivalent to --read-eval-print REP.
 
 There is also a fallback read-eval-print loop in the kernel; it can be invoked by passing an empty string to this command line option, as --read-eval-print "".
 
-An alternative way to replace the default read-eval-print loop is to write a custom initialization script that implements the read-eval-print loop function REP() instead of yacasinit.ys.
+An alternative way to replace the default read-eval-print loop is to write a custom initialization script that implements the read-eval-print loop function REP() instead of piperinit.ys.
 
 Care has to be taken with this option because a Yacas session may become unusable if the read-eval-print expression doesn't function correctly.
 
-yacas --server <port>
+piper --server <port>
 
 On some platforms server mode can be enabled at build time by passing the flag --enable-server to the ./configure script. Yacas then allows you to pass the flag --server with a port number behind it, and the Yacas executable will listen to the socket behind that port instead of waiting for user input on the console.
 
@@ -203,7 +203,7 @@ Commands can be sent to the server by sending a text line as one block of data, 
 
 One can test this function by using telnet. First, set up the server by calling
 
-yacas --server 9734
+piper --server 9734
 
 and then invoke telnet in another window, for example:
 
@@ -215,15 +215,15 @@ Some security measures and resource management measures have been taken. No more
 
 The server is single-threaded, but has persistent sessions for at most 10 users at a time, from which it can service requests in a sequenial order. To make the service multi-threaded, a solution might be to have a proxy in front of the service listening to the port, redirecting it to different processes which get started up for users (this has not been tried yet).
 
-yacas --rootdir [directory]
+piper --rootdir [directory]
 
-Tells the system where to find the library scripts. Here, directory is a path that is passed to DefaultDirectory. It is also possible to give a list of directories, separated by a colon, e.g. yacas --rootdir scripts/:morescripts/. Note that it is not necessary to append a trailing slash to the directory names.
+Tells the system where to find the library scripts. Here, directory is a path that is passed to DefaultDirectory. It is also possible to give a list of directories, separated by a colon, e.g. piper --rootdir scripts/:morescripts/. Note that it is not necessary to append a trailing slash to the directory names.
 
-yacas --dlldir [directory]
+piper --dlldir [directory]
 
-Tells the system where to find the plugins. Here directory is a path that is passed to DllDirectory. It is also possible to give a list of directories separated by a colon. The default value is specified at compile time, usually /usr/local/lib/yacas.
+Tells the system where to find the plugins. Here directory is a path that is passed to DllDirectory. It is also possible to give a list of directories separated by a colon. The default value is specified at compile time, usually /usr/local/lib/piper.
 
-yacas --archive [file]
+piper --archive [file]
 
 Use a compressed archive instead of the script library.
 
@@ -255,13 +255,13 @@ in the ramscripts/ directory runs all the test scripts using the archived files.
 
 The currently supported compression schemes are uncompressed and compressed with minilzo. Script file stripping (removing whitespace and comments) may be disabled by editing compressor.cpp (variable strip_script).
 
-yacas --disable-compiled-plugins
+piper --disable-compiled-plugins
 
 Disable loading of compiled scripts, in favor of scripts themselves. This is useful when developing the scripts that need to be compiled in the end, or when the scripts have not been compiled yet.
 
 DefaultDirectory , DllDirectory , PrettyPrinter , MaxEvalDepth , Help , HistorySize .
 Startup configuration
-Yacas allows you to configure a few things at startup. The file ~/.yacasrc is written in the Yacas language and will be executed when Yacas is run. The following functions can be useful in the ~/.yacasrc file.
+Yacas allows you to configure a few things at startup. The file ~/.piperrc is written in the Yacas language and will be executed when Yacas is run. The following functions can be useful in the ~/.piperrc file.
 
 DefaultDirectory -- add directory to path for Yacas scripts
 Internal function
@@ -270,10 +270,10 @@ Calling format:
 DefaultDirectory(path)
 
 Parameters:
-path -- a string containing a full path where yacas script files reside
+path -- a string containing a full path where piper script files reside
 
 Description:
-When loading files, yacas is also allowed to look in the folder "path". path will be prepended to the file name before trying to load the file. This means that "path" should end with a forward slash (under Unix-like operating systems).
+When loading files, piper is also allowed to look in the folder "path". path will be prepended to the file name before trying to load the file. This means that "path" should end with a forward slash (under Unix-like operating systems).
 
 Yacas first tries to load a file from the current directory, and otherwise it tries to load from directories defined with this function, in the order they are defined. Note there will be at least one directory specified at start-up time, defined during compilation. This is the directory Yacas searches for the initialization scripts and standard scripts.
 
@@ -302,7 +302,7 @@ This command always evaluates to True.
 
 Examples:
 
-In> DllDirectory("/home/user/yacas/plugins/");
+In> DllDirectory("/home/user/piper/plugins/");
 Out> True;
 
 See also:
@@ -393,7 +393,7 @@ Parameters:
 n -- number of lines to store in history file
 
 Description:
-When exiting, yacas saves the command line history to a file ~/.yacas_history. By default it will save the last 1024 lines. The default can be overridden with this function. Passing -1 tells the system to save all lines.
+When exiting, piper saves the command line history to a file ~/.piper_history. By default it will save the last 1024 lines. The default can be overridden with this function. Passing -1 tells the system to save all lines.
 
 Examples:
 
@@ -8140,7 +8140,7 @@ Parameters:
 helpbrowser -- string containing a html browser to use for help
 
 Description:
-This function sets the help browser you want to use to browse the help online. It calls the help browser with the html page as first argument. The default value is lynx. If you want to use a different browser by default it suffices to create a file ~/.yacasrc and add a line to set the browser in there.
+This function sets the help browser you want to use to browse the help online. It calls the help browser with the html page as first argument. The default value is lynx. If you want to use a different browser by default it suffices to create a file ~/.piperrc and add a line to set the browser in there.
 
 Examples:
 
@@ -11020,7 +11020,7 @@ Example:
 
 In> [ PSViewCommand := "ghostview"; \
   ShowPS(x+2*Sin(x)); ]
-Expression exported as /tmp/yacas-tmp
+Expression exported as /tmp/piper-tmp
 file-28802.tex
 Out> True;
 
@@ -11128,7 +11128,7 @@ If you would like to use Vi() to actually edit the Yacas library source file whe
 
 Examples:
 
-In> Vi("yacasinit.ys")
+In> Vi("piperinit.ys")
 Out> True;
 In> Vi("Sum")
 Out> True;
@@ -11195,8 +11195,8 @@ When operating on many files or directories at once, there may be errors associa
 
 Examples:
 
-In> MakeFilePath("", "usr", "bin", "yacas")
-Out> "/usr/bin/yacas";
+In> MakeFilePath("", "usr", "bin", "piper")
+Out> "/usr/bin/piper";
 In> TemporaryDir()
 Out> "/tmp";
 
@@ -12597,7 +12597,7 @@ MathLibrary()
 Description:
 Returns a string that describes the currently used arbitrary-precision arithmetic library name.
 
-Possible names are "Internal" and "Gmp", indicating the internal math library libyacasnumbers and the GNU Multiple Precision library libgmp.
+Possible names are "Internal" and "Gmp", indicating the internal math library libpipernumbers and the GNU Multiple Precision library libgmp.
 
 Example:
 
@@ -12876,7 +12876,7 @@ file -- file name of the plugin
 Description:
 DllLoad loads the plugin file into Yacas. Neither the directory nor the extension of file need to be specified. The result is True if the plugin is loaded successfully, and False otherwise.
 
-If the argument file does not specify a directory, all directories in the path for Yacas plugins are searched. This path is built up by calls to DllDirectory. In addition, it contains the default plugin directory which is specified by the command line option --dlldir (see The Yacas User's Function Reference, Chapter 1 ). If this option is not present, the default plugin directory is as specified at compile time (the default value is /usr/local/lib/yacas).
+If the argument file does not specify a directory, all directories in the path for Yacas plugins are searched. This path is built up by calls to DllDirectory. In addition, it contains the default plugin directory which is specified by the command line option --dlldir (see The Yacas User's Function Reference, Chapter 1 ). If this option is not present, the default plugin directory is as specified at compile time (the default value is /usr/local/lib/piper).
 
 If the argument file does not specify the extension, then first the extension .la is appended. This is the standard extension for Libtool libraries. If no plugin with this name can be found, a platform-specific extension is tried (as an example, this is .so on platforms with ELF libraries).
 
@@ -12888,7 +12888,7 @@ The following commands load the example plugin, and then call the function AddTw
  In> AddTwoIntegers(2,3);
  Out> 5
 
-Note that it suffices to specify the string example. Yacas knows that the plugin resides in the file /usr/local/lib/yacas/example.la (if plugins are installed in the default locations).
+Note that it suffices to specify the string example. Yacas knows that the plugin resides in the file /usr/local/lib/piper/example.la (if plugins are installed in the default locations).
 
 See also:
 DllDirectory , DllUnload , DllEnumerate .

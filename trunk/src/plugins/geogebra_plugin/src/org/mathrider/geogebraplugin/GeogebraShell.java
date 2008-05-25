@@ -19,18 +19,18 @@ import console.ConsolePane;
 import console.Output;
 import console.Shell;
 
-import org.mathrider.jyacasplugin.JYacasInterpreter;
-import net.sf.yacas.LispOutput;
+import org.mathrider.piperplugin.PiperInterpreter;
+import org.mathrider.piper.LispOutput;
 
 public class GeogebraShell extends Shell
 {
-	private JYacasInterpreter interpreter;
+	private PiperInterpreter interpreter;
 	
 	
-	public GeogebraShell() throws net.sf.yacas.Yacasexception
+	public GeogebraShell() throws org.mathrider.piper.Piperexception
 	{
 		super("Geogebra");
-		interpreter = JYacasInterpreter.getInstance(); //new StreamOutput(System.out) 
+		interpreter = PiperInterpreter.getInstance(); //new StreamOutput(System.out) 
 		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);
 		
 	}//end constructor.
@@ -56,7 +56,7 @@ public class GeogebraShell extends Shell
 			output.print(null,"Out> " + result);
 			
 			
-		}catch(net.sf.yacas.Yacasexception ye) 
+		}catch(org.mathrider.piper.Piperexception ye) 
 		{
 			output.print(null,ye.getMessage() );
 		}
