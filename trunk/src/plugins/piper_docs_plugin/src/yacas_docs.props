@@ -55,6 +55,8 @@ piperdocs.label=piperdocs
 piperdocs.source.label=View Source
 piperdocs.source.button-text=Source
 piperdocs.home.label=Home
+piperdocs.back.label=Back
+piperdocs.forward.label=Forward
 piperdocs.save-file.label=Save notepad file
 piperdocs.copy-to-buffer.label=Copy notepad to buffer
 
@@ -68,7 +70,7 @@ options.piperdocs.code=new org.mathrider.piperdocsplugin.PiperDocsOptionPane();
 options.piperdocs.label=piperdocs
 options.piperdocs.file=File:
 options.piperdocs.source=Source
-options.piperdocs.home=Hlear
+options.piperdocs.home=Home
 options.piperdocs.source.title=View Source
 options.piperdocs.choose-font=Font:
 options.piperdocs.show-filepath.title=Display notepad file path
@@ -78,6 +80,8 @@ piperdocs.title=PiperDocs
 
 # window toolbar buttons
 #piperdocs.source.icon=Clear.png
+piperdocs.back.icon=ArrowL.png
+piperdocs.forward.icon=ArrowR.png
 piperdocs.home.icon=Home.png
 piperdocs.save-file.icon=Save.png
 piperdocs.copy-to-buffer.icon=CopyToBuffer.png
