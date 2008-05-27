@@ -21,25 +21,25 @@ public class PiperDocsToolPanel extends JPanel {
 	private JLabel label;
 	
 	private javax.swing.JButton sourceButton;
+	private javax.swing.AbstractButton backButton;
+	private javax.swing.AbstractButton forwardButton;
 
 	public PiperDocsToolPanel(PiperDocs qnpad) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		pad = qnpad;
 
-		Box labelBox = new Box(BoxLayout.Y_AXIS);
-		labelBox.add(Box.createGlue());
+		//Box labelBox = new Box(BoxLayout.Y_AXIS);
+		//labelBox.add(Box.createGlue());
 
-		label = new JLabel("test");
-		label.setVisible(jEdit.getProperty(
-				PiperDocsPlugin.OPTION_PREFIX + "show-filepath").equals(
-				"true"));
+		//label = new JLabel("test");
+		//label.setVisible(jEdit.getProperty(PiperDocsPlugin.OPTION_PREFIX + "show-filepath").equals("true"));
 
-		labelBox.add(label);
-		labelBox.add(Box.createGlue());
+		//labelBox.add(label);
+		//labelBox.add(Box.createGlue());
 
-		add(labelBox);
+		//add(labelBox);
 
-		add(Box.createGlue());
+		//add(Box.createGlue());
 
 		
 		//View source button.
@@ -60,11 +60,31 @@ public class PiperDocsToolPanel extends JPanel {
 		
 		add(Box.createGlue());
 
+		//back button.
+		backButton = makeCustomButton("piperdocs.back", new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				PiperDocsToolPanel.this.pad.back();
+			}
+		});
+		backButton.setEnabled(false);
+		add(backButton);
+		
+		
+		//forward button.
+		forwardButton = makeCustomButton("piperdocs.forward", new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				PiperDocsToolPanel.this.pad.forward();
+			}
+		});
+		forwardButton.setEnabled(false);
+		add(forwardButton);
+		
 		add(makeCustomButton("piperdocs.home", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				PiperDocsToolPanel.this.pad.home();
 			}
 		}));
+
 		
 		/*
 		add(makeCustomButton("piper.save-file", new ActionListener() {
@@ -85,6 +105,18 @@ public class PiperDocsToolPanel extends JPanel {
 	public void sourceButtonEnabled(Boolean state)
 	{
 		sourceButton.setEnabled(state);
+	}//end method.
+	
+	
+	public void backButtonEnabled(Boolean state)
+	{
+		backButton.setEnabled(state);
+	}//end method.
+	
+	
+	public void forwardButtonEnabled(Boolean state)
+	{
+		forwardButton.setEnabled(state);
 	}//end method.
 
 	void propertiesChanged() {

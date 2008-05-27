@@ -5,6 +5,67 @@ import org.gjt.sp.jedit.jEdit;
 //import org.mathrider.piperplugin.PiperInterpreter;
 
 
+//System.out.println("VVVVVM " + pageIndex);
+//{{{ setEditorPane
+setPage(url,save)
+{		
+	try 
+	{ 
+		editorPane.setPage(url);
+		
+		
+		//forward button logic.
+		if(pageIndex+1 == pageList.size())
+		{
+			toolPanel.forwardButtonEnabled(false);
+		}
+		else
+		{
+			toolPanel.forwardButtonEnabled(true);
+		}//end else.
+		
+
+		
+		
+		if(save)
+		{
+	if(pageIndex >= 0 && url == pageList.get(pageIndex))
+	{
+		//System.out.println("VVVVVM Same URL");
+		return;
+	}//end if.
+			if(pageIndex+1 != pageList.size())
+			{
+				pageList = pageList.subList(0,pageIndex+1);
+				toolPanel.forwardButtonEnabled(false);
+			}//end if.
+
+			
+			pageList.add(url);
+			pageIndex++;
+		}//end if.
+		
+		
+		//back button logic.
+		if(pageIndex <= 0)
+		{
+			toolPanel.backButtonEnabled(false);
+		}
+		else
+		{
+			toolPanel.backButtonEnabled(true);
+		}//end else.
+
+		//System.out.println("TTTTT " + pageList );
+	} catch (IOException e) 
+	{
+		System.err.println("Attempted to read a bad URL: " + url);
+	}//end try/catch
+	
+}//end method }}}
+
+
+
 //{{{ functions JList
 
 //{{{ functions array.
@@ -627,17 +688,13 @@ numericFunctions = new String[]
         urlWithChapter = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 	    if (urlWithChapter != null) 
 		{
-		    try 
-			{ 
+
 			    addChapter = urlWithChapter.toExternalForm() + "#" + item;
-			    editorPane.setPage(new URL(addChapter));
+			    setPage(new URL(addChapter),true);
 				toolPanel.sourceButtonEnabled(true);
 			    //editorPane.setPage(urlWithChapter);
 			    //System.out.println(   "QRQRQR " + " urlWithChapter: " + urlWithChapter + " Chapter: " + Chapter + "  addChapter: " + addChapter + " item: " + item);
 			    //editorPane.scrollToReference(Chapter);
-		    } catch (IOException e) {
-			    System.err.println("Attempted to read a bad URL: " + urlWithChapter);
-		    }
 		} 
 	    else 
 		{
@@ -650,22 +707,45 @@ numericFunctions = new String[]
 ///}}}
 
 
+//{{{
+back()
+{
+	if(pageIndex != 0)
+	{	
+		page = pageList.get(--pageIndex);
+		//System.out.println("XXXXX back" + page);
+		setPage(page,false);
+	}//end if.
+	
+}//end method.
+//}}}
+
+
+//{{{forward
+forward()
+{
+	page = pageList.get(++pageIndex);
+	//System.out.println("XXXXX forward");
+	setPage(page,false);
+}//end method.
+//}}}
+
 
 //{{{ home
 home()
 {
 	toolPanel.sourceButtonEnabled(false);
+	//toolPanel.backButtonEnabled(false);
+	//toolPanel.forwardButtonEnabled(false);
 	
-	java.net.URL docURL = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("piper_manual/books2.html");
-
-	if (docURL != null) {
-	try {
-		editorPane.setPage(docURL);
-	} catch (IOException e) {
-        System.err.println("Attempted to read a bad URL: " + docURL);
-	}
+	//pageIndex = 0;
+	
+	//java.net.URL docURL = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("piper_manual/books2.html");
+	//homePage = pageList.get(0);
+	if ( homePage != null) {
+		setPage(homePage,true);
 	} else {
-		System.err.println("Couldn't find file: " + docURL );
+		System.err.println("Couldn't find file: " + homePage );
 	}//end else
 	
 }//end method.}}}
@@ -686,7 +766,7 @@ source()
 	}
 	finally
 	{
-		System.out.println("XXXXXXXX name: " + item + "  location: " + location);
+		//System.out.println("XXXXXXXX name: " + item + "  location: " + location);
 	}//finally.
 	
 	
@@ -708,7 +788,7 @@ import java.io.*;
  
  if(entry != null)
  {
- System.out.println("YYYYYY " + entry);
+ //System.out.println("YYYYYY " + entry);
  
  fis = scriptZip.getInputStream(entry);
  //
@@ -779,9 +859,7 @@ import java.io.*;
 
 //}}}
 
-//piperDocPanel.remove(oldComponent);
 
-//JEditorPane editorPane = new JEditorPane();
 editorPane.setEditable(false);
 editorPane.addHyperlinkListener(this);
 //java.net.URL helpURL =new java.net.URL( "file:///C:/ted/download/piper_manual/refchapter26.html#c26");
@@ -861,7 +939,7 @@ docker = jEdit.getActiveView().getDockableWindowManager();
 hyperlinkUpdate(event)
 {
   url = event.getURL();
-System.out.println("YYYYacsDocsYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
+//System.out.println("YYYPiperDocsYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
   if(event.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
   {
     reference = url.getRef();
@@ -882,14 +960,12 @@ System.out.println("YYYYacsDocsYYY: " + url.getPath() + " reference: " + url.get
 	urlWithReference = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 
         if (urlWithReference != null) {
-	    try { 
+
 		    addReference = urlWithReference.toExternalForm() + "#"+reference;
-		    editorPane.setPage(new URL(addReference));
+		    setPage(new URL(addReference),true);
 		    //editorPane.setPage(urlWithReference);
 		    //editorPane.scrollToReference(reference);
-	    } catch (IOException e) {
-		    System.err.println("Attempted to read a bad URL: " + urlWithReference);
-	    }
+
 	    } 
 	    else {
 		    System.err.println("Couldn't find file: " + urlWithReference );
@@ -916,17 +992,13 @@ System.out.println("YYYYacsDocsYYY: " + url.getPath() + " reference: " + url.get
             //url = new URL(path);
         
 	    if (urlWithQuery != null) {
-	    try { 
 
-		    
 		    addQuery = urlWithQuery.toExternalForm() + "#"+query;
-		    editorPane.setPage(new URL(addQuery));
+		    setPage(new URL(addQuery),true);
 		    //editorPane.setPage(urlWithQuery);
 		    //System.out.println(   "QRQRQR " + " urlWithQuery: " + urlWithQuery + " query: " + query + "  addQuery: " + addQuery);
 		    //editorPane.scrollToReference(query);
-	    } catch (IOException e) {
-		    System.err.println("Attempted to read a bad URL: " + urlWithQuery);
-	    }
+
 	    } 
 	    else {
 		    System.err.println("Couldn't find file: " + urlWithQuery );
@@ -939,13 +1011,10 @@ System.out.println("YYYYacsDocsYYY: " + url.getPath() + " reference: " + url.get
 	    	urlNormal = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource(urlString);
 
         if (urlNormal != null) {
-	    try { 
 
-		    editorPane.setPage(urlNormal);
+		    setPage(urlNormal,true);
 		    editorPane.scrollToReference(reference);
-	    } catch (IOException e) {
-		    System.err.println("Attempted to read a bad URL: " + urlNormal);
-	    }
+
 	    } 
 	    else {
 		    System.err.println("Couldn't find file: " + urlNormal );

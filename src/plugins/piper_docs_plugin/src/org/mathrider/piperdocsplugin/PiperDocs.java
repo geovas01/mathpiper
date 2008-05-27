@@ -228,9 +228,16 @@ public class PiperDocs extends JPanel
 				bshInterpreter.set("editorPane",editorPane);
 				bshInterpreter.set("view",view);
 				bshInterpreter.set("toolPanel",this.toolPanel);
-				bshInterpreter.eval( sourceIn );
 				bshInterpreter.set("jPiperInterpreter",PiperInterpreter.getInstance());//Note:tk:fixing race condition.
-			} finally {
+				java.net.URL homePage = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("piper_manual/books2.html");
+				java.util.ArrayList pageList = new java.util.ArrayList();
+				//pageList.add(homePage);
+				bshInterpreter.set("homePage",homePage);
+				bshInterpreter.set("pageList",pageList);
+				bshInterpreter.set("pageIndex",-1);
+				
+				bshInterpreter.eval( sourceIn );
+				} finally {
 				sourceIn.close();
 			}
 		
@@ -268,10 +275,39 @@ public class PiperDocs extends JPanel
 	{
 	}//end method.
 	//}}}
+
 	
-    
+	// {{{ back button()
+	public void back() 
+	{
+		try {
+			bshInterpreter.eval( "back();" );
+		
+		}
+		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
+		{
+			e.printStackTrace();
+		}
+	}//end method.
+    // }}}
+
+
 	
-	// {{{ home()
+	// {{{ forward button()
+	public void forward() 
+	{
+		try {
+			bshInterpreter.eval( "forward();" );
+		
+		}
+		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
+		{
+			e.printStackTrace();
+		}
+	}//end method.
+    // }}}
+
+	// {{{ home button()
 	public void home() 
 	{
 		try {
@@ -284,6 +320,7 @@ public class PiperDocs extends JPanel
 		}
 	}//end method.
     // }}}
+
 	
     // {{{ chooseFile
 	public void chooseFile() {
