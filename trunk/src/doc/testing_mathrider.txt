@@ -8,16 +8,16 @@ Evaluating MathRider.
 script.
 
 
-Playing with JYacas:
+Playing with Piper:
 
 1)  The lower left window contains consoles.  Switch the console to
-JYacas by pressing the little black inverted triangle which is near
-the word "System".  Select the JYacas console and when it comes up,
+Piper by pressing the little black inverted triangle which is near
+the word "System".  Select the Piper console and when it comes up,
 enter expressions and execute them by pressing <enter>.
 
-2) The Yacas programs in the text window can be executed by placing
+2) The Piper programs in the text window can be executed by placing
 the cursor in a window and pressing <shift><enter>.  The output will
-be displayed in the JYacas console window.
+be displayed in the Piper console window.
 
 3) The most interesting files are MathRider worksheet files (which are the
 ones that end with a .mws extension).  MathRider worksheets consist of "folds" 
@@ -37,7 +37,7 @@ Plugins:
 written on it.  Press this tab a number of times to see what happens (GeoGebra 
 should be shown and hidden as you press the button.)
 
-2) The right side of the application also contains a plugin called YacasDocs. 
+2) The right side of the application also contains a plugin called PiperDocs. 
 Open the plugin and look through the documentation by pressing the hyperlinks. 
 You can go back to the main documentation page by pressing the "Home" icon 
 which is at the top of the plugin.  Pressing on a function name in the 
