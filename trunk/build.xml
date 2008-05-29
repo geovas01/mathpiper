@@ -69,7 +69,7 @@
 	</target>
 
 
-	<target id="call-piper" name="call-piper" depends="init" >
+	<target id="piper" name="piper" depends="init" >
 		<ant dir="${library_apps.src.dir}/piper" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${library_apps.build.dir}/piper"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -79,7 +79,21 @@
 		</ant>
 	</target>
 	
-	<target id="call-geogebra" name="call-geogebra" depends="init" >
+	
+	<target id="expectj" name="expectj" depends="init" >
+		<ant dir="${library_apps.src.dir}/expectj" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/expectj"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${library_apps.src.dir}/expectj/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${library_apps.build.dir}/expectj/dist/expectj.jar" todir="${plugins.jars.dir}"/>
+	</target>
+	
+
+	<target id="geogebra" name="geogebra" depends="init" >
 		<ant dir="${library_apps.src.dir}/geogebra" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${library_apps.build.dir}/geogebra"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -89,7 +103,7 @@
 		</ant>
 	</target>
 	
-	<target id="call-piper_plugin" name="call-piper_plugin" depends="call-piper" >
+	<target id="piper_plugin" name="piper_plugin" depends="piper" >
 		<ant dir="${plugins.src.dir}/piper_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/piper_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -103,7 +117,7 @@
 	</target>
 	
 	
-	<target id="call-piper_docs_plugin" name="call-piper_docs_plugin" depends="call-piper_plugin">
+	<target id="piper_docs_plugin" name="piper_docs_plugin" depends="piper_plugin">
 		<ant dir="${plugins.src.dir}/piper_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/piper_docs_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -117,7 +131,7 @@
 	</target>
 	
 	
-	<target id="call-geogebra_plugin" name="call-geogebra_plugin" depends="" >
+	<target id="geogebra_plugin" name="geogebra_plugin" depends="" >
 		<ant dir="${plugins.src.dir}/geogebra_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/geogebra_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -131,7 +145,7 @@
 	</target>
 	
 
-	<target id="call-hoteqn_plugin" name="call-hoteqn_plugin" depends="" >
+	<target id="hoteqn_plugin" name="hoteqn_plugin" depends="" >
 		<ant dir="${plugins.src.dir}/hoteqn_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/hoteqn_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -144,7 +158,7 @@
 
 	</target>
 
-	<target id="call-jscicalc_plugin" name="call-jscicalc_plugin" >
+	<target id="jscicalc_plugin" name="jscicalc_plugin" >
 		<ant dir="${plugins.src.dir}/jscicalc_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/jscicalc_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -157,7 +171,7 @@
 		
 	</target>
 	
-	<target id="call-beansheet_plugin" name="call-beansheet_plugin" >
+	<target id="beansheet_plugin" name="beansheet_plugin" >
 		<ant dir="${plugins.src.dir}/beansheet_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/beansheet_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -171,8 +185,8 @@
 	</target>
 	
 	
-	<target id="call-all-plugins" name="call-all-plugins" depends="call-piper_plugin,
-		call-piper_docs_plugin, call-geogebra_plugin, call-hoteqn_plugin" />
+	<target id="all-plugins" name="all-plugins" depends="piper_plugin,
+		piper_docs_plugin, geogebra_plugin, hoteqn_plugin, jscicalc_plugin" />
 	
 	
 	
@@ -213,7 +227,7 @@
 		</copy>
 		
 
-		<antcall target="call-piper">
+		<antcall target="piper">
 			<param name="target" value="dist"/>
 		</antcall>
 		<copy file="${library_apps.build.dir}/piper/dist/piper.jar" todir="${plugins.jars.dir}"/>
@@ -224,7 +238,7 @@
 	
 
 	<target id="noop" name="noop" description="Do nothing." >
-		<antcall target="call-all">
+		<antcall target="all">
 			<param name="target" value="noop" />
 		</antcall>
 	</target>

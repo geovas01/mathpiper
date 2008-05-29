@@ -3,8 +3,10 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=:wrap=soft:
 
 {{{====To Do
++ NewtonNum link in Newton is broken.
 - Add default fold which will set default fold properties like output="output".
 + Add dependency code for geogebra, errorlist, etc.
++ Place path to .html file at top of docs window.
 - Add output property for folds.
 + Add shortcut and button for inserting a fold into a .mws file.
 + Allow properties to not use quotes around the value.
