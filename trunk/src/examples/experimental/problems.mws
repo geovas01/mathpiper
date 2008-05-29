@@ -427,3 +427,280 @@ Write(TestPiper(a(k),e(k)));
     %end
 
 %end
+
+
+%beanshell
+ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
+ //Map<String, String> env = pb.environment();
+ //env.put("VAR1", "myValue");
+ //env.remove("OTHERVAR");
+ //env.put("VAR2", env.get("VAR1") + "suffix");
+ //pb.directory("myDir");
+ Process p = pb.start();
+%end
+
+
+%beanshell
+command = new java.util.ArrayList();
+command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
+ProcessBuilder pb = new ProcessBuilder(command);
+ //Map<String, String> env = pb.environment();
+ //env.put("VAR1", "myValue");
+ //env.remove("OTHERVAR");
+ //env.put("VAR2", env.get("VAR1") + "suffix");
+ //pb.directory("myDir");
+ Process p = pb.start();
+ in = p.getInputStream();
+ out = p.getOutputStream();
+ sb = new StringBuffer();
+ //cv = s.read();
+ //s.read();
+while(in.available() == 0)
+{
+}
+
+ while(in.available() != 0)
+ {
+    cv = in.read();
+    ch = (char)cv;
+    //System.out.println("xxxx " + ch);
+    sb.append(ch);
+ }
+ 
+ System.out.println("xxxx " + sb.toString());
+ 
+ 
+//Write then read.
+sb.delete(0,sb.length());
+outmess = "2+2;\n".getBytes();
+out.write(outmess);
+out.flush();
+ while(in.available() == 0)
+{
+}
+
+ while(in.available() != 0)
+ {
+    cv = in.read();
+    ch = (char) cv;
+    //System.out.println("xxxx " + ch);
+    sb.append(ch);
+ }
+ 
+  System.out.println("xxxx " + sb.toString());
+
+    %output 
+      
+    %end
+
+%end
+
+
+
+%beanshell
+maxima() 
+{
+    command = new java.util.ArrayList();
+    command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
+    pb = new ProcessBuilder(command);
+    //Map<String, String> env = pb.environment();
+    //env.put("VAR1", "myValue");
+    //env.remove("OTHERVAR");
+    //env.put("VAR2", env.get("VAR1") + "suffix");
+    //pb.directory("myDir");
+    Process p = pb.start();
+    inputStream = p.getInputStream();
+    outputStream = p.getOutputStream();
+    sb = new StringBuffer();
+    
+    keepRunning = true;
+    
+    
+    send(snd)
+    {
+    }
+    
+    run() 
+    {
+	
+		
+		while(keepRunning)
+        {
+
+			serialAvailable = inputStream.available();
+			if(serialAvailable > 0)
+            {
+				byte[] bytes = new byte[serialAvailable];
+				inputStream.read( bytes, 0, serialAvailable );
+                System.out.println("GGGGGGG " + new String( bytes));
+
+				//self.terminalOutputStream.write( bytes )
+				
+				//event = utility.DataEvent( self, bytes, self.packetMode )
+				
+				//self.notifyListeners( event )
+            }//end if.
+            
+            Thread.sleep( 30 );
+        }//end while.
+        
+    }//end run.
+    return this;
+    
+}//end maxima.
+
+max = maxima();
+
+new Thread( max ).start();
+
+    %output 
+      
+    %end
+
+%end
+
+
+
+%beanshell
+class SerialPort( Runnable ):
+	
+	def __init__( self, name ):
+		
+		self.inputStream = None
+		self.outputStream = None
+		self.hardwareSerialPort = None  
+		self.name = name
+		self.description = None
+		self.keepRunning = 1
+		
+		self.protocol = None
+		
+		self.packetMode = 0
+		
+		#Hack
+		#self.inByte = 65
+		
+		self.inByteFIFO = utility.FIFO( None, "inByteFIFO, SerialPort" )
+		
+		self.listeners = []
+		
+		self.serialTerminal = serialterminalgui.SerialTerminal()
+		
+		self.serialTerminal.setSerialPort( self )
+		
+		#Note: temporary test.
+		self.terminalOutputStream = jutility.PipedOutputStream( self.serialTerminal.inputStream )
+		self.terminalInputStream = jutility.PipedInputStream( self.serialTerminal.outputStream )
+		
+
+		
+		Thread( self.serialTerminal, self.name+"_terminal"  ).start()
+		
+		Thread( self, self.name  ).start()  #Note: It looks like SerialPort is being started too soon.
+
+		#self.addEventListener( self.serialTerminal )
+
+
+		self.dummyPort = utility.DummySerialPort()
+		
+		#self.lineHolder = utility.FIFO( None )
+		
+
+		
+		
+	def sendData( self, data ):
+		self.outputStream.write( data )
+		
+	def write( self, byte ):
+		pass
+		
+	def getName( self ):
+		return self.name
+		
+	def getDescription( self ):
+		return self.description
+		
+	def addDataEventListener( self, listener ):
+		self.listeners.append( listener )
+		
+	def notifyListeners( self, dataEvent ):
+		
+		for listener in self.listeners:
+			listener.dataEvent( dataEvent )
+			
+			
+			
+	def close( self ):
+		
+		self.keepRunning = 0
+		
+		if self.hardwareSerialPort != None:
+			self.hardwareSerialPort.close()
+			
+		self.outputStream.close()
+		self.inputStream.close()
+		
+		self.serialTerminal.close()
+		
+		self.terminalOutputStream.close()
+		self.terminalInputStream.close()
+		
+		
+	def toPacketMode( self ):
+		self.packetMode = 1
+			
+			
+	def run( self ):
+		
+		#Note: Hack to prevent issuing inputStream.available() to None reference.
+		while self.inputStream == None:
+			Thread.sleep( 10 )		
+		
+		while self.keepRunning == 1:
+			
+			
+			
+			serialAvailable = self.inputStream.available()
+			if serialAvailable > 0 :
+				bytes = jarray.zeros( serialAvailable, 'b' )
+				
+				self.inputStream.read( bytes, 0, serialAvailable )
+
+				self.terminalOutputStream.write( bytes )
+				
+				event = utility.DataEvent( self, bytes, self.packetMode )
+				
+				self.notifyListeners( event )
+				                                              
+#				#Grab lines.
+#				for singleByte in bytes:
+#					
+#					if singleByte != 0x0a:
+#						self.lineHolder.push( chr( singleByte ) )
+#					else:
+#						line = ''.join( self.lineHolder.getLine() )
+#						self.serialTerminal.appendMessage( line )
+#						
+#						event = utility.DataEvent( self, line )
+#						
+#						self.notifyListeners( event )
+#						
+						
+				
+					
+			terminalAvailable = self.terminalInputStream.available()
+			if  terminalAvailable > 0:
+				bytes = jarray.zeros( terminalAvailable, 'b' )
+				self.terminalInputStream.read( bytes, 0, terminalAvailable)
+				
+				
+				
+				
+				self.outputStream.write( bytes )
+
+
+			Thread.sleep( 30 )
+
+%end
+
+
