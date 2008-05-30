@@ -117,6 +117,20 @@
 	</target>
 	
 	
+	<target id="maxima_plugin" name="maxima_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/maxima_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/maxima_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/maxima_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/maxima_plugin/dist/maxima_plugin.jar" todir="${plugins.jars.dir}"/>
+		
+	</target>
+	
+	
 	<target id="piper_docs_plugin" name="piper_docs_plugin" depends="piper_plugin">
 		<ant dir="${plugins.src.dir}/piper_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/piper_docs_plugin"/>

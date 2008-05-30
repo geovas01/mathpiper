@@ -1,0 +1,81 @@
+# Properties file for Maxima plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.maximaplugin.MaximaPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.maximaplugin.MaximaPlugin.name=Maxima
+plugin.org.mathrider.maximaplugin.MaximaPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.maximaplugin.MaximaPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.maximaplugin.MaximaPlugin.docs=index.html
+plugin.org.mathrider.maximaplugin.MaximaPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.maximaplugin.MaximaPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.maximaplugin.MaximaPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.maximaplugin.MaximaPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.maximaplugin.MaximaPlugin..longdescription=description.html
+#}}}
+
+
+
+
+maxima.shell.msg.info=\nMaxima Shell \n\
+
+
+maxima.shell.msg.usage=See http://maxima.sourceforge.net for information on how to use Maxima.
+
+
+
+# plugin menu
+plugin.org.mathrider.maximaplugin.MaximaPlugin.menu=maxima \
+	- \
+	maxima.choose-file \
+	maxima.save-file \
+	maxima.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+maxima.label=maxima
+
+# action labels for actions supplied by actions.xml
+maxima.choose-file.label=Choose notepad file
+maxima.save-file.label=Save notepad file
+maxima.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.maxima.option-pane=maxima
+
+# Option pane activation BeanShell snippet
+options.maxima.code=new org.mathrider.maximaplugin.MaximaOptionPane();
+
+# Option pane labels
+options.maxima.label=maxima
+options.maxima.file=File:
+options.maxima.choose-file=Choose
+options.maxima.choose-file.title=Choose a notepad file
+options.maxima.choose-font=Font:
+options.maxima.show-filepath.title=Display notepad file path
+
+# window title
+maxima.title=Maxima
+
+# window toolbar buttons
+maxima.choose-file.icon=Open.png
+maxima.save-file.icon=Save.png
+maxima.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.maxima.show-filepath=true
+options.maxima.font=Monospaced
+options.maxima.fontstyle=0
+options.maxima.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.maxima.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
