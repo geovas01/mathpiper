@@ -117,6 +117,15 @@ Initial release:
 
 
 {{{PIPER BUGS.
+----
+TestPiper(x^k/x,x^(k-1));
+Returns false but
+is(equal(x**k/x,x**(k-1)));
+returns true in maxima.
+
+----
+
+
 ---- exponent bug.
 + 
 #Sage calculates this.
@@ -358,4 +367,9 @@ Write(a);
 + On fold header: Dialog which allows properties to selected graphically.
 + In fold: Pop up list of commands depending on fold type.
 
+}}}
+
+
+{{{Sage disadvantages:
++ The implementation is constantly changing beneath you without warning.
 }}}
