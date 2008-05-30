@@ -324,7 +324,7 @@ if(path.endsWith(".pi")){
 				bshInterpreter.set("jEdit",org.gjt.sp.jedit.jEdit);
 				bshInterpreter.set("returnError","none");
 			}
-			else
+			else if(scope.equalsIgnoreCase("local"))
 			{
 
 				import bsh.Interpreter;
@@ -336,7 +336,10 @@ if(path.endsWith(".pi")){
 				bshInterpreter.set("returnError","none");
 				
 			
-			}//end if.
+			}else if(scope.equalsIgnoreCase("ide"))
+			{
+				bshInterpreter=this.interpreter;
+			}//end else/if.
 			
 			try 
 			{   
