@@ -21,10 +21,11 @@ import console.Shell;
 
 import org.mathrider.maximaplugin.MaximaWrapper;
 
-public class MaximaShell extends Shell
+public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 {
 	private MaximaWrapper maxima;
 	private String maximaStartMessage;
+	private Output lastRequestOutput;
 	
 	
 	public MaximaShell() throws IOException
@@ -32,6 +33,7 @@ public class MaximaShell extends Shell
 		super("maxima");
 		maxima = MaximaWrapper.getInstance(); //new StreamOutput(System.out) 
 		maximaStartMessage = maxima.getStartMessage();
+		maxima.addResponseListener(this);
 		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);
 		
 	}//end constructor.
@@ -48,23 +50,29 @@ public class MaximaShell extends Shell
 
 	
 	}//end method.
+	
+	
+	public void response(String response)
+	{
+		lastRequestOutput.print(null, response);
+		lastRequestOutput.commandDone();
+	}//end method.
 
 	public void execute(Console console, String input, Output output, Output error, String command)
 	{
+		lastRequestOutput = output;
 		try 
 		{
-			String result = maxima.evaluate(command + "\n");
-			output.print(null, result);
+			maxima.send(command + "\n");
+			
 			
 			
 		}catch(Exception ye) 
 		{
 			output.print(null,ye.getMessage() );
-		}
-		finally
-		{
 			output.commandDone();
 		}
+
 		/*
 		stop(console);
 		_output = output;
@@ -256,7 +264,7 @@ public class MaximaShell extends Shell
 	
 	public void printPrompt(Console console, Output output)
 	{
-		output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), "\nIn> ");
+		output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), maxima.getPrompt());
 	}//end method.
 	
 	
