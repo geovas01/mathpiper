@@ -173,4 +173,4 @@ log-viewer.height=518
 search.find.value=\\n+%end
 help-menu=about help tip-of-the-day
 helpviewer.toc.welcome=Welcome to MathRider
-plugins=plugin-options - #Hide Plugin Manager menu item for now.
+plugins=plugin-options -
