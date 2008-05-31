@@ -28,7 +28,7 @@ plugin.org.mathrider.piperplugin.PiperPlugin..longdescription=description.html
 piper.shell.msg.info=\nPiper Shell \n\
 
 
-piper.shell.msg.usage=See http://piper.sourceforge.net for information on how to use Piper.
+piper.shell.msg.usage=See http://mathrider.org for information on how to use Piper.
 
 
 
