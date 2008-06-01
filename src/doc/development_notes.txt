@@ -11,6 +11,7 @@ Development notes.
 + Add shortcut and button for inserting a fold into a .mws file.
 + Allow properties to not use quotes around the value.
 + Change Geogebra to GeoGebra globally.
++ Note:tk: must set output and console another way for when user executes maxima fold before using the shell.
 - Change file format from .mrn to .mathrider (maybe leave .mrn to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
 + Check if Piper remembers variable values between sessions.
 + Check to make sure that at least Sun's Java 5 is installed.

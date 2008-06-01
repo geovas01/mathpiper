@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.mathrider.ResponseListener;
+import java.io.File;
 
 import java.io.*;
 
@@ -28,6 +29,8 @@ import errorlist.*;
 	private OutputStream outputStream;
 	private String response;
 	private String startMessage;
+	private String fileSearchMaximaAppendResponse;
+	private String fileSearchLispAppendResponse;
 	private ArrayList<ResponseListener> responseListeners;
 	private boolean keepRunning;
 	private String prompt;
@@ -35,6 +38,7 @@ import errorlist.*;
     /** Creates a new instance of MaximaWrapper */
     protected MaximaWrapper() throws IOException
 	{
+
 		responseListeners = new ArrayList<ResponseListener>();
 		ArrayList command = new ArrayList();
 		command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
@@ -45,7 +49,19 @@ import errorlist.*;
 		responseBuffer = new StringBuffer();
 		inputPromptPattern = Pattern.compile("\\n\\(%i[0-9]+\\)");
 		startMessage = getResponse();
+		
+		//Add temporary files directory to maxima search path.
+		File tempFile = File.createTempFile("mathrider", ".tmp");
+		tempFile.deleteOnExit();
+		String searchDirectory = tempFile.getParent() + File.separator + "###.{mac,mc}";
+		searchDirectory = searchDirectory.replace("\\","/");
+		send("file_search_maxima: append (file_search_maxima, [\"" + searchDirectory + "\"])$\n");
+		fileSearchMaximaAppendResponse = getResponse();
+	//System.out.println("FFF " + fileSearchMaximaAppendResponse);
+		
 		new Thread(this,"maxima").start();
+		
+
  
     }//end constructor.
 	
@@ -129,7 +145,7 @@ import errorlist.*;
 				inputStream.read( bytes, 0, serialAvailable );
                responseBuffer.append(new String(bytes));
                response = responseBuffer.toString();
-               //System.out.println("SSSSS " + str);
+          //System.out.println("SSSSS " + response);
                Matcher matcher = inputPromptPattern.matcher(response);
                if(matcher.find())
                {

@@ -1,6 +1,7 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
 import org.mathrider.piperplugin.PiperInterpreter;
+import org.mathrider.maximaplugin.MaximaWrapper;
 import java.io.File;
 import java.io.BufferedWriter;
 import org.gjt.sp.jedit.textarea.Selection.Range;
@@ -167,7 +168,7 @@ if(path.endsWith(".pi")){
 
 	}//end if.
 	*/		
-	foldSections = allFoldText.split("%piper|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
+	foldSections = allFoldText.split("%piper|%maxima|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
 	codeText = foldSections[0];
 	codeText = codeText.replaceAll("\\s+$", "");
 /*	
@@ -201,7 +202,17 @@ if(path.endsWith(".pi")){
 	
 	try {
         // Create temp file.
-        File tempFile = File.createTempFile("mathrider", ".mws_tmp");
+		
+		if(foldType.equalsIgnoreCase("%maxima"))
+		{
+			fileExtension = ".mac";
+		}
+		else
+		{
+			fileExtension = ".mws_tmp";
+		}//end if/else.
+		
+        File tempFile = File.createTempFile("mathrider", fileExtension);
     
         // Delete temp file when program exits.
         tempFile.deleteOnExit();
@@ -224,7 +235,7 @@ if(path.endsWith(".pi")){
 		{
 			//Piper section.
 			
-			interpreter = PiperInterpreter.getInstance();
+			system = PiperInterpreter.getInstance();
 			
 
 			try 
@@ -235,7 +246,7 @@ if(path.endsWith(".pi")){
 			
 				//System.out.println(tempFilePath);
         	
-				result = interpreter.evaluate("Load(\""+tempFilePath+"\");");
+				result = system.evaluate("Load(\""+tempFilePath+"\");");
 				
 				if(result != null )
 				{
@@ -251,39 +262,39 @@ if(path.endsWith(".pi")){
 				}//end if.}}}
 				
 				//Note: Since Load returns "True", it kills what was in %.
-				//lastResult = interpreter.evaluate("%");
+				//lastResult = system.evaluate("%");
 				//System.out.println(" XXXXX: " + lastResult);
 				
 				if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
-					result = interpreter.evaluate("TeXForm(Hold(" + result + "));");
+					result = system.evaluate("TeXForm(Hold(" + result + "));");
 					result = result.replace("\"$","$");
 					result = result.replace("$\"","$");
 					status = "%hoteqn";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
-					result = interpreter.evaluate("OMForm(" + result + ");");
+					result = system.evaluate("OMForm(" + result + ");");
 					status = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
-					result = interpreter.evaluate("PrettyForm(" + result + ");");
+					result = system.evaluate("PrettyForm(" + result + ");");
 					status = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				{	
-					result = interpreter.evaluate("CForm(" + result + ");");
+					result = system.evaluate("CForm(" + result + ");");
 					status = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				{	
-					result = interpreter.evaluate("FullForm(" + result + ");");
+					result = system.evaluate("FullForm(" + result + ");");
 					status = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				{	
-					result = interpreter.evaluate("TableForm(" + result + ");");
+					result = system.evaluate("TableForm(" + result + ");");
 					status = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
@@ -307,6 +318,90 @@ if(path.endsWith(".pi")){
 
 					
 		}//end if }}}
+
+
+
+		///{{{ *** %piper ***.
+		if(foldType.equalsIgnoreCase("%maxima"))    
+		{
+			//Maxima section.
+			
+			system = MaximaWrapper.getInstance();
+			
+
+			try 
+			{   
+				//tempFilePath = tempFile.getAbsolutePath();
+				
+				//tempFilePath = ChangeToForwardSlash(tempFilePath);
+			
+				//System.out.println(tempFilePath);
+				tempFileName = tempFile.getName();
+				sendString = "load(\""+tempFileName+"\");\n";
+				system.send(sendString);
+				//System.out.println(
+				
+				
+				//Note: Since Load returns "True", it kills what was in %.
+				//lastResult = system.evaluate("%");
+				//System.out.println(" XXXXX: " + lastResult);
+				
+				if(foldProperties.get("output").equalsIgnoreCase("latex") )
+				{
+					result = system.evaluate("TeXForm(Hold(" + result + "));");
+					result = result.replace("\"$","$");
+					result = result.replace("$\"","$");
+					status = "%hoteqn";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
+				{	
+					result = system.evaluate("OMForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
+				{	
+					result = system.evaluate("PrettyForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("c") )
+				{	
+					result = system.evaluate("CForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
+				{	
+					result = system.evaluate("FullForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("table") )
+				{	
+					result = system.evaluate("TableForm(" + result + ");");
+					status = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
+				{
+					status = "%geogebra";
+				}
+				else
+				{
+					status = "%output";
+				}
+	//Sy	stem.out.println("Out> " + result);
+				
+					
+			}catch(org.mathrider.maxima.Piperexception ye) 
+			{
+				result = ye.getMessage();
+				status = "%error ";
+			}
+			
+			
+
+					
+		}//end if }}}
+
+
+
 		
 	///{{{ *** %beanshell ***
 		else if(foldType.equalsIgnoreCase("%beanshell"))
@@ -317,7 +412,6 @@ if(path.endsWith(".pi")){
 			scope = foldProperties.get("scope");
 			if(scope.equalsIgnoreCase("global"))
 			{
-				//bshInterpreter = PiperInterpreter.getBshInstance();
 				bshInterpreter = bsi;
 				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 				bshInterpreter.set("ggb",ggb);
