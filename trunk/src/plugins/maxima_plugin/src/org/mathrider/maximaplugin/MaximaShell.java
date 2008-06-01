@@ -26,6 +26,7 @@ public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 	private MaximaWrapper maxima;
 	private String maximaStartMessage;
 	private Output lastRequestOutput;
+	private Console lastRequestConsole;
 	
 	
 	public MaximaShell() throws IOException
@@ -54,13 +55,26 @@ public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 	
 	public void response(String response)
 	{
-		lastRequestOutput.print(null, response);
+		
+		if(response.indexOf(".mac") != -1 )
+		{
+			lastRequestOutput.print(null, "\n" + response);
+			printPrompt(lastRequestConsole, lastRequestOutput);
+		}
+		else
+		{
+			lastRequestOutput.print(null, response);
+		}//end if/else/
 		lastRequestOutput.commandDone();
 	}//end method.
 
 	public void execute(Console console, String input, Output output, Output error, String command)
 	{
+		//Note:tk: must set output and console another way for when user executes maxima fold
+		//before using the shell.
 		lastRequestOutput = output;
+		lastRequestConsole = console;
+		
 		try 
 		{
 			maxima.send(command + "\n");
