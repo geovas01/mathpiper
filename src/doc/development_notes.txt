@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=:wrap=soft:
 
 {{{====To Do
++ Enable menubar in geogebra plugin.
++ Add tools to geogebra toolbar which allow exporting images and xml geogebra code into notebook cells.
 + NewtonNum link in Newton is broken.
 - Add default fold which will set default fold properties like output="output".
 + Add dependency code for geogebra, errorlist, etc.
