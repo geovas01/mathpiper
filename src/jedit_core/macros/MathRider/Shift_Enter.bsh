@@ -322,7 +322,7 @@ if(path.endsWith(".pi")){
 
 
 		///{{{ *** %piper ***.
-		if(foldType.equalsIgnoreCase("%maxima"))    
+		else if(foldType.equalsIgnoreCase("%maxima"))    
 		{
 			//Maxima section.
 			
