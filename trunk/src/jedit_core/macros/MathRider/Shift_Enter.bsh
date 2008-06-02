@@ -137,6 +137,7 @@ if(path.endsWith(".pi")){
 			
 			foldProperties = new java.util.Hashtable();
 			foldProperties.put("input","");
+			foldProperties.put("name","");
 			foldProperties.put("output","output");
 			foldProperties.put("collapse","false");
 			foldProperties.put("clear","false");
@@ -168,7 +169,7 @@ if(path.endsWith(".pi")){
 
 	}//end if.
 	*/		
-	foldSections = allFoldText.split("%piper|%maxima|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
+	foldSections = allFoldText.split("%piper|%maxima|%lisp|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
 	codeText = foldSections[0];
 	codeText = codeText.replaceAll("\\s+$", "");
 /*	
@@ -191,7 +192,7 @@ if(path.endsWith(".pi")){
 		codeText = allFoldText;
 	}
 */	
-//   System.out.println("YYYY: codeText " + codeText);
+   System.out.println("YYYY: codeText " + codeText);
 
 //	noCrLf = text.replace("\n","").replace("\r","");
 	isolatedCodeLength = codeText.length();
@@ -206,6 +207,10 @@ if(path.endsWith(".pi")){
 		if(foldType.equalsIgnoreCase("%maxima"))
 		{
 			fileExtension = ".mac";
+		}
+		else if(foldType.equalsIgnoreCase("%lisp"))
+		{
+			fileExtension = ".lisp";
 		}
 		else
 		{
@@ -321,12 +326,10 @@ if(path.endsWith(".pi")){
 
 
 
-		///{{{ *** %piper ***.
+		///{{{ *** %maxima ***.
 		else if(foldType.equalsIgnoreCase("%maxima"))    
 		{
-			//Maxima section.
-			
-			system = MaximaWrapper.getInstance();
+			//Maxima section.			
 			
 
 			try 
@@ -335,10 +338,43 @@ if(path.endsWith(".pi")){
 				
 				//tempFilePath = ChangeToForwardSlash(tempFilePath);
 			
+				
+				//Determine how many lines are in the result.
+				//numberOfLines = 0;
+				//charIndex = 0;
+				//while(charIndex != result.length()){
+				//	if(result.charAt(charIndex) == "\n"){
+				//		numberOfLines++;
+				//	}
+				//	charIndex++;
+				//}//end while
+				
+				
+				//Make room at the end of the current fold for output and place output there.
+				//currentCaretPosition = textArea.getCaretPosition();
+        	
+				
+			//{{{
+			org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
+				response(response)
+				{
+					System.out.println("WWWW " + response + ", " + foldType);
+				}//end method.
+				
+				remove()
+				{
+					return true;
+				}//end method.
+				
+			};//end interface implementation.
+			//}}}
+				system = MaximaWrapper.getInstance();
+				system.addResponseListener(responseListener);
 				//System.out.println(tempFilePath);
 				tempFileName = tempFile.getName();
 				sendString = "load(\""+tempFileName+"\");\n";
 				system.send(sendString);
+				status = "%output";
 				//System.out.println(
 				
 				
@@ -346,46 +382,46 @@ if(path.endsWith(".pi")){
 				//lastResult = system.evaluate("%");
 				//System.out.println(" XXXXX: " + lastResult);
 				
-				if(foldProperties.get("output").equalsIgnoreCase("latex") )
-				{
-					result = system.evaluate("TeXForm(Hold(" + result + "));");
-					result = result.replace("\"$","$");
-					result = result.replace("$\"","$");
-					status = "%hoteqn";
-				}
-				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
-				{	
-					result = system.evaluate("OMForm(" + result + ");");
-					status = "%output";
-				}
-				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
-				{	
-					result = system.evaluate("PrettyForm(" + result + ");");
-					status = "%output";
-				}
-				else if(foldProperties.get("output").equalsIgnoreCase("c") )
-				{	
-					result = system.evaluate("CForm(" + result + ");");
-					status = "%output";
-				}
-				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
-				{	
-					result = system.evaluate("FullForm(" + result + ");");
-					status = "%output";
-				}
-				else if(foldProperties.get("output").equalsIgnoreCase("table") )
-				{	
-					result = system.evaluate("TableForm(" + result + ");");
-					status = "%output";
-				}
-				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
-				{
-					status = "%geogebra";
-				}
-				else
-				{
-					status = "%output";
-				}
+				//if(foldProperties.get("output").equalsIgnoreCase("latex") )
+				//{
+				//	result = system.evaluate("TeXForm(Hold(" + result + "));");
+				//	result = result.replace("\"$","$");
+				//	result = result.replace("$\"","$");
+				//	status = "%hoteqn";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
+				//{	
+				//	result = system.evaluate("OMForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
+				//{	
+				//	result = system.evaluate("PrettyForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("c") )
+				//{	
+				//	result = system.evaluate("CForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
+				//{	
+				//	result = system.evaluate("FullForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("table") )
+				//{	
+				//	result = system.evaluate("TableForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
+				//{
+				//	status = "%geogebra";
+				//}
+				//else
+				//{
+				//	status = "%output";
+				//}
 	//Sy	stem.out.println("Out> " + result);
 				
 					
@@ -402,6 +438,119 @@ if(path.endsWith(".pi")){
 
 
 
+		
+		///{{{ *** %lisp ***.
+		else if(foldType.equalsIgnoreCase("%lisp"))    
+		{
+						
+			
+
+			try 
+			{   
+				//tempFilePath = tempFile.getAbsolutePath();
+				
+				//tempFilePath = ChangeToForwardSlash(tempFilePath);
+			
+				
+				//Determine how many lines are in the result.
+				//numberOfLines = 0;
+				//charIndex = 0;
+				//while(charIndex != result.length()){
+				//	if(result.charAt(charIndex) == "\n"){
+				//		numberOfLines++;
+				//	}
+				//	charIndex++;
+				//}//end while
+				
+				
+				//Make room at the end of the current fold for output and place output there.
+				//currentCaretPosition = textArea.getCaretPosition();
+        	
+				
+			//{{{
+			org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
+				response(response)
+				{
+					System.out.println("XXXX " + response + ", " + foldType);
+				}//end method.
+				
+				remove()
+				{
+					return true;
+				}//end method.
+				
+			};//end interface implementation.
+			//}}}
+				system = MaximaWrapper.getInstance();
+				system.addResponseListener(responseListener);
+				//System.out.println(tempFilePath);
+				tempFileName = tempFile.getName();
+				sendString = "load(\""+tempFileName+"\");\n";
+				system.send(sendString);
+				status = "%output";
+				//System.out.println(
+				
+				
+				//Note: Since Load returns "True", it kills what was in %.
+				//lastResult = system.evaluate("%");
+				//System.out.println(" XXXXX: " + lastResult);
+				
+				//if(foldProperties.get("output").equalsIgnoreCase("latex") )
+				//{
+				//	result = system.evaluate("TeXForm(Hold(" + result + "));");
+				//	result = result.replace("\"$","$");
+				//	result = result.replace("$\"","$");
+				//	status = "%hoteqn";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
+				//{	
+				//	result = system.evaluate("OMForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
+				//{	
+				//	result = system.evaluate("PrettyForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("c") )
+				//{	
+				//	result = system.evaluate("CForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
+				//{	
+				//	result = system.evaluate("FullForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("table") )
+				//{	
+				//	result = system.evaluate("TableForm(" + result + ");");
+				//	status = "%output";
+				//}
+				//else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
+				//{
+				//	status = "%geogebra";
+				//}
+				//else
+				//{
+				//	status = "%output";
+				//}
+	//Sy	stem.out.println("Out> " + result);
+				
+					
+			}catch(org.mathrider.maxima.Piperexception ye) 
+			{
+				result = ye.getMessage();
+				status = "%error ";
+			}
+			
+			
+
+					
+		}//end if }}}
+
+		
+		
 		
 	///{{{ *** %beanshell ***
 		else if(foldType.equalsIgnoreCase("%beanshell"))

@@ -200,7 +200,7 @@
 	
 	
 	<target id="all-plugins" name="all-plugins" depends="piper_plugin,
-		piper_docs_plugin, geogebra_plugin, hoteqn_plugin, jscicalc_plugin" />
+		piper_docs_plugin, geogebra_plugin, hoteqn_plugin, jscicalc_plugin, maxima_plugin" />
 	
 	
 	
