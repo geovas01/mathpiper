@@ -192,7 +192,7 @@ if(path.endsWith(".pi")){
 		codeText = allFoldText;
 	}
 */	
-   System.out.println("YYYY: codeText " + codeText);
+   //System.out.println("YYYY: codeText " + codeText);
 
 //	noCrLf = text.replace("\n","").replace("\r","");
 	isolatedCodeLength = codeText.length();
