@@ -34,12 +34,14 @@ import errorlist.*;
 	private ArrayList<ResponseListener> responseListeners;
 	private boolean keepRunning;
 	private String prompt;
+	private ArrayList<ResponseListener> removeListeners;
 
     /** Creates a new instance of MaximaWrapper */
     protected MaximaWrapper() throws IOException
 	{
 
 		responseListeners = new ArrayList<ResponseListener>();
+		removeListeners = new ArrayList<ResponseListener>();
 		ArrayList command = new ArrayList();
 		command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
@@ -57,6 +59,13 @@ import errorlist.*;
 		searchDirectory = searchDirectory.replace("\\","/");
 		send("file_search_maxima: append (file_search_maxima, [\"" + searchDirectory + "\"])$\n");
 		fileSearchMaximaAppendResponse = getResponse();
+		
+		
+		//Add temporary files directory to lisp search path.
+		searchDirectory = tempFile.getParent() + File.separator + "###.{lisp,lsp}";
+		searchDirectory = searchDirectory.replace("\\","/");
+		send("file_search_lisp: append (file_search_lisp, [\"" + searchDirectory + "\"])$\n");
+		fileSearchLispAppendResponse = getResponse();
 	//System.out.println("FFF " + fileSearchMaximaAppendResponse);
 		
 		new Thread(this,"maxima").start();
@@ -177,13 +186,36 @@ import errorlist.*;
 		responseListeners.add(listener);
 	}//end method.
 	
+	public void removeResponseListener(ResponseListener listener)
+	{
+		responseListeners.remove(listener);
+	}//end method.
+	
 	protected void notifyListeners(String response)
 	{
-		//java.util.Iterator listeners = responseListeners.iterator();
+		//notify listeners.
 		for(ResponseListener listener : responseListeners)
 		{
 			listener.response(response);
+			
+			if(listener.remove())
+			{
+				removeListeners.add(listener);
+			}//end if.
 		}//end for.
+		
+		
+		//Remove certain listeners.
+		for(ResponseListener listener : removeListeners)
+		{
+			
+			if(listener.remove())
+			{
+				responseListeners.remove(listener);
+			}//end if.
+		}//end for.
+		
+		removeListeners.clear();
 		
 	}//end method.
 

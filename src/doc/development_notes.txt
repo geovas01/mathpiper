@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=:wrap=soft:
 
 {{{====To Do
++ If fold is not found then part of .mws file is deleted.
++ Place proper exception types in folds (like maxima and lisp);
 + Enable menubar in geogebra plugin.
 + Add tools to geogebra toolbar which allow exporting images and xml geogebra code into notebook cells.
 + NewtonNum link in Newton is broken.
