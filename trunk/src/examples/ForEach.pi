@@ -1,0 +1,3 @@
+//Press <shift><enter> in this window to run this code.
+
+ForEach(item, 1 .. 10) Echo(item);
