@@ -5,7 +5,7 @@ Development notes.
 {{{====To Do
 + If fold is not found then part of .mws file is deleted.
 + Place proper exception types in folds (like maxima and lisp);
-+ Enable menubar in geogebra plugin.
+- Enable menubar in geogebra plugin.
 + Add tools to geogebra toolbar which allow exporting images and xml geogebra code into notebook cells.
 + NewtonNum link in Newton is broken.
 - Add default fold which will set default fold properties like output="output".
