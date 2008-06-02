@@ -217,6 +217,9 @@
 		</copy>
 		
 		
+		<mkdir dir="${master.build.dir}/mathrider/settings/jars/geogebra_properties" />
+		
+		
 		<!-- Copy examples directory. -->
 		<copy todir="${master.build.dir}/mathrider/examples">
 			<fileset dir="${master.src.dir}/examples" >
