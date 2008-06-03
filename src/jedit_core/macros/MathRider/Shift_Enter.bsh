@@ -9,7 +9,7 @@ import org.gjt.sp.jedit.textarea.Selection;
 import errorlist.*;
 import org.gjt.sp.jedit.bsh.EvalError;
 
-                
+
 ChangeToForwardSlash(tempFilePath)
 {
 // 	//Remove Windows drive letter from the path.
@@ -353,12 +353,15 @@ if(path.endsWith(".pi")){
 				//Make room at the end of the current fold for output and place output there.
 				//currentCaretPosition = textArea.getCaretPosition();
         	
+							
+				foldName = foldProperties.get("name");
+				
 				
 			//{{{
 			org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
 				response(response)
 				{
-					System.out.println("WWWW " + response + ", " + foldType);
+					System.out.println("WWWW " + response + ", " + foldName);
 				}//end method.
 				
 				remove()
@@ -373,8 +376,13 @@ if(path.endsWith(".pi")){
 				//System.out.println(tempFilePath);
 				tempFileName = tempFile.getName();
 				sendString = "load(\""+tempFileName+"\");\n";
-				system.send(sendString);
-				status = "%output";
+				system.send(sendString);//sendString
+				
+				//this.console.setShell("Maxima");o = console.getOutput();o.writeAttrs(null, "\n");
+				//runCommandInConsole(view,"Maxima","Load(\""+path+"\");");
+				//runCommandInConsole(view,"Maxima",codeText + "\n");
+				
+				status = "%output,name=\"" + foldName + "\"";
 				//System.out.println(
 				
 				

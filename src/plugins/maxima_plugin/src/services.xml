@@ -1,7 +1,7 @@
 <!DOCTYPE SERVICES SYSTEM "services.dtd">
 
 <SERVICES>
-	<SERVICE CLASS="console.Shell" NAME="maxima">
+	<SERVICE CLASS="console.Shell" NAME="Maxima">
                 new org.mathrider.maximaplugin.MaximaShell();
         </SERVICE>
 </SERVICES>

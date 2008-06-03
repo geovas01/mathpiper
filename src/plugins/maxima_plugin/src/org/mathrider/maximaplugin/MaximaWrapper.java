@@ -49,7 +49,7 @@ import errorlist.*;
 		inputStream = maximaProcess.getInputStream();
 		outputStream = maximaProcess.getOutputStream();
 		responseBuffer = new StringBuffer();
-		inputPromptPattern = Pattern.compile("\\n\\(%i[0-9]+\\)");
+		inputPromptPattern = Pattern.compile("\\n\\(%i[0-9]+\\)|MAXIMA>");
 		startMessage = getResponse();
 		
 		//Add temporary files directory to maxima search path.
@@ -161,6 +161,10 @@ import errorlist.*;
                   //System.out.println("PPPPPP found end");
                   responseBuffer.delete(0,responseBuffer.length());
 				   int promptIndex = response.lastIndexOf("(%");
+				   if(promptIndex == -1)
+				   {
+					   promptIndex = response.lastIndexOf("MAX");
+				   }
 				   prompt = response.substring(promptIndex,response.length());
 				  	response = response.substring(0,promptIndex);
                    keepChecking = false;
