@@ -27,11 +27,13 @@ public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 	private String maximaStartMessage;
 	private Output lastRequestOutput;
 	private Console lastRequestConsole;
+	//private Console console;
 	
 	
 	public MaximaShell() throws IOException
 	{
-		super("maxima");
+		super("Maxima");
+		
 		maxima = MaximaWrapper.getInstance(); //new StreamOutput(System.out) 
 		maximaStartMessage = maxima.getStartMessage();
 		maxima.addResponseListener(this);
@@ -55,8 +57,13 @@ public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 	
 	public void response(String response)
 	{
+		org.gjt.sp.jedit.View view = org.gjt.sp.jedit.jEdit.getActiveView();
+		org.gjt.sp.jedit.gui.DockableWindowManager dockableWindowManager = view.getDockableWindowManager();
+		lastRequestConsole = (Console) dockableWindowManager.getDockable("console");
+		lastRequestConsole.setShell("Maxima");
+		lastRequestOutput = lastRequestConsole.getOutput();
 		
-		if(response.indexOf(".mac") != -1 )
+		if(response.indexOf(".mac") != -1 || response.indexOf(".lisp") != -1 )
 		{
 			lastRequestOutput.print(null, "\n" + response);
 			printPrompt(lastRequestConsole, lastRequestOutput);
@@ -65,6 +72,7 @@ public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 		{
 			lastRequestOutput.print(null, response);
 		}//end if/else/
+		
 		lastRequestOutput.commandDone();
 	}//end method.
 	
