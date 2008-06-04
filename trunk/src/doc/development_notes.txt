@@ -378,3 +378,8 @@ Write(a);
 {{{Sage disadvantages:
 + The implementation is constantly changing beneath you without warning.
 }}}
+
+{{{GeoGebra
++ Copy XML protocol to clipboard.
++ Add commands for setting object properties so that these can be set by a program.
+}}}
