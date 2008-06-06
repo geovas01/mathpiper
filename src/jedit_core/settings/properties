@@ -134,6 +134,7 @@ helpviewer.x=50
 search.wrap.toggle=false
 error-list.y=50
 error-list.x=50
+close-docking-area.shortcut=
 plugin-blacklist.kappalayout.jar=false
 vfs.browser.modified.width=100
 hypersearch-results.multi=false
