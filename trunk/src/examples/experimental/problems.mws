@@ -703,4 +703,79 @@ class SerialPort( Runnable ):
 
 %end
 
+%maxima,name="test"
+2+3;
+5+7;
+print("hello");
+
+    %output,name="test"
+      
+    %end
+
+%end
+
+
+%beanshell,scope="ide"
+v = view;
+		dwm = v.getDockableWindowManager();
+		con = dwm.getDockable("console");
+        con.setShell("Maxima");
+
+    %output 
+      
+    %end
+
+%end
+
+%lisp
+(defun compress (x)
+    ;;If a cons was passed in then compress it.
+    (if (consp x)
+        (compr (car x) 1 (cdr x))
+        ;;Else just return what was passed in.
+        x))
+        
+;;; elt: element.  n: number in a sequence. lst: the rest of the list.
+(defun compr (elt n lst)
+    ;; If the rest of the list is null, then just call n-elts once.
+    (if (null lst)
+        (list (n-elts elt n))
+        
+        ;; If the rest of the list is not null then set the variable next to the next character in the list.
+        (let ((next (car lst)))
+        
+            ;; If element is the same as the next character in the list then compress again.
+            (if (eql next elt)
+                (compr elt (+ n 1) (cdr lst))
+            
+                ;; If element is not the same then 
+                (cons (n-elts elt n)
+                    (compr next 1 (cdr lst )))))))
+                
+(defun n-elts (elt n)
+    (if (> n 1)
+        (list n elt)
+        elt))
+
+
+    %output
+      
+    %end
+
+%end
+
+
+MAXIMA> (compress '(1 1 1))
+
+  1> (COMPRESS (1 1 1))
+    2> (COMPR 1 1 (1 1))
+      3> (COMPR 1 2 (1))
+        4> (COMPR 1 3 NIL)
+          5> (N-ELTS 1 3)
+          <5 (N-ELTS (3 1))
+        <4 (COMPR ((3 1)))
+      <3 (COMPR ((3 1)))
+    <2 (COMPR ((3 1)))
+  <1 (COMPRESS ((3 1)))
+((3 1))
 

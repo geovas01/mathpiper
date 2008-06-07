@@ -53,12 +53,12 @@ public class PiperShell extends Shell
 		try 
 		{
 			String result = interpreter.evaluate(command);
-			output.print(null,"Out> " + result);
+			output.print(java.awt.Color.BLUE,"Out> " + result);
 			
 			
 		}catch(org.mathrider.piper.Piperexception ye) 
 		{
-			output.print(null,ye.getMessage() );
+			output.print(java.awt.Color.RED,ye.getMessage() );
 		}
 		finally
 		{
