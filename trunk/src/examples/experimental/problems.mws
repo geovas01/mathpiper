@@ -1312,7 +1312,7 @@ jlist = new java.util.Vector();
 
 
 categories = new DefaultMutableTreeNode("Categories");
-categories.add(new DefaultMutableTreeNode(new org.mathrider.piperdocsplugin.FunctionInfo("Predicates","")));
+categories.add(new DefaultMutableTreeNode(new org.mathrider.piperdocsplugin.FunctionInfo("Predicates","test")));
 
 for(row = 0;row < functions.length;row++)
 {
@@ -1332,7 +1332,7 @@ for(row = 0;row < functions.length;row++)
         {
             if(child.getUserObject().toString().equalsIgnoreCase(category)) //Add leaf to existing category.
             {
-                child.add(new DefaultMutableTreeNode(functions[row][0]));
+                child.add(new DefaultMutableTreeNode(new org.mathrider.piperdocsplugin.FunctionInfo(functions[row][0],functions[row][1]) ));
                 hasCategory = true;
             }
 
@@ -1341,7 +1341,7 @@ for(row = 0;row < functions.length;row++)
         
         if(hasCategory == false)
         {
-            leaf = new DefaultMutableTreeNode(functions[row][0]);
+            leaf = new DefaultMutableTreeNode(new org.mathrider.piperdocsplugin.FunctionInfo(functions[row][0],functions[row][1]));
             category = new DefaultMutableTreeNode(functions[row][column]);
             category.add(leaf);
             categories.add(category);
@@ -1366,7 +1366,11 @@ for(row = 0;row < functions.length;row++)
     
 }//end for/
 
-tree = new JTree(categories);
+tree = new org.mathrider.piperdocsplugin.FunctionInfoTree(categories);
+
+
+ToolTipManager.sharedInstance().registerComponent(tree);
+
 tree.getSelectionModel().setSelectionMode(javax.swing.tree.TreeSelectionModel.SINGLE_TREE_SELECTION);
 //tree.addTreeSelectionListener(this);
 treeView = new JScrollPane(tree);

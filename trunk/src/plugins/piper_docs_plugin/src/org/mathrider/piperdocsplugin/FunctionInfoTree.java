@@ -1,23 +1,29 @@
 package org.mathrider.piperdocsplugin;
 
-public class FunctionInfo
+import javax.swing.JTree;
+import javax.swing.tree.*;
+
+public class FunctionInfoTree extends JTree
 {
-	private String name;
-	private String description;
-	
-	public FunctionInfo(String name, String description)
+	public FunctionInfoTree(DefaultMutableTreeNode node)
 	{
-		this.name = name;
-		this.description = description;
-	}//end constructor.
-	
-	public String getDescription()
+		super(node);
+	}
+	public String getToolTipText(java.awt.event.MouseEvent e) 
 	{
-		return description;
-	}//end method.
-	public String toString()
-	{
-		return(this.name);
+		DefaultMutableTreeNode node = null;
+		FunctionInfo functionInfo = null;
+		String tip = null;
+		TreePath path = getPathForLocation(e.getX(), e.getY());
+		
+		if (path != null) {
+			node = (DefaultMutableTreeNode)path.getLastPathComponent();
+			functionInfo = (FunctionInfo) node.getUserObject();
+			tip = functionInfo.getDescription();
+		}
+		
+		return tip == null ? null : tip;
+		
 	}//end method.
 	
 }//end class
