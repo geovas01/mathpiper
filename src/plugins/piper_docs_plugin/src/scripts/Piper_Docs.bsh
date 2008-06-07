@@ -604,24 +604,10 @@ numericFunctions = new String[]
     list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     list.addListSelectionListener(this);
     JScrollPane pane = new JScrollPane(list);
-//    JButton button = new JButton("Print");
-//    button.addActionListener(this);
-
-//    listPanel.add(pane, BorderLayout.CENTER);
-//    listPanel.add(button, BorderLayout.SOUTH);
  
     piperDocPanel.add(pane, BorderLayout.WEST);
 
-//    JFrame frame = new JFrame("Simple List Example");
-    //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
-//    frame.setContentPane(listPanel);
-//    frame.setSize(250, 200);
-//    frame.setVisible(true);
- 
 
-
-  // An inner class to respond to clicks on the Print button
 
     
     
