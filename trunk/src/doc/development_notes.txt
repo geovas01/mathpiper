@@ -266,7 +266,8 @@ Why is this list missing commas and curly braces?
 + Link from HoldArg to HoldArgNr in HoldArg documentation is broken.
 }}}
 
-{{{Piper enhancements.
+{{{PIPER ENHANCEMENTS.
++ Have commands which are similar to scientific calculator functions (like NCR, NPR, etc).
 + Multivariate factoring.
 ----
 + Regular expressions
