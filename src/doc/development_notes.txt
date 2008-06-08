@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
 
 {{{====To Do
++ Perhaps add grade level (or similar) tags to functions to hide advanced functions in piper docs.
 + Have Piper docs go to cateorgy's html reference page when category is selected.
 + Add scope="shell" to beanshell fold.
 + Add IsInteger to PiperDocs (There are a number of links to it, but no target).
@@ -267,6 +268,9 @@ Why is this list missing commas and curly braces?
 }}}
 
 {{{PIPER ENHANCEMENTS.
++ Change MathXXX function names to XXXN format.
++ Change DestructiveXXX function names to XXXO for Original and perhaps functions like Replace to ReplaceC for Copy.
++ Change function names which have a ' in them to version without '.
 + Have commands which are similar to scientific calculator functions (like NCR, NPR, etc).
 + Multivariate factoring.
 ----
