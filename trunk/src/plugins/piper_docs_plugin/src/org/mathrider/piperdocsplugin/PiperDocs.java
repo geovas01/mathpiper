@@ -215,8 +215,8 @@ public class PiperDocs extends JPanel
 		try
 		{
 			//Note: this is in development mode.  Switch comment to other line for distribution.
-			//java.net.URL docsURL = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("scripts/Piper_Docs.bsh");
-			java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/piper_docs_plugin/src/scripts/Piper_Docs.bsh");
+			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("scripts/Piper_Docs.bsh");
+			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/piper_docs_plugin/src/scripts/Piper_Docs.bsh");
 
 			
 			//System.out.println("YYYYY2: " + helpURL.toString());
