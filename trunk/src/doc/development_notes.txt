@@ -268,6 +268,9 @@ Why is this list missing commas and curly braces?
 }}}
 
 {{{PIPER ENHANCEMENTS.
+Change Nl to NL.
++ Change TeXForm to TexForm.
++ Change FullForm to LispForm.
 + Change MathXXX function names to XXXN format.
 + Change DestructiveXXX function names to XXXO for Original and perhaps functions like Replace to ReplaceC for Copy.
 + Change function names which have a ' in them to version without '.
