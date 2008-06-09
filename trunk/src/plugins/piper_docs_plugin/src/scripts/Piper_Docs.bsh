@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.util.ArrayList;
 import org.gjt.sp.jedit.jEdit;
+import org.mathrider.piperdocsplugin.FunctionInfo;
 //import org.mathrider.piperplugin.PiperInterpreter;
 
 
@@ -692,7 +693,7 @@ for(row = 0;row < functions.length;row++)
     for(column=2; column < functions[row].length; column++)
     {
         category = functions[row][column];
-        System.out.println("XXXXX " + functions[row][column]);
+        //System.out.println("XXXXX " + functions[row][column]);
         
         
         boolean hasCategory = false;
@@ -716,24 +717,47 @@ for(row = 0;row < functions.length;row++)
             categories.add(category);
         }
         
-/*
-        if(categories.containsKey(category)) //Add leaf to existing category.
-        {
-            categoryNode = categories.get(category);
-            categoryNode.add(new DefaultMutableTreeNode(functions[row][0]));
-        }
-        else //Create new category and add leaf;
-        {
-            categoryLeaf = new DefaultMutableTreeNode(functions[row][0]);
-            categoryNode = new DefaultMutableTreeNode(categoryLeaf);
-            categories.put(category,categoryNode);
-        }
- 
-*/
     }//end for.
 
     
 }//end for/
+
+
+    valueChanged(ListSelectionEvent e)
+    {
+        if (e.getValueIsAdjusting())
+          return;
+        index = e.getFirstIndex();
+		item = list.getSelectedValue();
+		
+		displayFunctionDocs(item);
+        
+        //System.out.println("IIIII Item: " + list.getSelectedValue());
+		
+	//System.out.println("MMMMMM match: " + findFileForFunction(item));
+	
+	}//end function.
+	
+
+functionInfo = null;
+valueChanged(TreeSelectionEvent e) 
+{
+    node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+
+    if (node == null)
+    //Nothing is selected.	
+    return;
+
+    Object nodeInfo = node.getUserObject();
+    if (node.isLeaf()) 
+	{
+        functionInfo = (FunctionInfo)nodeInfo;
+        displayFunctionDocs(functionInfo.toString());
+    } else {
+		toolPanel.sourceButtonEnabled(false);
+        //Note:tk:Perhaps display top of chapter here?
+    }
+}//end method
 
 tree = new org.mathrider.piperdocsplugin.FunctionInfoTree(categories);
 
@@ -741,7 +765,9 @@ tree = new org.mathrider.piperdocsplugin.FunctionInfoTree(categories);
 ToolTipManager.sharedInstance().registerComponent(tree);
 
 tree.getSelectionModel().setSelectionMode(javax.swing.tree.TreeSelectionModel.SINGLE_TREE_SELECTION);
-//tree.addTreeSelectionListener(this);
+tree.addTreeSelectionListener(this);
+tree.setShowsRootHandles(true);
+//tree.setRootVisible(false);
 treeView = new JScrollPane(tree);
 //frame.add(treeView, BorderLayout.EAST);
 
@@ -765,24 +791,11 @@ list = new javax.swing.JList(jlist);
     //list.addListSelectionListener(this);
     //JScrollPane pane = new JScrollPane(list);
  
-    piperDocPanel.add(listView, BorderLayout.WEST);
+    piperDocPanel.add(treeView, BorderLayout.WEST);//treeView and listView.
 
 
-
-    
-    
-    valueChanged(e)
-    {
-        if (e.getValueIsAdjusting())
-          return;
-        index = e.getFirstIndex();
-		item = list.getSelectedValue();
-        
-        //System.out.println("IIIII Item: " + list.getSelectedValue());
-		
-	//System.out.println("MMMMMM match: " + findFileForFunction(item));
-
-		
+	displayFunctionDocs(String item)
+	{	
 		//Determine if function is a numeric Math function.
 		match = false;
 		for(index = 0; index < numericFunctions.length ;index++)
@@ -826,6 +839,8 @@ list = new javax.swing.JList(jlist);
 			}//end else.
 		}//end else.
 		
+
+    
 
 	
 
@@ -901,7 +916,9 @@ home()
 source()
 {
 	interpreter = jPiperInterpreter; //Note:tk:PiperInterpreter.getInstance(); 
-	item = list.getSelectedValue();
+	//item = list.getSelectedValue();
+	
+	item = functionInfo.toString();
 	
 	try{
 		location = interpreter.evaluate("FindFunction(\"" + item + "\");");
@@ -1004,6 +1021,14 @@ import java.io.*;
 }//end source.
 
 //}}}
+
+
+//{{{collapse
+collapse()
+{
+	tree.collapseAll();
+}//end method.}}}
+
 
 
 editorPane.setEditable(false);

@@ -10,6 +10,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 import org.gjt.sp.jedit.GUIUtilities;
 import org.gjt.sp.jedit.jEdit;
@@ -50,11 +51,21 @@ public class PiperDocsToolPanel extends JPanel {
 				PiperDocsToolPanel.this.pad.source();
 			}
 		});
-		
 		sourceButton.setEnabled(false);
-
 		sourceButton.setToolTipText(toolTip);
 		add(sourceButton);
+		
+		//Collapse tree button.
+		toolTip = jEdit.getProperty("piperdocs.collapse.label");
+		JButton collapseButton = new javax.swing.JButton(jEdit.getProperty("piperdocs.collapse.button-text"));
+		collapseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				PiperDocsToolPanel.this.pad.collapse();
+			}
+		});
+		collapseButton.setEnabled(true);
+		collapseButton.setToolTipText(toolTip);
+		add(collapseButton);
 		
 		
 		

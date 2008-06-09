@@ -11,23 +11,51 @@ public class FunctionInfoTree extends JTree
 	{
 		super(node);
 	}
-	public String getToolTipText(java.awt.event.MouseEvent e) 
+	public String getToolTipText(java.awt.event.MouseEvent e)
 	{
 		DefaultMutableTreeNode node = null;
 		FunctionInfo functionInfo = null;
 		String tip = null;
 		TreePath path = getPathForLocation(e.getX(), e.getY());
-		
+
 		if (path != null) {
 			node = (DefaultMutableTreeNode)path.getLastPathComponent();
 			functionInfo = (FunctionInfo) node.getUserObject();
 			tip = functionInfo.getDescription();
 		}
-		
+
 		return tip == null ? null : tip;
-		
+
 	}//end method.
-	
+
+
+	// If expand is true, expands all nodes in the tree.
+	// Otherwise, collapses all nodes in the tree.
+	public void collapseAll() {
+		TreeNode root = (TreeNode)this.getModel().getRoot();
+
+		// Traverse tree from root
+		expandAll(this, new TreePath(root), false);
+	}
+	private void expandAll(JTree tree, TreePath parent, boolean expand) {
+		// Traverse children
+		TreeNode node = (TreeNode)parent.getLastPathComponent();
+		if (node.getChildCount() >= 0) {
+			for (java.util.Enumeration e=node.children(); e.hasMoreElements(); ) {
+				TreeNode n = (TreeNode)e.nextElement();
+				TreePath path = parent.pathByAddingChild(n);
+				expandAll(tree, path, expand);
+			}
+		}
+
+		// Expansion or collapse must be done bottom-up
+		if (expand) {
+			tree.expandPath(parent);
+		} else {
+			tree.collapsePath(parent);
+		}
+	}
+
 }//end class
 
 /* {{{ License.

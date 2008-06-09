@@ -270,6 +270,21 @@ public class PiperDocs extends JPanel
 	}//end method.
 	//}}}
 	
+	
+	//{{{ collapse()
+	public void collapse()
+	{
+		try {
+			bshInterpreter.eval( "collapse();" );
+		
+		}
+		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
+		{
+			e.printStackTrace();
+		}
+	}//end method.
+	//}}}
+	
 	//{{{ reset()
 	public void reset()
 	{
