@@ -1,0 +1,538 @@
+<html>
+<head>
+  <title>Simplification of expressions</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c11">
+
+</a>
+(directly go to documentation on : <a href="refchapter11.html#Simplify" target='Chapters' title="try to simplify an expression">Simplify</a>, <a href="refchapter11.html#RadSimp" target='Chapters' title="simplify expression with nested radicals">RadSimp</a>, <a href="refchapter11.html#FactorialSimplify" target='Chapters' title="Simplify hypergeometric expressions containing factorials">FactorialSimplify</a>, <a href="refchapter11.html#LnExpand" target='Chapters' title="expand a logarithmic expression using standard logarithm rules">LnExpand</a>, <a href="refchapter11.html#LnCombine" target='Chapters' title="combine logarithmic expressions using standard logarithm rules">LnCombine</a>, <a href="refchapter11.html#TrigSimpCombine" target='Chapters' title="combine products of trigonometric functions">TrigSimpCombine</a>.
+)<h1>
+11. Simplification of expressions
+</h1>
+Simplification of expression is a big and non-trivial subject. Simplification implies that there is a preferred form. In practice the preferred form depends on the calculation at hand. This chapter describes the functions offered that allow simplification of expressions.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter11.html#Simplify" target='Chapters' title="try to simplify an expression">Simplify</a></td>
+<td>try to simplify an expression</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter11.html#RadSimp" target='Chapters' title="simplify expression with nested radicals">RadSimp</a></td>
+<td>simplify expression with nested radicals</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter11.html#FactorialSimplify" target='Chapters' title="Simplify hypergeometric expressions containing factorials">FactorialSimplify</a></td>
+<td>Simplify hypergeometric expressions containing factorials</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter11.html#LnExpand" target='Chapters' title="expand a logarithmic expression using standard logarithm rules">LnExpand</a></td>
+<td>expand a logarithmic expression using standard logarithm rules</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter11.html#LnCombine" target='Chapters' title="combine logarithmic expressions using standard logarithm rules">LnCombine</a></td>
+<td>combine logarithmic expressions using standard logarithm rules</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter11.html#TrigSimpCombine" target='Chapters' title="combine products of trigonometric functions">TrigSimpCombine</a></td>
+<td>combine products of trigonometric functions</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="Simplify">
+
+</a>
+<a name="simplify">
+
+</a>
+<h3>
+<hr>Simplify -- try to simplify an expression
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Simplify(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to simplify
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tries to simplify the expression <b><tt>expr</tt></b> as much
+as possible. It does this by grouping powers within terms, and then
+grouping similar terms.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; a*b*a^2/b-a^3
+Out&gt; (b*a^3)/b-a^3;
+In&gt; Simplify(a*b*a^2/b-a^3)
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?TrigSimpCombine" target="Chapters">
+TrigSimpCombine
+</a>
+, <a href="ref.html?RadSimp" target="Chapters">
+RadSimp
+</a>
+.<a name="RadSimp">
+
+</a>
+<a name="radsimp">
+
+</a>
+<h3>
+<hr>RadSimp -- simplify expression with nested radicals
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RadSimp(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression containing nested radicals
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tries to write the expression "expr" as a sum of roots
+of integers: <b>Sqrt(e1)+Sqrt(e2)+...</b>, where <b>e1</b>, <b> e2</b> and
+so on are natural numbers. The expression "expr" may not contain
+free variables.
+
+
+<p>
+It does this by trying all possible combinations for <b> e1</b>, <b> e2</b>, ...
+Every possibility is numerically evaluated using <b><tt>N</tt></b> and compared with the numerical evaluation of
+"expr". If the approximations are equal (up to a certain margin),
+this possibility is returned. Otherwise, the expression is returned
+unevaluated.
+
+
+<p>
+Note that due to the use of numerical approximations, there is a small
+chance that the expression returned by <b><tt>RadSimp</tt></b> is
+close but not equal to <b><tt>expr</tt></b>. The last example underneath
+illustrates this problem. Furthermore, if the numerical value of
+<b><tt>expr</tt></b> is large, the number of possibilities becomes exorbitantly
+big so the evaluation may take very long.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; RadSimp(Sqrt(9+4*Sqrt(2)))
+Out&gt; Sqrt(8)+1;
+In&gt; RadSimp(Sqrt(5+2*Sqrt(6)) \
+  +Sqrt(5-2*Sqrt(6)))
+Out&gt; Sqrt(12);
+In&gt; RadSimp(Sqrt(14+3*Sqrt(3+2
+*Sqrt(5-12*Sqrt(3-2*Sqrt(2))))))
+Out&gt; Sqrt(2)+3;
+</pre></tr>
+</table>
+
+
+<p>
+But this command may yield incorrect results:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; RadSimp(Sqrt(1+10^(-6)))
+Out&gt; 1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Simplify" target="Chapters">
+Simplify
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+.<a name="FactorialSimplify">
+
+</a>
+<a name="factorialsimplify">
+
+</a>
+<h3>
+<hr>FactorialSimplify -- Simplify hypergeometric expressions containing factorials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FactorialSimplify(expression)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expression</tt></b> -- expression to simplify
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>FactorialSimplify</tt></b> takes an expression that may contain factorials,
+and tries to simplify it. An expression like <b>(n+1)! /n!</b> would
+simplify to <b>n+1</b>. 
+
+
+<p>
+The following steps are taken to simplify:
+
+
+<p>
+<ul><li>binomials are expanded into factorials
+</li><li>the expression is flattened as much as possible, to reduce it to a sum of simple rational terms
+</li><li>expressions like </li><b> p^n/p^m</b> are reduced to <b> p^(n-m)</b> if <b>n-m</b> is an integer
+<li>expressions like </li><b> n! /m!</b> are simplified if <b>n-m</b> is an integer
+</ul>
+
+<p>
+The function <b><tt>Simplify</tt></b> is used to determine if the relevant expressions <b> n-m</b>
+are integers.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; FactorialSimplify( (n-k+1)! / (n-k)! )
+Out&gt; n+1-k
+In&gt; FactorialSimplify(n! / Bin(n,k))
+Out&gt; k! *(n-k)!
+In&gt; FactorialSimplify(2^(n+1)/2^n)
+Out&gt; 2
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Simplify" target="Chapters">
+Simplify
+</a>
+, <a href="ref.html?!" target="Chapters">
+!
+</a>
+, <a href="ref.html?Bin" target="Chapters">
+Bin
+</a>
+.<a name="LnExpand">
+
+</a>
+<a name="lnexpand">
+
+</a>
+<h3>
+<hr>LnExpand -- expand a logarithmic expression using standard logarithm rules
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LnExpand(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- the logarithm of an expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>LnExpand</tt></b> takes an expression of the form <b> Ln(expr)</b>, and applies logarithm
+rules to expand this into multiple <b><tt>Ln</tt></b> expressions where possible.  An
+expression like <b>Ln(a*b^n)</b> would be expanded to <b>Ln(a)+n*Ln(b)</b>.
+
+
+<p>
+If the logarithm of an integer is discovered, it is factorised using <b><tt>Factors</tt></b>
+and expanded as though <b><tt>LnExpand</tt></b> had been given the factorised form.  So 
+<b>Ln(18)</b> goes to <b>Ln(x)+2*Ln(3)</b>.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; LnExpand(Ln(a*b^n))
+Out&gt; Ln(a)+Ln(b)*n
+In&gt; LnExpand(Ln(a^m/b^n))
+Out&gt; Ln(a)*m-Ln(b)*n
+In&gt; LnExpand(Ln(60))
+Out&gt; 2*Ln(2)+Ln(3)+Ln(5)
+In&gt; LnExpand(Ln(60/25))
+Out&gt; 2*Ln(2)+Ln(3)-Ln(5)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Ln" target="Chapters">
+Ln
+</a>
+, <a href="ref.html?LnCombine" target="Chapters">
+LnCombine
+</a>
+, <a href="ref.html?Factors" target="Chapters">
+Factors
+</a>
+.<a name="LnCombine">
+
+</a>
+<a name="lncombine">
+
+</a>
+<h3>
+<hr>LnCombine -- combine logarithmic expressions using standard logarithm rules
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LnCombine(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression possibly containing multiple <b><tt>Ln</tt></b> terms to be combined
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>LnCombine</tt></b> finds <b><tt>Ln</tt></b> terms in the expression it is given, and combines them
+using logarithm rules.  It is intended to be the exact converse of <b><tt>LnExpand</tt></b>.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; LnCombine(Ln(a)+Ln(b)*n)
+Out&gt; Ln(a*b^n)
+In&gt; LnCombine(2*Ln(2)+Ln(3)-Ln(5))
+Out&gt; Ln(12/5)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Ln" target="Chapters">
+Ln
+</a>
+, <a href="ref.html?LnExpand" target="Chapters">
+LnExpand
+</a>
+.<a name="TrigSimpCombine">
+
+</a>
+<a name="trigsimpcombine">
+
+</a>
+<h3>
+<hr>TrigSimpCombine -- combine products of trigonometric functions
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+TrigSimpCombine(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- expression to simplify
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function applies the product rules of trigonometry, e.g.
+<b>Cos(u)*Sin(v)=1/2*(Sin(v-u)+Sin(v+u))</b>. As a
+result, all products of the trigonometric functions <b><tt>Cos</tt></b> and <b><tt>Sin</tt></b> disappear. The function also tries to simplify the resulting expression as much as
+possible by combining all similar terms.
+
+
+<p>
+This function is used in for instance <b><tt>Integrate</tt></b>,
+to bring down the expression into a simpler form that hopefully can be
+integrated easily.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; PrettyPrinter'Set("PrettyForm");
+
+True
+
+In&gt; TrigSimpCombine(Cos(a)^2+Sin(a)^2)
+
+1
+
+In&gt; TrigSimpCombine(Cos(a)^2-Sin(a)^2)
+
+Cos( -2 * a )
+
+Out&gt;
+In&gt; TrigSimpCombine(Cos(a)^2*Sin(b))
+
+Sin( b )   Sin( -2 * a + b ) 
+-------- + ----------------- 
+   2               4         
+
+    Sin( -2 * a - b )
+  - -----------------
+            4
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Simplify" target="Chapters">
+Simplify
+</a>
+, <a href="ref.html?Integrate" target="Chapters">
+Integrate
+</a>
+, <a href="ref.html?Expand" target="Chapters">
+Expand
+</a>
+, <a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+, <a href="ref.html?Tan" target="Chapters">
+Tan
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>
