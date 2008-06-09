@@ -1,3 +1,5 @@
+//Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
+
 package org.mathrider.piperdocsplugin;
 
 import javax.swing.JTree;
