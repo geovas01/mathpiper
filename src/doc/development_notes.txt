@@ -268,7 +268,8 @@ Why is this list missing commas and curly braces?
 }}}
 
 {{{PIPER ENHANCEMENTS.
-Change Nl to NL.
++ Change "generic" (as in Generic object) to "native".
++ Change Nl to NL.
 + Change TeXForm to TexForm.
 + Change FullForm to LispForm.
 + Change MathXXX function names to XXXN format or perhaps have something like SinS for symbolic and SinN for numeric (but then all symbolic functions should be labeled as such so maybe just labeling the numeric ones would be best.
