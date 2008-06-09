@@ -74,8 +74,8 @@ import java.awt.event.*;
 import java.awt.*;
 import org.mathrider.piperdocsplugin.FunctionInfo;
 
-//{{{ functions array.
-functions = new String[][]
+//{{{ User functions descriptions.
+userFunctionsDescriptions = new String[][]
 {
 {"+","Arithmetic addition.","Alphabetical","Numbers (Operations)"},
 {"-","Arithmetic subtraction or negation.","Alphabetical","Numbers (Operations)"},
@@ -610,46 +610,172 @@ functions = new String[][]
 {"Zeta","Riemann's Zeta function.","Alphabetical","Functions (Special)"}
 };
 
-jlist = new java.util.Vector();
+jlist = new java.util.Vector();//For JList.
 
 
-categories = new DefaultMutableTreeNode(new FunctionInfo("Categories","Function and constant categories."));
+userFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("User Functions","Functions for Piper users."));
 
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Alphabetical","All functions in alphabetical order.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Calculus Related (Symbolic)","Functions for differentiation, integration, and solving of equations.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Combinatorics","Combinatorics related functions.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Complex)","Functions that allow manipulation of complex numbers.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Differential Equations","In this section, some facilities for solving differential equations are described. Currently only simple equations without auxiliary conditions are supported.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Simplification","This section describes the functions offered that allow simplification of expressions.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Linear Algebra","Functions used to manipulate vectors (represented as lists) and matrices (represented as lists of lists).")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Operations)","Besides the usual arithmetical operations, Piper defines some more advanced operations on numbers. Many of them also work on polynomials.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Matrices (Predicates)","Predicates related to matrices.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Predicates)","Predicates relating to numbers.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Propositional Logic","Functions for propositional logic.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Random)","Random number related functions.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Series","Functions which operate on series.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Functions (Special)","In this section, special and transcendental mathematical functions are described.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Numeric)","Functions for solving equations numerically.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Symbolic)","By solving one tries to find a mathematical object that meets certain criteria.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Transforms","In this section, some facilities for various transforms are described.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Alphabetical","All functions in alphabetical order.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Calculus Related (Symbolic)","Functions for differentiation, integration, and solving of equations.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Combinatorics","Combinatorics related functions.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Constants (Mathematical)","Mathematical constants.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Constants (System)","System related constants.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Control Flow","Controls the order in which statements or function calls are executed.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Differential Equations","In this section, some facilities for solving differential equations are described. Currently only simple equations without auxiliary conditions are supported.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Simplification","This section describes the functions offered that allow simplification of expressions.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Functional Operators","These operators can help the user to program in the style of functional programming languages such as Miranda or Haskell.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Functions (Special)","In this section, special and transcendental mathematical functions are described.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Input/Output","Functions for input, output, and plotting.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Linear Algebra","Functions used to manipulate vectors (represented as lists) and matrices (represented as lists of lists).")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Lists (Operations)","Most objects that can be of variable size are represented as lists.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Matrices (Predicates)","Predicates related to matrices.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Matrices (Special)","Various special matricies")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Complex)","Functions that allow manipulation of complex numbers.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Operations)","Besides the usual arithmetical operations, Piper defines some more advanced operations on numbers. Many of them also work on polynomials.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Predicates)","Predicates relating to numbers.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Numbers (Random)","Random number related functions.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Number Theory","Functions that are of interest in number theory. They typically operate on integers")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Operations)","Functions to manipulate polynomials, including functions for constructing and evaluating orthogonal polynomials.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Special)","Special polynomials.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Predicates","A predicate is a function that returns a boolean value, i.e. True or False.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Probability & Statistics","Probability and statistics.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Propositional Logic","Functions for propositional logic.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Series","Functions which operate on series.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Numeric)","Functions for solving equations numerically.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Symbolic)","By solving one tries to find a mathematical object that meets certain criteria.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("String Manipulation","Functions for manipulating strings.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Transforms","In this section, some facilities for various transforms are described.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Variables","Functions that work with variables.")));
+//userFunctions.add(new DefaultMutableTreeNode(new FunctionInfo("Predicates","test")));
+//}}}
 
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Matrices (Special)","Various special matricies")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Operations)","Functions to manipulate polynomials, including functions for constructing and evaluating orthogonal polynomials.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Polynomials (Special)","Special polynomials.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Lists (Operations)","Most objects that can be of variable size are represented as lists.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Functional Operators","These operators can help the user to program in the style of functional programming languages such as Miranda or Haskell.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Control Flow","Controls the order in which statements or function calls are executed.")));
 
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Predicates","A predicate is a function that returns a boolean value, i.e. True or False.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Constants (System)","System related constants.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Constants (Mathematical)","Mathematical constants.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Variables","Functions that work with variables.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Input/Output","Functions for input, output, and plotting.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("String Manipulation","Functions for manipulating strings.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Probability & Statistics","Probability and statistics.")));
-categories.add(new DefaultMutableTreeNode(new FunctionInfo("Number Theory","Functions that are of interest in number theory. They typically operate on integers")));
-//categories.add(new DefaultMutableTreeNode(new FunctionInfo("Predicates","test")));
 
+//{{{ Programmer functions descriptions.
+programmerFunctionsDescriptions = new String[][]
+{
+{"[","Beginning of block of statements.","Alphabetical","Programming"},
+{"]","End of block of statements.","Alphabetical","Programming"},
+{"*/","End of comment.","Alphabetical","Programming"},
+{"/*","Start of comment.","Alphabetical","Programming"},
+{"//","Beginning of one-line comment.","Alphabetical","Programming"},
+{"Array'Create","Create array.","Alphabetical","Native Objects"},
+{"Array'CreateFromList","Convert list to array.","Alphabetical","Native Objects"},
+{"Array'Get","Fetch array element.","Alphabetical","Native Objects"},
+{"Array'Set","Set array element.","Alphabetical","Native Objects"},
+{"Array'Size","Get array size.","Alphabetical","Native Objects"},
+{"Array'ToList","Convert array to list.","Alphabetical","Native Objects"},
+{"Assert","Signal \"soft\" custom error.","Alphabetical","Error Reporting"},
+{"Backquoting","Macro expansion (LISP-style backquoting).","Alphabetical","Programming"},
+{"BinSplitData","Computations of series by the binary splitting method.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"BinSplitFinal","Computations of series by the binary splitting method.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"BinSplitNum","Computations of series by the binary splitting method.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"BitAnd","Bitwise and operation.","Alphabetical","Built-in (Core)"},
+{"BitOr","Bitwise or operation.","Alphabetical","Built-in (Core)"},
+{"BitXor","Bitwise xor operation.","Alphabetical","Built-in (Core)"},
+{"Bodied","Define function syntax (bodied function).","Alphabetical","Programming"},
+{"BracketRational","Find optimal rational approximations.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"Builtin'Precision'Get","Get the current precision.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"Builtin'Precision'Set","Set the precision.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"CachedConstant","Precompute multiple-precision constants.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"Check","Report \"hard\" errors.","Alphabetical","Error Reporting"},
+{"ClearError","Custom errors handlers.","Alphabetical","Error Reporting"},
+{"ClearErrors","Simple error handlers.","Alphabetical","Error Reporting"},
+{"ContFracEval","Manipulate continued fractions.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"ContFracList","Manipulate continued fractions.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"CurrentFile","Return current input file.","Alphabetical","Error Reporting"},
+{"CurrentLine","Return current line number on input.","Alphabetical","Error Reporting"},
+{"DefMacroRuleBase","Define a function as a macro.","Alphabetical","Programming"},
+{"DefMacroRuleBaseListed","Define macro with variable number of arguments.","Alphabetical","Programming"},
+{"DumpErrors","Simple error handlers.","Alphabetical","Error Reporting"},
+{"Equals","Check equality.","Alphabetical","Built-in (Core)"},
+{"ExtraInfo'SetExtraInfo'Get","Annotate objects with additional information.","Alphabetical","Programming"},
+{"Fast...","Double-precision math functions.","Alphabetical","Built-in (Core)"},
+{"FindFunction","Find the library file where a function is defined.","Alphabetical","Programming"},
+{"GarbageCollect","Do garbage collection on unused memory.","Alphabetical","Programming"},
+{"GenericTypeName","Get type name.","Alphabetical","Native Objects"},
+{"GetCoreError","Get \"hard\" error string.","Alphabetical","Error Reporting"},
+{"GetError","Custom errors handlers.","Alphabetical","Error Reporting"},
+{"GetErrorTableau","Custom errors handlers.","Alphabetical","Error Reporting"},
+{"GetTime","Measure the time taken by an evaluation.","Alphabetical","Built-in (Core)"},
+{"GreaterThan","Comparison predicate.","Alphabetical","Built-in (Core)"},
+{"GuessRational","Find optimal rational approximations.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"HoldArg","Mark argument as not evaluated.","Alphabetical","Programming"},
+{"HoldArgNr","Specify argument as not evaluated.","Alphabetical","Programming"},
+{"Infix","Define function syntax (infix operator).","Alphabetical","Programming"},
+{"InNumericMode","Determine if currently in numeric mode.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"IntLog","Integer part of logarithm.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"IntNthRoot","Integer part of n-th root.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"IntPowerNum","Optimized computation of integer powers.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"IsBodied","Check for function syntax.","Alphabetical","Programming"},
+{"IsError","Check for custom error.","Alphabetical","Error Reporting"},
+{"IsGeneric","Check for generic object.","Alphabetical","Native Objects"},
+{"IsInfix","Check for function syntax.","Alphabetical","Programming"},
+{"IsPostfix","Check for function syntax.","Alphabetical","Programming"},
+{"IsPrefix","Check for function syntax.","Alphabetical","Programming"},
+{"IsPromptShown","Test for the Piper prompt option.","Alphabetical","Built-in (Core)"},
+{"KnownFailure","Mark a test as a known failure.","Alphabetical","Testing"},
+{"LeftPrecedence","Set operator precedence.","Alphabetical","Programming"},
+{"LessThan","Comparison predicate.","Alphabetical","Built-in (Core)"},
+{"LogicTest","Verifying equivalence of two expressions.","Alphabetical","Testing"},
+{"LogicVerify","Verifying equivalence of two expressions.","Alphabetical","Testing"},
+{"MacroClear","Define rules in functions.","Alphabetical","Programming"},
+{"MacroLocal","Define rules in functions.","Alphabetical","Programming"},
+{"MacroRule","Define rules in functions.","Alphabetical","Programming"},
+{"MacroRuleBase","Define rules in functions.","Alphabetical","Programming"},
+{"MacroRuleBaseListed","Define rules in functions.","Alphabetical","Programming"},
+{"MacroSet","Define rules in functions.","Alphabetical","Programming"},
+{"Math...","Arbitrary-precision math functions.","Alphabetical","Built-in (Core)"},
+{"MathAnd","Built-in logical \"and\".","Alphabetical","Built-in (Core)"},
+{"MathGetExactBits","Manipulate precision of floating-point numbers.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"MathNot","Built-in logical \"not\".","Alphabetical","Built-in (Core)"},
+{"MathOr","Built-in logical \"or\".","Alphabetical","Built-in (Core)"},
+{"MathSetExactBits","Manipulate precision of floating-point numbers.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"MultiplyNum","Optimized numerical multiplication.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"NearRational","Find optimal rational approximations.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"NewtonNum","Low-level optimized Newton's iterations.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"NonN","Calculate part in non-numeric mode.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"NthRoot","Calculate/simplify nth root of an integer.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"OpLeftPrecedence","Get operator precedence.","Alphabetical","Programming"},
+{"OpPrecedence","Get operator precedence.","Alphabetical","Programming"},
+{"OpRightPrecedence","Get operator precedence.","Alphabetical","Programming"},
+{"Postfix","Define function syntax (postfix operator).","Alphabetical","Programming"},
+{"Prefix","Define function syntax (prefix operator).","Alphabetical","Programming"},
+{"Prog","Block of statements.","Alphabetical","Programming"},
+{"RandVerifyArithmetic","Special purpose arithmetic verifiers.","Alphabetical","Testing"},
+{"Retract","Erase rules for a function.","Alphabetical","Programming"},
+{"RightAssociative","Declare associativity.","Alphabetical","Programming"},
+{"RightPrecedence","Set operator precedence.","Alphabetical","Programming"},
+{"RoundTo","Round a real-valued result to a set number of digits.","Alphabetical","Testing"},
+{"Rule","Define a rewrite rule.","Alphabetical","Programming"},
+{"RuleBase","Define function with a fixed number of arguments.","Alphabetical","Programming"},
+{"RuleBaseArgList","Obtain list of arguments.","Alphabetical","Programming"},
+{"RuleBaseListed","Define function with variable number of arguments.","Alphabetical","Programming"},
+{"Secure","Guard the host OS.","Alphabetical","Programming"},
+{"ShiftLeft","Built-in bitwise shift left operation.","Alphabetical","Built-in (Core)"},
+{"ShiftRight","Built-in bitwise shift right operation.","Alphabetical","Built-in (Core)"},
+{"SumTaylorNum","Optimized numerical evaluation of Taylor series.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"TestPiper","Verifying equivalence of two expressions.","Alphabetical","Testing"},
+{"TrapError","Trap \"hard\" errors.","Alphabetical","Error Reporting"},
+{"TruncRadian","Remainder modulo 2*Pi.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"UnFence","Change local variable scope for a function.","Alphabetical","Programming"},
+{"Verify","Verifying equivalence of two expressions.","Alphabetical","Testing"},
+{"VerifyArithmetic","Special purpose arithmetic verifiers.","Alphabetical","Testing"},
+{"VerifyDiv","Special purpose arithmetic verifiers.","Alphabetical","Testing"}
+};
+
+programmerFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("Programmer Functions","Functions for Piper code developers."));
+
+programmerFunctionsNode.add( new DefaultMutableTreeNode(new FunctionInfo("Alphabetical","All functions in alphabetical order.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(new FunctionInfo("Built-in (Core)","Piper has a small set of built-in functions and a large library of user-defined functions. Some built-in functions are in this section.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(new FunctionInfo("Error Reporting","Functions which are useful for reporting errors to the user.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(new FunctionInfo("Native Objects","Functions for allowing the Piper interpreter access native code.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(new FunctionInfo("Numerical (Arbitrary Precision)","Functions for programming numerical calculations with arbitrary precision.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(new FunctionInfo("Programming","Functions which are useful for writing Piper scripts.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(new FunctionInfo("Testing","Functions for verifying the correct operation of Piper code.")) );
+                             
+
+//}}}
 
 
 numericFunctions = new String[]
@@ -684,45 +810,50 @@ numericFunctions = new String[]
 //}}}
 
 
-for(row = 0;row < functions.length;row++)
+//{{{
+populateNode(treeNode, descriptionsStringArray)
 {
-    //Populate JList.
-    jlist.addElement(functions[row][0]);
-    
-    //Populate JTree.
-    for(column=2; column < functions[row].length; column++)
-    {
-        category = functions[row][column];
-        //System.out.println("XXXXX " + functions[row][column]);
-        
-        
-        boolean hasCategory = false;
-        global.children = categories.children();
-        for(DefaultMutableTreeNode child:children)
-        {
-            if(child.getUserObject().toString().equalsIgnoreCase(category)) //Add leaf to existing category.
-            {
-                child.add(new DefaultMutableTreeNode(new org.mathrider.piperdocsplugin.FunctionInfo(functions[row][0],functions[row][1]) ));
-                hasCategory = true;
-            }
+	for(row = 0;row < descriptionsStringArray.length;row++)
+	{
+	    //Populate JList.
+	    //jlist.addElement(descriptionsStringArray[row][0]);
+	    
+	    //Populate.
+	    for(column=2; column < descriptionsStringArray[row].length; column++)
+	    {
+	        category = descriptionsStringArray[row][column];
+	        //System.out.println("XXXXX " + descriptionsStringArray[row][column]);
+	        
+	        
+	        boolean hasCategory = false;
+	        global.children = treeNode.children();
+	        for(DefaultMutableTreeNode child:children)
+	        {
+	            if(child.getUserObject().toString().equalsIgnoreCase(category)) //Add leaf to existing category.
+	            {
+	                child.add(new DefaultMutableTreeNode(new org.mathrider.piperdocsplugin.FunctionInfo(descriptionsStringArray[row][0],descriptionsStringArray[row][1]) ));
+	                hasCategory = true;
+	            }
+	                                      
+	            
+	        }//end for.
+	        
+	        if(hasCategory == false)
+	        {
+	            leaf = new DefaultMutableTreeNode(new org.mathrider.piperdocsplugin.FunctionInfo(descriptionsStringArray[row][0],descriptionsStringArray[row][1]));
+	            category = new DefaultMutableTreeNode(descriptionsStringArray[row][column]);
+	            category.add(leaf);
+	            treeNode.add(category);
+	        }
+	        
+	    }//end for.
+	    
+	}//end for/
 
-            
-        }//end for.
-        
-        if(hasCategory == false)
-        {
-            leaf = new DefaultMutableTreeNode(new org.mathrider.piperdocsplugin.FunctionInfo(functions[row][0],functions[row][1]));
-            category = new DefaultMutableTreeNode(functions[row][column]);
-            category.add(leaf);
-            categories.add(category);
-        }
-        
-    }//end for.
-
-    
-}//end for/
+}//end method.}}}
 
 
+//{{{ListSelectionEventHandler
     valueChanged(ListSelectionEvent e)
     {
         if (e.getValueIsAdjusting())
@@ -736,9 +867,10 @@ for(row = 0;row < functions.length;row++)
 		
 	//System.out.println("MMMMMM match: " + findFileForFunction(item));
 	
-	}//end function.
+	}//end function.}}}
 	
 
+	//{{{TreeSelectionEvent handler.
 functionInfo = null;
 valueChanged(TreeSelectionEvent e) 
 {
@@ -757,9 +889,16 @@ valueChanged(TreeSelectionEvent e)
 		toolPanel.sourceButtonEnabled(false);
         //Note:tk:Perhaps display top of chapter here?
     }
-}//end method
+	}//end method.}}}
 
-tree = new org.mathrider.piperdocsplugin.FunctionInfoTree(categories);
+piperFunctionsRootNode = new DefaultMutableTreeNode(new FunctionInfo("Piper Functions                                           ","All Piper functions and constants."));
+
+populateNode(userFunctionsNode, userFunctionsDescriptions);
+piperFunctionsRootNode.add(userFunctionsNode);
+populateNode(programmerFunctionsNode, programmerFunctionsDescriptions);
+piperFunctionsRootNode.add(programmerFunctionsNode);
+
+tree = new org.mathrider.piperdocsplugin.FunctionInfoTree(piperFunctionsRootNode);
 
 
 ToolTipManager.sharedInstance().registerComponent(tree);
@@ -786,7 +925,7 @@ list = new javax.swing.JList(jlist);
 //     listPanel = new JPanel();
   
 //    listPanel.setLayout(new BorderLayout());
-    //list = new JList(functions);
+    //list = new JList(descriptionsStringArray);
     //list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     //list.addListSelectionListener(this);
     //JScrollPane pane = new JScrollPane(list);
