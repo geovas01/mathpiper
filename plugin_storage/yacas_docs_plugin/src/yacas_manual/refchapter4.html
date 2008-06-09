@@ -1,0 +1,1529 @@
+<html>
+<head>
+  <title>Calculus and elementary functions</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c4">
+
+</a>
+(directly go to documentation on : <a href="refchapter4.html#Sin" target='Chapters' title="trigonometric sine function">Sin</a>, <a href="refchapter4.html#Cos" target='Chapters' title="trigonometric cosine function">Cos</a>, <a href="refchapter4.html#Tan" target='Chapters' title="trigonometric tangent function">Tan</a>, <a href="refchapter4.html#ArcSin" target='Chapters' title="inverse trigonometric function arc-sine">ArcSin</a>, <a href="refchapter4.html#ArcCos" target='Chapters' title="inverse trigonometric function arc-cosine">ArcCos</a>, <a href="refchapter4.html#ArcTan" target='Chapters' title="inverse trigonometric function arc-tangent">ArcTan</a>, <a href="refchapter4.html#Exp" target='Chapters' title="exponential function">Exp</a>, <a href="refchapter4.html#Ln" target='Chapters' title="natural logarithm">Ln</a>, <a href="refchapter4.html#Sqrt" target='Chapters' title="square root">Sqrt</a>, <a href="refchapter4.html#Abs" target='Chapters' title="absolute value or modulus of complex number">Abs</a>, <a href="refchapter4.html#Sign" target='Chapters' title="sign of a number">Sign</a>, <a href="refchapter4.html#D" target='Chapters' title="take derivative of expression with respect to variable">D</a>, <a href="refchapter4.html#Curl" target='Chapters' title="curl of a vector field">Curl</a>, <a href="refchapter4.html#Diverge" target='Chapters' title="divergence of a vector field">Diverge</a>, <a href="refchapter4.html#Integrate" target='Chapters' title="integration">Integrate</a>, <a href="refchapter4.html#Limit" target='Chapters' title="limit of an expression">Limit</a>.
+)<h1>
+4. Calculus and elementary functions
+</h1>
+In this chapter, some facilities for doing calculus are
+described. These include functions implementing differentiation,
+integration, standard mathematical functions, and solving of
+equations.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Sin" target='Chapters' title="trigonometric sine function">Sin</a></td>
+<td>trigonometric sine function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Cos" target='Chapters' title="trigonometric cosine function">Cos</a></td>
+<td>trigonometric cosine function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Tan" target='Chapters' title="trigonometric tangent function">Tan</a></td>
+<td>trigonometric tangent function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#ArcSin" target='Chapters' title="inverse trigonometric function arc-sine">ArcSin</a></td>
+<td>inverse trigonometric function arc-sine</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#ArcCos" target='Chapters' title="inverse trigonometric function arc-cosine">ArcCos</a></td>
+<td>inverse trigonometric function arc-cosine</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#ArcTan" target='Chapters' title="inverse trigonometric function arc-tangent">ArcTan</a></td>
+<td>inverse trigonometric function arc-tangent</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Exp" target='Chapters' title="exponential function">Exp</a></td>
+<td>exponential function</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Ln" target='Chapters' title="natural logarithm">Ln</a></td>
+<td>natural logarithm</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Sqrt" target='Chapters' title="square root">Sqrt</a></td>
+<td>square root</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Abs" target='Chapters' title="absolute value or modulus of complex number">Abs</a></td>
+<td>absolute value or modulus of complex number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Sign" target='Chapters' title="sign of a number">Sign</a></td>
+<td>sign of a number</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#D" target='Chapters' title="take derivative of expression with respect to variable">D</a></td>
+<td>take derivative of expression with respect to variable</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Curl" target='Chapters' title="curl of a vector field">Curl</a></td>
+<td>curl of a vector field</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Diverge" target='Chapters' title="divergence of a vector field">Diverge</a></td>
+<td>divergence of a vector field</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Integrate" target='Chapters' title="integration">Integrate</a></td>
+<td>integration</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter4.html#Limit" target='Chapters' title="limit of an expression">Limit</a></td>
+<td>limit of an expression</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="Sin">
+
+</a>
+<a name="sin">
+
+</a>
+<h3>
+<hr>Sin -- trigonometric sine function
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Sin(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function, in radians
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function represents the trigonometric function sine. Yacas leaves 
+expressions alone even if x is a number, trying to keep the result as 
+exact as possible. The floating point approximations of these functions 
+can be forced by using the <b><tt>N</tt></b> function.
+
+
+<p>
+Yacas knows some trigonometric identities, so it can simplify to exact
+results even if <b><tt>N</tt></b> is not used. This is the case, for instance,
+when the argument is a multiple of <b>Pi</b>/6 or <b> Pi</b>/4.
+
+
+<p>
+These functions are threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Sin(1)
+Out&gt; Sin(1);
+In&gt; N(Sin(1),20)
+Out&gt; 0.84147098480789650665;
+In&gt; Sin(Pi/4)
+Out&gt; Sqrt(2)/2;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+, <a href="ref.html?Tan" target="Chapters">
+Tan
+</a>
+, <a href="ref.html?ArcSin" target="Chapters">
+ArcSin
+</a>
+, <a href="ref.html?ArcCos" target="Chapters">
+ArcCos
+</a>
+, <a href="ref.html?ArcTan" target="Chapters">
+ArcTan
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?Pi" target="Chapters">
+Pi
+</a>
+.<a name="Cos">
+
+</a>
+<a name="cos">
+
+</a>
+<h3>
+<hr>Cos -- trigonometric cosine function
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Cos(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function, in radians
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function represents the trigonometric function cosine. Yacas leaves 
+expressions alone even if x is a number, trying to keep the result as 
+exact as possible. The floating point approximations of these functions 
+can be forced by using the <b><tt>N</tt></b> function.
+
+
+<p>
+Yacas knows some trigonometric identities, so it can simplify to exact
+results even if <b><tt>N</tt></b> is not used. This is the case, for instance,
+when the argument is a multiple of <b> Pi</b>/6 or <b> Pi</b>/4.
+
+
+<p>
+These functions are threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Cos(1)
+Out&gt; Cos(1);
+In&gt; N(Cos(1),20)
+Out&gt; 0.5403023058681397174;
+In&gt; Cos(Pi/4)
+Out&gt; Sqrt(1/2);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Tan" target="Chapters">
+Tan
+</a>
+, <a href="ref.html?ArcSin" target="Chapters">
+ArcSin
+</a>
+, <a href="ref.html?ArcCos" target="Chapters">
+ArcCos
+</a>
+, <a href="ref.html?ArcTan" target="Chapters">
+ArcTan
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?Pi" target="Chapters">
+Pi
+</a>
+.<a name="Tan">
+
+</a>
+<a name="tan">
+
+</a>
+<h3>
+<hr>Tan -- trigonometric tangent function
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Tan(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function, in radians
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function represents the trigonometric function tangent. Yacas leaves 
+expressions alone even if x is a number, trying to keep the result as 
+exact as possible. The floating point approximations of these functions 
+can be forced by using the <b><tt>N</tt></b> function.
+
+
+<p>
+Yacas knows some trigonometric identities, so it can simplify to exact
+results even if <b><tt>N</tt></b> is not used. This is the case, for instance,
+when the argument is a multiple of <b> Pi</b>/6 or <b> Pi</b>/4.
+
+
+<p>
+These functions are threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Tan(1)
+Out&gt; Tan(1);
+In&gt; N(Tan(1),20)
+Out&gt; 1.5574077246549022305;
+In&gt; Tan(Pi/4)
+Out&gt; 1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+, <a href="ref.html?ArcSin" target="Chapters">
+ArcSin
+</a>
+, <a href="ref.html?ArcCos" target="Chapters">
+ArcCos
+</a>
+, <a href="ref.html?ArcTan" target="Chapters">
+ArcTan
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?Pi" target="Chapters">
+Pi
+</a>
+.<a name="ArcSin">
+
+</a>
+<a name="arcsin">
+
+</a>
+<h3>
+<hr>ArcSin -- inverse trigonometric function arc-sine
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ArcSin(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function represents the inverse trigonometric function arcsine. For
+instance, the value of <b> ArcSin(x)</b> is a number <b>y</b> such that
+<b> Sin(y)</b> equals <b>x</b>.
+
+
+<p>
+Note that the number <b> y</b> is not unique. For instance, <b> Sin(0)</b> and
+<b>Sin(Pi)</b> both equal 0, so what should <b>ArcSin(0)</b> be? In Yacas,
+it is agreed that the value of <b>ArcSin(x)</b> should be in the interval
+[-<b>Pi</b>/2,<b> Pi</b>/2]. 
+
+
+<p>
+Usually, Yacas leaves this function alone unless it is forced to do
+a numerical evaluation by the <b><tt>N</tt></b> function. If the
+argument is -1, 0, or 1 however, Yacas will simplify the
+expression. If the argument is complex,  the expression will be
+rewritten using the <b><tt>Ln</tt></b> function.
+
+
+<p>
+This function is threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ArcSin(1)
+Out&gt; Pi/2;
+
+In&gt; ArcSin(1/3)
+Out&gt; ArcSin(1/3);
+In&gt; Sin(ArcSin(1/3))
+Out&gt; 1/3;
+
+In&gt; x:=N(ArcSin(0.75))
+Out&gt; 0.848062;
+In&gt; N(Sin(x))
+Out&gt; 0.7499999477;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+, <a href="ref.html?Tan" target="Chapters">
+Tan
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?Pi" target="Chapters">
+Pi
+</a>
+, <a href="ref.html?Ln" target="Chapters">
+Ln
+</a>
+, <a href="ref.html?ArcCos" target="Chapters">
+ArcCos
+</a>
+, <a href="ref.html?ArcTan" target="Chapters">
+ArcTan
+</a>
+.<a name="ArcCos">
+
+</a>
+<a name="arccos">
+
+</a>
+<h3>
+<hr>ArcCos -- inverse trigonometric function arc-cosine
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ArcCos(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function represents the inverse trigonometric function arc-cosine. For
+instance, the value of <b> ArcCos(x)</b> is a number <b>y</b> such that
+<b> Cos(y)</b> equals <b>x</b>.
+
+
+<p>
+Note that the number <b> y</b> is not unique. For instance, <b> Cos(Pi/2)</b> and
+<b>Cos(3*Pi/2)</b> both equal 0, so what should <b>ArcCos(0)</b> be? In Yacas,
+it is agreed that the value of <b>ArcCos(x)</b> should be in the interval [0,<b>Pi</b>] .
+
+
+<p>
+Usually, Yacas leaves this function alone unless it is forced to do
+a numerical evaluation by the <b><tt>N</tt></b> function. If the
+argument is -1, 0, or 1 however, Yacas will simplify the
+expression. If the argument is complex,  the expression will be
+rewritten using the <b><tt>Ln</tt></b> function.
+
+
+<p>
+This function is threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ArcCos(0)
+Out&gt; Pi/2
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ArcCos(1/3)
+Out&gt; ArcCos(1/3)
+In&gt; Cos(ArcCos(1/3))
+Out&gt; 1/3
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x:=N(ArcCos(0.75))
+Out&gt; 0.7227342478
+In&gt; N(Cos(x))
+Out&gt; 0.75
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+, <a href="ref.html?Tan" target="Chapters">
+Tan
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?Pi" target="Chapters">
+Pi
+</a>
+, <a href="ref.html?Ln" target="Chapters">
+Ln
+</a>
+, <a href="ref.html?ArcSin" target="Chapters">
+ArcSin
+</a>
+, <a href="ref.html?ArcTan" target="Chapters">
+ArcTan
+</a>
+.<a name="ArcTan">
+
+</a>
+<a name="arctan">
+
+</a>
+<h3>
+<hr>ArcTan -- inverse trigonometric function arc-tangent
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ArcTan(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function represents the inverse trigonometric function arctangent. For
+instance, the value of <b> ArcTan(x)</b> is a number <b>y</b> such that
+<b> Tan(y)</b> equals <b>x</b>.
+
+
+<p>
+Note that the number <b> y</b> is not unique. For instance, <b> Tan(0)</b> and
+<b>Tan(2*Pi)</b> both equal 0, so what should <b>ArcTan(0)</b> be? In Yacas,
+it is agreed that the value of <b>ArcTan(x)</b> should be in the interval
+[-<b>Pi</b>/2,<b> Pi</b>/2]. 
+
+
+<p>
+Usually, Yacas leaves this function alone unless it is forced to do
+a numerical evaluation by the <b><tt>N</tt></b> function. Yacas will try to simplify
+as much as possible while keeping the result exact. If the argument is 
+complex,  the expression will be rewritten using the <b><tt>Ln</tt></b> function.
+
+
+<p>
+This function is threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ArcTan(1)
+Out&gt; Pi/4
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ArcTan(1/3)
+Out&gt; ArcTan(1/3)
+In&gt; Tan(ArcTan(1/3))
+Out&gt; 1/3
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; x:=N(ArcTan(0.75))
+Out&gt; 0.643501108793285592213351264945231378078460693359375
+In&gt; N(Tan(x))
+Out&gt; 0.75
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+, <a href="ref.html?Tan" target="Chapters">
+Tan
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+, <a href="ref.html?Pi" target="Chapters">
+Pi
+</a>
+, <a href="ref.html?Ln" target="Chapters">
+Ln
+</a>
+, <a href="ref.html?ArcSin" target="Chapters">
+ArcSin
+</a>
+, <a href="ref.html?ArcCos" target="Chapters">
+ArcCos
+</a>
+.<a name="Exp">
+
+</a>
+<a name="exp">
+
+</a>
+<h3>
+<hr>Exp -- exponential function
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Exp(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function calculates <b> e</b> raised to the power <b> x</b>, where <b> e</b> is the
+mathematic constant 2.71828... One can use <b><tt>Exp(1)</tt></b>
+to represent <b> e</b>.
+
+
+<p>
+This function is threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Exp(0)
+Out&gt; 1;
+In&gt; Exp(I*Pi)
+Out&gt; -1;
+In&gt; N(Exp(1))
+Out&gt; 2.7182818284;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Ln" target="Chapters">
+Ln
+</a>
+, <a href="ref.html?Sin" target="Chapters">
+Sin
+</a>
+, <a href="ref.html?Cos" target="Chapters">
+Cos
+</a>
+, <a href="ref.html?Tan" target="Chapters">
+Tan
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+.<a name="Ln">
+
+</a>
+<a name="ln">
+
+</a>
+<h3>
+<hr>Ln -- natural logarithm
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Ln(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function calculates the natural logarithm of "x". This is the
+inverse function of the exponential function, <b><tt>Exp</tt></b>, i.e. <b> Ln(x)=y</b> implies that <b> Exp(y)=x</b>. For complex
+arguments, the imaginary part of the logarithm is in the interval
+(-<b> Pi</b>,<b> Pi</b>]. This is compatible with the branch cut of <b><tt>Arg</tt></b>.
+
+
+<p>
+This function is threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Ln(1)
+Out&gt; 0;
+In&gt; Ln(Exp(x))
+Out&gt; x;
+In&gt; D(x) Ln(x)
+Out&gt; 1/x;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Exp" target="Chapters">
+Exp
+</a>
+, <a href="ref.html?Arg" target="Chapters">
+Arg
+</a>
+.<a name="Sqrt">
+
+</a>
+<a name="sqrt">
+
+</a>
+<h3>
+<hr>Sqrt -- square root
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Sqrt(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function calculates the square root of "x". If the result is
+not rational, the call is returned unevaluated unless a numerical
+approximation is forced with the <b><tt>N</tt></b> function. This
+function can also handle negative and complex arguments.
+
+
+<p>
+This function is threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Sqrt(16)
+Out&gt; 4;
+In&gt; Sqrt(15)
+Out&gt; Sqrt(15);
+In&gt; N(Sqrt(15))
+Out&gt; 3.8729833462;
+In&gt; Sqrt(4/9)
+Out&gt; 2/3;
+In&gt; Sqrt(-1)
+Out&gt; Complex(0,1);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Exp" target="Chapters">
+Exp
+</a>
+, <a href="ref.html?^" target="Chapters">
+^
+</a>
+, <a href="ref.html?N" target="Chapters">
+N
+</a>
+.<a name="Abs">
+
+</a>
+<a name="abs">
+
+</a>
+<h3>
+<hr>Abs -- absolute value or modulus of complex number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Abs(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the absolute value (also called the modulus) of
+"x". If "x" is positive, the absolute value is "x" itself; if
+"x" is negative, the absolute value is "-x". For complex "x",
+the modulus is the "r" in the polar decomposition
+<b> x=r*Exp(I*phi)</b>.
+
+
+<p>
+This function is connected to the <b><tt>Sign</tt></b> function by
+the identity "Abs(x) * Sign(x) = x" for real "x".
+
+
+<p>
+This function is threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Abs(2);
+Out&gt; 2;
+In&gt; Abs(-1/2);
+Out&gt; 1/2;
+In&gt; Abs(3+4*I);
+Out&gt; 5;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Sign" target="Chapters">
+Sign
+</a>
+, <a href="ref.html?Arg" target="Chapters">
+Arg
+</a>
+.<a name="Sign">
+
+</a>
+<a name="sign">
+
+</a>
+<h3>
+<hr>Sign -- sign of a number
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Sign(x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>x</tt></b> -- argument to the function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the sign of the real number <b>x</b>. It is "1"
+for positive numbers and "-1" for negative numbers. Somewhat
+arbitrarily, <b><tt>Sign(0)</tt></b> is defined to be 1.
+
+
+<p>
+This function is connected to the <b><tt>Abs</tt></b> function by
+the identity <b> Abs(x)*Sign(x)=x</b> for real <b> x</b>.
+
+
+<p>
+This function is threaded, meaning that if the argument <b><tt>x</tt></b> is a
+list, the function is applied to all entries in the list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Sign(2)
+Out&gt; 1;
+In&gt; Sign(-3)
+Out&gt; -1;
+In&gt; Sign(0)
+Out&gt; 1;
+In&gt; Sign(-3) * Abs(-3)
+Out&gt; -3;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Arg" target="Chapters">
+Arg
+</a>
+, <a href="ref.html?Abs" target="Chapters">
+Abs
+</a>
+.<a name="D">
+
+</a>
+<a name="d">
+
+</a>
+<h3>
+<hr>D -- take derivative of expression with respect to variable
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+D(variable) expression
+D(list) expression
+D(variable,n) expression
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>variable</tt></b> -- variable
+
+
+<p>
+<b><tt>list</tt></b> -- a list of variables
+
+
+<p>
+<b><tt>expression</tt></b> -- expression to take derivatives of
+
+
+<p>
+<b><tt>n</tt></b> -- order of derivative
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function calculates the derivative of the expression <b><tt>expr</tt></b> with
+respect to the variable <b><tt>var</tt></b> and returns it. If the third calling
+format is used, the <b><tt>n</tt></b>-th derivative is determined. Yacas knows
+how the differentiate standard functions such as <b><tt>Ln</tt></b>
+and <b><tt>Sin</tt></b>.
+
+
+<p>
+The <b><tt>D</tt></b> operator is threaded in both <b><tt>var</tt></b> and
+<b><tt>expr</tt></b>. This means that if either of them is a list, the function is
+applied to each entry in the list. The results are collected in
+another list which is returned. If both <b><tt>var</tt></b> and <b><tt>expr</tt></b> are a
+list, their lengths should be equal. In this case, the first entry in
+the list <b><tt>expr</tt></b> is differentiated with respect to the first entry in
+the list <b><tt>var</tt></b>, the second entry in <b><tt>expr</tt></b> is differentiated with
+respect to the second entry in <b><tt>var</tt></b>, and so on.
+
+
+<p>
+The <b><tt>D</tt></b> operator returns the original function if <b> n=0</b>, a common
+mathematical idiom that simplifies many formulae.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; D(x)Sin(x*y)
+Out&gt; y*Cos(x*y);
+In&gt; D({x,y,z})Sin(x*y)
+Out&gt; {y*Cos(x*y),x*Cos(x*y),0};
+In&gt; D(x,2)Sin(x*y)
+Out&gt; -Sin(x*y)*y^2;
+In&gt; D(x){Sin(x),Cos(x)}
+Out&gt; {Cos(x),-Sin(x)};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Integrate" target="Chapters">
+Integrate
+</a>
+, <a href="ref.html?Taylor" target="Chapters">
+Taylor
+</a>
+, <a href="ref.html?Diverge" target="Chapters">
+Diverge
+</a>
+, <a href="ref.html?Curl" target="Chapters">
+Curl
+</a>
+.<a name="Curl">
+
+</a>
+<a name="curl">
+
+</a>
+<h3>
+<hr>Curl -- curl of a vector field
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Curl(vector, basis)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>vector</tt></b> -- vector field to take the curl of
+
+
+<p>
+<b><tt>basis</tt></b> -- list of variables forming the basis
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function takes the curl of the vector field "vector" with
+respect to the variables "basis". The curl is defined in the usual way,
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Curl(f,x) = {
+    D(x[2]) f[3] - D(x[3]) f[2],
+    D(x[3]) f[1] - D(x[1]) f[3],
+    D(x[1]) f[2] - D(x[2]) f[1]
+}
+</pre></tr>
+</table>
+Both "vector" and "basis" should be lists of length 3.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Curl({x*y,x*y,x*y},{x,y,z})
+Out&gt; {x,-y,y-x};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?D" target="Chapters">
+D
+</a>
+, <a href="ref.html?Diverge" target="Chapters">
+Diverge
+</a>
+.<a name="Diverge">
+
+</a>
+<a name="diverge">
+
+</a>
+<h3>
+<hr>Diverge -- divergence of a vector field
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Diverge(vector, basis)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>vector</tt></b> -- vector field to calculate the divergence of
+
+
+<p>
+<b><tt>basis</tt></b> -- list of variables forming the basis
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function calculates the divergence of the vector field "vector"
+with respect to the variables "basis". The divergence is defined as
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Diverge(f,x) = D(x[1]) f[1] + ...
+    + D(x[n]) f[n],
+</pre></tr>
+</table>
+where <b><tt>n</tt></b> is the length of the lists "vector" and
+"basis". These lists should have equal length.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Diverge({x*y,x*y,x*y},{x,y,z})
+Out&gt; y+x;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?D" target="Chapters">
+D
+</a>
+, <a href="ref.html?Curl" target="Chapters">
+Curl
+</a>
+.<a name="Integrate">
+
+</a>
+<a name="integrate">
+
+</a>
+<h3>
+<hr>Integrate -- integration
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Integrate(var, x1, x2) expr
+Integrate(var) expr
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>var</tt></b> -- atom, variable to integrate over
+
+
+<p>
+<b><tt>x1</tt></b> -- first point of definite integration
+
+
+<p>
+<b><tt>x2</tt></b> -- second point of definite integration
+
+
+<p>
+<b><tt>expr</tt></b> -- expression to integrate
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function integrates the expression <b><tt>expr</tt></b> with respect to the
+variable <b><tt>var</tt></b>. The first calling format is used to perform
+definite integration: the integration is carried out from <b> var=x1</b>
+to <b> var=x2</b>". The second form is for indefinite integration.
+
+
+<p>
+Some simple integration rules have currently been
+implemented. Polynomials, some quotients of polynomials,
+trigonometric functions and their inverses, hyperbolic functions
+and their inverses, <b><tt>Exp</tt></b>, and <b><tt>Ln</tt></b>, and products of these
+functions with polynomials can be integrated.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Integrate(x,a,b) Cos(x)
+Out&gt; Sin(b)-Sin(a);
+In&gt; Integrate(x) Cos(x)
+Out&gt; Sin(x);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?D" target="Chapters">
+D
+</a>
+, <a href="ref.html?UniqueConstant" target="Chapters">
+UniqueConstant
+</a>
+.<a name="Limit">
+
+</a>
+<a name="limit">
+
+</a>
+<h3>
+<hr>Limit -- limit of an expression
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Limit(var, val) expr
+Limit(var, val, dir) expr
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>var</tt></b> -- a variable
+
+
+<p>
+<b><tt>val</tt></b> -- a number
+
+
+<p>
+<b><tt>dir</tt></b> -- a direction (<b><tt>Left</tt></b> or <b><tt>Right</tt></b>)
+
+
+<p>
+<b><tt>expr</tt></b> -- an expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command tries to determine the value that the expression "expr"
+converges to when the variable "var" approaches "val". One may use
+<b><tt>Infinity</tt></b> or <b><tt>-Infinity</tt></b> for
+"val". The result of <b><tt>Limit</tt></b> may be one of the
+symbols <b><tt>Undefined</tt></b> (meaning that the limit does not
+exist), <b><tt>Infinity</tt></b>, or <b><tt>-Infinity</tt></b>.
+
+
+<p>
+The second calling sequence is used for unidirectional limits. If one
+gives "dir" the value <b><tt>Left</tt></b>, the limit is taken as
+"var" approaches "val" from the positive infinity; and <b><tt>Right</tt></b> will take the limit from the negative infinity.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Limit(x,0) Sin(x)/x
+Out&gt; 1;
+In&gt; Limit(x,0) (Sin(x)-Tan(x))/(x^3)
+Out&gt; -1/2;
+In&gt; Limit(x,0) 1/x
+Out&gt; Undefined;
+In&gt; Limit(x,0,Left) 1/x
+Out&gt; -Infinity;
+In&gt; Limit(x,0,Right) 1/x
+Out&gt; Infinity;
+</pre></tr>
+</table>
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,943 @@
+<html>
+<head>
+  <title>Operations on polynomials</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c19">
+
+</a>
+(directly go to documentation on : <a href="refchapter19.html#Expand" target='Chapters' title="transform a polynomial to an expanded form">Expand</a>, <a href="refchapter19.html#Degree" target='Chapters' title="degree of a polynomial">Degree</a>, <a href="refchapter19.html#Coef" target='Chapters' title="coefficient of a polynomial">Coef</a>, <a href="refchapter19.html#Content" target='Chapters' title="content of a univariate polynomial">Content</a>, <a href="refchapter19.html#PrimitivePart" target='Chapters' title="primitive part of a univariate polynomial">PrimitivePart</a>, <a href="refchapter19.html#LeadingCoef" target='Chapters' title="leading coefficient of a polynomial">LeadingCoef</a>, <a href="refchapter19.html#Monic" target='Chapters' title="monic part of a polynomial">Monic</a>, <a href="refchapter19.html#SquareFree" target='Chapters' title="return the square-free part of polynomial">SquareFree</a>, <a href="refchapter19.html#Horner" target='Chapters' title="convert a polynomial into the Horner form">Horner</a>, <a href="refchapter19.html#ExpandBrackets" target='Chapters' title="expand all brackets">ExpandBrackets</a>, <a href="refchapter19.html#EvaluateHornerScheme" target='Chapters' title="fast evaluation of polynomials">EvaluateHornerScheme</a>.
+)<h1>
+19. Operations on polynomials
+</h1>
+This chapter contains commands to manipulate
+polynomials. This includes functions for constructing and evaluating
+orthogonal polynomials.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#Expand" target='Chapters' title="transform a polynomial to an expanded form">Expand</a></td>
+<td>transform a polynomial to an expanded form</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#Degree" target='Chapters' title="degree of a polynomial">Degree</a></td>
+<td>degree of a polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#Coef" target='Chapters' title="coefficient of a polynomial">Coef</a></td>
+<td>coefficient of a polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#Content" target='Chapters' title="content of a univariate polynomial">Content</a></td>
+<td>content of a univariate polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#PrimitivePart" target='Chapters' title="primitive part of a univariate polynomial">PrimitivePart</a></td>
+<td>primitive part of a univariate polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#LeadingCoef" target='Chapters' title="leading coefficient of a polynomial">LeadingCoef</a></td>
+<td>leading coefficient of a polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#Monic" target='Chapters' title="monic part of a polynomial">Monic</a></td>
+<td>monic part of a polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#SquareFree" target='Chapters' title="return the square-free part of polynomial">SquareFree</a></td>
+<td>return the square-free part of polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#Horner" target='Chapters' title="convert a polynomial into the Horner form">Horner</a></td>
+<td>convert a polynomial into the Horner form</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#ExpandBrackets" target='Chapters' title="expand all brackets">ExpandBrackets</a></td>
+<td>expand all brackets</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter19.html#EvaluateHornerScheme" target='Chapters' title="fast evaluation of polynomials">EvaluateHornerScheme</a></td>
+<td>fast evaluation of polynomials</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="Expand">
+
+</a>
+<a name="expand">
+
+</a>
+<h3>
+<hr>Expand -- transform a polynomial to an expanded form
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Expand(expr)
+Expand(expr, var)
+Expand(expr, varlist)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- a polynomial expression
+
+
+<p>
+<b><tt>var</tt></b> -- a variable
+
+
+<p>
+<b><tt>varlist</tt></b> -- a list of variables
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command brings a polynomial in expanded form, in which
+polynomials are represented in the form 
+<b>c0+c1*x+c2*x^2+...+c[n]*x^n</b>. In this form, it is easier to test whether a polynomial is
+zero, namely by testing whether all coefficients are zero.
+
+
+<p>
+If the polynomial "expr" contains only one variable, the first
+calling sequence can be used. Otherwise, the second form should be
+used which explicitly mentions that "expr" should be considered as a
+polynomial in the variable "var". The third calling form can be used
+for multivariate polynomials. Firstly, the polynomial "expr" is
+expanded with respect to the first variable in "varlist". Then the
+coefficients are all expanded with respect to the second variable, and
+so on.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; PrettyPrinter'Set("PrettyForm");
+
+True
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Expand((1+x)^5);
+
+ 5        4         3         2
+x  + 5 * x  + 10 * x  + 10 * x  + 5 * x + 1
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Expand((1+x-y)^2, x);
+
+ 2                                2
+x  + 2 * ( 1 - y ) * x + ( 1 - y )
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Expand((1+x-y)^2, {x,y});
+
+ 2                         2
+x  + ( -2 * y + 2 ) * x + y  - 2 * y + 1
+
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?ExpandBrackets" target="Chapters">
+ExpandBrackets
+</a>
+.<a name="Degree">
+
+</a>
+<a name="degree">
+
+</a>
+<h3>
+<hr>Degree -- degree of a polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Degree(expr)
+Degree(expr, var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- a polynomial
+
+
+<p>
+<b><tt>var</tt></b> -- a variable occurring in "expr"
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command returns the degree of the polynomial "expr" with
+respect to the variable "var". The degree is the highest power of
+"var" occurring in the polynomial. If only one variable occurs in
+"expr", the first calling sequence can be used. Otherwise the user
+should use the second form in which the variable is explicitly
+mentioned.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Degree(x^5+x-1);
+Out&gt; 5;
+In&gt; Degree(a+b*x^3, a);
+Out&gt; 1;
+In&gt; Degree(a+b*x^3, x);
+Out&gt; 3;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Expand" target="Chapters">
+Expand
+</a>
+, <a href="ref.html?Coef" target="Chapters">
+Coef
+</a>
+.<a name="Coef">
+
+</a>
+<a name="coef">
+
+</a>
+<h3>
+<hr>Coef -- coefficient of a polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Coef(expr, var, order)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- a polynomial
+
+
+<p>
+<b><tt>var</tt></b> -- a variable occurring in "expr"
+
+
+<p>
+<b><tt>order</tt></b> -- integer or list of integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command returns the coefficient of "var" to the power "order"
+in the polynomial "expr". The parameter "order" can also be a list
+of integers, in which case this function returns a list of
+coefficients.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; e := Expand((a+x)^4,x)
+Out&gt; x^4+4*a*x^3+(a^2+(2*a)^2+a^2)*x^2+
+(a^2*2*a+2*a^3)*x+a^4;
+In&gt; Coef(e,a,2)
+Out&gt; 6*x^2;
+In&gt; Coef(e,a,0 .. 4)
+Out&gt; {x^4,4*x^3,6*x^2,4*x,1};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Expand" target="Chapters">
+Expand
+</a>
+, <a href="ref.html?Degree" target="Chapters">
+Degree
+</a>
+, <a href="ref.html?LeadingCoef" target="Chapters">
+LeadingCoef
+</a>
+.<a name="Content">
+
+</a>
+<a name="content">
+
+</a>
+<h3>
+<hr>Content -- content of a univariate polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Content(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- univariate polynomial
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command determines the content of a univariate polynomial. The
+content is the greatest common divisor of all the terms in the
+polynomial. Every polynomial can be written as the product of the
+content with the primitive part.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; poly := 2*x^2 + 4*x;
+Out&gt; 2*x^2+4*x;
+In&gt; c := Content(poly);
+Out&gt; 2*x;
+In&gt; pp := PrimitivePart(poly);
+Out&gt; x+2;
+In&gt; Expand(pp*c);
+Out&gt; 2*x^2+4*x;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?PrimitivePart" target="Chapters">
+PrimitivePart
+</a>
+, <a href="ref.html?Gcd" target="Chapters">
+Gcd
+</a>
+.<a name="PrimitivePart">
+
+</a>
+<a name="primitivepart">
+
+</a>
+<h3>
+<hr>PrimitivePart -- primitive part of a univariate polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+PrimitivePart(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- univariate polynomial
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command determines the primitive part of a univariate
+polynomial. The primitive part is what remains after the content (the
+greatest common divisor of all the terms) is divided out. So the
+product of the content and the primitive part equals the original
+polynomial.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; poly := 2*x^2 + 4*x;
+Out&gt; 2*x^2+4*x;
+In&gt; c := Content(poly);
+Out&gt; 2*x;
+In&gt; pp := PrimitivePart(poly);
+Out&gt; x+2;
+In&gt; Expand(pp*c);
+Out&gt; 2*x^2+4*x;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Content" target="Chapters">
+Content
+</a>
+.<a name="LeadingCoef">
+
+</a>
+<a name="leadingcoef">
+
+</a>
+<h3>
+<hr>LeadingCoef -- leading coefficient of a polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LeadingCoef(poly)
+LeadingCoef(poly, var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>poly</tt></b> -- a polynomial
+
+
+<p>
+<b><tt>var</tt></b> -- a variable
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the leading coefficient of "poly", regarded as
+a polynomial in the variable "var". The leading coefficient is the
+coefficient of the term of highest degree. If only one variable
+appears in the expression "poly", it is obvious that it should be
+regarded as a polynomial in this variable and the first calling
+sequence may be used.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; poly := 2*x^2 + 4*x;
+Out&gt; 2*x^2+4*x;
+In&gt; lc := LeadingCoef(poly);
+Out&gt; 2;
+In&gt; m := Monic(poly);
+Out&gt; x^2+2*x;
+In&gt; Expand(lc*m);
+Out&gt; 2*x^2+4*x;
+
+In&gt; LeadingCoef(2*a^2 + 3*a*b^2 + 5, a);
+Out&gt; 2;
+In&gt; LeadingCoef(2*a^2 + 3*a*b^2 + 5, b);
+Out&gt; 3*a;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Coef" target="Chapters">
+Coef
+</a>
+, <a href="ref.html?Monic" target="Chapters">
+Monic
+</a>
+.<a name="Monic">
+
+</a>
+<a name="monic">
+
+</a>
+<h3>
+<hr>Monic -- monic part of a polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Monic(poly)
+Monic(poly, var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>poly</tt></b> -- a polynomial
+
+
+<p>
+<b><tt>var</tt></b> -- a variable
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function returns the monic part of "poly", regarded as a
+polynomial in the variable "var". The monic part of a polynomial is
+the quotient of this polynomial by its leading coefficient. So the
+leading coefficient of the monic part is always one. If only one
+variable appears in the expression "poly", it is obvious that it
+should be regarded as a polynomial in this variable and the first
+calling sequence may be used.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; poly := 2*x^2 + 4*x;
+Out&gt; 2*x^2+4*x;
+In&gt; lc := LeadingCoef(poly);
+Out&gt; 2;
+In&gt; m := Monic(poly);
+Out&gt; x^2+2*x;
+In&gt; Expand(lc*m);
+Out&gt; 2*x^2+4*x;
+
+In&gt; Monic(2*a^2 + 3*a*b^2 + 5, a);
+Out&gt; a^2+(a*3*b^2)/2+5/2;
+In&gt; Monic(2*a^2 + 3*a*b^2 + 5, b);
+Out&gt; b^2+(2*a^2+5)/(3*a);
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?LeadingCoef" target="Chapters">
+LeadingCoef
+</a>
+.<a name="SquareFree">
+
+</a>
+<a name="squarefree">
+
+</a>
+<h3>
+<hr>SquareFree -- return the square-free part of polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+SquareFree(p)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>p</tt></b> - a polynomial in <b><tt>x</tt></b>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Given a polynomial 
+
+<p><center><b> p=p[1]^n[1]*...*p[m]^n[m] </b></center></p>
+
+with irreducible polynomials <b>p[i]</b>,
+return the square-free version part (with all the factors having
+multiplicity 1):
+
+<p><center><b>p[1]*...*p[m] </b></center></p>
+
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Expand((x+1)^5)
+Out&gt; x^5+5*x^4+10*x^3+10*x^2+5*x+1;
+In&gt; SquareFree(%)
+Out&gt; (x+1)/5;
+In&gt; Monic(%)
+Out&gt; x+1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FindRealRoots" target="Chapters">
+FindRealRoots
+</a>
+, <a href="ref.html?NumRealRoots" target="Chapters">
+NumRealRoots
+</a>
+, <a href="ref.html?MinimumBound" target="Chapters">
+MinimumBound
+</a>
+, <a href="ref.html?MaximumBound" target="Chapters">
+MaximumBound
+</a>
+, <a href="ref.html?Factor" target="Chapters">
+Factor
+</a>
+.<h3>
+<hr><b><tt>Div</tt></b> and <b><tt>Mod</tt></b> for polynomials
+</h3>
+<h5 align=right>Standard library</h5><b><tt>Div</tt></b> and <b><tt>Mod</tt></b> are also defined for polynomials.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Div" target="Chapters">
+Div
+</a>
+, <a href="ref.html?Mod" target="Chapters">
+Mod
+</a>
+.<a name="Horner">
+
+</a>
+<a name="horner">
+
+</a>
+<h3>
+<hr>Horner -- convert a polynomial into the Horner form
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Horner(expr, var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- a polynomial in "var"
+
+
+<p>
+<b><tt>var</tt></b> -- a variable
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command turns the polynomial "expr", considered as a univariate
+polynomial in "var", into Horner form. A polynomial in normal form
+is an expression such as
+
+<p><center><b>c[0]+c[1]*x+...+c[n]*x^n.</b></center></p>
+
+
+
+<p>
+If one converts this polynomial into Horner form, one gets the
+equivalent expression
+
+<p><center><b>(...(c[n]*x+c[n-1])*x+...+c[1])*x+c[0].</b></center></p>
+
+
+
+<p>
+Both expression are equal, but the latter form gives a more
+efficient way to evaluate the polynomial as  the powers have
+disappeared.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; expr1:=Expand((1+x)^4)
+Out&gt; x^4+4*x^3+6*x^2+4*x+1;
+In&gt; Horner(expr1,x)
+Out&gt; (((x+4)*x+6)*x+4)*x+1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Expand" target="Chapters">
+Expand
+</a>
+, <a href="ref.html?ExpandBrackets" target="Chapters">
+ExpandBrackets
+</a>
+, <a href="ref.html?EvaluateHornerScheme" target="Chapters">
+EvaluateHornerScheme
+</a>
+.<a name="ExpandBrackets">
+
+</a>
+<a name="expandbrackets">
+
+</a>
+<h3>
+<hr>ExpandBrackets -- expand all brackets
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ExpandBrackets(expr)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command tries to expand all the brackets by repeatedly using the
+distributive laws <b>a*(b+c)=a*b+a*c</b> and <b>(a+b)*c=a*c+b*c</b>.
+It goes further than <b><tt>Expand</tt></b>, in that it expands all brackets.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Expand((a-x)*(b-x),x)
+Out&gt; x^2-(b+a)*x+a*b;
+In&gt; Expand((a-x)*(b-x),{x,a,b})
+Out&gt; x^2-(b+a)*x+b*a;
+In&gt; ExpandBrackets((a-x)*(b-x))
+Out&gt; a*b-x*b+x^2-a*x;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Expand" target="Chapters">
+Expand
+</a>
+.<a name="EvaluateHornerScheme">
+
+</a>
+<a name="evaluatehornerscheme">
+
+</a>
+<h3>
+<hr>EvaluateHornerScheme -- fast evaluation of polynomials
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+EvaluateHornerScheme(coeffs,x)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>coeffs</tt></b> -- a list of coefficients
+
+
+<p>
+<b><tt>x</tt></b> -- expression
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function evaluates a polynomial given as a list of its coefficients, using
+the Horner scheme. The list of coefficients starts with the <b> 0</b>-th power.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; EvaluateHornerScheme({a,b,c,d},x)
+Out&gt; a+x*(b+x*(c+x*d));
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Horner" target="Chapters">
+Horner
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

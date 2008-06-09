@@ -1,0 +1,377 @@
+<html>
+<head>
+  <title>Numeric solvers</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c13">
+
+</a>
+(directly go to documentation on : <a href="refchapter13.html#Newton" target='Chapters' title="solve an equation numerically with Newton's method">Newton</a>, <a href="refchapter13.html#FindRealRoots" target='Chapters' title="find the real roots of a polynomial">FindRealRoots</a>, <a href="refchapter13.html#NumRealRoots" target='Chapters' title="return the number of real roots of a polynomial">NumRealRoots</a>, <a href="refchapter13.html#MinimumBound" target='Chapters' title="return lower bounds on the absolute values of real roots of a polynomial">MinimumBound</a>, <a href="refchapter13.html#MaximumBound" target='Chapters' title="return upper bounds on the absolute values of real roots of a polynomial">MaximumBound</a>.
+)<h1>
+13. Numeric solvers
+</h1>
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter13.html#Newton" target='Chapters' title="solve an equation numerically with Newton's method">Newton</a></td>
+<td>solve an equation numerically with Newton's method</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter13.html#FindRealRoots" target='Chapters' title="find the real roots of a polynomial">FindRealRoots</a></td>
+<td>find the real roots of a polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter13.html#NumRealRoots" target='Chapters' title="return the number of real roots of a polynomial">NumRealRoots</a></td>
+<td>return the number of real roots of a polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter13.html#MinimumBound" target='Chapters' title="return lower bounds on the absolute values of real roots of a polynomial">MinimumBound</a></td>
+<td>return lower bounds on the absolute values of real roots of a polynomial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter13.html#MaximumBound" target='Chapters' title="return upper bounds on the absolute values of real roots of a polynomial">MaximumBound</a></td>
+<td>return upper bounds on the absolute values of real roots of a polynomial</td>
+</tr>
+</table></center>
+<a name="Newton">
+
+</a>
+<a name="newton">
+
+</a>
+<h3>
+<hr>Newton -- solve an equation numerically with Newton's method
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Newton(expr, var, initial, accuracy)
+Newton(expr, var, initial, accuracy,min,max)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- an expression to find a zero for
+
+
+<p>
+<b><tt>var</tt></b> -- free variable to adjust to find a zero
+
+
+<p>
+<b><tt>initial</tt></b> -- initial value for "var" to use in the search
+
+
+<p>
+<b><tt>accuracy</tt></b> -- minimum required accuracy of the result
+
+
+<p>
+<b><tt>min</tt></b> -- minimum value for "var" to use in the search
+
+
+<p>
+<b><tt>max</tt></b> -- maximum value for "var" to use in the search
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function tries to numerically find a zero of the expression
+<b><tt>expr</tt></b>, which should depend only on the variable <b><tt>var</tt></b>. It uses
+the value <b><tt>initial</tt></b> as an initial guess.
+
+
+<p>
+The function will iterate using Newton's method until it estimates
+that it has come within a distance <b><tt>accuracy</tt></b> of the correct
+solution, and then it will return its best guess. In particular, it
+may loop forever if the algorithm does not converge.
+
+
+<p>
+When <b><tt>min</tt></b> and <b><tt>max</tt></b> are supplied, the Newton iteration takes them
+into account by returning <b><tt>Fail</tt></b> if it failed to find a root in
+the given range. Note this doesn't mean there isn't a root, just
+that this algorithm failed to find it due to the trial values
+going outside of the bounds.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Newton(Sin(x),x,3,0.0001)
+Out&gt; 3.1415926535;
+In&gt; Newton(x^2-1,x,2,0.0001,-5,5)
+Out&gt; 1;
+In&gt; Newton(x^2+1,x,2,0.0001,-5,5)
+Out&gt; Fail;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Solve" target="Chapters">
+Solve
+</a>
+, <a href="ref.html?NewtonNum" target="Chapters">
+NewtonNum
+</a>
+.<a name="FindRealRoots">
+
+</a>
+<a name="findrealroots">
+
+</a>
+<h3>
+<hr>FindRealRoots -- find the real roots of a polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+FindRealRoots(p)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>p</tt></b> - a polynomial in <b><tt>x</tt></b>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Return a list with the real roots of <b>p</b>. It tries to find the real-valued
+roots, and thus requires numeric floating point calculations. The precision
+of the result can be improved by increasing the calculation precision.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; p:=Expand((x+3.1)^5*(x-6.23))
+Out&gt; x^6+9.27*x^5-0.465*x^4-300.793*x^3-
+1394.2188*x^2-2590.476405*x-1783.5961073;
+In&gt; FindRealRoots(p)
+Out&gt; {-3.1,6.23};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?SquareFree" target="Chapters">
+SquareFree
+</a>
+, <a href="ref.html?NumRealRoots" target="Chapters">
+NumRealRoots
+</a>
+, <a href="ref.html?MinimumBound" target="Chapters">
+MinimumBound
+</a>
+, <a href="ref.html?MaximumBound" target="Chapters">
+MaximumBound
+</a>
+, <a href="ref.html?Factor" target="Chapters">
+Factor
+</a>
+.<a name="NumRealRoots">
+
+</a>
+<a name="numrealroots">
+
+</a>
+<h3>
+<hr>NumRealRoots -- return the number of real roots of a polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+NumRealRoots(p)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>p</tt></b> - a polynomial in <b><tt>x</tt></b>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns the number of real roots of a polynomial <b> p</b>.
+The polynomial must use the variable <b><tt>x</tt></b> and no other variables.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; NumRealRoots(x^2-1)
+Out&gt; 2;
+In&gt; NumRealRoots(x^2+1)
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?FindRealRoots" target="Chapters">
+FindRealRoots
+</a>
+, <a href="ref.html?SquareFree" target="Chapters">
+SquareFree
+</a>
+, <a href="ref.html?MinimumBound" target="Chapters">
+MinimumBound
+</a>
+, <a href="ref.html?MaximumBound" target="Chapters">
+MaximumBound
+</a>
+, <a href="ref.html?Factor" target="Chapters">
+Factor
+</a>
+.<a name="MinimumBound">
+
+</a>
+<a name="minimumbound">
+
+</a>
+<h3>
+<hr>MinimumBound -- return lower bounds on the absolute values of real roots of a polynomial
+</h3>
+<a name="MaximumBound">
+
+</a>
+<a name="maximumbound">
+
+</a>
+<h3>
+<hr>MaximumBound -- return upper bounds on the absolute values of real roots of a polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MinimumBound(p)
+MaximumBound(p)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>p</tt></b> - a polynomial in <b> x</b>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Return minimum and maximum bounds for the absolute values of the real
+roots of a polynomial <b><tt>p</tt></b>. The polynomial has to be converted to one with
+rational coefficients first, and be made square-free.
+The polynomial must use the variable <b><tt>x</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; p:=SquareFree(Rationalize((x-3.1)*(x+6.23)))
+Out&gt; (-40000*x^2-125200*x+772520)/870489;
+In&gt; MinimumBound(p)
+Out&gt; 5000000000/2275491039;
+In&gt; N(%)
+Out&gt; 2.1973279236;
+In&gt; MaximumBound(p)
+Out&gt; 10986639613/1250000000;
+In&gt; N(%)
+Out&gt; 8.7893116904;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?SquareFree" target="Chapters">
+SquareFree
+</a>
+, <a href="ref.html?NumRealRoots" target="Chapters">
+NumRealRoots
+</a>
+, <a href="ref.html?FindRealRoots" target="Chapters">
+FindRealRoots
+</a>
+, <a href="ref.html?Factor" target="Chapters">
+Factor
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>
