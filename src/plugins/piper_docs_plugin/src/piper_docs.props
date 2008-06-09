@@ -1,33 +1,33 @@
-# Properties file for YacasDocs plugin.
+# Properties file for PiperDocs plugin.
 
 #{{{ 
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.activate=defer
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.name=YacasDocs
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.author=Ted Kosan
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.name=PiperDocs
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.version=4.3
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.docs=index.html
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin..longdescription=description.html
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.docs=index.html
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin..longdescription=description.html
 #}}}
 
 
 
 
-yacasdocs.shell.msg.info=\nYacasDocs Shell \n\
+piperdocs.shell.msg.info=\nPiperDocs Shell \n\
 	  Test.\n\n
 
-yacasdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
+piperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
 		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
 		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
 		 * "?"\t\t\t\t-- lists the available build files and usage\n\
@@ -42,64 +42,70 @@ yacasdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.menu=yacasdocs \
+plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.menu=piperdocs \
 	- \
-	yacasdocs.clear \
-	yacasdocs.save-file \
-	yacasdocs.copy-to-buffer
+	piperdocs.clear \
+	piperdocs.save-file \
+	piperdocs.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
-yacasdocs.label=yacasdocs
+piperdocs.label=piperdocs
 
 # action labels for actions supplied by actions.xml
-yacasdocs.source.label=View Source
-yacasdocs.source.button-text=Source
-yacasdocs.home.label=Home
-yacasdocs.save-file.label=Save notepad file
-yacasdocs.copy-to-buffer.label=Copy notepad to buffer
+piperdocs.source.label=View Source
+piperdocs.source.button-text=Source
+piperdocs.collapse.label=Collapse function tree.
+piperdocs.collapse.button-text=Collapse
+piperdocs.home.label=Home
+piperdocs.back.label=Back
+piperdocs.forward.label=Forward
+piperdocs.save-file.label=Save notepad file
+piperdocs.copy-to-buffer.label=Copy notepad to buffer
 
 # plugin option pane
-plugin.yacasdocs.option-pane=yacasdocs
+plugin.piperdocs.option-pane=piperdocs
 
 # Option pane activation BeanShell snippet
-options.yacasdocs.code=new org.mathrider.yacasdocsplugin.YacasDocsOptionPane();
+options.piperdocs.code=new org.mathrider.piperdocsplugin.PiperDocsOptionPane();
 
 # Option pane labels
-options.yacasdocs.label=yacasdocs
-options.yacasdocs.file=File:
-options.yacasdocs.source=Source
-options.yacasdocs.home=Hlear
-options.yacasdocs.source.title=View Source
-options.yacasdocs.choose-font=Font:
-options.yacasdocs.show-filepath.title=Display notepad file path
+options.piperdocs.label=piperdocs
+options.piperdocs.file=File:
+options.piperdocs.source=Source
+options.piperdocs.home=Home
+options.piperdocs.source.title=View Source
+options.piperdocs.choose-font=Font:
+options.piperdocs.show-filepath.title=Display notepad file path
 
 # window title
-yacasdocs.title=YacasDocs
+piperdocs.title=PiperDocs
 
 # window toolbar buttons
-#yacasdocs.source.icon=Clear.png
-yacasdocs.home.icon=Home.png
-yacasdocs.save-file.icon=Save.png
-yacasdocs.copy-to-buffer.icon=CopyToBuffer.png
+#piperdocs.source.icon=Clear.png
+piperdocs.back.icon=ArrowL.png
+piperdocs.forward.icon=ArrowR.png
+piperdocs.home.icon=Home.png
+piperdocs.save-file.icon=Save.png
+piperdocs.copy-to-buffer.icon=CopyToBuffer.png
 
 # default settings
-options.yacasdocs.show-filepath=true
-options.yacasdocs.font=Monospaced
-options.yacasdocs.fontstyle=0
-options.yacasdocs.fontsize=14
+options.piperdocs.show-filepath=true
+options.piperdocs.font=Monospaced
+options.piperdocs.fontstyle=0
+options.piperdocs.fontsize=14
 
 # Setting not defined but supplied for completeness
-options.yacasdocs.filepath=
+options.piperdocs.filepath=
 
 
 #
-#yacasdocs.applet.filename=
-#yacasdocs.applet.framePossible=false
-#yacasdocs.applet.showSourceIcon=true
-#yacasdocs.applet.enableRightClick=true
-#yacasdocs.applet.showMenuBar=false
-#yacasdocs.applet.showToolBar=true
-#yacasdocs.applet.showToolBarHelp=true
-#yacasdocs.applet.showAlgebraInput=true
+#piperdocs.applet.filename=
+#piperdocs.applet.framePossible=false
+#piperdocs.applet.showSourceIcon=true
+#piperdocs.applet.enableRightClick=true
+#piperdocs.applet.showMenuBar=false
+#piperdocs.applet.showToolBar=true
+#piperdocs.applet.showToolBarHelp=true
+#piperdocs.applet.showAlgebraInput=true
 
 # :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
