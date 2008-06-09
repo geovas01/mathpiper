@@ -271,7 +271,7 @@ Why is this list missing commas and curly braces?
 Change Nl to NL.
 + Change TeXForm to TexForm.
 + Change FullForm to LispForm.
-+ Change MathXXX function names to XXXN format.
++ Change MathXXX function names to XXXN format or perhaps have something like SinS for symbolic and SinN for numeric (but then all symbolic functions should be labeled as such so maybe just labeling the numeric ones would be best.
 + Change DestructiveXXX function names to XXXO for Original and perhaps functions like Replace to ReplaceC for Copy.
 + Change function names which have a ' in them to version without '.
 + Have commands which are similar to scientific calculator functions (like NCR, NPR, etc).
