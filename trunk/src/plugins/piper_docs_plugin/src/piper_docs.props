@@ -1,0 +1,105 @@
+# Properties file for YacasDocs plugin.
+
+#{{{ 
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.name=YacasDocs
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.docs=index.html
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin..longdescription=description.html
+#}}}
+
+
+
+
+yacasdocs.shell.msg.info=\nYacasDocs Shell \n\
+	  Test.\n\n
+
+yacasdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
+		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
+		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
+		 * "?"\t\t\t\t-- lists the available build files and usage\n\
+		 * "=build_file_number"\t\t-- changes the current build file to the number identified by "?"\n\
+		 * "+[full_path_to_file]"\t\t-- load this build file into Ant Farm. Searches up the current\n\
+				   \t\t\t\t   buffer's directory tree for a "build.xml" file to load if a \n\
+				 \t\t\t\t   file is not specified. Re-loads the build file if it is already\n\
+				 \t\t\t\t   loaded.\n\n
+
+
+
+
+
+# plugin menu
+plugin.org.mathrider.yacasdocsplugin.YacasDocsPlugin.menu=yacasdocs \
+	- \
+	yacasdocs.clear \
+	yacasdocs.save-file \
+	yacasdocs.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+yacasdocs.label=yacasdocs
+
+# action labels for actions supplied by actions.xml
+yacasdocs.source.label=View Source
+yacasdocs.source.button-text=Source
+yacasdocs.home.label=Home
+yacasdocs.save-file.label=Save notepad file
+yacasdocs.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.yacasdocs.option-pane=yacasdocs
+
+# Option pane activation BeanShell snippet
+options.yacasdocs.code=new org.mathrider.yacasdocsplugin.YacasDocsOptionPane();
+
+# Option pane labels
+options.yacasdocs.label=yacasdocs
+options.yacasdocs.file=File:
+options.yacasdocs.source=Source
+options.yacasdocs.home=Hlear
+options.yacasdocs.source.title=View Source
+options.yacasdocs.choose-font=Font:
+options.yacasdocs.show-filepath.title=Display notepad file path
+
+# window title
+yacasdocs.title=YacasDocs
+
+# window toolbar buttons
+#yacasdocs.source.icon=Clear.png
+yacasdocs.home.icon=Home.png
+yacasdocs.save-file.icon=Save.png
+yacasdocs.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.yacasdocs.show-filepath=true
+options.yacasdocs.font=Monospaced
+options.yacasdocs.fontstyle=0
+options.yacasdocs.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.yacasdocs.filepath=
+
+
+#
+#yacasdocs.applet.filename=
+#yacasdocs.applet.framePossible=false
+#yacasdocs.applet.showSourceIcon=true
+#yacasdocs.applet.enableRightClick=true
+#yacasdocs.applet.showMenuBar=false
+#yacasdocs.applet.showToolBar=true
+#yacasdocs.applet.showToolBarHelp=true
+#yacasdocs.applet.showAlgebraInput=true
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
