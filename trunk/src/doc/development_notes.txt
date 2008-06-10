@@ -277,6 +277,7 @@ Why is this list missing commas and curly braces?
 + Change function names which have a ' in them to version without '.
 + Have commands which are similar to scientific calculator functions (like NCR, NPR, etc).
 + Multivariate factoring.
+
 ----
 + Regular expressions
 The regular expressions plugin
