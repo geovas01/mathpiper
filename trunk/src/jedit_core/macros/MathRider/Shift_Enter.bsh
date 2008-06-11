@@ -56,7 +56,7 @@ if(path.endsWith(".pi")){
 	//result = interpreter.evaluate("Load(\""+path+"\");");
 	
 	//System.out.println(result);
-}else if (path.endsWith(".mws")){
+}else if (path.endsWith(".mrw")){
 	buffer.setMode("mathrider");
 	currentCaretPosition = textArea.getCaretPosition();
 	textArea.selectFold();
@@ -214,7 +214,7 @@ if(path.endsWith(".pi")){
 		}
 		else
 		{
-			fileExtension = ".mws_tmp";
+			fileExtension = ".mrw_tmp";
 		}//end if/else.
 		
         File tempFile = File.createTempFile("mathrider", fileExtension);

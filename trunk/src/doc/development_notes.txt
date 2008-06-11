@@ -133,6 +133,9 @@ Initial release:
 
 
 {{{PIPER BUGS.
+----
+
+----
 9.5/3.2 does not evaluate to a decimal number.
 ----
 TestPiper(x^k/x,x^(k-1));
@@ -268,6 +271,7 @@ Why is this list missing commas and curly braces?
 }}}
 
 {{{PIPER ENHANCEMENTS.
++ Change Numer to Numerator and Denom to Denominator because it is hard to remember how many letters of Numer and Denom are used in the shorter names.
 + Change "generic" (as in Generic object) to "native".
 + Change Nl to NL.
 + Change TeXForm to TexForm.
