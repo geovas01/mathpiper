@@ -222,23 +222,35 @@ public class PiperDocs extends JPanel
 			//System.out.println("YYYYY2: " + helpURL.toString());
 		
 		java.io.Reader sourceIn = new java.io.BufferedReader( new java.io.InputStreamReader(docsURL.openStream() ));
-			try {
+			try 
+			{
 				bshInterpreter.set("piperDocPanel",this);
 				bshInterpreter.set("editorScrollPane",scrollPane);
 				bshInterpreter.set("editorPane",editorPane);
 				bshInterpreter.set("view",view);
 				bshInterpreter.set("toolPanel",this.toolPanel);
-				bshInterpreter.set("jPiperInterpreter",PiperInterpreter.getInstance());//Note:tk:fixing race condition.
+				bshInterpreter.set("piperInterpreter",PiperInterpreter.getInstance());//Note:tk:fixing race condition.
 				java.net.URL homePage = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("piper_manual/books2.html");
 				java.util.ArrayList pageList = new java.util.ArrayList();
 				//pageList.add(homePage);
 				bshInterpreter.set("homePage",homePage);
 				bshInterpreter.set("pageList",pageList);
 				bshInterpreter.set("pageIndex",-1);
-				bshInterpreter.eval("import org.mathrider.piperdocsplugin.FunctionInfo;");
+				bshInterpreter.eval( "classFunctionInfo = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.piperdocsplugin.PiperDocsPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.piperdocsplugin.FunctionInfo\",true);");
+				bshInterpreter.eval( "classFunctionInfoTree = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.piperdocsplugin.PiperDocsPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.piperdocsplugin.FunctionInfoTree\",true);");
+
+				//new org.mathrider.piperdocsplugin.FunctionInfo(null,null);
+				//bshInterpreter.eval("import org.mathrider.piperdocsplugin.FunctionInfo;");
+				//bshInterpreter.eval("new org.mathrider.piperdocsplugin.FunctionInfo(null,null);");
 				
 				bshInterpreter.eval( sourceIn );
-				} finally {
+			} 
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
 				sourceIn.close();
 			}
 		
@@ -361,6 +373,7 @@ public class PiperDocs extends JPanel
 		*/
 	}//end method.
     // }}}
+
 
     // }}}
 }//end class.

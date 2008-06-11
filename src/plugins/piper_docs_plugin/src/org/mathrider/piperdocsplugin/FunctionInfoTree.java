@@ -7,10 +7,21 @@ import javax.swing.tree.*;
 
 public class FunctionInfoTree extends JTree
 {
+	public FunctionInfoTree()
+	{
+		super();
+	}
+	
 	public FunctionInfoTree(DefaultMutableTreeNode node)
 	{
 		super(node);
 	}
+	
+	public void setNode(DefaultMutableTreeNode node)
+	{
+		setModel(new DefaultTreeModel(node));
+	}//end method.
+	
 	public String getToolTipText(java.awt.event.MouseEvent e)
 	{
 		DefaultMutableTreeNode node = null;

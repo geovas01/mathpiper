@@ -7,16 +7,32 @@ public class FunctionInfo
 	private String name;
 	private String description;
 	
+	public FunctionInfo()
+	{
+	}
+	
 	public FunctionInfo(String name, String description)
 	{
 		this.name = name;
 		this.description = description;
 	}//end constructor.
 	
+	public void setName(String name)
+	{
+		this.name = name;
+	}//end method.
+	
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}//end method.
+	
 	public String getDescription()
 	{
 		return description;
 	}//end method.
+	
+	
 	public String toString()
 	{
 		return(this.name);
