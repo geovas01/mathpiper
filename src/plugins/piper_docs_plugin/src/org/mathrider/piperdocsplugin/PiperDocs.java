@@ -235,6 +235,7 @@ public class PiperDocs extends JPanel
 				bshInterpreter.set("homePage",homePage);
 				bshInterpreter.set("pageList",pageList);
 				bshInterpreter.set("pageIndex",-1);
+				bshInterpreter.eval("import org.mathrider.piperdocsplugin.FunctionInfo;");
 				
 				bshInterpreter.eval( sourceIn );
 				} finally {
