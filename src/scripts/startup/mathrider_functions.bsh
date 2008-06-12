@@ -1,17 +1,17 @@
-outputValue = ""; 
+foldOutput = ""; 
 
-output(value)
+output(outputData)
 {
-    outputValue = value;
+    foldOutput = outputData;
 }
 
 println(value)
 {
-    System.out.println(value);
+    System.out.println(outputData);
 }
 
 print(value)
 {
-    System.out.print(value);
+    System.out.print(outputData);
 }
 
