@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
 
 {{{====To Do
++ Add beanshell error catch to beanshell fold.
 + Perhaps add grade level (or similar) tags to functions to hide advanced functions in piper docs.
 + Have Piper docs go to cateorgy's html reference page when category is selected.
 + Add scope="shell" to beanshell fold.

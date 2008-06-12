@@ -142,7 +142,7 @@ if(path.endsWith(".pi")){
 			foldProperties.put("collapse","false");
 			foldProperties.put("clear","false");
 			foldProperties.put("description","");
-			foldProperties.put("macro","");
+			foldProperties.put("pipe_to","");
 			foldProperties.put("scope","local");
 			if(foldTypePropertyStrings.length != 1)
 			{
@@ -598,7 +598,8 @@ if(path.endsWith(".pi")){
 
 				//System.out.println(tempFilePath);
 				
-				bshInterpreter.set("outputValue","");
+				//foldOutput is for printing to %output fold.
+				bshInterpreter.set("foldOutput","");
 
 				bshInterpreter.source(tempFilePath);
 				
@@ -606,24 +607,24 @@ if(path.endsWith(".pi")){
 				//Print content of print statement if present. 
 				
 				
-				outputValue = bshInterpreter.get("outputValue");
-				//print("BBBB " + outputValue);
-				if(outputValue == void || outputValue == "")
+				foldOutput = bshInterpreter.get("foldOutput");
+				//print("BBBB " + foldOutput);
+				if(foldOutput == void || foldOutput == "")
 				{
 					result = "";
 				}
 				else
 				{
-					if(outputValue instanceof String)
+					if(foldOutput instanceof String)
 					{
-						result = outputValue;
+						result = foldOutput;
 					}
 					else
 					{
-						result = String.valueOf(outputValue);
+						result = String.valueOf(foldOutput);
 					}//end else.
 					
-					outputValue = "";
+					foldOutput = "";
 					
 				}
 				
@@ -935,7 +936,7 @@ if(path.endsWith(".pi")){
 				
 				
 				//Send output to a macro if the macro is specified.
-				macro = foldProperties.get("macro");
+				macro = foldProperties.get("pipe_to");
 				//print("YYYYY " + macro);
 				if(! macro.equalsIgnoreCase(""))
 				{
