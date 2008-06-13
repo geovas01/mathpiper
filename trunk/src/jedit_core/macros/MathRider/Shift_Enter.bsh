@@ -284,7 +284,7 @@ if(path.endsWith(".pi")){
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
-					result = system.evaluate("PrettyForm(" + result + ");");
+					result = system.evaluate("PrettyForm(Hold(" + result + "));");
 					status = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )

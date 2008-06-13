@@ -664,7 +664,12 @@ MAXIMA> (our-nthcdr 2 '(a b c))
 
 
 
+
+
+
+
 %piper
+
     Write("Hello World!");
 
     %output
@@ -683,6 +688,27 @@ foldOutput = as.getActions().toString();
 
     %output 
       [Lorg.gjt.sp.jedit.EditAction;@1b17d49
+    %end
+
+%end
+
+
+
+
+
+
+
+%piper,name="example_1",output="pretty"
+
+    a := x^2 + x/2 + 3;
+    Write(a);
+
+    %output
+      True:
+      
+       2   x    
+      x  + - + 3
+           2
     %end
 
 %end
