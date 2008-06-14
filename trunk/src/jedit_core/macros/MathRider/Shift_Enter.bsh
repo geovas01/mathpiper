@@ -40,6 +40,8 @@ path = buffer.getPath();
 
 if(path.endsWith(".pi")){
 	
+	buffer.setMode("mathrider");
+	
 	//Remove Windows drive letter from the path.
 	if(path.indexOf(":") != -1){
 		path = path.split(":")[1];
@@ -57,7 +59,7 @@ if(path.endsWith(".pi")){
 	
 	//System.out.println(result);
 }else if (path.endsWith(".mrw")){
-	buffer.setMode("mathrider");
+	//buffer.setMode("mathrider");
 	currentCaretPosition = textArea.getCaretPosition();
 	textArea.selectFold();
 	fold  = textArea.getSelection()[0];
@@ -136,6 +138,7 @@ if(path.endsWith(".pi")){
 			foldType = foldType.trim();
 			
 			foldProperties = new java.util.Hashtable();
+			foldProperties.put("mode","true");
 			foldProperties.put("input","");
 			foldProperties.put("name","");
 			foldProperties.put("output","output");
@@ -240,6 +243,12 @@ if(path.endsWith(".pi")){
 		{
 			//Piper section.
 			
+			
+			if(foldProperties.get("mode").equalsIgnoreCase("true") )
+			{
+				buffer.setMode("piper");
+			}
+			
 			system = PiperInterpreter.getInstance();
 			
 
@@ -264,7 +273,7 @@ if(path.endsWith(".pi")){
 					{
 						result = result.substring(4,result.length());//Remove True which is returned by Load.
 					}
-				}//end if.}}}
+				}//end if.
 				
 				//Note: Since Load returns "True", it kills what was in %.
 				//lastResult = system.evaluate("%");
@@ -451,7 +460,10 @@ if(path.endsWith(".pi")){
 		else if(foldType.equalsIgnoreCase("%lisp"))    
 		{
 						
-			
+			if(foldProperties.get("mode").equalsIgnoreCase("true") )
+			{
+				buffer.setMode("lisp");
+			}
 
 			try 
 			{   
@@ -564,7 +576,10 @@ if(path.endsWith(".pi")){
 		else if(foldType.equalsIgnoreCase("%beanshell"))
 		{
 			
-			//buffer.setMode("beanshell");
+			if(foldProperties.get("mode").equalsIgnoreCase("true") )
+			{
+				buffer.setMode("beanshell");
+			}
 			
 			scope = foldProperties.get("scope");
 			if(scope.equalsIgnoreCase("global"))
@@ -703,7 +718,10 @@ if(path.endsWith(".pi")){
 			status = "%output";
 			if(foldProperties.get("input").equalsIgnoreCase("xml") )
 			{
-				//buffer.setMode("xml");
+				if(foldProperties.get("mode").equalsIgnoreCase("true") )
+				{
+					buffer.setMode("xml");
+				}
 				geogebra.setXML(codeText);
 			}
 			else
@@ -812,6 +830,11 @@ if(path.endsWith(".pi")){
 		else if(foldType.equalsIgnoreCase("%html")) 
 		{
 			//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "piperdocs" );
+			
+			if(foldProperties.get("mode").equalsIgnoreCase("true") )
+			{
+				buffer.setMode("html");
+			}
 			
 			result = "";
 			status = "%output";
