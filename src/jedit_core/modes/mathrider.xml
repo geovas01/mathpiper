@@ -12,13 +12,11 @@
 
 	</PROPS>
 	
-	<RULES IGNORE_CASE="FALSE"
-		HIGHLIGHT_DIGITS="TRUE"
-		DIGIT_RE="(0[lL]?|[1-9]\d{0,9}(\d{0,9}[lL])?|0[xX]\p{XDigit}{1,8}(\p{XDigit}{0,8}[lL])?|0[0-7]{1,11}([0-7]{0,11}[lL])?|([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?[fFdD]?|[0-9]+([eE][+-]?[0-9]+[fFdD]?|([eE][+-]?[0-9]+)?[fFdD]))">
+	<RULES IGNORE_CASE="FALSE" >
 
 
 
-		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%piper</EOL_SPAN>
+		<!--<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%piper</EOL_SPAN>
 		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%maxima</EOL_SPAN>
 		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%lisp</EOL_SPAN>
         <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%geogebra</EOL_SPAN>
@@ -27,8 +25,7 @@
         <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%beanshell</EOL_SPAN>
 	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%html</EOL_SPAN>
 	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%uasm65</EOL_SPAN>
-	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%group</EOL_SPAN>
-
+	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%group</EOL_SPAN> 
 
 
 		<SPAN TYPE="MARKUP" >
@@ -36,10 +33,7 @@
 			<END>%end</END>
 		</SPAN>
         
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%piper</BEGIN>
-			<END>%end</END>
-		</SPAN>
+
 		
 		<SPAN TYPE="MARKUP" >
 			<BEGIN>%maxima</BEGIN>
@@ -87,16 +81,26 @@
 		</SPAN>
         
         
+-->
 
 
+		<SPAN_REGEXP  TYPE="KEYWORD3" DELEGATE="piper::MAIN">
+			<BEGIN>%piper[0-9a-zA-Z,=" ]*</BEGIN>
+			<END>%/piper</END>
+		</SPAN_REGEXP>
 
+		<SPAN_REGEXP  TYPE="MARKUP" >
+			<BEGIN>%output[0-9a-zA-Z,=" ]*</BEGIN>
+			<END>%/output</END>
+		</SPAN_REGEXP>
 
-
-		
 
 
 
 	</RULES>
+    
+    <RULES IGNORE_CASE="FALSE" >
+    </RULES>
 
 
 </MODE>

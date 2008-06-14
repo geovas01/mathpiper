@@ -315,8 +315,14 @@
 		</copy>	
 	</target>
 	
-	<target id="backcopy-mode" name="backcopy-mode" description="Copies mode file from build to source directory." > 
+	<target id="backcopy-modes" name="backcopy-modes" description="Copies mode file from build to source directory." > 
 		<copy file="${master.build.dir}/mathrider/modes/mathrider.xml" 
+		todir="${master.src.dir}/jedit_core/modes"/>
+		
+		<copy file="${master.build.dir}/mathrider/modes/piper.xml" 
+		todir="${master.src.dir}/jedit_core/modes"/>
+		
+		<copy file="${master.build.dir}/mathrider/modes/catalog" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 	</target>
 	
@@ -339,7 +345,7 @@
 	<target id="backcopy-all" 
 		name="backcopy-all" 
 		description="Copies all configuration files from build to source directory."
-		depends="backcopy-property, backcopy-perspective, backcopy-examples, backcopy-macros, backcopy-mode">
+		depends="backcopy-property, backcopy-perspective, backcopy-examples, backcopy-macros, backcopy-modes">
 
 	</target>
 	
