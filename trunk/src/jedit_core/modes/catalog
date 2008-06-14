@@ -238,6 +238,9 @@
 
 <MODE NAME="maple"		FILE="maple.xml"
 				FILE_NAME_GLOB="*.{mpl,mws}" />
+				
+<MODE NAME="mathrider"		FILE="mathrider.xml"
+				FILE_NAME_GLOB="*.mrw" />
 
 <MODE NAME="ml"			FILE="ml.xml"
 				FILE_NAME_GLOB="*.{sml,ml}" />
@@ -295,7 +298,7 @@
 				FILE_NAME_GLOB="*.{pike,pmod}" />
 				
 <MODE NAME="piper"		FILE="piper.xml"
-				FILE_NAME_GLOB="*.{pi,mrw}" />
+				FILE_NAME_GLOB="*.pi" />
 
 <MODE NAME="pl-sql"		FILE="pl-sql.xml"
 				FILE_NAME_GLOB="*.pls" />
