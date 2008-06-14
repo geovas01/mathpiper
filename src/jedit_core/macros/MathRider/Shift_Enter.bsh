@@ -587,7 +587,7 @@ if(path.endsWith(".pi")){
 				bshInterpreter = bsi;
 				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 				bshInterpreter.set("ggb",ggb);
-				bshInterpreter.set("jEdit",org.gjt.sp.jedit.jEdit);
+				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
 			}
 			else if(scope.equalsIgnoreCase("local"))
@@ -598,7 +598,7 @@ if(path.endsWith(".pi")){
 				bshInterpreter.eval("import geogebra.GeoGebraApplet;");
 				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 				bshInterpreter.set("ggb",ggb);
-				bshInterpreter.set("jEdit",org.gjt.sp.jedit.jEdit);
+				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
 				
 			

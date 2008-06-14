@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
 
 {{{====To Do
++ Use fold to send commands to PiperDocs plugin.  Searching might be one action to implement.
 + Does every function need to return True or False?  For example, why does PrettyForm return True while TeXForm doesn't.
 + Add beanshell error catch to beanshell fold.
 + Perhaps add grade level (or similar) tags to functions to hide advanced functions in piper docs.
@@ -58,6 +59,13 @@ Development notes.
 + Show "breadcrumb trail" at the top of the Piper Docs window.
 + Perhaps dynamically set the mode of .mws files by what kind of fold the cursor is placed in.
 + Check MathAdd and other functions not being looked up in Piper Docs.
++ How to log exceptions
+		catch(Exception e)
+		{
+			Log.log(Log.ERROR,this,"Bad indent rule " + prop
+				+ '=' + value + ':');
+			Log.log(Log.ERROR,this,e);
+		}
 + Allow folds to call other folds.
 + Allow GUI components to call folds.
 + Add uasm65 mode.
