@@ -73,6 +73,7 @@ if(path.endsWith(".pi")){
 	codeStartIndex = fold.getStart(textArea.getBuffer(),codeStartLine);
 	codeEndIndex = fold.getEnd(textArea.getBuffer(),codeEndLine);
 	codeSelection = new Range(codeStartIndex, codeEndIndex);
+
 	textArea.setSelection(codeSelection);
 	
 
@@ -83,11 +84,11 @@ if(path.endsWith(".pi")){
 	//replaceAll("^\\s+", "");Remove whitespace at end of string.
 	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
   //System.out.println("YYYY allFoldText: " + allFoldText); 
-	
+
 	textArea.setSelection(null);
 	
 	
-		//{{{ Fold type.
+		//{{{ Fold information.
 	//	defaultFoldType = "%piper";
 		
 
@@ -120,7 +121,12 @@ if(path.endsWith(".pi")){
 				indentAmount.append("    ");
 			}//end else.
 				
-				
+			
+			
+			getFoldProperties(startLine)
+			{
+			
+			foldStartLineText = textArea.getLineText(startLine);
 			//Obtain fold type.
 			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
 			
@@ -137,16 +143,17 @@ if(path.endsWith(".pi")){
 			foldType = foldTypePropertyStrings[0];
 			foldType = foldType.trim();
 			
-			foldProperties = new java.util.Hashtable();
-			foldProperties.put("mode","true");
-			foldProperties.put("input","");
-			foldProperties.put("name","");
-			foldProperties.put("output","output");
-			foldProperties.put("collapse","false");
-			foldProperties.put("clear","false");
-			foldProperties.put("description","");
-			foldProperties.put("pipe_to","");
-			foldProperties.put("scope","local");
+			properties = new java.util.Hashtable();
+			properties.put("type",foldType);
+			properties.put("preserve","true");
+			properties.put("input","");
+			properties.put("name","");
+			properties.put("output","output");
+			properties.put("collapse","false");
+			properties.put("clear","false");
+			properties.put("description","");
+			properties.put("pipe_to","");
+			properties.put("scope","local");
 			if(foldTypePropertyStrings.length != 1)
 			{
 				for(x = 1; x < foldTypePropertyStrings.length; x++)
@@ -154,12 +161,17 @@ if(path.endsWith(".pi")){
 					property = foldTypePropertyStrings[x].split("=");
 					key = property[0].trim();
 					value = property[1].trim().replaceAll("\"","");
-					foldProperties.put(key,value);
+					properties.put(key,value);
 				}//end for.
 			}//end if.
+			
+			return properties;
+			}//end function.
 			//}}}
 
-	
+			foldProperties = getFoldProperties(foldStartLine);
+			foldType = foldProperties.get("type");
+			
 	
 /*	endDollarSignIndex = -1;
 	if(foldType.equalsIgnoreCase("%hoteqn"))
@@ -243,11 +255,6 @@ if(path.endsWith(".pi")){
 		{
 			//Piper section.
 			
-			
-			if(foldProperties.get("mode").equalsIgnoreCase("true") )
-			{
-				buffer.setMode("piper");
-			}
 			
 			system = PiperInterpreter.getInstance();
 			
@@ -460,10 +467,6 @@ if(path.endsWith(".pi")){
 		else if(foldType.equalsIgnoreCase("%lisp"))    
 		{
 						
-			if(foldProperties.get("mode").equalsIgnoreCase("true") )
-			{
-				buffer.setMode("lisp");
-			}
 
 			try 
 			{   
@@ -575,11 +578,6 @@ if(path.endsWith(".pi")){
 	///{{{ *** %beanshell ***
 		else if(foldType.equalsIgnoreCase("%beanshell"))
 		{
-			
-			if(foldProperties.get("mode").equalsIgnoreCase("true") )
-			{
-				buffer.setMode("beanshell");
-			}
 			
 			scope = foldProperties.get("scope");
 			if(scope.equalsIgnoreCase("global"))
@@ -718,10 +716,6 @@ if(path.endsWith(".pi")){
 			status = "%output";
 			if(foldProperties.get("input").equalsIgnoreCase("xml") )
 			{
-				if(foldProperties.get("mode").equalsIgnoreCase("true") )
-				{
-					buffer.setMode("xml");
-				}
 				geogebra.setXML(codeText);
 			}
 			else
@@ -831,10 +825,6 @@ if(path.endsWith(".pi")){
 		{
 			//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "piperdocs" );
 			
-			if(foldProperties.get("mode").equalsIgnoreCase("true") )
-			{
-				buffer.setMode("html");
-			}
 			
 			result = "";
 			status = "%output";
@@ -947,13 +937,10 @@ if(path.endsWith(".pi")){
 				}//end while
 				
 				
-				//Make room at the end of the current fold for output and place output there.
-				//currentCaretPosition = textArea.getCaretPosition();
+
         	
         	
-				rangeSelection = new Range(isolatedCodeEndIndex, codeEndIndex);
-				
-				textArea.setSelection(rangeSelection);
+
 				
 				result = result.trim();
 				
@@ -975,18 +962,41 @@ if(path.endsWith(".pi")){
 				    //bshInterpreter.invokeMethod(macro, new Object [] {result} );
 					
 				}//end if.
-			
+				
+						
+				
+				
 				void displayResult()
 				{
 					//Buffer update needs to be done later in the AWT thread because of needing
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()
 					{
+						//Delete next fold if set to preserve="false".
+						textArea.goToNextFold(false);
+						nextFoldProperties = getFoldProperties(textArea.getCaretLine());
+						if(nextFoldProperties.get("preserve").equalsIgnoreCase("false"))
+						{
+							textArea.selectFold();
+							beforeNewlines = afterNewlines = "";
+							//textArea.setSelectedText("");
+							//textArea.deleteLine();
+							//textArea.deleteLine();
+						}//end if.
+						else
+						{
+							afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
+							rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);//(isolatedCodeEndIndex, codeEndIndex);
+							textArea.setSelection(rangeSelection);
+							beforeNewlines = "\n";
+							afterNewlines = "\n\n";
+						}
+				
 					//System.out.println(result);
 						result = result.trim();
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
-						textArea.setSelectedText("\n\n" + indentAmount + status + "\n" + result + "\n" + indentAmount + "%end\n",false);
+						textArea.setSelectedText(beforeNewlines + indentAmount + status + ",preserve=\"false\"\n" + result + "\n" + indentAmount + "%/" + status.substring(1,status.length() ) + afterNewlines, false);
 						
 						//("\n\n     " + status + "\n      "+ result + "\n     %end\n",false);
 				 

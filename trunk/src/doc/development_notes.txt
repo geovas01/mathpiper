@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
 
 {{{====To Do
++"All buffer-local properties listed in the section called “Buffer-Local Properties” may be given values in edit modes." so perhaps set the folding mode here instead of in the system properties file?
 + Use fold to send commands to PiperDocs plugin.  Searching might be one action to implement.
 + Does every function need to return True or False?  For example, why does PrettyForm return True while TeXForm doesn't.
 + Add beanshell error catch to beanshell fold.
