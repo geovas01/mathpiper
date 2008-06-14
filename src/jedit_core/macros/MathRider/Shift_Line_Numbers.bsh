@@ -1,0 +1,32 @@
+import java.util.regex.*;
+/* Takes Code2HTML output and shifts line numbers down to 0 */
+
+code2Html(){
+
+    output = new StringBuffer();
+    
+	text = new StringBuffer(textArea.getSelectedText());
+    lineNumberPattern = Pattern.compile("gutterH\">[0-9]+|\"gutter\">[0-9]+");
+    matcher = lineNumberPattern.matcher(text);
+    lineNumber = 1;
+    
+    startFrom = 0;
+    while(matcher.find(startFrom))
+    {
+        System.out.println("EEEEEEEEEEEE Match");
+        text.replace(matcher.start()+9, matcher.end(),((lineNumber < 10 ) ? " " : "") + lineNumber++);
+        //foldOutput.append(text.substring(matcher.start()+8, matcher.end()));
+        
+        startFrom = matcher.end();
+    }
+    
+    
+    clipboard = Registers.getRegister('$');
+    clipboard.setValue(text.toString());
+    
+}
+
+//toHtml = Macros.getMacro("code2html.current-buffer");
+//System.out.println("EEEEEEEEEEEE " + toHtml);
+//toHtml.invoke(view);
+code2Html();
