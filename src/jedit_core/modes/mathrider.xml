@@ -116,7 +116,7 @@
 			<END>%/hoteqn</END>
 		</SPAN_REGEXP>
 
-		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="text::MAIN">
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="piper::MAIN">
 			<BEGIN>%maxima[0-9a-zA-Z,="_ ]*</BEGIN>
 			<END>%/maxima</END>
 		</SPAN_REGEXP>
