@@ -20,9 +20,13 @@ code2Html(){
         startFrom = matcher.end();
     }
     
+    text = text.toString();
+    text = text.replaceAll("990066","000000");
+    text = text.replaceAll("gutterH","gutter");
+    
     
     clipboard = Registers.getRegister('$');
-    clipboard.setValue(text.toString());
+    clipboard.setValue(text);
     
 }
 

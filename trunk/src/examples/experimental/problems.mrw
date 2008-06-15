@@ -594,13 +594,19 @@ MAXIMA> (our-nthcdr 2 '(a b c))
 
 
 
+
+
+
+
 %piper
 
     Write("Hello World!");
 
-
-
 %/piper
+
+    %output,preserve="false"
+      "Hello World!"
+    %/output
 
 
 %beanshell,scope="ide"
@@ -625,9 +631,15 @@ foldOutput = as.getActions().toString();
     a := x^2 + x/2 + 3;
     Write(a);
 
-
-
 %/piper
+
+    %output,preserve="false"
+      True:
+      
+       2   x    
+      x  + - + 3
+           2
+    %/output
 
 
 
@@ -639,92 +651,101 @@ foldOutput = as.getActions().toString();
     //Plot a function.
     f(x)=2*sin(x)
     
-    ////Add a tangent line to the function.
+    //Add a tangent line to the function.
     a = 2
     (2,0)
     t = Tangent[a, f]
 
 %/geogebra
 
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
 
 
 
 
-%geogebra,name="slope",input="xml",clear="true"
-<?xml version="1.0" encoding="utf-8"?>
-<geogebra format="3.0">
-<gui>
-	<show algebraView="true" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
-	<splitDivider loc="196" locVertical="400" horizontal="true"/>
-	<font  size="12"/>
-</gui>
-<euclidianView>
-	<size  width="540" height="553"/>
-	<coordSystem xZero="215.0" yZero="315.0" scale="50.0" yscale="50.0"/>
-	<evSettings axes="true" grid="true" pointCapturing="3" pointStyle="0" rightAngleStyle="1"/>
-	<bgColor r="255" g="255" b="255"/>
-	<axesColor r="0" g="0" b="0"/>
-	<gridColor r="192" g="192" b="192"/>
-	<lineStyle axes="1" grid="10"/>
-	<axis id="0" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
-	<axis id="1" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
-	<grid distX="0.5" distY="0.5"/>
-</euclidianView>
-<kernel>
-	<continuous val="true"/>
-	<decimals val="2"/>
-	<angleUnit val="degree"/>
-	<coordStyle val="0"/>
-</kernel>
-<construction title="" author="" date="">
-<expression label ="f" exp="f(x) = 2 sin(x)"/>
-<element type="function" label="f">
-	<show object="true" label="true"/>
-	<objColor r="0" g="0" b="255" alpha="0.0"/>
-	<labelMode val="0"/>
-	<animation step="0.1"/>
-	<fixed val="false"/>
-	<breakpoint val="false"/>
-	<lineStyle thickness="2" type="0"/>
-</element>
-<element type="numeric" label="a">
-	<value val="2.0"/>
-	<show object="false" label="true"/>
-	<objColor r="0" g="0" b="0" alpha="0.1"/>
-	<labelMode val="1"/>
-	<animation step="0.1"/>
-	<fixed val="false"/>
-	<breakpoint val="false"/>
-</element>
-<element type="point" label="A">
-	<show object="true" label="true"/>
-	<objColor r="0" g="0" b="255" alpha="0.0"/>
-	<labelMode val="0"/>
-	<animation step="0.1"/>
-	<fixed val="false"/>
-	<breakpoint val="false"/>
-	<coords x="2.0" y="0.0" z="1.0"/>
-	<coordStyle style="cartesian"/>
-	<pointSize val="3"/>
-</element>
-<command name="Tangent">
-	<input a0="a" a1="f"/>
-	<output a0="t"/>
-</command>
-<element type="line" label="t">
-	<show object="true" label="true"/>
-	<objColor r="255" g="0" b="0" alpha="0.0"/>
-	<labelMode val="0"/>
-	<breakpoint val="false"/>
-	<coords x="0.8322936730942848" y="1.0" z="-3.4831821998399333"/>
-	<lineStyle thickness="2" type="0"/>
-	<eqnStyle style="explicit"/>
-</element>
-</construction>
-</geogebra>
 
+%geogebra_xml,description="Obtained from .ggb file"
 
-%/geogebra
+    <?xml version="1.0" encoding="utf-8"?>
+    <geogebra format="3.0">
+    <gui>
+    	<show algebraView="true" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
+    	<splitDivider loc="196" locVertical="400" horizontal="true"/>
+    	<font  size="12"/>
+    </gui>
+    <euclidianView>
+    	<size  width="540" height="553"/>
+    	<coordSystem xZero="215.0" yZero="315.0" scale="50.0" yscale="50.0"/>
+    	<evSettings axes="true" grid="true" pointCapturing="3" pointStyle="0" rightAngleStyle="1"/>
+    	<bgColor r="255" g="255" b="255"/>
+    	<axesColor r="0" g="0" b="0"/>
+    	<gridColor r="192" g="192" b="192"/>
+    	<lineStyle axes="1" grid="10"/>
+    	<axis id="0" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
+    	<axis id="1" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
+    	<grid distX="0.5" distY="0.5"/>
+    </euclidianView>
+    <kernel>
+    	<continuous val="true"/>
+    	<decimals val="2"/>
+    	<angleUnit val="degree"/>
+    	<coordStyle val="0"/>
+    </kernel>
+    <construction title="" author="" date="">
+    <expression label ="f" exp="f(x) = 2 sin(x)"/>
+    <element type="function" label="f">
+    	<show object="true" label="true"/>
+    	<objColor r="0" g="0" b="255" alpha="0.0"/>
+    	<labelMode val="0"/>
+    	<animation step="0.1"/>
+    	<fixed val="false"/>
+    	<breakpoint val="false"/>
+    	<lineStyle thickness="2" type="0"/>
+    </element>
+    <element type="numeric" label="a">
+    	<value val="2.0"/>
+    	<show object="false" label="true"/>
+    	<objColor r="0" g="0" b="0" alpha="0.1"/>
+    	<labelMode val="1"/>
+    	<animation step="0.1"/>
+    	<fixed val="false"/>
+    	<breakpoint val="false"/>
+    </element>
+    <element type="point" label="A">
+    	<show object="true" label="true"/>
+    	<objColor r="0" g="0" b="255" alpha="0.0"/>
+    	<labelMode val="0"/>
+    	<animation step="0.1"/>
+    	<fixed val="false"/>
+    	<breakpoint val="false"/>
+    	<coords x="2.0" y="0.0" z="1.0"/>
+    	<coordStyle style="cartesian"/>
+    	<pointSize val="3"/>
+    </element>
+    <command name="Tangent">
+    	<input a0="a" a1="f"/>
+    	<output a0="t"/>
+    </command>
+    <element type="line" label="t">
+    	<show object="true" label="true"/>
+    	<objColor r="255" g="0" b="0" alpha="0.0"/>
+    	<labelMode val="0"/>
+    	<breakpoint val="false"/>
+    	<coords x="0.8322936730942848" y="1.0" z="-3.4831821998399333"/>
+    	<lineStyle thickness="2" type="0"/>
+    	<eqnStyle style="explicit"/>
+    </element>
+    </construction>
+    </geogebra>
+
+%/geogebra_xml
+
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
+
 
 
 
