@@ -263,11 +263,9 @@ Write(Simplify(a));
     a := (((1-x^(2*k))/(1-x))*(1 + x^(2*(k+1)-1)));
     Write(Simplify(a));
 
-    %output
-      (x^(2*(k+1)-1)-x^(2*k+2*(k+1)-1)+1-x^(2*k))/(1-x)
-    %end
 
-%end
+
+%/piper
 
 
 
@@ -279,11 +277,8 @@ Write(Simplify(a));
     Write(a:Eval(a):Simplify(a));
     //Write(TestPiper(a,b));
 
-    %output
-      (1-x^2^k)/(1-x)*(1+x^2^(k+1-1)):((x^2^k+1)*(1-x^2^k))/(1-x):(1-x^2^k^2)/(1-x)
-    %end
 
-%end
+%/piper
 
 
 
@@ -294,33 +289,16 @@ Write(Simplify(a));
     b := Hold( 1/2 *(k+1)*(k+2) );
     Write(a:Simplify(a));
 
-    %hoteqn
-      $\left( 1 + x ^{2 ^{k}}\right)  \left( 1 - x ^{2 ^{k}}\right) :1 - x ^{2 ^{k ^{2}}}$
 
-        %output
-          HotEqn updated.
-        %end
 
-    %end
-
-%end
+%/piper
 
 %piper
     a := (1-x^2^k) * (1+x^2^k);
     Write(Simplify(FullForm(a)));
 
-    %output
-      (* 
-          (- 1 
-            (^ x 
-              (^ 2 k )))
-          (+ 
-            (^ x 
-              (^ 2 k ))1 ))
-      1-x^2^k^2
-    %end
 
-%end
+%/piper
 
 %piper
 
@@ -334,11 +312,9 @@ a := FromString("(*
               
 Write(a);
 
-    %output
-      (1-x^2^k)*(x^2^k+1)
-    %end
 
-%end
+
+%/piper
 
 %piper
 
@@ -346,11 +322,9 @@ a := FromString("(* 3 (MathSin 4))") LispRead();
               
 Write(Eval(a));
 
-    %output
-      -2.2704074859
-    %end
 
-%end
+
+%/piper
 
 
 
@@ -362,11 +336,8 @@ a := FromString("(+ 5 .5 2.5  )") LispRead();
               
 Write(Eval(a));
 
-    %output
-      +(5,.5,2.5)
-    %end
 
-%end
+%/piper
 
 
 %piper
@@ -375,11 +346,9 @@ a := FromString("(+ 1 2 3)") LispRead();
               
 Write(a);
 
-    %output
-      +(1,2,3)
-    %end
 
-%end
+
+%/piper
 
 %piper,output="",mode="true"
 //Good example problem for newbies book.  From problem 19 in "Mathematical Reasoning".
@@ -396,11 +365,9 @@ Write(TestPiper(a(k),e(k)));
 //Write(Simplify(c(k)));
 //Write(Factor(Numer(Together(c(k)))):Factor(Denom(Together(c(k)))));
 
-    %output
-      True
-    %end
 
-%end
+
+%/piper
 
 
 %beanshell
@@ -411,7 +378,7 @@ ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\Maxima-5.15.0\\bin\\m
  //env.put("VAR2", env.get("VAR1") + "suffix");
  //pb.directory("myDir");
  Process p = pb.start();
-%end
+%/beanshell
 
 
 %beanshell
@@ -463,11 +430,8 @@ out.flush();
  
   System.out.println("xxxx " + sb.toString());
 
-    %output 
-      
-    %end
 
-%end
+%/beanshell
 
 
 
@@ -527,11 +491,9 @@ max = maxima();
 
 new Thread( max ).start();
 
-    %output 
-      
-    %end
 
-%end
+
+%/beanshell
 
 
 
@@ -541,11 +503,8 @@ new Thread( max ).start();
 5+7;
 print("hello");
 
-    %output,name="test"
-      
-    %end
+%/maxima
 
-%end
 
 
 %beanshell,scope="ide"
@@ -554,11 +513,9 @@ v = view;
 		con = dwm.getDockable("console");
         con.setShell("Maxima");
 
-    %output 
-      
-    %end
 
-%end
+
+%/beanshell
 
 %lisp
 (defun compress (x)
@@ -616,11 +573,9 @@ MAXIMA> (compress '(1 1 1))
         lst
         (our-nthcdr (- n 1) (cdr lst))))
 
-    %output
-      
-    %end
 
-%end
+
+%/lisp
 
 MAXIMA> (our-nthcdr 2 '(a b c))
 
@@ -643,11 +598,9 @@ MAXIMA> (our-nthcdr 2 '(a b c))
 
     Write("Hello World!");
 
-    %output
-      "Hello World!"
-    %end
 
-%end
+
+%/piper
 
 
 %beanshell,scope="ide"
@@ -657,11 +610,9 @@ foldOutput = as.getActions().toString();
 
 //as = jEdit.getActionSets();
 
-    %output 
-      [Lorg.gjt.sp.jedit.EditAction;@1b17d49
-    %end
 
-%end
+
+%/beanshell
 
 
 
@@ -674,15 +625,9 @@ foldOutput = as.getActions().toString();
     a := x^2 + x/2 + 3;
     Write(a);
 
-    %output
-      True:
-      
-       2   x    
-      x  + - + 3
-           2
-    %end
 
-%end
+
+%/piper
 
 
 
@@ -699,11 +644,7 @@ foldOutput = as.getActions().toString();
     (2,0)
     t = Tangent[a, f]
 
-    %output
-      GeoGebra updated.
-    %end
-
-%end
+%/geogebra
 
 
 
@@ -782,11 +723,8 @@ foldOutput = as.getActions().toString();
 </construction>
 </geogebra>
 
-    %output
-      GeoGebra updated.
-    %end
 
-%end
+%/geogebra
 
 
 
