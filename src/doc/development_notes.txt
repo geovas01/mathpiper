@@ -418,4 +418,5 @@ Write(a);
 {{{GeoGebra
 + Copy XML protocol to clipboard.
 + Add commands for setting object properties so that these can be set by a program.
++ XML format does not allow comments but should.
 }}}

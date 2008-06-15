@@ -1,25 +1,19 @@
-%group
 
-    %piper,output="geogebra"  //Note: make indent level of output one more level than the indent level of the fold.  
+
+%piper,output="geogebra"  //Note: make indent level of output one more level than the indent level of the fold.  
         Write(2+2);
-
-        %geogebra
-          4
-        %end
-
-    %end
         
-%end
+%/piper
+        
+
 
 
 %beanshell,scope="ide"
 p = view.getTextArea().getPainter();
 
-    %output 
-      
-    %end
 
-%end
+
+%/beanshell
 
 
 %beanshell
@@ -98,11 +92,9 @@ import java.io.*;
 				
 	delayDisplay();
 
-    %error 
-      Sourced file: C:\DOCUME~1\Ted\LOCALS~1\Temp\mathrider49640.mws_tmp : Cannot access field: toString, on object: assoc.rep/code.pi entry .toString .replaceAll ( "/" , "-" )  Line: 33
-    %end
 
-%end
+
+%/beanshell
 
 
 %piper
@@ -112,11 +104,9 @@ Write(V(N(c)));
 f := 10/(10+1);
 Write(N(f));
 
-    %output
-      11/12 10/11
-    %end
 
-%end
+
+%/piper
 
 %piper
 k := 10;
@@ -124,64 +114,49 @@ g := k/(k+1) + 1/((k+1) * ((k+1)+1));
 h := (k+1) / (k+1)+1;
 Write(g, h);
 
-    %output
-      11/12 2
-    %end
 
-%end
+%/piper
 
 %piper
 Set(e,2.71828182847786963038);
 f(x) = N((.6*10^-6)* D(x) 40*(e^(-15000*x))*Sin(30000*x));
 Write(f(x));
 
-    %output
-      6e-7*(40*2.71828182847786963038^(-15000*x)*30000*Cos(30000*x)+(-600000)*2.71828182847786963038^(-15000*x)*Sin(30000*x))
-    %end
 
-%end
-f(x) := (.6*10^-6) *
+
+%/piper
+
 
 %piper
 Set(e,Exp(1));
 a := (.6*10^-6) * N((.6*10^-6)* D(x) 40*(e^(-15000*x))*Sin(30000*x));
 Write(a);
 
-    %output
-      (3.6e-7*(40*Exp(1)^(-15000*x)*30000*Cos(30000*x)+(-600000)*Exp(1)^(-15000*x)*Sin(30000*x)))/1000000
-    %end
 
-%end
+
+%/piper
 
 %piper
 Set(e,2.71828);
 df := D(x) 40*e^(-15000*x)*Sin(30000*x);
 Write(df);
 
-    %output
-      40*2.71828^(-15000*x)*30000*Cos(30000*x)+(-40)*2.71828^(-15000*x)*15000*Ln(2.71828)*Sin(30000*x)
-    %end
 
-%end
+%/piper
 
 %piper
 Write(25!);
 
-    %output
-      15511210043330985984000000
-    %end
 
-%end
+%/piper
 
 %piper
 b := (6*a + 5) / (a + 2);
 Write(b);
 
-    %output
-      (6*a+5)/(a+2)
-    %end
 
-%end
+
+%/piper
 
 %piper
 c := 
@@ -190,7 +165,7 @@ c :=
 
 ;
 d := k * e(k-1);
-%end
+%/piper
 
 
 
@@ -201,11 +176,9 @@ d(x) := N(Eval((0.6*10^-6) * D(x) 40*(e^(-15000*x))*Sin(30000*x) ));
 y := d(0);
 Write(y);
 
-    %output
-      0.72
-    %end
 
-%end
+
+%/piper
 
 
 
@@ -223,11 +196,9 @@ ForEach(x,1 .. 10)
         b := c;
     ];
 
-    %output
-      3.66666666666666666667 4.76470588235294117647 4.96521739130434782609 4.99500624219725343321 4.99928609673389255756 4.99989800341688553433 4.99998542884723967725 4.99999791840241548584 4.99999970262882806839 4.99999995751840220508
-    %end
 
-%end
+
+%/piper
 
 
 %beanshell,name="P2D_GeoGebra",scope="global"
@@ -251,11 +222,9 @@ P2D_GeoGebra(str)
 data = "3.66666666666666666667 4.76470588235294117647 4.96521739130434782609 4.99500624219725343321 4.99928609673389255756 4.99989800341688553433 4.99998542884723967725 4.99999791840241548584 4.99999970262882806839 4.99999995751840220508";
 P2D_GeoGebra(data);
 
-    %output 
-      3.66666666666666666667 4.76470588235294117647 4.96521739130434782609 4.99500624219725343321 4.99928609673389255756 4.99989800341688553433 4.99998542884723967725 4.99999791840241548584 4.99999970262882806839 4.99999995751840220508
-    %end
 
-%end
+
+%/beanshell
 
 
 %piper,output="latex"
@@ -270,11 +239,8 @@ P2D_GeoGebra(data);
     a :=((1-x^(2*k))/(1-x))*((1-x^(2*(k+1)))/(1-x));
     Write(a);
 
-    %hoteqn
-      $\frac{\left( 1 - x ^{2 \left( k + 1\right) }\right)  \left( 1 - x ^{2 k}\right) }{\left( 1 - x\right)  ^{2}} $
-    %end
 
-%end
+%/piper
 
 %piper, output="latex"
 
@@ -283,14 +249,11 @@ Write(Simplify(a));
     %hoteqn
       $\frac{x ^{2 k + 2 \left( k + 1\right) } - x ^{2 \left( k + 1\right) } + 1 - x ^{2 k}}{x ^{2} - 2 x + 1} $
 
-        %output
-          HotEqn updated.
-        %end
 
-    %end
 
-%end
+    %/hoteqn
 
+%/piper
 
 
 
@@ -627,11 +590,9 @@ v = view;
         (list n elt)
         elt))
 
-    %output
-      
-    %end
 
-%end
+
+%/lisp
 
 
 MAXIMA> (compress '(1 1 1))
@@ -826,6 +787,7 @@ foldOutput = as.getActions().toString();
     %end
 
 %end
+
 
 
 :indentSize=4:tabSize=4:wrap=none:

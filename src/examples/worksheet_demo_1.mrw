@@ -19,7 +19,7 @@ While(x < 100)
   x := x + 1;  
 ];
 
-%end
+%/piper
 
 
 
@@ -28,7 +28,7 @@ While(x < 100)
 
 Echo(1 .. 100);
 
-%end
+%/piper
 
 
 
@@ -39,7 +39,7 @@ a := {8,11,14,18,24,29};
 ForEach(x,a)
     Echo(x,"- ", Factor(x));
 
-%end
+%/piper
 
 
 
@@ -50,7 +50,7 @@ Clear(x);
 f(x) := 11*x-2*x^2;
 Write(f(x));
 
-%end
+%/piper
 
 
 
@@ -61,7 +61,7 @@ Write(f(x));
 df := D(x) f(x);
 Write(df);
 
-%end
+%/piper
 
 
 
@@ -70,7 +70,7 @@ Write(df);
 
 f(x)=2*sin(x)
 
-%end
+%/geogebra
 
 
 
@@ -81,7 +81,7 @@ a = 2
 (2,0)
 t = Tangent[a, f]
 
-%end
+%/geogebra
 
 
 
@@ -91,7 +91,7 @@ Sin(x) with a dynamic tangent line.  Drag the point at the intersection
 of the tangent line and the sin wage to move it.  Drag the points
 a, b, and c to change the sin wave.
 */
-%geogebra,name="slope",input="xml",collapse="true",clear="true"
+%geogebra_xml,name="slope",collapse="true",clear="true"
 <?xml version="1.0" encoding="utf-8"?>
 <geogebra format="2.7">
 <gui>
@@ -209,7 +209,11 @@ a, b, and c to change the sin wave.
 </construction>
 </geogebra>
 
-%end
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
+
+%/geogebra_xml
 
 
 
@@ -217,7 +221,7 @@ a, b, and c to change the sin wave.
 Drag the points to change the parameters of this area under a curve
 demonstration.
 */
-%geogebra,name="area_under_curve",input="xml",clear="true",collapse="true"
+%geogebra_xml,name="area_under_curve",input="xml",clear="true",collapse="true"
 <?xml version="1.0" encoding="utf-8"?>
 <geogebra format="2.7">
 <gui>
@@ -409,11 +413,9 @@ demonstration.
 </construction>
 </geogebra>
 
-     %output
-      GeoGebra updated.
-     %end
 
-%end
+
+%/geogebra_xml
 
 
 
@@ -421,13 +423,12 @@ demonstration.
 Drag the points to change the parameters of this domain and range
 demonstration.
 */
-%geogebra,name="domain_range",input="xml",clear="true",collapse="true"
+%geogebra_xml,name="domain_range",clear="true",collapse="true"
 <?xml version="1.0" encoding="utf-8"?>
 <geogebra format="2.7">
 <gui>
 	<show algebraView="false" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
 	<splitDivider loc="234" locVertical="400" horizontal="true"/>
-	<!--<font  size="18"/>-->
 	<consProtColumns  col0="true" col1="true" col2="true" col3="false" col4="true" col5="false"/>
 	<consProtocol useColors="true" showOnlyBreakpoints="false"/>
 </gui>
@@ -665,7 +666,7 @@ demonstration.
 
 </geogebra>
 
-%end
+%/geogebra_xml
 
 
 
@@ -673,7 +674,7 @@ demonstration.
 %hoteqn
     $2\sum_{i=1}^n a_i \;\int_a^b f_i(x)g_i(x)\,dx$
 
-%end
+%/hoteqn
 
 
 
@@ -685,7 +686,7 @@ a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
 Write(b);
 
-%end
+%/piper
 
 
 
@@ -697,7 +698,7 @@ Clear(x);
 a := x^3 - 2*x - 7 == 0;
 Write(Solve(a,x));
 
-%end
+%/piper
 
 
 
@@ -728,7 +729,7 @@ MathRider
 
 </html>
 
-%end
+%/html
 
 
 
@@ -739,7 +740,7 @@ in a notebook.
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-docker = jEdit.getActiveView().getDockableWindowManager();
+docker = org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager();
 frame = new javax.swing.JFrame();
 guiBox = new Box(BoxLayout.Y_AXIS);
 messageTextField = new JTextField();
@@ -780,9 +781,4 @@ actionPerformed(event)
 
 }
 
-%end
-
-
-
-
-
+%/beanshell

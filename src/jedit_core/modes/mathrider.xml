@@ -14,7 +14,17 @@
 	
 	<RULES IGNORE_CASE="FALSE" >
 
+		<!-- Silly comment -->
+		<SEQ TYPE="COMMENT1">/**/</SEQ>
 
+
+		<!-- C style comment -->
+		<SPAN TYPE="COMMENT1">
+			<BEGIN>/*</BEGIN>
+			<END>*/</END>
+		</SPAN>
+        
+		<EOL_SPAN TYPE="COMMENT1">//</EOL_SPAN>
 
 		<!--<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%piper</EOL_SPAN>
 		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%maxima</EOL_SPAN>
@@ -84,18 +94,57 @@
 -->
 
 
-		<SPAN_REGEXP  TYPE="KEYWORD3" DELEGATE="piper::MAIN">
-			<BEGIN>%piper[0-9a-zA-Z,=" ]*</BEGIN>
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="piper::MAIN">
+			<BEGIN>%piper[0-9a-zA-Z,="_ ]*</BEGIN>
 			<END>%/piper</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="MARKUP" >
-			<BEGIN>%output[0-9a-zA-Z,=" ]*</BEGIN>
+			<BEGIN>%output[0-9a-zA-Z,="_ ]*</BEGIN>
 			<END>%/output</END>
 		</SPAN_REGEXP>
+        
+		<SPAN_REGEXP  TYPE="INVALID" >
+			<BEGIN>%error[0-9a-zA-Z,="_ ]*</BEGIN>
+			<END>%/error</END>
+		</SPAN_REGEXP>
 
+ 
+        
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="tex::MATH">
+			<BEGIN>%hoteqn[0-9a-zA-Z,="_ ]*</BEGIN>
+			<END>%/hoteqn</END>
+		</SPAN_REGEXP>
 
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="text::MAIN">
+			<BEGIN>%maxima[0-9a-zA-Z,="_ ]*</BEGIN>
+			<END>%/maxima</END>
+		</SPAN_REGEXP>
 
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="lisp::MAIN">
+			<BEGIN>%lisp[0-9a-zA-Z,="_ ]*</BEGIN>
+			<END>%/lisp</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="beanshell::MAIN">
+			<BEGIN>%beanshell[0-9a-zA-Z,="_ ]*</BEGIN>
+			<END>%/beanshell</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="html::MAIN">
+			<BEGIN>%html[0-9a-zA-Z,="_ ]*</BEGIN>
+			<END>%/html</END>
+		</SPAN_REGEXP>
+ 
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="xml::MAIN">
+			<BEGIN>%geogebra_xml[0-9a-zA-Z,="_ ]*</BEGIN>
+			<END>%/geogebra_xml</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="xml::MAIN">
+			<BEGIN>%geogebra[0-9a-zA-Z,="_ ]*</BEGIN>
+			<END>%/geogebra</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     

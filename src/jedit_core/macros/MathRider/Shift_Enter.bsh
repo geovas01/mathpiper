@@ -146,7 +146,7 @@ if(path.endsWith(".pi")){
 			properties = new java.util.Hashtable();
 			properties.put("type",foldType);
 			properties.put("preserve","true");
-			properties.put("input","");
+			//properties.put("input","");
 			properties.put("name","");
 			properties.put("output","output");
 			properties.put("collapse","false");
@@ -691,7 +691,7 @@ if(path.endsWith(".pi")){
 		// end %beanshell }}}
 	
 	///{{{ *** %geogebra ***
-		else if(foldType.equalsIgnoreCase("%geogebra")) //(foldStartLineText.indexOf("%geogebra") != -1)
+		else if(foldType.startsWith("%geogebra")) //(foldStartLineText.indexOf("%geogebra") != -1)
 		{
 			
 			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "geogebra" );
@@ -714,9 +714,10 @@ if(path.endsWith(".pi")){
 			
 			result = "GeoGebra updated.";
 			status = "%output";
-			if(foldProperties.get("input").equalsIgnoreCase("xml") )
+			if(foldType.endsWith("_xml"))
 			{
 				geogebra.setXML(codeText);
+				//System.out.println(codeText);
 			}
 			else
 			{
@@ -972,26 +973,59 @@ if(path.endsWith(".pi")){
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()
 					{
-						//Delete next fold if set to preserve="false".
-						textArea.goToNextFold(false);
-						nextFoldProperties = getFoldProperties(textArea.getCaretLine());
-						if(nextFoldProperties.get("preserve").equalsIgnoreCase("false"))
+						
+						boolean isLastFold = true;
+						buffer = textArea.getBuffer();
+						lineCount = buffer.getLineCount();
+						for(int i = foldEndLine; i < lineCount; i++)
 						{
-							textArea.selectFold();
-							beforeNewlines = afterNewlines = "";
-							//textArea.setSelectedText("");
-							//textArea.deleteLine();
-							//textArea.deleteLine();
-						}//end if.
-						else
+							if(buffer.isFoldStart(i))
+							{
+								isLastFold = false;
+								break;
+							}//end if.
+						}//end for.
+						
+						if(isLastFold == true)
 						{
+							//System.out.println("XXXXX " + foldEndLine + ",   " + lineCount);return;
+							if(foldEndLine == lineCount-1)
+							{
+								textArea.setCaretPosition(buffer.getLength());
+								textArea.insert("\n\n",false);
+							}//
+								
+								
 							afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
 							rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);//(isolatedCodeEndIndex, codeEndIndex);
 							textArea.setSelection(rangeSelection);
 							beforeNewlines = "\n";
 							afterNewlines = "\n\n";
 						}
+						else
+						{
+							textArea.goToNextFold(false);
+							nextFoldProperties = getFoldProperties(textArea.getCaretLine());
+							if(nextFoldProperties.get("preserve").equalsIgnoreCase("false"))//Delete next fold if set to preserve="false".
+							{
+								textArea.selectFold();
+								beforeNewlines = afterNewlines = "";
+								//textArea.setSelectedText("");
+								//textArea.deleteLine();
+								//textArea.deleteLine();
+							}//end if.
+							else
+							{
+								afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
+								rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);
+								textArea.setSelection(rangeSelection);
+								beforeNewlines = "\n";
+								afterNewlines = "\n\n";
+							}
+						}//end if/else.
 				
+						
+						
 					//System.out.println(result);
 						result = result.trim();
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
