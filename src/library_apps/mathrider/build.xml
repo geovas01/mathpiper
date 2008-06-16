@@ -2,7 +2,7 @@
 
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
 
-<project id="mathrider_library" name="mathrider_library" default="help" basedir="." >
+<project id="mathrider_library" name="mathrider_library" default="dist" basedir="." >
 	<description>
 		Build file for Piper.
 	</description>

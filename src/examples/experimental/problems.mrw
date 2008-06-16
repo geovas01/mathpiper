@@ -226,6 +226,14 @@ P2D_GeoGebra(data);
 
 %/beanshell
 
+    %output ,preserve="false"
+      3.66666666666666666667 4.76470588235294117647 4.96521739130434782609 4.99500624219725343321 4.99928609673389255756 4.99989800341688553433 4.99998542884723967725 4.99999791840241548584 4.99999970262882806839 4.99999995751840220508
+    %/output 
+
+    
+    
+    
+    
 
 %piper,output="latex"
     /* This is a great example problem to use in MathRider.
@@ -954,5 +962,40 @@ clipboard.setContents(temp,temp);
       HotEqn updated.
     %/output
     
+    
 
+
+%piper,output="geogebra"
+
+    a := x^2;
+    Write(a);
+
+%/piper
+
+    %geogebra,preserve="false"
+      x^2
+    %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+        %/output
+        
+        
+%piper,output="latex"
+
+    a := (((2*x)*(x+3)*(x+4))/9);
+    Write(a);
+
+%/piper
+
+    %error ,preserve="false"
+      Error parsing expression, near token Write
+    %/error 
+
+        %output,preserve="false"
+          HotEqn updated.
+        %/output
+
+        
+        
 :indentSize=4:tabSize=4:wrap=none:
