@@ -77,11 +77,15 @@ f(x)=2*sin(x)
 %geogebra,clear="false"
 //Add a tangent line to the function in the previous fold.
 
-a = 2
+p1 = 2
 (2,0)
-t = Tangent[a, f]
+t1 = Tangent[p1, f]
 
 %/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
 
 
 
@@ -209,11 +213,12 @@ a, b, and c to change the sin wave.
 </construction>
 </geogebra>
 
+
+%/geogebra_xml
+
     %output,preserve="false"
       GeoGebra updated.
     %/output
-
-%/geogebra_xml
 
 
 
@@ -699,6 +704,14 @@ a := x^3 - 2*x - 7 == 0;
 Write(Solve(a,x));
 
 %/piper
+
+    %hoteqn,preserve="false"
+      \left( x = \sqrt[3]{\frac{7}{2}  + \sqrt{\frac{1291}{108} }} + \sqrt[3]{\frac{7}{2}  - \sqrt{\frac{1291}{108} }}, x = \frac{ - \sqrt[3]{\frac{7}{2}  - \sqrt{\frac{1291}{108} }}}{2}  - \frac{\sqrt[3]{\frac{7}{2}  + \sqrt{\frac{1291}{108} }}}{2}  + \imath  \left( \sqrt{\frac{3}{4} } \sqrt[3]{\frac{7}{2}  + \sqrt{\frac{1291}{108} }} - \sqrt{\frac{3}{4} } \sqrt[3]{\frac{7}{2}  - \sqrt{\frac{1291}{108} }}\right) , x = \frac{ - \sqrt[3]{\frac{7}{2}  - \sqrt{\frac{1291}{108} }}}{2}  - \frac{\sqrt[3]{\frac{7}{2}  + \sqrt{\frac{1291}{108} }}}{2}  + \imath  \left( \sqrt{\frac{3}{4} } \sqrt[3]{\frac{7}{2}  - \sqrt{\frac{1291}{108} }} - \sqrt{\frac{3}{4} } \sqrt[3]{\frac{7}{2}  + \sqrt{\frac{1291}{108} }}\right) \right)
+    %/hoteqn
+
+        %output,preserve="false"
+          HotEqn updated.
+        %/output
 
 
 

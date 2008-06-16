@@ -68,6 +68,8 @@ options.hoteqn.label=hoteqn
 options.hoteqn.file=File:
 options.hoteqn.reset=Clear
 options.hoteqn.reset.title=Clear HotEqn
+options.hoteqn.export=Export
+options.hoteqn.export.title=Export Image
 options.hoteqn.choose-font=Font:
 options.hoteqn.show-filepath.title=Display notepad file path
 
@@ -78,6 +80,7 @@ hoteqn.title=HotEqn
 hoteqn.reset.icon=Clear.png
 hoteqn.save-file.icon=Save.png
 hoteqn.copy-to-buffer.icon=CopyToBuffer.png
+hoteqn.export.icon=Save.png
 
 # default settings
 options.hoteqn.show-filepath=true

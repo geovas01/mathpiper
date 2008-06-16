@@ -289,8 +289,8 @@ if(path.endsWith(".pi")){
 				if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
 					result = system.evaluate("TeXForm(Hold(" + result + "));");
-					result = result.replace("\"$","$");
-					result = result.replace("$\"","$");
+					result = result.replace("\"$","");
+					result = result.replace("$\"","");
 					status = "%hoteqn";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )

@@ -184,11 +184,35 @@ public class HotEqn extends JPanel
     
 	// HotEqnActions implementation
 
-    // {{{
+	
+    // {{{reset
 	public void reset() {
 		hotEqn.setEquation("");
 	}
     // }}}
+	
+	// {{{reset
+	public void export()
+	{
+		String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
+		
+		if (paths != null ) 
+		{
+			String fileName = paths[0];
+			java.io.File exportImageFile = new File(fileName);
+			try
+			{
+				java.awt.image.BufferedImage image = (java.awt.image.BufferedImage) hotEqn.getImage();
+				javax.imageio.ImageIO.write(image,"png",exportImageFile);
+			}
+			catch (java.io.IOException ioe)
+			{
+				ioe.printStackTrace();
+			}//end try/catch.
+		}//end if.
+	}//end method.
+    // }}}
+	
     
     // {{{ chooseFile
 	public void chooseFile() {
