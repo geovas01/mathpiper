@@ -183,10 +183,25 @@ if(path.endsWith(".pi")){
 		}//end if.
 
 	}//end if.
-	*/		
+	*/	
+
+	/* Used when output folds were inside of the parent fold.
 	foldSections = allFoldText.split("%piper|%maxima|%lisp|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
 	codeText = foldSections[0];
-	codeText = codeText.replaceAll("\\s+$", "");
+	codeText = codeText.replaceAll("\\s+$", "");//Note:tk:verify that this is needed.
+	*/
+	
+	if(foldProperties.get("type").equalsIgnoreCase("%html"))
+	{
+		codeText = allFoldText.trim();
+	}
+	else
+	{
+		codeText = allFoldText;
+	}//end if/else
+	
+	
+	
 /*	
 	//Do not include subfold as code.
 	if(endDollarSignIndex != -1)
@@ -835,27 +850,55 @@ if(path.endsWith(".pi")){
 				tempFilePath = tempFile.getAbsolutePath();
 				tempFilePath = ChangeToForwardSlash(tempFilePath);
 				tempFilePath = "file:///" + tempFilePath;
-				frame = new javax.swing.JFrame();
+				frame = new javax.swing.JFrame();     
+				
+				
+				//{{{Experimental screen capture code.
+		button =  = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
+		button.addActionListener( new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
+		
+				if (paths != null ) 
+				{
+					String fileName = paths[0];
+					java.io.File exportImageFile = new File(fileName);
+					try
+					{
+						java.awt.image.BufferedImage image = (java.awt.image.BufferedImage) hotEqn.getImage();
+						javax.imageio.ImageIO.write(image,"png",exportImageFile);
+					}
+					catch (java.io.IOException ioe)
+					{
+						ioe.printStackTrace();
+					}//end try/catch.
+				}//end if.
+			}//end method.
+		);
+
+		button.setToolTipText(Save image of this window.);
+				//}}}
+
+				
+				
+				
 				contentPane = frame.getContentPane();
 				JEditorPane editorPane = new JEditorPane();
 				JScrollPane editorScrollPane = new JScrollPane(editorPane);
 				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				editorPane.setEditable(false);
-				//editorPane.addHyperlinkListener(this);
-				//java.net.URL url = new java.net.URL(tempFilePath);
-				if (url != null) 
-				{
-					editorPane.setPage(tempFilePath);
-					contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
-					frame.pack();
-					frame.setAlwaysOnTop(true);
-					frame.setTitle("MathRider");
-					frame.setSize(new Dimension(400, 400));
-					frame.setResizable(true);
-					frame.setPreferredSize(new Dimension(400, 400));
-					frame.setLocationRelativeTo(null);
-					frame.show();
-				}//end if.
+
+				editorPane.setPage(tempFilePath);
+				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
+				frame.pack();
+				frame.setAlwaysOnTop(true);
+				frame.setTitle("MathRider");
+				frame.setSize(new Dimension(400, 400));
+				frame.setResizable(true);
+				frame.setPreferredSize(new Dimension(400, 400));
+				frame.setLocationRelativeTo(null);
+				frame.show();
+
 
 			}catch(Exception e) 
 			{
