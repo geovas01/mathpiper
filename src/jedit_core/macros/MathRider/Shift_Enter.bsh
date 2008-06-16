@@ -854,7 +854,7 @@ if(path.endsWith(".pi")){
 				
 				
 				//{{{Experimental screen capture code.
-		button =  = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
+		button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
 		button.addActionListener( new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
@@ -874,10 +874,11 @@ if(path.endsWith(".pi")){
 					}//end try/catch.
 				}//end if.
 			}//end method.
+		}//end anonymous.
 		);
 
-		button.setToolTipText(Save image of this window.);
-				//}}}
+		button.setToolTipText("Save image of this window.");
+				//}}}*/
 
 				
 				
