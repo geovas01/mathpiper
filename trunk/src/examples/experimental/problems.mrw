@@ -745,8 +745,209 @@ foldOutput = as.getActions().toString();
     %output,preserve="false"
       GeoGebra updated.
     %/output
+    
+    
+%hoteqn
+$2^3$
+%/hoteqn
+
+    %output,preserve="false"
+      HotEqn updated.
+    %/output
+
+    
+%beanshell
+
+he = new atp.sHotEqn();
+he.setFontsizes(18,18,18,18);
+he.setEquation("2^3");
+//global.image = he.getImage();
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+docker = org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager();
+frame = new javax.swing.JFrame();
+
+
+guiBox = new Box(BoxLayout.Y_AXIS);
+messageTextField = new JTextField();
+guiBox.add(messageTextField);
+button1 = new JButton("Grab image");
+button1.setBackground(Color.green);
+button1.addActionListener(this);
+guiBox.add(button1);
+button2 = new JButton("Close GeoGebra");
+button2.setBackground(Color.red);
+button2.addActionListener(this);
+guiBox.add(button2);
+contentPane = frame.getContentPane();
+contentPane.add(guiBox,BorderLayout.NORTH);
+//contentPane.add(he,BorderLayout.EAST);
 
 
 
+//ImageIcon icon = new ImageIcon(image);
+//JLabel label = new JLabel();
+//label.setIcon(icon);
+//panel.add(label);
+contentPane.add(he);
+frame.pack();
+frame.setAlwaysOnTop(true);
+frame.setTitle("MathRider");
+frame.setSize(new Dimension(250, 200));
+frame.setResizable(true);
+frame.setPreferredSize(new Dimension(250, 200));
+frame.setLocationRelativeTo(null); // added
+frame.show();
+//System.out.println("IIIIII" + image);
+
+
+
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.Toolkit;
+
+    
+imageSelection(Image i) 
+{
+    image = i;
+    
+    
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException
+    {
+        if (flavor.equals(DataFlavor.imageFlavor)) 
+        {
+            return image;
+        }
+        throw new UnsupportedFlavorException(flavor);
+    }
+    
+    public boolean isDataFlavorSupported(DataFlavor flavor) 
+    {
+        if (flavor.equals(DataFlavor.imageFlavor)) 
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public DataFlavor[] getTransferDataFlavors() 
+    {
+        return new DataFlavor[] {DataFlavor.imageFlavor};
+    }
+    return this;
+    
+}//end
+
+
+
+
+
+actionPerformed(event)
+{
+    src = event.getSource();
+
+    if (src == button1)
+    {
+      image = he.getImage();
+      System.out.println("IIIIIII " + image);
+      ImageIcon icon = new ImageIcon(image);
+      JLabel label = new JLabel();
+      label.setIcon(icon);
+      
+      contentPane.add(new javax.swing.JPanel().add(label),BorderLayout.SOUTH);
+      
+      frame.invalidate();
+      frame.validate();
+      frame.repaint();
+      
+      import java.io.*;
+      import java.awt.image.*;
+      import javax.imageio.*;
+      File myGifFile = new File("hoteqn.png");
+      
+      ImageIO.write(image,"png",myGifFile);
+      
+      
+      messageTextField.setText("Grabbed image");
+      
+      
+      temp = imageSelection(image);
+      clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+      clipboard.setContents(temp,temp);
+      
+      
+    }
+    else if (src == button2)
+    {
+      messageTextField.setText("GeoGebra closed.");
+      docker.hideDockableWindow( "geogebra" );
+    }
+
+}
+
+%/beanshell
+
+    %output ,preserve="false"
+      
+    %/output 
+
+    
+    
+
+%beanshell
+
+
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.Toolkit;
+public class ImageSelection implements Transferable
+{
+    private java.awt.Image image;
+    public ImageSelection(Image i) 
+    {
+        image = i;
+    }
+
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException
+    {
+        if (flavor.equals(DataFlavor.imageFlavor)) 
+        {
+            return image;
+        }
+        throw new UnsupportedFlavorException(flavor);
+    }
+
+    public boolean isDataFlavorSupported(DataFlavor flavor) 
+    {
+        if (flavor.equals(DataFlavor.imageFlavor)) 
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public DataFlavor[] getTransferDataFlavors() 
+    {
+        return new DataFlavor[] {DataFlavor.imageFlavor};
+    }
+}//end
+
+
+ImageSelection temp = new ImageSelection(my_graphics.offImage);
+Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+clipboard.setContents(temp,temp);
+    
+%/beanshell
+    
 
 :indentSize=4:tabSize=4:wrap=none:

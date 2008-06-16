@@ -44,6 +44,12 @@ public class HotEqnToolPanel extends JPanel {
 				HotEqnToolPanel.this.pad.reset();
 			}
 		}));
+		
+		add(makeCustomButton("hoteqn.export", new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				HotEqnToolPanel.this.pad.export();
+			}
+		}));
 		/*
 		add(makeCustomButton("piper.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
