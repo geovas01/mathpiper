@@ -178,3 +178,4 @@ helpviewer.toc.welcome=Welcome to MathRider
 plugins=plugin-options -
 view.style.comment4=color\:\#0000cc bgColor\:\#e7e7ff
 MathRider/Shift_Line_Numbers.shortcut=F2
+jedit-directory.label=$MathRider Home Directory

@@ -80,16 +80,16 @@
 	</target>
 	
 	
-	<target id="expectj" name="expectj" depends="init" >
-		<ant dir="${library_apps.src.dir}/expectj" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/expectj"/>
+	<target id="mathrider_library" name="mathrider_library" depends="init" >
+		<ant dir="${library_apps.src.dir}/mathrider" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/mathrider"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/expectj/src"/>
+			<property name="src.dir" value="${library_apps.src.dir}/mathrider/src"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
-		<copy file="${library_apps.build.dir}/expectj/dist/expectj.jar" todir="${plugins.jars.dir}"/>
+		<copy file="${library_apps.build.dir}/mathrider/dist/mathrider_library.jar" todir="${plugins.jars.dir}"/>
 	</target>
 	
 
