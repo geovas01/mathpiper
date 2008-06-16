@@ -747,17 +747,11 @@ foldOutput = as.getActions().toString();
     %/output
     
     
-%hoteqn
-$2^3$
-%/hoteqn
 
-    %output,preserve="false"
-      HotEqn updated.
-    %/output
 
     
 %beanshell
-
+//Save image as .png file.  Clipboard code works but is low resolution.
 he = new atp.sHotEqn();
 he.setFontsizes(18,18,18,18);
 he.setEquation("2^3");
@@ -948,6 +942,17 @@ Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 clipboard.setContents(temp,temp);
     
 %/beanshell
+
+
+%hoteqn
+
+    2 x ^{3} + 14 x ^{2} +  \frac{24 x}{7}
+
+%/hoteqn
+
+    %output,preserve="false"
+      HotEqn updated.
+    %/output
     
 
 :indentSize=4:tabSize=4:wrap=none:

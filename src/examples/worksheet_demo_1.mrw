@@ -677,9 +677,13 @@ demonstration.
 
 //Execute this fold to render the LaTeX expression it contains.
 %hoteqn
-    $2\sum_{i=1}^n a_i \;\int_a^b f_i(x)g_i(x)\,dx$
+    2\sum_{i=1}^n a_i \;\int_a^b f_i(x)g_i(x)\,dx
 
 %/hoteqn
+
+    %output,preserve="false"
+      HotEqn updated.
+    %/output
 
 
 
@@ -692,6 +696,14 @@ b := Expand(a);
 Write(b);
 
 %/piper
+
+    %hoteqn,preserve="false"
+      2 x ^{3} + 14 x ^{2} + 24 x
+    %/hoteqn
+
+        %output,preserve="false"
+          HotEqn updated.
+        %/output
 
 
 
