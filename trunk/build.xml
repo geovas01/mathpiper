@@ -249,6 +249,12 @@
 		</antcall>
 		<copy file="${library_apps.build.dir}/piper/dist/piper.jar" todir="${plugins.jars.dir}"/>
 		
+		
+		<antcall target="mathrider_library">
+			<param name="target" value="dist"/>
+		</antcall>
+		<copy file="${library_apps.build.dir}/mathrider/dist/mathrider_library.jar" todir="${plugins.jars.dir}"/>
+		
 	</target>
 
 	
