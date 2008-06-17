@@ -778,12 +778,13 @@ Write(Solve(a,x));
 
     <html>
         <title>
-        MathRider
+            MathRider
         </title>
+        
         <body>
             <h1>Welcome to MathRider</h1>
             
-              <TABLE>
+            <TABLE>
                 <CAPTION> <h3>Table Data.</h3>  </CAPTION>
                 
                 <TR> <TH> Column 1 </TH> <TH> Column 2 </TH> <TH> Column 3 </TH> </TR>
@@ -795,9 +796,8 @@ Write(Solve(a,x));
                 <TR> <TD> 4 </TD> <TD> 8 </TD> <TD> 7 </TD> </TR>
                 <TR> <TD> 5 </TD> <TD> 2 </TD> <TD> 1 </TD> </TR>
             
-              </TABLE>
+            </TABLE>
         </body>         
-    
     </html>
 
 %/html
@@ -806,8 +806,85 @@ Write(Solve(a,x));
       
     %/output
 
+    
 
+%html,width="700",height="440"
 
+	<html>
+		<h1 align="center">HTML Color Values</h1>
+		<table border="0" cellpadding="10" cellspacing="1" width="600">
+			<tr>
+				<th bgcolor="white" colspan="2"></th>
+				<th colspan="6">where blue=cc</th>
+			</tr>
+			<tr>
+				<th rowspan="6">where&nbsp;red=</th>
+				<th>ff</th>
+				<th bgcolor="#ff00cc">ff00cc</th>
+				<th bgcolor="#ff33cc">ff33cc</th>
+				<th bgcolor="#ff66cc">ff66cc</th>
+				<th bgcolor="#ff99cc">ff99cc</th>
+				<th bgcolor="#ffcccc">ffcccc</th>
+				<th bgcolor="#ffffcc">ffffcc</th>
+			</tr>
+			<tr>
+				<th>cc</th>
+				<th bgcolor="#cc00cc">cc00cc</th>
+				<th bgcolor="#cc33cc">cc33cc</th>
+				<th bgcolor="#cc66cc">cc66cc</th>
+				<th bgcolor="#cc99cc">cc99cc</th>
+				<th bgcolor="#cccccc">cccccc</th>
+				<th bgcolor="#ccffcc">ccffcc</th>
+			</tr>
+			<tr>
+				<th>99</th>
+				<th bgcolor="#9900cc">
+					<font color="#ffffff">9900cc</font>
+				</th>
+				<th bgcolor="#9933cc">9933cc</th>
+				<th bgcolor="#9966cc">9966cc</th>
+				<th bgcolor="#9999cc">9999cc</th>
+				<th bgcolor="#99cccc">99cccc</th>
+				<th bgcolor="#99ffcc">99ffcc</th>
+			</tr>
+			<tr>
+				<th>66</th>
+				<th bgcolor="#6600cc">
+					<font color="#ffffff">6600cc</font>
+				</th>
+				<th bgcolor="#6633cc">
+					<font color="#FFFFFF">6633cc</font>
+				</th>
+				<th bgcolor="#6666cc">6666cc</th>
+				<th bgcolor="#6699cc">6699cc</th>
+				<th bgcolor="#66cccc">66cccc</th>
+				<th bgcolor="#66ffcc">66ffcc</th>
+			</tr>
+			<tr>
+				<th colspan="1"></th>
+				<th>00</th>
+				<th>33</th>
+				<th>66</th>
+				<th>99</th>
+				<th>cc</th>
+				<th>ff</th>
+			</tr>
+			<tr>
+				<th colspan="2"></th>
+				<th colspan="4">where green=</th>
+			</tr>
+		</table>
+	</html>
+    
+%/html
+
+    %output,preserve="false"
+      
+    %/output
+
+    
+    
+    
 %beanshell
 /*This code demonstrates that any GUI interfaces can be created for use
 in a notebook.

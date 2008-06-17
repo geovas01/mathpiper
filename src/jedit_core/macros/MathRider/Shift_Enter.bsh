@@ -147,6 +147,8 @@ if(path.endsWith(".pi")){
 			properties.put("type",foldType);
 			properties.put("preserve","true");
 			//properties.put("input","");
+			properties.put("width","400");
+			properties.put("height","400");
 			properties.put("name","");
 			properties.put("output","output");
 			properties.put("collapse","false");
@@ -850,53 +852,62 @@ if(path.endsWith(".pi")){
 				tempFilePath = tempFile.getAbsolutePath();
 				tempFilePath = ChangeToForwardSlash(tempFilePath);
 				tempFilePath = "file:///" + tempFilePath;
-				frame = new javax.swing.JFrame();     
-				
-				
-				//{{{Experimental screen capture code.
-		button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
-		button.addActionListener( new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
-		
-				if (paths != null ) 
-				{
-					String fileName = paths[0];
-					java.io.File exportImageFile = new File(fileName);
-					try
-					{
-						java.awt.image.BufferedImage image = (java.awt.image.BufferedImage) hotEqn.getImage();
-						javax.imageio.ImageIO.write(image,"png",exportImageFile);
-					}
-					catch (java.io.IOException ioe)
-					{
-						ioe.printStackTrace();
-					}//end try/catch.
-				}//end if.
-			}//end method.
-		}//end anonymous.
-		);
-
-		button.setToolTipText("Save image of this window.");
-				//}}}*/
-
-				
-				
-				
+				frame = new javax.swing.JFrame(); 
 				contentPane = frame.getContentPane();
+				contentPane.setLayout(new java.awt.BorderLayout());
 				JEditorPane editorPane = new JEditorPane();
 				JScrollPane editorScrollPane = new JScrollPane(editorPane);
 				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				editorPane.setEditable(false);
-
 				editorPane.setPage(tempFilePath);
 				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
+				
+				
+				//{{{Experimental screen capture code.
+				button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
+				button.setToolTipText("Save image of this window.");
+				ActionListener actionListener = new java.awt.event.ActionListener() {
+					
+					public void actionPerformed(ActionEvent evt) 
+					{
+						String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
+				
+						if (paths != null ) 
+						{
+							String fileName = paths[0];
+							java.io.File exportImageFile = new File(fileName);
+							try
+							{
+								org.mathrider.library.ScreenCapture.createImage(editorPane, fileName);
+							}
+							catch (java.io.IOException ioe)
+							{
+								ioe.printStackTrace();
+							}//end try/catch.
+						}//end if.
+					}//end method.
+				};//end anonymous.
+        		
+				button.addActionListener( actionListener);
+				
+				
+				toolPanel = new javax.swing.JPanel();
+				toolPanel.add(button);
+				contentPane.add(toolPanel, java.awt.BorderLayout.NORTH);
+				
+				//}}}*/
+
+				
+				
+
 				frame.pack();
-				frame.setAlwaysOnTop(true);
+				frame.setAlwaysOnTop(false);
 				frame.setTitle("MathRider");
-				frame.setSize(new Dimension(400, 400));
+				xsize = Integer.parseInt(foldProperties.get("width"));
+				ysize = Integer.parseInt(foldProperties.get("height"));
+				frame.setSize(new Dimension(xsize, ysize));
 				frame.setResizable(true);
-				frame.setPreferredSize(new Dimension(400, 400));
+				//frame.setPreferredSize(new Dimension(400, 400));
 				frame.setLocationRelativeTo(null);
 				frame.show();
 
