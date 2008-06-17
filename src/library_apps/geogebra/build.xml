@@ -28,7 +28,7 @@
         <javac srcdir="${src.dir}" destdir="${build.dir}" source="${compile.source}" target="${compile.target}">
 				
 			 
-			<classpath refid="project.classpath" />
+	<classpath refid="project.classpath" />
         </javac>
     	<copy todir="${build.dir}">
     		<fileset dir="${src.dir}">

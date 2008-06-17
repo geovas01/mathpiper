@@ -276,7 +276,7 @@
 		<delete dir="${dist.build.dir}" />
 		<mkdir dir="${dist.build.dir}" />
 
-		<jar jarfile="${dist.build.dir}/mathrider_dist${version}.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**"
+		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_v${version}_alpha.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**"
 		 whenmanifestonly="skip" >
 			<manifest> 
 				<section name="MathRider" >
