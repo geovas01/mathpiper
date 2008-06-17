@@ -423,3 +423,9 @@ Write(a);
 + Add commands for setting object properties so that these can be set by a program.
 + XML format does not allow comments but should.
 }}}
+
+{{{SUBVERSION
++ And keep in mind, Subversion can handle binary files as well as text files, so I'd highly recommnd storing EVERYTHING in your repository, be it your development tools (Eclipse), external libraries (any JARs or DLLs your app might need), server configuration files (web server, DB server), bootstrap scripts, etc.  Aside from hardware and system software, creating a new environment to run your application shouldn't require anything that's not stored in version control.
+
+
+}}}
