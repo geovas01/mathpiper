@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
 
 {{{====To Do
++ Add menu items back when ready: help-menu=about help tip-of-the-day.
 + Need to work on more sophisticated fold property parser.  For example, what is a good way to part this?: (%piper,output="output,preserve="false",name="test"",name="test2").
 + Property scope="ide" throws null pointer exception when beanshell gui code is executed in worksheet_demo_1.mrw file.
 +"All buffer-local properties listed in the section called “Buffer-Local Properties” may be given values in edit modes." so perhaps set the folding mode here instead of in the system properties file?

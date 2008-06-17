@@ -16,6 +16,263 @@ p = view.getTextArea().getPainter();
 %/beanshell
 
 
+
+/*
+Drag the points to change the parameters of this domain and range
+demonstration.
+*/
+%geogebra_xml,name="domain_range",clear="true",collapse="true"
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="2.7">
+<gui>
+	<show algebraView="false" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
+	<splitDivider loc="234" locVertical="400" horizontal="true"/>
+	<consProtColumns  col0="true" col1="true" col2="true" col3="false" col4="true" col5="false"/>
+	<consProtocol useColors="true" showOnlyBreakpoints="false"/>
+</gui>
+<euclidianView>
+	<coordSystem xZero="301.95833333333326" yZero="350" scale="29.99999999999999" yscale="29.99999999999999"/>
+	<evSettings axes="true" grid="true" pointCapturing="1" pointStyle="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="64" g="64" b="64"/>
+	<gridColor r="204" g="204" b="204"/>
+	<lineStyle axes="1" grid="20"/>
+	<axis id="0" label="" unitLabel="" showNumbers="true"/>
+	<axis id="1" label="" unitLabel="" showNumbers="true"/>
+</euclidianView>
+
+<kernel>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="Domain and Range of Rational Functions" author="Duke" date="11/11/06">
+	<worksheetText above="Find the domain and range for each of the square root functions that follow. Adjust the sliders to transform the general square root function f(x) = a (x - h)1/2 + k. &#10;" below="Journal Entry:&#10;Describe how the values of a, h, and k can be used to find the domain and range of a square root function in the form  f(x) = a (x - h)1/2 + k.      Compare the domain and range of  f(x) = a (x - h)1/2 + k to the domain and range of its parent function  f(x) = x1/2.  Which of the values a, h, or k have a role in determining the domain and range? Why? Use specific examples to support your claims."/>
+<element type="numeric" label="a">
+	<value val="1.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.1"/>
+	<labelOffset x="9" y="-1"/>
+	<labelMode val="1"/>
+	<slider min="-10.0" max="10.0" absoluteScreenLocation="true" width="100.0" x="10.0" y="40.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<element type="numeric" label="h">
+	<value val="0.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.1"/>
+	<labelOffset x="5" y="-1"/>
+	<labelMode val="1"/>
+	<slider min="-5.0" max="5.0" absoluteScreenLocation="true" width="100.0" x="13.0" y="84.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<element type="numeric" label="k">
+	<value val="0.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.1"/>
+	<labelOffset x="8" y="1"/>
+	<labelMode val="1"/>
+	<slider min="-5.0" max="5.0" absoluteScreenLocation="true" width="100.0" x="10.0" y="126.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<expression label="f" exp="f(x) = a / (x - h) + k" />
+<element type="function" label="f">
+	<show object="true" label="false"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<labelOffset x="10" y="48"/>
+	<labelMode val="1"/>
+	<breakpoint val="false"/>
+	<lineStyle thickness="3" type="0"/>
+</element><expression label="b" exp="x = h" />
+
+<element type="line" label="b">
+	<show object="true" label="false"/>
+	<objColor r="51" g="255" b="0" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="1.0" y="0.0" z="-0.0"/>
+	<lineStyle thickness="2" type="30"/>
+	<eqnStyle style="implicit"/>
+</element>
+<expression label="c" exp="y = k" />
+<element type="line" label="c">
+	<show object="true" label="false"/>
+	<objColor r="51" g="255" b="0" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="1.0" z="-0.0"/>
+	<lineStyle thickness="2" type="30"/>
+	<eqnStyle style="explicit"/>
+</element>
+<command name="Intersect">
+	<input a0="b" a1="xAxis"/>
+	<output a0="A"/>
+</command>
+<element type="point" label="A">
+	<show object="true" label="false"/>
+	<objColor r="255" g="255" b="255" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="-0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="4"/>
+</element>
+<command name="Intersect">
+	<input a0="c" a1="yAxis"/>
+	<output a0="B"/>
+</command>
+<element type="point" label="B">
+	<show object="true" label="false"/>
+	<objColor r="255" g="255" b="255" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-0.0" y="0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="4"/>
+</element>
+<command name="Point">
+	<input a0="xAxis"/>
+	<output a0="C"/>
+</command>
+<element type="point" label="C">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="40.0" y="0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Point">
+	<input a0="yAxis"/>
+	<output a0="D"/>
+</command>
+
+<element type="point" label="D">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="40.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Point">
+	<input a0="xAxis"/>
+	<output a0="E"/>
+</command>
+<element type="point" label="E">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="-40.0" y="0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Point">
+	<input a0="yAxis"/>
+	<output a0="F"/>
+</command>
+<element type="point" label="F">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="-40.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Ray">
+	<input a0="A" a1="C"/>
+	<output a0="d"/>
+</command>
+<element type="ray" label="d">
+	<show object="true" label="false"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-0.0" y="40.0" z="0.0"/>
+	<lineStyle thickness="4" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<command name="Ray">
+	<input a0="B" a1="D"/>
+	<output a0="e"/>
+</command>
+<element type="ray" label="e">
+	<show object="true" label="false"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-40.0" y="0.0" z="-0.0"/>
+	<lineStyle thickness="4" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<command name="Ray">
+	<input a0="A" a1="E"/>
+	<output a0="g"/>
+</command>
+<element type="ray" label="g">
+	<show object="true" label="false"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-0.0" y="-40.0" z="0.0"/>
+	<lineStyle thickness="4" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<command name="Ray">
+	<input a0="B" a1="F"/>
+	<output a0="i"/>
+</command>
+<element type="ray" label="i">
+	<show object="true" label="false"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="40.0" y="0.0" z="0.0"/>
+	<lineStyle thickness="4" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<expression label="T1" exp="&quot;f(x)=\frac{&quot; + a + &quot;}{x-(&quot; + h + &quot;)} +(&quot; + k + &quot;)&quot;" />
+<element type="text" label="T1">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<fixed val="true"/>
+	<isLaTeX val="true"/>
+	<font serif="false" size="6" style="0"/>
+	<breakpoint val="false"/>
+	<absoluteScreenLocation  x="431" y="27"/>
+</element>
+
+
+</construction>
+
+</geogebra>
+
+%/geogebra_xml
+
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
+
+
+
+
 %beanshell
 import java.io.*;
 //Print the contents of the Piper script zip file.
