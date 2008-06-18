@@ -33,11 +33,11 @@ piper.shell.msg.usage=Piper, a computer algebra system for beginners.
 
 
 # plugin menu
-plugin.org.mathrider.piperplugin.PiperPlugin.menu=piper \
-	- \
-	piper.choose-file \
-	piper.save-file \
-	piper.copy-to-buffer
+plugin.org.mathrider.piperplugin.PiperPlugin.menu=piper
+#	- \
+#	piper.choose-file \
+#	piper.save-file \
+#	piper.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
 piper.label=piper

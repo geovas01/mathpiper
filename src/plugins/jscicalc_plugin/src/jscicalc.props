@@ -42,11 +42,11 @@ jscicalc.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.menu=jscicalc \
-	- \
-	jscicalc.clear \
-	jscicalc.save-file \
-	jscicalc.copy-to-buffer
+plugin.org.mathrider.jscicalcplugin.JSciCalcPlugin.menu=jscicalc
+#	- \
+#	jscicalc.clear \
+#	jscicalc.save-file \
+#	jscicalc.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
 jscicalc.label=jscicalc

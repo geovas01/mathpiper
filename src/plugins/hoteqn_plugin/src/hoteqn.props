@@ -43,11 +43,11 @@ hoteqn.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.menu=hoteqn \
-	- \
-	hoteqn.clear \
-	hoteqn.save-file \
-	hoteqn.copy-to-buffer
+plugin.org.mathrider.hoteqnplugin.HotEqnPlugin.menu=hoteqn
+#	- \
+#	hoteqn.clear \
+#	hoteqn.save-file \
+#	hoteqn.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
 hoteqn.label=hoteqn
