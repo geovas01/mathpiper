@@ -1255,4 +1255,53 @@ clipboard.setContents(temp,temp);
 
         
         
+        
+%piper,output="geogebra"
+a(x) := -4.472*(Sin(0.017453292519943295435676550206640875935524104*(2*x+86.56)) + 2*(Cos(0.0174532925199432954356765502066408759355241048*(2*x+86.56))));
+b(x) := 10 * Sin(0.017453292519943295435676550206640875935524104*(2*x -30));
+Echo(a(x));
+
+
+%/piper
+
+    %geogebra,preserve="false"
+      -4.472*(Sin(0.017453292519943295435676550206640875935524104*(2*x+86.56))+2*Cos(0.0174532925199432954356765502066408759355241048*(2*x+86.56)))
+    %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+        %/output
+
+
+%piper
+m := a * Sin(T) + b * Cos(T);
+c := Solve(m,b);
+Write(c);
+%/piper
+
+    %output,preserve="false"
+      {b== -(a*Sin(T))/Cos(T)}
+    %/output
+
+    
+%piper
+an := Solve(Sin(v) + Cos(v) == Sin(w),w);
+Write(an);
+%/piper
+
+    %output,preserve="false"
+      {w==ArcSin(Sin(v)+Cos(v)),w==Pi-ArcSin(Sin(v)+Cos(v))}
+    %/output
+    
+    
+%piper
+a(x) := -4.472*(Sin(0.017453292519943295435676550206640875935524104*(2*x+86.56)) + 2*(Cos(0.0174532925199432954356765502066408759355241048*(2*x+86.56))));
+Write(a(x));
+%/piper
+
+    %output,preserve="false"
+      -4.472*(Sin(0.017453292519943295435676550206640875935524104*(2*x+86.56))+2*Cos(0.0174532925199432954356765502066408759355241048*(2*x+86.56)))
+    %/output
+
+     
 :indentSize=4:tabSize=4:wrap=none:

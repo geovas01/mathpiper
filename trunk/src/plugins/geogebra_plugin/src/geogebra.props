@@ -43,11 +43,11 @@ geogebra.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.geogebraplugin.GeogebraPlugin.menu=geogebra \
-	- \
-	geogebra.clear \
-	geogebra.save-file \
-	geogebra.copy-to-buffer
+plugin.org.mathrider.geogebraplugin.GeogebraPlugin.menu=geogebra
+#	- \
+#	geogebra.clear \
+#	geogebra.save-file \
+#	geogebra.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
 geogebra.label=geogebra

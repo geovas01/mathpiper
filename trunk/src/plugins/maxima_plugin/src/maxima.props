@@ -33,11 +33,11 @@ maxima.shell.msg.usage=See http://maxima.sourceforge.net for information on how 
 
 
 # plugin menu
-plugin.org.mathrider.maximaplugin.MaximaPlugin.menu=maxima \
-	- \
-	maxima.choose-file \
-	maxima.save-file \
-	maxima.copy-to-buffer
+plugin.org.mathrider.maximaplugin.MaximaPlugin.menu=maxima
+#	- \
+#	maxima.choose-file \
+#	maxima.save-file \
+#	maxima.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
 maxima.label=maxima
