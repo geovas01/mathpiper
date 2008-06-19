@@ -289,8 +289,10 @@
 	</target>	
 	
 	
-	<!-- tar cjfp mathrider_linux_dist_v.10.tar.bz2 mathrider/
-	Also make sure to manually edit perspective file for now.-->
+	<!-- 
+	chmod +x -R mathrider.
+	tar cjfp mathrider_linux_dist_v.10.tar.bz2 mathrider/
+	-->
 	
 	
 	
