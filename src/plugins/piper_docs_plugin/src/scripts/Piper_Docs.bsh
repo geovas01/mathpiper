@@ -95,34 +95,6 @@ import java.awt.*;
 //{{{ User functions descriptions.
 userFunctionsDescriptions = new String[][]
 {
-{"+","Arithmetic addition.","Alphabetical","Numbers (Operations)"},
-{"-","Arithmetic subtraction or negation.","Alphabetical","Numbers (Operations)"},
-{"*","Arithmetic multiplication.","Alphabetical","Numbers (Operations)"},
-{"/","Arithmetic division.","Alphabetical","Numbers (Operations)"},
-{"<","Test for \"less than\".","Alphabetical","Numbers (Predicates)"},
-{">","Test for \"greater than\".","Alphabetical","Numbers (Predicates)"},
-{"<=","Test for \"less than or equal\".","Alphabetical","Numbers (Predicates)"},
-{">=","Test for \"greater than or equal\".","Alphabetical","Numbers (Predicates)"},
-{"^","Arithmetic power.","Alphabetical","Numbers (Operations)"},
-{"<<","Binary shift left operator.","Alphabetical","Numbers (Operations)"},
-{">>","Binary shift right operator","Alphabetical","Numbers (Operations)"},
-{"!","Factorial.","Alphabetical","Numbers (Operations)","Combinatorics"},
-{"!!","Factorial and related functions.","Alphabetical","Numbers (Operations)","Combinatorics"},
-{"***","Factorial and related functions.","Alphabetical","Numbers (Operations)","Combinatorics"},
-{".","Return the dot product of tensors.","Alphabetical","Linear Algebra"},
-{":","Prepend an item to a list, or concatenate strings.","Alphabetical","Functional Operators"},
-{"@","Apply a function.","Alphabetical","Functional Operators"},
-{"/@","Apply a function to all entries in a list.","Alphabetical","Functional Operators"},
-{"..","Construct a list of consecutive integers.","Alphabetical","Functional Operators"},
-{"/:","Local simplification rules.","Alphabetical","Control Flow"},
-{"/::","Local simplification rules.","Alphabetical","Control Flow"},
-{"!=","Test for \"not equal\".","Alphabetical","Predicates"},
-{"=","Test for equality of expressions.","Alphabetical","Predicates"},
-{"%","The previous result.","Alphabetical","Constants (System)"},
-{":=","Assign a variable or a list; define a function.","Alphabetical","Variables"},
-{"++","Increment a variable.","Alphabetical","Variables"},
-{"--","Decrement a variable.","Alphabetical","Variables"},
-{"o","Return the outer tensor product.","Alphabetical","Linear Algebra"},
 {"Abs","Absolute value (or modulus) of a number.","Alphabetical","Calculus Related (Symbolic)"},
 {"Add","Find the sum of a list of values.","Alphabetical","Series"},
 {"AddTo","Add an equation to a set of equations or set of set of equations.","Alphabetical","Functional Operators"},
@@ -673,11 +645,6 @@ userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Variables","Funct
 //{{{ Programmer functions descriptions.
 programmerFunctionsDescriptions = new String[][]
 {
-{"[","Beginning of block of statements.","Alphabetical","Programming"},
-{"]","End of block of statements.","Alphabetical","Programming"},
-{"*/","End of comment.","Alphabetical","Programming"},
-{"/*","Start of comment.","Alphabetical","Programming"},
-{"//","Beginning of one-line comment.","Alphabetical","Programming"},
 {"Array'Create","Create array.","Alphabetical","Native Objects"},
 {"Array'CreateFromList","Convert list to array.","Alphabetical","Native Objects"},
 {"Array'Get","Fetch array element.","Alphabetical","Native Objects"},
@@ -794,6 +761,47 @@ programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Programmin
 programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Testing","Functions for verifying the correct operation of Piper code.")) );
                              
 
+
+operatorsNodeDescriptions = new String[][]
+{
+{"+","Arithmetic addition.","Operators"},
+{"-","Arithmetic subtraction or negation.","Operators"},
+{"*","Arithmetic multiplication.","Operators"},
+{"/","Arithmetic division.","Operators"},
+{"<","Test for \"less than\".","Operators"},
+{">","Test for \"greater than\".","Operators"},
+{"<=","Test for \"less than or equal\".","Operators"},
+{">=","Test for \"greater than or equal\".","Operators"},
+{"^","Arithmetic power.","Operators"},
+{"<<","Binary shift left operator.","Operators"},
+{">>","Binary shift right operator","Operators"},
+{"!","Factorial.","Operators"},
+{"!!","Factorial and related functions.","Operators"},
+{"***","Factorial and related functions.","Operators"},
+{".","Return the dot product of tensors.","Operators"},
+{":","Prepend an item to a list, or concatenate strings.","Operators"},
+{"@","Apply a function.","Operators"},
+{"/@","Apply a function to all entries in a list.","Operators"},
+{"..","Construct a list of consecutive integers.","Operators"},
+{"/:","Local simplification rules.","Operators"},
+{"/::","Local simplification rules.","Operators"},
+{"!=","Test for \"not equal\".","Operators"},
+{"=","Test for equality of expressions.","Operators"},
+{"%","The previous result.","Operators"},
+{":=","Assign a variable or a list; define a function.","Operators"},
+{"++","Increment a variable.","Operators"},
+{"--","Decrement a variable.","Operators"},
+{"o","Return the outer tensor product.","Operators"},
+{"[","Beginning of block of statements.","Operators"},
+{"]","End of block of statements.","Operators"},
+{"*/","End of comment.","Operators"},
+{"/*","Start of comment.","Operators"},
+{"//","Beginning of one-line comment.","Operators"}
+};
+
+
+operatorsNode = new DefaultMutableTreeNode(functionInfo("Operators","Operators."));
+
 //}}}
 
 
@@ -859,7 +867,7 @@ populateNode(treeNode, descriptionsStringArray)
 	        
 	        if(hasCategory == false)
 	        {
-	            leaf = new DefaultMutableTreeNode(new functionInfo(descriptionsStringArray[row][0],descriptionsStringArray[row][1]));
+	            leaf = new DefaultMutableTreeNode(functionInfo(descriptionsStringArray[row][0],descriptionsStringArray[row][1]));
 	            category = new DefaultMutableTreeNode(descriptionsStringArray[row][column]);
 	            category.add(leaf);
 	            treeNode.add(category);
@@ -908,12 +916,77 @@ valueChanged(TreeSelectionEvent e)
 		toolPanel.sourceButtonEnabled(false);
         //Note:tk:Perhaps display top of chapter here?
     }
-	}//end method.}}}
+}//end method.}}}
+
+
+
+//{{{all functions
+allFunctions = new java.util.ArrayList();
+
+progFuncDescIndex = 0;
+userFuncDescIndex = 0;
+
+endFlag = false;
+
+while(endFlag != true)
+{
+    if( userFuncDescIndex != userFunctionsDescriptions.length && progFuncDescIndex != programmerFunctionsDescriptions.length)
+    {
+        if( userFunctionsDescriptions[userFuncDescIndex][0].compareTo( programmerFunctionsDescriptions[progFuncDescIndex][0] ) < 0)
+        {
+            desc = new String[3];
+            desc[0] = userFunctionsDescriptions[userFuncDescIndex][0];
+            desc[1] = userFunctionsDescriptions[userFuncDescIndex][1];
+            desc[2] = "All Functions";
+            allFunctions.add(desc);
+            userFuncDescIndex++;
+        }
+        else
+        {
+            desc = new String[3];
+            desc[0] = programmerFunctionsDescriptions[progFuncDescIndex][0];
+            desc[1] = programmerFunctionsDescriptions[progFuncDescIndex][1];
+            desc[2] = "All Functions";
+            allFunctions.add(desc);
+            progFuncDescIndex++;
+        }
+    }
+    else if(userFuncDescIndex != userFunctionsDescriptions.length)
+    {
+            desc = new String[3];
+            desc[0] = userFunctionsDescriptions[userFuncDescIndex][0];
+            desc[1] = userFunctionsDescriptions[userFuncDescIndex][1];
+            desc[2] = "All Functions";
+            allFunctions.add(desc);
+            userFuncDescIndex++;
+    }
+    else if(progFuncDescIndex != programmerFunctionsDescriptions.length)
+    {
+            desc = new String[3];
+            desc[0] = programmerFunctionsDescriptions[progFuncDescIndex][0];
+            desc[1] = programmerFunctionsDescriptions[progFuncDescIndex][1];
+            desc[2] = "All Functions";
+            allFunctions.add(desc);
+            progFuncDescIndex++;
+    }
+    else
+    {
+        endFlag = true;
+    }
+}//end while.
+
+
+//}}}
 
 piperFunctionsRootNode = new DefaultMutableTreeNode(functionInfo("Piper Functions                                           ","All Piper functions and constants."));
 
+populateNode(piperFunctionsRootNode, operatorsNodeDescriptions);
+
+populateNode(piperFunctionsRootNode, allFunctions.toArray() );
+
 populateNode(userFunctionsNode, userFunctionsDescriptions);
 piperFunctionsRootNode.add(userFunctionsNode);
+
 populateNode(programmerFunctionsNode, programmerFunctionsDescriptions);
 piperFunctionsRootNode.add(programmerFunctionsNode);
 
