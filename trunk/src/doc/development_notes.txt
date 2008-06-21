@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
 
 {{{====To Do
++ All Functions category gives duplicates when function names contain ` characters.
++ There are other duplicate function names in All Functions.
 + Add menu items back when ready: help-menu=about help tip-of-the-day.
 + Need to work on more sophisticated fold property parser.  For example, what is a good way to part this?: (%piper,output="output,preserve="false",name="test"",name="test2").
 + Property scope="ide" throws null pointer exception when beanshell gui code is executed in worksheet_demo_1.mrw file.
@@ -334,6 +336,23 @@ Out> {"123",Integer}
 In> FromString("===abc")PcreNextToken()
 Out> {"abc",Word}
 
+----
+From Axel:
+In the refactored sources I've tried to:
+* use generic HashMap<...,...> there possible instead of Hashtable and
+eliminated some Hashtable wrapper classes
+* use equals() method instead of "==" "!=" operator for Strings, but
+there is still a problem, because I didn't get rid of the (new)
+StringUtil.intern() method!
+
+IMO also the package structure should be refactored to easier maintain
+the piper API
+* all PiperEvaluator based classes should go in their own package and
+not be included as MathCommand subclasses.
+* the parser classes should be in an own package
+* the LispObject based classes should go in their own package
+* the SBox based classes should go in their own package and not be
+included as SBoxBuilder subclasses.
 ----
 }}}
 
