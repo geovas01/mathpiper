@@ -932,6 +932,11 @@ while(endFlag != true)
 {
     if( userFuncDescIndex != userFunctionsDescriptions.length && progFuncDescIndex != programmerFunctionsDescriptions.length)
     {
+		if( userFunctionsDescriptions[userFuncDescIndex][0].compareToIgnoreCase( programmerFunctionsDescriptions[progFuncDescIndex][0] ) == 0)
+		{
+			userFuncDescIndex++;
+		}//end if.
+		
         if( userFunctionsDescriptions[userFuncDescIndex][0].compareToIgnoreCase( programmerFunctionsDescriptions[progFuncDescIndex][0] ) < 0)
         {
             desc = new String[3];
