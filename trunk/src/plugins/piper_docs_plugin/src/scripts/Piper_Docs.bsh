@@ -238,10 +238,6 @@ userFunctionsDescriptions = new String[][]
 {"GaussianNorm","Norm of a Gaussian integer.","Alphabetical","Number Theory"},
 {"Gcd","Greatest common divisor.","Alphabetical","Numbers (Operations)"},
 {"GenericTypeName","","Alphabetical"},
-{"ReturnsCoreError","","Alphabetical"},
-{"ReturnsError","","Alphabetical"},
-{"ReturnsErrorTableau","","Alphabetical"},
-{"ReturnsTime","","Alphabetical"},
 {"GlobalPop","Restore variables using a global stack.","Alphabetical","Lists (Operations)"},
 {"GlobalPush","Save variables using a global stack.","Alphabetical","Lists (Operations)"},
 {"GoldenRatio","The Golden Ratio.","Alphabetical","Constants (Mathematical)"},
@@ -501,6 +497,10 @@ userFunctionsDescriptions = new String[][]
 {"ReadToken","Read a token from current input.","Alphabetical","Input/Output"},
 {"RemoveDuplicates","Remove any duplicates from a list.","Alphabetical","Lists (Operations)"},
 {"Replace","Replace an entry in a list.","Alphabetical","Lists (Operations)"},
+{"ReturnsCoreError","","Alphabetical"},
+{"ReturnsError","","Alphabetical"},
+{"ReturnsErrorTableau","","Alphabetical"},
+{"ReturnsTime","","Alphabetical"},
 {"Retract","","Alphabetical"},
 {"Reverse","Return the reversed list (without touching the original).","Alphabetical","Lists (Operations)"},
 {"ReversePoly","Solve h(f(x))=g(x)+O(x^n) for h.","Alphabetical","Series"},
@@ -932,13 +932,14 @@ while(endFlag != true)
 {
     if( userFuncDescIndex != userFunctionsDescriptions.length && progFuncDescIndex != programmerFunctionsDescriptions.length)
     {
-        if( userFunctionsDescriptions[userFuncDescIndex][0].compareTo( programmerFunctionsDescriptions[progFuncDescIndex][0] ) < 0)
+        if( userFunctionsDescriptions[userFuncDescIndex][0].compareToIgnoreCase( programmerFunctionsDescriptions[progFuncDescIndex][0] ) < 0)
         {
             desc = new String[3];
             desc[0] = userFunctionsDescriptions[userFuncDescIndex][0];
             desc[1] = userFunctionsDescriptions[userFuncDescIndex][1];
             desc[2] = "All Functions";
             allFunctions.add(desc);
+			//System.out.println("USER: " + desc[0] + " position: " + userFuncDescIndex);		
             userFuncDescIndex++;
         }
         else
@@ -948,6 +949,7 @@ while(endFlag != true)
             desc[1] = programmerFunctionsDescriptions[progFuncDescIndex][1];
             desc[2] = "All Functions";
             allFunctions.add(desc);
+			//System.out.println("Programmer: " + desc[0] + " position: " + progFuncDescIndex);	
             progFuncDescIndex++;
         }
     }
