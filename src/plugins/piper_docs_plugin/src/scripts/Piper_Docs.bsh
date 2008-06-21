@@ -980,8 +980,6 @@ while(endFlag != true)
 
 piperFunctionsRootNode = new DefaultMutableTreeNode(functionInfo("Piper Functions                                           ","All Piper functions and constants."));
 
-populateNode(piperFunctionsRootNode, operatorsNodeDescriptions);
-
 populateNode(piperFunctionsRootNode, allFunctions.toArray() );
 
 populateNode(userFunctionsNode, userFunctionsDescriptions);
@@ -989,6 +987,8 @@ piperFunctionsRootNode.add(userFunctionsNode);
 
 populateNode(programmerFunctionsNode, programmerFunctionsDescriptions);
 piperFunctionsRootNode.add(programmerFunctionsNode);
+
+populateNode(piperFunctionsRootNode, operatorsNodeDescriptions);
 
 tree = functionInfoTree(piperFunctionsRootNode);
 
