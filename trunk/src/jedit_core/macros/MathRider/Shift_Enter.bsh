@@ -595,13 +595,26 @@ if(path.endsWith(".pi")){
 	///{{{ *** %beanshell ***
 		else if(foldType.equalsIgnoreCase("%beanshell"))
 		{
+			ggbWraper()
+			{
+				if(org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet() == null)
+				{
+					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "geogebra" );
+				}
+				evalCommand(command)
+				{
+					org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet().evalCommand(command);
+				}
+				return this;
+			}
+
 			
 			scope = foldProperties.get("scope");
 			if(scope.equalsIgnoreCase("global"))
 			{
 				bshInterpreter = bsi;
 				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
-				bshInterpreter.set("ggb",ggb);
+				bshInterpreter.set("ggb",ggbWraper());
 				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
 			}
@@ -612,7 +625,7 @@ if(path.endsWith(".pi")){
 				bshInterpreter = new Interpreter();
 				bshInterpreter.eval("import geogebra.GeoGebraApplet;");
 				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
-				bshInterpreter.set("ggb",ggb);
+				bshInterpreter.set("ggb",ggbWraper());
 				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
 				
@@ -663,7 +676,7 @@ if(path.endsWith(".pi")){
 	//Sy	stem.out.println("Out> " + result);
 				
 					
-			}catch(EvalError e) 
+			}catch(Exception e) 
 			{
 				System.out.println(" XXXX ERROR: " + bshInterpreter.get("returnError"));
 				System.out.println(" XXX Beanshell Exception: " + e.getMessage());
