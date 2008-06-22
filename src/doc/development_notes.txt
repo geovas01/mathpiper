@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
 
 {{{====To Do
++ My concern is mostly "Java IDE kung-fu": users of these libraries (mostly just me :-) only want the highest level APIs to show in popup completion lists and the entire set of implementation classes remain invisible. The solution is easy: a public API class with implementation classes in the same package with package-ony (i.e., neither public or private) visibility..
 + All Functions category gives duplicates when function names contain ` characters.
 + There are other duplicate function names in All Functions.
 + Add menu items back when ready: help-menu=about help tip-of-the-day.
