@@ -108,14 +108,45 @@ public class Geogebra extends JPanel
 
 // Now try to get an applet stub for this class.
 
+
+String homeDir = org.gjt.sp.jedit.jEdit.getJEditHome();
+if(homeDir.indexOf(":") != -1){
+		homeDir = homeDir.split(":")[1];
+}
         MathriderAppletStub stub = new MathriderAppletStub(this,
-               geoGebraApplet, "geogebra.applet.", "http://localhost/");
+               geoGebraApplet, "geogebra.applet.", homeDir + java.io.File.separator +"jars" + java.io.File.separator + "scripts" + java.io.File.separator + "init.ggb");
         
 		geoGebraApplet.setStub(stub);
 
 		add(BorderLayout.CENTER, geoGebraApplet);
 // Initialize and start the applet
         geoGebraApplet.init();
+		
+		
+		//Set look and feel to jEdit look and feel.
+		try
+		{
+			String lf = org.gjt.sp.jedit.jEdit.getProperty("lookAndFeel");
+			if(lf != null && lf.length() != 0)
+				javax.swing.UIManager.setLookAndFeel(lf);
+			else if(org.gjt.sp.jedit.OperatingSystem.isMacOS())
+			{
+				javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
+					.getSystemLookAndFeelClassName());
+			}
+			else
+			{
+				javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
+					.getCrossPlatformLookAndFeelClassName());
+			}
+		}
+		catch(Exception e)
+		{
+			Log.log(Log.ERROR,jEdit.class,e);
+		}
+
+		
+		
         geoGebraApplet.start();
 
 		

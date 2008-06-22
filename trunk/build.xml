@@ -45,7 +45,7 @@
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
 		<pathelement path="${plugins.jars.dir}/piper_plugin.jar" />
-		<pathelement path="${master.lib.dir}/jars/hoteqn.jar" />  
+		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />  
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />
 		-->
@@ -69,7 +69,7 @@
 	</target>
 
 
-	<target id="piper" name="piper" depends="init" >
+	<target id="piper_library" name="piper_library" depends="init" >
 		<ant dir="${library_apps.src.dir}/piper" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${library_apps.build.dir}/piper"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -93,17 +93,17 @@
 	</target>
 	
 
-	<target id="geogebra" name="geogebra" depends="init" >
-		<ant dir="${library_apps.src.dir}/geogebra" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/geogebra"/>
+	<target id="hoteqn_library" name="hoteqn_library" depends="init" >
+		<ant dir="${library_apps.src.dir}/hoteqn" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/hoteqn"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/geogebra"/>
+			<property name="src.dir" value="${library_apps.src.dir}/hoteqn/src"/>
 			<reference refid="build_classpath"/>
 		</ant>
 	</target>
 	
-	<target id="piper_plugin" name="piper_plugin" depends="piper" >
+	<target id="piper_plugin" name="piper_plugin" depends="piper_library" >
 		<ant dir="${plugins.src.dir}/piper_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/piper_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -159,7 +159,7 @@
 	</target>
 	
 
-	<target id="hoteqn_plugin" name="hoteqn_plugin" depends="" >
+	<target id="hoteqn_plugin" name="hoteqn_plugin" depends="hoteqn_library" >
 		<ant dir="${plugins.src.dir}/hoteqn_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/hoteqn_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -244,16 +244,25 @@
 		</copy>
 		
 
-		<antcall target="piper">
+		<antcall target="piper_library">
 			<param name="target" value="dist"/>
 		</antcall>
 		<copy file="${library_apps.build.dir}/piper/dist/piper.jar" todir="${plugins.jars.dir}"/>
 		
+		<antcall target="hoteqn_library">
+			<param name="target" value="dist"/>
+		</antcall>
+		<copy file="${library_apps.build.dir}/hoteqn/dist/hoteqn.jar" todir="${plugins.jars.dir}"/>
 		
 		<antcall target="mathrider_library">
 			<param name="target" value="dist"/>
 		</antcall>
 		<copy file="${library_apps.build.dir}/mathrider/dist/mathrider_library.jar" todir="${plugins.jars.dir}"/>
+		
+		<antcall target="hoteqn_library">
+			<param name="target" value="dist"/>
+		</antcall>
+		<copy file="${library_apps.src.dir}/geogebra/geogebra/init.ggb" todir="${plugins.jars.dir}/scripts"/>
 		
 	</target>
 
