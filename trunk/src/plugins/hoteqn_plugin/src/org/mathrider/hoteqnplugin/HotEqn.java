@@ -31,7 +31,7 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 
-import atp.sHotEqn;
+import org.mathrider.hoteqn.sHotEqn;
 // }}}
 
 // {{{ HotEqn class
@@ -116,7 +116,7 @@ public class HotEqn extends JPanel
 	
 	
 	// {{{ gethotEqn
-	public static atp.sHotEqn getHotEqn()
+	public static sHotEqn getHotEqn()
 	{
 		return hotEqn;
 	}//end method
