@@ -1,0 +1,105 @@
+# Properties file for U6502 plugin.
+
+#{{{ 
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.u6502plugin.U6502Plugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.u6502plugin.U6502Plugin.name=U6502
+plugin.org.mathrider.u6502plugin.U6502Plugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.u6502plugin.U6502Plugin.version=4.3
+
+# online help
+plugin.org.mathrider.u6502plugin.U6502Plugin.docs=index.html
+plugin.org.mathrider.u6502plugin.U6502Plugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.u6502plugin.U6502Plugin.depend.1=jdk 1.5
+plugin.org.mathrider.u6502plugin.U6502Plugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.u6502plugin.U6502Plugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.u6502plugin.U6502Plugin..longdescription=description.html
+#}}}
+
+
+
+
+u6502.shell.msg.info=\nU6502 Shell \n\
+	  Test.\n\n
+
+u6502.shell.msg.usage=The Ant shell supports the following commands:\n\
+		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
+		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
+		 * "?"\t\t\t\t-- lists the available build files and usage\n\
+		 * "=build_file_number"\t\t-- changes the current build file to the number identified by "?"\n\
+		 * "+[full_path_to_file]"\t\t-- load this build file into Ant Farm. Searches up the current\n\
+				   \t\t\t\t   buffer's directory tree for a "build.xml" file to load if a \n\
+				 \t\t\t\t   file is not specified. Re-loads the build file if it is already\n\
+				 \t\t\t\t   loaded.\n\n
+
+
+
+
+
+# plugin menu
+plugin.org.mathrider.u6502plugin.U6502Plugin.menu=u6502
+#	- \
+#	u6502.clear \
+#	u6502.save-file \
+#	u6502.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+u6502.label=u6502
+
+# action labels for actions supplied by actions.xml
+u6502.source.label=View Source
+u6502.source.button-text=Source
+u6502.home.label=Home
+u6502.save-file.label=Save notepad file
+u6502.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.u6502.option-pane=u6502
+
+# Option pane activation BeanShell snippet
+options.u6502.code=new org.mathrider.u6502plugin.U6502OptionPane();
+
+# Option pane labels
+options.u6502.label=u6502
+options.u6502.file=File:
+options.u6502.source=Source
+options.u6502.home=Hlear
+options.u6502.source.title=View Source
+options.u6502.choose-font=Font:
+options.u6502.show-filepath.title=Display notepad file path
+
+# window title
+u6502.title=U6502
+
+# window toolbar buttons
+#u6502.source.icon=Clear.png
+u6502.home.icon=Home.png
+u6502.save-file.icon=Save.png
+u6502.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.u6502.show-filepath=true
+options.u6502.font=Monospaced
+options.u6502.fontstyle=0
+options.u6502.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.u6502.filepath=
+
+
+#
+#u6502.applet.filename=
+#u6502.applet.framePossible=false
+#u6502.applet.showSourceIcon=true
+#u6502.applet.enableRightClick=true
+#u6502.applet.showMenuBar=false
+#u6502.applet.showToolBar=true
+#u6502.applet.showToolBarHelp=true
+#u6502.applet.showAlgebraInput=true
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

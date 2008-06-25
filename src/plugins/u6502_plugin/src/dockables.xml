@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!-- Dockable component definition file for PiperHelpPlugin plugin -->
+<!-- $Id: dockables.xml 4474 2003-02-09 20:37:14Z spestov $
+-->
+
+<!DOCTYPE DOCKABLES SYSTEM "dockables.dtd">
+
+<!-- PiperHelpPlugin dockable windows -->
+
+<DOCKABLES>
+	<DOCKABLE NAME="u6502">
+		new org.mathrider.u6502plugin.U6502(view, position);
+	</DOCKABLE>
+</DOCKABLES>
