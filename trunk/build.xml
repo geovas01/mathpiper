@@ -11,7 +11,7 @@
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
 	<property environment="env" />
-	<property name="version" value=".50" />
+	<property name="version" value=".51" />
 	
 	
 	<!-- Set top directories -->
@@ -182,6 +182,19 @@
 		</ant>
 		
 		<copy file="${plugins.build.dir}/jscicalc_plugin/dist/jscicalc_plugin.jar" todir="${plugins.jars.dir}"/> 
+		
+	</target>
+	
+	<target id="u6502_plugin" name="u6502_plugin" >
+		<ant dir="${plugins.src.dir}/u6502_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/u6502_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/u6502_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/u6502_plugin/dist/u6502_plugin.jar" todir="${plugins.jars.dir}"/> 
 		
 	</target>
 	

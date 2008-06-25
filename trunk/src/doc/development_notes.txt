@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
 
 {{{====To Do
++ Automate the placing of version information in plugin documentation.
 + My concern is mostly "Java IDE kung-fu": users of these libraries (mostly just me :-) only want the highest level APIs to show in popup completion lists and the entire set of implementation classes remain invisible. The solution is easy: a public API class with implementation classes in the same package with package-ony (i.e., neither public or private) visibility..
 + All Functions category gives duplicates when function names contain ` characters.
 + There are other duplicate function names in All Functions.
@@ -468,5 +469,16 @@ Write(a);
 {{{SUBVERSION
 + And keep in mind, Subversion can handle binary files as well as text files, so I'd highly recommnd storing EVERYTHING in your repository, be it your development tools (Eclipse), external libraries (any JARs or DLLs your app might need), server configuration files (web server, DB server), bootstrap scripts, etc.  Aside from hardware and system software, creating a new environment to run your application shouldn't require anything that's not stored in version control.
 
+
+}}}
+
+{{{JEDIT
+Perhaps you can package your software so that it can be used one way
+(as a standalone program) but also available as a plugin for users of
+jEdit? That would certainly be cool. It's just a matter of keeping a
+good discipline and separating your code from the core code, and
+putting it all in a plugin, and then having the plugin set some
+default options in its props file. -Alan Ezust.
+----
 
 }}}
