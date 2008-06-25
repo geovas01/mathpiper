@@ -147,13 +147,60 @@ if(homeDir.indexOf(":") != -1){
 
 		
 		
+		
         geoGebraApplet.start();
+		
+		
+		//String initCommands = "<?xml version=\"1.0\" encoding=\"utf-8\"?><geogebra format=\"3.01\"><gui>	<show algebraView=\"true\" auxiliaryObjects=\"false\" algebraInput=\"true\" cmdList=\"true\"/>	<splitDivider loc=\"138\" locVertical=\"400\" horizontal=\"true\"/>	<font  size=\"12\"/></gui><euclidianView>	<size  width=\"715\" height=\"761\"/>	<coordSystem xZero=\"215.0\" yZero=\"315.0\" scale=\"50.0\" yscale=\"50.0\"/>	<evSettings axes=\"true\" grid=\"false\" pointCapturing=\"3\" pointStyle=\"0\" rightAngleStyle=\"1\"/>	<bgColor r=\"255\" g=\"255\" b=\"255\"/>	<axesColor r=\"0\" g=\"0\" b=\"0\"/>	<gridColor r=\"192\" g=\"192\" b=\"192\"/>	<lineStyle axes=\"1\" grid=\"10\"/>	<axis id=\"0\" show=\"true\" label=\"\" unitLabel=\"\" tickStyle=\"1\" showNumbers=\"true\"/>	<axis id=\"1\" show=\"true\" label=\"\" unitLabel=\"\" tickStyle=\"1\" showNumbers=\"true\"/></euclidianView><kernel>	<continuous val=\"false\"/>	<decimals val=\"2\"/>	<angleUnit val=\"degree\"/>	<coordStyle val=\"0\"/></kernel><construction title=\"\" author=\"\" date=\"\"></construction></geogebra>";
+		//geoGebraApplet.setXML(initCommands);
+		
+		java.awt.Container container = geoGebraApplet.getContentPane();
+		
+		adjustSplitPane(container);
+		
 
+		//javax.swing.JSplitPane splitPane = (javax.swing.JSplitPane) geoGebraApplet.getContentPane();
+		//splitPane.setDividerLocation(40);
+		//geoGebraApplet.refreshViews();
 		
 
 
 	}//end constructor.
     // }}}
+	
+	//{{{
+	//This fixes a problem where the look and feel does not display correctly.
+	//For some reason, adjusting the split pane corrects the display.
+	private void adjustSplitPane( java.awt.Container container )
+	{
+		if(container == null)
+		{
+			return;
+		}
+		
+		java.awt.Component[] components = container.getComponents();
+		
+		if(components == null)
+		{
+			return;
+		}
+		
+		for(int x = 0; x < components.length; x++)
+		{
+			if(components[x] instanceof javax.swing.JSplitPane)
+			{
+				javax.swing.JSplitPane splitPane = (javax.swing.JSplitPane) components[x];
+				splitPane.setDividerLocation(100);
+				return;
+			}
+			else if (components[x] instanceof java.awt.Container)
+			{
+				
+				adjustSplitPane((java.awt.Container) components[x]);
+			}
+		}
+	}//end
+	//}}}
 
     // {{{ Member Functions
 	
