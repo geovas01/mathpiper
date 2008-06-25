@@ -145,7 +145,7 @@ if(path.endsWith(".pi")){
 			
 			properties = new java.util.Hashtable();
 			properties.put("type",foldType);
-			properties.put("preserve","false");
+			properties.put("preserve","true");
 			//properties.put("input","");
 			properties.put("width","400");
 			properties.put("height","400");
@@ -1098,7 +1098,7 @@ if(path.endsWith(".pi")){
 						result = result.trim();
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
-						textArea.setSelectedText(beforeNewlines + indentAmount + status + "\n" + result + "\n" + indentAmount + "%/" + status.substring(1,status.length() ) + afterNewlines, false);
+						textArea.setSelectedText(beforeNewlines + indentAmount + status + ",preserve=\"false\"\n" + result + "\n" + indentAmount + "%/" + status.substring(1,status.length() ) + afterNewlines, false);
 						
 						//("\n\n     " + status + "\n      "+ result + "\n     %end\n",false);
 				 
