@@ -1,19 +1,23 @@
 package org.mathrider.u6502;
 
 import java.io.File;
-import org.gjt.sp.jedit.bsh.EvalError;
+import java.io.FileReader;
+import java.io.IOException;
+//import org.gjt.sp.jedit.bsh.EvalError;
 import java.util.HashMap;
 import java.util.ArrayList;
 
 
 public class UASM65
 {
+	private FileReader inputStream;
+	
 	private String error = "none";
 
 
 	private int line_character;
-	private char[] temp_add_mode = new char [5];
-	private String lst_filename = "";// = new char [20];
+	private int[] temp_add_mode = new int [5];
+	private String lst_filename = "";// = new int [20];
 	private int[] source_line = new int[132];
 	private int[] hold_label = new int[50];
 	private int[] hold_operator = new int[10];
@@ -29,7 +33,7 @@ public class UASM65
 	private int no_source_flag,no_lc_flag,no_obj_flag,hold_obj_1,hold_obj_2,hold_obj_3;
 	private int no_line_num_flag, pass2_flag,print_error_index,lst_flag;
 	private int s_record_index,code_index,record_length;
-	private String source_file_name = ""; //= new char [30];
+	private String source_file_name = ""; //= new int [30];
 	private int operand_index;
 
 	private int EOF = -1;
@@ -89,11 +93,19 @@ public class UASM65
 		int num_bytes;
 		int base_cycles;
 
-		public op_tbl(int[] operator, int[] add_code, int opcode, int num_bytes, int base_cycles)
+		public op_tbl(char[] operator, char[] add_code, int opcode, int num_bytes, int base_cycles)
 		{
+			for(int x = 0;x < operator.length; x++)
+			{
+				this.operator[x] = (int) operator[x];
+			}
 
-			operator = operator;
-			add_code = add_code;
+			
+			for(int x = 0;x < add_code.length; x++)
+			{
+				this.add_code[x] = (int) add_code[x];
+			}
+
 			opcode = opcode;
 			num_bytes = num_bytes;
 			base_cycles = base_cycles;
@@ -123,20 +135,29 @@ public class UASM65
 	//struct s_rec s_record[386];
 	private ArrayList s_record = new ArrayList();
 
-
+        public static void main(String[] args)
+        {
+            int a = 0;
+            //assem = new UASM65();
+        }
 
 	public UASM65()
 	{
 		super();
 
 		try {
-			java.io.InputStream inputStream = new java.io.FileReader("c:/ted/checkouts/mathrider/src/examples/experimental/test.asm");
+			java.io.FileReader inputStream = new java.io.FileReader("c:/ted/checkouts/mathrider/src/examples/experimental/test.asm");
 
 			//            int c;
 			//            while ((c = inputStream.read()) != -1) {
 			//                System.out.println(""+c);
 			//            }
-		} finally
+		}
+		catch(Exception ioe)
+		{
+			ioe.printStackTrace();
+		}
+		finally
 		{
 			//  if (inputStream != null) {
 			//      inputStream.close();
@@ -212,6 +233,10 @@ public class UASM65
 
 
 
+	private int strcmp(int[] first, String second)
+	{
+		return(0);
+	}
 
 
 	//Note: tempory test file
@@ -254,14 +279,14 @@ public class UASM65
 
 
 	//{{{strcpy
-	private void strcpy( char[] destination, char[] source)
+	private void strcpy( int[] destination, int[] source)
 	{
 		System.out.println(" XXXXXXX " + destination + source);
 		System.out.println(" XXXXXXX " + chars_to_string(destination) + chars_to_string(source));
 		//returnError = destination;  Note: begin here.
 		//throw new EvalError("hello",null,null);
 		int index = 0;
-		char c;
+		int c;
 		do
 		{
 			c = source[index];
@@ -269,11 +294,22 @@ public class UASM65
 			index++;
 		}while(c != 0);
 	}//end method.
+	
+	private void strcpy( int[] destination, String source)
+	{
+		byte[] bytes = source.getBytes();
+		
+		for(int x = 0; x < source.length(); x++)
+		{
+			destination[x] = bytes[x];
+		}
+		
+	}
 	//}}}
 
 
 	//{{{chars_to_string
-	private String chars_to_string(char[] chars)
+	private String chars_to_string(int[] chars)
 	{
 		int stringEndIndex = 0;
 		for(; chars[stringEndIndex] != 0; stringEndIndex++);
@@ -283,7 +319,7 @@ public class UASM65
 
 
 	//{{{strstr
-	private boolean strstr(char[] first, char[] second)
+	private boolean strstr(int[] first, int[] second)
 	{
 		String string1 = chars_to_string(first);
 
@@ -302,19 +338,27 @@ public class UASM65
 
 
 	//{{{fgetc
-	private char fgetc()
+	private int fgetc()
 	{
-		return inputStream.read();
+		try
+		{
+			return (int)inputStream.read();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return -1;
 	}//
 	//}}}
 
 
 	//{{{toupper
-	private char toupper(char c)
+	private int toupper(int c)
 	{
 		if(c >= 'a' && c <= 'z')
 		{
-			c = c - 32;
+			c = (int) c - 32;
 
 		}
 		return c;
@@ -331,7 +375,7 @@ public class UASM65
 		//	{
 		//		open_lst_file();
 		//
-		scan_lines(1);
+//		scan_lines(1);
 		//
 		//
 		//		if (end_flag == 0)
@@ -380,7 +424,7 @@ public class UASM65
 		//		return(0);
 		//	}
 		//
-	}//}}}End pass1.
+	return false; }//}}}End pass1.
 	//
 
 	//
@@ -426,7 +470,7 @@ public class UASM65
 	//}
 	//
 
-
+/*
 	//{{{scan_lines
 	private void scan_lines(int pass_flag)
 	{
@@ -483,7 +527,7 @@ public class UASM65
 
 		}
 	}//end method. }}}
-
+*/
 
 	//{{{ parse_line
 	private boolean parse_line()
@@ -506,7 +550,7 @@ public class UASM65
 		}
 		else if (check_label_character(source_line[0])) /* Check for label.*/
 		{
-			if (error_number=(scan_label()))
+			if ((error_number=scan_label()) != 0)
 			{
 				log_error(error_number);
 				return(false);
@@ -560,7 +604,7 @@ public class UASM65
 				}
 			}
 
-			if (error_number = (scan_operand()))
+			if ((error_number = scan_operand()) != 0)
 			{
 				log_error(error_number);
 				return(false);
@@ -585,9 +629,9 @@ public class UASM65
 
 
 	//
-	//
-	//scan_label()
-	//{
+	//{{ scan_label
+	private int scan_label()
+	{
 	//	while (source_line[line_index] != ' ' && source_line[line_index] != 9)
 	//	{
 	//		if (check_label_character(source_line[line_index]))
@@ -609,11 +653,11 @@ public class UASM65
 	//	hold_location = location_counter;
 	//	str_to_upper(hold_label);
 	//	return(0);
-	//}
+	return 0; }//}}}
 	//
 
 	//{{{scan_operator
-	private void scan_operator()
+	private int scan_operator()
 	{
 		int local_line_index;
 		local_line_index = 0;
@@ -642,7 +686,7 @@ public class UASM65
 
 	//
 	//{{{valid_mnemonic_scan
-	private void valid_mnemonic_scan()
+	private boolean valid_mnemonic_scan()
 	{
 		//	op_tbl_index = 0;
 		//	while (true)
@@ -659,24 +703,24 @@ public class UASM65
 		//		op_tbl_index++;
 		//	}
 		//
-		operator = chars_to_string(hold_operator);
+		String operator = chars_to_string(hold_operator);
 		if(op_table.containsKey(operator))
 		{
 			//System.out.println(" XXXXX " + chars_to_string(op_table.get(operator).add_code) );return;
-			strcpy(temp_add_mode,op_table.get(operator).add_code);
+			strcpy(temp_add_mode,((op_tbl)op_table.get(operator)).add_code);
 			return(true);
 		}
 		else
 		{
 			return(false);
 		}
-		return(0);
+		//return(0);
 	}//}}}
 
 	//
-	//
-	//scan_operand()
-	//{
+	//{{{scan_operand
+	private int scan_operand()
+	{
 	//	int local_line_index;
 	//	local_line_index = 0;
 	//	if (source_line[line_index] == 34)
@@ -735,7 +779,7 @@ public class UASM65
 	//		return(0);
 	//	}
 	//
-	//}
+	return 0; }//end method }}}
 	//
 	//
 	//parse_operand()
@@ -1665,9 +1709,9 @@ public class UASM65
 	//************************************************************************/
 	//
 	//
-	//convert_to_number(char string_form[20],unsigned long int *number_form)
+	//convert_to_number(int string_form[20],unsigned long int *number_form)
 	//{
-	//	char number_base;
+	//	int number_base;
 	//	int number_base_position,return_code;
 	//	long int result;
 	//
@@ -1713,7 +1757,7 @@ public class UASM65
 	//	return(answer);
 	//}
 	//
-	//dec_to_integer(char string_form[20],unsigned long int *number_form)
+	//dec_to_integer(int string_form[20],unsigned long int *number_form)
 	//{
 	//	int char_position, number, digit, string_form_length,a;
 	//
@@ -1742,7 +1786,7 @@ public class UASM65
 	//	return(1);
 	//}
 	//
-	//hex_to_integer(char string_form[20],unsigned long int *number_form)
+	//hex_to_integer(int string_form[20],unsigned long int *number_form)
 	//{
 	//	int char_position, number, digit, string_form_length,a;
 	//
@@ -1780,7 +1824,7 @@ public class UASM65
 	//}
 	//
 	//
-	//bin_to_integer(char string_form[20],unsigned long int *number_form)
+	//bin_to_integer(int string_form[20],unsigned long int *number_form)
 	//{
 	//	int char_position, number, digit, string_form_length,a;
 	//
@@ -1810,7 +1854,7 @@ public class UASM65
 	//}
 	//
 	//{{{str_to_upper
-	private void str_to_upper(char[] string)
+	private void str_to_upper(int[] string)
 	{
 		int index;
 		index=0;
@@ -1822,10 +1866,10 @@ public class UASM65
 	}//}}}
 
 	//
-	//is_number(char ascii_hold[])
+	//is_number(int ascii_hold[])
 	//{
 	//	int number_base_position,char_pos;
-	//	char number_base, ascii_hold_copy[20];
+	//	int number_base, ascii_hold_copy[20];
 	//
 	//	if (ascii_hold[0] < '0' || ascii_hold[0] > '9')
 	//		{
@@ -1892,7 +1936,7 @@ public class UASM65
 	//}
 	//
 	//{{{check_operator_character
-	private void check_operator_character(int character)
+	private boolean check_operator_character(int character)
 	{
 		if (character >= 'A' && character <= 'z' || character == '*')
 		{
@@ -1906,7 +1950,7 @@ public class UASM65
 	//}}}
 
 	//
-	//check_operand_character(char character)
+	//check_operand_character(int character)
 	//{
 	//	if (character >= ' ' && character <= 'z')
 	//		{
@@ -1920,7 +1964,7 @@ public class UASM65
 	//
 
 	//{{{check_label_character
-	private void check_label_character(int character)
+	private boolean check_label_character(int character)
 	{
 		if (character >= '!' && character <= 'z' && character != ';')
 		{
@@ -1946,7 +1990,7 @@ public class UASM65
 	//
 
 	//{{{scan_to_eol
-	private void scan_to_EOL()
+	private boolean scan_to_EOL()
 	{
 		int index;
 		index = 0;
@@ -1964,9 +2008,9 @@ public class UASM65
 		}
 	}//}}}
 
-	//
-	//log_error(int error_number)
-	//{
+	//{{{log_error
+	private void log_error(int error_number)
+	{
 	//	error_index++;
 	//	error_table[error_index].line_number = source_line_number;
 	//	error_table[error_index].line_index = line_index;
@@ -2047,13 +2091,13 @@ public class UASM65
 	//	{
 	//		return(1);
 	//	}
-	//}
+	}//end method}}}
 	//
 	//
 	//print_line()
 	//{
 	//	int local_index;
-	//	char lst_line[150],buffer[150],loc_cntr[10],obj_code[10],line_num[10],source[132],error_line[80];
+	//	int lst_line[150],buffer[150],loc_cntr[10],obj_code[10],line_num[10],source[132],error_line[80];
 	//	local_index = 0;
 	//	lst_line[0] = 0;
 	//	loc_cntr[0] = 0;
@@ -2199,7 +2243,7 @@ public class UASM65
 	//process_byte_duplicates()
 	//{
 	//	unsigned long int multipler,number;
-	//	char ascii_multipler[20],ascii_number[20];
+	//	int ascii_multipler[20],ascii_number[20];
 	//	int local_index,count,byte_count;
 	//	local_index = 0;
 	//	operand_index = 0;
@@ -2370,7 +2414,7 @@ public class UASM65
 	//process_word_duplicates()
 	//{
 	//	unsigned long int multipler,number;
-	//	char ascii_multipler[20],ascii_number[20];
+	//	int ascii_multipler[20],ascii_number[20];
 	//	int local_index,count;
 	//	local_index = 0;
 	//	operand_index = 0;
@@ -2489,7 +2533,7 @@ public class UASM65
 	//{
 	//	unsigned long int number;
 	//	int local_index,operand_index,first_num_flag;
-	//	char ascii_number[20];
+	//	int ascii_number[20];
 	//
 	//	operand_index=0;
 	//	first_num_flag=0;
@@ -2552,7 +2596,7 @@ public class UASM65
 	//{
 	//	unsigned long int number;
 	//	int local_index,operand_index,first_num_flag;
-	//	char ascii_number[20];
+	//	int ascii_number[20];
 	//
 	//	operand_index=0;
 	//	first_num_flag=0;
@@ -2692,7 +2736,7 @@ public class UASM65
 	//calculate_duplicates()
 	//{
 	//	unsigned long int multipler;
-	//	char ascii_multipler[20];
+	//	int ascii_multipler[20];
 	//	int index;
 	//	index = 0;
 	//
@@ -2732,7 +2776,7 @@ public class UASM65
 	//
 	//
 	//
-	//get_file_name(char *file_name)
+	//get_file_name(int *file_name)
 	//{
 	//	printf("Enter name of source file: ");
 	//	scanf("%s",file_name);
@@ -2746,7 +2790,7 @@ public class UASM65
 	//	}
 	//}
 	//
-	//open_file(char file_name[30],FILE **file_pointer)
+	//open_file(int file_name[30],FILE **file_pointer)
 	//{
 	//	int return_code;
 	//
@@ -2789,130 +2833,130 @@ public class UASM65
 
 	private boolean read_operator_table()
 	{
-		op_table.put("LOF", op_tbl("LOF\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x00, 0, 0));
-		op_table.put("ORG", op_tbl("ORG\u0000".toCharArray() , "DIR\u0000".toCharArray(), 0x00, 0, 0));
-		op_table.put("*"  , op_tbl("*\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x00, 0, 0));
-		op_table.put("EQU", op_tbl("EQU\u0000".toCharArray() , "DIR\u0000".toCharArray(), 0x00, 0, 0));
-		op_table.put("DBT", op_tbl("DBT\u0000".toCharArray() , "DIR\u0000".toCharArray(), 0x00, 0, 0));
-		op_table.put("DWD", op_tbl("DWD\u0000".toCharArray() , "DIR\u0000".toCharArray(), 0x00, 0, 0));
-		op_table.put("END", op_tbl("END\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x00, 0, 0));
-		op_table.put("ADC", op_tbl("ADC\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0x69, 2, 2));
-		op_table.put("ADC", op_tbl("ADC\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x6D, 3, 4));
-		op_table.put("ADC", op_tbl("ADC\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x7D, 3, 4));
-		op_table.put("ADC", op_tbl("ADC\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x79, 3, 4));
-		op_table.put("ADC", op_tbl("ADC\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x61, 2, 6));
-		op_table.put("ADC", op_tbl("ADC\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x71, 2, 5));
-		op_table.put("AND", op_tbl("AND\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0x29, 2, 2));
-		op_table.put("AND", op_tbl("AND\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x2D, 3, 4));
-		op_table.put("AND", op_tbl("AND\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x3D, 3, 4));
-		op_table.put("AND", op_tbl("AND\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x39, 3, 4));
-		op_table.put("AND", op_tbl("AND\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x21, 2, 6));
-		op_table.put("AND", op_tbl("AND\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x31, 2, 5));
-		op_table.put("ASL", op_tbl("ASL\u0000".toCharArray() , "ACC\u0000".toCharArray(), 0x0A, 1, 2));
-		op_table.put("ASL", op_tbl("ASL\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x0E, 3, 6));
-		op_table.put("ASL", op_tbl("ASL\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x1E, 3, 7));
-		op_table.put("BCC", op_tbl("BCC\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x90, 2, 2));
-		op_table.put("BCS", op_tbl("BCS\u0000".toCharArray() , "REL\u0000".toCharArray(), 0xB0, 2, 2));
-		op_table.put("BEQ", op_tbl("BEQ\u0000".toCharArray() , "REL\u0000".toCharArray(), 0xF0, 2, 2));
-		op_table.put("BIT", op_tbl("BIT\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x2C, 3, 4));
-		op_table.put("BMI", op_tbl("BMI\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x30, 2, 2));
-		op_table.put("BNE", op_tbl("BNE\u0000".toCharArray() , "REL\u0000".toCharArray(), 0xD0, 2, 2));
-		op_table.put("BPL", op_tbl("BPL\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x10, 2, 2));
-		op_table.put("BRK", op_tbl("BRK\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x00, 1, 7));
-		op_table.put("BVC", op_tbl("BVC\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x50, 2, 2));
-		op_table.put("BVS", op_tbl("BVS\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x70, 2, 2));
-		op_table.put("CLC", op_tbl("CLC\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x18, 1, 2));
-		op_table.put("CLD", op_tbl("CLD\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xD8, 1, 2));
-		op_table.put("CLI", op_tbl("CLI\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x58, 1, 2));
-		op_table.put("CLV", op_tbl("CLV\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xB8, 1, 2));
-		op_table.put("CMP", op_tbl("CMP\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xC9, 2, 2));
-		op_table.put("CMP", op_tbl("CMP\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xCD, 3, 4));
-		op_table.put("CMP", op_tbl("CMP\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xDD, 3, 4));
-		op_table.put("CMP", op_tbl("CMP\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0xD9, 3, 4));
-		op_table.put("CMP", op_tbl("CMP\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0xC1, 2, 6));
-		op_table.put("CMP", op_tbl("CMP\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0xD1, 2, 5));
-		op_table.put("CPX", op_tbl("CPX\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xE0, 2, 2));
-		op_table.put("CPX", op_tbl("CPX\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xEC, 3, 4));
-		op_table.put("CPY", op_tbl("CPY\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xC0, 2, 2));
-		op_table.put("CPY", op_tbl("CPY\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xCC, 3, 4));
-		op_table.put("DEC", op_tbl("DEC\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xCE, 3, 6));
-		op_table.put("DEC", op_tbl("DEC\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xDE, 3, 7));
-		op_table.put("DEX", op_tbl("DEX\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xCA, 1, 2));
-		op_table.put("DEY", op_tbl("DEY\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x88, 1, 2));
-		op_table.put("EOR", op_tbl("EOR\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0x49, 2, 2));
-		op_table.put("EOR", op_tbl("EOR\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x4D, 3, 4));
-		op_table.put("EOR", op_tbl("EOR\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x5D, 3, 4));
-		op_table.put("EOR", op_tbl("EOR\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x59, 3, 4));
-		op_table.put("EOR", op_tbl("EOR\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x41, 2, 6));
-		op_table.put("EOR", op_tbl("EOR\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x51, 2, 5));
-		op_table.put("INC", op_tbl("INC\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xEE, 3, 6));
-		op_table.put("INC", op_tbl("INC\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xFE, 3, 7));
-		op_table.put("INX", op_tbl("INX\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xE8, 1, 2));
-		op_table.put("INY", op_tbl("INY\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xC8, 1, 2));
-		op_table.put("JMP", op_tbl("JMP\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x4C, 3, 3));
-		op_table.put("JMP", op_tbl("JMP\u0000".toCharArray() , "IND\u0000".toCharArray(), 0x6C, 3, 5));
-		op_table.put("JSR", op_tbl("JSR\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x20, 3, 6));
-		op_table.put("LDA", op_tbl("LDA\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xA9, 2, 2));
-		op_table.put("LDA", op_tbl("LDA\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xAD, 3, 4));
-		op_table.put("LDA", op_tbl("LDA\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xBD, 3, 4));
-		op_table.put("LDA", op_tbl("LDA\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0xB9, 3, 4));
-		op_table.put("LDA", op_tbl("LDA\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0xA1, 2, 6));
-		op_table.put("LDA", op_tbl("LDA\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0xB1, 2, 5));
-		op_table.put("LDX", op_tbl("LDX\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xA2, 2, 2));
-		op_table.put("LDX", op_tbl("LDX\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xAE, 3, 4));
-		op_table.put("LDX", op_tbl("LDX\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0xBE, 3, 4));
-		op_table.put("LDY", op_tbl("LDY\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xA0, 2, 2));
-		op_table.put("LDY", op_tbl("LDY\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xAC, 3, 4));
-		op_table.put("LDY", op_tbl("LDY\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xBC, 3, 4));
-		op_table.put("LSR", op_tbl("LSR\u0000".toCharArray() , "ACC\u0000".toCharArray(), 0x4A, 1, 2));
-		op_table.put("LSR", op_tbl("LSR\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x4E, 3, 6));
-		op_table.put("LSR", op_tbl("LSR\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x5E, 3, 7));
-		op_table.put("NOP", op_tbl("NOP\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xEA, 1, 2));
-		op_table.put("ORA", op_tbl("ORA\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0x09, 2, 2));
-		op_table.put("ORA", op_tbl("ORA\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x0D, 3, 4));
-		op_table.put("ORA", op_tbl("ORA\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x1D, 3, 4));
-		op_table.put("ORA", op_tbl("ORA\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x19, 3, 4));
-		op_table.put("ORA", op_tbl("ORA\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x01, 2, 6));
-		op_table.put("ORA", op_tbl("ORA\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x11, 2, 5));
-		op_table.put("PHA", op_tbl("PHA\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x48, 1, 3));
-		op_table.put("PHP", op_tbl("PHP\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x08, 1, 3));
-		op_table.put("PLA", op_tbl("PLA\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x68, 1, 4));
-		op_table.put("PLP", op_tbl("PLP\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x28, 1, 4));
-		op_table.put("ROL", op_tbl("ROL\u0000".toCharArray() , "ACC\u0000".toCharArray(), 0x2A, 1, 2));
-		op_table.put("ROL", op_tbl("ROL\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x2E, 3, 6));
-		op_table.put("ROL", op_tbl("ROL\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x3E, 3, 7));
-		op_table.put("ROR", op_tbl("ROR\u0000".toCharArray() , "ACC\u0000".toCharArray(), 0x6A, 1, 2));
-		op_table.put("ROR", op_tbl("ROR\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x6E, 3, 6));
-		op_table.put("ROR", op_tbl("ROR\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x7E, 3, 7));
-		op_table.put("RTI", op_tbl("RTI\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x40, 1, 6));
-		op_table.put("RTS", op_tbl("RTS\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x60, 1, 6));
-		op_table.put("SBC", op_tbl("SBC\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xE9, 2, 2));
-		op_table.put("SBC", op_tbl("SBC\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xED, 3, 4));
-		op_table.put("SBC", op_tbl("SBC\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xFD, 3, 4));
-		op_table.put("SBC", op_tbl("SBC\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0xF9, 3, 4));
-		op_table.put("SBC", op_tbl("SBC\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0xE1, 2, 6));
-		op_table.put("SBC", op_tbl("SBC\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0xF1, 2, 5));
-		op_table.put("SEC", op_tbl("SEC\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x38, 1, 2));
-		op_table.put("SED", op_tbl("SED\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xF8, 1, 2));
-		op_table.put("SEI", op_tbl("SEI\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x78, 1, 2));
-		op_table.put("STA", op_tbl("STA\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x8D, 3, 4));
-		op_table.put("STA", op_tbl("STA\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x9D, 3, 5));
-		op_table.put("STA", op_tbl("STA\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x99, 3, 5));
-		op_table.put("STA", op_tbl("STA\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x81, 2, 6));
-		op_table.put("STA", op_tbl("STA\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x91, 2, 6));
-		op_table.put("STX", op_tbl("STX\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x8E, 3, 4));
-		op_table.put("STY", op_tbl("STY\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x8C, 3, 4));
-		op_table.put("TAX", op_tbl("TAX\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xAA, 1, 2));
-		op_table.put("TAY", op_tbl("TAY\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xA8, 1, 2));
-		op_table.put("TSX", op_tbl("TSX\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xBA, 1, 2));
-		op_table.put("TXA", op_tbl("TXA\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x8A, 1, 2));
-		op_table.put("TXS", op_tbl("TXS\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x9A, 1, 2));
-		op_table.put("TYA", op_tbl("TYA\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x98, 1, 2));
-		op_table.put("XXX", op_tbl("XXX\u0000".toCharArray() , "XXX\u0000".toCharArray(), 0x00, 0, 0));
-		op_table.put("XXX", op_tbl("XXX\u0000".toCharArray() , "XXX\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("LOF", new op_tbl("LOF\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("ORG", new op_tbl("ORG\u0000".toCharArray() , "DIR\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("*"  , new op_tbl("*\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("EQU", new op_tbl("EQU\u0000".toCharArray() , "DIR\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("DBT", new op_tbl("DBT\u0000".toCharArray() , "DIR\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("DWD", new op_tbl("DWD\u0000".toCharArray() , "DIR\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("END", new op_tbl("END\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("ADC", new op_tbl("ADC\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0x69, 2, 2));
+		op_table.put("ADC", new op_tbl("ADC\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x6D, 3, 4));
+		op_table.put("ADC", new op_tbl("ADC\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x7D, 3, 4));
+		op_table.put("ADC", new op_tbl("ADC\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x79, 3, 4));
+		op_table.put("ADC", new op_tbl("ADC\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x61, 2, 6));
+		op_table.put("ADC", new op_tbl("ADC\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x71, 2, 5));
+		op_table.put("AND", new op_tbl("AND\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0x29, 2, 2));
+		op_table.put("AND", new op_tbl("AND\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x2D, 3, 4));
+		op_table.put("AND", new op_tbl("AND\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x3D, 3, 4));
+		op_table.put("AND", new op_tbl("AND\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x39, 3, 4));
+		op_table.put("AND", new op_tbl("AND\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x21, 2, 6));
+		op_table.put("AND", new op_tbl("AND\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x31, 2, 5));
+		op_table.put("ASL", new op_tbl("ASL\u0000".toCharArray() , "ACC\u0000".toCharArray(), 0x0A, 1, 2));
+		op_table.put("ASL", new op_tbl("ASL\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x0E, 3, 6));
+		op_table.put("ASL", new op_tbl("ASL\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x1E, 3, 7));
+		op_table.put("BCC", new op_tbl("BCC\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x90, 2, 2));
+		op_table.put("BCS", new op_tbl("BCS\u0000".toCharArray() , "REL\u0000".toCharArray(), 0xB0, 2, 2));
+		op_table.put("BEQ", new op_tbl("BEQ\u0000".toCharArray() , "REL\u0000".toCharArray(), 0xF0, 2, 2));
+		op_table.put("BIT", new op_tbl("BIT\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x2C, 3, 4));
+		op_table.put("BMI", new op_tbl("BMI\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x30, 2, 2));
+		op_table.put("BNE", new op_tbl("BNE\u0000".toCharArray() , "REL\u0000".toCharArray(), 0xD0, 2, 2));
+		op_table.put("BPL", new op_tbl("BPL\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x10, 2, 2));
+		op_table.put("BRK", new op_tbl("BRK\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x00, 1, 7));
+		op_table.put("BVC", new op_tbl("BVC\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x50, 2, 2));
+		op_table.put("BVS", new op_tbl("BVS\u0000".toCharArray() , "REL\u0000".toCharArray(), 0x70, 2, 2));
+		op_table.put("CLC", new op_tbl("CLC\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x18, 1, 2));
+		op_table.put("CLD", new op_tbl("CLD\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xD8, 1, 2));
+		op_table.put("CLI", new op_tbl("CLI\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x58, 1, 2));
+		op_table.put("CLV", new op_tbl("CLV\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xB8, 1, 2));
+		op_table.put("CMP", new op_tbl("CMP\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xC9, 2, 2));
+		op_table.put("CMP", new op_tbl("CMP\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xCD, 3, 4));
+		op_table.put("CMP", new op_tbl("CMP\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xDD, 3, 4));
+		op_table.put("CMP", new op_tbl("CMP\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0xD9, 3, 4));
+		op_table.put("CMP", new op_tbl("CMP\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0xC1, 2, 6));
+		op_table.put("CMP", new op_tbl("CMP\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0xD1, 2, 5));
+		op_table.put("CPX", new op_tbl("CPX\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xE0, 2, 2));
+		op_table.put("CPX", new op_tbl("CPX\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xEC, 3, 4));
+		op_table.put("CPY", new op_tbl("CPY\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xC0, 2, 2));
+		op_table.put("CPY", new op_tbl("CPY\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xCC, 3, 4));
+		op_table.put("DEC", new op_tbl("DEC\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xCE, 3, 6));
+		op_table.put("DEC", new op_tbl("DEC\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xDE, 3, 7));
+		op_table.put("DEX", new op_tbl("DEX\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xCA, 1, 2));
+		op_table.put("DEY", new op_tbl("DEY\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x88, 1, 2));
+		op_table.put("EOR", new op_tbl("EOR\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0x49, 2, 2));
+		op_table.put("EOR", new op_tbl("EOR\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x4D, 3, 4));
+		op_table.put("EOR", new op_tbl("EOR\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x5D, 3, 4));
+		op_table.put("EOR", new op_tbl("EOR\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x59, 3, 4));
+		op_table.put("EOR", new op_tbl("EOR\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x41, 2, 6));
+		op_table.put("EOR", new op_tbl("EOR\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x51, 2, 5));
+		op_table.put("INC", new op_tbl("INC\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xEE, 3, 6));
+		op_table.put("INC", new op_tbl("INC\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xFE, 3, 7));
+		op_table.put("INX", new op_tbl("INX\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xE8, 1, 2));
+		op_table.put("INY", new op_tbl("INY\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xC8, 1, 2));
+		op_table.put("JMP", new op_tbl("JMP\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x4C, 3, 3));
+		op_table.put("JMP", new op_tbl("JMP\u0000".toCharArray() , "IND\u0000".toCharArray(), 0x6C, 3, 5));
+		op_table.put("JSR", new op_tbl("JSR\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x20, 3, 6));
+		op_table.put("LDA", new op_tbl("LDA\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xA9, 2, 2));
+		op_table.put("LDA", new op_tbl("LDA\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xAD, 3, 4));
+		op_table.put("LDA", new op_tbl("LDA\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xBD, 3, 4));
+		op_table.put("LDA", new op_tbl("LDA\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0xB9, 3, 4));
+		op_table.put("LDA", new op_tbl("LDA\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0xA1, 2, 6));
+		op_table.put("LDA", new op_tbl("LDA\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0xB1, 2, 5));
+		op_table.put("LDX", new op_tbl("LDX\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xA2, 2, 2));
+		op_table.put("LDX", new op_tbl("LDX\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xAE, 3, 4));
+		op_table.put("LDX", new op_tbl("LDX\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0xBE, 3, 4));
+		op_table.put("LDY", new op_tbl("LDY\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xA0, 2, 2));
+		op_table.put("LDY", new op_tbl("LDY\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xAC, 3, 4));
+		op_table.put("LDY", new op_tbl("LDY\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xBC, 3, 4));
+		op_table.put("LSR", new op_tbl("LSR\u0000".toCharArray() , "ACC\u0000".toCharArray(), 0x4A, 1, 2));
+		op_table.put("LSR", new op_tbl("LSR\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x4E, 3, 6));
+		op_table.put("LSR", new op_tbl("LSR\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x5E, 3, 7));
+		op_table.put("NOP", new op_tbl("NOP\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xEA, 1, 2));
+		op_table.put("ORA", new op_tbl("ORA\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0x09, 2, 2));
+		op_table.put("ORA", new op_tbl("ORA\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x0D, 3, 4));
+		op_table.put("ORA", new op_tbl("ORA\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x1D, 3, 4));
+		op_table.put("ORA", new op_tbl("ORA\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x19, 3, 4));
+		op_table.put("ORA", new op_tbl("ORA\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x01, 2, 6));
+		op_table.put("ORA", new op_tbl("ORA\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x11, 2, 5));
+		op_table.put("PHA", new op_tbl("PHA\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x48, 1, 3));
+		op_table.put("PHP", new op_tbl("PHP\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x08, 1, 3));
+		op_table.put("PLA", new op_tbl("PLA\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x68, 1, 4));
+		op_table.put("PLP", new op_tbl("PLP\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x28, 1, 4));
+		op_table.put("ROL", new op_tbl("ROL\u0000".toCharArray() , "ACC\u0000".toCharArray(), 0x2A, 1, 2));
+		op_table.put("ROL", new op_tbl("ROL\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x2E, 3, 6));
+		op_table.put("ROL", new op_tbl("ROL\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x3E, 3, 7));
+		op_table.put("ROR", new op_tbl("ROR\u0000".toCharArray() , "ACC\u0000".toCharArray(), 0x6A, 1, 2));
+		op_table.put("ROR", new op_tbl("ROR\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x6E, 3, 6));
+		op_table.put("ROR", new op_tbl("ROR\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x7E, 3, 7));
+		op_table.put("RTI", new op_tbl("RTI\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x40, 1, 6));
+		op_table.put("RTS", new op_tbl("RTS\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x60, 1, 6));
+		op_table.put("SBC", new op_tbl("SBC\u0000".toCharArray() , "IMM\u0000".toCharArray(), 0xE9, 2, 2));
+		op_table.put("SBC", new op_tbl("SBC\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0xED, 3, 4));
+		op_table.put("SBC", new op_tbl("SBC\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0xFD, 3, 4));
+		op_table.put("SBC", new op_tbl("SBC\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0xF9, 3, 4));
+		op_table.put("SBC", new op_tbl("SBC\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0xE1, 2, 6));
+		op_table.put("SBC", new op_tbl("SBC\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0xF1, 2, 5));
+		op_table.put("SEC", new op_tbl("SEC\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x38, 1, 2));
+		op_table.put("SED", new op_tbl("SED\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xF8, 1, 2));
+		op_table.put("SEI", new op_tbl("SEI\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x78, 1, 2));
+		op_table.put("STA", new op_tbl("STA\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x8D, 3, 4));
+		op_table.put("STA", new op_tbl("STA\u0000".toCharArray() , "ABX\u0000".toCharArray(), 0x9D, 3, 5));
+		op_table.put("STA", new op_tbl("STA\u0000".toCharArray() , "ABY\u0000".toCharArray(), 0x99, 3, 5));
+		op_table.put("STA", new op_tbl("STA\u0000".toCharArray() , "IXR\u0000".toCharArray(), 0x81, 2, 6));
+		op_table.put("STA", new op_tbl("STA\u0000".toCharArray() , "IRX\u0000".toCharArray(), 0x91, 2, 6));
+		op_table.put("STX", new op_tbl("STX\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x8E, 3, 4));
+		op_table.put("STY", new op_tbl("STY\u0000".toCharArray() , "ABS\u0000".toCharArray(), 0x8C, 3, 4));
+		op_table.put("TAX", new op_tbl("TAX\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xAA, 1, 2));
+		op_table.put("TAY", new op_tbl("TAY\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xA8, 1, 2));
+		op_table.put("TSX", new op_tbl("TSX\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0xBA, 1, 2));
+		op_table.put("TXA", new op_tbl("TXA\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x8A, 1, 2));
+		op_table.put("TXS", new op_tbl("TXS\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x9A, 1, 2));
+		op_table.put("TYA", new op_tbl("TYA\u0000".toCharArray() , "IMP\u0000".toCharArray(), 0x98, 1, 2));
+		op_table.put("XXX", new op_tbl("XXX\u0000".toCharArray() , "XXX\u0000".toCharArray(), 0x00, 0, 0));
+		op_table.put("XXX", new op_tbl("XXX\u0000".toCharArray() , "XXX\u0000".toCharArray(), 0x00, 0, 0));
 		return(true);
 		/*
-		char op_table_file_name[]="op_table.dat";
+		int op_table_file_name[]="op_table.dat";
 		FILE *op_table_file_pointer;
 		int x;
 
@@ -3045,10 +3089,10 @@ public class UASM65
 	////{{{convert_src_to_ascii();
 	//convert_sr_to_ascii()
 	//{
-	//	char s_rec_line[80],hold_code[50];
+	//	int s_rec_line[80],hold_code[50];
 	//	unsigned int sr_index, code_index;
 	//	FILE *s_rec_file_ptr;
-	//	char s_rec_filename[30];
+	//	int s_rec_filename[30];
 	//	int local_index;
 	//	unsigned int checksum_accumulator, checksum;
 	//
@@ -3109,10 +3153,10 @@ public class UASM65
 	//
 	//create_sym_file()
 	//{
-	//	char sym_file_name[30];
+	//	int sym_file_name[30];
 	//	FILE *sym_file_ptr;
 	//
-	//	char sym_line[50];
+	//	int sym_line[50];
 	//
 	//	int local_index;
 	//	local_index = 0;
