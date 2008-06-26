@@ -480,5 +480,13 @@ good discipline and separating your code from the core code, and
 putting it all in a plugin, and then having the plugin set some
 default options in its props file. -Alan Ezust.
 ----
-
+This is the chronic Jython error in JEdit:
+11:41:50 PM [error] JythonExecutor: Traceback (innermost last):
+11:41:50 PM [error] JythonExecutor:   (no code object) at line 0
+11:41:50 PM [error] JythonExecutor: KeyError: console
+----
+11:53:44 PM [error] JythonExecutor: Traceback (innermost last):
+11:53:44 PM [error] JythonExecutor:   (no code object) at line 0
+11:53:44 PM [error] JythonExecutor: KeyError: PyParser
+----
 }}}
