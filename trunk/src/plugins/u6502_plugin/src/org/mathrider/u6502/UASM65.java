@@ -2,6 +2,7 @@ package org.mathrider.u6502;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 //import org.gjt.sp.jedit.bsh.EvalError;
 import java.util.HashMap;
@@ -10,9 +11,10 @@ import java.util.ArrayList;
 
 public class UASM65
 {
-	private FileReader inputStream;
 	
 	private String error = "none";
+	
+	private File source_file;
 
 
 	private int line_character;
@@ -25,10 +27,11 @@ public class UASM65
 	private int[] hold_add_mode = new int[5];
 
 	private int line_index,sym_tbl_index,x,op_tbl_index,end_flag;
-	private int error_index,source_line_number,return_code,symbol_index;
+	private int error_index,source_line_number,symbol_index; //return_code.
 	private int location_counter,hold_location,temp_converted_number;
 
-	private File source_file_pointer, lst_file_ptr;
+	private java.io.PushbackReader source_file_pointer;
+	private FileWriter lst_file_ptr;
 
 	private int no_source_flag,no_lc_flag,no_obj_flag,hold_obj_1,hold_obj_2,hold_obj_3;
 	private int no_line_num_flag, pass2_flag,print_error_index,lst_flag;
@@ -128,47 +131,47 @@ public class UASM65
 	//Note: must decide what to do with these structure arrays.
 	//struct op_tbl op_table[150];
 	private HashMap op_table = new HashMap();
+	
 	//struct sym_tbl symbol_table[600];
-	private ArrayList symbol_table = new ArrayList();
+	//private ArrayList symbol_table = new ArrayList();
+	private sym_tbl[] symbol_table = new sym_tbl[600];
+	
 	//struct error_tbl error_table[70];
 	private ArrayList error_table = new ArrayList();
+	
 	//struct s_rec s_record[386];
 	private ArrayList s_record = new ArrayList();
 
-        public static void main(String[] args)
-        {
-            int a = 0;
-            //assem = new UASM65();
-        }
+
 
 	public UASM65()
 	{
 		super();
+		
+		source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/test.asm");
 
-		try {
-			java.io.FileReader inputStream = new java.io.FileReader("c:/ted/checkouts/mathrider/src/examples/experimental/test.asm");
-
-			//            int c;
-			//            while ((c = inputStream.read()) != -1) {
-			//                System.out.println(""+c);
-			//            }
-		}
-		catch(Exception ioe)
-		{
-			ioe.printStackTrace();
-		}
-		finally
-		{
-			//  if (inputStream != null) {
-			//      inputStream.close();
-			// }
+		initialize();
+		
+		read_operator_table();
 
 
-		}//end try/finally
+	}//end constructor
+
+
+	//{{{
+	public static void main(String[] args)
+    {
+       int a = 0;
+	   System.out.println("AAAAA");
+       UASM65 assem = new UASM65();
+	   
+	   		
 
 
 
-		//{{{ main
+
+
+
 
 
 
@@ -181,13 +184,9 @@ public class UASM65
 
 		//bsh.args = new String[] {"one","two"};
 
-		System.out.println("\nUASM65 V1.25 - Understandable Assembler for the 6500 series microprocessors.\nWritten by Ted Kosan.");
-		initialize();
-		if (!read_operator_table())
-		{
-			System.out.println("\nCannot find operator table file");
-			//return(0);
-		}
+		System.out.println("\nUASM65 V1.25 - Understandable Assembler for the 6500 series microprocessors.\nWritten by Ted Kosan.\n");
+		
+
 
 
 		//If filename was entered from the command line then use it.  If not, then
@@ -216,7 +215,7 @@ public class UASM65
 		//
 		//
 		//
-		if (pass1())
+		if (assem.pass1())
 		{
 			//		create_sym_file();
 			//
@@ -229,10 +228,11 @@ public class UASM65
 		}
 		//}}}
 
-	}//end constructor
+		
+		
+    }//}}}
 
-
-
+	
 	private int strcmp(int[] first, String second)
 	{
 		return(0);
@@ -305,6 +305,28 @@ public class UASM65
 		}
 		
 	}
+	
+	
+	private void strcpy( String destination, String source)
+	{
+		destination = new String(source);
+	}
+	//}}}
+	
+	//{{{strcat
+	private void strcat( int[] one, int[] two)
+	{
+		//Note: not finished yet.
+	} // end method.
+	
+	
+	private void strcat( String one, String two)
+	{
+		one = one.concat(two);
+	}//end method.
+	
+	
+	
 	//}}}
 
 
@@ -342,7 +364,7 @@ public class UASM65
 	{
 		try
 		{
-			return (int)inputStream.read();
+			return (int)source_file_pointer.read();
 		}
 		catch (IOException e)
 		{
@@ -369,13 +391,16 @@ public class UASM65
 
 		pass2_flag=0;
 		lst_flag = 1;
-		//	strcpy(symbol_table[1].label,"XXX");
+		//strcpy(symbol_table[1].label,"XXX"); Note: need to adjust this.
 
-		//	if (open_file(source_file_name))// ,&source_file_pointer))
-		//	{
-		//		open_lst_file();
+			if ( (source_file_pointer = open_file(source_file)) != null)
+			{
+				if(! open_lst_file())
+				{
+					return false;
+				}
 		//
-//		scan_lines(1);
+		scan_lines(1);
 		//
 		//
 		//		if (end_flag == 0)
@@ -417,14 +442,14 @@ public class UASM65
 		//			return(0);
 		//		}
 		//
-		//	}
-		//	else
-		//	{
-		//		printf("\nFile not found");
-		//		return(0);
-		//	}
-		//
-	return false; }//}}}End pass1.
+			}
+			else
+			{
+				System.out.printf("\nFile not found");
+				return(false);
+			}
+		
+	return true; }//}}}End pass1.
 	//
 
 	//
@@ -470,16 +495,18 @@ public class UASM65
 	//}
 	//
 
-/*
+
 	//{{{scan_lines
 	private void scan_lines(int pass_flag)
 	{
 		while ((line_character=fgetc()) != EOF)
 		{
 
+			
 			if (line_character == 13)
 			{
-				if (fgetc() == 10)
+				int charRead = fgetc();
+				if ( charRead == 10)
 				{
 					source_line[line_index]=0;
 					parse_line();
@@ -489,7 +516,15 @@ public class UASM65
 				}
 				else
 				{
-					fseek(source_file_pointer,-1,SEEK_CUR);
+					try
+					{
+						source_file_pointer.unread(charRead); //Note: this might throw a not supported exception.
+					}
+					catch(IOException e)
+					{
+						e.printStackTrace();
+					}
+
 					source_line[line_index]=0;
 					parse_line();
 					line_index = 0;
@@ -500,16 +535,16 @@ public class UASM65
 			else if (line_character == 10)
 			{
 				source_line[line_index]=0;
-				return_code=parse_line();
-				if (return_code != 0 && pass_flag == 1)
+				boolean return_code=parse_line();
+				if (return_code != false && pass_flag == 1)
 				{
-					interpret_line_pass1();
+					//interpret_line_pass1();
 				}
-				else if (return_code != 0 && pass_flag ==2)
+				else if (return_code != false && pass_flag ==2)
 				{
-					interpret_line_pass2();
+					//interpret_line_pass2();
 				}
-				else if (return_code == 0 && pass_flag == 2)
+				else if (return_code == false && pass_flag == 2)
 				{
 					no_lc_flag=1;
 					print_line();
@@ -527,7 +562,7 @@ public class UASM65
 
 		}
 	}//end method. }}}
-*/
+
 
 	//{{{ parse_line
 	private boolean parse_line()
@@ -1712,7 +1747,7 @@ public class UASM65
 	//convert_to_number(int string_form[20],unsigned long int *number_form)
 	//{
 	//	int number_base;
-	//	int number_base_position,return_code;
+	//	//int number_base_position,return_code; Note: return_code is declared in class.
 	//	long int result;
 	//
 	//	number_base_position = strlen(string_form)-1;
@@ -2093,9 +2128,9 @@ public class UASM65
 	//	}
 	}//end method}}}
 	//
-	//
-	//print_line()
-	//{
+	//{{{print_line
+	void print_line()
+	{
 	//	int local_index;
 	//	int lst_line[150],buffer[150],loc_cntr[10],obj_code[10],line_num[10],source[132],error_line[80];
 	//	local_index = 0;
@@ -2207,7 +2242,7 @@ public class UASM65
 	//		hold_obj_2=-1;
 	//		hold_obj_3=-1;
 	//	}
-	//}
+	}
 	//
 	//
 	////}}}
@@ -2790,45 +2825,50 @@ public class UASM65
 	//	}
 	//}
 	//
-	//open_file(int file_name[30],FILE **file_pointer)
-	//{
-	//	int return_code;
-	//
-	//	if ((*file_pointer = fopen( file_name,"r")) != 0)
-	//	{
-	//		return_code=1;
-	//	}
-	//	else
-	//	{
-	//		return_code=0;
-	//	}
-	//	return(return_code);
-	//}
-	//
-	//
-	//open_lst_file()
-	//{
-	//	int local_index;
-	//	local_index = 0;
-	//	strcpy (lst_filename,source_file_name);
-	//
-	//	while ( lst_filename[local_index] != '.' )
-	//	{
-	//		local_index++;
-	//		if (local_index > 29)
-	//		{
-	//			printf("\n\nInternal error, problem with lst file name.\n\n");
-	//			return(0);
-	//		}
-	//
-	//	}
-	//	lst_filename[local_index] = 0;
-	//	strcat(lst_filename,".lst");
-	//
-	//	lst_file_ptr = fopen( lst_filename,"w");
-	//
-	//
-	//}
+	//{{{open_file
+	java.io.PushbackReader open_file(File file)
+	{
+		java.io.PushbackReader file_pointer;
+		try 
+		{
+			file_pointer = new java.io.PushbackReader(new FileReader(file));
+
+		}
+		catch(Exception ioe)
+		{
+			ioe.printStackTrace();
+			return null;
+		}
+		return file_pointer;
+	
+
+	} //}}}
+
+	
+	//{{{open_lst_file
+	boolean open_lst_file()
+	{
+		
+		String sourceFilePath = source_file.getPath();
+		sourceFilePath = sourceFilePath.substring(0,sourceFilePath.indexOf("."));
+		
+		lst_filename = sourceFilePath.concat(".lst");
+	
+		//lst_file_ptr = fopen( lst_filename,"w");
+		try 
+		{
+			lst_file_ptr = new java.io.FileWriter(lst_filename);
+
+		}
+		catch(Exception ioe)
+		{
+			ioe.printStackTrace();
+			return false;
+		}
+		return true;
+	
+	
+	}//}}}
 
 
 	private boolean read_operator_table()
