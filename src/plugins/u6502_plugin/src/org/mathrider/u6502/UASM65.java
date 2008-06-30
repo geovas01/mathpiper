@@ -185,15 +185,6 @@ public class UASM65
 
 
 
-	
-
-                                                                                                                                                      
-
-	//Note: tempory test file
-	//sourceFile = new File("c:/ted/checkouts/mathrider/src/examples/experimental/test.asm");
-
-
-
 	/************************************************************************
 	   UASM65 V1.0 - Understandable Assembler for the 6500 series Microprocessor.
 	   Copyright 1993 by Ted Kosan.
@@ -330,9 +321,18 @@ public class UASM65
 	
 	
 	//{{{strchr
-	private boolean strchr(int[] string, String character)
+	private boolean strchr(int[] string, char character)
 	{
-		return(false);
+		int x = 0;
+		do
+			if(string[x] == character )
+			{
+				return true;
+			}
+		while( string[x++] != '\0' );
+		
+		return false;
+		
 	}//}}}
 	
 	//{{{strlen
@@ -1046,11 +1046,11 @@ public class UASM65
 			{
 				count_ascii_characters();
 			}
-			else if (strchr(hold_operand,"(\0"))// && strrchr(hold_operand,'('))
+			else if (strchr(hold_operand,'('))// && strrchr(hold_operand,'('))
 			{
 				calculate_duplicates();
 			}
-			else if (strchr(hold_operand,",\0")) //Note: was strrchr
+			else if (strchr(hold_operand,',')) //Note: was strrchr
 			{
 				count_bytes();
 			}
@@ -1058,7 +1058,7 @@ public class UASM65
 			{
 				location_counter++;
 			}
-			else if ((strchr(hold_operand,"D\0") || strchr(hold_operand,"B\0") || strchr(hold_operand,"H\0")) && hold_operand[0] != '#')
+			else if ((strchr(hold_operand,'D') || strchr(hold_operand,'B') || strchr(hold_operand,'H')) && hold_operand[0] != '#')
 			{
 				location_counter++;
 			}
@@ -1074,7 +1074,7 @@ public class UASM65
 		}
 		else if (strcmp(hold_operator,"DWD\0")==0)
 		{
-			if (strchr(hold_operand,",\0"))
+			if (strchr(hold_operand,','))
 			{
 				count_words();
 			}
@@ -1186,7 +1186,7 @@ public class UASM65
 	//			print_line();
 	//			location_counter++;
 	//		}
-	//		else if ((strchr(hold_operand,"D\0") || strchr(hold_operand,"B\0") || strchr(hold_operand,"H\0")) && hold_operand[0] != '#')
+	//		else if ((strchr(hold_operand,'D') || strchr(hold_operand,'B') || strchr(hold_operand,'H')) && hold_operand[0] != '#')
 	//		{
 	//			local_index = 0;
 	//			operand_index = 0;
