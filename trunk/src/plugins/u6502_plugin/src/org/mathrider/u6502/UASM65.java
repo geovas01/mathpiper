@@ -3,7 +3,7 @@ package org.mathrider.u6502;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
+import java.io.IOException;                                                                                                 
 //import org.gjt.sp.jedit.bsh.EvalError;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -98,22 +98,25 @@ public class UASM65
 		int num_bytes;
 		int base_cycles;
 
-		public op_tbl(char[] operator, char[] add_code, int opcode, int num_bytes, int base_cycles)
+		public op_tbl(String operator, String add_code, int opcode, int num_bytes, int base_cycles)
 		{
-			for(int x = 0;x < operator.length; x++)
+			char[] op = operator.toCharArray();
+			char[] add = add_code.toCharArray();
+			
+			for(int x = 0;x < op.length; x++)
 			{
-				this.operator[x] = (int) operator[x];
+				this.operator[x] = (int) op[x];
 			}
 
 			
-			for(int x = 0;x < add_code.length; x++)
+			for(int x = 0;x < add.length; x++)
 			{
-				this.add_code[x] = (int) add_code[x];
+				this.add_code[x] = (int) add[x];
 			}
 
-			opcode = opcode;
-			num_bytes = num_bytes;
-			base_cycles = base_cycles;
+			this.opcode = opcode;
+			this.num_bytes = num_bytes;
+			this.base_cycles = base_cycles;
 		}
 	}
 
@@ -129,6 +132,11 @@ public class UASM65
 		int address;
 		int[] code = new int[20];
 	}
+	
+	private class Number
+	{
+		int number;
+	}//end class.
 
 	//Note: must decide what to do with these structure arrays.
 	//struct op_tbl op_table[150];
@@ -137,9 +145,11 @@ public class UASM65
 	//struct sym_tbl symbol_table[600];
 	//private ArrayList symbol_table = new ArrayList();
 	private sym_tbl[] symbol_table = new sym_tbl[600];
+
 	
 	//struct error_tbl error_table[70];
 	private error_tbl[] error_table = new error_tbl[70];
+
 	
 	//struct s_rec s_record[386];
 	private ArrayList s_record = new ArrayList();
@@ -150,7 +160,21 @@ public class UASM65
 	{
 		super();
 		
+		//Initialize tables.  Note: this approached has much room for improvment.
+		for(int x = 0; x<600; x++)
+		{
+			symbol_table[x] = new sym_tbl();
+		}//end for.
+		
+		for(int x = 0; x<70; x++)
+		{
+			error_table[x] = new error_tbl();
+		}//end for.	
+		
+		
+		
 		source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/test.asm");
+		//source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/umon65muvium.asm");
 
 		initialize();
 		
@@ -160,83 +184,10 @@ public class UASM65
 	}//end constructor
 
 
-	//{{{
-	public static void main(String[] args)
-    {
-       int a = 0;
-	   System.out.println("AAAAA");
-       UASM65 assem = new UASM65();
-	   
-	   		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		//bsh.args = new String[] {"one","two"};
-
-		System.out.println("\nUASM65 V1.25 - Understandable Assembler for the 6500 series microprocessors.\nWritten by Ted Kosan.\n");
-		
-
-
-
-		//If filename was entered from the command line then use it.  If not, then
-		// obtain it from the user.
-
-
-		//	if ( bsh.args != void && bsh.args.length == 2 ) //argc == 2 )
-		//	{
-		//		source_file_name = bsh.args[1];
-		//
-		//		if ( ! ( strstr( source_file_name,".asm") || strstr(source_file_name,".ASM") ) )
-		//		{
-		//			System.out.println("\n\nBad file name, must have .asm extension.\n\n");
-		//			return(0);
-		//		}
-		//	}
-		//	//	else  //Note: Maybe enable this for standalone operation in the future.
-		//	{
-		//		if ( !get_file_name( source_file_name ) )
-		//		{
-		//			System.out.println("\n\nBad file name, must have .asm extension.\n\n");
-		//			return(0);
-		//		}
-		//	}//end else
-
-		//
-		//
-		//
-		if (assem.pass1())
-		{
-			//		create_sym_file();
-			//
-			//		if( pass2())
-			//		{
-			//			convert_sr_to_ascii();
-			//			fclose(source_file_pointer);
-			//			fclose(lst_file_ptr);
-			//		}
-		}
-		//}}}
-
-		
-		
-    }//}}}
 
 	
 
-
+                                                                                                                                                      
 
 	//Note: tempory test file
 	//sourceFile = new File("c:/ted/checkouts/mathrider/src/examples/experimental/test.asm");
@@ -280,8 +231,8 @@ public class UASM65
 	//{{{strcpy
 	private void strcpy( int[] destination, int[] source)
 	{
-		System.out.println(" XXXXXXX " + destination + source);
-		System.out.println(" XXXXXXX " + chars_to_string(destination) + chars_to_string(source));
+		//System.out.println(" XXXXXXX " + destination + source);
+		//System.out.println(" XXXXXXX " + chars_to_string(destination) + chars_to_string(source));
 		//returnError = destination;  Note: begin here.
 		//throw new EvalError("hello",null,null);
 		int index = 0;
@@ -291,7 +242,7 @@ public class UASM65
 			c = source[index];
 			destination[index] = c;
 			index++;
-		}while(c != 0);
+		}while(c != '\0');
 	}//end method.
 	
 	private void strcpy( int[] destination, String source)
@@ -330,14 +281,51 @@ public class UASM65
 	//{{{strcmp
 	private int strcmp(int[] first, String second)
 	{
-		return(0);
+		char[] string = second.toCharArray();
+		int x = 0;
+		do
+			if(first[x] != (int) string[x])
+			{
+				return 1;
+			}
+		while( string[x++] != '\0' );
+		
+			
+		//for(int x = 0; string[x] != '\0' ; x++)
+		//{
+		//	if(first[x] != (int) string[x])
+		//	{
+		//		return 1;
+		//	}
+		//}
+		
+		return 0;
+		
 	}//}}}
 	
 	
 	//{{{strcmp
 	private int strcmp(int[] first, int[] second)
 	{
-		return(0);
+		
+		int x = 0;
+		do
+			if(first[x] != second[x])
+			{
+				return 1;
+			}
+		while( second[x++] != '\0' );
+			
+			
+		//for(int x = 0; second[x] != 0 ; x++)
+		//{
+		//	if(first[x] != second[x])
+		//	{
+		//		return 1;
+		//	}
+		//}
+		
+		return 0;
 	}//}}}
 	
 	
@@ -349,8 +337,12 @@ public class UASM65
 	
 	//{{{strlen
 	private int strlen(int[] string)
-	{
-		return(0);
+	{   
+		int x = 0;
+		for(x = 0; string[x] != 0; x++)
+		{
+		}
+		return x;
 	}//}}}
 
 
@@ -409,13 +401,29 @@ public class UASM65
 		}
 		return c;
 	}//}}}
+	
+	
+	//{{{ intArrayToString
+	private String intArrayToString(int[] intArray)
+	{
+		
+		int count;
+		for(count=0; intArray[count] != 0; count++)
+		{
+		}
+		
+		return new String(intArray,0 ,count);
+	}//}}}
+	
+	
+	
 
 	private boolean pass1()
 	{
 
 		pass2_flag=false;
 		lst_flag = 1;
-		//strcpy(symbol_table[1].label,"XXX"); Note: need to adjust this.
+		strcpy(symbol_table[1].label,"XXX");
 
 			if ( (source_file_pointer = open_file(source_file)) != null)
 			{
@@ -433,13 +441,14 @@ public class UASM65
 				}
 		
 		
-		/*
-				for (x=1;x<=sym_tbl_index;x++)
+				//Uncomment for debugging.
+				System.out.println("Symbol table dump: ");
+				for (int x=1;x<=sym_tbl_index;x++)
 				{
-					printf("\n%d %s %lx",x,symbol_table[x].label,symbol_table[x].address);
+					System.out.printf("\n%d %s %x",x,intArrayToString(symbol_table[x].label), symbol_table[x].address);
 		
 				}
-		*/
+		
 		
 		
 		
@@ -452,13 +461,17 @@ public class UASM65
 				{
 					System.out.printf("\n\nPass1 %d errors.\n",error_index);
 		
-					/*
+					
+					
+					//Error table dump.  Note: uncomment for debugging.
 					for (x=1;x<=error_index;x++)
 					{
-						printf("\nline#: %d    ",error_table[x].line_number);
-						printf("error number: %d",error_table[x].error_number);
+						System.out.printf("\nline#: %d    ",error_table[x].line_number);
+						System.out.printf("error number: %d",error_table[x].error_number);
 					}
-					*/
+					
+					
+					
 		
 					System.out.println("\n");
 					
@@ -540,27 +553,48 @@ public class UASM65
 				int charRead = fgetc();
 				if ( charRead == 10)
 				{
+					//source_line[line_index]=0;
+					//parse_line();
+					//line_index = 0;
+					//wipe_line();
+					
 					source_line[line_index]=0;
-					parse_line();
+					boolean return_code=parse_line();
+					if (return_code != false && pass_flag == 1)
+					{
+						interpret_line_pass1();
+					}
+					else if (return_code != false && pass_flag ==2)
+					{
+						//interpret_line_pass2();
+					}
+					else if (return_code == false && pass_flag == 2)
+					{
+						no_lc_flag=1;
+						print_line();
+					}
+                	
 					line_index = 0;
-					wipe_line();
+					wipe_line(); 
 
 				}
 				else
-				{
-					try
-					{
-						source_file_pointer.unread(charRead); //Note: this might throw a not supported exception.
-					}
-					catch(IOException e)
-					{
-						e.printStackTrace();
-					}
-
-					source_line[line_index]=0;
-					parse_line();
-					line_index = 0;
-					wipe_line();
+				{  
+					log_error(5);
+					return;
+					//try
+					//{
+					//	source_file_pointer.unread(charRead); //Note: this might throw a not supported exception.
+					//}
+					//catch(IOException e)
+					//{
+					//	e.printStackTrace();
+					//}
+                    //
+					//source_line[line_index]=0;
+					//parse_line();
+					//line_index = 0;
+					//wipe_line();
 
 				}
 			}
@@ -570,7 +604,7 @@ public class UASM65
 				boolean return_code=parse_line();
 				if (return_code != false && pass_flag == 1)
 				{
-					//interpret_line_pass1();
+					interpret_line_pass1();
 				}
 				else if (return_code != false && pass_flag ==2)
 				{
@@ -583,7 +617,7 @@ public class UASM65
 				}
 
 				line_index = 0;
-				wipe_line();
+				wipe_line();     
 
 			}
 			else
@@ -599,7 +633,7 @@ public class UASM65
 	//{{{ parse_line
 	private boolean parse_line()
 	{
-		int error_number;
+		int error_number = 0;
 		hold_label[0]=0;
 		hold_operator[0]=0;
 		hold_operand[0]=0;
@@ -653,7 +687,7 @@ public class UASM65
 		}
 
 
-		if (strcmp(temp_add_mode,"IMP")!=0)
+		if (strcmp(temp_add_mode,"IMP\0")!=0)
 		{
 
 			while(source_line[line_index] ==' ' || source_line[line_index] == 9)
@@ -679,16 +713,17 @@ public class UASM65
 		}
 		else
 		{
-			strcpy(hold_operand,"       ");
-			strcpy(hold_add_mode,"IMP");
+			strcpy(hold_operand,"       \0");
+			strcpy(hold_add_mode,"IMP\0");
 		}
 
-		/*
+		
+		//Note: uncomment for debugging.
 			if (! pass2_flag)
 			{
-				printf("%d  %lx : %s : %s : %s : %s\n",source_line_number,location_counter, hold_label, hold_operator,hold_operand,hold_add_mode);
+				System.out.printf("%d : %x : %s : %s : %s : %s\n\n",source_line_number, location_counter, intArrayToString(hold_label), intArrayToString(hold_operator), intArrayToString(hold_operand), intArrayToString(hold_add_mode) );
 			}
-		*/
+		
 
 		return(true);
 	}//}}}
@@ -758,7 +793,7 @@ public class UASM65
 		op_tbl_index = 0;
 		while (true)
 		{
-			if ((strcmp(op_table[op_tbl_index].operator,"XXX"))== 0)
+			if ((strcmp(op_table[op_tbl_index].operator,"XXX\0"))== 0)
 			{
 				return(false);
 			}
@@ -844,11 +879,11 @@ public class UASM65
 	local_index = 0;
 		if (hold_operand[0] == '#')
 		{
-			strcpy(hold_add_mode,"IMM");
+			strcpy(hold_add_mode,"IMM\0");
 		}
 		else if ((hold_operand[0] == 'A' || hold_operand[0] == 'a') && hold_operand[1] == 0)
 		{
-			strcpy(hold_add_mode,"ACC");
+			strcpy(hold_add_mode,"ACC\0");
 		}
 		else if (hold_operand[0] == '(')
 		{
@@ -859,7 +894,7 @@ public class UASM65
 		 		{
 		 			if (hold_operand[local_index+1] == 'x' || hold_operand[local_index+1] == 'X')
 		 			{
-		 				strcpy(hold_add_mode,"IXR");
+		 				strcpy(hold_add_mode,"IXR\0");
 		 				return(true);
 		 			}
 		 			else
@@ -877,7 +912,7 @@ public class UASM65
 		 				{
 		 					if (hold_operand[local_index+1] == 'y' || hold_operand[local_index+1] == 'Y')
 		 					{
-		 						strcpy(hold_add_mode,"IRX");
+		 						strcpy(hold_add_mode,"IRX\0");
 		 						return(true);
 		 					}
 		 					else
@@ -893,7 +928,7 @@ public class UASM65
 		 				}
 		 				//local_index++; Note: this is an unreachable statement.
 		 			}
-		 			strcpy(hold_add_mode,"IND");
+		 			strcpy(hold_add_mode,"IND\0");
 		 			return(true);
 		 		}
 		 		local_index++;
@@ -901,7 +936,7 @@ public class UASM65
 			log_error(16);
 			return(false);
 		}
-		else if (strcmp(hold_operand,"")==0)
+		else if (strcmp(hold_operand,"\0")==0)
 		{
 			log_error(6);
 			return(false);
@@ -914,25 +949,25 @@ public class UASM65
 		 		{
 		 			if (hold_operand[local_index+1] == 'x' || hold_operand[local_index+1] == 'X')
 		 			{
-		 				strcpy(hold_add_mode,"ABX");
+		 				strcpy(hold_add_mode,"ABX\0");
 		 				return(true);
 		 			}
 		 			else if (hold_operand[local_index+1] == 'y' || hold_operand[local_index+1] == 'Y')
 		 			{
-		 				strcpy(hold_add_mode,"ABY");
+		 				strcpy(hold_add_mode,"ABY\0");
 		 				return(true);
 		 			}
 		 		}
 		 		local_index++;
 		 	}
-		 	if (strcmp(op_table[op_tbl_index].add_code,"REL")==0)
+		 	if (strcmp(op_table[op_tbl_index].add_code,"REL\0")==0)
 		 	{
-		 		strcpy(hold_add_mode,"REL");
+		 		strcpy(hold_add_mode,"REL\0");
 		 		return(true);
 		 	}
 		 	else
 		 	{
-		 		strcpy(hold_add_mode,"ABS");
+		 		strcpy(hold_add_mode,"ABS\0");
 		 	}
 		}
 		return(true);
@@ -944,30 +979,31 @@ public class UASM65
 	//{{{interpret_line_pass1()
 	boolean interpret_line_pass1()
 	{
-	
-		if (hold_label[0] != 0 && (strcmp(hold_operator,"EQU")!=0))
+		
+		if (hold_label[0] != 0 && (strcmp(hold_operator,"EQU\0")!=0))
 		{
 			log_label();
 		}
 	
 	
-		if (strcmp(hold_operator,"LON")==0)
+		if (strcmp(hold_operator,"LON\0")==0)
 		{
 			lst_flag=1;
 		}
-		else if (strcmp(hold_operator,"LOF")==0)
+		else if (strcmp(hold_operator,"LOF\0")==0)
 		{
 			lst_flag=0;
 		}
-		else if (strcmp(hold_operator,"ORG")==0)
+		else if (strcmp(hold_operator,"ORG\0")==0)
 		{
-			Integer tmp_converted_number = new Integer(0);
+			//Integer tmp_converted_number = new Integer(0);
+			Number tmp_converted_number = new Number();
 			if (convert_to_number(hold_operand, tmp_converted_number)) //,&temp_converted_number))
 			{
-				this.temp_converted_number = tmp_converted_number;
-				if (tmp_converted_number >=0 && tmp_converted_number <=65535)
+				this.temp_converted_number = tmp_converted_number.number;
+				if (tmp_converted_number.number >=0 && tmp_converted_number.number <=65535)
 				{
-					location_counter=tmp_converted_number;
+					location_counter=tmp_converted_number.number;
 				}
 				else
 				{
@@ -981,20 +1017,21 @@ public class UASM65
 				return(false);
 			}
 		}
-		else if (strcmp(hold_operator,"END")==0)
+		else if (strcmp(hold_operator,"END\0")==0)
 		{
 			end_flag=1;
 		}
-		else if (strcmp(hold_operator,"*")==0)
+		else if (strcmp(hold_operator,"*\0")==0)
 		{
 		;
 		}
-		else if (strcmp(hold_operator,"EQU")==0)
+		else if (strcmp(hold_operator,"EQU\0")==0)
 		{
-			Integer tmp_converted_number = new Integer(0);
+			//Integer tmp_converted_number = new Integer(0);
+			Number tmp_converted_number = new Number();
 			if (convert_to_number(hold_operand, tmp_converted_number)) //,&temp_converted_number))
 			{
-				this.temp_converted_number = tmp_converted_number;
+				this.temp_converted_number = tmp_converted_number.number;
 				log_symbol();
 			}
 			else
@@ -1003,25 +1040,25 @@ public class UASM65
 				return(false);
 			}
 		}
-		else if (strcmp(hold_operator,"DBT")==0)
+		else if (strcmp(hold_operator,"DBT\0")==0)
 		{
 			if (hold_operand[0] == 34) /* Check for ASCII by finding " */
 			{
 				count_ascii_characters();
 			}
-			else if (strchr(hold_operand,"("))// && strrchr(hold_operand,'('))
+			else if (strchr(hold_operand,"(\0"))// && strrchr(hold_operand,'('))
 			{
 				calculate_duplicates();
 			}
-			else if (strchr(hold_operand,",")) //Note: was strrchr
+			else if (strchr(hold_operand,",\0")) //Note: was strrchr
 			{
 				count_bytes();
 			}
-			else if (strcmp(hold_operand,"?")==0)
+			else if (strcmp(hold_operand,"?\0")==0)
 			{
 				location_counter++;
 			}
-			else if ((strchr(hold_operand,"D") || strchr(hold_operand,"B") || strchr(hold_operand,"H")) && hold_operand[0] != '#')
+			else if ((strchr(hold_operand,"D\0") || strchr(hold_operand,"B\0") || strchr(hold_operand,"H\0")) && hold_operand[0] != '#')
 			{
 				location_counter++;
 			}
@@ -1035,13 +1072,13 @@ public class UASM65
 				return(false);
 			}
 		}
-		else if (strcmp(hold_operator,"DWD")==0)
+		else if (strcmp(hold_operator,"DWD\0")==0)
 		{
-			if (strchr(hold_operand,","))
+			if (strchr(hold_operand,",\0"))
 			{
 				count_words();
 			}
-			else if (strcmp(hold_operand,"?")==0)
+			else if (strcmp(hold_operand,"?\0")==0)
 			{
 				location_counter++;
 				location_counter++;
@@ -1075,27 +1112,28 @@ public class UASM65
 	//	char ascii_hold[50]; /* Note: was 10. */
 	//	unsigned long int number;
 	//
-	//	if (strcmp(hold_operator,"LON")==0)
+	//	if (strcmp(hold_operator,"LON\0")==0)
 	//	{
 	//		no_obj_flag = 1;
 	//		lst_flag=1;
 	//		print_line();
 	//	}
-	//	else if (strcmp(hold_operator,"LOF")==0)
+	//	else if (strcmp(hold_operator,"LOF\0")==0)
 	//	{
 	//		no_obj_flag = 1;
 	//		print_line();
 	//		lst_flag=0;
 	//	}
-	//	else if (strcmp(hold_operator,"ORG")==0)
+	//	else if (strcmp(hold_operator,"ORG\0")==0)
 	//	{
-	//		Integer tmp_converted_number = new Integer(0);
+	//		//Integer tmp_converted_number = new Integer(0);
+	//		Number tmp_converted_number - new Number();
 	//		if (convert_to_number(hold_operand, tmp_converted_number)) // ,&temp_converted_number))
 	//		{
-	//			this.temp_converted_number = tmp_converted_number;
-	//			if (emp_converted_number >=0 && tmp_converted_number <=65535)
+	//			this.temp_converted_number = tmp_converted_number.number;
+	//			if (tmp_converted_number.number >=0 && tmp_converted_number.number <=65535)
 	//			{
-	//				location_counter=tmp_converted_number;
+	//				location_counter=tmp_converted_number.number;
 	//				no_obj_flag = 1;
 	//				print_line();
 	//				return(1);
@@ -1112,23 +1150,23 @@ public class UASM65
 	//			return(0);
 	//		}
 	//	}
-	//	else if (strcmp(hold_operator,"END")==0)
+	//	else if (strcmp(hold_operator,"END\0")==0)
 	//	{
 	//		no_lc_flag=1;
 	//		print_line();
 	//		end_flag=1;
 	//	}
-	//	else if (strcmp(hold_operator,"*")==0)
+	//	else if (strcmp(hold_operator,"*\0")==0)
 	//	{
 	//		no_obj_flag = 1;
 	//		print_line();
 	//	}
-	//	else if (strcmp(hold_operator,"EQU")==0)
+	//	else if (strcmp(hold_operator,"EQU\0")==0)
 	//	{
 	//		no_obj_flag = 1;
 	//		print_line();
 	//	}
-	//	else if (strcmp(hold_operator,"DBT")==0)
+	//	else if (strcmp(hold_operator,"DBT\0")==0)
 	//	{
 	//		if (hold_operand[0] == 34) /* Check for ASCII by finding " */
 	//		{
@@ -1142,13 +1180,13 @@ public class UASM65
 	//		{
 	//			process_bytes();
 	//		}
-	//		else if (strcmp(hold_operand,"?")==0)
+	//		else if (strcmp(hold_operand,"?\0")==0)
 	//		{
 	//			hold_obj_1 = 0;
 	//			print_line();
 	//			location_counter++;
 	//		}
-	//		else if ((strchr(hold_operand,'D') || strchr(hold_operand,'B') || strchr(hold_operand,'H')) && hold_operand[0] != '#')
+	//		else if ((strchr(hold_operand,"D\0") || strchr(hold_operand,"B\0") || strchr(hold_operand,"H\0")) && hold_operand[0] != '#')
 	//		{
 	//			local_index = 0;
 	//			operand_index = 0;
@@ -1276,7 +1314,7 @@ public class UASM65
 	//		}
 	//
 	//	}
-	//	else if (strcmp(hold_operator,"DWD")==0)
+	//	else if (strcmp(hold_operator,"DWD\0")==0)
 	//	{
 	//		if (hold_operand[0] == 34) /* Check for ASCII by finding " */
 	//		{
@@ -1291,7 +1329,7 @@ public class UASM65
 	//		{
 	//			process_words();
 	//		}
-	//		else if (strcmp(hold_operand,"?")==0)
+	//		else if (strcmp(hold_operand,"?\0")==0)
 	//		{
 	//			hold_obj_1 = 0;
 	//			hold_obj_2 = 0;
@@ -1348,13 +1386,13 @@ public class UASM65
 	//
 	//	strcpy (hold_add_code,op_table[op_tbl_index].add_code);
 	//
-	//	if (strcmp(hold_add_code,"IMP")==0)
+	//	if (strcmp(hold_add_code,"IMP\0")==0)
 	//	{
 	//		return(1);
 	//	}
-	//	if (strcmp(hold_add_code,"ACC")==0)
+	//	if (strcmp(hold_add_code,"ACC\0")==0)
 	//	{
-	//		if (strcmp(hold_operand,"A") == 0 || strcmp(hold_operand,"a") == 0)
+	//		if (strcmp(hold_operand,"A\0") == 0 || strcmp(hold_operand,"a") == 0)
 	//			{
 	//				return(1);
 	//			}
@@ -1364,7 +1402,7 @@ public class UASM65
 	//				return(0);
 	//			}
 	//	}
-	//	else if (strcmp(hold_add_code,"IMM") == 0)
+	//	else if (strcmp(hold_add_code,"IMM\0") == 0)
 	//	{
 	//		operand_index++;
 	//
@@ -1446,7 +1484,7 @@ public class UASM65
 	//			}
 	//		}
 	//	}
-	//	else if (strcmp(hold_add_code,"ABS") == 0)
+	//	else if (strcmp(hold_add_code,"ABS\0") == 0)
 	//	{
 	//		while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != '+')
 	//		{
@@ -1543,7 +1581,7 @@ public class UASM65
 	//		}
 	//
 	//	}
-	//	else if (strcmp(hold_add_code,"ABX") == 0 || strcmp(hold_add_code,"ABY") == 0)
+	//	else if (strcmp(hold_add_code,"ABX\0") == 0 || strcmp(hold_add_code,"ABY\0") == 0)
 	//	{
 	//		while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != ',')
 	//		{
@@ -1596,7 +1634,7 @@ public class UASM65
 	//		}
 	//
 	//	}
-	//	else if (strcmp(hold_add_code,"IRX") == 0 || strcmp(hold_add_code,"IXR") == 0 || strcmp(hold_add_code,"IND") == 0)
+	//	else if (strcmp(hold_add_code,"IRX\0") == 0 || strcmp(hold_add_code,"IXR\0") == 0 || strcmp(hold_add_code,"IND\0") == 0)
 	//	{
 	//		operand_index++;
 	//		while (hold_operand[operand_index] != ',' && hold_operand[operand_index] != ')')
@@ -1616,7 +1654,7 @@ public class UASM65
 	//		{
 	//			if (convert_to_number(ascii_hold,&number))
 	//			{
-	//				if (strcmp(hold_add_code,"IND") == 0)
+	//				if (strcmp(hold_add_code,"IND\0") == 0)
 	//				{
 	//					if (number >= 0 && number <= 65535)
 	//					{
@@ -1654,7 +1692,7 @@ public class UASM65
 	//		{
 	//			if (! scan_for_symbol(ascii_hold))
 	//			{
-	//				if (strcmp(hold_add_code,"IND") == 0)
+	//				if (strcmp(hold_add_code,"IND\0") == 0)
 	//				{
 	//					if (symbol_table[symbol_index].address >= 0 && symbol_table[symbol_index].address <= 65535)
 	//					{
@@ -1690,7 +1728,7 @@ public class UASM65
 	//		}
 	//
 	//	}
-	//	else if (strcmp(hold_add_code,"REL") == 0)
+	//	else if (strcmp(hold_add_code,"REL\0") == 0)
 	//	{
 	//		next_inst_add = location_counter;
 	//		next_inst_add = next_inst_add + op_table[op_tbl_index].num_bytes;
@@ -1754,7 +1792,7 @@ public class UASM65
 			{
 				return(false);
 			}
-			else if (strcmp(symbol_table[symbol_index].label,"XXX")==0)
+			else if (strcmp(symbol_table[symbol_index].label,"XXX\0")==0)
 			{
 				return(true);
 			}
@@ -1771,7 +1809,7 @@ public class UASM65
 	//************************************************************************/
 	//
 	//{{{convert_to_number
-	boolean convert_to_number(int string_form[], Integer number_form)//,unsigned long int *number_form)
+	boolean convert_to_number(int string_form[], Number number_form)//,unsigned long int *number_form)
 	{
 		int number_base = 0;
 		int number_base_position=0; 
@@ -1801,7 +1839,7 @@ public class UASM65
 		}
 	
 		//*number_form = *number_form & 65535;
-		number_form = number_form & 65535;
+		number_form.number = number_form.number & 65535;
 		
 		return (return_code);
 	
@@ -1826,13 +1864,13 @@ public class UASM65
 	} //}}}
 	
 	//{{{ dec_to_integer
-	boolean dec_to_integer(int string_form[], Integer number_form)//,unsigned long int *number_form)
+	boolean dec_to_integer(int string_form[], Number number_form)//,unsigned long int *number_form)
 	{
 		int char_position, number, digit, string_form_length, a;
 	
 		char_position = strlen(string_form)-1;
 		string_form_length = char_position;
-		number_form = 0;
+		number_form.number = 0;
 		;
 	
 		while (char_position >= 0)
@@ -1850,7 +1888,7 @@ public class UASM65
 	
 			a=expand(digit,string_form_length - char_position,10);
 			//*number_form = *number_form + a;
-			number_form += a;
+			number_form.number += a;
 			
 			char_position--;
 		}
@@ -1860,13 +1898,13 @@ public class UASM65
 
 
 	//{{{hex_to_integer
-	boolean hex_to_integer(int string_form[], Integer number_form)//,unsigned long int *number_form)
+	boolean hex_to_integer(int string_form[], Number number_form)//,unsigned long int *number_form)
 	{
 		int char_position, number, digit, string_form_length,a;
 	
 		char_position = strlen(string_form)-1;
 		string_form_length = char_position;
-		number_form = 0;
+		number_form.number = 0;
 
 	
 		while (char_position >= 0)
@@ -1892,7 +1930,7 @@ public class UASM65
 	
 			a=expand(digit,string_form_length - char_position,16);
 			//*number_form = *number_form + a;
-			number_form += a;
+			number_form.number += a;
 			
 			char_position--;
 		}
@@ -1903,13 +1941,13 @@ public class UASM65
 	
 	
 	//{{{ bin_to_integerr
-	boolean bin_to_integer(int string_form[], Integer number_form)//,unsigned long int *number_form)
+	boolean bin_to_integer(int string_form[], Number number_form)//,unsigned long int *number_form)
 	{
 		int char_position, number, digit, string_form_length,a;
 	
 		char_position = strlen(string_form)-1;
 		string_form_length = char_position;
-		number_form = 0;
+		number_form.number = 0;
 
 	
 		while (char_position >= 0)
@@ -1927,7 +1965,7 @@ public class UASM65
 	
 			a=expand(digit,string_form_length - char_position,2);
 			//*number_form = *number_form + a;
-			number_form += a;
+			number_form.number += a;
 			char_position--;
 		}
 	
@@ -2137,7 +2175,7 @@ public class UASM65
 				sym_tbl_index++;
 				strcpy(symbol_table[sym_tbl_index].label,hold_label);
 				symbol_table[sym_tbl_index].address = location_counter;
-				strcpy(symbol_table[sym_tbl_index+1].label,"XXX");
+				strcpy(symbol_table[sym_tbl_index+1].label,"XXX\0");
 				return(true);
 			}
 			else
@@ -2162,7 +2200,7 @@ public class UASM65
 				sym_tbl_index++;
 				strcpy(symbol_table[sym_tbl_index].label,hold_label);
 				symbol_table[sym_tbl_index].address = temp_converted_number;
-				strcpy(symbol_table[sym_tbl_index+1].label,"XXX");
+				strcpy(symbol_table[sym_tbl_index+1].label,"XXX\0");
 				return(true);
 			}
 			else
@@ -2200,7 +2238,7 @@ public class UASM65
 	//	{
 	//		if (no_lc_flag == 0)
 	//		{
-	//			sprintf(loc_cntr,"\n%.4lX ",location_counter);
+	//			sprintf(loc_cntr,"\n%.4x ",location_counter);
 	//		}
 	//		else if (error_table[print_error_index-1].line_number != source_line_number )
 	//		{
@@ -2264,7 +2302,7 @@ public class UASM65
 	//		}
 	//		strcat(lst_line,loc_cntr);
 	//		strcat(lst_line,obj_code);
-	//		strcat(lst_line,"   ");
+	//		strcat(lst_line,"   \0");
 	//		strcat(lst_line,line_num);
 	//		strcat(lst_line,source);
 	//
@@ -2823,7 +2861,8 @@ public class UASM65
 	boolean calculate_duplicates()
 	{
 		//unsigned long int multiplier;
-		Integer multiplier = new Integer(0);
+		//Integer multiplier = new Integer(0);
+		Number multiplier = new Number();
 		int[] ascii_multiplier = new int[20];
 		int index;
 		index = 0;
@@ -2841,7 +2880,7 @@ public class UASM65
 		ascii_multiplier[index] = 0;
 		if (convert_to_number(ascii_multiplier, multiplier))
 		{
-			location_counter=location_counter+ multiplier;
+			location_counter=location_counter+ multiplier.number;
 			return(true);
 		}
 		else
@@ -2869,7 +2908,7 @@ public class UASM65
 	//{
 	//	printf("Enter name of source file: ");
 	//	scanf("%s",file_name);
-	//	if (strstr(file_name,".asm") || strstr(file_name,".ASM"))
+	//	if (strstr(file_name,".asm") || strstr(file_name,".ASM\0"))
 	//	{
 	//		return(1);
 	//	}
@@ -2924,131 +2963,133 @@ public class UASM65
 	
 	}//}}}
 
-	//{{{read_operator_table
+	//{{{read_operator_table                                                                                       
 	private boolean read_operator_table()
 	{
-	strcpy( op_table[   0].operator , "LON" ); strcpy( op_table[   0].add_code , "IMP" ); op_table[   0].opcode = 0x00; op_table[   0].num_bytes = 0; op_table[   0].base_cycles = 0;
-	strcpy( op_table[   1].operator , "LOF" ); strcpy( op_table[   1].add_code , "IMP" ); op_table[   1].opcode = 0x00; op_table[   1].num_bytes = 0; op_table[   1].base_cycles = 0;
-	strcpy( op_table[   2].operator , "ORG" ); strcpy( op_table[   2].add_code , "DIR" ); op_table[   2].opcode = 0x00; op_table[   2].num_bytes = 0; op_table[   2].base_cycles = 0;
-	strcpy( op_table[   3].operator , "*" )  ; strcpy( op_table[   3].add_code , "IMP" ); op_table[   3].opcode = 0x00; op_table[   3].num_bytes = 0; op_table[   3].base_cycles = 0;
-	strcpy( op_table[   4].operator , "EQU" ); strcpy( op_table[   4].add_code , "DIR" ); op_table[   4].opcode = 0x00; op_table[   4].num_bytes = 0; op_table[   4].base_cycles = 0;
-	strcpy( op_table[   5].operator , "DBT" ); strcpy( op_table[   5].add_code , "DIR" ); op_table[   5].opcode = 0x00; op_table[   5].num_bytes = 0; op_table[   5].base_cycles = 0;
-	strcpy( op_table[   6].operator , "DWD" ); strcpy( op_table[   6].add_code , "DIR" ); op_table[   6].opcode = 0x00; op_table[   6].num_bytes = 0; op_table[   6].base_cycles = 0;
-	strcpy( op_table[   7].operator , "END" ); strcpy( op_table[   7].add_code , "IMP" ); op_table[   7].opcode = 0x00; op_table[   7].num_bytes = 0; op_table[   7].base_cycles = 0;
-	strcpy( op_table[   8].operator , "ADC" ); strcpy( op_table[   8].add_code , "IMM" ); op_table[   8].opcode = 0x69; op_table[   8].num_bytes = 2; op_table[   8].base_cycles = 2;
-	strcpy( op_table[   9].operator , "ADC" ); strcpy( op_table[   9].add_code , "ABS" ); op_table[   9].opcode = 0x6D; op_table[   9].num_bytes = 3; op_table[   9].base_cycles = 4;
-	strcpy( op_table[  10].operator , "ADC" ); strcpy( op_table[  10].add_code , "ABX" ); op_table[  10].opcode = 0x7D; op_table[  10].num_bytes = 3; op_table[  10].base_cycles = 4;
-	strcpy( op_table[  11].operator , "ADC" ); strcpy( op_table[  11].add_code , "ABY" ); op_table[  11].opcode = 0x79; op_table[  11].num_bytes = 3; op_table[  11].base_cycles = 4;
-	strcpy( op_table[  12].operator , "ADC" ); strcpy( op_table[  12].add_code , "IXR" ); op_table[  12].opcode = 0x61; op_table[  12].num_bytes = 2; op_table[  12].base_cycles = 6;
-	strcpy( op_table[  13].operator , "ADC" ); strcpy( op_table[  13].add_code , "IRX" ); op_table[  13].opcode = 0x71; op_table[  13].num_bytes = 2; op_table[  13].base_cycles = 5;
-	strcpy( op_table[  14].operator , "AND" ); strcpy( op_table[  14].add_code , "IMM" ); op_table[  14].opcode = 0x29; op_table[  14].num_bytes = 2; op_table[  14].base_cycles = 2;
-	strcpy( op_table[  15].operator , "AND" ); strcpy( op_table[  15].add_code , "ABS" ); op_table[  15].opcode = 0x2D; op_table[  15].num_bytes = 3; op_table[  15].base_cycles = 4;
-	strcpy( op_table[  16].operator , "AND" ); strcpy( op_table[  16].add_code , "ABX" ); op_table[  16].opcode = 0x3D; op_table[  16].num_bytes = 3; op_table[  16].base_cycles = 4;
-	strcpy( op_table[  17].operator , "AND" ); strcpy( op_table[  17].add_code , "ABY" ); op_table[  17].opcode = 0x39; op_table[  17].num_bytes = 3; op_table[  17].base_cycles = 4;
-	strcpy( op_table[  18].operator , "AND" ); strcpy( op_table[  18].add_code , "IXR" ); op_table[  18].opcode = 0x21; op_table[  18].num_bytes = 2; op_table[  18].base_cycles = 6;
-	strcpy( op_table[  19].operator , "AND" ); strcpy( op_table[  19].add_code , "IRX" ); op_table[  19].opcode = 0x31; op_table[  19].num_bytes = 2; op_table[  19].base_cycles = 5;
-	strcpy( op_table[  20].operator , "ASL" ); strcpy( op_table[  20].add_code , "ACC" ); op_table[  20].opcode = 0x0A; op_table[  20].num_bytes = 1; op_table[  20].base_cycles = 2;
-	strcpy( op_table[  21].operator , "ASL" ); strcpy( op_table[  21].add_code , "ABS" ); op_table[  21].opcode = 0x0E; op_table[  21].num_bytes = 3; op_table[  21].base_cycles = 6;
-	strcpy( op_table[  22].operator , "ASL" ); strcpy( op_table[  22].add_code , "ABX" ); op_table[  22].opcode = 0x1E; op_table[  22].num_bytes = 3; op_table[  22].base_cycles = 7;
-	strcpy( op_table[  23].operator , "BCC" ); strcpy( op_table[  23].add_code , "REL" ); op_table[  23].opcode = 0x90; op_table[  23].num_bytes = 2; op_table[  23].base_cycles = 2;
-	strcpy( op_table[  24].operator , "BCS" ); strcpy( op_table[  24].add_code , "REL" ); op_table[  24].opcode = 0xB0; op_table[  24].num_bytes = 2; op_table[  24].base_cycles = 2;
-	strcpy( op_table[  25].operator , "BEQ" ); strcpy( op_table[  25].add_code , "REL" ); op_table[  25].opcode = 0xF0; op_table[  25].num_bytes = 2; op_table[  25].base_cycles = 2;
-	strcpy( op_table[  26].operator , "BIT" ); strcpy( op_table[  26].add_code , "ABS" ); op_table[  26].opcode = 0x2C; op_table[  26].num_bytes = 3; op_table[  26].base_cycles = 4;
-	strcpy( op_table[  27].operator , "BMI" ); strcpy( op_table[  27].add_code , "REL" ); op_table[  27].opcode = 0x30; op_table[  27].num_bytes = 2; op_table[  27].base_cycles = 2;
-	strcpy( op_table[  28].operator , "BNE" ); strcpy( op_table[  28].add_code , "REL" ); op_table[  28].opcode = 0xD0; op_table[  28].num_bytes = 2; op_table[  28].base_cycles = 2;
-	strcpy( op_table[  29].operator , "BPL" ); strcpy( op_table[  29].add_code , "REL" ); op_table[  29].opcode = 0x10; op_table[  29].num_bytes = 2; op_table[  29].base_cycles = 2;
-	strcpy( op_table[  30].operator , "BRK" ); strcpy( op_table[  30].add_code , "IMP" ); op_table[  30].opcode = 0x00; op_table[  30].num_bytes = 1; op_table[  30].base_cycles = 7;
-	strcpy( op_table[  31].operator , "BVC" ); strcpy( op_table[  31].add_code , "REL" ); op_table[  31].opcode = 0x50; op_table[  31].num_bytes = 2; op_table[  31].base_cycles = 2;
-	strcpy( op_table[  32].operator , "BVS" ); strcpy( op_table[  32].add_code , "REL" ); op_table[  32].opcode = 0x70; op_table[  32].num_bytes = 2; op_table[  32].base_cycles = 2;
-	strcpy( op_table[  33].operator , "CLC" ); strcpy( op_table[  33].add_code , "IMP" ); op_table[  33].opcode = 0x18; op_table[  33].num_bytes = 1; op_table[  33].base_cycles = 2;
-	strcpy( op_table[  34].operator , "CLD" ); strcpy( op_table[  34].add_code , "IMP" ); op_table[  34].opcode = 0xD8; op_table[  34].num_bytes = 1; op_table[  34].base_cycles = 2;
-	strcpy( op_table[  35].operator , "CLI" ); strcpy( op_table[  35].add_code , "IMP" ); op_table[  35].opcode = 0x58; op_table[  35].num_bytes = 1; op_table[  35].base_cycles = 2;
-	strcpy( op_table[  36].operator , "CLV" ); strcpy( op_table[  36].add_code , "IMP" ); op_table[  36].opcode = 0xB8; op_table[  36].num_bytes = 1; op_table[  36].base_cycles = 2;
-	strcpy( op_table[  37].operator , "CMP" ); strcpy( op_table[  37].add_code , "IMM" ); op_table[  37].opcode = 0xC9; op_table[  37].num_bytes = 2; op_table[  37].base_cycles = 2;
-	strcpy( op_table[  38].operator , "CMP" ); strcpy( op_table[  38].add_code , "ABS" ); op_table[  38].opcode = 0xCD; op_table[  38].num_bytes = 3; op_table[  38].base_cycles = 4;
-	strcpy( op_table[  39].operator , "CMP" ); strcpy( op_table[  39].add_code , "ABX" ); op_table[  39].opcode = 0xDD; op_table[  39].num_bytes = 3; op_table[  39].base_cycles = 4;
-	strcpy( op_table[  40].operator , "CMP" ); strcpy( op_table[  40].add_code , "ABY" ); op_table[  40].opcode = 0xD9; op_table[  40].num_bytes = 3; op_table[  40].base_cycles = 4;
-	strcpy( op_table[  41].operator , "CMP" ); strcpy( op_table[  41].add_code , "IXR" ); op_table[  41].opcode = 0xC1; op_table[  41].num_bytes = 2; op_table[  41].base_cycles = 6;
-	strcpy( op_table[  42].operator , "CMP" ); strcpy( op_table[  42].add_code , "IRX" ); op_table[  42].opcode = 0xD1; op_table[  42].num_bytes = 2; op_table[  42].base_cycles = 5;
-	strcpy( op_table[  43].operator , "CPX" ); strcpy( op_table[  43].add_code , "IMM" ); op_table[  43].opcode = 0xE0; op_table[  43].num_bytes = 2; op_table[  43].base_cycles = 2;
-	strcpy( op_table[  44].operator , "CPX" ); strcpy( op_table[  44].add_code , "ABS" ); op_table[  44].opcode = 0xEC; op_table[  44].num_bytes = 3; op_table[  44].base_cycles = 4;
-	strcpy( op_table[  45].operator , "CPY" ); strcpy( op_table[  45].add_code , "IMM" ); op_table[  45].opcode = 0xC0; op_table[  45].num_bytes = 2; op_table[  45].base_cycles = 2;
-	strcpy( op_table[  46].operator , "CPY" ); strcpy( op_table[  46].add_code , "ABS" ); op_table[  46].opcode = 0xCC; op_table[  46].num_bytes = 3; op_table[  46].base_cycles = 4;
-	strcpy( op_table[  47].operator , "DEC" ); strcpy( op_table[  47].add_code , "ABS" ); op_table[  47].opcode = 0xCE; op_table[  47].num_bytes = 3; op_table[  47].base_cycles = 6;
-	strcpy( op_table[  48].operator , "DEC" ); strcpy( op_table[  48].add_code , "ABX" ); op_table[  48].opcode = 0xDE; op_table[  48].num_bytes = 3; op_table[  48].base_cycles = 7;
-	strcpy( op_table[  49].operator , "DEX" ); strcpy( op_table[  49].add_code , "IMP" ); op_table[  49].opcode = 0xCA; op_table[  49].num_bytes = 1; op_table[  49].base_cycles = 2;
-	strcpy( op_table[  50].operator , "DEY" ); strcpy( op_table[  50].add_code , "IMP" ); op_table[  50].opcode = 0x88; op_table[  50].num_bytes = 1; op_table[  50].base_cycles = 2;
-	strcpy( op_table[  51].operator , "EOR" ); strcpy( op_table[  51].add_code , "IMM" ); op_table[  51].opcode = 0x49; op_table[  51].num_bytes = 2; op_table[  51].base_cycles = 2;
-	strcpy( op_table[  52].operator , "EOR" ); strcpy( op_table[  52].add_code , "ABS" ); op_table[  52].opcode = 0x4D; op_table[  52].num_bytes = 3; op_table[  52].base_cycles = 4;
-	strcpy( op_table[  53].operator , "EOR" ); strcpy( op_table[  53].add_code , "ABX" ); op_table[  53].opcode = 0x5D; op_table[  53].num_bytes = 3; op_table[  53].base_cycles = 4;
-	strcpy( op_table[  54].operator , "EOR" ); strcpy( op_table[  54].add_code , "ABY" ); op_table[  54].opcode = 0x59; op_table[  54].num_bytes = 3; op_table[  54].base_cycles = 4;
-	strcpy( op_table[  55].operator , "EOR" ); strcpy( op_table[  55].add_code , "IXR" ); op_table[  55].opcode = 0x41; op_table[  55].num_bytes = 2; op_table[  55].base_cycles = 6;
-	strcpy( op_table[  56].operator , "EOR" ); strcpy( op_table[  56].add_code , "IRX" ); op_table[  56].opcode = 0x51; op_table[  56].num_bytes = 2; op_table[  56].base_cycles = 5;
-	strcpy( op_table[  57].operator , "INC" ); strcpy( op_table[  57].add_code , "ABS" ); op_table[  57].opcode = 0xEE; op_table[  57].num_bytes = 3; op_table[  57].base_cycles = 6;
-	strcpy( op_table[  58].operator , "INC" ); strcpy( op_table[  58].add_code , "ABX" ); op_table[  58].opcode = 0xFE; op_table[  58].num_bytes = 3; op_table[  58].base_cycles = 7;
-	strcpy( op_table[  59].operator , "INX" ); strcpy( op_table[  59].add_code , "IMP" ); op_table[  59].opcode = 0xE8; op_table[  59].num_bytes = 1; op_table[  59].base_cycles = 2;
-	strcpy( op_table[  60].operator , "INY" ); strcpy( op_table[  60].add_code , "IMP" ); op_table[  60].opcode = 0xC8; op_table[  60].num_bytes = 1; op_table[  60].base_cycles = 2;
-	strcpy( op_table[  61].operator , "JMP" ); strcpy( op_table[  61].add_code , "ABS" ); op_table[  61].opcode = 0x4C; op_table[  61].num_bytes = 3; op_table[  61].base_cycles = 3;
-	strcpy( op_table[  62].operator , "JMP" ); strcpy( op_table[  62].add_code , "IND" ); op_table[  62].opcode = 0x6C; op_table[  62].num_bytes = 3; op_table[  62].base_cycles = 5;
-	strcpy( op_table[  63].operator , "JSR" ); strcpy( op_table[  63].add_code , "ABS" ); op_table[  63].opcode = 0x20; op_table[  63].num_bytes = 3; op_table[  63].base_cycles = 6;
-	strcpy( op_table[  64].operator , "LDA" ); strcpy( op_table[  64].add_code , "IMM" ); op_table[  64].opcode = 0xA9; op_table[  64].num_bytes = 2; op_table[  64].base_cycles = 2;
-	strcpy( op_table[  65].operator , "LDA" ); strcpy( op_table[  65].add_code , "ABS" ); op_table[  65].opcode = 0xAD; op_table[  65].num_bytes = 3; op_table[  65].base_cycles = 4;
-	strcpy( op_table[  66].operator , "LDA" ); strcpy( op_table[  66].add_code , "ABX" ); op_table[  66].opcode = 0xBD; op_table[  66].num_bytes = 3; op_table[  66].base_cycles = 4;
-	strcpy( op_table[  67].operator , "LDA" ); strcpy( op_table[  67].add_code , "ABY" ); op_table[  67].opcode = 0xB9; op_table[  67].num_bytes = 3; op_table[  67].base_cycles = 4;
-	strcpy( op_table[  68].operator , "LDA" ); strcpy( op_table[  68].add_code , "IXR" ); op_table[  68].opcode = 0xA1; op_table[  68].num_bytes = 2; op_table[  68].base_cycles = 6;
-	strcpy( op_table[  69].operator , "LDA" ); strcpy( op_table[  69].add_code , "IRX" ); op_table[  69].opcode = 0xB1; op_table[  69].num_bytes = 2; op_table[  69].base_cycles = 5;
-	strcpy( op_table[  70].operator , "LDX" ); strcpy( op_table[  70].add_code , "IMM" ); op_table[  70].opcode = 0xA2; op_table[  70].num_bytes = 2; op_table[  70].base_cycles = 2;
-	strcpy( op_table[  71].operator , "LDX" ); strcpy( op_table[  71].add_code , "ABS" ); op_table[  71].opcode = 0xAE; op_table[  71].num_bytes = 3; op_table[  71].base_cycles = 4;
-	strcpy( op_table[  72].operator , "LDX" ); strcpy( op_table[  72].add_code , "ABY" ); op_table[  72].opcode = 0xBE; op_table[  72].num_bytes = 3; op_table[  72].base_cycles = 4;
-	strcpy( op_table[  73].operator , "LDY" ); strcpy( op_table[  73].add_code , "IMM" ); op_table[  73].opcode = 0xA0; op_table[  73].num_bytes = 2; op_table[  73].base_cycles = 2;
-	strcpy( op_table[  74].operator , "LDY" ); strcpy( op_table[  74].add_code , "ABS" ); op_table[  74].opcode = 0xAC; op_table[  74].num_bytes = 3; op_table[  74].base_cycles = 4;
-	strcpy( op_table[  75].operator , "LDY" ); strcpy( op_table[  75].add_code , "ABX" ); op_table[  75].opcode = 0xBC; op_table[  75].num_bytes = 3; op_table[  75].base_cycles = 4;
-	strcpy( op_table[  76].operator , "LSR" ); strcpy( op_table[  76].add_code , "ACC" ); op_table[  76].opcode = 0x4A; op_table[  76].num_bytes = 1; op_table[  76].base_cycles = 2;
-	strcpy( op_table[  77].operator , "LSR" ); strcpy( op_table[  77].add_code , "ABS" ); op_table[  77].opcode = 0x4E; op_table[  77].num_bytes = 3; op_table[  77].base_cycles = 6;
-	strcpy( op_table[  78].operator , "LSR" ); strcpy( op_table[  78].add_code , "ABX" ); op_table[  78].opcode = 0x5E; op_table[  78].num_bytes = 3; op_table[  78].base_cycles = 7;
-	strcpy( op_table[  79].operator , "NOP" ); strcpy( op_table[  79].add_code , "IMP" ); op_table[  79].opcode = 0xEA; op_table[  79].num_bytes = 1; op_table[  79].base_cycles = 2;
-	strcpy( op_table[  80].operator , "ORA" ); strcpy( op_table[  80].add_code , "IMM" ); op_table[  80].opcode = 0x09; op_table[  80].num_bytes = 2; op_table[  80].base_cycles = 2;
-	strcpy( op_table[  81].operator , "ORA" ); strcpy( op_table[  81].add_code , "ABS" ); op_table[  81].opcode = 0x0D; op_table[  81].num_bytes = 3; op_table[  81].base_cycles = 4;
-	strcpy( op_table[  82].operator , "ORA" ); strcpy( op_table[  82].add_code , "ABX" ); op_table[  82].opcode = 0x1D; op_table[  82].num_bytes = 3; op_table[  82].base_cycles = 4;
-	strcpy( op_table[  83].operator , "ORA" ); strcpy( op_table[  83].add_code , "ABY" ); op_table[  83].opcode = 0x19; op_table[  83].num_bytes = 3; op_table[  83].base_cycles = 4;
-	strcpy( op_table[  84].operator , "ORA" ); strcpy( op_table[  84].add_code , "IXR" ); op_table[  84].opcode = 0x01; op_table[  84].num_bytes = 2; op_table[  84].base_cycles = 6;
-	strcpy( op_table[  85].operator , "ORA" ); strcpy( op_table[  85].add_code , "IRX" ); op_table[  85].opcode = 0x11; op_table[  85].num_bytes = 2; op_table[  85].base_cycles = 5;
-	strcpy( op_table[  86].operator , "PHA" ); strcpy( op_table[  86].add_code , "IMP" ); op_table[  86].opcode = 0x48; op_table[  86].num_bytes = 1; op_table[  86].base_cycles = 3;
-	strcpy( op_table[  87].operator , "PHP" ); strcpy( op_table[  87].add_code , "IMP" ); op_table[  87].opcode = 0x08; op_table[  87].num_bytes = 1; op_table[  87].base_cycles = 3;
-	strcpy( op_table[  88].operator , "PLA" ); strcpy( op_table[  88].add_code , "IMP" ); op_table[  88].opcode = 0x68; op_table[  88].num_bytes = 1; op_table[  88].base_cycles = 4;
-	strcpy( op_table[  89].operator , "PLP" ); strcpy( op_table[  89].add_code , "IMP" ); op_table[  89].opcode = 0x28; op_table[  89].num_bytes = 1; op_table[  89].base_cycles = 4;
-	strcpy( op_table[  90].operator , "ROL" ); strcpy( op_table[  90].add_code , "ACC" ); op_table[  90].opcode = 0x2A; op_table[  90].num_bytes = 1; op_table[  90].base_cycles = 2;
-	strcpy( op_table[  91].operator , "ROL" ); strcpy( op_table[  91].add_code , "ABS" ); op_table[  91].opcode = 0x2E; op_table[  91].num_bytes = 3; op_table[  91].base_cycles = 6;
-	strcpy( op_table[  92].operator , "ROL" ); strcpy( op_table[  92].add_code , "ABX" ); op_table[  92].opcode = 0x3E; op_table[  92].num_bytes = 3; op_table[  92].base_cycles = 7;
-	strcpy( op_table[  93].operator , "ROR" ); strcpy( op_table[  93].add_code , "ACC" ); op_table[  93].opcode = 0x6A; op_table[  93].num_bytes = 1; op_table[  93].base_cycles = 2;
-	strcpy( op_table[  94].operator , "ROR" ); strcpy( op_table[  94].add_code , "ABS" ); op_table[  94].opcode = 0x6E; op_table[  94].num_bytes = 3; op_table[  94].base_cycles = 6;
-	strcpy( op_table[  95].operator , "ROR" ); strcpy( op_table[  95].add_code , "ABX" ); op_table[  95].opcode = 0x7E; op_table[  95].num_bytes = 3; op_table[  95].base_cycles = 7;
-	strcpy( op_table[  96].operator , "RTI" ); strcpy( op_table[  96].add_code , "IMP" ); op_table[  96].opcode = 0x40; op_table[  96].num_bytes = 1; op_table[  96].base_cycles = 6;
-	strcpy( op_table[  97].operator , "RTS" ); strcpy( op_table[  97].add_code , "IMP" ); op_table[  97].opcode = 0x60; op_table[  97].num_bytes = 1; op_table[  97].base_cycles = 6;
-	strcpy( op_table[  98].operator , "SBC" ); strcpy( op_table[  98].add_code , "IMM" ); op_table[  98].opcode = 0xE9; op_table[  98].num_bytes = 2; op_table[  98].base_cycles = 2;
-	strcpy( op_table[  99].operator , "SBC" ); strcpy( op_table[  99].add_code , "ABS" ); op_table[  99].opcode = 0xED; op_table[  99].num_bytes = 3; op_table[  99].base_cycles = 4;
-	strcpy( op_table[ 100].operator , "SBC" ); strcpy( op_table[ 100].add_code , "ABX" ); op_table[ 100].opcode = 0xFD; op_table[ 100].num_bytes = 3; op_table[ 100].base_cycles = 4;
-	strcpy( op_table[ 101].operator , "SBC" ); strcpy( op_table[ 101].add_code , "ABY" ); op_table[ 101].opcode = 0xF9; op_table[ 101].num_bytes = 3; op_table[ 101].base_cycles = 4;
-	strcpy( op_table[ 102].operator , "SBC" ); strcpy( op_table[ 102].add_code , "IXR" ); op_table[ 102].opcode = 0xE1; op_table[ 102].num_bytes = 2; op_table[ 102].base_cycles = 6;
-	strcpy( op_table[ 103].operator , "SBC" ); strcpy( op_table[ 103].add_code , "IRX" ); op_table[ 103].opcode = 0xF1; op_table[ 103].num_bytes = 2; op_table[ 103].base_cycles = 5;
-	strcpy( op_table[ 104].operator , "SEC" ); strcpy( op_table[ 104].add_code , "IMP" ); op_table[ 104].opcode = 0x38; op_table[ 104].num_bytes = 1; op_table[ 104].base_cycles = 2;
-	strcpy( op_table[ 105].operator , "SED" ); strcpy( op_table[ 105].add_code , "IMP" ); op_table[ 105].opcode = 0xF8; op_table[ 105].num_bytes = 1; op_table[ 105].base_cycles = 2;
-	strcpy( op_table[ 106].operator , "SEI" ); strcpy( op_table[ 106].add_code , "IMP" ); op_table[ 106].opcode = 0x78; op_table[ 106].num_bytes = 1; op_table[ 106].base_cycles = 2;
-	strcpy( op_table[ 107].operator , "STA" ); strcpy( op_table[ 107].add_code , "ABS" ); op_table[ 107].opcode = 0x8D; op_table[ 107].num_bytes = 3; op_table[ 107].base_cycles = 4;
-	strcpy( op_table[ 108].operator , "STA" ); strcpy( op_table[ 108].add_code , "ABX" ); op_table[ 108].opcode = 0x9D; op_table[ 108].num_bytes = 3; op_table[ 108].base_cycles = 5;
-	strcpy( op_table[ 109].operator , "STA" ); strcpy( op_table[ 109].add_code , "ABY" ); op_table[ 109].opcode = 0x99; op_table[ 109].num_bytes = 3; op_table[ 109].base_cycles = 5;
-	strcpy( op_table[ 110].operator , "STA" ); strcpy( op_table[ 110].add_code , "IXR" ); op_table[ 110].opcode = 0x81; op_table[ 110].num_bytes = 2; op_table[ 110].base_cycles = 6;
-	strcpy( op_table[ 111].operator , "STA" ); strcpy( op_table[ 111].add_code , "IRX" ); op_table[ 111].opcode = 0x91; op_table[ 111].num_bytes = 2; op_table[ 111].base_cycles = 6;
-	strcpy( op_table[ 112].operator , "STX" ); strcpy( op_table[ 112].add_code , "ABS" ); op_table[ 112].opcode = 0x8E; op_table[ 112].num_bytes = 3; op_table[ 112].base_cycles = 4;
-	strcpy( op_table[ 113].operator , "STY" ); strcpy( op_table[ 113].add_code , "ABS" ); op_table[ 113].opcode = 0x8C; op_table[ 113].num_bytes = 3; op_table[ 113].base_cycles = 4;
-	strcpy( op_table[ 114].operator , "TAX" ); strcpy( op_table[ 114].add_code , "IMP" ); op_table[ 114].opcode = 0xAA; op_table[ 114].num_bytes = 1; op_table[ 114].base_cycles = 2;
-	strcpy( op_table[ 115].operator , "TAY" ); strcpy( op_table[ 115].add_code , "IMP" ); op_table[ 115].opcode = 0xA8; op_table[ 115].num_bytes = 1; op_table[ 115].base_cycles = 2;
-	strcpy( op_table[ 116].operator , "TSX" ); strcpy( op_table[ 116].add_code , "IMP" ); op_table[ 116].opcode = 0xBA; op_table[ 116].num_bytes = 1; op_table[ 116].base_cycles = 2;
-	strcpy( op_table[ 117].operator , "TXA" ); strcpy( op_table[ 117].add_code , "IMP" ); op_table[ 117].opcode = 0x8A; op_table[ 117].num_bytes = 1; op_table[ 117].base_cycles = 2;
-	strcpy( op_table[ 118].operator , "TXS" ); strcpy( op_table[ 118].add_code , "IMP" ); op_table[ 118].opcode = 0x9A; op_table[ 118].num_bytes = 1; op_table[ 118].base_cycles = 2;
-	strcpy( op_table[ 119].operator , "TYA" ); strcpy( op_table[ 119].add_code , "IMP" ); op_table[ 119].opcode = 0x98; op_table[ 119].num_bytes = 1; op_table[ 119].base_cycles = 2;
-	strcpy( op_table[ 120].operator , "XXX" ); strcpy( op_table[ 120].add_code , "XXX" ); op_table[ 120].opcode = 0x00; op_table[ 120].num_bytes = 0; op_table[ 120].base_cycles = 0;
-	strcpy(op_table[121].operator, "XXX");
+	op_table[   0] = new op_tbl( "LON\0", "IMP\0", 0x00, 0, 0 );
+	op_table[   1] = new op_tbl( "LOF\0", "IMP\0", 0x00, 0, 0 );
+	op_table[   2] = new op_tbl( "ORG\0", "DIR\0", 0x00, 0, 0 );
+	op_table[   3] = new op_tbl( "*\0", 	"IMP\0", 0x00, 0, 0 );
+	op_table[   4] = new op_tbl( "EQU\0", "DIR\0", 0x00, 0, 0 );
+	op_table[   5] = new op_tbl( "DBT\0", "DIR\0", 0x00, 0, 0 );
+	op_table[   6] = new op_tbl( "DWD\0", "DIR\0", 0x00, 0, 0 );
+	op_table[   7] = new op_tbl( "END\0", "IMP\0", 0x00, 0, 0 );
+	op_table[   8] = new op_tbl( "ADC\0", "IMM\0", 0x69, 2, 2 );
+	op_table[   9] = new op_tbl( "ADC\0", "ABS\0", 0x6D, 3, 4 );
+	op_table[  10] = new op_tbl( "ADC\0", "ABX\0", 0x7D, 3, 4 );
+	op_table[  11] = new op_tbl( "ADC\0", "ABY\0", 0x79, 3, 4 );
+	op_table[  12] = new op_tbl( "ADC\0", "IXR\0", 0x61, 2, 6 );
+	op_table[  13] = new op_tbl( "ADC\0", "IRX\0", 0x71, 2, 5 );
+	op_table[  14] = new op_tbl( "AND\0", "IMM\0", 0x29, 2, 2 );
+	op_table[  15] = new op_tbl( "AND\0", "ABS\0", 0x2D, 3, 4 );
+	op_table[  16] = new op_tbl( "AND\0", "ABX\0", 0x3D, 3, 4 );
+	op_table[  17] = new op_tbl( "AND\0", "ABY\0", 0x39, 3, 4 );
+	op_table[  18] = new op_tbl( "AND\0", "IXR\0", 0x21, 2, 6 );
+	op_table[  19] = new op_tbl( "AND\0", "IRX\0", 0x31, 2, 5 );
+	op_table[  20] = new op_tbl( "ASL\0", "ACC\0", 0x0A, 1, 2 );
+	op_table[  21] = new op_tbl( "ASL\0", "ABS\0", 0x0E, 3, 6 );
+	op_table[  22] = new op_tbl( "ASL\0", "ABX\0", 0x1E, 3, 7 );
+	op_table[  23] = new op_tbl( "BCC\0", "REL\0", 0x90, 2, 2 );
+	op_table[  24] = new op_tbl( "BCS\0", "REL\0", 0xB0, 2, 2 );
+	op_table[  25] = new op_tbl( "BEQ\0", "REL\0", 0xF0, 2, 2 );
+	op_table[  26] = new op_tbl( "BIT\0", "ABS\0", 0x2C, 3, 4 );
+	op_table[  27] = new op_tbl( "BMI\0", "REL\0", 0x30, 2, 2 );
+	op_table[  28] = new op_tbl( "BNE\0", "REL\0", 0xD0, 2, 2 );
+	op_table[  29] = new op_tbl( "BPL\0", "REL\0", 0x10, 2, 2 );
+	op_table[  30] = new op_tbl( "BRK\0", "IMP\0", 0x00, 1, 7 );
+	op_table[  31] = new op_tbl( "BVC\0", "REL\0", 0x50, 2, 2 );
+	op_table[  32] = new op_tbl( "BVS\0", "REL\0", 0x70, 2, 2 );
+	op_table[  33] = new op_tbl( "CLC\0", "IMP\0", 0x18, 1, 2 );
+	op_table[  34] = new op_tbl( "CLD\0", "IMP\0", 0xD8, 1, 2 );
+	op_table[  35] = new op_tbl( "CLI\0", "IMP\0", 0x58, 1, 2 );
+	op_table[  36] = new op_tbl( "CLV\0", "IMP\0", 0xB8, 1, 2 );
+	op_table[  37] = new op_tbl( "CMP\0", "IMM\0", 0xC9, 2, 2 );
+	op_table[  38] = new op_tbl( "CMP\0", "ABS\0", 0xCD, 3, 4 );
+	op_table[  39] = new op_tbl( "CMP\0", "ABX\0", 0xDD, 3, 4 );
+	op_table[  40] = new op_tbl( "CMP\0", "ABY\0", 0xD9, 3, 4 );
+	op_table[  41] = new op_tbl( "CMP\0", "IXR\0", 0xC1, 2, 6 );
+	op_table[  42] = new op_tbl( "CMP\0", "IRX\0", 0xD1, 2, 5 );
+	op_table[  43] = new op_tbl( "CPX\0", "IMM\0", 0xE0, 2, 2 );
+	op_table[  44] = new op_tbl( "CPX\0", "ABS\0", 0xEC, 3, 4 );
+	op_table[  45] = new op_tbl( "CPY\0", "IMM\0", 0xC0, 2, 2 );
+	op_table[  46] = new op_tbl( "CPY\0", "ABS\0", 0xCC, 3, 4 );
+	op_table[  47] = new op_tbl( "DEC\0", "ABS\0", 0xCE, 3, 6 );
+	op_table[  48] = new op_tbl( "DEC\0", "ABX\0", 0xDE, 3, 7 );
+	op_table[  49] = new op_tbl( "DEX\0", "IMP\0", 0xCA, 1, 2 );
+	op_table[  50] = new op_tbl( "DEY\0", "IMP\0", 0x88, 1, 2 );
+	op_table[  51] = new op_tbl( "EOR\0", "IMM\0", 0x49, 2, 2 );
+	op_table[  52] = new op_tbl( "EOR\0", "ABS\0", 0x4D, 3, 4 );
+	op_table[  53] = new op_tbl( "EOR\0", "ABX\0", 0x5D, 3, 4 );
+	op_table[  54] = new op_tbl( "EOR\0", "ABY\0", 0x59, 3, 4 );
+	op_table[  55] = new op_tbl( "EOR\0", "IXR\0", 0x41, 2, 6 );
+	op_table[  56] = new op_tbl( "EOR\0", "IRX\0", 0x51, 2, 5 );
+	op_table[  57] = new op_tbl( "INC\0", "ABS\0", 0xEE, 3, 6 );
+	op_table[  58] = new op_tbl( "INC\0", "ABX\0", 0xFE, 3, 7 );
+	op_table[  59] = new op_tbl( "INX\0", "IMP\0", 0xE8, 1, 2 );
+	op_table[  60] = new op_tbl( "INY\0", "IMP\0", 0xC8, 1, 2 );
+	op_table[  61] = new op_tbl( "JMP\0", "ABS\0", 0x4C, 3, 3 );
+	op_table[  62] = new op_tbl( "JMP\0", "IND\0", 0x6C, 3, 5 );
+	op_table[  63] = new op_tbl( "JSR\0", "ABS\0", 0x20, 3, 6 );
+	op_table[  64] = new op_tbl( "LDA\0", "IMM\0", 0xA9, 2, 2 );
+	op_table[  65] = new op_tbl( "LDA\0", "ABS\0", 0xAD, 3, 4 );
+	op_table[  66] = new op_tbl( "LDA\0", "ABX\0", 0xBD, 3, 4 );
+	op_table[  67] = new op_tbl( "LDA\0", "ABY\0", 0xB9, 3, 4 );
+	op_table[  68] = new op_tbl( "LDA\0", "IXR\0", 0xA1, 2, 6 );
+	op_table[  69] = new op_tbl( "LDA\0", "IRX\0", 0xB1, 2, 5 );
+	op_table[  70] = new op_tbl( "LDX\0", "IMM\0", 0xA2, 2, 2 );
+	op_table[  71] = new op_tbl( "LDX\0", "ABS\0", 0xAE, 3, 4 );
+	op_table[  72] = new op_tbl( "LDX\0", "ABY\0", 0xBE, 3, 4 );
+	op_table[  73] = new op_tbl( "LDY\0", "IMM\0", 0xA0, 2, 2 );
+	op_table[  74] = new op_tbl( "LDY\0", "ABS\0", 0xAC, 3, 4 );
+	op_table[  75] = new op_tbl( "LDY\0", "ABX\0", 0xBC, 3, 4 );
+	op_table[  76] = new op_tbl( "LSR\0", "ACC\0", 0x4A, 1, 2 );
+	op_table[  77] = new op_tbl( "LSR\0", "ABS\0", 0x4E, 3, 6 );
+	op_table[  78] = new op_tbl( "LSR\0", "ABX\0", 0x5E, 3, 7 );
+	op_table[  79] = new op_tbl( "NOP\0", "IMP\0", 0xEA, 1, 2 );
+	op_table[  80] = new op_tbl( "ORA\0", "IMM\0", 0x09, 2, 2 );
+	op_table[  81] = new op_tbl( "ORA\0", "ABS\0", 0x0D, 3, 4 );
+	op_table[  82] = new op_tbl( "ORA\0", "ABX\0", 0x1D, 3, 4 );
+	op_table[  83] = new op_tbl( "ORA\0", "ABY\0", 0x19, 3, 4 );
+	op_table[  84] = new op_tbl( "ORA\0", "IXR\0", 0x01, 2, 6 );
+	op_table[  85] = new op_tbl( "ORA\0", "IRX\0", 0x11, 2, 5 );
+	op_table[  86] = new op_tbl( "PHA\0", "IMP\0", 0x48, 1, 3 );
+	op_table[  87] = new op_tbl( "PHP\0", "IMP\0", 0x08, 1, 3 );
+	op_table[  88] = new op_tbl( "PLA\0", "IMP\0", 0x68, 1, 4 );
+	op_table[  89] = new op_tbl( "PLP\0", "IMP\0", 0x28, 1, 4 );
+	op_table[  90] = new op_tbl( "ROL\0", "ACC\0", 0x2A, 1, 2 );
+	op_table[  91] = new op_tbl( "ROL\0", "ABS\0", 0x2E, 3, 6 );
+	op_table[  92] = new op_tbl( "ROL\0", "ABX\0", 0x3E, 3, 7 );
+	op_table[  93] = new op_tbl( "ROR\0", "ACC\0", 0x6A, 1, 2 );
+	op_table[  94] = new op_tbl( "ROR\0", "ABS\0", 0x6E, 3, 6 );
+	op_table[  95] = new op_tbl( "ROR\0", "ABX\0", 0x7E, 3, 7 );
+	op_table[  96] = new op_tbl( "RTI\0", "IMP\0", 0x40, 1, 6 );
+	op_table[  97] = new op_tbl( "RTS\0", "IMP\0", 0x60, 1, 6 );
+	op_table[  98] = new op_tbl( "SBC\0", "IMM\0", 0xE9, 2, 2 );
+	op_table[  99] = new op_tbl( "SBC\0", "ABS\0", 0xED, 3, 4 );
+	op_table[ 100] = new op_tbl( "SBC\0", "ABX\0", 0xFD, 3, 4 );
+	op_table[ 101] = new op_tbl( "SBC\0", "ABY\0", 0xF9, 3, 4 );
+	op_table[ 102] = new op_tbl( "SBC\0", "IXR\0", 0xE1, 2, 6 );
+	op_table[ 103] = new op_tbl( "SBC\0", "IRX\0", 0xF1, 2, 5 );
+	op_table[ 104] = new op_tbl( "SEC\0", "IMP\0", 0x38, 1, 2 );
+	op_table[ 105] = new op_tbl( "SED\0", "IMP\0", 0xF8, 1, 2 );
+	op_table[ 106] = new op_tbl( "SEI\0", "IMP\0", 0x78, 1, 2 );
+	op_table[ 107] = new op_tbl( "STA\0", "ABS\0", 0x8D, 3, 4 );
+	op_table[ 108] = new op_tbl( "STA\0", "ABX\0", 0x9D, 3, 5 );
+	op_table[ 109] = new op_tbl( "STA\0", "ABY\0", 0x99, 3, 5 );
+	op_table[ 110] = new op_tbl( "STA\0", "IXR\0", 0x81, 2, 6 );
+	op_table[ 111] = new op_tbl( "STA\0", "IRX\0", 0x91, 2, 6 );
+	op_table[ 112] = new op_tbl( "STX\0", "ABS\0", 0x8E, 3, 4 );
+	op_table[ 113] = new op_tbl( "STY\0", "ABS\0", 0x8C, 3, 4 );
+	op_table[ 114] = new op_tbl( "TAX\0", "IMP\0", 0xAA, 1, 2 );
+	op_table[ 115] = new op_tbl( "TAY\0", "IMP\0", 0xA8, 1, 2 );
+	op_table[ 116] = new op_tbl( "TSX\0", "IMP\0", 0xBA, 1, 2 );
+	op_table[ 117] = new op_tbl( "TXA\0", "IMP\0", 0x8A, 1, 2 );
+	op_table[ 118] = new op_tbl( "TXS\0", "IMP\0", 0x9A, 1, 2 );
+	op_table[ 119] = new op_tbl( "TYA\0", "IMP\0", 0x98, 1, 2 );
+	op_table[ 120] = new op_tbl( "XXX\0", "XXX\0", 0x00, 0, 0 );
+	
+	op_table[ 121] = new op_tbl( "XXX\0", "\0", 0, 0, 0);
+	
 	return(true);
 
 		/*
@@ -3063,10 +3104,10 @@ public class UASM65
 			{
 				x++;
 			}	
-			strcpy (op_table[x].operator, "XXX");
+			strcpy (op_table[x].operator, "XXX\0");
 			
 			
-			/*for (x=0;(strcmp(op_table[x].operator,"end")!= 0);x++)
+			/*for (x=0;(strcmp(op_table[x].operator,"end\0")!= 0);x++)
 				printf("%s %s %x %x\n",op_table[x].operator,op_table[x].add_code,op_table[x].opcode,op_table[x].num_bytes);
 			*/
 		/*
@@ -3088,14 +3129,14 @@ public class UASM65
 	//	/*Note: currently this code just skips dbts with questions marks. the
 	//	reason for this was to make the code romable.
 	//	*/
-	//	if ((hold_operand[operand_index] == '?') || (strcmp(hold_operand,"?")==0))
+	//	if ((hold_operand[operand_index] == '?') || (strcmp(hold_operand,"?\0")==0))
 	//	{
 	//
 	//		if (s_record[s_record_index].record_length == 3)
 	//		{
 	//			s_record[s_record_index].address = location_counter;
 	//
-	//			if (strcmp(hold_operator,"DBT")==0)
+	//			if (strcmp(hold_operator,"DBT\0")==0)
 	//			{
 	//				s_record[s_record_index].address++;
 	//			}
@@ -3108,7 +3149,7 @@ public class UASM65
 	//	}
 	//
 	//
-	//	if (strcmp(hold_operator,"ORG")==0)
+	//	if (strcmp(hold_operator,"ORG\0")==0)
 	//	{
 	//		s_record_index++;
 	//		code_index=0;
@@ -3206,7 +3247,7 @@ public class UASM65
 	//
 	//	}
 	//	s_rec_filename[local_index] = 0;
-	//	strcat(s_rec_filename,".s19");
+	//	strcat(s_rec_filename,".s19\0");
 	//
 	//	s_rec_file_ptr = fopen( s_rec_filename,"w");
 	//
@@ -3223,7 +3264,7 @@ public class UASM65
 	//		}
 	//		s_record[sr_index].record_length++;
 	//
-	//		sprintf(s_rec_line,"S1%.2X%.4lX",s_record[sr_index].record_length,s_record[sr_index].address);
+	//		sprintf(s_rec_line,"S1%.2X%.4x",s_record[sr_index].record_length,s_record[sr_index].address);
 	//
 	//		checksum_accumulator = checksum_accumulator + s_record[sr_index].record_length;
 	//		checksum_accumulator = checksum_accumulator + (s_record[sr_index].address & 255);
@@ -3238,7 +3279,7 @@ public class UASM65
 	//		checksum = (~checksum_accumulator) & 255;
 	//		sprintf(hold_code,"%.2X",checksum);
 	//		strcat(s_rec_line,hold_code);
-	//		strcat(s_rec_line,"\n");
+	//		strcat(s_rec_line,"\n\0");
 	//		fputs(s_rec_line,s_rec_file_ptr);
 	//	}
 	//	sprintf(s_rec_line,"S9030000FC\n");
@@ -3269,14 +3310,14 @@ public class UASM65
 	//
 	//	}
 	//	sym_file_name[local_index] = 0;
-	//	strcat(sym_file_name,".sym");
+	//	strcat(sym_file_name,".sym\0");
 	//
 	//	sym_file_ptr = fopen( sym_file_name,"w");
 	//
 	//
 	//	for (x=1;x<=sym_tbl_index;x++)
 	//	{
-	//		sprintf(sym_line,"%d %s %lx \n",x,symbol_table[x].label,symbol_table[x].address);
+	//		sprintf(sym_line,"%d %s %x \n",x,symbol_table[x].label,symbol_table[x].address);
 	//		fputs(sym_line,sym_file_ptr);
 	//	}
 	//
@@ -3287,6 +3328,79 @@ public class UASM65
 	////}}}
 
 
+	//{{{
+	public static void main(String[] args)
+    {
+       int a = 0;
+	   System.out.println("AAAAA");
+       UASM65 assem = new UASM65();
+	   
+	   		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		//bsh.args = new String[] {"one","two"};
+
+		System.out.println("\nUASM65 V1.25 - Understandable Assembler for the 6500 series microprocessors.\nWritten by Ted Kosan.\n");
+		
+
+
+
+		//If filename was entered from the command line then use it.  If not, then
+		// obtain it from the user.
+
+
+		//	if ( bsh.args != void && bsh.args.length == 2 ) //argc == 2 )
+		//	{
+		//		source_file_name = bsh.args[1];
+		//
+		//		if ( ! ( strstr( source_file_name,".asm\0") || strstr(source_file_name,".ASM\0") ) )
+		//		{
+		//			System.out.println("\n\nBad file name, must have .asm extension.\n\n");
+		//			return(0);
+		//		}
+		//	}
+		//	//	else  //Note: Maybe enable this for standalone operation in the future.
+		//	{
+		//		if ( !get_file_name( source_file_name ) )
+		//		{
+		//			System.out.println("\n\nBad file name, must have .asm extension.\n\n");
+		//			return(0);
+		//		}
+		//	}//end else
+
+		//
+		//
+		//
+		if (assem.pass1())
+		{
+			//		create_sym_file();
+			//
+			//		if( pass2())
+			//		{
+			//			convert_sr_to_ascii();
+			//			fclose(source_file_pointer);
+			//			fclose(lst_file_ptr);
+			//		}
+		}
+		//}}}
+
+		
+		
+    }//}}}
 
 
 
