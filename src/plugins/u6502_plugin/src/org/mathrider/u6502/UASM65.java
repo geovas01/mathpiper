@@ -1,5 +1,8 @@
 package org.mathrider.u6502;
-
+	///**********************************************************************************
+	//   UASM65 - Understandable Assembler for the 6500 series Microprocessor.
+	//Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
+	//**********************************************************************************/
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.FileWriter;
@@ -32,7 +35,7 @@ public class UASM65
 	private Integer temp_converted_number;
 
 	private java.io.RandomAccessFile source_file_pointer;
-	private FileWriter lst_file_ptr;
+	private FileWriter lst_file_ptr,s_rec_file_ptr;
 
 	private int no_source_flag,no_lc_flag,no_obj_flag,hold_obj_1,hold_obj_2,hold_obj_3;
 	private int no_line_num_flag,print_error_index,lst_flag;
@@ -476,7 +479,7 @@ public class UASM65
 	
 	
 	
-
+	//{{{pass_one
 	private boolean pass1()
 	{
 
@@ -557,8 +560,7 @@ public class UASM65
 	}//}}}End pass1.
 	//
 
-	//
-	//
+
 	////{{{ Pass 2
 	///************************************************************************
 	//   UASM65 V1.0 - Understandable Assembler for the 6500 series Microprocessor.
@@ -834,7 +836,7 @@ public class UASM65
 		str_to_upper(hold_label);
 		return(0);
 	}//}}}
-	//
+
 
 	
 	
@@ -1181,7 +1183,7 @@ public class UASM65
 			log_error(30);
 			return(false);
 		}
-		return(true); //Note: this line should never execute.
+		return(false); //Note: This line added to provide return value.
 	}//}}}
 
 
@@ -1456,7 +1458,7 @@ public class UASM65
 			return(false);
 		}
 		
-		return false; //Note: this line should never execute.
+		return false; //Note: This line added to provide return value.
 	
 	}//}}}
 	
@@ -1878,7 +1880,7 @@ public class UASM65
 			return(false);
 		}
 		
-		return false; //Note: this line should never execute.
+		return false; //Note: This line added to provide return value.
 	
 	}//}}}
 	
@@ -2524,15 +2526,11 @@ public class UASM65
 			hold_obj_3=-1;
 		}
 		
-		return false; //Note: this line should never be executed.
+		return false; //Note: This line added to provide return value.
 	}//}}}
 	
 	
-	//
-	//
-	////}}}
-	//
-	//
+
 	////{{{ UdbtDwd
 	///************************************************************************
 	//   UASM65 V1.0 - Understandable Assembler for the 6500 series Microprocessor.
@@ -3075,7 +3073,7 @@ public class UASM65
 	
 	
 	
-	//
+
 	//{{{count_ascii_characters
 	boolean count_ascii_characters()
 	{
@@ -3134,17 +3132,9 @@ public class UASM65
 		}
 	}//}}}
 	
-	//
-	//
-	////}}}
-	//
-	//
+
 	////{{{ UFiles
-	///************************************************************************
-	//   UASM65 V1.0 - Understandable Assembler for the 6500 series Microprocessor.
-	//   Copyright 1993 by Ted Kosan.
-	//
-	//************************************************************************/
+
 	//
 	//
 	//
@@ -3206,6 +3196,35 @@ public class UASM65
 	
 	
 	}//}}}
+	
+	
+
+	//{{{open_s19_file
+	boolean open_s19_file()
+	{
+		
+		String sourceFilePath = source_file.getPath();
+		sourceFilePath = sourceFilePath.substring(0,sourceFilePath.indexOf("."));
+		
+		String s_rec_filename = sourceFilePath.concat(".s19");
+	
+		//lst_file_ptr = fopen( lst_filename,"w");
+		try 
+		{
+			s_rec_file_ptr = new java.io.FileWriter(s_rec_filename);
+
+		}
+		catch(Exception ioe)
+		{
+			ioe.printStackTrace();
+			return false;
+		}
+		return true;
+	
+	
+	}//}}}
+	
+	
 
 	//{{{read_operator_table                                                                                       
 	private boolean read_operator_table()
@@ -3465,75 +3484,152 @@ public class UASM65
 				}
 			}
 		}
-		return false; //Note: this line should never execute.
+		return false; //Note: This line added to provide return value.
 	}// }}}
 	
 	
-	////{{{convert_src_to_ascii();
-	//convert_sr_to_ascii()
-	//{
-	//	int s_rec_line[80],hold_code[50];
-	//	unsigned int sr_index, code_index;
-	//	FILE *s_rec_file_ptr;
-	//	int s_rec_filename[30];
-	//	int local_index;
-	//	unsigned int checksum_accumulator, checksum;
-	//
-	//	local_index = 0;
-	//	strcpy (s_rec_filename,source_file_name);
-	//
-	//	while ( s_rec_filename[local_index] != '.' )
-	//	{
-	//		local_index++;
-	//		if (local_index > 29)
-	//		{
-	//			printf("\n\nInternal error, problem with S record file name.\n\n");
-	//			return(false);
-	//		}
-	//
-	//	}
-	//	s_rec_filename[local_index] = 0;
-	//	s_rec_filename = strcat(s_rec_filename,".s19\0");
-	//
-	//	s_rec_file_ptr = fopen( s_rec_filename,"w");
-	//
-	//	sprintf(s_rec_line,"S007000055415347C8\n");
-	//	fputs(s_rec_line,s_rec_file_ptr);
-	//
-	//	for (sr_index=1; sr_index <= s_record_index; sr_index++)
-	//	{
-	//		checksum_accumulator = 0;
-	//
-	//		if (s_record[sr_index].record_length < 22)
-	//		{
-	//			s_record[sr_index].record_length--;
-	//		}
-	//		s_record[sr_index].record_length++;
-	//
-	//		sprintf(s_rec_line,"S1%.2X%.4x",s_record[sr_index].record_length,s_record[sr_index].address);
-	//
-	//		checksum_accumulator = checksum_accumulator + s_record[sr_index].record_length;
-	//		checksum_accumulator = checksum_accumulator + (s_record[sr_index].address & 255);
-	//		checksum_accumulator = checksum_accumulator + ((s_record[sr_index].address >> 8) & 255);
-	//
-	//		for (code_index = 0; code_index < s_record[sr_index].record_length - 3; code_index++)
-	//		{
-	//			checksum_accumulator = checksum_accumulator + s_record[sr_index].code[code_index];
-	//			sprintf(hold_code,"%.2X",s_record[sr_index].code[code_index]);
-	//			s_rec_line = strcat(s_rec_line,hold_code);
-	//		}
-	//		checksum = (~checksum_accumulator) & 255;
-	//		sprintf(hold_code,"%.2X",checksum);
-	//		s_rec_line = strcat(s_rec_line,hold_code);
-	//		s_rec_line = strcat(s_rec_line,"\n\0");
-	//		fputs(s_rec_line,s_rec_file_ptr);
-	//	}
-	//	sprintf(s_rec_line,"S9030000FC\n");
-	//	fputs(s_rec_line,s_rec_file_ptr);
-	//	fclose(s_rec_file_ptr);
-	//} }}}
-	//
-	//
+	//{{{convert_src_to_ascii();
+	void convert_sr_to_ascii()
+	{
+		//int[] s_rec_line = new int[80];
+		String s_rec_line = null;
+		
+		//int[] hold_code = new int[50];
+		String hold_code = null;
+		
+		int sr_index = 0;
+		int code_index = 0;
+		//java.io.FileWriter s_rec_file_ptr;
+		//int[] s_rec_filename = new int[30];
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		java.util.Formatter sprintf = new java.util.Formatter(stringBuilder, java.util.Locale.US);
+		
+		int local_index = 0;
+		int checksum_accumulator = 0;
+		int checksum = 0;
+	
+		local_index = 0;
+		
+		open_s19_file();
+		
+		//strcpy(s_rec_filename,source_file_name);
+	    //
+		//while ( s_rec_filename[local_index] != '.' )
+		//{
+		//	local_index++;
+		//	if (local_index > 29)
+		//	{
+		//		System.out.println("\n\nInternal error, problem with S record file name.\n\n");
+		//		return(false);
+		//	}
+	    //
+		//}
+		//s_rec_filename[local_index] = 0;
+		//s_rec_filename = strcat(s_rec_filename,".s19\0");
+	    //
+		////s_rec_file_ptr = fopen( s_rec_filename,"w");
+		//try 
+		//{
+		//	s_rec_file_ptr = new java.io.FileWriter(s_rec_filename);
+        //
+		//}
+		//catch(Exception ioe)
+		//{
+		//	ioe.printStackTrace();
+		//	return false;
+		//}
+	
+		//sprintf(s_rec_line,"S007000055415347C8\n");
+		sprintf.format("S007000055415347C8\n");
+		s_rec_line = stringBuilder.toString();
+		stringBuilder.delete(0,stringBuilder.length());
+		
+		//fputs(s_rec_line,s_rec_file_ptr);
+		try
+		{
+		
+			s_rec_file_ptr.write(s_rec_line); //(chars_to_string(lst_line));
+		}
+		catch(IOException e)
+		{                          
+			e.printStackTrace();
+		}
+	
+		for (sr_index=1; sr_index <= s_record_index; sr_index++)
+		{
+			checksum_accumulator = 0;
+	
+			if (s_record[sr_index].record_length < 22)
+			{
+				s_record[sr_index].record_length--;
+			}
+			s_record[sr_index].record_length++;
+	
+			//sprintf(s_rec_line,"S1%.2X%.4x",s_record[sr_index].record_length,s_record[sr_index].address);
+			sprintf.format("S1%02X%04X",s_record[sr_index].record_length,s_record[sr_index].address);
+			s_rec_line = stringBuilder.toString();
+			stringBuilder.delete(0,stringBuilder.length());
+	
+			checksum_accumulator = checksum_accumulator + s_record[sr_index].record_length;
+			checksum_accumulator = checksum_accumulator + (s_record[sr_index].address & 255);
+			checksum_accumulator = checksum_accumulator + ((s_record[sr_index].address >> 8) & 255);
+	
+			for (code_index = 0; code_index < s_record[sr_index].record_length - 3; code_index++)
+			{
+				checksum_accumulator = checksum_accumulator + s_record[sr_index].code[code_index];
+				//sprintf(hold_code,"%.2X",s_record[sr_index].code[code_index]);
+				sprintf.format("%02X",s_record[sr_index].code[code_index]);
+				hold_code = stringBuilder.toString();
+				stringBuilder.delete(0,stringBuilder.length());      
+				//s_rec_line = strcat(s_rec_line,hold_code);
+				s_rec_line = s_rec_line.concat(hold_code);
+			}
+			checksum = (~checksum_accumulator) & 255;
+			//sprintf(hold_code,"%.2X",checksum);
+			sprintf.format("%02X",checksum);
+			hold_code = stringBuilder.toString();
+			stringBuilder.delete(0,stringBuilder.length());
+			
+			//s_rec_line = strcat(s_rec_line,hold_code);
+			s_rec_line = s_rec_line.concat(hold_code);
+			
+			//s_rec_line = strcat(s_rec_line,"\n\0");
+			s_rec_line = s_rec_line.concat("\n");
+			
+			//fputs(s_rec_line,s_rec_file_ptr);
+			try
+			{
+				s_rec_file_ptr.write(s_rec_line);
+			}
+			catch(IOException e)
+			{                          
+				e.printStackTrace();
+			}
+			
+		}
+		//sprintf(s_rec_line,"S9030000FC\n");
+		sprintf.format("S9030000FC\n");
+		s_rec_line = stringBuilder.toString();
+		stringBuilder.delete(0,stringBuilder.length());
+		
+		
+		//fputs(s_rec_line,s_rec_file_ptr);
+		//fclose(s_rec_file_ptr);
+		try
+		{
+		
+			s_rec_file_ptr.write(s_rec_line); //(chars_to_string(lst_line));
+			s_rec_file_ptr.close();
+		}
+		catch(IOException e)
+		{                          
+			e.printStackTrace();
+		}
+		
+	} ///}}}
+	
+	
 	//create_sym_file()
 	//{
 	//	int sym_file_name[30];
@@ -3569,9 +3665,9 @@ public class UASM65
 	//
 	//	fclose(sym_file_ptr);
 	//
-	//}
-	//
-	////}}}
+	//}//end method.
+	
+	//}}}
 
 
 	//{{{
@@ -3582,21 +3678,6 @@ public class UASM65
        UASM65 assem = new UASM65();
 	   
 	   		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		//bsh.args = new String[] {"one","two"};
 
@@ -3637,7 +3718,7 @@ public class UASM65
 			//
 					if( assem.pass2())
 					{
-			//			convert_sr_to_ascii();
+						assem.convert_sr_to_ascii();
 			//			fclose(source_file_pointer);
 			//			fclose(lst_file_ptr);
 					}
@@ -3652,8 +3733,21 @@ public class UASM65
 
 }//end class
 
+/* {{{ License.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */ //}}}
 
-// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=custom:collapseFolds=0:
-
-
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
