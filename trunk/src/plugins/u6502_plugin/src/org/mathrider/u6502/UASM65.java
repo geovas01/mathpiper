@@ -1,7 +1,7 @@
 package org.mathrider.u6502;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.RandomAccessFile;
 import java.io.FileWriter;
 import java.io.IOException;                                                                                                 
 //import org.gjt.sp.jedit.bsh.EvalError;
@@ -26,12 +26,12 @@ public class UASM65
 	private int[] hold_operand = new int[132];
 	private int[] hold_add_mode = new int[5];
 
-	private int line_index,sym_tbl_index,x,op_tbl_index,end_flag;
+	private int line_index,sym_tbl_index,op_tbl_index,end_flag;
 	private int error_index,source_line_number,symbol_index; //return_code.
 	private int location_counter,hold_location;
 	private Integer temp_converted_number;
 
-	private java.io.PushbackReader source_file_pointer;
+	private java.io.RandomAccessFile source_file_pointer;
 	private FileWriter lst_file_ptr;
 
 	private int no_source_flag,no_lc_flag,no_obj_flag,hold_obj_1,hold_obj_2,hold_obj_3;
@@ -138,7 +138,7 @@ public class UASM65
 		int number;
 	}//end class.
 
-	//Note: must decide what to do with these structure arrays.
+
 	//struct op_tbl op_table[150];
 	private op_tbl[] op_table = new op_tbl[130];
 	
@@ -152,7 +152,8 @@ public class UASM65
 
 	
 	//struct s_rec s_record[386];
-	private ArrayList s_record = new ArrayList();
+	//private ArrayList s_record = new ArrayList();
+	private s_rec[] s_record = new s_rec[386];
 
 
 
@@ -169,12 +170,17 @@ public class UASM65
 		for(int x = 0; x<70; x++)
 		{
 			error_table[x] = new error_tbl();
-		}//end for.	
+		}//end for.	  s_record
+		
+		for(int x = 0; x<386; x++)
+		{
+			s_record[x] = new s_rec();
+		}//end for.	  s_record
 		
 		
 		
-		source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/test.asm");
-		//source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/umon65muvium.asm");
+		//source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/test.asm");
+		source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/umon65muvium.asm");
 
 		initialize();
 		
@@ -215,8 +221,37 @@ public class UASM65
 		hold_obj_2=-1;
 		hold_obj_3=-1;
 		wipe_line();
-		//error_table[0].line_number = 0; Note: might need to add replacement code here.
+		error_table[0].line_number = 0; //Note: might need to add replacement code here.
 	}// end initialize.
+	
+	
+	//close_files.
+	void closeFiles()
+	{
+		try
+		{
+			if(source_file_pointer != null)
+			{
+				source_file_pointer.close();
+			}
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		try
+		{
+			if(lst_file_ptr != null)
+			{
+				lst_file_ptr.close();
+			}
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}//
 
 
 	//{{{strcpy
@@ -255,15 +290,23 @@ public class UASM65
 	//}}}
 	
 	//{{{strcat
-	private void strcat( int[] one, int[] two)
+	private int[] strcat( int[] one, int[] two)
 	{
-		//Note: not finished yet.
+		String stringOne = chars_to_string(one);
+		String stringTwo = chars_to_string(two);
+		
+		return(string_to_chars(stringOne.concat(stringTwo)));
+		
 	} // end method.
 	
 	
-	private void strcat( String one, String two)
+	private int[] strcat( int[] one, String two)
 	{
-		one = one.concat(two);
+		String stringOne = chars_to_string(one);
+		
+		
+		return string_to_chars(stringOne.concat(two));
+		
 	}//end method.
 	
 	//}}}
@@ -354,7 +397,27 @@ public class UASM65
 		
 		return new String(chars,0,stringEndIndex);
 	}//}}}
+	
+	
+	
+	//{{{string_to_chars
+	private int[] string_to_chars(String string)
+	{
+		char[] chars = string.toCharArray();
+		int[] ints = new int[150];
+		int x = 0;
+		for(; x < chars.length; x++)
+		{
+			ints[x] = (int) chars[x];
+		}//end for.
+		
+		ints[x] = 0;
+		
+		return ints;
+			
+	}//}}}
 
+	
 
 	//{{{strstr
 	private boolean strstr(int[] first, int[] second)
@@ -464,6 +527,7 @@ public class UASM65
 					
 					
 					//Error table dump.  Note: uncomment for debugging.
+					int x = 0;
 					for (x=1;x<=error_index;x++)
 					{
 						System.out.printf("\nline#: %d    ",error_table[x].line_number);
@@ -507,38 +571,56 @@ public class UASM65
 	//************************************************************************/
 	//
 	//
-	//pass2()
-	//{
-	//	pass2_flag=true;
-	//	fseek(source_file_pointer,0,SEEK_SET);
-	//	initialize();
-	//	scan_lines(2);
-	//
-	//	if (error_index == 0 && end_flag == 1)
-	//	{
-	//		printf("\nPass2 0 errors\n\n");
-	//		return(1);
-	//	}
-	//	else
-	//	{
-	//		printf("\nPass2 %d errors.\n\n",error_index);
-	///*
-	//		for (x=1;x<=error_index;x++)
-	//		{
-	//			printf("\nline#: %d    ",error_table[x].line_number);
-	//			printf("line index: %d    ",error_table[x].line_index);
-	//			printf("error number: %d",error_table[x].error_number);
-	//		}
-	//*/
-	//		printf("\n");
-	//		fclose(source_file_pointer);
-	//
-	//		return(0);
-	//	}
-	//
-	//
-	//}
-	//
+	boolean pass2()
+	{
+		pass2_flag=true;
+		//fseek(source_file_pointer,0,SEEK_SET); 
+		
+		try
+		{
+			source_file_pointer.seek(0);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		initialize();
+		scan_lines(2);
+	
+		if (error_index == 0 && end_flag == 1)
+		{
+			System.out.println("\nPass2 0 errors\n\n");
+			return(true);
+		}
+		else
+		{
+			System.out.printf("\nPass2 %d errors.\n\n",error_index);
+	/*
+			for (x=1;x<=error_index;x++)
+			{
+				printf("\nline#: %d    ",error_table[x].line_number);
+				printf("line index: %d    ",error_table[x].line_index);
+				printf("error number: %d",error_table[x].error_number);
+			}
+	*/
+			System.out.println("\n");
+			//fclose(source_file_pointer);
+			try
+			{
+				source_file_pointer.close();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+	
+			return(false);
+		}
+	
+	
+	}
+	
 
 
 	//{{{scan_lines
@@ -566,7 +648,7 @@ public class UASM65
 					}
 					else if (return_code != false && pass_flag ==2)
 					{
-						//interpret_line_pass2();
+						interpret_line_pass2();
 					}
 					else if (return_code == false && pass_flag == 2)
 					{
@@ -719,10 +801,10 @@ public class UASM65
 
 		
 		//Note: uncomment for debugging.
-			if (! pass2_flag)
-			{
-				System.out.printf("%d : %x : %s : %s : %s : %s\n\n",source_line_number, location_counter, intArrayToString(hold_label), intArrayToString(hold_operator), intArrayToString(hold_operand), intArrayToString(hold_add_mode) );
-			}
+		//	if (! pass2_flag)
+		//	{
+		//		System.out.printf("%d : %x : %s : %s : %s : %s\n\n",source_line_number, location_counter, intArrayToString(hold_label), intArrayToString(hold_operator), intArrayToString(hold_operand), intArrayToString(hold_add_mode) );
+		//	}
 		
 
 		return(true);
@@ -758,6 +840,8 @@ public class UASM65
 	}//}}}
 	//
 
+	
+	
 	//{{{scan_operator
 	private int scan_operator()
 	{
@@ -926,7 +1010,7 @@ public class UASM65
 		 					log_error(16);
 		 					return(false);
 		 				}
-		 				//local_index++; Note: this is an unreachable statement.
+
 		 			}
 		 			strcpy(hold_add_mode,"IND\0");
 		 			return(true);
@@ -1046,11 +1130,11 @@ public class UASM65
 			{
 				count_ascii_characters();
 			}
-			else if (strchr(hold_operand,'('))// && strrchr(hold_operand,'('))
+			else if (strchr(hold_operand,'('))// && strchr(hold_operand,'('))
 			{
 				calculate_duplicates();
 			}
-			else if (strchr(hold_operand,',')) //Note: was strrchr
+			else if (strchr(hold_operand,',')) //Note: was strchr
 			{
 				count_bytes();
 			}
@@ -1106,681 +1190,701 @@ public class UASM65
 
 
 	//{{{interpret_line_pass2
-	//boolean interpret_line_pass2()
-	//{
-	//	int operand_index,local_index;
-	//	char ascii_hold[50]; /* Note: was 10. */
-	//	unsigned long int number;
-	//
-	//	if (strcmp(hold_operator,"LON\0")==0)
-	//	{
-	//		no_obj_flag = 1;
-	//		lst_flag=1;
-	//		print_line();
-	//	}
-	//	else if (strcmp(hold_operator,"LOF\0")==0)
-	//	{
-	//		no_obj_flag = 1;
-	//		print_line();
-	//		lst_flag=0;
-	//	}
-	//	else if (strcmp(hold_operator,"ORG\0")==0)
-	//	{
-	//		//Integer tmp_converted_number = new Integer(0);
-	//		Number tmp_converted_number - new Number();
-	//		if (convert_to_number(hold_operand, tmp_converted_number)) // ,&temp_converted_number))
-	//		{
-	//			this.temp_converted_number = tmp_converted_number.number;
-	//			if (tmp_converted_number.number >=0 && tmp_converted_number.number <=65535)
-	//			{
-	//				location_counter=tmp_converted_number.number;
-	//				no_obj_flag = 1;
-	//				print_line();
-	//				return(1);
-	//			}
-	//			else
-	//			{
-	//				log_error(8);
-	//				return(0);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			log_error(16);
-	//			return(0);
-	//		}
-	//	}
-	//	else if (strcmp(hold_operator,"END\0")==0)
-	//	{
-	//		no_lc_flag=1;
-	//		print_line();
-	//		end_flag=1;
-	//	}
-	//	else if (strcmp(hold_operator,"*\0")==0)
-	//	{
-	//		no_obj_flag = 1;
-	//		print_line();
-	//	}
-	//	else if (strcmp(hold_operator,"EQU\0")==0)
-	//	{
-	//		no_obj_flag = 1;
-	//		print_line();
-	//	}
-	//	else if (strcmp(hold_operator,"DBT\0")==0)
-	//	{
-	//		if (hold_operand[0] == 34) /* Check for ASCII by finding " */
-	//		{
-	//			process_ascii_characters();
-	//		}
-	//		else if (strrchr(hold_operand,'(') && strrchr(hold_operand,'('))
-	//		{
-	//			process_byte_duplicates();
-	//		}
-	//		else if (strrchr(hold_operand,','))
-	//		{
-	//			process_bytes();
-	//		}
-	//		else if (strcmp(hold_operand,"?\0")==0)
-	//		{
-	//			hold_obj_1 = 0;
-	//			print_line();
-	//			location_counter++;
-	//		}
-	//		else if ((strchr(hold_operand,'D') || strchr(hold_operand,'B') || strchr(hold_operand,'H')) && hold_operand[0] != '#')
-	//		{
-	//			local_index = 0;
-	//			operand_index = 0;
-	//
-	//			while (hold_operand[operand_index] != 0)
-	//			{
-	//				ascii_hold[local_index] = hold_operand[operand_index];
-	//				local_index++;
-	//				operand_index++;
-	//				if(operand_index > 100)
-	//				{
-	//					log_error(22);
-	//					return(0);
-	//				}
-	//			}
-	//			ascii_hold[local_index] = 0;
-	//
-	//			if ( is_number(ascii_hold) )
-	//			{
-	//				if (convert_to_number(ascii_hold,&number))
-	//				{
-	//					if (number >= 0 && number <= 255)
-	//					{
-	//						hold_obj_1 = number & 255;
-	//						print_line();
-	//						location_counter++;
-	//						return(1);
-	//					}
-	//					else
-	//					{
-	//						log_error(8);
-	//						return(0);
-	//					}
-	//				}
-	//				else
-	//				{
-	//					log_error(16);
-	//					return(0);
-	//				}
-	//			}
-	//
-	//		}
-	//
-	//
-	//		else if (hold_operand[0] == '#')
-	//		{
-	//		local_index = 0;
-	//		operand_index = 0;
-	//
-	//		operand_index++;
-	//
-	//		while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != '<' && hold_operand[operand_index] != '>')
-	//		{
-	//			ascii_hold[local_index] = hold_operand[operand_index];
-	//			local_index++;
-	//			operand_index++;
-	//			if(operand_index > 100)
-	//			{
-	//				log_error(22);
-	//				return(0);
-	//			}
-	//		}
-	//		ascii_hold[local_index] = 0;
-	//
-	//		if ( is_number(ascii_hold) )
-	//		{
-	//			if (convert_to_number(ascii_hold,&number))
-	//			{
-	//				if (number >= 0 && number <=255)
-	//				{
-	//					hold_obj_1 = number & 255;
-	//					return(1);
-	//				}
-	//				else
-	//				{
-	//					log_error(8);
-	//					return(0);
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(16);
-	//				return(0);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			if (! scan_for_symbol(ascii_hold))
-	//			{
-	//				if (hold_operand[operand_index] == '<')
-	//				{
-	//					hold_obj_1 = (symbol_table[symbol_index].address & 255);
-	//					print_line();
-	//					location_counter++;
-	//					return(1);
-	//				}
-	//				else if (hold_operand[operand_index] == '>')
-	//				{
-	//					hold_obj_1 = ((symbol_table[symbol_index].address >> 8) & 255);
-	//					print_line();
-	//					location_counter++;
-	//					return(1);
-	//				}
-	//				else
-	//				{
-	//					hold_obj_1 = (symbol_table[symbol_index].address & 255);
-	//					print_line();
-	//					location_counter++;
-	//					return(1);
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(2);
-	//				return(0);
-	//			}
-	//		}
-	//
-	//
-	//		}
-	//		else
-	//		{
-	//			log_error(16);
-	//			return(0);
-	//		}
-	//
-	//	}
-	//	else if (strcmp(hold_operator,"DWD\0")==0)
-	//	{
-	//		if (hold_operand[0] == 34) /* Check for ASCII by finding " */
-	//		{
-	//			log_error(33);
-	//			return(0);
-	//		}
-	//		else if (strrchr(hold_operand,'(') && strrchr(hold_operand,'('))
-	//		{
-	//			process_word_duplicates();
-	//		}
-	//		else if (strrchr(hold_operand,','))
-	//		{
-	//			process_words();
-	//		}
-	//		else if (strcmp(hold_operand,"?\0")==0)
-	//		{
-	//			hold_obj_1 = 0;
-	//			hold_obj_2 = 0;
-	//			print_line();
-	//
-	//			location_counter+=2;
-	//		}
-	//		else
-	//		{
-	//			log_error(6);
-	//			return(0);
-	//		}
-	//
-	//	}
-	//	else
-	//	{
-	//		valid_mnemonic_scan();
-	//		while (strcmp(hold_operator,op_table[op_tbl_index].operator)==0)
-	//		{
-	//			if(strcmp(hold_add_mode,op_table[op_tbl_index].add_code)==0)
-	//			{
-	//				hold_obj_1 = op_table[op_tbl_index].opcode;
-	//				if (parse_operand_pass2())
-	//				{
-	//					print_line();
-	//					location_counter=location_counter + op_table[op_tbl_index].num_bytes;
-	//					return(1);
-	//				}
-	//				else
-	//				{
-	//					log_error(16);
-	//					return(0);
-	//				}
-	//
-	//			}
-	//			op_tbl_index++;
-	//		}
-	//		log_error(16);
-	//		return(0);
-	//	}
-	//
-	//}
-	//
-	//parse_operand_pass2()
-	//{
-	//	char hold_add_code[5],ascii_hold[120];
-	//	int local_index,operand_index;
-	//	unsigned long int next_inst_add;
-	//	unsigned long int number, temp_number;
-	//	long int offset;
-	//	local_index = 0;
-	//	operand_index = 0;
-	//
-	//
-	//	strcpy (hold_add_code,op_table[op_tbl_index].add_code);
-	//
-	//	if (strcmp(hold_add_code,"IMP\0")==0)
-	//	{
-	//		return(1);
-	//	}
-	//	if (strcmp(hold_add_code,"ACC\0")==0)
-	//	{
-	//		if (strcmp(hold_operand,"A\0") == 0 || strcmp(hold_operand,"a") == 0)
-	//			{
-	//				return(1);
-	//			}
-	//			else
-	//			{
-	//				log_error(16);
-	//				return(0);
-	//			}
-	//	}
-	//	else if (strcmp(hold_add_code,"IMM\0") == 0)
-	//	{
-	//		operand_index++;
-	//
-	//		if (hold_operand[operand_index] == 39)
-	//		{
-	//			operand_index++;
-	//			if (check_operand_character(hold_operand[operand_index]) && hold_operand[operand_index+1] == 39)
-	//			{
-	//				hold_obj_2 = hold_operand[operand_index];
-	//				return(1);
-	//
-	//			}
-	//			else
-	//			{
-	//				log_error(16);
-	//				return(0);
-	//			}
-	//
-	//		}
-	//
-	//		while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != '<' && hold_operand[operand_index] != '>')
-	//		{
-	//			ascii_hold[local_index] = hold_operand[operand_index];
-	//			local_index++;
-	//			operand_index++;
-	//			if(operand_index > 100)
-	//			{
-	//				log_error(22);
-	//				return(0);
-	//			}
-	//		}
-	//		ascii_hold[local_index] = 0;
-	//
-	//		if ( is_number(ascii_hold) )
-	//		{
-	//			if (convert_to_number(ascii_hold,&number))
-	//			{
-	//				if (number >= 0 && number <=255)
-	//				{
-	//					hold_obj_2 = number & 255;
-	//					return(1);
-	//				}
-	//				else
-	//				{
-	//					log_error(8);
-	//					return(0);
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(16);
-	//				return(0);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			if (! scan_for_symbol(ascii_hold))
-	//			{
-	//				if (hold_operand[operand_index] == '<')
-	//				{
-	//					hold_obj_2 = (symbol_table[symbol_index].address & 255);
-	//					return(1);
-	//				}
-	//				else if (hold_operand[operand_index] == '>')
-	//				{
-	//					hold_obj_2 = ((symbol_table[symbol_index].address >> 8) & 255);
-	//					return(1);
-	//				}
-	//				else
-	//				{
-	//					hold_obj_2 = (symbol_table[symbol_index].address & 255);
-	//					return(1);
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(2);
-	//				return(0);
-	//			}
-	//		}
-	//	}
-	//	else if (strcmp(hold_add_code,"ABS\0") == 0)
-	//	{
-	//		while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != '+')
-	//		{
-	//			ascii_hold[local_index] = hold_operand[operand_index];
-	//			local_index++;
-	//			operand_index++;
-	//			if(operand_index > 100)
-	//			{
-	//				log_error(22);
-	//				return(0);
-	//			}
-	//		}
-	//		ascii_hold[local_index] = 0;
-	//
-	//		if ( is_number(ascii_hold) )
-	//		{
-	//			if (convert_to_number(ascii_hold,&number))
-	//			{
-	//				if (number >= 0 && number <= 65535)
-	//				{
-	//					hold_obj_2 = number & 255;
-	//					hold_obj_3 = ((number >> 8) & 255);
-	//					return(1);
-	//				}
-	//				else
-	//				{
-	//					log_error(8);
-	//					return(0);
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(16);
-	//				return(0);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			if (! scan_for_symbol(ascii_hold))
-	//			{
-	//				if (hold_operand[operand_index] == '+')
-	//				{
-	//					local_index = 0;
-	//					operand_index++;
-	//					while (hold_operand[operand_index] != 0)
-	//					{
-	//						ascii_hold[local_index] = hold_operand[operand_index];
-	//						local_index++;
-	//						operand_index++;
-	//						if(operand_index > 100) /* Be aware of overrun error */
-	//						{
-	//							log_error(22);
-	//							return(0);
-	//						}
-	//					}
-	//					ascii_hold[local_index] = 0;
-	//					if ( is_number(ascii_hold) )
-	//					{
-	//						if (convert_to_number(ascii_hold,&number))
-	//						{
-	//							if (number >= 0 && number <= 65535)
-	//							{
-	//								temp_number = symbol_table[symbol_index].address + number;
-	//								hold_obj_2 = temp_number & 255;
-	//								hold_obj_3 = ((temp_number >> 8) & 255);
-	//								return(1);
-	//							}
-	//							else
-	//							{
-	//								log_error(8);
-	//								return(0);
-	//							}
-	//						}
-	//						else
-	//						{
-	//							log_error(16);
-	//							return(0);
-	//						}
-	//					}
-	//
-	//				}
-	//				else
-	//				{
-	//					hold_obj_2 = symbol_table[symbol_index].address & 255;
-	//					hold_obj_3 = ((symbol_table[symbol_index].address >> 8) & 255);
-	//					return(1);
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(2);
-	//				return(0);
-	//			}
-	//		}
-	//
-	//	}
-	//	else if (strcmp(hold_add_code,"ABX\0") == 0 || strcmp(hold_add_code,"ABY\0") == 0)
-	//	{
-	//		while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != ',')
-	//		{
-	//			ascii_hold[local_index] = hold_operand[operand_index];
-	//			local_index++;
-	//			operand_index++;
-	//			if(operand_index > 100)
-	//			{
-	//				log_error(22);
-	//				return(0);
-	//			}
-	//		}
-	//		ascii_hold[local_index] = 0;
-	//
-	//		if ( is_number(ascii_hold) )
-	//		{
-	//			if (convert_to_number(ascii_hold,&number))
-	//			{
-	//				if (number >= 0 && number <= 65535)
-	//				{
-	//					hold_obj_2 = number & 255;
-	//					hold_obj_3 = ((number >> 8) & 255);
-	//					return(1);
-	//				}
-	//				else
-	//				{
-	//					log_error(8);
-	//					return(0);
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(16);
-	//				return(0);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			if (! scan_for_symbol(ascii_hold))
-	//			{
-	//				hold_obj_2 = symbol_table[symbol_index].address & 255;
-	//				hold_obj_3 = ((symbol_table[symbol_index].address >> 8) & 255);
-	//				return(1);
-	//			}
-	//			else
-	//			{
-	//				log_error(2);
-	//				return(0);
-	//			}
-	//		}
-	//
-	//	}
-	//	else if (strcmp(hold_add_code,"IRX\0") == 0 || strcmp(hold_add_code,"IXR\0") == 0 || strcmp(hold_add_code,"IND\0") == 0)
-	//	{
-	//		operand_index++;
-	//		while (hold_operand[operand_index] != ',' && hold_operand[operand_index] != ')')
-	//		{
-	//			ascii_hold[local_index] = hold_operand[operand_index];
-	//			local_index++;
-	//			operand_index++;
-	//			if(operand_index > 100)
-	//			{
-	//				log_error(22);
-	//				return(0);
-	//			}
-	//		}
-	//		ascii_hold[local_index] = 0;
-	//
-	//		if ( is_number(ascii_hold) )
-	//		{
-	//			if (convert_to_number(ascii_hold,&number))
-	//			{
-	//				if (strcmp(hold_add_code,"IND\0") == 0)
-	//				{
-	//					if (number >= 0 && number <= 65535)
-	//					{
-	//						hold_obj_2 = number & 255;
-	//						hold_obj_3 = ((number >> 8) & 255);
-	//						return(1);
-	//					}
-	//					else
-	//					{
-	//						log_error(8);
-	//						return(0);
-	//					}
-	//				}
-	//				else
-	//				{
-	//					if (number >= 0 && number <= 255)
-	//					{
-	//						hold_obj_2 = number & 255;
-	//						return(1);
-	//					}
-	//					else
-	//					{
-	//						log_error(8);
-	//						return(0);
-	//					}
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(16);
-	//				return(0);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			if (! scan_for_symbol(ascii_hold))
-	//			{
-	//				if (strcmp(hold_add_code,"IND\0") == 0)
-	//				{
-	//					if (symbol_table[symbol_index].address >= 0 && symbol_table[symbol_index].address <= 65535)
-	//					{
-	//						hold_obj_2 = symbol_table[symbol_index].address & 255;
-	//						hold_obj_3 = ((symbol_table[symbol_index].address >> 8) & 255);
-	//						return(1);
-	//					}
-	//					else
-	//					{
-	//						log_error(8);
-	//						return(0);
-	//					}
-	//				}
-	//				else
-	//				{
-	//					if (symbol_table[symbol_index].address >= 0 && symbol_table[symbol_index].address <= 255)
-	//					{
-	//						hold_obj_2 = symbol_table[symbol_index].address & 255;
-	//						return(1);
-	//					}
-	//					else
-	//					{
-	//						log_error(8);
-	//						return(0);
-	//					}
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(2);
-	//				return(0);
-	//			}
-	//		}
-	//
-	//	}
-	//	else if (strcmp(hold_add_code,"REL\0") == 0)
-	//	{
-	//		next_inst_add = location_counter;
-	//		next_inst_add = next_inst_add + op_table[op_tbl_index].num_bytes;
-	//		while (hold_operand[operand_index] != 0)
-	//		{
-	//			ascii_hold[local_index] = hold_operand[operand_index];
-	//			local_index++;
-	//			operand_index++;
-	//			if(operand_index > 100)
-	//			{
-	//				log_error(22);
-	//				return(0);
-	//			}
-	//		}
-	//		ascii_hold[local_index] = 0;
-	//
-	//		if ( is_number(ascii_hold) )
-	//		{
-	//				log_error(34);
-	//				return(0);
-	//		}
-	//		else
-	//		{
-	//			if (! scan_for_symbol(ascii_hold))
-	//			{
-	//				offset = symbol_table[symbol_index].address - next_inst_add;
-	//				if (offset <= 127 && offset >= -128)
-	//				{
-	//					hold_obj_2 = offset & 255;
-	//					return(1);
-	//				}
-	//				else
-	//				{
-	//					log_error(9);
-	//					return(0);
-	//				}
-	//			}
-	//			else
-	//			{
-	//				log_error(2);
-	//				return(0);
-	//			}
-	//		}
-	//
-	//	}
-	//	else
-	//	{
-	//		log_error(16);
-	//		return(0);
-	//	}
-	//
-	//}
+	boolean interpret_line_pass2()                  
+	{
+		int operand_index = 0;
+		int local_index = 0; 
+		int[] ascii_hold = new int[50]; //char ascii_hold[50];
+		//int number = 0;
+		Number number = new Number();
+		
+		if (strcmp(hold_operator,"LON\0")==0)
+		{
+			no_obj_flag = 1;
+			lst_flag=1;
+			print_line();
+		}
+		else if (strcmp(hold_operator,"LOF\0")==0)
+		{
+			no_obj_flag = 1;
+			print_line();
+			lst_flag=0;
+		}
+		else if (strcmp(hold_operator,"ORG\0")==0)
+		{
+			//Integer tmp_converted_number = new Integer(0);
+			Number tmp_converted_number = new Number();
+			if (convert_to_number(hold_operand, tmp_converted_number)) // ,&temp_converted_number))
+			{
+				this.temp_converted_number = tmp_converted_number.number;
+				if (tmp_converted_number.number >=0 && tmp_converted_number.number <=65535)
+				{
+					location_counter=tmp_converted_number.number;
+					no_obj_flag = 1;
+					print_line();
+					return(true);
+				}
+				else
+				{
+					log_error(8);
+					return(false);
+				}
+			}
+			else
+			{
+				log_error(16);
+				return(false);
+			}
+		}
+		else if (strcmp(hold_operator,"END\0")==0)
+		{
+			no_lc_flag=1;
+			print_line();
+			end_flag=1;
+		}
+		else if (strcmp(hold_operator,"*\0")==0)
+		{
+			no_obj_flag = 1;
+			print_line();
+		}
+		else if (strcmp(hold_operator,"EQU\0")==0)
+		{
+			no_obj_flag = 1;
+			print_line();
+		}
+		else if (strcmp(hold_operator,"DBT\0")==0)
+		{
+			if (hold_operand[0] == 34) /* Check for ASCII by finding " */
+			{
+				process_ascii_characters();
+			}
+			else if (strchr(hold_operand,'(') && strchr(hold_operand,'('))
+			{
+				process_byte_duplicates();
+			}
+			else if (strchr(hold_operand,','))
+			{
+				process_bytes();
+			}
+			else if (strcmp(hold_operand,"?\0")==0)
+			{
+				hold_obj_1 = 0;
+				print_line();
+				location_counter++;
+			}
+			else if ((strchr(hold_operand,'D') || strchr(hold_operand,'B') || strchr(hold_operand,'H')) && hold_operand[0] != '#')
+			{
+				local_index = 0;
+				operand_index = 0;
+	
+				while (hold_operand[operand_index] != 0)
+				{
+					ascii_hold[local_index] = hold_operand[operand_index];
+					local_index++;
+					operand_index++;
+					if(operand_index > 100)
+					{
+						log_error(22);
+						return(false);
+					}
+				}
+				ascii_hold[local_index] = 0;
+	
+				if ( is_number(ascii_hold) )
+				{
+					if (convert_to_number(ascii_hold,number))
+					{
+						if (number.number >= 0 && number.number <= 255)
+						{
+							hold_obj_1 = number.number & 255;
+							print_line();
+							location_counter++;
+							return(true);
+						}
+						else
+						{
+							log_error(8);
+							return(false);
+						}
+					}
+					else
+					{
+						log_error(16);
+						return(false);
+					}
+				}
+	
+			}
+	
+	
+			else if (hold_operand[0] == '#')
+			{
+			local_index = 0;
+			operand_index = 0;
+	
+			operand_index++;
+	
+			while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != '<' && hold_operand[operand_index] != '>')
+			{
+				ascii_hold[local_index] = hold_operand[operand_index];
+				local_index++;
+				operand_index++;
+				if(operand_index > 100)
+				{
+					log_error(22);
+					return(false);
+				}
+			}
+			ascii_hold[local_index] = 0;
+	
+			if ( is_number(ascii_hold) )
+			{
+				if (convert_to_number(ascii_hold,number))
+				{
+					if (number.number >= 0 && number.number <=255)
+					{
+						hold_obj_1 = number.number & 255;
+						return(true);
+					}
+					else
+					{
+						log_error(8);
+						return(false);
+					}
+				}
+				else
+				{
+					log_error(16);
+					return(false);
+				}
+			}
+			else
+			{
+				if (! scan_for_symbol(ascii_hold))
+				{
+					if (hold_operand[operand_index] == '<')
+					{
+						hold_obj_1 = (symbol_table[symbol_index].address & 255);
+						print_line();
+						location_counter++;
+						return(true);
+					}
+					else if (hold_operand[operand_index] == '>')
+					{
+						hold_obj_1 = ((symbol_table[symbol_index].address >> 8) & 255);
+						print_line();
+						location_counter++;
+						return(true);
+					}
+					else
+					{
+						hold_obj_1 = (symbol_table[symbol_index].address & 255);
+						print_line();
+						location_counter++;
+						return(true);
+					}
+				}
+				else
+				{
+					log_error(2);
+					return(false);
+				}
+			}
+	
+	
+			}
+			else
+			{
+				log_error(16);
+				return(false);
+			}
+	
+		}
+		else if (strcmp(hold_operator,"DWD\0")==0)
+		{
+			if (hold_operand[0] == 34) /* Check for ASCII by finding " */
+			{
+				log_error(33);
+				return(false);
+			}
+			else if (strchr(hold_operand,'('))// && strchr(hold_operand,'('))
+			{
+				process_word_duplicates();
+			}
+			else if (strchr(hold_operand,','))
+			{
+				process_words();
+			}
+			else if (strcmp(hold_operand,"?\0")==0)
+			{
+				hold_obj_1 = 0;
+				hold_obj_2 = 0;
+				print_line();
+	
+				location_counter+=2;
+			}
+			else
+			{
+				log_error(6);
+				return(false);
+			}
+	
+		}
+		else
+		{
+			valid_mnemonic_scan();
+			while (strcmp(hold_operator,op_table[op_tbl_index].operator)==0)
+			{
+				if(strcmp(hold_add_mode,op_table[op_tbl_index].add_code)==0)
+				{
+					hold_obj_1 = op_table[op_tbl_index].opcode;
+					if (parse_operand_pass2())
+					{
+						print_line();
+						location_counter=location_counter + op_table[op_tbl_index].num_bytes;
+						return(true);
+					}
+					else
+					{
+						log_error(16);
+						return(false);
+					}
+	
+				}
+				op_tbl_index++;
+			}
+			log_error(16);
+			return(false);
+		}
+		
+		return false; //Note: this line should never execute.
+	
+	}//}}}
+	
+	
+	//{{{parse_operand_pass2()
+	boolean parse_operand_pass2()
+	{
+		//char hold_add_code[5],ascii_hold[120];
+		int[] hold_add_code = new int[5];
+		int[] ascii_hold = new int[120];
+		
+		int local_index = 0;
+		int operand_index = 0;
+		
+		int next_inst_add = 0;
+		
+		//int number = 0;
+		Number number = new Number();
+		
+		int temp_number = 0;
+		int offset = 0;
+		local_index = 0;
+		operand_index = 0;
+	
+	
+		strcpy (hold_add_code,op_table[op_tbl_index].add_code);
+	
+		if (strcmp(hold_add_code,"IMP\0")==0)
+		{
+			return(true);
+		}
+		if (strcmp(hold_add_code,"ACC\0")==0)
+		{
+			if (strcmp(hold_operand,"A\0") == 0 || strcmp(hold_operand,"a") == 0)
+				{
+					return(true);
+				}
+				else
+				{
+					log_error(16);
+					return(false);
+				}
+		}
+		else if (strcmp(hold_add_code,"IMM\0") == 0)
+		{
+			operand_index++;
+	
+			if (hold_operand[operand_index] == 39)
+			{
+				operand_index++;
+				if (check_operand_character(hold_operand[operand_index]) && hold_operand[operand_index+1] == 39)
+				{
+					hold_obj_2 = hold_operand[operand_index];
+					return(true);
+	
+				}
+				else
+				{
+					log_error(16);
+					return(false);
+				}
+	
+			}
+	
+			while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != '<' && hold_operand[operand_index] != '>')
+			{
+				ascii_hold[local_index] = hold_operand[operand_index];
+				local_index++;
+				operand_index++;
+				if(operand_index > 100)
+				{
+					log_error(22);
+					return(false);
+				}
+			}
+			ascii_hold[local_index] = 0;
+	
+			if ( is_number(ascii_hold) )
+			{
+				if (convert_to_number(ascii_hold,number))
+				{
+					if (number.number >= 0 && number.number <=255)
+					{
+						hold_obj_2 = number.number & 255;
+						return(true);
+					}
+					else
+					{
+						log_error(8);
+						return(false);
+					}
+				}
+				else
+				{
+					log_error(16);
+					return(false);
+				}
+			}
+			else
+			{
+				if (! scan_for_symbol(ascii_hold))
+				{
+					if (hold_operand[operand_index] == '<')
+					{
+						hold_obj_2 = (symbol_table[symbol_index].address & 255);
+						return(true);
+					}
+					else if (hold_operand[operand_index] == '>')
+					{
+						hold_obj_2 = ((symbol_table[symbol_index].address >> 8) & 255);
+						return(true);
+					}
+					else
+					{
+						hold_obj_2 = (symbol_table[symbol_index].address & 255);
+						return(true);
+					}
+				}
+				else
+				{
+					log_error(2);
+					return(false);
+				}
+			}
+		}
+		else if (strcmp(hold_add_code,"ABS\0") == 0)
+		{
+			while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != '+')
+			{
+				ascii_hold[local_index] = hold_operand[operand_index];
+				local_index++;
+				operand_index++;
+				if(operand_index > 100)
+				{
+					log_error(22);
+					return(false);
+				}
+			}
+			ascii_hold[local_index] = 0;
+	
+			if ( is_number(ascii_hold) )
+			{
+				if (convert_to_number(ascii_hold,number))
+				{
+					if (number.number >= 0 && number.number <= 65535)
+					{
+						hold_obj_2 = number.number & 255;
+						hold_obj_3 = ((number.number >> 8) & 255);
+						return(true);
+					}
+					else
+					{
+						log_error(8);
+						return(false);
+					}
+				}
+				else
+				{
+					log_error(16);
+					return(false);
+				}
+			}
+			else
+			{
+				if (! scan_for_symbol(ascii_hold))
+				{
+					if (hold_operand[operand_index] == '+')
+					{
+						local_index = 0;
+						operand_index++;
+						while (hold_operand[operand_index] != 0)
+						{
+							ascii_hold[local_index] = hold_operand[operand_index];
+							local_index++;
+							operand_index++;
+							if(operand_index > 100) /* Be aware of overrun error */
+							{
+								log_error(22);
+								return(false);
+							}
+						}
+						ascii_hold[local_index] = 0;
+						if ( is_number(ascii_hold) )
+						{
+							if (convert_to_number(ascii_hold,number))
+							{
+								if (number.number >= 0 && number.number <= 65535)
+								{
+									temp_number = symbol_table[symbol_index].address + number.number;
+									hold_obj_2 = temp_number & 255;
+									hold_obj_3 = ((temp_number >> 8) & 255);
+									return(true);
+								}
+								else
+								{
+									log_error(8);
+									return(false);
+								}
+							}
+							else
+							{
+								log_error(16);
+								return(false);
+							}
+						}
+	
+					}
+					else
+					{
+						hold_obj_2 = symbol_table[symbol_index].address & 255;
+						hold_obj_3 = ((symbol_table[symbol_index].address >> 8) & 255);
+						return(true);
+					}
+				}
+				else
+				{
+					log_error(2);
+					return(false);
+				}
+			}
+	
+		}
+		else if (strcmp(hold_add_code,"ABX\0") == 0 || strcmp(hold_add_code,"ABY\0") == 0)
+		{
+			while (hold_operand[operand_index] != 0 && hold_operand[operand_index] != ',')
+			{
+				ascii_hold[local_index] = hold_operand[operand_index];
+				local_index++;
+				operand_index++;
+				if(operand_index > 100)
+				{
+					log_error(22);
+					return(false);
+				}
+			}
+			ascii_hold[local_index] = 0;
+	
+			if ( is_number(ascii_hold) )
+			{
+				if (convert_to_number(ascii_hold,number))
+				{
+					if (number.number >= 0 && number.number <= 65535)
+					{
+						hold_obj_2 = number.number & 255;
+						hold_obj_3 = ((number.number >> 8) & 255);
+						return(true);
+					}
+					else
+					{
+						log_error(8);
+						return(false);
+					}
+				}
+				else
+				{
+					log_error(16);
+					return(false);
+				}
+			}
+			else
+			{
+				if (! scan_for_symbol(ascii_hold))
+				{
+					hold_obj_2 = symbol_table[symbol_index].address & 255;
+					hold_obj_3 = ((symbol_table[symbol_index].address >> 8) & 255);
+					return(true);
+				}
+				else
+				{
+					log_error(2);
+					return(false);
+				}
+			}
+	
+		}
+		else if (strcmp(hold_add_code,"IRX\0") == 0 || strcmp(hold_add_code,"IXR\0") == 0 || strcmp(hold_add_code,"IND\0") == 0)
+		{
+			operand_index++;
+			while (hold_operand[operand_index] != ',' && hold_operand[operand_index] != ')')
+			{
+				ascii_hold[local_index] = hold_operand[operand_index];
+				local_index++;
+				operand_index++;
+				if(operand_index > 100)
+				{
+					log_error(22);
+					return(false);
+				}
+			}
+			ascii_hold[local_index] = 0;
+	
+			if ( is_number(ascii_hold) )
+			{
+				if (convert_to_number(ascii_hold,number))
+				{
+					if (strcmp(hold_add_code,"IND\0") == 0)
+					{
+						if (number.number >= 0 && number.number <= 65535)
+						{
+							hold_obj_2 = number.number & 255;
+							hold_obj_3 = ((number.number >> 8) & 255);
+							return(true);
+						}
+						else
+						{
+							log_error(8);
+							return(false);
+						}
+					}
+					else
+					{
+						if (number.number >= 0 && number.number <= 255)
+						{
+							hold_obj_2 = number.number & 255;
+							return(true);
+						}
+						else
+						{
+							log_error(8);
+							return(false);
+						}
+					}
+				}
+				else
+				{
+					log_error(16);
+					return(false);
+				}
+			}
+			else
+			{
+				if (! scan_for_symbol(ascii_hold))
+				{
+					if (strcmp(hold_add_code,"IND\0") == 0)
+					{
+						if (symbol_table[symbol_index].address >= 0 && symbol_table[symbol_index].address <= 65535)
+						{
+							hold_obj_2 = symbol_table[symbol_index].address & 255;
+							hold_obj_3 = ((symbol_table[symbol_index].address >> 8) & 255);
+							return(true);
+						}
+						else
+						{
+							log_error(8);
+							return(false);
+						}
+					}
+					else
+					{
+						if (symbol_table[symbol_index].address >= 0 && symbol_table[symbol_index].address <= 255)
+						{
+							hold_obj_2 = symbol_table[symbol_index].address & 255;
+							return(true);
+						}
+						else
+						{
+							log_error(8);
+							return(false);
+						}
+					}
+				}
+				else
+				{
+					log_error(2);
+					return(false);
+				}
+			}
+	
+		}
+		else if (strcmp(hold_add_code,"REL\0") == 0)
+		{
+			next_inst_add = location_counter;
+			next_inst_add = next_inst_add + op_table[op_tbl_index].num_bytes;
+			while (hold_operand[operand_index] != 0)
+			{
+				ascii_hold[local_index] = hold_operand[operand_index];
+				local_index++;
+				operand_index++;
+				if(operand_index > 100)
+				{
+					log_error(22);
+					return(false);
+				}
+			}
+			ascii_hold[local_index] = 0;
+	
+			if ( is_number(ascii_hold) )
+			{
+					log_error(34);
+					return(false);
+			}
+			else
+			{
+				if (! scan_for_symbol(ascii_hold))
+				{
+					offset = symbol_table[symbol_index].address - next_inst_add;
+					if (offset <= 127 && offset >= -128)
+					{
+						hold_obj_2 = offset & 255;
+						return(true);
+					}
+					else
+					{
+						log_error(9);
+						return(false);
+					}
+				}
+				else
+				{
+					log_error(2);
+					return(false);
+				}
+			}
+	
+		}
+		else
+		{
+			log_error(16);
+			return(false);
+		}
+		
+		return false; //Note: this line should never execute.
+	
+	}//}}}
+	
+	
+	
 
 	//{{{scan_for_symbol
 	boolean scan_for_symbol(int symbol[])
@@ -1985,76 +2089,83 @@ public class UASM65
 		}
 	}//}}}
 
-	//
-	//is_number(int ascii_hold[])
-	//{
-	//	int number_base_position,char_pos;
-	//	int number_base, ascii_hold_copy[20];
-	//
-	//	if (ascii_hold[0] < '0' || ascii_hold[0] > '9')
-	//		{
-	//			return(0);
-	//		}
-	//
-	//	strcpy(ascii_hold_copy,ascii_hold);
-	//	number_base_position = strlen(ascii_hold_copy)-1;
-	//	number_base = ascii_hold_copy[number_base_position];
-	//	ascii_hold_copy[number_base_position] = 0;
-	//	char_pos = strlen(ascii_hold_copy)-1;
-	//
-	//	if (number_base == 'B' || number_base == 'b')
-	//	{
-	//		while (char_pos >= 0)
-	//		{
-	//			if (ascii_hold_copy[char_pos] < '0' || ascii_hold_copy[char_pos] > '1')
-	//			{
-	//				return(0);
-	//			}
-	//			char_pos--;
-	//		}
-	//		return(1);
-	//	}
-	//	else if (number_base == 'D' || number_base == 'd')
-	//	{
-	//		while (char_pos >= 0)
-	//		{
-	//			if (ascii_hold_copy[char_pos] < '0' || ascii_hold_copy[char_pos] > '9')
-	//			{
-	//				return(0);
-	//			}
-	//			char_pos--;
-	//		}
-	//		return(1);
-	//	}
-	//	else if (number_base == 'H' || number_base == 'h')
-	//	{
-	//		while (char_pos >= 0)
-	//		{
-	//			if (ascii_hold_copy[char_pos] >= '0' && ascii_hold_copy[char_pos] <= '9')
-	//			{
-	//			}
-	//			else if (ascii_hold_copy[char_pos] >= 'A' && ascii_hold_copy[char_pos] <= 'Z')
-	//			{
-	//			}
-	//			else if (ascii_hold_copy[char_pos] >= 'a' && ascii_hold_copy[char_pos] <= 'z')
-	//			{
-	//			}
-	//			else
-	//			{
-	//				return(0);
-	//			}
-	//			char_pos--;
-	//		}
-	//		return(1);
-	//	}
-	//	else
-	//	{
-	//		return(0);
-	//	}
-	//
-	//
-	//}
-	//
+	
+	
+	
+	//{{{is_number
+	boolean is_number(int ascii_hold[])
+	{
+		int number_base_position = 0;
+		int char_pos = 0;
+		int number_base = 0;
+		//ascii_hold_copy[20];
+		int[] ascii_hold_copy = new int[20];
+	
+		if (ascii_hold[0] < '0' || ascii_hold[0] > '9')
+			{
+				return(false);
+			}
+	
+		strcpy(ascii_hold_copy,ascii_hold);
+		number_base_position = strlen(ascii_hold_copy)-1;
+		number_base = ascii_hold_copy[number_base_position];
+		ascii_hold_copy[number_base_position] = 0;
+		char_pos = strlen(ascii_hold_copy)-1;
+	
+		if (number_base == 'B' || number_base == 'b')
+		{
+			while (char_pos >= 0)
+			{
+				if (ascii_hold_copy[char_pos] < '0' || ascii_hold_copy[char_pos] > '1')
+				{
+					return(false);
+				}
+				char_pos--;
+			}
+			return(true);
+		}
+		else if (number_base == 'D' || number_base == 'd')
+		{
+			while (char_pos >= 0)
+			{
+				if (ascii_hold_copy[char_pos] < '0' || ascii_hold_copy[char_pos] > '9')
+				{
+					return(false);
+				}
+				char_pos--;
+			}
+			return(true);
+		}
+		else if (number_base == 'H' || number_base == 'h')
+		{
+			while (char_pos >= 0)
+			{
+				if (ascii_hold_copy[char_pos] >= '0' && ascii_hold_copy[char_pos] <= '9')
+				{
+				}
+				else if (ascii_hold_copy[char_pos] >= 'A' && ascii_hold_copy[char_pos] <= 'Z')
+				{
+				}
+				else if (ascii_hold_copy[char_pos] >= 'a' && ascii_hold_copy[char_pos] <= 'z')
+				{
+				}
+				else
+				{
+					return(false);
+				}
+				char_pos--;
+			}
+			return(true);
+		}
+		else
+		{
+			return(false);
+		}
+
+	}//}}}
+	
+	
+	
 	//{{{check_operator_character
 	private boolean check_operator_character(int character)
 	{
@@ -2217,120 +2328,207 @@ public class UASM65
 	
 
 	//{{{print_line
-	void print_line()
+	boolean print_line()
 	{
-	//	int local_index;
-	//	int lst_line[150],buffer[150],loc_cntr[10],obj_code[10],line_num[10],source[132],error_line[80];
-	//	local_index = 0;
-	//	lst_line[0] = 0;
-	//	loc_cntr[0] = 0;
-	//	obj_code[0] = 0;
-	//	line_num[0] = 0;
-	//	source[0] = 0;
-	//	error_line[0] = 0;
-	//
-	//	if (pass2_flag)
-	//	{
-	//		build_s_records();
-	//	}
-	//
-	//	if (lst_flag == 1)
-	//	{
-	//		if (no_lc_flag == 0)
-	//		{
-	//			sprintf(loc_cntr,"\n%.4x ",location_counter);
-	//		}
-	//		else if (error_table[print_error_index-1].line_number != source_line_number )
-	//		{
-	//			no_lc_flag =0;
-	//			no_obj_flag =1;
-	//			sprintf(loc_cntr,"\n     ");
-	//		}
-	//
-	//		if (no_obj_flag == 0)
-	//		{
-	//			if (hold_obj_1 > -1 && hold_obj_2 == -1 && hold_obj_3 == -1)
-	//			{
-	//				sprintf(obj_code,"%.2X      ",hold_obj_1);
-	//				hold_obj_1=-1;
-	//			}
-	//			else if (hold_obj_1 > -1 && hold_obj_2 > -1 && hold_obj_3 == -1)
-	//			{
-	//				sprintf(obj_code,"%.2X %.2X   ",hold_obj_1,hold_obj_2);
-	//				hold_obj_1=-1;
-	//				hold_obj_2=-1;
-	//			}
-	//			else if (hold_obj_1 > -1 && hold_obj_2 > -1 && hold_obj_3 > -1)
-	//			{
-	//				sprintf(obj_code,"%.2X %.2X %.2X",hold_obj_1,hold_obj_2,hold_obj_3);
-	//				hold_obj_1=-1;
-	//				hold_obj_2=-1;
-	//				hold_obj_3=-1;
-	//			}
-	//			else
-	//			{
-	//				log_error(31);
-	//				return(0);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			no_obj_flag = 0;
-	//			sprintf(obj_code,"        ");
-	//		}
-	//
-	//		if (no_line_num_flag ==1)
-	//		{
-	//			no_line_num_flag = 0;
-	//			sprintf(line_num,"     ");
-	//		}
-	//		else
-	//		{
-	//			sprintf(line_num,"%.6d |",source_line_number);
-	//		}
-	//
-	//
-	//
-	//		if (no_source_flag == 1)
-	//		{
-	//			no_source_flag = 0;
-	//			sprintf(source," ");
-	//		}
-	//		else
-	//		{
-	//			sprintf(source,"%s",source_line);
-	//		}
-	//		strcat(lst_line,loc_cntr);
-	//		strcat(lst_line,obj_code);
-	//		strcat(lst_line,"   \0");
-	//		strcat(lst_line,line_num);
-	//		strcat(lst_line,source);
-	//
-	//
-	///*		printf("%s",lst_line);*/
-	//
-	//		fputs(lst_line,lst_file_ptr);
-	//
-	//		while (error_table[print_error_index].line_number == source_line_number)
-	//		{
-	//			sprintf(error_line,"\n*** ERROR in line %d, Error #%d (%s) ***",error_table[print_error_index].line_number,error_table[print_error_index].error_number, error_message[error_table[print_error_index].error_number]);
-	//			printf("%s",error_line);
-	//			fputs(error_line,lst_file_ptr);
-	//			print_error_index++;
-	//
-	//		}
-	//	}
-	//	else
-	//	{
-	//		no_source_flag = 0;
-	//		no_lc_flag = 0;
-	//		no_obj_flag = 0;
-	//		no_line_num_flag = 0;
-	//		hold_obj_1=-1;
-	//		hold_obj_2=-1;
-	//		hold_obj_3=-1;
-	//	}
+		int local_index = 0;
+		
+		//int[] lst_line = new int[150];
+		//int[] buffer = new int[150];
+		//int[] loc_cntr	= new int[10];
+		//int[] obj_code = new int[10];
+		//int[] line_num = new int[10];
+		//int[] source = new int[132];
+		//int[] error_line = new int[80];
+		
+		String lst_line = null;
+		String buffer = null;
+		String loc_cntr	 = null;
+		String obj_code = null;
+		String line_num = null;
+		String source = null;
+		String error_line = null;
+		
+		local_index = 0;
+		
+		//lst_line[0] = 0;
+		//loc_cntr[0] = 0;
+		//obj_code[0] = 0;
+		//line_num[0] = 0;
+		//source[0] = 0;
+		//error_line[0] = 0;
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		java.util.Formatter sprintf = new java.util.Formatter(stringBuilder, java.util.Locale.US);
+
+   // Explicit argument indices may be used to re-order output.
+   //formatter.format("%4$2s %3$2s %2$2s %1$2s", "a", "b", "c", "d")
+   // -> " d  c  b  a"
+	
+		if (pass2_flag)
+		{
+			build_s_records();
+		}
+	
+		if (lst_flag == 1)
+		{
+			if (no_lc_flag == 0)
+			{
+				//sprintf(loc_cntr,"\n%.4x ",location_counter);
+				sprintf.format("\n%04x ",location_counter);
+				loc_cntr = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+				stringBuilder.delete(0,stringBuilder.length());
+				
+			}
+			else if (error_table[print_error_index-1].line_number != source_line_number )
+			{
+				no_lc_flag =0;
+				no_obj_flag =1;
+				//sprintf(loc_cntr,"\n     ");
+				sprintf.format("\n     ");
+				loc_cntr = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+				stringBuilder.delete(0,stringBuilder.length());
+			}
+	
+			if (no_obj_flag == 0) //Note: A clue to the no object code lines may be here.
+			{
+				if (hold_obj_1 > -1 && hold_obj_2 == -1 && hold_obj_3 == -1)
+				{
+					//sprintf(obj_code,"%.2X      ",hold_obj_1);
+					sprintf.format("%02X      ",hold_obj_1);
+					obj_code = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+					stringBuilder.delete(0,stringBuilder.length());
+					hold_obj_1=-1;
+				}
+				else if (hold_obj_1 > -1 && hold_obj_2 > -1 && hold_obj_3 == -1)
+				{
+					//sprintf(obj_code,"%.2X %.2X   ",hold_obj_1,hold_obj_2);
+					sprintf.format("%02X %02X   ",hold_obj_1,hold_obj_2);
+					obj_code = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+					stringBuilder.delete(0,stringBuilder.length());
+					hold_obj_1=-1;
+					hold_obj_2=-1;
+				}
+				else if (hold_obj_1 > -1 && hold_obj_2 > -1 && hold_obj_3 > -1)
+				{
+					//sprintf(obj_code,"%.2X %.2X %.2X",hold_obj_1,hold_obj_2,hold_obj_3);
+					sprintf.format("%02X %02X %02X",hold_obj_1,hold_obj_2,hold_obj_3);
+					obj_code = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+					stringBuilder.delete(0,stringBuilder.length());
+					hold_obj_1=-1;
+					hold_obj_2=-1;
+					hold_obj_3=-1;
+				}
+				else
+				{
+					log_error(31);
+					return(false);
+				}
+				
+			}// end if.
+			else
+			{
+				no_obj_flag = 0;
+				//sprintf(obj_code,"        ");
+				sprintf.format("        ");
+				obj_code = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+				stringBuilder.delete(0,stringBuilder.length());
+			}
+	
+			if (no_line_num_flag ==1)
+			{
+				no_line_num_flag = 0;
+				//sprintf(line_num,"     ");
+				sprintf.format("     ");
+				line_num = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+				stringBuilder.delete(0,stringBuilder.length());
+			}
+			else
+			{
+				//sprintf(line_num,"%.6d |",source_line_number);
+				sprintf.format("%06d |",source_line_number);
+				line_num = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+				stringBuilder.delete(0,stringBuilder.length());
+			}
+	
+	
+	
+			if (no_source_flag == 1)
+			{
+				no_source_flag = 0;
+				//sprintf(source," ");
+				sprintf.format(" ");
+				source = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+				stringBuilder.delete(0,stringBuilder.length());
+			}
+			else
+			{
+				//sprintf(source,"%s",source_line);
+				sprintf.format("%s",chars_to_string(source_line));
+				source = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
+				stringBuilder.delete(0,stringBuilder.length());
+			}
+			//lst_line = strcat(lst_line,loc_cntr);
+			//lst_line = strcat(lst_line,obj_code);
+			//lst_line = strcat(lst_line,"   \0");
+			//lst_line = strcat(lst_line,line_num);
+			//lst_line = strcat(lst_line,source);
+			lst_line = loc_cntr + obj_code + "   " + line_num + source;
+	
+			
+			//Note: uncomment for debugging.
+			System.out.printf("%s",lst_line);
+
+	
+	//fputs(lst_line,lst_file_ptr);
+	try
+	{
+	
+		lst_file_ptr.write(lst_line); //(chars_to_string(lst_line));
+		
+		//System.out.println("SSSSSSSSSSSSSSS " +  lst_line); //chars_to_string(lst_line));
 	}
+	catch(IOException e)
+	{                          
+		e.printStackTrace();
+	}
+	
+			while (error_table[print_error_index].line_number == source_line_number)
+			{
+				//sprintf(error_line,"\n*** ERROR in line %d, Error #%d (%s) ***",error_table[print_error_index].line_number,error_table[print_error_index].error_number, error_message[error_table[print_error_index].error_number]);
+				sprintf.format("\n*** ERROR in line %d, Error #%d (%s) ***",error_table[print_error_index].line_number,error_table[print_error_index].error_number, error_message[error_table[print_error_index].error_number]);
+				error_line = stringBuilder.toString(); // string_to_chars( stringBuilder.toString() );
+				stringBuilder.delete(0,stringBuilder.length());
+				System.out.printf("%s",error_line);
+				//fputs(error_line,lst_file_ptr);
+				try
+				{
+				
+					lst_file_ptr.write(error_line); //chars_to_string(error_line));
+				}
+				catch(IOException e)
+				{
+					e.printStackTrace();
+				}
+				
+				print_error_index++;
+	
+			}
+		}
+		else
+		{
+			no_source_flag = 0;
+			no_lc_flag = 0;
+			no_obj_flag = 0;
+			no_line_num_flag = 0;
+			hold_obj_1=-1;
+			hold_obj_2=-1;
+			hold_obj_3=-1;
+		}
+		
+		return false; //Note: this line should never be executed.
+	}//}}}
+	
+	
 	//
 	//
 	////}}}
@@ -2362,280 +2560,309 @@ public class UASM65
 		location_counter=location_counter + (comma_count*2);
 	}//}}}
 	
-	//
-	//process_byte_duplicates()
-	//{
-	//	unsigned long int multiplier,number;
-	//	int ascii_multiplier[20],ascii_number[20];
-	//	int local_index,count,byte_count;
-	//	local_index = 0;
-	//	operand_index = 0;
-	//	byte_count = 0;
-	//
-	//	while (hold_operand[operand_index] != '(')
-	//	{
-	//		ascii_multiplier[local_index] = hold_operand[operand_index];
-	//		local_index++;
-	//		operand_index++;
-	//		if(operand_index > 100)
-	//		{
-	//			log_error(22);
-	//			return(0);
-	//		}
-	//	}
-	//	ascii_multiplier[local_index] = 0;
-	//
-	//	if (convert_to_number(ascii_multiplier,&multiplier))
-	//	{
-	//		local_index++;
-	//		operand_index++;
-	//		if (hold_operand[operand_index]==39)
-	//		{
-	//			local_index++;
-	//			operand_index++;
-	//			if (hold_operand[operand_index]==39)
-	//			{
-	//				log_error(32);
-	//				return(0);
-	//			}
-	//			number=hold_operand[operand_index];
-	//			hold_obj_1=number;
-	//			print_line();
-	//			location_counter++;
-	//
-	//			for (count=1;count< multiplier;)
-	//			{
-	//				hold_obj_1 = number;
-	//				byte_count++;
-	//				count++;
-	//
-	//				if (count< multiplier)
-	//				{
-	//					hold_obj_2 = number;
-	//					byte_count++;
-	//					count++;
-	//				}
-	//
-	//				if (count< multiplier)
-	//				{
-	//					hold_obj_3 = number;
-	//					byte_count++;
-	//					count++;
-	//				}
-	//
-	//
-	//				no_source_flag=1;
-	//				no_line_num_flag=1;
-	//				print_line();
-	//				location_counter = location_counter + byte_count;
-	//				byte_count = 0;
-	//			}
-	//
-	//		}
-	//		else if (hold_operand[operand_index] == '?')
-	//		{
-	//			hold_obj_1=0;
-	//			print_line();
-	//			location_counter++;
-	//
-	//			for (count=1;count< multiplier;)
-	//			{
-	//				hold_obj_1 = 0;
-	//				byte_count++;
-	//				count++;
-	//
-	//				if (count< multiplier)
-	//				{
-	//					hold_obj_2 = 0;
-	//					byte_count++;
-	//					count++;
-	//				}
-	//
-	//				if (count< multiplier)
-	//				{
-	//					hold_obj_3 = 0;
-	//					byte_count++;
-	//					count++;
-	//				}
-	//
-	//
-	//				no_source_flag=1;
-	//				no_line_num_flag=1;
-	//				print_line();
-	//				location_counter = location_counter + byte_count;
-	//				byte_count = 0;
-	//			}
-	//		}
-	//		else
-	//		{
-	//			local_index=0;
-	//			while (hold_operand[operand_index] != ')')
-	//			{
-	//				ascii_number[local_index] = hold_operand[operand_index];
-	//				local_index++;
-	//				operand_index++;
-	//				if(operand_index > 100)
-	//				{
-	//					log_error(22);
-	//					return(0);
-	//				}
-	//			}
-	//			ascii_number[local_index] = 0;
-	//
-	//			if (convert_to_number(ascii_number,&number))
-	//			{
-	//			hold_obj_1=number;
-	//			print_line();
-	//			location_counter++;
-	//
-	//			for (count=1;count< multiplier;)
-	//			{
-	//				hold_obj_1 = number;
-	//				byte_count++;
-	//				count++;
-	//
-	//				if (count< multiplier)
-	//				{
-	//					hold_obj_2 = number;
-	//					byte_count++;
-	//					count++;
-	//				}
-	//
-	//				if (count< multiplier)
-	//				{
-	//					hold_obj_3 = number;
-	//					byte_count++;
-	//					count++;
-	//				}
-	//
-	//
-	//				no_source_flag=1;
-	//				no_line_num_flag=1;
-	//				print_line();
-	//				location_counter = location_counter + byte_count;
-	//				byte_count = 0;
-	//			}
-	//
-	//			}
-	//			else
-	//			{
-	//				log_error(12);
-	//				return(0);
-	//			}
-	//
-	//		}
-	//		return(1);
-	//	}
-	//	else
-	//	{
-	//		log_error(21);
-	//		return(0);
-	//	}
-	//}
-	//
-	//
-	//process_word_duplicates()
-	//{
-	//	unsigned long int multiplier,number;
-	//	int ascii_multiplier[20],ascii_number[20];
-	//	int local_index,count;
-	//	local_index = 0;
-	//	operand_index = 0;
-	//
-	//	while (hold_operand[operand_index] != '(')
-	//	{
-	//		ascii_multiplier[local_index] = hold_operand[operand_index];
-	//		local_index++;
-	//		operand_index++;
-	//		if(operand_index > 100)
-	//		{
-	//			log_error(22);
-	//			return(0);
-	//		}
-	//	}
-	//	ascii_multiplier[local_index] = 0;
-	//
-	//	if (convert_to_number(ascii_multiplier,&multiplier))
-	//	{
-	//		local_index++;
-	//		operand_index++;
-	//		if (hold_operand[operand_index]==39)
-	//		{
-	//			log_error(33);
-	//			return(0);
-	//		}
-	//		else if (hold_operand[operand_index] == '?')
-	//		{
-	//			hold_obj_1=0;
-	//			hold_obj_2=0;
-	//			print_line();
-	//
-	//			location_counter+=2;
-	//
-	//			for (count=1;count< multiplier;count++)
-	//			{
-	//				no_source_flag=1;
-	//				no_line_num_flag=1;
-	//				hold_obj_1=0;
-	//				hold_obj_2=0;
-	//				print_line();
-	//				location_counter+=2;
-	//			}
-	//		}
-	//		else
-	//		{
-	//			local_index=0;
-	//			while (hold_operand[operand_index] != ')')
-	//			{
-	//				ascii_number[local_index] = hold_operand[operand_index];
-	//				local_index++;
-	//				operand_index++;
-	//				if(operand_index > 100)
-	//				{
-	//					log_error(22);
-	//					return(0);
-	//				}
-	//			}
-	//			ascii_number[local_index] = 0;
-	//
-	//			if (convert_to_number(ascii_number,&number))
-	//			{
-	//			hold_obj_1=number & 255;
-	//			hold_obj_2=((number >> 8) & 255);
-	//			print_line();
-	//			location_counter+=2;
-	//
-	//			for (count=1;count< multiplier;count++)
-	//			{
-	//				no_source_flag=1;
-	//				no_line_num_flag=1;
-	//				hold_obj_1=number & 255;
-	//				hold_obj_2=((number >> 8) & 255);
-	//				print_line();
-	//				location_counter+=2;
-	//			}
-	//
-	//			}
-	//			else
-	//			{
-	//				log_error(12);
-	//				return(0);
-	//			}
-	//
-	//		}
-	//		return(1);
-	//	}
-	//	else
-	//	{
-	//		log_error(21);
-	//		return(0);
-	//	}
-	//}
+	
+	
+	
+	//{{{process_byte_duplicates
+	boolean process_byte_duplicates()
+	{
+		//int multiplier = 0;
+		Number multiplier = new Number();
+		//int number = 0;
+		Number number = new Number();
+		
+		//int ascii_multiplier[20],ascii_number[20];
+		int[] ascii_multiplier = new int[20];
+		int[] ascii_number = new int[20];
+		
+		int local_index = 0; 
+		int count = 0;
+		int byte_count = 0;
+		
+		local_index = 0;
+		operand_index = 0;
+		byte_count = 0;
+	
+		while (hold_operand[operand_index] != '(')
+		{
+			ascii_multiplier[local_index] = hold_operand[operand_index];
+			local_index++;
+			operand_index++;
+			if(operand_index > 100)
+			{
+				log_error(22);
+				return(false);
+			}
+		}
+		ascii_multiplier[local_index] = 0;
+	
+		if (convert_to_number(ascii_multiplier, multiplier))
+		{
+			local_index++;
+			operand_index++;
+			if (hold_operand[operand_index]==39)
+			{
+				local_index++;
+				operand_index++;
+				if (hold_operand[operand_index]==39)
+				{
+					log_error(32);
+					return(false);
+				}
+				number.number = hold_operand[operand_index];
+				hold_obj_1=number.number;
+				print_line();
+				location_counter++;
+	
+				for (count=1;count< multiplier.number;)
+				{
+					hold_obj_1 = number.number;
+					byte_count++;
+					count++;
+	
+					if (count< multiplier.number)
+					{
+						hold_obj_2 = number.number;
+						byte_count++;
+						count++;
+					}
+	
+					if (count< multiplier.number)
+					{
+						hold_obj_3 = number.number;
+						byte_count++;
+						count++;
+					}
+	
+	
+					no_source_flag=1;
+					no_line_num_flag=1;
+					print_line();
+					location_counter = location_counter + byte_count;
+					byte_count = 0;
+				}
+	
+			}
+			else if (hold_operand[operand_index] == '?')
+			{
+				hold_obj_1=0;
+				print_line();
+				location_counter++;
+	
+				for (count=1;count< multiplier.number;)
+				{
+					hold_obj_1 = 0;
+					byte_count++;
+					count++;
+	
+					if (count< multiplier.number)
+					{
+						hold_obj_2 = 0;
+						byte_count++;
+						count++;
+					}
+	
+					if (count< multiplier.number)
+					{
+						hold_obj_3 = 0;
+						byte_count++;
+						count++;
+					}
+	
+	
+					no_source_flag=1;
+					no_line_num_flag=1;
+					print_line();
+					location_counter = location_counter + byte_count;
+					byte_count = 0;
+				}
+			}
+			else
+			{
+				local_index=0;
+				while (hold_operand[operand_index] != ')')
+				{
+					ascii_number[local_index] = hold_operand[operand_index];
+					local_index++;
+					operand_index++;
+					if(operand_index > 100)
+					{
+						log_error(22);
+						return(false);
+					}
+				}
+				ascii_number[local_index] = 0;
+	
+				if (convert_to_number(ascii_number,number))
+				{
+				hold_obj_1=number.number;
+				print_line();
+				location_counter++;
+	
+				for (count=1;count< multiplier.number;)
+				{
+					hold_obj_1 = number.number;
+					byte_count++;
+					count++;
+	
+					if (count< multiplier.number)
+					{
+						hold_obj_2 = number.number;
+						byte_count++;
+						count++;
+					}
+	
+					if (count< multiplier.number)
+					{
+						hold_obj_3 = number.number;
+						byte_count++;
+						count++;
+					}
+	
+	
+					no_source_flag=1;
+					no_line_num_flag=1;
+					print_line();
+					location_counter = location_counter + byte_count;
+					byte_count = 0;
+				}
+	
+				}
+				else
+				{
+					log_error(12);
+					return(false);
+				}
+	
+			}
+			return(true);
+		}
+		else
+		{
+			log_error(21);
+			return(false);
+		}
+	}//}}}
+	
+	
+	
+	
+	
+	//{{{process_word_duplicates
+	boolean process_word_duplicates()
+	{
+		//int multiplier = 0;
+		Number multiplier = new Number();
+		
+		//int number;
+		Number number = new Number();
+		
+		int[] ascii_multiplier = new int[20];
+		int[] ascii_number = new int[20];
+		
+		int local_index = 0;
+		int count = 0;
+		
+		
+		operand_index = 0;
+	
+		while (hold_operand[operand_index] != '(')
+		{
+			ascii_multiplier[local_index] = hold_operand[operand_index];
+			local_index++;
+			operand_index++;
+			if(operand_index > 100)
+			{
+				log_error(22);
+				return(false);
+			}
+		}
+		ascii_multiplier[local_index] = 0;
+	
+		if (convert_to_number(ascii_multiplier, multiplier))
+		{
+			local_index++;
+			operand_index++;
+			if (hold_operand[operand_index]==39)
+			{
+				log_error(33);
+				return(false);
+			}
+			else if (hold_operand[operand_index] == '?')
+			{
+				hold_obj_1=0;
+				hold_obj_2=0;
+				print_line();
+	
+				location_counter+=2;
+	
+				for (count=1;count< multiplier.number ;count++)
+				{
+					no_source_flag=1;
+					no_line_num_flag=1;
+					hold_obj_1=0;
+					hold_obj_2=0;
+					print_line();
+					location_counter+=2;
+				}
+			}
+			else
+			{
+				local_index=0;
+				while (hold_operand[operand_index] != ')')
+				{
+					ascii_number[local_index] = hold_operand[operand_index];
+					local_index++;
+					operand_index++;
+					if(operand_index > 100)
+					{
+						log_error(22);
+						return(false);
+					}
+				}
+				ascii_number[local_index] = 0;
+	
+				if (convert_to_number(ascii_number,number))
+				{
+				hold_obj_1=number.number & 255;
+				hold_obj_2=((number.number >> 8) & 255);
+				print_line();
+				location_counter+=2;
+	
+				for (count=1;count< multiplier.number ;count++)
+				{
+					no_source_flag=1;
+					no_line_num_flag=1;
+					hold_obj_1=number.number & 255;
+					hold_obj_2=((number.number >> 8) & 255);
+					print_line();
+					location_counter+=2;
+				}
+	
+				}
+				else
+				{
+					log_error(12);
+					return(false);
+				}
+	
+			}
+			return(true);
+		}
+		else
+		{
+			log_error(21);
+			return(false);
+		}
+	}//}}}
+	
+	
 	
 	//{{{count_bytes
 	void count_bytes()
 	{
-	int index,comma_count;
+	int index = 0;
+	int comma_count = 0;
 	
 		index=0;
 		comma_count=0;
@@ -2652,185 +2879,203 @@ public class UASM65
 	}//}}}
 	
 	
-	//
-	//
-	//process_bytes()
-	//{
-	//	unsigned long int number;
-	//	int local_index,operand_index,first_num_flag;
-	//	int ascii_number[20];
-	//
-	//	operand_index=0;
-	//	first_num_flag=0;
-	//
-	//	while(1)
-	//	{
-	//		local_index=0;
-	//
-	//		while (hold_operand[operand_index] != ',' && hold_operand[operand_index] !=0)
-	//		{
-	//			ascii_number[local_index]=hold_operand[operand_index];
-	//			local_index++;
-	//			operand_index++;
-	//		}
-	//		ascii_number[local_index] = 0;
-	//
-	//		if (ascii_number[0]=='?')
-	//		{
-	//			number = 0;
-	//		}
-	//		else if (convert_to_number(ascii_number,&number))
-	//		{
-	//		}
-	//		else
-	//		{
-	//			log_error(12);
-	//			return(0);
-	//		}
-	//
-	//		if (first_num_flag == 0)
-	//		{
-	//			first_num_flag = 1;
-	//			hold_obj_1=number;
-	//			print_line();
-	//			location_counter++;
-	//		}
-	//		else
-	//		{
-	//			no_source_flag=1;
-	//			no_line_num_flag=1;
-	//			hold_obj_1=number;
-	//			print_line();
-	//			location_counter++;
-	//		}
-	//
-	//
-	//		if (hold_operand[operand_index] != 0)
-	//		{
-	//		operand_index++;
-	//		}
-	//		else
-	//		{
-	//			return(1);
-	//		}
-	//
-	//	}
-	//}
-	//
-	//process_words()
-	//{
-	//	unsigned long int number;
-	//	int local_index,operand_index,first_num_flag;
-	//	int ascii_number[20];
-	//
-	//	operand_index=0;
-	//	first_num_flag=0;
-	//
-	//	while(1)
-	//	{
-	//		local_index=0;
-	//
-	//		while (hold_operand[operand_index] != ',' && hold_operand[operand_index] !=0)
-	//		{
-	//			ascii_number[local_index]=hold_operand[operand_index];
-	//			local_index++;
-	//			operand_index++;
-	//		}
-	//		ascii_number[local_index] = 0;
-	//
-	//		if (ascii_number[0]=='?')
-	//		{
-	//			number = 0;
-	//		}
-	//		else if (convert_to_number(ascii_number,&number))
-	//		{
-	//		}
-	//		else
-	//		{
-	//			log_error(12);
-	//			return(0);
-	//		}
-	//
-	//		if (first_num_flag == 0)
-	//		{
-	//			first_num_flag = 1;
-	//			hold_obj_1 = number & 255;
-	//			hold_obj_2 = ((number >> 8) & 255);
-	//			print_line();
-	//			location_counter+=2;
-	//		}
-	//		else
-	//		{
-	//			no_source_flag=1;
-	//			no_line_num_flag=1;
-	//			hold_obj_1 = number & 255;
-	//			hold_obj_2 = ((number >> 8) & 255);
-	//			print_line();
-	//			location_counter+=2;
-	//		}
-	//
-	//
-	//		if (hold_operand[operand_index] != 0)
-	//		{
-	//		operand_index++;
-	//		}
-	//		else
-	//		{
-	//			return(1);
-	//		}
-	//
-	//	}
-	//}
-	//
-	//
-	//process_ascii_characters()
-	//{
-	//	int index,byte_count;
-	//
-	//	index = 1;
-	//	byte_count = 0;
-	//
-	//	hold_obj_1=hold_operand[index];
-	//	print_line();
-	//	index++;
-	//	location_counter++;
-	//
-	//	while(hold_operand[index] != 34)
-	//	{
-	//		if (hold_operand[index] == 0)
-	//		{
-	//			log_error(23);
-	//			return(0);
-	//		}
-	//
-	//		hold_obj_1 = hold_operand[index];
-	//		index++;
-	//		byte_count++;
-	//
-	//		if (hold_operand[index] != 34)
-	//		{
-	//			hold_obj_2 = hold_operand[index];
-	//			index++;
-	//			byte_count++;
-	//		}
-	//
-	//		if (hold_operand[index] != 34)
-	//		{
-	//			hold_obj_3 = hold_operand[index];
-	//			index++;
-	//			byte_count++;
-	//		}
-	//
-	//		no_source_flag=1;
-	//		no_line_num_flag=1;
-	//		print_line();
-	//		location_counter = location_counter + byte_count;
-	//		byte_count = 0;
-	//
-	//	}
-	//	return(1);
-	//}
-	//
+	
+	//{{{process_bytes
+	boolean process_bytes()
+	{
+		//unsigned long int number;
+		Number number = new Number();
+		int local_index = 0;
+		int operand_index = 0;
+		int first_num_flag = 0;
+		//int ascii_number[20];
+		int[] ascii_number = new int[20];
+	
+		operand_index=0;
+		first_num_flag=0;
+	
+		while(true)
+		{
+			local_index=0;
+	
+			while (hold_operand[operand_index] != ',' && hold_operand[operand_index] !=0)
+			{
+				ascii_number[local_index]=hold_operand[operand_index];
+				local_index++;
+				operand_index++;
+			}
+			ascii_number[local_index] = 0;
+	
+			if (ascii_number[0]=='?')
+			{
+				number.number = 0;
+			}
+			else if (convert_to_number(ascii_number,number))
+			{
+			}
+			else
+			{
+				log_error(12);
+				return(false);
+			}
+	
+			if (first_num_flag == 0)
+			{
+				first_num_flag = 1;
+				hold_obj_1=number.number;
+				print_line();
+				location_counter++;
+			}
+			else
+			{
+				no_source_flag=1;
+				no_line_num_flag=1;
+				hold_obj_1=number.number;
+				print_line();
+				location_counter++;
+			}
+	
+	
+			if (hold_operand[operand_index] != 0)
+			{
+			operand_index++;
+			}
+			else
+			{
+				return(true);
+			}
+	
+		}
+	}//}}}
+	
+	
+	
+	//process_words.
+	boolean process_words()
+	{
+		//unsigned long int number;
+		Number number = new Number();
+		
+		int local_index = 0;
+		int operand_index = 0;
+		int first_num_flag = 0;
+		
+		int[] ascii_number = new int[20];
+	
+		operand_index=0;
+		first_num_flag=0;
+	
+		while(true)
+		{
+			local_index=0;
+	
+			while (hold_operand[operand_index] != ',' && hold_operand[operand_index] !=0)
+			{
+				ascii_number[local_index]=hold_operand[operand_index];
+				local_index++;
+				operand_index++;
+			}
+			ascii_number[local_index] = 0;
+	
+			if (ascii_number[0]=='?')
+			{
+				number.number = 0;
+			}
+			else if (convert_to_number(ascii_number,number))
+			{
+			}
+			else
+			{
+				log_error(12);
+				return(false);
+			}
+	
+			if (first_num_flag == 0)
+			{
+				first_num_flag = 1;
+				hold_obj_1 = number.number & 255;
+				hold_obj_2 = ((number.number >> 8) & 255);
+				print_line();
+				location_counter+=2;
+			}
+			else
+			{
+				no_source_flag=1;
+				no_line_num_flag=1;
+				hold_obj_1 = number.number & 255;
+				hold_obj_2 = ((number.number >> 8) & 255);
+				print_line();
+				location_counter+=2;
+			}
+	
+	
+			if (hold_operand[operand_index] != 0)
+			{
+			operand_index++;
+			}
+			else
+			{
+				return(true);
+			}
+	
+		}
+	}//}}}
+	
+	
+
+	//{{{process_ascii_characters
+	boolean process_ascii_characters()
+	{
+		int index = 0;
+		int byte_count = 0;
+	
+		index = 1;
+		byte_count = 0;
+	
+		hold_obj_1=hold_operand[index];
+		print_line();
+		index++;
+		location_counter++;
+	
+		while(hold_operand[index] != 34)
+		{
+			if (hold_operand[index] == 0)
+			{
+				log_error(23);
+				return(false);
+			}
+	
+			hold_obj_1 = hold_operand[index];
+			index++;
+			byte_count++;
+	
+			if (hold_operand[index] != 34)
+			{
+				hold_obj_2 = hold_operand[index];
+				index++;
+				byte_count++;
+			}
+	
+			if (hold_operand[index] != 34)
+			{
+				hold_obj_3 = hold_operand[index];
+				index++;
+				byte_count++;
+			}
+	
+			no_source_flag=1;
+			no_line_num_flag=1;
+			print_line();
+			location_counter = location_counter + byte_count;
+			byte_count = 0;
+	
+		}
+		return(true);
+	}//}}}
+	
+	
+	
+	
 	//
 	//{{{count_ascii_characters
 	boolean count_ascii_characters()
@@ -2910,21 +3155,21 @@ public class UASM65
 	//	scanf("%s",file_name);
 	//	if (strstr(file_name,".asm") || strstr(file_name,".ASM\0"))
 	//	{
-	//		return(1);
+	//		return(true);
 	//	}
 	//	else
 	//	{
-	//		return(0);
+	//		return(false);
 	//	}
 	//}
 	//
 	//{{{open_file
-	java.io.PushbackReader open_file(File file)
+	java.io.RandomAccessFile open_file(File file)
 	{
-		java.io.PushbackReader file_pointer;
+		java.io.RandomAccessFile file_pointer;
 		try 
 		{
-			file_pointer = new java.io.PushbackReader(new FileReader(file));
+			file_pointer = new java.io.RandomAccessFile(file,"r");
 
 		}
 		catch(Exception ioe)
@@ -3112,117 +3357,119 @@ public class UASM65
 			*/
 		/*
 			fclose(op_table_file_pointer);
-			return(1);
+			return(true);
 			
 	}
 		else
 		{
-			return(0);
+			return(false);
 	}    
 		*/
 
 	}//}}}
 
 	////{{{ build_s_records
-	//build_s_records()
-	//{
-	//	/*Note: currently this code just skips dbts with questions marks. the
-	//	reason for this was to make the code romable.
-	//	*/
-	//	if ((hold_operand[operand_index] == '?') || (strcmp(hold_operand,"?\0")==0))
-	//	{
-	//
-	//		if (s_record[s_record_index].record_length == 3)
-	//		{
-	//			s_record[s_record_index].address = location_counter;
-	//
-	//			if (strcmp(hold_operator,"DBT\0")==0)
-	//			{
-	//				s_record[s_record_index].address++;
-	//			}
-	//			else
-	//			{
-	//				s_record[s_record_index].address+=2;
-	//			}
-	//		}
-	//		return(1);
-	//	}
-	//
-	//
-	//	if (strcmp(hold_operator,"ORG\0")==0)
-	//	{
-	//		s_record_index++;
-	//		code_index=0;
-	//		s_record[s_record_index].record_length = 3;
-	//		s_record[s_record_index].address = location_counter;
-	//
-	//		/* Note: Temporary - for Understandable 6502 computer only. */
-	//		//if (s_record[s_record_index].address < 0x5000)
-	//		//{
-	//		//	s_record[s_record_index].address = s_record[s_record_index].address+ 0xbc00;
-	//		//}
-	//
-	//
-	//		/* if (s_record[s_record_index].address < 0x1000)
-	//		{
-	//		 	s_record[s_record_index].address = 0x1000;
-	//		}
-	//		*/
-	//
-	//	}
-	//	else
-	//	{
-	//		if (hold_obj_1 > -1)
-	//		{
-	//			s_record[s_record_index].code[code_index] = hold_obj_1;
-	//			code_index++;
-	//			if (code_index >= 20)
-	//			{
-	//				s_record_index++;
-	//				code_index = 0;
-	//				s_record[s_record_index].record_length = 3;
-	//				s_record[s_record_index].address = s_record[s_record_index-1].address + s_record[s_record_index-1].record_length-2;
-	//			}
-	//			else
-	//			{
-	//				s_record[s_record_index].record_length++;
-	//			}
-	//		}
-	//		if (hold_obj_2 > -1)
-	//		{
-	//			s_record[s_record_index].code[code_index] = hold_obj_2;
-	//			code_index++;
-	//			if (code_index >= 20)
-	//			{
-	//				s_record_index++;
-	//				code_index = 0;
-	//				s_record[s_record_index].record_length = 3;
-	//				s_record[s_record_index].address = s_record[s_record_index-1].address + s_record[s_record_index-1].record_length-2;
-	//			}
-	//			else
-	//			{
-	//				s_record[s_record_index].record_length++;
-	//			}
-	//		}
-	//		if (hold_obj_3 > -1)
-	//		{
-	//			s_record[s_record_index].code[code_index] = hold_obj_3;
-	//			code_index++;
-	//			if (code_index >= 20)
-	//			{
-	//				s_record_index++;
-	//				code_index = 0;
-	//				s_record[s_record_index].record_length = 3;
-	//				s_record[s_record_index].address = s_record[s_record_index-1].address + s_record[s_record_index-1].record_length-2;
-	//			}
-	//			else
-	//			{
-	//				s_record[s_record_index].record_length++;
-	//			}
-	//		}
-	//	}
-	//}// }}}
-	//
+	boolean build_s_records()
+	{
+		/*Note: currently this code just skips dbts with questions marks. the
+		reason for this was to make the code romable.
+		*/
+		if ((hold_operand[operand_index] == '?') || (strcmp(hold_operand,"?\0")==0))
+		{
+	
+			if (s_record[s_record_index].record_length == 3)
+			{
+				s_record[s_record_index].address = location_counter;
+	
+				if (strcmp(hold_operator,"DBT\0")==0)
+				{
+					s_record[s_record_index].address++;
+				}
+				else
+				{
+					s_record[s_record_index].address+=2;
+				}
+			}
+			return(true);
+		}
+	
+	
+		if (strcmp(hold_operator,"ORG\0")==0)
+		{
+			s_record_index++;
+			code_index=0;
+			s_record[s_record_index].record_length = 3;
+			s_record[s_record_index].address = location_counter;
+	
+			/* Note: Temporary - for Understandable 6502 computer only. */
+			//if (s_record[s_record_index].address < 0x5000)
+			//{
+			//	s_record[s_record_index].address = s_record[s_record_index].address+ 0xbc00;
+			//}
+	
+	
+			/* if (s_record[s_record_index].address < 0x1000)
+			{
+			 	s_record[s_record_index].address = 0x1000;
+			}
+			*/
+	
+		}
+		else
+		{
+			if (hold_obj_1 > -1)
+			{
+				s_record[s_record_index].code[code_index] = hold_obj_1;
+				code_index++;
+				if (code_index >= 20)
+				{
+					s_record_index++;
+					code_index = 0;
+					s_record[s_record_index].record_length = 3;
+					s_record[s_record_index].address = s_record[s_record_index-1].address + s_record[s_record_index-1].record_length-2;
+				}
+				else
+				{
+					s_record[s_record_index].record_length++;
+				}
+			}
+			if (hold_obj_2 > -1)
+			{
+				s_record[s_record_index].code[code_index] = hold_obj_2;
+				code_index++;
+				if (code_index >= 20)
+				{
+					s_record_index++;
+					code_index = 0;
+					s_record[s_record_index].record_length = 3;
+					s_record[s_record_index].address = s_record[s_record_index-1].address + s_record[s_record_index-1].record_length-2;
+				}
+				else
+				{
+					s_record[s_record_index].record_length++;
+				}
+			}
+			if (hold_obj_3 > -1)
+			{
+				s_record[s_record_index].code[code_index] = hold_obj_3;
+				code_index++;
+				if (code_index >= 20)
+				{
+					s_record_index++;
+					code_index = 0;
+					s_record[s_record_index].record_length = 3;
+					s_record[s_record_index].address = s_record[s_record_index-1].address + s_record[s_record_index-1].record_length-2;
+				}
+				else
+				{
+					s_record[s_record_index].record_length++;
+				}
+			}
+		}
+		return false; //Note: this line should never execute.
+	}// }}}
+	
+	
 	////{{{convert_src_to_ascii();
 	//convert_sr_to_ascii()
 	//{
@@ -3242,12 +3489,12 @@ public class UASM65
 	//		if (local_index > 29)
 	//		{
 	//			printf("\n\nInternal error, problem with S record file name.\n\n");
-	//			return(0);
+	//			return(false);
 	//		}
 	//
 	//	}
 	//	s_rec_filename[local_index] = 0;
-	//	strcat(s_rec_filename,".s19\0");
+	//	s_rec_filename = strcat(s_rec_filename,".s19\0");
 	//
 	//	s_rec_file_ptr = fopen( s_rec_filename,"w");
 	//
@@ -3274,12 +3521,12 @@ public class UASM65
 	//		{
 	//			checksum_accumulator = checksum_accumulator + s_record[sr_index].code[code_index];
 	//			sprintf(hold_code,"%.2X",s_record[sr_index].code[code_index]);
-	//			strcat(s_rec_line,hold_code);
+	//			s_rec_line = strcat(s_rec_line,hold_code);
 	//		}
 	//		checksum = (~checksum_accumulator) & 255;
 	//		sprintf(hold_code,"%.2X",checksum);
-	//		strcat(s_rec_line,hold_code);
-	//		strcat(s_rec_line,"\n\0");
+	//		s_rec_line = strcat(s_rec_line,hold_code);
+	//		s_rec_line = strcat(s_rec_line,"\n\0");
 	//		fputs(s_rec_line,s_rec_file_ptr);
 	//	}
 	//	sprintf(s_rec_line,"S9030000FC\n");
@@ -3305,12 +3552,12 @@ public class UASM65
 	//		if (local_index > 29)
 	//		{
 	//			printf("\n\nInternal error, problem with sym file name.\n\n");
-	//			return(0);
+	//			return(false);
 	//		}
 	//
 	//	}
 	//	sym_file_name[local_index] = 0;
-	//	strcat(sym_file_name,".sym\0");
+	//	sym_file_name = strcat(sym_file_name,".sym\0");
 	//
 	//	sym_file_ptr = fopen( sym_file_name,"w");
 	//
@@ -3370,7 +3617,7 @@ public class UASM65
 		//		if ( ! ( strstr( source_file_name,".asm\0") || strstr(source_file_name,".ASM\0") ) )
 		//		{
 		//			System.out.println("\n\nBad file name, must have .asm extension.\n\n");
-		//			return(0);
+		//			return(false);
 		//		}
 		//	}
 		//	//	else  //Note: Maybe enable this for standalone operation in the future.
@@ -3378,7 +3625,7 @@ public class UASM65
 		//		if ( !get_file_name( source_file_name ) )
 		//		{
 		//			System.out.println("\n\nBad file name, must have .asm extension.\n\n");
-		//			return(0);
+		//			return(false);
 		//		}
 		//	}//end else
 
@@ -3389,16 +3636,16 @@ public class UASM65
 		{
 			//		create_sym_file();
 			//
-			//		if( pass2())
-			//		{
+					if( assem.pass2())
+					{
 			//			convert_sr_to_ascii();
 			//			fclose(source_file_pointer);
 			//			fclose(lst_file_ptr);
-			//		}
+					}
 		}
 		//}}}
 
-		
+		assem.closeFiles();
 		
     }//}}}
 
