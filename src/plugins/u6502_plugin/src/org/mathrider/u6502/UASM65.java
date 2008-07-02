@@ -257,10 +257,6 @@ public class UASM65
 	//{{{strcpy
 	private void strcpy( int[] destination, int[] source)
 	{
-		//System.out.println(" XXXXXXX " + destination + source);
-		//System.out.println(" XXXXXXX " + chars_to_string(destination) + chars_to_string(source));
-		//returnError = destination;  Note: begin here.
-		//throw new EvalError("hello",null,null);
 		int index = 0;
 		int c;
 		do
@@ -505,12 +501,12 @@ public class UASM65
 		
 		
 				//Uncomment for debugging.
-				System.out.println("Symbol table dump: ");
-				for (int x=1;x<=sym_tbl_index;x++)
-				{
-					System.out.printf("\n%d %s %x",x,intArrayToString(symbol_table[x].label), symbol_table[x].address);
-		
-				}
+				//System.out.println("Symbol table dump: ");
+				//for (int x=1;x<=sym_tbl_index;x++)
+				//{
+				//	System.out.printf("\n%d %s %x",x,intArrayToString(symbol_table[x].label), symbol_table[x].address);
+		        //
+				//}
 		
 		
 		
@@ -527,12 +523,12 @@ public class UASM65
 					
 					
 					//Error table dump.  Note: uncomment for debugging.
-					int x = 0;
-					for (x=1;x<=error_index;x++)
-					{
-						System.out.printf("\nline#: %d    ",error_table[x].line_number);
-						System.out.printf("error number: %d",error_table[x].error_number);
-					}
+					//int x = 0;
+					//for (x=1;x<=error_index;x++)
+					//{
+					//	System.out.printf("\nline#: %d    ",error_table[x].line_number);
+					//	System.out.printf("error number: %d",error_table[x].error_number);
+					//}
 					
 					
 					
@@ -690,7 +686,7 @@ public class UASM65
 				}
 				else if (return_code != false && pass_flag ==2)
 				{
-					//interpret_line_pass2();
+					interpret_line_pass2();
 				}
 				else if (return_code == false && pass_flag == 2)
 				{
@@ -1197,6 +1193,9 @@ public class UASM65
 		int[] ascii_hold = new int[50]; //char ascii_hold[50];
 		//int number = 0;
 		Number number = new Number();
+		
+		//Note: uncomment for debugging.
+		//System.out.println("XXXXXX " + chars_to_string(hold_label) + chars_to_string(hold_operator) + chars_to_string(hold_operand) );
 		
 		if (strcmp(hold_operator,"LON\0")==0)
 		{
@@ -2374,7 +2373,7 @@ public class UASM65
 			if (no_lc_flag == 0)
 			{
 				//sprintf(loc_cntr,"\n%.4x ",location_counter);
-				sprintf.format("\n%04x ",location_counter);
+				sprintf.format("\n%04X ",location_counter);
 				loc_cntr = stringBuilder.toString(); //string_to_chars( stringBuilder.toString() );
 				stringBuilder.delete(0,stringBuilder.length());
 				
@@ -2476,7 +2475,7 @@ public class UASM65
 	
 			
 			//Note: uncomment for debugging.
-			System.out.printf("%s",lst_line);
+			//System.out.printf("%s",lst_line);
 
 	
 	//fputs(lst_line,lst_file_ptr);
