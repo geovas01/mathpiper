@@ -24,7 +24,7 @@ public class PiperConsole extends Thread
     }
     return line.toString();
   }
-  static boolean quitting = false;
+  //static boolean quitting = false;
 
   public static void main(String[] argv)
   {
@@ -90,9 +90,9 @@ public class PiperConsole extends Thread
         try{
         result = piper.Evaluate(toEvaluate);
 	}
-	catch(Piperexception ye)
+	catch(Piperexception pi)
 	{
-	    ye.printStackTrace();
+	    pi.printStackTrace();
 	}
       
       if (scriptsToRun == argv.length)
@@ -104,9 +104,9 @@ public class PiperConsole extends Thread
         try{
         result = piper.Evaluate("Load(\"piperinit.pi\");");
 	}
-	catch(Piperexception ye)
+	catch(Piperexception pi)
 	{
-	    ye.printStackTrace();
+	    pi.printStackTrace();
 	}
       
       if (scriptsToRun == argv.length)
@@ -121,50 +121,76 @@ public class PiperConsole extends Thread
         piper.Evaluate("Load(\""+argv[scriptsToRun]+"\");");
       }
 	}
-	catch(Piperexception ye)
+	catch(Piperexception pi)
 	{
-	    ye.printStackTrace();
+	    pi.printStackTrace();
 	}	    
 
       return;
-    }
+    }//end if.
+    
+    String version = "";
+    try 
+    {
+    	java.util.Properties properties = new java.util.Properties();
+    	
+    	// locate the properties file
+    	java.io.File file = new java.io.File("piper.properties");
+    	 
+    	// load the file
+    	properties.load(new FileInputStream(file));
+    	
+    	// read the properties
+    	version = properties.getProperty("piper.version");
+
+    } 
+    catch(Exception e)
+	{
+	    e.printStackTrace();
+    }//end try/catch.
 
 
-    System.out.println("This is Piper version '" + CVersion.VERSION + "'.");
+    System.out.println("\nThis is Piper version '" + version + ".");
 
-    System.out.println("Piper is Free Software--Free as in Freedom--so you can redistribute Piper or");
-    System.out.println("modify it under certain conditions. Piper comes with ABSOLUTELY NO WARRANTY.");
-    System.out.println("See the GNU General Public License (GPL) for the full conditions.");
-//TODO fixme    System.out.println("Type ?license or ?licence to see the GPL; type ?warranty for warranty info.");
-    System.out.println("See http://piper.sf.net for more information and documentation on Piper.");
+    System.out.println("See http://mathrider.org for more information and documentation on Piper.");
 
-    System.out.println("To exit Piper, enter  Exit(); or quit or Ctrl-c.\n");
+    System.out.println("\nTo exit Piper, enter  Exit() or quit or Ctrl-c.\n");
 /*TODO fixme
     System.out.println("Type ?? for help. Or type ?function for help on a function.\n");
     System.out.println("Type 'restart' to restart Piper.\n");
 */
-    System.out.println("To see example commands, keep typing Example();\n");
+    System.out.println("To see example commands, keep typing Example()\n");
 
 //piper.Evaluate("BubbleSort(N(PSolve(x^3-3*x^2+2*x,x)), \"<\");");
 
-    System.out.println("Piper in Java");
+    //System.out.println("Piper in Java");
+	boolean quitting = false;
     while (!quitting)
     {
       System.out.print("In> ");
       String input =  readLine(System.in);
+	  input = input.trim();
+	  
       
       String rs = "";
        try{
        rs = piper.Evaluate(input);
 	}
-	catch(Piperexception ye)
+	catch(Piperexception pi)
 	{
-	    ye.printStackTrace();
+	    pi.printStackTrace();
 	}
       
       
-      System.out.println("Out> "+rs);
-      if (input.equals("quit")) quitting = true;
+      System.out.println("Out> " + rs);
+
+      if (input.equalsIgnoreCase("quit")) 
+	  {
+
+		  quitting = true;
+	  }
     }
   }
 }
+
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
