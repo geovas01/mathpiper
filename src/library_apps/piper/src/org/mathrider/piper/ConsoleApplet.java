@@ -222,12 +222,33 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
     }
 
     {
+    	String version = "";
+    	try 
+    	{
+    		java.util.Properties properties = new java.util.Properties();
+    		
+    		// locate the properties file
+    		java.io.File file = new java.io.File("piper.properties");
+    		 
+    		// load the file
+    		properties.load(new FileInputStream(file));
+    		
+    		// read the properties
+    		version = properties.getProperty("piper.version");
+    	
+    	} 
+    	catch(Exception e)
+		{
+		    e.printStackTrace();
+    	}//end try/catch.
+	
+	
       Font font = new Font("helvetica", Font.PLAIN, 12);
       Color c = new Color(96,96,96);
 
       AddLineStatic(100, "","", font, c);
       AddLineStatic(100, "","", font, c);
-      AddLineStatic(100, "","Piper version '" + CVersion.VERSION + "'.", font, c);
+      AddLineStatic(100, "","Piper version '" + version + "'.", font, c);
       AddLineStatic(100, "","Type 'restart' to restart Piper, or 'cls' to clear screen.\n", font, c);
       AddLineStatic(100, "","To see example commands, keep typing 'Example();'\n", font, c);
     }

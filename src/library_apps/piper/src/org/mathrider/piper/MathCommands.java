@@ -3876,7 +3876,7 @@ class MathCommands
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
-      RESULT(aEnvironment,aStackTop).Set(LispAtom.New(aEnvironment,"\""+CVersion.VERSION+"\""));
+      RESULT(aEnvironment,aStackTop).Set(LispAtom.New(aEnvironment,"\"" + CVersion.version + "\""));
     }
   }
 

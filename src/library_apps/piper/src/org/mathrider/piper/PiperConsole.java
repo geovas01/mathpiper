@@ -7,6 +7,7 @@ import java.util.*;
 public class PiperConsole extends Thread
 {
     static String readLine(InputStream aStream)
+	
   {
     StringBuffer line = new StringBuffer();
     try
@@ -26,6 +27,7 @@ public class PiperConsole extends Thread
   }
   //static boolean quitting = false;
 
+  
   public static void main(String[] argv)
   {
     String defaultDirectory = null;
@@ -37,6 +39,9 @@ public class PiperConsole extends Thread
       {
         String detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.pi
         archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
+		
+		
+		
 //System.out.println("Found archive ["+archive+"]");
       }
       else
@@ -129,32 +134,14 @@ public class PiperConsole extends Thread
       return;
     }//end if.
     
-    String version = "";
-    try 
-    {
-    	java.util.Properties properties = new java.util.Properties();
-    	
-    	// locate the properties file
-    	java.io.File file = new java.io.File("piper.properties");
-    	 
-    	// load the file
-    	properties.load(new FileInputStream(file));
-    	
-    	// read the properties
-    	version = properties.getProperty("piper.version");
-
-    } 
-    catch(Exception e)
-	{
-	    e.printStackTrace();
-    }//end try/catch.
 
 
-    System.out.println("\nThis is Piper version '" + version + ".");
+
+    System.out.println("\nThis is Piper version '" + CVersion.version + "'.");
 
     System.out.println("See http://mathrider.org for more information and documentation on Piper.");
 
-    System.out.println("\nTo exit Piper, enter  Exit() or quit or Ctrl-c.\n");
+    System.out.println("\nTo exit Piper, enter \"Exit()\" or \"exit\" or \"quit\" or Ctrl-c.\n");
 /*TODO fixme
     System.out.println("Type ?? for help. Or type ?function for help on a function.\n");
     System.out.println("Type 'restart' to restart Piper.\n");
@@ -184,7 +171,7 @@ public class PiperConsole extends Thread
       
       System.out.println("Out> " + rs);
 
-      if (input.equalsIgnoreCase("quit")) 
+      if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit")) 
 	  {
 
 		  quitting = true;
