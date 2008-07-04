@@ -42,7 +42,7 @@
 	<target id="dist" name="dist" depends="compile" >
 	
 		<copy todir="${build.classes.dir}">
-			<fileset dir="${src.dir}/scripts" >
+			<fileset dir="${piper.dir}/scripts" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
