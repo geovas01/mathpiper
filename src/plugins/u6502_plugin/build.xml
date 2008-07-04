@@ -43,7 +43,7 @@
 
 
 	
-		<javac 
+		<!--<javac 
 			source="${compile.source}"
 			target="${compile.target}" 
 			srcdir="${src.dir}"
@@ -52,6 +52,17 @@
 			deprecation="on"
 			optimize="off">
 			<classpath refid="build_classpath" />
+			<include name="**/*.java" />
+		</javac> -->
+		
+		<javac 
+			source="1.5"
+			target="1.5" 
+			srcdir="/ted/checkouts/mathrider/src/plugins/u6502_plugin/src"
+			destdir="/ted/checkouts/mathrider/src/plugins/u6502_plugin/src"
+			debug="on"
+			deprecation="on"
+			optimize="off">
 			<include name="**/*.java" />
 		</javac>
 		

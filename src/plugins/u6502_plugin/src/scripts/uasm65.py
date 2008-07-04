@@ -1,8 +1,21 @@
 #!/usr/bin/python -O
 
+#Notes: 
+#+Add error detection to number conversions (like in org, etc.).
+#+Don't use end directive anymore.
+#+Make all labels end with a colon (:).
+
+
 import re
 import os
 import sys
+
+# Do the right thing with boolean values for all known Python versions.
+try:
+	True, False
+except NameError:
+	(True, False) = (1, 0)
+  
 
 class UASM65:
 	
@@ -13,7 +26,15 @@ class UASM65:
 		#python variables.
 		self.optable = {}
 		self.symboltable = {}
-		self.matchnumber = re.compile( r"^\t*[\n|;]") 
+		self.matchnumber = re.compile( r"^[; \t]*[\n]")
+		self.matchlabel = re.compile( r"^[a-zA-Z][a-zA-Z0-9_\$]*")
+		self.match_immediate_mode = re.compile( r"#[a-fA-F0-9]+[bdh<>]")
+		self.match_absolute_mode = re.compile( r"")
+		self.match_absolute_indexed_mode = re.compile( r"^[; \t]*[\n]")
+		self.match_accumulator_mode = re.compile( r"[aA]")
+		self.match_indirect_indexed_mode = re.compile( r"^[; \t]*[\n]")
+		self.match_indexed_indirect_mode = re.compile( r"^[; \t]*[\n]")
+		self.match_indirect_mode = re.compile( r"^[; \t]*[\n]")
 
 		self.inputStream = None
 
@@ -67,7 +88,7 @@ class UASM65:
 		#}}}
 		
 #{{{ error messages
-		error_messages = [
+		self.error_messages = [
 		"",
 		"Invalid Character in label.",
 		"Symbol not defined.",
@@ -258,7 +279,7 @@ XXX XXX 00 0 0
 #{{{ initialize
 	def initialize(self):
 		
-		initialize_operator_table()
+		self.initialize_operator_table()
 	
 		self.lst_flag=1
 		self.print_error_index = 1
@@ -284,12 +305,42 @@ XXX XXX 00 0 0
 	#}}}
 	
 	
-	
+#{{{ log_error
+
+#{{{ convert_to_number
+	def convert_to_number(self, number_str):
+		result = True;
+		try:
+			if number_str[-1] == 'b':
+				number = int( self.hold_operand[0:-1], 2 )
+			elif number_str[-1] == 'd':
+				number = int( self.hold_operand[0:-1], 10 )
+			elif number_str[-1] == 'h':
+				number = int( self.hold_operand[0:-1], 16 )
+			else:
+				self.log_error(24) #Missing number base indicator.
+				result = False
+		except ValuError:
+			self.log_error(12)
+			result = False
+		return result,number
+#}}}
+
+#{{{log_error
+	def log_error(self, error_number):
+		print "ERROR:",self.error_messages[error_number]
+#}}}
+
+#{{{print_line
+	def print_line(self):
+		pass
+#}}}
 	
 #{{{ pass1
-	def pass1(self):    
-		pass2_flag = 0
-		lst_flag = 1
+	def pass1(self):
+		
+		self.pass2_flag = 0
+		self.lst_flag = 1
 		#strcpy(symbol_table[1].label,"XXX");
 		
 		#Open lst file.
@@ -299,75 +350,138 @@ XXX XXX 00 0 0
 		
 		
 		lines = asmfile.readlines()
-		print lines
+		#print lines
 		
 		for line in lines:
+			print "------------------------------------------------------------"
 			
-			if ( not line.startswith( ';' )) and (matchnumber.search( line )== None ): #Skip blank lines.
+			if self.matchnumber.search( line ) != None :
+				pass
+			else:
 				print line,
 				
 				parse = line.split()
-				
-				
 				#If the line does not start with a label, insert an empty string at position 0.
 				if not( ( line[0] >= 'A' and line[0] <= 'Z' ) or ( line[0] >= 'a' and line[0] <= 'z' )):
 					parse.insert(0,'')
 				
-				#print parse
+				print "IIIIIIIIIIII",len(parse)
+				if len(parse) <= 2:
+					self.hold_operand = ""
+				else:
+					self.hold_operand = parse[2].lower()
+				
+				
+				
+				print "\nParse:",parse
 					
-				if len(parse) >= 2:
+				if len(parse) >= 2: # This line has more than
 					
+					self.hold_operator = parse[1].lower()
 		
-					operator = parse[1].lower()
-		
-					if operator == 'org':
-						programcounter = int( parse[2][0:-1], 16 )
-						#print programcounter
-						
-					elif parse[0] != '':
-						symboltable[ parse[0] ] = programcounter
-					
-					elif operator == 'dwd':
-						programcounter = programcounter + 2
-					elif operator == 'dbt':
-						programcounter = programcounter + 1
-					elif operator == 'equ':
-						pass
-					else:
-						
-						label = parse[0].lower()
-						
-						if len(parse) == 2:
-							operand = None
-						else:
-							operand = parse[2].lower()
-						
-						#addressing_mode = get_addressing_mode(operand)
-						
-						if operator == 'jmp':
-							
-							operand = parse[2]
-							
-						
-							if operand.startswith( '(' ):
-								addressingmode = 'ind'
+					if self.hold_operator == 'lon':
+						self.lst_flag = True
+					elif self.hold_operator == 'lof':
+						self.lst_flag = False
+					elif self.hold_operator == 'org':
+						(result,temp_converted_number) = self.convert_to_number(self.hold_operand)
+						if (result == True):
+							if temp_converted_number >= 0 and temp_converted_number <= 65535:
+								self.location_counter = temp_converted_number
+								self.no_obj_flag = 1
+								self.print_line()
+								return(True)
 							else:
-								addressingmode = 'abs'
+								self.log_error(8)
+								return(False)
+						else:
+							self.log_error(16)
+							return(False)
+
+					
+					elif self.hold_operator == '*':
+						pass
+					elif self.hold_operator == 'equ':
+						self.no_obj_flag = True
+						print_line();
+					elif self.hold_operator == '*':
+						pass
+					elif self.hold_operator == 'dbt':
+						if '"' in self.hold_operand:
+							self.process_ascii_characters()
+						elif '(' in self.hold_operand and ')' in self.hold_operand:
+							self.process_byte_duplicates()
+						elif ',' in self.hold_operand:
+							self.process_bytes()
+						elif '?' in self.hold_operand:
+							self.hold_obj_1 = 0
+							self.print_line()
+							self.location_counter += 1
+						elif ('d' in self.hold_operand or 'b' in self.hold_operator or 'h' in self.hold_operator) and self.hold_operator[0] == '#':
+							self.local_index = 0 #Note?
+							self.operand_index = 0 #Note ?
+							ascii_hold = 
+					
+					elif parse[0] != '':
+						label = parse[0]
+						if self.matchlabel.search( label ) == None:
+							self.log_error(1) #Invalid character in label;
+							continue;
 							
+						self.symboltable[ label ] = self.location_counter
+					
+
+
+					else: #Determine addressing mode of operator.
+						try:
+							operator_data = self.optable[self.hold_operator]
+						except KeyError:
+							self.log_error(17)
+							continue
 						
-							byte = self.optable[operator][addressingmode]['bytes']
-						
-							programcounter = programcounter + byte
+						if self.hold_operator in ["bcc","bcs","beq","bmi","bne","bne","bpl","bvc","bvs"]:
+							self.location_counter += 2
+							continue
 							
-						print "\nOperator:", operator, "Operand:", operand
+						elif self.match_immediate_mode.search( self.hold_operand ) != None:
+							self.location_counter += 2
+							continue
+							
+						elif self.match_accumulator_mode.search( self.hold_operand ) != None:
+							self.location_counter += 1
+							continue
+						
+
+#						#addressing_mode = get_addressing_mode(self.hold_operand)
+#						
+#						if self.hold_operator == 'jmp':
+#							
+#							self.hold_operand = parse[2]
+#							
+#						
+#							if self.hold_operand.startswith( '(' ):
+#								addressingmode = 'ind'
+#							else:
+#								addressingmode = 'abs'
+#							
+#						
+#							byte = self.optable[self.hold_operator][addressingmode]['bytes']
+#						
+#							self.location_counter = self.location_counter + byte
+#							
+#						print "\nOperator:", self.hold_operator, "Operand:", self.hold_operand
+
+			
 		self.lst_file_ptr.close()
+		
+		print "Symbol table:",self.symboltable
 		return 1
 		
 		
 	#}}}
 	
 	
-	def get_addressing_mode(self,operand):
+	def get_addressing_mode(self,hold_operand):
 		pass
 	
 	
@@ -390,7 +504,7 @@ asem.initialize()
 
 
 if asem.pass1():
-	
+	pass
 
 	#create_sym_file()
 	#		
@@ -400,7 +514,7 @@ if asem.pass1():
 	#	fclose(lst_file_ptr);
     #
 	
-	asmfile.close()
+asmfile.close()
 	
 	
 					
