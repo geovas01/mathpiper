@@ -41,10 +41,16 @@ public class PiperShell extends Shell
 	public void printInfoMessage(Output output)
 	{
 		
-		printUsage(jEdit.getProperty(PiperPlugin.NAME + ".shell.msg.info"), null, output);
-		output.print(null, jEdit.getProperty(PiperPlugin.NAME + ".shell.msg.usage"));
-		
-
+		//printUsage(jEdit.getProperty(PiperPlugin.NAME + ".shell.msg.info"), null, output);
+		//output.print(null, jEdit.getProperty(PiperPlugin.NAME + ".shell.msg.usage"));
+		try
+		{
+			output.print(null, "Piper version " + interpreter.evaluate("Version();") );
+		}
+		catch( org.mathrider.piper.Piperexception pe )
+		{
+			output.print(java.awt.Color.RED,pe.getMessage() );
+		}
 	
 	}//end method.
 
@@ -56,9 +62,9 @@ public class PiperShell extends Shell
 			output.print(java.awt.Color.BLUE,"Out> " + result);
 			
 			
-		}catch(org.mathrider.piper.Piperexception ye) 
+		}catch(org.mathrider.piper.Piperexception pe) 
 		{
-			output.print(java.awt.Color.RED,ye.getMessage() );
+			output.print(java.awt.Color.RED,pe.getMessage() );
 		}
 		finally
 		{
