@@ -95,9 +95,9 @@ public class PiperConsole extends Thread
         try{
         result = piper.Evaluate(toEvaluate);
 	}
-	catch(Piperexception pi)
+	catch(Piperexception pe)
 	{
-	    pi.printStackTrace();
+	    pe.printStackTrace();
 	}
       
       if (scriptsToRun == argv.length)
@@ -109,9 +109,9 @@ public class PiperConsole extends Thread
         try{
         result = piper.Evaluate("Load(\"piperinit.pi\");");
 	}
-	catch(Piperexception pi)
+	catch(Piperexception pe)
 	{
-	    pi.printStackTrace();
+	    pe.printStackTrace();
 	}
       
       if (scriptsToRun == argv.length)
@@ -126,9 +126,9 @@ public class PiperConsole extends Thread
         piper.Evaluate("Load(\""+argv[scriptsToRun]+"\");");
       }
 	}
-	catch(Piperexception pi)
+	catch(Piperexception pe)
 	{
-	    pi.printStackTrace();
+	    pe.printStackTrace();
 	}	    
 
       return;
@@ -137,7 +137,7 @@ public class PiperConsole extends Thread
 
 
 
-    System.out.println("\nThis is Piper version '" + CVersion.version + "'.");
+    System.out.println("\nPiper version '" + CVersion.version + "'.");
 
     System.out.println("See http://mathrider.org for more information and documentation on Piper.");
 
@@ -163,9 +163,9 @@ public class PiperConsole extends Thread
        try{
        rs = piper.Evaluate(input);
 	}
-	catch(Piperexception pi)
+	catch(Piperexception pe)
 	{
-	    pi.printStackTrace();
+	    pe.printStackTrace();
 	}
       
       

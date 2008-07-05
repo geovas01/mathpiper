@@ -248,7 +248,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
       AddLineStatic(100, "","", font, c);
       AddLineStatic(100, "","", font, c);
-      AddLineStatic(100, "","Piper version '" + version + "'.", font, c);
+      AddLineStatic(100, "","Piper version '" + CVersion.version + "'.", font, c);
       AddLineStatic(100, "","Type 'restart' to restart Piper, or 'cls' to clear screen.\n", font, c);
       AddLineStatic(100, "","To see example commands, keep typing 'Example();'\n", font, c);
     }
