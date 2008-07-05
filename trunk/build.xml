@@ -282,6 +282,19 @@
 
 	
 	
+	<target id="piper_tests" name="piper_tests" >
+		<ant dir="${library_apps.src.dir}/piper/tests" target="compile" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/piper/tests"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${library_apps.src.dir}/piper/tests/src"/>
+			<property name="piper.dir" value="${library_apps.src.dir}/piper"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		
+	</target>
+	
 
 	<target id="noop" name="noop" description="Do nothing." >
 		<antcall target="all">
