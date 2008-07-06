@@ -20,7 +20,7 @@ import console.Output;
 import console.Shell;
 
 import org.mathrider.piperplugin.PiperInterpreter;
-import org.mathrider.piper.LispOutput;
+//import org.mathrider.piper.LispOutput;
 
 public class PiperShell extends Shell
 {
