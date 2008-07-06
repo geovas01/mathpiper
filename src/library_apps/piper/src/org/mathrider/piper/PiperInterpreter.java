@@ -15,10 +15,17 @@ package org.mathrider.piper;
 public class PiperInterpreter {
  
     private CPiper piper;
+    private StringOutput stringOutput;
+    private StringBuffer outputCollector;
  
     /** Creates a new instance of PiperInterpreter */
-    public PiperInterpreter() throws Piperexception {
-        piper = new CPiper(new StringOutput(new StringBuffer()));
+    public PiperInterpreter() throws Piperexception 
+    {
+	outputCollector = new StringBuffer();
+	stringOutput = new StringOutput(outputCollector);
+	
+        piper = new CPiper(stringOutput);
+
         boolean scripts_found = loadScripts();
  
         if (!scripts_found) System.err.println("Piper error: Unable to load piper.jar");
@@ -55,7 +62,11 @@ public class PiperInterpreter {
     /** Use this method to pass an expression to the Piper interpreter.
      *  Returns the output of the interpreter.
      */
-    public String Evaluate(String input) throws Piperexception {
-        return piper.Evaluate(input);
+    public String evaluate(String input) throws Piperexception {
+	String output1 = piper.Evaluate(input);
+	String output2 = outputCollector.toString();
+	outputCollector.delete(0,outputCollector.length());
+	
+        return output1 + "\n" + output2;
     }
 }
