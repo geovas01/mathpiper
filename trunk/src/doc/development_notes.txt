@@ -371,12 +371,49 @@ insert-newline-indent.shortcut=  //Turn off auto indent after newline.
 }}}
 
 
-{{{====How to stop a calculation.
+{{{====PIPER INFORMATION
 
+How to stop a calculation:
   public void StopCurrentCalculation()
   {
     piper.env.iEvalDepth = piper.env.iMaxEvalDepth+100;
   }
+  
+----
+Packages:
+
+{{{io: 
+LispInput (abstract)
+StringInput
+JarInputFile
+LispOutput (abstract)
+StdFileOutput
+StringOutput
+}}}
+
+
+
+LispObject (abstract)
+/** class LispObject is the base object class that can be put in
+ *  linked lists. It either has a pointer to a string, obtained through
+ *  String(), or it is a holder for a sublist, obtainable through SubList(),
+ *  or it is a generic object, in which case Generic() returns non-NULL.
+ *  Only one of these three functions should return a non-NULL value.
+ *  It is a reference-counted object. LispPtr handles the reference counting.
+ */
+ 
+LispPtr
+/** class LispPtr. This class is a smart pointer type class to Lisp
+ *  objects that can be inserted into linked lists. They do the actual
+ *  reference counting, and consequent destruction of the object if
+ *  nothing points to it. LispPtr is used in LispObject as a pointer
+ *  to the next object, and in diverse parts of the built-in internal
+ *  functions to hold temporary values.
+ */
+ 
+ 
+
+
 }}}
 
 {{{====Should the Plot2D and Plot3D returned data interfaces be unified?
