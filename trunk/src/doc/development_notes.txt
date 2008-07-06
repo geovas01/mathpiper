@@ -1,6 +1,6 @@
 Development notes.
 
-:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=true:wrap=soft:
+:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wrap=soft:
 
 {{{====To Do
 + Automate the placing of version information in plugin documentation.
@@ -144,6 +144,8 @@ Initial release:
 + html.
 + sql.
 + buffer - Code is held in a separate buffer.  May be useful for large blocks of code.
+
++_I_ am annoyed by having to write code to do anything: surrounding any CAS command with %piper and %/piper is irritating. Susan.
 
 
 
@@ -295,6 +297,7 @@ Why is this list missing commas and curly braces?
 }}}
 
 {{{PIPER ENHANCEMENTS.
++ Change org.mathrider.piper.Piper.Evaluate to evaluate.
 + Change Numer to Numerator and Denom to Denominator because it is hard to remember how many letters of Numer and Denom are used in the shorter names.
 + Change "generic" (as in Generic object) to "native".
 + Change Nl to NL.
@@ -471,6 +474,16 @@ Write(a);
 
 
 }}}
+
+
+{{{JSciCalc
++ Fix white patched in display.
++ Add factorial button.
++ Confrey's Function Probe had a calculator in which you could make your own new buttons, and with a record of what you had done, like the TI calculators, or dc in unix. Susan.
+
+
+}}}
+
 
 {{{JEDIT
 Perhaps you can package your software so that it can be used one way
