@@ -225,7 +225,7 @@ aaa - instruction.
 		//System.out.println("block: " + block);
 		//System.out.println("offset: " + offset);
 			
-			chip = memory[block];
+			chip = (int[]) memory[block];
 		System.out.println("offset:" + offset);
 			ir = chip[offset++];
 		System.out.printf("ir: %2x\n\n",ir);
@@ -259,7 +259,7 @@ aaa - instruction.
 						access = (operand2 << 8) | operand1;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = memory[block2];
+						chip2 = (int[]) memory[block2];
 						
 					break;
 					
@@ -275,7 +275,7 @@ aaa - instruction.
 						access = ((operand2 << 8) | operand1) + y;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = memory[block2];
+						chip2 = (int[]) memory[block2];
 					break;
 					
 					case ABSOLUTE_X_01:
@@ -284,7 +284,7 @@ aaa - instruction.
 						access = ((operand2 << 8) | operand1) + x;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = memory[block2];
+						chip2 = (int[]) memory[block2];
 					break;			
 				
 				}//end switch.
@@ -537,7 +537,7 @@ aaa - instruction.
 						access = (operand2 << 8) | operand1;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = memory[block2];
+						chip2 = (int[]) memory[block2];
 						
 					break;
 					
@@ -547,7 +547,7 @@ aaa - instruction.
 						access = ((operand2 << 8) | operand1) + x;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = memory[block2];
+						chip2 = (int[]) memory[block2];
 					break;			
 				
 				}//end switch.
@@ -950,7 +950,7 @@ aaa - instruction.
     {
 
         EMU6502 emu = new EMU6502();
-		emu.rom = new {-87,5,-115,6,-32,0,6,7};
+		emu.rom = new int[] {-87,5,-115,6,-32,0,6,7};
         emu.run();
 		
 
