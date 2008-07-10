@@ -22,6 +22,9 @@ package org.mathrider.u6502;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.Reader;
+import java.io.Writer;
 import java.io.IOException;                                                                                                 
 //import org.gjt.sp.jedit.bsh.EvalError;
 import java.util.HashMap;
@@ -34,7 +37,9 @@ public class UASM65
 	private String error = "none";
 	
 	private File source_file;
-
+	//private java.io.RandomAccessFile source_file_pointer;
+	private Reader source_file_pointer;
+	private Writer lst_file_ptr, s_rec_file_ptr;
 
 	private int line_character;
 	private int[] temp_add_mode = new int [5];
@@ -50,14 +55,13 @@ public class UASM65
 	private int location_counter,hold_location;
 	private Integer temp_converted_number;
 
-	private java.io.RandomAccessFile source_file_pointer;
-	private FileWriter lst_file_ptr,s_rec_file_ptr;
+
 
 	private int no_source_flag,no_lc_flag,no_obj_flag,hold_obj_1,hold_obj_2,hold_obj_3;
 	private int no_line_num_flag,print_error_index,lst_flag;
 	private boolean pass2_flag;
 	private int s_record_index,code_index,record_length;
-	private String source_file_name = ""; //= new int [30];
+	//private String source_file_name = ""; //= new int [30];
 	private int operand_index;
 
 	private int EOF = -1;
@@ -199,7 +203,7 @@ public class UASM65
 		
 		
 		//source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/test.asm");
-		source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/umon65muvium.asm");
+		//source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/uasm_source/umon65/umon65muvium.uasm");
 
 		initialize();
 		
@@ -503,12 +507,7 @@ public class UASM65
 		lst_flag = 1;
 		strcpy(symbol_table[1].label,"XXX");
 
-			if ( (source_file_pointer = open_file(source_file)) != null)
-			{
-				if(! open_lst_file())
-				{
-					return false;
-				}
+
 		//
 		scan_lines(1);
 		
@@ -566,12 +565,7 @@ public class UASM65
 					return(false);
 				}
 		
-			}
-			else
-			{
-				System.out.printf("\nFile not found");
-				return(false);
-			}
+
 		
 	}//}}}End pass1.
 	//
@@ -590,14 +584,7 @@ public class UASM65
 		pass2_flag=true;
 		//fseek(source_file_pointer,0,SEEK_SET); 
 		
-		try
-		{
-			source_file_pointer.seek(0);
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
+
 		
 		initialize();
 		scan_lines(2);
@@ -3169,12 +3156,12 @@ public class UASM65
 	//}
 	//
 	//{{{open_file
-	java.io.RandomAccessFile open_file(File file)
+	FileReader open_file(File file)
 	{
-		java.io.RandomAccessFile file_pointer;
+		FileReader file_pointer;
 		try 
 		{
-			file_pointer = new java.io.RandomAccessFile(file,"r");
+			file_pointer = new FileReader(file);
 
 		}
 		catch(Exception ioe)
@@ -3527,7 +3514,7 @@ public class UASM65
 	
 		local_index = 0;
 		
-		open_s19_file();
+		//open_s19_file();
 		
 		//strcpy(s_rec_filename,source_file_name);
 	    //
@@ -3686,18 +3673,114 @@ public class UASM65
 	//}}}
 
 
+	//{{{assemble
+	public boolean assemble(File file)
+	{
+		source_file = file;
+		
+			if ( (source_file_pointer = open_file(source_file)) != null)
+			{
+				if(! open_lst_file())
+				{
+					return false;
+				}
+	
+				}
+			else
+			{
+				System.out.printf("\nFile not found");
+				return(false);
+			}
+	
+		if(pass1())
+		{
+			//		create_sym_file();
+			//
+			try
+			{
+				//source_file_pointer.seek(0);
+				source_file_pointer.close();
+				source_file_pointer = open_file(source_file);
+				
+				if(pass2())
+				{
+					open_s19_file();
+					convert_sr_to_ascii();
+			//			fclose(source_file_pointer);
+			//			fclose(lst_file_ptr);
+				}
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+
+		}
+
+		closeFiles();
+		
+		return true;
+	}//end method.
+	
+	public java.util.List assemble(String source_code)
+	{
+		source_file_pointer = new java.io.StringReader(source_code);
+		lst_file_ptr = new java.io.StringWriter();
+		
+		if(pass1())
+		{
+			//		create_sym_file();
+			//
+			try
+			{
+				//source_file_pointer.seek(0);
+				source_file_pointer.close();
+				source_file_pointer = new java.io.StringReader(source_code);
+				
+				if(pass2())
+				{
+					 s_rec_file_ptr = new java.io.StringWriter();
+					convert_sr_to_ascii();
+				}
+				
+					lst_file_ptr.flush();
+					s_rec_file_ptr.flush();
+		
+					java.util.ArrayList returnList = new java.util.ArrayList();
+					returnList.add(lst_file_ptr.toString());
+					returnList.add(s_rec_file_ptr.toString());
+					closeFiles();
+					return returnList;
+
+		
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+
+		} 
+		
+
+		return null;
+		
+	}//}}}
+	
+	
+	//}}}
+		
+
+
 	//{{{
 	public static void main(String[] args)
     {
-       int a = 0;
-	   System.out.println("AAAAA");
        UASM65 assem = new UASM65();
 	   
 	   		
 
 		//bsh.args = new String[] {"one","two"};
 
-		System.out.println("\nUASM65 V1.25 - Understandable Assembler for the 6500 series microprocessors.\nWritten by Ted Kosan.\n");
+		System.out.println("\nUASM65 - Understandable Assembler for the 6500 series microprocessors.\nWritten by Ted Kosan.\n");
 		
 
 
@@ -3728,20 +3811,7 @@ public class UASM65
 		//
 		//
 		//
-		if (assem.pass1())
-		{
-			//		create_sym_file();
-			//
-					if( assem.pass2())
-					{
-						assem.convert_sr_to_ascii();
-			//			fclose(source_file_pointer);
-			//			fclose(lst_file_ptr);
-					}
-		}
-		//}}}
-
-		assem.closeFiles();
+		assem.assemble(new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/uasm_source/umon65/umon65muvium.uasm") );
 		
     }//}}}
 
