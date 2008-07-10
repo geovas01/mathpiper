@@ -110,6 +110,31 @@
 		</jar>
 	</target>
 	
+	
+	
+	<target name="test" depends="compile" >
+		<jython.macro dir="/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/test" file="TestEMU6502.py" />
+	</target>
+	
+	
+  	<macrodef name="jython.macro">
+  	  <attribute name="dir" />
+  	  <attribute name="file" />
+  	  <attribute name="option" default="" />
+  	  <sequential>
+  	    <java classname="org.python.util.jython"
+  	          fork="Yes"
+  	          failonerror="true"
+  	          dir="@{dir}">
+  	      <arg line="-Dpython.path=/ted/checkouts/mathrider/src/plugins/u6502_plugin/src @{file} @{option}" />
+  	      <classpath>
+  	        <pathelement location="/tmp/jython.jar"/> <!--"${jython.home}/jython.jar"/>-->
+  	        <pathelement location="/ted/checkouts/mathrider/src/plugins/u6502_plugin/src"/>
+  	      </classpath>
+  	    </java>
+  	  </sequential>
+  	</macrodef>
+	
 </project>
 
 <!-- {{{ License.
