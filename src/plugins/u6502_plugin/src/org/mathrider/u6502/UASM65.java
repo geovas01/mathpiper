@@ -1,8 +1,24 @@
+/* {{{ License.
+UASM65 - Understandable Assembler for the 6500 series Microprocessor.
+Copyright (C) 2008 Ted Kosan
+
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */ //}}}
+
 package org.mathrider.u6502;
-	///**********************************************************************************
-	//   UASM65 - Understandable Assembler for the 6500 series Microprocessor.
-	//Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
-	//**********************************************************************************/
+
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.FileWriter;
@@ -3142,7 +3158,7 @@ public class UASM65
 	//{
 	//	printf("Enter name of source file: ");
 	//	scanf("%s",file_name);
-	//	if (strstr(file_name,".asm") || strstr(file_name,".ASM\0"))
+	//	if (strstr(file_name,".uasm") || strstr(file_name,".UASM\0"))
 	//	{
 	//		return(true);
 	//	}
@@ -3694,9 +3710,9 @@ public class UASM65
 		//	{
 		//		source_file_name = bsh.args[1];
 		//
-		//		if ( ! ( strstr( source_file_name,".asm\0") || strstr(source_file_name,".ASM\0") ) )
+		//		if ( ! ( strstr( source_file_name,".uasm\0") || strstr(source_file_name,".UASM\0") ) )
 		//		{
-		//			System.out.println("\n\nBad file name, must have .asm extension.\n\n");
+		//			System.out.println("\n\nBad file name, must have .uasm extension.\n\n");
 		//			return(false);
 		//		}
 		//	}
@@ -3704,7 +3720,7 @@ public class UASM65
 		//	{
 		//		if ( !get_file_name( source_file_name ) )
 		//		{
-		//			System.out.println("\n\nBad file name, must have .asm extension.\n\n");
+		//			System.out.println("\n\nBad file name, must have .uasm extension.\n\n");
 		//			return(false);
 		//		}
 		//	}//end else
@@ -3732,22 +3748,6 @@ public class UASM65
 
 
 }//end class
-
-/* {{{ License.
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
