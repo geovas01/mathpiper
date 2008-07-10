@@ -149,14 +149,14 @@ aaa - instruction.
 	public int operand1;
 	public int operand2;
     
-    public byte[] ram;
-	public byte[] rom;
+    public int[] ram;
+	public int[] rom;
 	
 	public Object[] memory;
 	
 	public Object mem;
-	public byte[] chip;
-	public byte[] chip2;
+	public int[] chip;
+	public int[] chip2;
 	
 	public int block;
 	public int block2;
@@ -180,8 +180,8 @@ aaa - instruction.
 	{
 		super();
 		
-		ram = new byte[1000];
-		rom = new byte[1000];
+		ram = new int[1000];
+		rom = new int[1000];
 		memory = new Object[8];
 		
 		
@@ -225,10 +225,10 @@ aaa - instruction.
 		//System.out.println("block: " + block);
 		//System.out.println("offset: " + offset);
 			
-			chip = (byte[]) memory[block];
+			chip = memory[block];
 		System.out.println("offset:" + offset);
 			ir = chip[offset++];
-		System.out.printf("ir: %2x\n\n",(byte)ir);
+		System.out.printf("ir: %2x\n\n",ir);
 
 			
 		//System.out.printf("ir %x\n", ir);
@@ -259,7 +259,7 @@ aaa - instruction.
 						access = (operand2 << 8) | operand1;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = (byte[]) memory[block2];
+						chip2 = memory[block2];
 						
 					break;
 					
@@ -275,7 +275,7 @@ aaa - instruction.
 						access = ((operand2 << 8) | operand1) + y;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = (byte[]) memory[block2];
+						chip2 = memory[block2];
 					break;
 					
 					case ABSOLUTE_X_01:
@@ -284,7 +284,7 @@ aaa - instruction.
 						access = ((operand2 << 8) | operand1) + x;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = (byte[]) memory[block2];
+						chip2 = memory[block2];
 					break;			
 				
 				}//end switch.
@@ -373,7 +373,7 @@ aaa - instruction.
 					break;
 					
 					case STA:
-						chip2[offset2] = (byte) a;
+						chip2[offset2] = a;
 					break;
 					
 					case LDA:
@@ -398,7 +398,7 @@ aaa - instruction.
 							
 							if (tmp > 0)
 							{
-								tmp2 = ((int) ((chip2[offset2]) * (byte)-1)) & 0xff;
+								tmp2 = ( ((chip2[offset2]) * -1)) & 0xff;
 								if (tmp2 > a)
 								{
 									negativeLargerFlag = 1;
@@ -410,7 +410,7 @@ aaa - instruction.
 							}
 							else
 							{
-								tmp2 = (int) (a * (byte)-1) & 0xff;
+								tmp2 = (a * -1) & 0xff;
 								if (a > tmp2)
 								{
 									negativeLargerFlag = 1;
@@ -537,7 +537,7 @@ aaa - instruction.
 						access = (operand2 << 8) | operand1;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = (byte[]) memory[block2];
+						chip2 = memory[block2];
 						
 					break;
 					
@@ -547,7 +547,7 @@ aaa - instruction.
 						access = ((operand2 << 8) | operand1) + x;
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
-						chip2 = (byte[]) memory[block2];
+						chip2 = memory[block2];
 					break;			
 				
 				}//end switch.
@@ -585,7 +585,7 @@ aaa - instruction.
 								{
 									c = 0;
 								}//end else.
-								tmp = chip2[offset2] = (byte) (tmp & 0xff);
+								tmp = chip2[offset2] = (tmp & 0xff);
 							}//end else.
 						
 							ck_n = ck_c = ck_z = 1;
@@ -621,7 +621,7 @@ aaa - instruction.
 								{
 									c = 0;
 								}//end else.
-								tmp = chip2[offset2] = (byte) (tmp & 0xff);
+								tmp = chip2[offset2] = (tmp & 0xff);
 							}//end else.
 						
 							ck_n = ck_c = ck_z = 1;
@@ -642,7 +642,7 @@ aaa - instruction.
 								tmp = chip2[offset2];
 								c = tmp & 0x01;
 								tmp = tmp >> 1;
-								tmp = chip2[offset2] = (byte) (tmp & 0xff);
+								tmp = chip2[offset2] = (tmp & 0xff);
 							}//end else.
 						
 							ck_c = ck_z = 1;
@@ -669,7 +669,7 @@ aaa - instruction.
 								tmp = tmp >> 1;
 								tmp2 = tmp2 << 7;
 								tmp = tmp | tmp2;
-								tmp = chip2[offset2] = (byte) (tmp & 0xff);
+								tmp = chip2[offset2] = (tmp & 0xff);
 							}//end else.
 						
 							ck_n = ck_c = ck_z = 1;
@@ -677,7 +677,7 @@ aaa - instruction.
 						break;
 						
 						case STX:
-							chip2[offset2] = (byte) x;
+							chip2[offset2] = x;
 						break;
 						
 						case LDX:
@@ -688,7 +688,7 @@ aaa - instruction.
 						case DEC:
 							tmp = chip2[offset2];
 							tmp = tmp - 1;
-							tmp = chip2[offset2] = (byte) tmp;
+							tmp = chip2[offset2] = tmp;
 							
 							ck_n = ck_z = 1;
 						break;
@@ -696,7 +696,7 @@ aaa - instruction.
 						case INC:
 							tmp = chip2[offset2];
 							tmp = tmp + 1;
-							tmp = chip2[offset2] = (byte) tmp;
+							tmp = chip2[offset2] = tmp;
 							
 							ck_n = ck_z = 1;
 						break;	
@@ -769,7 +769,7 @@ aaa - instruction.
 						
 						case STY:
 						
-							chip2[offset2] = (byte) y;
+							chip2[offset2] = y;
 							
 						break;
 						
@@ -950,7 +950,7 @@ aaa - instruction.
     {
 
         EMU6502 emu = new EMU6502();
-		emu.rom = new byte[] {-87,5,-115,6,-32,0,6,7};
+		emu.rom = new {-87,5,-115,6,-32,0,6,7};
         emu.run();
 		
 
