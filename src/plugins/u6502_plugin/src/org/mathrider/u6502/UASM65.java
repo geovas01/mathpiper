@@ -3232,6 +3232,7 @@ public class UASM65
 	//{{{read_operator_table                                                                                       
 	private boolean read_operator_table()
 	{
+	//IRX: Indirect Indexed, IXR: Indexed Indirect.
 	op_table[   0] = new op_tbl( "LON\0", "IMP\0", 0x00, 0, 0 );
 	op_table[   1] = new op_tbl( "LOF\0", "IMP\0", 0x00, 0, 0 );
 	op_table[   2] = new op_tbl( "ORG\0", "DIR\0", 0x00, 0, 0 );
