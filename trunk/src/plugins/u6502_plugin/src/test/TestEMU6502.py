@@ -58,10 +58,77 @@ data dbt 00d,05d
 		self.assertEqual(self.emu.a, 5, mode)
 		self.assertEqual(self.emu.z, 0, mode)
 		
+#---------------------------------------------------
+		mode = "LDA absolute y mode."
+		source_code = r""" 
+	org e000h
+	ldy #1d
+	lda data,y
+	brk
+	
+data dbt 00d,05d
+	end
+    	
+"""
+		self.runasm(source_code)
+		self.assertEqual(self.emu.a, 5, mode)
+		self.assertEqual(self.emu.z, 0, mode)		
 		
+#---------------------------------------------------
+		mode = "LDA absolute y mode."
+		source_code = r""" 
+	org e000h
+	ldy #1d
+	lda data,y
+	brk
+	
+data dbt 00d,05d
+	end
+    	
+"""
+		self.runasm(source_code)
+		self.assertEqual(self.emu.a, 5, mode)
+		self.assertEqual(self.emu.z, 0, mode)			
 		
+#---------------------------------------------------
+		mode = "LDA indexed indirect mode."
+		source_code = r""" 
+	org e000h
+	lda #data<
+	sta 0000h
+	lda #data>
+	sta 0001h
+	ldy #1d
+	lda (0000h),y
+	brk
+	
+data dbt 00d,05d
+	end
+    	
+"""
+		self.runasm(source_code)
+		self.assertEqual(self.emu.a, 5, mode)
+		self.assertEqual(self.emu.z, 0, mode)					
 		
-		
+#---------------------------------------------------
+		mode = "LDA indirect indexed mode."
+		source_code = r""" 
+	org e000h
+	lda #data<
+	sta 0000h
+	lda #data>
+	sta 0001h
+	ldy #1d
+	lda (0000h),y
+	brk
+	
+data dbt 00d,05d
+	end
+    	
+"""
+		self.runasm(source_code)
+		self.assertEqual(self.emu.a, 5, mode)
+		self.assertEqual(self.emu.z, 0, mode)			
 		
 		
 		
@@ -120,18 +187,19 @@ data dbt 00d,05d
 		
 		
 		#Uncomment to print code that can be pasted into the emulator.
-		"""
+		
 		x = 0;
 		for each in bytes:
-			print "rom[%d] = %d" % (x,each)
+			print "emu.rom[%d] = 0x%02X;" % (x,each)
 			x += 1
-		"""
+		
 		
 		#print self.emu.rom
 		#self.emu.rom = array(bytes,'b')
 		self.emu.rom = bytes;
 		self.emu.run()
-		#print "XXXXX",bytes
+		print "XXXXX",bytes
+		print output[0]
 
 		
 		

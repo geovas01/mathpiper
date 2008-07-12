@@ -1,7 +1,7 @@
 /* {{{ License.
 
 Copyright (C) 2008 Ted Kosan
-
+                                                                                      
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -64,7 +64,7 @@ The only irregularity is the absence of the nonsensical immediate STA instructio
 Next we consider the cc = 10 instructions. These have a completely different set of opcodes:
 aaa	opcode
 000	ASL
-001	ROL
+001	ROL                                                                                                          
 010	LSR
 011	ROR
 100	STX
@@ -296,6 +296,7 @@ aaa - instruction.
 	public Object mem;
 	public int[] chip;
 	public int[] chip2;
+	public int[] chip3;
 	
 	public int block;
 	public int block2;
@@ -399,13 +400,25 @@ aaa - instruction.
 						block2 = (access & 0xe000) >> 13;
 						offset2 = (access & 0x1fff);
 						chip2 = (int[]) memory[block2];
+					break;
 						
-					break;
-					
 					case $INDIRECT$_Y_01:
+						operand1 = chip[offset++];
+						chip3 = (int[]) memory[0];
+						access = ((chip3[operand1 + 1] << 8) | chip3[operand1]) + y;
+						block2 = (access & 0xe000) >> 13;
+						offset2 = (access & 0x1fff);
+						chip2 = (int[]) memory[block2];
 					break;
 					
-					case INDIRECT_X_01:
+					case INDIRECT_X_01:       
+						//Need to determine why there are $ versions of the indirects.
+						//operand1 = chip[offset++];
+						//chip3 = (int[]) memory[0];
+						//access = ((chip3[operand1 + 1] << 8) + chip3[operand1] + x);
+						//block2 = (access & 0xe000) >> 13;
+						//offset2 = (access & 0x1fff);
+						//chip2 = (int[]) memory[block2];
 					break;
 					
 					case ABSOLUTE_Y_01:
@@ -518,7 +531,7 @@ aaa - instruction.
 					case LDA:
 						tmp = a = chip2[offset2];
 						ck_n = ck_z = 1;
-				//System.out.printf("Instruction: LDA,  data: %x\n", a);
+				System.out.printf("Instruction: LDA,  data: %x\n", a);
 					break;
 					
 					case CMP:
@@ -691,8 +704,8 @@ aaa - instruction.
 				
 				}//end switch.
 				
-				
-				if (cc == 10)
+				             
+				if (cc == 2) //cc == 10.
 				{
 					switch(aaa)
 					{
@@ -862,7 +875,7 @@ aaa - instruction.
 						
 						case DEX:
 							x--;
-						break;
+						break;                                                                 
 						
 						case NOP:
 						
@@ -1089,7 +1102,24 @@ aaa - instruction.
     {
 
         EMU6502 emu = new EMU6502();
-		emu.rom = new int[] {-87,5,-115,6,-32,0,6,7};
+		emu.rom = new int[20];
+		emu.rom[0] = 0xA9;
+     	 emu.rom[1] = 0x0F;
+     	 emu.rom[2] = 0x8D;
+     	 emu.rom[3] = 0x00;
+     	 emu.rom[4] = 0x00;
+     	 emu.rom[5] = 0xA9;
+     	 emu.rom[6] = 0xE0;
+     	 emu.rom[7] = 0x8D;
+     	 emu.rom[8] = 0x01;
+     	 emu.rom[9] = 0x00;
+     	 emu.rom[10] = 0xA0;
+     	 emu.rom[11] = 0x01;
+     	 emu.rom[12] = 0xB1;
+     	 emu.rom[13] = 0x00;
+     	 emu.rom[14] = 0x00;
+     	 emu.rom[15] = 0x00;
+     	 emu.rom[16] = 0x05;
         emu.run();
 		
 
