@@ -1,6 +1,7 @@
 import unittest
 import org.mathrider.u6502.EMU6502 as EMU6502
 import org.mathrider.u6502.UASM65 as UASM65
+import java.lang.System as System
 
 class TestEMU6502(unittest.TestCase): #junit.framework.TestCase, 
 	def setUp(self):
@@ -11,7 +12,7 @@ class TestEMU6502(unittest.TestCase): #junit.framework.TestCase,
 
 		
 		
-	def testLDA(self):
+	def NtestLDA(self):
 		
 #---------------------------------------------------
 		mode = "LDA immediate mode."
@@ -130,6 +131,106 @@ data dbt 00d,05d
 		self.assertEqual(self.emu.a, 5, mode)
 		self.assertEqual(self.emu.z, 0, mode)			
 		
+
+
+	def NtestJMP(self):
+		
+#---------------------------------------------------
+		mode = "JMP absolute mode."
+		source_code = r""" 
+	org e000h
+	jmp target
+	brk
+target *
+	brk
+	
+	end
+    	
+"""		
+		self.runasm(source_code)
+		self.assertEqual(self.emu.pc, self.symbol_table["TARGET"], mode)
+		
+#---------------------------------------------------
+		mode = "JMP indirect mode."
+		source_code = r""" 
+	org e000h
+	lda #target<
+	sta 0000h
+	lda #target>
+	sta 0001h
+	jmp (0000h)
+	brk
+target *
+	brk
+	
+	end
+    	
+"""		
+		self.runasm(source_code)
+		self.assertEqual(self.emu.pc, self.symbol_table["TARGET"], mode)
+		
+		
+		
+	def testStack(self):
+		
+#---------------------------------------------------
+		mode = "PHA."
+		source_code = r""" 
+	org e000h
+	lda #02h
+	pha
+	brk
+	
+	end
+    	
+"""		
+		self.runasm(source_code)
+		self.assertEqual(self.emu.memory[0][0x1ff], 2, mode)		
+		
+		
+
+#---------------------------------------------------
+		mode = "PLA."
+		source_code = r""" 
+	org e000h
+	lda #02h
+	pha
+	pla
+	brk
+	
+	end
+    	
+"""		
+		self.runasm(source_code)
+		self.assertEqual(self.emu.a, 2, mode)
+		
+		
+
+#---------------------------------------------------
+		mode = "PLP."
+		source_code = r""" 
+	org e000h
+	lda #10000011b
+	pha
+	plp
+	brk
+	
+	end
+    	
+"""		
+		self.runasm(source_code)
+		self.assertEqual(self.emu.n, 1, mode)		
+		self.assertEqual(self.emu.v, 0, mode)
+		self.assertEqual(self.emu.b, 0, mode)
+		self.assertEqual(self.emu.d, 0, mode)
+		self.assertEqual(self.emu.i, 0, mode)
+		self.assertEqual(self.emu.z, 1, mode)
+		self.assertEqual(self.emu.c, 1, mode)
+		
+		
+		
+		
+		
 		
 		
 		
@@ -137,7 +238,11 @@ data dbt 00d,05d
 		
 		output = self.asm.assemble(source_code)
 		
-		lines = output[1].splitlines(1)
+		self.lst = output[0]
+		self.s19 = output[1]
+		self.symbol_table = output[2]
+		
+		lines = self.s19.splitlines(1)
 		
 		#print "XXXXXX",lines
 		
@@ -187,19 +292,22 @@ data dbt 00d,05d
 		
 		
 		#Uncomment to print code that can be pasted into the emulator.
-		
 		x = 0;
 		for each in bytes:
-			print "emu.rom[%d] = 0x%02X;" % (x,each)
+			object_code = "emu.rom[%d] = 0x%02X;" % (x,each)
+			System.out.println(object_code)
 			x += 1
-		
+			
+		System.out.println(self.lst) #Print .lst code.
+		System.out.println(self.symbol_table)
+		System.out.println(bytes)
 		
 		#print self.emu.rom
 		#self.emu.rom = array(bytes,'b')
 		self.emu.rom = bytes;
 		self.emu.run()
-		print "XXXXX",bytes
-		print output[0]
+		
+		
 
 		
 		

@@ -78,7 +78,7 @@ bbb	addressing mode
 001	zero page
 010	accumulator
 011	absolute
-101	zero page,X
+101	zero page,Y (Note: was zero page,X)
 111	absolute,X
 
 Note that bbb = 100 and 110 are missing. Also, with STX and LDX, "zero page,X" addressing becomes "zero page,Y", and with LDX, "absolute,X" becomes "absolute,Y".
@@ -184,11 +184,11 @@ aaa - instruction.
 	static final int SBC = 7;  
 	
 //Addressing modes 01.
-	static final int $INDIRECT_X$_01 = 0;
-	static final int INDIRECT_01 = 1;
+	static final int ZERO_PAGE_X_01 = 0;
+	static final int ZERO_PAGE_01 = 1;
 	static final int IMMEDIATE_01 = 2;
 	static final int ABSOLUTE_01 = 3;
-	static final int $INDIRECT$_Y_01 = 4;
+	static final int INDIRECT_Y_01 = 4;
 	static final int INDIRECT_X_01 = 5;
 	static final int ABSOLUTE_Y_01 = 6;
 	static final int ABSOLUTE_X_01 = 7;
@@ -239,7 +239,7 @@ aaa - instruction.
 	static final int ACCUMULATOR_10 = 2;
 	static final int ABSOLUTE_10_00 = 3;
 	static final int RELATIVE = 4;
-	static final int INDIRECT_X_10_00 = 5;
+	static final int ZERO_PAGE_Y_10_00 = 5;
 	static final int ABSOLUTE_X_10_00 = 7;
 
 //cc == 00.
@@ -269,7 +269,7 @@ aaa - instruction.
     public int x;
     public int y;
     //public int sr
-    public int sp;
+    public int sp = 0x01ff;
     public int ir;
 	
     public int n;	//Negative
@@ -312,6 +312,7 @@ aaa - instruction.
 	public int bothNegativeFlag;
 	public int negativeLargerFlag;
 	public int accumulatorFlag;
+	public boolean skipCalculatePCFlag;
 	
 	
 
@@ -366,9 +367,9 @@ aaa - instruction.
 		//System.out.println("offset: " + offset);
 			
 			chip = (int[]) memory[block];
-		System.out.println("offset:" + offset);
+		//System.out.println("offset:" + offset);
 			ir = chip[offset++];
-		System.out.printf("ir: %2x\n\n",ir);
+		//System.out.printf("ir: %2x\n\n",ir);
 
 			
 		//System.out.printf("ir %x\n", ir);
@@ -382,10 +383,10 @@ aaa - instruction.
 				
 				switch(bbb)
 				{
-					case $INDIRECT_X$_01:
+					case ZERO_PAGE_X_01:
 					break;
 					
-					case INDIRECT_01:
+					case ZERO_PAGE_01:
 					break;
 					
 					case IMMEDIATE_01:
@@ -402,7 +403,7 @@ aaa - instruction.
 						chip2 = (int[]) memory[block2];
 					break;
 						
-					case $INDIRECT$_Y_01:
+					case INDIRECT_Y_01:
 						operand1 = chip[offset++];
 						chip3 = (int[]) memory[0];
 						access = ((chip3[operand1 + 1] << 8) | chip3[operand1]) + y;
@@ -412,13 +413,12 @@ aaa - instruction.
 					break;
 					
 					case INDIRECT_X_01:       
-						//Need to determine why there are $ versions of the indirects.
-						//operand1 = chip[offset++];
-						//chip3 = (int[]) memory[0];
-						//access = ((chip3[operand1 + 1] << 8) + chip3[operand1] + x);
-						//block2 = (access & 0xe000) >> 13;
-						//offset2 = (access & 0x1fff);
-						//chip2 = (int[]) memory[block2];
+						operand1 = chip[offset++];
+						chip3 = (int[]) memory[0];
+						access = ((chip3[operand1 + 1] << 8) + chip3[operand1] + x);
+						block2 = (access & 0xe000) >> 13;
+						offset2 = (access & 0x1fff);
+						chip2 = (int[]) memory[block2];
 					break;
 					
 					case ABSOLUTE_Y_01:
@@ -531,7 +531,7 @@ aaa - instruction.
 					case LDA:
 						tmp = a = chip2[offset2];
 						ck_n = ck_z = 1;
-				System.out.printf("Instruction: LDA,  data: %x\n", a);
+				//System.out.printf("Instruction: LDA,  data: %x\n", a);
 					break;
 					
 					case CMP:
@@ -633,13 +633,19 @@ aaa - instruction.
 					break;
 					
 					case INDIRECT_10_00:
+						operand1 = chip[offset++];
+						chip3 = (int[]) memory[0];
+						access = ((chip3[operand1 + 1] << 8) + chip3[operand1]);
+						block2 = (access & 0xe000) >> 13;
+						offset2 = (access & 0x1fff);
+						chip2 = (int[]) memory[block2];
 					break;
 					
 					case ACCUMULATOR_10:
 						accumulatorFlag = 1;
 					break;
 					
-					case INDIRECT_X_10_00:
+					case ZERO_PAGE_Y_10_00:
 					break;
 					
 					case RELATIVE:
@@ -904,8 +910,8 @@ aaa - instruction.
 						break;
 						
 						case JMP_ABS:
-	
 							pc = access;
+							skipCalculatePCFlag = true;
 						
 						break;
 						
@@ -915,6 +921,7 @@ aaa - instruction.
 							operand2 = chip2[offset2+1];
 							
 							pc = ((operand2 << 8) | operand1);
+							skipCalculatePCFlag = true;
 							
 							
 						break;
@@ -953,27 +960,49 @@ aaa - instruction.
 					{
 						case BRK:
 							run = 0;
+							skipCalculatePCFlag = true;
 						
 						break;
 						
-						case JSR:
+						case JSR: //Note: implement.
 						
 						break;
 						
-						case RTI:
+						case RTI: //Note: implement.
 						
 						break;
 						
-						case RTS:
+						case RTS: //Note: implement.
 						
 						break;
 						
 						case PHP:
-						
+							tmp = 0;
+							
+							tmp |= n;
+							tmp <<= 1;
+							tmp |= v;
+							tmp <<= 2;
+							tmp |= b;
+							tmp <<= 1;
+							tmp |= d;
+							tmp <<= 1;
+							tmp |= i;
+							tmp <<= 1;
+							tmp |= z;
+							tmp <<= 1;
+							tmp |= c;
+							
+							chip = (int[]) memory[0];
+							chip[sp] = tmp;
+							sp--; //Note: Perhaps place error checking here.
 						break;
 						
 						case PLP:
-							//tmp =
+							chip = (int[]) memory[0];
+							sp++; //Note: Perhaps place error checking here.
+							tmp = chip[sp];
+							
 							c = tmp & 0x01;
 							tmp >>= 1;
 							z = tmp & 0x01;
@@ -991,11 +1020,15 @@ aaa - instruction.
 						break;
 						
 						case PHA:
-						
+							chip = (int[]) memory[0];
+							chip[sp] = a;
+							sp--; //Note: Perhaps place error checking here.
 						break;
 						
 						case PLA:
-						
+							chip = (int[]) memory[0];
+							sp++; //Note: Perhaps place error checking here.
+							a = chip[sp];
 						break;
 						
 						case DEY:
@@ -1092,7 +1125,14 @@ aaa - instruction.
 			
 			ck_n = ck_v = ck_c = ck_z = 0;
 			
-			pc = pc + (offset - oldOffset);
+			if(!skipCalculatePCFlag) 
+			{
+				pc = pc + (offset - oldOffset);
+			}
+			else
+			{
+				skipCalculatePCFlag = false;
+			}
 		
 		}//end while.
 		
@@ -1102,24 +1142,14 @@ aaa - instruction.
     {
 
         EMU6502 emu = new EMU6502();
-		emu.rom = new int[20];
-		emu.rom[0] = 0xA9;
-     	 emu.rom[1] = 0x0F;
-     	 emu.rom[2] = 0x8D;
-     	 emu.rom[3] = 0x00;
-     	 emu.rom[4] = 0x00;
-     	 emu.rom[5] = 0xA9;
-     	 emu.rom[6] = 0xE0;
-     	 emu.rom[7] = 0x8D;
-     	 emu.rom[8] = 0x01;
-     	 emu.rom[9] = 0x00;
-     	 emu.rom[10] = 0xA0;
-     	 emu.rom[11] = 0x01;
-     	 emu.rom[12] = 0xB1;
-     	 emu.rom[13] = 0x00;
-     	 emu.rom[14] = 0x00;
-     	 emu.rom[15] = 0x00;
-     	 emu.rom[16] = 0x05;
+		emu.rom = new int[5];
+
+     	emu.rom[0] = 0xA9;
+     	emu.rom[1] = 0x83;
+     	emu.rom[2] = 0x48;
+     	emu.rom[3] = 0x28;
+     	emu.rom[4] = 0x00;
+	 
         emu.run();
 		
 
