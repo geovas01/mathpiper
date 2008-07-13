@@ -3749,7 +3749,16 @@ public class UASM65
 		
 					java.util.ArrayList returnList = new java.util.ArrayList();
 					returnList.add(lst_file_ptr.toString());
+					
 					returnList.add(s_rec_file_ptr.toString());
+					
+					java.util.Dictionary symbolTable = new java.util.Hashtable();
+					for(int x=0; x<symbol_table.length && strcmp(symbol_table[x].label,"XXX\0") != 0; x++)
+					{
+						symbolTable.put(chars_to_string(symbol_table[x].label), symbol_table[x].address);
+					}
+					returnList.add(symbolTable);
+				
 					closeFiles();
 					return returnList;
 
