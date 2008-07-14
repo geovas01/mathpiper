@@ -96,6 +96,8 @@ abs,X/abs,Y 	1E 	3E 	5E 	7E 	  	BE 	DE 	FE
 Most of the gaps in this table are easy to understand. Immediate mode makes no sense for any instruction other than LDX, and accumulator mode for DEC and INC didn't appear until the 65C02. The slots that "STX A" and "LDX A" would occupy are taken by TXA and TAX respectively, which is exactly what one would expect. The only inexplicable gap is the absence of a "STX abs,Y" instruction.
 }}}
 
+
+
 {{{ cc = 00
 Next, the cc = 00 instructions. Again, the opcodes are different:
 aaa	opcode
@@ -176,6 +178,7 @@ bbb - addressing mode.
 aaa - instruction.
 */
 
+
 //cc == 01.
 	static final int ORA = 0;
 	static final int AND = 1;
@@ -217,7 +220,7 @@ aaa - instruction.
 	static final int DEY = 0X88;
 	static final int TAY = 0XA8;
 	static final int INY = 0XC8;
-	static final int INX = 0XE8; //Note:implement.
+	static final int INX = 0XE8;
 	static final int CLC = 0X18;
 	static final int SEC = 0X38;
 	static final int CLI = 0X58;
@@ -316,6 +319,7 @@ aaa - instruction.
 	public int negativeLargerFlag;
 	public int accumulatorFlag;
 	public boolean skipCalculatePCFlag;
+	public boolean singleByteInstructionFlag;
 	
 	
 
@@ -625,247 +629,27 @@ aaa - instruction.
 				}//end switch.
 				
 	        }
-	        else //cc == 10 or 00.
+	        else //cc == 10 or 00.  *******************
 	        {
-			
-				switch(bbb)
-				{
-					case IMMEDIATE_10_00:
-						chip2 = chip;
-						offset2 = offset++;
-					break;
-					
-					case INDIRECT_10_00:
-						operand1 = chip[offset++];
-						chip3 = (int[]) memory[0];
-						access = ((chip3[operand1 + 1] << 8) + chip3[operand1]);
-						block2 = (access & 0xe000) >> 13;
-						offset2 = (access & 0x1fff);
-						chip2 = (int[]) memory[block2];
-					break;
-					
-					case ACCUMULATOR_10:
-						accumulatorFlag = 1;
-					break;
-					
-					case ZERO_PAGE_Y_10_00:
-					break;
-					
-					case RELATIVE:
-						operand1 = chip[offset++];
-						
-						//Indicator.
-						tmp = aaa & 0x01;
-						
-						//Flag indicator..
-						tmp2 = (aaa >> 1);
-						
-						switch(tmp2)
-						{
-							case NEGATIVE:
-								tmp2 = n;
-							break;
-							
-							case OVERFLOW:
-								tmp2 = v;
-							break;
-							
-							case CARRY:
-								tmp2 = c;
-							break;
-	
-							case ZERO:
-								tmp2 = z;
-							break;
-							
-						}//end switch.
-						
-						//Take branch if flag is same state as indicator.
-						if (tmp2 == tmp)
-						{
-							offset = offset + operand1;
-						}
-						
-					//No need to perform the rest of the main loop if a branch was encountered.
-					pc = pc + offset;
-					continue;
-						
-	
-					
-					case ABSOLUTE_10_00:
-						operand1 = chip[offset++];
-						operand2 = chip[offset++];
-						access = (operand2 << 8) | operand1;
-						block2 = (access & 0xe000) >> 13;
-						offset2 = (access & 0x1fff);
-						chip2 = (int[]) memory[block2];
-						
-					break;
-					
-					case ABSOLUTE_X_10_00:
-						operand1 = chip[offset++];
-						operand2 = chip[offset++];
-						access = ((operand2 << 8) | operand1) + x;
-						block2 = (access & 0xe000) >> 13;
-						offset2 = (access & 0x1fff);
-						chip2 = (int[]) memory[block2];
-					break;			
-				
-				}//end switch.
-				
-				             
-				if (cc == 2) //cc == 10.
-				{
-					switch(aaa)
-					{
-						case ASL:
-						
-							if (accumulatorFlag == 1)
-							{
-								a = a << 1;
-								if ((a & 0x100) == 1)
-								{
-									c = 1;
-								}
-								else
-								{
-									c = 0;
-								}//end else.
-								tmp = a = a & 0xff;
-								
-							}
-							else
-							{
-								tmp = chip2[offset2];
-								tmp = tmp << 1;
-								if ((tmp & 0x100) == 1)
-								{
-									c = 1;
-								}
-								else
-								{
-									c = 0;
-								}//end else.
-								tmp = chip2[offset2] = (tmp & 0xff);
-							}//end else.
-						
-							ck_n = ck_c = ck_z = 1;
-						
-						break;
-						
-						case ROL:
-							if (accumulatorFlag == 1)
-							{
-								a = a << 1;
-								a = a | c;
-								if ((a & 0x100) == 1)
-								{
-									c = 1;
-								}
-								else
-								{
-									c = 0;
-								}//end else.
-								tmp = a = a & 0xff;
-								
-							}
-							else
-							{
-								tmp = chip2[offset2];
-								tmp = tmp << 1;
-								tmp = tmp | c;
-								if ((tmp & 0x100) == 1)
-								{
-									c = 1;
-								}
-								else
-								{
-									c = 0;
-								}//end else.
-								tmp = chip2[offset2] = (tmp & 0xff);
-							}//end else.
-						
-							ck_n = ck_c = ck_z = 1;
-						
-						break;
-						
-						case LSR:
-						
-							if (accumulatorFlag == 1)
-							{
-								c = a & 0x01;
-								a = a >> 1;
-								tmp = a = a & 0xff;
-								
-							}
-							else
-							{
-								tmp = chip2[offset2];
-								c = tmp & 0x01;
-								tmp = tmp >> 1;
-								tmp = chip2[offset2] = (tmp & 0xff);
-							}//end else.
-						
-							ck_c = ck_z = 1;
-							
-						break;
-						
-						case ROR:
-						
-							if (accumulatorFlag == 1)
-							{
-								tmp2 = c;
-								c = a & 0x01;
-								a = a >> 1;
-								tmp2 = tmp2 << 7;
-								a = a | tmp2;
-								tmp = a = a & 0xff;
-								
-							}
-							else
-							{
-								tmp2 = c;
-								tmp = chip2[offset2];
-								c = tmp & 0x01;
-								tmp = tmp >> 1;
-								tmp2 = tmp2 << 7;
-								tmp = tmp | tmp2;
-								tmp = chip2[offset2] = (tmp & 0xff);
-							}//end else.
-						
-							ck_n = ck_c = ck_z = 1;
-							
-						break;
-						
-						case STX:
-							chip2[offset2] = x;
-						break;
-						
-						case LDX:
-							tmp = x = chip2[offset2];
-							ck_n = ck_z = 1;
-						break;
-						
-						case DEC:
-							tmp = chip2[offset2];
-							tmp = tmp - 1;
-							tmp = chip2[offset2] = tmp;
-							
-							ck_n = ck_z = 1;
-						break;
-						
-						case INC:
-							tmp = chip2[offset2];
-							tmp = tmp + 1;
-							tmp = chip2[offset2] = tmp;
-							
-							ck_n = ck_z = 1;
-						break;	
-					}//end switch;
-					
-					
+				singleByteInstructionFlag = true;
 					switch(ir)
 					{
+						case BRK:
+							run = 0;
+							skipCalculatePCFlag = true;
+						break;
+						
+						case JSR: //Note: implement.
+						
+						break;
+						
+						case RTI: //Note: implement.
+						
+						break;
+						
+						case RTS: //Note: implement.
+						
+						break;
 						case TXA:
 							a = x;
 						break;
@@ -889,96 +673,7 @@ aaa - instruction.
 						case NOP:
 						
 						break;
-					}//end switch.
-					
-				}
-				else //cc == 00.
-				{
-					
-					switch(aaa)
-					{
-						case BIT:
-							a = a & chip2[offset2];
-							
-							tmp = a >> 6;
-							v = tmp & 0x01;
-							
-							tmp = tmp >> 1;
-							n = tmp & 0x01;
-							
-							tmp = a;
-							
-							ck_z = 1;
-						
-						break;
-						
-						case JMP_ABS:
-							pc = access;
-							skipCalculatePCFlag = true;
-						
-						break;
-						
-						case JMP_IND_ABS:
-						
-							operand1 = chip2[offset2];
-							operand2 = chip2[offset2+1];
-							
-							pc = ((operand2 << 8) | operand1);
-							skipCalculatePCFlag = true;
-							
-							
-						break;
-						
-						case STY:
-						
-							chip2[offset2] = y;
-							
-						break;
-						
-						case LDY:
-						
-							tmp = y = chip2[offset2];
-							ck_n = ck_z = 1;
-							
-						break;
-						
-						case CPY:
-						
-							tmp = y - chip2[offset2];
-							ck_n = ck_c = ck_z = 1;
-						
-						break;
-						
-						case CPX:
-						
-							tmp = x - chip2[offset2];
-							ck_n = ck_c = ck_z = 1;
-						
-						break;
-						
-					}//end switch;
-					
-					
-					switch(ir)
-					{
-						case BRK:
-							run = 0;
-							skipCalculatePCFlag = true;
-						
-						break;
-						
-						case JSR: //Note: implement.
-						
-						break;
-						
-						case RTI: //Note: implement.
-						
-						break;
-						
-						case RTS: //Note: implement.
-						
-						break;
-						
+
 						case PHP:
 							tmp = 0;
 							
@@ -1046,6 +741,10 @@ aaa - instruction.
 							y++;
 						break;
 						
+						case INX:
+							x++;
+						break;
+						
 						case CLC:
 							c = 0;
 						break;
@@ -1078,16 +777,325 @@ aaa - instruction.
 							d = 1;
 						break;
 						
-						
+						default:
+							singleByteInstructionFlag = false;
+						break;
 					}//end switch.
+
+				if(!singleByteInstructionFlag)
+				{
+			
+					switch(bbb)
+					{
+						case IMMEDIATE_10_00:
+							chip2 = chip;
+							offset2 = offset++;
+						break;
+						
+						case INDIRECT_10_00:
+							operand1 = chip[offset++];
+							chip3 = (int[]) memory[0];
+							access = ((chip3[operand1 + 1] << 8) + chip3[operand1]);
+							block2 = (access & 0xe000) >> 13;
+							offset2 = (access & 0x1fff);
+							chip2 = (int[]) memory[block2];
+						break;
+						
+						case ACCUMULATOR_10:
+							accumulatorFlag = 1;
+						break;
+						
+						case ZERO_PAGE_Y_10_00:
+						break;
+						
+						case RELATIVE:
+							operand1 = chip[offset++];
+							
+							//Indicator.
+							tmp = aaa & 0x01;
+							
+							//Flag indicator..
+							tmp2 = (aaa >> 1);
+							
+							switch(tmp2)
+							{
+								case NEGATIVE:
+									tmp2 = n;
+								break;
+								
+								case OVERFLOW:
+									tmp2 = v;
+								break;
+								
+								case CARRY:
+									tmp2 = c;
+								break;
+	            	
+								case ZERO:
+									tmp2 = z;
+								break;
+								
+							}//end switch.
+							
+							//Take branch if flag is same state as indicator.
+							if (tmp2 == tmp)
+							{
+								offset = offset + operand1;
+							}
+							
+						//No need to perform the rest of the main loop if a branch was encountered.
+						pc = pc + offset;
+						continue;
+							
+	            	
+						
+						case ABSOLUTE_10_00:
+							operand1 = chip[offset++];
+							operand2 = chip[offset++];
+							access = (operand2 << 8) | operand1;
+							block2 = (access & 0xe000) >> 13;
+							offset2 = (access & 0x1fff);
+							chip2 = (int[]) memory[block2];
+							
+						break;
+						
+						case ABSOLUTE_X_10_00:
+							operand1 = chip[offset++];
+							operand2 = chip[offset++];
+							access = ((operand2 << 8) | operand1) + x;
+							block2 = (access & 0xe000) >> 13;
+							offset2 = (access & 0x1fff);
+							chip2 = (int[]) memory[block2];
+						break;			
 					
-					
-					
-					
-					
-				}//end else //cc == 00.
+					}//end switch.
 				
-	        }//end else.
+				             
+					if (cc == 2) //cc == 10.
+					{
+						switch(aaa)
+						{
+							case ASL:
+							
+								if (accumulatorFlag == 1)
+								{
+									a = a << 1;
+									if ((a & 0x100) == 1)
+									{
+										c = 1;
+									}
+									else
+									{
+										c = 0;
+									}//end else.
+									tmp = a = a & 0xff;
+									
+								}
+								else
+								{
+									tmp = chip2[offset2];
+									tmp = tmp << 1;
+									if ((tmp & 0x100) == 1)
+									{
+										c = 1;
+									}
+									else
+									{
+										c = 0;
+									}//end else.
+									tmp = chip2[offset2] = (tmp & 0xff);
+								}//end else.
+							
+								ck_n = ck_c = ck_z = 1;
+							
+							break;
+							
+							case ROL:
+								if (accumulatorFlag == 1)
+								{
+									a = a << 1;
+									a = a | c;
+									if ((a & 0x100) == 1)
+									{
+										c = 1;
+									}
+									else
+									{
+										c = 0;
+									}//end else.
+									tmp = a = a & 0xff;
+									
+								}
+								else
+								{
+									tmp = chip2[offset2];
+									tmp = tmp << 1;
+									tmp = tmp | c;
+									if ((tmp & 0x100) == 1)
+									{
+										c = 1;
+									}
+									else
+									{
+										c = 0;
+									}//end else.
+									tmp = chip2[offset2] = (tmp & 0xff);
+								}//end else.
+							
+								ck_n = ck_c = ck_z = 1;
+							
+							break;
+							
+							case LSR:
+							
+								if (accumulatorFlag == 1)
+								{
+									c = a & 0x01;
+									a = a >> 1;
+									tmp = a = a & 0xff;
+									
+								}
+								else
+								{
+									tmp = chip2[offset2];
+									c = tmp & 0x01;
+									tmp = tmp >> 1;
+									tmp = chip2[offset2] = (tmp & 0xff);
+								}//end else.
+							
+								ck_c = ck_z = 1;
+								
+							break;
+							
+							case ROR:
+							
+								if (accumulatorFlag == 1)
+								{
+									tmp2 = c;
+									c = a & 0x01;
+									a = a >> 1;
+									tmp2 = tmp2 << 7;
+									a = a | tmp2;
+									tmp = a = a & 0xff;
+									
+								}
+								else
+								{
+									tmp2 = c;
+									tmp = chip2[offset2];
+									c = tmp & 0x01;
+									tmp = tmp >> 1;
+									tmp2 = tmp2 << 7;
+									tmp = tmp | tmp2;
+									tmp = chip2[offset2] = (tmp & 0xff);
+								}//end else.
+							
+								ck_n = ck_c = ck_z = 1;
+								
+							break;
+							
+							case STX:
+								chip2[offset2] = x;
+							break;
+							
+							case LDX:
+								tmp = x = chip2[offset2];
+								ck_n = ck_z = 1;
+							break;
+							
+							case DEC:
+								tmp = chip2[offset2];
+								tmp = tmp - 1;
+								tmp = chip2[offset2] = tmp;
+								
+								ck_n = ck_z = 1;
+							break;
+							
+							case INC:
+								tmp = chip2[offset2];
+								tmp = tmp + 1;
+								tmp = chip2[offset2] = tmp;
+								
+								ck_n = ck_z = 1;
+							break;	
+						}//end switch;
+						
+					}//end if cc = 2.
+				
+				else //cc == 00.
+				{
+					
+					switch(aaa)
+					{
+						case BIT:
+							a = a & chip2[offset2];
+							
+							tmp = a >> 6;
+							v = tmp & 0x01;
+							
+							tmp = tmp >> 1;
+							n = tmp & 0x01;
+							
+							tmp = a;
+							
+							ck_z = 1;
+						
+						break;
+						
+						case JMP_ABS:
+							pc = access;
+							skipCalculatePCFlag = true;
+						
+						break;
+						
+						case JMP_IND_ABS:
+						
+							operand1 = chip2[offset2];
+							operand2 = chip2[offset2+1];
+							
+							pc = ((operand2 << 8) | operand1);
+							skipCalculatePCFlag = true;
+							
+							
+						break;
+						
+						case STY:
+						
+							chip2[offset2] = y;
+							
+						break;
+						
+						case LDY:
+						
+							tmp = y = chip2[offset2];
+							ck_n = ck_z = 1;
+							
+						break;
+						
+						case CPY:
+						
+							tmp = y - chip2[offset2];
+							ck_n = ck_c = ck_z = 1;
+						
+						break;
+						
+						case CPX:
+						
+							tmp = x - chip2[offset2];
+							ck_n = ck_c = ck_z = 1;
+						
+						break;
+						
+					}//end switch;
+					
+					
+				}
+
+									}
+
+
+				
+	        }//end else.//cc == 10 or 00.  *******************
 	
 			
 			//Check to see if flags need to be set.
@@ -1147,11 +1155,10 @@ aaa - instruction.
         EMU6502 emu = new EMU6502();
 		emu.rom = new int[5];
 
-     	emu.rom[0] = 0xA9;
-     	emu.rom[1] = 0x83;
-     	emu.rom[2] = 0x48;
-     	emu.rom[3] = 0x28;
-     	emu.rom[4] = 0x00;
+      	emu.rom[0] = 0xA0;
+      	emu.rom[1] = 0x01;
+      	emu.rom[2] = 0xB9;
+      	emu.rom[3] = 0x06;
 	 
         emu.run();
 		
