@@ -12,7 +12,7 @@ class TestEMU6502(unittest.TestCase): #junit.framework.TestCase,
 
 		
 		
-	def testLDA(self):
+	def NtestLDA(self):
 		
 #---------------------------------------------------
 		mode = "LDA immediate mode."
@@ -133,7 +133,7 @@ data dbt 00d,05d
 		
 
 
-	def testJMP(self):
+	def NtestJMP(self):
 		
 #---------------------------------------------------
 		mode = "JMP absolute mode."
@@ -171,7 +171,7 @@ target *
 		
 		
 		
-	def testStack(self):
+	def NtestStack(self):
 		
 #---------------------------------------------------
 		mode = "PHA."
@@ -227,7 +227,33 @@ target *
 		self.assertEqual(self.emu.z, 1, mode)
 		self.assertEqual(self.emu.c, 1, mode)
 		
+#---------------------------------------------------
+		mode = "JSR/RTS"
+		source_code = r""" 
+	org e000h
+	lda #00h
+	jsr SetA
+	brk
+SetA *
+	lda #02h
+	rts
+	
+	end
+    	
+"""		
+		self.runasm(source_code)
+		self.assertEqual(self.emu.a, 2, mode)
 		
+		
+		
+	def testUMON65(self):
+		
+#---------------------------------------------------
+		mode = "UMON65."
+		file = open("umon65muvium.uasm",'r')
+		source_code = file.read();
+		#self.runasm(source_code)
+		#self.assertEqual(self.emu.pc, self.symbol_table["TARGET"], mode)
 		
 		
 		
