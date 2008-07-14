@@ -12,7 +12,7 @@ class TestEMU6502(unittest.TestCase): #junit.framework.TestCase,
 
 		
 		
-	def NtestLDA(self):
+	def testLDA(self):
 		
 #---------------------------------------------------
 		mode = "LDA immediate mode."
@@ -133,7 +133,7 @@ data dbt 00d,05d
 		
 
 
-	def NtestJMP(self):
+	def testJMP(self):
 		
 #---------------------------------------------------
 		mode = "JMP absolute mode."

@@ -3,7 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wrap=soft:
 
 {{{====To Do
-> Have the GeoGebra plugin associated with view the %geogebrafold was executed in show the result.
++ Have the GeoGebra plugin associated with view the %geogebrafold was executed in show the result.
 + Automate the placing of version information in plugin documentation (including UASM65).
 + My concern is mostly "Java IDE kung-fu": users of these libraries (mostly just me :-) only want the highest level APIs to show in popup completion lists and the entire set of implementation classes remain invisible. The solution is easy: a public API class with implementation classes in the same package with package-ony (i.e., neither public or private) visibility..
 + All Functions category gives duplicates when function names contain ` characters.
@@ -298,6 +298,20 @@ Why is this list missing commas and curly braces?
 }}}
 
 {{{PIPER ENHANCEMENTS.
++ Provide a way to convert between strings and lists.
++ %piper
+a := {"00","20","40","60","08","28","48","68","88","A8","C8","E8","18","38","58","78","98","B8","D8","F8","8A","9A","AA","BA","CA","EA"};
+b := {};
+ForEach(x,a)
+    [
+        
+       c := FromBase(16,x);
+       Write(ToBase(2,c));
+       NewLine();
+    ];
+
+%/piper
+Base functions should be able to pad zeros on the left. (Also perhaps a more generalized Base function).
 + Change org.mathrider.piper.Piper.Evaluate to evaluate.
 + Change Numer to Numerator and Denom to Denominator because it is hard to remember how many letters of Numer and Denom are used in the shorter names.
 + Change "generic" (as in Generic object) to "native".
