@@ -24,6 +24,7 @@ From http://axis.llx.com/~nparker/a2/opcodes.html.
 
 Most instructions that explicitly reference memory locations have bit patterns of the form aaabbbcc. The aaa and cc bits determine the opcode, and the bbb bits determine the addressing mode.
 
+{{{cc = 01
 Instructions with cc = 01 are the most regular, and are therefore considered first. The aaa bits determine the opcode as follows:
 aaa	opcode
 000	ORA
@@ -58,9 +59,9 @@ abs,Y 	19 	39 	59 	79 	99 	B9 	D9 	F9
 abs,X 	1D 	3D 	5D 	7D 	9D 	BD 	DD 	FD
 
 The only irregularity is the absence of the nonsensical immediate STA instruction.
+}}}
 
-
-
+{{{ cc = 10
 Next we consider the cc = 10 instructions. These have a completely different set of opcodes:
 aaa	opcode
 000	ASL
@@ -93,9 +94,9 @@ zp,X/zp,Y 	16 	36 	56 	76 	96 	B6 	D6 	F6
 abs,X/abs,Y 	1E 	3E 	5E 	7E 	  	BE 	DE 	FE
 
 Most of the gaps in this table are easy to understand. Immediate mode makes no sense for any instruction other than LDX, and accumulator mode for DEC and INC didn't appear until the 65C02. The slots that "STX A" and "LDX A" would occupy are taken by TXA and TAX respectively, which is exactly what one would expect. The only inexplicable gap is the absence of a "STX abs,Y" instruction.
+}}}
 
-
-
+{{{ cc = 00
 Next, the cc = 00 instructions. Again, the opcodes are different:
 aaa	opcode
 001	BIT
@@ -138,7 +139,7 @@ xx	flag
 11	zero
 
 This gives the following branches:
-BPL	BMI	BVC	BVS	BCC	BCS 	BNE	BEQ
+BPL	BMI	BVC	BVS	BCC	BCS BNE	BEQ
 10	30	50	70	90	B0 	D0	F0
 
 
@@ -155,6 +156,8 @@ CLC 	SEC 	CLI 	SEI 	TYA 	CLV 	CLD 	SED
 18 	38 	58 	78 	98 	B8 	D8 	F8
 TXA 	TXS 	TAX 	TSX 	DEX 	NOP
 8A 	9A 	AA 	BA 	CA 	EA
+
+}}}
 
 */
 
@@ -214,7 +217,7 @@ aaa - instruction.
 	static final int DEY = 0X88;
 	static final int TAY = 0XA8;
 	static final int INY = 0XC8;
-	static final int INX = 0XE8;
+	static final int INX = 0XE8; //Note:implement.
 	static final int CLC = 0X18;
 	static final int SEC = 0X38;
 	static final int CLI = 0X58;
