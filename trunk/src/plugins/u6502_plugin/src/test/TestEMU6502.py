@@ -252,7 +252,7 @@ SetA *
 		mode = "UMON65."
 		file = open("umon65muvium.uasm",'r')
 		source_code = file.read();
-		#self.runasm(source_code)
+		self.runasm(source_code)
 		#self.assertEqual(self.emu.pc, self.symbol_table["TARGET"], mode)
 		
 		
@@ -318,20 +318,21 @@ SetA *
 		
 		
 		#Uncomment to print code that can be pasted into the emulator.
-		x = 0;
-		for each in bytes:
-			object_code = "emu.rom[%d] = 0x%02X;" % (x,each)
-			System.out.println(object_code)
-			x += 1
-			
+		#x = 0;
+		#for each in bytes:
+		#	object_code = "emu.rom[%d] = 0x%02X;" % (x,each)
+		#	System.out.println(object_code)
+		#	x += 1
+		#	
 		System.out.println(self.lst) #Print .lst code.
-		System.out.println(self.symbol_table)
+		System.out.println(self.s19) #Print .s19 code. 
+		#System.out.println(self.symbol_table)
 		System.out.println(bytes)
 		
 		#print self.emu.rom
 		#self.emu.rom = array(bytes,'b')
 		self.emu.rom = bytes;
-		self.emu.run()
+		#Note: self.emu.run()
 		
 		
 
