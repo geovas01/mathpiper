@@ -1,0 +1,106 @@
+\begin{document}
+
+\newtheorem{atheorem}{Theorem}[section]
+\newtheorem{adefinition}{Definition}[section]
+\newtheorem{analgo}{Algorithm}[section]
+\newtheorem{anexample}{Example}[section]
+
+\newtheorem{acorollary}[atheorem]{Korollar}
+\newtheorem{asubtheo}[atheorem]{Lemma}
+\newtheorem{atinytheo}[atheorem]{Proposition}
+\newcommand{\Path}{{\rm Path}}
+\newcommand{\LO}{{\rm LO}}
+\newcommand{\Abl}{\mbox{\rm Abl}}
+\newcommand{\LAST}{{\rm fin}}
+\newcommand{\DIST}{\mbox{\rm DIST}}
+\newcommand{\Root}{{\rm root}}
+\newcommand{\Front}{\mbox{\rm front}}
+\newcommand{\KOST}{{\cal C}}
+\newcommand{\Choose}{{\rm Choose}}
+\newcommand{\Eword}{\Box}
+\newcommand{\Pbegin}{{\rm\bf begin }}
+\newcommand{\Pprocedure}{{\rm\bf procedure }}
+\newcommand{\Pfunction}{{\rm\bf function }}
+\newcommand{\Pinteger}{{\rm\bf integer}}
+\newcommand{\Pend}{{\rm\bf end }}
+\newcommand{\Pfor}{{\rm\bf for }}
+\newcommand{\Pforall}{{\rm\bf for all }}
+\newcommand{\Pendfor}{{\rm\bf endfor }}
+\newcommand{\Pto}{{\rm\bf to }}
+\newcommand{\Pdownto}{{\rm\bf downto }}
+\newcommand{\Pdo}{{\rm\bf do }}
+\newcommand{\Pif}{{\rm\bf if }}
+\newcommand{\Pthen}{{\rm\bf then }}
+\newcommand{\Pendif}{{\rm\bf endif }}
+\newcommand{\Pelse}{{\rm\bf else }}
+\newcommand{\Pendelse}{{\rm\bf endelse }}
+\newcommand{\Preturn}{{\rm\bf return }}
+\newcommand{\Real}{{\rm{I\hspace*{-0.4ex}R}}}
+\newcommand{\Nat}{{\rm{I\hspace*{-0.4ex}N}}}
+\newcommand{\Bool}{{\rm{I\hspace*{-0.4ex}B}}}
+\newcommand{\Uint}{{\rm{I\hspace*{-0.5ex}I}}}
+\newcommand{\Zet}{{\rm\sf Z\hspace*{-1.0ex}Z}}
+\newcommand{\QuestEq}{\stackrel{?}{=}}
+\newcommand{\DefEq}{:=}
+\newcommand{\DisUnion}{\stackrel{.}{\cup}}
+\newcommand{\IsPref}{\le_{\mbox{\tiny pr"af}}}
+
+
+\title{
+{\LARGE Piper B}\\
+}
+
+\maketitle
+
+
+\chapter{Piper-B for J2ME}
+
+\section{Introduction}
+
+Piper-B for J2ME is a port of Yacas/Piper to the J2ME environment and this way
+make Yacas available on a multitude of mobile devices. The port has the
+following goals:
+\begin{enumerate}
+\item To do math on a handheld.
+\item To have an interesting general purpose programming language available.
+\item To gain a better understanding of the current implementation of Yacas.
+\item To improve Yacas.
+\item To gain enough knowledge about Yacas semantics in order to provide
+a cleanroom reimplementation, publishable under LGPL.
+\end{enumerate}
+
+\subsection{Platform}
+
+The port to J2ME is still work in progress. The bulk of the code is written
+for the intersection of J2ME and Java 1.5 with one notable exception: We
+use the Java 1.5 memory model. That means that for Java 1.4 and older
+platforms, concurrent excecution of the Yacas interpreter might not work
+on multicore processors.\\
+A regretable part is the lack of generics in J2ME. The readability of
+the code suffers a lot. It would be nice to have set up a toolchain that
+eliminates generics either from sources or the generated class files,
+so that we can compile generic code for J2ME.
+
+\subsection{What has been done?}
+
+\begin{enumerate}
+\item Immutable Interface for Yacas/Piper numbers
+\item Integrating the next-references into LIspObjects. This saves memory.
+In the long run, list structures should be explicit. An attempt for
+efficient lists with Yacas semantics has been made in X-Piper's CoreList class.
+\item The synchronized java.util.vector has been replaced by unsynchronized
+structured.
+\end{enumerate}
+
+
+\chapter{Experimental Piper}
+
+\section{X-Piper Core}
+
+X-Piper is the experimental reimplementation of Piper-B/Yacas.
+
+\subsection{The Core List Class}
+
+\input{src4tex/CoreList.java}
+
+\end{document}
