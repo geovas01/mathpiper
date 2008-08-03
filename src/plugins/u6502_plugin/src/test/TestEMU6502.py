@@ -324,10 +324,12 @@ SetA *
 		#	System.out.println(object_code)
 		#	x += 1
 		#	
+		
+		#Uncomment to print desired output.
 		System.out.println(self.lst) #Print .lst code.
-		System.out.println(self.s19) #Print .s19 code. 
-		#System.out.println(self.symbol_table)
-		System.out.println(bytes)
+		#System.out.println(self.s19) #Print .s19 code. 
+		#System.out.println(self.symbol_table) #Print symbol table.
+		#System.out.println(bytes) #Print raw object code.
 		
 		#print self.emu.rom
 		#self.emu.rom = array(bytes,'b')
