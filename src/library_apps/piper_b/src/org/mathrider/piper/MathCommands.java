@@ -2434,7 +2434,7 @@ class MathCommands
       }
       else
       {
-        throw new Yacasexception("BitsToDigits: error: arguments ("+x.Double()+", "+y.Double()+") must be small integers");
+        throw new Piperexception("BitsToDigits: error: arguments ("+x.Double()+", "+y.Double()+") must be small integers");
       }
       BigNumber z = BigNumber.create(aEnvironment.Precision(),(long)result);
       RESULT(aEnvironment, aStackTop).setNext(new LispNumber(z));
@@ -2456,7 +2456,7 @@ class MathCommands
       }
       else
       {
-        throw new Yacasexception("BitsToDigits: error: arguments ("+x.Double()+", "+y.Double()+") must be small integers");
+        throw new Piperexception("BitsToDigits: error: arguments ("+x.Double()+", "+y.Double()+") must be small integers");
       }
       BigNumber z = BigNumber.create(aEnvironment.Precision(),(long)result);
       RESULT(aEnvironment, aStackTop).setNext(new LispNumber(z));
@@ -3034,7 +3034,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : CustomEval");////TODO fixme
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3043,7 +3043,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : CustomEvalExpression");////TODO fixme
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3052,7 +3052,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : CustomEvalResult");////TODO fixme
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3061,7 +3061,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispCustomEvalLocals");////TODO fixme
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3070,7 +3070,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispCustomEvalStop");////TODO fixme
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3079,7 +3079,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispTraceRule");////TODO fixme
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3088,7 +3088,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : TraceStack");////TODO fixme
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3551,7 +3551,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : PatchLoad");//TODO FIXME
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3560,7 +3560,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : PatchString");//TODO FIXME
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3615,7 +3615,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispCommonLispTokenizer");//TODO FIXME
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3871,7 +3871,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispHistorySize");//TODO FIXME
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3880,7 +3880,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispStackSize");//TODO FIXME
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3889,7 +3889,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispIsPromptShown");//TODO FIXME
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
@@ -3898,7 +3898,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispReadCmdLineString");//TODO FIXME
-      throw new Yacasexception("Function not yet supported");
+      throw new Piperexception("Function not yet supported");
     }
   }
 
