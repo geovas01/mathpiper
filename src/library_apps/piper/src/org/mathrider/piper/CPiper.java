@@ -97,9 +97,10 @@ public class CPiper
     catch (Exception e)
     {
 //      e.printStackTrace();
-      //System.out.println(e.toString());  tk throw Piperexception instead of simply printing the exception message.
-      iError = e.getMessage();
+      //System.out.println(e.toString());  
       
+      //Note:tk throw Piperexception instead of simply printing the exception message.
+      iError = e.getMessage();
       throw new Piperexception(iError);
     }
     return rs;
