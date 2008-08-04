@@ -178,6 +178,7 @@ helpviewer.title=MathRider Help
 helpviewer.toc.welcome=Welcome to MathRider
 plugins=plugin-options -
 view.style.comment4=color\:\#0000cc bgColor\:\#e7e7ff
+view.style.comment3=color\:\#0000cc bgColor\:\#dbffdb
 MathRider/Shift_Line_Numbers.shortcut=F2
 jedit-directory.label=$MathRider Home Directory
 jscicalc.height=475
