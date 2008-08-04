@@ -2,10 +2,12 @@ package org.mathrider.piper;
 
 
 import java.io.*;
+import java.util.*;
 
 public class PiperConsole extends Thread
 {
     static String readLine(InputStream aStream)
+	
   {
     StringBuffer line = new StringBuffer();
     try
@@ -23,19 +25,23 @@ public class PiperConsole extends Thread
     }
     return line.toString();
   }
-  static boolean quitting = false;
+  //static boolean quitting = false;
 
+  
   public static void main(String[] argv)
   {
     String defaultDirectory = null;
     String archive = "";
 
     {
-      java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("yacasinit.ys");
+      java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
       if (detectURL != null)
       {
-        String detect = detectURL.getPath(); // file:/home/av/src/lib/yacas.jar!/yacasinit.ys
-        archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/yacas.jar
+        String detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.pi
+        archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
+		
+		
+		
 //System.out.println("Found archive ["+archive+"]");
       }
       else
@@ -66,68 +72,112 @@ public class PiperConsole extends Thread
 
 
     StdFileOutput stdoutput = new StdFileOutput(System.out);
-    CPiper yacas = new CPiper(stdoutput);
-    yacas.env.iCurrentInput = new CachedStdFileInput(yacas.env.iInputStatus);
+    CPiper piper = new CPiper(stdoutput);
+    piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
 
     try
     {
-      String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaYacas/yacas.jar";
+      String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaPiper/piper.jar";
       java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
       LispStandard.zipFile = z;
     }
     catch(Exception e)
     {
-      System.out.println("Failed to find yacas.jar"+e.toString());
+      System.out.println("Failed to find piper.jar"+e.toString());
     }
 
 
     if (defaultDirectory != null)
     {
       String toEvaluate = "DefaultDirectory(\""+defaultDirectory+"\");";
-      String result = yacas.Evaluate(toEvaluate);
+      
+      String result ="";
+        try{
+        result = piper.Evaluate(toEvaluate);
+	}
+	catch(Piperexception pe)
+	{
+	    pe.printStackTrace();
+	}
+      
       if (scriptsToRun == argv.length)
         System.out.println("Out> "+result);
     }
     {
-      String result = yacas.Evaluate("Load(\"yacasinit.ys\");");
+      
+	String result = "";
+        try{
+        result = piper.Evaluate("Load(\"piperinit.pi\");");
+	}
+	catch(Piperexception pe)
+	{
+	    pe.printStackTrace();
+	}
+      
       if (scriptsToRun == argv.length)
         System.out.println("Out> "+result);
     }
     if (scriptsToRun < argv.length)
     {
+	    
+     try{
       for (;scriptsToRun<argv.length;scriptsToRun++)
       {
-        yacas.Evaluate("Load(\""+argv[scriptsToRun]+"\");");
+        piper.Evaluate("Load(\""+argv[scriptsToRun]+"\");");
       }
+	}
+	catch(Piperexception pe)
+	{
+	    pe.printStackTrace();
+	}	    
+
       return;
-    }
+    }//end if.
+    
 
 
-    System.out.println("This is Yacas version '" + CVersion.VERSION + "'.");
 
-    System.out.println("Yacas is Free Software--Free as in Freedom--so you can redistribute Yacas or");
-    System.out.println("modify it under certain conditions. Yacas comes with ABSOLUTELY NO WARRANTY.");
-    System.out.println("See the GNU General Public License (GPL) for the full conditions.");
-//TODO fixme    System.out.println("Type ?license or ?licence to see the GPL; type ?warranty for warranty info.");
-    System.out.println("See http://yacas.sf.net for more information and documentation on Yacas.");
+    System.out.println("\nPiper version '" + CVersion.version + "'.");
 
-    System.out.println("To exit Yacas, enter  Exit(); or quit or Ctrl-c.\n");
+    System.out.println("See http://mathrider.org for more information and documentation on Piper.");
+
+    System.out.println("\nTo exit Piper, enter \"Exit()\" or \"exit\" or \"quit\" or Ctrl-c.\n");
 /*TODO fixme
     System.out.println("Type ?? for help. Or type ?function for help on a function.\n");
-    System.out.println("Type 'restart' to restart Yacas.\n");
+    System.out.println("Type 'restart' to restart Piper.\n");
 */
-    System.out.println("To see example commands, keep typing Example();\n");
+    System.out.println("To see example commands, keep typing Example()\n");
 
-//yacas.Evaluate("BubbleSort(N(PSolve(x^3-3*x^2+2*x,x)), \"<\");");
+//piper.Evaluate("BubbleSort(N(PSolve(x^3-3*x^2+2*x,x)), \"<\");");
 
-    System.out.println("Yacas in Java");
+    //System.out.println("Piper in Java");
+	boolean quitting = false;
     while (!quitting)
     {
       System.out.print("In> ");
       String input =  readLine(System.in);
-      String rs = yacas.Evaluate(input);
-      System.out.println("Out> "+rs);
-      if (input.equals("quit")) quitting = true;
+	  input = input.trim();
+	  
+      
+      String rs = "";
+       try{
+       rs = piper.Evaluate(input);
+	}
+	catch(Piperexception pe)
+	{
+	    pe.printStackTrace();
+	}
+      
+      
+      System.out.println("Out> " + rs);
+
+      if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit")) 
+	  {
+
+		  quitting = true;
+	  }
     }
   }
 }
+
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
