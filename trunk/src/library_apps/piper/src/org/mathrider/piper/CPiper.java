@@ -51,7 +51,7 @@ public class CPiper
         }
         catch (Exception e)
         {
-          throw new Piperexception(e.getMessage());//tk. Throw Piperexception instead of just exception.
+		throw new Piperexception(e.getMessage());//Note:tk. Throw Piperexception instead of just exception.
         }
         finally
         {
