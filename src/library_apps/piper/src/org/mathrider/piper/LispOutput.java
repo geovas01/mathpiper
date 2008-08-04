@@ -2,7 +2,7 @@ package org.mathrider.piper;
 
 /** \class LispOutput : interface an output object should adhere to.
  */
-public abstract class LispOutput //tk: Made this interface public.
+ public abstract class LispOutput //Note:tk: Made this interface public.
 {
     /// Write out one character.
     public abstract void PutChar(char aChar) throws Exception;
