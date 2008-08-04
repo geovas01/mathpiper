@@ -99,54 +99,54 @@
 
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="piper::MAIN">
-			<BEGIN>%piper[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%piper[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/piper</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="MARKUP" >
-			<BEGIN>%output[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%output[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/output</END>
 		</SPAN_REGEXP>
         
 		<SPAN_REGEXP  TYPE="INVALID" >
-			<BEGIN>%error[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%error[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/error</END>
 		</SPAN_REGEXP>
 
  
         
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="tex::MATH">
-			<BEGIN>%hoteqn[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%hoteqn[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/hoteqn</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="piper::MAIN">
-			<BEGIN>%maxima[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%maxima[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/maxima</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="lisp::MAIN">
-			<BEGIN>%lisp[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%lisp[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/lisp</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="beanshell::MAIN">
-			<BEGIN>%beanshell[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%beanshell[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/beanshell</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="html::MAIN">
-			<BEGIN>%html[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%html[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/html</END>
 		</SPAN_REGEXP>
  
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="xml::MAIN">
-			<BEGIN>%geogebra_xml[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%geogebra_xml[0-9a-zA-Z,=".() ]*</BEGIN>
 			<END>%/geogebra_xml</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="piper::MAIN">
-			<BEGIN>%geogebra[0-9a-zA-Z,="._ ]*</BEGIN>
+			<BEGIN>%geogebra[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/geogebra</END>
 		</SPAN_REGEXP>
 
