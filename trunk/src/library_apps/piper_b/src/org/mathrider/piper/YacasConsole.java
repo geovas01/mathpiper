@@ -66,7 +66,7 @@ public class YacasConsole extends Thread
 
 
     StdFileOutput stdoutput = new StdFileOutput(System.out);
-    CYacas yacas = new CYacas(stdoutput);
+    CPiper yacas = new CPiper(stdoutput);
     yacas.env.iCurrentInput = new CachedStdFileInput(yacas.env.iInputStatus);
 
     try

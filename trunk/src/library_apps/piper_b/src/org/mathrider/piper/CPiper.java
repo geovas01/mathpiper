@@ -1,9 +1,9 @@
 package org.mathrider.piper;
 
 
-public class CYacas
+public class CPiper
 {
-  public CYacas(LispOutput stdoutput)
+  public CPiper(LispOutput stdoutput)
   {
     try
     {
