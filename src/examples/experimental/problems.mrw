@@ -1371,5 +1371,76 @@ ForEach(x,a)
     ];
 
 %/piper
+
+
+%piper
+/*
+
+Vectors and matrices:
+
+From http://heather.cs.ucdavis.edu/~matloff/yacas.html#vectors.
+
+Vectors are represented as lists, and matrices (in row-major order, a fact not explicitly mentioned in the documentation) as lists of lists, each individual list comprising one row of the matrix.
+
+One writes a row vector as a one-row matrix. The row vector (1,2,3), for instance, would be written as {{1,2,3}}. Be sure to note the extra set of braces. The inner set of braces is enclosing the one row of the matrix, and then the outer set makes it a one-row matrix.
+
+One can write a column vector as a multi-row, one-column matrix, or more simply as a list. For example, let's define the matrix m
+
+1 2
+3 4
+
+and multiply it with row and column vectors:
+
+In> m:={{1,2},{3,4}}
+Out> {{1,2},{3,4}};
+In> a:={{5,6}}
+Out> {{5,6}};
+In> b:={1,1}
+Out> {1,1};
+In> m*b
+Out> {3,7};
+In> a*m
+Out> {{23,34}};
+In> c:={{2},{2}}
+Out> {{2},{2}};
+In> m*c
+Out> {{6},{14}};
+
+Since a matrix is a list of lists, individual matrix elements are referred to using double-brackets notation:
+
+In> m[1][2];
+Out> 2;
+
+Again since a matrix is a list of lists, you can use the Length() function to find its number of rows and columns, e.g.:
+
+In> y:={{1,2,3},{4,5,6}};
+Out> {{1,2,3},{4,5,6}};
+In> Length(y);
+Out> 2;
+In> Length(y[1]);
+Out> 3;
+
+
+You can solve systems of linear equations using SolveMatrix(). For example:
+
+n> m:={{1,a},{0,1}}
+Out> {{1,a},{0,1}};
+In> t:={5,1}
+Out> {5,1};
+In> SolveMatrix(m,t)
+Out> {5-a,1};
+
+(I've put in the `a' here to illustrate the fact that SolveMatrix() works even with variable elements in the matrix.)
+
+The ZeroMatrix() and ZeroVector() functions are good for initializing large matrices. The main usefulness gained through them is dimensioning. Say for instance we wish to create a 5x5 matrix z. We could start with z = {}, then build it up by using Append() to add rows and thus establish that it is of dimension 5x5. But using ZeroMatrix() does this more more conveniently:
+
+In> z:=ZeroMatrix(5,5);
+Out> {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+
+*/
+m:={{2,10},{3,32}};
+Write(Determinant(m));
+
+%/piper
      
 :indentSize=4:tabSize=4:wrap=none:
