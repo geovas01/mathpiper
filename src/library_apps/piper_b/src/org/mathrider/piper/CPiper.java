@@ -17,7 +17,7 @@ public class CPiper
       System.out.println(e.toString());
     }
   }
-  public String Evaluate(String input)
+  public String Evaluate(String input) throws Piperexception
   {
     if (input.length() == 0)
       return "";
@@ -51,7 +51,7 @@ public class CPiper
         }
         catch (Exception e)
         {
-          throw e;
+		throw new Piperexception(e.getMessage());//Note:tk. Throw Piperexception instead of just exception.
         }
         finally
         {
@@ -81,7 +81,7 @@ public class CPiper
 
       if (env.iPrettyPrinter != null)
       {
-    	  LispPtr nonresult = new LispPtr();
+         LispPtr nonresult = new LispPtr();
          LispStandard.InternalApplyString(env, nonresult,
                              env.iPrettyPrinter,
                              result);
@@ -97,8 +97,11 @@ public class CPiper
     catch (Exception e)
     {
 //      e.printStackTrace();
-      System.out.println(e.toString());
-      iError = e.toString();
+      //System.out.println(e.toString());  
+      
+      //Note:tk throw Piperexception instead of simply printing the exception message.
+      iError = e.getMessage();
+      throw new Piperexception(iError);
     }
     return rs;
   }

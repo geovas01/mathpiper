@@ -3,7 +3,7 @@ package org.mathrider.piper;
 
 import java.io.*;
 
-class StdFileOutput extends LispOutput
+public class StdFileOutput extends LispOutput
 {
     public StdFileOutput(OutputStream aFile)
     {
