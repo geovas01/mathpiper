@@ -27,563 +27,563 @@ class MathCommands
     aEnvironment.iInfixOperators.SetOperator(0,"_");
 
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispQuote(),1, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "Hold");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispEval(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispEval(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Eval");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispWrite(),1, YacasEvaluator.Variable|YacasEvaluator.Function),
+         new PiperEvaluator(new LispWrite(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
          "Write");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispWriteString(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispWriteString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "WriteString");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFullForm(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFullForm(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FullForm");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDefaultDirectory(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDefaultDirectory(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DefaultDirectory");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFromFile(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispFromFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "FromFile");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFromString(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispFromString(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "FromString");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispRead(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispRead(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Read");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispReadToken(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispReadToken(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "ReadToken");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispToFile(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispToFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "ToFile");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispToString(),1, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispToString(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "ToString");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispToStdout(),1, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispToStdout(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "ToStdout");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLoad(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Load");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispSetVar(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "Set");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMacroSetVar(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispMacroSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "MacroSet");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispClearVar(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "Clear");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispClearVar(),1, YacasEvaluator.Variable|YacasEvaluator.Function),
+         new PiperEvaluator(new LispClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
          "MacroClear");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispNewLocal(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispNewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "Local");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispNewLocal(),1, YacasEvaluator.Variable|YacasEvaluator.Function),
+         new PiperEvaluator(new LispNewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
          "MacroLocal");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispHead(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispHead(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Head");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispNth(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispNth(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathNth");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispTail(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispTail(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Tail");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDestructiveReverse(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDestructiveReverse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DestructiveReverse");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLength(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispLength(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Length");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispList(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispList(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "List");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispUnList(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispUnList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "UnList");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispListify(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispListify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Listify");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispConcatenate(),1, YacasEvaluator.Variable|YacasEvaluator.Function),
+         new PiperEvaluator(new LispConcatenate(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
          "Concat");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispConcatenateStrings(),1, YacasEvaluator.Variable|YacasEvaluator.Function),
+         new PiperEvaluator(new LispConcatenateStrings(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
          "ConcatStrings");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDelete(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Delete");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDestructiveDelete(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDestructiveDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DestructiveDelete");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispInsert(),3, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Insert");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDestructiveInsert(),3, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDestructiveInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DestructiveInsert");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispReplace(),3, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Replace");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDestructiveReplace(),3, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDestructiveReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DestructiveReplace");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispAtomize(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispAtomize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Atom");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispStringify(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispStringify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "String");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCharString(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCharString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "CharString");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFlatCopy(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFlatCopy(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FlatCopy");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispProgBody(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispProgBody(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "Prog");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispWhile(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispWhile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "While");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIf(),2, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispIf(),2, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "If");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCheck(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispCheck(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "Check");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispTrapError(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispTrapError(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "TrapError");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGetCoreError(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGetCoreError(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "GetCoreError");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispPreFix(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispPreFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Prefix");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispInFix(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispInFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Infix");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispPostFix(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispPostFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Postfix");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispBodied(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispBodied(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Bodied");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispRuleBase(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "RuleBase");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMacroRuleBase(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MacroRuleBase");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispRuleBaseListed(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "RuleBaseListed");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMacroRuleBaseListed(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MacroRuleBaseListed");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDefMacroRuleBase(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispDefMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "DefMacroRuleBase");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDefMacroRuleBaseListed(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispDefMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "DefMacroRuleBaseListed");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispHoldArg(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispHoldArg(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "HoldArg");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispNewRule(),5, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "Rule");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMacroNewRule(),5, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMacroNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MacroRule");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispUnFence(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispUnFence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "UnFence");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispRetract(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispRetract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Retract");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispNot(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathNot");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispNot(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Not");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLazyAnd(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "MathAnd");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLazyAnd(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "And");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLazyOr(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "MathOr");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLazyOr(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "Or");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispEquals(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispEquals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Equals");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispEquals(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispEquals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "=");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLessThan(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispLessThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "LessThan");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGreaterThan(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGreaterThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "GreaterThan");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsFunction(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsFunction");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsAtom(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsAtom(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsAtom");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsNumber(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsNumber(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsNumber");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsInteger(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsInteger(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsInteger");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsList(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsList");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsString(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsString");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsBound(),1, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispIsBound(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "IsBound");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMultiply(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMultiply(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathMultiply");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispAdd(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispAdd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathAdd");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispSubtract(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispSubtract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathSubtract");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDivide(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDivide(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathDivide");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasBuiltinPrecisionSet(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasBuiltinPrecisionSet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Builtin'Precision'Set");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGetExactBits(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGetExactBits(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathGetExactBits");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispSetExactBits(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispSetExactBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathSetExactBits");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispBitCount(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispBitCount(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathBitCount");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMathSign(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMathSign(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathSign");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMathIsSmall(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMathIsSmall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathIsSmall");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMathNegate(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMathNegate(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathNegate");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFloor(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFloor(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathFloor");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCeil(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCeil(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathCeil");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispAbs(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispAbs(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathAbs");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMod(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMod(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathMod");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDiv(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDiv(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathDiv");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispBitsToDigits(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispBitsToDigits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "BitsToDigits");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDigitsToBits(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDigitsToBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DigitsToBits");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGcd(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGcd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathGcd");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispSystemCall(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispSystemCall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "SystemCall");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFastArcSin(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFastArcSin(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FastArcSin");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFastLog(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFastLog(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FastLog");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFastPower(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFastPower(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FastPower");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispShiftLeft(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispShiftLeft(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "ShiftLeft");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispShiftRight(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispShiftRight(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "ShiftRight");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFromBase(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFromBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FromBase");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispToBase(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispToBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "ToBase");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMaxEvalDepth(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMaxEvalDepth(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MaxEvalDepth");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDefLoad(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDefLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DefLoad");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispUse(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispUse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Use");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispRightAssociative(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispRightAssociative(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "RightAssociative");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLeftPrecedence(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispLeftPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "LeftPrecedence");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispRightPrecedence(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispRightPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "RightPrecedence");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsBodied(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsBodied(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsBodied");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsInFix(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsInFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsInfix");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsPreFix(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsPreFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsPrefix");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsPostFix(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsPostFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsPostfix");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGetPrecedence(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGetPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "OpPrecedence");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGetLeftPrecedence(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGetLeftPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "OpLeftPrecedence");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGetRightPrecedence(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGetRightPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "OpRightPrecedence");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasBuiltinPrecisionGet(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasBuiltinPrecisionGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Builtin'Precision'Get");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispBitAnd(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispBitAnd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "BitAnd");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispBitOr(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispBitOr(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "BitOr");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispBitXor(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispBitXor(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "BitXor");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispSecure(),1, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispSecure(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "Secure");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFindFile(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFindFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FindFile");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFindFunction(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFindFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FindFunction");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsGeneric(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsGeneric(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsGeneric");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGenericTypeName(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGenericTypeName(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "GenericTypeName");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new GenArrayCreate(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new GenArrayCreate(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Array'Create");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new GenArraySize(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new GenArraySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Array'Size");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new GenArrayGet(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new GenArrayGet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Array'Get");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new GenArraySet(),3, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new GenArraySet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Array'Set");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCustomEval(),4, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispCustomEval(),4, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "CustomEval");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCustomEvalExpression(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCustomEvalExpression(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "CustomEval'Expression");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCustomEvalResult(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCustomEvalResult(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "CustomEval'Result");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCustomEvalLocals(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCustomEvalLocals(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "CustomEval'Locals");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCustomEvalStop(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCustomEvalStop(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "CustomEval'Stop");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispTraceRule(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispTraceRule(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "TraceRule");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispTraceStack(),1, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispTraceStack(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "TraceStack");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispReadLisp(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispReadLisp(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "LispRead");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispReadLispListed(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispReadLispListed(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "LispReadListed");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispType(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispType(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Type");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasStringMidGet(),3, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasStringMidGet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "StringMid'Get");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasStringMidSet(),3, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasStringMidSet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "StringMid'Set");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new GenPatternCreate(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new GenPatternCreate(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Pattern'Create");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new GenPatternMatches(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new GenPatternMatches(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Pattern'Matches");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispRuleBaseDefined(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispRuleBaseDefined(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "RuleBaseDefined");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDefLoadFunction(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDefLoadFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DefLoadFunction");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispRuleBaseArgList(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispRuleBaseArgList(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "RuleBaseArgList");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispNewRulePattern(),5, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "RulePattern");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispMacroNewRulePattern(),5, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispMacroNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MacroRulePattern");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispSubst(),3, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispSubst(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Subst");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispLocalSymbols(),1, YacasEvaluator.Variable|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispLocalSymbols(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
          "LocalSymbols");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFastIsPrime(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFastIsPrime(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FastIsPrime");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFac(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFac(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathFac");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispApplyPure(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispApplyPure(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "ApplyPure");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasPrettyReaderSet(),1, YacasEvaluator.Variable|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasPrettyReaderSet(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
          "PrettyReader'Set");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasPrettyPrinterSet(),1, YacasEvaluator.Variable|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasPrettyPrinterSet(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
          "PrettyPrinter'Set");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasPrettyPrinterGet(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasPrettyPrinterGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "PrettyPrinter'Get");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasPrettyReaderGet(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasPrettyReaderGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "PrettyReader'Get");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispGarbageCollect(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispGarbageCollect(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "GarbageCollect");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispSetGlobalLazyVariable(),2, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispSetGlobalLazyVariable(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "SetGlobalLazyVariable");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispPatchLoad(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispPatchLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "PatchLoad");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispPatchString(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispPatchString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "PatchString");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasExtraInfoSet(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasExtraInfoSet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "ExtraInfo'Set");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasExtraInfoGet(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasExtraInfoGet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "ExtraInfo'Get");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDefaultTokenizer(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDefaultTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DefaultTokenizer");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCommonLispTokenizer(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCommonLispTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "CommonLispTokenizer");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispXmlTokenizer(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispXmlTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "XmlTokenizer");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispExplodeTag(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispExplodeTag(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "XmlExplodeTag");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new YacasBuiltinAssoc(),2, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new YacasBuiltinAssoc(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Builtin'Assoc");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCurrentFile(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCurrentFile(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "CurrentFile");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispCurrentLine(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispCurrentLine(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "CurrentLine");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispBackQuote(),1, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispBackQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "`");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDumpBigNumberDebugInfo(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDumpBigNumberDebugInfo(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "MathDebugInfo");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispInDebugMode(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispInDebugMode(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "InDebugMode");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDebugFile(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDebugFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DebugFile");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispDebugLine(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispDebugLine(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "DebugLine");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispVersion(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispVersion(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Version");
 
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispExit(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispExit(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "Exit");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispExitRequested(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispExitRequested(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsExitRequested");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispHistorySize(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispHistorySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "HistorySize");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispStackSize(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispStackSize(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "StaSiz");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispIsPromptShown(),0, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispIsPromptShown(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "IsPromptShown");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispReadCmdLineString(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispReadCmdLineString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "ReadCmdLineString");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispTime(),1, YacasEvaluator.Fixed|YacasEvaluator.Macro),
+         new PiperEvaluator(new LispTime(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
          "GetTime");
     aEnvironment.CoreCommands().SetAssociation(
-         new YacasEvaluator(new LispFileSize(),1, YacasEvaluator.Fixed|YacasEvaluator.Function),
+         new PiperEvaluator(new LispFileSize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
          "FileSize");
 
 
@@ -597,7 +597,7 @@ class MathCommands
   /// \param aArgNr the index of the argument to be converted
   public static BigNumber GetNumber(LispEnvironment aEnvironment, int aStackTop, int aArgNr) throws Exception
   {
-    BigNumber x = YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, aArgNr).getNext().Number(aEnvironment.Precision());
+    BigNumber x = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, aArgNr).getNext().Number(aEnvironment.Precision());
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,x != null,aArgNr);
     return x;
   }
@@ -605,35 +605,35 @@ class MathCommands
   static void MultiFix(LispEnvironment aEnvironment, int aStackTop, LispOperators aOps) throws Exception
   {
     // Get operator
-    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
-    String orig = YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
+    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
+    String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
  
     LispPtr precedence = new LispPtr();
-    aEnvironment.iEvaluator.Eval(aEnvironment, precedence, YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
+    aEnvironment.iEvaluator.Eval(aEnvironment, precedence, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,precedence.getNext().String() != null, 2);
     int prec = Integer.parseInt(precedence.getNext().String(),10);
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,prec <= InfixPrinter.KMaxPrecedence, 2);
     aOps.SetOperator(prec,LispStandard.SymbolName(aEnvironment,orig));
-    LispStandard.InternalTrue(aEnvironment,YacasEvalCaller.RESULT(aEnvironment, aStackTop));
+    LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
   }
   public static void SingleFix(int aPrecedence, LispEnvironment aEnvironment, int aStackTop, LispOperators aOps) throws Exception
   {
     // Get operator
-    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
-    String orig = YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
+    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
+    String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
     aOps.SetOperator(aPrecedence,LispStandard.SymbolName(aEnvironment,orig));
-    LispStandard.InternalTrue(aEnvironment,YacasEvalCaller.RESULT(aEnvironment, aStackTop));
+    LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
   }
 
   public static LispInFixOperator OperatorInfo(LispEnvironment aEnvironment,int aStackTop, LispOperators aOperators) throws Exception
   {
     // Get operator
-    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
+    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
 
     LispPtr evaluated = new LispPtr();
-    evaluated.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
+    evaluated.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
 
     String orig = evaluated.getNext().String();
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
@@ -653,26 +653,26 @@ class MathCommands
     if (aMacroMode)
     {
     	LispPtr result = new LispPtr();
-      aEnvironment.iEvaluator.Eval(aEnvironment, result, YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1));
+      aEnvironment.iEvaluator.Eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1));
       varstring = result.getNext().String();
     }
     else
     {
-      varstring = YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
+      varstring = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
     }
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,varstring != null,1);
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,!LispStandard.IsNumber(varstring,true),1);
  
     LispPtr result = new LispPtr();
-    aEnvironment.iEvaluator.Eval(aEnvironment, result, YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
+    aEnvironment.iEvaluator.Eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
     aEnvironment.SetVariable(varstring, result, aGlobalLazyVariable);
-    LispStandard.InternalTrue(aEnvironment,YacasEvalCaller.RESULT(aEnvironment, aStackTop));
+    LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
   }
 
   public static void InternalDelete(LispEnvironment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
   {
 	LispPtr evaluated = new LispPtr();
-    evaluated.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
+    evaluated.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
     LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
 
     LispPtr copied = new LispPtr();
@@ -686,7 +686,7 @@ class MathCommands
     }
 
     LispPtr index = new LispPtr();
-    index.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
+    index.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.getNext() != null, 2);
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.getNext().String() != null, 2);
     int ind = Integer.parseInt(index.getNext().String(),10);
@@ -702,14 +702,14 @@ class MathCommands
     LispPtr next = new LispPtr();
     next.setNext(iter.GetObject().getNext());
     iter.Ptr().setNext(next.getNext());
-    YacasEvalCaller.RESULT(aEnvironment, aStackTop).setNext(LispSubList.New(copied.getNext()));
+    PiperEvalCaller.RESULT(aEnvironment, aStackTop).setNext(LispSubList.New(copied.getNext()));
   }
 
 
   public static void InternalInsert(LispEnvironment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
   {
 	  LispPtr evaluated = new LispPtr();
-    evaluated.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
+    evaluated.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
     LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
 
     LispPtr copied = new LispPtr();
@@ -723,7 +723,7 @@ class MathCommands
     }
  
     LispPtr index = new LispPtr();
-    index.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
+    index.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.getNext() != null, 2);
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.getNext().String() != null, 2);
     int ind = Integer.parseInt(index.getNext().String(),10);
@@ -737,10 +737,10 @@ class MathCommands
     }
 
     LispPtr toInsert = new LispPtr();
-    toInsert.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).getNext());
+    toInsert.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).getNext());
     toInsert.getNext().setNext(iter.GetObject());
     iter.Ptr().setNext(toInsert.getNext());
-    YacasEvalCaller.RESULT(aEnvironment, aStackTop).setNext(LispSubList.New(copied.getNext()));
+    PiperEvalCaller.RESULT(aEnvironment, aStackTop).setNext(LispSubList.New(copied.getNext()));
   }
 
 
@@ -751,12 +751,12 @@ class MathCommands
   public static void InternalReplace(LispEnvironment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
   {
 	  LispPtr evaluated = new LispPtr();
-    evaluated.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
+    evaluated.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
     // Ok, so lets not check if it is a list, but it needs to be at least a 'function'
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.getNext().SubList() != null, 1);
 
     LispPtr index = new LispPtr();
-    index.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
+    index.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.getNext() != null, 2);
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.getNext().String() != null, 2);
     int ind = Integer.parseInt(index.getNext().String(),10);
@@ -780,12 +780,12 @@ class MathCommands
     }
 
     LispPtr toInsert = new LispPtr();
-    toInsert.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).getNext());
+    toInsert.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).getNext());
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr() != null, 2);
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr().getNext() != null, 2);
     toInsert.getNext().setNext(iter.Ptr().getNext().getNext());
     iter.Ptr().setNext(toInsert.getNext());
-    YacasEvalCaller.RESULT(aEnvironment, aStackTop).setNext(LispSubList.New(copied.getNext()));
+    PiperEvalCaller.RESULT(aEnvironment, aStackTop).setNext(LispSubList.New(copied.getNext()));
   }
 
 
@@ -799,10 +799,10 @@ class MathCommands
 	  LispPtr args = new LispPtr();
     String orig=null;
  
-    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
-    orig = YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
+    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
+    orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-    args.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
+    args.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
  
     // The arguments
     LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
@@ -812,7 +812,7 @@ class MathCommands
                                  args.getNext().SubList().getNext(),aListed);
  
     // Return true
-    LispStandard.InternalTrue(aEnvironment,YacasEvalCaller.RESULT(aEnvironment, aStackTop));
+    LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
   }
 
   public static void InternalNewRule(LispEnvironment aEnvironment, int aStackTop) throws Exception
@@ -829,13 +829,13 @@ class MathCommands
     String orig=null;
  
     // Get operator
-    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
-    orig = YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
+    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
+    orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-    ar.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
-    pr.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).getNext());
-    predicate.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).getNext());
-    body.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).getNext());
+    ar.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
+    pr.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).getNext());
+    predicate.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).getNext());
+    body.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).getNext());
  
     // The arity
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.getNext() != null, 2);
@@ -855,7 +855,7 @@ class MathCommands
                             body );
 
     // Return true
-    LispStandard.InternalTrue(aEnvironment,YacasEvalCaller.RESULT(aEnvironment, aStackTop));
+    LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
   }
 
 
@@ -868,12 +868,12 @@ class MathCommands
     LispPtr body = new LispPtr();
     String orig=null;
  
-    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
-    orig = YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
+    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
+    orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
     // The arguments
-    args.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
+    args.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
     LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
 
     // Finally define the rule base
@@ -881,7 +881,7 @@ class MathCommands
                                  args.getNext().SubList().getNext(),aListed);
  
     // Return true
-    LispStandard.InternalTrue(aEnvironment,YacasEvalCaller.RESULT(aEnvironment, aStackTop));
+    LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
   }
 
 
@@ -899,13 +899,13 @@ class MathCommands
     String orig=null;
  
     // Get operator
-    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
-    orig = YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
+    LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
+    orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-    ar.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
-    pr.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).getNext());
-    predicate.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).getNext());
-    body.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).getNext());
+    ar.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
+    pr.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).getNext());
+    predicate.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).getNext());
+    body.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).getNext());
  
     // The arity
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.getNext() != null, 2);
@@ -925,12 +925,12 @@ class MathCommands
                             body );
 
     // Return true
-    LispStandard.InternalTrue(aEnvironment,YacasEvalCaller.RESULT(aEnvironment, aStackTop));
+    LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
   }
 
 
 
-  class LispQuote extends YacasEvalCaller
+  class LispQuote extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -938,7 +938,7 @@ class MathCommands
     }
   }
 
-  class LispEval extends YacasEvalCaller
+  class LispEval extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -946,7 +946,7 @@ class MathCommands
     }
   }
 
-  class LispWrite extends YacasEvalCaller
+  class LispWrite extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -965,7 +965,7 @@ class MathCommands
     }
   }
 
-  class LispWriteString extends YacasEvalCaller
+  class LispWriteString extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -988,7 +988,7 @@ class MathCommands
     }
   }
 
-  class LispFullForm extends YacasEvalCaller
+  class LispFullForm extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -999,7 +999,7 @@ class MathCommands
     }
   }
 
-  class LispDefaultDirectory extends YacasEvalCaller
+  class LispDefaultDirectory extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1013,7 +1013,7 @@ class MathCommands
     }
   }
 
-  class LispFromFile extends YacasEvalCaller
+  class LispFromFile extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1055,7 +1055,7 @@ class MathCommands
     }
   }
 
-  class LispFromString extends YacasEvalCaller
+  class LispFromString extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1093,7 +1093,7 @@ class MathCommands
     }
   }
 
-  class LispRead extends YacasEvalCaller
+  class LispRead extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1109,7 +1109,7 @@ class MathCommands
     }
   }
 
-  class LispReadToken extends YacasEvalCaller
+  class LispReadToken extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1126,7 +1126,7 @@ class MathCommands
     }
   }
 
-  class LispToFile extends YacasEvalCaller
+  class LispToFile extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1161,7 +1161,7 @@ class MathCommands
     }
   }
 
-  class LispToString extends YacasEvalCaller
+  class LispToString extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1185,7 +1185,7 @@ class MathCommands
     }
   }
 
-  class LispToStdout extends YacasEvalCaller
+  class LispToStdout extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1203,7 +1203,7 @@ class MathCommands
     }
   }
 
-  class LispLoad extends YacasEvalCaller
+  class LispLoad extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1222,7 +1222,7 @@ class MathCommands
     }
   }
 
-  class LispSetVar extends YacasEvalCaller
+  class LispSetVar extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1230,7 +1230,7 @@ class MathCommands
     }
   }
 
-  class LispMacroSetVar extends YacasEvalCaller
+  class LispMacroSetVar extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1238,7 +1238,7 @@ class MathCommands
     }
   }
 
-  class LispSetGlobalLazyVariable extends YacasEvalCaller
+  class LispSetGlobalLazyVariable extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1246,7 +1246,7 @@ class MathCommands
     }
   }
 
-  class LispClearVar extends YacasEvalCaller
+  class LispClearVar extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1270,7 +1270,7 @@ class MathCommands
     }
   }
 
-  class LispNewLocal extends YacasEvalCaller
+  class LispNewLocal extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1295,7 +1295,7 @@ class MathCommands
     }
   }
 
-  class LispHead extends YacasEvalCaller
+  class LispHead extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1303,7 +1303,7 @@ class MathCommands
     }
   }
 
-  class LispNth extends YacasEvalCaller
+  class LispNth extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1316,7 +1316,7 @@ class MathCommands
     }
   }
 
-  class LispTail extends YacasEvalCaller
+  class LispTail extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1330,7 +1330,7 @@ class MathCommands
     }
   }
 
-  class LispDestructiveReverse extends YacasEvalCaller
+  class LispDestructiveReverse extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1341,7 +1341,7 @@ class MathCommands
     }
   }
 
-  class LispLength extends YacasEvalCaller
+  class LispLength extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1371,7 +1371,7 @@ class MathCommands
     }
   }
 
-  class LispList extends YacasEvalCaller
+  class LispList extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1393,7 +1393,7 @@ class MathCommands
     }
   }
 
-  class LispUnList extends YacasEvalCaller
+  class LispUnList extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1406,7 +1406,7 @@ class MathCommands
     }
   }
 
-  class LispListify extends YacasEvalCaller
+  class LispListify extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1418,7 +1418,7 @@ class MathCommands
     }
   }
 
-  class LispConcatenate extends YacasEvalCaller
+  class LispConcatenate extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1443,7 +1443,7 @@ class MathCommands
     }
   }
 
-  class LispConcatenateStrings extends YacasEvalCaller
+  class LispConcatenateStrings extends PiperEvalCaller
   {
     void ConcatenateStrings(StringBuffer aStringBuffer, LispEnvironment aEnvironment, int aStackTop) throws Exception
     {
@@ -1471,7 +1471,7 @@ class MathCommands
     }
   }
 
-  class LispDelete extends YacasEvalCaller
+  class LispDelete extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1479,7 +1479,7 @@ class MathCommands
     }
   }
 
-  class LispDestructiveDelete extends YacasEvalCaller
+  class LispDestructiveDelete extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1487,7 +1487,7 @@ class MathCommands
     }
   }
 
-  class LispInsert extends YacasEvalCaller
+  class LispInsert extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1495,7 +1495,7 @@ class MathCommands
     }
   }
 
-  class LispDestructiveInsert extends YacasEvalCaller
+  class LispDestructiveInsert extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1503,7 +1503,7 @@ class MathCommands
     }
   }
 
-  class LispReplace extends YacasEvalCaller
+  class LispReplace extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1511,7 +1511,7 @@ class MathCommands
     }
   }
 
-  class LispDestructiveReplace extends YacasEvalCaller
+  class LispDestructiveReplace extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1519,7 +1519,7 @@ class MathCommands
     }
   }
 
-  class LispAtomize extends YacasEvalCaller
+  class LispAtomize extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1534,7 +1534,7 @@ class MathCommands
     }
   }
 
-  class LispStringify extends YacasEvalCaller
+  class LispStringify extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1550,7 +1550,7 @@ class MathCommands
     }
   }
 
-  class LispCharString extends YacasEvalCaller
+  class LispCharString extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1563,7 +1563,7 @@ class MathCommands
     }
   }
 
-  class LispFlatCopy extends YacasEvalCaller
+  class LispFlatCopy extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1573,7 +1573,7 @@ class MathCommands
     }
   }
 
-  class LispProgBody extends YacasEvalCaller
+  class LispProgBody extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1601,7 +1601,7 @@ class MathCommands
     }
   }
 
-  class LispWhile extends YacasEvalCaller
+  class LispWhile extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1623,7 +1623,7 @@ class MathCommands
     }
   }
 
-  class LispIf extends YacasEvalCaller
+  class LispIf extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1652,7 +1652,7 @@ class MathCommands
     }
   }
 
-  class LispCheck extends YacasEvalCaller
+  class LispCheck extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1669,7 +1669,7 @@ class MathCommands
     }
   }
 
-  class LispTrapError extends YacasEvalCaller
+  class LispTrapError extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1686,7 +1686,7 @@ class MathCommands
     }
   }
 
-  class LispGetCoreError extends YacasEvalCaller
+  class LispGetCoreError extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1694,7 +1694,7 @@ class MathCommands
     }
   }
 
-  class LispPreFix extends YacasEvalCaller
+  class LispPreFix extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1702,7 +1702,7 @@ class MathCommands
     }
   }
 
-  class LispInFix extends YacasEvalCaller
+  class LispInFix extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1710,7 +1710,7 @@ class MathCommands
     }
   }
 
-  class LispPostFix extends YacasEvalCaller
+  class LispPostFix extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1726,7 +1726,7 @@ class MathCommands
     }
   }
 
-  class LispBodied extends YacasEvalCaller
+  class LispBodied extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1734,7 +1734,7 @@ class MathCommands
     }
   }
 
-  class LispRuleBase extends YacasEvalCaller
+  class LispRuleBase extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1742,7 +1742,7 @@ class MathCommands
     }
   }
 
-  class LispMacroRuleBase extends YacasEvalCaller
+  class LispMacroRuleBase extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1750,7 +1750,7 @@ class MathCommands
     }
   }
 
-  class LispRuleBaseListed extends YacasEvalCaller
+  class LispRuleBaseListed extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1758,7 +1758,7 @@ class MathCommands
     }
   }
 
-  class LispMacroRuleBaseListed extends YacasEvalCaller
+  class LispMacroRuleBaseListed extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1766,7 +1766,7 @@ class MathCommands
     }
   }
 
-  class LispDefMacroRuleBase extends YacasEvalCaller
+  class LispDefMacroRuleBase extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1774,7 +1774,7 @@ class MathCommands
     }
   }
 
-  class LispDefMacroRuleBaseListed extends YacasEvalCaller
+  class LispDefMacroRuleBaseListed extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1782,7 +1782,7 @@ class MathCommands
     }
   }
 
-  class LispHoldArg extends YacasEvalCaller
+  class LispHoldArg extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1800,7 +1800,7 @@ class MathCommands
     }
   }
 
-  class LispNewRule extends YacasEvalCaller
+  class LispNewRule extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1808,7 +1808,7 @@ class MathCommands
     }
   }
 
-  class LispMacroNewRule extends YacasEvalCaller
+  class LispMacroNewRule extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1816,7 +1816,7 @@ class MathCommands
     }
   }
 
-  class LispUnFence extends YacasEvalCaller
+  class LispUnFence extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1837,7 +1837,7 @@ class MathCommands
     }
   }
 
-  class LispRetract extends YacasEvalCaller
+  class LispRetract extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1859,7 +1859,7 @@ class MathCommands
     }
   }
 
-  class LispNot extends YacasEvalCaller
+  class LispNot extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1879,7 +1879,7 @@ class MathCommands
     }
   }
 
-  class LispLazyAnd extends YacasEvalCaller
+  class LispLazyAnd extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1937,7 +1937,7 @@ class MathCommands
     }
   }
 
-  class LispLazyOr extends YacasEvalCaller
+  class LispLazyOr extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -1995,7 +1995,7 @@ class MathCommands
     }
   }
 
-  class LispEquals extends YacasEvalCaller
+  class LispEquals extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2018,8 +2018,8 @@ class MathCommands
     {
     	LispPtr result1 = new LispPtr();
     	LispPtr result2 = new LispPtr();
-      result1.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
-      result2.setNext(YacasEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
+      result1.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext());
+      result2.setNext(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).getNext());
       boolean cmp;
       BigNumber n1 = result1.getNext().Number(aEnvironment.Precision());
       BigNumber n2 = result2.getNext().Number(aEnvironment.Precision());
@@ -2041,7 +2041,7 @@ class MathCommands
                               aEnvironment.Precision());
       }
  
-      LispStandard.InternalBoolean(aEnvironment,YacasEvalCaller.RESULT(aEnvironment, aStackTop), cmp);
+      LispStandard.InternalBoolean(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop), cmp);
     }
   }
 
@@ -2070,7 +2070,7 @@ class MathCommands
   }
  
 
-  class LispLessThan extends YacasEvalCaller
+  class LispLessThan extends PiperEvalCaller
   {
     LexLessThan compare = new LexLessThan();
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
@@ -2079,7 +2079,7 @@ class MathCommands
     }
   }
 
-  class LispGreaterThan extends YacasEvalCaller
+  class LispGreaterThan extends PiperEvalCaller
   {
     LexGreaterThan compare = new LexGreaterThan();
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
@@ -2088,7 +2088,7 @@ class MathCommands
     }
   }
 
-  class LispIsFunction extends YacasEvalCaller
+  class LispIsFunction extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2099,7 +2099,7 @@ class MathCommands
     }
   }
 
-  class LispIsAtom extends YacasEvalCaller
+  class LispIsAtom extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2110,7 +2110,7 @@ class MathCommands
     }
   }
 
-  class LispIsNumber extends YacasEvalCaller
+  class LispIsNumber extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2120,7 +2120,7 @@ class MathCommands
     }
   }
 
-  class LispIsInteger extends YacasEvalCaller
+  class LispIsInteger extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2139,7 +2139,7 @@ class MathCommands
     }
   }
 
-  class LispIsList extends YacasEvalCaller
+  class LispIsList extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2149,7 +2149,7 @@ class MathCommands
     }
   }
 
-  class LispIsString extends YacasEvalCaller
+  class LispIsString extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2160,7 +2160,7 @@ class MathCommands
     }
   }
 
-  class LispIsBound extends YacasEvalCaller
+  class LispIsBound extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2179,7 +2179,7 @@ class MathCommands
     }
   }
 
-  class LispMultiply extends YacasEvalCaller
+  class LispMultiply extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2196,7 +2196,7 @@ class MathCommands
 /// both argument are converted to a BigNumber, and these are added
 /// together at the current precision. The sum is returned.
 /// \sa GetNumber(), BigNumber::Add()
-  class LispAdd extends YacasEvalCaller
+  class LispAdd extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2220,7 +2220,7 @@ class MathCommands
     }
   }
 
-  class LispSubtract extends YacasEvalCaller
+  class LispSubtract extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2244,7 +2244,7 @@ class MathCommands
     }
   }
 
-  class LispDivide extends YacasEvalCaller
+  class LispDivide extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2268,7 +2268,7 @@ class MathCommands
     }
   }
 
-  class YacasBuiltinPrecisionSet extends YacasEvalCaller
+  class YacasBuiltinPrecisionSet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2284,7 +2284,7 @@ class MathCommands
     }
   }
 
-  class LispGetExactBits extends YacasEvalCaller
+  class LispGetExactBits extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2299,7 +2299,7 @@ class MathCommands
   }
  
 
-  class LispSetExactBits extends YacasEvalCaller
+  class LispSetExactBits extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2314,7 +2314,7 @@ class MathCommands
     }
   }
 
-  class LispBitCount extends YacasEvalCaller
+  class LispBitCount extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2324,7 +2324,7 @@ class MathCommands
     }
   }
 
-  class LispMathSign extends YacasEvalCaller
+  class LispMathSign extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2334,7 +2334,7 @@ class MathCommands
     }
   }
 
-  class LispMathIsSmall extends YacasEvalCaller
+  class LispMathIsSmall extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2343,7 +2343,7 @@ class MathCommands
     }
   }
 
-  class LispMathNegate extends YacasEvalCaller
+  class LispMathNegate extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2353,7 +2353,7 @@ class MathCommands
     }
   }
 
-  class LispFloor extends YacasEvalCaller
+  class LispFloor extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2363,7 +2363,7 @@ class MathCommands
     }
   }
 
-  class LispCeil extends YacasEvalCaller
+  class LispCeil extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2375,7 +2375,7 @@ class MathCommands
     }
   }
 
-  class LispAbs extends YacasEvalCaller
+  class LispAbs extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2387,7 +2387,7 @@ class MathCommands
     }
   }
 
-  class LispMod extends YacasEvalCaller
+  class LispMod extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2399,7 +2399,7 @@ class MathCommands
     }
   }
 
-  class LispDiv extends YacasEvalCaller
+  class LispDiv extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2419,7 +2419,7 @@ class MathCommands
     }
   }
 
-  class LispBitsToDigits extends YacasEvalCaller
+  class LispBitsToDigits extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2441,7 +2441,7 @@ class MathCommands
     }
   }
 
-  class LispDigitsToBits extends YacasEvalCaller
+  class LispDigitsToBits extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2463,7 +2463,7 @@ class MathCommands
     }
   }
 
-  class LispGcd extends YacasEvalCaller
+  class LispGcd extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2474,7 +2474,7 @@ class MathCommands
     }
   }
 
-  class LispSystemCall extends YacasEvalCaller
+  class LispSystemCall extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2495,7 +2495,7 @@ class MathCommands
     }
   }
 
-  class LispFastArcSin extends YacasEvalCaller
+  class LispFastArcSin extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2507,7 +2507,7 @@ class MathCommands
     }
   }
 
-  class LispFastLog extends YacasEvalCaller
+  class LispFastLog extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2519,7 +2519,7 @@ class MathCommands
     }
   }
 
-  class LispFastPower extends YacasEvalCaller
+  class LispFastPower extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2532,7 +2532,7 @@ class MathCommands
     }
   }
 
-  class LispShiftLeft extends YacasEvalCaller
+  class LispShiftLeft extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2544,7 +2544,7 @@ class MathCommands
     }
   }
 
-  class LispShiftRight extends YacasEvalCaller
+  class LispShiftRight extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2556,7 +2556,7 @@ class MathCommands
     }
   }
 
-  class LispFromBase extends YacasEvalCaller
+  class LispFromBase extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2590,7 +2590,7 @@ class MathCommands
     }
   }
 
-  class LispToBase extends YacasEvalCaller
+  class LispToBase extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2619,7 +2619,7 @@ class MathCommands
     }
   }
 
-  class LispMaxEvalDepth extends YacasEvalCaller
+  class LispMaxEvalDepth extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2634,7 +2634,7 @@ class MathCommands
     }
   }
 
-  class LispDefLoad extends YacasEvalCaller
+  class LispDefLoad extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2653,7 +2653,7 @@ class MathCommands
     }
   }
 
-  class LispUse extends YacasEvalCaller
+  class LispUse extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2670,7 +2670,7 @@ class MathCommands
     }
   }
 
-  class LispRightAssociative extends YacasEvalCaller
+  class LispRightAssociative extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2683,7 +2683,7 @@ class MathCommands
     }
   }
 
-  class LispLeftPrecedence extends YacasEvalCaller
+  class LispLeftPrecedence extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2703,7 +2703,7 @@ class MathCommands
     }
   }
 
-  class LispRightPrecedence extends YacasEvalCaller
+  class LispRightPrecedence extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2723,7 +2723,7 @@ class MathCommands
     }
   }
 
-  class LispIsBodied extends YacasEvalCaller
+  class LispIsBodied extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2732,7 +2732,7 @@ class MathCommands
     }
   }
 
-  class LispIsInFix extends YacasEvalCaller
+  class LispIsInFix extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2741,7 +2741,7 @@ class MathCommands
     }
   }
 
-  class LispIsPreFix extends YacasEvalCaller
+  class LispIsPreFix extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2750,7 +2750,7 @@ class MathCommands
     }
   }
 
-  class LispIsPostFix extends YacasEvalCaller
+  class LispIsPostFix extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2759,7 +2759,7 @@ class MathCommands
     }
   }
 
-  class LispGetPrecedence extends YacasEvalCaller
+  class LispGetPrecedence extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2781,7 +2781,7 @@ class MathCommands
     }
   }
 
-  class LispGetLeftPrecedence extends YacasEvalCaller
+  class LispGetLeftPrecedence extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2795,7 +2795,7 @@ class MathCommands
     }
   }
 
-  class LispGetRightPrecedence extends YacasEvalCaller
+  class LispGetRightPrecedence extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2813,7 +2813,7 @@ class MathCommands
     }
   }
 
-  class YacasBuiltinPrecisionGet extends YacasEvalCaller
+  class YacasBuiltinPrecisionGet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2822,7 +2822,7 @@ class MathCommands
     }
   }
 
-  class LispBitAnd extends YacasEvalCaller
+  class LispBitAnd extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2833,7 +2833,7 @@ class MathCommands
     }
   }
 
-  class LispBitOr extends YacasEvalCaller
+  class LispBitOr extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2844,7 +2844,7 @@ class MathCommands
     }
   }
 
-  class LispBitXor extends YacasEvalCaller
+  class LispBitXor extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2855,7 +2855,7 @@ class MathCommands
     }
   }
 
-  class LispSecure extends YacasEvalCaller
+  class LispSecure extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2870,7 +2870,7 @@ class MathCommands
     }
   }
 
-  class LispFindFile extends YacasEvalCaller
+  class LispFindFile extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2890,7 +2890,7 @@ class MathCommands
     }
   }
 
-  class LispFindFunction extends YacasEvalCaller
+  class LispFindFunction extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2920,7 +2920,7 @@ class MathCommands
     }
   }
 
-  class LispIsGeneric extends YacasEvalCaller
+  class LispIsGeneric extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2930,7 +2930,7 @@ class MathCommands
     }
   }
 
-  class LispGenericTypeName extends YacasEvalCaller
+  class LispGenericTypeName extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2941,7 +2941,7 @@ class MathCommands
     }
   }
 
-  class GenArrayCreate extends YacasEvalCaller
+  class GenArrayCreate extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2961,7 +2961,7 @@ class MathCommands
     }
   }
 
-  class GenArraySize extends YacasEvalCaller
+  class GenArraySize extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -2976,7 +2976,7 @@ class MathCommands
     }
   }
 
-  class GenArrayGet extends YacasEvalCaller
+  class GenArrayGet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3002,7 +3002,7 @@ class MathCommands
     }
   }
 
-  class GenArraySet extends YacasEvalCaller
+  class GenArraySet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3029,7 +3029,7 @@ class MathCommands
     }
   }
 
-  class LispCustomEval extends YacasEvalCaller
+  class LispCustomEval extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3038,7 +3038,7 @@ class MathCommands
     }
   }
 
-  class LispCustomEvalExpression extends YacasEvalCaller
+  class LispCustomEvalExpression extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3047,7 +3047,7 @@ class MathCommands
     }
   }
 
-  class LispCustomEvalResult extends YacasEvalCaller
+  class LispCustomEvalResult extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3056,7 +3056,7 @@ class MathCommands
     }
   }
 
-  class LispCustomEvalLocals extends YacasEvalCaller
+  class LispCustomEvalLocals extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3065,7 +3065,7 @@ class MathCommands
     }
   }
 
-  class LispCustomEvalStop extends YacasEvalCaller
+  class LispCustomEvalStop extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3074,7 +3074,7 @@ class MathCommands
     }
   }
 
-  class LispTraceRule extends YacasEvalCaller
+  class LispTraceRule extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3083,7 +3083,7 @@ class MathCommands
     }
   }
 
-  class LispTraceStack extends YacasEvalCaller
+  class LispTraceStack extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3092,7 +3092,7 @@ class MathCommands
     }
   }
 
-  class LispReadLisp extends YacasEvalCaller
+  class LispReadLisp extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3104,7 +3104,7 @@ class MathCommands
     }
   }
 
-  class LispReadLispListed extends YacasEvalCaller
+  class LispReadLispListed extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3117,7 +3117,7 @@ class MathCommands
     }
   }
 
-  class LispType extends YacasEvalCaller
+  class LispType extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3141,7 +3141,7 @@ class MathCommands
     }
   }
 
-  class YacasStringMidGet extends YacasEvalCaller
+  class YacasStringMidGet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3168,7 +3168,7 @@ class MathCommands
     }
   }
 
-  class YacasStringMidSet extends YacasEvalCaller
+  class YacasStringMidSet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3199,7 +3199,7 @@ class MathCommands
     }
   }
 
-  class GenPatternCreate extends YacasEvalCaller
+  class GenPatternCreate extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3218,14 +3218,14 @@ class MathCommands
       LispPtr ptr = iter.Ptr();
 
 
-      YacasPatternPredicateBase matcher =
-          new YacasPatternPredicateBase(aEnvironment, ptr,postpredicate);
+      PiperPatternPredicateBase matcher =
+          new PiperPatternPredicateBase(aEnvironment, ptr,postpredicate);
       PatternClass p = new PatternClass(matcher);
       RESULT(aEnvironment, aStackTop).setNext(LispGenericClass.New(p));
     }
   }
 
-  class GenPatternMatches extends YacasEvalCaller
+  class GenPatternMatches extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3254,7 +3254,7 @@ class MathCommands
     }
   }
 
-  class LispRuleBaseDefined extends YacasEvalCaller
+  class LispRuleBaseDefined extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3276,7 +3276,7 @@ class MathCommands
     }
   }
 
-  class LispDefLoadFunction extends YacasEvalCaller
+  class LispDefLoadFunction extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3304,7 +3304,7 @@ class MathCommands
     }
   }
 
-  class LispRuleBaseArgList extends YacasEvalCaller
+  class LispRuleBaseArgList extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3332,7 +3332,7 @@ class MathCommands
     }
   }
 
-  class LispNewRulePattern extends YacasEvalCaller
+  class LispNewRulePattern extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3340,7 +3340,7 @@ class MathCommands
     }
   }
 
-  class LispMacroNewRulePattern extends YacasEvalCaller
+  class LispMacroNewRulePattern extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3349,7 +3349,7 @@ class MathCommands
     }
   }
 
-  class LispSubst extends YacasEvalCaller
+  class LispSubst extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3362,7 +3362,7 @@ class MathCommands
     }
   }
 
-  class LispLocalSymbols extends YacasEvalCaller
+  class LispLocalSymbols extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3391,7 +3391,7 @@ class MathCommands
     }
   }
 
-  class LispFastIsPrime extends YacasEvalCaller
+  class LispFastIsPrime extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3420,7 +3420,7 @@ class MathCommands
     }
   }
 
-  class LispFac extends YacasEvalCaller
+  class LispFac extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3440,7 +3440,7 @@ class MathCommands
     }
   }
 
-  class LispApplyPure extends YacasEvalCaller
+  class LispApplyPure extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3471,7 +3471,7 @@ class MathCommands
   }
 
 
-  class YacasPrettyReaderSet extends YacasEvalCaller
+  class YacasPrettyReaderSet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3493,7 +3493,7 @@ class MathCommands
     }
   }
 
-  class YacasPrettyReaderGet extends YacasEvalCaller
+  class YacasPrettyReaderGet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3504,7 +3504,7 @@ class MathCommands
     }
   }
 
-  class YacasPrettyPrinterSet extends YacasEvalCaller
+  class YacasPrettyPrinterSet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3526,7 +3526,7 @@ class MathCommands
     }
   }
 
-  class YacasPrettyPrinterGet extends YacasEvalCaller
+  class YacasPrettyPrinterGet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3537,7 +3537,7 @@ class MathCommands
     }
   }
 
-  class LispGarbageCollect extends YacasEvalCaller
+  class LispGarbageCollect extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3546,7 +3546,7 @@ class MathCommands
     }
   }
 
-  class LispPatchLoad extends YacasEvalCaller
+  class LispPatchLoad extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3555,7 +3555,7 @@ class MathCommands
     }
   }
 
-  class LispPatchString extends YacasEvalCaller
+  class LispPatchString extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3564,7 +3564,7 @@ class MathCommands
     }
   }
 
-  class YacasExtraInfoSet extends YacasEvalCaller
+  class YacasExtraInfoSet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3578,7 +3578,7 @@ class MathCommands
     }
   }
 
-  class YacasExtraInfoGet extends YacasEvalCaller
+  class YacasExtraInfoGet extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3601,7 +3601,7 @@ class MathCommands
     }
   }
 
-  class LispDefaultTokenizer extends YacasEvalCaller
+  class LispDefaultTokenizer extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3610,7 +3610,7 @@ class MathCommands
     }
   }
 
-  class LispCommonLispTokenizer extends YacasEvalCaller
+  class LispCommonLispTokenizer extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3619,7 +3619,7 @@ class MathCommands
     }
   }
 
-  class LispXmlTokenizer extends YacasEvalCaller
+  class LispXmlTokenizer extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3628,7 +3628,7 @@ class MathCommands
     }
   }
 
-  class LispExplodeTag extends YacasEvalCaller
+  class LispExplodeTag extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3737,7 +3737,7 @@ class MathCommands
     }
   }
 
-  class YacasBuiltinAssoc extends YacasEvalCaller
+  class YacasBuiltinAssoc extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3780,7 +3780,7 @@ class MathCommands
     }
   }
 
-  class LispCurrentFile extends YacasEvalCaller
+  class LispCurrentFile extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3788,7 +3788,7 @@ class MathCommands
     }
   }
 
-  class LispCurrentLine extends YacasEvalCaller
+  class LispCurrentLine extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3796,7 +3796,7 @@ class MathCommands
     }
   }
 
-  class LispBackQuote extends YacasEvalCaller
+  class LispBackQuote extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3807,7 +3807,7 @@ class MathCommands
     }
   }
 
-  class LispDumpBigNumberDebugInfo extends YacasEvalCaller
+  class LispDumpBigNumberDebugInfo extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3817,7 +3817,7 @@ class MathCommands
     }
   }
 
-  class LispInDebugMode extends YacasEvalCaller
+  class LispInDebugMode extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3825,7 +3825,7 @@ class MathCommands
     }
   }
 
-  class LispDebugFile extends YacasEvalCaller
+  class LispDebugFile extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3833,7 +3833,7 @@ class MathCommands
     }
   }
 
-  class LispDebugLine extends YacasEvalCaller
+  class LispDebugLine extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3841,7 +3841,7 @@ class MathCommands
     }
   }
 
-  class LispVersion extends YacasEvalCaller
+  class LispVersion extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3850,7 +3850,7 @@ class MathCommands
   }
 
 
-  class LispExit extends YacasEvalCaller
+  class LispExit extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3858,7 +3858,7 @@ class MathCommands
     }
   }
 
-  class LispExitRequested extends YacasEvalCaller
+  class LispExitRequested extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3866,7 +3866,7 @@ class MathCommands
     }
   }
 
-  class LispHistorySize extends YacasEvalCaller
+  class LispHistorySize extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3875,7 +3875,7 @@ class MathCommands
     }
   }
 
-  class LispStackSize extends YacasEvalCaller
+  class LispStackSize extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3884,7 +3884,7 @@ class MathCommands
     }
   }
 
-  class LispIsPromptShown extends YacasEvalCaller
+  class LispIsPromptShown extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3893,7 +3893,7 @@ class MathCommands
     }
   }
 
-  class LispReadCmdLineString extends YacasEvalCaller
+  class LispReadCmdLineString extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3902,7 +3902,7 @@ class MathCommands
     }
   }
 
-  class LispTime extends YacasEvalCaller
+  class LispTime extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
@@ -3917,7 +3917,7 @@ class MathCommands
     }
   }
 
-  class LispFileSize extends YacasEvalCaller
+  class LispFileSize extends PiperEvalCaller
   {
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {

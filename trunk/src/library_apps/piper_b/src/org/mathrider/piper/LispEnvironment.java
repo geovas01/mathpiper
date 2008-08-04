@@ -162,11 +162,11 @@ class LispEnvironment
   YacasArgStack iStack;
 
 
-  public YacasCoreCommands CoreCommands()
+  public PiperCoreCommands CoreCommands()
   {
     return iCoreCommands;
   }
-  YacasCoreCommands iCoreCommands = new YacasCoreCommands();
+  PiperCoreCommands iCoreCommands = new PiperCoreCommands();
 
   LispEvaluatorBase iEvaluator = new BasicEvaluator();
 

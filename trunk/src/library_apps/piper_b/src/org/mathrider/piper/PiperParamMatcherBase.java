@@ -2,7 +2,7 @@ package org.mathrider.piper;
 
 
 /// Abstract class for matching one argument to a pattern.
-abstract class YacasParamMatcherBase
+abstract class PiperParamMatcherBase
 {
     /// Check whether some expression matches to the pattern.
     /// \param aEnvironment the underlying Lisp environment.

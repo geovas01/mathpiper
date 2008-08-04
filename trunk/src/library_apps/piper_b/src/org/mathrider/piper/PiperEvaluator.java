@@ -3,7 +3,7 @@ package org.mathrider.piper;
 
 // new-style evaluator, passing arguments onto the stack in LispEnvironment
 
-class YacasEvaluator extends EvalFuncBase
+class PiperEvaluator extends EvalFuncBase
 {
   // FunctionFlags can be orred when passed to the constructor of this function
 
@@ -12,7 +12,7 @@ class YacasEvaluator extends EvalFuncBase
   static int Fixed = 0;     // fixed number of arguments
   static int Variable = 2;  // variable number of arguments
 
-  public YacasEvaluator(YacasEvalCaller aCaller,int aNrArgs, int aFlags)
+  public PiperEvaluator(PiperEvalCaller aCaller,int aNrArgs, int aFlags)
   {
     iCaller = aCaller;
     iNrArgs = aNrArgs;
@@ -100,7 +100,7 @@ printf("after %s\n",res.String());
   aResult.setNext(aEnvironment.iStack.GetElement(stacktop).getNext());
   aEnvironment.iStack.PopTo(stacktop);
   }
-  YacasEvalCaller iCaller;
+  PiperEvalCaller iCaller;
   int iNrArgs;
   int iFlags;
 }

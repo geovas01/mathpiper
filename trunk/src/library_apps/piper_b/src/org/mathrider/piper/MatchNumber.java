@@ -2,7 +2,7 @@ package org.mathrider.piper;
 
 
 /// Class for matching an expression to a given number.
-class MatchNumber extends YacasParamMatcherBase
+class MatchNumber extends PiperParamMatcherBase
 {
   public MatchNumber(BigNumber aNumber)
   {

@@ -1,7 +1,7 @@
 package org.mathrider.piper;
 
 
-abstract class YacasEvalCaller
+abstract class PiperEvalCaller
 {
   public abstract void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception;
 
