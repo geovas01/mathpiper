@@ -2,7 +2,7 @@ package org.mathrider.piper;
 
 
 /// Class for matching against a pattern variable.
-class MatchVariable extends YacasParamMatcherBase
+class MatchVariable extends PiperParamMatcherBase
 {
   public MatchVariable(int aVarIndex)
   {

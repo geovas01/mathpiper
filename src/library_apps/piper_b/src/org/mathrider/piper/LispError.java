@@ -137,7 +137,7 @@ class LispError
   {
     if (!aPredicate)
     {
-        LispPtr arguments = YacasEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
+        LispPtr arguments = PiperEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
         if (arguments.getNext() == null)
         {
           throw new Piperexception("Error in compiled code\n");
@@ -172,7 +172,7 @@ class LispError
   {
     if (!aPredicate)
     {
-        LispPtr arguments = YacasEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
+        LispPtr arguments = PiperEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
         if (arguments.getNext() == null)
         {
           throw new Piperexception("Error in compiled code\n");
@@ -182,7 +182,7 @@ class LispError
           String error = "";
 //TODO FIXME          ShowStack(aEnvironment);
           error = error + ShowFunctionError(arguments, aEnvironment) + "\nbad argument number "+aArgNr+"(counting from 1) : \n"+aErrorDescription + "\n";
-          LispPtr arg = YacasEvalCaller.Argument(arguments,aArgNr);
+          LispPtr arg = PiperEvalCaller.Argument(arguments,aArgNr);
           String strout;
  
           error = error + "The offending argument ";

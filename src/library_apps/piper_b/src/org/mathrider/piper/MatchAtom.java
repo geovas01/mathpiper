@@ -2,7 +2,7 @@ package org.mathrider.piper;
 
 
 /// Class for matching an expression to a given atom.
-class MatchAtom extends YacasParamMatcherBase
+class MatchAtom extends PiperParamMatcherBase
 {
   public MatchAtom(String aString)
   {

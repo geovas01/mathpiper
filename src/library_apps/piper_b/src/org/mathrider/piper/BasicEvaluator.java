@@ -89,7 +89,7 @@ class BasicEvaluator extends LispEvaluatorBase
           if (head.String() != null)
           {
             {
-              YacasEvaluator evaluator = (YacasEvaluator)aEnvironment.CoreCommands().LookUp(head.String());
+              PiperEvaluator evaluator = (PiperEvaluator)aEnvironment.CoreCommands().LookUp(head.String());
               // Try to find a built-in command
               if (evaluator != null)
               {

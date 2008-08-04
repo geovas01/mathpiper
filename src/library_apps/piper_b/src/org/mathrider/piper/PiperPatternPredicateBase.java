@@ -19,7 +19,7 @@ package org.mathrider.piper;
 /// function parameters to a pattern, check for predicates on the
 /// arguments, and return whether there was a match.
 
-class YacasPatternPredicateBase
+class PiperPatternPredicateBase
 {
   /// Constructor.
   /// \param aEnvironment the underlying Lisp environment
@@ -31,7 +31,7 @@ class YacasPatternPredicateBase
   /// in \a aPattern, and the resulting pattern matchers are
   /// collected in #iParamMatchers. Additionally, \a aPostPredicate
   /// is copied, and the copy is added to #iPredicates.
-  public YacasPatternPredicateBase(LispEnvironment  aEnvironment,
+  public PiperPatternPredicateBase(LispEnvironment  aEnvironment,
 		  LispPtr  aPattern,
                             LispPtr  aPostPredicate) throws Exception
   {
@@ -39,7 +39,7 @@ class YacasPatternPredicateBase
  
     while (iter.GetObject() != null)
     {
-        YacasParamMatcherBase matcher = MakeParamMatcher(aEnvironment,iter.GetObject());
+        PiperParamMatcherBase matcher = MakeParamMatcher(aEnvironment,iter.GetObject());
         LispError.LISPASSERT(matcher!=null);
         iParamMatchers.add(matcher);
         iter.GoNext();
@@ -83,7 +83,7 @@ class YacasPatternPredicateBase
         LispPtr  ptr = iter.Ptr();
         if (ptr==null)
             return false;
-        if (!((YacasParamMatcherBase)iParamMatchers.get(i)).ArgumentMatches(aEnvironment,ptr,arguments))
+        if (!((PiperParamMatcherBase)iParamMatchers.get(i)).ArgumentMatches(aEnvironment,ptr,arguments))
         {
             return false;
         }
@@ -136,7 +136,7 @@ class YacasPatternPredicateBase
 
     for (i=0;i<iParamMatchers.size();i++)
     {
-        if (!((YacasParamMatcherBase)iParamMatchers.get(i)).ArgumentMatches(aEnvironment,aArguments[i],arguments))
+        if (!((PiperParamMatcherBase)iParamMatchers.get(i)).ArgumentMatches(aEnvironment,aArguments[i],arguments))
         {
             return false;
         }
@@ -186,7 +186,7 @@ class YacasPatternPredicateBase
   ///   resulting YacasParamMatcherBase objects are collected in a
   ///   MatchSubList, which is returned.
   /// - Otherwise, this function returns #null.
-  protected YacasParamMatcherBase MakeParamMatcher(LispEnvironment  aEnvironment, LispObject aPattern) throws Exception
+  protected PiperParamMatcherBase MakeParamMatcher(LispEnvironment  aEnvironment, LispObject aPattern) throws Exception
   {
     if (aPattern == null)
         return null;
@@ -252,7 +252,7 @@ class YacasPatternPredicateBase
             }
         }
  
-        YacasParamMatcherBase[] matchers = new YacasParamMatcherBase[num];
+        PiperParamMatcherBase[] matchers = new PiperParamMatcherBase[num];
 
         int i;
         LispIterator iter = new LispIterator(sublist);

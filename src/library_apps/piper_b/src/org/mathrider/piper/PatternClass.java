@@ -6,7 +6,7 @@ package org.mathrider.piper;
 /// LispGenericObject.
 class PatternClass extends GenericClass
 {
-  public PatternClass(YacasPatternPredicateBase aPatternMatcher)
+  public PatternClass(PiperPatternPredicateBase aPatternMatcher)
   {
     iPatternMatcher = aPatternMatcher;
   }
@@ -35,7 +35,7 @@ class PatternClass extends GenericClass
       return "\"Pattern\"";
   }
 
-  protected YacasPatternPredicateBase iPatternMatcher;
+  protected PiperPatternPredicateBase iPatternMatcher;
 }
 
 

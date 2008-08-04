@@ -2,9 +2,9 @@ package org.mathrider.piper;
 
 
 /// Class for matching against a list of YacasParamMatcherBase objects.
-class MatchSubList extends YacasParamMatcherBase
+class MatchSubList extends PiperParamMatcherBase
 {
-  public MatchSubList(YacasParamMatcherBase[] aMatchers, int aNrMatchers)
+  public MatchSubList(PiperParamMatcherBase[] aMatchers, int aNrMatchers)
   {
     iMatchers = aMatchers;
     iNrMatchers = aNrMatchers;
@@ -37,6 +37,6 @@ class MatchSubList extends YacasParamMatcherBase
     return true;
   }
 
-  protected YacasParamMatcherBase[] iMatchers;
+  protected PiperParamMatcherBase[] iMatchers;
   protected int iNrMatchers;
 }

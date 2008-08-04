@@ -3,7 +3,7 @@ package org.mathrider.piper;
 
 import java.io.*;
 
-public class YacasConsole extends Thread
+public class PiperConsole extends Thread
 {
     static String readLine(InputStream aStream)
   {
