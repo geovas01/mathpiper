@@ -1,7 +1,7 @@
 package org.mathrider.piper;
 
 
-class LispStandard
+public class LispStandard
 {
   static boolean IsNumber(String ptr, boolean aAllowFloat)
   {
