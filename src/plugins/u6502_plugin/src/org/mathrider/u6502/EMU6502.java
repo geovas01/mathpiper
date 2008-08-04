@@ -691,7 +691,7 @@ aaa - instruction.
 							sp++; //Note: Perhaps place error checking here.
 							pc = (chip[sp]);
 							sp++; //Note: Perhaps place error checking here.
-							pc = pc | (chip[sp] << 8);
+							pc = (pc | (chip[sp] << 8)) + 1;
 							oldOffset = (pc & 0x1fff);
 							continue;
 						case TXA:
@@ -888,7 +888,7 @@ aaa - instruction.
 							}
 							
 							//No need to perform the rest of the main loop if a branch was encountered.
-							pc = pc + offset;//Note: check.
+							pc = pc + (offset - oldOffset);//Note: check.
 							oldOffset = (pc & 0x1fff);
 							continue;
 							
@@ -1079,11 +1079,11 @@ aaa - instruction.
 						//offset2 = (access & 0x1fff);
 						//chip2 = (int[]) memory[block2];
 						
-						
+						pc = pc + 2;
 						chip = (int[]) memory[0];
-						chip[sp] = (offset-1 >> 8);
+						chip[sp] = (pc >> 8);
 						sp--;
-						chip[sp] = ((offset-1)) & 0xff;
+						chip[sp] = pc & 0xff;
 						sp--;
 						pc = access;
 						oldOffset = (pc & 0x1fff);
