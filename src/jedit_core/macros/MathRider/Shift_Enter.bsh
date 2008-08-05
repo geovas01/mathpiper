@@ -1040,8 +1040,8 @@ if(path.endsWith(".pi")){
 					bshInterpreter = bsi;
 					//print("XXXX " + bshInterpreter.getNameSpace().getMethods());
 					globalMethods = bshInterpreter.getNameSpace().getMethods();
-					for( method : globalMethods )
-						print(method);
+					//for( method : globalMethods )
+					//	print(method);
 					
 					bshInterpreter.eval(macro+"(\"" + result + "\");");
 					//print("AAAA " + a);
