@@ -22,4 +22,8 @@ package org.mathrider.u6502;
 
 interface IOChip
 {
+	int read(int location);
+	void write(int location);
 }
+
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
