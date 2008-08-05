@@ -1,9 +1,7 @@
 <!DOCTYPE SERVICES SYSTEM "services.dtd">
 
 <SERVICES>
-	<!--
-	<SERVICE CLASS="console.Shell" NAME="Piper">
-                new org.mathrider.geogebra.GeogebraShell();
+	<SERVICE CLASS="console.Shell" NAME="U6502">
+                new org.mathrider.u6502plugin.U6502Shell();
         </SERVICE>
-	-->
 </SERVICES>

@@ -47,7 +47,7 @@ public class U6502Shell extends Shell
 		//}
 		//catch( org.mathrider.piper.Piperexception pe )
 		//{
-			output.print(java.awt.Color.RED,pe.getMessage() );
+		output.print(java.awt.Color.RED,"Note:FIX"); //pe.getMessage() );
 		//}
 	
 	}//end method.
@@ -57,12 +57,12 @@ public class U6502Shell extends Shell
 		//try 
 		//{
 			//String result = interpreter.evaluate(command);
-			output.print(java.awt.Color.BLUE,"Out> " + result);
+			output.print(java.awt.Color.BLUE,"Out> " );
 			
 			
 		//}catch(org.mathrider.piper.Piperexception pe) 
 		//{
-			output.print(java.awt.Color.RED,pe.getMessage() );
+		output.print(java.awt.Color.RED,"Note:FIX" );
 		//}
 		//finally
 		//{

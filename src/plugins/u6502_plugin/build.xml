@@ -43,7 +43,7 @@
 
 
 	
-		<!--<javac 
+		<javac 
 			source="${compile.source}"
 			target="${compile.target}" 
 			srcdir="${src.dir}"
@@ -53,8 +53,14 @@
 			optimize="off">
 			<classpath refid="build_classpath" />
 			<include name="**/*.java" />
-		</javac> -->
+		</javac>
 		
+
+		
+	</target>
+	
+	<target name="compile_in_place" depends="init"
+		description="Places .class files in same directory as .java files (used for jswat)" >
 		<javac 
 			source="1.5"
 			target="1.5" 
@@ -63,6 +69,7 @@
 			debug="on"
 			deprecation="on"
 			optimize="off">
+			<classpath refid="build_classpath" />
 			<include name="**/*.java" />
 		</javac>
 		
@@ -112,7 +119,7 @@
 	
 	
 	
-	<target name="test" depends="compile" >
+	<target name="test" depends="compile_in_place" >
 		<jython.macro dir="/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/test" file="TestEMU6502.py" />
 	</target>
 	
