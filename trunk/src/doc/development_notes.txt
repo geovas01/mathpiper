@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wrap=soft:
 
 {{{====To Do
++ Add Clojure to MathRider.
++ Develop an Application Specific Language for GeoGebra.
 + The %geogebra fold syntax hilights the letter D.
 + If %piper is the last fold and there is less than 2 spaces below it, the output fold will not be shown.
 + Have the GeoGebra plugin associated with view the %geogebrafold was executed in show the result.
@@ -156,6 +158,9 @@ Initial release:
 
 
 {{{PIPER BUGS.
+====
+PathString and WriteString are not implemented yet.
+====
 ----
 NewLine(x) does not work in folds probably because of Load.  Fix?
 ----
