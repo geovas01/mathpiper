@@ -547,7 +547,7 @@ aaa - instruction.
 						{
 							int bank = offset2 >> 9;
 							IOChip ioChip = ioChips[bank];
-							ioChip.write(offset2);
+							ioChip.write(offset2,a);
 						}
 						else
 						{
@@ -665,7 +665,8 @@ aaa - instruction.
 					switch(ir)
 					{
 						case BRK:
-							run = 0;
+							//run = 0;
+							
 							//Note: not finished yet.
 							//ALU.B = true; ram.write16( stack , pc ); 
 							b = 1;
@@ -719,6 +720,7 @@ aaa - instruction.
 							continue;
 						case TXA:
 							a = x;
+							ck_n = ck_z = 1;
 						break;
 						
 						case TXS:
@@ -727,14 +729,17 @@ aaa - instruction.
 						
 						case TAX:
 							x = a;
+							ck_n = ck_z = 1;
 						break;
 						
 						case TSX:
 							x = sp & 0xff;
+							ck_n = ck_z = 1;
 						break;
 						
 						case DEX:
-							x--;
+							x = (x - 1) & 0xff;
+							ck_n = ck_z = 1;
 						break;                                                                 
 						
 						case NOP:
@@ -794,22 +799,27 @@ aaa - instruction.
 							chip = (int[]) memory[0];
 							sp++; //Note: Perhaps place error checking here.
 							a = chip[sp];
+							ck_n = ck_z = 1;
 						break;
 						
 						case DEY:
-							y--;
+							y = (y - 1) & 0xff;
+							ck_n = ck_z = 1;
 						break;
 						
 						case TAY:
 							y = a;
+							ck_n = ck_z = 1;
 						break;
 						
 						case INY:
-							y++;
+							y = (y + 1) & 0xff;
+							ck_n = ck_z = 1;
 						break;
 						
 						case INX:
-							x++;
+							x = (x + 1) & 0xff;
+							ck_n = ck_z = 1;
 						break;
 						
 						case CLC:
@@ -830,6 +840,7 @@ aaa - instruction.
 						
 						case TYA:
 							a = y;
+							ck_n = ck_z = 1;
 						break;
 						
 						case CLV:
@@ -974,7 +985,7 @@ aaa - instruction.
 									tmp = chip2[offset2] = (tmp & 0xff);
 								}//end else.
 							
-								ck_n = ck_c = ck_z = 1;
+								ck_n = ck_z = 1;
 							
 							break;
 							
@@ -1010,7 +1021,7 @@ aaa - instruction.
 									tmp = chip2[offset2] = (tmp & 0xff);
 								}//end else.
 							
-								ck_n = ck_c = ck_z = 1;
+								ck_n = ck_z = 1;
 							
 							break;
 							
@@ -1031,7 +1042,7 @@ aaa - instruction.
 									tmp = chip2[offset2] = (tmp & 0xff);
 								}//end else.
 							
-								ck_c = ck_z = 1;
+								ck_n = ck_z = 1;
 								
 							break;
 							
@@ -1058,7 +1069,7 @@ aaa - instruction.
 									tmp = chip2[offset2] = (tmp & 0xff);
 								}//end else.
 							
-								ck_n = ck_c = ck_z = 1;
+								ck_n = ck_z = 1;
 								
 							break;
 							
@@ -1073,7 +1084,7 @@ aaa - instruction.
 							
 							case DEC:
 								tmp = chip2[offset2];
-								tmp = tmp - 1;
+								tmp = (tmp - 1) & 0xff;
 								tmp = chip2[offset2] = tmp;
 								
 								ck_n = ck_z = 1;
@@ -1081,7 +1092,7 @@ aaa - instruction.
 							
 							case INC:
 								tmp = chip2[offset2];
-								tmp = tmp + 1;
+								tmp = (tmp + 1) & 0xff;
 								tmp = chip2[offset2] = tmp;
 								
 								ck_n = ck_z = 1;
@@ -1128,7 +1139,7 @@ aaa - instruction.
 								
 								tmp = a;
 								
-								ck_z = 1;
+								ck_n = ck_z = ck_v = 1;
 							
 							break;
 							
@@ -1197,7 +1208,8 @@ aaa - instruction.
 					n = 0;
 				}
 			}
-			else if (ck_c == 1)
+			
+			if (ck_c == 1)
 			{
 				if ((tmp & 0x100) != 0)
 				{
@@ -1208,7 +1220,8 @@ aaa - instruction.
 					c = 0;
 				}
 			}
-			else if (ck_z == 1)
+			
+			if (ck_z == 1)
 			{
 				if ((tmp & 0xff) == 0)
 				{
@@ -1252,7 +1265,7 @@ aaa - instruction.
 		emu.rom[0x1ffe] = code[code.length-1];
 		emu.rom[0x1fff] = code[code.length-2]; 
 		
-		//new Thread(p).start();
+		//new Thread(emu,"U6502").start();
         emu.run();
 		
 
