@@ -21,7 +21,9 @@ import console.Shell;
 
 
 public class U6502Shell extends Shell
-{
+{	
+	private Output lastRequestOutput;
+	private Console lastRequestConsole;
 	
 	
 	public U6502Shell()
@@ -52,21 +54,51 @@ public class U6502Shell extends Shell
 	
 	}//end method.
 
+
+	public void response(String response)
+	{
+		org.gjt.sp.jedit.View view = org.gjt.sp.jedit.jEdit.getActiveView();
+		org.gjt.sp.jedit.gui.DockableWindowManager dockableWindowManager = view.getDockableWindowManager();
+		lastRequestConsole = (Console) dockableWindowManager.getDockable("console");
+		lastRequestConsole.setShell("U6502");
+		lastRequestOutput = lastRequestConsole.getOutput();
+		
+		//if(response.indexOf(".mac") != -1 || response.indexOf(".lisp") != -1 )
+		//{
+		//	lastRequestOutput.print(null, "\n" + response);
+		//	printPrompt(lastRequestConsole, lastRequestOutput);
+		//}
+		//else
+		//{
+		//	lastRequestOutput.print(null, response);
+		//}//end if/else/
+		//
+		//lastRequestOutput.commandDone();
+	}//end method.
+	
+	public boolean remove()
+	{
+		return false;
+	}//end method.
+	
+
 	public void execute(Console console, String input, Output output, Output error, String command)
 	{
-		//try 
+		//Note:tk: must set output and console another way for when user executes maxima fold
+		//before using the shell.
+		lastRequestOutput = output;
+		lastRequestConsole = console;
+		
+		//try
 		//{
-			//String result = interpreter.evaluate(command);
-			output.print(java.awt.Color.BLUE,"Out> " );
-			
-			
-		//}catch(org.mathrider.piper.Piperexception pe) 
+		//	maxima.send(command + "\n");
+		//	
+		//	
+		//	
+		//}catch(Exception ye) 
 		//{
-		output.print(java.awt.Color.RED,"Note:FIX" );
-		//}
-		//finally
-		//{
-			output.commandDone();
+		//	output.print(null,ye.getMessage() );
+		//	output.commandDone();
 		//}
 
 	}//end method.

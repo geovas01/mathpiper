@@ -104,27 +104,137 @@ package org.mathrider.u6502;
 ;6551CtR	equ 0b203h  
 */
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class EMU6551 implements IOChip
+public class EMU6551 implements IOChip, ActionListener
 {
 	private int[] registers;
+	
+	private JButton button1, button2;
+	private JTextField messageTextField;
 	
 	public EMU6551()
 	{
 		registers = new int[2];
 		registers[1] = 0x10;
 		
+		
+
+
+JFrame frame = new javax.swing.JFrame();
+Box guiBox = new Box(BoxLayout.Y_AXIS);
+messageTextField = new JTextField();
+guiBox.add(messageTextField);
+button1 = new JButton("Open GeoGebra");
+button1.setBackground(Color.green);
+button1.addActionListener(this);
+guiBox.add(button1);
+button2 = new JButton("Close GeoGebra");
+button2.setBackground(Color.red);
+button2.addActionListener(this);
+guiBox.add(button2);
+Container contentPane = frame.getContentPane();
+contentPane.add(guiBox,BorderLayout.NORTH);
+frame.pack();
+//frame.setAlwaysOnTop(true);
+
+frame.setSize(new Dimension(250, 200));
+frame.setResizable(false);
+frame.setPreferredSize(new Dimension(250, 200));
+frame.setLocationRelativeTo(null); // added
+frame.show();
+		
 	}//Constructor.
+	
+	
+	
+public void actionPerformed(ActionEvent event)
+{
+    Object src = event.getSource();
+
+    if (src == button1)
+    {
+
+    }
+    else if (src == button2)
+    {
+
+    }
+
+}
+	
+	
+	
 	
 	public int read(int location)
 	{
 		return registers[location & 0x3];
 	}//end method.
 	
-	public void write(int location)
+	public void write(int location, int value)
 	{
-		System.out.println(registers[location & 0x3]);
+		location = location & 3;
+		if(location == 0)
+		{
+			System.out.print((char)value);
+			//System.out.println(value);
+			
+		}
+		registers[location] = value;
+		
 	}//end method.
+	
+
+
+//
+//			try
+//			{
+//				response = getResponse();
+//				notifyListeners(response);
+//			}catch(IOException ioe)
+//			{
+//				notifyListeners(ioe.toString());
+//			}
+//
+//	public void addResponseListener(ResponseListener listener)
+//	{
+//		responseListeners.add(listener);
+//	}//end method.
+//
+//	public void removeResponseListener(ResponseListener listener)
+//	{
+//		responseListeners.remove(listener);
+//	}//end method.
+//
+//	protected void notifyListeners(String response)
+//	{
+//		//notify listeners.
+//		for(ResponseListener listener : responseListeners)
+//		{
+//			listener.response(response);
+//
+//			if(listener.remove())
+//			{
+//				removeListeners.add(listener);
+//			}//end if.
+//		}//end for.
+//
+//
+//		//Remove certain listeners.
+//		for(ResponseListener listener : removeListeners)
+//		{
+//
+//			if(listener.remove())
+//			{
+//				responseListeners.remove(listener);
+//			}//end if.
+//		}//end for.
+//
+//		removeListeners.clear();
+//
+//	}//end method.
 	
 }//end class.
 
