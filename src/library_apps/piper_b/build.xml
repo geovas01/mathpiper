@@ -4,7 +4,7 @@
 
 <project id="piper" name="piper" default="dist" basedir="." >
 	<description>
-		Build file for Piper.
+		Build file for Piper_ME.
 	</description>
 	
 	<property name="version" value=".51" />
@@ -44,12 +44,13 @@
 	<target id="dist" name="dist" depends="compile" >
 	
 		<copy todir="${build.classes.dir}">
-			<fileset dir="${piper.dir}/scripts" >
+			<fileset dir="${piper_me.dir}/scripts" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
 		
-		<copy file="${piper.dir}/piper.properties" todir="${build.classes.dir}">
+		<copy file="${piper_me.dir}/piper.properties" 
+todir="${build.classes.dir}">
 			<filterset>
 	               
 		       	   <filter token="VERSION" value="${version}" />
@@ -59,9 +60,9 @@
 	
 		<mkdir dir="${build.dir}/dist" />
 		
-		<jar jarfile="${build.dir}/dist/piper.jar"
+		<jar jarfile="${build.dir}/dist/piper_me.jar"
 			basedir="${build.classes.dir}" update="true"
-			manifest="${piper.dir}/MANIFEST.MF">
+			manifest="${piper_me.dir}/MANIFEST.MF">
 			<!--<manifest> 
 				<section name="piper" >
 					<attribute name="Build-Date" value="${build.time}"/>
