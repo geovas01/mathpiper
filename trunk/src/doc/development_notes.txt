@@ -564,3 +564,125 @@ This is the chronic Jython error in JEdit:
 11:53:44 PM [error] JythonExecutor: KeyError: PyParser
 ----
 }}}
+
+{{{CLOJURE
+ 	
+====		
+Ray Myers   	
+View profile
+	 More options Jun 27, 8:32 pm
+From: Ray Myers <ray.my...@gmail.com>
+Date: Fri, 27 Jun 2008 17:32:50 -0700 (PDT)
+Local: Fri, Jun 27 2008 8:32 pm
+Subject: Calling Clojure from Java (Shortcuts)
+Reply | Reply to author | Forward | Print | Individual message | Show original | Report this message | Find messages by this author
+Hello,
+
+Evaluating arbitrary Clojure code from Java seems to be a common
+stumbling block, so I put together a simple utility to wrap the
+process. Please let me know if the attached code is a reasonable way
+to do this.
+
+One issue is that the callers of runClosureScript() all share and
+modify the same lexical environment. Is it possible to prevent this?
+
+Cheers,
+-- Ray Myers
+
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import clojure.lang.Associative;
+import clojure.lang.Binding;
+import clojure.lang.Compiler;
+import clojure.lang.Namespace;
+import clojure.lang.PersistentHashMap;
+import clojure.lang.RT;
+import clojure.lang.Symbol;
+import clojure.lang.Var;
+
+public class ClojureScriptRunner {
+
+        public static Object runClosureScript(Map<String, ? extends Object>
+bindings, String script)
+                        throws Exception {
+                try {
+                        new Binding<String>(script);
+                        Namespace ns = (Namespace) RT.CURRENT_NS.get();
+                        Associative mappings = PersistentHashMap.EMPTY;
+                        mappings = mappings.assoc(RT.CURRENT_NS, RT.CURRENT_NS.get());
+                        for (Entry<String, ? extends Object> e : bindings.entrySet()) {
+                                String varName = e.getKey();
+                                Symbol sym = Symbol.intern(varName);
+                                Var var = Var.intern(ns, sym);
+                                mappings = mappings.assoc(var, e.getValue());
+                        }
+                        Var.pushThreadBindings(mappings);
+                        return Compiler.load(new StringReader(script));
+                } finally {
+                        Var.popThreadBindings();
+                }
+        }
+
+        // Example
+        public static void main(String[] args) throws Exception {
+                Map<String, Integer> bindings = new HashMap<String, Integer>();
+                bindings.put("a", 2);
+                bindings.put("b", 3);
+                System.out.println(runClosureScript(bindings, "(+ a b)")); // prints
+5
+        }
+
+- Hide quoted text -
+- Show quoted text -
+}
+
+
+    Reply    Reply to author    Forward       Rate this post: Text for clearing space
+		
+		
+		
+You must Sign in before you can post messages.
+To post a message you must first join this group.
+Please update your nickname on the subscription settings page before posting.
+You do not have the permission required to post.
+	
+		
+Chas Emerick   	
+View profile
+	 More options Jun 28, 10:20 am
+From: Chas Emerick <cemer...@snowtide.com>
+Date: Sat, 28 Jun 2008 07:20:41 -0700 (PDT)
+Local: Sat, Jun 28 2008 10:20 am
+Subject: Re: Calling Clojure from Java (Shortcuts)
+Reply | Reply to author | Forward | Print | Individual message | Show original | Report this message | Find messages by this author
+
+On Jun 27, 8:32 pm, Ray Myers <ray.my...@gmail.com> wrote:
+
+> One issue is that the callers of runClosureScript() all share and
+> modify the same lexical environment. Is it possible to prevent this?
+
+Having a single environment is an intentional design decision,
+primarily to ensure efficient operation.  I asked this same question
+some time ago, in the context of comparing Clojure to SISC, which has
+a Runtime class that you can create and therefore use to have multiple
+execution environments within the same JVM.  Rich's response was:
+
+"[Clojure is designed that way] for speed. Multiple runtimes means
+reified environments and a runtime lookup for every var reference.
+Clojure var references get compiled into fns as static members and
+looked up once only during load."
+
+FWIW, I did some very informal benchmarking of SISC vs. Clojure in
+January, and Clojure was easily two orders of magnitude faster.  I'd
+say I was equally unskilled in both environments at the time, so maybe
+there's some tricks to be had in SISC-land that would have helped
+some.  Regardless, the upshot of those results were/are hard to argue
+with, at least for me.
+
+- Chas 
+
+====
+}}}
