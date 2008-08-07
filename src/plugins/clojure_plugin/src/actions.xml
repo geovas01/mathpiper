@@ -1,0 +1,28 @@
+<!-- Action definition file for Clojure plugin -->
+
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+	<ACTION NAME="clojure.choose-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME);
+			wm.getDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME).chooseFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="clojure.save-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME);
+			wm.getDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME).saveFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="clojure.copy-to-buffer">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME);
+			wm.getDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME).copyToBuffer();
+		</CODE>
+	</ACTION>
+</ACTIONS>
+

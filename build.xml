@@ -130,6 +130,7 @@
 		
 	</target>
 	
+	
 	<target id="piper_me_plugin" name="piper_me_plugin" depends="piper_me_library" >
 		<ant dir="${plugins.src.dir}/piper_me_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/piper_me_plugin"/>
@@ -144,6 +145,19 @@
 	</target>
 	
 
+		<target id="clojure_plugin" name="clojure_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/clojure_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/clojure_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/clojure_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/clojure_plugin/dist/clojure_plugin.jar" todir="${plugins.jars.dir}"/>
+		
+	</target>
+	
 	<target id="maxima_plugin" name="maxima_plugin" depends="" >
 		<ant dir="${plugins.src.dir}/maxima_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/maxima_plugin"/>
@@ -240,7 +254,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="piper_plugin, piper_docs_plugin, 
-		 piper_me_plugin, geogebra_plugin, hoteqn_plugin, jscicalc_plugin" />
+		 piper_me_plugin, geogebra_plugin, hoteqn_plugin, jscicalc_plugin, clojure_plugin" />
 	
 	
 	
