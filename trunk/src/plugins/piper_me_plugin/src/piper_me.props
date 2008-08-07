@@ -1,0 +1,81 @@
+# Properties file for Piper plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.name=Piper_ME
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.author=Oliver Glier
+
+# version number == jEdit version number
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.docs=index.html
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin..longdescription=description.html
+#}}}
+
+
+
+
+piper_me.shell.msg.info=\nPiper_me Shell \n\
+
+
+piper_me.shell.msg.usage=Piper_me, a computer algebra system for beginners.
+
+
+
+# plugin menu
+plugin.org.mathrider.pipermeplugin.PiperMEPlugin.menu=piper
+#	- \
+#	piper.choose-file \
+#	piper.save-file \
+#	piper.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+piper_me.label=piper_me
+
+# action labels for actions supplied by actions.xml
+piper_me.choose-file.label=Choose notepad file
+piper_me.save-file.label=Save notepad file
+piper_me.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.piper_me.option-pane=piper_me
+
+# Option pane activation BeanShell snippet
+options.piper_me.code=new org.mathrider.pipermeplugin.PiperMEOptionPane();
+
+# Option pane labels
+options.piper_me.label=piper_me
+options.piper_me.file=File:
+options.piper_me.choose-file=Choose
+options.piper_me.choose-file.title=Choose a notepad file
+options.piper_me.choose-font=Font:
+options.piper_me.show-filepath.title=Display notepad file path
+
+# window title
+piper_me.title=Piper_me
+
+# window toolbar buttons
+piper_me.choose-file.icon=Open.png
+piper_me.save-file.icon=Save.png
+piper_me.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.piper_me.show-filepath=true
+options.piper_me.font=Monospaced
+options.piper_me.fontstyle=0
+options.piper_me.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.piper_me.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

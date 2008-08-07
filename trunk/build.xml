@@ -40,6 +40,7 @@
 		<pathelement path="${master.lib.dir}/jars/ErrorList.jar" />
 		<pathelement path="${master.lib.dir}/jars/plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/piper.jar" />
+		<pathelement path="${plugins.jars.dir}/piper_me.jar" />
 		<pathelement path="${master.lib.dir}/jars/ProjectViewer.jar" />
 		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
@@ -81,6 +82,18 @@
 	</target>
 	
 	
+	<target id="piper_me_library" name="piper_me_library" depends="init" >
+		<ant dir="${library_apps.src.dir}/piper_me" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/piper_me"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${library_apps.src.dir}/piper_me/src"/>
+			<property name="piper_me.dir" value="${library_apps.src.dir}/piper_me"/>
+			<reference refid="build_classpath"/>
+		</ant>
+	</target>
+	
+	
 	<target id="mathrider_library" name="mathrider_library" depends="init" >
 		<ant dir="${library_apps.src.dir}/mathrider" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${library_apps.build.dir}/mathrider"/>
@@ -117,7 +130,20 @@
 		
 	</target>
 	
+	<target id="piper_me_plugin" name="piper_me_plugin" depends="piper_me_library" >
+		<ant dir="${plugins.src.dir}/piper_me_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/piper_me_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/piper_me_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/piper_me_plugin/dist/piper_me_plugin.jar" todir="${plugins.jars.dir}"/>
+		
+	</target>
 	
+
 	<target id="maxima_plugin" name="maxima_plugin" depends="" >
 		<ant dir="${plugins.src.dir}/maxima_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/maxima_plugin"/>
@@ -212,9 +238,9 @@
 		
 	</target>
 	
-	
-	<target id="all-plugins" name="all-plugins" depends="piper_plugin,
-		piper_docs_plugin, geogebra_plugin, hoteqn_plugin, jscicalc_plugin" />
+	<!-- -->
+	<target id="all-plugins" name="all-plugins" depends="piper_plugin, piper_docs_plugin, 
+		 piper_me_plugin, geogebra_plugin, hoteqn_plugin, jscicalc_plugin" />
 	
 	
 	
@@ -263,6 +289,11 @@
 		</antcall>
 		<copy file="${library_apps.build.dir}/piper/dist/piper.jar" todir="${plugins.jars.dir}"/>
 		
+		<antcall target="piper_me_library">
+			<param name="target" value="dist"/>
+		</antcall>
+		<copy file="${library_apps.build.dir}/piper_me/dist/piper_me.jar" todir="${plugins.jars.dir}"/>
+
 		<antcall target="hoteqn_library">
 			<param name="target" value="dist"/>
 		</antcall>
