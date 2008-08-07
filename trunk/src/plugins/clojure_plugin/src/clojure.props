@@ -1,0 +1,81 @@
+# Properties file for Clojure plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.clojureplugin.ClojurePlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.clojureplugin.ClojurePlugin.name=Clojure
+plugin.org.mathrider.clojureplugin.ClojurePlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.clojureplugin.ClojurePlugin.version=4.3
+
+# online help
+plugin.org.mathrider.clojureplugin.ClojurePlugin.docs=index.html
+plugin.org.mathrider.clojureplugin.ClojurePlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.clojureplugin.ClojurePlugin.depend.1=jdk 1.5
+plugin.org.mathrider.clojureplugin.ClojurePlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.clojureplugin.ClojurePlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.clojureplugin.ClojurePlugin..longdescription=description.html
+#}}}
+
+
+
+
+clojure.shell.msg.info=\nClojure Shell \n\
+
+
+clojure.shell.msg.usage=Clojure, a computer algebra system for beginners.
+
+
+
+# plugin menu
+plugin.org.mathrider.clojureplugin.ClojurePlugin.menu=clojure
+#	- \
+#	piper.choose-file \
+#	piper.save-file \
+#	piper.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+clojure.label=clojure
+
+# action labels for actions supplied by actions.xml
+clojure.choose-file.label=Choose notepad file
+clojure.save-file.label=Save notepad file
+clojure.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.clojure.option-pane=clojure
+
+# Option pane activation BeanShell snippet
+options.clojure.code=new org.mathrider.clojureplugin.ClojureOptionPane();
+
+# Option pane labels
+options.clojure.label=clojure
+options.clojure.file=File:
+options.clojure.choose-file=Choose
+options.clojure.choose-file.title=Choose a notepad file
+options.clojure.choose-font=Font:
+options.clojure.show-filepath.title=Display notepad file path
+
+# window title
+clojure.title=Clojure
+
+# window toolbar buttons
+clojure.choose-file.icon=Open.png
+clojure.save-file.icon=Save.png
+clojure.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.clojure.show-filepath=true
+options.clojure.font=Monospaced
+options.clojure.fontstyle=0
+options.clojure.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.clojure.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
