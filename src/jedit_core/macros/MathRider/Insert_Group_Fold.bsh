@@ -40,7 +40,7 @@ void insert_group_fold()
 
 	buffer.insert(offset, text);
 	
-    textArea.setCaretPosition(offset + indent.length() + 20);
+    textArea.setCaretPosition(offset + 20);
 }
 
 insert_group_fold();
