@@ -43,7 +43,7 @@ void insert_group_fold()
 
 	buffer.insertIndented(offset, text);
 	
-    //textArea.setCaretPosition(textArea.getCaretPosition() - 8);
+    textArea.setCaretPosition(offset + indent.length() + 20);
 }
 
 insert_group_fold();
