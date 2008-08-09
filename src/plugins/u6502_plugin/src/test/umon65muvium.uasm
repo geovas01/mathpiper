@@ -635,7 +635,7 @@ BRK *
 	ldy #0d		;Print user's registers.
 	sty OpFld1	;
 	jsr Register	;
- nop ;Note:remove.
+
 	lda TrBrkFlg	;If this break was placed by the trace command
 	cmp #1d		; then go back to the trace subroutine.
 	bne RepBPOp	;
@@ -2213,9 +2213,11 @@ OutOne *		;
 	jsr OutChar	;
 	pla		;
 CkBtPos *		;
+ nop
 	dex		;
 	bne NextFlag	;
 	jmp ExitReg	;
+ nop
 	
 	
 SpecReg *
@@ -3413,6 +3415,7 @@ OutHex *
 	ora #30h	;
 	jmp Print1st	;
 Letter1 *		;
+	sec
 	sbc #9d		;
 	ora #40h
 Print1st *
@@ -3425,6 +3428,7 @@ Print1st *
 	ora #30h	;
 	jmp Print2nd	;
 Letter2 *		;
+	sec
 	sbc #9d		;
 	ora #40h	;
 Print2nd *		;
