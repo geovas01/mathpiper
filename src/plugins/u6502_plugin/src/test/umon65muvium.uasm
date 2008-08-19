@@ -2766,7 +2766,6 @@ ScanOpCd *
 CkTblEnd *
 	ldy #4d		;Check for end of opcode table.
 	lda (PointerB),y;
- nop
 	cmp #90d	;
 	beq OpCdNtFd	;
 	
@@ -2841,6 +2840,7 @@ UAdd2ok *		;
 	sty EndAdd+1d	;
 	
 StartUnA *
+ nop
 	lda EndAdd+1d	;Check to see if end address has been reached.
 	cmp PointerA+1d	;
 	beq UChkFLSB	;
@@ -2859,7 +2859,6 @@ UNotFin *		;
 	lda (PointerA),y;
 	sta OpCdHold	;
 	jsr ScanOpCd	;Check to see if byte from memory location was
- nop
 	bcs OpCdFnd	; an opcode.
 
 NtOpCode *
