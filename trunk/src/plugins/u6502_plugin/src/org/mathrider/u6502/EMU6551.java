@@ -132,7 +132,8 @@ keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
 
 JFrame frame = new javax.swing.JFrame();
 Box guiBox = new Box(BoxLayout.Y_AXIS);
-typeArea = new JTextArea(10,20);
+typeArea = new JTextArea(40,20);
+typeArea.setFont(new java.awt.Font("Monospaced", Font.PLAIN, 12));
 typeArea.addKeyListener(this);
 typePane = new JScrollPane(typeArea);
 guiBox.add(typePane);
@@ -149,10 +150,10 @@ contentPane.add(guiBox,BorderLayout.NORTH);
 frame.pack();
 //frame.setAlwaysOnTop(true);
 
-frame.setSize(new Dimension(500, 300));
+frame.setSize(new Dimension(600, 500));
 frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 //frame.setResizable(false);
-frame.setPreferredSize(new Dimension(500, 300));
+frame.setPreferredSize(new Dimension(600, 500));
 frame.setLocationRelativeTo(null); // added
 frame.setVisible(true);
 		
