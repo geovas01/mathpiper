@@ -107,26 +107,35 @@ package org.mathrider.u6502;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
-public class EMU6551 implements IOChip, ActionListener
+public class EMU6551 implements IOChip, ActionListener, KeyListener
 {
 	private int[] registers;
+	private java.util.Random rnd = new java.util.Random( 839374 );
 	
 	private JButton button1, button2;
-	private JTextField messageTextField;
+	private JTextArea typeArea;
+	private JScrollPane typePane;
+	private AbstractQueue keySendQueue;
+	private char[] typedKey = new char[1];
+	
 	
 	public EMU6551()
 	{
-		registers = new int[2];
+		registers = new int[4];
 		registers[1] = 0x10;
 		
 		
 
+keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
 
 JFrame frame = new javax.swing.JFrame();
 Box guiBox = new Box(BoxLayout.Y_AXIS);
-messageTextField = new JTextField();
-guiBox.add(messageTextField);
+typeArea = new JTextArea(10,20);
+typeArea.addKeyListener(this);
+typePane = new JScrollPane(typeArea);
+guiBox.add(typePane);
 button1 = new JButton("Open GeoGebra");
 button1.setBackground(Color.green);
 button1.addActionListener(this);
@@ -140,11 +149,12 @@ contentPane.add(guiBox,BorderLayout.NORTH);
 frame.pack();
 //frame.setAlwaysOnTop(true);
 
-frame.setSize(new Dimension(250, 200));
-frame.setResizable(false);
-frame.setPreferredSize(new Dimension(250, 200));
+frame.setSize(new Dimension(500, 300));
+frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+//frame.setResizable(false);
+frame.setPreferredSize(new Dimension(500, 300));
 frame.setLocationRelativeTo(null); // added
-frame.show();
+frame.setVisible(true);
 		
 	}//Constructor.
 	
@@ -164,14 +174,45 @@ public void actionPerformed(ActionEvent event)
     }
 
 }
+
+
+
+public void keyPressed(KeyEvent e)
+{
+}
+
+public void keyReleased(KeyEvent e)
+{
+}
+
+public void keyTyped(KeyEvent e)
+{
+	char key = e.getKeyChar();
+	System.out.print(key);
+	registers[0] = (int) key;
+	setReceiveDataRegisterFull(true);
+}
 	
 	
 	
 	
 	public int read(int location)
-	{
-		return registers[location & 0x3];
+	{	
+		if(location > 3)
+		{
+			return rnd.nextInt(256);
+		}
+		else
+		{
+			if((location & 3) == 0)
+			{
+				setReceiveDataRegisterFull(false);
+			}
+			return registers[location & 0x3];
+		}
 	}//end method.
+	
+	
 	
 	public void write(int location, int value)
 	{
@@ -179,6 +220,9 @@ public void actionPerformed(ActionEvent event)
 		if(location == 0)
 		{
 			System.out.print((char)value);
+			typedKey[0] = (char)value;
+			typeArea.append(new String(typedKey));
+			typeArea.setCaretPosition( typeArea.getDocument().getLength() );
 			//System.out.println(value);
 			
 		}
@@ -186,55 +230,21 @@ public void actionPerformed(ActionEvent event)
 		
 	}//end method.
 	
+	
+	private synchronized void setReceiveDataRegisterFull(boolean state)
+	{
+		if(state == true)
+		{
+			registers[1] |= 0x8;
+		}
+		else
+		{
+			registers[1] &= 0xf7;
+		}
+	}//end method.
+	
 
 
-//
-//			try
-//			{
-//				response = getResponse();
-//				notifyListeners(response);
-//			}catch(IOException ioe)
-//			{
-//				notifyListeners(ioe.toString());
-//			}
-//
-//	public void addResponseListener(ResponseListener listener)
-//	{
-//		responseListeners.add(listener);
-//	}//end method.
-//
-//	public void removeResponseListener(ResponseListener listener)
-//	{
-//		responseListeners.remove(listener);
-//	}//end method.
-//
-//	protected void notifyListeners(String response)
-//	{
-//		//notify listeners.
-//		for(ResponseListener listener : responseListeners)
-//		{
-//			listener.response(response);
-//
-//			if(listener.remove())
-//			{
-//				removeListeners.add(listener);
-//			}//end if.
-//		}//end for.
-//
-//
-//		//Remove certain listeners.
-//		for(ResponseListener listener : removeListeners)
-//		{
-//
-//			if(listener.remove())
-//			{
-//				responseListeners.remove(listener);
-//			}//end if.
-//		}//end for.
-//
-//		removeListeners.clear();
-//
-//	}//end method.
 	
 }//end class.
 
