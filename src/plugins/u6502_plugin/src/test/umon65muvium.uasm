@@ -2213,11 +2213,9 @@ OutOne *		;
 	jsr OutChar	;
 	pla		;
 CkBtPos *		;
- nop
 	dex		;
 	bne NextFlag	;
 	jmp ExitReg	;
- nop
 	
 	
 SpecReg *
@@ -2800,7 +2798,7 @@ OpCdNtFd *
 ;                       Unassemble Command Subroutine.
 ;****************************************************************************
 UnAssem *
-
+ nop
 	lda OpFld1	;Check for operands.
 	cmp #0d		;
 	beq UNoOper	;
