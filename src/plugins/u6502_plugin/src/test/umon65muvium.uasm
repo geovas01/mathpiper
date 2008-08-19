@@ -2766,6 +2766,7 @@ ScanOpCd *
 CkTblEnd *
 	ldy #4d		;Check for end of opcode table.
 	lda (PointerB),y;
+ nop
 	cmp #90d	;
 	beq OpCdNtFd	;
 	
@@ -2798,7 +2799,6 @@ OpCdNtFd *
 ;                       Unassemble Command Subroutine.
 ;****************************************************************************
 UnAssem *
- nop
 	lda OpFld1	;Check for operands.
 	cmp #0d		;
 	beq UNoOper	;
@@ -2858,8 +2858,8 @@ UNotFin *		;
 	ldy #0d		;Get opcode byte from memory and save.
 	lda (PointerA),y;
 	sta OpCdHold	;
-	
 	jsr ScanOpCd	;Check to see if byte from memory location was
+ nop
 	bcs OpCdFnd	; an opcode.
 
 NtOpCode *
