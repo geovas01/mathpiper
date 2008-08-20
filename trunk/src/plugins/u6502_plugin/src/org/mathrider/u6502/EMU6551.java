@@ -190,11 +190,51 @@ public void keyReleased(KeyEvent e)
 
 public void keyTyped(KeyEvent e)
 {
+	
 	char key = e.getKeyChar();
-	System.out.print(key);
-	//registers[0] = (int) key;
-	buffer.put((int) key);
-	setReceiveDataRegisterFull(true);
+	
+	if((int)key == 22)
+	{
+		try
+		{
+			String clipBoard = (String)java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().getData(java.awt.datatransfer.DataFlavor.stringFlavor);
+			System.out.println(clipBoard);
+			if(clipBoard.length() != 0)
+			{
+				char[] chars = clipBoard.toCharArray();
+				for(int x = 0; x < chars.length; x++)
+				{
+					buffer.put((int) chars[x]);
+		
+				}//end for.
+				setReceiveDataRegisterFull(true);
+			}//end if.
+			
+		}
+		catch(NullPointerException ev)
+		{
+			ev.printStackTrace();
+		}
+		catch( IllegalStateException ev)
+		{
+			ev.printStackTrace();
+		}
+		catch(java.awt.datatransfer.UnsupportedFlavorException ev)
+		{
+			ev.printStackTrace();
+		}
+		catch(java.io.IOException ev)
+		{
+			ev.printStackTrace();
+		}
+	}
+	else
+	{
+		System.out.println(key);
+		//registers[0] = (int) key;
+		buffer.put((int) key);
+		setReceiveDataRegisterFull(true);
+	}
 }
 	
 	
