@@ -3,6 +3,11 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wrap=soft:
 
 {{{====To Do
++ Again, figure out a way for piper folds to always return the result of the
+last evaluation without needing to use Write;
++ Provide a way to reset piper without relaunching MathRider.
++ Place sliding window divider between function tree window and documentation window in PiperDocs.
+- Place cursor inside of description double quotes after inserting a fold.
 + Add fit function to GeoGebra so that plots can be autozoomed to fit the display area.
 + Add Clojure to MathRider.
 + Develop an Application Specific Language for GeoGebra.
@@ -159,6 +164,11 @@ Initial release:
 
 
 {{{PIPER BUGS.
+====
+Functions obtained from D() do not evaluate and functions cannot be defined as follows for some reason:
+
+y := 2 * x;
+
 ====
 PathString and WriteString are not implemented yet.
 ====
@@ -528,6 +538,10 @@ Write(a);
 + Copy XML protocol to clipboard.
 + Add commands for setting object properties so that these can be set by a program.
 + XML format does not allow comments but should.
++ Place scroll arrows on the axes.
++ Add a zoom slider.
++ Add an auto-fit button.
++ Enable the user to draw rectangles on the top of a graph in order to estimate areas.
 }}}
 
 {{{SUBVERSION
