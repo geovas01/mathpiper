@@ -3798,30 +3798,31 @@ public class UASM65
 		//If filename was entered from the command line then use it.  If not, then
 		// obtain it from the user.
 
-
-		//	if ( bsh.args != void && bsh.args.length == 2 ) //argc == 2 )
-		//	{
-		//		source_file_name = bsh.args[1];
-		//
-		//		if ( ! ( strstr( source_file_name,".uasm\0") || strstr(source_file_name,".UASM\0") ) )
-		//		{
-		//			System.out.println("\n\nBad file name, must have .uasm extension.\n\n");
-		//			return(false);
-		//		}
-		//	}
-		//	//	else  //Note: Maybe enable this for standalone operation in the future.
-		//	{
-		//		if ( !get_file_name( source_file_name ) )
-		//		{
-		//			System.out.println("\n\nBad file name, must have .uasm extension.\n\n");
-		//			return(false);
-		//		}
-		//	}//end else
+		String source_file_name = "";
+			if ( args.length > 0 ) //argc == 2 )
+			{
+				source_file_name = args[0];
+		
+				if ( ! ( source_file_name.endsWith(".uasm") || source_file_name.endsWith(".UASM") ) )
+				{
+					System.out.println("\n\nBad file name, must have .uasm extension.\n\n");
+				}
+			}
+			//else  //Note: Maybe enable this for standalone operation in the future.
+			//{
+			//	if ( !get_file_name( source_file_name ) )
+			//	{
+			//		System.out.println("\n\nBad file name, must have .uasm extension.\n\n");
+			//	}
+			//}//end else
 
 		//
 		//
 		//
-		assem.assemble(new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/uasm_source/umon65/umon65muvium.uasm") );
+		String userDir = System.getProperty("user.dir");
+		String sourceFile = userDir + File.separator + source_file_name;
+		assem.assemble(new File(sourceFile));
+		//assem.assemble(new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/uasm_source/umon65/umon65muvium.uasm") );
 		
     }//}}}
 
