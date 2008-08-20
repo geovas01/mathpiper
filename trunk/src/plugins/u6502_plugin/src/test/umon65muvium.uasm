@@ -2475,6 +2475,7 @@ Trace *
 	
 	ldx #0d		;Get start address.
 	jsr GetAdd	;
+ nop
 	bcs TAdd1ok	;
 	jmp ErrTrce	;
 TAdd1ok *		;
@@ -2669,6 +2670,7 @@ NoBranch *
 	sta BrnchFlg	; instruction is not a branch instruction.
 
 Both *
+ nop
 	ldy CurInsLn	;
 	lda (PointerA),y;Save the opcode of the next instruction to be
 	sta NOpCdHld	; executed if no branch is taken and replace it
@@ -2840,7 +2842,6 @@ UAdd2ok *		;
 	sty EndAdd+1d	;
 	
 StartUnA *
- nop
 	lda EndAdd+1d	;Check to see if end address has been reached.
 	cmp PointerA+1d	;
 	beq UChkFLSB	;

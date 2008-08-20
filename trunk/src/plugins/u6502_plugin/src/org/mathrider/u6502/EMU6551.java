@@ -119,12 +119,14 @@ public class EMU6551 implements IOChip, ActionListener, KeyListener
 	private JScrollPane typePane;
 	private AbstractQueue keySendQueue;
 	private char[] typedKey = new char[1];
+	private CircularBuffer buffer;
 	
 	
 	public EMU6551()
 	{
 		registers = new int[4];
 		registers[1] = 0x10;
+		buffer = new CircularBuffer();
 		
 		
 
@@ -132,7 +134,7 @@ keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
 
 JFrame frame = new javax.swing.JFrame();
 Box guiBox = new Box(BoxLayout.Y_AXIS);
-typeArea = new JTextArea(40,20);
+typeArea = new JTextArea(30,20);
 typeArea.setFont(new java.awt.Font("Monospaced", Font.PLAIN, 12));
 typeArea.addKeyListener(this);
 typePane = new JScrollPane(typeArea);
@@ -190,7 +192,8 @@ public void keyTyped(KeyEvent e)
 {
 	char key = e.getKeyChar();
 	System.out.print(key);
-	registers[0] = (int) key;
+	//registers[0] = (int) key;
+	buffer.put((int) key);
 	setReceiveDataRegisterFull(true);
 }
 	
@@ -205,10 +208,20 @@ public void keyTyped(KeyEvent e)
 		}
 		else
 		{
-			if((location & 3) == 0)
+			//if((location & 3) == 0)
+			//{
+			//	setReceiveDataRegisterFull(false);
+			//}
+			if(location == 0)
+			{
+				registers[0] = buffer.get();
+			}
+			
+			if(buffer.isEmpty())
 			{
 				setReceiveDataRegisterFull(false);
 			}
+			
 			return registers[location & 0x3];
 		}
 	}//end method.
