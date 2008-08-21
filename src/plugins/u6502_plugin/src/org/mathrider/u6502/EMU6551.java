@@ -152,10 +152,10 @@ contentPane.add(guiBox,BorderLayout.NORTH);
 frame.pack();
 //frame.setAlwaysOnTop(true);
 
-frame.setSize(new Dimension(600, 500));
+frame.setSize(new Dimension(600, 600));
 frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 //frame.setResizable(false);
-frame.setPreferredSize(new Dimension(600, 500));
+frame.setPreferredSize(new Dimension(600, 600));
 frame.setLocationRelativeTo(null); // added
 frame.setVisible(true);
 		

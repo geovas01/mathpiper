@@ -1831,15 +1831,22 @@ LdSRecs *
 	ldy #SRecStMs>	
 	jsr PrntMess
 	
+	jsr GetCharW	;Wait for first character of record.
+	ldx #CRLF<	;
+	ldy #CRLF>	;
+	jsr PrntMess	;
+	jmp CkS		;
+	
 GtAnCh *		;
 	jsr GetCharW	;Check for an S.
+CkS *			;
 	cmp #83d	;
 	bne GtAnCh	;
 	
-	;jsr OutChar	;Print an S to the user.
+	jsr OutChar	;Print an S to the user.
 	
 	jsr GetCharW	;Get record type ECHO it and store it.
-	;jsr OutChar	;
+	jsr OutChar	;
 	sta RecType	;
 	
 	cmp #48d	;Check for header record and process.
@@ -2475,7 +2482,6 @@ Trace *
 	
 	ldx #0d		;Get start address.
 	jsr GetAdd	;
- nop
 	bcs TAdd1ok	;
 	jmp ErrTrce	;
 TAdd1ok *		;
@@ -2670,7 +2676,6 @@ NoBranch *
 	sta BrnchFlg	; instruction is not a branch instruction.
 
 Both *
- nop
 	ldy CurInsLn	;
 	lda (PointerA),y;Save the opcode of the next instruction to be
 	sta NOpCdHld	; executed if no branch is taken and replace it
@@ -3474,6 +3479,8 @@ InitVars *
 ; stop printing.
 ;****************************************************************************
 PrntMess *
+	pha
+	
 	stx MessPtr	;Initialize pointer that will point to each
 	sty MessPtr+1h	; character of message.
 	
@@ -3493,6 +3500,8 @@ PrNoOvf *
 	jmp OutMess
 		
 ExitMess *
+	pla
+	
 	rts
 
 ;****************************************************************************
