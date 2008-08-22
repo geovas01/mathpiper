@@ -282,7 +282,11 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		
 		location = location & 3;
 		
-		if(value == 8)
+		if(value == 7)
+		{
+			//Do not print the bell character.
+		}
+		else if(value == 8)
 		{
 			deleteFlag = true;
 		}
