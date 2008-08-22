@@ -46,7 +46,7 @@
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
 		<pathelement path="${plugins.jars.dir}/piper_plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />  
+		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />
 		-->
