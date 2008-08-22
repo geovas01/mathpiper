@@ -6,7 +6,7 @@ import java.lang.System as System
 class TestEMU6502(unittest.TestCase): #junit.framework.TestCase, 
 	def setUp(self):
 		"Obtain an instance of the emulator."
-		self.emu = EMU6502()
+		self.emu = EMU6502(None)
 		self.asm = UASM65()
 		
 

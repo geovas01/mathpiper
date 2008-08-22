@@ -109,182 +109,201 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class EMU6551 implements IOChip, ActionListener, KeyListener
+public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListener, KeyListener
 {
 	private int[] registers;
 	private java.util.Random rnd = new java.util.Random( 839374 );
-	
+
 	private JButton button1, button2;
 	private JTextArea typeArea;
 	private JScrollPane typePane;
 	private AbstractQueue keySendQueue;
 	private char[] typedKey = new char[1];
 	private CircularBuffer buffer;
+	private EMU6502 emulator;
 	
-	
+	private JPanel buttons;
+	private boolean deleteFlag = false;
+
 	public EMU6551()
 	{
 		registers = new int[4];
 		registers[1] = 0x10;
 		buffer = new CircularBuffer();
+
+		this.setLayout(new BorderLayout());
+
+		//keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
+
+		buttons = new JPanel();
 		
+		Box guiBox = new Box(BoxLayout.Y_AXIS);
+		typeArea = new JTextArea(30,20);
+		typeArea.setFont(new java.awt.Font("Monospaced", Font.PLAIN, 12));
+		typeArea.addKeyListener(this);
+		typePane = new JScrollPane(typeArea);
+		guiBox.add(typePane);
+		
+		button1 = new JButton("Reset");
+		//button1.setBackground(Color.green);
+		button1.addActionListener(this);
+		buttons.add(button1);
+		//button2 = new JButton("Close GeoGebra");
+		//button2.setBackground(Color.red);
+		//button2.addActionListener(this);
+		//buttons.add(button2);
+		this.add(buttons,BorderLayout.NORTH);
+		this.add(guiBox,BorderLayout.CENTER);
+		
+		emulator = new EMU6502(this);
 		
 
-keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
-
-JFrame frame = new javax.swing.JFrame();
-Box guiBox = new Box(BoxLayout.Y_AXIS);
-typeArea = new JTextArea(30,20);
-typeArea.setFont(new java.awt.Font("Monospaced", Font.PLAIN, 12));
-typeArea.addKeyListener(this);
-typePane = new JScrollPane(typeArea);
-guiBox.add(typePane);
-button1 = new JButton("Open GeoGebra");
-button1.setBackground(Color.green);
-button1.addActionListener(this);
-guiBox.add(button1);
-button2 = new JButton("Close GeoGebra");
-button2.setBackground(Color.red);
-button2.addActionListener(this);
-guiBox.add(button2);
-Container contentPane = frame.getContentPane();
-contentPane.add(guiBox,BorderLayout.NORTH);
-frame.pack();
-//frame.setAlwaysOnTop(true);
-
-frame.setSize(new Dimension(600, 600));
-frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-//frame.setResizable(false);
-frame.setPreferredSize(new Dimension(600, 600));
-frame.setLocationRelativeTo(null); // added
-frame.setVisible(true);
-		
 	}//Constructor.
-	
-	
-	
-public void actionPerformed(ActionEvent event)
-{
-    Object src = event.getSource();
-
-    if (src == button1)
-    {
-
-    }
-    else if (src == button2)
-    {
-
-    }
-
-}
 
 
 
-public void keyPressed(KeyEvent e)
-{
-}
-
-public void keyReleased(KeyEvent e)
-{
-}
-
-public void keyTyped(KeyEvent e)
-{
-	
-	char key = e.getKeyChar();
-	
-	if((int)key == 22)
+	public void actionPerformed(ActionEvent event)
 	{
-		try
+		Object src = event.getSource();
+
+		if (src == button1)
 		{
-			String clipBoard = (String)java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().getData(java.awt.datatransfer.DataFlavor.stringFlavor);
-			System.out.println(clipBoard);
-			if(clipBoard.length() != 0)
+			emulator.reset();
+		}
+		else if (src == button2)
+		{
+
+		}
+
+	}
+
+
+
+	public void keyPressed(KeyEvent e)
+	{
+	}
+
+	public void keyReleased(KeyEvent e)
+	{
+	}
+
+	public void keyTyped(KeyEvent e)
+	{
+
+		char key = e.getKeyChar();
+		//System.out.println((int)key);
+
+		if((int)key == 22)
+		{
+			try
 			{
-				char[] chars = clipBoard.toCharArray();
-				for(int x = 0; x < chars.length; x++)
+				String clipBoard = (String)java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().getData(java.awt.datatransfer.DataFlavor.stringFlavor);
+				
+				if(clipBoard.length() != 0)
 				{
-					buffer.put((int) chars[x]);
-		
-				}//end for.
-				setReceiveDataRegisterFull(true);
-			}//end if.
-			
+					char[] chars = clipBoard.toCharArray();
+					for(int x = 0; x < chars.length; x++)
+					{
+						buffer.put((int) chars[x]);
+
+					}//end for.
+					setReceiveDataRegisterFull(true);
+				}//end if.
+
+			}
+			catch(NullPointerException ev)
+			{
+				ev.printStackTrace();
+			}
+			catch( IllegalStateException ev)
+			{
+				ev.printStackTrace();
+			}
+			catch(java.awt.datatransfer.UnsupportedFlavorException ev)
+			{
+				ev.printStackTrace();
+			}
+			catch(java.io.IOException ev)
+			{
+				ev.printStackTrace();
+			}
 		}
-		catch(NullPointerException ev)
+		else
 		{
-			ev.printStackTrace();
-		}
-		catch( IllegalStateException ev)
-		{
-			ev.printStackTrace();
-		}
-		catch(java.awt.datatransfer.UnsupportedFlavorException ev)
-		{
-			ev.printStackTrace();
-		}
-		catch(java.io.IOException ev)
-		{
-			ev.printStackTrace();
+			//System.out.println(key);
+			//registers[0] = (int) key;
+			buffer.put((int) key);
+			setReceiveDataRegisterFull(true);
 		}
 	}
-	else
-	{
-		System.out.println(key);
-		//registers[0] = (int) key;
-		buffer.put((int) key);
-		setReceiveDataRegisterFull(true);
-	}
-}
-	
-	
-	
-	
+
+
+
+
 	public int read(int location)
-	{	
+	{
 		if(location > 3)
 		{
 			return rnd.nextInt(256);
 		}
+		else if(location == 2)
+		{
+			try
+			{
+				Thread.sleep(200);
+			}
+			catch(InterruptedException e)
+			{
+			}
+			
+			return 0;
+		}
 		else
 		{
-			//if((location & 3) == 0)
-			//{
-			//	setReceiveDataRegisterFull(false);
-			//}
 			if(location == 0)
 			{
 				registers[0] = buffer.get();
 			}
-			
+
 			if(buffer.isEmpty())
 			{
 				setReceiveDataRegisterFull(false);
 			}
-			
+
 			return registers[location & 0x3];
 		}
 	}//end method.
-	
-	
-	
+
+
+
 	public void write(int location, int value)
 	{
+		//System.out.println(value);
+		
 		location = location & 3;
-		if(location == 0)
+		
+		if(value == 8)
 		{
-			System.out.print((char)value);
+			deleteFlag = true;
+		}
+		else if(value == 32 && deleteFlag == true)
+		{
+			deleteFlag = false;
+		}
+		else if(location == 0 )
+		{
+			//System.out.print((char)value);
+			//System.out.println(value);
 			typedKey[0] = (char)value;
 			typeArea.append(new String(typedKey));
 			typeArea.setCaretPosition( typeArea.getDocument().getLength() );
-			//System.out.println(value);
-			
+
 		}
 		registers[location] = value;
-		
+
 	}//end method.
-	
-	
+
+
 	private synchronized void setReceiveDataRegisterFull(boolean state)
 	{
 		if(state == true)
@@ -297,9 +316,27 @@ public void keyTyped(KeyEvent e)
 		}
 	}//end method.
 	
-
-
 	
+	public static void main(String[] args)
+	{
+		EMU6551 uart = new EMU6551();
+		
+		JFrame frame = new javax.swing.JFrame();
+		Container contentPane = frame.getContentPane();
+		contentPane.add(uart,BorderLayout.CENTER);
+		//frame.setAlwaysOnTop(true);
+		frame.setSize(new Dimension(600, 600));
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		//frame.setResizable(false);
+		frame.setPreferredSize(new Dimension(600, 600));
+		frame.setLocationRelativeTo(null); // added
+		frame.pack();
+		frame.setVisible(true);
+	}//end main.
+
+
+
+
 }//end class.
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

@@ -4,6 +4,8 @@ package org.mathrider.u6502plugin;
 
 
 // {{{ imports
+import org.mathrider.u6502.EMU6551;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -64,7 +66,9 @@ public class U6502 extends JPanel
 
 	private U6502ToolPanel toolPanel;
 	
-	private static U6502 jSciCalc;
+	private static U6502 u6502;
+	
+	private EMU6551 uart;
 	
     //static u6502.CalculatorApplet jSciCalcApplet;
 	
@@ -85,12 +89,15 @@ public class U6502 extends JPanel
 	 */
 	public U6502(View view, String position) {
 		super(new BorderLayout());
-		jSciCalc = this;
+		u6502 = this;
 		
 //		bshInterpreter = new Interpreter();
 		
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
+		
+		uart = new EMU6551();
+		this.add(uart,BorderLayout.CENTER);
 
 //		jSciCalcApplet = new u6502.CalculatorApplet();
 //		jSciCalcApplet.setup();
@@ -150,7 +157,7 @@ public class U6502 extends JPanel
 	// {{{ getU6502
 	public static U6502 getU6502()
 	{	
-		return U6502.jSciCalc;  
+		return U6502.u6502;  
 	}//end method
 	// }}}
     

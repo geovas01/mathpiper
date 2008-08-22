@@ -51,7 +51,10 @@ LCD	    	equ 4003h
 ;	note: * no interrupt generated for these conditions
 ;	      ** cleared automatically after a read of RDR and the next 
 ;		error free receipt of data
-6551StR	equ A001h ;400bh  
+6551StR	equ A001h ;400bh 
+
+6551Sleep equ A002h	; When an lda to this address is performed the emulator
+			;can be put to sleep.
 
 
 ;Comand Register  
@@ -3547,6 +3550,8 @@ GetCharW *
 	pha		;
 	
 GtCkAgn *
+	lda 6551Sleep ;Allow the emulator to be put to sleep.
+	
 	lda 6551StR	;Check the ACIA's receiver buffer full register
 	and #00001000b	; and wait until a character is received.
 	beq GtCkAgn	;
