@@ -246,7 +246,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		{
 			return rnd.nextInt(256);
 		}
-		else if(location == 2)
+		else if(location == 2 && (registers[1] & 0x8) == 0)
 		{
 			try
 			{
