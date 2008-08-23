@@ -33,9 +33,9 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 	
 	private JButton button1, button2;
 	
-	private ImageIcon led0;
+	//private ImageIcon led0, led1, led2, led3, led4, led5, led6, led7;
 	
-	private java.awt.Image onImage, offImage;
+	private Icon onIcon, offIcon;
 
 
 	public EMUOutputPort()
@@ -45,10 +45,11 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		this.setLayout(new BorderLayout());
 
 		
-		Box guiBox = new Box(BoxLayout.X_AXIS);
+		Box leds = new Box(BoxLayout.X_AXIS);
 		
 		
-		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/gray.gif" );
+		//Load on image.
+		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/yellow.gif" );
 		java.io.BufferedInputStream bufferedInputStream = new java.io.BufferedInputStream( inputStream );
 		byte[] buffer = new byte[4096];
 		try 
@@ -58,12 +59,61 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		{
 			System.err.println( "Failed to read image." );
 		}
-		onImage = java.awt.Toolkit.getDefaultToolkit().createImage( buffer );
-		led0 = new javax.swing.ImageIcon( onImage );
+		onIcon = new javax.swing.ImageIcon(java.awt.Toolkit.getDefaultToolkit().createImage( buffer ));
+		
+		//Load off image.
+		inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/gray.gif" );
+		bufferedInputStream = new java.io.BufferedInputStream( inputStream );
+		buffer = new byte[4096];
+		try 
+		{
+			bufferedInputStream.read( buffer, 0, 4096 );
+		} catch( Exception e )
+		{
+			System.err.println( "Failed to read image." );
+		}
+		offIcon = new javax.swing.ImageIcon(java.awt.Toolkit.getDefaultToolkit().createImage( buffer ));
 		
 		
-		bits[0] = new JLabel("LED-0", led0, SwingConstants.CENTER);
-		guiBox.add(bits[0]);
+		//Initialize LED 7.
+		bits[7] = new JLabel(offIcon);
+		leds.add(bits[7]); 
+		leds.add(Box.createHorizontalStrut(3));
+		                            
+		//Initialize LED 6.         
+		bits[6] = new JLabel(offIcon);
+		leds.add(bits[6]);
+		leds.add(Box.createHorizontalStrut(3));
+				                    
+		//Initialize LED 5.         
+		bits[5] = new JLabel(offIcon);
+		leds.add(bits[5]);
+		leds.add(Box.createHorizontalStrut(3));
+				                    
+		//Initialize LED 4.         
+		bits[4] = new JLabel(offIcon);
+		leds.add(bits[4]);
+		leds.add(Box.createHorizontalStrut(3));
+				                    
+		//Initialize LED 3.         
+		bits[3] = new JLabel(offIcon);
+		leds.add(bits[3]);
+		leds.add(Box.createHorizontalStrut(3));
+				                    
+		//Initialize LED 2.         
+		bits[2] = new JLabel(offIcon);
+		leds.add(bits[2]);
+		leds.add(Box.createHorizontalStrut(3));
+				                    
+		//Initialize LED 1.         
+		bits[1] = new JLabel(offIcon);
+		leds.add(bits[1]);
+		leds.add(Box.createHorizontalStrut(3));
+		                            
+		//Initialize LED 0..         
+		bits[0] = new JLabel(offIcon);
+		leds.add(bits[0]);
+		
 		
 		button1 = new JButton("Reset");
 		//button1.setBackground(Color.green);
@@ -74,7 +124,7 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		//button2.addActionListener(this);
 		//buttons.add(button2);
 		//this.add(buttons,BorderLayout.NORTH);
-		this.add(guiBox,BorderLayout.CENTER);
+		this.add(leds,BorderLayout.CENTER);
 		
 
 	}//Constructor.
@@ -109,9 +159,24 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 
 	public void write(int location, int value)
 	{
-		//System.out.println(value);
+		//System.out.println(location + " " + value);
 		
-		registers[location] = value;
+		if(location == 0)
+		{
+			for(int x = 0, mask = 1; x < 8; mask = mask << 1, x++)
+			{
+				//System.out.println(mask + " " + x);
+				if((value & mask) > 0)
+				{
+					bits[x].setIcon(onIcon);
+				}
+				else
+				{
+					bits[x].setIcon(offIcon);
+				}
+			}//end for.
+
+		}
 
 	}//end method.
 
