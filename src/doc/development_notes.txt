@@ -580,6 +580,7 @@ This is the chronic Jython error in JEdit:
 }}}
 
 {{{CLOJURE
+
  	
 ====		
 Ray Myers   	
@@ -700,3 +701,11 @@ with, at least for me.
 
 ====
 }}}
+
+
+{{{ U6502
+- Add reset method to IOChip interface.
+}}}
+
+
+

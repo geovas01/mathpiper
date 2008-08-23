@@ -331,17 +331,19 @@ public class EMU6502 implements Runnable
 
 
 
-	public EMU6502(IOChip uart)
+	public EMU6502(IOChip[] ioChips)
 	{
 		super();
+		
+		this.ioChips = ioChips;
 
-		this.uart = uart;
+		this.uart = ioChips[0];
 
 		ram = new int[8192];
 		randomMemory = new int[8192];
 		//rom = new int[1000];
 		memory = new Object[8];
-		ioChips = new IOChip[16];
+		
 
 
 		this.rom = new int[0x2000];
@@ -392,23 +394,6 @@ public class EMU6502 implements Runnable
 		memory[2] = randomMemory;
 		memory[3] = randomMemory;
 		memory[4] = randomMemory;
-		ioChips[0] = uart;
-		ioChips[1] = new EMURandomIOChip();
-		ioChips[2] = new EMURandomIOChip();
-		ioChips[3] = new EMURandomIOChip();
-		ioChips[4] = new EMURandomIOChip();
-		ioChips[5] = new EMURandomIOChip();
-		ioChips[6] = new EMURandomIOChip();
-		ioChips[7] = new EMURandomIOChip();
-		ioChips[8] = new EMURandomIOChip();
-		ioChips[9] = new EMURandomIOChip();
-		ioChips[10] = new EMURandomIOChip();
-		ioChips[11] = new EMURandomIOChip();
-		ioChips[12] = new EMURandomIOChip();
-		ioChips[13] = new EMURandomIOChip();
-		ioChips[14] = new EMURandomIOChip();
-		ioChips[15] = new EMURandomIOChip();
-
 		memory[5] = new int[8192];
 		memory[6] = randomMemory;
 		memory[7] = rom;
@@ -617,7 +602,7 @@ public class EMU6502 implements Runnable
 						{
 							int bank = offset2 >> 9;
 							IOChip ioChip = ioChips[bank];
-							ioChip.write(offset2,a);
+							ioChip.write(offset2 & 0x1ff,a); //Note:tk:temporary masking of offset until a more systematic solution is developed.
 						}
 						else
 						{
@@ -630,7 +615,7 @@ public class EMU6502 implements Runnable
 						{
 							int bank = offset2 >> 9;
 							IOChip ioChip = ioChips[bank];
-							tmp = a = ioChip.read(offset2);
+							tmp = a = ioChip.read(offset2 & 0x1ff); //Note:tk:temporary masking of offset until a more systematic solution is developed.
 						}
 						else
 						{

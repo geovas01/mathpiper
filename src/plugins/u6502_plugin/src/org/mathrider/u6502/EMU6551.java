@@ -117,7 +117,6 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 	private JButton button1, button2;
 	private JTextArea typeArea;
 	private JScrollPane typePane;
-	private AbstractQueue keySendQueue;
 	private char[] typedKey = new char[1];
 	private CircularBuffer buffer;
 	private EMU6502 emulator;
@@ -130,6 +129,24 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		registers = new int[4];
 		registers[1] = 0x10;
 		buffer = new CircularBuffer();
+		
+		IOChip[] ioChips = new IOChip[16];
+		ioChips[0] = this;//A000.
+		ioChips[1] = new EMUOutputPort();//A100.
+		ioChips[2] = new EMURandomIOChip();
+		ioChips[3] = new EMURandomIOChip();
+		ioChips[4] = new EMURandomIOChip();
+		ioChips[5] = new EMURandomIOChip();
+		ioChips[6] = new EMURandomIOChip();
+		ioChips[7] = new EMURandomIOChip();
+		ioChips[8] = new EMURandomIOChip();
+		ioChips[9] = new EMURandomIOChip();
+		ioChips[10] = new EMURandomIOChip();
+		ioChips[11] = new EMURandomIOChip();
+		ioChips[12] = new EMURandomIOChip();
+		ioChips[13] = new EMURandomIOChip();
+		ioChips[14] = new EMURandomIOChip();
+		ioChips[15] = new EMURandomIOChip();
 
 		this.setLayout(new BorderLayout());
 
@@ -153,9 +170,12 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		//button2.addActionListener(this);
 		//buttons.add(button2);
 		this.add(buttons,BorderLayout.NORTH);
+		this.add((JPanel)ioChips[1],BorderLayout.SOUTH);
 		this.add(guiBox,BorderLayout.CENTER);
 		
-		emulator = new EMU6502(this);
+		
+		
+		emulator = new EMU6502(ioChips);
 		
 
 	}//Constructor.
