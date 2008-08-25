@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wrap=soft:
 
 {{{====To Do
++ Check Numbers (Predicates) for completeness.
+- Place all IsXXX predicate functions in the predicate node in PiperDocs.
 + Again, figure out a way for piper folds to always return the result of the
 last evaluation without needing to use Write;
 + Provide a way to reset piper without relaunching MathRider.
@@ -115,6 +117,19 @@ last evaluation without needing to use Write;
 + Backslashes \ do not continue lines in Piper console.
 - PiperInterpreter is sometimes not found in BeanShell script.  Problem occures in PiperDocs "Source" request. 
 + Put exception checking on all scripts;
++ This code causes an error because of output="latex":
+    %piper,description="",output="latex"
+        A := {a,b,c,d};
+        B := {b,d,e};
+        
+        Echo("A", Intersection(A,B));
+        
+    
+    %/piper
+
+        %error ,preserve="false"
+          Expecting ) closing bracket for sub-expression, but got { instead
+        %/error 
 - Add quotes to mode.
 - Add usage information to the Piper console.
 - Change // and /**/ to same color in mode.
@@ -316,6 +331,8 @@ Why is this list missing commas and curly braces?
 }}}
 
 {{{PIPER ENHANCEMENTS.
++ Rename Bin function to be Combinations.
++ Provide functions which generate lists which contain the combinations and permutations of a list.
 + How does one do parallel list traversals
 + Provide a way to convert between strings and lists.
 + %piper
@@ -535,6 +552,7 @@ Write(a);
 }}}
 
 {{{GeoGebra
++ The Curve command does not work for some reason.
 + Copy XML protocol to clipboard.
 + Add commands for setting object properties so that these can be set by a program.
 + XML format does not allow comments but should.
