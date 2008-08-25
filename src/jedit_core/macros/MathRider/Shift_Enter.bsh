@@ -58,7 +58,7 @@ path = buffer.getPath();
 
 if(path.endsWith(".pi")){
 	
-	buffer.setMode("mathrider");
+	buffer.setMode("piper");
 	
 	//Remove Windows drive letter from the path.
 	if(path.indexOf(":") != -1){
