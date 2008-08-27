@@ -11,7 +11,7 @@
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
 	<property environment="env" />
-	<property name="version" value=".52" />
+	<property name="version" value=".53" />
 	
 	
 	<!-- Set top directories -->
@@ -351,13 +351,13 @@
 	
 	
 	<!-- zip distribution target. -->
-	<target name="dist" depends=""
+	<target name="dist_windows" depends=""
 		description="zips the application for distribution." >
 		
 		<delete dir="${dist.build.dir}" />
 		<mkdir dir="${dist.build.dir}" />
 
-		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_v${version}_alpha.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**"
+		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_v${version}_alpha.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh"
 		 whenmanifestonly="skip" >
 			<manifest> 
 				<section name="MathRider" >
@@ -367,6 +367,41 @@
 
 		</jar>	
 
+	</target>	
+	
+	
+	<target name="dist_linux" depends=""
+		description="Archives the application for distribution." >
+
+
+		<exec executable="tar">
+		 <arg value="--use-compress-prog=bzip2"/>
+		 <arg value="--exclude=windows"/>
+		 <arg value="--exclude=win_run.bat"/>
+		    <arg value="-cf"/>
+		    <arg value="${dist.build.dir}/mathrider_linux_dist_v${version}_alpha.tar.bz2"/>
+		   <arg value="-C"/>
+		    <arg value="${master.build.dir}"/>
+		    <arg value="mathrider"/>
+		    
+	</exec>
+		
+	</target>		    
+	
+	
+		
+	<!-- zip distribution target. Note:need to write script to generate md5sum files. -->
+	<target name="dist" depends="dist_windows, dist_linux" >
+		<exec executable="md5sum">
+		 <arg value="${dist.build.dir}/mathrider_linux_dist_v${version}_alpha.tar.bz2"/>
+
+		</exec>
+		
+		<exec executable="md5sum">
+		 <arg value="${dist.build.dir}/mathrider_windows_dist_v${version}_alpha.zip"/>
+
+		</exec>
+		
 	</target>	
 	
 	
