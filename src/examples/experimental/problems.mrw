@@ -1442,5 +1442,42 @@ m:={{2,10},{3,32}};
 Write(Determinant(m));
 
 %/piper
+
+
+
+%piper
+    //Write(LongFactorForm(2*3));
+    //Does not currently work for input like 3*2^3.
+
+    Retract("LongFactorForm",1);
+    
+    LongFactorForm(_a^_b) <-- 
+    [
+        Local(count,factors);
+        
+        factors := ToString()
+        [
+            count := 1;
+            While(count < b)
+            [
+                Write(a,*);
+                count := count + 1;
+            ];
+            Write(a);
+        ];
+        Atom(factors);
+    
+    ];
+    
+    
+    HoldArgNr("LongFactorForm",1,1);
+
+
+
+
+
+%/piper
+
+
      
 :indentSize=4:tabSize=4:wrap=none:
