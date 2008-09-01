@@ -97,6 +97,7 @@ public class U6502 extends JPanel
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 		
 		uart = new EMU6551();
+		//uart.setFontSize(18);
 		this.add(uart,BorderLayout.CENTER);
 
 //		jSciCalcApplet = new u6502.CalculatorApplet();
