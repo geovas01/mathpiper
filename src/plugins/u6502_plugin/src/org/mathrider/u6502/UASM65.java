@@ -3725,6 +3725,12 @@ public class UASM65
 	
 	public java.util.List assemble(String source_code)
 	{
+		/*
+		Return values:
+			list[0] = list file.
+			list[1] = .s19 file.
+			list[2] = symbol table.
+		*/
 		source_file_pointer = new java.io.StringReader(source_code);
 		lst_file_ptr = new java.io.StringWriter();
 		
