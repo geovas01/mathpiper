@@ -27,8 +27,6 @@ import java.util.*;
 
 public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionListener
 {
-	private int[] registers;
-	
 	private JLabel[] bits = new JLabel[8];
 	
 	private JButton button1, button2;
@@ -36,6 +34,7 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 	//private ImageIcon led0, led1, led2, led3, led4, led5, led6, led7;
 	
 	private Icon onIcon, offIcon;
+	private int register = 0;
 
 
 	public EMUOutputPort()
@@ -124,7 +123,10 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		//button2.addActionListener(this);
 		//buttons.add(button2);
 		//this.add(buttons,BorderLayout.NORTH);
-		this.add(leds,BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		panel.add(new JLabel("8 LEDs interfaced to address A200h: "));
+		panel.add(leds);
+		this.add(panel,BorderLayout.CENTER);
 		
 
 	}//Constructor.
@@ -152,7 +154,15 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 
 	public int read(int location)
 	{
-		return registers[location & 0x3];
+		//System.out.println("XXXXX " + location);
+		if(location > 0)
+		{
+			return(65);
+		}
+		else
+		{
+			return register;
+		}
 	}//end method.
 
 
@@ -160,9 +170,12 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 	public void write(int location, int value)
 	{
 		//System.out.println(location + " " + value);
+
 		
 		if(location == 0)
 		{
+			register = value;
+			
 			for(int x = 0, mask = 1; x < 8; mask = mask << 1, x++)
 			{
 				//System.out.println(mask + " " + x);

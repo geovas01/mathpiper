@@ -114,25 +114,26 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 	private int[] registers;
 	private java.util.Random rnd = new java.util.Random( 839374 );
 
-	private JButton button1, button2;
+	private JButton button1, button2, button3;
 	private JTextArea typeArea;
 	private JScrollPane typePane;
 	private char[] typedKey = new char[1];
 	private CircularBuffer buffer;
 	private EMU6502 emulator;
-	
+
 	private JPanel buttons;
 	private boolean deleteFlag = false;
-
+	private float fontSize = 12;
+	private Font bitstreamVera;
 	public EMU6551()
 	{
 		registers = new int[4];
 		registers[1] = 0x10;
 		buffer = new CircularBuffer();
-		
+
 		IOChip[] ioChips = new IOChip[16];
 		ioChips[0] = this;//A000.
-		ioChips[1] = new EMUOutputPort();//A100.
+		ioChips[1] = new EMUOutputPort();//A200.
 		ioChips[2] = new EMURandomIOChip();
 		ioChips[3] = new EMURandomIOChip();
 		ioChips[4] = new EMURandomIOChip();
@@ -153,32 +154,63 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		//keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
 
 		buttons = new JPanel();
-		
+
 		Box guiBox = new Box(BoxLayout.Y_AXIS);
 		typeArea = new JTextArea(30,20);
-		typeArea.setFont(new java.awt.Font("Monospaced", Font.PLAIN, 12));
-		typeArea.addKeyListener(this);
-		typePane = new JScrollPane(typeArea);
-		guiBox.add(typePane);
-		
-		button1 = new JButton("Reset");
-		//button1.setBackground(Color.green);
-		button1.addActionListener(this);
-		buttons.add(button1);
-		//button2 = new JButton("Close GeoGebra");
-		//button2.setBackground(Color.red);
-		//button2.addActionListener(this);
-		//buttons.add(button2);
-		this.add(buttons,BorderLayout.NORTH);
-		this.add((JPanel)ioChips[1],BorderLayout.SOUTH);
-		this.add(guiBox,BorderLayout.CENTER);
-		
-		
-		
-		emulator = new EMU6502(ioChips);
-		
+
+		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
+		try
+		{
+			bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
+			bitstreamVera = bitstreamVera.deriveFont(fontSize);
+			typeArea.setFont(bitstreamVera);
+			
+
+			typeArea.addKeyListener(this);
+			typePane = new JScrollPane(typeArea);
+			guiBox.add(typePane);
+
+			Box ioBox = new Box(BoxLayout.Y_AXIS);
+
+			button1 = new JButton("Reset");
+			//button1.setBackground(Color.green);
+			button1.addActionListener(this);
+			buttons.add(button1);
+			button2 = new JButton("Font--");
+			button2.addActionListener(this);
+			buttons.add(button2);
+			button3 = new JButton("Font++");
+			button3.addActionListener(this);
+			buttons.add(button3);
+
+			ioBox.add(buttons);
+			ioBox.add((JPanel)ioChips[1]);
+			this.add(ioBox,BorderLayout.NORTH);
+			//this.add((JPanel)ioChips[1],BorderLayout.SOUTH);
+			this.add(guiBox,BorderLayout.CENTER);
+
+
+
+			emulator = new EMU6502(ioChips);
+		}
+		catch(FontFormatException e)
+		{
+			e.printStackTrace();
+		}
+		catch(java.io.IOException e)
+		{
+			e.printStackTrace();
+		}
+
 
 	}//Constructor.
+
+	public void setFontSize(float fontSize)
+	{
+		this.fontSize = fontSize;
+		bitstreamVera = bitstreamVera.deriveFont(fontSize);
+		typeArea.setFont(bitstreamVera);
+	}//end method.
 
 
 
@@ -192,7 +224,15 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		}
 		else if (src == button2)
 		{
-
+			this.fontSize -= 2;
+			bitstreamVera = bitstreamVera.deriveFont(fontSize);
+			typeArea.setFont(bitstreamVera);
+		}
+		else if (src == button3)
+		{
+			this.fontSize += 2;
+			bitstreamVera = bitstreamVera.deriveFont(fontSize);
+			typeArea.setFont(bitstreamVera);
 		}
 
 	}
@@ -218,7 +258,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			try
 			{
 				String clipBoard = (String)java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().getData(java.awt.datatransfer.DataFlavor.stringFlavor);
-				
+
 				if(clipBoard.length() != 0)
 				{
 					char[] chars = clipBoard.toCharArray();
@@ -252,6 +292,10 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		{
 			//System.out.println(key);
 			//registers[0] = (int) key;
+			if((int)key == 8)
+			{
+				deleteFlag = true;
+			}
 			buffer.put((int) key);
 			setReceiveDataRegisterFull(true);
 		}
@@ -275,7 +319,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			catch(InterruptedException e)
 			{
 			}
-			
+
 			return 0;
 		}
 		else
@@ -299,16 +343,12 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 	public void write(int location, int value)
 	{
 		//System.out.println(value);
-		
+
 		location = location & 3;
-		
-		if(value == 7)
+
+		if(value == 7 || value == 8)
 		{
-			//Do not print the bell character.
-		}
-		else if(value == 8)
-		{
-			deleteFlag = true;
+			//Do not print.
 		}
 		else if(value == 32 && deleteFlag == true)
 		{
@@ -339,12 +379,12 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			registers[1] &= 0xf7;
 		}
 	}//end method.
-	
-	
+
+
 	public static void main(String[] args)
 	{
 		EMU6551 uart = new EMU6551();
-		
+
 		JFrame frame = new javax.swing.JFrame();
 		Container contentPane = frame.getContentPane();
 		contentPane.add(uart,BorderLayout.CENTER);
