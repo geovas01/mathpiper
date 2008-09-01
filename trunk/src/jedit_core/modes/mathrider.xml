@@ -149,6 +149,11 @@
 			<BEGIN>%geogebra[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/geogebra</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="uasm65::MAIN">
+			<BEGIN>%uasm65[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/uasm65</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     
