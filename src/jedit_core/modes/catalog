@@ -454,6 +454,9 @@
 
 <MODE NAME="typoscript"         FILE="typoscript.xml"
                                 FILE_NAME_GLOB="*.ts"/>
+				
+<MODE NAME="uasm65"		FILE="uasm65.xml"
+				FILE_NAME_GLOB="*.uasm" />
 
 <MODE NAME="uscript"		FILE="uscript.xml"
 				FILE_NAME_GLOB="*.uc" />

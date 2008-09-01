@@ -983,10 +983,11 @@ if(path.endsWith(".pi")){
 	///{{{ *** %uasm65 ***
 		else if(foldType.equalsIgnoreCase("%uasm65")) 
 		{
-			//buffer.setMode("beanshell");
-			import bsh.Interpreter;
-			interpreter = new Interpreter();
-			interpreter.set("jEdit",jEdit);
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
+			
+			asm = new org.mathrider.u6502.UASM65();
+			
+
 			
 			try 
 			{   
@@ -994,17 +995,16 @@ if(path.endsWith(".pi")){
 
 				//System.out.println(tempFilePath);
 
-				interpreter.source(tempFilePath);
+				//interpreter.source(tempFilePath);
 				result = "";
-	//System.out.println("tempFilePath: " + tempFilePath);
+				
 				status = "%output ";
-	//Sy	stem.out.println("Out> " + result);
 				
 					
 			}catch(Exception e) 
 			{
-				result = e.getMessage();
-				status = "%error ";
+				//result = e.getMessage();
+				//status = "%error ";
 			}
 		}//end else
 		
