@@ -3776,34 +3776,42 @@ public class UASM65
 
 			}//end if.
 			
+			//java.io.StringWriter errorBuilder = new java.io.StringWriter();
+			//java.util.Formatter sprintf = new java.util.Formatter(errorBuilder, java.util.Locale.US);
+			//for (int x=1;x<=error_index;x++)
+			//{
+			//	sprintf.format("\nline#: %d    ",(error_table[x].line_number));
+			//	sprintf.format("line index: %d    ",error_table[x].line_index);
+			//	//sprintf.format("error number: %d",error_table[x].error_number);
+			//	sprintf.format(error_message[error_table[x].error_number]);
+			//}
+			ArrayList errorList = new ArrayList();
 			for (int x=1;x<=error_index;x++)
 			{
-				System.out.printf("\nline#: %d    ",error_table[x].line_number);
-				System.out.printf("line index: %d    ",error_table[x].line_index);
-				System.out.printf("error number: %d",error_table[x].error_number);
+				java.util.Hashtable errorEntry = new java.util.Hashtable();
+				//sprintf.format("\nline#: %d    ",(error_table[x].line_number));
+				errorEntry.put("line_number", (error_table[x].line_number));
+				//sprintf.format("line index: %d    ",error_table[x].line_index);
+				errorEntry.put("line_index", (error_table[x].line_index));
+				//sprintf.format("error number: %d",error_table[x].error_number);
+				//sprintf.format(error_message[error_table[x].error_number]);
+				errorEntry.put("error_message", error_message[error_table[x].error_number]);
+				errorList.add(errorEntry);
 			}
-			
-			//for (x=1;x<=error_index;x++)
-			//{
-			//	System.out.printf("\nline#: %d    ",error_table[x].line_number);
-			//	System.out.printf("error number: %d",error_table[x].error_number);
-			//}
 
-			lst_file_ptr.flush();
-			returnList.add(lst_file_ptr.toString());
+			returnList.add(errorList); //sprintf.toString());
+	//System.out.println("XXXXX " + sprintf.toString());
+			
 			return returnList;
 
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
-			
-		}
-		finally
-		{
 			returnList.add("Error in UASM65 implementation.");
 			return returnList;
 		}
+
 
 	}//}}}
 

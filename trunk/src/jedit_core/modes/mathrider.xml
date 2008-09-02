@@ -103,7 +103,7 @@
 			<END>%/piper</END>
 		</SPAN_REGEXP>
 
-		<SPAN_REGEXP  TYPE="MARKUP" >
+		<SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathrider::MAIN">
 			<BEGIN>%output[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/output</END>
 		</SPAN_REGEXP>
@@ -153,6 +153,11 @@
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="uasm65::MAIN">
 			<BEGIN>%uasm65[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/uasm65</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="s19::MAIN">
+			<BEGIN>%s19[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/s19</END>
 		</SPAN_REGEXP>
 
 	</RULES>

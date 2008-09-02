@@ -50,7 +50,9 @@ ChangeToForwardSlash(tempFilePath)
 //errorSource = new DefaultErrorSource("MathRider");
 //ErrorSource.registerErrorSource(errorSource);
 
-
+errorSource = PiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+errorSource.clear();
+					
 buffer.save(view,null);
 
 path = buffer.getPath();
@@ -991,25 +993,61 @@ if(path.endsWith(".pi")){
 			
 			try 
 			{   
-				tempFilePath = tempFile.getAbsolutePath();
-
-				//System.out.println(tempFilePath);
-
-				//interpreter.source(tempFilePath);
-				result = "";
+				results = asm.assemble(codeText + "\n"); //Add newline to prevent no CR after END error.
 				
-				status = "%output ";
+				//System.out.println("LLLLL " + results.size() + " " + results.get(0));
+				
+				lst_or_error = results.get(0);
+				if(results.size() > 1)
+				{
+					s19 = results.get(1);
+					symbolTable = results.get(2);
+					result = "*** List file ***\n" + lst_or_error + "\n\n";
+					//result = result + "*** Symbol table ***\n\n" + symbolTable + "\n\n";
+					s19 = s19.substring(0,s19.length()-1);
+					s19 = s19.replaceAll("\n","\n\t");
+					result = result + "***Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\"\n\t" + s19 + "\n%/s19";
+					
+					status = "%output ";
+				}
+				else
+				{
+					filePath = textArea.getBuffer().getPath();
+					errorSource = PiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+					errorSource.clear();
+					java.util.Iterator errorEntries = lst_or_error.iterator();
+					
+					while(errorEntries.hasNext())
+					{
+							errorEntry = (java.util.Hashtable) errorEntries.next();
+							errorLine = foldStartLine + errorEntry.get("line_number") + 1;
+							errorIndex =  errorEntry.get("line_index");
+							errorMessage = errorEntry.get("error_message");
+							result = "Error on line " + errorLine + " : " + errorMessage ;
+							//status = "%error";
+							
+							
+            	    	
+							errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, errorIndex, errorMessage) );
+				    	
+							jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+					
+					}
+					status = "%error ";
+				}
+				
+				
 				
 					
-			}catch(Exception e) 
+			}catch(java.io.IOException e) 
 			{
-				//result = e.getMessage();
-				//status = "%error ";
+				result = e.getMessage();
+				status = "%error ";
 			}
 		}//end else
 		
 		
-	///{{{ *** %uasm65 ***
+	///{{{ *** %output ***
 		else if(foldType.equalsIgnoreCase("%output"))
 		{
 			return; //For now.

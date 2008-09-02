@@ -383,6 +383,9 @@
 
 <MODE NAME="s#"			FILE="ssharp.xml"
 				FILE_NAME_GLOB="*.{ss,ssc,ssi,ssw,sts,aml}"  />
+				
+<MODE NAME="s19"		FILE="s19.xml"
+				FILE_NAME_GLOB="*.s19" />
 
 <MODE NAME="sas"		FILE="sas.xml"
 				FILE_NAME_GLOB="*.sas" />

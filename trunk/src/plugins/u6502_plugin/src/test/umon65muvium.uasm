@@ -3653,7 +3653,7 @@ SRecErMe	dbt 10d,13d,7d
 		dbt "Error Loading S Records..."
 		dbt 10d,13d,0d
 SRecEnMs	dbt 10d,13d,7d
-		dbt "S records successfully loaded."
+		dbt "S records successfully loaded (press <enter> to continue)."
 		dbt 0d
 RegMess		dbt 10d,13d,10d
 		dbt "PgmCntr(PC)  Accum(AC)  XReg(XR)  YReg(YR)  StkPtr(SP)  NV-BDIZC(SR)"

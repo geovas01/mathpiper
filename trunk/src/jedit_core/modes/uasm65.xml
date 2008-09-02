@@ -11,7 +11,7 @@
 
 	</PROPS>
 	
-	<RULES IGNORE_CASE="FALSE"
+	<RULES IGNORE_CASE="TRUE"
 		HIGHLIGHT_DIGITS="TRUE"
 		DIGIT_RE="(0[lL]?|[1-9]\d{0,9}(\d{0,9}[lL])?|0[xX]\p{XDigit}{1,8}(\p{XDigit}{0,8}[lL])?|0[0-7]{1,11}([0-7]{0,11}[lL])?|([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?[fFdD]?|[0-9]+([eE][+-]?[0-9]+[fFdD]?|([eE][+-]?[0-9]+)?[fFdD]))">
 
@@ -87,6 +87,10 @@
 			<KEYWORD1>TXS</KEYWORD1>.
 			<KEYWORD1>TYA</KEYWORD1>  
 
+			<KEYWORD2>ORG</KEYWORD2>
+			<KEYWORD2>DBT</KEYWORD2>
+			<KEYWORD2>DWD</KEYWORD2>
+			<KEYWORD2>END</KEYWORD2>
 
 			<!--<LITERAL1>True</LITERAL1>-->
 

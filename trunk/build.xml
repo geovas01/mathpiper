@@ -439,7 +439,7 @@
 	
 	<target id="backcopy-macros" name="backcopy-macros" description="Copies macros from build to source directory." > 
 				<copy todir="${master.src.dir}/jedit_core/macros/MathRider">
-			<fileset dir="${master.build.dir}/mathrider/Macros/MathRider" >
+			<fileset dir="${master.build.dir}/mathrider/macros/MathRider" >
 				<include name="**/*" />
 			</fileset>
 		</copy>	
