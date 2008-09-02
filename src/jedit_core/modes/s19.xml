@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+
+<!DOCTYPE MODE SYSTEM "xmode.dtd">
+
+<MODE>
+	<PROPS>
+
+		<PROPERTY NAME="lineComment" VALUE=";" />
+
+	</PROPS>
+	
+	<RULES IGNORE_CASE="TRUE"
+		HIGHLIGHT_DIGITS="TRUE"
+		DIGIT_RE="(0[lL]?|[1-9]\d{0,9}(\d{0,9}[lL])?|0[xX]\p{XDigit}{1,8}(\p{XDigit}{0,8}[lL])?|0[0-7]{1,11}([0-7]{0,11}[lL])?|([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?[fFdD]?|[0-9]+([eE][+-]?[0-9]+[fFdD]?|([eE][+-]?[0-9]+)?[fFdD]))">
+
+
+
+
+		<!--<SEQ TYPE="OPERATOR">=</SEQ>-->
+		<KEYWORDS>
+			<KEYWORD1>S0</KEYWORD1>
+			<KEYWORD1>S1</KEYWORD1>
+			<KEYWORD1>S9</KEYWORD1>
+
+
+			<!--<LITERAL1>True</LITERAL1>-->
+
+
+
+		</KEYWORDS>
+	</RULES>
+
+
+</MODE>
+
+<!-- {{{ License.
+/*
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+ }}} -->
