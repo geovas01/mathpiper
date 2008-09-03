@@ -3639,7 +3639,7 @@ DgtTblUC	dbt "0123456789ABCDEF"
 DgtTblLC	dbt "0123456789abcdef"
 		dbt 0h
 OpenMess	dbt 10d,13d,10d
-		dbt "UMON65 V1.11a - Understandable Monitor for the 6500 series microprocessors."
+		dbt "UMON65 V1.12 - Understandable Monitor for the 6500 series microprocessors."
 		dbt 10d,13d
 		dbt 0h
 prompt		dbt 10d,13d
