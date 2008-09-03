@@ -336,8 +336,11 @@ public class EMU6502 implements Runnable
 		super();
 		
 		this.ioChips = ioChips;
-
-		this.uart = ioChips[0];
+		
+		if(ioChips != null)
+		{
+			this.uart = ioChips[0];
+		}
 
 		ram = new int[8192];
 		randomMemory = new int[8192];
