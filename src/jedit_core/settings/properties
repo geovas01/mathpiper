@@ -190,3 +190,4 @@ jscicalc.x=50
 jscicalc.extendedState=0
 view.context=MathRider/Insert_Piper_Fold MathRider/Insert_Group_Fold MathRider/Insert_GeoGebra_Fold - cut copy paste paste-previous paste-deleted - select-block to-upper to-lower - hypersearch-word - add-marker - collapse-fold expand-fold narrow-to-fold
 view.font=Bitstream Vera Sans Mono
+u6502.dock-position=right
