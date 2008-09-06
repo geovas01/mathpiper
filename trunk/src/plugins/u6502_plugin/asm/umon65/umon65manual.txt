@@ -1,0 +1,279 @@
+UMON65 USER'S MANUAL
+
+WHAT IS A MONITOR?
+
+A monitor is a computer program which allows a knowledgeable user to access 
+the lowest levels of a computer system.  It usually communicates with the user using a 
+simple command line interface and almost always uses the hexadecimal number 
+system for any numerical input and output.  A monitor is usually one of the first 
+programs developed for a computer system because it can be used to debug a new 
+computer's hardware and it is very useful for debugging any software that will be 
+developed for the computer.
+	
+Because monitors are most often used for debugging purposes they are 
+sometimes called debuggers, and in fact the DEBUG program that is included with 
+MSDOS is simply a monitor program for PC compatible computers.  Some monitor 
+programs are more sophisticated than others, but they all operate in a similar manner 
+and if the user masters a monitor on one system they can quickly learn how to use the 
+monitor on any other system.
+	
+UMON65 is a full feature monitor that was designed to operate similarly to 
+DEBUG on MSDOS machines.  As with most monitor programs, UMON65 will allow 
+the user to perform the following operations on the USBC65 computer.
+
+- View the contents of or modify any address location within the computer.  
+(Dump & Enter commands).
+
+- View or modify the 6502's Program Counter, A, X, or Y registers, Stack Pointer 
+or Status Register.  (Register command).
+
+- Fill a range of addresses with a specified number or numbers.  (Fill 
+command).
+
+- Search a range of addresses for a single number or a pattern of numbers.  
+(Search command).
+
+- Move the contents of a range of address locations to another part of the 
+address space.  (Move command).
+
+- Automatically convert a line of assembly language into machine language at a 
+specified address location.  (Assemble command).
+
+- Automatically convert machine language at a specified location into assembly 
+language.  (Unassemble command).
+
+- Execute a machine language program residing anywhere in memory.  (Go 
+command).
+
+- Automatically stop a program's execution at a specified address and print the 
+contents of the microprocessor's registers to the user.  (Breakpoint 
+command).
+
+- Execute a program anywhere in memory one instruction at a time and dump 
+(print) the contents of the microprocessor's registers after each instruction 
+has been executed.  (Trace command).
+
+- Load a machine language program into memory from a personal computer 
+through the serial port.  (Load command).
+
+- List the monitor's commands to the user.  (H or ? command).
+
+
+CTRL H  Deletes characters to the left of the cursor.
+
+
+
+ASSEMBLE COMMAND
+
+SYNTAX:   A  START_ADDRESS   where START_ADDRESS is a 4 digit hexadecimal 
+number.
+
+DESCRIPTION:  The purpose of the Assemble command is to allow the user to 
+type in a microprocessor instruction in assembly language form and 
+automatically convert it into machine language form and place it into 
+memory.  Once the Assemble command is executed the monitor will enter 
+assemble mode and try to assemble each line of text that is entered until a 
+blank line is entered.  A # sign before a 2 digit hexadecimal number 
+indicates an immediate addressing mode value.  If you make a mistake 
+while entering in an instruction the monitor will print a question mark 
+and prompt you to re-enter the instruction.  After you exit assemble mode 
+you might want to Unassemble your code to see if it was assembled 
+properly.
+
+EXAMPLE:  
+A 1000
+- LDA #1F
+- STA 102C
+- LDA #C0
+- STA 102D
+-
+
+
+BREAKPOINT COMMAND
+
+SYNTAX:  B (+, -, ?)  ADDRESS  where ADDRESS is a 4 digit hexadecimal number.
+
+DESCRIPTION: The purpose of the Breakpoint command is to allow the user 
+to specify up to 4 address locations within a program where the program's 
+execution will be stopped and the contents of the microprocessor's registers 
+will be dumped (printed).  B + address adds a breakpoint to the breakpoint 
+list, B - address removes an address from the breakpoint list, and B ? 
+dumps the breakpoint list to the user.
+
+EXAMPLE:
+B + 100E
+B + 1016
+B + 1018
+B - 1016
+B ?
+
+
+DUMP COMMAND
+
+SYNTAX:  D  [START_ADDRESS  [END_ADDRESS]]  where START_ADDRESS and 
+END_ADDRESS are 4 digit hexadecimal numbers.
+
+DESCRIPTION: The purpose of the dump command is to allow the user to 
+dump (print) the contents of specified address locations.  Each line of the 
+dump command's output consists of a starting dump address, the contents 
+of the 16 address locations beginning with the start address, and the ASCII 
+conversion for each of the 16 dumped addresses.  If no end address is 
+specified then only 1 line is dumped starting at the start address.  If no start 
+address is specified then 1 line is dumped starting at the user's current 
+Program Counter.
+
+EXAMPLE:
+D 1000 10FF
+
+
+ENTER COMMAND
+
+SYNTAX:  E  ADDRESS  LIST  where ADDRESS is a 4 digit hexadecimal number and 
+LIST is one 2 digit hexadecimal number or up to five 2 digit hexadecimal 
+numbers separated by commas.
+
+DESCRIPTION:  The purpose of the Enter command is to allow the user to 
+enter one byte or a list of bytes directly into memory at a specified address.
+
+EXAMPLE:
+E 1000 F6
+E 1000 23,6C,3A,D1
+
+
+FILL COMMAND
+
+SYNTAX:  F  START_ADDRESS  END_ADDRESS  LIST  where START_ADDRESS and 
+END_ADDRESS are 4 digit hexadecimal numbers and list is one 2 digit 
+hexadecimal number or up to five 2 digit hexadecimal numbers separated 
+by commas.
+
+DESCRIPTION:  The purpose of the Dump command is to allow the user to fill 
+a range of addresses with a byte or a list of bytes.
+
+EXAMPLE:
+F 1000 1FFF A6
+F 1000 1FFF FC,12,3D,A6
+
+
+GO COMMAND
+
+SYNTAX:  G  [START_ADDRESS]  where START_ADDRESS is a 4 digit hexadecimal 
+number.
+
+DESCRIPTION:  The purpose of the Go command is to allow the user to start 
+execution of a program that was placed into memory.  Execution will begin 
+at START_ADDRESS or if a start address is not given then execution will begin 
+at the user's current Program Counter.
+
+EXAMPLE:
+G
+G 1000
+
+
+HELP COMMAND
+
+SYNTAX:  H or ?
+
+DESCRIPTION:  The purpose of the help command is to list all UMON65's 
+commands to the user.
+
+
+LOAD COMMAND
+
+SYNTAX:  L
+
+DESCRIPTION:  The purpose of the Load command is to put the monitor into 
+a mode that will receive an ASCII-based S19 format file, convert it into 
+binary, and place it into memory as directed by the address information 
+in the S19 file.  After the Load command has been issued, the monitor will 
+enter load mode and wait until the file starts arriving through the serial 
+connection.  The file will be placed into memory one byte at a time as it 
+is received and the last byte of the S19 file will place the monitor back 
+into command mode.
+
+
+MOVE COMMAND
+
+SYNTAX:  M  START_ADDRESS  END_ADDRESS  DESTINATION_ADDRESS  where 
+START_ADDRESS, END_ADDRESS, and DESTINATION_ADDRESS are all 4 digit 
+hexadecimal numbers.
+
+DESCRIPTION:  The purpose of the Move command is to copy a group of bytes 
+starting at START_ADDRESS and ending at END_ADDRESS to memory locations 
+beginning at DESTINATION_ADDRESS.
+
+EXAMPLE:
+M 0500 1000 1500
+
+
+REGISTER COMMAND
+
+SYNTAX:  R [PC, AC, XR, YR, SP, SR]
+
+DESCRIPTION:  The purpose of the Register command is to dump (print) the 
+contents of all the microprocessor's user accessible registers or to modify 
+any of these registers individually.  If R is entered without specifying a 
+register to be modified, then the contents of all the registers are shown.  If a 
+specific register is given after the R command, then the current contents of 
+this register are shown and an opportunity is given to change the contents 
+of this register.
+
+EXAMPLE:
+R
+R AC
+
+
+SEARCH COMMAND
+
+SYNTAX:  S  START_ADDRESS  END_ADDRESS  LIST  where START_ADDRESS and 
+END_ADDRESS are 4 digit hexadecimal numbers and LIST is one 2 digit 
+hexadecimal number or up to five 2 digit hexadecimal numbers separated 
+by commas.
+
+DESCRIPTION:  The purpose of the search command is to allow the user to 
+search a range of addresses for a pattern of bytes specified by LIST.  for each 
+occurrence of the byte pattern found in the given range the start address of 
+this occurrence will be given.
+
+EXAMPLE:
+S 1000 2000 A6
+S 0000 FFFF 12,FC,36
+
+
+TRACE COMMAND
+
+SYNTAX:  T  [START_ADDRESS  [STEPS]]  where START_ADDRESS is a 4 digit 
+hexadecimal number and STEPS is a 2 digit hexadecimal number.
+
+DESCRIPTION:  The purpose of the Trace command is to allow the user to 
+execute a program in memory 1 instruction at a time and dump the 
+contents of all the registers after each instruction is executed.  Entering the 
+T command without a start address will execute 1 instruction starting at 
+the user's current Program Counter.  If a start address is given without any steps,
+ then 1 instruction is executed at the start address.  If a number of steps  is given 
+with a start address, then the number of instructions indicated by the steps count 
+will be executed starting at the start address.  Once the first instruction has 
+been Traced, simply typing T then <enter> will execute the next instruction in 
+memory.
+
+EXAMPLE:
+T
+T 1000
+T 1000 0C
+
+
+UNASSEMBLE COMMAND
+
+SYNTAX:  U  [START_ADDRESS  [END_ADDRESS]]  where START_ADDRESS and 
+END_ADDRESS are 4 digit hexadecimal numbers.
+
+DESCRIPTION:  The purpose of the Unassemble command is to convert machine language instructions present in memory
+ into their assembly language equivalents and display them.  If the U  command is given with no starting address, then
+ approximately 1 screen full of instructions will be unassembled starting at the current user's Program Counter.  If a start
+ address is given, then approximately 1 screen full of instructions will be unassembled starting at this start address.  If an
+ end address is specified, than all instructions between the start address and the end address will be unassembled.
+
+EXAMPLE:
+U
+U 1000
+U 1000 10FF
