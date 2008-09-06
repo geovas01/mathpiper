@@ -7,7 +7,7 @@
 		Build file for Piper.
 	</description>
 	
-	<property name="version" value=".51" />
+	<property name="version" value=".52" />
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	
 	
