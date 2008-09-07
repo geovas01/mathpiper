@@ -125,17 +125,19 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 	private boolean deleteFlag = false;
 	private float fontSize = 12;
 	private Font bitstreamVera;
+	private IOChip[] ioChips;
+	
 	public EMU6551()
 	{
 		registers = new int[4];
 		registers[1] = 0x10;
 		buffer = new CircularBuffer();
 
-		IOChip[] ioChips = new IOChip[16];
+		ioChips = new IOChip[16];
 		ioChips[0] = this;//A000.
-		ioChips[1] = new EMUOutputPort();//A200.
-		ioChips[2] = new EMURandomIOChip();
-		ioChips[3] = new EMURandomIOChip();
+		ioChips[1] = new EMUOutputPort("8 LEDs interfaced to memory location A200: ");//A200.
+		ioChips[2] = new EMUOutputPort("8 LEDs interfaced to memory location A400: ");//A400.
+		ioChips[3] = new EMUInputPort("8 switchess interfaced to memory location A600: ");//A600.
 		ioChips[4] = new EMURandomIOChip();
 		ioChips[5] = new EMURandomIOChip();
 		ioChips[6] = new EMURandomIOChip();
@@ -164,7 +166,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
 			bitstreamVera = bitstreamVera.deriveFont(fontSize);
 			typeArea.setFont(bitstreamVera);
-			
+
 
 			typeArea.addKeyListener(this);
 			typePane = new JScrollPane(typeArea);
@@ -185,6 +187,8 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 
 			ioBox.add(buttons);
 			ioBox.add((JPanel)ioChips[1]);
+			ioBox.add((JPanel)ioChips[2]);
+			ioBox.add((JPanel)ioChips[3]);
 			this.add(ioBox,BorderLayout.NORTH);
 			//this.add((JPanel)ioChips[1],BorderLayout.SOUTH);
 			this.add(guiBox,BorderLayout.CENTER);
@@ -220,7 +224,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 
 		if (src == button1)
 		{
-			emulator.reset();
+			this.resetAll();
 		}
 		else if (src == button2)
 		{
@@ -399,6 +403,20 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 	}//end main.
 
 
+	private void resetAll()
+	{
+		emulator.reset();
+		
+		for(int x = 0; x < ioChips.length; x++)
+		{
+			ioChips[x].reset();
+		}
+	}//end method.
+	
+	
+	public void reset()
+	{
+	}//end method.
 
 
 }//end class.
