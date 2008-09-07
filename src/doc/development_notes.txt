@@ -179,6 +179,8 @@ Initial release:
 
 
 {{{PIPER BUGS.
+===
+N(Pi,10) gives too many digits.
 ====
 Functions obtained from D() do not evaluate and functions cannot be defined as follows for some reason:
 
@@ -726,4 +728,8 @@ with, at least for me.
 }}}
 
 
+{{{Axiom bugs =========== 0.1.10
++ (3) -> draw(5*besselJ(0,sqrt(x**2+y**2)), x=-20..20, y=-20..20)  
 
+
+}}}

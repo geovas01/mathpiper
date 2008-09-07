@@ -1,5 +1,6 @@
-/*  This is a MathRider notebook file and it consists of folds which contain source
-    code.  A fold starts with %<keyword> and ends with %end.  Code is entered inside
+/*  v 1.03.
+    This is a MathRider notebook file and it consists of folds which contain source
+    code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
     pressing <shift><enter>.  The result of the execution will be
     placed at the bottom of the fold within an indented output fold.

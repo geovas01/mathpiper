@@ -56,7 +56,9 @@ public class EMURandomIOChip implements IOChip
 	}//end method.
 	
 	
-
+	public void reset()
+	{
+	}//end methodl.
 
 	
 }//end class.

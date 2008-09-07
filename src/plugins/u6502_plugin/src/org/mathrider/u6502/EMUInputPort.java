@@ -25,13 +25,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionListener
+public class EMUInputPort extends javax.swing.JPanel implements IOChip, ActionListener
 {
-	private JLabel[] bits = new JLabel[8];
+	private JToggleButton[] bits = new JToggleButton[8];
 	
 	private JButton button1, button2;
 	
-	//private ImageIcon led0, led1, led2, led3, led4, led5, led6, led7;
+	//private ImageIcon Switch0, Switch1, Switch2, Switch3, Switch4, Switch5, Switch6, Switch7;
 	
 	private Icon onIcon, offIcon;
 	private int register = 0;
@@ -39,7 +39,7 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 	private String label = "";
 
 
-	public EMUOutputPort(String label)
+	public EMUInputPort(String label)
 	{
 		super();
 		
@@ -48,11 +48,11 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		this.setLayout(new BorderLayout());
 
 		
-		Box leds = new Box(BoxLayout.X_AXIS);
+		Box switches = new Box(BoxLayout.X_AXIS);
 		
 		
 		//Load on image.
-		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/yellow.gif" );
+		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/button_on.png" );
 		java.io.BufferedInputStream bufferedInputStream = new java.io.BufferedInputStream( inputStream );
 		byte[] buffer = new byte[4096];
 		try 
@@ -60,12 +60,12 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 			bufferedInputStream.read( buffer, 0, 4096 );
 		} catch( Exception e )
 		{
-			System.err.println( "Failed to read image." );
+			System.err.println( "FaiSwitch to read image." );
 		}
 		onIcon = new javax.swing.ImageIcon(java.awt.Toolkit.getDefaultToolkit().createImage( buffer ));
 		
 		//Load off image.
-		inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/gray.gif" );
+		inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/images/button_off.png" );
 		bufferedInputStream = new java.io.BufferedInputStream( inputStream );
 		buffer = new byte[4096];
 		try 
@@ -73,49 +73,23 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 			bufferedInputStream.read( buffer, 0, 4096 );
 		} catch( Exception e )
 		{
-			System.err.println( "Failed to read image." );
+			System.err.println( "FaiSwitch to read image." );
 		}
 		offIcon = new javax.swing.ImageIcon(java.awt.Toolkit.getDefaultToolkit().createImage( buffer ));
 		
 		
-		//Initialize LED 7.
-		bits[7] = new JLabel(offIcon);
-		leds.add(bits[7]); 
-		leds.add(Box.createHorizontalStrut(3));
+		//Initialize Switches.
+		for(int x = 7; x > -1; x--)
+		{
+			bits[x] = new JToggleButton(offIcon);
+			bits[x].setSelectedIcon(onIcon);
+			bits[x].addActionListener(this);
+			bits[x].setPreferredSize(new Dimension(25,20));
+			switches.add(bits[x]); 
+			switches.add(Box.createHorizontalStrut(3));
+		}
 		                            
-		//Initialize LED 6.         
-		bits[6] = new JLabel(offIcon);
-		leds.add(bits[6]);
-		leds.add(Box.createHorizontalStrut(3));
-				                    
-		//Initialize LED 5.         
-		bits[5] = new JLabel(offIcon);
-		leds.add(bits[5]);
-		leds.add(Box.createHorizontalStrut(3));
-				                    
-		//Initialize LED 4.         
-		bits[4] = new JLabel(offIcon);
-		leds.add(bits[4]);
-		leds.add(Box.createHorizontalStrut(3));
-				                    
-		//Initialize LED 3.         
-		bits[3] = new JLabel(offIcon);
-		leds.add(bits[3]);
-		leds.add(Box.createHorizontalStrut(3));
-				                    
-		//Initialize LED 2.         
-		bits[2] = new JLabel(offIcon);
-		leds.add(bits[2]);
-		leds.add(Box.createHorizontalStrut(3));
-				                    
-		//Initialize LED 1.         
-		bits[1] = new JLabel(offIcon);
-		leds.add(bits[1]);
-		leds.add(Box.createHorizontalStrut(3));
-		                            
-		//Initialize LED 0..         
-		bits[0] = new JLabel(offIcon);
-		leds.add(bits[0]);
+
 		
 		
 		button1 = new JButton("Reset");
@@ -129,13 +103,13 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		//this.add(buttons,BorderLayout.NORTH);
 		JPanel panel = new JPanel();
 		panel.add(new JLabel(label));
-		panel.add(leds);
+		panel.add(switches);
 		this.add(panel,BorderLayout.CENTER);
 		
 
 	}//end constructor.
 	
-	public EMUOutputPort()
+	public EMUInputPort()
 	{
 		this("");
 		
@@ -146,15 +120,24 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 	public void actionPerformed(ActionEvent event)
 	{
 		Object src = event.getSource();
+		System.out.println("Src: " + src);
 
-		if (src == button1)
-		{
-			
-		}
-		else if (src == button2)
-		{
+			for(int x = 0, mask = 1; x < 8; mask = mask << 1, x++)
+			{
 
-		}
+				if(src == bits[x])
+				{
+					if(bits[x].isSelected())
+					{
+						register |= mask;
+					}
+					else
+					{
+						register &= ((~mask)&0xff);
+					}
+				}
+
+			}//end for.
 
 	}
 
@@ -181,37 +164,12 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 	{
 		//System.out.println(location + " " + value);
 
-		
-		if(location == 0)
-		{
-			register = value;
-			
-			for(int x = 0, mask = 1; x < 8; mask = mask << 1, x++)
-			{
-				//System.out.println(mask + " " + x);
-				if((value & mask) > 0)
-				{
-					bits[x].setIcon(onIcon);
-				}
-				else
-				{
-					bits[x].setIcon(offIcon);
-				}
-			}//end for.
-
-		}
 
 	}//end method.
 	
+	
 	public void reset()
 	{
-			register = 0;
-			
-			for(int x = 0; x < 8;  x++)
-			{
-
-				bits[x].setIcon(offIcon);
-			}//end for.
 	}//end method.
 
 
