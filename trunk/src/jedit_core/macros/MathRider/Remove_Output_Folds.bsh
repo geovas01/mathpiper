@@ -17,7 +17,7 @@
  */ //}}}
 
 
-void insert_uasm65_fold()
+void remove_output_folds()
 {
 	
 	//Test for read only files.
@@ -26,21 +26,44 @@ void insert_uasm65_fold()
 		Macros.error(view, "This file is read only.");
 		return;
 	}
-	line = textArea.getCaretLine();
-	offset = textArea.getLineEndOffset(line);
-    
-    
 	
-	if(line == textArea.getLineCount() - 1)
-	{
-		--offset;
-	}
-
-	text = "%uasm65,description=\"\"\n\n%/uasm65\n\n";
-
-	buffer.insert(offset, text);
+		lineCount = buffer.getLineCount();
+		
+		System.out.println("VVVV " + lineCount);
 	
-    textArea.setCaretPosition(offset + 21);
-}
+		
+		for(int lineNumber = 1; lineNumber < lineCount; lineNumber++)
+		{
+			//System.out.println("TTTTT " + buffer.getLineText(lineNumber));
+			
+			if(buffer.isFoldStart(lineNumber))
+			{
+				
+				if(buffer.getLineText(lineNumber).trim().startsWith("%output"))
+				{
+					System.out.println("SSSSS" + buffer.getLineText(lineNumber));
+					//inOutputFold = true;
+					foldStartOffset = buffer.getLineStartOffset(lineNumber);
+				}
+				
 
-insert_uasm65_fold();
+				
+			}
+			
+			if(buffer.isFoldEnd(lineNumber))
+			{
+				if(buffer.getLineText(lineNumber).trim().startsWith("%/output"))
+				{
+					System.out.println("EEEEEE" + buffer.getLineText(lineNumber));
+					//inOutputFold = false;
+					foldEndOffset = buffer.getLineEndOffset(lineNumber);
+					buffer.remove(foldStartOffset, foldEndOffset - foldStartOffset);
+					lineCount = buffer.getLineCount();
+					lineNumber = 1;
+				}//end if.
+			}//end if.
+		}//end for
+	
+}//end.
+
+remove_output_folds();
