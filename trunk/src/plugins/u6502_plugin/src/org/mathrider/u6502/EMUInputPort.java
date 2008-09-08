@@ -84,7 +84,7 @@ public class EMUInputPort extends javax.swing.JPanel implements IOChip, ActionLi
 			bits[x] = new JToggleButton(offIcon);
 			bits[x].setSelectedIcon(onIcon);
 			bits[x].addActionListener(this);
-			bits[x].setPreferredSize(new Dimension(25,20));
+			bits[x].setPreferredSize(new Dimension(22,22));
 			switches.add(bits[x]); 
 			switches.add(Box.createHorizontalStrut(3));
 		}
@@ -102,6 +102,7 @@ public class EMUInputPort extends javax.swing.JPanel implements IOChip, ActionLi
 		//buttons.add(button2);
 		//this.add(buttons,BorderLayout.NORTH);
 		JPanel panel = new JPanel();
+		//panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		panel.add(new JLabel(label));
 		panel.add(switches);
 		this.add(panel,BorderLayout.CENTER);

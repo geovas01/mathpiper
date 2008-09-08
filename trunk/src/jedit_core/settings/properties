@@ -1,6 +1,6 @@
 #jEdit properties
 #Sun Apr 06 13:41:08 EDT 2008
-buffer.maxLineLen=100
+buffer.maxLineLen=110
 plugin-blacklist.ConfigurableFoldHandler.jar=false
 plugin-blacklist.piper_docs_plugin.jar=false
 buffer.folding=custom

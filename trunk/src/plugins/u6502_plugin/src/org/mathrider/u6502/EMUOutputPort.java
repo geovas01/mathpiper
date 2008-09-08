@@ -128,6 +128,7 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		//buttons.add(button2);
 		//this.add(buttons,BorderLayout.NORTH);
 		JPanel panel = new JPanel();
+		//panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		panel.add(new JLabel(label));
 		panel.add(leds);
 		this.add(panel,BorderLayout.CENTER);
