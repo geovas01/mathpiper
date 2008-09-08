@@ -1,6 +1,6 @@
 ;Program Name: hello.asm.
 ;
-;Version: 1.1.
+;Version: 1.02.
 ;
 ;Description: Print all characters in Mess using OutChar.
 
@@ -13,6 +13,7 @@ Main *
 
 ;Point X to first character of Mess.
 	ldx #0d
+    
 LoopTop *
 ;Grab a character from Mess.
 	lda Mess,x
@@ -23,7 +24,7 @@ LoopTop *
 	beq DonePrint
 	
 ;Call the OutChar monitor utility subroutine.
-	jsr 1003h
+	jsr E003h
 	
 ;Point X to the next character in Mess and loop back.
 	inx

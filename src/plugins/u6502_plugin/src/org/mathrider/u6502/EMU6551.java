@@ -186,9 +186,19 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			buttons.add(button3);
 
 			ioBox.add(buttons);
-			ioBox.add((JPanel)ioChips[1]);
-			ioBox.add((JPanel)ioChips[2]);
-			ioBox.add((JPanel)ioChips[3]);
+			
+			JPanel panel = (JPanel)ioChips[1];
+			//panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+			ioBox.add(panel);
+			
+			panel = (JPanel)ioChips[2];
+			//panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+			ioBox.add(panel);
+			
+			panel = (JPanel)ioChips[3];
+			//panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+			ioBox.add(panel);
+
 			this.add(ioBox,BorderLayout.NORTH);
 			//this.add((JPanel)ioChips[1],BorderLayout.SOUTH);
 			this.add(guiBox,BorderLayout.CENTER);

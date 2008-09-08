@@ -1,8 +1,9 @@
 Development notes.
 
-:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:wrap=soft:
+:indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++ Folds throw an exception if equals sign is missing from a parameter.  Should catch this and return a better error message (actually I discovered that it is commas between quotes that is causing the exception."
 + Check Numbers (Predicates) for completeness.
 - Place all IsXXX predicate functions in the predicate node in PiperDocs.
 + Again, figure out a way for piper folds to always return the result of the
@@ -728,7 +729,7 @@ with, at least for me.
 }}}
 
 
-{{{Axiom bugs =========== 0.1.10
+{{{Axiom bugs =========== 0.1.15
 + (3) -> draw(5*besselJ(0,sqrt(x**2+y**2)), x=-20..20, y=-20..20)  
 
 

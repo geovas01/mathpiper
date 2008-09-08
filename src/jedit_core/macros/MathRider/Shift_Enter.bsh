@@ -78,7 +78,23 @@ if(path.endsWith(".pi")){
 	//result = interpreter.evaluate("Load(\""+path+"\");");
 	
 	//System.out.println(result);
-}else if (path.endsWith(".mrw")){
+}
+else if (path.endsWith(".uasm"))
+{
+	buffer.setMode("uasm65");
+	
+	if ( asm == void )
+	{
+		asm = new org.mathrider.u6502.UASM65();
+	}
+	
+	asm.assemble(new File(path));
+	
+	org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A .lst and a .s19 file have been successfully created\n in the same directory as the source .uasm file.");
+	
+}
+else if (path.endsWith(".mrw"))
+{
 	//buffer.setMode("mathrider");
 	currentCaretPosition = textArea.getCaretPosition();
 	textArea.selectFold();
@@ -987,7 +1003,10 @@ if(path.endsWith(".pi")){
 		{
 			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
 			
-			asm = new org.mathrider.u6502.UASM65();
+			if ( asm == void )
+			{
+				asm = new org.mathrider.u6502.UASM65();
+			}
 			
 
 			
