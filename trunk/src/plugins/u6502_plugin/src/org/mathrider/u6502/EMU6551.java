@@ -111,6 +111,8 @@ import java.util.*;
 
 public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListener, KeyListener
 {
+	private static EMU6551 instance;
+	
 	private int[] registers;
 	private java.util.Random rnd = new java.util.Random( 839374 );
 
@@ -394,7 +396,48 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		}
 	}//end method.
 
+	private void resetAll()
+	{
+		emulator.reset();
+		
+		for(int x = 0; x < ioChips.length; x++)
+		{
+			ioChips[x].reset();
+		}
+	}//end method.
+	
+	
+	public void reset()
+	{
+	}//end method.
+	
+	
+	public static EMU6551 getInstance() 
+	{
+      if(instance == null) {
+         instance = new EMU6551();
+      }
+      return instance;
+   }//end method.
+   
+   public void send(String text)
+   {
+	   char[] chars = text.toCharArray();
+	   
+		for(int x = 0; x < chars.length; x++)
+		{
+			buffer.put((int) chars[x]);
 
+		}//end for.
+		
+		typeArea.append(text);
+		typeArea.setCaretPosition( typeArea.getDocument().getLength() );
+			
+		setReceiveDataRegisterFull(true);
+		
+   }//end method.
+	
+	
 	public static void main(String[] args)
 	{
 		EMU6551 uart = new EMU6551();
@@ -411,22 +454,6 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		frame.pack();
 		frame.setVisible(true);
 	}//end main.
-
-
-	private void resetAll()
-	{
-		emulator.reset();
-		
-		for(int x = 0; x < ioChips.length; x++)
-		{
-			ioChips[x].reset();
-		}
-	}//end method.
-	
-	
-	public void reset()
-	{
-	}//end method.
 
 
 }//end class.

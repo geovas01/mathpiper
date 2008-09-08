@@ -96,7 +96,7 @@ public class U6502 extends JPanel
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 		
-		uart = new EMU6551();
+		uart = EMU6551.getInstance();
 		//uart.setFontSize(18);
 		this.add(uart,BorderLayout.CENTER);
 
