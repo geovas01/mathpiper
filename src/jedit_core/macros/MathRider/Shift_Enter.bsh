@@ -301,7 +301,7 @@ else if (path.endsWith(".mrw"))
 		
 
 		result = "";
-		status = "";
+		output_fold_type = "";
 		collapseFold = foldProperties.get("collapse");
 		
 		///{{{ *** %piper ***.
@@ -352,40 +352,40 @@ else if (path.endsWith(".mrw"))
 					result = system.evaluate("TeXForm(Hold(" + result + "));");
 					result = result.replace("\"$","");
 					result = result.replace("$\"","");
-					status = "%hoteqn";
+					output_fold_type = "%hoteqn";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
 					result = system.evaluate("OMForm(" + result + ");");
-					status = "%output";
+					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
 					result = system.evaluate("PrettyForm(Hold(" + result + "));");
-					status = "%output";
+					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				{	
 					result = system.evaluate("CForm(" + result + ");");
-					status = "%output";
+					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				{	
 					result = system.evaluate("FullForm(" + result + ");");
-					status = "%output";
+					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				{	
 					result = system.evaluate("TableForm(" + result + ");");
-					status = "%output";
+					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
 				{
-					status = "%geogebra";
+					output_fold_type = "%geogebra";
 				}
 				else
 				{
-					status = "%output";
+					output_fold_type = "%output";
 				}
 	//Sy	stem.out.println("Out> " + result);
 				
@@ -393,7 +393,7 @@ else if (path.endsWith(".mrw"))
 			}catch(org.mathrider.piper.Piperexception ye) 
 			{
 				result = ye.getMessage();
-				status = "%error ";
+				output_fold_type = "%error ";
 			}
 			
 			
@@ -459,7 +459,7 @@ else if (path.endsWith(".mrw"))
 				//runCommandInConsole(view,"Maxima","Load(\""+path+"\");");
 				//runCommandInConsole(view,"Maxima",codeText + "\n");
 				
-				status = "%output,name=\"" + foldName + "\"";
+				output_fold_type = "%output,name=\"" + foldName + "\"";
 				//System.out.println(
 				
 				
@@ -472,40 +472,40 @@ else if (path.endsWith(".mrw"))
 				//	result = system.evaluate("TeXForm(Hold(" + result + "));");
 				//	result = result.replace("\"$","$");
 				//	result = result.replace("$\"","$");
-				//	status = "%hoteqn";
+				//	output_fold_type = "%hoteqn";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				//{	
 				//	result = system.evaluate("OMForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				//{	
 				//	result = system.evaluate("PrettyForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				//{	
 				//	result = system.evaluate("CForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				//{	
 				//	result = system.evaluate("FullForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				//{	
 				//	result = system.evaluate("TableForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
 				//{
-				//	status = "%geogebra";
+				//	output_fold_type = "%geogebra";
 				//}
 				//else
 				//{
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 	//Sy	stem.out.println("Out> " + result);
 				
@@ -513,7 +513,7 @@ else if (path.endsWith(".mrw"))
 			}catch(org.mathrider.maxima.Piperexception ye) 
 			{
 				result = ye.getMessage();
-				status = "%error ";
+				output_fold_type = "%error ";
 			}
 			
 			
@@ -571,7 +571,7 @@ else if (path.endsWith(".mrw"))
 				tempFileName = tempFile.getName();
 				sendString = "load(\""+tempFileName+"\");\n";
 				system.send(sendString);
-				status = "%output";
+				output_fold_type = "%output";
 				//System.out.println(
 				
 				
@@ -584,40 +584,40 @@ else if (path.endsWith(".mrw"))
 				//	result = system.evaluate("TeXForm(Hold(" + result + "));");
 				//	result = result.replace("\"$","$");
 				//	result = result.replace("$\"","$");
-				//	status = "%hoteqn";
+				//	output_fold_type = "%hoteqn";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				//{	
 				//	result = system.evaluate("OMForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				//{	
 				//	result = system.evaluate("PrettyForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				//{	
 				//	result = system.evaluate("CForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				//{	
 				//	result = system.evaluate("FullForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				//{	
 				//	result = system.evaluate("TableForm(" + result + ");");
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 				//else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
 				//{
-				//	status = "%geogebra";
+				//	output_fold_type = "%geogebra";
 				//}
 				//else
 				//{
-				//	status = "%output";
+				//	output_fold_type = "%output";
 				//}
 	//Sy	stem.out.println("Out> " + result);
 				
@@ -625,7 +625,7 @@ else if (path.endsWith(".mrw"))
 			}catch(org.mathrider.maxima.Piperexception ye) 
 			{
 				result = ye.getMessage();
-				status = "%error ";
+				output_fold_type = "%error ";
 			}
 			
 			
@@ -716,7 +716,7 @@ else if (path.endsWith(".mrw"))
 				}
 				
 	//System.out.println("tempFilePath: " + tempFilePath);
-				status = "%output ";
+				output_fold_type = "%output ";
 	//Sy	stem.out.println("Out> " + result);
 				
 					
@@ -745,7 +745,7 @@ else if (path.endsWith(".mrw"))
 
 				
 
-				status = "%error ";
+				output_fold_type = "%error ";
 							
 							errorSource = PiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 
@@ -787,7 +787,7 @@ else if (path.endsWith(".mrw"))
 			
 			
 			result = "GeoGebra updated.";
-			status = "%output";
+			output_fold_type = "%output";
 			if(foldType.endsWith("_xml"))
 			{
 				geogebra.setXML(codeText);
@@ -823,7 +823,7 @@ else if (path.endsWith(".mrw"))
 						{
 							errorLine = foldStartLine + lineIndex+2;
 							result = "Error on line " + errorLine + ".";
-							status = "%error";
+							output_fold_type = "%error";
 							
 							filePath = textArea.getBuffer().getPath();
 				    	
@@ -871,14 +871,14 @@ else if (path.endsWith(".mrw"))
 
 			hotEqn.setEquation(codeText);
 			result = "HotEqn updated.";
-			status = "%output";
+			output_fold_type = "%output";
 			
 					/*
 					if(returnFlag == false)
 					{
 						errorLine = foldStartLine + lineIndex+2;
 						result = "Error on line " + errorLine + ".";
-						status = "%error";
+						output_fold_type = "%error";
 						
 						filePath = textArea.getBuffer().getPath();
 			    	
@@ -902,7 +902,7 @@ else if (path.endsWith(".mrw"))
 			
 			
 			result = "";
-			status = "%output";
+			output_fold_type = "%output";
 			
 			try 
 			{   
@@ -972,7 +972,7 @@ else if (path.endsWith(".mrw"))
 			}catch(Exception e) 
 			{
 				result = e.getMessage();
-				status = "%error ";
+				output_fold_type = "%error ";
 			}
 			
 					/*
@@ -980,7 +980,7 @@ else if (path.endsWith(".mrw"))
 					{
 						errorLine = foldStartLine + lineIndex+2;
 						result = "Error on line " + errorLine + ".";
-						status = "%error";
+						output_fold_type = "%error";
 						
 						filePath = textArea.getBuffer().getPath();
 			    	
@@ -1027,7 +1027,7 @@ else if (path.endsWith(".mrw"))
 					s19 = s19.replaceAll("\n","\n\t");
 					result = result + "***Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\"\n\t" + s19 + "\n%/s19";
 					
-					status = "%output ";
+					output_fold_type = "%output ";
 				}
 				else
 				{
@@ -1043,7 +1043,7 @@ else if (path.endsWith(".mrw"))
 							errorIndex =  errorEntry.get("line_index");
 							errorMessage = errorEntry.get("error_message");
 							result = "Error on line " + errorLine + " : " + errorMessage ;
-							//status = "%error";
+							//output_fold_type = "%error";
 							
 							
             	    	
@@ -1052,7 +1052,7 @@ else if (path.endsWith(".mrw"))
 							jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
 					
 					}
-					status = "%error ";
+					output_fold_type = "%error ";
 				}
 				
 				
@@ -1061,10 +1061,35 @@ else if (path.endsWith(".mrw"))
 			}catch(java.io.IOException e) 
 			{
 				result = e.getMessage();
-				status = "%error ";
+				output_fold_type = "%error ";
 			}
 		}//end else
 		
+	///{{{ *** %s19 ***
+		else if(foldType.equalsIgnoreCase("%s19")) 
+		{
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
+			
+			uart = org.mathrider.u6502.EMU6551.getInstance();
+			
+
+			
+			try 
+			{   
+					
+				uart.send("L\n");
+				codeText = codeText.replaceAll(" ", "");
+				codeText = codeText.replaceAll("\t", "");
+				uart.send(codeText);
+				
+				output_fold_type = "%output";
+				
+			}catch(java.io.IOException e) 
+			{
+				result = e.getMessage();
+				output_fold_type = "%error ";
+			}
+		}//end else
 		
 	///{{{ *** %output ***
 		else if(foldType.equalsIgnoreCase("%output"))
@@ -1181,9 +1206,9 @@ else if (path.endsWith(".mrw"))
 						result = result.trim();
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
-						textArea.setSelectedText(beforeNewlines + indentAmount + status + ",preserve=\"false\"\n" + result + "\n" + indentAmount + "%/" + status.substring(1,status.length() ) + afterNewlines, false);
+						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",preserve=\"false\"\n" + result + "\n" + indentAmount + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
-						//("\n\n     " + status + "\n      "+ result + "\n     %end\n",false);
+						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
 				 
 						/*//If fold type was blank, set it to the default fold type.
 						if(foldStartSelection != null)
