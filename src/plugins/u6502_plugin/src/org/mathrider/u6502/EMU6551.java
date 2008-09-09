@@ -137,10 +137,10 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 
 		ioChips = new IOChip[16];
 		ioChips[0] = this;//A000.
-		ioChips[1] = new EMUOutputPort("8 LEDs interfaced to memory location A200: ");//A200.
-		ioChips[2] = new EMUOutputPort("8 LEDs interfaced to memory location A400: ");//A400.
-		ioChips[3] = new EMUInputPort("8 switchess interfaced to memory location A600: ");//A600.
-		ioChips[4] = new EMURandomIOChip();
+		ioChips[1] = new EMUOutputPort("8 LEDs interfaced to memory location A200: ");
+		ioChips[2] = new EMUOutputPort("8 LEDs interfaced to memory location A400: ");
+		ioChips[3] = new EMUInputPort("8 switchess interfaced to memory location A600: ");
+		ioChips[4] = new EMUTimer("100 milisecond period count down timer at memory location A800");
 		ioChips[5] = new EMURandomIOChip();
 		ioChips[6] = new EMURandomIOChip();
 		ioChips[7] = new EMURandomIOChip();
@@ -198,6 +198,10 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 			ioBox.add(panel);
 			
 			panel = (JPanel)ioChips[3];
+			//panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+			ioBox.add(panel);
+			
+			panel = (JPanel)ioChips[4];
 			//panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 			ioBox.add(panel);
 

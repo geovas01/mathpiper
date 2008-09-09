@@ -426,6 +426,7 @@ public class EMU6502 implements Runnable
 			while(runFlag == true)
 			{
 				block = (pc & 0xe000) >> 13;
+				block2 = 0;
 
 				offset = (pc & 0x1fff);
 
