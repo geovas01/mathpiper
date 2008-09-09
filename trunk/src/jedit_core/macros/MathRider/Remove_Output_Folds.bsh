@@ -31,6 +31,7 @@ void remove_output_folds()
 		
 		System.out.println("VVVV " + lineCount);
 	
+		stack = new java.util.Stack();
 		
 		for(int lineNumber = 1; lineNumber < lineCount; lineNumber++)
 		{
@@ -43,7 +44,7 @@ void remove_output_folds()
 				{
 					System.out.println("SSSSS" + buffer.getLineText(lineNumber));
 					//inOutputFold = true;
-					foldStartOffset = buffer.getLineStartOffset(lineNumber);
+					stack.push(buffer.getLineStartOffset(lineNumber));
 				}
 				
 
@@ -56,6 +57,7 @@ void remove_output_folds()
 				{
 					System.out.println("EEEEEE" + buffer.getLineText(lineNumber));
 					//inOutputFold = false;
+					foldStartOffset = stack.pop();
 					foldEndOffset = buffer.getLineEndOffset(lineNumber);
 					buffer.remove(foldStartOffset, foldEndOffset - foldStartOffset);
 					lineCount = buffer.getLineCount();

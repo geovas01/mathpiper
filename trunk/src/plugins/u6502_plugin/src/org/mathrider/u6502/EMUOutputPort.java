@@ -168,7 +168,7 @@ public class EMUOutputPort extends javax.swing.JPanel implements IOChip, ActionL
 		//System.out.println("XXXXX " + location);
 		if(location > 0)
 		{
-			return(65);
+			return(66);
 		}
 		else
 		{

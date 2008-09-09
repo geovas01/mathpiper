@@ -16,7 +16,8 @@ Copyright (C) 2008 Ted Kosan
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
+ 
 package org.mathrider.u6502;
 
 
@@ -63,4 +64,4 @@ public class EMURandomIOChip implements IOChip
 	
 }//end class.
 
-// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
+

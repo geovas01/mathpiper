@@ -15,13 +15,13 @@ Main *
 ;Turn all the lights on and then waste some time
 ; so that the user can see the lights on.
 	lda #11111111b
-	sta 4001h
+	sta 0a200h
 	jsr delay
 	
 ;Turn all the lights off and then waste some time
 ; so that the user can see the lights off.
 	lda #00000000b
-	sta 4001h
+	sta 0a200h
 	jsr delay
 	
 	jmp Main

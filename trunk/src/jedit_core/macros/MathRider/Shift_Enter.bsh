@@ -1080,7 +1080,7 @@ else if (path.endsWith(".mrw"))
 				uart.send("L\n");
 				codeText = codeText.replaceAll(" ", "");
 				codeText = codeText.replaceAll("\t", "");
-				uart.send(codeText);
+				uart.send(codeText + "\n");
 				
 				output_fold_type = "%output";
 				
