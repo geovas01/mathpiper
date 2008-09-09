@@ -46,7 +46,7 @@ Main *
 ;        Variables area.
 ;**************************************
 mess	dbt "Hello3"
-	dbt 0d
+	    dbt 0d
 
 	end
 
