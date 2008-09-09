@@ -1,0 +1,504 @@
+
+%uasm65,description=""
+;Program Name: hello.asm.
+;
+;Version: 1.02.
+;
+;Description: Print all characters in Mess using OutChar.
+
+;**************************************
+;      Program entry point.
+;**************************************
+	org 0200h
+
+Main *
+
+;Point X to first character of Mess.
+	ldx #0d
+    
+LoopTop *
+;Grab a character from Mess.
+	lda Mess,x
+	
+;If the character is the 0 which is at the end
+; of Mess, then exit.
+	cmp #0d
+	beq DonePrint
+	
+;Call the OutChar monitor utility subroutine.
+	jsr 0E003h
+	
+;Point X to the next character in Mess and loop back.
+	inx
+	jmp LoopTop
+	
+DonePrint *
+	
+;Exit the program.
+	brk
+
+;**************************************
+;        Variables area.
+;**************************************
+Mess	dbt "Hello"
+	    dbt 0d
+
+	end
+
+
+%/uasm65
+
+
+   
+   
+
+
+%uasm65,description=""
+;Program Name: blink.asm.
+;
+;Version: 1.1.
+;
+;Description: The purpose of this program is to blink
+; the lights on and off continuously.
+;
+
+;**************************************
+;      Program entry point.
+;**************************************
+	org 0200h
+
+Main *
+;Turn all the lights on and then waste some time
+; so that the user can see the lights on.
+	lda #11111111b
+	sta 0a200h
+	jsr delay
+	
+;Turn all the lights off and then waste some time
+; so that the user can see the lights off.
+	lda #00000000b
+	sta 0a200h
+	jsr delay
+	
+	jmp Main
+	
+;Exit the program.
+	brk
+	
+	
+;**************************************
+;        Subroutines area.
+;**************************************
+
+;**************************************
+;Delay subroutine.
+;
+;The purpose of this subroutine is to generate
+; a delay so that the rate of the blinking
+; can be controlled.
+;
+;Change the number that is being loaded into
+; the 'A' register to change the delay time.
+;**************************************
+Delay *
+;Save registers on the stack.
+	pha
+	txa
+	pha
+	tya
+	pha
+	
+;Change the number that is being loaded into the
+; 'A' register in order to change the delay time.
+	lda #20d
+    sta 0a800h
+	
+DelayLoop *
+    lda 0a800h
+    cmp #0d
+    bne DelayLoop
+
+	
+;Restore registers from the stack.
+	pla
+	tay
+	pla
+	tax
+	pla
+
+	rts
+	
+
+;**************************************
+;        Variables area.
+;**************************************
+
+	end
+
+%/uasm65
+
+
+
+
+%uasm65,description=""
+;Program Name: hello2.asm.
+;
+;Version: 1.1.
+;
+;Description: Print all of the characters in Mess using
+; PrntMess
+
+;**************************************
+;      Program entry point.
+;**************************************
+	org 0200h
+
+Main *
+;Load the low byte of address of Mess into X.
+	ldx #Mess<
+	
+;Load the high byte of address of Mess into Y.
+	ldy #Mess>
+	
+;Call PrntMess monitor utility subroutine.
+	jsr 100ch
+	
+;Exit the program.
+	brk
+
+;**************************************
+;        Variables area.
+;**************************************
+Mess	dbt "Hello2"
+	dbt 0d
+
+	end
+
+%/uasm65
+
+
+
+
+%uasm65,description=""
+;Program Name: hello3.asm.
+;
+;Version: 1.1.
+;
+;Description: Print all characters in Mess using PrntMess and
+; equs.
+;
+;Assumptions: When added, the numbers will not be 
+; greater than 255.
+
+     ;************************************************************
+     ;              Monitor Utility Subroutine Jump Table.
+     ;************************************************************
+OutChar   equ 1003h ;Output byte in A register to serial port.
+                     
+GetChar   equ 1006h ;Get a byte from the serial port.
+                     
+GetCharW  equ 1009h ;Wait and get a byte from the serial port.
+                     
+PrntMess  equ 100Ch ;Print a message to the serial port.
+                     
+OutSpace  equ 100Fh ;Output spaces to the serial port.                                 
+                     
+OutHex    equ 1012h ;Output a HEX number to the serial port.
+                     
+DgtToBin  equ 1015h ;Convert an ASCII digit into binary.
+                     
+GetLine   equ 1018h ;Input a line from the serial port.
+          
+
+
+;**************************************                  
+;      Program entry point.
+;**************************************
+	org 0200h                                                       
+
+Main *
+	ldx #mess<
+	ldy #mess>
+	jsr PrntMess
+	
+;Exit the program.
+	brk
+
+;**************************************
+;        Variables area.
+;**************************************
+mess	dbt "Hello3"
+	    dbt 0d
+
+	end
+
+%/uasm65
+
+
+
+%uasm65,description=""
+;Program Name: addinput.asm.
+;
+;Version: 1.1.
+;
+;Description: Input 2 single digit numbers from the user, add
+; them together, and then output the answer..                             
+
+     ;************************************************************
+     ;              Monitor Utility Subroutine Jump Table.
+     ;************************************************************
+OutChar   equ E003h ;Output byte in reg A to the user.
+                     
+GetChar   equ E006h ;Get a byte from the serial port.
+                     
+GetCharW  equ E009h ;Wait and get a byte from the user.
+                     
+PrntMess  equ E00Ch ;Print a message to the user.
+                    
+OutSpace  equ E00Fh ;Output spaces to the serial port.                                 
+                     
+OutHex    equ E012h ;Output a HEX number to the user.
+                     
+DgtToBin  equ E015h ;Convert an ASCII digit to binary.
+                    
+GetLine   equ E018h ;Input a line from the serial port.
+
+
+;**************************************                  
+;      Program entry point.
+;**************************************
+	org 0200h                                                       
+
+Main *
+;Ask user to enter the first number.
+	ldx #InMess1<
+	ldy #InMess1>
+	jsr PrntMess
+	
+;Obtain the first number from the user, convert it from ASCII 
+;to binary, and then store it in num1.
+	jsr GetCharW
+	jsr DgtToBin
+	sta num1
+
+;Ask user to enter the second number.
+	ldx #InMess2<
+	ldy #InMess2>
+	jsr PrntMess
+	
+;Obtain the second number from the user, convert it from ASCII 
+;to binary, and then store it in num2.
+	jsr GetCharW
+	jsr DgtToBin
+	sta num2
+	
+;Add the numbers together and store the answer in sum.
+	clc
+	lda num1
+	adc num2
+	sta sum
+	
+;Inform the user that the answer is being printed.
+	ldx #OutMess<
+	ldy #OutMess>
+	jsr PrntMess
+	
+;Print the answer.
+	lda sum
+	jsr OutHex
+	
+Exit *
+;Exit the program.
+	brk
+
+;**************************************
+;        Variables area.
+;**************************************
+InMess1 dbt "Enter number 1:"
+	  dbt 0d
+InMess2 dbt "Enter number 2:"
+	  dbt 0d
+OutMess dbt "The sum is:"
+	  dbt 0d
+	
+num1	  dbt 0d
+num2	  dbt 0d
+sum	  dbt 0d
+
+	end
+
+
+
+%/uasm65
+
+    %output ,preserve="false"
+      *** List file ***
+      
+                      000001 |;Program Name: addinput.asm.
+                      000002 |;
+                      000003 |;Version: 1.1.
+                      000004 |;
+                      000005 |;Description: Input 2 single digit numbers from the user, add
+                      000006 |; them together, and then output the answer..                             
+                      000007 |
+                      000008 |     ;************************************************************
+                      000009 |     ;              Monitor Utility Subroutine Jump Table.
+                      000010 |     ;************************************************************
+      0000            000011 |OutChar   equ E003h ;Output byte in reg A to the user.
+                      000012 |                     
+      0000            000013 |GetChar   equ E006h ;Get a byte from the serial port.
+                      000014 |                     
+      0000            000015 |GetCharW  equ E009h ;Wait and get a byte from the user.
+                      000016 |                     
+      0000            000017 |PrntMess  equ E00Ch ;Print a message to the user.
+                      000018 |                    
+      0000            000019 |OutSpace  equ E00Fh ;Output spaces to the serial port.                                 
+                      000020 |                     
+      0000            000021 |OutHex    equ E012h ;Output a HEX number to the user.
+                      000022 |                     
+      0000            000023 |DgtToBin  equ E015h ;Convert an ASCII digit to binary.
+                      000024 |                    
+      0000            000025 |GetLine   equ E018h ;Input a line from the serial port.
+                      000026 |
+                      000027 |
+                      000028 |;**************************************                  
+                      000029 |;      Program entry point.
+                      000030 |;**************************************
+      0200            000031 |	org 0200h                                                       
+                      000032 |
+      0200            000033 |Main *
+                      000034 |;Ask user to enter the first number.
+      0200 A2 38      000035 |	ldx #InMess1<
+      0202 A0 02      000036 |	ldy #InMess1>
+      0204 20 0C E0   000037 |	jsr PrntMess
+                      000038 |	
+                      000039 |;Obtain the first number from the user, convert it from ASCII 
+                      000040 |;to binary, and then store it in num1.
+      0207 20 09 E0   000041 |	jsr GetCharW
+      020A 20 15 E0   000042 |	jsr DgtToBin
+      020D 8D 64 02   000043 |	sta num1
+                      000044 |
+                      000045 |;Ask user to enter the second number.
+      0210 A2 48      000046 |	ldx #InMess2<
+      0212 A0 02      000047 |	ldy #InMess2>
+      0214 20 0C E0   000048 |	jsr PrntMess
+                      000049 |	
+                      000050 |;Obtain the second number from the user, convert it from ASCII 
+                      000051 |;to binary, and then store it in num2.
+      0217 20 09 E0   000052 |	jsr GetCharW
+      021A 20 15 E0   000053 |	jsr DgtToBin
+      021D 8D 65 02   000054 |	sta num2
+                      000055 |	
+                      000056 |;Add the numbers together and store the answer in sum.
+      0220 18         000057 |	clc
+      0221 AD 64 02   000058 |	lda num1
+      0224 6D 65 02   000059 |	adc num2
+      0227 8D 66 02   000060 |	sta sum
+                      000061 |	
+                      000062 |;Inform the user that the answer is being printed.
+      022A A2 58      000063 |	ldx #OutMess<
+      022C A0 02      000064 |	ldy #OutMess>
+      022E 20 0C E0   000065 |	jsr PrntMess
+                      000066 |	
+                      000067 |;Print the answer.
+      0231 AD 66 02   000068 |	lda sum
+      0234 20 12 E0   000069 |	jsr OutHex
+                      000070 |	
+      0237            000071 |Exit *
+                      000072 |;Exit the program.
+      0237 00         000073 |	brk
+                      000074 |
+                      000075 |;**************************************
+                      000076 |;        Variables area.
+                      000077 |;**************************************
+      0238 45         000078 |InMess1 dbt "Enter number 1:"
+      0239 6E 74 65         
+      023C 72 20 6E         
+      023F 75 6D 62         
+      0242 65 72 20         
+      0245 31 3A            
+      0247 00         000079 |	  dbt 0d
+      0248 45         000080 |InMess2 dbt "Enter number 2:"
+      0249 6E 74 65         
+      024C 72 20 6E         
+      024F 75 6D 62         
+      0252 65 72 20         
+      0255 32 3A            
+      0257 00         000081 |	  dbt 0d
+      0258 54         000082 |OutMess dbt "The sum is:"
+      0259 68 65 20         
+      025C 73 75 6D         
+      025F 20 69 73         
+      0262 3A               
+      0263 00         000083 |	  dbt 0d
+                      000084 |	
+      0264 00         000085 |num1	  dbt 0d
+      0265 00         000086 |num2	  dbt 0d
+      0266 00         000087 |sum	  dbt 0d
+                      000088 |
+                      000089 |	end
+      
+      ***Executable code ***
+      
+      %s19,descrption="Execute this fold to send program to U6502 monitor."
+      	S007000055415347C8
+      	S1170200A238A002200CE02009E02015E08D6402A248A002C1
+      	S1170214200CE02009E02015E08D650218AD64026D65028D28
+      	S11702286602A258A002200CE0AD66022012E000456E7465FB
+      	S117023C72206E756D62657220313A00456E746572206E7503
+      	S11702506D62657220323A005468652073756D2069733A0098
+      	S106026400000093
+      	S9030000FC
+      %/s19
+
+          %output,preserve="false"
+            
+          %/output
+
+   %/output 
+
+
+
+%uasm65,description=""
+
+%/uasm65
+
+
+
+%uasm65,description=""
+
+%/uasm65
+
+
+
+%uasm65,description=""
+
+%/uasm65
+
+
+
+%uasm65,description=""
+
+%/uasm65
+
+
+
+%uasm65,description=""
+
+%/uasm65
+
+
+
+%uasm65,description=""
+
+%/uasm65
+
+
+
+%uasm65,description=""
+
+%/uasm65
+
+
+    
+    
