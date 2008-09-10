@@ -1001,7 +1001,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	///{{{ *** %uasm65 ***
 		else if(foldType.equalsIgnoreCase("%uasm65")) 
 		{
-			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
+			//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
 			
 			if ( asm == void )
 			{

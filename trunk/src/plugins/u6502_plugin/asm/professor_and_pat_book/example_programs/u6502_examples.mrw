@@ -4,32 +4,18 @@
 
 %group,description="Examples from ps3_6502_programming."
 
-%uasm65,description=""
+%uasm65,description="sum10.asm"
 ;Program Name: sum10.asm.
 ;
-;Version: 1.1
+;Version: 1.02
 ;
 ;Description: In this program, the sum of the 
 ; numbers between 1 and 10 inclusive will be 
 ; determined.
 
 ;**************************************
-;Variables area.
-	org 0200h
-	
-;Holds the accumulating sum.
-sum	dbt d
-
-;Holds the current number
-; that is being added to sum and also
-; is used to determine when the summing
-; loop should be exited.
-count 	dbt 0d
-
-
-;**************************************
 ;Program entry point.
-	org 0210h
+	org 0200h
 	
 ;Place 0 into variable sum.
 	lda #0d
@@ -59,10 +45,89 @@ LoopTop *
 	
 ;Exit program.
 	brk
+    
+;**************************************
+;Variables area.
+	
+;Holds the accumulating sum.
+sum	dbt d
+
+;Holds the current number
+; that is being added to sum and also
+; is used to determine when the summing
+; loop should be exited.
+count 	dbt 0d
 	
 	end
     
 %/uasm65
+
+    %output ,preserve="false"
+      *** List file ***
+      
+                      000001 |;Program Name: sum10.asm.
+                      000002 |;
+                      000003 |;Version: 1.02
+                      000004 |;
+                      000005 |;Description: In this program, the sum of the 
+                      000006 |; numbers between 1 and 10 inclusive will be 
+                      000007 |; determined.
+                      000008 |
+                      000009 |;**************************************
+                      000010 |;Program entry point.
+      0200            000011 |	org 0200h
+                      000012 |	
+                      000013 |;Place 0 into variable sum.
+      0200 A9 00      000014 |	lda #0d
+      0202 8D 1F 02   000015 |	sta sum
+                      000016 |	
+                      000017 |;Place 1 into variable count.
+      0205 A9 01      000018 |	lda #1d
+      0207 8D 20 02   000019 |	sta count
+                      000020 |	
+                      000021 |;Top of summing loop.
+      020A            000022 |LoopTop *
+                      000023 |
+                      000024 |;Add count to sum and place result back into sum.
+      020A AD 1F 02   000025 |	lda sum
+      020D 18         000026 |	clc
+      020E 6D 20 02   000027 |	adc count
+      0211 8D 1F 02   000028 |	sta sum
+                      000029 |	
+                      000030 |;Add 1 to count.
+      0214 EE 20 02   000031 |	inc count
+                      000032 |	
+                      000033 |;If count is not equal to 11 yet then branch back
+                      000034 |; to LoopTop.
+      0217 AD 20 02   000035 |	lda count
+      021A C9 0B      000036 |	cmp #11d
+      021C D0 EC      000037 |	bne looptop
+                      000038 |	
+                      000039 |;Exit program.
+      021E 00         000040 |	brk
+                      000041 |    
+                      000042 |;**************************************
+                      000043 |;Variables area.
+                      000044 |	
+                      000045 |;Holds the accumulating sum.
+                      000047 |
+                      000048 |;Holds the current number
+                      000049 |; that is being added to sum and also
+                      000050 |; is used to determine when the summing
+                      000051 |; loop should be exited.
+      021F 00         000052 |count 	dbt 0d
+                      000053 |	
+                      000054 |	end
+      
+      ***Executable code ***
+      
+      %s19,descrption="Execute this fold to send program to U6502 monitor."
+      	S007000055415347C8
+      	S1170200A9008D1F02A9018D2002AD1F02186D20028D1F0213
+      	S10F0214EE2002AD2002C90BD0EC00006B
+      	S9030000FC
+      %/s19
+    %/output 
 
 
 
