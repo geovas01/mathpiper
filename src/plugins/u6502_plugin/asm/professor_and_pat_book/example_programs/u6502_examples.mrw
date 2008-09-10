@@ -1,8 +1,34 @@
 
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+%group,description="Examples from "ps3_6502_assembly_language."
+
+
+%uasm65,description="Example 1"
+	org 0200h
+	
+	lda #10d
+	adc #5d
+	sta 0208h
+	brk
+	
+	end
+%/uasm65
 
 
 
-%group,description="Examples from ps3_6502_programming."
+%/group
+
+
+
+%group,description="Examples from ps4_6502_programming."
 
 %uasm65,description="sum10.asm"
 ;Program Name: sum10.asm.
@@ -50,7 +76,7 @@ LoopTop *
 ;Variables area.
 	
 ;Holds the accumulating sum.
-sum	dbt d
+sum	dbt 0d
 
 ;Holds the current number
 ; that is being added to sum and also
@@ -62,72 +88,6 @@ count 	dbt 0d
     
 %/uasm65
 
-    %output ,preserve="false"
-      *** List file ***
-      
-                      000001 |;Program Name: sum10.asm.
-                      000002 |;
-                      000003 |;Version: 1.02
-                      000004 |;
-                      000005 |;Description: In this program, the sum of the 
-                      000006 |; numbers between 1 and 10 inclusive will be 
-                      000007 |; determined.
-                      000008 |
-                      000009 |;**************************************
-                      000010 |;Program entry point.
-      0200            000011 |	org 0200h
-                      000012 |	
-                      000013 |;Place 0 into variable sum.
-      0200 A9 00      000014 |	lda #0d
-      0202 8D 1F 02   000015 |	sta sum
-                      000016 |	
-                      000017 |;Place 1 into variable count.
-      0205 A9 01      000018 |	lda #1d
-      0207 8D 20 02   000019 |	sta count
-                      000020 |	
-                      000021 |;Top of summing loop.
-      020A            000022 |LoopTop *
-                      000023 |
-                      000024 |;Add count to sum and place result back into sum.
-      020A AD 1F 02   000025 |	lda sum
-      020D 18         000026 |	clc
-      020E 6D 20 02   000027 |	adc count
-      0211 8D 1F 02   000028 |	sta sum
-                      000029 |	
-                      000030 |;Add 1 to count.
-      0214 EE 20 02   000031 |	inc count
-                      000032 |	
-                      000033 |;If count is not equal to 11 yet then branch back
-                      000034 |; to LoopTop.
-      0217 AD 20 02   000035 |	lda count
-      021A C9 0B      000036 |	cmp #11d
-      021C D0 EC      000037 |	bne looptop
-                      000038 |	
-                      000039 |;Exit program.
-      021E 00         000040 |	brk
-                      000041 |    
-                      000042 |;**************************************
-                      000043 |;Variables area.
-                      000044 |	
-                      000045 |;Holds the accumulating sum.
-                      000047 |
-                      000048 |;Holds the current number
-                      000049 |; that is being added to sum and also
-                      000050 |; is used to determine when the summing
-                      000051 |; loop should be exited.
-      021F 00         000052 |count 	dbt 0d
-                      000053 |	
-                      000054 |	end
-      
-      ***Executable code ***
-      
-      %s19,descrption="Execute this fold to send program to U6502 monitor."
-      	S007000055415347C8
-      	S1170200A9008D1F02A9018D2002AD1F02186D20028D1F0213
-      	S10F0214EE2002AD2002C90BD0EC00006B
-      	S9030000FC
-      %/s19
-    %/output 
 
 
 
@@ -677,105 +637,6 @@ DelayLoop *
 
 %/uasm65
 
-    %output ,preserve="false"
-      *** List file ***
-      
-                      000001 |;Program Name: blink.asm.
-                      000002 |;
-                      000003 |;Version: 1.1.
-                      000004 |;
-                      000005 |;Description: The purpose of this program is to blink
-                      000006 |; the lights on and off continuously.
-                      000007 |;
-                      000008 |
-                      000009 |;**************************************
-                      000010 |;      Program entry point.
-                      000011 |;**************************************
-      0200            000012 |	org 0200h
-                      000013 |
-      0200            000014 |Main *
-                      000015 |;Turn all the lights on and then waste some time
-                      000016 |; so that the user can see the lights on.
-      0200 A9 FF      000017 |	lda #11111111b
-      0202 8D 00 A2   000018 |	sta 0a200h
-      0205 20 14 02   000019 |	jsr delay
-                      000020 |	
-                      000021 |;Turn all the lights off and then waste some time
-                      000022 |; so that the user can see the lights off.
-      0208 A9 00      000023 |	lda #00000000b
-      020A 8D 00 A2   000024 |	sta 0a200h
-      020D 20 14 02   000025 |	jsr delay
-                      000026 |	
-      0210 4C 00 02   000027 |	jmp Main
-                      000028 |	
-                      000029 |;Exit the program.
-      0213 00         000030 |	brk
-                      000031 |	
-                      000032 |	
-                      000033 |;**************************************
-                      000034 |;        Subroutines area.
-                      000035 |;**************************************
-                      000036 |
-                      000037 |;**************************************
-                      000038 |;Delay subroutine.
-                      000039 |;
-                      000040 |;The purpose of this subroutine is to generate
-                      000041 |; a delay so that the rate of the blinking
-                      000042 |; can be controlled.
-                      000043 |;
-                      000044 |;Change the number that is being loaded into
-                      000045 |; the 'A' register to change the delay time.
-                      000046 |;**************************************
-      0214            000047 |Delay *
-                      000048 |;Save registers on the stack.
-      0214 48         000049 |	pha
-      0215 8A         000050 |	txa
-      0216 48         000051 |	pha
-      0217 98         000052 |	tya
-      0218 48         000053 |	pha
-                      000054 |	
-                      000055 |;Change the number that is being loaded into the
-                      000056 |; 'A' register in order to change the delay time.
-      0219 A9 14      000057 |	lda #20d
-      021B 8D 00 A8   000058 |    sta 0a800h
-                      000059 |	
-      021E            000060 |DelayLoop *
-      021E AD 00 A8   000061 |    lda 0a800h
-      0221 C9 00      000062 |    cmp #0d
-      0223 D0 F9      000063 |    bne DelayLoop
-                      000064 |
-                      000065 |	
-                      000066 |;Restore registers from the stack.
-      0225 68         000067 |	pla
-      0226 A8         000068 |	tay
-      0227 68         000069 |	pla
-      0228 AA         000070 |	tax
-      0229 68         000071 |	pla
-                      000072 |
-      022A 60         000073 |	rts
-                      000074 |	
-                      000075 |
-                      000076 |;**************************************
-                      000077 |;        Variables area.
-                      000078 |;**************************************
-                      000079 |
-                      000080 |	end
-      
-      ***Executable code ***
-      
-      %s19,descrption="Execute this fold to send program to U6502 monitor."
-      	S007000055415347C8
-      	S1170200A9FF8D00A2201402A9008D00A22014024C0002007D
-      	S1170214488A489848A9148D00A8AD00A8C900D0F968A86887
-      	S1060228AA68605D
-      	S9030000FC
-      %/s19
-
-          %output,preserve="false"
-            
-          %/output
-
-   %/output 
 
 
 

@@ -726,6 +726,7 @@ with, at least for me.
 
 {{{ U6502
 - Add reset method to IOChip interface.
++ This line should cause an error in the assembler but it doesn't: "sum	dbt d". Notice it is missing a value before d.
 }}}
 
 
