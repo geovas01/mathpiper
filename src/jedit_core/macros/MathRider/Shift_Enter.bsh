@@ -1025,7 +1025,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 					//result = result + "*** Symbol table ***\n\n" + symbolTable + "\n\n";
 					s19 = s19.substring(0,s19.length()-1);
 					s19 = s19.replaceAll("\n","\n\t");
-					result = result + "***Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\"\n\t" + s19 + "\n%/s19";
+					result = result + "*** Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\"\n\t" + s19 + "\n%/s19";
 					
 					output_fold_type = "%output ";
 				}
