@@ -22,6 +22,32 @@
 	end
 %/uasm65
 
+    %output ,preserve="false"
+      *** List file ***
+      
+      0200            000001 |	org 0200h
+                      000002 |	
+      0200 A9 0A      000003 |	lda #10d
+      0202 69 05      000004 |	adc #5d
+      0204 8D 08 02   000005 |	sta 0208h
+      0207 00         000006 |	brk
+                      000007 |	
+                      000008 |	end
+      
+      ***Executable code ***
+      
+      %s19,descrption="Execute this fold to send program to U6502 monitor."
+      	S007000055415347C8
+      	S10B0200A90A69058D0802003A
+      	S9030000FC
+      %/s19
+
+          %output,preserve="false"
+            
+          %/output
+
+   %/output 
+
 
 
 %/group
