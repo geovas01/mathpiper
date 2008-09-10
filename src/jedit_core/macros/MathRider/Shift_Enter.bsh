@@ -58,7 +58,7 @@ buffer.save(view,null);
 path = buffer.getPath();
 
 
-if(path.endsWith(".pi")){
+if(path.endsWith(".pi")|| path.endsWith(".PI") ){
 	
 	buffer.setMode("piper");
 	
@@ -79,7 +79,7 @@ if(path.endsWith(".pi")){
 	
 	//System.out.println(result);
 }
-else if (path.endsWith(".uasm"))
+else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
 {
 	buffer.setMode("uasm65");
 	
@@ -93,7 +93,7 @@ else if (path.endsWith(".uasm"))
 	org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A .lst and a .s19 file have been successfully created\n in the same directory as the source .uasm file.");
 	
 }
-else if (path.endsWith(".mrw"))
+else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 {
 	//buffer.setMode("mathrider");
 	currentCaretPosition = textArea.getCaretPosition();

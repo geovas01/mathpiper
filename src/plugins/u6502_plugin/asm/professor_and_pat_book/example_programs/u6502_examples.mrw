@@ -1,4 +1,479 @@
 
+
+
+
+%group,description="Examples from ps3_6502_programming."
+
+%uasm65,description=""
+;Program Name: sum10.asm.
+;
+;Version: 1.1
+;
+;Description: In this program, the sum of the 
+; numbers between 1 and 10 inclusive will be 
+; determined.
+
+;**************************************
+;Variables area.
+	org 0200h
+	
+;Holds the accumulating sum.
+sum	dbt d
+
+;Holds the current number
+; that is being added to sum and also
+; is used to determine when the summing
+; loop should be exited.
+count 	dbt 0d
+
+
+;**************************************
+;Program entry point.
+	org 0210h
+	
+;Place 0 into variable sum.
+	lda #0d
+	sta sum
+	
+;Place 1 into variable count.
+	lda #1d
+	sta count
+	
+;Top of summing loop.
+LoopTop *
+
+;Add count to sum and place result back into sum.
+	lda sum
+	clc
+	adc count
+	sta sum
+	
+;Add 1 to count.
+	inc count
+	
+;If count is not equal to 11 yet then branch back
+; to LoopTop.
+	lda count
+	cmp #11d
+	bne looptop
+	
+;Exit program.
+	brk
+	
+	end
+    
+%/uasm65
+
+
+
+
+%uasm65,description=""
+;Program Name: largest.asm.
+;
+;Version: 1.0.
+;
+;Description: Find the largest number in a list 
+; of 100 numbers.
+;
+;Assumptions: The numbers in the list will be no 
+; lower than 0 and no higher than 255.
+
+
+;**************************************
+;Program entry point.
+	org 0200h
+
+;This program will use the X register to point
+; to the current number in the list
+; instead of a variable called 'index'.
+;
+;Initialize register X to refer to offset 0 into
+; the list of numbers starting at 'list'.
+	ldx #0d
+	
+;Compare the number that X is referring to in the
+; list to the number that is in 'largest'.  If the
+; number being pointed to is larger than the contents
+; of the variable 'largest', then fall through to
+; the code that will replace the contents of 'largest'
+; with the new number.
+LoopTop  *
+	lda list,x
+	cmp largest
+	bcc NotLarger
+	
+IsLarger  *
+
+;Replace the number in 'largest' with the current
+; number from the list.
+	sta largest
+
+NotLarger  *
+
+;Increment the X register so that it references the
+; next number in the list.
+	inx
+
+;Check to see if the end of the list has been reached.
+; If it has, then exit the program.  If it has not, 
+; then branch back to the top of the loop.
+CheckListEnd  *
+	cpx #100d
+	bne LoopTop
+	
+;Exit the program.
+	brk
+
+
+;**************************************
+;Variables area.
+;
+;In this program, the variables area is being placed
+; below the code because the variables take up
+; a significant amount of memory.  This makes
+; it more difficult to determine where the variables
+; area ends so that the start of the code area
+; can be determined.
+
+
+;Holds the largest number 
+; encountered so far in the list.
+; ( Notice that variables can
+; be initialized here instead of
+; in the code as an option ).
+largest dbt 0d
+
+
+;This list contains 100 numbers ranging from 0
+; to 255.
+list	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d
+	dbt 171d,227d,99d,214d,233d,136d,80d,253d,242d
+	dbt 112d,221d,151d,101d,117d,76d,226d,174d,205d
+	dbt 84d,78d,139d,89d,195d,243d,69d,128d,217d,215d
+	dbt 57d,100d,227d,226d,233d,238d,229d,228d,135d
+	dbt 140d,98d,211d,245d,120d,206d,198d,47d,191d
+	dbt 239d,27d,236d,12d,242d,148d,98d,11d,38d,189d
+	dbt 238d,225d,142d,214d,214d,21d,75d,17d,190d
+	dbt 178d,123d,125d,123d,10d,166d,123d,135d,220d
+	dbt 193d,46d,248d,222d,63d,206d,197d,101d,144d
+	dbt 201d,233d,12d,241d,85d,180d,29d
+	
+	end
+
+%/uasm65
+
+
+%uasm65,description=""
+;Program Name: copy.asm.
+;
+;Version: 1.0.
+;
+;Description: Copy the contents of list1 to list2.
+;
+;Assumptions: The numbers in the list will be no 
+; lower than 0 and no higher than 255.
+
+
+;**************************************
+;Program entry point.
+	org 0200h
+
+;The X register will be used to point to each number in both list1 and list2.
+	ldx #0d
+	
+
+;Copy the 10 bytes from list1 to list2.
+LoopTop  *
+	lda list1,x
+	sta list2,x
+	
+	inx
+	
+	cpx #10d
+	
+	bne LoopTop
+	
+	
+;Exit the program.
+	brk
+
+
+;**************************************
+;Variables area.
+
+;This list contains 10 bytes.
+list1	dbt 41h,42h,43h,44h,45h,46h,47h,44h,49h,4ah
+
+;This byte is placed here to make it easier to see the contents of list1
+;and list2 when they are dumped in the monitor.
+	dbt 0d
+
+;Set aside 10 memory locations and initialize each one to 0d. 
+list2	dbt 10d(0d)
+
+	end
+
+
+%/uasm65
+
+
+
+
+%uasm65,description=""
+;Program Name: scan.asm.
+;
+;Version: 1.0.
+;
+;Description: Scan list1 and determine how many capital A's and lower case
+; a's it contains.
+;
+;Assumptions: The numbers in the list will be no 
+; lower than 0 and no higher than 255.
+
+
+;**************************************
+;Program entry point.
+	org 0200h
+
+;The X register will be used to point to each ASCII character in string1
+	ldx #0d
+	
+
+LoopTop  *
+	lda string1,x
+	
+	
+;If we have reached the 0 that has been placed at the end of the string, then
+; exit the program.
+	cmp #0d
+	beq EndOfList
+	
+CheckLowerCase  *
+;If the current character is a lower case 'a', then increment LowerCaseCount.
+	cmp #'a'
+	bne CheckUpperCase
+	inc LowerCaseCount
+	jmp NextCharacter
+	
+CheckUpperCase  *
+;If the current character is an upper case 'a', then increment UpperCaseCount.
+	cmp #'A'
+	bne NextCharacter
+	inc UpperCaseCount
+	
+NextCharacter  *
+	inx
+	jmp LoopTop
+	
+EndOfList  *
+	
+;Exit the program.
+	brk
+
+
+;**************************************
+;Variables area.
+
+LowerCaseCount dbt 0d
+UpperCaseCount dbt 0d
+
+;This list contains a string of ASCII characters.
+string1	dbt "A bird in the hand is worth two in the bush.  Early to bed and "
+	dbt "early to rise makes a person healthy, wealthy, and wise", dbt 0d
+
+	end
+
+%/uasm65
+
+
+
+
+%uasm65,description=""
+;Program Name: alpha.asm.
+;
+;Version: 1.01.
+;
+;Description: Place capital A's in the first 10 bytes of alphaList, capital B's
+; in the second 10 bytes of alphalist and so on until alphaList is filled
+; with letters.
+;
+;Assumptions: The numbers in the list will be no 
+; lower than 0 and no higher than 255.
+
+
+;**************************************
+;Program entry point.
+	org 0200h
+
+;The X register will be used as a pointer.
+	ldx #0d
+	
+	lda #10d
+	sta rowCount
+	sta columnCount
+	
+	
+;Initialize the 'A' register to be a capital 'A'.
+	lda #65d
+
+LoopTop  *
+;Place character in list at offset X.
+	sta alphalist,x
+	
+;Point X to the next character position in the list.
+	inx
+	
+;If we have not placed 10 characters in this row yet, then loop.
+	dec columnCount
+	bne LoopTop
+	
+;Reset the column counter.
+	ldy #10d
+	sty columnCount
+
+;Increase to the next letter in the alphabet.
+	clc
+	adc #1d
+	
+;If we have not filled 10 rows yet then loop.
+	dec rowCount
+	bne LoopTop
+	
+	
+EndOfList  *
+	
+;Exit the program.
+	brk
+
+
+;**************************************
+;Variables area.
+
+rowCount 	dbt 0d
+columnCount 	dbt 0d
+alphalist 	dbt 100d(?)
+
+	end
+
+%/uasm65
+
+
+
+
+%uasm65,description=""
+;Program Name: sumlist.asm.
+;
+;Version: 1.0.
+;
+;Description: Calculate the sum of the numbers that are in numberlist.
+;
+;Assumptions: The numbers in the list will be no 
+; lower than 0 and no higher than 255.
+
+
+;**************************************
+;Program entry point.
+	org 0200h
+
+;The X register will be used as a pointer.
+	ldx #0d
+	
+;Initialize the 16 bit wide variable "sum" to 0.  Note: 8 bits is called a 
+; "byte" and 16 bits is called a "word".  sum+0d accesses the high byte of sum
+; and sum+1d accesses the low byte of sum.
+	lda #0d
+	sta sum+0d
+	sta sum+1d
+
+LoopTop  *
+;Obtain the next number from the list.
+	lda numberList,x
+
+;Add the number to the low byte of sum and then place the result back into
+; the low byte of sum.
+	clc
+	adc sum+1d
+	sta sum+1d
+	
+;If the carry flag was set during the addition, this means that the addition 
+; resulted in a value that was greater than 255 and the high byte of sum needs
+; to be incremented by 1.  If the result was 255 or less, the carry would not
+; be set and we can branch around the increment of the high byte of sum.
+	bcc NoCarry
+Carry *
+	inc sum+0d
+	
+NoCarry *
+;Point to the next number in the list and loop back if we have not reached
+; the end of the list.
+	inx
+	cpx #100d
+	bne LoopTop
+	
+;Exit the program.
+	brk
+
+
+;**************************************
+;Variables area.
+
+;DWD stands for Define Word and it creates a variable that is 16 bits wide.
+; Sum needs to be 16 bits wide because the sum of the numbers in numberList
+; will be greater than 255 (which is the largest number that can be held in
+; an 8 bit byte).
+sum	dwd ?
+
+;This list contains 100 numbers ranging from 0 to 255.
+numberList *
+	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d
+	dbt 171d,227d,99d,214d,233d,136d,80d,253d,242d
+	dbt 112d,221d,151d,101d,117d,76d,226d,174d,205d
+	dbt 84d,78d,139d,89d,195d,243d,69d,128d,217d,215d
+	dbt 57d,100d,227d,226d,233d,238d,229d,228d,135d
+	dbt 140d,98d,211d,245d,120d,206d,198d,47d,191d
+	dbt 239d,27d,236d,12d,242d,148d,98d,11d,38d,189d
+	dbt 238d,225d,142d,214d,214d,21d,75d,17d,190d
+	dbt 178d,123d,125d,123d,10d,166d,123d,135d,220d
+	dbt 193d,46d,248d,222d,63d,206d,197d,101d,144d
+	dbt 201d,233d,12d,241d,85d,180d,29d
+
+	end
+
+
+
+%/uasm65
+
+
+
+
+%uasm65,description=""
+
+%/uasm65
+
+
+
+%/group
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %uasm65,description=""
 ;Program Name: hello.asm.
 ;
