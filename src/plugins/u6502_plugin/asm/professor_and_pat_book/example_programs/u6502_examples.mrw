@@ -22,31 +22,6 @@
 	end
 %/uasm65
 
-    %output ,preserve="false"
-      *** List file ***
-      
-      0200            000001 |	org 0200h
-                      000002 |	
-      0200 A9 0A      000003 |	lda #10d
-      0202 69 05      000004 |	adc #5d
-      0204 8D 08 02   000005 |	sta 0208h
-      0207 00         000006 |	brk
-                      000007 |	
-                      000008 |	end
-      
-      ***Executable code ***
-      
-      %s19,descrption="Execute this fold to send program to U6502 monitor."
-      	S007000055415347C8
-      	S10B0200A90A69058D0802003A
-      	S9030000FC
-      %/s19
-
-          %output,preserve="false"
-            
-          %/output
-
-   %/output 
    
    
    
@@ -71,38 +46,6 @@ garage_length dbt 8d
 
 %/uasm65
 
-    %output ,preserve="false"
-      *** List file ***
-      
-      0200            000001 |        org 0200h
-                      000002 |
-      0200 AD 11 02   000003 |        lda garage_width
-      0203 69 01      000004 |        adc #1d
-      0205 8D 11 02   000005 |        sta garage_width
-                      000006 |
-      0208 AD 12 02   000007 |        lda garage_length
-      020B 69 01      000008 |        adc #1d
-      020D 8D 12 02   000009 |        sta garage_length
-      0210 00         000010 |        brk
-                      000011 |        
-      0211 09         000012 |garage_width dbt 9d
-      0212 08         000013 |garage_length dbt 8d
-                      000014 |        
-                      000015 |        end
-      
-      ***Executable code ***
-      
-      %s19,descrption="Execute this fold to send program to U6502 monitor."
-      	S007000055415347C8
-      	S1170200AD110269018D1102AD120269018D1202000908003F
-      	S9030000FC
-      %/s19
-
-          %output,preserve="false"
-            
-          %/output
-
-   %/output 
 
    
    
@@ -125,35 +68,6 @@ number2 dbt 00000001b
 
 %/uasm65
 
-    %output ,preserve="false"
-      *** List file ***
-      
-      0200            000001 |	org 0200h
-                      000002 |	
-      0200 AD 08 02   000003 |	lda number1
-      0203 18         000004 |	clc
-      0204 6D 09 02   000005 |	adc number2
-                      000006 |	
-      0207 00         000007 |	brk
-                      000008 |    
-      0208 FF         000009 |number1 dbt 11111111b
-      0209 01         000010 |number2 dbt 00000001b
-                      000011 |	
-                      000012 |	end
-      
-      ***Executable code ***
-      
-      %s19,descrption="Execute this fold to send program to U6502 monitor."
-      	S007000055415347C8
-      	S10D0200AD0802186D090200FF01A9
-      	S9030000FC
-      %/s19
-
-          %output,preserve="false"
-            
-          %/output
-
-   %/output 
 
 
 
