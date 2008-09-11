@@ -1074,7 +1074,7 @@ public class EMU6502 implements Runnable
 								{
 									a = a << 1;
 									a = a | c;
-									if ((a & 0x100) == 1)
+									if ((a & 0x100) != 0)
 									{
 										c = 1;
 									}
@@ -1090,7 +1090,7 @@ public class EMU6502 implements Runnable
 									tmp = chip2[offset2];
 									tmp = tmp << 1;
 									tmp = tmp | c;
-									if ((tmp & 0x100) == 1)
+									if ((tmp & 0x100) != 0)
 									{
 										c = 1;
 									}

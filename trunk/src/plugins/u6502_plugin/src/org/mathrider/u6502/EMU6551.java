@@ -224,6 +224,82 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 
 
 	}//Constructor.
+	
+	
+	public EMU6551(int test)
+	{
+		registers = new int[4];
+		registers[1] = 0x10;
+		buffer = new CircularBuffer();
+
+
+
+		this.setLayout(new BorderLayout());
+
+		//keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
+
+		buttons = new JPanel();
+
+		Box guiBox = new Box(BoxLayout.Y_AXIS);
+		typeArea = new JTextArea(30,20);
+
+		//java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
+
+			//bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
+			//bitstreamVera = bitstreamVera.deriveFont(fontSize);
+			//typeArea.setFont(bitstreamVera);
+
+
+			typeArea.addKeyListener(this);
+			typePane = new JScrollPane(typeArea);
+			guiBox.add(typePane);
+
+			Box ioBox = new Box(BoxLayout.Y_AXIS);
+
+			button1 = new JButton("Reset");
+			//button1.setBackground(Color.green);
+			button1.addActionListener(this);
+			buttons.add(button1);
+			button2 = new JButton("Font--");
+			button2.addActionListener(this);
+			buttons.add(button2);
+			button3 = new JButton("Font++");
+			button3.addActionListener(this);
+			buttons.add(button3);
+
+			ioBox.add(buttons);
+			
+
+			this.add(ioBox,BorderLayout.NORTH);
+			//this.add((JPanel)ioChips[1],BorderLayout.SOUTH);
+			this.add(guiBox,BorderLayout.CENTER);
+
+
+			ioChips = new IOChip[16];
+		ioChips[0] = this;//A000.
+		ioChips[1] = new EMURandomIOChip();
+		ioChips[2] = new EMURandomIOChip();
+		ioChips[3] = new EMURandomIOChip();
+		ioChips[4] = new EMURandomIOChip();
+		ioChips[5] = new EMURandomIOChip();
+		ioChips[6] = new EMURandomIOChip();
+		ioChips[7] = new EMURandomIOChip();
+		ioChips[8] = new EMURandomIOChip();
+		ioChips[9] = new EMURandomIOChip();
+		ioChips[10] = new EMURandomIOChip();
+		ioChips[11] = new EMURandomIOChip();
+		ioChips[12] = new EMURandomIOChip();
+		ioChips[13] = new EMURandomIOChip();
+		ioChips[14] = new EMURandomIOChip();
+		ioChips[15] = new EMURandomIOChip();
+
+			emulator = new EMU6502(ioChips);
+		
+
+
+
+
+	}//Constructor.
 
 	public void setFontSize(float fontSize)
 	{
@@ -444,7 +520,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 	
 	public static void main(String[] args)
 	{
-		EMU6551 uart = new EMU6551();
+		EMU6551 uart = new EMU6551(0);
 
 		JFrame frame = new javax.swing.JFrame();
 		Container contentPane = frame.getContentPane();
