@@ -102,9 +102,18 @@ public class EMUInputPort extends javax.swing.JPanel implements IOChip, ActionLi
 		//buttons.add(button2);
 		//this.add(buttons,BorderLayout.NORTH);
 		JPanel panel = new JPanel();
-		//panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		panel.add(new JLabel(label));
+		SpringLayout layout = new SpringLayout();
+		panel.setLayout(layout);
+		JLabel deviceLabel = new JLabel(label);
+		panel.add(deviceLabel);
 		panel.add(switches);
+		layout.putConstraint(SpringLayout.WEST, deviceLabel, 5, SpringLayout.WEST, panel);
+		layout.putConstraint(SpringLayout.NORTH, deviceLabel, 5, SpringLayout.NORTH, panel);
+		layout.putConstraint(SpringLayout.WEST, switches, 5, SpringLayout.EAST, deviceLabel);
+		layout.putConstraint(SpringLayout.NORTH, switches, 5, SpringLayout.NORTH, panel);
+		//layout.putConstraint(SpringLayout.EAST, panel, 5, SpringLayout.EAST, switches);
+		layout.putConstraint(SpringLayout.SOUTH, panel, 5, SpringLayout.SOUTH, switches);
+
 		this.add(panel,BorderLayout.CENTER);
 		
 

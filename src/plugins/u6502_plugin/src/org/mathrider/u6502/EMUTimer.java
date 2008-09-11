@@ -17,7 +17,7 @@ Copyright (C) 2008 Ted Kosan
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
- 
+
 package org.mathrider.u6502;
 
 
@@ -41,32 +41,45 @@ public class EMUTimer extends JPanel implements IOChip
 	{
 		super();
 		
+		this.setLayout(new BorderLayout());
+
 		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 		try
 		{
 			bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
 			bitstreamVera = bitstreamVera.deriveFont(fontSize);
-			
-		
+
+
 			stringBuilder = new StringBuilder();
 			sprintf = new java.util.Formatter(stringBuilder, java.util.Locale.US);
-			
+
 			this.label = label;
-			
+
 			timer = new java.util.Timer();
 			timer.scheduleAtFixedRate(new Task() ,0,100);
-			
-			JPanel panel = new JPanel();
-			panel.add(new JLabel(label));
-			
+
 			display = new JTextField(2);
 			display.setFont(bitstreamVera);
 			display.setHorizontalAlignment(JTextField.RIGHT);
 			sprintf.format("%02X",register);
 			display.setText(stringBuilder.toString());
 			stringBuilder.delete(0,stringBuilder.length());
+			
+			JPanel panel = new JPanel();
+			SpringLayout layout = new SpringLayout();
+			panel.setLayout(layout);
+			JLabel deviceLabel = new JLabel(label);
+			panel.add(deviceLabel);
 			panel.add(display);
-			this.add(panel,BorderLayout.CENTER);
+			
+			layout.putConstraint(SpringLayout.WEST, deviceLabel, 5, SpringLayout.WEST, panel);
+			layout.putConstraint(SpringLayout.NORTH, deviceLabel, 5, SpringLayout.NORTH, panel);
+			layout.putConstraint(SpringLayout.WEST, display, 5, SpringLayout.EAST, deviceLabel);
+			layout.putConstraint(SpringLayout.NORTH, display, 5, SpringLayout.NORTH, panel);
+			//layout.putConstraint(SpringLayout.EAST, panel, 5, SpringLayout.EAST, display);
+			layout.putConstraint(SpringLayout.SOUTH, panel, 5, SpringLayout.SOUTH, display);
+
+			this.add(panel, BorderLayout.CENTER);
 		}
 		catch(FontFormatException e)
 		{
@@ -76,9 +89,9 @@ public class EMUTimer extends JPanel implements IOChip
 		{
 			e.printStackTrace();
 		}
-		
+
 	}//Constructor.
-	
+
 	private class Task extends java.util.TimerTask
 	{
 		public synchronized void run()
@@ -96,11 +109,11 @@ public class EMUTimer extends JPanel implements IOChip
 			}
 		}//
 	}//end method.
-	
 
-	
+
+
 	public int read(int location)
-	{	
+	{
 
 		if(location == 0)
 		{
@@ -112,9 +125,9 @@ public class EMUTimer extends JPanel implements IOChip
 		}
 
 	}//end method.
-	
-	
-	
+
+
+
 	public synchronized void write(int location, int value)
 	{
 		//System.out.println("XXX " + location + " " + value);
@@ -123,10 +136,10 @@ public class EMUTimer extends JPanel implements IOChip
 		{
 			register = value;
 		}
-		
+
 	}//end method.
-	
-	
+
+
 	public synchronized void reset()
 	{
 		register = 0;
@@ -134,7 +147,7 @@ public class EMUTimer extends JPanel implements IOChip
 	}//end methodl.
 
 
-	
+
 }//end class.
 
 
