@@ -232,6 +232,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/u6502_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		

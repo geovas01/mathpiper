@@ -97,6 +97,11 @@
 			</fileset>
 		</copy>
 		
+		<mkdir dir="${examples.dir}/u6502" />
+		<copy file="./asm/umon65/umon65.uasm" todir="${examples.dir}/u6502"/>
+		<copy file="./asm/umon65/umon65manual.txt" todir="${examples.dir}/u6502"/>
+		<copy file="./asm/professor_and_pat_book/example_programs/u6502_examples.mrw" todir="${examples.dir}/u6502"/>
+		
 		<jar jarfile="${build.dir}/dist/u6502_plugin.jar">
 			<fileset dir="${build.classes.dir}">
 				<include name="**/*.class"/>
