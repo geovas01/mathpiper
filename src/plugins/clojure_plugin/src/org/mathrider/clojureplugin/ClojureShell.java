@@ -19,28 +19,90 @@ import console.ConsolePane;
 import console.Output;
 import console.Shell;
 
+import clojure.lang.*;
+
 //import org.mathrider.clojureplugin.ClojureInterpreter;
 //import org.mathrider.piper.LispOutput;
 
 public class ClojureShell extends Shell
 {
 	//private ClojureInterpreter interpreter;
+
+	static final Symbol USER = Symbol.create("user");
+	static final Symbol CLOJURE = Symbol.create("clojure");
+
+	static final Var in_ns = RT.var("clojure", "in-ns");
+	static final Var refer = RT.var("clojure", "refer");
+	static final Var ns = RT.var("clojure", "*ns*");
+	static final Var warn_on_reflection = RT.var("clojure", "*warn-on-reflection*");
 	
-	
+	private PipedWriter pipeOut;
+	private PipedReader pipeIn;
+	private PrintWriter out;
+	private LineNumberingPushbackReader rdr;
+	private OutputStreamWriter w;
+	private Object EOF;
+
+
 	public ClojureShell() //throws org.mathrider.clojure.Piperexception
 	{
 		super("Clojure");
-		//interpreter = ClojureInterpreter.getInstance(); //new StreamOutput(System.out) 
-		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);
 		
+	
+
+
+		try
+		{
+			pipeOut = new PipedWriter();
+			pipeIn = new PipedReader(pipeOut);
+			out = new PrintWriter(pipeOut);
+	
+	
+			//*ns* must be thread-bound for in-ns to work
+			//thread-bind *warn-on-reflection* so it can be set!
+			//must have corresponding popThreadBindings in finally clause
+			Var.pushThreadBindings(
+			    RT.map(ns, ns.get(),
+			           warn_on_reflection, warn_on_reflection.get()));
+
+			//create and move into the user namespace
+			in_ns.invoke(USER);
+			refer.invoke(CLOJURE);
+
+
+
+			//repl IO support
+			rdr = new LineNumberingPushbackReader(pipeIn);
+			 w = (OutputStreamWriter) RT.OUT.get();//new OutputStreamWriter(System.out);
+			EOF = new Object();
+
+			//start the loop
+			w.write("Clojure\n");
+
+
+			
+		}
+		catch(Throwable e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			Var.popThreadBindings();
+		}
+
+
+		//interpreter = ClojureInterpreter.getInstance(); //new StreamOutput(System.out)
+		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);
+
 	}//end constructor.
-	
-	
-	
+
+
+
 	//{{{Begin Shell implementation.
 	public void printInfoMessage(Output output)
 	{
-		
+
 		//printUsage(jEdit.getProperty(ClojurePlugin.NAME + ".shell.msg.info"), null, output);
 		//output.print(null, jEdit.getProperty(ClojurePlugin.NAME + ".shell.msg.usage"));
 		//try
@@ -51,18 +113,45 @@ public class ClojureShell extends Shell
 		//{
 		//	output.print(java.awt.Color.RED,pe.getMessage() );
 		//}
-	
+
 	}//end method.
 
 	public void execute(Console console, String input, Output output, Output error, String command)
 	{
-		//try 
+
+				try
+				{
+					pipeOut.write(command.toCharArray(), 0, command.length());
+					pipeOut.flush();
+					w.write("=> ");
+					w.flush();
+					Object r = LispReader.read(rdr, false, EOF, false);
+					if(r == EOF)
+					{
+						w.write("\n");
+						w.flush();
+						//break;
+					}
+					Object ret = clojure.lang.Compiler.eval(r);
+					RT.print(ret, w);
+					w.write('\n');
+					//w.flush();
+				}
+				catch(Throwable e)
+				{
+					Throwable c = e;
+					while(c.getCause() != null)
+						c = c.getCause();
+					System.err.println(c);
+					e.printStackTrace();
+				}
+		//try
 		//{
 		//	String result = interpreter.evaluate(command);
 		//	output.print(java.awt.Color.BLUE,"Out> " + result);
-		//	
-		//	
-		//}catch(org.mathrider.clojure.Piperexception pe) 
+		//
+		//
+		//}catch(org.mathrider.clojure.Piperexception pe)
 		//{
 		//	output.print(java.awt.Color.RED,pe.getMessage() );
 		//}
@@ -106,7 +195,7 @@ public class ClojureShell extends Shell
 			_targetRunner = new TargetRunner(target, _currentBuildFile, console
 				.getView(), output, AntCommandParser
 				.parseAntCommandProperties(command));
-		}
+	}
 		else if (command.equals("?"))
 		{
 
@@ -126,7 +215,7 @@ public class ClojureShell extends Shell
 			printCurrentProjectInfo(console.getInfoColor(), output);
 
 			output.commandDone();
-		}
+	}
 		else if (command.startsWith("="))
 		{
 
@@ -174,7 +263,7 @@ public class ClojureShell extends Shell
 				output.commandDone();
 				return;
 			}
-		}
+	}
 		else if (command.startsWith("+"))
 		{
 
@@ -203,15 +292,15 @@ public class ClojureShell extends Shell
 				return;
 			}
 			output.commandDone();
-		}
+	}
 		else if (!command.equals(""))
 		{
 			printUsage(jEdit.getProperty(AntFarmPlugin.NAME
 				+ ".shell.msg.invalid-usage"), console.getErrorColor(), output);
-		}
-		
+	}
+
 		*/
-		//output.commandDone();	
+		//output.commandDone();
 	}//end method.
 
 	public void stop(Console console)
@@ -232,7 +321,7 @@ public class ClojureShell extends Shell
 			}
 			_targetRunner.resetLogging();
 			_targetRunner = null;
-		}
+	}
 		*/
 	}
 
@@ -253,23 +342,23 @@ public class ClojureShell extends Shell
 			{
 				return false;
 			}
-		}
+	}
 		*/
 		return true;
 	}//end method.
-	
-	
+
+
 	public void printPrompt(Console console, Output output)
 	{
 		output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), "\nIn> ");
 	}//end method.
-	
-	
+
+
 
 	// }}}End Shell implementation
-	
-	
-	
+
+
+
 	//{{{ Print usage methods.
 	private void printCurrentProjectInfo(Color color, Output output)
 	{
@@ -292,7 +381,7 @@ public class ClojureShell extends Shell
 		{
 			String target = (String) targets.nextElement();
 			info += target + printDefaultLabel(_currentProject, target) + "\t";
-		}
+	}
 		output.print(color, info); */
 
 	}
@@ -300,7 +389,7 @@ public class ClojureShell extends Shell
 	private String printDefaultLabel(String target)
 	{
 		//if (project.getDefaultTarget().equals(target))
-			//return " [default]";
+		//return " [default]";
 		return "";
 	}
 
