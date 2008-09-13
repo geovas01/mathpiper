@@ -1036,6 +1036,7 @@
 </MODE>
 
 <!--
+From: http://repo.or.cz/w/clojure-patches.git?a=blob_plain;f=vim/clojure.vim;hb=HEAD
 " Vim syntax file
 " Language:	   Clojure
 " Last Change: 2008-05-14
