@@ -89,6 +89,14 @@
 				</section>
 			</manifest>
 		</jar>
+		
+		<mkdir dir="${examples.dir}/clojure" />
+		<copy todir="${examples.dir}/clojure">
+			<fileset dir="./examples" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
 	</target>
 	
 </project>

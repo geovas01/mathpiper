@@ -11,7 +11,7 @@
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
 	<property environment="env" />
-	<property name="version" value=".59" />
+	<property name="version" value=".60" />
 	
 	
 	<!-- Set top directories -->
@@ -152,6 +152,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/clojure_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -299,6 +300,11 @@
 			</fileset>
 		</copy>
 		
+		<exec executable="chmod">
+			<arg value="+x" />
+			<arg value="${master.build.dir}/mathrider/unix_run.sh" />
+		</exec>
+		
 
 		<antcall target="piper_library">
 			<param name="target" value="dist"/>
@@ -375,7 +381,6 @@
 	<target name="dist_linux" depends=""
 		description="Archives the application for distribution." >
 
-
 		<exec executable="tar">
 		 <arg value="--use-compress-prog=bzip2"/>
 		 <arg value="--exclude=windows"/>
@@ -386,7 +391,7 @@
 		    <arg value="${master.build.dir}"/>
 		    <arg value="mathrider"/>
 		    
-	</exec>
+	    </exec>
 		
 	</target>		    
 	
