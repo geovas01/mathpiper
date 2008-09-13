@@ -129,6 +129,11 @@
 			<BEGIN>%lisp[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/lisp</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="clojure::MAIN">
+			<BEGIN>%clojure[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/clojure</END>
+		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="beanshell::MAIN">
 			<BEGIN>%beanshell[0-9a-zA-Z,="._() ]*</BEGIN>

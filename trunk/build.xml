@@ -44,6 +44,7 @@
 		<pathelement path="${master.lib.dir}/jars/ProjectViewer.jar" />
 		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
+		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
 		<pathelement path="${plugins.jars.dir}/piper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />
@@ -454,6 +455,9 @@
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
 		<copy file="${master.build.dir}/mathrider/modes/catalog" 
+		todir="${master.src.dir}/jedit_core/modes"/>
+		
+		<copy file="${master.build.dir}/mathrider/modes/clojure.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 	</target>
 	
