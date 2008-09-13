@@ -101,10 +101,9 @@ public class ClojureShell extends Shell
 		}
 		catch(Throwable e)
 		{
-			Throwable c = e;
-			while(c.getCause() != null)
-				c = c.getCause();
-			System.err.println(c);
+
+			output.print(java.awt.Color.RED,e.getMessage() );
+			
 			e.printStackTrace();
 		}
 		finally {
