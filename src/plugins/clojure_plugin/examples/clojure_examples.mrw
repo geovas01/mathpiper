@@ -1,0 +1,51 @@
+To execute these clojure folds, place the cursor inside
+of a fold and press <shift><enter>.
+
+
+%clojure,description="Addition"
+    (+ 1 2 3)
+
+%/clojure
+
+
+
+
+    
+    
+%clojure,description="Show a message dialog."
+    (. javax.swing.JOptionPane (showMessageDialog nil "Hello World"))
+
+%/clojure
+
+
+
+
+
+%clojure,description="doto example."
+    (doto (new java.util.HashMap) (put "a" 1) (put "b" 2))
+
+%/clojure
+
+
+    
+    
+    
+
+%clojure,description="Measuring execution time."
+    (defn foo [n]
+      (loop [i 1]
+        (if (< i n)
+          (recur (inc i))
+          i)))
+     
+    (time (foo 100000))
+
+
+%/clojure
+
+
+
+
+    
+    
+    
