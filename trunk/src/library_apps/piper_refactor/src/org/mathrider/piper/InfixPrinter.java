@@ -89,11 +89,11 @@ class InfixPrinter extends LispPrinter
 		{
 			int length = LispStandard.InternalListLength(subList);
 			string = subList.Get().String();
-			LispInFixOperator prefix  = (LispInFixOperator)iPrefixOperators.LookUp(string);
-			LispInFixOperator infix   = (LispInFixOperator)iInfixOperators.LookUp(string);
-			LispInFixOperator postfix = (LispInFixOperator)iPostfixOperators.LookUp(string);
-			LispInFixOperator bodied  = (LispInFixOperator)iBodiedOperators.LookUp(string);
-			LispInFixOperator op = null;
+			LispInfixOperator prefix  = (LispInfixOperator)iPrefixOperators.LookUp(string);
+			LispInfixOperator infix   = (LispInfixOperator)iInfixOperators.LookUp(string);
+			LispInfixOperator postfix = (LispInfixOperator)iPostfixOperators.LookUp(string);
+			LispInfixOperator bodied  = (LispInfixOperator)iBodiedOperators.LookUp(string);
+			LispInfixOperator op = null;
 
 			if (length!=2)
 			{

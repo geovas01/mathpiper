@@ -19,14 +19,14 @@
 package org.mathrider.piper;
 
 
-class LispInFixOperator
+class LispInfixOperator
 {
 	public int iPrecedence;
 	public int iLeftPrecedence;
 	public int iRightPrecedence;
 	public int iRightAssociative;
 
-	public LispInFixOperator(int aPrecedence)
+	public LispInfixOperator(int aPrecedence)
 	{
 		iPrecedence = aPrecedence;
 		iLeftPrecedence = aPrecedence;

@@ -82,6 +82,17 @@
 		</ant>
 	</target>
 	
+		<target id="piper_refactor_library" name="piper_refactor_library" depends="init" >
+		<ant dir="${library_apps.src.dir}/piper_refactor" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/piper_refactor"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${library_apps.src.dir}/piper_refactor/src"/>
+			<property name="piper.dir" value="${library_apps.src.dir}/piper_refactor"/>
+			<reference refid="build_classpath"/>
+		</ant>
+	</target>
+	
 	
 	<target id="piper_me_library" name="piper_me_library" depends="init" >
 		<ant dir="${library_apps.src.dir}/piper_me" target="${target}" inheritAll="false" inheritRefs="false" >

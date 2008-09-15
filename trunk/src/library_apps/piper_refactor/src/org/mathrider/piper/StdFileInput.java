@@ -21,16 +21,22 @@ package org.mathrider.piper;
 import java.io.*;
 
 
-class StdFileInput
+public class StdFileInput
 			extends StringInput
 {
+        private static String path;
+        static void setPath(String aPath)
+        {
+            path = aPath;
+        }
+        
 	public StdFileInput(String aFileName, InputStatus aStatus)
 	throws Exception
 	{
 		super(new StringBuffer(), aStatus);
 
 		//System.out.println("YYYYYY " + aFileName);//Note:tk: remove.
-		FileInputStream stream = new FileInputStream(aFileName);
+		FileInputStream stream = new FileInputStream(path + aFileName);
 		int c;
 
 		while (true)

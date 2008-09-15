@@ -109,7 +109,7 @@ class ParsedObject
 			}
 			else
 			{
-				LispInFixOperator op = (LispInFixOperator)iParser.iInfixOperators.LookUp(iLookAhead);
+				LispInfixOperator op = (LispInfixOperator)iParser.iInfixOperators.LookUp(iLookAhead);
 				if (op == null)
 				{
 					//printf("op [%s]\n",iLookAhead.String());
@@ -126,7 +126,7 @@ class ParsedObject
 							        iParser.iEnvironment.HashTable().LookUp(iLookAhead.substring(0,len));
 
 							//printf("trunc %s\n",lookUp.String());
-							op = (LispInFixOperator)iParser.iInfixOperators.LookUp(lookUp);
+							op = (LispInfixOperator)iParser.iInfixOperators.LookUp(lookUp);
 							//if (op) printf("FOUND\n");
 							if (op != null)
 							{
@@ -173,9 +173,9 @@ class ParsedObject
 	
 	void ReadAtom() throws Exception
 	{
-		LispInFixOperator op;
+		LispInfixOperator op;
 		// Parse prefix operators
-		op = (LispInFixOperator)iParser.iPrefixOperators.LookUp(iLookAhead);
+		op = (LispInfixOperator)iParser.iPrefixOperators.LookUp(iLookAhead);
 		if (op != null)
 		{
 			String theOperator = iLookAhead;
@@ -274,7 +274,7 @@ class ParsedObject
 				}
 				MatchToken(iLookAhead);
 
-				op = (LispInFixOperator)iParser.iBodiedOperators.LookUp(theOperator);
+				op = (LispInfixOperator)iParser.iBodiedOperators.LookUp(theOperator);
 				if (op != null)
 				{
 					ReadExpression(op.iPrecedence); // InfixPrinter.KMaxPrecedence
@@ -289,7 +289,7 @@ class ParsedObject
 
 		// Parse postfix operators
 
-		while ((op = (LispInFixOperator)iParser.iPostfixOperators.LookUp(iLookAhead)) != null)
+		while ((op = (LispInfixOperator)iParser.iPostfixOperators.LookUp(iLookAhead)) != null)
 		{
 			InsertAtom(iLookAhead);
 			MatchToken(iLookAhead);
