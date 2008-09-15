@@ -2,7 +2,9 @@ Development notes.
 
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
-{{{====To Do
+{{{====To Do                   
++ Add "ant -Dtarget=dist all-plugins" to build instructions.
++ Add version update to welcome.html file.
 + Folds throw an exception if equals sign is missing from a parameter.  Should catch this and return a better error message (actually I discovered that it is commas between quotes that is causing the exception."
 + Check Numbers (Predicates) for completeness.
 - Place all IsXXX predicate functions in the predicate node in PiperDocs.
