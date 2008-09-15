@@ -1,0 +1,77 @@
+/* {{{ License.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */ //}}}
+
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
+package org.mathrider.piper;
+
+import org.mathrider.piper.lisp.LispStandard;
+import org.mathrider.piper.lisp.LispPtr;
+import org.mathrider.piper.lisp.LispEnvironment;
+
+
+/// Class for matching against a pattern variable.
+public class MatchVariable extends PiperParamMatcherBase
+{
+	/// Index of variable in PiperPatternPredicateBase.iVariables.
+	protected int iVarIndex;
+
+	/// Not used.
+	protected String iString;
+
+	public MatchVariable(int aVarIndex)
+	{
+		iVarIndex = aVarIndex;
+	}
+
+	/// Matches an expression against the pattern variable.
+	/// \param aEnvironment the underlying Lisp environment.
+	/// \param aExpression the expression to test.
+	/// \param arguments (input/output) actual values of the pattern
+	/// variables for \a aExpression.
+	///
+	/// If entry #iVarIndex in \a arguments is still empty, the
+	/// pattern matches and \a aExpression is stored in this
+	/// entry. Otherwise, the pattern only matches if the entry equals
+	/// \a aExpression.
+	public boolean ArgumentMatches(LispEnvironment  aEnvironment,
+	                               LispPtr  aExpression,
+	                               LispPtr[]  arguments) throws Exception
+	{
+		// this should not be necessary
+		//    if (arguments[iVarIndex] == null)
+		//    {
+		//      arguments[iVarIndex] = new LispPtr();
+		//    }
+		if (arguments[iVarIndex].Get() == null)
+		{
+			arguments[iVarIndex].Set(aExpression.Get());
+			//        LogPrintf("Set var %d\n",iVarIndex);
+			return true;
+		}
+		else
+		{
+			if (LispStandard.InternalEquals(aEnvironment, aExpression, arguments[iVarIndex]))
+			{
+				//            LogPrintf("Matched var %d\n",iVarIndex);
+				return true;
+			}
+			return false;
+		}
+		//    return false;
+	}
+
+};
