@@ -7,7 +7,7 @@
 		Build file for Piper.
 	</description>
 	
-	<property name="version" value=".52" />
+	<property name="version" value=".52_refactor" />
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	
 	
@@ -40,11 +40,15 @@
 	</target>
 
 	
-	
-	<target id="dist" name="dist" depends="compile" >
-	
+	<target id="copy" name="copy" depends="init" >
 		<copy todir="${build.classes.dir}">
 			<fileset dir="${piper.dir}/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${piper.dir}/src" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
@@ -55,18 +59,19 @@
 		       	   <filter token="VERSION" value="${version}" />
 	               
 			 </filterset>
-		</copy>
+		</copy>		
+	</target>
+	
+	
+	<target id="dist" name="dist" depends="" >
+	
+
 	
 		<mkdir dir="${build.dir}/dist" />
 		
 		<jar jarfile="${build.dir}/dist/piper.jar"
 			basedir="${build.classes.dir}" update="true"
 			manifest="${piper.dir}/MANIFEST.MF">
-			<!--<manifest> 
-				<section name="piper" >
-					<attribute name="Build-Date" value="${build.time}"/>
-				</section>
-			</manifest>-->
 			<include name="**/*" />
 		</jar> 
 	</target>

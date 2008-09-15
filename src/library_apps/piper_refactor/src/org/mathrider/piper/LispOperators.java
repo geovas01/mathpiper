@@ -19,32 +19,32 @@
 package org.mathrider.piper;
 
 
-class LispOperators extends LispAssociatedHash // <LispInFixOperator>
+class LispOperators extends LispAssociatedHash // <LispInfixOperator>
 {
 	
 	public void SetOperator(int aPrecedence,String aString)
 	{
-		LispInFixOperator op = new LispInFixOperator(aPrecedence);
+		LispInfixOperator op = new LispInfixOperator(aPrecedence);
 		SetAssociation(op, aString);
 	}
 	
 	public void SetRightAssociative(String aString) throws Exception
 	{
-		LispInFixOperator op = (LispInFixOperator)LookUp(aString);
+		LispInfixOperator op = (LispInfixOperator)LookUp(aString);
 		LispError.Check(op != null,LispError.KLispErrNotAnInFixOperator);
 		op.SetRightAssociative();
 	}
 	
 	public void SetLeftPrecedence(String aString,int aPrecedence) throws Exception
 	{
-		LispInFixOperator op = (LispInFixOperator)LookUp(aString);
+		LispInfixOperator op = (LispInfixOperator)LookUp(aString);
 		LispError.Check(op != null,LispError.KLispErrNotAnInFixOperator);
 		op.SetLeftPrecedence(aPrecedence);
 	}
 	
 	public void SetRightPrecedence(String aString,int aPrecedence) throws Exception
 	{
-		LispInFixOperator op = (LispInFixOperator)LookUp(aString);
+		LispInfixOperator op = (LispInfixOperator)LookUp(aString);
 		LispError.Check(op != null,LispError.KLispErrNotAnInFixOperator);
 		op.SetRightPrecedence(aPrecedence);
 	}

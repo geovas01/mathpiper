@@ -15,52 +15,63 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathrider.piper;
 //class CVersion { static String VERSION = "1.2.2"; }
 
-
-class CVersion
+public class CVersion
 {
-	static String version = "";
 
-	static
-	{
+   public  static String version = "";
+    
 
-		java.util.zip.ZipFile piperZip = null;
-		String propertyFileName = "";
-		try
-		{
-			java.net.URL propertiesURL = java.lang.ClassLoader.getSystemResource("piper.properties");
-			if (propertiesURL != null)
-			{
-				String propertiesPath = propertiesURL.getPath();
-				propertyFileName = propertiesPath.substring(0, propertiesPath.lastIndexOf('!'));
-				piperZip = new java.util.zip.ZipFile(new java.io.File(new java.net.URI(propertyFileName)));
-			}
-			else
-			{
-				System.out.println("piper.properties not found!!!!");
-			}
+    static
+    {
 
-			java.util.Properties properties = new java.util.Properties();
+        java.util.zip.ZipFile piperZip = null;
+        String propertyFileName = "";
+        try
+        {
+            java.net.URL propertiesURL = java.lang.ClassLoader.getSystemResource("piper.properties");
+            
+             java.io.InputStream s;
 
-			java.util.zip.ZipEntry e = piperZip.getEntry("piper.properties");
+            if (propertiesURL != null)
+            {
+                String propertiesPath = propertiesURL.getPath();
+                if(propertiesPath.indexOf('!') != -1)
+                {
+                    propertyFileName = propertiesPath.substring(0, propertiesPath.lastIndexOf('!'));
+                    piperZip = new java.util.zip.ZipFile(new java.io.File(new java.net.URI(propertyFileName)));
 
-			java.io.InputStream s = piperZip.getInputStream(e);
+                     java.util.zip.ZipEntry e = piperZip.getEntry("piper.properties");
 
-			properties.load(s);
-
-			version = properties.getProperty("piper.version");
-
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}//end try/catch.
+                    s = piperZip.getInputStream(e);
+                }
+                else
+                {
+                    s = propertiesURL.openStream();
+                }
 
 
-	}//end constructor.
+                java.util.Properties properties = new java.util.Properties();
 
 
+
+                properties.load(s);
+
+                version = properties.getProperty("piper.version");
+            } else
+            {
+                System.out.println("piper.properties not found!!!!");
+            }
+
+
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }//end try/catch.
+
+
+    }//end constructor.
 }//end class.

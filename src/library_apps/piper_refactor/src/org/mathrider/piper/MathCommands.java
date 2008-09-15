@@ -645,7 +645,7 @@ class MathCommands
 		LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
-	public static LispInFixOperator OperatorInfo(LispEnvironment aEnvironment,int aStackTop, LispOperators aOperators) throws Exception
+	public static LispInfixOperator OperatorInfo(LispEnvironment aEnvironment,int aStackTop, LispOperators aOperators) throws Exception
 	{
 		// Get operator
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
@@ -656,7 +656,7 @@ class MathCommands
 		String orig = evaluated.Get().String();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 		//
-		LispInFixOperator op = (LispInFixOperator)aOperators.LookUp(LispStandard.SymbolName(aEnvironment,orig));
+		LispInfixOperator op = (LispInfixOperator)aOperators.LookUp(LispStandard.SymbolName(aEnvironment,orig));
 		return op;
 	}
 
@@ -2770,7 +2770,7 @@ class MathCommands
 	{
 		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispInFixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2779,7 +2779,7 @@ class MathCommands
 	{
 		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispInFixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2788,7 +2788,7 @@ class MathCommands
 	{
 		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispInFixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2797,7 +2797,7 @@ class MathCommands
 	{
 		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispInFixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2806,7 +2806,7 @@ class MathCommands
 	{
 		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispInFixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{  // also need to check for a postfix or prefix operator
 				op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
@@ -2828,7 +2828,7 @@ class MathCommands
 	{
 		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispInFixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{  // infix and postfix operators have left precedence
 				op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
@@ -2842,7 +2842,7 @@ class MathCommands
 	{
 		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispInFixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{   // bodied, infix and prefix operators have right precedence
 				op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
