@@ -737,3 +737,6 @@ with, at least for me.
 
 
 }}}
+
+
+- Machine language book v2.0 line 262: missing 2^8.
