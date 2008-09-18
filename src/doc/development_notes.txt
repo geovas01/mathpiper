@@ -26,7 +26,7 @@ last evaluation without needing to use Write;
 + Add menu items back when ready: help-menu=about help tip-of-the-day.
 + Need to work on more sophisticated fold property parser.  For example, what is a good way to part this?: (%piper,output="output,preserve="false",name="test"",name="test2").
 + Property scope="ide" throws null pointer exception when beanshell gui code is executed in worksheet_demo_1.mrw file.
-+"All buffer-local properties listed in the section called “Buffer-Local Properties” may be given values in edit modes." so perhaps set the folding mode here instead of in the system properties file?
++"All buffer-local properties listed in the section called Â“Buffer-Local PropertiesÂ” may be given values in edit modes." so perhaps set the folding mode here instead of in the system properties file?
 + Use fold to send commands to PiperDocs plugin.  Searching might be one action to implement.
 + Does every function need to return True or False?  For example, why does PrettyForm return True while TeXForm doesn't.
 + Add beanshell error catch to beanshell fold.
@@ -741,6 +741,8 @@ with, at least for me.
 + This line should cause an error in the assembler but it doesn't: "sum	dbt d". Notice it is missing a value before d.
 + Branching to addresses throws a "string out of bounds" exception in a uasm65 fold.
 + Make ROM read only in the emulator.
++ Enter Copy button and popup menu to U6502.
++ Make an ASCII chart plugin.
 }}}
 
 
@@ -749,6 +751,5 @@ with, at least for me.
 
 
 }}}
-
 
 
