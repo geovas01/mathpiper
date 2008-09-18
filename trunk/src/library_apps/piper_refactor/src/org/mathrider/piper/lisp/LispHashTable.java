@@ -15,41 +15,46 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathrider.piper.lisp;
 
 public class LispHashTable
 {
-	java.util.Hashtable iHashtable = new java.util.Hashtable();
-	
-	// If string not yet in table, insert. Afterwards return the string.
-	public String LookUp(String aString)
-	{
-		if (!iHashtable.containsKey(aString))
-			iHashtable.put(aString,aString);
-		return (String)iHashtable.get(aString);
-	}
-	
-	public String LookUpStringify(String aString)
-	{
-		aString = "\""+aString+"\"";
-		if (!iHashtable.containsKey(aString))
-			iHashtable.put(aString,aString);
-		return (String)iHashtable.get(aString);
-	}
-	
-	public String LookUpUnStringify(String aString)
-	{
-		aString = aString.substring(1,aString.length()-1);
-		if (!iHashtable.containsKey(aString))
-			iHashtable.put(aString,aString);
-		return (String)iHashtable.get(aString);
-	}
 
-	// GarbageCollect
-	public void GarbageCollect()
-	{
-		//TODO FIXME
-	}
-	
+    java.util.Hashtable iHashtable = new java.util.Hashtable();
+
+    // If string not yet in table, insert. Afterwards return the string.
+    public String lookUp(String aString)
+    {
+        if (!iHashtable.containsKey(aString))
+        {
+            iHashtable.put(aString, aString);
+        }
+        return (String) iHashtable.get(aString);
+    }
+
+    public String lookUpStringify(String aString)
+    {
+        aString = "\"" + aString + "\"";
+        if (!iHashtable.containsKey(aString))
+        {
+            iHashtable.put(aString, aString);
+        }
+        return (String) iHashtable.get(aString);
+    }
+
+    public String lookUpUnStringify(String aString)
+    {
+        aString = aString.substring(1, aString.length() - 1);
+        if (!iHashtable.containsKey(aString))
+        {
+            iHashtable.put(aString, aString);
+        }
+        return (String) iHashtable.get(aString);
+    }
+
+    // GarbageCollect
+    public void garbageCollect()
+    {
+        //TODO FIXME
+    }
 }

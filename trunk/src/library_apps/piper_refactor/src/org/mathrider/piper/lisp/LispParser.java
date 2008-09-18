@@ -67,7 +67,7 @@ public class LispParser
 			// if token is empty string, error!
 			LispError.Check(token.length() > 0,LispError.KInvalidToken); //TODO FIXME
 			// if token is ")" return result.
-			if (token == iEnvironment.hashTable().LookUp(")"))
+			if (token == iEnvironment.hashTable().lookUp(")"))
 			{
 				return;
 			}
@@ -86,7 +86,7 @@ public class LispParser
 			return;
 		// else if token is "(" read in a whole array of objects until ")",
 		//   and make a sublist
-		if (aToken == iEnvironment.hashTable().LookUp("("))
+		if (aToken == iEnvironment.hashTable().lookUp("("))
 		{
 			LispPtr subList = new LispPtr();
 			ParseList(subList);

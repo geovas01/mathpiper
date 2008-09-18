@@ -21,7 +21,7 @@ public class LispAtom extends LispObject
 {
 
     String iString;
-    
+
     LispAtom(String aString)
     {
         iString = aString;
@@ -37,8 +37,9 @@ public class LispAtom extends LispObject
             self = new LispNumber(aString, aEnvironment.precision());
         } else
         {
-            self = new LispAtom(aEnvironment.hashTable().LookUp(aString));
+            self = new LispAtom(aEnvironment.hashTable().lookUp(aString));
         }
+        
         LispError.Check(self != null, LispError.KLispErrNotEnoughMemory);
         return self;
     }
@@ -64,5 +65,4 @@ public class LispAtom extends LispObject
          */
         return null;
     }
-
 };

@@ -38,7 +38,7 @@ public class XmlTokenizer
 
 		if (aInput.EndOfStream())
 
-			return aHashTable.LookUp(aInput.StartPtr().substring(firstpos, aInput.Position()));
+			return aHashTable.lookUp(aInput.StartPtr().substring(firstpos, aInput.Position()));
 
 		//skipping spaces
 		while (IsSpace(aInput.Peek()))
@@ -65,7 +65,7 @@ public class XmlTokenizer
 			}
 		}
 
-		return aHashTable.LookUp(aInput.StartPtr().substring(firstpos, aInput.Position()));
+		return aHashTable.lookUp(aInput.StartPtr().substring(firstpos, aInput.Position()));
 	}
 
 	private static boolean IsSpace(int c)

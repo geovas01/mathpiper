@@ -112,7 +112,7 @@ public class LispTokenizer
 				}
 				//TODO FIXME is following append char correct?
 				aResult = aResult + ((char)aInput.Next()); // consume the close quote
-				return aHashTable.LookUp(aResult);
+				return aHashTable.lookUp(aResult);
 			}
 			//parse atoms
 			else if (isAlpha(c))
@@ -163,7 +163,7 @@ public class LispTokenizer
 				continue;
 			}
 		}
-		return aHashTable.LookUp(aInput.StartPtr().substring(firstpos,aInput.Position()));
+		return aHashTable.lookUp(aInput.StartPtr().substring(firstpos,aInput.Position()));
 	}
 
 	public static boolean isDigit(char c)

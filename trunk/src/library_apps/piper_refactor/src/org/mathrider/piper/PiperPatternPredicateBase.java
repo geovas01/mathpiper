@@ -250,7 +250,7 @@ public class PiperPatternPredicateBase
 			if (num>1)
 			{
 				LispObject head = sublist.get();
-				if (head.string() == aEnvironment.hashTable().LookUp("_"))
+				if (head.string() == aEnvironment.hashTable().lookUp("_"))
 				{
 					LispObject second = head.next().get();
 					if (second.string() != null)

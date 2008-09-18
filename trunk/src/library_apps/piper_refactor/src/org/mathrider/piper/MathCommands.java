@@ -1065,7 +1065,7 @@ public class MathCommands
 			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
-			String hashedname = aEnvironment.hashTable().LookUpUnStringify(orig);
+			String hashedname = aEnvironment.hashTable().lookUpUnStringify(orig);
 
 			InputStatus oldstatus = aEnvironment.iInputStatus;
 			LispInput previous = aEnvironment.iCurrentInput;
@@ -1214,7 +1214,7 @@ public class MathCommands
 				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 
 				//Return the result
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(oper.toString())));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(oper.toString())));
 			}
 			catch (Exception e) { throw e; }
 			finally
@@ -1569,7 +1569,7 @@ public class MathCommands
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpUnStringify(orig)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpUnStringify(orig)));
 		}
 	}
 
@@ -1585,7 +1585,7 @@ public class MathCommands
 			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(orig)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(orig)));
 		}
 	}
 
@@ -1729,7 +1729,7 @@ public class MathCommands
 	{
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(aEnvironment.iError)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(aEnvironment.iError)));
 		}
 	}
 
@@ -2646,7 +2646,7 @@ public class MathCommands
 
 			// Added, unquote a string
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.internalIsString(str2),2);
-			str2 = aEnvironment.hashTable().LookUpUnStringify(str2);
+			str2 = aEnvironment.hashTable().lookUpUnStringify(str2);
 
 			// convert using correct base
 			BigNumber z = new BigNumber(str2,aEnvironment.precision(),base);
@@ -2679,7 +2679,7 @@ public class MathCommands
 			str = x.ToString(aEnvironment.precision(),base);
 			// Get unique string from hash table, and create an atom from it.
 
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(str)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(str)));
 		}
 	}
 
@@ -2953,7 +2953,7 @@ public class MathCommands
 			String oper = LispStandard.internalUnstringify(orig);
 
 			String filename = LispStandard.internalFindFile(oper, aEnvironment.iInputDirectories);
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(filename)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(filename)));
 		}
 	}
 
@@ -2973,7 +2973,7 @@ public class MathCommands
 			String oper = LispStandard.internalUnstringify(orig);
 
 			LispMultiUserFunction multiUserFunc =
-			        aEnvironment.multiUserFunction(aEnvironment.hashTable().LookUp(oper));
+			        aEnvironment.multiUserFunction(aEnvironment.hashTable().lookUp(oper));
 			if (multiUserFunc != null)
 			{
 				LispDefFile def = multiUserFunc.iFileToOpen;
@@ -3203,7 +3203,7 @@ public class MathCommands
 				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
 				return;
 			}
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(head.string())));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(head.string())));
 			return;
 		}
 	}
@@ -3338,7 +3338,7 @@ public class MathCommands
 
 			int arity = Integer.parseInt(sizearg.get().string(),10);
 
-			LispUserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().LookUp(oper),arity);
+			LispUserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().lookUp(oper),arity);
 			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),userFunc != null);
 		}
 	}
@@ -3354,7 +3354,7 @@ public class MathCommands
 			String oper = LispStandard.internalUnstringify(orig);
 
 			LispMultiUserFunction multiUserFunc =
-			        aEnvironment.multiUserFunction(aEnvironment.hashTable().LookUp(oper));
+			        aEnvironment.multiUserFunction(aEnvironment.hashTable().lookUp(oper));
 			if (multiUserFunc != null)
 			{
 				if (multiUserFunc.iFileToOpen!=null)
@@ -3388,7 +3388,7 @@ public class MathCommands
 
 			int arity = Integer.parseInt(sizearg.get().string(),10);
 
-			LispUserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().LookUp(oper),arity);
+			LispUserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().lookUp(oper),arity);
 			LispError.CHK_CORE(aEnvironment, aStackTop,userFunc != null, LispError.KLispErrInvalidArg);
 
 			LispPtr list = userFunc.ArgList();
@@ -3448,7 +3448,7 @@ public class MathCommands
 				names[i] = atomname;
 				int len = atomname.length();
 				String newname = "$"+atomname+uniquenumber;
-				String variable = aEnvironment.hashTable().LookUp(newname);
+				String variable = aEnvironment.hashTable().lookUp(newname);
 				localnames[i] = variable;
 			}
 			LocalSymbolBehaviour behaviour = new LocalSymbolBehaviour(aEnvironment,names,localnames,nrSymbols);
@@ -3611,7 +3611,7 @@ public class MathCommands
 	{
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			aEnvironment.hashTable().GarbageCollect();
+			aEnvironment.hashTable().garbageCollect();
 			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
@@ -3854,7 +3854,7 @@ public class MathCommands
 	{
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(aEnvironment.iInputStatus.FileName())));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(aEnvironment.iInputStatus.FileName())));
 		}
 	}
 
@@ -3995,7 +3995,7 @@ public class MathCommands
 			fnameObject.set(ARGUMENT(aEnvironment,aStackTop,1).get());
 			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,fnameObject,1);
 			String fname = LispStandard.internalUnstringify(fnameObject.get().string());
-			String hashedname = aEnvironment.hashTable().LookUp(fname);
+			String hashedname = aEnvironment.hashTable().lookUp(fname);
 
 			long fileSize = 0;
 			InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);
