@@ -64,6 +64,11 @@
 	</target>
 
 	<target id="init" name="init">
+	
+	<condition property="IsUnix" value="true">
+		<os family="unix" />
+	</condition>
+		
 		<tstamp>
 			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
 		</tstamp>
@@ -310,12 +315,6 @@
 				<include name="**/*" />
 			</fileset>
 		</copy>
-		
-		<exec executable="chmod">
-			<arg value="+x" />
-			<arg value="${master.build.dir}/mathrider/unix_run.sh" />
-		</exec>
-		
 
 		<antcall target="piper_library">
 			<param name="target" value="dist"/>
@@ -342,6 +341,19 @@
 		</antcall>
 		<copy file="${library_apps.src.dir}/geogebra/geogebra/init.ggb" todir="${plugins.jars.dir}/scripts"/>
 		
+		
+		<antcall target="chmod-unix-launch-script">
+		</antcall>
+		
+	</target>
+	
+	
+	<target  id="chmod-unix-launch-script" name="chmod-unix-launch-script" if="IsUnix">
+		<echo message="Making unix launch script executable."/>
+		<exec executable="chmod">
+				<arg value="+x" />
+				<arg value="${master.build.dir}/mathrider/unix_run.sh" />
+			</exec>
 	</target>
 
 	
