@@ -113,7 +113,7 @@ public class CPiper
 			LispPtr result = new LispPtr();
 			env.iEvaluator.eval(env, result, in_expr);
 
-			String percent = env.hashTable().LookUp("%");
+			String percent = env.hashTable().lookUp("%");
 			env.setVariable(percent,result,true);
 
 			StringBuffer string_out = new StringBuffer();

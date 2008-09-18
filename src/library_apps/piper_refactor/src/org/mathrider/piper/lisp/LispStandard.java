@@ -291,11 +291,11 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 	{
 		if (aSymbol.charAt(0) == '\"')
 		{
-			return aEnvironment.hashTable().LookUpUnStringify(aSymbol);
+			return aEnvironment.hashTable().lookUpUnStringify(aSymbol);
 		}
 		else
 		{
-			return aEnvironment.hashTable().LookUp(aSymbol);
+			return aEnvironment.hashTable().lookUp(aSymbol);
 		}
 	}
 
@@ -464,7 +464,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 			aEnvironment.iCurrentInput = aInput;
 			// TODO make "EndOfFile" a global thing
 			// read-parse-eval to the end of file
-			String eof = aEnvironment.hashTable().LookUp("EndOfFile");
+			String eof = aEnvironment.hashTable().lookUp("EndOfFile");
 			boolean endoffile = false;
 			InfixParser parser = new InfixParser(new LispTokenizer(),
 			                                     aEnvironment.iCurrentInput, aEnvironment,
@@ -506,7 +506,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 	{
 		String oper = internalUnstringify(aFileName);
 
-		String hashedname = aEnvironment.hashTable().LookUp(oper);
+		String hashedname = aEnvironment.hashTable().lookUp(oper);
 
 		InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);
 		aEnvironment.iInputStatus.SetTo(hashedname);
@@ -632,8 +632,8 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		try
 		{
 			aEnvironment.iCurrentInput = aInput;
-			String eof = aEnvironment.hashTable().LookUp("EndOfFile");
-			String end = aEnvironment.hashTable().LookUp("}");
+			String eof = aEnvironment.hashTable().lookUp("EndOfFile");
+			String end = aEnvironment.hashTable().lookUp("}");
 			boolean endoffile = false;
 
 			LispTokenizer tok = new LispTokenizer();
@@ -679,7 +679,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		String flatfile = internalUnstringify(aFileName) + ".def";
 		LispDefFile def = aEnvironment.iDefFiles.File(aFileName);
 
-		String hashedname = aEnvironment.hashTable().LookUp(flatfile);
+		String hashedname = aEnvironment.hashTable().lookUp(flatfile);
 
 		InputStatus oldstatus = aEnvironment.iInputStatus;
 		aEnvironment.iInputStatus.SetTo(hashedname);

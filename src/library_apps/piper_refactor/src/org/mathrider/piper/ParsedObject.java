@@ -133,7 +133,7 @@ public class ParsedObject
 						{
 							len--;
 							String lookUp =
-							        iParser.iEnvironment.hashTable().LookUp(iLookAhead.substring(0,len));
+							        iParser.iEnvironment.hashTable().lookUp(iLookAhead.substring(0,len));
 
 							//printf("trunc %s\n",lookUp.String());
 							op = (LispInfixOperator)iParser.iInfixOperators.lookUp(lookUp);
@@ -142,7 +142,7 @@ public class ParsedObject
 							{
 								String toLookUp = iLookAhead.substring(len,origlen);
 								String lookUpRight =
-								        iParser.iEnvironment.hashTable().LookUp(toLookUp);
+								        iParser.iEnvironment.hashTable().lookUp(toLookUp);
 
 								//printf("right: %s (%d)\n",lookUpRight.String(),origlen-len);
 
