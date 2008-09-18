@@ -729,6 +729,8 @@ with, at least for me.
 {{{ U6502
 - Add reset method to IOChip interface.
 + This line should cause an error in the assembler but it doesn't: "sum	dbt d". Notice it is missing a value before d.
++ Branching to addresses throws a "string out of bounds" exception in a uasm65 fold.
++ Make ROM read only in the emulator.
 }}}
 
 
@@ -739,4 +741,4 @@ with, at least for me.
 }}}
 
 
-- Machine language book v2.0 line 262: missing 2^8.
+
