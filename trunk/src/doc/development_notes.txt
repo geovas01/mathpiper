@@ -733,6 +733,13 @@ with, at least for me.
 - Chas 
 
 ====
+It seems most people are having problems either:
+
+ With a runtime error in code entered in the repl (or sent from an
+editor buffer), rather than loaded, where there are no relevant source
+line numbers to use.
+====
+
 }}}
 
 

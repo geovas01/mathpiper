@@ -447,7 +447,6 @@
 	-->
 	
 	
-	
 	<target id="backcopy-property" name="backcopy-property" description="Copies property file from build to source directory." > 
 		<copy file="${master.build.dir}/mathrider/settings/properties" 
 		todir="${master.src.dir}/jedit_core/settings"/>
@@ -504,14 +503,6 @@
 			</fileset>
 		</copy>	
 	</target>
-	
-	<target id="backcopy-all" 
-		name="backcopy-all" 
-		description="Copies all configuration files from build to source directory."
-		depends="backcopy-property, backcopy-perspective, backcopy-examples, backcopy-macros, backcopy-modes">
-
-	</target>
-	
 	
 	
 	<target id="latex" name="latex" depends=""
