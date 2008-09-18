@@ -183,6 +183,16 @@ Initial release:
 
 {{{PIPER BUGS.
 ===
+
+(2^x)^3 evaluates to 2^x^3. compare to (say) gnu calc, which evaluates
+this to 2^(3x). note that yacas evaluates (x^2)^3 to x^6.
+
+apologies if this is is a well-known bug (or if instead it is
+considered a feature)
+
+-- eric
+
+====
 N(Pi,10) gives too many digits.
 ====
 Functions obtained from D() do not evaluate and functions cannot be defined as follows for some reason:
