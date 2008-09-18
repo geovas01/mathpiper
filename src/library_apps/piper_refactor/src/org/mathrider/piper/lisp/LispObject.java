@@ -26,7 +26,7 @@ import org.mathrider.piper.*;
  *  String(), or it is a holder for a sublist, obtainable through SubList(),
  *  or it is a generic object, in which case Generic() returns non-NULL.
  *  Only one of these three functions should return a non-NULL value.
- *  It is a reference-counted object. LispPtr handles the reference counting.
+ *  It is a reference-counted object. LispPtr handles the reference counting. ap.
  */
 public abstract class LispObject
 {
@@ -42,6 +42,8 @@ public abstract class LispObject
 	  *  simple atom. This method returns NULL by default.
 	  */
 	public abstract String String() throws Exception;
+        
+        
 	/** If this object is a list, return a pointer to it.
 	  *  Default behaviour is to return NULL.
 	  */
@@ -49,6 +51,9 @@ public abstract class LispObject
 	{
 		return null;
 	}
+        
+        
+        
 	public GenericClass Generic()
 	{
 		return null;
@@ -70,6 +75,7 @@ public abstract class LispObject
 	{
 		return null;
 	}
+       
 	public abstract LispObject SetExtraInfo(LispPtr aData);
 
 	public boolean Equal(LispObject aOther) throws Exception

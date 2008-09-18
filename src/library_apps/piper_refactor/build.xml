@@ -63,10 +63,17 @@
 	</target>
 	
 	
+	<target id="backcopyr" name="backcopy" > 
+		<copy todir="${piper.dir}/src">
+			<fileset dir="${build.classes.dir}" >
+				<include name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	
+	
 	<target id="dist" name="dist" depends="" >
-	
 
-	
 		<mkdir dir="${build.dir}/dist" />
 		
 		<jar jarfile="${build.dir}/dist/piper.jar"
