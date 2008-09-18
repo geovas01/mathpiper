@@ -48,7 +48,7 @@ public class ArrayClass extends GenericClass
 	public LispObject GetElement(int aItem) throws Exception
 	{
 		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
-		return iArray.GetElement(aItem-1).Get();
+		return iArray.GetElement(aItem-1).get();
 	}
 	public void SetElement(int aItem,LispObject aObject) throws Exception
 	{

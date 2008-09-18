@@ -64,9 +64,9 @@ public class BasicEvaluator extends LispEvaluatorBase
 	/// \note The result of this operation must be a unique (copied)
 	/// element! Eg. its Next might be set...
 	///
-	public void Eval(LispEnvironment aEnvironment, LispPtr aResult, LispPtr aExpression) throws Exception
+	public void eval(LispEnvironment aEnvironment, LispPtr aResult, LispPtr aExpression) throws Exception
 	{
-		LispError.LISPASSERT(aExpression.Get() != null);
+		LispError.LISPASSERT(aExpression.get() != null);
 		aEnvironment.iEvalDepth++;
 		if (aEnvironment.iEvalDepth>=aEnvironment.iMaxEvalDepth)
 		{
@@ -81,43 +81,43 @@ public class BasicEvaluator extends LispEvaluatorBase
 			}
 		}
 
-		String str = aExpression.Get().String();
+		String str = aExpression.get().string();
 
 		// Evaluate an atom: find the bound value (treat it as a variable)
 		if (str != null)
 		{
 			if (str.charAt(0) == '\"')
 			{
-				aResult.Set(aExpression.Get().Copy(false));
+				aResult.set(aExpression.get().copy(false));
 				aEnvironment.iEvalDepth--;
 				return;
 			}
 
 			LispPtr val = new LispPtr();
-			aEnvironment.GetVariable(str,val);
-			if (val.Get() != null)
+			aEnvironment.getVariable(str,val);
+			if (val.get() != null)
 			{
-				aResult.Set(val.Get().Copy(false));
+				aResult.set(val.get().copy(false));
 				aEnvironment.iEvalDepth--;
 				return;
 			}
-			aResult.Set(aExpression.Get().Copy(false));
+			aResult.set(aExpression.get().copy(false));
 			aEnvironment.iEvalDepth--;
 			return;
 		}
 
 		{
-			LispPtr subList = aExpression.Get().SubList();
+			LispPtr subList = aExpression.get().subList();
 
 			if (subList != null)
 			{
-				LispObject head = subList.Get();
+				LispObject head = subList.get();
 				if (head != null)
 				{
-					if (head.String() != null)
+					if (head.string() != null)
 					{
 						{
-							PiperEvaluator evaluator = (PiperEvaluator)aEnvironment.CoreCommands().LookUp(head.String());
+							PiperEvaluator evaluator = (PiperEvaluator)aEnvironment.coreCommands().lookUp(head.string());
 							// Try to find a built-in command
 							if (evaluator != null)
 							{
@@ -143,43 +143,43 @@ public class BasicEvaluator extends LispEvaluatorBase
 						//printf("ApplyPure!\n");
 						LispPtr oper = new LispPtr();
 						LispPtr args2 = new LispPtr();
-						oper.Set(subList.Get());
-						args2.Set(subList.Get().Next().Get());
-						LispStandard.InternalApplyPure(oper,args2,aResult,aEnvironment);
+						oper.set(subList.get());
+						args2.set(subList.get().next().get());
+						LispStandard.internalApplyPure(oper,args2,aResult,aEnvironment);
 						aEnvironment.iEvalDepth--;
 						return;
 					}
 					//printf("**** Undef: %s\n",head.String().String());
-					LispStandard.ReturnUnEvaluated(aResult,subList,aEnvironment);
+					LispStandard.returnUnEvaluated(aResult,subList,aEnvironment);
 					aEnvironment.iEvalDepth--;
 					return;
 				}
 			}
-			aResult.Set(aExpression.Get().Copy(false));
+			aResult.set(aExpression.get().copy(false));
 		}
 		aEnvironment.iEvalDepth--;
 	}
 
 	LispUserFunction GetUserFunction(LispEnvironment aEnvironment, LispPtr subList) throws Exception
 	{
-		LispObject head = subList.Get();
+		LispObject head = subList.get();
 		LispUserFunction userFunc = null;
 
-		userFunc = (LispUserFunction)aEnvironment.UserFunction(subList);
+		userFunc = (LispUserFunction)aEnvironment.userFunction(subList);
 		if (userFunc != null)
 		{
 			return userFunc;
 		}
-		else if (head.String()!=null)
+		else if (head.string()!=null)
 		{
-			LispMultiUserFunction multiUserFunc = aEnvironment.MultiUserFunction(head.String());
+			LispMultiUserFunction multiUserFunc = aEnvironment.multiUserFunction(head.string());
 			if (multiUserFunc.iFileToOpen!=null)
 			{
 				LispDefFile def = multiUserFunc.iFileToOpen;
 				multiUserFunc.iFileToOpen=null;
-				LispStandard.InternalUse(aEnvironment,def.iFileName);
+				LispStandard.internalUse(aEnvironment,def.iFileName);
 			}
-			userFunc = aEnvironment.UserFunction(subList);
+			userFunc = aEnvironment.userFunction(subList);
 		}
 		return userFunc;
 	}

@@ -64,15 +64,15 @@ public class InfixPrinter extends LispPrinter
 	}
 	void Print(LispPtr aExpression, LispOutput aOutput, int iPrecedence) throws Exception
 	{
-		LispError.LISPASSERT(aExpression.Get() != null);
+		LispError.LISPASSERT(aExpression.get() != null);
 
-		String string = aExpression.Get().String();
+		String string = aExpression.get().string();
 		if (string != null)
 		{
 			boolean bracket=false;
 			if (iPrecedence<KMaxPrecedence &&
 			                string.charAt(0) == '-' &&
-			                (LispTokenizer.IsDigit(string.charAt(1)) || string.charAt(1) == '.')
+			                (LispTokenizer.isDigit(string.charAt(1)) || string.charAt(1) == '.')
 			   )
 			{
 				bracket=true;
@@ -83,27 +83,27 @@ public class InfixPrinter extends LispPrinter
 			return;
 		}
 
-		if (aExpression.Get().Generic() != null)
+		if (aExpression.get().generic() != null)
 		{
 			//TODO display genericclass
-			WriteToken(aOutput,aExpression.Get().Generic().TypeName());
+			WriteToken(aOutput,aExpression.get().generic().TypeName());
 			return;
 		}
 
-		LispPtr subList = aExpression.Get().SubList();
+		LispPtr subList = aExpression.get().subList();
 		LispError.Check(subList!=null, LispError.KLispErrUnprintableToken);
-		if (subList.Get() == null)
+		if (subList.get() == null)
 		{
 			WriteToken(aOutput,"( )");
 		}
 		else
 		{
-			int length = LispStandard.InternalListLength(subList);
-			string = subList.Get().String();
-			LispInfixOperator prefix  = (LispInfixOperator)iPrefixOperators.LookUp(string);
-			LispInfixOperator infix   = (LispInfixOperator)iInfixOperators.LookUp(string);
-			LispInfixOperator postfix = (LispInfixOperator)iPostfixOperators.LookUp(string);
-			LispInfixOperator bodied  = (LispInfixOperator)iBodiedOperators.LookUp(string);
+			int length = LispStandard.internalListLength(subList);
+			string = subList.get().string();
+			LispInfixOperator prefix  = (LispInfixOperator)iPrefixOperators.lookUp(string);
+			LispInfixOperator infix   = (LispInfixOperator)iInfixOperators.lookUp(string);
+			LispInfixOperator postfix = (LispInfixOperator)iPostfixOperators.lookUp(string);
+			LispInfixOperator bodied  = (LispInfixOperator)iBodiedOperators.lookUp(string);
 			LispInfixOperator op = null;
 
 			if (length!=2)
@@ -126,16 +126,16 @@ public class InfixPrinter extends LispPrinter
 
 				if (prefix != null)
 				{
-					right = subList.Get().Next();
+					right = subList.get().next();
 				}
 				else if (infix != null)
 				{
-					left  = subList.Get().Next();
-					right = subList.Get().Next().Get().Next();
+					left  = subList.get().next();
+					right = subList.get().next().get().next();
 				}
 				else if (postfix != null)
 				{
-					left = subList.Get().Next();
+					left = subList.get().next();
 				}
 
 				if (iPrecedence < op.iPrecedence)
@@ -156,8 +156,8 @@ public class InfixPrinter extends LispPrinter
 			}
 			else
 			{
-				LispIterator iter = new LispIterator(subList.Get().Next());
-				if (string == iCurrentEnvironment.iList.String())
+				LispIterator iter = new LispIterator(subList.get().next());
+				if (string == iCurrentEnvironment.iList.string())
 				{
 					WriteToken(aOutput,"{");
 					while (iter.GetObject() != null)
@@ -169,7 +169,7 @@ public class InfixPrinter extends LispPrinter
 					}
 					WriteToken(aOutput,"}");
 				}
-				else if (string == iCurrentEnvironment.iProg.String())
+				else if (string == iCurrentEnvironment.iProg.string())
 				{
 					WriteToken(aOutput,"[");
 					while (iter.GetObject() != null)
@@ -180,7 +180,7 @@ public class InfixPrinter extends LispPrinter
 					}
 					WriteToken(aOutput,"]");
 				}
-				else if (string == iCurrentEnvironment.iNth.String())
+				else if (string == iCurrentEnvironment.iNth.string())
 				{
 					Print(iter.Ptr(), aOutput, 0);
 					iter.GoNext();
@@ -238,11 +238,11 @@ public class InfixPrinter extends LispPrinter
 	}
 	void WriteToken(LispOutput aOutput,String aString) throws Exception
 	{
-		if (LispTokenizer.IsAlNum(iPrevLastChar) && (LispTokenizer.IsAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
+		if (LispTokenizer.isAlNum(iPrevLastChar) && (LispTokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
 		{
 			aOutput.Write(" ");
 		}
-		else if (LispTokenizer.IsSymbolic(iPrevLastChar) && LispTokenizer.IsSymbolic(aString.charAt(0)))
+		else if (LispTokenizer.isSymbolic(iPrevLastChar) && LispTokenizer.isSymbolic(aString.charAt(0)))
 		{
 			aOutput.Write(" ");
 		}

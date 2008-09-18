@@ -38,7 +38,7 @@ public class LispGlobalVariable
 	}
 	public LispGlobalVariable(LispPtr aValue)
 	{
-		iValue.Set(aValue.Get());
+		iValue.set(aValue.get());
 		iEvalBeforeReturn = false;
 	}
 	public  void SetEvalBeforeReturn(boolean aEval)

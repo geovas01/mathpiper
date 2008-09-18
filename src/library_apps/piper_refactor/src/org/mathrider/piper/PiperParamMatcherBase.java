@@ -30,7 +30,7 @@ public abstract class PiperParamMatcherBase
 	/// \param aExpression the expression to test.
 	/// \param arguments (input/output) actual values of the pattern
 	/// variables for \a aExpression.
-	public abstract boolean ArgumentMatches(LispEnvironment  aEnvironment,
+	public abstract boolean argumentMatches(LispEnvironment  aEnvironment,
 	                                        LispPtr  aExpression,
 	                                        LispPtr[]  arguments) throws Exception;
 }

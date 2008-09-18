@@ -139,7 +139,7 @@ public class LispError
 
 	public static void CheckNrArgs(int n, LispPtr aArguments, LispEnvironment aEnvironment) throws Exception
 	{
-		int nrArguments = LispStandard.InternalListLength(aArguments);
+		int nrArguments = LispStandard.internalListLength(aArguments);
 		if (nrArguments != n)
 		{
 			ErrorNrArgs(n-1, nrArguments-1, aArguments, aEnvironment);
@@ -148,7 +148,7 @@ public class LispError
 
 	public static void ErrorNrArgs(int needed, int passed, LispPtr aArguments, LispEnvironment aEnvironment) throws Exception
 	{
-		if (aArguments.Get() == null)
+		if (aArguments.get() == null)
 		{
 			throw new Piperexception("Error in compiled code.");
 		}
@@ -174,13 +174,13 @@ public class LispError
 
 	public static String ShowFunctionError(LispPtr aArguments, LispEnvironment aEnvironment) throws Exception
 	{
-		if (aArguments.Get() == null)
+		if (aArguments.get() == null)
 		{
 			return "Error in compiled code. ";
 		}
 		else
 		{
-			String string = aArguments.Get().String();
+			String string = aArguments.get().string();
 			if (string != null)
 			{
 				return "In function \"" + string + "\" : ";
@@ -194,7 +194,7 @@ public class LispError
 		if (!aPredicate)
 		{
 			LispPtr arguments = PiperEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
-			if (arguments.Get() == null)
+			if (arguments.get() == null)
 			{
 				throw new Piperexception("Error in compiled code\n");
 			}
@@ -221,12 +221,12 @@ public class LispError
 
 	public static void CHK_ISLIST_CORE(LispEnvironment aEnvironment,int aStackTop,LispPtr evaluated,int aArgNr) throws Exception
 	{
-		CheckArgTypeWithError(aEnvironment, aStackTop, LispStandard.InternalIsList(evaluated), aArgNr,"argument is not a list");
+		CheckArgTypeWithError(aEnvironment, aStackTop, LispStandard.internalIsList(evaluated), aArgNr,"argument is not a list");
 	}
 
 	public static void CHK_ISSTRING_CORE(LispEnvironment aEnvironment,int aStackTop,LispPtr evaluated,int aArgNr) throws Exception
 	{
-		CheckArgTypeWithError(aEnvironment, aStackTop, LispStandard.InternalIsString(evaluated.Get().String()), aArgNr,"argument is not a string");
+		CheckArgTypeWithError(aEnvironment, aStackTop, LispStandard.internalIsString(evaluated.get().string()), aArgNr,"argument is not a string");
 	}
 
 	public static void CheckArgTypeWithError(LispEnvironment aEnvironment,int aStackTop,boolean aPredicate,int aArgNr, String aErrorDescription) throws Exception
@@ -234,7 +234,7 @@ public class LispError
 		if (!aPredicate)
 		{
 			LispPtr arguments = PiperEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
-			if (arguments.Get() == null)
+			if (arguments.get() == null)
 			{
 				throw new Piperexception("Error in compiled code\n");
 			}
@@ -247,13 +247,13 @@ public class LispError
 				String strout;
 
 				error = error + "The offending argument ";
-				strout = LispStandard.PrintExpression(arg, aEnvironment, 60);
+				strout = LispStandard.printExpression(arg, aEnvironment, 60);
 				error = error + strout;
 
 				LispPtr eval = new LispPtr();
-				aEnvironment.iEvaluator.Eval(aEnvironment, eval, arg);
+				aEnvironment.iEvaluator.eval(aEnvironment, eval, arg);
 				error = error + " evaluated to ";
-				strout = LispStandard.PrintExpression(eval, aEnvironment, 60);
+				strout = LispStandard.printExpression(eval, aEnvironment, 60);
 				error = error + strout;
 				error = error + "\n";
 

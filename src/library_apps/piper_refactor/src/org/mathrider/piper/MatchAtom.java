@@ -32,17 +32,17 @@ public class MatchAtom extends PiperParamMatcherBase
 		iString = aString;
 	}
 	
-	public boolean ArgumentMatches(LispEnvironment  aEnvironment,
+	public boolean argumentMatches(LispEnvironment  aEnvironment,
 	                               LispPtr  aExpression,
 	                               LispPtr[]  arguments) throws Exception
 	{
 		// If it is a floating point, don't even bother comparing
-		if (aExpression.Get() != null)
-			if (aExpression.Get().Number(0) != null)
-				if (!aExpression.Get().Number(0).IsInt())
+		if (aExpression.get() != null)
+			if (aExpression.get().number(0) != null)
+				if (!aExpression.get().number(0).IsInt())
 					return false;
 
-		return (iString == aExpression.Get().String());
+		return (iString == aExpression.get().string());
 	}
 	
 }

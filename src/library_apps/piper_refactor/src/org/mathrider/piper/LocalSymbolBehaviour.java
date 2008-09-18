@@ -41,9 +41,9 @@ public class LocalSymbolBehaviour implements SubstBehaviourBase
 		iNewNames = aNewNames;
 		iNrNames = aNrNames;
 	}
-	public boolean Matches(LispPtr aResult, LispPtr aElement) throws Exception
+	public boolean matches(LispPtr aResult, LispPtr aElement) throws Exception
 	{
-		String name = aElement.Get().String();
+		String name = aElement.get().string();
 		if (name == null)
 			return false;
 
@@ -52,7 +52,7 @@ public class LocalSymbolBehaviour implements SubstBehaviourBase
 		{
 			if (name == iOriginalNames[i])
 			{
-				aResult.Set(LispAtom.New(iEnvironment,iNewNames[i]));
+				aResult.set(LispAtom.newAtom(iEnvironment,iNewNames[i]));
 				return true;
 			}
 		}

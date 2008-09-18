@@ -37,14 +37,14 @@ public class LispParser
 	
 	public void Parse(LispPtr aResult ) throws Exception
 	{
-		aResult.Set(null);
+		aResult.set(null);
 
 		String token;
 		// Get token.
-		token = iTokenizer.NextToken(iInput,iEnvironment.HashTable());
+		token = iTokenizer.nextToken(iInput,iEnvironment.hashTable());
 		if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
 		{
-			aResult.Set(LispAtom.New(iEnvironment,"EndOfFile"));
+			aResult.set(LispAtom.newAtom(iEnvironment,"EndOfFile"));
 			return;
 		}
 		ParseAtom(aResult,token);
@@ -57,17 +57,17 @@ public class LispParser
 		LispPtr iter = aResult;
 		if (iListed)
 		{
-			aResult.Set(LispAtom.New(iEnvironment,"List"));
-			iter  = (aResult.Get().Next()); //TODO FIXME
+			aResult.set(LispAtom.newAtom(iEnvironment,"List"));
+			iter  = (aResult.get().next()); //TODO FIXME
 		}
 		for (;;)
 		{
 			//Get token.
-			token = iTokenizer.NextToken(iInput,iEnvironment.HashTable());
+			token = iTokenizer.nextToken(iInput,iEnvironment.hashTable());
 			// if token is empty string, error!
 			LispError.Check(token.length() > 0,LispError.KInvalidToken); //TODO FIXME
 			// if token is ")" return result.
-			if (token == iEnvironment.HashTable().LookUp(")"))
+			if (token == iEnvironment.hashTable().LookUp(")"))
 			{
 				return;
 			}
@@ -75,7 +75,7 @@ public class LispParser
 			// results list.
 
 			ParseAtom(iter,token);
-			iter = (iter.Get().Next()); //TODO FIXME
+			iter = (iter.get().next()); //TODO FIXME
 		}
 	}
 
@@ -86,15 +86,15 @@ public class LispParser
 			return;
 		// else if token is "(" read in a whole array of objects until ")",
 		//   and make a sublist
-		if (aToken == iEnvironment.HashTable().LookUp("("))
+		if (aToken == iEnvironment.hashTable().LookUp("("))
 		{
 			LispPtr subList = new LispPtr();
 			ParseList(subList);
-			aResult.Set(LispSubList.New(subList.Get()));
+			aResult.set(LispSubList.newSubList(subList.get()));
 			return;
 		}
 		// else make a simple atom, and return it.
-		aResult.Set(LispAtom.New(iEnvironment,aToken));
+		aResult.set(LispAtom.newAtom(iEnvironment,aToken));
 	}
 	
 }

@@ -32,12 +32,12 @@ public class MatchNumber extends PiperParamMatcherBase
 		iNumber = aNumber;
 	}
 	
-	public boolean ArgumentMatches(LispEnvironment  aEnvironment,
+	public boolean argumentMatches(LispEnvironment  aEnvironment,
 	                               LispPtr  aExpression,
 	                               LispPtr[]  arguments) throws Exception
 	{
-		if (aExpression.Get().Number(aEnvironment.Precision()) != null)
-			return iNumber.Equals(aExpression.Get().Number(aEnvironment.Precision()));
+		if (aExpression.get().number(aEnvironment.precision()) != null)
+			return iNumber.Equals(aExpression.get().number(aEnvironment.precision()));
 		return false;
 	}
 	

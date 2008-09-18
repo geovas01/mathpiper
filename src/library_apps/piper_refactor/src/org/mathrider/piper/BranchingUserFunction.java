@@ -72,8 +72,8 @@ public class BranchingUserFunction extends LispArityUserFunction
 		public BranchRule(int aPrecedence,LispPtr  aPredicate,LispPtr  aBody)
 		{
 			iPrecedence = aPrecedence;
-			iPredicate.Set(aPredicate.Get());
-			iBody.Set(aBody.Get());
+			iPredicate.set(aPredicate.get());
+			iBody.set(aBody.get());
 		}
 
 		/// Return true if the rule matches.
@@ -82,8 +82,8 @@ public class BranchingUserFunction extends LispArityUserFunction
 		public boolean Matches(LispEnvironment  aEnvironment, LispPtr[] aArguments) throws Exception
 		{
 			LispPtr pred = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, pred, iPredicate);
-			return LispStandard.IsTrue(aEnvironment,pred);
+			aEnvironment.iEvaluator.eval(aEnvironment, pred, iPredicate);
+			return LispStandard.isTrue(aEnvironment,pred);
 		}
 
 		/// Access #iPrecedence.
@@ -111,7 +111,7 @@ public class BranchingUserFunction extends LispArityUserFunction
 		public BranchRuleTruePredicate(int aPrecedence,LispPtr  aBody)
 		{
 			iPrecedence = aPrecedence;
-			iBody.Set(aBody.Get());
+			iBody.set(aBody.get());
 		}
 		/// Return #true, always.
 		public boolean Matches(LispEnvironment  aEnvironment, LispPtr[] aArguments) throws Exception
@@ -131,14 +131,14 @@ public class BranchingUserFunction extends LispArityUserFunction
 		{
 			iPatternClass = null;
 			iPrecedence = aPrecedence;
-			iPredicate.Set(aPredicate.Get());
+			iPredicate.set(aPredicate.get());
 
-			GenericClass gen = aPredicate.Get().Generic();
+			GenericClass gen = aPredicate.get().generic();
 			LispError.Check(gen != null,LispError.KLispErrInvalidArg);
 			LispError.Check(gen.TypeName().equals("\"Pattern\""),LispError.KLispErrInvalidArg);
 
 			iPatternClass = (PatternClass)gen;
-			iBody.Set(aBody.Get());
+			iBody.set(aBody.get());
 		}
 
 		/// Return true if the corresponding pattern matches.
@@ -178,12 +178,12 @@ public class BranchingUserFunction extends LispArityUserFunction
 	/// #iParamList and #iParameters are set from \a aParameters.
 	public BranchingUserFunction(LispPtr aParameters) throws Exception
 	{
-		iParamList.Set(aParameters.Get());
+		iParamList.set(aParameters.get());
 		LispIterator iter = new LispIterator(aParameters);
 		while (iter.GetObject() != null)
 		{
-			LispError.Check(iter.GetObject().String() != null,LispError.KLispErrCreatingUserFunction);
-			BranchParameter param = new BranchParameter(iter.GetObject().String(),false);
+			LispError.Check(iter.GetObject().string() != null,LispError.KLispErrCreatingUserFunction);
+			BranchParameter param = new BranchParameter(iter.GetObject().string(),false);
 			iParameters.add(param);
 			iter.GoNext();
 		}
@@ -238,12 +238,12 @@ public class BranchingUserFunction extends LispArityUserFunction
 			LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
-				arguments[i].Set(iter.GetObject().Copy(false));
+				arguments[i].set(iter.GetObject().copy(false));
 			}
 			else
 			{
 				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.Eval(aEnvironment, arguments[i], iter.Ptr());
+				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.Ptr());
 			}
 			iter.GoNext();
 		}
@@ -262,7 +262,7 @@ public class BranchingUserFunction extends LispArityUserFunction
 		    }
 		*/
 		// declare a new local stack.
-		aEnvironment.PushLocalFrame(Fenced());
+		aEnvironment.pushLocalFrame(Fenced());
 		try
 		{
 			// define the local variables.
@@ -270,13 +270,13 @@ public class BranchingUserFunction extends LispArityUserFunction
 			{
 				String variable = ((BranchParameter)iParameters.get(i)).iParameter;
 				// set the variable to the new value
-				aEnvironment.NewLocal(variable,arguments[i].Get());
+				aEnvironment.newLocal(variable,arguments[i].get());
 			}
 
 			// walk the rules database, returning the evaluated result if the
 			// predicate is true.
 			int nrRules = iRules.size();
-			UserStackInformation st = aEnvironment.iEvaluator.StackInformation();
+			UserStackInformation st = aEnvironment.iEvaluator.stackInformation();
 			for (i=0;i<nrRules;i++)
 			{
 				BranchRuleBase thisRule = ((BranchRuleBase)iRules.get(i));
@@ -287,7 +287,7 @@ public class BranchingUserFunction extends LispArityUserFunction
 				if (matches)
 				{
 					st.iSide = 1;
-					aEnvironment.iEvaluator.Eval(aEnvironment, aResult, thisRule.Body());
+					aEnvironment.iEvaluator.eval(aEnvironment, aResult, thisRule.Body());
 					/*TODO fixme
 					            if (Traced())
 					            {
@@ -309,20 +309,20 @@ public class BranchingUserFunction extends LispArityUserFunction
 
 			{
 				LispPtr full = new LispPtr();
-				full.Set(aArguments.Get().Copy(false));
+				full.set(aArguments.get().copy(false));
 				if (arity == 0)
 				{
-					full.Get().Next().Set(null);
+					full.get().next().set(null);
 				}
 				else
 				{
-					full.Get().Next().Set(arguments[0].Get());
+					full.get().next().set(arguments[0].get());
 					for (i=0;i<arity-1;i++)
 					{
-						arguments[i].Get().Next().Set(arguments[i+1].Get());
+						arguments[i].get().next().set(arguments[i+1].get());
 					}
 				}
-				aResult.Set(LispSubList.New(full.Get()));
+				aResult.set(LispSubList.newSubList(full.get()));
 			}
 
 			/*TODO fixme
@@ -341,7 +341,7 @@ public class BranchingUserFunction extends LispArityUserFunction
 		}
 		finally
 		{
-			aEnvironment.PopLocalFrame();
+			aEnvironment.popLocalFrame();
 		}
 	}
 

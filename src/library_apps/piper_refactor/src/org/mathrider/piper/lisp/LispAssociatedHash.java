@@ -35,7 +35,7 @@ public class LispAssociatedHash
 	/// Find the data associated to \a aString.
 	/// If \a aString is not stored in the hash table, this function
 	/// returns #NULL.
-	public Object LookUp(String aString)
+	public Object lookUp(String aString)
 	{
 		if (iHashtable.containsKey(aString))
 			return iHashtable.get(aString);
@@ -46,7 +46,7 @@ public class LispAssociatedHash
 	/// If \a aString is already stored in the hash table, its
 	/// association is changed to \a aData. Otherwise, a new
 	/// association is added.
-	public void SetAssociation(Object aData, String aString)
+	public void setAssociation(Object aData, String aString)
 	{
 		if (iHashtable.containsKey(aString))
 			iHashtable.remove(aString);
@@ -54,7 +54,7 @@ public class LispAssociatedHash
 	}
 
 	/// Delete an association from the hash table.
-	public void Release(String aString)
+	public void release(String aString)
 	{
 		if (iHashtable.containsKey(aString))
 			iHashtable.remove(aString);

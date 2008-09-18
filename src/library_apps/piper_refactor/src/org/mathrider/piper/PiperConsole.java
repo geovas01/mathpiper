@@ -144,7 +144,7 @@ public class PiperConsole extends Thread
             String result = "";
             try
             {
-                result = piper.Evaluate(toEvaluate);
+                result = piper.evaluate(toEvaluate);
             } catch (Piperexception pe)
             {
                 pe.printStackTrace();
@@ -161,7 +161,7 @@ public class PiperConsole extends Thread
             String result = "";
             try
             {
-                result = piper.Evaluate("Load(\"piperinit.pi\");");
+                result = piper.evaluate("Load(\"piperinit.pi\");");
 
             } catch (Piperexception pe)
             {
@@ -181,7 +181,7 @@ public class PiperConsole extends Thread
             {
                 for (; scriptsToRun < argv.length; scriptsToRun++)
                 {
-                    piper.Evaluate("Load(\"" + argv[scriptsToRun] + "\");");
+                    piper.evaluate("Load(\"" + argv[scriptsToRun] + "\");");
                 }
             } catch (Piperexception pe)
             {
@@ -219,7 +219,7 @@ public class PiperConsole extends Thread
             String rs = "";
             try
             {
-                rs = piper.Evaluate(input);
+                rs = piper.evaluate(input);
             } catch (Piperexception pe)
             {
                 pe.printStackTrace();

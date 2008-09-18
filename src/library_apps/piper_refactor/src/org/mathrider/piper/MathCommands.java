@@ -65,563 +65,563 @@ public class MathCommands
 		aEnvironment.iPrefixOperators.SetOperator(0,"_");
 		aEnvironment.iInfixOperators.SetOperator(0,"_");
 
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Hold");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispEval(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Eval");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispWrite(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "Write");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispWriteString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "WriteString");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFullForm(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FullForm");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDefaultDirectory(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefaultDirectory");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFromFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "FromFile");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFromString(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "FromString");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispRead(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Read");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispReadToken(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ReadToken");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispToFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToFile");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispToString(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToString");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispToStdout(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToStdout");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Load");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Set");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "MacroSet");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Clear");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "MacroClear");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispNewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Local");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispNewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "MacroLocal");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispHead(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Head");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispNth(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNth");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispTail(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Tail");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDestructiveReverse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveReverse");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLength(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Length");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispList(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "List");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispUnList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "UnList");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispListify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Listify");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispConcatenate(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "Concat");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispConcatenateStrings(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "ConcatStrings");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Delete");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDestructiveDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveDelete");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Insert");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDestructiveInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveInsert");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Replace");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDestructiveReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveReplace");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispAtomize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Atom");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispStringify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "String");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCharString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CharString");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFlatCopy(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FlatCopy");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispProgBody(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Prog");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispWhile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "While");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIf(),2, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "If");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCheck(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Check");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispTrapError(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TrapError");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGetCoreError(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GetCoreError");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispPreFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Prefix");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispInFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Infix");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispPostFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Postfix");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispBodied(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Bodied");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RuleBase");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRuleBase");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RuleBaseListed");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRuleBaseListed");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDefMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "DefMacroRuleBase");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDefMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "DefMacroRuleBaseListed");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispHoldArg(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "HoldArg");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Rule");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRule");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispUnFence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "UnFence");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispRetract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Retract");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNot");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Not");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "MathAnd");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "And");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "MathOr");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Or");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispEquals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Equals");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispEquals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "=");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLessThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LessThan");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGreaterThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GreaterThan");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsFunction");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsAtom(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsAtom");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsNumber(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsNumber");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsInteger(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsInteger");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsList");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsString");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsBound(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "IsBound");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMultiply(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathMultiply");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispAdd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathAdd");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispSubtract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSubtract");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDivide(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDivide");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinPrecisionSet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Precision'Set");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGetExactBits(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathGetExactBits");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispSetExactBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSetExactBits");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispBitCount(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathBitCount");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMathSign(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSign");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMathIsSmall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathIsSmall");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMathNegate(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNegate");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFloor(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathFloor");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCeil(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathCeil");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispAbs(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathAbs");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMod(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathMod");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDiv(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDiv");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispBitsToDigits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitsToDigits");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDigitsToBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DigitsToBits");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGcd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathGcd");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispSystemCall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "SystemCall");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFastArcSin(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastArcSin");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFastLog(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastLog");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFastPower(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastPower");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispShiftLeft(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ShiftLeft");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispShiftRight(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ShiftRight");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFromBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FromBase");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispToBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ToBase");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMaxEvalDepth(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MaxEvalDepth");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDefLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefLoad");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispUse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Use");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispRightAssociative(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RightAssociative");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLeftPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LeftPrecedence");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispRightPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RightPrecedence");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsBodied(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsBodied");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsInFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsInfix");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsPreFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPrefix");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsPostFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPostfix");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGetPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpPrecedence");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGetLeftPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpLeftPrecedence");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGetRightPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpRightPrecedence");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinPrecisionGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Precision'Get");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispBitAnd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitAnd");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispBitOr(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitOr");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispBitXor(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitXor");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispSecure(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Secure");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFindFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FindFile");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFindFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FindFunction");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsGeneric(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsGeneric");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGenericTypeName(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GenericTypeName");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new GenArrayCreate(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Create");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new GenArraySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Size");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new GenArrayGet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Get");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new GenArraySet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Set");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEval(),4, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "CustomEval");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEvalExpression(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Expression");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEvalResult(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Result");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEvalLocals(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Locals");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEvalStop(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Stop");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispTraceRule(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TraceRule");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispTraceStack(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TraceStack");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispReadLisp(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LispRead");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispReadLispListed(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LispReadListed");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispType(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Type");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperStringMidGet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "StringMid'Get");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperStringMidSet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "StringMid'Set");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new GenPatternCreate(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Pattern'Create");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new GenPatternMatches(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Pattern'Matches");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispRuleBaseDefined(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RuleBaseDefined");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDefLoadFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefLoadFunction");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispRuleBaseArgList(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RuleBaseArgList");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RulePattern");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRulePattern");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispSubst(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Subst");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispLocalSymbols(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "LocalSymbols");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFastIsPrime(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastIsPrime");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFac(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathFac");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispApplyPure(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ApplyPure");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyReaderSet(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "PrettyReader'Set");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyPrinterSet(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "PrettyPrinter'Set");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyPrinterGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PrettyPrinter'Get");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyReaderGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PrettyReader'Get");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispGarbageCollect(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GarbageCollect");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispSetGlobalLazyVariable(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "SetGlobalLazyVariable");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispPatchLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PatchLoad");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispPatchString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PatchString");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperExtraInfoSet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ExtraInfo'Set");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperExtraInfoGet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ExtraInfo'Get");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDefaultTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefaultTokenizer");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCommonLispTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CommonLispTokenizer");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispXmlTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "XmlTokenizer");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispExplodeTag(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "XmlExplodeTag");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinAssoc(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Assoc");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCurrentFile(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CurrentFile");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispCurrentLine(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CurrentLine");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispBackQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "`");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDumpBigNumberDebugInfo(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDebugInfo");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispInDebugMode(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "InDebugMode");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDebugFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DebugFile");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispDebugLine(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DebugLine");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispVersion(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Version");
 
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispExit(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Exit");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispExitRequested(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsExitRequested");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispHistorySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "HistorySize");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispStackSize(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "StaSiz");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispIsPromptShown(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPromptShown");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispReadCmdLineString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ReadCmdLineString");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispTime(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "GetTime");
-		aEnvironment.CoreCommands().SetAssociation(
+		aEnvironment.coreCommands().setAssociation(
 		        new PiperEvaluator(new LispFileSize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FileSize");
 
@@ -636,7 +636,7 @@ public class MathCommands
 	/// \param aArgNr the index of the argument to be converted
 	public static BigNumber GetNumber(LispEnvironment aEnvironment, int aStackTop, int aArgNr) throws Exception
 	{
-		BigNumber x = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, aArgNr).Get().Number(aEnvironment.Precision());
+		BigNumber x = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, aArgNr).get().number(aEnvironment.precision());
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,x != null,aArgNr);
 		return x;
 	}
@@ -644,40 +644,40 @@ public class MathCommands
 	static void MultiFix(LispEnvironment aEnvironment, int aStackTop, LispOperators aOps) throws Exception
 	{
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-		String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 		LispPtr precedence = new LispPtr();
-		aEnvironment.iEvaluator.Eval(aEnvironment, precedence, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,precedence.Get().String() != null, 2);
-		int prec = Integer.parseInt(precedence.Get().String(),10);
+		aEnvironment.iEvaluator.eval(aEnvironment, precedence, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,precedence.get().string() != null, 2);
+		int prec = Integer.parseInt(precedence.get().string(),10);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,prec <= InfixPrinter.KMaxPrecedence, 2);
-		aOps.SetOperator(prec,LispStandard.SymbolName(aEnvironment,orig));
-		LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		aOps.SetOperator(prec,LispStandard.symbolName(aEnvironment,orig));
+		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 	public static void SingleFix(int aPrecedence, LispEnvironment aEnvironment, int aStackTop, LispOperators aOps) throws Exception
 	{
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-		String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-		aOps.SetOperator(aPrecedence,LispStandard.SymbolName(aEnvironment,orig));
-		LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		aOps.SetOperator(aPrecedence,LispStandard.symbolName(aEnvironment,orig));
+		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
 	public static LispInfixOperator OperatorInfo(LispEnvironment aEnvironment,int aStackTop, LispOperators aOperators) throws Exception
 	{
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 
 		LispPtr evaluated = new LispPtr();
-		evaluated.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get());
+		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-		String orig = evaluated.Get().String();
+		String orig = evaluated.get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 		//
-		LispInfixOperator op = (LispInfixOperator)aOperators.LookUp(LispStandard.SymbolName(aEnvironment,orig));
+		LispInfixOperator op = (LispInfixOperator)aOperators.lookUp(LispStandard.symbolName(aEnvironment,orig));
 		return op;
 	}
 
@@ -692,43 +692,43 @@ public class MathCommands
 		if (aMacroMode)
 		{
 			LispPtr result = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1));
-			varstring = result.Get().String();
+			aEnvironment.iEvaluator.eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1));
+			varstring = result.get().string();
 		}
 		else
 		{
-			varstring = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			varstring = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		}
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,varstring != null,1);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,!LispStandard.IsNumber(varstring,true),1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,!LispStandard.isNumber(varstring,true),1);
 
 		LispPtr result = new LispPtr();
-		aEnvironment.iEvaluator.Eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
-		aEnvironment.SetVariable(varstring, result, aGlobalLazyVariable);
-		LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		aEnvironment.iEvaluator.eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
+		aEnvironment.setVariable(varstring, result, aGlobalLazyVariable);
+		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
 	public static void InternalDelete(LispEnvironment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		LispPtr evaluated = new LispPtr();
-		evaluated.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get());
+		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
 		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
 
 		LispPtr copied = new LispPtr();
 		if (aDestructive)
 		{
-			copied.Set(evaluated.Get().SubList().Get());
+			copied.set(evaluated.get().subList().get());
 		}
 		else
 		{
-			LispStandard.InternalFlatCopy(copied,evaluated.Get().SubList());
+			LispStandard.internalFlatCopy(copied,evaluated.get().subList());
 		}
 
 		LispPtr index = new LispPtr();
-		index.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).Get());
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 2);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 2);
-		int ind = Integer.parseInt(index.Get().String(),10);
+		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+		int ind = Integer.parseInt(index.get().string(),10);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
 
 		LispIterator iter = new LispIterator(copied);
@@ -739,33 +739,33 @@ public class MathCommands
 		}
 		LispError.CHK_CORE(aEnvironment, aStackTop,iter.GetObject() != null, LispError.KLispErrListNotLongEnough);
 		LispPtr next = new LispPtr();
-		next.Set(iter.GetObject().Next().Get());
-		iter.Ptr().Set(next.Get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).Set(LispSubList.New(copied.Get()));
+		next.set(iter.GetObject().next().get());
+		iter.Ptr().set(next.get());
+		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(copied.get()));
 	}
 
 
 	public static void InternalInsert(LispEnvironment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		LispPtr evaluated = new LispPtr();
-		evaluated.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get());
+		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
 		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
 
 		LispPtr copied = new LispPtr();
 		if (aDestructive)
 		{
-			copied.Set(evaluated.Get().SubList().Get());
+			copied.set(evaluated.get().subList().get());
 		}
 		else
 		{
-			LispStandard.InternalFlatCopy(copied,evaluated.Get().SubList());
+			LispStandard.internalFlatCopy(copied,evaluated.get().subList());
 		}
 
 		LispPtr index = new LispPtr();
-		index.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).Get());
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 2);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 2);
-		int ind = Integer.parseInt(index.Get().String(),10);
+		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+		int ind = Integer.parseInt(index.get().string(),10);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
 
 		LispIterator iter = new LispIterator(copied);
@@ -776,10 +776,10 @@ public class MathCommands
 		}
 
 		LispPtr toInsert = new LispPtr();
-		toInsert.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).Get());
-		toInsert.Get().Next().Set(iter.GetObject());
-		iter.Ptr().Set(toInsert.Get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).Set(LispSubList.New(copied.Get()));
+		toInsert.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
+		toInsert.get().next().set(iter.GetObject());
+		iter.Ptr().set(toInsert.get());
+		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(copied.get()));
 	}
 
 
@@ -790,24 +790,24 @@ public class MathCommands
 	public static void InternalReplace(LispEnvironment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		LispPtr evaluated = new LispPtr();
-		evaluated.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get());
+		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
 		// Ok, so lets not check if it is a list, but it needs to be at least a 'function'
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get().SubList() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().subList() != null, 1);
 
 		LispPtr index = new LispPtr();
-		index.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).Get());
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 2);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 2);
-		int ind = Integer.parseInt(index.Get().String(),10);
+		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+		int ind = Integer.parseInt(index.get().string(),10);
 
 		LispPtr copied = new LispPtr();
 		if (aDestructive)
 		{
-			copied.Set(evaluated.Get().SubList().Get());
+			copied.set(evaluated.get().subList().get());
 		}
 		else
 		{
-			LispStandard.InternalFlatCopy(copied,evaluated.Get().SubList());
+			LispStandard.internalFlatCopy(copied,evaluated.get().subList());
 		}
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
 
@@ -819,12 +819,12 @@ public class MathCommands
 		}
 
 		LispPtr toInsert = new LispPtr();
-		toInsert.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).Get());
+		toInsert.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr() != null, 2);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr().Get() != null, 2);
-		toInsert.Get().Next().Set(iter.Ptr().Get().Next().Get());
-		iter.Ptr().Set(toInsert.Get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).Set(LispSubList.New(copied.Get()));
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr().get() != null, 2);
+		toInsert.get().next().set(iter.Ptr().get().next().get());
+		iter.Ptr().set(toInsert.get());
+		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(copied.get()));
 	}
 
 
@@ -838,20 +838,20 @@ public class MathCommands
 		LispPtr args = new LispPtr();
 		String orig=null;
 
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-		args.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).Get());
+		args.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
 
 		// The arguments
 		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
 
 		// Finally define the rule base
-		aEnvironment.DeclareRuleBase(LispStandard.SymbolName(aEnvironment,orig),
-		                             args.Get().SubList().Get().Next(),aListed);
+		aEnvironment.declareRuleBase(LispStandard.symbolName(aEnvironment,orig),
+		                             args.get().subList().get().next(),aListed);
 
 		// Return true
-		LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
 	public static void InternalNewRule(LispEnvironment aEnvironment, int aStackTop) throws Exception
@@ -868,33 +868,33 @@ public class MathCommands
 		String orig=null;
 
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-		ar.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).Get());
-		pr.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).Get());
-		predicate.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).Get());
-		body.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).Get());
+		ar.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		pr.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
+		predicate.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).get());
+		body.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).get());
 
 		// The arity
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.Get() != null, 2);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.Get().String() != null, 2);
-		arity = Integer.parseInt(ar.Get().String(),10);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get().string() != null, 2);
+		arity = Integer.parseInt(ar.get().string(),10);
 
 		// The precedence
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.Get() != null, 3);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.Get().String() != null, 3);
-		precedence = Integer.parseInt(pr.Get().String(),10);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get() != null, 3);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get().string() != null, 3);
+		precedence = Integer.parseInt(pr.get().string(),10);
 
 		// Finally define the rule base
-		aEnvironment.DefineRule(LispStandard.SymbolName(aEnvironment,orig),
+		aEnvironment.defineRule(LispStandard.symbolName(aEnvironment,orig),
 		                        arity,
 		                        precedence,
 		                        predicate,
 		                        body );
 
 		// Return true
-		LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
 
@@ -907,20 +907,20 @@ public class MathCommands
 		LispPtr body = new LispPtr();
 		String orig=null;
 
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 		// The arguments
-		args.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).Get());
+		args.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
 		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
 
 		// Finally define the rule base
-		aEnvironment.DeclareMacroRuleBase(LispStandard.SymbolName(aEnvironment,orig),
-		                                  args.Get().SubList().Get().Next(),aListed);
+		aEnvironment.declareMacroRuleBase(LispStandard.symbolName(aEnvironment,orig),
+		                                  args.get().subList().get().next(),aListed);
 
 		// Return true
-		LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
 
@@ -938,58 +938,58 @@ public class MathCommands
 		String orig=null;
 
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-		ar.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).Get());
-		pr.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).Get());
-		predicate.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).Get());
-		body.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).Get());
+		ar.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		pr.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
+		predicate.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).get());
+		body.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).get());
 
 		// The arity
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.Get() != null, 2);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.Get().String() != null, 2);
-		arity = Integer.parseInt(ar.Get().String(),10);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get().string() != null, 2);
+		arity = Integer.parseInt(ar.get().string(),10);
 
 		// The precedence
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.Get() != null, 3);
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.Get().String() != null, 3);
-		precedence = Integer.parseInt(pr.Get().String(),10);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get() != null, 3);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get().string() != null, 3);
+		precedence = Integer.parseInt(pr.get().string(),10);
 
 		// Finally define the rule base
-		aEnvironment.DefineRulePattern(LispStandard.SymbolName(aEnvironment,orig),
+		aEnvironment.defineRulePattern(LispStandard.symbolName(aEnvironment,orig),
 		                               arity,
 		                               precedence,
 		                               predicate,
 		                               body );
 
 		// Return true
-		LispStandard.InternalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
 
 
 	class LispQuote extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).Set(ARGUMENT(aEnvironment, aStackTop, 1).Get().Copy(false));
+			RESULT(aEnvironment, aStackTop).set(ARGUMENT(aEnvironment, aStackTop, 1).get().copy(false));
 		}
 	}
 
 	class LispEval extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+			aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 		}
 	}
 
 	class LispWrite extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList();
+			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
 			if (subList != null)
 			{
 				LispIterator iter = new LispIterator(subList);
@@ -1000,16 +1000,16 @@ public class MathCommands
 					iter.GoNext();
 				}
 			}
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispWriteString extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get()!= null,1);
-			String str = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get()!= null,1);
+			String str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(0) == '\"',1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(str.length()-1) == '\"',1);
@@ -1023,15 +1023,15 @@ public class MathCommands
 			}
 			// pass last printed character to the current printer
 			aEnvironment.iCurrentPrinter.RememberLastChar(str.charAt(nr-1));  // hacky hacky
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispFullForm extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			RESULT(aEnvironment, aStackTop).set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			LispPrinter printer = new LispPrinter();
 			printer.Print(RESULT(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
 			aEnvironment.iCurrentOutput.Write("\n");
@@ -1040,32 +1040,32 @@ public class MathCommands
 
 	class LispDefaultDirectory extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-			String orig = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 			aEnvironment.iInputDirectories.add(oper);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispFromFile extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 			LispPtr evaluated = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
+			aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
-			String hashedname = aEnvironment.HashTable().LookUpUnStringify(orig);
+			String hashedname = aEnvironment.hashTable().LookUpUnStringify(orig);
 
 			InputStatus oldstatus = aEnvironment.iInputStatus;
 			LispInput previous = aEnvironment.iCurrentInput;
@@ -1073,13 +1073,13 @@ public class MathCommands
 			{
 				aEnvironment.iInputStatus.SetTo(hashedname);
 				LispInput input = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
-				        LispStandard.OpenInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+				        LispStandard.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 				aEnvironment.iCurrentInput = input;
 				// Open file
 				LispError.CHK_CORE(aEnvironment, aStackTop,input != null, LispError.KLispErrFileNotFound);
 
 				// Evaluate the body
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
 			}
 			catch (Exception e)
 			{
@@ -1096,16 +1096,16 @@ public class MathCommands
 
 	class LispFromString extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
+			aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 
 			InputStatus oldstatus = aEnvironment.iInputStatus;
 			aEnvironment.iInputStatus.SetTo("String");
@@ -1116,7 +1116,7 @@ public class MathCommands
 			try
 			{
 				// Evaluate the body
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
 			}
 			catch (Exception e)
 			{
@@ -1134,7 +1134,7 @@ public class MathCommands
 
 	class LispRead extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InfixParser parser = new InfixParser(aEnvironment.iCurrentTokenizer,
 			                                     aEnvironment.iCurrentInput,
@@ -1150,35 +1150,35 @@ public class MathCommands
 
 	class LispReadToken extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispTokenizer tok = aEnvironment.iCurrentTokenizer;
 			String result;
-			result = tok.NextToken(aEnvironment.iCurrentInput, aEnvironment.HashTable());
+			result = tok.nextToken(aEnvironment.iCurrentInput, aEnvironment.hashTable());
 
 			if (result.length() == 0)
 			{
-				RESULT(aEnvironment, aStackTop).Set(aEnvironment.iEndOfFile.Copy(false));
+				RESULT(aEnvironment, aStackTop).set(aEnvironment.iEndOfFile.copy(false));
 				return;
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,result));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,result));
 		}
 	}
 
 	class LispToFile extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			LispPtr evaluated = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
+			aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 
 			// Open file for writing
 			FileOutputStream localFP = new FileOutputStream(oper);
@@ -1190,7 +1190,7 @@ public class MathCommands
 
 			try
 			{
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
 			}
 			catch (Exception e) { throw e; }
 			finally
@@ -1202,7 +1202,7 @@ public class MathCommands
 
 	class LispToString extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			StringBuffer oper = new StringBuffer();
 			StringOutput newOutput = new StringOutput(oper);
@@ -1211,10 +1211,10 @@ public class MathCommands
 			try
 			{
 				// Evaluate the body
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 
 				//Return the result
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.HashTable().LookUpStringify(oper.toString())));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(oper.toString())));
 			}
 			catch (Exception e) { throw e; }
 			finally
@@ -1226,13 +1226,13 @@ public class MathCommands
 
 	class LispToStdout extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispOutput previous = aEnvironment.iCurrentOutput;
 			aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
 			try
 			{
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 			}
 			catch (Exception e) { throw e; }
 			finally
@@ -1244,26 +1244,26 @@ public class MathCommands
 
 	class LispLoad extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
-			LispStandard.InternalLoad(aEnvironment,orig);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalLoad(aEnvironment,orig);
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispSetVar extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalSetVar(aEnvironment, aStackTop, false, false);
 		}
@@ -1271,7 +1271,7 @@ public class MathCommands
 
 	class LispMacroSetVar extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalSetVar(aEnvironment, aStackTop, true, false);
 		}
@@ -1279,7 +1279,7 @@ public class MathCommands
 
 	class LispSetGlobalLazyVariable extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalSetVar(aEnvironment, aStackTop, false, true);
 		}
@@ -1287,9 +1287,9 @@ public class MathCommands
 
 	class LispClearVar extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList();
+			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
 			if (subList != null)
 			{
 				LispIterator iter = new LispIterator(subList);
@@ -1298,22 +1298,22 @@ public class MathCommands
 				while (iter.GetObject() != null)
 				{
 					String str;
-					str = iter.GetObject().String();
+					str = iter.GetObject().string();
 					LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null, nr);
-					aEnvironment.UnsetVariable(str);
+					aEnvironment.unsetVariable(str);
 					iter.GoNext();
 					nr++;
 				}
 			}
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispNewLocal extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList();
+			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
 			if (subList!= null)
 			{
 				LispIterator iter = new LispIterator(subList);
@@ -1322,88 +1322,88 @@ public class MathCommands
 				int nr = 1;
 				while (iter.GetObject() != null)
 				{
-					String variable = iter.GetObject().String();
+					String variable = iter.GetObject().string();
 					LispError.CHK_ARG_CORE(aEnvironment,aStackTop,variable != null,nr);
 					// printf("Variable %s\n",variable.String());
-					aEnvironment.NewLocal(variable,null);
+					aEnvironment.newLocal(variable,null);
 					iter.GoNext();
 					nr++;
 				}
 			}
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispHead extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispStandard.InternalNth(RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1),1);
+			LispStandard.internalNth(RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1),1);
 		}
 	}
 
 	class LispNth extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			String str;
-			str = ARGUMENT(aEnvironment, aStackTop, 2).Get().String();
+			str = ARGUMENT(aEnvironment, aStackTop, 2).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.IsNumber(str,false),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.isNumber(str,false),2);
 			int index = Integer.parseInt(str);
-			LispStandard.InternalNth(RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1), index);
+			LispStandard.internalNth(RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1), index);
 		}
 	}
 
 	class LispTail extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr first = new LispPtr();
-			LispStandard.InternalTail(first, ARGUMENT(aEnvironment, aStackTop, 1));
-			LispStandard.InternalTail(RESULT(aEnvironment, aStackTop), first);
+			LispStandard.internalTail(first, ARGUMENT(aEnvironment, aStackTop, 1));
+			LispStandard.internalTail(RESULT(aEnvironment, aStackTop), first);
 			LispPtr head = new LispPtr();
-			head.Set(aEnvironment.iList.Copy(false));
-			head.Get().Next().Set(RESULT(aEnvironment, aStackTop).Get().SubList().Get());
-			RESULT(aEnvironment, aStackTop).Get().SubList().Set(head.Get());
+			head.set(aEnvironment.iList.copy(false));
+			head.get().next().set(RESULT(aEnvironment, aStackTop).get().subList().get());
+			RESULT(aEnvironment, aStackTop).get().subList().set(head.get());
 		}
 	}
 
 	class LispDestructiveReverse extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr reversed = new LispPtr();
-			reversed.Set(aEnvironment.iList.Copy(false));
-			LispStandard.InternalReverseList(reversed.Get().Next(), ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList().Get().Next());
-			RESULT(aEnvironment, aStackTop).Set(LispSubList.New(reversed.Get()));
+			reversed.set(aEnvironment.iList.copy(false));
+			LispStandard.internalReverseList(reversed.get().next(), ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get().next());
+			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(reversed.get()));
 		}
 	}
 
 	class LispLength extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList();
+			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
 			if (subList != null)
 			{
-				int num = LispStandard.InternalListLength(subList.Get().Next());
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+num));
+				int num = LispStandard.internalListLength(subList.get().next());
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+num));
 				return;
 			}
-			String string = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
-			if (LispStandard.InternalIsString(string))
+			String string = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+			if (LispStandard.internalIsString(string))
 			{
 				int num = string.length()-2;
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+num));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+num));
 				return;
 			}
-			GenericClass gen = ARGUMENT(aEnvironment, aStackTop, 1).Get().Generic();
+			GenericClass gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
 			if (gen != null)
 				if (gen.TypeName().equals("\"Array\""))
 				{
 					int size=((ArrayClass)gen).Size();
-					RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+size));
+					RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+size));
 					return;
 				}
 			//  CHK_ISLIST_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1),1);
@@ -1412,73 +1412,73 @@ public class MathCommands
 
 	class LispList extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr all = new LispPtr();
-			all.Set(aEnvironment.iList.Copy(false));
+			all.set(aEnvironment.iList.copy(false));
 			LispIterator tail = new LispIterator(all);
 			tail.GoNext();
-			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList());
+			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
 			iter.GoNext();
 			while (iter.GetObject() != null)
 			{
 				LispPtr evaluated = new LispPtr();
-				aEnvironment.iEvaluator.Eval(aEnvironment,evaluated,iter.Ptr());
-				tail.Ptr().Set(evaluated.Get());
+				aEnvironment.iEvaluator.eval(aEnvironment,evaluated,iter.Ptr());
+				tail.Ptr().set(evaluated.get());
 				tail.GoNext();
 				iter.GoNext();
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispSubList.New(all.Get()));
+			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(all.get()));
 		}
 	}
 
 	class LispUnList extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList() != null, 1);
-			LispObject subList = ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList().Get();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().subList() != null, 1);
+			LispObject subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,subList != null, 1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,subList.String() == aEnvironment.iList.String(),1);
-			LispStandard.InternalTail(RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,subList.string() == aEnvironment.iList.string(),1);
+			LispStandard.internalTail(RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 		}
 	}
 
 	class LispListify extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().subList() != null, 1);
 			LispPtr head = new LispPtr();
-			head.Set(aEnvironment.iList.Copy(false));
-			head.Get().Next().Set(ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList().Get());
-			RESULT(aEnvironment, aStackTop).Set(LispSubList.New(head.Get()));
+			head.set(aEnvironment.iList.copy(false));
+			head.get().next().set(ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get());
+			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(head.get()));
 		}
 	}
 
 	class LispConcatenate extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr all = new LispPtr();
-			all.Set(aEnvironment.iList.Copy(false));
+			all.set(aEnvironment.iList.copy(false));
 			LispIterator tail = new LispIterator(all);
 			tail.GoNext();
 			int arg = 1;
 
-			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList());
+			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
 			iter.GoNext();
 			while (iter.GetObject() != null)
 			{
 				LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,iter.Ptr(),arg);
-				LispStandard.InternalFlatCopy(tail.Ptr(),iter.Ptr().Get().SubList().Get().Next());
+				LispStandard.internalFlatCopy(tail.Ptr(),iter.Ptr().get().subList().get().next());
 				while (tail.GetObject() != null)
 					tail.GoNext();
 				iter.GoNext();
 				arg++;
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispSubList.New(all.Get()));
+			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(all.get()));
 		}
 	}
 
@@ -1489,12 +1489,12 @@ public class MathCommands
 			aStringBuffer.append('\"');
 			int arg=1;
 
-			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList());
+			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
 			iter.GoNext();
 			while (iter.GetObject() != null)
 			{
 				LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,iter.Ptr(),arg);
-				String thisString = iter.GetObject().String();
+				String thisString = iter.GetObject().string();
 				String toAppend = thisString.substring(1,thisString.length()-1);
 				aStringBuffer.append(toAppend);
 				iter.GoNext();
@@ -1502,17 +1502,17 @@ public class MathCommands
 			}
 			aStringBuffer.append('\"');
 		}
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			StringBuffer strBuffer = new StringBuffer("");
 			ConcatenateStrings(strBuffer,aEnvironment, aStackTop);
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,strBuffer.toString()));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,strBuffer.toString()));
 		}
 	}
 
 	class LispDelete extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalDelete(aEnvironment, aStackTop,false);
 		}
@@ -1520,7 +1520,7 @@ public class MathCommands
 
 	class LispDestructiveDelete extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalDelete(aEnvironment, aStackTop,true);
 		}
@@ -1528,7 +1528,7 @@ public class MathCommands
 
 	class LispInsert extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalInsert(aEnvironment, aStackTop,false);
 		}
@@ -1536,7 +1536,7 @@ public class MathCommands
 
 	class LispDestructiveInsert extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalInsert(aEnvironment, aStackTop,true);
 		}
@@ -1544,7 +1544,7 @@ public class MathCommands
 
 	class LispReplace extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalReplace(aEnvironment, aStackTop,false);
 		}
@@ -1552,7 +1552,7 @@ public class MathCommands
 
 	class LispDestructiveReplace extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.InternalReplace(aEnvironment, aStackTop,true);
 		}
@@ -1560,132 +1560,132 @@ public class MathCommands
 
 	class LispAtomize extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get operator
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.HashTable().LookUpUnStringify(orig)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpUnStringify(orig)));
 		}
 	}
 
 	class LispStringify extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get operator
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.HashTable().LookUpStringify(orig)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(orig)));
 		}
 	}
 
 	class LispCharString extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			String str;
-			str = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.IsNumber(str,false),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.isNumber(str,false),2);
 			char asciiCode = (char)Integer.parseInt(str,10);
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,"\""+asciiCode+"\""));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\""+asciiCode+"\""));
 		}
 	}
 
 	class LispFlatCopy extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr copied = new LispPtr();
-			LispStandard.InternalFlatCopy(copied,ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList());
-			RESULT(aEnvironment, aStackTop).Set(LispSubList.New(copied.Get()));
+			LispStandard.internalFlatCopy(copied,ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(copied.get()));
 		}
 	}
 
 	class LispProgBody extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Allow accessing previous locals.
-			aEnvironment.PushLocalFrame(false);
+			aEnvironment.pushLocalFrame(false);
 			try
 			{
-				LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+				LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 
 				// Evaluate args one by one.
 
-				LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList());
+				LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
 				iter.GoNext();
 				while (iter.GetObject() != null)
 				{
-					aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), iter.Ptr());
+					aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), iter.Ptr());
 					iter.GoNext();
 				}
 			}
 			catch (Exception e) { throw e; }
 			finally
 			{
-				aEnvironment.PopLocalFrame();
+				aEnvironment.popLocalFrame();
 			}
 		}
 	}
 
 	class LispWhile extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr arg1 = ARGUMENT(aEnvironment, aStackTop, 1);
 			LispPtr arg2 = ARGUMENT(aEnvironment, aStackTop, 2);
 
 			LispPtr predicate = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, predicate, arg1);
+			aEnvironment.iEvaluator.eval(aEnvironment, predicate, arg1);
 
-			while (LispStandard.IsTrue(aEnvironment,predicate))
+			while (LispStandard.isTrue(aEnvironment,predicate))
 			{
 				LispPtr evaluated = new LispPtr();
-				aEnvironment.iEvaluator.Eval(aEnvironment, evaluated, arg2);
-				aEnvironment.iEvaluator.Eval(aEnvironment, predicate, arg1);
+				aEnvironment.iEvaluator.eval(aEnvironment, evaluated, arg2);
+				aEnvironment.iEvaluator.eval(aEnvironment, predicate, arg1);
 
 			}
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.IsFalse(aEnvironment,predicate),1);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.isFalse(aEnvironment,predicate),1);
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispIf extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			int nrArguments = LispStandard.InternalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+			int nrArguments = LispStandard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			LispError.CHK_CORE(aEnvironment,aStackTop,nrArguments == 3 || nrArguments == 4,LispError.KLispErrWrongNumberOfArgs);
 
 			LispPtr predicate = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, predicate, ARGUMENT(aEnvironment, aStackTop, 1));
+			aEnvironment.iEvaluator.eval(aEnvironment, predicate, ARGUMENT(aEnvironment, aStackTop, 1));
 
-			if (LispStandard.IsTrue(aEnvironment,predicate))
+			if (LispStandard.isTrue(aEnvironment,predicate))
 			{
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), Argument(ARGUMENT(aEnvironment, aStackTop, 0),2));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), Argument(ARGUMENT(aEnvironment, aStackTop, 0),2));
 			}
 			else
 			{
-				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.IsFalse(aEnvironment,predicate),1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.isFalse(aEnvironment,predicate),1);
 				if (nrArguments == 4)
 				{
-					aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), Argument(ARGUMENT(aEnvironment, aStackTop, 0),3));
+					aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), Argument(ARGUMENT(aEnvironment, aStackTop, 0),3));
 				}
 				else
 				{
-					LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+					LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 				}
 			}
 		}
@@ -1693,33 +1693,33 @@ public class MathCommands
 
 	class LispCheck extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr pred = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, pred, ARGUMENT(aEnvironment, aStackTop, 1));
-			if (!LispStandard.IsTrue(aEnvironment,pred))
+			aEnvironment.iEvaluator.eval(aEnvironment, pred, ARGUMENT(aEnvironment, aStackTop, 1));
+			if (!LispStandard.isTrue(aEnvironment,pred))
 			{
 				LispPtr evaluated = new LispPtr();
-				aEnvironment.iEvaluator.Eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 2));
+				aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 2));
 				LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,2);
-				throw new Exception(evaluated.Get().String());
+				throw new Exception(evaluated.get().string());
 			}
-			RESULT(aEnvironment, aStackTop).Set(pred.Get());
+			RESULT(aEnvironment, aStackTop).set(pred.get());
 		}
 	}
 
 	class LispTrapError extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			try
 			{
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 			}
 			catch (Exception e)
 			{
 				aEnvironment.iError = e.toString();
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
 				aEnvironment.iError = null;
 			}
 		}
@@ -1727,15 +1727,15 @@ public class MathCommands
 
 	class LispGetCoreError extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.HashTable().LookUpStringify(aEnvironment.iError)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(aEnvironment.iError)));
 		}
 	}
 
 	class LispPreFix extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.MultiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 		}
@@ -1743,7 +1743,7 @@ public class MathCommands
 
 	class LispInFix extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.MultiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 		}
@@ -1751,9 +1751,9 @@ public class MathCommands
 
 	class LispPostFix extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			int nrArguments = LispStandard.InternalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+			int nrArguments = LispStandard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			if (nrArguments == 2)
 			{
 				MathCommands.SingleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
@@ -1767,7 +1767,7 @@ public class MathCommands
 
 	class LispBodied extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			MathCommands.MultiFix(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 		}
@@ -1775,7 +1775,7 @@ public class MathCommands
 
 	class LispRuleBase extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalRuleBase(aEnvironment, aStackTop, false);
 		}
@@ -1783,7 +1783,7 @@ public class MathCommands
 
 	class LispMacroRuleBase extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalRuleBase(aEnvironment, aStackTop, false);
 		}
@@ -1791,7 +1791,7 @@ public class MathCommands
 
 	class LispRuleBaseListed extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalRuleBase(aEnvironment, aStackTop, true);
 		}
@@ -1799,7 +1799,7 @@ public class MathCommands
 
 	class LispMacroRuleBaseListed extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalRuleBase(aEnvironment, aStackTop, true);
 		}
@@ -1807,7 +1807,7 @@ public class MathCommands
 
 	class LispDefMacroRuleBase extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalDefMacroRuleBase(aEnvironment, aStackTop, false);
 		}
@@ -1815,7 +1815,7 @@ public class MathCommands
 
 	class LispDefMacroRuleBaseListed extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalDefMacroRuleBase(aEnvironment, aStackTop, true);
 		}
@@ -1823,25 +1823,25 @@ public class MathCommands
 
 	class LispHoldArg extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-			String orig = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			// The arguments
-			String tohold = ARGUMENT(aEnvironment, aStackTop, 2).Get().String();
+			String tohold = ARGUMENT(aEnvironment, aStackTop, 2).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,tohold != null, 2);
-			aEnvironment.HoldArgument(LispStandard.SymbolName(aEnvironment,orig), tohold);
+			aEnvironment.holdArgument(LispStandard.symbolName(aEnvironment,orig), tohold);
 			// Return true
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispNewRule extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalNewRule(aEnvironment, aStackTop);
 		}
@@ -1849,7 +1849,7 @@ public class MathCommands
 
 	class LispMacroNewRule extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalNewRule(aEnvironment, aStackTop);
 		}
@@ -1857,194 +1857,194 @@ public class MathCommands
 
 	class LispUnFence extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-			String orig = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			// The arity
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 2).Get() != null, 2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 2).Get().String() != null, 2);
-			int arity = Integer.parseInt(ARGUMENT(aEnvironment, aStackTop, 2).Get().String(),10);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 2).get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 2).get().string() != null, 2);
+			int arity = Integer.parseInt(ARGUMENT(aEnvironment, aStackTop, 2).get().string(),10);
 
-			aEnvironment.UnFenceRule(LispStandard.SymbolName(aEnvironment,orig), arity);
+			aEnvironment.unFenceRule(LispStandard.symbolName(aEnvironment,orig), arity);
 
 			// Return true
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispRetract extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.SymbolName(aEnvironment,orig);
+			String oper = LispStandard.symbolName(aEnvironment,orig);
 
 			LispPtr arity = new LispPtr();
-			arity.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,arity.Get().String() != null, 2);
-			int ar = Integer.parseInt(arity.Get().String(),10);
-			aEnvironment.Retract(oper, ar);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			arity.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,arity.get().string() != null, 2);
+			int ar = Integer.parseInt(arity.get().string(),10);
+			aEnvironment.retract(oper, ar);
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispNot extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			if (LispStandard.IsTrue(aEnvironment, evaluated) || LispStandard.IsFalse(aEnvironment, evaluated))
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			if (LispStandard.isTrue(aEnvironment, evaluated) || LispStandard.isFalse(aEnvironment, evaluated))
 			{
-				LispStandard.InternalNot(RESULT(aEnvironment, aStackTop), aEnvironment, evaluated);
+				LispStandard.internalNot(RESULT(aEnvironment, aStackTop), aEnvironment, evaluated);
 			}
 			else
 			{
 				LispPtr ptr = new LispPtr();
-				ptr.Set(ARGUMENT(aEnvironment, aStackTop, 0).Get().Copy(false));
-				ptr.Get().Next().Set(evaluated.Get());
-				RESULT(aEnvironment, aStackTop).Set(LispSubList.New(ptr.Get()));
+				ptr.set(ARGUMENT(aEnvironment, aStackTop, 0).get().copy(false));
+				ptr.get().next().set(evaluated.get());
+				RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(ptr.get()));
 			}
 		}
 	}
 
 	class LispLazyAnd extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr nogos = new LispPtr();
 			int nrnogos=0;
 			LispPtr evaluated = new LispPtr();
 
-			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList());
+			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
 			iter.GoNext();
 			while (iter.GetObject() != null)
 			{
-				aEnvironment.iEvaluator.Eval(aEnvironment, evaluated, iter.Ptr());
-				if (LispStandard.IsFalse(aEnvironment, evaluated))
+				aEnvironment.iEvaluator.eval(aEnvironment, evaluated, iter.Ptr());
+				if (LispStandard.isFalse(aEnvironment, evaluated))
 				{
-					LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+					LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 					return;
 				}
-				else if (!LispStandard.IsTrue(aEnvironment, evaluated))
+				else if (!LispStandard.isTrue(aEnvironment, evaluated))
 				{
 					LispPtr ptr = new LispPtr();
 					nrnogos++;
-					ptr.Set(evaluated.Get().Copy(false));
-					ptr.Get().Next().Set(nogos.Get());
-					nogos.Set(ptr.Get());
+					ptr.set(evaluated.get().copy(false));
+					ptr.get().next().set(nogos.get());
+					nogos.set(ptr.get());
 				}
 
 				iter.GoNext();
 			}
 
-			if (nogos.Get() != null)
+			if (nogos.get() != null)
 			{
 				if (nrnogos == 1)
 				{
-					RESULT(aEnvironment, aStackTop).Set(nogos.Get());
+					RESULT(aEnvironment, aStackTop).set(nogos.get());
 				}
 				else
 				{
 					LispPtr ptr = new LispPtr();
 
-					LispStandard.InternalReverseList(ptr, nogos);
-					nogos.Set(ptr.Get());
+					LispStandard.internalReverseList(ptr, nogos);
+					nogos.set(ptr.get());
 
-					ptr.Set(ARGUMENT(aEnvironment, aStackTop, 0).Get().Copy(false));
-					ptr.Get().Next().Set(nogos.Get());
-					nogos.Set(ptr.Get());
-					RESULT(aEnvironment, aStackTop).Set(LispSubList.New(nogos.Get()));
+					ptr.set(ARGUMENT(aEnvironment, aStackTop, 0).get().copy(false));
+					ptr.get().next().set(nogos.get());
+					nogos.set(ptr.get());
+					RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(nogos.get()));
 
 					//aEnvironment.CurrentPrinter().Print(RESULT(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
 				}
 			}
 			else
 			{
-				LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+				LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 			}
 		}
 	}
 
 	class LispLazyOr extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr nogos = new LispPtr();
 			int nrnogos=0;
 
 			LispPtr evaluated = new LispPtr();
 
-			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).Get().SubList());
+			LispIterator iter = new LispIterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
 			iter.GoNext();
 			while (iter.GetObject() != null)
 			{
-				aEnvironment.iEvaluator.Eval(aEnvironment, evaluated, iter.Ptr());
-				if (LispStandard.IsTrue(aEnvironment, evaluated))
+				aEnvironment.iEvaluator.eval(aEnvironment, evaluated, iter.Ptr());
+				if (LispStandard.isTrue(aEnvironment, evaluated))
 				{
-					LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+					LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 					return;
 				}
-				else if (!LispStandard.IsFalse(aEnvironment, evaluated))
+				else if (!LispStandard.isFalse(aEnvironment, evaluated))
 				{
 					LispPtr ptr = new LispPtr();
 					nrnogos++;
 
-					ptr.Set(evaluated.Get().Copy(false));
-					ptr.Get().Next().Set(nogos.Get());
-					nogos.Set(ptr.Get());
+					ptr.set(evaluated.get().copy(false));
+					ptr.get().next().set(nogos.get());
+					nogos.set(ptr.get());
 				}
 				iter.GoNext();
 			}
 
-			if (nogos.Get() != null)
+			if (nogos.get() != null)
 			{
 				if (nrnogos == 1)
 				{
-					RESULT(aEnvironment, aStackTop).Set(nogos.Get());
+					RESULT(aEnvironment, aStackTop).set(nogos.get());
 				}
 				else
 				{
 					LispPtr ptr = new LispPtr();
 
-					LispStandard.InternalReverseList(ptr, nogos);
-					nogos.Set(ptr.Get());
+					LispStandard.internalReverseList(ptr, nogos);
+					nogos.set(ptr.get());
 
-					ptr.Set(ARGUMENT(aEnvironment, aStackTop, 0).Get().Copy(false));
-					ptr.Get().Next().Set(nogos.Get());
-					nogos.Set(ptr.Get());
-					RESULT(aEnvironment, aStackTop).Set(LispSubList.New(nogos.Get()));
+					ptr.set(ARGUMENT(aEnvironment, aStackTop, 0).get().copy(false));
+					ptr.get().next().set(nogos.get());
+					nogos.set(ptr.get());
+					RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(nogos.get()));
 				}
 				//aEnvironment.CurrentPrinter().Print(RESULT(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
 			}
 			else
 			{
-				LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+				LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 			}
 		}
 	}
 
 	class LispEquals extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated1 = new LispPtr();
-			evaluated1.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated1.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			LispPtr evaluated2 = new LispPtr();
-			evaluated2.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			evaluated2.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),
-			                             LispStandard.InternalEquals(aEnvironment, evaluated1, evaluated2));
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),
+			                             LispStandard.internalEquals(aEnvironment, evaluated1, evaluated2));
 		}
 	}
 
@@ -2057,11 +2057,11 @@ public class MathCommands
 		{
 			LispPtr result1 = new LispPtr();
 			LispPtr result2 = new LispPtr();
-			result1.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			result2.Set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			result1.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
+			result2.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
 			boolean cmp;
-			BigNumber n1 = result1.Get().Number(aEnvironment.Precision());
-			BigNumber n2 = result2.Get().Number(aEnvironment.Precision());
+			BigNumber n1 = result1.get().number(aEnvironment.precision());
+			BigNumber n2 = result2.get().number(aEnvironment.precision());
 			if (n1 != null && n2 != null)
 			{
 				cmp =numfunc(n1,n2);
@@ -2070,17 +2070,17 @@ public class MathCommands
 			{
 				String str1;
 				String str2;
-				str1 = result1.Get().String();
-				str2 = result2.Get().String();
+				str1 = result1.get().string();
+				str2 = result2.get().string();
 				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str1 != null ,1);
 				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str2 != null, 2);
 				// the precision argument is ignored in "lex" functions
 				cmp =lexfunc(str1,str2,
-				             aEnvironment.HashTable(),
-				             aEnvironment.Precision());
+				             aEnvironment.hashTable(),
+				             aEnvironment.precision());
 			}
 
-			LispStandard.InternalBoolean(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop), cmp);
+			LispStandard.internalBoolean(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop), cmp);
 		}
 	}
 
@@ -2112,7 +2112,7 @@ public class MathCommands
 	class LispLessThan extends PiperEvalCaller
 	{
 		LexLessThan compare = new LexLessThan();
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			compare.Compare(aEnvironment,aStackTop);
 		}
@@ -2121,7 +2121,7 @@ public class MathCommands
 	class LispGreaterThan extends PiperEvalCaller
 	{
 		LexGreaterThan compare = new LexGreaterThan();
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			compare.Compare(aEnvironment,aStackTop);
 		}
@@ -2129,104 +2129,104 @@ public class MathCommands
 
 	class LispIsFunction extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr result = new LispPtr();
-			result.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),
-			                             result.Get().SubList()!=null);
+			result.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),
+			                             result.get().subList()!=null);
 		}
 	}
 
 	class LispIsAtom extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr result = new LispPtr();
-			result.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			String s = result.Get().String();
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),s!=null);
+			result.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			String s = result.get().string();
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),s!=null);
 		}
 	}
 
 	class LispIsNumber extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr result = new LispPtr();
-			result.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), result.Get().Number(aEnvironment.Precision()) != null);
+			result.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), result.get().number(aEnvironment.precision()) != null);
 		}
 	}
 
 	class LispIsInteger extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr result = new LispPtr();
-			result.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			result.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			BigNumber num = result.Get().Number(aEnvironment.Precision());
+			BigNumber num = result.get().number(aEnvironment.precision());
 			if (num == null)
 			{
-				LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+				LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 			}
 			else
 			{
-				LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), num.IsInt());
+				LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), num.IsInt());
 			}
 		}
 	}
 
 	class LispIsList extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr result = new LispPtr();
-			result.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),LispStandard.InternalIsList(result));
+			result.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),LispStandard.internalIsList(result));
 		}
 	}
 
 	class LispIsString extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr result = new LispPtr();
-			result.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),
-			                             LispStandard.InternalIsString(result.Get().String()));
+			result.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),
+			                             LispStandard.internalIsString(result.get().string()));
 		}
 	}
 
 	class LispIsBound extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			String str = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			String str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			if (str != null)
 			{
 				LispPtr val = new LispPtr();
-				aEnvironment.GetVariable(str,val);
-				if (val.Get() != null)
+				aEnvironment.getVariable(str,val);
+				if (val.get() != null)
 				{
-					LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+					LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 					return;
 				}
 			}
-			LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispMultiply extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
-			z.Multiply(x,y,aEnvironment.Precision());
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			BigNumber z = new BigNumber(aEnvironment.precision());
+			z.Multiply(x,y,aEnvironment.precision());
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
@@ -2238,24 +2238,24 @@ public class MathCommands
 	/// \sa GetNumber(), BigNumber::Add()
 	class LispAdd extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			int length = LispStandard.InternalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+			int length = LispStandard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			if (length == 2)
 			{
 				BigNumber x;
 				x = MathCommands.GetNumber(aEnvironment, aStackTop, 1);
-				RESULT(aEnvironment, aStackTop).Set(new LispNumber(x));
+				RESULT(aEnvironment, aStackTop).set(new LispNumber(x));
 				return;
 			}
 			else
 			{
 				BigNumber x = MathCommands.GetNumber(aEnvironment, aStackTop, 1);
 				BigNumber y = MathCommands.GetNumber(aEnvironment, aStackTop, 2);
-				int bin = aEnvironment.Precision();
+				int bin = aEnvironment.precision();
 				BigNumber z = new BigNumber(bin);
-				z.Add(x,y,aEnvironment.Precision());
-				RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+				z.Add(x,y,aEnvironment.precision());
+				RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 				return;
 			}
 		}
@@ -2263,15 +2263,15 @@ public class MathCommands
 
 	class LispSubtract extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			int length = LispStandard.InternalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+			int length = LispStandard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			if (length == 2)
 			{
 				BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 				BigNumber z = new BigNumber(x);
 				z.Negate(x);
-				RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+				RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 				return;
 			}
 			else
@@ -2280,9 +2280,9 @@ public class MathCommands
 				BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
 				BigNumber yneg = new BigNumber(y);
 				yneg.Negate(y);
-				BigNumber z = new BigNumber(aEnvironment.Precision());
-				z.Add(x,yneg,aEnvironment.Precision());
-				RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+				BigNumber z = new BigNumber(aEnvironment.precision());
+				z.Add(x,yneg,aEnvironment.precision());
+				RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 				return;
 			}
 		}
@@ -2290,182 +2290,182 @@ public class MathCommands
 
 	class LispDivide extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			// if both arguments are integers, then BigNumber::Divide would perform an integer divide, but we want a float divide here.
 			if (x.IsInt() && y.IsInt())
 			{
 				// why can't we just say BigNumber temp; ?
-				BigNumber tempx = new BigNumber(aEnvironment.Precision());
+				BigNumber tempx = new BigNumber(aEnvironment.precision());
 				tempx.SetTo(x);
-				tempx.BecomeFloat(aEnvironment.Precision());  // coerce x to float
-				BigNumber tempy = new BigNumber(aEnvironment.Precision());
+				tempx.BecomeFloat(aEnvironment.precision());  // coerce x to float
+				BigNumber tempy = new BigNumber(aEnvironment.precision());
 				tempy.SetTo(y);
-				tempy.BecomeFloat(aEnvironment.Precision());  // coerce x to float
-				z.Divide(tempx, tempy,aEnvironment.Precision());
+				tempy.BecomeFloat(aEnvironment.precision());  // coerce x to float
+				z.Divide(tempx, tempy,aEnvironment.precision());
 			}
 			else
 			{
-				z.Divide(x, y,aEnvironment.Precision());
+				z.Divide(x, y,aEnvironment.precision());
 			}
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 			return;
 		}
 	}
 
 	class PiperBuiltinPrecisionSet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr index = new LispPtr();
-			index.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 1);
+			index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
 
-			int ind = Integer.parseInt(index.Get().String(),10);
+			int ind = Integer.parseInt(index.get().string(),10);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,1);
-			aEnvironment.SetPrecision(ind);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			aEnvironment.setPrecision(ind);
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispGetExactBits extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(
 			        (x.IsInt())
 			        ? x.BitCount()  // for integers, return the bit count
 			        : LispStandard.digits_to_bits((long)(x.GetPrecision()), 10)   // for floats, return the precision
 			);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 
 	class LispSetExactBits extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(x);
 
 			// do nothing for integers
 			if (!(z.IsInt()))
 				z.Precision((int)(LispStandard.bits_to_digits((long)(y.Double()), 10)));
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispBitCount extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(x.BitCount());
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispMathSign extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(x.Sign());
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispMathIsSmall extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), x.IsSmall());
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), x.IsSmall());
 		}
 	}
 
 	class LispMathNegate extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Negate(x);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispFloor extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Floor(x);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispCeil extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Negate(x);
 			z.Floor(z);
 			z.Negate(z);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispAbs extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(x);
 			if (x.Sign()<0)
 				z.Negate(x);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispMod extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Mod(x,y);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispDiv extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
 			if (x.IsInt() && y.IsInt())
 			{  // both integer, perform integer division
-				BigNumber z = new BigNumber(aEnvironment.Precision());
-				z.Divide(x,y,aEnvironment.Precision());
-				RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+				BigNumber z = new BigNumber(aEnvironment.precision());
+				z.Divide(x,y,aEnvironment.precision());
+				RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 				return;
 			}
 			else
@@ -2477,7 +2477,7 @@ public class MathCommands
 
 	class LispBitsToDigits extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
@@ -2492,15 +2492,15 @@ public class MathCommands
 			{
 				throw new Piperexception("BitsToDigits: error: arguments ("+x.Double()+", "+y.Double()+") must be small integers");
 			}
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo((long)result);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispDigitsToBits extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
@@ -2515,32 +2515,32 @@ public class MathCommands
 			{
 				throw new Piperexception("BitsToDigits: error: arguments ("+x.Double()+", "+y.Double()+") must be small integers");
 			}
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo((long)result);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispGcd extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Gcd(x,y);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispSystemCall extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-			String orig = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 			String ls_str;
 			Process ls_proc = Runtime.getRuntime().exec(oper);
 			// get its output (your input) stream
@@ -2556,80 +2556,80 @@ public class MathCommands
 
 	class LispFastArcSin extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x;
 			x = GetNumber(aEnvironment, aStackTop, 1);
 			double result = Math.asin(x.Double());
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(result);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispFastLog extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x;
 			x = GetNumber(aEnvironment, aStackTop, 1);
 			double result = Math.log(x.Double());
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(result);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispFastPower extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x, y;
 			x = GetNumber(aEnvironment, aStackTop, 1);
 			y = GetNumber(aEnvironment, aStackTop, 2);
 			double result = Math.pow(x.Double(), y.Double());
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(result);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispShiftLeft extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber n = GetNumber(aEnvironment, aStackTop, 2);
 			long nrToShift = n.Long();
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.ShiftLeft(x,(int)nrToShift);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispShiftRight extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber n = GetNumber(aEnvironment, aStackTop, 2);
 			long nrToShift = n.Long();
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.ShiftRight(x,(int)nrToShift);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispFromBase extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get the base to convert to:
 			// Evaluate first argument, and store result in oper
 			LispPtr oper = new LispPtr();
-			oper.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			// Check that result is a number, and that it is in fact an integer
-			BigNumber num = oper.Get().Number(aEnvironment.Precision());
+			BigNumber num = oper.get().number(aEnvironment.precision());
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,num != null,1);
 			// check that the base is an integer between 2 and 32
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,num.IsInt(), 1);
@@ -2639,31 +2639,31 @@ public class MathCommands
 
 			// Get the number to convert
 			LispPtr fromNum = new LispPtr();
-			fromNum.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			fromNum.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 			String str2;
-			str2 = fromNum.Get().String();
+			str2 = fromNum.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str2 != null,2);
 
 			// Added, unquote a string
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.InternalIsString(str2),2);
-			str2 = aEnvironment.HashTable().LookUpUnStringify(str2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.internalIsString(str2),2);
+			str2 = aEnvironment.hashTable().LookUpUnStringify(str2);
 
 			// convert using correct base
-			BigNumber z = new BigNumber(str2,aEnvironment.Precision(),base);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			BigNumber z = new BigNumber(str2,aEnvironment.precision(),base);
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispToBase extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get the base to convert to:
 			// Evaluate first argument, and store result in oper
 			LispPtr oper = new LispPtr();
-			oper.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			// Check that result is a number, and that it is in fact an integer
-			BigNumber num = oper.Get().Number(aEnvironment.Precision());
+			BigNumber num = oper.get().number(aEnvironment.precision());
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,num != null,1);
 			// check that the base is an integer between 2 and 32
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,num.IsInt(), 1);
@@ -2676,156 +2676,156 @@ public class MathCommands
 
 			// convert using correct base
 			String str;
-			str = x.ToString(aEnvironment.Precision(),base);
+			str = x.ToString(aEnvironment.precision(),base);
 			// Get unique string from hash table, and create an atom from it.
 
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.HashTable().LookUpStringify(str)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(str)));
 		}
 	}
 
 	class LispMaxEvalDepth extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr index = new LispPtr();
-			index.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 1);
+			index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
 
-			int ind = Integer.parseInt(index.Get().String(),10);
+			int ind = Integer.parseInt(index.get().string(),10);
 			aEnvironment.iMaxEvalDepth = ind;
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispDefLoad extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
-			LispStandard.LoadDefFile(aEnvironment, orig);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.loadDefFile(aEnvironment, orig);
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispUse extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
-			LispStandard.InternalUse(aEnvironment,orig);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalUse(aEnvironment,orig);
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispRightAssociative extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-			String orig = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			aEnvironment.iInfixOperators.SetRightAssociative(LispStandard.SymbolName(aEnvironment,orig));
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			aEnvironment.iInfixOperators.SetRightAssociative(LispStandard.symbolName(aEnvironment,orig));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispLeftPrecedence extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-			String orig = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			LispPtr index = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, index, ARGUMENT(aEnvironment, aStackTop, 2));
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 2);
-			int ind = Integer.parseInt(index.Get().String(),10);
+			aEnvironment.iEvaluator.eval(aEnvironment, index, ARGUMENT(aEnvironment, aStackTop, 2));
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+			int ind = Integer.parseInt(index.get().string(),10);
 
-			aEnvironment.iInfixOperators.SetLeftPrecedence(LispStandard.SymbolName(aEnvironment,orig),ind);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			aEnvironment.iInfixOperators.SetLeftPrecedence(LispStandard.symbolName(aEnvironment,orig),ind);
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispRightPrecedence extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get() != null, 1);
-			String orig = ARGUMENT(aEnvironment, aStackTop, 1).Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			LispPtr index = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, index, ARGUMENT(aEnvironment, aStackTop, 2));
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 2);
-			int ind = Integer.parseInt(index.Get().String(),10);
+			aEnvironment.iEvaluator.eval(aEnvironment, index, ARGUMENT(aEnvironment, aStackTop, 2));
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+			int ind = Integer.parseInt(index.get().string(),10);
 
-			aEnvironment.iInfixOperators.SetRightPrecedence(LispStandard.SymbolName(aEnvironment,orig),ind);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			aEnvironment.iInfixOperators.SetRightPrecedence(LispStandard.symbolName(aEnvironment,orig),ind);
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispIsBodied extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
 
 	class LispIsInFix extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
 
 	class LispIsPreFix extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
 
 	class LispIsPostFix extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
 
 	class LispGetPrecedence extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
@@ -2841,13 +2841,13 @@ public class MathCommands
 					}
 				}
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+op.iPrecedence));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+op.iPrecedence));
 		}
 	}
 
 	class LispGetLeftPrecedence extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
@@ -2855,13 +2855,13 @@ public class MathCommands
 				op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 				LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+op.iLeftPrecedence));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+op.iLeftPrecedence));
 		}
 	}
 
 	class LispGetRightPrecedence extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispInfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
@@ -2873,64 +2873,64 @@ public class MathCommands
 					LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 				}
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+op.iRightPrecedence));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+op.iRightPrecedence));
 		}
 	}
 
 	class PiperBuiltinPrecisionGet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// decimal precision
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+aEnvironment.Precision()));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+aEnvironment.precision()));
 		}
 	}
 
 	class LispBitAnd extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.BitAnd(x,y);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispBitOr extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.BitOr(x,y);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispBitXor extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.BitXor(x,y);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispSecure extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			boolean prevSecure = aEnvironment.iSecure;
 			aEnvironment.iSecure = true;
 			try
 			{
-				aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 			}
 			catch (Exception e) { throw e; }
 			finally { aEnvironment.iSecure = prevSecure; }
@@ -2939,166 +2939,166 @@ public class MathCommands
 
 	class LispFindFile extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 
-			String filename = LispStandard.InternalFindFile(oper, aEnvironment.iInputDirectories);
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.HashTable().LookUpStringify(filename)));
+			String filename = LispStandard.internalFindFile(oper, aEnvironment.iInputDirectories);
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(filename)));
 		}
 	}
 
 	class LispFindFunction extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get() != null, 1);
-			String orig = evaluated.Get().String();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 
 			LispMultiUserFunction multiUserFunc =
-			        aEnvironment.MultiUserFunction(aEnvironment.HashTable().LookUp(oper));
+			        aEnvironment.multiUserFunction(aEnvironment.hashTable().LookUp(oper));
 			if (multiUserFunc != null)
 			{
 				LispDefFile def = multiUserFunc.iFileToOpen;
 				if (def != null)
 				{
-					RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,def.iFileName));
+					RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,def.iFileName));
 					return;
 				}
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,"\"\""));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
 		}
 	}
 
 	class LispIsGeneric extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), evaluated.Get().Generic() != null);
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), evaluated.get().generic() != null);
 		}
 	}
 
 	class LispGenericTypeName extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.Get().Generic() != null,1);
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,evaluated.Get().Generic().TypeName()));
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().generic() != null,1);
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,evaluated.get().generic().TypeName()));
 		}
 	}
 
 	class GenArrayCreate extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr sizearg = new LispPtr();
-			sizearg.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get() != null, 1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get().String() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 1);
 
-			int size = Integer.parseInt(sizearg.Get().String(),10);
+			int size = Integer.parseInt(sizearg.get().string(),10);
 
 			LispPtr initarg = new LispPtr();
-			initarg.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			initarg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			ArrayClass array = new ArrayClass(size,initarg.Get());
-			RESULT(aEnvironment, aStackTop).Set(LispGenericClass.New(array));
+			ArrayClass array = new ArrayClass(size,initarg.get());
+			RESULT(aEnvironment, aStackTop).set(LispGenericClass.newGenericClass(array));
 		}
 	}
 
 	class GenArraySize extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClass gen = evaluated.Get().Generic();
+			GenericClass gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 			int size=((ArrayClass)gen).Size();
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+size));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+size));
 		}
 	}
 
 	class GenArrayGet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClass gen = evaluated.Get().Generic();
+			GenericClass gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 
 			LispPtr sizearg = new LispPtr();
-			sizearg.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get() != null, 2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get().String() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
-			int size = Integer.parseInt(sizearg.Get().String(),10);
+			int size = Integer.parseInt(sizearg.get().string(),10);
 
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).Size(),2);
 			LispObject object = ((ArrayClass)gen).GetElement(size);
 
-			RESULT(aEnvironment, aStackTop).Set(object.Copy(false));
+			RESULT(aEnvironment, aStackTop).set(object.copy(false));
 		}
 	}
 
 	class GenArraySet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClass gen = evaluated.Get().Generic();
+			GenericClass gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 
 			LispPtr sizearg = new LispPtr();
-			sizearg.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get() != null, 2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get().String() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
-			int size = Integer.parseInt(sizearg.Get().String(),10);
+			int size = Integer.parseInt(sizearg.get().string(),10);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).Size(),2);
 
 			LispPtr obj = new LispPtr();
-			obj.Set(ARGUMENT(aEnvironment, aStackTop, 3).Get());
-			((ArrayClass)gen).SetElement(size,obj.Get());
-			LispStandard.InternalTrue( aEnvironment, RESULT(aEnvironment, aStackTop));
+			obj.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
+			((ArrayClass)gen).SetElement(size,obj.get());
+			LispStandard.internalTrue( aEnvironment, RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispCustomEval extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : CustomEval");////TODO fixme
 			throw new Piperexception("Function not yet supported");
@@ -3107,7 +3107,7 @@ public class MathCommands
 
 	class LispCustomEvalExpression extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : CustomEvalExpression");////TODO fixme
 			throw new Piperexception("Function not yet supported");
@@ -3116,7 +3116,7 @@ public class MathCommands
 
 	class LispCustomEvalResult extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : CustomEvalResult");////TODO fixme
 			throw new Piperexception("Function not yet supported");
@@ -3125,7 +3125,7 @@ public class MathCommands
 
 	class LispCustomEvalLocals extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispCustomEvalLocals");////TODO fixme
 			throw new Piperexception("Function not yet supported");
@@ -3134,7 +3134,7 @@ public class MathCommands
 
 	class LispCustomEvalStop extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispCustomEvalStop");////TODO fixme
 			throw new Piperexception("Function not yet supported");
@@ -3143,7 +3143,7 @@ public class MathCommands
 
 	class LispTraceRule extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispTraceRule");////TODO fixme
 			throw new Piperexception("Function not yet supported");
@@ -3152,7 +3152,7 @@ public class MathCommands
 
 	class LispTraceStack extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : TraceStack");////TODO fixme
 			throw new Piperexception("Function not yet supported");
@@ -3161,7 +3161,7 @@ public class MathCommands
 
 	class LispReadLisp extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispParser parser = new LispParser(aEnvironment.iCurrentTokenizer,
 			                                   aEnvironment.iCurrentInput,
@@ -3173,7 +3173,7 @@ public class MathCommands
 
 	class LispReadLispListed extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispParser parser = new LispParser(aEnvironment.iCurrentTokenizer,
 			                                   aEnvironment.iCurrentInput,
@@ -3186,75 +3186,75 @@ public class MathCommands
 
 	class LispType extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispPtr subList = evaluated.Get().SubList();
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispPtr subList = evaluated.get().subList();
 			LispObject head = null;
 			if (subList == null)
 			{
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,"\"\""));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
 				return;
 			}
-			head = subList.Get();
-			if (head.String() == null)
+			head = subList.get();
+			if (head.string() == null)
 			{
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,"\"\""));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
 				return;
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.HashTable().LookUpStringify(head.String())));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(head.string())));
 			return;
 		}
 	}
 
 	class PiperStringMidGet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 3).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
 			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,3);
-			String orig = evaluated.Get().String();
+			String orig = evaluated.get().string();
 
 			LispPtr index = new LispPtr();
-			index.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 1);
-			int from = Integer.parseInt(index.Get().String(),10);
+			index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
+			int from = Integer.parseInt(index.get().string(),10);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,from>0,1);
 
-			index.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 2);
-			int count = Integer.parseInt(index.Get().String(),10);
+			index.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+			int count = Integer.parseInt(index.get().string(),10);
 
 
 			String str = "\""+orig.substring(from,from+count)+"\"";
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,str));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,str));
 		}
 	}
 
 	class PiperStringMidSet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr evaluated = new LispPtr();
-			evaluated.Set(ARGUMENT(aEnvironment, aStackTop, 3).Get());
+			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
 			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,3);
-			String orig = evaluated.Get().String();
+			String orig = evaluated.get().string();
 			LispPtr index = new LispPtr();
-			index.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get() != null, 1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.Get().String() != null, 1);
-			int from = Integer.parseInt(index.Get().String(),10);
+			index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
+			int from = Integer.parseInt(index.get().string(),10);
 
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,from>0,1);
 
 			LispPtr ev2 = new LispPtr();
-			ev2.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			ev2.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,ev2,2);
-			String replace = ev2.Get().String();
+			String replace = ev2.get().string();
 
 			LispError.CHK_CORE(aEnvironment, aStackTop,from+replace.length()-2<orig.length(), LispError.KLispErrInvalidArg);
 			String str;
@@ -3262,22 +3262,22 @@ public class MathCommands
 			str = str + replace.substring(1,replace.length()-1);
 			//System.out.println("from="+from+replace.length()-2);
 			str = str + orig.substring(from+replace.length()-2,orig.length());
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,str));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,str));
 		}
 	}
 
 	class GenPatternCreate extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr pattern = new LispPtr();
-			pattern.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			LispPtr postpredicate = new LispPtr();
-			postpredicate.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			postpredicate.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
 			LispIterator iter = new LispIterator(pattern);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject().SubList() != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject().subList() != null,1);
 			iter.GoSub();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,1);
 			iter.GoNext();
@@ -3288,28 +3288,28 @@ public class MathCommands
 			PiperPatternPredicateBase matcher =
 			        new PiperPatternPredicateBase(aEnvironment, ptr,postpredicate);
 			PatternClass p = new PatternClass(matcher);
-			RESULT(aEnvironment, aStackTop).Set(LispGenericClass.New(p));
+			RESULT(aEnvironment, aStackTop).set(LispGenericClass.newGenericClass(p));
 		}
 	}
 
 	class GenPatternMatches extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr pattern = new LispPtr();
-			pattern.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			GenericClass gen = pattern.Get().Generic();
+			pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			GenericClass gen = pattern.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Pattern\""),1);
 
 			LispPtr list = new LispPtr();
-			list.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
 			PatternClass patclass = (PatternClass)gen;
 
 			LispIterator iter = new LispIterator(list);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject().SubList() != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject().subList() != null,2);
 			iter.GoSub();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,2);
 			iter.GoNext();
@@ -3317,44 +3317,44 @@ public class MathCommands
 			LispPtr ptr = iter.Ptr();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ptr != null,2);
 			boolean matches = patclass.Matches(aEnvironment,ptr);
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),matches);
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),matches);
 		}
 	}
 
 	class LispRuleBaseDefined extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr name = new LispPtr();
-			name.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			String orig = name.Get().String();
+			name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			String orig = name.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 
 			LispPtr sizearg = new LispPtr();
-			sizearg.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get() != null, 2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get().String() != null, 2);
+			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
-			int arity = Integer.parseInt(sizearg.Get().String(),10);
+			int arity = Integer.parseInt(sizearg.get().string(),10);
 
-			LispUserFunction userFunc = aEnvironment.UserFunction(aEnvironment.HashTable().LookUp(oper),arity);
-			LispStandard.InternalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),userFunc != null);
+			LispUserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().LookUp(oper),arity);
+			LispStandard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),userFunc != null);
 		}
 	}
 
 	class LispDefLoadFunction extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr name = new LispPtr();
-			name.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			String orig = name.Get().String();
+			name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			String orig = name.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 
 			LispMultiUserFunction multiUserFunc =
-			        aEnvironment.MultiUserFunction(aEnvironment.HashTable().LookUp(oper));
+			        aEnvironment.multiUserFunction(aEnvironment.hashTable().LookUp(oper));
 			if (multiUserFunc != null)
 			{
 				if (multiUserFunc.iFileToOpen!=null)
@@ -3363,45 +3363,45 @@ public class MathCommands
 					if (!def.iIsLoaded)
 					{
 						multiUserFunc.iFileToOpen=null;
-						LispStandard.InternalUse(aEnvironment,def.iFileName);
+						LispStandard.internalUse(aEnvironment,def.iFileName);
 					}
 				}
 			}
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispRuleBaseArgList extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr name = new LispPtr();
-			name.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			String orig = name.Get().String();
+			name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			String orig = name.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			String oper = LispStandard.InternalUnstringify(orig);
+			String oper = LispStandard.internalUnstringify(orig);
 
 			LispPtr sizearg = new LispPtr();
-			sizearg.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get() != null, 2);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.Get().String() != null, 2);
+			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
-			int arity = Integer.parseInt(sizearg.Get().String(),10);
+			int arity = Integer.parseInt(sizearg.get().string(),10);
 
-			LispUserFunction userFunc = aEnvironment.UserFunction(aEnvironment.HashTable().LookUp(oper),arity);
+			LispUserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().LookUp(oper),arity);
 			LispError.CHK_CORE(aEnvironment, aStackTop,userFunc != null, LispError.KLispErrInvalidArg);
 
 			LispPtr list = userFunc.ArgList();
 			LispPtr head = new LispPtr();
-			head.Set(aEnvironment.iList.Copy(false));
-			head.Get().Next().Set(list.Get());
-			RESULT(aEnvironment, aStackTop).Set(LispSubList.New(head.Get()));
+			head.set(aEnvironment.iList.copy(false));
+			head.get().next().set(list.get());
+			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(head.get()));
 		}
 	}
 
 	class LispNewRulePattern extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalNewRulePattern(aEnvironment, aStackTop, false);
 		}
@@ -3409,7 +3409,7 @@ public class MathCommands
 
 	class LispMacroNewRulePattern extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			InternalNewRulePattern(aEnvironment, aStackTop, true
 			                      );
@@ -3418,49 +3418,49 @@ public class MathCommands
 
 	class LispSubst extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr from = new LispPtr(),to = new LispPtr(),body = new LispPtr();
-			from.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
-			to  .Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
-			body.Set(ARGUMENT(aEnvironment, aStackTop, 3).Get());
+			from.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+			to  .set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+			body.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
 			SubstBehaviour behaviour = new SubstBehaviour(aEnvironment,from, to);
-			LispStandard.InternalSubstitute(RESULT(aEnvironment, aStackTop), body, behaviour);
+			LispStandard.internalSubstitute(RESULT(aEnvironment, aStackTop), body, behaviour);
 		}
 	}
 
 	class LispLocalSymbols extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			int nrArguments = LispStandard.InternalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+			int nrArguments = LispStandard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			int nrSymbols = nrArguments-2;
 
 			String names[] = new String[nrSymbols];
 			String localnames[] = new String[nrSymbols];
 
-			int uniquenumber = aEnvironment.GetUniqueId();
+			int uniquenumber = aEnvironment.getUniqueId();
 			int i;
 			for (i=0;i<nrSymbols;i++)
 			{
-				String atomname = Argument(ARGUMENT(aEnvironment, aStackTop, 0), i+1).Get().String();
+				String atomname = Argument(ARGUMENT(aEnvironment, aStackTop, 0), i+1).get().string();
 				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,atomname != null, i+1);
 				names[i] = atomname;
 				int len = atomname.length();
 				String newname = "$"+atomname+uniquenumber;
-				String variable = aEnvironment.HashTable().LookUp(newname);
+				String variable = aEnvironment.hashTable().LookUp(newname);
 				localnames[i] = variable;
 			}
 			LocalSymbolBehaviour behaviour = new LocalSymbolBehaviour(aEnvironment,names,localnames,nrSymbols);
 			LispPtr result = new LispPtr();
-			LispStandard.InternalSubstitute(result, Argument(ARGUMENT(aEnvironment, aStackTop, 0), nrArguments-1), behaviour);
-			aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
+			LispStandard.internalSubstitute(result, Argument(ARGUMENT(aEnvironment, aStackTop, 0), nrArguments-1), behaviour);
+			aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
 		}
 	}
 
 	class LispFastIsPrime extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			//TODO fixme this routine should actually be called SlowIsPrime ;-)
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
@@ -3482,21 +3482,21 @@ public class MathCommands
 				i++;
 			}
 
-			BigNumber z = new BigNumber(aEnvironment.Precision());
+			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(result);
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(z));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(z));
 		}
 	}
 
 	class LispFac extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).Get().Number(0) != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().number(0) != null,1);
 			LispPtr arg = ARGUMENT(aEnvironment, aStackTop, 1);
 
 			//TODO fixme I am sure this can be optimized still
-			int nr = (int)arg.Get().Number(0).Long();
+			int nr = (int)arg.get().number(0).Long();
 			LispError.Check(nr>=0,LispError.KLispErrInvalidArg);
 			BigNumber fac = new BigNumber("1",10,10);
 			int i;
@@ -3506,36 +3506,36 @@ public class MathCommands
 				m.Multiply(fac,m,0);
 				fac = m;
 			}
-			RESULT(aEnvironment, aStackTop).Set(new LispNumber(fac));
+			RESULT(aEnvironment, aStackTop).set(new LispNumber(fac));
 		}
 	}
 
 	class LispApplyPure extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr oper = new LispPtr();
-			oper.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			LispPtr args = new LispPtr();
-			args.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			args.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,args.Get().SubList() != null,2);
-			LispError.CHK_CORE(aEnvironment, aStackTop,args.Get().SubList().Get() != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,args.get().subList() != null,2);
+			LispError.CHK_CORE(aEnvironment, aStackTop,args.get().subList().get() != null,2);
 
 			// Apply a pure string
-			if (oper.Get().String() != null)
+			if (oper.get().string() != null)
 			{
-				LispStandard.InternalApplyString(aEnvironment, RESULT(aEnvironment, aStackTop),
-				                                 oper.Get().String(),
-				                                 args.Get().SubList().Get().Next());
+				LispStandard.internalApplyString(aEnvironment, RESULT(aEnvironment, aStackTop),
+				                                 oper.get().string(),
+				                                 args.get().subList().get().next());
 			}
 			else
 			{   // Apply a pure function {args,body}.
 				LispPtr args2 = new LispPtr();
-				args2.Set(args.Get().SubList().Get().Next().Get());
-				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,oper.Get().SubList() != null,1);
-				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,oper.Get().SubList().Get() != null,1);
-				LispStandard.InternalApplyPure(oper,args2,RESULT(aEnvironment, aStackTop),aEnvironment);
+				args2.set(args.get().subList().get().next().get());
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,oper.get().subList() != null,1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,oper.get().subList().get() != null,1);
+				LispStandard.internalApplyPure(oper,args2,RESULT(aEnvironment, aStackTop),aEnvironment);
 			}
 		}
 	}
@@ -3543,9 +3543,9 @@ public class MathCommands
 
 	class PiperPrettyReaderSet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			int nrArguments = LispStandard.InternalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+			int nrArguments = LispStandard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			if (nrArguments == 1)
 			{
 				aEnvironment.iPrettyReader = null;
@@ -3554,31 +3554,31 @@ public class MathCommands
 			{
 				LispError.CHK_CORE(aEnvironment, aStackTop,nrArguments == 2,LispError.KLispErrWrongNumberOfArgs);
 				LispPtr oper = new LispPtr();
-				oper.Set(ARGUMENT(aEnvironment, aStackTop, 0).Get());
-				oper.GoNext();
+				oper.set(ARGUMENT(aEnvironment, aStackTop, 0).get());
+				oper.goNext();
 				LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,oper,1);
-				aEnvironment.iPrettyReader = oper.Get().String();
+				aEnvironment.iPrettyReader = oper.get().string();
 			}
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class PiperPrettyReaderGet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			if (aEnvironment.iPrettyReader == null)
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,"\"\""));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
 			else
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.iPrettyReader));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.iPrettyReader));
 		}
 	}
 
 	class PiperPrettyPrinterSet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			int nrArguments = LispStandard.InternalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+			int nrArguments = LispStandard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			if (nrArguments == 1)
 			{
 				aEnvironment.iPrettyPrinter = null;
@@ -3587,38 +3587,38 @@ public class MathCommands
 			{
 				LispError.CHK_CORE(aEnvironment, aStackTop,nrArguments == 2,LispError.KLispErrWrongNumberOfArgs);
 				LispPtr oper = new LispPtr();
-				oper.Set(ARGUMENT(aEnvironment, aStackTop, 0).Get());
-				oper.GoNext();
+				oper.set(ARGUMENT(aEnvironment, aStackTop, 0).get());
+				oper.goNext();
 				LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,oper,1);
-				aEnvironment.iPrettyPrinter = oper.Get().String();
+				aEnvironment.iPrettyPrinter = oper.get().string();
 			}
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class PiperPrettyPrinterGet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			if (aEnvironment.iPrettyPrinter == null)
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,"\"\""));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
 			else
-				RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.iPrettyPrinter));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.iPrettyPrinter));
 		}
 	}
 
 	class LispGarbageCollect extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			aEnvironment.HashTable().GarbageCollect();
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			aEnvironment.hashTable().GarbageCollect();
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispPatchLoad extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : PatchLoad");//TODO FIXME
 			throw new Piperexception("Function not yet supported");
@@ -3627,7 +3627,7 @@ public class MathCommands
 
 	class LispPatchString extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : PatchString");//TODO FIXME
 			throw new Piperexception("Function not yet supported");
@@ -3636,53 +3636,53 @@ public class MathCommands
 
 	class PiperExtraInfoSet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr object = new LispPtr();
-			object.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			object.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			LispPtr info = new LispPtr();
-			info.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			info.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			RESULT(aEnvironment, aStackTop).Set( object.Get().SetExtraInfo(info) );
+			RESULT(aEnvironment, aStackTop).set( object.get().setExtraInfo(info) );
 		}
 	}
 
 	class PiperExtraInfoGet extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr object = new LispPtr();
-			object.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			object.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			LispPtr result = object.Get().ExtraInfo();
+			LispPtr result = object.get().extraInfo();
 			if (result == null)
 			{
-				LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+				LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 			}
-			else if (result.Get() == null)
+			else if (result.get() == null)
 			{
-				LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+				LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 			}
 			else
 			{
-				RESULT(aEnvironment, aStackTop).Set(result.Get());
+				RESULT(aEnvironment, aStackTop).set(result.get());
 			}
 		}
 	}
 
 	class LispDefaultTokenizer extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentTokenizer = aEnvironment.iDefaultTokenizer;
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispCommonLispTokenizer extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispCommonLispTokenizer");//TODO FIXME
 			throw new Piperexception("Function not yet supported");
@@ -3691,27 +3691,27 @@ public class MathCommands
 
 	class LispXmlTokenizer extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentTokenizer = aEnvironment.iXmlTokenizer;
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispExplodeTag extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr out = new LispPtr();
-			out.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			out.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,out,1);
 
-			String str = out.Get().String();
+			String str = out.get().string();
 			int strInd = 0;
 			strInd++;
 			if (str.charAt(strInd) != '<')
 			{
-				RESULT(aEnvironment, aStackTop).Set(out.Get());
+				RESULT(aEnvironment, aStackTop).set(out.get());
 				return;
 			}
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(strInd) == '<',1);
@@ -3726,7 +3726,7 @@ public class MathCommands
 			String tag = new String();
 
 			tag = tag + "\"";
-			while (LispTokenizer.IsAlpha(str.charAt(strInd)))
+			while (LispTokenizer.isAlpha(str.charAt(strInd)))
 			{
 				char c = str.charAt(strInd);
 				strInd++;
@@ -3744,7 +3744,7 @@ public class MathCommands
 				String name = new String();
 				name = name + "\"";
 
-				while (LispTokenizer.IsAlpha(str.charAt(strInd)))
+				while (LispTokenizer.isAlpha(str.charAt(strInd)))
 				{
 					char c = str.charAt(strInd);
 					strInd++;
@@ -3770,13 +3770,13 @@ public class MathCommands
 
 				//printf("[%s], [%s]\n",name.String(),value.String());
 				{
-					LispObject ls = LispAtom.New(aEnvironment,"List");
-					LispObject nm = LispAtom.New(aEnvironment,name);
-					LispObject vl = LispAtom.New(aEnvironment,value);
-					nm.Next().Set(vl);
-					ls.Next().Set(nm);
-					LispObject newinfo =  LispSubList.New(ls);
-					newinfo.Next().Set(info);
+					LispObject ls = LispAtom.newAtom(aEnvironment,"List");
+					LispObject nm = LispAtom.newAtom(aEnvironment,name);
+					LispObject vl = LispAtom.newAtom(aEnvironment,value);
+					nm.next().set(vl);
+					ls.next().set(nm);
+					LispObject newinfo =  LispSubList.newSubList(ls);
+					newinfo.next().set(info);
 					info = newinfo;
 				}
 				while (str.charAt(strInd) == ' ') strInd++;
@@ -3791,113 +3791,113 @@ public class MathCommands
 			}
 
 			{
-				LispObject ls = LispAtom.New(aEnvironment,"List");
-				ls.Next().Set(info);
-				info = LispSubList.New(ls);
+				LispObject ls = LispAtom.newAtom(aEnvironment,"List");
+				ls.next().set(info);
+				info = LispSubList.newSubList(ls);
 			}
 
-			LispObject xm = LispAtom.New(aEnvironment,"XmlTag");
-			LispObject tg = LispAtom.New(aEnvironment,tag);
-			LispObject tp = LispAtom.New(aEnvironment,type);
-			info.Next().Set(tp);
-			tg.Next().Set(info);
-			xm.Next().Set(tg);
-			RESULT(aEnvironment, aStackTop).Set(LispSubList.New(xm));
+			LispObject xm = LispAtom.newAtom(aEnvironment,"XmlTag");
+			LispObject tg = LispAtom.newAtom(aEnvironment,tag);
+			LispObject tp = LispAtom.newAtom(aEnvironment,type);
+			info.next().set(tp);
+			tg.next().set(info);
+			xm.next().set(tg);
+			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(xm));
 
 		}
 	}
 
 	class PiperBuiltinAssoc extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// key to find
 			LispPtr key = new LispPtr();
-			key.Set(ARGUMENT(aEnvironment, aStackTop, 1).Get());
+			key.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// assoc-list to find it in
 			LispPtr list = new LispPtr();
-			list.Set(ARGUMENT(aEnvironment, aStackTop, 2).Get());
+			list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
 			LispObject t;
 
 			//Check that it is a compound object
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,list.Get().SubList() != null, 2);
-			t = list.Get().SubList().Get();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,list.get().subList() != null, 2);
+			t = list.get().subList().get();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,t != null, 2);
-			t = t.Next().Get();
+			t = t.next().get();
 
 			while (t != null)
 			{
-				if (t.SubList() != null)
+				if (t.subList() != null)
 				{
-					LispObject sub = t.SubList().Get();
+					LispObject sub = t.subList().get();
 					if (sub != null)
 					{
-						sub = sub.Next().Get();
+						sub = sub.next().get();
 						LispPtr temp = new LispPtr();
-						temp.Set(sub);
-						if(LispStandard.InternalEquals(aEnvironment,key,temp))
+						temp.set(sub);
+						if(LispStandard.internalEquals(aEnvironment,key,temp))
 						{
-							RESULT(aEnvironment, aStackTop).Set(t);
+							RESULT(aEnvironment, aStackTop).set(t);
 							return;
 						}
 					}
 				}
-				t = t.Next().Get();
+				t = t.next().get();
 			}
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,"Empty"));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"Empty"));
 		}
 	}
 
 	class LispCurrentFile extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,aEnvironment.HashTable().LookUpStringify(aEnvironment.iInputStatus.FileName())));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().LookUpStringify(aEnvironment.iInputStatus.FileName())));
 		}
 	}
 
 	class LispCurrentLine extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).Set(LispAtom.New(aEnvironment,""+aEnvironment.iInputStatus.LineNumber()));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+aEnvironment.iInputStatus.LineNumber()));
 		}
 	}
 
 	class LispBackQuote extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BackQuoteBehaviour behaviour = new BackQuoteBehaviour(aEnvironment);
 			LispPtr result = new LispPtr();
-			LispStandard.InternalSubstitute(result, ARGUMENT(aEnvironment, aStackTop,  1), behaviour);
-			aEnvironment.iEvaluator.Eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
+			LispStandard.internalSubstitute(result, ARGUMENT(aEnvironment, aStackTop,  1), behaviour);
+			aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
 		}
 	}
 
 	class LispDumpBigNumberDebugInfo extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
 			x.DumpDebugInfo(aEnvironment.iCurrentOutput);
-			LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispInDebugMode extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispDebugFile extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			throw new Exception("Cannot call DebugFile in non-debug version of Piper");
 		}
@@ -3905,7 +3905,7 @@ public class MathCommands
 
 	class LispDebugLine extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			throw new Exception("Cannot call DebugLine in non-debug version of Piper");
 		}
@@ -3913,16 +3913,16 @@ public class MathCommands
 
 	class LispVersion extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment,aStackTop).Set(LispAtom.New(aEnvironment,"\"" + CVersion.version + "\""));
+			RESULT(aEnvironment,aStackTop).set(LispAtom.newAtom(aEnvironment,"\"" + CVersion.version + "\""));
 		}
 	}
 
 
 	class LispExit extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			Runtime.getRuntime().exit(0);
 		}
@@ -3930,15 +3930,15 @@ public class MathCommands
 
 	class LispExitRequested extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			LispStandard.InternalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
+			LispStandard.internalFalse(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
 
 	class LispHistorySize extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispHistorySize");//TODO FIXME
 			throw new Piperexception("Function not yet supported");
@@ -3947,7 +3947,7 @@ public class MathCommands
 
 	class LispStackSize extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispStackSize");//TODO FIXME
 			throw new Piperexception("Function not yet supported");
@@ -3956,7 +3956,7 @@ public class MathCommands
 
 	class LispIsPromptShown extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispIsPromptShown");//TODO FIXME
 			throw new Piperexception("Function not yet supported");
@@ -3965,7 +3965,7 @@ public class MathCommands
 
 	class LispReadCmdLineString extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispReadCmdLineString");//TODO FIXME
 			throw new Piperexception("Function not yet supported");
@@ -3974,28 +3974,28 @@ public class MathCommands
 
 	class LispTime extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			long starttime = System.currentTimeMillis();
 			LispPtr res = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, res, ARGUMENT(aEnvironment,aStackTop,1));
+			aEnvironment.iEvaluator.eval(aEnvironment, res, ARGUMENT(aEnvironment,aStackTop,1));
 			long endtime = System.currentTimeMillis();
 			double timeDiff;
 			timeDiff = endtime-starttime;
 			timeDiff /= 1000.0;
-			RESULT(aEnvironment,aStackTop).Set(LispAtom.New(aEnvironment,""+timeDiff));
+			RESULT(aEnvironment,aStackTop).set(LispAtom.newAtom(aEnvironment,""+timeDiff));
 		}
 	}
 
 	class LispFileSize extends PiperEvalCaller
 	{
-		public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
+		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			LispPtr fnameObject = new LispPtr();
-			fnameObject.Set(ARGUMENT(aEnvironment,aStackTop,1).Get());
+			fnameObject.set(ARGUMENT(aEnvironment,aStackTop,1).get());
 			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,fnameObject,1);
-			String fname = LispStandard.InternalUnstringify(fnameObject.Get().String());
-			String hashedname = aEnvironment.HashTable().LookUp(fname);
+			String fname = LispStandard.internalUnstringify(fnameObject.get().string());
+			String hashedname = aEnvironment.hashTable().LookUp(fname);
 
 			long fileSize = 0;
 			InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);
@@ -4004,7 +4004,7 @@ public class MathCommands
 			{
 				// Open file
 				LispInput newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
-				        LispStandard.OpenInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+				        LispStandard.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
 				LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
 				fileSize = newInput.StartPtr().length();
@@ -4017,7 +4017,7 @@ public class MathCommands
 			{
 				aEnvironment.iInputStatus.RestoreFrom(oldstatus);
 			}
-			RESULT(aEnvironment,aStackTop).Set(LispAtom.New(aEnvironment,""+fileSize));
+			RESULT(aEnvironment,aStackTop).set(LispAtom.newAtom(aEnvironment,""+fileSize));
 		}
 	}
 

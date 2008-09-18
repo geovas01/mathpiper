@@ -35,7 +35,7 @@ public class LispPtrArray
 		for(i=0;i<aSize;i++)
 		{
 			iArray[i] = new LispPtr();
-			iArray[i].Set(aInitialItem);
+			iArray[i].set(aInitialItem);
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class LispPtrArray
 	
 	public void SetElement(int aItem,LispObject aObject)
 	{
-		iArray[aItem].Set(aObject);
+		iArray[aItem].set(aObject);
 	}
 
 }

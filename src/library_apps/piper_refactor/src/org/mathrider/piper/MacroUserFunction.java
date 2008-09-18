@@ -35,7 +35,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		int i=0;
 		while (iter.GetObject() != null)
 		{
-			LispError.Check(iter.GetObject().String() != null,LispError.KLispErrCreatingUserFunction);
+			LispError.Check(iter.GetObject().string() != null,LispError.KLispErrCreatingUserFunction);
 			((BranchParameter)iParameters.get(i)).iHold = true;
 			iter.GoNext();
 			i++;
@@ -78,12 +78,12 @@ public class MacroUserFunction extends BranchingUserFunction
 			LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
-				arguments[i].Set(iter.GetObject().Copy(false));
+				arguments[i].set(iter.GetObject().copy(false));
 			}
 			else
 			{
 				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.Eval(aEnvironment, arguments[i], iter.Ptr());
+				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.Ptr());
 			}
 			iter.GoNext();
 		}
@@ -104,7 +104,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		LispPtr substedBody = new LispPtr();
 		{
 			// declare a new local stack.
-			aEnvironment.PushLocalFrame(false);
+			aEnvironment.pushLocalFrame(false);
 			try
 			{
 				// define the local variables.
@@ -112,13 +112,13 @@ public class MacroUserFunction extends BranchingUserFunction
 				{
 					String variable = ((BranchParameter)iParameters.get(i)).iParameter;
 					// set the variable to the new value
-					aEnvironment.NewLocal(variable,arguments[i].Get());
+					aEnvironment.newLocal(variable,arguments[i].get());
 				}
 
 				// walk the rules database, returning the evaluated result if the
 				// predicate is true.
 				int nrRules = iRules.size();
-				UserStackInformation st = aEnvironment.iEvaluator.StackInformation();
+				UserStackInformation st = aEnvironment.iEvaluator.stackInformation();
 				for (i=0;i<nrRules;i++)
 				{
 					BranchRuleBase thisRule = ((BranchRuleBase)iRules.get(i));
@@ -132,7 +132,7 @@ public class MacroUserFunction extends BranchingUserFunction
 						st.iSide = 1;
 
 						BackQuoteBehaviour behaviour = new BackQuoteBehaviour(aEnvironment);
-						LispStandard.InternalSubstitute(substedBody, thisRule.Body(), behaviour);
+						LispStandard.internalSubstitute(substedBody, thisRule.Body(), behaviour);
 						//              aEnvironment.iEvaluator.Eval(aEnvironment, aResult, thisRule.Body());
 						break;
 					}
@@ -147,34 +147,34 @@ public class MacroUserFunction extends BranchingUserFunction
 			}
 			finally
 			{
-				aEnvironment.PopLocalFrame();
+				aEnvironment.popLocalFrame();
 			}
 		}
 
 
-		if (substedBody.Get() != null)
+		if (substedBody.get() != null)
 		{
-			aEnvironment.iEvaluator.Eval(aEnvironment, aResult, substedBody);
+			aEnvironment.iEvaluator.eval(aEnvironment, aResult, substedBody);
 		}
 		else
 			// No predicate was true: return a new expression with the evaluated
 			// arguments.
 		{
 			LispPtr full = new LispPtr();
-			full.Set(aArguments.Get().Copy(false));
+			full.set(aArguments.get().copy(false));
 			if (arity == 0)
 			{
-				full.Get().Next().Set(null);
+				full.get().next().set(null);
 			}
 			else
 			{
-				full.Get().Next().Set(arguments[0].Get());
+				full.get().next().set(arguments[0].get());
 				for (i=0;i<arity-1;i++)
 				{
-					arguments[i].Get().Next().Set(arguments[i+1].Get());
+					arguments[i].get().next().set(arguments[i+1].get());
 				}
 			}
-			aResult.Set(LispSubList.New(full.Get()));
+			aResult.set(LispSubList.newSubList(full.get()));
 		}
 		//FINISH:
 		/*TODO fixme

@@ -56,7 +56,7 @@ public class InfixParser extends LispParser
 	{
 		ParsedObject object = new ParsedObject(this);
 		object.Parse();
-		aResult.Set(object.iResult.Get());
+		aResult.set(object.iResult.get());
 		return ;
 	}
 

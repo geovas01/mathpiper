@@ -59,13 +59,13 @@ public class LispNumber extends LispObject
 		//TODO FIXME enable this in the end    Number(aBasePrecision);
 	}
 
-	public LispObject Copy(boolean aRecursed)
+	public LispObject copy(boolean aRecursed)
 	{
 		return new LispNumber(iNumber, iString);
 	}
 
 	/// return a string representation in decimal with maximum decimal precision allowed by the inherent accuracy of the number
-	public String String() throws Exception
+	public String string() throws Exception
 	{
 		if (iString == null)
 		{
@@ -77,7 +77,7 @@ public class LispNumber extends LispObject
 	}
 
 	/// give access to the BigNumber object; if necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
-	public BigNumber Number(int aPrecision) throws Exception
+	public BigNumber number(int aPrecision) throws Exception
 	{
 		if (iNumber == null)
 		{  // create and store a BigNumber out of string
@@ -107,7 +107,7 @@ public class LispNumber extends LispObject
 	}
 
 	/// annotate
-	public LispObject SetExtraInfo(LispPtr aData)
+	public LispObject setExtraInfo(LispPtr aData)
 	{
 		/*TODO FIXME
 		LispObject* result = NEW LispAnnotatedObject<LispNumber>(this);

@@ -26,7 +26,7 @@ import org.mathrider.piper.lisp.PiperArgStack;
 
 public abstract class PiperEvalCaller
 {
-	public abstract void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception;
+	public abstract void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception;
 
 	public static LispPtr RESULT(LispEnvironment aEnvironment,int aStackTop) throws Exception
 	{
@@ -46,7 +46,7 @@ public abstract class PiperEvalCaller
 		while(n != 0)
 		{
 			n--;
-			loop = loop.Get().Next();
+			loop = loop.get().next();
 		}
 		return loop;
 	}

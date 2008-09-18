@@ -27,11 +27,11 @@ public class LispLocalFrame
 	public LispLocalFrame(LispEnvironment aEnvironment, boolean aFenced)
 	{
 		iEnvironment = aEnvironment;
-		iEnvironment.PushLocalFrame(aFenced);
+		iEnvironment.pushLocalFrame(aFenced);
 	}
 	public void Delete() throws Exception
 	{
-		iEnvironment.PopLocalFrame();
+		iEnvironment.popLocalFrame();
 	}
 
 }
