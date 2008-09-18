@@ -361,7 +361,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 					AddLineStatic(100, ""," '" + scriptBase + "'.", font, Color.red);
 				}
 				try{
-					piper.Evaluate("DefaultDirectory(\""+scriptBase+"\");");
+					piper.evaluate("DefaultDirectory(\""+scriptBase+"\");");
 				}
 				catch(Piperexception ye)
 				{
@@ -387,7 +387,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			s = unescape(s);
 
 			try{
-				piper.Evaluate(s);
+				piper.evaluate(s);
 			}
 			catch(Piperexception ye)
 			{
@@ -896,7 +896,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			outp.delete(0,outp.length());
 			String response = "";
 			try{
-				response = piper.Evaluate(inputLine);
+				response = piper.evaluate(inputLine);
 			}
 			catch(Piperexception ye)
 			{
@@ -1508,7 +1508,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 		{
 			if (ito==inputLine.length())
 				break;
-			if (!LispTokenizer.IsAlpha(inputLine.charAt(ito)))
+			if (!LispTokenizer.isAlpha(inputLine.charAt(ito)))
 				break;
 			ito++;
 		}
@@ -1546,7 +1546,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			{
 				if (ito==cursorPos)
 					break;
-				if (!LispTokenizer.IsAlpha(inputLine.charAt(ito)))
+				if (!LispTokenizer.isAlpha(inputLine.charAt(ito)))
 					break;
 				ito++;
 			}
@@ -1557,12 +1557,12 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			if (ifrom == 0)
 				break;
 			char c = inputLine.charAt(ifrom-1);
-			if (!LispTokenizer.IsAlpha(c) && !LispTokenizer.IsDigit(c))
+			if (!LispTokenizer.isAlpha(c) && !LispTokenizer.isDigit(c))
 				break;
 			ifrom--;
 		}
 		// Name of function *has* to start with alphabetic letter
-		while (ifrom < ito && LispTokenizer.IsDigit(inputLine.charAt(ifrom)))
+		while (ifrom < ito && LispTokenizer.isDigit(inputLine.charAt(ifrom)))
 			ifrom++;
 
 		matchToInsert = "";
@@ -1655,7 +1655,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 		if (!gotDatahubInit) start();
 		String result = "";
 		try{
-			result = piper.Evaluate(expression);
+			result = piper.evaluate(expression);
 		}
 		catch(Piperexception ye)
 		{
@@ -1745,7 +1745,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				outp.delete(0,outp.length());
 
 				try{
-					String response = piper.Evaluate(expression);
+					String response = piper.evaluate(expression);
 				}
 				catch(Piperexception ye)
 				{

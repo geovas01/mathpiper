@@ -66,7 +66,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 
 	public static java.util.zip.ZipFile zipFile = null;
 
-	public static boolean IsNumber(String ptr, boolean aAllowFloat)
+	public static boolean isNumber(String ptr, boolean aAllowFloat)
 	{
 		int pos = 0;
 		if (ptr.charAt(pos) == '-' || ptr.charAt(pos) == '+')
@@ -121,7 +121,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		return true;
 	}
 
-	public static int InternalListLength(LispPtr aOriginal) throws Exception
+	public static int internalListLength(LispPtr aOriginal) throws Exception
 	{
 		LispIterator iter = new LispIterator(aOriginal);
 		int length = 0;
@@ -133,28 +133,28 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		return length;
 	}
 
-	public static void InternalReverseList(LispPtr aResult, LispPtr aOriginal)
+	public static void internalReverseList(LispPtr aResult, LispPtr aOriginal)
 	{
 		LispPtr iter = new LispPtr(aOriginal);
 		LispPtr previous = new LispPtr();
 		LispPtr tail = new LispPtr();
-		tail.Set(aOriginal.Get());
+		tail.set(aOriginal.get());
 
-		while (iter.Get() != null)
+		while (iter.get() != null)
 		{
-			tail.Set(iter.Get().Next().Get());
-			iter.Get().Next().Set(previous.Get());
-			previous.Set(iter.Get());
-			iter.Set(tail.Get());
+			tail.set(iter.get().next().get());
+			iter.get().next().set(previous.get());
+			previous.set(iter.get());
+			iter.set(tail.get());
 		}
-		aResult.Set(previous.Get());
+		aResult.set(previous.get());
 	}
 
-	public static void ReturnUnEvaluated(LispPtr aResult,LispPtr aArguments, LispEnvironment aEnvironment) throws Exception
+	public static void returnUnEvaluated(LispPtr aResult,LispPtr aArguments, LispEnvironment aEnvironment) throws Exception
 	{
 		LispPtr full = new LispPtr();
-		full.Set(aArguments.Get().Copy(false));
-		aResult.Set(LispSubList.New(full.Get()));
+		full.set(aArguments.get().copy(false));
+		aResult.set(LispSubList.newSubList(full.get()));
 
 		LispIterator iter = new LispIterator(aArguments);
 		iter.GoNext();
@@ -162,97 +162,97 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		while (iter.GetObject() != null)
 		{
 			LispPtr next = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, next, iter.Ptr());
-			full.Get().Next().Set(next.Get());
-			full.Set(next.Get());
+			aEnvironment.iEvaluator.eval(aEnvironment, next, iter.Ptr());
+			full.get().next().set(next.get());
+			full.set(next.get());
 			iter.GoNext();
 		}
-		full.Get().Next().Set(null);
+		full.get().next().set(null);
 	}
 
 
 
 
-	public static void InternalApplyString(LispEnvironment aEnvironment, LispPtr aResult,
+	public static void internalApplyString(LispEnvironment aEnvironment, LispPtr aResult,
 	                                       String aOperator,LispPtr aArgs) throws Exception
 	{
-		LispError.Check(InternalIsString(aOperator),LispError.KLispErrNotString);
+		LispError.Check(internalIsString(aOperator),LispError.KLispErrNotString);
 
 		LispObject head =
-		        LispAtom.New(aEnvironment,SymbolName(aEnvironment, aOperator));
-		head.Next().Set(aArgs.Get());
+		        LispAtom.newAtom(aEnvironment,symbolName(aEnvironment, aOperator));
+		head.next().set(aArgs.get());
 		LispPtr body = new LispPtr();
-		body.Set(LispSubList.New(head));
-		aEnvironment.iEvaluator.Eval(aEnvironment, aResult, body);
+		body.set(LispSubList.newSubList(head));
+		aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
 	}
 
-	public static void InternalApplyPure(LispPtr oper,LispPtr args2,LispPtr aResult, LispEnvironment aEnvironment) throws Exception
+	public static void internalApplyPure(LispPtr oper,LispPtr args2,LispPtr aResult, LispEnvironment aEnvironment) throws Exception
 	{
-		LispError.Check(oper.Get().SubList() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(oper.Get().SubList().Get() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(oper.get().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(oper.get().subList().get() != null,LispError.KLispErrInvalidArg);
 		LispPtr oper2 = new LispPtr();
-		oper2.Set(oper.Get().SubList().Get().Next().Get());
-		LispError.Check(oper2.Get() != null,LispError.KLispErrInvalidArg);
+		oper2.set(oper.get().subList().get().next().get());
+		LispError.Check(oper2.get() != null,LispError.KLispErrInvalidArg);
 
 		LispPtr body = new LispPtr();
-		body.Set(oper2.Get().Next().Get());
-		LispError.Check(body.Get() != null,LispError.KLispErrInvalidArg);
+		body.set(oper2.get().next().get());
+		LispError.Check(body.get() != null,LispError.KLispErrInvalidArg);
 
-		LispError.Check(oper2.Get().SubList() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(oper2.Get().SubList().Get() != null,LispError.KLispErrInvalidArg);
-		oper2.Set(oper2.Get().SubList().Get().Next().Get());
+		LispError.Check(oper2.get().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(oper2.get().subList().get() != null,LispError.KLispErrInvalidArg);
+		oper2.set(oper2.get().subList().get().next().get());
 
-		aEnvironment.PushLocalFrame(false);
+		aEnvironment.pushLocalFrame(false);
 		try
 		{
-			while (oper2.Get() != null)
+			while (oper2.get() != null)
 			{
-				LispError.Check(args2.Get() != null,LispError.KLispErrInvalidArg);
+				LispError.Check(args2.get() != null,LispError.KLispErrInvalidArg);
 
-				String var = oper2.Get().String();
+				String var = oper2.get().string();
 				LispError.Check(var != null,LispError.KLispErrInvalidArg);
 				LispPtr newly = new LispPtr();
-				newly.Set(args2.Get().Copy(false));
-				aEnvironment.NewLocal(var,newly.Get());
-				oper2.Set(oper2.Get().Next().Get());
-				args2.Set(args2.Get().Next().Get());
+				newly.set(args2.get().copy(false));
+				aEnvironment.newLocal(var,newly.get());
+				oper2.set(oper2.get().next().get());
+				args2.set(args2.get().next().get());
 			}
-			LispError.Check(args2.Get() == null,LispError.KLispErrInvalidArg);
-			aEnvironment.iEvaluator.Eval(aEnvironment, aResult, body);
+			LispError.Check(args2.get() == null,LispError.KLispErrInvalidArg);
+			aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
 		}
 		catch (Piperexception e) { throw e; }
-		finally { aEnvironment.PopLocalFrame(); }
+		finally { aEnvironment.popLocalFrame(); }
 
 	}
 
-	public static void InternalTrue(LispEnvironment aEnvironment, LispPtr aResult) throws Exception
+	public static void internalTrue(LispEnvironment aEnvironment, LispPtr aResult) throws Exception
 	{
-		aResult.Set(aEnvironment.iTrue.Copy(false));
+		aResult.set(aEnvironment.iTrue.copy(false));
 	}
 
-	public static void InternalFalse(LispEnvironment aEnvironment, LispPtr aResult) throws Exception
+	public static void internalFalse(LispEnvironment aEnvironment, LispPtr aResult) throws Exception
 	{
-		aResult.Set(aEnvironment.iFalse.Copy(false));
+		aResult.set(aEnvironment.iFalse.copy(false));
 	}
 
-	public static void InternalBoolean(LispEnvironment aEnvironment, LispPtr aResult, boolean aValue) throws Exception
+	public static void internalBoolean(LispEnvironment aEnvironment, LispPtr aResult, boolean aValue) throws Exception
 	{
 		if (aValue)
 		{
-			InternalTrue(aEnvironment, aResult);
+			internalTrue(aEnvironment, aResult);
 		}
 		else
 		{
-			InternalFalse(aEnvironment, aResult);
+			internalFalse(aEnvironment, aResult);
 		}
 	}
 
-	public static void InternalNth(LispPtr aResult, LispPtr aArg, int n) throws Exception
+	public static void internalNth(LispPtr aResult, LispPtr aArg, int n) throws Exception
 	{
-		LispError.Check(aArg.Get() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(aArg.Get().SubList() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(aArg.get() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
 		LispError.Check(n>=0,LispError.KLispErrInvalidArg);
-		LispIterator iter = new LispIterator(aArg.Get().SubList());
+		LispIterator iter = new LispIterator(aArg.get().subList());
 
 		while (n>0)
 		{
@@ -261,59 +261,59 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 			n--;
 		}
 		LispError.Check(iter.GetObject() != null,LispError.KLispErrInvalidArg);
-		aResult.Set(iter.GetObject().Copy(false));
+		aResult.set(iter.GetObject().copy(false));
 	}
 
-	public static void InternalTail(LispPtr aResult, LispPtr aArg) throws Exception
+	public static void internalTail(LispPtr aResult, LispPtr aArg) throws Exception
 	{
-		LispError.Check(aArg.Get() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(aArg.Get().SubList() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(aArg.get() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
 
-		LispPtr iter = aArg.Get().SubList();
+		LispPtr iter = aArg.get().subList();
 
-		LispError.Check(iter.Get() != null,LispError.KLispErrInvalidArg);
-		aResult.Set(LispSubList.New(iter.Get().Next().Get()));
+		LispError.Check(iter.get() != null,LispError.KLispErrInvalidArg);
+		aResult.set(LispSubList.newSubList(iter.get().next().get()));
 	}
 
-	public static boolean IsTrue(LispEnvironment aEnvironment, LispPtr aExpression) throws Exception
+	public static boolean isTrue(LispEnvironment aEnvironment, LispPtr aExpression) throws Exception
 	{
-		LispError.LISPASSERT(aExpression.Get() != null);
-		return aExpression.Get().String() == aEnvironment.iTrue.String();
+		LispError.LISPASSERT(aExpression.get() != null);
+		return aExpression.get().string() == aEnvironment.iTrue.string();
 	}
 
-	public static boolean IsFalse(LispEnvironment aEnvironment, LispPtr aExpression) throws Exception
+	public static boolean isFalse(LispEnvironment aEnvironment, LispPtr aExpression) throws Exception
 	{
-		LispError.LISPASSERT(aExpression.Get() != null);
-		return aExpression.Get().String() == aEnvironment.iFalse.String();
+		LispError.LISPASSERT(aExpression.get() != null);
+		return aExpression.get().string() == aEnvironment.iFalse.string();
 	}
 
-	public static String SymbolName(LispEnvironment aEnvironment, String aSymbol)
+	public static String symbolName(LispEnvironment aEnvironment, String aSymbol)
 	{
 		if (aSymbol.charAt(0) == '\"')
 		{
-			return aEnvironment.HashTable().LookUpUnStringify(aSymbol);
+			return aEnvironment.hashTable().LookUpUnStringify(aSymbol);
 		}
 		else
 		{
-			return aEnvironment.HashTable().LookUp(aSymbol);
+			return aEnvironment.hashTable().LookUp(aSymbol);
 		}
 	}
 
-	public static boolean InternalIsList(LispPtr aPtr) throws Exception
+	public static boolean internalIsList(LispPtr aPtr) throws Exception
 	{
-		if (aPtr.Get() == null)
+		if (aPtr.get() == null)
 			return false;
-		if (aPtr.Get().SubList() == null)
+		if (aPtr.get().subList() == null)
 			return false;
-		if (aPtr.Get().SubList().Get() == null)
+		if (aPtr.get().subList().get() == null)
 			return false;
 		//TODO this StrEqual is far from perfect. We could pass in a LispEnvironment object...
-		if (!aPtr.Get().SubList().Get().String().equals("List"))
+		if (!aPtr.get().subList().get().string().equals("List"))
 			return false;
 		return true;
 	}
 
-	public static boolean InternalIsString(String aOriginal)
+	public static boolean internalIsString(String aOriginal)
 	{
 		if (aOriginal != null)
 			if (aOriginal.charAt(0) == '\"')
@@ -322,43 +322,43 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		return false;
 	}
 
-	public static void InternalNot(LispPtr aResult, LispEnvironment aEnvironment, LispPtr aExpression) throws Exception
+	public static void internalNot(LispPtr aResult, LispEnvironment aEnvironment, LispPtr aExpression) throws Exception
 	{
-		if (IsTrue(aEnvironment, aExpression))
+		if (isTrue(aEnvironment, aExpression))
 		{
-			InternalFalse(aEnvironment,aResult);
+			internalFalse(aEnvironment,aResult);
 		}
 		else
 		{
-			LispError.Check(IsFalse(aEnvironment, aExpression),LispError.KLispErrInvalidArg);
-			InternalTrue(aEnvironment,aResult);
+			LispError.Check(isFalse(aEnvironment, aExpression),LispError.KLispErrInvalidArg);
+			internalTrue(aEnvironment,aResult);
 		}
 	}
 
-	public static void InternalFlatCopy(LispPtr aResult, LispPtr aOriginal) throws Exception
+	public static void internalFlatCopy(LispPtr aResult, LispPtr aOriginal) throws Exception
 	{
 		LispIterator orig = new LispIterator(aOriginal);
 		LispIterator res = new LispIterator(aResult);
 
 		while (orig.GetObject() != null)
 		{
-			res.Ptr().Set(orig.GetObject().Copy(false));
+			res.Ptr().set(orig.GetObject().copy(false));
 			orig.GoNext();
 			res.GoNext();
 		}
 	}
 
 
-	public static boolean InternalEquals(LispEnvironment aEnvironment, LispPtr aExpression1, LispPtr aExpression2) throws Exception
+	public static boolean internalEquals(LispEnvironment aEnvironment, LispPtr aExpression1, LispPtr aExpression2) throws Exception
 	{
 		// Handle pointers to same, or null
-		if (aExpression1.Get() == aExpression2.Get())
+		if (aExpression1.get() == aExpression2.get())
 		{
 			return true;
 		}
 
-		BigNumber n1 = aExpression1.Get().Number(aEnvironment.Precision());
-		BigNumber n2 = aExpression2.Get().Number(aEnvironment.Precision());
+		BigNumber n1 = aExpression1.get().number(aEnvironment.precision());
+		BigNumber n2 = aExpression2.get().number(aEnvironment.precision());
 		if (!(n1 == null && n2 == null) )
 		{
 			if (n1 == n2)
@@ -372,31 +372,31 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		}
 
 		//Pointers to strings should be the same
-		if (aExpression1.Get().String() != aExpression2.Get().String())
+		if (aExpression1.get().string() != aExpression2.get().string())
 		{
 			return false;
 		}
 
 		// Handle same sublists, or null
-		if (aExpression1.Get().SubList() == aExpression2.Get().SubList())
+		if (aExpression1.get().subList() == aExpression2.get().subList())
 		{
 			return true;
 		}
 
 		// Now check the sublists
-		if (aExpression1.Get().SubList() != null)
+		if (aExpression1.get().subList() != null)
 		{
-			if (aExpression2.Get().SubList() == null)
+			if (aExpression2.get().subList() == null)
 			{
 				return false;
 			}
-			LispIterator iter1 = new LispIterator(aExpression1.Get().SubList());
-			LispIterator iter2 = new LispIterator(aExpression2.Get().SubList());
+			LispIterator iter1 = new LispIterator(aExpression1.get().subList());
+			LispIterator iter2 = new LispIterator(aExpression2.get().subList());
 
 			while (iter1.GetObject() != null && iter2.GetObject() != null)
 			{
 				// compare two list elements
-				if (!InternalEquals(aEnvironment, iter1.Ptr(),iter2.Ptr()))
+				if (!internalEquals(aEnvironment, iter1.Ptr(),iter2.Ptr()))
 				{
 					return false;
 				}
@@ -418,33 +418,33 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 	}
 
 
-	public static void InternalSubstitute(LispPtr aTarget, LispPtr aSource, SubstBehaviourBase aBehaviour) throws Exception
+	public static void internalSubstitute(LispPtr aTarget, LispPtr aSource, SubstBehaviourBase aBehaviour) throws Exception
 	{
-		LispObject object = aSource.Get();
+		LispObject object = aSource.get();
 		LispError.LISPASSERT(object != null);
-		if (!aBehaviour.Matches(aTarget,aSource))
+		if (!aBehaviour.matches(aTarget,aSource))
 		{
-			LispPtr oldList = object.SubList();
+			LispPtr oldList = object.subList();
 			if (oldList != null)
 			{
 				LispPtr newList = new LispPtr();
 				LispPtr next = newList;
-				while (oldList.Get() != null)
+				while (oldList.get() != null)
 				{
-					InternalSubstitute(next, oldList, aBehaviour);
-					oldList = oldList.Get().Next();
-					next = next.Get().Next();
+					internalSubstitute(next, oldList, aBehaviour);
+					oldList = oldList.get().next();
+					next = next.get().next();
 				}
-				aTarget.Set(LispSubList.New(newList.Get()));
+				aTarget.set(LispSubList.newSubList(newList.get()));
 			}
 			else
 			{
-				aTarget.Set(object.Copy(false));
+				aTarget.set(object.copy(false));
 			}
 		}
 	}
 
-	public static String InternalUnstringify(String aOriginal) throws Exception
+	public static String internalUnstringify(String aOriginal) throws Exception
 	{
 		LispError.Check(aOriginal != null,LispError.KLispErrInvalidArg);
 		LispError.Check(aOriginal.charAt(0) == '\"',LispError.KLispErrInvalidArg);
@@ -456,7 +456,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 
 
 
-	public static void DoInternalLoad(LispEnvironment aEnvironment,LispInput aInput) throws Exception
+	public static void doInternalLoad(LispEnvironment aEnvironment,LispInput aInput) throws Exception
 	{
 		LispInput previous = aEnvironment.iCurrentInput;
 		try
@@ -464,7 +464,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 			aEnvironment.iCurrentInput = aInput;
 			// TODO make "EndOfFile" a global thing
 			// read-parse-eval to the end of file
-			String eof = aEnvironment.HashTable().LookUp("EndOfFile");
+			String eof = aEnvironment.hashTable().LookUp("EndOfFile");
 			boolean endoffile = false;
 			InfixParser parser = new InfixParser(new LispTokenizer(),
 			                                     aEnvironment.iCurrentInput, aEnvironment,
@@ -476,9 +476,9 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 				// Read expression
 				parser.Parse(readIn);
 
-				LispError.Check(readIn.Get() != null, LispError.KLispErrReadingFile);
+				LispError.Check(readIn.get() != null, LispError.KLispErrReadingFile);
 				// Check for end of file
-				if (readIn.Get().String() == eof)
+				if (readIn.get().string() == eof)
 				{
 					endoffile = true;
 				}
@@ -486,7 +486,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 				else
 				{
 					LispPtr result = new LispPtr();
-					aEnvironment.iEvaluator.Eval(aEnvironment, result, readIn);
+					aEnvironment.iEvaluator.eval(aEnvironment, result, readIn);
 				}
 			}
 		}
@@ -502,11 +502,11 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 
 
 
-	public static void InternalLoad(LispEnvironment aEnvironment,String aFileName) throws Exception
+	public static void internalLoad(LispEnvironment aEnvironment,String aFileName) throws Exception
 	{
-		String oper = InternalUnstringify(aFileName);
+		String oper = internalUnstringify(aFileName);
 
-		String hashedname = aEnvironment.HashTable().LookUp(oper);
+		String hashedname = aEnvironment.hashTable().LookUp(oper);
 
 		InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);
 		aEnvironment.iInputStatus.SetTo(hashedname);
@@ -514,10 +514,10 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		{
 			// Open file
 			LispInput newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
-			        OpenInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+			        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
 			LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
-			DoInternalLoad(aEnvironment,newInput);
+			doInternalLoad(aEnvironment,newInput);
 		}
 		catch (Exception e)
 		{
@@ -529,17 +529,17 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		}
 	}
 
-	public static void InternalUse(LispEnvironment aEnvironment,String aFileName) throws Exception
+	public static void internalUse(LispEnvironment aEnvironment,String aFileName) throws Exception
 	{
 		LispDefFile def = aEnvironment.iDefFiles.File(aFileName);
 		if (!def.IsLoaded())
 		{
 			def.SetLoaded();
-			InternalLoad(aEnvironment,aFileName);
+			internalLoad(aEnvironment,aFileName);
 		}
 	}
 
-	public static String PrintExpression(LispPtr aExpression,
+	public static String printExpression(LispPtr aExpression,
 	                              LispEnvironment aEnvironment,
 	                              int aMaxChars) throws Exception
 	{
@@ -561,7 +561,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 	}
 
 
-	public static LispInput OpenInputFile(String aFileName, InputStatus aInputStatus) throws Exception
+	public static LispInput openInputFile(String aFileName, InputStatus aInputStatus) throws Exception
 	{
 		try
 		{
@@ -590,34 +590,34 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		return null;
 	}
 
-	public static LispInput OpenInputFile(LispEnvironment aEnvironment,
+	public static LispInput openInputFile(LispEnvironment aEnvironment,
 	                                      InputDirectories aInputDirectories, String aFileName,
 	                                      InputStatus aInputStatus) throws Exception
 	{
 		String othername = aFileName;
 		int i = 0;
-		LispInput f = OpenInputFile(othername, aInputStatus);
+		LispInput f = openInputFile(othername, aInputStatus);
 		while (f == null && i<aInputDirectories.size())
 		{
 			othername = ((String)aInputDirectories.get(i)) + aFileName;
-			f = OpenInputFile(othername, aInputStatus);
+			f = openInputFile(othername, aInputStatus);
 			i++;
 		}
 		return f;
 	}
 
 
-	public static String InternalFindFile(String aFileName, InputDirectories aInputDirectories) throws Exception
+	public static String internalFindFile(String aFileName, InputDirectories aInputDirectories) throws Exception
 	{
 		InputStatus inputStatus = new InputStatus();
 		String othername = aFileName;
 		int i = 0;
-		LispInput f = OpenInputFile(othername, inputStatus);
+		LispInput f = openInputFile(othername, inputStatus);
 		if (f != null) return othername;
 		while (i<aInputDirectories.size())
 		{
 			othername = ((String)aInputDirectories.get(i)) + aFileName;
-			f = OpenInputFile(othername, inputStatus);
+			f = openInputFile(othername, inputStatus);
 			if (f != null) return othername;
 			i++;
 		}
@@ -625,15 +625,15 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 	}
 
 
-	private static void DoLoadDefFile(LispEnvironment aEnvironment, LispInput aInput,
+	private static void doLoadDefFile(LispEnvironment aEnvironment, LispInput aInput,
 	                                  LispDefFile def) throws Exception
 	{
 		LispInput previous = aEnvironment.iCurrentInput;
 		try
 		{
 			aEnvironment.iCurrentInput = aInput;
-			String eof = aEnvironment.HashTable().LookUp("EndOfFile");
-			String end = aEnvironment.HashTable().LookUp("}");
+			String eof = aEnvironment.hashTable().LookUp("EndOfFile");
+			String end = aEnvironment.hashTable().LookUp("}");
 			boolean endoffile = false;
 
 			LispTokenizer tok = new LispTokenizer();
@@ -641,7 +641,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 			while (!endoffile)
 			{
 				// Read expression
-				String token = tok.NextToken(aEnvironment.iCurrentInput, aEnvironment.HashTable());
+				String token = tok.nextToken(aEnvironment.iCurrentInput, aEnvironment.hashTable());
 
 				// Check for end of file
 				if (token == eof || token == end)
@@ -652,7 +652,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 				else
 				{
 					String str = token;
-					LispMultiUserFunction multiUser = aEnvironment.MultiUserFunction(str);
+					LispMultiUserFunction multiUser = aEnvironment.multiUserFunction(str);
 					if (multiUser.iFileToOpen!=null)
 					{
 						throw new Piperexception("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName);
@@ -672,23 +672,23 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 	}
 
 
-	public static void LoadDefFile(LispEnvironment aEnvironment, String aFileName) throws Exception
+	public static void loadDefFile(LispEnvironment aEnvironment, String aFileName) throws Exception
 	{
 		LispError.LISPASSERT(aFileName!=null);
 
-		String flatfile = InternalUnstringify(aFileName) + ".def";
+		String flatfile = internalUnstringify(aFileName) + ".def";
 		LispDefFile def = aEnvironment.iDefFiles.File(aFileName);
 
-		String hashedname = aEnvironment.HashTable().LookUp(flatfile);
+		String hashedname = aEnvironment.hashTable().LookUp(flatfile);
 
 		InputStatus oldstatus = aEnvironment.iInputStatus;
 		aEnvironment.iInputStatus.SetTo(hashedname);
 
 		{
 			LispInput newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
-			        OpenInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+			        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 			LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
-			DoLoadDefFile(aEnvironment, newInput,def);
+			doLoadDefFile(aEnvironment, newInput,def);
 		}
 		aEnvironment.iInputStatus.RestoreFrom(oldstatus);
 	}

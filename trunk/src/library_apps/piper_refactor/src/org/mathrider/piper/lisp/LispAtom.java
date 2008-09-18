@@ -27,33 +27,33 @@ public class LispAtom extends LispObject
         iString = aString;
     }
 
-    public static LispObject New(LispEnvironment aEnvironment, String aString) throws Exception
+    public static LispObject newAtom(LispEnvironment aEnvironment, String aString) throws Exception
     {
         LispObject self = null;
-        if (LispStandard.IsNumber(aString, true))  // check if aString is a number (int or float)
+        if (LispStandard.isNumber(aString, true))  // check if aString is a number (int or float)
 
         {
             /// construct a number from a decimal string representation (also create a number object)
-            self = new LispNumber(aString, aEnvironment.Precision());
+            self = new LispNumber(aString, aEnvironment.precision());
         } else
         {
-            self = new LispAtom(aEnvironment.HashTable().LookUp(aString));
+            self = new LispAtom(aEnvironment.hashTable().LookUp(aString));
         }
         LispError.Check(self != null, LispError.KLispErrNotEnoughMemory);
         return self;
     }
 
-    public String String()
+    public String string()
     {
         return iString;
     }
 
-    public LispObject Copy(boolean aRecursed)
+    public LispObject copy(boolean aRecursed)
     {
         return new LispAtom(iString);
     }
 
-    public LispObject SetExtraInfo(LispPtr aData)
+    public LispObject setExtraInfo(LispPtr aData)
     {
         //TODO FIXME
         System.out.println("NOT YET IMPLEMENTED!!!");

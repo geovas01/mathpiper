@@ -57,7 +57,7 @@ public class CPiper
         
         
         
-	public String Evaluate(String input) throws Piperexception
+	public String evaluate(String input) throws Piperexception
 	{
 		if (input.length() == 0)
 			return "";
@@ -65,7 +65,7 @@ public class CPiper
 		try
 		{
 			env.iEvalDepth=0;
-			env.iEvaluator.ResetStack();
+			env.iEvaluator.resetStack();
 
 
 			iError = null;
@@ -85,7 +85,7 @@ public class CPiper
 				try
 				{
 					LispPtr args = new LispPtr();
-					LispStandard.InternalApplyString(env, in_expr,
+					LispStandard.internalApplyString(env, in_expr,
 					                                 env.iPrettyReader,
 					                                 args);
 				}
@@ -111,10 +111,10 @@ public class CPiper
 			}
 
 			LispPtr result = new LispPtr();
-			env.iEvaluator.Eval(env, result, in_expr);
+			env.iEvaluator.eval(env, result, in_expr);
 
-			String percent = env.HashTable().LookUp("%");
-			env.SetVariable(percent,result,true);
+			String percent = env.hashTable().LookUp("%");
+			env.setVariable(percent,result,true);
 
 			StringBuffer string_out = new StringBuffer();
 			LispOutput output = new StringOutput(string_out);
@@ -122,7 +122,7 @@ public class CPiper
 			if (env.iPrettyPrinter != null)
 			{
 				LispPtr nonresult = new LispPtr();
-				LispStandard.InternalApplyString(env, nonresult,
+				LispStandard.internalApplyString(env, nonresult,
 				                                 env.iPrettyPrinter,
 				                                 result);
 				rs = string_out.toString();

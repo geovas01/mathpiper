@@ -49,7 +49,7 @@ public class PiperInterpreter {
 		boolean scripts_found = loadScripts();
 
 		if (!scripts_found) System.err.println("Piper error: Unable to load piper.jar");
-		piper.Evaluate("Load(\"piperinit.pi\");");
+		piper.evaluate("Load(\"piperinit.pi\");");
 
 	}
 
@@ -83,7 +83,7 @@ public class PiperInterpreter {
 	 *  Returns the output of the interpreter.
 	 */
 	public String evaluate(String input) throws Piperexception {
-		String output1 = piper.Evaluate(input);
+		String output1 = piper.evaluate(input);
 		String output2 = outputCollector.toString();
 		outputCollector.delete(0,outputCollector.length());
 

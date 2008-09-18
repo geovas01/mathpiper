@@ -29,15 +29,18 @@ public abstract class LispEvaluatorBase
 {
 	UserStackInformation iBasicInfo = new UserStackInformation();
 	
-	public abstract void Eval(LispEnvironment aEnvironment, LispPtr aResult, LispPtr aExpression) throws Exception;
-	public void ResetStack()
+	public abstract void eval(LispEnvironment aEnvironment, LispPtr aResult, LispPtr aExpression) throws Exception;
+        
+	public void resetStack()
 	{
 	}
-	public UserStackInformation StackInformation()
+        
+	public UserStackInformation stackInformation()
 	{
 		return iBasicInfo;
 	}
-	public void ShowStack(LispEnvironment aEnvironment, LispOutput aOutput)
+        
+	public void showStack(LispEnvironment aEnvironment, LispOutput aOutput)
 	{
 	}
 	

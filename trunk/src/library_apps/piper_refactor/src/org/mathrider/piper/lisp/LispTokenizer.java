@@ -28,7 +28,7 @@ public class LispTokenizer
 
 	/// NextToken returns a string representing the next token,
 	/// or an empty list.
-	public String NextToken(LispInput aInput, LispHashTable aHashTable) throws Exception
+	public String nextToken(LispInput aInput, LispHashTable aHashTable) throws Exception
 	{
 		char c;
 		int firstpos = aInput.Position();
@@ -58,7 +58,7 @@ public class LispTokenizer
 			else if (c == ';') {}
 			else if (c == '%') {}
 			//    else if (c == '\'') {}
-			else if (c == '.' && !IsDigit(aInput.Peek()) )
+			else if (c == '.' && !isDigit(aInput.Peek()) )
 			{
 				while (aInput.Peek() == '.')
 				{
@@ -115,17 +115,17 @@ public class LispTokenizer
 				return aHashTable.LookUp(aResult);
 			}
 			//parse atoms
-			else if (IsAlpha(c))
+			else if (isAlpha(c))
 			{
-				while (IsAlNum( aInput.Peek()))
+				while (isAlNum( aInput.Peek()))
 				{
 					aInput.Next();
 				}
 			}
 
-			else if (IsSymbolic(c))
+			else if (isSymbolic(c))
 			{
-				while (IsSymbolic( aInput.Peek()))
+				while (isSymbolic( aInput.Peek()))
 				{
 					aInput.Next();
 				}
@@ -137,13 +137,13 @@ public class LispTokenizer
 					aInput.Next();
 				}
 			}
-			else if (IsDigit(c) || c == '.')
+			else if (isDigit(c) || c == '.')
 			{
-				while (IsDigit( aInput.Peek())) aInput.Next();
+				while (isDigit( aInput.Peek())) aInput.Next();
 				if (aInput.Peek() == '.')
 				{
 					aInput.Next();
-					while (IsDigit( aInput.Peek())) aInput.Next();
+					while (isDigit( aInput.Peek())) aInput.Next();
 				}
 				if (BigNumber.NumericSupportForMantissa())
 				{
@@ -152,7 +152,7 @@ public class LispTokenizer
 						aInput.Next();
 						if (aInput.Peek() == '-' || aInput.Peek() == '+')
 							aInput.Next();
-						while (IsDigit( aInput.Peek())) aInput.Next();
+						while (isDigit( aInput.Peek())) aInput.Next();
 					}
 				}
 			}
@@ -166,24 +166,24 @@ public class LispTokenizer
 		return aHashTable.LookUp(aInput.StartPtr().substring(firstpos,aInput.Position()));
 	}
 
-	public static boolean IsDigit(char c)
+	public static boolean isDigit(char c)
 	{
 		return ((c>='0' && c<='9'));
 	}
 
-	public static boolean IsAlpha(char c)
+	public static boolean isAlpha(char c)
 	{
 		return ( (c>='a' && c<='z') || (c>='A' && c<='Z') || (c == '\'') );
 	}
 
-	public static boolean IsAlNum(char c)
+	public static boolean isAlNum(char c)
 	{
-		return (IsAlpha(c) || IsDigit(c));
+		return (isAlpha(c) || isDigit(c));
 	}
 	
 	
 	
-	public static boolean IsSymbolic(char c)
+	public static boolean isSymbolic(char c)
 	{
 		return (symbolics.indexOf(c) >= 0);
 	}

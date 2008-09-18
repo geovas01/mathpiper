@@ -25,5 +25,5 @@ import org.mathrider.piper.lisp.LispPtr;
  */
 public interface SubstBehaviourBase
 {
-	public boolean Matches(LispPtr aResult, LispPtr aElement) throws Exception;
+	public boolean matches(LispPtr aResult, LispPtr aElement) throws Exception;
 };

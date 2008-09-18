@@ -47,15 +47,15 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		int i=0;
 		while (i < arity && iter.GetObject() != null)
 		{
-			ptr.Set(iter.GetObject().Copy(false));
-			ptr = (ptr.Get().Next());
+			ptr.set(iter.GetObject().copy(false));
+			ptr = (ptr.get().next());
 			i++;
 			iter.GoNext();
 		}
-		if (iter.GetObject().Next().Get() == null)
+		if (iter.GetObject().next().get() == null)
 		{
-			ptr.Set(iter.GetObject().Copy(false));
-			ptr = (ptr.Get().Next());
+			ptr.set(iter.GetObject().copy(false));
+			ptr = (ptr.get().next());
 			i++;
 			iter.GoNext();
 			LispError.LISPASSERT(iter.GetObject() == null);
@@ -63,9 +63,9 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		else
 		{
 			LispPtr head = new LispPtr();
-			head.Set(aEnvironment.iList.Copy(false));
-			head.Get().Next().Set(iter.GetObject());
-			ptr.Set(LispSubList.New(head.Get()));
+			head.set(aEnvironment.iList.copy(false));
+			head.get().next().set(iter.GetObject());
+			ptr.set(LispSubList.newSubList(head.get()));
 		}
 		super.Evaluate(aResult, aEnvironment, newArgs);
 	}

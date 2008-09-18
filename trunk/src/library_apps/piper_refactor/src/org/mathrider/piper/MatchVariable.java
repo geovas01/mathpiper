@@ -47,7 +47,7 @@ public class MatchVariable extends PiperParamMatcherBase
 	/// pattern matches and \a aExpression is stored in this
 	/// entry. Otherwise, the pattern only matches if the entry equals
 	/// \a aExpression.
-	public boolean ArgumentMatches(LispEnvironment  aEnvironment,
+	public boolean argumentMatches(LispEnvironment  aEnvironment,
 	                               LispPtr  aExpression,
 	                               LispPtr[]  arguments) throws Exception
 	{
@@ -56,15 +56,15 @@ public class MatchVariable extends PiperParamMatcherBase
 		//    {
 		//      arguments[iVarIndex] = new LispPtr();
 		//    }
-		if (arguments[iVarIndex].Get() == null)
+		if (arguments[iVarIndex].get() == null)
 		{
-			arguments[iVarIndex].Set(aExpression.Get());
+			arguments[iVarIndex].set(aExpression.get());
 			//        LogPrintf("Set var %d\n",iVarIndex);
 			return true;
 		}
 		else
 		{
-			if (LispStandard.InternalEquals(aEnvironment, aExpression, arguments[iVarIndex]))
+			if (LispStandard.internalEquals(aEnvironment, aExpression, arguments[iVarIndex]))
 			{
 				//            LogPrintf("Matched var %d\n",iVarIndex);
 				return true;

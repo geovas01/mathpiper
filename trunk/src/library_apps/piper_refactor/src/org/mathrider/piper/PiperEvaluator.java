@@ -57,7 +57,7 @@ public class PiperEvaluator extends EvalFuncBase
 		int stacktop = aEnvironment.iStack.GetStackTop();
 
 		// Push a place holder for the result: push full expression so it is available for error reporting
-		aEnvironment.iStack.PushArgOnStack(aArguments.Get());
+		aEnvironment.iStack.PushArgOnStack(aArguments.get());
 
 		LispIterator iter = new LispIterator(aArguments);
 		iter.GoNext();
@@ -73,15 +73,15 @@ public class PiperEvaluator extends EvalFuncBase
 			for (i=0;i<nr;i++)
 			{
 				LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iStack.PushArgOnStack(iter.GetObject().Copy(false));
+				aEnvironment.iStack.PushArgOnStack(iter.GetObject().copy(false));
 				iter.GoNext();
 			}
 			if ((iFlags & Variable) != 0)
 			{
 				LispPtr head = new LispPtr();
-				head.Set(aEnvironment.iList.Copy(false));
-				head.Get().Next().Set(iter.GetObject());
-				aEnvironment.iStack.PushArgOnStack(LispSubList.New(head.Get()));
+				head.set(aEnvironment.iList.copy(false));
+				head.get().next().set(iter.GetObject());
+				aEnvironment.iStack.PushArgOnStack(LispSubList.newSubList(head.get()));
 			}
 		}
 		else
@@ -91,8 +91,8 @@ public class PiperEvaluator extends EvalFuncBase
 			{
 				LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
 				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.Eval(aEnvironment, arg, iter.Ptr());
-				aEnvironment.iStack.PushArgOnStack(arg.Get());
+				aEnvironment.iEvaluator.eval(aEnvironment, arg, iter.Ptr());
+				aEnvironment.iStack.PushArgOnStack(arg.get());
 				iter.GoNext();
 			}
 			if ((iFlags & Variable) != 0)
@@ -102,10 +102,10 @@ public class PiperEvaluator extends EvalFuncBase
 
 				//printf("Enter\n");
 				LispPtr head = new LispPtr();
-				head.Set(aEnvironment.iList.Copy(false));
-				head.Get().Next().Set(iter.GetObject());
+				head.set(aEnvironment.iList.copy(false));
+				head.get().next().set(iter.GetObject());
 				LispPtr list = new LispPtr();
-				list.Set(LispSubList.New(head.Get()));
+				list.set(LispSubList.newSubList(head.get()));
 
 
 				/*
@@ -113,20 +113,20 @@ public class PiperEvaluator extends EvalFuncBase
 				printf("before %s\n",res.String());
 				*/
 
-				aEnvironment.iEvaluator.Eval(aEnvironment, arg, list);
+				aEnvironment.iEvaluator.eval(aEnvironment, arg, list);
 
 				/*
 				PrintExpression(res, arg,aEnvironment,100);
 				printf("after %s\n",res.String());
 				*/
 
-				aEnvironment.iStack.PushArgOnStack(arg.Get());
+				aEnvironment.iStack.PushArgOnStack(arg.get());
 				//printf("Leave\n");
 			}
 		}
 
-		iCaller.Eval(aEnvironment,stacktop);
-		aResult.Set(aEnvironment.iStack.GetElement(stacktop).Get());
+		iCaller.eval(aEnvironment,stacktop);
+		aResult.set(aEnvironment.iStack.GetElement(stacktop).get());
 		aEnvironment.iStack.PopTo(stacktop);
 	}
 

@@ -35,11 +35,11 @@ public class MatchSubList extends PiperParamMatcherBase
 		iNrMatchers = aNrMatchers;
 	}
 
-	public boolean ArgumentMatches(LispEnvironment  aEnvironment,
+	public boolean argumentMatches(LispEnvironment  aEnvironment,
 	                               LispPtr  aExpression,
 	                               LispPtr[]  arguments) throws Exception
 	{
-		if (aExpression.Get().SubList() == null)
+		if (aExpression.get().subList() == null)
 			return false;
 		int i;
 
@@ -53,7 +53,7 @@ public class MatchSubList extends PiperParamMatcherBase
 				return false;
 			if (iter.GetObject() == null)
 				return false;
-			if (!iMatchers[i].ArgumentMatches(aEnvironment,ptr,arguments))
+			if (!iMatchers[i].argumentMatches(aEnvironment,ptr,arguments))
 				return false;
 			iter.GoNext();
 		}

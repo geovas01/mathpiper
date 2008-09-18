@@ -25,7 +25,7 @@ public class LispGenericClass extends LispObject
 {
 	GenericClass iClass;
 	
-	public static LispGenericClass New(GenericClass aClass) throws Exception
+	public static LispGenericClass newGenericClass(GenericClass aClass) throws Exception
 	{
 		LispError.LISPASSERT(aClass!=null);
 		LispGenericClass self = new LispGenericClass(aClass);
@@ -33,23 +33,23 @@ public class LispGenericClass extends LispObject
 		return self;
 	}
 	
-	public GenericClass Generic()
+	public GenericClass generic()
 	{
 		return iClass;
 	}
 	
-	public String String()
+	public String string()
 	{
 		return null;
 	}
 	
-	public LispObject Copy(boolean aRecursed)
+	public LispObject copy(boolean aRecursed)
 	{
 		LispObject copied = new LispGenericClass(iClass);
 		return copied;
 	}
 	
-	public LispObject SetExtraInfo(LispPtr aData)
+	public LispObject setExtraInfo(LispPtr aData)
 	{
 		//TODO FIXME
 		return null;

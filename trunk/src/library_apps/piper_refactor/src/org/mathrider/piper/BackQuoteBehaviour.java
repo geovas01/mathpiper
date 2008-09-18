@@ -40,44 +40,44 @@ public class BackQuoteBehaviour implements SubstBehaviourBase
 	{
 		iEnvironment = aEnvironment;
 	}
-	public boolean Matches(LispPtr aResult, LispPtr aElement) throws Exception
+	public boolean matches(LispPtr aResult, LispPtr aElement) throws Exception
 	{
-		if (aElement.Get().SubList() == null) return false;
-		LispObject ptr = aElement.Get().SubList().Get();
+		if (aElement.get().subList() == null) return false;
+		LispObject ptr = aElement.get().subList().get();
 		if (ptr == null) return false;
-		if (ptr.String() == null) return false;
+		if (ptr.string() == null) return false;
 
-		if (ptr.String().equals("`"))
+		if (ptr.string().equals("`"))
 		{
-			aResult.Set(aElement.Get());
+			aResult.set(aElement.get());
 			return true;
 		}
 
-		if (!ptr.String().equals("@"))
+		if (!ptr.string().equals("@"))
 			return false;
-		ptr = ptr.Next().Get();
+		ptr = ptr.next().get();
 		if (ptr == null)
 			return false;
-		if (ptr.String() != null)
+		if (ptr.string() != null)
 		{
 			LispPtr cur = new LispPtr();
-			cur.Set(ptr);
-			iEnvironment.iEvaluator.Eval(iEnvironment, aResult, cur);
+			cur.set(ptr);
+			iEnvironment.iEvaluator.eval(iEnvironment, aResult, cur);
 			return true;
 		}
 		else
 		{
-			ptr = ptr.SubList().Get();
+			ptr = ptr.subList().get();
 			LispPtr cur = new LispPtr();
-			cur.Set(ptr);
+			cur.set(ptr);
 			LispPtr args = new LispPtr();
-			args.Set(ptr.Next().Get());
+			args.set(ptr.next().get());
 			LispPtr result = new LispPtr();
-			iEnvironment.iEvaluator.Eval(iEnvironment, result, cur);
-			result.Get().Next().Set(args.Get());
+			iEnvironment.iEvaluator.eval(iEnvironment, result, cur);
+			result.get().next().set(args.get());
 			LispPtr result2 = new LispPtr();
-			result2.Set(LispSubList.New(result.Get()));
-			LispStandard.InternalSubstitute(aResult, result2,this);
+			result2.set(LispSubList.newSubList(result.get()));
+			LispStandard.internalSubstitute(aResult, result2,this);
 			return true;
 		}
 		//      return false;

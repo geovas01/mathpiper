@@ -23,13 +23,13 @@ public class SubstBehaviour
 		iToReplaceWith = aToReplaceWith;
 	}
 
-	public boolean Matches(LispPtr aResult, LispPtr aElement)
+	public boolean matches(LispPtr aResult, LispPtr aElement)
 	throws Exception
 	{
 
-		if (LispStandard.InternalEquals(iEnvironment, aElement, iToMatch))
+		if (LispStandard.internalEquals(iEnvironment, aElement, iToMatch))
 		{
-			aResult.Set(iToReplaceWith.Get().Copy(false));
+			aResult.set(iToReplaceWith.get().copy(false));
 
 			return true;
 		}

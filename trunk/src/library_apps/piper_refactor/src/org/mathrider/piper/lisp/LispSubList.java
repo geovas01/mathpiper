@@ -23,26 +23,34 @@ public class LispSubList extends LispObject
 {
 	LispPtr iSubList = new LispPtr();
 	
-	public static LispSubList New(LispObject aSubList)
+	public static LispSubList newSubList(LispObject aSubList)
 	{
 		return new LispSubList(aSubList);
 	}
-	public LispPtr SubList()
+        
+        
+	public LispPtr subList()
 	{
 		return iSubList;
 	}
-	public String String()
+        
+        
+	public String string()
 	{
 		return null;
 	}
-	public LispObject Copy(boolean aRecursed) throws Exception
+        
+        
+	public LispObject copy(boolean aRecursed) throws Exception
 	{
 		//TODO recursed copy needs to be implemented still
 		LispError.LISPASSERT(aRecursed == false);
-		LispObject copied = new LispSubList(iSubList.Get());
+		LispObject copied = new LispSubList(iSubList.get());
 		return copied;
 	}
-	public LispObject SetExtraInfo(LispPtr aData)
+        
+        
+	public LispObject setExtraInfo(LispPtr aData)
 	{
 		//TODO FIXME
 		/*
@@ -52,9 +60,11 @@ public class LispSubList extends LispObject
 		*/
 		return null;
 	}
+        
+        
 	LispSubList(LispObject aSubList)
 	{
-		iSubList.Set(aSubList);
+		iSubList.set(aSubList);
 	}
 	
 }

@@ -45,22 +45,25 @@ public class LispPtr
 		iNext = aOther;
 	}
 	
-	public void Set(LispObject aNext)
+        
+        
+        
+	public void set(LispObject aNext)
 	{
 		iNext = aNext;
 	}
 	
-	public LispObject Get()
+	public LispObject get()
 	{
 		return iNext;
 	}
 	
-	public void GoNext()
+	public void goNext()
 	{
 		iNext = iNext.iNext.iNext;
 	}
 	
-	void DoSet(LispObject aNext)
+	void doSet(LispObject aNext)
 	{
 		iNext = aNext;
 	}

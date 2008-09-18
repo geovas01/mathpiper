@@ -82,7 +82,7 @@ public class PiperPatternPredicateBase
 			iter.GoNext();
 		}
 		LispPtr  post = new LispPtr();
-		post.Set(aPostPredicate.Get());
+		post.set(aPostPredicate.get());
 		iPredicates.add(post);
 	}
 
@@ -120,7 +120,7 @@ public class PiperPatternPredicateBase
 			LispPtr  ptr = iter.Ptr();
 			if (ptr==null)
 				return false;
-			if (!((PiperParamMatcherBase)iParamMatchers.get(i)).ArgumentMatches(aEnvironment,ptr,arguments))
+			if (!((PiperParamMatcherBase)iParamMatchers.get(i)).argumentMatches(aEnvironment,ptr,arguments))
 			{
 				return false;
 			}
@@ -131,7 +131,7 @@ public class PiperPatternPredicateBase
 
 		{
 			// set the local variables.
-			aEnvironment.PushLocalFrame(false);
+			aEnvironment.pushLocalFrame(false);
 			try
 			{
 				SetPatternVariables(aEnvironment,arguments);
@@ -146,7 +146,7 @@ public class PiperPatternPredicateBase
 			}
 			finally
 			{
-				aEnvironment.PopLocalFrame();
+				aEnvironment.popLocalFrame();
 			}
 		}
 
@@ -173,7 +173,7 @@ public class PiperPatternPredicateBase
 
 		for (i=0;i<iParamMatchers.size();i++)
 		{
-			if (!((PiperParamMatcherBase)iParamMatchers.get(i)).ArgumentMatches(aEnvironment,aArguments[i],arguments))
+			if (!((PiperParamMatcherBase)iParamMatchers.get(i)).argumentMatches(aEnvironment,aArguments[i],arguments))
 			{
 				return false;
 			}
@@ -181,7 +181,7 @@ public class PiperPatternPredicateBase
 
 		{
 			// set the local variables.
-			aEnvironment.PushLocalFrame(false);
+			aEnvironment.pushLocalFrame(false);
 			try
 			{
 				SetPatternVariables(aEnvironment,arguments);
@@ -196,7 +196,7 @@ public class PiperPatternPredicateBase
 			}
 			finally
 			{
-				aEnvironment.PopLocalFrame();
+				aEnvironment.popLocalFrame();
 			}
 		}
 
@@ -227,60 +227,60 @@ public class PiperPatternPredicateBase
 	{
 		if (aPattern == null)
 			return null;
-		if (aPattern.Number(aEnvironment.Precision()) != null)
+		if (aPattern.number(aEnvironment.precision()) != null)
 		{
-			return new MatchNumber(aPattern.Number(aEnvironment.Precision()));
+			return new MatchNumber(aPattern.number(aEnvironment.precision()));
 		}
 		// Deal with atoms
-		if (aPattern.String() != null)
+		if (aPattern.string() != null)
 		{
-			return new MatchAtom(aPattern.String());
+			return new MatchAtom(aPattern.string());
 		}
 
 		// Else it must be a sublist
-		if (aPattern.SubList() != null)
+		if (aPattern.subList() != null)
 		{
 			// See if it is a variable template:
-			LispPtr  sublist = aPattern.SubList();
+			LispPtr  sublist = aPattern.subList();
 			LispError.LISPASSERT(sublist != null);
 
-			int num = LispStandard.InternalListLength(sublist);
+			int num = LispStandard.internalListLength(sublist);
 
 			// variable matcher here...
 			if (num>1)
 			{
-				LispObject head = sublist.Get();
-				if (head.String() == aEnvironment.HashTable().LookUp("_"))
+				LispObject head = sublist.get();
+				if (head.string() == aEnvironment.hashTable().LookUp("_"))
 				{
-					LispObject second = head.Next().Get();
-					if (second.String() != null)
+					LispObject second = head.next().get();
+					if (second.string() != null)
 					{
-						int index = LookUp(second.String());
+						int index = LookUp(second.string());
 
 						// Make a predicate for the type, if needed
 						if (num>2)
 						{
 							LispPtr third = new LispPtr();
 
-							LispObject predicate = second.Next().Get();
-							if (predicate.SubList() != null)
+							LispObject predicate = second.next().get();
+							if (predicate.subList() != null)
 							{
-								LispStandard.InternalFlatCopy(third, predicate.SubList());
+								LispStandard.internalFlatCopy(third, predicate.subList());
 							}
 							else
 							{
-								third.Set(second.Next().Get().Copy(false));
+								third.set(second.next().get().copy(false));
 							}
 
-							String str = second.String();
-							LispObject last = third.Get();
-							while (last.Next().Get() != null)
-								last = last.Next().Get();
+							String str = second.string();
+							LispObject last = third.get();
+							while (last.next().get() != null)
+								last = last.next().get();
 
-							last.Next().Set(LispAtom.New(aEnvironment,str));
+							last.next().set(LispAtom.newAtom(aEnvironment,str));
 
 							LispPtr pred = new LispPtr();
-							pred.Set(LispSubList.New(third.Get()));
+							pred.set(LispSubList.newSubList(third.get()));
 
 							iPredicates.add(pred);
 						}
@@ -334,7 +334,7 @@ public class PiperPatternPredicateBase
 		for (i=0;i<iVariables.size();i++)
 		{
 			// set the variable to the new value
-			aEnvironment.NewLocal((String)iVariables.get(i),arguments[i].Get());
+			aEnvironment.newLocal((String)iVariables.get(i),arguments[i].get());
 		}
 	}
 
@@ -349,24 +349,24 @@ public class PiperPatternPredicateBase
 		for (i=0;i<iPredicates.size();i++)
 		{
 			LispPtr pred = new LispPtr();
-			aEnvironment.iEvaluator.Eval(aEnvironment, pred, ((LispPtr)iPredicates.get(i)));
-			if (LispStandard.IsFalse(aEnvironment, pred))
+			aEnvironment.iEvaluator.eval(aEnvironment, pred, ((LispPtr)iPredicates.get(i)));
+			if (LispStandard.isFalse(aEnvironment, pred))
 			{
 				return false;
 			}
 
 
 			// If the result is not False, it should be True, else probably something is wrong (the expression returned unevaluated)
-			boolean isTrue = LispStandard.IsTrue(aEnvironment, pred);
+			boolean isTrue = LispStandard.isTrue(aEnvironment, pred);
 			if (!isTrue)
 			{
 				//TODO this is probably not the right way to generate an error, should we perhaps do a full throw new PiperException here?
 				String strout;
 				aEnvironment.iCurrentOutput.Write("The predicate\n\t");
-				strout = LispStandard.PrintExpression(((LispPtr)iPredicates.get(i)), aEnvironment, 60);
+				strout = LispStandard.printExpression(((LispPtr)iPredicates.get(i)), aEnvironment, 60);
 				aEnvironment.iCurrentOutput.Write(strout);
 				aEnvironment.iCurrentOutput.Write("\nevaluated to\n\t");
-				strout = LispStandard.PrintExpression(pred, aEnvironment, 60);
+				strout = LispStandard.printExpression(pred, aEnvironment, 60);
 				aEnvironment.iCurrentOutput.Write(strout);
 				aEnvironment.iCurrentOutput.Write("\n");
 

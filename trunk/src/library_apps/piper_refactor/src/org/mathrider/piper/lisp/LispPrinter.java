@@ -33,12 +33,12 @@ public class LispPrinter
 	                     LispEnvironment aEnvironment,int aDepth /* =0 */) throws Exception
 	{
 		LispPtr iter = new LispPtr();
-		iter.Set(aExpression.Get());
+		iter.set(aExpression.get());
 		int item = 0;
-		while (iter.Get() != null)
+		while (iter.get() != null)
 		{
 			// if String not null pointer: print string
-			String string = iter.Get().String();
+			String string = iter.get().string();
 
 			if (string != null)
 			{
@@ -46,14 +46,14 @@ public class LispPrinter
 				aOutput.PutChar(' ');
 			}
 			// else print "(", print sublist, and print ")"
-			else if (iter.Get().SubList() != null)
+			else if (iter.get().subList() != null)
 			{
 				if (item != 0)
 				{
 					Indent(aOutput,aDepth+1);
 				}
 				aOutput.Write("(");
-				PrintExpression((iter.Get().SubList()),aOutput, aEnvironment,aDepth+1);
+				PrintExpression((iter.get().subList()),aOutput, aEnvironment,aDepth+1);
 				aOutput.Write(")");
 				item=0;
 			}
@@ -61,7 +61,7 @@ public class LispPrinter
 			{
 				aOutput.Write("[GenericObject]");
 			}
-			iter = (iter.Get().Next());
+			iter = (iter.get().next());
 			item++;
 		} // print next element
 	}

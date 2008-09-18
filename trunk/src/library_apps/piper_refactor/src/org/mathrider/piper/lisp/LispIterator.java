@@ -35,7 +35,7 @@ public class LispIterator
 	
 	public LispObject GetObject()
 	{
-		return iPtr.Get();
+		return iPtr.get();
 	}
 	
 	public LispPtr Ptr()
@@ -45,15 +45,15 @@ public class LispIterator
 	
 	public void GoNext() throws Exception
 	{
-		LispError.Check(iPtr.Get() != null,LispError.KLispErrListNotLongEnough);
-		iPtr = (iPtr.Get().Next());
+		LispError.Check(iPtr.get() != null,LispError.KLispErrListNotLongEnough);
+		iPtr = (iPtr.get().next());
 	}
 	
 	public void GoSub() throws Exception
 	{
-		LispError.Check(iPtr.Get() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(iPtr.Get().SubList() != null,LispError.KLispErrNotList);
-		iPtr = iPtr.Get().SubList();
+		LispError.Check(iPtr.get() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(iPtr.get().subList() != null,LispError.KLispErrNotList);
+		iPtr = iPtr.get().subList();
 	}
 
 };

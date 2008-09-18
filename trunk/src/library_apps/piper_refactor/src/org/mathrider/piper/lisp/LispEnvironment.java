@@ -90,40 +90,40 @@ public class LispEnvironment
 		iCurrentOutput = aCurrentOutput;
 		iCurrentPrinter = new InfixPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
-		iTrue = LispAtom.New(this,"True");
-		iFalse = LispAtom.New(this,"False");
+		iTrue = LispAtom.newAtom(this,"True");
+		iFalse = LispAtom.newAtom(this,"False");
 
-		iEndOfFile    = LispAtom.New(this,"EndOfFile");
-		iEndStatement = LispAtom.New(this,";");
-		iProgOpen     = LispAtom.New(this,"[");
-		iProgClose    = LispAtom.New(this,"]");
-		iNth          = LispAtom.New(this,"Nth");
-		iBracketOpen  = LispAtom.New(this,"(");
-		iBracketClose = LispAtom.New(this,")");
-		iListOpen     = LispAtom.New(this,"{");
-		iListClose    = LispAtom.New(this,"}");
-		iComma        = LispAtom.New(this,",");
-		iList         = LispAtom.New(this,"List");
-		iProg         = LispAtom.New(this,"Prog");
+		iEndOfFile    = LispAtom.newAtom(this,"EndOfFile");
+		iEndStatement = LispAtom.newAtom(this,";");
+		iProgOpen     = LispAtom.newAtom(this,"[");
+		iProgClose    = LispAtom.newAtom(this,"]");
+		iNth          = LispAtom.newAtom(this,"Nth");
+		iBracketOpen  = LispAtom.newAtom(this,"(");
+		iBracketClose = LispAtom.newAtom(this,")");
+		iListOpen     = LispAtom.newAtom(this,"{");
+		iListClose    = LispAtom.newAtom(this,"}");
+		iComma        = LispAtom.newAtom(this,",");
+		iList         = LispAtom.newAtom(this,"List");
+		iProg         = LispAtom.newAtom(this,"Prog");
 
 		iStack = new PiperArgStack(50000 /*TODO FIXME*/);
 		MathCommands mc = new MathCommands();
 		mc.AddCommands(this);
 		mc=null;
-		PushLocalFrame(true);
+		pushLocalFrame(true);
 	}
 
-	public LispHashTable HashTable()
+	public LispHashTable hashTable()
 	{
 		return iHashTable;
 	}
 
-	public int Precision()
+	public int precision()
 	{
 		return iPrecision;
 	}
 
-	public void SetPrecision(int aPrecision) throws Exception
+	public void setPrecision(int aPrecision) throws Exception
 	{
 		iPrecision = aPrecision;    // precision in decimal digits
 	}
@@ -134,7 +134,7 @@ public class LispEnvironment
 
 
 
-	public PiperCoreCommands CoreCommands()
+	public PiperCoreCommands coreCommands()
 	{
 		return iCoreCommands;
 	}
@@ -148,7 +148,7 @@ public class LispEnvironment
 
 
 
-	public LispPtr FindLocal(String aVariable) throws Exception
+	public LispPtr findLocal(String aVariable) throws Exception
 	{
 		LispError.Check(iLocalsList != null,LispError.KLispErrInvalidStack);
 		//    Check(iLocalsList.iFirst != null,KLispErrInvalidStack);
@@ -165,61 +165,61 @@ public class LispEnvironment
 		return null;
 	}
 
-	public void SetVariable(String aVariable, LispPtr aValue, boolean aGlobalLazyVariable) throws Exception
+	public void setVariable(String aVariable, LispPtr aValue, boolean aGlobalLazyVariable) throws Exception
 	{
-		LispPtr local = FindLocal(aVariable);
+		LispPtr local = findLocal(aVariable);
 		if (local != null)
 		{
-			local.Set(aValue.Get());
+			local.set(aValue.get());
 			return;
 		}
 		LispGlobalVariable global = new LispGlobalVariable(aValue);
-		iGlobals.SetAssociation(global, aVariable);
+		iGlobals.setAssociation(global, aVariable);
 		if (aGlobalLazyVariable)
 		{
 			global.SetEvalBeforeReturn(true);
 		}
 	}
 
-	public void GetVariable(String aVariable,LispPtr aResult) throws Exception
+	public void getVariable(String aVariable,LispPtr aResult) throws Exception
 	{
-		aResult.Set(null);
-		LispPtr local = FindLocal(aVariable);
+		aResult.set(null);
+		LispPtr local = findLocal(aVariable);
 		if (local != null)
 		{
-			aResult.Set(local.Get());
+			aResult.set(local.get());
 			return;
 		}
-		LispGlobalVariable l = (LispGlobalVariable)iGlobals.LookUp(aVariable);
+		LispGlobalVariable l = (LispGlobalVariable)iGlobals.lookUp(aVariable);
 		if (l != null)
 		{
 			if (l.iEvalBeforeReturn)
 			{
-				iEvaluator.Eval(this, aResult, l.iValue);
-				l.iValue.Set(aResult.Get());
+				iEvaluator.eval(this, aResult, l.iValue);
+				l.iValue.set(aResult.get());
 				l.iEvalBeforeReturn = false;
 				return;
 			}
 			else
 			{
-				aResult.Set(l.iValue.Get());
+				aResult.set(l.iValue.get());
 				return;
 			}
 		}
 	}
 
-	public void UnsetVariable(String aString) throws Exception
+	public void unsetVariable(String aString) throws Exception
 	{
-		LispPtr local = FindLocal(aString);
+		LispPtr local = findLocal(aString);
 		if (local != null)
 		{
-			local.Set(null);
+			local.set(null);
 			return;
 		}
-		iGlobals.Release(aString);
+		iGlobals.release(aString);
 	}
 
-	public void PushLocalFrame(boolean aFenced)
+	public void pushLocalFrame(boolean aFenced)
 	{
 		if (aFenced)
 		{
@@ -235,18 +235,18 @@ public class LispEnvironment
 		}
 	}
 
-	public void PopLocalFrame() throws Exception
+	public void popLocalFrame() throws Exception
 	{
 		LispError.LISPASSERT(iLocalsList != null);
 		LocalVariableFrame nextFrame = iLocalsList.iNext;
-		iLocalsList.Delete();
+		iLocalsList.delete();
 		iLocalsList = nextFrame;
 	}
 
-	public void NewLocal(String aVariable,LispObject aValue) throws Exception
+	public void newLocal(String aVariable,LispObject aValue) throws Exception
 	{
 		LispError.LISPASSERT(iLocalsList != null);
-		iLocalsList.Add(new LispLocalVariable(aVariable, aValue));
+		iLocalsList.add(new LispLocalVariable(aVariable, aValue));
 	}
 
 
@@ -256,7 +256,7 @@ public class LispEnvironment
 		{
 			iNext = null;
 			iVariable = aVariable;
-			iValue.Set(aValue);
+			iValue.set(aValue);
 
 		}
 		LispLocalVariable iNext;
@@ -273,12 +273,12 @@ public class LispEnvironment
 			iFirst = aFirst;
 			iLast = aFirst;
 		}
-		void Add(LispLocalVariable aNew)
+		void add(LispLocalVariable aNew)
 		{
 			aNew.iNext = iFirst;
 			iFirst = aNew;
 		}
-		void Delete()
+		void delete()
 		{
 			LispLocalVariable t = iFirst;
 			LispLocalVariable next;
@@ -296,43 +296,43 @@ public class LispEnvironment
 	}
 
 
-	public int GetUniqueId()
+	public int getUniqueId()
 	{
 		return iLastUniqueId++;
 	}
 
 
-	public void HoldArgument(String  aOperator, String aVariable) throws Exception
+	public void holdArgument(String  aOperator, String aVariable) throws Exception
 	{
-		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.lookUp(aOperator);
 		LispError.Check(multiUserFunc != null,LispError.KLispErrInvalidArg);
 		multiUserFunc.HoldArgument(aVariable);
 	}
 
-	public void Retract(String aOperator,int aArity) throws Exception
+	public void retract(String aOperator,int aArity) throws Exception
 	{
-		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.lookUp(aOperator);
 		if (multiUserFunc != null)
 		{
 			multiUserFunc.DeleteBase(aArity);
 		}
 	}
 
-	public LispUserFunction UserFunction(LispPtr aArguments) throws Exception
+	public LispUserFunction userFunction(LispPtr aArguments) throws Exception
 	{
 		LispMultiUserFunction multiUserFunc =
-		        (LispMultiUserFunction)iUserFunctions.LookUp(aArguments.Get().String());
+		        (LispMultiUserFunction)iUserFunctions.lookUp(aArguments.get().string());
 		if (multiUserFunc != null)
 		{
-			int arity = LispStandard.InternalListLength(aArguments)-1;
+			int arity = LispStandard.internalListLength(aArguments)-1;
 			return  multiUserFunc.UserFunc(arity);
 		}
 		return null;
 	}
 
-	public LispUserFunction UserFunction(String aName,int aArity) throws Exception
+	public LispUserFunction userFunction(String aName,int aArity) throws Exception
 	{
-		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aName);
+		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.lookUp(aName);
 		if (multiUserFunc != null)
 		{
 			return  multiUserFunc.UserFunc(aArity);
@@ -340,9 +340,9 @@ public class LispEnvironment
 		return null;
 	}
 
-	public void UnFenceRule(String aOperator,int aArity) throws Exception
+	public void unFenceRule(String aOperator,int aArity) throws Exception
 	{
-		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.lookUp(aOperator);
 
 		LispError.Check(multiUserFunc != null, LispError.KLispErrInvalidArg);
 		LispUserFunction userFunc = multiUserFunc.UserFunc(aArity);
@@ -350,26 +350,26 @@ public class LispEnvironment
 		userFunc.UnFence();
 	}
 
-	public LispMultiUserFunction MultiUserFunction(String aOperator) throws Exception
+	public LispMultiUserFunction multiUserFunction(String aOperator) throws Exception
 	{
 		// Find existing multiuser func.
-		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.lookUp(aOperator);
 
 		// If none exists, add one to the user functions list
 		if (multiUserFunc == null)
 		{
 			LispMultiUserFunction newMulti = new LispMultiUserFunction();
-			iUserFunctions.SetAssociation(newMulti, aOperator);
-			multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+			iUserFunctions.setAssociation(newMulti, aOperator);
+			multiUserFunc = (LispMultiUserFunction)iUserFunctions.lookUp(aOperator);
 			LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingUserFunction);
 		}
 		return multiUserFunc;
 	}
 
 
-	public void DeclareRuleBase(String aOperator, LispPtr aParameters, boolean aListed) throws Exception
+	public void declareRuleBase(String aOperator, LispPtr aParameters, boolean aListed) throws Exception
 	{
-		LispMultiUserFunction multiUserFunc = MultiUserFunction(aOperator);
+		LispMultiUserFunction multiUserFunc = multiUserFunction(aOperator);
 
 		// add an operator with this arity to the multiuserfunc.
 		BranchingUserFunction newFunc;
@@ -384,13 +384,13 @@ public class LispEnvironment
 		multiUserFunc.DefineRuleBase(newFunc);
 	}
 
-	public void DefineRule(String aOperator,int aArity,
+	public void defineRule(String aOperator,int aArity,
 	                       int aPrecedence, LispPtr aPredicate,
 	                       LispPtr aBody) throws Exception
 	{
 		// Find existing multiuser func.
 		LispMultiUserFunction multiUserFunc =
-		        (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+		        (LispMultiUserFunction)iUserFunctions.lookUp(aOperator);
 		LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
 		// Get the specific user function with the right arity
@@ -400,7 +400,7 @@ public class LispEnvironment
 		// Declare a new evaluation rule
 
 
-		if (LispStandard.IsTrue(this, aPredicate))
+		if (LispStandard.isTrue(this, aPredicate))
 		{
 			//        printf("FastPredicate on %s\n",aOperator->String());
 			userFunc.DeclareRule(aPrecedence, aBody);
@@ -409,9 +409,9 @@ public class LispEnvironment
 			userFunc.DeclareRule(aPrecedence, aPredicate,aBody);
 	}
 
-	public void DeclareMacroRuleBase(String aOperator, LispPtr aParameters, boolean aListed) throws Exception
+	public void declareMacroRuleBase(String aOperator, LispPtr aParameters, boolean aListed) throws Exception
 	{
-		LispMultiUserFunction multiUserFunc = MultiUserFunction(aOperator);
+		LispMultiUserFunction multiUserFunc = multiUserFunction(aOperator);
 		MacroUserFunction newFunc;
 		if (aListed)
 		{
@@ -424,10 +424,10 @@ public class LispEnvironment
 		multiUserFunc.DefineRuleBase(newFunc);
 	}
 
-	public void DefineRulePattern(String aOperator,int aArity, int aPrecedence, LispPtr aPredicate, LispPtr aBody) throws Exception
+	public void defineRulePattern(String aOperator,int aArity, int aPrecedence, LispPtr aPredicate, LispPtr aBody) throws Exception
 	{
 		// Find existing multiuser func.
-		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+		LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.lookUp(aOperator);
 		LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
 		// Get the specific user function with the right arity

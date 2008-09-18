@@ -51,19 +51,19 @@ public class ParsedObject
 		ReadToken();
 		if (iEndOfFile)
 		{
-			iResult.Set(iParser.iEnvironment.iEndOfFile.Copy(true));
+			iResult.set(iParser.iEnvironment.iEndOfFile.copy(true));
 			return;
 		}
 
 		ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 
-		if (iLookAhead != iParser.iEnvironment.iEndStatement.String())
+		if (iLookAhead != iParser.iEnvironment.iEndStatement.string())
 		{
 			Fail();
 		}
 		if (iError)
 		{
-			while (iLookAhead.length() > 0 && iLookAhead != iParser.iEnvironment.iEndStatement.String())
+			while (iLookAhead.length() > 0 && iLookAhead != iParser.iEnvironment.iEndStatement.string())
 			{
 				ReadToken();
 			}
@@ -71,7 +71,7 @@ public class ParsedObject
 
 		if (iError)
 		{
-			iResult.Set(null);
+			iResult.set(null);
 		}
 		LispError.Check(!iError,LispError.KLispErrInvalidExpression);
 	}
@@ -79,8 +79,8 @@ public class ParsedObject
 	void ReadToken() throws Exception
 	{
 		// Get token.
-		iLookAhead = iParser.iTokenizer.NextToken(iParser.iInput,
-		                iParser.iEnvironment.HashTable());
+		iLookAhead = iParser.iTokenizer.nextToken(iParser.iInput,
+		                iParser.iEnvironment.hashTable());
 		if (iLookAhead.length() == 0)
 			iEndOfFile=true;
 	}
@@ -99,31 +99,31 @@ public class ParsedObject
 		for(;;)
 		{
 			//Handle special case: a[b]. a is matched with lowest precedence!!
-			if (iLookAhead == iParser.iEnvironment.iProgOpen.String())
+			if (iLookAhead == iParser.iEnvironment.iProgOpen.string())
 			{
 				// Match opening bracket
 				MatchToken(iLookAhead);
 				// Read "index" argument
 				ReadExpression(InfixPrinter.KMaxPrecedence);
 				// Match closing bracket
-				if (iLookAhead != iParser.iEnvironment.iProgClose.String())
+				if (iLookAhead != iParser.iEnvironment.iProgClose.string())
 				{
 					LispError.RaiseError("Expecting a ] close bracket for program block, but got "+iLookAhead+" instead");
 					return;
 				}
 				MatchToken(iLookAhead);
 				// Build into Ntn(...)
-				String theOperator = iParser.iEnvironment.iNth.String();
+				String theOperator = iParser.iEnvironment.iNth.string();
 				InsertAtom(theOperator);
 				Combine(2);
 			}
 			else
 			{
-				LispInfixOperator op = (LispInfixOperator)iParser.iInfixOperators.LookUp(iLookAhead);
+				LispInfixOperator op = (LispInfixOperator)iParser.iInfixOperators.lookUp(iLookAhead);
 				if (op == null)
 				{
 					//printf("op [%s]\n",iLookAhead.String());
-					if (LispTokenizer.IsSymbolic(iLookAhead.charAt(0)))
+					if (LispTokenizer.isSymbolic(iLookAhead.charAt(0)))
 					{
 						int origlen = iLookAhead.length();
 						int len = origlen;
@@ -133,20 +133,20 @@ public class ParsedObject
 						{
 							len--;
 							String lookUp =
-							        iParser.iEnvironment.HashTable().LookUp(iLookAhead.substring(0,len));
+							        iParser.iEnvironment.hashTable().LookUp(iLookAhead.substring(0,len));
 
 							//printf("trunc %s\n",lookUp.String());
-							op = (LispInfixOperator)iParser.iInfixOperators.LookUp(lookUp);
+							op = (LispInfixOperator)iParser.iInfixOperators.lookUp(lookUp);
 							//if (op) printf("FOUND\n");
 							if (op != null)
 							{
 								String toLookUp = iLookAhead.substring(len,origlen);
 								String lookUpRight =
-								        iParser.iEnvironment.HashTable().LookUp(toLookUp);
+								        iParser.iEnvironment.hashTable().LookUp(toLookUp);
 
 								//printf("right: %s (%d)\n",lookUpRight.String(),origlen-len);
 
-								if (iParser.iPrefixOperators.LookUp(lookUpRight) != null)
+								if (iParser.iPrefixOperators.lookUp(lookUpRight) != null)
 								{
 									//printf("ACCEPT %s\n",lookUp.String());
 									iLookAhead = lookUp;
@@ -185,7 +185,7 @@ public class ParsedObject
 	{
 		LispInfixOperator op;
 		// Parse prefix operators
-		op = (LispInfixOperator)iParser.iPrefixOperators.LookUp(iLookAhead);
+		op = (LispInfixOperator)iParser.iPrefixOperators.lookUp(iLookAhead);
 		if (op != null)
 		{
 			String theOperator = iLookAhead;
@@ -197,50 +197,50 @@ public class ParsedObject
 			}
 		}
 		// Else parse brackets
-		else if (iLookAhead == iParser.iEnvironment.iBracketOpen.String())
+		else if (iLookAhead == iParser.iEnvironment.iBracketOpen.string())
 		{
 			MatchToken(iLookAhead);
 			ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
-			MatchToken(iParser.iEnvironment.iBracketClose.String());
+			MatchToken(iParser.iEnvironment.iBracketClose.string());
 		}
 		//Parse lists
-		else if (iLookAhead == iParser.iEnvironment.iListOpen.String())
+		else if (iLookAhead == iParser.iEnvironment.iListOpen.string())
 		{
 			int nrargs=0;
 			MatchToken(iLookAhead);
-			while (iLookAhead != iParser.iEnvironment.iListClose.String())
+			while (iLookAhead != iParser.iEnvironment.iListClose.string())
 			{
 				ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 				nrargs++;
 
-				if (iLookAhead == iParser.iEnvironment.iComma.String())
+				if (iLookAhead == iParser.iEnvironment.iComma.string())
 				{
 					MatchToken(iLookAhead);
 				}
-				else if (iLookAhead != iParser.iEnvironment.iListClose.String())
+				else if (iLookAhead != iParser.iEnvironment.iListClose.string())
 				{
 					LispError.RaiseError("Expecting a } close bracket for a list, but got "+iLookAhead+" instead");
 					return;
 				}
 			}
 			MatchToken(iLookAhead);
-			String theOperator = iParser.iEnvironment.iList.String();
+			String theOperator = iParser.iEnvironment.iList.string();
 			InsertAtom(theOperator);
 			Combine(nrargs);
 
 		}
 		// Parse prog bodies
-		else if (iLookAhead == iParser.iEnvironment.iProgOpen.String())
+		else if (iLookAhead == iParser.iEnvironment.iProgOpen.string())
 		{
 			int nrargs=0;
 
 			MatchToken(iLookAhead);
-			while (iLookAhead != iParser.iEnvironment.iProgClose.String())
+			while (iLookAhead != iParser.iEnvironment.iProgClose.string())
 			{
 				ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 				nrargs++;
 
-				if (iLookAhead == iParser.iEnvironment.iEndStatement.String())
+				if (iLookAhead == iParser.iEnvironment.iEndStatement.string())
 				{
 					MatchToken(iLookAhead);
 				}
@@ -251,7 +251,7 @@ public class ParsedObject
 				}
 			}
 			MatchToken(iLookAhead);
-			String theOperator = iParser.iEnvironment.iProg.String();
+			String theOperator = iParser.iEnvironment.iProg.string();
 			InsertAtom(theOperator);
 
 			Combine(nrargs);
@@ -263,20 +263,20 @@ public class ParsedObject
 			MatchToken(iLookAhead);
 
 			int nrargs=-1;
-			if (iLookAhead == iParser.iEnvironment.iBracketOpen.String())
+			if (iLookAhead == iParser.iEnvironment.iBracketOpen.string())
 			{
 				nrargs=0;
 				MatchToken(iLookAhead);
-				while (iLookAhead != iParser.iEnvironment.iBracketClose.String())
+				while (iLookAhead != iParser.iEnvironment.iBracketClose.string())
 				{
 					ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 					nrargs++;
 
-					if (iLookAhead == iParser.iEnvironment.iComma.String())
+					if (iLookAhead == iParser.iEnvironment.iComma.string())
 					{
 						MatchToken(iLookAhead);
 					}
-					else if (iLookAhead != iParser.iEnvironment.iBracketClose.String())
+					else if (iLookAhead != iParser.iEnvironment.iBracketClose.string())
 					{
 						LispError.RaiseError("Expecting ) closing bracket for sub-expression, but got "+iLookAhead+" instead");
 						return;
@@ -284,7 +284,7 @@ public class ParsedObject
 				}
 				MatchToken(iLookAhead);
 
-				op = (LispInfixOperator)iParser.iBodiedOperators.LookUp(theOperator);
+				op = (LispInfixOperator)iParser.iBodiedOperators.lookUp(theOperator);
 				if (op != null)
 				{
 					ReadExpression(op.iPrecedence); // InfixPrinter.KMaxPrecedence
@@ -299,7 +299,7 @@ public class ParsedObject
 
 		// Parse postfix operators
 
-		while ((op = (LispInfixOperator)iParser.iPostfixOperators.LookUp(iLookAhead)) != null)
+		while ((op = (LispInfixOperator)iParser.iPostfixOperators.lookUp(iLookAhead)) != null)
 		{
 			InsertAtom(iLookAhead);
 			MatchToken(iLookAhead);
@@ -319,7 +319,7 @@ public class ParsedObject
 	void Combine(int aNrArgsToCombine) throws Exception
 	{
 		LispPtr subList = new LispPtr();
-		subList.Set(LispSubList.New(iResult.Get()));
+		subList.set(LispSubList.newSubList(iResult.get()));
 		LispIterator iter = new LispIterator(iResult);
 		int i;
 		for (i=0;i<aNrArgsToCombine;i++)
@@ -336,20 +336,20 @@ public class ParsedObject
 			Fail();
 			return;
 		}
-		subList.Get().Next().Set(iter.GetObject().Next().Get());
-		iter.GetObject().Next().Set(null);
+		subList.get().next().set(iter.GetObject().next().get());
+		iter.GetObject().next().set(null);
 
-		LispStandard.InternalReverseList(subList.Get().SubList().Get().Next(),
-		                                 subList.Get().SubList().Get().Next());
-		iResult.Set(subList.Get());
+		LispStandard.internalReverseList(subList.get().subList().get().next(),
+		                                 subList.get().subList().get().next());
+		iResult.set(subList.get());
 	}
 	
 	void InsertAtom(String aString) throws Exception
 	{
 		LispPtr ptr = new LispPtr();
-		ptr.Set(LispAtom.New(iParser.iEnvironment,aString));
-		ptr.Get().Next().Set(iResult.Get());
-		iResult.Set(ptr.Get());
+		ptr.set(LispAtom.newAtom(iParser.iEnvironment,aString));
+		ptr.get().next().set(iResult.get());
+		iResult.set(ptr.get());
 	}
 	
 	void Fail()  throws Exception // called when parsing fails, raising an exception
