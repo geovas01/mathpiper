@@ -28,6 +28,10 @@ import org.mathrider.piper.lisp.LispInput;
 import org.mathrider.piper.lisp.LispPrinter;
 
 
+/**
+ * 
+ * @author
+ */
 public class CPiper
 {
 	
@@ -50,6 +54,9 @@ public class CPiper
 			System.out.println(e.toString());
 		}
 	}
+        
+        
+        
 	public String Evaluate(String input) throws Piperexception
 	{
 		if (input.length() == 0)

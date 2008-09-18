@@ -20,12 +20,21 @@ package org.mathrider.piper;
 //import org.mathrider.piper.lisp.LispStandard;
 import org.mathrider.piper.lisp.LispStandard;
 import java.io.*;
-import java.util.*;
 
+/**
+ * Provides a command line console which can be used to interact with a piper instance.
+ * @author
+ */
 public class PiperConsole extends Thread
 {
 
-    static String readLine(InputStream aStream)
+    /**
+     * This method is not called by any code in the piper implementation so
+     * I am not sure what its purpose is. tk.
+     * @param aStream    a stream of bytes.
+     * @return                  a string containing one line of characters.
+     */
+    public static String readLine(InputStream aStream)
     {
         StringBuffer line = new StringBuffer();
         try
@@ -44,20 +53,29 @@ public class PiperConsole extends Thread
     }
     //static boolean quitting = false;
 
+    /**
+     * The normal entry point for running piper from a command line.  It processes command line arguments,
+     * sets piper's standard output to System.out, then enters a REPL (Read, Evaluate, Print Loop).  Currently,
+     * the console only supports the --rootdir and --archive command line options.
+     *
+     * @param argv
+     */
     public static void main(String[] argv)
     {
         String defaultDirectory = null;
         String archive = "";
-         String detect = "";
-         String pathParent = "";
-         boolean inZipFile = false;
-    
+        String detect = "";
+        String pathParent = "";
+        boolean inZipFile = false;
         {
+            /*My thought is that this initialization code should be moved to a single class instead of being
+             * duplicated in multiple classes. tk.
+             */
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
             pathParent = new File(detectURL.getPath()).getParent();
             StdFileInput.setPath(pathParent + File.separator);
-            
-            
+
+
             if (detectURL != null)
             {
                 detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.pi
@@ -87,6 +105,8 @@ public class PiperConsole extends Thread
                 System.out.println("Archive not found!!!!");
             }
         }
+        
+        
         int i = 0;
         while (i < argv.length)
         {
@@ -107,14 +127,16 @@ public class PiperConsole extends Thread
         }
         int scriptsToRun = i;
 
-
+        //Piper needs an output stream to send "side effect" output to.
         StdFileOutput stdoutput = new StdFileOutput(System.out);
         CPiper piper = new CPiper(stdoutput);
+        
+        
         piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
 
 
 
-
+        //Change the default directory. tk.
         if (defaultDirectory != null)
         {
             String toEvaluate = "DefaultDirectory(\"" + defaultDirectory + "\");";
@@ -133,13 +155,13 @@ public class PiperConsole extends Thread
                 System.out.println("Out> " + result);
             }
         }
-        {
+        
 
+        
             String result = "";
             try
             {
-
-                 result = piper.Evaluate("Load(\"piperinit.pi\");");
+                result = piper.Evaluate("Load(\"piperinit.pi\");");
 
             } catch (Piperexception pe)
             {
@@ -150,7 +172,8 @@ public class PiperConsole extends Thread
             {
                 System.out.println("Out> " + result);
             }
-        }
+        
+            
         if (scriptsToRun < argv.length)
         {
 

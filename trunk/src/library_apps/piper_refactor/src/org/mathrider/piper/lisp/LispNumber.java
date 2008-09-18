@@ -21,8 +21,15 @@ package org.mathrider.piper.lisp;
 import org.mathrider.piper.*;
 
 
+/**
+ * 
+ * @author 
+ */
 public class LispNumber extends LispObject
 {
+        /* Note: Since LispNumber is a LispAtom, shouldn't it extend LispAtom instead of LispObject? tk
+        */
+    
 	/// number object; NULL if not yet converted from string
 	BigNumber iNumber;
 	/// string representation in decimal; NULL if not yet converted from BigNumber
