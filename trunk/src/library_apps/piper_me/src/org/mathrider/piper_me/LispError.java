@@ -1,9 +1,9 @@
 package org.mathrider.piper_me;
 
 
-class LispError
+public class LispError
 {
-  static String ErrorString(int aError) throws Exception
+  public static String ErrorString(int aError) throws Exception
   {
     LISPASSERT(aError>=0 && aError < KLispNrErrors);
 //    switch (aError)
@@ -70,7 +70,7 @@ class LispError
     }
     return "Unspecified Error";
   }
-  static void Check(boolean hastobetrue, int aError) throws Exception
+  public static void Check(boolean hastobetrue, int aError) throws Exception
   {
     if (!hastobetrue)
     {
@@ -202,37 +202,37 @@ class LispError
   }
 
 
-  static int KLispErrNone                   = 0;
-  static int KLispErrInvalidArg             = 1;
-  static int KLispErrWrongNumberOfArgs      = 2;
-  static int KLispErrNotList                = 3;
-  static int KLispErrListNotLongEnough      = 4;
-  static int KLispErrInvalidStack           = 5;
-  static int KQuitting                      = 6;
-  static int KLispErrNotEnoughMemory        = 7;
-  static int KInvalidToken                  = 8;
-  static int KLispErrInvalidExpression      = 9;
-  static int KLispErrUnprintableToken       = 10;
-  static int KLispErrFileNotFound           = 11;
-  static int KLispErrReadingFile            = 12;
-  static int KLispErrCreatingUserFunction   = 13;
-  static int KLispErrCreatingRule           = 14;
-  static int KLispErrArityAlreadyDefined    = 15;
-  static int KLispErrCommentToEndOfFile     = 16;
-  static int KLispErrNotString              = 17;
-  static int KLispErrNotInteger             = 18;
-  static int KLispErrParsingInput           = 19;
-  static int KLispErrMaxRecurseDepthReached = 20;
-  static int KLispErrDefFileAlreadyChosen   = 21;
-  static int KLispErrDivideByZero           = 22;
-  static int KLispErrNotAnInFixOperator     = 23;
-  static int KLispErrIsNotInFix             = 24;
-  static int KLispErrSecurityBreach         = 25;
-  static int KLispErrLibraryNotFound        = 26;
-  static int KLispErrUserInterrupt          = 27;
-  static int KLispErrNonBooleanPredicateInPattern = 28;
-  static int KLispErrGenericFormat          = 29;
-  static int KLispNrErrors                  = 30;
+  public static int KLispErrNone                   = 0;
+  public static int KLispErrInvalidArg             = 1;
+  public static int KLispErrWrongNumberOfArgs      = 2;
+  public static int KLispErrNotList                = 3;
+  public static int KLispErrListNotLongEnough      = 4;
+  public static int KLispErrInvalidStack           = 5;
+  public static int KQuitting                      = 6;
+  public static int KLispErrNotEnoughMemory        = 7;
+  public static int KInvalidToken                  = 8;
+  public static int KLispErrInvalidExpression      = 9;
+  public static int KLispErrUnprintableToken       = 10;
+  public static int KLispErrFileNotFound           = 11;
+  public static int KLispErrReadingFile            = 12;
+  public static int KLispErrCreatingUserFunction   = 13;
+  public static int KLispErrCreatingRule           = 14;
+  public static int KLispErrArityAlreadyDefined    = 15;
+  public static int KLispErrCommentToEndOfFile     = 16;
+  public static int KLispErrNotString              = 17;
+  public static int KLispErrNotInteger             = 18;
+  public static int KLispErrParsingInput           = 19;
+  public static int KLispErrMaxRecurseDepthReached = 20;
+  public static int KLispErrDefFileAlreadyChosen   = 21;
+  public static int KLispErrDivideByZero           = 22;
+  public static int KLispErrNotAnInFixOperator     = 23;
+  public static int KLispErrIsNotInFix             = 24;
+  public static int KLispErrSecurityBreach         = 25;
+  public static int KLispErrLibraryNotFound        = 26;
+  public static int KLispErrUserInterrupt          = 27;
+  public static int KLispErrNonBooleanPredicateInPattern = 28;
+  public static int KLispErrGenericFormat          = 29;
+  public static int KLispNrErrors                  = 30;
 
 
 }
