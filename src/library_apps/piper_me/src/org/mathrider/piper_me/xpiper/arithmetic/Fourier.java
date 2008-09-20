@@ -3,8 +3,9 @@ package org.mathrider.piper_me.xpiper.arithmetic;
 /*
  Copyright (c) Oliver Glier
 
- Atention: This file might be shipped with sources with very different
- licences.
+ Warning: The licence of this file does not imply that the project
+ of which it is part of has similar licence terms. In fact, this
+ licence is very liberal and might be overruled by the project's
 
  Redistribution and use in source and binary forms, with or without 
  modification, are permitted provided that the following conditions 
