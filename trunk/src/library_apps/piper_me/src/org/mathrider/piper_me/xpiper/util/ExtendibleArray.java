@@ -3,18 +3,20 @@ package org.mathrider.piper_me.xpiper.util;
 /*
  Copyright (c) Oliver Glier
  
- Atention: This file might be shipped with sources with very different
- licences.
+ Warning: The licence of this file does not imply that the project
+ of which it is part of has similar licence terms. In fact, this
+ licence is very liberal and might be overruled by the project's
+ own licence, for example the GPL.
  
  Redistribution and use in source and binary forms, with or without 
  modification, are permitted provided that the following conditions 
  are met:
 
  1. Redistributions of source code must retain the above copyright notice, 
-    this list of conditions and the following disclaimer.
+ this list of conditions and the following disclaimer.
  2. Neither the name of ist authors or of its contributors may be used to 
-    endorse or promote products derived from this software without specific
-    prior written permission.
+ endorse or promote products derived from this software without specific
+ prior written permission.
 
  THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -158,7 +160,7 @@ public class ExtendibleArray<E> {
       return (E) old;
     }
   }
-  
+
   public final void addFirst(E x) {
     if (NTwice != INITIAL_CAPACITY) {
       /*
@@ -345,18 +347,18 @@ public class ExtendibleArray<E> {
       A[i] = get(i);
     return A;
   }
-  
+
   public void insert(int i, E x) {
     if (i == size()) {
       add(x);
       return;
     }
-    int n = size()-1;
+    int n = size() - 1;
     Object tmp = get(n);
-    addLast((E)tmp);
+    addLast((E) tmp);
     for (int j = n; j > i; j--)
-      set(j,get(j-1));
-    set(i,x);
+      set(j, get(j - 1));
+    set(i, x);
   }
-  
+
 }// `class`
