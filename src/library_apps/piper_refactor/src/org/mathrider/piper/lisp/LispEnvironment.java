@@ -90,21 +90,21 @@ public class LispEnvironment
 		iCurrentOutput = aCurrentOutput;
 		iCurrentPrinter = new InfixPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
-		iTrue = LispAtom.newAtom(this,"True");
-		iFalse = LispAtom.newAtom(this,"False");
+		iTrue = LispAtom.getInstance(this,"True");
+		iFalse = LispAtom.getInstance(this,"False");
 
-		iEndOfFile    = LispAtom.newAtom(this,"EndOfFile");
-		iEndStatement = LispAtom.newAtom(this,";");
-		iProgOpen     = LispAtom.newAtom(this,"[");
-		iProgClose    = LispAtom.newAtom(this,"]");
-		iNth          = LispAtom.newAtom(this,"Nth");
-		iBracketOpen  = LispAtom.newAtom(this,"(");
-		iBracketClose = LispAtom.newAtom(this,")");
-		iListOpen     = LispAtom.newAtom(this,"{");
-		iListClose    = LispAtom.newAtom(this,"}");
-		iComma        = LispAtom.newAtom(this,",");
-		iList         = LispAtom.newAtom(this,"List");
-		iProg         = LispAtom.newAtom(this,"Prog");
+		iEndOfFile    = LispAtom.getInstance(this,"EndOfFile");
+		iEndStatement = LispAtom.getInstance(this,";");
+		iProgOpen     = LispAtom.getInstance(this,"[");
+		iProgClose    = LispAtom.getInstance(this,"]");
+		iNth          = LispAtom.getInstance(this,"Nth");
+		iBracketOpen  = LispAtom.getInstance(this,"(");
+		iBracketClose = LispAtom.getInstance(this,")");
+		iListOpen     = LispAtom.getInstance(this,"{");
+		iListClose    = LispAtom.getInstance(this,"}");
+		iComma        = LispAtom.getInstance(this,",");
+		iList         = LispAtom.getInstance(this,"List");
+		iProg         = LispAtom.getInstance(this,"Prog");
 
 		iStack = new PiperArgStack(50000 /*TODO FIXME*/);
 		MathCommands mc = new MathCommands();

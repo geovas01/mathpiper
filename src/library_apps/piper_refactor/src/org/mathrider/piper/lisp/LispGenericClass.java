@@ -23,9 +23,9 @@ import org.mathrider.piper.*;
 
 public class LispGenericClass extends LispObject
 {
-	GenericClass iClass;
+	GenericClassContainer iClass;
 	
-	public static LispGenericClass newGenericClass(GenericClass aClass) throws Exception
+	public static LispGenericClass getInstance(GenericClassContainer aClass) throws Exception
 	{
 		LispError.LISPASSERT(aClass!=null);
 		LispGenericClass self = new LispGenericClass(aClass);
@@ -33,7 +33,7 @@ public class LispGenericClass extends LispObject
 		return self;
 	}
 	
-	public GenericClass generic()
+	public GenericClassContainer generic()
 	{
 		return iClass;
 	}
@@ -55,7 +55,7 @@ public class LispGenericClass extends LispObject
 		return null;
 	}
 
-	LispGenericClass(GenericClass aClass)
+	LispGenericClass(GenericClassContainer aClass)
 	{
 		iClass = aClass;
 	}

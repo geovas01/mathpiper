@@ -61,9 +61,9 @@ public class LispPrinter
 			{
 				aOutput.Write("[GenericObject]");
 			}
-			iter = (iter.get().next());
+			iter = (iter.get().cdr());
 			item++;
-		} // print next element
+		} // print cdr element
 	}
 
 	void Indent(LispOutput aOutput, int aDepth) throws Exception

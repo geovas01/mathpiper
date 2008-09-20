@@ -126,16 +126,16 @@ public class InfixPrinter extends LispPrinter
 
 				if (prefix != null)
 				{
-					right = subList.get().next();
+					right = subList.get().cdr();
 				}
 				else if (infix != null)
 				{
-					left  = subList.get().next();
-					right = subList.get().next().get().next();
+					left  = subList.get().cdr();
+					right = subList.get().cdr().get().cdr();
 				}
 				else if (postfix != null)
 				{
-					left = subList.get().next();
+					left = subList.get().cdr();
 				}
 
 				if (iPrecedence < op.iPrecedence)
@@ -156,7 +156,7 @@ public class InfixPrinter extends LispPrinter
 			}
 			else
 			{
-				LispIterator iter = new LispIterator(subList.get().next());
+				LispIterator iter = new LispIterator(subList.get().cdr());
 				if (string == iCurrentEnvironment.iList.string())
 				{
 					WriteToken(aOutput,"{");

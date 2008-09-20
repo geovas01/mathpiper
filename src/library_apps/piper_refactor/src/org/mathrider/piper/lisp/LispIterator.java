@@ -46,7 +46,7 @@ public class LispIterator
 	public void GoNext() throws Exception
 	{
 		LispError.Check(iPtr.get() != null,LispError.KLispErrListNotLongEnough);
-		iPtr = (iPtr.get().next());
+		iPtr = (iPtr.get().cdr());
 	}
 	
 	public void GoSub() throws Exception

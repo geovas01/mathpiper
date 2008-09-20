@@ -142,8 +142,8 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 
 		while (iter.get() != null)
 		{
-			tail.set(iter.get().next().get());
-			iter.get().next().set(previous.get());
+			tail.set(iter.get().cdr().get());
+			iter.get().cdr().set(previous.get());
 			previous.set(iter.get());
 			iter.set(tail.get());
 		}
@@ -154,7 +154,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 	{
 		LispPtr full = new LispPtr();
 		full.set(aArguments.get().copy(false));
-		aResult.set(LispSubList.newSubList(full.get()));
+		aResult.set(LispSubList.getInstance(full.get()));
 
 		LispIterator iter = new LispIterator(aArguments);
 		iter.GoNext();
@@ -163,11 +163,11 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		{
 			LispPtr next = new LispPtr();
 			aEnvironment.iEvaluator.eval(aEnvironment, next, iter.Ptr());
-			full.get().next().set(next.get());
+			full.get().cdr().set(next.get());
 			full.set(next.get());
 			iter.GoNext();
 		}
-		full.get().next().set(null);
+		full.get().cdr().set(null);
 	}
 
 
@@ -179,10 +179,10 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		LispError.Check(internalIsString(aOperator),LispError.KLispErrNotString);
 
 		LispObject head =
-		        LispAtom.newAtom(aEnvironment,symbolName(aEnvironment, aOperator));
-		head.next().set(aArgs.get());
+		        LispAtom.getInstance(aEnvironment,symbolName(aEnvironment, aOperator));
+		head.cdr().set(aArgs.get());
 		LispPtr body = new LispPtr();
-		body.set(LispSubList.newSubList(head));
+		body.set(LispSubList.getInstance(head));
 		aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
 	}
 
@@ -191,16 +191,16 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		LispError.Check(oper.get().subList() != null,LispError.KLispErrInvalidArg);
 		LispError.Check(oper.get().subList().get() != null,LispError.KLispErrInvalidArg);
 		LispPtr oper2 = new LispPtr();
-		oper2.set(oper.get().subList().get().next().get());
+		oper2.set(oper.get().subList().get().cdr().get());
 		LispError.Check(oper2.get() != null,LispError.KLispErrInvalidArg);
 
 		LispPtr body = new LispPtr();
-		body.set(oper2.get().next().get());
+		body.set(oper2.get().cdr().get());
 		LispError.Check(body.get() != null,LispError.KLispErrInvalidArg);
 
 		LispError.Check(oper2.get().subList() != null,LispError.KLispErrInvalidArg);
 		LispError.Check(oper2.get().subList().get() != null,LispError.KLispErrInvalidArg);
-		oper2.set(oper2.get().subList().get().next().get());
+		oper2.set(oper2.get().subList().get().cdr().get());
 
 		aEnvironment.pushLocalFrame(false);
 		try
@@ -214,8 +214,8 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 				LispPtr newly = new LispPtr();
 				newly.set(args2.get().copy(false));
 				aEnvironment.newLocal(var,newly.get());
-				oper2.set(oper2.get().next().get());
-				args2.set(args2.get().next().get());
+				oper2.set(oper2.get().cdr().get());
+				args2.set(args2.get().cdr().get());
 			}
 			LispError.Check(args2.get() == null,LispError.KLispErrInvalidArg);
 			aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
@@ -272,7 +272,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 		LispPtr iter = aArg.get().subList();
 
 		LispError.Check(iter.get() != null,LispError.KLispErrInvalidArg);
-		aResult.set(LispSubList.newSubList(iter.get().next().get()));
+		aResult.set(LispSubList.getInstance(iter.get().cdr().get()));
 	}
 
 	public static boolean isTrue(LispEnvironment aEnvironment, LispPtr aExpression) throws Exception
@@ -401,7 +401,7 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 					return false;
 				}
 
-				// Step to next
+				// Step to cdr
 				iter1.GoNext();
 				iter2.GoNext();
 			}
@@ -432,10 +432,10 @@ public class LispStandard //Note:tk: made this class public so that zipfile coul
 				while (oldList.get() != null)
 				{
 					internalSubstitute(next, oldList, aBehaviour);
-					oldList = oldList.get().next();
-					next = next.get().next();
+					oldList = oldList.get().cdr();
+					next = next.get().cdr();
 				}
-				aTarget.set(LispSubList.newSubList(newList.get()));
+				aTarget.set(LispSubList.getInstance(newList.get()));
 			}
 			else
 			{

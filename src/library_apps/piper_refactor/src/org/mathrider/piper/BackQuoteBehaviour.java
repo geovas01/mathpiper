@@ -55,7 +55,7 @@ public class BackQuoteBehaviour implements SubstBehaviourBase
 
 		if (!ptr.string().equals("@"))
 			return false;
-		ptr = ptr.next().get();
+		ptr = ptr.cdr().get();
 		if (ptr == null)
 			return false;
 		if (ptr.string() != null)
@@ -71,12 +71,12 @@ public class BackQuoteBehaviour implements SubstBehaviourBase
 			LispPtr cur = new LispPtr();
 			cur.set(ptr);
 			LispPtr args = new LispPtr();
-			args.set(ptr.next().get());
+			args.set(ptr.cdr().get());
 			LispPtr result = new LispPtr();
 			iEnvironment.iEvaluator.eval(iEnvironment, result, cur);
-			result.get().next().set(args.get());
+			result.get().cdr().set(args.get());
 			LispPtr result2 = new LispPtr();
-			result2.set(LispSubList.newSubList(result.get()));
+			result2.set(LispSubList.getInstance(result.get()));
 			LispStandard.internalSubstitute(aResult, result2,this);
 			return true;
 		}

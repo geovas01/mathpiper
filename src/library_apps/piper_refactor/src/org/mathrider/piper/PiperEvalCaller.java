@@ -46,7 +46,7 @@ public abstract class PiperEvalCaller
 		while(n != 0)
 		{
 			n--;
-			loop = loop.get().next();
+			loop = loop.get().cdr();
 		}
 		return loop;
 	}

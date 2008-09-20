@@ -23,7 +23,7 @@ public class LispSubList extends LispObject
 {
 	LispPtr iSubList = new LispPtr();
 	
-	public static LispSubList newSubList(LispObject aSubList)
+	public static LispSubList getInstance(LispObject aSubList)
 	{
 		return new LispSubList(aSubList);
 	}

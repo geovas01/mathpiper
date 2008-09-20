@@ -60,7 +60,7 @@ public class LispPtr
 	
 	public void goNext()
 	{
-		iNext = iNext.iNext.iNext;
+		iNext = iNext.cdr.iNext;
 	}
 	
 	void doSet(LispObject aNext)

@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.LispArgList;
 /// Wrapper for PiperPatternPredicateBase.
 /// This class allows a PiperPatternPredicateBase to be put in a
 /// LispGenericObject.
-public class PatternClass extends GenericClass
+public class PatternClass extends GenericClassContainer
 {
 	protected PiperPatternPredicateBase iPatternMatcher;
 	
@@ -52,7 +52,7 @@ public class PatternClass extends GenericClass
 		return result;
 	}
 	
-	//From GenericClass
+	//From GenericClassContainer
 	public String Send(LispArgList aArgList)
 	{
 		return null;
