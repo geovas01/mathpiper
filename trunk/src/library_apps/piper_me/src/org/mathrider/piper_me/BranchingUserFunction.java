@@ -1,5 +1,6 @@
 package org.mathrider.piper_me;
 
+import org.mathrider.piper_me.xpiper.util.ExtendibleArray;
 
 import java.util.*;
 
@@ -392,13 +393,13 @@ class BranchingUserFunction extends LispArityUserFunction
         {
             mid=0;
             // Insert it
-            iRules.add(mid,newRule);return;
+            iRules.insert(mid,newRule);return;
         }
         if (((BranchRuleBase)iRules.get(high-1)).Precedence() < aPrecedence)
         {
             mid=high;
             // Insert it
-            iRules.add(mid,newRule);return;
+            iRules.insert(mid,newRule);return;
         }
     }
 
@@ -409,7 +410,7 @@ class BranchingUserFunction extends LispArityUserFunction
       {
         mid=low;
         // Insert it
-        iRules.add(mid,newRule);return;
+        iRules.insert(mid,newRule);return;
       }
       mid = (low+high)>>1;
 
@@ -424,7 +425,7 @@ class BranchingUserFunction extends LispArityUserFunction
       else
       {
         // Insert it
-        iRules.add(mid,newRule);return;
+        iRules.insert(mid,newRule);return;
       }
     }
   }

@@ -1,5 +1,6 @@
 package org.mathrider.piper_me.xpiper.arithmetic;
 
+//! Base class for Yacas Numbers
 /*
 This is Ayal's original implementation of the BigNumber interface. 
 */
