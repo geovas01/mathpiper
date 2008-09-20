@@ -319,7 +319,7 @@ public class ParsedObject
 	void Combine(int aNrArgsToCombine) throws Exception
 	{
 		LispPtr subList = new LispPtr();
-		subList.set(LispSubList.newSubList(iResult.get()));
+		subList.set(LispSubList.getInstance(iResult.get()));
 		LispIterator iter = new LispIterator(iResult);
 		int i;
 		for (i=0;i<aNrArgsToCombine;i++)
@@ -336,19 +336,19 @@ public class ParsedObject
 			Fail();
 			return;
 		}
-		subList.get().next().set(iter.GetObject().next().get());
-		iter.GetObject().next().set(null);
+		subList.get().cdr().set(iter.GetObject().cdr().get());
+		iter.GetObject().cdr().set(null);
 
-		LispStandard.internalReverseList(subList.get().subList().get().next(),
-		                                 subList.get().subList().get().next());
+		LispStandard.internalReverseList(subList.get().subList().get().cdr(),
+		                                 subList.get().subList().get().cdr());
 		iResult.set(subList.get());
 	}
 	
 	void InsertAtom(String aString) throws Exception
 	{
 		LispPtr ptr = new LispPtr();
-		ptr.set(LispAtom.newAtom(iParser.iEnvironment,aString));
-		ptr.get().next().set(iResult.get());
+		ptr.set(LispAtom.getInstance(iParser.iEnvironment,aString));
+		ptr.get().cdr().set(iResult.get());
 		iResult.set(ptr.get());
 	}
 	

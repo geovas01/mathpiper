@@ -42,7 +42,7 @@ public class BasicEvaluator extends LispEvaluatorBase
 	/// First, the evaluation depth is checked. An error is raised if
 	/// the maximum evaluation depth is exceeded.
 	///
-	/// The next step is the actual evaluation. \a aExpression is a
+	/// The cdr step is the actual evaluation. \a aExpression is a
 	/// LispObject, so we can distinguish three cases.
 	///   - If \a aExpression is a string starting with \c " , it is
 	///     simply copied in \a aResult. If it starts with another
@@ -144,7 +144,7 @@ public class BasicEvaluator extends LispEvaluatorBase
 						LispPtr oper = new LispPtr();
 						LispPtr args2 = new LispPtr();
 						oper.set(subList.get());
-						args2.set(subList.get().next().get());
+						args2.set(subList.get().cdr().get());
 						LispStandard.internalApplyPure(oper,args2,aResult,aEnvironment);
 						aEnvironment.iEvalDepth--;
 						return;

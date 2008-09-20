@@ -27,7 +27,7 @@ public class LispAtom extends LispObject
         iString = aString;
     }
 
-    public static LispObject newAtom(LispEnvironment aEnvironment, String aString) throws Exception
+    public static LispObject getInstance(LispEnvironment aEnvironment, String aString) throws Exception
     {
         LispObject self = null;
         if (LispStandard.isNumber(aString, true))  // check if aString is a number (int or float)

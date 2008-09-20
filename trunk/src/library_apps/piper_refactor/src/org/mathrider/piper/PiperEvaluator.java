@@ -80,8 +80,8 @@ public class PiperEvaluator extends EvalFuncBase
 			{
 				LispPtr head = new LispPtr();
 				head.set(aEnvironment.iList.copy(false));
-				head.get().next().set(iter.GetObject());
-				aEnvironment.iStack.PushArgOnStack(LispSubList.newSubList(head.get()));
+				head.get().cdr().set(iter.GetObject());
+				aEnvironment.iStack.PushArgOnStack(LispSubList.getInstance(head.get()));
 			}
 		}
 		else
@@ -103,9 +103,9 @@ public class PiperEvaluator extends EvalFuncBase
 				//printf("Enter\n");
 				LispPtr head = new LispPtr();
 				head.set(aEnvironment.iList.copy(false));
-				head.get().next().set(iter.GetObject());
+				head.get().cdr().set(iter.GetObject());
 				LispPtr list = new LispPtr();
-				list.set(LispSubList.newSubList(head.get()));
+				list.set(LispSubList.getInstance(head.get()));
 
 
 				/*

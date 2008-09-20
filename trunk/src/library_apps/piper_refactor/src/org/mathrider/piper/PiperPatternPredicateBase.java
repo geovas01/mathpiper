@@ -252,7 +252,7 @@ public class PiperPatternPredicateBase
 				LispObject head = sublist.get();
 				if (head.string() == aEnvironment.hashTable().lookUp("_"))
 				{
-					LispObject second = head.next().get();
+					LispObject second = head.cdr().get();
 					if (second.string() != null)
 					{
 						int index = LookUp(second.string());
@@ -262,25 +262,25 @@ public class PiperPatternPredicateBase
 						{
 							LispPtr third = new LispPtr();
 
-							LispObject predicate = second.next().get();
+							LispObject predicate = second.cdr().get();
 							if (predicate.subList() != null)
 							{
 								LispStandard.internalFlatCopy(third, predicate.subList());
 							}
 							else
 							{
-								third.set(second.next().get().copy(false));
+								third.set(second.cdr().get().copy(false));
 							}
 
 							String str = second.string();
 							LispObject last = third.get();
-							while (last.next().get() != null)
-								last = last.next().get();
+							while (last.cdr().get() != null)
+								last = last.cdr().get();
 
-							last.next().set(LispAtom.newAtom(aEnvironment,str));
+							last.cdr().set(LispAtom.getInstance(aEnvironment,str));
 
 							LispPtr pred = new LispPtr();
-							pred.set(LispSubList.newSubList(third.get()));
+							pred.set(LispSubList.getInstance(third.get()));
 
 							iPredicates.add(pred);
 						}

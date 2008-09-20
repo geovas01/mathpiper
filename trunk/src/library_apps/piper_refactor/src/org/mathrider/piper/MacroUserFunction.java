@@ -164,17 +164,17 @@ public class MacroUserFunction extends BranchingUserFunction
 			full.set(aArguments.get().copy(false));
 			if (arity == 0)
 			{
-				full.get().next().set(null);
+				full.get().cdr().set(null);
 			}
 			else
 			{
-				full.get().next().set(arguments[0].get());
+				full.get().cdr().set(arguments[0].get());
 				for (i=0;i<arity-1;i++)
 				{
-					arguments[i].get().next().set(arguments[i+1].get());
+					arguments[i].get().cdr().set(arguments[i+1].get());
 				}
 			}
-			aResult.set(LispSubList.newSubList(full.get()));
+			aResult.set(LispSubList.getInstance(full.get()));
 		}
 		//FINISH:
 		/*TODO fixme

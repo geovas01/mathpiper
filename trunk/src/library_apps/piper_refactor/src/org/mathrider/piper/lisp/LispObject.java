@@ -30,11 +30,11 @@ import org.mathrider.piper.*;
  */
 public abstract class LispObject
 {
-	LispPtr   iNext = new LispPtr();
+	LispPtr   cdr = new LispPtr();
 
-	public  LispPtr next()
+	public  LispPtr cdr()
 	{
-		return iNext;
+		return cdr;
 	}
 
 	/** Return string representation, or NULL if the object doesn't have one.
@@ -54,7 +54,7 @@ public abstract class LispObject
         
         
         
-	public GenericClass generic()
+	public GenericClassContainer generic()
 	{
 		return null;
 	}
@@ -80,7 +80,7 @@ public abstract class LispObject
 
 	public boolean equal(LispObject aOther) throws Exception
 	{
-		// next line handles the fact that either one is a string
+		// cdr line handles the fact that either one is a string
 		if (string() != aOther.string())
 			return false;
 
@@ -96,8 +96,8 @@ public abstract class LispObject
 			if (! iter1.get().equal(iter2.get() ))
 				return false;
 
-			iter1 = iter1.get().next();
-			iter2 = iter2.get().next();
+			iter1 = iter1.get().cdr();
+			iter2 = iter2.get().cdr();
 		}
 		//One list longer than the other?
 		if (iter1.get()== null && iter2.get()==null)

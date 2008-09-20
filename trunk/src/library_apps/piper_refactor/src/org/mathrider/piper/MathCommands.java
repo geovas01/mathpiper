@@ -739,9 +739,9 @@ public class MathCommands
 		}
 		LispError.CHK_CORE(aEnvironment, aStackTop,iter.GetObject() != null, LispError.KLispErrListNotLongEnough);
 		LispPtr next = new LispPtr();
-		next.set(iter.GetObject().next().get());
+		next.set(iter.GetObject().cdr().get());
 		iter.Ptr().set(next.get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(copied.get()));
+		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(copied.get()));
 	}
 
 
@@ -777,9 +777,9 @@ public class MathCommands
 
 		LispPtr toInsert = new LispPtr();
 		toInsert.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
-		toInsert.get().next().set(iter.GetObject());
+		toInsert.get().cdr().set(iter.GetObject());
 		iter.Ptr().set(toInsert.get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(copied.get()));
+		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(copied.get()));
 	}
 
 
@@ -822,9 +822,9 @@ public class MathCommands
 		toInsert.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr() != null, 2);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr().get() != null, 2);
-		toInsert.get().next().set(iter.Ptr().get().next().get());
+		toInsert.get().cdr().set(iter.Ptr().get().cdr().get());
 		iter.Ptr().set(toInsert.get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(copied.get()));
+		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(copied.get()));
 	}
 
 
@@ -848,7 +848,7 @@ public class MathCommands
 
 		// Finally define the rule base
 		aEnvironment.declareRuleBase(LispStandard.symbolName(aEnvironment,orig),
-		                             args.get().subList().get().next(),aListed);
+		                             args.get().subList().get().cdr(),aListed);
 
 		// Return true
 		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
@@ -917,7 +917,7 @@ public class MathCommands
 
 		// Finally define the rule base
 		aEnvironment.declareMacroRuleBase(LispStandard.symbolName(aEnvironment,orig),
-		                                  args.get().subList().get().next(),aListed);
+		                                  args.get().subList().get().cdr(),aListed);
 
 		// Return true
 		LispStandard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
@@ -1161,7 +1161,7 @@ public class MathCommands
 				RESULT(aEnvironment, aStackTop).set(aEnvironment.iEndOfFile.copy(false));
 				return;
 			}
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,result));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,result));
 		}
 	}
 
@@ -1214,7 +1214,7 @@ public class MathCommands
 				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 
 				//Return the result
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(oper.toString())));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(oper.toString())));
 			}
 			catch (Exception e) { throw e; }
 			finally
@@ -1364,7 +1364,7 @@ public class MathCommands
 			LispStandard.internalTail(RESULT(aEnvironment, aStackTop), first);
 			LispPtr head = new LispPtr();
 			head.set(aEnvironment.iList.copy(false));
-			head.get().next().set(RESULT(aEnvironment, aStackTop).get().subList().get());
+			head.get().cdr().set(RESULT(aEnvironment, aStackTop).get().subList().get());
 			RESULT(aEnvironment, aStackTop).get().subList().set(head.get());
 		}
 	}
@@ -1375,8 +1375,8 @@ public class MathCommands
 		{
 			LispPtr reversed = new LispPtr();
 			reversed.set(aEnvironment.iList.copy(false));
-			LispStandard.internalReverseList(reversed.get().next(), ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get().next());
-			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(reversed.get()));
+			LispStandard.internalReverseList(reversed.get().cdr(), ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get().cdr());
+			RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(reversed.get()));
 		}
 	}
 
@@ -1387,23 +1387,23 @@ public class MathCommands
 			LispPtr subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
 			if (subList != null)
 			{
-				int num = LispStandard.internalListLength(subList.get().next());
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+num));
+				int num = LispStandard.internalListLength(subList.get().cdr());
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+num));
 				return;
 			}
 			String string = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 			if (LispStandard.internalIsString(string))
 			{
 				int num = string.length()-2;
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+num));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+num));
 				return;
 			}
-			GenericClass gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
+			GenericClassContainer gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
 			if (gen != null)
 				if (gen.TypeName().equals("\"Array\""))
 				{
 					int size=((ArrayClass)gen).Size();
-					RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+size));
+					RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+size));
 					return;
 				}
 			//  CHK_ISLIST_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1),1);
@@ -1428,7 +1428,7 @@ public class MathCommands
 				tail.GoNext();
 				iter.GoNext();
 			}
-			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(all.get()));
+			RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(all.get()));
 		}
 	}
 
@@ -1452,8 +1452,8 @@ public class MathCommands
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().subList() != null, 1);
 			LispPtr head = new LispPtr();
 			head.set(aEnvironment.iList.copy(false));
-			head.get().next().set(ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get());
-			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(head.get()));
+			head.get().cdr().set(ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get());
+			RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(head.get()));
 		}
 	}
 
@@ -1472,13 +1472,13 @@ public class MathCommands
 			while (iter.GetObject() != null)
 			{
 				LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,iter.Ptr(),arg);
-				LispStandard.internalFlatCopy(tail.Ptr(),iter.Ptr().get().subList().get().next());
+				LispStandard.internalFlatCopy(tail.Ptr(),iter.Ptr().get().subList().get().cdr());
 				while (tail.GetObject() != null)
 					tail.GoNext();
 				iter.GoNext();
 				arg++;
 			}
-			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(all.get()));
+			RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(all.get()));
 		}
 	}
 
@@ -1506,7 +1506,7 @@ public class MathCommands
 		{
 			StringBuffer strBuffer = new StringBuffer("");
 			ConcatenateStrings(strBuffer,aEnvironment, aStackTop);
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,strBuffer.toString()));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,strBuffer.toString()));
 		}
 	}
 
@@ -1569,7 +1569,7 @@ public class MathCommands
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpUnStringify(orig)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpUnStringify(orig)));
 		}
 	}
 
@@ -1585,7 +1585,7 @@ public class MathCommands
 			String orig = evaluated.get().string();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(orig)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(orig)));
 		}
 	}
 
@@ -1598,7 +1598,7 @@ public class MathCommands
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,2);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,LispStandard.isNumber(str,false),2);
 			char asciiCode = (char)Integer.parseInt(str,10);
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\""+asciiCode+"\""));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,"\""+asciiCode+"\""));
 		}
 	}
 
@@ -1608,7 +1608,7 @@ public class MathCommands
 		{
 			LispPtr copied = new LispPtr();
 			LispStandard.internalFlatCopy(copied,ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
-			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(copied.get()));
+			RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(copied.get()));
 		}
 	}
 
@@ -1729,7 +1729,7 @@ public class MathCommands
 	{
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(aEnvironment.iError)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(aEnvironment.iError)));
 		}
 	}
 
@@ -1912,8 +1912,8 @@ public class MathCommands
 			{
 				LispPtr ptr = new LispPtr();
 				ptr.set(ARGUMENT(aEnvironment, aStackTop, 0).get().copy(false));
-				ptr.get().next().set(evaluated.get());
-				RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(ptr.get()));
+				ptr.get().cdr().set(evaluated.get());
+				RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(ptr.get()));
 			}
 		}
 	}
@@ -1941,7 +1941,7 @@ public class MathCommands
 					LispPtr ptr = new LispPtr();
 					nrnogos++;
 					ptr.set(evaluated.get().copy(false));
-					ptr.get().next().set(nogos.get());
+					ptr.get().cdr().set(nogos.get());
 					nogos.set(ptr.get());
 				}
 
@@ -1962,9 +1962,9 @@ public class MathCommands
 					nogos.set(ptr.get());
 
 					ptr.set(ARGUMENT(aEnvironment, aStackTop, 0).get().copy(false));
-					ptr.get().next().set(nogos.get());
+					ptr.get().cdr().set(nogos.get());
 					nogos.set(ptr.get());
-					RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(nogos.get()));
+					RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(nogos.get()));
 
 					//aEnvironment.CurrentPrinter().Print(RESULT(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
 				}
@@ -2001,7 +2001,7 @@ public class MathCommands
 					nrnogos++;
 
 					ptr.set(evaluated.get().copy(false));
-					ptr.get().next().set(nogos.get());
+					ptr.get().cdr().set(nogos.get());
 					nogos.set(ptr.get());
 				}
 				iter.GoNext();
@@ -2021,9 +2021,9 @@ public class MathCommands
 					nogos.set(ptr.get());
 
 					ptr.set(ARGUMENT(aEnvironment, aStackTop, 0).get().copy(false));
-					ptr.get().next().set(nogos.get());
+					ptr.get().cdr().set(nogos.get());
 					nogos.set(ptr.get());
-					RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(nogos.get()));
+					RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(nogos.get()));
 				}
 				//aEnvironment.CurrentPrinter().Print(RESULT(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
 			}
@@ -2679,7 +2679,7 @@ public class MathCommands
 			str = x.ToString(aEnvironment.precision(),base);
 			// Get unique string from hash table, and create an atom from it.
 
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(str)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(str)));
 		}
 	}
 
@@ -2841,7 +2841,7 @@ public class MathCommands
 					}
 				}
 			}
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+op.iPrecedence));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+op.iPrecedence));
 		}
 	}
 
@@ -2855,7 +2855,7 @@ public class MathCommands
 				op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 				LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 			}
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+op.iLeftPrecedence));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+op.iLeftPrecedence));
 		}
 	}
 
@@ -2873,7 +2873,7 @@ public class MathCommands
 					LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 				}
 			}
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+op.iRightPrecedence));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+op.iRightPrecedence));
 		}
 	}
 
@@ -2882,7 +2882,7 @@ public class MathCommands
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			// decimal precision
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+aEnvironment.precision()));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+aEnvironment.precision()));
 		}
 	}
 
@@ -2953,7 +2953,7 @@ public class MathCommands
 			String oper = LispStandard.internalUnstringify(orig);
 
 			String filename = LispStandard.internalFindFile(oper, aEnvironment.iInputDirectories);
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(filename)));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(filename)));
 		}
 	}
 
@@ -2979,11 +2979,11 @@ public class MathCommands
 				LispDefFile def = multiUserFunc.iFileToOpen;
 				if (def != null)
 				{
-					RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,def.iFileName));
+					RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,def.iFileName));
 					return;
 				}
 			}
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,"\"\""));
 		}
 	}
 
@@ -3004,7 +3004,7 @@ public class MathCommands
 			LispPtr evaluated = new LispPtr();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().generic() != null,1);
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,evaluated.get().generic().TypeName()));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,evaluated.get().generic().TypeName()));
 		}
 	}
 
@@ -3024,7 +3024,7 @@ public class MathCommands
 			initarg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
 			ArrayClass array = new ArrayClass(size,initarg.get());
-			RESULT(aEnvironment, aStackTop).set(LispGenericClass.newGenericClass(array));
+			RESULT(aEnvironment, aStackTop).set(LispGenericClass.getInstance(array));
 		}
 	}
 
@@ -3035,11 +3035,11 @@ public class MathCommands
 			LispPtr evaluated = new LispPtr();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClass gen = evaluated.get().generic();
+			GenericClassContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 			int size=((ArrayClass)gen).Size();
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+size));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+size));
 		}
 	}
 
@@ -3050,7 +3050,7 @@ public class MathCommands
 			LispPtr evaluated = new LispPtr();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClass gen = evaluated.get().generic();
+			GenericClassContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 
@@ -3076,7 +3076,7 @@ public class MathCommands
 			LispPtr evaluated = new LispPtr();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClass gen = evaluated.get().generic();
+			GenericClassContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 
@@ -3194,16 +3194,16 @@ public class MathCommands
 			LispObject head = null;
 			if (subList == null)
 			{
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,"\"\""));
 				return;
 			}
 			head = subList.get();
 			if (head.string() == null)
 			{
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,"\"\""));
 				return;
 			}
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(head.string())));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(head.string())));
 			return;
 		}
 	}
@@ -3231,7 +3231,7 @@ public class MathCommands
 
 
 			String str = "\""+orig.substring(from,from+count)+"\"";
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,str));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,str));
 		}
 	}
 
@@ -3262,7 +3262,7 @@ public class MathCommands
 			str = str + replace.substring(1,replace.length()-1);
 			//System.out.println("from="+from+replace.length()-2);
 			str = str + orig.substring(from+replace.length()-2,orig.length());
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,str));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,str));
 		}
 	}
 
@@ -3288,7 +3288,7 @@ public class MathCommands
 			PiperPatternPredicateBase matcher =
 			        new PiperPatternPredicateBase(aEnvironment, ptr,postpredicate);
 			PatternClass p = new PatternClass(matcher);
-			RESULT(aEnvironment, aStackTop).set(LispGenericClass.newGenericClass(p));
+			RESULT(aEnvironment, aStackTop).set(LispGenericClass.getInstance(p));
 		}
 	}
 
@@ -3298,7 +3298,7 @@ public class MathCommands
 		{
 			LispPtr pattern = new LispPtr();
 			pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			GenericClass gen = pattern.get().generic();
+			GenericClassContainer gen = pattern.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Pattern\""),1);
 
@@ -3394,8 +3394,8 @@ public class MathCommands
 			LispPtr list = userFunc.ArgList();
 			LispPtr head = new LispPtr();
 			head.set(aEnvironment.iList.copy(false));
-			head.get().next().set(list.get());
-			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(head.get()));
+			head.get().cdr().set(list.get());
+			RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(head.get()));
 		}
 	}
 
@@ -3527,12 +3527,12 @@ public class MathCommands
 			{
 				LispStandard.internalApplyString(aEnvironment, RESULT(aEnvironment, aStackTop),
 				                                 oper.get().string(),
-				                                 args.get().subList().get().next());
+				                                 args.get().subList().get().cdr());
 			}
 			else
 			{   // Apply a pure function {args,body}.
 				LispPtr args2 = new LispPtr();
-				args2.set(args.get().subList().get().next().get());
+				args2.set(args.get().subList().get().cdr().get());
 				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,oper.get().subList() != null,1);
 				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,oper.get().subList().get() != null,1);
 				LispStandard.internalApplyPure(oper,args2,RESULT(aEnvironment, aStackTop),aEnvironment);
@@ -3568,9 +3568,9 @@ public class MathCommands
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			if (aEnvironment.iPrettyReader == null)
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,"\"\""));
 			else
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.iPrettyReader));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.iPrettyReader));
 		}
 	}
 
@@ -3601,9 +3601,9 @@ public class MathCommands
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
 			if (aEnvironment.iPrettyPrinter == null)
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"\"\""));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,"\"\""));
 			else
-				RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.iPrettyPrinter));
+				RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.iPrettyPrinter));
 		}
 	}
 
@@ -3770,13 +3770,13 @@ public class MathCommands
 
 				//printf("[%s], [%s]\n",name.String(),value.String());
 				{
-					LispObject ls = LispAtom.newAtom(aEnvironment,"List");
-					LispObject nm = LispAtom.newAtom(aEnvironment,name);
-					LispObject vl = LispAtom.newAtom(aEnvironment,value);
-					nm.next().set(vl);
-					ls.next().set(nm);
-					LispObject newinfo =  LispSubList.newSubList(ls);
-					newinfo.next().set(info);
+					LispObject ls = LispAtom.getInstance(aEnvironment,"List");
+					LispObject nm = LispAtom.getInstance(aEnvironment,name);
+					LispObject vl = LispAtom.getInstance(aEnvironment,value);
+					nm.cdr().set(vl);
+					ls.cdr().set(nm);
+					LispObject newinfo =  LispSubList.getInstance(ls);
+					newinfo.cdr().set(info);
 					info = newinfo;
 				}
 				while (str.charAt(strInd) == ' ') strInd++;
@@ -3791,18 +3791,18 @@ public class MathCommands
 			}
 
 			{
-				LispObject ls = LispAtom.newAtom(aEnvironment,"List");
-				ls.next().set(info);
-				info = LispSubList.newSubList(ls);
+				LispObject ls = LispAtom.getInstance(aEnvironment,"List");
+				ls.cdr().set(info);
+				info = LispSubList.getInstance(ls);
 			}
 
-			LispObject xm = LispAtom.newAtom(aEnvironment,"XmlTag");
-			LispObject tg = LispAtom.newAtom(aEnvironment,tag);
-			LispObject tp = LispAtom.newAtom(aEnvironment,type);
-			info.next().set(tp);
-			tg.next().set(info);
-			xm.next().set(tg);
-			RESULT(aEnvironment, aStackTop).set(LispSubList.newSubList(xm));
+			LispObject xm = LispAtom.getInstance(aEnvironment,"XmlTag");
+			LispObject tg = LispAtom.getInstance(aEnvironment,tag);
+			LispObject tp = LispAtom.getInstance(aEnvironment,type);
+			info.cdr().set(tp);
+			tg.cdr().set(info);
+			xm.cdr().set(tg);
+			RESULT(aEnvironment, aStackTop).set(LispSubList.getInstance(xm));
 
 		}
 	}
@@ -3825,7 +3825,7 @@ public class MathCommands
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,list.get().subList() != null, 2);
 			t = list.get().subList().get();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,t != null, 2);
-			t = t.next().get();
+			t = t.cdr().get();
 
 			while (t != null)
 			{
@@ -3834,7 +3834,7 @@ public class MathCommands
 					LispObject sub = t.subList().get();
 					if (sub != null)
 					{
-						sub = sub.next().get();
+						sub = sub.cdr().get();
 						LispPtr temp = new LispPtr();
 						temp.set(sub);
 						if(LispStandard.internalEquals(aEnvironment,key,temp))
@@ -3844,9 +3844,9 @@ public class MathCommands
 						}
 					}
 				}
-				t = t.next().get();
+				t = t.cdr().get();
 			}
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,"Empty"));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,"Empty"));
 		}
 	}
 
@@ -3854,7 +3854,7 @@ public class MathCommands
 	{
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,aEnvironment.hashTable().lookUpStringify(aEnvironment.iInputStatus.FileName())));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(aEnvironment.iInputStatus.FileName())));
 		}
 	}
 
@@ -3862,7 +3862,7 @@ public class MathCommands
 	{
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).set(LispAtom.newAtom(aEnvironment,""+aEnvironment.iInputStatus.LineNumber()));
+			RESULT(aEnvironment, aStackTop).set(LispAtom.getInstance(aEnvironment,""+aEnvironment.iInputStatus.LineNumber()));
 		}
 	}
 
@@ -3915,7 +3915,7 @@ public class MathCommands
 	{
 		public void eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment,aStackTop).set(LispAtom.newAtom(aEnvironment,"\"" + CVersion.version + "\""));
+			RESULT(aEnvironment,aStackTop).set(LispAtom.getInstance(aEnvironment,"\"" + CVersion.version + "\""));
 		}
 	}
 
@@ -3983,7 +3983,7 @@ public class MathCommands
 			double timeDiff;
 			timeDiff = endtime-starttime;
 			timeDiff /= 1000.0;
-			RESULT(aEnvironment,aStackTop).set(LispAtom.newAtom(aEnvironment,""+timeDiff));
+			RESULT(aEnvironment,aStackTop).set(LispAtom.getInstance(aEnvironment,""+timeDiff));
 		}
 	}
 
@@ -4017,7 +4017,7 @@ public class MathCommands
 			{
 				aEnvironment.iInputStatus.RestoreFrom(oldstatus);
 			}
-			RESULT(aEnvironment,aStackTop).set(LispAtom.newAtom(aEnvironment,""+fileSize));
+			RESULT(aEnvironment,aStackTop).set(LispAtom.getInstance(aEnvironment,""+fileSize));
 		}
 	}
 

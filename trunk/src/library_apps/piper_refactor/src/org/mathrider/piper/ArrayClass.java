@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.LispPtrArray;
 import org.mathrider.piper.lisp.LispArgList;
 
 
-public class ArrayClass extends GenericClass
+public class ArrayClass extends GenericClassContainer
 {
 	LispPtrArray iArray;
 

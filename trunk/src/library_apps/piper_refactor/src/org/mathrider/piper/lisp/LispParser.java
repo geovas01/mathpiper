@@ -44,7 +44,7 @@ public class LispParser
 		token = iTokenizer.nextToken(iInput,iEnvironment.hashTable());
 		if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
 		{
-			aResult.set(LispAtom.newAtom(iEnvironment,"EndOfFile"));
+			aResult.set(LispAtom.getInstance(iEnvironment,"EndOfFile"));
 			return;
 		}
 		ParseAtom(aResult,token);
@@ -57,8 +57,8 @@ public class LispParser
 		LispPtr iter = aResult;
 		if (iListed)
 		{
-			aResult.set(LispAtom.newAtom(iEnvironment,"List"));
-			iter  = (aResult.get().next()); //TODO FIXME
+			aResult.set(LispAtom.getInstance(iEnvironment,"List"));
+			iter  = (aResult.get().cdr()); //TODO FIXME
 		}
 		for (;;)
 		{
@@ -75,7 +75,7 @@ public class LispParser
 			// results list.
 
 			ParseAtom(iter,token);
-			iter = (iter.get().next()); //TODO FIXME
+			iter = (iter.get().cdr()); //TODO FIXME
 		}
 	}
 
@@ -90,11 +90,11 @@ public class LispParser
 		{
 			LispPtr subList = new LispPtr();
 			ParseList(subList);
-			aResult.set(LispSubList.newSubList(subList.get()));
+			aResult.set(LispSubList.getInstance(subList.get()));
 			return;
 		}
 		// else make a simple atom, and return it.
-		aResult.set(LispAtom.newAtom(iEnvironment,aToken));
+		aResult.set(LispAtom.getInstance(iEnvironment,aToken));
 	}
 	
 }

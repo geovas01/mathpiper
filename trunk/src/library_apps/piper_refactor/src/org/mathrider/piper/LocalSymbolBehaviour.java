@@ -52,7 +52,7 @@ public class LocalSymbolBehaviour implements SubstBehaviourBase
 		{
 			if (name == iOriginalNames[i])
 			{
-				aResult.set(LispAtom.newAtom(iEnvironment,iNewNames[i]));
+				aResult.set(LispAtom.getInstance(iEnvironment,iNewNames[i]));
 				return true;
 			}
 		}
