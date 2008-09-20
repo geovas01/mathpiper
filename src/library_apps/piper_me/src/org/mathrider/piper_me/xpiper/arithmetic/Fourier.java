@@ -4,8 +4,7 @@ package org.mathrider.piper_me.xpiper.arithmetic;
  Copyright (c) Oliver Glier
 
  Warning: The licence of this file does not imply that the project
- of which it is part of has similar licence terms. In fact, this
- licence is very liberal and might be overruled by the project's
+ of which it is part of has similar licence terms.
 
  Redistribution and use in source and binary forms, with or without 
  modification, are permitted provided that the following conditions 
@@ -171,7 +170,7 @@ public class Fourier {
     int j = 4;
     int c = 2;
     for (int r = 2; r < k; r++) {
-      double pRe = Math.sqrt((1 + wRe[c]) / 2);
+      double pRe = DMath.sqrt((1 + wRe[c]) / 2);
       double pIm = wIm[c] / (2 * pRe);
       wRe[j] = pRe;
       wIm[j] = pIm;
