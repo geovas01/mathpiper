@@ -1,14 +1,41 @@
-package org.mathrider.piper_me.xpiper;
+package org.mathrider.piper_me.xpiper.core;
 
+/*
+Copyright (c) Oliver Glier
+
+Atention: This file might be shipped with sources with very different
+licences.
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions 
+are met:
+
+1. Redistributions of source code must retain the above copyright notice, 
+   this list of conditions and the following disclaimer.
+2. Neither the name of ist authors or of its contributors may be used to 
+   endorse or promote products derived from this software without specific
+   prior written permission.
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+THE REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 //! Core List Implementation
 /*<literate>*/
 /**
  * This is a list class with Yacas semantics of lists. That means,
  * mutual sharing of sublists is possible, and destructive updates
- * to those sublists will affect all participating lists. This
- * implementation is optimized for vector processing. Lists obtained
- * from an array will retain the array structure unless tailing
- * occurs. Once the tail of a list is obtained, the array structure
+ * to those sublists will affect all participating lists.
+ * This implementation is optimized forcomputing with vectors. 
+ * Lists obtained from an array will retain the array structure unless
+ * tailing occurs. Once the tail of a list is obtained, the array structure
  * will be rearranged in such way that mutual sharing is possible.
  * That implies t split off the list's first element from the array.
  * As a result, after tailing the entire list, random access costs

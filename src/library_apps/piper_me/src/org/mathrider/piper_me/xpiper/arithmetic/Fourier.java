@@ -1,11 +1,45 @@
 package org.mathrider.piper_me.xpiper.arithmetic;
 
-//TODO: error handling
+/*
+ Copyright (c) Oliver Glier
 
-//array lengths must be powers of 2
+ Atention: This file might be shipped with sources with very different
+ licences.
+
+ Redistribution and use in source and binary forms, with or without 
+ modification, are permitted provided that the following conditions 
+ are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, 
+ this list of conditions and the following disclaimer.
+ 2. Neither the name of ist authors or of its contributors may be used to 
+ endorse or promote products derived from this software without specific
+ prior written permission.
+
+ THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+ THE REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+ TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+ OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+//! FFT
+/*<literate>*/
+/**
+ * Radix-2 FFT. This class is intended for fast multiplication of very large
+ * numbers.
+ * 
+ * TODO: error handling
+ */
 public class Fourier {
-  // convolution that runs in O(n^2) time. Use this function
-  // for small arrays or in order to test fastConvolute(...)
+  /**
+   * convolution that runs in $O(n^2)$ time. Use this function for small arrays
+   * or in order to test fastConvolute(...)
+   */
   public static double[] convolute(double[] F1, double F2[]) {
     int k1 = F1.length - 1;
     int k2 = F2.length - 1;
@@ -19,9 +53,11 @@ public class Fourier {
     return F;
   }
 
-  // fast convolution that runs in O(n log n) time using FFT.
-  // The current implementation copies a lot of arrays and might
-  // be a bit inefficient but therefore easier to debug.
+  /**
+   * Fast convolution that runs in $O(n log n)$ time using FFT. The current
+   * implementation copies a lot of arrays and might be a bit inefficient but
+   * therefore easier to debug.
+   */
   public static double[] fastConvolute(double[] F1, double F2[]) {
     int k1 = F1.length;
     int k2 = F2.length;
@@ -64,8 +100,10 @@ public class Fourier {
     return F;
   }
 
-  // several bit and index manipulation routines
-  public static int log2(int K) {
+  /*
+   * several bit and index manipulation routines
+   */
+  private static int log2(int K) {
     int k = 0;
     int N = K;
     int S = 1;
@@ -80,7 +118,7 @@ public class Fourier {
 
   }
 
-  public static int reverseBits(int i, int k) {
+  private static int reverseBits(int i, int k) {
     int j = 0;
     for (; k > 0; k--) {
       j <<= 1;
@@ -107,9 +145,10 @@ public class Fourier {
         src[i] = dst[i];
   }
 
-  // compute 2^n roots on the circle, the arrays must have a
-  // size of 2^n
-  private static void computeFourierCoeff(double[] wRe, double[] wIm) {
+  /**
+   * compute $2^n$ roots on the circle, the arrays must have a size of $2^n$
+   */
+  public static void computeFourierCoeff(double[] wRe, double[] wIm) {
     int K = wRe.length;
     if (K != wIm.length)
       System.out.println("wRe and wIm have different length.");
@@ -145,7 +184,9 @@ public class Fourier {
     }
   }
 
-  // compute FT in O(n log n) time:
+  /**
+   * compute FT in $O(n log n)$ time:
+   */
   public static void computeFFT(double[] aRe, double[] aIm,
       double[] bRe, double[] bIm) {
     int K = aRe.length;
@@ -196,7 +237,9 @@ public class Fourier {
     reverseBitsOfIndex(uIm, bIm);
   }
 
-  // compute inverse FT in O(n log n) time using FFT
+  /**
+   * compute inverse FT in $O(n log n)$ time using FFT
+   */
   public static void computeIFFT(double[] aRe, double[] aIm,
       double[] bRe, double[] bIm) {
     int K = aRe.length;
@@ -219,4 +262,4 @@ public class Fourier {
       j--;
     }
   }
-}
+}// `class`

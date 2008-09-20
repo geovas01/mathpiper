@@ -47,7 +47,7 @@
 
 
 \title{
-{\LARGE Piper B}\\
+{\LARGE Piper ME}\\
 }
 
 \maketitle
@@ -71,17 +71,14 @@ a cleanroom reimplementation, publishable under LGPL.
 
 \subsection{Platform}
 
-The port to J2ME is still work in progress. The bulk of the code is written
-for the intersection of J2ME and Java 1.5 with one notable exception: We
-use the Java 1.5 memory model. That means that for Java 1.4 and older
-platforms, concurrent excecution of the Yacas interpreter might not work
-on multicore processors.\\
-A regretable part is the lack of generics in J2ME. The readability of
-the code suffers a lot. It would be nice to have set up a toolchain that
-eliminates generics either from sources or the generated class files,
-so that we can compile generic code for J2ME.
-
-\subsection{What has been done?}
+The port to Java ME is still work in progress. The targeted plaqtform
+is Java ME. We use the Java 1.5 memory model, but in a way that it
+should not impose a restriction on most 1.4 JVM-implementations employed
+on single-processor machines.\\
+We also make use of generics. By using the {\em -target jsr14} compiler
+switch, this should allow us to produce Java ME compatible bytecode.
+If not, then we might remove the generic type arguments before compiling
+to Java ME.
 
 \begin{enumerate}
 \item Immutable Interface for Yacas/Piper numbers
@@ -93,14 +90,27 @@ structured.
 \end{enumerate}
 
 
-\chapter{Experimental Piper}
+\chapter{X-Piper}
 
 \section{X-Piper Core}
 
-X-Piper is the experimental reimplementation of Piper-B/Yacas.
+X-Piper is the experimental reimplementation of Piper-B/Yacas. Also
+new parts for Piper-ME will be found here. We describe them here, too.
+
+
+\subsection{Utility classes}
+
+\input{src4tex/ExtendibleArray.java}
+\input{src4tex/RandomAccessStack.java}
 
 \subsection{The Core List Class}
 
 \input{src4tex/CoreList.java}
+
+\section{Basic Arithmetic}
+
+
+\input{src4tex/Fourier.java}
+\input{src4tex/BigNumber.java}
 
 \end{document}
