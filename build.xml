@@ -11,7 +11,7 @@
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
 	<property environment="env" />
-	<property name="version" value=".60" />
+	<property name="version" value=".62" />
 	
 	
 	<!-- Set top directories -->
@@ -273,7 +273,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="piper_plugin, piper_docs_plugin, 
-		 piper_me_plugin, geogebra_plugin, hoteqn_plugin, jscicalc_plugin, clojure_plugin, u6502_plugin" />
+		geogebra_plugin, hoteqn_plugin, jscicalc_plugin, clojure_plugin, u6502_plugin" />
 	
 	
 	
@@ -300,12 +300,15 @@
 			</fileset>
 		</copy>			
 		
-		<!-- Copy jedit.jar and plugin jars into mathrider directory. -->
-		<copy todir="${master.build.dir}/mathrider">
-			<fileset dir="${master.lib.dir}" >
+		<!-- Copy plugin jars into mathrider directory. -->
+		<copy todir="${master.build.dir}/mathrider/jars">
+			<fileset dir="${master.lib.dir}/jars" >
 				<include name="**/*.jar" />
 			</fileset>
 		</copy>
+		
+		<!-- Copy jedit.jar into mathrider directory. -->
+		<copy file="${master.lib.dir}/jedit.jar" todir="${master.build.dir}/mathrider"/> 
 		
 		
 		<!-- Copy support scripts to jars directory -->
@@ -378,25 +381,45 @@
 		</antcall>
 	</target>
 	
+	<target id="all-plugins-dist" name="all-plugins-dist"  >
+		<antcall target="all-plugins">
+			<param name="target" value="dist"/>
+		</antcall>
+	</target>
 	
 	
+	<target id="dist_clean" name="dist_clean" >
+		<delete dir="${dist.build.dir}" />
+		<mkdir dir="${dist.build.dir}" />
+	</target>
 	
 	<!-- zip distribution target. -->
 	<target name="dist_windows" depends=""
 		description="zips the application for distribution." >
-		
-		<delete dir="${dist.build.dir}" />
-		<mkdir dir="${dist.build.dir}" />
 
-		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh"
+		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh,**/win_run.bat.with_jre"
 		 whenmanifestonly="skip" >
 			<manifest> 
 				<section name="MathRider" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
 			</manifest>
-
-		</jar>	
+		</jar>
+		
+		<!-- Make jre version. -->
+		<antcall target="copy_jres">
+		</antcall>
+			
+		<copy file="${master.src.dir}/jedit_core/win_run.bat.with_jre" tofile="${master.build.dir}/mathrider/win_run.bat" overwrite="true" />
+		
+		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_with_java_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh,**/win_run.bat.with_jre"
+		 whenmanifestonly="skip" >
+			<manifest> 
+				<section name="MathRider" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>
+		</jar>
 
 	</target>	
 	
@@ -408,6 +431,7 @@
 		 <arg value="--use-compress-prog=bzip2"/>
 		 <arg value="--exclude=windows"/>
 		 <arg value="--exclude=win_run.bat"/>
+		 <arg value="--exclude=win_run.bat.with_jre"/>
 		    <arg value="-cf"/>
 		    <arg value="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2"/>
 		   <arg value="-C"/>
@@ -418,24 +442,21 @@
 		
 	</target>		    
 	
-	<target id="all-plugins-dist" name="all-plugins-dist"  >
-		<antcall target="all-plugins">
-		<param name="target" value="dist"/>
-	</antcall>
-
-
-	</target>
 		
 	<!-- zip distribution target. Note:need to write script to generate md5sum files. -->
-	<target name="dist" depends="clean, *mathrider*, all-plugins-dist, dist_windows, dist_linux" >
+	<target name="dist" depends="clean, *mathrider*, all-plugins-dist, dist_clean, dist_linux, dist_windows" >
+		
+		
 		<exec executable="md5sum">
-		 <arg value="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2"/>
-
+			 <arg value="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2"/>
 		</exec>
 		
 		<exec executable="md5sum">
-		 <arg value="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip"/>
-
+			 <arg value="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip"/>
+		 </exec>
+		 
+		 <exec executable="md5sum">
+		 	<arg value="${dist.build.dir}/mathrider_windows_dist_with_jre_v${version}_beta.zip"/>
 		</exec>
 		
 	</target>	
@@ -551,6 +572,37 @@
 		</exec>
 		
 	</target>
+	
+	
+	
+	
+	<target name="copy_jres" depends="" description="." >
+		
+		<!--
+		<exec executable="cp">
+		 <arg value="-R"/>
+		 <arg value="${lib.dir}/jres/linux"/>
+		 <arg value="${build.jres}"/>
+		</exec>
+		-->
+
+		<!-- Copy linux jre image to build directory. 
+		<copy todir="${build.jres.linux}">
+			<fileset dir="${lib.dir}/jres/linux" >
+				<include name="**/*" />
+			</fileset>
+		</copy> -->
+		
+		<!-- Copy windows jre image to build directory. -->
+		<mkdir dir="${master.build.dir}/mathrider/jre" />
+		<copy todir="${master.build.dir}/mathrider/jre">
+			<fileset dir="${master.lib.dir}/jre_copies/windows" >
+				<include name="**/*" />
+			</fileset>
+		</copy> 
+		
+</target>	
+
 	
 </project>
 
