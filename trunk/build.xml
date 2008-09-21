@@ -447,16 +447,17 @@
 	<target name="dist" depends="clean, *mathrider*, all-plugins-dist, dist_clean, dist_linux, dist_windows" >
 		
 		
-		<exec executable="md5sum">
+		<exec executable="md5sum"  output ="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2.md5" >
 			 <arg value="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2"/>
+			
 		</exec>
 		
-		<exec executable="md5sum">
+		<exec executable="md5sum" output ="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip.md5" >
 			 <arg value="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip"/>
 		 </exec>
 		 
-		 <exec executable="md5sum">
-		 	<arg value="${dist.build.dir}/mathrider_windows_dist_with_jre_v${version}_beta.zip"/>
+		 <exec executable="md5sum" output ="${dist.build.dir}/mathrider_windows_dist_with_java_v${version}_beta.zip.md5" >
+		 	<arg value="${dist.build.dir}/mathrider_windows_dist_with_java_v${version}_beta.zip"/>
 		</exec>
 		
 	</target>	
