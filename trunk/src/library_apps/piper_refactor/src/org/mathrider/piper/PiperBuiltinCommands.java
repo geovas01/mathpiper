@@ -20,6 +20,6 @@ package org.mathrider.piper;
 
 import org.mathrider.piper.lisp.AssociatedHash;
 
-public class PiperCoreCommands extends AssociatedHash // <PiperEvaluator>
+public class PiperBuiltinCommands extends AssociatedHash // <PiperEvaluator>
 {
 }
