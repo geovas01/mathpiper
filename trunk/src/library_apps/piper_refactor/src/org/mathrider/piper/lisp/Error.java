@@ -128,13 +128,13 @@ public class Error
 		if (!hastobetrue)
 		{
 			String error = ErrorString(aError);//"Error number "+aError+" (//TODO FIXME still need to port over the string table)";
-			throw new Piperexception(error);
+			throw new PiperException(error);
 		}
 	}
 
 	public static void RaiseError(String str) throws Exception
 	{
-		throw new Piperexception(str);
+		throw new PiperException(str);
 	}
 
 	public static void CheckNrArgs(int n, Pointer aArguments, Environment aEnvironment) throws Exception
@@ -150,13 +150,13 @@ public class Error
 	{
 		if (aArguments.get() == null)
 		{
-			throw new Piperexception("Error in compiled code.");
+			throw new PiperException("Error in compiled code.");
 		}
 		else
 		{
 			//TODO FIXME      ShowStack(aEnvironment);
 			String error = ShowFunctionError(aArguments, aEnvironment) + "expected "+needed+" arguments, got "+passed;
-			throw new Piperexception(error);
+			throw new PiperException(error);
 
 			/*TODO FIXME
 			      LispChar str[20];
@@ -196,14 +196,14 @@ public class Error
 			Pointer arguments = PiperEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
 			if (arguments.get() == null)
 			{
-				throw new Piperexception("Error in compiled code\n");
+				throw new PiperException("Error in compiled code\n");
 			}
 			else
 			{
 				String error = "";
 				//TODO FIXME          ShowStack(aEnvironment);
 				error = error + ShowFunctionError(arguments, aEnvironment) + "generic error";
-				throw new Piperexception(error);
+				throw new PiperException(error);
 			}
 		}
 	}
@@ -211,7 +211,7 @@ public class Error
 	public static void LISPASSERT(boolean aPredicate) throws Exception
 	{
 		if (!aPredicate)
-			throw new Piperexception("Assertion failed");
+			throw new PiperException("Assertion failed");
 	}
 
 	public static void CHK_ARG_CORE(Environment aEnvironment,int aStackTop,boolean aPredicate,int aArgNr) throws Exception
@@ -236,7 +236,7 @@ public class Error
 			Pointer arguments = PiperEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
 			if (arguments.get() == null)
 			{
-				throw new Piperexception("Error in compiled code\n");
+				throw new PiperException("Error in compiled code\n");
 			}
 			else
 			{
@@ -257,7 +257,7 @@ public class Error
 				error = error + strout;
 				error = error + "\n";
 
-				throw new Piperexception(error);
+				throw new PiperException(error);
 			}
 		}
 	}

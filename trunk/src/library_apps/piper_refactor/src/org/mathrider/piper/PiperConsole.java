@@ -18,6 +18,8 @@
 package org.mathrider.piper;
 
 //import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.io.CachedStdFileInput;
+import org.mathrider.piper.io.StdFileOutput;
 import org.mathrider.piper.lisp.Standard;
 import java.io.*;
 
@@ -61,7 +63,7 @@ public class PiperConsole extends Thread
             try
             {
                 result = piper.evaluate(toEvaluate);
-            } catch (Piperexception pe)
+            } catch (PiperException pe)
             {
                 pe.printStackTrace();
             }
@@ -167,7 +169,7 @@ public class PiperConsole extends Thread
             {
                 result = piper.evaluate("Load(\"piperinit.pi\");");
 
-            } catch (Piperexception pe)
+            } catch (PiperException pe)
             {
                 pe.printStackTrace();
             }
@@ -187,7 +189,7 @@ public class PiperConsole extends Thread
                 {
                     piper.evaluate("Load(\"" + argv[scriptsToRun] + "\");");
                 }
-            } catch (Piperexception pe)
+            } catch (PiperException pe)
             {
                 pe.printStackTrace();
             }
@@ -224,7 +226,7 @@ public class PiperConsole extends Thread
             try
             {
                 rs = piper.evaluate(input);
-            } catch (Piperexception pe)
+            } catch (PiperException pe)
             {
                 pe.printStackTrace();
             }

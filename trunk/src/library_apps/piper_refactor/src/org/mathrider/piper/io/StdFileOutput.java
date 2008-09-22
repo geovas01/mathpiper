@@ -16,57 +16,26 @@
 
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathrider.piper;
+package org.mathrider.piper.io;
 
+import org.mathrider.piper.lisp.Output;
 import java.io.*;
 
 
-public class StdFileInput
-			extends StringInput
+public class StdFileOutput
+			extends Output //Note:tk: made this class public.
 {
-       // private static String path;
-        //static void setPath(String aPath)
-        //{
-        //    path = aPath;
-        //}
-        
-	public StdFileInput(String aFileName, InputStatus aStatus)
-	throws Exception
+
+	OutputStream iFile;
+
+	public StdFileOutput(OutputStream aFile)
 	{
-		super(new StringBuffer(), aStatus);
-
-		//System.out.println("YYYYYY " + aFileName);//Note:tk: remove.
-		FileInputStream stream = new FileInputStream(aFileName);
-		int c;
-
-		while (true)
-		{
-			c = stream.read();
-
-			if (c == -1)
-
-				break;
-
-			iString.append((char)c);
-		}
+		iFile = aFile;
 	}
 
-	public StdFileInput(InputStream aStream, InputStatus aStatus)
+	public void PutChar(char aChar)
 	throws Exception
 	{
-		super(new StringBuffer(), aStatus);
-
-		int c;
-
-		while (true)
-		{
-			c = aStream.read();
-
-			if (c == -1)
-
-				break;
-
-			iString.append((char)c);
-		}
+		iFile.write(aChar);
 	}
-}
+};

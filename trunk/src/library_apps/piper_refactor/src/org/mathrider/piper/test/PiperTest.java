@@ -72,7 +72,7 @@ public class PiperTest
 		{
 			e.printStackTrace();
 		}
-		catch(org.mathrider.piper.Piperexception e)
+		catch(org.mathrider.piper.PiperException e)
 		{
 			e.printStackTrace();
 		}//end try/catch.

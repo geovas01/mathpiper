@@ -12,31 +12,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
+ */
 
+//}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathrider.piper.io;
 
-package org.mathrider.piper;
+import org.mathrider.piper.lisp.Output;
 
-
-import java.io.*;
-import java.net.*;
-
-public class JarInputFile extends StringInput
+public class StringOutput
+			extends Output
 {
-	public JarInputFile(String aFileName, InputStatus aStatus) throws Exception
+
+	StringBuffer iString;
+
+	public StringOutput(StringBuffer aString)
 	{
-		super(new StringBuffer(),aStatus);
-		URL url = new URL(aFileName);
-		JarURLConnection con = (JarURLConnection) url.openConnection();
-		InputStream stream = con.getInputStream();
-		int c;
-		while (true)
-		{
-			c = stream.read();
-			if (c == -1)
-				break;
-			iString.append((char)c);
-		}
+		iString = aString;
+	}
+
+	public void PutChar(char aChar)
+	{
+		iString.append(aChar);
 	}
 }

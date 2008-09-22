@@ -18,6 +18,10 @@
 
 package org.mathrider.piper;
 
+import org.mathrider.piper.printers.InfixPrinter;
+import org.mathrider.piper.parsers.InfixParser;
+import org.mathrider.piper.io.StringOutput;
+import org.mathrider.piper.io.StringInput;
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
@@ -57,7 +61,7 @@ public class CPiper
         
         
         
-	public String evaluate(String input) throws Piperexception
+	public String evaluate(String input) throws PiperException
 	{
 		if (input.length() == 0)
 			return "";
@@ -91,7 +95,7 @@ public class CPiper
 				}
 				catch (Exception e)
 				{
-					throw new Piperexception(e.getMessage());//Note:tk. Throw Piperexception instead of just exception.
+					throw new PiperException(e.getMessage());//Note:tk. Throw PiperException instead of just exception.
 				}
 				finally
 				{
@@ -139,9 +143,9 @@ public class CPiper
 			//      e.printStackTrace();
 			//System.out.println(e.toString());
 
-			//Note:tk throw Piperexception instead of simply printing the exception message.
+			//Note:tk throw PiperException instead of simply printing the exception message.
 			iError = e.getMessage();
-			throw new Piperexception(iError);
+			throw new PiperException(iError);
 		}
 		return rs;
 	}

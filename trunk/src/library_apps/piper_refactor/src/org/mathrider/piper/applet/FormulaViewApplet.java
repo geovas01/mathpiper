@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.applet;
 
+import org.mathrider.piper.parsers.TeXParser;
 import org.mathrider.piper.*;
 import java.awt.*;
 import java.applet.*;

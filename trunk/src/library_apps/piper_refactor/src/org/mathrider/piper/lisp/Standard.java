@@ -18,6 +18,11 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.printers.InfixPrinter;
+import org.mathrider.piper.parsers.InfixParser;
+import org.mathrider.piper.io.JarInputFile;
+import org.mathrider.piper.io.StdFileInput;
+import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.*;
 
 
@@ -220,7 +225,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 			Error.Check(args2.get() == null,Error.KLispErrInvalidArg);
 			aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
 		}
-		catch (Piperexception e) { throw e; }
+		catch (PiperException e) { throw e; }
 		finally { aEnvironment.popLocalFrame(); }
 
 	}
@@ -655,7 +660,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 					MultiUserFunction multiUser = aEnvironment.multiUserFunction(str);
 					if (multiUser.iFileToOpen!=null)
 					{
-						throw new Piperexception("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName);
+						throw new PiperException("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName);
 					}
 					multiUser.iFileToOpen = def;
 				}
@@ -716,7 +721,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 			return log2_table[n-1];
 		else
 		{
-			throw new Piperexception("log2_table_lookup: error: invalid argument "+n);
+			throw new PiperException("log2_table_lookup: error: invalid argument "+n);
 		}
 	}
 

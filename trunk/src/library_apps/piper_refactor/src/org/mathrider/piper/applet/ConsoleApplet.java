@@ -18,6 +18,9 @@
 
 package org.mathrider.piper.applet;
 
+import org.mathrider.piper.parsers.TeXParser;
+import org.mathrider.piper.io.CachedStdFileInput;
+import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.Standard;
@@ -363,7 +366,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				try{
 					piper.evaluate("DefaultDirectory(\""+scriptBase+"\");");
 				}
-				catch(Piperexception ye)
+				catch(PiperException ye)
 				{
 					ye.printStackTrace();
 				}
@@ -389,7 +392,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			try{
 				piper.evaluate(s);
 			}
-			catch(Piperexception ye)
+			catch(PiperException ye)
 			{
 				ye.printStackTrace();
 			}
@@ -898,7 +901,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			try{
 				response = piper.evaluate(inputLine);
 			}
-			catch(Piperexception ye)
+			catch(PiperException ye)
 			{
 				ye.printStackTrace();
 			}
@@ -1657,7 +1660,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 		try{
 			result = piper.evaluate(expression);
 		}
-		catch(Piperexception ye)
+		catch(PiperException ye)
 		{
 			ye.printStackTrace();
 		}
@@ -1747,7 +1750,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				try{
 					String response = piper.evaluate(expression);
 				}
-				catch(Piperexception ye)
+				catch(PiperException ye)
 				{
 					ye.printStackTrace();
 				}

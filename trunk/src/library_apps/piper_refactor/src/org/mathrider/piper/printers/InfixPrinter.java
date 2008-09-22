@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.printers;
 
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.Standard;
@@ -33,7 +33,7 @@ import org.mathrider.piper.lisp.Printer;
 public class InfixPrinter extends Printer
 {
 
-	static int KMaxPrecedence = 60000;
+	public static int KMaxPrecedence = 60000;
 
 	Operators iPrefixOperators;
 	Operators iInfixOperators;
