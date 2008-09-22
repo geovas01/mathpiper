@@ -60,7 +60,7 @@ public class Pointer
 	
 	public void goNext()
 	{
-		iNext = iNext.cdr.iNext;
+		iNext = iNext.iCdr.iNext;
 	}
 	
 	void doSet(Cons aNext)

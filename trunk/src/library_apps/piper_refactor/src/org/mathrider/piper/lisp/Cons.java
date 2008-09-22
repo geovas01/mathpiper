@@ -28,13 +28,13 @@ import org.mathrider.piper.*;
  *  Only one of these three functions should return a non-NULL value.
  *  It is a reference-counted object. Pointer handles the reference counting. ap.
  */
-public abstract class Cons
+public abstract class Cons //Note:tk:was PiperObject.
 {
-	Pointer   cdr = new Pointer();
+	Pointer   iCdr = new Pointer();
 
 	public  Pointer cdr()
 	{
-		return cdr;
+		return iCdr;
 	}
 
 	/** Return string representation, or NULL if the object doesn't have one.
@@ -80,7 +80,7 @@ public abstract class Cons
 
 	public boolean equal(Cons aOther) throws Exception
 	{
-		// cdr line handles the fact that either one is a string
+		// iCdr line handles the fact that either one is a string
 		if (string() != aOther.string())
 			return false;
 

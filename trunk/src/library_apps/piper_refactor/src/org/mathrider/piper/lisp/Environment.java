@@ -39,7 +39,7 @@ public class Environment
 	public Cons iBracketOpen;
 	public Cons iBracketClose;
 	public Cons iListOpen;
-        public 	Cons iListClose;
+        public Cons iListClose;
 	public Cons iComma;
 	public Cons iList;
 	public Cons iProg;
@@ -82,6 +82,8 @@ public class Environment
 
 	public String iPrettyReader = null;
 	public String iPrettyPrinter = null;
+        
+        PiperCoreCommands iCoreCommands = new PiperCoreCommands();
 
 	public Environment(Output aCurrentOutput/*TODO FIXME*/) throws Exception
 	{
@@ -138,7 +140,7 @@ public class Environment
 	{
 		return iCoreCommands;
 	}
-	PiperCoreCommands iCoreCommands = new PiperCoreCommands();
+	
 
 	
 
