@@ -83,7 +83,7 @@ public class Environment
 	public String iPrettyReader = null;
 	public String iPrettyPrinter = null;
         
-        PiperCoreCommands iCoreCommands = new PiperCoreCommands();
+        PiperBuiltinCommands iBuiltinCommands = new PiperBuiltinCommands();
 
 	public Environment(Output aCurrentOutput/*TODO FIXME*/) throws Exception
 	{
@@ -136,9 +136,9 @@ public class Environment
 
 
 
-	public PiperCoreCommands coreCommands()
+	public PiperBuiltinCommands builtinCommands()
 	{
-		return iCoreCommands;
+		return iBuiltinCommands;
 	}
 	
 

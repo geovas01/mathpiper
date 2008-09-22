@@ -117,7 +117,7 @@ public class BasicEvaluator extends EvaluatorBase
 					if (head.string() != null)
 					{
 						{
-							PiperEvaluator evaluator = (PiperEvaluator)aEnvironment.coreCommands().lookUp(head.string());
+							PiperEvaluator evaluator = (PiperEvaluator)aEnvironment.builtinCommands().lookUp(head.string());
 							// Try to find a built-in command
 							if (evaluator != null)
 							{

@@ -65,563 +65,563 @@ public class MathCommands
 		aEnvironment.iPrefixOperators.SetOperator(0,"_");
 		aEnvironment.iInfixOperators.SetOperator(0,"_");
 
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Hold");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispEval(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Eval");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispWrite(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "Write");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispWriteString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "WriteString");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFullForm(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FullForm");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDefaultDirectory(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefaultDirectory");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFromFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "FromFile");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFromString(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "FromString");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispRead(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Read");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispReadToken(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ReadToken");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispToFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToFile");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispToString(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToString");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispToStdout(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToStdout");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Load");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Set");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "MacroSet");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Clear");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "MacroClear");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispNewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Local");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispNewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "MacroLocal");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispHead(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Head");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispNth(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNth");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispTail(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Tail");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDestructiveReverse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveReverse");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLength(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Length");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispList(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "List");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispUnList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "UnList");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispListify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Listify");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispConcatenate(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "Concat");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispConcatenateStrings(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "ConcatStrings");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Delete");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDestructiveDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveDelete");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Insert");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDestructiveInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveInsert");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Replace");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDestructiveReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveReplace");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispAtomize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Atom");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispStringify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "String");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCharString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CharString");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFlatCopy(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FlatCopy");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispProgBody(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Prog");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispWhile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "While");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIf(),2, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "If");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCheck(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Check");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispTrapError(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TrapError");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGetCoreError(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GetCoreError");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispPreFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Prefix");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispInFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Infix");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispPostFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Postfix");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispBodied(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Bodied");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RuleBase");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRuleBase");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RuleBaseListed");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRuleBaseListed");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDefMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "DefMacroRuleBase");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDefMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "DefMacroRuleBaseListed");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispHoldArg(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "HoldArg");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Rule");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRule");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispUnFence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "UnFence");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispRetract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Retract");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNot");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Not");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "MathAnd");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "And");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "MathOr");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Or");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispEquals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Equals");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispEquals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "=");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLessThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LessThan");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGreaterThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GreaterThan");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsFunction");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsAtom(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsAtom");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsNumber(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsNumber");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsInteger(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsInteger");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsList");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsString");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsBound(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "IsBound");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMultiply(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathMultiply");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispAdd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathAdd");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispSubtract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSubtract");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDivide(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDivide");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinPrecisionSet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Precision'Set");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGetExactBits(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathGetExactBits");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispSetExactBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSetExactBits");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispBitCount(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathBitCount");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMathSign(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSign");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMathIsSmall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathIsSmall");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMathNegate(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNegate");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFloor(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathFloor");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCeil(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathCeil");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispAbs(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathAbs");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMod(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathMod");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDiv(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDiv");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispBitsToDigits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitsToDigits");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDigitsToBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DigitsToBits");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGcd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathGcd");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispSystemCall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "SystemCall");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFastArcSin(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastArcSin");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFastLog(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastLog");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFastPower(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastPower");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispShiftLeft(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ShiftLeft");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispShiftRight(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ShiftRight");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFromBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FromBase");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispToBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ToBase");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMaxEvalDepth(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MaxEvalDepth");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDefLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefLoad");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispUse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Use");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispRightAssociative(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RightAssociative");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLeftPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LeftPrecedence");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispRightPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RightPrecedence");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsBodied(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsBodied");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsInFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsInfix");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsPreFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPrefix");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsPostFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPostfix");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGetPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpPrecedence");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGetLeftPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpLeftPrecedence");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGetRightPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpRightPrecedence");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinPrecisionGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Precision'Get");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispBitAnd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitAnd");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispBitOr(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitOr");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispBitXor(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitXor");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispSecure(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Secure");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFindFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FindFile");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFindFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FindFunction");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsGeneric(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsGeneric");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGenericTypeName(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GenericTypeName");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new GenArrayCreate(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Create");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new GenArraySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Size");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new GenArrayGet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Get");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new GenArraySet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Set");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEval(),4, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "CustomEval");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEvalExpression(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Expression");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEvalResult(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Result");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEvalLocals(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Locals");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCustomEvalStop(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Stop");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispTraceRule(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TraceRule");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispTraceStack(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TraceStack");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispReadLisp(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LispRead");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispReadLispListed(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LispReadListed");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispType(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Type");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperStringMidGet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "StringMid'Get");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperStringMidSet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "StringMid'Set");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new GenPatternCreate(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Pattern'Create");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new GenPatternMatches(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Pattern'Matches");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispRuleBaseDefined(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RuleBaseDefined");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDefLoadFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefLoadFunction");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispRuleBaseArgList(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RuleBaseArgList");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RulePattern");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispMacroNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRulePattern");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispSubst(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Subst");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispLocalSymbols(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "LocalSymbols");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFastIsPrime(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastIsPrime");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFac(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathFac");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispApplyPure(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ApplyPure");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyReaderSet(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "PrettyReader'Set");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyPrinterSet(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "PrettyPrinter'Set");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyPrinterGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PrettyPrinter'Get");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyReaderGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PrettyReader'Get");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispGarbageCollect(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GarbageCollect");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispSetGlobalLazyVariable(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "SetGlobalLazyVariable");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispPatchLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PatchLoad");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispPatchString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PatchString");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperExtraInfoSet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ExtraInfo'Set");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperExtraInfoGet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ExtraInfo'Get");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDefaultTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefaultTokenizer");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCommonLispTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CommonLispTokenizer");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispXmlTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "XmlTokenizer");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispExplodeTag(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "XmlExplodeTag");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinAssoc(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Assoc");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCurrentFile(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CurrentFile");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispCurrentLine(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CurrentLine");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispBackQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "`");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDumpBigNumberDebugInfo(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDebugInfo");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispInDebugMode(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "InDebugMode");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDebugFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DebugFile");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispDebugLine(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DebugLine");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispVersion(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Version");
 
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispExit(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Exit");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispExitRequested(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsExitRequested");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispHistorySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "HistorySize");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispStackSize(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "StaSiz");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispIsPromptShown(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPromptShown");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispReadCmdLineString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ReadCmdLineString");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispTime(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "GetTime");
-		aEnvironment.coreCommands().setAssociation(
+		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new LispFileSize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FileSize");
 
