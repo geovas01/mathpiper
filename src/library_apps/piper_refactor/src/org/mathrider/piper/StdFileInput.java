@@ -24,11 +24,11 @@ import java.io.*;
 public class StdFileInput
 			extends StringInput
 {
-        private static String path;
-        static void setPath(String aPath)
-        {
-            path = aPath;
-        }
+       // private static String path;
+        //static void setPath(String aPath)
+        //{
+        //    path = aPath;
+        //}
         
 	public StdFileInput(String aFileName, InputStatus aStatus)
 	throws Exception
@@ -36,7 +36,7 @@ public class StdFileInput
 		super(new StringBuffer(), aStatus);
 
 		//System.out.println("YYYYYY " + aFileName);//Note:tk: remove.
-		FileInputStream stream = new FileInputStream(path + aFileName);
+		FileInputStream stream = new FileInputStream(aFileName);
 		int c;
 
 		while (true)
