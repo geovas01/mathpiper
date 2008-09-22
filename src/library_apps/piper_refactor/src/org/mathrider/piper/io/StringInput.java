@@ -12,71 +12,78 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
+ */
 
+//}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathrider.piper.io;
 
-package org.mathrider.piper;
-
-
+import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Input;
-import java.io.*;
 
-/** CachedStdFileInput : input from stdin */
-public class CachedStdFileInput extends Input
+public class StringInput
+			extends Input
 {
-	StringBuffer iBuffer;
-	int iCurrentPos;
 
-	public CachedStdFileInput(InputStatus aStatus)
+	int iCurrent;
+	StringBuffer iString;
+
+	public StringInput(StringBuffer aString, InputStatus aStatus)
 	{
 		super(aStatus);
-		Rewind();
+		iString = aString;
+		iCurrent = 0;
 	}
-	public char Next() throws Exception
+
+	public char Next()
+	throws Exception
 	{
-		int c = Peek();
-		iCurrentPos++;
+
+		if (iCurrent == iString.length())
+
+			return '\0';
+
+		iCurrent++;
+
+		char c = iString.charAt(iCurrent - 1);
+
 		if (c == '\n')
 			iStatus.NextLine();
-		return (char)c;
+
+		return c;
 	}
-	public char Peek() throws Exception
+
+	public char Peek()
+	throws Exception
 	{
-		if (iCurrentPos == iBuffer.length())
-		{
-			int newc;
-			newc = System.in.read();
-			iBuffer.append((char)newc);
-			while (newc != '\n')
-			{
-				newc = System.in.read();
-				iBuffer.append((char)newc);
-			}
-		}
-		return iBuffer.charAt(iCurrentPos);
+
+		if (iCurrent == iString.length())
+
+			return '\0';
+
+		return iString.charAt(iCurrent);
 	}
+
 	public boolean EndOfStream()
 	{
-		return false;
+
+		return (iCurrent == iString.length());
 	}
-	public void Rewind()
-	{
-		iBuffer = new StringBuffer();
-		iCurrentPos = 0;
-	}
+
 	public StringBuffer StartPtr()
 	{
-		return iBuffer;
+
+		return iString;
 	}
+
 	public int Position()
 	{
-		return iCurrentPos;
+
+		return iCurrent;
 	}
+
 	public void SetPosition(int aPosition)
 	{
-		iCurrentPos = aPosition;
+		iCurrent = aPosition;
 	}
-
-
 }

@@ -16,12 +16,29 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.io;
 
-public class Piperexception extends Exception //Note:tk: made this class public so that clients can use this exception.
+
+import org.mathrider.piper.*;
+import org.mathrider.piper.io.StringInput;
+import java.io.*;
+import java.net.*;
+
+public class JarInputFile extends StringInput
 {
-	public Piperexception(String message)
+	public JarInputFile(String aFileName, InputStatus aStatus) throws Exception
 	{
-		super(message);
+		super(new StringBuffer(),aStatus);
+		URL url = new URL(aFileName);
+		JarURLConnection con = (JarURLConnection) url.openConnection();
+		InputStream stream = con.getInputStream();
+		int c;
+		while (true)
+		{
+			c = stream.read();
+			if (c == -1)
+				break;
+			iString.append((char)c);
+		}
 	}
 }

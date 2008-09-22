@@ -18,6 +18,8 @@
 
 package org.mathrider.piper;
 
+import org.mathrider.piper.printers.InfixPrinter;
+import org.mathrider.piper.parsers.InfixParser;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.Error;

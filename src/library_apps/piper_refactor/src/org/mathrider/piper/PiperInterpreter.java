@@ -17,6 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper;
 
+import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.lisp.Standard;
 import java.io.File;
 
@@ -39,7 +40,7 @@ public class PiperInterpreter
     private StringBuffer outputCollector;
 
     /** Creates a new instance of PiperInterpreter */
-    public PiperInterpreter() throws Piperexception
+    public PiperInterpreter() throws PiperException
     {
         outputCollector = new StringBuffer();
         stringOutput = new StringOutput(outputCollector);
@@ -64,7 +65,7 @@ public class PiperInterpreter
         try
         {
             result = piper.evaluate(toEvaluate);
-        } catch (Piperexception pe)
+        } catch (PiperException pe)
         {
             pe.printStackTrace();
         }
@@ -135,7 +136,7 @@ public class PiperInterpreter
     /** Use this method to pass an expression to the Piper interpreter.
      *  Returns the output of the interpreter.
      */
-    public String evaluate(String input) throws Piperexception
+    public String evaluate(String input) throws PiperException
     {
         String output1 = piper.evaluate(input);
         String output2 = outputCollector.toString();

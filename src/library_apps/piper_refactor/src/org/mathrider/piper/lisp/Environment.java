@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.*;
 
 

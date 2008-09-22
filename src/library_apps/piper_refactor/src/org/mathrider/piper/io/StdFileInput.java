@@ -16,73 +16,58 @@
 
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathrider.piper;
+package org.mathrider.piper.io;
 
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.*;
+import java.io.*;
 
-public class StringInput
-			extends Input
+
+public class StdFileInput
+			extends StringInput
 {
-
-	int iCurrent;
-	StringBuffer iString;
-
-	public StringInput(StringBuffer aString, InputStatus aStatus)
-	{
-		super(aStatus);
-		iString = aString;
-		iCurrent = 0;
-	}
-
-	public char Next()
+       // private static String path;
+        //static void setPath(String aPath)
+        //{
+        //    path = aPath;
+        //}
+        
+	public StdFileInput(String aFileName, InputStatus aStatus)
 	throws Exception
 	{
+		super(new StringBuffer(), aStatus);
 
-		if (iCurrent == iString.length())
+		//System.out.println("YYYYYY " + aFileName);//Note:tk: remove.
+		FileInputStream stream = new FileInputStream(aFileName);
+		int c;
 
-			return '\0';
+		while (true)
+		{
+			c = stream.read();
 
-		iCurrent++;
+			if (c == -1)
 
-		char c = iString.charAt(iCurrent - 1);
+				break;
 
-		if (c == '\n')
-			iStatus.NextLine();
-
-		return c;
+			iString.append((char)c);
+		}
 	}
 
-	public char Peek()
+	public StdFileInput(InputStream aStream, InputStatus aStatus)
 	throws Exception
 	{
+		super(new StringBuffer(), aStatus);
 
-		if (iCurrent == iString.length())
+		int c;
 
-			return '\0';
+		while (true)
+		{
+			c = aStream.read();
 
-		return iString.charAt(iCurrent);
-	}
+			if (c == -1)
 
-	public boolean EndOfStream()
-	{
+				break;
 
-		return (iCurrent == iString.length());
-	}
-
-	public StringBuffer StartPtr()
-	{
-
-		return iString;
-	}
-
-	public int Position()
-	{
-
-		return iCurrent;
-	}
-
-	public void SetPosition(int aPosition)
-	{
-		iCurrent = aPosition;
+			iString.append((char)c);
+		}
 	}
 }
