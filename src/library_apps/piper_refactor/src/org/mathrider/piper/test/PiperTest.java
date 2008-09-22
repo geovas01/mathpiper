@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piper.tests;
+package org.mathrider.piper.test;
 
 import org.mathrider.piper.PiperInterpreter;
 
