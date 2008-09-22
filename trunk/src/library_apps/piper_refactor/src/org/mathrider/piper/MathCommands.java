@@ -639,14 +639,14 @@ public class MathCommands
 	/// \param aEnvironment the current environment
 	/// \param aStackTop the index of the top of the stack
 	/// \param aArgNr the index of the argument to be converted
-	public static BigNumber GetNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception
+	public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception
 	{
 		BigNumber x = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, aArgNr).get().number(aEnvironment.precision());
 		Error.CHK_ARG_CORE(aEnvironment,aStackTop,x != null,aArgNr);
 		return x;
 	}
 
-	static void MultiFix(Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
+	static void multiFix(Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
 	{
 		// Get operator
 		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
@@ -661,7 +661,7 @@ public class MathCommands
 		aOps.SetOperator(prec,Standard.symbolName(aEnvironment,orig));
 		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
-	public static void SingleFix(int aPrecedence, Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
+	public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
 	{
 		// Get operator
 		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
@@ -671,7 +671,7 @@ public class MathCommands
 		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
-	public static InfixOperator OperatorInfo(Environment aEnvironment,int aStackTop, Operators aOperators) throws Exception
+	public static InfixOperator operatorInfo(Environment aEnvironment,int aStackTop, Operators aOperators) throws Exception
 	{
 		// Get operator
 		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
@@ -691,7 +691,7 @@ public class MathCommands
 	/// should be evaluated. The real work is done by
 	/// Environment::SetVariable() .
 	/// \sa LispSetVar(), LispMacroSetVar()
-	static void InternalSetVar(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable) throws Exception
+	static void internalSetVar(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable) throws Exception
 	{
 		String varstring=null;
 		if (aMacroMode)
@@ -713,7 +713,7 @@ public class MathCommands
 		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
-	public static void InternalDelete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
+	public static void internalDelete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		Pointer evaluated = new Pointer();
 		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
@@ -1270,7 +1270,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalSetVar(aEnvironment, aStackTop, false, false);
+			MathCommands.internalSetVar(aEnvironment, aStackTop, false, false);
 		}
 	}
 
@@ -1278,7 +1278,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalSetVar(aEnvironment, aStackTop, true, false);
+			MathCommands.internalSetVar(aEnvironment, aStackTop, true, false);
 		}
 	}
 
@@ -1286,7 +1286,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalSetVar(aEnvironment, aStackTop, false, true);
+			MathCommands.internalSetVar(aEnvironment, aStackTop, false, true);
 		}
 	}
 
@@ -1519,7 +1519,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalDelete(aEnvironment, aStackTop,false);
+			MathCommands.internalDelete(aEnvironment, aStackTop,false);
 		}
 	}
 
@@ -1527,7 +1527,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalDelete(aEnvironment, aStackTop,true);
+			MathCommands.internalDelete(aEnvironment, aStackTop,true);
 		}
 	}
 
@@ -1742,7 +1742,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.MultiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+			MathCommands.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 		}
 	}
 
@@ -1750,7 +1750,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.MultiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			MathCommands.multiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 		}
 	}
 
@@ -1761,11 +1761,11 @@ public class MathCommands
 			int nrArguments = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			if (nrArguments == 2)
 			{
-				MathCommands.SingleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+				MathCommands.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 			}
 			else
 			{
-				MathCommands.MultiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+				MathCommands.multiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 			}
 		}
 	}
@@ -1774,7 +1774,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.MultiFix(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+			MathCommands.multiFix(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 		}
 	}
 
@@ -2227,8 +2227,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Multiply(x,y,aEnvironment.precision());
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2240,7 +2240,7 @@ public class MathCommands
 	/// converted to BigNumber. If called with two arguments (binary plus),
 	/// both argument are converted to a BigNumber, and these are added
 	/// together at the current precision. The sum is returned.
-	/// \sa GetNumber(), BigNumber::Add()
+	/// \sa getNumber(), BigNumber::Add()
 	class LispAdd extends PiperEvalCaller
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
@@ -2249,14 +2249,14 @@ public class MathCommands
 			if (length == 2)
 			{
 				BigNumber x;
-				x = MathCommands.GetNumber(aEnvironment, aStackTop, 1);
+				x = MathCommands.getNumber(aEnvironment, aStackTop, 1);
 				RESULT(aEnvironment, aStackTop).set(new Number(x));
 				return;
 			}
 			else
 			{
-				BigNumber x = MathCommands.GetNumber(aEnvironment, aStackTop, 1);
-				BigNumber y = MathCommands.GetNumber(aEnvironment, aStackTop, 2);
+				BigNumber x = MathCommands.getNumber(aEnvironment, aStackTop, 1);
+				BigNumber y = MathCommands.getNumber(aEnvironment, aStackTop, 2);
 				int bin = aEnvironment.precision();
 				BigNumber z = new BigNumber(bin);
 				z.Add(x,y,aEnvironment.precision());
@@ -2273,7 +2273,7 @@ public class MathCommands
 			int length = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			if (length == 2)
 			{
-				BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+				BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 				BigNumber z = new BigNumber(x);
 				z.Negate(x);
 				RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2281,8 +2281,8 @@ public class MathCommands
 			}
 			else
 			{
-				BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-				BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+				BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+				BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 				BigNumber yneg = new BigNumber(y);
 				yneg.Negate(y);
 				BigNumber z = new BigNumber(aEnvironment.precision());
@@ -2297,8 +2297,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			// if both arguments are integers, then BigNumber::Divide would perform an integer divide, but we want a float divide here.
 			if (x.IsInt() && y.IsInt())
@@ -2341,7 +2341,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(
 			        (x.IsInt())
@@ -2357,8 +2357,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(x);
 
@@ -2373,7 +2373,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(x.BitCount());
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2384,7 +2384,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(x.Sign());
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2395,7 +2395,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), x.IsSmall());
 		}
 	}
@@ -2404,7 +2404,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Negate(x);
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2415,7 +2415,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Floor(x);
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2426,7 +2426,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Negate(x);
 			z.Floor(z);
@@ -2439,7 +2439,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(x);
 			if (x.Sign()<0)
@@ -2452,8 +2452,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Mod(x,y);
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2464,8 +2464,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			if (x.IsInt() && y.IsInt())
 			{  // both integer, perform integer division
 				BigNumber z = new BigNumber(aEnvironment.precision());
@@ -2484,8 +2484,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			long result = 0;  // initialize just in case
 			if (x.IsInt() && x.IsSmall() && y.IsInt() && y.IsSmall())
 			{
@@ -2507,8 +2507,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			long result = 0;  // initialize just in case
 			if (x.IsInt() && x.IsSmall() && y.IsInt() && y.IsSmall())
 			{
@@ -2530,8 +2530,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Gcd(x,y);
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2564,7 +2564,7 @@ public class MathCommands
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x;
-			x = GetNumber(aEnvironment, aStackTop, 1);
+			x = getNumber(aEnvironment, aStackTop, 1);
 			double result = Math.asin(x.Double());
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(result);
@@ -2577,7 +2577,7 @@ public class MathCommands
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x;
-			x = GetNumber(aEnvironment, aStackTop, 1);
+			x = getNumber(aEnvironment, aStackTop, 1);
 			double result = Math.log(x.Double());
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(result);
@@ -2590,8 +2590,8 @@ public class MathCommands
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x, y;
-			x = GetNumber(aEnvironment, aStackTop, 1);
-			y = GetNumber(aEnvironment, aStackTop, 2);
+			x = getNumber(aEnvironment, aStackTop, 1);
+			y = getNumber(aEnvironment, aStackTop, 2);
 			double result = Math.pow(x.Double(), y.Double());
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.SetTo(result);
@@ -2603,8 +2603,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber n = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber n = getNumber(aEnvironment, aStackTop, 2);
 			long nrToShift = n.Long();
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.ShiftLeft(x,(int)nrToShift);
@@ -2616,8 +2616,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber n = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber n = getNumber(aEnvironment, aStackTop, 2);
 			long nrToShift = n.Long();
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.ShiftRight(x,(int)nrToShift);
@@ -2677,7 +2677,7 @@ public class MathCommands
 			int base = (int)(num.Long());
 
 			// Get the number to convert
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 2);
 
 			// convert using correct base
 			String str;
@@ -2796,7 +2796,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+			InfixOperator op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2805,7 +2805,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			InfixOperator op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2814,7 +2814,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+			InfixOperator op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2823,7 +2823,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+			InfixOperator op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2832,16 +2832,16 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			InfixOperator op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{  // also need to check for a postfix or prefix operator
-				op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+				op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 				if (op == null)
 				{
-					op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+					op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 					if (op == null)
 					{  // or maybe it's a bodied function
-						op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+						op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 						Error.CHK_CORE(aEnvironment,aStackTop,op!=null, Error.KLispErrIsNotInFix);
 					}
 				}
@@ -2854,10 +2854,10 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			InfixOperator op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{  // infix and postfix operators have left precedence
-				op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+				op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 				Error.CHK_CORE(aEnvironment,aStackTop,op!=null, Error.KLispErrIsNotInFix);
 			}
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+op.iLeftPrecedence));
@@ -2868,13 +2868,13 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			InfixOperator op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{   // bodied, infix and prefix operators have right precedence
-				op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+				op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 				if (op == null)
 				{   // or maybe it's a bodied function
-					op = MathCommands.OperatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+					op = MathCommands.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 					Error.CHK_CORE(aEnvironment,aStackTop,op!=null, Error.KLispErrIsNotInFix);
 				}
 			}
@@ -2895,8 +2895,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.BitAnd(x,y);
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2907,8 +2907,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.BitOr(x,y);
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -2919,8 +2919,8 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-			BigNumber y = GetNumber(aEnvironment, aStackTop, 2);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
+			BigNumber y = getNumber(aEnvironment, aStackTop, 2);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.BitXor(x,y);
 			RESULT(aEnvironment, aStackTop).set(new Number(z));
@@ -3468,7 +3468,7 @@ public class MathCommands
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			//TODO fixme this routine should actually be called SlowIsPrime ;-)
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			long n = x.Long();
 			long result = 1;
 
@@ -3886,7 +3886,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
+			BigNumber x = getNumber(aEnvironment, aStackTop, 1);
 			x.DumpDebugInfo(aEnvironment.iCurrentOutput);
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
