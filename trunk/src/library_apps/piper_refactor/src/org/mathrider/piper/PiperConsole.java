@@ -52,6 +52,21 @@ public class PiperConsole extends Thread
         return line.toString();
     }
     //static boolean quitting = false;
+    
+    static void addDirectory(CPiper piper, String directory)
+    {
+                 String toEvaluate = "DefaultDirectory(\""+ directory +  File.separator + "\");";
+
+            String result = "";
+            try
+            {
+                result = piper.evaluate(toEvaluate);
+            } catch (Piperexception pe)
+            {
+                pe.printStackTrace();
+            }
+
+    }
 
     /**
      * The normal entry point for running piper from a command line.  It processes command line arguments,
@@ -67,13 +82,20 @@ public class PiperConsole extends Thread
         String detect = "";
         String pathParent = "";
         boolean inZipFile = false;
-        {
+        
+        //Piper needs an output stream to send "side effect" output to.
+        StdFileOutput stdoutput = new StdFileOutput(System.out);
+        CPiper piper = new CPiper(stdoutput);
+        piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
+        
+        
             /*My thought is that this initialization code should be moved to a single class instead of being
              * duplicated in multiple classes. tk.
              */
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
             pathParent = new File(detectURL.getPath()).getParent();
-            StdFileInput.setPath(pathParent + File.separator);
+            addDirectory(piper, pathParent);
+            //StdFileInput.setPath(pathParent + File.separator);
 
 
             if (detectURL != null)
@@ -102,9 +124,10 @@ public class PiperConsole extends Thread
             //System.out.println("Found archive ["+archive+"]");
             } else
             {
-                System.out.println("Archive not found!!!!");
+                
+                System.out.println("Code is not in an archive.");
             }
-        }
+        
         
         
         int i = 0;
@@ -127,33 +150,14 @@ public class PiperConsole extends Thread
         }
         int scriptsToRun = i;
 
-        //Piper needs an output stream to send "side effect" output to.
-        StdFileOutput stdoutput = new StdFileOutput(System.out);
-        CPiper piper = new CPiper(stdoutput);
-        
-        
-        piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
+
 
 
 
         //Change the default directory. tk.
         if (defaultDirectory != null)
         {
-            String toEvaluate = "DefaultDirectory(\"" + defaultDirectory + "\");";
-
-            String result = "";
-            try
-            {
-                result = piper.evaluate(toEvaluate);
-            } catch (Piperexception pe)
-            {
-                pe.printStackTrace();
-            }
-
-            if (scriptsToRun == argv.length)
-            {
-                System.out.println("Out> " + result);
-            }
+            addDirectory(piper, defaultDirectory );
         }
         
 

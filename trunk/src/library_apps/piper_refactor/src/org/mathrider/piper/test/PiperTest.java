@@ -99,6 +99,8 @@ public class PiperTest
 		{
 			directory = ".";
 		}
+                
+             
 		PiperTest pt = new PiperTest();
 		pt.test(directory);
 		
