@@ -16,11 +16,15 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp;
+package org.mathrider.piper.lisp.userfunctions;
 
+// class EvalFuncBase defines the interface to 'something that can
 
-/// Associated hash of LispMultiUserFunction objects.
+import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.Environment;
 
-public class UserFunctions extends AssociatedHash // <LispMultiUserFunction>
+// evaluate'
+public abstract class EvalFuncBase
 {
-}
+	public abstract void Evaluate(Pointer aResult,Environment aEnvironment, Pointer aArguments) throws Exception;
+};

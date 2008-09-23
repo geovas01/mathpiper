@@ -45,14 +45,14 @@ public class Iterator
 	
 	public void GoNext() throws Exception
 	{
-		Error.Check(iPtr.get() != null,Error.KLispErrListNotLongEnough);
+		LispError.Check(iPtr.get() != null,LispError.KLispErrListNotLongEnough);
 		iPtr = (iPtr.get().cdr());
 	}
 	
 	public void GoSub() throws Exception
 	{
-		Error.Check(iPtr.get() != null,Error.KLispErrInvalidArg);
-		Error.Check(iPtr.get().subList() != null,Error.KLispErrNotList);
+		LispError.Check(iPtr.get() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(iPtr.get().subList() != null,LispError.KLispErrNotList);
 		iPtr = iPtr.get().subList();
 	}
 

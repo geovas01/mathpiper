@@ -22,7 +22,7 @@ import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.parsers.InfixParser;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Tokenizer;
@@ -75,7 +75,7 @@ public class ParsedObject
 		{
 			iResult.set(null);
 		}
-		Error.Check(!iError,Error.KLispErrInvalidExpression);
+		LispError.Check(!iError,LispError.KLispErrInvalidExpression);
 	}
 	
 	void ReadToken() throws Exception
@@ -110,7 +110,7 @@ public class ParsedObject
 				// Match closing bracket
 				if (iLookAhead != iParser.iEnvironment.iProgClose.string())
 				{
-					Error.RaiseError("Expecting a ] close bracket for program block, but got "+iLookAhead+" instead");
+					LispError.RaiseError("Expecting a ] close bracket for program block, but got "+iLookAhead+" instead");
 					return;
 				}
 				MatchToken(iLookAhead);
@@ -221,7 +221,7 @@ public class ParsedObject
 				}
 				else if (iLookAhead != iParser.iEnvironment.iListClose.string())
 				{
-					Error.RaiseError("Expecting a } close bracket for a list, but got "+iLookAhead+" instead");
+					LispError.RaiseError("Expecting a } close bracket for a list, but got "+iLookAhead+" instead");
 					return;
 				}
 			}
@@ -248,7 +248,7 @@ public class ParsedObject
 				}
 				else
 				{
-					Error.RaiseError("Expecting ; end of statement in program block, but got "+iLookAhead+" instead");
+					LispError.RaiseError("Expecting ; end of statement in program block, but got "+iLookAhead+" instead");
 					return;
 				}
 			}
@@ -280,7 +280,7 @@ public class ParsedObject
 					}
 					else if (iLookAhead != iParser.iEnvironment.iBracketClose.string())
 					{
-						Error.RaiseError("Expecting ) closing bracket for sub-expression, but got "+iLookAhead+" instead");
+						LispError.RaiseError("Expecting ) closing bracket for sub-expression, but got "+iLookAhead+" instead");
 						return;
 					}
 				}
@@ -359,9 +359,9 @@ public class ParsedObject
 		iError = true;
 		if (iLookAhead != null)
 		{
-			Error.RaiseError("Error parsing expression, near token "+iLookAhead);
+			LispError.RaiseError("Error parsing expression, near token "+iLookAhead);
 		}
-		Error.RaiseError("Error parsing expression");
+		LispError.RaiseError("Error parsing expression");
 	}
 
 };

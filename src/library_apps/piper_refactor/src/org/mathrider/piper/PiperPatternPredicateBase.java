@@ -35,7 +35,7 @@ package org.mathrider.piper;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
@@ -77,7 +77,7 @@ public class PiperPatternPredicateBase
 		while (iter.GetObject() != null)
 		{
 			PiperParamMatcherBase matcher = MakeParamMatcher(aEnvironment,iter.GetObject());
-			Error.LISPASSERT(matcher!=null);
+			LispError.LISPASSERT(matcher!=null);
 			iParamMatchers.add(matcher);
 			iter.GoNext();
 		}
@@ -242,7 +242,7 @@ public class PiperPatternPredicateBase
 		{
 			// See if it is a variable template:
 			Pointer  sublist = aPattern.subList();
-			Error.LISPASSERT(sublist != null);
+			LispError.LISPASSERT(sublist != null);
 
 			int num = Standard.internalListLength(sublist);
 
@@ -296,7 +296,7 @@ public class PiperPatternPredicateBase
 			for (i=0;i<num;i++)
 			{
 				matchers[i] = MakeParamMatcher(aEnvironment,iter.GetObject());
-				Error.LISPASSERT(matchers[i] != null);
+				LispError.LISPASSERT(matchers[i] != null);
 				iter.GoNext();
 			}
 			return new MatchSubList(matchers, num);
@@ -370,7 +370,7 @@ public class PiperPatternPredicateBase
 				aEnvironment.iCurrentOutput.Write(strout);
 				aEnvironment.iCurrentOutput.Write("\n");
 
-				Error.Check(isTrue,Error.KLispErrNonBooleanPredicateInPattern);
+				LispError.Check(isTrue,LispError.KLispErrNonBooleanPredicateInPattern);
 			}
 		}
 		return true;

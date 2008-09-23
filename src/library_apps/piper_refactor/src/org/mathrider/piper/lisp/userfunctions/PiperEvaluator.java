@@ -16,12 +16,13 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp.userfunctions;
 
 // new-style evaluator, passing arguments onto the stack in Environment
 
+import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
@@ -31,10 +32,10 @@ public class PiperEvaluator extends EvalFuncBase
 {
 	// FunctionFlags can be orred when passed to the constructor of this function
 
-	static int Function=0;    // Function: evaluate arguments
-	static int Macro=1;       // Function: don't evaluate arguments
-	static int Fixed = 0;     // fixed number of arguments
-	static int Variable = 2;  // variable number of arguments
+	public static int Function=0;    // Function: evaluate arguments
+	public static int Macro=1;       // Function: don't evaluate arguments
+	public static int Fixed = 0;     // fixed number of arguments
+	public static int Variable = 2;  // variable number of arguments
 	
 	PiperEvalCaller iCaller;
 	int iNrArgs;
@@ -51,7 +52,7 @@ public class PiperEvaluator extends EvalFuncBase
 	{
 		if ((iFlags & Variable) == 0)
 		{
-			Error.CheckNrArgs(iNrArgs+1,aArguments,aEnvironment);
+			LispError.CheckNrArgs(iNrArgs+1,aArguments,aEnvironment);
 		}
 
 		int stacktop = aEnvironment.iStack.GetStackTop();
@@ -72,7 +73,7 @@ public class PiperEvaluator extends EvalFuncBase
 		{
 			for (i=0;i<nr;i++)
 			{
-				Error.Check(iter.GetObject() != null, Error.KLispErrWrongNumberOfArgs);
+				LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iStack.PushArgOnStack(iter.GetObject().copy(false));
 				iter.GoNext();
 			}
@@ -89,8 +90,8 @@ public class PiperEvaluator extends EvalFuncBase
 			Pointer arg = new Pointer();
 			for (i=0;i<nr;i++)
 			{
-				Error.Check(iter.GetObject() != null, Error.KLispErrWrongNumberOfArgs);
-				Error.Check(iter.Ptr() != null, Error.KLispErrWrongNumberOfArgs);
+				LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.eval(aEnvironment, arg, iter.Ptr());
 				aEnvironment.iStack.PushArgOnStack(arg.get());
 				iter.GoNext();

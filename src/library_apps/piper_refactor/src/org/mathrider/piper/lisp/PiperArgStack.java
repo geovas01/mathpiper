@@ -23,7 +23,7 @@ package org.mathrider.piper.lisp;
 
 		public void RaiseStackOverflowError() throws Exception
 		{
-			Error.RaiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.");
+			LispError.RaiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.");
 		}
 
 		public void PushArgOnStack(Cons aObject) throws Exception
@@ -47,13 +47,13 @@ package org.mathrider.piper.lisp;
 
 		public Pointer GetElement(int aPos) throws Exception
 		{
-			Error.LISPASSERT(aPos>=0 && aPos < iStackTop);
+			LispError.LISPASSERT(aPos>=0 && aPos < iStackTop);
 			return iStack.GetElement(aPos);
 		}
 
 		public void PopTo(int aTop) throws Exception
 		{
-			Error.LISPASSERT(aTop<=iStackTop);
+			LispError.LISPASSERT(aTop<=iStackTop);
 			while (iStackTop>aTop)
 			{
 				iStackTop--;

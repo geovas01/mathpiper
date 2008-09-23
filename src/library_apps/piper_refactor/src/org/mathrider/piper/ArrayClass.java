@@ -19,7 +19,7 @@
 package org.mathrider.piper;
 
 import org.mathrider.piper.lisp.Cons;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.PointerArray;
 import org.mathrider.piper.lisp.ArgList;
 
@@ -47,12 +47,12 @@ public class ArrayClass extends GenericClassContainer
 	}
 	public Cons GetElement(int aItem) throws Exception
 	{
-		Error.LISPASSERT(aItem>0 && aItem<=iArray.Size());
+		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
 		return iArray.GetElement(aItem-1).get();
 	}
 	public void SetElement(int aItem,Cons aObject) throws Exception
 	{
-		Error.LISPASSERT(aItem>0 && aItem<=iArray.Size());
+		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
 		iArray.SetElement(aItem-1,aObject);
 	}
 

@@ -19,6 +19,7 @@
 package org.mathrider.piper;
 
 
+import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.parsers.InfixParser;
 import org.mathrider.piper.io.StdFileOutput;
@@ -27,8 +28,8 @@ import org.mathrider.piper.io.StringInput;
 import org.mathrider.piper.lisp.HashTable;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
-import org.mathrider.piper.lisp.UserFunction;
+import org.mathrider.piper.lisp.LispError;
+import org.mathrider.piper.lisp.userfunctions.UserFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.Tokenizer;
 import org.mathrider.piper.lisp.Number;
@@ -36,7 +37,7 @@ import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.Printer;
 import org.mathrider.piper.lisp.Output;
-import org.mathrider.piper.lisp.MultiUserFunction;
+import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Iterator;
@@ -642,31 +643,31 @@ public class BuiltinFunctions
 	public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception
 	{
 		BigNumber x = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, aArgNr).get().number(aEnvironment.precision());
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,x != null,aArgNr);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,x != null,aArgNr);
 		return x;
 	}
 
 	static void multiFix(Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
 	{
 		// Get operator
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 		String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 		Pointer precedence = new Pointer();
 		aEnvironment.iEvaluator.eval(aEnvironment, precedence, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,precedence.get().string() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,precedence.get().string() != null, 2);
 		int prec = Integer.parseInt(precedence.get().string(),10);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,prec <= InfixPrinter.KMaxPrecedence, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,prec <= InfixPrinter.KMaxPrecedence, 2);
 		aOps.SetOperator(prec,Standard.symbolName(aEnvironment,orig));
 		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 	public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
 	{
 		// Get operator
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 		String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 		aOps.SetOperator(aPrecedence,Standard.symbolName(aEnvironment,orig));
 		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
@@ -674,13 +675,13 @@ public class BuiltinFunctions
 	public static InfixOperator operatorInfo(Environment aEnvironment,int aStackTop, Operators aOperators) throws Exception
 	{
 		// Get operator
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 
 		Pointer evaluated = new Pointer();
 		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 		String orig = evaluated.get().string();
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 		//
 		InfixOperator op = (InfixOperator)aOperators.lookUp(Standard.symbolName(aEnvironment,orig));
 		return op;
@@ -704,8 +705,8 @@ public class BuiltinFunctions
 		{
 			varstring = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		}
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,varstring != null,1);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,!Standard.isNumber(varstring,true),1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,varstring != null,1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,!Standard.isNumber(varstring,true),1);
 
 		Pointer result = new Pointer();
 		aEnvironment.iEvaluator.eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
@@ -717,7 +718,7 @@ public class BuiltinFunctions
 	{
 		Pointer evaluated = new Pointer();
 		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
-		Error.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
+		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
 
 		Pointer copied = new Pointer();
 		if (aDestructive)
@@ -731,10 +732,10 @@ public class BuiltinFunctions
 
 		Pointer index = new Pointer();
 		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 		int ind = Integer.parseInt(index.get().string(),10);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
 
 		Iterator iter = new Iterator(copied);
 		while (ind>0)
@@ -742,7 +743,7 @@ public class BuiltinFunctions
 			iter.GoNext();
 			ind--;
 		}
-		Error.CHK_CORE(aEnvironment, aStackTop,iter.GetObject() != null, Error.KLispErrListNotLongEnough);
+		LispError.CHK_CORE(aEnvironment, aStackTop,iter.GetObject() != null, LispError.KLispErrListNotLongEnough);
 		Pointer next = new Pointer();
 		next.set(iter.GetObject().cdr().get());
 		iter.Ptr().set(next.get());
@@ -754,7 +755,7 @@ public class BuiltinFunctions
 	{
 		Pointer evaluated = new Pointer();
 		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
-		Error.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
+		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
 
 		Pointer copied = new Pointer();
 		if (aDestructive)
@@ -768,10 +769,10 @@ public class BuiltinFunctions
 
 		Pointer index = new Pointer();
 		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 		int ind = Integer.parseInt(index.get().string(),10);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
 
 		Iterator iter = new Iterator(copied);
 		while (ind>0)
@@ -797,12 +798,12 @@ public class BuiltinFunctions
 		Pointer evaluated = new Pointer();
 		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
 		// Ok, so lets not check if it is a list, but it needs to be at least a 'function'
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().subList() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().subList() != null, 1);
 
 		Pointer index = new Pointer();
 		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 		int ind = Integer.parseInt(index.get().string(),10);
 
 		Pointer copied = new Pointer();
@@ -814,7 +815,7 @@ public class BuiltinFunctions
 		{
 			Standard.internalFlatCopy(copied,evaluated.get().subList());
 		}
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,2);
 
 		Iterator iter = new Iterator(copied);
 		while (ind>0)
@@ -825,8 +826,8 @@ public class BuiltinFunctions
 
 		Pointer toInsert = new Pointer();
 		toInsert.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr() != null, 2);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr().get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr().get() != null, 2);
 		toInsert.get().cdr().set(iter.Ptr().get().cdr().get());
 		iter.Ptr().set(toInsert.get());
 		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
@@ -843,13 +844,13 @@ public class BuiltinFunctions
 		Pointer args = new Pointer();
 		String orig=null;
 
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 		args.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
 
 		// The arguments
-		Error.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
+		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
 
 		// Finally define the rule base
 		aEnvironment.declareRuleBase(Standard.symbolName(aEnvironment,orig),
@@ -873,22 +874,22 @@ public class BuiltinFunctions
 		String orig=null;
 
 		// Get operator
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 		ar.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
 		pr.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
 		predicate.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).get());
 		body.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).get());
 
 		// The arity
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get() != null, 2);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get().string() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get().string() != null, 2);
 		arity = Integer.parseInt(ar.get().string(),10);
 
 		// The precedence
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get() != null, 3);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get().string() != null, 3);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get() != null, 3);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get().string() != null, 3);
 		precedence = Integer.parseInt(pr.get().string(),10);
 
 		// Finally define the rule base
@@ -912,13 +913,13 @@ public class BuiltinFunctions
 		Pointer body = new Pointer();
 		String orig=null;
 
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 		// The arguments
 		args.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
-		Error.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
+		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
 
 		// Finally define the rule base
 		aEnvironment.declareMacroRuleBase(Standard.symbolName(aEnvironment,orig),
@@ -943,22 +944,22 @@ public class BuiltinFunctions
 		String orig=null;
 
 		// Get operator
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 		ar.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
 		pr.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
 		predicate.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).get());
 		body.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).get());
 
 		// The arity
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get() != null, 2);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get().string() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get() != null, 2);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get().string() != null, 2);
 		arity = Integer.parseInt(ar.get().string(),10);
 
 		// The precedence
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get() != null, 3);
-		Error.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get().string() != null, 3);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get() != null, 3);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,pr.get().string() != null, 3);
 		precedence = Integer.parseInt(pr.get().string(),10);
 
 		// Finally define the rule base
@@ -1017,11 +1018,11 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get()!= null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get()!= null,1);
 			String str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(0) == '\"',1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(str.length()-1) == '\"',1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(0) == '\"',1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(str.length()-1) == '\"',1);
 
 			int i=1;
 			int nr=str.length()-1;
@@ -1052,9 +1053,9 @@ public class BuiltinFunctions
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 			aEnvironment.iInputDirectories.add(oper);
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
@@ -1065,14 +1066,14 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, Error.KLispErrSecurityBreach);
+			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 			Pointer evaluated = new Pointer();
 			aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			String hashedname = aEnvironment.hashTable().lookUpUnStringify(orig);
 
@@ -1085,7 +1086,7 @@ public class BuiltinFunctions
 				        Standard.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 				aEnvironment.iCurrentInput = input;
 				// Open file
-				Error.CHK_CORE(aEnvironment, aStackTop,input != null, Error.KLispErrFileNotFound);
+				LispError.CHK_CORE(aEnvironment, aStackTop,input != null, LispError.KLispErrFileNotFound);
 
 				// Evaluate the body
 				aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
@@ -1111,9 +1112,9 @@ public class BuiltinFunctions
 			aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 
 			InputStatus oldstatus = aEnvironment.iInputStatus;
@@ -1178,20 +1179,20 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, Error.KLispErrSecurityBreach);
+			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			Pointer evaluated = new Pointer();
 			aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 
 			// Open file for writing
 			FileOutputStream localFP = new FileOutputStream(oper);
-			Error.CHK_CORE(aEnvironment, aStackTop,localFP != null, Error.KLispErrFileNotFound);
+			LispError.CHK_CORE(aEnvironment, aStackTop,localFP != null, LispError.KLispErrFileNotFound);
 			StdFileOutput newOutput = new StdFileOutput(localFP);
 
 			Output previous = aEnvironment.iCurrentOutput;
@@ -1255,15 +1256,15 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, Error.KLispErrSecurityBreach);
+			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			Standard.internalLoad(aEnvironment,orig);
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
@@ -1308,7 +1309,7 @@ public class BuiltinFunctions
 				{
 					String str;
 					str = iter.GetObject().string();
-					Error.CHK_ARG_CORE(aEnvironment,aStackTop,str != null, nr);
+					LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null, nr);
 					aEnvironment.unsetVariable(str);
 					iter.GoNext();
 					nr++;
@@ -1332,7 +1333,7 @@ public class BuiltinFunctions
 				while (iter.GetObject() != null)
 				{
 					String variable = iter.GetObject().string();
-					Error.CHK_ARG_CORE(aEnvironment,aStackTop,variable != null,nr);
+					LispError.CHK_ARG_CORE(aEnvironment,aStackTop,variable != null,nr);
 					// printf("Variable %s\n",variable.String());
 					aEnvironment.newLocal(variable,null);
 					iter.GoNext();
@@ -1357,8 +1358,8 @@ public class BuiltinFunctions
 		{
 			String str;
 			str = ARGUMENT(aEnvironment, aStackTop, 2).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.isNumber(str,false),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.isNumber(str,false),2);
 			int index = Integer.parseInt(str);
 			Standard.internalNth(RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1), index);
 		}
@@ -1445,11 +1446,11 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().subList() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().subList() != null, 1);
 			Cons subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,subList != null, 1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,subList.string() == aEnvironment.iList.string(),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,subList != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,subList.string() == aEnvironment.iList.string(),1);
 			Standard.internalTail(RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
 		}
 	}
@@ -1458,7 +1459,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().subList() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().subList() != null, 1);
 			Pointer head = new Pointer();
 			head.set(aEnvironment.iList.copy(false));
 			head.get().cdr().set(ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get());
@@ -1480,7 +1481,7 @@ public class BuiltinFunctions
 			iter.GoNext();
 			while (iter.GetObject() != null)
 			{
-				Error.CHK_ISLIST_CORE(aEnvironment,aStackTop,iter.Ptr(),arg);
+				LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,iter.Ptr(),arg);
 				Standard.internalFlatCopy(tail.Ptr(),iter.Ptr().get().subList().get().cdr());
 				while (tail.GetObject() != null)
 					tail.GoNext();
@@ -1502,7 +1503,7 @@ public class BuiltinFunctions
 			iter.GoNext();
 			while (iter.GetObject() != null)
 			{
-				Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,iter.Ptr(),arg);
+				LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,iter.Ptr(),arg);
 				String thisString = iter.GetObject().string();
 				String toAppend = thisString.substring(1,thisString.length()-1);
 				aStringBuffer.append(toAppend);
@@ -1575,9 +1576,9 @@ public class BuiltinFunctions
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get operator
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpUnStringify(orig)));
 		}
 	}
@@ -1590,9 +1591,9 @@ public class BuiltinFunctions
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get operator
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(orig)));
 		}
@@ -1604,8 +1605,8 @@ public class BuiltinFunctions
 		{
 			String str;
 			str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.isNumber(str,false),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.isNumber(str,false),2);
 			char asciiCode = (char)Integer.parseInt(str,10);
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,"\""+asciiCode+"\""));
 		}
@@ -1666,7 +1667,7 @@ public class BuiltinFunctions
 				aEnvironment.iEvaluator.eval(aEnvironment, predicate, arg1);
 
 			}
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.isFalse(aEnvironment,predicate),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.isFalse(aEnvironment,predicate),1);
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
 	}
@@ -1676,7 +1677,7 @@ public class BuiltinFunctions
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			int nrArguments = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
-			Error.CHK_CORE(aEnvironment,aStackTop,nrArguments == 3 || nrArguments == 4,Error.KLispErrWrongNumberOfArgs);
+			LispError.CHK_CORE(aEnvironment,aStackTop,nrArguments == 3 || nrArguments == 4,LispError.KLispErrWrongNumberOfArgs);
 
 			Pointer predicate = new Pointer();
 			aEnvironment.iEvaluator.eval(aEnvironment, predicate, ARGUMENT(aEnvironment, aStackTop, 1));
@@ -1687,7 +1688,7 @@ public class BuiltinFunctions
 			}
 			else
 			{
-				Error.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.isFalse(aEnvironment,predicate),1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.isFalse(aEnvironment,predicate),1);
 				if (nrArguments == 4)
 				{
 					aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), argument(ARGUMENT(aEnvironment, aStackTop, 0),3));
@@ -1710,7 +1711,7 @@ public class BuiltinFunctions
 			{
 				Pointer evaluated = new Pointer();
 				aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 2));
-				Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,2);
+				LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,2);
 				throw new Exception(evaluated.get().string());
 			}
 			RESULT(aEnvironment, aStackTop).set(pred.get());
@@ -1835,13 +1836,13 @@ public class BuiltinFunctions
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			// The arguments
 			String tohold = ARGUMENT(aEnvironment, aStackTop, 2).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,tohold != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,tohold != null, 2);
 			aEnvironment.holdArgument(Standard.symbolName(aEnvironment,orig), tohold);
 			// Return true
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
@@ -1869,13 +1870,13 @@ public class BuiltinFunctions
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			// The arity
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 2).get() != null, 2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 2).get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 2).get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 2).get().string() != null, 2);
 			int arity = Integer.parseInt(ARGUMENT(aEnvironment, aStackTop, 2).get().string(),10);
 
 			aEnvironment.unFenceRule(Standard.symbolName(aEnvironment,orig), arity);
@@ -1893,14 +1894,14 @@ public class BuiltinFunctions
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.symbolName(aEnvironment,orig);
 
 			Pointer arity = new Pointer();
 			arity.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,arity.get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,arity.get().string() != null, 2);
 			int ar = Integer.parseInt(arity.get().string(),10);
 			aEnvironment.retract(oper, ar);
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
@@ -2081,8 +2082,8 @@ public class BuiltinFunctions
 				String str2;
 				str1 = result1.get().string();
 				str2 = result2.get().string();
-				Error.CHK_ARG_CORE(aEnvironment,aStackTop,str1 != null ,1);
-				Error.CHK_ARG_CORE(aEnvironment,aStackTop,str2 != null, 2);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str1 != null ,1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str2 != null, 2);
 				// the precision argument is ignored in "lex" functions
 				cmp =lexfunc(str1,str2,
 				             aEnvironment.hashTable(),
@@ -2331,11 +2332,11 @@ public class BuiltinFunctions
 		{
 			Pointer index = new Pointer();
 			index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
 
 			int ind = Integer.parseInt(index.get().string(),10);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ind>0,1);
 			aEnvironment.setPrecision(ind);
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
@@ -2546,9 +2547,9 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 			String ls_str;
 			Process ls_proc = Runtime.getRuntime().exec(oper);
@@ -2639,9 +2640,9 @@ public class BuiltinFunctions
 			oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			// Check that result is a number, and that it is in fact an integer
 			BigNumber num = oper.get().number(aEnvironment.precision());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,num != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,num != null,1);
 			// check that the base is an integer between 2 and 32
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,num.IsInt(), 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,num.IsInt(), 1);
 
 			// Get a short platform integer from the first argument
 			int base = (int)(num.Double());
@@ -2651,10 +2652,10 @@ public class BuiltinFunctions
 			fromNum.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 			String str2;
 			str2 = fromNum.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,str2 != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str2 != null,2);
 
 			// Added, unquote a string
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.internalIsString(str2),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,Standard.internalIsString(str2),2);
 			str2 = aEnvironment.hashTable().lookUpUnStringify(str2);
 
 			// convert using correct base
@@ -2673,9 +2674,9 @@ public class BuiltinFunctions
 			oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			// Check that result is a number, and that it is in fact an integer
 			BigNumber num = oper.get().number(aEnvironment.precision());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,num != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,num != null,1);
 			// check that the base is an integer between 2 and 32
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,num.IsInt(), 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,num.IsInt(), 1);
 
 			// Get a short platform integer from the first argument
 			int base = (int)(num.Long());
@@ -2698,8 +2699,8 @@ public class BuiltinFunctions
 		{
 			Pointer index = new Pointer();
 			index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
 
 			int ind = Integer.parseInt(index.get().string(),10);
 			aEnvironment.iMaxEvalDepth = ind;
@@ -2711,15 +2712,15 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, Error.KLispErrSecurityBreach);
+			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			Standard.loadDefFile(aEnvironment, orig);
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
@@ -2734,9 +2735,9 @@ public class BuiltinFunctions
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			Standard.internalUse(aEnvironment,orig);
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
@@ -2748,9 +2749,9 @@ public class BuiltinFunctions
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			aEnvironment.iInfixOperators.SetRightAssociative(Standard.symbolName(aEnvironment,orig));
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
 		}
@@ -2761,14 +2762,14 @@ public class BuiltinFunctions
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			Pointer index = new Pointer();
 			aEnvironment.iEvaluator.eval(aEnvironment, index, ARGUMENT(aEnvironment, aStackTop, 2));
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 			int ind = Integer.parseInt(index.get().string(),10);
 
 			aEnvironment.iInfixOperators.SetLeftPrecedence(Standard.symbolName(aEnvironment,orig),ind);
@@ -2781,14 +2782,14 @@ public class BuiltinFunctions
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			// Get operator
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 			String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 			Pointer index = new Pointer();
 			aEnvironment.iEvaluator.eval(aEnvironment, index, ARGUMENT(aEnvironment, aStackTop, 2));
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 			int ind = Integer.parseInt(index.get().string(),10);
 
 			aEnvironment.iInfixOperators.SetRightPrecedence(Standard.symbolName(aEnvironment,orig),ind);
@@ -2846,7 +2847,7 @@ public class BuiltinFunctions
 					if (op == null)
 					{  // or maybe it's a bodied function
 						op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-						Error.CHK_CORE(aEnvironment,aStackTop,op!=null, Error.KLispErrIsNotInFix);
+						LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 					}
 				}
 			}
@@ -2862,7 +2863,7 @@ public class BuiltinFunctions
 			if (op == null)
 			{  // infix and postfix operators have left precedence
 				op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
-				Error.CHK_CORE(aEnvironment,aStackTop,op!=null, Error.KLispErrIsNotInFix);
+				LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 			}
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+op.iLeftPrecedence));
 		}
@@ -2879,7 +2880,7 @@ public class BuiltinFunctions
 				if (op == null)
 				{   // or maybe it's a bodied function
 					op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-					Error.CHK_CORE(aEnvironment,aStackTop,op!=null, Error.KLispErrIsNotInFix);
+					LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 				}
 			}
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+op.iRightPrecedence));
@@ -2950,15 +2951,15 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, Error.KLispErrSecurityBreach);
+			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 
 			String filename = Standard.internalFindFile(oper, aEnvironment.iInputDirectories);
@@ -2970,15 +2971,15 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, Error.KLispErrSecurityBreach);
+			LispError.CHK_CORE(aEnvironment, aStackTop,aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			// Get file name
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get() != null, 1);
 			String orig = evaluated.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 
 			MultiUserFunction multiUserFunc =
@@ -3012,7 +3013,7 @@ public class BuiltinFunctions
 		{
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().generic() != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().generic() != null,1);
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,evaluated.get().generic().TypeName()));
 		}
 	}
@@ -3024,8 +3025,8 @@ public class BuiltinFunctions
 			Pointer sizearg = new Pointer();
 			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 1);
 
 			int size = Integer.parseInt(sizearg.get().string(),10);
 
@@ -3045,8 +3046,8 @@ public class BuiltinFunctions
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			GenericClassContainer gen = evaluated.get().generic();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 			int size=((ArrayClass)gen).Size();
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+size));
 		}
@@ -3060,18 +3061,18 @@ public class BuiltinFunctions
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			GenericClassContainer gen = evaluated.get().generic();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 
 			Pointer sizearg = new Pointer();
 			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
 			int size = Integer.parseInt(sizearg.get().string(),10);
 
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).Size(),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).Size(),2);
 			Cons object = ((ArrayClass)gen).GetElement(size);
 
 			RESULT(aEnvironment, aStackTop).set(object.copy(false));
@@ -3086,17 +3087,17 @@ public class BuiltinFunctions
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 			GenericClassContainer gen = evaluated.get().generic();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
 
 			Pointer sizearg = new Pointer();
 			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
 			int size = Integer.parseInt(sizearg.get().string(),10);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).Size(),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).Size(),2);
 
 			Pointer obj = new Pointer();
 			obj.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
@@ -3223,19 +3224,19 @@ public class BuiltinFunctions
 		{
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
-			Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,3);
+			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,3);
 			String orig = evaluated.get().string();
 
 			Pointer index = new Pointer();
 			index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
 			int from = Integer.parseInt(index.get().string(),10);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,from>0,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,from>0,1);
 
 			index.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 			int count = Integer.parseInt(index.get().string(),10);
 
 
@@ -3250,22 +3251,22 @@ public class BuiltinFunctions
 		{
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
-			Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,3);
+			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,evaluated,3);
 			String orig = evaluated.get().string();
 			Pointer index = new Pointer();
 			index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 1);
 			int from = Integer.parseInt(index.get().string(),10);
 
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,from>0,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,from>0,1);
 
 			Pointer ev2 = new Pointer();
 			ev2.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-			Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,ev2,2);
+			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,ev2,2);
 			String replace = ev2.get().string();
 
-			Error.CHK_CORE(aEnvironment, aStackTop,from+replace.length()-2<orig.length(), Error.KLispErrInvalidArg);
+			LispError.CHK_CORE(aEnvironment, aStackTop,from+replace.length()-2<orig.length(), LispError.KLispErrInvalidArg);
 			String str;
 			str = orig.substring(0,from);
 			str = str + replace.substring(1,replace.length()-1);
@@ -3285,10 +3286,10 @@ public class BuiltinFunctions
 			postpredicate.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
 			Iterator iter = new Iterator(pattern);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject().subList() != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject().subList() != null,1);
 			iter.GoSub();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,1);
 			iter.GoNext();
 
 			Pointer ptr = iter.Ptr();
@@ -3308,8 +3309,8 @@ public class BuiltinFunctions
 			Pointer pattern = new Pointer();
 			pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			GenericClassContainer gen = pattern.get().generic();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Pattern\""),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Pattern\""),1);
 
 			Pointer list = new Pointer();
 			list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
@@ -3317,14 +3318,14 @@ public class BuiltinFunctions
 			PatternClass patclass = (PatternClass)gen;
 
 			Iterator iter = new Iterator(list);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject().subList() != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject().subList() != null,2);
 			iter.GoSub();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,2);
 			iter.GoNext();
 
 			Pointer ptr = iter.Ptr();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ptr != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ptr != null,2);
 			boolean matches = patclass.Matches(aEnvironment,ptr);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),matches);
 		}
@@ -3337,13 +3338,13 @@ public class BuiltinFunctions
 			Pointer name = new Pointer();
 			name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			String orig = name.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 
 			Pointer sizearg = new Pointer();
 			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
 			int arity = Integer.parseInt(sizearg.get().string(),10);
 
@@ -3359,7 +3360,7 @@ public class BuiltinFunctions
 			Pointer name = new Pointer();
 			name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			String orig = name.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 
 			MultiUserFunction multiUserFunc =
@@ -3387,18 +3388,18 @@ public class BuiltinFunctions
 			Pointer name = new Pointer();
 			name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			String orig = name.get().string();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 			String oper = Standard.internalUnstringify(orig);
 
 			Pointer sizearg = new Pointer();
 			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
 			int arity = Integer.parseInt(sizearg.get().string(),10);
 
 			UserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().lookUp(oper),arity);
-			Error.CHK_CORE(aEnvironment, aStackTop,userFunc != null, Error.KLispErrInvalidArg);
+			LispError.CHK_CORE(aEnvironment, aStackTop,userFunc != null, LispError.KLispErrInvalidArg);
 
 			Pointer list = userFunc.ArgList();
 			Pointer head = new Pointer();
@@ -3453,7 +3454,7 @@ public class BuiltinFunctions
 			for (i=0;i<nrSymbols;i++)
 			{
 				String atomname = argument(ARGUMENT(aEnvironment, aStackTop, 0), i+1).get().string();
-				Error.CHK_ARG_CORE(aEnvironment,aStackTop,atomname != null, i+1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,atomname != null, i+1);
 				names[i] = atomname;
 				int len = atomname.length();
 				String newname = "$"+atomname+uniquenumber;
@@ -3501,12 +3502,12 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().number(0) != null,1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1).get().number(0) != null,1);
 			Pointer arg = ARGUMENT(aEnvironment, aStackTop, 1);
 
 			//TODO fixme I am sure this can be optimized still
 			int nr = (int)arg.get().number(0).Long();
-			Error.Check(nr>=0,Error.KLispErrInvalidArg);
+			LispError.Check(nr>=0,LispError.KLispErrInvalidArg);
 			BigNumber fac = new BigNumber("1",10,10);
 			int i;
 			for (i=2;i<=nr;i++)
@@ -3528,8 +3529,8 @@ public class BuiltinFunctions
 			Pointer args = new Pointer();
 			args.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,args.get().subList() != null,2);
-			Error.CHK_CORE(aEnvironment, aStackTop,args.get().subList().get() != null,2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,args.get().subList() != null,2);
+			LispError.CHK_CORE(aEnvironment, aStackTop,args.get().subList().get() != null,2);
 
 			// Apply a pure string
 			if (oper.get().string() != null)
@@ -3542,8 +3543,8 @@ public class BuiltinFunctions
 			{   // Apply a pure function {args,body}.
 				Pointer args2 = new Pointer();
 				args2.set(args.get().subList().get().cdr().get());
-				Error.CHK_ARG_CORE(aEnvironment,aStackTop,oper.get().subList() != null,1);
-				Error.CHK_ARG_CORE(aEnvironment,aStackTop,oper.get().subList().get() != null,1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,oper.get().subList() != null,1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,oper.get().subList().get() != null,1);
 				Standard.internalApplyPure(oper,args2,RESULT(aEnvironment, aStackTop),aEnvironment);
 			}
 		}
@@ -3561,11 +3562,11 @@ public class BuiltinFunctions
 			}
 			else
 			{
-				Error.CHK_CORE(aEnvironment, aStackTop,nrArguments == 2,Error.KLispErrWrongNumberOfArgs);
+				LispError.CHK_CORE(aEnvironment, aStackTop,nrArguments == 2,LispError.KLispErrWrongNumberOfArgs);
 				Pointer oper = new Pointer();
 				oper.set(ARGUMENT(aEnvironment, aStackTop, 0).get());
 				oper.goNext();
-				Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,oper,1);
+				LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,oper,1);
 				aEnvironment.iPrettyReader = oper.get().string();
 			}
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
@@ -3594,11 +3595,11 @@ public class BuiltinFunctions
 			}
 			else
 			{
-				Error.CHK_CORE(aEnvironment, aStackTop,nrArguments == 2,Error.KLispErrWrongNumberOfArgs);
+				LispError.CHK_CORE(aEnvironment, aStackTop,nrArguments == 2,LispError.KLispErrWrongNumberOfArgs);
 				Pointer oper = new Pointer();
 				oper.set(ARGUMENT(aEnvironment, aStackTop, 0).get());
 				oper.goNext();
-				Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,oper,1);
+				LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,oper,1);
 				aEnvironment.iPrettyPrinter = oper.get().string();
 			}
 			Standard.internalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
@@ -3713,7 +3714,7 @@ public class BuiltinFunctions
 		{
 			Pointer out = new Pointer();
 			out.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,out,1);
+			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,out,1);
 
 			String str = out.get().string();
 			int strInd = 0;
@@ -3723,7 +3724,7 @@ public class BuiltinFunctions
 				RESULT(aEnvironment, aStackTop).set(out.get());
 				return;
 			}
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(strInd) == '<',1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(strInd) == '<',1);
 			strInd++;
 			String type = "\"Open\"";
 
@@ -3762,9 +3763,9 @@ public class BuiltinFunctions
 					name = name + c;
 				}
 				name = name + "\"";
-				Error.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(strInd) == '=',1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(strInd) == '=',1);
 				strInd++;
-				Error.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(strInd) == '\"',1);
+				LispError.CHK_ARG_CORE(aEnvironment,aStackTop,str.charAt(strInd) == '\"',1);
 				String value = new String();
 
 				value = value + (str.charAt(strInd));
@@ -3831,9 +3832,9 @@ public class BuiltinFunctions
 			Cons t;
 
 			//Check that it is a compound object
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,list.get().subList() != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,list.get().subList() != null, 2);
 			t = list.get().subList().get();
-			Error.CHK_ARG_CORE(aEnvironment,aStackTop,t != null, 2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,t != null, 2);
 			t = t.cdr().get();
 
 			while (t != null)
@@ -4002,7 +4003,7 @@ public class BuiltinFunctions
 		{
 			Pointer fnameObject = new Pointer();
 			fnameObject.set(ARGUMENT(aEnvironment,aStackTop,1).get());
-			Error.CHK_ISSTRING_CORE(aEnvironment,aStackTop,fnameObject,1);
+			LispError.CHK_ISSTRING_CORE(aEnvironment,aStackTop,fnameObject,1);
 			String fname = Standard.internalUnstringify(fnameObject.get().string());
 			String hashedname = aEnvironment.hashTable().lookUp(fname);
 
@@ -4015,7 +4016,7 @@ public class BuiltinFunctions
 				Input newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
 				        Standard.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
-				Error.Check(newInput != null, Error.KLispErrFileNotFound);
+				LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
 				fileSize = newInput.StartPtr().length();
 			}
 			catch (Exception e)

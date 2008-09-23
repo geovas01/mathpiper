@@ -27,9 +27,9 @@ public class GenericClass extends Cons
 	
 	public static GenericClass getInstance(GenericClassContainer aClass) throws Exception
 	{
-		Error.LISPASSERT(aClass!=null);
+		LispError.LISPASSERT(aClass!=null);
 		GenericClass self = new GenericClass(aClass);
-		Error.Check(self!=null,Error.KLispErrNotEnoughMemory);
+		LispError.Check(self!=null,LispError.KLispErrNotEnoughMemory);
 		return self;
 	}
 	

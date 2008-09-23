@@ -31,21 +31,21 @@ public class Operators extends AssociatedHash // <InfixOperator>
 	public void SetRightAssociative(String aString) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
-		Error.Check(op != null,Error.KLispErrNotAnInFixOperator);
+		LispError.Check(op != null,LispError.KLispErrNotAnInFixOperator);
 		op.SetRightAssociative();
 	}
 	
 	public void SetLeftPrecedence(String aString,int aPrecedence) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
-		Error.Check(op != null,Error.KLispErrNotAnInFixOperator);
+		LispError.Check(op != null,LispError.KLispErrNotAnInFixOperator);
 		op.SetLeftPrecedence(aPrecedence);
 	}
 	
 	public void SetRightPrecedence(String aString,int aPrecedence) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
-		Error.Check(op != null,Error.KLispErrNotAnInFixOperator);
+		LispError.Check(op != null,LispError.KLispErrNotAnInFixOperator);
 		op.SetRightPrecedence(aPrecedence);
 	}
 	
