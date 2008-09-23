@@ -84,7 +84,7 @@ public class Environment
 	public String iPrettyReader = null;
 	public String iPrettyPrinter = null;
         
-        PiperBuiltinCommands iBuiltinCommands = new PiperBuiltinCommands();
+        PiperBuiltinCommands iBuiltinFunctions = new PiperBuiltinCommands();
 
 	public Environment(Output aCurrentOutput/*TODO FIXME*/) throws Exception
 	{
@@ -110,8 +110,8 @@ public class Environment
 		iProg         = Atom.getInstance(this,"Prog");
 
 		iStack = new PiperArgStack(50000 /*TODO FIXME*/);
-		MathCommands mc = new MathCommands();
-		mc.AddCommands(this);
+		BuiltinFunctions mc = new BuiltinFunctions();
+		mc.addFunctions(this);
 		mc=null;
 		pushLocalFrame(true);
 	}
@@ -139,7 +139,7 @@ public class Environment
 
 	public PiperBuiltinCommands builtinCommands()
 	{
-		return iBuiltinCommands;
+		return iBuiltinFunctions;
 	}
 	
 

@@ -243,7 +243,7 @@ public class Error
 				String error = "";
 				//TODO FIXME          ShowStack(aEnvironment);
 				error = error + ShowFunctionError(arguments, aEnvironment) + "\nbad argument number "+aArgNr+"(counting from 1) : \n"+aErrorDescription + "\n";
-				Pointer arg = PiperEvalCaller.Argument(arguments,aArgNr);
+				Pointer arg = PiperEvalCaller.argument(arguments,aArgNr);
 				String strout;
 
 				error = error + "The offending argument ";

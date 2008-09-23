@@ -38,7 +38,7 @@ public abstract class PiperEvalCaller
 		return aEnvironment.iStack.GetElement(aStackTop+i);
 	}
 
-	public static Pointer Argument(Pointer cur, int n) throws Exception
+	public static Pointer argument(Pointer cur, int n) throws Exception
 	{
 		Error.LISPASSERT(n>=0);
 
