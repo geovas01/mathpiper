@@ -21,7 +21,7 @@ package org.mathrider.piper.printers;
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.Tokenizer;
@@ -64,7 +64,7 @@ public class InfixPrinter extends Printer
 	}
 	void Print(Pointer aExpression, Output aOutput, int iPrecedence) throws Exception
 	{
-		Error.LISPASSERT(aExpression.get() != null);
+		LispError.LISPASSERT(aExpression.get() != null);
 
 		String string = aExpression.get().string();
 		if (string != null)
@@ -91,7 +91,7 @@ public class InfixPrinter extends Printer
 		}
 
 		Pointer subList = aExpression.get().subList();
-		Error.Check(subList!=null, Error.KLispErrUnprintableToken);
+		LispError.Check(subList!=null, LispError.KLispErrUnprintableToken);
 		if (subList.get() == null)
 		{
 			WriteToken(aOutput,"( )");

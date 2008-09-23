@@ -19,7 +19,7 @@
 package org.mathrider.piper;
 
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ArgList;
 
@@ -38,7 +38,7 @@ public class PatternClass extends GenericClassContainer
 
 	public boolean Matches(Environment  aEnvironment, Pointer aArguments) throws Exception
 	{
-		Error.LISPASSERT(iPatternMatcher != null);
+		LispError.LISPASSERT(iPatternMatcher != null);
 		boolean result;
 		result = iPatternMatcher.Matches(aEnvironment, aArguments);
 		return result;
@@ -46,7 +46,7 @@ public class PatternClass extends GenericClassContainer
 	
 	public boolean Matches(Environment  aEnvironment, Pointer[] aArguments) throws Exception
 	{
-		Error.LISPASSERT(iPatternMatcher != null);
+		LispError.LISPASSERT(iPatternMatcher != null);
 		boolean result;
 		result = iPatternMatcher.Matches(aEnvironment, aArguments);
 		return result;

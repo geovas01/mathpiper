@@ -18,6 +18,12 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
+import org.mathrider.piper.lisp.userfunctions.MacroUserFunction;
+import org.mathrider.piper.lisp.userfunctions.UserFunction;
+import org.mathrider.piper.lisp.userfunctions.ListedBranchingUserFunction;
+import org.mathrider.piper.lisp.userfunctions.BranchingUserFunction;
+import org.mathrider.piper.lisp.userfunctions.ListedMacroUserFunction;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.*;
 
@@ -74,7 +80,7 @@ public class Environment
 	public Tokenizer iDefaultTokenizer = new Tokenizer();
 	public Tokenizer iXmlTokenizer = new XmlTokenizer();
 
-	public UserFunctions iUserFunctions = new UserFunctions();
+	public AssociatedHash iUserFunctions = new AssociatedHash();
 
 	public String iError = null;
 
@@ -84,7 +90,7 @@ public class Environment
 	public String iPrettyReader = null;
 	public String iPrettyPrinter = null;
         
-        PiperBuiltinCommands iBuiltinFunctions = new PiperBuiltinCommands();
+        AssociatedHash iBuiltinFunctions = new AssociatedHash();
 
 	public Environment(Output aCurrentOutput/*TODO FIXME*/) throws Exception
 	{
@@ -137,7 +143,7 @@ public class Environment
 
 
 
-	public PiperBuiltinCommands builtinCommands()
+	public AssociatedHash builtinCommands()
 	{
 		return iBuiltinFunctions;
 	}
@@ -153,7 +159,7 @@ public class Environment
 
 	public Pointer findLocal(String aVariable) throws Exception
 	{
-		Error.Check(iLocalsList != null,Error.KLispErrInvalidStack);
+		LispError.Check(iLocalsList != null,LispError.KLispErrInvalidStack);
 		//    Check(iLocalsList.iFirst != null,KLispErrInvalidStack);
 		LispLocalVariable t = iLocalsList.iFirst;
 
@@ -240,7 +246,7 @@ public class Environment
 
 	public void popLocalFrame() throws Exception
 	{
-		Error.LISPASSERT(iLocalsList != null);
+		LispError.LISPASSERT(iLocalsList != null);
 		LocalVariableFrame nextFrame = iLocalsList.iNext;
 		iLocalsList.delete();
 		iLocalsList = nextFrame;
@@ -248,7 +254,7 @@ public class Environment
 
 	public void newLocal(String aVariable,Cons aValue) throws Exception
 	{
-		Error.LISPASSERT(iLocalsList != null);
+		LispError.LISPASSERT(iLocalsList != null);
 		iLocalsList.add(new LispLocalVariable(aVariable, aValue));
 	}
 
@@ -308,7 +314,7 @@ public class Environment
 	public void holdArgument(String  aOperator, String aVariable) throws Exception
 	{
 		MultiUserFunction multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);
-		Error.Check(multiUserFunc != null,Error.KLispErrInvalidArg);
+		LispError.Check(multiUserFunc != null,LispError.KLispErrInvalidArg);
 		multiUserFunc.HoldArgument(aVariable);
 	}
 
@@ -347,9 +353,9 @@ public class Environment
 	{
 		MultiUserFunction multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);
 
-		Error.Check(multiUserFunc != null, Error.KLispErrInvalidArg);
+		LispError.Check(multiUserFunc != null, LispError.KLispErrInvalidArg);
 		UserFunction userFunc = multiUserFunc.UserFunc(aArity);
-		Error.Check(userFunc != null, Error.KLispErrInvalidArg);
+		LispError.Check(userFunc != null, LispError.KLispErrInvalidArg);
 		userFunc.UnFence();
 	}
 
@@ -364,7 +370,7 @@ public class Environment
 			MultiUserFunction newMulti = new MultiUserFunction();
 			iUserFunctions.setAssociation(newMulti, aOperator);
 			multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);
-			Error.Check(multiUserFunc != null, Error.KLispErrCreatingUserFunction);
+			LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingUserFunction);
 		}
 		return multiUserFunc;
 	}
@@ -394,11 +400,11 @@ public class Environment
 		// Find existing multiuser func.
 		MultiUserFunction multiUserFunc =
 		        (MultiUserFunction)iUserFunctions.lookUp(aOperator);
-		Error.Check(multiUserFunc != null, Error.KLispErrCreatingRule);
+		LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
 		// Get the specific user function with the right arity
 		UserFunction userFunc = (UserFunction)multiUserFunc.UserFunc(aArity);
-		Error.Check(userFunc != null, Error.KLispErrCreatingRule);
+		LispError.Check(userFunc != null, LispError.KLispErrCreatingRule);
 
 		// Declare a new evaluation rule
 
@@ -431,11 +437,11 @@ public class Environment
 	{
 		// Find existing multiuser func.
 		MultiUserFunction multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);
-		Error.Check(multiUserFunc != null, Error.KLispErrCreatingRule);
+		LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
 		// Get the specific user function with the right arity
 		UserFunction userFunc = multiUserFunc.UserFunc(aArity);
-		Error.Check(userFunc != null, Error.KLispErrCreatingRule);
+		LispError.Check(userFunc != null, LispError.KLispErrCreatingRule);
 
 		// Declare a new evaluation rule
 		userFunc.DeclarePattern(aPrecedence, aPredicate,aBody);

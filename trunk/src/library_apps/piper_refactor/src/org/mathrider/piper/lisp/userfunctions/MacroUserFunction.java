@@ -16,11 +16,12 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp.userfunctions;
 
+import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
@@ -35,7 +36,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		int i=0;
 		while (iter.GetObject() != null)
 		{
-			Error.Check(iter.GetObject().string() != null,Error.KLispErrCreatingUserFunction);
+			LispError.Check(iter.GetObject().string() != null,LispError.KLispErrCreatingUserFunction);
 			((BranchParameter)iParameters.get(i)).iHold = true;
 			iter.GoNext();
 			i++;
@@ -67,7 +68,7 @@ public class MacroUserFunction extends BranchingUserFunction
 			arguments = null;
 		else
 		{
-			Error.LISPASSERT(arity>0);
+			LispError.LISPASSERT(arity>0);
 			arguments = new Pointer[arity];
 		}
 
@@ -75,14 +76,14 @@ public class MacroUserFunction extends BranchingUserFunction
 		for (i=0;i<arity;i++)
 		{
 			arguments[i] = new Pointer();
-			Error.Check(iter.GetObject() != null, Error.KLispErrWrongNumberOfArgs);
+			LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
 				arguments[i].set(iter.GetObject().copy(false));
 			}
 			else
 			{
-				Error.Check(iter.Ptr() != null, Error.KLispErrWrongNumberOfArgs);
+				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.Ptr());
 			}
 			iter.GoNext();
@@ -123,7 +124,7 @@ public class MacroUserFunction extends BranchingUserFunction
 				{
 					BranchRuleBase thisRule = ((BranchRuleBase)iRules.get(i));
 					//TODO remove            CHECKPTR(thisRule);
-					Error.LISPASSERT(thisRule != null);
+					LispError.LISPASSERT(thisRule != null);
 
 					st.iRulePrecedence = thisRule.Precedence();
 					boolean matches = thisRule.Matches(aEnvironment, arguments);

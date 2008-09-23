@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp;
+package org.mathrider.piper.lisp.userfunctions;
 
 
 /// User function with a specific arity.

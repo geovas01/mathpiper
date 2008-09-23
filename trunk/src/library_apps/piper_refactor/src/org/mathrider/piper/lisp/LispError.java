@@ -21,7 +21,7 @@ package org.mathrider.piper.lisp;
 import org.mathrider.piper.*;
 
 
-public class Error
+public class LispError
 {
 	public static int KLispErrNone                   = 0;
 	public static int KLispErrInvalidArg             = 1;
@@ -127,7 +127,7 @@ public class Error
 	{
 		if (!hastobetrue)
 		{
-			String error = ErrorString(aError);//"Error number "+aError+" (//TODO FIXME still need to port over the string table)";
+			String error = ErrorString(aError);//"LispError number "+aError+" (//TODO FIXME still need to port over the string table)";
 			throw new PiperException(error);
 		}
 	}
@@ -167,7 +167,7 @@ public class Error
 			      InternalIntToAscii(str,passed);
 			      aEnvironment.iErrorOutput.Write(str);
 			      aEnvironment.iErrorOutput.Write("\n");
-			      Error.Check(passed == needed,Error.KLispErrWrongNumberOfArgs);
+			      LispError.Check(passed == needed,LispError.KLispErrWrongNumberOfArgs);
 			*/
 		}
 	}

@@ -16,18 +16,19 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp.userfunctions;
 
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 
 
-public class ListedBranchingUserFunction extends BranchingUserFunction
+public class ListedMacroUserFunction extends MacroUserFunction
 {
-	public ListedBranchingUserFunction(Pointer  aParameters) throws Exception
+
+	public ListedMacroUserFunction(Pointer  aParameters) throws Exception
 	{
 		super(aParameters);
 	}
@@ -57,7 +58,7 @@ public class ListedBranchingUserFunction extends BranchingUserFunction
 			ptr = (ptr.get().cdr());
 			i++;
 			iter.GoNext();
-			Error.LISPASSERT(iter.GetObject() == null);
+			LispError.LISPASSERT(iter.GetObject() == null);
 		}
 		else
 		{
@@ -69,5 +70,4 @@ public class ListedBranchingUserFunction extends BranchingUserFunction
 		super.Evaluate(aResult, aEnvironment, newArgs);
 	}
 }
-
 

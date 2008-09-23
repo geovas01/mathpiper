@@ -72,7 +72,7 @@ public class Tokenizer
 				while (true)
 				{
 					while (aInput.Next() != '*' && !aInput.EndOfStream());
-					Error.Check(!aInput.EndOfStream(),Error.KLispErrCommentToEndOfFile);
+					LispError.Check(!aInput.EndOfStream(),LispError.KLispErrCommentToEndOfFile);
 					if (aInput.Peek() == '/')
 					{
 						aInput.Next();  // consume /
@@ -104,11 +104,11 @@ public class Tokenizer
 					if (aInput.Peek() == '\\')
 					{
 						aInput.Next();
-						Error.Check(!aInput.EndOfStream(),Error.KLispErrParsingInput);
+						LispError.Check(!aInput.EndOfStream(),LispError.KLispErrParsingInput);
 					}
 					//TODO FIXME is following append char correct?
 					aResult = aResult + ((char)aInput.Next());
-					Error.Check(!aInput.EndOfStream(),Error.KLispErrParsingInput);
+					LispError.Check(!aInput.EndOfStream(),LispError.KLispErrParsingInput);
 				}
 				//TODO FIXME is following append char correct?
 				aResult = aResult + ((char)aInput.Next()); // consume the close quote

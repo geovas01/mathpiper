@@ -16,9 +16,10 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp;
+package org.mathrider.piper.lisp.userfunctions;
 
 
+import org.mathrider.piper.lisp.*;
 import java.util.*;
 
 /// Set of ArityUserFunction's.
@@ -50,7 +51,7 @@ public class MultiUserFunction
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			Error.LISPASSERT(iFunctions.get(i) != null);
+			LispError.LISPASSERT(iFunctions.get(i) != null);
 			if (((ArityUserFunction)iFunctions.get(i)).IsArity(aArity))
 			{
 				return (ArityUserFunction)iFunctions.get(i);
@@ -68,7 +69,7 @@ public class MultiUserFunction
 		int i;
 		for (i=0;i<iFunctions.size();i++)
 		{
-			Error.LISPASSERT(iFunctions.get(i) != null);
+			LispError.LISPASSERT(iFunctions.get(i) != null);
 			((ArityUserFunction)iFunctions.get(i)).HoldArgument(aVariable);
 		}
 	}
@@ -81,10 +82,10 @@ public class MultiUserFunction
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			Error.LISPASSERT(((ArityUserFunction)iFunctions.get(i)) != null);
-			Error.LISPASSERT(aNewFunction != null);
-			Error.Check(!((ArityUserFunction)iFunctions.get(i)).IsArity(aNewFunction.Arity()),Error.KLispErrArityAlreadyDefined);
-			Error.Check(!aNewFunction.IsArity(((ArityUserFunction)iFunctions.get(i)).Arity()),Error.KLispErrArityAlreadyDefined);
+			LispError.LISPASSERT(((ArityUserFunction)iFunctions.get(i)) != null);
+			LispError.LISPASSERT(aNewFunction != null);
+			LispError.Check(!((ArityUserFunction)iFunctions.get(i)).IsArity(aNewFunction.Arity()),LispError.KLispErrArityAlreadyDefined);
+			LispError.Check(!aNewFunction.IsArity(((ArityUserFunction)iFunctions.get(i)).Arity()),LispError.KLispErrArityAlreadyDefined);
 		}
 		iFunctions.add(aNewFunction);
 	}
@@ -97,7 +98,7 @@ public class MultiUserFunction
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			Error.LISPASSERT(((ArityUserFunction)iFunctions.get(i)) != null);
+			LispError.LISPASSERT(((ArityUserFunction)iFunctions.get(i)) != null);
 			if (((ArityUserFunction)iFunctions.get(i)).IsArity(aArity))
 			{
 				iFunctions.remove(i);

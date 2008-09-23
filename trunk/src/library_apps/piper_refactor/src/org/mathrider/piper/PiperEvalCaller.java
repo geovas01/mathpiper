@@ -19,7 +19,7 @@
 package org.mathrider.piper;
 
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.PiperArgStack;
 
@@ -40,7 +40,7 @@ public abstract class PiperEvalCaller
 
 	public static Pointer argument(Pointer cur, int n) throws Exception
 	{
-		Error.LISPASSERT(n>=0);
+		LispError.LISPASSERT(n>=0);
 
 		Pointer loop = cur;
 		while(n != 0)

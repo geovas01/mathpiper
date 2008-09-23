@@ -65,7 +65,7 @@ public class Parser
 			//Get token.
 			token = iTokenizer.nextToken(iInput,iEnvironment.hashTable());
 			// if token is empty string, error!
-			Error.Check(token.length() > 0,Error.KInvalidToken); //TODO FIXME
+			LispError.Check(token.length() > 0,LispError.KInvalidToken); //TODO FIXME
 			// if token is ")" return result.
 			if (token == iEnvironment.hashTable().lookUp(")"))
 			{

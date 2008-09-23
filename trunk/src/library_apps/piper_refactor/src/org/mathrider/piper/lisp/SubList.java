@@ -44,7 +44,7 @@ public class SubList extends Cons
 	public Cons copy(boolean aRecursed) throws Exception
 	{
 		//TODO recursed copy needs to be implemented still
-		Error.LISPASSERT(aRecursed == false);
+		LispError.LISPASSERT(aRecursed == false);
 		Cons copied = new SubList(iSubList.get());
 		return copied;
 	}

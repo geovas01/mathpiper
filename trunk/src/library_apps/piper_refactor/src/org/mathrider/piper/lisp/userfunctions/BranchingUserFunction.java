@@ -16,14 +16,15 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp.userfunctions;
 
 
+import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
-import org.mathrider.piper.lisp.ArityUserFunction;
+import org.mathrider.piper.lisp.userfunctions.ArityUserFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 import java.util.*;
@@ -134,8 +135,8 @@ public class BranchingUserFunction extends ArityUserFunction
 			iPredicate.set(aPredicate.get());
 
 			GenericClassContainer gen = aPredicate.get().generic();
-			Error.Check(gen != null,Error.KLispErrInvalidArg);
-			Error.Check(gen.TypeName().equals("\"Pattern\""),Error.KLispErrInvalidArg);
+			LispError.Check(gen != null,LispError.KLispErrInvalidArg);
+			LispError.Check(gen.TypeName().equals("\"Pattern\""),LispError.KLispErrInvalidArg);
 
 			iPatternClass = (PatternClass)gen;
 			iBody.set(aBody.get());
@@ -182,7 +183,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		Iterator iter = new Iterator(aParameters);
 		while (iter.GetObject() != null)
 		{
-			Error.Check(iter.GetObject().string() != null,Error.KLispErrCreatingUserFunction);
+			LispError.Check(iter.GetObject().string() != null,LispError.KLispErrCreatingUserFunction);
 			BranchParameter param = new BranchParameter(iter.GetObject().string(),false);
 			iParameters.add(param);
 			iter.GoNext();
@@ -226,7 +227,7 @@ public class BranchingUserFunction extends ArityUserFunction
 			arguments = null;
 		else
 		{
-			Error.LISPASSERT(arity>0);
+			LispError.LISPASSERT(arity>0);
 			arguments = new Pointer[arity];
 			for (i=0;i<arity;i++)
 				arguments[i] = new Pointer();
@@ -235,14 +236,14 @@ public class BranchingUserFunction extends ArityUserFunction
 		// Walk over all arguments, evaluating them as necessary
 		for (i=0;i<arity;i++)
 		{
-			Error.Check(iter.GetObject() != null, Error.KLispErrWrongNumberOfArgs);
+			LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
 				arguments[i].set(iter.GetObject().copy(false));
 			}
 			else
 			{
-				Error.Check(iter.Ptr() != null, Error.KLispErrWrongNumberOfArgs);
+				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.Ptr());
 			}
 			iter.GoNext();
@@ -280,7 +281,7 @@ public class BranchingUserFunction extends ArityUserFunction
 			for (i=0;i<nrRules;i++)
 			{
 				BranchRuleBase thisRule = ((BranchRuleBase)iRules.get(i));
-				Error.LISPASSERT(thisRule != null);
+				LispError.LISPASSERT(thisRule != null);
 
 				st.iRulePrecedence = thisRule.Precedence();
 				boolean matches = thisRule.Matches(aEnvironment, arguments);
@@ -379,7 +380,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	{
 		// New branching rule.
 		BranchRule newRule = new BranchRule(aPrecedence,aPredicate,aBody);
-		Error.Check(newRule != null,Error.KLispErrCreatingRule);
+		LispError.Check(newRule != null,LispError.KLispErrCreatingRule);
 
 		InsertRule(aPrecedence,newRule);
 	}
@@ -390,7 +391,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	{
 		// New branching rule.
 		BranchRule newRule = new BranchRuleTruePredicate(aPrecedence,aBody);
-		Error.Check(newRule != null,Error.KLispErrCreatingRule);
+		LispError.Check(newRule != null,LispError.KLispErrCreatingRule);
 
 		InsertRule(aPrecedence,newRule);
 	}
@@ -401,7 +402,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	{
 		// New branching rule.
 		BranchPattern newRule = new BranchPattern(aPrecedence,aPredicate,aBody);
-		Error.Check(newRule != null,Error.KLispErrCreatingRule);
+		LispError.Check(newRule != null,LispError.KLispErrCreatingRule);
 
 		InsertRule(aPrecedence,newRule);
 	}

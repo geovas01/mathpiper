@@ -19,7 +19,7 @@
 package org.mathrider.piper;
 
 import org.mathrider.piper.lisp.Output;
-import org.mathrider.piper.lisp.Error;
+import org.mathrider.piper.lisp.LispError;
 import java.math.*;
 
 public class BigNumber
@@ -367,9 +367,9 @@ public class BigNumber
 	/// integer operation: *this = y mod z
 	public void Mod( BigNumber aY,  BigNumber aZ) throws Exception
 	{
-		Error.Check(aY.integer != null, Error.KLispErrNotInteger);
-		Error.Check(aZ.integer != null, Error.KLispErrNotInteger);
-		//TODO fixme    Error.Check(!IsZero(aZ),Error.KLispErrInvalidArg);
+		LispError.Check(aY.integer != null, LispError.KLispErrNotInteger);
+		LispError.Check(aZ.integer != null, LispError.KLispErrNotInteger);
+		//TODO fixme    LispError.Check(!IsZero(aZ),LispError.KLispErrInvalidArg);
 		integer = aY.integer.mod(aZ.integer);
 		decimal = null;
 	}
@@ -431,48 +431,48 @@ public class BigNumber
 	/// Bitwise operations, return result in *this.
 	void ShiftLeft(  BigNumber aX, int aNrToShift) throws Exception
 	{
-		Error.LISPASSERT(aX.integer != null);
+		LispError.LISPASSERT(aX.integer != null);
 		decimal = null;
 		integer = aX.integer.shiftLeft(aNrToShift);
 	}
 	void ShiftRight(  BigNumber aX, int aNrToShift) throws Exception
 	{
-		Error.LISPASSERT(aX.integer != null);
+		LispError.LISPASSERT(aX.integer != null);
 		decimal = null;
 		integer = aX.integer.shiftRight(aNrToShift);
 	}
 
 	void Gcd( BigNumber aX,  BigNumber aY) throws Exception
 	{
-		Error.LISPASSERT(aX.integer != null);
-		Error.LISPASSERT(aY.integer != null);
+		LispError.LISPASSERT(aX.integer != null);
+		LispError.LISPASSERT(aY.integer != null);
 		integer = aX.integer.gcd(aY.integer);
 		decimal = null;
 	}
 	void BitAnd( BigNumber aX,  BigNumber aY) throws Exception
 	{
-		Error.LISPASSERT(aX.integer != null);
-		Error.LISPASSERT(aY.integer != null);
+		LispError.LISPASSERT(aX.integer != null);
+		LispError.LISPASSERT(aY.integer != null);
 		integer = aX.integer.and(aY.integer);
 		decimal = null;
 	}
 	void BitOr( BigNumber aX,  BigNumber aY) throws Exception
 	{
-		Error.LISPASSERT(aX.integer != null);
-		Error.LISPASSERT(aY.integer != null);
+		LispError.LISPASSERT(aX.integer != null);
+		LispError.LISPASSERT(aY.integer != null);
 		integer = aX.integer.or(aY.integer);
 		decimal = null;
 	}
 	void BitXor( BigNumber aX,  BigNumber aY) throws Exception
 	{
-		Error.LISPASSERT(aX.integer != null);
-		Error.LISPASSERT(aY.integer != null);
+		LispError.LISPASSERT(aX.integer != null);
+		LispError.LISPASSERT(aY.integer != null);
 		integer = aX.integer.xor(aY.integer);
 		decimal = null;
 	}
 	void BitNot( BigNumber aX) throws Exception
 	{
-		Error.LISPASSERT(aX.integer != null);
+		LispError.LISPASSERT(aX.integer != null);
 		integer = aX.integer.not();
 		decimal = null;
 	}

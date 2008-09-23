@@ -18,13 +18,14 @@
 
 package org.mathrider.piper;
 
-import org.mathrider.piper.lisp.MultiUserFunction;
+import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
+import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.lisp.EvaluatorBase;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Error;
-import org.mathrider.piper.lisp.UserFunction;
+import org.mathrider.piper.lisp.LispError;
+import org.mathrider.piper.lisp.userfunctions.UserFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.DefFile;
 
@@ -66,18 +67,18 @@ public class BasicEvaluator extends EvaluatorBase
 	///
 	public void eval(Environment aEnvironment, Pointer aResult, Pointer aExpression) throws Exception
 	{
-		Error.LISPASSERT(aExpression.get() != null);
+		LispError.LISPASSERT(aExpression.get() != null);
 		aEnvironment.iEvalDepth++;
 		if (aEnvironment.iEvalDepth>=aEnvironment.iMaxEvalDepth)
 		{
 			if (aEnvironment.iEvalDepth>aEnvironment.iMaxEvalDepth+20)
 			{
-				Error.Check(aEnvironment.iEvalDepth<aEnvironment.iMaxEvalDepth,
-				                Error.KLispErrUserInterrupt);
+				LispError.Check(aEnvironment.iEvalDepth<aEnvironment.iMaxEvalDepth,
+				                LispError.KLispErrUserInterrupt);
 			}
 			else
 			{
-				Error.Check(aEnvironment.iEvalDepth<aEnvironment.iMaxEvalDepth, Error.KLispErrMaxRecurseDepthReached);
+				LispError.Check(aEnvironment.iEvalDepth<aEnvironment.iMaxEvalDepth, LispError.KLispErrMaxRecurseDepthReached);
 			}
 		}
 
