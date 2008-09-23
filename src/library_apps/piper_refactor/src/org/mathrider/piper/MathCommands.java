@@ -750,7 +750,7 @@ public class MathCommands
 	}
 
 
-	public static void InternalInsert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
+	public static void internalInsert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		Pointer evaluated = new Pointer();
 		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
@@ -792,7 +792,7 @@ public class MathCommands
 
 
 
-	public static void InternalReplace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
+	public static void internalReplace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		Pointer evaluated = new Pointer();
 		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
@@ -835,7 +835,7 @@ public class MathCommands
 
 	/// Implements the Piper functions \c RuleBase and \c MacroRuleBase .
 	/// The real work is done by Environment::DeclareRuleBase().
-	public static void InternalRuleBase(Environment aEnvironment, int aStackTop,  boolean aListed) throws Exception
+	public static void internalRuleBase(Environment aEnvironment, int aStackTop,  boolean aListed) throws Exception
 	{
 		//TESTARGS(3);
 
@@ -859,7 +859,7 @@ public class MathCommands
 		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
 	}
 
-	public static void InternalNewRule(Environment aEnvironment, int aStackTop) throws Exception
+	public static void internalNewRule(Environment aEnvironment, int aStackTop) throws Exception
 	{
 		//TESTARGS(6);
 
@@ -905,7 +905,7 @@ public class MathCommands
 
 
 
-	void InternalDefMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception
+	void internalDefMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception
 	{
 		// Get operator
 		Pointer args = new Pointer();
@@ -931,7 +931,7 @@ public class MathCommands
 
 
 
-	public void InternalNewRulePattern(Environment aEnvironment, int aStackTop, boolean aMacroMode) throws Exception
+	public void internalNewRulePattern(Environment aEnvironment, int aStackTop, boolean aMacroMode) throws Exception
 	{
 		int arity;
 		int precedence;
@@ -1535,7 +1535,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalInsert(aEnvironment, aStackTop,false);
+			MathCommands.internalInsert(aEnvironment, aStackTop,false);
 		}
 	}
 
@@ -1543,7 +1543,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalInsert(aEnvironment, aStackTop,true);
+			MathCommands.internalInsert(aEnvironment, aStackTop,true);
 		}
 	}
 
@@ -1551,7 +1551,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalReplace(aEnvironment, aStackTop,false);
+			MathCommands.internalReplace(aEnvironment, aStackTop,false);
 		}
 	}
 
@@ -1559,7 +1559,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			MathCommands.InternalReplace(aEnvironment, aStackTop,true);
+			MathCommands.internalReplace(aEnvironment, aStackTop,true);
 		}
 	}
 
@@ -1782,7 +1782,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalRuleBase(aEnvironment, aStackTop, false);
+			internalRuleBase(aEnvironment, aStackTop, false);
 		}
 	}
 
@@ -1790,7 +1790,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalRuleBase(aEnvironment, aStackTop, false);
+			internalRuleBase(aEnvironment, aStackTop, false);
 		}
 	}
 
@@ -1798,7 +1798,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalRuleBase(aEnvironment, aStackTop, true);
+			internalRuleBase(aEnvironment, aStackTop, true);
 		}
 	}
 
@@ -1806,7 +1806,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalRuleBase(aEnvironment, aStackTop, true);
+			internalRuleBase(aEnvironment, aStackTop, true);
 		}
 	}
 
@@ -1814,7 +1814,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalDefMacroRuleBase(aEnvironment, aStackTop, false);
+			internalDefMacroRuleBase(aEnvironment, aStackTop, false);
 		}
 	}
 
@@ -1822,7 +1822,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalDefMacroRuleBase(aEnvironment, aStackTop, true);
+			internalDefMacroRuleBase(aEnvironment, aStackTop, true);
 		}
 	}
 
@@ -1848,7 +1848,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalNewRule(aEnvironment, aStackTop);
+			internalNewRule(aEnvironment, aStackTop);
 		}
 	}
 
@@ -1856,7 +1856,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalNewRule(aEnvironment, aStackTop);
+			internalNewRule(aEnvironment, aStackTop);
 		}
 	}
 
@@ -3408,7 +3408,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalNewRulePattern(aEnvironment, aStackTop, false);
+			internalNewRulePattern(aEnvironment, aStackTop, false);
 		}
 	}
 
@@ -3416,7 +3416,7 @@ public class MathCommands
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InternalNewRulePattern(aEnvironment, aStackTop, true
+			internalNewRulePattern(aEnvironment, aStackTop, true
 			                      );
 		}
 	}
