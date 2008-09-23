@@ -37,7 +37,7 @@ public class InputStatus
 		//System.out.println("InputStatus construct to "+iFileName);
 	}
 
-	public void SetTo(String aFileName)
+	public void setTo(String aFileName)
 	{
 		//System.out.println("InputStatus set to "+aFileName);
 		iFileName = aFileName;

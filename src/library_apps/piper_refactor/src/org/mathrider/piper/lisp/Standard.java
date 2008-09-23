@@ -514,7 +514,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		String hashedname = aEnvironment.hashTable().lookUp(oper);
 
 		InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);
-		aEnvironment.iInputStatus.SetTo(hashedname);
+		aEnvironment.iInputStatus.setTo(hashedname);
 		try
 		{
 			// Open file
@@ -687,7 +687,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		String hashedname = aEnvironment.hashTable().lookUp(flatfile);
 
 		InputStatus oldstatus = aEnvironment.iInputStatus;
-		aEnvironment.iInputStatus.SetTo(hashedname);
+		aEnvironment.iInputStatus.setTo(hashedname);
 
 		{
 			Input newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);

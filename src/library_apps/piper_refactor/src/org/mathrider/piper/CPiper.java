@@ -81,7 +81,7 @@ public class CPiper
 				StringBuffer inp = new StringBuffer();
 				inp.append(input);
 				InputStatus oldstatus = env.iInputStatus;
-				env.iInputStatus.SetTo("String");
+				env.iInputStatus.setTo("String");
 				StringInput newInput = new StringInput(new StringBuffer(input),env.iInputStatus);
 
 				Input previous = env.iCurrentInput;
