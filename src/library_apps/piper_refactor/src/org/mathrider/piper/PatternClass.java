@@ -37,7 +37,7 @@ public class PatternClass extends GenericClassContainer
 		iPatternMatcher = aPatternMatcher;
 	}
 
-	public boolean Matches(Environment  aEnvironment, Pointer aArguments) throws Exception
+	public boolean matches(Environment  aEnvironment, Pointer aArguments) throws Exception
 	{
 		LispError.LISPASSERT(iPatternMatcher != null);
 		boolean result;
@@ -45,7 +45,7 @@ public class PatternClass extends GenericClassContainer
 		return result;
 	}
 	
-	public boolean Matches(Environment  aEnvironment, Pointer[] aArguments) throws Exception
+	public boolean matches(Environment  aEnvironment, Pointer[] aArguments) throws Exception
 	{
 		LispError.LISPASSERT(iPatternMatcher != null);
 		boolean result;

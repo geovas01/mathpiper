@@ -56,7 +56,7 @@ public class InfixParser extends Parser
 	public void ParseCont(Pointer aResult) throws Exception
 	{
 		ParsedObject object = new ParsedObject(this);
-		object.Parse();
+		object.parse();
 		aResult.set(object.iResult.get());
 		return ;
 	}

@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp.parsers;
 
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
@@ -48,26 +48,26 @@ public class ParsedObject
 		iLookAhead = null;
 	}
 	
-	public void Parse() throws Exception
+	public void parse() throws Exception
 	{
-		ReadToken();
+		readToken();
 		if (iEndOfFile)
 		{
 			iResult.set(iParser.iEnvironment.iEndOfFile.copy(true));
 			return;
 		}
 
-		ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+		readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 
 		if (iLookAhead != iParser.iEnvironment.iEndStatement.string())
 		{
-			Fail();
+			fail();
 		}
 		if (iError)
 		{
 			while (iLookAhead.length() > 0 && iLookAhead != iParser.iEnvironment.iEndStatement.string())
 			{
-				ReadToken();
+				readToken();
 			}
 		}
 
@@ -78,7 +78,7 @@ public class ParsedObject
 		LispError.Check(!iError,LispError.KLispErrInvalidExpression);
 	}
 	
-	void ReadToken() throws Exception
+	void readToken() throws Exception
 	{
 		// Get token.
 		iLookAhead = iParser.iTokenizer.nextToken(iParser.iInput,
@@ -87,16 +87,16 @@ public class ParsedObject
 			iEndOfFile=true;
 	}
 	
-	void MatchToken(String aToken) throws Exception
+	void matchToken(String aToken) throws Exception
 	{
 		if (aToken != iLookAhead)
-			Fail();
-		ReadToken();
+			fail();
+		readToken();
 	}
 	
-	void ReadExpression(int depth) throws Exception
+	void readExpression(int depth) throws Exception
 	{
-		ReadAtom();
+		readAtom();
 
 		for(;;)
 		{
@@ -104,20 +104,20 @@ public class ParsedObject
 			if (iLookAhead == iParser.iEnvironment.iProgOpen.string())
 			{
 				// Match opening bracket
-				MatchToken(iLookAhead);
+				matchToken(iLookAhead);
 				// Read "index" argument
-				ReadExpression(InfixPrinter.KMaxPrecedence);
+				readExpression(InfixPrinter.KMaxPrecedence);
 				// Match closing bracket
 				if (iLookAhead != iParser.iEnvironment.iProgClose.string())
 				{
 					LispError.RaiseError("Expecting a ] close bracket for program block, but got "+iLookAhead+" instead");
 					return;
 				}
-				MatchToken(iLookAhead);
+				matchToken(iLookAhead);
 				// Build into Ntn(...)
 				String theOperator = iParser.iEnvironment.iNth.string();
-				InsertAtom(theOperator);
-				Combine(2);
+				insertAtom(theOperator);
+				combine(2);
 			}
 			else
 			{
@@ -178,46 +178,46 @@ public class ParsedObject
 				int upper=op.iPrecedence;
 				if (op.iRightAssociative == 0)
 					upper--;
-				GetOtherSide(2,upper);
+				getOtherSide(2,upper);
 			}
 		}
 	}
 	
-	void ReadAtom() throws Exception
+	void readAtom() throws Exception
 	{
 		InfixOperator op;
-		// Parse prefix operators
+		// parse prefix operators
 		op = (InfixOperator)iParser.iPrefixOperators.lookUp(iLookAhead);
 		if (op != null)
 		{
 			String theOperator = iLookAhead;
-			MatchToken(iLookAhead);
+			matchToken(iLookAhead);
 			{
-				ReadExpression(op.iPrecedence);
-				InsertAtom(theOperator);
-				Combine(1);
+				readExpression(op.iPrecedence);
+				insertAtom(theOperator);
+				combine(1);
 			}
 		}
 		// Else parse brackets
 		else if (iLookAhead == iParser.iEnvironment.iBracketOpen.string())
 		{
-			MatchToken(iLookAhead);
-			ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
-			MatchToken(iParser.iEnvironment.iBracketClose.string());
+			matchToken(iLookAhead);
+			readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+			matchToken(iParser.iEnvironment.iBracketClose.string());
 		}
-		//Parse lists
+		//parse lists
 		else if (iLookAhead == iParser.iEnvironment.iListOpen.string())
 		{
 			int nrargs=0;
-			MatchToken(iLookAhead);
+			matchToken(iLookAhead);
 			while (iLookAhead != iParser.iEnvironment.iListClose.string())
 			{
-				ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+				readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 				nrargs++;
 
 				if (iLookAhead == iParser.iEnvironment.iComma.string())
 				{
-					MatchToken(iLookAhead);
+					matchToken(iLookAhead);
 				}
 				else if (iLookAhead != iParser.iEnvironment.iListClose.string())
 				{
@@ -225,26 +225,26 @@ public class ParsedObject
 					return;
 				}
 			}
-			MatchToken(iLookAhead);
+			matchToken(iLookAhead);
 			String theOperator = iParser.iEnvironment.iList.string();
-			InsertAtom(theOperator);
-			Combine(nrargs);
+			insertAtom(theOperator);
+			combine(nrargs);
 
 		}
-		// Parse prog bodies
+		// parse prog bodies
 		else if (iLookAhead == iParser.iEnvironment.iProgOpen.string())
 		{
 			int nrargs=0;
 
-			MatchToken(iLookAhead);
+			matchToken(iLookAhead);
 			while (iLookAhead != iParser.iEnvironment.iProgClose.string())
 			{
-				ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+				readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 				nrargs++;
 
 				if (iLookAhead == iParser.iEnvironment.iEndStatement.string())
 				{
-					MatchToken(iLookAhead);
+					matchToken(iLookAhead);
 				}
 				else
 				{
@@ -252,31 +252,31 @@ public class ParsedObject
 					return;
 				}
 			}
-			MatchToken(iLookAhead);
+			matchToken(iLookAhead);
 			String theOperator = iParser.iEnvironment.iProg.string();
-			InsertAtom(theOperator);
+			insertAtom(theOperator);
 
-			Combine(nrargs);
+			combine(nrargs);
 		}
 		// Else we have an atom.
 		else
 		{
 			String theOperator = iLookAhead;
-			MatchToken(iLookAhead);
+			matchToken(iLookAhead);
 
 			int nrargs=-1;
 			if (iLookAhead == iParser.iEnvironment.iBracketOpen.string())
 			{
 				nrargs=0;
-				MatchToken(iLookAhead);
+				matchToken(iLookAhead);
 				while (iLookAhead != iParser.iEnvironment.iBracketClose.string())
 				{
-					ReadExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+					readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 					nrargs++;
 
 					if (iLookAhead == iParser.iEnvironment.iComma.string())
 					{
-						MatchToken(iLookAhead);
+						matchToken(iLookAhead);
 					}
 					else if (iLookAhead != iParser.iEnvironment.iBracketClose.string())
 					{
@@ -284,41 +284,41 @@ public class ParsedObject
 						return;
 					}
 				}
-				MatchToken(iLookAhead);
+				matchToken(iLookAhead);
 
 				op = (InfixOperator)iParser.iBodiedOperators.lookUp(theOperator);
 				if (op != null)
 				{
-					ReadExpression(op.iPrecedence); // InfixPrinter.KMaxPrecedence
+					readExpression(op.iPrecedence); // InfixPrinter.KMaxPrecedence
 					nrargs++;
 				}
 			}
-			InsertAtom(theOperator);
+			insertAtom(theOperator);
 			if (nrargs>=0)
-				Combine(nrargs);
+				combine(nrargs);
 
 		}
 
-		// Parse postfix operators
+		// parse postfix operators
 
 		while ((op = (InfixOperator)iParser.iPostfixOperators.lookUp(iLookAhead)) != null)
 		{
-			InsertAtom(iLookAhead);
-			MatchToken(iLookAhead);
-			Combine(1);
+			insertAtom(iLookAhead);
+			matchToken(iLookAhead);
+			combine(1);
 		}
 	}
 	
-	void GetOtherSide(int aNrArgsToCombine, int depth) throws Exception
+	void getOtherSide(int aNrArgsToCombine, int depth) throws Exception
 	{
 		String theOperator = iLookAhead;
-		MatchToken(iLookAhead);
-		ReadExpression(depth);
-		InsertAtom(theOperator);
-		Combine(aNrArgsToCombine);
+		matchToken(iLookAhead);
+		readExpression(depth);
+		insertAtom(theOperator);
+		combine(aNrArgsToCombine);
 	}
 	
-	void Combine(int aNrArgsToCombine) throws Exception
+	void combine(int aNrArgsToCombine) throws Exception
 	{
 		Pointer subList = new Pointer();
 		subList.set(SubList.getInstance(iResult.get()));
@@ -328,14 +328,14 @@ public class ParsedObject
 		{
 			if (iter.GetObject() == null)
 			{
-				Fail();
+				fail();
 				return;
 			}
 			iter.GoNext();
 		}
 		if (iter.GetObject() == null)
 		{
-			Fail();
+			fail();
 			return;
 		}
 		subList.get().cdr().set(iter.GetObject().cdr().get());
@@ -346,7 +346,7 @@ public class ParsedObject
 		iResult.set(subList.get());
 	}
 	
-	void InsertAtom(String aString) throws Exception
+	void insertAtom(String aString) throws Exception
 	{
 		Pointer ptr = new Pointer();
 		ptr.set(Atom.getInstance(iParser.iEnvironment,aString));
@@ -354,7 +354,7 @@ public class ParsedObject
 		iResult.set(ptr.get());
 	}
 	
-	void Fail()  throws Exception // called when parsing fails, raising an exception
+	void fail()  throws Exception // called when parsing fails, raising an exception
 	{
 		iError = true;
 		if (iLookAhead != null)

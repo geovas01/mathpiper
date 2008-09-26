@@ -145,7 +145,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		/// Return true if the corresponding pattern matches.
 		public boolean Matches(Environment  aEnvironment, Pointer[] aArguments) throws Exception
 		{
-			return iPatternClass.Matches(aEnvironment,aArguments);
+			return iPatternClass.matches(aEnvironment,aArguments);
 		}
 
 		/// Access #iPrecedence
