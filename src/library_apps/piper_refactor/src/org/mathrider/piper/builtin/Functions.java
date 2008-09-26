@@ -648,7 +648,7 @@ public class Functions
 	/// \param aArgNr the index of the argument to be converted
 	public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception
 	{
-		BigNumber x = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, aArgNr).get().number(aEnvironment.precision());
+		BigNumber x = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, aArgNr).get().number(aEnvironment.precision());
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,x != null,aArgNr);
 		return x;
 	}
@@ -656,35 +656,35 @@ public class Functions
 	static void multiFix(Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
 	{
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
-		String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		String orig = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 		Pointer precedence = new Pointer();
-		aEnvironment.iEvaluator.eval(aEnvironment, precedence, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
+		aEnvironment.iEvaluator.eval(aEnvironment, precedence, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2));
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,precedence.get().string() != null, 2);
 		int prec = Integer.parseInt(precedence.get().string(),10);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,prec <= InfixPrinter.KMaxPrecedence, 2);
 		aOps.SetOperator(prec,Standard.symbolName(aEnvironment,orig));
-		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		Standard.internalTrue(aEnvironment,BuiltinFunction.RESULT(aEnvironment, aStackTop));
 	}
 	public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
 	{
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
-		String orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		String orig = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 		aOps.SetOperator(aPrecedence,Standard.symbolName(aEnvironment,orig));
-		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		Standard.internalTrue(aEnvironment,BuiltinFunction.RESULT(aEnvironment, aStackTop));
 	}
 
 	public static InfixOperator operatorInfo(Environment aEnvironment,int aStackTop, Operators aOperators) throws Exception
 	{
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 
 		Pointer evaluated = new Pointer();
-		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
+		evaluated.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
 
 		String orig = evaluated.get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
@@ -704,26 +704,26 @@ public class Functions
 		if (aMacroMode)
 		{
 			Pointer result = new Pointer();
-			aEnvironment.iEvaluator.eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1));
+			aEnvironment.iEvaluator.eval(aEnvironment, result, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1));
 			varstring = result.get().string();
 		}
 		else
 		{
-			varstring = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+			varstring = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		}
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,varstring != null,1);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,!Standard.isNumber(varstring,true),1);
 
 		Pointer result = new Pointer();
-		aEnvironment.iEvaluator.eval(aEnvironment, result, PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2));
+		aEnvironment.iEvaluator.eval(aEnvironment, result, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2));
 		aEnvironment.setVariable(varstring, result, aGlobalLazyVariable);
-		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		Standard.internalTrue(aEnvironment,BuiltinFunction.RESULT(aEnvironment, aStackTop));
 	}
 
 	public static void internalDelete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		Pointer evaluated = new Pointer();
-		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
+		evaluated.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
 		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
 
 		Pointer copied = new Pointer();
@@ -737,7 +737,7 @@ public class Functions
 		}
 
 		Pointer index = new Pointer();
-		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		index.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 		int ind = Integer.parseInt(index.get().string(),10);
@@ -753,14 +753,14 @@ public class Functions
 		Pointer next = new Pointer();
 		next.set(iter.GetObject().cdr().get());
 		iter.Ptr().set(next.get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
+		BuiltinFunction.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
 	}
 
 
 	public static void internalInsert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		Pointer evaluated = new Pointer();
-		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
+		evaluated.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
 		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,evaluated,1);
 
 		Pointer copied = new Pointer();
@@ -774,7 +774,7 @@ public class Functions
 		}
 
 		Pointer index = new Pointer();
-		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		index.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 		int ind = Integer.parseInt(index.get().string(),10);
@@ -788,10 +788,10 @@ public class Functions
 		}
 
 		Pointer toInsert = new Pointer();
-		toInsert.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
+		toInsert.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 3).get());
 		toInsert.get().cdr().set(iter.GetObject());
 		iter.Ptr().set(toInsert.get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
+		BuiltinFunction.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
 	}
 
 
@@ -802,12 +802,12 @@ public class Functions
 	public static void internalReplace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
 	{
 		Pointer evaluated = new Pointer();
-		evaluated.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
+		evaluated.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
 		// Ok, so lets not check if it is a list, but it needs to be at least a 'function'
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().subList() != null, 1);
 
 		Pointer index = new Pointer();
-		index.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		index.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get() != null, 2);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,index.get().string() != null, 2);
 		int ind = Integer.parseInt(index.get().string(),10);
@@ -831,12 +831,12 @@ public class Functions
 		}
 
 		Pointer toInsert = new Pointer();
-		toInsert.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
+		toInsert.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 3).get());
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr() != null, 2);
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.Ptr().get() != null, 2);
 		toInsert.get().cdr().set(iter.Ptr().get().cdr().get());
 		iter.Ptr().set(toInsert.get());
-		PiperEvalCaller.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
+		BuiltinFunction.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
 	}
 
 
@@ -850,10 +850,10 @@ public class Functions
 		Pointer args = new Pointer();
 		String orig=null;
 
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
-		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		orig = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-		args.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		args.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
 
 		// The arguments
 		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
@@ -863,7 +863,7 @@ public class Functions
 		                             args.get().subList().get().cdr(),aListed);
 
 		// Return true
-		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		Standard.internalTrue(aEnvironment,BuiltinFunction.RESULT(aEnvironment, aStackTop));
 	}
 
 	public static void internalNewRule(Environment aEnvironment, int aStackTop) throws Exception
@@ -880,13 +880,13 @@ public class Functions
 		String orig=null;
 
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
-		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		orig = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-		ar.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
-		pr.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
-		predicate.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).get());
-		body.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).get());
+		ar.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		pr.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 3).get());
+		predicate.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 4).get());
+		body.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 5).get());
 
 		// The arity
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get() != null, 2);
@@ -906,7 +906,7 @@ public class Functions
 		                        body );
 
 		// Return true
-		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		Standard.internalTrue(aEnvironment,BuiltinFunction.RESULT(aEnvironment, aStackTop));
 	}
 
 
@@ -919,12 +919,12 @@ public class Functions
 		Pointer body = new Pointer();
 		String orig=null;
 
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
-		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		orig = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
 
 		// The arguments
-		args.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		args.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
 		LispError.CHK_ISLIST_CORE(aEnvironment,aStackTop,args,2);
 
 		// Finally define the rule base
@@ -932,7 +932,7 @@ public class Functions
 		                                  args.get().subList().get().cdr(),aListed);
 
 		// Return true
-		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		Standard.internalTrue(aEnvironment,BuiltinFunction.RESULT(aEnvironment, aStackTop));
 	}
 
 
@@ -950,13 +950,13 @@ public class Functions
 		String orig=null;
 
 		// Get operator
-		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
-		orig = PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+		orig = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
-		ar.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
-		pr.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 3).get());
-		predicate.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 4).get());
-		body.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 5).get());
+		ar.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
+		pr.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 3).get());
+		predicate.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 4).get());
+		body.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 5).get());
 
 		// The arity
 		LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ar.get() != null, 2);
@@ -976,7 +976,7 @@ public class Functions
 		                               body );
 
 		// Return true
-		Standard.internalTrue(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop));
+		Standard.internalTrue(aEnvironment,BuiltinFunction.RESULT(aEnvironment, aStackTop));
 	}
 
         
@@ -985,7 +985,7 @@ public class Functions
  * 
  */
 
-	class LispQuote extends PiperEvalCaller
+	class LispQuote extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -993,7 +993,7 @@ public class Functions
 		}
 	}
 
-	class LispEval extends PiperEvalCaller
+	class LispEval extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1001,7 +1001,7 @@ public class Functions
 		}
 	}
 
-	class LispWrite extends PiperEvalCaller
+	class LispWrite extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1020,7 +1020,7 @@ public class Functions
 		}
 	}
 
-	class LispWriteString extends PiperEvalCaller
+	class LispWriteString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1043,7 +1043,7 @@ public class Functions
 		}
 	}
 
-	class LispFullForm extends PiperEvalCaller
+	class LispFullForm extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1054,7 +1054,7 @@ public class Functions
 		}
 	}
 
-	class LispDefaultDirectory extends PiperEvalCaller
+	class LispDefaultDirectory extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1068,7 +1068,7 @@ public class Functions
 		}
 	}
 
-	class LispFromFile extends PiperEvalCaller
+	class LispFromFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1110,7 +1110,7 @@ public class Functions
 		}
 	}
 
-	class LispFromString extends PiperEvalCaller
+	class LispFromString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1148,7 +1148,7 @@ public class Functions
 		}
 	}
 
-	class LispRead extends PiperEvalCaller
+	class LispRead extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1164,7 +1164,7 @@ public class Functions
 		}
 	}
 
-	class LispReadToken extends PiperEvalCaller
+	class LispReadToken extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1181,7 +1181,7 @@ public class Functions
 		}
 	}
 
-	class LispToFile extends PiperEvalCaller
+	class LispToFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1216,7 +1216,7 @@ public class Functions
 		}
 	}
 
-	class LispToString extends PiperEvalCaller
+	class LispToString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1240,7 +1240,7 @@ public class Functions
 		}
 	}
 
-	class LispToStdout extends PiperEvalCaller
+	class LispToStdout extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1258,7 +1258,7 @@ public class Functions
 		}
 	}
 
-	class LispLoad extends PiperEvalCaller
+	class LispLoad extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1277,7 +1277,7 @@ public class Functions
 		}
 	}
 
-	class LispSetVar extends PiperEvalCaller
+	class LispSetVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1285,7 +1285,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroSetVar extends PiperEvalCaller
+	class LispMacroSetVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1293,7 +1293,7 @@ public class Functions
 		}
 	}
 
-	class LispSetGlobalLazyVariable extends PiperEvalCaller
+	class LispSetGlobalLazyVariable extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1301,7 +1301,7 @@ public class Functions
 		}
 	}
 
-	class LispClearVar extends PiperEvalCaller
+	class LispClearVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1325,7 +1325,7 @@ public class Functions
 		}
 	}
 
-	class LispNewLocal extends PiperEvalCaller
+	class LispNewLocal extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1350,7 +1350,7 @@ public class Functions
 		}
 	}
 
-	class LispHead extends PiperEvalCaller
+	class LispHead extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1358,7 +1358,7 @@ public class Functions
 		}
 	}
 
-	class LispNth extends PiperEvalCaller
+	class LispNth extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1371,7 +1371,7 @@ public class Functions
 		}
 	}
 
-	class LispTail extends PiperEvalCaller
+	class LispTail extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1385,7 +1385,7 @@ public class Functions
 		}
 	}
 
-	class LispDestructiveReverse extends PiperEvalCaller
+	class LispDestructiveReverse extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1396,7 +1396,7 @@ public class Functions
 		}
 	}
 
-	class LispLength extends PiperEvalCaller
+	class LispLength extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1426,7 +1426,7 @@ public class Functions
 		}
 	}
 
-	class LispList extends PiperEvalCaller
+	class LispList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1448,7 +1448,7 @@ public class Functions
 		}
 	}
 
-	class LispUnList extends PiperEvalCaller
+	class LispUnList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1461,7 +1461,7 @@ public class Functions
 		}
 	}
 
-	class LispListify extends PiperEvalCaller
+	class LispListify extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1473,7 +1473,7 @@ public class Functions
 		}
 	}
 
-	class LispConcatenate extends PiperEvalCaller
+	class LispConcatenate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1498,7 +1498,7 @@ public class Functions
 		}
 	}
 
-	class LispConcatenateStrings extends PiperEvalCaller
+	class LispConcatenateStrings extends BuiltinFunction
 	{
 		void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Exception
 		{
@@ -1526,7 +1526,7 @@ public class Functions
 		}
 	}
 
-	class LispDelete extends PiperEvalCaller
+	class LispDelete extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1534,7 +1534,7 @@ public class Functions
 		}
 	}
 
-	class LispDestructiveDelete extends PiperEvalCaller
+	class LispDestructiveDelete extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1542,7 +1542,7 @@ public class Functions
 		}
 	}
 
-	class LispInsert extends PiperEvalCaller
+	class LispInsert extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1550,7 +1550,7 @@ public class Functions
 		}
 	}
 
-	class LispDestructiveInsert extends PiperEvalCaller
+	class LispDestructiveInsert extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1558,7 +1558,7 @@ public class Functions
 		}
 	}
 
-	class LispReplace extends PiperEvalCaller
+	class LispReplace extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1566,7 +1566,7 @@ public class Functions
 		}
 	}
 
-	class LispDestructiveReplace extends PiperEvalCaller
+	class LispDestructiveReplace extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1574,7 +1574,7 @@ public class Functions
 		}
 	}
 
-	class LispAtomize extends PiperEvalCaller
+	class LispAtomize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1589,7 +1589,7 @@ public class Functions
 		}
 	}
 
-	class LispStringify extends PiperEvalCaller
+	class LispStringify extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1605,7 +1605,7 @@ public class Functions
 		}
 	}
 
-	class LispCharString extends PiperEvalCaller
+	class LispCharString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1618,7 +1618,7 @@ public class Functions
 		}
 	}
 
-	class LispFlatCopy extends PiperEvalCaller
+	class LispFlatCopy extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1628,7 +1628,7 @@ public class Functions
 		}
 	}
 
-	class LispProgBody extends PiperEvalCaller
+	class LispProgBody extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1656,7 +1656,7 @@ public class Functions
 		}
 	}
 
-	class LispWhile extends PiperEvalCaller
+	class LispWhile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1678,7 +1678,7 @@ public class Functions
 		}
 	}
 
-	class LispIf extends PiperEvalCaller
+	class LispIf extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1707,7 +1707,7 @@ public class Functions
 		}
 	}
 
-	class LispCheck extends PiperEvalCaller
+	class LispCheck extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1724,7 +1724,7 @@ public class Functions
 		}
 	}
 
-	class LispTrapError extends PiperEvalCaller
+	class LispTrapError extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1741,7 +1741,7 @@ public class Functions
 		}
 	}
 
-	class LispGetCoreError extends PiperEvalCaller
+	class LispGetCoreError extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1749,7 +1749,7 @@ public class Functions
 		}
 	}
 
-	class LispPreFix extends PiperEvalCaller
+	class LispPreFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1757,7 +1757,7 @@ public class Functions
 		}
 	}
 
-	class LispInFix extends PiperEvalCaller
+	class LispInFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1765,7 +1765,7 @@ public class Functions
 		}
 	}
 
-	class LispPostFix extends PiperEvalCaller
+	class LispPostFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1781,7 +1781,7 @@ public class Functions
 		}
 	}
 
-	class LispBodied extends PiperEvalCaller
+	class LispBodied extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1789,7 +1789,7 @@ public class Functions
 		}
 	}
 
-	class LispRuleBase extends PiperEvalCaller
+	class LispRuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1797,7 +1797,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroRuleBase extends PiperEvalCaller
+	class LispMacroRuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1805,7 +1805,7 @@ public class Functions
 		}
 	}
 
-	class LispRuleBaseListed extends PiperEvalCaller
+	class LispRuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1813,7 +1813,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroRuleBaseListed extends PiperEvalCaller
+	class LispMacroRuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1821,7 +1821,7 @@ public class Functions
 		}
 	}
 
-	class LispDefMacroRuleBase extends PiperEvalCaller
+	class LispDefMacroRuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1829,7 +1829,7 @@ public class Functions
 		}
 	}
 
-	class LispDefMacroRuleBaseListed extends PiperEvalCaller
+	class LispDefMacroRuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1837,7 +1837,7 @@ public class Functions
 		}
 	}
 
-	class LispHoldArg extends PiperEvalCaller
+	class LispHoldArg extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1855,7 +1855,7 @@ public class Functions
 		}
 	}
 
-	class LispNewRule extends PiperEvalCaller
+	class LispNewRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1863,7 +1863,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroNewRule extends PiperEvalCaller
+	class LispMacroNewRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1871,7 +1871,7 @@ public class Functions
 		}
 	}
 
-	class LispUnFence extends PiperEvalCaller
+	class LispUnFence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1892,7 +1892,7 @@ public class Functions
 		}
 	}
 
-	class LispRetract extends PiperEvalCaller
+	class LispRetract extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1914,7 +1914,7 @@ public class Functions
 		}
 	}
 
-	class LispNot extends PiperEvalCaller
+	class LispNot extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1934,7 +1934,7 @@ public class Functions
 		}
 	}
 
-	class LispLazyAnd extends PiperEvalCaller
+	class LispLazyAnd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1992,7 +1992,7 @@ public class Functions
 		}
 	}
 
-	class LispLazyOr extends PiperEvalCaller
+	class LispLazyOr extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2050,7 +2050,7 @@ public class Functions
 		}
 	}
 
-	class LispEquals extends PiperEvalCaller
+	class LispEquals extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2073,8 +2073,8 @@ public class Functions
 		{
 			Pointer result1 = new Pointer();
 			Pointer result2 = new Pointer();
-			result1.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).get());
-			result2.set(PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 2).get());
+			result1.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
+			result2.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
 			boolean cmp;
 			BigNumber n1 = result1.get().number(aEnvironment.precision());
 			BigNumber n2 = result2.get().number(aEnvironment.precision());
@@ -2096,7 +2096,7 @@ public class Functions
 				             aEnvironment.precision());
 			}
 
-			Standard.internalBoolean(aEnvironment,PiperEvalCaller.RESULT(aEnvironment, aStackTop), cmp);
+			Standard.internalBoolean(aEnvironment,BuiltinFunction.RESULT(aEnvironment, aStackTop), cmp);
 		}
 	}
 
@@ -2125,7 +2125,7 @@ public class Functions
 	}
 
 
-	class LispLessThan extends PiperEvalCaller
+	class LispLessThan extends BuiltinFunction
 	{
 		LexLessThan compare = new LexLessThan();
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
@@ -2134,7 +2134,7 @@ public class Functions
 		}
 	}
 
-	class LispGreaterThan extends PiperEvalCaller
+	class LispGreaterThan extends BuiltinFunction
 	{
 		LexGreaterThan compare = new LexGreaterThan();
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
@@ -2143,7 +2143,7 @@ public class Functions
 		}
 	}
 
-	class LispIsFunction extends PiperEvalCaller
+	class LispIsFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2154,7 +2154,7 @@ public class Functions
 		}
 	}
 
-	class LispIsAtom extends PiperEvalCaller
+	class LispIsAtom extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2165,7 +2165,7 @@ public class Functions
 		}
 	}
 
-	class LispIsNumber extends PiperEvalCaller
+	class LispIsNumber extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2175,7 +2175,7 @@ public class Functions
 		}
 	}
 
-	class LispIsInteger extends PiperEvalCaller
+	class LispIsInteger extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2194,7 +2194,7 @@ public class Functions
 		}
 	}
 
-	class LispIsList extends PiperEvalCaller
+	class LispIsList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2204,7 +2204,7 @@ public class Functions
 		}
 	}
 
-	class LispIsString extends PiperEvalCaller
+	class LispIsString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2215,7 +2215,7 @@ public class Functions
 		}
 	}
 
-	class LispIsBound extends PiperEvalCaller
+	class LispIsBound extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2234,7 +2234,7 @@ public class Functions
 		}
 	}
 
-	class LispMultiply extends PiperEvalCaller
+	class LispMultiply extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2252,7 +2252,7 @@ public class Functions
 	/// both argument are converted to a BigNumber, and these are added
 	/// together at the current precision. The sum is returned.
 	/// \sa getNumber(), BigNumber::Add()
-	class LispAdd extends PiperEvalCaller
+	class LispAdd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2277,7 +2277,7 @@ public class Functions
 		}
 	}
 
-	class LispSubtract extends PiperEvalCaller
+	class LispSubtract extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2304,7 +2304,7 @@ public class Functions
 		}
 	}
 
-	class LispDivide extends PiperEvalCaller
+	class LispDivide extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2332,7 +2332,7 @@ public class Functions
 		}
 	}
 
-	class PiperBuiltinPrecisionSet extends PiperEvalCaller
+	class PiperBuiltinPrecisionSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2348,7 +2348,7 @@ public class Functions
 		}
 	}
 
-	class LispGetExactBits extends PiperEvalCaller
+	class LispGetExactBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2364,7 +2364,7 @@ public class Functions
 	}
 
 
-	class LispSetExactBits extends PiperEvalCaller
+	class LispSetExactBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2380,7 +2380,7 @@ public class Functions
 		}
 	}
 
-	class LispBitCount extends PiperEvalCaller
+	class LispBitCount extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2391,7 +2391,7 @@ public class Functions
 		}
 	}
 
-	class LispMathSign extends PiperEvalCaller
+	class LispMathSign extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2402,7 +2402,7 @@ public class Functions
 		}
 	}
 
-	class LispMathIsSmall extends PiperEvalCaller
+	class LispMathIsSmall extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2411,7 +2411,7 @@ public class Functions
 		}
 	}
 
-	class LispMathNegate extends PiperEvalCaller
+	class LispMathNegate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2422,7 +2422,7 @@ public class Functions
 		}
 	}
 
-	class LispFloor extends PiperEvalCaller
+	class LispFloor extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2433,7 +2433,7 @@ public class Functions
 		}
 	}
 
-	class LispCeil extends PiperEvalCaller
+	class LispCeil extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2446,7 +2446,7 @@ public class Functions
 		}
 	}
 
-	class LispAbs extends PiperEvalCaller
+	class LispAbs extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2459,7 +2459,7 @@ public class Functions
 		}
 	}
 
-	class LispMod extends PiperEvalCaller
+	class LispMod extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2471,7 +2471,7 @@ public class Functions
 		}
 	}
 
-	class LispDiv extends PiperEvalCaller
+	class LispDiv extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2491,7 +2491,7 @@ public class Functions
 		}
 	}
 
-	class LispBitsToDigits extends PiperEvalCaller
+	class LispBitsToDigits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2514,7 +2514,7 @@ public class Functions
 		}
 	}
 
-	class LispDigitsToBits extends PiperEvalCaller
+	class LispDigitsToBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2537,7 +2537,7 @@ public class Functions
 		}
 	}
 
-	class LispGcd extends PiperEvalCaller
+	class LispGcd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2549,7 +2549,7 @@ public class Functions
 		}
 	}
 
-	class LispSystemCall extends PiperEvalCaller
+	class LispSystemCall extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2570,7 +2570,7 @@ public class Functions
 		}
 	}
 
-	class LispFastArcSin extends PiperEvalCaller
+	class LispFastArcSin extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2583,7 +2583,7 @@ public class Functions
 		}
 	}
 
-	class LispFastLog extends PiperEvalCaller
+	class LispFastLog extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2596,7 +2596,7 @@ public class Functions
 		}
 	}
 
-	class LispFastPower extends PiperEvalCaller
+	class LispFastPower extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2610,7 +2610,7 @@ public class Functions
 		}
 	}
 
-	class LispShiftLeft extends PiperEvalCaller
+	class LispShiftLeft extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2623,7 +2623,7 @@ public class Functions
 		}
 	}
 
-	class LispShiftRight extends PiperEvalCaller
+	class LispShiftRight extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2636,7 +2636,7 @@ public class Functions
 		}
 	}
 
-	class LispFromBase extends PiperEvalCaller
+	class LispFromBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2670,7 +2670,7 @@ public class Functions
 		}
 	}
 
-	class LispToBase extends PiperEvalCaller
+	class LispToBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2699,7 +2699,7 @@ public class Functions
 		}
 	}
 
-	class LispMaxEvalDepth extends PiperEvalCaller
+	class LispMaxEvalDepth extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2714,7 +2714,7 @@ public class Functions
 		}
 	}
 
-	class LispDefLoad extends PiperEvalCaller
+	class LispDefLoad extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2733,7 +2733,7 @@ public class Functions
 		}
 	}
 
-	class LispUse extends PiperEvalCaller
+	class LispUse extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2750,7 +2750,7 @@ public class Functions
 		}
 	}
 
-	class LispRightAssociative extends PiperEvalCaller
+	class LispRightAssociative extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2763,7 +2763,7 @@ public class Functions
 		}
 	}
 
-	class LispLeftPrecedence extends PiperEvalCaller
+	class LispLeftPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2783,7 +2783,7 @@ public class Functions
 		}
 	}
 
-	class LispRightPrecedence extends PiperEvalCaller
+	class LispRightPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2803,7 +2803,7 @@ public class Functions
 		}
 	}
 
-	class LispIsBodied extends PiperEvalCaller
+	class LispIsBodied extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2812,7 +2812,7 @@ public class Functions
 		}
 	}
 
-	class LispIsInFix extends PiperEvalCaller
+	class LispIsInFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2821,7 +2821,7 @@ public class Functions
 		}
 	}
 
-	class LispIsPreFix extends PiperEvalCaller
+	class LispIsPreFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2830,7 +2830,7 @@ public class Functions
 		}
 	}
 
-	class LispIsPostFix extends PiperEvalCaller
+	class LispIsPostFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2839,7 +2839,7 @@ public class Functions
 		}
 	}
 
-	class LispGetPrecedence extends PiperEvalCaller
+	class LispGetPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2861,7 +2861,7 @@ public class Functions
 		}
 	}
 
-	class LispGetLeftPrecedence extends PiperEvalCaller
+	class LispGetLeftPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2875,7 +2875,7 @@ public class Functions
 		}
 	}
 
-	class LispGetRightPrecedence extends PiperEvalCaller
+	class LispGetRightPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2893,7 +2893,7 @@ public class Functions
 		}
 	}
 
-	class PiperBuiltinPrecisionGet extends PiperEvalCaller
+	class PiperBuiltinPrecisionGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2902,7 +2902,7 @@ public class Functions
 		}
 	}
 
-	class LispBitAnd extends PiperEvalCaller
+	class LispBitAnd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2914,7 +2914,7 @@ public class Functions
 		}
 	}
 
-	class LispBitOr extends PiperEvalCaller
+	class LispBitOr extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2926,7 +2926,7 @@ public class Functions
 		}
 	}
 
-	class LispBitXor extends PiperEvalCaller
+	class LispBitXor extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2938,7 +2938,7 @@ public class Functions
 		}
 	}
 
-	class LispSecure extends PiperEvalCaller
+	class LispSecure extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2953,7 +2953,7 @@ public class Functions
 		}
 	}
 
-	class LispFindFile extends PiperEvalCaller
+	class LispFindFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2973,7 +2973,7 @@ public class Functions
 		}
 	}
 
-	class LispFindFunction extends PiperEvalCaller
+	class LispFindFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3003,7 +3003,7 @@ public class Functions
 		}
 	}
 
-	class LispIsGeneric extends PiperEvalCaller
+	class LispIsGeneric extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3013,7 +3013,7 @@ public class Functions
 		}
 	}
 
-	class LispGenericTypeName extends PiperEvalCaller
+	class LispGenericTypeName extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3024,7 +3024,7 @@ public class Functions
 		}
 	}
 
-	class GenArrayCreate extends PiperEvalCaller
+	class GenArrayCreate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3044,7 +3044,7 @@ public class Functions
 		}
 	}
 
-	class GenArraySize extends PiperEvalCaller
+	class GenArraySize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3059,7 +3059,7 @@ public class Functions
 		}
 	}
 
-	class GenArrayGet extends PiperEvalCaller
+	class GenArrayGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3085,7 +3085,7 @@ public class Functions
 		}
 	}
 
-	class GenArraySet extends PiperEvalCaller
+	class GenArraySet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3112,7 +3112,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEval extends PiperEvalCaller
+	class LispCustomEval extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3121,7 +3121,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEvalExpression extends PiperEvalCaller
+	class LispCustomEvalExpression extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3130,7 +3130,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEvalResult extends PiperEvalCaller
+	class LispCustomEvalResult extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3139,7 +3139,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEvalLocals extends PiperEvalCaller
+	class LispCustomEvalLocals extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3148,7 +3148,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEvalStop extends PiperEvalCaller
+	class LispCustomEvalStop extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3157,7 +3157,7 @@ public class Functions
 		}
 	}
 
-	class LispTraceRule extends PiperEvalCaller
+	class LispTraceRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3166,7 +3166,7 @@ public class Functions
 		}
 	}
 
-	class LispTraceStack extends PiperEvalCaller
+	class LispTraceStack extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3175,7 +3175,7 @@ public class Functions
 		}
 	}
 
-	class LispReadLisp extends PiperEvalCaller
+	class LispReadLisp extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3187,7 +3187,7 @@ public class Functions
 		}
 	}
 
-	class LispReadLispListed extends PiperEvalCaller
+	class LispReadLispListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3200,7 +3200,7 @@ public class Functions
 		}
 	}
 
-	class LispType extends PiperEvalCaller
+	class LispType extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3224,7 +3224,7 @@ public class Functions
 		}
 	}
 
-	class PiperStringMidGet extends PiperEvalCaller
+	class PiperStringMidGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3251,7 +3251,7 @@ public class Functions
 		}
 	}
 
-	class PiperStringMidSet extends PiperEvalCaller
+	class PiperStringMidSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3282,7 +3282,7 @@ public class Functions
 		}
 	}
 
-	class GenPatternCreate extends PiperEvalCaller
+	class GenPatternCreate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3307,7 +3307,7 @@ public class Functions
 		}
 	}
 
-	class GenPatternMatches extends PiperEvalCaller
+	class GenPatternMatches extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3336,7 +3336,7 @@ public class Functions
 		}
 	}
 
-	class LispRuleBaseDefined extends PiperEvalCaller
+	class LispRuleBaseDefined extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3358,7 +3358,7 @@ public class Functions
 		}
 	}
 
-	class LispDefLoadFunction extends PiperEvalCaller
+	class LispDefLoadFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3386,7 +3386,7 @@ public class Functions
 		}
 	}
 
-	class LispRuleBaseArgList extends PiperEvalCaller
+	class LispRuleBaseArgList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3414,7 +3414,7 @@ public class Functions
 		}
 	}
 
-	class LispNewRulePattern extends PiperEvalCaller
+	class LispNewRulePattern extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3422,7 +3422,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroNewRulePattern extends PiperEvalCaller
+	class LispMacroNewRulePattern extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3431,7 +3431,7 @@ public class Functions
 		}
 	}
 
-	class LispSubst extends PiperEvalCaller
+	class LispSubst extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3444,7 +3444,7 @@ public class Functions
 		}
 	}
 
-	class LispLocalSymbols extends PiperEvalCaller
+	class LispLocalSymbols extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3473,7 +3473,7 @@ public class Functions
 		}
 	}
 
-	class LispFastIsPrime extends PiperEvalCaller
+	class LispFastIsPrime extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3503,7 +3503,7 @@ public class Functions
 		}
 	}
 
-	class LispFac extends PiperEvalCaller
+	class LispFac extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3525,7 +3525,7 @@ public class Functions
 		}
 	}
 
-	class LispApplyPure extends PiperEvalCaller
+	class LispApplyPure extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3556,7 +3556,7 @@ public class Functions
 	}
 
 
-	class PiperPrettyReaderSet extends PiperEvalCaller
+	class PiperPrettyReaderSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3578,7 +3578,7 @@ public class Functions
 		}
 	}
 
-	class PiperPrettyReaderGet extends PiperEvalCaller
+	class PiperPrettyReaderGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3589,7 +3589,7 @@ public class Functions
 		}
 	}
 
-	class PiperPrettyPrinterSet extends PiperEvalCaller
+	class PiperPrettyPrinterSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3611,7 +3611,7 @@ public class Functions
 		}
 	}
 
-	class PiperPrettyPrinterGet extends PiperEvalCaller
+	class PiperPrettyPrinterGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3622,7 +3622,7 @@ public class Functions
 		}
 	}
 
-	class LispGarbageCollect extends PiperEvalCaller
+	class LispGarbageCollect extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3631,7 +3631,7 @@ public class Functions
 		}
 	}
 
-	class LispPatchLoad extends PiperEvalCaller
+	class LispPatchLoad extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3640,7 +3640,7 @@ public class Functions
 		}
 	}
 
-	class LispPatchString extends PiperEvalCaller
+	class LispPatchString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3649,7 +3649,7 @@ public class Functions
 		}
 	}
 
-	class PiperExtraInfoSet extends PiperEvalCaller
+	class PiperExtraInfoSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3663,7 +3663,7 @@ public class Functions
 		}
 	}
 
-	class PiperExtraInfoGet extends PiperEvalCaller
+	class PiperExtraInfoGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3686,7 +3686,7 @@ public class Functions
 		}
 	}
 
-	class LispDefaultTokenizer extends PiperEvalCaller
+	class LispDefaultTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3695,7 +3695,7 @@ public class Functions
 		}
 	}
 
-	class LispCommonLispTokenizer extends PiperEvalCaller
+	class LispCommonLispTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3704,7 +3704,7 @@ public class Functions
 		}
 	}
 
-	class LispXmlTokenizer extends PiperEvalCaller
+	class LispXmlTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3713,7 +3713,7 @@ public class Functions
 		}
 	}
 
-	class LispExplodeTag extends PiperEvalCaller
+	class LispExplodeTag extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3822,7 +3822,7 @@ public class Functions
 		}
 	}
 
-	class PiperBuiltinAssoc extends PiperEvalCaller
+	class PiperBuiltinAssoc extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3865,7 +3865,7 @@ public class Functions
 		}
 	}
 
-	class LispCurrentFile extends PiperEvalCaller
+	class LispCurrentFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3873,7 +3873,7 @@ public class Functions
 		}
 	}
 
-	class LispCurrentLine extends PiperEvalCaller
+	class LispCurrentLine extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3881,7 +3881,7 @@ public class Functions
 		}
 	}
 
-	class LispBackQuote extends PiperEvalCaller
+	class LispBackQuote extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3892,7 +3892,7 @@ public class Functions
 		}
 	}
 
-	class LispDumpBigNumberDebugInfo extends PiperEvalCaller
+	class LispDumpBigNumberDebugInfo extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3902,7 +3902,7 @@ public class Functions
 		}
 	}
 
-	class LispInDebugMode extends PiperEvalCaller
+	class LispInDebugMode extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3910,7 +3910,7 @@ public class Functions
 		}
 	}
 
-	class LispDebugFile extends PiperEvalCaller
+	class LispDebugFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3918,7 +3918,7 @@ public class Functions
 		}
 	}
 
-	class LispDebugLine extends PiperEvalCaller
+	class LispDebugLine extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3926,7 +3926,7 @@ public class Functions
 		}
 	}
 
-	class LispVersion extends PiperEvalCaller
+	class LispVersion extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3935,7 +3935,7 @@ public class Functions
 	}
 
 
-	class LispExit extends PiperEvalCaller
+	class LispExit extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3943,7 +3943,7 @@ public class Functions
 		}
 	}
 
-	class LispExitRequested extends PiperEvalCaller
+	class LispExitRequested extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3951,7 +3951,7 @@ public class Functions
 		}
 	}
 
-	class LispHistorySize extends PiperEvalCaller
+	class LispHistorySize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3960,7 +3960,7 @@ public class Functions
 		}
 	}
 
-	class LispStackSize extends PiperEvalCaller
+	class LispStackSize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3969,7 +3969,7 @@ public class Functions
 		}
 	}
 
-	class LispIsPromptShown extends PiperEvalCaller
+	class LispIsPromptShown extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3978,7 +3978,7 @@ public class Functions
 		}
 	}
 
-	class LispReadCmdLineString extends PiperEvalCaller
+	class LispReadCmdLineString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3987,7 +3987,7 @@ public class Functions
 		}
 	}
 
-	class LispTime extends PiperEvalCaller
+	class LispTime extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -4002,7 +4002,7 @@ public class Functions
 		}
 	}
 
-	class LispFileSize extends PiperEvalCaller
+	class LispFileSize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
