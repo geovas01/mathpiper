@@ -3330,7 +3330,7 @@ public class BuiltinFunctions
 
 			Pointer ptr = iter.Ptr();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,ptr != null,2);
-			boolean matches = patclass.Matches(aEnvironment,ptr);
+			boolean matches = patclass.matches(aEnvironment,ptr);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop),matches);
 		}
 	}
