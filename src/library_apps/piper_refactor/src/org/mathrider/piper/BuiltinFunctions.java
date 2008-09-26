@@ -19,9 +19,9 @@
 package org.mathrider.piper;
 
 
-import org.mathrider.piper.lisp.behaviour.BackQuote;
-import org.mathrider.piper.lisp.behaviour.LocalSymbol;
-import org.mathrider.piper.lisp.behaviour.Subst;
+import org.mathrider.piper.lisp.behaviours.BackQuote;
+import org.mathrider.piper.lisp.behaviours.LocalSymbol;
+import org.mathrider.piper.lisp.behaviours.Subst;
 import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
