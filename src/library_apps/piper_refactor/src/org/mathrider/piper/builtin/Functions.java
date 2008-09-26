@@ -22,9 +22,9 @@ package org.mathrider.piper.builtin;
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.*;
 //import org.mathrider.piper.parametermatchers.Pattern;
-import org.mathrider.piper.lisp.behaviours.BackQuote;
+//import org.mathrider.piper.lisp.behaviours.BackQuote;
 import org.mathrider.piper.lisp.behaviours.LocalSymbol;
-import org.mathrider.piper.lisp.behaviours.Subst;
+//import org.mathrider.piper.lisp.behaviours.Subst;
 import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
@@ -78,385 +78,385 @@ public class Functions
 		aEnvironment.iInfixOperators.SetOperator(0,"_");
 
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new Quote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Hold");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispEval(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Eval(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Eval");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispWrite(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
+		        new PiperEvaluator(new Write(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "Write");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispWriteString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new WriteString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "WriteString");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFullForm(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FullForm(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FullForm");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDefaultDirectory(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DefaultDirectory(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefaultDirectory");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFromFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new FromFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "FromFile");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFromString(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new FromString(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "FromString");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispRead(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Read(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Read");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispReadToken(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ReadToken(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ReadToken");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispToFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new ToFile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToFile");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispToString(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new ToString(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToString");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispToStdout(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new ToStdout(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "ToStdout");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Load(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Load");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new SetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Set");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMacroSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new MacroSetVar(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "MacroSet");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new ClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Clear");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
+		        new PiperEvaluator(new ClearVar(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "MacroClear");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispNewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new NewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Local");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispNewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
+		        new PiperEvaluator(new NewLocal(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "MacroLocal");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispHead(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Head(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Head");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispNth(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Nth(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNth");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispTail(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Tail(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Tail");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDestructiveReverse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DestructiveReverse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveReverse");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLength(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Length(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Length");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispList(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new List(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "List");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispUnList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new UnList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "UnList");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispListify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Listify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Listify");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispConcatenate(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
+		        new PiperEvaluator(new Concatenate(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "Concat");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispConcatenateStrings(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
+		        new PiperEvaluator(new ConcatenateStrings(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
 		        "ConcatStrings");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Delete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Delete");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDestructiveDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DestructiveDelete(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveDelete");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Insert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Insert");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDestructiveInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DestructiveInsert(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveInsert");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Replace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Replace");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDestructiveReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DestructiveReplace(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DestructiveReplace");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispAtomize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Atomize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Atom");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispStringify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Stringify(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "String");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCharString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new CharString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CharString");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFlatCopy(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FlatCopy(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FlatCopy");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispProgBody(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new ProgBody(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Prog");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispWhile(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new While(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "While");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIf(),2, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new If(),2, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "If");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCheck(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new Check(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Check");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispTrapError(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new TrapError(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TrapError");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGetCoreError(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new GetCoreError(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GetCoreError");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispPreFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new PreFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Prefix");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispInFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new InFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Infix");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispPostFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new PostFix(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Postfix");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispBodied(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Bodied(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Bodied");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new RuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RuleBase");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new MacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRuleBase");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new RuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RuleBaseListed");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new MacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRuleBaseListed");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDefMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new DefMacroRuleBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "DefMacroRuleBase");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDefMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new DefMacroRuleBaseListed(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "DefMacroRuleBaseListed");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispHoldArg(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new HoldArg(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "HoldArg");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new NewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Rule");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMacroNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new MacroNewRule(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRule");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispUnFence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new UnFence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "UnFence");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispRetract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Retract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Retract");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Not(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNot");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Not(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Not");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new LazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "MathAnd");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new LazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "And");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new LazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "MathOr");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new LazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "Or");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispEquals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Equals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Equals");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispEquals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Equals(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "=");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLessThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new LessThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LessThan");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGreaterThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new GreaterThan(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GreaterThan");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsFunction");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsAtom(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsAtom(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsAtom");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsNumber(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsNumber(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsNumber");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsInteger(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsInteger(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsInteger");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsList(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsList");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsString");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsBound(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new IsBound(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "IsBound");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMultiply(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Multiply(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathMultiply");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispAdd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Add(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathAdd");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispSubtract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Subtract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSubtract");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDivide(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Divide(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDivide");
 		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinPrecisionSet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Precision'Set");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGetExactBits(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new GetExactBits(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathGetExactBits");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispSetExactBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new SetExactBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSetExactBits");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispBitCount(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new BitCount(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathBitCount");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMathSign(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new MathSign(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathSign");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMathIsSmall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new MathIsSmall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathIsSmall");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMathNegate(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new MathNegate(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathNegate");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFloor(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Floor(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathFloor");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCeil(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Ceil(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathCeil");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispAbs(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Abs(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathAbs");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMod(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Mod(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathMod");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDiv(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Div(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDiv");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispBitsToDigits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new BitsToDigits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitsToDigits");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDigitsToBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DigitsToBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DigitsToBits");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGcd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Gcd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathGcd");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispSystemCall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new SystemCall(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "SystemCall");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFastArcSin(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FastArcSin(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastArcSin");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFastLog(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FastLog(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastLog");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFastPower(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FastPower(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastPower");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispShiftLeft(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ShiftLeft(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ShiftLeft");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispShiftRight(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ShiftRight(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ShiftRight");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFromBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FromBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FromBase");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispToBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ToBase(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ToBase");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMaxEvalDepth(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new MaxEvalDepth(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MaxEvalDepth");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDefLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DefLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefLoad");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispUse(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Use(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Use");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispRightAssociative(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new RightAssociative(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RightAssociative");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLeftPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new LeftPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LeftPrecedence");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispRightPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new RightPrecedence(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RightPrecedence");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsBodied(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsBodied(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsBodied");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsInFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsInFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsInfix");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsPreFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsPreFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPrefix");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsPostFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsPostFix(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPostfix");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGetPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new GetPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpPrecedence");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGetLeftPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new GetLeftPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpLeftPrecedence");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGetRightPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new GetRightPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "OpRightPrecedence");
 		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinPrecisionGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Precision'Get");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispBitAnd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new BitAnd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitAnd");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispBitOr(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new BitOr(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitOr");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispBitXor(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new BitXor(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "BitXor");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispSecure(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new Secure(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "Secure");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFindFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FindFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FindFile");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFindFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FindFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FindFunction");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsGeneric(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsGeneric(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsGeneric");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGenericTypeName(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new GenericTypeName(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GenericTypeName");
 		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new GenArrayCreate(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
@@ -471,34 +471,34 @@ public class Functions
 		        new PiperEvaluator(new GenArraySet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Array'Set");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCustomEval(),4, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new CustomEval(),4, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "CustomEval");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCustomEvalExpression(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new CustomEvalExpression(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Expression");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCustomEvalResult(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new CustomEvalResult(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Result");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCustomEvalLocals(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new CustomEvalLocals(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Locals");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCustomEvalStop(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new CustomEvalStop(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CustomEval'Stop");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispTraceRule(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new TraceRule(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TraceRule");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispTraceStack(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new TraceStack(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "TraceStack");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispReadLisp(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ReadLisp(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LispRead");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispReadLispListed(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ReadLispListed(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "LispReadListed");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispType(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Type(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Type");
 		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperStringMidGet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
@@ -513,34 +513,34 @@ public class Functions
 		        new PiperEvaluator(new GenPatternMatches(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Pattern'Matches");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispRuleBaseDefined(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new RuleBaseDefined(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RuleBaseDefined");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDefLoadFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DefLoadFunction(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefLoadFunction");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispRuleBaseArgList(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new RuleBaseArgList(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "RuleBaseArgList");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new NewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "RulePattern");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispMacroNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new MacroNewRulePattern(),5, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MacroRulePattern");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispSubst(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Subst(),3, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Subst");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispLocalSymbols(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
+		        new PiperEvaluator(new LocalSymbols(),1, PiperEvaluator.Variable|PiperEvaluator.Macro),
 		        "LocalSymbols");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFastIsPrime(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FastIsPrime(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FastIsPrime");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFac(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Fac(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathFac");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispApplyPure(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ApplyPure(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ApplyPure");
 		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperPrettyReaderSet(),1, PiperEvaluator.Variable|PiperEvaluator.Function),
@@ -555,16 +555,16 @@ public class Functions
 		        new PiperEvaluator(new PiperPrettyReaderGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PrettyReader'Get");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispGarbageCollect(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new GarbageCollect(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "GarbageCollect");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispSetGlobalLazyVariable(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new SetGlobalLazyVariable(),2, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "SetGlobalLazyVariable");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispPatchLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new PatchLoad(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PatchLoad");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispPatchString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new PatchString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "PatchString");
 		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperExtraInfoSet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
@@ -573,68 +573,68 @@ public class Functions
 		        new PiperEvaluator(new PiperExtraInfoGet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ExtraInfo'Get");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDefaultTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DefaultTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DefaultTokenizer");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCommonLispTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new CommonLispTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CommonLispTokenizer");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispXmlTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new XmlTokenizer(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "XmlTokenizer");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispExplodeTag(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ExplodeTag(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "XmlExplodeTag");
 		aEnvironment.builtinCommands().setAssociation(
 		        new PiperEvaluator(new PiperBuiltinAssoc(),2, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Builtin'Assoc");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCurrentFile(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new CurrentFile(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CurrentFile");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispCurrentLine(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new CurrentLine(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "CurrentLine");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispBackQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new BackQuote(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "`");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDumpBigNumberDebugInfo(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DumpBigNumberDebugInfo(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "MathDebugInfo");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispInDebugMode(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new InDebugMode(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "InDebugMode");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDebugFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DebugFile(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DebugFile");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispDebugLine(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new DebugLine(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "DebugLine");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispVersion(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Version(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Version");
 
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispExit(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new Exit(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "Exit");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispExitRequested(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ExitRequested(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsExitRequested");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispHistorySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new HistorySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "HistorySize");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispStackSize(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new StackSize(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "StaSiz");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispIsPromptShown(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new IsPromptShown(),0, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "IsPromptShown");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispReadCmdLineString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new ReadCmdLineString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "ReadCmdLineString");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispTime(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
+		        new PiperEvaluator(new Time(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro),
 		        "GetTime");
 		aEnvironment.builtinCommands().setAssociation(
-		        new PiperEvaluator(new LispFileSize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
+		        new PiperEvaluator(new FileSize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function),
 		        "FileSize");
 
 
@@ -985,7 +985,7 @@ public class Functions
  * 
  */
 
-	class LispQuote extends BuiltinFunction
+	class Quote extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -993,7 +993,7 @@ public class Functions
 		}
 	}
 
-	class LispEval extends BuiltinFunction
+	class Eval extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1001,7 +1001,7 @@ public class Functions
 		}
 	}
 
-	class LispWrite extends BuiltinFunction
+	class Write extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1020,7 +1020,7 @@ public class Functions
 		}
 	}
 
-	class LispWriteString extends BuiltinFunction
+	class WriteString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1043,7 +1043,7 @@ public class Functions
 		}
 	}
 
-	class LispFullForm extends BuiltinFunction
+	class FullForm extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1054,7 +1054,7 @@ public class Functions
 		}
 	}
 
-	class LispDefaultDirectory extends BuiltinFunction
+	class DefaultDirectory extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1068,7 +1068,7 @@ public class Functions
 		}
 	}
 
-	class LispFromFile extends BuiltinFunction
+	class FromFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1110,7 +1110,7 @@ public class Functions
 		}
 	}
 
-	class LispFromString extends BuiltinFunction
+	class FromString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1148,7 +1148,7 @@ public class Functions
 		}
 	}
 
-	class LispRead extends BuiltinFunction
+	class Read extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1164,7 +1164,7 @@ public class Functions
 		}
 	}
 
-	class LispReadToken extends BuiltinFunction
+	class ReadToken extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1181,7 +1181,7 @@ public class Functions
 		}
 	}
 
-	class LispToFile extends BuiltinFunction
+	class ToFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1216,7 +1216,7 @@ public class Functions
 		}
 	}
 
-	class LispToString extends BuiltinFunction
+	class ToString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1240,7 +1240,7 @@ public class Functions
 		}
 	}
 
-	class LispToStdout extends BuiltinFunction
+	class ToStdout extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1258,7 +1258,7 @@ public class Functions
 		}
 	}
 
-	class LispLoad extends BuiltinFunction
+	class Load extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1277,7 +1277,7 @@ public class Functions
 		}
 	}
 
-	class LispSetVar extends BuiltinFunction
+	class SetVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1285,7 +1285,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroSetVar extends BuiltinFunction
+	class MacroSetVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1293,7 +1293,7 @@ public class Functions
 		}
 	}
 
-	class LispSetGlobalLazyVariable extends BuiltinFunction
+	class SetGlobalLazyVariable extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1301,7 +1301,7 @@ public class Functions
 		}
 	}
 
-	class LispClearVar extends BuiltinFunction
+	class ClearVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1325,7 +1325,7 @@ public class Functions
 		}
 	}
 
-	class LispNewLocal extends BuiltinFunction
+	class NewLocal extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1350,7 +1350,7 @@ public class Functions
 		}
 	}
 
-	class LispHead extends BuiltinFunction
+	class Head extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1358,7 +1358,7 @@ public class Functions
 		}
 	}
 
-	class LispNth extends BuiltinFunction
+	class Nth extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1371,7 +1371,7 @@ public class Functions
 		}
 	}
 
-	class LispTail extends BuiltinFunction
+	class Tail extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1385,7 +1385,7 @@ public class Functions
 		}
 	}
 
-	class LispDestructiveReverse extends BuiltinFunction
+	class DestructiveReverse extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1396,7 +1396,7 @@ public class Functions
 		}
 	}
 
-	class LispLength extends BuiltinFunction
+	class Length extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1426,7 +1426,7 @@ public class Functions
 		}
 	}
 
-	class LispList extends BuiltinFunction
+	class List extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1448,7 +1448,7 @@ public class Functions
 		}
 	}
 
-	class LispUnList extends BuiltinFunction
+	class UnList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1461,7 +1461,7 @@ public class Functions
 		}
 	}
 
-	class LispListify extends BuiltinFunction
+	class Listify extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1473,7 +1473,7 @@ public class Functions
 		}
 	}
 
-	class LispConcatenate extends BuiltinFunction
+	class Concatenate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1498,7 +1498,7 @@ public class Functions
 		}
 	}
 
-	class LispConcatenateStrings extends BuiltinFunction
+	class ConcatenateStrings extends BuiltinFunction
 	{
 		void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Exception
 		{
@@ -1526,7 +1526,7 @@ public class Functions
 		}
 	}
 
-	class LispDelete extends BuiltinFunction
+	class Delete extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1534,7 +1534,7 @@ public class Functions
 		}
 	}
 
-	class LispDestructiveDelete extends BuiltinFunction
+	class DestructiveDelete extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1542,7 +1542,7 @@ public class Functions
 		}
 	}
 
-	class LispInsert extends BuiltinFunction
+	class Insert extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1550,7 +1550,7 @@ public class Functions
 		}
 	}
 
-	class LispDestructiveInsert extends BuiltinFunction
+	class DestructiveInsert extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1558,7 +1558,7 @@ public class Functions
 		}
 	}
 
-	class LispReplace extends BuiltinFunction
+	class Replace extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1566,7 +1566,7 @@ public class Functions
 		}
 	}
 
-	class LispDestructiveReplace extends BuiltinFunction
+	class DestructiveReplace extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1574,7 +1574,7 @@ public class Functions
 		}
 	}
 
-	class LispAtomize extends BuiltinFunction
+	class Atomize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1589,7 +1589,7 @@ public class Functions
 		}
 	}
 
-	class LispStringify extends BuiltinFunction
+	class Stringify extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1605,7 +1605,7 @@ public class Functions
 		}
 	}
 
-	class LispCharString extends BuiltinFunction
+	class CharString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1618,7 +1618,7 @@ public class Functions
 		}
 	}
 
-	class LispFlatCopy extends BuiltinFunction
+	class FlatCopy extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1628,7 +1628,7 @@ public class Functions
 		}
 	}
 
-	class LispProgBody extends BuiltinFunction
+	class ProgBody extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1656,7 +1656,7 @@ public class Functions
 		}
 	}
 
-	class LispWhile extends BuiltinFunction
+	class While extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1678,7 +1678,7 @@ public class Functions
 		}
 	}
 
-	class LispIf extends BuiltinFunction
+	class If extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1707,7 +1707,7 @@ public class Functions
 		}
 	}
 
-	class LispCheck extends BuiltinFunction
+	class Check extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1724,7 +1724,7 @@ public class Functions
 		}
 	}
 
-	class LispTrapError extends BuiltinFunction
+	class TrapError extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1741,7 +1741,7 @@ public class Functions
 		}
 	}
 
-	class LispGetCoreError extends BuiltinFunction
+	class GetCoreError extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1749,7 +1749,7 @@ public class Functions
 		}
 	}
 
-	class LispPreFix extends BuiltinFunction
+	class PreFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1757,7 +1757,7 @@ public class Functions
 		}
 	}
 
-	class LispInFix extends BuiltinFunction
+	class InFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1765,7 +1765,7 @@ public class Functions
 		}
 	}
 
-	class LispPostFix extends BuiltinFunction
+	class PostFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1781,7 +1781,7 @@ public class Functions
 		}
 	}
 
-	class LispBodied extends BuiltinFunction
+	class Bodied extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1789,7 +1789,7 @@ public class Functions
 		}
 	}
 
-	class LispRuleBase extends BuiltinFunction
+	class RuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1797,7 +1797,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroRuleBase extends BuiltinFunction
+	class MacroRuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1805,7 +1805,7 @@ public class Functions
 		}
 	}
 
-	class LispRuleBaseListed extends BuiltinFunction
+	class RuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1813,7 +1813,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroRuleBaseListed extends BuiltinFunction
+	class MacroRuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1821,7 +1821,7 @@ public class Functions
 		}
 	}
 
-	class LispDefMacroRuleBase extends BuiltinFunction
+	class DefMacroRuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1829,7 +1829,7 @@ public class Functions
 		}
 	}
 
-	class LispDefMacroRuleBaseListed extends BuiltinFunction
+	class DefMacroRuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1837,7 +1837,7 @@ public class Functions
 		}
 	}
 
-	class LispHoldArg extends BuiltinFunction
+	class HoldArg extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1855,7 +1855,7 @@ public class Functions
 		}
 	}
 
-	class LispNewRule extends BuiltinFunction
+	class NewRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1863,7 +1863,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroNewRule extends BuiltinFunction
+	class MacroNewRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1871,7 +1871,7 @@ public class Functions
 		}
 	}
 
-	class LispUnFence extends BuiltinFunction
+	class UnFence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1892,7 +1892,7 @@ public class Functions
 		}
 	}
 
-	class LispRetract extends BuiltinFunction
+	class Retract extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1914,7 +1914,7 @@ public class Functions
 		}
 	}
 
-	class LispNot extends BuiltinFunction
+	class Not extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1934,7 +1934,7 @@ public class Functions
 		}
 	}
 
-	class LispLazyAnd extends BuiltinFunction
+	class LazyAnd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1992,7 +1992,7 @@ public class Functions
 		}
 	}
 
-	class LispLazyOr extends BuiltinFunction
+	class LazyOr extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2050,7 +2050,7 @@ public class Functions
 		}
 	}
 
-	class LispEquals extends BuiltinFunction
+	class Equals extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2064,7 +2064,7 @@ public class Functions
 		}
 	}
 
-	abstract class LispLexCompare2
+	abstract class LexCompare2
 	{
 		abstract boolean lexfunc(String f1, String f2, HashTable aHashTable,int aPrecision);
 		abstract boolean numfunc(BigNumber n1, BigNumber n2);
@@ -2101,7 +2101,7 @@ public class Functions
 	}
 
 
-	class LexLessThan extends LispLexCompare2
+	class LexLessThan extends LexCompare2
 	{
 		boolean lexfunc(String f1, String f2, HashTable aHashTable,int aPrecision)
 		{
@@ -2112,7 +2112,7 @@ public class Functions
 			return n1.LessThan(n2) && !n1.Equals(n2);
 		}
 	}
-	class LexGreaterThan extends LispLexCompare2
+	class LexGreaterThan extends LexCompare2
 	{
 		boolean lexfunc(String f1, String f2, HashTable aHashTable,int aPrecision)
 		{
@@ -2125,7 +2125,7 @@ public class Functions
 	}
 
 
-	class LispLessThan extends BuiltinFunction
+	class LessThan extends BuiltinFunction
 	{
 		LexLessThan compare = new LexLessThan();
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
@@ -2134,7 +2134,7 @@ public class Functions
 		}
 	}
 
-	class LispGreaterThan extends BuiltinFunction
+	class GreaterThan extends BuiltinFunction
 	{
 		LexGreaterThan compare = new LexGreaterThan();
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
@@ -2143,7 +2143,7 @@ public class Functions
 		}
 	}
 
-	class LispIsFunction extends BuiltinFunction
+	class IsFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2154,7 +2154,7 @@ public class Functions
 		}
 	}
 
-	class LispIsAtom extends BuiltinFunction
+	class IsAtom extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2165,7 +2165,7 @@ public class Functions
 		}
 	}
 
-	class LispIsNumber extends BuiltinFunction
+	class IsNumber extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2175,7 +2175,7 @@ public class Functions
 		}
 	}
 
-	class LispIsInteger extends BuiltinFunction
+	class IsInteger extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2194,7 +2194,7 @@ public class Functions
 		}
 	}
 
-	class LispIsList extends BuiltinFunction
+	class IsList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2204,7 +2204,7 @@ public class Functions
 		}
 	}
 
-	class LispIsString extends BuiltinFunction
+	class IsString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2215,7 +2215,7 @@ public class Functions
 		}
 	}
 
-	class LispIsBound extends BuiltinFunction
+	class IsBound extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2234,7 +2234,7 @@ public class Functions
 		}
 	}
 
-	class LispMultiply extends BuiltinFunction
+	class Multiply extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2252,7 +2252,7 @@ public class Functions
 	/// both argument are converted to a BigNumber, and these are added
 	/// together at the current precision. The sum is returned.
 	/// \sa getNumber(), BigNumber::Add()
-	class LispAdd extends BuiltinFunction
+	class Add extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2277,7 +2277,7 @@ public class Functions
 		}
 	}
 
-	class LispSubtract extends BuiltinFunction
+	class Subtract extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2304,7 +2304,7 @@ public class Functions
 		}
 	}
 
-	class LispDivide extends BuiltinFunction
+	class Divide extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2348,7 +2348,7 @@ public class Functions
 		}
 	}
 
-	class LispGetExactBits extends BuiltinFunction
+	class GetExactBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2364,7 +2364,7 @@ public class Functions
 	}
 
 
-	class LispSetExactBits extends BuiltinFunction
+	class SetExactBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2380,7 +2380,7 @@ public class Functions
 		}
 	}
 
-	class LispBitCount extends BuiltinFunction
+	class BitCount extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2391,7 +2391,7 @@ public class Functions
 		}
 	}
 
-	class LispMathSign extends BuiltinFunction
+	class MathSign extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2402,7 +2402,7 @@ public class Functions
 		}
 	}
 
-	class LispMathIsSmall extends BuiltinFunction
+	class MathIsSmall extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2411,7 +2411,7 @@ public class Functions
 		}
 	}
 
-	class LispMathNegate extends BuiltinFunction
+	class MathNegate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2422,7 +2422,7 @@ public class Functions
 		}
 	}
 
-	class LispFloor extends BuiltinFunction
+	class Floor extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2433,7 +2433,7 @@ public class Functions
 		}
 	}
 
-	class LispCeil extends BuiltinFunction
+	class Ceil extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2446,7 +2446,7 @@ public class Functions
 		}
 	}
 
-	class LispAbs extends BuiltinFunction
+	class Abs extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2459,7 +2459,7 @@ public class Functions
 		}
 	}
 
-	class LispMod extends BuiltinFunction
+	class Mod extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2471,7 +2471,7 @@ public class Functions
 		}
 	}
 
-	class LispDiv extends BuiltinFunction
+	class Div extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2491,7 +2491,7 @@ public class Functions
 		}
 	}
 
-	class LispBitsToDigits extends BuiltinFunction
+	class BitsToDigits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2514,7 +2514,7 @@ public class Functions
 		}
 	}
 
-	class LispDigitsToBits extends BuiltinFunction
+	class DigitsToBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2537,7 +2537,7 @@ public class Functions
 		}
 	}
 
-	class LispGcd extends BuiltinFunction
+	class Gcd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2549,7 +2549,7 @@ public class Functions
 		}
 	}
 
-	class LispSystemCall extends BuiltinFunction
+	class SystemCall extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2570,7 +2570,7 @@ public class Functions
 		}
 	}
 
-	class LispFastArcSin extends BuiltinFunction
+	class FastArcSin extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2583,7 +2583,7 @@ public class Functions
 		}
 	}
 
-	class LispFastLog extends BuiltinFunction
+	class FastLog extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2596,7 +2596,7 @@ public class Functions
 		}
 	}
 
-	class LispFastPower extends BuiltinFunction
+	class FastPower extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2610,7 +2610,7 @@ public class Functions
 		}
 	}
 
-	class LispShiftLeft extends BuiltinFunction
+	class ShiftLeft extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2623,7 +2623,7 @@ public class Functions
 		}
 	}
 
-	class LispShiftRight extends BuiltinFunction
+	class ShiftRight extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2636,7 +2636,7 @@ public class Functions
 		}
 	}
 
-	class LispFromBase extends BuiltinFunction
+	class FromBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2670,7 +2670,7 @@ public class Functions
 		}
 	}
 
-	class LispToBase extends BuiltinFunction
+	class ToBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2699,7 +2699,7 @@ public class Functions
 		}
 	}
 
-	class LispMaxEvalDepth extends BuiltinFunction
+	class MaxEvalDepth extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2714,7 +2714,7 @@ public class Functions
 		}
 	}
 
-	class LispDefLoad extends BuiltinFunction
+	class DefLoad extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2733,7 +2733,7 @@ public class Functions
 		}
 	}
 
-	class LispUse extends BuiltinFunction
+	class Use extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2750,7 +2750,7 @@ public class Functions
 		}
 	}
 
-	class LispRightAssociative extends BuiltinFunction
+	class RightAssociative extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2763,7 +2763,7 @@ public class Functions
 		}
 	}
 
-	class LispLeftPrecedence extends BuiltinFunction
+	class LeftPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2783,7 +2783,7 @@ public class Functions
 		}
 	}
 
-	class LispRightPrecedence extends BuiltinFunction
+	class RightPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2803,7 +2803,7 @@ public class Functions
 		}
 	}
 
-	class LispIsBodied extends BuiltinFunction
+	class IsBodied extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2812,7 +2812,7 @@ public class Functions
 		}
 	}
 
-	class LispIsInFix extends BuiltinFunction
+	class IsInFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2821,7 +2821,7 @@ public class Functions
 		}
 	}
 
-	class LispIsPreFix extends BuiltinFunction
+	class IsPreFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2830,7 +2830,7 @@ public class Functions
 		}
 	}
 
-	class LispIsPostFix extends BuiltinFunction
+	class IsPostFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2839,7 +2839,7 @@ public class Functions
 		}
 	}
 
-	class LispGetPrecedence extends BuiltinFunction
+	class GetPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2861,7 +2861,7 @@ public class Functions
 		}
 	}
 
-	class LispGetLeftPrecedence extends BuiltinFunction
+	class GetLeftPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2875,7 +2875,7 @@ public class Functions
 		}
 	}
 
-	class LispGetRightPrecedence extends BuiltinFunction
+	class GetRightPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2902,7 +2902,7 @@ public class Functions
 		}
 	}
 
-	class LispBitAnd extends BuiltinFunction
+	class BitAnd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2914,7 +2914,7 @@ public class Functions
 		}
 	}
 
-	class LispBitOr extends BuiltinFunction
+	class BitOr extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2926,7 +2926,7 @@ public class Functions
 		}
 	}
 
-	class LispBitXor extends BuiltinFunction
+	class BitXor extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2938,7 +2938,7 @@ public class Functions
 		}
 	}
 
-	class LispSecure extends BuiltinFunction
+	class Secure extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2953,7 +2953,7 @@ public class Functions
 		}
 	}
 
-	class LispFindFile extends BuiltinFunction
+	class FindFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2973,7 +2973,7 @@ public class Functions
 		}
 	}
 
-	class LispFindFunction extends BuiltinFunction
+	class FindFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3003,7 +3003,7 @@ public class Functions
 		}
 	}
 
-	class LispIsGeneric extends BuiltinFunction
+	class IsGeneric extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3013,7 +3013,7 @@ public class Functions
 		}
 	}
 
-	class LispGenericTypeName extends BuiltinFunction
+	class GenericTypeName extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3112,7 +3112,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEval extends BuiltinFunction
+	class CustomEval extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3121,7 +3121,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEvalExpression extends BuiltinFunction
+	class CustomEvalExpression extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3130,7 +3130,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEvalResult extends BuiltinFunction
+	class CustomEvalResult extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3139,7 +3139,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEvalLocals extends BuiltinFunction
+	class CustomEvalLocals extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3148,7 +3148,7 @@ public class Functions
 		}
 	}
 
-	class LispCustomEvalStop extends BuiltinFunction
+	class CustomEvalStop extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3157,7 +3157,7 @@ public class Functions
 		}
 	}
 
-	class LispTraceRule extends BuiltinFunction
+	class TraceRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3166,7 +3166,7 @@ public class Functions
 		}
 	}
 
-	class LispTraceStack extends BuiltinFunction
+	class TraceStack extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3175,7 +3175,7 @@ public class Functions
 		}
 	}
 
-	class LispReadLisp extends BuiltinFunction
+	class ReadLisp extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3187,7 +3187,7 @@ public class Functions
 		}
 	}
 
-	class LispReadLispListed extends BuiltinFunction
+	class ReadLispListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3200,7 +3200,7 @@ public class Functions
 		}
 	}
 
-	class LispType extends BuiltinFunction
+	class Type extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3336,7 +3336,7 @@ public class Functions
 		}
 	}
 
-	class LispRuleBaseDefined extends BuiltinFunction
+	class RuleBaseDefined extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3358,7 +3358,7 @@ public class Functions
 		}
 	}
 
-	class LispDefLoadFunction extends BuiltinFunction
+	class DefLoadFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3386,7 +3386,7 @@ public class Functions
 		}
 	}
 
-	class LispRuleBaseArgList extends BuiltinFunction
+	class RuleBaseArgList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3414,7 +3414,7 @@ public class Functions
 		}
 	}
 
-	class LispNewRulePattern extends BuiltinFunction
+	class NewRulePattern extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3422,7 +3422,7 @@ public class Functions
 		}
 	}
 
-	class LispMacroNewRulePattern extends BuiltinFunction
+	class MacroNewRulePattern extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3431,7 +3431,7 @@ public class Functions
 		}
 	}
 
-	class LispSubst extends BuiltinFunction
+	class Subst extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3439,12 +3439,12 @@ public class Functions
 			from.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			to  .set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 			body.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
-			Subst behaviour = new Subst(aEnvironment,from, to);
+			org.mathrider.piper.lisp.behaviours.Subst behaviour = new org.mathrider.piper.lisp.behaviours.Subst(aEnvironment,from, to);
 			Standard.internalSubstitute(RESULT(aEnvironment, aStackTop), body, behaviour);
 		}
 	}
 
-	class LispLocalSymbols extends BuiltinFunction
+	class LocalSymbols extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3473,7 +3473,7 @@ public class Functions
 		}
 	}
 
-	class LispFastIsPrime extends BuiltinFunction
+	class FastIsPrime extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3503,7 +3503,7 @@ public class Functions
 		}
 	}
 
-	class LispFac extends BuiltinFunction
+	class Fac extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3525,7 +3525,7 @@ public class Functions
 		}
 	}
 
-	class LispApplyPure extends BuiltinFunction
+	class ApplyPure extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3622,7 +3622,7 @@ public class Functions
 		}
 	}
 
-	class LispGarbageCollect extends BuiltinFunction
+	class GarbageCollect extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3631,7 +3631,7 @@ public class Functions
 		}
 	}
 
-	class LispPatchLoad extends BuiltinFunction
+	class PatchLoad extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3640,7 +3640,7 @@ public class Functions
 		}
 	}
 
-	class LispPatchString extends BuiltinFunction
+	class PatchString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3686,7 +3686,7 @@ public class Functions
 		}
 	}
 
-	class LispDefaultTokenizer extends BuiltinFunction
+	class DefaultTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3695,7 +3695,7 @@ public class Functions
 		}
 	}
 
-	class LispCommonLispTokenizer extends BuiltinFunction
+	class CommonLispTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3704,7 +3704,7 @@ public class Functions
 		}
 	}
 
-	class LispXmlTokenizer extends BuiltinFunction
+	class XmlTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3713,7 +3713,7 @@ public class Functions
 		}
 	}
 
-	class LispExplodeTag extends BuiltinFunction
+	class ExplodeTag extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3865,7 +3865,7 @@ public class Functions
 		}
 	}
 
-	class LispCurrentFile extends BuiltinFunction
+	class CurrentFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3873,7 +3873,7 @@ public class Functions
 		}
 	}
 
-	class LispCurrentLine extends BuiltinFunction
+	class CurrentLine extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3881,18 +3881,18 @@ public class Functions
 		}
 	}
 
-	class LispBackQuote extends BuiltinFunction
+	class BackQuote extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BackQuote behaviour = new BackQuote(aEnvironment);
+			org.mathrider.piper.lisp.behaviours.BackQuote behaviour = new org.mathrider.piper.lisp.behaviours.BackQuote(aEnvironment);
 			Pointer result = new Pointer();
 			Standard.internalSubstitute(result, ARGUMENT(aEnvironment, aStackTop,  1), behaviour);
 			aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
 		}
 	}
 
-	class LispDumpBigNumberDebugInfo extends BuiltinFunction
+	class DumpBigNumberDebugInfo extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3902,7 +3902,7 @@ public class Functions
 		}
 	}
 
-	class LispInDebugMode extends BuiltinFunction
+	class InDebugMode extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3910,7 +3910,7 @@ public class Functions
 		}
 	}
 
-	class LispDebugFile extends BuiltinFunction
+	class DebugFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3918,7 +3918,7 @@ public class Functions
 		}
 	}
 
-	class LispDebugLine extends BuiltinFunction
+	class DebugLine extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3926,16 +3926,16 @@ public class Functions
 		}
 	}
 
-	class LispVersion extends BuiltinFunction
+	class Version extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment,aStackTop).set(Atom.getInstance(aEnvironment,"\"" + Version.version + "\""));
+			RESULT(aEnvironment,aStackTop).set(Atom.getInstance(aEnvironment,"\"" + org.mathrider.piper.Version.version + "\""));
 		}
 	}
 
 
-	class LispExit extends BuiltinFunction
+	class Exit extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3943,7 +3943,7 @@ public class Functions
 		}
 	}
 
-	class LispExitRequested extends BuiltinFunction
+	class ExitRequested extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3951,7 +3951,7 @@ public class Functions
 		}
 	}
 
-	class LispHistorySize extends BuiltinFunction
+	class HistorySize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3960,7 +3960,7 @@ public class Functions
 		}
 	}
 
-	class LispStackSize extends BuiltinFunction
+	class StackSize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3969,7 +3969,7 @@ public class Functions
 		}
 	}
 
-	class LispIsPromptShown extends BuiltinFunction
+	class IsPromptShown extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3978,7 +3978,7 @@ public class Functions
 		}
 	}
 
-	class LispReadCmdLineString extends BuiltinFunction
+	class ReadCmdLineString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3987,7 +3987,7 @@ public class Functions
 		}
 	}
 
-	class LispTime extends BuiltinFunction
+	class Time extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -4002,7 +4002,7 @@ public class Functions
 		}
 	}
 
-	class LispFileSize extends BuiltinFunction
+	class FileSize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
