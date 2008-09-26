@@ -200,7 +200,7 @@ public class PiperConsole extends Thread
 
 
 
-        System.out.println("\nPiper version '" + CVersion.version + "'.");
+        System.out.println("\nPiper version '" + Version.version + "'.");
 
         System.out.println("See http://mathrider.org for more information and documentation on Piper.");
 

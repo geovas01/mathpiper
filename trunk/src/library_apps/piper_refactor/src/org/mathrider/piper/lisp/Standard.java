@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.io.InputDirectories;
 import org.mathrider.piper.lisp.behaviours.SubstBase;
@@ -535,7 +536,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		}
 		finally
 		{
-			aEnvironment.iInputStatus.RestoreFrom(oldstatus);
+			aEnvironment.iInputStatus.restoreFrom(oldstatus);
 		}
 	}
 
@@ -700,7 +701,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 			LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
 			doLoadDefFile(aEnvironment, newInput,def);
 		}
-		aEnvironment.iInputStatus.RestoreFrom(oldstatus);
+		aEnvironment.iInputStatus.restoreFrom(oldstatus);
 	}
 
 

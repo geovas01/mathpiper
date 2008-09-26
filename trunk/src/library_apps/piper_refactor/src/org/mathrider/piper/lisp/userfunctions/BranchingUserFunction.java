@@ -19,6 +19,7 @@
 package org.mathrider.piper.lisp.userfunctions;
 
 
+import org.mathrider.piper.lisp.UserStackInformation;
 import org.mathrider.piper.builtin.Container;
 import org.mathrider.piper.builtin.Pattern;
 import org.mathrider.piper.*;

@@ -19,6 +19,7 @@
 package org.mathrider.piper.builtin;
 
 
+import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.*;
 //import org.mathrider.piper.parametermatchers.Pattern;
 import org.mathrider.piper.lisp.behaviours.BackQuote;
@@ -1103,7 +1104,7 @@ public class Functions
 			finally
 			{
 				aEnvironment.iCurrentInput = previous;
-				aEnvironment.iInputStatus.RestoreFrom(oldstatus);
+				aEnvironment.iInputStatus.restoreFrom(oldstatus);
 			}
 			//Return the result
 		}
@@ -1140,7 +1141,7 @@ public class Functions
 			finally
 			{
 				aEnvironment.iCurrentInput = previous;
-				aEnvironment.iInputStatus.RestoreFrom(oldstatus);
+				aEnvironment.iInputStatus.restoreFrom(oldstatus);
 			}
 
 			//Return the result
@@ -3868,7 +3869,7 @@ public class Functions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(aEnvironment.iInputStatus.FileName())));
+			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,aEnvironment.hashTable().lookUpStringify(aEnvironment.iInputStatus.fileName())));
 		}
 	}
 
@@ -3876,7 +3877,7 @@ public class Functions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+aEnvironment.iInputStatus.LineNumber()));
+			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+aEnvironment.iInputStatus.lineNumber()));
 		}
 	}
 
@@ -3929,7 +3930,7 @@ public class Functions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			RESULT(aEnvironment,aStackTop).set(Atom.getInstance(aEnvironment,"\"" + CVersion.version + "\""));
+			RESULT(aEnvironment,aStackTop).set(Atom.getInstance(aEnvironment,"\"" + Version.version + "\""));
 		}
 	}
 
@@ -4029,7 +4030,7 @@ public class Functions
 			}
 			finally
 			{
-				aEnvironment.iInputStatus.RestoreFrom(oldstatus);
+				aEnvironment.iInputStatus.restoreFrom(oldstatus);
 			}
 			RESULT(aEnvironment,aStackTop).set(Atom.getInstance(aEnvironment,""+fileSize));
 		}
