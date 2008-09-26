@@ -20,6 +20,7 @@ package org.mathrider.piper.lisp.userfunctions;
 
 // new-style evaluator, passing arguments onto the stack in Environment
 
+import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
@@ -37,11 +38,11 @@ public class PiperEvaluator extends EvalFuncBase
 	public static int Fixed = 0;     // fixed number of arguments
 	public static int Variable = 2;  // variable number of arguments
 	
-	PiperEvalCaller iCaller;
+	BuiltinFunction iCaller;
 	int iNrArgs;
 	int iFlags;
 
-	public PiperEvaluator(PiperEvalCaller aCaller,int aNrArgs, int aFlags)
+	public PiperEvaluator(BuiltinFunction aCaller,int aNrArgs, int aFlags)
 	{
 		iCaller = aCaller;
 		iNrArgs = aNrArgs;

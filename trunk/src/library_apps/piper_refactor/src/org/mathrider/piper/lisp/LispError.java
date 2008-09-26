@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.*;
 
 
@@ -193,7 +194,7 @@ public class LispError
 	{
 		if (!aPredicate)
 		{
-			Pointer arguments = PiperEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
+			Pointer arguments = BuiltinFunction.ARGUMENT(aEnvironment,aStackTop,0);
 			if (arguments.get() == null)
 			{
 				throw new PiperException("Error in compiled code\n");
@@ -233,7 +234,7 @@ public class LispError
 	{
 		if (!aPredicate)
 		{
-			Pointer arguments = PiperEvalCaller.ARGUMENT(aEnvironment,aStackTop,0);
+			Pointer arguments = BuiltinFunction.ARGUMENT(aEnvironment,aStackTop,0);
 			if (arguments.get() == null)
 			{
 				throw new PiperException("Error in compiled code\n");
@@ -243,7 +244,7 @@ public class LispError
 				String error = "";
 				//TODO FIXME          ShowStack(aEnvironment);
 				error = error + ShowFunctionError(arguments, aEnvironment) + "\nbad argument number "+aArgNr+"(counting from 1) : \n"+aErrorDescription + "\n";
-				Pointer arg = PiperEvalCaller.argument(arguments,aArgNr);
+				Pointer arg = BuiltinFunction.argument(arguments,aArgNr);
 				String strout;
 
 				error = error + "The offending argument ";

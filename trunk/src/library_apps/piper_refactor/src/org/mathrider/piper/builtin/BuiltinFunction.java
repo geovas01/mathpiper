@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.builtin;
 
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.PiperArgStack;
 
 
-public abstract class PiperEvalCaller
+public abstract class BuiltinFunction
 {
 	public abstract void eval(Environment aEnvironment,int aStackTop) throws Exception;
 
