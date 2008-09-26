@@ -12,14 +12,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
+ */
 
+//}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathrider.piper.lisp;
 
-package org.mathrider.piper;
+import org.mathrider.piper.lisp.Pointer;
 
-public class TWord
+public class UserStackInformation
 {
-	public String word = new String();
-	public String digits = new String();
-};
+
+	public Pointer iExpression;
+	public Pointer iOperator;
+	public int iRulePrecedence;
+	public int iSide; // 0=pattern, 1=body
+
+	public UserStackInformation()
+	{
+		iRulePrecedence = -1;
+		iSide = 0;
+	}
+}

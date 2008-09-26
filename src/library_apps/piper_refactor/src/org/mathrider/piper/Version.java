@@ -16,9 +16,9 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper;
-//class CVersion { static String VERSION = "1.2.2"; }
+//class Version { static String VERSION = "1.2.2"; }
 
-public class CVersion
+public class Version
 {
 
    public  static String version = "";

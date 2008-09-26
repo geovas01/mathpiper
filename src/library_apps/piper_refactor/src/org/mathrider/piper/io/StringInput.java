@@ -48,7 +48,7 @@ public class StringInput
 		char c = iString.charAt(iCurrent - 1);
 
 		if (c == '\n')
-			iStatus.NextLine();
+			iStatus.nextLine();
 
 		return c;
 	}

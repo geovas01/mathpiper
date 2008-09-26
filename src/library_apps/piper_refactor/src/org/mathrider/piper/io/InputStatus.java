@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.io;
 
 
 public class InputStatus
@@ -44,7 +44,7 @@ public class InputStatus
 		iLineNumber = 1;
 	}
 
-	public void RestoreFrom(InputStatus aPreviousStatus)
+	public void restoreFrom(InputStatus aPreviousStatus)
 	{
 		iFileName = aPreviousStatus.iFileName;
 		iLineNumber = aPreviousStatus.iLineNumber;
@@ -53,17 +53,17 @@ public class InputStatus
 
 	}
 
-	public int LineNumber()
+	public int lineNumber()
 	{
 		return iLineNumber;
 	}
 
-	public String FileName()
+	public String fileName()
 	{
 		return iFileName;
 	}
 
-	public  void NextLine()
+	public  void nextLine()
 	{
 		iLineNumber++;
 	}

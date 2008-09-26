@@ -39,7 +39,7 @@ public class CachedStdFileInput extends Input
 		int c = Peek();
 		iCurrentPos++;
 		if (c == '\n')
-			iStatus.NextLine();
+			iStatus.nextLine();
 		return (char)c;
 	}
 	public char Peek() throws Exception

@@ -25,7 +25,7 @@ import org.mathrider.piper.*;
 /// Eval() is a pure virtual function, to be provided by the derived class.
 /// The other functions are stubs.
 
-public abstract class EvaluatorBase
+public abstract class ExpressionEvaluator
 {
 	UserStackInformation iBasicInfo = new UserStackInformation();
 	

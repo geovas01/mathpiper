@@ -18,6 +18,8 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.lisp.parsers.XmlTokenizer;
+import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.builtin.Functions;
 import org.mathrider.piper.io.InputDirectories;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
@@ -33,7 +35,7 @@ import org.mathrider.piper.*;
 
 public class Environment
 {
-        public EvaluatorBase iEvaluator = new BasicEvaluator();
+        public ExpressionEvaluator iEvaluator = new LispExpressionEvaluator();
         
 	public int iPrecision = 10;
 

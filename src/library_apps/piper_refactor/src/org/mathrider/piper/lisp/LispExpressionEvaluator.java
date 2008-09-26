@@ -16,11 +16,11 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp;
 
 import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
-import org.mathrider.piper.lisp.EvaluatorBase;
+import org.mathrider.piper.lisp.ExpressionEvaluator;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
@@ -32,7 +32,7 @@ import org.mathrider.piper.lisp.DefFile;
 
 /// The basic evaluator for Lisp expressions.
 
-public class BasicEvaluator extends EvaluatorBase
+public class LispExpressionEvaluator extends ExpressionEvaluator
 {
 	/// Evaluate a Lisp expression
 	/// \param aEnvironment the Lisp environment, in which the
