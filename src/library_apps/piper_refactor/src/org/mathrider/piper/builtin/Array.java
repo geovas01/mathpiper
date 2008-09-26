@@ -16,47 +16,44 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp;
+package org.mathrider.piper.builtin;
 
-import org.mathrider.piper.*;
+import org.mathrider.piper.lisp.Cons;
+import org.mathrider.piper.lisp.LispError;
+import org.mathrider.piper.lisp.PointerArray;
+import org.mathrider.piper.lisp.ArgList;
 
 
-public class GenericClass extends Cons
+public class Array extends Container
 {
-	GenericClassContainer iClass;
-	
-	public static GenericClass getInstance(GenericClassContainer aClass) throws Exception
+	PointerArray iArray;
+
+	public Array(int aSize,Cons aInitialItem)
 	{
-		LispError.LISPASSERT(aClass!=null);
-		GenericClass self = new GenericClass(aClass);
-		LispError.Check(self!=null,LispError.KLispErrNotEnoughMemory);
-		return self;
+		iArray = new PointerArray(aSize,aInitialItem);
 	}
-	
-	public GenericClassContainer generic()
-	{
-		return iClass;
-	}
-	
-	public String string()
+	public String send(ArgList aArgList)
 	{
 		return null;
 	}
-	
-	public Cons copy(boolean aRecursed)
+	public String typeName()
 	{
-		Cons copied = new GenericClass(iClass);
-		return copied;
-	}
-	
-	public Cons setExtraInfo(Pointer aData)
-	{
-		//TODO FIXME
-		return null;
+		return "\"Array\"";
 	}
 
-	GenericClass(GenericClassContainer aClass)
+	public int size()
 	{
-		iClass = aClass;
+		return iArray.Size();
 	}
-};
+	public Cons getElement(int aItem) throws Exception
+	{
+		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
+		return iArray.GetElement(aItem-1).get();
+	}
+	public void setElement(int aItem,Cons aObject) throws Exception
+	{
+		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
+		iArray.SetElement(aItem-1,aObject);
+	}
+
+}

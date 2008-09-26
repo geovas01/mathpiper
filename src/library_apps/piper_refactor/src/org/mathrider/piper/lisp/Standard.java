@@ -18,6 +18,8 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.builtin.BigNumber;
+import org.mathrider.piper.io.InputDirectories;
 import org.mathrider.piper.lisp.behaviours.SubstBase;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;

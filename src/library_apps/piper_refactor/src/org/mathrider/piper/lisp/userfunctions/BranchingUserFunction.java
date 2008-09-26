@@ -19,6 +19,8 @@
 package org.mathrider.piper.lisp.userfunctions;
 
 
+import org.mathrider.piper.builtin.Container;
+import org.mathrider.piper.builtin.Pattern;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
@@ -121,7 +123,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		}
 	}
 
-	/// A rule which matches if the corresponding PatternClass matches.
+	/// A rule which matches if the corresponding Pattern matches.
 	class BranchPattern extends BranchRuleBase
 	{
 		/// Constructor.
@@ -134,11 +136,11 @@ public class BranchingUserFunction extends ArityUserFunction
 			iPrecedence = aPrecedence;
 			iPredicate.set(aPredicate.get());
 
-			GenericClassContainer gen = aPredicate.get().generic();
+			Container gen = aPredicate.get().generic();
 			LispError.Check(gen != null,LispError.KLispErrInvalidArg);
 			LispError.Check(gen.typeName().equals("\"Pattern\""),LispError.KLispErrInvalidArg);
 
-			iPatternClass = (PatternClass)gen;
+			iPatternClass = (Pattern)gen;
 			iBody.set(aBody.get());
 		}
 
@@ -170,7 +172,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		protected Pointer iPredicate = new Pointer();
 
 		/// The pattern that decides whether this rule matches.
-		protected PatternClass iPatternClass;
+		protected Pattern iPatternClass;
 	};
 
 	/// Constructor.

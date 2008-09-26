@@ -18,6 +18,8 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.builtin.Functions;
+import org.mathrider.piper.io.InputDirectories;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.lisp.userfunctions.MacroUserFunction;
@@ -117,7 +119,7 @@ public class Environment
 		iProg         = Atom.getInstance(this,"Prog");
 
 		iStack = new PiperArgStack(50000 /*TODO FIXME*/);
-		BuiltinFunctions mc = new BuiltinFunctions();
+		Functions mc = new Functions();
 		mc.addFunctions(this);
 		mc=null;
 		pushLocalFrame(true);

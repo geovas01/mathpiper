@@ -16,10 +16,11 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.builtin;
 
 
-import org.mathrider.piper.parametermatchers.Pattern;
+import org.mathrider.piper.*;
+//import org.mathrider.piper.parametermatchers.Pattern;
 import org.mathrider.piper.lisp.behaviours.BackQuote;
 import org.mathrider.piper.lisp.behaviours.LocalSymbol;
 import org.mathrider.piper.lisp.behaviours.Subst;
@@ -45,14 +46,14 @@ import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Iterator;
-import org.mathrider.piper.lisp.GenericClass;
+import org.mathrider.piper.lisp.BuiltinObject;
 import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.DefFile;
 import org.mathrider.piper.lisp.InfixOperator;
 import org.mathrider.piper.lisp.Operators;
 import java.io.*;
 
-public class BuiltinFunctions
+public class Functions
 {
 	public void addFunctions(Environment aEnvironment)
 	{
@@ -1279,7 +1280,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalSetVar(aEnvironment, aStackTop, false, false);
+			Functions.internalSetVar(aEnvironment, aStackTop, false, false);
 		}
 	}
 
@@ -1287,7 +1288,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalSetVar(aEnvironment, aStackTop, true, false);
+			Functions.internalSetVar(aEnvironment, aStackTop, true, false);
 		}
 	}
 
@@ -1295,7 +1296,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalSetVar(aEnvironment, aStackTop, false, true);
+			Functions.internalSetVar(aEnvironment, aStackTop, false, true);
 		}
 	}
 
@@ -1412,11 +1413,11 @@ public class BuiltinFunctions
 				RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+num));
 				return;
 			}
-			GenericClassContainer gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
+			Container gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
 			if (gen != null)
 				if (gen.typeName().equals("\"Array\""))
 				{
-					int size=((ArrayClass)gen).size();
+					int size=((Array)gen).size();
 					RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+size));
 					return;
 				}
@@ -1528,7 +1529,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalDelete(aEnvironment, aStackTop,false);
+			Functions.internalDelete(aEnvironment, aStackTop,false);
 		}
 	}
 
@@ -1536,7 +1537,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalDelete(aEnvironment, aStackTop,true);
+			Functions.internalDelete(aEnvironment, aStackTop,true);
 		}
 	}
 
@@ -1544,7 +1545,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalInsert(aEnvironment, aStackTop,false);
+			Functions.internalInsert(aEnvironment, aStackTop,false);
 		}
 	}
 
@@ -1552,7 +1553,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalInsert(aEnvironment, aStackTop,true);
+			Functions.internalInsert(aEnvironment, aStackTop,true);
 		}
 	}
 
@@ -1560,7 +1561,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalReplace(aEnvironment, aStackTop,false);
+			Functions.internalReplace(aEnvironment, aStackTop,false);
 		}
 	}
 
@@ -1568,7 +1569,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.internalReplace(aEnvironment, aStackTop,true);
+			Functions.internalReplace(aEnvironment, aStackTop,true);
 		}
 	}
 
@@ -1751,7 +1752,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+			Functions.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 		}
 	}
 
@@ -1759,7 +1760,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			Functions.multiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 		}
 	}
 
@@ -1770,11 +1771,11 @@ public class BuiltinFunctions
 			int nrArguments = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
 			if (nrArguments == 2)
 			{
-				BuiltinFunctions.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+				Functions.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 			}
 			else
 			{
-				BuiltinFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+				Functions.multiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 			}
 		}
 	}
@@ -1783,7 +1784,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BuiltinFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+			Functions.multiFix(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 		}
 	}
 
@@ -2258,14 +2259,14 @@ public class BuiltinFunctions
 			if (length == 2)
 			{
 				BigNumber x;
-				x = BuiltinFunctions.getNumber(aEnvironment, aStackTop, 1);
+				x = Functions.getNumber(aEnvironment, aStackTop, 1);
 				RESULT(aEnvironment, aStackTop).set(new Number(x));
 				return;
 			}
 			else
 			{
-				BigNumber x = BuiltinFunctions.getNumber(aEnvironment, aStackTop, 1);
-				BigNumber y = BuiltinFunctions.getNumber(aEnvironment, aStackTop, 2);
+				BigNumber x = Functions.getNumber(aEnvironment, aStackTop, 1);
+				BigNumber y = Functions.getNumber(aEnvironment, aStackTop, 2);
 				int bin = aEnvironment.precision();
 				BigNumber z = new BigNumber(bin);
 				z.Add(x,y,aEnvironment.precision());
@@ -2805,7 +2806,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+			InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2814,7 +2815,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2823,7 +2824,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+			InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2832,7 +2833,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+			InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 			Standard.internalBoolean(aEnvironment,RESULT(aEnvironment, aStackTop), op != null);
 		}
 	}
@@ -2841,16 +2842,16 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{  // also need to check for a postfix or prefix operator
-				op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+				op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 				if (op == null)
 				{
-					op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+					op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 					if (op == null)
 					{  // or maybe it's a bodied function
-						op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+						op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 						LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 					}
 				}
@@ -2863,10 +2864,10 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{  // infix and postfix operators have left precedence
-				op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+				op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
 				LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 			}
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+op.iLeftPrecedence));
@@ -2877,13 +2878,13 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			InfixOperator op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+			InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
 			if (op == null)
 			{   // bodied, infix and prefix operators have right precedence
-				op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+				op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
 				if (op == null)
 				{   // or maybe it's a bodied function
-					op = BuiltinFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+					op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
 					LispError.CHK_CORE(aEnvironment,aStackTop,op!=null, LispError.KLispErrIsNotInFix);
 				}
 			}
@@ -3037,8 +3038,8 @@ public class BuiltinFunctions
 			Pointer initarg = new Pointer();
 			initarg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			ArrayClass array = new ArrayClass(size,initarg.get());
-			RESULT(aEnvironment, aStackTop).set(GenericClass.getInstance(array));
+			Array array = new Array(size,initarg.get());
+			RESULT(aEnvironment, aStackTop).set(BuiltinObject.getInstance(array));
 		}
 	}
 
@@ -3049,10 +3050,10 @@ public class BuiltinFunctions
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClassContainer gen = evaluated.get().generic();
+			Container gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
-			int size=((ArrayClass)gen).size();
+			int size=((Array)gen).size();
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+size));
 		}
 	}
@@ -3064,7 +3065,7 @@ public class BuiltinFunctions
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClassContainer gen = evaluated.get().generic();
+			Container gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
 
@@ -3076,8 +3077,8 @@ public class BuiltinFunctions
 
 			int size = Integer.parseInt(sizearg.get().string(),10);
 
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).size(),2);
-			Cons object = ((ArrayClass)gen).getElement(size);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((Array)gen).size(),2);
+			Cons object = ((Array)gen).getElement(size);
 
 			RESULT(aEnvironment, aStackTop).set(object.copy(false));
 		}
@@ -3090,7 +3091,7 @@ public class BuiltinFunctions
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			GenericClassContainer gen = evaluated.get().generic();
+			Container gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
 
@@ -3101,11 +3102,11 @@ public class BuiltinFunctions
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
 			int size = Integer.parseInt(sizearg.get().string(),10);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).size(),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((Array)gen).size(),2);
 
 			Pointer obj = new Pointer();
 			obj.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
-			((ArrayClass)gen).setElement(size,obj.get());
+			((Array)gen).setElement(size,obj.get());
 			Standard.internalTrue( aEnvironment, RESULT(aEnvironment, aStackTop));
 		}
 	}
@@ -3299,10 +3300,9 @@ public class BuiltinFunctions
 			Pointer ptr = iter.Ptr();
 
 
-			Pattern matcher =
-			        new Pattern(aEnvironment, ptr,postpredicate);
-			PatternClass p = new PatternClass(matcher);
-			RESULT(aEnvironment, aStackTop).set(GenericClass.getInstance(p));
+			org.mathrider.piper.parametermatchers.Pattern matcher =  new org.mathrider.piper.parametermatchers.Pattern(aEnvironment, ptr,postpredicate);
+			Pattern p = new Pattern(matcher);
+			RESULT(aEnvironment, aStackTop).set(BuiltinObject.getInstance(p));
 		}
 	}
 
@@ -3312,14 +3312,14 @@ public class BuiltinFunctions
 		{
 			Pointer pattern = new Pointer();
 			pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			GenericClassContainer gen = pattern.get().generic();
+			Container gen = pattern.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Pattern\""),1);
 
 			Pointer list = new Pointer();
 			list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			PatternClass patclass = (PatternClass)gen;
+			Pattern patclass = (Pattern)gen;
 
 			Iterator iter = new Iterator(list);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,2);

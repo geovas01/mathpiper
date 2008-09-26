@@ -16,8 +16,48 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp;
 
-public class InputDirectories extends java.util.ArrayList // CDeletingArrayGrower<LispStringPtr>
+import org.mathrider.piper.builtin.Container;
+import org.mathrider.piper.*;
+
+
+public class BuiltinObject extends Cons
 {
-}
+	Container iClass;
+	
+	public static BuiltinObject getInstance(Container aClass) throws Exception
+	{
+		LispError.LISPASSERT(aClass!=null);
+		BuiltinObject self = new BuiltinObject(aClass);
+		LispError.Check(self!=null,LispError.KLispErrNotEnoughMemory);
+		return self;
+	}
+	
+	public Container generic()
+	{
+		return iClass;
+	}
+	
+	public String string()
+	{
+		return null;
+	}
+	
+	public Cons copy(boolean aRecursed)
+	{
+		Cons copied = new BuiltinObject(iClass);
+		return copied;
+	}
+	
+	public Cons setExtraInfo(Pointer aData)
+	{
+		//TODO FIXME
+		return null;
+	}
+
+	BuiltinObject(Container aClass)
+	{
+		iClass = aClass;
+	}
+};

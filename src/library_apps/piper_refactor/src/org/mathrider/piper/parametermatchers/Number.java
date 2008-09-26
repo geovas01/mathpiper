@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.parametermatchers;
 
+import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.Environment;
