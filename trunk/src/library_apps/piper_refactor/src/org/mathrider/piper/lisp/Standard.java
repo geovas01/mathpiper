@@ -18,9 +18,11 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.lisp.behaviours.SubstBase;
+import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.printers.InfixPrinter;
-import org.mathrider.piper.parsers.InfixParser;
+import org.mathrider.piper.lisp.parsers.InfixParser;
 import org.mathrider.piper.io.JarInputFile;
 import org.mathrider.piper.io.StdFileInput;
 import org.mathrider.piper.io.StringOutput;
@@ -424,7 +426,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 	}
 
 
-	public static void internalSubstitute(Pointer aTarget, Pointer aSource, SubstBehaviourBase aBehaviour) throws Exception
+	public static void internalSubstitute(Pointer aTarget, Pointer aSource, SubstBase aBehaviour) throws Exception
 	{
 		Cons object = aSource.get();
 		LispError.LISPASSERT(object != null);
@@ -480,7 +482,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 			while (!endoffile)
 			{
 				// Read expression
-				parser.Parse(readIn);
+				parser.parse(readIn);
 
 				LispError.Check(readIn.get() != null, LispError.KLispErrReadingFile);
 				// Check for end of file

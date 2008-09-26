@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp.behaviours;
 
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Standard;
@@ -32,11 +32,11 @@ import org.mathrider.piper.lisp.SubList;
  *    head of function if a is a function. For instance, if
  *    a is f(x) and f is g, then f(x) gets replaced by g(x)
  */
-public class BackQuoteBehaviour implements SubstBehaviourBase
+public class BackQuote implements SubstBase
 {
 	Environment iEnvironment;
 
-	public BackQuoteBehaviour(Environment aEnvironment)
+	public BackQuote(Environment aEnvironment)
 	{
 		iEnvironment = aEnvironment;
 	}

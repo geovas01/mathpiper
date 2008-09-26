@@ -32,25 +32,25 @@ public class ArrayClass extends GenericClassContainer
 	{
 		iArray = new PointerArray(aSize,aInitialItem);
 	}
-	public String Send(ArgList aArgList)
+	public String send(ArgList aArgList)
 	{
 		return null;
 	}
-	public String TypeName()
+	public String typeName()
 	{
 		return "\"Array\"";
 	}
 
-	public int Size()
+	public int size()
 	{
 		return iArray.Size();
 	}
-	public Cons GetElement(int aItem) throws Exception
+	public Cons getElement(int aItem) throws Exception
 	{
 		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
 		return iArray.GetElement(aItem-1).get();
 	}
-	public void SetElement(int aItem,Cons aObject) throws Exception
+	public void setElement(int aItem,Cons aObject) throws Exception
 	{
 		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
 		iArray.SetElement(aItem-1,aObject);

@@ -16,13 +16,13 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.parsers;
+package org.mathrider.piper.lisp.parsers;
 
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Parser;
-import org.mathrider.piper.lisp.Tokenizer;
+import org.mathrider.piper.lisp.parsers.Parser;
+import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.Operators;
 
@@ -48,7 +48,7 @@ public class InfixParser extends Parser
 		iBodiedOperators = aBodiedOperators;
 	}
 
-	public void Parse(Pointer aResult) throws Exception
+	public void parse(Pointer aResult) throws Exception
 	{
 		ParseCont(aResult);
 	}

@@ -16,14 +16,14 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp.behaviours;
 
 import org.mathrider.piper.lisp.Pointer;
 
 
 /** Behaviour for substituting sub-expressions.
  */
-public interface SubstBehaviourBase
+public interface SubstBase
 {
 	public boolean matches(Pointer aResult, Pointer aElement) throws Exception;
 };

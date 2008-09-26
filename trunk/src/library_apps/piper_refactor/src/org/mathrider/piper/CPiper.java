@@ -19,15 +19,15 @@
 package org.mathrider.piper;
 
 import org.mathrider.piper.printers.InfixPrinter;
-import org.mathrider.piper.parsers.InfixParser;
+import org.mathrider.piper.lisp.parsers.InfixParser;
 import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.io.StringInput;
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Tokenizer;
-import org.mathrider.piper.lisp.Parser;
+import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.Printer;
 
@@ -111,7 +111,7 @@ public class CPiper
 				inp.append(";");
 				StringInput input_str = new StringInput(inp,someStatus);
 				Parser parser = new InfixParser(tokenizer, input_str, env, env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
-				parser.Parse( in_expr );
+				parser.parse( in_expr );
 			}
 
 			Pointer result = new Pointer();

@@ -19,13 +19,13 @@
 package org.mathrider.piper;
 
 import org.mathrider.piper.printers.InfixPrinter;
-import org.mathrider.piper.parsers.InfixParser;
+import org.mathrider.piper.lisp.parsers.InfixParser;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Atom;
-import org.mathrider.piper.lisp.Tokenizer;
+import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.InfixOperator;

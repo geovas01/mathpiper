@@ -136,7 +136,7 @@ public class BranchingUserFunction extends ArityUserFunction
 
 			GenericClassContainer gen = aPredicate.get().generic();
 			LispError.Check(gen != null,LispError.KLispErrInvalidArg);
-			LispError.Check(gen.TypeName().equals("\"Pattern\""),LispError.KLispErrInvalidArg);
+			LispError.Check(gen.typeName().equals("\"Pattern\""),LispError.KLispErrInvalidArg);
 
 			iPatternClass = (PatternClass)gen;
 			iBody.set(aBody.get());

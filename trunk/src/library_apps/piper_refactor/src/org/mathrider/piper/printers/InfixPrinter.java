@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Tokenizer;
+import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.InfixOperator;
 import org.mathrider.piper.lisp.Operators;
 import org.mathrider.piper.lisp.Printer;
@@ -86,7 +86,7 @@ public class InfixPrinter extends Printer
 		if (aExpression.get().generic() != null)
 		{
 			//TODO display genericclass
-			WriteToken(aOutput,aExpression.get().generic().TypeName());
+			WriteToken(aOutput,aExpression.get().generic().typeName());
 			return;
 		}
 
