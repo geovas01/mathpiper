@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.lisp;
 
-import org.mathrider.piper.lisp.behaviours.SubstBase;
+import org.mathrider.piper.lisp.behaviour.SubstBase;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.printers.InfixPrinter;
