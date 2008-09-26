@@ -1,4 +1,4 @@
-package org.mathrider.piper.lisp.behaviours;
+package org.mathrider.piper.lisp.behaviour;
 
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;

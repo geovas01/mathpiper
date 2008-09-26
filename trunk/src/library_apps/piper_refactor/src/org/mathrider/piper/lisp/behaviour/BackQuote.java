@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp.behaviours;
+package org.mathrider.piper.lisp.behaviour;
 
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Standard;
