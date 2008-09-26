@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp.behaviour;
+package org.mathrider.piper.lisp.behaviours;
 
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.Atom;
