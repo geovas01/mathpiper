@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.lisp.userfunctions;
 
+import org.mathrider.piper.lisp.behaviours.BackQuote;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
@@ -132,7 +133,7 @@ public class MacroUserFunction extends BranchingUserFunction
 					{
 						st.iSide = 1;
 
-						BackQuoteBehaviour behaviour = new BackQuoteBehaviour(aEnvironment);
+						BackQuote behaviour = new BackQuote(aEnvironment);
 						Standard.internalSubstitute(substedBody, thisRule.Body(), behaviour);
 						//              aEnvironment.iEvaluator.Eval(aEnvironment, aResult, thisRule.Body());
 						break;

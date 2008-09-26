@@ -19,9 +19,12 @@
 package org.mathrider.piper;
 
 
+import org.mathrider.piper.lisp.behaviours.BackQuote;
+import org.mathrider.piper.lisp.behaviours.LocalSymbol;
+import org.mathrider.piper.lisp.behaviours.Subst;
 import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
 import org.mathrider.piper.printers.InfixPrinter;
-import org.mathrider.piper.parsers.InfixParser;
+import org.mathrider.piper.lisp.parsers.InfixParser;
 import org.mathrider.piper.io.StdFileOutput;
 import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.io.StringInput;
@@ -31,7 +34,7 @@ import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Tokenizer;
+import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.Number;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.SubList;
@@ -42,7 +45,7 @@ import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.GenericClass;
-import org.mathrider.piper.lisp.Parser;
+import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.DefFile;
 import org.mathrider.piper.lisp.InfixOperator;
 import org.mathrider.piper.lisp.Operators;
@@ -1154,7 +1157,7 @@ public class BuiltinFunctions
 			                                     aEnvironment.iPostfixOperators,
 			                                     aEnvironment.iBodiedOperators);
 			// Read expression
-			parser.Parse(RESULT(aEnvironment, aStackTop));
+			parser.parse(RESULT(aEnvironment, aStackTop));
 		}
 	}
 
@@ -1410,9 +1413,9 @@ public class BuiltinFunctions
 			}
 			GenericClassContainer gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
 			if (gen != null)
-				if (gen.TypeName().equals("\"Array\""))
+				if (gen.typeName().equals("\"Array\""))
 				{
-					int size=((ArrayClass)gen).Size();
+					int size=((ArrayClass)gen).size();
 					RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+size));
 					return;
 				}
@@ -3014,7 +3017,7 @@ public class BuiltinFunctions
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,evaluated.get().generic() != null,1);
-			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,evaluated.get().generic().TypeName()));
+			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,evaluated.get().generic().typeName()));
 		}
 	}
 
@@ -3047,8 +3050,8 @@ public class BuiltinFunctions
 
 			GenericClassContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
-			int size=((ArrayClass)gen).Size();
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
+			int size=((ArrayClass)gen).size();
 			RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+size));
 		}
 	}
@@ -3062,7 +3065,7 @@ public class BuiltinFunctions
 
 			GenericClassContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
 
 			Pointer sizearg = new Pointer();
 			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
@@ -3072,8 +3075,8 @@ public class BuiltinFunctions
 
 			int size = Integer.parseInt(sizearg.get().string(),10);
 
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).Size(),2);
-			Cons object = ((ArrayClass)gen).GetElement(size);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).size(),2);
+			Cons object = ((ArrayClass)gen).getElement(size);
 
 			RESULT(aEnvironment, aStackTop).set(object.copy(false));
 		}
@@ -3088,7 +3091,7 @@ public class BuiltinFunctions
 
 			GenericClassContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Array\""),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
 
 			Pointer sizearg = new Pointer();
 			sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
@@ -3097,11 +3100,11 @@ public class BuiltinFunctions
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,sizearg.get().string() != null, 2);
 
 			int size = Integer.parseInt(sizearg.get().string(),10);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).Size(),2);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,size>0 && size<=((ArrayClass)gen).size(),2);
 
 			Pointer obj = new Pointer();
 			obj.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
-			((ArrayClass)gen).SetElement(size,obj.get());
+			((ArrayClass)gen).setElement(size,obj.get());
 			Standard.internalTrue( aEnvironment, RESULT(aEnvironment, aStackTop));
 		}
 	}
@@ -3177,7 +3180,7 @@ public class BuiltinFunctions
 			                                   aEnvironment.iCurrentInput,
 			                                   aEnvironment);
 			// Read expression
-			parser.Parse(RESULT(aEnvironment, aStackTop));
+			parser.parse(RESULT(aEnvironment, aStackTop));
 		}
 	}
 
@@ -3190,7 +3193,7 @@ public class BuiltinFunctions
 			                                   aEnvironment);
 			parser.iListed = true;
 			// Read expression
-			parser.Parse(RESULT(aEnvironment, aStackTop));
+			parser.parse(RESULT(aEnvironment, aStackTop));
 		}
 	}
 
@@ -3310,7 +3313,7 @@ public class BuiltinFunctions
 			pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			GenericClassContainer gen = pattern.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
-			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.TypeName().equals("\"Pattern\""),1);
+			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Pattern\""),1);
 
 			Pointer list = new Pointer();
 			list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
@@ -3434,7 +3437,7 @@ public class BuiltinFunctions
 			from.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 			to  .set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 			body.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
-			SubstBehaviour behaviour = new SubstBehaviour(aEnvironment,from, to);
+			Subst behaviour = new Subst(aEnvironment,from, to);
 			Standard.internalSubstitute(RESULT(aEnvironment, aStackTop), body, behaviour);
 		}
 	}
@@ -3461,7 +3464,7 @@ public class BuiltinFunctions
 				String variable = aEnvironment.hashTable().lookUp(newname);
 				localnames[i] = variable;
 			}
-			LocalSymbolBehaviour behaviour = new LocalSymbolBehaviour(aEnvironment,names,localnames,nrSymbols);
+			LocalSymbol behaviour = new LocalSymbol(aEnvironment,names,localnames,nrSymbols);
 			Pointer result = new Pointer();
 			Standard.internalSubstitute(result, argument(ARGUMENT(aEnvironment, aStackTop, 0), nrArguments-1), behaviour);
 			aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
@@ -3880,7 +3883,7 @@ public class BuiltinFunctions
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			BackQuoteBehaviour behaviour = new BackQuoteBehaviour(aEnvironment);
+			BackQuote behaviour = new BackQuote(aEnvironment);
 			Pointer result = new Pointer();
 			Standard.internalSubstitute(result, ARGUMENT(aEnvironment, aStackTop,  1), behaviour);
 			aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);

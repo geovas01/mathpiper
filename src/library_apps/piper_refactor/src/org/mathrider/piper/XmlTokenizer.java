@@ -20,7 +20,7 @@ package org.mathrider.piper;
 
 import org.mathrider.piper.lisp.HashTable;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Tokenizer;
+import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.Input;
 
 public class XmlTokenizer

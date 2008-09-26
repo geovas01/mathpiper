@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.lisp.behaviours;
 
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.Atom;
@@ -25,14 +25,14 @@ import org.mathrider.piper.lisp.Environment;
 /** subst behaviour for changing the local variables to have unique
  * names.
  */
-public class LocalSymbolBehaviour implements SubstBehaviourBase
+public class LocalSymbol implements SubstBase
 {
 	Environment iEnvironment;
 	String[] iOriginalNames;
 	String[] iNewNames;
 	int iNrNames;
 	
-	public LocalSymbolBehaviour(Environment aEnvironment,
+	public LocalSymbol(Environment aEnvironment,
 	                            String[] aOriginalNames,
 	                            String[] aNewNames, int aNrNames)
 	{

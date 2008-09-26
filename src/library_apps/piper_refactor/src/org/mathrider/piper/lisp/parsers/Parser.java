@@ -16,7 +16,9 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp;
+package org.mathrider.piper.lisp.parsers;
+
+import org.mathrider.piper.lisp.*;
 
 
 public class Parser
@@ -35,7 +37,7 @@ public class Parser
 		iListed = false;
 	}
 	
-	public void Parse(Pointer aResult ) throws Exception
+	public void parse(Pointer aResult ) throws Exception
 	{
 		aResult.set(null);
 
@@ -47,10 +49,10 @@ public class Parser
 			aResult.set(Atom.getInstance(iEnvironment,"EndOfFile"));
 			return;
 		}
-		ParseAtom(aResult,token);
+		parseAtom(aResult,token);
 	}
 
-	void ParseList(Pointer aResult) throws Exception
+	void parseList(Pointer aResult) throws Exception
 	{
 		String token;
 
@@ -71,15 +73,15 @@ public class Parser
 			{
 				return;
 			}
-			// else parse simple atom with Parse, and append it to the
+			// else parse simple atom with parse, and append it to the
 			// results list.
 
-			ParseAtom(iter,token);
+			parseAtom(iter,token);
 			iter = (iter.get().cdr()); //TODO FIXME
 		}
 	}
 
-	void ParseAtom(Pointer aResult,String aToken) throws Exception
+	void parseAtom(Pointer aResult,String aToken) throws Exception
 	{
 		// if token is empty string, return null pointer (no expression)
 		if (aToken.length() == 0) //TODO FIXME either token == null or token.length() == 0?
@@ -89,7 +91,7 @@ public class Parser
 		if (aToken == iEnvironment.hashTable().lookUp("("))
 		{
 			Pointer subList = new Pointer();
-			ParseList(subList);
+			parseList(subList);
 			aResult.set(SubList.getInstance(subList.get()));
 			return;
 		}

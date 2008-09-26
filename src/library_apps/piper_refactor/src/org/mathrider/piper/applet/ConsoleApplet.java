@@ -18,13 +18,13 @@
 
 package org.mathrider.piper.applet;
 
-import org.mathrider.piper.parsers.TeXParser;
+import org.mathrider.piper.lisp.parsers.TeXParser;
 import org.mathrider.piper.io.CachedStdFileInput;
 import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Tokenizer;
+import org.mathrider.piper.lisp.parsers.Tokenizer;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.Transferable;

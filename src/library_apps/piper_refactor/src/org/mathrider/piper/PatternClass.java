@@ -53,12 +53,12 @@ public class PatternClass extends GenericClassContainer
 	}
 	
 	//From GenericClassContainer
-	public String Send(ArgList aArgList)
+	public String send(ArgList aArgList)
 	{
 		return null;
 	}
 	
-	public String TypeName()
+	public String typeName()
 	{
 		return "\"Pattern\"";
 	}

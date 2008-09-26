@@ -27,7 +27,7 @@ public abstract class GenericClassContainer
 	public  GenericClassContainer()
 	{
 	}
-	public abstract String Send(ArgList aArgList);
-	public abstract String TypeName();
+	public abstract String send(ArgList aArgList);
+	public abstract String typeName();
 }
 
