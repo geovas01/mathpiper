@@ -16,44 +16,18 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.builtin;
 
-import org.mathrider.piper.lisp.Cons;
-import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.PointerArray;
 import org.mathrider.piper.lisp.ArgList;
 
 
-public class ArrayClass extends GenericClassContainer
+/// Abstract class which can be put inside a LispGenericClass.
+public abstract class Container
 {
-	PointerArray iArray;
-
-	public ArrayClass(int aSize,Cons aInitialItem)
+	public  Container()
 	{
-		iArray = new PointerArray(aSize,aInitialItem);
 	}
-	public String send(ArgList aArgList)
-	{
-		return null;
-	}
-	public String typeName()
-	{
-		return "\"Array\"";
-	}
-
-	public int size()
-	{
-		return iArray.Size();
-	}
-	public Cons getElement(int aItem) throws Exception
-	{
-		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
-		return iArray.GetElement(aItem-1).get();
-	}
-	public void setElement(int aItem,Cons aObject) throws Exception
-	{
-		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
-		iArray.SetElement(aItem-1,aObject);
-	}
-
+	public abstract String send(ArgList aArgList);
+	public abstract String typeName();
 }
+

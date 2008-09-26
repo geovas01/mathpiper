@@ -16,18 +16,8 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.io;
 
-import org.mathrider.piper.lisp.ArgList;
-
-
-/// Abstract class which can be put inside a LispGenericClass.
-public abstract class GenericClassContainer
+public class InputDirectories extends java.util.ArrayList // CDeletingArrayGrower<LispStringPtr>
 {
-	public  GenericClassContainer()
-	{
-	}
-	public abstract String send(ArgList aArgList);
-	public abstract String typeName();
 }
-

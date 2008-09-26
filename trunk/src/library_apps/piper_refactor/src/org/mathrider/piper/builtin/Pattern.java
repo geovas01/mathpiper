@@ -16,9 +16,9 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.builtin;
 
-import org.mathrider.piper.parametermatchers.Pattern;
+//import org.mathrider.piper.parametermatchers.Pattern;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
@@ -28,11 +28,11 @@ import org.mathrider.piper.lisp.ArgList;
 /// Wrapper for Pattern.
 /// This class allows a Pattern to be put in a
 /// LispGenericObject.
-public class PatternClass extends GenericClassContainer
+public class Pattern extends Container
 {
-	protected Pattern iPatternMatcher;
+	protected org.mathrider.piper.parametermatchers.Pattern iPatternMatcher;
 	
-	public PatternClass(Pattern aPatternMatcher)
+	public Pattern(org.mathrider.piper.parametermatchers.Pattern aPatternMatcher)
 	{
 		iPatternMatcher = aPatternMatcher;
 	}
@@ -53,7 +53,7 @@ public class PatternClass extends GenericClassContainer
 		return result;
 	}
 	
-	//From GenericClassContainer
+	//From Container
 	public String send(ArgList aArgList)
 	{
 		return null;
