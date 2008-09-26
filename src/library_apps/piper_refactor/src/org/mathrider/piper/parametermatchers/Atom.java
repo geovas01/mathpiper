@@ -16,51 +16,33 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.parametermatchers;
 
 import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Environment;
 
 
-/// Class for matching against a list of PiperParamMatcherBase objects.
-public class MatchSubList extends PiperParamMatcherBase
+/// Class for matching an expression to a given atom.
+public class Atom extends Parameter
 {
-	protected PiperParamMatcherBase[] iMatchers;
-	protected int iNrMatchers;
+	protected String iString;
 	
-	public MatchSubList(PiperParamMatcherBase[] aMatchers, int aNrMatchers)
+	public Atom(String aString)
 	{
-		iMatchers = aMatchers;
-		iNrMatchers = aNrMatchers;
+		iString = aString;
 	}
-
+	
 	public boolean argumentMatches(Environment  aEnvironment,
 	                               Pointer  aExpression,
 	                               Pointer[]  arguments) throws Exception
 	{
-		if (aExpression.get().subList() == null)
-			return false;
-		int i;
+		// If it is a floating point, don't even bother comparing
+		if (aExpression.get() != null)
+			if (aExpression.get().number(0) != null)
+				if (!aExpression.get().number(0).IsInt())
+					return false;
 
-		Iterator iter = new Iterator(aExpression);
-		iter.GoSub();
-
-		for (i=0;i<iNrMatchers;i++)
-		{
-			Pointer  ptr = iter.Ptr();
-			if (ptr == null)
-				return false;
-			if (iter.GetObject() == null)
-				return false;
-			if (!iMatchers[i].argumentMatches(aEnvironment,ptr,arguments))
-				return false;
-			iter.GoNext();
-		}
-		if (iter.GetObject() != null)
-			return false;
-		return true;
+		return (iString == aExpression.get().string());
 	}
-
 	
 }

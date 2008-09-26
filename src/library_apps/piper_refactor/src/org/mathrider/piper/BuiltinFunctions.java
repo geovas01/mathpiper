@@ -19,6 +19,7 @@
 package org.mathrider.piper;
 
 
+import org.mathrider.piper.parametermatchers.Pattern;
 import org.mathrider.piper.lisp.behaviours.BackQuote;
 import org.mathrider.piper.lisp.behaviours.LocalSymbol;
 import org.mathrider.piper.lisp.behaviours.Subst;
@@ -3298,8 +3299,8 @@ public class BuiltinFunctions
 			Pointer ptr = iter.Ptr();
 
 
-			PiperPatternPredicateBase matcher =
-			        new PiperPatternPredicateBase(aEnvironment, ptr,postpredicate);
+			Pattern matcher =
+			        new Pattern(aEnvironment, ptr,postpredicate);
 			PatternClass p = new PatternClass(matcher);
 			RESULT(aEnvironment, aStackTop).set(GenericClass.getInstance(p));
 		}

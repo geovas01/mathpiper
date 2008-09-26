@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.parametermatchers;
 
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Environment;
 
 
 /// Class for matching against a pattern variable.
-public class MatchVariable extends PiperParamMatcherBase
+public class Variable extends Parameter
 {
 	/// Index of variable in PiperPatternPredicateBase.iVariables.
 	protected int iVarIndex;
@@ -32,7 +32,7 @@ public class MatchVariable extends PiperParamMatcherBase
 	/// Not used.
 	protected String iString;
 
-	public MatchVariable(int aVarIndex)
+	public Variable(int aVarIndex)
 	{
 		iVarIndex = aVarIndex;
 	}
