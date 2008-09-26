@@ -16,14 +16,14 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.parametermatchers;
 
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.Environment;
 
 
 /// Abstract class for matching one argument to a pattern.
-public abstract class PiperParamMatcherBase
+public abstract class Parameter
 {
 	/// Check whether some expression matches to the pattern.
 	/// \param aEnvironment the underlying Lisp environment.

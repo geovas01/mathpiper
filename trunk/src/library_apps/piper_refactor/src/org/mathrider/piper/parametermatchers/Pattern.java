@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.parametermatchers;
 
 
 /// \file
@@ -37,20 +37,20 @@ import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Iterator;
-import org.mathrider.piper.lisp.Atom;
+//import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.SubList;
+//import org.mathrider.piper.lisp.SubList;
 import java.util.*;
 
 /// Class that matches function arguments to a pattern.
-/// This class (specifically, the Matches() member function) can match
+/// This class (specifically, the matches() member function) can match
 /// function parameters to a pattern, check for predicates on the
 /// arguments, and return whether there was a match.
 
-public class PiperPatternPredicateBase
+public class Pattern
 {
 	/// List of parameter matches, one for every parameter.
-	protected ArrayList iParamMatchers = new ArrayList(); //CDeletingArrayGrower<PiperParamMatcherBase*> iParamMatchers;
+	protected ArrayList iParamMatchers = new ArrayList(); //CDeletingArrayGrower<Parameter*> iParamMatchers;
 
 	/// List of variables appearing in the pattern.
 	protected ArrayList iVariables = new ArrayList(); //CArrayGrower<String>
@@ -68,7 +68,7 @@ public class PiperPatternPredicateBase
 	/// in \a aPattern, and the resulting pattern matchers are
 	/// collected in #iParamMatchers. Additionally, \a aPostPredicate
 	/// is copied, and the copy is added to #iPredicates.
-	public PiperPatternPredicateBase(Environment  aEnvironment,
+	public Pattern(Environment  aEnvironment,
 	                                 Pointer  aPattern,
 	                                 Pointer  aPostPredicate) throws Exception
 	{
@@ -76,7 +76,7 @@ public class PiperPatternPredicateBase
 
 		while (iter.GetObject() != null)
 		{
-			PiperParamMatcherBase matcher = MakeParamMatcher(aEnvironment,iter.GetObject());
+			Parameter matcher = makeParamMatcher(aEnvironment,iter.GetObject());
 			LispError.LISPASSERT(matcher!=null);
 			iParamMatchers.add(matcher);
 			iter.GoNext();
@@ -89,15 +89,15 @@ public class PiperPatternPredicateBase
 
 	/// Try to match the pattern against \a aArguments.
 	/// First, every argument in \a aArguments is matched against the
-	/// corresponding PiperParamMatcherBase in #iParamMatches. If any
-	/// match fails, Matches() returns false. Otherwise, a temporary
-	/// LispLocalFrame is constructed, then SetPatternVariables() and
-	/// CheckPredicates() are called, and then the LispLocalFrame is
-	/// immediately deleted. If CheckPredicates() returns false, this
-	/// function also returns false. Otherwise, SetPatternVariables()
+	/// corresponding Parameter in #iParamMatches. If any
+	/// match fails, matches() returns false. Otherwise, a temporary
+	/// LispLocalFrame is constructed, then setPatternVariables() and
+	/// checkPredicates() are called, and then the LispLocalFrame is
+	/// immediately deleted. If checkPredicates() returns false, this
+	/// function also returns false. Otherwise, setPatternVariables()
 	/// is called again, but now in the current LispLocalFrame, and
 	/// this function returns true.
-	public boolean Matches(Environment  aEnvironment, Pointer  aArguments) throws Exception
+	public boolean matches(Environment  aEnvironment, Pointer  aArguments) throws Exception
 	{
 		int i;
 
@@ -120,7 +120,7 @@ public class PiperPatternPredicateBase
 			Pointer  ptr = iter.Ptr();
 			if (ptr==null)
 				return false;
-			if (!((PiperParamMatcherBase)iParamMatchers.get(i)).argumentMatches(aEnvironment,ptr,arguments))
+			if (!((Parameter)iParamMatchers.get(i)).argumentMatches(aEnvironment,ptr,arguments))
 			{
 				return false;
 			}
@@ -134,10 +134,10 @@ public class PiperPatternPredicateBase
 			aEnvironment.pushLocalFrame(false);
 			try
 			{
-				SetPatternVariables(aEnvironment,arguments);
+				setPatternVariables(aEnvironment,arguments);
 
 				// do the predicates
-				if (!CheckPredicates(aEnvironment))
+				if (!checkPredicates(aEnvironment))
 					return false;
 			}
 			catch (Exception e)
@@ -151,15 +151,15 @@ public class PiperPatternPredicateBase
 		}
 
 		// set the local variables for sure now
-		SetPatternVariables(aEnvironment,arguments);
+		setPatternVariables(aEnvironment,arguments);
 
 		return true;
 	}
 
 	/// Try to match the pattern against \a aArguments.
-	/// This function does the same as Matches(Environment ,Pointer ),
+	/// This function does the same as matches(Environment ,Pointer ),
 	/// but differs in the type of the arguments.
-	boolean Matches(Environment  aEnvironment, Pointer[]  aArguments) throws Exception
+	public boolean matches(Environment  aEnvironment, Pointer[]  aArguments) throws Exception
 	{
 		int i;
 
@@ -173,7 +173,7 @@ public class PiperPatternPredicateBase
 
 		for (i=0;i<iParamMatchers.size();i++)
 		{
-			if (!((PiperParamMatcherBase)iParamMatchers.get(i)).argumentMatches(aEnvironment,aArguments[i],arguments))
+			if (!((Parameter)iParamMatchers.get(i)).argumentMatches(aEnvironment,aArguments[i],arguments))
 			{
 				return false;
 			}
@@ -184,10 +184,10 @@ public class PiperPatternPredicateBase
 			aEnvironment.pushLocalFrame(false);
 			try
 			{
-				SetPatternVariables(aEnvironment,arguments);
+				setPatternVariables(aEnvironment,arguments);
 
 				// do the predicates
-				if (!CheckPredicates(aEnvironment))
+				if (!checkPredicates(aEnvironment))
 					return false;
 			}
 			catch (Exception e)
@@ -201,40 +201,40 @@ public class PiperPatternPredicateBase
 		}
 
 		// set the local variables for sure now
-		SetPatternVariables(aEnvironment,arguments);
+		setPatternVariables(aEnvironment,arguments);
 		return true;
 	}
 
 	/// Construct a pattern matcher out of a Lisp expression.
 	/// The result of this function depends on the value of \a aPattern:
-	/// - If \a aPattern is a number, the corresponding MatchNumber is
+	/// - If \a aPattern is a number, the corresponding Number is
 	///   constructed and returned.
-	/// - If \a aPattern is an atom, the corresponding MatchAtom is
+	/// - If \a aPattern is an atom, the corresponding Atom is
 	///   constructed and returned.
 	/// - If \a aPattern is a list of the form <tt>( _ var )<tt>,
-	///   where \c var is an atom, LookUp() is called on \c var. Then
-	///   the correspoding MatchVariable is constructed and returned.
+	///   where \c var is an atom, lookUp() is called on \c var. Then
+	///   the correspoding Variable is constructed and returned.
 	/// - If \a aPattern is a list of the form <tt>( _ var expr )<tt>,
-	///   where \c var is an atom, LookUp() is called on \c var. Then,
+	///   where \c var is an atom, lookUp() is called on \c var. Then,
 	///   \a expr is appended to #iPredicates. Finally, the
-	///   correspoding MatchVariable is constructed and returned.
+	///   correspoding Variable is constructed and returned.
 	/// - If \a aPattern is a list of another form, this function
 	///   calls itself on any of the entries in this list. The
-	///   resulting PiperParamMatcherBase objects are collected in a
-	///   MatchSubList, which is returned.
+	///   resulting Parameter objects are collected in a
+	///   SubList, which is returned.
 	/// - Otherwise, this function returns #null.
-	protected PiperParamMatcherBase MakeParamMatcher(Environment  aEnvironment, Cons aPattern) throws Exception
+	protected Parameter makeParamMatcher(Environment  aEnvironment, Cons aPattern) throws Exception
 	{
 		if (aPattern == null)
 			return null;
 		if (aPattern.number(aEnvironment.precision()) != null)
 		{
-			return new MatchNumber(aPattern.number(aEnvironment.precision()));
+			return new Number(aPattern.number(aEnvironment.precision()));
 		}
 		// Deal with atoms
 		if (aPattern.string() != null)
 		{
-			return new MatchAtom(aPattern.string());
+			return new Atom(aPattern.string());
 		}
 
 		// Else it must be a sublist
@@ -255,7 +255,7 @@ public class PiperPatternPredicateBase
 					Cons second = head.cdr().get();
 					if (second.string() != null)
 					{
-						int index = LookUp(second.string());
+						int index = lookUp(second.string());
 
 						// Make a predicate for the type, if needed
 						if (num>2)
@@ -277,29 +277,29 @@ public class PiperPatternPredicateBase
 							while (last.cdr().get() != null)
 								last = last.cdr().get();
 
-							last.cdr().set(Atom.getInstance(aEnvironment,str));
+							last.cdr().set(org.mathrider.piper.lisp.Atom.getInstance(aEnvironment,str));
 
 							Pointer pred = new Pointer();
-							pred.set(SubList.getInstance(third.get()));
+							pred.set(org.mathrider.piper.lisp.SubList.getInstance(third.get()));
 
 							iPredicates.add(pred);
 						}
-						return new MatchVariable(index);
+						return new Variable(index);
 					}
 				}
 			}
 
-			PiperParamMatcherBase[] matchers = new PiperParamMatcherBase[num];
+			Parameter[] matchers = new Parameter[num];
 
 			int i;
 			Iterator iter = new Iterator(sublist);
 			for (i=0;i<num;i++)
 			{
-				matchers[i] = MakeParamMatcher(aEnvironment,iter.GetObject());
+				matchers[i] = makeParamMatcher(aEnvironment,iter.GetObject());
 				LispError.LISPASSERT(matchers[i] != null);
 				iter.GoNext();
 			}
-			return new MatchSubList(matchers, num);
+			return new SubList(matchers, num);
 		}
 
 		return null;
@@ -310,7 +310,7 @@ public class PiperPatternPredicateBase
 	/// appears.
 	///
 	/// If \a aVariable is not in #iVariables, it is added.
-	protected int LookUp(String aVariable)
+	protected int lookUp(String aVariable)
 	{
 		int i;
 		for (i=0;i<iVariables.size();i++)
@@ -328,7 +328,7 @@ public class PiperPatternPredicateBase
 	/// This function goes through the #iVariables array. A local
 	/// variable is made for every entry in the array, and the
 	/// corresponding argument is assigned to it.
-	protected void SetPatternVariables(Environment  aEnvironment, Pointer[]  arguments) throws Exception
+	protected void setPatternVariables(Environment  aEnvironment, Pointer[]  arguments) throws Exception
 	{
 		int i;
 		for (i=0;i<iVariables.size();i++)
@@ -343,7 +343,7 @@ public class PiperPatternPredicateBase
 	/// evaluates them. It returns #false if at least one
 	/// of these results IsFalse(). An error is raised if any result
 	/// neither IsTrue() nor IsFalse().
-	protected boolean CheckPredicates(Environment  aEnvironment) throws Exception
+	protected boolean checkPredicates(Environment  aEnvironment) throws Exception
 	{
 		int i;
 		for (i=0;i<iPredicates.size();i++)

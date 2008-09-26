@@ -16,33 +16,30 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.parametermatchers;
 
+import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.Environment;
 
 
-/// Class for matching an expression to a given atom.
-public class MatchAtom extends PiperParamMatcherBase
+/// Class for matching an expression to a given number.
+public class Number extends Parameter
 {
-	protected String iString;
+	protected BigNumber iNumber;
 	
-	public MatchAtom(String aString)
+	public Number(BigNumber aNumber)
 	{
-		iString = aString;
+		iNumber = aNumber;
 	}
 	
 	public boolean argumentMatches(Environment  aEnvironment,
 	                               Pointer  aExpression,
 	                               Pointer[]  arguments) throws Exception
 	{
-		// If it is a floating point, don't even bother comparing
-		if (aExpression.get() != null)
-			if (aExpression.get().number(0) != null)
-				if (!aExpression.get().number(0).IsInt())
-					return false;
-
-		return (iString == aExpression.get().string());
+		if (aExpression.get().number(aEnvironment.precision()) != null)
+			return iNumber.Equals(aExpression.get().number(aEnvironment.precision()));
+		return false;
 	}
 	
 }

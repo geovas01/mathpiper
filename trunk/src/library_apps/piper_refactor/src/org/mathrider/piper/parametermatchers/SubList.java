@@ -16,29 +16,51 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.parametermatchers;
 
 import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.Iterator;
 import org.mathrider.piper.lisp.Environment;
 
 
-/// Class for matching an expression to a given number.
-public class MatchNumber extends PiperParamMatcherBase
+/// Class for matching against a list of Parameter objects.
+public class SubList extends Parameter
 {
-	protected BigNumber iNumber;
+	protected Parameter[] iMatchers;
+	protected int iNrMatchers;
 	
-	public MatchNumber(BigNumber aNumber)
+	public SubList(Parameter[] aMatchers, int aNrMatchers)
 	{
-		iNumber = aNumber;
+		iMatchers = aMatchers;
+		iNrMatchers = aNrMatchers;
 	}
-	
+
 	public boolean argumentMatches(Environment  aEnvironment,
 	                               Pointer  aExpression,
 	                               Pointer[]  arguments) throws Exception
 	{
-		if (aExpression.get().number(aEnvironment.precision()) != null)
-			return iNumber.Equals(aExpression.get().number(aEnvironment.precision()));
-		return false;
+		if (aExpression.get().subList() == null)
+			return false;
+		int i;
+
+		Iterator iter = new Iterator(aExpression);
+		iter.GoSub();
+
+		for (i=0;i<iNrMatchers;i++)
+		{
+			Pointer  ptr = iter.Ptr();
+			if (ptr == null)
+				return false;
+			if (iter.GetObject() == null)
+				return false;
+			if (!iMatchers[i].argumentMatches(aEnvironment,ptr,arguments))
+				return false;
+			iter.GoNext();
+		}
+		if (iter.GetObject() != null)
+			return false;
+		return true;
 	}
+
 	
 }

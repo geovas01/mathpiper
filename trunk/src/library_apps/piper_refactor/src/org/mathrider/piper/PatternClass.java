@@ -18,20 +18,21 @@
 
 package org.mathrider.piper;
 
+import org.mathrider.piper.parametermatchers.Pattern;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ArgList;
 
 
-/// Wrapper for PiperPatternPredicateBase.
-/// This class allows a PiperPatternPredicateBase to be put in a
+/// Wrapper for Pattern.
+/// This class allows a Pattern to be put in a
 /// LispGenericObject.
 public class PatternClass extends GenericClassContainer
 {
-	protected PiperPatternPredicateBase iPatternMatcher;
+	protected Pattern iPatternMatcher;
 	
-	public PatternClass(PiperPatternPredicateBase aPatternMatcher)
+	public PatternClass(Pattern aPatternMatcher)
 	{
 		iPatternMatcher = aPatternMatcher;
 	}
@@ -40,7 +41,7 @@ public class PatternClass extends GenericClassContainer
 	{
 		LispError.LISPASSERT(iPatternMatcher != null);
 		boolean result;
-		result = iPatternMatcher.Matches(aEnvironment, aArguments);
+		result = iPatternMatcher.matches(aEnvironment, aArguments);
 		return result;
 	}
 	
@@ -48,7 +49,7 @@ public class PatternClass extends GenericClassContainer
 	{
 		LispError.LISPASSERT(iPatternMatcher != null);
 		boolean result;
-		result = iPatternMatcher.Matches(aEnvironment, aArguments);
+		result = iPatternMatcher.matches(aEnvironment, aArguments);
 		return result;
 	}
 	
