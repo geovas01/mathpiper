@@ -32,7 +32,7 @@ import java.io.File;
  *
  * @author av
  */
-public class Interpreter
+public class OldInterpreter
 {
 
     private CPiper piper;
@@ -40,7 +40,7 @@ public class Interpreter
     private StringBuffer outputCollector;
 
     /** Creates a new instance of Interpreter */
-    public Interpreter() throws PiperException
+    public OldInterpreter() throws PiperException
     {
         outputCollector = new StringBuffer();
         stringOutput = new StringOutput(outputCollector);
