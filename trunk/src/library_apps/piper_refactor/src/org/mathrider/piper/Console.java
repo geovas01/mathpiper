@@ -27,7 +27,7 @@ import java.io.*;
  * Provides a command line console which can be used to interact with a piper instance.
  * @author
  */
-public class PiperConsole extends Thread
+public class Console extends Thread
 {
 
     /**

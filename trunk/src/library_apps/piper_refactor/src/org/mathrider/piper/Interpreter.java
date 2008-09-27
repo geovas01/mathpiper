@@ -24,23 +24,23 @@ import java.io.File;
 /**
  * Use this class in order to access the Piper interpreter from an external application.
  * Usage:
- * import org.mathrider.piper.PiperInterpreter;
- * PiperInterpreter interpreter = new PiperInterpreter();
+ * import org.mathrider.piper.Interpreter;
+ * Interpreter interpreter = new Interpreter();
  * String output1 = interpreter.Evaluate("a := 5");
  * String output2 = interpreter.Evaluate("Solve(x*x == a, x)");
  *
  *
  * @author av
  */
-public class PiperInterpreter
+public class Interpreter
 {
 
     private CPiper piper;
     private StringOutput stringOutput;
     private StringBuffer outputCollector;
 
-    /** Creates a new instance of PiperInterpreter */
-    public PiperInterpreter() throws PiperException
+    /** Creates a new instance of Interpreter */
+    public Interpreter() throws PiperException
     {
         outputCollector = new StringBuffer();
         stringOutput = new StringOutput(outputCollector);
