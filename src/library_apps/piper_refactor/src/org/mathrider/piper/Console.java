@@ -29,13 +29,45 @@ import java.io.*;
  */
 public class Console extends Thread
 {
-	
+	Interpreter interpreter;
+                
 	public Console()
 	{
 		//Piper needs an output stream to send "side effect" output to.
 		StdFileOutput stdoutput = new StdFileOutput(System.out);
-		Interpreter interpreter = new Interpreter(stdoutput)
+		Interpreter interpreter = new Interpreter(stdoutput);
 	}
+        
+        void addDirectory(String directory)
+        {
+            interpreter.addDirectory(directory);
+        }
+        
+        String readLine(InputStream aStream)
+
+	{
+		StringBuffer line = new StringBuffer();
+		try
+		{
+			int c = aStream.read();
+			while (c != '\n')
+			{
+				line.append((char)c);
+				c = aStream.read();
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		return line.toString();
+	}
+        
+        String evaluate(String input) throws PiperException
+        {
+            return interpreter.evaluate(input);
+        }
+
     
 
 
@@ -48,7 +80,9 @@ public class Console extends Thread
      */
     public static void main(String[] argv)
     {
-
+        Console console = new Console();
+        String defaultDirectory = null;
+        String archive = null;
         
         
         
@@ -79,12 +113,12 @@ public class Console extends Thread
         //Change the default directory. tk.
         if (defaultDirectory != null)
         {
-            addDirectory(interpreter, defaultDirectory );
+            console.addDirectory(defaultDirectory );
         }
         
 
         
-
+/*
 
             if (scriptsToRun == argv.length)
             {
@@ -109,7 +143,7 @@ public class Console extends Thread
             return;
         }//end if.
 
-
+*/
 
 
         System.out.println("\nPiper version '" + Version.version + "'.");
@@ -130,14 +164,14 @@ public class Console extends Thread
         while (!quitting)
         {
             System.out.print("In> ");
-            String input = readLine(System.in);
+            String input = console.readLine(System.in);
             input = input.trim();
 
 
             String rs = "";
             try
             {
-                rs = interpreter.evaluate(input);
+                rs = console.evaluate(input);
             } catch (PiperException pe)
             {
                 pe.printStackTrace();

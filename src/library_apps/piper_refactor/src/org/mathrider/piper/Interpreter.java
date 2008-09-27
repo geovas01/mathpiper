@@ -32,6 +32,10 @@ import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.Printer;
 
+import org.mathrider.piper.io.CachedStdFileInput;
+import org.mathrider.piper.io.StdFileOutput;
+import java.io.*;
+
 
 /**
  * 
@@ -54,17 +58,19 @@ public class Interpreter
         
 	public Interpreter(Output stdoutput)
 	{
+            	try
+		{
 		env = new Environment(stdoutput);
 		tokenizer = new Tokenizer();
 		printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
         
 
-		env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
+		env.iCurrentInput = new CachedStdFileInput(env.iInputStatus);
         
 
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
             pathParent = new File(detectURL.getPath()).getParent();
-            addDirectory(piper, pathParent);
+            addDirectory(pathParent);
             //StdFileInput.setPath(pathParent + File.separator);
 
 
@@ -101,8 +107,7 @@ public class Interpreter
 	    
 	
 
-		try
-		{
+
 			
 
 
@@ -111,7 +116,7 @@ public class Interpreter
             String result = "";
             try
             {
-                result = piper.evaluate("Load(\"piperinit.pi\");");
+                result = evaluate("Load(\"piperinit.pi\");");
 
             } catch (PiperException pe)
             {
@@ -135,7 +140,7 @@ public class Interpreter
         String result = "";
         try
         {
-            result = piper.evaluate(toEvaluate);
+            result = evaluate(toEvaluate);
         } catch (PiperException pe)
         {
             pe.printStackTrace();
