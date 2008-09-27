@@ -986,7 +986,7 @@ public class Functions
  * 
  */
 
-	class Quote extends BuiltinFunction
+	public class Quote extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -994,7 +994,7 @@ public class Functions
 		}
 	}
 
-	class Eval extends BuiltinFunction
+	public class Eval extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1002,7 +1002,7 @@ public class Functions
 		}
 	}
 
-	class Write extends BuiltinFunction
+	public class Write extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1021,7 +1021,7 @@ public class Functions
 		}
 	}
 
-	class WriteString extends BuiltinFunction
+	public class WriteString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1044,7 +1044,7 @@ public class Functions
 		}
 	}
 
-	class FullForm extends BuiltinFunction
+	public class FullForm extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1055,7 +1055,7 @@ public class Functions
 		}
 	}
 
-	class DefaultDirectory extends BuiltinFunction
+	public class DefaultDirectory extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1069,7 +1069,7 @@ public class Functions
 		}
 	}
 
-	class FromFile extends BuiltinFunction
+	public class FromFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1111,7 +1111,7 @@ public class Functions
 		}
 	}
 
-	class FromString extends BuiltinFunction
+	public class FromString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1149,7 +1149,7 @@ public class Functions
 		}
 	}
 
-	class Read extends BuiltinFunction
+	public class Read extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1165,7 +1165,7 @@ public class Functions
 		}
 	}
 
-	class ReadToken extends BuiltinFunction
+	public class ReadToken extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1182,7 +1182,7 @@ public class Functions
 		}
 	}
 
-	class ToFile extends BuiltinFunction
+	public class ToFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1217,7 +1217,7 @@ public class Functions
 		}
 	}
 
-	class ToString extends BuiltinFunction
+	public class ToString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1241,7 +1241,7 @@ public class Functions
 		}
 	}
 
-	class ToStdout extends BuiltinFunction
+	public class ToStdout extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1259,7 +1259,7 @@ public class Functions
 		}
 	}
 
-	class Load extends BuiltinFunction
+	public class Load extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1278,7 +1278,7 @@ public class Functions
 		}
 	}
 
-	class SetVar extends BuiltinFunction
+	public class SetVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1286,7 +1286,7 @@ public class Functions
 		}
 	}
 
-	class MacroSetVar extends BuiltinFunction
+	public class MacroSetVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1294,7 +1294,7 @@ public class Functions
 		}
 	}
 
-	class SetGlobalLazyVariable extends BuiltinFunction
+	public class SetGlobalLazyVariable extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1302,7 +1302,7 @@ public class Functions
 		}
 	}
 
-	class ClearVar extends BuiltinFunction
+	public class ClearVar extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1326,7 +1326,7 @@ public class Functions
 		}
 	}
 
-	class NewLocal extends BuiltinFunction
+	public class NewLocal extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1351,7 +1351,7 @@ public class Functions
 		}
 	}
 
-	class Head extends BuiltinFunction
+	public class Head extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1359,7 +1359,7 @@ public class Functions
 		}
 	}
 
-	class Nth extends BuiltinFunction
+	public class Nth extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1372,7 +1372,7 @@ public class Functions
 		}
 	}
 
-	class Tail extends BuiltinFunction
+	public class Tail extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1386,7 +1386,7 @@ public class Functions
 		}
 	}
 
-	class DestructiveReverse extends BuiltinFunction
+	public class DestructiveReverse extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1397,7 +1397,7 @@ public class Functions
 		}
 	}
 
-	class Length extends BuiltinFunction
+	public class Length extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1427,7 +1427,7 @@ public class Functions
 		}
 	}
 
-	class List extends BuiltinFunction
+	public class List extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1449,7 +1449,7 @@ public class Functions
 		}
 	}
 
-	class UnList extends BuiltinFunction
+	public class UnList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1462,7 +1462,7 @@ public class Functions
 		}
 	}
 
-	class Listify extends BuiltinFunction
+	public class Listify extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1474,7 +1474,7 @@ public class Functions
 		}
 	}
 
-	class Concatenate extends BuiltinFunction
+	public class Concatenate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1499,7 +1499,7 @@ public class Functions
 		}
 	}
 
-	class ConcatenateStrings extends BuiltinFunction
+	public class ConcatenateStrings extends BuiltinFunction
 	{
 		void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Exception
 		{
@@ -1527,7 +1527,7 @@ public class Functions
 		}
 	}
 
-	class Delete extends BuiltinFunction
+	public class Delete extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1535,7 +1535,7 @@ public class Functions
 		}
 	}
 
-	class DestructiveDelete extends BuiltinFunction
+	public class DestructiveDelete extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1543,7 +1543,7 @@ public class Functions
 		}
 	}
 
-	class Insert extends BuiltinFunction
+	public class Insert extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1551,7 +1551,7 @@ public class Functions
 		}
 	}
 
-	class DestructiveInsert extends BuiltinFunction
+	public class DestructiveInsert extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1559,7 +1559,7 @@ public class Functions
 		}
 	}
 
-	class Replace extends BuiltinFunction
+	public class Replace extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1567,7 +1567,7 @@ public class Functions
 		}
 	}
 
-	class DestructiveReplace extends BuiltinFunction
+	public class DestructiveReplace extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1575,7 +1575,7 @@ public class Functions
 		}
 	}
 
-	class Atomize extends BuiltinFunction
+	public class Atomize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1590,7 +1590,7 @@ public class Functions
 		}
 	}
 
-	class Stringify extends BuiltinFunction
+	public class Stringify extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1606,7 +1606,7 @@ public class Functions
 		}
 	}
 
-	class CharString extends BuiltinFunction
+	public class CharString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1619,7 +1619,7 @@ public class Functions
 		}
 	}
 
-	class FlatCopy extends BuiltinFunction
+	public class FlatCopy extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1629,7 +1629,7 @@ public class Functions
 		}
 	}
 
-	class ProgBody extends BuiltinFunction
+	public class ProgBody extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1657,7 +1657,7 @@ public class Functions
 		}
 	}
 
-	class While extends BuiltinFunction
+	public class While extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1679,7 +1679,7 @@ public class Functions
 		}
 	}
 
-	class If extends BuiltinFunction
+	public class If extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1708,7 +1708,7 @@ public class Functions
 		}
 	}
 
-	class Check extends BuiltinFunction
+	public class Check extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1725,7 +1725,7 @@ public class Functions
 		}
 	}
 
-	class TrapError extends BuiltinFunction
+	public class TrapError extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1742,7 +1742,7 @@ public class Functions
 		}
 	}
 
-	class GetCoreError extends BuiltinFunction
+	public class GetCoreError extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1750,7 +1750,7 @@ public class Functions
 		}
 	}
 
-	class PreFix extends BuiltinFunction
+	public class PreFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1758,7 +1758,7 @@ public class Functions
 		}
 	}
 
-	class InFix extends BuiltinFunction
+	public class InFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1766,7 +1766,7 @@ public class Functions
 		}
 	}
 
-	class PostFix extends BuiltinFunction
+	public class PostFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1782,7 +1782,7 @@ public class Functions
 		}
 	}
 
-	class Bodied extends BuiltinFunction
+	public class Bodied extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1790,7 +1790,7 @@ public class Functions
 		}
 	}
 
-	class RuleBase extends BuiltinFunction
+	public class RuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1798,7 +1798,7 @@ public class Functions
 		}
 	}
 
-	class MacroRuleBase extends BuiltinFunction
+	public class MacroRuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1806,7 +1806,7 @@ public class Functions
 		}
 	}
 
-	class RuleBaseListed extends BuiltinFunction
+	public class RuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1814,7 +1814,7 @@ public class Functions
 		}
 	}
 
-	class MacroRuleBaseListed extends BuiltinFunction
+	public class MacroRuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1822,7 +1822,7 @@ public class Functions
 		}
 	}
 
-	class DefMacroRuleBase extends BuiltinFunction
+	public class DefMacroRuleBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1830,7 +1830,7 @@ public class Functions
 		}
 	}
 
-	class DefMacroRuleBaseListed extends BuiltinFunction
+	public class DefMacroRuleBaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1838,7 +1838,7 @@ public class Functions
 		}
 	}
 
-	class HoldArg extends BuiltinFunction
+	public class HoldArg extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1856,7 +1856,7 @@ public class Functions
 		}
 	}
 
-	class NewRule extends BuiltinFunction
+	public class NewRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1864,7 +1864,7 @@ public class Functions
 		}
 	}
 
-	class MacroNewRule extends BuiltinFunction
+	public class MacroNewRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1872,7 +1872,7 @@ public class Functions
 		}
 	}
 
-	class UnFence extends BuiltinFunction
+	public class UnFence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1893,7 +1893,7 @@ public class Functions
 		}
 	}
 
-	class Retract extends BuiltinFunction
+	public class Retract extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1915,7 +1915,7 @@ public class Functions
 		}
 	}
 
-	class Not extends BuiltinFunction
+	public class Not extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1935,7 +1935,7 @@ public class Functions
 		}
 	}
 
-	class LazyAnd extends BuiltinFunction
+	public class LazyAnd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -1993,7 +1993,7 @@ public class Functions
 		}
 	}
 
-	class LazyOr extends BuiltinFunction
+	public class LazyOr extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2051,7 +2051,7 @@ public class Functions
 		}
 	}
 
-	class Equals extends BuiltinFunction
+	public class Equals extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2065,7 +2065,7 @@ public class Functions
 		}
 	}
 
-	abstract class LexCompare2
+	abstract public class LexCompare2
 	{
 		abstract boolean lexfunc(String f1, String f2, HashTable aHashTable,int aPrecision);
 		abstract boolean numfunc(BigNumber n1, BigNumber n2);
@@ -2102,7 +2102,7 @@ public class Functions
 	}
 
 
-	class LexLessThan extends LexCompare2
+	public class LexLessThan extends LexCompare2
 	{
 		boolean lexfunc(String f1, String f2, HashTable aHashTable,int aPrecision)
 		{
@@ -2113,7 +2113,7 @@ public class Functions
 			return n1.LessThan(n2) && !n1.Equals(n2);
 		}
 	}
-	class LexGreaterThan extends LexCompare2
+	public class LexGreaterThan extends LexCompare2
 	{
 		boolean lexfunc(String f1, String f2, HashTable aHashTable,int aPrecision)
 		{
@@ -2126,7 +2126,7 @@ public class Functions
 	}
 
 
-	class LessThan extends BuiltinFunction
+	public class LessThan extends BuiltinFunction
 	{
 		LexLessThan compare = new LexLessThan();
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
@@ -2135,7 +2135,7 @@ public class Functions
 		}
 	}
 
-	class GreaterThan extends BuiltinFunction
+	public class GreaterThan extends BuiltinFunction
 	{
 		LexGreaterThan compare = new LexGreaterThan();
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
@@ -2144,7 +2144,7 @@ public class Functions
 		}
 	}
 
-	class IsFunction extends BuiltinFunction
+	public class IsFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2155,7 +2155,7 @@ public class Functions
 		}
 	}
 
-	class IsAtom extends BuiltinFunction
+	public class IsAtom extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2166,7 +2166,7 @@ public class Functions
 		}
 	}
 
-	class IsNumber extends BuiltinFunction
+	public class IsNumber extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2176,7 +2176,7 @@ public class Functions
 		}
 	}
 
-	class IsInteger extends BuiltinFunction
+	public class IsInteger extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2195,7 +2195,7 @@ public class Functions
 		}
 	}
 
-	class IsList extends BuiltinFunction
+	public class IsList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2205,7 +2205,7 @@ public class Functions
 		}
 	}
 
-	class IsString extends BuiltinFunction
+	public class IsString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2216,7 +2216,7 @@ public class Functions
 		}
 	}
 
-	class IsBound extends BuiltinFunction
+	public class IsBound extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2235,7 +2235,7 @@ public class Functions
 		}
 	}
 
-	class Multiply extends BuiltinFunction
+	public class Multiply extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2253,7 +2253,7 @@ public class Functions
 	/// both argument are converted to a BigNumber, and these are added
 	/// together at the current precision. The sum is returned.
 	/// \sa getNumber(), BigNumber::Add()
-	class Add extends BuiltinFunction
+	public class Add extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2278,7 +2278,7 @@ public class Functions
 		}
 	}
 
-	class Subtract extends BuiltinFunction
+	public class Subtract extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2305,7 +2305,7 @@ public class Functions
 		}
 	}
 
-	class Divide extends BuiltinFunction
+	public class Divide extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2333,7 +2333,7 @@ public class Functions
 		}
 	}
 
-	class PiperBuiltinPrecisionSet extends BuiltinFunction
+	public class PiperBuiltinPrecisionSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2349,7 +2349,7 @@ public class Functions
 		}
 	}
 
-	class GetExactBits extends BuiltinFunction
+	public class GetExactBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2365,7 +2365,7 @@ public class Functions
 	}
 
 
-	class SetExactBits extends BuiltinFunction
+	public class SetExactBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2381,7 +2381,7 @@ public class Functions
 		}
 	}
 
-	class BitCount extends BuiltinFunction
+	public class BitCount extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2392,7 +2392,7 @@ public class Functions
 		}
 	}
 
-	class MathSign extends BuiltinFunction
+	public class MathSign extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2403,7 +2403,7 @@ public class Functions
 		}
 	}
 
-	class MathIsSmall extends BuiltinFunction
+	public class MathIsSmall extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2412,7 +2412,7 @@ public class Functions
 		}
 	}
 
-	class MathNegate extends BuiltinFunction
+	public class MathNegate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2423,7 +2423,7 @@ public class Functions
 		}
 	}
 
-	class Floor extends BuiltinFunction
+	public class Floor extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2434,7 +2434,7 @@ public class Functions
 		}
 	}
 
-	class Ceil extends BuiltinFunction
+	public class Ceil extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2447,7 +2447,7 @@ public class Functions
 		}
 	}
 
-	class Abs extends BuiltinFunction
+	public class Abs extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2460,7 +2460,7 @@ public class Functions
 		}
 	}
 
-	class Mod extends BuiltinFunction
+	public class Mod extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2472,7 +2472,7 @@ public class Functions
 		}
 	}
 
-	class Div extends BuiltinFunction
+	public class Div extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2492,7 +2492,7 @@ public class Functions
 		}
 	}
 
-	class BitsToDigits extends BuiltinFunction
+	public class BitsToDigits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2515,7 +2515,7 @@ public class Functions
 		}
 	}
 
-	class DigitsToBits extends BuiltinFunction
+	public class DigitsToBits extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2538,7 +2538,7 @@ public class Functions
 		}
 	}
 
-	class Gcd extends BuiltinFunction
+	public class Gcd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2550,7 +2550,7 @@ public class Functions
 		}
 	}
 
-	class SystemCall extends BuiltinFunction
+	public class SystemCall extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2571,7 +2571,7 @@ public class Functions
 		}
 	}
 
-	class FastArcSin extends BuiltinFunction
+	public class FastArcSin extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2584,7 +2584,7 @@ public class Functions
 		}
 	}
 
-	class FastLog extends BuiltinFunction
+	public class FastLog extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2597,7 +2597,7 @@ public class Functions
 		}
 	}
 
-	class FastPower extends BuiltinFunction
+	public class FastPower extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2611,7 +2611,7 @@ public class Functions
 		}
 	}
 
-	class ShiftLeft extends BuiltinFunction
+	public class ShiftLeft extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2624,7 +2624,7 @@ public class Functions
 		}
 	}
 
-	class ShiftRight extends BuiltinFunction
+	public class ShiftRight extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2637,7 +2637,7 @@ public class Functions
 		}
 	}
 
-	class FromBase extends BuiltinFunction
+	public class FromBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2671,7 +2671,7 @@ public class Functions
 		}
 	}
 
-	class ToBase extends BuiltinFunction
+	public class ToBase extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2700,7 +2700,7 @@ public class Functions
 		}
 	}
 
-	class MaxEvalDepth extends BuiltinFunction
+	public class MaxEvalDepth extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2715,7 +2715,7 @@ public class Functions
 		}
 	}
 
-	class DefLoad extends BuiltinFunction
+	public class DefLoad extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2734,7 +2734,7 @@ public class Functions
 		}
 	}
 
-	class Use extends BuiltinFunction
+	public class Use extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2751,7 +2751,7 @@ public class Functions
 		}
 	}
 
-	class RightAssociative extends BuiltinFunction
+	public class RightAssociative extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2764,7 +2764,7 @@ public class Functions
 		}
 	}
 
-	class LeftPrecedence extends BuiltinFunction
+	public class LeftPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2784,7 +2784,7 @@ public class Functions
 		}
 	}
 
-	class RightPrecedence extends BuiltinFunction
+	public class RightPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2804,7 +2804,7 @@ public class Functions
 		}
 	}
 
-	class IsBodied extends BuiltinFunction
+	public class IsBodied extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2813,7 +2813,7 @@ public class Functions
 		}
 	}
 
-	class IsInFix extends BuiltinFunction
+	public class IsInFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2822,7 +2822,7 @@ public class Functions
 		}
 	}
 
-	class IsPreFix extends BuiltinFunction
+	public class IsPreFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2831,7 +2831,7 @@ public class Functions
 		}
 	}
 
-	class IsPostFix extends BuiltinFunction
+	public class IsPostFix extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2840,7 +2840,7 @@ public class Functions
 		}
 	}
 
-	class GetPrecedence extends BuiltinFunction
+	public class GetPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2862,7 +2862,7 @@ public class Functions
 		}
 	}
 
-	class GetLeftPrecedence extends BuiltinFunction
+	public class GetLeftPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2876,7 +2876,7 @@ public class Functions
 		}
 	}
 
-	class GetRightPrecedence extends BuiltinFunction
+	public class GetRightPrecedence extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2894,7 +2894,7 @@ public class Functions
 		}
 	}
 
-	class PiperBuiltinPrecisionGet extends BuiltinFunction
+	public class PiperBuiltinPrecisionGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2903,7 +2903,7 @@ public class Functions
 		}
 	}
 
-	class BitAnd extends BuiltinFunction
+	public class BitAnd extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2915,7 +2915,7 @@ public class Functions
 		}
 	}
 
-	class BitOr extends BuiltinFunction
+	public class BitOr extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2927,7 +2927,7 @@ public class Functions
 		}
 	}
 
-	class BitXor extends BuiltinFunction
+	public class BitXor extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2939,7 +2939,7 @@ public class Functions
 		}
 	}
 
-	class Secure extends BuiltinFunction
+	public class Secure extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2954,7 +2954,7 @@ public class Functions
 		}
 	}
 
-	class FindFile extends BuiltinFunction
+	public class FindFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -2974,7 +2974,7 @@ public class Functions
 		}
 	}
 
-	class FindFunction extends BuiltinFunction
+	public class FindFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3004,7 +3004,7 @@ public class Functions
 		}
 	}
 
-	class IsGeneric extends BuiltinFunction
+	public class IsGeneric extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3014,7 +3014,7 @@ public class Functions
 		}
 	}
 
-	class GenericTypeName extends BuiltinFunction
+	public class GenericTypeName extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3025,7 +3025,7 @@ public class Functions
 		}
 	}
 
-	class GenArrayCreate extends BuiltinFunction
+	public class GenArrayCreate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3045,7 +3045,7 @@ public class Functions
 		}
 	}
 
-	class GenArraySize extends BuiltinFunction
+	public class GenArraySize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3060,7 +3060,7 @@ public class Functions
 		}
 	}
 
-	class GenArrayGet extends BuiltinFunction
+	public class GenArrayGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3086,7 +3086,7 @@ public class Functions
 		}
 	}
 
-	class GenArraySet extends BuiltinFunction
+	public class GenArraySet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3113,7 +3113,7 @@ public class Functions
 		}
 	}
 
-	class CustomEval extends BuiltinFunction
+	public class CustomEval extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3122,7 +3122,7 @@ public class Functions
 		}
 	}
 
-	class CustomEvalExpression extends BuiltinFunction
+	public class CustomEvalExpression extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3131,7 +3131,7 @@ public class Functions
 		}
 	}
 
-	class CustomEvalResult extends BuiltinFunction
+	public class CustomEvalResult extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3140,7 +3140,7 @@ public class Functions
 		}
 	}
 
-	class CustomEvalLocals extends BuiltinFunction
+	public class CustomEvalLocals extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3149,7 +3149,7 @@ public class Functions
 		}
 	}
 
-	class CustomEvalStop extends BuiltinFunction
+	public class CustomEvalStop extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3158,7 +3158,7 @@ public class Functions
 		}
 	}
 
-	class TraceRule extends BuiltinFunction
+	public class TraceRule extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3167,7 +3167,7 @@ public class Functions
 		}
 	}
 
-	class TraceStack extends BuiltinFunction
+	public class TraceStack extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3176,7 +3176,7 @@ public class Functions
 		}
 	}
 
-	class ReadLisp extends BuiltinFunction
+	public class ReadLisp extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3188,7 +3188,7 @@ public class Functions
 		}
 	}
 
-	class ReadLispListed extends BuiltinFunction
+	public class ReadLispListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3201,7 +3201,7 @@ public class Functions
 		}
 	}
 
-	class Type extends BuiltinFunction
+	public class Type extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3225,7 +3225,7 @@ public class Functions
 		}
 	}
 
-	class PiperStringMidGet extends BuiltinFunction
+	public class PiperStringMidGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3252,7 +3252,7 @@ public class Functions
 		}
 	}
 
-	class PiperStringMidSet extends BuiltinFunction
+	public class PiperStringMidSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3283,7 +3283,7 @@ public class Functions
 		}
 	}
 
-	class GenPatternCreate extends BuiltinFunction
+	public class GenPatternCreate extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3308,7 +3308,7 @@ public class Functions
 		}
 	}
 
-	class GenPatternMatches extends BuiltinFunction
+	public class GenPatternMatches extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3337,7 +3337,7 @@ public class Functions
 		}
 	}
 
-	class RuleBaseDefined extends BuiltinFunction
+	public class RuleBaseDefined extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3359,7 +3359,7 @@ public class Functions
 		}
 	}
 
-	class DefLoadFunction extends BuiltinFunction
+	public class DefLoadFunction extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3387,7 +3387,7 @@ public class Functions
 		}
 	}
 
-	class RuleBaseArgList extends BuiltinFunction
+	public class RuleBaseArgList extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3415,7 +3415,7 @@ public class Functions
 		}
 	}
 
-	class NewRulePattern extends BuiltinFunction
+	public class NewRulePattern extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3423,7 +3423,7 @@ public class Functions
 		}
 	}
 
-	class MacroNewRulePattern extends BuiltinFunction
+	public class MacroNewRulePattern extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3432,7 +3432,7 @@ public class Functions
 		}
 	}
 
-	class Subst extends BuiltinFunction
+	public class Subst extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3445,7 +3445,7 @@ public class Functions
 		}
 	}
 
-	class LocalSymbols extends BuiltinFunction
+	public class LocalSymbols extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3474,7 +3474,7 @@ public class Functions
 		}
 	}
 
-	class FastIsPrime extends BuiltinFunction
+	public class FastIsPrime extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3504,7 +3504,7 @@ public class Functions
 		}
 	}
 
-	class Fac extends BuiltinFunction
+	public class Fac extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3526,7 +3526,7 @@ public class Functions
 		}
 	}
 
-	class ApplyPure extends BuiltinFunction
+	public class ApplyPure extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3557,7 +3557,7 @@ public class Functions
 	}
 
 
-	class PiperPrettyReaderSet extends BuiltinFunction
+	public class PiperPrettyReaderSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3579,7 +3579,7 @@ public class Functions
 		}
 	}
 
-	class PiperPrettyReaderGet extends BuiltinFunction
+	public class PiperPrettyReaderGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3590,7 +3590,7 @@ public class Functions
 		}
 	}
 
-	class PiperPrettyPrinterSet extends BuiltinFunction
+	public class PiperPrettyPrinterSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3612,7 +3612,7 @@ public class Functions
 		}
 	}
 
-	class PiperPrettyPrinterGet extends BuiltinFunction
+	public class PiperPrettyPrinterGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3623,7 +3623,7 @@ public class Functions
 		}
 	}
 
-	class GarbageCollect extends BuiltinFunction
+	public class GarbageCollect extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3632,7 +3632,7 @@ public class Functions
 		}
 	}
 
-	class PatchLoad extends BuiltinFunction
+	public class PatchLoad extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3641,7 +3641,7 @@ public class Functions
 		}
 	}
 
-	class PatchString extends BuiltinFunction
+	public class PatchString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3650,7 +3650,7 @@ public class Functions
 		}
 	}
 
-	class PiperExtraInfoSet extends BuiltinFunction
+	public class PiperExtraInfoSet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3664,7 +3664,7 @@ public class Functions
 		}
 	}
 
-	class PiperExtraInfoGet extends BuiltinFunction
+	public class PiperExtraInfoGet extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3687,7 +3687,7 @@ public class Functions
 		}
 	}
 
-	class DefaultTokenizer extends BuiltinFunction
+	public class DefaultTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3696,7 +3696,7 @@ public class Functions
 		}
 	}
 
-	class CommonLispTokenizer extends BuiltinFunction
+	public class CommonLispTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3705,7 +3705,7 @@ public class Functions
 		}
 	}
 
-	class XmlTokenizer extends BuiltinFunction
+	public class XmlTokenizer extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3714,7 +3714,7 @@ public class Functions
 		}
 	}
 
-	class ExplodeTag extends BuiltinFunction
+	public class ExplodeTag extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3823,7 +3823,7 @@ public class Functions
 		}
 	}
 
-	class PiperBuiltinAssoc extends BuiltinFunction
+	public class PiperBuiltinAssoc extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3866,7 +3866,7 @@ public class Functions
 		}
 	}
 
-	class CurrentFile extends BuiltinFunction
+	public class CurrentFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3874,7 +3874,7 @@ public class Functions
 		}
 	}
 
-	class CurrentLine extends BuiltinFunction
+	public class CurrentLine extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3882,7 +3882,7 @@ public class Functions
 		}
 	}
 
-	class BackQuote extends BuiltinFunction
+	public class BackQuote extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3893,7 +3893,7 @@ public class Functions
 		}
 	}
 
-	class DumpBigNumberDebugInfo extends BuiltinFunction
+	public class DumpBigNumberDebugInfo extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3903,7 +3903,7 @@ public class Functions
 		}
 	}
 
-	class InDebugMode extends BuiltinFunction
+	public class InDebugMode extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3911,7 +3911,7 @@ public class Functions
 		}
 	}
 
-	class DebugFile extends BuiltinFunction
+	public class DebugFile extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3919,7 +3919,7 @@ public class Functions
 		}
 	}
 
-	class DebugLine extends BuiltinFunction
+	public class DebugLine extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3927,7 +3927,7 @@ public class Functions
 		}
 	}
 
-	class Version extends BuiltinFunction
+	public class Version extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3936,7 +3936,7 @@ public class Functions
 	}
 
 
-	class Exit extends BuiltinFunction
+	public class Exit extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3944,7 +3944,7 @@ public class Functions
 		}
 	}
 
-	class ExitRequested extends BuiltinFunction
+	public class ExitRequested extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3952,7 +3952,7 @@ public class Functions
 		}
 	}
 
-	class HistorySize extends BuiltinFunction
+	public class HistorySize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3961,7 +3961,7 @@ public class Functions
 		}
 	}
 
-	class StackSize extends BuiltinFunction
+	public class StackSize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3970,7 +3970,7 @@ public class Functions
 		}
 	}
 
-	class IsPromptShown extends BuiltinFunction
+	public class IsPromptShown extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3979,7 +3979,7 @@ public class Functions
 		}
 	}
 
-	class ReadCmdLineString extends BuiltinFunction
+	public class ReadCmdLineString extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -3988,7 +3988,7 @@ public class Functions
 		}
 	}
 
-	class Time extends BuiltinFunction
+	public class Time extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
@@ -4003,7 +4003,7 @@ public class Functions
 		}
 	}
 
-	class FileSize extends BuiltinFunction
+	public class FileSize extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
