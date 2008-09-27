@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.applet;
 
+import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.lisp.parsers.TeXParser;
 import org.mathrider.piper.io.CachedStdFileInput;
 import org.mathrider.piper.io.StringOutput;
@@ -48,7 +49,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 	boolean calculating = false;
 
 	Output stdoutput = null;
-	CPiper piper = null;
+	Interpreter piper = null;
 	StringBuffer outp = new StringBuffer();
 
 	boolean gotDatahubInit = false;
@@ -276,7 +277,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
 
 		stdoutput = new StringOutput(outp);
-		piper = new CPiper(stdoutput);
+		piper = new Interpreter(stdoutput);
 		piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
 
 

@@ -18,6 +18,7 @@
 package org.mathrider.piper;
 
 //import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.io.CachedStdFileInput;
 import org.mathrider.piper.io.StdFileOutput;
 import org.mathrider.piper.lisp.Standard;
@@ -35,7 +36,7 @@ public class Console extends Thread
 	{
 		//Piper needs an output stream to send "side effect" output to.
 		StdFileOutput stdoutput = new StdFileOutput(System.out);
-		Interpreter interpreter = new Interpreter(stdoutput);
+		interpreter = new Interpreter(stdoutput);
 	}
         
         void addDirectory(String directory)

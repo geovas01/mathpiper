@@ -2,11 +2,12 @@
 
 package org.mathrider.piper.test;
 
-import org.mathrider.piper.PiperInterpreter;
+import org.mathrider.piper.Interpreter;
+import org.mathrider.piper.io.StdFileOutput;
 
 public class PiperTest
 {
-	private PiperInterpreter piper;
+	private Interpreter piper;
 	private java.io.File testDirectory;
 	private String result;
 	private java.io.FileWriter logFile;
@@ -24,7 +25,7 @@ public class PiperTest
 			
 			logFile = new java.io.FileWriter("piper_tests.log");
 			
-			piper = new PiperInterpreter();
+			piper = new Interpreter( new StdFileOutput(System.out));
 			
 			testDirectory = new java.io.File(directory);
 			if(testDirectory.exists() )
@@ -72,7 +73,7 @@ public class PiperTest
 		{
 			e.printStackTrace();
 		}
-		catch(org.mathrider.piper.PiperException e)
+		catch(org.mathrider.piper.exceptions.PiperException e)
 		{
 			e.printStackTrace();
 		}//end try/catch.

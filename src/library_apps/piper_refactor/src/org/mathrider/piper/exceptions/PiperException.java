@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper;
+package org.mathrider.piper.exceptions;
 
 public class PiperException extends Exception //Note:tk: made this class public so that clients can use this exception.
 {
