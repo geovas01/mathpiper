@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.*;
 

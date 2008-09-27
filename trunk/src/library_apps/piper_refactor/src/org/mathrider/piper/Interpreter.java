@@ -18,6 +18,7 @@
 
 package org.mathrider.piper;
 
+import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
