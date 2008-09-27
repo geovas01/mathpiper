@@ -18,21 +18,22 @@
 
 package org.mathrider.piper.builtin;
 
-//import org.mathrider.piper.parametermatchers.Pattern;
+//import org.mathrider.piper.parametermatchers.PatternContainer;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ArgList;
 
 
-/// Wrapper for Pattern.
-/// This class allows a Pattern to be put in a
-/// LispGenericObject.
-public class Pattern extends Container
+/**
+ * Allows a org.mathrider.piper.parametermatchers.Pattern to be placed into a org.mathrider.piper.lisp.BuiltinObject.
+ * @author
+ */
+public class PatternContainer extends BuiltinContainer
 {
 	protected org.mathrider.piper.parametermatchers.Pattern iPatternMatcher;
 	
-	public Pattern(org.mathrider.piper.parametermatchers.Pattern aPatternMatcher)
+	public PatternContainer(org.mathrider.piper.parametermatchers.Pattern aPatternMatcher)
 	{
 		iPatternMatcher = aPatternMatcher;
 	}
@@ -53,7 +54,7 @@ public class Pattern extends Container
 		return result;
 	}
 	
-	//From Container
+	//From BuiltinContainer
 	public String send(ArgList aArgList)
 	{
 		return null;
