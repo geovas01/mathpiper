@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.PointerArray;
 import org.mathrider.piper.lisp.ArgList;
 
 
-public class Array extends Container
+public class Array extends BuiltinContainer
 {
 	PointerArray iArray;
 

@@ -22,7 +22,7 @@ package org.mathrider.piper.builtin;
 import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.*;
-//import org.mathrider.piper.parametermatchers.Pattern;
+//import org.mathrider.piper.parametermatchers.PatternContainer;
 //import org.mathrider.piper.lisp.behaviours.BackQuote;
 import org.mathrider.piper.lisp.behaviours.LocalSymbol;
 //import org.mathrider.piper.lisp.behaviours.Subst;
@@ -1415,7 +1415,7 @@ public class Functions
 				RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment,""+num));
 				return;
 			}
-			Container gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
+			BuiltinContainer gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
 			if (gen != null)
 				if (gen.typeName().equals("\"Array\""))
 				{
@@ -3052,7 +3052,7 @@ public class Functions
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			Container gen = evaluated.get().generic();
+			BuiltinContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
 			int size=((Array)gen).size();
@@ -3067,7 +3067,7 @@ public class Functions
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			Container gen = evaluated.get().generic();
+			BuiltinContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
 
@@ -3093,7 +3093,7 @@ public class Functions
 			Pointer evaluated = new Pointer();
 			evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-			Container gen = evaluated.get().generic();
+			BuiltinContainer gen = evaluated.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Array\""),1);
 
@@ -3303,7 +3303,7 @@ public class Functions
 
 
 			org.mathrider.piper.parametermatchers.Pattern matcher =  new org.mathrider.piper.parametermatchers.Pattern(aEnvironment, ptr,postpredicate);
-			Pattern p = new Pattern(matcher);
+			PatternContainer p = new PatternContainer(matcher);
 			RESULT(aEnvironment, aStackTop).set(BuiltinObject.getInstance(p));
 		}
 	}
@@ -3314,14 +3314,14 @@ public class Functions
 		{
 			Pointer pattern = new Pointer();
 			pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-			Container gen = pattern.get().generic();
+			BuiltinContainer gen = pattern.get().generic();
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen != null,1);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,gen.typeName().equals("\"Pattern\""),1);
 
 			Pointer list = new Pointer();
 			list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-			Pattern patclass = (Pattern)gen;
+			PatternContainer patclass = (PatternContainer)gen;
 
 			Iterator iter = new Iterator(list);
 			LispError.CHK_ARG_CORE(aEnvironment,aStackTop,iter.GetObject() != null,2);

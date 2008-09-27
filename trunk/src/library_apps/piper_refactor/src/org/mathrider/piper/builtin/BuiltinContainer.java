@@ -21,10 +21,14 @@ package org.mathrider.piper.builtin;
 import org.mathrider.piper.lisp.ArgList;
 
 
-/// Abstract class which can be put inside a LispGenericClass.
-public abstract class Container
+/**
+ * Abstract class which can be put inside a org.mathrider.piper.lisp.BuiltinObject.
+ * @author
+ * 
+ */
+public abstract class BuiltinContainer
 {
-	public  Container()
+	public  BuiltinContainer()
 	{
 	}
 	public abstract String send(ArgList aArgList);

@@ -20,8 +20,8 @@ package org.mathrider.piper.lisp.userfunctions;
 
 
 import org.mathrider.piper.lisp.UserStackInformation;
-import org.mathrider.piper.builtin.Container;
-import org.mathrider.piper.builtin.Pattern;
+import org.mathrider.piper.builtin.BuiltinContainer;
+import org.mathrider.piper.builtin.PatternContainer;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.Pointer;
@@ -124,12 +124,12 @@ public class BranchingUserFunction extends ArityUserFunction
 		}
 	}
 
-	/// A rule which matches if the corresponding Pattern matches.
+	/// A rule which matches if the corresponding PatternContainer matches.
 	class BranchPattern extends BranchRuleBase
 	{
 		/// Constructor.
 		/// \param aPrecedence precedence of the rule
-		/// \param aPredicate generic object of type \c Pattern
+		/// \param aPredicate generic object of type \c PatternContainer
 		/// \param aBody body of the rule
 		public BranchPattern(int aPrecedence,Pointer  aPredicate,Pointer  aBody) throws Exception
 		{
@@ -137,11 +137,11 @@ public class BranchingUserFunction extends ArityUserFunction
 			iPrecedence = aPrecedence;
 			iPredicate.set(aPredicate.get());
 
-			Container gen = aPredicate.get().generic();
+			BuiltinContainer gen = aPredicate.get().generic();
 			LispError.Check(gen != null,LispError.KLispErrInvalidArg);
 			LispError.Check(gen.typeName().equals("\"Pattern\""),LispError.KLispErrInvalidArg);
 
-			iPatternClass = (Pattern)gen;
+			iPatternClass = (PatternContainer)gen;
 			iBody.set(aBody.get());
 		}
 
@@ -169,11 +169,11 @@ public class BranchingUserFunction extends ArityUserFunction
 		/// The body of this rule.
 		protected Pointer iBody = new Pointer();
 
-		/// Generic object of type \c Pattern containing #iPatternClass
+		/// Generic object of type \c PatternContainer containing #iPatternClass
 		protected Pointer iPredicate = new Pointer();
 
 		/// The pattern that decides whether this rule matches.
-		protected Pattern iPatternClass;
+		protected PatternContainer iPatternClass;
 	};
 
 	/// Constructor.

@@ -18,15 +18,15 @@
 
 package org.mathrider.piper.lisp;
 
-import org.mathrider.piper.builtin.Container;
+import org.mathrider.piper.builtin.BuiltinContainer;
 import org.mathrider.piper.*;
 
 
 public class BuiltinObject extends Cons
 {
-	Container iClass;
+	BuiltinContainer iClass;
 	
-	public static BuiltinObject getInstance(Container aClass) throws Exception
+	public static BuiltinObject getInstance(BuiltinContainer aClass) throws Exception
 	{
 		LispError.LISPASSERT(aClass!=null);
 		BuiltinObject self = new BuiltinObject(aClass);
@@ -34,7 +34,7 @@ public class BuiltinObject extends Cons
 		return self;
 	}
 	
-	public Container generic()
+	public BuiltinContainer generic()
 	{
 		return iClass;
 	}
@@ -56,7 +56,7 @@ public class BuiltinObject extends Cons
 		return null;
 	}
 
-	BuiltinObject(Container aClass)
+	BuiltinObject(BuiltinContainer aClass)
 	{
 		iClass = aClass;
 	}

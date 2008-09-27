@@ -19,7 +19,7 @@
 package org.mathrider.piper.lisp;
 
 import org.mathrider.piper.builtin.BigNumber;
-import org.mathrider.piper.builtin.Container;
+import org.mathrider.piper.builtin.BuiltinContainer;
 import org.mathrider.piper.*;
 
 
@@ -56,7 +56,7 @@ public abstract class Cons //Note:tk:was PiperObject.
         
         
         
-	public Container generic()
+	public BuiltinContainer generic()
 	{
 		return null;
 	}
