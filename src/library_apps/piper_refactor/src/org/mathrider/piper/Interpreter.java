@@ -37,7 +37,7 @@ import org.mathrider.piper.lisp.Printer;
  * 
  * @author
  */
-public class CPiper
+public class Interpreter
 {
 	
 	public Environment env = null;
@@ -52,15 +52,16 @@ public class CPiper
         String pathParent = "";
         boolean inZipFile = false;
         
-        //Piper needs an output stream to send "side effect" output to.
-        StdFileOutput stdoutput = new StdFileOutput(System.out);
-        CPiper piper = new CPiper(stdoutput);
-        piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
+	public Interpreter(Output stdoutput)
+	{
+		env = new Environment(stdoutput);
+		tokenizer = new Tokenizer();
+		printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
         
+
+		env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
         
-            /*My thought is that this initialization code should be moved to a single class instead of being
-             * duplicated in multiple classes. tk.
-             */
+
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
             pathParent = new File(detectURL.getPath()).getParent();
             addDirectory(piper, pathParent);
@@ -99,13 +100,10 @@ public class CPiper
 	    
 	    
 	
-	public CPiper(Output stdoutput)
-	{
+
 		try
 		{
-			env = new Environment(stdoutput);
-			tokenizer = new Tokenizer();
-			printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
+			
 
 
 

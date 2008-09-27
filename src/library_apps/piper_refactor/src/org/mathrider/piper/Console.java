@@ -29,23 +29,15 @@ import java.io.*;
  */
 public class Console extends Thread
 {
-	Interpreter
-
+	
+	public Console()
+	{
+		//Piper needs an output stream to send "side effect" output to.
+		StdFileOutput stdoutput = new StdFileOutput(System.out);
+		Interpreter interpreter = new Interpreter(stdoutput)
+	}
     
-    static void addDirectory(CPiper piper, String directory)
-    {
-                 String toEvaluate = "DefaultDirectory(\""+ directory +  File.separator + "\");";
 
-            String result = "";
-            try
-            {
-                result = piper.evaluate(toEvaluate);
-            } catch (PiperException pe)
-            {
-                pe.printStackTrace();
-            }
-
-    }
 
     /**
      * The normal entry point for running piper from a command line.  It processes command line arguments,
@@ -87,7 +79,7 @@ public class Console extends Thread
         //Change the default directory. tk.
         if (defaultDirectory != null)
         {
-            addDirectory(piper, defaultDirectory );
+            addDirectory(interpreter, defaultDirectory );
         }
         
 
@@ -107,7 +99,7 @@ public class Console extends Thread
             {
                 for (; scriptsToRun < argv.length; scriptsToRun++)
                 {
-                    piper.evaluate("Load(\"" + argv[scriptsToRun] + "\");");
+                    interpreter.evaluate("Load(\"" + argv[scriptsToRun] + "\");");
                 }
             } catch (PiperException pe)
             {
@@ -145,7 +137,7 @@ public class Console extends Thread
             String rs = "";
             try
             {
-                rs = piper.evaluate(input);
+                rs = interpreter.evaluate(input);
             } catch (PiperException pe)
             {
                 pe.printStackTrace();
