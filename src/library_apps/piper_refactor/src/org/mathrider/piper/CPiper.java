@@ -45,6 +45,60 @@ public class CPiper
 	Printer printer = null;
 	public String iError = null;
 	
+	
+        String defaultDirectory = null;
+        String archive = "";
+        String detect = "";
+        String pathParent = "";
+        boolean inZipFile = false;
+        
+        //Piper needs an output stream to send "side effect" output to.
+        StdFileOutput stdoutput = new StdFileOutput(System.out);
+        CPiper piper = new CPiper(stdoutput);
+        piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
+        
+        
+            /*My thought is that this initialization code should be moved to a single class instead of being
+             * duplicated in multiple classes. tk.
+             */
+            java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
+            pathParent = new File(detectURL.getPath()).getParent();
+            addDirectory(piper, pathParent);
+            //StdFileInput.setPath(pathParent + File.separator);
+
+
+            if (detectURL != null)
+            {
+                detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.pi
+
+                if (detect.indexOf('!') != -1)
+                {
+                    archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
+
+                    try
+                    {
+                        String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaPiper/piper.jar";
+
+                        java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
+                        Standard.zipFile = z;
+                        inZipFile = true;
+                    } catch (Exception e)
+                    {
+                        System.out.println("Failed to find piper.jar" + e.toString());
+                    }
+                }
+
+
+
+            //System.out.println("Found archive ["+archive+"]");
+            } else
+            {
+                
+                System.out.println("Code is not in an archive.");
+            }
+	    
+	    
+	
 	public CPiper(Output stdoutput)
 	{
 		try
@@ -52,6 +106,21 @@ public class CPiper
 			env = new Environment(stdoutput);
 			tokenizer = new Tokenizer();
 			printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
+
+
+
+
+            String result = "";
+            try
+            {
+                result = piper.evaluate("Load(\"piperinit.pi\");");
+
+            } catch (PiperException pe)
+            {
+                pe.printStackTrace();
+            }
+
+
 		}
 		catch (Exception e)
 		{
@@ -59,6 +128,22 @@ public class CPiper
 			System.out.println(e.toString());
 		}
 	}
+	
+	
+    public void addDirectory( String directory)
+    {
+        String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
+
+        String result = "";
+        try
+        {
+            result = piper.evaluate(toEvaluate);
+        } catch (PiperException pe)
+        {
+            pe.printStackTrace();
+        }
+
+    }
         
         
         

@@ -29,31 +29,8 @@ import java.io.*;
  */
 public class Console extends Thread
 {
+	Interpreter
 
-    /**
-     * This method is not called by any code in the piper implementation so
-     * I am not sure what its purpose is. tk.
-     * @param aStream    a stream of bytes.
-     * @return                  a string containing one line of characters.
-     */
-    public static String readLine(InputStream aStream)
-    {
-        StringBuffer line = new StringBuffer();
-        try
-        {
-            int c = aStream.read();
-            while (c != '\n')
-            {
-                line.append((char) c);
-                c = aStream.read();
-            }
-        } catch (Exception e)
-        {
-            System.out.println(e.toString());
-        }
-        return line.toString();
-    }
-    //static boolean quitting = false;
     
     static void addDirectory(CPiper piper, String directory)
     {
@@ -79,56 +56,7 @@ public class Console extends Thread
      */
     public static void main(String[] argv)
     {
-        String defaultDirectory = null;
-        String archive = "";
-        String detect = "";
-        String pathParent = "";
-        boolean inZipFile = false;
-        
-        //Piper needs an output stream to send "side effect" output to.
-        StdFileOutput stdoutput = new StdFileOutput(System.out);
-        CPiper piper = new CPiper(stdoutput);
-        piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
-        
-        
-            /*My thought is that this initialization code should be moved to a single class instead of being
-             * duplicated in multiple classes. tk.
-             */
-            java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
-            pathParent = new File(detectURL.getPath()).getParent();
-            addDirectory(piper, pathParent);
-            //StdFileInput.setPath(pathParent + File.separator);
 
-
-            if (detectURL != null)
-            {
-                detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.pi
-
-                if (detect.indexOf('!') != -1)
-                {
-                    archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
-
-                    try
-                    {
-                        String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaPiper/piper.jar";
-
-                        java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
-                        Standard.zipFile = z;
-                        inZipFile = true;
-                    } catch (Exception e)
-                    {
-                        System.out.println("Failed to find piper.jar" + e.toString());
-                    }
-                }
-
-
-
-            //System.out.println("Found archive ["+archive+"]");
-            } else
-            {
-                
-                System.out.println("Code is not in an archive.");
-            }
         
         
         
@@ -164,15 +92,7 @@ public class Console extends Thread
         
 
         
-            String result = "";
-            try
-            {
-                result = piper.evaluate("Load(\"piperinit.pi\");");
 
-            } catch (PiperException pe)
-            {
-                pe.printStackTrace();
-            }
 
             if (scriptsToRun == argv.length)
             {
