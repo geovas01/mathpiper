@@ -32,7 +32,7 @@ import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.Printer;
 
-import org.mathrider.piper.io.cachedStdFileInput;
+import org.mathrider.piper.io.CachedStdFileInput;
 import org.mathrider.piper.io.StdFileOutput;
 import java.io.*;
 
@@ -62,7 +62,7 @@ public class Interpreter
             printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
 
 
-            env.iCurrentInput = new cachedStdFileInput(env.iInputStatus);
+            env.iCurrentInput = new CachedStdFileInput(env.iInputStatus);
 
 
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
