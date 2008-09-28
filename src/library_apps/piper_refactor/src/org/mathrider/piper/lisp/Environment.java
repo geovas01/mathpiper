@@ -65,7 +65,7 @@ public class Environment
 	public int iMaxEvalDepth = 10000;
 	//TODO FIXME
 
-	public PiperArgStack iStack;
+	public ArgumentStack iStack;
 
 	public LocalVariableFrame iLocalsList;
 
@@ -120,7 +120,7 @@ public class Environment
 		iList         = Atom.getInstance(this,"List");
 		iProg         = Atom.getInstance(this,"Prog");
 
-		iStack = new PiperArgStack(50000 /*TODO FIXME*/);
+		iStack = new ArgumentStack(50000 /*TODO FIXME*/);
 		Functions mc = new Functions();
 		mc.addFunctions(this);
 		mc=null;

@@ -43,17 +43,17 @@ public class Array extends BuiltinContainer
 
 	public int size()
 	{
-		return iArray.Size();
+		return iArray.size();
 	}
 	public Cons getElement(int aItem) throws Exception
 	{
-		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
-		return iArray.GetElement(aItem-1).get();
+		LispError.LISPASSERT(aItem>0 && aItem<=iArray.size());
+		return iArray.getElement(aItem-1).get();
 	}
 	public void setElement(int aItem,Cons aObject) throws Exception
 	{
-		LispError.LISPASSERT(aItem>0 && aItem<=iArray.Size());
-		iArray.SetElement(aItem-1,aObject);
+		LispError.LISPASSERT(aItem>0 && aItem<=iArray.size());
+		iArray.setElement(aItem-1,aObject);
 	}
 
 }

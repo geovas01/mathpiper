@@ -15,33 +15,33 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathrider.piper.lisp;
 
 import org.mathrider.piper.*;
 
-
-/// Abstract evaluator for Lisp expressions.
-/// Eval() is a pure virtual function, to be provided by the derived class.
-/// The other functions are stubs.
+/**
+ * Abstract evaluator for Lisp expressions.
+ * eval() is an abstract method, to be provided by the derived class.
+ * The other functions are stubs.
+ */
 
 public abstract class ExpressionEvaluator
 {
-	UserStackInformation iBasicInfo = new UserStackInformation();
-	
-	public abstract void eval(Environment aEnvironment, Pointer aResult, Pointer aExpression) throws Exception;
-        
-	public void resetStack()
-	{
-	}
-        
-	public UserStackInformation stackInformation()
-	{
-		return iBasicInfo;
-	}
-        
-	public void showStack(Environment aEnvironment, Output aOutput)
-	{
-	}
-	
+
+    UserStackInformation iBasicInfo = new UserStackInformation();
+
+    public abstract void eval(Environment aEnvironment, Pointer aResult, Pointer aExpression) throws Exception;
+
+    public void resetStack()
+    {
+    }
+
+    public UserStackInformation stackInformation()
+    {
+        return iBasicInfo;
+    }
+
+    public void showStack(Environment aEnvironment, Output aOutput)
+    {
+    }
 };

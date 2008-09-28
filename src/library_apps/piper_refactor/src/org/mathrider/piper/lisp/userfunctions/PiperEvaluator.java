@@ -56,10 +56,10 @@ public class PiperEvaluator extends EvalFuncBase
 			LispError.CheckNrArgs(iNrArgs+1,aArguments,aEnvironment);
 		}
 
-		int stacktop = aEnvironment.iStack.GetStackTop();
+		int stacktop = aEnvironment.iStack.getStackTop();
 
 		// Push a place holder for the result: push full expression so it is available for error reporting
-		aEnvironment.iStack.PushArgOnStack(aArguments.get());
+		aEnvironment.iStack.pushArgumentOnStack(aArguments.get());
 
 		Iterator iter = new Iterator(aArguments);
 		iter.GoNext();
@@ -75,7 +75,7 @@ public class PiperEvaluator extends EvalFuncBase
 			for (i=0;i<nr;i++)
 			{
 				LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iStack.PushArgOnStack(iter.GetObject().copy(false));
+				aEnvironment.iStack.pushArgumentOnStack(iter.GetObject().copy(false));
 				iter.GoNext();
 			}
 			if ((iFlags & Variable) != 0)
@@ -83,7 +83,7 @@ public class PiperEvaluator extends EvalFuncBase
 				Pointer head = new Pointer();
 				head.set(aEnvironment.iList.copy(false));
 				head.get().cdr().set(iter.GetObject());
-				aEnvironment.iStack.PushArgOnStack(SubList.getInstance(head.get()));
+				aEnvironment.iStack.pushArgumentOnStack(SubList.getInstance(head.get()));
 			}
 		}
 		else
@@ -94,7 +94,7 @@ public class PiperEvaluator extends EvalFuncBase
 				LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
 				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.eval(aEnvironment, arg, iter.Ptr());
-				aEnvironment.iStack.PushArgOnStack(arg.get());
+				aEnvironment.iStack.pushArgumentOnStack(arg.get());
 				iter.GoNext();
 			}
 			if ((iFlags & Variable) != 0)
@@ -122,14 +122,14 @@ public class PiperEvaluator extends EvalFuncBase
 				printf("after %s\n",res.String());
 				*/
 
-				aEnvironment.iStack.PushArgOnStack(arg.get());
+				aEnvironment.iStack.pushArgumentOnStack(arg.get());
 				//printf("Leave\n");
 			}
 		}
 
 		iCaller.eval(aEnvironment,stacktop);
-		aResult.set(aEnvironment.iStack.GetElement(stacktop).get());
-		aEnvironment.iStack.PopTo(stacktop);
+		aResult.set(aEnvironment.iStack.getElement(stacktop).get());
+		aEnvironment.iStack.popTo(stacktop);
 	}
 
 }
