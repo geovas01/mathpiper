@@ -19,8 +19,9 @@
 package org.mathrider.piper.lisp;
 
 
-/** \class PointerArray is similar to Pointer, but implements an array
- *  of pointers to objects.
+/** 
+ * Similar to Pointer, but implements an array of pointers to objects.
+ *  
  */
 public class PointerArray
 {
@@ -39,17 +40,17 @@ public class PointerArray
 		}
 	}
 	
-	public int Size()
+	public int size()
 	{
 		return iSize;
 	}
 	
-	public Pointer GetElement(int aItem)
+	public Pointer getElement(int aItem)
 	{
 		return iArray[aItem];
 	}
 	
-	public void SetElement(int aItem,Cons aObject)
+	public void setElement(int aItem,Cons aObject)
 	{
 		iArray[aItem].set(aObject);
 	}

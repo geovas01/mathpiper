@@ -15,12 +15,11 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathrider.piper.lisp;
 
-
-/** class Pointer. This class is a smart pointer type class to Lisp
- *  objects that can be inserted into linked lists. They do the actual
+/** 
+ * Provides a smart pointer type to CONS
+ *  that can be inserted into linked lists. They do the actual
  *  reference counting, and consequent destruction of the object if
  *  nothing points to it. Pointer is used in Cons as a pointer
  *  to the next object, and in diverse parts of the built-in internal
@@ -28,44 +27,41 @@ package org.mathrider.piper.lisp;
  */
 public class Pointer
 {
-	Cons iNext;
-	
-	public Pointer()
-	{
-		iNext = null;
-	}
-	
-	public Pointer(Pointer aOther)
-	{
-		iNext = aOther.iNext;
-	}
-	
-	public Pointer(Cons aOther)
-	{
-		iNext = aOther;
-	}
-	
-        
-        
-        
-	public void set(Cons aNext)
-	{
-		iNext = aNext;
-	}
-	
-	public Cons get()
-	{
-		return iNext;
-	}
-	
-	public void goNext()
-	{
-		iNext = iNext.iCdr.iNext;
-	}
-	
-	void doSet(Cons aNext)
-	{
-		iNext = aNext;
-	}
-	
+
+    Cons iNext;
+
+    public Pointer()
+    {
+        iNext = null;
+    }
+
+    public Pointer(Pointer aOther)
+    {
+        iNext = aOther.iNext;
+    }
+
+    public Pointer(Cons aOther)
+    {
+        iNext = aOther;
+    }
+
+    public void set(Cons aNext)
+    {
+        iNext = aNext;
+    }
+
+    public Cons get()
+    {
+        return iNext;
+    }
+
+    public void goNext()
+    {
+        iNext = iNext.iCdr.iNext;
+    }
+
+    void doSet(Cons aNext)
+    {
+        iNext = aNext;
+    }
 }

@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin;
 import org.mathrider.piper.lisp.Pointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.PiperArgStack;
+import org.mathrider.piper.lisp.ArgumentStack;
 
 
 public abstract class BuiltinFunction
@@ -30,12 +30,12 @@ public abstract class BuiltinFunction
 
 	public static Pointer RESULT(Environment aEnvironment,int aStackTop) throws Exception
 	{
-		return aEnvironment.iStack.GetElement(aStackTop);
+		return aEnvironment.iStack.getElement(aStackTop);
 	}
 	
 	public static Pointer ARGUMENT(Environment aEnvironment,int aStackTop, int i)  throws Exception
 	{
-		return aEnvironment.iStack.GetElement(aStackTop+i);
+		return aEnvironment.iStack.getElement(aStackTop+i);
 	}
 
 	public static Pointer argument(Pointer cur, int n) throws Exception
