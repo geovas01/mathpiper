@@ -36,36 +36,36 @@ public class XmlTokenizer
 		char c;
 		int firstpos = 0;
 
-		if (aInput.EndOfStream())
+		if (aInput.endOfStream())
 
-			return aHashTable.lookUp(aInput.StartPtr().substring(firstpos, aInput.Position()));
+			return aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
 
 		//skipping spaces
-		while (IsSpace(aInput.Peek()))
-			aInput.Next();
+		while (IsSpace(aInput.peek()))
+			aInput.next();
 
-		firstpos = aInput.Position();
-		c = aInput.Next();
+		firstpos = aInput.position();
+		c = aInput.next();
 
 		if (c == '<')
 		{
 
 			while (c != '>')
 			{
-				c = aInput.Next();
-				LispError.Check(!aInput.EndOfStream(), LispError.KLispErrCommentToEndOfFile);
+				c = aInput.next();
+				LispError.Check(!aInput.endOfStream(), LispError.KLispErrCommentToEndOfFile);
 			}
 		}
 		else
 		{
 
-			while (aInput.Peek() != '<' && !aInput.EndOfStream())
+			while (aInput.peek() != '<' && !aInput.endOfStream())
 			{
-				c = aInput.Next();
+				c = aInput.next();
 			}
 		}
 
-		return aHashTable.lookUp(aInput.StartPtr().substring(firstpos, aInput.Position()));
+		return aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
 	}
 
 	private static boolean IsSpace(int c)

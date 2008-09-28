@@ -15,7 +15,6 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathrider.piper;
 
 import org.mathrider.piper.exceptions.PiperException;
@@ -33,41 +32,38 @@ import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.Printer;
 
-import org.mathrider.piper.io.CachedStdFileInput;
+import org.mathrider.piper.io.cachedStdFileInput;
 import org.mathrider.piper.io.StdFileOutput;
 import java.io.*;
 
-
 /**
- * 
+ * Main class with which the rest of Piper is accessed.
  * @author
  */
 public class Interpreter
 {
-	
-	public Environment env = null;
-	Tokenizer tokenizer = null;
-	Printer printer = null;
-	public String iError = null;
-	
-	
-        String defaultDirectory = null;
-        String archive = "";
-        String detect = "";
-        String pathParent = "";
-        boolean inZipFile = false;
-        
-	public Interpreter(Output stdoutput)
-	{
-            	try
-		{
-		env = new Environment(stdoutput);
-		tokenizer = new Tokenizer();
-		printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
-        
 
-		env.iCurrentInput = new CachedStdFileInput(env.iInputStatus);
-        
+    public Environment env = null;
+    Tokenizer tokenizer = null;
+    Printer printer = null;
+    public String iError = null;
+    String defaultDirectory = null;
+    String archive = "";
+    String detect = "";
+    String pathParent = "";
+    boolean inZipFile = false;
+
+    public Interpreter(Output stdoutput)
+    {
+        try
+        {
+            env = new Environment(stdoutput);
+            tokenizer = new Tokenizer();
+            printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
+
+
+            env.iCurrentInput = new cachedStdFileInput(env.iInputStatus);
+
 
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
             pathParent = new File(detectURL.getPath()).getParent();
@@ -101,15 +97,15 @@ public class Interpreter
             //System.out.println("Found archive ["+archive+"]");
             } else
             {
-                
+
                 System.out.println("Code is not in an archive.");
             }
-	    
-	    
-	
 
 
-			
+
+
+
+
 
 
 
@@ -125,16 +121,14 @@ public class Interpreter
             }
 
 
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			System.out.println(e.toString());
-		}
-	}
-	
-	
-    public void addDirectory( String directory)
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+    }
+
+    public void addDirectory(String directory)
     {
         String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
 
@@ -148,96 +142,91 @@ public class Interpreter
         }
 
     }
-        
-        
-        
-	public String evaluate(String input) throws PiperException
-	{
-		if (input.length() == 0)
-			return "";
-		String rs = "";
-		try
-		{
-			env.iEvalDepth=0;
-			env.iEvaluator.resetStack();
+
+    public String evaluate(String input) throws PiperException
+    {
+        if (input.length() == 0)
+        {
+            return "";
+        }
+        String rs = "";
+        try
+        {
+            env.iEvalDepth = 0;
+            env.iEvaluator.resetStack();
 
 
-			iError = null;
+            iError = null;
 
-			Pointer in_expr = new Pointer();
-			if (env.iPrettyReader != null)
-			{
-				InputStatus someStatus = new InputStatus();
-				StringBuffer inp = new StringBuffer();
-				inp.append(input);
-				InputStatus oldstatus = env.iInputStatus;
-				env.iInputStatus.setTo("String");
-				StringInput newInput = new StringInput(new StringBuffer(input),env.iInputStatus);
+            Pointer in_expr = new Pointer();
+            if (env.iPrettyReader != null)
+            {
+                InputStatus someStatus = new InputStatus();
+                StringBuffer inp = new StringBuffer();
+                inp.append(input);
+                InputStatus oldstatus = env.iInputStatus;
+                env.iInputStatus.setTo("String");
+                StringInput newInput = new StringInput(new StringBuffer(input), env.iInputStatus);
 
-				Input previous = env.iCurrentInput;
-				env.iCurrentInput = newInput;
-				try
-				{
-					Pointer args = new Pointer();
-					Standard.internalApplyString(env, in_expr,
-					                                 env.iPrettyReader,
-					                                 args);
-				}
-				catch (Exception e)
-				{
-					throw new PiperException(e.getMessage());//Note:tk. Throw PiperException instead of just exception.
-				}
-				finally
-				{
-					env.iCurrentInput = previous;
-					env.iInputStatus.restoreFrom(oldstatus);
-				}
-			}
-			else
-			{
-				InputStatus someStatus = new InputStatus();
-				StringBuffer inp = new StringBuffer();
-				inp.append(input);
-				inp.append(";");
-				StringInput input_str = new StringInput(inp,someStatus);
-				Parser parser = new InfixParser(tokenizer, input_str, env, env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
-				parser.parse( in_expr );
-			}
+                Input previous = env.iCurrentInput;
+                env.iCurrentInput = newInput;
+                try
+                {
+                    Pointer args = new Pointer();
+                    Standard.internalApplyString(env, in_expr,
+                            env.iPrettyReader,
+                            args);
+                } catch (Exception e)
+                {
+                    throw new PiperException(e.getMessage());//Note:tk. Throw PiperException instead of just exception.
 
-			Pointer result = new Pointer();
-			env.iEvaluator.eval(env, result, in_expr);
+                } finally
+                {
+                    env.iCurrentInput = previous;
+                    env.iInputStatus.restoreFrom(oldstatus);
+                }
+            } else
+            {
+                InputStatus someStatus = new InputStatus();
+                StringBuffer inp = new StringBuffer();
+                inp.append(input);
+                inp.append(";");
+                StringInput input_str = new StringInput(inp, someStatus);
+                Parser parser = new InfixParser(tokenizer, input_str, env, env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
+                parser.parse(in_expr);
+            }
 
-			String percent = env.hashTable().lookUp("%");
-			env.setVariable(percent,result,true);
+            Pointer result = new Pointer();
+            env.iEvaluator.eval(env, result, in_expr);
 
-			StringBuffer string_out = new StringBuffer();
-			Output output = new StringOutput(string_out);
+            String percent = env.hashTable().lookUp("%");
+            env.setVariable(percent, result, true);
 
-			if (env.iPrettyPrinter != null)
-			{
-				Pointer nonresult = new Pointer();
-				Standard.internalApplyString(env, nonresult,
-				                                 env.iPrettyPrinter,
-				                                 result);
-				rs = string_out.toString();
-			}
-			else
-			{
-				printer.RememberLastChar(' ');
-				printer.Print(result, output, env);
-				rs = string_out.toString();
-			}
-		}
-		catch (Exception e)
-		{
-			//      e.printStackTrace();
-			//System.out.println(e.toString());
+            StringBuffer string_out = new StringBuffer();
+            Output output = new StringOutput(string_out);
 
-			//Note:tk throw PiperException instead of simply printing the exception message.
-			iError = e.getMessage();
-			throw new PiperException(iError);
-		}
-		return rs;
-	}
+            if (env.iPrettyPrinter != null)
+            {
+                Pointer nonresult = new Pointer();
+                Standard.internalApplyString(env, nonresult,
+                        env.iPrettyPrinter,
+                        result);
+                rs = string_out.toString();
+            } else
+            {
+                printer.RememberLastChar(' ');
+                printer.Print(result, output, env);
+                rs = string_out.toString();
+            }
+        } catch (Exception e)
+        {
+            //      e.printStackTrace();
+            //System.out.println(e.toString());
 
+            //Note:tk throw PiperException instead of simply printing the exception message.
+            iError = e.getMessage();
+            throw new PiperException(iError);
+        }
+        return rs;
+    }
 }

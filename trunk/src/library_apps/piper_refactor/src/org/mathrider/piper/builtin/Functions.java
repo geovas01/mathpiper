@@ -2857,7 +2857,7 @@ public class Functions
 				        Standard.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
 				LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
-				fileSize = newInput.StartPtr().length();
+				fileSize = newInput.startPtr().length();
 			}
 			catch (Exception e)
 			{

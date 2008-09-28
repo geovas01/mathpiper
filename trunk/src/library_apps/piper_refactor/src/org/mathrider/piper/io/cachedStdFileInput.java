@@ -23,26 +23,28 @@ import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Input;
 import java.io.*;
 
-/** CachedStdFileInput : input from stdin */
-public class CachedStdFileInput extends Input
+/** cachedStdFileInput : input from stdin */
+public class cachedStdFileInput extends Input
 {
 	StringBuffer iBuffer;
 	int iCurrentPos;
 
-	public CachedStdFileInput(InputStatus aStatus)
+	public cachedStdFileInput(InputStatus aStatus)
 	{
 		super(aStatus);
-		Rewind();
+		rewind();
 	}
-	public char Next() throws Exception
+        
+	public char next() throws Exception
 	{
-		int c = Peek();
+		int c = peek();
 		iCurrentPos++;
 		if (c == '\n')
 			iStatus.nextLine();
 		return (char)c;
 	}
-	public char Peek() throws Exception
+        
+	public char peek() throws Exception
 	{
 		if (iCurrentPos == iBuffer.length())
 		{
@@ -57,24 +59,29 @@ public class CachedStdFileInput extends Input
 		}
 		return iBuffer.charAt(iCurrentPos);
 	}
-	public boolean EndOfStream()
+        
+	public boolean endOfStream()
 	{
 		return false;
 	}
-	public void Rewind()
+        
+	public void rewind()
 	{
 		iBuffer = new StringBuffer();
 		iCurrentPos = 0;
 	}
-	public StringBuffer StartPtr()
+        
+	public StringBuffer startPtr()
 	{
 		return iBuffer;
 	}
-	public int Position()
+        
+	public int position()
 	{
 		return iCurrentPos;
 	}
-	public void SetPosition(int aPosition)
+        
+	public void setPosition(int aPosition)
 	{
 		iCurrentPos = aPosition;
 	}

@@ -35,7 +35,7 @@ public class StringInput
 		iCurrent = 0;
 	}
 
-	public char Next()
+	public char next()
 	throws Exception
 	{
 
@@ -53,7 +53,7 @@ public class StringInput
 		return c;
 	}
 
-	public char Peek()
+	public char peek()
 	throws Exception
 	{
 
@@ -64,25 +64,25 @@ public class StringInput
 		return iString.charAt(iCurrent);
 	}
 
-	public boolean EndOfStream()
+	public boolean endOfStream()
 	{
 
 		return (iCurrent == iString.length());
 	}
 
-	public StringBuffer StartPtr()
+	public StringBuffer startPtr()
 	{
 
 		return iString;
 	}
 
-	public int Position()
+	public int position()
 	{
 
 		return iCurrent;
 	}
 
-	public void SetPosition(int aPosition)
+	public void setPosition(int aPosition)
 	{
 		iCurrent = aPosition;
 	}
