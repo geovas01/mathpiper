@@ -23,13 +23,13 @@ import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Input;
 import java.io.*;
 
-/** cachedStdFileInput : input from stdin */
-public class cachedStdFileInput extends Input
+/** CachedStdFileInput : input from stdin */
+public class CachedStdFileInput extends Input
 {
 	StringBuffer iBuffer;
 	int iCurrentPos;
 
-	public cachedStdFileInput(InputStatus aStatus)
+	public CachedStdFileInput(InputStatus aStatus)
 	{
 		super(aStatus);
 		rewind();

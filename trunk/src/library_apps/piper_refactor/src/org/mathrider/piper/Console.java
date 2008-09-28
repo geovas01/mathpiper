@@ -19,7 +19,7 @@ package org.mathrider.piper;
 
 //import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.exceptions.PiperException;
-import org.mathrider.piper.io.cachedStdFileInput;
+import org.mathrider.piper.io.CachedStdFileInput;
 import org.mathrider.piper.io.StdFileOutput;
 import org.mathrider.piper.lisp.Standard;
 import java.io.*;
