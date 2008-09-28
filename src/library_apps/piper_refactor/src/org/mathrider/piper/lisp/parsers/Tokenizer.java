@@ -33,20 +33,20 @@ public class Tokenizer
 	public String nextToken(Input aInput, HashTable aHashTable) throws Exception
 	{
 		char c;
-		int firstpos = aInput.Position();
+		int firstpos = aInput.position();
 
 		boolean redo = true;
 		while (redo)
 		{
 			redo = false;
 			//REDO: //TODO FIXME
-			firstpos = aInput.Position();
+			firstpos = aInput.position();
 
 			// End of stream: return empty string
-			if (aInput.EndOfStream())
+			if (aInput.endOfStream())
 				break;
 
-			c = aInput.Next();
+			c = aInput.next();
 			//printf("%c",c);
 
 			//Parse brackets
@@ -60,24 +60,24 @@ public class Tokenizer
 			else if (c == ';') {}
 			else if (c == '%') {}
 			//    else if (c == '\'') {}
-			else if (c == '.' && !isDigit(aInput.Peek()) )
+			else if (c == '.' && !isDigit(aInput.peek()) )
 			{
-				while (aInput.Peek() == '.')
+				while (aInput.peek() == '.')
 				{
-					aInput.Next();
+					aInput.next();
 				}
 			}
 			// parse comments
-			else if (c == '/' && aInput.Peek() == '*')
+			else if (c == '/' && aInput.peek() == '*')
 			{
-				aInput.Next(); //consume *
+				aInput.next(); //consume *
 				while (true)
 				{
-					while (aInput.Next() != '*' && !aInput.EndOfStream());
-					LispError.Check(!aInput.EndOfStream(),LispError.KLispErrCommentToEndOfFile);
-					if (aInput.Peek() == '/')
+					while (aInput.next() != '*' && !aInput.endOfStream());
+					LispError.Check(!aInput.endOfStream(),LispError.KLispErrCommentToEndOfFile);
+					if (aInput.peek() == '/')
 					{
-						aInput.Next();  // consume /
+						aInput.next();  // consume /
 						redo = true;
 						break;
 					}
@@ -87,10 +87,10 @@ public class Tokenizer
 					continue;
 				}
 			}
-			else if (c == '/' && aInput.Peek() == '/')
+			else if (c == '/' && aInput.peek() == '/')
 			{
-				aInput.Next(); //consume /
-				while (aInput.Next() != '\n' && !aInput.EndOfStream());
+				aInput.next(); //consume /
+				while (aInput.next() != '\n' && !aInput.endOfStream());
 				redo = true;
 				continue;
 			}
@@ -101,60 +101,60 @@ public class Tokenizer
 				aResult = "";
 				//TODO FIXME is following append char correct?
 				aResult = aResult + ((char)c);
-				while (aInput.Peek() != '\"')
+				while (aInput.peek() != '\"')
 				{
-					if (aInput.Peek() == '\\')
+					if (aInput.peek() == '\\')
 					{
-						aInput.Next();
-						LispError.Check(!aInput.EndOfStream(),LispError.KLispErrParsingInput);
+						aInput.next();
+						LispError.Check(!aInput.endOfStream(),LispError.KLispErrParsingInput);
 					}
 					//TODO FIXME is following append char correct?
-					aResult = aResult + ((char)aInput.Next());
-					LispError.Check(!aInput.EndOfStream(),LispError.KLispErrParsingInput);
+					aResult = aResult + ((char)aInput.next());
+					LispError.Check(!aInput.endOfStream(),LispError.KLispErrParsingInput);
 				}
 				//TODO FIXME is following append char correct?
-				aResult = aResult + ((char)aInput.Next()); // consume the close quote
+				aResult = aResult + ((char)aInput.next()); // consume the close quote
 				return aHashTable.lookUp(aResult);
 			}
 			//parse atoms
 			else if (isAlpha(c))
 			{
-				while (isAlNum( aInput.Peek()))
+				while (isAlNum( aInput.peek()))
 				{
-					aInput.Next();
+					aInput.next();
 				}
 			}
 
 			else if (isSymbolic(c))
 			{
-				while (isSymbolic( aInput.Peek()))
+				while (isSymbolic( aInput.peek()))
 				{
-					aInput.Next();
+					aInput.next();
 				}
 			}
 			else if (c == '_')
 			{
-				while (aInput.Peek() == '_')
+				while (aInput.peek() == '_')
 				{
-					aInput.Next();
+					aInput.next();
 				}
 			}
 			else if (isDigit(c) || c == '.')
 			{
-				while (isDigit( aInput.Peek())) aInput.Next();
-				if (aInput.Peek() == '.')
+				while (isDigit( aInput.peek())) aInput.next();
+				if (aInput.peek() == '.')
 				{
-					aInput.Next();
-					while (isDigit( aInput.Peek())) aInput.Next();
+					aInput.next();
+					while (isDigit( aInput.peek())) aInput.next();
 				}
 				if (BigNumber.NumericSupportForMantissa())
 				{
-					if (aInput.Peek() == 'e' || aInput.Peek() == 'E')
+					if (aInput.peek() == 'e' || aInput.peek() == 'E')
 					{
-						aInput.Next();
-						if (aInput.Peek() == '-' || aInput.Peek() == '+')
-							aInput.Next();
-						while (isDigit( aInput.Peek())) aInput.Next();
+						aInput.next();
+						if (aInput.peek() == '-' || aInput.peek() == '+')
+							aInput.next();
+						while (isDigit( aInput.peek())) aInput.next();
 					}
 				}
 			}
@@ -165,7 +165,7 @@ public class Tokenizer
 				continue;
 			}
 		}
-		return aHashTable.lookUp(aInput.StartPtr().substring(firstpos,aInput.Position()));
+		return aHashTable.lookUp(aInput.startPtr().substring(firstpos,aInput.position()));
 	}
 
 	public static boolean isDigit(char c)

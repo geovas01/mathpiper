@@ -153,9 +153,9 @@ public class ParsedObject
 									//printf("ACCEPT %s\n",lookUp.String());
 									iLookAhead = lookUp;
 									Input input = iParser.iInput;
-									int newPos = input.Position()-(origlen-len);
-									input.SetPosition(newPos);
-									//printf("Pushhback %s\n",&input.StartPtr()[input.Position()]);
+									int newPos = input.position()-(origlen-len);
+									input.setPosition(newPos);
+									//printf("Pushhback %s\n",&input.startPtr()[input.position()]);
 									break;
 								}
 								else op=null;

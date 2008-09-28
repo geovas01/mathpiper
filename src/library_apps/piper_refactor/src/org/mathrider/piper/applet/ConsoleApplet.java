@@ -20,7 +20,7 @@ package org.mathrider.piper.applet;
 
 import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.lisp.parsers.TeXParser;
-import org.mathrider.piper.io.CachedStdFileInput;
+import org.mathrider.piper.io.cachedStdFileInput;
 import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Output;
@@ -278,7 +278,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
 		stdoutput = new StringOutput(outp);
 		piper = new Interpreter(stdoutput);
-		piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
+		piper.env.iCurrentInput = new cachedStdFileInput(piper.env.iInputStatus);
 
 
 		if (piperLogo != null)
