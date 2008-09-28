@@ -18,18 +18,31 @@
 
 package org.mathrider.piper.builtin.functions;
 
+import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 
 /**
  *
- * @author
+ * @author 
  */
-public class Eval extends BuiltinFunction
+public class Div extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+        BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber y = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 2);
+        if (x.IsInt() && y.IsInt())
+        {  // both integer, perform integer division
+
+            BigNumber z = new BigNumber(aEnvironment.precision());
+            z.Divide(x, y, aEnvironment.precision());
+            RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+            return;
+        } else
+        {
+            throw new Exception("LispDiv: error: both arguments must be integer");
+        }
     }
 }

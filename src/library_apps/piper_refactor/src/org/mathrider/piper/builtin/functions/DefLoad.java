@@ -20,16 +20,30 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
+import org.mathrider.piper.lisp.LispError;
+import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author
+ * @author 
  */
-public class Eval extends BuiltinFunction
+public class DefLoad extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+        LispError.CHK_CORE(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+
+        Pointer evaluated = new Pointer();
+        evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+
+        // Get file name
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, evaluated.get() != null, 1);
+        String orig = evaluated.get().string();
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+
+        Standard.loadDefFile(aEnvironment, orig);
+        Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
     }
 }

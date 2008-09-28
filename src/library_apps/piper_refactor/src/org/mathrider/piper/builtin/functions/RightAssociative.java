@@ -20,16 +20,23 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
+import org.mathrider.piper.lisp.LispError;
+import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author
+ * @author 
  */
-public class Eval extends BuiltinFunction
+public class RightAssociative extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+        // Get operator
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+        String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+        aEnvironment.iInfixOperators.SetRightAssociative(Standard.symbolName(aEnvironment, orig));
+        Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
     }
 }

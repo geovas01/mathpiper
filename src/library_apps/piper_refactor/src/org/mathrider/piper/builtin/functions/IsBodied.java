@@ -19,17 +19,21 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
+import org.mathrider.piper.builtin.Functions;
 import org.mathrider.piper.lisp.Environment;
+import org.mathrider.piper.lisp.InfixOperator;
+import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author
+ * @author 
  */
-public class Eval extends BuiltinFunction
+public class IsBodied extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+        InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+        Standard.internalBoolean(aEnvironment, RESULT(aEnvironment, aStackTop), op != null);
     }
 }
