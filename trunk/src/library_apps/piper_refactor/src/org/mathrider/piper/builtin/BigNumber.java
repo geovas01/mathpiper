@@ -429,20 +429,20 @@ public class BigNumber
 	}
 
 	/// Bitwise operations, return result in *this.
-	void ShiftLeft(  BigNumber aX, int aNrToShift) throws Exception
+	public void ShiftLeft(  BigNumber aX, int aNrToShift) throws Exception
 	{
 		LispError.LISPASSERT(aX.integer != null);
 		decimal = null;
 		integer = aX.integer.shiftLeft(aNrToShift);
 	}
-	void ShiftRight(  BigNumber aX, int aNrToShift) throws Exception
+        public void ShiftRight(  BigNumber aX, int aNrToShift) throws Exception
 	{
 		LispError.LISPASSERT(aX.integer != null);
 		decimal = null;
 		integer = aX.integer.shiftRight(aNrToShift);
 	}
 
-	void Gcd( BigNumber aX,  BigNumber aY) throws Exception
+	public void Gcd( BigNumber aX,  BigNumber aY) throws Exception
 	{
 		LispError.LISPASSERT(aX.integer != null);
 		LispError.LISPASSERT(aY.integer != null);

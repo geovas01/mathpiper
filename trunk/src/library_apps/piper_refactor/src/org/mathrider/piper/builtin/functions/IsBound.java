@@ -20,16 +20,29 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
+import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author
+ * @author 
  */
-public class Eval extends BuiltinFunction
+public class IsBound extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+        String str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+        if (str != null)
+        {
+            Pointer val = new Pointer();
+            aEnvironment.getVariable(str, val);
+            if (val.get() != null)
+            {
+                Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
+                return;
+            }
+        }
+        Standard.internalFalse(aEnvironment, RESULT(aEnvironment, aStackTop));
     }
 }

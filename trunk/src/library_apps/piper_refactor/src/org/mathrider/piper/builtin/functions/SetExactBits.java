@@ -18,18 +18,30 @@
 
 package org.mathrider.piper.builtin.functions;
 
+import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
+import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author
+ * @author 
  */
-public class Eval extends BuiltinFunction
+public class SetExactBits extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+        BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber y = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber z = new BigNumber(aEnvironment.precision());
+        z.SetTo(x);
+
+        // do nothing for integers
+        if (!(z.IsInt()))
+        {
+            z.Precision((int) (Standard.bits_to_digits((long) (y.Double()), 10)));
+        }
+        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }
 }

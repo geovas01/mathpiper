@@ -20,16 +20,31 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
+import org.mathrider.piper.lisp.LispError;
+import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author
+ * @author 
  */
-public class Eval extends BuiltinFunction
+public class RightPrecedence extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+        // Get operator
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+        String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+
+        Pointer index = new Pointer();
+        aEnvironment.iEvaluator.eval(aEnvironment, index, ARGUMENT(aEnvironment, aStackTop, 2));
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get() != null, 2);
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get().string() != null, 2);
+        int ind = Integer.parseInt(index.get().string(), 10);
+
+        aEnvironment.iInfixOperators.SetRightPrecedence(Standard.symbolName(aEnvironment, orig), ind);
+        Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
     }
 }

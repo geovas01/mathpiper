@@ -18,18 +18,25 @@
 
 package org.mathrider.piper.builtin.functions;
 
+import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 
 /**
  *
- * @author
+ * @author 
  */
-public class Eval extends BuiltinFunction
+public class FastPower extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+        BigNumber x, y;
+        x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
+        y = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 2);
+        double result = Math.pow(x.Double(), y.Double());
+        BigNumber z = new BigNumber(aEnvironment.precision());
+        z.SetTo(result);
+        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }
 }
