@@ -59,6 +59,8 @@ public class BigNumber
 		iTensExp = 0;
 		integer = new BigInteger("0");
 	}
+        
+        
 	// assign from another number
 	public void SetTo( BigNumber aOther)
 	{
@@ -449,21 +451,21 @@ public class BigNumber
 		integer = aX.integer.gcd(aY.integer);
 		decimal = null;
 	}
-	void BitAnd( BigNumber aX,  BigNumber aY) throws Exception
+	public void BitAnd( BigNumber aX,  BigNumber aY) throws Exception
 	{
 		LispError.LISPASSERT(aX.integer != null);
 		LispError.LISPASSERT(aY.integer != null);
 		integer = aX.integer.and(aY.integer);
 		decimal = null;
 	}
-	void BitOr( BigNumber aX,  BigNumber aY) throws Exception
+	public void BitOr( BigNumber aX,  BigNumber aY) throws Exception
 	{
 		LispError.LISPASSERT(aX.integer != null);
 		LispError.LISPASSERT(aY.integer != null);
 		integer = aX.integer.or(aY.integer);
 		decimal = null;
 	}
-	void BitXor( BigNumber aX,  BigNumber aY) throws Exception
+	public void BitXor( BigNumber aX,  BigNumber aY) throws Exception
 	{
 		LispError.LISPASSERT(aX.integer != null);
 		LispError.LISPASSERT(aY.integer != null);
