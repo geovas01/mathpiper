@@ -42,7 +42,7 @@ public class ToString extends BuiltinFunction
             aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 1));
 
             //Return the result
-            result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(oper.toString())));
+            result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getGlobalState().lookUpStringify(oper.toString())));
         } catch (Exception e)
         {
             throw e;

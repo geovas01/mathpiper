@@ -46,6 +46,6 @@ public class FindFile extends BuiltinFunction
         String oper = Utility.internalUnstringify(orig);
 
         String filename = Utility.internalFindFile(oper, aEnvironment.iInputDirectories);
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(filename)));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getGlobalState().lookUpStringify(filename)));
     }
 }

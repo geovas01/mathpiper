@@ -17,12 +17,17 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper.lisp;
 
-public class HashTable
+public class GlobalState
 {
 
     java.util.Hashtable iHashtable = new java.util.Hashtable();
 
-    // If string not yet in table, insert. Afterwards return the string.
+
+    /**
+     * If the string is not in the table yet then insert it.
+     * @param aString
+     * @return the string.
+     */
     public String lookUp(String aString)
     {
         if (!iHashtable.containsKey(aString))
@@ -32,6 +37,12 @@ public class HashTable
         return (String) iHashtable.get(aString);
     }
 
+   /**
+     * If the string is not in the table yet then place double quotes
+    * arount it and insert it.
+     * @param aString
+     * @return the string.
+     */
     public String lookUpStringify(String aString)
     {
         aString = "\"" + aString + "\"";
@@ -42,6 +53,12 @@ public class HashTable
         return (String) iHashtable.get(aString);
     }
 
+   /**
+     * If the string is not in the table yet then remove its 
+    * enclosing double quotes and insert it.
+     * @param aString
+     * @return the string.
+     */
     public String lookUpUnStringify(String aString)
     {
         aString = aString.substring(1, aString.length() - 1);

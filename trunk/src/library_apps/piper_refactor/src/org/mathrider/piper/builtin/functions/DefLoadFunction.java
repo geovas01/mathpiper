@@ -42,7 +42,7 @@ public class DefLoadFunction extends BuiltinFunction
         String oper = Utility.internalUnstringify(orig);
 
         MultiUserFunction multiUserFunc =
-                aEnvironment.multiUserFunction(aEnvironment.hashTable().lookUp(oper));
+                aEnvironment.multiUserFunction(aEnvironment.getGlobalState().lookUp(oper));
         if (multiUserFunc != null)
         {
             if (multiUserFunc.iFileToOpen != null)

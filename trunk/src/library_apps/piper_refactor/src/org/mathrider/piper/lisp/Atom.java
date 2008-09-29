@@ -37,7 +37,7 @@ public class Atom extends Cons
             self = new Number(aString, aEnvironment.precision());
         } else
         {
-            self = new Atom(aEnvironment.hashTable().lookUp(aString));
+            self = new Atom(aEnvironment.getGlobalState().lookUp(aString));
         }
         
         LispError.check(self != null, LispError.KLispErrNotEnoughMemory);

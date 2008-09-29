@@ -250,7 +250,7 @@ public class Pattern
 			if (num>1)
 			{
 				Cons head = sublist.get();
-				if (head.string() == aEnvironment.hashTable().lookUp("_"))
+				if (head.string() == aEnvironment.getGlobalState().lookUp("_"))
 				{
 					Cons second = head.cdr().get();
 					if (second.string() != null)

@@ -32,7 +32,7 @@ import org.mathrider.piper.lisp.parsers.InfixParser;
 import org.mathrider.piper.io.StdFileOutput;
 import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.io.StringInput;
-import org.mathrider.piper.lisp.HashTable;
+import org.mathrider.piper.lisp.GlobalState;
 import org.mathrider.piper.lisp.Utility;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;

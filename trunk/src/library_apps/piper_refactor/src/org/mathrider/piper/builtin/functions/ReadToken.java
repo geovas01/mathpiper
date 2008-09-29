@@ -33,7 +33,7 @@ public class ReadToken extends BuiltinFunction
     {
         Tokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;
-        result = tok.nextToken(aEnvironment.iCurrentInput, aEnvironment.hashTable());
+        result = tok.nextToken(aEnvironment.iCurrentInput, aEnvironment.getGlobalState());
 
         if (result.length() == 0)
         {

@@ -39,7 +39,7 @@ public class Environment
         
 	public int iPrecision = 10;
 
-	public HashTable iHashTable = new HashTable();
+	private GlobalState iGlobalState = new GlobalState();
 	public Cons iTrue;
 	public Cons iFalse;
 
@@ -127,9 +127,9 @@ public class Environment
 		pushLocalFrame(true);
 	}
 
-	public HashTable hashTable()
+	public GlobalState getGlobalState()
 	{
-		return iHashTable;
+		return iGlobalState;
 	}
 
 	public int precision()
@@ -144,22 +144,11 @@ public class Environment
 
 
 
-
-
-
-
 	public AssociatedHash builtinCommands()
 	{
 		return iBuiltinFunctions;
 	}
 	
-
-	
-
-
-
-
-
 
 
 	public ConsPointer findLocal(String aVariable) throws Exception

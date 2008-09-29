@@ -40,6 +40,6 @@ public class Stringify extends BuiltinFunction
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(orig)));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getGlobalState().lookUpStringify(orig)));
     }
 }
