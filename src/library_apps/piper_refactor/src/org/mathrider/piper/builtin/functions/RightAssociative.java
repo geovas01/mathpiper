@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author 
+ *  
  */
 public class RightAssociative extends BuiltinFunction
 {

@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.ArgList;
 
 /**
  * Allows a org.mathrider.piper.parametermatchers.Pattern to be placed into a org.mathrider.piper.lisp.BuiltinObject.
- * @author
+ * 
  */
 public class PatternContainer extends BuiltinContainer
 {

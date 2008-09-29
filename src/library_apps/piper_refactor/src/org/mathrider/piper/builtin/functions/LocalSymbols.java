@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.behaviours.LocalSymbol;
 
 /**
  *
- * @author 
+ *  
  */
 public class LocalSymbols extends BuiltinFunction
 {

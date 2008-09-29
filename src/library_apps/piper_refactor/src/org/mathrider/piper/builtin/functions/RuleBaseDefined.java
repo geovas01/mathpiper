@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.userfunctions.UserFunction;
 
 /**
  *
- * @author 
+ *  
  */
 public class RuleBaseDefined extends BuiltinFunction
 {

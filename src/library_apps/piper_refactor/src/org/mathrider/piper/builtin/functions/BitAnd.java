@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.Environment;
 
 /**
  *
- * @author 
+ *  
  */
 public class BitAnd extends BuiltinFunction
 {

@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.LispError;
 
 /**
  *
- * @author 
+ *  
  */
 public class GetPrecedence extends BuiltinFunction
 {

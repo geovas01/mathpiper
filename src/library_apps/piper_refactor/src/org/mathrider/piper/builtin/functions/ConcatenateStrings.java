@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.LispError;
 
 /**
  *
- * @author 
+ *  
  */
 public class ConcatenateStrings extends BuiltinFunction
 {

@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author 
+ *  
  */
 public class FromBase extends BuiltinFunction
 {

@@ -28,7 +28,7 @@ import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author 
+ *  
  */
 public class GenArraySet extends BuiltinFunction
 {

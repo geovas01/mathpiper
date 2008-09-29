@@ -11,7 +11,7 @@ import org.mathrider.piper.lisp.Environment;
 
 /**
  *
- * @author 
+ *  
  */
 	public class Floor extends BuiltinFunction
 	{

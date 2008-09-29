@@ -696,11 +696,15 @@ public class Functions
         return op;
     }
 
-    /// Execute the Piper commands \c Set and \c MacroSet.
-    /// The argument \a aMacroMode determines whether the first argument
-    /// should be evaluated. The real work is done by
-    /// Environment::SetVariable() .
-    /// \sa LispSetVar(), LispMacroSetVar()
+
+    /**
+     * Sets a variable in the current {@link Environment}.
+     * @param aEnvironment holds the execution environment of the program.
+     * @param aStackTop 
+     * @param aMacroMode boolean which determines whether the first argument should be evaluated.
+     * @param aGlobalLazyVariable
+     * @throws java.lang.Exception
+     */
     public static void internalSetVar(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable) throws Exception
     {
         String varstring = null;
@@ -718,7 +722,7 @@ public class Functions
 
         ConsPointer result = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.argument(aEnvironment, aStackTop, 2));
-        aEnvironment.setVariable(varstring, result, aGlobalLazyVariable);
+        aEnvironment.setVariable(varstring, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
         Standard.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
     }
 

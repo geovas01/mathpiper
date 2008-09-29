@@ -26,7 +26,7 @@ import org.mathrider.piper.lisp.SubList;
 
 /**
  *
- * @author 
+ *  
  */
 public class LazyAnd extends BuiltinFunction
 {

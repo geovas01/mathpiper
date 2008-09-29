@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author 
+ *  
  */
 public class ProgBody extends BuiltinFunction
 {

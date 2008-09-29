@@ -24,7 +24,7 @@ import org.mathrider.piper.*;
 
 /**
  * 
- * @author 
+ *  
  */
 public class Number extends Cons
 {

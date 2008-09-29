@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.parsers.Tokenizer;
 
 /**
  *
- * @author
+ * 
  */
 public class ReadToken extends BuiltinFunction
 {

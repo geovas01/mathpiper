@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.ArgList;
 
 /**
  * Abstract class which can be put inside a org.mathrider.piper.lisp.BuiltinObject.
- * @author
+ * 
  * 
  */
 public abstract class BuiltinContainer

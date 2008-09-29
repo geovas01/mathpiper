@@ -29,7 +29,7 @@ import org.mathrider.piper.lisp.parsers.Tokenizer;
 
 /**
  *
- * @author 
+ *  
  */
 public class ExplodeTag extends BuiltinFunction
 {

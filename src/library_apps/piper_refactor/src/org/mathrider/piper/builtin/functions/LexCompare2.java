@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author 
+ *  
  */
 abstract public class LexCompare2
 {

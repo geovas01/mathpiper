@@ -22,7 +22,7 @@ import org.mathrider.piper.lisp.Environment;
 
 /**
  *
- * @author tkosan
+ *  tkosan
  */
 public class Quote extends BuiltinFunction
 {

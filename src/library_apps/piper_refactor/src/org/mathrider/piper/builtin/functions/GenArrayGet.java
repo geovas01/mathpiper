@@ -28,7 +28,7 @@ import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
- * @author 
+ *  
  */
 public class GenArrayGet extends BuiltinFunction
 {
