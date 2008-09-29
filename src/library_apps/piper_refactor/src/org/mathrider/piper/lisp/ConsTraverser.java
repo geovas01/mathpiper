@@ -33,7 +33,7 @@ public class ConsTraverser
 		iPtr = aPtr;
 	}
 	
-	public Cons getObject()
+	public Cons getCons()
 	{
 		return iPtr.get();
 	}

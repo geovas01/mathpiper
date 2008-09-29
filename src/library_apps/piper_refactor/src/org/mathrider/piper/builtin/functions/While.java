@@ -36,13 +36,13 @@ public class While extends BuiltinFunction
         ConsPointer arg2 = ARGUMENT(aEnvironment, aStackTop, 2);
 
         ConsPointer predicate = new ConsPointer();
-        aEnvironment.iEvaluator.eval(aEnvironment, predicate, arg1);
+        aEnvironment.iEvaluator.evaluate(aEnvironment, predicate, arg1);
 
         while (Standard.isTrue(aEnvironment, predicate))
         {
             ConsPointer evaluated = new ConsPointer();
-            aEnvironment.iEvaluator.eval(aEnvironment, evaluated, arg2);
-            aEnvironment.iEvaluator.eval(aEnvironment, predicate, arg1);
+            aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, arg2);
+            aEnvironment.iEvaluator.evaluate(aEnvironment, predicate, arg1);
 
         }
         LispError.checkArgumentCore(aEnvironment, aStackTop, Standard.isFalse(aEnvironment, predicate), 1);

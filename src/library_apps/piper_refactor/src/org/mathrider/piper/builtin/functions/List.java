@@ -38,10 +38,10 @@ import org.mathrider.piper.lisp.SubList;
 			tail.goNext();
 			ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
 			iter.goNext();
-			while (iter.getObject() != null)
+			while (iter.getCons() != null)
 			{
 				ConsPointer evaluated = new ConsPointer();
-				aEnvironment.iEvaluator.eval(aEnvironment,evaluated,iter.ptr());
+				aEnvironment.iEvaluator.evaluate(aEnvironment,evaluated,iter.ptr());
 				tail.ptr().set(evaluated.get());
 				tail.goNext();
 				iter.goNext();

@@ -50,9 +50,9 @@ public class ConsPointerArray
 		return iArray[aItem];
 	}
 	
-	public void setElement(int aItem,Cons aObject)
+	public void setElement(int aItem,Cons aCons)
 	{
-		iArray[aItem].set(aObject);
+		iArray[aItem].set(aCons);
 	}
 
 }

@@ -37,7 +37,7 @@ public class Write extends BuiltinFunction
         {
             ConsTraverser iter = new ConsTraverser(subList);
             iter.goNext();
-            while (iter.getObject() != null)
+            while (iter.getCons() != null)
             {
                 aEnvironment.iCurrentPrinter.Print(iter.ptr(), aEnvironment.iCurrentOutput, aEnvironment);
                 iter.goNext();

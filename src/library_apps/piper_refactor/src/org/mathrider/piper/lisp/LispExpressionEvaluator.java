@@ -65,7 +65,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 	/// \note The result of this operation must be a unique (copied)
 	/// element! Eg. its Next might be set...
 	///
-	public void eval(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception
+	public void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception
 	{
 		LispError.lispAssert(aExpression.get() != null);
 		aEnvironment.iEvalDepth++;

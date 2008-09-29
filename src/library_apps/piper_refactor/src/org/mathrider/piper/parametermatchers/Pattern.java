@@ -74,9 +74,9 @@ public class Pattern
 	{
 		ConsTraverser iter = new ConsTraverser(aPattern);
 
-		while (iter.getObject() != null)
+		while (iter.getCons() != null)
 		{
-			Parameter matcher = makeParamMatcher(aEnvironment,iter.getObject());
+			Parameter matcher = makeParamMatcher(aEnvironment,iter.getCons());
 			LispError.lispAssert(matcher!=null);
 			iParamMatchers.add(matcher);
 			iter.goNext();
@@ -115,7 +115,7 @@ public class Pattern
 
 		for (i=0;i<iParamMatchers.size();i++)
 		{
-			if (iter.getObject() == null)
+			if (iter.getCons() == null)
 				return false;
 			ConsPointer  ptr = iter.ptr();
 			if (ptr==null)
@@ -126,7 +126,7 @@ public class Pattern
 			}
 			iter.goNext();
 		}
-		if (iter.getObject() != null)
+		if (iter.getCons() != null)
 			return false;
 
 		{
@@ -295,7 +295,7 @@ public class Pattern
 			ConsTraverser iter = new ConsTraverser(sublist);
 			for (i=0;i<num;i++)
 			{
-				matchers[i] = makeParamMatcher(aEnvironment,iter.getObject());
+				matchers[i] = makeParamMatcher(aEnvironment,iter.getCons());
 				LispError.lispAssert(matchers[i] != null);
 				iter.goNext();
 			}
@@ -349,7 +349,7 @@ public class Pattern
 		for (i=0;i<iPredicates.size();i++)
 		{
 			ConsPointer pred = new ConsPointer();
-			aEnvironment.iEvaluator.eval(aEnvironment, pred, ((ConsPointer)iPredicates.get(i)));
+			aEnvironment.iEvaluator.evaluate(aEnvironment, pred, ((ConsPointer)iPredicates.get(i)));
 			if (Standard.isFalse(aEnvironment, pred))
 			{
 				return false;

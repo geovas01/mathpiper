@@ -65,36 +65,36 @@ public class PiperEvaluator extends EvalFuncBase
 		iter.goNext();
 
 		int i;
-		int nr = iNumberOfArguments;
+		int numberOfArguments = iNumberOfArguments;
 
-		if ((iFlags & Variable) != 0) nr--;
+		if ((iFlags & Variable) != 0) numberOfArguments--;
 
 		// Walk over all arguments, evaluating them as necessary
 		if ((iFlags & Macro) != 0)
 		{
-			for (i=0;i<nr;i++)
+			for (i=0;i<numberOfArguments;i++)
 			{
-				LispError.check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iStack.pushArgumentOnStack(iter.getObject().copy(false));
+				LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
+				aEnvironment.iStack.pushArgumentOnStack(iter.getCons().copy(false));
 				iter.goNext();
 			}
 			if ((iFlags & Variable) != 0)
 			{
 				ConsPointer head = new ConsPointer();
 				head.set(aEnvironment.iList.copy(false));
-				head.get().cdr().set(iter.getObject());
+				head.get().cdr().set(iter.getCons());
 				aEnvironment.iStack.pushArgumentOnStack(SubList.getInstance(head.get()));
 			}
 		}
 		else
 		{
-			ConsPointer arg = new ConsPointer();
-			for (i=0;i<nr;i++)
+			ConsPointer argument = new ConsPointer();
+			for (i=0;i<numberOfArguments;i++)
 			{
-				LispError.check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.eval(aEnvironment, arg, iter.ptr());
-				aEnvironment.iStack.pushArgumentOnStack(arg.get());
+				aEnvironment.iEvaluator.evaluate(aEnvironment, argument, iter.ptr());
+				aEnvironment.iStack.pushArgumentOnStack(argument.get());
 				iter.goNext();
 			}
 			if ((iFlags & Variable) != 0)
@@ -105,7 +105,7 @@ public class PiperEvaluator extends EvalFuncBase
 				//printf("Enter\n");
 				ConsPointer head = new ConsPointer();
 				head.set(aEnvironment.iList.copy(false));
-				head.get().cdr().set(iter.getObject());
+				head.get().cdr().set(iter.getCons());
 				ConsPointer list = new ConsPointer();
 				list.set(SubList.getInstance(head.get()));
 
@@ -115,14 +115,14 @@ public class PiperEvaluator extends EvalFuncBase
 				printf("before %s\n",res.String());
 				*/
 
-				aEnvironment.iEvaluator.eval(aEnvironment, arg, list);
+				aEnvironment.iEvaluator.evaluate(aEnvironment, argument, list);
 
 				/*
 				PrintExpression(res, arg,aEnvironment,100);
 				printf("after %s\n",res.String());
 				*/
 
-				aEnvironment.iStack.pushArgumentOnStack(arg.get());
+				aEnvironment.iStack.pushArgumentOnStack(argument.get());
 				//printf("Leave\n");
 			}
 		}

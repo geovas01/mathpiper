@@ -21,7 +21,7 @@ import org.mathrider.piper.*;
 
 /**
  * Abstract evaluator for Lisp expressions.
- * eval() is an abstract method, to be provided by the derived class.
+ * evaluate() is an abstract method, to be provided by the derived class.
  * The other functions are stubs.
  */
 
@@ -30,7 +30,7 @@ public abstract class ExpressionEvaluator
 
     UserStackInformation iBasicInfo = new UserStackInformation();
 
-    public abstract void eval(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception;
+    public abstract void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception;
 
     public void resetStack()
     {

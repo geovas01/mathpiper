@@ -37,10 +37,10 @@ public class ConcatenateStrings extends BuiltinFunction
 
         ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
         iter.goNext();
-        while (iter.getObject() != null)
+        while (iter.getCons() != null)
         {
             LispError.checkIsStringCore(aEnvironment, aStackTop, iter.ptr(), arg);
-            String thisString = iter.getObject().string();
+            String thisString = iter.getCons().string();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);
             iter.goNext();

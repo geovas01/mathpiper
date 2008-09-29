@@ -209,7 +209,7 @@ public class Environment
 		{
 			if (l.iEvalBeforeReturn)
 			{
-				iEvaluator.eval(this, aResult, l.iValue);
+				iEvaluator.evaluate(this, aResult, l.iValue);
 				l.iValue.set(aResult.get());
 				l.iEvalBeforeReturn = false;
 				return;

@@ -35,6 +35,6 @@ public class BackQuote extends BuiltinFunction
         org.mathrider.piper.lisp.behaviours.BackQuote behaviour = new org.mathrider.piper.lisp.behaviours.BackQuote(aEnvironment);
         ConsPointer result = new ConsPointer();
         Standard.internalSubstitute(result, ARGUMENT(aEnvironment, aStackTop, 1), behaviour);
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
+        aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), result);
     }
 }

@@ -62,7 +62,7 @@ public class BackQuote implements SubstBase
 		{
 			ConsPointer cur = new ConsPointer();
 			cur.set(ptr);
-			iEnvironment.iEvaluator.eval(iEnvironment, aResult, cur);
+			iEnvironment.iEvaluator.evaluate(iEnvironment, aResult, cur);
 			return true;
 		}
 		else
@@ -73,7 +73,7 @@ public class BackQuote implements SubstBase
 			ConsPointer args = new ConsPointer();
 			args.set(ptr.cdr().get());
 			ConsPointer result = new ConsPointer();
-			iEnvironment.iEvaluator.eval(iEnvironment, result, cur);
+			iEnvironment.iEvaluator.evaluate(iEnvironment, result, cur);
 			result.get().cdr().set(args.get());
 			ConsPointer result2 = new ConsPointer();
 			result2.set(SubList.getInstance(result.get()));

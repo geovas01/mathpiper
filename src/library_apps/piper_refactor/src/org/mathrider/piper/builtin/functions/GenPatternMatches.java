@@ -48,10 +48,10 @@ public class GenPatternMatches extends BuiltinFunction
         PatternContainer patclass = (PatternContainer) gen;
 
         ConsTraverser iter = new ConsTraverser(list);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getObject() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getObject().subList() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getCons() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getCons().subList() != null, 2);
         iter.goSub();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getObject() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getCons() != null, 2);
         iter.goNext();
 
         ConsPointer ptr = iter.ptr();
