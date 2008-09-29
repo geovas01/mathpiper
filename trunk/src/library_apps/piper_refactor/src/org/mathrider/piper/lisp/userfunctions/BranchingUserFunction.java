@@ -24,9 +24,9 @@ import org.mathrider.piper.builtin.BuiltinContainer;
 import org.mathrider.piper.builtin.PatternContainer;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.userfunctions.ArityUserFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
@@ -47,7 +47,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	protected Vector iRules = new Vector();//CDeletingArrayGrower<BranchRuleBase*>
 
 	/// List of arguments
-	Pointer iParamList = new Pointer();
+	ConsPointer iParamList = new ConsPointer();
 
 	/// Structure containing name of parameter and whether it is put on hold.
 	public class BranchParameter
@@ -64,16 +64,16 @@ public class BranchingUserFunction extends ArityUserFunction
 	/// Abstract base class for rules.
 	abstract class BranchRuleBase
 	{
-		public abstract boolean Matches(Environment aEnvironment, Pointer[] aArguments) throws Exception;
+		public abstract boolean Matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception;
 		public abstract int Precedence();
-		public abstract Pointer Body();
+		public abstract ConsPointer Body();
 	}
 
 	/// A rule with a predicate.
 	/// This rule matches if the predicate evaluates to #true.
 	class BranchRule extends BranchRuleBase
 	{
-		public BranchRule(int aPrecedence,Pointer  aPredicate,Pointer  aBody)
+		public BranchRule(int aPrecedence,ConsPointer  aPredicate,ConsPointer  aBody)
 		{
 			iPrecedence = aPrecedence;
 			iPredicate.set(aPredicate.get());
@@ -83,9 +83,9 @@ public class BranchingUserFunction extends ArityUserFunction
 		/// Return true if the rule matches.
 		/// #iPredicate is evaluated in \a Environment. If the result
 		/// IsTrue(), this function returns true.
-		public boolean Matches(Environment  aEnvironment, Pointer[] aArguments) throws Exception
+		public boolean Matches(Environment  aEnvironment, ConsPointer[] aArguments) throws Exception
 		{
-			Pointer pred = new Pointer();
+			ConsPointer pred = new ConsPointer();
 			aEnvironment.iEvaluator.eval(aEnvironment, pred, iPredicate);
 			return Standard.isTrue(aEnvironment,pred);
 		}
@@ -97,7 +97,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		}
 
 		/// Access #iBody.
-		public Pointer Body()
+		public ConsPointer Body()
 		{
 			return iBody;
 		}
@@ -105,20 +105,20 @@ public class BranchingUserFunction extends ArityUserFunction
 		{
 		}
 		protected int iPrecedence;
-		protected Pointer iBody = new Pointer();
-		protected Pointer iPredicate = new Pointer();
+		protected ConsPointer iBody = new ConsPointer();
+		protected ConsPointer iPredicate = new ConsPointer();
 	}
 
 	/// A rule that always matches.
 	class BranchRuleTruePredicate extends BranchRule
 	{
-		public BranchRuleTruePredicate(int aPrecedence,Pointer  aBody)
+		public BranchRuleTruePredicate(int aPrecedence,ConsPointer  aBody)
 		{
 			iPrecedence = aPrecedence;
 			iBody.set(aBody.get());
 		}
 		/// Return #true, always.
-		public boolean Matches(Environment  aEnvironment, Pointer[] aArguments) throws Exception
+		public boolean Matches(Environment  aEnvironment, ConsPointer[] aArguments) throws Exception
 		{
 			return true;
 		}
@@ -131,7 +131,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		/// \param aPrecedence precedence of the rule
 		/// \param aPredicate generic object of type \c PatternContainer
 		/// \param aBody body of the rule
-		public BranchPattern(int aPrecedence,Pointer  aPredicate,Pointer  aBody) throws Exception
+		public BranchPattern(int aPrecedence,ConsPointer  aPredicate,ConsPointer  aBody) throws Exception
 		{
 			iPatternClass = null;
 			iPrecedence = aPrecedence;
@@ -146,7 +146,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		}
 
 		/// Return true if the corresponding pattern matches.
-		public boolean Matches(Environment  aEnvironment, Pointer[] aArguments) throws Exception
+		public boolean Matches(Environment  aEnvironment, ConsPointer[] aArguments) throws Exception
 		{
 			return iPatternClass.matches(aEnvironment,aArguments);
 		}
@@ -158,7 +158,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		}
 
 		/// Access #iBody
-		public Pointer Body()
+		public ConsPointer Body()
 		{
 			return iBody;
 		}
@@ -167,10 +167,10 @@ public class BranchingUserFunction extends ArityUserFunction
 		protected int iPrecedence;
 
 		/// The body of this rule.
-		protected Pointer iBody = new Pointer();
+		protected ConsPointer iBody = new ConsPointer();
 
 		/// Generic object of type \c PatternContainer containing #iPatternClass
-		protected Pointer iPredicate = new Pointer();
+		protected ConsPointer iPredicate = new ConsPointer();
 
 		/// The pattern that decides whether this rule matches.
 		protected PatternContainer iPatternClass;
@@ -180,16 +180,16 @@ public class BranchingUserFunction extends ArityUserFunction
 	/// \param aParameters linked list constaining the names of the arguments
 	///
 	/// #iParamList and #iParameters are set from \a aParameters.
-	public BranchingUserFunction(Pointer aParameters) throws Exception
+	public BranchingUserFunction(ConsPointer aParameters) throws Exception
 	{
 		iParamList.set(aParameters.get());
-		Iterator iter = new Iterator(aParameters);
-		while (iter.GetObject() != null)
+		ConsTraverser iter = new ConsTraverser(aParameters);
+		while (iter.getObject() != null)
 		{
-			LispError.Check(iter.GetObject().string() != null,LispError.KLispErrCreatingUserFunction);
-			BranchParameter param = new BranchParameter(iter.GetObject().string(),false);
+			LispError.Check(iter.getObject().string() != null,LispError.KLispErrCreatingUserFunction);
+			BranchParameter param = new BranchParameter(iter.getObject().string(),false);
 			iParameters.add(param);
-			iter.GoNext();
+			iter.goNext();
 		}
 	}
 
@@ -207,7 +207,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	/// first rule that matches is evaluated, and the result is put in
 	/// \a aResult. If no rule matches, \a aResult will recieve a new
 	/// expression with evaluated arguments.
-	public void Evaluate(Pointer aResult,Environment aEnvironment, Pointer aArguments) throws Exception
+	public void Evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception
 	{
 		int arity = Arity();
 		int i;
@@ -215,53 +215,53 @@ public class BranchingUserFunction extends ArityUserFunction
 		/*TODO fixme
 		    if (Traced())
 		    {
-		        Pointer tr;
+		        ConsPointer tr;
 		        tr.Set(SubList.New(aArguments.Get()));
 		        TraceShowEnter(aEnvironment,tr);
 		        tr.Set(null);
 		    }
 		*/
-		Iterator iter = new Iterator(aArguments);
-		iter.GoNext();
+		ConsTraverser iter = new ConsTraverser(aArguments);
+		iter.goNext();
 
 		// unrollable arguments
-		Pointer[] arguments;
+		ConsPointer[] arguments;
 		if (arity==0)
 			arguments = null;
 		else
 		{
 			LispError.LISPASSERT(arity>0);
-			arguments = new Pointer[arity];
+			arguments = new ConsPointer[arity];
 			for (i=0;i<arity;i++)
-				arguments[i] = new Pointer();
+				arguments[i] = new ConsPointer();
 		}
 
 		// Walk over all arguments, evaluating them as necessary
 		for (i=0;i<arity;i++)
 		{
-			LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
+			LispError.Check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
-				arguments[i].set(iter.GetObject().copy(false));
+				arguments[i].set(iter.getObject().copy(false));
 			}
 			else
 			{
-				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.Ptr());
+				LispError.Check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
+				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.ptr());
 			}
-			iter.GoNext();
+			iter.goNext();
 		}
 		/*TODO fixme
 		    if (Traced())
 		    {
-		        Iterator iter = new Iterator(aArguments);
-		        iter.GoNext();
+		        ConsTraverser iter = new ConsTraverser(aArguments);
+		        iter.goNext();
 		        for (i=0;i<arity;i++)
 		        {
-		            TraceShowArg(aEnvironment,*iter.Ptr(),
+		            TraceShowArg(aEnvironment,*iter.ptr(),
 		                  arguments[i]);
 
-		            iter.GoNext();
+		            iter.goNext();
 		        }
 		    }
 		*/
@@ -295,7 +295,7 @@ public class BranchingUserFunction extends ArityUserFunction
 					/*TODO fixme
 					            if (Traced())
 					            {
-					                Pointer tr;
+					                ConsPointer tr;
 					                tr.Set(SubList.New(aArguments.Get()));
 					                TraceShowLeave(aEnvironment, aResult,tr);
 					                tr.Set(null);
@@ -312,7 +312,7 @@ public class BranchingUserFunction extends ArityUserFunction
 			// arguments.
 
 			{
-				Pointer full = new Pointer();
+				ConsPointer full = new ConsPointer();
 				full.set(aArguments.get().copy(false));
 				if (arity == 0)
 				{
@@ -332,7 +332,7 @@ public class BranchingUserFunction extends ArityUserFunction
 			/*TODO fixme
 			    if (Traced())
 			    {
-			        Pointer tr;
+			        ConsPointer tr;
 			        tr.Set(SubList.New(aArguments.Get()));
 			        TraceShowLeave(aEnvironment, aResult,tr);
 			        tr.Set(null);
@@ -379,7 +379,7 @@ public class BranchingUserFunction extends ArityUserFunction
 
 	/// Add a BranchRule to the list of rules.
 	/// \sa InsertRule()
-	public void DeclareRule(int aPrecedence, Pointer aPredicate, Pointer aBody) throws Exception
+	public void DeclareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
 	{
 		// New branching rule.
 		BranchRule newRule = new BranchRule(aPrecedence,aPredicate,aBody);
@@ -390,7 +390,7 @@ public class BranchingUserFunction extends ArityUserFunction
 
 	/// Add a BranchRuleTruePredicate to the list of rules.
 	/// \sa InsertRule()
-	public void DeclareRule(int aPrecedence, Pointer aBody) throws Exception
+	public void DeclareRule(int aPrecedence, ConsPointer aBody) throws Exception
 	{
 		// New branching rule.
 		BranchRule newRule = new BranchRuleTruePredicate(aPrecedence,aBody);
@@ -401,7 +401,7 @@ public class BranchingUserFunction extends ArityUserFunction
 
 	/// Add a BranchPattern to the list of rules.
 	/// \sa InsertRule()
-	public void DeclarePattern(int aPrecedence, Pointer aPredicate, Pointer aBody) throws Exception
+	public void DeclarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
 	{
 		// New branching rule.
 		BranchPattern newRule = new BranchPattern(aPrecedence,aPredicate,aBody);
@@ -468,7 +468,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	}
 
 	/// Return the argument list, stored in #iParamList
-	public Pointer ArgList()
+	public ConsPointer ArgList()
 	{
 		return iParamList;
 	}

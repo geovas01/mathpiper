@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -33,7 +33,7 @@ public class BackQuote extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathrider.piper.lisp.behaviours.BackQuote behaviour = new org.mathrider.piper.lisp.behaviours.BackQuote(aEnvironment);
-        Pointer result = new Pointer();
+        ConsPointer result = new ConsPointer();
         Standard.internalSubstitute(result, ARGUMENT(aEnvironment, aStackTop, 1), behaviour);
         aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
     }

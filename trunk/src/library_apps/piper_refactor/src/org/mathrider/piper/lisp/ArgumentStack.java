@@ -25,13 +25,13 @@ package org.mathrider.piper.lisp;
 public class ArgumentStack
 {
 
-    PointerArray iStack;
+    ConsPointerArray iStack;
     int iStackTop;
 
     //TODO appropriate constructor?
     public ArgumentStack(int aStackSize)
     {
-        iStack = new PointerArray(aStackSize, null);
+        iStack = new ConsPointerArray(aStackSize, null);
         iStackTop = 0;
     //printf("STACKSIZE %d\n",aStackSize);
     }
@@ -65,7 +65,7 @@ public class ArgumentStack
         iStackTop += aNr;
     }
 
-    public Pointer getElement(int aPos) throws Exception
+    public ConsPointer getElement(int aPos) throws Exception
     {
         LispError.LISPASSERT(aPos >= 0 && aPos < iStackTop);
         return iStack.getElement(aPos);

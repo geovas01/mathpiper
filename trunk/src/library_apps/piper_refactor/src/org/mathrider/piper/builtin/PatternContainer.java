@@ -19,7 +19,7 @@
 package org.mathrider.piper.builtin;
 
 //import org.mathrider.piper.parametermatchers.PatternContainer;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ArgList;
@@ -38,7 +38,7 @@ public class PatternContainer extends BuiltinContainer
 		iPatternMatcher = aPatternMatcher;
 	}
 
-	public boolean matches(Environment  aEnvironment, Pointer aArguments) throws Exception
+	public boolean matches(Environment  aEnvironment, ConsPointer aArguments) throws Exception
 	{
 		LispError.LISPASSERT(iPatternMatcher != null);
 		boolean result;
@@ -46,7 +46,7 @@ public class PatternContainer extends BuiltinContainer
 		return result;
 	}
 	
-	public boolean matches(Environment  aEnvironment, Pointer[] aArguments) throws Exception
+	public boolean matches(Environment  aEnvironment, ConsPointer[] aArguments) throws Exception
 	{
 		LispError.LISPASSERT(iPatternMatcher != null);
 		boolean result;

@@ -18,13 +18,13 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper.lisp;
 
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 
 public class UserStackInformation
 {
 
-	public Pointer iExpression;
-	public Pointer iOperator;
+	public ConsPointer iExpression;
+	public ConsPointer iOperator;
 	public int iRulePrecedence;
 	public int iSide; // 0=pattern, 1=body
 

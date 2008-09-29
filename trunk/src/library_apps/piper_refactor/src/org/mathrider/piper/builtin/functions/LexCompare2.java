@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.HashTable;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -38,8 +38,8 @@ abstract public class LexCompare2
 
     void Compare(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer result1 = new Pointer();
-        Pointer result2 = new Pointer();
+        ConsPointer result1 = new ConsPointer();
+        ConsPointer result2 = new ConsPointer();
         result1.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
         result2.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
         boolean cmp;

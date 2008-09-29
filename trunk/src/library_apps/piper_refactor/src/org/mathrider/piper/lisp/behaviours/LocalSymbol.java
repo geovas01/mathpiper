@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.lisp.behaviours;
 
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
 
@@ -41,7 +41,7 @@ public class LocalSymbol implements SubstBase
 		iNewNames = aNewNames;
 		iNrNames = aNrNames;
 	}
-	public boolean matches(Pointer aResult, Pointer aElement) throws Exception
+	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
 		String name = aElement.get().string();
 		if (name == null)

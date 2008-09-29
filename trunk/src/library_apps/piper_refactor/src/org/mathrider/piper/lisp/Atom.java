@@ -54,7 +54,7 @@ public class Atom extends Cons
         return new Atom(iString);
     }
 
-    public Cons setExtraInfo(Pointer aData)
+    public Cons setExtraInfo(ConsPointer aData)
     {
         //TODO FIXME
         System.out.println("NOT YET IMPLEMENTED!!!");

@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.parametermatchers;
 
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 
 
@@ -33,8 +33,8 @@ public class Atom extends Parameter
 	}
 	
 	public boolean argumentMatches(Environment  aEnvironment,
-	                               Pointer  aExpression,
-	                               Pointer[]  arguments) throws Exception
+	                               ConsPointer  aExpression,
+	                               ConsPointer[]  arguments) throws Exception
 	{
 		// If it is a floating point, don't even bother comparing
 		if (aExpression.get() != null)

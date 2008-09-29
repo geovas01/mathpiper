@@ -20,7 +20,7 @@ package org.mathrider.piper.lisp.behaviours;
 
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 
@@ -40,7 +40,7 @@ public class BackQuote implements SubstBase
 	{
 		iEnvironment = aEnvironment;
 	}
-	public boolean matches(Pointer aResult, Pointer aElement) throws Exception
+	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
 		if (aElement.get().subList() == null) return false;
 		Cons ptr = aElement.get().subList().get();
@@ -60,7 +60,7 @@ public class BackQuote implements SubstBase
 			return false;
 		if (ptr.string() != null)
 		{
-			Pointer cur = new Pointer();
+			ConsPointer cur = new ConsPointer();
 			cur.set(ptr);
 			iEnvironment.iEvaluator.eval(iEnvironment, aResult, cur);
 			return true;
@@ -68,14 +68,14 @@ public class BackQuote implements SubstBase
 		else
 		{
 			ptr = ptr.subList().get();
-			Pointer cur = new Pointer();
+			ConsPointer cur = new ConsPointer();
 			cur.set(ptr);
-			Pointer args = new Pointer();
+			ConsPointer args = new ConsPointer();
 			args.set(ptr.cdr().get());
-			Pointer result = new Pointer();
+			ConsPointer result = new ConsPointer();
 			iEnvironment.iEvaluator.eval(iEnvironment, result, cur);
 			result.get().cdr().set(args.get());
-			Pointer result2 = new Pointer();
+			ConsPointer result2 = new ConsPointer();
 			result2.set(SubList.getInstance(result.get()));
 			Standard.internalSubstitute(aResult, result2,this);
 			return true;

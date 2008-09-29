@@ -37,7 +37,7 @@ public class Parser
 		iListed = false;
 	}
 	
-	public void parse(Pointer aResult ) throws Exception
+	public void parse(ConsPointer aResult ) throws Exception
 	{
 		aResult.set(null);
 
@@ -52,11 +52,11 @@ public class Parser
 		parseAtom(aResult,token);
 	}
 
-	void parseList(Pointer aResult) throws Exception
+	void parseList(ConsPointer aResult) throws Exception
 	{
 		String token;
 
-		Pointer iter = aResult;
+		ConsPointer iter = aResult;
 		if (iListed)
 		{
 			aResult.set(Atom.getInstance(iEnvironment,"List"));
@@ -81,7 +81,7 @@ public class Parser
 		}
 	}
 
-	void parseAtom(Pointer aResult,String aToken) throws Exception
+	void parseAtom(ConsPointer aResult,String aToken) throws Exception
 	{
 		// if token is empty string, return null pointer (no expression)
 		if (aToken.length() == 0) //TODO FIXME either token == null or token.length() == 0?
@@ -90,7 +90,7 @@ public class Parser
 		//   and make a sublist
 		if (aToken == iEnvironment.hashTable().lookUp("("))
 		{
-			Pointer subList = new Pointer();
+			ConsPointer subList = new ConsPointer();
 			parseList(subList);
 			aResult.set(SubList.getInstance(subList.get()));
 			return;

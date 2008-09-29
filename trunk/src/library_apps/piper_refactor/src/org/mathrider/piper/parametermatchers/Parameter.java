@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.parametermatchers;
 
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 
 
@@ -31,6 +31,6 @@ public abstract class Parameter
 	/// \param arguments (input/output) actual values of the pattern
 	/// variables for \a aExpression.
 	public abstract boolean argumentMatches(Environment  aEnvironment,
-	                                        Pointer  aExpression,
-	                                        Pointer[]  arguments) throws Exception;
+	                                        ConsPointer  aExpression,
+	                                        ConsPointer[]  arguments) throws Exception;
 }

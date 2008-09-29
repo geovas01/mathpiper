@@ -34,7 +34,7 @@ import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.io.StringInput;
 import org.mathrider.piper.lisp.HashTable;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
 import org.mathrider.piper.lisp.Environment;
@@ -47,7 +47,7 @@ import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Atom;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.BuiltinObject;
 import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.DefFile;
@@ -662,7 +662,7 @@ public class Functions
         String orig = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get().string();
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
 
-        Pointer precedence = new Pointer();
+        ConsPointer precedence = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, precedence, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2));
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, precedence.get().string() != null, 2);
         int prec = Integer.parseInt(precedence.get().string(), 10);
@@ -686,7 +686,7 @@ public class Functions
         // Get operator
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
 
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         String orig = evaluated.get().string();
@@ -706,7 +706,7 @@ public class Functions
         String varstring = null;
         if (aMacroMode)
         {
-            Pointer result = new Pointer();
+            ConsPointer result = new ConsPointer();
             aEnvironment.iEvaluator.eval(aEnvironment, result, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1));
             varstring = result.get().string();
         } else
@@ -716,7 +716,7 @@ public class Functions
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, varstring != null, 1);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, !Standard.isNumber(varstring, true), 1);
 
-        Pointer result = new Pointer();
+        ConsPointer result = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, result, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2));
         aEnvironment.setVariable(varstring, result, aGlobalLazyVariable);
         Standard.internalTrue(aEnvironment, BuiltinFunction.RESULT(aEnvironment, aStackTop));
@@ -724,11 +724,11 @@ public class Functions
 
     public static void internalDelete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
     {
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
         LispError.CHK_ISLIST_CORE(aEnvironment, aStackTop, evaluated, 1);
 
-        Pointer copied = new Pointer();
+        ConsPointer copied = new ConsPointer();
         if (aDestructive)
         {
             copied.set(evaluated.get().subList().get());
@@ -737,33 +737,33 @@ public class Functions
             Standard.internalFlatCopy(copied, evaluated.get().subList());
         }
 
-        Pointer index = new Pointer();
+        ConsPointer index = new ConsPointer();
         index.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get() != null, 2);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get().string() != null, 2);
         int ind = Integer.parseInt(index.get().string(), 10);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ind > 0, 2);
 
-        Iterator iter = new Iterator(copied);
+        ConsTraverser iter = new ConsTraverser(copied);
         while (ind > 0)
         {
-            iter.GoNext();
+            iter.goNext();
             ind--;
         }
-        LispError.CHK_CORE(aEnvironment, aStackTop, iter.GetObject() != null, LispError.KLispErrListNotLongEnough);
-        Pointer next = new Pointer();
-        next.set(iter.GetObject().cdr().get());
-        iter.Ptr().set(next.get());
+        LispError.CHK_CORE(aEnvironment, aStackTop, iter.getObject() != null, LispError.KLispErrListNotLongEnough);
+        ConsPointer next = new ConsPointer();
+        next.set(iter.getObject().cdr().get());
+        iter.ptr().set(next.get());
         BuiltinFunction.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
     }
 
     public static void internalInsert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
     {
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
         LispError.CHK_ISLIST_CORE(aEnvironment, aStackTop, evaluated, 1);
 
-        Pointer copied = new Pointer();
+        ConsPointer copied = new ConsPointer();
         if (aDestructive)
         {
             copied.set(evaluated.get().subList().get());
@@ -772,41 +772,41 @@ public class Functions
             Standard.internalFlatCopy(copied, evaluated.get().subList());
         }
 
-        Pointer index = new Pointer();
+        ConsPointer index = new ConsPointer();
         index.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get() != null, 2);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get().string() != null, 2);
         int ind = Integer.parseInt(index.get().string(), 10);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ind > 0, 2);
 
-        Iterator iter = new Iterator(copied);
+        ConsTraverser iter = new ConsTraverser(copied);
         while (ind > 0)
         {
-            iter.GoNext();
+            iter.goNext();
             ind--;
         }
 
-        Pointer toInsert = new Pointer();
+        ConsPointer toInsert = new ConsPointer();
         toInsert.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 3).get());
-        toInsert.get().cdr().set(iter.GetObject());
-        iter.Ptr().set(toInsert.get());
+        toInsert.get().cdr().set(iter.getObject());
+        iter.ptr().set(toInsert.get());
         BuiltinFunction.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
     }
 
     public static void internalReplace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
     {
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
         // Ok, so lets not check if it is a list, but it needs to be at least a 'function'
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, evaluated.get().subList() != null, 1);
 
-        Pointer index = new Pointer();
+        ConsPointer index = new ConsPointer();
         index.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get() != null, 2);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get().string() != null, 2);
         int ind = Integer.parseInt(index.get().string(), 10);
 
-        Pointer copied = new Pointer();
+        ConsPointer copied = new ConsPointer();
         if (aDestructive)
         {
             copied.set(evaluated.get().subList().get());
@@ -816,19 +816,19 @@ public class Functions
         }
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ind > 0, 2);
 
-        Iterator iter = new Iterator(copied);
+        ConsTraverser iter = new ConsTraverser(copied);
         while (ind > 0)
         {
-            iter.GoNext();
+            iter.goNext();
             ind--;
         }
 
-        Pointer toInsert = new Pointer();
+        ConsPointer toInsert = new ConsPointer();
         toInsert.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 3).get());
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.Ptr() != null, 2);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.Ptr().get() != null, 2);
-        toInsert.get().cdr().set(iter.Ptr().get().cdr().get());
-        iter.Ptr().set(toInsert.get());
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.ptr() != null, 2);
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.ptr().get() != null, 2);
+        toInsert.get().cdr().set(iter.ptr().get().cdr().get());
+        iter.ptr().set(toInsert.get());
         BuiltinFunction.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
     }
 
@@ -840,7 +840,7 @@ public class Functions
         //TESTARGS(3);
 
         // Get operator
-        Pointer args = new Pointer();
+        ConsPointer args = new ConsPointer();
         String orig = null;
 
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
@@ -866,10 +866,10 @@ public class Functions
         int arity;
         int precedence;
 
-        Pointer ar = new Pointer();
-        Pointer pr = new Pointer();
-        Pointer predicate = new Pointer();
-        Pointer body = new Pointer();
+        ConsPointer ar = new ConsPointer();
+        ConsPointer pr = new ConsPointer();
+        ConsPointer predicate = new ConsPointer();
+        ConsPointer body = new ConsPointer();
         String orig = null;
 
         // Get operator
@@ -905,8 +905,8 @@ public class Functions
     public static void internalDefMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception
     {
         // Get operator
-        Pointer args = new Pointer();
-        Pointer body = new Pointer();
+        ConsPointer args = new ConsPointer();
+        ConsPointer body = new ConsPointer();
         String orig = null;
 
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
@@ -930,10 +930,10 @@ public class Functions
         int arity;
         int precedence;
 
-        Pointer ar = new Pointer();
-        Pointer pr = new Pointer();
-        Pointer predicate = new Pointer();
-        Pointer body = new Pointer();
+        ConsPointer ar = new ConsPointer();
+        ConsPointer pr = new ConsPointer();
+        ConsPointer predicate = new ConsPointer();
+        ConsPointer body = new ConsPointer();
         String orig = null;
 
         // Get operator

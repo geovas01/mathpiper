@@ -278,7 +278,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
 		stdoutput = new StringOutput(outp);
 		piper = new Interpreter(stdoutput);
-		piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
+		piper.environment.iCurrentInput = new CachedStdFileInput(piper.environment.iInputStatus);
 
 
 		if (piperLogo != null)
@@ -1773,7 +1773,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
 	public void StopCurrentCalculation()
 	{
-		piper.env.iEvalDepth = piper.env.iMaxEvalDepth+100;
+		piper.environment.iEvalDepth = piper.environment.iMaxEvalDepth+100;
 	}
 }
 

@@ -20,8 +20,8 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Iterator;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsTraverser;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.SubList;
 
 /**
@@ -32,19 +32,19 @@ import org.mathrider.piper.lisp.SubList;
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			Pointer all = new Pointer();
+			ConsPointer all = new ConsPointer();
 			all.set(aEnvironment.iList.copy(false));
-			Iterator tail = new Iterator(all);
-			tail.GoNext();
-			Iterator iter = new Iterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
-			iter.GoNext();
-			while (iter.GetObject() != null)
+			ConsTraverser tail = new ConsTraverser(all);
+			tail.goNext();
+			ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+			iter.goNext();
+			while (iter.getObject() != null)
 			{
-				Pointer evaluated = new Pointer();
-				aEnvironment.iEvaluator.eval(aEnvironment,evaluated,iter.Ptr());
-				tail.Ptr().set(evaluated.get());
-				tail.GoNext();
-				iter.GoNext();
+				ConsPointer evaluated = new ConsPointer();
+				aEnvironment.iEvaluator.eval(aEnvironment,evaluated,iter.ptr());
+				tail.ptr().set(evaluated.get());
+				tail.goNext();
+				iter.goNext();
 			}
 			RESULT(aEnvironment, aStackTop).set(SubList.getInstance(all.get()));
 		}

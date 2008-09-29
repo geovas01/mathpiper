@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.builtin;
 
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ArgumentStack;
@@ -28,21 +28,21 @@ public abstract class BuiltinFunction
 {
 	public abstract void eval(Environment aEnvironment,int aStackTop) throws Exception;
 
-	public static Pointer RESULT(Environment aEnvironment,int aStackTop) throws Exception
+	public static ConsPointer RESULT(Environment aEnvironment,int aStackTop) throws Exception
 	{
 		return aEnvironment.iStack.getElement(aStackTop);
 	}
 	
-	public static Pointer ARGUMENT(Environment aEnvironment,int aStackTop, int i)  throws Exception
+	public static ConsPointer ARGUMENT(Environment aEnvironment,int aStackTop, int i)  throws Exception
 	{
 		return aEnvironment.iStack.getElement(aStackTop+i);
 	}
 
-	public static Pointer argument(Pointer cur, int n) throws Exception
+	public static ConsPointer argument(ConsPointer cur, int n) throws Exception
 	{
 		LispError.LISPASSERT(n>=0);
 
-		Pointer loop = cur;
+		ConsPointer loop = cur;
 		while(n != 0)
 		{
 			n--;

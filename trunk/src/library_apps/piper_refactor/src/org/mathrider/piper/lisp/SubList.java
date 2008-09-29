@@ -21,7 +21,7 @@ package org.mathrider.piper.lisp;
 
 public class SubList extends Cons
 {
-	Pointer iSubList = new Pointer();
+	ConsPointer iSubList = new ConsPointer();
 	
 	public static SubList getInstance(Cons aSubList)
 	{
@@ -29,7 +29,7 @@ public class SubList extends Cons
 	}
         
         
-	public Pointer subList()
+	public ConsPointer subList()
 	{
 		return iSubList;
 	}
@@ -50,7 +50,7 @@ public class SubList extends Cons
 	}
         
         
-	public Cons setExtraInfo(Pointer aData)
+	public Cons setExtraInfo(ConsPointer aData)
 	{
 		//TODO FIXME
 		/*

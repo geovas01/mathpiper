@@ -18,16 +18,16 @@
 
 package org.mathrider.piper.lisp.userfunctions;
 
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 
 
 public class ListedBranchingUserFunction extends BranchingUserFunction
 {
-	public ListedBranchingUserFunction(Pointer  aParameters) throws Exception
+	public ListedBranchingUserFunction(ConsPointer  aParameters) throws Exception
 	{
 		super(aParameters);
 	}
@@ -37,33 +37,33 @@ public class ListedBranchingUserFunction extends BranchingUserFunction
 		return (Arity() <= aArity);
 	}
 	
-	public void Evaluate(Pointer aResult, Environment aEnvironment, Pointer aArguments) throws Exception
+	public void Evaluate(ConsPointer aResult, Environment aEnvironment, ConsPointer aArguments) throws Exception
 	{
-		Pointer newArgs = new Pointer();
-		Iterator iter = new Iterator(aArguments);
-		Pointer ptr =  newArgs;
+		ConsPointer newArgs = new ConsPointer();
+		ConsTraverser iter = new ConsTraverser(aArguments);
+		ConsPointer ptr =  newArgs;
 		int arity = Arity();
 		int i=0;
-		while (i < arity && iter.GetObject() != null)
+		while (i < arity && iter.getObject() != null)
 		{
-			ptr.set(iter.GetObject().copy(false));
+			ptr.set(iter.getObject().copy(false));
 			ptr = (ptr.get().cdr());
 			i++;
-			iter.GoNext();
+			iter.goNext();
 		}
-		if (iter.GetObject().cdr().get() == null)
+		if (iter.getObject().cdr().get() == null)
 		{
-			ptr.set(iter.GetObject().copy(false));
+			ptr.set(iter.getObject().copy(false));
 			ptr = (ptr.get().cdr());
 			i++;
-			iter.GoNext();
-			LispError.LISPASSERT(iter.GetObject() == null);
+			iter.goNext();
+			LispError.LISPASSERT(iter.getObject() == null);
 		}
 		else
 		{
-			Pointer head = new Pointer();
+			ConsPointer head = new ConsPointer();
 			head.set(aEnvironment.iList.copy(false));
-			head.get().cdr().set(iter.GetObject());
+			head.get().cdr().set(iter.getObject());
 			ptr.set(SubList.getInstance(head.get()));
 		}
 		super.Evaluate(aResult, aEnvironment, newArgs);

@@ -24,7 +24,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
@@ -35,14 +35,14 @@ public class GenArrayGet extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         BuiltinContainer gen = evaluated.get().generic();
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen != null, 1);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
 
-        Pointer sizearg = new Pointer();
+        ConsPointer sizearg = new ConsPointer();
         sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get() != null, 2);

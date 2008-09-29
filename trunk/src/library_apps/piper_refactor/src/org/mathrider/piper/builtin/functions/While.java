@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -32,15 +32,15 @@ public class While extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer arg1 = ARGUMENT(aEnvironment, aStackTop, 1);
-        Pointer arg2 = ARGUMENT(aEnvironment, aStackTop, 2);
+        ConsPointer arg1 = ARGUMENT(aEnvironment, aStackTop, 1);
+        ConsPointer arg2 = ARGUMENT(aEnvironment, aStackTop, 2);
 
-        Pointer predicate = new Pointer();
+        ConsPointer predicate = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, predicate, arg1);
 
         while (Standard.isTrue(aEnvironment, predicate))
         {
-            Pointer evaluated = new Pointer();
+            ConsPointer evaluated = new ConsPointer();
             aEnvironment.iEvaluator.eval(aEnvironment, evaluated, arg2);
             aEnvironment.iEvaluator.eval(aEnvironment, predicate, arg1);
 

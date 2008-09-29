@@ -21,9 +21,9 @@ package org.mathrider.piper.lisp.parsers;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.Input;
@@ -31,16 +31,16 @@ import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.InfixOperator;
 
 
-public class ParsedObject
+public class ParsedInfixExpression
 {
 	InfixParser iParser;
 	boolean iError;
 	boolean iEndOfFile;
 	String iLookAhead;
 
-	public Pointer iResult =  new Pointer();
+	public ConsPointer iResult =  new ConsPointer();
 	
-	public ParsedObject(InfixParser aParser)
+	public ParsedInfixExpression(InfixParser aParser)
 	{
 		iParser = aParser;
 		iError = false;
@@ -320,26 +320,26 @@ public class ParsedObject
 	
 	void combine(int aNrArgsToCombine) throws Exception
 	{
-		Pointer subList = new Pointer();
+		ConsPointer subList = new ConsPointer();
 		subList.set(SubList.getInstance(iResult.get()));
-		Iterator iter = new Iterator(iResult);
+		ConsTraverser iter = new ConsTraverser(iResult);
 		int i;
 		for (i=0;i<aNrArgsToCombine;i++)
 		{
-			if (iter.GetObject() == null)
+			if (iter.getObject() == null)
 			{
 				fail();
 				return;
 			}
-			iter.GoNext();
+			iter.goNext();
 		}
-		if (iter.GetObject() == null)
+		if (iter.getObject() == null)
 		{
 			fail();
 			return;
 		}
-		subList.get().cdr().set(iter.GetObject().cdr().get());
-		iter.GetObject().cdr().set(null);
+		subList.get().cdr().set(iter.getObject().cdr().get());
+		iter.getObject().cdr().set(null);
 
 		Standard.internalReverseList(subList.get().subList().get().cdr(),
 		                                 subList.get().subList().get().cdr());
@@ -348,7 +348,7 @@ public class ParsedObject
 	
 	void insertAtom(String aString) throws Exception
 	{
-		Pointer ptr = new Pointer();
+		ConsPointer ptr = new ConsPointer();
 		ptr.set(Atom.getInstance(iParser.iEnvironment,aString));
 		ptr.get().cdr().set(iResult.get());
 		iResult.set(ptr.get());

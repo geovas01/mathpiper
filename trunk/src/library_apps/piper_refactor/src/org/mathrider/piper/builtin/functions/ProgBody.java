@@ -19,7 +19,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -39,12 +39,12 @@ public class ProgBody extends BuiltinFunction
 
             // Evaluate args one by one.
 
-            Iterator iter = new Iterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
-            iter.GoNext();
-            while (iter.GetObject() != null)
+            ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+            iter.goNext();
+            while (iter.getObject() != null)
             {
-                aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), iter.Ptr());
-                iter.GoNext();
+                aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), iter.ptr());
+                iter.goNext();
             }
         } catch (Exception e)
         {

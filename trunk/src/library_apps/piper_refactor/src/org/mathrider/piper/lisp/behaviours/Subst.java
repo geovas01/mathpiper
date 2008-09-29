@@ -1,7 +1,7 @@
 package org.mathrider.piper.lisp.behaviours;
 
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 
 
@@ -13,17 +13,17 @@ public class Subst
 {
 
 	Environment iEnvironment;
-	Pointer iToMatch;
-	Pointer iToReplaceWith;
+	ConsPointer iToMatch;
+	ConsPointer iToReplaceWith;
 
-	public Subst(Environment aEnvironment, Pointer aToMatch, Pointer aToReplaceWith)
+	public Subst(Environment aEnvironment, ConsPointer aToMatch, ConsPointer aToReplaceWith)
 	{
 		iEnvironment = aEnvironment;
 		iToMatch = aToMatch;
 		iToReplaceWith = aToReplaceWith;
 	}
 
-	public boolean matches(Pointer aResult, Pointer aElement)
+	public boolean matches(ConsPointer aResult, ConsPointer aElement)
 	throws Exception
 	{
 

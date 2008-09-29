@@ -19,7 +19,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -31,10 +31,10 @@ public class Tail extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer first = new Pointer();
+        ConsPointer first = new ConsPointer();
         Standard.internalTail(first, ARGUMENT(aEnvironment, aStackTop, 1));
         Standard.internalTail(RESULT(aEnvironment, aStackTop), first);
-        Pointer head = new Pointer();
+        ConsPointer head = new ConsPointer();
         head.set(aEnvironment.iList.copy(false));
         head.get().cdr().set(RESULT(aEnvironment, aStackTop).get().subList().get());
         RESULT(aEnvironment, aStackTop).get().subList().set(head.get());

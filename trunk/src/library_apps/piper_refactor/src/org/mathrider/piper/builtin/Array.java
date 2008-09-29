@@ -20,17 +20,17 @@ package org.mathrider.piper.builtin;
 
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.PointerArray;
+import org.mathrider.piper.lisp.ConsPointerArray;
 import org.mathrider.piper.lisp.ArgList;
 
 
 public class Array extends BuiltinContainer
 {
-	PointerArray iArray;
+	ConsPointerArray iArray;
 
 	public Array(int aSize,Cons aInitialItem)
 	{
-		iArray = new PointerArray(aSize,aInitialItem);
+		iArray = new ConsPointerArray(aSize,aInitialItem);
 	}
 	public String send(ArgList aArgList)
 	{

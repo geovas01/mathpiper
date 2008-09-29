@@ -19,9 +19,9 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.SubList;
 
@@ -34,23 +34,23 @@ public class Concatenate extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer all = new Pointer();
+        ConsPointer all = new ConsPointer();
         all.set(aEnvironment.iList.copy(false));
-        Iterator tail = new Iterator(all);
-        tail.GoNext();
+        ConsTraverser tail = new ConsTraverser(all);
+        tail.goNext();
         int arg = 1;
 
-        Iterator iter = new Iterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
-        iter.GoNext();
-        while (iter.GetObject() != null)
+        ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+        iter.goNext();
+        while (iter.getObject() != null)
         {
-            LispError.CHK_ISLIST_CORE(aEnvironment, aStackTop, iter.Ptr(), arg);
-            Standard.internalFlatCopy(tail.Ptr(), iter.Ptr().get().subList().get().cdr());
-            while (tail.GetObject() != null)
+            LispError.CHK_ISLIST_CORE(aEnvironment, aStackTop, iter.ptr(), arg);
+            Standard.internalFlatCopy(tail.ptr(), iter.ptr().get().subList().get().cdr());
+            while (tail.getObject() != null)
             {
-                tail.GoNext();
+                tail.goNext();
             }
-            iter.GoNext();
+            iter.goNext();
             arg++;
         }
         RESULT(aEnvironment, aStackTop).set(SubList.getInstance(all.get()));

@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
@@ -34,7 +34,7 @@ public class Fac extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get().number(0) != null, 1);
-        Pointer arg = ARGUMENT(aEnvironment, aStackTop, 1);
+        ConsPointer arg = ARGUMENT(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
         int nr = (int) arg.get().number(0).Long();

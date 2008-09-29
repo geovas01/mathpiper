@@ -23,7 +23,7 @@ import org.mathrider.piper.builtin.BuiltinContainer;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -35,14 +35,14 @@ public class GenArraySet extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         BuiltinContainer gen = evaluated.get().generic();
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen != null, 1);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
 
-        Pointer sizearg = new Pointer();
+        ConsPointer sizearg = new ConsPointer();
         sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get() != null, 2);
@@ -51,7 +51,7 @@ public class GenArraySet extends BuiltinFunction
         int size = Integer.parseInt(sizearg.get().string(), 10);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
 
-        Pointer obj = new Pointer();
+        ConsPointer obj = new ConsPointer();
         obj.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
         ((Array) gen).setElement(size, obj.get());
         Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));

@@ -18,41 +18,43 @@
 
 package org.mathrider.piper.lisp;
 
-
-/** 
- * Similar to Pointer, but implements an array of pointers to objects.
- *  
+/**
+ * Works almost like ConsPointer, but doesn't enforce
+ * reference counting, so it should be slightly faster. This one
+ * should be used instead of ConsPointer if you are going to traverse
+ * a lisp expression in a non-destructive way.
  */
-public class PointerArray
+public class ConsTraverser
 {
-	int iSize;
-	Pointer iArray[];
+	ConsPointer iPtr;
 	
-	public PointerArray(int aSize,Cons aInitialItem)
+	public ConsTraverser(ConsPointer aPtr)
 	{
-		iArray = new Pointer[aSize];
-		iSize = aSize;
-		int i;
-		for(i=0;i<aSize;i++)
-		{
-			iArray[i] = new Pointer();
-			iArray[i].set(aInitialItem);
-		}
+		iPtr = aPtr;
 	}
 	
-	public int size()
+	public Cons getObject()
 	{
-		return iSize;
+		return iPtr.get();
 	}
 	
-	public Pointer getElement(int aItem)
+	public ConsPointer ptr()
 	{
-		return iArray[aItem];
+		return iPtr;
 	}
 	
-	public void setElement(int aItem,Cons aObject)
+	public void goNext() throws Exception
 	{
-		iArray[aItem].set(aObject);
+		LispError.Check(iPtr.get() != null,LispError.KLispErrListNotLongEnough);
+		iPtr = (iPtr.get().cdr());
+	}
+	
+	public void goSub() throws Exception
+	{
+		LispError.Check(iPtr.get() != null,LispError.KLispErrInvalidArg);
+		LispError.Check(iPtr.get().subList() != null,LispError.KLispErrNotList);
+		iPtr = iPtr.get().subList();
 	}
 
-}
+};
+

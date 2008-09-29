@@ -22,9 +22,9 @@ import org.mathrider.piper.builtin.BuiltinContainer;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.builtin.PatternContainer;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -36,25 +36,25 @@ public class GenPatternMatches extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer pattern = new Pointer();
+        ConsPointer pattern = new ConsPointer();
         pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
         BuiltinContainer gen = pattern.get().generic();
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen != null, 1);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), 1);
 
-        Pointer list = new Pointer();
+        ConsPointer list = new ConsPointer();
         list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
         PatternContainer patclass = (PatternContainer) gen;
 
-        Iterator iter = new Iterator(list);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.GetObject() != null, 2);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.GetObject().subList() != null, 2);
-        iter.GoSub();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.GetObject() != null, 2);
-        iter.GoNext();
+        ConsTraverser iter = new ConsTraverser(list);
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject() != null, 2);
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject().subList() != null, 2);
+        iter.goSub();
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject() != null, 2);
+        iter.goNext();
 
-        Pointer ptr = iter.Ptr();
+        ConsPointer ptr = iter.ptr();
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ptr != null, 2);
         boolean matches = patclass.matches(aEnvironment, ptr);
         Standard.internalBoolean(aEnvironment, RESULT(aEnvironment, aStackTop), matches);

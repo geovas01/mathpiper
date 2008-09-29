@@ -15,52 +15,45 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathrider.piper.lisp.parsers;
 
 import org.mathrider.piper.*;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.Operators;
 
-
 public class InfixParser extends Parser
 {
-	public Operators iPrefixOperators;
-	public Operators iInfixOperators;
-	public Operators iPostfixOperators;
-	public Operators iBodiedOperators;
 
-	public InfixParser(Tokenizer aTokenizer, Input aInput,
-	                   Environment aEnvironment,
-	                   Operators aPrefixOperators,
-	                   Operators aInfixOperators,
-	                   Operators aPostfixOperators,
-	                   Operators aBodiedOperators)
-	{
-		super( aTokenizer,  aInput, aEnvironment);
-		iPrefixOperators = aPrefixOperators;
-		iInfixOperators = aInfixOperators;
-		iPostfixOperators = aPostfixOperators;
-		iBodiedOperators = aBodiedOperators;
-	}
+    public Operators iPrefixOperators;
+    public Operators iInfixOperators;
+    public Operators iPostfixOperators;
+    public Operators iBodiedOperators;
 
-	public void parse(Pointer aResult) throws Exception
-	{
-		ParseCont(aResult);
-	}
+    public InfixParser(Tokenizer aTokenizer,
+            Input aInput,
+            Environment aEnvironment,
+            Operators aPrefixOperators,
+            Operators aInfixOperators,
+            Operators aPostfixOperators,
+            Operators aBodiedOperators)
+    {
+        super(aTokenizer, aInput, aEnvironment);
+        iPrefixOperators = aPrefixOperators;
+        iInfixOperators = aInfixOperators;
+        iPostfixOperators = aPostfixOperators;
+        iBodiedOperators = aBodiedOperators;
+    }
 
-	public void ParseCont(Pointer aResult) throws Exception
-	{
-		ParsedObject object = new ParsedObject(this);
-		object.parse();
-		aResult.set(object.iResult.get());
-		return ;
-	}
-
+    public void parse(ConsPointer aResult) throws Exception
+    {
+        ParsedInfixExpression object = new ParsedInfixExpression(this);
+        object.parse();
+        aResult.set(object.iResult.get());
+    }
 }
 
 

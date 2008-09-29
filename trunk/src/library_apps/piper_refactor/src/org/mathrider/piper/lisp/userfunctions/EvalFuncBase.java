@@ -20,11 +20,11 @@ package org.mathrider.piper.lisp.userfunctions;
 
 // class EvalFuncBase defines the interface to 'something that can
 
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 
 // evaluate'
 public abstract class EvalFuncBase
 {
-	public abstract void Evaluate(Pointer aResult,Environment aEnvironment, Pointer aArguments) throws Exception;
+	public abstract void Evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
 };

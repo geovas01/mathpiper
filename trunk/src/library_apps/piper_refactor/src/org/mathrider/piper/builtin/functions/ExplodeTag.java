@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 
@@ -36,7 +36,7 @@ public class ExplodeTag extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer out = new Pointer();
+        ConsPointer out = new ConsPointer();
         out.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
         LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, out, 1);
 

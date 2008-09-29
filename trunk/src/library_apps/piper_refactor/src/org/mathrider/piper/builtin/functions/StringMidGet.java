@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
@@ -33,12 +33,12 @@ public class StringMidGet extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
         LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, evaluated, 3);
         String orig = evaluated.get().string();
 
-        Pointer index = new Pointer();
+        ConsPointer index = new ConsPointer();
         index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get() != null, 1);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get().string() != null, 1);

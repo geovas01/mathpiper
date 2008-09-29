@@ -22,7 +22,7 @@ import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -35,7 +35,7 @@ public class FromFile extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.CHK_CORE(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
         // Get file name

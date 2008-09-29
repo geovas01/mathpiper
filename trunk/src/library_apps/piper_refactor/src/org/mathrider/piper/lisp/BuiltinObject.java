@@ -50,7 +50,7 @@ public class BuiltinObject extends Cons
 		return copied;
 	}
 	
-	public Cons setExtraInfo(Pointer aData)
+	public Cons setExtraInfo(ConsPointer aData)
 	{
 		//TODO FIXME
 		return null;

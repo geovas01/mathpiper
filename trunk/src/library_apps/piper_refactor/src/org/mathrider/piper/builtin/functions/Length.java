@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinContainer;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -34,7 +34,7 @@ public class Length extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
+        ConsPointer subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
         if (subList != null)
         {
             int num = Standard.internalListLength(subList.get().cdr());

@@ -17,31 +17,51 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper.lisp;
 
-import org.mathrider.piper.*;
-
-/**
- * Abstract evaluator for Lisp expressions.
- * eval() is an abstract method, to be provided by the derived class.
- * The other functions are stubs.
+/** 
+ * Provides a smart pointer type to CONS
+ *  that can be inserted into linked lists. They do the actual
+ *  reference counting, and consequent destruction of the object if
+ *  nothing points to it. ConsPointer is used in Cons as a pointer
+ *  to the next object, and in diverse parts of the built-in internal
+ *  functions to hold temporary values.
  */
-
-public abstract class ExpressionEvaluator
+public class ConsPointer
 {
 
-    UserStackInformation iBasicInfo = new UserStackInformation();
+    Cons iCons;
 
-    public abstract void eval(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception;
-
-    public void resetStack()
+    public ConsPointer()
     {
+        iCons = null;
     }
 
-    public UserStackInformation stackInformation()
+    public ConsPointer(ConsPointer aOther)
     {
-        return iBasicInfo;
+        iCons = aOther.iCons;
     }
 
-    public void showStack(Environment aEnvironment, Output aOutput)
+    public ConsPointer(Cons aOther)
     {
+        iCons = aOther;
     }
-};
+
+    public void set(Cons aNext)
+    {
+        iCons = aNext;
+    }
+
+    public Cons get()
+    {
+        return iCons;
+    }
+
+    public void goNext()
+    {
+        iCons = iCons.iCdr.iCons;
+    }
+
+    void doSet(Cons aNext)
+    {
+        iCons = aNext;
+    }
+}

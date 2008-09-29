@@ -19,7 +19,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.SubList;
 
@@ -32,7 +32,7 @@ public class DestructiveReverse extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer reversed = new Pointer();
+        ConsPointer reversed = new ConsPointer();
         reversed.set(aEnvironment.iList.copy(false));
         Standard.internalReverseList(reversed.get().cdr(), ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get().cdr());
         RESULT(aEnvironment, aStackTop).set(SubList.getInstance(reversed.get()));

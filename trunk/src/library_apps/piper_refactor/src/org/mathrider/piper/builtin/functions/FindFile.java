@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -36,7 +36,7 @@ public class FindFile extends BuiltinFunction
     {
         LispError.CHK_CORE(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         // Get file name
