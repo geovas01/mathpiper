@@ -43,7 +43,7 @@ public class FromFile extends BuiltinFunction
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
-        String hashedname = aEnvironment.hashTable().lookUpUnStringify(orig);
+        String hashedname = aEnvironment.getGlobalState().lookUpUnStringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
         Input previous = aEnvironment.iCurrentInput;

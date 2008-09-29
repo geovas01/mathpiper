@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.HashTable;
+import org.mathrider.piper.lisp.GlobalState;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Utility;
@@ -32,7 +32,7 @@ import org.mathrider.piper.lisp.Utility;
 abstract public class LexCompare2
 {
 
-    abstract boolean lexfunc(String f1, String f2, HashTable aHashTable, int aPrecision);
+    abstract boolean lexfunc(String f1, String f2, GlobalState aHashTable, int aPrecision);
 
     abstract boolean numfunc(BigNumber n1, BigNumber n2);
 
@@ -58,7 +58,7 @@ abstract public class LexCompare2
             LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
             // the precision argument is ignored in "lex" functions
             cmp = lexfunc(str1, str2,
-                    aEnvironment.hashTable(),
+                    aEnvironment.getGlobalState(),
                     aEnvironment.precision());
         }
 

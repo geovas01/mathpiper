@@ -48,7 +48,7 @@ public class RuleBaseArgList extends BuiltinFunction
 
         int arity = Integer.parseInt(sizearg.get().string(), 10);
 
-        UserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().lookUp(oper), arity);
+        UserFunction userFunc = aEnvironment.userFunction(aEnvironment.getGlobalState().lookUp(oper), arity);
         LispError.checkCore(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
 
         ConsPointer list = userFunc.ArgList();

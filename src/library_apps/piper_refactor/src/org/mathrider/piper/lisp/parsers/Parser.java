@@ -43,7 +43,7 @@ public class Parser
 
 		String token;
 		// Get token.
-		token = iTokenizer.nextToken(iInput,iEnvironment.hashTable());
+		token = iTokenizer.nextToken(iInput,iEnvironment.getGlobalState());
 		if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
 		{
 			aResult.set(Atom.getInstance(iEnvironment,"EndOfFile"));
@@ -65,11 +65,11 @@ public class Parser
 		for (;;)
 		{
 			//Get token.
-			token = iTokenizer.nextToken(iInput,iEnvironment.hashTable());
+			token = iTokenizer.nextToken(iInput,iEnvironment.getGlobalState());
 			// if token is empty string, error!
 			LispError.check(token.length() > 0,LispError.KInvalidToken); //TODO FIXME
 			// if token is ")" return result.
-			if (token == iEnvironment.hashTable().lookUp(")"))
+			if (token == iEnvironment.getGlobalState().lookUp(")"))
 			{
 				return;
 			}
@@ -88,7 +88,7 @@ public class Parser
 			return;
 		// else if token is "(" read in a whole array of objects until ")",
 		//   and make a sublist
-		if (aToken == iEnvironment.hashTable().lookUp("("))
+		if (aToken == iEnvironment.getGlobalState().lookUp("("))
 		{
 			ConsPointer subList = new ConsPointer();
 			parseList(subList);

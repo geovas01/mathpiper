@@ -18,7 +18,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper.lisp.parsers;
 
-import org.mathrider.piper.lisp.HashTable;
+import org.mathrider.piper.lisp.GlobalState;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.Input;
@@ -29,7 +29,7 @@ public class XmlTokenizer
 
 	/// NextToken returns a string representing the next token,
 	/// or an empty list.
-	public String nextToken(Input aInput, HashTable aHashTable)
+	public String nextToken(Input aInput, GlobalState aHashTable)
 	throws Exception
 	{
 

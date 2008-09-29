@@ -48,7 +48,7 @@ public class Type extends BuiltinFunction
             result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"\""));
             return;
         }
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(head.string())));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getGlobalState().lookUpStringify(head.string())));
         return;
     }
 }

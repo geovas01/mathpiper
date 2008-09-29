@@ -55,6 +55,6 @@ public class ToBase extends BuiltinFunction
         str = x.ToString(aEnvironment.precision(), base);
         // Get unique string from hash table, and create an atom from it.
 
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(str)));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getGlobalState().lookUpStringify(str)));
     }
 }

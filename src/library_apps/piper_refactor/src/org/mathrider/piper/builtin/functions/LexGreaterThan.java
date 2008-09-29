@@ -19,7 +19,7 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BigNumber;
-import org.mathrider.piper.lisp.HashTable;
+import org.mathrider.piper.lisp.GlobalState;
 
 /**
  *
@@ -28,7 +28,7 @@ import org.mathrider.piper.lisp.HashTable;
 public class LexGreaterThan extends LexCompare2
 {
 
-    boolean lexfunc(String f1, String f2, HashTable aHashTable, int aPrecision)
+    boolean lexfunc(String f1, String f2, GlobalState aHashTable, int aPrecision)
     {
         return f1.compareTo(f2) > 0;
     }

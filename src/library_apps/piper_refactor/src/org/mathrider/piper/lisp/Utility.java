@@ -303,11 +303,11 @@ public class Utility
 	{
 		if (aSymbol.charAt(0) == '\"')
 		{
-			return aEnvironment.hashTable().lookUpUnStringify(aSymbol);
+			return aEnvironment.getGlobalState().lookUpUnStringify(aSymbol);
 		}
 		else
 		{
-			return aEnvironment.hashTable().lookUp(aSymbol);
+			return aEnvironment.getGlobalState().lookUp(aSymbol);
 		}
 	}
 
@@ -476,7 +476,7 @@ public class Utility
 			aEnvironment.iCurrentInput = aInput;
 			// TODO make "EndOfFile" a global thing
 			// read-parse-evaluate to the end of file
-			String eof = aEnvironment.hashTable().lookUp("EndOfFile");
+			String eof = aEnvironment.getGlobalState().lookUp("EndOfFile");
 			boolean endoffile = false;
 			InfixParser parser = new InfixParser(new Tokenizer(),
 			                                     aEnvironment.iCurrentInput, aEnvironment,
@@ -518,7 +518,7 @@ public class Utility
 	{
 		String oper = internalUnstringify(aFileName);
 
-		String hashedname = aEnvironment.hashTable().lookUp(oper);
+		String hashedname = aEnvironment.getGlobalState().lookUp(oper);
 
 		InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);
 		aEnvironment.iInputStatus.setTo(hashedname);
@@ -644,8 +644,8 @@ public class Utility
 		try
 		{
 			aEnvironment.iCurrentInput = aInput;
-			String eof = aEnvironment.hashTable().lookUp("EndOfFile");
-			String end = aEnvironment.hashTable().lookUp("}");
+			String eof = aEnvironment.getGlobalState().lookUp("EndOfFile");
+			String end = aEnvironment.getGlobalState().lookUp("}");
 			boolean endoffile = false;
 
 			Tokenizer tok = new Tokenizer();
@@ -653,7 +653,7 @@ public class Utility
 			while (!endoffile)
 			{
 				// Read expression
-				String token = tok.nextToken(aEnvironment.iCurrentInput, aEnvironment.hashTable());
+				String token = tok.nextToken(aEnvironment.iCurrentInput, aEnvironment.getGlobalState());
 
 				// check for end of file
 				if (token == eof || token == end)
@@ -691,7 +691,7 @@ public class Utility
 		String flatfile = internalUnstringify(aFileName) + ".def";
 		DefFile def = aEnvironment.iDefFiles.File(aFileName);
 
-		String hashedname = aEnvironment.hashTable().lookUp(flatfile);
+		String hashedname = aEnvironment.getGlobalState().lookUp(flatfile);
 
 		InputStatus oldstatus = aEnvironment.iInputStatus;
 		aEnvironment.iInputStatus.setTo(hashedname);

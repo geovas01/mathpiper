@@ -47,7 +47,7 @@ public class RuleBaseDefined extends BuiltinFunction
 
         int arity = Integer.parseInt(sizearg.get().string(), 10);
 
-        UserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().lookUp(oper), arity);
+        UserFunction userFunc = aEnvironment.userFunction(aEnvironment.getGlobalState().lookUp(oper), arity);
         Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), userFunc != null);
     }
 }

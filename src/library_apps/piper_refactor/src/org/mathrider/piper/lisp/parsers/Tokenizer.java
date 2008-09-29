@@ -30,7 +30,7 @@ public class Tokenizer
 
 	/// NextToken returns a string representing the next token,
 	/// or an empty list.
-	public String nextToken(Input aInput, HashTable aHashTable) throws Exception
+	public String nextToken(Input aInput, GlobalState aHashTable) throws Exception
 	{
 		char c;
 		int firstpos = aInput.position();

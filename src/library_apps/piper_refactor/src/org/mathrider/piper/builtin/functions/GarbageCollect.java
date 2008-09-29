@@ -31,7 +31,7 @@ public class GarbageCollect extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.hashTable().garbageCollect();
+        aEnvironment.getGlobalState().garbageCollect();
         Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }
