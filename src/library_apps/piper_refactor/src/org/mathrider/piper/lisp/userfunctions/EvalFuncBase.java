@@ -26,5 +26,5 @@ import org.mathrider.piper.lisp.Environment;
 // evaluate'
 public abstract class EvalFuncBase
 {
-	public abstract void Evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
+	public abstract void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
 };

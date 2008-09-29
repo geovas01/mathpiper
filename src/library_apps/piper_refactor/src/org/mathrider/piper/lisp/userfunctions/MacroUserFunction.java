@@ -45,7 +45,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		}
 		UnFence();
 	}
-	public void Evaluate(ConsPointer  aResult,Environment  aEnvironment,
+	public void evaluate(ConsPointer  aResult,Environment  aEnvironment,
 	                     ConsPointer  aArguments) throws Exception
 	{
 		int arity = Arity();

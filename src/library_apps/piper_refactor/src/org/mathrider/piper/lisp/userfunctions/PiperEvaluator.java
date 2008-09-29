@@ -38,22 +38,22 @@ public class PiperEvaluator extends EvalFuncBase
 	public static int Fixed = 0;     // fixed number of arguments
 	public static int Variable = 2;  // variable number of arguments
 	
-	BuiltinFunction iCaller;
-	int iNrArgs;
+	BuiltinFunction iCalledFunction;
+	int iNumberOfArguments;
 	int iFlags;
 
-	public PiperEvaluator(BuiltinFunction aCaller,int aNrArgs, int aFlags)
+	public PiperEvaluator(BuiltinFunction aCalledFunction,int aNumberOfArguments, int aFlags)
 	{
-		iCaller = aCaller;
-		iNrArgs = aNrArgs;
+		iCalledFunction = aCalledFunction;
+		iNumberOfArguments = aNumberOfArguments;
 		iFlags = aFlags;
 	}
 	
-	public void Evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception
+	public void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception
 	{
 		if ((iFlags & Variable) == 0)
 		{
-			LispError.checkNumberOfArguments(iNrArgs+1,aArguments,aEnvironment);
+			LispError.checkNumberOfArguments(iNumberOfArguments+1,aArguments,aEnvironment);
 		}
 
 		int stacktop = aEnvironment.iStack.getStackTop();
@@ -65,7 +65,7 @@ public class PiperEvaluator extends EvalFuncBase
 		iter.goNext();
 
 		int i;
-		int nr = iNrArgs;
+		int nr = iNumberOfArguments;
 
 		if ((iFlags & Variable) != 0) nr--;
 
@@ -127,7 +127,7 @@ public class PiperEvaluator extends EvalFuncBase
 			}
 		}
 
-		iCaller.eval(aEnvironment,stacktop);
+		iCalledFunction.eval(aEnvironment,stacktop);
 		aResult.set(aEnvironment.iStack.getElement(stacktop).get());
 		aEnvironment.iStack.popTo(stacktop);
 	}
