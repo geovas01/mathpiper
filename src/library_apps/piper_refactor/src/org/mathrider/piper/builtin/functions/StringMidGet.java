@@ -34,24 +34,24 @@ public class StringMidGet extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
+        evaluated.set(argument(aEnvironment, aStackTop, 3).get());
         LispError.checkIsStringCore(aEnvironment, aStackTop, evaluated, 3);
         String orig = evaluated.get().string();
 
         ConsPointer index = new ConsPointer();
-        index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        index.set(argument(aEnvironment, aStackTop, 1).get());
         LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 1);
         int from = Integer.parseInt(index.get().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, from > 0, 1);
 
-        index.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+        index.set(argument(aEnvironment, aStackTop, 2).get());
         LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 2);
         LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 2);
         int count = Integer.parseInt(index.get().string(), 10);
 
 
         String str = "\"" + orig.substring(from, from + count) + "\"";
-        RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, str));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, str));
     }
 }

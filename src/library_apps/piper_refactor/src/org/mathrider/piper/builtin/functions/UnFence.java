@@ -32,18 +32,18 @@ public class UnFence extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
-        String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, argument(aEnvironment, aStackTop, 1).get() != null, 1);
+        String orig = argument(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
         // The arity
-        LispError.checkArgumentCore(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 2).get() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 2).get().string() != null, 2);
-        int arity = Integer.parseInt(ARGUMENT(aEnvironment, aStackTop, 2).get().string(), 10);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, argument(aEnvironment, aStackTop, 2).get() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, argument(aEnvironment, aStackTop, 2).get().string() != null, 2);
+        int arity = Integer.parseInt(argument(aEnvironment, aStackTop, 2).get().string(), 10);
 
         aEnvironment.unFenceRule(Standard.symbolName(aEnvironment, orig), arity);
 
         // Return true
-        Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
+        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

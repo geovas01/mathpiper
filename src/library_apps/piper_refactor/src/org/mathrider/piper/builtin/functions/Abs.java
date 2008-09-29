@@ -38,6 +38,6 @@ public class Abs extends BuiltinFunction
         {
             z.Negate(x);
         }
-        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+        result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }
 }

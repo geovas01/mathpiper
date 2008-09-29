@@ -33,12 +33,12 @@ public class Atomize extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        evaluated.set(argument(aEnvironment, aStackTop, 1).get());
 
         // Get operator
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpUnStringify(orig)));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpUnStringify(orig)));
     }
 }

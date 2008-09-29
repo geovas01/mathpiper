@@ -51,7 +51,7 @@ public class Divide extends BuiltinFunction
         {
             z.Divide(x, y, aEnvironment.precision());
         }
-        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+        result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
         return;
     }
 }

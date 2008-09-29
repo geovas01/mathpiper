@@ -40,7 +40,7 @@ public class Concatenate extends BuiltinFunction
         tail.goNext();
         int arg = 1;
 
-        ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+        ConsTraverser iter = new ConsTraverser(argument(aEnvironment, aStackTop, 1).get().subList());
         iter.goNext();
         while (iter.getCons() != null)
         {
@@ -53,6 +53,6 @@ public class Concatenate extends BuiltinFunction
             iter.goNext();
             arg++;
         }
-        RESULT(aEnvironment, aStackTop).set(SubList.getInstance(all.get()));
+        result(aEnvironment, aStackTop).set(SubList.getInstance(all.get()));
     }
 }

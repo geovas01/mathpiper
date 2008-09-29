@@ -31,7 +31,7 @@ public class PostFix extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+        int nrArguments = Standard.internalListLength(argument(aEnvironment, aStackTop, 0));
         if (nrArguments == 2)
         {
             Functions.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);

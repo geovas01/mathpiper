@@ -20,6 +20,6 @@ import org.mathrider.piper.lisp.Environment;
 			BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.precision());
 			z.Floor(x);
-			RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+			result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
 		}
 	}

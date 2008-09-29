@@ -31,6 +31,6 @@ public class ExitRequested extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Standard.internalFalse(aEnvironment, RESULT(aEnvironment, aStackTop));
+        Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

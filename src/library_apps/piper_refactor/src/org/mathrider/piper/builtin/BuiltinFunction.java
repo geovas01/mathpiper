@@ -28,12 +28,12 @@ public abstract class BuiltinFunction
 {
 	public abstract void eval(Environment aEnvironment,int aStackTop) throws Exception;
 
-	public static ConsPointer RESULT(Environment aEnvironment,int aStackTop) throws Exception
+	public static ConsPointer result(Environment aEnvironment,int aStackTop) throws Exception
 	{
 		return aEnvironment.iStack.getElement(aStackTop);
 	}
 	
-	public static ConsPointer ARGUMENT(Environment aEnvironment,int aStackTop, int i)  throws Exception
+	public static ConsPointer argument(Environment aEnvironment,int aStackTop, int i)  throws Exception
 	{
 		return aEnvironment.iStack.getElement(aStackTop+i);
 	}

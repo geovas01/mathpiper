@@ -33,10 +33,10 @@ public class CharString extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
-        str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+        str = argument(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 2);
         LispError.checkArgumentCore(aEnvironment, aStackTop, Standard.isNumber(str, false), 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
-        RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"" + asciiCode + "\""));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"" + asciiCode + "\""));
     }
 }

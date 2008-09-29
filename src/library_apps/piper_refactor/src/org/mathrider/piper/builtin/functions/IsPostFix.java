@@ -34,6 +34,6 @@ public class IsPostFix extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
-        Standard.internalBoolean(aEnvironment, RESULT(aEnvironment, aStackTop), op != null);
+        Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), op != null);
     }
 }

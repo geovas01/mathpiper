@@ -37,6 +37,6 @@ public class FastPower extends BuiltinFunction
         double result = Math.pow(x.Double(), y.Double());
         BigNumber z = new BigNumber(aEnvironment.precision());
         z.SetTo(result);
-        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+        result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }
 }

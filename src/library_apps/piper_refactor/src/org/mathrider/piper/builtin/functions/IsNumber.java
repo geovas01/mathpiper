@@ -33,7 +33,7 @@ public class IsNumber extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
-        result.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        Standard.internalBoolean(aEnvironment, RESULT(aEnvironment, aStackTop), result.get().number(aEnvironment.precision()) != null);
+        result.set(argument(aEnvironment, aStackTop, 1).get());
+        Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), result.get().number(aEnvironment.precision()) != null);
     }
 }

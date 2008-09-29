@@ -39,10 +39,10 @@ public class ToString extends BuiltinFunction
         try
         {
             // Evaluate the body
-            aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 1));
 
             //Return the result
-            RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(oper.toString())));
+            result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(oper.toString())));
         } catch (Exception e)
         {
             throw e;

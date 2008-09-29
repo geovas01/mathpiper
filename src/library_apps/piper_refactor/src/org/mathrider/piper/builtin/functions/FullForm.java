@@ -30,9 +30,9 @@ public class FullForm extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        RESULT(aEnvironment, aStackTop).set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        result(aEnvironment, aStackTop).set(argument(aEnvironment, aStackTop, 1).get());
         Printer printer = new Printer();
-        printer.Print(RESULT(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
+        printer.Print(result(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
         aEnvironment.iCurrentOutput.Write("\n");
     }
 }

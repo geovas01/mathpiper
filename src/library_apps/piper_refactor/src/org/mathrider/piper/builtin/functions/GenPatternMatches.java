@@ -37,13 +37,13 @@ public class GenPatternMatches extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer pattern = new ConsPointer();
-        pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        pattern.set(argument(aEnvironment, aStackTop, 1).get());
         BuiltinContainer gen = pattern.get().generic();
         LispError.checkArgumentCore(aEnvironment, aStackTop, gen != null, 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), 1);
 
         ConsPointer list = new ConsPointer();
-        list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+        list.set(argument(aEnvironment, aStackTop, 2).get());
 
         PatternContainer patclass = (PatternContainer) gen;
 
@@ -57,6 +57,6 @@ public class GenPatternMatches extends BuiltinFunction
         ConsPointer ptr = iter.ptr();
         LispError.checkArgumentCore(aEnvironment, aStackTop, ptr != null, 2);
         boolean matches = patclass.matches(aEnvironment, ptr);
-        Standard.internalBoolean(aEnvironment, RESULT(aEnvironment, aStackTop), matches);
+        Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), matches);
     }
 }

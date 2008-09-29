@@ -32,13 +32,13 @@ public class Subtract extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+        int length = Standard.internalListLength(argument(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
             BigNumber z = new BigNumber(x);
             z.Negate(x);
-            RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+            result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
             return;
         } else
         {
@@ -48,7 +48,7 @@ public class Subtract extends BuiltinFunction
             yneg.Negate(y);
             BigNumber z = new BigNumber(aEnvironment.precision());
             z.Add(x, yneg, aEnvironment.precision());
-            RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+            result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
             return;
         }
     }

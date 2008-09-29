@@ -34,7 +34,7 @@ public class ToStdout extends BuiltinFunction
         aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
         try
         {
-            aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 1));
         } catch (Exception e)
         {
             throw e;

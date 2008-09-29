@@ -42,6 +42,6 @@ public class SetExactBits extends BuiltinFunction
         {
             z.Precision((int) (Standard.bits_to_digits((long) (y.Double()), 10)));
         }
-        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+        result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }
 }

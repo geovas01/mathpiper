@@ -37,11 +37,11 @@ public class BuiltinAssoc extends BuiltinFunction
     {
         // key to find
         ConsPointer key = new ConsPointer();
-        key.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        key.set(argument(aEnvironment, aStackTop, 1).get());
 
         // assoc-list to find it in
         ConsPointer list = new ConsPointer();
-        list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+        list.set(argument(aEnvironment, aStackTop, 2).get());
 
         Cons t;
 
@@ -63,13 +63,13 @@ public class BuiltinAssoc extends BuiltinFunction
                     temp.set(sub);
                     if (Standard.internalEquals(aEnvironment, key, temp))
                     {
-                        RESULT(aEnvironment, aStackTop).set(t);
+                        result(aEnvironment, aStackTop).set(t);
                         return;
                     }
                 }
             }
             t = t.cdr().get();
         }
-        RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "Empty"));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "Empty"));
     }
 }

@@ -37,7 +37,7 @@ public class ToBase extends BuiltinFunction
         // Get the base to convert to:
         // Evaluate first argument, and store result in oper
         ConsPointer oper = new ConsPointer();
-        oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        oper.set(argument(aEnvironment, aStackTop, 1).get());
         // check that result is a number, and that it is in fact an integer
         BigNumber num = oper.get().number(aEnvironment.precision());
         LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
@@ -55,6 +55,6 @@ public class ToBase extends BuiltinFunction
         str = x.ToString(aEnvironment.precision(), base);
         // Get unique string from hash table, and create an atom from it.
 
-        RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(str)));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.hashTable().lookUpStringify(str)));
     }
 }

@@ -34,6 +34,6 @@ public class DumpBigNumberDebugInfo extends BuiltinFunction
     {
         BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
         x.DumpDebugInfo(aEnvironment.iCurrentOutput);
-        Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
+        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

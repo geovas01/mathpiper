@@ -34,30 +34,30 @@ public class Length extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
+        ConsPointer subList = argument(aEnvironment, aStackTop, 1).get().subList();
         if (subList != null)
         {
             int num = Standard.internalListLength(subList.get().cdr());
-            RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + num));
+            result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + num));
             return;
         }
-        String string = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
+        String string = argument(aEnvironment, aStackTop, 1).get().string();
         if (Standard.internalIsString(string))
         {
             int num = string.length() - 2;
-            RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + num));
+            result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + num));
             return;
         }
-        BuiltinContainer gen = ARGUMENT(aEnvironment, aStackTop, 1).get().generic();
+        BuiltinContainer gen = argument(aEnvironment, aStackTop, 1).get().generic();
         if (gen != null)
         {
             if (gen.typeName().equals("\"Array\""))
             {
                 int size = ((Array) gen).size();
-                RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + size));
+                result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + size));
                 return;
             }
-        //  CHK_ISLIST_CORE(aEnvironment,aStackTop,ARGUMENT(aEnvironment, aStackTop, 1),1);
+        //  CHK_ISLIST_CORE(aEnvironment,aStackTop,argument(aEnvironment, aStackTop, 1),1);
         }
     }
 }

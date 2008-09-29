@@ -37,7 +37,7 @@ public class ExplodeTag extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer out = new ConsPointer();
-        out.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        out.set(argument(aEnvironment, aStackTop, 1).get());
         LispError.checkIsStringCore(aEnvironment, aStackTop, out, 1);
 
         String str = out.get().string();
@@ -45,7 +45,7 @@ public class ExplodeTag extends BuiltinFunction
         strInd++;
         if (str.charAt(strInd) != '<')
         {
-            RESULT(aEnvironment, aStackTop).set(out.get());
+            result(aEnvironment, aStackTop).set(out.get());
             return;
         }
         LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(strInd) == '<', 1);
@@ -148,7 +148,7 @@ public class ExplodeTag extends BuiltinFunction
         info.cdr().set(tp);
         tg.cdr().set(info);
         xm.cdr().set(tg);
-        RESULT(aEnvironment, aStackTop).set(SubList.getInstance(xm));
+        result(aEnvironment, aStackTop).set(SubList.getInstance(xm));
 
     }
 }

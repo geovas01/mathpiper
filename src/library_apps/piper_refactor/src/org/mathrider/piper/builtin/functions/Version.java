@@ -31,6 +31,6 @@ public class Version extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"" + org.mathrider.piper.Version.version + "\""));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"" + org.mathrider.piper.Version.version + "\""));
     }
 }

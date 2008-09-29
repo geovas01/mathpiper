@@ -32,7 +32,7 @@ public class Write extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
+        ConsPointer subList = argument(aEnvironment, aStackTop, 1).get().subList();
         if (subList != null)
         {
             ConsTraverser iter = new ConsTraverser(subList);
@@ -43,6 +43,6 @@ public class Write extends BuiltinFunction
                 iter.goNext();
             }
         }
-        Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
+        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

@@ -36,9 +36,9 @@ public class GenPatternCreate extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer pattern = new ConsPointer();
-        pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        pattern.set(argument(aEnvironment, aStackTop, 1).get());
         ConsPointer postpredicate = new ConsPointer();
-        postpredicate.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+        postpredicate.set(argument(aEnvironment, aStackTop, 2).get());
 
         ConsTraverser iter = new ConsTraverser(pattern);
         LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getCons() != null, 1);
@@ -52,6 +52,6 @@ public class GenPatternCreate extends BuiltinFunction
 
         org.mathrider.piper.parametermatchers.Pattern matcher = new org.mathrider.piper.parametermatchers.Pattern(aEnvironment, ptr, postpredicate);
         PatternContainer p = new PatternContainer(matcher);
-        RESULT(aEnvironment, aStackTop).set(BuiltinObject.getInstance(p));
+        result(aEnvironment, aStackTop).set(BuiltinObject.getInstance(p));
     }
 }

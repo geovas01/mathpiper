@@ -38,14 +38,14 @@ public class LazyOr extends BuiltinFunction
 
         ConsPointer evaluated = new ConsPointer();
 
-        ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+        ConsTraverser iter = new ConsTraverser(argument(aEnvironment, aStackTop, 1).get().subList());
         iter.goNext();
         while (iter.getCons() != null)
         {
             aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, iter.ptr());
             if (Standard.isTrue(aEnvironment, evaluated))
             {
-                Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
+                Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
                 return;
             } else if (!Standard.isFalse(aEnvironment, evaluated))
             {
@@ -63,7 +63,7 @@ public class LazyOr extends BuiltinFunction
         {
             if (nrnogos == 1)
             {
-                RESULT(aEnvironment, aStackTop).set(nogos.get());
+                result(aEnvironment, aStackTop).set(nogos.get());
             } else
             {
                 ConsPointer ptr = new ConsPointer();
@@ -71,15 +71,15 @@ public class LazyOr extends BuiltinFunction
                 Standard.internalReverseList(ptr, nogos);
                 nogos.set(ptr.get());
 
-                ptr.set(ARGUMENT(aEnvironment, aStackTop, 0).get().copy(false));
+                ptr.set(argument(aEnvironment, aStackTop, 0).get().copy(false));
                 ptr.get().cdr().set(nogos.get());
                 nogos.set(ptr.get());
-                RESULT(aEnvironment, aStackTop).set(SubList.getInstance(nogos.get()));
+                result(aEnvironment, aStackTop).set(SubList.getInstance(nogos.get()));
             }
-        //aEnvironment.CurrentPrinter().Print(RESULT(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
+        //aEnvironment.CurrentPrinter().Print(result(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
         } else
         {
-            Standard.internalFalse(aEnvironment, RESULT(aEnvironment, aStackTop));
+            Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         }
     }
 }
