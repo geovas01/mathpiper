@@ -102,14 +102,6 @@ public class Interpreter
             }
 
 
-
-
-
-
-
-
-
-
             String result = "";
             try
             {
@@ -143,9 +135,9 @@ public class Interpreter
 
     }
 
-    public String evaluate(String input) throws PiperException
+    public String evaluate(String inputExpression) throws PiperException
     {
-        if (input.length() == 0)
+        if (inputExpression.length() == 0)
         {
             return "";
         }
@@ -163,10 +155,10 @@ public class Interpreter
             {
                 InputStatus someStatus = new InputStatus();
                 StringBuffer inp = new StringBuffer();
-                inp.append(input);
+                inp.append(inputExpression);
                 InputStatus oldstatus = env.iInputStatus;
                 env.iInputStatus.setTo("String");
-                StringInput newInput = new StringInput(new StringBuffer(input), env.iInputStatus);
+                StringInput newInput = new StringInput(new StringBuffer(inputExpression), env.iInputStatus);
 
                 Input previous = env.iCurrentInput;
                 env.iCurrentInput = newInput;
@@ -189,7 +181,7 @@ public class Interpreter
             {
                 InputStatus someStatus = new InputStatus();
                 StringBuffer inp = new StringBuffer();
-                inp.append(input);
+                inp.append(inputExpression);
                 inp.append(";");
                 StringInput input_str = new StringInput(inp, someStatus);
                 Parser parser = new InfixParser(tokenizer, input_str, env, env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);

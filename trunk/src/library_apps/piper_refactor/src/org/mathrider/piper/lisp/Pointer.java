@@ -28,40 +28,40 @@ package org.mathrider.piper.lisp;
 public class Pointer
 {
 
-    Cons iNext;
+    Cons iCons;
 
     public Pointer()
     {
-        iNext = null;
+        iCons = null;
     }
 
     public Pointer(Pointer aOther)
     {
-        iNext = aOther.iNext;
+        iCons = aOther.iCons;
     }
 
     public Pointer(Cons aOther)
     {
-        iNext = aOther;
+        iCons = aOther;
     }
 
     public void set(Cons aNext)
     {
-        iNext = aNext;
+        iCons = aNext;
     }
 
     public Cons get()
     {
-        return iNext;
+        return iCons;
     }
 
     public void goNext()
     {
-        iNext = iNext.iCdr.iNext;
+        iCons = iCons.iCdr.iCons;
     }
 
     void doSet(Cons aNext)
     {
-        iNext = aNext;
+        iCons = aNext;
     }
 }
