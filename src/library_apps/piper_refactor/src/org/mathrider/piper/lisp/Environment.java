@@ -65,7 +65,7 @@ public class Environment
 	public int iMaxEvalDepth = 10000;
 	//TODO FIXME
 
-	public ArgumentStack iStack;
+	public ArgumentStack iArgumentStack;
 
 	public LocalVariableFrame iLocalsList;
 
@@ -120,7 +120,7 @@ public class Environment
 		iList         = Atom.getInstance(this,"List");
 		iProg         = Atom.getInstance(this,"Prog");
 
-		iStack = new ArgumentStack(50000 /*TODO FIXME*/);
+		iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
 		Functions mc = new Functions();
 		mc.addFunctions(this);
 		mc=null;
@@ -338,7 +338,7 @@ public class Environment
 		        (MultiUserFunction)iUserFunctions.lookUp(aArguments.get().string());
 		if (multiUserFunc != null)
 		{
-			int arity = Standard.internalListLength(aArguments)-1;
+			int arity = Utility.internalListLength(aArguments)-1;
 			return  multiUserFunc.UserFunc(arity);
 		}
 		return null;
@@ -414,7 +414,7 @@ public class Environment
 		// Declare a new evaluation rule
 
 
-		if (Standard.isTrue(this, aPredicate))
+		if (Utility.isTrue(this, aPredicate))
 		{
 			//        printf("FastPredicate on %s\n",aOperator->String());
 			userFunc.DeclareRule(aPrecedence, aBody);

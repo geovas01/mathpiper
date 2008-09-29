@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 import org.mathrider.piper.lisp.behaviours.LocalSymbol;
 
 /**
@@ -34,7 +34,7 @@ public class LocalSymbols extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Standard.internalListLength(argument(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.internalListLength(argument(aEnvironment, aStackTop, 0));
         int nrSymbols = nrArguments - 2;
 
         String names[] = new String[nrSymbols];
@@ -54,7 +54,7 @@ public class LocalSymbols extends BuiltinFunction
         }
         LocalSymbol behaviour = new LocalSymbol(aEnvironment, names, localnames, nrSymbols);
         ConsPointer result = new ConsPointer();
-        Standard.internalSubstitute(result, argument(argument(aEnvironment, aStackTop, 0), nrArguments - 1), behaviour);
+        Utility.internalSubstitute(result, argument(argument(aEnvironment, aStackTop, 0), nrArguments - 1), behaviour);
         aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), result);
     }
 }

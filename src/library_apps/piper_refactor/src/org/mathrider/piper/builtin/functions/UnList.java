@@ -21,7 +21,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -37,6 +37,6 @@ public class UnList extends BuiltinFunction
         Cons subList = argument(aEnvironment, aStackTop, 1).get().subList().get();
         LispError.checkArgumentCore(aEnvironment, aStackTop, subList != null, 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, subList.string() == aEnvironment.iList.string(), 1);
-        Standard.internalTail(result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 1));
+        Utility.internalTail(result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 1));
     }
 }

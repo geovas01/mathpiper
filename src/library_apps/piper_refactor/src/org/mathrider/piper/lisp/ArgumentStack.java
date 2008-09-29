@@ -25,13 +25,13 @@ package org.mathrider.piper.lisp;
 public class ArgumentStack
 {
 
-    ConsPointerArray iStack;
+    ConsPointerArray iArgumentStack;
     int iStackTop;
 
     //TODO appropriate constructor?
     public ArgumentStack(int aStackSize)
     {
-        iStack = new ConsPointerArray(aStackSize, null);
+        iArgumentStack = new ConsPointerArray(aStackSize, null);
         iStackTop = 0;
     //printf("STACKSIZE %d\n",aStackSize);
     }
@@ -48,17 +48,17 @@ public class ArgumentStack
 
     public void pushArgumentOnStack(Cons aCons) throws Exception
     {
-        if (iStackTop >= iStack.size())
+        if (iStackTop >= iArgumentStack.size())
         {
             raiseStackOverflowError();
         }
-        iStack.setElement(iStackTop, aCons);
+        iArgumentStack.setElement(iStackTop, aCons);
         iStackTop++;
     }
 
     public void pushNulls(int aNr) throws Exception
     {
-        if (iStackTop + aNr > iStack.size())
+        if (iStackTop + aNr > iArgumentStack.size())
         {
             raiseStackOverflowError();
         }
@@ -68,7 +68,7 @@ public class ArgumentStack
     public ConsPointer getElement(int aPos) throws Exception
     {
         LispError.lispAssert(aPos >= 0 && aPos < iStackTop);
-        return iStack.getElement(aPos);
+        return iArgumentStack.getElement(aPos);
     }
 
     public void popTo(int aTop) throws Exception
@@ -77,7 +77,7 @@ public class ArgumentStack
         while (iStackTop > aTop)
         {
             iStackTop--;
-            iStack.setElement(iStackTop, null);
+            iArgumentStack.setElement(iStackTop, null);
         }
     }
 };

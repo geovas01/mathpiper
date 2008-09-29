@@ -21,7 +21,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -34,7 +34,7 @@ public class Check extends BuiltinFunction
     {
         ConsPointer pred = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, pred, argument(aEnvironment, aStackTop, 1));
-        if (!Standard.isTrue(aEnvironment, pred))
+        if (!Utility.isTrue(aEnvironment, pred))
         {
             ConsPointer evaluated = new ConsPointer();
             aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, argument(aEnvironment, aStackTop, 2));

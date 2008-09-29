@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -33,6 +33,6 @@ public class MathIsSmall extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
-        Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), x.IsSmall());
+        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), x.IsSmall());
     }
 }

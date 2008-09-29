@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.builtin.Functions;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.InfixOperator;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -34,6 +34,6 @@ public class IsPreFix extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
-        Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), op != null);
+        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), op != null);
     }
 }

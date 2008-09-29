@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -44,7 +44,7 @@ public class ApplyPure extends BuiltinFunction
         // Apply a pure string
         if (oper.get().string() != null)
         {
-            Standard.internalApplyString(aEnvironment, result(aEnvironment, aStackTop),
+            Utility.internalApplyString(aEnvironment, result(aEnvironment, aStackTop),
                     oper.get().string(),
                     args.get().subList().get().cdr());
         } else
@@ -54,7 +54,7 @@ public class ApplyPure extends BuiltinFunction
             args2.set(args.get().subList().get().cdr().get());
             LispError.checkArgumentCore(aEnvironment, aStackTop, oper.get().subList() != null, 1);
             LispError.checkArgumentCore(aEnvironment, aStackTop, oper.get().subList().get() != null, 1);
-            Standard.internalApplyPure(oper, args2, result(aEnvironment, aStackTop), aEnvironment);
+            Utility.internalApplyPure(oper, args2, result(aEnvironment, aStackTop), aEnvironment);
         }
     }
 }

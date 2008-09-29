@@ -33,7 +33,7 @@ package org.mathrider.piper.parametermatchers;
 
 
 import org.mathrider.piper.lisp.Cons;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
@@ -244,7 +244,7 @@ public class Pattern
 			ConsPointer  sublist = aPattern.subList();
 			LispError.lispAssert(sublist != null);
 
-			int num = Standard.internalListLength(sublist);
+			int num = Utility.internalListLength(sublist);
 
 			// variable matcher here...
 			if (num>1)
@@ -265,7 +265,7 @@ public class Pattern
 							Cons predicate = second.cdr().get();
 							if (predicate.subList() != null)
 							{
-								Standard.internalFlatCopy(third, predicate.subList());
+								Utility.internalFlatCopy(third, predicate.subList());
 							}
 							else
 							{
@@ -350,23 +350,23 @@ public class Pattern
 		{
 			ConsPointer pred = new ConsPointer();
 			aEnvironment.iEvaluator.evaluate(aEnvironment, pred, ((ConsPointer)iPredicates.get(i)));
-			if (Standard.isFalse(aEnvironment, pred))
+			if (Utility.isFalse(aEnvironment, pred))
 			{
 				return false;
 			}
 
 
 			// If the result is not False, it should be True, else probably something is wrong (the expression returned unevaluated)
-			boolean isTrue = Standard.isTrue(aEnvironment, pred);
+			boolean isTrue = Utility.isTrue(aEnvironment, pred);
 			if (!isTrue)
 			{
 				//TODO this is probably not the right way to generate an error, should we perhaps do a full throw new PiperException here?
 				String strout;
 				aEnvironment.iCurrentOutput.Write("The predicate\n\t");
-				strout = Standard.printExpression(((ConsPointer)iPredicates.get(i)), aEnvironment, 60);
+				strout = Utility.printExpression(((ConsPointer)iPredicates.get(i)), aEnvironment, 60);
 				aEnvironment.iCurrentOutput.Write(strout);
 				aEnvironment.iCurrentOutput.Write("\nevaluated to\n\t");
-				strout = Standard.printExpression(pred, aEnvironment, 60);
+				strout = Utility.printExpression(pred, aEnvironment, 60);
 				aEnvironment.iCurrentOutput.Write(strout);
 				aEnvironment.iCurrentOutput.Write("\n");
 

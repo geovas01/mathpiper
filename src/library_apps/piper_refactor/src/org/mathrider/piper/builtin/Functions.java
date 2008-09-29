@@ -33,7 +33,7 @@ import org.mathrider.piper.io.StdFileOutput;
 import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.io.StringInput;
 import org.mathrider.piper.lisp.HashTable;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
@@ -667,8 +667,8 @@ public class Functions
         LispError.checkArgumentCore(aEnvironment, aStackTop, precedence.get().string() != null, 2);
         int prec = Integer.parseInt(precedence.get().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, prec <= InfixPrinter.KMaxPrecedence, 2);
-        aOps.SetOperator(prec, Standard.symbolName(aEnvironment, orig));
-        Standard.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
+        aOps.SetOperator(prec, Utility.symbolName(aEnvironment, orig));
+        Utility.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
     }
 
     public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
@@ -677,8 +677,8 @@ public class Functions
         LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argument(aEnvironment, aStackTop, 1).get() != null, 1);
         String orig = BuiltinFunction.argument(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        aOps.SetOperator(aPrecedence, Standard.symbolName(aEnvironment, orig));
-        Standard.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
+        aOps.SetOperator(aPrecedence, Utility.symbolName(aEnvironment, orig));
+        Utility.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
     }
 
     public static InfixOperator operatorInfo(Environment aEnvironment, int aStackTop, Operators aOperators) throws Exception
@@ -692,7 +692,7 @@ public class Functions
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         //
-        InfixOperator op = (InfixOperator) aOperators.lookUp(Standard.symbolName(aEnvironment, orig));
+        InfixOperator op = (InfixOperator) aOperators.lookUp(Utility.symbolName(aEnvironment, orig));
         return op;
     }
 
@@ -707,23 +707,23 @@ public class Functions
      */
     public static void internalSetVar(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable) throws Exception
     {
-        String varstring = null;
+        String variableString = null;
         if (aMacroMode)
         {
             ConsPointer result = new ConsPointer();
             aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.argument(aEnvironment, aStackTop, 1));
-            varstring = result.get().string();
+            variableString = result.get().string();
         } else
         {
-            varstring = BuiltinFunction.argument(aEnvironment, aStackTop, 1).get().string();
+            variableString = BuiltinFunction.argument(aEnvironment, aStackTop, 1).get().string();
         }
-        LispError.checkArgumentCore(aEnvironment, aStackTop, varstring != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, !Standard.isNumber(varstring, true), 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, variableString != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, !Utility.isNumber(variableString, true), 1);
 
         ConsPointer result = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.argument(aEnvironment, aStackTop, 2));
-        aEnvironment.setVariable(varstring, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
-        Standard.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
+        aEnvironment.setVariable(variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+        Utility.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
     }
 
     public static void internalDelete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
@@ -738,7 +738,7 @@ public class Functions
             copied.set(evaluated.get().subList().get());
         } else
         {
-            Standard.internalFlatCopy(copied, evaluated.get().subList());
+            Utility.internalFlatCopy(copied, evaluated.get().subList());
         }
 
         ConsPointer index = new ConsPointer();
@@ -773,7 +773,7 @@ public class Functions
             copied.set(evaluated.get().subList().get());
         } else
         {
-            Standard.internalFlatCopy(copied, evaluated.get().subList());
+            Utility.internalFlatCopy(copied, evaluated.get().subList());
         }
 
         ConsPointer index = new ConsPointer();
@@ -816,7 +816,7 @@ public class Functions
             copied.set(evaluated.get().subList().get());
         } else
         {
-            Standard.internalFlatCopy(copied, evaluated.get().subList());
+            Utility.internalFlatCopy(copied, evaluated.get().subList());
         }
         LispError.checkArgumentCore(aEnvironment, aStackTop, ind > 0, 2);
 
@@ -856,11 +856,11 @@ public class Functions
         LispError.checkIsListCore(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
-        aEnvironment.declareRuleBase(Standard.symbolName(aEnvironment, orig),
+        aEnvironment.declareRuleBase(Utility.symbolName(aEnvironment, orig),
                 args.get().subList().get().cdr(), aListed);
 
         // Return true
-        Standard.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
     }
 
     public static void internalNewRule(Environment aEnvironment, int aStackTop) throws Exception
@@ -896,14 +896,14 @@ public class Functions
         precedence = Integer.parseInt(pr.get().string(), 10);
 
         // Finally define the rule base
-        aEnvironment.defineRule(Standard.symbolName(aEnvironment, orig),
+        aEnvironment.defineRule(Utility.symbolName(aEnvironment, orig),
                 arity,
                 precedence,
                 predicate,
                 body);
 
         // Return true
-        Standard.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
     }
 
     public static void internalDefMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception
@@ -922,11 +922,11 @@ public class Functions
         LispError.checkIsListCore(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
-        aEnvironment.declareMacroRuleBase(Standard.symbolName(aEnvironment, orig),
+        aEnvironment.declareMacroRuleBase(Utility.symbolName(aEnvironment, orig),
                 args.get().subList().get().cdr(), aListed);
 
         // Return true
-        Standard.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
     }
 
     public static void internalNewRulePattern(Environment aEnvironment, int aStackTop, boolean aMacroMode) throws Exception
@@ -960,13 +960,13 @@ public class Functions
         precedence = Integer.parseInt(pr.get().string(), 10);
 
         // Finally define the rule base
-        aEnvironment.defineRulePattern(Standard.symbolName(aEnvironment, orig),
+        aEnvironment.defineRulePattern(Utility.symbolName(aEnvironment, orig),
                 arity,
                 precedence,
                 predicate,
                 body);
 
         // Return true
-        Standard.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
     }
 }

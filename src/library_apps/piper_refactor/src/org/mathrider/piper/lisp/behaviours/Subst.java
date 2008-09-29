@@ -1,6 +1,6 @@
 package org.mathrider.piper.lisp.behaviours;
 
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 
@@ -27,7 +27,7 @@ public class Subst
 	throws Exception
 	{
 
-		if (Standard.internalEquals(iEnvironment, aElement, iToMatch))
+		if (Utility.internalEquals(iEnvironment, aElement, iToMatch))
 		{
 			aResult.set(iToReplaceWith.get().copy(false));
 

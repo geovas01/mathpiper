@@ -21,7 +21,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -39,13 +39,13 @@ public class Retract extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = Standard.symbolName(aEnvironment, orig);
+        String oper = Utility.symbolName(aEnvironment, orig);
 
         ConsPointer arity = new ConsPointer();
         arity.set(argument(aEnvironment, aStackTop, 2).get());
         LispError.checkArgumentCore(aEnvironment, aStackTop, arity.get().string() != null, 2);
         int ar = Integer.parseInt(arity.get().string(), 10);
         aEnvironment.retract(oper, ar);
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

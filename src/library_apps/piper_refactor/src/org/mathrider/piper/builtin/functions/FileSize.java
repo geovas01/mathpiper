@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -39,7 +39,7 @@ public class FileSize extends BuiltinFunction
         ConsPointer fnameObject = new ConsPointer();
         fnameObject.set(argument(aEnvironment, aStackTop, 1).get());
         LispError.checkIsStringCore(aEnvironment, aStackTop, fnameObject, 1);
-        String fname = Standard.internalUnstringify(fnameObject.get().string());
+        String fname = Utility.internalUnstringify(fnameObject.get().string());
         String hashedname = aEnvironment.hashTable().lookUp(fname);
 
         long fileSize = 0;
@@ -49,7 +49,7 @@ public class FileSize extends BuiltinFunction
         {
             // Open file
             Input newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
-                    Standard.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+                    Utility.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
             LispError.check(newInput != null, LispError.KLispErrFileNotFound);
             fileSize = newInput.startPtr().length();

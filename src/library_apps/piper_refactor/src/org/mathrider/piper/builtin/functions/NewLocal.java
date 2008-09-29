@@ -22,7 +22,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -50,6 +50,6 @@ public class NewLocal extends BuiltinFunction
                 nr++;
             }
         }
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

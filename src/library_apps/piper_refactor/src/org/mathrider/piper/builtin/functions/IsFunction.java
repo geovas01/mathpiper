@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -33,7 +33,7 @@ public class IsFunction extends BuiltinFunction
     {
         ConsPointer result = new ConsPointer();
         result.set(argument(aEnvironment, aStackTop, 1).get());
-        Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop),
+        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop),
                 result.get().subList() != null);
     }
 }

@@ -30,12 +30,12 @@ public abstract class BuiltinFunction
 
 	public static ConsPointer result(Environment aEnvironment,int aStackTop) throws Exception
 	{
-		return aEnvironment.iStack.getElement(aStackTop);
+		return aEnvironment.iArgumentStack.getElement(aStackTop);
 	}
 	
-	public static ConsPointer argument(Environment aEnvironment,int aStackTop, int i)  throws Exception
+	public static ConsPointer argument(Environment aEnvironment,int aStackTop, int argumentPosition)  throws Exception
 	{
-		return aEnvironment.iStack.getElement(aStackTop+i);
+		return aEnvironment.iArgumentStack.getElement(aStackTop+argumentPosition);
 	}
 
 	public static ConsPointer argument(ConsPointer cur, int n) throws Exception

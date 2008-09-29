@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -39,10 +39,10 @@ public class IsBound extends BuiltinFunction
             aEnvironment.getVariable(str, val);
             if (val.get() != null)
             {
-                Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+                Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
                 return;
             }
         }
-        Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

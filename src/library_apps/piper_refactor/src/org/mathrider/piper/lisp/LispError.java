@@ -201,7 +201,7 @@ public class LispError
 
     public static void checkNumberOfArguments(int n, ConsPointer aArguments, Environment aEnvironment) throws Exception
     {
-        int nrArguments = Standard.internalListLength(aArguments);
+        int nrArguments = Utility.internalListLength(aArguments);
         if (nrArguments != n)
         {
             errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment);
@@ -282,12 +282,12 @@ public class LispError
 
     public static void checkIsListCore(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, Standard.internalIsList(evaluated), aArgNr, "argument is not a list");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.internalIsList(evaluated), aArgNr, "argument is not a list");
     }
 
     public static void checkIsStringCore(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, Standard.internalIsString(evaluated.get().string()), aArgNr, "argument is not a string");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.internalIsString(evaluated.get().string()), aArgNr, "argument is not a string");
     }
 
     public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription) throws Exception
@@ -307,13 +307,13 @@ public class LispError
                 String strout;
 
                 error = error + "The offending argument ";
-                strout = Standard.printExpression(arg, aEnvironment, 60);
+                strout = Utility.printExpression(arg, aEnvironment, 60);
                 error = error + strout;
 
                 ConsPointer eval = new ConsPointer();
                 aEnvironment.iEvaluator.evaluate(aEnvironment, eval, arg);
                 error = error + " evaluated to ";
-                strout = Standard.printExpression(eval, aEnvironment, 60);
+                strout = Utility.printExpression(eval, aEnvironment, 60);
                 error = error + strout;
                 error = error + "\n";
 

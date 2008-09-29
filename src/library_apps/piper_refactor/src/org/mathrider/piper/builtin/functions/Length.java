@@ -23,7 +23,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -37,12 +37,12 @@ public class Length extends BuiltinFunction
         ConsPointer subList = argument(aEnvironment, aStackTop, 1).get().subList();
         if (subList != null)
         {
-            int num = Standard.internalListLength(subList.get().cdr());
+            int num = Utility.internalListLength(subList.get().cdr());
             result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + num));
             return;
         }
         String string = argument(aEnvironment, aStackTop, 1).get().string();
-        if (Standard.internalIsString(string))
+        if (Utility.internalIsString(string))
         {
             int num = string.length() - 2;
             result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + num));

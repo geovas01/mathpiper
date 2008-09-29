@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.builtin.Functions;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -39,7 +39,7 @@ public class Add extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = Standard.internalListLength(argument(aEnvironment, aStackTop, 0));
+        int length = Utility.internalListLength(argument(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x;

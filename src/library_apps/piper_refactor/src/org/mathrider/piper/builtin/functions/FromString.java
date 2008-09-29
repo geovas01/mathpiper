@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -42,7 +42,7 @@ public class FromString extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = Standard.internalUnstringify(orig);
+        String oper = Utility.internalUnstringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
         aEnvironment.iInputStatus.setTo("String");

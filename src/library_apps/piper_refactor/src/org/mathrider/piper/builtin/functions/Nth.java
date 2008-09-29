@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -34,8 +34,8 @@ public class Nth extends BuiltinFunction
         String str;
         str = argument(aEnvironment, aStackTop, 2).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, Standard.isNumber(str, false), 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, Utility.isNumber(str, false), 2);
         int index = Integer.parseInt(str);
-        Standard.internalNth(result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 1), index);
+        Utility.internalNth(result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 1), index);
     }
 }
