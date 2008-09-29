@@ -561,7 +561,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		                            aEnvironment.iInfixOperators,
 		                            aEnvironment.iPostfixOperators,
 		                            aEnvironment.iBodiedOperators);
-		infixprinter.Print(aExpression, newOutput, aEnvironment);
+		infixprinter.print(aExpression, newOutput, aEnvironment);
 		if (aMaxChars > 0 && result.length()>aMaxChars)
 		{
 			result.delete(aMaxChars,result.length());

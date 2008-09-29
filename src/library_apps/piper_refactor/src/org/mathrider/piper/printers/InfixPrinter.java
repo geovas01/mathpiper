@@ -53,12 +53,12 @@ public class InfixPrinter extends Printer
 		iBodiedOperators = aBodiedOperators;
 		iPrevLastChar = 0;
 	}
-	public void Print(ConsPointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
+	public void print(ConsPointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
 	{
 		iCurrentEnvironment = aEnvironment;
 		Print(aExpression, aOutput, KMaxPrecedence);
 	}
-	public void RememberLastChar(char aChar)
+	public void rememberLastChar(char aChar)
 	{
 		iPrevLastChar = aChar;
 	}
@@ -247,7 +247,7 @@ public class InfixPrinter extends Printer
 			aOutput.Write(" ");
 		}
 		aOutput.Write(aString);
-		RememberLastChar(aString.charAt(aString.length()-1));
+		rememberLastChar(aString.charAt(aString.length()-1));
 	}
 
 }

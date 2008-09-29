@@ -209,8 +209,8 @@ public class Interpreter
                 rs = string_out.toString();
             } else
             {
-                printer.RememberLastChar(' ');
-                printer.Print(result, output, environment);
+                printer.rememberLastChar(' ');
+                printer.print(result, output, environment);
                 rs = string_out.toString();
             }
         } catch (Exception e)

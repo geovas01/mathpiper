@@ -21,15 +21,15 @@ package org.mathrider.piper.lisp;
 
 public class Printer
 {
-	public void Print(ConsPointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
+	public void print(ConsPointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
 	{
-		PrintExpression(aExpression, aOutput, aEnvironment,0);
+		printExpression(aExpression, aOutput, aEnvironment,0);
 	}
-	public void RememberLastChar(char aChar)
+	public void rememberLastChar(char aChar)
 	{
 	}
 
-	void PrintExpression(ConsPointer aExpression, Output aOutput,
+	void printExpression(ConsPointer aExpression, Output aOutput,
 	                     Environment aEnvironment,int aDepth /* =0 */) throws Exception
 	{
 		ConsPointer iter = new ConsPointer();
@@ -50,23 +50,23 @@ public class Printer
 			{
 				if (item != 0)
 				{
-					Indent(aOutput,aDepth+1);
+					indent(aOutput,aDepth+1);
 				}
 				aOutput.Write("(");
-				PrintExpression((iter.get().subList()),aOutput, aEnvironment,aDepth+1);
+				printExpression((iter.get().subList()),aOutput, aEnvironment,aDepth+1);
 				aOutput.Write(")");
 				item=0;
 			}
 			else
 			{
-				aOutput.Write("[GenericObject]");
+				aOutput.Write("[BuiltinObject]");
 			}
 			iter = (iter.get().cdr());
 			item++;
 		} // print cdr element
 	}
 
-	void Indent(Output aOutput, int aDepth) throws Exception
+	void indent(Output aOutput, int aDepth) throws Exception
 	{
 		aOutput.Write("\n");
 		int i;

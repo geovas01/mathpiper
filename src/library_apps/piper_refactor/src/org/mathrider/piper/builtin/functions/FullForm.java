@@ -32,7 +32,7 @@ public class FullForm extends BuiltinFunction
     {
         result(aEnvironment, aStackTop).set(argument(aEnvironment, aStackTop, 1).get());
         Printer printer = new Printer();
-        printer.Print(result(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
+        printer.print(result(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
         aEnvironment.iCurrentOutput.Write("\n");
     }
 }
