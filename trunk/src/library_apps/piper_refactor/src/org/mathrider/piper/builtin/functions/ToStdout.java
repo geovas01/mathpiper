@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.Output;
 
 /**
  *
- * @author 
+ *  
  */
 public class ToStdout extends BuiltinFunction
 {

@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Environment;
 
 /**
  *
- * @author 
+ *  
  */
 public class MathSign extends BuiltinFunction
 {

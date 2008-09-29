@@ -28,7 +28,7 @@ import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 
 /**
  *
- * @author 
+ *  
  */
 public class DefLoadFunction extends BuiltinFunction
 {

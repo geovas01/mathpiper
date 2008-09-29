@@ -22,7 +22,7 @@ import org.mathrider.piper.lisp.Input;
 
 /**
  *
- * @author 
+ *  
  */
 /*
 Running Piper from Eclipse IDE

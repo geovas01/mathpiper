@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.HashTable;
 
 /**
  *
- * @author 
+ *  
  */
 public class LexGreaterThan extends LexCompare2
 {

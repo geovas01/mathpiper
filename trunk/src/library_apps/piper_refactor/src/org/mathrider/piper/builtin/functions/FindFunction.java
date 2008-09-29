@@ -29,7 +29,7 @@ import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 
 /**
  *
- * @author 
+ *  
  */
 public class FindFunction extends BuiltinFunction
 {

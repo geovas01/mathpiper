@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.parsers.Parser;
 
 /**
  *
- * @author 
+ *  
  */
 public class ReadLispListed extends BuiltinFunction
 {

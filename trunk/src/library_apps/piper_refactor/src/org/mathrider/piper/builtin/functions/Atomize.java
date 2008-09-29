@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
- * @author 
+ *  
  */
 public class Atomize extends BuiltinFunction
 {

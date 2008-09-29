@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author 
+ *  
  */
 public class Length extends BuiltinFunction
 {

@@ -38,7 +38,7 @@ import java.io.*;
 
 /**
  * Main class with which the rest of Piper is accessed.
- * @author
+ * 
  */
 public class Interpreter
 {

@@ -26,7 +26,7 @@ import org.mathrider.piper.lisp.Standard;
 
 /**
  *
- * @author 
+ *  
  */
 /// Corresponds to the Piper function \c MathAdd.
 /// If called with one argument (unary plus), this argument is

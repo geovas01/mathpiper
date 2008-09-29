@@ -26,7 +26,7 @@ import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
- * @author 
+ *  
  */
 public class GenericTypeName extends BuiltinFunction
 {

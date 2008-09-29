@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.Output;
 
 /**
  *
- * @author 
+ *  
  */
 public class ToString extends BuiltinFunction
 {

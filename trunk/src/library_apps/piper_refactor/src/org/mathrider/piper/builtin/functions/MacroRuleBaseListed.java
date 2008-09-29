@@ -10,7 +10,7 @@ import org.mathrider.piper.lisp.Environment;
 
 /**
  *
- * @author 
+ *  
  */
 	public class MacroRuleBaseListed extends BuiltinFunction
 	{

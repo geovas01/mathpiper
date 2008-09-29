@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.parsers.InfixParser;
 
 /**
  *
- * @author
+ * 
  */
 public class Read extends BuiltinFunction
 {

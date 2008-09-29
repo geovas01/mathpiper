@@ -22,7 +22,7 @@ import org.mathrider.piper.lisp.Environment;
 
 /**
  *
- * @author 
+ *  
  */
 public class TrapError extends BuiltinFunction
 {

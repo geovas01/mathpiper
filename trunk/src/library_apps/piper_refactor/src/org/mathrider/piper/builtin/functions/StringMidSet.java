@@ -26,7 +26,7 @@ import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
- * @author 
+ *  
  */
 public class StringMidSet extends BuiltinFunction
 {

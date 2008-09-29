@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.Printer;
 
 /**
  *
- * @author
+ * 
  */
 public class FullForm extends BuiltinFunction
 {
