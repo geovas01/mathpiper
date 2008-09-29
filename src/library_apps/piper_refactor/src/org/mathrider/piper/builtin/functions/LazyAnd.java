@@ -19,8 +19,8 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Iterator;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsTraverser;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.SubList;
 
@@ -33,29 +33,29 @@ public class LazyAnd extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer nogos = new Pointer();
+        ConsPointer nogos = new ConsPointer();
         int nrnogos = 0;
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
 
-        Iterator iter = new Iterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
-        iter.GoNext();
-        while (iter.GetObject() != null)
+        ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+        iter.goNext();
+        while (iter.getObject() != null)
         {
-            aEnvironment.iEvaluator.eval(aEnvironment, evaluated, iter.Ptr());
+            aEnvironment.iEvaluator.eval(aEnvironment, evaluated, iter.ptr());
             if (Standard.isFalse(aEnvironment, evaluated))
             {
                 Standard.internalFalse(aEnvironment, RESULT(aEnvironment, aStackTop));
                 return;
             } else if (!Standard.isTrue(aEnvironment, evaluated))
             {
-                Pointer ptr = new Pointer();
+                ConsPointer ptr = new ConsPointer();
                 nrnogos++;
                 ptr.set(evaluated.get().copy(false));
                 ptr.get().cdr().set(nogos.get());
                 nogos.set(ptr.get());
             }
 
-            iter.GoNext();
+            iter.goNext();
         }
 
         if (nogos.get() != null)
@@ -65,7 +65,7 @@ public class LazyAnd extends BuiltinFunction
                 RESULT(aEnvironment, aStackTop).set(nogos.get());
             } else
             {
-                Pointer ptr = new Pointer();
+                ConsPointer ptr = new ConsPointer();
 
                 Standard.internalReverseList(ptr, nogos);
                 nogos.set(ptr.get());

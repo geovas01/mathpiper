@@ -108,7 +108,7 @@ public class Number extends Cons
 	}
 
 	/// annotate
-	public Cons setExtraInfo(Pointer aData)
+	public Cons setExtraInfo(ConsPointer aData)
 	{
 		/*TODO FIXME
 		Cons* result = NEW LispAnnotatedObject<Number>(this);

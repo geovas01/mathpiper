@@ -28,13 +28,13 @@ import org.mathrider.piper.*;
  *  string(), or it is a holder for a sublist, obtainable through subList(),
  *  or it is a generic object, in which case generic() returns non-NULL.
  *  Only one of these three functions should return a non-NULL value.
- *  It is a reference-counted object. Pointer handles the reference counting. ap.
+ *  It is a reference-counted object. ConsPointer handles the reference counting. ap.
  */
 public abstract class Cons //Note:tk:was PiperObject.
 {
-	Pointer   iCdr = new Pointer();
+	ConsPointer   iCdr = new ConsPointer();
 
-	public  Pointer cdr()
+	public  ConsPointer cdr()
 	{
 		return iCdr;
 	}
@@ -49,7 +49,7 @@ public abstract class Cons //Note:tk:was PiperObject.
 	/** If this object is a list, return a pointer to it.
 	  *  Default behaviour is to return NULL.
 	  */
-	public Pointer subList()
+	public ConsPointer subList()
 	{
 		return null;
 	}
@@ -73,12 +73,12 @@ public abstract class Cons //Note:tk:was PiperObject.
 	/** Return a pointer to extra info. This allows for annotating
 	  *  an object. Returns NULL by default.
 	  */
-	public Pointer extraInfo()
+	public ConsPointer extraInfo()
 	{
 		return null;
 	}
        
-	public abstract Cons setExtraInfo(Pointer aData);
+	public abstract Cons setExtraInfo(ConsPointer aData);
 
 	public boolean equal(Cons aOther) throws Exception
 	{
@@ -87,8 +87,8 @@ public abstract class Cons //Note:tk:was PiperObject.
 			return false;
 
 		//So, no strings.
-		Pointer iter1 = subList();
-		Pointer iter2 = aOther.subList();
+		ConsPointer iter1 = subList();
+		ConsPointer iter2 = aOther.subList();
 		if (!(iter1 != null && iter2 != null))
 			return false;
 

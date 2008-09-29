@@ -162,7 +162,7 @@ public class Environment
 
 
 
-	public Pointer findLocal(String aVariable) throws Exception
+	public ConsPointer findLocal(String aVariable) throws Exception
 	{
 		LispError.Check(iLocalsList != null,LispError.KLispErrInvalidStack);
 		//    Check(iLocalsList.iFirst != null,KLispErrInvalidStack);
@@ -179,9 +179,9 @@ public class Environment
 		return null;
 	}
 
-	public void setVariable(String aVariable, Pointer aValue, boolean aGlobalLazyVariable) throws Exception
+	public void setVariable(String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception
 	{
-		Pointer local = findLocal(aVariable);
+		ConsPointer local = findLocal(aVariable);
 		if (local != null)
 		{
 			local.set(aValue.get());
@@ -195,10 +195,10 @@ public class Environment
 		}
 	}
 
-	public void getVariable(String aVariable,Pointer aResult) throws Exception
+	public void getVariable(String aVariable,ConsPointer aResult) throws Exception
 	{
 		aResult.set(null);
-		Pointer local = findLocal(aVariable);
+		ConsPointer local = findLocal(aVariable);
 		if (local != null)
 		{
 			aResult.set(local.get());
@@ -224,7 +224,7 @@ public class Environment
 
 	public void unsetVariable(String aString) throws Exception
 	{
-		Pointer local = findLocal(aString);
+		ConsPointer local = findLocal(aString);
 		if (local != null)
 		{
 			local.set(null);
@@ -275,7 +275,7 @@ public class Environment
 		}
 		LispLocalVariable iNext;
 		String iVariable;
-		Pointer iValue = new Pointer();
+		ConsPointer iValue = new ConsPointer();
 	}
 
 	class LocalVariableFrame
@@ -332,7 +332,7 @@ public class Environment
 		}
 	}
 
-	public UserFunction userFunction(Pointer aArguments) throws Exception
+	public UserFunction userFunction(ConsPointer aArguments) throws Exception
 	{
 		MultiUserFunction multiUserFunc =
 		        (MultiUserFunction)iUserFunctions.lookUp(aArguments.get().string());
@@ -381,7 +381,7 @@ public class Environment
 	}
 
 
-	public void declareRuleBase(String aOperator, Pointer aParameters, boolean aListed) throws Exception
+	public void declareRuleBase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
 	{
 		MultiUserFunction multiUserFunc = multiUserFunction(aOperator);
 
@@ -399,8 +399,8 @@ public class Environment
 	}
 
 	public void defineRule(String aOperator,int aArity,
-	                       int aPrecedence, Pointer aPredicate,
-	                       Pointer aBody) throws Exception
+	                       int aPrecedence, ConsPointer aPredicate,
+	                       ConsPointer aBody) throws Exception
 	{
 		// Find existing multiuser func.
 		MultiUserFunction multiUserFunc =
@@ -423,7 +423,7 @@ public class Environment
 			userFunc.DeclareRule(aPrecedence, aPredicate,aBody);
 	}
 
-	public void declareMacroRuleBase(String aOperator, Pointer aParameters, boolean aListed) throws Exception
+	public void declareMacroRuleBase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
 	{
 		MultiUserFunction multiUserFunc = multiUserFunction(aOperator);
 		MacroUserFunction newFunc;
@@ -438,7 +438,7 @@ public class Environment
 		multiUserFunc.DefineRuleBase(newFunc);
 	}
 
-	public void defineRulePattern(String aOperator,int aArity, int aPrecedence, Pointer aPredicate, Pointer aBody) throws Exception
+	public void defineRulePattern(String aOperator,int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
 	{
 		// Find existing multiuser func.
 		MultiUserFunction multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);

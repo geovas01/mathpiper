@@ -22,31 +22,31 @@ import org.mathrider.piper.lisp.UserStackInformation;
 import org.mathrider.piper.lisp.behaviours.BackQuote;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 
 
 public class MacroUserFunction extends BranchingUserFunction
 {
-	public MacroUserFunction(Pointer  aParameters) throws Exception
+	public MacroUserFunction(ConsPointer  aParameters) throws Exception
 	{
 		super(aParameters);
-		Iterator iter = new Iterator(aParameters);
+		ConsTraverser iter = new ConsTraverser(aParameters);
 		int i=0;
-		while (iter.GetObject() != null)
+		while (iter.getObject() != null)
 		{
-			LispError.Check(iter.GetObject().string() != null,LispError.KLispErrCreatingUserFunction);
+			LispError.Check(iter.getObject().string() != null,LispError.KLispErrCreatingUserFunction);
 			((BranchParameter)iParameters.get(i)).iHold = true;
-			iter.GoNext();
+			iter.goNext();
 			i++;
 		}
 		UnFence();
 	}
-	public void Evaluate(Pointer  aResult,Environment  aEnvironment,
-	                     Pointer  aArguments) throws Exception
+	public void Evaluate(ConsPointer  aResult,Environment  aEnvironment,
+	                     ConsPointer  aArguments) throws Exception
 	{
 		int arity = Arity();
 		int i;
@@ -55,56 +55,56 @@ public class MacroUserFunction extends BranchingUserFunction
 		/*TODO fixme
 		    if (Traced())
 		    {
-		        Pointer tr;
+		        ConsPointer tr;
 		        tr.Set(SubList.New(aArguments.Get()));
 		        TraceShowEnter(aEnvironment,tr);
 		        tr.Set(null);
 		    }
 		*/
-		Iterator iter = new Iterator(aArguments);
-		iter.GoNext();
+		ConsTraverser iter = new ConsTraverser(aArguments);
+		iter.goNext();
 
 		// unrollable arguments
-		Pointer[] arguments;
+		ConsPointer[] arguments;
 		if (arity==0)
 			arguments = null;
 		else
 		{
 			LispError.LISPASSERT(arity>0);
-			arguments = new Pointer[arity];
+			arguments = new ConsPointer[arity];
 		}
 
 		// Walk over all arguments, evaluating them as necessary
 		for (i=0;i<arity;i++)
 		{
-			arguments[i] = new Pointer();
-			LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
+			arguments[i] = new ConsPointer();
+			LispError.Check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
-				arguments[i].set(iter.GetObject().copy(false));
+				arguments[i].set(iter.getObject().copy(false));
 			}
 			else
 			{
-				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.Ptr());
+				LispError.Check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
+				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.ptr());
 			}
-			iter.GoNext();
+			iter.goNext();
 		}
 		/*TODO fixme
 		    if (Traced())
 		    {
-		        Iterator iter = new Iterator(aArguments);
-		        iter.GoNext();
+		        ConsTraverser iter = new ConsTraverser(aArguments);
+		        iter.goNext();
 		        for (i=0;i<arity;i++)
 		        {
-		            TraceShowArg(aEnvironment,*iter.Ptr(),
+		            TraceShowArg(aEnvironment,*iter.ptr(),
 		                  arguments[i]);
 
-		            iter.GoNext();
+		            iter.goNext();
 		        }
 		    }
 		*/
-		Pointer substedBody = new Pointer();
+		ConsPointer substedBody = new ConsPointer();
 		{
 			// declare a new local stack.
 			aEnvironment.pushLocalFrame(false);
@@ -163,7 +163,7 @@ public class MacroUserFunction extends BranchingUserFunction
 			// No predicate was true: return a new expression with the evaluated
 			// arguments.
 		{
-			Pointer full = new Pointer();
+			ConsPointer full = new ConsPointer();
 			full.set(aArguments.get().copy(false));
 			if (arity == 0)
 			{
@@ -183,7 +183,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		/*TODO fixme
 		    if (Traced())
 		    {
-		        Pointer tr;
+		        ConsPointer tr;
 		        tr.Set(SubList.New(aArguments.Get()));
 		        TraceShowLeave(aEnvironment, aResult,tr);
 		        tr.Set(null);

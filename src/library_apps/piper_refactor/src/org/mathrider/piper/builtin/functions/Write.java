@@ -17,10 +17,10 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper.builtin.functions;
 
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -32,15 +32,15 @@ public class Write extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
+        ConsPointer subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
         if (subList != null)
         {
-            Iterator iter = new Iterator(subList);
-            iter.GoNext();
-            while (iter.GetObject() != null)
+            ConsTraverser iter = new ConsTraverser(subList);
+            iter.goNext();
+            while (iter.getObject() != null)
             {
-                aEnvironment.iCurrentPrinter.Print(iter.Ptr(), aEnvironment.iCurrentOutput, aEnvironment);
-                iter.GoNext();
+                aEnvironment.iCurrentPrinter.Print(iter.ptr(), aEnvironment.iCurrentOutput, aEnvironment);
+                iter.goNext();
             }
         }
         Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));

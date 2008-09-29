@@ -20,9 +20,9 @@ package org.mathrider.piper.printers;
 
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.InfixOperator;
@@ -53,7 +53,7 @@ public class InfixPrinter extends Printer
 		iBodiedOperators = aBodiedOperators;
 		iPrevLastChar = 0;
 	}
-	public void Print(Pointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
+	public void Print(ConsPointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
 	{
 		iCurrentEnvironment = aEnvironment;
 		Print(aExpression, aOutput, KMaxPrecedence);
@@ -62,7 +62,7 @@ public class InfixPrinter extends Printer
 	{
 		iPrevLastChar = aChar;
 	}
-	void Print(Pointer aExpression, Output aOutput, int iPrecedence) throws Exception
+	void Print(ConsPointer aExpression, Output aOutput, int iPrecedence) throws Exception
 	{
 		LispError.LISPASSERT(aExpression.get() != null);
 
@@ -90,7 +90,7 @@ public class InfixPrinter extends Printer
 			return;
 		}
 
-		Pointer subList = aExpression.get().subList();
+		ConsPointer subList = aExpression.get().subList();
 		LispError.Check(subList!=null, LispError.KLispErrUnprintableToken);
 		if (subList.get() == null)
 		{
@@ -121,8 +121,8 @@ public class InfixPrinter extends Printer
 
 			if (op != null)
 			{
-				Pointer left  = null;
-				Pointer right = null;
+				ConsPointer left  = null;
+				ConsPointer right = null;
 
 				if (prefix != null)
 				{
@@ -156,15 +156,15 @@ public class InfixPrinter extends Printer
 			}
 			else
 			{
-				Iterator iter = new Iterator(subList.get().cdr());
+				ConsTraverser iter = new ConsTraverser(subList.get().cdr());
 				if (string == iCurrentEnvironment.iList.string())
 				{
 					WriteToken(aOutput,"{");
-					while (iter.GetObject() != null)
+					while (iter.getObject() != null)
 					{
-						Print(iter.Ptr(), aOutput, KMaxPrecedence);
-						iter.GoNext();
-						if (iter.GetObject() != null)
+						Print(iter.ptr(), aOutput, KMaxPrecedence);
+						iter.goNext();
+						if (iter.getObject() != null)
 							WriteToken(aOutput,",");
 					}
 					WriteToken(aOutput,"}");
@@ -172,20 +172,20 @@ public class InfixPrinter extends Printer
 				else if (string == iCurrentEnvironment.iProg.string())
 				{
 					WriteToken(aOutput,"[");
-					while (iter.GetObject() != null)
+					while (iter.getObject() != null)
 					{
-						Print(iter.Ptr(), aOutput, KMaxPrecedence);
-						iter.GoNext();
+						Print(iter.ptr(), aOutput, KMaxPrecedence);
+						iter.goNext();
 						WriteToken(aOutput,";");
 					}
 					WriteToken(aOutput,"]");
 				}
 				else if (string == iCurrentEnvironment.iNth.string())
 				{
-					Print(iter.Ptr(), aOutput, 0);
-					iter.GoNext();
+					Print(iter.ptr(), aOutput, 0);
+					iter.goNext();
 					WriteToken(aOutput,"[");
-					Print(iter.Ptr(), aOutput, KMaxPrecedence);
+					Print(iter.ptr(), aOutput, KMaxPrecedence);
 					WriteToken(aOutput,"]");
 				}
 				else
@@ -208,12 +208,12 @@ public class InfixPrinter extends Printer
 					}
 					WriteToken(aOutput,"(");
 
-					Iterator counter = new Iterator(iter.Ptr());
+					ConsTraverser counter = new ConsTraverser(iter.ptr());
 					int nr=0;
 
-					while (counter.GetObject() != null)
+					while (counter.getObject() != null)
 					{
-						counter.GoNext();
+						counter.goNext();
 						nr++;
 					}
 
@@ -221,15 +221,15 @@ public class InfixPrinter extends Printer
 						nr--;
 					while (nr-- != 0)
 					{
-						Print(iter.Ptr(), aOutput, KMaxPrecedence);
+						Print(iter.ptr(), aOutput, KMaxPrecedence);
 
-						iter.GoNext();
+						iter.goNext();
 						if (nr != 0)
 							WriteToken(aOutput,",");
 					}
 					WriteToken(aOutput,")");
-					if (iter.GetObject() != null)
-						Print(iter.Ptr(), aOutput, bodied.iPrecedence);
+					if (iter.getObject() != null)
+						Print(iter.ptr(), aOutput, bodied.iPrecedence);
 
 					if (bracket) WriteToken(aOutput,")");
 				}

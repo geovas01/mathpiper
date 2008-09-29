@@ -19,7 +19,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -31,9 +31,9 @@ public class Equals extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer evaluated1 = new Pointer();
+        ConsPointer evaluated1 = new ConsPointer();
         evaluated1.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        Pointer evaluated2 = new Pointer();
+        ConsPointer evaluated2 = new ConsPointer();
         evaluated2.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
         Standard.internalBoolean(aEnvironment, RESULT(aEnvironment, aStackTop),

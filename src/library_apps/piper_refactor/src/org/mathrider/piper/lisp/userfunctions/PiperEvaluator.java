@@ -22,9 +22,9 @@ package org.mathrider.piper.lisp.userfunctions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.*;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 
@@ -49,7 +49,7 @@ public class PiperEvaluator extends EvalFuncBase
 		iFlags = aFlags;
 	}
 	
-	public void Evaluate(Pointer aResult,Environment aEnvironment, Pointer aArguments) throws Exception
+	public void Evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception
 	{
 		if ((iFlags & Variable) == 0)
 		{
@@ -61,8 +61,8 @@ public class PiperEvaluator extends EvalFuncBase
 		// Push a place holder for the result: push full expression so it is available for error reporting
 		aEnvironment.iStack.pushArgumentOnStack(aArguments.get());
 
-		Iterator iter = new Iterator(aArguments);
-		iter.GoNext();
+		ConsTraverser iter = new ConsTraverser(aArguments);
+		iter.goNext();
 
 		int i;
 		int nr = iNrArgs;
@@ -74,28 +74,28 @@ public class PiperEvaluator extends EvalFuncBase
 		{
 			for (i=0;i<nr;i++)
 			{
-				LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iStack.pushArgumentOnStack(iter.GetObject().copy(false));
-				iter.GoNext();
+				LispError.Check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+				aEnvironment.iStack.pushArgumentOnStack(iter.getObject().copy(false));
+				iter.goNext();
 			}
 			if ((iFlags & Variable) != 0)
 			{
-				Pointer head = new Pointer();
+				ConsPointer head = new ConsPointer();
 				head.set(aEnvironment.iList.copy(false));
-				head.get().cdr().set(iter.GetObject());
+				head.get().cdr().set(iter.getObject());
 				aEnvironment.iStack.pushArgumentOnStack(SubList.getInstance(head.get()));
 			}
 		}
 		else
 		{
-			Pointer arg = new Pointer();
+			ConsPointer arg = new ConsPointer();
 			for (i=0;i<nr;i++)
 			{
-				LispError.Check(iter.GetObject() != null, LispError.KLispErrWrongNumberOfArgs);
-				LispError.Check(iter.Ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.eval(aEnvironment, arg, iter.Ptr());
+				LispError.Check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.Check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
+				aEnvironment.iEvaluator.eval(aEnvironment, arg, iter.ptr());
 				aEnvironment.iStack.pushArgumentOnStack(arg.get());
-				iter.GoNext();
+				iter.goNext();
 			}
 			if ((iFlags & Variable) != 0)
 			{
@@ -103,10 +103,10 @@ public class PiperEvaluator extends EvalFuncBase
 				//LispString res;
 
 				//printf("Enter\n");
-				Pointer head = new Pointer();
+				ConsPointer head = new ConsPointer();
 				head.set(aEnvironment.iList.copy(false));
-				head.get().cdr().set(iter.GetObject());
-				Pointer list = new Pointer();
+				head.get().cdr().set(iter.getObject());
+				ConsPointer list = new ConsPointer();
 				list.set(SubList.getInstance(head.get()));
 
 

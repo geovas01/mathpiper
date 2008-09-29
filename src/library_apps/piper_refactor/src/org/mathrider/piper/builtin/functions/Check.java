@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -32,11 +32,11 @@ public class Check extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer pred = new Pointer();
+        ConsPointer pred = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, pred, ARGUMENT(aEnvironment, aStackTop, 1));
         if (!Standard.isTrue(aEnvironment, pred))
         {
-            Pointer evaluated = new Pointer();
+            ConsPointer evaluated = new ConsPointer();
             aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 2));
             LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, evaluated, 2);
             throw new Exception(evaluated.get().string());

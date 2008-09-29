@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.LispError;
 
 /**
@@ -35,15 +35,15 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
         int arg = 1;
 
-        Iterator iter = new Iterator(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
-        iter.GoNext();
-        while (iter.GetObject() != null)
+        ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+        iter.goNext();
+        while (iter.getObject() != null)
         {
-            LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, iter.Ptr(), arg);
-            String thisString = iter.GetObject().string();
+            LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, iter.ptr(), arg);
+            String thisString = iter.getObject().string();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);
-            iter.GoNext();
+            iter.goNext();
             arg++;
         }
         aStringBuffer.append('\"');

@@ -15,53 +15,44 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 package org.mathrider.piper.lisp;
 
+
 /** 
- * Provides a smart pointer type to CONS
- *  that can be inserted into linked lists. They do the actual
- *  reference counting, and consequent destruction of the object if
- *  nothing points to it. Pointer is used in Cons as a pointer
- *  to the next object, and in diverse parts of the built-in internal
- *  functions to hold temporary values.
+ * Similar to ConsPointer, but implements an array of pointers to CONS.
+ *  
  */
-public class Pointer
+public class ConsPointerArray
 {
+	int iSize;
+	ConsPointer iArray[];
+	
+	public ConsPointerArray(int aSize,Cons aInitialItem)
+	{
+		iArray = new ConsPointer[aSize];
+		iSize = aSize;
+		int i;
+		for(i=0;i<aSize;i++)
+		{
+			iArray[i] = new ConsPointer();
+			iArray[i].set(aInitialItem);
+		}
+	}
+	
+	public int size()
+	{
+		return iSize;
+	}
+	
+	public ConsPointer getElement(int aItem)
+	{
+		return iArray[aItem];
+	}
+	
+	public void setElement(int aItem,Cons aObject)
+	{
+		iArray[aItem].set(aObject);
+	}
 
-    Cons iCons;
-
-    public Pointer()
-    {
-        iCons = null;
-    }
-
-    public Pointer(Pointer aOther)
-    {
-        iCons = aOther.iCons;
-    }
-
-    public Pointer(Cons aOther)
-    {
-        iCons = aOther;
-    }
-
-    public void set(Cons aNext)
-    {
-        iCons = aNext;
-    }
-
-    public Cons get()
-    {
-        return iCons;
-    }
-
-    public void goNext()
-    {
-        iCons = iCons.iCdr.iCons;
-    }
-
-    void doSet(Cons aNext)
-    {
-        iCons = aNext;
-    }
 }

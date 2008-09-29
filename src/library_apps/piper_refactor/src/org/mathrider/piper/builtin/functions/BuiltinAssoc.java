@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -36,11 +36,11 @@ public class BuiltinAssoc extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         // key to find
-        Pointer key = new Pointer();
+        ConsPointer key = new ConsPointer();
         key.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         // assoc-list to find it in
-        Pointer list = new Pointer();
+        ConsPointer list = new ConsPointer();
         list.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
         Cons t;
@@ -59,7 +59,7 @@ public class BuiltinAssoc extends BuiltinFunction
                 if (sub != null)
                 {
                     sub = sub.cdr().get();
-                    Pointer temp = new Pointer();
+                    ConsPointer temp = new ConsPointer();
                     temp.set(sub);
                     if (Standard.internalEquals(aEnvironment, key, temp))
                     {

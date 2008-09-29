@@ -37,12 +37,12 @@ public abstract class UserFunction extends EvalFuncBase
 		iFenced = true;
 		iTraced = false;
 	}
-	public abstract void Evaluate(Pointer aResult,Environment aEnvironment, Pointer aArguments) throws Exception;
+	public abstract void Evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
 	public abstract void HoldArgument(String aVariable);
-	public abstract void DeclareRule(int aPrecedence, Pointer aPredicate, Pointer aBody) throws Exception;
-	public abstract void DeclareRule(int aPrecedence, Pointer aBody) throws Exception;
-	public abstract void DeclarePattern(int aPrecedence, Pointer aPredicate, Pointer aBody) throws Exception;
-	public abstract Pointer ArgList();
+	public abstract void DeclareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception;
+	public abstract void DeclareRule(int aPrecedence, ConsPointer aBody) throws Exception;
+	public abstract void DeclarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception;
+	public abstract ConsPointer ArgList();
 
 	public void UnFence()
 	{

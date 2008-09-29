@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.behaviours.LocalSymbol;
 
@@ -53,7 +53,7 @@ public class LocalSymbols extends BuiltinFunction
             localnames[i] = variable;
         }
         LocalSymbol behaviour = new LocalSymbol(aEnvironment, names, localnames, nrSymbols);
-        Pointer result = new Pointer();
+        ConsPointer result = new ConsPointer();
         Standard.internalSubstitute(result, argument(ARGUMENT(aEnvironment, aStackTop, 0), nrArguments - 1), behaviour);
         aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
     }

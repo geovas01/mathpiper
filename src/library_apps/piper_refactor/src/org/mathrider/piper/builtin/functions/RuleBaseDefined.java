@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
 
@@ -34,13 +34,13 @@ public class RuleBaseDefined extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer name = new Pointer();
+        ConsPointer name = new ConsPointer();
         name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
         String orig = name.get().string();
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
         String oper = Standard.internalUnstringify(orig);
 
-        Pointer sizearg = new Pointer();
+        ConsPointer sizearg = new ConsPointer();
         sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get() != null, 2);
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get().string() != null, 2);

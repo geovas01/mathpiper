@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -32,7 +32,7 @@ public class Subst extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer from = new Pointer(), to = new Pointer(), body = new Pointer();
+        ConsPointer from = new ConsPointer(), to = new ConsPointer(), body = new ConsPointer();
         from.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
         to.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
         body.set(ARGUMENT(aEnvironment, aStackTop, 3).get());

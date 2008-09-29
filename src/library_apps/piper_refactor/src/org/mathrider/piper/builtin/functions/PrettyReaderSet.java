@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -40,7 +40,7 @@ public class PrettyReaderSet extends BuiltinFunction
         } else
         {
             LispError.CHK_CORE(aEnvironment, aStackTop, nrArguments == 2, LispError.KLispErrWrongNumberOfArgs);
-            Pointer oper = new Pointer();
+            ConsPointer oper = new ConsPointer();
             oper.set(ARGUMENT(aEnvironment, aStackTop, 0).get());
             oper.goNext();
             LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, oper, 1);

@@ -22,9 +22,9 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.builtin.PatternContainer;
 import org.mathrider.piper.lisp.BuiltinObject;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
@@ -35,19 +35,19 @@ public class GenPatternCreate extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer pattern = new Pointer();
+        ConsPointer pattern = new ConsPointer();
         pattern.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        Pointer postpredicate = new Pointer();
+        ConsPointer postpredicate = new ConsPointer();
         postpredicate.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-        Iterator iter = new Iterator(pattern);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.GetObject() != null, 1);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.GetObject().subList() != null, 1);
-        iter.GoSub();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.GetObject() != null, 1);
-        iter.GoNext();
+        ConsTraverser iter = new ConsTraverser(pattern);
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject() != null, 1);
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject().subList() != null, 1);
+        iter.goSub();
+        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject() != null, 1);
+        iter.goNext();
 
-        Pointer ptr = iter.Ptr();
+        ConsPointer ptr = iter.ptr();
 
 
         org.mathrider.piper.parametermatchers.Pattern matcher = new org.mathrider.piper.parametermatchers.Pattern(aEnvironment, ptr, postpredicate);

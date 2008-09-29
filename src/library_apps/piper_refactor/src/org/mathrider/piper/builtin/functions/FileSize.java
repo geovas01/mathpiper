@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.Input;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -36,7 +36,7 @@ public class FileSize extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer fnameObject = new Pointer();
+        ConsPointer fnameObject = new ConsPointer();
         fnameObject.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
         LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, fnameObject, 1);
         String fname = Standard.internalUnstringify(fnameObject.get().string());

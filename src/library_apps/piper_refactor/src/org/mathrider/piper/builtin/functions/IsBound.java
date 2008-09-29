@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -35,7 +35,7 @@ public class IsBound extends BuiltinFunction
         String str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
         if (str != null)
         {
-            Pointer val = new Pointer();
+            ConsPointer val = new ConsPointer();
             aEnvironment.getVariable(str, val);
             if (val.get() != null)
             {

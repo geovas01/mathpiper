@@ -21,7 +21,7 @@ package org.mathrider.piper.lisp;
 
 public class Printer
 {
-	public void Print(Pointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
+	public void Print(ConsPointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
 	{
 		PrintExpression(aExpression, aOutput, aEnvironment,0);
 	}
@@ -29,10 +29,10 @@ public class Printer
 	{
 	}
 
-	void PrintExpression(Pointer aExpression, Output aOutput,
+	void PrintExpression(ConsPointer aExpression, Output aOutput,
 	                     Environment aEnvironment,int aDepth /* =0 */) throws Exception
 	{
-		Pointer iter = new Pointer();
+		ConsPointer iter = new ConsPointer();
 		iter.set(aExpression.get());
 		int item = 0;
 		while (iter.get() != null)

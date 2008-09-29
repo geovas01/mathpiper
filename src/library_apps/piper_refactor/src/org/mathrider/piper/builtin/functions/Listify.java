@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.SubList;
 
 /**
@@ -33,7 +33,7 @@ public class Listify extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get().subList() != null, 1);
-        Pointer head = new Pointer();
+        ConsPointer head = new ConsPointer();
         head.set(aEnvironment.iList.copy(false));
         head.get().cdr().set(ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get());
         RESULT(aEnvironment, aStackTop).set(SubList.getInstance(head.get()));

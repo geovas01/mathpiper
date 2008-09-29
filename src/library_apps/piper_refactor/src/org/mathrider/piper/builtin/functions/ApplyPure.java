@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -33,9 +33,9 @@ public class ApplyPure extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer oper = new Pointer();
+        ConsPointer oper = new ConsPointer();
         oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        Pointer args = new Pointer();
+        ConsPointer args = new ConsPointer();
         args.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, args.get().subList() != null, 2);
@@ -50,7 +50,7 @@ public class ApplyPure extends BuiltinFunction
         } else
         {   // Apply a pure function {args,body}.
 
-            Pointer args2 = new Pointer();
+            ConsPointer args2 = new ConsPointer();
             args2.set(args.get().subList().get().cdr().get());
             LispError.CHK_ARG_CORE(aEnvironment, aStackTop, oper.get().subList() != null, 1);
             LispError.CHK_ARG_CORE(aEnvironment, aStackTop, oper.get().subList().get() != null, 1);

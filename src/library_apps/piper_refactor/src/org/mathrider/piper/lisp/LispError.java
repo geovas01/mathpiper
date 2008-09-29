@@ -139,7 +139,7 @@ public class LispError
 		throw new PiperException(str);
 	}
 
-	public static void CheckNrArgs(int n, Pointer aArguments, Environment aEnvironment) throws Exception
+	public static void CheckNrArgs(int n, ConsPointer aArguments, Environment aEnvironment) throws Exception
 	{
 		int nrArguments = Standard.internalListLength(aArguments);
 		if (nrArguments != n)
@@ -148,7 +148,7 @@ public class LispError
 		}
 	}
 
-	public static void ErrorNrArgs(int needed, int passed, Pointer aArguments, Environment aEnvironment) throws Exception
+	public static void ErrorNrArgs(int needed, int passed, ConsPointer aArguments, Environment aEnvironment) throws Exception
 	{
 		if (aArguments.get() == null)
 		{
@@ -174,7 +174,7 @@ public class LispError
 		}
 	}
 
-	public static String ShowFunctionError(Pointer aArguments, Environment aEnvironment) throws Exception
+	public static String ShowFunctionError(ConsPointer aArguments, Environment aEnvironment) throws Exception
 	{
 		if (aArguments.get() == null)
 		{
@@ -195,7 +195,7 @@ public class LispError
 	{
 		if (!aPredicate)
 		{
-			Pointer arguments = BuiltinFunction.ARGUMENT(aEnvironment,aStackTop,0);
+			ConsPointer arguments = BuiltinFunction.ARGUMENT(aEnvironment,aStackTop,0);
 			if (arguments.get() == null)
 			{
 				throw new PiperException("Error in compiled code\n");
@@ -221,12 +221,12 @@ public class LispError
 		CheckArgTypeWithError(aEnvironment, aStackTop, aPredicate, aArgNr,"");
 	}
 
-	public static void CHK_ISLIST_CORE(Environment aEnvironment,int aStackTop,Pointer evaluated,int aArgNr) throws Exception
+	public static void CHK_ISLIST_CORE(Environment aEnvironment,int aStackTop,ConsPointer evaluated,int aArgNr) throws Exception
 	{
 		CheckArgTypeWithError(aEnvironment, aStackTop, Standard.internalIsList(evaluated), aArgNr,"argument is not a list");
 	}
 
-	public static void CHK_ISSTRING_CORE(Environment aEnvironment,int aStackTop,Pointer evaluated,int aArgNr) throws Exception
+	public static void CHK_ISSTRING_CORE(Environment aEnvironment,int aStackTop,ConsPointer evaluated,int aArgNr) throws Exception
 	{
 		CheckArgTypeWithError(aEnvironment, aStackTop, Standard.internalIsString(evaluated.get().string()), aArgNr,"argument is not a string");
 	}
@@ -235,7 +235,7 @@ public class LispError
 	{
 		if (!aPredicate)
 		{
-			Pointer arguments = BuiltinFunction.ARGUMENT(aEnvironment,aStackTop,0);
+			ConsPointer arguments = BuiltinFunction.ARGUMENT(aEnvironment,aStackTop,0);
 			if (arguments.get() == null)
 			{
 				throw new PiperException("Error in compiled code\n");
@@ -245,14 +245,14 @@ public class LispError
 				String error = "";
 				//TODO FIXME          ShowStack(aEnvironment);
 				error = error + ShowFunctionError(arguments, aEnvironment) + "\nbad argument number "+aArgNr+"(counting from 1) : \n"+aErrorDescription + "\n";
-				Pointer arg = BuiltinFunction.argument(arguments,aArgNr);
+				ConsPointer arg = BuiltinFunction.argument(arguments,aArgNr);
 				String strout;
 
 				error = error + "The offending argument ";
 				strout = Standard.printExpression(arg, aEnvironment, 60);
 				error = error + strout;
 
-				Pointer eval = new Pointer();
+				ConsPointer eval = new ConsPointer();
 				aEnvironment.iEvaluator.eval(aEnvironment, eval, arg);
 				error = error + " evaluated to ";
 				strout = Standard.printExpression(eval, aEnvironment, 60);

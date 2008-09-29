@@ -19,7 +19,7 @@
 package org.mathrider.piper.parametermatchers;
 
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 
 
@@ -48,13 +48,13 @@ public class Variable extends Parameter
 	/// entry. Otherwise, the pattern only matches if the entry equals
 	/// \a aExpression.
 	public boolean argumentMatches(Environment  aEnvironment,
-	                               Pointer  aExpression,
-	                               Pointer[]  arguments) throws Exception
+	                               ConsPointer  aExpression,
+	                               ConsPointer[]  arguments) throws Exception
 	{
 		// this should not be necessary
 		//    if (arguments[iVarIndex] == null)
 		//    {
-		//      arguments[iVarIndex] = new Pointer();
+		//      arguments[iVarIndex] = new ConsPointer();
 		//    }
 		if (arguments[iVarIndex].get() == null)
 		{

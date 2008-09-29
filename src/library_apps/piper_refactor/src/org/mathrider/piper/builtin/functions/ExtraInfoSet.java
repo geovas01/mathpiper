@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
@@ -31,10 +31,10 @@ public class ExtraInfoSet extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer object = new Pointer();
+        ConsPointer object = new ConsPointer();
         object.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-        Pointer info = new Pointer();
+        ConsPointer info = new ConsPointer();
         info.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
         RESULT(aEnvironment, aStackTop).set(object.get().setExtraInfo(info));

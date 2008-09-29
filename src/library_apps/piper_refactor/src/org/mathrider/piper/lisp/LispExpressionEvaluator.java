@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.lisp.ExpressionEvaluator;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
 import org.mathrider.piper.lisp.Environment;
@@ -65,7 +65,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 	/// \note The result of this operation must be a unique (copied)
 	/// element! Eg. its Next might be set...
 	///
-	public void eval(Environment aEnvironment, Pointer aResult, Pointer aExpression) throws Exception
+	public void eval(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception
 	{
 		LispError.LISPASSERT(aExpression.get() != null);
 		aEnvironment.iEvalDepth++;
@@ -94,7 +94,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 				return;
 			}
 
-			Pointer val = new Pointer();
+			ConsPointer val = new ConsPointer();
 			aEnvironment.getVariable(str,val);
 			if (val.get() != null)
 			{
@@ -108,7 +108,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 		}
 
 		{
-			Pointer subList = aExpression.get().subList();
+			ConsPointer subList = aExpression.get().subList();
 
 			if (subList != null)
 			{
@@ -142,8 +142,8 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 					else
 					{
 						//printf("ApplyPure!\n");
-						Pointer oper = new Pointer();
-						Pointer args2 = new Pointer();
+						ConsPointer oper = new ConsPointer();
+						ConsPointer args2 = new ConsPointer();
 						oper.set(subList.get());
 						args2.set(subList.get().cdr().get());
 						Standard.internalApplyPure(oper,args2,aResult,aEnvironment);
@@ -161,7 +161,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 		aEnvironment.iEvalDepth--;
 	}
 
-	UserFunction GetUserFunction(Environment aEnvironment, Pointer subList) throws Exception
+	UserFunction GetUserFunction(Environment aEnvironment, ConsPointer subList) throws Exception
 	{
 		Cons head = subList.get();
 		UserFunction userFunc = null;

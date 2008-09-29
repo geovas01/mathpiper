@@ -18,8 +18,8 @@
 
 package org.mathrider.piper.parametermatchers;
 
-import org.mathrider.piper.lisp.Pointer;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsPointer;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Environment;
 
 
@@ -36,28 +36,28 @@ public class SubList extends Parameter
 	}
 
 	public boolean argumentMatches(Environment  aEnvironment,
-	                               Pointer  aExpression,
-	                               Pointer[]  arguments) throws Exception
+	                               ConsPointer  aExpression,
+	                               ConsPointer[]  arguments) throws Exception
 	{
 		if (aExpression.get().subList() == null)
 			return false;
 		int i;
 
-		Iterator iter = new Iterator(aExpression);
-		iter.GoSub();
+		ConsTraverser iter = new ConsTraverser(aExpression);
+		iter.goSub();
 
 		for (i=0;i<iNrMatchers;i++)
 		{
-			Pointer  ptr = iter.Ptr();
+			ConsPointer  ptr = iter.ptr();
 			if (ptr == null)
 				return false;
-			if (iter.GetObject() == null)
+			if (iter.getObject() == null)
 				return false;
 			if (!iMatchers[i].argumentMatches(aEnvironment,ptr,arguments))
 				return false;
-			iter.GoNext();
+			iter.goNext();
 		}
-		if (iter.GetObject() != null)
+		if (iter.getObject() != null)
 			return false;
 		return true;
 	}

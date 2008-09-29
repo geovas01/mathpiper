@@ -34,9 +34,9 @@ package org.mathrider.piper.parametermatchers;
 
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 //import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
 //import org.mathrider.piper.lisp.SubList;
@@ -56,7 +56,7 @@ public class Pattern
 	protected ArrayList iVariables = new ArrayList(); //CArrayGrower<String>
 
 	/// List of predicates which need to be true for a match.
-	protected ArrayList iPredicates = new ArrayList(); //CDeletingArrayGrower<Pointer[] >
+	protected ArrayList iPredicates = new ArrayList(); //CDeletingArrayGrower<ConsPointer[] >
 
 	/// Constructor.
 	/// \param aEnvironment the underlying Lisp environment
@@ -69,19 +69,19 @@ public class Pattern
 	/// collected in #iParamMatchers. Additionally, \a aPostPredicate
 	/// is copied, and the copy is added to #iPredicates.
 	public Pattern(Environment  aEnvironment,
-	                                 Pointer  aPattern,
-	                                 Pointer  aPostPredicate) throws Exception
+	                                 ConsPointer  aPattern,
+	                                 ConsPointer  aPostPredicate) throws Exception
 	{
-		Iterator iter = new Iterator(aPattern);
+		ConsTraverser iter = new ConsTraverser(aPattern);
 
-		while (iter.GetObject() != null)
+		while (iter.getObject() != null)
 		{
-			Parameter matcher = makeParamMatcher(aEnvironment,iter.GetObject());
+			Parameter matcher = makeParamMatcher(aEnvironment,iter.getObject());
 			LispError.LISPASSERT(matcher!=null);
 			iParamMatchers.add(matcher);
-			iter.GoNext();
+			iter.goNext();
 		}
-		Pointer  post = new Pointer();
+		ConsPointer  post = new ConsPointer();
 		post.set(aPostPredicate.get());
 		iPredicates.add(post);
 	}
@@ -97,36 +97,36 @@ public class Pattern
 	/// function also returns false. Otherwise, setPatternVariables()
 	/// is called again, but now in the current LispLocalFrame, and
 	/// this function returns true.
-	public boolean matches(Environment  aEnvironment, Pointer  aArguments) throws Exception
+	public boolean matches(Environment  aEnvironment, ConsPointer  aArguments) throws Exception
 	{
 		int i;
 
-		Pointer[]  arguments = null;
+		ConsPointer[]  arguments = null;
 		if (iVariables.size() > 0)
 		{
-			arguments = new Pointer[iVariables.size()];
+			arguments = new ConsPointer[iVariables.size()];
 			for (i=0;i<iVariables.size();i++)
 			{
-				arguments[i] = new Pointer();
+				arguments[i] = new ConsPointer();
 			}
 
 		}
-		Iterator iter = new Iterator(aArguments);
+		ConsTraverser iter = new ConsTraverser(aArguments);
 
 		for (i=0;i<iParamMatchers.size();i++)
 		{
-			if (iter.GetObject() == null)
+			if (iter.getObject() == null)
 				return false;
-			Pointer  ptr = iter.Ptr();
+			ConsPointer  ptr = iter.ptr();
 			if (ptr==null)
 				return false;
 			if (!((Parameter)iParamMatchers.get(i)).argumentMatches(aEnvironment,ptr,arguments))
 			{
 				return false;
 			}
-			iter.GoNext();
+			iter.goNext();
 		}
-		if (iter.GetObject() != null)
+		if (iter.getObject() != null)
 			return false;
 
 		{
@@ -157,18 +157,18 @@ public class Pattern
 	}
 
 	/// Try to match the pattern against \a aArguments.
-	/// This function does the same as matches(Environment ,Pointer ),
+	/// This function does the same as matches(Environment ,ConsPointer ),
 	/// but differs in the type of the arguments.
-	public boolean matches(Environment  aEnvironment, Pointer[]  aArguments) throws Exception
+	public boolean matches(Environment  aEnvironment, ConsPointer[]  aArguments) throws Exception
 	{
 		int i;
 
-		Pointer[]  arguments = null;
+		ConsPointer[]  arguments = null;
 		if (iVariables.size() > 0)
-			arguments = new Pointer[iVariables.size()];
+			arguments = new ConsPointer[iVariables.size()];
 		for (i=0;i<iVariables.size();i++)
 		{
-			arguments[i] = new Pointer();
+			arguments[i] = new ConsPointer();
 		}
 
 		for (i=0;i<iParamMatchers.size();i++)
@@ -241,7 +241,7 @@ public class Pattern
 		if (aPattern.subList() != null)
 		{
 			// See if it is a variable template:
-			Pointer  sublist = aPattern.subList();
+			ConsPointer  sublist = aPattern.subList();
 			LispError.LISPASSERT(sublist != null);
 
 			int num = Standard.internalListLength(sublist);
@@ -260,7 +260,7 @@ public class Pattern
 						// Make a predicate for the type, if needed
 						if (num>2)
 						{
-							Pointer third = new Pointer();
+							ConsPointer third = new ConsPointer();
 
 							Cons predicate = second.cdr().get();
 							if (predicate.subList() != null)
@@ -279,7 +279,7 @@ public class Pattern
 
 							last.cdr().set(org.mathrider.piper.lisp.Atom.getInstance(aEnvironment,str));
 
-							Pointer pred = new Pointer();
+							ConsPointer pred = new ConsPointer();
 							pred.set(org.mathrider.piper.lisp.SubList.getInstance(third.get()));
 
 							iPredicates.add(pred);
@@ -292,12 +292,12 @@ public class Pattern
 			Parameter[] matchers = new Parameter[num];
 
 			int i;
-			Iterator iter = new Iterator(sublist);
+			ConsTraverser iter = new ConsTraverser(sublist);
 			for (i=0;i<num;i++)
 			{
-				matchers[i] = makeParamMatcher(aEnvironment,iter.GetObject());
+				matchers[i] = makeParamMatcher(aEnvironment,iter.getObject());
 				LispError.LISPASSERT(matchers[i] != null);
-				iter.GoNext();
+				iter.goNext();
 			}
 			return new SubList(matchers, num);
 		}
@@ -328,7 +328,7 @@ public class Pattern
 	/// This function goes through the #iVariables array. A local
 	/// variable is made for every entry in the array, and the
 	/// corresponding argument is assigned to it.
-	protected void setPatternVariables(Environment  aEnvironment, Pointer[]  arguments) throws Exception
+	protected void setPatternVariables(Environment  aEnvironment, ConsPointer[]  arguments) throws Exception
 	{
 		int i;
 		for (i=0;i<iVariables.size();i++)
@@ -348,8 +348,8 @@ public class Pattern
 		int i;
 		for (i=0;i<iPredicates.size();i++)
 		{
-			Pointer pred = new Pointer();
-			aEnvironment.iEvaluator.eval(aEnvironment, pred, ((Pointer)iPredicates.get(i)));
+			ConsPointer pred = new ConsPointer();
+			aEnvironment.iEvaluator.eval(aEnvironment, pred, ((ConsPointer)iPredicates.get(i)));
 			if (Standard.isFalse(aEnvironment, pred))
 			{
 				return false;
@@ -363,7 +363,7 @@ public class Pattern
 				//TODO this is probably not the right way to generate an error, should we perhaps do a full throw new PiperException here?
 				String strout;
 				aEnvironment.iCurrentOutput.Write("The predicate\n\t");
-				strout = Standard.printExpression(((Pointer)iPredicates.get(i)), aEnvironment, 60);
+				strout = Standard.printExpression(((ConsPointer)iPredicates.get(i)), aEnvironment, 60);
 				aEnvironment.iCurrentOutput.Write(strout);
 				aEnvironment.iCurrentOutput.Write("\nevaluated to\n\t");
 				strout = Standard.printExpression(pred, aEnvironment, 60);

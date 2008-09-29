@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -35,7 +35,7 @@ public class If extends BuiltinFunction
         int nrArguments = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
         LispError.CHK_CORE(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.KLispErrWrongNumberOfArgs);
 
-        Pointer predicate = new Pointer();
+        ConsPointer predicate = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, predicate, ARGUMENT(aEnvironment, aStackTop, 1));
 
         if (Standard.isTrue(aEnvironment, predicate))

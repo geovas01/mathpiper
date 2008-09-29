@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -33,7 +33,7 @@ public class Retract extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        Pointer evaluated = new Pointer();
+        ConsPointer evaluated = new ConsPointer();
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, evaluated.get() != null, 1);
@@ -41,7 +41,7 @@ public class Retract extends BuiltinFunction
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
         String oper = Standard.symbolName(aEnvironment, orig);
 
-        Pointer arity = new Pointer();
+        ConsPointer arity = new ConsPointer();
         arity.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
         LispError.CHK_ARG_CORE(aEnvironment, aStackTop, arity.get().string() != null, 2);
         int ar = Integer.parseInt(arity.get().string(), 10);

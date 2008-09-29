@@ -20,7 +20,7 @@ package org.mathrider.piper.parametermatchers;
 
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.*;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 
 
@@ -35,8 +35,8 @@ public class Number extends Parameter
 	}
 	
 	public boolean argumentMatches(Environment  aEnvironment,
-	                               Pointer  aExpression,
-	                               Pointer[]  arguments) throws Exception
+	                               ConsPointer  aExpression,
+	                               ConsPointer[]  arguments) throws Exception
 	{
 		if (aExpression.get().number(aEnvironment.precision()) != null)
 			return iNumber.Equals(aExpression.get().number(aEnvironment.precision()));

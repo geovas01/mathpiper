@@ -18,12 +18,12 @@
 
 package org.mathrider.piper.lisp.behaviours;
 
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 
 
 /** Behaviour for substituting sub-expressions.
  */
 public interface SubstBase
 {
-	public boolean matches(Pointer aResult, Pointer aElement) throws Exception;
+	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception;
 };

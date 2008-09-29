@@ -25,7 +25,7 @@ import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.io.StringInput;
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.Standard;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.parsers.Parser;
@@ -43,7 +43,7 @@ import java.io.*;
 public class Interpreter
 {
 
-    public Environment env = null;
+    public Environment environment = null;
     Tokenizer tokenizer = null;
     Printer printer = null;
     public String iError = null;
@@ -57,12 +57,12 @@ public class Interpreter
     {
         try
         {
-            env = new Environment(stdoutput);
+            environment = new Environment(stdoutput);
             tokenizer = new Tokenizer();
-            printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
+            printer = new InfixPrinter(environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
 
 
-            env.iCurrentInput = new CachedStdFileInput(env.iInputStatus);
+            environment.iCurrentInput = new CachedStdFileInput(environment.iInputStatus);
 
 
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
@@ -144,29 +144,29 @@ public class Interpreter
         String rs = "";
         try
         {
-            env.iEvalDepth = 0;
-            env.iEvaluator.resetStack();
+            environment.iEvalDepth = 0;
+            environment.iEvaluator.resetStack();
 
 
             iError = null;
 
-            Pointer in_expr = new Pointer();
-            if (env.iPrettyReader != null)
+            ConsPointer inputExpressionPointer = new ConsPointer();
+            if (environment.iPrettyReader != null)
             {
                 InputStatus someStatus = new InputStatus();
                 StringBuffer inp = new StringBuffer();
                 inp.append(inputExpression);
-                InputStatus oldstatus = env.iInputStatus;
-                env.iInputStatus.setTo("String");
-                StringInput newInput = new StringInput(new StringBuffer(inputExpression), env.iInputStatus);
+                InputStatus oldstatus = environment.iInputStatus;
+                environment.iInputStatus.setTo("String");
+                StringInput newInput = new StringInput(new StringBuffer(inputExpression), environment.iInputStatus);
 
-                Input previous = env.iCurrentInput;
-                env.iCurrentInput = newInput;
+                Input previous = environment.iCurrentInput;
+                environment.iCurrentInput = newInput;
                 try
                 {
-                    Pointer args = new Pointer();
-                    Standard.internalApplyString(env, in_expr,
-                            env.iPrettyReader,
+                    ConsPointer args = new ConsPointer();
+                    Standard.internalApplyString(environment, inputExpressionPointer,
+                            environment.iPrettyReader,
                             args);
                 } catch (Exception e)
                 {
@@ -174,40 +174,43 @@ public class Interpreter
 
                 } finally
                 {
-                    env.iCurrentInput = previous;
-                    env.iInputStatus.restoreFrom(oldstatus);
+                    environment.iCurrentInput = previous;
+                    environment.iInputStatus.restoreFrom(oldstatus);
                 }
             } else
             {
+                
                 InputStatus someStatus = new InputStatus();
+                
                 StringBuffer inp = new StringBuffer();
                 inp.append(inputExpression);
                 inp.append(";");
-                StringInput input_str = new StringInput(inp, someStatus);
-                Parser parser = new InfixParser(tokenizer, input_str, env, env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
-                parser.parse(in_expr);
+                StringInput inputExpressionBuffer = new StringInput(inp, someStatus);
+                
+                Parser infixParser = new InfixParser(tokenizer, inputExpressionBuffer, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
+                infixParser.parse(inputExpressionPointer);
             }
 
-            Pointer result = new Pointer();
-            env.iEvaluator.eval(env, result, in_expr);
+            ConsPointer result = new ConsPointer();
+            environment.iEvaluator.eval(environment, result, inputExpressionPointer);
 
-            String percent = env.hashTable().lookUp("%");
-            env.setVariable(percent, result, true);
+            String percent = environment.hashTable().lookUp("%");
+            environment.setVariable(percent, result, true);
 
             StringBuffer string_out = new StringBuffer();
             Output output = new StringOutput(string_out);
 
-            if (env.iPrettyPrinter != null)
+            if (environment.iPrettyPrinter != null)
             {
-                Pointer nonresult = new Pointer();
-                Standard.internalApplyString(env, nonresult,
-                        env.iPrettyPrinter,
+                ConsPointer nonresult = new ConsPointer();
+                Standard.internalApplyString(environment, nonresult,
+                        environment.iPrettyPrinter,
                         result);
                 rs = string_out.toString();
             } else
             {
                 printer.RememberLastChar(' ');
-                printer.Print(result, output, env);
+                printer.Print(result, output, environment);
                 rs = string_out.toString();
             }
         } catch (Exception e)

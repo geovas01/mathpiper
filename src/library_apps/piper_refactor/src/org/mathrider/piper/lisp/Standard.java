@@ -133,23 +133,23 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		return true;
 	}
 
-	public static int internalListLength(Pointer aOriginal) throws Exception
+	public static int internalListLength(ConsPointer aOriginal) throws Exception
 	{
-		Iterator iter = new Iterator(aOriginal);
+		ConsTraverser iter = new ConsTraverser(aOriginal);
 		int length = 0;
-		while (iter.GetObject() != null)
+		while (iter.getObject() != null)
 		{
-			iter.GoNext();
+			iter.goNext();
 			length++;
 		}
 		return length;
 	}
 
-	public static void internalReverseList(Pointer aResult, Pointer aOriginal)
+	public static void internalReverseList(ConsPointer aResult, ConsPointer aOriginal)
 	{
-		Pointer iter = new Pointer(aOriginal);
-		Pointer previous = new Pointer();
-		Pointer tail = new Pointer();
+		ConsPointer iter = new ConsPointer(aOriginal);
+		ConsPointer previous = new ConsPointer();
+		ConsPointer tail = new ConsPointer();
 		tail.set(aOriginal.get());
 
 		while (iter.get() != null)
@@ -162,22 +162,22 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		aResult.set(previous.get());
 	}
 
-	public static void returnUnEvaluated(Pointer aResult,Pointer aArguments, Environment aEnvironment) throws Exception
+	public static void returnUnEvaluated(ConsPointer aResult,ConsPointer aArguments, Environment aEnvironment) throws Exception
 	{
-		Pointer full = new Pointer();
+		ConsPointer full = new ConsPointer();
 		full.set(aArguments.get().copy(false));
 		aResult.set(SubList.getInstance(full.get()));
 
-		Iterator iter = new Iterator(aArguments);
-		iter.GoNext();
+		ConsTraverser iter = new ConsTraverser(aArguments);
+		iter.goNext();
 
-		while (iter.GetObject() != null)
+		while (iter.getObject() != null)
 		{
-			Pointer next = new Pointer();
-			aEnvironment.iEvaluator.eval(aEnvironment, next, iter.Ptr());
+			ConsPointer next = new ConsPointer();
+			aEnvironment.iEvaluator.eval(aEnvironment, next, iter.ptr());
 			full.get().cdr().set(next.get());
 			full.set(next.get());
-			iter.GoNext();
+			iter.goNext();
 		}
 		full.get().cdr().set(null);
 	}
@@ -185,28 +185,28 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 
 
 
-	public static void internalApplyString(Environment aEnvironment, Pointer aResult,
-	                                       String aOperator,Pointer aArgs) throws Exception
+	public static void internalApplyString(Environment aEnvironment, ConsPointer aResult,
+	                                       String aOperator,ConsPointer aArgs) throws Exception
 	{
 		LispError.Check(internalIsString(aOperator),LispError.KLispErrNotString);
 
 		Cons head =
 		        Atom.getInstance(aEnvironment,symbolName(aEnvironment, aOperator));
 		head.cdr().set(aArgs.get());
-		Pointer body = new Pointer();
+		ConsPointer body = new ConsPointer();
 		body.set(SubList.getInstance(head));
 		aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
 	}
 
-	public static void internalApplyPure(Pointer oper,Pointer args2,Pointer aResult, Environment aEnvironment) throws Exception
+	public static void internalApplyPure(ConsPointer oper,ConsPointer args2,ConsPointer aResult, Environment aEnvironment) throws Exception
 	{
 		LispError.Check(oper.get().subList() != null,LispError.KLispErrInvalidArg);
 		LispError.Check(oper.get().subList().get() != null,LispError.KLispErrInvalidArg);
-		Pointer oper2 = new Pointer();
+		ConsPointer oper2 = new ConsPointer();
 		oper2.set(oper.get().subList().get().cdr().get());
 		LispError.Check(oper2.get() != null,LispError.KLispErrInvalidArg);
 
-		Pointer body = new Pointer();
+		ConsPointer body = new ConsPointer();
 		body.set(oper2.get().cdr().get());
 		LispError.Check(body.get() != null,LispError.KLispErrInvalidArg);
 
@@ -223,7 +223,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 
 				String var = oper2.get().string();
 				LispError.Check(var != null,LispError.KLispErrInvalidArg);
-				Pointer newly = new Pointer();
+				ConsPointer newly = new ConsPointer();
 				newly.set(args2.get().copy(false));
 				aEnvironment.newLocal(var,newly.get());
 				oper2.set(oper2.get().cdr().get());
@@ -237,17 +237,17 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 
 	}
 
-	public static void internalTrue(Environment aEnvironment, Pointer aResult) throws Exception
+	public static void internalTrue(Environment aEnvironment, ConsPointer aResult) throws Exception
 	{
 		aResult.set(aEnvironment.iTrue.copy(false));
 	}
 
-	public static void internalFalse(Environment aEnvironment, Pointer aResult) throws Exception
+	public static void internalFalse(Environment aEnvironment, ConsPointer aResult) throws Exception
 	{
 		aResult.set(aEnvironment.iFalse.copy(false));
 	}
 
-	public static void internalBoolean(Environment aEnvironment, Pointer aResult, boolean aValue) throws Exception
+	public static void internalBoolean(Environment aEnvironment, ConsPointer aResult, boolean aValue) throws Exception
 	{
 		if (aValue)
 		{
@@ -259,41 +259,41 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		}
 	}
 
-	public static void internalNth(Pointer aResult, Pointer aArg, int n) throws Exception
+	public static void internalNth(ConsPointer aResult, ConsPointer aArg, int n) throws Exception
 	{
 		LispError.Check(aArg.get() != null,LispError.KLispErrInvalidArg);
 		LispError.Check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
 		LispError.Check(n>=0,LispError.KLispErrInvalidArg);
-		Iterator iter = new Iterator(aArg.get().subList());
+		ConsTraverser iter = new ConsTraverser(aArg.get().subList());
 
 		while (n>0)
 		{
-			LispError.Check(iter.GetObject() != null,LispError.KLispErrInvalidArg);
-			iter.GoNext();
+			LispError.Check(iter.getObject() != null,LispError.KLispErrInvalidArg);
+			iter.goNext();
 			n--;
 		}
-		LispError.Check(iter.GetObject() != null,LispError.KLispErrInvalidArg);
-		aResult.set(iter.GetObject().copy(false));
+		LispError.Check(iter.getObject() != null,LispError.KLispErrInvalidArg);
+		aResult.set(iter.getObject().copy(false));
 	}
 
-	public static void internalTail(Pointer aResult, Pointer aArg) throws Exception
+	public static void internalTail(ConsPointer aResult, ConsPointer aArg) throws Exception
 	{
 		LispError.Check(aArg.get() != null,LispError.KLispErrInvalidArg);
 		LispError.Check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
 
-		Pointer iter = aArg.get().subList();
+		ConsPointer iter = aArg.get().subList();
 
 		LispError.Check(iter.get() != null,LispError.KLispErrInvalidArg);
 		aResult.set(SubList.getInstance(iter.get().cdr().get()));
 	}
 
-	public static boolean isTrue(Environment aEnvironment, Pointer aExpression) throws Exception
+	public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
 		LispError.LISPASSERT(aExpression.get() != null);
 		return aExpression.get().string() == aEnvironment.iTrue.string();
 	}
 
-	public static boolean isFalse(Environment aEnvironment, Pointer aExpression) throws Exception
+	public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
 		LispError.LISPASSERT(aExpression.get() != null);
 		return aExpression.get().string() == aEnvironment.iFalse.string();
@@ -311,7 +311,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		}
 	}
 
-	public static boolean internalIsList(Pointer aPtr) throws Exception
+	public static boolean internalIsList(ConsPointer aPtr) throws Exception
 	{
 		if (aPtr.get() == null)
 			return false;
@@ -334,7 +334,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		return false;
 	}
 
-	public static void internalNot(Pointer aResult, Environment aEnvironment, Pointer aExpression) throws Exception
+	public static void internalNot(ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
 		if (isTrue(aEnvironment, aExpression))
 		{
@@ -347,21 +347,21 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		}
 	}
 
-	public static void internalFlatCopy(Pointer aResult, Pointer aOriginal) throws Exception
+	public static void internalFlatCopy(ConsPointer aResult, ConsPointer aOriginal) throws Exception
 	{
-		Iterator orig = new Iterator(aOriginal);
-		Iterator res = new Iterator(aResult);
+		ConsTraverser orig = new ConsTraverser(aOriginal);
+		ConsTraverser res = new ConsTraverser(aResult);
 
-		while (orig.GetObject() != null)
+		while (orig.getObject() != null)
 		{
-			res.Ptr().set(orig.GetObject().copy(false));
-			orig.GoNext();
-			res.GoNext();
+			res.ptr().set(orig.getObject().copy(false));
+			orig.goNext();
+			res.goNext();
 		}
 	}
 
 
-	public static boolean internalEquals(Environment aEnvironment, Pointer aExpression1, Pointer aExpression2) throws Exception
+	public static boolean internalEquals(Environment aEnvironment, ConsPointer aExpression1, ConsPointer aExpression2) throws Exception
 	{
 		// Handle pointers to same, or null
 		if (aExpression1.get() == aExpression2.get())
@@ -402,23 +402,23 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 			{
 				return false;
 			}
-			Iterator iter1 = new Iterator(aExpression1.get().subList());
-			Iterator iter2 = new Iterator(aExpression2.get().subList());
+			ConsTraverser iter1 = new ConsTraverser(aExpression1.get().subList());
+			ConsTraverser iter2 = new ConsTraverser(aExpression2.get().subList());
 
-			while (iter1.GetObject() != null && iter2.GetObject() != null)
+			while (iter1.getObject() != null && iter2.getObject() != null)
 			{
 				// compare two list elements
-				if (!internalEquals(aEnvironment, iter1.Ptr(),iter2.Ptr()))
+				if (!internalEquals(aEnvironment, iter1.ptr(),iter2.ptr()))
 				{
 					return false;
 				}
 
 				// Step to cdr
-				iter1.GoNext();
-				iter2.GoNext();
+				iter1.goNext();
+				iter2.goNext();
 			}
 			// Lists don't have the same length
-			if (iter1.GetObject() != iter2.GetObject())
+			if (iter1.getObject() != iter2.getObject())
 				return false;
 
 			// Same!
@@ -430,17 +430,17 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 	}
 
 
-	public static void internalSubstitute(Pointer aTarget, Pointer aSource, SubstBase aBehaviour) throws Exception
+	public static void internalSubstitute(ConsPointer aTarget, ConsPointer aSource, SubstBase aBehaviour) throws Exception
 	{
 		Cons object = aSource.get();
 		LispError.LISPASSERT(object != null);
 		if (!aBehaviour.matches(aTarget,aSource))
 		{
-			Pointer oldList = object.subList();
+			ConsPointer oldList = object.subList();
 			if (oldList != null)
 			{
-				Pointer newList = new Pointer();
-				Pointer next = newList;
+				ConsPointer newList = new ConsPointer();
+				ConsPointer next = newList;
 				while (oldList.get() != null)
 				{
 					internalSubstitute(next, oldList, aBehaviour);
@@ -482,7 +482,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 			                                     aEnvironment.iCurrentInput, aEnvironment,
 			                                     aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
 			                                     aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-			Pointer readIn =new Pointer();
+			ConsPointer readIn =new ConsPointer();
 			while (!endoffile)
 			{
 				// Read expression
@@ -497,7 +497,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 				// Else evaluate
 				else
 				{
-					Pointer result = new Pointer();
+					ConsPointer result = new ConsPointer();
 					aEnvironment.iEvaluator.eval(aEnvironment, result, readIn);
 				}
 			}
@@ -551,7 +551,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		}
 	}
 
-	public static String printExpression(Pointer aExpression,
+	public static String printExpression(ConsPointer aExpression,
 	                              Environment aEnvironment,
 	                              int aMaxChars) throws Exception
 	{

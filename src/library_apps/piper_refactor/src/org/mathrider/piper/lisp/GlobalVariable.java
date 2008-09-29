@@ -28,7 +28,7 @@ package org.mathrider.piper.lisp;
 
 public class GlobalVariable
 {
-	Pointer iValue = new Pointer();
+	ConsPointer iValue = new ConsPointer();
 	boolean iEvalBeforeReturn;
 
 	public GlobalVariable(GlobalVariable aOther)
@@ -36,7 +36,7 @@ public class GlobalVariable
 		iValue = aOther.iValue;
 		iEvalBeforeReturn = aOther.iEvalBeforeReturn;
 	}
-	public GlobalVariable(Pointer aValue)
+	public GlobalVariable(ConsPointer aValue)
 	{
 		iValue.set(aValue.get());
 		iEvalBeforeReturn = false;

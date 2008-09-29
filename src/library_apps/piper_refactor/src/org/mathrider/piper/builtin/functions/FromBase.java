@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -36,7 +36,7 @@ public class FromBase extends BuiltinFunction
     {
         // Get the base to convert to:
         // Evaluate first argument, and store result in oper
-        Pointer oper = new Pointer();
+        ConsPointer oper = new ConsPointer();
         oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
         // Check that result is a number, and that it is in fact an integer
         BigNumber num = oper.get().number(aEnvironment.precision());
@@ -48,7 +48,7 @@ public class FromBase extends BuiltinFunction
         int base = (int) (num.Double());
 
         // Get the number to convert
-        Pointer fromNum = new Pointer();
+        ConsPointer fromNum = new ConsPointer();
         fromNum.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
         String str2;
         str2 = fromNum.get().string();

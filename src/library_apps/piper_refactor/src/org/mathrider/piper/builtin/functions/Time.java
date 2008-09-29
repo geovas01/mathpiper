@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 
 /**
  *
@@ -33,7 +33,7 @@ public class Time extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         long starttime = System.currentTimeMillis();
-        Pointer res = new Pointer();
+        ConsPointer res = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, res, ARGUMENT(aEnvironment, aStackTop, 1));
         long endtime = System.currentTimeMillis();
         double timeDiff;

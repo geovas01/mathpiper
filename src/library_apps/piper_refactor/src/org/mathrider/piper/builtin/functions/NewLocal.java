@@ -19,9 +19,9 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Iterator;
+import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Pointer;
+import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Standard;
 
 /**
@@ -33,20 +33,20 @@ public class NewLocal extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Pointer subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
+        ConsPointer subList = ARGUMENT(aEnvironment, aStackTop, 1).get().subList();
         if (subList != null)
         {
-            Iterator iter = new Iterator(subList);
-            iter.GoNext();
+            ConsTraverser iter = new ConsTraverser(subList);
+            iter.goNext();
 
             int nr = 1;
-            while (iter.GetObject() != null)
+            while (iter.getObject() != null)
             {
-                String variable = iter.GetObject().string();
+                String variable = iter.getObject().string();
                 LispError.CHK_ARG_CORE(aEnvironment, aStackTop, variable != null, nr);
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocal(variable, null);
-                iter.GoNext();
+                iter.goNext();
                 nr++;
             }
         }
