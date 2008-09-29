@@ -38,8 +38,8 @@ public class ApplyPure extends BuiltinFunction
         ConsPointer args = new ConsPointer();
         args.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, args.get().subList() != null, 2);
-        LispError.CHK_CORE(aEnvironment, aStackTop, args.get().subList().get() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, args.get().subList() != null, 2);
+        LispError.checkCore(aEnvironment, aStackTop, args.get().subList().get() != null, 2);
 
         // Apply a pure string
         if (oper.get().string() != null)
@@ -52,8 +52,8 @@ public class ApplyPure extends BuiltinFunction
 
             ConsPointer args2 = new ConsPointer();
             args2.set(args.get().subList().get().cdr().get());
-            LispError.CHK_ARG_CORE(aEnvironment, aStackTop, oper.get().subList() != null, 1);
-            LispError.CHK_ARG_CORE(aEnvironment, aStackTop, oper.get().subList().get() != null, 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, oper.get().subList() != null, 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, oper.get().subList().get() != null, 1);
             Standard.internalApplyPure(oper, args2, RESULT(aEnvironment, aStackTop), aEnvironment);
         }
     }

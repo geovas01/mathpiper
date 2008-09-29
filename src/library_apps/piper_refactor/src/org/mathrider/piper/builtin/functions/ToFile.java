@@ -35,20 +35,20 @@ public class ToFile extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.CHK_CORE(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+        LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
         ConsPointer evaluated = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
         // Get file name
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, evaluated.get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = Standard.internalUnstringify(orig);
 
         // Open file for writing
         FileOutputStream localFP = new FileOutputStream(oper);
-        LispError.CHK_CORE(aEnvironment, aStackTop, localFP != null, LispError.KLispErrFileNotFound);
+        LispError.checkCore(aEnvironment, aStackTop, localFP != null, LispError.KLispErrFileNotFound);
         StdFileOutput newOutput = new StdFileOutput(localFP);
 
         Output previous = aEnvironment.iCurrentOutput;

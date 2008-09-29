@@ -75,7 +75,7 @@ public class ParsedInfixExpression
 		{
 			iResult.set(null);
 		}
-		LispError.Check(!iError,LispError.KLispErrInvalidExpression);
+		LispError.check(!iError,LispError.KLispErrInvalidExpression);
 	}
 	
 	void readToken() throws Exception
@@ -110,7 +110,7 @@ public class ParsedInfixExpression
 				// Match closing bracket
 				if (iLookAhead != iParser.iEnvironment.iProgClose.string())
 				{
-					LispError.RaiseError("Expecting a ] close bracket for program block, but got "+iLookAhead+" instead");
+					LispError.raiseError("Expecting a ] close bracket for program block, but got "+iLookAhead+" instead");
 					return;
 				}
 				matchToken(iLookAhead);
@@ -221,7 +221,7 @@ public class ParsedInfixExpression
 				}
 				else if (iLookAhead != iParser.iEnvironment.iListClose.string())
 				{
-					LispError.RaiseError("Expecting a } close bracket for a list, but got "+iLookAhead+" instead");
+					LispError.raiseError("Expecting a } close bracket for a list, but got "+iLookAhead+" instead");
 					return;
 				}
 			}
@@ -248,7 +248,7 @@ public class ParsedInfixExpression
 				}
 				else
 				{
-					LispError.RaiseError("Expecting ; end of statement in program block, but got "+iLookAhead+" instead");
+					LispError.raiseError("Expecting ; end of statement in program block, but got "+iLookAhead+" instead");
 					return;
 				}
 			}
@@ -280,7 +280,7 @@ public class ParsedInfixExpression
 					}
 					else if (iLookAhead != iParser.iEnvironment.iBracketClose.string())
 					{
-						LispError.RaiseError("Expecting ) closing bracket for sub-expression, but got "+iLookAhead+" instead");
+						LispError.raiseError("Expecting ) closing bracket for sub-expression, but got "+iLookAhead+" instead");
 						return;
 					}
 				}
@@ -359,9 +359,9 @@ public class ParsedInfixExpression
 		iError = true;
 		if (iLookAhead != null)
 		{
-			LispError.RaiseError("Error parsing expression, near token "+iLookAhead);
+			LispError.raiseError("Error parsing expression, near token "+iLookAhead);
 		}
-		LispError.RaiseError("Error parsing expression");
+		LispError.raiseError("Error parsing expression");
 	}
 
 };

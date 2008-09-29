@@ -54,8 +54,8 @@ abstract public class LexCompare2
             String str2;
             str1 = result1.get().string();
             str2 = result2.get().string();
-            LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str1 != null, 1);
-            LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str2 != null, 2);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, str1 != null, 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
             // the precision argument is ignored in "lex" functions
             cmp = lexfunc(str1, str2,
                     aEnvironment.hashTable(),

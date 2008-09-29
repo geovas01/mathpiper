@@ -33,7 +33,7 @@ public class If extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         int nrArguments = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
-        LispError.CHK_CORE(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.KLispErrWrongNumberOfArgs);
+        LispError.checkCore(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.KLispErrWrongNumberOfArgs);
 
         ConsPointer predicate = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, predicate, ARGUMENT(aEnvironment, aStackTop, 1));
@@ -43,7 +43,7 @@ public class If extends BuiltinFunction
             aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), argument(ARGUMENT(aEnvironment, aStackTop, 0), 2));
         } else
         {
-            LispError.CHK_ARG_CORE(aEnvironment, aStackTop, Standard.isFalse(aEnvironment, predicate), 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, Standard.isFalse(aEnvironment, predicate), 1);
             if (nrArguments == 4)
             {
                 aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), argument(ARGUMENT(aEnvironment, aStackTop, 0), 3));

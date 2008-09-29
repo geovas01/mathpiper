@@ -43,7 +43,7 @@ public class ClearVar extends BuiltinFunction
             {
                 String str;
                 str = iter.getObject().string();
-                LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str != null, nr);
+                LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, nr);
                 aEnvironment.unsetVariable(str);
                 iter.goNext();
                 nr++;

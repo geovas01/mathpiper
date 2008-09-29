@@ -47,12 +47,12 @@ public class Array extends BuiltinContainer
 	}
 	public Cons getElement(int aItem) throws Exception
 	{
-		LispError.LISPASSERT(aItem>0 && aItem<=iArray.size());
+		LispError.lispAssert(aItem>0 && aItem<=iArray.size());
 		return iArray.getElement(aItem-1).get();
 	}
 	public void setElement(int aItem,Cons aObject) throws Exception
 	{
-		LispError.LISPASSERT(aItem>0 && aItem<=iArray.size());
+		LispError.lispAssert(aItem>0 && aItem<=iArray.size());
 		iArray.setElement(aItem-1,aObject);
 	}
 

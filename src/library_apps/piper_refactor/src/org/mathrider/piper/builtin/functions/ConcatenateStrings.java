@@ -39,7 +39,7 @@ public class ConcatenateStrings extends BuiltinFunction
         iter.goNext();
         while (iter.getObject() != null)
         {
-            LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, iter.ptr(), arg);
+            LispError.checkIsStringCore(aEnvironment, aStackTop, iter.ptr(), arg);
             String thisString = iter.getObject().string();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);

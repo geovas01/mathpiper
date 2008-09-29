@@ -188,7 +188,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 	public static void internalApplyString(Environment aEnvironment, ConsPointer aResult,
 	                                       String aOperator,ConsPointer aArgs) throws Exception
 	{
-		LispError.Check(internalIsString(aOperator),LispError.KLispErrNotString);
+		LispError.check(internalIsString(aOperator),LispError.KLispErrNotString);
 
 		Cons head =
 		        Atom.getInstance(aEnvironment,symbolName(aEnvironment, aOperator));
@@ -200,18 +200,18 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 
 	public static void internalApplyPure(ConsPointer oper,ConsPointer args2,ConsPointer aResult, Environment aEnvironment) throws Exception
 	{
-		LispError.Check(oper.get().subList() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(oper.get().subList().get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(oper.get().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.check(oper.get().subList().get() != null,LispError.KLispErrInvalidArg);
 		ConsPointer oper2 = new ConsPointer();
 		oper2.set(oper.get().subList().get().cdr().get());
-		LispError.Check(oper2.get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(oper2.get() != null,LispError.KLispErrInvalidArg);
 
 		ConsPointer body = new ConsPointer();
 		body.set(oper2.get().cdr().get());
-		LispError.Check(body.get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(body.get() != null,LispError.KLispErrInvalidArg);
 
-		LispError.Check(oper2.get().subList() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(oper2.get().subList().get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(oper2.get().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.check(oper2.get().subList().get() != null,LispError.KLispErrInvalidArg);
 		oper2.set(oper2.get().subList().get().cdr().get());
 
 		aEnvironment.pushLocalFrame(false);
@@ -219,17 +219,17 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		{
 			while (oper2.get() != null)
 			{
-				LispError.Check(args2.get() != null,LispError.KLispErrInvalidArg);
+				LispError.check(args2.get() != null,LispError.KLispErrInvalidArg);
 
 				String var = oper2.get().string();
-				LispError.Check(var != null,LispError.KLispErrInvalidArg);
+				LispError.check(var != null,LispError.KLispErrInvalidArg);
 				ConsPointer newly = new ConsPointer();
 				newly.set(args2.get().copy(false));
 				aEnvironment.newLocal(var,newly.get());
 				oper2.set(oper2.get().cdr().get());
 				args2.set(args2.get().cdr().get());
 			}
-			LispError.Check(args2.get() == null,LispError.KLispErrInvalidArg);
+			LispError.check(args2.get() == null,LispError.KLispErrInvalidArg);
 			aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
 		}
 		catch (PiperException e) { throw e; }
@@ -261,41 +261,41 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 
 	public static void internalNth(ConsPointer aResult, ConsPointer aArg, int n) throws Exception
 	{
-		LispError.Check(aArg.get() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(n>=0,LispError.KLispErrInvalidArg);
+		LispError.check(aArg.get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.check(n>=0,LispError.KLispErrInvalidArg);
 		ConsTraverser iter = new ConsTraverser(aArg.get().subList());
 
 		while (n>0)
 		{
-			LispError.Check(iter.getObject() != null,LispError.KLispErrInvalidArg);
+			LispError.check(iter.getObject() != null,LispError.KLispErrInvalidArg);
 			iter.goNext();
 			n--;
 		}
-		LispError.Check(iter.getObject() != null,LispError.KLispErrInvalidArg);
+		LispError.check(iter.getObject() != null,LispError.KLispErrInvalidArg);
 		aResult.set(iter.getObject().copy(false));
 	}
 
 	public static void internalTail(ConsPointer aResult, ConsPointer aArg) throws Exception
 	{
-		LispError.Check(aArg.get() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.check(aArg.get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
 
 		ConsPointer iter = aArg.get().subList();
 
-		LispError.Check(iter.get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(iter.get() != null,LispError.KLispErrInvalidArg);
 		aResult.set(SubList.getInstance(iter.get().cdr().get()));
 	}
 
 	public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
-		LispError.LISPASSERT(aExpression.get() != null);
+		LispError.lispAssert(aExpression.get() != null);
 		return aExpression.get().string() == aEnvironment.iTrue.string();
 	}
 
 	public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
-		LispError.LISPASSERT(aExpression.get() != null);
+		LispError.lispAssert(aExpression.get() != null);
 		return aExpression.get().string() == aEnvironment.iFalse.string();
 	}
 
@@ -342,7 +342,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		}
 		else
 		{
-			LispError.Check(isFalse(aEnvironment, aExpression),LispError.KLispErrInvalidArg);
+			LispError.check(isFalse(aEnvironment, aExpression),LispError.KLispErrInvalidArg);
 			internalTrue(aEnvironment,aResult);
 		}
 	}
@@ -433,7 +433,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 	public static void internalSubstitute(ConsPointer aTarget, ConsPointer aSource, SubstBase aBehaviour) throws Exception
 	{
 		Cons object = aSource.get();
-		LispError.LISPASSERT(object != null);
+		LispError.lispAssert(object != null);
 		if (!aBehaviour.matches(aTarget,aSource))
 		{
 			ConsPointer oldList = object.subList();
@@ -458,10 +458,10 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 
 	public static String internalUnstringify(String aOriginal) throws Exception
 	{
-		LispError.Check(aOriginal != null,LispError.KLispErrInvalidArg);
-		LispError.Check(aOriginal.charAt(0) == '\"',LispError.KLispErrInvalidArg);
+		LispError.check(aOriginal != null,LispError.KLispErrInvalidArg);
+		LispError.check(aOriginal.charAt(0) == '\"',LispError.KLispErrInvalidArg);
 		int nrc=aOriginal.length()-1;
-		LispError.Check(aOriginal.charAt(nrc) == '\"',LispError.KLispErrInvalidArg);
+		LispError.check(aOriginal.charAt(nrc) == '\"',LispError.KLispErrInvalidArg);
 		return aOriginal.substring(1,nrc);
 	}
 
@@ -488,8 +488,8 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 				// Read expression
 				parser.parse(readIn);
 
-				LispError.Check(readIn.get() != null, LispError.KLispErrReadingFile);
-				// Check for end of file
+				LispError.check(readIn.get() != null, LispError.KLispErrReadingFile);
+				// check for end of file
 				if (readIn.get().string() == eof)
 				{
 					endoffile = true;
@@ -528,7 +528,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 			Input newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
 			        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
-			LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
+			LispError.check(newInput != null, LispError.KLispErrFileNotFound);
 			doInternalLoad(aEnvironment,newInput);
 		}
 		catch (Exception e)
@@ -655,7 +655,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 				// Read expression
 				String token = tok.nextToken(aEnvironment.iCurrentInput, aEnvironment.hashTable());
 
-				// Check for end of file
+				// check for end of file
 				if (token == eof || token == end)
 				{
 					endoffile = true;
@@ -686,7 +686,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 
 	public static void loadDefFile(Environment aEnvironment, String aFileName) throws Exception
 	{
-		LispError.LISPASSERT(aFileName!=null);
+		LispError.lispAssert(aFileName!=null);
 
 		String flatfile = internalUnstringify(aFileName) + ".def";
 		DefFile def = aEnvironment.iDefFiles.File(aFileName);
@@ -699,7 +699,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		{
 			Input newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
 			        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
-			LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
+			LispError.check(newInput != null, LispError.KLispErrFileNotFound);
 			doLoadDefFile(aEnvironment, newInput,def);
 		}
 		aEnvironment.iInputStatus.restoreFrom(oldstatus);

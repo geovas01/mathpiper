@@ -31,11 +31,11 @@ public class WriteString extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
         String str = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str != null, 1);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str.charAt(0) == '\"', 1);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str.charAt(str.length() - 1) == '\"', 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(0) == '\"', 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(str.length() - 1) == '\"', 1);
 
         int i = 1;
         int nr = str.length() - 1;

@@ -34,14 +34,14 @@ public class FromFile extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.CHK_CORE(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+        LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
         ConsPointer evaluated = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
         // Get file name
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, evaluated.get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
         String hashedname = aEnvironment.hashTable().lookUpUnStringify(orig);
 
@@ -54,7 +54,7 @@ public class FromFile extends BuiltinFunction
                     Standard.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
             aEnvironment.iCurrentInput = input;
             // Open file
-            LispError.CHK_CORE(aEnvironment, aStackTop, input != null, LispError.KLispErrFileNotFound);
+            LispError.checkCore(aEnvironment, aStackTop, input != null, LispError.KLispErrFileNotFound);
 
             // Evaluate the body
             aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));

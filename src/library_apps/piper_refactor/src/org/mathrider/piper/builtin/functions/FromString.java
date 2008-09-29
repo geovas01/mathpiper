@@ -39,9 +39,9 @@ public class FromString extends BuiltinFunction
         aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
         // Get file name
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, evaluated.get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = Standard.internalUnstringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;

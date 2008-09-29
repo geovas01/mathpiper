@@ -35,22 +35,22 @@ public class StringMidSet extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
-        LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, evaluated, 3);
+        LispError.checkIsStringCore(aEnvironment, aStackTop, evaluated, 3);
         String orig = evaluated.get().string();
         ConsPointer index = new ConsPointer();
         index.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get() != null, 1);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get().string() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 1);
         int from = Integer.parseInt(index.get().string(), 10);
 
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, from > 0, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, from > 0, 1);
 
         ConsPointer ev2 = new ConsPointer();
         ev2.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-        LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, ev2, 2);
+        LispError.checkIsStringCore(aEnvironment, aStackTop, ev2, 2);
         String replace = ev2.get().string();
 
-        LispError.CHK_CORE(aEnvironment, aStackTop, from + replace.length() - 2 < orig.length(), LispError.KLispErrInvalidArg);
+        LispError.checkCore(aEnvironment, aStackTop, from + replace.length() - 2 < orig.length(), LispError.KLispErrInvalidArg);
         String str;
         str = orig.substring(0, from);
         str = str + replace.substring(1, replace.length() - 1);

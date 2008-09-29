@@ -43,7 +43,7 @@ public class ArgumentStack
 
     public void raiseStackOverflowError() throws Exception
     {
-        LispError.RaiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.");
+        LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.");
     }
 
     public void pushArgumentOnStack(Cons aObject) throws Exception
@@ -67,13 +67,13 @@ public class ArgumentStack
 
     public ConsPointer getElement(int aPos) throws Exception
     {
-        LispError.LISPASSERT(aPos >= 0 && aPos < iStackTop);
+        LispError.lispAssert(aPos >= 0 && aPos < iStackTop);
         return iStack.getElement(aPos);
     }
 
     public void popTo(int aTop) throws Exception
     {
-        LispError.LISPASSERT(aTop <= iStackTop);
+        LispError.lispAssert(aTop <= iStackTop);
         while (iStackTop > aTop)
         {
             iStackTop--;

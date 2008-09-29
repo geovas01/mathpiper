@@ -43,7 +43,7 @@ public class GetRightPrecedence extends BuiltinFunction
             {   // or maybe it's a bodied function
 
                 op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                LispError.CHK_CORE(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
+                LispError.checkCore(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
             }
         }
         RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + op.iRightPrecedence));

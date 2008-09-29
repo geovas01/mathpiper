@@ -37,8 +37,8 @@ public class GenArrayCreate extends BuiltinFunction
         ConsPointer sizearg = new ConsPointer();
         sizearg.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get() != null, 1);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get().string() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get().string() != null, 1);
 
         int size = Integer.parseInt(sizearg.get().string(), 10);
 

@@ -33,12 +33,12 @@ public class Fac extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get().number(0) != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get().number(0) != null, 1);
         ConsPointer arg = ARGUMENT(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
         int nr = (int) arg.get().number(0).Long();
-        LispError.Check(nr >= 0, LispError.KLispErrInvalidArg);
+        LispError.check(nr >= 0, LispError.KLispErrInvalidArg);
         BigNumber fac = new BigNumber("1", 10, 10);
         int i;
         for (i = 2; i <= nr; i++)

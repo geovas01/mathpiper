@@ -57,7 +57,7 @@ public class ListedBranchingUserFunction extends BranchingUserFunction
 			ptr = (ptr.get().cdr());
 			i++;
 			iter.goNext();
-			LispError.LISPASSERT(iter.getObject() == null);
+			LispError.lispAssert(iter.getObject() == null);
 		}
 		else
 		{

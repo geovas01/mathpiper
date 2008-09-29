@@ -38,7 +38,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		int i=0;
 		while (iter.getObject() != null)
 		{
-			LispError.Check(iter.getObject().string() != null,LispError.KLispErrCreatingUserFunction);
+			LispError.check(iter.getObject().string() != null,LispError.KLispErrCreatingUserFunction);
 			((BranchParameter)iParameters.get(i)).iHold = true;
 			iter.goNext();
 			i++;
@@ -70,7 +70,7 @@ public class MacroUserFunction extends BranchingUserFunction
 			arguments = null;
 		else
 		{
-			LispError.LISPASSERT(arity>0);
+			LispError.lispAssert(arity>0);
 			arguments = new ConsPointer[arity];
 		}
 
@@ -78,14 +78,14 @@ public class MacroUserFunction extends BranchingUserFunction
 		for (i=0;i<arity;i++)
 		{
 			arguments[i] = new ConsPointer();
-			LispError.Check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+			LispError.check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
 				arguments[i].set(iter.getObject().copy(false));
 			}
 			else
 			{
-				LispError.Check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.ptr());
 			}
 			iter.goNext();
@@ -126,7 +126,7 @@ public class MacroUserFunction extends BranchingUserFunction
 				{
 					BranchRuleBase thisRule = ((BranchRuleBase)iRules.get(i));
 					//TODO remove            CHECKPTR(thisRule);
-					LispError.LISPASSERT(thisRule != null);
+					LispError.lispAssert(thisRule != null);
 
 					st.iRulePrecedence = thisRule.Precedence();
 					boolean matches = thisRule.Matches(aEnvironment, arguments);

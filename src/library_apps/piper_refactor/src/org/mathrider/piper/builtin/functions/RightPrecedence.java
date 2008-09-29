@@ -34,14 +34,14 @@ public class RightPrecedence extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, ARGUMENT(aEnvironment, aStackTop, 1).get() != null, 1);
         String orig = ARGUMENT(aEnvironment, aStackTop, 1).get().string();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
         ConsPointer index = new ConsPointer();
         aEnvironment.iEvaluator.eval(aEnvironment, index, ARGUMENT(aEnvironment, aStackTop, 2));
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get() != null, 2);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, index.get().string() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 2);
         int ind = Integer.parseInt(index.get().string(), 10);
 
         aEnvironment.iInfixOperators.SetRightPrecedence(Standard.symbolName(aEnvironment, orig), ind);

@@ -41,10 +41,10 @@ public class GenPatternCreate extends BuiltinFunction
         postpredicate.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
         ConsTraverser iter = new ConsTraverser(pattern);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject() != null, 1);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject().subList() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getObject() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getObject().subList() != null, 1);
         iter.goSub();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, iter.getObject() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getObject() != null, 1);
         iter.goNext();
 
         ConsPointer ptr = iter.ptr();
