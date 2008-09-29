@@ -45,7 +45,7 @@ public class WriteString extends BuiltinFunction
             aEnvironment.iCurrentOutput.PutChar(str.charAt(i));
         }
         // pass last printed character to the current printer
-        aEnvironment.iCurrentPrinter.RememberLastChar(str.charAt(nr - 1));  // hacky hacky
+        aEnvironment.iCurrentPrinter.rememberLastChar(str.charAt(nr - 1));  // hacky hacky
 
         Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }

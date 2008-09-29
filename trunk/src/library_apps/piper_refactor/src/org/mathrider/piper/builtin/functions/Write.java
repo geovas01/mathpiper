@@ -39,7 +39,7 @@ public class Write extends BuiltinFunction
             iter.goNext();
             while (iter.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.Print(iter.ptr(), aEnvironment.iCurrentOutput, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(iter.ptr(), aEnvironment.iCurrentOutput, aEnvironment);
                 iter.goNext();
             }
         }
