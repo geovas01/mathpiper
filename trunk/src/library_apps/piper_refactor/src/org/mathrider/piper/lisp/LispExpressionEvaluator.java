@@ -34,7 +34,7 @@ import org.mathrider.piper.lisp.DefFile;
 
 public class LispExpressionEvaluator extends ExpressionEvaluator
 {
-	/// Evaluate a Lisp expression
+	/// evaluate a Lisp expression
 	/// \param aEnvironment the Lisp environment, in which the
 	/// evaluation should take place.
 	/// \param aResult the result of the evaluation.
@@ -84,7 +84,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 
 		String str = aExpression.get().string();
 
-		// Evaluate an atom: find the bound value (treat it as a variable)
+		// evaluate an atom: find the bound value (treat it as a variable)
 		if (str != null)
 		{
 			if (str.charAt(0) == '\"')
@@ -122,7 +122,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 							// Try to find a built-in command
 							if (evaluator != null)
 							{
-								evaluator.Evaluate(aResult, aEnvironment, subList);
+								evaluator.evaluate(aResult, aEnvironment, subList);
 								aEnvironment.iEvalDepth--;
 								return;
 							}
@@ -133,7 +133,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 							userFunc = GetUserFunction(aEnvironment, subList);
 							if (userFunc != null)
 							{
-								userFunc.Evaluate(aResult,aEnvironment,subList);
+								userFunc.evaluate(aResult,aEnvironment,subList);
 								aEnvironment.iEvalDepth--;
 								return;
 							}

@@ -193,7 +193,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		}
 	}
 
-	/// Evaluate the function on given arguments.
+	/// evaluate the function on given arguments.
 	/// \param aResult (on output) the result of the evaluation
 	/// \param aEnvironment the underlying Lisp environment
 	/// \param aArguments the arguments to the function
@@ -207,7 +207,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	/// first rule that matches is evaluated, and the result is put in
 	/// \a aResult. If no rule matches, \a aResult will recieve a new
 	/// expression with evaluated arguments.
-	public void Evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception
+	public void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception
 	{
 		int arity = Arity();
 		int i;
@@ -353,7 +353,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	/// \param aVariable name of argument to put un hold
 	///
 	/// The \c iHold flag of the corresponding argument is set. This
-	/// implies that this argument is not evaluated by Evaluate().
+	/// implies that this argument is not evaluated by evaluate().
 	public void HoldArgument(String aVariable)
 	{
 		int i;
