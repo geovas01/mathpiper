@@ -24,7 +24,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -54,6 +54,6 @@ public class GenArraySet extends BuiltinFunction
         ConsPointer obj = new ConsPointer();
         obj.set(argument(aEnvironment, aStackTop, 3).get());
         ((Array) gen).setElement(size, obj.get());
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

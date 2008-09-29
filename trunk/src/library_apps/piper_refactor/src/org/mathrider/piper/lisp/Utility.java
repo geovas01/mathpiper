@@ -33,7 +33,7 @@ import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.*;
 
 
-public class Standard //Note:tk: made this class public so that zipfile could be accessed.
+public class Utility
 {
 	static int log2_table_size = 32;
 

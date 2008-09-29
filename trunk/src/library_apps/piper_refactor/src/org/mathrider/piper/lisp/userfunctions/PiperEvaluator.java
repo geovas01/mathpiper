@@ -56,10 +56,10 @@ public class PiperEvaluator extends EvalFuncBase
 			LispError.checkNumberOfArguments(iNumberOfArguments+1,aArguments,aEnvironment);
 		}
 
-		int stacktop = aEnvironment.iStack.getStackTop();
+		int stacktop = aEnvironment.iArgumentStack.getStackTop();
 
 		// Push a place holder for the result: push full expression so it is available for error reporting
-		aEnvironment.iStack.pushArgumentOnStack(aArguments.get());
+		aEnvironment.iArgumentStack.pushArgumentOnStack(aArguments.get());
 
 		ConsTraverser iter = new ConsTraverser(aArguments);
 		iter.goNext();
@@ -75,7 +75,7 @@ public class PiperEvaluator extends EvalFuncBase
 			for (i=0;i<numberOfArguments;i++)
 			{
 				LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iStack.pushArgumentOnStack(iter.getCons().copy(false));
+				aEnvironment.iArgumentStack.pushArgumentOnStack(iter.getCons().copy(false));
 				iter.goNext();
 			}
 			if ((iFlags & Variable) != 0)
@@ -83,7 +83,7 @@ public class PiperEvaluator extends EvalFuncBase
 				ConsPointer head = new ConsPointer();
 				head.set(aEnvironment.iList.copy(false));
 				head.get().cdr().set(iter.getCons());
-				aEnvironment.iStack.pushArgumentOnStack(SubList.getInstance(head.get()));
+				aEnvironment.iArgumentStack.pushArgumentOnStack(SubList.getInstance(head.get()));
 			}
 		}
 		else
@@ -94,7 +94,7 @@ public class PiperEvaluator extends EvalFuncBase
 				LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.evaluate(aEnvironment, argument, iter.ptr());
-				aEnvironment.iStack.pushArgumentOnStack(argument.get());
+				aEnvironment.iArgumentStack.pushArgumentOnStack(argument.get());
 				iter.goNext();
 			}
 			if ((iFlags & Variable) != 0)
@@ -122,14 +122,14 @@ public class PiperEvaluator extends EvalFuncBase
 				printf("after %s\n",res.String());
 				*/
 
-				aEnvironment.iStack.pushArgumentOnStack(argument.get());
+				aEnvironment.iArgumentStack.pushArgumentOnStack(argument.get());
 				//printf("Leave\n");
 			}
 		}
 
 		iCalledFunction.eval(aEnvironment,stacktop);
-		aResult.set(aEnvironment.iStack.getElement(stacktop).get());
-		aEnvironment.iStack.popTo(stacktop);
+		aResult.set(aEnvironment.iArgumentStack.getElement(stacktop).get());
+		aEnvironment.iArgumentStack.popTo(stacktop);
 	}
 
 }

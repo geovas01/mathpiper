@@ -30,7 +30,7 @@ public class Atom extends Cons
     public static Cons getInstance(Environment aEnvironment, String aString) throws Exception
     {
         Cons self = null;
-        if (Standard.isNumber(aString, true))  // check if aString is a number (int or float)
+        if (Utility.isNumber(aString, true))  // check if aString is a number (int or float)
 
         {
             /// construct a number from a decimal string representation (also create a number object)

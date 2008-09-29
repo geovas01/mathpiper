@@ -19,7 +19,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -31,6 +31,6 @@ public class DefaultTokenizer extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.iCurrentTokenizer = aEnvironment.iDefaultTokenizer;
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

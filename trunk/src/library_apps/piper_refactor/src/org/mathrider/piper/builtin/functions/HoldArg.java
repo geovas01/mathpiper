@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -39,8 +39,8 @@ public class HoldArg extends BuiltinFunction
         // The arguments
         String tohold = argument(aEnvironment, aStackTop, 2).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, tohold != null, 2);
-        aEnvironment.holdArgument(Standard.symbolName(aEnvironment, orig), tohold);
+        aEnvironment.holdArgument(Utility.symbolName(aEnvironment, orig), tohold);
         // Return true
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

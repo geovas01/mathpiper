@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -43,7 +43,7 @@ public class DefLoad extends BuiltinFunction
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
-        Standard.loadDefFile(aEnvironment, orig);
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.loadDefFile(aEnvironment, orig);
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

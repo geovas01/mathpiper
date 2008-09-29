@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -33,7 +33,7 @@ public class PrettyPrinterSet extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Standard.internalListLength(argument(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.internalListLength(argument(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
             aEnvironment.iPrettyPrinter = null;
@@ -46,6 +46,6 @@ public class PrettyPrinterSet extends BuiltinFunction
             LispError.checkIsStringCore(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyPrinter = oper.get().string();
         }
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.UserStackInformation;
 import org.mathrider.piper.builtin.BuiltinContainer;
 import org.mathrider.piper.builtin.PatternContainer;
 import org.mathrider.piper.*;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
@@ -87,7 +87,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		{
 			ConsPointer pred = new ConsPointer();
 			aEnvironment.iEvaluator.evaluate(aEnvironment, pred, iPredicate);
-			return Standard.isTrue(aEnvironment,pred);
+			return Utility.isTrue(aEnvironment,pred);
 		}
 
 		/// Access #iPrecedence.

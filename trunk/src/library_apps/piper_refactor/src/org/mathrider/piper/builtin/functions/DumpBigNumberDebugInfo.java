@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -34,6 +34,6 @@ public class DumpBigNumberDebugInfo extends BuiltinFunction
     {
         BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
         x.DumpDebugInfo(aEnvironment.iCurrentOutput);
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

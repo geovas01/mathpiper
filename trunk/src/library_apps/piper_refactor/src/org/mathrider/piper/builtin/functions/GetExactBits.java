@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -37,7 +37,7 @@ public class GetExactBits extends BuiltinFunction
         z.SetTo(
                 (x.IsInt())
                 ? x.BitCount() // for integers, return the bit count
-                : Standard.digits_to_bits((long) (x.GetPrecision()), 10) // for floats, return the precision
+                : Utility.digits_to_bits((long) (x.GetPrecision()), 10) // for floats, return the precision
                 );
         result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }

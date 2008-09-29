@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -39,10 +39,10 @@ public class IsInteger extends BuiltinFunction
         BigNumber num = result.get().number(aEnvironment.precision());
         if (num == null)
         {
-            Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
+            Utility.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         } else
         {
-            Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), num.IsInt());
+            Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), num.IsInt());
         }
     }
 }

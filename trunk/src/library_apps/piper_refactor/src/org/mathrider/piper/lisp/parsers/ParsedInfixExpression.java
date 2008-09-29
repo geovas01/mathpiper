@@ -20,7 +20,7 @@ package org.mathrider.piper.lisp.parsers;
 
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
@@ -341,7 +341,7 @@ public class ParsedInfixExpression
 		subList.get().cdr().set(iter.getCons().cdr().get());
 		iter.getCons().cdr().set(null);
 
-		Standard.internalReverseList(subList.get().subList().get().cdr(),
+		Utility.internalReverseList(subList.get().subList().get().cdr(),
 		                                 subList.get().subList().get().cdr());
 		iResult.set(subList.get());
 	}

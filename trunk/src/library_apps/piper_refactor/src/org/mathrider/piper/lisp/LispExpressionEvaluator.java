@@ -22,7 +22,7 @@ import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 import org.mathrider.piper.lisp.ExpressionEvaluator;
 import org.mathrider.piper.lisp.Cons;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
@@ -146,12 +146,12 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 						ConsPointer args2 = new ConsPointer();
 						oper.set(subList.get());
 						args2.set(subList.get().cdr().get());
-						Standard.internalApplyPure(oper,args2,aResult,aEnvironment);
+						Utility.internalApplyPure(oper,args2,aResult,aEnvironment);
 						aEnvironment.iEvalDepth--;
 						return;
 					}
 					//printf("**** Undef: %s\n",head.String().String());
-					Standard.returnUnEvaluated(aResult,subList,aEnvironment);
+					Utility.returnUnEvaluated(aResult,subList,aEnvironment);
 					aEnvironment.iEvalDepth--;
 					return;
 				}
@@ -178,7 +178,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 			{
 				DefFile def = multiUserFunc.iFileToOpen;
 				multiUserFunc.iFileToOpen=null;
-				Standard.internalUse(aEnvironment,def.iFileName);
+				Utility.internalUse(aEnvironment,def.iFileName);
 			}
 			userFunc = aEnvironment.userFunction(subList);
 		}

@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -40,7 +40,7 @@ public class SetExactBits extends BuiltinFunction
         // do nothing for integers
         if (!(z.IsInt()))
         {
-            z.Precision((int) (Standard.bits_to_digits((long) (y.Double()), 10)));
+            z.Precision((int) (Utility.bits_to_digits((long) (y.Double()), 10)));
         }
         result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }

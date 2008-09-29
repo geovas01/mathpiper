@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -38,10 +38,10 @@ public class ExtraInfoGet extends BuiltinFunction
         ConsPointer result = object.get().extraInfo();
         if (result == null)
         {
-            Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
+            Utility.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         } else if (result.get() == null)
         {
-            Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
+            Utility.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         } else
         {
             result(aEnvironment, aStackTop).set(result.get());

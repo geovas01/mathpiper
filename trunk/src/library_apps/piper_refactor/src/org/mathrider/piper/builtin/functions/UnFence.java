@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Standard;
+import org.mathrider.piper.lisp.Utility;
 
 /**
  *
@@ -41,9 +41,9 @@ public class UnFence extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, argument(aEnvironment, aStackTop, 2).get().string() != null, 2);
         int arity = Integer.parseInt(argument(aEnvironment, aStackTop, 2).get().string(), 10);
 
-        aEnvironment.unFenceRule(Standard.symbolName(aEnvironment, orig), arity);
+        aEnvironment.unFenceRule(Utility.symbolName(aEnvironment, orig), arity);
 
         // Return true
-        Standard.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }
