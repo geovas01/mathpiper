@@ -51,13 +51,13 @@ public class SubList extends Parameter
 			ConsPointer  ptr = iter.ptr();
 			if (ptr == null)
 				return false;
-			if (iter.getObject() == null)
+			if (iter.getCons() == null)
 				return false;
 			if (!iMatchers[i].argumentMatches(aEnvironment,ptr,arguments))
 				return false;
 			iter.goNext();
 		}
-		if (iter.getObject() != null)
+		if (iter.getCons() != null)
 			return false;
 		return true;
 	}

@@ -55,6 +55,6 @@ public class LocalSymbols extends BuiltinFunction
         LocalSymbol behaviour = new LocalSymbol(aEnvironment, names, localnames, nrSymbols);
         ConsPointer result = new ConsPointer();
         Standard.internalSubstitute(result, argument(ARGUMENT(aEnvironment, aStackTop, 0), nrArguments - 1), behaviour);
-        aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), result);
+        aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), result);
     }
 }

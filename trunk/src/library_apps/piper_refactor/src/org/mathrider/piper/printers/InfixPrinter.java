@@ -160,11 +160,11 @@ public class InfixPrinter extends Printer
 				if (string == iCurrentEnvironment.iList.string())
 				{
 					WriteToken(aOutput,"{");
-					while (iter.getObject() != null)
+					while (iter.getCons() != null)
 					{
 						Print(iter.ptr(), aOutput, KMaxPrecedence);
 						iter.goNext();
-						if (iter.getObject() != null)
+						if (iter.getCons() != null)
 							WriteToken(aOutput,",");
 					}
 					WriteToken(aOutput,"}");
@@ -172,7 +172,7 @@ public class InfixPrinter extends Printer
 				else if (string == iCurrentEnvironment.iProg.string())
 				{
 					WriteToken(aOutput,"[");
-					while (iter.getObject() != null)
+					while (iter.getCons() != null)
 					{
 						Print(iter.ptr(), aOutput, KMaxPrecedence);
 						iter.goNext();
@@ -211,7 +211,7 @@ public class InfixPrinter extends Printer
 					ConsTraverser counter = new ConsTraverser(iter.ptr());
 					int nr=0;
 
-					while (counter.getObject() != null)
+					while (counter.getCons() != null)
 					{
 						counter.goNext();
 						nr++;
@@ -228,7 +228,7 @@ public class InfixPrinter extends Printer
 							WriteToken(aOutput,",");
 					}
 					WriteToken(aOutput,")");
-					if (iter.getObject() != null)
+					if (iter.getCons() != null)
 						Print(iter.ptr(), aOutput, bodied.iPrecedence);
 
 					if (bracket) WriteToken(aOutput,")");

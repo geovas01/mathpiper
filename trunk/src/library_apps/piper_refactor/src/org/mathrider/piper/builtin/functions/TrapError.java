@@ -31,11 +31,11 @@ public class TrapError extends BuiltinFunction
     {
         try
         {
-            aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 1));
         } catch (Exception e)
         {
             aEnvironment.iError = e.toString();
-            aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
             aEnvironment.iError = null;
         }
     }

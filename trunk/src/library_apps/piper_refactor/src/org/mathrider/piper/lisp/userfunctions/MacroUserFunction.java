@@ -36,9 +36,9 @@ public class MacroUserFunction extends BranchingUserFunction
 		super(aParameters);
 		ConsTraverser iter = new ConsTraverser(aParameters);
 		int i=0;
-		while (iter.getObject() != null)
+		while (iter.getCons() != null)
 		{
-			LispError.check(iter.getObject().string() != null,LispError.KLispErrCreatingUserFunction);
+			LispError.check(iter.getCons().string() != null,LispError.KLispErrCreatingUserFunction);
 			((BranchParameter)iParameters.get(i)).iHold = true;
 			iter.goNext();
 			i++;
@@ -78,15 +78,15 @@ public class MacroUserFunction extends BranchingUserFunction
 		for (i=0;i<arity;i++)
 		{
 			arguments[i] = new ConsPointer();
-			LispError.check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+			LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
-				arguments[i].set(iter.getObject().copy(false));
+				arguments[i].set(iter.getCons().copy(false));
 			}
 			else
 			{
 				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.ptr());
+				aEnvironment.iEvaluator.evaluate(aEnvironment, arguments[i], iter.ptr());
 			}
 			iter.goNext();
 		}
@@ -157,7 +157,7 @@ public class MacroUserFunction extends BranchingUserFunction
 
 		if (substedBody.get() != null)
 		{
-			aEnvironment.iEvaluator.eval(aEnvironment, aResult, substedBody);
+			aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, substedBody);
 		}
 		else
 			// No predicate was true: return a new expression with the evaluated

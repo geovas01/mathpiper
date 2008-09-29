@@ -86,7 +86,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		public boolean Matches(Environment  aEnvironment, ConsPointer[] aArguments) throws Exception
 		{
 			ConsPointer pred = new ConsPointer();
-			aEnvironment.iEvaluator.eval(aEnvironment, pred, iPredicate);
+			aEnvironment.iEvaluator.evaluate(aEnvironment, pred, iPredicate);
 			return Standard.isTrue(aEnvironment,pred);
 		}
 
@@ -184,10 +184,10 @@ public class BranchingUserFunction extends ArityUserFunction
 	{
 		iParamList.set(aParameters.get());
 		ConsTraverser iter = new ConsTraverser(aParameters);
-		while (iter.getObject() != null)
+		while (iter.getCons() != null)
 		{
-			LispError.check(iter.getObject().string() != null,LispError.KLispErrCreatingUserFunction);
-			BranchParameter param = new BranchParameter(iter.getObject().string(),false);
+			LispError.check(iter.getCons().string() != null,LispError.KLispErrCreatingUserFunction);
+			BranchParameter param = new BranchParameter(iter.getCons().string(),false);
 			iParameters.add(param);
 			iter.goNext();
 		}
@@ -239,15 +239,15 @@ public class BranchingUserFunction extends ArityUserFunction
 		// Walk over all arguments, evaluating them as necessary
 		for (i=0;i<arity;i++)
 		{
-			LispError.check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+			LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
-				arguments[i].set(iter.getObject().copy(false));
+				arguments[i].set(iter.getCons().copy(false));
 			}
 			else
 			{
 				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.ptr());
+				aEnvironment.iEvaluator.evaluate(aEnvironment, arguments[i], iter.ptr());
 			}
 			iter.goNext();
 		}
@@ -291,7 +291,7 @@ public class BranchingUserFunction extends ArityUserFunction
 				if (matches)
 				{
 					st.iSide = 1;
-					aEnvironment.iEvaluator.eval(aEnvironment, aResult, thisRule.Body());
+					aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.Body());
 					/*TODO fixme
 					            if (Traced())
 					            {

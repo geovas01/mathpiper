@@ -326,20 +326,20 @@ public class ParsedInfixExpression
 		int i;
 		for (i=0;i<aNrArgsToCombine;i++)
 		{
-			if (iter.getObject() == null)
+			if (iter.getCons() == null)
 			{
 				fail();
 				return;
 			}
 			iter.goNext();
 		}
-		if (iter.getObject() == null)
+		if (iter.getCons() == null)
 		{
 			fail();
 			return;
 		}
-		subList.get().cdr().set(iter.getObject().cdr().get());
-		iter.getObject().cdr().set(null);
+		subList.get().cdr().set(iter.getCons().cdr().get());
+		iter.getCons().cdr().set(null);
 
 		Standard.internalReverseList(subList.get().subList().get().cdr(),
 		                                 subList.get().subList().get().cdr());

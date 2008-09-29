@@ -46,13 +46,13 @@ public class ArgumentStack
         LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.");
     }
 
-    public void pushArgumentOnStack(Cons aObject) throws Exception
+    public void pushArgumentOnStack(Cons aCons) throws Exception
     {
         if (iStackTop >= iStack.size())
         {
             raiseStackOverflowError();
         }
-        iStack.setElement(iStackTop, aObject);
+        iStack.setElement(iStackTop, aCons);
         iStackTop++;
     }
 

@@ -45,26 +45,26 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		ConsPointer ptr =  newArgs;
 		int arity = Arity();
 		int i=0;
-		while (i < arity && iter.getObject() != null)
+		while (i < arity && iter.getCons() != null)
 		{
-			ptr.set(iter.getObject().copy(false));
+			ptr.set(iter.getCons().copy(false));
 			ptr = (ptr.get().cdr());
 			i++;
 			iter.goNext();
 		}
-		if (iter.getObject().cdr().get() == null)
+		if (iter.getCons().cdr().get() == null)
 		{
-			ptr.set(iter.getObject().copy(false));
+			ptr.set(iter.getCons().copy(false));
 			ptr = (ptr.get().cdr());
 			i++;
 			iter.goNext();
-			LispError.lispAssert(iter.getObject() == null);
+			LispError.lispAssert(iter.getCons() == null);
 		}
 		else
 		{
 			ConsPointer head = new ConsPointer();
 			head.set(aEnvironment.iList.copy(false));
-			head.get().cdr().set(iter.getObject());
+			head.get().cdr().set(iter.getCons());
 			ptr.set(SubList.getInstance(head.get()));
 		}
 		super.evaluate(aResult, aEnvironment, newArgs);

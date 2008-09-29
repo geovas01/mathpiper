@@ -39,9 +39,9 @@ public class LazyAnd extends BuiltinFunction
 
         ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
         iter.goNext();
-        while (iter.getObject() != null)
+        while (iter.getCons() != null)
         {
-            aEnvironment.iEvaluator.eval(aEnvironment, evaluated, iter.ptr());
+            aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, iter.ptr());
             if (Standard.isFalse(aEnvironment, evaluated))
             {
                 Standard.internalFalse(aEnvironment, RESULT(aEnvironment, aStackTop));

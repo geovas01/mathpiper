@@ -192,7 +192,7 @@ public class Interpreter
             }
 
             ConsPointer result = new ConsPointer();
-            environment.iEvaluator.eval(environment, result, inputExpressionPointer);
+            environment.iEvaluator.evaluate(environment, result, inputExpressionPointer);
 
             String percent = environment.hashTable().lookUp("%");
             environment.setVariable(percent, result, true);

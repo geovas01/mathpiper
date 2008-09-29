@@ -137,7 +137,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 	{
 		ConsTraverser iter = new ConsTraverser(aOriginal);
 		int length = 0;
-		while (iter.getObject() != null)
+		while (iter.getCons() != null)
 		{
 			iter.goNext();
 			length++;
@@ -171,10 +171,10 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		ConsTraverser iter = new ConsTraverser(aArguments);
 		iter.goNext();
 
-		while (iter.getObject() != null)
+		while (iter.getCons() != null)
 		{
 			ConsPointer next = new ConsPointer();
-			aEnvironment.iEvaluator.eval(aEnvironment, next, iter.ptr());
+			aEnvironment.iEvaluator.evaluate(aEnvironment, next, iter.ptr());
 			full.get().cdr().set(next.get());
 			full.set(next.get());
 			iter.goNext();
@@ -195,7 +195,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		head.cdr().set(aArgs.get());
 		ConsPointer body = new ConsPointer();
 		body.set(SubList.getInstance(head));
-		aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
+		aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
 	}
 
 	public static void internalApplyPure(ConsPointer oper,ConsPointer args2,ConsPointer aResult, Environment aEnvironment) throws Exception
@@ -230,7 +230,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 				args2.set(args2.get().cdr().get());
 			}
 			LispError.check(args2.get() == null,LispError.KLispErrInvalidArg);
-			aEnvironment.iEvaluator.eval(aEnvironment, aResult, body);
+			aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
 		}
 		catch (PiperException e) { throw e; }
 		finally { aEnvironment.popLocalFrame(); }
@@ -268,12 +268,12 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 
 		while (n>0)
 		{
-			LispError.check(iter.getObject() != null,LispError.KLispErrInvalidArg);
+			LispError.check(iter.getCons() != null,LispError.KLispErrInvalidArg);
 			iter.goNext();
 			n--;
 		}
-		LispError.check(iter.getObject() != null,LispError.KLispErrInvalidArg);
-		aResult.set(iter.getObject().copy(false));
+		LispError.check(iter.getCons() != null,LispError.KLispErrInvalidArg);
+		aResult.set(iter.getCons().copy(false));
 	}
 
 	public static void internalTail(ConsPointer aResult, ConsPointer aArg) throws Exception
@@ -352,9 +352,9 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		ConsTraverser orig = new ConsTraverser(aOriginal);
 		ConsTraverser res = new ConsTraverser(aResult);
 
-		while (orig.getObject() != null)
+		while (orig.getCons() != null)
 		{
-			res.ptr().set(orig.getObject().copy(false));
+			res.ptr().set(orig.getCons().copy(false));
 			orig.goNext();
 			res.goNext();
 		}
@@ -405,7 +405,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 			ConsTraverser iter1 = new ConsTraverser(aExpression1.get().subList());
 			ConsTraverser iter2 = new ConsTraverser(aExpression2.get().subList());
 
-			while (iter1.getObject() != null && iter2.getObject() != null)
+			while (iter1.getCons() != null && iter2.getCons() != null)
 			{
 				// compare two list elements
 				if (!internalEquals(aEnvironment, iter1.ptr(),iter2.ptr()))
@@ -418,7 +418,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 				iter2.goNext();
 			}
 			// Lists don't have the same length
-			if (iter1.getObject() != iter2.getObject())
+			if (iter1.getCons() != iter2.getCons())
 				return false;
 
 			// Same!
@@ -475,7 +475,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 		{
 			aEnvironment.iCurrentInput = aInput;
 			// TODO make "EndOfFile" a global thing
-			// read-parse-eval to the end of file
+			// read-parse-evaluate to the end of file
 			String eof = aEnvironment.hashTable().lookUp("EndOfFile");
 			boolean endoffile = false;
 			InfixParser parser = new InfixParser(new Tokenizer(),
@@ -498,7 +498,7 @@ public class Standard //Note:tk: made this class public so that zipfile could be
 				else
 				{
 					ConsPointer result = new ConsPointer();
-					aEnvironment.iEvaluator.eval(aEnvironment, result, readIn);
+					aEnvironment.iEvaluator.evaluate(aEnvironment, result, readIn);
 				}
 			}
 		}

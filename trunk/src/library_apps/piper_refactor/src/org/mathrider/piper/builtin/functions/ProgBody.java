@@ -41,9 +41,9 @@ public class ProgBody extends BuiltinFunction
 
             ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
             iter.goNext();
-            while (iter.getObject() != null)
+            while (iter.getCons() != null)
             {
-                aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), iter.ptr());
+                aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), iter.ptr());
                 iter.goNext();
             }
         } catch (Exception e)

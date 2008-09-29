@@ -36,7 +36,7 @@ public class FromString extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        aEnvironment.iEvaluator.eval(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
+        aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 1));
 
         // Get file name
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
@@ -53,7 +53,7 @@ public class FromString extends BuiltinFunction
         try
         {
             // Evaluate the body
-            aEnvironment.iEvaluator.eval(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), ARGUMENT(aEnvironment, aStackTop, 2));
         } catch (Exception e)
         {
             throw e;

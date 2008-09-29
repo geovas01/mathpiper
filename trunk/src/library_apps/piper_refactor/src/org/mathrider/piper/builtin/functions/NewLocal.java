@@ -40,9 +40,9 @@ public class NewLocal extends BuiltinFunction
             iter.goNext();
 
             int nr = 1;
-            while (iter.getObject() != null)
+            while (iter.getCons() != null)
             {
-                String variable = iter.getObject().string();
+                String variable = iter.getCons().string();
                 LispError.checkArgumentCore(aEnvironment, aStackTop, variable != null, nr);
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocal(variable, null);

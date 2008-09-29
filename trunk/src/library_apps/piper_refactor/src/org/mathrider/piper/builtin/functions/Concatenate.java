@@ -42,11 +42,11 @@ public class Concatenate extends BuiltinFunction
 
         ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
         iter.goNext();
-        while (iter.getObject() != null)
+        while (iter.getCons() != null)
         {
             LispError.checkIsListCore(aEnvironment, aStackTop, iter.ptr(), arg);
             Standard.internalFlatCopy(tail.ptr(), iter.ptr().get().subList().get().cdr());
-            while (tail.getObject() != null)
+            while (tail.getCons() != null)
             {
                 tail.goNext();
             }

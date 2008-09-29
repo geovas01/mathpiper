@@ -39,10 +39,10 @@ public class ClearVar extends BuiltinFunction
             ConsTraverser iter = new ConsTraverser(subList);
             iter.goNext();
             int nr = 1;
-            while (iter.getObject() != null)
+            while (iter.getCons() != null)
             {
                 String str;
-                str = iter.getObject().string();
+                str = iter.getCons().string();
                 LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, nr);
                 aEnvironment.unsetVariable(str);
                 iter.goNext();

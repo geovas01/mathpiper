@@ -663,7 +663,7 @@ public class Functions
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
         ConsPointer precedence = new ConsPointer();
-        aEnvironment.iEvaluator.eval(aEnvironment, precedence, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2));
+        aEnvironment.iEvaluator.evaluate(aEnvironment, precedence, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2));
         LispError.checkArgumentCore(aEnvironment, aStackTop, precedence.get().string() != null, 2);
         int prec = Integer.parseInt(precedence.get().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, prec <= InfixPrinter.KMaxPrecedence, 2);
@@ -707,7 +707,7 @@ public class Functions
         if (aMacroMode)
         {
             ConsPointer result = new ConsPointer();
-            aEnvironment.iEvaluator.eval(aEnvironment, result, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1));
             varstring = result.get().string();
         } else
         {
@@ -717,7 +717,7 @@ public class Functions
         LispError.checkArgumentCore(aEnvironment, aStackTop, !Standard.isNumber(varstring, true), 1);
 
         ConsPointer result = new ConsPointer();
-        aEnvironment.iEvaluator.eval(aEnvironment, result, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2));
+        aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2));
         aEnvironment.setVariable(varstring, result, aGlobalLazyVariable);
         Standard.internalTrue(aEnvironment, BuiltinFunction.RESULT(aEnvironment, aStackTop));
     }
@@ -750,9 +750,9 @@ public class Functions
             iter.goNext();
             ind--;
         }
-        LispError.checkCore(aEnvironment, aStackTop, iter.getObject() != null, LispError.KLispErrListNotLongEnough);
+        LispError.checkCore(aEnvironment, aStackTop, iter.getCons() != null, LispError.KLispErrListNotLongEnough);
         ConsPointer next = new ConsPointer();
-        next.set(iter.getObject().cdr().get());
+        next.set(iter.getCons().cdr().get());
         iter.ptr().set(next.get());
         BuiltinFunction.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
     }
@@ -788,7 +788,7 @@ public class Functions
 
         ConsPointer toInsert = new ConsPointer();
         toInsert.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 3).get());
-        toInsert.get().cdr().set(iter.getObject());
+        toInsert.get().cdr().set(iter.getCons());
         iter.ptr().set(toInsert.get());
         BuiltinFunction.RESULT(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
     }
