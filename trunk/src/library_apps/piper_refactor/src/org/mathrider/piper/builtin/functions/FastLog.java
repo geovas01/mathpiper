@@ -36,6 +36,6 @@ public class FastLog extends BuiltinFunction
         double result = Math.log(x.Double());
         BigNumber z = new BigNumber(aEnvironment.precision());
         z.SetTo(result);
-        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+        result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }
 }

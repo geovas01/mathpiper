@@ -36,14 +36,14 @@ public class GenArrayGet extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        evaluated.set(argument(aEnvironment, aStackTop, 1).get());
 
         BuiltinContainer gen = evaluated.get().generic();
         LispError.checkArgumentCore(aEnvironment, aStackTop, gen != null, 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
 
         ConsPointer sizearg = new ConsPointer();
-        sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+        sizearg.set(argument(aEnvironment, aStackTop, 2).get());
 
         LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get() != null, 2);
         LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get().string() != null, 2);
@@ -53,6 +53,6 @@ public class GenArrayGet extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
         Cons object = ((Array) gen).getElement(size);
 
-        RESULT(aEnvironment, aStackTop).set(object.copy(false));
+        result(aEnvironment, aStackTop).set(object.copy(false));
     }
 }

@@ -33,6 +33,6 @@ public class MathIsSmall extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
-        Standard.internalBoolean(aEnvironment, RESULT(aEnvironment, aStackTop), x.IsSmall());
+        Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), x.IsSmall());
     }
 }

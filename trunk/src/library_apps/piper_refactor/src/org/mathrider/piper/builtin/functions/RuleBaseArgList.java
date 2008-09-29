@@ -36,13 +36,13 @@ public class RuleBaseArgList extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer name = new ConsPointer();
-        name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        name.set(argument(aEnvironment, aStackTop, 1).get());
         String orig = name.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = Standard.internalUnstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
-        sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
+        sizearg.set(argument(aEnvironment, aStackTop, 2).get());
         LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get() != null, 2);
         LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get().string() != null, 2);
 
@@ -55,6 +55,6 @@ public class RuleBaseArgList extends BuiltinFunction
         ConsPointer head = new ConsPointer();
         head.set(aEnvironment.iList.copy(false));
         head.get().cdr().set(list.get());
-        RESULT(aEnvironment, aStackTop).set(SubList.getInstance(head.get()));
+        result(aEnvironment, aStackTop).set(SubList.getInstance(head.get()));
     }
 }

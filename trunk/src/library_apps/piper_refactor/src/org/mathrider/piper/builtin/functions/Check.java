@@ -33,14 +33,14 @@ public class Check extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer pred = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, pred, ARGUMENT(aEnvironment, aStackTop, 1));
+        aEnvironment.iEvaluator.evaluate(aEnvironment, pred, argument(aEnvironment, aStackTop, 1));
         if (!Standard.isTrue(aEnvironment, pred))
         {
             ConsPointer evaluated = new ConsPointer();
-            aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, ARGUMENT(aEnvironment, aStackTop, 2));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, argument(aEnvironment, aStackTop, 2));
             LispError.checkIsStringCore(aEnvironment, aStackTop, evaluated, 2);
             throw new Exception(evaluated.get().string());
         }
-        RESULT(aEnvironment, aStackTop).set(pred.get());
+        result(aEnvironment, aStackTop).set(pred.get());
     }
 }

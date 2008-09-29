@@ -34,7 +34,7 @@ public class DestructiveReverse extends BuiltinFunction
     {
         ConsPointer reversed = new ConsPointer();
         reversed.set(aEnvironment.iList.copy(false));
-        Standard.internalReverseList(reversed.get().cdr(), ARGUMENT(aEnvironment, aStackTop, 1).get().subList().get().cdr());
-        RESULT(aEnvironment, aStackTop).set(SubList.getInstance(reversed.get()));
+        Standard.internalReverseList(reversed.get().cdr(), argument(aEnvironment, aStackTop, 1).get().subList().get().cdr());
+        result(aEnvironment, aStackTop).set(SubList.getInstance(reversed.get()));
     }
 }

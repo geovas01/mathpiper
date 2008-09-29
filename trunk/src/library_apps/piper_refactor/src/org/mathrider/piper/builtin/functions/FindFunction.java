@@ -39,7 +39,7 @@ public class FindFunction extends BuiltinFunction
         LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        evaluated.set(argument(aEnvironment, aStackTop, 1).get());
 
         // Get file name
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
@@ -54,10 +54,10 @@ public class FindFunction extends BuiltinFunction
             DefFile def = multiUserFunc.iFileToOpen;
             if (def != null)
             {
-                RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, def.iFileName));
+                result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, def.iFileName));
                 return;
             }
         }
-        RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"\""));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"\""));
     }
 }

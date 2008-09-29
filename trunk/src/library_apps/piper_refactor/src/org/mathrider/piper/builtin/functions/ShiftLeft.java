@@ -36,6 +36,6 @@ public class ShiftLeft extends BuiltinFunction
         long nrToShift = n.Long();
         BigNumber z = new BigNumber(aEnvironment.precision());
         z.ShiftLeft(x, (int) nrToShift);
-        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+        result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }
 }

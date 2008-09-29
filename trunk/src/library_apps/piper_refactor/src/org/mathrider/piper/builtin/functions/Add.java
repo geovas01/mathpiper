@@ -39,12 +39,12 @@ public class Add extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+        int length = Standard.internalListLength(argument(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x;
             x = Functions.getNumber(aEnvironment, aStackTop, 1);
-            RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(x));
+            result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(x));
             return;
         } else
         {
@@ -53,7 +53,7 @@ public class Add extends BuiltinFunction
             int bin = aEnvironment.precision();
             BigNumber z = new BigNumber(bin);
             z.Add(x, y, aEnvironment.precision());
-            RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+            result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
             return;
         }
     }

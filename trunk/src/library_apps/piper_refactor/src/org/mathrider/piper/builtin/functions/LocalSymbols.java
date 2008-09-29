@@ -34,7 +34,7 @@ public class LocalSymbols extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Standard.internalListLength(ARGUMENT(aEnvironment, aStackTop, 0));
+        int nrArguments = Standard.internalListLength(argument(aEnvironment, aStackTop, 0));
         int nrSymbols = nrArguments - 2;
 
         String names[] = new String[nrSymbols];
@@ -44,7 +44,7 @@ public class LocalSymbols extends BuiltinFunction
         int i;
         for (i = 0; i < nrSymbols; i++)
         {
-            String atomname = argument(ARGUMENT(aEnvironment, aStackTop, 0), i + 1).get().string();
+            String atomname = argument(argument(aEnvironment, aStackTop, 0), i + 1).get().string();
             LispError.checkArgumentCore(aEnvironment, aStackTop, atomname != null, i + 1);
             names[i] = atomname;
             int len = atomname.length();
@@ -54,7 +54,7 @@ public class LocalSymbols extends BuiltinFunction
         }
         LocalSymbol behaviour = new LocalSymbol(aEnvironment, names, localnames, nrSymbols);
         ConsPointer result = new ConsPointer();
-        Standard.internalSubstitute(result, argument(ARGUMENT(aEnvironment, aStackTop, 0), nrArguments - 1), behaviour);
-        aEnvironment.iEvaluator.evaluate(aEnvironment, RESULT(aEnvironment, aStackTop), result);
+        Standard.internalSubstitute(result, argument(argument(aEnvironment, aStackTop, 0), nrArguments - 1), behaviour);
+        aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), result);
     }
 }

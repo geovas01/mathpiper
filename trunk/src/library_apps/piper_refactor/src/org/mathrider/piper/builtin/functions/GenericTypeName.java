@@ -34,8 +34,8 @@ public class GenericTypeName extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        evaluated.set(argument(aEnvironment, aStackTop, 1).get());
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get().generic() != null, 1);
-        RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, evaluated.get().generic().typeName()));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, evaluated.get().generic().typeName()));
     }
 }

@@ -34,15 +34,15 @@ public class IsInteger extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
-        result.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        result.set(argument(aEnvironment, aStackTop, 1).get());
 
         BigNumber num = result.get().number(aEnvironment.precision());
         if (num == null)
         {
-            Standard.internalFalse(aEnvironment, RESULT(aEnvironment, aStackTop));
+            Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         } else
         {
-            Standard.internalBoolean(aEnvironment, RESULT(aEnvironment, aStackTop), num.IsInt());
+            Standard.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), num.IsInt());
         }
     }
 }

@@ -38,7 +38,7 @@ public class Div extends BuiltinFunction
 
             BigNumber z = new BigNumber(aEnvironment.precision());
             z.Divide(x, y, aEnvironment.precision());
-            RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+            result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
             return;
         } else
         {

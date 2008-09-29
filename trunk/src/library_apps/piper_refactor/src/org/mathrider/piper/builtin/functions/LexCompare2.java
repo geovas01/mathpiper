@@ -40,8 +40,8 @@ abstract public class LexCompare2
     {
         ConsPointer result1 = new ConsPointer();
         ConsPointer result2 = new ConsPointer();
-        result1.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 1).get());
-        result2.set(BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 2).get());
+        result1.set(BuiltinFunction.argument(aEnvironment, aStackTop, 1).get());
+        result2.set(BuiltinFunction.argument(aEnvironment, aStackTop, 2).get());
         boolean cmp;
         BigNumber n1 = result1.get().number(aEnvironment.precision());
         BigNumber n2 = result2.get().number(aEnvironment.precision());
@@ -62,6 +62,6 @@ abstract public class LexCompare2
                     aEnvironment.precision());
         }
 
-        Standard.internalBoolean(aEnvironment, BuiltinFunction.RESULT(aEnvironment, aStackTop), cmp);
+        Standard.internalBoolean(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop), cmp);
     }
 }

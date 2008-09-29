@@ -253,7 +253,7 @@ public class LispError
     {
         if (!aPredicate)
         {
-            ConsPointer arguments = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 0);
+            ConsPointer arguments = BuiltinFunction.argument(aEnvironment, aStackTop, 0);
             if (arguments.get() == null)
             {
                 throw new PiperException("Error in compiled code\n");
@@ -294,7 +294,7 @@ public class LispError
     {
         if (!aPredicate)
         {
-            ConsPointer arguments = BuiltinFunction.ARGUMENT(aEnvironment, aStackTop, 0);
+            ConsPointer arguments = BuiltinFunction.argument(aEnvironment, aStackTop, 0);
             if (arguments.get() == null)
             {
                 throw new PiperException("Error in compiled code\n");

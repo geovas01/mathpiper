@@ -35,6 +35,6 @@ public class ReadLisp extends BuiltinFunction
                 aEnvironment.iCurrentInput,
                 aEnvironment);
         // Read expression
-        parser.parse(RESULT(aEnvironment, aStackTop));
+        parser.parse(result(aEnvironment, aStackTop));
     }
 }

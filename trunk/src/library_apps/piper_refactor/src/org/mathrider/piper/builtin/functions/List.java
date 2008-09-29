@@ -36,7 +36,7 @@ import org.mathrider.piper.lisp.SubList;
 			all.set(aEnvironment.iList.copy(false));
 			ConsTraverser tail = new ConsTraverser(all);
 			tail.goNext();
-			ConsTraverser iter = new ConsTraverser(ARGUMENT(aEnvironment, aStackTop, 1).get().subList());
+			ConsTraverser iter = new ConsTraverser(argument(aEnvironment, aStackTop, 1).get().subList());
 			iter.goNext();
 			while (iter.getCons() != null)
 			{
@@ -46,6 +46,6 @@ import org.mathrider.piper.lisp.SubList;
 				tail.goNext();
 				iter.goNext();
 			}
-			RESULT(aEnvironment, aStackTop).set(SubList.getInstance(all.get()));
+			result(aEnvironment, aStackTop).set(SubList.getInstance(all.get()));
 		}
 	}

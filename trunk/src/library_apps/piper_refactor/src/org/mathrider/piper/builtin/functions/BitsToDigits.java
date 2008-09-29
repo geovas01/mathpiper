@@ -48,6 +48,6 @@ public class BitsToDigits extends BuiltinFunction
         }
         BigNumber z = new BigNumber(aEnvironment.precision());
         z.SetTo((long) result);
-        RESULT(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
+        result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(z));
     }
 }

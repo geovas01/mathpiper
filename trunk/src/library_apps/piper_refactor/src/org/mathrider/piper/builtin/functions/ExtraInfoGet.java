@@ -33,18 +33,18 @@ public class ExtraInfoGet extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer object = new ConsPointer();
-        object.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
+        object.set(argument(aEnvironment, aStackTop, 1).get());
 
         ConsPointer result = object.get().extraInfo();
         if (result == null)
         {
-            Standard.internalFalse(aEnvironment, RESULT(aEnvironment, aStackTop));
+            Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         } else if (result.get() == null)
         {
-            Standard.internalFalse(aEnvironment, RESULT(aEnvironment, aStackTop));
+            Standard.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         } else
         {
-            RESULT(aEnvironment, aStackTop).set(result.get());
+            result(aEnvironment, aStackTop).set(result.get());
         }
     }
 }

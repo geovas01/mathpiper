@@ -33,10 +33,10 @@ public class Subst extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer from = new ConsPointer(), to = new ConsPointer(), body = new ConsPointer();
-        from.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        to.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-        body.set(ARGUMENT(aEnvironment, aStackTop, 3).get());
+        from.set(argument(aEnvironment, aStackTop, 1).get());
+        to.set(argument(aEnvironment, aStackTop, 2).get());
+        body.set(argument(aEnvironment, aStackTop, 3).get());
         org.mathrider.piper.lisp.behaviours.Subst behaviour = new org.mathrider.piper.lisp.behaviours.Subst(aEnvironment, from, to);
-        Standard.internalSubstitute(RESULT(aEnvironment, aStackTop), body, behaviour);
+        Standard.internalSubstitute(result(aEnvironment, aStackTop), body, behaviour);
     }
 }
