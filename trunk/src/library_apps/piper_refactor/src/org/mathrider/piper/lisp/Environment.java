@@ -164,8 +164,8 @@ public class Environment
 
 	public ConsPointer findLocal(String aVariable) throws Exception
 	{
-		LispError.Check(iLocalsList != null,LispError.KLispErrInvalidStack);
-		//    Check(iLocalsList.iFirst != null,KLispErrInvalidStack);
+		LispError.check(iLocalsList != null,LispError.KLispErrInvalidStack);
+		//    check(iLocalsList.iFirst != null,KLispErrInvalidStack);
 		LispLocalVariable t = iLocalsList.iFirst;
 
 		while (t != null)
@@ -251,7 +251,7 @@ public class Environment
 
 	public void popLocalFrame() throws Exception
 	{
-		LispError.LISPASSERT(iLocalsList != null);
+		LispError.lispAssert(iLocalsList != null);
 		LocalVariableFrame nextFrame = iLocalsList.iNext;
 		iLocalsList.delete();
 		iLocalsList = nextFrame;
@@ -259,7 +259,7 @@ public class Environment
 
 	public void newLocal(String aVariable,Cons aValue) throws Exception
 	{
-		LispError.LISPASSERT(iLocalsList != null);
+		LispError.lispAssert(iLocalsList != null);
 		iLocalsList.add(new LispLocalVariable(aVariable, aValue));
 	}
 
@@ -319,7 +319,7 @@ public class Environment
 	public void holdArgument(String  aOperator, String aVariable) throws Exception
 	{
 		MultiUserFunction multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);
-		LispError.Check(multiUserFunc != null,LispError.KLispErrInvalidArg);
+		LispError.check(multiUserFunc != null,LispError.KLispErrInvalidArg);
 		multiUserFunc.HoldArgument(aVariable);
 	}
 
@@ -358,9 +358,9 @@ public class Environment
 	{
 		MultiUserFunction multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);
 
-		LispError.Check(multiUserFunc != null, LispError.KLispErrInvalidArg);
+		LispError.check(multiUserFunc != null, LispError.KLispErrInvalidArg);
 		UserFunction userFunc = multiUserFunc.UserFunc(aArity);
-		LispError.Check(userFunc != null, LispError.KLispErrInvalidArg);
+		LispError.check(userFunc != null, LispError.KLispErrInvalidArg);
 		userFunc.UnFence();
 	}
 
@@ -375,7 +375,7 @@ public class Environment
 			MultiUserFunction newMulti = new MultiUserFunction();
 			iUserFunctions.setAssociation(newMulti, aOperator);
 			multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);
-			LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingUserFunction);
+			LispError.check(multiUserFunc != null, LispError.KLispErrCreatingUserFunction);
 		}
 		return multiUserFunc;
 	}
@@ -405,11 +405,11 @@ public class Environment
 		// Find existing multiuser func.
 		MultiUserFunction multiUserFunc =
 		        (MultiUserFunction)iUserFunctions.lookUp(aOperator);
-		LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingRule);
+		LispError.check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
 		// Get the specific user function with the right arity
 		UserFunction userFunc = (UserFunction)multiUserFunc.UserFunc(aArity);
-		LispError.Check(userFunc != null, LispError.KLispErrCreatingRule);
+		LispError.check(userFunc != null, LispError.KLispErrCreatingRule);
 
 		// Declare a new evaluation rule
 
@@ -442,11 +442,11 @@ public class Environment
 	{
 		// Find existing multiuser func.
 		MultiUserFunction multiUserFunc = (MultiUserFunction)iUserFunctions.lookUp(aOperator);
-		LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingRule);
+		LispError.check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
 		// Get the specific user function with the right arity
 		UserFunction userFunc = multiUserFunc.UserFunc(aArity);
-		LispError.Check(userFunc != null, LispError.KLispErrCreatingRule);
+		LispError.check(userFunc != null, LispError.KLispErrCreatingRule);
 
 		// Declare a new evaluation rule
 		userFunc.DeclarePattern(aPrecedence, aPredicate,aBody);

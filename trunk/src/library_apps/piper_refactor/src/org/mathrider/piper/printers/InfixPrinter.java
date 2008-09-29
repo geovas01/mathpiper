@@ -64,7 +64,7 @@ public class InfixPrinter extends Printer
 	}
 	void Print(ConsPointer aExpression, Output aOutput, int iPrecedence) throws Exception
 	{
-		LispError.LISPASSERT(aExpression.get() != null);
+		LispError.lispAssert(aExpression.get() != null);
 
 		String string = aExpression.get().string();
 		if (string != null)
@@ -91,7 +91,7 @@ public class InfixPrinter extends Printer
 		}
 
 		ConsPointer subList = aExpression.get().subList();
-		LispError.Check(subList!=null, LispError.KLispErrUnprintableToken);
+		LispError.check(subList!=null, LispError.KLispErrUnprintableToken);
 		if (subList.get() == null)
 		{
 			WriteToken(aOutput,"( )");

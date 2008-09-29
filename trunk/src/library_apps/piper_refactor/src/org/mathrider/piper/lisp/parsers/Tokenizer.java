@@ -74,7 +74,7 @@ public class Tokenizer
 				while (true)
 				{
 					while (aInput.next() != '*' && !aInput.endOfStream());
-					LispError.Check(!aInput.endOfStream(),LispError.KLispErrCommentToEndOfFile);
+					LispError.check(!aInput.endOfStream(),LispError.KLispErrCommentToEndOfFile);
 					if (aInput.peek() == '/')
 					{
 						aInput.next();  // consume /
@@ -106,11 +106,11 @@ public class Tokenizer
 					if (aInput.peek() == '\\')
 					{
 						aInput.next();
-						LispError.Check(!aInput.endOfStream(),LispError.KLispErrParsingInput);
+						LispError.check(!aInput.endOfStream(),LispError.KLispErrParsingInput);
 					}
 					//TODO FIXME is following append char correct?
 					aResult = aResult + ((char)aInput.next());
-					LispError.Check(!aInput.endOfStream(),LispError.KLispErrParsingInput);
+					LispError.check(!aInput.endOfStream(),LispError.KLispErrParsingInput);
 				}
 				//TODO FIXME is following append char correct?
 				aResult = aResult + ((char)aInput.next()); // consume the close quote

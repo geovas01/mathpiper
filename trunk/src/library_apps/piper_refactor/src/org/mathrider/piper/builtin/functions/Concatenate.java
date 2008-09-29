@@ -44,7 +44,7 @@ public class Concatenate extends BuiltinFunction
         iter.goNext();
         while (iter.getObject() != null)
         {
-            LispError.CHK_ISLIST_CORE(aEnvironment, aStackTop, iter.ptr(), arg);
+            LispError.checkIsListCore(aEnvironment, aStackTop, iter.ptr(), arg);
             Standard.internalFlatCopy(tail.ptr(), iter.ptr().get().subList().get().cdr());
             while (tail.getObject() != null)
             {

@@ -77,7 +77,7 @@ public class Pattern
 		while (iter.getObject() != null)
 		{
 			Parameter matcher = makeParamMatcher(aEnvironment,iter.getObject());
-			LispError.LISPASSERT(matcher!=null);
+			LispError.lispAssert(matcher!=null);
 			iParamMatchers.add(matcher);
 			iter.goNext();
 		}
@@ -242,7 +242,7 @@ public class Pattern
 		{
 			// See if it is a variable template:
 			ConsPointer  sublist = aPattern.subList();
-			LispError.LISPASSERT(sublist != null);
+			LispError.lispAssert(sublist != null);
 
 			int num = Standard.internalListLength(sublist);
 
@@ -296,7 +296,7 @@ public class Pattern
 			for (i=0;i<num;i++)
 			{
 				matchers[i] = makeParamMatcher(aEnvironment,iter.getObject());
-				LispError.LISPASSERT(matchers[i] != null);
+				LispError.lispAssert(matchers[i] != null);
 				iter.goNext();
 			}
 			return new SubList(matchers, num);
@@ -338,7 +338,7 @@ public class Pattern
 		}
 	}
 
-	/// Check whether all predicates are true.
+	/// check whether all predicates are true.
 	/// This function goes through all predicates in #iPredicates, and
 	/// evaluates them. It returns #false if at least one
 	/// of these results IsFalse(). An error is raised if any result
@@ -370,7 +370,7 @@ public class Pattern
 				aEnvironment.iCurrentOutput.Write(strout);
 				aEnvironment.iCurrentOutput.Write("\n");
 
-				LispError.Check(isTrue,LispError.KLispErrNonBooleanPredicateInPattern);
+				LispError.check(isTrue,LispError.KLispErrNonBooleanPredicateInPattern);
 			}
 		}
 		return true;

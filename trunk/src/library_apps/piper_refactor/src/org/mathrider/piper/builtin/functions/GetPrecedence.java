@@ -46,7 +46,7 @@ public class GetPrecedence extends BuiltinFunction
                 {  // or maybe it's a bodied function
 
                     op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                    LispError.CHK_CORE(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
+                    LispError.checkCore(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
                 }
             }
         }

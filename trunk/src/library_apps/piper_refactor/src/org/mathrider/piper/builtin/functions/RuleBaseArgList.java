@@ -38,18 +38,18 @@ public class RuleBaseArgList extends BuiltinFunction
         ConsPointer name = new ConsPointer();
         name.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
         String orig = name.get().string();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = Standard.internalUnstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get() != null, 2);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get().string() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get().string() != null, 2);
 
         int arity = Integer.parseInt(sizearg.get().string(), 10);
 
         UserFunction userFunc = aEnvironment.userFunction(aEnvironment.hashTable().lookUp(oper), arity);
-        LispError.CHK_CORE(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
+        LispError.checkCore(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
 
         ConsPointer list = userFunc.ArgList();
         ConsPointer head = new ConsPointer();

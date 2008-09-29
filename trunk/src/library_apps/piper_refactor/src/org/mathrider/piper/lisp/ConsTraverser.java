@@ -45,14 +45,14 @@ public class ConsTraverser
 	
 	public void goNext() throws Exception
 	{
-		LispError.Check(iPtr.get() != null,LispError.KLispErrListNotLongEnough);
+		LispError.check(iPtr.get() != null,LispError.KLispErrListNotLongEnough);
 		iPtr = (iPtr.get().cdr());
 	}
 	
 	public void goSub() throws Exception
 	{
-		LispError.Check(iPtr.get() != null,LispError.KLispErrInvalidArg);
-		LispError.Check(iPtr.get().subList() != null,LispError.KLispErrNotList);
+		LispError.check(iPtr.get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(iPtr.get().subList() != null,LispError.KLispErrNotList);
 		iPtr = iPtr.get().subList();
 	}
 

@@ -39,17 +39,17 @@ public class GenArraySet extends BuiltinFunction
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         BuiltinContainer gen = evaluated.get().generic();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen != null, 1);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, gen != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
 
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get() != null, 2);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, sizearg.get().string() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get().string() != null, 2);
 
         int size = Integer.parseInt(sizearg.get().string(), 10);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
 
         ConsPointer obj = new ConsPointer();
         obj.set(ARGUMENT(aEnvironment, aStackTop, 3).get());

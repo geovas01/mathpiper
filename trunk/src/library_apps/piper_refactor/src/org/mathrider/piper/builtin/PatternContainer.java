@@ -40,7 +40,7 @@ public class PatternContainer extends BuiltinContainer
 
 	public boolean matches(Environment  aEnvironment, ConsPointer aArguments) throws Exception
 	{
-		LispError.LISPASSERT(iPatternMatcher != null);
+		LispError.lispAssert(iPatternMatcher != null);
 		boolean result;
 		result = iPatternMatcher.matches(aEnvironment, aArguments);
 		return result;
@@ -48,7 +48,7 @@ public class PatternContainer extends BuiltinContainer
 	
 	public boolean matches(Environment  aEnvironment, ConsPointer[] aArguments) throws Exception
 	{
-		LispError.LISPASSERT(iPatternMatcher != null);
+		LispError.lispAssert(iPatternMatcher != null);
 		boolean result;
 		result = iPatternMatcher.matches(aEnvironment, aArguments);
 		return result;

@@ -36,14 +36,14 @@ public class Retract extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer();
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, evaluated.get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = Standard.symbolName(aEnvironment, orig);
 
         ConsPointer arity = new ConsPointer();
         arity.set(ARGUMENT(aEnvironment, aStackTop, 2).get());
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, arity.get().string() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, arity.get().string() != null, 2);
         int ar = Integer.parseInt(arity.get().string(), 10);
         aEnvironment.retract(oper, ar);
         Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));

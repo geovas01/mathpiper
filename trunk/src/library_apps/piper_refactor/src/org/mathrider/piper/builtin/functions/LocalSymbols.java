@@ -45,7 +45,7 @@ public class LocalSymbols extends BuiltinFunction
         for (i = 0; i < nrSymbols; i++)
         {
             String atomname = argument(ARGUMENT(aEnvironment, aStackTop, 0), i + 1).get().string();
-            LispError.CHK_ARG_CORE(aEnvironment, aStackTop, atomname != null, i + 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, atomname != null, i + 1);
             names[i] = atomname;
             int len = atomname.length();
             String newname = "$" + atomname + uniquenumber;

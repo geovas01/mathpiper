@@ -40,7 +40,7 @@ public class Atom extends Cons
             self = new Atom(aEnvironment.hashTable().lookUp(aString));
         }
         
-        LispError.Check(self != null, LispError.KLispErrNotEnoughMemory);
+        LispError.check(self != null, LispError.KLispErrNotEnoughMemory);
         return self;
     }
 

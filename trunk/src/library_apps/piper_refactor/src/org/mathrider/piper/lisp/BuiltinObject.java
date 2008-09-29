@@ -28,9 +28,9 @@ public class BuiltinObject extends Cons
 	
 	public static BuiltinObject getInstance(BuiltinContainer aClass) throws Exception
 	{
-		LispError.LISPASSERT(aClass!=null);
+		LispError.lispAssert(aClass!=null);
 		BuiltinObject self = new BuiltinObject(aClass);
-		LispError.Check(self!=null,LispError.KLispErrNotEnoughMemory);
+		LispError.check(self!=null,LispError.KLispErrNotEnoughMemory);
 		return self;
 	}
 	

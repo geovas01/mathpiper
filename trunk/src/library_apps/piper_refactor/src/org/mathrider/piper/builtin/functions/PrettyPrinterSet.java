@@ -39,11 +39,11 @@ public class PrettyPrinterSet extends BuiltinFunction
             aEnvironment.iPrettyPrinter = null;
         } else
         {
-            LispError.CHK_CORE(aEnvironment, aStackTop, nrArguments == 2, LispError.KLispErrWrongNumberOfArgs);
+            LispError.checkCore(aEnvironment, aStackTop, nrArguments == 2, LispError.KLispErrWrongNumberOfArgs);
             ConsPointer oper = new ConsPointer();
             oper.set(ARGUMENT(aEnvironment, aStackTop, 0).get());
             oper.goNext();
-            LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, oper, 1);
+            LispError.checkIsStringCore(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyPrinter = oper.get().string();
         }
         Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));

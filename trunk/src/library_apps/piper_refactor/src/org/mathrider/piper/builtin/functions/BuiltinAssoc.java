@@ -45,10 +45,10 @@ public class BuiltinAssoc extends BuiltinFunction
 
         Cons t;
 
-        //Check that it is a compound object
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, list.get().subList() != null, 2);
+        //check that it is a compound object
+        LispError.checkArgumentCore(aEnvironment, aStackTop, list.get().subList() != null, 2);
         t = list.get().subList().get();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, t != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, t != null, 2);
         t = t.cdr().get();
 
         while (t != null)

@@ -40,7 +40,7 @@ public abstract class BuiltinFunction
 
 	public static ConsPointer argument(ConsPointer cur, int n) throws Exception
 	{
-		LispError.LISPASSERT(n>=0);
+		LispError.lispAssert(n>=0);
 
 		ConsPointer loop = cur;
 		while(n != 0)

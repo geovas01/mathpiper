@@ -138,8 +138,8 @@ public class BranchingUserFunction extends ArityUserFunction
 			iPredicate.set(aPredicate.get());
 
 			BuiltinContainer gen = aPredicate.get().generic();
-			LispError.Check(gen != null,LispError.KLispErrInvalidArg);
-			LispError.Check(gen.typeName().equals("\"Pattern\""),LispError.KLispErrInvalidArg);
+			LispError.check(gen != null,LispError.KLispErrInvalidArg);
+			LispError.check(gen.typeName().equals("\"Pattern\""),LispError.KLispErrInvalidArg);
 
 			iPatternClass = (PatternContainer)gen;
 			iBody.set(aBody.get());
@@ -186,7 +186,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		ConsTraverser iter = new ConsTraverser(aParameters);
 		while (iter.getObject() != null)
 		{
-			LispError.Check(iter.getObject().string() != null,LispError.KLispErrCreatingUserFunction);
+			LispError.check(iter.getObject().string() != null,LispError.KLispErrCreatingUserFunction);
 			BranchParameter param = new BranchParameter(iter.getObject().string(),false);
 			iParameters.add(param);
 			iter.goNext();
@@ -230,7 +230,7 @@ public class BranchingUserFunction extends ArityUserFunction
 			arguments = null;
 		else
 		{
-			LispError.LISPASSERT(arity>0);
+			LispError.lispAssert(arity>0);
 			arguments = new ConsPointer[arity];
 			for (i=0;i<arity;i++)
 				arguments[i] = new ConsPointer();
@@ -239,14 +239,14 @@ public class BranchingUserFunction extends ArityUserFunction
 		// Walk over all arguments, evaluating them as necessary
 		for (i=0;i<arity;i++)
 		{
-			LispError.Check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+			LispError.check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
 				arguments[i].set(iter.getObject().copy(false));
 			}
 			else
 			{
-				LispError.Check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.eval(aEnvironment, arguments[i], iter.ptr());
 			}
 			iter.goNext();
@@ -284,7 +284,7 @@ public class BranchingUserFunction extends ArityUserFunction
 			for (i=0;i<nrRules;i++)
 			{
 				BranchRuleBase thisRule = ((BranchRuleBase)iRules.get(i));
-				LispError.LISPASSERT(thisRule != null);
+				LispError.lispAssert(thisRule != null);
 
 				st.iRulePrecedence = thisRule.Precedence();
 				boolean matches = thisRule.Matches(aEnvironment, arguments);
@@ -383,7 +383,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	{
 		// New branching rule.
 		BranchRule newRule = new BranchRule(aPrecedence,aPredicate,aBody);
-		LispError.Check(newRule != null,LispError.KLispErrCreatingRule);
+		LispError.check(newRule != null,LispError.KLispErrCreatingRule);
 
 		InsertRule(aPrecedence,newRule);
 	}
@@ -394,7 +394,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	{
 		// New branching rule.
 		BranchRule newRule = new BranchRuleTruePredicate(aPrecedence,aBody);
-		LispError.Check(newRule != null,LispError.KLispErrCreatingRule);
+		LispError.check(newRule != null,LispError.KLispErrCreatingRule);
 
 		InsertRule(aPrecedence,newRule);
 	}
@@ -405,7 +405,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	{
 		// New branching rule.
 		BranchPattern newRule = new BranchPattern(aPrecedence,aPredicate,aBody);
-		LispError.Check(newRule != null,LispError.KLispErrCreatingRule);
+		LispError.check(newRule != null,LispError.KLispErrCreatingRule);
 
 		InsertRule(aPrecedence,newRule);
 	}

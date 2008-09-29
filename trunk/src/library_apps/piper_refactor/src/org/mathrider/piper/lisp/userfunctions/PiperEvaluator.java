@@ -53,7 +53,7 @@ public class PiperEvaluator extends EvalFuncBase
 	{
 		if ((iFlags & Variable) == 0)
 		{
-			LispError.CheckNrArgs(iNrArgs+1,aArguments,aEnvironment);
+			LispError.checkNumberOfArguments(iNrArgs+1,aArguments,aEnvironment);
 		}
 
 		int stacktop = aEnvironment.iStack.getStackTop();
@@ -74,7 +74,7 @@ public class PiperEvaluator extends EvalFuncBase
 		{
 			for (i=0;i<nr;i++)
 			{
-				LispError.Check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iStack.pushArgumentOnStack(iter.getObject().copy(false));
 				iter.goNext();
 			}
@@ -91,8 +91,8 @@ public class PiperEvaluator extends EvalFuncBase
 			ConsPointer arg = new ConsPointer();
 			for (i=0;i<nr;i++)
 			{
-				LispError.Check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
-				LispError.Check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.check(iter.getObject() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.eval(aEnvironment, arg, iter.ptr());
 				aEnvironment.iStack.pushArgumentOnStack(arg.get());
 				iter.goNext();

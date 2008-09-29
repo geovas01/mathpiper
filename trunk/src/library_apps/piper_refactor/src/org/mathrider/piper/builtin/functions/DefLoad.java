@@ -33,15 +33,15 @@ public class DefLoad extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.CHK_CORE(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+        LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
         ConsPointer evaluated = new ConsPointer();
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         // Get file name
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, evaluated.get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
         Standard.loadDefFile(aEnvironment, orig);
         Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));

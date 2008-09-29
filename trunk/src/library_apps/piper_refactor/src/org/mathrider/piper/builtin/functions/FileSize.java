@@ -38,7 +38,7 @@ public class FileSize extends BuiltinFunction
     {
         ConsPointer fnameObject = new ConsPointer();
         fnameObject.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, fnameObject, 1);
+        LispError.checkIsStringCore(aEnvironment, aStackTop, fnameObject, 1);
         String fname = Standard.internalUnstringify(fnameObject.get().string());
         String hashedname = aEnvironment.hashTable().lookUp(fname);
 
@@ -51,7 +51,7 @@ public class FileSize extends BuiltinFunction
             Input newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
                     Standard.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
-            LispError.Check(newInput != null, LispError.KLispErrFileNotFound);
+            LispError.check(newInput != null, LispError.KLispErrFileNotFound);
             fileSize = newInput.startPtr().length();
         } catch (Exception e)
         {

@@ -45,7 +45,7 @@ public class While extends BuiltinFunction
             aEnvironment.iEvaluator.eval(aEnvironment, predicate, arg1);
 
         }
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, Standard.isFalse(aEnvironment, predicate), 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, Standard.isFalse(aEnvironment, predicate), 1);
         Standard.internalTrue(aEnvironment, RESULT(aEnvironment, aStackTop));
     }
 }

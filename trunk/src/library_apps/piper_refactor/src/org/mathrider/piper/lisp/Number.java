@@ -70,7 +70,7 @@ public class Number extends Cons
 	{
 		if (iString == null)
 		{
-			LispError.LISPASSERT(iNumber != null);  // either the string is null or the number but not both
+			LispError.lispAssert(iNumber != null);  // either the string is null or the number but not both
 			iString = iNumber.ToString(0/*TODO FIXME*/,10);
 			// export the current number to string and store it as Number::iString
 		}
@@ -82,7 +82,7 @@ public class Number extends Cons
 	{
 		if (iNumber == null)
 		{  // create and store a BigNumber out of string
-			LispError.LISPASSERT(iString != null);
+			LispError.lispAssert(iString != null);
 			String str;
 			str = iString;
 			// aBasePrecision is in digits, not in bits, ok

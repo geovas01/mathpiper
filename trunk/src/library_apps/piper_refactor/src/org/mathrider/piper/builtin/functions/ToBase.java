@@ -38,11 +38,11 @@ public class ToBase extends BuiltinFunction
         // Evaluate first argument, and store result in oper
         ConsPointer oper = new ConsPointer();
         oper.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        // Check that result is a number, and that it is in fact an integer
+        // check that result is a number, and that it is in fact an integer
         BigNumber num = oper.get().number(aEnvironment.precision());
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, num != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, num.IsInt(), 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, num.IsInt(), 1);
 
         // Get a short platform integer from the first argument
         int base = (int) (num.Long());

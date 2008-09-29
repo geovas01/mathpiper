@@ -39,8 +39,8 @@ public class GenArraySize extends BuiltinFunction
         evaluated.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
 
         BuiltinContainer gen = evaluated.get().generic();
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen != null, 1);
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, gen != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
         int size = ((Array) gen).size();
         RESULT(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + size));
     }

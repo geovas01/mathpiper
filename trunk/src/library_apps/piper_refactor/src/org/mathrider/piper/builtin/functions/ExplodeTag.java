@@ -38,7 +38,7 @@ public class ExplodeTag extends BuiltinFunction
     {
         ConsPointer out = new ConsPointer();
         out.set(ARGUMENT(aEnvironment, aStackTop, 1).get());
-        LispError.CHK_ISSTRING_CORE(aEnvironment, aStackTop, out, 1);
+        LispError.checkIsStringCore(aEnvironment, aStackTop, out, 1);
 
         String str = out.get().string();
         int strInd = 0;
@@ -48,7 +48,7 @@ public class ExplodeTag extends BuiltinFunction
             RESULT(aEnvironment, aStackTop).set(out.get());
             return;
         }
-        LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str.charAt(strInd) == '<', 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(strInd) == '<', 1);
         strInd++;
         String type = "\"Open\"";
 
@@ -94,9 +94,9 @@ public class ExplodeTag extends BuiltinFunction
                 name = name + c;
             }
             name = name + "\"";
-            LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str.charAt(strInd) == '=', 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(strInd) == '=', 1);
             strInd++;
-            LispError.CHK_ARG_CORE(aEnvironment, aStackTop, str.charAt(strInd) == '\"', 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(strInd) == '\"', 1);
             String value = new String();
 
             value = value + (str.charAt(strInd));

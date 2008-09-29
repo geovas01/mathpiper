@@ -51,7 +51,7 @@ public class MultiUserFunction
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			LispError.LISPASSERT(iFunctions.get(i) != null);
+			LispError.lispAssert(iFunctions.get(i) != null);
 			if (((ArityUserFunction)iFunctions.get(i)).IsArity(aArity))
 			{
 				return (ArityUserFunction)iFunctions.get(i);
@@ -69,7 +69,7 @@ public class MultiUserFunction
 		int i;
 		for (i=0;i<iFunctions.size();i++)
 		{
-			LispError.LISPASSERT(iFunctions.get(i) != null);
+			LispError.lispAssert(iFunctions.get(i) != null);
 			((ArityUserFunction)iFunctions.get(i)).HoldArgument(aVariable);
 		}
 	}
@@ -82,10 +82,10 @@ public class MultiUserFunction
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			LispError.LISPASSERT(((ArityUserFunction)iFunctions.get(i)) != null);
-			LispError.LISPASSERT(aNewFunction != null);
-			LispError.Check(!((ArityUserFunction)iFunctions.get(i)).IsArity(aNewFunction.Arity()),LispError.KLispErrArityAlreadyDefined);
-			LispError.Check(!aNewFunction.IsArity(((ArityUserFunction)iFunctions.get(i)).Arity()),LispError.KLispErrArityAlreadyDefined);
+			LispError.lispAssert(((ArityUserFunction)iFunctions.get(i)) != null);
+			LispError.lispAssert(aNewFunction != null);
+			LispError.check(!((ArityUserFunction)iFunctions.get(i)).IsArity(aNewFunction.Arity()),LispError.KLispErrArityAlreadyDefined);
+			LispError.check(!aNewFunction.IsArity(((ArityUserFunction)iFunctions.get(i)).Arity()),LispError.KLispErrArityAlreadyDefined);
 		}
 		iFunctions.add(aNewFunction);
 	}
@@ -98,7 +98,7 @@ public class MultiUserFunction
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			LispError.LISPASSERT(((ArityUserFunction)iFunctions.get(i)) != null);
+			LispError.lispAssert(((ArityUserFunction)iFunctions.get(i)) != null);
 			if (((ArityUserFunction)iFunctions.get(i)).IsArity(aArity))
 			{
 				iFunctions.remove(i);
