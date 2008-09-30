@@ -25,7 +25,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.io.InputDirectories;
 import org.mathrider.piper.lisp.behaviours.SubstBase;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
-import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
+import org.mathrider.piper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
 import org.mathrider.piper.io.JarInputFile;
@@ -664,7 +664,7 @@ public class UtilityFunctions
 				else
 				{
 					String str = token;
-					MultiUserFunction multiUser = aEnvironment.multiUserFunction(str);
+					MultipleArityUserFunction multiUser = aEnvironment.multiUserFunction(str);
 					if (multiUser.iFileToOpen!=null)
 					{
 						throw new PiperException("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName);

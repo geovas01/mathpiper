@@ -43,17 +43,17 @@ public class MacroUserFunction extends BranchingUserFunction
 			iter.goNext();
 			i++;
 		}
-		UnFence();
+		unFence();
 	}
 	public void evaluate(ConsPointer  aResult,Environment  aEnvironment,
 	                     ConsPointer  aArguments) throws Exception
 	{
-		int arity = Arity();
+		int arity = arity();
 		int i;
 
 		//hier
 		/*TODO fixme
-		    if (Traced())
+		    if (traced())
 		    {
 		        ConsPointer tr;
 		        tr.Set(SubList.New(aArguments.Get()));
@@ -91,7 +91,7 @@ public class MacroUserFunction extends BranchingUserFunction
 			iter.goNext();
 		}
 		/*TODO fixme
-		    if (Traced())
+		    if (traced())
 		    {
 		        ConsTraverser iter = new ConsTraverser(aArguments);
 		        iter.goNext();
@@ -181,7 +181,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		}
 		//FINISH:
 		/*TODO fixme
-		    if (Traced())
+		    if (traced())
 		    {
 		        ConsPointer tr;
 		        tr.Set(SubList.New(aArguments.Get()));

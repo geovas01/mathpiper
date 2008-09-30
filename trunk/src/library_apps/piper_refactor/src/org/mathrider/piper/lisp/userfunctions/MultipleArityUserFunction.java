@@ -22,29 +22,30 @@ package org.mathrider.piper.lisp.userfunctions;
 import org.mathrider.piper.lisp.*;
 import java.util.*;
 
-/// Set of ArityUserFunction's.
-/// By using this class, you can associate multiple functions (with
-/// different arities) to one name. A specific ArityUserFunction
-/// can be selected by providing its name. Additionally, the name of
-/// the file in which the function is defined, can be specified.
 
-public class MultiUserFunction
+
+/**
+ * Holds a set of {@link SingleArityUserFunctions} which are associated with one function name.
+ * A specific SingleArityUserFunction can be selected by profiding its name.  The
+ * name of the file in which the function is defined can also be specified.
+ */
+public class MultipleArityUserFunction
 {
 
-	/// Set of ArityUserFunction's provided by this MultiUserFunction.
-	ArrayList iFunctions = new ArrayList();//<ArityUserFunction*>
+	/// Set of SingleArityUserFunction's provided by this MultipleArityUserFunction.
+	ArrayList iFunctions = new ArrayList();//<SingleArityUserFunction*>
 
 	/// File to read for the definition of this function.
 	public DefFile iFileToOpen;
 
 	/// Constructor.
-	public MultiUserFunction()
+	public MultipleArityUserFunction()
 	{
 		iFileToOpen = null;
 	}
 
 	/// Return user function with given arity.
-	public UserFunction UserFunc(int aArity) throws Exception
+	public UserFunction userFunction(int aArity) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
@@ -52,9 +53,9 @@ public class MultiUserFunction
 		for (i=0;i<nrc;i++)
 		{
 			LispError.lispAssert(iFunctions.get(i) != null);
-			if (((ArityUserFunction)iFunctions.get(i)).IsArity(aArity))
+			if (((SingleArityUserFunction)iFunctions.get(i)).isArity(aArity))
 			{
-				return (ArityUserFunction)iFunctions.get(i);
+				return (SingleArityUserFunction)iFunctions.get(i);
 			}
 		}
 
@@ -64,42 +65,42 @@ public class MultiUserFunction
 	}
 
 	/// Specify that some argument should be held.
-	public void HoldArgument(String aVariable) throws Exception
+	public void holdArgument(String aVariable) throws Exception
 	{
 		int i;
 		for (i=0;i<iFunctions.size();i++)
 		{
 			LispError.lispAssert(iFunctions.get(i) != null);
-			((ArityUserFunction)iFunctions.get(i)).HoldArgument(aVariable);
+			((SingleArityUserFunction)iFunctions.get(i)).holdArgument(aVariable);
 		}
 	}
 
-	/// Add another ArityUserFunction to #iFunctions.
-	public  void DefineRuleBase(ArityUserFunction aNewFunction) throws Exception
+	/// Add another SingleArityUserFunction to #iFunctions.
+	public  void defineRuleBase(SingleArityUserFunction aNewFunction) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			LispError.lispAssert(((ArityUserFunction)iFunctions.get(i)) != null);
+			LispError.lispAssert(((SingleArityUserFunction)iFunctions.get(i)) != null);
 			LispError.lispAssert(aNewFunction != null);
-			LispError.check(!((ArityUserFunction)iFunctions.get(i)).IsArity(aNewFunction.Arity()),LispError.KLispErrArityAlreadyDefined);
-			LispError.check(!aNewFunction.IsArity(((ArityUserFunction)iFunctions.get(i)).Arity()),LispError.KLispErrArityAlreadyDefined);
+			LispError.check(!((SingleArityUserFunction)iFunctions.get(i)).isArity(aNewFunction.arity()),LispError.KLispErrArityAlreadyDefined);
+			LispError.check(!aNewFunction.isArity(((SingleArityUserFunction)iFunctions.get(i)).arity()),LispError.KLispErrArityAlreadyDefined);
 		}
 		iFunctions.add(aNewFunction);
 	}
 
 	/// Delete tuser function with given arity.
-	public  void DeleteBase(int aArity) throws Exception
+	public  void deleteBase(int aArity) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			LispError.lispAssert(((ArityUserFunction)iFunctions.get(i)) != null);
-			if (((ArityUserFunction)iFunctions.get(i)).IsArity(aArity))
+			LispError.lispAssert(((SingleArityUserFunction)iFunctions.get(i)) != null);
+			if (((SingleArityUserFunction)iFunctions.get(i)).isArity(aArity))
 			{
 				iFunctions.remove(i);
 				return;

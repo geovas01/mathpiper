@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.UtilityFunctions;
-import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
+import org.mathrider.piper.lisp.userfunctions.MultipleArityUserFunction;
 
 /**
  *
@@ -47,7 +47,7 @@ public class FindFunction extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
-        MultiUserFunction multiUserFunc =
+        MultipleArityUserFunction multiUserFunc =
                 aEnvironment.multiUserFunction(aEnvironment.getTokenHash().lookUp(oper));
         if (multiUserFunc != null)
         {

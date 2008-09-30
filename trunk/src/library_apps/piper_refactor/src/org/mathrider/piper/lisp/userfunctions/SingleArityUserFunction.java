@@ -19,12 +19,11 @@
 package org.mathrider.piper.lisp.userfunctions;
 
 
-/// User function with a specific arity.
-/// This is still an abstract class, but the arity (number of
-/// arguments) of the function is now fixed.
-
-public abstract class ArityUserFunction extends UserFunction
+/**
+ * User function with a specific arity (number of arguments).
+ */
+public abstract class SingleArityUserFunction extends UserFunction
 {
-	public abstract int Arity();
-	public abstract boolean IsArity(int aArity);
+	public abstract int arity();
+	public abstract boolean isArity(int aArity);
 }

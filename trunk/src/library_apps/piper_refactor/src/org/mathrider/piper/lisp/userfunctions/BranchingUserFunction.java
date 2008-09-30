@@ -27,7 +27,7 @@ import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
-import org.mathrider.piper.lisp.userfunctions.ArityUserFunction;
+import org.mathrider.piper.lisp.userfunctions.SingleArityUserFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 import java.util.*;
@@ -38,7 +38,7 @@ import java.util.*;
 /// body of the first rule that matches, is evaluated and this gives
 /// the result of evaluating the function.
 
-public class BranchingUserFunction extends ArityUserFunction
+public class BranchingUserFunction extends SingleArityUserFunction
 {
 	/// List of arguments, with corresponding \c iHold property.
 	protected Vector iParameters = new Vector(); //CArrayGrower<BranchParameter>
@@ -209,11 +209,11 @@ public class BranchingUserFunction extends ArityUserFunction
 	/// expression with evaluated arguments.
 	public void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception
 	{
-		int arity = Arity();
+		int arity = arity();
 		int i;
 
 		/*TODO fixme
-		    if (Traced())
+		    if (traced())
 		    {
 		        ConsPointer tr;
 		        tr.Set(SubList.New(aArguments.Get()));
@@ -252,7 +252,7 @@ public class BranchingUserFunction extends ArityUserFunction
 			iter.goNext();
 		}
 		/*TODO fixme
-		    if (Traced())
+		    if (traced())
 		    {
 		        ConsTraverser iter = new ConsTraverser(aArguments);
 		        iter.goNext();
@@ -266,7 +266,7 @@ public class BranchingUserFunction extends ArityUserFunction
 		    }
 		*/
 		// declare a new local stack.
-		aEnvironment.pushLocalFrame(Fenced());
+		aEnvironment.pushLocalFrame(fenced());
 		try
 		{
 			// define the local variables.
@@ -293,7 +293,7 @@ public class BranchingUserFunction extends ArityUserFunction
 					st.iSide = 1;
 					aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.Body());
 					/*TODO fixme
-					            if (Traced())
+					            if (traced())
 					            {
 					                ConsPointer tr;
 					                tr.Set(SubList.New(aArguments.Get()));
@@ -330,7 +330,7 @@ public class BranchingUserFunction extends ArityUserFunction
 			}
 
 			/*TODO fixme
-			    if (Traced())
+			    if (traced())
 			    {
 			        ConsPointer tr;
 			        tr.Set(SubList.New(aArguments.Get()));
@@ -354,7 +354,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	///
 	/// The \c iHold flag of the corresponding argument is set. This
 	/// implies that this argument is not evaluated by evaluate().
-	public void HoldArgument(String aVariable)
+	public void holdArgument(String aVariable)
 	{
 		int i;
 		int nrc=iParameters.size();
@@ -366,20 +366,20 @@ public class BranchingUserFunction extends ArityUserFunction
 	}
 
 	/// Return true if the arity of the function equals \a aArity.
-	public boolean IsArity(int aArity)
+	public boolean isArity(int aArity)
 	{
-		return (Arity() == aArity);
+		return (arity() == aArity);
 	}
 
 	/// Return the arity (number of arguments) of the function.
-	public int Arity()
+	public int arity()
 	{
 		return iParameters.size();
 	}
 
 	/// Add a BranchRule to the list of rules.
 	/// \sa InsertRule()
-	public void DeclareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
+	public void declareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
 	{
 		// New branching rule.
 		BranchRule newRule = new BranchRule(aPrecedence,aPredicate,aBody);
@@ -390,7 +390,7 @@ public class BranchingUserFunction extends ArityUserFunction
 
 	/// Add a BranchRuleTruePredicate to the list of rules.
 	/// \sa InsertRule()
-	public void DeclareRule(int aPrecedence, ConsPointer aBody) throws Exception
+	public void declareRule(int aPrecedence, ConsPointer aBody) throws Exception
 	{
 		// New branching rule.
 		BranchRule newRule = new BranchRuleTruePredicate(aPrecedence,aBody);
@@ -401,7 +401,7 @@ public class BranchingUserFunction extends ArityUserFunction
 
 	/// Add a BranchPattern to the list of rules.
 	/// \sa InsertRule()
-	public void DeclarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
+	public void declarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
 	{
 		// New branching rule.
 		BranchPattern newRule = new BranchPattern(aPrecedence,aPredicate,aBody);
@@ -411,8 +411,8 @@ public class BranchingUserFunction extends ArityUserFunction
 	}
 
 	/// Insert any BranchRuleBase object in the list of rules.
-	/// This function does the real work for DeclareRule() and
-	/// DeclarePattern(): it inserts the rule in #iRules, while
+	/// This function does the real work for declareRule() and
+	/// declarePattern(): it inserts the rule in #iRules, while
 	/// keeping it sorted. The algorithm is \f$O(\log n)\f$, where
 	/// \f$n\f$ denotes the number of rules.
 	void InsertRule(int aPrecedence,BranchRuleBase newRule)
@@ -468,7 +468,7 @@ public class BranchingUserFunction extends ArityUserFunction
 	}
 
 	/// Return the argument list, stored in #iParamList
-	public ConsPointer ArgList()
+	public ConsPointer argList()
 	{
 		return iParamList;
 	}

@@ -22,13 +22,18 @@ import org.mathrider.piper.lisp.*;
 import org.mathrider.piper.*;
 
 
+
+
+/**
+ * Provides the base user function API.
+ */
+public abstract class UserFunction extends EvalFuncBase
+{
 /// Abstract class providing the basic user function API.
 /// Instances of this class are associated to the name of the function
 /// via an associated hash table. When obtained, they can be used to
 /// evaluate the function with some arguments.
-
-public abstract class UserFunction extends EvalFuncBase
-{
+    
 	boolean iFenced;
 	boolean iTraced;
 	
@@ -38,33 +43,33 @@ public abstract class UserFunction extends EvalFuncBase
 		iTraced = false;
 	}
 	public abstract void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
-	public abstract void HoldArgument(String aVariable);
-	public abstract void DeclareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception;
-	public abstract void DeclareRule(int aPrecedence, ConsPointer aBody) throws Exception;
-	public abstract void DeclarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception;
-	public abstract ConsPointer ArgList();
+	public abstract void holdArgument(String aVariable);
+	public abstract void declareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception;
+	public abstract void declareRule(int aPrecedence, ConsPointer aBody) throws Exception;
+	public abstract void declarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception;
+	public abstract ConsPointer argList();
 
-	public void UnFence()
+	public void unFence()
 	{
 		iFenced = false;
 	}
 	
-	public boolean Fenced()
+	public boolean fenced()
 	{
 		return iFenced;
 	}
 
-	public void Trace()
+	public void trace()
 	{
 		iTraced = true;
 	}
 	
-	public void UnTrace()
+	public void unTrace()
 	{
 		iTraced = false;
 	}
 	
-	public boolean Traced()
+	public boolean traced()
 	{
 		return iTraced;
 	}
