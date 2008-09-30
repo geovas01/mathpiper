@@ -36,13 +36,13 @@ public class DefLoadFunction extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer name = new ConsPointer();
-        name.set(argument(aEnvironment, aStackTop, 1).get());
+        name.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         String orig = name.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = Utility.internalUnstringify(orig);
 
         MultiUserFunction multiUserFunc =
-                aEnvironment.multiUserFunction(aEnvironment.getGlobalState().lookUp(oper));
+                aEnvironment.multiUserFunction(aEnvironment.getTokenHash().lookUp(oper));
         if (multiUserFunc != null)
         {
             if (multiUserFunc.iFileToOpen != null)

@@ -37,7 +37,7 @@ public class FindFile extends BuiltinFunction
         LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(argument(aEnvironment, aStackTop, 1).get());
+        evaluated.set(argumentPointer(aEnvironment, aStackTop, 1).get());
 
         // Get file name
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
@@ -46,6 +46,6 @@ public class FindFile extends BuiltinFunction
         String oper = Utility.internalUnstringify(orig);
 
         String filename = Utility.internalFindFile(oper, aEnvironment.iInputDirectories);
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getGlobalState().lookUpStringify(filename)));
+        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(filename)));
     }
 }

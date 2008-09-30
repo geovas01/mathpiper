@@ -82,7 +82,7 @@ public class ParsedInfixExpression
 	{
 		// Get token.
 		iLookAhead = iParser.iTokenizer.nextToken(iParser.iInput,
-		                iParser.iEnvironment.getGlobalState());
+		                iParser.iEnvironment.getTokenHash());
 		if (iLookAhead.length() == 0)
 			iEndOfFile=true;
 	}
@@ -135,7 +135,7 @@ public class ParsedInfixExpression
 						{
 							len--;
 							String lookUp =
-							        iParser.iEnvironment.getGlobalState().lookUp(iLookAhead.substring(0,len));
+							        iParser.iEnvironment.getTokenHash().lookUp(iLookAhead.substring(0,len));
 
 							//printf("trunc %s\n",lookUp.String());
 							op = (InfixOperator)iParser.iInfixOperators.lookUp(lookUp);
@@ -144,7 +144,7 @@ public class ParsedInfixExpression
 							{
 								String toLookUp = iLookAhead.substring(len,origlen);
 								String lookUpRight =
-								        iParser.iEnvironment.getGlobalState().lookUp(toLookUp);
+								        iParser.iEnvironment.getTokenHash().lookUp(toLookUp);
 
 								//printf("right: %s (%d)\n",lookUpRight.String(),origlen-len);
 

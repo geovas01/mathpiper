@@ -38,7 +38,7 @@ public class ToFile extends BuiltinFunction
         LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
         ConsPointer evaluated = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, argument(aEnvironment, aStackTop, 1));
+        aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, argumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
@@ -56,7 +56,7 @@ public class ToFile extends BuiltinFunction
 
         try
         {
-            aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 2));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argumentPointer(aEnvironment, aStackTop, 2));
         } catch (Exception e)
         {
             throw e;

@@ -32,8 +32,8 @@ public class While extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer arg1 = argument(aEnvironment, aStackTop, 1);
-        ConsPointer arg2 = argument(aEnvironment, aStackTop, 2);
+        ConsPointer arg1 = argumentPointer(aEnvironment, aStackTop, 1);
+        ConsPointer arg2 = argumentPointer(aEnvironment, aStackTop, 2);
 
         ConsPointer predicate = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, predicate, arg1);

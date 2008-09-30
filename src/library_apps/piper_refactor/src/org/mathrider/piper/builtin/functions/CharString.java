@@ -33,7 +33,7 @@ public class CharString extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
-        str = argument(aEnvironment, aStackTop, 1).get().string();
+        str = argumentPointer(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 2);
         LispError.checkArgumentCore(aEnvironment, aStackTop, Utility.isNumber(str, false), 2);
         char asciiCode = (char) Integer.parseInt(str, 10);

@@ -36,7 +36,7 @@ public class DefLoad extends BuiltinFunction
         LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(argument(aEnvironment, aStackTop, 1).get());
+        evaluated.set(argumentPointer(aEnvironment, aStackTop, 1).get());
 
         // Get file name
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);

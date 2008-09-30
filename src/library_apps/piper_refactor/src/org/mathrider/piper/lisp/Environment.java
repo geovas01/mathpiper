@@ -39,7 +39,7 @@ public class Environment
         
 	public int iPrecision = 10;
 
-	private GlobalState iGlobalState = new GlobalState();
+	private TokenHash iTokenHash = new TokenHash();
 	public Cons iTrue;
 	public Cons iFalse;
 
@@ -69,7 +69,7 @@ public class Environment
 
 	public LocalVariableFrame iLocalsList;
 
-	public Global iGlobals = new Global();
+	public AssociatedHash iGlobalState = new AssociatedHash();
 
 	public boolean iSecure = false;
 
@@ -127,9 +127,9 @@ public class Environment
 		pushLocalFrame(true);
 	}
 
-	public GlobalState getGlobalState()
+	public TokenHash getTokenHash()
 	{
-		return iGlobalState;
+		return iTokenHash;
 	}
 
 	public int precision()
@@ -177,7 +177,7 @@ public class Environment
 			return;
 		}
 		GlobalVariable global = new GlobalVariable(aValue);
-		iGlobals.setAssociation(global, aVariable);
+		iGlobalState.setAssociation(global, aVariable);
 		if (aGlobalLazyVariable)
 		{
 			global.SetEvalBeforeReturn(true);
@@ -193,7 +193,7 @@ public class Environment
 			aResult.set(local.get());
 			return;
 		}
-		GlobalVariable l = (GlobalVariable)iGlobals.lookUp(aVariable);
+		GlobalVariable l = (GlobalVariable)iGlobalState.lookUp(aVariable);
 		if (l != null)
 		{
 			if (l.iEvalBeforeReturn)
@@ -219,7 +219,7 @@ public class Environment
 			local.set(null);
 			return;
 		}
-		iGlobals.release(aString);
+		iGlobalState.release(aString);
 	}
 
 	public void pushLocalFrame(boolean aFenced)

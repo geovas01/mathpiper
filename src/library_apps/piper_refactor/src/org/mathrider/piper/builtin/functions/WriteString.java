@@ -31,8 +31,8 @@ public class WriteString extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgumentCore(aEnvironment, aStackTop, argument(aEnvironment, aStackTop, 1).get() != null, 1);
-        String str = argument(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
+        String str = argumentPointer(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(0) == '\"', 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(str.length() - 1) == '\"', 1);

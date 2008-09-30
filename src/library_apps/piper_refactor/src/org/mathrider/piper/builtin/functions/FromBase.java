@@ -37,7 +37,7 @@ public class FromBase extends BuiltinFunction
         // Get the base to convert to:
         // Evaluate first argument, and store result in oper
         ConsPointer oper = new ConsPointer();
-        oper.set(argument(aEnvironment, aStackTop, 1).get());
+        oper.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         // check that result is a number, and that it is in fact an integer
         BigNumber num = oper.get().number(aEnvironment.precision());
         LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
@@ -49,14 +49,14 @@ public class FromBase extends BuiltinFunction
 
         // Get the number to convert
         ConsPointer fromNum = new ConsPointer();
-        fromNum.set(argument(aEnvironment, aStackTop, 2).get());
+        fromNum.set(argumentPointer(aEnvironment, aStackTop, 2).get());
         String str2;
         str2 = fromNum.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
 
         // Added, unquote a string
         LispError.checkArgumentCore(aEnvironment, aStackTop, Utility.internalIsString(str2), 2);
-        str2 = aEnvironment.getGlobalState().lookUpUnStringify(str2);
+        str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.precision(), base);

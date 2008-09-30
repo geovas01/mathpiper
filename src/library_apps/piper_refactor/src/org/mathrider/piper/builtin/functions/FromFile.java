@@ -36,14 +36,14 @@ public class FromFile extends BuiltinFunction
     {
         LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
         ConsPointer evaluated = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, argument(aEnvironment, aStackTop, 1));
+        aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, argumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
-        String hashedname = aEnvironment.getGlobalState().lookUpUnStringify(orig);
+        String hashedname = aEnvironment.getTokenHash().lookUpUnStringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
         Input previous = aEnvironment.iCurrentInput;
@@ -57,7 +57,7 @@ public class FromFile extends BuiltinFunction
             LispError.checkCore(aEnvironment, aStackTop, input != null, LispError.KLispErrFileNotFound);
 
             // Evaluate the body
-            aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argument(aEnvironment, aStackTop, 2));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argumentPointer(aEnvironment, aStackTop, 2));
         } catch (Exception e)
         {
             throw e;

@@ -32,7 +32,7 @@ public class Tail extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer first = new ConsPointer();
-        Utility.internalTail(first, argument(aEnvironment, aStackTop, 1));
+        Utility.internalTail(first, argumentPointer(aEnvironment, aStackTop, 1));
         Utility.internalTail(result(aEnvironment, aStackTop), first);
         ConsPointer head = new ConsPointer();
         head.set(aEnvironment.iList.copy(false));

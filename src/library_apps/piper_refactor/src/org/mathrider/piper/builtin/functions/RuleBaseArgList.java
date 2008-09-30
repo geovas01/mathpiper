@@ -36,19 +36,19 @@ public class RuleBaseArgList extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer name = new ConsPointer();
-        name.set(argument(aEnvironment, aStackTop, 1).get());
+        name.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         String orig = name.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = Utility.internalUnstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
-        sizearg.set(argument(aEnvironment, aStackTop, 2).get());
+        sizearg.set(argumentPointer(aEnvironment, aStackTop, 2).get());
         LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get() != null, 2);
         LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get().string() != null, 2);
 
         int arity = Integer.parseInt(sizearg.get().string(), 10);
 
-        UserFunction userFunc = aEnvironment.userFunction(aEnvironment.getGlobalState().lookUp(oper), arity);
+        UserFunction userFunc = aEnvironment.userFunction(aEnvironment.getTokenHash().lookUp(oper), arity);
         LispError.checkCore(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
 
         ConsPointer list = userFunc.ArgList();

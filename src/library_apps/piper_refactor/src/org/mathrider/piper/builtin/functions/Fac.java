@@ -33,8 +33,8 @@ public class Fac extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgumentCore(aEnvironment, aStackTop, argument(aEnvironment, aStackTop, 1).get().number(0) != null, 1);
-        ConsPointer arg = argument(aEnvironment, aStackTop, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).get().number(0) != null, 1);
+        ConsPointer arg = argumentPointer(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
         int nr = (int) arg.get().number(0).Long();

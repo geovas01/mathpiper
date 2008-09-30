@@ -129,7 +129,7 @@ LocalSymbols(cformMathFunctions) [
 
 /* functions */
 
-/* Unknown function, precedence 200. Leave as is, never bracket the function itself and bracket the argument(s) automatically since it's a list. Other functions are precedence 100 */
+/* Unknown function, precedence 200. Leave as is, never bracket the function itself and bracket the argumentPointer(s) automatically since it's a list. Other functions are precedence 100 */
 
 CFormArgs(list_IsList) <--
 [

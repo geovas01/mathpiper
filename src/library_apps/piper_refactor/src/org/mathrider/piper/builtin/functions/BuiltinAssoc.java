@@ -37,11 +37,11 @@ public class BuiltinAssoc extends BuiltinFunction
     {
         // key to find
         ConsPointer key = new ConsPointer();
-        key.set(argument(aEnvironment, aStackTop, 1).get());
+        key.set(argumentPointer(aEnvironment, aStackTop, 1).get());
 
         // assoc-list to find it in
         ConsPointer list = new ConsPointer();
-        list.set(argument(aEnvironment, aStackTop, 2).get());
+        list.set(argumentPointer(aEnvironment, aStackTop, 2).get());
 
         Cons t;
 

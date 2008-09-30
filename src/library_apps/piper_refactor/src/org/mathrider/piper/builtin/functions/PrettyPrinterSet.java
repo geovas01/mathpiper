@@ -33,7 +33,7 @@ public class PrettyPrinterSet extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.internalListLength(argument(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
             aEnvironment.iPrettyPrinter = null;
@@ -41,7 +41,7 @@ public class PrettyPrinterSet extends BuiltinFunction
         {
             LispError.checkCore(aEnvironment, aStackTop, nrArguments == 2, LispError.KLispErrWrongNumberOfArgs);
             ConsPointer oper = new ConsPointer();
-            oper.set(argument(aEnvironment, aStackTop, 0).get());
+            oper.set(argumentPointer(aEnvironment, aStackTop, 0).get());
             oper.goNext();
             LispError.checkIsStringCore(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyPrinter = oper.get().string();
