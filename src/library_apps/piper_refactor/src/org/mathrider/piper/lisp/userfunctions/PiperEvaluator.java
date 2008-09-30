@@ -81,7 +81,7 @@ public class PiperEvaluator extends EvalFuncBase
 			if ((iFlags & Variable) != 0)
 			{
 				ConsPointer head = new ConsPointer();
-				head.set(aEnvironment.iList.copy(false));
+				head.set(aEnvironment.iListAtom.copy(false));
 				head.get().cdr().set(iter.getCons());
 				aEnvironment.iArgumentStack.pushArgumentOnStack(SubList.getInstance(head.get()));
 			}
@@ -104,7 +104,7 @@ public class PiperEvaluator extends EvalFuncBase
 
 				//printf("Enter\n");
 				ConsPointer head = new ConsPointer();
-				head.set(aEnvironment.iList.copy(false));
+				head.set(aEnvironment.iListAtom.copy(false));
 				head.get().cdr().set(iter.getCons());
 				ConsPointer list = new ConsPointer();
 				list.set(SubList.getInstance(head.get()));

@@ -63,7 +63,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		else
 		{
 			ConsPointer head = new ConsPointer();
-			head.set(aEnvironment.iList.copy(false));
+			head.set(aEnvironment.iListAtom.copy(false));
 			head.get().cdr().set(iter.getCons());
 			ptr.set(SubList.getInstance(head.get()));
 		}

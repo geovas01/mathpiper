@@ -36,7 +36,7 @@ public class UnList extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).get().subList() != null, 1);
         Cons subList = argumentPointer(aEnvironment, aStackTop, 1).get().subList().get();
         LispError.checkArgumentCore(aEnvironment, aStackTop, subList != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, subList.string() == aEnvironment.iList.string(), 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, subList.string() == aEnvironment.iListAtom.string(), 1);
         UtilityFunctions.internalTail(result(aEnvironment, aStackTop), argumentPointer(aEnvironment, aStackTop, 1));
     }
 }

@@ -41,21 +41,21 @@ public class Environment
 	public int iPrecision = 10;
 
 	private TokenHash iTokenHash = new TokenHash();
-	public Cons iTrue;
-	public Cons iFalse;
+	public Cons iTrueAtom;
+	public Cons iFalseAtom;
 
-	public Cons iEndOfFile;
-	public Cons iEndStatement;
-	public Cons iProgOpen;
-	public Cons iProgClose;
-	public Cons iNth;
-	public Cons iBracketOpen;
-	public Cons iBracketClose;
-	public Cons iListOpen;
-        public Cons iListClose;
-	public Cons iComma;
-	public Cons iList;
-	public Cons iProg;
+	public Cons iEndOfFileAtom;
+	public Cons iEndStatementAtom;
+	public Cons iProgOpenAtom;
+	public Cons iProgCloseAtom;
+	public Cons iNthAtom;
+	public Cons iBracketOpenAtom;
+	public Cons iBracketCloseAtom;
+	public Cons iListOpenAtom;
+        public Cons iListCloseAtom;
+	public Cons iCommaAtom;
+	public Cons iListAtom;
+	public Cons iProgAtom;
 
 	public Operators iPrefixOperators = new Operators();
 	public Operators iInfixOperators = new Operators();
@@ -105,21 +105,21 @@ public class Environment
 		iCurrentOutput = aCurrentOutput;
 		iCurrentPrinter = new InfixPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
-		iTrue = Atom.getInstance(this,"True");
-		iFalse = Atom.getInstance(this,"False");
+		iTrueAtom = Atom.getInstance(this,"True");
+		iFalseAtom = Atom.getInstance(this,"False");
 
-		iEndOfFile    = Atom.getInstance(this,"EndOfFile");
-		iEndStatement = Atom.getInstance(this,";");
-		iProgOpen     = Atom.getInstance(this,"[");
-		iProgClose    = Atom.getInstance(this,"]");
-		iNth          = Atom.getInstance(this,"Nth");
-		iBracketOpen  = Atom.getInstance(this,"(");
-		iBracketClose = Atom.getInstance(this,")");
-		iListOpen     = Atom.getInstance(this,"{");
-		iListClose    = Atom.getInstance(this,"}");
-		iComma        = Atom.getInstance(this,",");
-		iList         = Atom.getInstance(this,"List");
-		iProg         = Atom.getInstance(this,"Prog");
+		iEndOfFileAtom    = Atom.getInstance(this,"EndOfFile");
+		iEndStatementAtom = Atom.getInstance(this,";");
+		iProgOpenAtom     = Atom.getInstance(this,"[");
+		iProgCloseAtom    = Atom.getInstance(this,"]");
+		iNthAtom          = Atom.getInstance(this,"Nth");
+		iBracketOpenAtom  = Atom.getInstance(this,"(");
+		iBracketCloseAtom = Atom.getInstance(this,")");
+		iListOpenAtom     = Atom.getInstance(this,"{");
+		iListCloseAtom    = Atom.getInstance(this,"}");
+		iCommaAtom        = Atom.getInstance(this,",");
+		iListAtom         = Atom.getInstance(this,"List");
+		iProgAtom         = Atom.getInstance(this,"Prog");
 
 		iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
 		//org.mathrider.piper.builtin.Functions mc = new org.mathrider.piper.builtin.Functions();
