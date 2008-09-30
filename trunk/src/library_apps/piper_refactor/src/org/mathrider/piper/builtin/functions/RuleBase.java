@@ -29,6 +29,6 @@ public class RuleBase extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathrider.piper.builtin.Functions.internalRuleBase(aEnvironment, aStackTop, false);
+        org.mathrider.piper.lisp.UtilityFunctions.internalRuleBase(aEnvironment, aStackTop, false);
     }
 }

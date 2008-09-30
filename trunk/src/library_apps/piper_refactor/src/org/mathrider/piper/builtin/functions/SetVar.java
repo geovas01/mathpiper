@@ -18,8 +18,8 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.builtin.Functions;
 import org.mathrider.piper.lisp.Environment;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -30,6 +30,6 @@ public class SetVar extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Functions.internalSetVar(aEnvironment, aStackTop, false, false);
+        UtilityFunctions.internalSetVar(aEnvironment, aStackTop, false, false);
     }
 }

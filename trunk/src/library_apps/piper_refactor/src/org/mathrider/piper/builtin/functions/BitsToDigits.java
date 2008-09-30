@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -33,15 +33,15 @@ public class BitsToDigits extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
-        BigNumber y = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathrider.piper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber y = org.mathrider.piper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
         long result = 0;  // initialize just in case
 
         if (x.IsInt() && x.IsSmall() && y.IsInt() && y.IsSmall())
         {
             // bits_to_digits uses unsigned long, see numbers.h
             int base = (int) y.Double();
-            result = Utility.bits_to_digits((long) (x.Double()), base);
+            result = UtilityFunctions.bits_to_digits((long) (x.Double()), base);
         } else
         {
             throw new PiperException("BitsToDigits: error: arguments (" + x.Double() + ", " + y.Double() + ") must be small integers");

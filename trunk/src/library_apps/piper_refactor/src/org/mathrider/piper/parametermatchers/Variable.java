@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.parametermatchers;
 
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 
@@ -64,7 +64,7 @@ public class Variable extends Parameter
 		}
 		else
 		{
-			if (Utility.internalEquals(aEnvironment, aExpression, arguments[iVarIndex]))
+			if (UtilityFunctions.internalEquals(aEnvironment, aExpression, arguments[iVarIndex]))
 			{
 				//            LogPrintf("Matched var %d\n",iVarIndex);
 				return true;

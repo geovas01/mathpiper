@@ -22,7 +22,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.SubList;
 
 /**
@@ -45,7 +45,7 @@ public class Concatenate extends BuiltinFunction
         while (iter.getCons() != null)
         {
             LispError.checkIsListCore(aEnvironment, aStackTop, iter.ptr(), arg);
-            Utility.internalFlatCopy(tail.ptr(), iter.ptr().get().subList().get().cdr());
+            UtilityFunctions.internalFlatCopy(tail.ptr(), iter.ptr().get().subList().get().cdr());
             while (tail.getCons() != null)
             {
                 tail.goNext();

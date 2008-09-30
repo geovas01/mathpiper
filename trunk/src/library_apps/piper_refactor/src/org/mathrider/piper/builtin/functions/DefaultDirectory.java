@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -35,8 +35,8 @@ public class DefaultDirectory extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
         String orig = argumentPointer(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = Utility.internalUnstringify(orig);
+        String oper = UtilityFunctions.internalUnstringify(orig);
         aEnvironment.iInputDirectories.add(oper);
-        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

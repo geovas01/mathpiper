@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.SubList;
 
 /**
@@ -33,7 +33,7 @@ public class FlatCopy extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer copied = new ConsPointer();
-        Utility.internalFlatCopy(copied, argumentPointer(aEnvironment, aStackTop, 1).get().subList());
+        UtilityFunctions.internalFlatCopy(copied, argumentPointer(aEnvironment, aStackTop, 1).get().subList());
         result(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
     }
 }

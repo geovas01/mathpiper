@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -32,6 +32,6 @@ public class GarbageCollect extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.getTokenHash().garbageCollect();
-        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

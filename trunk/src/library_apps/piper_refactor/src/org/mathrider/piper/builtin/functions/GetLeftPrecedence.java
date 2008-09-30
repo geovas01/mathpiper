@@ -19,7 +19,7 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.builtin.Functions;
+import org.mathrider.piper.lisp.UtilityFunctions;;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.InfixOperator;
@@ -34,11 +34,11 @@ public class GetLeftPrecedence extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
         if (op == null)
         {  // infix and postfix operators have left precedence
 
-            op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+            op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
             LispError.checkCore(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
         }
         result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + op.iLeftPrecedence));

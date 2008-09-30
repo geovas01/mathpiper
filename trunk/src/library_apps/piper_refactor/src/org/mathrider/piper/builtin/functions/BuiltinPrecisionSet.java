@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -41,6 +41,6 @@ public class BuiltinPrecisionSet extends BuiltinFunction
         int ind = Integer.parseInt(index.get().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, ind > 0, 1);
         aEnvironment.setPrecision(ind);
-        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

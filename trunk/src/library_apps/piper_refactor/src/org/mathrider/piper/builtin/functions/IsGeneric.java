@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -34,6 +34,6 @@ public class IsGeneric extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.set(argumentPointer(aEnvironment, aStackTop, 1).get());
-        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), evaluated.get().generic() != null);
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), evaluated.get().generic() != null);
     }
 }

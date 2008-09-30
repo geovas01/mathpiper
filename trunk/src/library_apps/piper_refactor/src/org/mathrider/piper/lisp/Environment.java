@@ -20,7 +20,7 @@ package org.mathrider.piper.lisp;
 
 import org.mathrider.piper.lisp.parsers.XmlTokenizer;
 import org.mathrider.piper.io.InputStatus;
-import org.mathrider.piper.builtin.Functions;
+import org.mathrider.piper.lisp.UtilityFunctions;;
 import org.mathrider.piper.io.InputDirectories;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
@@ -121,9 +121,9 @@ public class Environment
 		iProg         = Atom.getInstance(this,"Prog");
 
 		iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
-		Functions mc = new Functions();
+		org.mathrider.piper.builtin.Functions mc = new org.mathrider.piper.builtin.Functions();
 		mc.addFunctions(this);
-		mc=null;
+		
 		pushLocalFrame(true);
 	}
 
@@ -327,7 +327,7 @@ public class Environment
 		        (MultiUserFunction)iUserFunctions.lookUp(aArguments.get().string());
 		if (multiUserFunc != null)
 		{
-			int arity = Utility.internalListLength(aArguments)-1;
+			int arity = UtilityFunctions.internalListLength(aArguments)-1;
 			return  multiUserFunc.UserFunc(arity);
 		}
 		return null;
@@ -403,7 +403,7 @@ public class Environment
 		// Declare a new evaluation rule
 
 
-		if (Utility.isTrue(this, aPredicate))
+		if (UtilityFunctions.isTrue(this, aPredicate))
 		{
 			//        printf("FastPredicate on %s\n",aOperator->String());
 			userFunc.DeclareRule(aPrecedence, aBody);

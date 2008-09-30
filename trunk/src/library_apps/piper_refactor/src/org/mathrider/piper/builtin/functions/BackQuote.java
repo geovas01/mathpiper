@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -34,7 +34,7 @@ public class BackQuote extends BuiltinFunction
     {
         org.mathrider.piper.lisp.behaviours.BackQuote behaviour = new org.mathrider.piper.lisp.behaviours.BackQuote(aEnvironment);
         ConsPointer result = new ConsPointer();
-        Utility.internalSubstitute(result, argumentPointer(aEnvironment, aStackTop, 1), behaviour);
+        UtilityFunctions.internalSubstitute(result, argumentPointer(aEnvironment, aStackTop, 1), behaviour);
         aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), result);
     }
 }

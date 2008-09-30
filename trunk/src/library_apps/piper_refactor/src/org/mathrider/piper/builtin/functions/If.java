@@ -21,7 +21,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -32,24 +32,24 @@ public class If extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = UtilityFunctions.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
         LispError.checkCore(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.KLispErrWrongNumberOfArgs);
 
         ConsPointer predicate = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, predicate, argumentPointer(aEnvironment, aStackTop, 1));
 
-        if (Utility.isTrue(aEnvironment, predicate))
+        if (UtilityFunctions.isTrue(aEnvironment, predicate))
         {
             aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argumentPointer(argumentPointer(aEnvironment, aStackTop, 0), 2));
         } else
         {
-            LispError.checkArgumentCore(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, UtilityFunctions.isFalse(aEnvironment, predicate), 1);
             if (nrArguments == 4)
             {
                 aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argumentPointer(argumentPointer(aEnvironment, aStackTop, 0), 3));
             } else
             {
-                Utility.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
+                UtilityFunctions.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
             }
         }
     }

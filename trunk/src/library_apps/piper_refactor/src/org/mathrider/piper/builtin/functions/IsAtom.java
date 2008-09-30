@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -35,6 +35,6 @@ public class IsAtom extends BuiltinFunction
         ConsPointer result = new ConsPointer();
         result.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         String s = result.get().string();
-        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), s != null);
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), s != null);
     }
 }

@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsTraverser;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -35,7 +35,7 @@ public class ProgBody extends BuiltinFunction
         aEnvironment.pushLocalFrame(false);
         try
         {
-            Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+            UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
 
             // Evaluate args one by one.
 

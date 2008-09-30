@@ -17,11 +17,11 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper;
 
-//import org.mathrider.piper.lisp.Utility;
+//import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.io.CachedStdFileInput;
 import org.mathrider.piper.io.StdFileOutput;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import java.io.*;
 
 /**

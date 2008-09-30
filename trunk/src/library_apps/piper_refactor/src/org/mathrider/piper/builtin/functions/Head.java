@@ -19,7 +19,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -30,6 +30,6 @@ public class Head extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Utility.internalNth(result(aEnvironment, aStackTop), argumentPointer(aEnvironment, aStackTop, 1), 1);
+        UtilityFunctions.internalNth(result(aEnvironment, aStackTop), argumentPointer(aEnvironment, aStackTop, 1), 1);
     }
 }

@@ -21,7 +21,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -35,7 +35,7 @@ public class CharString extends BuiltinFunction
         String str;
         str = argumentPointer(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, Utility.isNumber(str, false), 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
         result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"" + asciiCode + "\""));
     }

@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -37,7 +37,7 @@ public class SystemCall extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
         String orig = argumentPointer(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = Utility.internalUnstringify(orig);
+        String oper = UtilityFunctions.internalUnstringify(orig);
         String ls_str;
         Process ls_proc = Runtime.getRuntime().exec(oper);
         // get its output (your input) stream

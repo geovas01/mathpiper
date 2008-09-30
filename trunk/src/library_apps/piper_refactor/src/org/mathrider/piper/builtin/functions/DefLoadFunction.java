@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.DefFile;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
 
 /**
@@ -39,7 +39,7 @@ public class DefLoadFunction extends BuiltinFunction
         name.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         String orig = name.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = Utility.internalUnstringify(orig);
+        String oper = UtilityFunctions.internalUnstringify(orig);
 
         MultiUserFunction multiUserFunc =
                 aEnvironment.multiUserFunction(aEnvironment.getTokenHash().lookUp(oper));
@@ -51,10 +51,10 @@ public class DefLoadFunction extends BuiltinFunction
                 if (!def.iIsLoaded)
                 {
                     multiUserFunc.iFileToOpen = null;
-                    Utility.internalUse(aEnvironment, def.iFileName);
+                    UtilityFunctions.internalUse(aEnvironment, def.iFileName);
                 }
             }
         }
-        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

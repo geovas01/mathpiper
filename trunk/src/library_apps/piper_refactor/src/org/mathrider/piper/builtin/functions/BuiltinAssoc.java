@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -61,7 +61,7 @@ public class BuiltinAssoc extends BuiltinFunction
                     sub = sub.cdr().get();
                     ConsPointer temp = new ConsPointer();
                     temp.set(sub);
-                    if (Utility.internalEquals(aEnvironment, key, temp))
+                    if (UtilityFunctions.internalEquals(aEnvironment, key, temp))
                     {
                         result(aEnvironment, aStackTop).set(t);
                         return;
