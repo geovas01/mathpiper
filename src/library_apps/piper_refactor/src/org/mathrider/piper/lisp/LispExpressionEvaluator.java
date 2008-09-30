@@ -18,8 +18,8 @@
 
 package org.mathrider.piper.lisp;
 
-import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
-import org.mathrider.piper.lisp.userfunctions.MultiUserFunction;
+import org.mathrider.piper.lisp.userfunctions.Evaluator;
+import org.mathrider.piper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathrider.piper.lisp.ExpressionEvaluator;
 import org.mathrider.piper.lisp.Cons;
 import org.mathrider.piper.lisp.UtilityFunctions;
@@ -118,7 +118,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 					if (head.string() != null)
 					{
 						{
-							PiperEvaluator evaluator = (PiperEvaluator)aEnvironment.builtinCommands().lookUp(head.string());
+							Evaluator evaluator = (Evaluator)aEnvironment.getBuiltinFunctions().lookUp(head.string());
 							// Try to find a built-in command
 							if (evaluator != null)
 							{
@@ -173,7 +173,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 		}
 		else if (head.string()!=null)
 		{
-			MultiUserFunction multiUserFunc = aEnvironment.multiUserFunction(head.string());
+			MultipleArityUserFunction multiUserFunc = aEnvironment.multiUserFunction(head.string());
 			if (multiUserFunc.iFileToOpen!=null)
 			{
 				DefFile def = multiUserFunc.iFileToOpen;

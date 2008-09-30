@@ -29,7 +29,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 
 
-public class PiperEvaluator extends EvalFuncBase
+public class Evaluator extends EvalFuncBase
 {
 	// FunctionFlags can be orred when passed to the constructor of this function
 
@@ -42,7 +42,7 @@ public class PiperEvaluator extends EvalFuncBase
 	int iNumberOfArguments;
 	int iFlags;
 
-	public PiperEvaluator(BuiltinFunction aCalledFunction,int aNumberOfArguments, int aFlags)
+	public Evaluator(BuiltinFunction aCalledFunction,int aNumberOfArguments, int aFlags)
 	{
 		iCalledFunction = aCalledFunction;
 		iNumberOfArguments = aNumberOfArguments;

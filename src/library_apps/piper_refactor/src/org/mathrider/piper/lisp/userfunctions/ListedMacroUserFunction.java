@@ -33,9 +33,9 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		super(aParameters);
 	}
 	
-	public boolean IsArity(int aArity)
+	public boolean isArity(int aArity)
 	{
-		return (Arity() <= aArity);
+		return (arity() <= aArity);
 	}
 	
 	public void evaluate(ConsPointer aResult, Environment aEnvironment, ConsPointer aArguments) throws Exception
@@ -43,7 +43,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		ConsPointer newArgs = new ConsPointer();
 		ConsTraverser iter = new ConsTraverser(aArguments);
 		ConsPointer ptr =  newArgs;
-		int arity = Arity();
+		int arity = arity();
 		int i=0;
 		while (i < arity && iter.getCons() != null)
 		{

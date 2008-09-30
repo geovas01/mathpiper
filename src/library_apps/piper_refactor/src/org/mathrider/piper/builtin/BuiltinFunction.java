@@ -200,7 +200,7 @@ import org.mathrider.piper.builtin.functions.XmlTokenizer;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.userfunctions.PiperEvaluator;
+import org.mathrider.piper.lisp.userfunctions.Evaluator;
 import org.mathrider.piper.printers.InfixPrinter;
 
 
@@ -253,564 +253,564 @@ public abstract class BuiltinFunction
         aEnvironment.iPrefixOperators.SetOperator(0, "_");
         aEnvironment.iInfixOperators.SetOperator(0, "_");
 
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Quote(), 1, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Quote(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "Hold");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Eval(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Eval(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Eval");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Write(), 1, PiperEvaluator.Variable | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Write(), 1, Evaluator.Variable | Evaluator.Function),
                 "Write");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new WriteString(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new WriteString(), 1, Evaluator.Fixed | Evaluator.Function),
                 "WriteString");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FullForm(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FullForm(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FullForm");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DefaultDirectory(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DefaultDirectory(), 1, Evaluator.Fixed | Evaluator.Function),
                 "DefaultDirectory");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FromFile(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FromFile(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "FromFile");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FromString(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FromString(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "FromString");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Read(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Read(), 0, Evaluator.Fixed | Evaluator.Function),
                 "Read");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ReadToken(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ReadToken(), 0, Evaluator.Fixed | Evaluator.Function),
                 "ReadToken");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ToFile(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ToFile(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "ToFile");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ToString(), 1, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ToString(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "ToString");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ToStdout(), 1, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ToStdout(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "ToStdout");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Load(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Load(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Load");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new SetVar(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new SetVar(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "Set");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MacroSetVar(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MacroSetVar(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "MacroSet");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ClearVar(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ClearVar(), 1, Evaluator.Variable | Evaluator.Macro),
                 "Clear");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ClearVar(), 1, PiperEvaluator.Variable | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ClearVar(), 1, Evaluator.Variable | Evaluator.Function),
                 "MacroClear");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new NewLocal(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new NewLocal(), 1, Evaluator.Variable | Evaluator.Macro),
                 "Local");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new NewLocal(), 1, PiperEvaluator.Variable | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new NewLocal(), 1, Evaluator.Variable | Evaluator.Function),
                 "MacroLocal");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Head(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Head(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Head");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Nth(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Nth(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathNth");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Tail(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Tail(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Tail");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DestructiveReverse(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DestructiveReverse(), 1, Evaluator.Fixed | Evaluator.Function),
                 "DestructiveReverse");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Length(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Length(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Length");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new org.mathrider.piper.builtin.functions.List(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathrider.piper.builtin.functions.List(), 1, Evaluator.Variable | Evaluator.Macro),
                 "List");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new UnList(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new UnList(), 1, Evaluator.Fixed | Evaluator.Function),
                 "UnList");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Listify(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Listify(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Listify");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Concatenate(), 1, PiperEvaluator.Variable | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Concatenate(), 1, Evaluator.Variable | Evaluator.Function),
                 "Concat");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ConcatenateStrings(), 1, PiperEvaluator.Variable | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ConcatenateStrings(), 1, Evaluator.Variable | Evaluator.Function),
                 "ConcatStrings");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Delete(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Delete(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Delete");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DestructiveDelete(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DestructiveDelete(), 2, Evaluator.Fixed | Evaluator.Function),
                 "DestructiveDelete");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Insert(), 3, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Insert(), 3, Evaluator.Fixed | Evaluator.Function),
                 "Insert");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DestructiveInsert(), 3, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DestructiveInsert(), 3, Evaluator.Fixed | Evaluator.Function),
                 "DestructiveInsert");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Replace(), 3, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Replace(), 3, Evaluator.Fixed | Evaluator.Function),
                 "Replace");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DestructiveReplace(), 3, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DestructiveReplace(), 3, Evaluator.Fixed | Evaluator.Function),
                 "DestructiveReplace");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Atomize(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Atomize(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Atom");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Stringify(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Stringify(), 1, Evaluator.Fixed | Evaluator.Function),
                 "String");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CharString(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CharString(), 1, Evaluator.Fixed | Evaluator.Function),
                 "CharString");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FlatCopy(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FlatCopy(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FlatCopy");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ProgBody(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ProgBody(), 1, Evaluator.Variable | Evaluator.Macro),
                 "Prog");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new While(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new While(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "While");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new If(), 2, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new If(), 2, Evaluator.Variable | Evaluator.Macro),
                 "If");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Check(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Check(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "Check");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new TrapError(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new TrapError(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "TrapError");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GetCoreError(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GetCoreError(), 0, Evaluator.Fixed | Evaluator.Function),
                 "GetCoreError");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new PreFix(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new PreFix(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Prefix");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new InFix(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new InFix(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Infix");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new PostFix(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new PostFix(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Postfix");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Bodied(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Bodied(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Bodied");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new RuleBase(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new RuleBase(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "RuleBase");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MacroRuleBase(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MacroRuleBase(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MacroRuleBase");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new RuleBaseListed(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new RuleBaseListed(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "RuleBaseListed");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MacroRuleBaseListed(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MacroRuleBaseListed(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MacroRuleBaseListed");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DefMacroRuleBase(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DefMacroRuleBase(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "DefMacroRuleBase");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DefMacroRuleBaseListed(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DefMacroRuleBaseListed(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "DefMacroRuleBaseListed");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new HoldArg(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new HoldArg(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "HoldArg");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new NewRule(), 5, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new NewRule(), 5, Evaluator.Fixed | Evaluator.Macro),
                 "Rule");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MacroNewRule(), 5, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MacroNewRule(), 5, Evaluator.Fixed | Evaluator.Function),
                 "MacroRule");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new UnFence(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new UnFence(), 2, Evaluator.Fixed | Evaluator.Function),
                 "UnFence");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Retract(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Retract(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Retract");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Not(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Not(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathNot");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Not(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Not(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Not");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new LazyAnd(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new LazyAnd(), 1, Evaluator.Variable | Evaluator.Macro),
                 "MathAnd");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new LazyAnd(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new LazyAnd(), 1, Evaluator.Variable | Evaluator.Macro),
                 "And");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new LazyOr(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new LazyOr(), 1, Evaluator.Variable | Evaluator.Macro),
                 "MathOr");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new LazyOr(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new LazyOr(), 1, Evaluator.Variable | Evaluator.Macro),
                 "Or");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Equals(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Equals(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Equals");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Equals(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Equals(), 2, Evaluator.Fixed | Evaluator.Function),
                 "=");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new LessThan(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new LessThan(), 2, Evaluator.Fixed | Evaluator.Function),
                 "LessThan");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GreaterThan(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GreaterThan(), 2, Evaluator.Fixed | Evaluator.Function),
                 "GreaterThan");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsFunction(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsFunction(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsFunction");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsAtom(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsAtom(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsAtom");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsNumber(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsNumber(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsNumber");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsInteger(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsInteger(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsInteger");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsList(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsList(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsList");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsString(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsString(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsString");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsBound(), 1, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsBound(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "IsBound");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Multiply(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Multiply(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathMultiply");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Add(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Add(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathAdd");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Subtract(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Subtract(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathSubtract");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Divide(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Divide(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathDivide");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BuiltinPrecisionSet(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BuiltinPrecisionSet(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Builtin'Precision'Set");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GetExactBits(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GetExactBits(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathGetExactBits");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new SetExactBits(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new SetExactBits(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathSetExactBits");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BitCount(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BitCount(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathBitCount");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MathSign(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MathSign(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathSign");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MathIsSmall(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MathIsSmall(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathIsSmall");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MathNegate(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MathNegate(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathNegate");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Floor(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Floor(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathFloor");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Ceil(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Ceil(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathCeil");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Abs(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Abs(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathAbs");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Mod(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Mod(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathMod");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Div(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Div(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathDiv");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BitsToDigits(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BitsToDigits(), 2, Evaluator.Fixed | Evaluator.Function),
                 "BitsToDigits");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DigitsToBits(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DigitsToBits(), 2, Evaluator.Fixed | Evaluator.Function),
                 "DigitsToBits");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Gcd(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Gcd(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MathGcd");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new SystemCall(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new SystemCall(), 1, Evaluator.Fixed | Evaluator.Function),
                 "SystemCall");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FastArcSin(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FastArcSin(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FastArcSin");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FastLog(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FastLog(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FastLog");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FastPower(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FastPower(), 2, Evaluator.Fixed | Evaluator.Function),
                 "FastPower");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ShiftLeft(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ShiftLeft(), 2, Evaluator.Fixed | Evaluator.Function),
                 "ShiftLeft");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ShiftRight(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ShiftRight(), 2, Evaluator.Fixed | Evaluator.Function),
                 "ShiftRight");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FromBase(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FromBase(), 2, Evaluator.Fixed | Evaluator.Function),
                 "FromBase");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ToBase(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ToBase(), 2, Evaluator.Fixed | Evaluator.Function),
                 "ToBase");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MaxEvalDepth(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MaxEvalDepth(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MaxEvalDepth");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DefLoad(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DefLoad(), 1, Evaluator.Fixed | Evaluator.Function),
                 "DefLoad");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Use(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Use(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Use");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new RightAssociative(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new RightAssociative(), 1, Evaluator.Fixed | Evaluator.Function),
                 "RightAssociative");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new LeftPrecedence(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new LeftPrecedence(), 2, Evaluator.Fixed | Evaluator.Function),
                 "LeftPrecedence");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new RightPrecedence(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new RightPrecedence(), 2, Evaluator.Fixed | Evaluator.Function),
                 "RightPrecedence");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsBodied(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsBodied(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsBodied");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsInFix(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsInFix(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsInfix");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsPreFix(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsPreFix(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsPrefix");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsPostFix(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsPostFix(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsPostfix");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GetPrecedence(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GetPrecedence(), 1, Evaluator.Fixed | Evaluator.Function),
                 "OpPrecedence");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GetLeftPrecedence(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GetLeftPrecedence(), 1, Evaluator.Fixed | Evaluator.Function),
                 "OpLeftPrecedence");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GetRightPrecedence(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GetRightPrecedence(), 1, Evaluator.Fixed | Evaluator.Function),
                 "OpRightPrecedence");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BuiltinPrecisionGet(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BuiltinPrecisionGet(), 0, Evaluator.Fixed | Evaluator.Function),
                 "Builtin'Precision'Get");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BitAnd(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BitAnd(), 2, Evaluator.Fixed | Evaluator.Function),
                 "BitAnd");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BitOr(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BitOr(), 2, Evaluator.Fixed | Evaluator.Function),
                 "BitOr");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BitXor(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BitXor(), 2, Evaluator.Fixed | Evaluator.Function),
                 "BitXor");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Secure(), 1, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Secure(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "Secure");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FindFile(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FindFile(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FindFile");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FindFunction(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FindFunction(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FindFunction");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsGeneric(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsGeneric(), 1, Evaluator.Fixed | Evaluator.Function),
                 "IsGeneric");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GenericTypeName(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GenericTypeName(), 1, Evaluator.Fixed | Evaluator.Function),
                 "GenericTypeName");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GenArrayCreate(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GenArrayCreate(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Array'Create");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GenArraySize(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GenArraySize(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Array'Size");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GenArrayGet(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GenArrayGet(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Array'Get");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GenArraySet(), 3, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GenArraySet(), 3, Evaluator.Fixed | Evaluator.Function),
                 "Array'Set");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CustomEval(), 4, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CustomEval(), 4, Evaluator.Fixed | Evaluator.Macro),
                 "CustomEval");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CustomEvalExpression(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CustomEvalExpression(), 0, Evaluator.Fixed | Evaluator.Function),
                 "CustomEval'Expression");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CustomEvalResult(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CustomEvalResult(), 0, Evaluator.Fixed | Evaluator.Function),
                 "CustomEval'Result");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CustomEvalLocals(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CustomEvalLocals(), 0, Evaluator.Fixed | Evaluator.Function),
                 "CustomEval'Locals");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CustomEvalStop(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CustomEvalStop(), 0, Evaluator.Fixed | Evaluator.Function),
                 "CustomEval'Stop");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new TraceRule(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new TraceRule(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "TraceRule");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new TraceStack(), 1, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new TraceStack(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "TraceStack");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ReadLisp(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ReadLisp(), 0, Evaluator.Fixed | Evaluator.Function),
                 "LispRead");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ReadLispListed(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ReadLispListed(), 0, Evaluator.Fixed | Evaluator.Function),
                 "LispReadListed");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new org.mathrider.piper.builtin.functions.Type(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathrider.piper.builtin.functions.Type(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Type");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new StringMidGet(), 3, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new StringMidGet(), 3, Evaluator.Fixed | Evaluator.Function),
                 "StringMid'Get");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new StringMidSet(), 3, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new StringMidSet(), 3, Evaluator.Fixed | Evaluator.Function),
                 "StringMid'Set");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GenPatternCreate(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GenPatternCreate(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Pattern'Create");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GenPatternMatches(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GenPatternMatches(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Pattern'Matches");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new RuleBaseDefined(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new RuleBaseDefined(), 2, Evaluator.Fixed | Evaluator.Function),
                 "RuleBaseDefined");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DefLoadFunction(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DefLoadFunction(), 1, Evaluator.Fixed | Evaluator.Function),
                 "DefLoadFunction");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new RuleBaseArgList(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new RuleBaseArgList(), 2, Evaluator.Fixed | Evaluator.Function),
                 "RuleBaseArgList");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new NewRulePattern(), 5, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new NewRulePattern(), 5, Evaluator.Fixed | Evaluator.Macro),
                 "RulePattern");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new MacroNewRulePattern(), 5, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new MacroNewRulePattern(), 5, Evaluator.Fixed | Evaluator.Function),
                 "MacroRulePattern");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Subst(), 3, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Subst(), 3, Evaluator.Fixed | Evaluator.Function),
                 "Subst");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new LocalSymbols(), 1, PiperEvaluator.Variable | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new LocalSymbols(), 1, Evaluator.Variable | Evaluator.Macro),
                 "LocalSymbols");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FastIsPrime(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FastIsPrime(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FastIsPrime");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Fac(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Fac(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathFac");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ApplyPure(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ApplyPure(), 2, Evaluator.Fixed | Evaluator.Function),
                 "ApplyPure");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new PrettyReaderSet(), 1, PiperEvaluator.Variable | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new PrettyReaderSet(), 1, Evaluator.Variable | Evaluator.Function),
                 "PrettyReader'Set");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new PrettyPrinterSet(), 1, PiperEvaluator.Variable | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new PrettyPrinterSet(), 1, Evaluator.Variable | Evaluator.Function),
                 "PrettyPrinter'Set");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new PrettyPrinterGet(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new PrettyPrinterGet(), 0, Evaluator.Fixed | Evaluator.Function),
                 "PrettyPrinter'Get");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new PrettyReaderGet(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new PrettyReaderGet(), 0, Evaluator.Fixed | Evaluator.Function),
                 "PrettyReader'Get");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new GarbageCollect(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new GarbageCollect(), 0, Evaluator.Fixed | Evaluator.Function),
                 "GarbageCollect");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new SetGlobalLazyVariable(), 2, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new SetGlobalLazyVariable(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "SetGlobalLazyVariable");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new PatchLoad(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new PatchLoad(), 1, Evaluator.Fixed | Evaluator.Function),
                 "PatchLoad");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new PatchString(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new PatchString(), 1, Evaluator.Fixed | Evaluator.Function),
                 "PatchString");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ExtraInfoSet(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ExtraInfoSet(), 2, Evaluator.Fixed | Evaluator.Function),
                 "ExtraInfo'Set");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ExtraInfoGet(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ExtraInfoGet(), 1, Evaluator.Fixed | Evaluator.Function),
                 "ExtraInfo'Get");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DefaultTokenizer(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DefaultTokenizer(), 0, Evaluator.Fixed | Evaluator.Function),
                 "DefaultTokenizer");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CommonLispTokenizer(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CommonLispTokenizer(), 0, Evaluator.Fixed | Evaluator.Function),
                 "CommonLispTokenizer");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new XmlTokenizer(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new XmlTokenizer(), 0, Evaluator.Fixed | Evaluator.Function),
                 "XmlTokenizer");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ExplodeTag(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ExplodeTag(), 1, Evaluator.Fixed | Evaluator.Function),
                 "XmlExplodeTag");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BuiltinAssoc(), 2, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BuiltinAssoc(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Builtin'Assoc");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CurrentFile(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CurrentFile(), 0, Evaluator.Fixed | Evaluator.Function),
                 "CurrentFile");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new CurrentLine(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new CurrentLine(), 0, Evaluator.Fixed | Evaluator.Function),
                 "CurrentLine");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new BackQuote(), 1, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new BackQuote(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "`");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DumpBigNumberDebugInfo(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DumpBigNumberDebugInfo(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathDebugInfo");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new InDebugMode(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new InDebugMode(), 0, Evaluator.Fixed | Evaluator.Function),
                 "InDebugMode");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DebugFile(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DebugFile(), 1, Evaluator.Fixed | Evaluator.Function),
                 "DebugFile");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new DebugLine(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new DebugLine(), 1, Evaluator.Fixed | Evaluator.Function),
                 "DebugLine");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new org.mathrider.piper.builtin.functions.Version(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathrider.piper.builtin.functions.Version(), 0, Evaluator.Fixed | Evaluator.Function),
                 "Version");
 
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new Exit(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new Exit(), 0, Evaluator.Fixed | Evaluator.Function),
                 "Exit");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ExitRequested(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ExitRequested(), 0, Evaluator.Fixed | Evaluator.Function),
                 "IsExitRequested");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new HistorySize(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new HistorySize(), 1, Evaluator.Fixed | Evaluator.Function),
                 "HistorySize");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new StackSize(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new StackSize(), 0, Evaluator.Fixed | Evaluator.Function),
                 "StaSiz");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new IsPromptShown(), 0, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new IsPromptShown(), 0, Evaluator.Fixed | Evaluator.Function),
                 "IsPromptShown");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new ReadCmdLineString(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new ReadCmdLineString(), 1, Evaluator.Fixed | Evaluator.Function),
                 "ReadCmdLineString");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new org.mathrider.piper.builtin.functions.Time(), 1, PiperEvaluator.Fixed | PiperEvaluator.Macro),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathrider.piper.builtin.functions.Time(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "GetTime");
-        aEnvironment.builtinCommands().setAssociation(
-                new PiperEvaluator(new FileSize(), 1, PiperEvaluator.Fixed | PiperEvaluator.Function),
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new FileSize(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FileSize");
 
 
