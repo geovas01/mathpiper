@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.parsers.XmlTokenizer;
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.lisp.UtilityFunctions;;
@@ -121,8 +122,10 @@ public class Environment
 		iProg         = Atom.getInstance(this,"Prog");
 
 		iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
-		org.mathrider.piper.builtin.Functions mc = new org.mathrider.piper.builtin.Functions();
-		mc.addFunctions(this);
+		//org.mathrider.piper.builtin.Functions mc = new org.mathrider.piper.builtin.Functions();
+		//mc.addFunctions(this);
+                
+                BuiltinFunction.addFunctions(this);
 		
 		pushLocalFrame(true);
 	}
