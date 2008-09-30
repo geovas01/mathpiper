@@ -53,19 +53,19 @@ public class ParsedInfixExpression
 		readToken();
 		if (iEndOfFile)
 		{
-			iResult.set(iParser.iEnvironment.iEndOfFile.copy(true));
+			iResult.set(iParser.iEnvironment.iEndOfFileAtom.copy(true));
 			return;
 		}
 
 		readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 
-		if (iLookAhead != iParser.iEnvironment.iEndStatement.string())
+		if (iLookAhead != iParser.iEnvironment.iEndStatementAtom.string())
 		{
 			fail();
 		}
 		if (iError)
 		{
-			while (iLookAhead.length() > 0 && iLookAhead != iParser.iEnvironment.iEndStatement.string())
+			while (iLookAhead.length() > 0 && iLookAhead != iParser.iEnvironment.iEndStatementAtom.string())
 			{
 				readToken();
 			}
@@ -101,21 +101,21 @@ public class ParsedInfixExpression
 		for(;;)
 		{
 			//Handle special case: a[b]. a is matched with lowest precedence!!
-			if (iLookAhead == iParser.iEnvironment.iProgOpen.string())
+			if (iLookAhead == iParser.iEnvironment.iProgOpenAtom.string())
 			{
 				// Match opening bracket
 				matchToken(iLookAhead);
 				// Read "index" argument
 				readExpression(InfixPrinter.KMaxPrecedence);
 				// Match closing bracket
-				if (iLookAhead != iParser.iEnvironment.iProgClose.string())
+				if (iLookAhead != iParser.iEnvironment.iProgCloseAtom.string())
 				{
 					LispError.raiseError("Expecting a ] close bracket for program block, but got "+iLookAhead+" instead");
 					return;
 				}
 				matchToken(iLookAhead);
 				// Build into Ntn(...)
-				String theOperator = iParser.iEnvironment.iNth.string();
+				String theOperator = iParser.iEnvironment.iNthAtom.string();
 				insertAtom(theOperator);
 				combine(2);
 			}
@@ -199,50 +199,50 @@ public class ParsedInfixExpression
 			}
 		}
 		// Else parse brackets
-		else if (iLookAhead == iParser.iEnvironment.iBracketOpen.string())
+		else if (iLookAhead == iParser.iEnvironment.iBracketOpenAtom.string())
 		{
 			matchToken(iLookAhead);
 			readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
-			matchToken(iParser.iEnvironment.iBracketClose.string());
+			matchToken(iParser.iEnvironment.iBracketCloseAtom.string());
 		}
 		//parse lists
-		else if (iLookAhead == iParser.iEnvironment.iListOpen.string())
+		else if (iLookAhead == iParser.iEnvironment.iListOpenAtom.string())
 		{
 			int nrargs=0;
 			matchToken(iLookAhead);
-			while (iLookAhead != iParser.iEnvironment.iListClose.string())
+			while (iLookAhead != iParser.iEnvironment.iListCloseAtom.string())
 			{
 				readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 				nrargs++;
 
-				if (iLookAhead == iParser.iEnvironment.iComma.string())
+				if (iLookAhead == iParser.iEnvironment.iCommaAtom.string())
 				{
 					matchToken(iLookAhead);
 				}
-				else if (iLookAhead != iParser.iEnvironment.iListClose.string())
+				else if (iLookAhead != iParser.iEnvironment.iListCloseAtom.string())
 				{
 					LispError.raiseError("Expecting a } close bracket for a list, but got "+iLookAhead+" instead");
 					return;
 				}
 			}
 			matchToken(iLookAhead);
-			String theOperator = iParser.iEnvironment.iList.string();
+			String theOperator = iParser.iEnvironment.iListAtom.string();
 			insertAtom(theOperator);
 			combine(nrargs);
 
 		}
 		// parse prog bodies
-		else if (iLookAhead == iParser.iEnvironment.iProgOpen.string())
+		else if (iLookAhead == iParser.iEnvironment.iProgOpenAtom.string())
 		{
 			int nrargs=0;
 
 			matchToken(iLookAhead);
-			while (iLookAhead != iParser.iEnvironment.iProgClose.string())
+			while (iLookAhead != iParser.iEnvironment.iProgCloseAtom.string())
 			{
 				readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 				nrargs++;
 
-				if (iLookAhead == iParser.iEnvironment.iEndStatement.string())
+				if (iLookAhead == iParser.iEnvironment.iEndStatementAtom.string())
 				{
 					matchToken(iLookAhead);
 				}
@@ -253,7 +253,7 @@ public class ParsedInfixExpression
 				}
 			}
 			matchToken(iLookAhead);
-			String theOperator = iParser.iEnvironment.iProg.string();
+			String theOperator = iParser.iEnvironment.iProgAtom.string();
 			insertAtom(theOperator);
 
 			combine(nrargs);
@@ -265,20 +265,20 @@ public class ParsedInfixExpression
 			matchToken(iLookAhead);
 
 			int nrargs=-1;
-			if (iLookAhead == iParser.iEnvironment.iBracketOpen.string())
+			if (iLookAhead == iParser.iEnvironment.iBracketOpenAtom.string())
 			{
 				nrargs=0;
 				matchToken(iLookAhead);
-				while (iLookAhead != iParser.iEnvironment.iBracketClose.string())
+				while (iLookAhead != iParser.iEnvironment.iBracketCloseAtom.string())
 				{
 					readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
 					nrargs++;
 
-					if (iLookAhead == iParser.iEnvironment.iComma.string())
+					if (iLookAhead == iParser.iEnvironment.iCommaAtom.string())
 					{
 						matchToken(iLookAhead);
 					}
-					else if (iLookAhead != iParser.iEnvironment.iBracketClose.string())
+					else if (iLookAhead != iParser.iEnvironment.iBracketCloseAtom.string())
 					{
 						LispError.raiseError("Expecting ) closing bracket for sub-expression, but got "+iLookAhead+" instead");
 						return;

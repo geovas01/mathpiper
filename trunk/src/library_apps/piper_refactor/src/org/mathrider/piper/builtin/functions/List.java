@@ -33,7 +33,7 @@ import org.mathrider.piper.lisp.SubList;
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			ConsPointer all = new ConsPointer();
-			all.set(aEnvironment.iList.copy(false));
+			all.set(aEnvironment.iListAtom.copy(false));
 			ConsTraverser tail = new ConsTraverser(all);
 			tail.goNext();
 			ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).get().subList());

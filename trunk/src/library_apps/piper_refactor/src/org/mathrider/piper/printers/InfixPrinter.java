@@ -157,7 +157,7 @@ public class InfixPrinter extends Printer
 			else
 			{
 				ConsTraverser iter = new ConsTraverser(subList.get().cdr());
-				if (string == iCurrentEnvironment.iList.string())
+				if (string == iCurrentEnvironment.iListAtom.string())
 				{
 					WriteToken(aOutput,"{");
 					while (iter.getCons() != null)
@@ -169,7 +169,7 @@ public class InfixPrinter extends Printer
 					}
 					WriteToken(aOutput,"}");
 				}
-				else if (string == iCurrentEnvironment.iProg.string())
+				else if (string == iCurrentEnvironment.iProgAtom.string())
 				{
 					WriteToken(aOutput,"[");
 					while (iter.getCons() != null)
@@ -180,7 +180,7 @@ public class InfixPrinter extends Printer
 					}
 					WriteToken(aOutput,"]");
 				}
-				else if (string == iCurrentEnvironment.iNth.string())
+				else if (string == iCurrentEnvironment.iNthAtom.string())
 				{
 					Print(iter.ptr(), aOutput, 0);
 					iter.goNext();

@@ -33,7 +33,7 @@ public class DestructiveReverse extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer reversed = new ConsPointer();
-        reversed.set(aEnvironment.iList.copy(false));
+        reversed.set(aEnvironment.iListAtom.copy(false));
         UtilityFunctions.internalReverseList(reversed.get().cdr(), argumentPointer(aEnvironment, aStackTop, 1).get().subList().get().cdr());
         result(aEnvironment, aStackTop).set(SubList.getInstance(reversed.get()));
     }

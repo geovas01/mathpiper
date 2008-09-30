@@ -53,7 +53,7 @@ public class RuleBaseArgList extends BuiltinFunction
 
         ConsPointer list = userFunc.ArgList();
         ConsPointer head = new ConsPointer();
-        head.set(aEnvironment.iList.copy(false));
+        head.set(aEnvironment.iListAtom.copy(false));
         head.get().cdr().set(list.get());
         result(aEnvironment, aStackTop).set(SubList.getInstance(head.get()));
     }

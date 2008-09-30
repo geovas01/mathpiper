@@ -239,12 +239,12 @@ public class UtilityFunctions
 
 	public static void internalTrue(Environment aEnvironment, ConsPointer aResult) throws Exception
 	{
-		aResult.set(aEnvironment.iTrue.copy(false));
+		aResult.set(aEnvironment.iTrueAtom.copy(false));
 	}
 
 	public static void internalFalse(Environment aEnvironment, ConsPointer aResult) throws Exception
 	{
-		aResult.set(aEnvironment.iFalse.copy(false));
+		aResult.set(aEnvironment.iFalseAtom.copy(false));
 	}
 
 	public static void internalBoolean(Environment aEnvironment, ConsPointer aResult, boolean aValue) throws Exception
@@ -290,13 +290,13 @@ public class UtilityFunctions
 	public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
 		LispError.lispAssert(aExpression.get() != null);
-		return aExpression.get().string() == aEnvironment.iTrue.string();
+		return aExpression.get().string() == aEnvironment.iTrueAtom.string();
 	}
 
 	public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
 		LispError.lispAssert(aExpression.get() != null);
-		return aExpression.get().string() == aEnvironment.iFalse.string();
+		return aExpression.get().string() == aEnvironment.iFalseAtom.string();
 	}
 
 	public static String symbolName(Environment aEnvironment, String aSymbol)
