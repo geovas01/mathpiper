@@ -19,10 +19,10 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.builtin.Functions;
+import org.mathrider.piper.lisp.UtilityFunctions;;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.InfixOperator;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -33,7 +33,7 @@ public class IsPreFix extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        InfixOperator op = Functions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
-        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), op != null);
+        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), op != null);
     }
 }

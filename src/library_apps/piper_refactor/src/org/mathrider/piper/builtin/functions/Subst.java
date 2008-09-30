@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -37,6 +37,6 @@ public class Subst extends BuiltinFunction
         to.set(argumentPointer(aEnvironment, aStackTop, 2).get());
         body.set(argumentPointer(aEnvironment, aStackTop, 3).get());
         org.mathrider.piper.lisp.behaviours.Subst behaviour = new org.mathrider.piper.lisp.behaviours.Subst(aEnvironment, from, to);
-        Utility.internalSubstitute(result(aEnvironment, aStackTop), body, behaviour);
+        UtilityFunctions.internalSubstitute(result(aEnvironment, aStackTop), body, behaviour);
     }
 }

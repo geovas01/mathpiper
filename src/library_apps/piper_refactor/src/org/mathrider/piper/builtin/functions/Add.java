@@ -20,9 +20,9 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.builtin.Functions;
+import org.mathrider.piper.lisp.UtilityFunctions;;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -39,17 +39,17 @@ public class Add extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = Utility.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
+        int length = UtilityFunctions.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x;
-            x = Functions.getNumber(aEnvironment, aStackTop, 1);
+            x = UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
             result(aEnvironment, aStackTop).set(new org.mathrider.piper.lisp.Number(x));
             return;
         } else
         {
-            BigNumber x = Functions.getNumber(aEnvironment, aStackTop, 1);
-            BigNumber y = Functions.getNumber(aEnvironment, aStackTop, 2);
+            BigNumber x = UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+            BigNumber y = UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
             int bin = aEnvironment.precision();
             BigNumber z = new BigNumber(bin);
             z.Add(x, y, aEnvironment.precision());

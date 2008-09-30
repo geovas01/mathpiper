@@ -24,7 +24,7 @@ import org.mathrider.piper.io.CachedStdFileInput;
 import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.Output;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
@@ -346,7 +346,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				try
 				{
 					java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
-					Utility.zipFile = z;
+					UtilityFunctions.zipFile = z;
 				}
 				catch(Exception e)
 				{

@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -57,6 +57,6 @@ public class GenPatternMatches extends BuiltinFunction
         ConsPointer ptr = iter.ptr();
         LispError.checkArgumentCore(aEnvironment, aStackTop, ptr != null, 2);
         boolean matches = patclass.matches(aEnvironment, ptr);
-        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), matches);
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), matches);
     }
 }

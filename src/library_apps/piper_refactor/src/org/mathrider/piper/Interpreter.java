@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.parsers.InfixParser;
 import org.mathrider.piper.io.StringOutput;
 import org.mathrider.piper.io.StringInput;
 import org.mathrider.piper.lisp.Output;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
@@ -84,7 +84,7 @@ public class Interpreter
                         String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaPiper/piper.jar";
 
                         java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
-                        Utility.zipFile = z;
+                        UtilityFunctions.zipFile = z;
                         inZipFile = true;
                     } catch (Exception e)
                     {
@@ -165,7 +165,7 @@ public class Interpreter
                 try
                 {
                     ConsPointer args = new ConsPointer();
-                    Utility.internalApplyString(environment, inputExpressionPointer,
+                    UtilityFunctions.internalApplyString(environment, inputExpressionPointer,
                             environment.iPrettyReader,
                             args);
                 } catch (Exception e)
@@ -203,7 +203,7 @@ public class Interpreter
             if (environment.iPrettyPrinter != null)
             {
                 ConsPointer nonresult = new ConsPointer();
-                Utility.internalApplyString(environment, nonresult,
+                UtilityFunctions.internalApplyString(environment, nonresult,
                         environment.iPrettyPrinter,
                         result);
                 rs = string_out.toString();

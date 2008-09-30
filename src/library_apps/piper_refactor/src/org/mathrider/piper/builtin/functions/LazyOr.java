@@ -21,7 +21,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.SubList;
 
 /**
@@ -43,11 +43,11 @@ public class LazyOr extends BuiltinFunction
         while (iter.getCons() != null)
         {
             aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, iter.ptr());
-            if (Utility.isTrue(aEnvironment, evaluated))
+            if (UtilityFunctions.isTrue(aEnvironment, evaluated))
             {
-                Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+                UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
                 return;
-            } else if (!Utility.isFalse(aEnvironment, evaluated))
+            } else if (!UtilityFunctions.isFalse(aEnvironment, evaluated))
             {
                 ConsPointer ptr = new ConsPointer();
                 nrnogos++;
@@ -68,7 +68,7 @@ public class LazyOr extends BuiltinFunction
             {
                 ConsPointer ptr = new ConsPointer();
 
-                Utility.internalReverseList(ptr, nogos);
+                UtilityFunctions.internalReverseList(ptr, nogos);
                 nogos.set(ptr.get());
 
                 ptr.set(argumentPointer(aEnvironment, aStackTop, 0).get().copy(false));
@@ -79,7 +79,7 @@ public class LazyOr extends BuiltinFunction
         //aEnvironment.CurrentPrinter().Print(result(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
         } else
         {
-            Utility.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
+            UtilityFunctions.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         }
     }
 }

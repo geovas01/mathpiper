@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
 
@@ -39,7 +39,7 @@ public class RuleBaseArgList extends BuiltinFunction
         name.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         String orig = name.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = Utility.internalUnstringify(orig);
+        String oper = UtilityFunctions.internalUnstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.set(argumentPointer(aEnvironment, aStackTop, 2).get());

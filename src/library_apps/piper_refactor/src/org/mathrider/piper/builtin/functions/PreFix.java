@@ -18,7 +18,7 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.builtin.Functions;
+import org.mathrider.piper.lisp.UtilityFunctions;;
 import org.mathrider.piper.lisp.Environment;
 
 /**
@@ -30,6 +30,6 @@ public class PreFix extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Functions.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+        UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
     }
 }

@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -36,7 +36,7 @@ public class RightAssociative extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
         String orig = argumentPointer(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        aEnvironment.iInfixOperators.SetRightAssociative(Utility.symbolName(aEnvironment, orig));
-        Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+        aEnvironment.iInfixOperators.SetRightAssociative(UtilityFunctions.symbolName(aEnvironment, orig));
+        UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

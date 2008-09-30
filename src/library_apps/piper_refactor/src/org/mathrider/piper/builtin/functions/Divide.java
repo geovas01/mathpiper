@@ -31,8 +31,8 @@ public class Divide extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
-        BigNumber y = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathrider.piper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber y = org.mathrider.piper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
         BigNumber z = new BigNumber(aEnvironment.precision());
         // if both arguments are integers, then BigNumber::Divide would perform an integer divide, but we want a float divide here.
         if (x.IsInt() && y.IsInt())

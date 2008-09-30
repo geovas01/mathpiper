@@ -29,6 +29,6 @@ public class MacroNewRule extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathrider.piper.builtin.Functions.internalNewRule(aEnvironment, aStackTop);
+        org.mathrider.piper.lisp.UtilityFunctions.internalNewRule(aEnvironment, aStackTop);
     }
 }

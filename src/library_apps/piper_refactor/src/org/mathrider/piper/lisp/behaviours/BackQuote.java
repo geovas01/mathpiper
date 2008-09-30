@@ -19,7 +19,7 @@
 package org.mathrider.piper.lisp.behaviours;
 
 import org.mathrider.piper.lisp.Cons;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
@@ -77,7 +77,7 @@ public class BackQuote implements SubstBase
 			result.get().cdr().set(args.get());
 			ConsPointer result2 = new ConsPointer();
 			result2.set(SubList.getInstance(result.get()));
-			Utility.internalSubstitute(aResult, result2,this);
+			UtilityFunctions.internalSubstitute(aResult, result2,this);
 			return true;
 		}
 		//      return false;

@@ -18,9 +18,9 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.builtin.Functions;
+import org.mathrider.piper.lisp.UtilityFunctions;;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -31,13 +31,13 @@ public class PostFix extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = UtilityFunctions.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 2)
         {
-            Functions.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+            UtilityFunctions.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
         } else
         {
-            Functions.multiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+            UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
         }
     }
 }

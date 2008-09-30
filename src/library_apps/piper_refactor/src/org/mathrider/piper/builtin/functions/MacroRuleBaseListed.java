@@ -16,6 +16,6 @@ import org.mathrider.piper.lisp.Environment;
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			org.mathrider.piper.builtin.Functions.internalRuleBase(aEnvironment, aStackTop, true);
+			org.mathrider.piper.lisp.UtilityFunctions.internalRuleBase(aEnvironment, aStackTop, true);
 		}
 	}

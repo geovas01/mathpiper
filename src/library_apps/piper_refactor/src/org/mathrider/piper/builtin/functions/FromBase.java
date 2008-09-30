@@ -23,7 +23,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -55,7 +55,7 @@ public class FromBase extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
 
         // Added, unquote a string
-        LispError.checkArgumentCore(aEnvironment, aStackTop, Utility.internalIsString(str2), 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, UtilityFunctions.internalIsString(str2), 2);
         str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
 
         // convert using correct base

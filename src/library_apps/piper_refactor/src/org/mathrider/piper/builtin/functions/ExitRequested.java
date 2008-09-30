@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -31,6 +31,6 @@ public class ExitRequested extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Utility.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
+        UtilityFunctions.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

@@ -18,7 +18,7 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.builtin.Functions;
+import org.mathrider.piper.lisp.UtilityFunctions;;
 import org.mathrider.piper.lisp.Environment;
 
 /**
@@ -30,6 +30,6 @@ public class MacroSetVar extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Functions.internalSetVar(aEnvironment, aStackTop, true, false);
+        UtilityFunctions.internalSetVar(aEnvironment, aStackTop, true, false);
     }
 }

@@ -21,7 +21,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -34,7 +34,7 @@ public class IsString extends BuiltinFunction
     {
         ConsPointer result = new ConsPointer();
         result.set(argumentPointer(aEnvironment, aStackTop, 1).get());
-        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop),
-                Utility.internalIsString(result.get().string()));
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop),
+                UtilityFunctions.internalIsString(result.get().string()));
     }
 }

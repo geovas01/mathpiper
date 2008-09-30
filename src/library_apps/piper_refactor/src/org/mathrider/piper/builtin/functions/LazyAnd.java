@@ -21,7 +21,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.SubList;
 
 /**
@@ -42,11 +42,11 @@ public class LazyAnd extends BuiltinFunction
         while (iter.getCons() != null)
         {
             aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, iter.ptr());
-            if (Utility.isFalse(aEnvironment, evaluated))
+            if (UtilityFunctions.isFalse(aEnvironment, evaluated))
             {
-                Utility.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
+                UtilityFunctions.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
                 return;
-            } else if (!Utility.isTrue(aEnvironment, evaluated))
+            } else if (!UtilityFunctions.isTrue(aEnvironment, evaluated))
             {
                 ConsPointer ptr = new ConsPointer();
                 nrnogos++;
@@ -67,7 +67,7 @@ public class LazyAnd extends BuiltinFunction
             {
                 ConsPointer ptr = new ConsPointer();
 
-                Utility.internalReverseList(ptr, nogos);
+                UtilityFunctions.internalReverseList(ptr, nogos);
                 nogos.set(ptr.get());
 
                 ptr.set(argumentPointer(aEnvironment, aStackTop, 0).get().copy(false));
@@ -79,7 +79,7 @@ public class LazyAnd extends BuiltinFunction
             }
         } else
         {
-            Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+            UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
         }
     }
 }

@@ -32,8 +32,8 @@ public class FastPower extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x, y;
-        x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 1);
-        y = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 2);
+        x = org.mathrider.piper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+        y = org.mathrider.piper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
         double result = Math.pow(x.Double(), y.Double());
         BigNumber z = new BigNumber(aEnvironment.precision());
         z.SetTo(result);

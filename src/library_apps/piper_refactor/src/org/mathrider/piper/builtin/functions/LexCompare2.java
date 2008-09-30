@@ -23,7 +23,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.TokenHash;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -62,6 +62,6 @@ abstract public class LexCompare2
                     aEnvironment.precision());
         }
 
-        Utility.internalBoolean(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop), cmp);
+        UtilityFunctions.internalBoolean(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop), cmp);
     }
 }

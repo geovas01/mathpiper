@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.Output;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -44,7 +44,7 @@ public class ToFile extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
         String orig = evaluated.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = Utility.internalUnstringify(orig);
+        String oper = UtilityFunctions.internalUnstringify(orig);
 
         // Open file for writing
         FileOutputStream localFP = new FileOutputStream(oper);

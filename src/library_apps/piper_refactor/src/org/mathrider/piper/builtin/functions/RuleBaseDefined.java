@@ -22,7 +22,7 @@ import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
 
 /**
@@ -38,7 +38,7 @@ public class RuleBaseDefined extends BuiltinFunction
         name.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         String orig = name.get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = Utility.internalUnstringify(orig);
+        String oper = UtilityFunctions.internalUnstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.set(argumentPointer(aEnvironment, aStackTop, 2).get());
@@ -48,6 +48,6 @@ public class RuleBaseDefined extends BuiltinFunction
         int arity = Integer.parseInt(sizearg.get().string(), 10);
 
         UserFunction userFunc = aEnvironment.userFunction(aEnvironment.getTokenHash().lookUp(oper), arity);
-        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), userFunc != null);
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), userFunc != null);
     }
 }

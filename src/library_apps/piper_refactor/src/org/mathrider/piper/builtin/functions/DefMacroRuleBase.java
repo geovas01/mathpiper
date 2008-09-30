@@ -29,6 +29,6 @@ public class DefMacroRuleBase extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathrider.piper.builtin.Functions.internalDefMacroRuleBase(aEnvironment, aStackTop, false);
+        org.mathrider.piper.lisp.UtilityFunctions.internalDefMacroRuleBase(aEnvironment, aStackTop, false);
     }
 }

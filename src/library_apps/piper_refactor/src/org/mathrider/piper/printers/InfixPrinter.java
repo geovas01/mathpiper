@@ -19,7 +19,7 @@
 package org.mathrider.piper.printers;
 
 import org.mathrider.piper.lisp.Output;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
@@ -98,7 +98,7 @@ public class InfixPrinter extends Printer
 		}
 		else
 		{
-			int length = Utility.internalListLength(subList);
+			int length = UtilityFunctions.internalListLength(subList);
 			string = subList.get().string();
 			InfixOperator prefix  = (InfixOperator)iPrefixOperators.lookUp(string);
 			InfixOperator infix   = (InfixOperator)iInfixOperators.lookUp(string);

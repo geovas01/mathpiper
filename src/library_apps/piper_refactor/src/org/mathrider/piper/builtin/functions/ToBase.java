@@ -48,7 +48,7 @@ public class ToBase extends BuiltinFunction
         int base = (int) (num.Long());
 
         // Get the number to convert
-        BigNumber x = org.mathrider.piper.builtin.Functions.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathrider.piper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
 
         // convert using correct base
         String str;

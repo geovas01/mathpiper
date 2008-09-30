@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 
 /**
  *
@@ -36,7 +36,7 @@ public class Equals extends BuiltinFunction
         ConsPointer evaluated2 = new ConsPointer();
         evaluated2.set(argumentPointer(aEnvironment, aStackTop, 2).get());
 
-        Utility.internalBoolean(aEnvironment, result(aEnvironment, aStackTop),
-                Utility.internalEquals(aEnvironment, evaluated1, evaluated2));
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop),
+                UtilityFunctions.internalEquals(aEnvironment, evaluated1, evaluated2));
     }
 }

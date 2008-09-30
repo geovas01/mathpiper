@@ -30,6 +30,6 @@ public class NewRulePattern extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathrider.piper.builtin.Functions.internalNewRulePattern(aEnvironment, aStackTop, false);
+        org.mathrider.piper.lisp.UtilityFunctions.internalNewRulePattern(aEnvironment, aStackTop, false);
     }
 }

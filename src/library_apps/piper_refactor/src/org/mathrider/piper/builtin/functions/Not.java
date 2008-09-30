@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.ConsPointer;
-import org.mathrider.piper.lisp.Utility;
+import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.SubList;
 
 /**
@@ -34,9 +34,9 @@ public class Not extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.set(argumentPointer(aEnvironment, aStackTop, 1).get());
-        if (Utility.isTrue(aEnvironment, evaluated) || Utility.isFalse(aEnvironment, evaluated))
+        if (UtilityFunctions.isTrue(aEnvironment, evaluated) || UtilityFunctions.isFalse(aEnvironment, evaluated))
         {
-            Utility.internalNot(result(aEnvironment, aStackTop), aEnvironment, evaluated);
+            UtilityFunctions.internalNot(result(aEnvironment, aStackTop), aEnvironment, evaluated);
         } else
         {
             ConsPointer ptr = new ConsPointer();
