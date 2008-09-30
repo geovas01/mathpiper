@@ -36,9 +36,9 @@ public class GenPatternCreate extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer pattern = new ConsPointer();
-        pattern.set(argument(aEnvironment, aStackTop, 1).get());
+        pattern.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         ConsPointer postpredicate = new ConsPointer();
-        postpredicate.set(argument(aEnvironment, aStackTop, 2).get());
+        postpredicate.set(argumentPointer(aEnvironment, aStackTop, 2).get());
 
         ConsTraverser iter = new ConsTraverser(pattern);
         LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getCons() != null, 1);

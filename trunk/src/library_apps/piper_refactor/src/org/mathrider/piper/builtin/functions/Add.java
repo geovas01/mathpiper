@@ -39,7 +39,7 @@ public class Add extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = Utility.internalListLength(argument(aEnvironment, aStackTop, 0));
+        int length = Utility.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x;

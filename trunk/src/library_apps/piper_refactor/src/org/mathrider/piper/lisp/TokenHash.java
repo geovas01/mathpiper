@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper.lisp;
 
-public class GlobalState
+public class TokenHash
 {
 
     java.util.Hashtable iHashtable = new java.util.Hashtable();

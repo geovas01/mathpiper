@@ -37,7 +37,7 @@ public class LazyAnd extends BuiltinFunction
         int nrnogos = 0;
         ConsPointer evaluated = new ConsPointer();
 
-        ConsTraverser iter = new ConsTraverser(argument(aEnvironment, aStackTop, 1).get().subList());
+        ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).get().subList());
         iter.goNext();
         while (iter.getCons() != null)
         {
@@ -70,7 +70,7 @@ public class LazyAnd extends BuiltinFunction
                 Utility.internalReverseList(ptr, nogos);
                 nogos.set(ptr.get());
 
-                ptr.set(argument(aEnvironment, aStackTop, 0).get().copy(false));
+                ptr.set(argumentPointer(aEnvironment, aStackTop, 0).get().copy(false));
                 ptr.get().cdr().set(nogos.get());
                 nogos.set(ptr.get());
                 result(aEnvironment, aStackTop).set(SubList.getInstance(nogos.get()));

@@ -34,9 +34,9 @@ public class ApplyPure extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer oper = new ConsPointer();
-        oper.set(argument(aEnvironment, aStackTop, 1).get());
+        oper.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         ConsPointer args = new ConsPointer();
-        args.set(argument(aEnvironment, aStackTop, 2).get());
+        args.set(argumentPointer(aEnvironment, aStackTop, 2).get());
 
         LispError.checkArgumentCore(aEnvironment, aStackTop, args.get().subList() != null, 2);
         LispError.checkCore(aEnvironment, aStackTop, args.get().subList().get() != null, 2);

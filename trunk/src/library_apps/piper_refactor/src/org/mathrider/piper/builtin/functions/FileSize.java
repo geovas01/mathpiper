@@ -37,10 +37,10 @@ public class FileSize extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer fnameObject = new ConsPointer();
-        fnameObject.set(argument(aEnvironment, aStackTop, 1).get());
+        fnameObject.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         LispError.checkIsStringCore(aEnvironment, aStackTop, fnameObject, 1);
         String fname = Utility.internalUnstringify(fnameObject.get().string());
-        String hashedname = aEnvironment.getGlobalState().lookUp(fname);
+        String hashedname = aEnvironment.getTokenHash().lookUp(fname);
 
         long fileSize = 0;
         InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);

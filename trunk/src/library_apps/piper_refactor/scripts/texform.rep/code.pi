@@ -150,7 +150,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 
 
 
-    /* Unknown function: precedence 200. Leave as is, never bracket the function itself and bracket the argument(s) automatically since it's a list. Other functions are precedence 100 */
+    /* Unknown function: precedence 200. Leave as is, never bracket the function itself and bracket the argumentPointer(s) automatically since it's a list. Other functions are precedence 100 */
 
   TeXFormGreekLetters := {"Gamma", "Delta", "Theta", "Lambda", "Xi", "Pi", "Sigma", "Upsilon", "Phi", "Psi", "Omega", "alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "iota", "kappa", "lambda", "mu", "nu", "xi", "pi", "rho", "sigma", "tau", "upsilon", "phi", "chi", "psi", "omega", "varpi", "varrho", "varsigma", "varphi", "varepsilon"};
   TeXFormSpecialNames := {

@@ -33,8 +33,8 @@ public class RightAssociative extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, argument(aEnvironment, aStackTop, 1).get() != null, 1);
-        String orig = argument(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
+        String orig = argumentPointer(aEnvironment, aStackTop, 1).get().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         aEnvironment.iInfixOperators.SetRightAssociative(Utility.symbolName(aEnvironment, orig));
         Utility.internalTrue(aEnvironment, result(aEnvironment, aStackTop));

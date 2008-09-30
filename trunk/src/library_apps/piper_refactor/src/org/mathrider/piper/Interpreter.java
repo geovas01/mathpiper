@@ -194,7 +194,7 @@ public class Interpreter
             ConsPointer result = new ConsPointer();
             environment.iEvaluator.evaluate(environment, result, inputExpressionPointer);
 
-            String percent = environment.getGlobalState().lookUp("%");
+            String percent = environment.getTokenHash().lookUp("%");
             environment.setVariable(percent, result, true);
 
             StringBuffer string_out = new StringBuffer();

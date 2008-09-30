@@ -32,7 +32,7 @@ public class IsBound extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        String str = argument(aEnvironment, aStackTop, 1).get().string();
+        String str = argumentPointer(aEnvironment, aStackTop, 1).get().string();
         if (str != null)
         {
             ConsPointer val = new ConsPointer();

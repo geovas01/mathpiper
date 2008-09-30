@@ -37,7 +37,7 @@ public class ExplodeTag extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer out = new ConsPointer();
-        out.set(argument(aEnvironment, aStackTop, 1).get());
+        out.set(argumentPointer(aEnvironment, aStackTop, 1).get());
         LispError.checkIsStringCore(aEnvironment, aStackTop, out, 1);
 
         String str = out.get().string();

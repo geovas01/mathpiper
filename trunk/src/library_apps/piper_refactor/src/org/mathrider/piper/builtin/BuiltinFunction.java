@@ -33,12 +33,12 @@ public abstract class BuiltinFunction
 		return aEnvironment.iArgumentStack.getElement(aStackTop);
 	}
 	
-	public static ConsPointer argument(Environment aEnvironment,int aStackTop, int argumentPosition)  throws Exception
+	public static ConsPointer argumentPointer(Environment aEnvironment,int aStackTop, int argumentPosition)  throws Exception
 	{
 		return aEnvironment.iArgumentStack.getElement(aStackTop+argumentPosition);
 	}
 
-	public static ConsPointer argument(ConsPointer cur, int n) throws Exception
+	public static ConsPointer argumentPointer(ConsPointer cur, int n) throws Exception
 	{
 		LispError.lispAssert(n>=0);
 
