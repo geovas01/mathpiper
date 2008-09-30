@@ -91,7 +91,7 @@ public class MultipleArityUserFunction
 		iFunctions.add(aNewFunction);
 	}
 
-	/// Delete tuser function with given arity.
+	/// Deletet user function with given arity.
 	public  void deleteBase(int aArity) throws Exception
 	{
 		int i;

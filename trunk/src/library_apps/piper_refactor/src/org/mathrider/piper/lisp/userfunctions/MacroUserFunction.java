@@ -128,15 +128,15 @@ public class MacroUserFunction extends BranchingUserFunction
 					//TODO remove            CHECKPTR(thisRule);
 					LispError.lispAssert(thisRule != null);
 
-					st.iRulePrecedence = thisRule.Precedence();
-					boolean matches = thisRule.Matches(aEnvironment, arguments);
+					st.iRulePrecedence = thisRule.precedence();
+					boolean matches = thisRule.matches(aEnvironment, arguments);
 					if (matches)
 					{
 						st.iSide = 1;
 
 						BackQuote behaviour = new BackQuote(aEnvironment);
-						UtilityFunctions.internalSubstitute(substedBody, thisRule.Body(), behaviour);
-						//              aEnvironment.iEvaluator.Eval(aEnvironment, aResult, thisRule.Body());
+						UtilityFunctions.internalSubstitute(substedBody, thisRule.body(), behaviour);
+						//              aEnvironment.iEvaluator.Eval(aEnvironment, aResult, thisRule.body());
 						break;
 					}
 
