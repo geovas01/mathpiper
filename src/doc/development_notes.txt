@@ -744,6 +744,7 @@ line numbers to use.
 
 
 {{{ U6502
++ If a label is placed in the operation column, an exception is thrown.
 - Add reset method to IOChip interface.
 + This line should cause an error in the assembler but it doesn't: "sum	dbt d". Notice it is missing a value before d.
 + Branching to addresses throws a "string out of bounds" exception in a uasm65 fold.
