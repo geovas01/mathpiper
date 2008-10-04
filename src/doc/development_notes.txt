@@ -2,7 +2,8 @@ Development notes.
 
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
-{{{====To Do                   
+{{{====To Do
++ Sometimes the "Source" button in PiperDocs indicates it cannot load the source file using the given encoding.
 + Add "ant -Dtarget=dist all-plugins" to build instructions.
 + Add version update to welcome.html file.
 + Folds throw an exception if equals sign is missing from a parameter.  Should catch this and return a better error message (actually I discovered that it is commas between quotes that is causing the exception."
