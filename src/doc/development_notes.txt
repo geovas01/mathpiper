@@ -363,6 +363,7 @@ ForEach(x,a)
     ];
 
 %/piper
++ It would be nice to be able to associate units with numbers and variables like: x<yards> := 5<feet> + 7<yards>.
 + Get rid of ' in all function names.
 + Change core to built in in all function names.
 + Change Head and Tail to First and Rest.
