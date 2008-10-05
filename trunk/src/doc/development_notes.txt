@@ -363,8 +363,17 @@ ForEach(x,a)
     ];
 
 %/piper
-Base functions should be able to pad zeros on the left. (Also perhaps a more generalized Base function).
-+ Change org.mathrider.piper.Piper.Evaluate to evaluate.
++ Get rid of ' in all function names.
++ Change core to built in in all function names.
++ Change Head and Tail to First and Rest.
++ Change all Mathxxx names to XXXNum.  Change all complement names to XXXSym
++ Undocumented built in functions: ApplyPure, Atomize, BackQuote, BitCount, BitsToDigits, BuiltinAssoc, BuiltinPrecisionGet, BuiltinPrecisionSet, CharString, ClearVar, CommonLispTokenizer, Concatenate, ConcatenateStrings, CustomEval, CustomEvalExpression,
+CustomEvalLocals, CustomEvalResult, CustomEvalStop, DebugFile, DebugLine, DefLoadFunction, DefaultDirectory, DigitsToBits, Divide, DumpBigNumberDebugInfo, Exit, ExitRequested, ExplodeTag, ExtraInfoGet, ExtraInfoSet, Fac, FastIsPrime, FastLog, FastPower, FileSize, 
+GenArrayCreate, GenArrayGet, GenArraySet, GenArraySize, GenPatternCreate, GenPatternMatches, GetExactBits, GetLeftPrecedence, GetPrecedence, GetRightPrecedence, HistorySize, InDebugMode, IsInteger, LazyAnd, LazyOr, LexCompare2, LexGreaterThan, LexLessThan, 
+MacroNewRule, MacroNewRulePattern, MacroSetVar, MathIsSmall, MathNegate, MathSign, MathEvalDepth, NewLocal, NewRule, NewRulePattern, PrettyPrinterGet, PrettyPrinterSet, PrettyReaderGet, PrettyReaderSet, ProgBody, Quote, ReadLisp, ReadLispListed, RuleBaseDefined,
+SetExactBits, SetVar, StackSize, Stringify, Subtract, Version, ' (the quote operator).
++ Base functions should be able to pad zeros on the left. (Also perhaps a more generalized Base function).
+- Change org.mathrider.piper.Piper.Evaluate to evaluate.
 + Change Numer to Numerator and Denom to Denominator because it is hard to remember how many letters of Numer and Denom are used in the shorter names.
 + Change "generic" (as in Generic object) to "native".
 + Change Nl to NL.
