@@ -384,6 +384,8 @@ SetExactBits, SetVar, StackSize, Stringify, Subtract, Version, ' (the quote oper
 + Change function names which have a ' in them to version without '.
 + Have commands which are similar to scientific calculator functions (like NCR, NPR, etc).
 + Multivariate factoring.
++ Add a Terms function which returns all the terms of a polynomial.
++ Add a Coefficients function which returns all the coefficients of a polynomial.
 
 ----
 + Regular expressions
