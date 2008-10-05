@@ -318,7 +318,7 @@ public abstract class BuiltinFunction
                 "Head");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Nth(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathNth");
+                "Nth");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Tail(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Tail");
