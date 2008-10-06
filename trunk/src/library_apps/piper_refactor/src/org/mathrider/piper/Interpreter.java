@@ -27,7 +27,7 @@ import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.Printer;

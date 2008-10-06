@@ -20,7 +20,7 @@ package org.mathrider.piper.lisp.parsers;
 
 import org.mathrider.piper.applet.*;
 
-public class TeXParser
+public class TexParser
 {
 
 	static String singleOps = "^_+=,";

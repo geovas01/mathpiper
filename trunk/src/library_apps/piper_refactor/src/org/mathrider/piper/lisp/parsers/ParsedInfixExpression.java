@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Atom;
-import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.InfixOperator;

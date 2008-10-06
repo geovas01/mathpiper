@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.applet;
 
-import org.mathrider.piper.lisp.parsers.TeXParser;
+import org.mathrider.piper.lisp.parsers.TexParser;
 import org.mathrider.piper.*;
 import java.awt.*;
 import java.applet.*;
@@ -126,7 +126,7 @@ public class FormulaViewApplet extends Applet
 			if (s != null)
 			{
 				System.out.println("re-rendering the whole formula!");
-				TeXParser parser = new TeXParser();
+				TexParser parser = new TexParser();
 				expression = parser.parse(s);
 			}
 		}

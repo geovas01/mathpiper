@@ -25,7 +25,7 @@ import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.io.InputDirectories;
 import org.mathrider.piper.lisp.behaviours.SubstBase;
-import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;

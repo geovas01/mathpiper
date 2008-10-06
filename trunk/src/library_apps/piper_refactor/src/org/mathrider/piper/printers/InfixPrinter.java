@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 import org.mathrider.piper.lisp.InfixOperator;
 import org.mathrider.piper.lisp.Operators;
 import org.mathrider.piper.lisp.Printer;
