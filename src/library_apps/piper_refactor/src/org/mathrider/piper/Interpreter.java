@@ -20,14 +20,14 @@ package org.mathrider.piper;
 import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.printers.InfixPrinter;
-import org.mathrider.piper.lisp.parsers.InfixParser;
+import org.mathrider.piper.lisp.parsers.MathPiperParser;
 import org.mathrider.piper.io.StringOutputStream;
 import org.mathrider.piper.io.StringInputStream;
 import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.tokenizers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.Printer;
@@ -44,7 +44,7 @@ public class Interpreter
 {
 
     public Environment environment = null;
-    Tokenizer tokenizer = null;
+    MathPiperTokenizer tokenizer = null;
     Printer printer = null;
     public String iError = null;
     String defaultDirectory = null;
@@ -58,7 +58,7 @@ public class Interpreter
         try
         {
             environment = new Environment(stdoutput);
-            tokenizer = new Tokenizer();
+            tokenizer = new MathPiperTokenizer();
             printer = new InfixPrinter(environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
 
 
@@ -187,7 +187,7 @@ public class Interpreter
                 inp.append(";");
                 StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
                 
-                Parser infixParser = new InfixParser(tokenizer, inputExpressionBuffer, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
+                Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
                 infixParser.parse(inputExpressionPointer);
             }
 

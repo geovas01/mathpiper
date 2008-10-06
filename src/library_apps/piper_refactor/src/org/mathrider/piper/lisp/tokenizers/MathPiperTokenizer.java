@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.*;
 import org.mathrider.piper.*;
 
 
-public class Tokenizer
+public class MathPiperTokenizer
 {
 	static String symbolics = new String("~`!@#$^&*-=+:<>?/\\|");
 	String iToken; //Can be used as a token container.

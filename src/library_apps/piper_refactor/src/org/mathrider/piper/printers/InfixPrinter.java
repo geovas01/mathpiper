@@ -24,7 +24,7 @@ import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.tokenizers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathrider.piper.lisp.InfixOperator;
 import org.mathrider.piper.lisp.Operators;
 import org.mathrider.piper.lisp.Printer;
@@ -72,7 +72,7 @@ public class InfixPrinter extends Printer
 			boolean bracket=false;
 			if (iPrecedence<KMaxPrecedence &&
 			                string.charAt(0) == '-' &&
-			                (Tokenizer.isDigit(string.charAt(1)) || string.charAt(1) == '.')
+			                (MathPiperTokenizer.isDigit(string.charAt(1)) || string.charAt(1) == '.')
 			   )
 			{
 				bracket=true;
@@ -238,11 +238,11 @@ public class InfixPrinter extends Printer
 	}
 	void WriteToken(OutputStream aOutput,String aString) throws Exception
 	{
-		if (Tokenizer.isAlNum(iPrevLastChar) && (Tokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
+		if (MathPiperTokenizer.isAlNum(iPrevLastChar) && (MathPiperTokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
 		{
 			aOutput.Write(" ");
 		}
-		else if (Tokenizer.isSymbolic(iPrevLastChar) && Tokenizer.isSymbolic(aString.charAt(0)))
+		else if (MathPiperTokenizer.isSymbolic(iPrevLastChar) && MathPiperTokenizer.isSymbolic(aString.charAt(0)))
 		{
 			aOutput.Write(" ");
 		}

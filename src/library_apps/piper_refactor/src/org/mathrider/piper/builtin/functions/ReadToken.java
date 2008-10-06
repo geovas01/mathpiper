@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.tokenizers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.MathPiperTokenizer;
 
 /**
  *
@@ -31,7 +31,7 @@ public class ReadToken extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Tokenizer tok = aEnvironment.iCurrentTokenizer;
+        MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;
         result = tok.nextToken(aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
 

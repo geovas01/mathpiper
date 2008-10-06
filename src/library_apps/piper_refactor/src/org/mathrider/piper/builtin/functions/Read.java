@@ -19,7 +19,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.parsers.InfixParser;
+import org.mathrider.piper.lisp.parsers.MathPiperParser;
 
 /**
  *
@@ -30,7 +30,7 @@ public class Read extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        InfixParser parser = new InfixParser(aEnvironment.iCurrentTokenizer,
+        MathPiperParser parser = new MathPiperParser(aEnvironment.iCurrentTokenizer,
                 aEnvironment.iCurrentInput,
                 aEnvironment,
                 aEnvironment.iPrefixOperators,
