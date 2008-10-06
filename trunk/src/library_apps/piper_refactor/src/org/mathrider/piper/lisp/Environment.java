@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.tokenizers.XmlTokenizer;
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.lisp.UtilityFunctions;;
 import org.mathrider.piper.io.InputDirectories;
-import org.mathrider.piper.lisp.tokenizers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathrider.piper.lisp.userfunctions.MacroUserFunction;
 import org.mathrider.piper.lisp.userfunctions.UserFunction;
@@ -84,9 +84,9 @@ public class Environment
 	public Printer iCurrentPrinter = null;
 	public InputStream   iCurrentInput   = null;
 	public InputStatus iInputStatus    = new InputStatus();
-	public Tokenizer iCurrentTokenizer;
-	public Tokenizer iDefaultTokenizer = new Tokenizer();
-	public Tokenizer iXmlTokenizer = new XmlTokenizer();
+	public MathPiperTokenizer iCurrentTokenizer;
+	public MathPiperTokenizer iDefaultTokenizer = new MathPiperTokenizer();
+	public MathPiperTokenizer iXmlTokenizer = new XmlTokenizer();
 
 	public AssociatedHash iUserFunctions = new AssociatedHash();
 

@@ -24,14 +24,14 @@ import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Atom;
-import org.mathrider.piper.lisp.tokenizers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.InfixOperator;
 import org.mathrider.piper.lisp.Operators;
 
-public class InfixParser extends Parser
+public class MathPiperParser extends Parser
 {
 
     public Operators iPrefixOperators;
@@ -44,7 +44,7 @@ public class InfixParser extends Parser
     String iLookAhead;
     public ConsPointer iResult = new ConsPointer();
 
-    public InfixParser(Tokenizer aTokenizer,
+    public MathPiperParser(MathPiperTokenizer aTokenizer,
             InputStream aInput,
             Environment aEnvironment,
             Operators aPrefixOperators,
@@ -149,7 +149,7 @@ public class InfixParser extends Parser
                 if (op == null)
                 {
                     //printf("op [%s]\n",iLookAhead.String());
-                    if (Tokenizer.isSymbolic(iLookAhead.charAt(0)))
+                    if (MathPiperTokenizer.isSymbolic(iLookAhead.charAt(0)))
                     {
                         int origlen = iLookAhead.length();
                         int len = origlen;

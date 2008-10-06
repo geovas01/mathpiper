@@ -25,7 +25,7 @@ import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.SubList;
-import org.mathrider.piper.lisp.tokenizers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.MathPiperTokenizer;
 
 /**
  *
@@ -60,7 +60,7 @@ public class ExplodeTag extends BuiltinFunction
         String tag = new String();
 
         tag = tag + "\"";
-        while (Tokenizer.isAlpha(str.charAt(strInd)))
+        while (MathPiperTokenizer.isAlpha(str.charAt(strInd)))
         {
             char c = str.charAt(strInd);
             strInd++;
@@ -83,7 +83,7 @@ public class ExplodeTag extends BuiltinFunction
             String name = new String();
             name = name + "\"";
 
-            while (Tokenizer.isAlpha(str.charAt(strInd)))
+            while (MathPiperTokenizer.isAlpha(str.charAt(strInd)))
             {
                 char c = str.charAt(strInd);
                 strInd++;

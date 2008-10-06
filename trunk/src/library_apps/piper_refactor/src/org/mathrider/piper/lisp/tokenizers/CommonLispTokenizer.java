@@ -134,7 +134,7 @@ Ayal
 
 import org.mathrider.piper.lisp.*;
 
-class CommonLispTokenizer extends Tokenizer
+class CommonLispTokenizer extends MathPiperTokenizer
 {
 /*
 class CommonLispTokenizer extends LispTokenizer

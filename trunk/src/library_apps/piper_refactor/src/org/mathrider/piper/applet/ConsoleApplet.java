@@ -25,7 +25,7 @@ import org.mathrider.piper.io.StringOutputStream;
 import org.mathrider.piper.*;
 import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.UtilityFunctions;
-import org.mathrider.piper.lisp.tokenizers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.MathPiperTokenizer;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.Transferable;
@@ -1512,7 +1512,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 		{
 			if (ito==inputLine.length())
 				break;
-			if (!Tokenizer.isAlpha(inputLine.charAt(ito)))
+			if (!MathPiperTokenizer.isAlpha(inputLine.charAt(ito)))
 				break;
 			ito++;
 		}
@@ -1550,7 +1550,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			{
 				if (ito==cursorPos)
 					break;
-				if (!Tokenizer.isAlpha(inputLine.charAt(ito)))
+				if (!MathPiperTokenizer.isAlpha(inputLine.charAt(ito)))
 					break;
 				ito++;
 			}
@@ -1561,12 +1561,12 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			if (ifrom == 0)
 				break;
 			char c = inputLine.charAt(ifrom-1);
-			if (!Tokenizer.isAlpha(c) && !Tokenizer.isDigit(c))
+			if (!MathPiperTokenizer.isAlpha(c) && !MathPiperTokenizer.isDigit(c))
 				break;
 			ifrom--;
 		}
 		// Name of function *has* to start with alphabetic letter
-		while (ifrom < ito && Tokenizer.isDigit(inputLine.charAt(ifrom)))
+		while (ifrom < ito && MathPiperTokenizer.isDigit(inputLine.charAt(ifrom)))
 			ifrom++;
 
 		matchToInsert = "";

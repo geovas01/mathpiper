@@ -25,10 +25,10 @@ import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.io.InputDirectories;
 import org.mathrider.piper.lisp.behaviours.SubstBase;
-import org.mathrider.piper.lisp.tokenizers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathrider.piper.printers.InfixPrinter;
-import org.mathrider.piper.lisp.parsers.InfixParser;
+import org.mathrider.piper.lisp.parsers.MathPiperParser;
 import org.mathrider.piper.io.JarFileInputStream;
 import org.mathrider.piper.io.StandardFileInputStream;
 import org.mathrider.piper.io.StringOutputStream;
@@ -479,7 +479,7 @@ public class UtilityFunctions
 			// read-parse-evaluate to the end of file
 			String eof = aEnvironment.getTokenHash().lookUp("EndOfFile");
 			boolean endoffile = false;
-			InfixParser parser = new InfixParser(new Tokenizer(),
+			MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),
 			                                     aEnvironment.iCurrentInput, aEnvironment,
 			                                     aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
 			                                     aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
@@ -649,7 +649,7 @@ public class UtilityFunctions
 			String end = aEnvironment.getTokenHash().lookUp("}");
 			boolean endoffile = false;
 
-			Tokenizer tok = new Tokenizer();
+			MathPiperTokenizer tok = new MathPiperTokenizer();
 
 			while (!endoffile)
 			{
