@@ -27,12 +27,20 @@ import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 import org.mathrider.piper.io.InputStream;
+import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.InfixOperator;
+import org.mathrider.piper.lisp.Operators;
 
 
-public class ParsedInfixExpression
+public class InfixParser extends Parser
 {
+    
+    public Operators iPrefixOperators;
+    public Operators iInfixOperators;
+    public Operators iPostfixOperators;
+    public Operators iBodiedOperators;
+    
 	InfixParser iParser;
 	boolean iError;
 	boolean iEndOfFile;
@@ -40,13 +48,30 @@ public class ParsedInfixExpression
 
 	public ConsPointer iResult =  new ConsPointer();
 	
-	public ParsedInfixExpression(InfixParser aParser)
-	{
-		iParser = aParser;
+	    public InfixParser(Tokenizer aTokenizer,
+            InputStream aInput,
+            Environment aEnvironment,
+            Operators aPrefixOperators,
+            Operators aInfixOperators,
+            Operators aPostfixOperators,
+            Operators aBodiedOperators)
+    {
+        super(aTokenizer, aInput, aEnvironment);
+        iPrefixOperators = aPrefixOperators;
+        iInfixOperators = aInfixOperators;
+        iPostfixOperators = aPostfixOperators;
+        iBodiedOperators = aBodiedOperators;
+		
 		iError = false;
 		iEndOfFile = false;
 		iLookAhead = null;
 	}
+            
+    public void parse(ConsPointer aResult) throws Exception
+    {
+        parse();
+        aResult.set(iResult.get());
+    }
 	
 	public void parse() throws Exception
 	{
