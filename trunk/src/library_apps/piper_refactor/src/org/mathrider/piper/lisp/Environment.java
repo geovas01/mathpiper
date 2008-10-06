@@ -18,6 +18,8 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.io.InputStream;
+import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.parsers.XmlTokenizer;
 import org.mathrider.piper.io.InputStatus;
@@ -76,11 +78,11 @@ public class Environment
 
 	public int iLastUniqueId = 1;
 
-	public Output iCurrentOutput = null;
-	public Output iInitialOutput = null;
+	public OutputStream iCurrentOutput = null;
+	public OutputStream iInitialOutput = null;
 
 	public Printer iCurrentPrinter = null;
-	public Input   iCurrentInput   = null;
+	public InputStream   iCurrentInput   = null;
 	public InputStatus iInputStatus    = new InputStatus();
 	public Tokenizer iCurrentTokenizer;
 	public Tokenizer iDefaultTokenizer = new Tokenizer();
@@ -98,7 +100,7 @@ public class Environment
         
         AssociatedHash iBuiltinFunctions = new AssociatedHash();
 
-	public Environment(Output aCurrentOutput/*TODO FIXME*/) throws Exception
+	public Environment(OutputStream aCurrentOutput/*TODO FIXME*/) throws Exception
 	{
 		iCurrentTokenizer = iDefaultTokenizer;
 		iInitialOutput = aCurrentOutput;

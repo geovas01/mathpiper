@@ -19,55 +19,71 @@
 package org.mathrider.piper.io;
 
 import org.mathrider.piper.*;
-import java.io.*;
+import org.mathrider.piper.io.InputStream;
 
-
-public class StdFileInput
-			extends StringInput
+public class StringInputStream
+			extends InputStream
 {
-       // private static String path;
-        //static void setPath(String aPath)
-        //{
-        //    path = aPath;
-        //}
-        
-	public StdFileInput(String aFileName, InputStatus aStatus)
-	throws Exception
+
+	int iCurrent;
+	StringBuffer iString;
+
+	public StringInputStream(StringBuffer aString, InputStatus aStatus)
 	{
-		super(new StringBuffer(), aStatus);
-
-		//System.out.println("YYYYYY " + aFileName);//Note:tk: remove.
-		FileInputStream stream = new FileInputStream(aFileName);
-		int c;
-
-		while (true)
-		{
-			c = stream.read();
-
-			if (c == -1)
-
-				break;
-
-			iString.append((char)c);
-		}
+		super(aStatus);
+		iString = aString;
+		iCurrent = 0;
 	}
 
-	public StdFileInput(InputStream aStream, InputStatus aStatus)
+	public char next()
 	throws Exception
 	{
-		super(new StringBuffer(), aStatus);
 
-		int c;
+		if (iCurrent == iString.length())
 
-		while (true)
-		{
-			c = aStream.read();
+			return '\0';
 
-			if (c == -1)
+		iCurrent++;
 
-				break;
+		char c = iString.charAt(iCurrent - 1);
 
-			iString.append((char)c);
-		}
+		if (c == '\n')
+			iStatus.nextLine();
+
+		return c;
+	}
+
+	public char peek()
+	throws Exception
+	{
+
+		if (iCurrent == iString.length())
+
+			return '\0';
+
+		return iString.charAt(iCurrent);
+	}
+
+	public boolean endOfStream()
+	{
+
+		return (iCurrent == iString.length());
+	}
+
+	public StringBuffer startPtr()
+	{
+
+		return iString;
+	}
+
+	public int position()
+	{
+
+		return iCurrent;
+	}
+
+	public void setPosition(int aPosition)
+	{
+		iCurrent = aPosition;
 	}
 }

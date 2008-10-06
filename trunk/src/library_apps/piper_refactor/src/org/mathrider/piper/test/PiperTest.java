@@ -3,7 +3,7 @@
 package org.mathrider.piper.test;
 
 import org.mathrider.piper.Interpreter;
-import org.mathrider.piper.io.StdFileOutput;
+import org.mathrider.piper.io.StandardFileOutputStream;
 
 public class PiperTest
 {
@@ -25,7 +25,7 @@ public class PiperTest
 			
 			logFile = new java.io.FileWriter("piper_tests.log");
 			
-			piper = new Interpreter( new StdFileOutput(System.out));
+			piper = new Interpreter( new StandardFileOutputStream(System.out));
 			
 			testDirectory = new java.io.File(directory);
 			if(testDirectory.exists() )

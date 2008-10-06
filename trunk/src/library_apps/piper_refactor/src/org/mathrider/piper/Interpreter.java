@@ -21,19 +21,19 @@ import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
-import org.mathrider.piper.io.StringOutput;
-import org.mathrider.piper.io.StringInput;
-import org.mathrider.piper.lisp.Output;
+import org.mathrider.piper.io.StringOutputStream;
+import org.mathrider.piper.io.StringInputStream;
+import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.parsers.Parser;
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.Printer;
 
-import org.mathrider.piper.io.CachedStdFileInput;
-import org.mathrider.piper.io.StdFileOutput;
+import org.mathrider.piper.io.CachedStandardFileInputStream;
+import org.mathrider.piper.io.StandardFileOutputStream;
 import java.io.*;
 
 /**
@@ -53,7 +53,7 @@ public class Interpreter
     String pathParent = "";
     boolean inZipFile = false;
 
-    public Interpreter(Output stdoutput)
+    public Interpreter(OutputStream stdoutput)
     {
         try
         {
@@ -62,7 +62,7 @@ public class Interpreter
             printer = new InfixPrinter(environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
 
 
-            environment.iCurrentInput = new CachedStdFileInput(environment.iInputStatus);
+            environment.iCurrentInput = new CachedStandardFileInputStream(environment.iInputStatus);
 
 
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
@@ -158,9 +158,9 @@ public class Interpreter
                 inp.append(inputExpression);
                 InputStatus oldstatus = environment.iInputStatus;
                 environment.iInputStatus.setTo("String");
-                StringInput newInput = new StringInput(new StringBuffer(inputExpression), environment.iInputStatus);
+                StringInputStream newInput = new StringInputStream(new StringBuffer(inputExpression), environment.iInputStatus);
 
-                Input previous = environment.iCurrentInput;
+                InputStream previous = environment.iCurrentInput;
                 environment.iCurrentInput = newInput;
                 try
                 {
@@ -185,7 +185,7 @@ public class Interpreter
                 StringBuffer inp = new StringBuffer();
                 inp.append(inputExpression);
                 inp.append(";");
-                StringInput inputExpressionBuffer = new StringInput(inp, someStatus);
+                StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
                 
                 Parser infixParser = new InfixParser(tokenizer, inputExpressionBuffer, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
                 infixParser.parse(inputExpressionPointer);
@@ -198,7 +198,7 @@ public class Interpreter
             environment.setVariable(percent, result, true);
 
             StringBuffer string_out = new StringBuffer();
-            Output output = new StringOutput(string_out);
+            OutputStream output = new StringOutputStream(string_out);
 
             if (environment.iPrettyPrinter != null)
             {

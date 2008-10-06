@@ -19,7 +19,7 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Output;
+import org.mathrider.piper.io.OutputStream;
 
 /**
  *
@@ -30,7 +30,7 @@ public class ToStdout extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Output previous = aEnvironment.iCurrentOutput;
+        OutputStream previous = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
         try
         {

@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.builtin;
 
-import org.mathrider.piper.lisp.Output;
+import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.LispError;
 import java.math.*;
 
@@ -377,7 +377,7 @@ public class BigNumber
 	}
 
 	/// For debugging purposes, dump internal state of this object into a string
-	public void DumpDebugInfo(Output aOutput) throws Exception
+	public void DumpDebugInfo(OutputStream aOutput) throws Exception
 	{
 		if (integer != null)
 		{

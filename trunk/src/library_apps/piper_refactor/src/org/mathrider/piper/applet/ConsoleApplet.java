@@ -20,10 +20,10 @@ package org.mathrider.piper.applet;
 
 import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.lisp.parsers.TeXParser;
-import org.mathrider.piper.io.CachedStdFileInput;
-import org.mathrider.piper.io.StringOutput;
+import org.mathrider.piper.io.CachedStandardFileInputStream;
+import org.mathrider.piper.io.StringOutputStream;
 import org.mathrider.piper.*;
-import org.mathrider.piper.lisp.Output;
+import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
 import java.awt.datatransfer.Clipboard;
@@ -48,7 +48,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 	int yStart = 0;
 	boolean calculating = false;
 
-	Output stdoutput = null;
+	OutputStream stdoutput = null;
 	Interpreter piper = null;
 	StringBuffer outp = new StringBuffer();
 
@@ -276,9 +276,9 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 		}
 
 
-		stdoutput = new StringOutput(outp);
+		stdoutput = new StringOutputStream(outp);
 		piper = new Interpreter(stdoutput);
-		piper.environment.iCurrentInput = new CachedStdFileInput(piper.environment.iInputStatus);
+		piper.environment.iCurrentInput = new CachedStandardFileInputStream(piper.environment.iInputStatus);
 
 
 		if (piperLogo != null)

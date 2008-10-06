@@ -17,6 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.*;
 
 /**
@@ -41,7 +42,7 @@ public abstract class ExpressionEvaluator
         return iBasicInfo;
     }
 
-    public void showStack(Environment aEnvironment, Output aOutput)
+    public void showStack(Environment aEnvironment, OutputStream aOutput)
     {
     }
 };

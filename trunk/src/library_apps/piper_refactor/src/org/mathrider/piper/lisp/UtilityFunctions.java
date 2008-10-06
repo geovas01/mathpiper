@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.exceptions.PiperException;
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.builtin.BigNumber;
@@ -28,9 +29,9 @@ import org.mathrider.piper.lisp.parsers.Tokenizer;
 import org.mathrider.piper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathrider.piper.printers.InfixPrinter;
 import org.mathrider.piper.lisp.parsers.InfixParser;
-import org.mathrider.piper.io.JarInputFile;
-import org.mathrider.piper.io.StdFileInput;
-import org.mathrider.piper.io.StringOutput;
+import org.mathrider.piper.io.JarFileInputStream;
+import org.mathrider.piper.io.StandardFileInputStream;
+import org.mathrider.piper.io.StringOutputStream;
 
 
 public class UtilityFunctions
@@ -468,9 +469,9 @@ public class UtilityFunctions
 
 
 
-	public static void doInternalLoad(Environment aEnvironment,Input aInput) throws Exception
+	public static void doInternalLoad(Environment aEnvironment,InputStream aInput) throws Exception
 	{
-		Input previous = aEnvironment.iCurrentInput;
+		InputStream previous = aEnvironment.iCurrentInput;
 		try
 		{
 			aEnvironment.iCurrentInput = aInput;
@@ -525,7 +526,7 @@ public class UtilityFunctions
 		try
 		{
 			// Open file
-			Input newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
+			InputStream newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
 			        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
 			LispError.check(newInput != null, LispError.KLispErrFileNotFound);
@@ -556,7 +557,7 @@ public class UtilityFunctions
 	                              int aMaxChars) throws Exception
 	{
 		StringBuffer result = new StringBuffer();
-		StringOutput newOutput = new StringOutput(result);
+		StringOutputStream newOutput = new StringOutputStream(result);
 		InfixPrinter infixprinter = new InfixPrinter(aEnvironment.iPrefixOperators,
 		                            aEnvironment.iInfixOperators,
 		                            aEnvironment.iPostfixOperators,
@@ -573,7 +574,7 @@ public class UtilityFunctions
 	}
 
 
-	public static Input openInputFile(String aFileName, InputStatus aInputStatus) throws Exception
+	public static InputStream openInputFile(String aFileName, InputStatus aInputStatus) throws Exception
 	{
 		try
 		{
@@ -583,17 +584,17 @@ public class UtilityFunctions
 				if (e != null)
 				{
 					java.io.InputStream s = zipFile.getInputStream(e);
-					return new StdFileInput(s, aInputStatus);
+					return new StandardFileInputStream(s, aInputStatus);
 				}
 			}
 
 			if (aFileName.substring(0,4).equals("jar:"))
 			{
-				return new JarInputFile(aFileName, aInputStatus);
+				return new JarFileInputStream(aFileName, aInputStatus);
 			}
 			else
 			{
-				return new StdFileInput(aFileName, aInputStatus);
+				return new StandardFileInputStream(aFileName, aInputStatus);
 			}
 		}
 		catch (Exception e)
@@ -602,13 +603,13 @@ public class UtilityFunctions
 		return null;
 	}
 
-	public static Input openInputFile(Environment aEnvironment,
+	public static InputStream openInputFile(Environment aEnvironment,
 	                                      InputDirectories aInputDirectories, String aFileName,
 	                                      InputStatus aInputStatus) throws Exception
 	{
 		String othername = aFileName;
 		int i = 0;
-		Input f = openInputFile(othername, aInputStatus);
+		InputStream f = openInputFile(othername, aInputStatus);
 		while (f == null && i<aInputDirectories.size())
 		{
 			othername = ((String)aInputDirectories.get(i)) + aFileName;
@@ -624,7 +625,7 @@ public class UtilityFunctions
 		InputStatus inputStatus = new InputStatus();
 		String othername = aFileName;
 		int i = 0;
-		Input f = openInputFile(othername, inputStatus);
+		InputStream f = openInputFile(othername, inputStatus);
 		if (f != null) return othername;
 		while (i<aInputDirectories.size())
 		{
@@ -637,10 +638,10 @@ public class UtilityFunctions
 	}
 
 
-	private static void doLoadDefFile(Environment aEnvironment, Input aInput,
+	private static void doLoadDefFile(Environment aEnvironment, InputStream aInput,
 	                                  DefFile def) throws Exception
 	{
-		Input previous = aEnvironment.iCurrentInput;
+		InputStream previous = aEnvironment.iCurrentInput;
 		try
 		{
 			aEnvironment.iCurrentInput = aInput;
@@ -697,7 +698,7 @@ public class UtilityFunctions
 		aEnvironment.iInputStatus.setTo(hashedname);
 
 		{
-			Input newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
+			InputStream newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
 			        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 			LispError.check(newInput != null, LispError.KLispErrFileNotFound);
 			doLoadDefFile(aEnvironment, newInput,def);
