@@ -1,1 +1,1 @@
-java org.mathrider.piper.tests.PiperTest
+java org.mathpiper.tests.PiperTest
