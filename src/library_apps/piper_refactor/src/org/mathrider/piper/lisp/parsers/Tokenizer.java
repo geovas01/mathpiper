@@ -18,6 +18,7 @@
 
 package org.mathrider.piper.lisp.parsers;
 
+import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.builtin.BigNumber;
 import org.mathrider.piper.lisp.*;
 import org.mathrider.piper.*;
@@ -30,9 +31,9 @@ public class Tokenizer
 
 	/// NextToken returns a string representing the next token,
 	/// or an empty list.
-	public String nextToken(Input aInput, TokenHash aHashTable) throws Exception
+	public String nextToken(InputStream aInput, TokenHash aTokenHashTable) throws Exception
 	{
-		char c;
+		char streamCharacter;
 		int firstpos = aInput.position();
 
 		boolean redo = true;
@@ -46,21 +47,21 @@ public class Tokenizer
 			if (aInput.endOfStream())
 				break;
 
-			c = aInput.next();
+			streamCharacter = aInput.next();
 			//printf("%c",c);
 
 			//Parse brackets
-		if (c == '(')      {}
-			else if (c == ')') {}
-			else if (c == '{') {}
-			else if (c == '}') {}
-			else if (c == '[') {}
-			else if (c == ']') {}
-			else if (c == ',') {}
-			else if (c == ';') {}
-			else if (c == '%') {}
+		if (streamCharacter == '(')      {}
+			else if (streamCharacter == ')') {}
+			else if (streamCharacter == '{') {}
+			else if (streamCharacter == '}') {}
+			else if (streamCharacter == '[') {}
+			else if (streamCharacter == ']') {}
+			else if (streamCharacter == ',') {}
+			else if (streamCharacter == ';') {}
+			else if (streamCharacter == '%') {}
 			//    else if (c == '\'') {}
-			else if (c == '.' && !isDigit(aInput.peek()) )
+			else if (streamCharacter == '.' && !isDigit(aInput.peek()) )
 			{
 				while (aInput.peek() == '.')
 				{
@@ -68,7 +69,7 @@ public class Tokenizer
 				}
 			}
 			// parse comments
-			else if (c == '/' && aInput.peek() == '*')
+			else if (streamCharacter == '/' && aInput.peek() == '*')
 			{
 				aInput.next(); //consume *
 				while (true)
@@ -87,7 +88,7 @@ public class Tokenizer
 					continue;
 				}
 			}
-			else if (c == '/' && aInput.peek() == '/')
+			else if (streamCharacter == '/' && aInput.peek() == '/')
 			{
 				aInput.next(); //consume /
 				while (aInput.next() != '\n' && !aInput.endOfStream());
@@ -95,12 +96,12 @@ public class Tokenizer
 				continue;
 			}
 			// parse literal strings
-			else if (c == '\"')
+			else if (streamCharacter == '\"')
 			{
 				String aResult;
 				aResult = "";
 				//TODO FIXME is following append char correct?
-				aResult = aResult + ((char)c);
+				aResult = aResult + ((char)streamCharacter);
 				while (aInput.peek() != '\"')
 				{
 					if (aInput.peek() == '\\')
@@ -114,10 +115,10 @@ public class Tokenizer
 				}
 				//TODO FIXME is following append char correct?
 				aResult = aResult + ((char)aInput.next()); // consume the close quote
-				return aHashTable.lookUp(aResult);
+				return aTokenHashTable.lookUp(aResult);
 			}
 			//parse atoms
-			else if (isAlpha(c))
+			else if (isAlpha(streamCharacter))
 			{
 				while (isAlNum( aInput.peek()))
 				{
@@ -125,21 +126,21 @@ public class Tokenizer
 				}
 			}
 
-			else if (isSymbolic(c))
+			else if (isSymbolic(streamCharacter))
 			{
 				while (isSymbolic( aInput.peek()))
 				{
 					aInput.next();
 				}
 			}
-			else if (c == '_')
+			else if (streamCharacter == '_')
 			{
 				while (aInput.peek() == '_')
 				{
 					aInput.next();
 				}
 			}
-			else if (isDigit(c) || c == '.')
+			else if (isDigit(streamCharacter) || streamCharacter == '.')
 			{
 				while (isDigit( aInput.peek())) aInput.next();
 				if (aInput.peek() == '.')
@@ -165,7 +166,7 @@ public class Tokenizer
 				continue;
 			}
 		}
-		return aHashTable.lookUp(aInput.startPtr().substring(firstpos,aInput.position()));
+		return aTokenHashTable.lookUp(aInput.startPtr().substring(firstpos,aInput.position()));
 	}
 
 	public static boolean isDigit(char c)

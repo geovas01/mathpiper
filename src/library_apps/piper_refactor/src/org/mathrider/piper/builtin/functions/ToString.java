@@ -18,10 +18,10 @@
 package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.io.StringOutput;
+import org.mathrider.piper.io.StringOutputStream;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Output;
+import org.mathrider.piper.io.OutputStream;
 
 /**
  *
@@ -33,8 +33,8 @@ public class ToString extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         StringBuffer oper = new StringBuffer();
-        StringOutput newOutput = new StringOutput(oper);
-        Output previous = aEnvironment.iCurrentOutput;
+        StringOutputStream newOutput = new StringOutputStream(oper);
+        OutputStream previous = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = newOutput;
         try
         {

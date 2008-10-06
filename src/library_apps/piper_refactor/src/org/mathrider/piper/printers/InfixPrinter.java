@@ -18,7 +18,7 @@
 
 package org.mathrider.piper.printers;
 
-import org.mathrider.piper.lisp.Output;
+import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.LispError;
@@ -53,7 +53,7 @@ public class InfixPrinter extends Printer
 		iBodiedOperators = aBodiedOperators;
 		iPrevLastChar = 0;
 	}
-	public void print(ConsPointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
+	public void print(ConsPointer aExpression, OutputStream aOutput, Environment aEnvironment) throws Exception
 	{
 		iCurrentEnvironment = aEnvironment;
 		Print(aExpression, aOutput, KMaxPrecedence);
@@ -62,7 +62,7 @@ public class InfixPrinter extends Printer
 	{
 		iPrevLastChar = aChar;
 	}
-	void Print(ConsPointer aExpression, Output aOutput, int iPrecedence) throws Exception
+	void Print(ConsPointer aExpression, OutputStream aOutput, int iPrecedence) throws Exception
 	{
 		LispError.lispAssert(aExpression.get() != null);
 
@@ -236,7 +236,7 @@ public class InfixPrinter extends Printer
 			}
 		}
 	}
-	void WriteToken(Output aOutput,String aString) throws Exception
+	void WriteToken(OutputStream aOutput,String aString) throws Exception
 	{
 		if (Tokenizer.isAlNum(iPrevLastChar) && (Tokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
 		{

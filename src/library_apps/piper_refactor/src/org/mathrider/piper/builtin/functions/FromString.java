@@ -19,9 +19,9 @@ package org.mathrider.piper.builtin.functions;
 
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.io.InputStatus;
-import org.mathrider.piper.io.StringInput;
+import org.mathrider.piper.io.StringInputStream;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.UtilityFunctions;
@@ -46,9 +46,9 @@ public class FromString extends BuiltinFunction
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
         aEnvironment.iInputStatus.setTo("String");
-        StringInput newInput = new StringInput(new StringBuffer(oper), aEnvironment.iInputStatus);
+        StringInputStream newInput = new StringInputStream(new StringBuffer(oper), aEnvironment.iInputStatus);
 
-        Input previous = aEnvironment.iCurrentInput;
+        InputStream previous = aEnvironment.iCurrentInput;
         aEnvironment.iCurrentInput = newInput;
         try
         {

@@ -22,7 +22,7 @@ import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.parsers.Parser;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.Operators;
 
 public class InfixParser extends Parser
@@ -34,7 +34,7 @@ public class InfixParser extends Parser
     public Operators iBodiedOperators;
 
     public InfixParser(Tokenizer aTokenizer,
-            Input aInput,
+            InputStream aInput,
             Environment aEnvironment,
             Operators aPrefixOperators,
             Operators aInfixOperators,

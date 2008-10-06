@@ -20,16 +20,16 @@ package org.mathrider.piper.io;
 
 
 import org.mathrider.piper.*;
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.io.InputStream;
 import java.io.*;
 
-/** CachedStdFileInput : input from stdin */
-public class CachedStdFileInput extends Input
+/** CachedStandardFileInputStream : input from stdin */
+public class CachedStandardFileInputStream extends InputStream
 {
 	StringBuffer iBuffer;
 	int iCurrentPos;
 
-	public CachedStdFileInput(InputStatus aStatus)
+	public CachedStandardFileInputStream(InputStatus aStatus)
 	{
 		super(aStatus);
 		rewind();

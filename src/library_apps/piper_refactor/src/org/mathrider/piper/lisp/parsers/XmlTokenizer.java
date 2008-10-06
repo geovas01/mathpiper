@@ -21,7 +21,7 @@ package org.mathrider.piper.lisp.parsers;
 import org.mathrider.piper.lisp.TokenHash;
 import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.io.InputStream;
 
 public class XmlTokenizer
 			extends Tokenizer
@@ -29,7 +29,7 @@ public class XmlTokenizer
 
 	/// NextToken returns a string representing the next token,
 	/// or an empty list.
-	public String nextToken(Input aInput, TokenHash aHashTable)
+	public String nextToken(InputStream aInput, TokenHash aHashTable)
 	throws Exception
 	{
 

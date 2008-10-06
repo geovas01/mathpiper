@@ -18,10 +18,12 @@
 
 package org.mathrider.piper.lisp;
 
+import org.mathrider.piper.io.OutputStream;
+
 
 public class Printer
 {
-	public void print(ConsPointer aExpression, Output aOutput, Environment aEnvironment) throws Exception
+	public void print(ConsPointer aExpression, OutputStream aOutput, Environment aEnvironment) throws Exception
 	{
 		printExpression(aExpression, aOutput, aEnvironment,0);
 	}
@@ -29,7 +31,7 @@ public class Printer
 	{
 	}
 
-	void printExpression(ConsPointer aExpression, Output aOutput,
+	void printExpression(ConsPointer aExpression, OutputStream aOutput,
 	                     Environment aEnvironment,int aDepth /* =0 */) throws Exception
 	{
 		ConsPointer iter = new ConsPointer();
@@ -66,7 +68,7 @@ public class Printer
 		} // print cdr element
 	}
 
-	void indent(Output aOutput, int aDepth) throws Exception
+	void indent(OutputStream aOutput, int aDepth) throws Exception
 	{
 		aOutput.Write("\n");
 		int i;

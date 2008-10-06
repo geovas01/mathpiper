@@ -18,7 +18,7 @@
 package org.mathrider.piper.lisp.parsers;
 
 import org.mathrider.piper.lisp.TokenHash;
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.io.InputStream;
 
 /**
  *

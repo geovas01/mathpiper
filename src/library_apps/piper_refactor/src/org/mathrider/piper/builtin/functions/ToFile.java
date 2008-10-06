@@ -19,10 +19,10 @@ package org.mathrider.piper.builtin.functions;
 
 import java.io.FileOutputStream;
 import org.mathrider.piper.builtin.BuiltinFunction;
-import org.mathrider.piper.io.StdFileOutput;
+import org.mathrider.piper.io.StandardFileOutputStream;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.Output;
+import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.UtilityFunctions;
 
@@ -49,9 +49,9 @@ public class ToFile extends BuiltinFunction
         // Open file for writing
         FileOutputStream localFP = new FileOutputStream(oper);
         LispError.checkCore(aEnvironment, aStackTop, localFP != null, LispError.KLispErrFileNotFound);
-        StdFileOutput newOutput = new StdFileOutput(localFP);
+        StandardFileOutputStream newOutput = new StandardFileOutputStream(localFP);
 
-        Output previous = aEnvironment.iCurrentOutput;
+        OutputStream previous = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = newOutput;
 
         try

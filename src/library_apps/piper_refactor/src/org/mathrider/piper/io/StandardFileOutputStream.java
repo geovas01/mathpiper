@@ -18,72 +18,24 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathrider.piper.io;
 
-import org.mathrider.piper.*;
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.io.OutputStream;
 
-public class StringInput
-			extends Input
+
+
+public class StandardFileOutputStream
+			extends OutputStream //Note:tk: made this class public.
 {
 
-	int iCurrent;
-	StringBuffer iString;
+	java.io.OutputStream iFile;
 
-	public StringInput(StringBuffer aString, InputStatus aStatus)
+	public StandardFileOutputStream(java.io.OutputStream aFile)
 	{
-		super(aStatus);
-		iString = aString;
-		iCurrent = 0;
+		iFile = aFile;
 	}
 
-	public char next()
+	public void PutChar(char aChar)
 	throws Exception
 	{
-
-		if (iCurrent == iString.length())
-
-			return '\0';
-
-		iCurrent++;
-
-		char c = iString.charAt(iCurrent - 1);
-
-		if (c == '\n')
-			iStatus.nextLine();
-
-		return c;
+		iFile.write(aChar);
 	}
-
-	public char peek()
-	throws Exception
-	{
-
-		if (iCurrent == iString.length())
-
-			return '\0';
-
-		return iString.charAt(iCurrent);
-	}
-
-	public boolean endOfStream()
-	{
-
-		return (iCurrent == iString.length());
-	}
-
-	public StringBuffer startPtr()
-	{
-
-		return iString;
-	}
-
-	public int position()
-	{
-
-		return iCurrent;
-	}
-
-	public void setPosition(int aPosition)
-	{
-		iCurrent = aPosition;
-	}
-}
+};

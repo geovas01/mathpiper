@@ -16,11 +16,11 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp;
+package org.mathrider.piper.io;
 
-/** \class Output : interface an output object should adhere to.
+/** \class OutputStream : interface an output object should adhere to.
  */
-public abstract class Output //Note:tk: Made this interface public.
+public abstract class OutputStream //Note:tk: Made this interface public.
 {
 	/// Write out one character.
 	public abstract void PutChar(char aChar) throws Exception;

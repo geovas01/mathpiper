@@ -16,17 +16,17 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp;
+package org.mathrider.piper.io;
 
 import org.mathrider.piper.io.InputStatus;
 import org.mathrider.piper.*;
 
 
-/** \class Input : pure abstract class declaring the interface
+/** \class InputStream : pure abstract class declaring the interface
  *  that needs to be implemented by a file (something that expressions
  *  can be read from).
  */
-public abstract class Input
+public abstract class InputStream
 {
 	public InputStatus iStatus;
 
@@ -34,7 +34,7 @@ public abstract class Input
 	 * needed when an error occurred, and the file has already been
 	 * closed.
 	 */
-	public Input(InputStatus aStatus)
+	public InputStream(InputStatus aStatus)
 	{
 		iStatus = aStatus;
 	}
@@ -47,7 +47,7 @@ public abstract class Input
 	 */
 	public abstract char peek() throws Exception;
 
-	public InputStatus Status()
+	public InputStatus status()
 	{
 		return iStatus;
 	}

@@ -19,8 +19,8 @@ package org.mathrider.piper;
 
 //import org.mathrider.piper.lisp.UtilityFunctions;
 import org.mathrider.piper.exceptions.PiperException;
-import org.mathrider.piper.io.CachedStdFileInput;
-import org.mathrider.piper.io.StdFileOutput;
+import org.mathrider.piper.io.CachedStandardFileInputStream;
+import org.mathrider.piper.io.StandardFileOutputStream;
 import org.mathrider.piper.lisp.UtilityFunctions;
 import java.io.*;
 
@@ -35,7 +35,7 @@ public class Console extends Thread
 	public Console()
 	{
 		//Piper needs an output stream to send "side effect" output to.
-		StdFileOutput stdoutput = new StdFileOutput(System.out);
+		StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
 		interpreter = new Interpreter(stdoutput);
 	}
         

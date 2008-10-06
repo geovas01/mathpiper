@@ -26,7 +26,7 @@ import org.mathrider.piper.lisp.LispError;
 import org.mathrider.piper.lisp.ConsTraverser;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.parsers.Tokenizer;
-import org.mathrider.piper.lisp.Input;
+import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.SubList;
 import org.mathrider.piper.lisp.InfixOperator;
 
@@ -152,7 +152,7 @@ public class ParsedInfixExpression
 								{
 									//printf("ACCEPT %s\n",lookUp.String());
 									iLookAhead = lookUp;
-									Input input = iParser.iInput;
+									InputStream input = iParser.iInput;
 									int newPos = input.position()-(origlen-len);
 									input.setPosition(newPos);
 									//printf("Pushhback %s\n",&input.startPtr()[input.position()]);
