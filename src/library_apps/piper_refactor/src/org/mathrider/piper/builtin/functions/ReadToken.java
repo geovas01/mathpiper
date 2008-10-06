@@ -20,7 +20,7 @@ package org.mathrider.piper.builtin.functions;
 import org.mathrider.piper.builtin.BuiltinFunction;
 import org.mathrider.piper.lisp.Atom;
 import org.mathrider.piper.lisp.Environment;
-import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 
 /**
  *

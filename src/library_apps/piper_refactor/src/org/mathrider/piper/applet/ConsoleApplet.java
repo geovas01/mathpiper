@@ -19,13 +19,13 @@
 package org.mathrider.piper.applet;
 
 import org.mathrider.piper.exceptions.PiperException;
-import org.mathrider.piper.lisp.parsers.TeXParser;
+import org.mathrider.piper.lisp.parsers.TexParser;
 import org.mathrider.piper.io.CachedStandardFileInputStream;
 import org.mathrider.piper.io.StringOutputStream;
 import org.mathrider.piper.*;
 import org.mathrider.piper.io.OutputStream;
 import org.mathrider.piper.lisp.UtilityFunctions;
-import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.Transferable;
@@ -975,7 +975,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			iPromptFont = aPromptFont;
 			iPromptColor = aPromptColor;
 
-			TeXParser parser = new TeXParser();
+			TexParser parser = new TexParser();
 			expression = parser.parse(aLine);
 		}
 		SBox expression;

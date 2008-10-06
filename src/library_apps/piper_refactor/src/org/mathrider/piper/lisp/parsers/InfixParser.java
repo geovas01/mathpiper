@@ -21,7 +21,7 @@ import org.mathrider.piper.*;
 import org.mathrider.piper.lisp.ConsPointer;
 import org.mathrider.piper.lisp.Environment;
 import org.mathrider.piper.lisp.parsers.Parser;
-import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.lisp.Operators;
 

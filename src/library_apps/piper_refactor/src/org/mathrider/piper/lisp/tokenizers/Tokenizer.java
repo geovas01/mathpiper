@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathrider.piper.lisp.parsers;
+package org.mathrider.piper.lisp.tokenizers;
 
 import org.mathrider.piper.io.InputStream;
 import org.mathrider.piper.builtin.BigNumber;

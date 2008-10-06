@@ -16,11 +16,11 @@
 
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathrider.piper.lisp.parsers;
+package org.mathrider.piper.lisp.tokenizers;
 
 import org.mathrider.piper.lisp.TokenHash;
 import org.mathrider.piper.lisp.LispError;
-import org.mathrider.piper.lisp.parsers.Tokenizer;
+import org.mathrider.piper.lisp.tokenizers.Tokenizer;
 import org.mathrider.piper.io.InputStream;
 
 public class XmlTokenizer
