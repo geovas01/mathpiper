@@ -1,81 +1,81 @@
-# Properties file for Piper plugin.
+# Properties file for MathPiper plugin.
 
 
 #{{{ Must be in order.
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.piperplugin.PiperPlugin.activate=defer
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.piperplugin.PiperPlugin.name=Piper
-plugin.org.mathrider.piperplugin.PiperPlugin.author=Ted Kosan
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.name=MathPiper
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.piperplugin.PiperPlugin.version=4.3
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.piperplugin.PiperPlugin.docs=index.html
-plugin.org.mathrider.piperplugin.PiperPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.piperplugin.PiperPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.piperplugin.PiperPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.piperplugin.PiperPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.piperplugin.PiperPlugin..longdescription=description.html
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.docs=index.html
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin..longdescription=description.html
 #}}}
 
 
 
 
-piper.shell.msg.info=\nPiper Shell \n\
+mathpiper.shell.msg.info=\nMathPiper Shell \n\
 
 
-piper.shell.msg.usage=Piper, a computer algebra system for beginners.
+mathpiper.shell.msg.usage=MathPiper, a computer algebra system for beginners.
 
 
 
 # plugin menu
-plugin.org.mathrider.piperplugin.PiperPlugin.menu=piper
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.menu=mathpiper
 #	- \
-#	piper.choose-file \
-#	piper.save-file \
-#	piper.copy-to-buffer
+#	mathpiper.choose-file \
+#	mathpiper.save-file \
+#	mathpiper.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
-piper.label=piper
+mathpiper.label=mathpiper
 
 # action labels for actions supplied by actions.xml
-piper.choose-file.label=Choose notepad file
-piper.save-file.label=Save notepad file
-piper.copy-to-buffer.label=Copy notepad to buffer
+mathpiper.choose-file.label=Choose notepad file
+mathpiper.save-file.label=Save notepad file
+mathpiper.copy-to-buffer.label=Copy notepad to buffer
 
 # plugin option pane
-plugin.piper.option-pane=piper
+plugin.mathpiper.option-pane=mathpiper
 
 # Option pane activation BeanShell snippet
-options.piper.code=new org.mathrider.piperplugin.PiperOptionPane();
+options.mathpiper.code=new org.mathrider.mathpiperplugin.MathPiperOptionPane();
 
 # Option pane labels
-options.piper.label=piper
-options.piper.file=File:
-options.piper.choose-file=Choose
-options.piper.choose-file.title=Choose a notepad file
-options.piper.choose-font=Font:
-options.piper.show-filepath.title=Display notepad file path
+options.mathpiper.label=mathpiper
+options.mathpiper.file=File:
+options.mathpiper.choose-file=Choose
+options.mathpiper.choose-file.title=Choose a notepad file
+options.mathpiper.choose-font=Font:
+options.mathpiper.show-filepath.title=Display notepad file path
 
 # window title
-piper.title=Piper
+mathpiper.title=MathPiper
 
 # window toolbar buttons
-piper.choose-file.icon=Open.png
-piper.save-file.icon=Save.png
-piper.copy-to-buffer.icon=CopyToBuffer.png
+mathpiper.choose-file.icon=Open.png
+mathpiper.save-file.icon=Save.png
+mathpiper.copy-to-buffer.icon=CopyToBuffer.png
 
 # default settings
-options.piper.show-filepath=true
-options.piper.font=Monospaced
-options.piper.fontstyle=0
-options.piper.fontsize=14
+options.mathpiper.show-filepath=true
+options.mathpiper.font=Monospaced
+options.mathpiper.fontstyle=0
+options.mathpiper.fontsize=14
 
 # Setting not defined but supplied for completeness
-options.piper.filepath=
+options.mathpiper.filepath=
 
 # :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
