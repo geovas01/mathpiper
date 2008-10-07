@@ -66,8 +66,7 @@ public class Interpreter
 
 
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.pi");
-            pathParent = new File(detectURL.getPath()).getParent();
-            addDirectory(pathParent);
+            
             //StdFileInput.setPath(pathParent + File.separator);
 
 
@@ -91,14 +90,15 @@ public class Interpreter
                         System.out.println("Failed to find piper.jar" + e.toString());
                     }
                 }
-
-
-
-            //System.out.println("Found archive ["+archive+"]");
-            } else
+		else
+		{
+			 pathParent = new File(detectURL.getPath()).getParent();
+			 addDirectory(pathParent);
+		}
+            } 
+	    else
             {
-
-                System.out.println("Code is not in an archive.");
+                System.out.println("Cannot find mathpiperinit.pi.");
             }
 
 

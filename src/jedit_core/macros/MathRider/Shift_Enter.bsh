@@ -17,7 +17,7 @@
  */ //}}}
 
 
-import org.mathrider.piperplugin.PiperInterpreter;
+import org.mathrider.mathpiperplugin.MathPiperInterpreter;
 import org.mathrider.pipermeplugin.PiperMEInterpreter;
 import org.mathrider.maximaplugin.MaximaWrapper;
 import java.io.File;
@@ -50,7 +50,7 @@ ChangeToForwardSlash(tempFilePath)
 //errorSource = new DefaultErrorSource("MathRider");
 //ErrorSource.registerErrorSource(errorSource);
 
-errorSource = PiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 errorSource.clear();
 					
 buffer.save(view,null);
@@ -60,7 +60,7 @@ path = buffer.getPath();
 
 if(path.endsWith(".pi")|| path.endsWith(".PI") ){
 	
-	buffer.setMode("piper");
+	buffer.setMode("mathpiper");
 	
 	//Remove Windows drive letter from the path.
 	if(path.indexOf(":") != -1){
@@ -71,7 +71,7 @@ if(path.endsWith(".pi")|| path.endsWith(".PI") ){
 		//System.out.println(path);
 	}
 		
-	runCommandInConsole(view,"Piper","Load(\""+path+"\");");
+	runCommandInConsole(view,"MathPiper","Load(\""+path+"\");");
 	//interpreter=PiperInterpreter.getInstance();
 	
 
@@ -304,7 +304,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		output_fold_type = "";
 		collapseFold = foldProperties.get("collapse");
 		
-		///{{{ *** %piper ***.
+		///{{{ *** %mathpiper ***.
 		if(foldType.equalsIgnoreCase("%piper"))    
 		{
 			//Piper section.
@@ -315,7 +315,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			}
 			else
 			{
-				system = PiperInterpreter.getInstance();
+				system = MathPiperInterpreter.getInstance();
 			}
 			
 			
@@ -390,7 +390,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	//Sy	stem.out.println("Out> " + result);
 				
 					
-			}catch(org.mathrider.piper.Piperexception ye) 
+			}catch(org.mathpiper.exceptions.PiperException ye) 
 			{
 				result = ye.getMessage();
 				output_fold_type = "%error ";
@@ -747,7 +747,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 
 				output_fold_type = "%error ";
 							
-							errorSource = PiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+							errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 
 							adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 1);
 							result =  e.getMessage() + " " + errorText + " Line: " + adjustedErrorLineNumber;							
@@ -770,7 +770,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "geogebra" );
 			
-			errorSource = PiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+			errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 			
 			import geogebra.GeoGebraApplet;
 			geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
@@ -850,7 +850,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		{
 			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "hoteqn" );
 			
-			errorSource = PiperInterpreter.getErrorSource();
+			errorSource = MathPiperInterpreter.getErrorSource();
 			
 			//import geogebra.GeoGebraApplet;
 			hotEqn = org.mathrider.hoteqnplugin.HotEqn.getHotEqn();
@@ -1032,7 +1032,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				else
 				{
 					filePath = textArea.getBuffer().getPath();
-					errorSource = PiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 					errorSource.clear();
 					java.util.Iterator errorEntries = lst_or_error.iterator();
 					
