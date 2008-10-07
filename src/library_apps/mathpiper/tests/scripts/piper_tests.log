@@ -1,0 +1,329 @@
+
+===========================
+outer.pit: True
+
+
+===========================
+predicates.pit: True
+
+
+===========================
+sturm.pit: True
+******************
+sturm.pit: 60 
+
+VerifyZero(p.p)
+ evaluates to 
+False
+ which differs from 
+True
+******************
+
+
+===========================
+linalg.pit: True
+
+
+===========================
+tensors.pit: True
+
+
+===========================
+scopestack.pit: True
+
+
+===========================
+orthopoly.pit: True
+
+
+===========================
+io.pit: True
+
+
+===========================
+binaryfactors.pit: True
+
+
+===========================
+comments.pit: True
+
+
+===========================
+ode.pit: True
+
+
+===========================
+solve.pit: True
+******************
+solve.pit: 177 
+
+RoundTo(roots[3]-2,10)
+ evaluates to 
+0.00002
+ which differs from 
+0
+******************
+
+
+===========================
+dimensions.pit: True
+
+
+===========================
+c_tex_form.pit: True
+
+
+===========================
+logic_simplify_test.pit: True
+
+
+===========================
+openmath.pit: True
+
+
+===========================
+matrixpower.pit: True
+
+
+===========================
+integrate.pit: True
+
+
+===========================
+nummethods.pit: True
+******************
+nummethods.pit: 12 
+
+RoundTo(RoundTo(SumTaylorNum(1,{{k},1/k!},{{k},1/k},21),21)-2.718281828459045235359,21)
+ evaluates to 
+2e-21
+ which differs from 
+0
+******************
+******************
+nummethods.pit: 13 
+
+RoundTo(RoundTo(SumTaylorNum(1,{{k},1/k!},21),21)-2.718281828459045235359,21)
+ evaluates to 
+2e-21
+ which differs from 
+0
+******************
+
+
+===========================
+GaussianIntegers.pit: True
+
+
+===========================
+plots.pit: True
+******************
+plots.pit: 7 
+
+ToString()Write(Plot2D(a,-1:1,output=data,points=4,depth=0))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+plots.pit: 8 
+
+ToString()Write(Plot2D(b,b= -1:1,output=data,points=4))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+plots.pit: 15 
+
+ToString()Write(Plot3DS(a,-1:1,-1:1,output=data,points=2))
+ evaluates to 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+******************
+plots.pit: 15 
+
+ToString()Write(Plot3DS(x1,x1= -1:1,x2= -1:1,output=data,points=2))
+ evaluates to 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+
+
+===========================
+radsimp.pit: True
+
+
+===========================
+numerics.pit: True
+******************
+numerics.pit: 22 
+
+RoundTo(N(Sinh(2),10)-3.6268604078,10)
+ evaluates to 
+-1e-10
+ which differs from 
+0
+******************
+******************
+numerics.pit: 26 
+
+RoundTo(N(ArcTan(2*I),12)-N(Complex(1.57079632679,0.54930614433),12),11)
+ evaluates to 
+1e-11
+ which differs from 
+0
+******************
+******************
+numerics.pit: 29 
+
+RoundTo(N(ArcCosh(-2),8)-Complex(-1.3169579,3.14159265),8)
+ evaluates to 
+-1e-8
+ which differs from 
+0
+******************
+******************
+numerics.pit: 30 
+
+RoundTo(N(ArcTanh(2),9)-Complex(0.549306144,1.570796327),9)
+ evaluates to 
+1e-9
+ which differs from 
+0
+******************
+******************
+numerics.pit: 100 
+
+RoundTo(RoundTo([Local(x);x:=Newton(x*Exp(x)-4,x,1,10^(-49));N(x*Exp(x));],49)-4.,49)
+ evaluates to 
+1e-49
+ which differs from 
+0
+******************
+******************
+numerics.pit: 220 
+
+RoundTo(RoundTo(N(Zeta(40)),19)-1.0000000000009094948,19)
+ evaluates to 
+-0.2308785779493382222
+ which differs from 
+0
+******************
+******************
+numerics.pit: 304 
+
+RoundTo(N(Erf(50*I+20)/10^910,22),19)
+ evaluates to 
+Complex(1.093171190029095854,0.0047546330693181896)
+ which differs from 
+Complex(1.0931711900290958541,0.0047546330693181896)
+******************
+
+
+===========================
+complex.pit: True
+Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=0 
+
+
+===========================
+canprove.pit: True
+
+
+===========================
+macro.pit: True
+
+
+===========================
+arithmetic.pit: True
+******************
+arithmetic.pit: 139 
+
+IsZero(N(Sin(0.1e1)-Sin(1),30))
+ evaluates to 
+False
+ which differs from 
+True
+******************
+
+
+===========================
+programming.pit: True
+
+
+===========================
+lists.pit: True
+
+
+===========================
+tr.pit: True
+
+
+===========================
+trace.pit: True
+
+
+===========================
+calculus.pit: True
+Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=Exp(-phi) 
+
+
+===========================
+multivar.pit: True
+
+
+===========================
+numbers.pit: True
+
+
+===========================
+deriv.pit: True
+
+
+===========================
+cyclotomic.pit: True
+
+
+===========================
+transforms.pit: True
+
+
+===========================
+sums.pit: True
+
+
+===========================
+regress.pit: True
+Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
+Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
+Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
+Known failure: (D(z)Conjugate(z))=Undefined 
+Known failure: ArcCos(Cos(beta))!=beta 
+Known failure: (Limit(n,Infinity)n^5/2^n)=0 
+Known failure: RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0 
+
+
+===========================
+dot.pit: True
+
+
+===========================
+poly.pit: True
+
+
+===========================
+nthroot.pit: True
+
+
+===========================
+simplify.pit: True
+
+
+===========================
+journal.pit: True
+
