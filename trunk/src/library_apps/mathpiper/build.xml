@@ -2,9 +2,9 @@
 
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
 
-<project id="piper" name="piper" default="dist" basedir="." >
+<project id="mathpiper" name="mathpiper" default="dist" basedir="." >
 	<description>
-		Build file for Piper.
+		Build file for MathPiper.
 	</description>
 	
 	<property name="version" value=".52_refactor" />
@@ -42,18 +42,18 @@
 	
 	<target id="copy" name="copy" depends="init" >
 		<copy todir="${build.classes.dir}">
-			<fileset dir="${piper.dir}/scripts" >
+			<fileset dir="${mathpiper.dir}/scripts" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
 		
 		<copy todir="${build.classes.dir}">
-			<fileset dir="${piper.dir}/src" >
+			<fileset dir="${mathpiper.dir}/src" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
 		
-		<copy file="${piper.dir}/piper.properties" todir="${build.classes.dir}">
+		<copy file="${mathpiper.dir}/mathpiper.properties" todir="${build.classes.dir}">
 			<filterset>
 	               
 		       	   <filter token="VERSION" value="${version}" />
@@ -64,7 +64,7 @@
 	
 	
 	<target id="backcopyr" name="backcopy" > 
-		<copy todir="${piper.dir}/src">
+		<copy todir="${mathpiper.dir}/src">
 			<fileset dir="${build.classes.dir}" >
 				<include name="**/*.java" />
 			</fileset>
@@ -76,9 +76,9 @@
 
 		<mkdir dir="${build.dir}/dist" />
 		
-		<jar jarfile="${build.dir}/dist/piper.jar"
+		<jar jarfile="${build.dir}/dist/mathpiper.jar"
 			basedir="${build.classes.dir}" update="true"
-			manifest="${piper.dir}/MANIFEST.MF">
+			manifest="${mathpiper.dir}/MANIFEST.MF">
 			<include name="**/*" />
 		</jar> 
 	</target>
