@@ -7,7 +7,7 @@
 		Build file for MathPiper.
 	</description>
 	
-	<property name="version" value=".52_refactor" />
+	<property name="version" value=".52" />
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	
 	
@@ -24,6 +24,8 @@
 	<target name="compile" depends="init"
 		description="Compiles the application" >
 		<echo message="${compile.source}." />
+		<echo message="${src.dir}." />
+		<echo message="${build.classes.dir}." />
 	
 		<javac 
 			source="${compile.source}"
@@ -40,15 +42,11 @@
 	</target>
 
 	
-	<target id="copy" name="copy" depends="init" >
+	
+	<target id="dist" name="dist" depends="compile" >
+	
 		<copy todir="${build.classes.dir}">
 			<fileset dir="${mathpiper.dir}/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
-		
-		<copy todir="${build.classes.dir}">
-			<fileset dir="${mathpiper.dir}/src" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
@@ -59,26 +57,18 @@
 		       	   <filter token="VERSION" value="${version}" />
 	               
 			 </filterset>
-		</copy>		
-	</target>
-	
-	
-	<target id="backcopyr" name="backcopy" > 
-		<copy todir="${mathpiper.dir}/src">
-			<fileset dir="${build.classes.dir}" >
-				<include name="**/*.java" />
-			</fileset>
 		</copy>
-	</target>
 	
-	
-	<target id="dist" name="dist" depends="" >
-
 		<mkdir dir="${build.dir}/dist" />
 		
 		<jar jarfile="${build.dir}/dist/mathpiper.jar"
 			basedir="${build.classes.dir}" update="true"
 			manifest="${mathpiper.dir}/MANIFEST.MF">
+			<!--<manifest> 
+				<section name="mathpiper" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>-->
 			<include name="**/*" />
 		</jar> 
 	</target>

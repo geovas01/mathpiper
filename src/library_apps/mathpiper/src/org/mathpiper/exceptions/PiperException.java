@@ -18,9 +18,9 @@
 
 package org.mathpiper.exceptions;
 
-public class MathPiperException extends Exception //Note:tk: made this class public so that clients can use this exception.
+public class PiperException extends Exception //Note:tk: made this class public so that clients can use this exception.
 {
-	public MathPiperException(String message)
+	public PiperException(String message)
 	{
 		super(message);
 	}
