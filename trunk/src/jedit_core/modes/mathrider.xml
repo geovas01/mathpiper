@@ -98,9 +98,9 @@
 -->
 
 
-		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="piper::MAIN">
-			<BEGIN>%piper[0-9a-zA-Z,="._() ]*</BEGIN>
-			<END>%/piper</END>
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+			<BEGIN>%mathpiper[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/mathpiper</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathrider::MAIN">
@@ -120,7 +120,7 @@
 			<END>%/hoteqn</END>
 		</SPAN_REGEXP>
 
-		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="piper::MAIN">
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
 			<BEGIN>%maxima[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/maxima</END>
 		</SPAN_REGEXP>
@@ -150,7 +150,7 @@
 			<END>%/geogebra_xml</END>
 		</SPAN_REGEXP>
 
-		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="piper::MAIN">
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
 			<BEGIN>%geogebra[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/geogebra</END>
 		</SPAN_REGEXP>
