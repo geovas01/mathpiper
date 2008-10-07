@@ -65,7 +65,7 @@ public class Interpreter
             environment.iCurrentInput = new CachedStandardFileInputStream(environment.iInputStatus);
 
 
-            java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
+            java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.pi");
             pathParent = new File(detectURL.getPath()).getParent();
             addDirectory(pathParent);
             //StdFileInput.setPath(pathParent + File.separator);
@@ -105,7 +105,7 @@ public class Interpreter
             String result = "";
             try
             {
-                result = evaluate("Load(\"piperinit.pi\");");
+                result = evaluate("Load(\"mathpiperinit.pi\");");
 
             } catch (PiperException pe)
             {

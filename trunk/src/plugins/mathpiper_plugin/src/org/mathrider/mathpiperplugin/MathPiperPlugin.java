@@ -9,8 +9,8 @@ import org.gjt.sp.jedit.EditPlugin;
  * @author Ted Kosan
  */
 public class MathPiperPlugin extends EditPlugin {
-	public static final String NAME = "piper";
-	public static final String OPTION_PREFIX = "options.piper.";
+	public static final String NAME = "mathpiper";
+	public static final String OPTION_PREFIX = "options.mathpiper.";
 }//end class.
 
 /* {{{ License.

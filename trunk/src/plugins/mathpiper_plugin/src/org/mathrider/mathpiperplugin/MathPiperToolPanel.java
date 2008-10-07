@@ -39,17 +39,17 @@ public class MathPiperToolPanel extends JPanel {
 
 		add(Box.createGlue());
 
-		add(makeCustomButton("piper.choose-file", new ActionListener() {
+		add(makeCustomButton("mathpiper.choose-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				MathPiperToolPanel.this.pad.chooseFile();
 			}
 		}));
-		add(makeCustomButton("piper.save-file", new ActionListener() {
+		add(makeCustomButton("mathpiper.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				MathPiperToolPanel.this.pad.saveFile();
 			}
 		}));
-		add(makeCustomButton("piper.copy-to-buffer",
+		add(makeCustomButton("mathpiper.copy-to-buffer",
 				new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						MathPiperToolPanel.this.pad.copyToBuffer();

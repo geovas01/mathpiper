@@ -3,9 +3,9 @@
 package org.mathrider.mathpiperplugin;
 
 import java.io.*;
-import org.mathrider.piper.LispOutput;
+import org.mathpiper.io.OutputStream;
 
-class StringOutput extends LispOutput
+class StringOutput extends OutputStream
 {
 	StringBuffer stringBuffer;
 	
