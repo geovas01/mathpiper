@@ -23,9 +23,9 @@
 	
 	<target name="compile" depends="init"
 		description="Compiles the application" >
-		<echo message="${compile.source}." />
+		<!--<echo message="${compile.source}." />
 		<echo message="${src.dir}." />
-		<echo message="${build.classes.dir}." />
+		<echo message="${build.classes.dir}." />-->
 	
 		<javac 
 			source="${compile.source}"
