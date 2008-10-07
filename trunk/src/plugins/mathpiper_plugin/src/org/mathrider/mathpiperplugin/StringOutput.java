@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piperplugin;
+package org.mathrider.mathpiperplugin;
 
 import java.io.*;
 import org.mathrider.piper.LispOutput;

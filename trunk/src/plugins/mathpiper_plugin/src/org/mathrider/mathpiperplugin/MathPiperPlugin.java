@@ -1,15 +1,17 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
+package org.mathrider.mathpiperplugin;
 
-package org.mathrider.piperplugin;
+import org.gjt.sp.jedit.EditPlugin;
 
-interface PiperActions {
-	void chooseFile();
-
-	void saveFile();
-
-	void copyToBuffer();
-}//end interface.
-
+/**
+ * The Piper plugin
+ * 
+ * @author Ted Kosan
+ */
+public class MathPiperPlugin extends EditPlugin {
+	public static final String NAME = "piper";
+	public static final String OPTION_PREFIX = "options.piper.";
+}//end class.
 
 /* {{{ License.
  * This program is free software; you can redistribute it and/or

@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piperplugin;
+package org.mathrider.mathpiperplugin;
 
 // {{{ imports
 import java.awt.BorderLayout;
@@ -30,14 +30,14 @@ import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 // }}}
 
-// {{{ Piper class
+// {{{ MathPiper class
 /**
  * 
- * Piper - a dockable JPanel, a demonstration of a jEdit plugin.
+ * MathPiper - a dockable JPanel, a demonstration of a jEdit plugin.
  *
  */
-public class Piper extends JPanel
-    implements EBComponent, PiperActions, DefaultFocusComponent {
+public class MathPiper extends JPanel
+    implements EBComponent, MathPiperActions, DefaultFocusComponent {
 
     // {{{ Instance Variables
 	//private static final long serialVersionUID = 6412255692894321789L;
@@ -50,9 +50,9 @@ public class Piper extends JPanel
 
 	private boolean floating;
 
-	private PiperTextArea textArea;
+	private MathPiperTextArea textArea;
 
-	private PiperToolPanel toolPanel;
+	private MathPiperToolPanel toolPanel;
     // }}}
 
     // {{{ Constructor
@@ -63,32 +63,32 @@ public class Piper extends JPanel
 	 * 	which can be DockableWindowManager.FLOATING, TOP, BOTTOM, LEFT, RIGHT, etc.
 	 * 	see @ref DockableWindowManager for possible values.
 	 */
-	public Piper(View view, String position) {
+	public MathPiper(View view, String position) {
 		super(new BorderLayout());
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
 		if (jEdit.getSettingsDirectory() != null) {
-			this.filename = jEdit.getProperty(PiperPlugin.OPTION_PREFIX
+			this.filename = jEdit.getProperty(MathPiperPlugin.OPTION_PREFIX
 					+ "filepath");
 			if (this.filename == null || this.filename.length() == 0) {
 				this.filename = new String(jEdit.getSettingsDirectory()
 						+ File.separator + "qn.txt");
 				jEdit.setProperty(
-						PiperPlugin.OPTION_PREFIX + "filepath",
+						MathPiperPlugin.OPTION_PREFIX + "filepath",
 						this.filename);
 			}
 			this.defaultFilename = this.filename;
 		}
 
-		this.toolPanel = new PiperToolPanel(this);
+		this.toolPanel = new MathPiperToolPanel(this);
 		add(BorderLayout.NORTH, this.toolPanel);
 
 		if (floating)
 			this.setPreferredSize(new Dimension(500, 250));
 
-		textArea = new PiperTextArea();
-		textArea.setFont(PiperOptionPane.makeFont());
+		textArea = new MathPiperTextArea();
+		textArea.setFont(MathPiperOptionPane.makeFont());
 
 		JScrollPane pane = new JScrollPane(textArea);
 		add(BorderLayout.CENTER, pane);
@@ -124,7 +124,7 @@ public class Piper extends JPanel
     // {{{ propertiesChanged
 	private void propertiesChanged() {
 		String propertyFilename = jEdit
-				.getProperty(PiperPlugin.OPTION_PREFIX + "filepath");
+				.getProperty(MathPiperPlugin.OPTION_PREFIX + "filepath");
 		if (!StandardUtilities.objectsEqual(defaultFilename, propertyFilename)) {
 			saveFile();
 			toolPanel.propertiesChanged();
@@ -132,7 +132,7 @@ public class Piper extends JPanel
 			filename = defaultFilename;
 			readFile();
 		}
-		Font newFont = PiperOptionPane.makeFont();
+		Font newFont = MathPiperOptionPane.makeFont();
 		if (!newFont.equals(textArea.getFont())) {
 			textArea.setFont(newFont);
 		}
@@ -157,7 +157,7 @@ public class Piper extends JPanel
 	}
     // }}}
     
-	// PiperActions implementation
+	// MathPiperActions implementation
 
     // {{{
 	public void saveFile() {
@@ -168,7 +168,7 @@ public class Piper extends JPanel
 			out.write(textArea.getText());
 			out.close();
 		} catch (IOException ioe) {
-			Log.log(Log.ERROR, Piper.class,
+			Log.log(Log.ERROR, MathPiper.class,
 					"Could not write notepad text to " + filename);
 		}
 	}
@@ -212,10 +212,10 @@ public class Piper extends JPanel
 			bf.close();
 			textArea.setText(sb.toString());
 		} catch (FileNotFoundException fnf) {
-			Log.log(Log.ERROR, Piper.class, "notepad file " + filename
+			Log.log(Log.ERROR, MathPiper.class, "notepad file " + filename
 					+ " does not exist");
 		} catch (IOException ioe) {
-			Log.log(Log.ERROR, Piper.class,
+			Log.log(Log.ERROR, MathPiper.class,
 					"could not read notepad file " + filename);
 		}
 	}

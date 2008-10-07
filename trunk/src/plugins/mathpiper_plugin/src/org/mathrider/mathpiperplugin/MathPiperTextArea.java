@@ -1,16 +1,16 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
-package org.mathrider.piperplugin;
 
-import org.gjt.sp.jedit.EditPlugin;
+package org.mathrider.mathpiperplugin;
 
-/**
- * The Piper plugin
- * 
- * @author Ted Kosan
- */
-public class PiperPlugin extends EditPlugin {
-	public static final String NAME = "piper";
-	public static final String OPTION_PREFIX = "options.piper.";
+import javax.swing.JTextArea;
+
+public class MathPiperTextArea extends JTextArea {
+	public MathPiperTextArea() {
+		super();
+		setLineWrap(true);
+		setWrapStyleWord(true);
+		setTabSize(4);
+	}
 }//end class.
 
 /* {{{ License.

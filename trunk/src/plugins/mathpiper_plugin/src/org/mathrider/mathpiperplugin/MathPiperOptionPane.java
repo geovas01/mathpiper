@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piperplugin;
+package org.mathrider.mathpiperplugin;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -18,7 +18,7 @@ import org.gjt.sp.jedit.GUIUtilities;
 import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.gui.FontSelector;
 
-public class PiperOptionPane extends AbstractOptionPane implements
+public class MathPiperOptionPane extends AbstractOptionPane implements
 		ActionListener {
 	private JCheckBox showPath;
 
@@ -26,47 +26,47 @@ public class PiperOptionPane extends AbstractOptionPane implements
 
 	private FontSelector font;
 
-	public PiperOptionPane() {
-		super(PiperPlugin.NAME);
+	public MathPiperOptionPane() {
+		super(MathPiperPlugin.NAME);
 	}
 
 	public void _init() {
 		showPath = new JCheckBox(jEdit
-				.getProperty(PiperPlugin.OPTION_PREFIX
+				.getProperty(MathPiperPlugin.OPTION_PREFIX
 						+ "show-filepath.title"), jEdit.getProperty(
-				PiperPlugin.OPTION_PREFIX + "show-filepath").equals(
+				MathPiperPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
 		addComponent(showPath);
 
 		pathName = new JTextField(jEdit
-				.getProperty(PiperPlugin.OPTION_PREFIX + "filepath"));
+				.getProperty(MathPiperPlugin.OPTION_PREFIX + "filepath"));
 		JButton pickPath = new JButton(jEdit
-				.getProperty(PiperPlugin.OPTION_PREFIX + "choose-file"));
+				.getProperty(MathPiperPlugin.OPTION_PREFIX + "choose-file"));
 		pickPath.addActionListener(this);
 
 		JPanel pathPanel = new JPanel(new BorderLayout(0, 0));
 		pathPanel.add(pathName, BorderLayout.CENTER);
 		pathPanel.add(pickPath, BorderLayout.EAST);
 
-		addComponent(jEdit.getProperty(PiperPlugin.OPTION_PREFIX
+		addComponent(jEdit.getProperty(MathPiperPlugin.OPTION_PREFIX
 				+ "file"), pathPanel);
 
 		font = new FontSelector(makeFont());
-		addComponent(jEdit.getProperty(PiperPlugin.OPTION_PREFIX
+		addComponent(jEdit.getProperty(MathPiperPlugin.OPTION_PREFIX
 				+ "choose-font"), font);
 	}
 
 	public void _save() {
-		jEdit.setProperty(PiperPlugin.OPTION_PREFIX + "filepath",
+		jEdit.setProperty(MathPiperPlugin.OPTION_PREFIX + "filepath",
 				pathName.getText());
 		Font _font = font.getFont();
-		jEdit.setProperty(PiperPlugin.OPTION_PREFIX + "font", _font
+		jEdit.setProperty(MathPiperPlugin.OPTION_PREFIX + "font", _font
 				.getFamily());
-		jEdit.setProperty(PiperPlugin.OPTION_PREFIX + "fontsize", String
+		jEdit.setProperty(MathPiperPlugin.OPTION_PREFIX + "fontsize", String
 				.valueOf(_font.getSize()));
-		jEdit.setProperty(PiperPlugin.OPTION_PREFIX + "fontstyle",
+		jEdit.setProperty(MathPiperPlugin.OPTION_PREFIX + "fontstyle",
 				String.valueOf(_font.getStyle()));
-		jEdit.setProperty(PiperPlugin.OPTION_PREFIX + "show-filepath",
+		jEdit.setProperty(MathPiperPlugin.OPTION_PREFIX + "show-filepath",
 				String.valueOf(showPath.isSelected()));
 	}
 
@@ -84,12 +84,12 @@ public class PiperOptionPane extends AbstractOptionPane implements
 	// helper method to get Font from plugin properties
 	static public Font makeFont() {
 		int style, size;
-		String family = jEdit.getProperty(PiperPlugin.OPTION_PREFIX
+		String family = jEdit.getProperty(MathPiperPlugin.OPTION_PREFIX
 				+ "font");
 		try {
 			size = Integer
 					.parseInt(jEdit
-							.getProperty(PiperPlugin.OPTION_PREFIX
+							.getProperty(MathPiperPlugin.OPTION_PREFIX
 									+ "fontsize"));
 		} catch (NumberFormatException nf) {
 			size = 14;
@@ -97,7 +97,7 @@ public class PiperOptionPane extends AbstractOptionPane implements
 		try {
 			style = Integer
 					.parseInt(jEdit
-							.getProperty(PiperPlugin.OPTION_PREFIX
+							.getProperty(MathPiperPlugin.OPTION_PREFIX
 									+ "fontstyle"));
 		} catch (NumberFormatException nf) {
 			style = Font.PLAIN;
