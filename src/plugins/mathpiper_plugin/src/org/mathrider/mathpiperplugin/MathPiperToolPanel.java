@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piperplugin;
+package org.mathrider.mathpiperplugin;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,12 +15,12 @@ import org.gjt.sp.jedit.GUIUtilities;
 import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.gui.RolloverButton;
 
-public class PiperToolPanel extends JPanel {
-	private Piper pad;
+public class MathPiperToolPanel extends JPanel {
+	private MathPiper pad;
 
 	private JLabel label;
 
-	public PiperToolPanel(Piper qnpad) {
+	public MathPiperToolPanel(MathPiper qnpad) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		pad = qnpad;
 
@@ -29,7 +29,7 @@ public class PiperToolPanel extends JPanel {
 
 		label = new JLabel(pad.getFilename());
 		label.setVisible(jEdit.getProperty(
-				PiperPlugin.OPTION_PREFIX + "show-filepath").equals(
+				MathPiperPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
 
 		labelBox.add(label);
@@ -41,18 +41,18 @@ public class PiperToolPanel extends JPanel {
 
 		add(makeCustomButton("piper.choose-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				PiperToolPanel.this.pad.chooseFile();
+				MathPiperToolPanel.this.pad.chooseFile();
 			}
 		}));
 		add(makeCustomButton("piper.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				PiperToolPanel.this.pad.saveFile();
+				MathPiperToolPanel.this.pad.saveFile();
 			}
 		}));
 		add(makeCustomButton("piper.copy-to-buffer",
 				new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						PiperToolPanel.this.pad.copyToBuffer();
+						MathPiperToolPanel.this.pad.copyToBuffer();
 					}
 				}));
 	}
@@ -60,7 +60,7 @@ public class PiperToolPanel extends JPanel {
 	void propertiesChanged() {
 		label.setText(pad.getFilename());
 		label.setVisible(jEdit.getProperty(
-				PiperPlugin.OPTION_PREFIX + "show-filepath").equals(
+				MathPiperPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
 	}
 

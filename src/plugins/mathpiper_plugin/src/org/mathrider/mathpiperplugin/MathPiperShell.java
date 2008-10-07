@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piperplugin;
+package org.mathrider.mathpiperplugin;
 
 import java.awt.Color;
 //import java.io.File;
@@ -19,18 +19,18 @@ import console.ConsolePane;
 import console.Output;
 import console.Shell;
 
-import org.mathrider.piperplugin.PiperInterpreter;
+import org.mathrider.mathpiperplugin.MathPiperInterpreter;
 //import org.mathrider.piper.LispOutput;
 
-public class PiperShell extends Shell
+public class MathPiperShell extends Shell
 {
-	private PiperInterpreter interpreter;
+	private MathPiperInterpreter interpreter;
 	
 	
-	public PiperShell() throws org.mathrider.piper.Piperexception
+	public MathPiperShell() throws org.mathrider.piper.Piperexception
 	{
 		super("Piper");
-		interpreter = PiperInterpreter.getInstance(); //new StreamOutput(System.out) 
+		interpreter = MathPiperInterpreter.getInstance(); //new StreamOutput(System.out) 
 		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);
 		
 	}//end constructor.

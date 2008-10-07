@@ -1,17 +1,15 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piperplugin;
+package org.mathrider.mathpiperplugin;
 
-import javax.swing.JTextArea;
+interface MathPiperActions {
+	void chooseFile();
 
-public class PiperTextArea extends JTextArea {
-	public PiperTextArea() {
-		super();
-		setLineWrap(true);
-		setWrapStyleWord(true);
-		setTabSize(4);
-	}
-}//end class.
+	void saveFile();
+
+	void copyToBuffer();
+}//end interface.
+
 
 /* {{{ License.
  * This program is free software; you can redistribute it and/or

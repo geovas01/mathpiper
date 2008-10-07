@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piperplugin;
+package org.mathrider.mathpiperplugin;
 
 import org.mathrider.piper.CPiper;
 import org.mathrider.piper.Piperexception;
@@ -17,17 +17,17 @@ import errorlist.*;
  */
 
 
- public class PiperInterpreter { 
+ public class MathPiperInterpreter { 
 
-	private static PiperInterpreter instance = null;
+	private static MathPiperInterpreter instance = null;
     private CPiper piper;
 	private StringOutput stringOutput;
 	java.util.zip.ZipFile scriptsZip;
 	
 	private static DefaultErrorSource errorSource;
  
-    /** Creates a new instance of PiperInterpreter */
-    protected PiperInterpreter() throws Piperexception {
+    /** Creates a new instance of MathPiperInterpreter */
+    protected MathPiperInterpreter() throws Piperexception {
 		
 		stringOutput = new StringOutput();
 	    
@@ -41,9 +41,9 @@ import errorlist.*;
  
     }//end constructor.
 	
-   public static PiperInterpreter getInstance() throws Piperexception{
+   public static MathPiperInterpreter getInstance() throws Piperexception{
       if(instance == null) {
-         instance = new PiperInterpreter();
+         instance = new MathPiperInterpreter();
       }
       return instance;
    }//end method.
