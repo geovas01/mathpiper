@@ -39,14 +39,14 @@
 		<pathelement path="${master.lib.dir}/jedit.jar" />
 		<pathelement path="${master.lib.dir}/jars/ErrorList.jar" />
 		<pathelement path="${master.lib.dir}/jars/plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/piper.jar" />
+		<pathelement path="${plugins.jars.dir}/mathpiper.jar" />
 		<pathelement path="${plugins.jars.dir}/piper_me.jar" />
 		<pathelement path="${master.lib.dir}/jars/ProjectViewer.jar" />
 		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
-		<pathelement path="${plugins.jars.dir}/piper_plugin.jar" />
+		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />
@@ -76,13 +76,13 @@
 	</target>
 
 
-	<target id="piper_library" name="piper_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/piper" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/piper"/>
+	<target id="mathpiper_library" name="mathpiper_library" depends="init" >
+		<ant dir="${library_apps.src.dir}/mathpiper" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/mathpiper"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/piper/src"/>
-			<property name="piper.dir" value="${library_apps.src.dir}/piper"/>
+			<property name="src.dir" value="${library_apps.src.dir}/mathpiper/src"/>
+			<property name="mathpiper.dir" value="${library_apps.src.dir}/mathpiper"/>
 			<reference refid="build_classpath"/>
 		</ant>
 	</target>
@@ -134,16 +134,16 @@
 		</ant>
 	</target>
 	
-	<target id="piper_plugin" name="piper_plugin" depends="piper_library" >
-		<ant dir="${plugins.src.dir}/piper_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/piper_plugin"/>
+	<target id="mathpiper_plugin" name="mathpiper_plugin" depends="mathpiper_library" >
+		<ant dir="${plugins.src.dir}/mathpiper_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/mathpiper_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/piper_plugin/src"/>
+			<property name="src.dir" value="${plugins.src.dir}/mathpiper_plugin/src"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
-		<copy file="${plugins.build.dir}/piper_plugin/dist/piper_plugin.jar" todir="${plugins.jars.dir}"/>
+		<copy file="${plugins.build.dir}/mathpiper_plugin/dist/mathpiper_plugin.jar" todir="${plugins.jars.dir}"/>
 		
 	</target>
 	
@@ -272,7 +272,7 @@
 	</target>
 	
 	<!-- -->
-	<target id="all-plugins" name="all-plugins" depends="piper_plugin, piper_docs_plugin, 
+	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, piper_docs_plugin, 
 		geogebra_plugin, hoteqn_plugin, jscicalc_plugin, clojure_plugin, u6502_plugin" />
 	
 	
@@ -319,10 +319,10 @@
 			</fileset>
 		</copy>
 
-		<antcall target="piper_library">
+		<antcall target="mathpiper_library">
 			<param name="target" value="dist"/>
 		</antcall>
-		<copy file="${library_apps.build.dir}/piper/dist/piper.jar" todir="${plugins.jars.dir}"/>
+		<copy file="${library_apps.build.dir}/mathpiper/dist/mathpiper.jar" todir="${plugins.jars.dir}"/>
 		
 		<antcall target="piper_me_library">
 			<param name="target" value="dist"/>
@@ -361,13 +361,13 @@
 
 	
 	
-	<target id="piper_tests" name="piper_tests" >
-		<ant dir="${library_apps.src.dir}/piper/tests" target="compile" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/piper/tests"/>
+	<target id="mathpiper_tests" name="mathpiper_tests" >
+		<ant dir="${library_apps.src.dir}/mathpiper/tests" target="compile" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/mathpiper/tests"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/piper/tests/src"/>
-			<property name="piper.dir" value="${library_apps.src.dir}/piper"/>
+			<property name="src.dir" value="${library_apps.src.dir}/mathpiper/tests/src"/>
+			<property name="mathpiper.dir" value="${library_apps.src.dir}/mathpiper"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -500,7 +500,7 @@
 		<copy file="${master.build.dir}/mathrider/modes/mathrider.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
-		<copy file="${master.build.dir}/mathrider/modes/piper.xml" 
+		<copy file="${master.build.dir}/mathrider/modes/mathpiper.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
 		<copy file="${master.build.dir}/mathrider/modes/catalog" 
