@@ -29,7 +29,7 @@ import errorlist.*;
 	private static DefaultErrorSource errorSource;
  
     /** Creates a new instance of MathPiperInterpreter */
-    protected MathPiperInterpreter() throws Piperexception {
+    protected MathPiperInterpreter() throws PiperException {
 		
 		stringOutput = new StringOutput();
 	    
@@ -43,7 +43,7 @@ import errorlist.*;
  
     }//end constructor.
 	
-   public static MathPiperInterpreter getInstance() throws Piperexception{
+   public static MathPiperInterpreter getInstance() throws PiperException{
       if(instance == null) {
          instance = new MathPiperInterpreter();
       }
@@ -85,9 +85,9 @@ import errorlist.*;
     /** Use this method to pass an expression to the Piper interpreter.
      *  Returns the output of the interpreter.
      */
-    public String evaluate(String input) throws org.mathrider.MathPiperException {
+    public String evaluate(String input) throws PiperException {
 		
-			String result = mathpiper.Evaluate(input);
+			String result = mathpiper.evaluate(input);
 			
 			String outputMessage = stringOutput.toString();
 			

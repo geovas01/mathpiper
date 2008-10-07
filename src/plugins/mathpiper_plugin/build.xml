@@ -2,7 +2,7 @@
 
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
 
-<project name="piper_plugin" default="dist" basedir=".">
+<project name="mathpiper_plugin" default="dist" basedir=".">
 	<description>
 		Build file for the Piper plugin.
 	</description>
@@ -73,7 +73,7 @@
 			</fileset>
 		</copy>
 		
-		<jar jarfile="${build.dir}/dist/piper_plugin.jar">
+		<jar jarfile="${build.dir}/dist/mathpiper_plugin.jar">
 			<fileset dir="${build.classes.dir}">
 				<include name="**/*.class"/>
 				<include name="**/*.props"/>
@@ -84,7 +84,7 @@
 				<include name="services.xml"/>
 			</fileset>
 			<manifest> 
-				<section name="piper_plugin" >
+				<section name="mathpiper_plugin" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
 			</manifest>

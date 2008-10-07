@@ -18,7 +18,7 @@ import console.Console;
 import console.ConsolePane;
 import console.Output;
 import console.Shell;
-
+import org.mathpiper.exceptions.PiperException;
 import org.mathrider.mathpiperplugin.MathPiperInterpreter;
 //import org.mathrider.piper.LispOutput;
 
@@ -27,7 +27,7 @@ public class MathPiperShell extends Shell
 	private MathPiperInterpreter interpreter;
 	
 	
-	public MathPiperShell() throws org.mathrider.piper.Piperexception
+	public MathPiperShell() throws PiperException
 	{
 		super("Piper");
 		interpreter = MathPiperInterpreter.getInstance(); //new StreamOutput(System.out) 
@@ -47,7 +47,7 @@ public class MathPiperShell extends Shell
 		{
 			output.print(null, "Piper version " + interpreter.evaluate("Version();") );
 		}
-		catch( org.mathrider.piper.Piperexception pe )
+		catch( PiperException pe )
 		{
 			output.print(java.awt.Color.RED,pe.getMessage() );
 		}
@@ -62,7 +62,7 @@ public class MathPiperShell extends Shell
 			output.print(java.awt.Color.BLUE,"Out> " + result);
 			
 			
-		}catch(org.mathrider.piper.Piperexception pe) 
+		}catch(PiperException pe) 
 		{
 			output.print(java.awt.Color.RED,pe.getMessage() );
 		}
