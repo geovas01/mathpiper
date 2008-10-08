@@ -764,6 +764,7 @@ line numbers to use.
 + Make ROM read only in the emulator.
 + Enter Copy button and popup menu to U6502.
 + Make an ASCII chart plugin.
++ sumlist program does not place sum dwd ? 00's into .s19 file.
 }}}
 
 
