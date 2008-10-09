@@ -34,21 +34,21 @@ public class Type extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(argumentPointer(aEnvironment, aStackTop, 1).get());
-        ConsPointer subList = evaluated.get().subList();
+        evaluated.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
+        ConsPointer subList = evaluated.getCons().subList();
         Cons head = null;
         if (subList == null)
         {
-            result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"\""));
+            result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "\"\""));
             return;
         }
-        head = subList.get();
+        head = subList.getCons();
         if (head.string() == null)
         {
-            result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "\"\""));
+            result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "\"\""));
             return;
         }
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(head.string())));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(head.string())));
         return;
     }
 }

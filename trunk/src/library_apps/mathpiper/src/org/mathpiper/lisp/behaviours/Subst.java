@@ -29,7 +29,7 @@ public class Subst
 
 		if (UtilityFunctions.internalEquals(iEnvironment, aElement, iToMatch))
 		{
-			aResult.set(iToReplaceWith.get().copy(false));
+			aResult.setCons(iToReplaceWith.getCons().copy(false));
 
 			return true;
 		}

@@ -59,7 +59,7 @@ public class Evaluator extends EvalFuncBase
 		int stacktop = aEnvironment.iArgumentStack.getStackTopIndex();
 
 		// Push a place holder for the result: push full expression so it is available for error reporting
-		aEnvironment.iArgumentStack.pushArgumentOnStack(aArguments.get());
+		aEnvironment.iArgumentStack.pushArgumentOnStack(aArguments.getCons());
 
 		ConsTraverser iter = new ConsTraverser(aArguments);
 		iter.goNext();
@@ -81,9 +81,9 @@ public class Evaluator extends EvalFuncBase
 			if ((iFlags & Variable) != 0)
 			{
 				ConsPointer head = new ConsPointer();
-				head.set(aEnvironment.iListAtom.copy(false));
-				head.get().cdr().set(iter.getCons());
-				aEnvironment.iArgumentStack.pushArgumentOnStack(SubList.getInstance(head.get()));
+				head.setCons(aEnvironment.iListAtom.copy(false));
+				head.getCons().cdr().setCons(iter.getCons());
+				aEnvironment.iArgumentStack.pushArgumentOnStack(SubList.getInstance(head.getCons()));
 			}
 		}
 		else
@@ -94,7 +94,7 @@ public class Evaluator extends EvalFuncBase
 				LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
 				aEnvironment.iEvaluator.evaluate(aEnvironment, argument, iter.ptr());
-				aEnvironment.iArgumentStack.pushArgumentOnStack(argument.get());
+				aEnvironment.iArgumentStack.pushArgumentOnStack(argument.getCons());
 				iter.goNext();
 			}
 			if ((iFlags & Variable) != 0)
@@ -104,10 +104,10 @@ public class Evaluator extends EvalFuncBase
 
 				//printf("Enter\n");
 				ConsPointer head = new ConsPointer();
-				head.set(aEnvironment.iListAtom.copy(false));
-				head.get().cdr().set(iter.getCons());
+				head.setCons(aEnvironment.iListAtom.copy(false));
+				head.getCons().cdr().setCons(iter.getCons());
 				ConsPointer list = new ConsPointer();
-				list.set(SubList.getInstance(head.get()));
+				list.setCons(SubList.getInstance(head.getCons()));
 
 
 				/*
@@ -122,13 +122,13 @@ public class Evaluator extends EvalFuncBase
 				printf("after %s\n",res.String());
 				*/
 
-				aEnvironment.iArgumentStack.pushArgumentOnStack(argument.get());
+				aEnvironment.iArgumentStack.pushArgumentOnStack(argument.getCons());
 				//printf("Leave\n");
 			}
 		}
 
 		iCalledFunction.eval(aEnvironment,stacktop);
-		aResult.set(aEnvironment.iArgumentStack.getElement(stacktop).get());
+		aResult.setCons(aEnvironment.iArgumentStack.getElement(stacktop).getCons());
 		aEnvironment.iArgumentStack.popTo(stacktop);
 	}
 

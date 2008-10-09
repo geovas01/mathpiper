@@ -30,8 +30,8 @@ class BranchRule extends BranchRuleBase
     public BranchRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
     {
         iPrecedence = aPrecedence;
-        iPredicate.set(aPredicate.get());
-        iBody.set(aBody.get());
+        iPredicate.setCons(aPredicate.getCons());
+        iBody.setCons(aBody.getCons());
     }
 
     /// Return true if the rule matches.

@@ -37,12 +37,12 @@ public class Atom extends Parameter
 	                               ConsPointer[]  arguments) throws Exception
 	{
 		// If it is a floating point, don't even bother comparing
-		if (aExpression.get() != null)
-			if (aExpression.get().number(0) != null)
-				if (!aExpression.get().number(0).IsInt())
+		if (aExpression.getCons() != null)
+			if (aExpression.getCons().number(0) != null)
+				if (!aExpression.getCons().number(0).IsInt())
 					return false;
 
-		return (iString == aExpression.get().string());
+		return (iString == aExpression.getCons().string());
 	}
 	
 }

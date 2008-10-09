@@ -40,11 +40,11 @@ abstract public class LexCompare2
     {
         ConsPointer result1 = new ConsPointer();
         ConsPointer result2 = new ConsPointer();
-        result1.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get());
-        result2.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).get());
+        result1.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons());
+        result2.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
         boolean cmp;
-        BigNumber n1 = result1.get().number(aEnvironment.precision());
-        BigNumber n2 = result2.get().number(aEnvironment.precision());
+        BigNumber n1 = result1.getCons().number(aEnvironment.precision());
+        BigNumber n2 = result2.getCons().number(aEnvironment.precision());
         if (n1 != null && n2 != null)
         {
             cmp = numfunc(n1, n2);
@@ -52,8 +52,8 @@ abstract public class LexCompare2
         {
             String str1;
             String str2;
-            str1 = result1.get().string();
-            str2 = result2.get().string();
+            str1 = result1.getCons().string();
+            str2 = result2.getCons().string();
             LispError.checkArgumentCore(aEnvironment, aStackTop, str1 != null, 1);
             LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
             // the precision argument is ignored in "lex" functions

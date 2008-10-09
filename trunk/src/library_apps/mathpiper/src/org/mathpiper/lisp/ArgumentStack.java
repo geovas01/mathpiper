@@ -88,7 +88,7 @@ public class ArgumentStack
             try
             {
                  ConsPointer consPointer = getElement(x);
-                  Cons cons = consPointer.get();
+                  Cons cons = consPointer.getCons();
             }
             catch(Exception e)
             {

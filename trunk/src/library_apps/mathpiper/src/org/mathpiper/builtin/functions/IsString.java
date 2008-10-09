@@ -33,8 +33,8 @@ public class IsString extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
-        result.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        result.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop),
-                UtilityFunctions.internalIsString(result.get().string()));
+                UtilityFunctions.internalIsString(result.getCons().string()));
     }
 }

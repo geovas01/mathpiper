@@ -50,6 +50,6 @@ public class GetPrecedence extends BuiltinFunction
                 }
             }
         }
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + op.iPrecedence));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + op.iPrecedence));
     }
 }

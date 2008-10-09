@@ -37,15 +37,15 @@ public class ExplodeTag extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer out = new ConsPointer();
-        out.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        out.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsStringCore(aEnvironment, aStackTop, out, 1);
 
-        String str = out.get().string();
+        String str = out.getCons().string();
         int strInd = 0;
         strInd++;
         if (str.charAt(strInd) != '<')
         {
-            result(aEnvironment, aStackTop).set(out.get());
+            result(aEnvironment, aStackTop).setCons(out.getCons());
             return;
         }
         LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(strInd) == '<', 1);
@@ -114,10 +114,10 @@ public class ExplodeTag extends BuiltinFunction
                 Cons ls = Atom.getInstance(aEnvironment, "List");
                 Cons nm = Atom.getInstance(aEnvironment, name);
                 Cons vl = Atom.getInstance(aEnvironment, value);
-                nm.cdr().set(vl);
-                ls.cdr().set(nm);
+                nm.cdr().setCons(vl);
+                ls.cdr().setCons(nm);
                 Cons newinfo = SubList.getInstance(ls);
-                newinfo.cdr().set(info);
+                newinfo.cdr().setCons(info);
                 info = newinfo;
             }
             while (str.charAt(strInd) == ' ')
@@ -138,17 +138,17 @@ public class ExplodeTag extends BuiltinFunction
         }
         {
             Cons ls = Atom.getInstance(aEnvironment, "List");
-            ls.cdr().set(info);
+            ls.cdr().setCons(info);
             info = SubList.getInstance(ls);
         }
 
         Cons xm = Atom.getInstance(aEnvironment, "XmlTag");
         Cons tg = Atom.getInstance(aEnvironment, tag);
         Cons tp = Atom.getInstance(aEnvironment, type);
-        info.cdr().set(tp);
-        tg.cdr().set(info);
-        xm.cdr().set(tg);
-        result(aEnvironment, aStackTop).set(SubList.getInstance(xm));
+        info.cdr().setCons(tp);
+        tg.cdr().setCons(info);
+        xm.cdr().setCons(tg);
+        result(aEnvironment, aStackTop).setCons(SubList.getInstance(xm));
 
     }
 }

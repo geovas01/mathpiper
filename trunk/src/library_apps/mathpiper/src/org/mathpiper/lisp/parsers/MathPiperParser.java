@@ -66,7 +66,7 @@ public class MathPiperParser extends Parser
     public void parse(ConsPointer aResult) throws Exception
     {
         parse();
-        aResult.set(iResult.get());
+        aResult.setCons(iResult.getCons());
     }
 
     public void parse() throws Exception
@@ -74,7 +74,7 @@ public class MathPiperParser extends Parser
         readToken();
         if (iEndOfFile)
         {
-            iResult.set(iEnvironment.iEndOfFileAtom.copy(true));
+            iResult.setCons(iEnvironment.iEndOfFileAtom.copy(true));
             return;
         }
 
@@ -94,7 +94,7 @@ public class MathPiperParser extends Parser
 
         if (iError)
         {
-            iResult.set(null);
+            iResult.setCons(null);
         }
         LispError.check(!iError, LispError.KLispErrInvalidExpression);
     }
@@ -347,7 +347,7 @@ public class MathPiperParser extends Parser
     void combine(int aNrArgsToCombine) throws Exception
     {
         ConsPointer subList = new ConsPointer();
-        subList.set(SubList.getInstance(iResult.get()));
+        subList.setCons(SubList.getInstance(iResult.getCons()));
         ConsTraverser iter = new ConsTraverser(iResult);
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)
@@ -364,20 +364,20 @@ public class MathPiperParser extends Parser
             fail();
             return;
         }
-        subList.get().cdr().set(iter.getCons().cdr().get());
-        iter.getCons().cdr().set(null);
+        subList.getCons().cdr().setCons(iter.getCons().cdr().getCons());
+        iter.getCons().cdr().setCons(null);
 
-        UtilityFunctions.internalReverseList(subList.get().subList().get().cdr(),
-                subList.get().subList().get().cdr());
-        iResult.set(subList.get());
+        UtilityFunctions.internalReverseList(subList.getCons().subList().getCons().cdr(),
+                subList.getCons().subList().getCons().cdr());
+        iResult.setCons(subList.getCons());
     }
 
     void insertAtom(String aString) throws Exception
     {
         ConsPointer ptr = new ConsPointer();
-        ptr.set(Atom.getInstance(iEnvironment, aString));
-        ptr.get().cdr().set(iResult.get());
-        iResult.set(ptr.get());
+        ptr.setCons(Atom.getInstance(iEnvironment, aString));
+        ptr.getCons().cdr().setCons(iResult.getCons());
+        iResult.setCons(ptr.getCons());
     }
 
     void fail() throws Exception // called when parsing fails, raising an exception

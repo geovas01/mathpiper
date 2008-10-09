@@ -34,6 +34,6 @@ public class BitCount extends BuiltinFunction
         BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
         BigNumber z = new BigNumber(aEnvironment.precision());
         z.SetTo(x.BitCount());
-        result(aEnvironment, aStackTop).set(new org.mathpiper.lisp.Number(z));
+        result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }
 }

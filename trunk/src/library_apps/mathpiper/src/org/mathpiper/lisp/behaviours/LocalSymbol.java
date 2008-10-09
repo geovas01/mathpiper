@@ -43,7 +43,7 @@ public class LocalSymbol implements SubstBase
 	}
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
-		String name = aElement.get().string();
+		String name = aElement.getCons().string();
 		if (name == null)
 			return false;
 
@@ -52,7 +52,7 @@ public class LocalSymbol implements SubstBase
 		{
 			if (name == iOriginalNames[i])
 			{
-				aResult.set(Atom.getInstance(iEnvironment,iNewNames[i]));
+				aResult.setCons(Atom.getInstance(iEnvironment,iNewNames[i]));
 				return true;
 			}
 		}

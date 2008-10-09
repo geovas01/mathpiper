@@ -55,7 +55,7 @@ public class SubList extends Cons
 	{
 		//TODO recursed copy needs to be implemented still
 		LispError.lispAssert(aRecursed == false);
-		Cons copied = new SubList(iSubList.get());
+		Cons copied = new SubList(iSubList.getCons());
 		return copied;
 	}
         
@@ -74,7 +74,7 @@ public class SubList extends Cons
         
 	SubList(Cons aSubList)
 	{
-		iSubList.set(aSubList);
+		iSubList.setCons(aSubList);
 	}
 	
 }

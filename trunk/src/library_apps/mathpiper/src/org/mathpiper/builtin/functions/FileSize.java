@@ -38,9 +38,9 @@ public class FileSize extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer fnameObject = new ConsPointer();
-        fnameObject.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        fnameObject.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsStringCore(aEnvironment, aStackTop, fnameObject, 1);
-        String fname = UtilityFunctions.internalUnstringify(fnameObject.get().string());
+        String fname = UtilityFunctions.internalUnstringify(fnameObject.getCons().string());
         String hashedname = aEnvironment.getTokenHash().lookUp(fname);
 
         long fileSize = 0;
@@ -61,6 +61,6 @@ public class FileSize extends BuiltinFunction
         {
             aEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + fileSize));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + fileSize));
     }
 }

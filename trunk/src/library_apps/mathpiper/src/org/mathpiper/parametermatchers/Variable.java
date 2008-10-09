@@ -56,9 +56,9 @@ public class Variable extends Parameter
 		//    {
 		//      arguments[iVarIndex] = new ConsPointer();
 		//    }
-		if (arguments[iVarIndex].get() == null)
+		if (arguments[iVarIndex].getCons() == null)
 		{
-			arguments[iVarIndex].set(aExpression.get());
+			arguments[iVarIndex].setCons(aExpression.getCons());
 			//        LogPrintf("Set var %d\n",iVarIndex);
 			return true;
 		}

@@ -37,39 +37,39 @@ public class BuiltinAssoc extends BuiltinFunction
     {
         // key to find
         ConsPointer key = new ConsPointer();
-        key.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        key.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // assoc-list to find it in
         ConsPointer list = new ConsPointer();
-        list.set(argumentPointer(aEnvironment, aStackTop, 2).get());
+        list.setCons(argumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         Cons t;
 
         //check that it is a compound object
-        LispError.checkArgumentCore(aEnvironment, aStackTop, list.get().subList() != null, 2);
-        t = list.get().subList().get();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, list.getCons().subList() != null, 2);
+        t = list.getCons().subList().getCons();
         LispError.checkArgumentCore(aEnvironment, aStackTop, t != null, 2);
-        t = t.cdr().get();
+        t = t.cdr().getCons();
 
         while (t != null)
         {
             if (t.subList() != null)
             {
-                Cons sub = t.subList().get();
+                Cons sub = t.subList().getCons();
                 if (sub != null)
                 {
-                    sub = sub.cdr().get();
+                    sub = sub.cdr().getCons();
                     ConsPointer temp = new ConsPointer();
-                    temp.set(sub);
+                    temp.setCons(sub);
                     if (UtilityFunctions.internalEquals(aEnvironment, key, temp))
                     {
-                        result(aEnvironment, aStackTop).set(t);
+                        result(aEnvironment, aStackTop).setCons(t);
                         return;
                     }
                 }
             }
-            t = t.cdr().get();
+            t = t.cdr().getCons();
         }
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "Empty"));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "Empty"));
     }
 }

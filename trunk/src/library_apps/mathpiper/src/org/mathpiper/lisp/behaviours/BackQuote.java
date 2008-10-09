@@ -42,41 +42,41 @@ public class BackQuote implements SubstBase
 	}
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
-		if (aElement.get().subList() == null) return false;
-		Cons ptr = aElement.get().subList().get();
+		if (aElement.getCons().subList() == null) return false;
+		Cons ptr = aElement.getCons().subList().getCons();
 		if (ptr == null) return false;
 		if (ptr.string() == null) return false;
 
 		if (ptr.string().equals("`"))
 		{
-			aResult.set(aElement.get());
+			aResult.setCons(aElement.getCons());
 			return true;
 		}
 
 		if (!ptr.string().equals("@"))
 			return false;
-		ptr = ptr.cdr().get();
+		ptr = ptr.cdr().getCons();
 		if (ptr == null)
 			return false;
 		if (ptr.string() != null)
 		{
 			ConsPointer cur = new ConsPointer();
-			cur.set(ptr);
+			cur.setCons(ptr);
 			iEnvironment.iEvaluator.evaluate(iEnvironment, aResult, cur);
 			return true;
 		}
 		else
 		{
-			ptr = ptr.subList().get();
+			ptr = ptr.subList().getCons();
 			ConsPointer cur = new ConsPointer();
-			cur.set(ptr);
+			cur.setCons(ptr);
 			ConsPointer args = new ConsPointer();
-			args.set(ptr.cdr().get());
+			args.setCons(ptr.cdr().getCons());
 			ConsPointer result = new ConsPointer();
 			iEnvironment.iEvaluator.evaluate(iEnvironment, result, cur);
-			result.get().cdr().set(args.get());
+			result.getCons().cdr().setCons(args.getCons());
 			ConsPointer result2 = new ConsPointer();
-			result2.set(SubList.getInstance(result.get()));
+			result2.setCons(SubList.getInstance(result.getCons()));
 			UtilityFunctions.internalSubstitute(aResult, result2,this);
 			return true;
 		}

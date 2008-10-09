@@ -210,7 +210,7 @@ public class LispError
 
     public static void errorNumberOfArguments(int needed, int passed, ConsPointer aArguments, Environment aEnvironment) throws Exception
     {
-        if (aArguments.get() == null)
+        if (aArguments.getCons() == null)
         {
             throw new PiperException("Error in compiled code.");
         } else
@@ -235,12 +235,12 @@ public class LispError
 
     public static String showFunctionError(ConsPointer aArguments, Environment aEnvironment) throws Exception
     {
-        if (aArguments.get() == null)
+        if (aArguments.getCons() == null)
         {
             return "Error in compiled code. ";
         } else
         {
-            String string = aArguments.get().string();
+            String string = aArguments.getCons().string();
             if (string != null)
             {
                 return "In function \"" + string + "\" : ";
@@ -254,7 +254,7 @@ public class LispError
         if (!aPredicate)
         {
             ConsPointer arguments = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 0);
-            if (arguments.get() == null)
+            if (arguments.getCons() == null)
             {
                 throw new PiperException("Error in compiled code\n");
             } else
@@ -287,7 +287,7 @@ public class LispError
 
     public static void checkIsStringCore(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsString(evaluated.get().string()), aArgNr, "argument is not a string");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsString(evaluated.getCons().string()), aArgNr, "argument is not a string");
     }
 
     public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription) throws Exception
@@ -295,7 +295,7 @@ public class LispError
         if (!aPredicate)
         {
             ConsPointer arguments = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 0);
-            if (arguments.get() == null)
+            if (arguments.getCons() == null)
             {
                 throw new PiperException("Error in compiled code\n");
             } else

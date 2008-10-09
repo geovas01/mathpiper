@@ -37,9 +37,9 @@ public class FromBase extends BuiltinFunction
         // Get the base to convert to:
         // Evaluate first argument, and store result in oper
         ConsPointer oper = new ConsPointer();
-        oper.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        oper.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         // check that result is a number, and that it is in fact an integer
-        BigNumber num = oper.get().number(aEnvironment.precision());
+        BigNumber num = oper.getCons().number(aEnvironment.precision());
         LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
         LispError.checkArgumentCore(aEnvironment, aStackTop, num.IsInt(), 1);
@@ -49,9 +49,9 @@ public class FromBase extends BuiltinFunction
 
         // Get the number to convert
         ConsPointer fromNum = new ConsPointer();
-        fromNum.set(argumentPointer(aEnvironment, aStackTop, 2).get());
+        fromNum.setCons(argumentPointer(aEnvironment, aStackTop, 2).getCons());
         String str2;
-        str2 = fromNum.get().string();
+        str2 = fromNum.getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
 
         // Added, unquote a string
@@ -60,6 +60,6 @@ public class FromBase extends BuiltinFunction
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.precision(), base);
-        result(aEnvironment, aStackTop).set(new org.mathpiper.lisp.Number(z));
+        result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }
 }

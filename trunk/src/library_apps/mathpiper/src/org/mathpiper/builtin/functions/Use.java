@@ -34,11 +34,11 @@ public class Use extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        evaluated.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get file name
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get() != null, 1);
-        String orig = evaluated.get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        String orig = evaluated.getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
         UtilityFunctions.internalUse(aEnvironment, orig);

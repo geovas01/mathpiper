@@ -35,17 +35,17 @@ public class Concatenate extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer all = new ConsPointer();
-        all.set(aEnvironment.iListAtom.copy(false));
+        all.setCons(aEnvironment.iListAtom.copy(false));
         ConsTraverser tail = new ConsTraverser(all);
         tail.goNext();
         int arg = 1;
 
-        ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).get().subList());
+        ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).getCons().subList());
         iter.goNext();
         while (iter.getCons() != null)
         {
             LispError.checkIsListCore(aEnvironment, aStackTop, iter.ptr(), arg);
-            UtilityFunctions.internalFlatCopy(tail.ptr(), iter.ptr().get().subList().get().cdr());
+            UtilityFunctions.internalFlatCopy(tail.ptr(), iter.ptr().getCons().subList().getCons().cdr());
             while (tail.getCons() != null)
             {
                 tail.goNext();
@@ -53,6 +53,6 @@ public class Concatenate extends BuiltinFunction
             iter.goNext();
             arg++;
         }
-        result(aEnvironment, aStackTop).set(SubList.getInstance(all.get()));
+        result(aEnvironment, aStackTop).setCons(SubList.getInstance(all.getCons()));
     }
 }

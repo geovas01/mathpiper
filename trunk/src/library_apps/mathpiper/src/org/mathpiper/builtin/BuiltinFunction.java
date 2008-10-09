@@ -226,7 +226,7 @@ public abstract class BuiltinFunction
 		while(n != 0)
 		{
 			n--;
-			loop = loop.get().cdr();
+			loop = loop.getCons().cdr();
 		}
 		return loop;
 	}

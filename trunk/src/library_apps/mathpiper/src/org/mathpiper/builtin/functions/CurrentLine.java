@@ -31,6 +31,6 @@ public class CurrentLine extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + aEnvironment.iInputStatus.lineNumber()));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + aEnvironment.iInputStatus.lineNumber()));
     }
 }

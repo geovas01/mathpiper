@@ -33,19 +33,19 @@ import org.mathpiper.lisp.SubList;
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			ConsPointer all = new ConsPointer();
-			all.set(aEnvironment.iListAtom.copy(false));
+			all.setCons(aEnvironment.iListAtom.copy(false));
 			ConsTraverser tail = new ConsTraverser(all);
 			tail.goNext();
-			ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).get().subList());
+			ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).getCons().subList());
 			iter.goNext();
 			while (iter.getCons() != null)
 			{
 				ConsPointer evaluated = new ConsPointer();
 				aEnvironment.iEvaluator.evaluate(aEnvironment,evaluated,iter.ptr());
-				tail.ptr().set(evaluated.get());
+				tail.ptr().setCons(evaluated.getCons());
 				tail.goNext();
 				iter.goNext();
 			}
-			result(aEnvironment, aStackTop).set(SubList.getInstance(all.get()));
+			result(aEnvironment, aStackTop).setCons(SubList.getInstance(all.getCons()));
 		}
 	}

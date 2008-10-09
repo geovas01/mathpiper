@@ -36,7 +36,7 @@ public class ConsPointerArray
 		for(i=0;i<aSize;i++)
 		{
 			iArray[i] = new ConsPointer();
-			iArray[i].set(aInitialItem);
+			iArray[i].setCons(aInitialItem);
 		}
 	}
 	
@@ -52,7 +52,7 @@ public class ConsPointerArray
 	
 	public void setElement(int aItem,Cons aCons)
 	{
-		iArray[aItem].set(aCons);
+		iArray[aItem].setCons(aCons);
 	}
 
 }

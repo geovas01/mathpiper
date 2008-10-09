@@ -35,7 +35,7 @@ public class ConsTraverser
 	
 	public Cons getCons()
 	{
-		return iPtr.get();
+		return iPtr.getCons();
 	}
 	
 	public ConsPointer ptr()
@@ -45,15 +45,15 @@ public class ConsTraverser
 	
 	public void goNext() throws Exception
 	{
-		LispError.check(iPtr.get() != null,LispError.KLispErrListNotLongEnough);
-		iPtr = (iPtr.get().cdr());
+		LispError.check(iPtr.getCons() != null,LispError.KLispErrListNotLongEnough);
+		iPtr = (iPtr.getCons().cdr());
 	}
 	
 	public void goSub() throws Exception
 	{
-		LispError.check(iPtr.get() != null,LispError.KLispErrInvalidArg);
-		LispError.check(iPtr.get().subList() != null,LispError.KLispErrNotList);
-		iPtr = iPtr.get().subList();
+		LispError.check(iPtr.getCons() != null,LispError.KLispErrInvalidArg);
+		LispError.check(iPtr.getCons().subList() != null,LispError.KLispErrNotList);
+		iPtr = iPtr.getCons().subList();
 	}
 
 };
