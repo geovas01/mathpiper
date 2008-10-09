@@ -18,6 +18,7 @@
 
 package org.mathpiper.lisp;
 
+import org.mathpiper.lisp.printers.Printer;
 import org.mathpiper.io.InputStream;
 import org.mathpiper.io.OutputStream;
 import org.mathpiper.builtin.BuiltinFunction;

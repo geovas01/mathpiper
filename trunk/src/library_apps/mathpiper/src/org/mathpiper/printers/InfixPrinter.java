@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.InfixOperator;
 import org.mathpiper.lisp.Operators;
-import org.mathpiper.lisp.Printer;
+import org.mathpiper.lisp.printers.Printer;
 
 
 public class InfixPrinter extends Printer

@@ -16,8 +16,9 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.lisp;
+package org.mathpiper.lisp.printers;
 
+import org.mathpiper.lisp.*;
 import org.mathpiper.io.OutputStream;
 
 
