@@ -28,6 +28,11 @@ public class SubList extends Cons
 		return new SubList(aSubList);
 	}
         
+        public Object car()
+        {
+            return iSubList;
+        }
+        
         
 	public ConsPointer subList()
 	{
@@ -39,6 +44,11 @@ public class SubList extends Cons
 	{
 		return null;
 	}
+        
+        public String toString()
+        {
+            return iSubList.toString();
+        }
         
         
 	public Cons copy(boolean aRecursed) throws Exception

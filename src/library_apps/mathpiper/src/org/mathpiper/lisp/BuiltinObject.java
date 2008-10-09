@@ -33,6 +33,11 @@ public class BuiltinObject extends Cons
 		LispError.check(self!=null,LispError.KLispErrNotEnoughMemory);
 		return self;
 	}
+        
+        public Object car()
+        {
+            return iClass;
+        }
 	
 	public BuiltinContainer generic()
 	{

@@ -26,19 +26,19 @@ public class ArgumentStack
 {
 
     ConsPointerArray iArgumentStack;
-    int iStackTop;
+    int iStackTopIndex;
 
     //TODO appropriate constructor?
     public ArgumentStack(int aStackSize)
     {
         iArgumentStack = new ConsPointerArray(aStackSize, null);
-        iStackTop = 0;
+        iStackTopIndex = 0;
     //printf("STACKSIZE %d\n",aStackSize);
     }
 
-    public int getStackTop()
+    public int getStackTopIndex()
     {
-        return iStackTop;
+        return iStackTopIndex;
     }
 
     public void raiseStackOverflowError() throws Exception
@@ -48,36 +48,57 @@ public class ArgumentStack
 
     public void pushArgumentOnStack(Cons aCons) throws Exception
     {
-        if (iStackTop >= iArgumentStack.size())
+        if (iStackTopIndex >= iArgumentStack.size())
         {
             raiseStackOverflowError();
         }
-        iArgumentStack.setElement(iStackTop, aCons);
-        iStackTop++;
+        iArgumentStack.setElement(iStackTopIndex, aCons);
+        iStackTopIndex++;
     }
 
     public void pushNulls(int aNr) throws Exception
     {
-        if (iStackTop + aNr > iArgumentStack.size())
+        if (iStackTopIndex + aNr > iArgumentStack.size())
         {
             raiseStackOverflowError();
         }
-        iStackTop += aNr;
+        iStackTopIndex += aNr;
     }
 
     public ConsPointer getElement(int aPos) throws Exception
     {
-        LispError.lispAssert(aPos >= 0 && aPos < iStackTop);
+        LispError.lispAssert(aPos >= 0 && aPos < iStackTopIndex);
         return iArgumentStack.getElement(aPos);
     }
 
     public void popTo(int aTop) throws Exception
     {
-        LispError.lispAssert(aTop <= iStackTop);
-        while (iStackTop > aTop)
+        LispError.lispAssert(aTop <= iStackTopIndex);
+        while (iStackTopIndex > aTop)
         {
-            iStackTop--;
-            iArgumentStack.setElement(iStackTop, null);
+            iStackTopIndex--;
+            iArgumentStack.setElement(iStackTopIndex, null);
         }
     }
-};
+    
+    public void dump()
+    {
+        for(int x=0; x <= iStackTopIndex; x++)
+        {
+            try
+            {
+                 ConsPointer consPointer = getElement(x);
+                  Cons cons = consPointer.get();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+           
+            //System.out.println()
+        }
+    }
+    
+    
+    
+}

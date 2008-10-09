@@ -31,7 +31,7 @@ public class Version
         String propertyFileName = "";
         try
         {
-            java.net.URL propertiesURL = java.lang.ClassLoader.getSystemResource("piper.properties");
+            java.net.URL propertiesURL = java.lang.ClassLoader.getSystemResource("mathpiper.properties");
             
              java.io.InputStream s;
 
@@ -43,7 +43,7 @@ public class Version
                     propertyFileName = propertiesPath.substring(0, propertiesPath.lastIndexOf('!'));
                     piperZip = new java.util.zip.ZipFile(new java.io.File(new java.net.URI(propertyFileName)));
 
-                     java.util.zip.ZipEntry e = piperZip.getEntry("piper.properties");
+                     java.util.zip.ZipEntry e = piperZip.getEntry("mathpiper.properties");
 
                     s = piperZip.getInputStream(e);
                 }

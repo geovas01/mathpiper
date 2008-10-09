@@ -64,4 +64,10 @@ public class ConsPointer
     {
         iCons = aNext;
     }
+    
+    public String toString()
+    {
+        return iCons.toString();
+    }
+    
 }

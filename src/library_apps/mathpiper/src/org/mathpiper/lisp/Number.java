@@ -64,6 +64,11 @@ public class Number extends Cons
 	{
 		return new Number(iNumber, iString);
 	}
+        
+        public Object car()
+        {
+            return iNumber;
+        }
 
 	/// return a string representation in decimal with maximum decimal precision allowed by the inherent accuracy of the number
 	public String string() throws Exception
@@ -76,6 +81,22 @@ public class Number extends Cons
 		}
 		return iString;
 	}
+        
+        public String toString()
+        {
+            String stringRepresentation = null;
+            try
+            {
+                stringRepresentation = string();
+                
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            return stringRepresentation;
+            
+        }
 
 	/// give access to the BigNumber object; if necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
 	public BigNumber number(int aPrecision) throws Exception

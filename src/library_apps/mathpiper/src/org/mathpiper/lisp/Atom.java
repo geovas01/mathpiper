@@ -43,11 +43,23 @@ public class Atom extends Cons
         LispError.check(self != null, LispError.KLispErrNotEnoughMemory);
         return self;
     }
+    
+    public Object car()
+    {
+        return iString;
+    }
 
     public String string()
     {
         return iString;
     }
+    
+          public String toString()
+        {
+
+            return string();
+            
+        }
 
     public Cons copy(boolean aRecursed)
     {

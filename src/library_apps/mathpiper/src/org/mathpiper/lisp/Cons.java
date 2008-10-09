@@ -38,6 +38,8 @@ public abstract class Cons //Note:tk:was PiperObject.
 	{
 		return iCdr;
 	}
+        
+        abstract Object car();
 
 	/** Return string representation, or NULL if the object doesn't have one.
 	  *  the string representation is only relevant if the object is a
