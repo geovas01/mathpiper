@@ -56,7 +56,7 @@ public class Evaluator extends EvalFuncBase
 			LispError.checkNumberOfArguments(iNumberOfArguments+1,aArguments,aEnvironment);
 		}
 
-		int stacktop = aEnvironment.iArgumentStack.getStackTop();
+		int stacktop = aEnvironment.iArgumentStack.getStackTopIndex();
 
 		// Push a place holder for the result: push full expression so it is available for error reporting
 		aEnvironment.iArgumentStack.pushArgumentOnStack(aArguments.get());

@@ -215,7 +215,7 @@ public class Interpreter
             }
         } catch (Exception e)
         {
-            //      e.printStackTrace();
+            e.printStackTrace();
             //System.out.println(e.toString());
 
             //Note:tk throw PiperException instead of simply printing the exception message.
