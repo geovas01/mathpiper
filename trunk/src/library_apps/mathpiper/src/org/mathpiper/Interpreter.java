@@ -66,7 +66,7 @@ public class Interpreter
 
 
             java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.pi");
-            
+
             //StdFileInput.setPath(pathParent + File.separator);
 
 
@@ -89,14 +89,12 @@ public class Interpreter
                     {
                         System.out.println("Failed to find piper.jar" + e.toString());
                     }
+                } else
+                {
+                    pathParent = new File(detectURL.getPath()).getParent();
+                    addDirectory(pathParent);
                 }
-		else
-		{
-			 pathParent = new File(detectURL.getPath()).getParent();
-			 addDirectory(pathParent);
-		}
-            } 
-	    else
+            } else
             {
                 System.out.println("Cannot find mathpiperinit.pi.");
             }
@@ -119,6 +117,11 @@ public class Interpreter
             System.out.println(e.toString());
         }
     }
+
+    public java.util.zip.ZipFile getScriptsZip()
+    {
+        return UtilityFunctions.zipFile;
+    }//end method.
 
     public void addDirectory(String directory)
     {
@@ -179,14 +182,14 @@ public class Interpreter
                 }
             } else
             {
-                
+
                 InputStatus someStatus = new InputStatus();
-                
+
                 StringBuffer inp = new StringBuffer();
                 inp.append(inputExpression);
                 inp.append(";");
                 StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
-                
+
                 Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
                 infixParser.parse(inputExpressionPointer);
             }
