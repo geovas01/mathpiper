@@ -148,7 +148,9 @@ public class UtilityFunctions
 
 	public static void internalReverseList(ConsPointer aResult, ConsPointer aOriginal)
 	{
-		ConsPointer iter = new ConsPointer(aOriginal);
+		//ConsPointer iter = new ConsPointer(aOriginal);
+                ConsPointer iter = new ConsPointer();
+                iter.set(aOriginal.get());
 		ConsPointer previous = new ConsPointer();
 		ConsPointer tail = new ConsPointer();
 		tail.set(aOriginal.get());

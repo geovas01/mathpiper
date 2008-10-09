@@ -35,17 +35,7 @@ public class ConsPointer
         iCons = null;
     }
 
-    public ConsPointer(ConsPointer aOther)
-    {
-        iCons = aOther.iCons;
-    }
-
-    public ConsPointer(Cons aOther)
-    {
-        iCons = aOther;
-    }
-
-    public void set(Cons aNext)
+   public void set(Cons aNext)
     {
         iCons = aNext;
     }
@@ -58,11 +48,6 @@ public class ConsPointer
     public void goNext()
     {
         iCons = iCons.iCdr.iCons;
-    }
-
-    void doSet(Cons aNext)
-    {
-        iCons = aNext;
     }
     
     public String toString()

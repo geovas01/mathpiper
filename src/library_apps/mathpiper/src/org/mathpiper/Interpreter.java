@@ -30,7 +30,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.io.InputStream;
-import org.mathpiper.lisp.Printer;
+import org.mathpiper.lisp.printers.Printer;
 
 import org.mathpiper.io.CachedStandardFileInputStream;
 import org.mathpiper.io.StandardFileOutputStream;
