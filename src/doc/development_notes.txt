@@ -774,4 +774,8 @@ line numbers to use.
 
 }}}
 
+{{{Mathrider Newbies Book
++ Make it very clear in the installation instructions not to double click on the archive file.
+}}}
+
 
