@@ -179,7 +179,7 @@ public class Environment
 		ConsPointer local = findLocal(aVariable);
 		if (local != null)
 		{
-			local.set(aValue.get());
+			local.setCons(aValue.getCons());
 			return;
 		}
 		GlobalVariable global = new GlobalVariable(aValue);
@@ -192,11 +192,11 @@ public class Environment
 
 	public void getVariable(String aVariable,ConsPointer aResult) throws Exception
 	{
-		aResult.set(null);
+		aResult.setCons(null);
 		ConsPointer local = findLocal(aVariable);
 		if (local != null)
 		{
-			aResult.set(local.get());
+			aResult.setCons(local.getCons());
 			return;
 		}
 		GlobalVariable l = (GlobalVariable)iGlobalState.lookUp(aVariable);
@@ -205,13 +205,13 @@ public class Environment
 			if (l.iEvalBeforeReturn)
 			{
 				iEvaluator.evaluate(this, aResult, l.iValue);
-				l.iValue.set(aResult.get());
+				l.iValue.setCons(aResult.getCons());
 				l.iEvalBeforeReturn = false;
 				return;
 			}
 			else
 			{
-				aResult.set(l.iValue.get());
+				aResult.setCons(l.iValue.getCons());
 				return;
 			}
 		}
@@ -222,7 +222,7 @@ public class Environment
 		ConsPointer local = findLocal(aString);
 		if (local != null)
 		{
-			local.set(null);
+			local.setCons(null);
 			return;
 		}
 		iGlobalState.release(aString);
@@ -265,7 +265,7 @@ public class Environment
 		{
 			iNext = null;
 			iVariable = aVariable;
-			iValue.set(aValue);
+			iValue.setCons(aValue);
 
 		}
 		LispLocalVariable iNext;
@@ -330,7 +330,7 @@ public class Environment
 	public UserFunction userFunction(ConsPointer aArguments) throws Exception
 	{
 		MultipleArityUserFunction multiUserFunc =
-		        (MultipleArityUserFunction)iUserFunctions.lookUp(aArguments.get().string());
+		        (MultipleArityUserFunction)iUserFunctions.lookUp(aArguments.getCons().string());
 		if (multiUserFunc != null)
 		{
 			int arity = UtilityFunctions.internalListLength(aArguments)-1;

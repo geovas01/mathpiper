@@ -34,9 +34,9 @@ public class IsInteger extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
-        result.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        result.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        BigNumber num = result.get().number(aEnvironment.precision());
+        BigNumber num = result.getCons().number(aEnvironment.precision());
         if (num == null)
         {
             UtilityFunctions.internalFalse(aEnvironment, result(aEnvironment, aStackTop));

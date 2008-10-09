@@ -35,12 +35,12 @@ public class ConsPointer
         iCons = null;
     }
 
-   public void set(Cons aNext)
+   public void setCons(Cons aNext)
     {
         iCons = aNext;
     }
 
-    public Cons get()
+    public Cons getCons()
     {
         return iCons;
     }

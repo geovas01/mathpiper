@@ -32,12 +32,12 @@ public class IsBound extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        String str = argumentPointer(aEnvironment, aStackTop, 1).get().string();
+        String str = argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         if (str != null)
         {
             ConsPointer val = new ConsPointer();
             aEnvironment.getVariable(str, val);
-            if (val.get() != null)
+            if (val.getCons() != null)
             {
                 UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
                 return;

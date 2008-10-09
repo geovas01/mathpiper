@@ -63,11 +63,11 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 	///     copied in \a aResult.
 	///
 	/// \note The result of this operation must be a unique (copied)
-	/// element! Eg. its Next might be set...
+	/// element! Eg. its Next might be setCons...
 	///
 	public void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception
 	{
-		LispError.lispAssert(aExpression.get() != null);
+		LispError.lispAssert(aExpression.getCons() != null);
 		aEnvironment.iEvalDepth++;
 		if (aEnvironment.iEvalDepth>=aEnvironment.iMaxEvalDepth)
 		{
@@ -82,37 +82,37 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 			}
 		}
 
-		String str = aExpression.get().string();
+		String str = aExpression.getCons().string();
 
 		// evaluate an atom: find the bound value (treat it as a variable)
 		if (str != null)
 		{
 			if (str.charAt(0) == '\"')
 			{
-				aResult.set(aExpression.get().copy(false));
+				aResult.setCons(aExpression.getCons().copy(false));
 				aEnvironment.iEvalDepth--;
 				return;
 			}
 
 			ConsPointer val = new ConsPointer();
 			aEnvironment.getVariable(str,val);
-			if (val.get() != null)
+			if (val.getCons() != null)
 			{
-				aResult.set(val.get().copy(false));
+				aResult.setCons(val.getCons().copy(false));
 				aEnvironment.iEvalDepth--;
 				return;
 			}
-			aResult.set(aExpression.get().copy(false));
+			aResult.setCons(aExpression.getCons().copy(false));
 			aEnvironment.iEvalDepth--;
 			return;
 		}
 
 		{
-			ConsPointer subList = aExpression.get().subList();
+			ConsPointer subList = aExpression.getCons().subList();
 
 			if (subList != null)
 			{
-				Cons head = subList.get();
+				Cons head = subList.getCons();
 				if (head != null)
 				{
 					if (head.string() != null)
@@ -144,8 +144,8 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 						//printf("ApplyPure!\n");
 						ConsPointer oper = new ConsPointer();
 						ConsPointer args2 = new ConsPointer();
-						oper.set(subList.get());
-						args2.set(subList.get().cdr().get());
+						oper.setCons(subList.getCons());
+						args2.setCons(subList.getCons().cdr().getCons());
 						UtilityFunctions.internalApplyPure(oper,args2,aResult,aEnvironment);
 						aEnvironment.iEvalDepth--;
 						return;
@@ -156,14 +156,14 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 					return;
 				}
 			}
-			aResult.set(aExpression.get().copy(false));
+			aResult.setCons(aExpression.getCons().copy(false));
 		}
 		aEnvironment.iEvalDepth--;
 	}
 
 	UserFunction GetUserFunction(Environment aEnvironment, ConsPointer subList) throws Exception
 	{
-		Cons head = subList.get();
+		Cons head = subList.getCons();
 		UserFunction userFunc = null;
 
 		userFunc = (UserFunction)aEnvironment.userFunction(subList);

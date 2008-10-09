@@ -150,26 +150,26 @@ public class UtilityFunctions
 	{
 		//ConsPointer iter = new ConsPointer(aOriginal);
                 ConsPointer iter = new ConsPointer();
-                iter.set(aOriginal.get());
+                iter.setCons(aOriginal.getCons());
 		ConsPointer previous = new ConsPointer();
 		ConsPointer tail = new ConsPointer();
-		tail.set(aOriginal.get());
+		tail.setCons(aOriginal.getCons());
 
-		while (iter.get() != null)
+		while (iter.getCons() != null)
 		{
-			tail.set(iter.get().cdr().get());
-			iter.get().cdr().set(previous.get());
-			previous.set(iter.get());
-			iter.set(tail.get());
+			tail.setCons(iter.getCons().cdr().getCons());
+			iter.getCons().cdr().setCons(previous.getCons());
+			previous.setCons(iter.getCons());
+			iter.setCons(tail.getCons());
 		}
-		aResult.set(previous.get());
+		aResult.setCons(previous.getCons());
 	}
 
 	public static void returnUnEvaluated(ConsPointer aResult,ConsPointer aArguments, Environment aEnvironment) throws Exception
 	{
 		ConsPointer full = new ConsPointer();
-		full.set(aArguments.get().copy(false));
-		aResult.set(SubList.getInstance(full.get()));
+		full.setCons(aArguments.getCons().copy(false));
+		aResult.setCons(SubList.getInstance(full.getCons()));
 
 		ConsTraverser iter = new ConsTraverser(aArguments);
 		iter.goNext();
@@ -178,11 +178,11 @@ public class UtilityFunctions
 		{
 			ConsPointer next = new ConsPointer();
 			aEnvironment.iEvaluator.evaluate(aEnvironment, next, iter.ptr());
-			full.get().cdr().set(next.get());
-			full.set(next.get());
+			full.getCons().cdr().setCons(next.getCons());
+			full.setCons(next.getCons());
 			iter.goNext();
 		}
-		full.get().cdr().set(null);
+		full.getCons().cdr().setCons(null);
 	}
 
 
@@ -195,44 +195,44 @@ public class UtilityFunctions
 
 		Cons head =
 		        Atom.getInstance(aEnvironment,symbolName(aEnvironment, aOperator));
-		head.cdr().set(aArgs.get());
+		head.cdr().setCons(aArgs.getCons());
 		ConsPointer body = new ConsPointer();
-		body.set(SubList.getInstance(head));
+		body.setCons(SubList.getInstance(head));
 		aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
 	}
 
 	public static void internalApplyPure(ConsPointer oper,ConsPointer args2,ConsPointer aResult, Environment aEnvironment) throws Exception
 	{
-		LispError.check(oper.get().subList() != null,LispError.KLispErrInvalidArg);
-		LispError.check(oper.get().subList().get() != null,LispError.KLispErrInvalidArg);
+		LispError.check(oper.getCons().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.check(oper.getCons().subList().getCons() != null,LispError.KLispErrInvalidArg);
 		ConsPointer oper2 = new ConsPointer();
-		oper2.set(oper.get().subList().get().cdr().get());
-		LispError.check(oper2.get() != null,LispError.KLispErrInvalidArg);
+		oper2.setCons(oper.getCons().subList().getCons().cdr().getCons());
+		LispError.check(oper2.getCons() != null,LispError.KLispErrInvalidArg);
 
 		ConsPointer body = new ConsPointer();
-		body.set(oper2.get().cdr().get());
-		LispError.check(body.get() != null,LispError.KLispErrInvalidArg);
+		body.setCons(oper2.getCons().cdr().getCons());
+		LispError.check(body.getCons() != null,LispError.KLispErrInvalidArg);
 
-		LispError.check(oper2.get().subList() != null,LispError.KLispErrInvalidArg);
-		LispError.check(oper2.get().subList().get() != null,LispError.KLispErrInvalidArg);
-		oper2.set(oper2.get().subList().get().cdr().get());
+		LispError.check(oper2.getCons().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.check(oper2.getCons().subList().getCons() != null,LispError.KLispErrInvalidArg);
+		oper2.setCons(oper2.getCons().subList().getCons().cdr().getCons());
 
 		aEnvironment.pushLocalFrame(false);
 		try
 		{
-			while (oper2.get() != null)
+			while (oper2.getCons() != null)
 			{
-				LispError.check(args2.get() != null,LispError.KLispErrInvalidArg);
+				LispError.check(args2.getCons() != null,LispError.KLispErrInvalidArg);
 
-				String var = oper2.get().string();
+				String var = oper2.getCons().string();
 				LispError.check(var != null,LispError.KLispErrInvalidArg);
 				ConsPointer newly = new ConsPointer();
-				newly.set(args2.get().copy(false));
-				aEnvironment.newLocal(var,newly.get());
-				oper2.set(oper2.get().cdr().get());
-				args2.set(args2.get().cdr().get());
+				newly.setCons(args2.getCons().copy(false));
+				aEnvironment.newLocal(var,newly.getCons());
+				oper2.setCons(oper2.getCons().cdr().getCons());
+				args2.setCons(args2.getCons().cdr().getCons());
 			}
-			LispError.check(args2.get() == null,LispError.KLispErrInvalidArg);
+			LispError.check(args2.getCons() == null,LispError.KLispErrInvalidArg);
 			aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
 		}
 		catch (PiperException e) { throw e; }
@@ -242,12 +242,12 @@ public class UtilityFunctions
 
 	public static void internalTrue(Environment aEnvironment, ConsPointer aResult) throws Exception
 	{
-		aResult.set(aEnvironment.iTrueAtom.copy(false));
+		aResult.setCons(aEnvironment.iTrueAtom.copy(false));
 	}
 
 	public static void internalFalse(Environment aEnvironment, ConsPointer aResult) throws Exception
 	{
-		aResult.set(aEnvironment.iFalseAtom.copy(false));
+		aResult.setCons(aEnvironment.iFalseAtom.copy(false));
 	}
 
 	public static void internalBoolean(Environment aEnvironment, ConsPointer aResult, boolean aValue) throws Exception
@@ -264,10 +264,10 @@ public class UtilityFunctions
 
 	public static void internalNth(ConsPointer aResult, ConsPointer aArg, int n) throws Exception
 	{
-		LispError.check(aArg.get() != null,LispError.KLispErrInvalidArg);
-		LispError.check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.check(aArg.getCons() != null,LispError.KLispErrInvalidArg);
+		LispError.check(aArg.getCons().subList() != null,LispError.KLispErrInvalidArg);
 		LispError.check(n>=0,LispError.KLispErrInvalidArg);
-		ConsTraverser iter = new ConsTraverser(aArg.get().subList());
+		ConsTraverser iter = new ConsTraverser(aArg.getCons().subList());
 
 		while (n>0)
 		{
@@ -276,30 +276,30 @@ public class UtilityFunctions
 			n--;
 		}
 		LispError.check(iter.getCons() != null,LispError.KLispErrInvalidArg);
-		aResult.set(iter.getCons().copy(false));
+		aResult.setCons(iter.getCons().copy(false));
 	}
 
 	public static void internalTail(ConsPointer aResult, ConsPointer aArg) throws Exception
 	{
-		LispError.check(aArg.get() != null,LispError.KLispErrInvalidArg);
-		LispError.check(aArg.get().subList() != null,LispError.KLispErrInvalidArg);
+		LispError.check(aArg.getCons() != null,LispError.KLispErrInvalidArg);
+		LispError.check(aArg.getCons().subList() != null,LispError.KLispErrInvalidArg);
 
-		ConsPointer iter = aArg.get().subList();
+		ConsPointer iter = aArg.getCons().subList();
 
-		LispError.check(iter.get() != null,LispError.KLispErrInvalidArg);
-		aResult.set(SubList.getInstance(iter.get().cdr().get()));
+		LispError.check(iter.getCons() != null,LispError.KLispErrInvalidArg);
+		aResult.setCons(SubList.getInstance(iter.getCons().cdr().getCons()));
 	}
 
 	public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
-		LispError.lispAssert(aExpression.get() != null);
-		return aExpression.get().string() == aEnvironment.iTrueAtom.string();
+		LispError.lispAssert(aExpression.getCons() != null);
+		return aExpression.getCons().string() == aEnvironment.iTrueAtom.string();
 	}
 
 	public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
-		LispError.lispAssert(aExpression.get() != null);
-		return aExpression.get().string() == aEnvironment.iFalseAtom.string();
+		LispError.lispAssert(aExpression.getCons() != null);
+		return aExpression.getCons().string() == aEnvironment.iFalseAtom.string();
 	}
 
 	public static String symbolName(Environment aEnvironment, String aSymbol)
@@ -316,14 +316,14 @@ public class UtilityFunctions
 
 	public static boolean internalIsList(ConsPointer aPtr) throws Exception
 	{
-		if (aPtr.get() == null)
+		if (aPtr.getCons() == null)
 			return false;
-		if (aPtr.get().subList() == null)
+		if (aPtr.getCons().subList() == null)
 			return false;
-		if (aPtr.get().subList().get() == null)
+		if (aPtr.getCons().subList().getCons() == null)
 			return false;
 		//TODO this StrEqual is far from perfect. We could pass in a Environment object...
-		if (!aPtr.get().subList().get().string().equals("List"))
+		if (!aPtr.getCons().subList().getCons().string().equals("List"))
 			return false;
 		return true;
 	}
@@ -357,7 +357,7 @@ public class UtilityFunctions
 
 		while (orig.getCons() != null)
 		{
-			res.ptr().set(orig.getCons().copy(false));
+			res.ptr().setCons(orig.getCons().copy(false));
 			orig.goNext();
 			res.goNext();
 		}
@@ -367,13 +367,13 @@ public class UtilityFunctions
 	public static boolean internalEquals(Environment aEnvironment, ConsPointer aExpression1, ConsPointer aExpression2) throws Exception
 	{
 		// Handle pointers to same, or null
-		if (aExpression1.get() == aExpression2.get())
+		if (aExpression1.getCons() == aExpression2.getCons())
 		{
 			return true;
 		}
 
-		BigNumber n1 = aExpression1.get().number(aEnvironment.precision());
-		BigNumber n2 = aExpression2.get().number(aEnvironment.precision());
+		BigNumber n1 = aExpression1.getCons().number(aEnvironment.precision());
+		BigNumber n2 = aExpression2.getCons().number(aEnvironment.precision());
 		if (!(n1 == null && n2 == null) )
 		{
 			if (n1 == n2)
@@ -387,26 +387,26 @@ public class UtilityFunctions
 		}
 
 		//Pointers to strings should be the same
-		if (aExpression1.get().string() != aExpression2.get().string())
+		if (aExpression1.getCons().string() != aExpression2.getCons().string())
 		{
 			return false;
 		}
 
 		// Handle same sublists, or null
-		if (aExpression1.get().subList() == aExpression2.get().subList())
+		if (aExpression1.getCons().subList() == aExpression2.getCons().subList())
 		{
 			return true;
 		}
 
 		// Now check the sublists
-		if (aExpression1.get().subList() != null)
+		if (aExpression1.getCons().subList() != null)
 		{
-			if (aExpression2.get().subList() == null)
+			if (aExpression2.getCons().subList() == null)
 			{
 				return false;
 			}
-			ConsTraverser iter1 = new ConsTraverser(aExpression1.get().subList());
-			ConsTraverser iter2 = new ConsTraverser(aExpression2.get().subList());
+			ConsTraverser iter1 = new ConsTraverser(aExpression1.getCons().subList());
+			ConsTraverser iter2 = new ConsTraverser(aExpression2.getCons().subList());
 
 			while (iter1.getCons() != null && iter2.getCons() != null)
 			{
@@ -435,7 +435,7 @@ public class UtilityFunctions
 
 	public static void internalSubstitute(ConsPointer aTarget, ConsPointer aSource, SubstBase aBehaviour) throws Exception
 	{
-		Cons object = aSource.get();
+		Cons object = aSource.getCons();
 		LispError.lispAssert(object != null);
 		if (!aBehaviour.matches(aTarget,aSource))
 		{
@@ -444,17 +444,17 @@ public class UtilityFunctions
 			{
 				ConsPointer newList = new ConsPointer();
 				ConsPointer next = newList;
-				while (oldList.get() != null)
+				while (oldList.getCons() != null)
 				{
 					internalSubstitute(next, oldList, aBehaviour);
-					oldList = oldList.get().cdr();
-					next = next.get().cdr();
+					oldList = oldList.getCons().cdr();
+					next = next.getCons().cdr();
 				}
-				aTarget.set(SubList.getInstance(newList.get()));
+				aTarget.setCons(SubList.getInstance(newList.getCons()));
 			}
 			else
 			{
-				aTarget.set(object.copy(false));
+				aTarget.setCons(object.copy(false));
 			}
 		}
 	}
@@ -491,9 +491,9 @@ public class UtilityFunctions
 				// Read expression
 				parser.parse(readIn);
 
-				LispError.check(readIn.get() != null, LispError.KLispErrReadingFile);
+				LispError.check(readIn.getCons() != null, LispError.KLispErrReadingFile);
 				// check for end of file
-				if (readIn.get().string() == eof)
+				if (readIn.getCons().string() == eof)
 				{
 					endoffile = true;
 				}
@@ -762,7 +762,7 @@ public class UtilityFunctions
      */
     public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception
     {
-        BigNumber x = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, aArgNr).get().number(aEnvironment.precision());
+        BigNumber x = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, aArgNr).getCons().number(aEnvironment.precision());
         LispError.checkArgumentCore(aEnvironment, aStackTop, x != null, aArgNr);
         return x;
     }
@@ -770,14 +770,14 @@ public class UtilityFunctions
     public static void multiFix(Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
     {
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
-        String orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        String orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
         ConsPointer precedence = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, precedence, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2));
-        LispError.checkArgumentCore(aEnvironment, aStackTop, precedence.get().string() != null, 2);
-        int prec = Integer.parseInt(precedence.get().string(), 10);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, precedence.getCons().string() != null, 2);
+        int prec = Integer.parseInt(precedence.getCons().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, prec <= InfixPrinter.KMaxPrecedence, 2);
         aOps.SetOperator(prec, UtilityFunctions.symbolName(aEnvironment, orig));
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
@@ -786,8 +786,8 @@ public class UtilityFunctions
     public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, Operators aOps) throws Exception
     {
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
-        String orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        String orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         aOps.SetOperator(aPrecedence, UtilityFunctions.symbolName(aEnvironment, orig));
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
@@ -796,12 +796,12 @@ public class UtilityFunctions
     public static InfixOperator operatorInfo(Environment aEnvironment, int aStackTop, Operators aOperators) throws Exception
     {
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
 
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get());
+        evaluated.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        String orig = evaluated.get().string();
+        String orig = evaluated.getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         //
         InfixOperator op = (InfixOperator) aOperators.lookUp(UtilityFunctions.symbolName(aEnvironment, orig));
@@ -823,10 +823,10 @@ public class UtilityFunctions
         {
             ConsPointer result = new ConsPointer();
             aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1));
-            variableString = result.get().string();
+            variableString = result.getCons().string();
         } else
         {
-            variableString = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get().string();
+            variableString = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         }
         LispError.checkArgumentCore(aEnvironment, aStackTop, variableString != null, 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, !UtilityFunctions.isNumber(variableString, true), 1);
@@ -840,23 +840,23 @@ public class UtilityFunctions
     public static void internalDelete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get());
+        evaluated.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsListCore(aEnvironment, aStackTop, evaluated, 1);
 
         ConsPointer copied = new ConsPointer();
         if (aDestructive)
         {
-            copied.set(evaluated.get().subList().get());
+            copied.setCons(evaluated.getCons().subList().getCons());
         } else
         {
-            UtilityFunctions.internalFlatCopy(copied, evaluated.get().subList());
+            UtilityFunctions.internalFlatCopy(copied, evaluated.getCons().subList());
         }
 
         ConsPointer index = new ConsPointer();
-        index.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).get());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 2);
-        int ind = Integer.parseInt(index.get().string(), 10);
+        index.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 2);
+        int ind = Integer.parseInt(index.getCons().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, ind > 0, 2);
 
         ConsTraverser iter = new ConsTraverser(copied);
@@ -867,31 +867,31 @@ public class UtilityFunctions
         }
         LispError.checkCore(aEnvironment, aStackTop, iter.getCons() != null, LispError.KLispErrListNotLongEnough);
         ConsPointer next = new ConsPointer();
-        next.set(iter.getCons().cdr().get());
-        iter.ptr().set(next.get());
-        BuiltinFunction.result(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
+        next.setCons(iter.getCons().cdr().getCons());
+        iter.ptr().setCons(next.getCons());
+        BuiltinFunction.result(aEnvironment, aStackTop).setCons(SubList.getInstance(copied.getCons()));
     }
 
     public static void internalInsert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get());
+        evaluated.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsListCore(aEnvironment, aStackTop, evaluated, 1);
 
         ConsPointer copied = new ConsPointer();
         if (aDestructive)
         {
-            copied.set(evaluated.get().subList().get());
+            copied.setCons(evaluated.getCons().subList().getCons());
         } else
         {
-            UtilityFunctions.internalFlatCopy(copied, evaluated.get().subList());
+            UtilityFunctions.internalFlatCopy(copied, evaluated.getCons().subList());
         }
 
         ConsPointer index = new ConsPointer();
-        index.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).get());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 2);
-        int ind = Integer.parseInt(index.get().string(), 10);
+        index.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 2);
+        int ind = Integer.parseInt(index.getCons().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, ind > 0, 2);
 
         ConsTraverser iter = new ConsTraverser(copied);
@@ -902,32 +902,32 @@ public class UtilityFunctions
         }
 
         ConsPointer toInsert = new ConsPointer();
-        toInsert.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 3).get());
-        toInsert.get().cdr().set(iter.getCons());
-        iter.ptr().set(toInsert.get());
-        BuiltinFunction.result(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
+        toInsert.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 3).getCons());
+        toInsert.getCons().cdr().setCons(iter.getCons());
+        iter.ptr().setCons(toInsert.getCons());
+        BuiltinFunction.result(aEnvironment, aStackTop).setCons(SubList.getInstance(copied.getCons()));
     }
 
     public static void internalReplace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get());
+        evaluated.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons());
         // Ok, so lets not check if it is a list, but it needs to be at least a 'function'
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.get().subList() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons().subList() != null, 1);
 
         ConsPointer index = new ConsPointer();
-        index.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).get());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 2);
-        int ind = Integer.parseInt(index.get().string(), 10);
+        index.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 2);
+        int ind = Integer.parseInt(index.getCons().string(), 10);
 
         ConsPointer copied = new ConsPointer();
         if (aDestructive)
         {
-            copied.set(evaluated.get().subList().get());
+            copied.setCons(evaluated.getCons().subList().getCons());
         } else
         {
-            UtilityFunctions.internalFlatCopy(copied, evaluated.get().subList());
+            UtilityFunctions.internalFlatCopy(copied, evaluated.getCons().subList());
         }
         LispError.checkArgumentCore(aEnvironment, aStackTop, ind > 0, 2);
 
@@ -939,12 +939,12 @@ public class UtilityFunctions
         }
 
         ConsPointer toInsert = new ConsPointer();
-        toInsert.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 3).get());
+        toInsert.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 3).getCons());
         LispError.checkArgumentCore(aEnvironment, aStackTop, iter.ptr() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.ptr().get() != null, 2);
-        toInsert.get().cdr().set(iter.ptr().get().cdr().get());
-        iter.ptr().set(toInsert.get());
-        BuiltinFunction.result(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
+        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.ptr().getCons() != null, 2);
+        toInsert.getCons().cdr().setCons(iter.ptr().getCons().cdr().getCons());
+        iter.ptr().setCons(toInsert.getCons());
+        BuiltinFunction.result(aEnvironment, aStackTop).setCons(SubList.getInstance(copied.getCons()));
     }
 
 
@@ -958,17 +958,17 @@ public class UtilityFunctions
         ConsPointer args = new ConsPointer();
         String orig = null;
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
-        orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        args.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).get());
+        args.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         // The arguments
         LispError.checkIsListCore(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
         aEnvironment.declareRuleBase(UtilityFunctions.symbolName(aEnvironment, orig),
-                args.get().subList().get().cdr(), aListed);
+                args.getCons().subList().getCons().cdr(), aListed);
 
         // Return true
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
@@ -988,23 +988,23 @@ public class UtilityFunctions
         String orig = null;
 
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
-        orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        ar.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).get());
-        pr.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 3).get());
-        predicate.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 4).get());
-        body.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 5).get());
+        ar.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
+        pr.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 3).getCons());
+        predicate.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 4).getCons());
+        body.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 5).getCons());
 
         // The arity
-        LispError.checkArgumentCore(aEnvironment, aStackTop, ar.get() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, ar.get().string() != null, 2);
-        arity = Integer.parseInt(ar.get().string(), 10);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, ar.getCons() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, ar.getCons().string() != null, 2);
+        arity = Integer.parseInt(ar.getCons().string(), 10);
 
         // The precedence
-        LispError.checkArgumentCore(aEnvironment, aStackTop, pr.get() != null, 3);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, pr.get().string() != null, 3);
-        precedence = Integer.parseInt(pr.get().string(), 10);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, pr.getCons() != null, 3);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, pr.getCons().string() != null, 3);
+        precedence = Integer.parseInt(pr.getCons().string(), 10);
 
         // Finally define the rule base
         aEnvironment.defineRule(UtilityFunctions.symbolName(aEnvironment, orig),
@@ -1024,17 +1024,17 @@ public class UtilityFunctions
         ConsPointer body = new ConsPointer();
         String orig = null;
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
-        orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
 
         // The arguments
-        args.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).get());
+        args.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkIsListCore(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
         aEnvironment.declareMacroRuleBase(UtilityFunctions.symbolName(aEnvironment, orig),
-                args.get().subList().get().cdr(), aListed);
+                args.getCons().subList().getCons().cdr(), aListed);
 
         // Return true
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop));
@@ -1052,23 +1052,23 @@ public class UtilityFunctions
         String orig = null;
 
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
-        orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        orig = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        ar.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).get());
-        pr.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 3).get());
-        predicate.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 4).get());
-        body.set(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 5).get());
+        ar.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
+        pr.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 3).getCons());
+        predicate.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 4).getCons());
+        body.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 5).getCons());
 
         // The arity
-        LispError.checkArgumentCore(aEnvironment, aStackTop, ar.get() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, ar.get().string() != null, 2);
-        arity = Integer.parseInt(ar.get().string(), 10);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, ar.getCons() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, ar.getCons().string() != null, 2);
+        arity = Integer.parseInt(ar.getCons().string(), 10);
 
         // The precedence
-        LispError.checkArgumentCore(aEnvironment, aStackTop, pr.get() != null, 3);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, pr.get().string() != null, 3);
-        precedence = Integer.parseInt(pr.get().string(), 10);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, pr.getCons() != null, 3);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, pr.getCons().string() != null, 3);
+        precedence = Integer.parseInt(pr.getCons().string(), 10);
 
         // Finally define the rule base
         aEnvironment.defineRulePattern(UtilityFunctions.symbolName(aEnvironment, orig),

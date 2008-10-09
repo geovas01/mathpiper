@@ -95,16 +95,16 @@ public abstract class Cons //Note:tk:was PiperObject.
 			return false;
 
 		// check all elements in sublist
-		while (iter1.get()!= null && iter2.get()!=null)
+		while (iter1.getCons()!= null && iter2.getCons()!=null)
 		{
-			if (! iter1.get().equal(iter2.get() ))
+			if (! iter1.getCons().equal(iter2.getCons() ))
 				return false;
 
-			iter1 = iter1.get().cdr();
-			iter2 = iter2.get().cdr();
+			iter1 = iter1.getCons().cdr();
+			iter2 = iter2.getCons().cdr();
 		}
 		//One list longer than the other?
-		if (iter1.get()== null && iter2.get()==null)
+		if (iter1.getCons()== null && iter2.getCons()==null)
 			return true;
 		return false;
 	}

@@ -36,6 +36,6 @@ public class FastArcSin extends BuiltinFunction
         double result = Math.asin(x.Double());
         BigNumber z = new BigNumber(aEnvironment.precision());
         z.SetTo(result);
-        result(aEnvironment, aStackTop).set(new org.mathpiper.lisp.Number(z));
+        result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }
 }

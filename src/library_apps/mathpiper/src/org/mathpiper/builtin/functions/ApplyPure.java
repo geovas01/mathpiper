@@ -34,26 +34,26 @@ public class ApplyPure extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer oper = new ConsPointer();
-        oper.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        oper.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         ConsPointer args = new ConsPointer();
-        args.set(argumentPointer(aEnvironment, aStackTop, 2).get());
+        args.setCons(argumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, args.get().subList() != null, 2);
-        LispError.checkCore(aEnvironment, aStackTop, args.get().subList().get() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, args.getCons().subList() != null, 2);
+        LispError.checkCore(aEnvironment, aStackTop, args.getCons().subList().getCons() != null, 2);
 
         // Apply a pure string
-        if (oper.get().string() != null)
+        if (oper.getCons().string() != null)
         {
             UtilityFunctions.internalApplyString(aEnvironment, result(aEnvironment, aStackTop),
-                    oper.get().string(),
-                    args.get().subList().get().cdr());
+                    oper.getCons().string(),
+                    args.getCons().subList().getCons().cdr());
         } else
         {   // Apply a pure function {args,body}.
 
             ConsPointer args2 = new ConsPointer();
-            args2.set(args.get().subList().get().cdr().get());
-            LispError.checkArgumentCore(aEnvironment, aStackTop, oper.get().subList() != null, 1);
-            LispError.checkArgumentCore(aEnvironment, aStackTop, oper.get().subList().get() != null, 1);
+            args2.setCons(args.getCons().subList().getCons().cdr().getCons());
+            LispError.checkArgumentCore(aEnvironment, aStackTop, oper.getCons().subList() != null, 1);
+            LispError.checkArgumentCore(aEnvironment, aStackTop, oper.getCons().subList().getCons() != null, 1);
             UtilityFunctions.internalApplyPure(oper, args2, result(aEnvironment, aStackTop), aEnvironment);
         }
     }

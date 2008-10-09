@@ -34,24 +34,24 @@ public class StringMidGet extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(argumentPointer(aEnvironment, aStackTop, 3).get());
+        evaluated.setCons(argumentPointer(aEnvironment, aStackTop, 3).getCons());
         LispError.checkIsStringCore(aEnvironment, aStackTop, evaluated, 3);
-        String orig = evaluated.get().string();
+        String orig = evaluated.getCons().string();
 
         ConsPointer index = new ConsPointer();
-        index.set(argumentPointer(aEnvironment, aStackTop, 1).get());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 1);
-        int from = Integer.parseInt(index.get().string(), 10);
+        index.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 1);
+        int from = Integer.parseInt(index.getCons().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, from > 0, 1);
 
-        index.set(argumentPointer(aEnvironment, aStackTop, 2).get());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 2);
-        int count = Integer.parseInt(index.get().string(), 10);
+        index.setCons(argumentPointer(aEnvironment, aStackTop, 2).getCons());
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 2);
+        int count = Integer.parseInt(index.getCons().string(), 10);
 
 
         String str = "\"" + orig.substring(from, from + count) + "\"";
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, str));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, str));
     }
 }

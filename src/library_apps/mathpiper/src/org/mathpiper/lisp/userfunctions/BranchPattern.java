@@ -36,14 +36,14 @@ class BranchPattern extends BranchRuleBase
     {
         iPatternClass = null;
         iPrecedence = aPrecedence;
-        iPredicate.set(aPredicate.get());
+        iPredicate.setCons(aPredicate.getCons());
 
-        BuiltinContainer gen = aPredicate.get().generic();
+        BuiltinContainer gen = aPredicate.getCons().generic();
         LispError.check(gen != null, LispError.KLispErrInvalidArg);
         LispError.check(gen.typeName().equals("\"Pattern\""), LispError.KLispErrInvalidArg);
 
         iPatternClass = (PatternContainer) gen;
-        iBody.set(aBody.get());
+        iBody.setCons(aBody.getCons());
     }
 
     /// Return true if the corresponding pattern matches.

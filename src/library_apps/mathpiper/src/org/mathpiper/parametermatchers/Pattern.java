@@ -27,7 +27,7 @@ package org.mathpiper.parametermatchers;
 /// whether there was a match.
 ///
 /// First the pattern is mapped onto the arguments. Then local variables
-/// are set. Then the predicates are called. If they all return true,
+/// are setCons. Then the predicates are called. If they all return true,
 /// Then the pattern matches, and the locals can stay (the body is expected
 /// to use these variables).
 
@@ -82,7 +82,7 @@ public class Pattern
 			iter.goNext();
 		}
 		ConsPointer  post = new ConsPointer();
-		post.set(aPostPredicate.get());
+		post.setCons(aPostPredicate.getCons());
 		iPredicates.add(post);
 	}
 
@@ -130,7 +130,7 @@ public class Pattern
 			return false;
 
 		{
-			// set the local variables.
+			// setCons the local variables.
 			aEnvironment.pushLocalFrame(false);
 			try
 			{
@@ -150,7 +150,7 @@ public class Pattern
 			}
 		}
 
-		// set the local variables for sure now
+		// setCons the local variables for sure now
 		setPatternVariables(aEnvironment,arguments);
 
 		return true;
@@ -180,7 +180,7 @@ public class Pattern
 		}
 
 		{
-			// set the local variables.
+			// setCons the local variables.
 			aEnvironment.pushLocalFrame(false);
 			try
 			{
@@ -200,7 +200,7 @@ public class Pattern
 			}
 		}
 
-		// set the local variables for sure now
+		// setCons the local variables for sure now
 		setPatternVariables(aEnvironment,arguments);
 		return true;
 	}
@@ -249,10 +249,10 @@ public class Pattern
 			// variable matcher here...
 			if (num>1)
 			{
-				Cons head = sublist.get();
+				Cons head = sublist.getCons();
 				if (head.string() == aEnvironment.getTokenHash().lookUp("_"))
 				{
-					Cons second = head.cdr().get();
+					Cons second = head.cdr().getCons();
 					if (second.string() != null)
 					{
 						int index = lookUp(second.string());
@@ -262,25 +262,25 @@ public class Pattern
 						{
 							ConsPointer third = new ConsPointer();
 
-							Cons predicate = second.cdr().get();
+							Cons predicate = second.cdr().getCons();
 							if (predicate.subList() != null)
 							{
 								UtilityFunctions.internalFlatCopy(third, predicate.subList());
 							}
 							else
 							{
-								third.set(second.cdr().get().copy(false));
+								third.setCons(second.cdr().getCons().copy(false));
 							}
 
 							String str = second.string();
-							Cons last = third.get();
-							while (last.cdr().get() != null)
-								last = last.cdr().get();
+							Cons last = third.getCons();
+							while (last.cdr().getCons() != null)
+								last = last.cdr().getCons();
 
-							last.cdr().set(org.mathpiper.lisp.Atom.getInstance(aEnvironment,str));
+							last.cdr().setCons(org.mathpiper.lisp.Atom.getInstance(aEnvironment,str));
 
 							ConsPointer pred = new ConsPointer();
-							pred.set(org.mathpiper.lisp.SubList.getInstance(third.get()));
+							pred.setCons(org.mathpiper.lisp.SubList.getInstance(third.getCons()));
 
 							iPredicates.add(pred);
 						}
@@ -333,8 +333,8 @@ public class Pattern
 		int i;
 		for (i=0;i<iVariables.size();i++)
 		{
-			// set the variable to the new value
-			aEnvironment.newLocal((String)iVariables.get(i),arguments[i].get());
+			// setCons the variable to the new value
+			aEnvironment.newLocal((String)iVariables.get(i),arguments[i].getCons());
 		}
 	}
 

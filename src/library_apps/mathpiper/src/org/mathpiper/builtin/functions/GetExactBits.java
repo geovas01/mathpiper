@@ -39,6 +39,6 @@ public class GetExactBits extends BuiltinFunction
                 ? x.BitCount() // for integers, return the bit count
                 : UtilityFunctions.digits_to_bits((long) (x.GetPrecision()), 10) // for floats, return the precision
                 );
-        result(aEnvironment, aStackTop).set(new org.mathpiper.lisp.Number(z));
+        result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }
 }

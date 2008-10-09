@@ -36,12 +36,12 @@ public class GenArraySize extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        evaluated.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        BuiltinContainer gen = evaluated.get().generic();
+        BuiltinContainer gen = evaluated.getCons().generic();
         LispError.checkArgumentCore(aEnvironment, aStackTop, gen != null, 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
         int size = ((Array) gen).size();
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + size));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + size));
     }
 }

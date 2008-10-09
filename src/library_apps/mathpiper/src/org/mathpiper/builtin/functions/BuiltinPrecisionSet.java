@@ -34,11 +34,11 @@ public class BuiltinPrecisionSet extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer index = new ConsPointer();
-        index.set(argumentPointer(aEnvironment, aStackTop, 1).get());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.get().string() != null, 1);
+        index.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 1);
 
-        int ind = Integer.parseInt(index.get().string(), 10);
+        int ind = Integer.parseInt(index.getCons().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, ind > 0, 1);
         aEnvironment.setPrecision(ind);
         UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));

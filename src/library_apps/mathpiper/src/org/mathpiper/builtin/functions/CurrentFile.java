@@ -31,6 +31,6 @@ public class CurrentFile extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(aEnvironment.iInputStatus.fileName())));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(aEnvironment.iInputStatus.fileName())));
     }
 }

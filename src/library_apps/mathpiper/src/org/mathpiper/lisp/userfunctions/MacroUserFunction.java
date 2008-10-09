@@ -81,7 +81,7 @@ public class MacroUserFunction extends BranchingUserFunction
 			LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 			if (((BranchParameter)iParameters.get(i)).iHold)
 			{
-				arguments[i].set(iter.getCons().copy(false));
+				arguments[i].setCons(iter.getCons().copy(false));
 			}
 			else
 			{
@@ -114,8 +114,8 @@ public class MacroUserFunction extends BranchingUserFunction
 				for (i=0;i<arity;i++)
 				{
 					String variable = ((BranchParameter)iParameters.get(i)).iParameter;
-					// set the variable to the new value
-					aEnvironment.newLocal(variable,arguments[i].get());
+					// setCons the variable to the new value
+					aEnvironment.newLocal(variable,arguments[i].getCons());
 				}
 
 				// walk the rules database, returning the evaluated result if the
@@ -155,7 +155,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		}
 
 
-		if (substedBody.get() != null)
+		if (substedBody.getCons() != null)
 		{
 			aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, substedBody);
 		}
@@ -164,20 +164,20 @@ public class MacroUserFunction extends BranchingUserFunction
 			// arguments.
 		{
 			ConsPointer full = new ConsPointer();
-			full.set(aArguments.get().copy(false));
+			full.setCons(aArguments.getCons().copy(false));
 			if (arity == 0)
 			{
-				full.get().cdr().set(null);
+				full.getCons().cdr().setCons(null);
 			}
 			else
 			{
-				full.get().cdr().set(arguments[0].get());
+				full.getCons().cdr().setCons(arguments[0].getCons());
 				for (i=0;i<arity-1;i++)
 				{
-					arguments[i].get().cdr().set(arguments[i+1].get());
+					arguments[i].getCons().cdr().setCons(arguments[i+1].getCons());
 				}
 			}
-			aResult.set(SubList.getInstance(full.get()));
+			aResult.setCons(SubList.getInstance(full.getCons()));
 		}
 		//FINISH:
 		/*TODO fixme

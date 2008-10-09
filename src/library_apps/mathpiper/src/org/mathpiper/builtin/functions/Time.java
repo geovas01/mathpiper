@@ -39,6 +39,6 @@ public class Time extends BuiltinFunction
         double timeDiff;
         timeDiff = endtime - starttime;
         timeDiff /= 1000.0;
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, "" + timeDiff));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + timeDiff));
     }
 }

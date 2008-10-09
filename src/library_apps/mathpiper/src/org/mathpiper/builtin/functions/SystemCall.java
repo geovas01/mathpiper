@@ -34,13 +34,13 @@ public class SystemCall extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).get() != null, 1);
-        String orig = argumentPointer(aEnvironment, aStackTop, 1).get().string();
+        LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        String orig = argumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
         String ls_str;
         Process ls_proc = Runtime.getRuntime().exec(oper);
-        // get its output (your input) stream
+        // getCons its output (your input) stream
         BufferedReader ls_in = new BufferedReader(new InputStreamReader(ls_proc.getInputStream()));
 
         while ((ls_str = ls_in.readLine()) != null)

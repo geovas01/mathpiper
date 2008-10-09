@@ -35,7 +35,7 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
         int arg = 1;
 
-        ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).get().subList());
+        ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).getCons().subList());
         iter.goNext();
         while (iter.getCons() != null)
         {
@@ -53,6 +53,6 @@ public class ConcatenateStrings extends BuiltinFunction
     {
         StringBuffer strBuffer = new StringBuffer("");
         ConcatenateStrings(strBuffer, aEnvironment, aStackTop);
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, strBuffer.toString()));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, strBuffer.toString()));
     }
 }

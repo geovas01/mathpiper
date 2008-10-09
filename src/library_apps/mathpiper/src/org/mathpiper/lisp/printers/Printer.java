@@ -36,12 +36,12 @@ public class Printer
 	                     Environment aEnvironment,int aDepth /* =0 */) throws Exception
 	{
 		ConsPointer iter = new ConsPointer();
-		iter.set(aExpression.get());
+		iter.setCons(aExpression.getCons());
 		int item = 0;
-		while (iter.get() != null)
+		while (iter.getCons() != null)
 		{
 			// if String not null pointer: print string
-			String string = iter.get().string();
+			String string = iter.getCons().string();
 
 			if (string != null)
 			{
@@ -49,14 +49,14 @@ public class Printer
 				aOutput.PutChar(' ');
 			}
 			// else print "(", print sublist, and print ")"
-			else if (iter.get().subList() != null)
+			else if (iter.getCons().subList() != null)
 			{
 				if (item != 0)
 				{
 					indent(aOutput,aDepth+1);
 				}
 				aOutput.Write("(");
-				printExpression((iter.get().subList()),aOutput, aEnvironment,aDepth+1);
+				printExpression((iter.getCons().subList()),aOutput, aEnvironment,aDepth+1);
 				aOutput.Write(")");
 				item=0;
 			}
@@ -64,7 +64,7 @@ public class Printer
 			{
 				aOutput.Write("[BuiltinObject]");
 			}
-			iter = (iter.get().cdr());
+			iter = (iter.getCons().cdr());
 			item++;
 		} // print cdr element
 	}

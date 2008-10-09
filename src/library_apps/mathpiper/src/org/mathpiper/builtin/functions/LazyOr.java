@@ -38,7 +38,7 @@ public class LazyOr extends BuiltinFunction
 
         ConsPointer evaluated = new ConsPointer();
 
-        ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).get().subList());
+        ConsTraverser iter = new ConsTraverser(argumentPointer(aEnvironment, aStackTop, 1).getCons().subList());
         iter.goNext();
         while (iter.getCons() != null)
         {
@@ -52,29 +52,29 @@ public class LazyOr extends BuiltinFunction
                 ConsPointer ptr = new ConsPointer();
                 nrnogos++;
 
-                ptr.set(evaluated.get().copy(false));
-                ptr.get().cdr().set(nogos.get());
-                nogos.set(ptr.get());
+                ptr.setCons(evaluated.getCons().copy(false));
+                ptr.getCons().cdr().setCons(nogos.getCons());
+                nogos.setCons(ptr.getCons());
             }
             iter.goNext();
         }
 
-        if (nogos.get() != null)
+        if (nogos.getCons() != null)
         {
             if (nrnogos == 1)
             {
-                result(aEnvironment, aStackTop).set(nogos.get());
+                result(aEnvironment, aStackTop).setCons(nogos.getCons());
             } else
             {
                 ConsPointer ptr = new ConsPointer();
 
                 UtilityFunctions.internalReverseList(ptr, nogos);
-                nogos.set(ptr.get());
+                nogos.setCons(ptr.getCons());
 
-                ptr.set(argumentPointer(aEnvironment, aStackTop, 0).get().copy(false));
-                ptr.get().cdr().set(nogos.get());
-                nogos.set(ptr.get());
-                result(aEnvironment, aStackTop).set(SubList.getInstance(nogos.get()));
+                ptr.setCons(argumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
+                ptr.getCons().cdr().setCons(nogos.getCons());
+                nogos.setCons(ptr.getCons());
+                result(aEnvironment, aStackTop).setCons(SubList.getInstance(nogos.getCons()));
             }
         //aEnvironment.CurrentPrinter().Print(result(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
         } else

@@ -33,7 +33,7 @@ public class IsGeneric extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.set(argumentPointer(aEnvironment, aStackTop, 1).get());
-        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), evaluated.get().generic() != null);
+        evaluated.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), evaluated.getCons().generic() != null);
     }
 }

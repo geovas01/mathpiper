@@ -48,7 +48,7 @@ public class Array extends BuiltinContainer
 	public Cons getElement(int aItem) throws Exception
 	{
 		LispError.lispAssert(aItem>0 && aItem<=iArray.size());
-		return iArray.getElement(aItem-1).get();
+		return iArray.getElement(aItem-1).getCons();
 	}
 	public void setElement(int aItem,Cons aObject) throws Exception
 	{

@@ -29,7 +29,7 @@ class BranchRuleTruePredicate extends BranchRule
     public BranchRuleTruePredicate(int aPrecedence, ConsPointer aBody)
     {
         iPrecedence = aPrecedence;
-        iBody.set(aBody.get());
+        iBody.setCons(aBody.getCons());
     }
     /// Return #true, always.
     public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception

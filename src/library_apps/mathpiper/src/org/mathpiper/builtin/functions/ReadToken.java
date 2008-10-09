@@ -37,9 +37,9 @@ public class ReadToken extends BuiltinFunction
 
         if (result.length() == 0)
         {
-            result(aEnvironment, aStackTop).set(aEnvironment.iEndOfFileAtom.copy(false));
+            result(aEnvironment, aStackTop).setCons(aEnvironment.iEndOfFileAtom.copy(false));
             return;
         }
-        result(aEnvironment, aStackTop).set(Atom.getInstance(aEnvironment, result));
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, result));
     }
 }

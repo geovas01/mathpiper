@@ -32,8 +32,8 @@ public class IsFunction extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
-        result.set(argumentPointer(aEnvironment, aStackTop, 1).get());
+        result.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop),
-                result.get().subList() != null);
+                result.getCons().subList() != null);
     }
 }

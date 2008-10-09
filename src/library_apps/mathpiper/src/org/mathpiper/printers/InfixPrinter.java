@@ -64,9 +64,9 @@ public class InfixPrinter extends Printer
 	}
 	void Print(ConsPointer aExpression, OutputStream aOutput, int iPrecedence) throws Exception
 	{
-		LispError.lispAssert(aExpression.get() != null);
+		LispError.lispAssert(aExpression.getCons() != null);
 
-		String string = aExpression.get().string();
+		String string = aExpression.getCons().string();
 		if (string != null)
 		{
 			boolean bracket=false;
@@ -83,23 +83,23 @@ public class InfixPrinter extends Printer
 			return;
 		}
 
-		if (aExpression.get().generic() != null)
+		if (aExpression.getCons().generic() != null)
 		{
 			//TODO display genericclass
-			WriteToken(aOutput,aExpression.get().generic().typeName());
+			WriteToken(aOutput,aExpression.getCons().generic().typeName());
 			return;
 		}
 
-		ConsPointer subList = aExpression.get().subList();
+		ConsPointer subList = aExpression.getCons().subList();
 		LispError.check(subList!=null, LispError.KLispErrUnprintableToken);
-		if (subList.get() == null)
+		if (subList.getCons() == null)
 		{
 			WriteToken(aOutput,"( )");
 		}
 		else
 		{
 			int length = UtilityFunctions.internalListLength(subList);
-			string = subList.get().string();
+			string = subList.getCons().string();
 			InfixOperator prefix  = (InfixOperator)iPrefixOperators.lookUp(string);
 			InfixOperator infix   = (InfixOperator)iInfixOperators.lookUp(string);
 			InfixOperator postfix = (InfixOperator)iPostfixOperators.lookUp(string);
@@ -126,16 +126,16 @@ public class InfixPrinter extends Printer
 
 				if (prefix != null)
 				{
-					right = subList.get().cdr();
+					right = subList.getCons().cdr();
 				}
 				else if (infix != null)
 				{
-					left  = subList.get().cdr();
-					right = subList.get().cdr().get().cdr();
+					left  = subList.getCons().cdr();
+					right = subList.getCons().cdr().getCons().cdr();
 				}
 				else if (postfix != null)
 				{
-					left = subList.get().cdr();
+					left = subList.getCons().cdr();
 				}
 
 				if (iPrecedence < op.iPrecedence)
@@ -156,7 +156,7 @@ public class InfixPrinter extends Printer
 			}
 			else
 			{
-				ConsTraverser iter = new ConsTraverser(subList.get().cdr());
+				ConsTraverser iter = new ConsTraverser(subList.getCons().cdr());
 				if (string == iCurrentEnvironment.iListAtom.string())
 				{
 					WriteToken(aOutput,"{");

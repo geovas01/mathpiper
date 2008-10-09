@@ -35,17 +35,17 @@ public class RuleBaseDefined extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer name = new ConsPointer();
-        name.set(argumentPointer(aEnvironment, aStackTop, 1).get());
-        String orig = name.get().string();
+        name.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
+        String orig = name.getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
-        sizearg.set(argumentPointer(aEnvironment, aStackTop, 2).get());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.get().string() != null, 2);
+        sizearg.setCons(argumentPointer(aEnvironment, aStackTop, 2).getCons());
+        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.getCons().string() != null, 2);
 
-        int arity = Integer.parseInt(sizearg.get().string(), 10);
+        int arity = Integer.parseInt(sizearg.getCons().string(), 10);
 
         UserFunction userFunc = aEnvironment.userFunction(aEnvironment.getTokenHash().lookUp(oper), arity);
         UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), userFunc != null);

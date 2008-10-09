@@ -33,7 +33,7 @@ public class NewLocal extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer subList = argumentPointer(aEnvironment, aStackTop, 1).get().subList();
+        ConsPointer subList = argumentPointer(aEnvironment, aStackTop, 1).getCons().subList();
         if (subList != null)
         {
             ConsTraverser iter = new ConsTraverser(subList);

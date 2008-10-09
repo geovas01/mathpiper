@@ -33,7 +33,7 @@ public class FlatCopy extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer copied = new ConsPointer();
-        UtilityFunctions.internalFlatCopy(copied, argumentPointer(aEnvironment, aStackTop, 1).get().subList());
-        result(aEnvironment, aStackTop).set(SubList.getInstance(copied.get()));
+        UtilityFunctions.internalFlatCopy(copied, argumentPointer(aEnvironment, aStackTop, 1).getCons().subList());
+        result(aEnvironment, aStackTop).setCons(SubList.getInstance(copied.getCons()));
     }
 }
