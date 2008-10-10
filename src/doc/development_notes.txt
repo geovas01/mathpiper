@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++ ExtraInfo'Get, ExtraInfo'Set, and ExtraInfo'Returns do not have any documentation pages in MathPiperDocs.
 + Sometimes the "Source" button in PiperDocs indicates it cannot load the source file using the given encoding.
 + Add "ant -Dtarget=dist all-plugins" to build instructions.
 + Add version update to welcome.html file.
