@@ -36,7 +36,7 @@ public class IsInteger extends BuiltinFunction
         ConsPointer result = new ConsPointer();
         result.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        BigNumber num = result.getCons().number(aEnvironment.precision());
+        BigNumber num = result.getCons().number(aEnvironment.getPrecision());
         if (num == null)
         {
             UtilityFunctions.internalFalse(aEnvironment, result(aEnvironment, aStackTop));

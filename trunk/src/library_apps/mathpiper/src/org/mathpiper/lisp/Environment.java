@@ -41,7 +41,7 @@ public class Environment
 {
         public ExpressionEvaluator iEvaluator = new LispExpressionEvaluator();
         
-	public int iPrecision = 10;
+	private int iPrecision = 10;
 
 	private TokenHash iTokenHash = new TokenHash();
 	public Cons iTrueAtom;
@@ -138,14 +138,14 @@ public class Environment
 		return iTokenHash;
 	}
 
-	public int precision()
+	public int getPrecision()
 	{
 		return iPrecision;
 	}
 
 	public void setPrecision(int aPrecision) throws Exception
 	{
-		iPrecision = aPrecision;    // precision in decimal digits
+		iPrecision = aPrecision;    // getPrecision in decimal digits
 	}
 
 

@@ -43,8 +43,8 @@ abstract public class LexCompare2
         result1.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons());
         result2.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
         boolean cmp;
-        BigNumber n1 = result1.getCons().number(aEnvironment.precision());
-        BigNumber n2 = result2.getCons().number(aEnvironment.precision());
+        BigNumber n1 = result1.getCons().number(aEnvironment.getPrecision());
+        BigNumber n2 = result2.getCons().number(aEnvironment.getPrecision());
         if (n1 != null && n2 != null)
         {
             cmp = numfunc(n1, n2);
@@ -56,10 +56,10 @@ abstract public class LexCompare2
             str2 = result2.getCons().string();
             LispError.checkArgumentCore(aEnvironment, aStackTop, str1 != null, 1);
             LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
-            // the precision argument is ignored in "lex" functions
+            // the getPrecision argument is ignored in "lex" functions
             cmp = lexfunc(str1, str2,
                     aEnvironment.getTokenHash(),
-                    aEnvironment.precision());
+                    aEnvironment.getPrecision());
         }
 
         UtilityFunctions.internalBoolean(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop), cmp);

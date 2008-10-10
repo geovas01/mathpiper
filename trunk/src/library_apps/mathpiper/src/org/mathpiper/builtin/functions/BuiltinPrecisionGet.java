@@ -31,7 +31,7 @@ public class BuiltinPrecisionGet extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        // decimal precision
-        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + aEnvironment.precision()));
+        // decimal getPrecision
+        result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + aEnvironment.getPrecision()));
     }
 }

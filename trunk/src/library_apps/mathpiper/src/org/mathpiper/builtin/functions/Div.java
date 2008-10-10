@@ -36,8 +36,8 @@ public class Div extends BuiltinFunction
         if (x.IsInt() && y.IsInt())
         {  // both integer, perform integer division
 
-            BigNumber z = new BigNumber(aEnvironment.precision());
-            z.Divide(x, y, aEnvironment.precision());
+            BigNumber z = new BigNumber(aEnvironment.getPrecision());
+            z.Divide(x, y, aEnvironment.getPrecision());
             result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
             return;
         } else
