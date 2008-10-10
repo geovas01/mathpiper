@@ -18,7 +18,7 @@ import org.mathpiper.lisp.Environment;
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
 			BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.precision());
+			BigNumber z = new BigNumber(aEnvironment.getPrecision());
 			z.Floor(x);
 			result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
 		}

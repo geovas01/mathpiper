@@ -32,7 +32,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 /// If called with one argument (unary plus), this argument is
 /// converted to BigNumber. If called with two arguments (binary plus),
 /// both argument are converted to a BigNumber, and these are added
-/// together at the current precision. The sum is returned.
+/// together at the current getPrecision. The sum is returned.
 /// \sa getNumber(), BigNumber::Add()
 public class Add extends BuiltinFunction
 {
@@ -50,9 +50,9 @@ public class Add extends BuiltinFunction
         {
             BigNumber x = UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
             BigNumber y = UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
-            int bin = aEnvironment.precision();
+            int bin = aEnvironment.getPrecision();
             BigNumber z = new BigNumber(bin);
-            z.Add(x, y, aEnvironment.precision());
+            z.Add(x, y, aEnvironment.getPrecision());
             result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
             return;
         }

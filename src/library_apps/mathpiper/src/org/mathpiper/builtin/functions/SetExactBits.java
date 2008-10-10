@@ -34,7 +34,7 @@ public class SetExactBits extends BuiltinFunction
     {
         BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
         BigNumber y = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
-        BigNumber z = new BigNumber(aEnvironment.precision());
+        BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.SetTo(x);
 
         // do nothing for integers

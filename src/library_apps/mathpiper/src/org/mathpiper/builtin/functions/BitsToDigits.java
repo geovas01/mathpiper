@@ -46,7 +46,7 @@ public class BitsToDigits extends BuiltinFunction
         {
             throw new PiperException("BitsToDigits: error: arguments (" + x.Double() + ", " + y.Double() + ") must be small integers");
         }
-        BigNumber z = new BigNumber(aEnvironment.precision());
+        BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.SetTo((long) result);
         result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }

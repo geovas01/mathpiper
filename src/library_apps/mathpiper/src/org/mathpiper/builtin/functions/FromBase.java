@@ -39,7 +39,7 @@ public class FromBase extends BuiltinFunction
         ConsPointer oper = new ConsPointer();
         oper.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         // check that result is a number, and that it is in fact an integer
-        BigNumber num = oper.getCons().number(aEnvironment.precision());
+        BigNumber num = oper.getCons().number(aEnvironment.getPrecision());
         LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
         LispError.checkArgumentCore(aEnvironment, aStackTop, num.IsInt(), 1);
@@ -59,7 +59,7 @@ public class FromBase extends BuiltinFunction
         str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
 
         // convert using correct base
-        BigNumber z = new BigNumber(str2, aEnvironment.precision(), base);
+        BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);
         result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }
 }

@@ -54,7 +54,7 @@ public class FastIsPrime extends BuiltinFunction
             i++;
         }
 
-        BigNumber z = new BigNumber(aEnvironment.precision());
+        BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.SetTo(result);
         result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }

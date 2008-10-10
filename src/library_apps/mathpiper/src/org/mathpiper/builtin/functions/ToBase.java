@@ -39,7 +39,7 @@ public class ToBase extends BuiltinFunction
         ConsPointer oper = new ConsPointer();
         oper.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         // check that result is a number, and that it is in fact an integer
-        BigNumber num = oper.getCons().number(aEnvironment.precision());
+        BigNumber num = oper.getCons().number(aEnvironment.getPrecision());
         LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
         LispError.checkArgumentCore(aEnvironment, aStackTop, num.IsInt(), 1);
@@ -52,7 +52,7 @@ public class ToBase extends BuiltinFunction
 
         // convert using correct base
         String str;
-        str = x.ToString(aEnvironment.precision(), base);
+        str = x.ToString(aEnvironment.getPrecision(), base);
         // Get unique string from hash table, and create an atom from it.
 
         result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(str)));

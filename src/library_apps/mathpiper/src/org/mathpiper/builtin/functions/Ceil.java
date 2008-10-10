@@ -32,7 +32,7 @@ public class Ceil extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
-        BigNumber z = new BigNumber(aEnvironment.precision());
+        BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.Negate(x);
         z.Floor(z);
         z.Negate(z);

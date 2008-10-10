@@ -227,9 +227,9 @@ public class Pattern
 	{
 		if (aPattern == null)
 			return null;
-		if (aPattern.number(aEnvironment.precision()) != null)
+		if (aPattern.number(aEnvironment.getPrecision()) != null)
 		{
-			return new Number(aPattern.number(aEnvironment.precision()));
+			return new Number(aPattern.number(aEnvironment.getPrecision()));
 		}
 		// Deal with atoms
 		if (aPattern.string() != null)

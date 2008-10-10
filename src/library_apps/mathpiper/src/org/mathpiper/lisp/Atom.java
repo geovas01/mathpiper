@@ -34,7 +34,7 @@ public class Atom extends Cons
 
         {
             /// construct a number from a decimal string representation (also create a number object)
-            self = new Number(aString, aEnvironment.precision());
+            self = new Number(aString, aEnvironment.getPrecision());
         } else
         {
             self = new Atom(aEnvironment.getTokenHash().lookUp(aString));

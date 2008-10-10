@@ -34,6 +34,6 @@ public class IsNumber extends BuiltinFunction
     {
         ConsPointer result = new ConsPointer();
         result.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
-        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), result.getCons().number(aEnvironment.precision()) != null);
+        UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), result.getCons().number(aEnvironment.getPrecision()) != null);
     }
 }

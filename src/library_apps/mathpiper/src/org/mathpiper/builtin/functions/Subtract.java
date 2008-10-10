@@ -46,8 +46,8 @@ public class Subtract extends BuiltinFunction
             BigNumber y = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
             BigNumber yneg = new BigNumber(y);
             yneg.Negate(y);
-            BigNumber z = new BigNumber(aEnvironment.precision());
-            z.Add(x, yneg, aEnvironment.precision());
+            BigNumber z = new BigNumber(aEnvironment.getPrecision());
+            z.Add(x, yneg, aEnvironment.getPrecision());
             result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
             return;
         }

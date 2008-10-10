@@ -38,8 +38,8 @@ public class Number extends Parameter
 	                               ConsPointer  aExpression,
 	                               ConsPointer[]  arguments) throws Exception
 	{
-		if (aExpression.getCons().number(aEnvironment.precision()) != null)
-			return iNumber.Equals(aExpression.getCons().number(aEnvironment.precision()));
+		if (aExpression.getCons().number(aEnvironment.getPrecision()) != null)
+			return iNumber.Equals(aExpression.getCons().number(aEnvironment.getPrecision()));
 		return false;
 	}
 	
