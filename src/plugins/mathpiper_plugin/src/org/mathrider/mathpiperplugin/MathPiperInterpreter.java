@@ -22,7 +22,7 @@ import errorlist.*;
  public class MathPiperInterpreter { 
 
 	private static MathPiperInterpreter instance = null;
-    private Interpreter mathpiper;
+    private Interpreter mathPiper;
 	private StringOutput stringOutput;
 	//java.util.zip.ZipFile scriptsZip;
 	
@@ -33,11 +33,11 @@ import errorlist.*;
 		
 		stringOutput = new StringOutput();
 	    
-		mathpiper = new Interpreter(stringOutput);
+		mathPiper = new Interpreter(stringOutput);
         
         //boolean scripts_found = loadScripts();
  
-       // if (!scripts_found) throw new Piperexception ("MathPiper error: Unable to load mathpiper.jar");
+       // if (!scripts_found) throw new Piperexception ("MathPiper error: Unable to load mathPiper.jar");
 			
         //mathpiper.evaluate("Load(\"mathpiperinit.pi\");");
  
@@ -52,10 +52,10 @@ import errorlist.*;
    
 
    
-   //public java.util.zip.ZipFile getScriptsZip()
-   //{
-	//   return scriptsZip;
-   //}//end method.
+   public java.util.zip.ZipFile getScriptsZip()
+   {
+	   return mathPiper.getScriptsZip();
+   }//end method.
    //
    // /** Searches for the file mathpiper.jar and passes its absolute path to the Piper interpreter.
    //  * This method searches in the classpath (declared i.e. in MANIFEST.MF) for the file mathpiperinit.pi.
@@ -87,7 +87,7 @@ import errorlist.*;
      */
     public String evaluate(String input) throws PiperException {
 		
-			String result = mathpiper.evaluate(input);
+			String result = mathPiper.evaluate(input);
 			
 			String outputMessage = stringOutput.toString();
 			

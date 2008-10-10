@@ -1156,7 +1156,7 @@ home()
 //{{{source()
 source()
 {
-	interpreter = piperInterpreter; //Note:tk:PiperInterpreter.getInstance(); 
+	interpreter = mathPiperInterpreter; //Note:tk:mathPiperInterpreter.getInstance(); 
 	//item = list.getSelectedValue();
 	
 	item = functionInfo.toString();
@@ -1177,7 +1177,7 @@ source()
 	
 import java.io.*;
 //Print the contents of the Piper script zip file.
- instance = piperInterpreter; //Note:tk:PiperInterpreter.getInstance();
+ instance = mathPiperInterpreter; //Note:tk:mathPiperInterpreter.getInstance();
  scriptZip = instance.getScriptsZip();
  entries = scriptZip.entries();
  
