@@ -96,7 +96,7 @@ public class CPiper
     }
     catch (Exception e)
     {
-//      e.printStackTrace();
+      e.printStackTrace();
       //System.out.println(e.toString());  
       
       //Note:tk throw Piperexception instead of simply printing the exception message.
