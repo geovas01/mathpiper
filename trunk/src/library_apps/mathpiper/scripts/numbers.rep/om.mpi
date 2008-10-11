@@ -1,4 +1,4 @@
-// From code.pi.def:
+// From code.mpi.def:
 OMDef( "BellNumber",      "piper","BellNumber" );
 OMDef( "CatalanNumber",   "piper","CatalanNumber" );
 OMDef( "DigitalRoot",     "piper","DigitalRoot" );
@@ -37,7 +37,7 @@ OMDef( "StirlingNumber1", "piper","StirlingNumber1" );
 OMDef( "StirlingNumber2", "piper","StirlingNumber2" );
 OMDef( "Totient",         "piper","Totient" );
 
-// From GaussianIntegers.pi.def
+// From GaussianIntegers.mpi.def
 OMDef( "IsGaussianUnit",    "piper","IsGaussianUnit" );
 OMDef( "IsGaussianInteger", "piper","IsGaussianInteger" );
 OMDef( "IsGaussianPrime",   "piper","IsGaussianPrime" );
@@ -49,7 +49,7 @@ OMDef( "AddGaussianFactor", "piper","AddGaussianFactor" );
 OMDef( "FactorGaussianInteger", "piper","FactorGaussianInteger" );
 OMDef( "GaussianGcd",       "piper","GaussianGcd" );
 
-// From nthroot.pi.def
+// From nthroot.mpi.def
 OMDef( "NthRoot",      "piper","NthRoot" );
 OMDef( "NthRoot'Calc", "piper","NthRoot'Calc" );
 OMDef( "NthRoot'List", "piper","NthRoot'List" );
@@ -57,7 +57,7 @@ OMDef( "NthRoot'Save", "piper","NthRoot'Save" );
 OMDef( "NthRoot'Restore", "piper","NthRoot'Restore" );
 OMDef( "NthRoot'Clear", "piper","NthRoot'Clear" );
 
-// From NumberTheory.pi.def
+// From NumberTheory.mpi.def
 OMDef( "DivisorsList", "piper","DivisorsList" );
 OMDef( "SquareFreeDivisorsList", "piper","SquareFreeDivisorsList" );
 OMDef( "MoebiusDivisorsList",    "piper","MoebiusDivisorsList" );

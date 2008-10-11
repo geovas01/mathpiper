@@ -1,9 +1,9 @@
 
 /* Implementation of MultiNomials based on sparse representation
-   in the sparsetree.pi code. This is the real driver, using 
+   in the sparsetree.mpi code. This is the real driver, using 
    the sparse trees just for representation.
  */
-Use("multivar.rep/sparsetree.pi");
+Use("multivar.rep/sparsetree.mpi");
 
 LocalSymbols(NormalMultiNomial) [
 

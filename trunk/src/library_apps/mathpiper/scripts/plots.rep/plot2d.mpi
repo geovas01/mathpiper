@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////
 
 /// definitions of backends
-Use("plots.rep/backends-2d.pi");
+Use("plots.rep/backends-2d.mpi");
 
 /*
 	Plot2D is an interface for various backends (Plot2D'...). It calls

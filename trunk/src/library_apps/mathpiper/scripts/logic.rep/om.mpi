@@ -1,4 +1,4 @@
-// From code.pi.def:
+// From code.mpi.def:
 OMDef( "=>" , "logic1","implies" );
 OMDef( "CNF"          ,          "piper","cnf"                      );
 OMDef( "LogicSimplify",          "piper","logic_simplify"           );

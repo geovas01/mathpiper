@@ -1,4 +1,4 @@
-//From code.pi.def:
+//From code.mpi.def:
 OMDef( "I", "nums1", "i" );
 OMDef( "CachedConstant",        "piper", "CachedConstant"        );
 OMDef( "AssignCachedConstants", "piper", "AssignCachedConstants" );

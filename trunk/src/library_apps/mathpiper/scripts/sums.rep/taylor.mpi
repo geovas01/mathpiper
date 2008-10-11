@@ -14,7 +14,7 @@
  *    Taylor(x,a,n) y = \sum_{k=0}^n 1/k! a_k x^k,
  * where a_k is the k-th order derivative of y with respect to x,
  * evaluated at x=a. In fact, the old implementation of "Taylor", which
- * is retained in obsolete.pi, uses this method. However, we found out
+ * is retained in obsolete.mpi, uses this method. However, we found out
  * that the expressions for the derivatives often grow very large, which
  * makes the computation too slow.
  * 

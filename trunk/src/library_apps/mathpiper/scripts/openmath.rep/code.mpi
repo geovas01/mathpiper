@@ -651,7 +651,7 @@ OMDef( "List", "list1","list" );
 //     "Gamma"    ,  "nums1", "gamma"
 OMDef( "Infinity" ,  "nums1", "infinity" );
 OMDef( "Undefined",  "nums1", "NaN"      );
-// [20010916 AGP] From stdopers.pi:
+// [20010916 AGP] From stdopers.mpi:
 OMDef( "And"   ,  "logic1", "and"        );
 OMDef( "=="    ,  "logic1", "equivalent" );
 OMDef( "!=="   ,  "logic1", "not",
@@ -678,13 +678,13 @@ OMDef( "^" ,  "arith1", "power"  );
 OMDef( "*" ,  "arith1", "times"  );
 
 
-Use("constants.rep/om.pi");
-Use("stdfuncs.rep/om.pi");
-Use("stubs.rep/om.pi");
-Use("logic.rep/om.pi");
-Use("complex.rep/om.pi");
-Use("integrate.rep/om.pi");
-Use("sums.rep/om.pi");
-Use("limit.rep/om.pi");
-//Use("numbers.rep/om.pi");// Sqrt is loaded before (stubs.rep) than IntNthRoot.
-Use("functional.rep/om.pi");
+Use("constants.rep/om.mpi");
+Use("stdfuncs.rep/om.mpi");
+Use("stubs.rep/om.mpi");
+Use("logic.rep/om.mpi");
+Use("complex.rep/om.mpi");
+Use("integrate.rep/om.mpi");
+Use("sums.rep/om.mpi");
+Use("limit.rep/om.mpi");
+//Use("numbers.rep/om.mpi");// Sqrt is loaded before (stubs.rep) than IntNthRoot.
+Use("functional.rep/om.mpi");

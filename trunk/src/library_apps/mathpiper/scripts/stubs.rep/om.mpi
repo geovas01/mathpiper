@@ -1,4 +1,4 @@
-// From code.pi.def:
+// From code.mpi.def:
 OMDef( "Not", "logic1","not" );
 OMDef( "=" , "relation1","eq"  );
 OMDef( ">=", "relation1","geq" );

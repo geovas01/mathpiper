@@ -146,7 +146,7 @@ Defun("MathMul2Exp", {x,n})	// avoid roundoff by not calculating 1/2^n separatel
 //	);
 
 /// MathExp(x). Algorithm: for x<0, divide 1 by MathExp(-x); for x>1, compute MathExp(x/2)^2 recursively; for 0<x<1, use the Taylor series.
-// (This is not optimal; it would be much better to use SumTaylorNum and DoublingMinus1 from elemfuncs.pi. But this should be debugged for now, since MathExp is important for many algorithms.)
+// (This is not optimal; it would be much better to use SumTaylorNum and DoublingMinus1 from elemfuncs.mpi. But this should be debugged for now, since MathExp is important for many algorithms.)
 /// FIXME: No precision tracking yet. (i.e. the correct number of digits is not always there in the answer)
 
 Defun("MathExp", {x})

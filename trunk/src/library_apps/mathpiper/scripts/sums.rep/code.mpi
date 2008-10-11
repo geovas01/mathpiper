@@ -217,7 +217,7 @@ Function("Taylor",{taylorvariable,taylorat,taylororder,taylorfunction})
   Taylor1(taylorvariable,taylorat,taylororder)(taylorfunction);
 
 /*COMMENT FROM AYAL: this is the old slow but working version of Taylor series expansion. Jitse wrote a
- * faster version which resides in taylor.pi, and uses lazy power series. This slow but correct version is still
+ * faster version which resides in taylor.mpi, and uses lazy power series. This slow but correct version is still
  * useful for tests (the old and the new routine should yield identical results).
  */
 Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
