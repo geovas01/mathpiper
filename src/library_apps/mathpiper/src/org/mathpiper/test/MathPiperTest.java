@@ -5,14 +5,14 @@ package org.mathpiper.test;
 import org.mathpiper.Interpreter;
 import org.mathpiper.io.StandardFileOutputStream;
 
-public class PiperTest
+public class MathPiperTest
 {
-	private Interpreter piper;
+	private Interpreter mathPiper;
 	private java.io.File testDirectory;
 	private String result;
 	private java.io.FileWriter logFile;
 	
-	public PiperTest()
+	public MathPiperTest()
 	{
 		super();
 		
@@ -25,7 +25,7 @@ public class PiperTest
 			
 			logFile = new java.io.FileWriter("piper_tests.log");
 			
-			piper = new Interpreter( new StandardFileOutputStream(System.out));
+			mathPiper = new Interpreter( new StandardFileOutputStream(System.out));
 			
 			testDirectory = new java.io.File(directory);
 			if(testDirectory.exists() )
@@ -34,7 +34,7 @@ public class PiperTest
 				{
 					public boolean accept(java.io.File file, String name)
 					{
-						if(name.endsWith(".pit"))
+						if(name.endsWith(".mpt"))
 						{
 							return(true);
 						}
@@ -47,14 +47,14 @@ public class PiperTest
 				
 				
 				String output;
-				//Execute each .pit file in the specified directory.
+				//Execute each .mpt file in the specified directory.
 				for(int x = 0; x < files.length; x++)
 				{	
 					output = "\n===========================\n" + files[x].getName() + ": "; 
 					System.out.print(output);
 					logFile.write(output);
 					
-					result = piper.evaluate("Load(\"" + files[x].getName() + "\");");
+					result = mathPiper.evaluate("Load(\"" + files[x].getName() + "\");");
 					output = result + "\n";
 					System.out.println(output);
 					logFile.write(output);
@@ -102,7 +102,7 @@ public class PiperTest
 		}
                 
              
-		PiperTest pt = new PiperTest();
+		MathPiperTest pt = new MathPiperTest();
 		pt.test(directory);
 		
 	}//end main
