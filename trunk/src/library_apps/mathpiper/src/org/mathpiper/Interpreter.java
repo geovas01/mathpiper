@@ -65,14 +65,14 @@ public class Interpreter
             environment.iCurrentInput = new CachedStandardFileInputStream(environment.iInputStatus);
 
 
-            java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.pi");
+            java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.mpi");
 
             //StdFileInput.setPath(pathParent + File.separator);
 
 
             if (detectURL != null)
             {
-                detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.pi
+                detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.mpi
 
                 if (detect.indexOf('!') != -1)
                 {
@@ -87,7 +87,7 @@ public class Interpreter
                         inZipFile = true;
                     } catch (Exception e)
                     {
-                        System.out.println("Failed to find piper.jar" + e.toString());
+                        System.out.println("Failed to find mathpiper.jar" + e.toString());
                     }
                 } else
                 {
@@ -96,14 +96,14 @@ public class Interpreter
                 }
             } else
             {
-                System.out.println("Cannot find mathpiperinit.pi.");
+                System.out.println("Cannot find mathpiperinit.mpi.");
             }
 
 
             String result = "";
             try
             {
-                result = evaluate("Load(\"mathpiperinit.pi\");");
+                result = evaluate("Load(\"mathpiperinit.mpi\");");
 
             } catch (MathPiperException pe)
             {
