@@ -44,8 +44,8 @@ public class MathPiperDocsToolPanel extends JPanel {
 
 		
 		//View source button.
-		String toolTip = jEdit.getProperty("piperdocs.source.label");
-		sourceButton = new javax.swing.JButton(jEdit.getProperty("piperdocs.source.button-text"));
+		String toolTip = jEdit.getProperty("mathpiperdocs.source.label");
+		sourceButton = new javax.swing.JButton(jEdit.getProperty("mathpiperdocs.source.button-text"));
 		sourceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				MathPiperDocsToolPanel.this.pad.source();
@@ -56,8 +56,8 @@ public class MathPiperDocsToolPanel extends JPanel {
 		add(sourceButton);
 		
 		//Collapse tree button.
-		toolTip = jEdit.getProperty("piperdocs.collapse.label");
-		JButton collapseButton = new javax.swing.JButton(jEdit.getProperty("piperdocs.collapse.button-text"));
+		toolTip = jEdit.getProperty("mathpiperdocs.collapse.label");
+		JButton collapseButton = new javax.swing.JButton(jEdit.getProperty("mathpiperdocs.collapse.button-text"));
 		collapseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				MathPiperDocsToolPanel.this.pad.collapse();
@@ -72,7 +72,7 @@ public class MathPiperDocsToolPanel extends JPanel {
 		add(Box.createGlue());
 
 		//back button.
-		backButton = makeCustomButton("piperdocs.back", new ActionListener() {
+		backButton = makeCustomButton("mathpiperdocs.back", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				MathPiperDocsToolPanel.this.pad.back();
 			}
@@ -82,7 +82,7 @@ public class MathPiperDocsToolPanel extends JPanel {
 		
 		
 		//forward button.
-		forwardButton = makeCustomButton("piperdocs.forward", new ActionListener() {
+		forwardButton = makeCustomButton("mathpiperdocs.forward", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				MathPiperDocsToolPanel.this.pad.forward();
 			}
@@ -90,7 +90,7 @@ public class MathPiperDocsToolPanel extends JPanel {
 		forwardButton.setEnabled(false);
 		add(forwardButton);
 		
-		add(makeCustomButton("piperdocs.home", new ActionListener() {
+		add(makeCustomButton("mathpiperdocs.home", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				MathPiperDocsToolPanel.this.pad.home();
 			}

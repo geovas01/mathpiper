@@ -1,6 +1,5 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-import javax.swing.*;
 import javax.swing.event.*;
 import java.util.ArrayList;
 import org.gjt.sp.jedit.jEdit;
@@ -90,7 +89,7 @@ import javax.swing.*;
 import javax.swing.tree.*;
 import java.awt.event.*;
 import java.awt.*;
-//import org.mathrider.piperdocsplugin.FunctionInfo;
+//import org.mathrider.mathpiperdocsplugin.FunctionInfo;
 
 //{{{ User functions descriptions.
 userFunctionsDescriptions = new String[][]
@@ -435,9 +434,9 @@ userFunctionsDescriptions = new String[][]
 {"OdeSolve","General ODE solver.","Alphabetical","Differential Equations"},
 {"OdeTest","Test the solution of an ODE.","Alphabetical","Differential Equations"},
 {"OldSolve","Old version of Solve.","Alphabetical","Solvers (Symbolic)"},
-{"OMDef","Define translations from Piper to OpenMath and vice-versa.","Alphabetical","Input/Output"},
-{"OMForm","Convert Piper expression to OpenMath.","Alphabetical","Input/Output"},
-{"OMRead","Convert expression from OpenMath to Piper expression.","Alphabetical","Input/Output"},
+{"OMDef","Define translations from MathPiper to OpenMath and vice-versa.","Alphabetical","Input/Output"},
+{"OMForm","Convert MathPiper expression to OpenMath.","Alphabetical","Input/Output"},
+{"OMRead","Convert expression from OpenMath to MathPiper expression.","Alphabetical","Input/Output"},
 {"OpLeftPrecedence","","Alphabetical","Built In"},
 {"OpPrecedence","","Alphabetical","Built In"},
 {"OpRightPrecedence","","Alphabetical","Built In"},
@@ -553,7 +552,7 @@ userFunctionsDescriptions = new String[][]
 {"Tan","Trigonometric tangent function.","Alphabetical","Calculus Related (Symbolic)"},
 {"Taylor","Univariate Taylor series expansion.","Alphabetical","Series"},
 {"tDistribution","Student's t distribution.","Alphabetical","Probability & Statistics"},
-{"TestPiper","","Alphabetical"},
+{"TestMathPiper","","Alphabetical"},
 {"TeXForm","Export expressions in LaTeX form.","Alphabetical","Input/Output"},
 {"Time","Measure the time taken by a function.","Alphabetical","Control Flow","Built In"},
 {"ToBase","Conversion of a number in decimal base to non-decimal base.","Alphabetical","Numbers (Operations)","Built In"},
@@ -603,7 +602,7 @@ userFunctionsDescriptions = new String[][]
 jlist = new java.util.Vector();//For JList.
 
 
-userFunctionsNode = new DefaultMutableTreeNode(functionInfo("User Functions","Functions for Piper users."));
+userFunctionsNode = new DefaultMutableTreeNode(functionInfo("User Functions","Functions for MathPiper users."));
 
 userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Alphabetical","All functions in alphabetical order.")));
 userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Built In","Functions that are implemented in Java.")));
@@ -623,7 +622,7 @@ userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Matrices (Predica
 userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Matrices (Special)","Various special matricies")));
 userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Numeric","Functions that calculate numerically (like those found on a scientific calculator.")));
 userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Numbers (Complex)","Functions that allow manipulation of complex numbers.")));
-userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Numbers (Operations)","Besides the usual arithmetical operations, Piper defines some more advanced operations on numbers. Many of them also work on polynomials.")));
+userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Numbers (Operations)","Besides the usual arithmetical operations, MathPiper defines some more advanced operations on numbers. Many of them also work on polynomials.")));
 userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Numbers (Predicates)","Predicates relating to numbers.")));
 userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Numbers (Random)","Random number related functions.")));
 userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Number Theory","Functions that are of interest in number theory. They typically operate on integers")));
@@ -701,7 +700,7 @@ programmerFunctionsDescriptions = new String[][]
 {"IsInfix","Check for function syntax.","Alphabetical","Programming","Built In"},
 {"IsPostfix","Check for function syntax.","Alphabetical","Programming","Built In"},
 {"IsPrefix","Check for function syntax.","Alphabetical","Programming","Built In"},
-{"IsPromptShown","Test for the Piper prompt option.","Alphabetical","Built In"},
+{"IsPromptShown","Test for the MathPiper prompt option.","Alphabetical","Built In"},
 {"KnownFailure","Mark a test as a known failure.","Alphabetical","Testing"},
 {"LeftPrecedence","Set operator precedence.","Alphabetical","Programming","Built In"},
 {"LessThan","Comparison predicate.","Alphabetical","Built In"},
@@ -743,7 +742,7 @@ programmerFunctionsDescriptions = new String[][]
 {"ShiftLeft","Built-in bitwise shift left operation.","Alphabetical","Built In","Built In"},
 {"ShiftRight","Built-in bitwise shift right operation.","Alphabetical","Built In","Built In"},
 {"SumTaylorNum","Optimized numerical evaluation of Taylor series.","Alphabetical","Numerical (Arbitrary Precision)"},
-{"TestPiper","Verifying equivalence of two expressions.","Alphabetical","Testing"},
+{"TestMathPiper","Verifying equivalence of two expressions.","Alphabetical","Testing"},
 {"TrapError","Trap \"hard\" errors.","Alphabetical","Error Reporting","Built In"},
 {"TruncRadian","Remainder modulo 2*Pi.","Alphabetical","Numerical (Arbitrary Precision)"},
 {"UnFence","Change local variable scope for a function.","Alphabetical","Programming","Built In"},
@@ -752,15 +751,15 @@ programmerFunctionsDescriptions = new String[][]
 {"VerifyDiv","Special purpose arithmetic verifiers.","Alphabetical","Testing"}
 };
 
-programmerFunctionsNode = new DefaultMutableTreeNode(functionInfo("Programmer Functions","Functions for Piper code developers."));
+programmerFunctionsNode = new DefaultMutableTreeNode(functionInfo("Programmer Functions","Functions for MathPiper code developers."));
 
 programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Alphabetical","All functions in alphabetical order.")) );
-programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Built In","Piper has a small set of built-in functions and a large library of user-defined functions. Some built-in functions are in this section.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Built In","MathPiper has a small set of built-in functions and a large library of user-defined functions. Some built-in functions are in this section.")) );
 programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Error Reporting","Functions which are useful for reporting errors to the user.")) );
-programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Native Objects","Functions for allowing the Piper interpreter access native code.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Native Objects","Functions for allowing the MathPiper interpreter access native code.")) );
 programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Numerical (Arbitrary Precision)","Functions for programming numerical calculations with arbitrary precision.")) );
-programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Programming","Functions which are useful for writing Piper scripts.")) );
-programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Testing","Functions for verifying the correct operation of Piper code.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Programming","Functions which are useful for writing MathPiper scripts.")) );
+programmerFunctionsNode.add( new DefaultMutableTreeNode(functionInfo("Testing","Functions for verifying the correct operation of MathPiper code.")) );
                              
 
 
@@ -988,19 +987,19 @@ while(endFlag != true)
 
 //}}}
 
-piperFunctionsRootNode = new DefaultMutableTreeNode(functionInfo("Piper Functions                                           ","All Piper functions and constants."));
+mathpiperFunctionsRootNode = new DefaultMutableTreeNode(functionInfo("MathPiper Functions                                           ","All MathPiper functions and constants."));
 
-populateNode(piperFunctionsRootNode, allFunctions.toArray() );
+populateNode(mathpiperFunctionsRootNode, allFunctions.toArray() );
 
 populateNode(userFunctionsNode, userFunctionsDescriptions);
-piperFunctionsRootNode.add(userFunctionsNode);
+mathpiperFunctionsRootNode.add(userFunctionsNode);
 
 populateNode(programmerFunctionsNode, programmerFunctionsDescriptions);
-piperFunctionsRootNode.add(programmerFunctionsNode);
+mathpiperFunctionsRootNode.add(programmerFunctionsNode);
 
-populateNode(piperFunctionsRootNode, operatorsNodeDescriptions);
+populateNode(mathpiperFunctionsRootNode, operatorsNodeDescriptions);
 
-tree = functionInfoTree(piperFunctionsRootNode);
+tree = functionInfoTree(mathpiperFunctionsRootNode);
 
 
 ToolTipManager.sharedInstance().registerComponent(tree);
@@ -1032,7 +1031,7 @@ list = new javax.swing.JList(jlist);
     //list.addListSelectionListener(this);
     //JScrollPane pane = new JScrollPane(list);
  
-    piperDocPanel.add(treeView, BorderLayout.WEST);//treeView and listView.
+    mathPiperDocPanel.add(treeView, BorderLayout.WEST);//treeView and listView.
 
 
 	displayFunctionDocs(String item)
@@ -1050,7 +1049,7 @@ list = new javax.swing.JList(jlist);
 
 		if(match == true)
 		{
-			docPart = "piper_manual/refprogchapter5.html";
+			docPart = "mathpiper_manual/refprogchapter5.html";
 			item = "Math...";
 		}
 		else
@@ -1063,7 +1062,7 @@ list = new javax.swing.JList(jlist);
 //            path = path.replaceFirst("ref.html", match);
 	    
 	
-	    		docPart = "piper_manual/" + chapter;
+	    		docPart = "mathpiper_manual/" + chapter;
 	    //System.out.println("   QQQ path: " + path  + "   docPart: " + docPart + "  chapter: " + chapter);
 	    		
 
@@ -1087,7 +1086,7 @@ list = new javax.swing.JList(jlist);
 
 	if(docPart != null)
 	{
-        urlWithChapter = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+        urlWithChapter = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 	    if (urlWithChapter != null) 
 		{
 
@@ -1142,7 +1141,7 @@ home()
 	
 	//pageIndex = 0;
 	
-	//java.net.URL docURL = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("piper_manual/books2.html");
+	//java.net.URL docURL = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource("mathpiper_manual/books2.html");
 	//homePage = pageList.get(0);
 	if ( homePage != null) {
 		setPage(homePage,true);
@@ -1164,7 +1163,7 @@ source()
 	try{
 		location = interpreter.evaluate("FindFunction(\"" + item + "\");");
 		
-	}catch(org.mathrider.piper.Piperexception ye) 
+	}catch(org.mathrider.mathpiper.MathPiperException ye) 
 	{
 		ye.printStackTrace();
 	}
@@ -1274,7 +1273,7 @@ collapse()
 
 editorPane.setEditable(false);
 editorPane.addHyperlinkListener(this);
-//java.net.URL helpURL =new java.net.URL( "file:///C:/ted/download/piper_manual/refchapter26.html#c26");
+//java.net.URL helpURL =new java.net.URL( "file:///C:/ted/download/mathpiper_manual/refchapter26.html#c26");
 
 
 //Put the editor pane in a scroll pane.
@@ -1286,12 +1285,12 @@ editorScrollPane.setVerticalScrollBarPolicy(
 
 
 home();
-//piperDocPanel.add(java.awt.BorderLayout.CENTER, editorScrollPane);
-//piperDocPanel.revalidate();
+//mathmathPiperDocPanel.add(java.awt.BorderLayout.CENTER, editorScrollPane);
+//mathmathPiperDocPanel.revalidate();
 
 
-//piperDocPanel.invalidate();
-//piperDocPanel.validate(); 
+//mathmathPiperDocPanel.invalidate();
+//mathPiperDocPanel.validate(); 
 //view.getContentPane().invalidate();
 //view.getContentPane().validate();
 //editorScrollPane.setPreferredSize(new Dimension(250, 145));
@@ -1369,7 +1368,7 @@ hyperlinkUpdate(event)
     {
         docPart = urlString.substring(0,urlString.indexOf("#"));
 
-	urlWithReference = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+	urlWithReference = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 
         if (urlWithReference != null) {
 
@@ -1395,7 +1394,7 @@ hyperlinkUpdate(event)
 	
 	    docPart = path.substring(0,path.indexOf("?"));
 	    //System.out.println("   QQQ path: " + path  + "   docPart: " + docPart + "  match: " + match);
-	    urlWithQuery = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+	    urlWithQuery = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 
 	    
             //path = path + "#" + query;
@@ -1420,7 +1419,7 @@ hyperlinkUpdate(event)
     }
     else
     {
-	    	urlNormal = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource(urlString);
+	    	urlNormal = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource(urlString);
 
         if (urlNormal != null) {
 
@@ -2103,7 +2102,7 @@ funcs_refprogchapter6 = new String[]{
 };
 funcs_refprogchapter7 = new String[]{
 "Verify"
-, "TestPiper"
+, "TestMathPiper"
 , "LogicVerify"
 , "LogicTest"
 , "KnownFailure"
