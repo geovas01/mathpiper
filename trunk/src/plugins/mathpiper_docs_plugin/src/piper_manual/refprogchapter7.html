@@ -1,18 +1,18 @@
 <html>
 <head>
-  <title>The Piper test suite</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <title>The MathPiper test suite</title>
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c7">
 
 </a>
-(directly go to documentation on : <a href="refprogchapter7.html#Verify" target='Chapters' title="verifying equivalence of two expressions">Verify</a>, <a href="refprogchapter7.html#TestPiper" target='Chapters' title="verifying equivalence of two expressions">TestPiper</a>, <a href="refprogchapter7.html#LogicVerify" target='Chapters' title="verifying equivalence of two expressions">LogicVerify</a>, <a href="refprogchapter7.html#LogicTest" target='Chapters' title="verifying equivalence of two expressions">LogicTest</a>, <a href="refprogchapter7.html#KnownFailure" target='Chapters' title="Mark a test as a known failure">KnownFailure</a>, <a href="refprogchapter7.html#RoundTo" target='Chapters' title="Round a real-valued result to a set number of digits">RoundTo</a>, <a href="refprogchapter7.html#VerifyArithmetic" target='Chapters' title="Special purpose arithmetic verifiers">VerifyArithmetic</a>, <a href="refprogchapter7.html#RandVerifyArithmetic" target='Chapters' title="Special purpose arithmetic verifiers">RandVerifyArithmetic</a>, <a href="refprogchapter7.html#VerifyDiv" target='Chapters' title="Special purpose arithmetic verifiers">VerifyDiv</a>.
+(directly go to documentation on : <a href="refprogchapter7.html#Verify" target='Chapters' title="verifying equivalence of two expressions">Verify</a>, <a href="refprogchapter7.html#TestMathPiper" target='Chapters' title="verifying equivalence of two expressions">TestMathPiper</a>, <a href="refprogchapter7.html#LogicVerify" target='Chapters' title="verifying equivalence of two expressions">LogicVerify</a>, <a href="refprogchapter7.html#LogicTest" target='Chapters' title="verifying equivalence of two expressions">LogicTest</a>, <a href="refprogchapter7.html#KnownFailure" target='Chapters' title="Mark a test as a known failure">KnownFailure</a>, <a href="refprogchapter7.html#RoundTo" target='Chapters' title="Round a real-valued result to a set number of digits">RoundTo</a>, <a href="refprogchapter7.html#VerifyArithmetic" target='Chapters' title="Special purpose arithmetic verifiers">VerifyArithmetic</a>, <a href="refprogchapter7.html#RandVerifyArithmetic" target='Chapters' title="Special purpose arithmetic verifiers">RandVerifyArithmetic</a>, <a href="refprogchapter7.html#VerifyDiv" target='Chapters' title="Special purpose arithmetic verifiers">VerifyDiv</a>.
 )<h1>
-7. The Piper test suite
+7. The MathPiper test suite
 </h1>
 This chapter describes commands used for verifying correct performance
-of Piper.
+of MathPiper.
 
 <p> </p>
 <center><table>
@@ -21,7 +21,7 @@ of Piper.
 <td>verifying equivalence of two expressions</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter7.html#TestPiper" target='Chapters' title="verifying equivalence of two expressions">TestPiper</a></td>
+<td><a href="refprogchapter7.html#TestMathPiper" target='Chapters' title="verifying equivalence of two expressions">TestMathPiper</a></td>
 <td>verifying equivalence of two expressions</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
@@ -55,23 +55,23 @@ of Piper.
 </table></center>
 
 <p>
-Piper comes with a test suite which can be found in
+MathPiper comes with a test suite which can be found in
 the directory <b><tt>tests/</tt></b>. Typing 
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 make test
 </pre></tr>
 </table>
-on the command line after Piper was built will run the test.
+on the command line after MathPiper was built will run the test.
 This test can be run even before <b><tt>make install</tt></b>, as it only 
-uses files in the local directory of the Piper source tree.
-The default extension for test scripts is <b><tt>.yts</tt></b> (Piper test script).
+uses files in the local directory of the MathPiper source tree.
+The default extension for test scripts is <b><tt>.yts</tt></b> (MathPiper test script).
 
 
 <p>
 The verification commands described in this chapter only  display the
 expressions that do not evaluate correctly. Errors do not terminate the
-execution of the Piper script that uses these testing commands, since they are
+execution of the MathPiper script that uses these testing commands, since they are
 meant to be used in test scripts.
 
 
@@ -86,14 +86,14 @@ meant to be used in test scripts.
 <h3>
 <hr>Verify -- verifying equivalence of two expressions
 </h3>
-<a name="TestPiper">
+<a name="TestMathPiper">
 
 </a>
-<a name="testpiper">
+<a name="testmathpiper">
 
 </a>
 <h3>
-<hr>TestPiper -- verifying equivalence of two expressions
+<hr>TestMathPiper -- verifying equivalence of two expressions
 </h3>
 <a name="LogicVerify">
 
@@ -119,7 +119,7 @@ Calling format:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 Verify(question,answer)
-TestPiper(question,answer)
+TestMathPiper(question,answer)
 LogicVerify(question,answer)
 LogicTest(variables,expr1,expr2)
 </pre></tr>
@@ -151,7 +151,7 @@ Parameters:
 <h5>
 Description:
 </h5>
-The commands <b><tt>Verify</tt></b>, <b><tt>TestPiper</tt></b>, <b><tt>LogicVerify</tt></b> and <b><tt>LogicTest</tt></b> can be used to verify that an
+The commands <b><tt>Verify</tt></b>, <b><tt>TestMathPiper</tt></b>, <b><tt>LogicVerify</tt></b> and <b><tt>LogicTest</tt></b> can be used to verify that an
 expression is <i>equivalent</i> to  a correct answer after evaluation. All
 three commands return <b><tt>True</tt></b> or <b><tt>False</tt></b>.
 
@@ -159,7 +159,7 @@ three commands return <b><tt>True</tt></b> or <b><tt>False</tt></b>.
 <p>
 For some calculations, the demand that two expressions
 are <i>identical</i> syntactically is too stringent. The 
-Piper system might change at various places in the future,
+MathPiper system might change at various places in the future,
 but <b>1+x</b> would still be equivalent, from a mathematical
 point of view, to <b> x+1</b>.
 
@@ -179,12 +179,12 @@ The comparison commands do the following comparison types:
 <ul><li></li><b><tt>Verify</tt></b> -- verify for literal equality. 
 This is the fastest and simplest comparison, and can be 
 used, for example, to test that an expression evaluates to <b> 2</b>.
-<li></li><b><tt>TestPiper</tt></b> -- compare two expressions after simplification as 
+<li></li><b><tt>TestMathPiper</tt></b> -- compare two expressions after simplification as 
 multivariate polynomials. If the two arguments are equivalent
-multivariate polynomials, this test succeeds. <b><tt>TestPiper</tt></b> uses <b><tt>Simplify</tt></b>. Note: <b><tt>TestPiper</tt></b> currently should not be used to test equality of lists.
+multivariate polynomials, this test succeeds. <b><tt>TestMathPiper</tt></b> uses <b><tt>Simplify</tt></b>. Note: <b><tt>TestMathPiper</tt></b> currently should not be used to test equality of lists.
 <li></li><b><tt>LogicVerify</tt></b> -- Perform a test by using <b><tt>CanProve</tt></b> to verify that from 
 <b><tt>question</tt></b> the expression <b><tt>answer</tt></b> follows. This test command is 
-used for testing the logic theorem prover in Piper.
+used for testing the logic theorem prover in MathPiper.
 <li></li><b><tt>LogicTest</tt></b> -- Generate a truth table for the two expressions and compare these two tables. They should be the same if the two expressions are logically the same.
 </ul>
 
@@ -203,7 +203,7 @@ x*(x+1) evaluates to x*(x+1) which differs
   from x^2+x
 ******************
 Out&gt; False;
-In&gt; TestPiper(x*(1+x),x^2+x)
+In&gt; TestMathPiper(x*(1+x),x^2+x)
 Out&gt; True;
 In&gt; Verify(a And c Or b And Not c,a Or b)
 ******************
@@ -285,7 +285,7 @@ by displaying a message to that effect on screen.
 <p>
 This might be used by developers when they have no time
 to fix the defect, but do not wish to alarm users who download
-Piper and type <b><tt>make test</tt></b>.
+MathPiper and type <b><tt>make test</tt></b>.
 
 
 <p>
@@ -317,8 +317,8 @@ See also:
 <a href="ref.html?Verify" target="Chapters">
 Verify
 </a>
-, <a href="ref.html?TestPiper" target="Chapters">
-TestPiper
+, <a href="ref.html?TestMathPiper" target="Chapters">
+TestMathPiper
 </a>
 , <a href="ref.html?LogicVerify" target="Chapters">
 LogicVerify

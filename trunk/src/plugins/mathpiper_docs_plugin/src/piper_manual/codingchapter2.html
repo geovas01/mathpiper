@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Evaluation of expressions</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c2">
@@ -18,7 +18,7 @@ or in this case simplifying expressions.
 
 <p>
 This section aims to explain how evaluation (and simplification)
-of expressions works internally, in <b><tt>Piper</tt></b>.
+of expressions works internally, in <b><tt>MathPiper</tt></b>.
 
 
 <p>
@@ -52,7 +52,7 @@ as parameters to that function.
 
 
 <p>
-<b><tt>Piper</tt></b> has the function <b><tt>FullForm</tt></b> to show the internal representation:
+<b><tt>MathPiper</tt></b> has the function <b><tt>FullForm</tt></b> to show the internal representation:
 
 
 <p>
@@ -97,7 +97,7 @@ on screen. <b><tt>a+b+c</tt></b> would be <b><tt>(+ (+ a b )c )</tt></b> interna
 </h3>
 An expression like described above is done in the following manner:
 first the arguments are evaluated (if they need to be evaluated,
-<b><tt>Piper</tt></b> can be told to not evaluate certain parameters to functions),
+<b><tt>MathPiper</tt></b> can be told to not evaluate certain parameters to functions),
 and only then are these arguments passed in to the function for
 evaluation. They are passed in by binding local variables to the
 values, so these arguments are available as local values.
@@ -110,7 +110,7 @@ during evaluation, the top expression refers to function "<b><tt>+</tt></b>".
 Its arguments are <b><tt>(* 2 3)</tt></b> and <b><tt>4</tt></b>. First <b><tt>(* 2 3)</tt></b> gets evaluated.
 This is a function call to the function "<b><tt>*</tt></b>" with arguments <b><tt>2</tt></b>
 and <b><tt>3</tt></b>, which evaluate to themselves. Then the function "<b><tt>*</tt></b>" is
-invoked with these arguments. The <b><tt>Piper</tt></b> standard script library
+invoked with these arguments. The <b><tt>MathPiper</tt></b> standard script library
 has code that accepts numeric input and performs the multiplication
 numerically, resulting in <b><tt>6</tt></b>. 
 
@@ -141,7 +141,7 @@ Out&gt; 10;
 
 
 <p>
-Note that in <b><tt>Piper</tt></b>, the script language does not define a "<b><tt>+</tt></b>" function
+Note that in <b><tt>MathPiper</tt></b>, the script language does not define a "<b><tt>+</tt></b>" function
 in the core. This and other functions are all implemented in the script library.
 The feature "when the arguments to "<b><tt>+</tt></b>" are numeric, perform the numeric
 addition" is considered to be a "policy" which should be configurable.
@@ -200,7 +200,7 @@ the outer call to <b><tt>f</tt></b> entered.
 
 
 <p>
-This has important consequences for the way <b><tt>Piper</tt></b> simplifies
+This has important consequences for the way <b><tt>MathPiper</tt></b> simplifies
 expressions: the expression trees are traversed bottom up, as 
 the lowest parts of the expression trees are simplified first,
 before being passed along up to the calling function. 
@@ -212,9 +212,9 @@ before being passed along up to the calling function.
 
 </a>
 <h2>
-<hr>2.2 <b><tt>Piper</tt></b>-specific extensions for CAS implementations
+<hr>2.2 <b><tt>MathPiper</tt></b>-specific extensions for CAS implementations
 </h2>
-<b><tt>Piper</tt></b> has a few language features specifically designed for use
+<b><tt>MathPiper</tt></b> has a few language features specifically designed for use
 when implementing a CAS.
 
 
@@ -224,7 +224,7 @@ when implementing a CAS.
 <hr>The transformation rules
 </h3>
 Working with transformation rules is explained in the introduction
-and tutorial book. This section mainly deals with how <b><tt>Piper</tt></b>
+and tutorial book. This section mainly deals with how <b><tt>MathPiper</tt></b>
 works with transformation rules under the hood.
 
 
@@ -250,7 +250,7 @@ Out&gt; a _IsInteger+b _IsInteger*_x;
 
 
 <p>
-<b><tt>Piper</tt></b> maintains structures of transformation rules, and tries
+<b><tt>MathPiper</tt></b> maintains structures of transformation rules, and tries
 to match them to the expression being evaluated. It first tries
 to match the structure of the pattern to the expression. In the above
 case, it tries to match to <b><tt>a+b*x</tt></b>. If this matches, local variables
@@ -311,7 +311,7 @@ form of the input expression, or the type of the arguments, or some other condit
 
 
 <p>
-<b><tt>Piper</tt></b> allows to define several transformation rules
+<b><tt>MathPiper</tt></b> allows to define several transformation rules
 for one and the same function, if the rules are to be applied under different conditions.
 
 
@@ -445,14 +445,14 @@ Out&gt; f(a*x)*a;
 <h3>
 <hr>The "Evaluation is Simplification" hack
 </h3>
-One of the ideas behind the <b><tt>Piper</tt></b> scripting language is that evaluation
+One of the ideas behind the <b><tt>MathPiper</tt></b> scripting language is that evaluation
 is used for simplifying expressions.
 One consequence of this is that
 objects can be returned unevaluated when they can not be simplified
 further. This happens to variables that are not assigned, functions that
 are not defined, or function invocations where the arguments passed
 in as parameters are not actually handled by any code in the scripts.
-An integral that can not be performed by <b><tt>Piper</tt></b> should be returned 
+An integral that can not be performed by <b><tt>MathPiper</tt></b> should be returned 
 unevaluated:
 
 
@@ -481,7 +481,7 @@ Out&gt; 6;
 
 <p>
 Other languages usually do not allow evaluation of unbound variables,
-or undefined functions. In <b><tt>Piper</tt></b>, these are interpreted as some yet
+or undefined functions. In <b><tt>MathPiper</tt></b>, these are interpreted as some yet
 undefined global variables or functions, and returned unevaluated.
 
 
@@ -493,7 +493,7 @@ undefined global variables or functions, and returned unevaluated.
 <h2>
 <hr>2.3 Destructive operations
 </h2>
-<b><tt>Piper</tt></b> tries to keep as few copies of objects in memory as
+<b><tt>MathPiper</tt></b> tries to keep as few copies of objects in memory as
 possible. Thus when assigning the value of one variable to another,
 a reference is copied, and both variables refer to the same memory,
 physically. This is relevant for programming; for example, one

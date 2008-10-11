@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Programming</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c2">
@@ -11,7 +11,7 @@
 )<h1>
 2. Programming
 </h1>
-This chapter describes functions useful for writing Piper scripts.
+This chapter describes functions useful for writing MathPiper scripts.
 
 <p> </p>
 <center><table>
@@ -747,7 +747,7 @@ the same as <b><tt>a-b-c</tt></b>.
 
 
 <p>
-Note that the left and right precedence of an infix operator does not affect the way Piper interprets expressions typed by the user. You cannot make Piper parse <b><tt>a-b-c</tt></b> as <b><tt>a-(b-c)</tt></b> unless you declare the operator "<b><tt>-</tt></b>" to be right-associative.
+Note that the left and right precedence of an infix operator does not affect the way MathPiper interprets expressions typed by the user. You cannot make MathPiper parse <b><tt>a-b-c</tt></b> as <b><tt>a-(b-c)</tt></b> unless you declare the operator "<b><tt>-</tt></b>" to be right-associative.
 
 
 <p>
@@ -1131,7 +1131,7 @@ Parameters:
 Description:
 </h5>
 Remove a rulebase for the function named <b><tt>"function"</tt></b> with the specific <b><tt>arity</tt></b>, if it exists at all. This will make
-Piper forget all rules defined for a given function. Rules for functions with
+MathPiper forget all rules defined for a given function. Rules for functions with
 the same name but different arities are not affected.
 
 
@@ -1854,7 +1854,7 @@ The function <b><tt>ExtraInfo'Get(x)</tt></b> retrieves this tag expression from
 
 
 <p>
-No part of the Piper core uses tags in a way that is visible to the outside
+No part of the MathPiper core uses tags in a way that is visible to the outside
 world, so for specific purposes a programmer can devise a format to use for tag
 information. Association lists (hashes) are a natural fit for this, although it
 is not required and a tag can be any object (except the atom <b><tt>False</tt></b> because it
@@ -1938,7 +1938,7 @@ GarbageCollect()
 <h5>
 Description:
 </h5>
-<b><tt>GarbageCollect</tt></b> garbage-collects unused memory. The Piper system
+<b><tt>GarbageCollect</tt></b> garbage-collects unused memory. The MathPiper system
 uses a reference counting system for most objects, so this call
 is usually not necessary. 
 

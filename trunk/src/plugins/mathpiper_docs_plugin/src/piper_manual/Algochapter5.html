@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Numerical algorithms II: elementary functions</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c5">
@@ -67,7 +67,7 @@ This should be compared with e.g. the cost of the best method for <b>Ln(x)</b> w
 <p>
 The outlined procedure is most easily implemented using recursive calls.
 The depth of recursion is of order <b>Ln(n)</b> and should be manageable for most real-life applications.
-The Piper code would look like this:
+The MathPiper code would look like this:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 10# power(_x,1)&lt;--x;
@@ -101,7 +101,7 @@ In other words, we evaluate <b>x^2</b>, <b> x^4</b>, ... by repeated squaring, s
 
 
 <p>
-In the Piper script form, the algorithm looks like this:
+In the MathPiper script form, the algorithm looks like this:
 
 
 <p>
@@ -191,7 +191,7 @@ An exceptional case is when <b> n</b> is a rational number with a very small num
 In this case it is faster to take the square of the cubic root of <b> x</b>.
 (See the section on the computation of roots below.)
 Then the case of negative <b> x</b> should be handled separately.
-This speedup is not implemented in Piper.
+This speedup is not implemented in MathPiper.
 
 
 <p>
@@ -268,7 +268,7 @@ is performed, and the resulting number has <b> p</b> digits of precision.
 
 
 <p>
-Below is some <b><tt>Piper</tt></b> script code to perform the calculation for integers.
+Below is some <b><tt>MathPiper</tt></b> script code to perform the calculation for integers.
 
 
 <p>
@@ -1313,7 +1313,7 @@ This remains to be seen.
 <a name="computation of <b>pi</b>">
 
 </a>
-In Piper, the constant <b> pi</b> is computed by the library routine <b><tt>Internal'Pi()</tt></b> which
+In MathPiper, the constant <b> pi</b> is computed by the library routine <b><tt>Internal'Pi()</tt></b> which
 uses the internal routine <b><tt>MathPi</tt></b> to compute the value to current
 precision <b><tt>Builtin'Precision'Set()</tt></b>. The result is stored in a global variable as a
 list of the form <b><tt>{precision, value}</tt></b> where <b><tt>precision</tt></b> is the number of
@@ -1323,7 +1323,7 @@ precise enough value for it has already been found.
 
 
 <p>
-Efficient iterative algorithms for computing <b> pi</b> with arbitrary precision have been recently developed by Brent, Salamin, Borwein and others. However, limitations of the current multiple-precision implementation in Piper (compiled with the "internal" math option) make these advanced algorithms run slower because they require many more arbitrary-precision multiplications at each iteration.
+Efficient iterative algorithms for computing <b> pi</b> with arbitrary precision have been recently developed by Brent, Salamin, Borwein and others. However, limitations of the current multiple-precision implementation in MathPiper (compiled with the "internal" math option) make these advanced algorithms run slower because they require many more arbitrary-precision multiplications at each iteration.
 
 
 <p>
@@ -1382,7 +1382,7 @@ The complexity of this algorithm is proportional to the number of digits and to 
 </h3>
 The routines <b><tt>PiBrentSalamin()</tt></b> and <b><tt>PiBorwein()</tt></b> are based on much more advanced mathematics.
 (See papers by P. Borwein for review and explanations of the methods.)
-These methods do not require evaluations of trigonometric functions, but they do require taking a few square roots at each iteration, and all calculations must be done using full precision. Using modern algorithms, one can compute a square root roughly in the same time as a division; but Piper's internal math is not yet up to it. Therefore, these two routines perform poorly compared to the more simple-minded <b><tt>PiMethod0()</tt></b>.
+These methods do not require evaluations of trigonometric functions, but they do require taking a few square roots at each iteration, and all calculations must be done using full precision. Using modern algorithms, one can compute a square root roughly in the same time as a division; but MathPiper's internal math is not yet up to it. Therefore, these two routines perform poorly compared to the more simple-minded <b><tt>PiMethod0()</tt></b>.
 
 
 <p>
@@ -1772,7 +1772,7 @@ To compute factorials exactly, we use two direct methods. The first method is
 to multiply the numbers <b> 1</b>, <b> 2</b>, ..., <b> n</b> in a loop. This method requires <b> n</b>
 multiplications of short numbers with <b> P</b>-digit numbers, where <b> P=O(n*Ln(n))</b>
 is the number of digits in <b>n!</b>. Therefore its complexity is <b>O(n^2*Ln(n))</b>.
-This factorial routine is implemented in the Piper core with a small speedup:
+This factorial routine is implemented in the MathPiper core with a small speedup:
 consecutive pairs of integers are first multiplied together using platform math
 and then multiplied by the accumulator product.
 
@@ -2061,7 +2061,7 @@ Note that using these recurrence relations we do not obtain any individual coeff
 This method does not seem very useful for symbolic calculations (with symbolic <b> x</b>), because the resulting expressions are rather complicated combinations of nested products.
 It is difficult to expand such an expression into powers of <b> x</b> or manipulate it in any other way, except compute a numerical value.
 However, these fast recurrences are numerically unstable, so numerical values need to be evaluated with extended working precision.
-Currently this method is not used in Piper, despite its speed.
+Currently this method is not used in MathPiper, despite its speed.
 
 
 <p>

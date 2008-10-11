@@ -1,14 +1,14 @@
 <html>
 <head>
-  <title>Debugging in Piper</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <title>Debugging in MathPiper</title>
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c6">
 
 </a>
 <h1>
-6. Debugging in Piper
+6. Debugging in MathPiper
 </h1>
 <p> </p>
 <a name="c6s1">
@@ -23,7 +23,7 @@ functions on other problems, but it makes debugging easier too.
 
 
 <p>
-For debugging a faulty function, in addition to the usual trial-and-error method and the "print everything" method, Piper offers some trace facilities. You can try to trace applications of rules during evaluation of the function (<b><tt>TraceRule()</tt></b>, <b><tt>TraceExp()</tt></b>) or see the stack after an error has occurred (<b><tt>TraceStack()</tt></b>). 
+For debugging a faulty function, in addition to the usual trial-and-error method and the "print everything" method, MathPiper offers some trace facilities. You can try to trace applications of rules during evaluation of the function (<b><tt>TraceRule()</tt></b>, <b><tt>TraceExp()</tt></b>) or see the stack after an error has occurred (<b><tt>TraceStack()</tt></b>). 
 
 
 <p>
@@ -32,7 +32,7 @@ in this chapter.
 
 
 <p>
-Finally, you may want to run a debugging version of Piper. This
+Finally, you may want to run a debugging version of MathPiper. This
 version of the executable maintains more information about 
 the operations it performs, and can report on this. 
 
@@ -43,7 +43,7 @@ is the easiest and most useful feature to use, and then proceed
 to explain the trace and profiling facilities. Finally, the
 internal workings of the debugger will be explained. It is highly
 customizable (in fact, most of the debugging code is written in
-Piper itself), so for bugs that are really difficult to track
+MathPiper itself), so for bugs that are really difficult to track
 one can write custom code to track it.
 
 

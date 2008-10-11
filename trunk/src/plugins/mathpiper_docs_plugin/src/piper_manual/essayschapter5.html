@@ -1,31 +1,31 @@
 <html>
 <head>
-  <title>For Piper developers</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <title>For MathPiper developers</title>
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c5">
 
 </a>
 <h1>
-5. For Piper developers
+5. For MathPiper developers
 </h1>
 <p> </p>
 <a name="c5s1">
 
 </a>
 <h2>
-<hr>5.1 A crash course in Piper maintenance for developers
+<hr>5.1 A crash course in MathPiper maintenance for developers
 </h2>
 This document intends to give a concise description of the way
-Piper is maintained. There are a few parts to maintenance to
+MathPiper is maintained. There are a few parts to maintenance to
 take into account:
 
 
 <p>
 <ul><li>The </li><b><tt>autoconf</tt></b>/<b><tt>automake</tt></b> part -- makefile maintenance over various systems.
 <li>The </li><b><tt>cvs</tt></b> system -- enabling developers to work together.
-<li>The back up repository -- storage of tarballs with versions of Piper.
+<li>The back up repository -- storage of tarballs with versions of MathPiper.
 This can be found at the following address:
 </li></ul>
 
@@ -48,7 +48,7 @@ The short story is as follows. You probably do not need to bother about this
 unless you introduce a new file. However, if you add a new file, it probably
 should be added to the <b><tt>Makefile.am</tt></b> file in the same directory. In many
 cases, it should be clear from the <b><tt>Makefile.am</tt></b> file where your new file
-should be added. For instance, new Piper script files go into the huge list
+should be added. For instance, new MathPiper script files go into the huge list
 in <b><tt>scripts/Makefile.am</tt></b> that is assigned to the <b><tt>SCRIPTFILES</tt></b> variable.
 Similarly, test scripts should go in the list in <b><tt>tests/Makefile.am</tt></b> that is
 assigned to the <b><tt>TESTFILES</tt></b> variable. Note that you should probably also run
@@ -58,7 +58,7 @@ a file, then you should go through the inverse procedure.
 
 <p>
 The addition of new files to the <b><tt>Makefile.am</tt></b> ensures that it will be added
-to the tarball <b><tt>piper-*.tar.gz</tt></b> which is uploaded to the backup repository.
+to the tarball <b><tt>mathpiper-*.tar.gz</tt></b> which is uploaded to the backup repository.
 This has the nice side effect that you can have local files which don't
 automatically get added to the distribution (by not adding them to the
 <b><tt>Makefile.am</tt></b> file). Additionally, files which are not listed in <b><tt>Makefile.am</tt></b>
@@ -75,15 +75,15 @@ from the <b><tt>tar.gz</tt></b> tarball.
 
 <p>
 If you want to do more complicated things (like adding files which are not
-Piper script or test files, or files which should be compiled or installed
+MathPiper script or test files, or files which should be compiled or installed
 only conditionally), or if you are simply curious, you can read more in the
-chapter entitled "The Piper build system".
+chapter entitled "The MathPiper build system".
 
 
 <p>
 
 <h3>
-<hr>Maintaining Piper through a <b><tt>cvs</tt></b> repository
+<hr>Maintaining MathPiper through a <b><tt>cvs</tt></b> repository
 </h3>
 <a name="CVS">
 
@@ -93,7 +93,7 @@ merging changes various developers make, and at the same tile is a back up
 system (uploading your changes to another computer from which you can
 easily obtain it at a later time). After a little effort setting it
 up it becomes very easy to use. This section describes the few commands
-needed for keeping your version and the version in the Piper repository
+needed for keeping your version and the version in the MathPiper repository
 up to date.
 
 
@@ -139,12 +139,12 @@ In commands to be described in this document are in short:
 <p>
 
 <h3>
-<hr>Checking out an initial version of Piper
+<hr>Checking out an initial version of MathPiper
 </h3>
 <a name="CVS!check out">
 
 </a>
-There are two ways to check out a version of Piper: as anonymous 
+There are two ways to check out a version of MathPiper: as anonymous 
 user and as maintainer. Anonymous users don't need to log in,
 but also have no right to commit changes. Maintainers first need
 to get an account (at sourceforge), and their account needs to 
@@ -155,16 +155,16 @@ find this at http://www.ssh.org/download.html.
 
 
 <p>
-To check out Piper as anonymous user, type:
+To check out MathPiper as anonymous user, type:
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-cvs -d:pserver:anonymous@piper.cvs.
-  sourceforge.net:/cvsroot/piper login
-cvs -z3 -d:pserver:anonymous@piper.cvs.
-  sourceforge.net:/cvsroot/piper co piper
+cvs -d:pserver:anonymous@mathpiper.cvs.
+  sourceforge.net:/cvsroot/mathpiper login
+cvs -z3 -d:pserver:anonymous@mathpiper.cvs.
+  sourceforge.net:/cvsroot/mathpiper co mathpiper
 </pre></tr>
 </table>
 
@@ -182,25 +182,25 @@ export CVS_RSH=ssh1
 
 
 <p>
-This will tell CVS to use ssh1 for communication. Then, in order to download the piper source tree, type
+This will tell CVS to use ssh1 for communication. Then, in order to download the mathpiper source tree, type
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-cvs -d:ext:loginname@piper.cvs.sourceforge.
-  net:/cvsroot/piper co piper
+cvs -d:ext:loginname@mathpiper.cvs.sourceforge.
+  net:/cvsroot/mathpiper co mathpiper
 </pre></tr>
 </table>
 where <b><tt>loginname</tt></b> is your name on the sourceforge system.
-This creates a directory <b><tt>piper/</tt></b> with the full most recent distribution.
+This creates a directory <b><tt>mathpiper/</tt></b> with the full most recent distribution.
 You need to enter your password there, but other than that, that's it!
 
 
 <p>
 Those lines typed above are long and obscure, but it is also
 the last time you need to type them. From now on, if you want to do 
-anything with cvs, just go into the <b><tt>piper/</tt></b> directory you just checked
+anything with cvs, just go into the <b><tt>mathpiper/</tt></b> directory you just checked
 out, and type the cvs command without the <b><tt>-d:</tt></b>... flag. This flag
 just tells cvs where to find the repository. But future cvs commands
 will know where to find them, which is why you don't need that flag.
@@ -209,12 +209,12 @@ will know where to find them, which is why you don't need that flag.
 <p>
 
 <h3>
-<hr>Use case scenario 1 : getting the latest version of Piper
+<hr>Use case scenario 1 : getting the latest version of MathPiper
 </h3>
 <a name="CVS!update">
 
 </a>
-You haven't looked at Piper for a while (shame on you!) and want 
+You haven't looked at MathPiper for a while (shame on you!) and want 
 to check out the latest version. Just type
 
 
@@ -227,7 +227,7 @@ cvs update -d
 
 
 <p>
-on the command line in the <b><tt>piper</tt></b> directory, and that should essentially
+on the command line in the <b><tt>mathpiper</tt></b> directory, and that should essentially
 download the latest version for you in that directory (just the changes).
 The <b><tt>-d</tt></b> option here states that you are also interested in new directories
 that were added to the repository. Oddly enough, cvs will only get
@@ -253,19 +253,19 @@ will print messages only about changed files.
 <p>
 
 <h3>
-<hr>Use case scenario 2 : you made changes to Piper
+<hr>Use case scenario 2 : you made changes to MathPiper
 </h3>
 <a name="CVS!commit">
 
 </a>
 You got the latest version, but saw this huge, glaring omission in
-Piper, and start hacking away to add it yourself. After a while, 
+MathPiper, and start hacking away to add it yourself. After a while, 
 after playing with the code you wrote, and if you think you are
 finished with it, you decide you like to add it to the cvs repository.
 
 
 <p>
-First, you should test the new Piper system:
+First, you should test the new MathPiper system:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 make test
@@ -294,7 +294,7 @@ add it to the CVS with
 
 <p>
 Note that, when adding files to the CVS, you should normally also add them to
-the Piper <b><tt>tar.gz</tt></b> distribution. This is done by adding the file name to the <b><tt>EXTRA_DIST</tt></b>
+the MathPiper <b><tt>tar.gz</tt></b> distribution. This is done by adding the file name to the <b><tt>EXTRA_DIST</tt></b>
 variable in the file <b><tt>Makefile.am</tt></b> in the directory where you were adding the file.
 
 
@@ -385,7 +385,7 @@ http://cvsbook.red-bean.com/
 
 </a>
 <h2>
-<hr>5.2 Preparing and maintaining Piper documentation
+<hr>5.2 Preparing and maintaining MathPiper documentation
 </h2>
 <h3>
 <hr>Introduction
@@ -393,48 +393,48 @@ http://cvsbook.red-bean.com/
 <a name="documentation">
 
 </a>
-Piper documentation in HTML and PS/PDF formats is generated by Piper scripts from Piper source files.
-Prior to version 1.0.48, all documentation had to be written directly in the Piper language.
-However, it was very cumbersome to write those source files in the Piper language.
-The scripts <b><tt>txt2piperdoc.pl</tt></b>,
+MathPiper documentation in HTML and PS/PDF formats is generated by MathPiper scripts from MathPiper source files.
+Prior to version 1.0.48, all documentation had to be written directly in the MathPiper language.
+However, it was very cumbersome to write those source files in the MathPiper language.
+The scripts <b><tt>txt2mathpiperdoc.pl</tt></b>,
 <b><tt>book2TeX.sh</tt></b>, <b><tt>book2ys.sh</tt></b>, <b><tt>ytxt2tex</tt></b>
 were created to help maintain the documentation in an easy-to-read form.
 
 
 <p>
-The "source" form of all documentation is maintained in a special plain text format. The format is such that it is clearly readable without any processing and is easy to edit. To compile the documents, the system processes the plain text docs with a script to prepare Piper-language files and then runs other scripts to produce the final documentation in HTML and other formats.
+The "source" form of all documentation is maintained in a special plain text format. The format is such that it is clearly readable without any processing and is easy to edit. To compile the documents, the system processes the plain text docs with a script to prepare MathPiper-language files and then runs other scripts to produce the final documentation in HTML and other formats.
 
 
 <p>
 The source text must be formatted in a certain fashion to delimit sections, code examples, and so on, but the format is easy enough to enter in a plain text editor.
 Text is marked up mostly by TAB characters, spaces, and asterisks "<b><tt>*</tt></b>" at the beginning of a line.
 The format is easy enough so that, for example, the text of the GNU GPL (the file <b><tt>COPYING</tt></b>) can be used as a documentation source file without changes.
-The script <b><tt>txt2piperdoc.pl</tt></b> converts this markup into Piper code for further processing.
+The script <b><tt>txt2mathpiperdoc.pl</tt></b> converts this markup into MathPiper code for further processing.
 
 
 <p>
 
 <h3>
-<hr>Organization of the Piper documentation
+<hr>Organization of the MathPiper documentation
 </h3>
 <a name="documentation!organization">
 
 </a>
 All documentation source files are kept in the subdirectory <b><tt>manmake</tt></b>.
-During compilation, Piper language files as well as HTML, <b>LaTeX</b> and PS/PDF
+During compilation, MathPiper language files as well as HTML, <b>LaTeX</b> and PS/PDF
 files are automatically generated in the <b><tt>manmake</tt></b> subdirectory.
 Contributors should only need to edit <b><tt>*.txt</tt></b> files in <b><tt>manmake</tt></b>.
 
 
 <p>
-Currently, the Piper documentation consists of four "core" books (the introductory tutorial,
+Currently, the MathPiper documentation consists of four "core" books (the introductory tutorial,
 the programming tutorial, the user's reference manual, and the
 programmer's reference manual), and three "extra" books (algorithms, Lisp programming, essays).
-<h6>There is also a documentation book describing the Emacs interface to Piper (the "Piper Notebook" mode). This book is not available as online help but is installed separately in the TeXinfo or PostScript formats.</h6>
+<h6>There is also a documentation book describing the Emacs interface to MathPiper (the "MathPiper Notebook" mode). This book is not available as online help but is installed separately in the TeXinfo or PostScript formats.</h6>
 
 <p>
-All Piper documentation books are distributed under the GNU Free Documentation License (FDL).
-If you add a new documentation book to Piper, please include the file <b><tt>FDL.chapt</tt></b>.
+All MathPiper documentation books are distributed under the GNU Free Documentation License (FDL).
+If you add a new documentation book to MathPiper, please include the file <b><tt>FDL.chapt</tt></b>.
 
 
 <p>
@@ -452,7 +452,7 @@ certain template that allows online hyperlinking. The file
 <p>
 Books are divided into "chapters", "sections" and "subsections".
 The reference manuals
-contain descriptions of Piper commands and functions,
+contain descriptions of MathPiper commands and functions,
 and each function is given in a separate (unnumbered) section which
 is marked by a special <b><tt>*CMD</tt></b> label (see below). 
 
@@ -477,7 +477,7 @@ In the printed (PS/PDF) documentation, the <b><tt>*INTRO</tt></b> label is ignor
 <p>
 Each printed book contains a table of contents at the beginning and an index at the end.
 The index should help a reader to quickly find a particular concept.
-For example, all documented Piper commands are automatically entered into the index in the reference manual.
+For example, all documented MathPiper commands are automatically entered into the index in the reference manual.
 Additional index entries should be inserted by hand using the <b><tt>*A</tt></b> label (see below).
 
 
@@ -486,8 +486,8 @@ Additional index entries should be inserted by hand using the <b><tt>*A</tt></b>
 <h3>
 <hr>Translating the documentation
 </h3>
-The Piper system is under active development and its documentation is constantly updated.
-An effort to translate the Piper documentation from English into other languages has been started.
+The MathPiper system is under active development and its documentation is constantly updated.
+An effort to translate the MathPiper documentation from English into other languages has been started.
 
 
 <p>
@@ -498,7 +498,7 @@ Any problems with conversion to HTML and PS/PDF formats should be easy to solve 
 <p>
 The most important documentation books to translate are the reference manual and the tutorials.
 There is substantial documentation aimed at developers, for instance the algorithms book or the essays book.
-It is probably not as important to translate such books, since Piper developers have to speak English to communicate.
+It is probably not as important to translate such books, since MathPiper developers have to speak English to communicate.
 
 
 <p>
@@ -514,7 +514,7 @@ Formatting of source text files uses TAB symbols; if your editor does not suppor
 
 <p>
 You may want to examine the source of this file (<b><tt>manmake/</tt></b>
-<b><tt>PiperDocs.chapt.txt</tt></b>) to see how various features of the markup are used.
+<b><tt>MathPiperDocs.chapt.txt</tt></b>) to see how various features of the markup are used.
 Currently the following markup is implemented:
 
 
@@ -677,18 +677,18 @@ Note: Currently, only the HTML documentation is hyperlinked, while the printed P
 
 </a>
 <ul><li>It is also possible to create hyperlinks pointing to other parts of the documentation.
-Such "documentation hyperlinks" are similar to the Web hyperlinks, except they use a special "protocol" named </li><b><tt>piperdoc</tt></b> and chapters and sections can be referred to as "subdirectories".
+Such "documentation hyperlinks" are similar to the Web hyperlinks, except they use a special "protocol" named </li><b><tt>mathpiperdoc</tt></b> and chapters and sections can be referred to as "subdirectories".
 For example, this section can be referred to by the following code:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-&lt;*piperdoc://essays/5/2/*&gt;
+&lt;*mathpiperdoc://essays/5/2/*&gt;
 </pre></tr>
 </table>
 A hyperlink with anchored text is made by the markup <b><tt>&lt;*</tt></b>
-<i>anchored text</i> <b><tt>|</tt></b>piperdoc://...<b><tt>*&gt;</tt></b>. For example:
+<i>anchored text</i> <b><tt>|</tt></b>mathpiperdoc://...<b><tt>*&gt;</tt></b>. For example:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-&lt;*this section|piperdoc://essays/5/2/*&gt;
+&lt;*this section|mathpiperdoc://essays/5/2/*&gt;
 </pre></tr>
 </table>
 will generate a reference to <a href="essayschapter5.html#c5s2">
@@ -699,21 +699,21 @@ There are currently the following ways to create documentation hyperlinks:
 <ul><li>Hyperlink into an anchor of the same file:
 </li><table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-&lt;*piperdoc://#documentation!hyperlinks*&gt;
+&lt;*mathpiperdoc://#documentation!hyperlinks*&gt;
 </pre></tr>
 </table>
 The anchor "<b><tt>documentation</tt></b><b><tt>!</tt></b><b><tt>hyperlinks</tt></b>" should have been created using the <b><tt>*A</tt></b> label.
 <li>Hyperlink into an anchor in a different documentation book:
 </li><table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-&lt;*piperdoc://Algo/3/#adaptive plotting*&gt;
+&lt;*mathpiperdoc://Algo/3/#adaptive plotting*&gt;
 </pre></tr>
 </table>
 Note that one must specify the book name "<b><tt>Algo</tt></b>" and the chapter number (<b><tt>3</tt></b>) for this to work. Currently supported book names are <b><tt>Algo</tt></b>, <b><tt>coding</tt></b>, <b><tt>essays</tt></b>, <b><tt>intro</tt></b>, <b><tt>Lisp</tt></b>, <b><tt>ref</tt></b>, and <b><tt>refprog</tt></b>. A warning message is printed if the book name is not given correctly.
 <li>Hyperlink into a given chapter or a given section of a documentation book:
 </li><table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-&lt;*piperdoc://Algo/3/1/*&gt;
+&lt;*mathpiperdoc://Algo/3/1/*&gt;
 </pre></tr>
 </table>
 </ul></ul>
@@ -723,7 +723,7 @@ Note that one must specify the book name "<b><tt>Algo</tt></b>" and the chapter 
 <a name="documentation!equations">
 
 </a>
-<ul><li>Mathematical expressions should be typed in </li><b><tt>Piper</tt></b> syntax (<i>not</i> in <b> TeX</b>
+<ul><li>Mathematical expressions should be typed in </li><b><tt>MathPiper</tt></b> syntax (<i>not</i> in <b> TeX</b>
 notation) and surrounded by dollar signs.
 Both delimiting dollar signs
 <i>must</i> be within one line of text.
@@ -743,12 +743,12 @@ Any punctuation immediately following the second pair of dollar signs will be di
 
 <p>
 As special exceptions, one can enter the symbols "<b> TeX</b>" and "<b> LaTeX</b>"
-as if they are Piper expressions, i.e. "<b><tt>$T</tt></b><b><tt>eX$</tt></b>" produces "<b> TeX</b>". One can also create a capitalized form of the name <b><tt>Piper</tt></b> as "<b><tt>{Piper}</tt></b>".
+as if they are MathPiper expressions, i.e. "<b><tt>$T</tt></b><b><tt>eX$</tt></b>" produces "<b> TeX</b>". One can also create a capitalized form of the name <b><tt>MathPiper</tt></b> as "<b><tt>{MathPiper}</tt></b>".
 
 
 <p>
-Please note: Mathematical expressions <i>must</i> be <i>valid Piper expressions</i>, with no unbalanced
-parentheses, no undefined infix operators, no hanging periods and so on, or else the Piper script that
+Please note: Mathematical expressions <i>must</i> be <i>valid MathPiper expressions</i>, with no unbalanced
+parentheses, no undefined infix operators, no hanging periods and so on, or else the MathPiper script that
 formats the docs will fail! (This limits the scope of mathematical formulae but
 is hopefully not critical.)
 
@@ -759,7 +759,7 @@ Also, please avoid putting equations into documentation as plain text. Expressio
 
 <p>
 Currently, when creating online HTML documentation, all
-mathematics is kept in Piper notation and set in boldface font. (This may
+mathematics is kept in MathPiper notation and set in boldface font. (This may
 change in the future.)
 Of course, <b> LaTeX</b> typesets the documentation with
 correct mathematical symbols.
@@ -768,17 +768,17 @@ correct mathematical symbols.
 <p>
 Another feature of the <b> LaTeX</b> exporter is that it will first try to represent all
 functions and infix operators according to their mathematical meaning, and if
-no such meaning is defined in Piper, then it will show them exactly as they are
-written in Piper. For infix operators to work, they have to be declared in the
+no such meaning is defined in MathPiper, then it will show them exactly as they are
+written in MathPiper. For infix operators to work, they have to be declared in the
 standard library, or else an error will occur when processing the manual.
 
 
 <p>
 For
-example, the Piper operators <b><tt>=</tt></b> and <b><tt>==</tt></b> are represented in <b> LaTeX</b> by an equals sign
+example, the MathPiper operators <b><tt>=</tt></b> and <b><tt>==</tt></b> are represented in <b> LaTeX</b> by an equals sign
 (=), the operator <b><tt>:=</tt></b> becomes "identically equal" (<b> a:=b</b>), and the cosmetic
 operators <b><tt>&lt;&gt;</tt></b> and <b><tt>&lt;=&gt;</tt></b> become <b> a&lt;&gt;b</b> and <b> a&lt;=&gt;b</b>. But you cannot use an
-infix operator such as "<b><tt>:=*</tt></b>" because it is not defined in the standard library. A Piper function which is not defined in the standard library, for example "<b><tt>func(x)</tt></b>", will appear just like that: <b> func(x)</b>.
+infix operator such as "<b><tt>:=*</tt></b>" because it is not defined in the standard library. A MathPiper function which is not defined in the standard library, for example "<b><tt>func(x)</tt></b>", will appear just like that: <b> func(x)</b>.
 
 
 <p>
@@ -800,7 +800,7 @@ To insert another file, use the </li><b><tt>*INCLUDE</tt></b> label, e.g.
 
 <p>
 Note that the included document is the file <b><tt>howto.chapt</tt></b>, not <b><tt>howto.chapt.txt</tt></b>,
-because it must be a Piper-language file, not a <b><tt>.txt</tt></b> file.
+because it must be a MathPiper-language file, not a <b><tt>.txt</tt></b> file.
 (The <b><tt>IncludeFile()</tt></b> call, an alias to <b><tt>Load()</tt></b>, will be used
 to execute the specified file.)
 
@@ -843,21 +843,21 @@ generates the footnote
 <h6>This is an example footnote.</h6>
 
 <p>
-<ul><li>Piper expressions may be evaluated inline by using the directive </li><b><tt>*EVAL</tt></b>. Anything that follows <b><tt>*EVAL</tt></b> until the end of the line will be evaluated as a Piper expression. If this expression prints something (e.g. via <b><tt>Write</tt></b>), the output will be inserted into the text (as is). The resulting value of the expression will also be inserted, unless the expression evaluates to <b><tt>True</tt></b>. The Piper expression <i>must</i> be on one line.
+<ul><li>MathPiper expressions may be evaluated inline by using the directive </li><b><tt>*EVAL</tt></b>. Anything that follows <b><tt>*EVAL</tt></b> until the end of the line will be evaluated as a MathPiper expression. If this expression prints something (e.g. via <b><tt>Write</tt></b>), the output will be inserted into the text (as is). The resulting value of the expression will also be inserted, unless the expression evaluates to <b><tt>True</tt></b>. The MathPiper expression <i>must</i> be on one line.
 </ul>
 
 <p>
 For example,
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-*EVAL "Piper version: " : Version()
+*EVAL "MathPiper version: " : Version()
 </pre></tr>
 </table>
 will insert the string `
 
-Piper version: 1.2.1
+MathPiper version: 1.2.1
 ' into the manual. Note the spaces around the version string---these additional spaces are currently unavoidable.
-<h6>If the absence of spaces is critically important, you can create the required text in a Piper expression.</h6>
+<h6>If the absence of spaces is critically important, you can create the required text in a MathPiper expression.</h6>
 
 <p>
 
@@ -867,7 +867,7 @@ Piper version: 1.2.1
 <a name="documentation!reference manual markup">
 
 </a>
-The formatting explained in the previous section is enough to create most of the user guide and tutorial documentation. The script <b><tt>txt2piperdoc.pl</tt></b> also implements some additional markup features to help create the reference manual.
+The formatting explained in the previous section is enough to create most of the user guide and tutorial documentation. The script <b><tt>txt2mathpiperdoc.pl</tt></b> also implements some additional markup features to help create the reference manual.
 
 
 <p>
@@ -906,7 +906,7 @@ Compare this with the reference manual section on the function <b><tt>PrintList<
 <p>
 Notes:
 <ul><li>Some labels have parameters while other labels do not; labels that do not have parameters must be put alone on a line.
-</li><li>The </li><b><tt>*STD</tt></b> label is for functions defined in the standard library and the <b><tt>*CORE</tt></b> label is for built-in functions defined in the Piper core engine.
+</li><li>The </li><b><tt>*STD</tt></b> label is for functions defined in the standard library and the <b><tt>*CORE</tt></b> label is for built-in functions defined in the MathPiper core engine.
 In addition, the labels <b><tt>*UNIX</tt></b>, <b><tt>*MSWIN</tt></b> and <b><tt>*MAC</tt></b> can be used to denote Un*x, MS Wind*ws and Macint*sh-specific add-on functions.
 <li>There must be </li><i>some</i> whitespace separating a markup label such as <b><tt>*SEE</tt></b> and the following text.
 Either TAB characters or spaces work equally well.
@@ -916,9 +916,9 @@ Lists of commands are used by the <b><tt>*CMD</tt></b> and <b><tt>*SEE</tt></b> 
 <li>Characters </li><b><tt>&lt;</tt></b> and <b><tt>&gt;</tt></b> are of special significance to both HTML and <b>TeX</b> and should be always escaped---either by braces <b><tt>{}</tt></b> or by dollar signs, as appropriate.
 <li>In the "examples" section, there may be just one example, in which case the alternative label "</li><b><tt>*EG</tt></b>" could be used instead of "<b><tt>*E.G.</tt></b>". This will currently generate the word "Example:" instead of "Examples:" in the documentation.
 (This is a cosmetic feature.)
-<li>Each example is a candidate for inclusion into the Piper test suite.
-The Piper code after the </li><b><tt>In&gt;</tt></b> prompts and the resulting expressions that follow the <b><tt>Out&gt;</tt></b> prompt are extracted into special files by the script <b><tt>txt2example.pl</tt></b>.
-(This provides an automatic check that the manual still agrees with the actual behavior of Piper.)
+<li>Each example is a candidate for inclusion into the MathPiper test suite.
+The MathPiper code after the </li><b><tt>In&gt;</tt></b> prompts and the resulting expressions that follow the <b><tt>Out&gt;</tt></b> prompt are extracted into special files by the script <b><tt>txt2example.pl</tt></b>.
+(This provides an automatic check that the manual still agrees with the actual behavior of MathPiper.)
 The script will ignore any text that is not preceded by <b><tt>In&gt;</tt></b> or <b><tt>Out&gt;</tt></b>.
 However, some examples are not appropriate for automatic testing and must be explicitly excluded.
 An example section is excluded for testing if the <b><tt>*E.G.</tt></b> or <b><tt>*EG</tt></b> label is followed by the word "notest", for example:
@@ -1025,7 +1025,7 @@ will not be generated.
 <p>
 Note that <b><tt>makeindex</tt></b> is not always friendly to special
 (non-alphanumeric) characters. For example, it uses the symbol <b><tt>!</tt></b> to
-separate index topics, which may conflict with Piper commands. In other
+separate index topics, which may conflict with MathPiper commands. In other
 words, document index must be tested and sometimes debugged.
 
 
@@ -1083,11 +1083,11 @@ Labels with an argument on the same line (affect only the current line):
 <p>
 <ul><li></li><b><tt>*A</tt></b> <i>anchor</i> -- insert anchor and index entry
 <li></li><b><tt>*BOOK</tt></b> <i>title</i> -- start a book, give title
-<li></li><b><tt>*EVAL</tt></b> <i>statement</i> -- evaluate inline as a <b><tt>Piper</tt></b> statement and insert results
+<li></li><b><tt>*EVAL</tt></b> <i>statement</i> -- evaluate inline as a <b><tt>MathPiper</tt></b> statement and insert results
 <li></li><b><tt>*HEAD</tt></b> <i>heading</i> -- lowest-level heading (lower than subsection)
 <li></li><b><tt>*FOOT</tt></b> <i>text</i> -- insert a footnote
 <li></li><b><tt>*INCLUDE</tt></b> <i>filename</i> -- include another documentation file
-<li></li><b><tt>*YSFILE</tt></b> <i>filename</i> -- give an alternative file name for <b><tt>Piper</tt></b> code extraction (see the section on <b><tt>book2ys</tt></b>)
+<li></li><b><tt>*YSFILE</tt></b> <i>filename</i> -- give an alternative file name for <b><tt>MathPiper</tt></b> code extraction (see the section on <b><tt>book2ys</tt></b>)
 </ul>
 
 <p>
@@ -1173,7 +1173,7 @@ Both delimiters must be on the same line.
 
 </a>
 Sometimes the manual compilation <b><tt>make</tt></b> or <b><tt>make texdocs</tt></b> will break after you edit the plaintext manual sources. This can happen for one of these reasons:
-<ul><li>A math syntax error. You have used a mathematical formula that does not evaluate to a Piper expression. Unbalanced parentheses, invalid infix operators such as </li><b><tt>&gt;-</tt></b>, <b><tt>=-</tt></b>, or forgotten punctuation inside the formula such as <b><tt>x+1:</tt></b> are the most frequent culprits. This will break both HTML and <b> TeX</b> manual formats.
+<ul><li>A math syntax error. You have used a mathematical formula that does not evaluate to a MathPiper expression. Unbalanced parentheses, invalid infix operators such as </li><b><tt>&gt;-</tt></b>, <b><tt>=-</tt></b>, or forgotten punctuation inside the formula such as <b><tt>x+1:</tt></b> are the most frequent culprits. This will break both HTML and <b> TeX</b> manual formats.
 <li>The HTML format compiles but the </li><b> TeX</b> does not (the <b><tt>latex</tt></b> commands never finishes, that is, <b> latex</b> prints an error message which you do not see because it is redirected to <b><tt>/dev/null</tt></b>, and waits for your input; you have to kill the process).
 This means that somewhere the generated <b> TeX</b> code is incorrect. You probably forgot to balance braces <b><tt>{}</tt></b> or something more subtle happened.
 <li>Some mark-up which should not be split between lines was
@@ -1203,40 +1203,40 @@ and look at the error message(s) it prints.
 <p>
 
 <h3>
-<hr>Using the script <b><tt>txt2piperdoc.pl</tt></b>
+<hr>Using the script <b><tt>txt2mathpiperdoc.pl</tt></b>
 </h3>
-The script <b><tt>txt2piperdoc.pl</tt></b> is used to transform plain text markup into the
-Piper language. The script acts as a stream filter:
+The script <b><tt>txt2mathpiperdoc.pl</tt></b> is used to transform plain text markup into the
+MathPiper language. The script acts as a stream filter:
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-perl txt2piperdoc.pl &lt; file.txt &gt; file.chapt
+perl txt2mathpiperdoc.pl &lt; file.txt &gt; file.chapt
 </pre></tr>
 </table>
 
 
 <p>
-In this example, <b><tt>file.txt</tt></b> contains some formatted plain text (source text) and the resulting file <b><tt>file.chapt</tt></b> will be produced in Piper-language documentation format.
+In this example, <b><tt>file.txt</tt></b> contains some formatted plain text (source text) and the resulting file <b><tt>file.chapt</tt></b> will be produced in MathPiper-language documentation format.
 
 
 <p>
-There is a single option for <b><tt>txt2piperdoc</tt></b>:
+There is a single option for <b><tt>txt2mathpiperdoc</tt></b>:
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-perl txt2piperdoc.pl -debug &lt; file.txt \
+perl txt2mathpiperdoc.pl -debug &lt; file.txt \
   &gt; file.chapt
 </pre></tr>
 </table>
 This option is to be used for debugging, i.e. when the resulting file does not
-compile in Piper. The effect of this option is to introduce more breaks
+compile in MathPiper. The effect of this option is to introduce more breaks
 between text strings in the generated file, so that the <b><tt>Text()</tt></b> function is
 called more often. It is then easier to locate the source of the problem in the
-Piper-language file (Piper will tell you the last line in the Piper-language
+MathPiper-language file (MathPiper will tell you the last line in the MathPiper-language
 file at which a syntax error occurred). This option is largely obsolete because
 the <b><tt>Text()</tt></b> function is called frequently enough by default.
 See below for hints about finding syntax errors in documentation when the manual does not compile.
@@ -1247,7 +1247,7 @@ See below for hints about finding syntax errors in documentation when the manual
 <h3>
 <hr><b><tt>book2TeX</tt></b>: preparing typeset documentation
 </h3>
-The script <b><tt>book2TeX.sh</tt></b> prepares a <b> TeX</b> file out of a Piper-language documentation book. Usage is similar to <b><tt>book2txt.sh</tt></b>, except that only one file is processed at a time and the file must be a "book", not just a "chapter". For example:
+The script <b><tt>book2TeX.sh</tt></b> prepares a <b> TeX</b> file out of a MathPiper-language documentation book. Usage is similar to <b><tt>book2txt.sh</tt></b>, except that only one file is processed at a time and the file must be a "book", not just a "chapter". For example:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 book2TeX.sh intro.book intro.book.tex
@@ -1283,7 +1283,7 @@ processed index into the final document.
 
 
 <p>
-The shell commands in <b><tt>book2txt.sh</tt></b> execute the following Piper commands:
+The shell commands in <b><tt>book2txt.sh</tt></b> execute the following MathPiper commands:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 Use("book2TeX.pi");
@@ -1291,14 +1291,14 @@ ToFile("file.chapt.tex")
   Load("file.chapt");
 </pre></tr>
 </table>
-This requires that the Piper script <b><tt>book2TeX.pi</tt></b> be available in the current directory. The shell script <b><tt>book2TeX.sh</tt></b> assumes that <b><tt>book2TeX.pi</tt></b> is stored in the same directory as <b><tt>book2TeX.sh</tt></b> and that the Piper executable is available in the directory <b><tt>../src/</tt></b>. Alternatively, the command line of the Piper executable can be specified by the <b><tt>-run</tt></b> option. For example, the <b><tt>Makefile</tt></b> runs <b><tt>book2TeX.sh</tt></b> like this:
+This requires that the MathPiper script <b><tt>book2TeX.pi</tt></b> be available in the current directory. The shell script <b><tt>book2TeX.sh</tt></b> assumes that <b><tt>book2TeX.pi</tt></b> is stored in the same directory as <b><tt>book2TeX.sh</tt></b> and that the MathPiper executable is available in the directory <b><tt>../src/</tt></b>. Alternatively, the command line of the MathPiper executable can be specified by the <b><tt>-run</tt></b> option. For example, the <b><tt>Makefile</tt></b> runs <b><tt>book2TeX.sh</tt></b> like this:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-book2TeX.sh -run "piper-dir/src/piper --rootdir
-  piper-dir/scripts" file.book file.book.tex
+book2TeX.sh -run "mathpiper-dir/src/mathpiper --rootdir
+  mathpiper-dir/scripts" file.book file.book.tex
 </pre></tr>
 </table>
-Note that the entire Piper command line is given in quotes.
+Note that the entire MathPiper command line is given in quotes.
 
 
 <p>
@@ -1309,7 +1309,7 @@ Some concerns with the printed documentation
 <a name="documentation!<b> TeX</b> problems">
 
 </a>
-Not all features of the Piper documentation-generating scripts are compatible with <b> TeX</b> typesetting. To prevent errors, documentation source should avoid certain things. In general, it is a good idea to check the typeset appearance of documentation, since it helps detect errors.
+Not all features of the MathPiper documentation-generating scripts are compatible with <b> TeX</b> typesetting. To prevent errors, documentation source should avoid certain things. In general, it is a good idea to check the typeset appearance of documentation, since it helps detect errors.
 
 
 <p>
@@ -1339,7 +1339,7 @@ The standard 10 point font and two-column format are used to save space (and tre
 
 
 <p>
-The script <b><tt>txt2piperdoc.pl</tt></b> attempts to convert double quotes <b><tt>""</tt></b>
+The script <b><tt>txt2mathpiperdoc.pl</tt></b> attempts to convert double quotes <b><tt>""</tt></b>
 into proper English quotation marks "".
 However, this automatic conversion sometimes fails and produces wrongly-directed quotes.
 One such case is if the quotes are on the same line as a TAB character (e.g. in an itemized environment).
@@ -1348,15 +1348,15 @@ This problem can be circumvented by putting the quoted words on a different line
 
 <p>
 Some complicated mathematical expressions may not correctly render in <b> TeX</b>.
-This is because Piper uses its library function <b><tt>TeXForm()</tt></b> to transform Piper
+This is because MathPiper uses its library function <b><tt>TeXForm()</tt></b> to transform MathPiper
 expressions to <b> TeX</b>.
 Mathematical expressions are entered in the plain text
-documentation source using Piper syntax, then transformed to a special
-non-evaluating call <b><tt>TeXMath()</tt></b> in the Piper-language documentation, which
+documentation source using MathPiper syntax, then transformed to a special
+non-evaluating call <b><tt>TeXMath()</tt></b> in the MathPiper-language documentation, which
 formats into HTML using a <b><tt>Write()</tt></b> call or into <b> TeX</b> using a <b><tt>TeXForm()</tt></b>
 call, as necessary. Testing should be performed on documentation before
 releasing it. The most stringent limitation is that the expression between
-dollar signs should evaluate in Piper (preferably to itself) and not cause syntax
+dollar signs should evaluate in MathPiper (preferably to itself) and not cause syntax
 errors. In case of doubt, check that the expression evaluates without errors
 and then try to use <b><tt>TeXForm</tt></b> on that expression and see if that evaluates
 without errors as well. For example, expressions such as <b><tt>x=+1</tt></b> will cause a syntax error and this will break the compilation of the manual (both HTML and <b> TeX</b>).
@@ -1365,7 +1365,7 @@ without errors as well. For example, expressions such as <b><tt>x=+1</tt></b> wi
 <p>
 
 <h3>
-<hr><b><tt>book2ys</tt></b>: extracting Piper code from books ("literate programming")
+<hr><b><tt>book2ys</tt></b>: extracting MathPiper code from books ("literate programming")
 </h3>
 <a name="documentation!embedded code">
 
@@ -1373,7 +1373,7 @@ without errors as well. For example, expressions such as <b><tt>x=+1</tt></b> wi
 <a name="documentation!literate programming">
 
 </a>
-<b><tt>book2ys.sh</tt></b> is a shell script that extracts Piper code examples from a documentation chapter into a separate file.
+<b><tt>book2ys.sh</tt></b> is a shell script that extracts MathPiper code examples from a documentation chapter into a separate file.
 All other text is omitted.
 
 
@@ -1385,22 +1385,22 @@ sh ../manmake/book2ys.sh wester-1994.chapt \
   wester.yts
 </pre></tr>
 </table>
-After this command, the file <b><tt>wester.yts</tt></b> is created. Note that <b><tt>wester-1994.chapt</tt></b> is in Piper language and is itself a generated file.
+After this command, the file <b><tt>wester.yts</tt></b> is created. Note that <b><tt>wester-1994.chapt</tt></b> is in MathPiper language and is itself a generated file.
 
 
 <p>
-To prepare a documentation chapter in such a way that code extraction is possible, one needs to make sure that <i>all</i> code examples in the chapter taken together will become a correct sequence of Piper expressions when cut out and written sequentially into a file.
+To prepare a documentation chapter in such a way that code extraction is possible, one needs to make sure that <i>all</i> code examples in the chapter taken together will become a correct sequence of MathPiper expressions when cut out and written sequentially into a file.
 So, for instance, semicolons at the end of each statement are required.
-The script <b><tt>book2ys</tt></b> will <i>not</i> export example Piper session code with "<b><tt>In&gt;</tt></b>" and "<b><tt>Out&gt;</tt></b>" prompts but it will export <i>all other</i> example code.
+The script <b><tt>book2ys</tt></b> will <i>not</i> export example MathPiper session code with "<b><tt>In&gt;</tt></b>" and "<b><tt>Out&gt;</tt></b>" prompts but it will export <i>all other</i> example code.
 
 
 <p>
-The example code with "<b><tt>In&gt;</tt></b>" and "<b><tt>Out&gt;</tt></b>" prompts will become comments in the exported Piper file.
+The example code with "<b><tt>In&gt;</tt></b>" and "<b><tt>Out&gt;</tt></b>" prompts will become comments in the exported MathPiper file.
 It is possible to suppress this comment generation by the <b><tt>-strip</tt></b> option to the <b><tt>book2ys.sh</tt></b> script.
 
 
 <p>
-If the output file name is not given, the name will be the same as the Piper book source name but with the <b><tt>.pi</tt></b> extension.
+If the output file name is not given, the name will be the same as the MathPiper book source name but with the <b><tt>.pi</tt></b> extension.
 
 
 <p>
@@ -1415,7 +1415,7 @@ From this book, a printable copy is generated and all code is automatically extr
 
 <p>
 Literate programming may require that code be split between many source files, and yet it may be convenient to keep all descriptions in one book.
-The special document formatting label <b><tt>*YSFILE</tt></b> can be used to redirect output to different Piper source files.
+The special document formatting label <b><tt>*YSFILE</tt></b> can be used to redirect output to different MathPiper source files.
 
 
 <p>
@@ -1426,7 +1426,7 @@ Otherwise, all code output will be printed to the file specified after the <b><t
 
 <p>
 Note that the multiple file support is somewhat restrictive:
-<ul><li>Once the output file name has been changed, the old file is closed and cannot be appended to. (This is a limitation of the </li><b><tt>ToFile()</tt></b> function in Piper.)
+<ul><li>Once the output file name has been changed, the old file is closed and cannot be appended to. (This is a limitation of the </li><b><tt>ToFile()</tt></b> function in MathPiper.)
 <li>If the same file name is chosen again, the file will be overwritten.
 </li><li>If the output file has been changed at least once,
 then at the end of the document the file name must be reset to the default "</li><b><tt>-</tt></b>".
@@ -1453,13 +1453,13 @@ End of the example, need to reset *YSFILE.
 *YSFILE -
 </pre></tr>
 </table>
-After processing this file with <b><tt>book2ys.sh</tt></b>, one should get three files with Piper code.
+After processing this file with <b><tt>book2ys.sh</tt></b>, one should get three files with MathPiper code.
 
 
 <p>
 
 <h3>
-<hr><b><tt>ys2book</tt></b>: extracting documentation from Piper code ("literate programming")
+<hr><b><tt>ys2book</tt></b>: extracting documentation from MathPiper code ("literate programming")
 </h3>
 <a name="documentation!embedded in code">
 
@@ -1478,7 +1478,7 @@ This approach is implemented by the script <b><tt>ys2book.pl</tt></b>.
 
 
 <p>
-This script takes a Piper script file and extracts Piper comments from it into another file.
+This script takes a MathPiper script file and extracts MathPiper comments from it into another file.
 Usage may look like this:
 
 
@@ -1501,7 +1501,7 @@ Formatting of comments is implemented as follows:
 <ul><li>Line comments starting at the beginning of line with three or more slashes
 ("</li><b><tt>///</tt></b>", "<b><tt>////</tt></b>" etc.) are exported as documentation.
 Line comments starting with "<b><tt>//</tt></b>" are not exported.
-Line comments that are found after some Piper statements are also not exported.
+Line comments that are found after some MathPiper statements are also not exported.
 For example, if the source file contains the following lines,
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
@@ -1555,8 +1555,8 @@ For example, in the block comment
 the initial <b><tt>*</tt></b> and any spaces before it will be removed from each line.
 This feature is designed to make the format easier to comprehend visually, if the documentation needs to be specially formatted.
 <li>All other comments remain unexported code comments.
-</li><li>All Piper code, including unexported comments, is TAB-indented and printed to the output file, unless the "</li><b><tt>-strip</tt></b>" option is given.
-(TAB-indentation is the Piper documentation markup for code examples.)
+</li><li>All MathPiper code, including unexported comments, is TAB-indented and printed to the output file, unless the "</li><b><tt>-strip</tt></b>" option is given.
+(TAB-indentation is the MathPiper documentation markup for code examples.)
 With the "<b><tt>-strip</tt></b>" option, the output file will contain only exportable documentation comments and no code samples.
 </ul>
 
@@ -1596,7 +1596,7 @@ Empty lines can be introduced into the documentation either as part of a multili
 
 
 <p>
-With these features it is easy to prepare the embedded documentation in the Piper plaintext documentation format.
+With these features it is easy to prepare the embedded documentation in the MathPiper plaintext documentation format.
 This format requires space- and TAB-based formatting, which is mostly preserved by the script <b><tt>ys2book.pl</tt></b>.
 
 
@@ -1605,27 +1605,27 @@ This format requires space- and TAB-based formatting, which is mostly preserved 
 <h3>
 <hr><b><tt>ytxt2tex</tt></b>: Conversion of plain text documentation to <b> LaTeX</b>
 </h3>
-<a name="documentation!outside of Piper source tree">
+<a name="documentation!outside of MathPiper source tree">
 
 </a>
 An auxiliary script <b><tt>ytxt2tex</tt></b> converts plain text documentation to <b> LaTeX</b>.
-The script <b><tt>ytxt2tex</tt></b> can be used outside of the Piper source tree to convert individual documents to <b> LaTeX</b>.
-This is useful if you would like to produce <b> TeX</b> documents and if you find the plain text format of the Piper documentation more comfortable.
-Therefore, <b><tt>ytxt2tex</tt></b> is a kind of a special-purpose <b> TeX</b> preprocessor designed for producing Piper documentation.
+The script <b><tt>ytxt2tex</tt></b> can be used outside of the MathPiper source tree to convert individual documents to <b> LaTeX</b>.
+This is useful if you would like to produce <b> TeX</b> documents and if you find the plain text format of the MathPiper documentation more comfortable.
+Therefore, <b><tt>ytxt2tex</tt></b> is a kind of a special-purpose <b> TeX</b> preprocessor designed for producing MathPiper documentation.
 
 
 <p>
-This is a standalone script; it is installed by default into <b><tt>/usr/local/bin</tt></b> and requires the Piper executable also on the path, as well as the script files <b><tt>book2TeX.*</tt></b> and <b><tt>txt2piperdoc.pl</tt></b> in the <b><tt>/manmake</tt></b> subdirectory of the Piper installation tree <b><tt>/usr/local/share/piper/</tt></b>.
+This is a standalone script; it is installed by default into <b><tt>/usr/local/bin</tt></b> and requires the MathPiper executable also on the path, as well as the script files <b><tt>book2TeX.*</tt></b> and <b><tt>txt2mathpiperdoc.pl</tt></b> in the <b><tt>/manmake</tt></b> subdirectory of the MathPiper installation tree <b><tt>/usr/local/share/mathpiper/</tt></b>.
 The script also requires <b><tt>perl</tt></b> and the Unix shell <b><tt>sh</tt></b>.
 
 
 <p>
 Limitations of this script are:
 <ul><li>it is impossible to include raw </li><b> TeX</b> code;
-<li>mathematical expressions are limited to those representable using Piper functions and operators from the standard library;
+<li>mathematical expressions are limited to those representable using MathPiper functions and operators from the standard library;
 </li><li>the document comes out to be a twocolumn "report" with a certain fixed title page format, a table of contents, and an index;
 </li><li>front matter is fixed
-("</li><i>This is Piper documentation... by the Piper team... GNU Free Documentation License...</i>" etc.) and will most probably have to be edited by hand if you need to prepare anything other than Piper documentation;
+("</li><i>This is MathPiper documentation... by the MathPiper team... GNU Free Documentation License...</i>" etc.) and will most probably have to be edited by hand if you need to prepare anything other than MathPiper documentation;
 <li>all current limitations of plaintext documentation format, for example, no nested itemized/enumerated environments;
 </li><li>some advanced features of index generation (e.g. the </li><b><tt>!</tt></b> separators combined with other markup) are not yet supported.
 </ul>
@@ -1778,16 +1778,16 @@ Without a table of contents and index, it is enough to process the file with <b>
 <h3>
 <hr><b><tt>book2txt</tt></b>: Conversion of existing documentation to plain text
 </h3>
-(Note: as of version 1.0.49, all Piper documentation is converted to plaintext format. This section is left for reference only.)
+(Note: as of version 1.0.49, all MathPiper documentation is converted to plaintext format. This section is left for reference only.)
 
 
 <p>
-Currently, most but not all of the Piper documentation markup functionality is
+Currently, most but not all of the MathPiper documentation markup functionality is
 implemented in the simple plaintext filter; also, documentation includes some
 extra HTML files. However, almost all of the reasonable markup needed to write
 documentation is present. Therefore it is possible to maintain most of the
 documentation in the plain text format described above. To convert existing
-Piper documentation back to the plain text format, a script
+MathPiper documentation back to the plain text format, a script
 <b><tt>book2txt.pi</tt></b>/<b><tt>book2txt.sh</tt></b> can be used.
 
 
@@ -1798,7 +1798,7 @@ By using a command such as
 book2txt.sh file.chapt
 </pre></tr>
 </table>
-one can create a source text file <b><tt>file.chapt.txt</tt></b> corresponding to the Piper documentation file <b><tt>file.chapt</tt></b>. For example:
+one can create a source text file <b><tt>file.chapt.txt</tt></b> corresponding to the MathPiper documentation file <b><tt>file.chapt</tt></b>. For example:
 
 
 <p>
@@ -1815,7 +1815,7 @@ File 'intro.book.txt' was created.
 
 
 <p>
-In the above example, the shell commands in <b><tt>book2txt.sh</tt></b> executed the following Piper commands,
+In the above example, the shell commands in <b><tt>book2txt.sh</tt></b> executed the following MathPiper commands,
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 Use("book2txt.pi");
@@ -1823,11 +1823,11 @@ ToFile("file.chapt.txt")
   Load("file.chapt");
 </pre></tr>
 </table>
-This requires that the Piper script <b><tt>book2txt.pi</tt></b> be available in the current directory. The shell script <b><tt>book2txt.sh</tt></b> assumes that <b><tt>book2txt.pi</tt></b> is stored in the same directory as <b><tt>book2txt.sh</tt></b>.
+This requires that the MathPiper script <b><tt>book2txt.pi</tt></b> be available in the current directory. The shell script <b><tt>book2txt.sh</tt></b> assumes that <b><tt>book2txt.pi</tt></b> is stored in the same directory as <b><tt>book2txt.sh</tt></b>.
 
 
 <p>
-Of course, it is possible that some features of Piper documentation were not implemented in the script and in that case the resulting file must be edited by hand. But the purpose of the <b><tt>book2txt</tt></b> script is exactly this: to make a plain text source file to be edited and maintained.
+Of course, it is possible that some features of MathPiper documentation were not implemented in the script and in that case the resulting file must be edited by hand. But the purpose of the <b><tt>book2txt</tt></b> script is exactly this: to make a plain text source file to be edited and maintained.
 
 
 <p>
@@ -1837,7 +1837,7 @@ Several files can be converted at once, for example:
 book2txt.sh f1.chapt f2.chapt file3.book
 </pre></tr>
 </table>
-Each file is processed by an independent Piper session. Any errors of processing are printed on the screen.
+Each file is processed by an independent MathPiper session. Any errors of processing are printed on the screen.
 
 
 <p>
@@ -1846,7 +1846,7 @@ Each file is processed by an independent Piper session. Any errors of processing
 
 </a>
 <h2>
-<hr>5.3 The Piper build system
+<hr>5.3 The MathPiper build system
 </h2>
 <h3>
 <hr>Introduction
@@ -1854,28 +1854,28 @@ Each file is processed by an independent Piper session. Any errors of processing
 <a name="build system">
 
 </a>
-This chapter describes the build system of Piper. So here you will
+This chapter describes the build system of MathPiper. So here you will
 find what happens when you give the <b><tt>configure</tt></b> or the <b><tt>make</tt></b> command,
 and how to change this. It will concentrate on Unix systems; other
 architectures are briefly covered in the final section.
 
 
 <p>
-As the Piper build system is built on the GNU autotools suite, which
+As the MathPiper build system is built on the GNU autotools suite, which
 contains both <b><tt>automake</tt></b> and <b><tt>autoconf</tt></b>, we will start with a short
 description of this package. Then we will turn to the various
-components of Piper: the program itself, the script files, the
+components of MathPiper: the program itself, the script files, the
 documentation, the test suite, and so on. 
 
 
 <p>
-As explained in the <b><tt>INSTALL</tt></b> file, building Piper requires the
+As explained in the <b><tt>INSTALL</tt></b> file, building MathPiper requires the
 following steps.
 <ul><li>(This step is only necessary if building from CVS.) Start by
 running the </li><b><tt>makemake</tt></b> script. This executes the <b><tt>automake</tt></b> and
 <b><tt>autoconf</tt></b> programs. 
 <li>Then the </li><b><tt>configure</tt></b> script should be run.
-<li>Finally, Piper can be built by giving the </li><b><tt>make</tt></b> command.
+<li>Finally, MathPiper can be built by giving the </li><b><tt>make</tt></b> command.
 </ul>
 
 <p>
@@ -1895,7 +1895,7 @@ explained below.
 
 </a>
 The GNU <b><tt>autotools</tt></b> suite is a collection of applications to streamline
-the build system of other programs, like Piper. Its two main goals are
+the build system of other programs, like MathPiper. Its two main goals are
 to present a consistent build procedure to users, and to assist
 developers in tackling portability problems.
 
@@ -1910,9 +1910,9 @@ a <b><tt>Makefile</tt></b>. The generated Makefiles are portable and contain all
 targets specified in the GNU Coding Standards document, like <b><tt>all</tt></b>,
 <b><tt>install</tt></b> and <b><tt>clean</tt></b>.
 <li></li><b><tt>autoconf</tt></b>. Its main goal is to produce the <b><tt>configure</tt></b> script.
-When Piper is built, this script gathers information from the user's
+When MathPiper is built, this script gathers information from the user's
 system, like the operating system and the location of certain programs
-used by the Piper build system. This information is used in turn by the
+used by the MathPiper build system. This information is used in turn by the
 Makefiles.
 <li></li><b><tt>libtool</tt></b>. This utility provides a portable interface for
 building and using libraries. Static libraries, shared libraries and
@@ -1921,10 +1921,10 @@ dynamically loadable modules are all supported.
 
 <p>
 The users do not need to run <b><tt>automake</tt></b> and <b><tt>autoconf</tt></b> (here, "users"
-refers to the people who do not want to make any changes to Piper and
-includes those who just want to compile Piper from a tar.gz source
+refers to the people who do not want to make any changes to MathPiper and
+includes those who just want to compile MathPiper from a tar.gz source
 archive). They do need the <b><tt>libtool</tt></b> script. But the <b><tt>libtool</tt></b> package
-is included in the Piper distribution, so the users do not need to
+is included in the MathPiper distribution, so the users do not need to
 install <b><tt>libtool</tt></b> themselves.
 
 
@@ -1940,7 +1940,7 @@ Developers do need to install <b><tt>autoconf</tt></b> and <b><tt>automake</tt><
 systems. But they usually do not need to run these tools directly, as
 the Makefiles contain the necessary commands. When the Makefiles are
 not present, which occurs for instance when installing afresh from the
-CVS repository, the <b><tt>makemake</tt></b> script in the root of the Piper source
+CVS repository, the <b><tt>makemake</tt></b> script in the root of the MathPiper source
 tree can (and probably should) be used to invoke <b><tt>automake</tt></b> and
 <b><tt>autoconf</tt></b> in the right order and with the correct flags.
 
@@ -1983,25 +1983,25 @@ verbatim to the generated <b><tt>Makefile.in</tt></b> file.
 
 <p>
 The most important macros which are used by <b><tt>automake</tt></b> are the
-so-called <i>primaries</i>. These list the files that make up the Piper
+so-called <i>primaries</i>. These list the files that make up the MathPiper
 package. For instance, in the <b><tt>src</tt></b> directory, the file <b><tt>Makefile.am</tt></b>
 contains the following line
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
- bin_PROGRAMS = piper
+ bin_PROGRAMS = mathpiper
 </pre></tr>
 </table>
 This is an example of the <b><tt>PROGRAMS</tt></b> primary, and says that the
-directory contains a program called <b><tt>piper</tt></b>. Hence it will be built if
+directory contains a program called <b><tt>mathpiper</tt></b>. Hence it will be built if
 the <b><tt>make all</tt></b> command is executed, it will be installed at 
 <b><tt>make install</tt></b>, etc. Other useful primaries are <b><tt>SCRIPTS</tt></b> for
 executable scripts, <b><tt>HEADERS</tt></b> for header files, and <b><tt>DATA</tt></b> for all
 files which are just copied verbatim at installation time (this
-includes Piper scripts). 
+includes MathPiper scripts). 
 
 
 <p>
-The <b><tt>bin</tt></b> prefix in the example above says that <b><tt>piper</tt></b> should be
+The <b><tt>bin</tt></b> prefix in the example above says that <b><tt>mathpiper</tt></b> should be
 installed in the binary directory, as determined by the <b><tt>configure</tt></b>
 script. By default, this is the directory <b><tt>/usr/local/bin</tt></b>. There are
 also prefixes for the other directories, as well as some prefixes with
@@ -2012,18 +2012,18 @@ only needed when testing.
 
 <p>
 There are also so-called <i>associated variables</i>. The same
-<b><tt>Makefile.am</tt></b> contains the following variables associated to the Piper
+<b><tt>Makefile.am</tt></b> contains the following variables associated to the MathPiper
 executable:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper_SOURCES = pipermain.cpp commandline.cpp \
+mathpiper_SOURCES = mathpipermain.cpp commandline.cpp \
       unixcommandline.cpp stdcommandline.cpp
-piper_LDADD = libpiper.a libpiperplatform.a 
+mathpiper_LDADD = libmathpiper.a libmathpiperplatform.a 
 </pre></tr>
 </table>
 These lines tell that the executable is built from four source files
-(pipermain.cpp, commandline.cpp, unixcommandline.cpp and stdcommandline.cpp)
-and two static libraries (libpiper.a and libpiperplatform.a). 
+(mathpipermain.cpp, commandline.cpp, unixcommandline.cpp and stdcommandline.cpp)
+and two static libraries (libmathpiper.a and libmathpiperplatform.a). 
 
 
 <p>
@@ -2036,11 +2036,11 @@ explained in the section <a href="#make!targets">
 </a>
 
 below). In the above example, <b><tt>automake</tt></b> can figure out that
-<b><tt>pipermain.cpp</tt></b> should be included in the distribution.
+<b><tt>mathpipermain.cpp</tt></b> should be included in the distribution.
 
 
 <p>
-Unfortunately not everything is supported that well. For instance, Piper
+Unfortunately not everything is supported that well. For instance, MathPiper
 comes with its own documentation system, which is of course not
 supported by <b><tt>automake</tt></b>. So we need to tell <b><tt>automake</tt></b> how to handle
 these files. To specify which files should be included in the distribution, the
@@ -2090,10 +2090,10 @@ documentation that comes with the package.
 
 </a>
 Autoconf is a tool to generate portable shell scripts that users
-can run to configure the package (in our case Piper) for their
+can run to configure the package (in our case MathPiper) for their
 system. It reads the file <b><tt>configure.in</tt></b> and produces the <b><tt>configure</tt></b>
 script. The latter script can be run by the user to prepare for
-building Piper.
+building MathPiper.
 
 
 <p>
@@ -2128,10 +2128,10 @@ We currently assume <b><tt>autoconf</tt></b> version 2.13 or later.
 <a name="configuration">
 
 </a>
-The <b><tt>configure</tt></b> script is run by the user to prepare the Piper package
+The <b><tt>configure</tt></b> script is run by the user to prepare the MathPiper package
 for the build and installation process. It examines the user's system
 and the options passed to the script by the user, and generates
-suitable Makefiles. Furthermore, it generates <b><tt>piper.spec</tt></b> which is
+suitable Makefiles. Furthermore, it generates <b><tt>mathpiper.spec</tt></b> which is
 used to build a package in Red Hat's <b><tt>.rpm</tt></b> format, and the C header
 file <b><tt>config.h</tt></b>.
 
@@ -2143,14 +2143,14 @@ directory. This not only prevents the source directory from being
 cluttered up by object files and so on, but it also enables the user
 to build for different architectures in different directories or to
 have the source in a read-only directory. For example, suppose that
-the Piper source is installed under <b><tt>/mnt/cdrom/src/piper</tt></b> and that
-you want to build Piper under <b><tt>/tmp/build-piper</tt></b>. This is achieved by
+the MathPiper source is installed under <b><tt>/mnt/cdrom/src/mathpiper</tt></b> and that
+you want to build MathPiper under <b><tt>/tmp/build-mathpiper</tt></b>. This is achieved by
 the following commands
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-mkdir /tmp/build-piper
-cd /tmp/build-piper
-/mnt/cdrom/src/piper/configure
+mkdir /tmp/build-mathpiper
+cd /tmp/build-mathpiper
+/mnt/cdrom/src/mathpiper/configure
 make
 </pre></tr>
 </table>
@@ -2166,8 +2166,8 @@ by invoking it with the <b><tt>help</tt></b> option
 </table>
 The most important is the <b><tt>prefix</tt></b> option, which influences where
 everything will be installed. The default is <b><tt>/usr/local</tt></b>, meaning
-that for instance the piper executable is installed as
-<b><tt>/usr/local/bin/piper</tt></b>. To change this in <b><tt>/usr/bin/piper</tt></b>, invoke the
+that for instance the mathpiper executable is installed as
+<b><tt>/usr/local/bin/mathpiper</tt></b>. To change this in <b><tt>/usr/bin/mathpiper</tt></b>, invoke the
 script as follows
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
@@ -2181,16 +2181,16 @@ where the various files should be installed.
 <p>
 We will not describe the common <b><tt>configure</tt></b> options which are shared
 by all packages, but will restrict ourselves to the options
-exclusively used by Piper.
+exclusively used by MathPiper.
 <ul><li></li><b><tt>with-numlib=LIB</tt></b>. This option specifies the arbitrary-precision
 library to use.  The supported values for <b><tt>LIB</tt></b> so far are <b><tt>native</tt></b> (the
 default). 
-<li></li><b><tt>enable-debug</tt></b>. Build a version of Piper suitable for debugging. 
+<li></li><b><tt>enable-debug</tt></b>. Build a version of MathPiper suitable for debugging. 
 <li></li><b><tt>enable-archive</tt></b>. Build and install the library archive. The
 library archive resides in the file <b><tt>scripts.dat</tt></b> and contains all the
-Piper scripts in compressed form.
-<li></li><b><tt>enable-server</tt></b>. Build a version of the Piper executable which
-accepts the <b><tt>--server</tt></b> flag, which puts Piper in server mode (see
+MathPiper scripts in compressed form.
+<li></li><b><tt>enable-server</tt></b>. Build a version of the MathPiper executable which
+accepts the <b><tt>--server</tt></b> flag, which puts MathPiper in server mode (see
 <a href="introchapter3.html#c3s1">
 "Command-line options"
 </a>
@@ -2199,7 +2199,7 @@ accepts the <b><tt>--server</tt></b> flag, which puts Piper in server mode (see
 
 <p>
 The following three options pertain to the extensive documentation
-that comes with Piper. By default, only HTML documentation is
+that comes with MathPiper. By default, only HTML documentation is
 generated.
 <ul><li></li><b><tt>disable-html-doc</tt></b>. Do not generate documentation in HTML
 format.
@@ -2211,17 +2211,17 @@ also requires the latex suite.
 
 <p>
 Then there are three options describing where to install various parts
-of the Piper package.
-<ul><li></li><b><tt>with-script-dir=DIR</tt></b>. Install the Piper script files, which
+of the MathPiper package.
+<ul><li></li><b><tt>with-script-dir=DIR</tt></b>. Install the MathPiper script files, which
 have extension <b><tt>.pi</tt></b>, in the specified directory. By default, the
-script files are installed in <b><tt>DATADIR/piper</tt></b>, where <b><tt>DATADIR</tt></b>
+script files are installed in <b><tt>DATADIR/mathpiper</tt></b>, where <b><tt>DATADIR</tt></b>
 defaults to <b><tt>PREFIX/share</tt></b>. In turn, <b><tt>PREFIX</tt></b> refers to the value of
 the <b><tt>prefix</tt></b> option described above; the default value is
 <b><tt>/usr/local</tt></b>. The conclusion is that the script files by default end
-up in <b><tt>/usr/local/share/piper</tt></b>.
+up in <b><tt>/usr/local/share/mathpiper</tt></b>.
 <li></li><b><tt>with-html-dir=DIR</tt></b>. This specifies where to install the HTML
-documentation for the Piper package. The default is a subdirectory
-named <b><tt>documentation</tt></b> of the directory in which the Piper script files
+documentation for the MathPiper package. The default is a subdirectory
+named <b><tt>documentation</tt></b> of the directory in which the MathPiper script files
 are installed.
 <li></li><b><tt>with-ps-dir=DIR</tt></b>. Where to install the PostScript and PDF
 documentation. This defaults to the same directory as for the
@@ -2249,10 +2249,10 @@ Makefiles, is that the resulting Makefiles support a variety of
 targets. Here is a partial list of them.
 <ul><li></li><b><tt>all</tt></b>. This is the default target, so instead of <b><tt>make all</tt></b>
 one can just type <b><tt>make</tt></b>. It builds the executables, which includes
-<b><tt>piper</tt></b>, and the documentation. By default, only documentation in HTML
+<b><tt>mathpiper</tt></b>, and the documentation. By default, only documentation in HTML
 format will be built, but this can be changed by the <b><tt>configure</tt></b> script.
 <li></li><b><tt>install</tt></b>. Compile the executables, and install them together
-with the libraries, Piper scripts, and documentation so that the Piper
+with the libraries, MathPiper scripts, and documentation so that the MathPiper
 program can be run. 
 <li></li><b><tt>install-strip</tt></b>. Same as <b><tt>install</tt></b>, but also strip the debug
 information from the installed executables.
@@ -2264,14 +2264,14 @@ configuration or the build process. This leaves only the files in that
 were included in the distribution. 
 <li></li><b><tt>dist</tt></b>. Create a tar-ball (a gzipped tar archive) ready for
 distribution. 
-<li></li><b><tt>check</tt></b> (or its synonym <b><tt>test</tt></b>). Test whether Piper works correctly.
-<li></li><b><tt>installcheck</tt></b>. Test whether Piper is installed correctly. The
+<li></li><b><tt>check</tt></b> (or its synonym <b><tt>test</tt></b>). Test whether MathPiper works correctly.
+<li></li><b><tt>installcheck</tt></b>. Test whether MathPiper is installed correctly. The
 difference with the <b><tt>check</tt></b> target is that that one tests the
-<i>built</i> version of Piper, while the <b><tt>installcheck</tt></b> target tests
+<i>built</i> version of MathPiper, while the <b><tt>installcheck</tt></b> target tests
 the <i>installed</i> version.
-<li></li><b><tt>distcheck</tt></b>. Check whether Piper is ready for
+<li></li><b><tt>distcheck</tt></b>. Check whether MathPiper is ready for
 distribution. This creates a tar-ball, unpacks it in a different
-directory, compiles Piper with default options, installs it in a temporary directory, and
+directory, compiles MathPiper with default options, installs it in a temporary directory, and
 finally checks that the installed version works correctly. Extra flags
 to be passed to the <b><tt>configure</tt></b> script (eg. <b><tt>--enable-archive</tt></b>) can be
 put in the <b><tt>DISTCHECK_CONFIGURE_FLAGS</tt></b> environment variable.
@@ -2280,23 +2280,23 @@ put in the <b><tt>DISTCHECK_CONFIGURE_FLAGS</tt></b> environment variable.
 <p>
 
 <h3>
-<hr>The Piper executable
+<hr>The MathPiper executable
 </h3>
 <a name="build system!executable">
 
 </a>
-The main executable is called <b><tt>piper</tt></b> and resides in the <b><tt>src</tt></b>
+The main executable is called <b><tt>mathpiper</tt></b> and resides in the <b><tt>src</tt></b>
 directory. 
 
 
 <p>
 Conceptually, the build process consists of the following parts:
 <ul><li>Generating the source files. Almost all source files were
-written by the Piper development team, but the following are generated
+written by the MathPiper development team, but the following are generated
 automatically: </li><b><tt>version.h</tt></b> (generated from <b><tt>configure.in</tt></b>),
 <b><tt>fastprimes.c</tt></b> (generated by the <b><tt>mkfastprimes</tt></b> program), and
-<b><tt>core_pipermain.h</tt></b> (generated from <b><tt>pipermain.cpp</tt></b>).
-<li>Building the executables. Besides the Piper executables, we
+<b><tt>core_mathpipermain.h</tt></b> (generated from <b><tt>mathpipermain.cpp</tt></b>).
+<li>Building the executables. Besides the MathPiper executables, we
 also build </li><b><tt>mkfastprimes</tt></b> and <b><tt>gencorefunctions</tt></b> (which are needed to
 generate some source files), and the <b><tt>codereviewer</tt></b> executable (which does a static analysis of code 
 and can in some circumstances also fix the code where the coding
@@ -2306,15 +2306,15 @@ style is not adhered to).
 <p>
 
 <h3>
-<hr>The Piper script files
+<hr>The MathPiper script files
 </h3>
-<a name="build system!Piper scripts">
+<a name="build system!MathPiper scripts">
 
 </a>
 <a name="scripts!installation">
 
 </a>
-The Piper script files with extension <b><tt>ys</tt></b> can be found in the
+The MathPiper script files with extension <b><tt>ys</tt></b> can be found in the
 <b><tt>scripts/</tt></b> directory and its "repository" subdirectories. 
 
 
@@ -2349,8 +2349,8 @@ all files present in the <b><tt>scripts/</tt></b> hierarchy are indeed listed.
 <a name="documentation!building">
 
 </a>
-The documentation system for Piper is explained in <a href="essayschapter5.html#c5s2">
-Essays on Piper, Chapter 5, Section 2
+The documentation system for MathPiper is explained in <a href="essayschapter5.html#c5s2">
+Essays on MathPiper, Chapter 5, Section 2
 </a>
 . 
 
@@ -2358,13 +2358,13 @@ Essays on Piper, Chapter 5, Section 2
 <p>
 The documentation is generated from plain text source files with the
 <b><tt>txt</tt></b> extension in the <b><tt>manmake</tt></b> directory. The source files
-are converted to Piper code by the <b><tt>txt2piperdoc.pl</tt></b> script.
-The result is a set of Piper source files containing the text of the documentation.
-These Piper source files are not well suited for human reading and must be further processed to obtain the books in HTML and PS/PDF formats.
+are converted to MathPiper code by the <b><tt>txt2mathpiperdoc.pl</tt></b> script.
+The result is a set of MathPiper source files containing the text of the documentation.
+These MathPiper source files are not well suited for human reading and must be further processed to obtain the books in HTML and PS/PDF formats.
 
 
 <p>
-To generate the books in HTML format, the Piper source files are processed by the Piper interpreter using the scripts <b><tt>manualmaker</tt></b> and <b><tt>indexmaker</tt></b>.
+To generate the books in HTML format, the MathPiper source files are processed by the MathPiper interpreter using the scripts <b><tt>manualmaker</tt></b> and <b><tt>indexmaker</tt></b>.
 The script <b><tt>indexmaker</tt></b> creates the file <b><tt>books.html</tt></b> with the top-level index to all HTML documentation books.
 The script <b><tt>manualmaker</tt></b> creates the HTML files with the book text (both the framed and the non-framed versions are written out).
 It is also possible to generate more than one HTML book at once.
@@ -2373,7 +2373,7 @@ The two reference manuals are generated together to produce the full hyperlinked
 
 <p>
 To generate the books in PostScript and PDF format, the <b><tt>book2TeX.sh</tt></b>
-script is used. This script converts the Piper source files
+script is used. This script converts the MathPiper source files
 to <b>TeX</b> files. They can then be processed by the standard <b> TeX</b>
 tools.
 
@@ -2394,16 +2394,16 @@ should be installed.
 At the moment, the <b><tt>Makefile.am</tt></b> for the documentation is rather
 messy. For this reason, we do not describe it in detail. Instead, we
 just point out some special features:
-<ul><li>The Piper interpreter and </li><b><tt>perl</tt></b> are needed to generate the documentation.
+<ul><li>The MathPiper interpreter and </li><b><tt>perl</tt></b> are needed to generate the documentation.
 <li>The section
 </li><a href="refprogchapter5.html#c5s1">
 "Full listing of core functions"
 </a>
 
-is generated from the Piper source by the <b><tt>gencorefunctions</tt></b> program,
+is generated from the MathPiper source by the <b><tt>gencorefunctions</tt></b> program,
 which resides in the <b><tt>src</tt></b> directory.
-<li>The Piper code from the section 
-</li><i>M. Wester's CAS benchmark and Piper</i>, built from
+<li>The MathPiper code from the section 
+</li><i>M. Wester's CAS benchmark and MathPiper</i>, built from
 <b><tt>wester-1994.chapt.txt</tt></b>, is extracted with the <b><tt>book2ys.sh</tt></b>
 script. This code is used for testing (see below).
 <li>All the scripts described can be found in the </li><b><tt>manmake</tt></b> directory.
@@ -2417,19 +2417,19 @@ script. This code is used for testing (see below).
 <a name="build system!test suite">
 
 </a>
-<a name="testing Piper">
+<a name="testing MathPiper">
 
 </a>
-The Piper distribution contains a (hopefully comprehensive) test
-suite, which can be used to check whether Piper is (still) functioning
+The MathPiper distribution contains a (hopefully comprehensive) test
+suite, which can be used to check whether MathPiper is (still) functioning
 correctly. The command <b><tt>make check</tt></b> tests the latest compiled version
-of Piper. To test the executable that is installed on your system, use
+of MathPiper. To test the executable that is installed on your system, use
 the command <b><tt>make installcheck</tt></b>.
 
 
 <p>
 The <b><tt>yts</tt></b> files in the <b><tt>tests</tt></b> directory contain the tests for
-different subsystems of Piper. For instance, the file <b><tt>arithmetic.yts</tt></b>
+different subsystems of MathPiper. For instance, the file <b><tt>arithmetic.yts</tt></b>
 contains tests for the basic arithmetic functions; the first test is
 to check that <b><tt>3+2</tt></b> evaluates to <b><tt>5</tt></b>. All the test files are listed in
 the <b><tt>TESTFILES</tt></b> variable. This variable can be overridden. For
@@ -2443,13 +2443,13 @@ only runs the test scripts <b><tt>comments.yts</tt></b> and <b><tt>complex.yts</
 
 
 <p>
-The shell script <b><tt>test-piper</tt></b> does the actual testing. It runs the
-scripts listed in the <b><tt>TESTFILES</tt></b> variable through the Piper
+The shell script <b><tt>test-mathpiper</tt></b> does the actual testing. It runs the
+scripts listed in the <b><tt>TESTFILES</tt></b> variable through the MathPiper
 executable. The tests that take a long time are at the end of the
 list, so that these tests are performed last. The output of the tests
 is collected in the file <b><tt>testresult.txt</tt></b>. The test is considered to
 be failed, if the exit code is nonzero (which happens for instance if
-Piper crashes) or if either of the strings <b><tt>******</tt></b> (six stars) or
+MathPiper crashes) or if either of the strings <b><tt>******</tt></b> (six stars) or
 <b><tt>Error</tt></b> appear in the output.
 
 
@@ -2461,7 +2461,7 @@ Piper crashes) or if either of the strings <b><tt>******</tt></b> (six stars) or
 A special case is the last test, which goes through the problems put
 forward by Michael Wester (see the section 
 <a href="essayschapter2.html#c2">
-M. Wester's CAS benchmark and Piper
+M. Wester's CAS benchmark and MathPiper
 </a>
 ). The commands for this
 tests are not in a <b><tt>yts</tt></b> file in the <b><tt>tests</tt></b> directory, but are
@@ -2478,9 +2478,9 @@ the immediately preceding section
 <hr>The library archive
 </h3>
 The library archive is a file, commonly called <b><tt>scripts.dat</tt></b>, which
-contains all the scripts in compressed form. If Piper is started with
+contains all the scripts in compressed form. If MathPiper is started with
 the <b><tt>--archive</tt></b> flag, it uses the contents of this file. This is
-useful for binary releases, as one needs only two files: the Piper
+useful for binary releases, as one needs only two files: the MathPiper
 executable and the library archive.
 
 

@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Advanced example 1: parsing expressions (<b><tt>CForm</tt></b>)</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c4">
@@ -11,12 +11,12 @@
 4. Advanced example 1: parsing expressions (<b><tt>CForm</tt></b>)
 </h1>
 <p> </p>
-In this chapter we show how Piper represents expressions and how one can build
+In this chapter we show how MathPiper represents expressions and how one can build
 functions that work on various types of expressions. Our specific example will
-be <b><tt>CForm()</tt></b>, a standard library function that converts Piper expressions into
-C or C++ code. Although the input format of Piper expressions is already very
+be <b><tt>CForm()</tt></b>, a standard library function that converts MathPiper expressions into
+C or C++ code. Although the input format of MathPiper expressions is already very
 close to C and perhaps could be converted to C by means of an external text
-filter, it is instructive to understand how to use Piper to parse its own
+filter, it is instructive to understand how to use MathPiper to parse its own
 expressions and produce the corresponding C code. Here we shall only design the
 core mechanism of <b><tt>CForm()</tt></b> and build a limited version that handles only
 expressions using the four arithmetic actions.
@@ -30,7 +30,7 @@ expressions using the four arithmetic actions.
 <h2>
 <hr>4.1 Recursive parsing of expression trees
 </h2>
-As we have seen in the tutorial, Piper represents all expressions as trees, or equivalently, as lists of lists. For example, the expression "<b><tt>a+b+c+d+e</tt></b>" is for Piper a tree of depth 4 that could be visualized as
+As we have seen in the tutorial, MathPiper represents all expressions as trees, or equivalently, as lists of lists. For example, the expression "<b><tt>a+b+c+d+e</tt></b>" is for MathPiper a tree of depth 4 that could be visualized as
 
 
 <p>
@@ -47,7 +47,7 @@ or as a nested list: <b><tt>("+" a ("+" b ("+" c ("+" d e))))</tt></b>.
 
 
 <p>
-Complicated expressions are thus built from simple ones in a general and flexible way. If we want a function that acts on sums of any number of terms, we only need to define this function on a single atom and on a sum of two terms, and the Piper engine will recursively perform the action on the entire tree.
+Complicated expressions are thus built from simple ones in a general and flexible way. If we want a function that acts on sums of any number of terms, we only need to define this function on a single atom and on a sum of two terms, and the MathPiper engine will recursively perform the action on the entire tree.
 
 
 <p>
@@ -89,7 +89,7 @@ Out&gt; "a + b * c * d + e + 1 + f";
 
 
 <p>
-With only three rules, we were able to process even some complicated expressions. How did it work? We could illustrate the steps Piper went through when simplifying <b><tt>CForm(a+b*c)</tt></b> roughly like this:
+With only three rules, we were able to process even some complicated expressions. How did it work? We could illustrate the steps MathPiper went through when simplifying <b><tt>CForm(a+b*c)</tt></b> roughly like this:
 
 
 <p>
@@ -116,7 +116,7 @@ CForm(a) : " + " : CForm(b*c)
 <h2>
 <hr>4.2 Handling precedence of infix operations
 </h2>
-It seems that recursion will do all the work for us. The power of recursion is indeed great and extensive use of recursion is built into the design of Piper. We might now add rules for more operators, for example, the unary addition, subtraction and division:
+It seems that recursion will do all the work for us. The power of recursion is indeed great and extensive use of recursion is built into the design of MathPiper. We might now add rules for more operators, for example, the unary addition, subtraction and division:
 
 
 <p>
@@ -170,7 +170,7 @@ We shall define an auxiliary function also named "CForm" but with a second argum
 
 
 <p>
-The precedence values of infix operators such as "<b><tt>+</tt></b>" and "<b><tt>*</tt></b>" are defined in the Piper library but may change in a future version. Therefore, we shall not hard-code these precedence values but instead use the function <b><tt>OpPrecedence()</tt></b> to determine them. The new rules for the "<b><tt>+</tt></b>" operation could look like this:
+The precedence values of infix operators such as "<b><tt>+</tt></b>" and "<b><tt>*</tt></b>" are defined in the MathPiper library but may change in a future version. Therefore, we shall not hard-code these precedence values but instead use the function <b><tt>OpPrecedence()</tt></b> to determine them. The new rules for the "<b><tt>+</tt></b>" operation could look like this:
 
 
 <p>
@@ -190,7 +190,7 @@ and so on. We omitted the predicate for the last rule because it has a later pre
 
 
 <p>
-The way we wrote these rules is unnecessarily repetitive but straightforward and it illustrates the central ideas of expression processing in Piper. The standard library implements <b><tt>CForm()</tt></b> essentially in this way. In addition the library implementation supports standard mathematical functions, arrays and so on, and is somewhat better organized to allow easier extensions and avoid repetition of code.
+The way we wrote these rules is unnecessarily repetitive but straightforward and it illustrates the central ideas of expression processing in MathPiper. The standard library implements <b><tt>CForm()</tt></b> essentially in this way. In addition the library implementation supports standard mathematical functions, arrays and so on, and is somewhat better organized to allow easier extensions and avoid repetition of code.
 
 
 <p>

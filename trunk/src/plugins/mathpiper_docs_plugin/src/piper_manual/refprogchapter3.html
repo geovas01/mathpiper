@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Arbitrary-precision numerical programming</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c3">
@@ -784,7 +784,7 @@ Parameters:
 <h5>
 Description:
 </h5>
-Each floating-point number in Piper has an internal precision counter that stores the number of exact bits in the mantissa.
+Each floating-point number in MathPiper has an internal precision counter that stores the number of exact bits in the mantissa.
 The number of exact bits is automatically updated after each arithmetic operation to reflect the gain or loss of precision due to round-off.
 The functions <b><tt>MathGetExactBits</tt></b>, <b><tt>MathSetExactBits</tt></b> allow to query or set the precision flags of individual number objects.
 
@@ -887,7 +887,7 @@ Parameters:
 Description:
 </h5>
 When in numeric mode, <b><tt>InNumericMode()</tt></b> will return <b><tt>True</tt></b>, else it will
-return <b><tt>False</tt></b>. <b><tt>Piper</tt></b> is in numeric mode when evaluating an expression
+return <b><tt>False</tt></b>. <b><tt>MathPiper</tt></b> is in numeric mode when evaluating an expression
 with the function <b><tt>N</tt></b>. Thus when calling <b><tt>N(expr)</tt></b>, <b><tt>InNumericMode()</tt></b> will
 return <b><tt>True</tt></b> while <b><tt>expr</tt></b> is being evaluated.
 

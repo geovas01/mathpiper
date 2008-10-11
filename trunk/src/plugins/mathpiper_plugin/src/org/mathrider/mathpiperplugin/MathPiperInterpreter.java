@@ -5,7 +5,7 @@ package org.mathrider.mathpiperplugin;
 //import org.mathrider.piper.CPiper;
 //import org.mathrider.piper.Piperexception;
 import org.mathpiper.Interpreter;
-import org.mathpiper.exceptions.PiperException;
+import org.mathpiper.exceptions.MathPiperException;
 import console.Output;
 
 import java.io.*;
@@ -29,7 +29,7 @@ import errorlist.*;
 	private static DefaultErrorSource errorSource;
  
     /** Creates a new instance of MathPiperInterpreter */
-    protected MathPiperInterpreter() throws PiperException {
+    protected MathPiperInterpreter() throws MathPiperException {
 		
 		stringOutput = new StringOutput();
 	    
@@ -43,7 +43,7 @@ import errorlist.*;
  
     }//end constructor.
 	
-   public static MathPiperInterpreter getInstance() throws PiperException{
+   public static MathPiperInterpreter getInstance() throws MathPiperException{
       if(instance == null) {
          instance = new MathPiperInterpreter();
       }
@@ -85,7 +85,7 @@ import errorlist.*;
     /** Use this method to pass an expression to the Piper interpreter.
      *  Returns the output of the interpreter.
      */
-    public String evaluate(String input) throws PiperException {
+    public String evaluate(String input) throws MathPiperException {
 		
 			String result = mathPiper.evaluate(input);
 			

@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Numerical algorithms III: special functions</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c6">
@@ -79,7 +79,7 @@ For convenience, one defines <b>0! =1</b>, <b> 0!! =1</b>, <b>(-1)!! =1</b>.
 
 <p>
 If the factorial of a large integer or half-integer <b> n</b> needs to be computed not exactly but only with a certain floating-point precision, it is faster (for large enough <b> Abs(n)</b>) not to evaluate an exact integer product, but to use the floating-point numerical approximation.
-This method is currently not implemented in Piper.
+This method is currently not implemented in MathPiper.
 
 
 <p>
@@ -119,7 +119,7 @@ Suppose that <b>1&lt;=s&lt;=2</b>.
 Then the remainder is given by the last integral that is smaller than <b> M*Exp(-M)</b>.
 By choosing <b>M</b> a large enough integer, the remainder can be made small enough to discard it.
 Then we obtain a series of rational numbers that can be evaluated directly in <b> O(P^2)</b> time or using the binary splitting technique in <b>O(M(P*Ln(P))*Ln(P))</b> time.
-This method is currently not implemented in Piper.
+This method is currently not implemented in MathPiper.
 
 
 <p>
@@ -190,7 +190,7 @@ This leads to some cancellations and as a result to a certain loss of precision.
 At version
 
 1.2.1,
-<b><tt>Piper</tt></b> is limited in its internal arbitrary precision facility that does not support
+<b><tt>MathPiper</tt></b> is limited in its internal arbitrary precision facility that does not support
 true floating-point computation but rather uses fixed-point logic; this hinders precise calculations with
 floating-point numbers. In the current version of the <b><tt>Internal'GammaNum()</tt></b> function, two workarounds
 are implemented. First, a Horner scheme is used to compute the sum; this is somewhat
@@ -696,7 +696,7 @@ also [Borwein <i>et al.</i> 1999] for a review of methods.
 
 </a>
 It is the "third" algorithm (the simplest one) from P. Borwein's paper which is implemented in
-Piper. The approximation formula valid for <b> Re(s)&gt; -(n-1)</b> is
+MathPiper. The approximation formula valid for <b> Re(s)&gt; -(n-1)</b> is
 
 <p><center><b>Zeta(s)=1/(2^n*(1-2^(1-s)))*Sum(j,0,2*n-1,e[j]/(j+1)^s),</b></center></p>
 
@@ -765,7 +765,7 @@ To obtain <b> P</b> digits of precision, <b> N</b> must be chosen as above, i.e.
 Since only prime numbers <b>p[i]</b> are used, this formula is asymptotically faster than <b><tt>Internal'ZetaNum1</tt></b>.
 (Prime numbers have to be obtained and tested but this is quick for numbers of size <b>n</b>, compared with other operations.)
 The number of primes up to <b> N</b> is asymptotically
-<b> pi(N)&lt;&gt;N/Ln(N)</b> and therefore this procedure is faster by a factor <b>O(Ln(N))&lt;&gt;O(Ln(n))</b>. However, for <b>n&lt;250</b> it is better (with Piper internal math) to use the <b><tt>Internal'ZetaNum1</tt></b> routine because it involves fewer multiplications.
+<b> pi(N)&lt;&gt;N/Ln(N)</b> and therefore this procedure is faster by a factor <b>O(Ln(N))&lt;&gt;O(Ln(n))</b>. However, for <b>n&lt;250</b> it is better (with MathPiper internal math) to use the <b><tt>Internal'ZetaNum1</tt></b> routine because it involves fewer multiplications.
 
 
 <p>
@@ -1038,8 +1038,8 @@ It seems that each asymptotic series requires special treatment and yet in all c
 
 
 <p>
-Currently Piper can compute <b><tt>BesselJ(n,x)</tt></b> for all <b> x</b> where <b> n</b> is an integer and for <b> Abs(x)&lt;=2*Gamma(n)</b> when
-<b>n</b> is a real number. Piper currently uses the Taylor series
+Currently MathPiper can compute <b><tt>BesselJ(n,x)</tt></b> for all <b> x</b> where <b> n</b> is an integer and for <b> Abs(x)&lt;=2*Gamma(n)</b> when
+<b>n</b> is a real number. MathPiper currently uses the Taylor series
 when <b> Abs(x)&lt;=2*Gamma(n)</b> to compute the numerical value:
 
 <p><center><b>BesselJ(n,x):=Sum(k,0,Infinity,(-1)^k*x^(2*k+n)/(2^(2*k+n)*k! *Gamma(k+n+1))).</b></center></p>
@@ -1051,7 +1051,7 @@ when <b> Abs(x)&lt;=2*Gamma(n)</b> to compute the numerical value:
 <a name="Bessel functions!by recurrence relation">
 
 </a>
-If <b>Abs(x)&gt;2*Gamma(n)</b> and <b>n</b> is an integer, then Piper uses the forward recurrence
+If <b>Abs(x)&gt;2*Gamma(n)</b> and <b>n</b> is an integer, then MathPiper uses the forward recurrence
 relation:
 
 <p><center><b> BesselJ(n,x):=2*(n+1)/x*BesselJ(n+1,x)-BesselJ(n+2,x) </b></center></p>
@@ -1069,7 +1069,7 @@ decreasing). From this we know that if we stop after <b>i</b> iterations, the er
 will be bounded by the absolute value of the next term. So given a set
 precision, turn this into a value <b> epsilon</b>, so that we can check if the current
 term will contribute to the sum at the prescribed precision. Before doing this,
-Piper currently increases the precision by 20<b><tt>%</tt></b> to do interim calculations.
+MathPiper currently increases the precision by 20<b><tt>%</tt></b> to do interim calculations.
 This is a heuristic that works, it is not backed by theory.  The value <b> epsilon</b>
 is given by <b> epsilon:=5*10^(-prec)</b>, where <b>prec</b> was the previous precision. This
 is directly from the definition of floating point number which is correct to

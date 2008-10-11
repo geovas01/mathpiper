@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Numerical algorithms I: basic methods</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c4">
@@ -11,7 +11,7 @@
 4. Numerical algorithms I: basic methods
 </h1>
 This and subsequent chapters document the numerical algorithms used in
-Piper for exact integer calculations as well as for multiple precision
+MathPiper for exact integer calculations as well as for multiple precision
 floating-point calculations. We give self-contained descriptions of
 the non-trivial algorithms and estimate their computational cost.
 Most of the algorithms were taken from referenced literature; the remaining algorithms were developed by us.
@@ -293,8 +293,8 @@ So a smoothing and interpolation procedure is necessary to convert a non-gridded
 <a name="plotting!parametric">
 
 </a>
-Currently, parametric plots are not directly implemented in Piper.
-However, it is possible to use Piper to obtain numerical data for such plots.
+Currently, parametric plots are not directly implemented in MathPiper.
+However, it is possible to use MathPiper to obtain numerical data for such plots.
 One can then use external programs to produce actual graphics.
 
 
@@ -392,7 +392,7 @@ Almost all special functions can be evaluated in time that is asymptotically lin
 
 
 <p>
-In <b><tt>Piper</tt></b> we strive to implement all numerical functions to arbitrary precision.
+In <b><tt>MathPiper</tt></b> we strive to implement all numerical functions to arbitrary precision.
 All integer or rational functions return exact
 results, and all floating-point functions return their value with <b> P</b>
 correct decimal digits (assuming sufficient precision of the arguments).
@@ -709,11 +709,11 @@ This situation seems to be typical for Taylor series.
 <h2>
 <hr>4.7 Basic arbitrary-precision arithmetic 
 </h2>
-<a name="arbitrary-precision computation!Piper internal math">
+<a name="arbitrary-precision computation!MathPiper internal math">
 
 </a>
-Piper uses an internal math library (the <b><tt>pipernumbers</tt></b> library) which comes with the source
-code. This reduces the dependencies of the Piper system and improves portability.
+MathPiper uses an internal math library (the <b><tt>mathpipernumbers</tt></b> library) which comes with the source
+code. This reduces the dependencies of the MathPiper system and improves portability.
 The internal math library is simple and does not necessarily use the most optimal algorithms.
 
 
@@ -736,7 +736,7 @@ and the Karatsuba multiplication is best in the middle range.
 
 
 <p>
-Warning: calculations with internal Piper math using precision exceeding 10,000 digits are currently impractically slow.
+Warning: calculations with internal MathPiper math using precision exceeding 10,000 digits are currently impractically slow.
 
 
 <p>
@@ -803,7 +803,7 @@ It seems unlikely that even the sign of <b> Sin(Exp(Exp(1000)))</b> will be obta
 
 <p>
 Suppose that <b>N</b> is the largest integer that our arbitrary-precision facility can reasonably handle.
-(For Piper internal math library, <b> N</b> is about <b> 10^10000</b>.)
+(For MathPiper internal math library, <b> N</b> is about <b> 10^10000</b>.)
 Then it follows that numbers <b> x</b> of order <b> 10^N</b> can be calculated with at most one (1) digit of floating-point precision,
 while larger numbers cannot be calculated with any precision at all.
 
@@ -894,7 +894,7 @@ A "computation" with exp-numbers is essentially a floating-point computation wit
 A practical problem that needs numbers of this magnitude can probably be restated in terms of more manageable logarithms of such numbers.
 In practice, exp-numbers could be useful not as a means to get a numerical answer,
 but as a warning sign of critical overflow or underflow.
-<h6>Piper currently does not implement exp-numbers or any other guards against overflow and underflow. If a decimal exponential becomes too large, an incorrect answer may result.</h6>
+<h6>MathPiper currently does not implement exp-numbers or any other guards against overflow and underflow. If a decimal exponential becomes too large, an incorrect answer may result.</h6>
 <a name="c4s9">
 
 </a>
@@ -2719,7 +2719,7 @@ Brent (in [Brent 1975]) says that <b>O(Ln(Ln(n)))</b> bits of accuracy are lost 
 
 <p>
 The AGM sequence can be used for fast computations of <b> Pi</b>, <b> Ln(x)</b> and <b>ArcTan(x)</b>.
-However, currently the limitations of Piper internal math make these methods less efficient than simpler methods based on Taylor series and Newton iterations.
+However, currently the limitations of MathPiper internal math make these methods less efficient than simpler methods based on Taylor series and Newton iterations.
 
 
 <p>

@@ -1,14 +1,14 @@
 <html>
 <head>
-  <title>On Piper programming</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <title>On MathPiper programming</title>
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c3">
 
 </a>
 <h1>
-3. On Piper programming
+3. On MathPiper programming
 </h1>
 <p> </p>
 <a name="c3s1">
@@ -66,7 +66,7 @@ ABIN is too weak to obtain its proof.)
 <h3>
 <hr>Implementation using predicates
 </h3>
-The easiest way to model the ABIN language in Piper is by using predicates. Our
+The easiest way to model the ABIN language in MathPiper is by using predicates. Our
 goal will be to define a predicate <b><tt>IsProvable(x)</tt></b> that will return <b><tt>True</tt></b> when
 <b><tt>x</tt></b> is a provable ABIN statement and <b><tt>False</tt></b> otherwise. We shall define
 <b><tt>IsProvable(x)</tt></b> recursively through several auxiliary predicates. Naturally, we
@@ -247,10 +247,10 @@ Out&gt; True;
 <h2>
 <hr>3.2 Example: Using rules with special syntax operators creatively
 </h2>
-Any Piper function can be declared to have <i>special syntax</i>: in other
+Any MathPiper function can be declared to have <i>special syntax</i>: in other
 words, it can be made into a prefix, infix, postfix, or bodied operator. In
 this section we shall see how prefix, infix, and postfix operators understood
-by Piper can be adapted to a problem that seems to be far removed from algebra.
+by MathPiper can be adapted to a problem that seems to be far removed from algebra.
 Nevertheless it is instructive to understand how rewriting rules are used with
 special syntax operators.
 
@@ -262,7 +262,7 @@ say "Tom had an apple and Jane gave 3 apples to Tom"; the system should
 understand that Tom has 4 apples now. In the usual LISP-based treatments of
 artificial intelligence, this problem would be illustrated with a cumbersome list
 syntax such as <b><tt>(had (Tom apple 1))</tt></b> but we would like to use the power of the
-Piper syntax and use plain English.
+MathPiper syntax and use plain English.
 
 
 <p>
@@ -280,11 +280,11 @@ The full source of this example is in the file <b><tt>examples/wordproblems.pi</
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Unix&gt;   piper
+Unix&gt;   mathpiper
 True;
 Numeric mode: "Internal"
-To exit Piper, enter  Exit(); or quit or Ctrl-c.
-Type 'restart' to restart Piper.
+To exit MathPiper, enter  Exit(); or quit or Ctrl-c.
+Type 'restart' to restart MathPiper.
 To see example commands, keep typing Example();
 In&gt; Load("wordproblems.pi")
 Out&gt; True;
@@ -421,7 +421,7 @@ special function <b><tt>Knowledge()</tt></b> prints everything the system curren
 
 
 <p>
-Now we shall see how this system can be implemented in Piper with very little
+Now we shall see how this system can be implemented in MathPiper with very little
 difficulty.
 
 
@@ -430,7 +430,7 @@ difficulty.
 <h3>
 <hr>Parsing sentences
 </h3>
-A sentence such as "<b><tt>Mary had a lamb</tt></b>" should be parsed as a valid Piper expression. Since this sentence contains more than one atom, it should be parsed as a function invocation, or else Piper will simply give a syntax error when we type it in.
+A sentence such as "<b><tt>Mary had a lamb</tt></b>" should be parsed as a valid MathPiper expression. Since this sentence contains more than one atom, it should be parsed as a function invocation, or else MathPiper will simply give a syntax error when we type it in.
 
 
 <p>
@@ -449,7 +449,7 @@ In&gt; FullForm(Mary had a lamb)
 Out&gt; Mary had a lamb;
 </pre></tr>
 </table>
-Now this sentence is parsed as a valid Piper expression (although we have not
+Now this sentence is parsed as a valid MathPiper expression (although we have not
 yet defined any rules for the functions "<b><tt>a</tt></b>" and "<b><tt>had</tt></b>").
 
 
@@ -585,7 +585,7 @@ apples and ideas" and "Isaac had an apple and an idea" because we have chosen
 precedences for these operators; this would allow some new sentences but at the
 same time disallow some sentences that are admissible with the current choice.
 Our purpose, however, is not to build a comprehensive system for parsing
-English sentences, but to illustrate the usage of syntax in Piper.
+English sentences, but to illustrate the usage of syntax in MathPiper.
 
 
 <p>
@@ -600,7 +600,7 @@ operator will have to operate on a preceding number, so that a sentence such as
 If <b><tt>x</tt></b> were an unevaluated atom such as "<b><tt>lambs</tt></b>" which is passed to a
 function, how can we declare <b><tt>lambs</tt></b> to be a postfix operator within that
 function? The string representation of the new operator is <b><tt>String(x)</tt></b>. But we cannot call <b><tt>Postfix(String(x))</tt></b> because <b><tt>Postfix()</tt></b> does not
-evaluate its arguments (as of Piper 1.0.49). Instead, we use the function
+evaluate its arguments (as of MathPiper 1.0.49). Instead, we use the function
 <b><tt>UnList</tt></b> to build the expression <b><tt>Postfix(String(x))</tt></b> with <b><tt>String(x)</tt></b>
 evaluated from a list <b><tt>{Postfix, String(x)}</tt></b>, and we use the function <b><tt>Eval()</tt></b>
 to evaluate the resulting expression (which would actually call <b><tt>Postfix()</tt></b>):
@@ -627,14 +627,14 @@ _Person had n_IsNumber _Objects
 where <b><tt>_Objects</tt></b> would be a pattern matcher for an unknown postfix operator
 such as <b><tt>lambs</tt></b> in our previous example. But we discover that it is impossible
 to write rules that match an unknown postfix operator. The syntax parser of
-Piper cannot do this for us; so we should find a workaround. Let us define a
+MathPiper cannot do this for us; so we should find a workaround. Let us define a
 rule for each object operator that will transform an expression such as {5
 lambs} into a list <b><tt>{lambs, 5}</tt></b>. In this list, "lambs" will just remain an
 unevaluated atom.
 
 
 <p>
-Incidentally, the parser of Piper does not allow to keep unevaluated atoms that
+Incidentally, the parser of MathPiper does not allow to keep unevaluated atoms that
 are at the same time declared as <i>prefix</i> operators but it is okay to have
 infix or postfix operators.
 
@@ -659,7 +659,7 @@ Out&gt; {lambs, grilled};
 
 
 <p>
-But what about the expression "<b><tt>many lambs</tt></b>"? In it, <b><tt>many</tt></b> is a prefix operator and <b><tt>lambs</tt></b> is a postfix operator. It turns out that for Piper it is the <i>prefix</i> operator that is parsed first (and remember, we cannot have unevaluated atoms with the same name as a prefix operator!) so "<b><tt>many lambs</tt></b>" will be transformed into <b><tt>many(lambs)</tt></b> and not into an illegal expression <b><tt>{lambs, many}</tt></b>.
+But what about the expression "<b><tt>many lambs</tt></b>"? In it, <b><tt>many</tt></b> is a prefix operator and <b><tt>lambs</tt></b> is a postfix operator. It turns out that for MathPiper it is the <i>prefix</i> operator that is parsed first (and remember, we cannot have unevaluated atoms with the same name as a prefix operator!) so "<b><tt>many lambs</tt></b>" will be transformed into <b><tt>many(lambs)</tt></b> and not into an illegal expression <b><tt>{lambs, many}</tt></b>.
 
 
 <p>

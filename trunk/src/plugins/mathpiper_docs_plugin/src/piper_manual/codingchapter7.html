@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Custom evaluation facilities</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c7">
@@ -11,13 +11,13 @@
 7. Custom evaluation facilities
 </h1>
 <p> </p>
-Piper supports a special form of evaluation where hooks are
+MathPiper supports a special form of evaluation where hooks are
 placed when evaluation enters or leaves an expression. 
 
 
 <p>
 This section will explain the way custom evaluation is supported
-in <b><tt>Piper</tt></b>, and will proceed to demonstrate how it can be used
+in <b><tt>MathPiper</tt></b>, and will proceed to demonstrate how it can be used
 by showing code to trace, interactively step through, profile,
 and write custom debugging code.
 
@@ -455,7 +455,7 @@ Out&gt; True;
 
 </a>
 <h2>
-<hr>7.4 The Piper Debugger
+<hr>7.4 The MathPiper Debugger
 </h2>
 <h3>
 <hr>Why introduce a debug version?
@@ -472,14 +472,14 @@ and mean, while still offering advanced debug features.
 <p>
 
 <h3>
-<hr>How to build the debug version of Piper ?
+<hr>How to build the debug version of MathPiper ?
 </h3>
 The debug version has to be built separately from the "production"
-version of Piper (all source files have to be recompiled).
+version of MathPiper (all source files have to be recompiled).
 
 
 <p>
-To build the debug version of piper, run configure with
+To build the debug version of mathpiper, run configure with
 
 
 <p>
@@ -509,14 +509,14 @@ as usual.
 <p>
 
 <h3>
-<hr>What does the debug version of piper offer?
+<hr>What does the debug version of mathpiper offer?
 </h3>
-The Piper debugger is in development still, but already has
+The MathPiper debugger is in development still, but already has
 some useful features. 
 
 
 <p>
-When you build the debug version of piper, and run a command, it will:
+When you build the debug version of mathpiper, and run a command, it will:
 <ul><li>keep track of the memory allocated and freed, and show any memory leaks
 when you quit the program.
 </li><li>show which files are loaded to read function definitions and when. This is only done when the </li><b><tt>--verbose-debug</tt></b> flag is passed to the program at startup.

@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Calculus and elementary functions</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c4">
@@ -118,14 +118,14 @@ Parameters:
 <h5>
 Description:
 </h5>
-This function represents the trigonometric function sine. Piper leaves 
+This function represents the trigonometric function sine. MathPiper leaves 
 expressions alone even if x is a number, trying to keep the result as 
 exact as possible. The floating point approximations of these functions 
 can be forced by using the <b><tt>N</tt></b> function.
 
 
 <p>
-Piper knows some trigonometric identities, so it can simplify to exact
+MathPiper knows some trigonometric identities, so it can simplify to exact
 results even if <b><tt>N</tt></b> is not used. This is the case, for instance,
 when the argument is a multiple of <b>Pi</b>/6 or <b> Pi</b>/4.
 
@@ -210,14 +210,14 @@ Parameters:
 <h5>
 Description:
 </h5>
-This function represents the trigonometric function cosine. Piper leaves 
+This function represents the trigonometric function cosine. MathPiper leaves 
 expressions alone even if x is a number, trying to keep the result as 
 exact as possible. The floating point approximations of these functions 
 can be forced by using the <b><tt>N</tt></b> function.
 
 
 <p>
-Piper knows some trigonometric identities, so it can simplify to exact
+MathPiper knows some trigonometric identities, so it can simplify to exact
 results even if <b><tt>N</tt></b> is not used. This is the case, for instance,
 when the argument is a multiple of <b> Pi</b>/6 or <b> Pi</b>/4.
 
@@ -302,14 +302,14 @@ Parameters:
 <h5>
 Description:
 </h5>
-This function represents the trigonometric function tangent. Piper leaves 
+This function represents the trigonometric function tangent. MathPiper leaves 
 expressions alone even if x is a number, trying to keep the result as 
 exact as possible. The floating point approximations of these functions 
 can be forced by using the <b><tt>N</tt></b> function.
 
 
 <p>
-Piper knows some trigonometric identities, so it can simplify to exact
+MathPiper knows some trigonometric identities, so it can simplify to exact
 results even if <b><tt>N</tt></b> is not used. This is the case, for instance,
 when the argument is a multiple of <b> Pi</b>/6 or <b> Pi</b>/4.
 
@@ -401,15 +401,15 @@ instance, the value of <b> ArcSin(x)</b> is a number <b>y</b> such that
 
 <p>
 Note that the number <b> y</b> is not unique. For instance, <b> Sin(0)</b> and
-<b>Sin(Pi)</b> both equal 0, so what should <b>ArcSin(0)</b> be? In Piper,
+<b>Sin(Pi)</b> both equal 0, so what should <b>ArcSin(0)</b> be? In MathPiper,
 it is agreed that the value of <b>ArcSin(x)</b> should be in the interval
 [-<b>Pi</b>/2,<b> Pi</b>/2]. 
 
 
 <p>
-Usually, Piper leaves this function alone unless it is forced to do
+Usually, MathPiper leaves this function alone unless it is forced to do
 a numerical evaluation by the <b><tt>N</tt></b> function. If the
-argument is -1, 0, or 1 however, Piper will simplify the
+argument is -1, 0, or 1 however, MathPiper will simplify the
 expression. If the argument is complex,  the expression will be
 rewritten using the <b><tt>Ln</tt></b> function.
 
@@ -510,14 +510,14 @@ instance, the value of <b> ArcCos(x)</b> is a number <b>y</b> such that
 
 <p>
 Note that the number <b> y</b> is not unique. For instance, <b> Cos(Pi/2)</b> and
-<b>Cos(3*Pi/2)</b> both equal 0, so what should <b>ArcCos(0)</b> be? In Piper,
+<b>Cos(3*Pi/2)</b> both equal 0, so what should <b>ArcCos(0)</b> be? In MathPiper,
 it is agreed that the value of <b>ArcCos(x)</b> should be in the interval [0,<b>Pi</b>] .
 
 
 <p>
-Usually, Piper leaves this function alone unless it is forced to do
+Usually, MathPiper leaves this function alone unless it is forced to do
 a numerical evaluation by the <b><tt>N</tt></b> function. If the
-argument is -1, 0, or 1 however, Piper will simplify the
+argument is -1, 0, or 1 however, MathPiper will simplify the
 expression. If the argument is complex,  the expression will be
 rewritten using the <b><tt>Ln</tt></b> function.
 
@@ -630,14 +630,14 @@ instance, the value of <b> ArcTan(x)</b> is a number <b>y</b> such that
 
 <p>
 Note that the number <b> y</b> is not unique. For instance, <b> Tan(0)</b> and
-<b>Tan(2*Pi)</b> both equal 0, so what should <b>ArcTan(0)</b> be? In Piper,
+<b>Tan(2*Pi)</b> both equal 0, so what should <b>ArcTan(0)</b> be? In MathPiper,
 it is agreed that the value of <b>ArcTan(x)</b> should be in the interval
 [-<b>Pi</b>/2,<b> Pi</b>/2]. 
 
 
 <p>
-Usually, Piper leaves this function alone unless it is forced to do
-a numerical evaluation by the <b><tt>N</tt></b> function. Piper will try to simplify
+Usually, MathPiper leaves this function alone unless it is forced to do
+a numerical evaluation by the <b><tt>N</tt></b> function. MathPiper will try to simplify
 as much as possible while keeping the result exact. If the argument is 
 complex,  the expression will be rewritten using the <b><tt>Ln</tt></b> function.
 
@@ -1141,7 +1141,7 @@ Description:
 </h5>
 This function calculates the derivative of the expression <b><tt>expr</tt></b> with
 respect to the variable <b><tt>var</tt></b> and returns it. If the third calling
-format is used, the <b><tt>n</tt></b>-th derivative is determined. Piper knows
+format is used, the <b><tt>n</tt></b>-th derivative is determined. MathPiper knows
 how the differentiate standard functions such as <b><tt>Ln</tt></b>
 and <b><tt>Sin</tt></b>.
 

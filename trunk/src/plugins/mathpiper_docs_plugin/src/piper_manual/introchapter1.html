@@ -1,14 +1,14 @@
 <html>
 <head>
-  <title>Getting started with Piper off-line</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <title>Getting started with MathPiper off-line</title>
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c1">
 
 </a>
 <h1>
-1. Getting started with Piper off-line
+1. Getting started with MathPiper off-line
 </h1>
 <p> </p>
 <a name="c1s1">
@@ -17,10 +17,10 @@
 <h2>
 <hr>1.1 Introduction
 </h2>
-This section describes how to get started with <b><tt>Piper</tt></b> locally by downloading and compiling the
+This section describes how to get started with <b><tt>MathPiper</tt></b> locally by downloading and compiling the
 program. However, this is not strictly necessary. You can also go online to our web site and
-use <b><tt>Piper</tt></b> in there inside your browser. The web page contains tutorials, example calculations 
-and lots of documentation. This document is only useful if you plan to build and install <b><tt>Piper</tt></b>
+use <b><tt>MathPiper</tt></b> in there inside your browser. The web page contains tutorials, example calculations 
+and lots of documentation. This document is only useful if you plan to build and install <b><tt>MathPiper</tt></b>
 yourself.
 
 
@@ -30,20 +30,20 @@ yourself.
 
 </a>
 <h2>
-<hr>1.2 Installing <b><tt>Piper</tt></b>
+<hr>1.2 Installing <b><tt>MathPiper</tt></b>
 </h2>
-Read the file <b><tt>INSTALL</tt></b> for instructions on how to compile <b><tt>Piper</tt></b>. <b><tt>Piper</tt></b> is
+Read the file <b><tt>INSTALL</tt></b> for instructions on how to compile <b><tt>MathPiper</tt></b>. <b><tt>MathPiper</tt></b> is
 portable across most Unix-ish platforms and requires only a standard C++
 compiler such as <b><tt>g++</tt></b>.
 
 
 <p>
-The base <b><tt>Piper</tt></b> application accepts text as input and returns text as output.
-This makes it rather platform-independent. Apart from Unix-like systems, <b><tt>Piper</tt></b> has been
+The base <b><tt>MathPiper</tt></b> application accepts text as input and returns text as output.
+This makes it rather platform-independent. Apart from Unix-like systems, <b><tt>MathPiper</tt></b> has been
 compiled on Windows and on EPOC32, aka Psion (which doesn't come with a standard C++
 library!).
-The source code to compile <b><tt>Piper</tt></b> for Windows can be found at the
-<a href="http://sourceforge.net/projects/piper/">
+The source code to compile <b><tt>MathPiper</tt></b> for Windows can be found at the
+<a href="http://sourceforge.net/projects/mathpiper/">
 Sourceforge repository
 </a>
 .
@@ -61,7 +61,7 @@ make
 make install
 </pre></tr>
 </table>
-This will install the binaries to <b><tt>/usr/local/bin</tt></b> and the library files to <b><tt>/usr/local/share/piper/</tt></b>.
+This will install the binaries to <b><tt>/usr/local/bin</tt></b> and the library files to <b><tt>/usr/local/share/mathpiper/</tt></b>.
 
 
 <p>
@@ -82,21 +82,21 @@ make texdocs
 
 <p>
 or, alternatively, by passing <b><tt>--enable-ps-doc</tt></b> or <b><tt>--enable-pdf-doc</tt></b>
-to <b><tt>./configure</tt></b> when building <b><tt>Piper</tt></b>. In the latter case, the documentation
+to <b><tt>./configure</tt></b> when building <b><tt>MathPiper</tt></b>. In the latter case, the documentation
 will be automatically rebuilt every time the documentation changes (which is
 useful when maintaining the documentation).
 
 
 <p>
 In addition, there is also a Java version of the lower-level interpreter. The code
-for this Java version can be found in the directory "JavaPiper", and can be compiled
-with the make file "makefile.piper", by typing in:
+for this Java version can be found in the directory "JavaMathPiper", and can be compiled
+with the make file "makefile.mathpiper", by typing in:
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-make -f makefile.piper
+make -f makefile.mathpiper
 </pre></tr>
 </table>
 
@@ -109,14 +109,14 @@ with:
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-java -jar piper.jar
+java -jar mathpiper.jar
 </pre></tr>
 </table>
 
 
 <p>
 or alternatively it can be invoked as an applet, by opening
-piperconsole.html. 
+mathpiperconsole.html. 
 
 
 <p>
@@ -125,8 +125,8 @@ for the Java version are:
 
 
 <p>
-<ul><li>piper.jar - the Java class files in one jar file.
-</li><li>piperconsole.html - the file that launches the applet.
+<ul><li>mathpiper.jar - the Java class files in one jar file.
+</li><li>mathpiperconsole.html - the file that launches the applet.
 </li><li>hints.txt - the hints that are shown in the applet
 (the grey box with commands that match what you are typing in 
 at that moment).
@@ -148,13 +148,13 @@ history yet.
 <h2>
 <hr>1.3 Using the console mode
 </h2>
-You can run <b><tt>Piper</tt></b> in the console mode simply by typing <b><tt>piper</tt></b>. The <b><tt>Piper</tt></b> command prompt looks like this:
+You can run <b><tt>MathPiper</tt></b> in the console mode simply by typing <b><tt>mathpiper</tt></b>. The <b><tt>MathPiper</tt></b> command prompt looks like this:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 In&gt;
 </pre></tr>
 </table>
-and <b><tt>Piper</tt></b>'s answers appear after the prompt
+and <b><tt>MathPiper</tt></b>'s answers appear after the prompt
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 Out&gt;
@@ -173,8 +173,8 @@ Out&gt;
 <a name="{^}C@\relax <b><tt>^</tt></b><b><tt>C</tt></b>">
 
 </a>
-A <b><tt>Piper</tt></b> session may be terminated by typing <b><tt>Exit()</tt></b> or <b><tt>quit</tt></b>. Pressing <b><tt>^</tt></b><b><tt>C</tt></b>
-will also quit <b><tt>Piper</tt></b>; however, pressing <b><tt>^</tt></b><b><tt>C</tt></b> while <b><tt>Piper</tt></b> is busy with a
+A <b><tt>MathPiper</tt></b> session may be terminated by typing <b><tt>Exit()</tt></b> or <b><tt>quit</tt></b>. Pressing <b><tt>^</tt></b><b><tt>C</tt></b>
+will also quit <b><tt>MathPiper</tt></b>; however, pressing <b><tt>^</tt></b><b><tt>C</tt></b> while <b><tt>MathPiper</tt></b> is busy with a
 calculation will stop just that calculation. A session can be restarted
 (forgetting all previous definitions and results) by typing
 
@@ -204,7 +204,7 @@ Out&gt; 1;
 <p>
 Statements should end with a semicolon (<b><tt>;</tt></b>) although this is not required
 in interactive sessions
-(<b><tt>Piper</tt></b> will append a semicolon at end of line to finish the statement).
+(<b><tt>MathPiper</tt></b> will append a semicolon at end of line to finish the statement).
 
 
 <p>
@@ -212,7 +212,7 @@ in interactive sessions
 <a name="Example@\relax <b><tt>Example</tt></b>">
 
 </a>
-Type <b><tt>Example();</tt></b> to get some random examples of <b><tt>Piper</tt></b> calculations.
+Type <b><tt>Example();</tt></b> to get some random examples of <b><tt>MathPiper</tt></b> calculations.
 
 
 <p>
@@ -238,7 +238,7 @@ the entire history.
 
 </a>
 Typing the first few characters of a previous expression and then
-hitting the TAB key makes <b><tt>Piper</tt></b> recall the last expression
+hitting the TAB key makes <b><tt>MathPiper</tt></b> recall the last expression
 in the history list that matches these first characters.
 
 
@@ -270,11 +270,11 @@ In&gt; 1
 Out&gt; 6;
 </pre></tr>
 </table>
-The error after our first attempt occurred because <b><tt>Piper</tt></b> has appended a semicolon at end of the first line and <b><tt>2+3+;</tt></b> is not a valid <b><tt>Piper</tt></b> expression.
+The error after our first attempt occurred because <b><tt>MathPiper</tt></b> has appended a semicolon at end of the first line and <b><tt>2+3+;</tt></b> is not a valid <b><tt>MathPiper</tt></b> expression.
 
 
 <p>
-Incidentally, any text <b><tt>Piper</tt></b> prints without a prompt is either messages printed by functions as their side-effect, or error messages. Resulting values of expressions are always printed after an <b><tt>Out&gt;</tt></b>  prompt.
+Incidentally, any text <b><tt>MathPiper</tt></b> prints without a prompt is either messages printed by functions as their side-effect, or error messages. Resulting values of expressions are always printed after an <b><tt>Out&gt;</tt></b>  prompt.
 
 
 <p>

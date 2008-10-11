@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Number theory algorithms</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c2">
@@ -148,7 +148,7 @@ nor any <b> s*n+1</b> with small integer <b> s</b> can be a perfect square.
 Testing for a perfect square is quick
 and does not slow down the algorithm.
 This is however not
-implemented in Piper because it seems that perfect squares are too rare
+implemented in MathPiper because it seems that perfect squares are too rare
 for this improvement to be significant.
 
 
@@ -318,7 +318,7 @@ number".
 
 
 <p>
-A better (and faster) integer factoring algorithm needs to be implemented in Piper.
+A better (and faster) integer factoring algorithm needs to be implemented in MathPiper.
 
 
 <p>
@@ -492,7 +492,7 @@ The floating-point precision necessary to obtain the integer result must be at l
 
 <p><center><b>Prec&gt;(Pi*Sqrt(2/3*n)-Ln(4*n*Sqrt(3)))/Ln(10).</b></center></p>
 
-However, Piper currently uses the fixed-point precision model.
+However, MathPiper currently uses the fixed-point precision model.
 Therefore, the current implementation divides the series by <b>P _0(n)</b> and computes all terms to <b>Prec</b> digits.
 
 
@@ -529,7 +529,7 @@ However, computing <b>P(n)</b> using the recurrence relation requires computing 
 No long multiplications are necessary, but the number of long additions of numbers with <b> Prec&lt;&gt;O(Sqrt(n))</b> digits is <b>O(n^(3/2))</b>.
 Therefore the computational cost is <b>O(n^2)</b>.
 This is asymptotically slower than the RHR algorithm even if a slow <b>O(n^2)</b> multiplication is used.
-With internal Piper math, the recurrence relation is faster for <b>n&lt;300</b> or so,
+With internal MathPiper math, the recurrence relation is faster for <b>n&lt;300</b> or so,
 and for larger <b> n</b> the RHR algorithm is faster.
 
 

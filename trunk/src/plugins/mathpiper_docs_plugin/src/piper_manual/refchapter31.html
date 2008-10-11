@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Number theory</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c31">
@@ -752,7 +752,7 @@ Description:
 This function returns <b><tt>True</tt></b> if <b><tt>n</tt></b> is a Carmichael number, also called an absolute pseudoprime.
 They have the property that <b> b^(n-1)%n==1</b> for all <b> b</b> satisfying <b> Gcd(b,n)==1</b>. These numbers
 cannot be proved composite by Fermat's little theorem. Because the previous property is extremely
-slow to test, the following equivalent property is tested by Piper: for all prime factors <b> p[i]</b> of <b>n</b>,
+slow to test, the following equivalent property is tested by MathPiper: for all prime factors <b> p[i]</b> of <b>n</b>,
 <b>(n-1)%(p[i]-1)==0</b> and <b> n</b> must be square free. Also, Carmichael numbers must be odd and have
 at least three prime factors. Although these numbers are rare (there are only 43 such numbers between <b> 1</b> and <b> 10^6</b>),
 it has recently been proven that there are infinitely many of them.

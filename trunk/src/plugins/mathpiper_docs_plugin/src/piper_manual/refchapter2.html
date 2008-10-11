@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Arithmetic and other operations on numbers</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c2">
@@ -11,7 +11,7 @@
 )<h1>
 2. Arithmetic and other operations on numbers
 </h1>
-Besides the usual arithmetical operations, Piper defines some more advanced operations on
+Besides the usual arithmetical operations, MathPiper defines some more advanced operations on
 numbers. Many of them also work on polynomials.
 
 <p> </p>
@@ -781,7 +781,7 @@ Parameters:
 <h5>
 Description:
 </h5>
-In Piper, all numbers are written in decimal notation (base 10).
+In MathPiper, all numbers are written in decimal notation (base 10).
 The two functions <b><tt>FromBase</tt></b>, <b><tt>ToBase</tt></b> convert numbers between base 10 and a different base.
 Numbers in non-decimal notation are represented by strings.
 
@@ -871,14 +871,14 @@ Parameters:
 <h5>
 Description:
 </h5>
-The function <b><tt>N</tt></b> instructs <b><tt>Piper</tt></b> to try to coerce an expression in to a numerical approximation to the
+The function <b><tt>N</tt></b> instructs <b><tt>MathPiper</tt></b> to try to coerce an expression in to a numerical approximation to the
 expression <b><tt>expr</tt></b>, using <b><tt>prec</tt></b> digits precision if the second calling
 sequence is used, and the default precision otherwise. This overrides the normal
 behaviour, in which expressions are kept in symbolic form (eg. <b><tt>Sqrt(2)</tt></b> instead of <b><tt>1.41421</tt></b>).
 
 
 <p>
-Application of the <b><tt>N</tt></b> operator will make Piper
+Application of the <b><tt>N</tt></b> operator will make MathPiper
 calculate floating point representations of functions whenever
 possible. In addition, the variable <b><tt>Pi</tt></b> is bound to
 the value of <b>Pi</b> calculated at the current precision.
