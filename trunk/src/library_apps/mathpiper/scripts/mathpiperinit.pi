@@ -1,7 +1,7 @@
 
 
-/* This is the basic initialization file for Piper. It gets loaded
- * each time Piper is started. All the basic files are loaded.
+/* This is the basic initialization file for MathPiper. It gets loaded
+ * each time MathPiper is started. All the basic files are loaded.
  */
 
 /* Set up drivers, configurable in the .piperrc
@@ -10,12 +10,12 @@
  *   Set(MultiNomialDriver,"multivar.rep/partialdensenomial.pi");
  */
 
-/* The truly required files (Piper NEEDS to load). */
+/* The truly required files (MathPiper NEEDS to load). */
 // syntax must be loaded first
 Use("stdopers.pi");
 
 /* Set of functions to define very simple functions. There are scripts that can
-   be compiled to plugins. So Piper either loads the plugin, or loads the 
+   be compiled to plugins. So MathPiper either loads the plugin, or loads the 
    scripts at this point. The functions in these plugins need to be defined with 
    these "Defun" functions.
  */

@@ -113,7 +113,7 @@ LocalSymbols(knownOrthoPoly) [
 ]; // LocalSymbols(knownOrthoPoly)
 
 /*
-For efficiency, polynomials are represented by lists of coefficients rather than by Piper expressions. Polynomials are evaluated using the explicit Horner scheme. On numerical arguments, the polynomial coefficients are not computed, only the resulting value.
+For efficiency, polynomials are represented by lists of coefficients rather than by MathPiper expressions. Polynomials are evaluated using the explicit Horner scheme. On numerical arguments, the polynomial coefficients are not computed, only the resulting value.
 */
 
 /*

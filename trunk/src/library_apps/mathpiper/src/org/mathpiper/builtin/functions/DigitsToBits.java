@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.exceptions.PiperException;
+import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
 
@@ -44,7 +44,7 @@ public class DigitsToBits extends BuiltinFunction
             result = UtilityFunctions.digits_to_bits((long) (x.Double()), base);
         } else
         {
-            throw new PiperException("BitsToDigits: error: arguments (" + x.Double() + ", " + y.Double() + ") must be small integers");
+            throw new MathPiperException("BitsToDigits: error: arguments (" + x.Double() + ", " + y.Double() + ") must be small integers");
         }
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.SetTo((long) result);

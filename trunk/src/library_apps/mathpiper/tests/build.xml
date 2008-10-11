@@ -4,7 +4,7 @@
 
 <project id="piper" name="piper" default="dist" basedir="." >
 	<description>
-		Build file for PiperTest.
+		Build file for MathPiperTest.
 	</description>
 	
 	<property name="version" value=".01" />

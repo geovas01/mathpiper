@@ -84,7 +84,7 @@ Bernoulli1(n_IsEven)_(n>=2) <-- [
 /// this may be good for floating-point (not exact) evaluation of B[n] at large n
 /// but is not good at all for exact evaluation! (too slow)
 /// Brent claims that the usual recurrence is numerically unstable
-/// but we can't check this because Piper internal math is fixed-point and Brent's algorithm needs real floating point (C[k] are very small and then multiplied by (2*k)! )
+/// but we can't check this because MathPiper internal math is fixed-point and Brent's algorithm needs real floating point (C[k] are very small and then multiplied by (2*k)! )
 Internal'BernoulliArray1(n_IsEven) _ (n>=2) <--
 [
 	Local(C, f, k, j, denom, sum);

@@ -1,4 +1,4 @@
-/* Implementation of some number theoretical functions for Piper */
+/* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
 
 /* DivisorsList(n) = the list of divisors of n */
@@ -23,7 +23,7 @@ DivisorsList(n_IsPositiveInteger) <--
    For example SumForDivisors(d,10,d^2) 
    sums d^2 with d walking through the divisors of 10 
    LocalSymbols is needed since we use Eval() inside 
-   Look at Programming in Piper: Evaluating Variables in the Wrong
+   Look at Programming in MathPiper: Evaluating Variables in the Wrong
    Scope */
 
 Function ("SumForDivisors",{sumvar,n,sumbody}) LocalSymbols(s,d)

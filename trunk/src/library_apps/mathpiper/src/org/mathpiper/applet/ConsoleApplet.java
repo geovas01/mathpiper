@@ -18,7 +18,7 @@
 
 package org.mathpiper.applet;
 
-import org.mathpiper.exceptions.PiperException;
+import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.lisp.parsers.TexParser;
 import org.mathpiper.io.CachedStandardFileInputStream;
 import org.mathpiper.io.StringOutputStream;
@@ -325,8 +325,8 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
 			AddLineStatic(100, "","", font, c);
 			AddLineStatic(100, "","", font, c);
-			AddLineStatic(100, "","Piper version '" + Version.version + "'.", font, c);
-			AddLineStatic(100, "","Type 'restart' to restart Piper, or 'cls' to clear screen.\n", font, c);
+			AddLineStatic(100, "","MathPiper version '" + Version.version + "'.", font, c);
+			AddLineStatic(100, "","Type 'restart' to restart MathPiper, or 'cls' to clear screen.\n", font, c);
 			AddLineStatic(100, "","To see example commands, keep typing 'Example();'\n", font, c);
 		}
 
@@ -367,7 +367,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				try{
 					piper.evaluate("DefaultDirectory(\""+scriptBase+"\");");
 				}
-				catch(PiperException ye)
+				catch(MathPiperException ye)
 				{
 					ye.printStackTrace();
 				}
@@ -393,7 +393,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			try{
 				piper.evaluate(s);
 			}
-			catch(PiperException ye)
+			catch(MathPiperException ye)
 			{
 				ye.printStackTrace();
 			}
@@ -902,7 +902,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			try{
 				response = piper.evaluate(inputLine);
 			}
-			catch(PiperException ye)
+			catch(MathPiperException ye)
 			{
 				ye.printStackTrace();
 			}
@@ -1661,7 +1661,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 		try{
 			result = piper.evaluate(expression);
 		}
-		catch(PiperException ye)
+		catch(MathPiperException ye)
 		{
 			ye.printStackTrace();
 		}
@@ -1751,7 +1751,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				try{
 					String response = piper.evaluate(expression);
 				}
-				catch(PiperException ye)
+				catch(MathPiperException ye)
 				{
 					ye.printStackTrace();
 				}

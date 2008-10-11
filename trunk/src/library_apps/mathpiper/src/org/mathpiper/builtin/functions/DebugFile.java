@@ -30,6 +30,6 @@ public class DebugFile extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        throw new Exception("Cannot call DebugFile in non-debug version of Piper");
+        throw new Exception("Cannot call DebugFile in non-debug version of MathPiper");
     }
 }

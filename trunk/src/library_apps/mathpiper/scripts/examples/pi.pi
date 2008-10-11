@@ -34,7 +34,7 @@ point. Convergence is of order of the next term, i.e. x^9, but need to evaluate
 Sin() at each step. However, we don't need to evaluate them to full precision
 each time, because each iteration will correct any accumulated errors. In fact,
 first iterations can be computed with significantly lower precision than the
-final result. This makes method1 the fastest for Piper internal math. */
+final result. This makes method1 the fastest for MathPiper internal math. */
 
 PiMethod1() := [
 	Local(result, delta, deltasq, k, Epsilon, prec, curprec);

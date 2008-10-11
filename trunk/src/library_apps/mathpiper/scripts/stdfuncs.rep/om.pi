@@ -26,5 +26,5 @@ OMDef( "Coth"   , "transc1","coth"    );
 OMDef( "Exp"    , "transc1","exp"     );
 OMDef( "Ln"     , "transc1","ln"      );
 
-// Related OM symbols not yet defined in Piper:
+// Related OM symbols not yet defined in MathPiper:
 //     "log"    , "transc1","log"

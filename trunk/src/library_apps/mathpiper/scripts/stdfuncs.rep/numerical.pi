@@ -116,7 +116,7 @@ NewtonLn(x) :=
 	Builtin'Precision'Set(n+5);	// guard digits
 	eps := MathDivide(1, 10^n);	// precision
 	y := MathPower(x, k);	// not yet divided by 4
-	// this is Brent's AGM times y. This way we work around the Piper limitation of fixed precision, at cost of slightly slower initial iterations
+	// this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
 	y := MathDivide(Internal'Pi()*y, (2*k)*AG'Mean(4, y, eps));
 	Builtin'Precision'Set(n);
 	RoundTo(y, n);	// do not return a more precise number than we really have
@@ -144,7 +144,7 @@ NewtonLn(x) :=
     eps := MathDivide(1, 10^(n1+1));	// precision
     y := x*2^(k-2);	// divided already by 4
     // initial values for AGM
-    // this is Brent's AGM times y. This way we work around the Piper limitation of fixed precision, at cost of slightly slower initial iterations
+    // this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
     y:=Internal'Pi()*y/(2*AG'Mean(1,y,eps)) - k*Ln2();
     Builtin'Precision'Set(n);
   ]);

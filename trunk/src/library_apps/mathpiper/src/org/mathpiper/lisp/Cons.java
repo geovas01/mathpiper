@@ -30,7 +30,7 @@ import org.mathpiper.*;
  *  Only one of these three functions should return a non-NULL value.
  *  It is a reference-counted object. ConsPointer handles the reference counting. ap.
  */
-public abstract class Cons //Note:tk:was PiperObject.
+public abstract class Cons //Note:tk:was MathPiperObject.
 {
 	ConsPointer   iCdr = new ConsPointer();
 

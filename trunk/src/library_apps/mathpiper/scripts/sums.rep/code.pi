@@ -1,4 +1,4 @@
-/*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, and then Piper is confused if it hasn't loaded all the Function() declarations beforehand.
+/*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, and then MathPiper is confused if it hasn't loaded all the Function() declarations beforehand.
 FIXME
 /// Min, Max with many arguments
 */
