@@ -1,14 +1,19 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piperdocsplugin;
+package org.mathrider.mathpiperdocsplugin;
 
-interface PiperDocsActions {
-	void reset();
 
-	//void saveFile();
+import org.gjt.sp.jedit.EditPlugin;
 
-	//void copyToBuffer();
-}//end interface.
+/**
+ * The PiperDocs plugin
+ * 
+ * @author Ted Kosan
+ */
+public class PiperDocsPlugin extends EditPlugin {
+	public static final String NAME = "piperdocs";
+	public static final String OPTION_PREFIX = "options.piperdocs.";
+}//end class.
 
 /* {{{ License.
  * This program is free software; you can redistribute it and/or
