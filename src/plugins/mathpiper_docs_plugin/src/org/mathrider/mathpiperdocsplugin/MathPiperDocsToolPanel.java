@@ -16,8 +16,8 @@ import org.gjt.sp.jedit.GUIUtilities;
 import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.gui.RolloverButton;
 
-public class PiperDocsToolPanel extends JPanel {
-	private PiperDocs pad;
+public class MathPiperDocsToolPanel extends JPanel {
+	private MathPiperDocs pad;
 
 	private JLabel label;
 	
@@ -25,7 +25,7 @@ public class PiperDocsToolPanel extends JPanel {
 	private javax.swing.AbstractButton backButton;
 	private javax.swing.AbstractButton forwardButton;
 
-	public PiperDocsToolPanel(PiperDocs qnpad) {
+	public MathPiperDocsToolPanel(MathPiperDocs qnpad) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		pad = qnpad;
 
@@ -33,7 +33,7 @@ public class PiperDocsToolPanel extends JPanel {
 		//labelBox.add(Box.createGlue());
 
 		//label = new JLabel("test");
-		//label.setVisible(jEdit.getProperty(PiperDocsPlugin.OPTION_PREFIX + "show-filepath").equals("true"));
+		//label.setVisible(jEdit.getProperty(MathPiperDocsPlugin.OPTION_PREFIX + "show-filepath").equals("true"));
 
 		//labelBox.add(label);
 		//labelBox.add(Box.createGlue());
@@ -48,7 +48,7 @@ public class PiperDocsToolPanel extends JPanel {
 		sourceButton = new javax.swing.JButton(jEdit.getProperty("piperdocs.source.button-text"));
 		sourceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				PiperDocsToolPanel.this.pad.source();
+				MathPiperDocsToolPanel.this.pad.source();
 			}
 		});
 		sourceButton.setEnabled(false);
@@ -60,7 +60,7 @@ public class PiperDocsToolPanel extends JPanel {
 		JButton collapseButton = new javax.swing.JButton(jEdit.getProperty("piperdocs.collapse.button-text"));
 		collapseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				PiperDocsToolPanel.this.pad.collapse();
+				MathPiperDocsToolPanel.this.pad.collapse();
 			}
 		});
 		collapseButton.setEnabled(true);
@@ -74,7 +74,7 @@ public class PiperDocsToolPanel extends JPanel {
 		//back button.
 		backButton = makeCustomButton("piperdocs.back", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				PiperDocsToolPanel.this.pad.back();
+				MathPiperDocsToolPanel.this.pad.back();
 			}
 		});
 		backButton.setEnabled(false);
@@ -84,7 +84,7 @@ public class PiperDocsToolPanel extends JPanel {
 		//forward button.
 		forwardButton = makeCustomButton("piperdocs.forward", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				PiperDocsToolPanel.this.pad.forward();
+				MathPiperDocsToolPanel.this.pad.forward();
 			}
 		});
 		forwardButton.setEnabled(false);
@@ -92,7 +92,7 @@ public class PiperDocsToolPanel extends JPanel {
 		
 		add(makeCustomButton("piperdocs.home", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				PiperDocsToolPanel.this.pad.home();
+				MathPiperDocsToolPanel.this.pad.home();
 			}
 		}));
 
@@ -100,13 +100,13 @@ public class PiperDocsToolPanel extends JPanel {
 		/*
 		add(makeCustomButton("piper.save-file", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				PiperDocsToolPanel.this.pad.saveFile();
+				MathPiperDocsToolPanel.this.pad.saveFile();
 			}
 		}));
 		add(makeCustomButton("piper.copy-to-buffer",
 				new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						PiperDocsToolPanel.this.pad.copyToBuffer();
+						MathPiperDocsToolPanel.this.pad.copyToBuffer();
 					}
 				}));
 		*/
@@ -133,7 +133,7 @@ public class PiperDocsToolPanel extends JPanel {
 	void propertiesChanged() {
 		label.setText(pad.getFilename());
 		label.setVisible(jEdit.getProperty(
-				PiperDocsPlugin.OPTION_PREFIX + "show-filepath").equals(
+				MathPiperDocsPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
 	}
 

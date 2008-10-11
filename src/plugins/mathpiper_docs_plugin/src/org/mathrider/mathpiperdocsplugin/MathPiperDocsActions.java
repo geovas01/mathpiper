@@ -2,7 +2,7 @@
 
 package org.mathrider.mathpiperdocsplugin;
 
-interface PiperDocsActions {
+interface MathPiperDocsActions {
 	void reset();
 
 	//void saveFile();

@@ -18,7 +18,7 @@ import org.gjt.sp.jedit.GUIUtilities;
 import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.gui.FontSelector;
 
-public class PiperDocsOptionPane extends AbstractOptionPane implements
+public class MathPiperDocsOptionPane extends AbstractOptionPane implements
 		ActionListener {
 	private JCheckBox showPath;
 
@@ -26,47 +26,47 @@ public class PiperDocsOptionPane extends AbstractOptionPane implements
 
 	private FontSelector font;
 
-	public PiperDocsOptionPane() {
-		super(PiperDocsPlugin.NAME);
+	public MathPiperDocsOptionPane() {
+		super(MathPiperDocsPlugin.NAME);
 	}
 
 	public void _init() {
 		showPath = new JCheckBox(jEdit
-				.getProperty(PiperDocsPlugin.OPTION_PREFIX
+				.getProperty(MathPiperDocsPlugin.OPTION_PREFIX
 						+ "show-filepath.title"), jEdit.getProperty(
-				PiperDocsPlugin.OPTION_PREFIX + "show-filepath").equals(
+				MathPiperDocsPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
 		addComponent(showPath);
 
 		pathName = new JTextField(jEdit
-				.getProperty(PiperDocsPlugin.OPTION_PREFIX + "filepath"));
+				.getProperty(MathPiperDocsPlugin.OPTION_PREFIX + "filepath"));
 		JButton pickPath = new JButton(jEdit
-				.getProperty(PiperDocsPlugin.OPTION_PREFIX + "choose-file"));
+				.getProperty(MathPiperDocsPlugin.OPTION_PREFIX + "choose-file"));
 		pickPath.addActionListener(this);
 
 		JPanel pathPanel = new JPanel(new BorderLayout(0, 0));
 		pathPanel.add(pathName, BorderLayout.CENTER);
 		pathPanel.add(pickPath, BorderLayout.EAST);
 
-		addComponent(jEdit.getProperty(PiperDocsPlugin.OPTION_PREFIX
+		addComponent(jEdit.getProperty(MathPiperDocsPlugin.OPTION_PREFIX
 				+ "file"), pathPanel);
 
 		font = new FontSelector(makeFont());
-		addComponent(jEdit.getProperty(PiperDocsPlugin.OPTION_PREFIX
+		addComponent(jEdit.getProperty(MathPiperDocsPlugin.OPTION_PREFIX
 				+ "choose-font"), font);
 	}
 
 	public void _save() {
-		jEdit.setProperty(PiperDocsPlugin.OPTION_PREFIX + "filepath",
+		jEdit.setProperty(MathPiperDocsPlugin.OPTION_PREFIX + "filepath",
 				pathName.getText());
 		Font _font = font.getFont();
-		jEdit.setProperty(PiperDocsPlugin.OPTION_PREFIX + "font", _font
+		jEdit.setProperty(MathPiperDocsPlugin.OPTION_PREFIX + "font", _font
 				.getFamily());
-		jEdit.setProperty(PiperDocsPlugin.OPTION_PREFIX + "fontsize", String
+		jEdit.setProperty(MathPiperDocsPlugin.OPTION_PREFIX + "fontsize", String
 				.valueOf(_font.getSize()));
-		jEdit.setProperty(PiperDocsPlugin.OPTION_PREFIX + "fontstyle",
+		jEdit.setProperty(MathPiperDocsPlugin.OPTION_PREFIX + "fontstyle",
 				String.valueOf(_font.getStyle()));
-		jEdit.setProperty(PiperDocsPlugin.OPTION_PREFIX + "show-filepath",
+		jEdit.setProperty(MathPiperDocsPlugin.OPTION_PREFIX + "show-filepath",
 				String.valueOf(showPath.isSelected()));
 	}
 
@@ -84,12 +84,12 @@ public class PiperDocsOptionPane extends AbstractOptionPane implements
 	// helper method to get Font from plugin properties
 	static public Font makeFont() {
 		int style, size;
-		String family = jEdit.getProperty(PiperDocsPlugin.OPTION_PREFIX
+		String family = jEdit.getProperty(MathPiperDocsPlugin.OPTION_PREFIX
 				+ "font");
 		try {
 			size = Integer
 					.parseInt(jEdit
-							.getProperty(PiperDocsPlugin.OPTION_PREFIX
+							.getProperty(MathPiperDocsPlugin.OPTION_PREFIX
 									+ "fontsize"));
 		} catch (NumberFormatException nf) {
 			size = 14;
@@ -97,7 +97,7 @@ public class PiperDocsOptionPane extends AbstractOptionPane implements
 		try {
 			style = Integer
 					.parseInt(jEdit
-							.getProperty(PiperDocsPlugin.OPTION_PREFIX
+							.getProperty(MathPiperDocsPlugin.OPTION_PREFIX
 									+ "fontstyle"));
 		} catch (NumberFormatException nf) {
 			style = Font.PLAIN;
