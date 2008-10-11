@@ -1,7 +1,6 @@
 package org.mathrider.piper_me;
 
 
-import java.io.*;
 
 /** CachedStdFileInput : input from stdin */
 class CachedStdFileInput extends LispInput

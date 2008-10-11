@@ -123,8 +123,7 @@ class LispTokenizer
           aInput.Next();
           while (IsDigit( aInput.Peek())) aInput.Next();
         }
-        if (BigNumber.NumericSupportForMantissa())
-        {
+       
           if (aInput.Peek() == 'e' || aInput.Peek() == 'E')
           {
             aInput.Next();
@@ -132,7 +131,6 @@ class LispTokenizer
               aInput.Next();
             while (IsDigit( aInput.Peek())) aInput.Next();
           }
-        }
       }
       // Treat the char as a space.
       else

@@ -1,6 +1,7 @@
 package org.mathrider.piper_me;
 
-
+import org.mathrider.piper_me.xpiper.arithmetic.BigNumber;
+import org.mathrider.piper_me.xpiper.util.ExtendibleArray;
 import java.io.*;
 
 class MathCommands
@@ -865,7 +866,6 @@ class MathCommands
   {
     // Get operator
 	  LispPtr args = new LispPtr();
-    LispPtr body = new LispPtr();
     String orig=null;
  
     LispError.CHK_ARG_CORE(aEnvironment,aStackTop,PiperEvalCaller.ARGUMENT(aEnvironment, aStackTop, 1).getNext() != null, 1);
@@ -1001,6 +1001,7 @@ class MathCommands
 
   class LispDefaultDirectory extends PiperEvalCaller
   {
+    @SuppressWarnings("unchecked")
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       // Get file name
@@ -1008,7 +1009,8 @@ class MathCommands
       String orig = ARGUMENT(aEnvironment, aStackTop, 1).getNext().String();
       LispError.CHK_ARG_CORE(aEnvironment,aStackTop,orig != null, 1);
       String oper = LispStandard.InternalUnstringify(orig);
-      aEnvironment.iInputDirectories.add(oper);
+      ExtendibleArray<String> dir = (ExtendibleArray<String>) aEnvironment.iInputDirectories;
+      dir.add(oper);
       LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
     }
   }
@@ -2212,7 +2214,6 @@ class MathCommands
       {
         BigNumber x = MathCommands.GetNumber(aEnvironment, aStackTop, 1);
         BigNumber y = MathCommands.GetNumber(aEnvironment, aStackTop, 2);
-        int bin = aEnvironment.Precision();
         BigNumber z = x.add(y,aEnvironment.Precision());
         RESULT(aEnvironment, aStackTop).setNext(new LispNumber(z));
         return;
@@ -3379,7 +3380,7 @@ class MathCommands
         String atomname = Argument(ARGUMENT(aEnvironment, aStackTop, 0), i+1).getNext().String();
         LispError.CHK_ARG_CORE(aEnvironment,aStackTop,atomname != null, i+1);
         names[i] = atomname;
-        int len = atomname.length();
+
         String newname = "$"+atomname+uniquenumber;
         String variable = aEnvironment.HashTable().LookUp(newname);
         localnames[i] = variable;
@@ -3812,7 +3813,7 @@ class MathCommands
     public void Eval(LispEnvironment aEnvironment,int aStackTop) throws Exception
     {
       BigNumber x = GetNumber(aEnvironment, aStackTop, 1);
-      x.DumpDebugInfo(aEnvironment.iCurrentOutput);
+      aEnvironment.iCurrentOutput.Write(x.debug()+"\n");
       LispStandard.InternalTrue(aEnvironment,RESULT(aEnvironment, aStackTop));
     }
   }

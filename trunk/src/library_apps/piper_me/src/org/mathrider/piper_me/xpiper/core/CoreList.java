@@ -53,10 +53,6 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * array reference is needed. In many cases, the Java-VM can optimize
  * away synchronization, since in this case the array reference is
  * never mutated after initialization.
- * \begin{enumerate} 
- * \item Generate unit tests.
- * \item Add functions.
- * \end{enumerate}
  */
 public final class CoreList { 
   

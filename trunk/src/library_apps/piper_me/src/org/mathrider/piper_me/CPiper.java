@@ -33,7 +33,7 @@ public class CPiper
       LispPtr in_expr = new LispPtr();
       if (env.iPrettyReader != null)
       {
-        InputStatus someStatus = new InputStatus();
+  
         StringBuffer inp = new StringBuffer();
         inp.append(input);
         InputStatus oldstatus = env.iInputStatus;

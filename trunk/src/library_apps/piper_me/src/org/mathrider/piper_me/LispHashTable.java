@@ -29,5 +29,5 @@ class LispHashTable
   {
     //TODO FIXME
   }
-  java.util.Hashtable iHashtable = new java.util.Hashtable();
+  java.util.Hashtable<String, String> iHashtable = new java.util.Hashtable<String, String>();
 }

@@ -2,7 +2,7 @@ package org.mathrider.piper_me;
 
 import org.mathrider.piper_me.xpiper.util.ExtendibleArray;
 
-import java.util.*;
+
 
 /// A mathematical function defined by several rules.
 /// This is the basic class which implements functions in Yacas.
@@ -437,10 +437,10 @@ class BranchingUserFunction extends LispArityUserFunction
   }
 
   /// List of arguments, with corresponding \c iHold property.
-  protected ExtendibleArray iParameters = new ExtendibleArray(); //CArrayGrower<BranchParameter>
+  protected ExtendibleArray<BranchParameter> iParameters = new ExtendibleArray<BranchParameter>(); //CArrayGrower<BranchParameter>
 
   /// List of rules, sorted on precedence.
-  protected ExtendibleArray iRules = new ExtendibleArray();//CDeletingArrayGrower<BranchRuleBase*>
+  protected ExtendibleArray<BranchRuleBase> iRules = new ExtendibleArray<BranchRuleBase>();//CDeletingArrayGrower<BranchRuleBase*>
 
   /// List of arguments
   LispPtr iParamList = new LispPtr();
