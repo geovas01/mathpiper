@@ -1,4 +1,4 @@
-/* TeXForm: convert Piper objects to TeX math mode strings */
+/* TeXForm: convert MathPiper objects to TeX math mode strings */
 
 /* version 0.4 */
 
@@ -213,12 +213,12 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 
   /* Sin, Cos, etc. and their argument is bracketed when it's a sum or product but not bracketed when it's a power. */
-  /// supported Piper functions: "mathematical" functions of one argument which sometimes do not require parentheses (e.g. $\sin x$ )
+  /// supported MathPiper functions: "mathematical" functions of one argument which sometimes do not require parentheses (e.g. $\sin x$ )
   TeXFormMathFunctions := { {"Cos","\\cos "}, {"Sin","\\sin "}, {"Tan","\\tan "}, {"Cosh","\\cosh "}, {"Sinh","\\sinh "}, {"Tanh","\\tanh "}, {"Ln","\\ln "}, {"ArcCos","\\arccos "}, {"ArcSin","\\arcsin "}, {"ArcTan","\\arctan "}, {"ArcCosh","\\mathrm{arccosh}\\, "}, {"ArcSinh","\\mathrm{arcsinh}\\, "}, {"ArcTanh","\\mathrm{arctanh}\\, "},
   {"Erf", "\\mathrm{erf}\\, "}, {"Erfc", "\\mathrm{erfc}\\, "},
   };
 
-  /// supported Piper functions: functions of two arguments of the form $A_n(x)$
+  /// supported MathPiper functions: functions of two arguments of the form $A_n(x)$
   TeXFormMathFunctions2 := {
   {"BesselI", "I "}, {"BesselJ", "J "},
   {"BesselK", "K "}, {"BesselY", "Y "},

@@ -360,7 +360,7 @@ public class Pattern
 			boolean isTrue = UtilityFunctions.isTrue(aEnvironment, pred);
 			if (!isTrue)
 			{
-				//TODO this is probably not the right way to generate an error, should we perhaps do a full throw new PiperException here?
+				//TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
 				String strout;
 				aEnvironment.iCurrentOutput.Write("The predicate\n\t");
 				strout = UtilityFunctions.printExpression(((ConsPointer)iPredicates.get(i)), aEnvironment, 60);

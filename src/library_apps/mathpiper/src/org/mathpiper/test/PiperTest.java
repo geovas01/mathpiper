@@ -73,7 +73,7 @@ public class PiperTest
 		{
 			e.printStackTrace();
 		}
-		catch(org.mathpiper.exceptions.PiperException e)
+		catch(org.mathpiper.exceptions.MathPiperException e)
 		{
 			e.printStackTrace();
 		}//end try/catch.
@@ -83,11 +83,11 @@ public class PiperTest
 	public static void main(String[] args)
 	{
 		/*Note: This program currently only works if it is executed in the current directory
-		  because Piper cannot handle paths properly yet.
+		  because MathPiper cannot handle paths properly yet.
 		  
 		  Execute with a command line similar to the following:
 		  
-		    java -cp .;../dist/piper.jar org.mathpiper.tests.PiperTest
+		    java -cp .;../dist/piper.jar org.mathpiper.tests.MathPiperTest
 		*/
 		
 		String directory;

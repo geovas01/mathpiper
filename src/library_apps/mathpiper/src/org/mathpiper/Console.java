@@ -18,14 +18,14 @@
 package org.mathpiper;
 
 //import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.exceptions.PiperException;
+import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.io.CachedStandardFileInputStream;
 import org.mathpiper.io.StandardFileOutputStream;
 import org.mathpiper.lisp.UtilityFunctions;
 import java.io.*;
 
 /**
- * Provides a command line console which can be used to interact with a piper instance.
+ * Provides a command line console which can be used to interact with a mathpiper instance.
  * 
  */
 public class Console extends Thread
@@ -34,7 +34,7 @@ public class Console extends Thread
                 
 	public Console()
 	{
-		//Piper needs an output stream to send "side effect" output to.
+		//MathPiper needs an output stream to send "side effect" output to.
 		StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
 		interpreter = new Interpreter(stdoutput);
 	}
@@ -64,7 +64,7 @@ public class Console extends Thread
 		return line.toString();
 	}
         
-        String evaluate(String input) throws PiperException
+        String evaluate(String input) throws MathPiperException
         {
             return interpreter.evaluate(input);
         }
@@ -73,8 +73,8 @@ public class Console extends Thread
 
 
     /**
-     * The normal entry point for running piper from a command line.  It processes command line arguments,
-     * sets piper's standard output to System.out, then enters a REPL (Read, Evaluate, Print Loop).  Currently,
+     * The normal entry point for running mathpiper from a command line.  It processes command line arguments,
+     * sets mathpiper's standard output to System.out, then enters a REPL (Read, Evaluate, Print Loop).  Currently,
      * the console only supports the --rootdir and --archive command line options.
      *
      * @param argv
@@ -136,7 +136,7 @@ public class Console extends Thread
                 {
                     interpreter.evaluate("Load(\"" + argv[scriptsToRun] + "\");");
                 }
-            } catch (PiperException pe)
+            } catch (MathPiperException pe)
             {
                 pe.printStackTrace();
             }
@@ -147,20 +147,20 @@ public class Console extends Thread
 */
 
 
-        System.out.println("\nPiper version '" + Version.version + "'.");
+        System.out.println("\nMathPiper version '" + Version.version + "'.");
 
-        System.out.println("See http://mathrider.org for more information and documentation on Piper.");
+        System.out.println("See http://mathrider.org for more information and documentation on MathPiper.");
 
-        System.out.println("\nTo exit Piper, enter \"Exit()\" or \"exit\" or \"quit\" or Ctrl-c.\n");
+        System.out.println("\nTo exit MathPiper, enter \"Exit()\" or \"exit\" or \"quit\" or Ctrl-c.\n");
         /*TODO fixme
         System.out.println("Type ?? for help. Or type ?function for help on a function.\n");
-        System.out.println("Type 'restart' to restart Piper.\n");
+        System.out.println("Type 'restart' to restart MathPiper.\n");
          */
         System.out.println("To see example commands, keep typing Example()\n");
 
         //piper.Evaluate("BubbleSort(N(PSolve(x^3-3*x^2+2*x,x)), \"<\");");
 
-        //System.out.println("Piper in Java");
+        //System.out.println("MathPiper in Java");
         boolean quitting = false;
         while (!quitting)
         {
@@ -173,7 +173,7 @@ public class Console extends Thread
             try
             {
                 rs = console.evaluate(input);
-            } catch (PiperException pe)
+            } catch (MathPiperException pe)
             {
                 pe.printStackTrace();
             }

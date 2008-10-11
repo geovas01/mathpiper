@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.exceptions.PiperException;
+import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.lisp.Environment;
 
 /**
@@ -33,6 +33,6 @@ public class CustomEvalLocals extends BuiltinFunction
     {
         aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispCustomEvalLocals");////TODO fixme
 
-        throw new PiperException("Function not yet supported");
+        throw new MathPiperException("Function not yet supported");
     }
 }

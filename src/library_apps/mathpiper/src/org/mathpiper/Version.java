@@ -59,10 +59,10 @@ public class Version
 
                 properties.load(s);
 
-                version = properties.getProperty("piper.version");
+                version = properties.getProperty("mathpiper.version");
             } else
             {
-                System.out.println("piper.properties not found!!!!");
+                System.out.println("mathpiper.properties not found!!!!");
             }
 
 

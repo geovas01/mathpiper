@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper;
 
-import org.mathpiper.exceptions.PiperException;
+import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.printers.InfixPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
@@ -37,7 +37,7 @@ import org.mathpiper.io.StandardFileOutputStream;
 import java.io.*;
 
 /**
- * Main class with which the rest of Piper is accessed.
+ * Main class with which the rest of MathPiper is accessed.
  * 
  */
 public class Interpreter
@@ -80,7 +80,7 @@ public class Interpreter
 
                     try
                     {
-                        String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaPiper/piper.jar";
+                        String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaMathPiper/piper.jar";
 
                         java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
                         UtilityFunctions.zipFile = z;
@@ -105,7 +105,7 @@ public class Interpreter
             {
                 result = evaluate("Load(\"mathpiperinit.pi\");");
 
-            } catch (PiperException pe)
+            } catch (MathPiperException pe)
             {
                 pe.printStackTrace();
             }
@@ -131,14 +131,14 @@ public class Interpreter
         try
         {
             result = evaluate(toEvaluate);
-        } catch (PiperException pe)
+        } catch (MathPiperException pe)
         {
             pe.printStackTrace();
         }
 
     }
 
-    public String evaluate(String inputExpression) throws PiperException
+    public String evaluate(String inputExpression) throws MathPiperException
     {
         if (inputExpression.length() == 0)
         {
@@ -173,7 +173,7 @@ public class Interpreter
                             args);
                 } catch (Exception e)
                 {
-                    throw new PiperException(e.getMessage());//Note:tk. Throw PiperException instead of just exception.
+                    throw new MathPiperException(e.getMessage());//Note:tk. Throw MathPiperException instead of just exception.
 
                 } finally
                 {
@@ -221,9 +221,9 @@ public class Interpreter
             e.printStackTrace();
             //System.out.println(e.toString());
 
-            //Note:tk throw PiperException instead of simply printing the exception message.
+            //Note:tk throw MathPiperException instead of simply printing the exception message.
             iError = e.getMessage();
-            throw new PiperException(iError);
+            throw new MathPiperException(iError);
         }
         return rs;
     }

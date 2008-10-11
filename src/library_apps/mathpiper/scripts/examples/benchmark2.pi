@@ -11,7 +11,7 @@ DoNext(_string) <--
 
 Echo({"<HTML><BODY BGCOLOR=\"ffffff\"><PRE><font size=4>"});
 
-Echo({"An assorted selection of example calculations using Piper"});
+Echo({"An assorted selection of example calculations using MathPiper"});
 
 StartTests();
 

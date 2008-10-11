@@ -1,4 +1,4 @@
-/// special functions coded for Piper by Serge Winitzki: Gamma, Zeta, Bernoulli, LambertW
+/// special functions coded for MathPiper by Serge Winitzki: Gamma, Zeta, Bernoulli, LambertW
 
 /// coded by Jonathan Leto: PolyLog, Dirichlet*, Digamma, Bessel*, Erf*, Fresnel*, Beta,
 ///			    CatalanConstNum, Sinc, Beta, DawsonIntegral

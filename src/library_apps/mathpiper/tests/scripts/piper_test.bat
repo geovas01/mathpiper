@@ -1,1 +1,1 @@
-java org.mathpiper.tests.PiperTest
+java org.mathpiper.tests.MathPiperTest

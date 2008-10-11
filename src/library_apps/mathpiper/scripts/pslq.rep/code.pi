@@ -12,7 +12,7 @@
 # New termination criteria:97/12/15 #
 # this code is free...              #
 
-Ported to Piper 2000 Ayal Pinkus.
+Ported to MathPiper 2000 Ayal Pinkus.
 
 Given a list of constants x find coefficients sol[i] such that
       sum(sol[i]*x[i], i=1..n) = 0    (where n=Length(x))              

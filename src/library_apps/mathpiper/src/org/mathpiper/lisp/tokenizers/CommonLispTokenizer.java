@@ -25,7 +25,7 @@ import org.mathpiper.io.InputStream;
  *  
  */
 /*
-Running Piper from Eclipse IDE
+Running MathPiper from Eclipse IDE
 From: Axel <axelclk@gm...> - 2005-08-14 09:56
 
 
@@ -38,49 +38,49 @@ http://www.matheclipse.org
 which uses a JavaScript interface and a Java servlet backend.
 
 So I would like to test the piper applet from sources inside the
-http://www.eclipse.org IDE and checked out JavaPiper from CVS and get the
+http://www.eclipse.org IDE and checked out JavaMathPiper from CVS and get the
 following compile errors:
 
 Severity	Description	Resource	In Folder	Location	Creation Time
 2	Syntax error on token "goto", throw
-expected	CommonLispTokenizer.java	JavaPiper	line 14	14. August 2005
+expected	CommonLispTokenizer.java	JavaMathPiper	line 14	14. August 2005
 18:43:21
 2	Syntax error on token "goto", break
-expected	CommonLispTokenizer.java	JavaPiper	line 47	14. August 2005
+expected	CommonLispTokenizer.java	JavaMathPiper	line 47	14. August 2005
 18:43:21
 2	Syntax error on token "goto", throw
-expected	CommonLispTokenizer.java	JavaPiper	line 49	14. August 2005
+expected	CommonLispTokenizer.java	JavaMathPiper	line 49	14. August 2005
 18:43:21
 2	Syntax error on token "goto", break
-expected	CommonLispTokenizer.java	JavaPiper	line 54	14. August 2005
+expected	CommonLispTokenizer.java	JavaMathPiper	line 54	14. August 2005
 18:43:21
 2	Syntax error on token "goto", throw
-expected	CommonLispTokenizer.java	JavaPiper	line 113	14. August 2005
+expected	CommonLispTokenizer.java	JavaMathPiper	line 113	14. August 2005
 18:43:21
 2	Syntax error on token "&", delete this
-token	CommonLispTokenizer.java	JavaPiper	line 117	14. August 2005
+token	CommonLispTokenizer.java	JavaMathPiper	line 117	14. August 2005
 18:43:21
-2	CVersion cannot be resolved	ConsoleApplet.java	JavaPiper	line
+2	CVersion cannot be resolved	ConsoleApplet.java	JavaMathPiper	line
 123	14. August 2005 18:43:21
-2	CVersion cannot be resolved	MathCommands.java	JavaPiper	line
+2	CVersion cannot be resolved	MathCommands.java	JavaMathPiper	line
 4194	14. August 2005 18:43:20
-2	CVersion cannot be resolved	PiperConsole.java	JavaPiper	line 134	14.
+2	CVersion cannot be resolved	MathPiperConsole.java	JavaMathPiper	line 134	14.
 August 2005 18:43:18
 2	The method AddLine(String) in the type HintWindow is not applicable
 for the arguments (String,
-PiperGraphicsContext)	PiperNotebook.java	JavaPiper	line 36	14. August
+MathPiperGraphicsContext)	MathPiperNotebook.java	JavaMathPiper	line 36	14. August
 2005 18:43:18
 2	The method AddLine(String) in the type HintWindow is not applicable
 for the arguments (String,
-PiperGraphicsContext)	PiperNotebook.java	JavaPiper	line 37	14. August
+MathPiperGraphicsContext)	MathPiperNotebook.java	JavaMathPiper	line 37	14. August
 2005 18:43:18
 2	The method AddDescription(String) in the type HintWindow is not
 applicable for the arguments (String,
-PiperGraphicsContext)	PiperNotebook.java	JavaPiper	line 38	14. August
+MathPiperGraphicsContext)	MathPiperNotebook.java	JavaMathPiper	line 38	14. August
 2005 18:43:18
 2	The method AddDescription(String) in the type HintWindow is not
 applicable for the arguments (String,
-PiperGraphicsContext)	PiperNotebook.java	JavaPiper	line 39	14. August
+MathPiperGraphicsContext)	MathPiperNotebook.java	JavaMathPiper	line 39	14. August
 2005 18:43:18
 
 BTW:
@@ -98,7 +98,7 @@ Axel Kramer
 
 
 
-Re: Running Piper from Eclipse IDE
+Re: Running MathPiper from Eclipse IDE
 From: Ayal Pinkus <apinkus@xs...> - 2005-08-14 11:32
 
 Hi Axel,
@@ -112,7 +112,7 @@ currently:
 
 class CVersion { static String VERSION = "1.0.58"; }
 
-For now you can skip compiling PiperNotebook.java too. Regarding  
+For now you can skip compiling MathPiperNotebook.java too. Regarding  
 package,
 that is something some one else mentioned too. I am not a very  
 experienced

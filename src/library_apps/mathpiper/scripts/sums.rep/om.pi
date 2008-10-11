@@ -1,6 +1,6 @@
 // From code.pi.def:
 // [2005-12-28 matmota]: I have to implement some better solution for the
-// Piper -> OM mapping for these symbols. 
+// MathPiper -> OM mapping for these symbols. 
 OMDef( "Min", "minmax1","min",
        { "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
          1,2,3,4,5,6,7,8,9,10,11,12,13,14,

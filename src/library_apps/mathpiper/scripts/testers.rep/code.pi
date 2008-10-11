@@ -238,7 +238,7 @@ HoldArg("BenchShow",expr);
 
 
 
-/* Testing Piper functionality by checking expressions against correct
+/* Testing MathPiper functionality by checking expressions against correct
    answer.
    Use with algebraic expressions only, since we need Simplify() for that to work.
  */
@@ -246,7 +246,7 @@ HoldArg("BenchShow",expr);
 
 
 /*
-Macro ("TestPiper", {expr, ans})
+Macro ("TestMathPiper", {expr, ans})
 [
 	Local(diff,exprEval, ansEval);
   exprEval:= @expr;
@@ -285,7 +285,7 @@ Macro ("TestPiper", {expr, ans})
 
 
 
-Function ("TestPiper", {expr, ans})
+Function ("TestMathPiper", {expr, ans})
 [
 	Local(diff);
 	diff := Simplify(Eval(expr)-Eval(ans));
@@ -314,8 +314,8 @@ Function ("TestPiper", {expr, ans})
 			);
 ];
 
-HoldArg("TestPiper", expr);
-HoldArg("TestPiper", ans);
+HoldArg("TestMathPiper", expr);
+HoldArg("TestMathPiper", ans);
 
 
 

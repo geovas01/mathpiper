@@ -19,7 +19,7 @@
 package org.mathpiper.lisp;
 
 import org.mathpiper.io.InputStream;
-import org.mathpiper.exceptions.PiperException;
+import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -235,7 +235,7 @@ public class UtilityFunctions
 			LispError.check(args2.getCons() == null,LispError.KLispErrInvalidArg);
 			aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
 		}
-		catch (PiperException e) { throw e; }
+		catch (MathPiperException e) { throw e; }
 		finally { aEnvironment.popLocalFrame(); }
 
 	}
@@ -670,7 +670,7 @@ public class UtilityFunctions
 					MultipleArityUserFunction multiUser = aEnvironment.multiUserFunction(str);
 					if (multiUser.iFileToOpen!=null)
 					{
-						throw new PiperException("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName);
+						throw new MathPiperException("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName);
 					}
 					multiUser.iFileToOpen = def;
 				}
@@ -731,7 +731,7 @@ public class UtilityFunctions
 			return log2_table[n-1];
 		else
 		{
-			throw new PiperException("log2_table_lookup: error: invalid argument "+n);
+			throw new MathPiperException("log2_table_lookup: error: invalid argument "+n);
 		}
 	}
 
@@ -948,7 +948,7 @@ public class UtilityFunctions
     }
 
 
-    /// Implements the Piper functions \c RuleBase and \c MacroRuleBase .
+    /// Implements the MathPiper functions \c RuleBase and \c MacroRuleBase .
     /// The real work is done by Environment::DeclareRuleBase().
     public static void internalRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception
     {

@@ -5,7 +5,7 @@
 /* The read-eval-print loop */
 /* It can take one parameter, that is the evaluation count. If it is greater
    than zero, only that number of iterations will be performed before
-   exiting. This is particularly useful when connecting to Piper via pipes.
+   exiting. This is particularly useful when connecting to MathPiper via pipes.
 */
 RuleBase("OMREP",{});
 Rule("OMREP",0,1,True)
@@ -523,12 +523,12 @@ FromString(str:" EndOfFile")
 HoldArgNr("OMPathSelect", 2, 2);
 
 // Previously, any unknown symbols where reported as errors.
-// Now, we just store them as OMS(cd, name) since Piper is perfectly happy
+// Now, we just store them as OMS(cd, name) since MathPiper is perfectly happy
 // with such unknown symbols, and will handle them right: When
 // producing an OpenMath result from them, they will be output back
 // unmodified, forming a valid OpenMath expression.
 // This way we don't have to bother defining bogus symbols for concepts that
-// Piper does not handle.
+// MathPiper does not handle.
 100 # ReadOMOBJ(XmlTag("OMS", _attributes, "OpenClose")) <--
 [
   OMNextToken();
@@ -543,7 +543,7 @@ HoldArgNr("OMPathSelect", 2, 2);
      If(cdTable != Empty, piperform := cdTable[ omname ]);
      // We can not optimize here by checking first whether the CD is "piper"
      // and avoiding the table lookup then, because for some symbols the
-     // OM name have to be different from the Piper name (e.g. "/@").
+     // OM name have to be different from the MathPiper name (e.g. "/@").
      If(piperform = Empty,
         If(cd = "piper", Atom(omname), OMS(omcd, omname)),
         If(IsString(piperform), Atom(piperform), piperform));
@@ -606,16 +606,16 @@ OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMappin
   If(cdTable = Empty,
      OMSymbolReverse()[ omcd ] := {{omname, piperform}},
      [
-       Local(oldPiperform);
-       oldPiperform := cdTable[ omname ];
-       If(oldPiperform = Empty,
+       Local(oldMathPiperform);
+       oldMathPiperform := cdTable[ omname ];
+       If(oldMathPiperform = Empty,
           cdTable[ omname ] := piperform,
           [
-          If(oldPiperform != piperform,
+          If(oldMathPiperform != piperform,
              [
              cdTable[ omname ] := piperform;
              Echo("Warning: the mapping for ", omcd, ":", omname,
-                  " was already defined as ", oldPiperform,
+                  " was already defined as ", oldMathPiperform,
                   ", but is redefined now as ", piperform
                   );
              ]
@@ -638,7 +638,7 @@ HoldArgNr("OMDef", 5, 4);
 HoldArgNr("OMDef", 5, 5);
 
 // Many objects, such as matrices and sets, do not have a specific
-// encoding in Piper, but are represented as lists.
+// encoding in MathPiper, but are represented as lists.
 OMDef( {},     "set1","emptyset" );
 OMDef( "List", "set1","set"      );
 OMDef( "List", "linalg2","matrix"    );
@@ -664,12 +664,12 @@ OMDef( "!=="   ,  "logic1", "not",
 OMDef( "False",  "logic1", "false" );
 OMDef( "Or"   ,  "logic1", "or"    );
 OMDef( "True" ,  "logic1", "true"  );
-//[20010916 AGP ] Xor is not available in Piper.
+//[20010916 AGP ] Xor is not available in MathPiper.
 //     "Xor"  ,  "logic1", "xor"   );
 OMDef( "&" ,  "piper", "bitwise_and" );
 OMDef( "|" ,  "piper", "bitwise_or"  );
 OMDef( "%" ,  "piper", "bitwise_xor" );
-OMDef( "/" , "arith1", "divide");// This definition is for OM arith1:divide to Piper. In all other cases, the next one will be used.
+OMDef( "/" , "arith1", "divide");// This definition is for OM arith1:divide to MathPiper. In all other cases, the next one will be used.
 OMDef( "/" , "nums1", "rational", {$, _1, _2}_(IsRational(_1/_2)) | {OMS("arith1", "divide"), _1, _2}, {/, _1, _2});
 OMDef( "-" ,  "arith1", "unary_minus");
 OMDef( "-" ,  "arith1", "minus"  );// We need a way of testing the arity.

@@ -25,9 +25,9 @@ import java.io.*;
 
 /* This little applet should facilitate communication between Java and Javascript.
  * The idea is to allow Javascript to set data in this applet at various times, and
- * for the main Piper console to then get that data at startup, when it is loaded.
+ * for the main MathPiper console to then get that data at startup, when it is loaded.
  *
- * The Piper console thus does not need to be loaded always, but this applet should
+ * The MathPiper console thus does not need to be loaded always, but this applet should
  * always be there.
  */
 
@@ -37,7 +37,7 @@ public class DatahubApplet extends Applet
 	static Article consoleProgram = new Article("You can start entering your own program between the code delimiters below.\n\n{{code:\n:code}}\n"+
 	                                "\n\n{{example:Example();:example}}");
 	static Article journalProgram = new Article("No article loaded yet.");
-	static Article tutorialProgram = new Article("{{code: Echo(\"Welcome to the Piper tutorial!\"); :code}}");
+	static Article tutorialProgram = new Article("{{code: Echo(\"Welcome to the MathPiper tutorial!\"); :code}}");
 	static int currentProgram = 0;
 
 	public void init()

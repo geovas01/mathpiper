@@ -50,13 +50,13 @@ DebugStepOver():=
 ];
 DebugBreakAt(file,line):=
 [
-  Check(InDebugMode(),"DebugBreakAt only supported in the debug build of Piper");
+  Check(InDebugMode(),"DebugBreakAt only supported in the debug build of MathPiper");
   If(filebreakpoints[file] = Empty,filebreakpoints[file]:={});
   DestructiveAppend(filebreakpoints[file],line);
 ];
 DebugRemoveBreakAt(file,line):=
 [
-  Check(InDebugMode(),"DebugRemoveBreakAt only supported in the debug build of Piper");
+  Check(InDebugMode(),"DebugRemoveBreakAt only supported in the debug build of MathPiper");
   If(filebreakpoints[file] = Empty,filebreakpoints[file]:={});
   filebreakpoints[file] := Difference(filebreakpoints[file],{line});
 ];
