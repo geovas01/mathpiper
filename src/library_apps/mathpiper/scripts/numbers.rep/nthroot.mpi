@@ -1,5 +1,5 @@
 //////
-// $Id: nthroot.pi,v 1.5 2007/05/17 11:56:45 ayalpinkus Exp $
+// $Id: nthroot.mpi,v 1.5 2007/05/17 11:56:45 ayalpinkus Exp $
 // calculation/simplifaction of nth roots of nonnegative integers
 // NthRoot         - interface function
 // NthRoot'Calc    - actually calculate/simplifies

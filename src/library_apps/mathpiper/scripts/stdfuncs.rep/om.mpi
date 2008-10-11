@@ -1,4 +1,4 @@
-// From code.pi.def:
+// From code.mpi.def:
 OMDef( "ArcSin" , "transc1","arcsin"  );
 OMDef( "ArcCos" , "transc1","arccos"  );
 OMDef( "ArcTan" , "transc1","arctan"  );

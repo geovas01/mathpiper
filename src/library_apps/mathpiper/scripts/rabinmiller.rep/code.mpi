@@ -1,5 +1,5 @@
 /*
- * File `rabinmiller.pi' is an implementation of the
+ * File `rabinmiller.mpi' is an implementation of the
  *           Rabin-Miller primality test.
  */
 

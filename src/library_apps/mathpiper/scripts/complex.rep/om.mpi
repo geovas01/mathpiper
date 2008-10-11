@@ -1,4 +1,4 @@
-// From code.pi.def:
+// From code.mpi.def:
 OMDef( "Complex"  , "complex1","complex_cartesian" );
 OMDef( "Re"       , "complex1","real"              );
 OMDef( "Im"       , "complex1","imaginary"         );
