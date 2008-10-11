@@ -6,11 +6,11 @@ package org.mathrider.mathpiperdocsplugin;
 import org.gjt.sp.jedit.EditPlugin;
 
 /**
- * The PiperDocs plugin
+ * The MathPiperDocs plugin
  * 
  * @author Ted Kosan
  */
-public class PiperDocsPlugin extends EditPlugin {
+public class MathPiperDocsPlugin extends EditPlugin {
 	public static final String NAME = "piperdocs";
 	public static final String OPTION_PREFIX = "options.piperdocs.";
 }//end class.

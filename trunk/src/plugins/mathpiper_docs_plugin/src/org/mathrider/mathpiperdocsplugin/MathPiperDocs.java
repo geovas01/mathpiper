@@ -41,14 +41,14 @@ import org.mathrider.mathpiperplugin.MathPiperInterpreter;
 
 // }}}
 
-// {{{  PiperDocs class
+// {{{  MathPiperDocs class
 /**
  * 
- * PiperDocs - a dockable JPanel..
+ * MathPiperDocs - a dockable JPanel..
  *
  */
-public class PiperDocs extends JPanel
-    implements EBComponent, PiperDocsActions, DefaultFocusComponent {
+public class MathPiperDocs extends JPanel
+    implements EBComponent, MathPiperDocsActions, DefaultFocusComponent {
 
     // {{{ Instance Variables
 	//private static final long serialVersionUID = 6412255692894321789L;
@@ -62,11 +62,11 @@ public class PiperDocs extends JPanel
 	private boolean floating;
 	private JScrollPane scrollPane;
 
-	//private PiperDocsTextArea textArea;
+	//private MathPiperDocsTextArea textArea;
 
-	private PiperDocsToolPanel toolPanel;
+	private MathPiperDocsToolPanel toolPanel;
 	
-	private static PiperDocs piperDocs;
+	private static MathPiperDocs piperDocs;
 	
 	private JEditorPane editorPane;
 	
@@ -83,7 +83,7 @@ public class PiperDocs extends JPanel
 	 * 	which can be DockableWindowManager.FLOATING, TOP, BOTTOM, LEFT, RIGHT, etc.
 	 * 	see @ref DockableWindowManager for possible values.
 	 */
-	public PiperDocs(View view, String position) {
+	public MathPiperDocs(View view, String position) {
 		super(new BorderLayout());
 		piperDocs = this;
 		
@@ -94,7 +94,7 @@ public class PiperDocs extends JPanel
 
 
 
-		this.toolPanel = new PiperDocsToolPanel(this);
+		this.toolPanel = new MathPiperDocsToolPanel(this);
 		add(BorderLayout.NORTH, this.toolPanel);
 
 		if (floating)
@@ -141,10 +141,10 @@ public class PiperDocs extends JPanel
     // {{{ Member Functions
 	
 	
-	// {{{ getPiperDocs
-	public static PiperDocs getPiperDocs()
+	// {{{ getMathPiperDocs
+	public static MathPiperDocs getMathPiperDocs()
 	{	
-		return PiperDocs.piperDocs;  
+		return MathPiperDocs.piperDocs;  
 	}//end method
 	// }}}
     
@@ -173,7 +173,7 @@ public class PiperDocs extends JPanel
     // {{{ propertiesChanged
 	private void propertiesChanged() {
 		/*String propertyFilename = jEdit
-				.getProperty(PiperDocsPlugin.OPTION_PREFIX + "filepath");
+				.getProperty(MathPiperDocsPlugin.OPTION_PREFIX + "filepath");
 		if (!StandardUtilities.objectsEqual(defaultFilename, propertyFilename)) {
 			saveFile();
 			toolPanel.propertiesChanged();
@@ -181,7 +181,7 @@ public class PiperDocs extends JPanel
 			filename = defaultFilename;
 			readFile();
 		}
-		Font newFont = PiperDocsOptionPane.makeFont();
+		Font newFont = MathPiperDocsOptionPane.makeFont();
 		if (!newFont.equals(textArea.getFont())) {
 			textArea.setFont(newFont);
 		}*/
@@ -215,8 +215,8 @@ public class PiperDocs extends JPanel
 		try
 		{
 			//Note: this is in development mode.  Switch comment to other line for distribution.
-			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("scripts/Piper_Docs.bsh");
-			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/piper_docs_plugin/src/scripts/Piper_Docs.bsh");
+			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.piperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource("scripts/MathPiper_Docs.bsh");
+			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/piper_docs_plugin/src/scripts/MathPiper_Docs.bsh");
 
 			
 			//System.out.println("YYYYY2: " + helpURL.toString());
@@ -229,15 +229,15 @@ public class PiperDocs extends JPanel
 				bshInterpreter.set("editorPane",editorPane);
 				bshInterpreter.set("view",view);
 				bshInterpreter.set("toolPanel",this.toolPanel);
-				bshInterpreter.set("mathPiperInterpreter",MathPiperInterpreter.getInstance());//Note:tk:fixing race condition.
-				java.net.URL homePage = jEdit.getPlugin("org.mathrider.piperdocsplugin.PiperDocsPlugin").getPluginJAR().getClassLoader().getResource("piper_manual/books2.html");
+				bshInterpreter.set("mathMathPiperInterpreter",MathPiperInterpreter.getInstance());//Note:tk:fixing race condition.
+				java.net.URL homePage = jEdit.getPlugin("org.mathrider.piperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource("piper_manual/books2.html");
 				java.util.ArrayList pageList = new java.util.ArrayList();
 				//pageList.add(homePage);
 				bshInterpreter.set("homePage",homePage);
 				bshInterpreter.set("pageList",pageList);
 				bshInterpreter.set("pageIndex",-1);
-				bshInterpreter.eval( "classFunctionInfo = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.piperdocsplugin.PiperDocsPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.piperdocsplugin.FunctionInfo\",true);");
-				bshInterpreter.eval( "classFunctionInfoTree = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.piperdocsplugin.PiperDocsPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.piperdocsplugin.FunctionInfoTree\",true);");
+				bshInterpreter.eval( "classFunctionInfo = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.piperdocsplugin.MathPiperDocsPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.piperdocsplugin.FunctionInfo\",true);");
+				bshInterpreter.eval( "classFunctionInfoTree = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.piperdocsplugin.MathPiperDocsPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.piperdocsplugin.FunctionInfoTree\",true);");
 
 				//new org.mathrider.piperdocsplugin.FunctionInfo(null,null);
 				//bshInterpreter.eval("import org.mathrider.piperdocsplugin.FunctionInfo;");
@@ -254,7 +254,7 @@ public class PiperDocs extends JPanel
 				sourceIn.close();
 			}
 		
-			//bshInterpreter.source(jeditresource:/piper_docs_plugin.jar!/scripts/Piper_Docs.bsh);
+			//bshInterpreter.source(jeditresource:/piper_docs_plugin.jar!/scripts/MathPiper_Docs.bsh);
 		}
 		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
 		{
@@ -266,7 +266,7 @@ public class PiperDocs extends JPanel
 
 	
 	
-	// PiperDocsActions implementation
+	// MathPiperDocsActions implementation
 
 	
 	//{{{ source()
