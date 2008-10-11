@@ -190,16 +190,16 @@
 	</target>
 	
 	
-	<target id="piper_docs_plugin" name="piper_docs_plugin" depends="mathpiper_plugin">
-		<ant dir="${plugins.src.dir}/piper_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/piper_docs_plugin"/>
+	<target id="mathpiper_docs_plugin" name="mathpiper_docs_plugin" depends="mathpiper_plugin">
+		<ant dir="${plugins.src.dir}/mathpiper_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/mathpiper_docs_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/piper_docs_plugin/src"/>
+			<property name="src.dir" value="${plugins.src.dir}/mathpiper_docs_plugin/src"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
-		<copy file="${plugins.build.dir}/piper_docs_plugin/dist/piper_docs_plugin.jar" todir="${plugins.jars.dir}"/> 
+		<copy file="${plugins.build.dir}/mathpiper_docs_plugin/dist/mathpiper_docs_plugin.jar" todir="${plugins.jars.dir}"/> 
 		
 	</target>
 	
@@ -272,7 +272,7 @@
 	</target>
 	
 	<!-- -->
-	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, piper_docs_plugin, 
+	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
 		geogebra_plugin, hoteqn_plugin, jscicalc_plugin, clojure_plugin, u6502_plugin" />
 	
 	
