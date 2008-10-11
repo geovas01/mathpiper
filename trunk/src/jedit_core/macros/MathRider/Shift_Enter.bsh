@@ -125,7 +125,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	
 	
 		//{{{ Fold information.
-	//	defaultFoldType = "%piper";
+	//	defaultFoldType = "%mathpiper";
 		
 
 			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
@@ -305,15 +305,15 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		collapseFold = foldProperties.get("collapse");
 		
 		///{{{ *** %mathpiper ***.
-		if(foldType.equalsIgnoreCase("%piper"))    
+		if(foldType.equalsIgnoreCase("%mathpiper"))    
 		{
-			//Piper section.
+			//MathPiper section.
 			
-			if( foldProperties.get("ver").equalsIgnoreCase("me"))
-			{
-				system = PiperMEInterpreter.getInstance();
-			}
-			else
+			//if( foldProperties.get("ver").equalsIgnoreCase("me"))
+			//{
+			//	system = PiperMEInterpreter.getInstance();
+			//}
+			//else
 			{
 				system = MathPiperInterpreter.getInstance();
 			}
@@ -328,20 +328,20 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 				//System.out.println(tempFilePath);
         	
-				result = system.evaluate("Load(\""+tempFilePath+"\");");
+				resultArray = system.evaluate("Load(\""+tempFilePath+"\");");
 				
-				if(result != null )
-				{
-				
-					if(result.startsWith("True:"))
-					{
-						result = result.substring(5,result.length());//Remove True: which is returned by Load.
-					}
-					else if (result.startsWith("True"))
-					{
-						result = result.substring(4,result.length());//Remove True which is returned by Load.
-					}
-				}//end if.
+				//if(result != null )
+				//{
+				//
+				//	if(result.startsWith("True:"))
+				//	{
+				//		result = result.substring(5,result.length());//Remove True: which is returned by Load.
+				//	}
+				//	else if (result.startsWith("True"))
+				//	{
+				//		result = result.substring(4,result.length());//Remove True which is returned by Load.
+				//	}
+				//}//end if.
 				
 				//Note: Since Load returns "True", it kills what was in %.
 				//lastResult = system.evaluate("%");
@@ -349,34 +349,34 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 				if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
-					result = system.evaluate("TeXForm(Hold(" + result + "));");
-					result = result.replace("\"$","");
-					result = result.replace("$\"","");
+					resultArray = system.evaluate("TeXForm(Hold(" + resultArray[0] + "));");
+					resultArray[0] = resultArray[0].replace("\"$","");
+					resultArray[0] = resultArray[0].replace("$\"","");
 					output_fold_type = "%hoteqn";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
-					result = system.evaluate("OMForm(" + result + ");");
+					resultArray[0] = system.evaluate("OMForm(" + resultArray[0] + ");");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
-					result = system.evaluate("PrettyForm(Hold(" + result + "));");
+					resultArray[0] = system.evaluate("PrettyForm(Hold(" + resultArray[0] + "));");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				{	
-					result = system.evaluate("CForm(" + result + ");");
+					resultArray[0] = system.evaluate("CForm(" + resultArray[0] + ");");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				{	
-					result = system.evaluate("FullForm(" + result + ");");
+					resultArray[0] = system.evaluate("FullForm(" + resultArray[0] + ");");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				{	
-					result = system.evaluate("TableForm(" + result + ");");
+					resultArray[0] = system.evaluate("TableForm(" + resultArray[0] + ");");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
@@ -387,10 +387,18 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 					output_fold_type = "%output";
 				}
-	//Sy	stem.out.println("Out> " + result);
+	//Sy	stem.out.println("Out> " + resultArray);
+			if(resultArray[1] != null)
+			{
+				result = resultArray[0] + "\nSide effects:\n" + resultArray[1];
+			}
+			else
+			{
+				result = resultArray[0] ;
+			}
 				
 					
-			}catch(org.mathpiper.exceptions.PiperException ye) 
+			}catch(org.mathpiper.exceptions.MathPiperException ye) 
 			{
 				result = ye.getMessage();
 				output_fold_type = "%error ";
@@ -510,7 +518,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	//Sy	stem.out.println("Out> " + result);
 				
 					
-			}catch(org.mathrider.maxima.Piperexception ye) 
+			}catch(org.mathrider.maxima.MathPiperException ye) 
 			{
 				result = ye.getMessage();
 				output_fold_type = "%error ";
@@ -622,7 +630,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	//Sy	stem.out.println("Out> " + result);
 				
 					
-			}catch(org.mathrider.maxima.Piperexception ye) 
+			}catch(org.mathrider.maxima.MathPiperException ye) 
 			{
 				result = ye.getMessage();
 				output_fold_type = "%error ";

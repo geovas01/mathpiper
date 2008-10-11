@@ -35,11 +35,6 @@ import errorlist.*;
 	    
 		mathPiper = new Interpreter(stringOutput);
         
-        //boolean scripts_found = loadScripts();
- 
-       // if (!scripts_found) throw new Piperexception ("MathPiper error: Unable to load mathPiper.jar");
-			
-        //mathpiper.evaluate("Load(\"mathpiperinit.pi\");");
  
     }//end constructor.
 	
@@ -56,47 +51,32 @@ import errorlist.*;
    {
 	   return mathPiper.getScriptsZip();
    }//end method.
-   //
-   // /** Searches for the file mathpiper.jar and passes its absolute path to the Piper interpreter.
-   //  * This method searches in the classpath (declared i.e. in MANIFEST.MF) for the file mathpiperinit.pi.
-   //  * mathpiperinit.pi is inside mathpiper.jar.
-   //  * Returns true if successful.*/
-   // private boolean loadScripts() {
-   //     java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.pi");
-   //     // if mathpiperinit.pi not found:
-   //     if (detectURL == null) return false;
-   //
-   //     String detect = detectURL.getPath(); // file:/home/av/src/lib/mathpiper.yar!/mathpiperinit.pi
-   //     String archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/mathpiper.jar
-   //
-   //     try {
-   //         scriptsZip = new java.util.zip.ZipFile(new java.io.File(new java.net.URI(archive)));
-   //     } catch (Exception e) {
-   //         System.err.println(e.toString());
-   //         return false;
-   //     }
-   //
-   //     // Pass the absolute path of mathpiper.jar to Piper.
-   //     org.mathrider.piper.LispStandard.zipFile = scriptsZip;
-   //
-   //     return true;
-   // }
+
  
     /** Use this method to pass an expression to the Piper interpreter.
      *  Returns the output of the interpreter.
      */
-    public String evaluate(String input) throws MathPiperException {
+    public String[] evaluate(String input) throws MathPiperException {
 		
 			String result = mathPiper.evaluate(input);
+			result = result.trim();
 			
-			String outputMessage = stringOutput.toString();
+			String sideEffect = stringOutput.toString();
 			
-			if(outputMessage != null && outputMessage.length() != 0){
-				return result + ":\n" + outputMessage;
+			String[] resultAndSideEffect = new String[2];
+			
+			if(sideEffect != null && sideEffect.length() != 0){
+				resultAndSideEffect[1] = sideEffect; 
 			}
-			else{
-				return result;
+			else
+			{
+				resultAndSideEffect[1] = null;
 			}
+			
+			resultAndSideEffect[0] = result;
+			
+			return resultAndSideEffect;
+
     }//end method.
 	
 	
