@@ -1,17 +1,17 @@
 
 NORMAL_TESTFILES = \
-	openmath.pit macro.pit arithmetic.pit c_tex_form.pit calculus.pit canprove.pit \
-	comments.pit complex.pit deriv.pit dimensions.pit dot.pit journal.pit \
-	integrate.pit lists.pit logic_simplify_test.pit matrixpower.pit \
-	nthroot.pit outer.pit predicates.pit ode.pit \
-	tensors.pit trace.pit tr.pit multivar.pit numbers.pit io.pit \
-	programming.pit regress.pit simplify.pit solve.pit sums.pit \
-	transforms.pit radsimp.pit linalg.pit orthopoly.pit poly.pit numerics.pit \
-	scopestack.pit plots.pit GaussianIntegers.pit nummethods.pit sturm.pit \
-        cyclotomic.pit binaryfactors.pit 
+	openmath.mpt macro.mpt arithmetic.mpt c_tex_form.mpt calculus.mpt canprove.mpt \
+	comments.mpt complex.mpt deriv.mpt dimensions.mpt dot.mpt journal.mpt \
+	integrate.mpt lists.mpt logic_simplify_test.mpt matrixpower.mpt \
+	nthroot.mpt outer.mpt predicates.mpt ode.mpt \
+	tensors.mpt trace.mpt tr.mpt multivar.mpt numbers.mpt io.mpt \
+	programming.mpt regress.mpt simplify.mpt solve.mpt sums.mpt \
+	transforms.mpt radsimp.mpt linalg.mpt orthopoly.mpt poly.mpt numerics.mpt \
+	scopestack.mpt plots.mpt GaussianIntegers.mpt nummethods.mpt sturm.mpt \
+        cyclotomic.mpt binaryfactors.mpt 
 
-SPECIAL_TESTFILES = ../manmake/wester-1994.pit
+SPECIAL_TESTFILES = ../manmake/wester-1994.mpt
 
 TESTFILES = $(NORMAL_TESTFILES) $(SPECIAL_TESTFILES)
-QUICKTESTFILES = simplify.pit sturm.pit
+QUICKTESTFILES = simplify.mpt sturm.mpt
 
