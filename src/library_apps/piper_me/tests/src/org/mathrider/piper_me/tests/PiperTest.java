@@ -1,8 +1,8 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.piper.tests;
+package org.mathrider.piper_me.tests;
 
-import org.mathrider.piper.PiperInterpreter;
+import org.mathrider.piper_me.PiperInterpreter;
 
 public class PiperTest
 {
@@ -72,7 +72,7 @@ public class PiperTest
 		{
 			e.printStackTrace();
 		}
-		catch(org.mathrider.piper.Piperexception e)
+		catch(org.mathrider.piper_me.Piperexception e)
 		{
 			e.printStackTrace();
 		}//end try/catch.
