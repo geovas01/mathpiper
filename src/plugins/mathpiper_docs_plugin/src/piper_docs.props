@@ -1,33 +1,33 @@
-# Properties file for PiperDocs plugin.
+# Properties file for MathPiperDocs plugin.
 
 #{{{ 
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.activate=defer
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.name=PiperDocs
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.author=Ted Kosan
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.name=MathPiperDocs
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.version=4.3
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.docs=index.html
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin..longdescription=description.html
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.docs=index.html
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin..longdescription=description.html
 #}}}
 
 
 
 
-piperdocs.shell.msg.info=\nPiperDocs Shell \n\
+mathpiperdocs.shell.msg.info=\nMathPiperDocs Shell \n\
 	  Test.\n\n
 
-piperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
+mathpiperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
 		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
 		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
 		 * "?"\t\t\t\t-- lists the available build files and usage\n\
@@ -42,70 +42,70 @@ piperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.piperdocsplugin.PiperDocsPlugin.menu=piperdocs
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.menu=mathpiperdocs
 #	- \
-#	piperdocs.clear \
-#	piperdocs.save-file \
-#	piperdocs.copy-to-buffer
+#	mathpiperdocs.clear \
+#	mathpiperdocs.save-file \
+#	mathpiperdocs.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
-piperdocs.label=piperdocs
+mathpiperdocs.label=mathpiperdocs
 
 # action labels for actions supplied by actions.xml
-piperdocs.source.label=View Source
-piperdocs.source.button-text=Source
-piperdocs.collapse.label=Collapse function tree.
-piperdocs.collapse.button-text=Collapse
-piperdocs.home.label=Home
-piperdocs.back.label=Back
-piperdocs.forward.label=Forward
-piperdocs.save-file.label=Save notepad file
-piperdocs.copy-to-buffer.label=Copy notepad to buffer
+mathpiperdocs.source.label=View Source
+mathpiperdocs.source.button-text=Source
+mathpiperdocs.collapse.label=Collapse function tree.
+mathpiperdocs.collapse.button-text=Collapse
+mathpiperdocs.home.label=Home
+mathpiperdocs.back.label=Back
+mathpiperdocs.forward.label=Forward
+mathpiperdocs.save-file.label=Save notepad file
+mathpiperdocs.copy-to-buffer.label=Copy notepad to buffer
 
 # plugin option pane
-plugin.piperdocs.option-pane=piperdocs
+plugin.mathpiperdocs.option-pane=mathpiperdocs
 
 # Option pane activation BeanShell snippet
-options.piperdocs.code=new org.mathrider.piperdocsplugin.PiperDocsOptionPane();
+options.mathpiperdocs.code=new org.mathrider.mathpiperdocsplugin.MathPiperDocsOptionPane();
 
 # Option pane labels
-options.piperdocs.label=piperdocs
-options.piperdocs.file=File:
-options.piperdocs.source=Source
-options.piperdocs.home=Home
-options.piperdocs.source.title=View Source
-options.piperdocs.choose-font=Font:
-options.piperdocs.show-filepath.title=Display notepad file path
+options.mathpiperdocs.label=mathpiperdocs
+options.mathpiperdocs.file=File:
+options.mathpiperdocs.source=Source
+options.mathpiperdocs.home=Home
+options.mathpiperdocs.source.title=View Source
+options.mathpiperdocs.choose-font=Font:
+options.mathpiperdocs.show-filepath.title=Display notepad file path
 
 # window title
-piperdocs.title=PiperDocs
+mathpiperdocs.title=MathPiperDocs
 
 # window toolbar buttons
-#piperdocs.source.icon=Clear.png
-piperdocs.back.icon=ArrowL.png
-piperdocs.forward.icon=ArrowR.png
-piperdocs.home.icon=Home.png
-piperdocs.save-file.icon=Save.png
-piperdocs.copy-to-buffer.icon=CopyToBuffer.png
+#mathpiperdocs.source.icon=Clear.png
+mathpiperdocs.back.icon=ArrowL.png
+mathpiperdocs.forward.icon=ArrowR.png
+mathpiperdocs.home.icon=Home.png
+mathpiperdocs.save-file.icon=Save.png
+mathpiperdocs.copy-to-buffer.icon=CopyToBuffer.png
 
 # default settings
-options.piperdocs.show-filepath=true
-options.piperdocs.font=Monospaced
-options.piperdocs.fontstyle=0
-options.piperdocs.fontsize=14
+options.mathpiperdocs.show-filepath=true
+options.mathpiperdocs.font=Monospaced
+options.mathpiperdocs.fontstyle=0
+options.mathpiperdocs.fontsize=14
 
 # Setting not defined but supplied for completeness
-options.piperdocs.filepath=
+options.mathpiperdocs.filepath=
 
 
 #
-#piperdocs.applet.filename=
-#piperdocs.applet.framePossible=false
-#piperdocs.applet.showSourceIcon=true
-#piperdocs.applet.enableRightClick=true
-#piperdocs.applet.showMenuBar=false
-#piperdocs.applet.showToolBar=true
-#piperdocs.applet.showToolBarHelp=true
-#piperdocs.applet.showAlgebraInput=true
+#mathpiperdocs.applet.filename=
+#mathpiperdocs.applet.framePossible=false
+#mathpiperdocs.applet.showSourceIcon=true
+#mathpiperdocs.applet.enableRightClick=true
+#mathpiperdocs.applet.showMenuBar=false
+#mathpiperdocs.applet.showToolBar=true
+#mathpiperdocs.applet.showToolBarHelp=true
+#mathpiperdocs.applet.showAlgebraInput=true
 
 # :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

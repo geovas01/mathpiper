@@ -1,19 +1,19 @@
 <html>
 <head>
-  <title>Piper under the hood</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <title>MathPiper under the hood</title>
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c1">
 
 </a>
 <h1>
-1. Piper under the hood
+1. MathPiper under the hood
 </h1>
 <p> </p>
 This part of the manual is a somewhat in-depth explanation of the
-Piper programming language and environment. It assumes that you have worked
-through the introductory tutorial. You should consult the function reference about how to use the various Piper functions mentioned here.
+MathPiper programming language and environment. It assumes that you have worked
+through the introductory tutorial. You should consult the function reference about how to use the various MathPiper functions mentioned here.
 
 
 <p>
@@ -22,9 +22,9 @@ through the introductory tutorial. You should consult the function reference abo
 
 </a>
 <h2>
-<hr>1.1 The Piper architecture
+<hr>1.1 The MathPiper architecture
 </h2>
-Piper is designed as a small core engine that interprets a library
+MathPiper is designed as a small core engine that interprets a library
 of scripts. The core engine provides the syntax parser and a number of
 hard-wired functions, such as <b><tt>Set()</tt></b> or
 <b><tt>MathExp()</tt></b> which cannot be redefined by the user. The script
@@ -37,7 +37,7 @@ or any files the user loads.
 <p>
 Generally, all core functions have plain names and almost all are not
 "bodied" or infix operators. The file <b><tt>corefunctions.h</tt></b> in the source
-tree lists declarations of all kernel functions callable from Piper; consult it for reference.
+tree lists declarations of all kernel functions callable from MathPiper; consult it for reference.
 For many of the core functions, the script library already provides
 convenient aliases. For instance, the addition operator "<b><tt>+</tt></b>" is defined in
 the script <b><tt>scripts/standard</tt></b> while the actual addition of
@@ -53,14 +53,14 @@ numbers is performed through the built-in function
 <h2>
 <hr>1.2 Startup, scripts and <b><tt>.def</tt></b> files
 </h2>
-When Piper is first started or restarted, it executes the script
-<b><tt>piperinit.pi</tt></b> in the scripts directory. This script may load some other
-scripts. In order to start up quickly, Piper does not execute all other
+When MathPiper is first started or restarted, it executes the script
+<b><tt>mathpiperinit.pi</tt></b> in the scripts directory. This script may load some other
+scripts. In order to start up quickly, MathPiper does not execute all other
 library scripts at first run or at restart. It only executes the file
-<b><tt>piperinit.pi</tt></b> and all <b><tt>.def</tt></b> files in the scripts. The <b><tt>.def</tt></b> files tell the system where it can find definitions
+<b><tt>mathpiperinit.pi</tt></b> and all <b><tt>.def</tt></b> files in the scripts. The <b><tt>.def</tt></b> files tell the system where it can find definitions
 for various library functions. Library is divided into "packages" stored in "repository" directories. For example, the function <b><tt>ArcTan</tt></b> is defined in the <b><tt>stdfuncs</tt></b> package; the library file is <b><tt>stdfuncs.rep/</tt></b><b><tt>code.pi</tt></b> and the <b><tt>.def</tt></b> file is <b><tt>stdfuncs.rep</tt></b><b><tt>/code.pi.def</tt></b>. The function <b><tt>ArcTan</tt></b>
-mentioned in the <b><tt>.def</tt></b> file, therefore Piper will know to load the package
-<b><tt>stdfuncs</tt></b> when the user invokes <b><tt>ArcTan</tt></b>. This way Piper
+mentioned in the <b><tt>.def</tt></b> file, therefore MathPiper will know to load the package
+<b><tt>stdfuncs</tt></b> when the user invokes <b><tt>ArcTan</tt></b>. This way MathPiper
 knows where to look for any given function without actually loading the
 file where the function is defined.
 
@@ -69,7 +69,7 @@ file where the function is defined.
 There is one exception to the strategy of delayed loading of the library
 scripts. Namely, the syntax definitions of infix, prefix, postfix and bodied
 functions, such as <b><tt>Infix("*",4)</tt></b> cannot be delayed (it is currently in the
-file <b><tt>stdopers.pi</tt></b>). If it were delayed, the Piper parser would encounter <b><tt>1+2</tt></b>
+file <b><tt>stdopers.pi</tt></b>). If it were delayed, the MathPiper parser would encounter <b><tt>1+2</tt></b>
 (typed by the user) and generate a syntax error before it has a chance to load
 the definition of the operator "<b><tt>+</tt></b>".
 
@@ -82,7 +82,7 @@ the definition of the operator "<b><tt>+</tt></b>".
 <h2>
 <hr>1.3 Object types
 </h2>
-Piper supports two basic kinds of objects: atoms and compounds. Atoms are (integer or real, arbitrary-precision) numbers such as <b><tt>2.71828</tt></b>, symbolic variables such as <b><tt>A3</tt></b> and character strings. Compounds include functions and expressions, e.g. <b><tt>Cos(a-b)</tt></b> and lists, e.g. <b><tt>{1+a,2+b,3+c}</tt></b>.
+MathPiper supports two basic kinds of objects: atoms and compounds. Atoms are (integer or real, arbitrary-precision) numbers such as <b><tt>2.71828</tt></b>, symbolic variables such as <b><tt>A3</tt></b> and character strings. Compounds include functions and expressions, e.g. <b><tt>Cos(a-b)</tt></b> and lists, e.g. <b><tt>{1+a,2+b,3+c}</tt></b>.
 
 
 <p>
@@ -105,11 +105,11 @@ Out&gt; "List";
 
 
 <p>
-Internally, atoms are stored as strings and compounds as lists. (The Piper
+Internally, atoms are stored as strings and compounds as lists. (The MathPiper
 lexical analyzer is case-sensitive, so <b><tt>List</tt></b> and
 <b><tt>list</tt></b> are different atoms.) The functions
 <b><tt>String()</tt></b> and <b><tt>Atom()</tt></b> convert between atoms and
-strings. A Piper list <b><tt>{1,2,3}</tt></b> is internally a list
+strings. A MathPiper list <b><tt>{1,2,3}</tt></b> is internally a list
 <b><tt>(List 1 2 3)</tt></b> which is the same as a function call
 <b><tt>List(1,2,3)</tt></b> and for this reason the "type" of a list is the
 string <b><tt>"List"</tt></b>. During evaluation, atoms can be interpreted as
@@ -126,7 +126,7 @@ with no other properties.
 
 <p>
 Currently, no other lowest-level objects are provided by the core engine besides numbers, atoms, strings, and lists. There is, however, a possibility to link some externally compiled code that will provide additional types of objects.
-Those will be available in Piper as "generic objects."
+Those will be available in MathPiper as "generic objects."
 For example, fixed-size arrays are implemented in this way.
 
 
@@ -136,7 +136,7 @@ For example, fixed-size arrays are implemented in this way.
 
 </a>
 <h2>
-<hr>1.4 Piper evaluation scheme
+<hr>1.4 MathPiper evaluation scheme
 </h2>
 Evaluation of an object is performed either explicitly by the built-in 
 command <b><tt>Eval()</tt></b> or implicitly when assigning variables or calling functions 
@@ -148,7 +148,7 @@ must be declared for that function.
 
 <p>
 Internally, all expressions are either atoms or lists (perhaps nested). Use
-<b><tt>FullForm()</tt></b> to see the internal form of an expression. A Piper list expression
+<b><tt>FullForm()</tt></b> to see the internal form of an expression. A MathPiper list expression
 written as <b><tt>{a, b}</tt></b> is represented internally as <b><tt>(List a b)</tt></b>, equivalently to
 a function call <b><tt>List(a,b)</tt></b>.
 
@@ -195,7 +195,7 @@ for simplifying expressions.
 
 
 <p>
-One major design flaw in Piper (one that other functional languages like
+One major design flaw in MathPiper (one that other functional languages like
 LISP also have) is that when some expression is re-evaluated in another
 environment, the local variables contained in the expression to be
 evaluated might have a different meaning. In this case it might be useful
@@ -294,7 +294,7 @@ or <b><tt>Eval</tt></b> (or derivatives) are used.
 <i>Rules</i> are special properties of functions that
 are applied when the function object is being evaluated. A function object could
 have just one rule bound to it; this is similar to a "subroutine" having a "function
-body" in usual procedural languages. However, Piper function objects can
+body" in usual procedural languages. However, MathPiper function objects can
 also have several rules bound to them. This is analogous of having several
 alternative "function bodies" that are executed under different
 circumstances. This design is more suitable for symbolic manipulations.
@@ -327,7 +327,7 @@ So, a new (and empty) rule database for <b><tt>f(x,y)</tt></b> could be
 created by typing <b><tt>RuleBase("f",{x,y})</tt></b>. The names for the
 arguments "x" and "y" here are arbitrary, but they will be globally stored
 and must be later used in descriptions of particular rules for the function
-<b><tt>f</tt></b>. After the new rulebase declaration, the evaluation engine of Piper
+<b><tt>f</tt></b>. After the new rulebase declaration, the evaluation engine of MathPiper
 will begin to really recognize <b><tt>f</tt></b> as a function, even though no function
 body or equivalently no rules have been defined for it yet.
 
@@ -345,7 +345,7 @@ infix or bodied operator.
 Now we can add some rules to the rule database for a function. A rule
 simply states that if a specific function object with a specific arity is
 encountered in  an expression and if a certain predicate is true, then
-Piper should replace this function with some other expression. To tell Piper about a new rule you can use the built-in <b><tt>Rule</tt></b> command. This command is what does the real work for the somewhat more aesthetically pleasing <b><tt>... # ... &lt;-- ...</tt></b> construct we have seen in the tutorial. You do not have to call <b><tt>RuleBase()</tt></b> explicitly if you use that construct.
+MathPiper should replace this function with some other expression. To tell MathPiper about a new rule you can use the built-in <b><tt>Rule</tt></b> command. This command is what does the real work for the somewhat more aesthetically pleasing <b><tt>... # ... &lt;-- ...</tt></b> construct we have seen in the tutorial. You do not have to call <b><tt>RuleBase()</tt></b> explicitly if you use that construct.
 
 
 <p>
@@ -515,7 +515,7 @@ FirstOf(list):=list[1] ;
 <h2>
 <hr>1.7 Structured programming and control flow
 </h2>
-Some functions useful for control flow are already defined in Piper's standard library. Let's look at a possible definition of a looping function <b><tt>ForEach</tt></b>. We shall here consider a somewhat simple-minded definition, while the actual <b><tt>ForEach</tt></b> as defined in the standard script "controlflow" is a little more sophisticated.
+Some functions useful for control flow are already defined in MathPiper's standard library. Let's look at a possible definition of a looping function <b><tt>ForEach</tt></b>. We shall here consider a somewhat simple-minded definition, while the actual <b><tt>ForEach</tt></b> as defined in the standard script "controlflow" is a little more sophisticated.
 
 
 <p>
@@ -602,7 +602,7 @@ calling function, and used in <b><tt>foreachbody</tt></b>. These two would colli
 interpreter would use only the last defined version. In general, when writing a
 function that calls <b><tt>Eval()</tt></b>, it is a good idea to use variable names that can
 not collide with user's variables. This is generally the single largest cause
-of bugs when writing programs in Piper. This issue should be addressed in the
+of bugs when writing programs in MathPiper. This issue should be addressed in the
 future.
 
 
@@ -668,7 +668,7 @@ next character to the string, so a quote can be added with <b><tt>\"</tt></b> (a
 <h2>
 <hr>1.9 Using "Macro rules" (e.g. <b><tt>NFunction</tt></b>)
 </h2>
-The Piper language allows to have rules whose definitions are generated at
+The MathPiper language allows to have rules whose definitions are generated at
 runtime. In other words, it is possible to write rules (or "functions") that,
 as a side-effect, will define other rules, and those other rules will depend on
 some parts of the expression the original function was applied to.
@@ -843,7 +843,7 @@ needs to traverse the expression twice, but makes for much more readable code.
 <h2>
 <hr>1.10 Macro expansion
 </h2>
-Piper supports macro expansion (back-quoting). An expression can be
+MathPiper supports macro expansion (back-quoting). An expression can be
 back-quoted by putting a <b><tt>`</tt></b> in front of it. Within the back-quoted
 expression, all atoms that have a <b><tt>@</tt></b> in front of them get replaced
 with the value of that atom (treated as a variable), and then the

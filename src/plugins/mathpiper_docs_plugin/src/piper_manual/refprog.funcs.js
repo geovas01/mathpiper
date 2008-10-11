@@ -112,7 +112,7 @@ var funcs_refprogchapter6 = new Array(
 );
 var funcs_refprogchapter7 = new Array(
 "Verify"
-, "TestPiper"
+, "TestMathPiper"
 , "LogicVerify"
 , "LogicTest"
 , "KnownFailure"

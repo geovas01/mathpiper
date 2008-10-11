@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Coding style</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c3">
@@ -18,7 +18,7 @@
 <hr>3.1 Introduction
 </h2>
 This chapter intends to describe the coding style and conventions
-applied in Piper in order to make sure the engine always returns
+applied in MathPiper in order to make sure the engine always returns
 the correct result. This is an attempt at fending off such errors
 by combining rule-based programming with a clear coding style
 which should make help avoid these mistakes.
@@ -93,7 +93,7 @@ need to assume something about their argument types.
 The implementor of a rule set can specify the order in which rules should be
 tried. This can be used to let the engine try more specific rules (those
 involving more elements in the pattern) before trying less specific rules.
-Ordering of rules can be also explicitly given by precedence numbers. The Piper
+Ordering of rules can be also explicitly given by precedence numbers. The MathPiper
 engine will split the expression into subexpressions, and will try to apply all
 matching rules to a given subexpression in order of precedence.
 
@@ -162,7 +162,7 @@ functions can accomplish this by using type-checking predicates such as
 
 
 <p>
-When dealing with numbers, Piper tries to maintain exact answers as much as
+When dealing with numbers, MathPiper tries to maintain exact answers as much as
 possible and evaluate to floating-point only when explicitly told so (using
 <b><tt>N()</tt></b>). The general evaluation strategy for numerical functions such as <b><tt>Sin</tt></b> or <b><tt>Gamma</tt></b>
 is the following:
@@ -285,7 +285,7 @@ n!! := If(n=0 Or n=1, 1,
 );
 </pre></tr>
 </table>
-(Note: This is not the way <b>n!!</b> is implemented in the library.) The first version is a lot more clear. Piper is very quick in rule matching and evaluation of predicates, so the first version is (marginally) faster. So it seems better to write a few rules with predicates than one rule with multiple <b><tt>If()</tt></b> statements.
+(Note: This is not the way <b>n!!</b> is implemented in the library.) The first version is a lot more clear. MathPiper is very quick in rule matching and evaluation of predicates, so the first version is (marginally) faster. So it seems better to write a few rules with predicates than one rule with multiple <b><tt>If()</tt></b> statements.
 
 
 <p>
@@ -327,10 +327,10 @@ The "hard" error reporting facility is the function <b><tt>Check</tt></b>. For e
 Check(x&gt;0,"bad x");
 </pre></tr>
 </table>
-will immediately halt the execution of a Piper script and print the
+will immediately halt the execution of a MathPiper script and print the
 error messsage. This is implemented as a C++ exception. A drawback of
-this mechanism is that the Piper stack unwinding is not performed by
-the Piper interpreter, so global variables such as <b><tt>InNumericMode()</tt></b>,
+this mechanism is that the MathPiper stack unwinding is not performed by
+the MathPiper interpreter, so global variables such as <b><tt>InNumericMode()</tt></b>,
 <b><tt>Verbose</tt></b>, <b><tt>Builtin'Precision'Set()</tt></b> may keep the intermediate values they had been
 assigned just before the error occurred. Also, sometimes it is better
 for the program to be able to catch the error and continue.

@@ -1,14 +1,14 @@
 <html>
 <head>
-  <title>The Piper arithmetic library</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <title>The MathPiper arithmetic library</title>
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c7">
 
 </a>
 <h1>
-7. The Piper arithmetic library
+7. The MathPiper arithmetic library
 </h1>
 <p> </p>
 <a name="c7s1">
@@ -17,13 +17,13 @@
 <h2>
 <hr>7.1 Introduction
 </h2>
-<b><tt>Piper</tt></b> comes with its own arbitrary-precision arithmetic library,
+<b><tt>MathPiper</tt></b> comes with its own arbitrary-precision arithmetic library,
 to reduce dependencies on other software.
 
 
 <p>
 This part describes how the arithmetic library is embedded into
-<b><tt>Piper</tt></b>.
+<b><tt>MathPiper</tt></b>.
 
 
 <p>
@@ -34,9 +34,9 @@ This part describes how the arithmetic library is embedded into
 <h2>
 <hr>7.2 The link between the interpreter and the arithmetic library
 </h2>
-The <b><tt>Piper</tt></b> interpreter has the concept of an <i>atom</i>, an object
+The <b><tt>MathPiper</tt></b> interpreter has the concept of an <i>atom</i>, an object
 which has a string representation.
-Numbers are also atoms and are initially entered into Piper as decimal strings.
+Numbers are also atoms and are initially entered into MathPiper as decimal strings.
 <h6>There are functions to work with numbers in non-decimal bases, but direct input/output of numbers is supported only in decimal notation.</h6>As soon as a calculation needs
 to be performed, the string representation is used to construct
 an object representing the number, in an internal representation that
@@ -57,7 +57,7 @@ The library implements a particular internal representation of numbers.
 
 <p>
 The responsibility of the class <b><tt>BigNumber</tt></b> is to perform precision tracking, floating-point formatting, error reporting, type checking and so on, while <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b> only concern themselves with low-level arithmetic operations on integer and floating-point numbers respectively.
-In this way Piper isolates higher-level features like precision tracking from the lower-level arithmetic operations.
+In this way MathPiper isolates higher-level features like precision tracking from the lower-level arithmetic operations.
 The number objects in a library should only be able to convert themselves to/from a string and perform basic arithmetic.
 It should be easy to wrap a generic arithmetic library into a <b><tt>BigNumber</tt></b> implementation.
 
@@ -67,13 +67,13 @@ It is impossible to have several alternative number libraries operating at the s
 [In principle, one might write the classes <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b>
 as wrappers of two different arithmetic libraries, one for integers and the other for floats,
 but at any rate one cannot have two different libraries for integers at the same time.]
-Having several libraries in the same Piper session does not seem to be very useful;
+Having several libraries in the same MathPiper session does not seem to be very useful;
 it would also incur a lot of overhead because one would have to convert the numbers from one internal library representation to another.
-For performance benchmarking or for testing purposes one can compile separate versions of <b><tt>Piper</tt></b> configured with different arithmetic libraries.
+For performance benchmarking or for testing purposes one can compile separate versions of <b><tt>MathPiper</tt></b> configured with different arithmetic libraries.
 
 
 <p>
-To embed an arbitrary-precision arithmetic library into Piper, one needs to write two wrapper classes, <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b>.
+To embed an arbitrary-precision arithmetic library into MathPiper, one needs to write two wrapper classes, <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b>.
 (Alternatively, one could write a full <b><tt>BigNumber</tt></b> wrapper class but that would result in code duplication unless the library happens to implement a large portion of the <b><tt>BigNumber</tt></b> API.
 There is already a reference implementation of <b><tt>BigNumber</tt></b> through <b><tt>BigInt</tt></b> and <b><tt>BigFloat</tt></b> in the file <b><tt>numbers.cpp</tt></b>.)
 The required API for the <b><tt>BigNumber</tt></b> class is described below.
@@ -105,7 +105,7 @@ z.ToString(str,10);
 </table>
 The behaviour is such that in the above example <b><tt>z</tt></b> will contain the result of adding <b><tt>x</tt></b> and
 <b><tt>y</tt></b>, without modifying <b><tt>x</tt></b> or <b><tt>y</tt></b>.
-This is equivalent to <b><tt>z:=x+y</tt></b> in Piper.
+This is equivalent to <b><tt>z:=x+y</tt></b> in MathPiper.
 
 
 <p>
@@ -121,7 +121,7 @@ x.Add(x,y);
 </pre></tr>
 </table>
 were issued, the result would be assigned to <b><tt>x</tt></b>, and the old value of <b><tt>x</tt></b> is deleted.
-This is equivalent to the Piper code <b><tt>x:=x+y</tt></b>.
+This is equivalent to the MathPiper code <b><tt>x:=x+y</tt></b>.
 In this case a specific implementation might opt to perform the operation
 destructively ("in-place"). Some operations can be performed much more efficiently in-place, without copying the arguments.
 Among them are for example <b><tt>Negate</tt></b>, <b><tt>Add</tt></b>, <b><tt>ShiftLeft</tt></b>, <b><tt>ShiftRight</tt></b>.
@@ -139,15 +139,15 @@ operation, as then other objects might start behaving differently.
 <p>
 The basic arithmetic class <b><tt>BigNumber</tt></b> defines some simple arithmetic operations,
 through which other more elaborate functions can be built.
-Particular implementations of the multiple-precision library are wrapped by the <b><tt>BigNumber</tt></b> class, and the rest of the Piper core should only use the <b><tt>BigNumber</tt></b> API.
+Particular implementations of the multiple-precision library are wrapped by the <b><tt>BigNumber</tt></b> class, and the rest of the MathPiper core should only use the <b><tt>BigNumber</tt></b> API.
 
 
 <p>
-This API will not be completely exposed to Piper scripts, because some of these functions are too low-level.
-Among the low-level functions, only those that are very useful for optimization will be available to the Piper scripts.
-(For the functions that seem to be useful for Piper, suggested Piper bindings are given below.)  
+This API will not be completely exposed to MathPiper scripts, because some of these functions are too low-level.
+Among the low-level functions, only those that are very useful for optimization will be available to the MathPiper scripts.
+(For the functions that seem to be useful for MathPiper, suggested MathPiper bindings are given below.)  
 But the full API will be available to C++ plugins, so that multiple-precision algorithms could be efficiently implemented when performance is critical.
-Intermediate-level arithmetic functions such as <b><tt>MathAdd</tt></b>, <b><tt>MathDiv</tt></b>, <b><tt>MathMod</tt></b> and so on could be implemented either in the Piper core or in plugins, through this low-level API.
+Intermediate-level arithmetic functions such as <b><tt>MathAdd</tt></b>, <b><tt>MathDiv</tt></b>, <b><tt>MathMod</tt></b> and so on could be implemented either in the MathPiper core or in plugins, through this low-level API.
 The library scripts will be able to transform numerical expressions such as <b><tt>x:=y+z</tt></b> into calls of these intermediate-level functions.
 
 
@@ -158,7 +158,7 @@ The library scripts will be able to transform numerical expressions such as <b><
 </a>
 Here we list the basic arithmetic operations that need to be implemented by a multiple-precision class <b><tt>BigNumber</tt></b>.
 The operations are divided into several categories for convenience.
-Equivalent Piper script code is given, as well as examples of C++ usage.
+Equivalent MathPiper script code is given, as well as examples of C++ usage.
 
 
 <p>
@@ -236,7 +236,7 @@ C++:
 x.Equals(y)==true;
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathEquals(x,y)
@@ -261,7 +261,7 @@ C++:
 x.IsInt()==true;
 </pre></tr>
 </table>
-Piper: part of the implementation of <b><tt>IsInteger(x)</tt></b>.
+MathPiper: part of the implementation of <b><tt>IsInteger(x)</tt></b>.
 <li></li><b><tt>BigNumber::IsIntValue</tt></b> -- Check whether the number <b><tt>x</tt></b> has an integer value.
 (Not the same as the previous function, because a floating-point type can also have an integer value.)
 Always returns <b><tt>true</tt></b> on objects of integer type.
@@ -271,7 +271,7 @@ C++:
 x.IsIntValue()==true;
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 FloatIsInt(x)
@@ -303,7 +303,7 @@ C++:
 x.LessThan(y)==true;
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 LessThan(x,y)
@@ -317,7 +317,7 @@ C++:
 x.Floor(y);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathFloor(x)
@@ -332,7 +332,7 @@ C++:
 prec=x.GetExactBits();
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 GetExactBits(x)
@@ -365,7 +365,7 @@ C++:
 x.SetExactBits(300);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 SetExactBits(x, 300)
@@ -379,7 +379,7 @@ C++:
 x.Add(y,z, 300);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathAdd(x,y)
@@ -394,7 +394,7 @@ C++:
 x.Negate(y);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathNegate(x)
@@ -407,7 +407,7 @@ C++:
 x.Multiply(y,z, 300);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathMultiply(x,y)
@@ -421,7 +421,7 @@ C++:
 x.Divide(y,z, 300);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathDivide(x,y)
@@ -448,7 +448,7 @@ C++:
 x.IsSmall()==true;
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathIsSmall(x)
@@ -461,7 +461,7 @@ C++:
 x.MultiplyAdd(y,z, 300);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathMultiplyAdd(x,y,z)
@@ -474,7 +474,7 @@ C++:
 x.Mod(y,n);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathMod(x,n)
@@ -490,7 +490,7 @@ C++:
 int sign_of_x = x.Sign();
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathSign(x)
@@ -514,7 +514,7 @@ C++:
 x.BitCount();
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 MathBitCount(x)
@@ -532,7 +532,7 @@ C++:
 x.ShiftLeft(y, n); x.ShiftRight(y, n);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 ShiftLeft(x,n); ShiftRight(x,n);
@@ -549,7 +549,7 @@ x.BitAnd(y,z); x.BitOr(y,z);
 x.BitXor(y,z); x.BitNot(y);
 </pre></tr>
 </table>
-Piper:
+MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 BitAnd(x,y); BitOr(y,z);
@@ -613,7 +613,7 @@ However, interval arithmetic is computationally expensive and at any rate the wi
 
 
 <p>
-For the Piper arithmetic library, a "poor man's interval arithmetic" is proposed where the precision is represented by the "number of correct bits".
+For the MathPiper arithmetic library, a "poor man's interval arithmetic" is proposed where the precision is represented by the "number of correct bits".
 The precision is not tracked exactly but almost always adequately.
 The purpose of this kind of rough precision tracking is to catch a critical roundoff error or to
 indicate an unexpected loss of precision in numerical calculations.
@@ -870,7 +870,7 @@ just as efficiently as with any "reasonable" definition of the floating-point eq
 <h3>
 <hr>How to increase of the working precision
 </h3>
-Suppose that in a <b><tt>Piper</tt></b> session we declare <b><tt>Builtin'Precision'Set(5)</tt></b>, write <b><tt>x:=0.1</tt></b>, 
+Suppose that in a <b><tt>MathPiper</tt></b> session we declare <b><tt>Builtin'Precision'Set(5)</tt></b>, write <b><tt>x:=0.1</tt></b>, 
 and then increase 
 precision to 10 digits. What is <b><tt>x</tt></b> now? There are several approaches:
 
@@ -917,7 +917,7 @@ through the decimal representation every time.
 
 
 <p>
-3) The approach currently being implemented in <b><tt>Piper</tt></b> is a compromise between the above two.
+3) The approach currently being implemented in <b><tt>MathPiper</tt></b> is a compromise between the above two.
 We distinguish number objects that were given by the user as decimal strings
 (and not as results of calculations), for instance <b><tt>x:=1.2</tt></b>,
 from number objects that are results of calculations, for instance <b><tt>y:=1.2*1.4</tt></b>.
@@ -1153,7 +1153,7 @@ Two floats are equal only if their values differ by less than the largest of the
 In particular, it means that an integer zero is always equal to any floating zero, and that any two floating zeros are equal.
 It follows that if </li><b><tt>x=y</tt></b>, then for any floating zeros <b><tt>x+0.=y+0.</tt></b> and <b><tt>x-y=0.</tt></b> as well.
 (So this arithmetic is not obviously inconsistent.)
-<li>The Piper function </li><b><tt>IsInteger(x)</tt></b> returns <b><tt>True</tt></b> if <b><tt>x</tt></b> has integer <i>type</i>;
+<li>The MathPiper function </li><b><tt>IsInteger(x)</tt></b> returns <b><tt>True</tt></b> if <b><tt>x</tt></b> has integer <i>type</i>;
 <b><tt>IsIntValue(x)</tt></b> returns <b><tt>True</tt></b> if <b><tt>x</tt></b> has either integer type or floating type but an integer value within its precision.
 For example,
 <table cellpadding="0" width="100%">
@@ -1163,7 +1163,7 @@ IsIntValue(1.)=True
 IsInteger(1.) =False
 </pre></tr>
 </table>
-<li>The Piper function </li><b><tt>Builtin'Precision'Set(n)</tt></b> sets a global parameter that controls the precision of
+<li>The MathPiper function </li><b><tt>Builtin'Precision'Set(n)</tt></b> sets a global parameter that controls the precision of
 <i>newly created floats</i>.
 It does not modify previously created floating-point numbers
 and has no effect on copying floats or on any integer calculations.
@@ -1182,7 +1182,7 @@ and <b><tt>y</tt></b> is created as a result of division of two floats.
 Converting an integer to a float is similar to converting from a literal string representing the integer.
 A new number object created from a literal string must have at least as many bits of mantissa as is required to represent the value given by the string.
 The string might be very long but we want to retain all information from a string, so we may have to make the number much more precise than currently declared with <b><tt>Builtin'Precision'Set</tt></b>.
-<h6>Note that the argument <b><tt>n</tt></b> of <b><tt>Builtin'Precision'Set(n)</tt></b> means <i>decimal</i> digits, not bits. This is more convenient for <b><tt>Piper</tt></b> sessions.</h6>But if the necessary number of digits to represent the string is less than <b><tt>n</tt></b>, then the new number object will have the number of bits that corresponds to <b><tt>n</tt></b> decimal digits.
+<h6>Note that the argument <b><tt>n</tt></b> of <b><tt>Builtin'Precision'Set(n)</tt></b> means <i>decimal</i> digits, not bits. This is more convenient for <b><tt>MathPiper</tt></b> sessions.</h6>But if the necessary number of digits to represent the string is less than <b><tt>n</tt></b>, then the new number object will have the number of bits that corresponds to <b><tt>n</tt></b> decimal digits.
 Thus, in creating objects from strings or from integers, <b><tt>Builtin'Precision'Set</tt></b> sets the <i>minimum</i> precision of the resulting floating-point number.
 On the other hand, a new number object created from a calculation will already have an error estimate and will "know" its real precision.
 But a directive <b><tt>Builtin'Precision'Set(n)</tt></b> indicates that we are only interested in <b>n</b> digits of a result.
@@ -1676,26 +1676,26 @@ This could be done in two ways.
 
 
 <p>
-First, we recognize that we shall only have one particular numerical library linked with Piper, and we do not have to compile our implementation of the square root if this library already contains a good implementation.
+First, we recognize that we shall only have one particular numerical library linked with MathPiper, and we do not have to compile our implementation of the square root if this library already contains a good implementation.
 We can use conditional compilation directives (<b><tt>#ifdef</tt></b>) to exclude our square root code and to insert a library wrapper instead.
-This scheme could be automated, so that appropriate <b><tt>#define</tt></b>s are automatically created for all functions that are already available in the given multiple-precision library, and the corresponding Piper kernel code that uses the <b><tt>BigNumber</tt></b> API is automatically replaced by library wrappers.
+This scheme could be automated, so that appropriate <b><tt>#define</tt></b>s are automatically created for all functions that are already available in the given multiple-precision library, and the corresponding MathPiper kernel code that uses the <b><tt>BigNumber</tt></b> API is automatically replaced by library wrappers.
 
 
 <p>
 Second, we might compile the library wrapper as a plugin, replacing the script-level square root function with a plugin-supplied function.
-This solution is easier in some ways because it doesn't require any changes to the Piper core, only to the script library.
-However, the library wrapper will only be available to the Piper scripts and not to the Piper core functions.
+This solution is easier in some ways because it doesn't require any changes to the MathPiper core, only to the script library.
+However, the library wrapper will only be available to the MathPiper scripts and not to the MathPiper core functions.
 The basic assumption of the plugin architecture is that plugins can provide new external objects and functions to the scripts, but plugins cannot modify anything in the kernel.
 So plugins can replace a function defined in the scripts, but cannot replace a kernel function.
 Suppose that some other function, such as a computation of the elliptic integral which heavily uses the square root, were implemented in the core using the <b><tt>BigNumber</tt></b> API.
-Then it will not be able to use the square root function supplied by the plugin because it has been already compiled into the Piper kernel.
+Then it will not be able to use the square root function supplied by the plugin because it has been already compiled into the MathPiper kernel.
 
 
 <p>
-Third, we might put all functions that use the basic API (<b><tt>MathSqrt</tt></b>, <b><tt>MathSin</tt></b> etc.) into the script library and not into the Piper kernel.
-When Piper is compiled with a particular numerical library, the functions available from the library will also be compiled as the kernel versions of <b><tt>MathSqrt</tt></b>, <b><tt>MathPower</tt></b> and so on
+Third, we might put all functions that use the basic API (<b><tt>MathSqrt</tt></b>, <b><tt>MathSin</tt></b> etc.) into the script library and not into the MathPiper kernel.
+When MathPiper is compiled with a particular numerical library, the functions available from the library will also be compiled as the kernel versions of <b><tt>MathSqrt</tt></b>, <b><tt>MathPower</tt></b> and so on
 (using conditional compilation or configured at build time).
-Since Piper tries to call the kernel functions before the script library functions, the available kernel versions of <b><tt>MathSqrt</tt></b> etc. will supersede the script versions, but other functions such as <b><tt>BesselJ</tt></b> will be used from the script library.
+Since MathPiper tries to call the kernel functions before the script library functions, the available kernel versions of <b><tt>MathSqrt</tt></b> etc. will supersede the script versions, but other functions such as <b><tt>BesselJ</tt></b> will be used from the script library.
 The only drawback of this scheme is that a plugin will not be able to use the faster versions of the functions, unless the plugin was compiled specifically with the requirement of the particular numerical library.
 
 
@@ -1743,7 +1743,7 @@ but <b>b*Ln(2)/Ln(10)</b> should be rounded downwards using the <b><tt>Floor</tt
 <p>
 This procedure will make sure that the number of bits <b>b</b> is high enough to represent all information in the <b> d</b> decimal digits;
 at the same time, the number <b> d</b> will be correctly restored from <b> b</b>.
-So when a user requests <b> d</b> decimal digits of precision, Piper may simply compute the corresponding value of <b> b</b> and store it.
+So when a user requests <b> d</b> decimal digits of precision, MathPiper may simply compute the corresponding value of <b> b</b> and store it.
 The precision of <b> b</b> digits is enough to hold the required information, and the precision <b> d</b> can be easily computed given <b> b</b>.
 
 
@@ -1759,7 +1759,7 @@ arbitrary precision arithmetic library.
 
 
 <p>
-Higher up, Piper only knows about objects derived from <b><tt>LispObject</tt></b>.
+Higher up, MathPiper only knows about objects derived from <b><tt>LispObject</tt></b>.
 Specifically, there are objects of class <b><tt>LispAtom</tt></b> which represent
 an atom. 
 

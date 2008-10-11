@@ -1,18 +1,18 @@
 <html>
 <head>
-  <title>Piper programming pitfalls</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <title>MathPiper programming pitfalls</title>
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c5">
 
 </a>
 <h1>
-5. Piper programming pitfalls
+5. MathPiper programming pitfalls
 </h1>
 <p> </p>
 No programming language is without programming pitfalls, and
-<b><tt>Piper</tt></b> has its fair share of pitfalls.
+<b><tt>MathPiper</tt></b> has its fair share of pitfalls.
 
 
 <p>
@@ -47,7 +47,7 @@ Out&gt; True;
 This can happen in practice, if care is not taken. Here two 
 transformation rules are defined which both have the same precedence 
 (since their precedence was not explicitly set). In that case 
-<b><tt>Piper</tt></b> gets to decide which one to try first. 
+<b><tt>MathPiper</tt></b> gets to decide which one to try first. 
 Such problems can also occur where one transformation rule (possibly
 defined in some other file) has a wrong precedence, and thus masks
 another transformation rule. It is necessary to think of a scheme
@@ -56,10 +56,10 @@ rules are applied is important.
 
 
 <p>
-In the above example, because <b><tt>Piper</tt></b> gets to decide which rule
+In the above example, because <b><tt>MathPiper</tt></b> gets to decide which rule
 to try first, it is possible that f(0) invokes the second rule,
 which would then mask the first so the first rule is never called.
-Indeed, in <b><tt>Piper</tt></b> version 1.0.51, 
+Indeed, in <b><tt>MathPiper</tt></b> version 1.0.51, 
 
 
 <p>
@@ -179,7 +179,7 @@ Out&gt; Mathadd(1,2);
 </pre></tr>
 </table>
 Here we made a typo: we should have written <b><tt>MathAdd</tt></b>, but wrote
-<b><tt>Mathadd</tt></b> instead. <b><tt>Piper</tt></b> happily assumed that we mean a new and (so far) undefined "user function" <b><tt>Mathadd</tt></b> and returned the expression unevaluated.
+<b><tt>Mathadd</tt></b> instead. <b><tt>MathPiper</tt></b> happily assumed that we mean a new and (so far) undefined "user function" <b><tt>Mathadd</tt></b> and returned the expression unevaluated.
 
 
 <p>
@@ -239,7 +239,7 @@ The problem of distinguishing evaluated and unevaluated objects becomes worse wh
 
 
 <p>
-Since in <b><tt>Piper</tt></b> evaluation starts from the bottom of the expression tree, all "user functions" will appear to evaluate their arguments by default. But sometimes it is convenient to prohibit evaluation of a particular argument (using <b><tt>HoldArg</tt></b> or <b><tt>HoldArgNr</tt></b>).
+Since in <b><tt>MathPiper</tt></b> evaluation starts from the bottom of the expression tree, all "user functions" will appear to evaluate their arguments by default. But sometimes it is convenient to prohibit evaluation of a particular argument (using <b><tt>HoldArg</tt></b> or <b><tt>HoldArgNr</tt></b>).
 
 
 <p>
@@ -341,12 +341,12 @@ When an expression is evaluated, all matching rules are applied to it repeatedly
 
 
 <p>
-<ul><li>The expression which is the result of a call to a Piper core function is
+<ul><li>The expression which is the result of a call to a MathPiper core function is
 not evaluated further, even if some rules apply to it.
 </li><li>The expression is a variable that has a value assigned to it; for
 example, the variable </li><b><tt>x</tt></b> might have the expression <b><tt>y+1</tt></b> as the value. That
 value is not evaluated again, so even if <b><tt>y</tt></b> has been assigned another value,
-say, <b><tt>y=2</tt></b> a Piper expression such as <b><tt>2*x+1</tt></b> will evaluate to <b><tt>2*(y+1)+1</tt></b> and
+say, <b><tt>y=2</tt></b> a MathPiper expression such as <b><tt>2*x+1</tt></b> will evaluate to <b><tt>2*(y+1)+1</tt></b> and
 not to <b><tt>7</tt></b>. Thus, a variable can have some unevaluated expression as its value
 and the expression will not be re-evaluated when the variable is used.
 </ul>
@@ -356,7 +356,7 @@ The first possibility is mostly without consequence because  almost all core
 functions return a simple atom that does not require further evaluation.
 However, there are two core functions that can return a complicated expression:
 <b><tt>Hold</tt></b> and <b><tt>UnList</tt></b>. Thus, these functions can produce arbitrarily complicated
-Piper expressions that will be left unevaluated.
+MathPiper expressions that will be left unevaluated.
 For example, the result of 
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
@@ -444,9 +444,9 @@ Out&gt; 0;
 <h3>
 <hr>Correctness of parameters to functions is not checked
 </h3>
-Because <b><tt>Piper</tt></b> does not enforce type checking of arguments,
+Because <b><tt>MathPiper</tt></b> does not enforce type checking of arguments,
 it is possible to call functions with invalid arguments. The default
-way functions in <b><tt>Piper</tt></b> should deal with situations where an action can not
+way functions in <b><tt>MathPiper</tt></b> should deal with situations where an action can not
 be performed, is to return the expression unevaluated. A function should 
 know when it is failing to perform a task. The typical symptoms are 
 errors that seem obscure, but just mean the function called should have

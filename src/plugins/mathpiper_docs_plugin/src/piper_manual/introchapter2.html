@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Examples</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c2">
@@ -11,8 +11,8 @@
 2. Examples
 </h1>
 <p> </p>
-This is a small tour of the capabilities <b><tt>Piper</tt></b> currently offers. Note
-that this list of examples is far from complete. <b><tt>Piper</tt></b> contains a few
+This is a small tour of the capabilities <b><tt>MathPiper</tt></b> currently offers. Note
+that this list of examples is far from complete. <b><tt>MathPiper</tt></b> contains a few
 hundred commands, of which only a few are shown here.
 
 
@@ -29,7 +29,7 @@ Wester benchmark
 <li>Some additional </li><a href="mybench2.html">
 example calculations
 </a>
- that <b><tt>Piper</tt></b> can currently perform.
+ that <b><tt>MathPiper</tt></b> can currently perform.
 </ul>
 
 <p>
@@ -38,7 +38,7 @@ example calculations
 
 </a>
 <h2>
-<hr>2.1 Using Piper from the console
+<hr>2.1 Using MathPiper from the console
 </h2>
 <h3>
 <hr>Command-line options
@@ -49,7 +49,7 @@ example calculations
 <a name="command-line options!summary">
 
 </a>
-The default operation of <b><tt>Piper</tt></b> is to run in the interactive console mode. <b><tt>Piper</tt></b> accepts several options that modify its operation.
+The default operation of <b><tt>MathPiper</tt></b> is to run in the interactive console mode. <b><tt>MathPiper</tt></b> accepts several options that modify its operation.
 Here is a summary of options:
 
 
@@ -66,7 +66,7 @@ Here is a summary of options:
 <li></li><b><tt>--patchload</tt></b> (use <b><tt>PatchLoad</tt></b> to load files)
 <li></li><b><tt>--read-eval-print</tt></b> <i>expression</i> (call this expression for the read-eval-print loop)
 <li></li><b><tt>--rootdir</tt></b> <i>directory</i> (specify default directory for scripts)
-<li></li><b><tt>--server</tt></b> <i>port</i> (start <b><tt>Piper</tt></b> as a network server on given port)
+<li></li><b><tt>--server</tt></b> <i>port</i> (start <b><tt>MathPiper</tt></b> as a network server on given port)
 <li></li><b><tt>--single-user-server</tt></b> (If in server mode, start it in single-user mode)
 <li></li><b><tt>--verbose-debug</tt></b> (turn on showing some additional debugging information on screen)
 <li></li><b><tt>--disable-compiled-plugins</tt></b> (disable loading of compiled plugins, loading the script versions instead)
@@ -78,7 +78,7 @@ Here is a summary of options:
 Options can be combined, for example
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper -pc filename
+mathpiper -pc filename
 </pre></tr>
 </table>
 will read and execute the file <b><tt>filename</tt></b> non-interactively without using terminal capabilities and without printing prompts.
@@ -95,7 +95,7 @@ Here is a more detailed description of the command-line options.
 </a>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper -c
+mathpiper -c
 </pre></tr>
 </table>
 Inhibit printing of prompts <b><tt>In&gt;</tt></b> and <b><tt>Out&gt;</tt></b>. Useful for non-interactive sessions.
@@ -104,7 +104,7 @@ Inhibit printing of prompts <b><tt>In&gt;</tt></b> and <b><tt>Out&gt;</tt></b>. 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper -f
+mathpiper -f
 </pre></tr>
 </table>
 Reads standard input as one file, but executes only the first statement in it. (You may want to use a statement block to have several statements executed.)
@@ -113,7 +113,7 @@ Reads standard input as one file, but executes only the first statement in it. (
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper -p
+mathpiper -p
 </pre></tr>
 </table>
 Does not use terminal capabilities, no fancy editing on the command line and no escape sequences printed. Useful for non-interactive sessions.
@@ -122,7 +122,7 @@ Does not use terminal capabilities, no fancy editing on the command line and no 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper -t
+mathpiper -t
 </pre></tr>
 </table>
 Enable some extra history recall functionality in console mode: after executing a command from the history list, the next unmodified command from the history list will be automatically entered on the command line.
@@ -135,7 +135,7 @@ Enable some extra history recall functionality in console mode: after executing 
 </a>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper [options] {filename}
+mathpiper [options] {filename}
 </pre></tr>
 </table>
 Reads and executes commands in the filename and exits. Equivalent to <b><tt>Load()</tt></b>.
@@ -144,7 +144,7 @@ Reads and executes commands in the filename and exits. Equivalent to <b><tt>Load
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper -v
+mathpiper -v
 </pre></tr>
 </table>
 Prints version information and exits.
@@ -154,47 +154,47 @@ Prints version information and exits.
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper -d
+mathpiper -d
 </pre></tr>
 </table>
-Prints the path to the <b><tt>Piper</tt></b> default library directory (this information is compiled into the <b><tt>Piper</tt></b> executable) and exits.
+Prints the path to the <b><tt>MathPiper</tt></b> default library directory (this information is compiled into the <b><tt>MathPiper</tt></b> executable) and exits.
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --patchload
+mathpiper --patchload
 </pre></tr>
 </table>
 Will load every file on the command line with the <b><tt>PatchLoad</tt></b> command instead of the normal <b><tt>Load</tt></b> command,
 This is useful for generating HTML pages for a
-web site using the <b><tt>Piper</tt></b> scripting language, much like you can do with
+web site using the <b><tt>MathPiper</tt></b> scripting language, much like you can do with
 the PHP scripting language.
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --init [file]
+mathpiper --init [file]
 </pre></tr>
 </table>
 Tells the system to load <b><tt>file</tt></b> as the initialization file. By default
-it loads the file <b><tt>piperinit.pi</tt></b> from the scripts directory. Thus for
-customization one has two options: write a <b><tt>~/.piperrc</tt></b> file
+it loads the file <b><tt>mathpiperinit.pi</tt></b> from the scripts directory. Thus for
+customization one has two options: write a <b><tt>~/.mathpiperrc</tt></b> file
 with initialization code (as it is loaded after the initialization
 script is loaded), or write a custom initialization script that first
-uses <b><tt>piperinit.pi</tt></b> and adds some extra custom code.
+uses <b><tt>mathpiperinit.pi</tt></b> and adds some extra custom code.
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --read-eval-print [expression]
+mathpiper --read-eval-print [expression]
 </pre></tr>
 </table>
 Call <b><tt>expression</tt></b> for the read-eval-print loop. The default 
 read-eval-print loop is implemented in the initialization 
-script <b><tt>piperinit.pi</tt></b> as the function <b><tt>REP</tt></b>.
+script <b><tt>mathpiperinit.pi</tt></b> as the function <b><tt>REP</tt></b>.
 The default behavior is therefore equivalent to <b><tt>--read-eval-print</tt></b> <b><tt>REP()</tt></b>.
 
 
@@ -207,24 +207,24 @@ string to this command line option, as <b><tt>--read-eval-print ""</tt></b>.
 <p>
 An alternative way to replace the default read-eval-print
 loop is to write a custom initialization script that implements
-the read-eval-print loop function <b><tt>REP()</tt></b> instead of <b><tt>piperinit.pi</tt></b>.
+the read-eval-print loop function <b><tt>REP()</tt></b> instead of <b><tt>mathpiperinit.pi</tt></b>.
 
 
 <p>
-Care has to be taken with this option because a Piper session may
+Care has to be taken with this option because a MathPiper session may
 become unusable if the read-eval-print expression doesn't function correctly.
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --server &lt;port&gt;
+mathpiper --server &lt;port&gt;
 </pre></tr>
 </table>
 On some platforms server mode can be enabled at build time by passing the
-flag <b><tt>--enable-server</tt></b> to the <b><tt>./configure</tt></b> script. <b><tt>Piper</tt></b>
+flag <b><tt>--enable-server</tt></b> to the <b><tt>./configure</tt></b> script. <b><tt>MathPiper</tt></b>
 then allows you to pass the flag <b><tt>--server</tt></b> with a port number
-behind it, and the <b><tt>Piper</tt></b> executable will listen to the socket
+behind it, and the <b><tt>MathPiper</tt></b> executable will listen to the socket
 behind that port instead of waiting for user input on the console.
 
 
@@ -241,7 +241,7 @@ the server by calling
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --server 9734
+mathpiper --server 9734
 </pre></tr>
 </table>
 and then invoke <b><tt>telnet</tt></b> in another window, for example:
@@ -250,14 +250,14 @@ and then invoke <b><tt>telnet</tt></b> in another window, for example:
 telnet 127.0.0.1 9734
 </pre></tr>
 </table>
-Then type a line of Piper input and hit Enter.
-The result will be one line that you will get back from the Piper server.
+Then type a line of MathPiper input and hit Enter.
+The result will be one line that you will get back from the MathPiper server.
 
 
 <p>
 Some security measures and resource management measures have been 
 taken. No more than 10 connections can be alive at any time, 
-a calculation cannot take more than 30 seconds, and <b><tt>Piper</tt></b>
+a calculation cannot take more than 30 seconds, and <b><tt>MathPiper</tt></b>
 operates in the <i>secure</i> mode, much like calling an expression
 by passing it as an argument to the <b><tt>Secure</tt></b> function.
 This means that no system calls are allowed, and no writing to
@@ -276,30 +276,30 @@ started up for users (this has not been tried yet).
 
 
 <p>
-The flag --single-user-server can be passed on to instruct <b><tt>piper</tt></b>
+The flag --single-user-server can be passed on to instruct <b><tt>mathpiper</tt></b>
 to start in single-user mode. In this mode, unsecure operations can
 be performed (like reading from and writing to files), and the calculation
-may take more than 30 seconds. The <b><tt>piper</tt></b> process will automatically be
+may take more than 30 seconds. The <b><tt>mathpiper</tt></b> process will automatically be
 shut down when the last session is closed or when "Exit();" is sent.
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --rootdir [directory]
+mathpiper --rootdir [directory]
 </pre></tr>
 </table>
 Tells the system where to find the library scripts. Here, <b><tt>directory</tt></b> is a
 path that is passed to <b><tt>DefaultDirectory</tt></b>. It is also possible to give a
 list of directories, separated by a colon, e.g. 
-<b><tt>piper --rootdir scripts/:morescripts/</tt></b>.
+<b><tt>mathpiper --rootdir scripts/:morescripts/</tt></b>.
 Note that it is not necessary to append a trailing slash to the directory names.
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --archive [file]
+mathpiper --archive [file]
 </pre></tr>
 </table>
 Use a compressed archive instead of the script library.
@@ -310,13 +310,13 @@ Use a compressed archive instead of the script library.
 <a name="using compressed libraries">
 
 </a>
-<b><tt>Piper</tt></b> has an experimental system where files can be compressed into
+<b><tt>MathPiper</tt></b> has an experimental system where files can be compressed into
 one file, and accessed through this command line option. The advantages
 are:
 
 
 <p>
-<ul><li>Smaller disk/memory use (useful if </li><b><tt>Piper</tt></b> is used on small hand-held computers).
+<ul><li>Smaller disk/memory use (useful if </li><b><tt>MathPiper</tt></b> is used on small hand-held computers).
 <li>No problems with directory path separators: "</li><b><tt>path</tt></b>/<b><tt>file</tt></b>" will always
 resolve to the right file, no matter what platform (read: Windows) it runs on.
 <li>The start-up time of the program might improve a little, since 
@@ -336,7 +336,7 @@ with the command line option <b><tt>--enable-archive</tt></b>.
 
 <p>
 The result should be the archive file <b><tt>scripts.dat</tt></b>.
-Then launch <b><tt>Piper</tt></b> with the command line option <b><tt>--archive scripts.dat</tt></b>,
+Then launch <b><tt>MathPiper</tt></b> with the command line option <b><tt>--archive scripts.dat</tt></b>,
 with the file <b><tt>scripts.dat</tt></b> in the current directory.
 
 
@@ -348,7 +348,7 @@ platforms.
 
 
 <p>
-Alternatively, configure Piper with
+Alternatively, configure MathPiper with
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 ./configure --enable-archive
@@ -359,7 +359,7 @@ subdirectory.
 
 
 <p>
-When an archive is present, Piper will try to load it before it looks for scripts from the library directories.
+When an archive is present, MathPiper will try to load it before it looks for scripts from the library directories.
 Typing 
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
@@ -379,7 +379,7 @@ and comments) may be disabled by editing <b><tt>compressor.cpp</tt></b> (variabl
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --disable-compiled-plugins
+mathpiper --disable-compiled-plugins
 </pre></tr>
 </table>
 
@@ -393,10 +393,10 @@ in the end, or when the scripts have not been compiled yet.
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --stacksize &lt;size&gt;
+mathpiper --stacksize &lt;size&gt;
 </pre></tr>
 </table>
-Piper maintains an internal stack for arguments. For nested function calls, all arguments currently used are on this stack. The size of this stack is
+MathPiper maintains an internal stack for arguments. For nested function calls, all arguments currently used are on this stack. The size of this stack is
 50000 be  default. 
 
 
@@ -414,16 +414,16 @@ was introduced to protect the normal <b><tt>C++</tt></b> stack.
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-piper --execute &lt;expression&gt;
+mathpiper --execute &lt;expression&gt;
 </pre></tr>
 </table>
-This instructs Piper to run a certain expression, passed in over the command line, before dropping to the read-eval-print loop. This can be used to load a file before dropping to the command line without exiting (if there are files to run specified on the command line, Piper will exit after running these scripts). Alternatively, the expression can exit the interpreter immediately by calling <b><tt>Exit();</tt></b>. When used in combination with <b><tt>-pc</tt></b>, the Piper interpreter can be used to calculate something and print the result to standard output. Example:
+This instructs MathPiper to run a certain expression, passed in over the command line, before dropping to the read-eval-print loop. This can be used to load a file before dropping to the command line without exiting (if there are files to run specified on the command line, MathPiper will exit after running these scripts). Alternatively, the expression can exit the interpreter immediately by calling <b><tt>Exit();</tt></b>. When used in combination with <b><tt>-pc</tt></b>, the MathPiper interpreter can be used to calculate something and print the result to standard output. Example:
 
 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-user% ./piper -pc --execute '[Echo("answer ",D(x)Sin(x));Exit();]'
+user% ./mathpiper -pc --execute '[Echo("answer ",D(x)Sin(x));Exit();]'
 answer Cos(x) 
 user% 
 </pre></tr>

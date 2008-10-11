@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Glossary</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c8">
@@ -10,7 +10,7 @@
 <h1>
 8. Glossary
 </h1>
-This is a short glossary of terms frequently used in the <b><tt>Piper</tt></b> documentation.
+This is a short glossary of terms frequently used in the <b><tt>MathPiper</tt></b> documentation.
 
 <p> </p>
 <a name="glossary">
@@ -31,7 +31,7 @@ Arity of a function can be 0, 1, 2, ...
 
 
 <p>
-<b><tt>Piper</tt></b> allows to define functions with the same name but different arities, and different rules corresponding to these arities will be used.
+<b><tt>MathPiper</tt></b> allows to define functions with the same name but different arities, and different rules corresponding to these arities will be used.
 Also, it is possible to define a function with optional arguments, for example, <b><tt>Plot2D</tt></b> is one such function.
 Such functions can have any arity larger or equal to a certain minimum arity (the number of non-optional arguments).
 
@@ -56,7 +56,7 @@ Rule
 <h3>
 <hr>array
 </h3>
-An array is a container object that can hold a fixed number of other Piper objects in it.
+An array is a container object that can hold a fixed number of other MathPiper objects in it.
 Individual elements of an array can be accessed using the <b><tt>[]</tt></b> operation.
 Most list operations also work on arrays.
 
@@ -79,14 +79,14 @@ Array'Create
 <h3>
 <hr>atoms
 </h3>
-Atoms are basic Piper objects that are used to represent symbols, numbers, and function names.
+Atoms are basic MathPiper objects that are used to represent symbols, numbers, and function names.
 An atom has a string representation which is shown when it is displayed.
 For example, <b><tt>3.14159</tt></b>, <b><tt>x</tt></b>, <b><tt>A123</tt></b>, <b><tt>+</tt></b>, <b><tt>"good morning"</tt></b> are atoms.
 
 
 <p>
 Atoms can be of type string, number, or symbol. For example, <b><tt>y1</tt></b> is a symbolic atom, <b><tt>954</tt></b> is a number atom, and <b><tt>""</tt></b> is an (empty) string atom.
-Symbolic atoms are normally used in <b><tt>Piper</tt></b> to denote mathematical unknowns and function names. Number and string atoms are used to denote values.
+Symbolic atoms are normally used in <b><tt>MathPiper</tt></b> to denote mathematical unknowns and function names. Number and string atoms are used to denote values.
 
 
 <p>
@@ -111,7 +111,7 @@ String
 <h3>
 <hr>CAS
 </h3>
-Abbreviation for "computer algebra system". <b><tt>Piper</tt></b> is a CAS.
+Abbreviation for "computer algebra system". <b><tt>MathPiper</tt></b> is a CAS.
 
 
 <p>
@@ -122,7 +122,7 @@ Abbreviation for "computer algebra system". <b><tt>Piper</tt></b> is a CAS.
 <h3>
 <hr>constants
 </h3>
-Constants such as <b><tt>I</tt></b>, <b><tt>Pi</tt></b> or <b><tt>GoldenRatio</tt></b> are symbolic atoms that are specially interpreted by <b><tt>Piper</tt></b>.
+Constants such as <b><tt>I</tt></b>, <b><tt>Pi</tt></b> or <b><tt>GoldenRatio</tt></b> are symbolic atoms that are specially interpreted by <b><tt>MathPiper</tt></b>.
 For example, there are simplification rules that transform expressions such as <b><tt>Sin(Pi)</tt></b> into <b><tt>0</tt></b>.
 When requesting a numerical evaluation of a constant, the numerical value is given to the current value as set with <b><tt>N</tt></b>.
 
@@ -206,7 +206,7 @@ Plot2D
 A function is a symbolic atom that is bound to a rule or several rules.
 A function can have none, one, or more arguments.
 Functions can also have a variable number of arguments.
-Arguments of functions are arbitrary Piper objects.
+Arguments of functions are arbitrary MathPiper objects.
 
 
 <p>
@@ -227,7 +227,7 @@ The atom <b><tt>+</tt></b> is a function with special syntax because "<b><tt>+</
 <p>
 The rules to which <b><tt>+</tt></b> is bound are such that the expression <b><tt>Pi+0</tt></b> is evaluated to the symbolic atom <b><tt>Pi</tt></b>.
 The rules for <b><tt>Cos</tt></b> are such that the expression <b><tt>Cos(Pi)</tt></b> is evaluated to the numeric atom <b><tt>-1</tt></b>.
-The example <b><tt>Piper</tt></b> session is:
+The example <b><tt>MathPiper</tt></b> session is:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 In&gt; Cos(Pi+0)
@@ -266,18 +266,18 @@ Rule
 <h3>
 <hr>lists
 </h3>
-A list is a basic <b><tt>Piper</tt></b> container object. A list is written as e.g. <b><tt>{a, b, c}</tt></b> or <b><tt>{}</tt></b> (empty list).
+A list is a basic <b><tt>MathPiper</tt></b> container object. A list is written as e.g. <b><tt>{a, b, c}</tt></b> or <b><tt>{}</tt></b> (empty list).
 Individual elements of a list can be accessed using the <b><tt>[]</tt></b> operation.
 Lists can be concatenated, and individual elements can be removed or inserted.
 
 
 <p>
-Lists are ubiquitous in <b><tt>Piper</tt></b>.
+Lists are ubiquitous in <b><tt>MathPiper</tt></b>.
 Most data structures in the standard library is based on lists.
 
 
 <p>
-Lists are also used internally to represent <b><tt>Piper</tt></b> expressions.
+Lists are also used internally to represent <b><tt>MathPiper</tt></b> expressions.
 For example, the expression <b><tt>Cos(x+1)</tt></b> is represented internally as a nested list:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
@@ -380,7 +380,7 @@ Postfix
 </h3>
 Plotting is currently supported via the <b><tt>Plot2D</tt></b> and <b><tt>Plot3DS</tt></b> functions.
 Functions of one or two variables can be plotted on given intervals with a given precision.
-<b><tt>Piper</tt></b> generates all numerical data for plots.
+<b><tt>MathPiper</tt></b> generates all numerical data for plots.
 
 
 <p>
@@ -475,7 +475,7 @@ ExtraInfo'Set
 <h3>
 <hr>rules
 </h3>
-Rules are the principal mechanism of expression evaluation in <b><tt>Piper</tt></b>.
+Rules are the principal mechanism of expression evaluation in <b><tt>MathPiper</tt></b>.
 A rule specifies that a certain symbolic expression is to be replaced by another expression.
 If no rule that matches a given symbolic expression can be found, the expression is left unevaluated.
 This is usually the desired behavior for a CAS.
@@ -545,7 +545,7 @@ StringMid'Set
 <h3>
 <hr>syntax
 </h3>
-<b><tt>Piper</tt></b> uses an infix syntax similar to C or Fortran.
+<b><tt>MathPiper</tt></b> uses an infix syntax similar to C or Fortran.
 However, the syntax is entirely user-defined and very flexible.
 Infix, prefix, postfix operators can be defined, as well as "bodied" functions.
 This allows to write mathematical expressions more comfortably, for example,
@@ -588,7 +588,7 @@ OpPrecedence
 <hr>variables
 </h3>
 Variables are symbolic atoms bound to a "value".
-Value is any Piper object, such as an atom or a list.
+Value is any MathPiper object, such as an atom or a list.
 For example, after executing
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
@@ -619,7 +619,7 @@ Clear
 <h3>
 <hr>warranty
 </h3>
-<b><tt>Piper</tt></b> is Free Software ("logiciel libre") and comes with <b><tt>NO WARRANTY</tt></b>.
+<b><tt>MathPiper</tt></b> is Free Software ("logiciel libre") and comes with <b><tt>NO WARRANTY</tt></b>.
 See <a href="refprogchapter1.html#c1s2" target="Chapters">
 the appropriate section of the GPL
 </a>

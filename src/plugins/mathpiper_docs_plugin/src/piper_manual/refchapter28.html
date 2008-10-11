@@ -1,13 +1,13 @@
 <html>
 <head>
   <title>Input/output and plotting</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c28">
 
 </a>
-(directly go to documentation on : <a href="refchapter28.html#FullForm" target='Chapters' title="print an expression in LISP-format">FullForm</a>, <a href="refchapter28.html#Echo" target='Chapters' title="high-level printing routine">Echo</a>, <a href="refchapter28.html#PrettyForm" target='Chapters' title="print an expression nicely with ASCII art">PrettyForm</a>, <a href="refchapter28.html#EvalFormula" target='Chapters' title="print an evaluation nicely with ASCII art">EvalFormula</a>, <a href="refchapter28.html#TeXForm" target='Chapters' title="export expressions to <b>LaTeX</b>">TeXForm</a>, <a href="refchapter28.html#CForm" target='Chapters' title="export expression to C++ code">CForm</a>, <a href="refchapter28.html#IsCFormable" target='Chapters' title="check possibility to export expression to C++ code">IsCFormable</a>, <a href="refchapter28.html#Write" target='Chapters' title="low-level printing routine">Write</a>, <a href="refchapter28.html#WriteString" target='Chapters' title="low-level printing routine for strings">WriteString</a>, <a href="refchapter28.html#Space" target='Chapters' title="print one or more spaces">Space</a>, <a href="refchapter28.html#NewLine" target='Chapters' title="print one or more newline characters">NewLine</a>, <a href="refchapter28.html#FromFile" target='Chapters' title="connect current input to a file">FromFile</a>, <a href="refchapter28.html#FromString" target='Chapters' title="connect current input to a string">FromString</a>, <a href="refchapter28.html#ToFile" target='Chapters' title="connect current output to a file">ToFile</a>, <a href="refchapter28.html#ToString" target='Chapters' title="connect current output to a string">ToString</a>, <a href="refchapter28.html#Read" target='Chapters' title="read an expression from current input">Read</a>, <a href="refchapter28.html#ToStdout" target='Chapters' title="select initial output stream for output">ToStdout</a>, <a href="refchapter28.html#ReadCmdLineString" target='Chapters' title="read an expression from command line and return in string">ReadCmdLineString</a>, <a href="refchapter28.html#LispRead" target='Chapters' title="read expressions in LISP syntax">LispRead</a>, <a href="refchapter28.html#LispReadListed" target='Chapters' title="read expressions in LISP syntax">LispReadListed</a>, <a href="refchapter28.html#ReadToken" target='Chapters' title="read a token from current input">ReadToken</a>, <a href="refchapter28.html#Load" target='Chapters' title="evaluate all expressions in a file">Load</a>, <a href="refchapter28.html#Use" target='Chapters' title="load a file, but not twice">Use</a>, <a href="refchapter28.html#DefLoad" target='Chapters' title="load a <b><tt>.def</tt></b> file">DefLoad</a>, <a href="refchapter28.html#FindFile" target='Chapters' title="find a file in the current path">FindFile</a>, <a href="refchapter28.html#PatchLoad" target='Chapters' title="execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in file">PatchLoad</a>, <a href="refchapter28.html#Nl" target='Chapters' title="the newline character">Nl</a>, <a href="refchapter28.html#V, InVerboseMode" target='Chapters' title="set verbose output mode">V, InVerboseMode</a>, <a href="refchapter28.html#Plot2D" target='Chapters' title="adaptive two-dimensional plotting">Plot2D</a>, <a href="refchapter28.html#Plot3DS" target='Chapters' title="three-dimensional (surface) plotting">Plot3DS</a>, <a href="refchapter28.html#XmlExplodeTag" target='Chapters' title="convert XML strings to tag objects">XmlExplodeTag</a>, <a href="refchapter28.html#DefaultTokenizer" target='Chapters' title="select the default syntax tokenizer for parsing the input">DefaultTokenizer</a>, <a href="refchapter28.html#XmlTokenizer" target='Chapters' title="select an XML syntax tokenizer for parsing the input">XmlTokenizer</a>, <a href="refchapter28.html#OMForm" target='Chapters' title="convert Piper expression to OpenMath">OMForm</a>, <a href="refchapter28.html#OMRead" target='Chapters' title="convert expression from OpenMath to Piper expression">OMRead</a>, <a href="refchapter28.html#OMDef" target='Chapters' title="define translations from Piper to OpenMath and vice-versa.">OMDef</a>.
+(directly go to documentation on : <a href="refchapter28.html#FullForm" target='Chapters' title="print an expression in LISP-format">FullForm</a>, <a href="refchapter28.html#Echo" target='Chapters' title="high-level printing routine">Echo</a>, <a href="refchapter28.html#PrettyForm" target='Chapters' title="print an expression nicely with ASCII art">PrettyForm</a>, <a href="refchapter28.html#EvalFormula" target='Chapters' title="print an evaluation nicely with ASCII art">EvalFormula</a>, <a href="refchapter28.html#TeXForm" target='Chapters' title="export expressions to <b>LaTeX</b>">TeXForm</a>, <a href="refchapter28.html#CForm" target='Chapters' title="export expression to C++ code">CForm</a>, <a href="refchapter28.html#IsCFormable" target='Chapters' title="check possibility to export expression to C++ code">IsCFormable</a>, <a href="refchapter28.html#Write" target='Chapters' title="low-level printing routine">Write</a>, <a href="refchapter28.html#WriteString" target='Chapters' title="low-level printing routine for strings">WriteString</a>, <a href="refchapter28.html#Space" target='Chapters' title="print one or more spaces">Space</a>, <a href="refchapter28.html#NewLine" target='Chapters' title="print one or more newline characters">NewLine</a>, <a href="refchapter28.html#FromFile" target='Chapters' title="connect current input to a file">FromFile</a>, <a href="refchapter28.html#FromString" target='Chapters' title="connect current input to a string">FromString</a>, <a href="refchapter28.html#ToFile" target='Chapters' title="connect current output to a file">ToFile</a>, <a href="refchapter28.html#ToString" target='Chapters' title="connect current output to a string">ToString</a>, <a href="refchapter28.html#Read" target='Chapters' title="read an expression from current input">Read</a>, <a href="refchapter28.html#ToStdout" target='Chapters' title="select initial output stream for output">ToStdout</a>, <a href="refchapter28.html#ReadCmdLineString" target='Chapters' title="read an expression from command line and return in string">ReadCmdLineString</a>, <a href="refchapter28.html#LispRead" target='Chapters' title="read expressions in LISP syntax">LispRead</a>, <a href="refchapter28.html#LispReadListed" target='Chapters' title="read expressions in LISP syntax">LispReadListed</a>, <a href="refchapter28.html#ReadToken" target='Chapters' title="read a token from current input">ReadToken</a>, <a href="refchapter28.html#Load" target='Chapters' title="evaluate all expressions in a file">Load</a>, <a href="refchapter28.html#Use" target='Chapters' title="load a file, but not twice">Use</a>, <a href="refchapter28.html#DefLoad" target='Chapters' title="load a <b><tt>.def</tt></b> file">DefLoad</a>, <a href="refchapter28.html#FindFile" target='Chapters' title="find a file in the current path">FindFile</a>, <a href="refchapter28.html#PatchLoad" target='Chapters' title="execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in file">PatchLoad</a>, <a href="refchapter28.html#Nl" target='Chapters' title="the newline character">Nl</a>, <a href="refchapter28.html#V, InVerboseMode" target='Chapters' title="set verbose output mode">V, InVerboseMode</a>, <a href="refchapter28.html#Plot2D" target='Chapters' title="adaptive two-dimensional plotting">Plot2D</a>, <a href="refchapter28.html#Plot3DS" target='Chapters' title="three-dimensional (surface) plotting">Plot3DS</a>, <a href="refchapter28.html#XmlExplodeTag" target='Chapters' title="convert XML strings to tag objects">XmlExplodeTag</a>, <a href="refchapter28.html#DefaultTokenizer" target='Chapters' title="select the default syntax tokenizer for parsing the input">DefaultTokenizer</a>, <a href="refchapter28.html#XmlTokenizer" target='Chapters' title="select an XML syntax tokenizer for parsing the input">XmlTokenizer</a>, <a href="refchapter28.html#OMForm" target='Chapters' title="convert MathPiper expression to OpenMath">OMForm</a>, <a href="refchapter28.html#OMRead" target='Chapters' title="convert expression from OpenMath to MathPiper expression">OMRead</a>, <a href="refchapter28.html#OMDef" target='Chapters' title="define translations from MathPiper to OpenMath and vice-versa.">OMDef</a>.
 )<h1>
 28. Input/output and plotting
 </h1>
@@ -155,16 +155,16 @@ which simply read a specified file.
 <td>select an XML syntax tokenizer for parsing the input</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refchapter28.html#OMForm" target='Chapters' title="convert Piper expression to OpenMath">OMForm</a></td>
-<td>convert Piper expression to OpenMath</td>
+<td><a href="refchapter28.html#OMForm" target='Chapters' title="convert MathPiper expression to OpenMath">OMForm</a></td>
+<td>convert MathPiper expression to OpenMath</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refchapter28.html#OMRead" target='Chapters' title="convert expression from OpenMath to Piper expression">OMRead</a></td>
-<td>convert expression from OpenMath to Piper expression</td>
+<td><a href="refchapter28.html#OMRead" target='Chapters' title="convert expression from OpenMath to MathPiper expression">OMRead</a></td>
+<td>convert expression from OpenMath to MathPiper expression</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refchapter28.html#OMDef" target='Chapters' title="define translations from Piper to OpenMath and vice-versa.">OMDef</a></td>
-<td>define translations from Piper to OpenMath and vice-versa.</td>
+<td><a href="refchapter28.html#OMDef" target='Chapters' title="define translations from MathPiper to OpenMath and vice-versa.">OMDef</a></td>
+<td>define translations from MathPiper to OpenMath and vice-versa.</td>
 </tr>
 </table></center>
 
@@ -526,7 +526,7 @@ Parameters:
 <h5>
 Description:
 </h5>
-<b><tt>TeXForm</tt></b> returns a string containing a <b> LaTeX</b> representation of the Piper expression <b><tt>expr</tt></b>. Currently the exporter handles most expression types but not all.
+<b><tt>TeXForm</tt></b> returns a string containing a <b> LaTeX</b> representation of the MathPiper expression <b><tt>expr</tt></b>. Currently the exporter handles most expression types but not all.
 
 
 <p>
@@ -583,7 +583,7 @@ Parameters:
 <h5>
 Description:
 </h5>
-<b><tt>CForm</tt></b> returns a string containing C++ code that attempts to implement the Piper expression <b><tt>expr</tt></b>. Currently the exporter handles most expression types but not all.
+<b><tt>CForm</tt></b> returns a string containing C++ code that attempts to implement the MathPiper expression <b><tt>expr</tt></b>. Currently the exporter handles most expression types but not all.
 
 
 <p>
@@ -648,13 +648,13 @@ Parameters:
 <h5>
 Description:
 </h5>
-<b><tt>IsCFormable</tt></b> returns <b><tt>True</tt></b> if the Piper expression <b><tt>expr</tt></b> can be exported
+<b><tt>IsCFormable</tt></b> returns <b><tt>True</tt></b> if the MathPiper expression <b><tt>expr</tt></b> can be exported
 into C++ code. This is a check whether the C++ exporter <b><tt>CForm</tt></b> can be safely
 used on the expression.
 
 
 <p>
-A Piper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. <b><tt>UnList</tt></b> cannot be exported). All variables and constants are considered exportable.
+A MathPiper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. <b><tt>UnList</tt></b> cannot be exported). All variables and constants are considered exportable.
 
 
 <p>
@@ -1638,17 +1638,17 @@ special token atom <b><tt>EndOfFile</tt></b> is returned.
 
 
 <p>
-The Piper expression <b><tt>a+b</tt></b> is written in the LISP syntax as <b><tt>(+ a b)</tt></b>. The advantage of this syntax is that it is
-less ambiguous than the infix operator grammar that Piper uses by
+The MathPiper expression <b><tt>a+b</tt></b> is written in the LISP syntax as <b><tt>(+ a b)</tt></b>. The advantage of this syntax is that it is
+less ambiguous than the infix operator grammar that MathPiper uses by
 default.
 
 
 <p>
 The function <b><tt>LispReadListed</tt></b> reads a LISP expression and returns
-it in a list, instead of the form usual to Piper (expressions).
+it in a list, instead of the form usual to MathPiper (expressions).
 The result can be thought of as applying <b><tt>Listify</tt></b> to <b><tt>LispRead</tt></b>.
 The function <b><tt>LispReadListed</tt></b> is more useful for reading arbitrary LISP expressions, because the 
-first object in a list can be itself a list (this is never the case for Piper expressions where the first object in a list is always a function atom).
+first object in a list can be itself a list (this is never the case for MathPiper expressions where the first object in a list is always a function atom).
 
 
 <p>
@@ -1716,7 +1716,7 @@ ReadToken()
 Description:
 </h5>
 Read a token from the current input, and return it unevaluated.
-The returned object is a Piper atom (not a string).
+The returned object is a MathPiper atom (not a string).
 When
 the end of an input file is encountered, the token atom <b><tt>EndOfFile</tt></b> is returned.
 
@@ -1731,7 +1731,7 @@ combination of the semantics of the tokens. Hence <b><tt>a := foo</tt></b> consi
 <p>
 The parsing of the string depends on the syntax of the language.
 The part of the kernel that does the parsing is the "tokenizer".
-Piper can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives <b><tt>DefaultTokenizer</tt></b> or <b><tt>XmlTokenizer</tt></b>.
+MathPiper can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives <b><tt>DefaultTokenizer</tt></b> or <b><tt>XmlTokenizer</tt></b>.
 Setting a tokenizer is a global action that affects all <b><tt>ReadToken</tt></b> calls.
 
 
@@ -1765,7 +1765,7 @@ Out&gt; -$;
 </pre></tr>
 </table>
 The result is an atom with the string representation <b><tt>-$</tt></b>.
-Piper assumes that <b><tt>-$</tt></b> is an operator symbol yet to be defined.
+MathPiper assumes that <b><tt>-$</tt></b> is an operator symbol yet to be defined.
 The "<b><tt>3</tt></b>" will be in the next token.
 (The results will be different if a non-default tokenizer is selected.)
 
@@ -2043,15 +2043,15 @@ Description:
 </h5>
 <b><tt>PatchLoad</tt></b> loads in a file and outputs the contents to the current
 output. The file can contain blocks delimited by <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b>
-(meaning "Piper Begin" and "Piper End"). The piece of text between
-such delimiters is treated as a separate file with Piper instructions,
+(meaning "MathPiper Begin" and "MathPiper End"). The piece of text between
+such delimiters is treated as a separate file with MathPiper instructions,
 which is then loaded and executed. All output of write statements
 in that block will be written to the same current output.
 
 
 <p>
 This is similar to the way PHP works. You can have a static text file
-with dynamic content generated by Piper.
+with dynamic content generated by MathPiper.
 
 
 <p>
@@ -2162,7 +2162,7 @@ Parameters:
 Description:
 </h5>
 The function <b><tt>V(expression)</tt></b> will evaluate the expression in 
-verbose mode. Various parts of Piper can show extra information
+verbose mode. Various parts of MathPiper can show extra information
 about the work done while doing a calculation when using <b><tt>V</tt></b>.
 
 
@@ -2270,7 +2270,7 @@ Output can be directed to a plotting program (the default is to use
 
 
 <p>
-The function parameter <b><tt>f(x)</tt></b> must evaluate to a Piper expression containing
+The function parameter <b><tt>f(x)</tt></b> must evaluate to a MathPiper expression containing
 at most one variable. (The variable does not have to be called <b><tt>x</tt></b>.)
 Also, <b><tt>N(f(x))</tt></b> must evaluate to a real (not complex) numerical value when given a numerical value of the argument <b><tt>x</tt></b>.
 If the function <b><tt>f(x)</tt></b> does not satisfy these requirements, an error is raised.
@@ -2295,7 +2295,7 @@ and other information is printed if <b><tt>InVerboseMode()</tt></b> returns <b><
 
 <p>
 The current algorithm uses Newton-Cotes quadratures and some heuristics for error estimation (see <a href="Algochapter3.html#c3s1" target="Chapters">
-The Piper book of algorithms, Chapter 3, Section 1
+The MathPiper book of algorithms, Chapter 3, Section 1
 </a>
 ).
 The initial grid of <b><tt>points+1</tt></b> points is refined between any grid points <b>a</b>, <b> b</b> if the integral
@@ -2427,7 +2427,7 @@ Output can be directed to a plotting program (the default is to use
 
 
 <p>
-The function parameter <b><tt>f(x,y)</tt></b> must evaluate to a Piper expression containing
+The function parameter <b><tt>f(x,y)</tt></b> must evaluate to a MathPiper expression containing
 at most two variables. (The variables do not have to be called <b><tt>x</tt></b> and <b><tt>y</tt></b>.)
 Also, <b><tt>N(f(x,y))</tt></b> must evaluate to a real (not complex) numerical value when given numerical values of the arguments <b><tt>x</tt></b>, <b><tt>y</tt></b>.
 If the function <b><tt>f(x,y)</tt></b> does not satisfy these requirements, an error is raised.
@@ -2452,7 +2452,7 @@ and other information is printed if <b><tt>InVerboseMode()</tt></b> returns <b><
 
 <p>
 The current algorithm uses Newton-Cotes cubatures and some heuristics for error estimation (see <a href="Algochapter3.html#c3s1" target="Chapters">
-The Piper book of algorithms, Chapter 3, Section 1
+The MathPiper book of algorithms, Chapter 3, Section 1
 </a>
 ).
 The initial rectangular grid of <b><tt>xpoints+1</tt></b>*<b><tt>ypoints+1</tt></b> points is refined within any rectangle where the integral
@@ -2585,7 +2585,7 @@ Parameters:
 Description:
 </h5>
 <b><tt>XmlExplodeTag</tt></b> parses the first XML token in <b><tt>xmltext</tt></b>
-and returns a Piper expression.
+and returns a MathPiper expression.
 
 
 <p>
@@ -2677,14 +2677,14 @@ XmlTokenizer()
 <h5>
 Description:
 </h5>
-A "tokenizer" is an internal routine in the kernel that parses the input into Piper expressions.
+A "tokenizer" is an internal routine in the kernel that parses the input into MathPiper expressions.
 This affects all input typed in by a user at the prompt and also the input redirected from files or strings using <b><tt>FromFile</tt></b> and <b><tt>FromString</tt></b> and read using <b><tt>Read</tt></b> or <b><tt>ReadToken</tt></b>.
 
 
 <p>
-The Piper environment currently supports some experimental tokenizers for 
+The MathPiper environment currently supports some experimental tokenizers for 
 various syntaxes. <b><tt>DefaultTokenizer</tt></b> switches to the tokenizer used for
-default Piper syntax. <b><tt>XmlTokenizer</tt></b> switches to an XML syntax.
+default MathPiper syntax. <b><tt>XmlTokenizer</tt></b> switches to an XML syntax.
 Note that setting the tokenizer is a global side effect.
 One typically needs
 to switch back to the default tokenizer when finished reading the special syntax.
@@ -2703,7 +2703,7 @@ or else the user will be unable to continue the session
 When reading XML syntax, the supported formats are the same as those of <b><tt>XmlExplodeTag</tt></b>.
 The parser does not validate anything in the XML input.
 After an XML token has been read in, it can be converted into an
-Piper expression with <b><tt>XmlExplodeTag</tt></b>.
+MathPiper expression with <b><tt>XmlExplodeTag</tt></b>.
 Note that when reading XML, any plain text between tags is returned as one token.
 Any malformed XML will be treated as plain text.
 
@@ -2759,7 +2759,7 @@ FromString
 
 </a>
 <h3>
-<hr>OMForm -- convert Piper expression to OpenMath
+<hr>OMForm -- convert MathPiper expression to OpenMath
 </h3>
 <a name="OMRead">
 
@@ -2768,7 +2768,7 @@ FromString
 
 </a>
 <h3>
-<hr>OMRead -- convert expression from OpenMath to Piper expression
+<hr>OMRead -- convert expression from OpenMath to MathPiper expression
 </h3>
 <h5 align=right>Standard library</h5><h5>
 Calling format:
@@ -2796,14 +2796,14 @@ Description:
 </h5>
 <b><tt>OMForm</tt></b> prints an OpenMath representation of the input parameter <b><tt>expression</tt></b>
 to standard output. <b><tt>OMRead</tt></b> reads an OpenMath expression from standard
-input and returns a normal Piper expression that matches the input OpenMath
+input and returns a normal MathPiper expression that matches the input OpenMath
 expression.
 
 
 <p>
-If a Piper symbol does not have a mapping defined by <b><tt>OMDef</tt></b>, it is translated
-to and from OpenMath as the OpenMath symbol in the CD "piper" with the same
-name as it has in Piper.
+If a MathPiper symbol does not have a mapping defined by <b><tt>OMDef</tt></b>, it is translated
+to and from OpenMath as the OpenMath symbol in the CD "mathpiper" with the same
+name as it has in MathPiper.
 
 
 <p>
@@ -2841,7 +2841,7 @@ Out&gt; 2+Sin(a*3);
 In&gt; OMForm(NotDefinedInOpenMath(2+3))
 &lt;OMOBJ&gt;
   &lt;OMA&gt;
-    &lt;OMS cd="piper" name="NotDefinedInOpenMath"/&gt;
+    &lt;OMS cd="mathpiper" name="NotDefinedInOpenMath"/&gt;
     &lt;OMA&gt;
       &lt;OMS cd="arith1" name="plus"/&gt;
       &lt;OMI&gt;2&lt;/OMI&gt;
@@ -2875,16 +2875,16 @@ OMDef
 
 </a>
 <h3>
-<hr>OMDef -- define translations from Piper to OpenMath and vice-versa.
+<hr>OMDef -- define translations from MathPiper to OpenMath and vice-versa.
 </h3>
 <h5 align=right>Standard library</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-OMDef(piperForm, cd, name)
-OMDef(piperForm, cd, name, piperToOM)
-OMDef(piperForm, cd, name, piperToOM, omToPiper)
+OMDef(mathpiperForm, cd, name)
+OMDef(mathpiperForm, cd, name, mathpiperToOM)
+OMDef(mathpiperForm, cd, name, mathpiperToOM, omToMathPiper)
 </pre></tr>
 </table>
 
@@ -2894,7 +2894,7 @@ OMDef(piperForm, cd, name, piperToOM, omToPiper)
 <h5>
 Parameters:
 </h5>
-<b><tt>piperForm</tt></b> -- string with the name of a Piper symbol, or a Piper expression
+<b><tt>mathpiperForm</tt></b> -- string with the name of a MathPiper symbol, or a MathPiper expression
 
 
 <p>
@@ -2906,11 +2906,11 @@ Parameters:
 
 
 <p>
-<b><tt>piperToOM</tt></b> -- rule for translating an application of that symbol in Piper into an OpenMath expression
+<b><tt>mathpiperToOM</tt></b> -- rule for translating an application of that symbol in MathPiper into an OpenMath expression
 
 
 <p>
-<b><tt>omToPiper</tt></b> -- rule for translating an OpenMath expression into an application of this symbol in Piper
+<b><tt>omToMathPiper</tt></b> -- rule for translating an OpenMath expression into an application of this symbol in MathPiper
 
 
 <p>
@@ -2918,12 +2918,12 @@ Parameters:
 <h5>
 Description:
 </h5>
-<b><tt>OMDef</tt></b> defines the translation rules for symbols between the Piper
+<b><tt>OMDef</tt></b> defines the translation rules for symbols between the MathPiper
 representation and <b><tt>OpenMath</tt></b>.
-The first parameter, <b><tt>piperForm</tt></b>, can be a string or an expression. The
-difference is that when giving an expression only the <b><tt>omToPiper</tt></b> translation
+The first parameter, <b><tt>mathpiperForm</tt></b>, can be a string or an expression. The
+difference is that when giving an expression only the <b><tt>omToMathPiper</tt></b> translation
 is defined, and it uses the exact expression given. This is used for <b><tt>OpenMath</tt></b>
-symbols that must be translated into a whole subexpression in Piper, such
+symbols that must be translated into a whole subexpression in MathPiper, such
 as <b><tt>set1:emptyset</tt></b> which gets translated to an empty list as follows:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
@@ -2936,7 +2936,7 @@ Out&gt; True
 </pre></tr>
 </table>
 Otherwise, a symbol that is not inside an application (OMA) gets translated to
-the Piper atom with the given name:
+the MathPiper atom with the given name:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 In&gt; OMDef( "EmptySet", "set1","emptyset" )
@@ -2949,7 +2949,7 @@ Out&gt; EmptySet
 
 
 <p>
-The definitions for the symbols in the Piper
+The definitions for the symbols in the MathPiper
 library are in the <b><tt>*.rep</tt></b> script subdirectories. In those modules for which
 the mappings are defined, there is a file called <b><tt>om.pi</tt></b> that contains the
 <b><tt>OMDef</tt></b> calls. Those files are loaded in <b><tt>openmath.rep/om.pi</tt></b>, so any new
@@ -2958,7 +2958,7 @@ file must be added to the list there, at the end of the file.
 
 <p>
 A rule is represented as a list of expressions. Since both OM and
-Piper expressions are actually lists, the syntax is the same in both
+MathPiper expressions are actually lists, the syntax is the same in both
 directions. There are two template forms that are expanded before the
 translation:
 
@@ -2985,15 +2985,15 @@ They can appear anywhere in the rule as expressions or subexpressions.
 <p>
 Finally, several alternative rules can be specified by joining them with
 the <b><tt>|</tt></b> symbol, and each of them can be annotated with a post-predicate
-applied with the underscore <b><tt>_</tt></b> symbol, in the style of Piper' simplification
+applied with the underscore <b><tt>_</tt></b> symbol, in the style of MathPiper' simplification
 rules. Only the first alternative rule that matches is applied, so the more
 specific rules must be written first.
 
 
 <p>
 There are special symbols recognized by <b><tt>OMForm</tt></b> to output <b><tt>OpenMath</tt></b>
-constructs that have no specific parallel in Piper, such as an OpenMath
-symbol having a <b><tt>CD</tt></b> and <b><tt>name</tt></b>: Piper symbols have only a name.
+constructs that have no specific parallel in MathPiper, such as an OpenMath
+symbol having a <b><tt>CD</tt></b> and <b><tt>name</tt></b>: MathPiper symbols have only a name.
 Those special symbols are:
 
 
@@ -3006,9 +3006,9 @@ Those special symbols are:
 </ul>
 
 <p>
-When translating from OpenMath to Piper, we just store unknown symbols as
+When translating from OpenMath to MathPiper, we just store unknown symbols as
 <b><tt>OMS("cd", "name")</tt></b>. This way we don't have to bother defining bogus symbols
-for concepts that Piper does not handle, and we can evaluate expressions that
+for concepts that MathPiper does not handle, and we can evaluate expressions that
 contain them.
 
 

@@ -1,27 +1,27 @@
 <html>
 <head>
   <title>Startup configuration</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c4">
 
 </a>
-(directly go to documentation on : <a href="introchapter4.html#DefaultDirectory" target='Chapters' title="add directory to path for Piper scripts">DefaultDirectory</a>, <a href="introchapter4.html#PrettyPrinter'Set" target='Chapters' title="set routine to use as pretty-printer">PrettyPrinter'Set</a>, <a href="introchapter4.html#PrettyPrinter'Get" target='Chapters' title="get routine to use as pretty-printer">PrettyPrinter'Get</a>, <a href="introchapter4.html#PrettyReader'Set" target='Chapters' title="set routine to use as pretty-reader">PrettyReader'Set</a>, <a href="introchapter4.html#PrettyReader'Get" target='Chapters' title="get routine that is currently used as pretty-reader">PrettyReader'Get</a>, <a href="introchapter4.html#MaxEvalDepth" target='Chapters' title="set depth of recursion stack">MaxEvalDepth</a>, <a href="introchapter4.html#HistorySize" target='Chapters' title="set size of history file">HistorySize</a>.
+(directly go to documentation on : <a href="introchapter4.html#DefaultDirectory" target='Chapters' title="add directory to path for MathPiper scripts">DefaultDirectory</a>, <a href="introchapter4.html#PrettyPrinter'Set" target='Chapters' title="set routine to use as pretty-printer">PrettyPrinter'Set</a>, <a href="introchapter4.html#PrettyPrinter'Get" target='Chapters' title="get routine to use as pretty-printer">PrettyPrinter'Get</a>, <a href="introchapter4.html#PrettyReader'Set" target='Chapters' title="set routine to use as pretty-reader">PrettyReader'Set</a>, <a href="introchapter4.html#PrettyReader'Get" target='Chapters' title="get routine that is currently used as pretty-reader">PrettyReader'Get</a>, <a href="introchapter4.html#MaxEvalDepth" target='Chapters' title="set depth of recursion stack">MaxEvalDepth</a>, <a href="introchapter4.html#HistorySize" target='Chapters' title="set size of history file">HistorySize</a>.
 )<h1>
 4. Startup configuration
 </h1>
 
-Piper allows you to configure a few things at startup. The file
-<b><tt>~/.piperrc</tt></b> is written in the Piper language and
-will be executed when Piper is run. The
-following functions can be useful in the <b><tt>~/.piperrc</tt></b> file.
+MathPiper allows you to configure a few things at startup. The file
+<b><tt>~/.mathpiperrc</tt></b> is written in the MathPiper language and
+will be executed when MathPiper is run. The
+following functions can be useful in the <b><tt>~/.mathpiperrc</tt></b> file.
 
 <p> </p>
 <center><table>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="introchapter4.html#DefaultDirectory" target='Chapters' title="add directory to path for Piper scripts">DefaultDirectory</a></td>
-<td>add directory to path for Piper scripts</td>
+<td><a href="introchapter4.html#DefaultDirectory" target='Chapters' title="add directory to path for MathPiper scripts">DefaultDirectory</a></td>
+<td>add directory to path for MathPiper scripts</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
 <td><a href="introchapter4.html#PrettyPrinter'Set" target='Chapters' title="set routine to use as pretty-printer">PrettyPrinter'Set</a></td>
@@ -58,7 +58,7 @@ following functions can be useful in the <b><tt>~/.piperrc</tt></b> file.
 
 </a>
 <h3>
-<hr>DefaultDirectory -- add directory to path for Piper scripts
+<hr>DefaultDirectory -- add directory to path for MathPiper scripts
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
@@ -75,7 +75,7 @@ DefaultDirectory(path)
 <h5>
 Parameters:
 </h5>
-<b><tt>path</tt></b> -- a string containing a full path where piper script files reside
+<b><tt>path</tt></b> -- a string containing a full path where mathpiper script files reside
 
 
 <p>
@@ -83,7 +83,7 @@ Parameters:
 <h5>
 Description:
 </h5>
-When loading files, piper is also allowed to
+When loading files, mathpiper is also allowed to
 look in the folder "path". <b><tt>path</tt></b> will be prepended
 to the file name before trying to load the file.
 This means that "path" should end with a forward slash (under Unix-like
@@ -91,12 +91,12 @@ operating systems).
 
 
 <p>
-Piper first tries to load a file from the current
+MathPiper first tries to load a file from the current
 directory, and otherwise it tries to load from
 directories defined with this function, in the
 order they are defined. Note there will be at least one directory
 specified at start-up time, defined during compilation. This
-is the directory Piper searches for the initialization scripts
+is the directory MathPiper searches for the initialization scripts
 and standard scripts.
 
 
@@ -396,8 +396,8 @@ Parameters:
 <h5>
 Description:
 </h5>
-When exiting, piper saves the command line history to a
-file <b><tt>~/.piper_history</tt></b>. By default it will
+When exiting, mathpiper saves the command line history to a
+file <b><tt>~/.mathpiper_history</tt></b>. By default it will
 save the last 1024 lines. The default can be
 overridden with this function. Passing -1 tells the system to save <i>all</i>
 lines.

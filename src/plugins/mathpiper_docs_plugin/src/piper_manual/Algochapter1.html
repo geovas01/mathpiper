@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Symbolic algebra algorithms</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c1">
@@ -20,7 +20,7 @@
 <h3>
 <hr>The sparse tree data structure
 </h3>
-Piper has a sparse tree object for use as a storage for storing 
+MathPiper has a sparse tree object for use as a storage for storing 
 (key,value) pairs for which the following properties hold:
 
 
@@ -181,7 +181,7 @@ old value (or zero if the key didn't exist in the tree) before evaluating
 <hr>1.2 Implementation of multivariate polynomials
 </h2>
 This section describes the implementation of multivariate
-polynomials in Piper.
+polynomials in MathPiper.
 
 
 <p>
@@ -329,7 +329,7 @@ a*(b+c) := (a*b)+(a*c)
 
 
 <p>
-These are supported in the Piper system through a multiply-add operation:
+These are supported in the MathPiper system through a multiply-add operation:
 
 <p><center><b>muadd(f,t,g):=f+t*g.</b></center></p>
 
@@ -378,7 +378,7 @@ represents <b> 3*x*y^2</b>.
 
 
 <p>
-Piper stores multivariates internally as <b><tt>MultiNomial (vars, terms)</tt></b>,
+MathPiper stores multivariates internally as <b><tt>MultiNomial (vars, terms)</tt></b>,
 where <b><tt>vars</tt></b> is the ordered list of variables, and terms some 
 object storing all the <b><tt>(key, value)</tt></b> pairs representing the terms.
 Note we keep the storage vague: the <b><tt>terms</tt></b> placeholder is 
@@ -388,7 +388,7 @@ in more detail below).
 
 
 <p>
-For the current version, Piper uses the 'sparse tree' representation,
+For the current version, MathPiper uses the 'sparse tree' representation,
 which is a recursive sparse representation. 
 For example, for a variable set <b><tt>{x,y,z}</tt></b>, the 'terms' object
 contains a list of objects of form <b><tt>{deg,terms}</tt></b>, one for each degree <b><tt>deg</tt></b>
@@ -471,9 +471,9 @@ re-implemented if necessary. For instance, in case calculations need
 to be done for which dense representations are actually acceptable,
 one could write C++ implementing above-mentioned database
 structure, and then write a middle-level driver using the code.
-The driver can then be selected at startup. In the file 'piperinit.pi'
+The driver can then be selected at startup. In the file 'mathpiperinit.pi'
 the default driver is chosen, but this can be overridden in the 
-<b><tt>.piperrc</tt></b> file or some file that is loaded, or at the command line,
+<b><tt>.mathpiperrc</tt></b> file or some file that is loaded, or at the command line,
 as long as it is done before the multivariates module is loaded (which
 loads the selected driver). Driver selection is as simple as setting
 a global variable to contain a file name of the file implementing the
@@ -497,7 +497,7 @@ The choice was made for static configuration of the driver before
 the system starts up because it is expected that there will in 
 general be one best way of doing it, given a certain system with
 a certain set of libraries installed on the operating system,
-and for a specific version of Piper. The best version can then
+and for a specific version of MathPiper. The best version can then
 be selected at start up, as a configuration step. The advantage
 of static selection is that no overhead is imposed: there is no
 performance penalty for the abstraction layers between the three levels.
@@ -644,7 +644,7 @@ of simpler expressions.
 <h3>
 <hr>Integration tables
 </h3>
-For elementary functions, Piper uses integration tables. For instance,
+For elementary functions, MathPiper uses integration tables. For instance,
 the fact that the anti-derivative of <b>Cos(x)</b> is <b>Sin(x)</b> is
 declared in an integration table.
 
@@ -841,7 +841,7 @@ if the integral returns such.
 <h3>
 <hr>Transform tables
 </h3>
-For elementary functions, Piper uses transform tables. For instance,
+For elementary functions, MathPiper uses transform tables. For instance,
 the fact that the Laplace transform of <b>Cos(t)</b> is <b>s/(s^2+1)</b> is
 declared in a transform table.
 
@@ -1045,7 +1045,7 @@ polynomial <b> p[n]</b> will be a constant.
 
 
 <p>
-In Piper, the function <b><tt>SturmSequence(p)</tt></b>  returns the Sturm sequence of <b>p</b>,
+In MathPiper, the function <b><tt>SturmSequence(p)</tt></b>  returns the Sturm sequence of <b>p</b>,
 assuming <b> p</b> is a univariate polynomial in <b> x</b>, <b> p=p(x)</b>.
 
 
@@ -1179,7 +1179,7 @@ is a root, the new ranges should become (<b> a</b>,<b> c-M</b>) and (<b> c+M</b>
 
 
 <p>
-In Piper, <b><tt>MimimumBound(p)</tt></b> returns the lower bound described above,
+In MathPiper, <b><tt>MimimumBound(p)</tt></b> returns the lower bound described above,
 and <b><tt>MaximumBound(p)</tt></b> returns the upper bound on the roots in <b> p</b>.
 These bounds are returned as rational numbers.
 <b><tt>BoundRealRoots(p)</tt></b> returns a list with sublists with the bounds on
@@ -1235,7 +1235,7 @@ which is assumed by this method.
 
 
 <p>
-Piper finds the roots by first trying the secant method, starting
+MathPiper finds the roots by first trying the secant method, starting
 in the middle of the range, <b> c=(a+b)/2</b>. If this fails the bisection
 method is tried.
 

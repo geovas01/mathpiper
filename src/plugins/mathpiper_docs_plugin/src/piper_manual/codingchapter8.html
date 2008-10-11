@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Advanced example 2: implementing a non-commutative algebra</title>
-  <link rel="stylesheet" href="piper.css" TYPE="text/css" MEDIA="screen">
+  <link rel="stylesheet" href="mathpiper.css" TYPE="text/css" MEDIA="screen">
 </head>
 <body>
 <a name="c8">
@@ -11,7 +11,7 @@
 8. Advanced example 2: implementing a non-commutative algebra
 </h1>
 <p> </p>
-We need to understand how to simplify expressions in Piper, and the best way is to try writing our own algebraic expression handler. In this chapter we shall consider a simple implementation of a particular non-commutative algebra called the Heisenberg algebra. This algebra was introduced by Dirac to develop quantum field theory. We won't explain any physics here, but instead we shall to delve somewhat deeper into the workings of Piper.
+We need to understand how to simplify expressions in MathPiper, and the best way is to try writing our own algebraic expression handler. In this chapter we shall consider a simple implementation of a particular non-commutative algebra called the Heisenberg algebra. This algebra was introduced by Dirac to develop quantum field theory. We won't explain any physics here, but instead we shall to delve somewhat deeper into the workings of MathPiper.
 
 
 <p>
@@ -22,11 +22,11 @@ We need to understand how to simplify expressions in Piper, and the best way is 
 <h2>
 <hr>8.1 The problem
 </h2>
-Suppose we want to define special symbols <b>A(k)</b> and <b>B(k)</b> that we can multiply with each other or by a number, or add to each other, but not commute with each other, i.e. <b>A(k)*B(k)!=B(k)*A(k)</b>. Here <b>k</b> is merely a label to denote that <b> A(1)</b> and <b>A(2)</b> are two different objects. (In physics, these are called "creation" and "annihilation" operators for "bosonic quantum fields".) Piper already assumes that the usual multiplication operator "<b><tt>*</tt></b>" is commutative. Rather than trying to redefine <b><tt>*</tt></b>, we shall introduce a special multiplication sign "<b><tt>**</tt></b>" that we shall use with the objects <b>A(k)</b> and <b>B(k)</b>; between usual numbers this would be the same as normal multiplication. The symbols <b>A(k)</b>, <b>B(k)</b> will never be evaluated to numbers, so an expression such as <b><tt>2 ** A(k1) ** B(k2) ** A(k3)</tt></b> is just going to remain like that. (In physics, commuting numbers are called "classical quantities" or "c-numbers" while non-commuting objects made up of A(k) and B(k) are called "quantum quantities" or "q-numbers".) There are certain commutation relations for these symbols: the <b>A</b>'s commute between themselves, <b> A(k)*A(l)=A(l)*A(k)</b>, and also the <b>B</b>'s, <b> B(k)*B(l)=B(l)*B(k)</b>. However, the <b>A</b>'s don't commute with the <b> B</b>'s: <b> A(k)*B(l)-B(l)*A(k)=delta(k-l)</b>. Here the "<b><tt>delta</tt></b>" is a "classical" function (called the "Dirac <b>delta</b>-function") but we aren't going to do anything about it, just leave it symbolic.
+Suppose we want to define special symbols <b>A(k)</b> and <b>B(k)</b> that we can multiply with each other or by a number, or add to each other, but not commute with each other, i.e. <b>A(k)*B(k)!=B(k)*A(k)</b>. Here <b>k</b> is merely a label to denote that <b> A(1)</b> and <b>A(2)</b> are two different objects. (In physics, these are called "creation" and "annihilation" operators for "bosonic quantum fields".) MathPiper already assumes that the usual multiplication operator "<b><tt>*</tt></b>" is commutative. Rather than trying to redefine <b><tt>*</tt></b>, we shall introduce a special multiplication sign "<b><tt>**</tt></b>" that we shall use with the objects <b>A(k)</b> and <b>B(k)</b>; between usual numbers this would be the same as normal multiplication. The symbols <b>A(k)</b>, <b>B(k)</b> will never be evaluated to numbers, so an expression such as <b><tt>2 ** A(k1) ** B(k2) ** A(k3)</tt></b> is just going to remain like that. (In physics, commuting numbers are called "classical quantities" or "c-numbers" while non-commuting objects made up of A(k) and B(k) are called "quantum quantities" or "q-numbers".) There are certain commutation relations for these symbols: the <b>A</b>'s commute between themselves, <b> A(k)*A(l)=A(l)*A(k)</b>, and also the <b>B</b>'s, <b> B(k)*B(l)=B(l)*B(k)</b>. However, the <b>A</b>'s don't commute with the <b> B</b>'s: <b> A(k)*B(l)-B(l)*A(k)=delta(k-l)</b>. Here the "<b><tt>delta</tt></b>" is a "classical" function (called the "Dirac <b>delta</b>-function") but we aren't going to do anything about it, just leave it symbolic.
 
 
 <p>
-We would like to be able to manipulate such expressions, expanding brackets, collecting similar terms and so on, while taking care to always keep the non-commuting terms in the correct order. For example, we want Piper to automatically simplify <b><tt>2**B(k1)**3**A(k2)</tt></b> to <b><tt>6**B(k1)**A(k2)</tt></b>. Our goal is not to implement a general package to tackle complicated non-commutative operations; we merely want to teach Piper about these two kinds of "quantum objects" called <b><tt>A(k)</tt></b> and <b><tt>B(k)</tt></b>, and we shall define one function that a physicist would need to apply to these objects. This function applied to any given expression containing <b> A</b>'s and <b> B</b>'s will compute something called a "vacuum expectation value", or "VEV" for short, of that expression. This function has "classical", i.e. commuting, values and is defined as follows: VEV of a commuting number is just that number, e.g. <b> VEV(4)=4</b>, <b> VEV(delta(k-l))=delta(k-l)</b>; and <b>VEV(X*A(k))=0</b>, <b> VEV(B(k)*X)=0</b> where <b> X</b> is any expression, commutative or not. It is straightforward to compute VEV of something that contains <b> A</b>'s and <b> B</b>'s: one just uses the commutation relations to move all <b> B</b>'s to the left of all <b> A</b>'s, and then applies the definition of VEV, simply throwing out any remaining q-numbers.
+We would like to be able to manipulate such expressions, expanding brackets, collecting similar terms and so on, while taking care to always keep the non-commuting terms in the correct order. For example, we want MathPiper to automatically simplify <b><tt>2**B(k1)**3**A(k2)</tt></b> to <b><tt>6**B(k1)**A(k2)</tt></b>. Our goal is not to implement a general package to tackle complicated non-commutative operations; we merely want to teach MathPiper about these two kinds of "quantum objects" called <b><tt>A(k)</tt></b> and <b><tt>B(k)</tt></b>, and we shall define one function that a physicist would need to apply to these objects. This function applied to any given expression containing <b> A</b>'s and <b> B</b>'s will compute something called a "vacuum expectation value", or "VEV" for short, of that expression. This function has "classical", i.e. commuting, values and is defined as follows: VEV of a commuting number is just that number, e.g. <b> VEV(4)=4</b>, <b> VEV(delta(k-l))=delta(k-l)</b>; and <b>VEV(X*A(k))=0</b>, <b> VEV(B(k)*X)=0</b> where <b> X</b> is any expression, commutative or not. It is straightforward to compute VEV of something that contains <b> A</b>'s and <b> B</b>'s: one just uses the commutation relations to move all <b> B</b>'s to the left of all <b> A</b>'s, and then applies the definition of VEV, simply throwing out any remaining q-numbers.
 
 
 <p>
@@ -37,7 +37,7 @@ We would like to be able to manipulate such expressions, expanding brackets, col
 <h2>
 <hr>8.2 First steps
 </h2>
-The first thing that comes to mind when we start implementing this in Piper is to write a rule such as
+The first thing that comes to mind when we start implementing this in MathPiper is to write a rule such as
 
 
 <p>
@@ -51,7 +51,7 @@ The first thing that comes to mind when we start implementing this in Piper is t
 
 <p>
 However, this is not going to work right away. In fact this will
-immediately give a syntax error because Piper doesn't know yet about the
+immediately give a syntax error because MathPiper doesn't know yet about the
 new multiplication <b><tt>**</tt></b>. Let's fix that: we shall define a
 new infix operator with the same precedence as multiplication.
 
@@ -78,7 +78,7 @@ In&gt; A(x)**B(y)
 Out&gt; B(l)**A(k)+delta(k-l);
 </pre></tr>
 </table>
-Piper doesn't grok that <b><tt>delta(k)</tt></b>, <b><tt>A(k)</tt></b> and <b><tt>B(k)</tt></b> are functions. This can be fixed by declaring
+MathPiper doesn't grok that <b><tt>delta(k)</tt></b>, <b><tt>A(k)</tt></b> and <b><tt>B(k)</tt></b> are functions. This can be fixed by declaring
 
 
 <p>
@@ -123,12 +123,12 @@ In&gt; (A(x)+B(x))**2**B(y)*3
 Out&gt; 3*(A(x)+B(x))**2**B(y);
 </pre></tr>
 </table>
-After we gave it slightly more complicated input, Piper didn't fully
+After we gave it slightly more complicated input, MathPiper didn't fully
 evaluate expressions containing the new <b><tt>**</tt></b> operation: it didn't
 move constants <b><tt>2</tt></b> and <b><tt>3</tt></b> together, didn't expand brackets, and, somewhat
 mysteriously, it didn't apply the rule in the first line above -- although
 it seems like it should have. Before we hurry to fix these things, let's
-think some more about how Piper represents our new expressions. Let's start
+think some more about how MathPiper represents our new expressions. Let's start
 with the first line above:
 
 
@@ -140,7 +140,7 @@ In&gt; FullForm( A(k)*2**B(l) )
 Out&gt; 2*A(k)**B(l);
 </pre></tr>
 </table>
-What looks like <b><tt>2*A(k)**B(l)</tt></b> on the screen is really <b><tt>(2*A(k)) ** B(l)</tt></b> inside Piper. In other words, the commutation rule didn't apply because there is no subexpression of the form <b><tt>A(...)**B(...)</tt></b> in this expression. It seems that we would need many rules to exhaust all ways in which the adjacent factors <b><tt>A(k)</tt></b> and <b><tt>B(l)</tt></b> might be divided between subexpressions. We run into this difficulty because Piper represents all expressions as trees of functions and leaves the semantics to us. To Piper, the "<b><tt>*</tt></b>" operator is fundamentally no different from any other function, so <b><tt>(a*b)*c</tt></b> and <b><tt>a*(b*c)</tt></b> are two basically different expressions. It would take a considerable amount of work to teach Piper to recognize all such cases as identical. This is a design choice and it was made by the author of Piper to achieve greater flexibility and extensibility.
+What looks like <b><tt>2*A(k)**B(l)</tt></b> on the screen is really <b><tt>(2*A(k)) ** B(l)</tt></b> inside MathPiper. In other words, the commutation rule didn't apply because there is no subexpression of the form <b><tt>A(...)**B(...)</tt></b> in this expression. It seems that we would need many rules to exhaust all ways in which the adjacent factors <b><tt>A(k)</tt></b> and <b><tt>B(l)</tt></b> might be divided between subexpressions. We run into this difficulty because MathPiper represents all expressions as trees of functions and leaves the semantics to us. To MathPiper, the "<b><tt>*</tt></b>" operator is fundamentally no different from any other function, so <b><tt>(a*b)*c</tt></b> and <b><tt>a*(b*c)</tt></b> are two basically different expressions. It would take a considerable amount of work to teach MathPiper to recognize all such cases as identical. This is a design choice and it was made by the author of MathPiper to achieve greater flexibility and extensibility.
 
 
 <p>
@@ -165,12 +165,12 @@ right, however this does not seem to be an important choice.) On the screen
 this will look simply <b><tt>y ** A(x) ** B(y)</tt></b> and
 <b><tt>x*y** B(x) ** B(y) ** A(z)</tt></b> because we have defined the
 precedence of the "**" operator to be the same as that of the normal
-multiplication, so Piper won't insert any more
+multiplication, so MathPiper won't insert any more
 parentheses.
 
 
 <p>
-This canonical form will allow Piper to apply all the usual rules on the commutative factor while cleanly separating all non-commutative parts for special treatment. Note that a commutative factor such as <b><tt>2*x</tt></b> will be multiplied by a single non-commutative piece with "<b><tt>**</tt></b>".
+This canonical form will allow MathPiper to apply all the usual rules on the commutative factor while cleanly separating all non-commutative parts for special treatment. Note that a commutative factor such as <b><tt>2*x</tt></b> will be multiplied by a single non-commutative piece with "<b><tt>**</tt></b>".
 
 
 <p>
@@ -267,7 +267,7 @@ Now we shall construct rules that implement reduction to the canonical form. The
 
 
 <p>
-After we execute this in Piper, all expressions involving additions and multiplications are automatically reduced to the canonical form. Extending these rules to subtractions and divisions is straightforward.
+After we execute this in MathPiper, all expressions involving additions and multiplications are automatically reduced to the canonical form. Extending these rules to subtractions and divisions is straightforward.
 
 
 <p>
@@ -312,7 +312,7 @@ But we still haven't implemented the commutation relations. It is perhaps not ne
 
 
 <p>
-These rules seem to be enough for our purposes. Note that the commutation relation is implemented by the first two rules; the first one is used by the second one which applies when interchanging factors A and B separated by brackets. This inconvenience of having to define several rules for what seems to be "one thing to do" is a consequence of tree-like structure of expressions in Piper. It is perhaps the price we have to pay for conceptual simplicity of the design.
+These rules seem to be enough for our purposes. Note that the commutation relation is implemented by the first two rules; the first one is used by the second one which applies when interchanging factors A and B separated by brackets. This inconvenience of having to define several rules for what seems to be "one thing to do" is a consequence of tree-like structure of expressions in MathPiper. It is perhaps the price we have to pay for conceptual simplicity of the design.
 
 
 <p>
@@ -417,7 +417,7 @@ Out&gt; delta(l-y)*delta(k-x)+delta(l-x)
   *delta(k-y);
 </pre></tr>
 </table>
-Things now work as expected. Piper's <b><tt>Simplify()</tt></b> facilities can be used on the result of <b><tt>VEV()</tt></b> if it needs simplification.
+Things now work as expected. MathPiper's <b><tt>Simplify()</tt></b> facilities can be used on the result of <b><tt>VEV()</tt></b> if it needs simplification.
 
 
 <p>
