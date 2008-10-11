@@ -1,5 +1,6 @@
 package org.mathrider.piper_me;
 
+import org.mathrider.piper_me.xpiper.arithmetic.BigNumber;
 
 /// Class for matching an expression to a given number.
 class MatchNumber extends PiperParamMatcherBase

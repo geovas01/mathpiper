@@ -1,5 +1,6 @@
 package org.mathrider.piper_me;
 
+import org.mathrider.piper_me.xpiper.arithmetic.BigNumber;
 
 /** class LispObject is the base object class that can be put in
  *  linked lists. It either has a pointer to a string, obtained through

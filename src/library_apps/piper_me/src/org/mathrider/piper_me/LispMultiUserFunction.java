@@ -84,7 +84,7 @@ class LispMultiUserFunction
 
 
     /// Set of LispArityUserFunction's provided by this LispMultiUserFunction.
-    ExtendibleArray iFunctions = new ExtendibleArray();//<LispArityUserFunction*>
+    ExtendibleArray<LispArityUserFunction> iFunctions = new ExtendibleArray<LispArityUserFunction>();//<LispArityUserFunction*>
 
     /// File to read for the definition of this function.
     LispDefFile iFileToOpen;

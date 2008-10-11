@@ -341,12 +341,12 @@ class PiperPatternPredicateBase
   }
 
   /// List of parameter matches, one for every parameter.
-  protected ExtendibleArray iParamMatchers = new ExtendibleArray(); //CDeletingArrayGrower<YacasParamMatcherBase*> iParamMatchers;
+  protected ExtendibleArray<PiperParamMatcherBase> iParamMatchers = new ExtendibleArray<PiperParamMatcherBase>(); //CDeletingArrayGrower<YacasParamMatcherBase*> iParamMatchers;
 
   /// List of variables appearing in the pattern.
-  protected ExtendibleArray iVariables = new ExtendibleArray(); //CArrayGrower<String>
+  protected ExtendibleArray<String> iVariables = new ExtendibleArray<String>(); //CArrayGrower<String>
 
   /// List of predicates which need to be true for a match.
-  protected ExtendibleArray iPredicates = new ExtendibleArray(); //CDeletingArrayGrower<LispPtr[] >
+  protected ExtendibleArray<LispPtr> iPredicates = new ExtendibleArray<LispPtr>(); //CDeletingArrayGrower<LispPtr[] >
 }
 

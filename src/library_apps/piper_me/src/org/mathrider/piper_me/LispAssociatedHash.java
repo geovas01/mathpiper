@@ -39,6 +39,6 @@ class LispAssociatedHash
     if (iHashtable.containsKey(aString))
     iHashtable.remove(aString);
   }
-  java.util.Hashtable iHashtable = new java.util.Hashtable();
+  java.util.Hashtable<String, Object> iHashtable = new java.util.Hashtable<String, Object>();
 }
 

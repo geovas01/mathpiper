@@ -20,3 +20,4 @@ do
 done
 latex2html implementation-html -image_type png -dir implementation-html -mkdir
 doxygen doxygen-config.Doxyfile
+dvipdf implementation.dvi

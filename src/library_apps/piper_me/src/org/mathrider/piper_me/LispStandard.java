@@ -1,5 +1,6 @@
 package org.mathrider.piper_me;
 
+import org.mathrider.piper_me.xpiper.arithmetic.BigNumber;
 
 public class LispStandard
 {
@@ -40,8 +41,6 @@ public class LispStandard
     if (ptr.charAt(pos+index) == 'e' || ptr.charAt(pos+index) == 'E')
     {
         if (!aAllowFloat)
-            return false;
-        if (!BigNumber.NumericSupportForMantissa())
             return false;
         index++;
         if (pos+index == ptr.length())

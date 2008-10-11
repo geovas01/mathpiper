@@ -55,6 +55,14 @@
 
 \chapter{Piper-B for J2ME}
 
+\section{TODO next}
+\begin{enumerate}
+\item Turn test scripts into TestNG unit tests.
+\item Redo exception handling in numbers.
+\item Implement number hierarchy.
+\item Replace BigInteger by own implementation for J2ME.
+\end{enumerate}
+
 \section{Introduction}
 
 Piper-B for J2ME is a port of Yacas/Piper to the J2ME environment and this way
@@ -108,9 +116,10 @@ new parts for Piper-ME will be found here. We describe them here, too.
 \input{src4tex/CoreList.java}
 
 \section{Basic Arithmetic}
-
+\input{src4tex/BigNumber.java}
+We describe now the concepts and classes used for Piper's implementation
+of big numbers.
 \input{src4tex/DMath.java}
 \input{src4tex/Fourier.java}
-\input{src4tex/BigNumber.java}
 
 \end{document}
