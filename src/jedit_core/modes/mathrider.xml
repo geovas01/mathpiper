@@ -99,8 +99,8 @@
 
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
-			<BEGIN>%piper[0-9a-zA-Z,="._() ]*</BEGIN>
-			<END>%/piper</END>
+			<BEGIN>%mathpiper[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/mathpiper</END>
 		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathrider::MAIN">

@@ -17,7 +17,7 @@
  */ //}}}
 
 
-void insert_group_fold()
+void insert_mathpiper_fold()
 {
 	
 	//Test for read only files.
@@ -39,11 +39,11 @@ void insert_group_fold()
 	
 	
 	indent = textArea.getLineText(line);
-	text =  indent + "%piper,description=\"\"\n" + indent + "\n" + indent + "%/piper\n\n";
+	text =  indent + "%mathpiper,description=\"\"\n" + indent + "\n" + indent + "%/mathpiper\n\n";
 
 	buffer.insertIndented(offset, text);
 	
-    textArea.setCaretPosition(offset + indent.length() + 20);
+    textArea.setCaretPosition(offset + indent.length() + 24);
 }
 
-insert_group_fold();
+insert_mathpiper_fold();

@@ -58,7 +58,7 @@ buffer.save(view,null);
 path = buffer.getPath();
 
 
-if(path.endsWith(".pi")|| path.endsWith(".PI") ){
+if(path.endsWith(".mpi")|| path.endsWith(".MPI") ){
 	
 	buffer.setMode("mathpiper");
 	

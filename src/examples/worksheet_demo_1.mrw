@@ -1,4 +1,4 @@
-/*  v 1.03.
+/*  v 1.04.
     This is a MathRider notebook file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -10,7 +10,7 @@
     in the Folding menu at the top of the window.
 */
 
-%piper,description="loop"
+%mathpiper,description="loop"
 //Loop demonstration.
 
 x := 1;
@@ -20,55 +20,55 @@ While(x < 100)
   x := x + 1;  
 ];
 
-%/piper
+%/mathpiper
 
 
 
 
-%piper,description="series"
+%mathpiper,description="series"
 //Automatically generate a sequence of numbers.
 
 Echo(1 .. 100);
 
-%/piper
+%/mathpiper
 
 
 
 
 
-%piper,description="factors"
+%mathpiper,description="factors"
 //Factor each of the following into prime factors: 8,11,14,18,24,29.
 
 a := {8,11,14,18,24,29};
 ForEach(x,a)
     Echo(x,"- ", Factor(x));
 
-%/piper
+%/mathpiper
 
 
 
 
 
-%piper,output="geogebra"
+%mathpiper,output="geogebra"
 //Define a function and graph it by pressing <shift><enter> in the output fold.
 
 Clear(x);
 f(x) := 11*x-2*x^2;
 Write(f(x));
 
-%/piper
+%/mathpiper
 
 
 
 
-%piper,output="geogebra"
+%mathpiper,output="geogebra"
 //Calculate the derivative of the function in the previous cell and graph it by
 // pressing <shift><enter> in the output fold.
 
 df := D(x) f(x);
 Write(df);
 
-%/piper
+%/mathpiper
 
 
 
@@ -437,7 +437,7 @@ demonstration.
 
 
 
-%piper,output="latex"
+%mathpiper,output="latex"
 /*Execute this Piper code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
@@ -445,12 +445,12 @@ a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
 Write(b);
 
-%/piper
+%/mathpiper
 
 
 
 
-%piper,output="latex"
+%mathpiper,output="latex"
 /*Execute this Piper code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
@@ -458,7 +458,7 @@ Clear(x);
 a := x^3 - 2*x - 7 == 0;
 Write(Solve(a,x));
 
-%/piper
+%/mathpiper
 
 
 
