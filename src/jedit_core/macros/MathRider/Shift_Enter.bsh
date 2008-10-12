@@ -349,34 +349,36 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 				if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
-					resultArray = system.evaluate("TeXForm(Hold(" + resultArray[0] + "));");
-					resultArray[0] = resultArray[0].replace("\"$","");
-					resultArray[0] = resultArray[0].replace("$\"","");
+	System.out.println("XXX " + resultArray[2]);
+					resultArray = system.evaluate("TeXForm(Hold(" + resultArray[2] + "));");
+	System.out.println("ZZZ " + resultArray[2]);
+					resultArray[2] = resultArray[2].replace("\"$","");
+					resultArray[2] = resultArray[2].replace("$\"","");
 					output_fold_type = "%hoteqn";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
-					resultArray[0] = system.evaluate("OMForm(" + resultArray[0] + ");");
+					resultArray = system.evaluate("OMForm(" + resultArray[2] + ");");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
-					resultArray[0] = system.evaluate("PrettyForm(Hold(" + resultArray[0] + "));");
+					resultArray = system.evaluate("PrettyForm(Hold(" + resultArray[2] + "));");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				{	
-					resultArray[0] = system.evaluate("CForm(" + resultArray[0] + ");");
+					resultArray = system.evaluate("CForm(" + resultArray[2] + ");");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				{	
-					resultArray[0] = system.evaluate("FullForm(" + resultArray[0] + ");");
+					resultArray = system.evaluate("FullForm(" + resultArray[2] + ");");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				{	
-					resultArray[0] = system.evaluate("TableForm(" + resultArray[0] + ");");
+					resultArray = system.evaluate("TableForm(" + resultArray[2] + ");");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
@@ -390,11 +392,11 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	//Sy	stem.out.println("Out> " + resultArray);
 			if(resultArray[1] != null)
 			{
-				result = resultArray[0] + "\nSide effects:\n" + resultArray[1];
+				result = "Result: " + resultArray[2] + "\n\nSide effects:\n" + resultArray[1];
 			}
 			else
 			{
-				result = resultArray[0] ;
+				result = "Result: " + resultArray[2] ;
 			}
 				
 					
@@ -815,6 +817,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 					
 					if(lines[lineIndex].trim().length() != 0 && ! lines[lineIndex].trim().startsWith("//"))
 					{
+						
 					    endOfLineCommentIndex = lines[lineIndex].indexOf("//");
 						if(endOfLineCommentIndex != -1)
 						{
@@ -824,6 +827,14 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 						{
 							currentLine = lines[lineIndex].trim();
 						}//end if.
+						
+						currentLine=currentLine.trim();
+						
+						
+						if(currentLine.startsWith("Result:"))
+						{
+							currentLine = currentLine.replace("Result:","");
+						}
 						
 						returnFlag = geogebra.evalCommand(currentLine);
 						
@@ -876,6 +887,12 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 			//lineCount = lines.length;
 			//lineIndex = 0;
+			
+			codeText = codeText.trim();
+			if(codeText.startsWith("Result:"))
+			{
+				codeText = codeText.replace("Result:","");
+			}
 
 			hotEqn.setEquation(codeText);
 			result = "HotEqn updated.";
