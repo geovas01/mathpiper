@@ -58,12 +58,14 @@ public class MathPiperShell extends Shell
 	{
 		try 
 		{
-			String[] resultAndSideEffect = interpreter.evaluate(command);
-			output.print(java.awt.Color.BLUE,"Result> " + resultAndSideEffect[0]);
-			if(resultAndSideEffect[1] != null)
+			String[] resultsAndSideEffect = interpreter.evaluate(command);
+			
+			output.print(java.awt.Color.BLUE,"Result> " + resultsAndSideEffect[0]);
+
+			
+			if(resultsAndSideEffect[1] != null)
 			{
-				output.print(new java.awt.Color(0,120,0),"Side Effects>\n" + resultAndSideEffect[1]);
-				
+				output.print(new java.awt.Color(0,120,0),"Side Effects>\n" + resultsAndSideEffect[1]);
 			}
 			
 		}catch(MathPiperException pe) 

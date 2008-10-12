@@ -61,21 +61,33 @@ import errorlist.*;
 			String result = mathPiper.evaluate(input);
 			result = result.trim();
 			
+			String loadResult = mathPiper.evaluate("LoadResult;");
+			loadResult = loadResult.trim();
+			
 			String sideEffect = stringOutput.toString();
 			
-			String[] resultAndSideEffect = new String[2];
+			String[] resultsAndSideEffect = new String[3];
 			
 			if(sideEffect != null && sideEffect.length() != 0){
-				resultAndSideEffect[1] = sideEffect; 
+				resultsAndSideEffect[1] = sideEffect; 
 			}
 			else
 			{
-				resultAndSideEffect[1] = null;
+				resultsAndSideEffect[1] = null;
 			}
 			
-			resultAndSideEffect[0] = result;
 			
-			return resultAndSideEffect;
+			if(loadResult != null && loadResult.length() != 0){
+				resultsAndSideEffect[2] = loadResult; 
+			}
+			else
+			{
+				resultsAndSideEffect[2] = null;
+			}
+			
+			resultsAndSideEffect[0] = result;
+			
+			return resultsAndSideEffect;
 
     }//end method.
 	
