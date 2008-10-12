@@ -502,6 +502,7 @@ public class UtilityFunctions
 				{
 					ConsPointer result = new ConsPointer();
 					aEnvironment.iEvaluator.evaluate(aEnvironment, result, readIn);
+                                        aEnvironment.setVariable("LoadResult", result, false);//Note:tk:added to make result of executing Loaded code available.
 				}
 			}
 		}
