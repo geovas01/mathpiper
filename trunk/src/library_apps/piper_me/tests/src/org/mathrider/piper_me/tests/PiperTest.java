@@ -6,7 +6,6 @@ import org.mathrider.piper_me.PiperInterpreter;
 
 public class PiperTest
 {
-	private PiperInterpreter piper;
 	private java.io.File testDirectory;
 	private String result;
 	private java.io.FileWriter logFile;
@@ -24,8 +23,6 @@ public class PiperTest
 			
 			logFile = new java.io.FileWriter("piper_tests.log");
 			
-			piper = new PiperInterpreter();
-			
 			testDirectory = new java.io.File(directory);
 			if(testDirectory.exists() )
 			{
@@ -33,7 +30,7 @@ public class PiperTest
 				{
 					public boolean accept(java.io.File file, String name)
 					{
-						if(name.endsWith(".pit"))
+						if(name.endsWith(".yts") || name.endsWith(".pit"))
 						{
 							return(true);
 						}
@@ -49,6 +46,7 @@ public class PiperTest
 				//Execute each .pit file in the specified directory.
 				for(int x = 0; x < files.length; x++)
 				{	
+          PiperInterpreter piper = new PiperInterpreter();
 					output = "\n===========================\n" + files[x].getName() + ": "; 
 					System.out.print(output);
 					logFile.write(output);
