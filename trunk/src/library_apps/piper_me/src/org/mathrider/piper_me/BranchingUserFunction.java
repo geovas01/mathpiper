@@ -1,6 +1,6 @@
 package org.mathrider.piper_me;
 
-import org.mathrider.piper_me.xpiper.util.ExtendibleArray;
+import org.eninom.collection.ExtendibleArray;
 
 
 
