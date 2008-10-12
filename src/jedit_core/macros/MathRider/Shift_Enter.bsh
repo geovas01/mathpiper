@@ -330,6 +330,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
         	
 				resultArray = system.evaluate("Load(\""+tempFilePath+"\");");
 				
+				result = resultArray[2];
+				
 				//if(result != null )
 				//{
 				//
@@ -349,36 +351,40 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 				if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
-	System.out.println("XXX " + resultArray[2]);
 					resultArray = system.evaluate("TeXForm(Hold(" + resultArray[2] + "));");
-	System.out.println("ZZZ " + resultArray[2]);
-					resultArray[2] = resultArray[2].replace("\"$","");
-					resultArray[2] = resultArray[2].replace("$\"","");
+					resultArray[0] = resultArray[0].replace("\"$","");
+					resultArray[0] = resultArray[0].replace("$\"","");
+					result = resultArray[0];
 					output_fold_type = "%hoteqn";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
 					resultArray = system.evaluate("OMForm(" + resultArray[2] + ");");
+					result = resultArray[0];
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
 					resultArray = system.evaluate("PrettyForm(Hold(" + resultArray[2] + "));");
+					result = resultArray[0];
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				{	
 					resultArray = system.evaluate("CForm(" + resultArray[2] + ");");
+					result = resultArray[0];
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				{	
 					resultArray = system.evaluate("FullForm(" + resultArray[2] + ");");
+					result = resultArray[0];
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				{	
 					resultArray = system.evaluate("TableForm(" + resultArray[2] + ");");
+					result = resultArray[0];
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
@@ -396,7 +402,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			}
 			else
 			{
-				result = "Result: " + resultArray[2] ;
+				result = "Result: " + result ;
 			}
 				
 					
