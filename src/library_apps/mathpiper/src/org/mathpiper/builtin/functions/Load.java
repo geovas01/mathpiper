@@ -44,11 +44,7 @@ public class Load extends BuiltinFunction
 
         UtilityFunctions.internalLoad(aEnvironment, orig);
         
-        /*
-         * Note:tk: Preventing Load from returning a result until a multiple level result
-         * history mechanism is developed.  Currently, when Load returns a result it
-         * overwrites the result that was returned by the code in the file that was executed.
         UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
-         */
+         
     }
 }

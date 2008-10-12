@@ -23,7 +23,7 @@ public class MathPiperTest
 	{
 		try{
 			
-			logFile = new java.io.FileWriter("piper_tests.log");
+			logFile = new java.io.FileWriter("mathpiper_tests.log");
 			
 			mathPiper = new Interpreter( new StandardFileOutputStream(System.out));
 			
