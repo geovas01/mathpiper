@@ -3395,7 +3395,7 @@ public class UASM65
 	{
 		/*Note: currently this code just skips dbts with questions marks. the
 		reason for this was to make the code romable.
-		*/
+		
 		if ((hold_operand[operand_index] == '?') || (strcmp(hold_operand,"?\0")==0))
 		{
 
@@ -3414,7 +3414,7 @@ public class UASM65
 			}
 			return(true);
 		}
-
+                */
 
 		if (strcmp(hold_operator,"ORG\0")==0)
 		{
