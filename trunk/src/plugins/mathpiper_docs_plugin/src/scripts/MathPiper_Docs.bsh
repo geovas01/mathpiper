@@ -1031,7 +1031,19 @@ list = new javax.swing.JList(jlist);
     //list.addListSelectionListener(this);
     //JScrollPane pane = new JScrollPane(list);
  
-    mathPiperDocPanel.add(treeView, BorderLayout.WEST);//treeView and listView.
+    //mathPiperDocPanel.add(treeView, BorderLayout.WEST);//treeView and listView.
+	
+	splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeView, docsScrollPane);
+	splitPane.setOneTouchExpandable(true);
+	//tree.getPreferredScrollableViewportSize().width;
+	splitPane.setDividerLocation(290);
+
+	//Provide minimum sizes for the two components in the split pane
+	//Dimension minimumSize = new Dimension(100, 50);
+	//listScrollPane.setMinimumSize(minimumSize);
+	//pictureScrollPane.setMinimumSize(minimumSize);
+	
+	mathPiperDocPanel.add(splitPane);
 
 
 	displayFunctionDocs(String item)
@@ -1280,7 +1292,7 @@ editorPane.addHyperlinkListener(this);
 //JScrollPane editorScrollPane = new JScrollPane(editorPane);
 
 
-editorScrollPane.setVerticalScrollBarPolicy(
+docsScrollPane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 

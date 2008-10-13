@@ -60,7 +60,7 @@ public class MathPiperDocs extends JPanel
 	private View view;
 
 	private boolean floating;
-	private JScrollPane scrollPane;
+	private JScrollPane docsScrollPane;
 
 	//private MathPiperDocsTextArea textArea;
 
@@ -114,14 +114,15 @@ public class MathPiperDocs extends JPanel
 		
 		editorPane = new JEditorPane();
 		editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
-		//JScrollPane editorScrollPane = new JScrollPane(editorPane);
-		scrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		//JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
+		docsScrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		//JPanel spacerPanel = new JPanel();
 		//spacerPanel.setBackground(java.awt.Color.WHITE);
 		//spacerPanel.add(new JLabel(" "));
 		//scrollPane.setRowHeaderView(spacerPanel);
-		add(BorderLayout.CENTER,scrollPane);
+		
+		
+		//add(BorderLayout.CENTER,docsScrollPane);
 		
 		initDocViewer();
 	
@@ -225,7 +226,7 @@ public class MathPiperDocs extends JPanel
 			try 
 			{
 				bshInterpreter.set("mathPiperDocPanel",this);
-				bshInterpreter.set("editorScrollPane",scrollPane);
+				bshInterpreter.set("docsScrollPane",docsScrollPane);
 				bshInterpreter.set("editorPane",editorPane);
 				bshInterpreter.set("view",view);
 				bshInterpreter.set("toolPanel",this.toolPanel);
