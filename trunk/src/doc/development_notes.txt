@@ -185,6 +185,16 @@ Initial release:
 
 {{{PIPER BUGS.
 ===
+-the following problem kept me busy the entire last day: When comparing the log-files
+from the tests with older test runs, the file sums.pit produced strange results.
+First, I thought I overlooked the problem in the past and repeated tests along the
+version history since I moved from yacas to piper, but the real problem is that the
+output depends on which tests run before that script.
+I did not dig deeper into the problem, but maybe one of the other test scripts
+changes part of the rule base or it is a bug in Yacas. So the result of the
+tests depends on the order of the scripts in the diectory, which is random.
+A remedy in oder to have repeatable tests is to recreate the PiperInterpreter
+for each run of the tests.
 
 (2^x)^3 evaluates to 2^x^3. compare to (say) gnu calc, which evaluates
 this to 2^(3x). note that yacas evaluates (x^2)^3 to x^6.
