@@ -1100,14 +1100,75 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		else if(foldType.equalsIgnoreCase("%s19")) 
 		{
 			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
-			
-			uart = org.mathrider.u6502.EMU6551.getInstance();
-			
 
+
+			
+			if(foldProperties.get("output").equalsIgnoreCase("array") )
+			{
+				sr = codeText;
+				 bytes = new ArrayList();
+    
+				startAddress = "";
+				firstAddress = 1;
+			  
+				  lines = sr.split("\n");
+				  
+				  for(int x=1;x<lines.length;x++)
+				  {
+					  line = lines[x];
+					  line = line.trim();
+					  
+					  recordType = line.charAt(1);
+					  byteCount = Integer.parseInt( line.substring(2,4), 16 );
+								
+					  if( recordType == '1' && byteCount > 3)
+					  {
+						  
+						  if(firstAddress == 1)
+						  {
+							  startaddress = line.substring(4,8);   
+							  firstaddress = 0;
+						  }
+						  
+						  
+						  index = 8;
+						  count = 0;
+						while(count <= byteCount-3-1)
+						{
+							aByte = line.substring(index,index+2);
+			
+							index = index + 2;
+							count = count + 1;
+							
+							
+							bytes.add(Integer.parseInt(aByte,16 ) );
+							System.out.println(aByte);
+			
+						}
+						  
+					  }
+					  
+				  }
+				  
+				  sb = new StringBuffer();
+				  sb.append("[");
+				  for(int x=0; x < bytes.size(); x++)
+				  {
+					  sb.append(bytes.get(x) + ",");
+				  }
+				  
+				  sb.deleteCharAt(sb.length()-1);
+				  sb.append("];");
+				  
+				  output_fold_type = "%output";
+				  result = sb.toString();
+			}
+			else
+			{
 			
 			try 
 			{   
-					
+				uart = org.mathrider.u6502.EMU6551.getInstance();
 				uart.send("L\n");
 				codeText = codeText.replaceAll(" ", "");
 				codeText = codeText.replaceAll("\t", "");
@@ -1120,6 +1181,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				result = e.getMessage();
 				output_fold_type = "%error ";
 			}
+			}//end if/else.
+			
 		}//end else
 		
 		//}}}
