@@ -1113,7 +1113,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			  
 				  lines = sr.split("\n");
 				  
-				  for(int x=1;x<lines.length;x++)
+				  for(int x=0;x<lines.length;x++)
 				  {
 					  line = lines[x];
 					  line = line.trim();
@@ -1140,8 +1140,9 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 							index = index + 2;
 							count = count + 1;
 							
+							parsedByte = Integer.parseInt(aByte,16 );
 							
-							bytes.add(Integer.parseInt(aByte,16 ) );
+							bytes.add(parsedByte );
 							System.out.println(aByte);
 			
 						}
@@ -1151,14 +1152,14 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				  }
 				  
 				  sb = new StringBuffer();
-				  sb.append("[");
+				  sb.append("{");
 				  for(int x=0; x < bytes.size(); x++)
 				  {
 					  sb.append(bytes.get(x) + ",");
 				  }
 				  
 				  sb.deleteCharAt(sb.length()-1);
-				  sb.append("];");
+				  sb.append("};");
 				  
 				  output_fold_type = "%output";
 				  result = sb.toString();

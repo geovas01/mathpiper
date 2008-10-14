@@ -768,6 +768,7 @@ line numbers to use.
 
 
 {{{ U6502
++ Change PrintMess to PrintString in monitor and books.
 + If a label is placed in the operation column, an exception is thrown.
 - Add reset method to IOChip interface.
 + This line should cause an error in the assembler but it doesn't: "sum	dbt d". Notice it is missing a value before d.

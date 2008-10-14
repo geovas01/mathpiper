@@ -1,9 +1,7 @@
 ;****************************************************************************
 ;  UMON65 Understandable Monitor for the 6500 series microprocessors.
-;  Copyright 2007 by Ted Kosan.
+;  Copyright 2008 by Ted Kosan.
 ;
-;  Revision History:
-;      -Modified to work with muvium robot.
 ;
 ;****************************************************************************
 
@@ -273,7 +271,22 @@ EnterMon *
 	ldx #OpenMess<	; monitor through the maskable interrupt vector.
 	ldy #OpenMess>	;
 	jsr PrntMess	;
-	brk		;
+	;brk		    ;
+    lda #00000000b	 ;Initialize user's status register.
+	sta UStatReg	;
+
+	
+	lda #0d	    ;Initialize user's accumulator.
+	sta UAccum	;
+	
+	sta UXReg	;Initialize user's X register.
+	
+	sta UYReg	;Initialize user's Y register.
+	
+	lda #0ffh    ;Initialize user's stack pointer
+	sta UStkPtr	 ;.
+    
+    jmp ResetEntryPoint
 
 CkEEPROM *
 	cmp #2d		;If the switch is set to a 2 then get the
@@ -624,6 +637,10 @@ BRK *
 	sty UYReg	;Save user's Y register.
 	
 	tsx
+    
+    inx ;Remove the remaining 2 bytes that were pushed on the
+    inx ; stack by the brk command.
+    
 	stx UStkPtr	;Save user's stack pointer.
 	
 	pla		;Save program counter of break instruction
@@ -634,7 +651,8 @@ BRK *
 	sbc #0d		;
 	sta UPgmCntr+1d	;
 ;	cli
-	
+
+ResetEntryPoint *
 	ldy #0d		;Print user's registers.
 	sty OpFld1	;
 	jsr Register	;
@@ -1805,6 +1823,21 @@ NxtBPSt *		;
 	pla		; command's return address from the stack.
 	pla		;
 	pla		;
+    
+    lda OpFld1	;Check for operand.
+	cmp #0d		;
+	beq DoNotRestoreRegistersGo
+ 
+    ldx #0ffh    ;Restore user's registers.
+    txs          ;
+    lda UStatReg ;
+	pha          ;
+	lda UAccum	 ;
+	ldx UXReg	 ;
+	ldy UYReg	 ;
+    plp          ;
+   
+DoNotRestoreRegistersGo *
 	
 	jmp (UPgmCntr)	;Start executing at address being pointed to by
 			; UPGmCntr.	
@@ -2694,16 +2727,24 @@ Both *
 	sta (PointerA),y;
 	
 ChBkVect *
-	lda #1d		;Make BRK jump here instead of main.
+	lda #1d		    ;Make BRK jump here instead of main.
 	sta TrBrkFlg	;
 	
-	lda UStatReg	;Execute instruction pointed to by UPgmCntr.
-	pha		;
-	lda UAccum	;
-	ldx UXreg	;
-	ldy UYReg	;
-	plp		;
-	jmp (UPgmCntr)	;
+    lda OpFld1	;Check to see if user entered address.
+	cmp #0d		;
+	beq DoNotRestoreStackPointer
+    ldx #0ffh    
+    txs          ;
+DoNotRestoreStackPointer *
+
+	lda UStatReg	;Restore user's registers.
+	pha		        ;
+	lda UAccum	    ;
+	ldx UXreg	    ;
+	ldy UYReg	    ;
+	plp		        ;
+    
+	jmp (UPgmCntr)	;Jump to user's code.
 	
 Tr2ndEnt *
 	lda #0d		;Reset trace break flag.
@@ -3639,7 +3680,7 @@ DgtTblUC	dbt "0123456789ABCDEF"
 DgtTblLC	dbt "0123456789abcdef"
 		dbt 0h
 OpenMess	dbt 10d,13d,10d
-		dbt "UMON65 V1.14 - Understandable Monitor for the 6500 series microprocessors."
+		dbt "UMON65 V1.16 - Understandable Monitor for the 6500 series microprocessors."
 		dbt 10d,13d
 		dbt 0h
 prompt		dbt 10d,13d
