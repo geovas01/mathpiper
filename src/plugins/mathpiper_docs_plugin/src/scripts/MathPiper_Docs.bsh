@@ -1174,6 +1174,7 @@ source()
 	
 	try{
 		location = interpreter.evaluate("FindFunction(\"" + item + "\");");
+		location = location[0];
 		
 	}catch(org.mathrider.mathpiper.MathPiperException ye) 
 	{
@@ -1184,7 +1185,7 @@ source()
 		//System.out.println("XXXXXXXX name: " + item + "  location: " + location);
 	}//finally.
 	
-	
+	//System.out.println("XXXXXXXX name: " + item + "  location: " + location);
 	
 import java.io.*;
 //Print the contents of the Piper script zip file.
@@ -1209,7 +1210,7 @@ import java.io.*;
  //
         entry = entry.toString().replaceAll("/","-");
          // Create temp file.
-        File tempFile = File.createTempFile(entry, ".pi");
+        File tempFile = File.createTempFile(entry, ".mpi");
     
         // Delete temp file when program exits.
         tempFile.deleteOnExit();
