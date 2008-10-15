@@ -1172,18 +1172,43 @@ public class EMU6502 implements Runnable
 								break;
 
 							case DEC:
-								tmp = chip2[offset2];
-								tmp = (tmp - 1) & 0xff;
-								tmp = chip2[offset2] = tmp;
+								if(block2 == 5)
+								{
+									int bank = offset2 >> 9;
+									IOChip ioChip = ioChips[bank];
+									tmp = ioChip.read(offset2 & 0x1ff);
+									tmp--;
+									tmp = tmp & 0xff;
+									ioChip.write(offset2 & 0x1ff,tmp);
+									a = tmp;
+								}
+								else
+								{
+									tmp = chip2[offset2];
+									tmp = (tmp - 1) & 0xff;
+									tmp = chip2[offset2] = tmp;
+								}
 
 								ck_n = ck_z = 1;
 								break;
 
 							case INC:
-								tmp = chip2[offset2];
-								tmp = (tmp + 1) & 0xff;
-								tmp = chip2[offset2] = tmp;
-
+								if(block2 == 5)
+								{
+									int bank = offset2 >> 9;
+									IOChip ioChip = ioChips[bank];
+									tmp = ioChip.read(offset2 & 0x1ff);
+									tmp++;
+									tmp = tmp & 0xff;
+									ioChip.write(offset2 & 0x1ff,tmp);
+									a = tmp;
+								}
+								else
+									{
+									tmp = chip2[offset2];
+									tmp = (tmp + 1) & 0xff;
+									tmp = chip2[offset2] = tmp;
+								}
 								ck_n = ck_z = 1;
 								break;
 							}//end switch;
