@@ -1,4 +1,4 @@
-/*  v 1.04.
+/*  v 1.05.
     This is a MathRider notebook file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -22,15 +22,27 @@ While(x < 100)
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
+    %/output
+
+
 
 
 
 %mathpiper,description="series"
 //Automatically generate a sequence of numbers.
 
-Echo(1 .. 100);
+1 .. 100;
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100}
+    %/output
 
 
 
@@ -45,6 +57,18 @@ ForEach(x,a)
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+       8 - 2^3 
+      11 - 11 
+      14 - 2*7 
+      18 - 2*3^2 
+      24 - 2^3*3 
+      29 - 29
+    %/output
+
 
 
 
@@ -54,9 +78,18 @@ ForEach(x,a)
 
 Clear(x);
 f(x) := 11*x-2*x^2;
-Write(f(x));
+f(x);
 
 %/mathpiper
+
+    %geogebra,preserve="false"
+      Result: 11*x-2*x^2
+    %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+        %/output
+
 
 
 
@@ -66,9 +99,18 @@ Write(f(x));
 // pressing <shift><enter> in the output fold.
 
 df := D(x) f(x);
-Write(df);
+df;
 
 %/mathpiper
+
+    %geogebra,preserve="false"
+      Result: 11-4*x
+    %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+        %/output
+
 
 
 
@@ -79,6 +121,11 @@ Write(df);
 f(x)=2*sin(x)
 
 %/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
+
 
 
 
@@ -91,6 +138,7 @@ p1 = 2
 t1 = Tangent[p1, f]
 
 %/geogebra
+
 
 
 
@@ -221,6 +269,7 @@ a, b, and c to change the sin wave.
 
 
 %/geogebra_xml
+
 
 
 
@@ -428,11 +477,13 @@ demonstration.
 
 
 
+
 //Execute this fold to render the LaTeX expression it contains.
 %hoteqn
     2\sum_{i=1}^n a_i \;\int_a^b f_i(x)g_i(x)\,dx
 
 %/hoteqn
+
 
 
 
@@ -443,9 +494,10 @@ to render the LaTeX expression it generates.
 */
 a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
-Write(b);
+b;
 
 %/mathpiper
+
 
 
 
@@ -456,9 +508,10 @@ to render the LaTeX expression it generates.
 */
 Clear(x);
 a := x^3 - 2*x - 7 == 0;
-Write(Solve(a,x));
+Solve(a,x);
 
 %/mathpiper
+
 
 
 
@@ -492,6 +545,7 @@ Write(Solve(a,x));
     </html>
 
 %/html
+
 
 
 
@@ -569,6 +623,7 @@ Write(Solve(a,x));
 
 
 
+
 %beanshell
 /*This code demonstrates that any GUI interfaces can be created for use
 in a notebook.
@@ -618,5 +673,6 @@ actionPerformed(event)
 }
 
 %/beanshell
+
 
 

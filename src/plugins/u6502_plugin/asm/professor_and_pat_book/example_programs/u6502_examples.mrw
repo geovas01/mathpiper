@@ -1,12 +1,14 @@
+/*
+  To assemble the code in any %uasm65 fold, simply place the cursor
+  inside of the fold and press <shift><enter>.
+  
+  To automatically load a program into the U6502 plugin, assemble the
+  program then press <shift><enter> in the %s19 fold that is produced.
+*/
+                                   
+                                   
+                                   
 
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
                                    
 %group,description="Examples from "ps3_6502_assembly_language."
 
@@ -22,7 +24,6 @@
 	end
 %/uasm65
 
-   
    
    
    
@@ -76,10 +77,12 @@ number2 dbt 00000001b
 
 
 
+
+
 %group,description="Examples from ps4_6502_programming."
 
 %uasm65,description="sum10.asm"
-;Program Name: sum10.asm.
+;Program Name: sum10
 ;
 ;Version: 1.02
 ;
@@ -141,7 +144,7 @@ count 	dbt 0d
 
 
 %uasm65,description=""
-;Program Name: largest.asm.
+;Program Name: largest
 ;
 ;Version: 1.0.
 ;
@@ -236,8 +239,11 @@ list	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d
 %/uasm65
 
 
+
+
+
 %uasm65,description=""
-;Program Name: copy.asm.
+;Program Name: copy
 ;
 ;Version: 1.0.
 ;
@@ -292,8 +298,9 @@ list2	dbt 10d(0d)
 
 
 
+
 %uasm65,description=""
-;Program Name: scan.asm.
+;Program Name: scan
 ;
 ;Version: 1.0.
 ;
@@ -361,8 +368,9 @@ string1	dbt "A bird in the hand is worth two in the bush.  Early to bed and "
 
 
 
+
 %uasm65,description=""
-;Program Name: alpha.asm.
+;Program Name: alpha
 ;
 ;Version: 1.01.
 ;
@@ -433,8 +441,9 @@ alphalist 	dbt 100d(?)
 
 
 
+
 %uasm65,description=""
-;Program Name: sumlist.asm.
+;Program Name: sumlist
 ;
 ;Version: 1.0.
 ;
@@ -519,36 +528,14 @@ numberList *
 
 
 
-%uasm65,description=""
-
-%/uasm65
-
-
-
 %/group
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %uasm65,description=""
-;Program Name: hello.asm.
+;Program Name: hello
 ;
 ;Version: 1.02.
 ;
@@ -596,13 +583,12 @@ Mess	dbt "Hello"
 
 %/uasm65
 
-
    
    
 
 
 %uasm65,description=""
-;Program Name: blink.asm.
+;Program Name: blink
 ;
 ;Version: 1.1.
 ;
@@ -689,9 +675,8 @@ DelayLoop *
 
 
 
-
 %uasm65,description=""
-;Program Name: hello2.asm.
+;Program Name: hello2
 ;
 ;Version: 1.1.
 ;
@@ -729,8 +714,9 @@ Mess	dbt "Hello2"
 
 
 
+
 %uasm65,description=""
-;Program Name: hello3.asm.
+;Program Name: hello3
 ;
 ;Version: 1.1.
 ;
@@ -743,21 +729,21 @@ Mess	dbt "Hello2"
      ;************************************************************
      ;              Monitor Utility Subroutine Jump Table.
      ;************************************************************
-OutChar   equ 1003h ;Output byte in A register to serial port.
+OutChar   equ E003h ;Output byte in reg A to the user.
                      
-GetChar   equ 1006h ;Get a byte from the serial port.
+GetChar   equ E006h ;Get a byte from the serial port.
                      
-GetCharW  equ 1009h ;Wait and get a byte from the serial port.
+GetCharW  equ E009h ;Wait and get a byte from the user.
                      
-PrntMess  equ 100Ch ;Print a message to the serial port.
+PrntMess  equ E00Ch ;Print a message to the user.
+                    
+OutSpace  equ E00Fh ;Output spaces to the serial port.                                 
                      
-OutSpace  equ 100Fh ;Output spaces to the serial port.                                 
+OutHex    equ E012h ;Output a HEX number to the user.
                      
-OutHex    equ 1012h ;Output a HEX number to the serial port.
-                     
-DgtToBin  equ 1015h ;Convert an ASCII digit into binary.
-                     
-GetLine   equ 1018h ;Input a line from the serial port.
+DgtToBin  equ E015h ;Convert an ASCII digit to binary.
+                    
+GetLine   equ E018h ;Input a line from the serial port.
           
 
 
@@ -786,8 +772,10 @@ mess	dbt "Hello3"
 
 
 
+
+
 %uasm65,description=""
-;Program Name: addinput.asm.
+;Program Name: addinput
 ;
 ;Version: 1.1.
 ;
@@ -864,12 +852,15 @@ Exit *
 ;**************************************
 ;        Variables area.
 ;**************************************
-InMess1 dbt "Enter number 1:"
-	  dbt 0d
-InMess2 dbt "Enter number 2:"
-	  dbt 0d
-OutMess dbt "The sum is:"
-	  dbt 0d
+InMess1 dbt 10d,13d
+        dbt "Enter number 1:"
+	    dbt 0d
+InMess2 dbt 10d,13d
+        dbt "Enter number 2:"
+	    dbt 0d
+OutMess dbt 10d,13d
+        dbt "The sum is:"
+	    dbt 0d
 	
 num1	  dbt 0d
 num2	  dbt 0d
@@ -884,46 +875,4 @@ sum	  dbt 0d
 
 
 
-%uasm65,description=""
-
-%/uasm65
-
-
-
-%uasm65,description=""
-
-%/uasm65
-
-
-
-%uasm65,description=""
-
-%/uasm65
-
-
-
-%uasm65,description=""
-
-%/uasm65
-
-
-
-%uasm65,description=""
-
-%/uasm65
-
-
-
-%uasm65,description=""
-
-%/uasm65
-
-
-
-%uasm65,description=""
-
-%/uasm65
-
-
-    
     
