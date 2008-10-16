@@ -48,7 +48,8 @@ import org.eninom.seq.SeqFromIterator;
 
 
 @SuppressWarnings("unchecked")
-public class ExtendibleArray<E> implements IterableCollection<E> {
+public final class ExtendibleArray<E> implements MutableDeque<E>, MutableRandomAccess<E>,
+MutableStack<E> {
   // N is the size of the small array A
   // NTwice is the size of the large array B
   int NTwice, N;
@@ -150,7 +151,15 @@ public class ExtendibleArray<E> implements IterableCollection<E> {
     else
       return (E) A[(i + p1 - b) & maskN];
   }
+  
+  public E last() {
+    return get(size());
+  }
 
+  public E first() {
+    return get(0);
+  }
+    
   public final E set(int i, E x) {
     if ((i < 0) || (i >= size()))
       throw new java.lang.IndexOutOfBoundsException();
@@ -324,6 +333,18 @@ public class ExtendibleArray<E> implements IterableCollection<E> {
     for (int j = n; j > i; j--)
       set(j,get(j-1));
     set(i,x);
+  }
+  
+  public E pop() {
+    return removeLast();
+  }
+  
+  public E top() {
+    return get(size());
+  }
+  
+  public void push(E item) {
+    addLast(item);
   }
 
   // get iterator:
