@@ -1,5 +1,6 @@
 package org.mathrider.piper_me;
 
+import org.eninom.collection.ExtendibleArray;
 
 class LispEnvironment
 {
@@ -484,7 +485,7 @@ class LispEnvironment
 
 
   LispDefFiles iDefFiles = new LispDefFiles();
-  InputDirectories iInputDirectories = new InputDirectories();
+  ExtendibleArray iInputDirectories = new ExtendibleArray();
 
   String iPrettyReader = null;
   String iPrettyPrinter = null;
