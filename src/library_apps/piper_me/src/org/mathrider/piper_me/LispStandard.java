@@ -1,5 +1,6 @@
 package org.mathrider.piper_me;
 
+import org.eninom.collection.ExtendibleArray;
 import org.mathrider.piper_me.xpiper.arithmetic.BigNumber;
 
 public class LispStandard
@@ -528,7 +529,7 @@ public class LispStandard
   }
 
   public static LispInput OpenInputFile(LispEnvironment aEnvironment,
-      InputDirectories aInputDirectories, String aFileName,
+      ExtendibleArray aInputDirectories, String aFileName,
       InputStatus aInputStatus) throws Exception
   {
     String othername = aFileName;
@@ -544,7 +545,7 @@ public class LispStandard
   }
 
 
-  public static String InternalFindFile(String aFileName, InputDirectories aInputDirectories) throws Exception
+  public static String InternalFindFile(String aFileName, ExtendibleArray aInputDirectories) throws Exception
   {
     InputStatus inputStatus = new InputStatus();
     String othername = aFileName;

@@ -17,7 +17,6 @@ public class SeqFromIterator<E> implements Seq<E> {
 
   private static Function<ForwardIterator, SeqFromIterator> restCons = 
     new Function<ForwardIterator, SeqFromIterator>() {
-    @Override
     public SeqFromIterator get(ForwardIterator it) {
       return new SeqFromIterator(it.next(),it);
     }
