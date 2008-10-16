@@ -53,16 +53,20 @@ import errorlist.*;
    }//end method.
 
  
-    /** Use this method to pass an expression to the Piper interpreter.
+    /** Use this method to pass an expression to the MathPiper interpreter.
      *  Returns the output of the interpreter.
      */
     public String[] evaluate(String input) throws MathPiperException {
 		
+
 			String result = mathPiper.evaluate(input);
+
 			result = result.trim();
 			
 			String loadResult = mathPiper.evaluate("LoadResult;");
 			loadResult = loadResult.trim();
+			
+			mathPiper.evaluate(result + ";");//Note:tk:eventually reengineer previous result mechanism in MathPiper.
 			
 			String sideEffect = stringOutput.toString();
 			
