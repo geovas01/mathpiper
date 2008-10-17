@@ -777,6 +777,10 @@ line numbers to use.
 + Enter Copy button and popup menu to U6502.
 + Make an ASCII chart plugin.
 - sumlist program does not place sum dwd ? 00's into .s19 file.
++ On a similar note, what do you want/expect to happen when a user tries
+ to trace through a program (as I did!) which calls Monitor subroutines.
+ What I found in my case was that it traced through the jump table and
+then hung.
 }}}
 
 
