@@ -89,7 +89,7 @@ import javax.swing.*;
 import javax.swing.tree.*;
 import java.awt.event.*;
 import java.awt.*;
-//import org.mathrider.mathpiperdocsplugin.FunctionInfo;
+//import org.mathrider.jungplugin.FunctionInfo;
 
 //{{{ User functions descriptions.
 userFunctionsDescriptions = new String[][]
@@ -1098,7 +1098,7 @@ list = new javax.swing.JList(jlist);
 
 	if(docPart != null)
 	{
-        urlWithChapter = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.JungPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+        urlWithChapter = jEdit.getPlugin("org.mathrider.jungplugin.JungPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 	    if (urlWithChapter != null) 
 		{
 
@@ -1153,7 +1153,7 @@ home()
 	
 	//pageIndex = 0;
 	
-	//java.net.URL docURL = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.JungPlugin").getPluginJAR().getClassLoader().getResource("mathpiper_manual/books2.html");
+	//java.net.URL docURL = jEdit.getPlugin("org.mathrider.jungplugin.JungPlugin").getPluginJAR().getClassLoader().getResource("mathpiper_manual/books2.html");
 	//homePage = pageList.get(0);
 	if ( homePage != null) {
 		setPage(homePage,true);
@@ -1381,7 +1381,7 @@ hyperlinkUpdate(event)
     {
         docPart = urlString.substring(0,urlString.indexOf("#"));
 
-	urlWithReference = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.JungPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+	urlWithReference = jEdit.getPlugin("org.mathrider.jungplugin.JungPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 
         if (urlWithReference != null) {
 
@@ -1407,7 +1407,7 @@ hyperlinkUpdate(event)
 	
 	    docPart = path.substring(0,path.indexOf("?"));
 	    //System.out.println("   QQQ path: " + path  + "   docPart: " + docPart + "  match: " + match);
-	    urlWithQuery = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.JungPlugin").getPluginJAR().getClassLoader().getResource(docPart);
+	    urlWithQuery = jEdit.getPlugin("org.mathrider.jungplugin.JungPlugin").getPluginJAR().getClassLoader().getResource(docPart);
 
 	    
             //path = path + "#" + query;
@@ -1432,7 +1432,7 @@ hyperlinkUpdate(event)
     }
     else
     {
-	    	urlNormal = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.JungPlugin").getPluginJAR().getClassLoader().getResource(urlString);
+	    	urlNormal = jEdit.getPlugin("org.mathrider.jungplugin.JungPlugin").getPluginJAR().getClassLoader().getResource(urlString);
 
         if (urlNormal != null) {
 

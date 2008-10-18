@@ -9,7 +9,7 @@
 <!-- MathPiperHelpPlugin dockable windows -->
 
 <DOCKABLES>
-	<DOCKABLE NAME="mathpiperdocs">
-		new org.mathrider.mathpiperdocsplugin.Jung(view, position);
+	<DOCKABLE NAME="jung">
+		new org.mathrider.jungplugin.Jung(view, position);
 	</DOCKABLE>
 </DOCKABLES>

@@ -44,8 +44,8 @@ public class JungToolPanel extends JPanel {
 
 		
 		//View source button.
-		String toolTip = jEdit.getProperty("mathpiperdocs.source.label");
-		sourceButton = new javax.swing.JButton(jEdit.getProperty("mathpiperdocs.source.button-text"));
+		String toolTip = jEdit.getProperty("jung.source.label");
+		sourceButton = new javax.swing.JButton(jEdit.getProperty("jung.source.button-text"));
 		sourceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				JungToolPanel.this.pad.source();
@@ -56,8 +56,8 @@ public class JungToolPanel extends JPanel {
 		add(sourceButton);
 		
 		//Collapse tree button.
-		toolTip = jEdit.getProperty("mathpiperdocs.collapse.label");
-		JButton collapseButton = new javax.swing.JButton(jEdit.getProperty("mathpiperdocs.collapse.button-text"));
+		toolTip = jEdit.getProperty("jung.collapse.label");
+		JButton collapseButton = new javax.swing.JButton(jEdit.getProperty("jung.collapse.button-text"));
 		collapseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				JungToolPanel.this.pad.collapse();
@@ -72,7 +72,7 @@ public class JungToolPanel extends JPanel {
 		add(Box.createGlue());
 
 		//back button.
-		backButton = makeCustomButton("mathpiperdocs.back", new ActionListener() {
+		backButton = makeCustomButton("jung.back", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				JungToolPanel.this.pad.back();
 			}
@@ -82,7 +82,7 @@ public class JungToolPanel extends JPanel {
 		
 		
 		//forward button.
-		forwardButton = makeCustomButton("mathpiperdocs.forward", new ActionListener() {
+		forwardButton = makeCustomButton("jung.forward", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				JungToolPanel.this.pad.forward();
 			}
@@ -90,7 +90,7 @@ public class JungToolPanel extends JPanel {
 		forwardButton.setEnabled(false);
 		add(forwardButton);
 		
-		add(makeCustomButton("mathpiperdocs.home", new ActionListener() {
+		add(makeCustomButton("jung.home", new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				JungToolPanel.this.pad.home();
 			}

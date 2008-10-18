@@ -161,8 +161,7 @@
 		
 	</target>
 	
-
-		<target id="clojure_plugin" name="clojure_plugin" depends="" >
+	<target id="clojure_plugin" name="clojure_plugin" depends="" >
 		<ant dir="${plugins.src.dir}/clojure_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/clojure_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -173,7 +172,6 @@
 		</ant>
 		
 		<copy file="${plugins.build.dir}/clojure_plugin/dist/clojure_plugin.jar" todir="${plugins.jars.dir}"/>
-		
 	</target>
 	
 	<target id="maxima_plugin" name="maxima_plugin" depends="" >
@@ -230,6 +228,21 @@
 		<copy file="${plugins.build.dir}/hoteqn_plugin/dist/hoteqn_plugin.jar" todir="${plugins.jars.dir}"/>
 
 	</target>
+	
+	
+	<target id="jung_plugin" name="jung_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/jung_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/jung_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/jung_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/jung_plugin/dist/jung_plugin.jar" todir="${plugins.jars.dir}"/>
+	</target>
+	
 
 	<target id="jscicalc_plugin" name="jscicalc_plugin" >
 		<ant dir="${plugins.src.dir}/jscicalc_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
@@ -273,7 +286,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
-		geogebra_plugin, hoteqn_plugin, jscicalc_plugin, clojure_plugin, u6502_plugin" />
+		geogebra_plugin, hoteqn_plugin, jscicalc_plugin, clojure_plugin, u6502_plugin, jung_plugin" />
 	
 	
 	
