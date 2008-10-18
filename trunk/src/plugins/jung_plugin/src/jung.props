@@ -1,30 +1,30 @@
-# Properties file for MathPiperDocs plugin.
+# Properties file for Jung plugin.
 
 #{{{ 
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.activate=defer
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.name=MathPiperDocs
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.author=Ted Kosan
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.name=Jung
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.version=4.3
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.docs=index.html
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin..longdescription=description.html
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.docs=index.html
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin..longdescription=description.html
 #}}}
 
 
 
 
-mathpiperdocs.shell.msg.info=\nMathPiperDocs Shell \n\
+mathpiperdocs.shell.msg.info=\nJung Shell \n\
 	  Test.\n\n
 
 mathpiperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
@@ -42,7 +42,7 @@ mathpiperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.menu=mathpiperdocs
+plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.menu=mathpiperdocs
 #	- \
 #	mathpiperdocs.clear \
 #	mathpiperdocs.save-file \
@@ -66,7 +66,7 @@ mathpiperdocs.copy-to-buffer.label=Copy notepad to buffer
 plugin.mathpiperdocs.option-pane=mathpiperdocs
 
 # Option pane activation BeanShell snippet
-options.mathpiperdocs.code=new org.mathrider.mathpiperdocsplugin.MathPiperDocsOptionPane();
+options.mathpiperdocs.code=new org.mathrider.mathpiperdocsplugin.JungOptionPane();
 
 # Option pane labels
 options.mathpiperdocs.label=mathpiperdocs
@@ -78,7 +78,7 @@ options.mathpiperdocs.choose-font=Font:
 options.mathpiperdocs.show-filepath.title=Display notepad file path
 
 # window title
-mathpiperdocs.title=MathPiperDocs
+mathpiperdocs.title=Jung
 
 # window toolbar buttons
 #mathpiperdocs.source.icon=Clear.png
