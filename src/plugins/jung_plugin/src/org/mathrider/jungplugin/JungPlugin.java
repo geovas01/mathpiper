@@ -6,7 +6,7 @@ package org.mathrider.jungplugin;
 import org.gjt.sp.jedit.EditPlugin;
 
 /**
- * The MathPiperDocs plugin
+ * The Jung plugin
  * 
  * @author Ted Kosan
  */

@@ -62,7 +62,7 @@ public class Jung extends JPanel
 	private boolean floating;
 	private JScrollPane docsScrollPane;
 
-	//private MathPiperDocsTextArea textArea;
+	//private JungTextArea textArea;
 
 	private JungToolPanel toolPanel;
 	
@@ -142,8 +142,8 @@ public class Jung extends JPanel
     // {{{ Member Functions
 	
 	
-	// {{{ getMathPiperDocs
-	public static Jung getMathPiperDocs()
+	// {{{ getJung
+	public static Jung getJung()
 	{	
 		return Jung.piperDocs;  
 	}//end method
@@ -174,7 +174,7 @@ public class Jung extends JPanel
     // {{{ propertiesChanged
 	private void propertiesChanged() {
 		/*String propertyFilename = jEdit
-				.getProperty(MathPiperDocsPlugin.OPTION_PREFIX + "filepath");
+				.getProperty(JungPlugin.OPTION_PREFIX + "filepath");
 		if (!StandardUtilities.objectsEqual(defaultFilename, propertyFilename)) {
 			saveFile();
 			toolPanel.propertiesChanged();
@@ -182,7 +182,7 @@ public class Jung extends JPanel
 			filename = defaultFilename;
 			readFile();
 		}
-		Font newFont = MathPiperDocsOptionPane.makeFont();
+		Font newFont = JungOptionPane.makeFont();
 		if (!newFont.equals(textArea.getFont())) {
 			textArea.setFont(newFont);
 		}*/
@@ -216,7 +216,7 @@ public class Jung extends JPanel
 		try
 		{
 			//Note: this is in development mode.  Switch comment to other line for distribution.
-			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource("scripts/MathPiper_Docs.bsh");
+			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.JungPlugin").getPluginJAR().getClassLoader().getResource("scripts/MathPiper_Docs.bsh");
 			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/piper_docs_plugin/src/scripts/MathPiper_Docs.bsh");
 
 			
@@ -231,14 +231,14 @@ public class Jung extends JPanel
 				bshInterpreter.set("view",view);
 				bshInterpreter.set("toolPanel",this.toolPanel);
 				bshInterpreter.set("mathPiperInterpreter",MathPiperInterpreter.getInstance());//Note:tk:fixing race condition.
-				java.net.URL homePage = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource("mathpiper_manual/books2.html");
+				java.net.URL homePage = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.JungPlugin").getPluginJAR().getClassLoader().getResource("mathpiper_manual/books2.html");
 				java.util.ArrayList pageList = new java.util.ArrayList();
 				//pageList.add(homePage);
 				bshInterpreter.set("homePage",homePage);
 				bshInterpreter.set("pageList",pageList);
 				bshInterpreter.set("pageIndex",-1);
-				bshInterpreter.eval( "classFunctionInfo = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.mathpiperdocsplugin.FunctionInfo\",true);");
-				bshInterpreter.eval( "classFunctionInfoTree = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.mathpiperdocsplugin.FunctionInfoTree\",true);");
+				bshInterpreter.eval( "classFunctionInfo = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.mathpiperdocsplugin.JungPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.mathpiperdocsplugin.FunctionInfo\",true);");
+				bshInterpreter.eval( "classFunctionInfoTree = org.gjt.sp.jedit.jEdit.getPlugin(\"org.mathrider.mathpiperdocsplugin.JungPlugin\").getPluginJAR().getClassLoader().loadClass(\"org.mathrider.mathpiperdocsplugin.FunctionInfoTree\",true);");
 
 				//new org.mathrider.piperdocsplugin.FunctionInfo(null,null);
 				//bshInterpreter.eval("import org.mathrider.piperdocsplugin.FunctionInfo;");
