@@ -1,0 +1,111 @@
+# Properties file for MathPiperDocs plugin.
+
+#{{{ 
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.name=MathPiperDocs
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.docs=index.html
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin..longdescription=description.html
+#}}}
+
+
+
+
+mathpiperdocs.shell.msg.info=\nMathPiperDocs Shell \n\
+	  Test.\n\n
+
+mathpiperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
+		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
+		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
+		 * "?"\t\t\t\t-- lists the available build files and usage\n\
+		 * "=build_file_number"\t\t-- changes the current build file to the number identified by "?"\n\
+		 * "+[full_path_to_file]"\t\t-- load this build file into Ant Farm. Searches up the current\n\
+				   \t\t\t\t   buffer's directory tree for a "build.xml" file to load if a \n\
+				 \t\t\t\t   file is not specified. Re-loads the build file if it is already\n\
+				 \t\t\t\t   loaded.\n\n
+
+
+
+
+
+# plugin menu
+plugin.org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.menu=mathpiperdocs
+#	- \
+#	mathpiperdocs.clear \
+#	mathpiperdocs.save-file \
+#	mathpiperdocs.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+mathpiperdocs.label=mathpiperdocs
+
+# action labels for actions supplied by actions.xml
+mathpiperdocs.source.label=View Source
+mathpiperdocs.source.button-text=Source
+mathpiperdocs.collapse.label=Collapse function tree.
+mathpiperdocs.collapse.button-text=Collapse
+mathpiperdocs.home.label=Home
+mathpiperdocs.back.label=Back
+mathpiperdocs.forward.label=Forward
+mathpiperdocs.save-file.label=Save notepad file
+mathpiperdocs.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.mathpiperdocs.option-pane=mathpiperdocs
+
+# Option pane activation BeanShell snippet
+options.mathpiperdocs.code=new org.mathrider.mathpiperdocsplugin.MathPiperDocsOptionPane();
+
+# Option pane labels
+options.mathpiperdocs.label=mathpiperdocs
+options.mathpiperdocs.file=File:
+options.mathpiperdocs.source=Source
+options.mathpiperdocs.home=Home
+options.mathpiperdocs.source.title=View Source
+options.mathpiperdocs.choose-font=Font:
+options.mathpiperdocs.show-filepath.title=Display notepad file path
+
+# window title
+mathpiperdocs.title=MathPiperDocs
+
+# window toolbar buttons
+#mathpiperdocs.source.icon=Clear.png
+mathpiperdocs.back.icon=ArrowL.png
+mathpiperdocs.forward.icon=ArrowR.png
+mathpiperdocs.home.icon=Home.png
+mathpiperdocs.save-file.icon=Save.png
+mathpiperdocs.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.mathpiperdocs.show-filepath=true
+options.mathpiperdocs.font=Monospaced
+options.mathpiperdocs.fontstyle=0
+options.mathpiperdocs.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.mathpiperdocs.filepath=
+
+
+#
+#mathpiperdocs.applet.filename=
+#mathpiperdocs.applet.framePossible=false
+#mathpiperdocs.applet.showSourceIcon=true
+#mathpiperdocs.applet.enableRightClick=true
+#mathpiperdocs.applet.showMenuBar=false
+#mathpiperdocs.applet.showToolBar=true
+#mathpiperdocs.applet.showToolBarHelp=true
+#mathpiperdocs.applet.showAlgebraInput=true
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
