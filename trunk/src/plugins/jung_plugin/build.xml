@@ -2,9 +2,9 @@
 
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
 
-<project name="mathpiper_docs_plugin" default="dist" basedir=".">
+<project name="jung_plugin" default="dist" basedir=".">
 	<description>
-		Build file for the MathPiper Docs plugin.
+		Build file for the Jung Docs plugin.
 	</description>
 	
 	<property name="version" value=".50" />
@@ -74,7 +74,7 @@
 			</fileset>
 		</copy>
 		
-		<jar jarfile="${build.dir}/dist/mathpiper_docs_plugin.jar">
+		<jar jarfile="${build.dir}/dist/jung_plugin.jar">
 			<fileset dir="${build.classes.dir}">
 				<include name="**/*.class"/>
 				<include name="**/*.props"/>
@@ -86,7 +86,7 @@
 				<include name="services.xml"/>
 			</fileset>
 			<manifest> 
-				<section name="mathpiper_docs_plugin" >
+				<section name="jung_plugin" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
 			</manifest>

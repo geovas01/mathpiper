@@ -3,31 +3,31 @@
 #{{{ 
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.activate=defer
+plugin.org.mathrider.jungplugin.JungPlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.name=Jung
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.author=Ted Kosan
+plugin.org.mathrider.jungplugin.JungPlugin.name=Jung
+plugin.org.mathrider.jungplugin.JungPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.version=4.3
+plugin.org.mathrider.jungplugin.JungPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.docs=index.html
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin..longdescription=description.html
+plugin.org.mathrider.jungplugin.JungPlugin.docs=index.html
+plugin.org.mathrider.jungplugin.JungPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.jungplugin.JungPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.jungplugin.JungPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.jungplugin.JungPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.jungplugin.JungPlugin..longdescription=description.html
 #}}}
 
 
 
 
-mathpiperdocs.shell.msg.info=\nJung Shell \n\
+jung.shell.msg.info=\nJung Shell \n\
 	  Test.\n\n
 
-mathpiperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
+jung.shell.msg.usage=The Ant shell supports the following commands:\n\
 		 * "! [prop=value]*"\t\t\t-- runs the default target for the current build file\n\
 		 * "![target_name] [prop=value]*"\t-- runs the specified target for the current build file\n\
 		 * "?"\t\t\t\t-- lists the available build files and usage\n\
@@ -42,70 +42,70 @@ mathpiperdocs.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.mathpiperdocsplugin.JungPlugin.menu=mathpiperdocs
+plugin.org.mathrider.jungplugin.JungPlugin.menu=jung
 #	- \
-#	mathpiperdocs.clear \
-#	mathpiperdocs.save-file \
-#	mathpiperdocs.copy-to-buffer
+#	jung.clear \
+#	jung.save-file \
+#	jung.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
-mathpiperdocs.label=mathpiperdocs
+jung.label=jung
 
 # action labels for actions supplied by actions.xml
-mathpiperdocs.source.label=View Source
-mathpiperdocs.source.button-text=Source
-mathpiperdocs.collapse.label=Collapse function tree.
-mathpiperdocs.collapse.button-text=Collapse
-mathpiperdocs.home.label=Home
-mathpiperdocs.back.label=Back
-mathpiperdocs.forward.label=Forward
-mathpiperdocs.save-file.label=Save notepad file
-mathpiperdocs.copy-to-buffer.label=Copy notepad to buffer
+jung.source.label=View Source
+jung.source.button-text=Source
+jung.collapse.label=Collapse function tree.
+jung.collapse.button-text=Collapse
+jung.home.label=Home
+jung.back.label=Back
+jung.forward.label=Forward
+jung.save-file.label=Save notepad file
+jung.copy-to-buffer.label=Copy notepad to buffer
 
 # plugin option pane
-plugin.mathpiperdocs.option-pane=mathpiperdocs
+plugin.jung.option-pane=jung
 
 # Option pane activation BeanShell snippet
-options.mathpiperdocs.code=new org.mathrider.mathpiperdocsplugin.JungOptionPane();
+options.jung.code=new org.mathrider.jungplugin.JungOptionPane();
 
 # Option pane labels
-options.mathpiperdocs.label=mathpiperdocs
-options.mathpiperdocs.file=File:
-options.mathpiperdocs.source=Source
-options.mathpiperdocs.home=Home
-options.mathpiperdocs.source.title=View Source
-options.mathpiperdocs.choose-font=Font:
-options.mathpiperdocs.show-filepath.title=Display notepad file path
+options.jung.label=jung
+options.jung.file=File:
+options.jung.source=Source
+options.jung.home=Home
+options.jung.source.title=View Source
+options.jung.choose-font=Font:
+options.jung.show-filepath.title=Display notepad file path
 
 # window title
-mathpiperdocs.title=Jung
+jung.title=Jung
 
 # window toolbar buttons
-#mathpiperdocs.source.icon=Clear.png
-mathpiperdocs.back.icon=ArrowL.png
-mathpiperdocs.forward.icon=ArrowR.png
-mathpiperdocs.home.icon=Home.png
-mathpiperdocs.save-file.icon=Save.png
-mathpiperdocs.copy-to-buffer.icon=CopyToBuffer.png
+#jung.source.icon=Clear.png
+jung.back.icon=ArrowL.png
+jung.forward.icon=ArrowR.png
+jung.home.icon=Home.png
+jung.save-file.icon=Save.png
+jung.copy-to-buffer.icon=CopyToBuffer.png
 
 # default settings
-options.mathpiperdocs.show-filepath=true
-options.mathpiperdocs.font=Monospaced
-options.mathpiperdocs.fontstyle=0
-options.mathpiperdocs.fontsize=14
+options.jung.show-filepath=true
+options.jung.font=Monospaced
+options.jung.fontstyle=0
+options.jung.fontsize=14
 
 # Setting not defined but supplied for completeness
-options.mathpiperdocs.filepath=
+options.jung.filepath=
 
 
 #
-#mathpiperdocs.applet.filename=
-#mathpiperdocs.applet.framePossible=false
-#mathpiperdocs.applet.showSourceIcon=true
-#mathpiperdocs.applet.enableRightClick=true
-#mathpiperdocs.applet.showMenuBar=false
-#mathpiperdocs.applet.showToolBar=true
-#mathpiperdocs.applet.showToolBarHelp=true
-#mathpiperdocs.applet.showAlgebraInput=true
+#jung.applet.filename=
+#jung.applet.framePossible=false
+#jung.applet.showSourceIcon=true
+#jung.applet.enableRightClick=true
+#jung.applet.showMenuBar=false
+#jung.applet.showToolBar=true
+#jung.applet.showToolBarHelp=true
+#jung.applet.showAlgebraInput=true
 
 # :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
