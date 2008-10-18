@@ -1,1 +1,1 @@
-java -Duser.home=. -Xms64M -Xmx192M -classpath ./jedit.jar;./jars/mathpiper.jar;./jars/piper_me.jar;./jars/geogebra.jar;./jars/AppleJavaExtensions.jar;./jars/clojure.jar org.gjt.sp.jedit.jEdit -noserver -settings=./settings
+java -Duser.home=. -Xms64M -Xmx192M -classpath ./jedit.jar;./jars/mathpiper.jar;./jars/piper_me.jar;./jars/geogebra.jar;./jars/AppleJavaExtensions.jar;./jars/clojure.jar;./jars/jung2.jar org.gjt.sp.jedit.jEdit -noserver -settings=./settings
