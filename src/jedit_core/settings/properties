@@ -13,6 +13,7 @@ view.extendedState=0
 error-list.dock-position=bottom
 plugin-options.last=configurablefoldhandler
 mathpiperdocs.dock-position=right
+jung.dock-position=right
 tip.show=false
 buffertabs.icons=true
 view.y=2

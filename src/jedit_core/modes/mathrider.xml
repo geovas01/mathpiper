@@ -165,7 +165,7 @@
 			<END>%/s19</END>
 		</SPAN_REGEXP>
 		
-		<SPAN_REGEXP  TYPE="COMMENT4" >
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="pajek::MAIN">
 			<BEGIN>%jung[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/jung</END>
 		</SPAN_REGEXP>
