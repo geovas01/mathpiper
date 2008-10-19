@@ -40,7 +40,7 @@ void insert_uasm65_fold()
 
 	buffer.insert(offset, text);
 	
-    textArea.setCaretPosition(offset + 21);
+    textArea.setCaretPosition(offset + 22);
 }
 
 insert_uasm65_fold();

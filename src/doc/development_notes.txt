@@ -3,7 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
-+ Fix bug:10:59:25 PM [error] AWT-EventQueue-0: // Error: Exception in runnable:Method Invocation textArea.setSelection : at Line: 1353 : in file: /home/tkosan/checkouts/mathrider/build/mathrider/macros/MathRider/Shift_Enter.bsh : textArea .setSelection ( rangeSelection ) 
+- Fix bug:10:59:25 PM [error] AWT-EventQueue-0: // Error: Exception in runnable:Method Invocation textArea.setSelection : at Line: 1353 : in file: /home/tkosan/checkouts/mathrider/build/mathrider/macros/MathRider/Shift_Enter.bsh : textArea .setSelection ( rangeSelection ) 
 10:59:25 PM [error] AWT-EventQueue-0: Called from method: displayResult : at Line: 1413 : in file: /home/tkosan/checkouts/mathrider/build/mathrider/macros/MathRider/Shift_Enter.bsh : displayResult ( ) 
 10:59:25 PM [error] AWT-EventQueue-0: Target exception: java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 18394
 Happens when there is just 1 line underneath fold at the bottom of a .mrw buffer.  0 lines underneath do not cause a problem and 2+ lines do not cause a problem.
@@ -23,7 +23,7 @@ last evaluation without needing to use Write;
 + Add Clojure to MathRider.
 + Develop an Application Specific Language for GeoGebra.
 + The %geogebra fold syntax hilights the letter D.
-+ If %piper is the last fold and there is less than 2 spaces below it, the output fold will not be shown.
+- If %piper is the last fold and there is less than 2 spaces below it, the output fold will not be shown.
 + Have the GeoGebra plugin associated with view the %geogebrafold was executed in show the result.
 + Automate the placing of version information in plugin documentation (including UASM65).
 + My concern is mostly "Java IDE kung-fu": users of these libraries (mostly just me :-) only want the highest level APIs to show in popup completion lists and the entire set of implementation classes remain invisible. The solution is easy: a public API class with implementation classes in the same package with package-ony (i.e., neither public or private) visibility..
@@ -75,7 +75,7 @@ last evaluation without needing to use Write;
 + Use ShortCutSaver plugin for .mws shortcut keys (maybe like <shift><enter>).
 + Study TextAutocomplete plugin for ideas on keyword autocompletion.
 - Fix problem where %output folds don't cause extra %ends but %error folds do.
-+ Figure out a way to output the result of the last expression in a fold without Writing or Echoing.
+- Figure out a way to output the result of the last expression in a fold without Writing or Echoing.
 + Find the documentation for Apart and Together.
 + Make fold types a property for use by Shift_Enter.bsh file, mode file, and the configurable fold handler plugin.
 + Allow help on a Piper function to be brought up by ???ing on it (including the source code of the function).

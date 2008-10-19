@@ -43,7 +43,7 @@ void insert_mathpiper_fold()
 
 	buffer.insertIndented(offset, text);
 	
-    textArea.setCaretPosition(offset + indent.length() + 24);
+    textArea.setCaretPosition(offset + indent.length() + 25);
 }
 
 insert_mathpiper_fold();
