@@ -1343,11 +1343,16 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 						
 						if(isLastFold == true)
 						{
-							//System.out.println("XXXXX " + foldEndLine + ",   " + lineCount);return;
+							//System.out.println("XXXXX isLastFold == true: " + foldEndLine + ",   " + lineCount);return;
 							if(foldEndLine == lineCount-1)
 							{
 								textArea.setCaretPosition(buffer.getLength());
 								textArea.insert("\n\n",false);
+							}//
+							else if(foldEndLine == lineCount-2)
+							{
+								textArea.setCaretPosition(buffer.getLength());
+								textArea.insert("\n",false);
 							}//
 								
 								
