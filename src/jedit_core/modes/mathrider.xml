@@ -164,6 +164,11 @@
 			<BEGIN>%s19[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/s19</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" >
+			<BEGIN>%jung[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/jung</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     

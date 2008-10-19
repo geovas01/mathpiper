@@ -869,7 +869,51 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		}//end else
 		//end %geogebra }}}
 
-				                                                                                
+
+	///{{{ *** %jung ***
+		else if(foldType.startsWith("%jung")) //(foldStartLineText.indexOf("%geogebra") != -1)
+		{
+			
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jung" );
+			
+			errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+			
+			//import geogebra.GeoGebraApplet;
+			//geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+			
+		
+			if(foldProperties.get("clear").equalsIgnoreCase("true") )
+			{
+				//Clear geogebra.
+				//geogebra.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+				
+			}//end if.
+			
+			
+			edu.uci.ics.jung.io.PajekNetReader pnr = new edu.uci.ics.jung.io.PajekNetReader(org.apache.commons.collections15.FactoryUtils.instantiateFactory(Object.class));
+			edu.uci.ics.jung.graph.Graph g = new edu.uci.ics.jung.graph.UndirectedSparseGraph();
+			
+            tempFilePath = tempFile.getAbsolutePath();
+			tempFilePath = ChangeToForwardSlash(tempFilePath);
+			
+			pnr.load(tempFilePath, g);
+			
+			jung = org.mathrider.jungplugin.Jung.getJung();
+			jung.setGraph(g);
+			
+			result = "Jung updated.";
+			output_fold_type = "%output";
+
+
+			
+			
+		}//end else
+		//end %jung }}}
+
+
+		
+		
+		
 	///{{{ *** %hoteqn ***
 		else if(foldType.equalsIgnoreCase("%hoteqn")) //(foldStartLineText.indexOf("%geogebra") != -1)
 		{

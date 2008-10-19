@@ -285,6 +285,9 @@
 
 <MODE NAME="omnimark"		FILE="omnimark.xml"
 				FILE_NAME_GLOB="*.x{om,in}" />
+				
+<MODE NAME="pajek"		FILE="pajek.xml"
+				FILE_NAME_GLOB="*.{net}" />
 
 <MODE NAME="pascal"		FILE="pascal.xml"
 				FILE_NAME_GLOB="*.{pas,dpr,dpk}" />

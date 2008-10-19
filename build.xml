@@ -48,6 +48,7 @@
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />
+		<pathelement path="${plugins.jars.dir}/jung2.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />
 		-->

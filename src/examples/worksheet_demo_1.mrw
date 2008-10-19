@@ -22,12 +22,6 @@ While(x < 100)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side effects:
-      1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
-    %/output
 
 
 
@@ -40,9 +34,6 @@ While(x < 100)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100}
-    %/output
 
 
 
@@ -57,17 +48,6 @@ ForEach(x,a)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side effects:
-       8 - 2^3 
-      11 - 11 
-      14 - 2*7 
-      18 - 2*3^2 
-      24 - 2^3*3 
-      29 - 29
-    %/output
 
 
 
@@ -86,9 +66,6 @@ f(x);
       Result: 11*x-2*x^2
     %/geogebra
 
-        %output,preserve="false"
-          GeoGebra updated.
-        %/output
 
 
 
@@ -107,9 +84,6 @@ df;
       Result: 11-4*x
     %/geogebra
 
-        %output,preserve="false"
-          GeoGebra updated.
-        %/output
 
 
 
@@ -122,9 +96,6 @@ f(x)=2*sin(x)
 
 %/geogebra
 
-    %output,preserve="false"
-      GeoGebra updated.
-    %/output
 
 
 
@@ -315,7 +286,7 @@ demonstration.
 	<fixed val="false"/>
 	<breakpoint val="false"/>
 </element>
-<expression label ="f" exp="f(x) = xÂ³ - xÂ² - x + 2"/>
+<expression label ="f" exp="f(x) = x³ - x² - x + 2"/>
 <element type="function" label="f">
 	<show object="false" label="true"/>
 	<objColor r="0" g="0" b="0" alpha="0.0"/>
@@ -624,6 +595,49 @@ Solve(a,x);
 
 
 
+%jung
+
+*Vertices 16
+1 "in1"
+2 "in2"
+3 "in3"
+4 "in4"
+5 "in5"
+6 "in6"
+7 "in7"
+8 "in8"
+9 "out1"
+10 "out2"
+11 "out3"
+12 "out4"
+13 "out5"
+14 "out6"
+15 "out7"
+16 "out8"
+*Edgeslist
+1 2 5 8 9 16
+2 3 6 9 10
+3 4 7 10 11
+4 5 8 11 12
+5 6 12 13
+6 7 13 14
+7 8 14 15
+8 15 16
+9 10 16
+10 11
+11 12
+12 13
+13 14
+14 15
+15 16
+
+%/jung
+
+
+
+
+
+
 %beanshell
 /*This code demonstrates that any GUI interfaces can be created for use
 in a notebook.
@@ -673,6 +687,4 @@ actionPerformed(event)
 }
 
 %/beanshell
-
-
 

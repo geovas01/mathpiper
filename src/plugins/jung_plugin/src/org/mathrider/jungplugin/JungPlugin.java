@@ -11,8 +11,8 @@ import org.gjt.sp.jedit.EditPlugin;
  * @author Ted Kosan
  */
 public class JungPlugin extends EditPlugin {
-	public static final String NAME = "piperdocs";
-	public static final String OPTION_PREFIX = "options.piperdocs.";
+	public static final String NAME = "jung";
+	public static final String OPTION_PREFIX = "options.jung.";
 }//end class.
 
 /* {{{ License.
