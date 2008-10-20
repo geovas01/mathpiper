@@ -1,0 +1,32 @@
+/* Place the cursor into a fold and Press <shift><enter> 
+    to execute it.
+*/
+
+
+%mathpiper,description="Generate numerals between 0 and 255."
+    nums := 0 .. 255;
+
+    ForEach(dec,nums)
+    [
+        
+       hex := ToBase(16,dec);
+       
+       bin := ToBase(2,dec);
+       
+       If(Length(bin) = 1, pre := "0000000");
+       If(Length(bin) = 2, pre := "000000");
+       If(Length(bin) = 3, pre := "00000");
+       If(Length(bin) = 4, pre := "0000");
+       If(Length(bin) = 5, pre := "000");
+       If(Length(bin) = 6, pre := "00");
+       If(Length(bin) = 7, pre := "0");
+       If(Length(bin) = 8, pre := "");
+       
+       binWithLeadingZeros := ConcatStrings(pre,bin);
+       
+       Echo(binWithLeadingZeros, dec, hex);
+       NewLine();
+    ];
+
+%/mathpiper 
+

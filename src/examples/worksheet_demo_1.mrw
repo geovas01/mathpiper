@@ -1,4 +1,4 @@
-/*  v 1.05.
+/*  v 1.06.
     This is a MathRider notebook file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -62,10 +62,6 @@ f(x);
 
 %/mathpiper
 
-    %geogebra,preserve="false"
-      Result: 11*x-2*x^2
-    %/geogebra
-
 
 
 
@@ -79,10 +75,6 @@ df := D(x) f(x);
 df;
 
 %/mathpiper
-
-    %geogebra,preserve="false"
-      Result: 11-4*x
-    %/geogebra
 
 
 
