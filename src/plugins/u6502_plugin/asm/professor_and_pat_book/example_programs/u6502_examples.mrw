@@ -4,13 +4,10 @@
   
   To automatically load a program into the U6502 plugin, assemble the
   program then press <shift><enter> in the %s19 fold that is produced.
+  
+  Note: these progams may not exactly match the examples in the 
+  "Professor and Pat" books.
 */
-                                   
-                                   
-                                   
-
-                                   
-%group,description="Examples from "ps3_6502_assembly_language."
 
 
 %uasm65,description="Example 1"
@@ -24,10 +21,10 @@
 	end
 %/uasm65
 
-   
-   
-   
-   
+
+
+
+
 %uasm65,description="Garage example."
         org 0200h
 
@@ -48,8 +45,8 @@ garage_length dbt 8d
 %/uasm65
 
 
-   
-   
+
+
 
 %uasm65,description="Add with carry."
 	org 0200h
@@ -64,22 +61,12 @@ number1 dbt 11111111b
 number2 dbt 00000001b
 	
 	end
-	
-
 
 %/uasm65
 
 
 
 
-
-%/group
-
-
-
-
-
-%group,description="Examples from ps4_6502_programming."
 
 %uasm65,description="sum10.asm"
 ;Program Name: sum10
@@ -248,9 +235,6 @@ list	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d
 ;Version: 1.0.
 ;
 ;Description: Copy the contents of list1 to list2.
-;
-;Assumptions: The numbers in the list will be no 
-; lower than 0 and no higher than 255.
 
 
 ;**************************************
@@ -291,7 +275,6 @@ list1	dbt 41h,42h,43h,44h,45h,46h,47h,44h,49h,4ah
 list2	dbt 10d(0d)
 
 	end
-
 
 %/uasm65
 
@@ -439,440 +422,3 @@ alphalist 	dbt 100d(?)
 %/uasm65
 
 
-
-
-
-%uasm65,description=""
-;Program Name: sumlist
-;
-;Version: 1.0.
-;
-;Description: Calculate the sum of the numbers that are in numberlist.
-;
-;Assumptions: The numbers in the list will be no 
-; lower than 0 and no higher than 255.
-
-
-;**************************************
-;Program entry point.
-	org 0200h
-
-;The X register will be used as a pointer.
-	ldx #0d
-	
-;Initialize the 16 bit wide variable "sum" to 0.  Note: 8 bits is called a 
-; "byte" and 16 bits is called a "word".  sum+0d accesses the high byte of sum
-; and sum+1d accesses the low byte of sum.
-	lda #0d
-	sta sum+0d
-	sta sum+1d
-
-LoopTop  *
-;Obtain the next number from the list.
-	lda numberList,x
-
-;Add the number to the low byte of sum and then place the result back into
-; the low byte of sum.
-	clc
-	adc sum+1d
-	sta sum+1d
-	
-;If the carry flag was set during the addition, this means that the addition 
-; resulted in a value that was greater than 255 and the high byte of sum needs
-; to be incremented by 1.  If the result was 255 or less, the carry would not
-; be set and we can branch around the increment of the high byte of sum.
-	bcc NoCarry
-Carry *
-	inc sum+0d
-	
-NoCarry *
-;Point to the next number in the list and loop back if we have not reached
-; the end of the list.
-	inx
-	cpx #100d
-	bne LoopTop
-	
-;Exit the program.
-	brk
-
-
-;**************************************
-;Variables area.
-
-;DWD stands for Define Word and it creates a variable that is 16 bits wide.
-; Sum needs to be 16 bits wide because the sum of the numbers in numberList
-; will be greater than 255 (which is the largest number that can be held in
-; an 8 bit byte).
-sum	dwd ?
-
-;This list contains 100 numbers ranging from 0 to 255.
-numberList *
-	dbt 59d,61d,37d,128d,71d,150d,195d,130d,69d,84d
-	dbt 171d,227d,99d,214d,233d,136d,80d,253d,242d
-	dbt 112d,221d,151d,101d,117d,76d,226d,174d,205d
-	dbt 84d,78d,139d,89d,195d,243d,69d,128d,217d,215d
-	dbt 57d,100d,227d,226d,233d,238d,229d,228d,135d
-	dbt 140d,98d,211d,245d,120d,206d,198d,47d,191d
-	dbt 239d,27d,236d,12d,242d,148d,98d,11d,38d,189d
-	dbt 238d,225d,142d,214d,214d,21d,75d,17d,190d
-	dbt 178d,123d,125d,123d,10d,166d,123d,135d,220d
-	dbt 193d,46d,248d,222d,63d,206d,197d,101d,144d
-	dbt 201d,233d,12d,241d,85d,180d,29d
-
-	end
-
-
-
-%/uasm65
-
-
-
-
-%/group
-
-
-
-
-
-%uasm65,description=""
-;Program Name: hello
-;
-;Version: 1.02.
-;
-;Description: Print all characters in Mess using OutChar.
-
-;**************************************
-;      Program entry point.
-;**************************************
-	org 0200h
-
-Main *
-
-;Point X to first character of Mess.
-	ldx #0d
-    
-LoopTop *
-;Grab a character from Mess.
-	lda Mess,x
-	
-;If the character is the 0 which is at the end
-; of Mess, then exit.
-	cmp #0d
-	beq DonePrint
-	
-;Call the OutChar monitor utility subroutine.
-	jsr 0E003h
-	
-;Point X to the next character in Mess and loop back.
-	inx
-	jmp LoopTop
-	
-DonePrint *
-	
-;Exit the program.
-	brk
-
-;**************************************
-;        Variables area.
-;**************************************
-Mess	dbt "Hello"
-	    dbt 0d
-
-	end
-
-
-%/uasm65
-
-   
-   
-
-
-%uasm65,description=""
-;Program Name: blink
-;
-;Version: 1.1.
-;
-;Description: The purpose of this program is to blink
-; the lights on and off continuously.
-;
-
-;**************************************
-;      Program entry point.
-;**************************************
-	org 0200h
-
-Main *
-;Turn all the lights on and then waste some time
-; so that the user can see the lights on.
-	lda #11111111b
-	sta 0a200h
-	jsr delay
-	
-;Turn all the lights off and then waste some time
-; so that the user can see the lights off.
-	lda #00000000b
-	sta 0a200h
-	jsr delay
-	
-	jmp Main
-	
-;Exit the program.
-	brk
-	
-	
-;**************************************
-;        Subroutines area.
-;**************************************
-
-;**************************************
-;Delay subroutine.
-;
-;The purpose of this subroutine is to generate
-; a delay so that the rate of the blinking
-; can be controlled.
-;
-;Change the number that is being loaded into
-; the 'A' register to change the delay time.
-;**************************************
-Delay *
-;Save registers on the stack.
-	pha
-	txa
-	pha
-	tya
-	pha
-	
-;Change the number that is being loaded into the
-; 'A' register in order to change the delay time.
-	lda #20d
-    sta 0a800h
-	
-DelayLoop *
-    lda 0a800h
-    cmp #0d
-    bne DelayLoop
-
-	
-;Restore registers from the stack.
-	pla
-	tay
-	pla
-	tax
-	pla
-
-	rts
-	
-
-;**************************************
-;        Variables area.
-;**************************************
-
-	end
-
-%/uasm65
-
-
-
-
-
-%uasm65,description=""
-;Program Name: hello2
-;
-;Version: 1.1.
-;
-;Description: Print all of the characters in Mess using
-; PrntMess
-
-;**************************************
-;      Program entry point.
-;**************************************
-	org 0200h
-
-Main *
-;Load the low byte of address of Mess into X.
-	ldx #Mess<
-	
-;Load the high byte of address of Mess into Y.
-	ldy #Mess>
-	
-;Call PrntMess monitor utility subroutine.
-	jsr 100ch
-	
-;Exit the program.
-	brk
-
-;**************************************
-;        Variables area.
-;**************************************
-Mess	dbt "Hello2"
-	dbt 0d
-
-	end
-
-%/uasm65
-
-
-
-
-
-%uasm65,description=""
-;Program Name: hello3
-;
-;Version: 1.1.
-;
-;Description: Print all characters in Mess using PrntMess and
-; equs.
-;
-;Assumptions: When added, the numbers will not be 
-; greater than 255.
-
-     ;************************************************************
-     ;              Monitor Utility Subroutine Jump Table.
-     ;************************************************************
-OutChar   equ E003h ;Output byte in reg A to the user.
-                     
-GetChar   equ E006h ;Get a byte from the serial port.
-                     
-GetCharW  equ E009h ;Wait and get a byte from the user.
-                     
-PrntMess  equ E00Ch ;Print a message to the user.
-                    
-OutSpace  equ E00Fh ;Output spaces to the serial port.                                 
-                     
-OutHex    equ E012h ;Output a HEX number to the user.
-                     
-DgtToBin  equ E015h ;Convert an ASCII digit to binary.
-                    
-GetLine   equ E018h ;Input a line from the serial port.
-          
-
-
-;**************************************                  
-;      Program entry point.
-;**************************************
-	org 0200h                                                       
-
-Main *
-	ldx #mess<
-	ldy #mess>
-	jsr PrntMess
-	
-;Exit the program.
-	brk
-
-;**************************************
-;        Variables area.
-;**************************************
-mess	dbt "Hello3"
-	    dbt 0d
-
-	end
-
-%/uasm65
-
-
-
-
-
-%uasm65,description=""
-;Program Name: addinput
-;
-;Version: 1.1.
-;
-;Description: Input 2 single digit numbers from the user, add
-; them together, and then output the answer..                             
-
-     ;************************************************************
-     ;              Monitor Utility Subroutine Jump Table.
-     ;************************************************************
-OutChar   equ E003h ;Output byte in reg A to the user.
-                     
-GetChar   equ E006h ;Get a byte from the serial port.
-                     
-GetCharW  equ E009h ;Wait and get a byte from the user.
-                     
-PrntMess  equ E00Ch ;Print a message to the user.
-                    
-OutSpace  equ E00Fh ;Output spaces to the serial port.                                 
-                     
-OutHex    equ E012h ;Output a HEX number to the user.
-                     
-DgtToBin  equ E015h ;Convert an ASCII digit to binary.
-                    
-GetLine   equ E018h ;Input a line from the serial port.
-
-
-;**************************************                  
-;      Program entry point.
-;**************************************
-	org 0200h                                                       
-
-Main *
-;Ask user to enter the first number.
-	ldx #InMess1<
-	ldy #InMess1>
-	jsr PrntMess
-	
-;Obtain the first number from the user, convert it from ASCII 
-;to binary, and then store it in num1.
-	jsr GetCharW
-	jsr DgtToBin
-	sta num1
-
-;Ask user to enter the second number.
-	ldx #InMess2<
-	ldy #InMess2>
-	jsr PrntMess
-	
-;Obtain the second number from the user, convert it from ASCII 
-;to binary, and then store it in num2.
-	jsr GetCharW
-	jsr DgtToBin
-	sta num2
-	
-;Add the numbers together and store the answer in sum.
-	clc
-	lda num1
-	adc num2
-	sta sum
-	
-;Inform the user that the answer is being printed.
-	ldx #OutMess<
-	ldy #OutMess>
-	jsr PrntMess
-	
-;Print the answer.
-	lda sum
-	jsr OutHex
-	
-Exit *
-;Exit the program.
-	brk
-
-;**************************************
-;        Variables area.
-;**************************************
-InMess1 dbt 10d,13d
-        dbt "Enter number 1:"
-	    dbt 0d
-InMess2 dbt 10d,13d
-        dbt "Enter number 2:"
-	    dbt 0d
-OutMess dbt 10d,13d
-        dbt "The sum is:"
-	    dbt 0d
-	
-num1	  dbt 0d
-num2	  dbt 0d
-sum	  dbt 0d
-
-	end
-
-
-
-%/uasm65
-
-
-
-
-    
