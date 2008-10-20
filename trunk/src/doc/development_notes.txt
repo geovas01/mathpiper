@@ -548,6 +548,7 @@ http://sourceforge.net/tracker/index.php?func=detail&aid=1755992&group_id=588&at
 
 
 {{{ ====HotEqn bugs.
+- Does not display correctly on this input: \frac{2 x \left( x + 3\right)  \left( x + 4\right) }{9}
 %piper,output="latex"
 
 a := Hold( ((k+1)/(2*k)) * (1-(1/(K+1)^2)) );

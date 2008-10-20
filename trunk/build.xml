@@ -11,7 +11,7 @@
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
 	<property environment="env" />
-	<property name="version" value=".64" />
+	<property name="version" value=".65" />
 	
 	
 	<!-- Set top directories -->
@@ -56,6 +56,9 @@
 	
 	
 <!-- Targets -->
+
+	<target id="*all" name="*all*" description="Builds all of mathrider from scratch." depends="clean,*mathrider*,all-plugins-dist">
+	</target>
 
 	<target id="clean" name="clean" 
 		description="Deletes the master build directory" >
