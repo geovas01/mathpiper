@@ -1,10 +1,12 @@
-package org.mathrider.piper_me.xpiper.arithmetic;
+package org.mathrider.piper_me.xpiper.arithmetic.oldImpl;
 
 
-  import java.math.*;
+  import org.eninom.numerics.*;
   import org.mathrider.piper_me.LispError;
 
-  class YacasBigNumber extends BigNumber
+  import org.mathrider.piper_me.xpiper.arithmetic.*;
+  
+  public class YacasBigNumber extends BigNumber
   {
     public static boolean NumericSupportForMantissa()
     {
