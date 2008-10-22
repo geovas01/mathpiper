@@ -27,6 +27,14 @@ import org.gjt.sp.jedit.textarea.Selection;
 import errorlist.*;
 import org.gjt.sp.jedit.bsh.EvalError;
 
+import org.apache.commons.collections15.Factory;
+	Factory edgeFactory = new Factory() 
+	{
+		int i=0;
+		public Integer create() {
+			return i++;
+		}};
+
 
 ChangeToForwardSlash(tempFilePath)
 {
@@ -182,7 +190,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			properties = new java.util.Hashtable();
 			properties.put("type",foldType);
 			properties.put("preserve","true");
-			//properties.put("input","");
+			properties.put("input","");
 			properties.put("width","400");
 			properties.put("height","400");
 			properties.put("name","");
@@ -881,25 +889,65 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			//import geogebra.GeoGebraApplet;
 			//geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
 			
-		
-			if(foldProperties.get("clear").equalsIgnoreCase("true") )
+
+			if(foldProperties.get("input").equalsIgnoreCase("facebook") )
 			{
-				//Clear geogebra.
-				//geogebra.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+				//import edu.uci.ics.jung.graph.DelegateForest;
+				//import edu.uci.ics.jung.graph.DirectedGraph;
+				import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+				graph = new DirectedSparseMultigraph();
+				//System.out.println("XXXXX " + codeText);
 				
-			}//end if.
+				lines = codeText.split("\n");
+				
+				
+				//line = lines.split(',');
+				
+				boolean firstLine = true;
+				
+				for(x=0;x < lines.length; x++)
+				{
+					line = lines[x].split(",");
+					
+					if(line[0].startsWith("*"))
+					{
+						friend = line[1];
+						if(firstLine)
+						{
+							graph.addVertex(friend);
+							firstLine = false;
+						}
+						
+					}
+					System.out.println("Friend: " + friend + " - " + line[1]);
+					if(!friend.equalsIgnoreCase(line[1]))
+					{
+						graph.addEdge(edgeFactory.create(), friend, line[1]);
+					}
+					
+				}
+				
+				
+				
+				
+				jung = org.mathrider.jungplugin.Jung.getJung();
+				jung.setGraph(graph);
+			}
+			else
+			{
 			
+				edu.uci.ics.jung.io.PajekNetReader pnr = new edu.uci.ics.jung.io.PajekNetReader(org.apache.commons.collections15.FactoryUtils.instantiateFactory(Object.class));
+				edu.uci.ics.jung.graph.Graph g = new edu.uci.ics.jung.graph.UndirectedSparseGraph();
+				
+				tempFilePath = tempFile.getAbsolutePath();
+				tempFilePath = ChangeToForwardSlash(tempFilePath);
+				
+				pnr.load(tempFilePath, g);
+				
+				jung = org.mathrider.jungplugin.Jung.getJung();
+				jung.setGraph(g);
 			
-			edu.uci.ics.jung.io.PajekNetReader pnr = new edu.uci.ics.jung.io.PajekNetReader(org.apache.commons.collections15.FactoryUtils.instantiateFactory(Object.class));
-			edu.uci.ics.jung.graph.Graph g = new edu.uci.ics.jung.graph.UndirectedSparseGraph();
-			
-            tempFilePath = tempFile.getAbsolutePath();
-			tempFilePath = ChangeToForwardSlash(tempFilePath);
-			
-			pnr.load(tempFilePath, g);
-			
-			jung = org.mathrider.jungplugin.Jung.getJung();
-			jung.setGraph(g);
+			}
 			
 			result = "Jung updated.";
 			output_fold_type = "%output";
