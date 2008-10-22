@@ -57,7 +57,7 @@
 	
 <!-- Targets -->
 
-	<target id="*all" name="*all*" description="Builds all of mathrider from scratch." depends="clean,*mathrider*,all-plugins-dist">
+	<target id="*all" name="*all" description="Builds all of mathrider from scratch." depends="clean,*mathrider,all-plugins-dist">
 	</target>
 
 	<target id="clean" name="clean" 
@@ -295,7 +295,7 @@
 	
 	
 	
-	<target name="*mathrider*" depends="init" description="Creates complete mathrider application." >
+	<target name="*mathrider" depends="init" description="Creates complete mathrider application." >
 		
 		<mkdir dir="${master.build.dir}/mathrider" />
 	
@@ -460,8 +460,8 @@
 	</target>		    
 	
 		
-	<!-- zip distribution target. Note:need to write script to generate md5sum files. -->
-	<target name="dist" depends="clean, *mathrider*, all-plugins-dist, dist_clean, dist_linux, dist_windows" >
+	
+	<target name="*dist" depends="clean, *mathrider, all-plugins-dist, dist_clean, dist_linux, dist_windows" >
 		
 		
 		<exec executable="md5sum"  output ="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2.md5" >
