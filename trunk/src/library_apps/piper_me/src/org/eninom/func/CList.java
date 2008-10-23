@@ -35,10 +35,11 @@ import org.eninom.seq.Seq;
 //! Core List Implementation
 /*<literate>*/
 /**
- * This is a list class with Yacas semantics of lists. That means,
+ * This is a list class with Lisp semantics of lists. Besides it
+ * offers basic threadsafety under concurrent mutations. That means,
  * mutual sharing of sublists is possible, and destructive updates
- * to those sublists will affect all participating lists. This
- * implementation is optimized for vector processing. Lists obtained
+ * to those sublists will affect all participating lists. However,
+ * this implementation is optimized for vector processing. Lists obtained
  * from an array will retain the array structure unless tailing
  * occurs. Once the tail of a list is obtained, the array structure
  * will be rearranged in such way that mutual sharing is possible.
@@ -60,14 +61,18 @@ import org.eninom.seq.Seq;
  * never mutated after initialization.
  * \begin{enumerate} 
  * \item Generate unit tests.
- * \item Add functions.
- * \item implement tail(i)
- * \item add lazy elements
+ * \item cooperate with evaluator in order to avoid stack overflow.
+ * \item implement rest(i) and splittail(i)
  * \item add iterator and seq (seq in a way that does not destroy
  * subsequent order in memory)
  * \end{enumerate}
+ * The implementation's performance depends heavily on tuning Java's
+ * garbage collection (sometimes factor 10 slower!). For instance, with
+ * <br /><br />
+ * -ms90M -mx90M -XX:NewSize=80M -server <br />
+ * I had fast and stable througput on a 2-core processor.
  */
-public final class CList implements Seq<Object> { 
+public final class CList { 
   
 	private Object first;
 	private volatile Object rest;
@@ -152,16 +157,13 @@ public final class CList implements Seq<Object> {
   }
   /**
    * returns the tail of the list. If necessary, the list is restructured
-   * so that modifications of the sublists will be shared. Note that
-   * subsequent tailing of the list leads to a degenerated random access
-   * time for the original(!) list. Lists that are used as vectors should
-   * never be tailed, and not be exported to code that does.
+   * so that modifications of the sublists will be shared.
    */
-  public CList rest() {
+  public Object rest() {
   	if (!isChunk(rest)) {
       if (rest.getClass() == Lazy.class)
-        return (CList)((Lazy) rest).value();
-  		return (CList) rest;
+        return ((Lazy) rest).value();
+  		return rest;
     }
   	else {
       splitFirstFromTail();
@@ -170,7 +172,7 @@ public final class CList implements Seq<Object> {
   }
   
   /**
-   * result is the same as tail().tail()... /<i>n</i>times), except
+   * result is the same as rest().rest()... /<i>n</i>times), except
    * that only the affected parts of the list are restructured.
    * 
    * TODO
@@ -186,17 +188,6 @@ public final class CList implements Seq<Object> {
    */
   private synchronized void splitFirstFromTail() {
     Object restLocalCopy = this.rest;
-    /*
-     * Note that it it is not necessary to obtain a local copy 
-     * of the reference to rest of the list. The method is synchronized
-     * and no unsynchronized method modifies this refernce in the
-     * current implementation. We do, however, obtain a local copy
-     * to be prepared if we find out that synchronizing read access is
-     * up to the user and we drop the method's synchronized modifier
-     * in favor of efficiency.\\ 
-     *\\
-     * If he chunk points to a proper list, nothing needs to be done.
-     */
     if (!isChunk(rest)) {
       return;
     }//`if`
@@ -398,7 +389,7 @@ public final class CList implements Seq<Object> {
     while (true) {
       long time = System.currentTimeMillis();
       for (int i = 0; i < 10000000; i++) {
-        numbers = numbers.rest();
+        numbers = (CList) numbers.rest();
       }
       System.out.println(numbers.get(0));
       System.out.println("ellapsed time (ms): "+ 
