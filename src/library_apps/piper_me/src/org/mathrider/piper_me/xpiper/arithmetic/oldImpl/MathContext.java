@@ -50,28 +50,28 @@ public final class MathContext
 {
   /** A MathContext for unlimited precision arithmetic * */
   public static final MathContext UNLIMITED = 
-    new MathContext(0, RoundingMode.HALF_UP);
+    new MathContext(0, BigDecimal.ROUND_HALF_UP);
   
   /**
    * A MathContext for the IEEE 754R Decimal32 format - 7 digit preicision and
    * HALF_EVEN rounding.
    */
   public static final MathContext DECIMAL32 = 
-    new MathContext(7, RoundingMode.HALF_EVEN);
+    new MathContext(7, BigDecimal.ROUND_HALF_EVEN);
   
   /**
    * A MathContext for the IEEE 754R Decimal64 format - 16 digit preicision and
    * HALF_EVEN rounding.
    */
   public static final MathContext DECIMAL64 = 
-    new MathContext(16, RoundingMode.HALF_EVEN);
+    new MathContext(16, BigDecimal.ROUND_HALF_EVEN);
   
   /**
    * A MathContext for the IEEE 754R Decimal128 format - 34 digit preicision and
    * HALF_EVEN rounding.
    */
   public static final MathContext DECIMAL128 = 
-    new MathContext(34, RoundingMode.HALF_EVEN);
+    new MathContext(34, BigDecimal.ROUND_HALF_EVEN);
   
   /**
    * This is the serialVersionUID reported here:
@@ -81,7 +81,7 @@ public final class MathContext
   
   private int precision;
   
-  private RoundingMode roundMode;
+  private int roundMode;
   
   /**
    * Constructs a new MathContext with the specified precision and with HALF_UP
@@ -92,7 +92,7 @@ public final class MathContext
    */
   public MathContext(int setPrecision)
   {
-    this(setPrecision, RoundingMode.HALF_UP);
+    this(setPrecision, BigDecimal.ROUND_HALF_UP);
   }
   
   /**
@@ -103,7 +103,7 @@ public final class MathContext
    * 
    * @throws IllegalArgumentException if precision is < 0.
    */
-  public MathContext(int setPrecision, RoundingMode setRoundingMode)
+  public MathContext(int setPrecision, int setRoundingMode)
   {
     if (setPrecision < 0)
       throw new IllegalArgumentException("Precision cannot be less than zero.");
@@ -111,33 +111,6 @@ public final class MathContext
     roundMode = setRoundingMode;
   }
   
-  /**
-   * Constructs a MathContext from a String that has the same form as one
-   * produced by the toString() method.
-   * @param val
-   * 
-   * @throws IllegalArgumentException if the String is not in the correct
-   * format or if the precision specified is < 0.
-   */
-  public MathContext(String val)
-  {
-    try
-    {
-      int roundingModeIndex = val.indexOf("roundingMode", 10);
-      precision = Integer.parseInt(val.substring(10, roundingModeIndex - 1));
-      roundMode = RoundingMode.valueOf(val.substring(roundingModeIndex + 13));
-    }
-    catch (NumberFormatException nfe)
-    {
-      throw new IllegalArgumentException("String not in correct format");
-    }
-    catch (IllegalArgumentException iae)
-    {
-      throw new IllegalArgumentException("String not in correct format");
-    }
-    if (precision < 0)
-      throw new IllegalArgumentException("Precision cannot be less than 0.");
-  }
   
   /**
    * Returns true if x is a MathContext and has the same precision setting
@@ -151,7 +124,7 @@ public final class MathContext
       return false;
     MathContext mc = (MathContext)x;
     return mc.precision == this.precision
-           && mc.roundMode.equals(this.roundMode);
+           && mc.roundMode == this.roundMode;
   }
   
   /**
@@ -170,10 +143,13 @@ public final class MathContext
    * RoundingMode.UNNECESSARY, or RoundingMode.UP.
    * @return the rounding mode setting.
    */
-  public RoundingMode getRoundingMode()
+  public int getRoundingMode()
   {
     return roundMode;
   }
+  
+  
+  
   
   /**
    * Returns "precision=p roundingMode=MODE" where p is an int giving the 
@@ -193,6 +169,6 @@ public final class MathContext
    */
   public int hashCode()
   {
-    return precision ^ roundMode.hashCode();
+    return precision ^ roundMode;
   }
 }

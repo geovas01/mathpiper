@@ -1,93 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
-
-<project id="piper_me" name="piper_me" default="dist" basedir="." >
+<project name="Piper-ME" default="dist" basedir=".">
 	<description>
-		Build file for Piper_ME.
+		simple example build file
 	</description>
-	
-	<property name="version" value=".51" />
-	<property name="build.classes.dir" value="${build.dir}/classes" />
-	
-	
-	<target id="noop" name="noop" description="Do nothing." />
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="dist"  location="dist"/>
 	
 	<target name="init">
-		<tstamp>
-			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
-		</tstamp>
-		<mkdir dir="${build.dir}" />
-		<mkdir dir="${build.classes.dir}" />
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}"/>
 	</target>
 	
 	<target name="compile" depends="init"
-		description="Compiles the application" >
-		<echo message="${compile.source}." />
-	
-		<javac 
-			source="${compile.source}"
-			target="${compile.target}" 
-			srcdir="${src.dir}"
-			destdir="${build.classes.dir}"
-			debug="on"
-			deprecation="on"
-			optimize="off">
-			<classpath refid="build_classpath" />
-			<include name="**/*.java" />
+		description="compile the source " >
+			
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" target="jsr14">
+			<classpath>
+				<pathelement path="${classpath}"/>
+				<pathelement location="lib/junit-4.1.jar"/>
+			</classpath> 
 		</javac>
-		
 	</target>
-
 	
-	
-	<target id="dist" name="dist" depends="compile" >
-	
-		<copy todir="${build.classes.dir}">
-			<fileset dir="${piper_me.dir}/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
+	<target name="dist" depends="compile"
+		description="generate the distribution" >
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/lib"/>
 		
-		<copy file="${piper_me.dir}/piper.properties" 
-todir="${build.classes.dir}">
-			<filterset>
-	               
-		       	   <filter token="VERSION" value="${version}" />
-	               
-			 </filterset>
-		</copy>
-	
-		<mkdir dir="${build.dir}/dist" />
-		
-		<jar jarfile="${build.dir}/dist/piper_me.jar"
-			basedir="${build.classes.dir}" update="true"
-			manifest="${piper_me.dir}/MANIFEST.MF">
-			<!--<manifest> 
-				<section name="piper" >
-					<attribute name="Build-Date" value="${build.time}"/>
-				</section>
-			</manifest>-->
-			<include name="**/*" />
-		</jar> 
+		<!-- Put everything in ${build} into the piper-me.jar file -->
+		<jar jarfile="${dist}/lib/piper-me.jar" basedir="${build}"/>
 	</target>
-
+	
+	<target name="clean"
+		description="clean up" >
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+	</target>
 </project>
-
-<!-- {{{ License.
-/*
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
- }}} -->
