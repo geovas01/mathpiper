@@ -61,7 +61,7 @@ import java.util.Random;
  * Otherwise, the first ival elements of words make the value
  * of this BigInteger, stored in little-endian order, 2's-complement form. 
  */
-public class BigInteger extends Number implements Comparable<BigInteger>
+public class BigInteger
 {
   private transient int ival;
   private transient int[] words;
@@ -1644,22 +1644,6 @@ public class BigInteger extends Number implements Comparable<BigInteger>
     return make(words, size);
   }
 
-  public double doubleValue()
-  {
-    if (words == null)
-      return (double) ival;
-    if (ival <= 2)
-      return (double) longValue();
-    if (isNegative())
-      return neg(this).roundToDouble(0, true, false);
-      return roundToDouble(0, false, false);
-  }
-
-  public float floatValue()
-  {
-    return (float) doubleValue();
-  }
-
   /** Return true if any of the lowest n bits are one.
    * (false if n is negative).  */
   private boolean checkBits(int n)
@@ -1674,87 +1658,7 @@ public class BigInteger extends Number implements Comparable<BigInteger>
 	return true;
     return (n & 31) != 0 && (words[i] & ((1 << (n & 31)) - 1)) != 0;
   }
-
-  /** Convert a semi-processed BigInteger to double.
-   * Number must be non-negative.  Multiplies by a power of two, applies sign,
-   * and converts to double, with the usual java rounding.
-   * @param exp power of two, positive or negative, by which to multiply
-   * @param neg true if negative
-   * @param remainder true if the BigInteger is the result of a truncating
-   * division that had non-zero remainder.  To ensure proper rounding in
-   * this case, the BigInteger must have at least 54 bits.  */
-  private double roundToDouble(int exp, boolean neg, boolean remainder)
-  {
-    // Compute length.
-    int il = bitLength();
-
-    // Exponent when normalized to have decimal point directly after
-    // leading one.  This is stored excess 1023 in the exponent bit field.
-    exp += il - 1;
-
-    // Gross underflow.  If exp == -1075, we let the rounding
-    // computation determine whether it is minval or 0 (which are just
-    // 0x0000 0000 0000 0001 and 0x0000 0000 0000 0000 as bit
-    // patterns).
-    if (exp < -1075)
-      return neg ? -0.0 : 0.0;
-
-    // gross overflow
-    if (exp > 1023)
-      return neg ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
-
-    // number of bits in mantissa, including the leading one.
-    // 53 unless it's denormalized
-    int ml = (exp >= -1022 ? 53 : 53 + exp + 1022);
-
-    // Get top ml + 1 bits.  The extra one is for rounding.
-    long m;
-    int excess_bits = il - (ml + 1);
-    if (excess_bits > 0)
-      m = ((words == null) ? ival >> excess_bits
-	   : MPN.rshift_long(words, ival, excess_bits));
-    else
-      m = longValue() << (- excess_bits);
-
-    // Special rounding for maxval.  If the number exceeds maxval by
-    // any amount, even if it's less than half a step, it overflows.
-    if (exp == 1023 && ((m >> 1) == (1L << 53) - 1))
-      {
-	if (remainder || checkBits(il - ml))
-	  return neg ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
-	else
-	  return neg ? - Double.MAX_VALUE : Double.MAX_VALUE;
-      }
-
-    // Normal round-to-even rule: round up if the bit dropped is a one, and
-    // the bit above it or any of the bits below it is a one.
-    if ((m & 1) == 1
-	&& ((m & 2) == 2 || remainder || checkBits(excess_bits)))
-      {
-	m += 2;
-	// Check if we overflowed the mantissa
-	if ((m & (1L << 54)) != 0)
-	  {
-	    exp++;
-	    // renormalize
-	    m >>= 1;
-	  }
-	// Check if a denormalized mantissa was just rounded up to a
-	// normalized one.
-	else if (ml == 52 && (m & (1L << 53)) != 0)
-	  exp++;
-      }
-	
-    // Discard the rounding bit
-    m >>= 1;
-
-    long bits_sign = neg ? (1L << 63) : 0;
-    exp += 1023;
-    long bits_exp = (exp <= 0) ? 0 : ((long)exp) << 52;
-    long bits_mant = m & ~(1L << 52);
-    return Double.longBitsToDouble(bits_sign | bits_exp | bits_mant);
-  }
-
+  
   /** Copy the abolute value of this into an array of words.
    * Assumes words.length >= (this.words == null ? 1 : this.ival).
    * Result is zero-extended, but need not be a valid 2's complement number.

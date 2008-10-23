@@ -389,7 +389,6 @@ MutableStack<E> {
     }
 
     public E next() {
-      assert (index < size());
       return get(index++);
     }
   }// inner class

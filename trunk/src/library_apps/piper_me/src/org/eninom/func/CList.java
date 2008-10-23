@@ -178,7 +178,8 @@ public final class CList {
    * TODO
    */
   public CList rest(int n) {
-    throw new UnsupportedOperationException(); 
+    //TODO
+    return null;
   }
 
   /**

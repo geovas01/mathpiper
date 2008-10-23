@@ -60,7 +60,7 @@ public class Cons<A, B> {
   // pop:
   public <C> Cons(Cons<C, ? extends Cons<A, B>> list) {
     if (list.size < 3)
-      throw new IllegalAccessError();
+      throw new IllegalArgumentException();
     size = list.size - 1;
     int k = size % MAX_H;
     if (k == 0)
@@ -286,7 +286,7 @@ public class Cons<A, B> {
 
   public Object get(int p) {
     if ((p >= size) || (p < 0))
-      throw new IllegalAccessError();
+      throw new IllegalArgumentException();
 
     int k = size % MAX_H;
     if (k > 0) {
