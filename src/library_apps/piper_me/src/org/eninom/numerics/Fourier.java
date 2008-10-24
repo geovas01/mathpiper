@@ -159,7 +159,7 @@ public class Fourier {
     int c = 2;
     for (int r = 2; r < k; r++)
     {
-      double pRe = DMath.sqrt((1+wRe[c])/2);
+      double pRe = Math.sqrt((1+wRe[c])/2);
       double pIm = wIm[c] / (2*pRe);
       wRe[j] = pRe; wIm[j] = pIm; c = j;
       j++;
