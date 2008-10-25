@@ -63,18 +63,8 @@ import java.util.Random;
  */
 public class BigInteger
 {
-  private transient int ival;
-  private transient int[] words;
-
-  // Serialization fields.
-  private int bitCount = -1;
-  private int bitLength = -1;
-  private int firstNonzeroByteNum = -2;
-  private int lowestSetBit = -2;
-  private byte[] magnitude;
-  private int signum;
-  private static final long serialVersionUID = -8287574255936472291L;
-
+  private int ival;
+  private int[] words;
 
   /** We pre-allocate integers in the range minFixNum..maxFixNum. 
    * Note that we must at least preallocate 0, 1, and 10.  */
