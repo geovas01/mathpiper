@@ -247,6 +247,9 @@
 				
 <MODE NAME="mathrider"		FILE="mathrider.xml"
 				FILE_NAME_GLOB="*.mrw" />
+                
+<MODE NAME="mathrideroutput" FILE="mathrideroutput.xml"
+				FILE_NAME_GLOB="" />
 
 <MODE NAME="ml"			FILE="ml.xml"
 				FILE_NAME_GLOB="*.{sml,ml}" />
