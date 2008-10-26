@@ -1,27 +1,29 @@
 package org.mathrider.piper_me;
 
-class LispHashTable
+import org.eninom.collection.HashMap;
+
+final class LispHashTable
 {
     // If string not yet in table, insert. Afterwards return the string.
     String LookUp(String aString)
   {
-    if (!iHashtable.containsKey(aString))
+    String s = iHashtable.get(aString);
+    if (s == null) {
       iHashtable.put(aString,aString);
-    return (String)iHashtable.get(aString);
+      return aString;
+    }
+    else return s;
   }
     String LookUpStringify(String aString)
   {
     aString = "\""+aString+"\"";
-    if (!iHashtable.containsKey(aString))
-      iHashtable.put(aString,aString);
-    return (String)iHashtable.get(aString);
+    return LookUp(aString);
   }
+    
     String LookUpUnStringify(String aString)
   {
     aString = aString.substring(1,aString.length()-1);
-    if (!iHashtable.containsKey(aString))
-      iHashtable.put(aString,aString);
-    return (String)iHashtable.get(aString);
+    return LookUp(aString);
   }
 
     // GarbageCollect
@@ -29,5 +31,5 @@ class LispHashTable
   {
     //TODO FIXME
   }
-  java.util.Hashtable<String, String> iHashtable = new java.util.Hashtable<String, String>();
+  HashMap<String, String> iHashtable = new HashMap<String, String>();
 }

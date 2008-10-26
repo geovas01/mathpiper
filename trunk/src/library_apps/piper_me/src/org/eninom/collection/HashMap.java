@@ -55,7 +55,7 @@ implements IterableCollection<Cons<Key,Value>>{
   private Object[] table;
   private class List extends ExtendibleArray<Object> {}
   
-  private static int DEFAULT_INITIAL_CAPACITY = 7;
+  private static int DEFAULT_INITIAL_CAPACITY = 107;
   
   public HashMap() {
    table = new Object[2*DEFAULT_INITIAL_CAPACITY]; 
@@ -73,7 +73,9 @@ implements IterableCollection<Cons<Key,Value>>{
     if (size * 2 > table.length)
       rehash(3 * table.length);
     int hc = a.hashCode();
-    int k = 2*hc % table.length;
+    if (hc < 0)
+      hc = -hc;
+    int k = 2*(hc % (table.length / 2));
     if (table[k] == null) {
       table[k] = a;
       table[k+1] = b;
@@ -113,9 +115,11 @@ implements IterableCollection<Cons<Key,Value>>{
     if (size * 3 < table.length)
       rehash(table.length / 2);
     int hc = a.hashCode();
-    int k = 2*hc % table.length;
+    if (hc < 0)
+      hc = -hc;
+    int k = 2*(hc % (table.length / 2));
     if (table[k] == null) {
-      throw new NoSuchElementException();
+      return;
     }
     else if (table[k].getClass() != List.class) {
       if (a.equals(table[k])) {
@@ -124,7 +128,7 @@ implements IterableCollection<Cons<Key,Value>>{
         hashCode = hashCode - hc;
         size = size - 1;
       } else {
-        throw new NoSuchElementException();
+        return;
       }//`else`
     } else {
       List list = (List)table[k];
@@ -139,13 +143,14 @@ implements IterableCollection<Cons<Key,Value>>{
           return;
         }
       }//`for`
-      throw new NoSuchElementException();
     }//`else`
   }
   
   public boolean contains(Key a) {
-    int n = table.length;
-    int k = 2*a.hashCode() % n;
+    int hc = a.hashCode();
+    if (hc < 0)
+      hc = -hc;
+    int k = 2*(hc % (table.length / 2));
     if (table[k] == null) 
       return false;
     else if (table[k].getClass() != List.class) 
@@ -162,8 +167,10 @@ implements IterableCollection<Cons<Key,Value>>{
   }
   
   public Value get(Key a) {
-    int n = table.length;
-    int k = 2*a.hashCode() % n;
+    int hc = a.hashCode();
+    if (hc < 0)
+      hc = -hc;
+    int k = 2*(hc % (table.length / 2));
     if (table[k] == null) 
       return (Value)table[k+1];
     else if (table[k].getClass() != List.class) 
