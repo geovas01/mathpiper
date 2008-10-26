@@ -189,6 +189,19 @@ Initial release:
 
 {{{PIPER BUGS.
 ===
+-I think the generated output of following formula is wrong:
+In> Sum(n,1,k,n)
+Out> (n*(n+1))/2
+shouldn't n be replaced with k?
+The following example with z instead of k works:
+In> Sum(n,1,z,n)
+Out> (z*(z+1))/2
+And why is
+In> Sum(n,1,z,n*a)
+Out> Sum(n,1,z,n*a)
+not evaluated to a*(z*(z+1))/2?
+Best regards
+Andreas Weber
 -the following problem kept me busy the entire last day: When comparing the log-files
 from the tests with older test runs, the file sums.pit produced strange results.
 First, I thought I overlooked the problem in the past and repeated tests along the
