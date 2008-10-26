@@ -1,5 +1,6 @@
 package org.mathrider.piper_me;
 
+import org.eninom.collection.HashMap;
 
 /** LispAssociatedHash allows you to associate arbitrary
  * information with a string in the above hash table. You can
@@ -17,15 +18,16 @@ class LispAssociatedHash
     /// returns #NULL.
     Object LookUp(String aString)
   {
-    return iHashtable.get(aString);
-    }
+    Object result =  iHashtable.get(aString);
+    return result;
+   }
 
     /// Add an association to the hash table.
     /// If \a aString is already stored in the hash table, its
     /// association is changed to \a aData. Otherwise, a new
     /// association is added.
     void SetAssociation(Object aData, String aString)
-  {
+  {  
     iHashtable.put(aString, aData);
   }
 
@@ -34,6 +36,6 @@ class LispAssociatedHash
   {
     iHashtable.remove(aString);
   }
-  java.util.Hashtable<String, Object> iHashtable = new java.util.Hashtable<String, Object>();
+  HashMap<String, Object> iHashtable = new HashMap<String, Object>();
 }
 

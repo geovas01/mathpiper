@@ -51,11 +51,11 @@ equal-methods must be consistent to their hash codes.
 public final class HashMap<Key,Value> 
 implements IterableCollection<Cons<Key,Value>>{
   private int size = 0;
-  private int hashCode;
   private Object[] table;
+  private int hashSum = 0;
   private class List extends ExtendibleArray<Object> {}
   
-  private static int DEFAULT_INITIAL_CAPACITY = 107;
+  private static int DEFAULT_INITIAL_CAPACITY = 1513;
   
   public HashMap() {
    table = new Object[2*DEFAULT_INITIAL_CAPACITY]; 
@@ -70,8 +70,9 @@ implements IterableCollection<Cons<Key,Value>>{
    * equal-method must be consistent to its hash code.
    */
   public void put(Key a, Value b) {
-    if (size * 2 > table.length)
-      rehash(3 * table.length);
+    if (size * 4 > table.length) {
+      rehash(5 * table.length);
+    }
     int hc = a.hashCode();
     if (hc < 0)
       hc = -hc;
@@ -85,7 +86,6 @@ implements IterableCollection<Cons<Key,Value>>{
         list = (List)table[k];
         for (int i = 0; i < list.size(); i = i+ 2) {
           if (a.equals(list.get(i))) {
-            hashCode = hashCode - list.get(i).hashCode() + hc;
             list.set(i,a);
             list.set(i+1,b);
             return;
@@ -93,7 +93,6 @@ implements IterableCollection<Cons<Key,Value>>{
         }//`for`
       } else {
         if (a.equals(table[k])) {
-          hashCode = hashCode - table[k].hashCode() + hc;
           table[k] = a;
           table[k+1] = b;
           return;
@@ -107,13 +106,15 @@ implements IterableCollection<Cons<Key,Value>>{
       list.addLast(a);
       list.addLast(b);
     }//else
-    hashCode = hashCode + hc;
+    hashSum = hashSum + hc;
     size = size + 1;
   }
   
   public void remove(Key a) {
-    if (size * 3 < table.length)
-      rehash(table.length / 2);
+    if ((size * 6 < table.length) && 
+        (DEFAULT_INITIAL_CAPACITY * 6 < table.length)){
+      rehash(table.length / 4);
+    }
     int hc = a.hashCode();
     if (hc < 0)
       hc = -hc;
@@ -125,23 +126,26 @@ implements IterableCollection<Cons<Key,Value>>{
       if (a.equals(table[k])) {
         table[k] = null;
         table[k+1] = null;
-        hashCode = hashCode - hc;
+        hashSum = hashSum - hc;
         size = size - 1;
-      } else {
-        return;
-      }//`else`
+      } //`if`
     } else {
       List list = (List)table[k];
       for (int i = 0; i < list.size(); i = i+ 2) {
         if (a.equals(list.get(i))) {
           Object value = list.removeLast();
           Object key = list.removeLast();
-          list.set(i, key);
-          list.set(i+1, value);
-          hashCode = hashCode - hc;
+          if (i < list.size()) {
+            list.set(i, key);
+            list.set(i+1, value);
+          }//`if`
+          if (list.size() == 0) {
+            table[k] = null;
+            table[k + 1] = null;
+          }//`if`
+          hashSum = hashSum - hc;
           size = size - 1;
-          return;
-        }
+        }//`if`
       }//`for`
     }//`else`
   }
@@ -191,13 +195,48 @@ implements IterableCollection<Cons<Key,Value>>{
     return size;
   }
   
+  public void assertInvariant() {
+    int trueSize = 0;
+    int trueHashCode = 0;
+    for (int i = 0; i < table.length; i = i + 2) {
+      if (table[i] != null) {
+        if (table[i].getClass() != List.class) {
+          trueSize = trueSize + 1;
+          int hc = table[i].hashCode();
+          if (hc < 0) 
+            hc = -hc;
+          
+          if (2*(hc % (table.length / 2)) != i)
+            throw new IllegalStateException("Wrong table position.");
+            
+          trueHashCode = trueHashCode + hc;
+        } else {
+          List list = (List) table[i];
+          trueSize = trueSize + list.size() / 2;
+          for (int k = 0; k < list.size(); k = k + 2) {
+            int hc = list.get(k).hashCode();
+            if (hc < 0) 
+              hc = -hc;
+            if (2*(hc % (table.length / 2)) != i)
+              throw new IllegalStateException("Wrong table position.");
+            trueHashCode = trueHashCode + hc;
+          }//`for`
+        }//`else`
+      }//`if`
+    }//`for`
+    if (size != trueSize)
+      throw new IllegalStateException("Wrong size.");
+    if (hashSum == trueHashCode)
+      throw new IllegalStateException("Wrong hash.");
+  }
+  
   private class Iterator implements  ForwardIterator<Cons<Key, Value>> {
     
     int listPos = 0;
     int tablePos = 0;
     
     public Iterator() {
-     advanceTablePos();
+     tablePos = advanceTablePos(0);
     }
     
     public Cons<Key, Value> next() {
@@ -208,8 +247,7 @@ implements IterableCollection<Cons<Key,Value>>{
         Cons<Key, Value> result = new Cons<Key, Value>(
             (Key) table[tablePos],
             (Value) table[tablePos+1]); 
-         tablePos = tablePos + 2;
-         advanceTablePos();
+         tablePos = advanceTablePos(tablePos + 2);
          return result;
       } else {
         List list = (List)table[tablePos];
@@ -219,8 +257,7 @@ implements IterableCollection<Cons<Key,Value>>{
         listPos = listPos + 2;
         if (listPos >= list.size()) {
           listPos = 0;
-          tablePos = tablePos + 2;
-          advanceTablePos();
+          tablePos = advanceTablePos(tablePos + 2);
         }//`if`
         return result;
       }//`else`
@@ -229,12 +266,13 @@ implements IterableCollection<Cons<Key,Value>>{
     public boolean hasNext() {
       return (tablePos < table.length);
     }
-    
-    private void advanceTablePos() {
-      while ((tablePos < table.length) && (table[tablePos] == null)) {
-        tablePos = tablePos + 2;
-      }//`while`
-    }
+  }
+  
+  private int advanceTablePos(int tablePos) {
+    while ((tablePos < table.length) && (table[tablePos] == null)) {
+      tablePos = tablePos + 2;
+    }//`while`
+    return tablePos;
   }
   
   public ForwardIterator<Cons<Key, Value>> iterator() {
@@ -247,16 +285,32 @@ implements IterableCollection<Cons<Key,Value>>{
   
   private void rehash(int newCapacity) {
     HashMap<Key, Value> newMap = new HashMap<Key, Value>(newCapacity);
-    ForwardIterator<Cons<Key,Value>> it = this.iterator();
-    while (it.hasNext()) {
-      Cons<Key,Value> pair = it.next();
-      newMap.put(pair.first(), pair.rest());
+    int tablePos = advanceTablePos(0);
+    int listPos = 0;
+    int cnt = 0;
+    while (tablePos < table.length) {
+      cnt++;
+      if (table[tablePos].getClass() != List.class) {
+        newMap.put((Key) table[tablePos],
+            (Value) table[tablePos+1]); 
+         tablePos = advanceTablePos(tablePos + 2); 
+      } else {
+        List list = (List)table[tablePos];
+        newMap.put((Key) (Key) list.get(listPos),
+            (Value) list.get(listPos+1));
+        listPos = listPos + 2;
+        if (listPos >= list.size()) {
+          listPos = 0;
+          tablePos = advanceTablePos(tablePos + 2);
+        }//`if`
+      }//`else`
     }//`while`
     this.table = newMap.table;
+    this.hashSum = newMap.hashSum;   
   };
   
   public int hashCode() {
-    return hashCode;
+    return hashSum;
   }
   
   public boolean equals(Object other) {
@@ -272,24 +326,29 @@ implements IterableCollection<Cons<Key,Value>>{
     
     HashMap<Object,Object> map2 = (HashMap<Object,Object>) other;
     
-    if (map2.size != this.size)
+    if (map2.size != this.size) {
       return false;
+    }
     
-    if (map2.hashCode != this.hashCode)
+    if (map2.hashSum != this.hashSum) {
       return false;
+    }
     
     ForwardIterator<Cons<Key,Value>> it = this.iterator();
     while (it.hasNext()) {
       Cons<Key,Value> pair = it.next();
       Object key = pair.first();
       Object value = pair.rest();
-      if (map2.contains(key))
+      if (!map2.contains(key)) {
         return false;
+      }
       Object value2 = map2.get(key);
-      if ((value == null) ^ (value2 == null))
+      if ((value == null) ^ (value2 == null)) {
         return false;
-      else if (!value.equals(value2))
+      }
+      else if (!value.equals(value2)) {;
         return false;
+      }
     }//`for`
     return true;
   }
@@ -303,7 +362,7 @@ implements IterableCollection<Cons<Key,Value>>{
    */
   public String debug() {
     StringBuffer s = new StringBuffer();
-    s.append(size+" c:"+table.length/2+" hc:"+hashCode+" [");
+    s.append(size+" c:"+table.length/2+" hc:"+hashSum+" [");
     for (int i = 0; i < table.length; i++) {
       if (i > 0)
         s.append(",");
@@ -311,22 +370,5 @@ implements IterableCollection<Cons<Key,Value>>{
     }
     s.append("]");
     return s.toString();
-  }
-  
-  public static void main(String[] args) {
-    HashMap<Integer,String> map = new HashMap<Integer,String>();
-    //map.put(1,"Betti");
-    //map.put(2,"Oliver");
-    //map.put(18,"Alfons");
-    for (int i = 0; i < 8; i++) {
-      map.put(i % 20, Integer.valueOf(i).toString());
-      System.out.println(map.debug());
-    };
-    
-    System.out.println(map.debug());
-    map.put(1, "Betti");
-    System.out.println(map.debug());
-    System.out.println(map.get(1));
-    System.out.println(map);
   }
 }//`class`
