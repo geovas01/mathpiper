@@ -280,10 +280,18 @@ public class Cons<A, B> {
     }// `else`
   }
 
+  /**
+   * It is allowdef to override the <i>size()</i> method
+   * provided that <i>get(i)</i> returns an element for
+   * i < <i>size()</i>.
+   */
   public int size() {
     return size;
   }
 
+  /**
+   * It is allowed to override the <i>get()</i> method.
+   */
   public Object get(int p) {
     if ((p >= size) || (p < 0))
       throw new IllegalArgumentException();
@@ -422,25 +430,7 @@ public class Cons<A, B> {
     else
       return (B) new Cons(this);
   }
-
-  private class Pair {
-    Object a, b;
-
-    public Pair(Object x, Object y) {
-      a = x;
-      b = y;
-    }
-
-    public boolean equals(Object other) {
-      Pair p = (Pair) other;
-      return (a == p.a) && (b == p.b);
-    }
-
-    public int hashCode() {
-      return System.identityHashCode(a) + System.identityHashCode(b);
-    }
-  }
-
+  
   /*
    * The hash value is a lazy variable. When computed, we ensure that its value
    * is not zero, because zero indicates an uncomputed hash value. Since
@@ -499,14 +489,10 @@ public class Cons<A, B> {
 
     Cons<A, B> a = this;
 
-    // TODO: Spezialbehandlung bei Cons-Elt, um Graphen zu
-    // traversieren,
-    // sonst
-    // exponentieller Aufwand moeglich!!! (bspw. Hashset of equal
-    // pairs,
-    // Pair of Objects by Identity (hashcode, equals for Pair!!!)
-
-    // HashSet<Pair> equals = new HashSet<Pair>();
+    // TODO: We should traverse the recursive structure
+    //in order to avoid exponential time (for instance
+    //by traversing a list where 2 pointers refer to the
+    //next element).
 
     while (a != null) {
       if (!elementEquals(a.e0, b.e0))

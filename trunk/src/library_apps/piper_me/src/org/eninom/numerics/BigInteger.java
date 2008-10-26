@@ -63,8 +63,8 @@ import java.util.Random;
  */
 public class BigInteger
 {
-  private int ival;
-  private int[] words;
+  private transient int ival;
+  private transient int[] words;
 
   /** We pre-allocate integers in the range minFixNum..maxFixNum. 
    * Note that we must at least preallocate 0, 1, and 10.  */

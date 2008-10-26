@@ -30,8 +30,6 @@ exception statement from your version. */
 
 package org.eninom.func;
 
-import org.eninom.collection.*;
-import org.eninom.seq.Seq;
 //! Core List Implementation
 /*<literate>*/
 /**
