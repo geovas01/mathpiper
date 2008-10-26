@@ -17,9 +17,7 @@ class LispAssociatedHash
     /// returns #NULL.
     Object LookUp(String aString)
   {
-    if (iHashtable.containsKey(aString))
     return iHashtable.get(aString);
-    return null;
     }
 
     /// Add an association to the hash table.
@@ -28,15 +26,12 @@ class LispAssociatedHash
     /// association is added.
     void SetAssociation(Object aData, String aString)
   {
-    if (iHashtable.containsKey(aString))
-    iHashtable.remove(aString);
-      iHashtable.put(aString, aData);
+    iHashtable.put(aString, aData);
   }
 
     /// Delete an association from the hash table.
     void Release(String aString)
   {
-    if (iHashtable.containsKey(aString))
     iHashtable.remove(aString);
   }
   java.util.Hashtable<String, Object> iHashtable = new java.util.Hashtable<String, Object>();
