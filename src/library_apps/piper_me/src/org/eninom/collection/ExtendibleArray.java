@@ -70,26 +70,26 @@ import org.eninom.seq.SeqFromIterator;
 
 
 @SuppressWarnings("unchecked")
-public final class ExtendibleArray<E> implements MutableDeque<E>, MutableRandomAccess<E>,
+public class ExtendibleArray<E> implements MutableDeque<E>, MutableRandomAccess<E>,
 MutableStack<E> {
   // N is the size of the small array A
   // NTwice is the size of the large array B
-  int NTwice, N;
+  private int NTwice, N;
 
-  Object A[], B[];
+  private Object A[], B[];
 
   // The masks for quickly computing the remainders
   // of N and NTwice, respectively
-  int maskN, maskNTwice;
+  private int maskN, maskNTwice;
 
   // the indizes for maintaining the queues:
-  int p0, q0, p1, q1, p2, q2;
+  private int p0, q0, p1, q1, p2, q2;
 
   // size of the first queue (this is the one in B!)
-  int b;
+  private int b;
 
   // the initial capacity ( must be a power of 2):
-  static final int INITIAL_CAPACITY = 32;
+  private static final int INITIAL_CAPACITY = 32;
 
   // ========== Debugging and Memory Management : ==========
 
@@ -102,35 +102,37 @@ MutableStack<E> {
    */
 
   // debug output of internal structure:
-  public void display() {
-    System.out.print("Size=" + size());
-    System.out.print("  p0=" + p0);
-    System.out.print("  q0=" + q0);
-    System.out.print("  p1=" + p1);
-    System.out.print("  p1=" + q1);
-    System.out.print("  p2=" + p2);
-    System.out.print("  q2=" + q2);
-    System.out.println("  b=" + b);
-    System.out.print("Array A=");
-    printSubarray(A);
-    System.out.print("Array B=");
-    printSubarray(B);
+  public String debug() {
+    StringBuffer s = new StringBuffer();
+    s.append("Size=" + size());
+    s.append("  p0=" + p0);
+    s.append("  q0=" + q0);
+    s.append("  p1=" + p1);
+    s.append("  p1=" + q1);
+    s.append("  p2=" + p2);
+    s.append("  q2=" + q2);
+    s.append("  b=" + b);
+    s.append("Array A=");
+    printSubarray(A,s);
+    s.append("Array B=");
+    printSubarray(B,s);
+    return s.toString();
   }
 
-  protected void printSubarray(Object[] A) {
+  private void printSubarray(Object[] A, StringBuffer s) {
     if (A != null) {
-      System.out.print("(");
+      s.append("(");
       for (int i = 0; i < A.length; i++) {
         if (i > 0)
-          System.out.print(",");
+          s.append(",");
         if (A[i] != null)
-          System.out.print(A[i].toString());
+          s.append(A[i].toString());
         else
-          System.out.print("*");
+          s.append("*");
       }
-      System.out.println(")");
+      s.append(")");
     } else
-      System.out.println("*");
+      s.append("*");
   }
 
   // ========== Initialization and Construction : ==========
@@ -174,11 +176,11 @@ MutableStack<E> {
       return (E) A[(i + p1 - b) & maskN];
   }
   
-  public E last() {
+  public final E last() {
     return get(size());
   }
 
-  public E first() {
+  public final E first() {
     return get(0);
   }
     
@@ -344,7 +346,7 @@ MutableStack<E> {
     return A;
   }
   
-  public void insert(int i, E x) {
+  public final void insert(int i, E x) {
     if (i == size()) {
       add(x);
       return;
@@ -357,15 +359,15 @@ MutableStack<E> {
     set(i,x);
   }
   
-  public E pop() {
+  public final E pop() {
     return removeLast();
   }
   
-  public E top() {
+  public final E top() {
     return get(size());
   }
   
-  public void push(E item) {
+  public final void push(E item) {
     addLast(item);
   }
 
@@ -388,8 +390,12 @@ MutableStack<E> {
       return index < size();
     }
 
-    public E next() {
+    public final E next() {
       return get(index++);
     }
   }// inner class
+  
+  public final String toString() {
+    return Collections.printToString(this);
+  }
 }
