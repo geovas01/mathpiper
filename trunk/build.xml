@@ -290,7 +290,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
-		geogebra_plugin, hoteqn_plugin, jscicalc_plugin, clojure_plugin, u6502_plugin, jung_plugin" />
+		geogebra_plugin, hoteqn_plugin, clojure_plugin, u6502_plugin, jung_plugin" />
 	
 	
 	
