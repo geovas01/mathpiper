@@ -49,6 +49,7 @@
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />
 		<pathelement path="${plugins.jars.dir}/jung2.jar" />
+		<pathelement path="${plugins.jars.dir}/mathrider_library.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />
 		-->
@@ -341,10 +342,11 @@
 		</antcall>
 		<copy file="${library_apps.build.dir}/mathpiper/dist/mathpiper.jar" todir="${plugins.jars.dir}"/>
 		
-		<antcall target="piper_me_library">
+		<!--<antcall target="piper_me_library">
 			<param name="target" value="dist"/>
 		</antcall>
 		<copy file="${library_apps.build.dir}/piper_me/dist/piper_me.jar" todir="${plugins.jars.dir}"/>
+		-->
 
 		<antcall target="hoteqn_library">
 			<param name="target" value="dist"/>

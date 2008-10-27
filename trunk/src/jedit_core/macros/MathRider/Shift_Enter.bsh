@@ -315,49 +315,30 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		///{{{ *** %mathpiper ***.
 		if(foldType.equalsIgnoreCase("%mathpiper"))    
 		{
-			//MathPiper section.
-			
-			//if( foldProperties.get("ver").equalsIgnoreCase("me"))
-			//{
-			//	system = PiperMEInterpreter.getInstance();
-			//}
-			//else
-			{
-				system = MathPiperInterpreter.getInstance();
-			}
-			
-			
 
-			try 
-			{   
-				tempFilePath = tempFile.getAbsolutePath();
-				
-				tempFilePath = ChangeToForwardSlash(tempFilePath);
+				system = MathPiperInterpreter.getInstance();
 			
-				//System.out.println(tempFilePath);
-        	
-				resultArray = system.evaluate("Load(\""+tempFilePath+"\");");
-				
+				org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
+				response(resultArray)
+				{
+					
+				try  //Note:This code is a hack to prevent a second fold update occurring before the first update is finished.
+				{
+					
+					Thread.sleep(100);
+				}
+				catch(InterruptedException e)
+				{
+				}
+					
 				result = resultArray[2];
-				
-				//if(result != null )
-				//{
-				//
-				//	if(result.startsWith("True:"))
-				//	{
-				//		result = result.substring(5,result.length());//Remove True: which is returned by Load.
-				//	}
-				//	else if (result.startsWith("True"))
-				//	{
-				//		result = result.substring(4,result.length());//Remove True which is returned by Load.
-				//	}
-				//}//end if.
-				
-				//Note: Since Load returns "True", it kills what was in %.
-				//lastResult = system.evaluate("%");
-				//System.out.println(" XXXXX: " + lastResult);
-				
-				if(foldProperties.get("output").equalsIgnoreCase("latex") )
+
+				if(resultArray[3] != null) //Error.
+				{
+					result = resultArray[3];
+					output_fold_type = "%error";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
 					resultArray = system.evaluate("TeXForm(Hold(" + resultArray[2] + "));");
 					resultArray[0] = resultArray[0].replace("\"$","");
@@ -412,15 +393,31 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			{
 				result = "Result: " + result ;
 			}
+			//System.out.println("XTTXTXTXTT :" + result);
+			
+			displayResult();
+
+				}//end method.
 				
-					
-			}catch(org.mathpiper.exceptions.MathPiperException ye) 
-			{
-				result = ye.getMessage();
-				output_fold_type = "%error ";
-			}
+				remove()
+				{
+					return true;
+				}//end method.
+				
+			};//end interface implementation.
 			
+			system.addResponseListener(responseListener);
 			
+			tempFilePath = tempFile.getAbsolutePath();
+				
+			tempFilePath = ChangeToForwardSlash(tempFilePath);
+			
+				//System.out.println(tempFilePath);
+        	
+				system.evaluateAsync("Load(\""+tempFilePath+"\");");
+			
+			output_fold_type = "%output";
+			result = "Processing...";
 
 					
 		}//end if }}}

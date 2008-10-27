@@ -77,6 +77,10 @@ public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 		return false;
 	}//end method.
 	
+	public void response(String [] response)
+	{
+	}
+	
 
 	public void execute(Console console, String input, Output output, Output error, String command)
 	{
