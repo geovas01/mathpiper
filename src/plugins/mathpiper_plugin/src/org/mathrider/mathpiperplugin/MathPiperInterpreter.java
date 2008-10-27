@@ -7,11 +7,10 @@ package org.mathrider.mathpiperplugin;
 import org.mathpiper.Interpreter;
 import org.mathpiper.exceptions.MathPiperException;
 import console.Output;
-
+import org.mathrider.ResponseListener;
 import java.io.*;
-
-
 import errorlist.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,83 +18,129 @@ import errorlist.*;
  */
 
 
- public class MathPiperInterpreter { 
+public class MathPiperInterpreter  implements Runnable{
 
 	private static MathPiperInterpreter instance = null;
-    private Interpreter mathPiper;
+	private Interpreter mathPiper;
 	private StringOutput stringOutput;
+
+	private String result;
+	private String input;
+	private ArrayList<ResponseListener> removeListeners;
+	private ArrayList<ResponseListener> responseListeners;
+	
 	//java.util.zip.ZipFile scriptsZip;
-	
+
 	private static DefaultErrorSource errorSource;
- 
-    /** Creates a new instance of MathPiperInterpreter */
-    protected MathPiperInterpreter() throws MathPiperException {
-		
+
+	/** Creates a new instance of MathPiperInterpreter */
+	protected MathPiperInterpreter() throws MathPiperException {
+
 		stringOutput = new StringOutput();
-	    
+
 		mathPiper = new Interpreter(stringOutput);
-        
- 
-    }//end constructor.
-	
-   public static MathPiperInterpreter getInstance() throws MathPiperException{
-      if(instance == null) {
-         instance = new MathPiperInterpreter();
-      }
-      return instance;
-   }//end method.
-   
-
-   
-   public java.util.zip.ZipFile getScriptsZip()
-   {
-	   return mathPiper.getScriptsZip();
-   }//end method.
-
- 
-    /** Use this method to pass an expression to the MathPiper interpreter.
-     *  Returns the output of the interpreter.
-     */
-    public String[] evaluate(String input) throws MathPiperException {
 		
+		responseListeners = new ArrayList<ResponseListener>();
+		removeListeners = new ArrayList<ResponseListener>();
 
-			String result = mathPiper.evaluate(input);
 
-			result = result.trim();
-			
-			String loadResult = mathPiper.evaluate("LoadResult;");
-			loadResult = loadResult.trim();
-			
-			mathPiper.evaluate(result + ";");//Note:tk:eventually reengineer previous result mechanism in MathPiper.
-			
-			String sideEffect = stringOutput.toString();
-			
-			String[] resultsAndSideEffect = new String[3];
-			
-			if(sideEffect != null && sideEffect.length() != 0){
-				resultsAndSideEffect[1] = sideEffect; 
-			}
-			else
-			{
-				resultsAndSideEffect[1] = null;
-			}
-			
-			
-			if(loadResult != null && loadResult.length() != 0){
-				resultsAndSideEffect[2] = loadResult; 
-			}
-			else
-			{
-				resultsAndSideEffect[2] = null;
-			}
-			
-			resultsAndSideEffect[0] = result;
-			
-			return resultsAndSideEffect;
+	}//end constructor.
 
-    }//end method.
+	public static MathPiperInterpreter getInstance() throws MathPiperException{
+		if(instance == null) {
+			instance = new MathPiperInterpreter();
+		}
+		return instance;
+	}//end method.
+
+
+
+	public java.util.zip.ZipFile getScriptsZip()
+	{
+		return mathPiper.getScriptsZip();
+	}//end method.
+
+
+	/** Use this method to pass an expression to the MathPiper interpreter.
+	 *  Returns the output of the interpreter.
+	 */
+public String[] evaluate(String input) throws MathPiperException
+{
+		result = mathPiper.evaluate(input);
+		
+		result = result.trim();
+
+		String loadResult = mathPiper.evaluate("LoadResult;");
+		
+		loadResult = loadResult.trim();
+
+		mathPiper.evaluate(result + ";");//Note:tk:eventually reengineer previous result mechanism in MathPiper.
+
+		String sideEffect = stringOutput.toString();
+
+		String[] resultsAndSideEffect = new String[4];
+
+		if(sideEffect != null && sideEffect.length() != 0){
+			resultsAndSideEffect[1] = sideEffect;
+		}
+		else
+		{
+			resultsAndSideEffect[1] = null;
+		}
+
+
+		if(loadResult != null && loadResult.length() != 0){
+			resultsAndSideEffect[2] = loadResult;
+		}
+		else
+		{
+			resultsAndSideEffect[2] = null;
+		}
+
+		resultsAndSideEffect[0] = result;
+
+		return resultsAndSideEffect;
+		
+}
+
+	public void evaluateAsync(String input)  {
+		
+		/*
+			http://saloon.javaranch.com/cgi-bin/ubb/ultimatebb.cgi?ubb=get_topic&f=27&t=002774
+			If you are using java 5 then you can use callable
+			If not, then write an abstract class that exposes a new 
+			abstract method that implementations must override
+			to do the *required* job. (This will contain code that 
+			otherwise would have been in run())This class implements 
+			Runnable and implements the run() method. In the run method
+			call the abstract method. If it throws an exception then store it 
+			and give a getter for this exception. You also have to provide a 
+			method to enquire whether the task has finished or not!
+		*/
+
+		this.input = input;
+		new Thread(this,"MathPiper").start();
+
 	
-	
+	}//end method.
+
+	public void run()
+	{
+		try
+		{
+			String[] resultsAndSideEffect = evaluate(input);
+			notifyListeners(resultsAndSideEffect);
+		}
+		catch(Exception e)
+		{
+			 String[] error = new String[4];
+			 error[3] = e.getMessage();
+			 notifyListeners(error);
+		}
+		
+	}
+
+
 	public static DefaultErrorSource getErrorSource()
 	{
 		if(errorSource == null)
@@ -106,9 +151,49 @@ import errorlist.*;
 
 		return errorSource;
 	}//end method.
-    
 
-    
+
+	public void addResponseListener(ResponseListener listener)
+	{
+		responseListeners.add(listener);
+	}//end method.
+
+	public void removeResponseListener(ResponseListener listener)
+	{
+		responseListeners.remove(listener);
+	}//end method.
+
+	protected void notifyListeners(String[] response)
+	{
+		//notify listeners.
+		for(ResponseListener listener : responseListeners)
+		{
+			listener.response(response);
+
+			if(listener.remove())
+			{
+				removeListeners.add(listener);
+			}//end if.
+		}//end for.
+
+
+		//Remove certain listeners.
+		for(ResponseListener listener : removeListeners)
+		{
+
+			if(listener.remove())
+			{
+				responseListeners.remove(listener);
+			}//end if.
+		}//end for.
+
+		removeListeners.clear();
+
+	}//end method.
+
+
+
+
 }//end class.
 
 
