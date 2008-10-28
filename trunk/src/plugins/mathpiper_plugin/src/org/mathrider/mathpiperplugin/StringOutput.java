@@ -41,6 +41,11 @@ class StringOutput extends OutputStream
 
 
 	}//end method.
+	
+	public void clear()
+	{
+		this.stringBuffer.delete(0, this.stringBuffer.length());
+	}
 	    
 }//end class.
 		

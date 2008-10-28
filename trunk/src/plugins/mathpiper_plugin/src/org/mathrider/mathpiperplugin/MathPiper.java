@@ -16,6 +16,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JButton;
 
 import org.gjt.sp.jedit.EBComponent;
 import org.gjt.sp.jedit.EBMessage;
@@ -28,6 +29,8 @@ import org.gjt.sp.jedit.gui.DockableWindowManager;
 import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
+import org.mathrider.mathpiperplugin.MathPiperInterpreter;
+import org.mathpiper.exceptions.MathPiperException;
 // }}}
 
 // {{{ MathPiper class
@@ -68,32 +71,38 @@ public class MathPiper extends JPanel
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
-		if (jEdit.getSettingsDirectory() != null) {
-			this.filename = jEdit.getProperty(MathPiperPlugin.OPTION_PREFIX
-					+ "filepath");
-			if (this.filename == null || this.filename.length() == 0) {
-				this.filename = new String(jEdit.getSettingsDirectory()
-						+ File.separator + "qn.txt");
-				jEdit.setProperty(
-						MathPiperPlugin.OPTION_PREFIX + "filepath",
-						this.filename);
-			}
-			this.defaultFilename = this.filename;
-		}
 
-		this.toolPanel = new MathPiperToolPanel(this);
-		add(BorderLayout.NORTH, this.toolPanel);
+		//this.toolPanel = new MathPiperToolPanel(this);
+		//add(BorderLayout.NORTH, this.toolPanel);
 
 		if (floating)
-			this.setPreferredSize(new Dimension(500, 250));
+			this.setPreferredSize(new Dimension(300, 200));
 
-		textArea = new MathPiperTextArea();
-		textArea.setFont(MathPiperOptionPane.makeFont());
+		//textArea = new MathPiperTextArea();
+		//textArea.setFont(MathPiperOptionPane.makeFont());
+		
+		JButton stopCurrentExecutionButton = new JButton("Stop Current Calculation");
+		stopCurrentExecutionButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try
+				{
+					MathPiperInterpreter interpreter = MathPiperInterpreter.getInstance();
+					interpreter.stopCurrentCalculation();
+				}
+				catch(MathPiperException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		//JScrollPane pane = new JScrollPane(stopCurrentExecutionButton);
+		javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
+		buttonPanel.setBackground(new java.awt.Color(240,178,252));
+		buttonPanel.add(stopCurrentExecutionButton);
+		add(BorderLayout.CENTER, buttonPanel);
 
-		JScrollPane pane = new JScrollPane(textArea);
-		add(BorderLayout.CENTER, pane);
-
-		readFile();
+		//readFile();
 	}
     // }}}
 
@@ -101,7 +110,7 @@ public class MathPiper extends JPanel
     
     // {{{ focusOnDefaultComponent
 	public void focusOnDefaultComponent() {
-		textArea.requestFocus();
+		//textArea.requestFocus();
 	}
     // }}}
 
@@ -160,7 +169,18 @@ public class MathPiper extends JPanel
 	// MathPiperActions implementation
 
     // {{{
-	public void saveFile() {
+	public void saveFile() 
+	{
+		try
+		{
+			MathPiperInterpreter interpreter = MathPiperInterpreter.getInstance();
+			interpreter.stopCurrentCalculation();
+		}
+		catch(MathPiperException e)
+		{
+			e.printStackTrace();
+		}
+		/*
 		if (filename == null || filename.length() == 0)
 			return;
 		try {
@@ -171,6 +191,7 @@ public class MathPiper extends JPanel
 			Log.log(Log.ERROR, MathPiper.class,
 					"Could not write notepad text to " + filename);
 		}
+		*/
 	}
     // }}}
     
