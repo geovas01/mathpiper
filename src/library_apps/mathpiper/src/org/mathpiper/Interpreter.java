@@ -227,4 +227,9 @@ public class Interpreter
 		}
 		return rs;
 	}
+	
+	public void stopCurrentCalculation()
+	{
+		environment.iEvalDepth = environment.iMaxEvalDepth+100;
+	}
 }

@@ -28,7 +28,7 @@ public class MathPiperInterpreter  implements Runnable{
 	private String input;
 	private ArrayList<ResponseListener> removeListeners;
 	private ArrayList<ResponseListener> responseListeners;
-	
+
 	//java.util.zip.ZipFile scriptsZip;
 
 	private static DefaultErrorSource errorSource;
@@ -39,7 +39,7 @@ public class MathPiperInterpreter  implements Runnable{
 		stringOutput = new StringOutput();
 
 		mathPiper = new Interpreter(stringOutput);
-		
+
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
 
@@ -64,14 +64,14 @@ public class MathPiperInterpreter  implements Runnable{
 	/** Use this method to pass an expression to the MathPiper interpreter.
 	 *  Returns the output of the interpreter.
 	 */
-public String[] evaluate(String input) throws MathPiperException
-{
+	public String[] evaluate(String input) throws MathPiperException
+	{
 		result = mathPiper.evaluate(input);
-		
+
 		result = result.trim();
 
 		String loadResult = mathPiper.evaluate("LoadResult;");
-		
+
 		loadResult = loadResult.trim();
 
 		mathPiper.evaluate(result + ";");//Note:tk:eventually reengineer previous result mechanism in MathPiper.
@@ -100,11 +100,11 @@ public String[] evaluate(String input) throws MathPiperException
 		resultsAndSideEffect[0] = result;
 
 		return resultsAndSideEffect;
-		
-}
+
+	}
 
 	public void evaluateAsync(String input)  {
-		
+
 		/*
 			http://saloon.javaranch.com/cgi-bin/ubb/ultimatebb.cgi?ubb=get_topic&f=27&t=002774
 			If you are using java 5 then you can use callable
@@ -121,7 +121,7 @@ public String[] evaluate(String input) throws MathPiperException
 		this.input = input;
 		new Thread(this,"MathPiper").start();
 
-	
+
 	}//end method.
 
 	public void run()
@@ -133,11 +133,11 @@ public String[] evaluate(String input) throws MathPiperException
 		}
 		catch(Exception e)
 		{
-			 String[] error = new String[4];
-			 error[3] = e.getMessage();
-			 notifyListeners(error);
+			String[] error = new String[4];
+			error[3] = e.getMessage();
+			notifyListeners(error);
 		}
-		
+
 	}
 
 
@@ -190,6 +190,14 @@ public String[] evaluate(String input) throws MathPiperException
 		removeListeners.clear();
 
 	}//end method.
+
+
+
+	public void stopCurrentCalculation()
+	{
+		mathPiper.stopCurrentCalculation();
+		stringOutput.clear();
+	}
 
 
 
