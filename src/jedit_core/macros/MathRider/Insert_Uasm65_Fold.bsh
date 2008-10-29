@@ -36,11 +36,11 @@ void insert_uasm65_fold()
 		--offset;
 	}
 
-	text = "%uasm65,description=\"\"\n\n%/uasm65\n\n";
+	text = "%uasm65\n\n%/uasm65\n\n";
 
 	buffer.insert(offset, text);
 	
-    textArea.setCaretPosition(offset + 22);
+    textArea.setCaretPosition(offset + 7);
 }
 
 insert_uasm65_fold();
