@@ -13,7 +13,7 @@ code2Html(){
     startFrom = 0;
     while(matcher.find(startFrom))
     {
-        System.out.println("EEEEEEEEEEEE Match");
+       // System.out.println("EEEEEEEEEEEE Match");
         text.replace(matcher.start()+9, matcher.end(),((lineNumber < 10 ) ? " " : "") + lineNumber++);
         //foldOutput.append(text.substring(matcher.start()+8, matcher.end()));
         
