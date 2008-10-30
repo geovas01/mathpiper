@@ -8,6 +8,7 @@ Development notes.
 10:59:25 PM [error] AWT-EventQueue-0: Target exception: java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 18394
 Happens when there is just 1 line underneath fold at the bottom of a .mrw buffer.  0 lines underneath do not cause a problem and 2+ lines do not cause a problem.
 + ExtraInfo'Get, ExtraInfo'Set, and ExtraInfo'Returns do not have any documentation pages in MathPiperDocs.
++ The RandomInteger function has a link in the html code but no target and it is not listed in the functions.
 + Sometimes the "Source" button in PiperDocs indicates it cannot load the source file using the given encoding.
 + Add "ant -Dtarget=dist all-plugins" to build instructions.
 + Add version update to welcome.html file.
@@ -189,7 +190,8 @@ Initial release:
 
 {{{PIPER BUGS.
 ===
--I think the generated output of following formula is wrong:
++RandomInteger is present as a link in the MathPiper documentation, but it is not present as a top-level function in the code.
++I think the generated output of following formula is wrong:
 In> Sum(n,1,k,n)
 Out> (n*(n+1))/2
 shouldn't n be replaced with k?
