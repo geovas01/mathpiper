@@ -220,6 +220,7 @@ public class Interpreter
 		{
 			e.printStackTrace();
 			//System.out.println(e.toString());
+			System.out.println("XXXXXX InputStatus line number " + environment.iInputStatus.lineNumber() );
 
 			//Note:tk throw MathPiperException instead of simply printing the exception message.
 			iError = e.getMessage();
