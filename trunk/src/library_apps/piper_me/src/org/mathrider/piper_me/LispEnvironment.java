@@ -36,7 +36,7 @@ class LispEnvironment
     PushLocalFrame(true);
   }
 
-  LispHashTable HashTable()
+  StringIntern HashTable()
   {
     return iHashTable;
   }
@@ -50,7 +50,7 @@ class LispEnvironment
   }
   private int iPrecision = 10;
 
-  LispHashTable iHashTable = new LispHashTable();
+  StringIntern iHashTable = new StringIntern();
   LispObject iTrue;
   LispObject iFalse;
 
@@ -203,7 +203,7 @@ class LispEnvironment
       return;
     }
     LispGlobalVariable global = new LispGlobalVariable(aValue);
-    iGlobals.SetAssociation(global, aVariable);
+    iGlobals.put(aVariable, global);
     if (aGlobalLazyVariable)
     {
       global.SetEvalBeforeReturn(true);
@@ -219,7 +219,7 @@ class LispEnvironment
       aResult.setNext(local.getNext());
       return;
     }
-    LispGlobalVariable l = (LispGlobalVariable)iGlobals.LookUp(aVariable);
+    LispGlobalVariable l = (LispGlobalVariable)iGlobals.get(aVariable);
     if (l != null)
     {
       if (l.iEvalBeforeReturn)
@@ -245,7 +245,7 @@ class LispEnvironment
         local.setNext(null);
         return;
     }
-    iGlobals.Release(aString);
+    iGlobals.remove(aString);
   }
 
   void PushLocalFrame(boolean aFenced)
@@ -350,13 +350,13 @@ class LispEnvironment
  
   public void HoldArgument(String  aOperator, String aVariable) throws Exception
   {
-    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.get(aOperator);
     LispError.Check(multiUserFunc != null,LispError.KLispErrInvalidArg);
     multiUserFunc.HoldArgument(aVariable);
   }
   public void Retract(String aOperator,int aArity) throws Exception
   {
-    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.get(aOperator);
     if (multiUserFunc != null)
     {
       multiUserFunc.DeleteBase(aArity);
@@ -366,7 +366,7 @@ class LispEnvironment
   public LispUserFunction UserFunction(LispPtr aArguments) throws Exception
   {
     LispMultiUserFunction multiUserFunc =
-        (LispMultiUserFunction)iUserFunctions.LookUp(aArguments.getNext().String());
+        (LispMultiUserFunction)iUserFunctions.get(aArguments.getNext().String());
     if (multiUserFunc != null)
     {
       int arity = LispStandard.InternalListLength(aArguments)-1;
@@ -377,7 +377,7 @@ class LispEnvironment
 
   public LispUserFunction UserFunction(String aName,int aArity) throws Exception
   {
-    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aName);
+    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.get(aName);
     if (multiUserFunc != null)
     {
         return  multiUserFunc.UserFunc(aArity);
@@ -387,7 +387,7 @@ class LispEnvironment
 
   public void UnFenceRule(String aOperator,int aArity) throws Exception
   {
-    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.get(aOperator);
 
     LispError.Check(multiUserFunc != null, LispError.KLispErrInvalidArg);
     LispUserFunction userFunc = multiUserFunc.UserFunc(aArity);
@@ -398,14 +398,14 @@ class LispEnvironment
   public LispMultiUserFunction MultiUserFunction(String aOperator) throws Exception
   {
     // Find existing multiuser func.
-    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.get(aOperator);
 
     // If none exists, add one to the user functions list
     if (multiUserFunc == null)
     {
         LispMultiUserFunction newMulti = new LispMultiUserFunction();
-        iUserFunctions.SetAssociation(newMulti, aOperator);
-        multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+        iUserFunctions.put(aOperator, newMulti);
+        multiUserFunc = (LispMultiUserFunction)iUserFunctions.get(aOperator);
         LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingUserFunction);
     }
     return multiUserFunc;
@@ -435,7 +435,7 @@ class LispEnvironment
   {
     // Find existing multiuser func.
     LispMultiUserFunction multiUserFunc =
-        (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+        (LispMultiUserFunction)iUserFunctions.get(aOperator);
     LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
     // Get the specific user function with the right arity
@@ -472,7 +472,7 @@ class LispEnvironment
   void DefineRulePattern(String aOperator,int aArity, int aPrecedence, LispPtr aPredicate, LispPtr aBody) throws Exception
   {
     // Find existing multiuser func.
-    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.LookUp(aOperator);
+    LispMultiUserFunction multiUserFunc = (LispMultiUserFunction)iUserFunctions.get(aOperator);
     LispError.Check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
     // Get the specific user function with the right arity
