@@ -6,7 +6,7 @@ class XmlTokenizer extends LispTokenizer
 {
   /// NextToken returns a string representing the next token,
   /// or an empty list.
-  public String NextToken(LispInput aInput, LispHashTable aHashTable) throws Exception
+  public String NextToken(LispInput aInput, StringIntern aHashTable) throws Exception
   {
     char c;
     int firstpos=0;

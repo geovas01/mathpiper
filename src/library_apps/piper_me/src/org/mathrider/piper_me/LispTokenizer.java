@@ -6,7 +6,7 @@ class LispTokenizer
 
     /// NextToken returns a string representing the next token,
     /// or an empty list.
-    String NextToken(LispInput aInput, LispHashTable aHashTable) throws Exception
+    String NextToken(LispInput aInput, StringIntern aHashTable) throws Exception
   {
     char c;
     int firstpos = aInput.Position();

@@ -48,7 +48,7 @@ of low-level immutable data structures, for instance for traversal.
 The key values must not be null. Furthermore, their
 equal-methods must be consistent to their hash codes.
 */
-public final class HashMap<Key,Value> 
+public class HashMap<Key,Value> 
 implements IterableCollection<Cons<Key,Value>>{
   private int size = 0;
   private Object[] table;
@@ -69,7 +69,7 @@ implements IterableCollection<Cons<Key,Value>>{
    * The key value must not be null. Furthermore, its
    * equal-method must be consistent to its hash code.
    */
-  public void put(Key a, Value b) {
+  final public void put(Key a, Value b) {
     if (size * 4 > table.length) {
       rehash(5 * table.length);
     }
@@ -110,9 +110,9 @@ implements IterableCollection<Cons<Key,Value>>{
     size = size + 1;
   }
   
-  public void remove(Key a) {
-    if ((size * 6 < table.length) && 
-        (DEFAULT_INITIAL_CAPACITY * 6 < table.length)){
+  final public void remove(Key a) {
+    if ((size * 8 < table.length) && 
+        (DEFAULT_INITIAL_CAPACITY * 8 < table.length)){
       rehash(table.length / 4);
     }
     int hc = a.hashCode();
@@ -150,7 +150,7 @@ implements IterableCollection<Cons<Key,Value>>{
     }//`else`
   }
   
-  public boolean contains(Key a) {
+  final public boolean contains(Key a) {
     int hc = a.hashCode();
     if (hc < 0)
       hc = -hc;
@@ -170,7 +170,7 @@ implements IterableCollection<Cons<Key,Value>>{
     }//`else`
   }
   
-  public Value get(Key a) {
+  final public Value get(Key a) {
     int hc = a.hashCode();
     if (hc < 0)
       hc = -hc;
@@ -191,11 +191,11 @@ implements IterableCollection<Cons<Key,Value>>{
     }//`else`
   }
   
-  public int size() {
+  final public int size() {
     return size;
   }
   
-  public void assertInvariant() {
+  final public void assertInvariant() {
     int trueSize = 0;
     int trueHashCode = 0;
     for (int i = 0; i < table.length; i = i + 2) {
@@ -275,7 +275,7 @@ implements IterableCollection<Cons<Key,Value>>{
     return tablePos;
   }
   
-  public ForwardIterator<Cons<Key, Value>> iterator() {
+  final public ForwardIterator<Cons<Key, Value>> iterator() {
     return new Iterator();
   }
   
@@ -309,11 +309,11 @@ implements IterableCollection<Cons<Key,Value>>{
     this.hashSum = newMap.hashSum;   
   };
   
-  public int hashCode() {
+  final public int hashCode() {
     return hashSum;
   }
   
-  public boolean equals(Object other) {
+  final public boolean equals(Object other) {
     
     if (this == other)
       return true;
