@@ -133,7 +133,6 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	
 	
 		//{{{ Fold information.
-	//	defaultFoldType = "%mathpiper";
 		
 
 			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
@@ -844,7 +843,11 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 						
 						if(currentLine.startsWith("Result:"))
 						{
-							currentLine = currentLine.replace("Result:","");
+							continue;
+						}
+						else if(currentLine.startsWith("Side effects:"))
+						{
+							continue;
 						}
 						
 						returnFlag = geogebra.evalCommand(currentLine);

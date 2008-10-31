@@ -11507,6 +11507,7 @@ users["115902362"] := {
 
 
 
+
     
 %mathpiper
 AssocIndices(users);
@@ -11529,6 +11530,8 @@ sorted := HeapSort(users,Lambda({x,y}, Length(x[2]) > Length(y[2]) ) );
 
 
 
+
+
 %mathpiper
 
 // Create an ordered list of just the main user's IDs.
@@ -11545,11 +11548,13 @@ rank;
 
 
 
+
     
 %mathpiper,output="geogebra"
 
-//Plot sorted users. (Note:tk: add Result/Side effects removal code to %geogebra code.
+//Plot sorted users. (Note:tk: add Result/Side effects removal code to geogebra code.
 x := 1;
+
 ForEach(user,sorted)
 [
     Echo(Atom("("),x,,,Length(user[2]),Atom(")"));
@@ -11558,6 +11563,9 @@ ForEach(user,sorted)
 %/mathpiper
 
     %geogebra,preserve="false"
+      Result: True
+      
+      Side effects:
       ( 1 , 410 ) 
       ( 2 , 404 ) 
       ( 3 , 399 ) 
@@ -11599,6 +11607,9 @@ ForEach(user,sorted)
     %/geogebra
 
 
+
+
+
    
 
 %mathpiper
@@ -11609,5 +11620,7 @@ Length(Intersection(sorted[1][2], sorted[2][2]) );
 %/mathpiper
 
 
+
    
-        
+
+
