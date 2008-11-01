@@ -329,7 +329,7 @@ userFunctionsDescriptions = new String[][]
 {"IsSmallPrime","Test for a small prime number.","Alphabetical","Number Theory","Predicates"},
 {"IsSquareFree","Test for a square-free number.","Alphabetical","Number Theory","Predicates"},
 {"IsSquareMatrix","Test for a square matrix.","Alphabetical","Matrices (Predicates)","Predicates"},
-{"IsString","Test for an string.","Alphabetical","Predicates","Predicates","Built In"},
+{"IsString","Test for an string.","Alphabetical","Predicates","Built In"},
 {"IsSymmetric","Test for a symmetric matrix.","Alphabetical","Matrices (Predicates)","Predicates"},
 {"IsTwinPrime","Test for a twin prime.","Alphabetical","Number Theory","Predicates"},
 {"IsUnitary","Test for a unitary matrix.","Alphabetical","Matrices (Predicates)","Predicates"},
