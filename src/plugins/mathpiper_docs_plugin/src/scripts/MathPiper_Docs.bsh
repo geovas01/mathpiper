@@ -1591,7 +1591,7 @@ funcs_refchapter15 = new String[]{
 , "OdeOrder"
 };
 funcs_refchapter16 = new String[]{
-"Dot, ."
+"Dot"
 , "InProduct"
 , "CrossProduct"
 , "Outer, o"
