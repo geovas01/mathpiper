@@ -24,6 +24,9 @@ Rule("@",2,2,True       ) Apply(func,{arg});
 
 Function("/@",{func,lst}) Apply("MapSingle",{func,lst});
 
+/*
+.. operator is implemented with the Table function.
+*/
 10 # (count'from_IsInteger .. count'to_IsInteger)_(count'from <= count'to) 
    <-- Table(i,i,count'from,count'to,1);
 20 # (count'from_IsInteger .. count'to_IsInteger) 
