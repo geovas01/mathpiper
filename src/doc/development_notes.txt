@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++ Remove is in MathPiper_Docs but it is not in MathPiper.
 + Find out what "seed=1,dist=gauss" is doind in r1:=RngCreate(seed=1,dist=gauss).
 + Prog , [] , UnFence  links in Local do not work in MathPiper_Docs.
 + ReturnsCoreError, ReturnsError, ReturnsErrorTableau, and ReturnsTime function links don't work in MathPiper_Docs function tree.
