@@ -642,7 +642,7 @@ public abstract class BuiltinFunction
                 "ArraySize");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GenArrayGet(), 2, Evaluator.Fixed | Evaluator.Function),
-                "Array'Get");
+                "ArrayGet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GenArraySet(), 3, Evaluator.Fixed | Evaluator.Function),
                 "ArraySet");
