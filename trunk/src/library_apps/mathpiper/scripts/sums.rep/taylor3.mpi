@@ -6,22 +6,22 @@
 Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
 [
   Local(result,i,j,jset,ilimit,jlimit);
-  Set(result, Array'Create(MathAdd(degree,1),0));
+  Set(result, Array'Create(AddN(degree,1),0));
   Set(i,1);
-  Set(ilimit,MathAdd(degree,2));
+  Set(ilimit,AddN(degree,2));
   While (Not Equals(i,ilimit))
   [
 //Echo(coefs1,coefs2);
     Set(j,1);
-    Set(jlimit,MathAdd(degree,MathSubtract(3,i)));
+    Set(jlimit,AddN(degree,SubtractN(3,i)));
     While (Not Equals(j,jlimit))
     [
-      Set(jset,MathAdd(i,MathSubtract(j,1)));
+      Set(jset,AddN(i,SubtractN(j,1)));
 //Echo("index = ",i+j-1);
       Array'Set(result,jset,Array'Get(result,jset) + Array'Get(coefs1,i)*Array'Get(coefs2,j));
-      Set(j,MathAdd(j,1));
+      Set(j,AddN(j,1));
     ];
-    Set(i,MathAdd(i,1));
+    Set(i,AddN(i,1));
   ];
   result;
 ];

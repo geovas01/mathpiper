@@ -18,8 +18,8 @@ FastModularPower(a_IsPositiveInteger, b_IsPositiveInteger, n_IsPositiveInteger) 
 
   While (j > 0)
     [
-      If (IsOdd(j), r := MathMod(r*p, n));
-      p := MathMod(p*p, n);
+      If (IsOdd(j), r := ModN(r*p, n));
+      p := ModN(p*p, n);
       j := ShiftRight(j, 1);
     ];
   r;
@@ -60,7 +60,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
   While (Not(flag) And (i < r))
   [
 	root := a;	// this is the value of the root if flag becomes true now
-    a := MathMod(a*a, n);
+    a := ModN(a*a, n);
     flag := (a = m);
     i++;
   ];

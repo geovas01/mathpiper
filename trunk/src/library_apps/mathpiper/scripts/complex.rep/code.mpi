@@ -110,7 +110,7 @@ IsNotComplex(x) := Not(IsComplex(x));
 110 # Sqrt(Complex(_r,_i)) <-- Exp(Ln(Complex(r,i))/2);
 110 # (Complex(_r,_i) ^ x_IsRationalOrNumber)_(Not(IsInteger(x))) <-- Exp(x*Ln(Complex(r,i)));
 
-// This is commented out because it used MathPower so (2*I)^(-10) became a floating-point number. Now everything is handled by binary algorithm below
+// This is commented out because it used PowerN so (2*I)^(-10) became a floating-point number. Now everything is handled by binary algorithm below
 //120 # Complex(r_IsZero,_i) ^ n_IsInteger <-- {1,I,-1,-I}[1+Mod(n,4)] * i^n;
 
 123 # Complex(_r, _i) ^ n_IsNegativeInteger <-- 1/Complex(r, i)^(-n);

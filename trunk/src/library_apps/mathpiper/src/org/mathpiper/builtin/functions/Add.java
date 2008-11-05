@@ -28,7 +28,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-/// Corresponds to the MathPiper function \c MathAdd.
+/// Corresponds to the MathPiper function \c AddN.
 /// If called with one argument (unary plus), this argument is
 /// converted to BigNumber. If called with two arguments (binary plus),
 /// both argument are converted to a BigNumber, and these are added

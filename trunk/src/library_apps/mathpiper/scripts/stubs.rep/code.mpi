@@ -78,8 +78,8 @@ n_IsInteger >> m_IsInteger <-- ShiftRight(n,m);
 0 # Sqrt(Infinity) <--  Infinity;
 0 # Sqrt(-Infinity) <-- Complex(0,Infinity);
 0 # Sqrt(Undefined) <--  Undefined;
-1 # Sqrt(x_IsPositiveInteger)_(IsInteger(MathSqrt(x))) <-- MathSqrt(x);
-2 # Sqrt(x_IsPositiveNumber)_InNumericMode() <-- MathSqrt(x);
+1 # Sqrt(x_IsPositiveInteger)_(IsInteger(SqrtN(x))) <-- SqrtN(x);
+2 # Sqrt(x_IsPositiveNumber)_InNumericMode() <-- SqrtN(x);
 2 # Sqrt(x_IsNegativeNumber) <-- Complex(0,Sqrt(-x));
 /* 3 # Sqrt(x_IsNumber/y_IsNumber) <-- Sqrt(x)/Sqrt(y); */
 3 # Sqrt(x_IsComplex)_InNumericMode() <-- x^(1/2);
@@ -94,11 +94,11 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 400 # Sqrt(y_IsRationalOrNumber) / x_IsRationalOrNumber  <-- Sign(x)*Sqrt(y/(x^2));
 400 # Sqrt(y_IsRationalOrNumber) / Sqrt(x_IsRationalOrNumber)  <-- Sqrt(y/x);
 400 # Sqrt(y_IsRationalOrNumber) * Sqrt(x_IsRationalOrNumber)  <-- Sqrt(y*x);
-400 # Sqrt(x_IsInteger)_IsInteger(MathSqrt(x)) <-- MathSqrt(x);
-400 # Sqrt(x_IsInteger/y_IsInteger)_(IsInteger(MathSqrt(x)) And IsInteger(MathSqrt(y))) <-- MathSqrt(x)/MathSqrt(y);
+400 # Sqrt(x_IsInteger)_IsInteger(SqrtN(x)) <-- SqrtN(x);
+400 # Sqrt(x_IsInteger/y_IsInteger)_(IsInteger(SqrtN(x)) And IsInteger(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);
 
 /* Integer divisions */
-0 # Div(n_IsInteger,m_IsInteger) <-- MathDiv(n,m);
+0 # Div(n_IsInteger,m_IsInteger) <-- DivN(n,m);
 1 # Div(0  ,_m) <-- 0;
 2 # Div(n_IsRationalOrNumber,m_IsRationalOrNumber) <--
 [
@@ -109,7 +109,7 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
   m2:=Denom(m);
   sgn1 := Sign(n1*m2);
   sgn2 := Sign(m1*n2);
-  sgn1*sgn2*Floor(MathDivide(sgn1*n1*m2,sgn2*m1*n2));
+  sgn1*sgn2*Floor(DivideN(sgn1*n1*m2,sgn2*m1*n2));
 ];
 30 # Div(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=1) <--
 [
@@ -126,14 +126,14 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 1 # Mod(n_IsNegativeInteger,m_IsPositiveInteger) <--
 [
   Local(result);
-  result := MathMod(n,m);
+  result := ModN(n,m);
   If (result < 0,result := result + m);
   result;
 ];
-1 # Mod(n_IsPositiveInteger,m_IsPositiveInteger) <-- MathMod(n,m);
+1 # Mod(n_IsPositiveInteger,m_IsPositiveInteger) <-- ModN(n,m);
 2 # Mod(0,_m) <-- 0;
 2 # Mod(n_IsPositiveInteger,Infinity) <-- n;
-3 # Mod(n_IsInteger,m_IsInteger) <-- MathMod(n,m);
+3 # Mod(n_IsInteger,m_IsInteger) <-- ModN(n,m);
 4 # Mod(n_IsNumber,m_IsNumber) <-- NonN(Mod(Rationalize(n),Rationalize(m)));
 
 5 # Mod(n_IsRationalOrNumber,m_IsRationalOrNumber)/*_(n>0 And m>0)*/ <--
@@ -167,7 +167,7 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 1 # Gcd(_m,_m) <-- Abs(m);
 2 # Gcd(_n,1) <-- 1;
 2 # Gcd(1,_m) <-- 1;
-2 # Gcd(n_IsInteger,m_IsInteger) <-- MathGcd(n,m);
+2 # Gcd(n_IsInteger,m_IsInteger) <-- GcdN(n,m);
 3 # Gcd(_n,_m)_(IsGaussianInteger(m) And IsGaussianInteger(n) )<-- GaussianGcd(n,m);
 
 4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
@@ -233,7 +233,7 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 RuleBase("Object",{pred,x});
 Rule("Object",2,0,Apply(pred,{x})=True) x;
 
-10 # Abs(n_IsNumber) <-- MathAbs(n);
+10 # Abs(n_IsNumber) <-- AbsN(n);
 10 # Abs(n_IsPositiveNumber/m_IsPositiveNumber) <-- n/m;
 10 # Abs(n_IsNegativeNumber/m_IsPositiveNumber) <-- (-n)/m;
 10 # Abs(n_IsPositiveNumber/m_IsNegativeNumber) <-- n/(-m);
@@ -270,13 +270,13 @@ Rule("Object",2,0,Apply(pred,{x})=True) x;
 5 # Round(Undefined) <-- Undefined;
 
 /* Changed by Nobbi before redefinition of Rational
-10 # Floor(x_IsNumber) <-- MathFloor(x);
-10 # Ceil (x_IsNumber) <-- MathCeil (x);
-10 # Round(x_IsNumber) <-- MathFloor(x+0.5);
+10 # Floor(x_IsNumber) <-- FloorN(x);
+10 # Ceil (x_IsNumber) <-- CeilN (x);
+10 # Round(x_IsNumber) <-- FloorN(x+0.5);
 
-20 # Floor(x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- MathFloor(N(x));
-20 # Ceil (x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- MathCeil (N(x));
-20 # Round(x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- MathFloor(N(x+0.5));
+20 # Floor(x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- FloorN(N(x));
+20 # Ceil (x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- CeilN (N(x));
+20 # Round(x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- FloorN(N(x+0.5));
 */
 
 10 # Floor(x_IsRationalOrNumber) 
@@ -289,18 +289,18 @@ Rule("Object",2,0,Apply(pred,{x})=True) x;
      If(IsZero(x),
        Set(n,2),
        If(x>0,
-         Set(n,2+MathFloor(N(FastLog(x)/FastLog(10)))),
-         Set(n,2+MathFloor(N(FastLog(-x)/FastLog(10))))
+         Set(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
+         Set(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
      If(n>prec,Builtin'Precision'Set(n));
 //Echo("Before");
-     Set(result,MathFloor(x));
+     Set(result,FloorN(x));
 //Echo("After");
      Builtin'Precision'Set(prec);
      result;
    ];
 
-//     MathFloor(N(x));
+//     FloorN(N(x));
 
 10 # Ceil (x_IsRationalOrNumber) 
    <-- 
@@ -310,20 +310,20 @@ Rule("Object",2,0,Apply(pred,{x})=True) x;
      Set(prec,Builtin'Precision'Get());
      If(IsZero(x),Set(n,2),
      If(x>0,
-       Set(n,2+MathFloor(N(FastLog(x)/FastLog(10)))),
-       Set(n,2+MathFloor(N(FastLog(-x)/FastLog(10))))
+       Set(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
+       Set(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
      If(n>prec,Builtin'Precision'Set(n));
-     Set(result,MathCeil(x));
+     Set(result,CeilN(x));
      Builtin'Precision'Set(prec);
      result;
    ];
-//   MathCeil (N(x));
-10 # Round(x_IsRationalOrNumber) <-- MathFloor(N(x+0.5));
+//   CeilN (N(x));
+10 # Round(x_IsRationalOrNumber) <-- FloorN(N(x+0.5));
 10 # Round(x_IsList) <-- MapSingle("Round",x);
 
 20 # Round(x_IsComplex)  _ (IsRationalOrNumber(Re(x)) And IsRationalOrNumber(Im(x)) )
-		<-- MathFloor(N(Re(x)+0.5)) + MathFloor(N(Im(x)+0.5))*I;
+		<-- FloorN(N(Re(x)+0.5)) + FloorN(N(Im(x)+0.5))*I;
 
 
 // Canonicalise an expression so its terms are grouped to the right

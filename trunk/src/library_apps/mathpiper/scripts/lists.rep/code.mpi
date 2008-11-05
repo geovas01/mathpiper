@@ -25,7 +25,7 @@ Function("Find",{list,element})
       Set(result, count)
       );
     Set(list,Tail(list));
-    Set(count,MathAdd(count,1));
+    Set(count,AddN(count,1));
   ];
   result;
 ];
@@ -42,7 +42,7 @@ Function("FindPredicate",{list,predicate})
       Set(result, count)
       );
     Set(list,Tail(list));
-    Set(count,MathAdd(count,1));
+    Set(count,AddN(count,1));
   ];
   result;
 ];  
@@ -151,7 +151,7 @@ Function("Count",{list,element})
 [
    Local(result);
    Set(result,0);
-   ForEach(item,list) If(Equals(item, element), Set(result,MathAdd(result,1)));
+   ForEach(item,list) If(Equals(item, element), Set(result,AddN(result,1)));
    result;
 ];
 
@@ -358,7 +358,7 @@ TemplateFunction("Table",{body,var,count'from,count'to,step})
       [
        MacroSet( var, count'from + ii * step );
        DestructiveInsert( result,1,Eval(body) );
-       Set(ii,MathAdd(ii,1));
+       Set(ii,AddN(ii,1));
       ];
     DestructiveReverse(result);
   ];
@@ -456,7 +456,7 @@ Function("FillList", {aItem, aLength})
 
 
 
-/* ···· Drop ···· */
+/* ï¿½ï¿½ï¿½ï¿½ Drop ï¿½ï¿½ï¿½ï¿½ */
 
 /* Needs to check the parameters */
 
@@ -478,7 +478,7 @@ Rule("Drop", 2, 2, range < 0)
     Take( lst, Length(lst) + range );
 
 
-/* ···· Take ···· */
+/* ï¿½ï¿½ï¿½ï¿½ Take ï¿½ï¿½ï¿½ï¿½ */
 
 /* Needs to check the parameters */
 
@@ -501,7 +501,7 @@ Rule("Take", 2, 2, range < 0)
     Drop( lst, Length(lst) + range );
 
 
-/* ···· Partition ···· */
+/* ï¿½ï¿½ï¿½ï¿½ Partition ï¿½ï¿½ï¿½ï¿½ */
 
 /* Partition( list, n ) partitions 'list' into non-overlapping sublists of length n */
 

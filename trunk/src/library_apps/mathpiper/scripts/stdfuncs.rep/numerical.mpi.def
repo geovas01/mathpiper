@@ -7,7 +7,7 @@ ArcTanNum
 ExpNum
 MathExpThreshold
 SetMathExpThreshold 
-MathLog
+LogN
 Internal'LnNum
 BrentLn
 Ln2

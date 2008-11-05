@@ -38,7 +38,7 @@ Pslq(x, precision) :=
   n:=Length(x);
   ndigits:=Builtin'Precision'Get();
   Builtin'Precision'Set(precision+10); // 10 is chosen arbitrarily, but should always be enough. Perhaps we can optimize by lowering this number
-  Confidence:=10^(-MathFloor(N(Eval(precision/3))));
+  Confidence:=10^(-FloorN(N(Eval(precision/3))));
 //Echo("Confidence is ",Confidence);
 
   gam:=N(Sqrt(4/3));
@@ -57,7 +57,7 @@ Pslq(x, precision) :=
   [
     tmp:=0;
     For (j:=k,j<=n,j++) tmp:=tmp + N(x[j]^2);
-//tmp:=MathDivide(tmp,1.0);
+//tmp:=DivideN(tmp,1.0);
 //Echo("tmp is ",tmp);
 //MathDebugInfo(tmp);
 /*If(Not IsPositiveNumber(tmp),
@@ -72,7 +72,7 @@ If(LessThan(tmp,0),
 ]
 );*/
 
-    s[k]:=MathSqrt(tmp);
+    s[k]:=SqrtN(tmp);
 
 
 /*If(Not IsNumber(tmp),

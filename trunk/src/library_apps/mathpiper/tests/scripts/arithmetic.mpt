@@ -56,20 +56,20 @@ Verify(1<<10,1024);
 Verify(1024>>10,1);
 Verify(Mod(10,3),1);
 Verify(Div(10,3),3);
-Verify(MathGcd(55,10),5);
+Verify(GcdN(55,10),5);
 
 Verify(Mod(2,Infinity),2);
 Verify(Mod({0,1,2,3,4,5,6},2),{0,1,0,1,0,1,0});
 Verify(Mod({0,1,2,3,4,5,6},{2,2,2,2,2,2,2}),{0,1,0,1,0,1,0});
 
-Testing("MathPower");
+Testing("PowerN");
 // was broken in the gmp version
-Verify(MathPower(19, 0), 1);
-Verify(MathPower(1, -1), 1);
-Verify(MathPower(1, -2), 1);
-Verify(IsZero(MathPower(10, -2)- 0.01));
-Verify(MathPower(2, 3), 8);
-NumericEqual(MathPower(2, -3), 0.125,Builtin'Precision'Get()); 
+Verify(PowerN(19, 0), 1);
+Verify(PowerN(1, -1), 1);
+Verify(PowerN(1, -2), 1);
+Verify(IsZero(PowerN(10, -2)- 0.01));
+Verify(PowerN(2, 3), 8);
+NumericEqual(PowerN(2, -3), 0.125,Builtin'Precision'Get()); 
 
 Testing("Rounding");
 Verify(Floor(1.2),1);

@@ -217,7 +217,7 @@ LogicRemoveTautologies(_e) <--
             [
                 //Echo({"Deleting from ", e, " j=", j, Nl()});
                 DestructiveDelete(e, j);
-                Set(len,MathSubtract(len,1));
+                Set(len,SubtractN(len,1));
             ])
         );
     ];
@@ -262,7 +262,7 @@ LogicFindWith(_list, _i, _n) <--
 LogicCombine(_list) <--
 [
   Local(i, j);
-  For(Set(i,1), i<=Length(list), Set(i,MathAdd(i,1)))
+  For(Set(i,1), i<=Length(list), Set(i,AddN(i,1)))
   [
     //Echo({"list[", i, "/", Length(list), "]: ", list[i], Nl()});
 

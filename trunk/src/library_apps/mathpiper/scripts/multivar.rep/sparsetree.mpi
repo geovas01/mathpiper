@@ -62,7 +62,7 @@ LocalSymbols(SparseTreeMap2,SparseTreeScan2,Muaddterm,MuMuaddterm,
    <--
    ForEach(item,list)
    [
-     SparseTreeMap2(item[2],MathAdd(depth,-1),Concat(coefs,{item[1]}));
+     SparseTreeMap2(item[2],AddN(depth,-1),Concat(coefs,{item[1]}));
    ];
 UnFence("SparseTreeMap", 3);
 [Local(fn);fn:=String(SparseTreeMap2);`UnFence(@fn,3);];
@@ -73,7 +73,7 @@ UnFence("SparseTreeMap", 3);
    <--
    ForEach(item,list)
    [
-     SparseTreeScan2(item[2],MathAdd(depth,-1),Concat(coefs,{item[1]}));
+     SparseTreeScan2(item[2],AddN(depth,-1),Concat(coefs,{item[1]}));
    ];
 UnFence("SparseTreeScan", 3);
 [Local(fn);fn:=String(SparseTreeScan2);`UnFence(@fn,3);];
@@ -111,7 +111,7 @@ UnFence("SparseTreeScan", 3);
   if(depth=1)
     [ t1[1][2] := list1+list2; ]
   else
-    [ t1[1][2] := AddSparseTrees(MathAdd(depth,-1),list1,list2);];
+    [ t1[1][2] := AddSparseTrees(AddN(depth,-1),list1,list2);];
   Set(t2,Tail(t2));
 ];
 20 # Muaddterm(_h1,_h2)_(h1[1]<h2[1]) <--
@@ -122,7 +122,7 @@ UnFence("SparseTreeScan", 3);
 30 # Muaddterm(_h1,_h2)<--
 [
   Set(t1,Tail(t1));
-  Set(i,MathAdd(i,1));
+  Set(i,AddN(i,1));
 ];
 [Local(fn);fn:=String(Muaddterm);`UnFence(@fn,2);];
 
@@ -186,7 +186,7 @@ UnFence("SparseTreeScan", 3);
     [ t1[1][2] := list1+fact*list2; ]
   else
     [ 
-      t1[1] := {pow1,MultiplyAddSparseTrees(MathAdd(depth,-1),list1,list2,Tail(coefs),fact)};
+      t1[1] := {pow1,MultiplyAddSparseTrees(AddN(depth,-1),list1,list2,Tail(coefs),fact)};
     ];
   Set(t2,Tail(t2));
 ];
@@ -199,7 +199,7 @@ UnFence("SparseTreeScan", 3);
 30 # MuMuaddterm(_h1,_h2,_coefs)<--
 [
   Set(t1,Tail(t1));
-  Set(i,MathAdd(i,1));
+  Set(i,AddN(i,1));
 ];
 [Local(fn);fn:=String(MuMuaddterm);`UnFence(@fn,3);];
 

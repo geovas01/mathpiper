@@ -167,8 +167,8 @@ Function(Fct,{poly,var})
 
   Set(accu,{});
   Set(q,1);
-  Set(twoq,MathMultiply(q,2));
-  Set(mask,MathAdd(twoq,MathNegate(1)));
+  Set(twoq,MultiplyN(q,2));
+  Set(mask,AddN(twoq,MathNegate(1)));
   if (IsEven(testpoly[1]))
   [
     Set(accu,0:accu);
@@ -182,8 +182,8 @@ Function(Fct,{poly,var})
     AddFoundSolution(1);
   ]);
   Set(q,twoq);
-  Set(twoq,MathMultiply(q,2));
-  Set(mask,MathAdd(twoq,MathNegate(1)));
+  Set(twoq,MultiplyN(q,2));
+  Set(mask,AddN(twoq,MathNegate(1)));
   While(Length(result)<maxNrRoots And Length(accu)>0 And q<=Abs(testpoly[1]))
   [
     Local(newaccu);
@@ -192,7 +192,7 @@ Function(Fct,{poly,var})
     [
       Set(calc,Eval(lastcoef));
       If (LessThan(calc,0), 
-        Set(calc, MathAdd(calc,MathMultiply(twoq,MathDiv(MathAdd(MathNegate(calc),twoq),twoq))))
+        Set(calc, AddN(calc,MultiplyN(twoq,DivN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Set(calc, BitAnd(calc, mask));
       If ( Equals(calc, 0),
@@ -200,21 +200,21 @@ Function(Fct,{poly,var})
         Set(newaccu, p:newaccu);
         AddFoundSolutionSingle(-2*q+p);
       ]);
-      Set(calc, MathAdd(calc, Eval(ord)));
+      Set(calc, AddN(calc, Eval(ord)));
       If (LessThan(calc,0), 
-        Set(calc, MathAdd(calc,MathMultiply(twoq,MathDiv(MathAdd(MathNegate(calc),twoq),twoq))))
+        Set(calc, AddN(calc,MultiplyN(twoq,DivN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Set(calc, BitAnd(calc, mask));
       If ( Equals(calc, 0),
       [
-        Set(newaccu, MathAdd(p,q):newaccu);
-        AddFoundSolution(MathAdd(p,q));
+        Set(newaccu, AddN(p,q):newaccu);
+        AddFoundSolution(AddN(p,q));
       ]);
     ];
     Set(accu, newaccu);
     Set(q,twoq);
-    Set(twoq,MathMultiply(q,2));
-    Set(mask,MathAdd(twoq,MathNegate(1)));
+    Set(twoq,MultiplyN(q,2));
+    Set(mask,AddN(twoq,MathNegate(1)));
 
 //Echo("q = ",q);
 //Echo("Length is",Length(accu),"accu = ",accu);
