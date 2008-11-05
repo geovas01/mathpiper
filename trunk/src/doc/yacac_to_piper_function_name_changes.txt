@@ -31,7 +31,7 @@ MathSubtract -> SubtractN
 MathTan -> TanN
 MathTanh -> TanhN
 
-//Removed ' character from these function names.
+//Removed the ' character from these function names.
 Array'Create
 Array'CreateFromList
 Array'Get
