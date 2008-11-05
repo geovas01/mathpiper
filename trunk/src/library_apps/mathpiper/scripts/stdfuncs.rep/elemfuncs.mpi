@@ -76,7 +76,7 @@ SqrtN(x) := MathSqrt1(x);	// to have another function is easier for debugging
 			// convert x to float and use the float routine
 			result := MathSqrtFloat(x+0.);
 			// decide whether result is integer: decrease precision and compare
-			If(FloatIsInt(SetExactBitsN(result, MathGetExactBits(result)-3)), result:= Floor(result+0.5));
+			If(FloatIsInt(SetExactBitsN(result, GetExactBitsN(result)-3)), result:= Floor(result+0.5));
 			BuiltinPrecisionSet(GlobalPop());
 		],
 		// now the number x cannot be an exact square; current precision is sufficient
@@ -99,7 +99,7 @@ MathSqrtFloat(_A) <--
 	BuiltinPrecisionSet(10);	// enough to compute at this point
 	// cannot get more target bits than 1 + (the bits in A)
 	// if this is less than the requested precision, the result will be silently less precise, but c'est la vie
-	targetbits := Min(DigitsToBits(targetprec, 10), 1+MathGetExactBits(A));
+	targetbits := Min(DigitsToBits(targetprec, 10), 1+GetExactBitsN(A));
 	// initial approximation
 	x0 := DivideN(14+22*a0, 31+5*a0);
 	// this approximation gives at least 7 bits (relative error < 0.005) of Sqrt(a0) for 1 <= a0 <= 4
@@ -125,7 +125,7 @@ MathSqrtFloat(_A) <--
 // this gives too much roundoff error		x0 := MultiplyN(x0, DivideN(3*a0+x0sq, a0+3*x0sq));
 // rather use this equivalent formula:
 		x0 := AddN(x0, MultiplyN(x0*2, DivideN(a0-x0sq, a0+3*x0sq)));
-//		Echo("debug: ", gotbits, x0, MathGetExactBits(x0), Builtin'Precision'Get());
+//		Echo("debug: ", gotbits, x0, GetExactBitsN(x0), Builtin'Precision'Get());
 	];
 	// avoid truncating a precise result in x0 by calling BuiltinPrecisionSet() too soon
 	x0 := SetExactBitsN(MathMul2Exp(x0, bitshift), gotbits);
