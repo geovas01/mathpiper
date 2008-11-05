@@ -228,8 +228,8 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
   bounds := BoundRealRoots(p,Mmin,Mmax);
 //Echo("bounds2");
   result:=FillList(0,Length(bounds));
-  requiredPrec := Builtin'Precision'Get();
-  BuiltinPrecisionSet(Builtin'Precision'Get()+2);
+  requiredPrec := BuiltinPrecisionGet();
+  BuiltinPrecisionSet(BuiltinPrecisionGet()+2);
   prec:=10^-(requiredPrec+1);
 
   For(i:=1,i<=Length(bounds),i++)

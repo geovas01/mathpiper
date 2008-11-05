@@ -36,7 +36,7 @@ Pslq(x, precision) :=
   Local (ndigits, gam, A, B, H, n, i, j, k, s, y, tmp, t, m, maxi, gami,
 	 t0, t1, t2, t3, t4, mini, Confidence, norme,result);
   n:=Length(x);
-  ndigits:=Builtin'Precision'Get();
+  ndigits:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(precision+10); // 10 is chosen arbitrarily, but should always be enough. Perhaps we can optimize by lowering this number
   Confidence:=10^(-FloorN(N(Eval(precision/3))));
 //Echo("Confidence is ",Confidence);

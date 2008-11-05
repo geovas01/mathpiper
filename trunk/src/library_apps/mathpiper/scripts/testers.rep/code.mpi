@@ -5,7 +5,7 @@
 10 # RoundTo(x_IsNumber, prec_IsPositiveInteger) <-- 
 [
   Local(oldPrec,result);
-  oldPrec:=Builtin'Precision'Get();
+  oldPrec:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(prec);
   Set(result,DivideN( Round( MultiplyN(x, 10^prec) ), 10^prec ));
   BuiltinPrecisionSet(oldPrec);

@@ -69,7 +69,7 @@ Verify(PowerN(1, -1), 1);
 Verify(PowerN(1, -2), 1);
 Verify(IsZero(PowerN(10, -2)- 0.01));
 Verify(PowerN(2, 3), 8);
-NumericEqual(PowerN(2, -3), 0.125,Builtin'Precision'Get()); 
+NumericEqual(PowerN(2, -3), 0.125,BuiltinPrecisionGet()); 
 
 Testing("Rounding");
 Verify(Floor(1.2),1);
@@ -123,15 +123,15 @@ Verify(1+2.00e3,2001.);
 Verify(1+2.000e3,2001.);
 Verify(1+2.0000e3,2001.);
 
-NumericEqual(N(Sqrt(1e4))-100,0,Builtin'Precision'Get());
-NumericEqual(N(Sqrt(1.0e4))-100,0,Builtin'Precision'Get());
+NumericEqual(N(Sqrt(1e4))-100,0,BuiltinPrecisionGet());
+NumericEqual(N(Sqrt(1.0e4))-100,0,BuiltinPrecisionGet());
 
 Verify(2.0000e3-1,1999.);
 [
   Local(p);
-  p:=Builtin'Precision'Get();
+  p:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(12);//TODO this will fail if you drop precision to below 12, for some reason.
-  NumericEqual(RoundTo(10e3*1.2e-3,Builtin'Precision'Get()),12.,Builtin'Precision'Get());
+  NumericEqual(RoundTo(10e3*1.2e-3,BuiltinPrecisionGet()),12.,BuiltinPrecisionGet());
   BuiltinPrecisionSet(p);
 ];
 Verify((10e3*1.2e-4)-1.2,0);

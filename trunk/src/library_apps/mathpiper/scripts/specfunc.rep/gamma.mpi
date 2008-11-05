@@ -36,7 +36,7 @@
 
 Internal'LnGammaNum(z) := [
 	Local(a, prec, result);
-	prec := Builtin'Precision'Get();
+	prec := BuiltinPrecisionGet();
 	a:= Div((prec-IntLog(prec,10))*659, 526) + 0.4;	// see algorithm docs
 	/// same as parameter "g" in Godfrey 2001.
 	/// Chosen to satisfy Spouge's error bound:

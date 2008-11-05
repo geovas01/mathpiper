@@ -10,7 +10,7 @@ Function("BesselNsmall",{n,x,modified})
 [
         Local(term,result,k);
         Local(prec,eps,tmp);
-        prec:=Builtin'Precision'Get();
+        prec:=BuiltinPrecisionGet();
         BuiltinPrecisionSet(Ceil(1.2*prec)); // this is a guess
         eps:=5*10^(-prec);
 

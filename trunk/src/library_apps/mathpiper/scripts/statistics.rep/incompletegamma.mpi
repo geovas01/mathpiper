@@ -13,7 +13,7 @@
 IncompleteGamma(_x, _a)_(x<=a+1) <--
 [ 
    Local(prec,eps);
-   prec:=Builtin'Precision'Get();
+   prec:=BuiltinPrecisionGet();
    BuiltinPrecisionSet(Ceil(prec+1)); // this is a guess
    eps:=5*10^(-prec);
 
@@ -38,7 +38,7 @@ IncompleteGamma(_x, _a)_(x<=a+1) <--
 100 # IncompleteGamma(_x, _a)_(x>a+1) <--
 [ // Asymptotic expansion
    Local(prec,eps);
-   prec:=Builtin'Precision'Get();
+   prec:=BuiltinPrecisionGet();
    Builtin'Precision''Set(Ceil(prec+1)); // this is a guess
    eps:=5*10^(-prec);
 

@@ -8,7 +8,7 @@
 AG'Mean(a, b, eps) :=
 [
 	Local(a1, b1);
-	If(InVerboseMode(), Echo("AG'Mean: Info: at prec. ", Builtin'Precision'Get()));
+	If(InVerboseMode(), Echo("AG'Mean: Info: at prec. ", BuiltinPrecisionGet()));
 	// AGM main loop
 	While(Abs(a-b)>=eps)
 	[
@@ -257,7 +257,7 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
 	Local(x0, x1, prec, exact'digits, int'part, initial'tries);
   N([
     x0 := x'init;
-    prec := Builtin'Precision'Get();
+    prec := BuiltinPrecisionGet();
     int'part := IntLog(Ceil(Abs(x0)), 10);	// how many extra digits for numbers like 100.2223
     // int'part must be set to 0 if we have true floating-point semantics of BuiltinPrecisionSet()
     BuiltinPrecisionSet(2+prec0-int'part);	// 2 guard digits
@@ -271,7 +271,7 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
       x0 := x1;
       x1 := (func @ x0);
       exact'digits := Common'digits(x0, x1);
-  //		If(InVerboseMode(), Echo("NewtonNum: Info: got", exact'digits, "exact digits at prec. ", Builtin'Precision'Get()));
+  //		If(InVerboseMode(), Echo("NewtonNum: Info: got", exact'digits, "exact digits at prec. ", BuiltinPrecisionGet()));
     ];
     // need to check that the initial precision is achieved
     If(
@@ -287,7 +287,7 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
       BuiltinPrecisionSet(2+Min(exact'digits, Div(prec,order)+1)-int'part);
       x0 := x1;
       x1 := (func @ x0);
-  //		If(InVerboseMode(), Echo("NewtonNum: Info: got", Common'digits(x0, x1), "exact digits at prec. ", Builtin'Precision'Get()));
+  //		If(InVerboseMode(), Echo("NewtonNum: Info: got", Common'digits(x0, x1), "exact digits at prec. ", BuiltinPrecisionGet()));
     ];
     // last iteration by hand
     BuiltinPrecisionSet(2+prec);

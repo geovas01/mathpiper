@@ -179,7 +179,7 @@ CheckIntPower(n, limit) :=
 20 # IntNthRoot(_n, s_IsInteger) <--
 [
 	Local(result, k);
-	GlobalPush(Builtin'Precision'Get());
+	GlobalPush(BuiltinPrecisionGet());
 	// find integer k such that 2^k <= n^(1/s) < 2^(k+1)
 	k := Div(IntLog(n, 2), s);
 	// therefore we need k*Ln(2)/Ln(10) digits for the floating-point calculation
@@ -490,7 +490,7 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 	Local(P0, A, lambda, mu, mu'k, result, term, j, k, l, prec, epsilon);
 	result:=0;
 	term:=1;	// initial value must be nonzero
-	GlobalPush(Builtin'Precision'Get());
+	GlobalPush(BuiltinPrecisionGet());
 	// precision must be at least Pi/Ln(10)*Sqrt(2*n/3)-Ln(4*n*Sqrt(3))/Ln(10)
 	// here Pi/Ln(10) < 161/118, and Ln(4*Sqrt(3))/Ln(10) <1 so it is disregarded. Add 2 guard digits and compensate for round-off errors by not subtracting Ln(n)/Ln(10) now
 	prec := 2+Div(IntNthRoot(Div(2*n+2,3),2)*161+117,118);
@@ -557,7 +557,7 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 10 # PartitionsP1(n_IsPositiveInteger) <--
  [
 		 Local(C,A,lambda,m,pa,k,h,term);
-	   GlobalPush(Builtin'Precision'Get());
+	   GlobalPush(BuiltinPrecisionGet());
 	   // this is an overshoot, but seems to work up to at least n=4096
 	   BuiltinPrecisionSet(10 + Floor(N(Sqrt(n))) );
 	   pa:=0;
