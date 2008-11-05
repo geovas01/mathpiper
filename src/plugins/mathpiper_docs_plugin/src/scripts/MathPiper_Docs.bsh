@@ -139,7 +139,7 @@ userFunctionsDescriptions = new String[][]
 {"Bodied","","Alphabetical","Built In"},
 {"BracketRational","","Alphabetical"},
 {"BubbleSort","Sort a list.","Alphabetical","Lists (Operations)"},
-{"BuiltinPrecisionReturns","","Alphabetical"},
+{"BuiltinPrecisionGet","","Alphabetical"},
 {"BuiltinPrecisionSet","","Alphabetical","Built In"},
 {"CachedConstant","","Alphabetical"},
 {"CanProve","Try to prove a statement.","Alphabetical","Propositional Logic"},
@@ -218,7 +218,7 @@ userFunctionsDescriptions = new String[][]
 {"ExpN","","Alphabetical","Numeric"},
 {"Expand","Transform a polynomial to an expanded form.","Alphabetical","Polynomials (Operations)"},
 {"ExpandBrackets","Expand all brackets.","Alphabetical","Polynomials (Operations)"},
-{"ExtraInfoReturns","","Alphabetical"},
+{"ExtraInfoGet","","Alphabetical"},
 {"ExtraInfoSet","","Alphabetical","Built In"},
 {"Factor","Factorization, in pretty form.","Alphabetical","Number Theory"},
 {"FactorialSimplify","Simplify hypergeometric expressions containing factorials.","Alphabetical","Expression Simplification"},
@@ -530,7 +530,6 @@ userFunctionsDescriptions = new String[][]
 {"StirlingNumber1","Return the n,mth Stirling Number of the first kind.","Alphabetical","Number Theory"},
 {"StirlingNumber2","Return the n,mth Stirling Number of the second kind.","Alphabetical","Number Theory"},
 {"String","Convert atom to string.","Alphabetical","String Manipulation","Built In"},
-{"StringMidReturns","","Alphabetical"},
 {"StringMidGet","Retrieve a substring.","Alphabetical","String Manipulation","Built In"},
 {"StringMidSet","Change a substring.","Alphabetical","String Manipulation","Built In"},
 {"Subfactorial","Factorial and related functions.","Alphabetical","Combinatorics"},
@@ -662,7 +661,7 @@ programmerFunctionsDescriptions = new String[][]
 {"BitXor","Bitwise xor operation.","Alphabetical","Built In"},
 {"Bodied","Define function syntax (bodied function).","Alphabetical","Programming","Built In"},
 {"BracketRational","Find optimal rational approximations.","Alphabetical","Numerical (Arbitrary Precision)"},
-{"Builtin'Precision'Get","Get the current precision.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
+{"BuiltinPrecisionGet","Get the current precision.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
 {"BuiltinPrecisionSet","Set the precision.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
 {"CachedConstant","Precompute multiple-precision constants.","Alphabetical","Numerical (Arbitrary Precision)"},
 {"Check","Report \"hard\" errors.","Alphabetical","Error Reporting","Built In"},
@@ -2071,7 +2070,7 @@ funcs_refprogchapter3 = new String[]{
 , "BracketRational"
 , "TruncRadian"
 , "BuiltinPrecisionSet"
-, "Builtin'Precision'Get"
+, "BuiltinPrecisionGet"
 };
 funcs_refprogchapter4 = new String[]{
 "Check"

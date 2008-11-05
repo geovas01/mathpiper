@@ -67,7 +67,7 @@ var funcs_refprogchapter3 = new Array(
 , "BracketRational"
 , "TruncRadian"
 , "BuiltinPrecisionSet"
-, "Builtin'Precision'Get"
+, "BuiltinPrecisionGet"
 );
 var funcs_refprogchapter4 = new Array(
 "Check"
