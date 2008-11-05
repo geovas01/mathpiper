@@ -38,11 +38,10 @@ Array'Get
 Array'Set
 Array'Size
 Array'ToList
-Builtin'Precision'Returns
+Builtin'Precision'Get
 Builtin'Precision'Set
-ExtraInfo'Returns
+ExtraInfo'Get
 ExtraInfo'Set
-StringMid'Returns
 StringMid'Get
 StringMid'Set
 

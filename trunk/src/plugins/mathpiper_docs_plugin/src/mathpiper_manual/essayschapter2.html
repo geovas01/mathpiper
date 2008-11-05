@@ -56,7 +56,7 @@ Verify(N(1000000000000*(-262537412640768744 +
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 NumericEqual(N(BesselJ(2, 1+I)),
-  0.4157988694e-1+I*0.2473976415,Builtin'Precision'Get());
+  0.4157988694e-1+I*0.2473976415,BuiltinPrecisionGet());
 </pre></tr>
 </table>
 <li>(OK) Obtain period of decimal fraction 1/7=0.(142857).
@@ -68,7 +68,7 @@ Verify(Decimal(1/7), {0,{1,4,2,8,5,7}});
 <li>Continued fraction of 3.1415926535.
 </li><table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Verify([Local(p,r);p:=Builtin'Precision'Get();BuiltinPrecisionSet(12);r:=ContFracList(3.1415926535, 6);BuiltinPrecisionSet(p);r;],
+Verify([Local(p,r);p:=BuiltinPrecisionGet();BuiltinPrecisionSet(12);r:=ContFracList(3.1415926535, 6);BuiltinPrecisionSet(p);r;],
   {3,7,15,1,292,1});
 </pre></tr>
 </table>
