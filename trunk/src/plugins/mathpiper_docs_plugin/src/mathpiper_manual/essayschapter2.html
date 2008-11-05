@@ -68,7 +68,7 @@ Verify(Decimal(1/7), {0,{1,4,2,8,5,7}});
 <li>Continued fraction of 3.1415926535.
 </li><table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Verify([Local(p,r);p:=Builtin'Precision'Get();Builtin'Precision'Set(12);r:=ContFracList(3.1415926535, 6);Builtin'Precision'Set(p);r;],
+Verify([Local(p,r);p:=Builtin'Precision'Get();BuiltinPrecisionSet(12);r:=ContFracList(3.1415926535, 6);BuiltinPrecisionSet(p);r;],
   {3,7,15,1,292,1});
 </pre></tr>
 </table>

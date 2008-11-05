@@ -39,7 +39,7 @@ var funcs_refprogchapter2 = new Array(
 , "Backquoting"
 , "DefMacroRuleBase"
 , "DefMacroRuleBaseListed"
-, "ExtraInfo'Set, ExtraInfo'Get"
+, "ExtraInfoSet, ExtraInfo'Get"
 , "GarbageCollect"
 , "FindFunction"
 , "Secure"
@@ -53,7 +53,7 @@ var funcs_refprogchapter3 = new Array(
 , "BinSplitNum"
 , "BinSplitData"
 , "BinSplitFinal"
-, "MathSetExactBits"
+, "SetExactBitsN"
 , "MathGetExactBits"
 , "InNumericMode"
 , "NonN"
@@ -66,7 +66,7 @@ var funcs_refprogchapter3 = new Array(
 , "NearRational"
 , "BracketRational"
 , "TruncRadian"
-, "Builtin'Precision'Set"
+, "BuiltinPrecisionSet"
 , "Builtin'Precision'Get"
 );
 var funcs_refprogchapter4 = new Array(
@@ -84,9 +84,9 @@ var funcs_refprogchapter4 = new Array(
 , "CurrentLine"
 );
 var funcs_refprogchapter5 = new Array(
-"MathNot"
-, "MathAnd"
-, "MathOr"
+"NotN"
+, "AndN"
+, "OrN"
 , "BitAnd"
 , "BitOr"
 , "BitXor"
@@ -103,12 +103,12 @@ var funcs_refprogchapter5 = new Array(
 var funcs_refprogchapter6 = new Array(
 "IsGeneric"
 , "GenericTypeName"
-, "Array'Create"
-, "Array'Size"
-, "Array'Get"
-, "Array'Set"
-, "Array'CreateFromList"
-, "Array'ToList"
+, "ArrayCreate"
+, "ArraySize"
+, "ArrayGet"
+, "ArraySet"
+, "ArrayCreateFromList"
+, "ArrayToList"
 );
 var funcs_refprogchapter7 = new Array(
 "Verify"

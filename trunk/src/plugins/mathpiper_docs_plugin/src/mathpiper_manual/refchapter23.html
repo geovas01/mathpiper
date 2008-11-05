@@ -1823,12 +1823,12 @@ In&gt; TraceExp(2+3);
     TrLeave(IsNumber(y),True);
     TrEnter(True);
     TrLeave(True, True);
-    TrEnter(MathAdd(x,y));
+    TrEnter(AddN(x,y));
       TrEnter(x);
       TrLeave(x, 2);
       TrEnter(y);
       TrLeave(y, 3);
-    TrLeave(MathAdd(x,y),5);
+    TrLeave(AddN(x,y),5);
   TrLeave(2+3, 5);
 Out&gt; 5;
 </pre></tr>
@@ -1973,7 +1973,7 @@ Example:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; Time(N(MathLog(1000),40))
+In&gt; Time(N(LogN(1000),40))
 0.34 seconds taken
 Out&gt; 6.9077552789821370520539743640530926228033;
 </pre></tr>

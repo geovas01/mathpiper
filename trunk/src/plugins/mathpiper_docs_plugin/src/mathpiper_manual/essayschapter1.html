@@ -336,12 +336,12 @@ Here is an example of a policy implemented in the script library:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 61 # x_IsPositiveNumber ^ y_IsPositiveNumber 
-      &lt;-- MathPower(x,y);
+      &lt;-- PowerN(x,y);
 </pre></tr>
 </table>
 By this rule, expressions of the form <b><tt>x^y</tt></b> (representing powers <b>x^y</b>) are
 evaluated and replaced by a number if and only if <b><tt>x</tt></b> and <b><tt>y</tt></b> are positive
-numerical constants. (The function <b><tt>MathPower</tt></b> is  defined in the kernel.) If
+numerical constants. (The function <b><tt>PowerN</tt></b> is  defined in the kernel.) If
 this simplification by default is not desirable, the user could erase this rule
 from the library
 and have a CAS without this feature.

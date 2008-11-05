@@ -204,8 +204,8 @@ Out&gt; Gamma(x+2);
 <p>
 To implement this behavior, <b><tt>Gamma</tt></b> and other mathematical functions usually
 have two variants: the "symbolic" one and the "numerical" one. For instance,
-there are <b><tt>Sin</tt></b> and <b><tt>MathSin</tt></b>, <b><tt>Ln</tt></b> and <b><tt>Internal'LnNum</tt></b>, <b><tt>Gamma</tt></b> and <b><tt>Internal'GammaNum</tt></b>. (Here
-<b><tt>MathSin</tt></b> happens to be a core function but it is not essential.) The "numerical"
+there are <b><tt>Sin</tt></b> and <b><tt>SinN</tt></b>, <b><tt>Ln</tt></b> and <b><tt>Internal'LnNum</tt></b>, <b><tt>Gamma</tt></b> and <b><tt>Internal'GammaNum</tt></b>. (Here
+<b><tt>SinN</tt></b> happens to be a core function but it is not essential.) The "numerical"
 functions always evaluate to floating-point results. The "symbolic" function
 serves as a front-end; it evaluates when the result can be expressed exactly,
 or calls the "numerical" function if <b><tt>InNumericMode()</tt></b> returns <b><tt>True</tt></b>, and otherwise returns
@@ -227,16 +227,16 @@ As a rule, <b><tt>N()</tt></b> should be avoided in code that implements basic
 numerical algorithms. This is because <b><tt>N()</tt></b> itself is implemented in
 the library and it may need to use some of these algorithms.
 Arbitrary-precision math can be handled by core functions such as
-<b><tt>MathDivide</tt></b>, <b><tt>MathSin</tt></b> and so on, without using <b><tt>N()</tt></b>. For example, if
+<b><tt>DivideN</tt></b>, <b><tt>SinN</tt></b> and so on, without using <b><tt>N()</tt></b>. For example, if
 your code needs to evaluate <b>Sqrt(Pi)</b> to many digits as an
-intermediate result, it is better to write <b><tt>MathSqrt(Internal'Pi())</tt></b> than
+intermediate result, it is better to write <b><tt>SqrtN(Internal'Pi())</tt></b> than
 <b><tt>N(Sqrt(Pi))</tt></b> because it makes for faster, more reliable code.
 
 
 <p>
 
 <h3>
-<hr>Using <b><tt>Builtin'Precision'Set()</tt></b>
+<hr>Using <b><tt>BuiltinPrecisionSet()</tt></b>
 </h3>
 The usual assumption is that numerical functions will evaluate
 floating-point results to the currently set precision. For intermediate
@@ -331,7 +331,7 @@ will immediately halt the execution of a MathPiper script and print the
 error messsage. This is implemented as a C++ exception. A drawback of
 this mechanism is that the MathPiper stack unwinding is not performed by
 the MathPiper interpreter, so global variables such as <b><tt>InNumericMode()</tt></b>,
-<b><tt>Verbose</tt></b>, <b><tt>Builtin'Precision'Set()</tt></b> may keep the intermediate values they had been
+<b><tt>Verbose</tt></b>, <b><tt>BuiltinPrecisionSet()</tt></b> may keep the intermediate values they had been
 assigned just before the error occurred. Also, sometimes it is better
 for the program to be able to catch the error and continue.
 

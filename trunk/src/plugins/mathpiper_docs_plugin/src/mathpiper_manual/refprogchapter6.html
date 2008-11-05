@@ -7,7 +7,7 @@
 <a name="c6">
 
 </a>
-(directly go to documentation on : <a href="refprogchapter6.html#IsGeneric" target='Chapters' title="check for generic object">IsGeneric</a>, <a href="refprogchapter6.html#GenericTypeName" target='Chapters' title="get type name">GenericTypeName</a>, <a href="refprogchapter6.html#Array'Create" target='Chapters' title="create array">Array'Create</a>, <a href="refprogchapter6.html#Array'Size" target='Chapters' title="get array size">Array'Size</a>, <a href="refprogchapter6.html#Array'Get" target='Chapters' title="fetch array element">Array'Get</a>, <a href="refprogchapter6.html#Array'Set" target='Chapters' title="set array element">Array'Set</a>, <a href="refprogchapter6.html#Array'CreateFromList" target='Chapters' title="convert list to array">Array'CreateFromList</a>, <a href="refprogchapter6.html#Array'ToList" target='Chapters' title="convert array to list">Array'ToList</a>.
+(directly go to documentation on : <a href="refprogchapter6.html#IsGeneric" target='Chapters' title="check for generic object">IsGeneric</a>, <a href="refprogchapter6.html#GenericTypeName" target='Chapters' title="get type name">GenericTypeName</a>, <a href="refprogchapter6.html#ArrayCreate" target='Chapters' title="create array">ArrayCreate</a>, <a href="refprogchapter6.html#ArraySize" target='Chapters' title="get array size">ArraySize</a>, <a href="refprogchapter6.html#ArrayGet" target='Chapters' title="fetch array element">ArrayGet</a>, <a href="refprogchapter6.html#ArraySet" target='Chapters' title="set array element">ArraySet</a>, <a href="refprogchapter6.html#ArrayCreateFromList" target='Chapters' title="convert list to array">ArrayCreateFromList</a>, <a href="refprogchapter6.html#ArrayToList" target='Chapters' title="convert array to list">ArrayToList</a>.
 )<h1>
 6. Generic objects
 </h1>
@@ -25,27 +25,27 @@ can be accessed through the MathPiper interpreter.
 <td>get type name</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter6.html#Array'Create" target='Chapters' title="create array">Array'Create</a></td>
+<td><a href="refprogchapter6.html#ArrayCreate" target='Chapters' title="create array">ArrayCreate</a></td>
 <td>create array</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter6.html#Array'Size" target='Chapters' title="get array size">Array'Size</a></td>
+<td><a href="refprogchapter6.html#ArraySize" target='Chapters' title="get array size">ArraySize</a></td>
 <td>get array size</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter6.html#Array'Get" target='Chapters' title="fetch array element">Array'Get</a></td>
+<td><a href="refprogchapter6.html#ArrayGet" target='Chapters' title="fetch array element">ArrayGet</a></td>
 <td>fetch array element</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter6.html#Array'Set" target='Chapters' title="set array element">Array'Set</a></td>
+<td><a href="refprogchapter6.html#ArraySet" target='Chapters' title="set array element">ArraySet</a></td>
 <td>set array element</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter6.html#Array'CreateFromList" target='Chapters' title="convert list to array">Array'CreateFromList</a></td>
+<td><a href="refprogchapter6.html#ArrayCreateFromList" target='Chapters' title="convert list to array">ArrayCreateFromList</a></td>
 <td>convert list to array</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter6.html#Array'ToList" target='Chapters' title="convert array to list">Array'ToList</a></td>
+<td><a href="refprogchapter6.html#ArrayToList" target='Chapters' title="convert array to list">ArrayToList</a></td>
 <td>convert array to list</td>
 </tr>
 </table></center>
@@ -116,7 +116,7 @@ EG
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; GenericTypeName(Array'Create(10,1))
+In&gt; GenericTypeName(ArrayCreate(10,1))
 Out&gt; "Array";
 </pre></tr>
 </table>
@@ -124,21 +124,21 @@ Out&gt; "Array";
 
 <p>
 
-<a name="Array'Create">
+<a name="ArrayCreate">
 
 </a>
 <a name="array'create">
 
 </a>
 <h3>
-<hr>Array'Create -- create array
+<hr>ArrayCreate -- create array
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Array'Create(size,init)
+ArrayCreate(size,init)
 </pre></tr>
 </table>
 
@@ -154,21 +154,21 @@ value <b><tt>init</tt></b>.
 
 <p>
 
-<a name="Array'Size">
+<a name="ArraySize">
 
 </a>
 <a name="array'size">
 
 </a>
 <h3>
-<hr>Array'Size -- get array size
+<hr>ArraySize -- get array size
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Array'Size(array)
+ArraySize(array)
 </pre></tr>
 </table>
 
@@ -183,21 +183,21 @@ Returns the size of an array (number of elements in the array).
 
 <p>
 
-<a name="Array'Get">
+<a name="ArrayGet">
 
 </a>
 <a name="array'get">
 
 </a>
 <h3>
-<hr>Array'Get -- fetch array element
+<hr>ArrayGet -- fetch array element
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Array'Get(array,index)
+ArrayGet(array,index)
 </pre></tr>
 </table>
 
@@ -213,26 +213,26 @@ as base-one, so <b><tt>index</tt></b> set to 1 would return the first element.
 
 <p>
 Arrays can also be accessed through the <b><tt>[]</tt></b> operators. So
-<b><tt>array[index]</tt></b> would return the same as <b><tt>Array'Get(array, index)</tt></b>.
+<b><tt>array[index]</tt></b> would return the same as <b><tt>ArrayGet(array, index)</tt></b>.
 
 
 <p>
 
-<a name="Array'Set">
+<a name="ArraySet">
 
 </a>
 <a name="array'set">
 
 </a>
 <h3>
-<hr>Array'Set -- set array element
+<hr>ArraySet -- set array element
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Array'Set(array,index,element)
+ArraySet(array,index,element)
 </pre></tr>
 </table>
 
@@ -249,26 +249,26 @@ as base-one, so <b><tt>index</tt></b> set to 1 would set first element.
 
 <p>
 Arrays can also be accessed through the <b><tt>[]</tt></b> operators. So
-<b><tt>array[index] := element</tt></b> would do the same as <b><tt>Array'Set(array, index,element)</tt></b>.
+<b><tt>array[index] := element</tt></b> would do the same as <b><tt>ArraySet(array, index,element)</tt></b>.
 
 
 <p>
 
-<a name="Array'CreateFromList">
+<a name="ArrayCreateFromList">
 
 </a>
 <a name="array'createfromlist">
 
 </a>
 <h3>
-<hr>Array'CreateFromList -- convert list to array
+<hr>ArrayCreateFromList -- convert list to array
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Array'CreateFromList(list)
+ArrayCreateFromList(list)
 </pre></tr>
 </table>
 
@@ -283,21 +283,21 @@ Creates an array from the contents of the list passed in.
 
 <p>
 
-<a name="Array'ToList">
+<a name="ArrayToList">
 
 </a>
 <a name="array'tolist">
 
 </a>
 <h3>
-<hr>Array'ToList -- convert array to list
+<hr>ArrayToList -- convert array to list
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Array'ToList(array)
+ArrayToList(array)
 </pre></tr>
 </table>
 
