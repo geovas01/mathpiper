@@ -504,7 +504,7 @@ public abstract class BuiltinFunction
                 "BuiltinPrecisionSet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GetExactBits(), 1, Evaluator.Fixed | Evaluator.Function),
-                "MathGetExactBits");
+                "GetExactBitsN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new SetExactBits(), 2, Evaluator.Fixed | Evaluator.Function),
                 "SetExactBitsN");
