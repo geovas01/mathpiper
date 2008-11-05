@@ -139,7 +139,7 @@ In&gt; TraceExp(2+3)
     Leave True 
     Enter True 
     Leave True 
-    Enter MathAdd(x,y) 
+    Enter AddN(x,y) 
       Enter x 
       Leave 2 
       Enter y 
@@ -332,12 +332,12 @@ Debug&gt; DebugRun()
 True  &lt;-- IsNumber(y) 
 &gt;&gt;&gt; True 
 True  &lt;-- True 
-&gt;&gt;&gt; MathAdd(x,y) 
+&gt;&gt;&gt; AddN(x,y) 
 &gt;&gt;&gt; x 
 2  &lt;-- x 
 &gt;&gt;&gt; y 
 3  &lt;-- y 
-5  &lt;-- MathAdd(x,y) 
+5  &lt;-- AddN(x,y) 
 5  &lt;-- 2+3 
 Out&gt; 5;
 </pre></tr>
@@ -349,7 +349,7 @@ The above bit of code also supports primitive breakpointing, in that
 one can instruct the evaluator to stop when a function will be entered.
 The debugger then stops just before the arguments to the function are 
 evaluated. In the following example, we make the debugger stop when 
-a call is made to the <b><tt>MathAdd</tt></b> function:
+a call is made to the <b><tt>AddN</tt></b> function:
 
 
 <p>
@@ -357,8 +357,8 @@ a call is made to the <b><tt>MathAdd</tt></b> function:
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 In&gt; Debug(2+3)
 &gt;&gt;&gt; 2+3 
-Debug&gt; DebugAddBreakpoint("MathAdd")
-DebugOut&gt; {"MathAdd"} 
+Debug&gt; DebugAddBreakpoint("AddN")
+DebugOut&gt; {"AddN"} 
 Debug&gt; DebugRun()
 &gt;&gt;&gt; 2 
 2  &lt;-- 2 
@@ -374,14 +374,14 @@ True  &lt;-- IsNumber(x)
 True  &lt;-- IsNumber(y) 
 &gt;&gt;&gt; True 
 True  &lt;-- True 
-&gt;&gt;&gt; MathAdd(x,y) 
+&gt;&gt;&gt; AddN(x,y) 
 Debug&gt; 
 </pre></tr>
 </table>
 
 
 <p>
-The arguments to <b><tt>MathAdd</tt></b> can now be examined, or execution continued.
+The arguments to <b><tt>AddN</tt></b> can now be examined, or execution continued.
 
 
 <p>
@@ -441,7 +441,7 @@ which allows for the interaction:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 In&gt; Profile(2+3)
-Function MathAdd called 1  times
+Function AddN called 1  times
 Function IsNumber called 2  times
 Function + called 1  times
 Out&gt; True;

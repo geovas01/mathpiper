@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++ Some function implimentations like MathArcCos (now ArcCosN) seem to be missing.
++ Create a macro which converts a fold from OpenOffice into an executibale fold.
 + Change Factorize calling format 1 to Product, change Sum to SumSequence, change Factorize calling format 2 to ProductSequence.
 + In MathPiper, Swap() should be called DestructiveSwap().
 + Remove is in MathPiper_Docs but it is not in MathPiper.

@@ -1139,7 +1139,7 @@ A speed-up trick used for large <b>x</b> is to divide the argument by some power
 
 <p><center><b> Exp(x)=Exp(2^(-k)*x)^2^k,</b></center></p>
 
-where <b> k</b> is chosen sufficiently large so that the Taylor series converges quickly at <b> 2^(-k)*x</b> [Smith 1985]. The threshold value for <b> x</b> can be obtained through <b><tt>MathExpThreshold()</tt></b>, and set through <b><tt>SetMathExpThreshold(threshold)</tt></b> in <b><tt>stdfuncs</tt></b>.
+where <b> k</b> is chosen sufficiently large so that the Taylor series converges quickly at <b> 2^(-k)*x</b> [Smith 1985]. The threshold value for <b> x</b> can be obtained through <b><tt>ExpNThreshold()</tt></b>, and set through <b><tt>SetExpNThreshold(threshold)</tt></b> in <b><tt>stdfuncs</tt></b>.
 
 
 <p>
@@ -1315,7 +1315,7 @@ This remains to be seen.
 </a>
 In MathPiper, the constant <b> pi</b> is computed by the library routine <b><tt>Internal'Pi()</tt></b> which
 uses the internal routine <b><tt>MathPi</tt></b> to compute the value to current
-precision <b><tt>Builtin'Precision'Set()</tt></b>. The result is stored in a global variable as a
+precision <b><tt>BuiltinPrecisionSet()</tt></b>. The result is stored in a global variable as a
 list of the form <b><tt>{precision, value}</tt></b> where <b><tt>precision</tt></b> is the number of
 digits of <b> pi</b> that have already been found and <b><tt>value</tt></b> is the
 multiple-precision value. This is done to avoid recalculating <b> pi</b> if a

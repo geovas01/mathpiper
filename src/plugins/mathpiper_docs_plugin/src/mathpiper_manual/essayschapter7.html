@@ -147,7 +147,7 @@ This API will not be completely exposed to MathPiper scripts, because some of th
 Among the low-level functions, only those that are very useful for optimization will be available to the MathPiper scripts.
 (For the functions that seem to be useful for MathPiper, suggested MathPiper bindings are given below.)  
 But the full API will be available to C++ plugins, so that multiple-precision algorithms could be efficiently implemented when performance is critical.
-Intermediate-level arithmetic functions such as <b><tt>MathAdd</tt></b>, <b><tt>MathDiv</tt></b>, <b><tt>MathMod</tt></b> and so on could be implemented either in the MathPiper core or in plugins, through this low-level API.
+Intermediate-level arithmetic functions such as <b><tt>AddN</tt></b>, <b><tt>DivN</tt></b>, <b><tt>ModN</tt></b> and so on could be implemented either in the MathPiper core or in plugins, through this low-level API.
 The library scripts will be able to transform numerical expressions such as <b><tt>x:=y+z</tt></b> into calls of these intermediate-level functions.
 
 
@@ -320,7 +320,7 @@ x.Floor(y);
 MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathFloor(x)
+FloorN(x)
 </pre></tr>
 </table>
 If there are enough digits in <b><tt>x</tt></b> to compute its integer part, then the result is an exact integer.
@@ -382,7 +382,7 @@ x.Add(y,z, 300);
 MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathAdd(x,y)
+AddN(x,y)
 </pre></tr>
 </table>
 When subtracting almost equal numbers, a loss of precision will occur.
@@ -410,7 +410,7 @@ x.Multiply(y,z, 300);
 MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathMultiply(x,y)
+MultiplyN(x,y)
 </pre></tr>
 </table>
 <li></li><b><tt>BigNumber::Divide</tt></b> -- Divide two numbers, <b><tt>x := y/z</tt></b>, at given precision.
@@ -424,7 +424,7 @@ x.Divide(y,z, 300);
 MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathDivide(x,y)
+DivideN(x,y)
 </pre></tr>
 </table>
 </ul>
@@ -464,7 +464,7 @@ x.MultiplyAdd(y,z, 300);
 MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathMultiplyAdd(x,y,z)
+MultiplyNAdd(x,y,z)
 </pre></tr>
 </table>
 <li></li><b><tt>BigNumber::Mod</tt></b> -- Obtain the remainder modulo an integer, <b><tt>x:=Mod(y,n)</tt></b>.
@@ -477,7 +477,7 @@ x.Mod(y,n);
 MathPiper:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathMod(x,n)
+ModN(x,n)
 </pre></tr>
 </table>
 (Optimization of integer division, important for number theory applications.)
@@ -870,7 +870,7 @@ just as efficiently as with any "reasonable" definition of the floating-point eq
 <h3>
 <hr>How to increase of the working precision
 </h3>
-Suppose that in a <b><tt>MathPiper</tt></b> session we declare <b><tt>Builtin'Precision'Set(5)</tt></b>, write <b><tt>x:=0.1</tt></b>, 
+Suppose that in a <b><tt>MathPiper</tt></b> session we declare <b><tt>BuiltinPrecisionSet(5)</tt></b>, write <b><tt>x:=0.1</tt></b>, 
 and then increase 
 precision to 10 digits. What is <b><tt>x</tt></b> now? There are several approaches:
 
@@ -943,7 +943,7 @@ Here are some example calculations:
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; Builtin'Precision'Set(5)
+In&gt; BuiltinPrecisionSet(5)
 Out&gt; True
 In&gt; x:=1.2
 Out&gt; 1.2
@@ -955,7 +955,7 @@ The number <b><tt>y</tt></b> is a result of a calculation and has a limited prec
 Now we shall increase the precision:
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; Builtin'Precision'Set(20)
+In&gt; BuiltinPrecisionSet(20)
 Out&gt; True
 In&gt; y
 Out&gt; 0.33333
@@ -980,7 +980,7 @@ However, <b><tt>x</tt></b> has not been padded and remains an "exact" <b><tt>1.2
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
 In&gt; z:=y+0
 Out&gt; 0.33333333325572311878
-In&gt; Builtin'Precision'Set(40)
+In&gt; BuiltinPrecisionSet(40)
 Out&gt; True
 In&gt; z
 Out&gt; 0.33333333325572311878
@@ -998,11 +998,11 @@ Out&gt; 0.33333333325572311878204345703125
 <p>
 
 <h3>
-<hr>The meaning of the <b><tt>Builtin'Precision'Set()</tt></b> call
+<hr>The meaning of the <b><tt>BuiltinPrecisionSet()</tt></b> call
 </h3>
-The user calls <b><tt>Builtin'Precision'Set()</tt></b> to specify the "wanted number of digits."
+The user calls <b><tt>BuiltinPrecisionSet()</tt></b> to specify the "wanted number of digits."
 We could use different interpretations of the user's wish:
-The first interpretation is that <b><tt>Builtin'Precision'Set(10)</tt></b> means "I want all answers
+The first interpretation is that <b><tt>BuiltinPrecisionSet(10)</tt></b> means "I want all answers
 of all calculations to contain 10 correct digits".
 The second interpretation is "I want all calculations with floating-point numbers done
 using at least 10 digits".
@@ -1014,7 +1014,7 @@ digits respectively. For example, <b><tt>x=1.6</tt></b> and <b><tt>y=2.00</tt></
 results of previous calculations and we do not have any more digits than this.  If we now say
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-Builtin'Precision'Set(10);
+BuiltinPrecisionSet(10);
 x*y;
 </pre></tr>
 </table>
@@ -1030,7 +1030,7 @@ But if our calculation depends on the way we choose the extra digits, then we ar
 
 
 <p>
-The first interpretation of <b><tt>Builtin'Precision'Set()</tt></b> is only possible to satisfy if
+The first interpretation of <b><tt>BuiltinPrecisionSet()</tt></b> is only possible to satisfy if
 we are given a self-contained calculation with integer
 numbers. For example,
 <table cellpadding="0" width="100%">
@@ -1051,7 +1051,7 @@ no matter what", and not a general routine to be followed at all times.
 
 
 <p>
-So it seems that the second interpretation of <b><tt>Builtin'Precision'Set(n)</tt></b>, namely:
+So it seems that the second interpretation of <b><tt>BuiltinPrecisionSet(n)</tt></b>, namely:
 "please use <b><tt>n</tt></b> digits in all calculations now", is more
 sensible as a general-purpose prescription.
 
@@ -1061,7 +1061,7 @@ But this interpretation does not mean that all numbers will be
 <i>printed</i> with <b><tt>n</tt></b> digits. Let's look at a particular case (for simplicity we are talking about
 decimal digits but in the implementation they will be binary digits).
 Suppose we have <b><tt>x</tt></b> precise to 10 digits and <b><tt>y</tt></b> precise to 20 digits, and
-the user says <b><tt>Builtin'Precision'Set(50)</tt></b> and <b><tt>z:=1.4+x*y</tt></b>. What happens now in this
+the user says <b><tt>BuiltinPrecisionSet(50)</tt></b> and <b><tt>z:=1.4+x*y</tt></b>. What happens now in this
 calculation? (Assume that <b><tt>x</tt></b> and <b><tt>y</tt></b> are small numbers of order 1; the
 other cases are similar.)
 
@@ -1100,7 +1100,7 @@ digits in this case.
 
 
 <p>
-If we choose this route, then the only effect of <b><tt>Builtin'Precision'Set(50)</tt></b> will be to 
+If we choose this route, then the only effect of <b><tt>BuiltinPrecisionSet(50)</tt></b> will be to 
 interpret a literal constant <b><tt>1.4</tt></b> as a 50-digit number. All other numbers already know their 
 real precision and will not invent any bogus digits.
 
@@ -1163,7 +1163,7 @@ IsIntValue(1.)=True
 IsInteger(1.) =False
 </pre></tr>
 </table>
-<li>The MathPiper function </li><b><tt>Builtin'Precision'Set(n)</tt></b> sets a global parameter that controls the precision of
+<li>The MathPiper function </li><b><tt>BuiltinPrecisionSet(n)</tt></b> sets a global parameter that controls the precision of
 <i>newly created floats</i>.
 It does not modify previously created floating-point numbers
 and has no effect on copying floats or on any integer calculations.
@@ -1181,14 +1181,14 @@ a temporary float is created from an integer <b><tt>3</tt></b>,
 and <b><tt>y</tt></b> is created as a result of division of two floats.
 Converting an integer to a float is similar to converting from a literal string representing the integer.
 A new number object created from a literal string must have at least as many bits of mantissa as is required to represent the value given by the string.
-The string might be very long but we want to retain all information from a string, so we may have to make the number much more precise than currently declared with <b><tt>Builtin'Precision'Set</tt></b>.
-<h6>Note that the argument <b><tt>n</tt></b> of <b><tt>Builtin'Precision'Set(n)</tt></b> means <i>decimal</i> digits, not bits. This is more convenient for <b><tt>MathPiper</tt></b> sessions.</h6>But if the necessary number of digits to represent the string is less than <b><tt>n</tt></b>, then the new number object will have the number of bits that corresponds to <b><tt>n</tt></b> decimal digits.
-Thus, in creating objects from strings or from integers, <b><tt>Builtin'Precision'Set</tt></b> sets the <i>minimum</i> precision of the resulting floating-point number.
+The string might be very long but we want to retain all information from a string, so we may have to make the number much more precise than currently declared with <b><tt>BuiltinPrecisionSet</tt></b>.
+<h6>Note that the argument <b><tt>n</tt></b> of <b><tt>BuiltinPrecisionSet(n)</tt></b> means <i>decimal</i> digits, not bits. This is more convenient for <b><tt>MathPiper</tt></b> sessions.</h6>But if the necessary number of digits to represent the string is less than <b><tt>n</tt></b>, then the new number object will have the number of bits that corresponds to <b><tt>n</tt></b> decimal digits.
+Thus, in creating objects from strings or from integers, <b><tt>BuiltinPrecisionSet</tt></b> sets the <i>minimum</i> precision of the resulting floating-point number.
 On the other hand, a new number object created from a calculation will already have an error estimate and will "know" its real precision.
-But a directive <b><tt>Builtin'Precision'Set(n)</tt></b> indicates that we are only interested in <b>n</b> digits of a result.
+But a directive <b><tt>BuiltinPrecisionSet(n)</tt></b> indicates that we are only interested in <b>n</b> digits of a result.
 Therefore, a calculation should not generate <i>more</i> digits than
 <b><tt>n</tt></b>, even if its operands have more digits.
-Thus, in creating objects from operations, <b><tt>Builtin'Precision'Set</tt></b> sets the <i>maximum</i> precision of the resulting floating-point number.
+Thus, in creating objects from operations, <b><tt>BuiltinPrecisionSet</tt></b> sets the <i>maximum</i> precision of the resulting floating-point number.
 <li></li><b><tt>SetExactBits(x,n)</tt></b> will make the number <b><tt>x</tt></b> think that it has <b><tt>n</tt></b> exact
 bits. If <b><tt>x</tt></b> had more exact bits before, then it may be rounded. If <b><tt>x</tt></b>
 had fewer exact bits before, then it may be padded. (The way the padding is done
@@ -1692,10 +1692,10 @@ Then it will not be able to use the square root function supplied by the plugin 
 
 
 <p>
-Third, we might put all functions that use the basic API (<b><tt>MathSqrt</tt></b>, <b><tt>MathSin</tt></b> etc.) into the script library and not into the MathPiper kernel.
-When MathPiper is compiled with a particular numerical library, the functions available from the library will also be compiled as the kernel versions of <b><tt>MathSqrt</tt></b>, <b><tt>MathPower</tt></b> and so on
+Third, we might put all functions that use the basic API (<b><tt>SqrtN</tt></b>, <b><tt>SinN</tt></b> etc.) into the script library and not into the MathPiper kernel.
+When MathPiper is compiled with a particular numerical library, the functions available from the library will also be compiled as the kernel versions of <b><tt>SqrtN</tt></b>, <b><tt>PowerN</tt></b> and so on
 (using conditional compilation or configured at build time).
-Since MathPiper tries to call the kernel functions before the script library functions, the available kernel versions of <b><tt>MathSqrt</tt></b> etc. will supersede the script versions, but other functions such as <b><tt>BesselJ</tt></b> will be used from the script library.
+Since MathPiper tries to call the kernel functions before the script library functions, the available kernel versions of <b><tt>SqrtN</tt></b> etc. will supersede the script versions, but other functions such as <b><tt>BesselJ</tt></b> will be used from the script library.
 The only drawback of this scheme is that a plugin will not be able to use the faster versions of the functions, unless the plugin was compiled specifically with the requirement of the particular numerical library.
 
 
@@ -1865,7 +1865,7 @@ This behavior is desired, for example:
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; Builtin'Precision'Set(6)
+In&gt; BuiltinPrecisionSet(6)
 Out&gt; True;
 In&gt; x:=1.23456789
 Out&gt; 1.23456789;
@@ -1895,7 +1895,7 @@ If now we increase precision to 20 digits, the object <b><tt>x</tt></b> will be 
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; Builtin'Precision'Set(20)
+In&gt; BuiltinPrecisionSet(20)
 Out&gt; True;
 In&gt; x+0.000000000001
 Out&gt; 1.234567890001;

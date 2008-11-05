@@ -95,21 +95,30 @@ import java.awt.*;
 userFunctionsDescriptions = new String[][]
 {
 {"Abs","Absolute value (or modulus) of a number.","Alphabetical","Calculus Related (Symbolic)","Built In"},
+{"AbsN","","Alphabetical","Numeric","Built In"},
 {"Add","Find the sum of a list of values.","Alphabetical","Series","Built In"},
+{"AddN","","Alphabetical","Numeric","Built In"},
 {"AddTo","Add an equation to a set of equations or set of set of equations.","Alphabetical","Functional Operators"},
 {"And","Logical conjunction.","Alphabetical","Predicates","Built In"},
+{"AndN","","Alphabetical","Numeric"},
 {"Append","Append an entry at the end of a list.","Alphabetical","Lists (Operations)"},
 {"Apply","Apply a function to arguments.","Alphabetical","Control Flow"},
 {"ArcCos","Inverse trigonometric function arc-cosine.","Alphabetical","Calculus Related (Symbolic)"},
+{"ArcCosN","","Alphabetical","Numeric"},
+{"ArcCoshN","","Alphabetical","Numeric"},
 {"ArcSin","Inverse trigonometric function arc-sine.","Alphabetical","Calculus Related (Symbolic)"},
+{"ArcSinN","","Alphabetical","Numeric"},
+{"ArcSinhN","","Alphabetical","Numeric"},
 {"ArcTan","Inverse trigonometric function arc-tangent.","Alphabetical","Calculus Related (Symbolic)"},
+{"ArcTanN","","Alphabetical","Numeric"},
+{"ArcTanhN","","Alphabetical","Numeric"},
 {"Arg","Argument of a complex number.","Alphabetical","Numbers (Complex)"},
-{"Array'Create","","Alphabetical","Built In"},
-{"Array'CreateFromList","","Alphabetical"},
-{"Array'Returns","","Alphabetical"},
-{"Array'Set","","Alphabetical","Built In"},
-{"Array'Size","","Alphabetical","Built In"},
-{"Array'ToList","","Alphabetical"},
+{"ArrayCreate","","Alphabetical","Built In"},
+{"ArrayCreateFromList","","Alphabetical"},
+{"ArrayGet","","Alphabetical","Built In"},
+{"ArraySet","","Alphabetical","Built In"},
+{"ArraySize","","Alphabetical","Built In"},
+{"ArrayToList","","Alphabetical"},
 {"Assert","","Alphabetical"},
 {"Assoc","Return an element stored in an association list.","Alphabetical","Lists (Operations)"},
 {"AssocDelete","Delete an entry in an association list.","Alphabetical","Lists (Operations)"},
@@ -130,13 +139,14 @@ userFunctionsDescriptions = new String[][]
 {"Bodied","","Alphabetical","Built In"},
 {"BracketRational","","Alphabetical"},
 {"BubbleSort","Sort a list.","Alphabetical","Lists (Operations)"},
-{"Builtin'Precision'Returns","","Alphabetical"},
-{"Builtin'Precision'Set","","Alphabetical","Built In"},
+{"BuiltinPrecisionReturns","","Alphabetical"},
+{"BuiltinPrecisionSet","","Alphabetical","Built In"},
 {"CachedConstant","","Alphabetical"},
 {"CanProve","Try to prove a statement.","Alphabetical","Propositional Logic"},
 {"Catalan","Catalan's Constant.","Alphabetical","Constants (Mathematical)"},
 {"CatalanNumber","Teturn the nth Catalan Number.","Alphabetical","Number Theory"},
 {"Ceil","Round a number upwards.","Alphabetical","Numbers (Operations)","Built In"},
+{"CeilN","","Alphabetical","Numeric","Built In"},
 {"CForm","Export an expression to C++ code form.","Alphabetical","Input/Output"},
 {"CharacteristicEquation","Return the characteristic polynomial of a matrix.","Alphabetical","Linear Algebra"},
 {"Check","","Alphabetical","Built In"},
@@ -157,6 +167,8 @@ userFunctionsDescriptions = new String[][]
 {"ContFracEval","","Alphabetical"},
 {"ContFracList","","Alphabetical"},
 {"Cos","Trigonometric cosine function.","Alphabetical","Calculus Related (Symbolic)"},
+{"CosN","","Alphabetical","Numeric"},
+{"CoshN","","Alphabetical","Numeric"},
 {"Count","Count the number of occurrences of an expression.","Alphabetical","Lists (Operations)"},
 {"CrossProduct","Outer product of vectors.","Alphabetical","Linear Algebra"},
 {"Curl","Curl of a vector field.","Alphabetical","Calculus Related (Symbolic)"},
@@ -182,6 +194,8 @@ userFunctionsDescriptions = new String[][]
 {"DiagonalMatrix","Construct a diagonal matrix.","Alphabetical","Linear Algebra"},
 {"Difference","Return the difference of two lists.","Alphabetical","Lists (Operations)"},
 {"Div","Determine divisor of two mathematical objects.","Alphabetical","Numbers (Operations)","Built In"},
+{"DivN","","Alphabetical","Numeric","Built In"},
+{"DivideN","","Alphabetical","Numeric","Built In"},
 {"Diverge","Divergence of a vector field.","Alphabetical","Calculus Related (Symbolic)"},
 {"Divisors","Number of divisors.","Alphabetical","Number Theory"},
 {"DivisorsList","The list of divisors.","Alphabetical","Number Theory"},
@@ -201,10 +215,11 @@ userFunctionsDescriptions = new String[][]
 {"EvalFormula","Print an evaluation nicely with ASCII art.","Alphabetical","Input/Output"},
 {"EvaluateHornerScheme","Fast evaluation of polynomials.","Alphabetical","Polynomials (Operations)"},
 {"Exp","Exponential function.","Alphabetical","Calculus Related (Symbolic)"},
+{"ExpN","","Alphabetical","Numeric"},
 {"Expand","Transform a polynomial to an expanded form.","Alphabetical","Polynomials (Operations)"},
 {"ExpandBrackets","Expand all brackets.","Alphabetical","Polynomials (Operations)"},
-{"ExtraInfo'Returns","","Alphabetical"},
-{"ExtraInfo'Set","","Alphabetical","Built In"},
+{"ExtraInfoReturns","","Alphabetical"},
+{"ExtraInfoSet","","Alphabetical","Built In"},
 {"Factor","Factorization, in pretty form.","Alphabetical","Number Theory"},
 {"FactorialSimplify","Simplify hypergeometric expressions containing factorials.","Alphabetical","Expression Simplification"},
 {"Factorize","Find the product of a list of values.","Alphabetical","Series"},
@@ -219,6 +234,7 @@ userFunctionsDescriptions = new String[][]
 {"FlatCopy","Copy the top level of a list.","Alphabetical","Lists (Operations)","Built In"},
 {"Flatten","Flatten expression with respect to some operator.","Alphabetical","Lists (Operations)"},
 {"Floor","Round a number downwards.","Alphabetical","Numbers (Operations)","Built In"},
+{"FloorN","","Alphabetical","Numeric","Built In"},
 {"For","C-style for loop.","Alphabetical","Control Flow"},
 {"ForEach","Loop over all entries in a list","Alphabetical","Control Flow"},
 {"FromBase","Conversion of a number from non-decimal base to decimal base","Alphabetical","Numbers (Operations)","Built In"},
@@ -236,7 +252,9 @@ userFunctionsDescriptions = new String[][]
 {"GaussianGcd","Greatest common divisor in Gaussian integers.","Alphabetical","Number Theory"},
 {"GaussianNorm","Norm of a Gaussian integer.","Alphabetical","Number Theory"},
 {"Gcd","Greatest common divisor.","Alphabetical","Numbers (Operations)","Built In"},
+{"GcdN","","Alphabetical","Numeric","Built In"},
 {"GenericTypeName","","Alphabetical","Built In"},
+{"GetsExactBitsN","","Alphabetical","Numeric"},
 {"GlobalPop","Restore variables using a global stack.","Alphabetical","Lists (Operations)"},
 {"GlobalPush","Save variables using a global stack.","Alphabetical","Lists (Operations)"},
 {"GoldenRatio","The Golden Ratio.","Alphabetical","Constants (Mathematical)"},
@@ -361,6 +379,7 @@ userFunctionsDescriptions = new String[][]
 {"Load","Evaluate all expressions in a file.","Alphabetical","Input/Output","Built In"},
 {"Local","Declare new local variables.","Alphabetical","Variables","Built In"},
 {"LocalSymbols","Create unique local symbols with the given prefix.","Alphabetical","Variables","Built In"},
+{"LogN","","Alphabetical","Numeric"},
 {"LogicTest","","Alphabetical"},
 {"LogicVerify","","Alphabetical"},
 {"Macro","Declare or define a macro.","Alphabetical","Control Flow"},
@@ -369,37 +388,6 @@ userFunctionsDescriptions = new String[][]
 {"MapArgs","Apply a function to all top-level arguments.","Alphabetical","Control Flow"},
 {"MapSingle","Apply a unary function to all entries in a list.","Alphabetical","Lists (Operations)"},
 {"MatchLinear","Match an expression to a polynomial of degree one in a variable.","Alphabetical","Predicates"},
-{"MathAbs","","Alphabetical","Numeric","Built In"},
-{"MathAdd","","Alphabetical","Numeric","Built In"},
-{"MathAnd","","Alphabetical","Numeric"},
-{"MathArcCos","","Alphabetical","Numeric"},
-{"MathArcCosh","","Alphabetical","Numeric"},
-{"MathArcSin","","Alphabetical","Numeric"},
-{"MathArcSinh","","Alphabetical","Numeric"},
-{"MathArcTan","","Alphabetical","Numeric"},
-{"MathArcTanh","","Alphabetical","Numeric"},
-{"MathCeil","","Alphabetical","Numeric","Built In"},
-{"MathCos","","Alphabetical","Numeric"},
-{"MathCosh","","Alphabetical","Numeric"},
-{"MathDiv","","Alphabetical","Numeric","Built In"},
-{"MathDivide","","Alphabetical","Numeric","Built In"},
-{"MathExp","","Alphabetical","Numeric"},
-{"MathFloor","","Alphabetical","Numeric","Built In"},
-{"MathGcd","","Alphabetical","Numeric","Built In"},
-{"MathReturnsExactBits","","Alphabetical","Numeric"},
-{"MathLog","","Alphabetical","Numeric"},
-{"MathMod","","Alphabetical","Numeric"},
-{"MathMultiply","","Alphabetical","Numeric","Built In"},
-{"MathNot","","Alphabetical","Numeric","Built In"},
-{"MathOr","","Alphabetical","Numeric","Built In"},
-{"MathPower","","Alphabetical","Numeric"},
-{"MathSetExactBits","","Alphabetical","Numeric","Built In"},
-{"MathSin","","Alphabetical","Numeric"},
-{"MathSinh","","Alphabetical","Numeric"},
-{"MathSqrt","","Alphabetical","Numeric"},
-{"MathSubtract","","Alphabetical","Numeric","Built In"},
-{"MathTan","","Alphabetical","Numeric"},
-{"MathTanh","","Alphabetical","Numeric"},
 {"MatrixPower","Return the nth power of a square matrix.","Alphabetical","Linear Algebra"},
 {"MatrixSolve","Solve a system of equations.","Alphabetical","Solvers (Symbolic)"},
 {"Max","Maximum of a number of values.","Alphabetical","Numbers (Operations)"},
@@ -409,9 +397,11 @@ userFunctionsDescriptions = new String[][]
 {"MinimumBound","Return lower bounds on the absolute values of real roots of a polynomial.","Alphabetical","Solvers (Numeric)"},
 {"Minor","Return the principal minor of a matrix.","Alphabetical","Linear Algebra"},
 {"Mod","Determine remainder of two mathematical objects after dividing one by the other","Alphabetical","Numbers (Operations)","Built In"},
+{"ModN","","Alphabetical","Numeric"},
 {"Moebius","The Moebius function.","Alphabetical","Number Theory"},
 {"MoebiusDivisorsList","The list of divisors and Moebius values.","Alphabetical","Number Theory"},
 {"Monic","Return the monic part of a polynomial.","Alphabetical","Polynomials (Operations)"},
+{"MultiplyN","","Alphabetical","Numeric","Built In"},
 {"MultiplyNum","","Alphabetical"},
 {"N","Try determine numerical approximation of expression.","Alphabetical","Numbers (Operations)"},
 {"NearRational","","Alphabetical"},
@@ -424,6 +414,7 @@ userFunctionsDescriptions = new String[][]
 {"NonN","","Alphabetical"},
 {"Normalize","Normalize a vector.","Alphabetical","Linear Algebra"},
 {"Not","Logical negation","Alphabetical","Predicates","Built In"},
+{"NotN","","Alphabetical","Numeric","Built In"},
 {"NrArgs","Return the number of top-level arguments.","Alphabetical","Lists (Operations)"},
 {"Nth","Return the n-th element of a list.","Alphabetical","Lists (Operations)","Built In"},
 {"NthRoot","","Alphabetical"},
@@ -441,6 +432,7 @@ userFunctionsDescriptions = new String[][]
 {"OpPrecedence","","Alphabetical","Built In"},
 {"OpRightPrecedence","","Alphabetical","Built In"},
 {"Or","Logical disjunction.","Alphabetical","Predicates","Built In"},
+{"OrN","","Alphabetical","Numeric","Built In"},
 {"OrthoG","Gegenbauer orthogonal polynomials.","Alphabetical","Polynomials (Special)"},
 {"OrthogonalBasis","Create an orthogonal basis.","Alphabetical","Linear Algebra"},
 {"OrthoGSum","Sums of series of orthogonal polynomials.","Alphabetical","Polynomials (Special)"},
@@ -470,6 +462,7 @@ userFunctionsDescriptions = new String[][]
 {"Pop","Remove an element from a stack.","Alphabetical","Lists (Operations)"},
 {"PopBack","Remove an element from the bottom of a stack.","Alphabetical","Lists (Operations)"},
 {"PopFront","Remove an element from the top of a stack.","Alphabetical","Lists (Operations)"},
+{"PowerN","","Alphabetical","Numeric"},
 {"Postfix","","Alphabetical","Built In"},
 {"Prefix","","Alphabetical","Built In"},
 {"PrettyForm","Print an expression nicely with ASCII art.","Alphabetical","Input/Output"},
@@ -517,27 +510,32 @@ userFunctionsDescriptions = new String[][]
 {"Secure","","Alphabetical","Built In"},
 {"Select","Select entries satisfying some predicate.","Alphabetical","Lists (Operations)"},
 {"Set","Assign a variable.","Alphabetical","Variables","Built In"},
+{"SetExactBitsN","","Alphabetical","Numeric","Built In"},
 {"SetGlobalLazyVariable","Global variable is to be evaluated lazily.","Alphabetical","Variables","Built In"},
 {"ShiftLeft","","Alphabetical","Built In"},
 {"ShiftRight","","Alphabetical","Built In"},
 {"Sign","Sign of a number.","Alphabetical","Calculus Related (Symbolic)"},
 {"Simplify","Try to simplify an expression.","Alphabetical","Expression Simplification"},
 {"Sin","Trigonometric sine function.","Alphabetical","Calculus Related (Symbolic)"},
+{"SinN","","Alphabetical","Numeric"},
+{"SinhN","","Alphabetical","Numeric"},
 {"Solve","Solve an equation symbolically.","Alphabetical","Solvers (Symbolic)"},
 {"SolveMatrix","Solve a linear system.","Alphabetical","Linear Algebra"},
 {"Space","Print one or more spaces.","Alphabetical","Input/Output"},
 {"Sparsity","Return the sparsity of a matrix.","Alphabetical","Linear Algebra"},
 {"Sqrt","Square root.","Alphabetical","Calculus Related (Symbolic)"},
+{"SqrtN","","Alphabetical","Numeric"},
 {"SquareFree","Return the square-free part of polynomial","Alphabetical","Polynomials (Operations)"},
 {"SquareFreeDivisorsList","The list of square-free divisors.","Alphabetical","Number Theory"},
 {"StirlingNumber1","Return the n,mth Stirling Number of the first kind.","Alphabetical","Number Theory"},
 {"StirlingNumber2","Return the n,mth Stirling Number of the second kind.","Alphabetical","Number Theory"},
 {"String","Convert atom to string.","Alphabetical","String Manipulation","Built In"},
-{"StringMid'Returns","","Alphabetical"},
-{"StringMid'Get","Retrieve a substring.","Alphabetical","String Manipulation","Built In"},
-{"StringMid'Set","Change a substring.","Alphabetical","String Manipulation","Built In"},
+{"StringMidReturns","","Alphabetical"},
+{"StringMidGet","Retrieve a substring.","Alphabetical","String Manipulation","Built In"},
+{"StringMidSet","Change a substring.","Alphabetical","String Manipulation","Built In"},
 {"Subfactorial","Factorial and related functions.","Alphabetical","Combinatorics"},
 {"Subst","Perform a substitution.","Alphabetical","Control Flow","Built In"},
+{"SubtractN","","Alphabetical","Numeric","Built In"},
 {"SuchThat","Special purpose solver.","Alphabetical","Solvers (Symbolic)"},
 {"Sum","Find the sum of a sequence.","Alphabetical","Series"},
 {"SumForDivisors","Loop over divisors.","Alphabetical","Number Theory"},
@@ -551,6 +549,8 @@ userFunctionsDescriptions = new String[][]
 {"Take","Take a sublist from a list, dropping the rest.","Alphabetical","Lists (Operations)"},
 {"Tan","Trigonometric tangent function.","Alphabetical","Calculus Related (Symbolic)"},
 {"Taylor","Univariate Taylor series expansion.","Alphabetical","Series"},
+{"TanN","","Alphabetical","Numeric"},
+{"TanhN","","Alphabetical","Numeric"},
 {"tDistribution","Student's t distribution.","Alphabetical","Probability & Statistics"},
 {"TestMathPiper","","Alphabetical"},
 {"TeXForm","Export expressions in LaTeX form.","Alphabetical","Input/Output"},
@@ -645,12 +645,13 @@ userFunctionsNode.add(new DefaultMutableTreeNode(functionInfo("Variables","Funct
 //{{{ Programmer functions descriptions.
 programmerFunctionsDescriptions = new String[][]
 {
-{"Array'Create","Create array.","Alphabetical","Native Objects","Built In"},
-{"Array'CreateFromList","Convert list to array.","Alphabetical","Native Objects"},
-{"Array'Get","Fetch array element.","Alphabetical","Native Objects","Built In"},
-{"Array'Set","Set array element.","Alphabetical","Native Objects","Built In"},
-{"Array'Size","Get array size.","Alphabetical","Native Objects","Built In"},
-{"Array'ToList","Convert array to list.","Alphabetical","Native Objects"},
+{"AndN","Built-in logical \"and\".","Alphabetical","Built In"},
+{"ArrayCreate","Create array.","Alphabetical","Native Objects","Built In"},
+{"ArrayCreateFromList","Convert list to array.","Alphabetical","Native Objects"},
+{"ArrayGet","Fetch array element.","Alphabetical","Native Objects","Built In"},
+{"ArraySet","Set array element.","Alphabetical","Native Objects","Built In"},
+{"ArraySize","Get array size.","Alphabetical","Native Objects","Built In"},
+{"ArrayToList","Convert array to list.","Alphabetical","Native Objects"},
 {"Assert","Signal \"soft\" custom error.","Alphabetical","Error Reporting"},
 {"Backquoting","Macro expansion (LISP-style backquoting).","Alphabetical","Programming"},
 {"BinSplitData","Computations of series by the binary splitting method.","Alphabetical","Numerical (Arbitrary Precision)"},
@@ -662,7 +663,7 @@ programmerFunctionsDescriptions = new String[][]
 {"Bodied","Define function syntax (bodied function).","Alphabetical","Programming","Built In"},
 {"BracketRational","Find optimal rational approximations.","Alphabetical","Numerical (Arbitrary Precision)"},
 {"Builtin'Precision'Get","Get the current precision.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
-{"Builtin'Precision'Set","Set the precision.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
+{"BuiltinPrecisionSet","Set the precision.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
 {"CachedConstant","Precompute multiple-precision constants.","Alphabetical","Numerical (Arbitrary Precision)"},
 {"Check","Report \"hard\" errors.","Alphabetical","Error Reporting","Built In"},
 {"ClearError","Custom errors handlers.","Alphabetical","Error Reporting"},
@@ -676,7 +677,7 @@ programmerFunctionsDescriptions = new String[][]
 {"DumpErrors","Simple error handlers.","Alphabetical","Error Reporting"},
 {"Equals","Check equality.","Alphabetical","Built In"},
 {"ExtraInfo'Get","Annotate objects with additional information.","Alphabetical","Programming","Built In"},
-{"ExtraInfo'Set","Annotate objects with additional information.","Alphabetical","Programming","Built In"},
+{"ExtraInfoSet","Annotate objects with additional information.","Alphabetical","Programming","Built In"},
 {"Fast...","Double-precision math functions.","Alphabetical","Built In"},
 {"FindFunction","Find the library file where a function is defined.","Alphabetical","Programming","Built In"},
 {"GarbageCollect","Do garbage collection on unused memory.","Alphabetical","Programming","Built In"},
@@ -684,6 +685,7 @@ programmerFunctionsDescriptions = new String[][]
 {"GetCoreError","Get \"hard\" error string.","Alphabetical","Error Reporting","Built In"},
 {"GetError","Custom errors handlers.","Alphabetical","Error Reporting"},
 {"GetErrorTableau","Custom errors handlers.","Alphabetical","Error Reporting"},
+{"GetExactBitsN","Manipulate precision of floating-point numbers.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
 {"GetTime","Measure the time taken by an evaluation.","Alphabetical","Built In"},
 {"GreaterThan","Comparison predicate.","Alphabetical","Built In","Built In"},
 {"GuessRational","Find optimal rational approximations.","Alphabetical","Numerical (Arbitrary Precision)"},
@@ -713,19 +715,16 @@ programmerFunctionsDescriptions = new String[][]
 {"MacroRuleBaseListed","Define rules in functions.","Alphabetical","Programming","Built In"},
 {"MacroSet","Define rules in functions.","Alphabetical","Programming","Built In"},
 {"Math...","Arbitrary-precision math functions.","Alphabetical","Built In"},
-{"MathAnd","Built-in logical \"and\".","Alphabetical","Built In"},
-{"MathGetExactBits","Manipulate precision of floating-point numbers.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
-{"MathNot","Built-in logical \"not\".","Alphabetical","Built In"},
-{"MathOr","Built-in logical \"or\".","Alphabetical","Built In"},
-{"MathSetExactBits","Manipulate precision of floating-point numbers.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
 {"MultiplyNum","Optimized numerical multiplication.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
 {"NearRational","Find optimal rational approximations.","Alphabetical","Numerical (Arbitrary Precision)"},
 {"NewtonNum","Low-level optimized Newton's iterations.","Alphabetical","Numerical (Arbitrary Precision)"},
 {"NonN","Calculate part in non-numeric mode.","Alphabetical","Numerical (Arbitrary Precision)"},
+{"NotN","Built-in logical \"not\".","Alphabetical","Built In"},
 {"NthRoot","Calculate/simplify nth root of an integer.","Alphabetical","Numerical (Arbitrary Precision)"},
 {"OpLeftPrecedence","Get operator precedence.","Alphabetical","Programming","Built In"},
 {"OpPrecedence","Get operator precedence.","Alphabetical","Programming","Built In"},
 {"OpRightPrecedence","Get operator precedence.","Alphabetical","Programming","Built In"},
+{"OrN","Built-in logical \"or\".","Alphabetical","Built In"},
 {"Postfix","Define function syntax (postfix operator).","Alphabetical","Programming","Built In"},
 {"Prefix","Define function syntax (prefix operator).","Alphabetical","Programming","Built In"},
 {"Prog","Block of statements.","Alphabetical","Programming","Built In"},
@@ -739,6 +738,7 @@ programmerFunctionsDescriptions = new String[][]
 {"RuleBaseArgList","Obtain list of arguments.","Alphabetical","Programming","Built In"},
 {"RuleBaseListed","Define function with variable number of arguments.","Alphabetical","Programming","Built In"},
 {"Secure","Guard the host OS.","Alphabetical","Programming","Built In"},
+{"SetExactBitsN","Manipulate precision of floating-point numbers.","Alphabetical","Numerical (Arbitrary Precision)","Built In"},
 {"ShiftLeft","Built-in bitwise shift left operation.","Alphabetical","Built In","Built In"},
 {"ShiftRight","Built-in bitwise shift right operation.","Alphabetical","Built In","Built In"},
 {"SumTaylorNum","Optimized numerical evaluation of Taylor series.","Alphabetical","Numerical (Arbitrary Precision)"},
@@ -809,32 +809,32 @@ operatorsNode = new DefaultMutableTreeNode(functionInfo("Operators","Operators."
 
 numericFunctions = new String[]
 {
-"MathAbs",
-"MathAdd",
-"MathArcCos",
-"MathArcCosh",
-"MathArcSin",
-"MathArcSinh",
-"MathArcTan",
-"MathArcTanh",
-"MathCeil",
-"MathCos",
-"MathCosh",
-"MathDiv",
-"MathDivide",
-"MathExp",
-"MathFloor",
-"MathGcd",
-"MathLog",
-"MathMod",
-"MathMultiply",
-"MathPower",
-"MathSin",
-"MathSinh",
-"MathSqrt",
-"MathSubtract",
-"MathTan",
-"MathTanh"
+"AbsN",
+"AddN",
+"ArcCosN",
+"ArcCoshN",
+"ArcSinN",
+"ArcSinhN",
+"ArcTanN",
+"ArcTanhN",
+"CeilN",
+"CosN",
+"CoshN",
+"DivN",
+"DivideN",
+"ExpN",
+"FloorN",
+"GcdN",
+"LogN",
+"ModN",
+"MultiplyN",
+"PowerN",
+"SinN",
+"SinhN",
+"SqrtN",
+"SubtractN",
+"TanN",
+"TanhN"
 };
 //}}}
 
@@ -1872,8 +1872,8 @@ funcs_refchapter28 = new String[]{
 , "OMDef"
 };
 funcs_refchapter29 = new String[]{
-"StringMid'Set"
-, "StringMid'Get"
+"StringMidSet"
+, "StringMidGet"
 , "String"
 , "Atom"
 , "ConcatStrings"
@@ -2043,7 +2043,7 @@ funcs_refprogchapter2 = new String[]{
 , "Backquoting"
 , "DefMacroRuleBase"
 , "DefMacroRuleBaseListed"
-, "ExtraInfo'Set, ExtraInfo'Get"
+, "ExtraInfoSet, ExtraInfo'Get"
 , "GarbageCollect"
 , "FindFunction"
 , "Secure"
@@ -2057,7 +2057,7 @@ funcs_refprogchapter3 = new String[]{
 , "BinSplitNum"
 , "BinSplitData"
 , "BinSplitFinal"
-, "MathSetExactBits"
+, "SetExactBitsN"
 , "MathGetExactBits"
 , "InNumericMode"
 , "NonN"
@@ -2070,7 +2070,7 @@ funcs_refprogchapter3 = new String[]{
 , "NearRational"
 , "BracketRational"
 , "TruncRadian"
-, "Builtin'Precision'Set"
+, "BuiltinPrecisionSet"
 , "Builtin'Precision'Get"
 };
 funcs_refprogchapter4 = new String[]{
@@ -2088,9 +2088,9 @@ funcs_refprogchapter4 = new String[]{
 , "CurrentLine"
 };
 funcs_refprogchapter5 = new String[]{
-"MathNot"
-, "MathAnd"
-, "MathOr"
+"NotN"
+, "AndN"
+, "OrN"
 , "BitAnd"
 , "BitOr"
 , "BitXor"
@@ -2107,12 +2107,12 @@ funcs_refprogchapter5 = new String[]{
 funcs_refprogchapter6 = new String[]{
 "IsGeneric"
 , "GenericTypeName"
-, "Array'Create"
-, "Array'Size"
-, "Array'Get"
-, "Array'Set"
-, "Array'CreateFromList"
-, "Array'ToList"
+, "ArrayCreate"
+, "ArraySize"
+, "ArrayGet"
+, "ArraySet"
+, "ArrayCreateFromList"
+, "ArrayToList"
 };
 funcs_refprogchapter7 = new String[]{
 "Verify"

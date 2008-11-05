@@ -7,18 +7,18 @@
 <a name="c29">
 
 </a>
-(directly go to documentation on : <a href="refchapter29.html#StringMid'Set" target='Chapters' title="change a substring">StringMid'Set</a>, <a href="refchapter29.html#StringMid'Get" target='Chapters' title="retrieve a substring">StringMid'Get</a>, <a href="refchapter29.html#String" target='Chapters' title="convert atom to string">String</a>, <a href="refchapter29.html#Atom" target='Chapters' title="convert string to atom">Atom</a>, <a href="refchapter29.html#ConcatStrings" target='Chapters' title="concatenate strings">ConcatStrings</a>, <a href="refchapter29.html#PatchString" target='Chapters' title="execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in strings">PatchString</a>.
+(directly go to documentation on : <a href="refchapter29.html#StringMidSet" target='Chapters' title="change a substring">StringMidSet</a>, <a href="refchapter29.html#StringMidGet" target='Chapters' title="retrieve a substring">StringMidGet</a>, <a href="refchapter29.html#String" target='Chapters' title="convert atom to string">String</a>, <a href="refchapter29.html#Atom" target='Chapters' title="convert string to atom">Atom</a>, <a href="refchapter29.html#ConcatStrings" target='Chapters' title="concatenate strings">ConcatStrings</a>, <a href="refchapter29.html#PatchString" target='Chapters' title="execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in strings">PatchString</a>.
 )<h1>
 29. String manipulation
 </h1>
 <p> </p>
 <center><table>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refchapter29.html#StringMid'Set" target='Chapters' title="change a substring">StringMid'Set</a></td>
+<td><a href="refchapter29.html#StringMidSet" target='Chapters' title="change a substring">StringMidSet</a></td>
 <td>change a substring</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refchapter29.html#StringMid'Get" target='Chapters' title="retrieve a substring">StringMid'Get</a></td>
+<td><a href="refchapter29.html#StringMidGet" target='Chapters' title="retrieve a substring">StringMidGet</a></td>
 <td>retrieve a substring</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
@@ -38,21 +38,21 @@
 <td>execute commands between <b><tt>&lt;?</tt></b> and <b><tt>?&gt;</tt></b> in strings</td>
 </tr>
 </table></center>
-<a name="StringMid'Set">
+<a name="StringMidSet">
 
 </a>
 <a name="stringmid'set">
 
 </a>
 <h3>
-<hr>StringMid'Set -- change a substring
+<hr>StringMidSet -- change a substring
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-StringMid'Set(index,substring,string)
+StringMidSet(index,substring,string)
 </pre></tr>
 </table>
 
@@ -89,7 +89,7 @@ Examples:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; StringMid'Set(3,"XY","abcdef")
+In&gt; StringMidSet(3,"XY","abcdef")
 Out&gt; "abXYef";
 </pre></tr>
 </table>
@@ -100,27 +100,27 @@ Out&gt; "abXYef";
 <h5>
 See also:
 </h5>
-<a href="ref.html?StringMid'Get" target="Chapters">
-StringMid'Get
+<a href="ref.html?StringMidGet" target="Chapters">
+StringMidGet
 </a>
 , <a href="ref.html?Length" target="Chapters">
 Length
 </a>
-.<a name="StringMid'Get">
+.<a name="StringMidGet">
 
 </a>
 <a name="stringmid'get">
 
 </a>
 <h3>
-<hr>StringMid'Get -- retrieve a substring
+<hr>StringMidGet -- retrieve a substring
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-StringMid'Get(index,length,string)
+StringMidGet(index,length,string)
 </pre></tr>
 </table>
 
@@ -146,7 +146,7 @@ Parameters:
 <h5>
 Description:
 </h5>
-<b><tt>StringMid'Get</tt></b> returns a part of a string. Substrings can also be
+<b><tt>StringMidGet</tt></b> returns a part of a string. Substrings can also be
 accessed using the <b><tt>[]</tt></b> operator.
 
 
@@ -157,7 +157,7 @@ Examples:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; StringMid'Get(3,2,"abcdef")
+In&gt; StringMidGet(3,2,"abcdef")
 Out&gt; "cd";
 In&gt; "abcdefg"[2 .. 4]
 Out&gt; "bcd";
@@ -170,8 +170,8 @@ Out&gt; "bcd";
 <h5>
 See also:
 </h5>
-<a href="ref.html?StringMid'Set" target="Chapters">
-StringMid'Set
+<a href="ref.html?StringMidSet" target="Chapters">
+StringMidSet
 </a>
 , <a href="ref.html?Length" target="Chapters">
 Length

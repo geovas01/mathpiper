@@ -137,13 +137,13 @@ In&gt; a+b
 Out&gt; a+b;
 In&gt; 2+3
 Out&gt; 5;
-In&gt; MathAdd(a,b)
-In function "MathAdd" : 
+In&gt; AddN(a,b)
+In function "AddN" : 
 bad argument number 1 (counting from 1)
 The offending argument a evaluated to a
 CommandLine(1) : Invalid argument
 
-In&gt; MathAdd(2,3)
+In&gt; AddN(2,3)
 Out&gt; 5;
 </pre></tr>
 </table>
@@ -152,14 +152,14 @@ Out&gt; 5;
 <p>
 The <b><tt>+</tt></b> operator will return the object unsimplified if the arguments
 are not numeric. The <b><tt>+</tt></b> operator is defined in the standard scripts.
-<b><tt>MathAdd</tt></b>, however, is a function defined in the "core" to
+<b><tt>AddN</tt></b>, however, is a function defined in the "core" to
 performs the numeric addition. It can only do this if the arguments
-are numeric and it fails on symbolic arguments.  (The <b><tt>+</tt></b> operator calls <b><tt>MathAdd</tt></b> after it has verified that
+are numeric and it fails on symbolic arguments.  (The <b><tt>+</tt></b> operator calls <b><tt>AddN</tt></b> after it has verified that
 the arguments passed to it are numeric.)
 
 
 <p>
-A core function such as <b><tt>MathAdd</tt></b> can never return unevaluated, but an operator such as "<b><tt>+</tt></b>" is a "user function"
+A core function such as <b><tt>AddN</tt></b> can never return unevaluated, but an operator such as "<b><tt>+</tt></b>" is a "user function"
 which might or might not be evaluated to something.
 
 
@@ -178,7 +178,7 @@ In&gt; f(1,2)
 Out&gt; Mathadd(1,2);
 </pre></tr>
 </table>
-Here we made a typo: we should have written <b><tt>MathAdd</tt></b>, but wrote
+Here we made a typo: we should have written <b><tt>AddN</tt></b>, but wrote
 <b><tt>Mathadd</tt></b> instead. <b><tt>MathPiper</tt></b> happily assumed that we mean a new and (so far) undefined "user function" <b><tt>Mathadd</tt></b> and returned the expression unevaluated.
 
 

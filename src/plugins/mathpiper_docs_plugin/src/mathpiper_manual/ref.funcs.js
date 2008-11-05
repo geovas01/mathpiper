@@ -413,8 +413,8 @@ var funcs_refchapter28 = new Array(
 , "OMDef"
 );
 var funcs_refchapter29 = new Array(
-"StringMid'Set"
-, "StringMid'Get"
+"StringMidSet"
+, "StringMidGet"
 , "String"
 , "Atom"
 , "ConcatStrings"

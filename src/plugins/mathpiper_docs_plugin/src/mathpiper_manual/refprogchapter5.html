@@ -7,7 +7,7 @@
 <a name="c5">
 
 </a>
-(directly go to documentation on : <a href="refprogchapter5.html#MathNot" target='Chapters' title="built-in logical "not"">MathNot</a>, <a href="refprogchapter5.html#MathAnd" target='Chapters' title="built-in logical "and"">MathAnd</a>, <a href="refprogchapter5.html#MathOr" target='Chapters' title="built-in logical "or"">MathOr</a>, <a href="refprogchapter5.html#BitAnd" target='Chapters' title="bitwise and operation">BitAnd</a>, <a href="refprogchapter5.html#BitOr" target='Chapters' title="bitwise or operation">BitOr</a>, <a href="refprogchapter5.html#BitXor" target='Chapters' title="bitwise xor operation">BitXor</a>, <a href="refprogchapter5.html#Equals" target='Chapters' title="check equality">Equals</a>, <a href="refprogchapter5.html#GreaterThan" target='Chapters' title="comparison predicate">GreaterThan</a>, <a href="refprogchapter5.html#LessThan" target='Chapters' title="comparison predicate">LessThan</a>, <a href="refprogchapter5.html#Math..." target='Chapters' title="arbitrary-precision math functions">Math...</a>, <a href="refprogchapter5.html#Fast..." target='Chapters' title="double-precision math functions">Fast...</a>, <a href="refprogchapter5.html#ShiftLeft" target='Chapters' title="built-in bitwise shift left operation">ShiftLeft</a>, <a href="refprogchapter5.html#ShiftRight" target='Chapters' title="built-in bitwise shift right operation">ShiftRight</a>, <a href="refprogchapter5.html#IsPromptShown" target='Chapters' title="test for the MathPiper prompt option">IsPromptShown</a>, <a href="refprogchapter5.html#GetTime" target='Chapters' title="measure the time taken by an evaluation">GetTime</a>.
+(directly go to documentation on : <a href="refprogchapter5.html#NotN" target='Chapters' title="built-in logical "not"">NotN</a>, <a href="refprogchapter5.html#AndN" target='Chapters' title="built-in logical "and"">AndN</a>, <a href="refprogchapter5.html#OrN" target='Chapters' title="built-in logical "or"">OrN</a>, <a href="refprogchapter5.html#BitAnd" target='Chapters' title="bitwise and operation">BitAnd</a>, <a href="refprogchapter5.html#BitOr" target='Chapters' title="bitwise or operation">BitOr</a>, <a href="refprogchapter5.html#BitXor" target='Chapters' title="bitwise xor operation">BitXor</a>, <a href="refprogchapter5.html#Equals" target='Chapters' title="check equality">Equals</a>, <a href="refprogchapter5.html#GreaterThan" target='Chapters' title="comparison predicate">GreaterThan</a>, <a href="refprogchapter5.html#LessThan" target='Chapters' title="comparison predicate">LessThan</a>, <a href="refprogchapter5.html#Math..." target='Chapters' title="arbitrary-precision math functions">Math...</a>, <a href="refprogchapter5.html#Fast..." target='Chapters' title="double-precision math functions">Fast...</a>, <a href="refprogchapter5.html#ShiftLeft" target='Chapters' title="built-in bitwise shift left operation">ShiftLeft</a>, <a href="refprogchapter5.html#ShiftRight" target='Chapters' title="built-in bitwise shift right operation">ShiftRight</a>, <a href="refprogchapter5.html#IsPromptShown" target='Chapters' title="test for the MathPiper prompt option">IsPromptShown</a>, <a href="refprogchapter5.html#GetTime" target='Chapters' title="measure the time taken by an evaluation">GetTime</a>.
 )<h1>
 5. Built-in (core) functions
 </h1>
@@ -19,15 +19,15 @@ chapter.
 <p> </p>
 <center><table>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter5.html#MathNot" target='Chapters' title="built-in logical "not"">MathNot</a></td>
+<td><a href="refprogchapter5.html#NotN" target='Chapters' title="built-in logical "not"">NotN</a></td>
 <td>built-in logical "not"</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter5.html#MathAnd" target='Chapters' title="built-in logical "and"">MathAnd</a></td>
+<td><a href="refprogchapter5.html#AndN" target='Chapters' title="built-in logical "and"">AndN</a></td>
 <td>built-in logical "and"</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
-<td><a href="refprogchapter5.html#MathOr" target='Chapters' title="built-in logical "or"">MathOr</a></td>
+<td><a href="refprogchapter5.html#OrN" target='Chapters' title="built-in logical "or"">OrN</a></td>
 <td>built-in logical "or"</td>
 </tr>
 <tr BGCOLOR=#E0E0E0>
@@ -91,30 +91,30 @@ source tree. The declarations typically look like this:
 <p>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-SetCommand(LispSubtract, "MathSubtract");
+SetCommand(LispSubtract, "SubtractN");
 </pre></tr>
 </table>
-Here <b><tt>LispSubtract</tt></b> is the MathPiper internal name for the function and <b><tt>MathSubtract</tt></b> is the name visible to the MathPiper language.
+Here <b><tt>LispSubtract</tt></b> is the MathPiper internal name for the function and <b><tt>SubtractN</tt></b> is the name visible to the MathPiper language.
 Built-in bodied functions and infix operators are declared in the same file.
 
 
 <p>
 
-<a name="MathNot">
+<a name="NotN">
 
 </a>
 <a name="mathnot">
 
 </a>
 <h3>
-<hr>MathNot -- built-in logical "not"
+<hr>NotN -- built-in logical "not"
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathNot(expression)
+NotN(expression)
 </pre></tr>
 </table>
 
@@ -130,21 +130,21 @@ to "True", and vice versa.
 
 <p>
 
-<a name="MathAnd">
+<a name="AndN">
 
 </a>
 <a name="mathand">
 
 </a>
 <h3>
-<hr>MathAnd -- built-in logical "and"
+<hr>AndN -- built-in logical "and"
 </h3>
 <h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathAnd(...)
+AndN(...)
 </pre></tr>
 </table>
 
@@ -164,27 +164,27 @@ arguments should cause side effects when they are evaluated.
 
 <p>
 
-<a name="MathOr">
+<a name="OrN">
 
 </a>
 <a name="mathor">
 
 </a>
 <h3>
-<hr>MathOr -- built-in logical "or"
+<hr>OrN -- built-in logical "or"
 </h3>
 <h5 align=right>Internal function</h5><h5>
 Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathOr(...)
+OrN(...)
 </pre></tr>
 </table>
 
 
 <p>
-<b><tt>MathOr</tt></b> is the basic logical "or" function. Similarly to <b><tt>And</tt></b>, it is
+<b><tt>OrN</tt></b> is the basic logical "or" function. Similarly to <b><tt>And</tt></b>, it is
 lazy-evaluated. <b><tt>And(...)</tt></b> and <b><tt>Or(...)</tt></b> do also exist, defined in the script
 library. You can redefine them as infix operators yourself, so you have the
 choice of precedence. In the standard scripts they are in fact declared as
@@ -334,82 +334,82 @@ Out&gt; True;
 
 <p>
 
-<a name="MathExp@\relax <b><tt>MathExp</tt></b>">
+<a name="ExpN@\relax <b><tt>ExpN</tt></b>">
 
 </a>
-<a name="MathLog@\relax <b><tt>MathLog</tt></b>">
+<a name="LogN@\relax <b><tt>LogN</tt></b>">
 
 </a>
-<a name="MathPower@\relax <b><tt>MathPower</tt></b>">
+<a name="PowerN@\relax <b><tt>PowerN</tt></b>">
 
 </a>
-<a name="MathSin@\relax <b><tt>MathSin</tt></b>">
+<a name="SinN@\relax <b><tt>SinN</tt></b>">
 
 </a>
-<a name="MathCos@\relax <b><tt>MathCos</tt></b>">
+<a name="CosN@\relax <b><tt>CosN</tt></b>">
 
 </a>
-<a name="MathTan@\relax <b><tt>MathTan</tt></b>">
+<a name="TanN@\relax <b><tt>TanN</tt></b>">
 
 </a>
-<a name="MathArcSin@\relax <b><tt>MathArcSin</tt></b>">
+<a name="ArcSinN@\relax <b><tt>ArcSinN</tt></b>">
 
 </a>
-<a name="MathArcCos@\relax <b><tt>MathArcCos</tt></b>">
+<a name="ArcCosN@\relax <b><tt>ArcCosN</tt></b>">
 
 </a>
-<a name="MathArcTan@\relax <b><tt>MathArcTan</tt></b>">
+<a name="ArcTanN@\relax <b><tt>ArcTanN</tt></b>">
 
 </a>
-<a name="MathSinh@\relax <b><tt>MathSinh</tt></b>">
+<a name="SinhN@\relax <b><tt>SinhN</tt></b>">
 
 </a>
-<a name="MathCosh@\relax <b><tt>MathCosh</tt></b>">
+<a name="CoshN@\relax <b><tt>CoshN</tt></b>">
 
 </a>
-<a name="MathTanh@\relax <b><tt>MathTanh</tt></b>">
+<a name="TanhN@\relax <b><tt>TanhN</tt></b>">
 
 </a>
-<a name="MathArcSinh@\relax <b><tt>MathArcSinh</tt></b>">
+<a name="ArcSinhN@\relax <b><tt>ArcSinhN</tt></b>">
 
 </a>
-<a name="MathArcCosh@\relax <b><tt>MathArcCosh</tt></b>">
+<a name="ArcCoshN@\relax <b><tt>ArcCoshN</tt></b>">
 
 </a>
-<a name="MathArcTanh@\relax <b><tt>MathArcTanh</tt></b>">
+<a name="ArcTanhN@\relax <b><tt>ArcTanhN</tt></b>">
 
 </a>
-<a name="MathGcd@\relax <b><tt>MathGcd</tt></b>">
+<a name="GcdN@\relax <b><tt>GcdN</tt></b>">
 
 </a>
-<a name="MathAdd@\relax <b><tt>MathAdd</tt></b>">
+<a name="AddN@\relax <b><tt>AddN</tt></b>">
 
 </a>
-<a name="MathSubtract@\relax <b><tt>MathSubtract</tt></b>">
+<a name="SubtractN@\relax <b><tt>SubtractN</tt></b>">
 
 </a>
-<a name="MathMultiply@\relax <b><tt>MathMultiply</tt></b>">
+<a name="MultiplyN@\relax <b><tt>MultiplyN</tt></b>">
 
 </a>
-<a name="MathDivide@\relax <b><tt>MathDivide</tt></b>">
+<a name="DivideN@\relax <b><tt>DivideN</tt></b>">
 
 </a>
-<a name="MathSqrt@\relax <b><tt>MathSqrt</tt></b>">
+<a name="SqrtN@\relax <b><tt>SqrtN</tt></b>">
 
 </a>
-<a name="MathFloor@\relax <b><tt>MathFloor</tt></b>">
+<a name="FloorN@\relax <b><tt>FloorN</tt></b>">
 
 </a>
-<a name="MathCeil@\relax <b><tt>MathCeil</tt></b>">
+<a name="CeilN@\relax <b><tt>CeilN</tt></b>">
 
 </a>
-<a name="MathAbs@\relax <b><tt>MathAbs</tt></b>">
+<a name="AbsN@\relax <b><tt>AbsN</tt></b>">
 
 </a>
-<a name="MathMod@\relax <b><tt>MathMod</tt></b>">
+<a name="ModN@\relax <b><tt>ModN</tt></b>">
 
 </a>
-<a name="MathDiv@\relax <b><tt>MathDiv</tt></b>">
+<a name="DivN@\relax <b><tt>DivN</tt></b>">
 
 </a>
 <a name="Math...">
@@ -426,32 +426,32 @@ Calling format:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-MathGcd(n,m)      (Greatest Common Divisor)
-MathAdd(x,y)      (add two numbers)
-MathSubtract(x,y) (subtract two numbers)
-MathMultiply(x,y) (multiply two numbers)
-MathDivide(x,y)   (divide two numbers)
-MathSqrt(x)    (square root, must be x&gt;=0)
-MathFloor(x)   (largest integer not larger than x)
-MathCeil(x)    (smallest integer not smaller than x)
-MathAbs(x)     (absolute value of x, or |x| )
-MathExp(x)     (exponential, base 2.718...)
-MathLog(x)     (natural logarithm, for x&gt;0)
-MathPower(x,y) (power, x ^ y)
-MathSin(x)     (sine)
-MathCos(x)     (cosine)
-MathTan(x)     (tangent)
-MathSinh(x)     (hyperbolic sine)
-MathCosh(x)     (hyperbolic cosine)
-MathTanh(x)     (hyperbolic tangent)
-MathArcSin(x)   (inverse sine)
-MathArcCos(x)   (inverse cosine)
-MathArcTan(x)   (inverse tangent)
-MathArcSinh(x)  (inverse hyperbolic sine)
-MathArcCosh(x)  (inverse hyperbolic cosine)
-MathArcTanh(x)  (inverse hyperbolic tangent)
-MathDiv(x,y)    (integer division, result is an integer)
-MathMod(x,y)    (remainder of division, or x mod y)
+GcdN(n,m)      (Greatest Common Divisor)
+AddN(x,y)      (add two numbers)
+SubtractN(x,y) (subtract two numbers)
+MultiplyN(x,y) (multiply two numbers)
+DivideN(x,y)   (divide two numbers)
+SqrtN(x)    (square root, must be x&gt;=0)
+FloorN(x)   (largest integer not larger than x)
+CeilN(x)    (smallest integer not smaller than x)
+AbsN(x)     (absolute value of x, or |x| )
+ExpN(x)     (exponential, base 2.718...)
+LogN(x)     (natural logarithm, for x&gt;0)
+PowerN(x,y) (power, x ^ y)
+SinN(x)     (sine)
+CosN(x)     (cosine)
+TanN(x)     (tangent)
+SinhN(x)     (hyperbolic sine)
+CoshN(x)     (hyperbolic cosine)
+TanhN(x)     (hyperbolic tangent)
+ArcSinN(x)   (inverse sine)
+ArcCosN(x)   (inverse cosine)
+ArcTanN(x)   (inverse tangent)
+ArcSinhN(x)  (inverse hyperbolic sine)
+ArcCoshN(x)  (inverse hyperbolic cosine)
+ArcTanhN(x)  (inverse hyperbolic tangent)
+DivN(x,y)    (integer division, result is an integer)
+ModN(x,y)    (remainder of division, or x mod y)
 </pre></tr>
 </table>
 
@@ -469,11 +469,11 @@ non-numerical functions for symbolic computations, such as <b><tt>Exp</tt></b>, 
 
 
 <p>
-Note that all functions, such as the <b><tt>MathPower</tt></b>, <b><tt>MathSqrt</tt></b>, <b><tt>MathAdd</tt></b> etc., accept integers as well as floating-point numbers.
+Note that all functions, such as the <b><tt>PowerN</tt></b>, <b><tt>SqrtN</tt></b>, <b><tt>AddN</tt></b> etc., accept integers as well as floating-point numbers.
 The resulting values may be integers or floats.
 If the mathematical result is an exact integer, then the integer is returned.
-For example, <b><tt>MathSqrt(25)</tt></b> returns the integer <b><tt>5</tt></b>, and <b><tt>MathPower(2,3)</tt></b> returns the integer <b><tt>8</tt></b>.
-In such cases, the integer result is returned even if the calculation requires more digits than set by <b><tt>Builtin'Precision'Set</tt></b>.
+For example, <b><tt>SqrtN(25)</tt></b> returns the integer <b><tt>5</tt></b>, and <b><tt>PowerN(2,3)</tt></b> returns the integer <b><tt>8</tt></b>.
+In such cases, the integer result is returned even if the calculation requires more digits than set by <b><tt>BuiltinPrecisionSet</tt></b>.
 However, when the result is mathematically not an integer, the functions return a floating-point result which is correct only to the current precision.
 
 
@@ -484,19 +484,19 @@ Example:
 </h5>
 <table cellpadding="0" width="100%">
 <tr><td width=100% bgcolor="#DDDDEE"><pre>
-In&gt; Builtin'Precision'Set(10)
+In&gt; BuiltinPrecisionSet(10)
 Out&gt; True
 In&gt; Sqrt(10)
 Out&gt; Sqrt(10)
-In&gt; MathSqrt(10)
+In&gt; SqrtN(10)
 Out&gt; 3.16227766
-In&gt; MathSqrt(490000*2^150)
+In&gt; SqrtN(490000*2^150)
 Out&gt; 26445252304070013196697600
-In&gt; MathSqrt(490000*2^150+1)
+In&gt; SqrtN(490000*2^150+1)
 Out&gt; 0.264452523e26
-In&gt; MathPower(2,3)
+In&gt; PowerN(2,3)
 Out&gt; 8
-In&gt; MathPower(2,-3)
+In&gt; PowerN(2,-3)
 Out&gt; 0.125
 </pre></tr>
 </table>
