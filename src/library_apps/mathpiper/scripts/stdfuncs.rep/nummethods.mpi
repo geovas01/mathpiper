@@ -119,7 +119,7 @@ SumTaylorNum1(x, nth'term'func, next'term'factor, n'terms) :=
     rows := IntNthRoot(n'terms+1, 2);
     cols := Div(n'terms+rows, rows);	// now: rows*cols >= n'terms+1
     Check(rows>1 And cols>1, "SumTaylorNum1: Internal error: number of Taylor sum terms must be at least 4");
-    rows'tmp := Array'Create(rows, 0);
+    rows'tmp := ArrayCreate(rows, 0);
     x'power := x ^ rows;	// do not use PowerN b/c x might be complex
     // initialize partial sums (array rows'tmp) - the 0th column (i:=0)
     // prepare term'tmp for the first element
@@ -259,8 +259,8 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
     x0 := x'init;
     prec := Builtin'Precision'Get();
     int'part := IntLog(Ceil(Abs(x0)), 10);	// how many extra digits for numbers like 100.2223
-    // int'part must be set to 0 if we have true floating-point semantics of Builtin'Precision'Set()
-    Builtin'Precision'Set(2+prec0-int'part);	// 2 guard digits
+    // int'part must be set to 0 if we have true floating-point semantics of BuiltinPrecisionSet()
+    BuiltinPrecisionSet(2+prec0-int'part);	// 2 guard digits
     x1 := (func @ x0);	// let's run one more iteration by hand
     // first, we get prec0 exact digits
     exact'digits := 0;
@@ -284,19 +284,19 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
     While(exact'digits*order <= prec)
     [
       exact'digits := exact'digits*order;
-      Builtin'Precision'Set(2+Min(exact'digits, Div(prec,order)+1)-int'part);
+      BuiltinPrecisionSet(2+Min(exact'digits, Div(prec,order)+1)-int'part);
       x0 := x1;
       x1 := (func @ x0);
   //		If(InVerboseMode(), Echo("NewtonNum: Info: got", Common'digits(x0, x1), "exact digits at prec. ", Builtin'Precision'Get()));
     ];
     // last iteration by hand
-    Builtin'Precision'Set(2+prec);
+    BuiltinPrecisionSet(2+prec);
     x1 := RoundTo( (func @ x1), prec);
     ],
     // did not get a good initial value, so return what we were given
     x1 := x'init
     );
-    Builtin'Precision'Set(prec);
+    BuiltinPrecisionSet(prec);
   ]);
 	x1;
 ];

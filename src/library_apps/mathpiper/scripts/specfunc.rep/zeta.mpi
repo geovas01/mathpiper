@@ -102,17 +102,17 @@ Zeta3() :=
 		If (N(Re(s)) > N(1+(prec*Ln(10))/(Ln(prec)+0.1), 6),
 			[	// use direct summation
 				n:= N(10^(prec/(s-1)), 6)+2;	// 2 guard terms
-				Builtin'Precision'Set(prec+2);	// 2 guard digits
+				BuiltinPrecisionSet(prec+2);	// 2 guard digits
 				result := Internal'ZetaNum1(s, n);
 			],
 			[	// use Internal'ZetaNum(s, n)
 				n := Ceil( N( prec*Ln(10)/Ln(8) + 2, 6 ) );	// add 2 digits just in case
-				Builtin'Precision'Set(prec+2);	// 2 guard digits
+				BuiltinPrecisionSet(prec+2);	// 2 guard digits
 				result := Internal'ZetaNum(s, n);
 			]
 		)
 	);
-	Builtin'Precision'Set(prec);
+	BuiltinPrecisionSet(prec);
 	result;
 ];
 

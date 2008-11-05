@@ -11,7 +11,7 @@ Function("BesselNsmall",{n,x,modified})
         Local(term,result,k);
         Local(prec,eps,tmp);
         prec:=Builtin'Precision'Get();
-        Builtin'Precision'Set(Ceil(1.2*prec)); // this is a guess
+        BuiltinPrecisionSet(Ceil(1.2*prec)); // this is a guess
         eps:=5*10^(-prec);
 
         term:=1;
@@ -27,7 +27,7 @@ Function("BesselNsmall",{n,x,modified})
                 result:=result+term;
                 k:=k+1;
         ];
-        Builtin'Precision'Set(prec);
+        BuiltinPrecisionSet(prec);
 	// This should not round, only truncate
 	// some outputs will be off by one in the last digit
 	RoundTo(result,prec);

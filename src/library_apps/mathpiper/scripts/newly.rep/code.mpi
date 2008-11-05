@@ -20,7 +20,7 @@ UniqueConstant() <--
 [
   Local(result);
   result := String(LocalSymbols(C)(C));
-  Atom(StringMid'Get(2,Length(result)-1,result));
+  Atom(StringMidGet(2,Length(result)-1,result));
 ];
 
 
@@ -379,7 +379,7 @@ NearRational(_x) <-- NearRational(x, Floor(1/2*Builtin'Precision'Get()));
 NearRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 	Local(x1, x2, i,  old'prec);
 	old'prec := Builtin'Precision'Get();
-  Builtin'Precision'Set(prec + 8);	// 8 guard digits (?)
+  BuiltinPrecisionSet(prec + 8);	// 8 guard digits (?)
 	x1 := ContFracList(N(Eval(x+10^(-prec))));
 	x2 := ContFracList(N(Eval(x-10^(-prec))));
 
@@ -410,7 +410,7 @@ NearRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 	If(InVerboseMode(), Echo({"NearRational: using ", i, "terms of the continued fraction"}));
 	If(i>Length(x1),i:=Length(x1));
 	x1[i] := x1[i] + If(i=Length(x1), 0, 1);
-	Builtin'Precision'Set(old'prec);
+	BuiltinPrecisionSet(old'prec);
 	ContFracEval(Take(x1, i));
 ];
 

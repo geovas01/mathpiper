@@ -57,7 +57,7 @@ Defun("Trigonometry",{x,i,sum,term})
   Set(previousPrec,Builtin'Precision'Get());
   Set(newPrec,AddN(Builtin'Precision'Get(),2));
   Set(x2,MultiplyN(x,x));
-  Builtin'Precision'Set(newPrec);
+  BuiltinPrecisionSet(newPrec);
   Set(eps,MathIntPower(10,MathNegate(previousPrec)));
   While(GreaterThan(AbsN(term),eps))
   [
@@ -66,11 +66,11 @@ Defun("Trigonometry",{x,i,sum,term})
     Set(term,DivideN(term,i));
     Set(i,AddN(i,1.0));
     Set(term,DivideN(MathNegate(term),i));
-    Builtin'Precision'Set(previousPrec);
+    BuiltinPrecisionSet(previousPrec);
     Set(sum, AddN(sum, term));
-    Builtin'Precision'Set(newPrec);
+    BuiltinPrecisionSet(newPrec);
   ];
-  Builtin'Precision'Set(previousPrec);
+  BuiltinPrecisionSet(previousPrec);
   sum;
 ];
 
@@ -199,7 +199,7 @@ Defun("MathPi",{})
   [
  		// start of iteration code
     // Get Sin(result)
-    Builtin'Precision'Set(curPrec);
+    BuiltinPrecisionSet(curPrec);
     Set(result,AddN(result,SinN(result)));
     // Calculate new result: result := result + Sin(result);
 		// end of iteration code
@@ -217,7 +217,7 @@ Defun("MathPi",{})
       ]);
 		]);
   ];
-  Builtin'Precision'Set(aPrecision);
+  BuiltinPrecisionSet(aPrecision);
   result;
 ];
 

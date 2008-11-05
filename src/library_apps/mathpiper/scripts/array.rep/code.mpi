@@ -1,9 +1,9 @@
 
 
-Array'CreateFromList(list):=
+ArrayCreateFromList(list):=
 [
   Local(result,i);
-  result:=Array'Create(Length(list),0);
+  result:=ArrayCreate(Length(list),0);
   i:=1;
   While (list != {})
   [
@@ -14,5 +14,5 @@ Array'CreateFromList(list):=
   result;
 ];
 
-Array'ToList(array):= (array[1 .. Array'Size(array) ]);
+ArrayToList(array):= (array[1 .. ArraySize(array) ]);
 

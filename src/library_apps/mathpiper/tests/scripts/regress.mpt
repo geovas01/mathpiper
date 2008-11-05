@@ -301,7 +301,7 @@ Verify(Undefined >= -4, False);
 Verify(Undefined <= -4, False);
 
 // Jonathan's bug report
-Builtin'Precision'Set(10);
+BuiltinPrecisionSet(10);
 NumericEqual(N(Cos(Pi*.5)), 0,Builtin'Precision'Get());
 
 /* Jitse's bug report, extended with the changes that do not coerce integers to floats automatically 
@@ -356,7 +356,7 @@ Verify(ToBase(16,30),"1e");
 Verify(FromBase(16,"1e"),30);
 
 // numbers are too small because of wrong precision handling
-Builtin'Precision'Set(30);
+BuiltinPrecisionSet(30);
 Verify(0.00000000000000000005421010862 = 0, False);	// 2^(-64)
 Verify(0.00000000000000000005421010862 / 1 = 0, False);
 Verify(0.00000000000000000005421010862 / 2 = 0, False);

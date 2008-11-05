@@ -61,7 +61,7 @@ CharList(length,item):=
   line;
 ];
 
-CharField(width,height) := Array'Create(height,CharList(width," "));
+CharField(width,height) := ArrayCreate(height,CharList(width," "));
 
 WriteCharField(charfield):=
 [
@@ -82,7 +82,7 @@ ColumnFilled(charfield,column):=
   len:=Length(charfield);
   For(Set(i, 1),(result = False) And (i<=len),Set(i,AddN(i,1)))
   [
-    If(StringMid'Get(column,1,charfield[i]) != " ",result:=True);
+    If(StringMidGet(column,1,charfield[i]) != " ",result:=True);
   ];
   result;
 ];
@@ -110,7 +110,7 @@ WriteCharField(charfield,width):=
     len:=Length(charfield);
     For(Set(i, 1),i<=len,Set(i,AddN(i,1)))
     [
-      WriteString(StringMid'Get(pos,thiswidth,charfield[i]));
+      WriteString(StringMidGet(pos,thiswidth,charfield[i]));
       NewLine();
     ];
     Set(pos, AddN(pos, thiswidth));
@@ -123,21 +123,21 @@ WriteCharField(charfield,width):=
 
 PutString(charfield,x,y,string):=
 [
-  cf[y] := StringMid'Set(x,string,cf[y]);
+  cf[y] := StringMidSet(x,string,cf[y]);
   True;
 ];
 
 MakeOper(x,y,width,height,oper,args,base):=
 [
   Local(result);
-  Set(result,Array'Create(7,0));
-  Array'Set(result,1,x);
-  Array'Set(result,2,y);
-  Array'Set(result,3,width);
-  Array'Set(result,4,height);
-  Array'Set(result,5,oper);
-  Array'Set(result,6,args);
-  Array'Set(result,7,base);
+  Set(result,ArrayCreate(7,0));
+  ArraySet(result,1,x);
+  ArraySet(result,2,y);
+  ArraySet(result,3,width);
+  ArraySet(result,4,height);
+  ArraySet(result,5,oper);
+  ArraySet(result,6,args);
+  ArraySet(result,7,base);
   result;
 ];
 
@@ -362,10 +362,10 @@ Rule("RenderFormula",4,1,f[5] = "Atom" And f[6] = "(" And f[4] > 1)
   Set(y, AddN(y,f[2]));
   Set(height, SubtractN(f[4],1));
 
-  cf[y] := StringMid'Set(x, "/", cf[y]);
-  cf[AddN(y,height)] := StringMid'Set(x, "\\", cf[AddN(y,height)]);
+  cf[y] := StringMidSet(x, "/", cf[y]);
+  cf[AddN(y,height)] := StringMidSet(x, "\\", cf[AddN(y,height)]);
   For (Set(i,1),LessThan(i,height),Set(i,AddN(i,1)))
-    cf[AddN(y,i)] := StringMid'Set(x, "|", cf[AddN(y,i)]);
+    cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
 Rule("RenderFormula",4,1,f[5] = "Atom" And f[6] = ")" And f[4] > 1)
@@ -374,16 +374,16 @@ Rule("RenderFormula",4,1,f[5] = "Atom" And f[6] = ")" And f[4] > 1)
   Set(x, AddN(x,f[1]));
   Set(y, AddN(y,f[2]));
   Set(height, SubtractN(f[4],1));
-  cf[y] := StringMid'Set(x, "\\", cf[y]);
-  cf[y+height] := StringMid'Set(x, "/", cf[y+height]);
+  cf[y] := StringMidSet(x, "\\", cf[y]);
+  cf[y+height] := StringMidSet(x, "/", cf[y+height]);
   For (Set(i,1),LessThan(i,height),Set(i,AddN(i,1)))
-    cf[AddN(y,i)] := StringMid'Set(x, "|", cf[AddN(y,i)]);
+    cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
 Rule("RenderFormula",4,5,f[5] = "Atom")
 [
   cf[AddN(y, f[2]) ]:=
-    StringMid'Set(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);
+    StringMidSet(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);
 ];
 
 Rule("RenderFormula",4,6,True)

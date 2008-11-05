@@ -42,9 +42,9 @@ Internal'LnGammaNum(z) := [
 	/// Chosen to satisfy Spouge's error bound:
 	/// error < Sqrt(a)/Real(a+z)/(2*Pi)^(a+1/2)
 //	Echo({"parameter a = ", a, " setting precision to ", Ceil(prec*1.4)});
-	Builtin'Precision'Set(Ceil(prec*1.4));	// need more precision b/c of roundoff errors but don't know exactly how many digits
+	BuiltinPrecisionSet(Ceil(prec*1.4));	// need more precision b/c of roundoff errors but don't know exactly how many digits
 	result := Internal'LnGammaNum(z,a);
-	Builtin'Precision'Set(prec);
+	BuiltinPrecisionSet(prec);
 	result;
 ];
 
