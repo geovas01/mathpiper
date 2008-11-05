@@ -314,9 +314,9 @@ FloatIsInt(_x) <--
        Set(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
        Set(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
-     Builtin'Precision'Set(n+prec);
+     BuiltinPrecisionSet(n+prec);
      Set(result,IsZero(RoundTo(x-Floor(x),prec)) Or IsZero(RoundTo(x-Ceil(x),prec)));
-     Builtin'Precision'Set(prec);
+     BuiltinPrecisionSet(prec);
      result;
    ];
 //  

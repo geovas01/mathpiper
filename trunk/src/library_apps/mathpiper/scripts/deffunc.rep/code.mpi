@@ -183,7 +183,7 @@ Rule("AssignArray",3,1,
           )
     )
 [
-  Array'Set(setlistterm,setlistindex,setlistresult);
+  ArraySet(setlistterm,setlistindex,setlistresult);
 ];
 
 

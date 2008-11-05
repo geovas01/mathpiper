@@ -6,9 +6,9 @@
 [
   Local(oldPrec,result);
   oldPrec:=Builtin'Precision'Get();
-  Builtin'Precision'Set(prec);
+  BuiltinPrecisionSet(prec);
   Set(result,DivideN( Round( MultiplyN(x, 10^prec) ), 10^prec ));
-  Builtin'Precision'Set(oldPrec);
+  BuiltinPrecisionSet(oldPrec);
   result;
 ];
 // complex numbers too

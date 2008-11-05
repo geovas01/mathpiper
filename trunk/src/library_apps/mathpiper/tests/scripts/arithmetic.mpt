@@ -130,9 +130,9 @@ Verify(2.0000e3-1,1999.);
 [
   Local(p);
   p:=Builtin'Precision'Get();
-  Builtin'Precision'Set(12);//TODO this will fail if you drop precision to below 12, for some reason.
+  BuiltinPrecisionSet(12);//TODO this will fail if you drop precision to below 12, for some reason.
   NumericEqual(RoundTo(10e3*1.2e-3,Builtin'Precision'Get()),12.,Builtin'Precision'Get());
-  Builtin'Precision'Set(p);
+  BuiltinPrecisionSet(p);
 ];
 Verify((10e3*1.2e-4)-1.2,0);
 
@@ -143,7 +143,7 @@ Verify(IsZero(N(Sin(0.1e1)-Sin(1),30)),True);
    */
   Local(diff);
   diff := N(Sin(10e-1)-Sin(1),30);
-//Builtin'Precision'Set(20);
+//BuiltinPrecisionSet(20);
 //Echo("diff = ",diff);
 //Echo("diff > -0.00001 = ",diff > -0.00001);
 //Echo("diff < 0.00001 = ",diff < 0.00001);

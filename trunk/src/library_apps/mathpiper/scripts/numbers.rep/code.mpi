@@ -183,9 +183,9 @@ CheckIntPower(n, limit) :=
 	// find integer k such that 2^k <= n^(1/s) < 2^(k+1)
 	k := Div(IntLog(n, 2), s);
 	// therefore we need k*Ln(2)/Ln(10) digits for the floating-point calculation
-	Builtin'Precision'Set(2+Div(k*3361, 11165));	// 643/2136 < Ln(2)/Ln(10) < 3361/11165
+	BuiltinPrecisionSet(2+Div(k*3361, 11165));	// 643/2136 < Ln(2)/Ln(10) < 3361/11165
 	result := Round(ExpN(DivideN(Internal'LnNum(DivideN(n, 2^(k*s))), s))*2^k);
-	Builtin'Precision'Set(GlobalPop());
+	BuiltinPrecisionSet(GlobalPop());
 	// result is rounded and so it may overshoot (we do not use Floor above because numerical calculations may undershoot)
 	If(result^s>n, result-1, result);
 ];
@@ -494,7 +494,7 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 	// precision must be at least Pi/Ln(10)*Sqrt(2*n/3)-Ln(4*n*Sqrt(3))/Ln(10)
 	// here Pi/Ln(10) < 161/118, and Ln(4*Sqrt(3))/Ln(10) <1 so it is disregarded. Add 2 guard digits and compensate for round-off errors by not subtracting Ln(n)/Ln(10) now
 	prec := 2+Div(IntNthRoot(Div(2*n+2,3),2)*161+117,118);
-	Builtin'Precision'Set(prec);	// compensate for round-off errors
+	BuiltinPrecisionSet(prec);	// compensate for round-off errors
 	epsilon := PowerN(10,-prec)*n*10;	// stop when term < epsilon
 
 	// get the leading term approximation P0 - compute once at high precision
@@ -548,7 +548,7 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 //		Echo("result", new'result* P0);
 	];
 	result := result * P0;
-	Builtin'Precision'Set(GlobalPop());
+	BuiltinPrecisionSet(GlobalPop());
 	Round(result);
 ];
 
@@ -559,7 +559,7 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 		 Local(C,A,lambda,m,pa,k,h,term);
 	   GlobalPush(Builtin'Precision'Get());
 	   // this is an overshoot, but seems to work up to at least n=4096
-	   Builtin'Precision'Set(10 + Floor(N(Sqrt(n))) );
+	   BuiltinPrecisionSet(10 + Floor(N(Sqrt(n))) );
 	   pa:=0;
 		 C:=Pi*Sqrt(2/3)/k;
 		 lambda:=Sqrt(m - 1/24);
@@ -580,7 +580,7 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 //			   Echo("result", N(pa/(Pi*Sqrt(2))));
 	   ];
 	   pa:=N(pa/(Pi*Sqrt(2)));
-	   Builtin'Precision'Set(GlobalPop());
+	   BuiltinPrecisionSet(GlobalPop());
 	   Round(pa);
  ];
 
@@ -591,7 +591,7 @@ PartitionsP'recur(number_IsPositiveInteger) <--
 [
 	// need storage of n values PartitionsP(k) for k=1,...,n
 	Local(sign, cache, n, k, pentagonal, P);
-	cache:=Array'Create(number+1,1);	// cache[n] = PartitionsP(n-1)
+	cache:=ArrayCreate(number+1,1);	// cache[n] = PartitionsP(n-1)
 	n := 1;
 	While(n<number)	// this will never execute if number=1
 	[

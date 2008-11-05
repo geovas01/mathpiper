@@ -8,7 +8,7 @@
    visible when turning show file/line on.
 */
 
-Builtin'Precision'Set(5);
+BuiltinPrecisionSet(5);
 
 VerifyZero(x) := (Abs(x)<10^ -Builtin'Precision'Get());
 

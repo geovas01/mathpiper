@@ -16,7 +16,7 @@ Verify(ToString()Write(Plot2D(b,b= -1:1,output=data,points=4)), "{{{-1,-1},{-0.5
 
 
 // test NFunction
-Builtin'Precision'Set(10);
+BuiltinPrecisionSet(10);
 Retract("f",1);
 Retract("f1",1);
 f(x) := N(Abs(1/x-1));

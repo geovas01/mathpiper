@@ -501,7 +501,7 @@ public abstract class BuiltinFunction
                 "DivideN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new BuiltinPrecisionSet(), 1, Evaluator.Fixed | Evaluator.Function),
-                "Builtin'Precision'Set");
+                "BuiltinPrecisionSet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GetExactBits(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathGetExactBits");
@@ -636,16 +636,16 @@ public abstract class BuiltinFunction
                 "GenericTypeName");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GenArrayCreate(), 2, Evaluator.Fixed | Evaluator.Function),
-                "Array'Create");
+                "ArrayCreate");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GenArraySize(), 1, Evaluator.Fixed | Evaluator.Function),
-                "Array'Size");
+                "ArraySize");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GenArrayGet(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Array'Get");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GenArraySet(), 3, Evaluator.Fixed | Evaluator.Function),
-                "Array'Set");
+                "ArraySet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new CustomEval(), 4, Evaluator.Fixed | Evaluator.Macro),
                 "CustomEval");
@@ -678,10 +678,10 @@ public abstract class BuiltinFunction
                 "Type");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new StringMidGet(), 3, Evaluator.Fixed | Evaluator.Function),
-                "StringMid'Get");
+                "StringMidGet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new StringMidSet(), 3, Evaluator.Fixed | Evaluator.Function),
-                "StringMid'Set");
+                "StringMidSet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new GenPatternCreate(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Pattern'Create");
@@ -744,7 +744,7 @@ public abstract class BuiltinFunction
                 "PatchString");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new ExtraInfoSet(), 2, Evaluator.Fixed | Evaluator.Function),
-                "ExtraInfo'Set");
+                "ExtraInfoSet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new ExtraInfoGet(), 1, Evaluator.Fixed | Evaluator.Function),
                 "ExtraInfo'Get");

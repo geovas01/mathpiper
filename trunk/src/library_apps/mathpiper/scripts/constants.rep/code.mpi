@@ -116,10 +116,10 @@ CachedConstant(CacheOfConstantsN, Pi,
 	Local(result,old'prec);
   Set(old'prec,Builtin'Precision'Get());
 If(Equals(InVerboseMode(),True), Echo("Recalculating Pi at precision ",old'prec+5));
-	Builtin'Precision'Set(Builtin'Precision'Get()+5);
+	BuiltinPrecisionSet(Builtin'Precision'Get()+5);
 	result := MathPi();
 If(Equals(InVerboseMode(),True),Echo("Switching back to precision ",old'prec));
-	Builtin'Precision'Set(old'prec);
+	BuiltinPrecisionSet(old'prec);
 	result;
 ]
 );

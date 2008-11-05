@@ -113,12 +113,12 @@ NewtonLn(x) :=
 	n := Builtin'Precision'Get();	// decimal digits
 	// initial power of x
 	k := 1 + Div(IntLog(4*10^n, x), 2);	// now x^(2*k)>4*10^n
-	Builtin'Precision'Set(n+5);	// guard digits
+	BuiltinPrecisionSet(n+5);	// guard digits
 	eps := DivideN(1, 10^n);	// precision
 	y := PowerN(x, k);	// not yet divided by 4
 	// this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
 	y := DivideN(Internal'Pi()*y, (2*k)*AG'Mean(4, y, eps));
-	Builtin'Precision'Set(n);
+	BuiltinPrecisionSet(n);
 	RoundTo(y, n);	// do not return a more precise number than we really have
 ];
 
@@ -140,13 +140,13 @@ NewtonLn(x) :=
     // find how many binary digits we already have in x, and multiply by a sufficiently large power of 2 so that y=x*2^k is larger than 2*10^(n1/2)
     - IntLog(Floor(x), 2);
     // now we need k*Ln(2)/Ln(10) additional digits to compensate for cancellation at the final subtraction
-    Builtin'Precision'Set(n1+2+Div(k*3361, 11165));	// Ln(2)/Ln(10) < 3361/11165
+    BuiltinPrecisionSet(n1+2+Div(k*3361, 11165));	// Ln(2)/Ln(10) < 3361/11165
     eps := DivideN(1, 10^(n1+1));	// precision
     y := x*2^(k-2);	// divided already by 4
     // initial values for AGM
     // this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
     y:=Internal'Pi()*y/(2*AG'Mean(1,y,eps)) - k*Ln2();
-    Builtin'Precision'Set(n);
+    BuiltinPrecisionSet(n);
   ]);
 	y;	// do not return a more precise number than we really have
 ];

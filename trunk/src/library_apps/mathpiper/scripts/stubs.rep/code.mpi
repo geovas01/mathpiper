@@ -292,11 +292,11 @@ Rule("Object",2,0,Apply(pred,{x})=True) x;
          Set(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
          Set(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
-     If(n>prec,Builtin'Precision'Set(n));
+     If(n>prec,BuiltinPrecisionSet(n));
 //Echo("Before");
      Set(result,FloorN(x));
 //Echo("After");
-     Builtin'Precision'Set(prec);
+     BuiltinPrecisionSet(prec);
      result;
    ];
 
@@ -313,9 +313,9 @@ Rule("Object",2,0,Apply(pred,{x})=True) x;
        Set(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
        Set(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
-     If(n>prec,Builtin'Precision'Set(n));
+     If(n>prec,BuiltinPrecisionSet(n));
      Set(result,CeilN(x));
-     Builtin'Precision'Set(prec);
+     BuiltinPrecisionSet(prec);
      result;
    ];
 //   CeilN (N(x));
