@@ -18,7 +18,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
     [
       Set(jset,AddN(i,SubtractN(j,1)));
 //Echo("index = ",i+j-1);
-      ArraySet(result,jset,Array'Get(result,jset) + Array'Get(coefs1,i)*Array'Get(coefs2,j));
+      ArraySet(result,jset,ArrayGet(result,jset) + ArrayGet(coefs1,i)*ArrayGet(coefs2,j));
       Set(j,AddN(j,1));
     ];
     Set(i,AddN(i,1));
@@ -54,7 +54,7 @@ Bodied("Taylor3'TaylorCoefs",0);
      Set(add, Taylor3'TaylorCoefs(var,degree)(Y));
      For(i:=1,i<=degree+1,i++)
      [
-       ArraySet(result,i,Array'Get(result,i)+Array'Get(add,i));
+       ArraySet(result,i,ArrayGet(result,i)+ArrayGet(add,i));
      ];
      result;
    ];
@@ -67,7 +67,7 @@ Bodied("Taylor3'TaylorCoefs",0);
      Set(add, Taylor3'TaylorCoefs(var,degree)(Y));
      For(i:=1,i<=degree+1,i++)
      [
-       ArraySet(result,i,Array'Get(result,i)-Array'Get(add,i));
+       ArraySet(result,i,ArrayGet(result,i)-ArrayGet(add,i));
      ];
      result;
    ];
@@ -79,7 +79,7 @@ Bodied("Taylor3'TaylorCoefs",0);
      Set(result,Taylor3'TaylorCoefs(var,degree)(Y));
      For(i:=1,i<=degree+1,i++)
      [
-       ArraySet(result,i,-Array'Get(result,i));
+       ArraySet(result,i,-ArrayGet(result,i));
      ];
      result;
    ];
@@ -167,7 +167,7 @@ Taylor3'FuncCoefs(_fname,_degree) <--
 //Echo("sins = ",sins);
   expr:=Taylor3'TaylorCoefs(var,degree)expr;
   result:=ArrayCreate(degree+1,0);
-  ArraySet(result,1, Array'Get(sins,1));
+  ArraySet(result,1, ArrayGet(sins,1));
   xx:=expr;
 //Echo("8...",sins,expr);
   For (i:=2,i<=degree+1,i++)
@@ -176,7 +176,7 @@ Taylor3'FuncCoefs(_fname,_degree) <--
 //Echo("8.1..",i," ",j);
     For (j:=1,j<=degree+1,j++)
     [
-      ArraySet(result,j,Array'Get(result,j) + (Array'Get(xx,j) * sinfact));
+      ArraySet(result,j,ArrayGet(result,j) + (ArrayGet(xx,j) * sinfact));
     ];    
 //Echo("8.2..");
     Set(xx,Taylor3'MultiplyCoefs(xx,expr,degree));    
