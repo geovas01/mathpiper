@@ -29,7 +29,7 @@
 	// use Horner scheme to prevent loss of precision
 	While(k>1) [	// 'result' will accumulate just the sum for now
 		k:=k-1;
-		result := N( MathPower(a-k,k)/((z+k)*Sqrt(a-k))-result/(e*k) );
+		result := N( PowerN(a-k,k)/((z+k)*Sqrt(a-k))-result/(e*k) );
 	];
 	N(Ln(1+Exp(a-1)/Sqrt(2*Pi)*result) + Ln(2*Pi)/2 -a-z+(z+1/2)*Ln(z+a) - Ln(z));
 ];

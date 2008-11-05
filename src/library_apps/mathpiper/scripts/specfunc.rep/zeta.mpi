@@ -29,8 +29,8 @@ Internal'ZetaNum1(s, limit) := [
 	If (InVerboseMode(), Echo({"Internal'ZetaNum: direct method (sum), precision ", Builtin'Precision'Get(), ", N = ", limit}));
 	sum := 0;
 	limit := Ceil(N(limit));
-	For(i:=2, i<=limit, i++) sum := sum+N(1/MathPower(i, s));
-//	sum := sum + ( N( 1/MathPower(limit, s-1)) + N(1/MathPower(limit+1, s-1)) )/2/(s-1); 	 // these extra terms don't seem to help much
+	For(i:=2, i<=limit, i++) sum := sum+N(1/PowerN(i, s));
+//	sum := sum + ( N( 1/PowerN(limit, s-1)) + N(1/PowerN(limit+1, s-1)) )/2/(s-1); 	 // these extra terms don't seem to help much
 	sum+1;	// add small terms together and then add 1
 ];
 /// direct method -- using infinite product. For internal math, Internal'ZetaNum2 is faster for Bernoulli numbers > 250 or so.
@@ -38,10 +38,10 @@ Internal'ZetaNum2(s, limit) :=
 [
 	Local(i, prod);
 	If (InVerboseMode(), Echo({"Internal'ZetaNum: direct method (product), precision ", Builtin'Precision'Get(), ", N = ", limit}));
-	prod := N( (1-1/MathPower(2, s))*(1-1/MathPower(3,s)) );
+	prod := N( (1-1/PowerN(2, s))*(1-1/PowerN(3,s)) );
 	limit := Ceil(N(limit));
 	For(i:=5, i<=limit, i:= NextPrime(i))
-		prod := prod*N(1-1/MathPower(i, s));
+		prod := prod*N(1-1/PowerN(i, s));
 	1/prod;
 ];
 

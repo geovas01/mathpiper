@@ -436,10 +436,10 @@ Verify((Limit(x,Infinity) Zeta(x)), 1);
 Verify((Limit(x,Infinity) (x!)), Infinity);
 
 /* Bug #15 */
-Verify(MathPower(0,0.55), 0);
-// MathLog(-1) locks up in gmpnumbers.cpp, will be fixed in scripts
+Verify(PowerN(0,0.55), 0);
+// LogN(-1) locks up in gmpnumbers.cpp, will be fixed in scripts
 //FIXME this test should be uncommented eventually
-// Verify(TrapError(MathPower(-1,-0.5), error), error);
+// Verify(TrapError(PowerN(-1,-0.5), error), error);
 
 /* Bug #16 */
 /* Can't test, bug in build system */
@@ -475,8 +475,8 @@ NumericEqual(N(Sqrt(0.5),20),N(Sqrt(N(1/2)),20),20);
 // The last digit is suddenly rounded down (it used to be 4, correctly, and then gets rounded down to 3).
 KnownFailure(RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0);
 
-// MathLog used to hang on *all* input
-Verify(MathLog(2)!=0,True);
+// LogN used to hang on *all* input
+Verify(LogN(2)!=0,True);
 
 // Bug that was introduced when going to the new numeric setup where
 // numbers were not converted to strings any more. In the situation
@@ -490,7 +490,7 @@ Verify(MathLog(2)!=0,True);
   n:=m;
   m:=nkeep - m*Round(nkeep/m);
   lcl:=Re(N(n/m))+0.5;
-  Verify(MathFloor(lcl),-3);
+  Verify(FloorN(lcl),-3);
 ];
 
 

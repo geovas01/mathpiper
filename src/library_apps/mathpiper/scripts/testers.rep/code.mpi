@@ -7,7 +7,7 @@
   Local(oldPrec,result);
   oldPrec:=Builtin'Precision'Get();
   Builtin'Precision'Set(prec);
-  Set(result,MathDivide( Round( MathMultiply(x, 10^prec) ), 10^prec ));
+  Set(result,DivideN( Round( MultiplyN(x, 10^prec) ), 10^prec ));
   Builtin'Precision'Set(oldPrec);
   result;
 ];
@@ -180,7 +180,7 @@ RandVerifyArithmetic(_n)<--
  While(n>0)
  [
    n--;
-   VerifyArithmetic(MathFloor(300*Random()),MathFloor(80*Random()),MathFloor(90*Random()));
+   VerifyArithmetic(FloorN(300*Random()),FloorN(80*Random()),FloorN(90*Random()));
  ];
 ];
 

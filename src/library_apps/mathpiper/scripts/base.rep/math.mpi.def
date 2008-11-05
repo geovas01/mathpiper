@@ -1,9 +1,9 @@
-MathSin
-MathCos
-MathTan
-MathArcSin
-MathExp
-MathPower
+SinN
+CosN
+TanN
+ArcSinN
+ExpN
+PowerN
 MathPi
 MathMul2Exp
 }

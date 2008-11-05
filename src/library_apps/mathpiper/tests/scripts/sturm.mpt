@@ -18,7 +18,7 @@ TryRandomPoly(deg,coefmin,coefmax):=
 [
   //GarbageCollect();
   Local(coefs,p,roots,px);
-  coefs:=Table(MathFloor(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1);
+  coefs:=Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1);
   p:=Add(coefs*x^(0 .. deg));
   p:=Rationalize(p);
 //Echo("Test polynom ",p);
@@ -34,9 +34,9 @@ TryRandomRoots(deg,coefmin,coefmax):=
 [
   //GarbageCollect();
   Local(coefs,p,roots,px,mult);
-  coefs:=RemoveDuplicates(Table(MathFloor(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
+  coefs:=RemoveDuplicates(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
   deg:=Length(coefs)-1;
-  mult:=1+Abs(Table(MathFloor(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
+  mult:=1+Abs(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
   p:=Factorize((x-coefs)^mult);
   p:=Rationalize(p);
 Echo("Test polynom ",p);

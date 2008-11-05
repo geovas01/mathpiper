@@ -56,7 +56,7 @@ CharList(length,item):=
 [
   Local(line,i);
   line:="";
-  For(Set(i,0),LessThan(i,length),Set(i,MathAdd(i,1)))
+  For(Set(i,0),LessThan(i,length),Set(i,AddN(i,1)))
     Set(line, line:item);
   line;
 ];
@@ -67,7 +67,7 @@ WriteCharField(charfield):=
 [
   Local(i,len);
   len:=Length(charfield);
-  For(Set(i,1),i<=len,Set(i,MathAdd(i,1)))
+  For(Set(i,1),i<=len,Set(i,AddN(i,1)))
   [
     WriteString(charfield[i]);
     NewLine();
@@ -80,7 +80,7 @@ ColumnFilled(charfield,column):=
   Local(i,result,len);
   result:=False;
   len:=Length(charfield);
-  For(Set(i, 1),(result = False) And (i<=len),Set(i,MathAdd(i,1)))
+  For(Set(i, 1),(result = False) And (i<=len),Set(i,AddN(i,1)))
   [
     If(StringMid'Get(column,1,charfield[i]) != " ",result:=True);
   ];
@@ -97,23 +97,23 @@ WriteCharField(charfield,width):=
     Set(thiswidth, width);
     If(thiswidth>(length-pos)+1,
       [
-        Set(thiswidth, MathAdd(MathSubtract(length,pos),1));
+        Set(thiswidth, AddN(SubtractN(length,pos),1));
       ],
       [
         While (thiswidth>1 And ColumnFilled(charfield,pos+thiswidth-1))
         [
-          Set(thiswidth,MathSubtract(thiswidth,1));
+          Set(thiswidth,SubtractN(thiswidth,1));
         ];
         If(thiswidth = 1, Set(thiswidth, width));
       ]
     );
     len:=Length(charfield);
-    For(Set(i, 1),i<=len,Set(i,MathAdd(i,1)))
+    For(Set(i, 1),i<=len,Set(i,AddN(i,1)))
     [
       WriteString(StringMid'Get(pos,thiswidth,charfield[i]));
       NewLine();
     ];
-    Set(pos, MathAdd(pos, thiswidth));
+    Set(pos, AddN(pos, thiswidth));
     NewLine();
   ];
   True;
@@ -144,17 +144,17 @@ MakeOper(x,y,width,height,oper,args,base):=
 
 MoveOper(f,x,y):=
 [
-  f[1]:=MathAdd(f[1], x); /* move x */
-  f[2]:=MathAdd(f[2], y); /* move y */
-  f[7]:=MathAdd(f[7], y); /* move base */
+  f[1]:=AddN(f[1], x); /* move x */
+  f[2]:=AddN(f[2], y); /* move y */
+  f[7]:=AddN(f[7], y); /* move base */
 ];
 
 AlignBase(i1,i2):=
 [
   Local(base);
   Set(base, Max(i1[7],i2[7]));
-  MoveOper(i1,0,MathSubtract(base,(i1[7])));
-  MoveOper(i2,0,MathSubtract(base,(i2[7])));
+  MoveOper(i1,0,SubtractN(base,(i1[7])));
+  MoveOper(i2,0,SubtractN(base,(i2[7])));
 ];
 
 10 # BuildArgs({}) <-- Formula(Atom(" "));
@@ -166,11 +166,11 @@ AlignBase(i1,i2):=
         Set(item2, any[2]);
         Set(comma, Formula(Atom(",")));
         Set(base, Max(item1[7],item2[7]));
-        MoveOper(item1,0,MathSubtract(base,(item1[7])));
-        MoveOper(comma,MathAdd(item1[3],1),base);
+        MoveOper(item1,0,SubtractN(base,(item1[7])));
+        MoveOper(comma,AddN(item1[3],1),base);
 
-        MoveOper(item2,comma[1]+comma[3]+1,MathSubtract(base,(item2[7])));
-        Set(newitem, MakeOper(0,0,MathAdd(item2[1],item2[3]),Max(item1[4],item2[4]),"Func",{item1,comma,item2},base));
+        MoveOper(item2,comma[1]+comma[3]+1,SubtractN(base,(item2[7])));
+        Set(newitem, MakeOper(0,0,AddN(item2[1],item2[3]),Max(item1[4],item2[4]),"Func",{item1,comma,item2},base));
         BuildArgs(newitem:Tail(Tail(any)));
       ];
 
@@ -202,7 +202,7 @@ FormulaBracket(f):=
   Set(r, BracketOn(Formula(yy),yy,OpRightPrecedence("^")));
   MoveOper(l,0,r[4]);
   MoveOper(r,l[3],0);
-  MakeOper(0,0,MathAdd(l[3],r[3]),MathAdd(l[4],r[4]),"Func",{l,r},l[2]+l[4]-1);
+  MakeOper(0,0,AddN(l[3],r[3]),AddN(l[4],r[4]),"Func",{l,r},l[2]+l[4]-1);
 ];
 
 
@@ -239,7 +239,7 @@ FormulaBracket(f):=
 
     If(made[3] > width,Set(width,made[3]));
     MoveOper(made,0,height);
-    Set(height,MathAdd(height,MathAdd(made[4],1)));
+    Set(height,AddN(height,AddN(made[4],1)));
     DestructiveAppend(sub,made);
   ];
 
@@ -296,9 +296,9 @@ FormulaBracket(f):=
   Set(width, Max(l[3],r[3]));
   Set(dash, Formula(Atom(CharList(width,"-"))));
   MoveOper(dash,0,l[4]);
-  MoveOper(l,(MathSubtract(width,l[3])>>1),0);
-  MoveOper(r,(MathSubtract(width,r[3])>>1),MathAdd(dash[2], dash[4]));
-  MakeOper(0,0,width,MathAdd(r[2], r[4]),"Func",{l,r,dash},dash[2]);
+  MoveOper(l,(SubtractN(width,l[3])>>1),0);
+  MoveOper(r,(SubtractN(width,r[3])>>1),AddN(dash[2], dash[4]));
+  MakeOper(0,0,width,AddN(r[2], r[4]),"Func",{l,r,dash},dash[2]);
 ];
 
 RuleBase("BracketOn",{op,f,prec});
@@ -323,12 +323,12 @@ Rule("BracketOn",3,2,True)
 
   Set(oper, Formula(f[0]));
   Set(base, Max(l[7],r[7]));
-  MoveOper(oper,MathAdd(l[3],1),MathSubtract(base,(oper[7])));
-  MoveOper(r,oper[1] + oper[3]+1,MathSubtract(base,(r[7])));
-  MoveOper(l,0,MathSubtract(base,(l[7])));
-  Set(height, Max(MathAdd(l[2], l[4]),MathAdd(r[2], r[4])));
+  MoveOper(oper,AddN(l[3],1),SubtractN(base,(oper[7])));
+  MoveOper(r,oper[1] + oper[3]+1,SubtractN(base,(r[7])));
+  MoveOper(l,0,SubtractN(base,(l[7])));
+  Set(height, Max(AddN(l[2], l[4]),AddN(r[2], r[4])));
 
-  MakeOper(0,0,MathAdd(r[1], r[3]),height,"Func",{l,r,oper},base);
+  MakeOper(0,0,AddN(r[1], r[3]),height,"Func",{l,r,oper},base);
 ];
 
 11 # Formula(f_IsFunction) <--
@@ -358,39 +358,39 @@ RuleBase("RenderFormula",{cf,f,x,y});
 Rule("RenderFormula",4,1,f[5] = "Atom" And f[6] = "(" And f[4] > 1)
 [
   Local(height,i);
-  Set(x, MathAdd(x,f[1]));
-  Set(y, MathAdd(y,f[2]));
-  Set(height, MathSubtract(f[4],1));
+  Set(x, AddN(x,f[1]));
+  Set(y, AddN(y,f[2]));
+  Set(height, SubtractN(f[4],1));
 
   cf[y] := StringMid'Set(x, "/", cf[y]);
-  cf[MathAdd(y,height)] := StringMid'Set(x, "\\", cf[MathAdd(y,height)]);
-  For (Set(i,1),LessThan(i,height),Set(i,MathAdd(i,1)))
-    cf[MathAdd(y,i)] := StringMid'Set(x, "|", cf[MathAdd(y,i)]);
+  cf[AddN(y,height)] := StringMid'Set(x, "\\", cf[AddN(y,height)]);
+  For (Set(i,1),LessThan(i,height),Set(i,AddN(i,1)))
+    cf[AddN(y,i)] := StringMid'Set(x, "|", cf[AddN(y,i)]);
 ];
 
 Rule("RenderFormula",4,1,f[5] = "Atom" And f[6] = ")" And f[4] > 1)
 [
   Local(height,i);
-  Set(x, MathAdd(x,f[1]));
-  Set(y, MathAdd(y,f[2]));
-  Set(height, MathSubtract(f[4],1));
+  Set(x, AddN(x,f[1]));
+  Set(y, AddN(y,f[2]));
+  Set(height, SubtractN(f[4],1));
   cf[y] := StringMid'Set(x, "\\", cf[y]);
   cf[y+height] := StringMid'Set(x, "/", cf[y+height]);
-  For (Set(i,1),LessThan(i,height),Set(i,MathAdd(i,1)))
-    cf[MathAdd(y,i)] := StringMid'Set(x, "|", cf[MathAdd(y,i)]);
+  For (Set(i,1),LessThan(i,height),Set(i,AddN(i,1)))
+    cf[AddN(y,i)] := StringMid'Set(x, "|", cf[AddN(y,i)]);
 ];
 
 Rule("RenderFormula",4,5,f[5] = "Atom")
 [
-  cf[MathAdd(y, f[2]) ]:=
-    StringMid'Set(MathAdd(x,f[1]),f[6],cf[MathAdd(y, f[2]) ]);
+  cf[AddN(y, f[2]) ]:=
+    StringMid'Set(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);
 ];
 
 Rule("RenderFormula",4,6,True)
 [
   ForEach(item,f[6])
   [
-    RenderFormula(cf,item,MathAdd(x, f[1]),MathAdd(y, f[2]));
+    RenderFormula(cf,item,AddN(x, f[1]),AddN(y, f[2]));
   ];
 ];
 

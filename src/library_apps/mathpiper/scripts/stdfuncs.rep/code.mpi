@@ -67,7 +67,7 @@
 400 # Cos(x_IsRationalOrNumber) <-- 
     [
      Local(ll);
-     ll:= MathFloor(N(Eval(x/Pi)));
+     ll:= FloorN(N(Eval(x/Pi)));
      If(IsEven(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
      UnList({Cos,x});
      ];
@@ -75,7 +75,7 @@
 400 # Cos(x_IsRationalOrNumber) <-- 
     [
      Local(ll);
-     ll:= MathFloor(N(Eval(Abs(x)/Pi)));
+     ll:= FloorN(N(Eval(Abs(x)/Pi)));
      If(IsEven(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
      UnList({Cos,x});
      ];
@@ -145,7 +145,7 @@
 
 3 # Ln(Complex(_r,_i)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));
 4 # Ln(x_IsNegativeNumber) <-- Complex(Ln(-x), Pi);
-5 # Ln(x_IsNumber)_(InNumericMode() And x<1) <-- - Internal'LnNum(MathDivide(1, x));
+5 # Ln(x_IsNumber)_(InNumericMode() And x<1) <-- - Internal'LnNum(DivideN(1, x));
 
 
 2 # ArcSin(x_IsNumber)_(InNumericMode() And Abs(x)<=1) <-- ArcSinNum(x);

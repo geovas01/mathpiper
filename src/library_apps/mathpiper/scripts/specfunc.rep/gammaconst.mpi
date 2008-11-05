@@ -26,7 +26,7 @@ GammaConstNum() :=
      V:=V+B;
     ];
     If(InVerboseMode(), Echo("GammaConstNum: Info: used", k, "iterations at working precision", Builtin'Precision'Get()));
-    result:=MathDivide(U,V);	// N(U/V)
+    result:=DivideN(U,V);	// N(U/V)
   ]);
   Builtin'Precision'Set(prec);	// restore precision
   RoundTo(result, prec);	// return correctly rounded result

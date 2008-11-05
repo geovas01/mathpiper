@@ -50,21 +50,21 @@ Function("NthRoot'Calc",{m,n})
 //Echo("i j ",i," ",j);
    While(LessThan(i,j))
    [
-      Set(in,MathPower(i,n));
-//Echo("r in mod ",r, " ",in," ",MathMod(r,in));
-      While(Equals(MathMod(r,in),0))
+      Set(in,PowerN(i,n));
+//Echo("r in mod ",r, " ",in," ",ModN(r,in));
+      While(Equals(ModN(r,in),0))
       [
-	 Set(f,MathMultiply(f,i));
-	 Set(r,MathDiv(r,in));
+	 Set(f,MultiplyN(f,i));
+	 Set(r,DivN(r,in));
       ];
-      While(Equals(MathMod(r,i),0))   //
-	 Set(r,MathDiv(r,i));         //
+      While(Equals(ModN(r,i),0))   //
+	 Set(r,DivN(r,i));         //
       //Set(i,NextPrime(i));
       Set(i,NextPseudoPrime(i));
       Set(j,Ceil(FastPower(r,N(1.0/n))+1));
    ];
    //List(f,r);
-   List(f,MathDiv(m,MathPower(f,n))); //
+   List(f,DivN(m,PowerN(f,n))); //
 ];
 
 // lookup table utilities

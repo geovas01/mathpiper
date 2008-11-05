@@ -2,8 +2,8 @@
 
 // these examples are taken from the refman
 
-Verify(IntPowerNum(3*10^100, 0, MathMultiply,1), 1);
-Verify(IntPowerNum(3, 3, MathMultiply,1), 27);
+Verify(IntPowerNum(3*10^100, 0, MultiplyN,1), 1);
+Verify(IntPowerNum(3, 3, MultiplyN,1), 27);
 Verify(IntPowerNum(HilbertMatrix(2), 4, *,  Identity(2)), {{289/144,29/27},{29/27,745/1296}});
 
 Verify(IntPowerNum(3,100,{{x,y},Mod(x*y,7)},1), 4);

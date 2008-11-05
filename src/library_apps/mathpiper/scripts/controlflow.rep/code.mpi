@@ -55,7 +55,7 @@ LocalSymbols(index,nr)
     [
       Set(@i,(@A)[index]);
       @B;
-      Set(index,MathAdd(index,1));
+      Set(index,AddN(index,1));
     ];
   ];
 ];
@@ -91,7 +91,7 @@ LocalSymbols(i,nr)
     [
       MacroSet(item,list[i]);
       Eval(body);
-      Set(i,MathAdd(i,1));
+      Set(i,AddN(i,1));
     ];
   ];
 ];

@@ -20,8 +20,8 @@ Queens(n_IsPositiveInteger) <--
 
 
 /* IsOnDiagonal determines if two queens are on a diagonal */
-10 # IsOnDiagonal({_x1,_y1},{_x2,_y2})_(MathSubtract(x1,x2) = MathSubtract(y1,y2)) <-- True;
-20 # IsOnDiagonal({_x1,_y1},{_x2,_y2})_(MathSubtract(x1,x2) = MathSubtract(y2,y1)) <-- True;
+10 # IsOnDiagonal({_x1,_y1},{_x2,_y2})_(SubtractN(x1,x2) = SubtractN(y1,y2)) <-- True;
+20 # IsOnDiagonal({_x1,_y1},{_x2,_y2})_(SubtractN(x1,x2) = SubtractN(y2,y1)) <-- True;
 30 # IsOnDiagonal(_n,_m)                               <-- False;
 
 /* QueenCollides determines if a new queen to be positioned on n collides
@@ -46,7 +46,7 @@ Queens(n_IsPositiveInteger) <--
 TryAddQueen(_n,_element,_try,_use,_result)_
             Not(QueenCollides(element,try)) <--
 [
-  Queens(MathSubtract(n,1),element:try,use,result);
+  Queens(SubtractN(n,1),element:try,use,result);
 ];
 
 
@@ -66,7 +66,7 @@ TryAddQueen(_n,_element,_try,_use,_result)_
     DestructiveDelete(nextuse,i);
     TryAddQueen(n, {n,Head(tailuse)}, try, nextuse, result );
     Set(tailuse,Tail(tailuse));
-    Set(i, MathAdd(i,1));
+    Set(i, AddN(i,1));
   ];
 ];
 

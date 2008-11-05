@@ -149,7 +149,7 @@ small prime factors.
 This problem could also be circumvented by trying a different random initial value for x when a loop is encountered -- hopefully another initial value will not get into a loop. (currently this is not implemented)
 */
 
-RandomInteger(n) := MathFloor(Random()*n);
+RandomInteger(n) := FloorN(Random()*n);
 /// Polynomial for the Pollard Rho iteration
 PollardRhoPolynomial(_x) <-- x^2+1;
 

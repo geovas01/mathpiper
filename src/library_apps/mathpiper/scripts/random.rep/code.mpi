@@ -170,7 +170,7 @@ GaussianRNGDist(_rng) <--
 		b:=2*rnumber-1;
 		m:=a*a+b*b;	
 	];
-	{new'state, (a+I*b)*MathSqrt(-2*MathDivide(Internal'LnNum(m),m))};
+	{new'state, (a+I*b)*SqrtN(-2*DivideN(Internal'LnNum(m),m))};
 ];
 
 
@@ -210,8 +210,8 @@ LCG'4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);
 // state is a list with one element
 RandomLCG(_state, _im, _ia, _ic) <--
 {
-	DestructiveReplace(state,1, MathMod(state[1]*ia+ic,im)),
-	MathDivide(state[1], im)	// division should never give 1
+	DestructiveReplace(state,1, ModN(state[1]*ia+ic,im)),
+	DivideN(state[1], im)	// division should never give 1
 };
 
 /// Advanced RNG engine due to L'Ecuyer et al.
@@ -248,7 +248,7 @@ RNGEngine'L'Ecuyer(state_IsList) <--
 	result:=Mod(state[1]-state[4], 4294967087);
 	{
 		new'state,
-		MathDivide(If(result=0, 4294967087, result), 4294967088)
+		DivideN(If(result=0, 4294967087, result), 4294967088)
 	};
 ];
 
@@ -271,8 +271,8 @@ LocalSymbols(RandSeed) [
   /// Linear congruential generator
   RandomLCG(_im, _ia, _ic) <--
   [
-    RandSeed:=MathMod(RandSeed*ia+ic,im);
-    MathDivide(RandSeed,im);	// should never give 1
+    RandSeed:=ModN(RandSeed*ia+ic,im);
+    DivideN(RandSeed,im);	// should never give 1
   ];
 ]; // LocalSymbols(RandSeed)
 

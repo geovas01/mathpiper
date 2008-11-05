@@ -142,7 +142,7 @@ UnFence("V",1);
 
 Function("++",{aVar})
 [
-   MacroSet(aVar,MathAdd(Eval(aVar),1));
+   MacroSet(aVar,AddN(Eval(aVar),1));
 ];
 UnFence("++",1);
 HoldArg("++",aVar);
@@ -150,7 +150,7 @@ HoldArg("++",aVar);
 
 Function("--",{aVar})
 [
-   MacroSet(aVar,MathSubtract(Eval(aVar),1));
+   MacroSet(aVar,SubtractN(Eval(aVar),1));
 ];
 UnFence("--",1);
 HoldArg("--",aVar);

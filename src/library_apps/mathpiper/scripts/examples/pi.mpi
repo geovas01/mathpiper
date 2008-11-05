@@ -17,12 +17,12 @@ PiMethod0() := [
 		curprec := Min(prec1, curprec * 3);
 		Builtin'Precision'Set(curprec);
 		Echo({"Iteration ", k, " setting precision to ", curprec});
-		result := Time(MathAdd(result, MathSin(result)));
+		result := Time(AddN(result, SinN(result)));
 	];
 	// last iteration -- do by hand
 	Builtin'Precision'Set(prec);	// restore full precision
 	Echo("Iteration ", k, " setting precision to ", Builtin'Precision'Get());
-	result := Time(MathAdd(result, MathSin(result)));
+	result := Time(AddN(result, SinN(result)));
 	Echo({"variable precision Newton's method: ", k, "iterations"}); 
 	result;
 ];
@@ -50,7 +50,7 @@ PiMethod1() := [
       curprec := Min(Ceil((prec/3)), curprec * 9);
       Builtin'Precision'Set(curprec);
       Echo("Iteration ", k, " setting precision to ", Builtin'Precision'Get());
-      delta := MathSin(result);
+      delta := SinN(result);
       deltasq := (delta*delta);
       result := Time(result + delta*(1 + deltasq*(1/6 + deltasq*(3/40 + deltasq*5/112))));
     ];
@@ -58,7 +58,7 @@ PiMethod1() := [
     Builtin'Precision'Set(prec);
     k := k+1;
     Echo("Iteration ", k, " setting precision to ", Builtin'Precision'Get());
-    result := Time(MathAdd(result, MathSin(result)));
+    result := Time(AddN(result, SinN(result)));
     Echo({"8th order Newton's method: ", k, "iterations"}); 
   ]);
 	result;
@@ -162,12 +162,12 @@ PiMethod3() :=
       curprec := Min(prec, curprec * order-2);	// 2 guard digits
       Builtin'Precision'Set(curprec+2);
       Echo("Iteration ", k, " setting precision to ", Builtin'Precision'Get());
-  //		Echo("old result=", MathCos(result));
+  //		Echo("old result=", CosN(result));
       Time([
-      delta := MathCos(result);
+      delta := CosN(result);
       ]);
       Time([
-      deltasq := MathMultiply(delta,delta);
+      deltasq := MultiplyN(delta,delta);
       ]);
       result := Time(result + delta*(1 + deltasq*(1/6 + deltasq*(3/40 + deltasq*(5/112 + deltasq*(35/1152 + (deltasq*63)/2816))))));
     ];

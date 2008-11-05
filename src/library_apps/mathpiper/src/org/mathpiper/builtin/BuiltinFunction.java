@@ -438,19 +438,19 @@ public abstract class BuiltinFunction
                 "Retract");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Not(), 1, Evaluator.Fixed | Evaluator.Function),
-                "MathNot");
+                "NotN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Not(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Not");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new LazyAnd(), 1, Evaluator.Variable | Evaluator.Macro),
-                "MathAnd");
+                "AndN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new LazyAnd(), 1, Evaluator.Variable | Evaluator.Macro),
                 "And");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new LazyOr(), 1, Evaluator.Variable | Evaluator.Macro),
-                "MathOr");
+                "OrN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new LazyOr(), 1, Evaluator.Variable | Evaluator.Macro),
                 "Or");
@@ -489,16 +489,16 @@ public abstract class BuiltinFunction
                 "IsBound");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Multiply(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathMultiply");
+                "MultiplyN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Add(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathAdd");
+                "AddN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Subtract(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathSubtract");
+                "SubtractN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Divide(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathDivide");
+                "DivideN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new BuiltinPrecisionSet(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Builtin'Precision'Set");
@@ -507,7 +507,7 @@ public abstract class BuiltinFunction
                 "MathGetExactBits");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new SetExactBits(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathSetExactBits");
+                "SetExactBitsN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new BitCount(), 1, Evaluator.Fixed | Evaluator.Function),
                 "MathBitCount");
@@ -522,19 +522,19 @@ public abstract class BuiltinFunction
                 "MathNegate");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Floor(), 1, Evaluator.Fixed | Evaluator.Function),
-                "MathFloor");
+                "FloorN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Ceil(), 1, Evaluator.Fixed | Evaluator.Function),
-                "MathCeil");
+                "CeilN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Abs(), 1, Evaluator.Fixed | Evaluator.Function),
-                "MathAbs");
+                "AbsN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Mod(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathMod");
+                "ModN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Div(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathDiv");
+                "DivN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new BitsToDigits(), 2, Evaluator.Fixed | Evaluator.Function),
                 "BitsToDigits");
@@ -543,7 +543,7 @@ public abstract class BuiltinFunction
                 "DigitsToBits");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Gcd(), 2, Evaluator.Fixed | Evaluator.Function),
-                "MathGcd");
+                "GcdN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new SystemCall(), 1, Evaluator.Fixed | Evaluator.Function),
                 "SystemCall");

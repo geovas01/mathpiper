@@ -175,7 +175,7 @@ CheckIntPower(n, limit) :=
 
 /// Compute integer part of s-th root of (positive) integer n.
 // algorithm using floating-point math
-10 # IntNthRoot(_n, 2) <-- Floor(MathSqrt(n));
+10 # IntNthRoot(_n, 2) <-- Floor(SqrtN(n));
 20 # IntNthRoot(_n, s_IsInteger) <--
 [
 	Local(result, k);
@@ -184,7 +184,7 @@ CheckIntPower(n, limit) :=
 	k := Div(IntLog(n, 2), s);
 	// therefore we need k*Ln(2)/Ln(10) digits for the floating-point calculation
 	Builtin'Precision'Set(2+Div(k*3361, 11165));	// 643/2136 < Ln(2)/Ln(10) < 3361/11165
-	result := Round(MathExp(MathDivide(Internal'LnNum(MathDivide(n, 2^(k*s))), s))*2^k);
+	result := Round(ExpN(DivideN(Internal'LnNum(DivideN(n, 2^(k*s))), s))*2^k);
 	Builtin'Precision'Set(GlobalPop());
 	// result is rounded and so it may overshoot (we do not use Floor above because numerical calculations may undershoot)
 	If(result^s>n, result-1, result);
@@ -495,14 +495,14 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 	// here Pi/Ln(10) < 161/118, and Ln(4*Sqrt(3))/Ln(10) <1 so it is disregarded. Add 2 guard digits and compensate for round-off errors by not subtracting Ln(n)/Ln(10) now
 	prec := 2+Div(IntNthRoot(Div(2*n+2,3),2)*161+117,118);
 	Builtin'Precision'Set(prec);	// compensate for round-off errors
-	epsilon := MathPower(10,-prec)*n*10;	// stop when term < epsilon
+	epsilon := PowerN(10,-prec)*n*10;	// stop when term < epsilon
 
 	// get the leading term approximation P0 - compute once at high precision
 	lambda := N(Sqrt(n - 1/24));
 	mu := N(Pi*lambda*Sqrt(2/3));
-	// the hoops with MathDivide are needed to avoid roundoff error at large n due to fixed precision:
+	// the hoops with DivideN are needed to avoid roundoff error at large n due to fixed precision:
 	// Exp(mu)/(n) must be computed by dividing by n, not by multiplying by 1/n
-	P0 := N(1-1/mu)*MathDivide(MathExp(mu),(n-MathDivide(1,24))*4*MathSqrt(3));
+	P0 := N(1-1/mu)*DivideN(ExpN(mu),(n-DivideN(1,24))*4*SqrtN(3));
 	/*
 	the series is now equal to
 	P0*Sum(k,1,Infinity,
@@ -566,7 +566,7 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 	   term:=1;
 	   // this is a heuristic, because the next term error is expensive
 	   // to calculate and the theoretic bounds have arbitrary constants
-	   For(k:=1,k<=5+Floor(MathSqrt(n)*0.5) And ( term=0 Or Abs(term)>0.1) ,k++)[
+	   For(k:=1,k<=5+Floor(SqrtN(n)*0.5) And ( term=0 Or Abs(term)>0.1) ,k++)[
 			   A:=0;
 			   For(h:=1,h<=k,h++)[
 					   if( Gcd(h,k)=1 )[

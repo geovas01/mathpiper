@@ -12,12 +12,12 @@ AG'Mean(a, b, eps) :=
 	// AGM main loop
 	While(Abs(a-b)>=eps)
 	[
-		a1 := MathDivide(a+b, 2);
-		b1 := MathSqrt(MathMultiply(a, b));	// avoid Sqrt() which uses N() inside it
+		a1 := DivideN(a+b, 2);
+		b1 := SqrtN(MultiplyN(a, b));	// avoid Sqrt() which uses N() inside it
 		a := a1;
 		b := b1;
 	];
-	MathDivide(a+b, 2);
+	DivideN(a+b, 2);
 ];
 //UnFence(AG'Mean, 3);
 
@@ -68,7 +68,7 @@ If(
     x:=Eval(x);
     sum := 0;
     For(k:=n'terms, k>=0, k--)
-      sum := MathAdd(sum*x, nth'term'func @ k);
+      sum := AddN(sum*x, nth'term'func @ k);
   ]);
 	sum;
 ];
@@ -120,7 +120,7 @@ SumTaylorNum1(x, nth'term'func, next'term'factor, n'terms) :=
     cols := Div(n'terms+rows, rows);	// now: rows*cols >= n'terms+1
     Check(rows>1 And cols>1, "SumTaylorNum1: Internal error: number of Taylor sum terms must be at least 4");
     rows'tmp := Array'Create(rows, 0);
-    x'power := x ^ rows;	// do not use MathPower b/c x might be complex
+    x'power := x ^ rows;	// do not use PowerN b/c x might be complex
     // initialize partial sums (array rows'tmp) - the 0th column (i:=0)
     // prepare term'tmp for the first element
     // if we are using next'term'factor, then term'tmp is x^(rows*i)*a[rows*i]
@@ -181,7 +181,7 @@ Out> 2.7182818007;
 /// Numerical method: multiply floats by rationals
 //////////////////////////////////////////////////
 
-/// aux function: optimized numerical multiplication. Use MathMultiply() and MathDivide().
+/// aux function: optimized numerical multiplication. Use MultiplyN() and DivideN().
 /// optimization consists of multiplying or dividing by integers if one of the arguments is a rational number. This is presumably always better than floating-point calculations, except if we use Rationalize() on everything.
 /// note that currently this is not a big optimization b/c of slow arithmetic but it already helps for rational numbers under InNumericMode() returns True and it will help even more when faster math is done
 
@@ -194,16 +194,16 @@ Function() MultiplyNum(x);
 [
 	If(
         Type(y) = "/",  // IsRational(y), changed by Nobbi before redefinition of IsRational
-		MathDivide(Numer(x)*Numer(y), Denom(x)*Denom(y)),
+		DivideN(Numer(x)*Numer(y), Denom(x)*Denom(y)),
 		// y is floating-point
 		// avoid multiplication or division by 1
 		If(
 			Numer(x)=1,
-			MathDivide(y, Denom(x)),
+			DivideN(y, Denom(x)),
 			If(
 				Denom(x)=1,
-				MathMultiply(y, Numer(x)),
-				MathDivide(MathMultiply(y, Numer(x)), Denom(x))
+				MultiplyN(y, Numer(x)),
+				DivideN(MultiplyN(y, Numer(x)), Denom(x))
 			)
 		)
 	);
@@ -211,7 +211,7 @@ Function() MultiplyNum(x);
 
 20 # MultiplyNum(x_IsNumber, y_IsRational) <-- MultiplyNum(y, x);
 
-25 # MultiplyNum(x_IsNumber, y_IsNumber) <-- MathMultiply(x,y);
+25 # MultiplyNum(x_IsNumber, y_IsNumber) <-- MultiplyN(x,y);
 
 30 # MultiplyNum(Complex(r_IsNumber, i_IsNumber), y_IsRationalOrNumber) <-- Complex(MultiplyNum(r, y), MultiplyNum(i, y));
 
@@ -238,7 +238,7 @@ Common'digits(x,y) :=
 		diff=0,
 		Infinity,
 		// use approximation Ln(2)/Ln(10) > 351/1166
-		Div(IntLog(MathFloor(MathDivide(Max(Abs(x), Abs(y)), diff)), 2)*351, 1166)
+		Div(IntLog(FloorN(DivideN(Max(Abs(x), Abs(y)), diff)), 2)*351, 1166)
 	); 	// this many decimal digits in common
 ];
 
@@ -354,7 +354,7 @@ LN(x_IsNumber)_(x>1 ) <--
 BinSplitNum(m,n,a,b,p,q) := BinSplitFinal(BinSplitData(m,n,a,b,p,q));
 
 /// Low-level routine: compute the floating-point answer from P, Q, B, T data
-BinSplitFinal({_P,_Q,_B,_T}) <-- MathDivide(T, MathMultiply(B, Q));
+BinSplitFinal({_P,_Q,_B,_T}) <-- DivideN(T, MultiplyN(B, Q));
 
 /// Low-level routine: combine two binary-split intermediate results
 BinSplitCombine({_P1, _Q1, _B1, _T1}, {_P2, _Q2, _B2, _T2}) <-- {P1*P2, Q1*Q2, B1*B2, B1*P1*T2+B2*Q2*T1};

@@ -68,23 +68,23 @@ Rule("Degree",1,0, IsUniVar(expr))
   [
     DestructiveAppend(result,Head(left));
     Set(left,Tail(left));
-    Set(curl,MathAdd(curl,1));
+    Set(curl,AddN(curl,1));
   ];
   While(LessThan(curl,curr))
   [
     DestructiveAppend(result,0);
-    Set(curl,MathAdd(curl,1));
+    Set(curl,AddN(curl,1));
   ];
   While(And(LessThan(curr,curl), right != {}))
   [
     DestructiveAppend(result,Head(right));
     Set(right,Tail(right));
-    Set(curr,MathAdd(curr,1));
+    Set(curr,AddN(curr,1));
   ];
   While(LessThan(curr,curl))
   [
     DestructiveAppend(result,0);
-    Set(curr,MathAdd(curr,1));
+    Set(curr,AddN(curr,1));
   ];
   While(And(left != {}, right != {}))
   [
