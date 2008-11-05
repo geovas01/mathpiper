@@ -79,7 +79,7 @@ LocalSymbols(Numeric) [
   LocalSymbols(prev'Numeric, prev'digits, numeric'result) Macro("N",{expr,digits})
   [ // we were in non-numeric mode
       Local(prev'Numeric, prev'digits, numeric'result,errorString);
-      Set(prev'digits, Builtin'Precision'Get());
+      Set(prev'digits, BuiltinPrecisionGet());
       BuiltinPrecisionSet(@digits);
       AssignCachedConstantsN();
       Set(prev'Numeric,Numeric);
@@ -99,7 +99,7 @@ LocalSymbols(Numeric) [
   LocalSymbols(dig,ex) Macro("N",{expr})
   [
     Local(dig,ex);
-    Set(dig,Builtin'Precision'Get());
+    Set(dig,BuiltinPrecisionGet());
     Set(ex,Hold(@expr));
     `N(@ex,@dig);
   ];

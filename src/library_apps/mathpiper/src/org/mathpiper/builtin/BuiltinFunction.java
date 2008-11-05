@@ -609,7 +609,7 @@ public abstract class BuiltinFunction
                 "OpRightPrecedence");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new BuiltinPrecisionGet(), 0, Evaluator.Fixed | Evaluator.Function),
-                "Builtin'Precision'Get");
+                "BuiltinPrecisionGet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new BitAnd(), 2, Evaluator.Fixed | Evaluator.Function),
                 "BitAnd");

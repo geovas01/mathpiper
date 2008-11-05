@@ -56,7 +56,7 @@ BernoulliFracPart(n_IsEven)_(n>=2) <-- [
 /// compute Riemann's zeta function and combine with the fractional part
 Bernoulli1(n_IsEven)_(n>=2) <-- [
 	Local(B, prec);
-	prec := Builtin'Precision'Get();
+	prec := BuiltinPrecisionGet();
 	// estimate the size of B[n] using Stirling formula
 	// and compute Ln(B[n])/Ln(10) to find the number of digits
 	BuiltinPrecisionSet(10);

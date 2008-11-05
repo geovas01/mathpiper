@@ -10,7 +10,7 @@
 
 BuiltinPrecisionSet(5);
 
-VerifyZero(x) := (Abs(x)<10^ -Builtin'Precision'Get());
+VerifyZero(x) := (Abs(x)<10^ -BuiltinPrecisionGet());
 
 
 sl() := []; //Echo(CurrentFile(),CurrentLine());
@@ -110,7 +110,7 @@ sl();
 ];
 
 sl();
-Verify(Builtin'Precision'Get(),5);
+Verify(BuiltinPrecisionGet(),5);
 [ 
   Local(res);
   res:=FindRealRoots(Expand((x-3.1)*(x+6.23)))-{-6.23,3.1};
