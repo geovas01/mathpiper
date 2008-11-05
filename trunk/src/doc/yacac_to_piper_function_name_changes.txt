@@ -1,0 +1,49 @@
+//Changed these function names.
+MathAbs -> AbsN
+MathAdd -> AddN
+MathAnd -> AndN
+MathArcCos -> ArcCosN
+MathArcCosh -> ArcCoshN
+MathArcSin -> ArcSinN
+MathArcSinh -> ArcSinhN
+MathArcTan -> ArcTanN
+MathArcTanh -> ArcTanhN
+MathCeil -> CeilN
+MathCos -> CosN
+MathCosh -> CoshN
+MathDiv -> DivN
+MathDivide -> DivideN
+MathExp -> ExpN
+MathFloor -> FloorN
+MathGcd -> GcdN
+MathGetExactBits -> GExactBitsN
+MathLog -> LogN
+MathMod -> ModN
+MathMultiply -> MultiplyN
+MathNot -> NotN
+MathOr -> OrN
+MathPower -> PowerN
+MathSetExactBits -> SetExactBitsN
+MathSin -> SinN
+MathSinh -> SinhN
+MathSqrt -> SqrtN
+MathSubtract -> SubtractN
+MathTan -> TanN
+MathTanh -> TanhN
+
+//Removed ' character from these function names.
+Array'Create
+Array'CreateFromList
+Array'Get
+Array'Set
+Array'Size
+Array'ToList
+Builtin'Precision'Returns
+Builtin'Precision'Set
+ExtraInfo'Returns
+ExtraInfo'Set
+StringMid'Returns
+StringMid'Get
+StringMid'Set
+
+
