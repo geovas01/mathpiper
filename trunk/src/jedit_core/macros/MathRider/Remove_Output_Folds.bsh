@@ -29,7 +29,7 @@ void remove_output_folds()
 	
 		lineCount = buffer.getLineCount();
 		
-		System.out.println("VVVV " + lineCount);
+		//System.out.println("VVVV " + lineCount);
 	
 		stack = new java.util.Stack();
 		
@@ -42,7 +42,7 @@ void remove_output_folds()
 				
 				if(buffer.getLineText(lineNumber).trim().startsWith("%output"))
 				{
-					System.out.println("SSSSS" + buffer.getLineText(lineNumber));
+					//System.out.println("SSSSS" + buffer.getLineText(lineNumber));
 					//inOutputFold = true;
 					stack.push(buffer.getLineStartOffset(lineNumber));
 				}
