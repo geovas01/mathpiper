@@ -3,6 +3,16 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++ Combinatorics: there needs to be a Combination function and a Permutation function that returns an integer and a Combination and Permutation function which returns a list.
++ Figure out why 
+%mathpiper
+//Sort users by the number of friends they have.
+sorted := HeapSort(users,Lambda({x,y}, Length(x[2]) > Length(y[2]) ) );
+%/mathpiper
+doesn't clear the output fold and display "Processing..." when data is already in it.
++ Instead of removing just output folds, remove any fold that has preserve="false".
++ Figure out why lines which begin with { do not wrap in .mrw worksheets.
++ Put mathpiper syntax highlighting in console.
 + Some function implimentations like MathArcCos (now ArcCosN) seem to be missing.
 + Create a macro which converts a fold from OpenOffice into an executibale fold.
 + Change Factorize calling format 1 to Product, change Sum to SumSequence, change Factorize calling format 2 to ProductSequence.
