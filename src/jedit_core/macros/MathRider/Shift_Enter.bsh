@@ -200,6 +200,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			properties.put("pipe_to","");
 			properties.put("scope","local");
 			properties.put("ver","");
+			properties.put("truncate","");
+			
 			if(foldTypePropertyStrings.length != 1)
 			{
 				for(x = 1; x < foldTypePropertyStrings.length; x++)
@@ -392,6 +394,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			{
 				result = "Result: " + result ;
 			}
+			
 			//System.out.println("XTTXTXTXTT :" + result);
 			
 			displayResult();
@@ -1435,6 +1438,17 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 						
 						
 					//System.out.println(result);
+						if(! foldProperties.get("truncate").equalsIgnoreCase("") )
+						{
+							truncateLength = Integer.parseInt(foldProperties.get("truncate"));
+							
+							if(result.length() >= truncateLength)
+							{
+							
+								result = result.substring(0, truncateLength);
+							}
+						}
+					
 						result = result.trim();
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
