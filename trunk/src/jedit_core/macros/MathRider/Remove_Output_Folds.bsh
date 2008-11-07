@@ -40,28 +40,47 @@ void remove_output_folds()
 			if(buffer.isFoldStart(lineNumber))
 			{
 				
-				if(buffer.getLineText(lineNumber).trim().startsWith("%output"))
+				if(buffer.getLineText(lineNumber).trim().contains("preserve=\"false\"")) //startsWith("%output"))
 				{
 					//System.out.println("SSSSS" + buffer.getLineText(lineNumber));
+					
+					foldType = buffer.getLineText(lineNumber).split(",")[0];
+					
+					foldInfo = new java.util.ArrayList();
+					foldInfo.add(foldType);
+					foldInfo.add(buffer.getLineStartOffset(lineNumber));
 					//inOutputFold = true;
-					stack.push(buffer.getLineStartOffset(lineNumber));
+					stack.push(foldInfo);
 				}
-				
-
 				
 			}
 			
-			if(buffer.isFoldEnd(lineNumber))
+			if(buffer.isFoldEnd(lineNumber) && ! stack.empty() )
 			{
-				if(buffer.getLineText(lineNumber).trim().startsWith("%/output"))
+				if(buffer.getLineText(lineNumber).trim().contains("%/"))//startsWith("%/output"))
 				{
-					System.out.println("EEEEEE" + buffer.getLineText(lineNumber));
+					//System.out.println("EEEEEE" + buffer.getLineText(lineNumber));
 					//inOutputFold = false;
-					foldStartOffset = stack.pop();
-					foldEndOffset = buffer.getLineEndOffset(lineNumber);
-					buffer.remove(foldStartOffset, foldEndOffset - foldStartOffset);
-					lineCount = buffer.getLineCount();
-					lineNumber = 1;
+					
+					startFoldInfo = stack.pop();
+					
+					startFoldType = foldInfo.get(0);
+					foldStartOffset = foldInfo.get(1);
+					
+					endFoldType = buffer.getLineText(lineNumber).split(",")[0];
+					endFoldType = endFoldType.replace("/","");
+					
+					if(endFoldType.equalsIgnoreCase(startFoldType) )
+					{
+						foldEndOffset = buffer.getLineEndOffset(lineNumber);
+						buffer.remove(foldStartOffset, foldEndOffset - foldStartOffset);
+						lineCount = buffer.getLineCount();
+						lineNumber = 1;
+					}
+					else
+					{
+						stack.push(startFoldInfo);
+					}
 				}//end if.
 			}//end if.
 		}//end for
