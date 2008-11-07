@@ -846,7 +846,9 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 						
 						if(currentLine.startsWith("Result:"))
 						{
-							continue;
+							//continue;
+							
+							currentLine = currentLine.subSequence(7, currentLine.length());
 						}
 						else if(currentLine.startsWith("Side effects:"))
 						{
