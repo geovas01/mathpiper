@@ -19,6 +19,7 @@ AssocIndices(users);
 
 
 
+
     
 %mathpiper,truncate="100"
 
@@ -31,6 +32,7 @@ sorted := HeapSort(users,Lambda({x,y}, Length(x[2]) > Length(y[2]) ) );
     %output,preserve="false"
       Result: {{"39506054",{39507877,1426200127,39512961,39507979,39507972,215903193,1410690030,12441892,5
     %/output
+
 
 
 
@@ -56,9 +58,6 @@ rank;
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {"39506054","194401551","41600860","41600577","41600469","39505313","41600170","39509173","4
-    %/output
 
 
 
@@ -241,9 +240,6 @@ ForEach(user,sorted)
       ( 158 , 11 )
     %/geogebra
 
-        %output,preserve="false"
-          GeoGebra updated.
-        %/output
 
 
 
@@ -259,9 +255,6 @@ Length(Intersection(sorted[90][2], sorted[92][2]) );
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 1
-    %/output
 
 
 
