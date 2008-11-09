@@ -18,6 +18,18 @@
 
         <SEQ TYPE="LABEL">Side effects:</SEQ>
         <SEQ TYPE="MARKUP">Result:</SEQ>
+        
+        <SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="s19::MAIN">
+			<BEGIN>%s19[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/s19</END>
+		</SPAN_REGEXP>
+        
+        <SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathrideroutput::MAIN">
+			<BEGIN>%output[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/output</END>
+		</SPAN_REGEXP>
+        
+        
 	</RULES>
 
 
