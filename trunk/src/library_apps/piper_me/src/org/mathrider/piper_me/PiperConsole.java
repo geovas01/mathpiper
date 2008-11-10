@@ -34,10 +34,10 @@ public class PiperConsole extends Thread
     String archive = "";
 
     {
-      java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
+      java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.mpi");
       if (detectURL != null)
       {
-        String detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.pi
+        String detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/mathpiperinit.mpi
         archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
 		
 		
@@ -107,7 +107,7 @@ public class PiperConsole extends Thread
       
 	String result = "";
         try{
-        result = piper.Evaluate("Load(\"piperinit.pi\");");
+        result = piper.Evaluate("Load(\"mathpiperinit.mpi\");");
 	}
 	catch(Piperexception pe)
 	{
