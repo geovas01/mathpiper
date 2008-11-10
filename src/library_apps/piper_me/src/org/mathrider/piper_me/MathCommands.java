@@ -211,19 +211,19 @@ class MathCommands
          "Retract",
          new PiperEvaluator(new LispRetract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathNot",
+         "NotN",
          new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
          "Not",
          new PiperEvaluator(new LispNot(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathAnd",
+         "AndN",
          new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro));
     aEnvironment.CoreCommands().put(
          "And",
          new PiperEvaluator(new LispLazyAnd(),1, PiperEvaluator.Variable|PiperEvaluator.Macro));
     aEnvironment.CoreCommands().put(
-         "MathOr",
+         "OrN",
          new PiperEvaluator(new LispLazyOr(),1, PiperEvaluator.Variable|PiperEvaluator.Macro));
     aEnvironment.CoreCommands().put(
          "Or",
@@ -262,25 +262,25 @@ class MathCommands
          "IsBound",
          new PiperEvaluator(new LispIsBound(),1, PiperEvaluator.Fixed|PiperEvaluator.Macro));
     aEnvironment.CoreCommands().put(
-         "MathMultiply",
+         "MultiplyN",
          new PiperEvaluator(new LispMultiply(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathAdd",
+         "AddN",
          new PiperEvaluator(new LispAdd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathSubtract",
+         "SubtractN",
          new PiperEvaluator(new LispSubtract(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathDivide",
+         "DivideN",
          new PiperEvaluator(new LispDivide(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "Builtin'Precision'Set",
+         "BuiltinPrecisionSet",
          new PiperEvaluator(new PiperBuiltinPrecisionSet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathGetExactBits",
+         "GetExactBitsN",
          new PiperEvaluator(new LispGetExactBits(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathSetExactBits",
+         "SetExactBitsN",
          new PiperEvaluator(new LispSetExactBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
          "MathBitCount",
@@ -295,19 +295,19 @@ class MathCommands
          "MathNegate",
          new PiperEvaluator(new LispMathNegate(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathFloor",
+         "FloorN",
          new PiperEvaluator(new LispFloor(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathCeil",
+         "CeilN",
          new PiperEvaluator(new LispCeil(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathAbs",
+         "AbsN",
          new PiperEvaluator(new LispAbs(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathMod",
+         "ModN",
          new PiperEvaluator(new LispMod(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathDiv",
+         "DivN",
          new PiperEvaluator(new LispDiv(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
          "BitsToDigits",
@@ -316,7 +316,7 @@ class MathCommands
          "DigitsToBits",
          new PiperEvaluator(new LispDigitsToBits(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "MathGcd",
+         "GcdN",
          new PiperEvaluator(new LispGcd(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
          "SystemCall",
@@ -382,7 +382,7 @@ class MathCommands
          "OpRightPrecedence",
          new PiperEvaluator(new LispGetRightPrecedence(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "Builtin'Precision'Get",
+         "BuiltinPrecisionGet",
          new PiperEvaluator(new PiperBuiltinPrecisionGet(),0, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
          "BitAnd",
@@ -409,16 +409,16 @@ class MathCommands
          "GenericTypeName",
          new PiperEvaluator(new LispGenericTypeName(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "Array'Create",
+         "ArrayCreate",
          new PiperEvaluator(new GenArrayCreate(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "Array'Size",
+         "ArraySize",
          new PiperEvaluator(new GenArraySize(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "Array'Get",
+         "ArrayGet",
          new PiperEvaluator(new GenArrayGet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "Array'Set",
+         "ArraySet",
          new PiperEvaluator(new GenArraySet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
          "CustomEval",
@@ -451,10 +451,10 @@ class MathCommands
          "Type",
          new PiperEvaluator(new LispType(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "StringMid'Get",
+         "StringMidGet",
          new PiperEvaluator(new PiperStringMidGet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "StringMid'Set",
+         "StringMidSet",
          new PiperEvaluator(new PiperStringMidSet(),3, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
          "Pattern'Create",
@@ -517,10 +517,10 @@ class MathCommands
          "PatchString",
          new PiperEvaluator(new LispPatchString(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "ExtraInfo'Set",
+         "ExtraInfoSet",
          new PiperEvaluator(new PiperExtraInfoSet(),2, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
-         "ExtraInfo'Get",
+         "ExtraInfoGet",
          new PiperEvaluator(new PiperExtraInfoGet(),1, PiperEvaluator.Fixed|PiperEvaluator.Function));
     aEnvironment.CoreCommands().put(
          "DefaultTokenizer",

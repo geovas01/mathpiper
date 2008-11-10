@@ -28,17 +28,17 @@ public class PiperInterpreter {
 
         boolean scripts_found = loadScripts();
  
-        if (!scripts_found) System.err.println("Piper error: Unable to load piper.jar");
-        piper.Evaluate("Load(\"piperinit.pi\");");
+        if (!scripts_found) System.err.println("Piper error: Unable to load mathpiperinit.mpi");
+        piper.Evaluate("Load(\"mathpiperinit.mpi\");");
  
     }
  
     /** Searches for the file piper.jar and passes its absolute path to the Piper interpreter.
-     * This method searches in the classpath (declared i.e. in MANIFEST.MF) for the file piperinit.pi.
-     * piperinit.pi is inside piper.jar.
+     * This method searches in the classpath (declared i.e. in MANIFEST.MF) for the file mathpiperinit.mpi.
+     * mathpiperinit.mpi is inside piper.jar.
      * Returns true if successful.*/
     private boolean loadScripts() {
-        java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("piperinit.pi");
+        java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.mpi");
         // if piperinit.pi not found:
         if (detectURL == null) return false;
  

@@ -30,7 +30,7 @@ public class PiperTest
 				{
 					public boolean accept(java.io.File file, String name)
 					{
-						if(name.endsWith(".yts") || name.endsWith(".pit"))
+						if(name.endsWith(".yts") || name.endsWith(".mpt"))
 						{
 							return(true);
 						}
