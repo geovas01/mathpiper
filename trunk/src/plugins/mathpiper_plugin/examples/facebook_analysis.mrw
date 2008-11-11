@@ -20,6 +20,7 @@ AssocIndices(users);
 
 
 
+
     
 %mathpiper,truncate="100"
 
@@ -32,6 +33,7 @@ sorted := HeapSort(users,Lambda({x,y}, Length(x[2]) > Length(y[2]) ) );
     %output,preserve="false"
       Result: {{"39506054",{39507877,1426200127,39512961,39507979,39507972,215903193,1410690030,12441892,5
     %/output
+
 
 
 
@@ -58,6 +60,10 @@ rank;
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: {"39506054","194401551","41600860","41600577","41600469","39505313","41600170","39509173","4
+    %/output
+
 
 
 
@@ -66,7 +72,7 @@ rank;
     
 %mathpiper,output="geogebra"
 
-//Plot sorted users. (Note:tk: add Result/Side effects removal code to geogebra code.
+//Plot sorted users.
 x := 1;
 
 ForEach(user,sorted)
@@ -240,6 +246,11 @@ ForEach(user,sorted)
       ( 158 , 11 )
     %/geogebra
 
+        %output,preserve="false"
+          GeoGebra updated.
+        %/output
+
+
 
 
 
@@ -255,12 +266,33 @@ Length(Intersection(sorted[90][2], sorted[92][2]) );
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: 1
+    %/output
 
 
+
+ def comb(l, n):   
+     if len(l) < n or n <= 0: return [[]]
+     if len(l) == n: return [l]
+     return comb(l[1:], n) + [l[:1] + x for x in comb(l[1:], n-1)]
 
 
 %mathpiper
-//
+
+Combinations(l, n) :=
+[
+    Local(returnList);
+    If(Length(l) < n Or n <= 0, returnList := {});
+    If(Length(l) == n, returnList := {l});
+    returnList := Combinations(Tail(l), n) + {Head(l) + 
+    
+
+
+
+
+];
+
 %/mathpiper
    
       

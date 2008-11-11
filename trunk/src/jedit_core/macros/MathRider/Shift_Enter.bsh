@@ -112,6 +112,13 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	foldStartLine = fold.getStartLine();
 	foldEndLine = fold.getEndLine();
 	foldStartLineText = textArea.getLineText(foldStartLine);
+	if(!foldStartLineText.trim().startsWith("%"))
+	{
+		org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"You must place the cursor inside of a fold to execute it with <shift><Enter>.");
+		textArea.selectNone();
+		textArea.setCaretPosition(currentCaretPosition);
+		return;
+	}
 	codeStartLine = foldStartLine+1;
 	codeEndLine = foldEndLine-1;
 	codeStartIndex = fold.getStart(textArea.getBuffer(),codeStartLine);
