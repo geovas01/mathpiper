@@ -272,21 +272,107 @@ Length(Intersection(sorted[90][2], sorted[92][2]) );
 
 
 
+
+%mathpiper
+ForEach(friend, sorted)
+[
+    Echo(friend[1]);
+
+];
+
+%/mathpiper
+
+
+
+
+  
+
+%mathpiper
+/*
  def comb(l, n):   
      if len(l) < n or n <= 0: return [[]]
      if len(l) == n: return [l]
+     
      return comb(l[1:], n) + [l[:1] + x for x in comb(l[1:], n-1)]
+*/
 
+Retract("Combinations",2);
 
-%mathpiper
+RuleBase("Combinations",{items,n});
 
-Combinations(l, n) :=
+Rule("Combinations",2,10, Length(items) < n Or n <= 0 ) [Echo(a,items,n);{{}};];
+
+Rule("Combinations",2,20, Length(items) = n) [Echo(b,items,n);{items};];
+
+//Rule("Combinations",2,30, True )  [ Echo(c,items,n); Combinations(Tail(items), n); ];
+
+Rule("Combinations",2,30, True ) 
 [
-    Local(returnList);
-    If(Length(l) < n Or n <= 0, returnList := {});
-    If(Length(l) == n, returnList := {l});
-    returnList := Combinations(Tail(l), n) + {Head(l) + 
+    Local(f,g,); 
+    [   Local(a,x);
+        a := {};
+        //Echo(items,n);
+        g := Combinations(Tail(items), n);
+        f := Concat( List(Head(items)), [ForEach(x,Combinations(Tail(items), n-1) ) If(Not IsList(x),[a := Append(a,x);]);a;] ); 
+    ];
     
+    Echo(g,"XXX",f);
+    f; //Note:tk: MathPiper seems to have a number of bugs related to this code.
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+    %/output
+
+    
+    
+%mathpiper
+Retract("CombinationIndicies",2);
+
+CombinationIndicies(r,n) :=
+[
+    Local(i,s,m,maxVal,j);
+    
+    s := 1 .. r;
+    
+    Echo(a,s,r);
+    
+    ForEach(i, 2 .. Bin(n,r))
+    [
+        Echo(b,i);
+        m := r;
+        maxVal := n;
+        Echo(c,m,s[m]);
+        While(s[m] = maxVal)
+        [
+            //Find the rightmost value not at its maximum value.
+            Echo(s[m],",",maxVal);
+            m--;
+            maxVal--;
+        
+        
+        ];
+        
+        Echo(d,r);
+        s[m] := s[m] + 1;
+        
+        
+         Echo(e,m,r);
+        ForEach(j, m+1 .. r)
+        [
+            Echo(f,j,s[j]);
+            s[j] := s[j-1] + 1;
+        ];
+        
+        
+        
+        Echo(g,s);
+        
+    ];
+
+
 
 
 
@@ -294,7 +380,9 @@ Combinations(l, n) :=
 ];
 
 %/mathpiper
-   
-      
+
+    %output,preserve="false"
+      Result: True
+    %/output
 
 
