@@ -21,6 +21,7 @@ AssocIndices(users);
 
 
 
+
     
 %mathpiper,truncate="100"
 
@@ -33,6 +34,7 @@ sorted := HeapSort(users,Lambda({x,y}, Length(x[2]) > Length(y[2]) ) );
     %output,preserve="false"
       Result: {{"39506054",{39507877,1426200127,39512961,39507979,39507972,215903193,1410690030,12441892,5
     %/output
+
 
 
 
@@ -63,6 +65,7 @@ rank;
     %output,preserve="false"
       Result: {"39506054","194401551","41600860","41600577","41600469","39505313","41600170","39509173","4
     %/output
+
 
 
 
@@ -257,11 +260,13 @@ ForEach(user,sorted)
 
 
 
+
+
    
 
 %mathpiper
 
-//Compare two users to see how many friends they have in common.
+//Compare two users to see how many friends they have in common. 88,92,90.
 Length(Intersection(sorted[90][2], sorted[92][2]) );
 
 %/mathpiper
@@ -269,6 +274,7 @@ Length(Intersection(sorted[90][2], sorted[92][2]) );
     %output,preserve="false"
       Result: 1
     %/output
+
 
 
 
@@ -322,62 +328,97 @@ Rule("Combinations",2,30, True )
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-    %/output
 
     
     
 %mathpiper
-Retract("CombinationIndicies",2);
+Retract("CombinationIndices",2);
 
-CombinationIndicies(r,n) :=
+CombinationIndices(n,r) :=
 [
-    Local(i,s,m,maxVal,j);
+    Local(i,s,m,maxVal,j,resultList);
+    resultList := {};
     
     s := 1 .. r;
     
-    Echo(a,s,r);
+    resultList := FlatCopy(s) : resultList;
     
     ForEach(i, 2 .. Bin(n,r))
     [
-        Echo(b,i);
+        //Echo(b,i);
         m := r;
         maxVal := n;
-        Echo(c,m,s[m]);
+        //Echo(c,m,s[m]);
         While(s[m] = maxVal)
         [
             //Find the rightmost value not at its maximum value.
-            Echo(s[m],",",maxVal);
+            //Echo(s[m],",",maxVal);
             m--;
             maxVal--;
         
         
         ];
         
-        Echo(d,r);
+        //Echo(d,r);
         s[m] := s[m] + 1;
         
         
-         Echo(e,m,r);
+         //Echo(e,m,r);
+         
+        If(m != r, 
         ForEach(j, m+1 .. r)
         [
-            Echo(f,j,s[j]);
+            //Echo(f,j,s[j]);
             s[j] := s[j-1] + 1;
-        ];
+        ]
+        
+        );
         
         
         
-        Echo(g,s);
+        resultList := FlatCopy(s) : resultList;
+       
         
     ];
-
-
-
-
+    
+    resultList;
 
 
 ];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+    %/output
+
+
+%mathpiper
+CombinationGenerator(list,r) :=
+[
+    Local(indices, resultList, resultCombination, combination, index);
+    
+    indices := CombinationIndices(Length(list),r);
+    
+    resultList := {};
+    
+    
+    ForEach(combination, indices)
+    [
+        resultCombination := {};
+        
+        ForEach(index, combination)
+        [
+            resultCombination := list[index] : resultCombination;
+        ];
+        
+        resultList := resultCombination : resultList;
+    ];
+
+    resultList;
+
+];
+
 
 %/mathpiper
 
