@@ -267,12 +267,15 @@ ForEach(user,sorted)
 %mathpiper
 
 //Compare two users to see how many friends they have in common. 88,92,90.
-Length(Intersection(sorted[90][2], sorted[92][2]) );
+Time(Length(Intersection(sorted[1][2], sorted[2][2]) ) );
 
 %/mathpiper
 
     %output,preserve="false"
       Result: 1
+      
+      Side effects:
+      59.265 seconds taken
     %/output
 
 
