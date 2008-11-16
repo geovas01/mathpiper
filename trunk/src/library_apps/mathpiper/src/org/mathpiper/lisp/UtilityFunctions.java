@@ -503,9 +503,6 @@ public class UtilityFunctions
 					ConsPointer result = new ConsPointer();
 					aEnvironment.iEvaluator.evaluate(aEnvironment, result, readIn);
                                         aEnvironment.setVariable("LoadResult", result, false);//Note:tk:added to make result of executing Loaded code available.
-                                        ConsPointer lineNumber = new ConsPointer();
-                                        lineNumber.setCons(Atom.getInstance(aEnvironment, "" + aEnvironment.iInputStatus.lineNumber()) );
-                                        aEnvironment.setVariable("LoadLineNumber", lineNumber, false);//Note:tk:added to make current line number of executing Loaded code available.
 				}
 			}
 		}

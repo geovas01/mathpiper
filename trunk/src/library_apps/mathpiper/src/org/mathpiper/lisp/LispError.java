@@ -199,10 +199,15 @@ public class LispError
         int lineNumber = -1;  
         if(aEnvironment != null)
         {
+                                         //ConsPointer lineNumberPTR = new ConsPointer();
+                                        //lineNumber.setCons(Atom.getInstance(aEnvironment, "" + aEnvironment.iInputStatus.lineNumber()) );
+                                        //aEnvironment.setVariable("LoadLineNumber", lineNumber, false);//Note:tk:added to make current line number of executing Loaded code available.
+            
+            
                 ConsPointer lineNumberPtr = new ConsPointer();
-                aEnvironment.getVariable("LoadLineNumber", lineNumberPtr);
-                lineNumber = Integer.parseInt(lineNumberPtr.getCons().string());
-                str = str + "; Error on line:" + lineNumber;
+                //aEnvironment.getVariable("LoadLineNumber", lineNumberPtr);
+                lineNumber = aEnvironment.iInputStatus.lineNumber();
+                str = str + "; Error on line " + lineNumber;
         }
         
         throw new MathPiperException(str,lineNumber);
