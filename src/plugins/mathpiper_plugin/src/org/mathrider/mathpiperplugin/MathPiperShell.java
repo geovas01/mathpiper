@@ -45,7 +45,7 @@ public class MathPiperShell extends Shell
 		//output.print(null, jEdit.getProperty(PiperPlugin.NAME + ".shell.msg.usage"));
 		try
 		{
-			String[] version = interpreter.evaluate("Version();");
+			Object[] version = interpreter.evaluate("Version();");
 			output.print(null, "MathPiper version " +  version[0]);
 		}
 		catch( MathPiperException pe )
@@ -59,7 +59,7 @@ public class MathPiperShell extends Shell
 	{
 		try 
 		{
-			String[] resultsAndSideEffect = interpreter.evaluate(command);
+			Object[] resultsAndSideEffect = interpreter.evaluate(command);
 			
 			output.print(java.awt.Color.BLUE,"Result> " + resultsAndSideEffect[0]);
 

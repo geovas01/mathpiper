@@ -64,7 +64,7 @@ public class MathPiperInterpreter  implements Runnable{
 	/** Use this method to pass an expression to the MathPiper interpreter.
 	 *  Returns the output of the interpreter.
 	 */
-	public String[] evaluate(String input) throws MathPiperException
+	public Object[] evaluate(String input) throws MathPiperException
 	{
 		result = mathPiper.evaluate(input);
 
@@ -78,7 +78,9 @@ public class MathPiperInterpreter  implements Runnable{
 
 		String sideEffect = stringOutput.toString();
 
-		String[] resultsAndSideEffect = new String[4];
+		Object[] resultsAndSideEffect = new Object[5];
+		
+		resultsAndSideEffect[4] = -1;
 
 		if(sideEffect != null && sideEffect.length() != 0){
 			resultsAndSideEffect[1] = sideEffect;
@@ -128,13 +130,20 @@ public class MathPiperInterpreter  implements Runnable{
 	{
 		try
 		{
-			String[] resultsAndSideEffect = evaluate(input);
+			Object[] resultsAndSideEffect = evaluate(input);
 			notifyListeners(resultsAndSideEffect);
 		}
 		catch(Exception e)
 		{
-			String[] error = new String[4];
+			Object[] error = new Object[5];
 			error[3] = e.getMessage();
+			if(e instanceof MathPiperException)
+			{
+				MathPiperException mpe  = (MathPiperException) e;
+				int errorLineNumber = mpe.getLineNumber();
+				error[4] = mpe.getLineNumber();
+			}
+
 			notifyListeners(error);
 		}
 
@@ -163,7 +172,7 @@ public class MathPiperInterpreter  implements Runnable{
 		responseListeners.remove(listener);
 	}//end method.
 
-	protected void notifyListeners(String[] response)
+	protected void notifyListeners(Object[] response)
 	{
 		//notify listeners.
 		for(ResponseListener listener : responseListeners)
