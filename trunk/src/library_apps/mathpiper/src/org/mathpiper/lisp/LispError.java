@@ -207,7 +207,7 @@ public class LispError
                 ConsPointer lineNumberPtr = new ConsPointer();
                 //aEnvironment.getVariable("LoadLineNumber", lineNumberPtr);
                 lineNumber = aEnvironment.iInputStatus.lineNumber();
-                str = str + "; Error on line " + lineNumber;
+                str = str + "; Error near line " + lineNumber;
         }
         
         throw new MathPiperException(str,lineNumber);
