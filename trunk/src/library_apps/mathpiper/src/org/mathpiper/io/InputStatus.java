@@ -41,7 +41,7 @@ public class InputStatus
 	{
 		//System.out.println("InputStatus set to "+aFileName);
 		iFileName = aFileName;
-		iLineNumber = 1;
+		iLineNumber = 0;
 	}
 
 	public void restoreFrom(InputStatus aPreviousStatus)
