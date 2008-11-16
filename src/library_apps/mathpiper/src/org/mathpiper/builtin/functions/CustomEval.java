@@ -33,6 +33,6 @@ public class CustomEval extends BuiltinFunction
     {
         aEnvironment.iCurrentOutput.Write("Function not yet implemented : CustomEval");////TODO fixme
 
-        throw new MathPiperException("Function not yet supported");
+        throw new MathPiperException("Function not yet supported",-1);
     }
 }

@@ -33,6 +33,6 @@ public class TraceRule extends BuiltinFunction
     {
         aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispTraceRule");////TODO fixme
 
-        throw new MathPiperException("Function not yet supported");
+        throw new MathPiperException("Function not yet supported",-1);
     }
 }

@@ -503,6 +503,9 @@ public class UtilityFunctions
 					ConsPointer result = new ConsPointer();
 					aEnvironment.iEvaluator.evaluate(aEnvironment, result, readIn);
                                         aEnvironment.setVariable("LoadResult", result, false);//Note:tk:added to make result of executing Loaded code available.
+                                        ConsPointer lineNumber = new ConsPointer();
+                                        lineNumber.setCons(Atom.getInstance(aEnvironment, "" + aEnvironment.iInputStatus.lineNumber()) );
+                                        aEnvironment.setVariable("LoadLineNumber", lineNumber, false);//Note:tk:added to make current line number of executing Loaded code available.
 				}
 			}
 		}
@@ -671,7 +674,7 @@ public class UtilityFunctions
 					MultipleArityUserFunction multiUser = aEnvironment.multiUserFunction(str);
 					if (multiUser.iFileToOpen!=null)
 					{
-						throw new MathPiperException("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName);
+						throw new MathPiperException("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName,-1);
 					}
 					multiUser.iFileToOpen = def;
 				}
@@ -732,7 +735,7 @@ public class UtilityFunctions
 			return log2_table[n-1];
 		else
 		{
-			throw new MathPiperException("log2_table_lookup: error: invalid argument "+n);
+			throw new MathPiperException("log2_table_lookup: error: invalid argument "+n,-1);
 		}
 	}
 

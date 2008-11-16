@@ -20,8 +20,18 @@ package org.mathpiper.exceptions;
 
 public class MathPiperException extends Exception //Note:tk: made this class public so that clients can use this exception.
 {
-	public MathPiperException(String message)
+        private int lineNumber = -1;
+
+
+	public MathPiperException(String message,int lineNumber)
 	{
 		super(message);
+                this.lineNumber = lineNumber;
 	}
+        
+    public int getLineNumber()
+    {
+        return lineNumber;
+    }
+ 
 }

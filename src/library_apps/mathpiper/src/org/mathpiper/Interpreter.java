@@ -173,7 +173,7 @@ public class Interpreter
 					                                     args);
 				} catch (Exception e)
 				{
-					throw new MathPiperException(e.getMessage());//Note:tk. Throw MathPiperException instead of just exception.
+					throw new MathPiperException(e.getMessage(),-1);//Note:tk. Throw MathPiperException instead of just exception.
 
 				} finally
 				{
@@ -220,11 +220,17 @@ public class Interpreter
 		{
 			e.printStackTrace();
 			//System.out.println(e.toString());
-			System.out.println("XXXXXX InputStatus line number " + environment.iInputStatus.lineNumber() );
+			//System.out.println(e.getMessage() );
 
 			//Note:tk throw MathPiperException instead of simply printing the exception message.
 			iError = e.getMessage();
-			throw new MathPiperException(iError);
+                        int errorLineNumber = -1;
+                        if(e instanceof MathPiperException)
+                        {
+                            MathPiperException mpe  = (MathPiperException) e;
+                            errorLineNumber = mpe.getLineNumber();
+                        }
+			throw new MathPiperException(iError, errorLineNumber);
 		}
 		return rs;
 	}

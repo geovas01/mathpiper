@@ -33,6 +33,6 @@ public class IsPromptShown extends BuiltinFunction
     {
         aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispIsPromptShown");//TODO FIXME
 
-        throw new MathPiperException("Function not yet supported");
+        throw new MathPiperException("Function not yet supported",-1);
     }
 }
