@@ -63,27 +63,27 @@ public class LispError
         {
             if (aError == KLispErrNone)
             {
-                return "No error";
+                return "No error.";
             }
             if (aError == KLispErrInvalidArg)
             {
-                return "Invalid argument";
+                return "Invalid argument.";
             }
             if (aError == KLispErrWrongNumberOfArgs)
             {
-                return "Wrong number of arguments";
+                return "Wrong number of arguments.";
             }
             if (aError == KLispErrNotList)
             {
-                return "Argument is not a list";
+                return "Argument is not a list.";
             }
             if (aError == KLispErrListNotLongEnough)
             {
-                return "List not long enough";
+                return "List not long enough.";
             }
             if (aError == KLispErrInvalidStack)
             {
-                return "Invalid stack";
+                return "Invalid stack.";
             }
             if (aError == KQuitting)
             {
@@ -91,55 +91,55 @@ public class LispError
             }
             if (aError == KLispErrNotEnoughMemory)
             {
-                return "Not enough memory";
+                return "Not enough memory.";
             }
             if (aError == KInvalidToken)
             {
-                return "Empty token during parsing";
+                return "Empty token during parsing.";
             }
             if (aError == KLispErrInvalidExpression)
             {
-                return "Error parsing expression";
+                return "Error parsing expression.";
             }
             if (aError == KLispErrUnprintableToken)
             {
-                return "Unprintable atom";
+                return "Unprintable atom.";
             }
             if (aError == KLispErrFileNotFound)
             {
-                return "File not found";
+                return "File not found.";
             }
             if (aError == KLispErrReadingFile)
             {
-                return "Error reading file";
+                return "Error reading file.";
             }
             if (aError == KLispErrCreatingUserFunction)
             {
-                return "Could not create user function";
+                return "Could not create user function.";
             }
             if (aError == KLispErrCreatingRule)
             {
-                return "Could not create rule";
+                return "Could not create rule.";
             }
             if (aError == KLispErrArityAlreadyDefined)
             {
-                return "Rule base with this arity already defined";
+                return "Rule base with this arity already defined.";
             }
             if (aError == KLispErrCommentToEndOfFile)
             {
-                return "Reaching end of file within a comment block";
+                return "Reaching end of file within a comment block.";
             }
             if (aError == KLispErrNotString)
             {
-                return "Argument is not a string";
+                return "Argument is not a string.";
             }
             if (aError == KLispErrNotInteger)
             {
-                return "Argument is not an integer";
+                return "Argument is not an integer.";
             }
             if (aError == KLispErrParsingInput)
             {
-                return "Error while parsing input";
+                return "Error while parsing input.";
             }
             if (aError == KLispErrMaxRecurseDepthReached)
             {
@@ -147,42 +147,42 @@ public class LispError
             }
             if (aError == KLispErrDefFileAlreadyChosen)
             {
-                return "DefFile already chosen for function";
+                return "DefFile already chosen for function.";
             }
             if (aError == KLispErrDivideByZero)
             {
-                return "Divide by zero";
+                return "Divide by zero.";
             }
             if (aError == KLispErrNotAnInFixOperator)
             {
-                return "Trying to make a non-infix operator right-associative";
+                return "Trying to make a non-infix operator right-associative.";
             }
             if (aError == KLispErrIsNotInFix)
             {
-                return "Trying to get precedence of non-infix operator";
+                return "Trying to get precedence of non-infix operator.";
             }
             if (aError == KLispErrSecurityBreach)
             {
-                return "Trying to perform an insecure action";
+                return "Trying to perform an insecure action.";
             }
             if (aError == KLispErrLibraryNotFound)
             {
-                return "Could not find library";
+                return "Could not find library.";
             }
             if (aError == KLispErrUserInterrupt)
             {
-                return "User interrupted calculation";
+                return "User interrupted calculation.";
             }
             if (aError == KLispErrNonBooleanPredicateInPattern)
             {
-                return "Predicate doesn't evaluate to a boolean in pattern";
+                return "Predicate doesn't evaluate to a boolean in pattern.";
             }
             if (aError == KLispErrGenericFormat)
             {
-                return "Generic format";
+                return "Generic format.";
             }
         }
-        return "Unspecified Error";
+        return "Unspecified Error.";
     }
 
     public static void check(boolean hastobetrue, int aError) throws Exception
@@ -204,10 +204,10 @@ public class LispError
                                         //aEnvironment.setVariable("LoadLineNumber", lineNumber, false);//Note:tk:added to make current line number of executing Loaded code available.
             
             
-                ConsPointer lineNumberPtr = new ConsPointer();
+                //ConsPointer lineNumberPtr = new ConsPointer();
                 //aEnvironment.getVariable("LoadLineNumber", lineNumberPtr);
                 lineNumber = aEnvironment.iInputStatus.lineNumber();
-                str = str + "; Error near line " + lineNumber;
+                //str = str + "; Error near line " + lineNumber;
         }
         
         throw new MathPiperException(str,lineNumber);
@@ -275,7 +275,7 @@ public class LispError
             {
                 String error = "";
                 //TODO FIXME          ShowStack(aEnvironment);
-                error = error + showFunctionError(arguments, aEnvironment) + "generic error";
+                error = error + showFunctionError(arguments, aEnvironment) + "generic error.";
                 throw new MathPiperException(error,-1);
             }
         }
@@ -285,7 +285,7 @@ public class LispError
     {
         if (!aPredicate)
         {
-            throw new MathPiperException("Assertion failed",-1);
+            throw new MathPiperException("Assertion failed.",-1);
         }
     }
 
@@ -296,12 +296,12 @@ public class LispError
 
     public static void checkIsListCore(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsList(evaluated), aArgNr, "argument is not a list");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsList(evaluated), aArgNr, "argument is not a list.");
     }
 
     public static void checkIsStringCore(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsString(evaluated.getCons().string()), aArgNr, "argument is not a string");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsString(evaluated.getCons().string()), aArgNr, "argument is not a string.");
     }
 
     public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription) throws Exception
