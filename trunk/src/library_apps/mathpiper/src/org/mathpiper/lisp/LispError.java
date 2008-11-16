@@ -190,13 +190,22 @@ public class LispError
         if (!hastobetrue)
         {
             String error = errorString(aError);//"LispError number "+aError+" (//TODO FIXME still need to port over the string table)";
-            throw new MathPiperException(error);
+            throw new MathPiperException(error,-1);
         }
     }
 
-    public static void raiseError(String str) throws Exception
+    public static void raiseError(String str,Environment aEnvironment) throws Exception
     {
-        throw new MathPiperException(str);
+        int lineNumber = -1;  
+        if(aEnvironment != null)
+        {
+                ConsPointer lineNumberPtr = new ConsPointer();
+                aEnvironment.getVariable("LoadLineNumber", lineNumberPtr);
+                lineNumber = Integer.parseInt(lineNumberPtr.getCons().string());
+                str = str + "; Error on line:" + lineNumber;
+        }
+        
+        throw new MathPiperException(str,lineNumber);
     }
 
     public static void checkNumberOfArguments(int n, ConsPointer aArguments, Environment aEnvironment) throws Exception
@@ -212,12 +221,12 @@ public class LispError
     {
         if (aArguments.getCons() == null)
         {
-            throw new MathPiperException("Error in compiled code.");
+            throw new MathPiperException("Error in compiled code.",-1);
         } else
         {
             //TODO FIXME      ShowStack(aEnvironment);
             String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed;
-            throw new MathPiperException(error);
+            throw new MathPiperException(error,-1);
 
         /*TODO FIXME
         LispChar str[20];
@@ -256,13 +265,13 @@ public class LispError
             ConsPointer arguments = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 0);
             if (arguments.getCons() == null)
             {
-                throw new MathPiperException("Error in compiled code\n");
+                throw new MathPiperException("Error in compiled code\n",-1);
             } else
             {
                 String error = "";
                 //TODO FIXME          ShowStack(aEnvironment);
                 error = error + showFunctionError(arguments, aEnvironment) + "generic error";
-                throw new MathPiperException(error);
+                throw new MathPiperException(error,-1);
             }
         }
     }
@@ -271,7 +280,7 @@ public class LispError
     {
         if (!aPredicate)
         {
-            throw new MathPiperException("Assertion failed");
+            throw new MathPiperException("Assertion failed",-1);
         }
     }
 
@@ -297,7 +306,7 @@ public class LispError
             ConsPointer arguments = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 0);
             if (arguments.getCons() == null)
             {
-                throw new MathPiperException("Error in compiled code\n");
+                throw new MathPiperException("Error in compiled code\n",-1);
             } else
             {
                 String error = "";
@@ -317,7 +326,7 @@ public class LispError
                 error = error + strout;
                 error = error + "\n";
 
-                throw new MathPiperException(error);
+                throw new MathPiperException(error,-1);
             }
         }
     }

@@ -135,7 +135,7 @@ public class MathPiperParser extends Parser
                 // Match closing bracket
                 if (iLookAhead != iEnvironment.iProgCloseAtom.string())
                 {
-                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead");
+                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead",iEnvironment);
                     return;
                 }
                 matchToken(iLookAhead);
@@ -250,7 +250,7 @@ public class MathPiperParser extends Parser
                     matchToken(iLookAhead);
                 } else if (iLookAhead != iEnvironment.iListCloseAtom.string())
                 {
-                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead");
+                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead",iEnvironment);
                     return;
                 }
             }
@@ -275,7 +275,7 @@ public class MathPiperParser extends Parser
                     matchToken(iLookAhead);
                 } else
                 {
-                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead + " instead");
+                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead + " instead",iEnvironment);
                     return;
                 }
             }
@@ -305,7 +305,7 @@ public class MathPiperParser extends Parser
                         matchToken(iLookAhead);
                     } else if (iLookAhead != iEnvironment.iBracketCloseAtom.string())
                     {
-                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead");
+                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead",iEnvironment);
                         return;
                     }
                 }
@@ -385,8 +385,8 @@ public class MathPiperParser extends Parser
         iError = true;
         if (iLookAhead != null)
         {
-            LispError.raiseError("Error parsing expression, near token " + iLookAhead);
+            LispError.raiseError("Error parsing expression, near token " + iLookAhead,iEnvironment);
         }
-        LispError.raiseError("Error parsing expression");
+        LispError.raiseError("Error parsing expression",iEnvironment);
     }
 };

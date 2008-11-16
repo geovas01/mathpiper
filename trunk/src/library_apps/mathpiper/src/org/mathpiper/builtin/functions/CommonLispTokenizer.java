@@ -33,6 +33,6 @@ public class CommonLispTokenizer extends BuiltinFunction
     {
         aEnvironment.iCurrentOutput.Write("Function not yet implemented : LispCommonLispTokenizer");//TODO FIXME
 
-        throw new MathPiperException("Function not yet supported");
+        throw new MathPiperException("Function not yet supported",-1);
     }
 }

@@ -33,6 +33,6 @@ public class PatchString extends BuiltinFunction
     {
         aEnvironment.iCurrentOutput.Write("Function not yet implemented : PatchString");//TODO FIXME
 
-        throw new MathPiperException("Function not yet supported");
+        throw new MathPiperException("Function not yet supported",-1);
     }
 }

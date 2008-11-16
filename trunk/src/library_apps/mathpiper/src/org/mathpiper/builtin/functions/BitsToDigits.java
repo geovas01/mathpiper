@@ -44,7 +44,7 @@ public class BitsToDigits extends BuiltinFunction
             result = UtilityFunctions.bits_to_digits((long) (x.Double()), base);
         } else
         {
-            throw new MathPiperException("BitsToDigits: error: arguments (" + x.Double() + ", " + y.Double() + ") must be small integers");
+            throw new MathPiperException("BitsToDigits: error: arguments (" + x.Double() + ", " + y.Double() + ") must be small integers",-1);
         }
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.SetTo((long) result);
