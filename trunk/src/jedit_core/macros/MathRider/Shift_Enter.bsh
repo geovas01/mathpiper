@@ -343,8 +343,25 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 
 				if(resultArray[3] != null) //Error.
 				{
-					result = resultArray[3];
+					//result = resultArray[3] + ";Error near line: " + resultArray[4];
+					
 					output_fold_type = "%error";
+					
+					errorLineNumber = resultArray[4];
+					
+					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+
+					adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 1);
+					result =  resultArray[3] + " Error near line " + adjustedErrorLineNumber;							
+					
+					filePath = textArea.getBuffer().getPath();
+				
+					errorSource.clear();
+				
+					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, result ) );
+				
+					jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
