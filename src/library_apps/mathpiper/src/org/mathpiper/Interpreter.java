@@ -235,7 +235,7 @@ public class Interpreter
                 
                 //Experimenting with adding environment viewing capability. Note:tk.
                 //org.mathpiper.ui.EnvironmentViewer viewer = new org.mathpiper.ui.EnvironmentViewer();
-               // viewer.getViewerFrame(environment, viewer.getTableViewer(environment));
+                //viewer.getViewerFrame(environment, viewer.getTableViewer(environment));
                 
 		return rs;
 	}
