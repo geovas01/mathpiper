@@ -45,5 +45,10 @@ public class GlobalVariable
 	{
 		iEvalBeforeReturn = aEval;
 	}
+        
+        public String toString()
+        {
+            return (String) iValue.getCons().toString();
+        }
 
 }
