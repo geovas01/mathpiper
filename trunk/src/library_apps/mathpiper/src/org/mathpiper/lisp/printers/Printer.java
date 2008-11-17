@@ -64,9 +64,9 @@ public class Printer
 			{
 				aOutput.Write("[BuiltinObject]");
 			}
-			iter = (iter.getCons().cdr());
+			iter = (iter.getCons().rest());
 			item++;
-		} // print cdr element
+		} // print rest element
 	}
 
 	void indent(OutputStream aOutput, int aDepth) throws Exception

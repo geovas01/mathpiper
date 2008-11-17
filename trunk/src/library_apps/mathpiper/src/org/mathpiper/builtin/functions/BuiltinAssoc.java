@@ -49,7 +49,7 @@ public class BuiltinAssoc extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, list.getCons().subList() != null, 2);
         t = list.getCons().subList().getCons();
         LispError.checkArgumentCore(aEnvironment, aStackTop, t != null, 2);
-        t = t.cdr().getCons();
+        t = t.rest().getCons();
 
         while (t != null)
         {
@@ -58,7 +58,7 @@ public class BuiltinAssoc extends BuiltinFunction
                 Cons sub = t.subList().getCons();
                 if (sub != null)
                 {
-                    sub = sub.cdr().getCons();
+                    sub = sub.rest().getCons();
                     ConsPointer temp = new ConsPointer();
                     temp.setCons(sub);
                     if (UtilityFunctions.internalEquals(aEnvironment, key, temp))
@@ -68,7 +68,7 @@ public class BuiltinAssoc extends BuiltinFunction
                     }
                 }
             }
-            t = t.cdr().getCons();
+            t = t.rest().getCons();
         }
         result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "Empty"));
     }

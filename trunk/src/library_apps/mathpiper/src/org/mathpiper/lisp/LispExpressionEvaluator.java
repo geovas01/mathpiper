@@ -43,7 +43,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 	/// First, the evaluation depth is checked. An error is raised if
 	/// the maximum evaluation depth is exceeded.
 	///
-	/// The cdr step is the actual evaluation. \a aExpression is a
+	/// The rest step is the actual evaluation. \a aExpression is a
 	/// Cons, so we can distinguish three cases.
 	///   - If \a aExpression is a string starting with \c " , it is
 	///     simply copied in \a aResult. If it starts with another
@@ -145,7 +145,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 						ConsPointer oper = new ConsPointer();
 						ConsPointer args2 = new ConsPointer();
 						oper.setCons(subList.getCons());
-						args2.setCons(subList.getCons().cdr().getCons());
+						args2.setCons(subList.getCons().rest().getCons());
 						UtilityFunctions.internalApplyPure(oper,args2,aResult,aEnvironment);
 						aEnvironment.iEvalDepth--;
 						return;

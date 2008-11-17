@@ -51,7 +51,7 @@ public class LazyAnd extends BuiltinFunction
                 ConsPointer ptr = new ConsPointer();
                 nrnogos++;
                 ptr.setCons(evaluated.getCons().copy(false));
-                ptr.getCons().cdr().setCons(nogos.getCons());
+                ptr.getCons().rest().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
             }
 
@@ -71,7 +71,7 @@ public class LazyAnd extends BuiltinFunction
                 nogos.setCons(ptr.getCons());
 
                 ptr.setCons(argumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
-                ptr.getCons().cdr().setCons(nogos.getCons());
+                ptr.getCons().rest().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
                 result(aEnvironment, aStackTop).setCons(SubList.getInstance(nogos.getCons()));
 

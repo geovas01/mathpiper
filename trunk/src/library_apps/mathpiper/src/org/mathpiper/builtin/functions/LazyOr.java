@@ -53,7 +53,7 @@ public class LazyOr extends BuiltinFunction
                 nrnogos++;
 
                 ptr.setCons(evaluated.getCons().copy(false));
-                ptr.getCons().cdr().setCons(nogos.getCons());
+                ptr.getCons().rest().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
             }
             iter.goNext();
@@ -72,7 +72,7 @@ public class LazyOr extends BuiltinFunction
                 nogos.setCons(ptr.getCons());
 
                 ptr.setCons(argumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
-                ptr.getCons().cdr().setCons(nogos.getCons());
+                ptr.getCons().rest().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
                 result(aEnvironment, aStackTop).setCons(SubList.getInstance(nogos.getCons()));
             }

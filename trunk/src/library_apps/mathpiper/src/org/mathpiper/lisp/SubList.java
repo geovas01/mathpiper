@@ -28,7 +28,7 @@ public class SubList extends Cons
 		return new SubList(aSubList);
 	}
         
-        public Object car()
+        public Object first()
         {
             return iSubList;
         }

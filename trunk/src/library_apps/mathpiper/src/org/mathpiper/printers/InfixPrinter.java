@@ -126,16 +126,16 @@ public class InfixPrinter extends Printer
 
 				if (prefix != null)
 				{
-					right = subList.getCons().cdr();
+					right = subList.getCons().rest();
 				}
 				else if (infix != null)
 				{
-					left  = subList.getCons().cdr();
-					right = subList.getCons().cdr().getCons().cdr();
+					left  = subList.getCons().rest();
+					right = subList.getCons().rest().getCons().rest();
 				}
 				else if (postfix != null)
 				{
-					left = subList.getCons().cdr();
+					left = subList.getCons().rest();
 				}
 
 				if (iPrecedence < op.iPrecedence)
@@ -156,7 +156,7 @@ public class InfixPrinter extends Printer
 			}
 			else
 			{
-				ConsTraverser iter = new ConsTraverser(subList.getCons().cdr());
+				ConsTraverser iter = new ConsTraverser(subList.getCons().rest());
 				if (string == iCurrentEnvironment.iListAtom.string())
 				{
 					WriteToken(aOutput,"{");

@@ -41,7 +41,7 @@ public class Not extends BuiltinFunction
         {
             ConsPointer ptr = new ConsPointer();
             ptr.setCons(argumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
-            ptr.getCons().cdr().setCons(evaluated.getCons());
+            ptr.getCons().rest().setCons(evaluated.getCons());
             result(aEnvironment, aStackTop).setCons(SubList.getInstance(ptr.getCons()));
         }
     }

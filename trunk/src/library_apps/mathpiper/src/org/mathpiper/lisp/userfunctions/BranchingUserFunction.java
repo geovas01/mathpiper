@@ -184,13 +184,13 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 full.setCons(aArguments.getCons().copy(false));
                 if (arity == 0)
                 {
-                    full.getCons().cdr().setCons(null);
+                    full.getCons().rest().setCons(null);
                 } else
                 {
-                    full.getCons().cdr().setCons(arguments[0].getCons());
+                    full.getCons().rest().setCons(arguments[0].getCons());
                     for (i = 0; i < arity - 1; i++)
                     {
-                        arguments[i].getCons().cdr().setCons(arguments[i + 1].getCons());
+                        arguments[i].getCons().rest().setCons(arguments[i + 1].getCons());
                     }
                 }
                 aResult.setCons(SubList.getInstance(full.getCons()));

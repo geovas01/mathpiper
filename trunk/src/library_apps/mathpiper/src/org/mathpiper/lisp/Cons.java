@@ -34,12 +34,12 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 {
 	ConsPointer   iCdr = new ConsPointer();
 
-	public  ConsPointer cdr()
+	public  ConsPointer rest()
 	{
 		return iCdr;
 	}
         
-        abstract Object car();
+        abstract Object first();
 
 	/** Return string representation, or NULL if the object doesn't have one.
 	  *  the string representation is only relevant if the object is a
@@ -100,8 +100,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 			if (! iter1.getCons().equal(iter2.getCons() ))
 				return false;
 
-			iter1 = iter1.getCons().cdr();
-			iter2 = iter2.getCons().cdr();
+			iter1 = iter1.getCons().rest();
+			iter2 = iter2.getCons().rest();
 		}
 		//One list longer than the other?
 		if (iter1.getCons()== null && iter2.getCons()==null)

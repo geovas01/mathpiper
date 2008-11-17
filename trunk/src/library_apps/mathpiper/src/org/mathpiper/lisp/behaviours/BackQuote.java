@@ -55,7 +55,7 @@ public class BackQuote implements SubstBase
 
 		if (!ptr.string().equals("@"))
 			return false;
-		ptr = ptr.cdr().getCons();
+		ptr = ptr.rest().getCons();
 		if (ptr == null)
 			return false;
 		if (ptr.string() != null)
@@ -71,10 +71,10 @@ public class BackQuote implements SubstBase
 			ConsPointer cur = new ConsPointer();
 			cur.setCons(ptr);
 			ConsPointer args = new ConsPointer();
-			args.setCons(ptr.cdr().getCons());
+			args.setCons(ptr.rest().getCons());
 			ConsPointer result = new ConsPointer();
 			iEnvironment.iEvaluator.evaluate(iEnvironment, result, cur);
-			result.getCons().cdr().setCons(args.getCons());
+			result.getCons().rest().setCons(args.getCons());
 			ConsPointer result2 = new ConsPointer();
 			result2.setCons(SubList.getInstance(result.getCons()));
 			UtilityFunctions.internalSubstitute(aResult, result2,this);

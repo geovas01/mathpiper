@@ -34,7 +34,7 @@ public class BuiltinObject extends Cons
 		return self;
 	}
         
-        public Object car()
+        public Object first()
         {
             return iClass;
         }

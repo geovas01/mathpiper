@@ -82,7 +82,7 @@ public class Evaluator extends EvalFuncBase
 			{
 				ConsPointer head = new ConsPointer();
 				head.setCons(aEnvironment.iListAtom.copy(false));
-				head.getCons().cdr().setCons(iter.getCons());
+				head.getCons().rest().setCons(iter.getCons());
 				aEnvironment.iArgumentStack.pushArgumentOnStack(SubList.getInstance(head.getCons()));
 			}
 		}
@@ -105,7 +105,7 @@ public class Evaluator extends EvalFuncBase
 				//printf("Enter\n");
 				ConsPointer head = new ConsPointer();
 				head.setCons(aEnvironment.iListAtom.copy(false));
-				head.getCons().cdr().setCons(iter.getCons());
+				head.getCons().rest().setCons(iter.getCons());
 				ConsPointer list = new ConsPointer();
 				list.setCons(SubList.getInstance(head.getCons()));
 

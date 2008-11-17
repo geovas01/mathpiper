@@ -37,7 +37,7 @@ public class Length extends BuiltinFunction
         ConsPointer subList = argumentPointer(aEnvironment, aStackTop, 1).getCons().subList();
         if (subList != null)
         {
-            int num = UtilityFunctions.internalListLength(subList.getCons().cdr());
+            int num = UtilityFunctions.internalListLength(subList.getCons().rest());
             result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + num));
             return;
         }
