@@ -46,7 +46,7 @@ public class ConsTraverser
 	public void goNext() throws Exception
 	{
 		LispError.check(iPtr.getCons() != null,LispError.KLispErrListNotLongEnough);
-		iPtr = (iPtr.getCons().cdr());
+		iPtr = (iPtr.getCons().rest());
 	}
 	
 	public void goSub() throws Exception

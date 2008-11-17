@@ -252,7 +252,7 @@ public class Pattern
 				Cons head = sublist.getCons();
 				if (head.string() == aEnvironment.getTokenHash().lookUp("_"))
 				{
-					Cons second = head.cdr().getCons();
+					Cons second = head.rest().getCons();
 					if (second.string() != null)
 					{
 						int index = lookUp(second.string());
@@ -262,22 +262,22 @@ public class Pattern
 						{
 							ConsPointer third = new ConsPointer();
 
-							Cons predicate = second.cdr().getCons();
+							Cons predicate = second.rest().getCons();
 							if (predicate.subList() != null)
 							{
 								UtilityFunctions.internalFlatCopy(third, predicate.subList());
 							}
 							else
 							{
-								third.setCons(second.cdr().getCons().copy(false));
+								third.setCons(second.rest().getCons().copy(false));
 							}
 
 							String str = second.string();
 							Cons last = third.getCons();
-							while (last.cdr().getCons() != null)
-								last = last.cdr().getCons();
+							while (last.rest().getCons() != null)
+								last = last.rest().getCons();
 
-							last.cdr().setCons(org.mathpiper.lisp.Atom.getInstance(aEnvironment,str));
+							last.rest().setCons(org.mathpiper.lisp.Atom.getInstance(aEnvironment,str));
 
 							ConsPointer pred = new ConsPointer();
 							pred.setCons(org.mathpiper.lisp.SubList.getInstance(third.getCons()));

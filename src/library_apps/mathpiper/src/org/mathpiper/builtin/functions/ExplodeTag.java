@@ -114,10 +114,10 @@ public class ExplodeTag extends BuiltinFunction
                 Cons ls = Atom.getInstance(aEnvironment, "List");
                 Cons nm = Atom.getInstance(aEnvironment, name);
                 Cons vl = Atom.getInstance(aEnvironment, value);
-                nm.cdr().setCons(vl);
-                ls.cdr().setCons(nm);
+                nm.rest().setCons(vl);
+                ls.rest().setCons(nm);
                 Cons newinfo = SubList.getInstance(ls);
-                newinfo.cdr().setCons(info);
+                newinfo.rest().setCons(info);
                 info = newinfo;
             }
             while (str.charAt(strInd) == ' ')
@@ -138,16 +138,16 @@ public class ExplodeTag extends BuiltinFunction
         }
         {
             Cons ls = Atom.getInstance(aEnvironment, "List");
-            ls.cdr().setCons(info);
+            ls.rest().setCons(info);
             info = SubList.getInstance(ls);
         }
 
         Cons xm = Atom.getInstance(aEnvironment, "XmlTag");
         Cons tg = Atom.getInstance(aEnvironment, tag);
         Cons tp = Atom.getInstance(aEnvironment, type);
-        info.cdr().setCons(tp);
-        tg.cdr().setCons(info);
-        xm.cdr().setCons(tg);
+        info.rest().setCons(tp);
+        tg.rest().setCons(info);
+        xm.rest().setCons(tg);
         result(aEnvironment, aStackTop).setCons(SubList.getInstance(xm));
 
     }

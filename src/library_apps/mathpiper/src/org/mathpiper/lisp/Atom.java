@@ -44,7 +44,7 @@ public class Atom extends Cons
         return self;
     }
     
-    public Object car()
+    public Object first()
     {
         return iString;
     }

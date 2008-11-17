@@ -65,7 +65,7 @@ public class Number extends Cons
 		return new Number(iNumber, iString);
 	}
         
-        public Object car()
+        public Object first()
         {
             return iNumber;
         }

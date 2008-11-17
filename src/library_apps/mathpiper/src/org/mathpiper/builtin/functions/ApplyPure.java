@@ -46,12 +46,12 @@ public class ApplyPure extends BuiltinFunction
         {
             UtilityFunctions.internalApplyString(aEnvironment, result(aEnvironment, aStackTop),
                     oper.getCons().string(),
-                    args.getCons().subList().getCons().cdr());
+                    args.getCons().subList().getCons().rest());
         } else
         {   // Apply a pure function {args,body}.
 
             ConsPointer args2 = new ConsPointer();
-            args2.setCons(args.getCons().subList().getCons().cdr().getCons());
+            args2.setCons(args.getCons().subList().getCons().rest().getCons());
             LispError.checkArgumentCore(aEnvironment, aStackTop, oper.getCons().subList() != null, 1);
             LispError.checkArgumentCore(aEnvironment, aStackTop, oper.getCons().subList().getCons() != null, 1);
             UtilityFunctions.internalApplyPure(oper, args2, result(aEnvironment, aStackTop), aEnvironment);

@@ -35,7 +35,7 @@ public class Listify extends BuiltinFunction
         LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).getCons().subList() != null, 1);
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
-        head.getCons().cdr().setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons().subList().getCons());
+        head.getCons().rest().setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons().subList().getCons());
         result(aEnvironment, aStackTop).setCons(SubList.getInstance(head.getCons()));
     }
 }
