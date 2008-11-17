@@ -385,7 +385,7 @@ public class MathPiperParser extends Parser
         iError = true;
         if (iLookAhead != null)
         {
-            LispError.raiseError("Error parsing expression, near token " + iLookAhead,iEnvironment + ".");
+            LispError.raiseError("Error parsing expression, near token " + iLookAhead + ".", iEnvironment);
         }
         LispError.raiseError("Error parsing expression.",iEnvironment);
     }
