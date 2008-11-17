@@ -10,7 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JTree;
 import org.mathpiper.lisp.Environment;
 import java.awt.Container;
-import java.util.Enumeration;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -62,7 +64,7 @@ public class EnvironmentViewer
     public JTable getTableViewer(Environment environment) 
     {
         JTable m_table = new JTable();
-        final java.util.Hashtable m_hash = environment.getIUserFunctions().getIHashtable();
+        final java.util.Map m_hash = (java.util.Map) environment.getIUserFunctions().getIHashtable();
 
         m_table.setModel(new AbstractTableModel(){
         private static final long serialVersionUID = 1L;
@@ -94,10 +96,13 @@ public class EnvironmentViewer
 
         private String getKey(int a_index) {
                 String retval = "";
-                Enumeration<String> e = m_hash.keys();
-                for (int i = 0; i < a_index + 1; i++) {
-                        retval = e.nextElement();
-                } // for
+                ArrayList keyList = new ArrayList(m_hash.keySet());
+                Collections.sort(keyList);
+
+               // for (int i = 0; i < a_index + 1; i++) {
+               //         retval = e.next();
+               // } // for
+                retval = (String) keyList.get(a_index);
 
                 return retval;
         }
