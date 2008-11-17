@@ -20,7 +20,7 @@ package org.mathpiper.lisp;
 public class TokenHash extends AssociatedHash
 {
 
-    java.util.Hashtable iHashtable = new java.util.Hashtable();
+   // java.util.Hashtable iMap = new java.util.Hashtable();
 
 
     /**
@@ -30,11 +30,12 @@ public class TokenHash extends AssociatedHash
      */
     public String lookUp(String aString)
     {
-        if (!iHashtable.containsKey(aString))
+        if (!iMap.containsKey(aString))
         {
-            iHashtable.put(aString, aString);
+            iMap.put(aString, aString);
         }
-        return (String) iHashtable.get(aString);
+
+        return (String) iMap.get(aString);
     }
 
    /**
@@ -46,11 +47,13 @@ public class TokenHash extends AssociatedHash
     public String lookUpStringify(String aString)
     {
         aString = "\"" + aString + "\"";
-        if (!iHashtable.containsKey(aString))
+        if (!iMap.containsKey(aString))
         {
-            iHashtable.put(aString, aString);
+            iMap.put(aString, aString);
         }
-        return (String) iHashtable.get(aString);
+        
+        return (String) iMap.get(aString);
+        
     }
 
    /**
@@ -62,11 +65,13 @@ public class TokenHash extends AssociatedHash
     public String lookUpUnStringify(String aString)
     {
         aString = aString.substring(1, aString.length() - 1);
-        if (!iHashtable.containsKey(aString))
+        if (!iMap.containsKey(aString))
         {
-            iHashtable.put(aString, aString);
+            iMap.put(aString, aString);
         }
-        return (String) iHashtable.get(aString);
+
+        return (String) iMap.get(aString);
+        
     }
 
     // GarbageCollect

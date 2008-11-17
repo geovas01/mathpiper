@@ -32,16 +32,18 @@ import java.util.Hashtable;
  */
 public class AssociatedHash
 {
-	java.util.Hashtable iHashtable = new java.util.Hashtable();
+	//java.util.Hashtable iMap = new java.util.Hashtable();
+        java.util.Map iMap = new java.util.HashMap();
 	
 	/// Find the data associated to \a aString.
 	/// If \a aString is not stored in the hash table, this function
 	/// returns #NULL.
 	public Object lookUp(String aString)
 	{
-		if (iHashtable.containsKey(aString))
-			return iHashtable.get(aString);
-		return null;
+		//if (iMap.containsKey(aString))
+		//	return iMap.get(aString);
+		//return null;
+                return iMap.get(aString);
 	}
 
 	/// Add an association to the hash table.
@@ -50,21 +52,23 @@ public class AssociatedHash
 	/// association is added.
 	public void setAssociation(Object aData, String aString)
 	{
-		if (iHashtable.containsKey(aString))
-			iHashtable.remove(aString);
-		iHashtable.put(aString, aData);
+		//if (iMap.containsKey(aString))
+		//	iMap.remove(aString);
+               
+		iMap.put(aString, aData);
 	}
 
 	/// Delete an association from the hash table.
 	public void release(String aString)
 	{
-		if (iHashtable.containsKey(aString))
-			iHashtable.remove(aString);
+		//if (iMap.containsKey(aString))
+		//iMap.remove(aString);
+                iMap.remove(aString);
 	}
 
-    public Hashtable getIHashtable()
+    public Object getIHashtable()
     {
-        return iHashtable;
+        return iMap;
     }
         
         
