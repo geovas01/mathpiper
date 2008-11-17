@@ -18,6 +18,8 @@
 
 package org.mathpiper.lisp;
 
+import java.util.Hashtable;
+
 
 /** AssociatedHash allows you to associate arbitrary
  * information with a string in the above hash table. You can
@@ -59,6 +61,13 @@ public class AssociatedHash
 		if (iHashtable.containsKey(aString))
 			iHashtable.remove(aString);
 	}
+
+    public Hashtable getIHashtable()
+    {
+        return iHashtable;
+    }
+        
+        
 	
 }
 

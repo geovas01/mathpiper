@@ -73,7 +73,7 @@ public class Environment
 
 	public LocalVariableFrame iLocalsList;
 
-	public AssociatedHash iGlobalState = new AssociatedHash();
+	
 
 	public boolean iSecure = false;
 
@@ -88,8 +88,10 @@ public class Environment
 	public MathPiperTokenizer iCurrentTokenizer;
 	public MathPiperTokenizer iDefaultTokenizer = new MathPiperTokenizer();
 	public MathPiperTokenizer iXmlTokenizer = new XmlTokenizer();
-
+        
+        public AssociatedHash iGlobalState = new AssociatedHash();
 	public AssociatedHash iUserFunctions = new AssociatedHash();
+        AssociatedHash iBuiltinFunctions = new AssociatedHash();
 
 	public String iError = null;
 
@@ -99,7 +101,7 @@ public class Environment
 	public String iPrettyReader = null;
 	public String iPrettyPrinter = null;
         
-        AssociatedHash iBuiltinFunctions = new AssociatedHash();
+        
 
 	public Environment(OutputStream aCurrentOutput/*TODO FIXME*/) throws Exception
 	{
@@ -137,6 +139,28 @@ public class Environment
 	{
 		return iTokenHash;
 	}
+
+    public AssociatedHash getIBuiltinFunctions()
+    {
+        return iBuiltinFunctions;
+    }
+
+    public AssociatedHash getIGlobalState()
+    {
+        return iGlobalState;
+    }
+
+    public TokenHash getITokenHash()
+    {
+        return iTokenHash;
+    }
+
+    public AssociatedHash getIUserFunctions()
+    {
+        return iUserFunctions;
+    }
+        
+        
 
 	public int getPrecision()
 	{
