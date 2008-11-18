@@ -31,7 +31,7 @@ import org.mathpiper.lisp.SubList;
 
 public class Evaluator extends EvalFuncBase
 {
-	// FunctionFlags can be orred when passed to the constructor of this function
+	// FunctionFlags can be ORed when passed to the constructor of this function
 
 	public static int Function=0;    // Function: evaluate arguments
 	public static int Macro=1;       // Function: don't evaluate arguments
