@@ -28,10 +28,14 @@ import org.mathpiper.lisp.LispError;
  */
 class BranchPattern extends BranchRuleBase
 {
+    /**
     /// Constructor.
-    /// \param aPrecedence precedence of the rule
-    /// \param aPredicate generic object of type \c PatternContainer
-    /// \param aBody body of the rule
+     * 
+     * @param aPrecedence precedence of the rule
+     * @param aPredicate generic object of type PatternContainer
+     * @param aBody body of the rule
+     */
+    
     public BranchPattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
     {
         iPatternClass = null;

@@ -25,7 +25,7 @@ import java.util.*;
 
 
 /**
- * Holds a set of {@link SingleArityUserFunctions} which are associated with one function name.
+ * Holds a set of {@link SingleArityUserFunction} which are associated with one function name.
  * A specific SingleArityUserFunction can be selected by profiding its name.  The
  * name of the file in which the function is defined can also be specified.
  */

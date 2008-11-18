@@ -15,25 +15,27 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;;
+import org.mathpiper.lisp.UtilityFunctions;
+
+;
+
 import org.mathpiper.lisp.Environment;
+
 import org.mathpiper.lisp.UtilityFunctions;
 
 /**
- *
+ *Corresponds to the MathPiper function AddN.
+ *If called with one argument (unary plus), this argument is
+ *converted to BigNumber. If called with two arguments (binary plus),
+ *both argument are converted to a BigNumber, and these are added
+ *together at the current getPrecision. The sum is returned.
+ * See: getNumber(), BigNumber::Add().
  *  
  */
-/// Corresponds to the MathPiper function \c AddN.
-/// If called with one argument (unary plus), this argument is
-/// converted to BigNumber. If called with two arguments (binary plus),
-/// both argument are converted to a BigNumber, and these are added
-/// together at the current getPrecision. The sum is returned.
-/// \sa getNumber(), BigNumber::Add()
 public class Add extends BuiltinFunction
 {
 

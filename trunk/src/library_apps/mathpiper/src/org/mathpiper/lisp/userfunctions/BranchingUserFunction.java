@@ -42,12 +42,16 @@ public class BranchingUserFunction extends SingleArityUserFunction
     /// List of arguments
     ConsPointer iParamList = new ConsPointer();
 
-    /// Constructor.
-    /// \param aParameters linked list constaining the names of the arguments
-    ///
-    /// #iParamList and #iParameters are setCons from \a aParameters.
+
+    /**
+     * Constructor.
+     *
+     * @param aParameters linked list constaining the names of the arguments
+     * @throws java.lang.Exception
+     */
     public BranchingUserFunction(ConsPointer aParameters) throws Exception
     {
+        // iParamList and #iParameters are setCons from \a aParameters.
         iParamList.setCons(aParameters.getCons());
         ConsTraverser iter = new ConsTraverser(aParameters);
         while (iter.getCons() != null)
@@ -59,20 +63,24 @@ public class BranchingUserFunction extends SingleArityUserFunction
         }
     }
 
-    /// evaluate the function on given arguments.
-    /// \param aResult (on output) the result of the evaluation
-    /// \param aEnvironment the underlying Lisp environment
-    /// \param aArguments the arguments to the function
-    ///
-    /// First, all arguments are evaluated by the evaluator associated
-    /// to \a aEnvironment, unless the \c iHold flag of the
-    /// corresponding parameter is true. Then a new LispLocalFrame is
-    /// constructed, in which the actual arguments are assigned to the
-    /// names of the formal arguments, as stored in \c iParameter. Then
-    /// all rules in #iRules are tried one by one. The body of the
-    /// first rule that matches is evaluated, and the result is put in
-    /// \a aResult. If no rule matches, \a aResult will recieve a new
-    /// expression with evaluated arguments.
+
+    /**
+     * Evaluate the function with the given arguments.
+     * First, all arguments are evaluated by the evaluator associated
+     * to aEnvironment, unless the iHold flag of the
+     * corresponding parameter is true. Then a new LispLocalFrame is
+     * constructed, in which the actual arguments are assigned to the
+     * names of the formal arguments, as stored in iParameter. Then
+     * all rules in <b>iRules</b> are tried one by one. The body of the
+     * first rule that matches is evaluated, and the result is put in
+     * aResult. If no rule matches, aResult will recieve a new
+     * expression with evaluated arguments.
+     * 
+     * @param aResult (on output) the result of the evaluation
+     * @param aEnvironment the underlying Lisp environment
+     * @param aArguments the arguments to the function
+     * @throws java.lang.Exception
+     */
     public void evaluate(ConsPointer aResult, Environment aEnvironment, ConsPointer aArguments) throws Exception
     {
         int arity = arity();
@@ -214,11 +222,14 @@ public class BranchingUserFunction extends SingleArityUserFunction
         }
     }
 
-    /// Put an argument on hold.
-    /// \param aVariable name of argument to put un hold
-    ///
-    /// The \c iHold flag of the corresponding argument is setCons. This
-    /// implies that this argument is not evaluated by evaluate().
+
+    /**
+     * Put an argument on hold.
+     * The \c iHold flag of the corresponding argument is setCons. This
+     * implies that this argument is not evaluated by evaluate().
+     * 
+     * @param aVariable name of argument to put un hold
+     */
     public void holdArgument(String aVariable)
     {
         int i;
@@ -232,57 +243,97 @@ public class BranchingUserFunction extends SingleArityUserFunction
         }
     }
 
-    /// Return true if the arity of the function equals \a aArity.
+
+    /**
+     * Return true if the arity of the function equals \a aArity.
+     * 
+     * @param aArity
+     * @return
+     */
     public boolean isArity(int aArity)
     {
         return (arity() == aArity);
     }
 
-    /// Return the arity (number of arguments) of the function.
+    
+    /**
+     * Return the arity (number of arguments) of the function
+     * @return
+     */
     public int arity()
     {
         return iParameters.size();
     }
 
-    /// Add a BranchRule to the list of rules.
-    /// \sa InsertRule()
+
+    /**
+     *  Add a BranchRule to the list of rules.
+     * See: insertRule()
+     * 
+     * @param aPrecedence
+     * @param aPredicate
+     * @param aBody
+     * @throws java.lang.Exception
+     */
     public void declareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
     {
         // New branching rule.
         BranchRule newRule = new BranchRule(aPrecedence, aPredicate, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
-        InsertRule(aPrecedence, newRule);
+        insertRule(aPrecedence, newRule);
     }
 
-    /// Add a BranchRuleTruePredicate to the list of rules.
-    /// \sa InsertRule()
+    
+    /**
+     * Add a BranchRuleTruePredicate to the list of rules.
+     * See: insertRule()
+     * 
+     * @param aPrecedence
+     * @param aBody
+     * @throws java.lang.Exception
+     */
     public void declareRule(int aPrecedence, ConsPointer aBody) throws Exception
     {
         // New branching rule.
         BranchRule newRule = new BranchRuleTruePredicate(aPrecedence, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
-        InsertRule(aPrecedence, newRule);
+        insertRule(aPrecedence, newRule);
     }
 
-    /// Add a BranchPattern to the list of rules.
-    /// \sa InsertRule()
+   
+    /**
+     *  Add a BranchPattern to the list of rules.
+     *  See: insertRule()
+     * 
+     * @param aPrecedence
+     * @param aPredicate
+     * @param aBody
+     * @throws java.lang.Exception
+     */
     public void declarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
     {
         // New branching rule.
         BranchPattern newRule = new BranchPattern(aPrecedence, aPredicate, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
-        InsertRule(aPrecedence, newRule);
+        insertRule(aPrecedence, newRule);
     }
 
-    /// Insert any BranchRuleBase object in the list of rules.
-    /// This function does the real work for declareRule() and
-    /// declarePattern(): it inserts the rule in #iRules, while
-    /// keeping it sorted. The algorithm is \f$O(\log n)\f$, where
-    /// \f$n\f$ denotes the number of rules.
-    void InsertRule(int aPrecedence, BranchRuleBase newRule)
+
+    
+    /**
+     * Insert any BranchRuleBase object in the list of rules.
+     * This function does the real work for declareRule() and
+     * declarePattern(): it inserts the rule in <b>iRules</b>, while
+     * keeping it sorted. The algorithm is O(log n), where
+     * n denotes the number of rules.
+     * 
+     * @param aPrecedence
+     * @param newRule
+     */
+    void insertRule(int aPrecedence, BranchRuleBase newRule)
     {
         // Find place to insert
         int low, high, mid;
@@ -336,7 +387,12 @@ public class BranchingUserFunction extends SingleArityUserFunction
         }
     }
 
-    /// Return the argument list, stored in #iParamList
+
+    /**
+     * Return the argument list, stored in #iParamList.
+     * 
+     * @return
+     */
     public ConsPointer argList()
     {
         return iParamList;
