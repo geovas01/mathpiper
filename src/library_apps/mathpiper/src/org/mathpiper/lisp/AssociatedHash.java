@@ -15,11 +15,9 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp;
 
-import java.util.Hashtable;
-
+import java.util.Collections;
 
 /** AssociatedHash allows you to associate arbitrary
  * information with a string in the above hash table. You can
@@ -32,46 +30,58 @@ import java.util.Hashtable;
  */
 public class AssociatedHash
 {
-	//java.util.Hashtable iMap = new java.util.Hashtable();
-        java.util.Map iMap = new java.util.HashMap();
-	
-	/// Find the data associated to \a aString.
-	/// If \a aString is not stored in the hash table, this function
-	/// returns #NULL.
-	public Object lookUp(String aString)
-	{
-		//if (iMap.containsKey(aString))
-		//	return iMap.get(aString);
-		//return null;
-                return iMap.get(aString);
-	}
+    //java.util.Hashtable iMap = new java.util.Hashtable();
+    java.util.Map iMap = Collections.synchronizedMap(new java.util.HashMap());
 
-	/// Add an association to the hash table.
-	/// If \a aString is already stored in the hash table, its
-	/// association is changed to \a aData. Otherwise, a new
-	/// association is added.
-	public void setAssociation(Object aData, String aString)
-	{
-		//if (iMap.containsKey(aString))
-		//	iMap.remove(aString);
-               
-		iMap.put(aString, aData);
-	}
+    /**
+     * Find the data associated to \a aString.
+     * If \a aString is not stored in the hash table, this function
+     * returns #NULL.
+     * 
+     * @param aString
+     * @return
+     */
+    public Object lookUp(String aString)
+    {
+        //if (iMap.containsKey(aString))
+        //	return iMap.get(aString);
+        //return null;
+        return iMap.get(aString);
+    }
 
-	/// Delete an association from the hash table.
-	public void release(String aString)
-	{
-		//if (iMap.containsKey(aString))
-		//iMap.remove(aString);
-                iMap.remove(aString);
-	}
+    /**
+     * Add an association to the hash table.
+     *  If aString is already stored in the hash table, its
+     * association is changed to aData. Otherwise, a new
+     * association is added.
+     * 
+     * @param aData
+     * @param aString
+     */
+    public void setAssociation(Object aData, String aString)
+    {
+        //if (iMap.containsKey(aString))
+        //	iMap.remove(aString);
+
+        iMap.put(aString, aData);
+    }
+
+
+    /**
+     * Delete an association from the hash table.
+     * 
+     * @param aString
+     */
+    public void release(String aString)
+    {
+        //if (iMap.containsKey(aString))
+        //iMap.remove(aString);
+        iMap.remove(aString);
+    }
 
     public Object getIHashtable()
     {
         return iMap;
     }
-        
-        
-	
 }
 
