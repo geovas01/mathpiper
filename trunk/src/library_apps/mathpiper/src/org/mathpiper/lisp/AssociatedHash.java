@@ -79,7 +79,7 @@ public class AssociatedHash
         iMap.remove(aString);
     }
 
-    public Object getIHashtable()
+    public Object getMap()
     {
         return iMap;
     }

@@ -18,9 +18,6 @@
 
 package org.mathpiper.builtin;
 
-import java.lang.reflect.Type;
-import java.sql.Time;
-import java.util.List;
 import org.mathpiper.builtin.functions.Abs;
 import org.mathpiper.builtin.functions.Add;
 import org.mathpiper.builtin.functions.ApplyPure;
@@ -175,6 +172,7 @@ import org.mathpiper.builtin.functions.SetGlobalLazyVariable;
 import org.mathpiper.builtin.functions.SetVar;
 import org.mathpiper.builtin.functions.ShiftLeft;
 import org.mathpiper.builtin.functions.ShiftRight;
+import org.mathpiper.builtin.functions.ViewEnvironment;
 import org.mathpiper.builtin.functions.StackSize;
 import org.mathpiper.builtin.functions.StringMidGet;
 import org.mathpiper.builtin.functions.StringMidSet;
@@ -787,7 +785,6 @@ public abstract class BuiltinFunction
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.Version(), 0, Evaluator.Fixed | Evaluator.Function),
                 "Version");
-
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Exit(), 0, Evaluator.Fixed | Evaluator.Function),
                 "Exit");
@@ -812,6 +809,9 @@ public abstract class BuiltinFunction
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new FileSize(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FileSize");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.ViewEnvironment(), 0, Evaluator.Fixed | Evaluator.Function),
+                "ViewEnvironment");
 
 
     }
