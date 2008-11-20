@@ -7,7 +7,7 @@
 		Build file for MathPiper.
 	</description>
 	
-	<property name="version" value=".54" />
+	<property name="version" value=".55" />
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	
 	
