@@ -24,10 +24,10 @@ import org.mathpiper.lisp.UtilityFunctions;
 /**
  * A rule with a predicate (the rule matches if the predicate evaluates to True.).
  */
-class branchRule extends BranchRuleBase
+class BranchRule extends BranchRuleBase
 {
 
-    public branchRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
+    public BranchRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
     {
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
@@ -64,7 +64,7 @@ class branchRule extends BranchRuleBase
         return iBody;
     }
 
-    protected branchRule()
+    protected BranchRule()
     {
     }
     protected int iPrecedence;

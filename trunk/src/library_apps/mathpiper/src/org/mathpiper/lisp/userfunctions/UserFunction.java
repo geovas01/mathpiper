@@ -33,12 +33,15 @@ public abstract class UserFunction extends EvalFuncBase
 /// evaluate the function with some arguments.
     
 	boolean iFenced;
-	boolean iTraced;
+	public static boolean iTraced = false;
 	
-	public UserFunction()
+        /**
+         * 
+         */
+        public UserFunction()
 	{
 		iFenced = true;
-		iTraced = false;
+		//iTraced = false;
 	}
 	public abstract void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
 	public abstract void holdArgument(String aVariable);
@@ -57,17 +60,17 @@ public abstract class UserFunction extends EvalFuncBase
 		return iFenced;
 	}
 
-	public void trace()
+	public static void trace()
 	{
 		iTraced = true;
 	}
 	
-	public void unTrace()
+	public static void unTrace()
 	{
 		iTraced = false;
 	}
 	
-	public boolean traced()
+	public static boolean isTraced()
 	{
 		return iTraced;
 	}
