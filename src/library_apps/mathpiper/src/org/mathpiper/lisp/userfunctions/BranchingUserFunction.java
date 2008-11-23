@@ -24,11 +24,12 @@ import org.mathpiper.lisp.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.SubList;
 import java.util.*;
+import org.mathpiper.lisp.LispExpressionEvaluator;
 
 /**
  * A function (usually mathematical) which is defined by one or more rules.
  * This is the basic class which implements functions.  Evaluation is done
- * by consulting a setCons of rewritng rules.  The body of the first rule that
+ * by consulting a set of rewritng rules.  The body of the first rule that
  * matches is evaluated and its result is returned as the function's result.
  */
 public class BranchingUserFunction extends SingleArityUserFunction
@@ -41,7 +42,6 @@ public class BranchingUserFunction extends SingleArityUserFunction
 
     /// List of arguments
     ConsPointer iParamList = new ConsPointer();
-
 
     /**
      * Constructor.
@@ -63,11 +63,10 @@ public class BranchingUserFunction extends SingleArityUserFunction
         }
     }
 
-
     /**
      * Evaluate the function with the given arguments.
      * First, all arguments are evaluated by the evaluator associated
-     * to aEnvironment, unless the iHold flag of the
+     * with aEnvironment, unless the iHold flag of the
      * corresponding parameter is true. Then a new LispLocalFrame is
      * constructed, in which the actual arguments are assigned to the
      * names of the formal arguments, as stored in iParameter. Then
@@ -86,15 +85,15 @@ public class BranchingUserFunction extends SingleArityUserFunction
         int arity = arity();
         int i;
 
-        /*TODO fixme
-        if (traced())
+        /*TODO fixme*/
+        if (isTraced())
         {
-        ConsPointer tr;
-        tr.Set(SubList.New(aArguments.Get()));
-        TraceShowEnter(aEnvironment,tr);
-        tr.Set(null);
+            ConsPointer tr = new ConsPointer();
+            tr.setCons(SubList.getInstance(aArguments.getCons()));
+            LispExpressionEvaluator.traceShowEnter(aEnvironment, tr);
+            tr.setCons(null);
         }
-         */
+
         ConsTraverser iter = new ConsTraverser(aArguments);
         iter.goNext();
 
@@ -127,20 +126,21 @@ public class BranchingUserFunction extends SingleArityUserFunction
             }
             iter.goNext();
         }
-        /*TODO fixme
-        if (traced())
+        /*TODO fixme  */
+        if (isTraced())
         {
-        ConsTraverser iter = new ConsTraverser(aArguments);
-        iter.goNext();
-        for (i=0;i<arity;i++)
-        {
-        TraceShowArg(aEnvironment,*iter.ptr(),
-        arguments[i]);
-        
-        iter.goNext();
+            //ConsTraverser iter2 = new ConsTraverser(aArguments);
+            ConsPointer iter2 = new ConsPointer(aArguments.getCons());
+            
+            iter2.goNext();
+            for (i = 0; i < arity; i++)
+            {
+                LispExpressionEvaluator.traceShowArg(aEnvironment, iter2, arguments[i]);
+
+                iter2.goNext();
+            }
         }
-        }
-         */
+
         // declare a new local stack.
         aEnvironment.pushLocalFrame(fenced());
         try
@@ -169,7 +169,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
                     st.iSide = 1;
                     aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.body());
                     /*TODO fixme
-                    if (traced())
+                    if (isTraced())
                     {
                     ConsPointer tr;
                     tr.Set(SubList.New(aArguments.Get()));
@@ -205,7 +205,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
             }
 
         /*TODO fixme
-        if (traced())
+        if (isTraced())
         {
         ConsPointer tr;
         tr.Set(SubList.New(aArguments.Get()));
@@ -221,7 +221,6 @@ public class BranchingUserFunction extends SingleArityUserFunction
             aEnvironment.popLocalFrame();
         }
     }
-
 
     /**
      * Put an argument on hold.
@@ -243,7 +242,6 @@ public class BranchingUserFunction extends SingleArityUserFunction
         }
     }
 
-
     /**
      * Return true if the arity of the function equals \a aArity.
      * 
@@ -255,7 +253,6 @@ public class BranchingUserFunction extends SingleArityUserFunction
         return (arity() == aArity);
     }
 
-    
     /**
      * Return the arity (number of arguments) of the function
      * @return
@@ -265,9 +262,8 @@ public class BranchingUserFunction extends SingleArityUserFunction
         return iParameters.size();
     }
 
-
     /**
-     *  Add a branchRule to the list of rules.
+     *  Add a BranchRule to the list of rules.
      * See: insertRule()
      * 
      * @param aPrecedence
@@ -278,13 +274,12 @@ public class BranchingUserFunction extends SingleArityUserFunction
     public void declareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
     {
         // New branching rule.
-        branchRule newRule = new branchRule(aPrecedence, aPredicate, aBody);
+        BranchRule newRule = new BranchRule(aPrecedence, aPredicate, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
         insertRule(aPrecedence, newRule);
     }
 
-    
     /**
      * Add a BranchRuleTruePredicate to the list of rules.
      * See: insertRule()
@@ -296,13 +291,12 @@ public class BranchingUserFunction extends SingleArityUserFunction
     public void declareRule(int aPrecedence, ConsPointer aBody) throws Exception
     {
         // New branching rule.
-        branchRule newRule = new BranchRuleTruePredicate(aPrecedence, aBody);
+        BranchRule newRule = new BranchRuleTruePredicate(aPrecedence, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
         insertRule(aPrecedence, newRule);
     }
 
-   
     /**
      *  Add a BranchPattern to the list of rules.
      *  See: insertRule()
@@ -321,8 +315,6 @@ public class BranchingUserFunction extends SingleArityUserFunction
         insertRule(aPrecedence, newRule);
     }
 
-
-    
     /**
      * Insert any BranchRuleBase object in the list of rules.
      * This function does the real work for declareRule() and
@@ -336,7 +328,10 @@ public class BranchingUserFunction extends SingleArityUserFunction
     void insertRule(int aPrecedence, BranchRuleBase newRule)
     {
         // Find place to insert
-        int low, high, mid;
+         
+         
+         
+          int low, high, mid;
         low = 0;
         high = iRules.size();
 
@@ -386,7 +381,6 @@ public class BranchingUserFunction extends SingleArityUserFunction
             }
         }
     }
-
 
     /**
      * Return the argument list, stored in #iParamList.

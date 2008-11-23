@@ -53,7 +53,7 @@ public class MacroUserFunction extends BranchingUserFunction
 
 		//hier
 		/*TODO fixme
-		    if (traced())
+		    if (isTraced())
 		    {
 		        ConsPointer tr;
 		        tr.Set(SubList.New(aArguments.Get()));
@@ -91,7 +91,7 @@ public class MacroUserFunction extends BranchingUserFunction
 			iter.goNext();
 		}
 		/*TODO fixme
-		    if (traced())
+		    if (isTraced())
 		    {
 		        ConsTraverser iter = new ConsTraverser(aArguments);
 		        iter.goNext();
@@ -181,7 +181,7 @@ public class MacroUserFunction extends BranchingUserFunction
 		}
 		//FINISH:
 		/*TODO fixme
-		    if (traced())
+		    if (isTraced())
 		    {
 		        ConsPointer tr;
 		        tr.Set(SubList.New(aArguments.Get()));

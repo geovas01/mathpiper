@@ -34,6 +34,11 @@ public class ConsPointer
     {
         iCons = null;
     }
+    
+    public ConsPointer(Cons aCons)
+    {
+        iCons = aCons;
+    }
 
    public void setCons(Cons aNext)
     {

@@ -444,6 +444,11 @@ public class Environment
         userFunc.declarePattern(aPrecedence, aPredicate, aBody);
     }
     
+    /**
+     * Write data to the current output.
+     * @param aString
+     * @throws java.lang.Exception
+     */
     public void write(String aString) throws Exception
     {
         iCurrentOutput.write(aString);
