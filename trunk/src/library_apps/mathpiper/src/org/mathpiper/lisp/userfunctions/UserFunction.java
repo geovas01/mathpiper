@@ -33,7 +33,7 @@ public abstract class UserFunction extends EvalFuncBase
 /// evaluate the function with some arguments.
     
 	boolean iFenced;
-	public static boolean iTraced = false;
+	public static boolean iTraced = true;
 	
         /**
          * 

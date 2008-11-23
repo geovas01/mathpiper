@@ -236,15 +236,16 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
                 
 		infixprinter.print(aExpression, stream,aEnvironment);
 
-		// Escape quotes. Note:tk:not needed?
-		/*for (int i = outString.length()-1; i >= 0; --i)
+		// Escape quotes.
+		for (int i = outString.length()-1; i >= 0; --i)
 		{
                         Character c = outString.charAt(i);
 			if ( c == '\"')
                         {
-				outString.insert(i, '\\');
+				//outString.insert(i, '\\');
+                               outString.deleteCharAt(i);
                         }
-		}*/
+		}
                 
 	}//end method.
 
@@ -260,18 +261,18 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 		for (int i=0;i<aEnvironment.iEvalDepth+2;i++)
 			aEnvironment.write("  ");
                 
-		aEnvironment.write("TrArg(\"");
+		aEnvironment.write("TrArg(");
 		traceShowExpression(aEnvironment, aParam);
-		aEnvironment.write("\",\"");
+		aEnvironment.write(",");
 		traceShowExpression(aEnvironment, aValue);
-		aEnvironment.write("\");\n");
+		aEnvironment.write(");\n");
 	}
 
 	public static void traceShowEnter(Environment aEnvironment,  ConsPointer aExpression) throws Exception
 	{
 		for (int i=0;i<aEnvironment.iEvalDepth;i++)
 			aEnvironment.write("  ");
-		aEnvironment.write("TrEnter(\"");
+		aEnvironment.write("TrEnter(");
 		{
 			String function = "";
 			if (aExpression.getCons().subList() != null)
@@ -282,13 +283,13 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 			}
 			aEnvironment.write(function);
 		}
-		aEnvironment.write("\",\"");
+		aEnvironment.write(",");
 		traceShowExpression(aEnvironment, aExpression);
-		aEnvironment.write("\",\"");
+		aEnvironment.write(",");
 		if(DEBUG)
                 {
 		//aEnvironment.write( aExpression.iFileName ? aExpression.iFileName : ""); //file Note:tk.
-		aEnvironment.write("\",");
+		aEnvironment.write(",");
 		//LispChar buf[30];
 		//InternalIntToAscii(buf,aExpression.iLine);
 		//aEnvironment.write(buf); //line
@@ -296,7 +297,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
                 else
                 {
 		aEnvironment.write(""); //file
-		aEnvironment.write("\",");
+		aEnvironment.write(",");
 		aEnvironment.write("0"); //line
                 }
 
@@ -308,11 +309,11 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 	{
 		for (int i=0;i<aEnvironment.iEvalDepth;i++)
 			aEnvironment.write("  ");
-		aEnvironment.write("TrLeave(\"");
+		aEnvironment.write("TrLeave(");
 		traceShowExpression(aEnvironment, aExpression);
-		aEnvironment.write("\",\"");
+		aEnvironment.write(",");
 		traceShowExpression(aEnvironment, aResult);
-		aEnvironment.write("\");\n");
+		aEnvironment.write(");\n");
 	}
 
         /*
