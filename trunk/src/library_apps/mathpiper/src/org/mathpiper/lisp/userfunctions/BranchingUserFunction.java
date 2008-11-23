@@ -267,7 +267,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
 
 
     /**
-     *  Add a BranchRule to the list of rules.
+     *  Add a branchRule to the list of rules.
      * See: insertRule()
      * 
      * @param aPrecedence
@@ -278,7 +278,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
     public void declareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
     {
         // New branching rule.
-        BranchRule newRule = new BranchRule(aPrecedence, aPredicate, aBody);
+        branchRule newRule = new branchRule(aPrecedence, aPredicate, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
         insertRule(aPrecedence, newRule);
@@ -296,7 +296,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
     public void declareRule(int aPrecedence, ConsPointer aBody) throws Exception
     {
         // New branching rule.
-        BranchRule newRule = new BranchRuleTruePredicate(aPrecedence, aBody);
+        branchRule newRule = new BranchRuleTruePredicate(aPrecedence, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
         insertRule(aPrecedence, newRule);

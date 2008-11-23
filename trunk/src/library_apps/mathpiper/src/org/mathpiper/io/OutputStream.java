@@ -22,10 +22,10 @@ package org.mathpiper.io;
  */
 public abstract class OutputStream //Note:tk: Made this interface public.
 {
-	/// Write out one character.
+	/// write out one character.
 	public abstract void PutChar(char aChar) throws Exception;
 
-	public void Write(String aString) throws Exception
+	public void write(String aString) throws Exception
 	{
 		int i;
 		for (i=0;i<aString.length();i++)

@@ -45,8 +45,8 @@ public class SystemCall extends BuiltinFunction
 
         while ((ls_str = ls_in.readLine()) != null)
         {
-            aEnvironment.iCurrentOutput.Write(ls_str);
-            aEnvironment.iCurrentOutput.Write("\n");
+            aEnvironment.iCurrentOutput.write(ls_str);
+            aEnvironment.iCurrentOutput.write("\n");
         }
     }
 }

@@ -45,7 +45,7 @@ public class Printer
 
 			if (string != null)
 			{
-				aOutput.Write(string);
+				aOutput.write(string);
 				aOutput.PutChar(' ');
 			}
 			// else print "(", print sublist, and print ")"
@@ -55,14 +55,14 @@ public class Printer
 				{
 					indent(aOutput,aDepth+1);
 				}
-				aOutput.Write("(");
+				aOutput.write("(");
 				printExpression((iter.getCons().subList()),aOutput, aEnvironment,aDepth+1);
-				aOutput.Write(")");
+				aOutput.write(")");
 				item=0;
 			}
 			else
 			{
-				aOutput.Write("[BuiltinObject]");
+				aOutput.write("[BuiltinObject]");
 			}
 			iter = (iter.getCons().rest());
 			item++;
@@ -71,11 +71,11 @@ public class Printer
 
 	void indent(OutputStream aOutput, int aDepth) throws Exception
 	{
-		aOutput.Write("\n");
+		aOutput.write("\n");
 		int i;
 		for (i=aDepth;i>0;i--)
 		{
-			aOutput.Write("  ");
+			aOutput.write("  ");
 		}
 	}
 };

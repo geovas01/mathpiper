@@ -33,6 +33,6 @@ public class FullForm extends BuiltinFunction
         result(aEnvironment, aStackTop).setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
         Printer printer = new Printer();
         printer.print(result(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
-        aEnvironment.iCurrentOutput.Write("\n");
+        aEnvironment.iCurrentOutput.write("\n");
     }
 }

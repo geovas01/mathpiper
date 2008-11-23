@@ -443,5 +443,10 @@ public class Environment
         // Declare a new evaluation rule
         userFunc.declarePattern(aPrecedence, aPredicate, aBody);
     }
+    
+    public void write(String aString) throws Exception
+    {
+        iCurrentOutput.write(aString);
+    }
 }
 

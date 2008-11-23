@@ -144,7 +144,7 @@ public class InfixPrinter extends Printer
 				}
 				else
 				{
-					//Vladimir?    aOutput.Write(" ");
+					//Vladimir?    aOutput.write(" ");
 				}
 				if (left != null)
 					Print(left, aOutput,op.iLeftPrecedence);
@@ -240,13 +240,13 @@ public class InfixPrinter extends Printer
 	{
 		if (MathPiperTokenizer.isAlNum(iPrevLastChar) && (MathPiperTokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
 		{
-			aOutput.Write(" ");
+			aOutput.write(" ");
 		}
 		else if (MathPiperTokenizer.isSymbolic(iPrevLastChar) && MathPiperTokenizer.isSymbolic(aString.charAt(0)))
 		{
-			aOutput.Write(" ");
+			aOutput.write(" ");
 		}
-		aOutput.Write(aString);
+		aOutput.write(aString);
 		rememberLastChar(aString.charAt(aString.length()-1));
 	}
 

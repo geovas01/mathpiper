@@ -24,19 +24,27 @@ import org.mathpiper.lisp.UtilityFunctions;
 /**
  * A rule with a predicate (the rule matches if the predicate evaluates to True.).
  */
-class BranchRule extends BranchRuleBase
+class branchRule extends BranchRuleBase
 {
 
-    public BranchRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
+    public branchRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
     {
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
         iBody.setCons(aBody.getCons());
     }
 
-    /// Return true if the rule matches.
-    /// #iPredicate is evaluated in \a Environment. If the result
-    /// IsTrue(), this function returns true.
+    /**
+     *  Return true if the rule matches.
+     * 
+     * @param aEnvironment
+     * @param aArguments
+     * @return
+     * @throws java.lang.Exception
+     */
+
+    // iPredicate is evaluated in \a Environment. If the result
+    /// IsTrue(), this function returns true
     public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception
     {
         ConsPointer pred = new ConsPointer();
@@ -56,7 +64,7 @@ class BranchRule extends BranchRuleBase
         return iBody;
     }
 
-    protected BranchRule()
+    protected branchRule()
     {
     }
     protected int iPrecedence;

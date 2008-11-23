@@ -381,11 +381,11 @@ public class BigNumber
 	{
 		if (integer != null)
 		{
-			aOutput.Write("integer: "+integer.toString()+"\n");
+			aOutput.write("integer: "+integer.toString()+"\n");
 		}
 		else
 		{
-			aOutput.Write("decimal: "+decimal.unscaledValue()+" scale "+decimal.scale()+" x 10^("+iTensExp+")\n");
+			aOutput.write("decimal: "+decimal.unscaledValue()+" scale "+decimal.scale()+" x 10^("+iTensExp+")\n");
 		}
 	}
 
