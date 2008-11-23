@@ -31,7 +31,7 @@ public class CustomEvalExpression extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iCurrentOutput.Write("Function not yet implemented : CustomEvalExpression");////TODO fixme
+        aEnvironment.iCurrentOutput.write("Function not yet implemented : CustomEvalExpression");////TODO fixme
 
         throw new MathPiperException("Function not yet supported",-1);
     }

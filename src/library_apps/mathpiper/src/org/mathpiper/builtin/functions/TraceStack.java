@@ -31,7 +31,7 @@ public class TraceStack extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iCurrentOutput.Write("Function not yet implemented : TraceStack");////TODO fixme
+        aEnvironment.iCurrentOutput.write("Function not yet implemented : TraceStack");////TODO fixme
 
         throw new MathPiperException("Function not yet supported",-1);
     }
