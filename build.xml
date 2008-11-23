@@ -534,6 +534,9 @@
 		<copy file="${master.build.dir}/mathrider/modes/mathpiper.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
+		<copy file="${master.build.dir}/mathrider/modes/mathpipertrace.xml" 
+		todir="${master.src.dir}/jedit_core/modes"/>
+		
 		<copy file="${master.build.dir}/mathrider/modes/catalog" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
