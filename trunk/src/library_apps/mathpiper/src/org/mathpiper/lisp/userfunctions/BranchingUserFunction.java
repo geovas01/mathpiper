@@ -131,7 +131,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
         {
             //ConsTraverser iter2 = new ConsTraverser(aArguments);
             ConsPointer iter2 = new ConsPointer(aArguments.getCons());
-            
+
             iter2.goNext();
             for (i = 0; i < arity; i++)
             {
@@ -168,15 +168,16 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 {
                     st.iSide = 1;
                     aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.body());
-                    /*TODO fixme
+
+                    /*TODO fixme */
                     if (isTraced())
                     {
-                    ConsPointer tr;
-                    tr.Set(SubList.New(aArguments.Get()));
-                    TraceShowLeave(aEnvironment, aResult,tr);
-                    tr.Set(null);
+                        ConsPointer tr = new ConsPointer();
+                        tr.setCons(SubList.getInstance(aArguments.getCons()));
+                        LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr);
+                        tr.setCons(null);
                     }
-                     */
+
                     return;
                 }
 
@@ -204,15 +205,15 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 aResult.setCons(SubList.getInstance(full.getCons()));
             }
 
-        /*TODO fixme
-        if (isTraced())
-        {
-        ConsPointer tr;
-        tr.Set(SubList.New(aArguments.Get()));
-        TraceShowLeave(aEnvironment, aResult,tr);
-        tr.Set(null);
-        }
-         */
+            /*TODO fixme */
+            if (isTraced())
+            {
+                ConsPointer tr = new ConsPointer();
+                tr.setCons(SubList.getInstance(aArguments.getCons()));
+                LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr);
+                tr.setCons(null);
+            }
+
         } catch (Exception e)
         {
             throw e;
@@ -328,6 +329,9 @@ public class BranchingUserFunction extends SingleArityUserFunction
     void insertRule(int aPrecedence, BranchRuleBase newRule)
     {
         // Find place to insert
+
+
+
          
          
          
