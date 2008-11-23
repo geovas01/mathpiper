@@ -236,12 +236,15 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
                 
 		infixprinter.print(aExpression, stream,aEnvironment);
 
-		// Escape quotes
-		for (int i = outString.length()-1; i >= 0; --i)
+		// Escape quotes. Note:tk:not needed?
+		/*for (int i = outString.length()-1; i >= 0; --i)
 		{
-			if (outString.charAt(i) == '\"')
+                        Character c = outString.charAt(i);
+			if ( c == '\"')
+                        {
 				outString.insert(i, '\\');
-		}
+                        }
+		}*/
                 
 	}//end method.
 
