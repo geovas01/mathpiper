@@ -261,7 +261,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 		for (int i=0;i<aEnvironment.iEvalDepth+2;i++)
 			aEnvironment.write("  ");
                 
-		aEnvironment.write("TrArg(");
+		aEnvironment.write("Arg(");
 		traceShowExpression(aEnvironment, aParam);
 		aEnvironment.write(",");
 		traceShowExpression(aEnvironment, aValue);
@@ -272,7 +272,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 	{
 		for (int i=0;i<aEnvironment.iEvalDepth;i++)
 			aEnvironment.write("  ");
-		aEnvironment.write("TrEnter(");
+		aEnvironment.write("Enter(");
 		{
 			String function = "";
 			if (aExpression.getCons().subList() != null)
@@ -309,7 +309,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
 	{
 		for (int i=0;i<aEnvironment.iEvalDepth;i++)
 			aEnvironment.write("  ");
-		aEnvironment.write("TrLeave(");
+		aEnvironment.write("Leave(");
 		traceShowExpression(aEnvironment, aExpression);
 		aEnvironment.write(",");
 		traceShowExpression(aEnvironment, aResult);
