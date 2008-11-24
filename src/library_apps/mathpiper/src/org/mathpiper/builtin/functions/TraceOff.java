@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.userfunctions.UserFunction;
 
 /**
@@ -33,5 +34,6 @@ public class TraceOff extends BuiltinFunctionInitialize
     {
          UserFunction.traceOff();
          aEnvironment.write("Tracing is off.\n");
+         UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }

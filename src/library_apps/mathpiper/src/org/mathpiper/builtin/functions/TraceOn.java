@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.userfunctions.UserFunction;
 
 /**
@@ -33,5 +34,6 @@ public class TraceOn extends BuiltinFunctionInitialize
     {
          UserFunction.traceOn();
          aEnvironment.write("Tracing is on.\n");
+         UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }
