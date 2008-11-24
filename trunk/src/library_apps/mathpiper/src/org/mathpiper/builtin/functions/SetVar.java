@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
 
@@ -25,7 +25,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class SetVar extends BuiltinFunction
+public class SetVar extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

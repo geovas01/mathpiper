@@ -20,27 +20,18 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.userfunctions.UserFunction;
 
 /**
  *
  *  
  */
-public class BuiltinPrecisionSet extends BuiltinFunctionInitialize
+public class TraceOff extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer index = new ConsPointer();
-        index.setCons(argumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 1);
-
-        int ind = Integer.parseInt(index.getCons().string(), 10);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, ind > 0, 1);
-        aEnvironment.setPrecision(ind);
-        UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+         UserFunction.traceOff();
+         aEnvironment.write("Tracing is off.\n");
     }
 }

@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.Atom;
 import org.mathpiper.lisp.Environment;
@@ -32,7 +32,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class FileSize extends BuiltinFunction
+public class FileSize extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class SystemCall extends BuiltinFunction
+public class SystemCall extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

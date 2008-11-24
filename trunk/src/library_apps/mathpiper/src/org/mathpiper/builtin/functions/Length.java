@@ -19,7 +19,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinContainer;
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Atom;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.ConsPointer;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class Length extends BuiltinFunction
+public class Length extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

@@ -60,12 +60,12 @@ public abstract class UserFunction extends EvalFuncBase
 		return iFenced;
 	}
 
-	public static void trace()
+	public static void traceOn()
 	{
 		iTraced = true;
 	}
 	
-	public static void unTrace()
+	public static void traceOff()
 	{
 		iTraced = false;
 	}

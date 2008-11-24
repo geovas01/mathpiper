@@ -18,7 +18,7 @@
 package org.mathpiper.lisp;
 
 import org.mathpiper.exceptions.MathPiperException;
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.*;
 
 public class LispError
@@ -267,7 +267,7 @@ public class LispError
     {
         if (!aPredicate)
         {
-            ConsPointer arguments = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 0);
+            ConsPointer arguments = BuiltinFunctionInitialize.argumentPointer(aEnvironment, aStackTop, 0);
             if (arguments.getCons() == null)
             {
                 throw new MathPiperException("Error in compiled code\n",-1);
@@ -308,7 +308,7 @@ public class LispError
     {
         if (!aPredicate)
         {
-            ConsPointer arguments = BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 0);
+            ConsPointer arguments = BuiltinFunctionInitialize.argumentPointer(aEnvironment, aStackTop, 0);
             if (arguments.getCons() == null)
             {
                 throw new MathPiperException("Error in compiled code\n",-1);
@@ -317,7 +317,7 @@ public class LispError
                 String error = "";
                 //TODO FIXME          ShowStack(aEnvironment);
                 error = error + showFunctionError(arguments, aEnvironment) + "\nbad argument number " + aArgNr + "(counting from 1) : \n" + aErrorDescription + "\n";
-                ConsPointer arg = BuiltinFunction.argumentPointer(arguments, aArgNr);
+                ConsPointer arg = BuiltinFunctionInitialize.argumentPointer(arguments, aArgNr);
                 String strout;
 
                 error = error + "The offending argument ";

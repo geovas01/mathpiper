@@ -20,12 +20,9 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.printers.Printer;
 import org.mathpiper.io.InputStream;
 import org.mathpiper.io.OutputStream;
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.tokenizers.XmlTokenizer;
 import org.mathpiper.io.InputStatus;
-import org.mathpiper.lisp.UtilityFunctions;
-
-;
 
 import org.mathpiper.io.InputDirectories;
 
@@ -45,7 +42,6 @@ import org.mathpiper.lisp.userfunctions.ListedMacroUserFunction;
 
 import org.mathpiper.printers.InfixPrinter;
 
-import org.mathpiper.*;
 
 public class Environment
 {
@@ -122,7 +118,7 @@ public class Environment
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
         //mc.addFunctions(this);
 
-        BuiltinFunction.addFunctions(this);
+        BuiltinFunctionInitialize.addFunctions(this);
 
         pushLocalFrame(true);
     }

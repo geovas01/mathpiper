@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.UtilityFunctions;;
 import org.mathpiper.lisp.Atom;
 import org.mathpiper.lisp.Environment;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.LispError;
  *
  *  
  */
-public class GetLeftPrecedence extends BuiltinFunction
+public class GetLeftPrecedence extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

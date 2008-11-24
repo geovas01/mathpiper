@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinContainer;
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.ConsPointer;
  *
  *  
  */
-public class GenArrayGet extends BuiltinFunction
+public class GenArrayGet extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
