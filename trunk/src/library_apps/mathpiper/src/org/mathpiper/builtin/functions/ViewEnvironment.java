@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.UtilityFunctions;
 
 /**
  *
@@ -32,5 +33,6 @@ public class ViewEnvironment extends BuiltinFunctionInitialize
     {
          org.mathpiper.ui.EnvironmentViewer viewer = new org.mathpiper.ui.EnvironmentViewer();
          viewer.getViewerFrame(aEnvironment);
+         UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
 }
