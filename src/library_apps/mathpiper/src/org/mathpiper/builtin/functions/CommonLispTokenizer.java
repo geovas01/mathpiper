@@ -31,7 +31,7 @@ public class CommonLispTokenizer extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iCurrentOutput.write("Function not yet implemented : LispCommonLispTokenizer");//TODO FIXME
+        aEnvironment.write("Function not yet implemented : LispCommonLispTokenizer");//TODO FIXME
 
         throw new MathPiperException("Function not yet supported",-1);
     }

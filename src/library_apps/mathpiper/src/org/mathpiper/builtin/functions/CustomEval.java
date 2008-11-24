@@ -31,7 +31,7 @@ public class CustomEval extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.iCurrentOutput.write("Function not yet implemented : CustomEval");////TODO fixme
+        aEnvironment.write("Function not yet implemented : CustomEval");////TODO fixme
 
         throw new MathPiperException("Function not yet supported",-1);
     }

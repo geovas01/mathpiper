@@ -362,13 +362,13 @@ public class Pattern
 			{
 				//TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
 				String strout;
-				aEnvironment.iCurrentOutput.write("The predicate\n\t");
+				aEnvironment.write("The predicate\n\t");
 				strout = UtilityFunctions.printExpression(((ConsPointer)iPredicates.get(i)), aEnvironment, 60);
-				aEnvironment.iCurrentOutput.write(strout);
-				aEnvironment.iCurrentOutput.write("\nevaluated to\n\t");
+				aEnvironment.write(strout);
+				aEnvironment.write("\nevaluated to\n\t");
 				strout = UtilityFunctions.printExpression(pred, aEnvironment, 60);
-				aEnvironment.iCurrentOutput.write(strout);
-				aEnvironment.iCurrentOutput.write("\n");
+				aEnvironment.write(strout);
+				aEnvironment.write("\n");
 
 				LispError.check(isTrue,LispError.KLispErrNonBooleanPredicateInPattern);
 			}
