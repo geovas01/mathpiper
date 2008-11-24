@@ -85,7 +85,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
         int arity = arity();
         int i;
 
-        /*TODO fixme*/
+        /*Trace code*/
         if (isTraced())
         {
             ConsPointer tr = new ConsPointer();
@@ -126,7 +126,8 @@ public class BranchingUserFunction extends SingleArityUserFunction
             }
             iter.goNext();
         }
-        /*TODO fixme  */
+	
+        /*Trace code */
         if (isTraced())
         {
             //ConsTraverser iter2 = new ConsTraverser(aArguments);
@@ -169,7 +170,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
                     st.iSide = 1;
                     aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.body());
 
-                    /*TODO fixme */
+                    /*Trace code */
                     if (isTraced())
                     {
                         ConsPointer tr = new ConsPointer();
@@ -205,7 +206,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 aResult.setCons(SubList.getInstance(full.getCons()));
             }
 
-            /*TODO fixme */
+            /* Trace code */
             if (isTraced())
             {
                 ConsPointer tr = new ConsPointer();

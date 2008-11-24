@@ -28,7 +28,7 @@ import org.mathpiper.lisp.ConsPointer;
  *
  *  
  */
-public class StringMidSet extends BuiltinFunction
+public class StringMidSet extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

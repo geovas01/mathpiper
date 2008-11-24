@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -27,7 +27,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class BackQuote extends BuiltinFunction
+public class BackQuote extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

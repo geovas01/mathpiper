@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.TokenHash;
 import org.mathpiper.lisp.LispError;
@@ -40,8 +40,8 @@ abstract public class LexCompare2
     {
         ConsPointer result1 = new ConsPointer();
         ConsPointer result2 = new ConsPointer();
-        result1.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 1).getCons());
-        result2.setCons(BuiltinFunction.argumentPointer(aEnvironment, aStackTop, 2).getCons());
+        result1.setCons(BuiltinFunctionInitialize.argumentPointer(aEnvironment, aStackTop, 1).getCons());
+        result2.setCons(BuiltinFunctionInitialize.argumentPointer(aEnvironment, aStackTop, 2).getCons());
         boolean cmp;
         BigNumber n1 = result1.getCons().number(aEnvironment.getPrecision());
         BigNumber n2 = result2.getCons().number(aEnvironment.getPrecision());
@@ -62,6 +62,6 @@ abstract public class LexCompare2
                     aEnvironment.getPrecision());
         }
 
-        UtilityFunctions.internalBoolean(aEnvironment, BuiltinFunction.result(aEnvironment, aStackTop), cmp);
+        UtilityFunctions.internalBoolean(aEnvironment, BuiltinFunctionInitialize.result(aEnvironment, aStackTop), cmp);
     }
 }

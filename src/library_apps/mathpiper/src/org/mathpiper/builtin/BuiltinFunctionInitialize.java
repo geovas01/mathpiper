@@ -202,7 +202,7 @@ import org.mathpiper.lisp.userfunctions.Evaluator;
 import org.mathpiper.printers.InfixPrinter;
 
 
-public abstract class BuiltinFunction
+public abstract class BuiltinFunctionInitialize
 {
 	public abstract void eval(Environment aEnvironment,int aStackTop) throws Exception;
 
@@ -809,9 +809,16 @@ public abstract class BuiltinFunction
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new FileSize(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FileSize");
+        //Note:tk:The functions below this point need to have documentation created for them.
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.ViewEnvironment(), 0, Evaluator.Fixed | Evaluator.Function),
                 "ViewEnvironment");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.TraceOn(), 0, Evaluator.Fixed | Evaluator.Function),
+                "TraceOn");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.TraceOff(), 0, Evaluator.Fixed | Evaluator.Function),
+                "TraceOff");
 
 
     }

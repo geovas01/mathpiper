@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.ConsPointer;
@@ -27,7 +27,7 @@ import org.mathpiper.lisp.SubList;
  *
  *  
  */
-public class Listify extends BuiltinFunction
+public class Listify extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
