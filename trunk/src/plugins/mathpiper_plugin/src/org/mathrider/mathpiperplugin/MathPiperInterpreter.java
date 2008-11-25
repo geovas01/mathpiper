@@ -11,6 +11,7 @@ import org.mathrider.ResponseListener;
 import java.io.*;
 import errorlist.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -64,8 +65,10 @@ public class MathPiperInterpreter  implements Runnable{
 	/** Use this method to pass an expression to the MathPiper interpreter.
 	 *  Returns the output of the interpreter.
 	 */
-	public Object[] evaluate(String input) throws MathPiperException
+	public HashMap evaluate(String input) throws MathPiperException
 	{
+		HashMap resultMap = new HashMap();
+		
 		result = mathPiper.evaluate(input);
 
 		result = result.trim();
@@ -76,32 +79,36 @@ public class MathPiperInterpreter  implements Runnable{
 
 		mathPiper.evaluate(result + ";");//Note:tk:eventually reengineer previous result mechanism in MathPiper.
 
-		String sideEffect = stringOutput.toString();
+		String sideEffects = stringOutput.toString();
 
-		Object[] resultsAndSideEffect = new Object[5];
+		//Object[] resultsAndSideEffect = new Object[5];
 		
-		resultsAndSideEffect[4] = -1;
+		//resultsAndSideEffect[4] = -1;
 
-		if(sideEffect != null && sideEffect.length() != 0){
-			resultsAndSideEffect[1] = sideEffect;
+		if(sideEffects != null && sideEffects.length() != 0){
+			//resultsAndSideEffect[1] = sideEffect;
+			resultMap.put("side_effects", sideEffects);
 		}
-		else
-		{
-			resultsAndSideEffect[1] = null;
-		}
+		//else
+		//{
+		//	resultsAndSideEffect[1] = null;
+		//}
 
 
 		if(loadResult != null && loadResult.length() != 0){
-			resultsAndSideEffect[2] = loadResult;
+			//resultsAndSideEffect[2] = loadResult;
+			resultMap.put("load_result", loadResult);
 		}
-		else
-		{
-			resultsAndSideEffect[2] = null;
-		}
+		//else
+		//{
+		//	resultsAndSideEffect[2] = null;
+		//}
 
-		resultsAndSideEffect[0] = result;
-
-		return resultsAndSideEffect;
+		//resultsAndSideEffect[0] = result;
+		resultMap.put("result", result);
+		
+		return resultMap;
+		
 
 	}
 
@@ -130,21 +137,22 @@ public class MathPiperInterpreter  implements Runnable{
 	{
 		try
 		{
-			Object[] resultsAndSideEffect = evaluate(input);
-			notifyListeners(resultsAndSideEffect);
+			HashMap resultAndSideEffects = evaluate(input);
+			notifyListeners(resultAndSideEffects);
 		}
 		catch(Exception e)
 		{
-			Object[] error = new Object[5];
-			error[3] = e.getMessage();
+			//Object[] error = new Object[5];
+			HashMap errorMap = new HashMap();
+			errorMap.put( "error_message",e.getMessage() );
 			if(e instanceof MathPiperException)
 			{
 				MathPiperException mpe  = (MathPiperException) e;
 				int errorLineNumber = mpe.getLineNumber();
-				error[4] = mpe.getLineNumber();
+				errorMap.put("line_number", errorLineNumber);
 			}
 
-			notifyListeners(error);
+			notifyListeners(errorMap);
 		}
 
 	}
@@ -172,7 +180,7 @@ public class MathPiperInterpreter  implements Runnable{
 		responseListeners.remove(listener);
 	}//end method.
 
-	protected void notifyListeners(Object[] response)
+	protected void notifyListeners(HashMap response)
 	{
 		//notify listeners.
 		for(ResponseListener listener : responseListeners)
