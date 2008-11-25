@@ -20,6 +20,7 @@ import console.Output;
 import console.Shell;
 import org.mathpiper.exceptions.MathPiperException;
 import org.mathrider.mathpiperplugin.MathPiperInterpreter;
+import java.util.HashMap;
 //import org.mathrider.piper.LispOutput;
 
 public class MathPiperShell extends Shell
@@ -45,8 +46,8 @@ public class MathPiperShell extends Shell
 		//output.print(null, jEdit.getProperty(PiperPlugin.NAME + ".shell.msg.usage"));
 		try
 		{
-			Object[] version = interpreter.evaluate("Version();");
-			output.print(null, "MathPiper version " +  version[0]);
+			HashMap version = interpreter.evaluate("Version();");
+			output.print(null, "MathPiper version " +  version.get("result"));
 		}
 		catch( MathPiperException pe )
 		{
@@ -59,14 +60,14 @@ public class MathPiperShell extends Shell
 	{
 		try 
 		{
-			Object[] resultsAndSideEffect = interpreter.evaluate(command);
+			HashMap resultAndSideEffects = interpreter.evaluate(command);
 			
-			output.print(java.awt.Color.BLUE,"Result> " + resultsAndSideEffect[0]);
+			output.print(java.awt.Color.BLUE,"Result> " + resultAndSideEffects.get("result"));
 
 			
-			if(resultsAndSideEffect[1] != null)
+			if(resultAndSideEffects.containsKey( "side_effects"))
 			{
-				output.print(new java.awt.Color(0,120,0),"Side Effects>\n" + resultsAndSideEffect[1]);
+				output.print(new java.awt.Color(0,120,0),"Side Effects>\n" + resultAndSideEffects.get("side_effects"));
 			}
 			
 		}catch(MathPiperException pe) 

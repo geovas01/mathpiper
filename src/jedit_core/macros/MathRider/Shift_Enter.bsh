@@ -327,7 +327,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				system = MathPiperInterpreter.getInstance();
 			
 				org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
-				response(resultArray)
+				response(resultMap)
 				{
 					
 				try  //Note:This code is a hack to prevent a second fold update occurring before the first update is finished.
@@ -339,20 +339,21 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 				}
 					
-				result = resultArray[2];
+				//result = resultMap[2];
+				result = resultMap.get("load_result");
 
-				if(resultArray[3] != null) //Error.
+				if(resultMap.containsKey("error_message")) //resultMap[3] != null) //Error.
 				{
-					//result = resultArray[3] + ";Error near line: " + resultArray[4];
+					//result = resultMap[3] + ";Error near line: " + resultMap[4];
 					
 					output_fold_type = "%error";
 					
-					errorLineNumber = resultArray[4];
+					errorLineNumber = resultMap.get("line_number"); //resultMap[4];
 					
 					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 
 					adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 1);
-					result =  resultArray[3] + " Error near line " + adjustedErrorLineNumber;							
+					result =  resultMap.get("error_message") + " Error near line " + adjustedErrorLineNumber;							
 					
 					filePath = textArea.getBuffer().getPath();
 				
@@ -365,40 +366,40 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
-					resultArray = system.evaluate("TeXForm(Hold(" + resultArray[2] + "));");
-					resultArray[0] = resultArray[0].replace("\"$","");
-					resultArray[0] = resultArray[0].replace("$\"","");
-					result = resultArray[0];
+					resultMap = system.evaluate("TeXForm(Hold(" + resultMap.get("load_result") + "));");
+					result = resultMap.get("result").replace("\"$","");
+					result = result.replace("$\"","");
+					//result = resultMap[0];
 					output_fold_type = "%hoteqn";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
-					resultArray = system.evaluate("OMForm(" + resultArray[2] + ");");
-					result = resultArray[0];
+					resultMap = system.evaluate("OMForm(" + resultMap.get("load_result") + ");");
+					result = resultMap.get("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
-					resultArray = system.evaluate("PrettyForm(Hold(" + resultArray[2] + "));");
-					result = resultArray[0];
+					resultMap = system.evaluate("PrettyForm(Hold(" + resultMap.get("load_result") + "));");
+					result = resultMap.get("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				{	
-					resultArray = system.evaluate("CForm(" + resultArray[2] + ");");
-					result = resultArray[0];
+					resultMap = system.evaluate("CForm(" + resultMap.get("load_result") + ");");
+					result = resultMap.get("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				{	
-					resultArray = system.evaluate("FullForm(" + resultArray[2] + ");");
-					result = resultArray[0];
+					resultMap = system.evaluate("FullForm(" + resultMap.get("load_result") + ");");
+					result = resultMap.get("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				{	
-					resultArray = system.evaluate("TableForm(" + resultArray[2] + ");");
-					result = resultArray[0];
+					resultMap = system.evaluate("TableForm(" + resultMap.get("load_result") + ");");
+					result = resultMap.get("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
@@ -409,10 +410,10 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 					output_fold_type = "%output";
 				}
-	//Sy	stem.out.println("Out> " + resultArray);
-			if(resultArray[1] != null)
+	//Sy	stem.out.println("Out> " + resultMap);
+			if(resultMap.containsKey("side_effects"))
 			{
-				result = "Result: " + resultArray[2] + "\n\nSide effects:\n" + resultArray[1];
+				result = "Result: " + resultMap.get("load_result") + "\n\nSide effects:\n" + resultMap.get("side_effects");
 			}
 			else
 			{
