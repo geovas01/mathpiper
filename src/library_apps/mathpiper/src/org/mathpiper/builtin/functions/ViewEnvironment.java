@@ -31,7 +31,7 @@ public class ViewEnvironment extends BuiltinFunctionInitialize
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-         org.mathpiper.ui.EnvironmentViewer viewer = new org.mathpiper.ui.EnvironmentViewer();
+         org.mathpiper.gui.EnvironmentViewer viewer = new org.mathpiper.gui.EnvironmentViewer();
          viewer.getViewerFrame(aEnvironment);
          UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
     }
