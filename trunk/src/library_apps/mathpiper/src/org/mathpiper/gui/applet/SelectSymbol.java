@@ -16,7 +16,7 @@
 
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.applet;
+package org.mathpiper.gui.applet;
 
 public class SelectSymbol
 {

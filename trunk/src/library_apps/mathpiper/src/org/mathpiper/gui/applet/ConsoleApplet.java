@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.applet;
+package org.mathpiper.gui.applet;
 
 import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.lisp.parsers.TexParser;
@@ -434,7 +434,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 					Applet dataHub = getAppletContext().getApplet( "datahub");
 					if (dataHub != null)
 					{
-						org.mathpiper.applet.DatahubApplet cons = (org.mathpiper.applet.DatahubApplet)dataHub;
+						org.mathpiper.gui.applet.DatahubApplet cons = (org.mathpiper.gui.applet.DatahubApplet)dataHub;
 						cons.setProgramMode(programMode);
 
 						String programContentsToLoad = "["+cons.getProgram()+"];";
@@ -856,7 +856,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				Applet dataHub = getAppletContext().getApplet( "datahub");
 				if (dataHub != null)
 				{
-					org.mathpiper.applet.DatahubApplet cons = (org.mathpiper.applet.DatahubApplet)dataHub;
+					org.mathpiper.gui.applet.DatahubApplet cons = (org.mathpiper.gui.applet.DatahubApplet)dataHub;
 					String programContentsToLoad = "["+cons.getTestcode()+"];";
 					InvokeCalculationSilent(programContentsToLoad);
 				}
