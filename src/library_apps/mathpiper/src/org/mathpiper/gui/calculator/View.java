@@ -16,10 +16,16 @@ import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import org.mathpiper.Interpreter;
+import org.mathpiper.exceptions.MathPiperException;
+import org.mathpiper.io.StandardFileOutputStream;
+
 /**
  * The application's main frame.
  */
 public class View extends FrameView {
+    private StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
+    private Interpreter mathpiper = new Interpreter(stdoutput);
 
     public View(SingleFrameApplication app) {
         super(app);
@@ -550,7 +556,17 @@ private void symbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_symbolButtonActionPerformed
 
 private void equalsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsButtonActionPerformed
-// TODO add your handling code here:
+            String result;
+            try
+            {
+                result = mathpiper.evaluate("N(" + enteredText.toString() +");");
+                enteredText.delete(0, enteredText.length());
+                display.setText(result);
+                
+            } catch (MathPiperException pe)
+            {
+                pe.printStackTrace();
+            }
 }//GEN-LAST:event_equalsButtonActionPerformed
 
 private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
