@@ -4,7 +4,7 @@
 
 <project name="mathpiper_plugin" default="dist" basedir=".">
 	<description>
-		Build file for the Piper plugin.
+		Build file for the MathPiper plugin.
 	</description>
 	
 	<property name="version" value=".50" />
