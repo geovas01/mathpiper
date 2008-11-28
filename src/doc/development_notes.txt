@@ -3,6 +3,12 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++ There is a bug in FullForm() where there is not space between )3:
+In> FullForm({1,2,{a,b},3})
+Result> {1,2,{a,b},3}
+Side Effects>
+(List 1 2 
+    (List a b )3 )
 + Assembling a .uasm file does not place the .lst file in the same directory as the .uasm file.
 + SinN() locks up MathPiper when too large of a value is entered.
 + How does one have wrap mode wrap on commas as well as spaces?
