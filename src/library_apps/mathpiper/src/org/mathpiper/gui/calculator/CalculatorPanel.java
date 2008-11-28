@@ -54,7 +54,7 @@ public class CalculatorPanel extends javax.swing.JPanel {
         multiplicationButton = new javax.swing.JButton();
         divisionButton = new javax.swing.JButton();
 
-        display.setFont(new java.awt.Font("DejaVu Sans 14", 0, 12)); // NOI18N
+        display.setFont(new java.awt.Font("DejaVu Sans 14", 0, 12));
 
         zeroButton.setText("0");
         zeroButton.setMaximumSize(new java.awt.Dimension(27, 27));
@@ -172,7 +172,7 @@ public class CalculatorPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton24.setText("Ans");
+        jButton24.setIcon(new javax.swing.ImageIcon("/home/tkosan/temp/textogif/test.gif")); // NOI18N
         jButton24.setMaximumSize(new java.awt.Dimension(27, 27));
         jButton24.setMinimumSize(new java.awt.Dimension(27, 27));
         jButton24.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -197,7 +197,6 @@ public class CalculatorPanel extends javax.swing.JPanel {
             }
         });
 
-        subtractionButton.setIcon(null);
         subtractionButton.setActionCommand("-");
         subtractionButton.setMaximumSize(new java.awt.Dimension(27, 27));
         subtractionButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -228,7 +227,7 @@ public class CalculatorPanel extends javax.swing.JPanel {
             }
         });
 
-        multiplicationButton.setIcon(null);
+        multiplicationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/gui/calculator/resources/multiply.gif"))); // NOI18N
         multiplicationButton.setActionCommand("*");
         multiplicationButton.setMaximumSize(new java.awt.Dimension(27, 27));
         multiplicationButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -239,7 +238,6 @@ public class CalculatorPanel extends javax.swing.JPanel {
             }
         });
 
-        divisionButton.setIcon(null);
         divisionButton.setActionCommand("/");
         divisionButton.setMaximumSize(new java.awt.Dimension(27, 27));
         divisionButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -319,7 +317,7 @@ public class CalculatorPanel extends javax.swing.JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(120, 120, 120)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(nineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(eightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,12 +333,12 @@ public class CalculatorPanel extends javax.swing.JPanel {
                                 .addComponent(threeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(twoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(oneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(decimalPointButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(zeroButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(allClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -350,7 +348,7 @@ public class CalculatorPanel extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(subtractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(additionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(equals, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))

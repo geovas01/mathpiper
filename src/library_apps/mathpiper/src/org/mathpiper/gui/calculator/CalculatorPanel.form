@@ -15,7 +15,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               <Component id="display" min="-2" pref="332" max="-2" attributes="0"/>
               <EmptySpace pref="51" max="32767" attributes="0"/>
@@ -98,7 +98,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="nineButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="eightButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -117,14 +117,14 @@
                               <Component id="twoButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="oneButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButton23" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="decimalPointButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="zeroButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="allClearButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="deleteButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -136,7 +136,7 @@
                               <Component id="subtractionButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="additionButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="equals" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="jButton24" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -361,7 +361,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton24">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ans"/>
+        <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/tkosan/temp/textogif/test.gif"/>
+        </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[27, 27]"/>
         </Property>
@@ -409,9 +411,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="subtractionButton">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="0" name="null"/>
-        </Property>
         <Property name="actionCommand" type="java.lang.String" value="-"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[27, 27]"/>
@@ -463,8 +462,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="multiplicationButton">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="0" name="null"/>
+        <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/org/mathpiper/gui/calculator/resources/multiply.gif"/>
         </Property>
         <Property name="actionCommand" type="java.lang.String" value="*"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -483,9 +482,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="divisionButton">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="0" name="null"/>
-        </Property>
         <Property name="actionCommand" type="java.lang.String" value="/"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[27, 27]"/>
