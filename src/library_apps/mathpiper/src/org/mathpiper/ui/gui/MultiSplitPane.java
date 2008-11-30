@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package org.mathpiper.gui;
+package org.mathpiper.ui.gui;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -33,8 +33,8 @@ import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
-import org.mathpiper.gui.MultiSplitLayout.Divider;
-import org.mathpiper.gui.MultiSplitLayout.Node;
+import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
+import org.mathpiper.ui.gui.MultiSplitLayout.Node;
 
 /**
  *

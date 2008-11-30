@@ -43,7 +43,7 @@ public class Console
         
         void addDirectory(String directory)
         {
-            interpreter.addDirectory(directory);
+            interpreter.addScriptsDirectory(directory);
         }
         
         String readLine(InputStream aStream)

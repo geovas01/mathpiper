@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.gui.applet;
+package org.mathpiper.ui.gui.applets;
 
 import org.mathpiper.interpreters.SynchronousInterpreter;
 import org.mathpiper.exceptions.MathPiperException;
@@ -337,7 +337,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			if (docbase.substring(0,4).equals("file"))
 			{
 				int pos = docbase.lastIndexOf("/");
-				String zipFileName = docbase.substring(0,pos+1)+"piper.jar";
+				String zipFileName = docbase.substring(0,pos+1)+"mathpiper.jar";
 				if (getParameter("debug") != null)
 				{
 					AddLineStatic(100, ""," '" + zipFileName + "'.", font, Color.red);
@@ -349,7 +349,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				}
 				catch(Exception e)
 				{
-					out.println("Failed to find piper.jar");
+					out.println("Failed to find mathpiper.jar");
 					out.println(""+zipFileName+" : \n");
 					out.println(e.toString());
 				}
@@ -358,7 +358,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			{
 				//jar:http://www.xs4all.nl/~apinkus/piper.jar!/
 				int pos = docbase.lastIndexOf("/");
-				String scriptBase = "jar:"+ docbase.substring(0,pos+1)+"piper.jar!/";
+				String scriptBase = "jar:"+ docbase.substring(0,pos+1)+"mathpiper.jar!/";
 				if (getParameter("debug") != null)
 				{
 					AddLineStatic(100, ""," '" + scriptBase + "'.", font, Color.red);
@@ -433,7 +433,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 					Applet dataHub = getAppletContext().getApplet( "datahub");
 					if (dataHub != null)
 					{
-						org.mathpiper.gui.applet.DatahubApplet cons = (org.mathpiper.gui.applet.DatahubApplet)dataHub;
+						org.mathpiper.ui.gui.applets.DatahubApplet cons = (org.mathpiper.ui.gui.applets.DatahubApplet)dataHub;
 						cons.setProgramMode(programMode);
 
 						String programContentsToLoad = "["+cons.getProgram()+"];";
@@ -855,7 +855,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				Applet dataHub = getAppletContext().getApplet( "datahub");
 				if (dataHub != null)
 				{
-					org.mathpiper.gui.applet.DatahubApplet cons = (org.mathpiper.gui.applet.DatahubApplet)dataHub;
+					org.mathpiper.ui.gui.applets.DatahubApplet cons = (org.mathpiper.ui.gui.applets.DatahubApplet)dataHub;
 					String programContentsToLoad = "["+cons.getTestcode()+"];";
 					InvokeCalculationSilent(programContentsToLoad);
 				}

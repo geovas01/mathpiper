@@ -15,7 +15,7 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.gui;
+package org.mathpiper.ui.gui;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -29,9 +29,9 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import org.mathpiper.gui.MultiSplitLayout.Divider;
-import org.mathpiper.gui.MultiSplitLayout.Leaf;
-import org.mathpiper.gui.MultiSplitLayout.Split;
+import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
+import org.mathpiper.ui.gui.MultiSplitLayout.Leaf;
+import org.mathpiper.ui.gui.MultiSplitLayout.Split;
 
 /**
  * Provides a GUI viewer for a runtime environment.

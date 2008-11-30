@@ -18,8 +18,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.parsers;
 
-import org.mathpiper.gui.applet.SBoxBuilder;
-import org.mathpiper.gui.applet.SBox;
+import org.mathpiper.ui.gui.applets.SBoxBuilder;
+import org.mathpiper.ui.gui.applets.SBox;
 
 
 public class TexParser
