@@ -84,6 +84,7 @@ public class MathPiper extends JPanel
 		JButton stopCurrentExecutionButton = new JButton("Stop Current Calculation");
 		stopCurrentExecutionButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				/*
 				try
 				{
 					MathPiperInterpreter interpreter = MathPiperInterpreter.getInstance();
@@ -93,6 +94,7 @@ public class MathPiper extends JPanel
 				{
 					e.printStackTrace();
 				}
+				*/
 			}
 		});
 		
@@ -171,6 +173,7 @@ public class MathPiper extends JPanel
     // {{{
 	public void saveFile() 
 	{
+		/*
 		try
 		{
 			MathPiperInterpreter interpreter = MathPiperInterpreter.getInstance();
@@ -180,6 +183,7 @@ public class MathPiper extends JPanel
 		{
 			e.printStackTrace();
 		}
+		*/
 		/*
 		if (filename == null || filename.length() == 0)
 			return;
