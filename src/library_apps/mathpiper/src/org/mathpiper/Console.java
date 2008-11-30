@@ -18,25 +18,27 @@
 package org.mathpiper;
 
 //import org.mathpiper.lisp.UtilityFunctions;
+
 import org.mathpiper.exceptions.MathPiperException;
-import org.mathpiper.io.CachedStandardFileInputStream;
 import org.mathpiper.io.StandardFileOutputStream;
-import org.mathpiper.lisp.UtilityFunctions;
 import java.io.*;
+import org.mathpiper.interpreters.SynchronousInterpreter;
+import org.mathpiper.interpreters.EvaluationResponse;
+
 
 /**
  * Provides a command line console which can be used to interact with a mathpiper instance.
  * 
  */
-public class Console extends Thread
+public class Console
 {
-	Interpreter interpreter;
+	SynchronousInterpreter interpreter;
                 
 	public Console()
 	{
 		//MathPiper needs an output stream to send "side effect" output to.
-		StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
-		interpreter = new Interpreter(stdoutput);
+		//StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
+		interpreter = SynchronousInterpreter.getInstance();
 	}
         
         void addDirectory(String directory)
@@ -66,7 +68,9 @@ public class Console extends Thread
         
         String evaluate(String input) throws MathPiperException
         {
-            return interpreter.evaluate(input);
+            //return (String) interpreter.evaluate(input);
+            EvaluationResponse response = interpreter.evaluate(input);
+            return response.getResult();
         }
 
     
