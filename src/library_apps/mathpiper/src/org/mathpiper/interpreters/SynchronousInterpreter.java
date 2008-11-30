@@ -236,8 +236,7 @@ class SynchronousInterpreter implements Interpreter
 
         if (sideEffects != null && sideEffects.length() != 0)
         {
-            //resultMap.put("side_effects", sideEffects);
-            evaluationResponse.setSideEffects(sideEffects.toLowerCase());
+            evaluationResponse.setSideEffects(sideEffects.trim());
         }
 
         GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
