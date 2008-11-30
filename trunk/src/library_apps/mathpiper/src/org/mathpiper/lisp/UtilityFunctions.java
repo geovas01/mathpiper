@@ -19,7 +19,7 @@
 package org.mathpiper.lisp;
 
 import org.mathpiper.io.InputStream;
-import org.mathpiper.exceptions.MathPiperException;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
@@ -235,7 +235,7 @@ public class UtilityFunctions
 			LispError.check(args2.getCons() == null,LispError.KLispErrInvalidArg);
 			aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
 		}
-		catch (MathPiperException e) { throw e; }
+		catch (EvaluationException e) { throw e; }
 		finally { aEnvironment.popLocalFrame(); }
 
 	}
@@ -671,7 +671,7 @@ public class UtilityFunctions
 					MultipleArityUserFunction multiUser = aEnvironment.multiUserFunction(str);
 					if (multiUser.iFileToOpen!=null)
 					{
-						throw new MathPiperException("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName,-1);
+						throw new EvaluationException("["+str+"]"+"] : def file already chosen: "+multiUser.iFileToOpen.iFileName,-1);
 					}
 					multiUser.iFileToOpen = def;
 				}
@@ -732,7 +732,7 @@ public class UtilityFunctions
 			return log2_table[n-1];
 		else
 		{
-			throw new MathPiperException("log2_table_lookup: error: invalid argument "+n,-1);
+			throw new EvaluationException("log2_table_lookup: error: invalid argument "+n,-1);
 		}
 	}
 

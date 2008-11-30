@@ -18,12 +18,12 @@
 
 package org.mathpiper.exceptions;
 
-public class MathPiperException extends Exception //Note:tk: made this class public so that clients can use this exception.
+public class EvaluationException extends Exception //Note:tk: made this class public so that clients can use this exception.
 {
         private int lineNumber = -1;
 
 
-	public MathPiperException(String message,int lineNumber)
+	public EvaluationException(String message,int lineNumber)
 	{
 		super(message);
                 this.lineNumber = lineNumber;

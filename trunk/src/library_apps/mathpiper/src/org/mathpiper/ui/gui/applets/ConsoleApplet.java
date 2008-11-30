@@ -19,7 +19,7 @@ package org.mathpiper.ui.gui.applets;
 
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
-import org.mathpiper.exceptions.MathPiperException;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.ui.gui.applets.TexParser;
 import org.mathpiper.io.CachedStandardFileInputStream;
 import org.mathpiper.*;
@@ -892,9 +892,9 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             calculating = false;
 
             AddOutputLine(outp.toString());
-            if (response != null && response.getErrorMessage() != null)
+            if (response != null && response.getExceptionMessage() != null)
             {
-                AddLinesStatic(48, "Error> ", response.getErrorMessage());
+                AddLinesStatic(48, "Error> ", response.getExceptionMessage());
             }
             AddLinesStatic(48, outputPrompt, response.getResult());
             succeed = true;
@@ -1691,7 +1691,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
         evaluationResponse = interpreter.evaluate(expression);
 
-        lastError = evaluationResponse.getErrorMessage();  //Note:tk: need to check for null value.
+        lastError = evaluationResponse.getExceptionMessage();  //Note:tk: need to check for null value.
         return evaluationResponse.getResult();
     }
 
@@ -1783,9 +1783,9 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
                 calculating = false;
                 AddOutputLine(outp.toString());
-                if (evaluationResponse != null && evaluationResponse.getErrorMessage() != null)
+                if (evaluationResponse != null && evaluationResponse.getExceptionMessage() != null)
                 {
-                    AddLinesStatic(48, "Error> ", evaluationResponse.getErrorMessage());
+                    AddLinesStatic(48, "Error> ", evaluationResponse.getExceptionMessage());
                 }
 
                 ResetInput();

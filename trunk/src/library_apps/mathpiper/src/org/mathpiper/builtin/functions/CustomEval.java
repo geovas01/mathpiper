@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.exceptions.MathPiperException;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
 
 /**
@@ -33,6 +33,6 @@ public class CustomEval extends BuiltinFunctionInitialize
     {
         aEnvironment.write("Function not yet implemented : CustomEval");////TODO fixme
 
-        throw new MathPiperException("Function not yet supported",-1);
+        throw new EvaluationException("Function not yet supported",-1);
     }
 }

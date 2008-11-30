@@ -204,11 +204,11 @@ class AsynchronousInterpreter implements Interpreter
             } catch (ExecutionException e)
             {
                 evaluationResponse = EvaluationResponse.newInstance();
-                evaluationResponse.setErrorMessage(e.getMessage());
+                evaluationResponse.setExceptionMessage(e.getMessage());
             } catch (InterruptedException e)
             {
                 evaluationResponse = EvaluationResponse.newInstance();
-                evaluationResponse.setErrorMessage(e.getMessage());
+                evaluationResponse.setExceptionMessage(e.getMessage());
             }
 
             notifyListeners(evaluationResponse);
