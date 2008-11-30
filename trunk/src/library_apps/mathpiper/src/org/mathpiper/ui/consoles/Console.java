@@ -76,12 +76,12 @@ public class Console
 			
 			if(!response.getSideEffects().equalsIgnoreCase(""))
 			{
-				responseString = responseString + "Side Effects>\n" + response.getSideEffects();
+				responseString = responseString + "Side Effects>\n" + response.getSideEffects() + "\n";
 			}
 			
 			if(!response.getExceptionMessage().equalsIgnoreCase(""))
 			{
-				responseString = responseString + response.getExceptionMessage() ;
+				responseString = responseString + response.getExceptionMessage() + "\n" ;
 			}
                         
                         
