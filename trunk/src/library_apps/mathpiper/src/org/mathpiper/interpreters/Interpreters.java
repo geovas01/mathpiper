@@ -27,12 +27,12 @@ public class Interpreters {
 private Interpreters()
 {}
 
-public static SynchronousInterpreter newSynchronousInterpreter()
+public static Interpreter newSynchronousInterpreter()
 {
     return SynchronousInterpreter.newInstance();
 }
 
-public static SynchronousInterpreter getSynchronousInterpreter()
+public static Interpreter getSynchronousInterpreter()
 {
     return SynchronousInterpreter.getInstance();
 }
