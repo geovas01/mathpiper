@@ -15,15 +15,16 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper;
+package org.mathpiper.ui.consoles;
 
 //import org.mathpiper.lisp.UtilityFunctions;
 
+import org.mathpiper.*;
 import org.mathpiper.exceptions.MathPiperException;
-import org.mathpiper.io.StandardFileOutputStream;
 import java.io.*;
-import org.mathpiper.interpreters.SynchronousInterpreter;
 import org.mathpiper.interpreters.EvaluationResponse;
+import org.mathpiper.interpreters.Interpreter;
+import org.mathpiper.interpreters.Interpreters;
 
 
 /**
@@ -32,13 +33,13 @@ import org.mathpiper.interpreters.EvaluationResponse;
  */
 public class Console
 {
-	SynchronousInterpreter interpreter;
+	Interpreter interpreter;
                 
 	public Console()
 	{
 		//MathPiper needs an output stream to send "side effect" output to.
 		//StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
-		interpreter = SynchronousInterpreter.getInstance();
+		interpreter = Interpreters.getSynchronousInterpreter();
 	}
         
         void addDirectory(String directory)

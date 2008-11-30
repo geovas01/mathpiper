@@ -12,29 +12,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ //}}}
-
+ *///}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathpiper.interpreters;
 
-package org.mathpiper.builtin.functions;
-
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.parsers.Parser;
 
-/**
- *
- *  
- */
-public class ReadLisp extends BuiltinFunctionInitialize
+public interface Interpreter
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
-    {
-        Parser parser = new Parser(aEnvironment.iCurrentTokenizer,
-                aEnvironment.iCurrentInput,
-                aEnvironment);
-        // Read expression
-        parser.parse(result(aEnvironment, aStackTop));
-    }
+    EvaluationResponse evaluate(String expression);
+
+    void haltEvaluation();
+
+    java.util.zip.ZipFile getScriptsZip();
+
+    void addScriptsDirectory(String directory);
+   
+     void addResponseListener(ResponseListener listener);
+
+     void removeResponseListener(ResponseListener listener);
+     
+     Environment getEnvironment();
+
 }

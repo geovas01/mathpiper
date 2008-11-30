@@ -19,10 +19,24 @@
 
 package org.mathpiper.interpreters;
 
-import org.mathpiper.interpreters.EvaluationResponse;
+/**
+ *
+ */
+public class Interpreters {
+    
+private Interpreters()
+{}
 
-public interface ResponseListener
+public static SynchronousInterpreter newSynchronousInterpreter()
 {
-    void response(EvaluationResponse response);
-    boolean remove();
-}// end interface.
+    return SynchronousInterpreter.newInstance();
+}
+
+public static SynchronousInterpreter getSynchronousInterpreter()
+{
+    return SynchronousInterpreter.getInstance();
+}
+
+
+
+}
