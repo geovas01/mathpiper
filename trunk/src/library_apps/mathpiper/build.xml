@@ -7,7 +7,7 @@
 		Build file for MathPiper.
 	</description>
 	
-	<property name="version" value=".58" />
+	<!-- <property name="version" value=".58" /> -->
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	
 	
@@ -58,13 +58,13 @@
 			</fileset>
 		</copy>
 		
-		<copy file="${mathpiper.dir}/mathpiper.properties" todir="${build.classes.dir}">
+		<!--<copy file="${mathpiper.dir}/mathpiper.properties" todir="${build.classes.dir}">
 			<filterset>
 	               
 		       	   <filter token="VERSION" value="${version}" />
 	               
 			 </filterset>
-		</copy>
+		</copy>-->
 	
 		<mkdir dir="${build.dir}/dist" />
 		
