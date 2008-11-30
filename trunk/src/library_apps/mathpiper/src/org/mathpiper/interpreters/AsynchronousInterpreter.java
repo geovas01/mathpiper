@@ -141,9 +141,9 @@ public class AsynchronousInterpreter
 
     }//end method.
 
-    public void addDirectory(String dir)
+    public void addScriptsDirectory(String dir)
     {
-        interpreter.addDirectory(dir);
+        interpreter.addScriptsDirectory(dir);
     }
 
     public void haltEvaluation()
@@ -184,18 +184,25 @@ public class AsynchronousInterpreter
         public void done()
         {
             EvaluationResponse evaluationResponse = null;
-            try{
+            try
+            {
                 evaluationResponse = (EvaluationResponse) get();
-            }
-            catch(ExecutionException e)
+            } catch (ExecutionException e)
             {
-            }
-            catch(InterruptedException e)
+                evaluationResponse = EvaluationResponse.newInstance();
+                evaluationResponse.setErrorMessage(e.getMessage());
+            } catch (InterruptedException e)
             {
+                evaluationResponse = EvaluationResponse.newInstance();
+                evaluationResponse.setErrorMessage(e.getMessage());
             }
 
-                notifyListeners(evaluationResponse);
+            notifyListeners(evaluationResponse);
         }//done.
+    }//EvaluationTask.
 
-        }
-    }//end class.
+    public java.util.zip.ZipFile getScriptsZip()
+    {
+        return interpreter.getScriptsZip();
+    }//end method.
+}//end class.
