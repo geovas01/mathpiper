@@ -12,7 +12,8 @@ public class EvaluationResponse {
     private String result = "";
     private String loadResult = "";
     private String sideEffects = "";
-    private String errorMessage = "";
+    private String exceptionMessage = "";
+    private Exception exception = null;
     private int lineNumber;
             
     private EvaluationResponse()
@@ -54,14 +55,25 @@ public class EvaluationResponse {
         this.sideEffects = sideEffects;
     }
 
-    public String getErrorMessage()
+    public String getExceptionMessage()
     {
-        return errorMessage;
+        return exceptionMessage;
     }
 
-    public void setErrorMessage(String errorMessage)
+    public void setExceptionMessage(String exceptionMessage)
     {
-        this.errorMessage = errorMessage;
+        this.exceptionMessage = exceptionMessage;
+    }
+
+    
+    public Exception getException()
+    {
+        return exception;
+    }
+
+    public void setException(Exception exception)
+    {
+        this.exception = exception;
     }
 
     public String getLoadResult()

@@ -18,7 +18,7 @@ package org.mathpiper.ui.gui.calculator;
 
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
-import org.mathpiper.exceptions.MathPiperException;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 
 /**

@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.interpreters;
 
-import org.mathpiper.exceptions.MathPiperException;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.printers.InfixPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
@@ -47,7 +47,7 @@ class SynchronousInterpreter implements Interpreter
     private Environment environment = null;
     MathPiperTokenizer tokenizer = null;
     Printer printer = null;
-    private String iError = null;
+    //private String iError = null;
     String defaultDirectory = null;
     String archive = "";
     String detect = "";
@@ -145,7 +145,7 @@ class SynchronousInterpreter implements Interpreter
             environment.iEvaluator.resetStack();
 
 
-            iError = null;
+            //iError = null;
 
             ConsPointer inputExpressionPointer = new ConsPointer();
             if (environment.iPrettyReader != null)
@@ -165,18 +165,16 @@ class SynchronousInterpreter implements Interpreter
                     UtilityFunctions.internalApplyString(environment, inputExpressionPointer,
                             environment.iPrettyReader,
                             args);
-                } catch (Exception e)
+                } catch (Exception exception)
                 {
-                    e.printStackTrace();
-                    iError = e.getMessage();
-                    int errorLineNumber = -1;
-                    if (e instanceof MathPiperException)
+                    if (exception instanceof EvaluationException)
                     {
-                        MathPiperException mpe = (MathPiperException) e;
-                        errorLineNumber = mpe.getLineNumber();
+                        EvaluationException mpe = (EvaluationException) exception;
+                        int errorLineNumber = mpe.getLineNumber();
+                        evaluationResponse.setLineNumber(errorLineNumber);
                     }
-                    evaluationResponse.setErrorMessage(iError);
-                    evaluationResponse.setLineNumber(errorLineNumber);
+                    evaluationResponse.setException(exception);
+                    evaluationResponse.setExceptionMessage(exception.getMessage()); 
 
                 } finally
                 {
@@ -219,19 +217,16 @@ class SynchronousInterpreter implements Interpreter
                 printer.print(result, output, environment);
                 resultString = string_out.toString();
             }
-        } catch (Exception e)
+        } catch (Exception exception)
         {
-            e.printStackTrace();
-            iError = e.getMessage();
-            int errorLineNumber = -1;
-            if (e instanceof MathPiperException)
+            if (exception instanceof EvaluationException)
             {
-                MathPiperException mpe = (MathPiperException) e;
-                errorLineNumber = mpe.getLineNumber();
+                EvaluationException mpe = (EvaluationException) exception;
+                int errorLineNumber = mpe.getLineNumber();
+                evaluationResponse.setLineNumber(errorLineNumber);
             }
-            evaluationResponse.setErrorMessage(iError);
-            evaluationResponse.setLineNumber(errorLineNumber);
-
+                    evaluationResponse.setException(exception);
+                    evaluationResponse.setExceptionMessage(exception.getMessage());
         }
 
 

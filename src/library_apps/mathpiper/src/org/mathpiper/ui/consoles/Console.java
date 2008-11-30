@@ -20,7 +20,7 @@ package org.mathpiper.ui.consoles;
 //import org.mathpiper.lisp.UtilityFunctions;
 
 import org.mathpiper.*;
-import org.mathpiper.exceptions.MathPiperException;
+import org.mathpiper.exceptions.EvaluationException;
 import java.io.*;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
@@ -67,11 +67,25 @@ public class Console
 		return line.toString();
 	}
         
-        String evaluate(String input) throws MathPiperException
+        String evaluate(String input)
         {
             //return (String) interpreter.evaluate(input);
             EvaluationResponse response = interpreter.evaluate(input);
-            return response.getResult();
+            String responseString = "Result> " + response.getResult() +"\n";
+
+			
+			if(!response.getSideEffects().equalsIgnoreCase(""))
+			{
+				responseString = responseString + "Side Effects>\n" + response.getSideEffects();
+			}
+			
+			if(!response.getExceptionMessage().equalsIgnoreCase(""))
+			{
+				responseString = responseString + response.getExceptionMessage() ;
+			}
+                        
+                        
+            return responseString;
         }
 
     
@@ -141,7 +155,7 @@ public class Console
                 {
                     interpreter.evaluate("Load(\"" + argv[scriptsToRun] + "\");");
                 }
-            } catch (MathPiperException pe)
+            } catch (EvaluationException pe)
             {
                 pe.printStackTrace();
             }
@@ -174,17 +188,9 @@ public class Console
             input = input.trim();
 
 
-            String rs = "";
-            try
-            {
-                rs = console.evaluate(input);
-            } catch (MathPiperException pe)
-            {
-                pe.printStackTrace();
-            }
+              String responseString = console.evaluate(input);
 
-
-            System.out.println("Out> " + rs);
+            System.out.println(responseString);
 
             if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit"))
             {

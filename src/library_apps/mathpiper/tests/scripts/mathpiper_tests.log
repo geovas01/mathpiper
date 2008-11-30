@@ -1,0 +1,382 @@
+
+===========================
+matrixpower.mpt: Result: True
+Side Effects:
+
+
+===========================
+binaryfactors.mpt: Result: True
+Side Effects:
+
+
+===========================
+radsimp.mpt: Result: True
+Side Effects:
+
+
+===========================
+io.mpt: Result: True
+Side Effects:
+
+
+===========================
+poly.mpt: Result: True
+Side Effects:
+
+
+===========================
+plots.mpt: Result: True
+Side Effects:
+******************
+plots.mpt: 6 
+
+tostring()write(plot2d(a,-1:1,output=data,points=4,depth=0))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+plots.mpt: 7 
+
+tostring()write(plot2d(b,b= -1:1,output=data,points=4))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+plots.mpt: 14 
+
+tostring()write(plot3ds(a,-1:1,-1:1,output=data,points=2))
+ evaluates to 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+******************
+plots.mpt: 14 
+
+tostring()write(plot3ds(x1,x1= -1:1,x2= -1:1,output=data,points=2))
+ evaluates to 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+
+
+===========================
+dot.mpt: Result: True
+Side Effects:
+
+
+===========================
+numbers.mpt: Result: True
+Side Effects:
+
+
+===========================
+integrate.mpt: Result: True
+Side Effects:
+
+
+===========================
+regress.mpt: Result: True
+Side Effects:
+known failure: (limit(x,infinity)x^n/ln(x))=infinity 
+known failure: (limit(x,0,right)x^(ln(a)/(1+ln(x))))=a 
+known failure: gcd(10,3.3)!=3.3 and gcd(10,3.3)!=1 
+known failure: (d(z)conjugate(z))=undefined 
+known failure: arccos(cos(beta))!=beta 
+known failure: (limit(n,infinity)n^5/2^n)=0 
+known failure: roundto(roundto(n(cot(2),9),9),n(cot(2),9),9)=0 
+
+
+===========================
+sturm.mpt: Result: True
+Side Effects:
+******************
+sturm.mpt: 59 
+
+verifyzero(p.p)
+ evaluates to 
+false
+ which differs from 
+true
+******************
+
+
+===========================
+lists.mpt: Result: True
+Side Effects:
+
+
+===========================
+multivar.mpt: Result: True
+Side Effects:
+
+
+===========================
+outer.mpt: Result: True
+Side Effects:
+
+
+===========================
+tensors.mpt: Result: True
+Side Effects:
+
+
+===========================
+programming.mpt: Result: True
+Side Effects:
+
+
+===========================
+complex.mpt: Result: True
+Side Effects:
+known failure: (limit(n,infinity)(n^2*i^n)/(n^3+1))=0 
+
+
+===========================
+orthopoly.mpt: Result: True
+Side Effects:
+
+
+===========================
+calculus.mpt: Result: True
+Side Effects:
+known failure: limit(k,infinity)((k-phi)/k)^(k+1/2)=exp(-phi) 
+
+
+===========================
+GaussianIntegers.mpt: Result: True
+Side Effects:
+
+
+===========================
+nthroot.mpt: Result: True
+Side Effects:
+
+
+===========================
+deriv.mpt: Result: True
+Side Effects:
+
+
+===========================
+journal.mpt: Result: True
+Side Effects:
+
+
+===========================
+macro.mpt: Result: True
+Side Effects:
+
+
+===========================
+c_tex_form.mpt: Result: True
+Side Effects:
+******************
+c_tex_form.mpt: 58 
+
+texform(pi+exp(1)-theta-(integrate(x,x1,3/g(pi))2*theta(x)*exp(1/x)))
+ evaluates to 
+"$\pi  + \exp \left( 1\right)  - \theta  - \int _{0.10114177619107067585} ^{\frac{3}{g\left( \pi \right) }  } 2 \theta \left( x\right)  \exp \left( \frac{1}{x} \right)  dx$"
+ which differs from 
+"$\pi  + \exp \left( 1\right)  - \theta  - \int _{x_{1}} ^{\frac{3}{g\left( \pi \right) }  } 2 \theta \left( x\right)  \exp \left( \frac{1}{x} \right)  dx$"
+******************
+
+
+===========================
+arithmetic.mpt: Result: True
+Side Effects:
+
+
+===========================
+tr.mpt: Result: True
+Side Effects:
+
+
+===========================
+openmath.mpt: Result: True
+Side Effects:
+
+
+===========================
+ode.mpt: Result: True
+Side Effects:
+
+
+===========================
+predicates.mpt: Result: True
+Side Effects:
+******************
+predicates.mpt: 117 
+
+hasfunc(a*b+f({b,c}),list)
+ evaluates to 
+false
+ which differs from 
+true
+******************
+
+
+===========================
+simplify.mpt: Result: True
+Side Effects:
+
+
+===========================
+solve.mpt: Result: True
+Side Effects:
+******************
+solve.mpt: 176 
+
+roundto(roots[3]-2,10)
+ evaluates to 
+0.00002
+ which differs from 
+0
+******************
+
+
+===========================
+logic_simplify_test.mpt: Result: True
+Side Effects:
+
+
+===========================
+trace.mpt: Result: True
+Side Effects:
+
+
+===========================
+sums.mpt: Result: True
+Side Effects:
+
+
+===========================
+nummethods.mpt: Result: True
+Side Effects:
+******************
+nummethods.mpt: 11 
+
+roundto(roundto(sumtaylornum(1,{{k},1/k!},{{k},1/k},21),21)-2.718281828459045235359,21)
+ evaluates to 
+2e-21
+ which differs from 
+0
+******************
+******************
+nummethods.mpt: 12 
+
+roundto(roundto(sumtaylornum(1,{{k},1/k!},21),21)-2.718281828459045235359,21)
+ evaluates to 
+2e-21
+ which differs from 
+0
+******************
+
+
+===========================
+dimensions.mpt: Result: True
+Side Effects:
+
+
+===========================
+scopestack.mpt: Result: True
+Side Effects:
+
+
+===========================
+numerics.mpt: Result: True
+Side Effects:
+******************
+numerics.mpt: 21 
+
+roundto(n(sinh(2),10)-3.6268604078,10)
+ evaluates to 
+-1e-10
+ which differs from 
+0
+******************
+******************
+numerics.mpt: 25 
+
+roundto(n(arctan(2*i),12)-n(complex(1.57079632679,0.54930614433),12),11)
+ evaluates to 
+1e-11
+ which differs from 
+0
+******************
+******************
+numerics.mpt: 28 
+
+roundto(n(arccosh(-2),8)-complex(-1.3169579,3.14159265),8)
+ evaluates to 
+-1e-8
+ which differs from 
+0
+******************
+******************
+numerics.mpt: 29 
+
+roundto(n(arctanh(2),9)-complex(0.549306144,1.570796327),9)
+ evaluates to 
+1e-9
+ which differs from 
+0
+******************
+******************
+numerics.mpt: 99 
+
+roundto(roundto([local(x);x:=newton(x*exp(x)-4,x,1,10^(-49));n(x*exp(x));],49)-4.,49)
+ evaluates to 
+1e-49
+ which differs from 
+0
+******************
+******************
+numerics.mpt: 219 
+
+roundto(roundto(n(zeta(40)),19)-1.0000000000009094948,19)
+ evaluates to 
+-0.2308785779493382222
+ which differs from 
+0
+******************
+******************
+numerics.mpt: 303 
+
+roundto(n(erf(50*i+20)/10^910,22),19)
+ evaluates to 
+complex(1.093171190029095854,0.0047546330693181896)
+ which differs from 
+complex(1.0931711900290958541,0.0047546330693181896)
+******************
+
+
+===========================
+linalg.mpt: Result: True
+Side Effects:
+
+
+===========================
+cyclotomic.mpt: Result: True
+Side Effects:
+
+
+===========================
+canprove.mpt: Result: True
+Side Effects:
+
+
+===========================
+comments.mpt: Result: True
+Side Effects:
+
+
+===========================
+transforms.mpt: Result: True
+Side Effects:
+
