@@ -241,7 +241,7 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        multiplicationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/gui/calculator/resources/multiply.gif"))); // NOI18N
+        multiplicationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/multiply.gif"))); // NOI18N
         multiplicationButton.setActionCommand("*");
         multiplicationButton.setMaximumSize(new java.awt.Dimension(27, 27));
         multiplicationButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -252,6 +252,7 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
+        divisionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/divide.gif"))); // NOI18N
         divisionButton.setActionCommand("/");
         divisionButton.setMaximumSize(new java.awt.Dimension(27, 27));
         divisionButton.setMinimumSize(new java.awt.Dimension(27, 27));
