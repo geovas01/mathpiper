@@ -21,9 +21,9 @@ package org.mathpiper;
 public class Version
 {
 
-   public  static String version = "";
+   public  static final String version = ".68";
     
-
+/*
     static
     {
 
@@ -74,4 +74,5 @@ public class Version
 
 
     }//end constructor.
+  */
 }//end class.
