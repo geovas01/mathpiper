@@ -19,8 +19,6 @@ package org.mathpiper.ui.gui.applets;
 
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
-import org.mathpiper.exceptions.EvaluationException;
-import org.mathpiper.ui.gui.applets.TexParser;
 import org.mathpiper.io.CachedStandardFileInputStream;
 import org.mathpiper.*;
 import org.mathpiper.io.OutputStream;
@@ -295,24 +293,24 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             setBackground(bkColor);
         }
         {
-            String version = "";
+            /* String version = "";
             try
             {
-                java.util.Properties properties = new java.util.Properties();
-
-                // locate the properties file
-                java.io.File file = new java.io.File("piper.properties");
-
-                // load the file
-                properties.load(new FileInputStream(file));
-
-                // read the properties
-                version = properties.getProperty("piper.version");
-
+            java.util.Properties properties = new java.util.Properties();
+            
+            // locate the properties file
+            java.io.File file = new java.io.File("piper.properties");
+            
+            // load the file
+            properties.load(new FileInputStream(file));
+            
+            // read the properties
+            version = properties.getProperty("piper.version");
+            
             } catch (Exception e)
             {
-                e.printStackTrace();
-            }//end try/catch.
+            e.printStackTrace();
+            }//end try/catch.*/
 
 
             Font font = new Font("helvetica", Font.PLAIN, 12);
