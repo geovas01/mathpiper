@@ -43,7 +43,7 @@ public class EvaluationResponse {
 
     public void setResult(String result)
     {
-        this.result = result;
+        this.result = result.trim();
     }
 
     public String getSideEffects()
@@ -53,7 +53,7 @@ public class EvaluationResponse {
 
     public void setSideEffects(String sideEffects)
     {
-        this.sideEffects = sideEffects;
+        this.sideEffects = sideEffects.trim();
     }
 
     public String getExceptionMessage()
@@ -63,7 +63,7 @@ public class EvaluationResponse {
 
     public void setExceptionMessage(String exceptionMessage)
     {
-        this.exceptionMessage = exceptionMessage;
+        this.exceptionMessage = exceptionMessage.trim();
     }
 
     
@@ -90,7 +90,7 @@ public class EvaluationResponse {
 
     public void setLoadResult(String loadResult)
     {
-        this.loadResult = loadResult;
+        this.loadResult = loadResult.trim();
     }
     
     

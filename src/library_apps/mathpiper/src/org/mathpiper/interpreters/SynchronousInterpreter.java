@@ -230,13 +230,13 @@ class SynchronousInterpreter implements Interpreter
         }
 
 
-        evaluationResponse.setResult(resultString.trim());
+        evaluationResponse.setResult(resultString);
 
         String sideEffects = sideEffectsStream.toString();
 
         if (sideEffects != null && sideEffects.length() != 0)
         {
-            evaluationResponse.setSideEffects(sideEffects.trim());
+            evaluationResponse.setSideEffects(sideEffects);
         }
 
         GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
@@ -246,7 +246,7 @@ class SynchronousInterpreter implements Interpreter
             if (loadResultString != null && loadResultString.length() != 0)
             {
                 //resultMap.put("load_result", loadResult);
-                evaluationResponse.setLoadResult(loadResultString.trim());
+                evaluationResponse.setLoadResult(loadResultString);
             }
         }
 
