@@ -19,19 +19,23 @@ import console.ConsolePane;
 import console.Output;
 import console.Shell;
 import org.mathpiper.exceptions.MathPiperException;
-import org.mathrider.mathpiperplugin.MathPiperInterpreter;
-import java.util.HashMap;
+import org.mathpiper.interpreters.EvaluationResponse;
+//import org.mathrider.mathpiperplugin.MathPiperInterpreter;
+import java.util.Map;
 //import org.mathrider.piper.LispOutput;
 
 public class MathPiperShell extends Shell
 {
-	private MathPiperInterpreter interpreter;
+	private org.mathpiper.interpreters.Interpreter interpreter;
 	
 	
 	public MathPiperShell() throws MathPiperException
 	{
 		super("MathPiper");
-		interpreter = MathPiperInterpreter.getInstance(); //new StreamOutput(System.out) 
+		//interpreter = MathPiperInterpreter.getInstance(); 
+		interpreter = org.mathpiper.interpreters.Interpreters.newSynchronousInterpreter();
+		
+		
 		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);
 		
 	}//end constructor.
@@ -44,40 +48,40 @@ public class MathPiperShell extends Shell
 		
 		//printUsage(jEdit.getProperty(PiperPlugin.NAME + ".shell.msg.info"), null, output);
 		//output.print(null, jEdit.getProperty(PiperPlugin.NAME + ".shell.msg.usage"));
-		try
-		{
-			HashMap version = interpreter.evaluate("Version();");
-			output.print(null, "MathPiper version " +  version.get("result"));
-		}
-		catch( MathPiperException pe )
-		{
-			output.print(java.awt.Color.RED,pe.getMessage() );
-		}
+		EvaluationResponse response;
+
+			response = interpreter.evaluate("Version();");
+			output.print(null, "MathPiper version " +  response.getResult());
+			
+			if(!response.getErrorMessage().equalsIgnoreCase(""))
+			{
+				output.print(java.awt.Color.RED,response.getErrorMessage() );
+			}
+
 	
 	}//end method.
 
 	public void execute(Console console, String input, Output output, Output error, String command)
 	{
-		try 
-		{
-			HashMap resultAndSideEffects = interpreter.evaluate(command);
+		EvaluationResponse response;
+		
+
+			response = interpreter.evaluate(command);
 			
-			output.print(java.awt.Color.BLUE,"Result> " + resultAndSideEffects.get("result"));
+			output.print(java.awt.Color.BLUE,"Result> " + response.getResult());
 
 			
-			if(resultAndSideEffects.containsKey( "side_effects"))
+			if(!response.getSideEffects().equalsIgnoreCase(""))
 			{
-				output.print(new java.awt.Color(0,120,0),"Side Effects>\n" + resultAndSideEffects.get("side_effects"));
+				output.print(new java.awt.Color(0,120,0),"Side Effects>\n" + response.getSideEffects());
 			}
 			
-		}catch(MathPiperException pe) 
-		{
-			output.print(java.awt.Color.RED,pe.getMessage() );
-		}
-		finally
-		{
+			if(!response.getErrorMessage().equalsIgnoreCase(""))
+			{
+				output.print(java.awt.Color.RED,response.getErrorMessage() );
+			}
 			output.commandDone();
-		}
+	
 
 	}//end method.
 

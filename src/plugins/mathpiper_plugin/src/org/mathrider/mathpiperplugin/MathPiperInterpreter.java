@@ -4,7 +4,7 @@ package org.mathrider.mathpiperplugin;
 
 //import org.mathrider.piper.CPiper;
 //import org.mathrider.piper.Piperexception;
-import org.mathpiper.Interpreter;
+
 import org.mathpiper.exceptions.MathPiperException;
 import console.Output;
 import org.mathrider.ResponseListener;
@@ -19,30 +19,20 @@ import java.util.HashMap;
  */
 
 
-public class MathPiperInterpreter  implements Runnable{
+public class MathPiperInterpreter {
+/*
+	private static MathPiperInterpreter instance;
 
-	private static MathPiperInterpreter instance = null;
-	private Interpreter mathPiper;
-	private StringOutput stringOutput;
-
-	private String result;
-	private String input;
-	private ArrayList<ResponseListener> removeListeners;
-	private ArrayList<ResponseListener> responseListeners;
 
 	//java.util.zip.ZipFile scriptsZip;
 
 	private static DefaultErrorSource errorSource;
 
-	/** Creates a new instance of MathPiperInterpreter */
+	//Creates a new instance of MathPiperInterpreter 
 	protected MathPiperInterpreter() throws MathPiperException {
 
-		stringOutput = new StringOutput();
 
-		mathPiper = new Interpreter(stringOutput);
 
-		responseListeners = new ArrayList<ResponseListener>();
-		removeListeners = new ArrayList<ResponseListener>();
 
 
 	}//end constructor.
@@ -62,100 +52,9 @@ public class MathPiperInterpreter  implements Runnable{
 	}//end method.
 
 
-	/** Use this method to pass an expression to the MathPiper interpreter.
-	 *  Returns the output of the interpreter.
-	 */
-	public HashMap evaluate(String input) throws MathPiperException
-	{
-		HashMap resultMap = new HashMap();
-		
-		result = mathPiper.evaluate(input);
-
-		result = result.trim();
-
-		String loadResult = mathPiper.evaluate("LoadResult;");
-
-		loadResult = loadResult.trim();
-
-		mathPiper.evaluate(result + ";");//Note:tk:eventually reengineer previous result mechanism in MathPiper.
-
-		String sideEffects = stringOutput.toString();
-
-		//Object[] resultsAndSideEffect = new Object[5];
-		
-		//resultsAndSideEffect[4] = -1;
-
-		if(sideEffects != null && sideEffects.length() != 0){
-			//resultsAndSideEffect[1] = sideEffect;
-			resultMap.put("side_effects", sideEffects);
-		}
-		//else
-		//{
-		//	resultsAndSideEffect[1] = null;
-		//}
 
 
-		if(loadResult != null && loadResult.length() != 0){
-			//resultsAndSideEffect[2] = loadResult;
-			resultMap.put("load_result", loadResult);
-		}
-		//else
-		//{
-		//	resultsAndSideEffect[2] = null;
-		//}
 
-		//resultsAndSideEffect[0] = result;
-		resultMap.put("result", result);
-		
-		return resultMap;
-		
-
-	}
-
-	public void evaluateAsync(String input)  {
-
-		/*
-			http://saloon.javaranch.com/cgi-bin/ubb/ultimatebb.cgi?ubb=get_topic&f=27&t=002774
-			If you are using java 5 then you can use callable
-			If not, then write an abstract class that exposes a new 
-			abstract method that implementations must override
-			to do the *required* job. (This will contain code that 
-			otherwise would have been in run())This class implements 
-			Runnable and implements the run() method. In the run method
-			call the abstract method. If it throws an exception then store it 
-			and give a getter for this exception. You also have to provide a 
-			method to enquire whether the task has finished or not!
-		*/
-
-		this.input = input;
-		new Thread(this,"MathPiper").start();
-
-
-	}//end method.
-
-	public void run()
-	{
-		try
-		{
-			HashMap resultAndSideEffects = evaluate(input);
-			notifyListeners(resultAndSideEffects);
-		}
-		catch(Exception e)
-		{
-			//Object[] error = new Object[5];
-			HashMap errorMap = new HashMap();
-			errorMap.put( "error_message",e.getMessage() );
-			if(e instanceof MathPiperException)
-			{
-				MathPiperException mpe  = (MathPiperException) e;
-				int errorLineNumber = mpe.getLineNumber();
-				errorMap.put("line_number", errorLineNumber);
-			}
-
-			notifyListeners(errorMap);
-		}
-
-	}
 
 
 	public static DefaultErrorSource getErrorSource()
@@ -217,7 +116,7 @@ public class MathPiperInterpreter  implements Runnable{
 	}
 
 
-
+*/
 
 }//end class.
 
