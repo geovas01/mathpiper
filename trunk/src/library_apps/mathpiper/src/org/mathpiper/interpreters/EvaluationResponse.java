@@ -13,6 +13,7 @@ public class EvaluationResponse {
     private String loadResult = "";
     private String sideEffects = "";
     private String exceptionMessage = "";
+    private boolean exceptionThrown = false;
     private Exception exception = null;
     private int lineNumber;
             
@@ -73,9 +74,15 @@ public class EvaluationResponse {
 
     public void setException(Exception exception)
     {
+        this.exceptionThrown = true;
         this.exception = exception;
     }
 
+    public boolean isExceptionThrown()
+    {
+        return exceptionThrown;
+    }
+        
     public String getLoadResult()
     {
         return loadResult;
