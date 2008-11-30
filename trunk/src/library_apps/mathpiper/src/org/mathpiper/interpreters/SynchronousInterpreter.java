@@ -41,7 +41,7 @@ import org.mathpiper.lisp.GlobalVariable;
  * 
  * 
  */
-public class SynchronousInterpreter
+class SynchronousInterpreter implements Interpreter
 {
 
     private Environment environment = null;
@@ -105,15 +105,8 @@ public class SynchronousInterpreter
             }
 
 
-            //String result = "";
-            try
-            {
                 evaluate("Load(\"mathpiperinit.mpi\");");
 
-            } catch (MathPiperException pe)
-            {
-                pe.printStackTrace();
-            }
 
 
         } catch (Exception e)
@@ -137,8 +130,7 @@ public class SynchronousInterpreter
         return singletonInstance;
     }
 
-
-    public EvaluationResponse evaluate(String inputExpression) throws MathPiperException
+    public EvaluationResponse evaluate(String inputExpression)
     {
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
         if (inputExpression.length() == 0)
@@ -175,7 +167,16 @@ public class SynchronousInterpreter
                             args);
                 } catch (Exception e)
                 {
-                    throw new MathPiperException(e.getMessage(), -1);//Note:tk. Throw MathPiperException instead of just exception.
+                    e.printStackTrace();
+                    iError = e.getMessage();
+                    int errorLineNumber = -1;
+                    if (e instanceof MathPiperException)
+                    {
+                        MathPiperException mpe = (MathPiperException) e;
+                        errorLineNumber = mpe.getLineNumber();
+                    }
+                    evaluationResponse.setErrorMessage(iError);
+                    evaluationResponse.setLineNumber(errorLineNumber);
 
                 } finally
                 {
@@ -221,10 +222,6 @@ public class SynchronousInterpreter
         } catch (Exception e)
         {
             e.printStackTrace();
-            //System.out.println(e.toString());
-            //System.out.println(e.getMessage() );
-
-            //Note:tk throw MathPiperException instead of simply printing the exception message.
             iError = e.getMessage();
             int errorLineNumber = -1;
             if (e instanceof MathPiperException)
@@ -234,7 +231,7 @@ public class SynchronousInterpreter
             }
             evaluationResponse.setErrorMessage(iError);
             evaluationResponse.setLineNumber(errorLineNumber);
-        //throw new MathPiperException(iError, errorLineNumber);
+
         }
 
 
@@ -272,8 +269,8 @@ public class SynchronousInterpreter
     {
         return environment;
     }
-    
-        public java.util.zip.ZipFile getScriptsZip()
+
+    public java.util.zip.ZipFile getScriptsZip()
     {
         return UtilityFunctions.zipFile;
     }//end method.
@@ -283,14 +280,17 @@ public class SynchronousInterpreter
         String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
 
         //String result = "";
-        try
-        {
-            evaluate(toEvaluate);
-        } catch (MathPiperException pe)
-        {
-            pe.printStackTrace();
-        }
 
+        evaluate(toEvaluate);
+
+
+    }//addScriptsDirectory.
+
+    public void addResponseListener(ResponseListener listener)
+    {
     }
-    
+
+    public void removeResponseListener(ResponseListener listener)
+    {
+    }
 }// end class.

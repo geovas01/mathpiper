@@ -1,12 +1,23 @@
-/*
- * CalculatorPanel.java
+/* {{{ License.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
  *
- * Created on November 28, 2008, 12:12 AM
- */
-
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *///}}}
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.calculator;
 
-import org.mathpiper.interpreters.SynchronousInterpreter;
+import org.mathpiper.interpreters.Interpreter;
+import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.interpreters.EvaluationResponse;
 
@@ -14,12 +25,15 @@ import org.mathpiper.interpreters.EvaluationResponse;
  *
  * @author  tkosan
  */
-public class CalculatorPanel extends javax.swing.JPanel {
-       //private StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
-    private SynchronousInterpreter mathpiper = SynchronousInterpreter.getInstance();
+public class CalculatorPanel extends javax.swing.JPanel
+{
+    //private StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
+    private Interpreter mathpiper = Interpreters.getSynchronousInterpreter();
     private StringBuilder enteredText = new StringBuilder();
+
     /** Creates new form CalculatorPanel */
-    public CalculatorPanel() {
+    public CalculatorPanel()
+    {
         initComponents();
     }
 
@@ -357,138 +371,132 @@ public class CalculatorPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 private void zeroButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_zeroButtonsymbolButtonActionPerformed
 
 private void decimalPointButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decimalPointButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_decimalPointButtonsymbolButtonActionPerformed
 
 private void oneButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_oneButtonsymbolButtonActionPerformed
 
 private void twoButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_twoButtonsymbolButtonActionPerformed
 
 private void threeButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_threeButtonsymbolButtonActionPerformed
 
 private void fourButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_fourButtonsymbolButtonActionPerformed
 
 private void fiveButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_fiveButtonsymbolButtonActionPerformed
 
 private void sixButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_sixButtonsymbolButtonActionPerformed
 
 private void sevenButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_sevenButtonsymbolButtonActionPerformed
 
 private void eightButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_eightButtonsymbolButtonActionPerformed
 
 private void nineButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_nineButtonsymbolButtonActionPerformed
 
 private void equalsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsButtonActionPerformed
-EvaluationResponse evaluationResponse;
-            try
-            {
-                evaluationResponse = mathpiper.evaluate("N(" + enteredText.toString() +");");
-                enteredText.delete(0, enteredText.length());
-                display.setText(evaluationResponse.getResult());
-                
-            } catch (MathPiperException pe)
-            {
-                pe.printStackTrace();
-            }
+    EvaluationResponse evaluationResponse;
+
+    evaluationResponse = mathpiper.evaluate("N(" + enteredText.toString() + ");");
+    enteredText.delete(0, enteredText.length());
+    display.setText(evaluationResponse.getResult());
+
+
 }//GEN-LAST:event_equalsButtonActionPerformed
 
 private void additionButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_additionButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_additionButtonsymbolButtonActionPerformed
 
 private void subtractionButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subtractionButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_subtractionButtonsymbolButtonActionPerformed
 
 private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-if(enteredText.length() != 0)
+    if (enteredText.length() != 0)
     {
-        enteredText.deleteCharAt(enteredText.length()-1);
+        enteredText.deleteCharAt(enteredText.length() - 1);
         display.setText(enteredText.toString());
     }
 }//GEN-LAST:event_deleteButtonActionPerformed
 
 private void allClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allClearButtonActionPerformed
-enteredText.delete(0,enteredText.length());
+    enteredText.delete(0, enteredText.length());
     display.setText(enteredText.toString());
 }//GEN-LAST:event_allClearButtonActionPerformed
 
 private void multiplicationButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplicationButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_multiplicationButtonsymbolButtonActionPerformed
 
 private void divisionButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divisionButtonsymbolButtonActionPerformed
-String symbol = evt.getActionCommand();
+    String symbol = evt.getActionCommand();
 
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_divisionButtonsymbolButtonActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton additionButton;
     private javax.swing.JButton allClearButton;
@@ -512,5 +520,4 @@ String symbol = evt.getActionCommand();
     private javax.swing.JButton twoButton;
     private javax.swing.JButton zeroButton;
     // End of variables declaration//GEN-END:variables
-
 }

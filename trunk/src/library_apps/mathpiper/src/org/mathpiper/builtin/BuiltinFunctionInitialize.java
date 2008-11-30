@@ -155,7 +155,7 @@ import org.mathpiper.builtin.functions.ProgBody;
 import org.mathpiper.builtin.functions.Quote;
 import org.mathpiper.builtin.functions.Read;
 import org.mathpiper.builtin.functions.ReadCmdLineString;
-import org.mathpiper.builtin.functions.ReadLisp;
+import org.mathpiper.builtin.functions.LispRead;
 import org.mathpiper.builtin.functions.ReadLispListed;
 import org.mathpiper.builtin.functions.ReadToken;
 import org.mathpiper.builtin.functions.Replace;
@@ -666,7 +666,7 @@ public abstract class BuiltinFunctionInitialize
                 new Evaluator(new TraceStack(), 1, Evaluator.Fixed | Evaluator.Macro),
                 "TraceStack");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new Evaluator(new ReadLisp(), 0, Evaluator.Fixed | Evaluator.Function),
+                new Evaluator(new LispRead(), 0, Evaluator.Fixed | Evaluator.Function),
                 "LispRead");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new ReadLispListed(), 0, Evaluator.Fixed | Evaluator.Function),

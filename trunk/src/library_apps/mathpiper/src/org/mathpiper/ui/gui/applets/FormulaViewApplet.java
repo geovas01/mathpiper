@@ -18,7 +18,7 @@
 
 package org.mathpiper.ui.gui.applets;
 
-import org.mathpiper.lisp.parsers.TexParser;
+import org.mathpiper.ui.gui.applets.TexParser;
 import org.mathpiper.*;
 import java.awt.*;
 import java.applet.*;
