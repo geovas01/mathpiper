@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.mathpiper;
+package org.mathpiper.interpreters;
 
 import org.mathpiper.interpreters.EvaluationResponse;
 

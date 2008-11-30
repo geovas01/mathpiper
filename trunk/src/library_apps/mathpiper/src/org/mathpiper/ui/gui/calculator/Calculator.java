@@ -4,7 +4,7 @@
  * Created on November 27, 2008, 11:35 PM
  */
 
-package org.mathpiper.gui.calculator;
+package org.mathpiper.ui.gui.calculator;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;

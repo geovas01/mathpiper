@@ -4,7 +4,7 @@
  * Created on November 28, 2008, 12:12 AM
  */
 
-package org.mathpiper.gui.calculator;
+package org.mathpiper.ui.gui.calculator;
 
 import org.mathpiper.interpreters.SynchronousInterpreter;
 import org.mathpiper.exceptions.MathPiperException;
