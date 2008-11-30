@@ -18,10 +18,10 @@
 
 package org.mathpiper.gui.applet;
 
+import org.mathpiper.interpreters.SynchronousInterpreter;
 import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.lisp.parsers.TexParser;
 import org.mathpiper.io.CachedStandardFileInputStream;
-import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.*;
 import org.mathpiper.io.OutputStream;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -31,13 +31,12 @@ import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.Toolkit;
 import java.awt.*;
 import java.awt.event.*;
 import java.applet.*;
 import java.io.*;
 import java.net.*;
+import org.mathpiper.interpreters.EvaluationResponse;
 
 public class ConsoleApplet extends Applet implements KeyListener, FocusListener, ClipboardOwner, MouseListener, MouseMotionListener
 {
@@ -49,7 +48,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 	boolean calculating = false;
 
 	OutputStream stdoutput = null;
-	Interpreter piper = null;
+	SynchronousInterpreter piper = null;
 	StringBuffer outp = new StringBuffer();
 
 	boolean gotDatahubInit = false;
@@ -276,9 +275,9 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 		}
 
 
-		stdoutput = new StringOutputStream(outp);
-		piper = new Interpreter(stdoutput);
-		piper.environment.iCurrentInput = new CachedStandardFileInputStream(piper.environment.iInputStatus);
+		//stdoutput = new StringOutputStream(outp);
+		piper = SynchronousInterpreter.getInstance();
+		piper.getEnvironment().iCurrentInput = new CachedStandardFileInputStream(piper.getEnvironment().iInputStatus);
 
 
 		if (piperLogo != null)
@@ -898,7 +897,8 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				paint(getGraphics());
 			}
 			outp.delete(0,outp.length());
-			String response = "";
+			//String response = "";
+                        EvaluationResponse response = null;
 			try{
 				response = piper.evaluate(inputLine);
 			}
@@ -910,11 +910,11 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			calculating = false;
 
 			AddOutputLine(outp.toString());
-			if (piper.iError != null)
+			if (response != null && response.getErrorMessage() != null)
 			{
-				AddLinesStatic(48,"Error> ",piper.iError);
+				AddLinesStatic(48,"Error> ", response.getErrorMessage());
 			}
-			AddLinesStatic(48, outputPrompt,response);
+			AddLinesStatic(48, outputPrompt,response.getResult());
 			succeed = true;
 		}
 		{
@@ -1657,17 +1657,18 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 	public String calculate(String expression)
 	{
 		if (!gotDatahubInit) start();
-		String result = "";
+		//String result = "";
+                EvaluationResponse evaluationResponse = null;
 		try{
-			result = piper.evaluate(expression);
+			evaluationResponse = piper.evaluate(expression);
 		}
 		catch(MathPiperException ye)
 		{
 			ye.printStackTrace();
 		}
 
-		lastError = piper.iError;
-		return result;
+		lastError = evaluationResponse.getErrorMessage();  //Note:tk: need to check for null value.
+		return evaluationResponse.getResult();
 	}
 	public String getLastError()
 	{
@@ -1747,9 +1748,9 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 			else
 			{
 				outp.delete(0,outp.length());
-
+                                EvaluationResponse evaluationResponse = null;
 				try{
-					String response = piper.evaluate(expression);
+					evaluationResponse = piper.evaluate(expression);
 				}
 				catch(MathPiperException ye)
 				{
@@ -1757,9 +1758,9 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 				}
 				calculating = false;
 				AddOutputLine(outp.toString());
-				if (piper.iError != null)
+				if (evaluationResponse != null && evaluationResponse.getErrorMessage() != null)
 				{
-					AddLinesStatic(48,"Error> ",piper.iError);
+					AddLinesStatic(48,"Error> ",evaluationResponse.getErrorMessage());
 				}
 
 				ResetInput();
@@ -1773,7 +1774,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
 	public void StopCurrentCalculation()
 	{
-		piper.environment.iEvalDepth = piper.environment.iMaxEvalDepth+100;
+		piper.getEnvironment().iEvalDepth = piper.getEnvironment().iMaxEvalDepth+100;
 	}
 }
 

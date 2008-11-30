@@ -6,17 +6,17 @@
 
 package org.mathpiper.gui.calculator;
 
-import org.mathpiper.Interpreter;
+import org.mathpiper.interpreters.SynchronousInterpreter;
 import org.mathpiper.exceptions.MathPiperException;
-import org.mathpiper.io.StandardFileOutputStream;
+import org.mathpiper.interpreters.EvaluationResponse;
 
 /**
  *
  * @author  tkosan
  */
 public class CalculatorPanel extends javax.swing.JPanel {
-       private StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
-    private Interpreter mathpiper = new Interpreter(stdoutput);
+       //private StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
+    private SynchronousInterpreter mathpiper = SynchronousInterpreter.getInstance();
     private StringBuilder enteredText = new StringBuilder();
     /** Creates new form CalculatorPanel */
     public CalculatorPanel() {
@@ -434,12 +434,12 @@ String symbol = evt.getActionCommand();
 }//GEN-LAST:event_nineButtonsymbolButtonActionPerformed
 
 private void equalsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsButtonActionPerformed
-String result;
+EvaluationResponse evaluationResponse;
             try
             {
-                result = mathpiper.evaluate("N(" + enteredText.toString() +");");
+                evaluationResponse = mathpiper.evaluate("N(" + enteredText.toString() +");");
                 enteredText.delete(0, enteredText.length());
-                display.setText(result);
+                display.setText(evaluationResponse.getResult());
                 
             } catch (MathPiperException pe)
             {

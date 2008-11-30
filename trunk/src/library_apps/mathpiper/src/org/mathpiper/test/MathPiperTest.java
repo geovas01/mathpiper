@@ -2,14 +2,16 @@
 
 package org.mathpiper.test;
 
-import org.mathpiper.Interpreter;
-import org.mathpiper.io.StandardFileOutputStream;
+
+import org.mathpiper.interpreters.EvaluationResponse;
+import org.mathpiper.interpreters.SynchronousInterpreter;
+
 
 public class MathPiperTest
 {
-	private Interpreter mathPiper;
+	private SynchronousInterpreter mathPiper;
 	private java.io.File testDirectory;
-	private String result;
+	private EvaluationResponse evaluationResponse;
 	private java.io.FileWriter logFile;
 	
 	public MathPiperTest()
@@ -25,7 +27,7 @@ public class MathPiperTest
 			
 			logFile = new java.io.FileWriter("mathpiper_tests.log");
 			
-			mathPiper = new Interpreter( new StandardFileOutputStream(System.out));
+			mathPiper = SynchronousInterpreter.getInstance();
 			
 			testDirectory = new java.io.File(directory);
 			if(testDirectory.exists() )
@@ -54,8 +56,8 @@ public class MathPiperTest
 					System.out.print(output);
 					logFile.write(output);
 					
-					result = mathPiper.evaluate("Load(\"" + files[x].getName() + "\");");
-					output = result + "\n";
+					evaluationResponse = mathPiper.evaluate("Load(\"" + files[x].getName() + "\");");
+					output = "Result: " + evaluationResponse.getResult() + "\nSide Effects:\n" + evaluationResponse.getSideEffects() + "\n";
 					System.out.println(output);
 					logFile.write(output);
 				}
