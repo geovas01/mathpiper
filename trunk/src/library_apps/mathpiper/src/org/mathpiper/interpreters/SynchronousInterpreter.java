@@ -97,7 +97,7 @@ public class SynchronousInterpreter
                 } else
                 {
                     pathParent = new File(detectURL.getPath()).getParent();
-                    addDirectory(pathParent);
+                    addScriptsDirectory(pathParent);
                 }
             } else
             {
@@ -137,25 +137,6 @@ public class SynchronousInterpreter
         return singletonInstance;
     }
 
-    public java.util.zip.ZipFile getScriptsZip()
-    {
-        return UtilityFunctions.zipFile;
-    }//end method.
-
-    public void addDirectory(String directory)
-    {
-        String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
-
-        //String result = "";
-        try
-        {
-            evaluate(toEvaluate);
-        } catch (MathPiperException pe)
-        {
-            pe.printStackTrace();
-        }
-
-    }
 
     public EvaluationResponse evaluate(String inputExpression) throws MathPiperException
     {
@@ -279,9 +260,6 @@ public class SynchronousInterpreter
         }
 
 
-
-
-
         return evaluationResponse;
     }
 
@@ -294,4 +272,25 @@ public class SynchronousInterpreter
     {
         return environment;
     }
-}
+    
+        public java.util.zip.ZipFile getScriptsZip()
+    {
+        return UtilityFunctions.zipFile;
+    }//end method.
+
+    public void addScriptsDirectory(String directory)
+    {
+        String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
+
+        //String result = "";
+        try
+        {
+            evaluate(toEvaluate);
+        } catch (MathPiperException pe)
+        {
+            pe.printStackTrace();
+        }
+
+    }
+    
+}// end class.
