@@ -85,6 +85,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
     {
         setBackground(bkColor);
         setLayout(null);
+        this.setPreferredSize(new Dimension(400,400));
         addKeyListener(this);
         addFocusListener(this);
         addMouseListener(this);
