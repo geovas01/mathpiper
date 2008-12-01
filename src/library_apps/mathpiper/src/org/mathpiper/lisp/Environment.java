@@ -185,7 +185,7 @@ public class Environment
         iGlobalState.setAssociation(global, aVariable);
         if (aGlobalLazyVariable)
         {
-            global.SetEvalBeforeReturn(true);
+            global.setEvalBeforeReturn(true);
         }
     }
 
