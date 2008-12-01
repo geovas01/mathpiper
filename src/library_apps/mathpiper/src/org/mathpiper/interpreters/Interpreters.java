@@ -37,6 +37,14 @@ public static Interpreter getSynchronousInterpreter()
     return SynchronousInterpreter.getInstance();
 }
 
+public static Interpreter newAsynchronousInterpreter()
+{
+    return AsynchronousInterpreter.newInstance();
+}
 
+public static Interpreter getAsynchronousInterpreter()
+{
+    return AsynchronousInterpreter.getInstance();
+}
 
 }
