@@ -281,10 +281,7 @@ class SynchronousInterpreter implements Interpreter
     {
         String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
 
-        //String result = "";
-
         evaluate(toEvaluate);
-
 
     }//addScriptsDirectory.
 
