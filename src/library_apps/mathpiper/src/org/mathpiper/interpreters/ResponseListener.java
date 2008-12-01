@@ -19,8 +19,6 @@
 
 package org.mathpiper.interpreters;
 
-import org.mathpiper.interpreters.EvaluationResponse;
-
 public interface ResponseListener
 {
     void response(EvaluationResponse response);
