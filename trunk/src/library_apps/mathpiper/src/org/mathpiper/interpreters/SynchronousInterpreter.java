@@ -35,7 +35,6 @@ import org.mathpiper.lisp.printers.Printer;
 import org.mathpiper.io.CachedStandardFileInputStream;
 import java.io.*;
 import org.mathpiper.io.StringOutput;
-import org.mathpiper.lisp.GlobalVariable;
 
 /**
  * 
@@ -130,7 +129,7 @@ class SynchronousInterpreter implements Interpreter
         return singletonInstance;
     }
 
-    public EvaluationResponse evaluate(String inputExpression)
+    public synchronized EvaluationResponse evaluate(String inputExpression)
     {
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
         if (inputExpression.length() == 0)

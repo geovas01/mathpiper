@@ -19,8 +19,6 @@
 
 package org.mathpiper.ui.gui.calculator;
 
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
