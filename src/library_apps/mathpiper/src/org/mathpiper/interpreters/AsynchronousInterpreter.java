@@ -19,7 +19,6 @@
 package org.mathpiper.interpreters;
 
 import java.util.ArrayList;
-import org.mathpiper.interpreters.ResponseListener;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -65,23 +64,8 @@ class AsynchronousInterpreter implements Interpreter
     public EvaluationResponse evaluate(String expression)
     {
 
-        /*
-        http://saloon.javaranch.com/cgi-bin/ubb/ultimatebb.cgi?ubb=get_topic&f=27&t=002774
-        If you are using java 5 then you can use callable
-        If not, then write an abstract class that exposes a new 
-        abstract method that implementations must override
-        to do the *required* job. (This will contain code that 
-        otherwise would have been in run())This class implements 
-        Runnable and implements the run() method. In the run method
-        call the abstract method. If it throws an exception then store it 
-        and give a getter for this exception. You also have to provide a 
-        method to enquire whether the task has finished or not!
-         */
 
-        //this.input = input;
-        //new Thread(this,"MathPiper").start();
-
-        FutureTask task = new EvaluationTask(new MyCallable(expression));
+        FutureTask task = new EvaluationTask(new Evaluator(expression));
         ExecutorService es = Executors.newSingleThreadExecutor();
         es.submit(task);
 
@@ -145,12 +129,12 @@ class AsynchronousInterpreter implements Interpreter
         return interpreter.getEnvironment();
     }
 
-    private class MyCallable implements Callable
+    private class Evaluator implements Callable
     {
 
         private String expression;
 
-        public MyCallable(String expression)
+        public Evaluator(String expression)
         {
             this.expression = expression;
         }

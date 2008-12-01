@@ -16,9 +16,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.calculator;
 
+import java.beans.PropertyVetoException;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
-import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 
 /**
@@ -35,6 +35,16 @@ public class CalculatorPanel extends javax.swing.JPanel
     public CalculatorPanel()
     {
         initComponents();
+        
+       /*
+         try
+        {
+        jInternalFrame1.setIcon(true);
+        }
+        catch(Exception e)
+        {
+            
+        }*/
     }
 
     /** This method is called from within the constructor to
@@ -46,12 +56,13 @@ public class CalculatorPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        display = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jInternalFrame1 = new javax.swing.JInternalFrame();
         zeroButton = new javax.swing.JButton();
         decimalPointButton = new javax.swing.JButton();
         jButton23 = new javax.swing.JButton();
@@ -72,28 +83,34 @@ public class CalculatorPanel extends javax.swing.JPanel
         allClearButton = new javax.swing.JButton();
         multiplicationButton = new javax.swing.JButton();
         divisionButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jInternalFrame2 = new javax.swing.JInternalFrame();
+        display = new javax.swing.JTextField();
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
-        );
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
 
-        jTabbedPane1.addTab("Basic", jPanel1);
-        jTabbedPane1.addTab("Console", jTabbedPane3);
-        jTabbedPane1.addTab("Spreadsheet", jTabbedPane4);
-        jTabbedPane1.addTab("Statistics", jTabbedPane2);
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
 
-        display.setFont(new java.awt.Font("DejaVu Sans 14", 0, 12)); // NOI18N
+        setLayout(new java.awt.BorderLayout());
 
-        zeroButton.setText("0");
+        jLabel1.setText("MathRider Super Scientific Calculator (http://mathrider.org)");
+        add(jLabel1, java.awt.BorderLayout.NORTH);
+
+        jLabel2.setText("V.01");
+        add(jLabel2, java.awt.BorderLayout.SOUTH);
+
+        jDesktopPane1.setBackground(new java.awt.Color(238, 236, 242));
+        jDesktopPane1.setAutoscrolls(true);
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(400, 400));
+
+        jInternalFrame1.setIconifiable(true);
+        jInternalFrame1.setResizable(true);
+        jInternalFrame1.setTitle("Keypad");
+        jInternalFrame1.setVisible(true);
+
+        zeroButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/zero.gif"))); // NOI18N
+        zeroButton.setActionCommand("0");
         zeroButton.setMaximumSize(new java.awt.Dimension(27, 27));
         zeroButton.setMinimumSize(new java.awt.Dimension(27, 27));
         zeroButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -119,7 +136,8 @@ public class CalculatorPanel extends javax.swing.JPanel
         jButton23.setMinimumSize(new java.awt.Dimension(27, 27));
         jButton23.setPreferredSize(new java.awt.Dimension(27, 27));
 
-        oneButton.setText("1");
+        oneButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/one.gif"))); // NOI18N
+        oneButton.setActionCommand("1");
         oneButton.setMaximumSize(new java.awt.Dimension(27, 27));
         oneButton.setMinimumSize(new java.awt.Dimension(27, 27));
         oneButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -129,7 +147,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        twoButton.setText("2");
+        twoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/two.gif"))); // NOI18N
+        twoButton.setActionCommand("2");
         twoButton.setMaximumSize(new java.awt.Dimension(27, 27));
         twoButton.setMinimumSize(new java.awt.Dimension(27, 27));
         twoButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -139,7 +158,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        threeButton.setText("3");
+        threeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/three.gif"))); // NOI18N
+        threeButton.setActionCommand("3");
         threeButton.setMaximumSize(new java.awt.Dimension(27, 27));
         threeButton.setMinimumSize(new java.awt.Dimension(27, 27));
         threeButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -149,7 +169,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        fourButton.setText("4");
+        fourButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/four.gif"))); // NOI18N
+        fourButton.setActionCommand("4");
         fourButton.setMaximumSize(new java.awt.Dimension(27, 27));
         fourButton.setMinimumSize(new java.awt.Dimension(27, 27));
         fourButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -159,7 +180,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        fiveButton.setText("5");
+        fiveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/five.gif"))); // NOI18N
+        fiveButton.setActionCommand("5");
         fiveButton.setMaximumSize(new java.awt.Dimension(27, 27));
         fiveButton.setMinimumSize(new java.awt.Dimension(27, 27));
         fiveButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -169,7 +191,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        sixButton.setText("6");
+        sixButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/six.gif"))); // NOI18N
+        sixButton.setActionCommand("6");
         sixButton.setMaximumSize(new java.awt.Dimension(27, 27));
         sixButton.setMinimumSize(new java.awt.Dimension(27, 27));
         sixButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -179,7 +202,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        sevenButton.setText("7");
+        sevenButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/seven.gif"))); // NOI18N
+        sevenButton.setActionCommand("7");
         sevenButton.setMaximumSize(new java.awt.Dimension(27, 27));
         sevenButton.setMinimumSize(new java.awt.Dimension(27, 27));
         sevenButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -189,7 +213,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        eightButton.setText("8");
+        eightButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/eight.gif"))); // NOI18N
+        eightButton.setActionCommand("8");
         eightButton.setMaximumSize(new java.awt.Dimension(27, 27));
         eightButton.setMinimumSize(new java.awt.Dimension(27, 27));
         eightButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -199,7 +224,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        nineButton.setText("9");
+        nineButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/nine.gif"))); // NOI18N
+        nineButton.setActionCommand("9");
         nineButton.setMaximumSize(new java.awt.Dimension(27, 27));
         nineButton.setMinimumSize(new java.awt.Dimension(27, 27));
         nineButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -209,7 +235,6 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        jButton24.setIcon(new javax.swing.ImageIcon("/home/tkosan/temp/textogif/test.gif")); // NOI18N
         jButton24.setMaximumSize(new java.awt.Dimension(27, 27));
         jButton24.setMinimumSize(new java.awt.Dimension(27, 27));
         jButton24.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -244,7 +269,6 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        deleteButton.setText("DEL");
         deleteButton.setMaximumSize(new java.awt.Dimension(27, 27));
         deleteButton.setMinimumSize(new java.awt.Dimension(27, 27));
         deleteButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -286,130 +310,118 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        jLabel1.setText("MathRider Super Scientific Calculator (http://mathrider.org)");
-
-        jLabel2.setText("V.01");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(zeroButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(decimalPointButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(oneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(twoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(threeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(fourButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(fiveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(sixButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(sevenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(eightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(zeroButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(decimalPointButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                            .addComponent(oneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(twoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(threeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addComponent(fourButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(equals, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(additionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(subtractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(allClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(multiplicationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fiveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(divisionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(display, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)))
-                .addContainerGap(15, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(372, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
+                                .addComponent(sixButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addComponent(sevenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(eightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(equals, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                            .addComponent(additionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(subtractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                            .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(allClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(multiplicationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(divisionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(display, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(eightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sevenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sixButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fiveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fourButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(multiplicationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(threeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(twoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(oneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(decimalPointButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(zeroButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(allClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(divisionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(subtractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(additionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(equals, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jLabel2))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.getAccessibleContext().setAccessibleName("Basic");
+        jInternalFrame1.setBounds(90, 110, 270, 220);
+        jDesktopPane1.add(jInternalFrame1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jInternalFrame2.setIconifiable(true);
+        jInternalFrame2.setResizable(true);
+        jInternalFrame2.setTitle("Display");
+        jInternalFrame2.setVisible(true);
+
+        display.setFont(new java.awt.Font("DejaVu Sans 14", 1, 14));
+        jInternalFrame2.getContentPane().add(display, java.awt.BorderLayout.NORTH);
+
+        jInternalFrame2.setBounds(10, 30, 430, 70);
+        jDesktopPane1.add(jInternalFrame2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        add(jDesktopPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 private void zeroButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonsymbolButtonActionPerformed
@@ -552,13 +564,14 @@ private void divisionButtonsymbolButtonActionPerformed(java.awt.event.ActionEven
     private javax.swing.JButton fourButton;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton24;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JButton multiplicationButton;
     private javax.swing.JButton nineButton;
     private javax.swing.JButton oneButton;
