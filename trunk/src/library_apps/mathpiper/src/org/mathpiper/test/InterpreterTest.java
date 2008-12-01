@@ -36,10 +36,13 @@ public class InterpreterTest implements ResponseListener
         response = interpreter.evaluate("2+2;");
         System.out.println("SynchronousInterpreter: " + response.getResult());
         
-        interpreter = Interpreters.newAsynchronousInterpreter();
+        response = interpreter.evaluate("Load(\"test.mpi\");");
+        System.out.println("Load test: " + "Result: " + response.getResult() + "Side Effects: " + response.getSideEffects() + "Errors: " + response.getExceptionMessage());
+        
+       /* interpreter = Interpreters.newAsynchronousInterpreter();
         interpreter.addResponseListener(this);
         response = interpreter.evaluate("2+2;");
-        System.out.println("AsynchronousInterpreter evaluation request sent.");
+        System.out.println("AsynchronousInterpreter evaluation request sent.");*/
         
         
     }

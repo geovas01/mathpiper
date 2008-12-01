@@ -105,7 +105,7 @@ class SynchronousInterpreter implements Interpreter
             }
 
 
-                evaluate("Load(\"mathpiperinit.mpi\");");
+            evaluate("Load(\"mathpiperinit.mpi\");");
 
 
 
@@ -174,14 +174,14 @@ class SynchronousInterpreter implements Interpreter
                         evaluationResponse.setLineNumber(errorLineNumber);
                     }
                     evaluationResponse.setException(exception);
-                    evaluationResponse.setExceptionMessage(exception.getMessage()); 
+                    evaluationResponse.setExceptionMessage(exception.getMessage());
 
                 } finally
                 {
                     environment.iCurrentInput = previous;
                     environment.iInputStatus.restoreFrom(oldstatus);
                 }
-            } else
+            } else //Else not PrettyPrinter.
             {
 
                 InputStatus someStatus = new InputStatus();
@@ -207,9 +207,7 @@ class SynchronousInterpreter implements Interpreter
             if (environment.iPrettyPrinter != null)
             {
                 ConsPointer nonresult = new ConsPointer();
-                UtilityFunctions.internalApplyString(environment, nonresult,
-                        environment.iPrettyPrinter,
-                        result);
+                UtilityFunctions.internalApplyString(environment, nonresult, environment.iPrettyPrinter, result);
                 resultString = string_out.toString();
             } else
             {
@@ -225,8 +223,8 @@ class SynchronousInterpreter implements Interpreter
                 int errorLineNumber = mpe.getLineNumber();
                 evaluationResponse.setLineNumber(errorLineNumber);
             }
-                    evaluationResponse.setException(exception);
-                    evaluationResponse.setExceptionMessage(exception.getMessage());
+            evaluationResponse.setException(exception);
+            evaluationResponse.setExceptionMessage(exception.getMessage());
         }
 
 
@@ -239,17 +237,26 @@ class SynchronousInterpreter implements Interpreter
             evaluationResponse.setSideEffects(sideEffects);
         }
 
-        GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
-        if (loadResultVariable != null)
+        try
         {
-            String loadResultString = loadResultVariable.toString();
-            if (loadResultString != null && loadResultString.length() != 0)
+            if (environment.iGlobalState.lookUp("LoadResult") != null)
             {
-                //resultMap.put("load_result", loadResult);
+                ConsPointer loadResult = new ConsPointer();
+                environment.getVariable("LoadResult", loadResult);
+
+                StringBuffer string_out = new StringBuffer();
+                OutputStream output = new StringOutputStream(string_out);
+                printer.rememberLastChar(' ');
+                printer.print(loadResult, output, environment);
+                String loadResultString = string_out.toString();
+                //GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
+
                 evaluationResponse.setResult(loadResultString);
-                 environment.iGlobalState.release("LoadResult");
-                
+                environment.iGlobalState.release("LoadResult");
+
             }
+        } catch (Exception e)
+        {
         }
 
 

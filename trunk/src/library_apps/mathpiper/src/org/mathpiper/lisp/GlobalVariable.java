@@ -25,8 +25,8 @@ package org.mathpiper.lisp;
  * Value of a Lisp global variable.
 * The only special feature of this class is the attribute
 * <b>iEvalBeforeReturn</b>, which defaults to <b>LispFalse</b>. If this
-* attribute is setCons to <b>LispTrue</b>, the value in <b>iValue</b> needs to be
-* evaluated to getCons the value of the Lisp variable.
+* attribute is set to <b>LispTrue</b>, the value in <b>iValue</b> needs to be
+* evaluated to get the value of the Lisp variable.
 * See: LispEnvironment::GetVariable() 
  */
 public class GlobalVariable
@@ -44,7 +44,7 @@ public class GlobalVariable
 		iValue.setCons(aValue.getCons());
 		iEvalBeforeReturn = false;
 	}
-	public  void SetEvalBeforeReturn(boolean aEval)
+	public  void setEvalBeforeReturn(boolean aEval)
 	{
 		iEvalBeforeReturn = aEval;
 	}
