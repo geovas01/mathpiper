@@ -1173,7 +1173,7 @@ source()
 	
 	try{
 		location = interpreter.evaluate("FindFunction(\"" + item + "\");");
-		location = location[0];
+		location = location.getResult();
 		
 	}catch(org.mathrider.mathpiper.MathPiperException ye) 
 	{

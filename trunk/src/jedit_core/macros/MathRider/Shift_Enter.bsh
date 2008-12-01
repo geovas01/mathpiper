@@ -324,11 +324,16 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		if(foldType.equalsIgnoreCase("%mathpiper"))    
 		{
 
-				system = MathPiperInterpreter.getInstance();
+				//system = MathPiperInterpreter.getInstance();
+				asynchronousInterpreter = org.mathpiper.interpreters.Interpreters.getAsynchronousInterpreter();
+				synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			
-				org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
-				response(resultMap)
+				//org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
+				org.mathpiper.interpreters.ResponseListener responseListener = new org.mathpiper.interpreters.ResponseListener(){
+					
+				response(evaluationResponse)
 				{
+					
 					
 				try  //Note:This code is a hack to prevent a second fold update occurring before the first update is finished.
 				{
@@ -338,22 +343,24 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				catch(InterruptedException e)
 				{
 				}
+				
+				//asynchronousInterpreter.out.println("XXXXXXXXX Received response from ASync.");
 					
-				//result = resultMap[2];
-				result = resultMap.get("load_result");
+				//result = evaluationResponse[2];
+				result = evaluationResponse.getResult();//("load_result");
 
-				if(resultMap.containsKey("error_message")) //resultMap[3] != null) //Error.
+				if(evaluationResponse.isExceptionThrown())//containsKey("error_message")) //evaluationResponse[3] != null) //Error.
 				{
-					//result = resultMap[3] + ";Error near line: " + resultMap[4];
+					//result = evaluationResponse[3] + ";Error near line: " + evaluationResponse[4];
 					
 					output_fold_type = "%error";
 					
-					errorLineNumber = resultMap.get("line_number"); //resultMap[4];
+					errorLineNumber = evaluationResponse.getLineNumber();//("line_number"); //evaluationResponse[4];
 					
 					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 
 					adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 1);
-					result =  resultMap.get("error_message") + " Error near line " + adjustedErrorLineNumber;							
+					result =  evaluationResponse.getExceptionMessage() + " Error near line " + adjustedErrorLineNumber;							
 					
 					filePath = textArea.getBuffer().getPath();
 				
@@ -366,40 +373,42 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
-					resultMap = system.evaluate("TeXForm(Hold(" + resultMap.get("load_result") + "));");
-					result = resultMap.get("result").replace("\"$","");
+		//System.out.println("XXXXXXXXX " +  evaluationResponse.getResult()  );
+					evaluationResponse = synchronousInterpreter.evaluate("TeXForm(Hold(" + evaluationResponse.getResult() + "));");
+		//System.out.println("MMMMMMM " +  evaluationResponse.getResult() );
+					result = evaluationResponse.getResult().replace("\"$","");
 					result = result.replace("$\"","");
-					//result = resultMap[0];
+					//result = evaluationResponse[0];
 					output_fold_type = "%hoteqn";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
-					resultMap = system.evaluate("OMForm(" + resultMap.get("load_result") + ");");
-					result = resultMap.get("result");
+					evaluationResponse = synchronousInterpreter.evaluate("OMForm(" + evaluationResponse.getResult() + ");");
+					result = evaluationResponse.getResult();//("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
-					resultMap = system.evaluate("PrettyForm(Hold(" + resultMap.get("load_result") + "));");
-					result = resultMap.get("result");
+					evaluationResponse = synchronousInterpreter.evaluate("PrettyForm(Hold(" + evaluationResponse.getResult() + "));");
+					result = evaluationResponse.getResult();//("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				{	
-					resultMap = system.evaluate("CForm(" + resultMap.get("load_result") + ");");
-					result = resultMap.get("result");
+					evaluationResponse = synchronousInterpreter.evaluate("CForm(" + evaluationResponse.getResult() + ");");
+					result = evaluationResponse.getResult();
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				{	
-					resultMap = system.evaluate("FullForm(" + resultMap.get("load_result") + ");");
-					result = resultMap.get("result");
+					evaluationResponse = synchronousInterpreter.evaluate("FullForm(" + evaluationResponse.getResult() + ");");
+					result = evaluationResponse.getResult();//("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				{	
-					resultMap = system.evaluate("TableForm(" + resultMap.get("load_result") + ");");
-					result = resultMap.get("result");
+					evaluationResponse = synchronousInterpreter.evaluate("TableForm(" + evaluationResponse.getResult() + ");");
+					result = evaluationResponse.getResult();//("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
@@ -410,10 +419,10 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 					output_fold_type = "%output";
 				}
-	//Sy	stem.out.println("Out> " + resultMap);
-			if(resultMap.containsKey("side_effects"))
+	//Sy	stem.out.println("Out> " + evaluationResponse);
+			if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 			{
-				result = "Result: " + resultMap.get("load_result") + "\n\nSide effects:\n" + resultMap.get("side_effects");
+				result = "Result: " + evaluationResponse.getResult() + "\n\nSide effects:\n" + evaluationResponse.getSideEffects();
 			}
 			else
 			{
@@ -433,7 +442,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 			};//end interface implementation.
 			
-			system.addResponseListener(responseListener);
+			asynchronousInterpreter.addResponseListener(responseListener);
 			
 			tempFilePath = tempFile.getAbsolutePath();
 				
@@ -441,7 +450,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 				//System.out.println(tempFilePath);
         	
-				system.evaluateAsync("Load(\""+tempFilePath+"\");");
+				asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");");
 			
 			output_fold_type = "%output";
 			result = "Processing...";

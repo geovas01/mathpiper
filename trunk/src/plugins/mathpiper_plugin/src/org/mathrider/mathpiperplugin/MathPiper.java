@@ -30,7 +30,6 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 import org.mathrider.mathpiperplugin.MathPiperInterpreter;
-import org.mathpiper.exceptions.MathPiperException;
 // }}}
 
 // {{{ MathPiper class

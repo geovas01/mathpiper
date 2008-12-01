@@ -5,7 +5,6 @@ package org.mathrider.mathpiperplugin;
 //import org.mathrider.piper.CPiper;
 //import org.mathrider.piper.Piperexception;
 
-import org.mathpiper.exceptions.MathPiperException;
 import console.Output;
 import org.mathrider.ResponseListener;
 import java.io.*;
@@ -20,13 +19,14 @@ import java.util.HashMap;
 
 
 public class MathPiperInterpreter {
+	private static DefaultErrorSource errorSource;
 /*
 	private static MathPiperInterpreter instance;
 
 
 	//java.util.zip.ZipFile scriptsZip;
 
-	private static DefaultErrorSource errorSource;
+	
 
 	//Creates a new instance of MathPiperInterpreter 
 	protected MathPiperInterpreter() throws MathPiperException {
@@ -55,7 +55,7 @@ public class MathPiperInterpreter {
 
 
 
-
+*/
 
 	public static DefaultErrorSource getErrorSource()
 	{
@@ -68,6 +68,7 @@ public class MathPiperInterpreter {
 		return errorSource;
 	}//end method.
 
+	/*
 
 	public void addResponseListener(ResponseListener listener)
 	{

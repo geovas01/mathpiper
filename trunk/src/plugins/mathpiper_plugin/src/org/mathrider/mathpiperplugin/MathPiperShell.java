@@ -18,7 +18,6 @@ import console.Console;
 import console.ConsolePane;
 import console.Output;
 import console.Shell;
-import org.mathpiper.exceptions.MathPiperException;
 import org.mathpiper.interpreters.EvaluationResponse;
 //import org.mathrider.mathpiperplugin.MathPiperInterpreter;
 import java.util.Map;
@@ -29,11 +28,11 @@ public class MathPiperShell extends Shell
 	private org.mathpiper.interpreters.Interpreter interpreter;
 	
 	
-	public MathPiperShell() throws MathPiperException
+	public MathPiperShell()
 	{
 		super("MathPiper");
 		//interpreter = MathPiperInterpreter.getInstance(); 
-		interpreter = org.mathpiper.interpreters.Interpreters.newSynchronousInterpreter();
+		interpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 		
 		
 		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);
@@ -53,9 +52,9 @@ public class MathPiperShell extends Shell
 			response = interpreter.evaluate("Version();");
 			output.print(null, "MathPiper version " +  response.getResult());
 			
-			if(!response.getErrorMessage().equalsIgnoreCase(""))
+			if(!response.isExceptionThrown())
 			{
-				output.print(java.awt.Color.RED,response.getErrorMessage() );
+				output.print(java.awt.Color.RED,response.getExceptionMessage() );
 			}
 
 	
@@ -76,9 +75,9 @@ public class MathPiperShell extends Shell
 				output.print(new java.awt.Color(0,120,0),"Side Effects>\n" + response.getSideEffects());
 			}
 			
-			if(!response.getErrorMessage().equalsIgnoreCase(""))
+			if(!response.isExceptionThrown())
 			{
-				output.print(java.awt.Color.RED,response.getErrorMessage() );
+				output.print(java.awt.Color.RED,response.getExceptionMessage() );
 			}
 			output.commandDone();
 	
@@ -99,7 +98,7 @@ public class MathPiperShell extends Shell
 	
 	public void printPrompt(Console console, Output output)
 	{
-		output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), "\nIn> ");
+		output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), "In> ");
 	}//end method.
 	
 	
