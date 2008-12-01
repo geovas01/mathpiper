@@ -239,24 +239,23 @@ class SynchronousInterpreter implements Interpreter
 
         try
         {
-            if (environment.iGlobalState.lookUp("LoadResult") != null)
+            if (inputExpression.trim().startsWith("Load"))
             {
                 ConsPointer loadResult = new ConsPointer();
                 environment.getVariable("LoadResult", loadResult);
-
                 StringBuffer string_out = new StringBuffer();
                 OutputStream output = new StringOutputStream(string_out);
                 printer.rememberLastChar(' ');
                 printer.print(loadResult, output, environment);
                 String loadResultString = string_out.toString();
                 //GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
-
                 evaluationResponse.setResult(loadResultString);
-                environment.iGlobalState.release("LoadResult");
-
+                //environment.iGlobalState.release("LoadResult");
             }
         } catch (Exception e)
         {
+		evaluationResponse.setExceptionMessage(e.getMessage());
+		evaluationResponse.setException(e);
         }
 
 
