@@ -91,31 +91,6 @@ class AsynchronousInterpreter implements Interpreter
 
     }//end method.
 
-    public String call() throws Exception
-    {
-        //try
-        //{
-        EvaluationResponse evaluationResponse = interpreter.evaluate(expression);
-        notifyListeners(evaluationResponse);
-        /*}
-        catch(Exception e)
-        {
-        //Object[] error = new Object[5];
-        HashMap errorMap = new HashMap();
-        errorMap.put( "error_message",e.getMessage() );
-        
-        if(e instanceof MathPiperException)
-        {
-        MathPiperException mpe  = (MathPiperException) e;
-        int errorLineNumber = mpe.getLineNumber();
-        errorMap.put("line_number", errorLineNumber);
-        }
-        
-        notifyListeners(errorMap);
-        }*/
-        return "";
-
-    }
 
     public void addResponseListener(ResponseListener listener)
     {
@@ -195,7 +170,7 @@ class AsynchronousInterpreter implements Interpreter
             super(arg0);
         }
 
-        public void done()
+        @Override public void done()
         {
             EvaluationResponse evaluationResponse = null;
             try

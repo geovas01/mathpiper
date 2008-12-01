@@ -246,7 +246,9 @@ class SynchronousInterpreter implements Interpreter
             if (loadResultString != null && loadResultString.length() != 0)
             {
                 //resultMap.put("load_result", loadResult);
-                evaluationResponse.setLoadResult(loadResultString);
+                evaluationResponse.setResult(loadResultString);
+                 environment.iGlobalState.release("LoadResult");
+                
             }
         }
 
