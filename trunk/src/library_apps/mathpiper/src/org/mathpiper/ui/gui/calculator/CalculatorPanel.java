@@ -120,6 +120,7 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
+        decimalPointButton.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         decimalPointButton.setText(".");
         decimalPointButton.setMaximumSize(new java.awt.Dimension(27, 27));
         decimalPointButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -130,7 +131,7 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        jButton23.setText("EXP");
+        jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/exp.gif"))); // NOI18N
         jButton23.setActionCommand("^");
         jButton23.setMaximumSize(new java.awt.Dimension(27, 27));
         jButton23.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -235,11 +236,15 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
+        jButton24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/ans.gif"))); // NOI18N
+        jButton24.setActionCommand("ans");
         jButton24.setMaximumSize(new java.awt.Dimension(27, 27));
         jButton24.setMinimumSize(new java.awt.Dimension(27, 27));
         jButton24.setPreferredSize(new java.awt.Dimension(27, 27));
 
-        equals.setText("=");
+        equals.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
+        equals.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/equals.gif"))); // NOI18N
+        equals.setActionCommand("equals");
         equals.setMaximumSize(new java.awt.Dimension(27, 27));
         equals.setMinimumSize(new java.awt.Dimension(27, 27));
         equals.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -249,7 +254,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        additionButton.setText("+");
+        additionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/plus.gif"))); // NOI18N
+        additionButton.setActionCommand("+");
         additionButton.setMaximumSize(new java.awt.Dimension(27, 27));
         additionButton.setMinimumSize(new java.awt.Dimension(27, 27));
         additionButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -259,6 +265,7 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
+        subtractionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/minus.gif"))); // NOI18N
         subtractionButton.setActionCommand("-");
         subtractionButton.setMaximumSize(new java.awt.Dimension(27, 27));
         subtractionButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -269,6 +276,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
+        deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/del.gif"))); // NOI18N
+        deleteButton.setActionCommand("del");
         deleteButton.setMaximumSize(new java.awt.Dimension(27, 27));
         deleteButton.setMinimumSize(new java.awt.Dimension(27, 27));
         deleteButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -278,7 +287,8 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        allClearButton.setText("AC");
+        allClearButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/ac.gif"))); // NOI18N
+        allClearButton.setActionCommand("ac");
         allClearButton.setMaximumSize(new java.awt.Dimension(27, 27));
         allClearButton.setMinimumSize(new java.awt.Dimension(27, 27));
         allClearButton.setPreferredSize(new java.awt.Dimension(27, 27));
@@ -288,7 +298,7 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        multiplicationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/multiply.gif"))); // NOI18N
+        multiplicationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/times.gif"))); // NOI18N
         multiplicationButton.setActionCommand("*");
         multiplicationButton.setMaximumSize(new java.awt.Dimension(27, 27));
         multiplicationButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -299,7 +309,7 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        divisionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/divide.gif"))); // NOI18N
+        divisionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/div.gif"))); // NOI18N
         divisionButton.setActionCommand("/");
         divisionButton.setMaximumSize(new java.awt.Dimension(27, 27));
         divisionButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -407,7 +417,7 @@ public class CalculatorPanel extends javax.swing.JPanel
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jInternalFrame1.setBounds(90, 110, 270, 220);
+        jInternalFrame1.setBounds(90, 140, 270, 220);
         jDesktopPane1.add(jInternalFrame1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jInternalFrame2.setIconifiable(true);
@@ -415,10 +425,26 @@ public class CalculatorPanel extends javax.swing.JPanel
         jInternalFrame2.setTitle("Display");
         jInternalFrame2.setVisible(true);
 
-        display.setFont(new java.awt.Font("DejaVu Sans 14", 1, 14));
+        display.setFont(new java.awt.Font("DejaVu Sans 14", 0, 18)); // NOI18N
+        display.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                displayMouseClicked(evt);
+            }
+        });
+        display.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                displayKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                displayKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                displayKeyReleased(evt);
+            }
+        });
         jInternalFrame2.getContentPane().add(display, java.awt.BorderLayout.NORTH);
 
-        jInternalFrame2.setBounds(10, 30, 430, 70);
+        jInternalFrame2.setBounds(10, 30, 430, 80);
         jDesktopPane1.add(jInternalFrame2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         add(jDesktopPane1, java.awt.BorderLayout.CENTER);
@@ -551,6 +577,23 @@ private void divisionButtonsymbolButtonActionPerformed(java.awt.event.ActionEven
     enteredText.append(symbol);
     display.setText(enteredText.toString());
 }//GEN-LAST:event_divisionButtonsymbolButtonActionPerformed
+
+private void displayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_displayKeyPressed
+    evt.consume();
+}//GEN-LAST:event_displayKeyPressed
+
+private void displayKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_displayKeyReleased
+    evt.consume();
+}//GEN-LAST:event_displayKeyReleased
+
+private void displayKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_displayKeyTyped
+    evt.consume();
+}//GEN-LAST:event_displayKeyTyped
+
+private void displayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayMouseClicked
+// TODO add your handling code here:
+}//GEN-LAST:event_displayMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton additionButton;
     private javax.swing.JButton allClearButton;
