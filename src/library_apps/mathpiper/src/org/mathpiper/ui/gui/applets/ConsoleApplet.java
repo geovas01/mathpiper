@@ -334,7 +334,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 {
                     AddLineStatic(100, "", " '" + zipFileName + "'.", font, Color.red);
                 }
-                try
+               /* try
                 {
                     java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
                     UtilityFunctions.zipFile = z;
@@ -343,7 +343,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                     out.println("Failed to find mathpiper.jar");
                     out.println("" + zipFileName + " : \n");
                     out.println(e.toString());
-                }
+                }*/
             }
             if (docbase.startsWith("http"))
             {
