@@ -225,7 +225,7 @@ Initial release:
 }}}
 
 
-{{{PIPER BUGS.
+{{{MATHPIPER BUGS.
 ===
 +RandomInteger is present as a link in the MathPiper documentation, but it is not present as a top-level function in the code.
 +I think the generated output of following formula is wrong:
@@ -260,16 +260,60 @@ considered a feature)
 
 -- eric
 
-====
+----
+More Yacas bugs:
+
+* Simplify(0.0000001) returns 1
+
+ * Simplify(0.00000000001) returns Undefined
+
+ * TrigSimpCombine(0.0000001) returns 1
+
+Any ideas for a temporary workaround appreciated  - I've tried adding "+1-1" and "+0*x" onto the end...
+
+thanks,
+
+Mike
+
+----
+
+Possible bugs:
+
+1) Solve(x==x^3,x) produces several "MathSqrt: invalid argument: -1"
+messages.
+
+2) I don't think the prettyprint version of Solve(x==x^3,x) is correct
+(seems to start with sqrt[3] which isn't in the regular version (see 2nd and
+3rd screenshots attached))
+
+3) If you try and simplify the answers to Solve(x==x^3,x), you get some odd
+results. The first screenshot (attached) has the input and output to
+Simplify shown.
+
+cheers,
+
+Mike
+
+----
+
+Here are some Yacas bugs we've noticed whilst developing GeoGebra:
+
+* Factor(a^2 - b^2) returns FWatom(a^2 - b^2)
+
+* Factor(9*x^2 -1) returns (9x-3)*(x+1/3)
+
+Also do you know if Yacas can simplify exp(x) - 1/exp(-x)?
+
+----
 N(Pi,10) gives too many digits.
-====
+----
 Functions obtained from D() do not evaluate and functions cannot be defined as follows for some reason:
 
 y := 2 * x;
 
-====
+----
 PathString and WriteString are not implemented yet.
-====
+----
 ----
 NewLine(x) does not work in folds probably because of Load.  Fix?
 ----
@@ -413,7 +457,7 @@ Why is this list missing commas and curly braces?
 + Link from HoldArg to HoldArgNr in HoldArg documentation is broken.
 }}}
 
-{{{PIPER ENHANCEMENTS.
+{{{MATHPIPER ENHANCEMENTS.
 + Rename Bin function to be Combinations.
 + Provide functions which generate lists which contain the combinations and permutations of a list.
 + How does one do parallel list traversals
@@ -507,7 +551,7 @@ included as SBoxBuilder subclasses.
 ----
 }}}
 
-{{{Piper questions.
+{{{MathPiper questions.
 + How does one expand 2^3 into 2*2*2?
 + Functions to research further: CurrentLine, CurrentFile, FindFunction.
 }}}
