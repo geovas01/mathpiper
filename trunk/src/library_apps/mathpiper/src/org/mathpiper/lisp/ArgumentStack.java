@@ -81,19 +81,19 @@ public class ArgumentStack
         }
     }
     
-    public void dump()
+    public void dump() throws Exception
     {
         for(int x=0; x <= iStackTopIndex; x++)
         {
-            try
-            {
+            //try
+            //{
                  ConsPointer consPointer = getElement(x);
                   Cons cons = consPointer.getCons();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+            //}
+            //catch(Exception e)
+            //{
+              //  e.printStackTrace();
+            //}
            
             //System.out.println()
         }

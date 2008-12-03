@@ -174,8 +174,8 @@ class AsynchronousInterpreter implements Interpreter
         }//done.
     }//EvaluationTask.
 
-    public java.util.zip.ZipFile getScriptsZip()
+    /*public java.util.zip.ZipFile getScriptsZip()
     {
         return interpreter.getScriptsZip();
-    }//end method.
+    }//end method.*/
 }//end class.

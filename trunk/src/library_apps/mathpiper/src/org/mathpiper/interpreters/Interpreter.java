@@ -25,7 +25,7 @@ public interface Interpreter
 
     void haltEvaluation();
 
-    java.util.zip.ZipFile getScriptsZip();
+    //java.util.zip.ZipFile getScriptsZip();
 
     void addScriptsDirectory(String directory);
    

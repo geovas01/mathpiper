@@ -69,7 +69,7 @@ class SynchronousInterpreter implements Interpreter
             environment.iCurrentInput = new CachedStandardFileInputStream(environment.iInputStatus);
 
 
-            java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.mpi");
+          /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.mpi");
 
             //StdFileInput.setPath(pathParent + File.separator);
 
@@ -101,14 +101,14 @@ class SynchronousInterpreter implements Interpreter
             } else
             {
                 System.out.println("Cannot find mathpiperinit.mpi.");
-            }
+            }*/
 
 
             evaluate("Load(\"mathpiperinit.mpi\");");
 
 
 
-        } catch (Exception e)
+        } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
         {
             e.printStackTrace();
             System.out.println(e.toString());
@@ -271,16 +271,16 @@ class SynchronousInterpreter implements Interpreter
         return environment;
     }
 
-    public java.util.zip.ZipFile getScriptsZip()
+    /*public java.util.zip.ZipFile getScriptsZip()
     {
         return UtilityFunctions.zipFile;
-    }//end method.
+    }//end method.*/
 
     public void addScriptsDirectory(String directory)
     {
         String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
 
-        evaluate(toEvaluate);
+        evaluate(toEvaluate);  //Note:tk:some exception handling needs to happen here..
 
     }//addScriptsDirectory.
 
