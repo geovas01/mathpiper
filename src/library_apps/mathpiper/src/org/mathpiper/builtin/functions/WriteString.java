@@ -42,7 +42,7 @@ public class WriteString extends BuiltinFunctionInitialize
         //((*str)[i] != '\"')
         for (i = 1; i < nr; i++)
         {
-            aEnvironment.iCurrentOutput.PutChar(str.charAt(i));
+            aEnvironment.iCurrentOutput.putChar(str.charAt(i));
         }
         // pass last printed character to the current printer
         aEnvironment.iCurrentPrinter.rememberLastChar(str.charAt(nr - 1));  // hacky hacky

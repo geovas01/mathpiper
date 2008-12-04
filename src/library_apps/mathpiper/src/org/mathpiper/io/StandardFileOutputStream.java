@@ -33,7 +33,7 @@ public class StandardFileOutputStream
 		iFile = aFile;
 	}
 
-	public void PutChar(char aChar)
+	public void putChar(char aChar)
 	throws Exception
 	{
 		iFile.write(aChar);
