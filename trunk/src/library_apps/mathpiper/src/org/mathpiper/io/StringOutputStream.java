@@ -31,7 +31,7 @@ public class StringOutputStream
 		iString = aString;
 	}
 
-	public void PutChar(char aChar)
+	public void putChar(char aChar)
 	{
 		iString.append(aChar);
 	}

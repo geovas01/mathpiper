@@ -46,7 +46,7 @@ public class Printer
 			if (string != null)
 			{
 				aOutput.write(string);
-				aOutput.PutChar(' ');
+				aOutput.putChar(' ');
 			}
 			// else print "(", print sublist, and print ")"
 			else if (iter.getCons().subList() != null)
