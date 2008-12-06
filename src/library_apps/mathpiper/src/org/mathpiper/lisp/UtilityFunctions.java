@@ -73,7 +73,7 @@ public class UtilityFunctions
         4.9541963103868752088061235991755544235489,
         5.
     };
-    //public static java.util.zip.ZipFile zipFile = null;
+    public static java.util.zip.ZipFile zipFile = null;
 
     public static boolean isNumber(String ptr, boolean aAllowFloat)
     {
@@ -629,7 +629,7 @@ public class UtilityFunctions
 
     public static InputStream openInputFile(String aFileName, InputStatus aInputStatus) throws Exception
     {//Note:tk:primary method for file opening.
-      /*  try
+       try
         {
             if (zipFile != null)
             {
@@ -651,9 +651,9 @@ public class UtilityFunctions
         } catch (Exception e)
         {
         }
-        return null;*/
+        return null;
         
-        return new StandardFileInputStream(aFileName, aInputStatus);
+        //return new StandardFileInputStream(aFileName, aInputStatus);
     }
 
     public static InputStream openInputFile(Environment aEnvironment,
