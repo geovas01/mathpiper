@@ -28,7 +28,7 @@ import org.mathpiper.interpreters.EvaluationResponse;
 public class CalculatorPanel extends javax.swing.JPanel
 {
     //private StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
-    private Interpreter mathpiper = Interpreters.getSynchronousInterpreter();
+    private Interpreter mathpiper;
     private StringBuilder enteredText = new StringBuilder();
 
     /** Creates new form CalculatorPanel */
@@ -46,6 +46,14 @@ public class CalculatorPanel extends javax.swing.JPanel
             
         }*/
     }
+
+    public CalculatorPanel(String docBase)
+    {
+        this.initComponents();
+
+        mathpiper = Interpreters.newSynchronousInterpreter(docBase);
+
+    }//end constructor.
 
     /** This method is called from within the constructor to
      * initialize the form.
