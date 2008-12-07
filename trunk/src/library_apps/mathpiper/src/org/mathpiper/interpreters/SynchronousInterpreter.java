@@ -55,7 +55,7 @@ class SynchronousInterpreter implements Interpreter
     OutputStream sideEffectsStream;
     private static SynchronousInterpreter singletonInstance;
 
-    private SynchronousInterpreter()
+    private SynchronousInterpreter(String docBase)
     {
         sideEffectsStream = new StringOutput();
 
@@ -67,6 +67,42 @@ class SynchronousInterpreter implements Interpreter
 
 
             environment.iCurrentInput = new CachedStandardFileInputStream(environment.iInputStatus);
+
+
+         if(docBase != null)
+         {
+
+
+            if (docBase.substring(0, 4).equals("file"))
+            {
+                int pos = docBase.lastIndexOf("/");
+                String zipFileName = docBase.substring(0, pos + 1) + "mathpiper.jar";
+                zipFileName = zipFileName.substring(6,zipFileName.length());
+
+               try
+                {
+                    java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(zipFileName));
+                    UtilityFunctions.zipFile = z;
+                } catch (Exception e)
+                {
+                    System.out.println("Failed to find mathpiper.jar");
+                    System.out.println("" + zipFileName + " : \n");
+                    System.out.println(e.toString());
+                }
+            }
+            if (docBase.startsWith("http"))
+            {
+                //jar:http://www.xs4all.nl/~apinkus/interpreter.jar!/
+                int pos = docBase.lastIndexOf("/");
+                String scriptBase = "jar:" + docBase.substring(0, pos + 1) + "mathpiper.jar!/";
+
+
+                evaluate("DefaultDirectory(\"" + scriptBase + "\");");
+
+
+            }
+
+         }
 
 
           /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.mpi");
@@ -113,11 +149,21 @@ class SynchronousInterpreter implements Interpreter
             e.printStackTrace();
             System.out.println(e.toString());
         }
+    }//end constructor.
+
+    private SynchronousInterpreter()
+    {
+        this(null);
     }
 
     public static SynchronousInterpreter newInstance()
     {
         return new SynchronousInterpreter();
+    }
+
+    public static SynchronousInterpreter newInstance(String docBase)
+    {
+        return new SynchronousInterpreter(docBase);
     }
 
     public static SynchronousInterpreter getInstance()

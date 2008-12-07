@@ -32,6 +32,11 @@ public static Interpreter newSynchronousInterpreter()
     return SynchronousInterpreter.newInstance();
 }
 
+public static Interpreter newSynchronousInterpreter(String docBase)
+{
+    return SynchronousInterpreter.newInstance(docBase);
+}
+
 public static Interpreter getSynchronousInterpreter()
 {
     return SynchronousInterpreter.getInstance();

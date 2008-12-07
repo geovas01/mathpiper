@@ -21,12 +21,18 @@ public class Applet extends JApplet {
      setLayout(new BorderLayout(1, 2));
      setBackground(Color.white);
 
-     add("Center", new CalculatorPanel());
+                 String docBase = getDocumentBase().toString();
+
+
+
+
+     add("Center", new CalculatorPanel(docBase));
 
    }
 
   public void start(){
      System.out.println("Applet starting.");
+
   }
 
   public void stop(){
