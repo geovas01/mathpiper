@@ -20,107 +20,44 @@
 package org.mathpiper.scripts;
 
 
-import org.mathpiper.interpreters.EvaluationResponse;
-import org.mathpiper.interpreters.Interpreter;
-import org.mathpiper.interpreters.Interpreters;
+import java.io.ByteArrayInputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.io.InputStream;
 
 
 public class Scripts
 {
-	private Interpreter mathPiper;
-	private java.io.File testDirectory;
-	private EvaluationResponse evaluationResponse;
-	private java.io.FileWriter logFile;
+
+    private static Map scriptsMap = new HashMap();
+
+    static{
+        scriptsMap.put("factors.rep/code.mpi", org.mathpiper.scripts.Factors.code);
+        scriptsMap.put("factors.rep/code.mpi.def", org.mathpiper.scripts.Factors.def);
+
+    }
+
+     public static InputStream getScriptStream(String scriptName)
+    {
+         String script = (String)scriptsMap.get(scriptName);
+         if(script != null)
+         {
+            return new ByteArrayInputStream( script.getBytes() );
+         }
+         else
+         {
+             return null;
+         }
+
+    }
 
 	public Scripts()
 	{
 		super();
 
+       
+
 	}//end constructor.
-
-
-	public void classify(String directory)
-	{
-		try{
-
-			logFile = new java.io.FileWriter("mathpiper_scripts.log");
-
-
-			testDirectory = new java.io.File(directory);
-			if(testDirectory.exists() )
-			{
-				java.io.File[] files = testDirectory.listFiles(new java.io.FilenameFilter ()
-				{
-					public boolean accept(java.io.File file, String name)
-					{
-						if(name.endsWith(".mpt"))
-						{
-							return(true);
-						}
-						else
-						{
-							return(false);
-						}
-					}
-				});
-
-
-				String output;
-				//Execute each .mpt file in the specified directory.
-				for(int x = 0; x < files.length; x++)
-				{
-					output = "\n===========================\n" + files[x].getName() + ": ";
-					System.out.print(output);
-					logFile.write(output);
-
-					evaluationResponse = mathPiper.evaluate("Load(\"" + files[x].getName() + "\");");
-					output = "Result: " + evaluationResponse.getResult() + "\nSide Effects:\n" + evaluationResponse.getSideEffects() + "\n";
-					System.out.println(output);
-					logFile.write(output);
-				}
-
-			}
-			else
-			{
-				System.out.println("\nDirectory " + directory + "does not exist.\n");
-			}
-
-			logFile.close();
-
-		}
-		catch(java.io.IOException e)
-		{
-			e.printStackTrace();
-		}
-
-	}//end method.
-
-	public static void main(String[] args)
-	{
-		/*Note: This program currently only works if it is executed in the current directory
-		  because MathPiper cannot handle paths properly yet.
-
-		  Execute with a command line similar to the following:
-
-		    java -cp .;../dist/piper.jar org.mathpiper.tests.MathPiperTest
-		*/
-
-		String directory;
-
-		if(args.length > 0)
-		{
-			directory = args[0];
-		}
-		else
-		{
-			directory = ".";
-		}
-
-
-		Scripts scripts = new Scripts();
-		scripts.classify(directory);
-
-	}//end main
 
 }//end class.
 
