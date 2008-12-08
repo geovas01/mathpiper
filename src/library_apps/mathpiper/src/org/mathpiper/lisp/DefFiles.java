@@ -21,7 +21,7 @@ package org.mathpiper.lisp;
 
 public class DefFiles extends AssociatedHash // <DefFile>
 {
-	DefFile File(String aFileName)
+	DefFile getFile(String aFileName)
 	{
 		// Create a new entry
 		DefFile file = (DefFile)lookUp(aFileName);
