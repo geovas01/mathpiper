@@ -35,15 +35,15 @@ public class DefFile
 		iFileName = aOther.iFileName;
 		iIsLoaded = aOther.iIsLoaded;
 	}
-	public void SetLoaded()
+	public void setLoaded()
 	{
 		iIsLoaded = true;
 	}
-	public boolean IsLoaded()
+	public boolean isLoaded()
 	{
 		return iIsLoaded;
 	}
-	public String FileName()
+	public String fileName()
 	{
 		return iFileName;
 	}
