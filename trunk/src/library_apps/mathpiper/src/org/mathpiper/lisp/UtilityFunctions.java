@@ -574,10 +574,14 @@ public class UtilityFunctions
             newInput = new StandardFileInputStream(fileURL.openStream(), aEnvironment.iInputStatus);
             LispError.check(newInput != null, LispError.KLispErrFileNotFound);
             doInternalLoad(aEnvironment, newInput);
-            aEnvironment.iInputStatus.restoreFrom(oldstatus);
-
-        } else //File may be in the filesystem.
+        } else
         {
+            //Scripts.getResource(oper);
+        }
+
+        aEnvironment.iInputStatus.restoreFrom(oldstatus);
+        
+        /*{ //File may be in the filesystem.
             try
             {
                 // Open file
@@ -593,15 +597,15 @@ public class UtilityFunctions
             {
                 aEnvironment.iInputStatus.restoreFrom(oldstatus);
             }
-        }
+        }//end else.*/
     }
 
     public static void internalUse(Environment aEnvironment, String aFileName) throws Exception
     {
-        DefFile def = aEnvironment.iDefFiles.File(aFileName);
-        if (!def.IsLoaded())
+        DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
+        if (!def.isLoaded())
         {
-            def.SetLoaded();
+            def.setLoaded();
             internalLoad(aEnvironment, aFileName);
         }
     }
@@ -695,8 +699,7 @@ public class UtilityFunctions
         return "";
     }
 
-    private static void doLoadDefFile(Environment aEnvironment, InputStream aInput,
-            DefFile def) throws Exception
+    private static void doLoadDefFile(Environment aEnvironment, InputStream aInput, DefFile def) throws Exception
     {
         InputStream previous = aEnvironment.iCurrentInput;
         try
@@ -743,7 +746,7 @@ public class UtilityFunctions
         LispError.lispAssert(aFileName != null);
 
         String flatfile = internalUnstringify(aFileName) + ".def";
-        DefFile def = aEnvironment.iDefFiles.File(aFileName);
+        DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
 
         String hashedname = aEnvironment.getTokenHash().lookUp(flatfile);
 
@@ -761,7 +764,7 @@ public class UtilityFunctions
             LispError.check(newInput != null, LispError.KLispErrFileNotFound);
             doLoadDefFile(aEnvironment, newInput, def);
 
-        } else //File may be in the filesystem.
+        } else //File may be in the filesystem. Note:tk:todo.
         {
             newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
                     openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
