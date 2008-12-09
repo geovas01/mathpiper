@@ -19,7 +19,6 @@
 
 package org.mathpiper.scripts;
 
-
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,13 +52,7 @@ public class Scripts
 
     }
 
-	public Scripts()
-	{
-		super();
 
-       
-
-	}//end constructor.
 
 }//end class.
 
