@@ -39,7 +39,7 @@ public class Scripts
 
      public static InputStream getScriptStream(String scriptName)
     {
-         String script = (String)scriptsMap.get(scriptName);
+         /*String script = (String)scriptsMap.get(scriptName);
          if(script != null)
          {
             return new ByteArrayInputStream( script.getBytes() );
@@ -48,6 +48,8 @@ public class Scripts
          {
              return null;
          }
+          * */
+         return null;
 
     }
 

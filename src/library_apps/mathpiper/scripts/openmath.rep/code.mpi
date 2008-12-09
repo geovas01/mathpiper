@@ -651,7 +651,7 @@ OMDef( "List", "list1","list" );
 //     "Gamma"    ,  "nums1", "gamma"
 OMDef( "Infinity" ,  "nums1", "infinity" );
 OMDef( "Undefined",  "nums1", "NaN"      );
-// [20010916 AGP] From stdopers.mpi:
+// [20010916 AGP] From initialization.rep/stdopers.mpi:
 OMDef( "And"   ,  "logic1", "and"        );
 OMDef( "=="    ,  "logic1", "equivalent" );
 OMDef( "!=="   ,  "logic1", "not",

@@ -105,7 +105,7 @@ class SynchronousInterpreter implements Interpreter
          }
 
 
-          /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("mathpiperinit.mpi");
+          /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("initialization.rep/mathpiperinit.mpi");
 
             //StdFileInput.setPath(pathParent + File.separator);
 
@@ -136,11 +136,11 @@ class SynchronousInterpreter implements Interpreter
                 }
             } else
             {
-                System.out.println("Cannot find mathpiperinit.mpi.");
+                System.out.println("Cannot find initialization.rep/mathpiperinit.mpi.");
             }*/
 
 
-            evaluate("Load(\"mathpiperinit.mpi\");");
+            evaluate("Load(\"initialization.rep/mathpiperinit.mpi\");");
 
 
 
