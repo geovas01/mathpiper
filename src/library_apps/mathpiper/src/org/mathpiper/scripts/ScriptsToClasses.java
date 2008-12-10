@@ -75,7 +75,8 @@ public class ScriptsToClasses {
                 //Execute each .mpt file in the specified directory.
                 for (int x = 0; x < packagesDirectory.length; x++) {
                     File packageDirectoryFile = packagesDirectory[x];
-                    System.out.println(packageDirectoryFile.getName());
+                    String packageDirectoryFileName = packageDirectoryFile.getName();
+                    System.out.println(packageDirectoryFileName);
                     StringBuilder f = new StringBuilder();
 
                     f.append("package org.mathpiper.scripts;\n");
@@ -110,10 +111,13 @@ public class ScriptsToClasses {
                             File scriptFile = packageDirectory[x2];
                             System.out.println("   " + scriptFile.getName());
                             String sc = readFileAsString(scriptFile);
+                             //sc = sc.replaceAll("//(.)*\n", ""); //Single line comments.
+                            sc = sc.replaceAll("\r", "");
+                           // sc = sc.replaceAll("(/\*[\d\D]*?\*/)|(\/\*(\s*|.*?)*\*\/)|(\/\/.*)|(/\\*[\\d\\D]*?\\*/)|([\r\n ]*//[^\r\n]*)+",""); //Multiline comments on same line and single line comments.
                             sc = sc.replaceAll("\n", "");
-                            sc = sc.replaceAll("\"", "\\n");
-                            // sc = sc.replaceAll("/\\*(?:.|[\\n\\r])*?\\*/",""); //Multiline comments.
-                            //sc = sc.replaceAll("//(.)*\n", ""); //Single line comments.
+                            sc = sc.replaceAll("\"", "\\\\\"");
+                            
+                           
 
                             //System.out.println(sc);
 
@@ -126,6 +130,7 @@ public class ScriptsToClasses {
 
 
                             f.append(scriptFileNameOnly);
+                            s.append("scriptsMap.put(\"" + packageDirectoryFileName + "/" + scriptFileName + "\"," + classNameUpper + "." + scriptFileNameOnly + ");\n");
                             f.append(" = \"");
                             f.append(sc);
                             f.append(" \";\n");
@@ -138,11 +143,16 @@ public class ScriptsToClasses {
                         }//end for.
                          f.append("}\n");
                          
-                         writeStringToFile(f.toString(),"/home/tkosan/temp/mpiper.java");
+                         writeStringToFile(f.toString(),"/home/tkosan/temp/mathpiper/org/mathpiper/scripts/" + classNameUpper + ".java");
                           int d = 0;
                     }//end if.
 
                 }//end for.
+                s.append("}\n}\n");
+
+                writeStringToFile(s.toString(),"/home/tkosan/temp/mathpiper/org/mathpiper/scripts/Scripts.java");
+
+                System.out.println(s.toString());
 
             } else {
                 System.out.println("\nDirectory " + directory + "does not exist.\n");
@@ -214,3 +224,6 @@ public class ScriptsToClasses {
         }
     }//end method.
 }//end class.
+
+
+
