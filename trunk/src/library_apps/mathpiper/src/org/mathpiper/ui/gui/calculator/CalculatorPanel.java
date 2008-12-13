@@ -458,6 +458,16 @@ public class CalculatorPanel extends javax.swing.JPanel
         add(jDesktopPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+public EvaluationResponse evaluate(String expression)
+{
+    EvaluationResponse evaluationResponse;
+
+    evaluationResponse = mathpiper.evaluate(expression + ";");
+
+    return evaluationResponse;
+}//end method.
+
+
 private void zeroButtonsymbolButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonsymbolButtonActionPerformed
     String symbol = evt.getActionCommand();
 
