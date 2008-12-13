@@ -84,7 +84,7 @@ class SynchronousInterpreter implements Interpreter
                 {
                     java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
 
-               System.out.println("XXXX " + z);
+               //System.out.println("XXXX " + z);
                     UtilityFunctions.zipFile = z;
                 } catch (Exception e)
                 {
