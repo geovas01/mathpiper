@@ -31,7 +31,6 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.JarFileInputStream;
 import org.mathpiper.io.StandardFileInputStream;
 import org.mathpiper.io.StringOutputStream;
-import org.mathpiper.scripts.Scripts;
 
 public class UtilityFunctions {
 
@@ -481,40 +480,37 @@ public class UtilityFunctions {
 
         InputStream newInput = null;
 
-        java.io.InputStream scriptStream = Scripts.getScriptStream(oper);
+        /*java.io.InputStream scriptStream = Scripts.getScriptStream(oper);
         if (scriptStream != null) {
-            newInput = new StandardFileInputStream(scriptStream, aEnvironment.iInputStatus);
+        newInput = new StandardFileInputStream(scriptStream, aEnvironment.iInputStatus);
+        LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+        doInternalLoad(aEnvironment, newInput);
+        } else {*/
+        java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(oper);
+        if (fileURL != null) //File is on the classpath.
+        {
+            newInput = new StandardFileInputStream(fileURL.openStream(), aEnvironment.iInputStatus);
             LispError.check(newInput != null, LispError.KLispErrFileNotFound);
             doInternalLoad(aEnvironment, newInput);
-        } else {
-            java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(oper);
-            if (fileURL != null) //File is on the classpath.
-            {
-                newInput = new StandardFileInputStream(fileURL.openStream(), aEnvironment.iInputStatus);
+        } else { //File may be in the filesystem.
+            try {
+                // Open file
+                newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
+                        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+
                 LispError.check(newInput != null, LispError.KLispErrFileNotFound);
                 doInternalLoad(aEnvironment, newInput);
+            } catch (Exception e) {
+                throw e;
+            } finally {
+                aEnvironment.iInputStatus.restoreFrom(oldstatus);
             }
-        }
+        }//end else.*/
+
 
         aEnvironment.iInputStatus.restoreFrom(oldstatus);
 
-    /*{ //File may be in the filesystem.
-    try
-    {
-    // Open file
-    newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
-    openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
-    LispError.check(newInput != null, LispError.KLispErrFileNotFound);
-    doInternalLoad(aEnvironment, newInput);
-    } catch (Exception e)
-    {
-    throw e;
-    } finally
-    {
-    aEnvironment.iInputStatus.restoreFrom(oldstatus);
-    }
-    }//end else.*/
     }
 
     public static void internalUse(Environment aEnvironment, String aFileName) throws Exception {
@@ -649,29 +645,27 @@ public class UtilityFunctions {
         InputStream newInput = null;
 
 
-        java.io.InputStream scriptStream = Scripts.getScriptStream(flatfile);
+        /* java.io.InputStream scriptStream = Scripts.getScriptStream(flatfile);
         if (scriptStream != null) {
-            newInput = new StandardFileInputStream(scriptStream, aEnvironment.iInputStatus);
-            LispError.check(newInput != null, LispError.KLispErrFileNotFound);
-            doLoadDefFile(aEnvironment, newInput, def);
-        } else {
-            java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(flatfile);
-            if (fileURL != null) //File is on the classpath.
-            {
-                newInput = new StandardFileInputStream(fileURL.openStream(), aEnvironment.iInputStatus);
-                LispError.check(newInput != null, LispError.KLispErrFileNotFound);
-                doLoadDefFile(aEnvironment, newInput, def);
-
-            }
-        }//end else.
-
-        /*else //File may be in the filesystem. Note:tk:todo.
-        {
-        newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
-        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+        newInput = new StandardFileInputStream(scriptStream, aEnvironment.iInputStatus);
         LispError.check(newInput != null, LispError.KLispErrFileNotFound);
         doLoadDefFile(aEnvironment, newInput, def);
-        }*/
+        } else {*/
+        java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(flatfile);
+        if (fileURL != null) //File is on the classpath.
+        {
+            newInput = new StandardFileInputStream(fileURL.openStream(), aEnvironment.iInputStatus);
+            LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+            doLoadDefFile(aEnvironment, newInput, def);
+
+        } else //File may be in the filesystem.
+        {
+            newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
+                    openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+            LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+            doLoadDefFile(aEnvironment, newInput, def);
+        }
+
         aEnvironment.iInputStatus.restoreFrom(oldstatus);
     }
     //////////////////////////////////////////////////
