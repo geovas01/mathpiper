@@ -1,0 +1,79 @@
+<html>
+
+<head>
+
+
+</head>
+
+<body>
+
+<SCRIPT>
+function mathPiperEval(expression) {
+   a = document.mathpiper.evaluate(expression);
+   return a;
+   }
+</SCRIPT>
+
+<FORM NAME="Calc">
+<TABLE BORDER=4>
+<TR>
+<TD align="right">
+Input: <INPUT TYPE="text"   NAME="Input" Size="60">
+
+<br>
+</TD>
+</TR>
+
+
+<tr>
+<td align="right">
+Output: <INPUT TYPE="text"   NAME="Output" Size="60">
+</tr>
+</td>
+
+
+<TR>
+<TD>
+<INPUT TYPE="button" NAME="one"   VALUE="  1  " OnClick="Calc.Input.value += '1'">
+<INPUT TYPE="button" NAME="two"   VALUE="  2  " OnCLick="Calc.Input.value += '2'">
+<INPUT TYPE="button" NAME="three" VALUE="  3  " OnClick="Calc.Input.value += '3'">
+<INPUT TYPE="button" NAME="plus"  VALUE="  +  " OnClick="Calc.Input.value += ' + '">
+<br>
+<INPUT TYPE="button" NAME="four"  VALUE="  4  " OnClick="Calc.Input.value += '4'">
+<INPUT TYPE="button" NAME="five"  VALUE="  5  " OnCLick="Calc.Input.value += '5'">
+<INPUT TYPE="button" NAME="six"   VALUE="  6  " OnClick="Calc.Input.value += '6'">
+<INPUT TYPE="button" NAME="minus" VALUE="  -  " OnClick="Calc.Input.value += ' - '">
+<br>
+<INPUT TYPE="button" NAME="seven" VALUE="  7  " OnClick="Calc.Input.value += '7'">
+<INPUT TYPE="button" NAME="eight" VALUE="  8  " OnCLick="Calc.Input.value += '8'">
+<INPUT TYPE="button" NAME="nine"  VALUE="  9  " OnClick="Calc.Input.value += '9'">
+<INPUT TYPE="button" NAME="times" VALUE="  x  " OnClick="Calc.Input.value += ' * '">
+<br>
+<INPUT TYPE="button" NAME="decimal" VALUE="  .  " OnClick="Calc.Input.value += '.'">
+<INPUT TYPE="button" NAME="zero"  VALUE="  0  " OnClick="Calc.Input.value += '0'">
+<INPUT TYPE="button" NAME="DoIt"  VALUE="  =  " OnClick="Calc.Output.value = mathPiperEval('N(' + Calc.Input.value + ')')">
+<INPUT TYPE="button" NAME="div"   VALUE="  /  " OnClick="Calc.Input.value += ' / '">
+<br>
+<INPUT TYPE="button" NAME="clear" VALUE="  c  " OnClick="Calc.Input.value = ''">
+<br>
+</TD>
+</TR>
+<tr>
+<td>
+<INPUT TYPE="button" NAME="Evaluate"   VALUE=" Evaluate MathPiper Expression" OnClick="Calc.Output.value = mathPiperEval(Calc.Input.value)">
+</td>
+</tr>
+</TABLE>
+</FORM>
+
+
+		<applet name="mathpiper" code="org.mathpiper.ui.gui.calculator.JSApplet" archive = "mathpiper.jar" width="1" height="1" MAYSCRIPT>
+
+		</applet>
+</body>
+</html>
+
+
+
+
+
