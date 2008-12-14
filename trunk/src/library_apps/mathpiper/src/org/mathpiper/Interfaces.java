@@ -4,9 +4,11 @@
  */
 package org.mathpiper;
 
+import javax.swing.JPanel;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.ui.gui.calculator.Calculator;
+import org.mathpiper.ui.gui.calculator.CalculatorPanel;
 
 /**
  *
@@ -21,6 +23,12 @@ public class Interfaces
                 new Calculator().setVisible(true);
             }
         });
+    }//end method.
+
+
+    public static JPanel newCalculatorPanel()
+    {
+         return new CalculatorPanel();
     }//end method.
 
     public static Interpreter newSynchronousInterpreter()
