@@ -330,6 +330,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             {
                 int pos = docbase.lastIndexOf("/");
                 String zipFileName = docbase.substring(0, pos + 1) + "mathpiper.jar";
+                zipFileName = "file://" + zipFileName.substring(5,zipFileName.length());
                 if (getParameter("debug") != null)
                 {
                     AddLineStatic(100, "", " '" + zipFileName + "'.", font, Color.red);
@@ -920,198 +921,14 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         }
     }
 
-    public abstract class MOutputLine
-    {
 
-        public abstract void draw(Graphics g, int x, int y);
 
-        public abstract int height(Graphics g);
-    }
 
-    class StringLine extends MOutputLine
-    {
 
-        StringLine(String aText, Font aFont, Color aColor)
-        {
-            iText = aText;
-            iFont = aFont;
-            iColor = aColor;
-        }
 
-        public void draw(Graphics g, int x, int y)
-        {
-            g.setColor(iColor);
-            g.setFont(iFont);
-            FontMetrics fontMetrics = g.getFontMetrics();
-            g.drawString(iText, x, y + fontMetrics.getHeight());
-        }
 
-        public int height(Graphics g)
-        {
-            g.setFont(iFont);
-            FontMetrics fontMetrics = g.getFontMetrics();
-            return fontMetrics.getHeight();
-        }
-        private String iText;
-        private Font iFont;
-        private Color iColor;
-    }
 
-    class PromptedFormulaLine extends MOutputLine
-    {
 
-        PromptedFormulaLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine)
-        {
-            iIndent = aIndent;
-            iPrompt = aPrompt;
-            iPromptFont = aPromptFont;
-            iPromptColor = aPromptColor;
-
-            TexParser parser = new TexParser();
-            expression = parser.parse(aLine);
-        }
-        SBox expression;
-
-        public void draw(Graphics g, int x, int y)
-        {
-            int hgt = height(g);
-            {
-                g.setColor(iPromptColor);
-                g.setFont(iPromptFont);
-                FontMetrics fontMetrics = g.getFontMetrics();
-                g.drawString(iPrompt, x, y + fontMetrics.getAscent() + (hgt - fontMetrics.getHeight()) / 2);
-            }
-
-            g.setColor(Color.black);
-            GraphicsPrimitives gp = new GraphicsPrimitives(g);
-            gp.SetLineThickness(0);
-            expression.calculatePositions(gp, 3, new java.awt.Point(x + iIndent, y + expression.getCalculatedAscent() + 10));
-            expression.render(gp);
-        }
-
-        public int height(Graphics g)
-        {
-            if (height == -1)
-            {
-                GraphicsPrimitives gp = new GraphicsPrimitives(g);
-                expression.calculatePositions(gp, 3, new java.awt.Point(0, 0));
-                height = expression.getDimension().height + 20;
-            }
-            return height;
-        }
-        int height = -1;
-        int iIndent;
-        private String iPrompt;
-        private Font iPromptFont;
-        private Color iPromptColor;
-    }
-
-    class PromptedGraph2DLine extends MOutputLine
-    {
-
-        PromptedGraph2DLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine)
-        {
-            iIndent = aIndent;
-            iPrompt = aPrompt;
-            iPromptFont = aPromptFont;
-            iPromptColor = aPromptColor;
-            iGrapher = new Grapher(aLine);
-        }
-        Grapher iGrapher;
-
-        public void draw(Graphics g, int x, int y)
-        {
-            iGrapher.paint(g, x, y, size);
-        }
-
-        public int height(Graphics g)
-        {
-            return size.height;
-        }
-        Dimension size = new Dimension(320, 240);
-        int iIndent;
-        private String iPrompt;
-        private Font iPromptFont;
-        private Color iPromptColor;
-    }
-
-    class PromptedStringLine extends MOutputLine
-    {
-
-        PromptedStringLine(int aIndent, String aPrompt, String aText, Font aPromptFont, Font aFont, Color aPromptColor, Color aColor)
-        {
-            iIndent = aIndent;
-            iPrompt = aPrompt;
-            iText = aText;
-            iPromptFont = aPromptFont;
-            iFont = aFont;
-            iPromptColor = aPromptColor;
-            iColor = aColor;
-        }
-
-        public void draw(Graphics g, int x, int y)
-        {
-            {
-                g.setColor(iPromptColor);
-                g.setFont(iPromptFont);
-                FontMetrics fontMetrics = g.getFontMetrics();
-                g.drawString(iPrompt, x, y + fontMetrics.getAscent());
-                if (iIndent != 0)
-                {
-                    x += iIndent;
-                } else
-                {
-                    x += fontMetrics.stringWidth(iPrompt);
-                }
-            }
-            {
-                g.setColor(iColor);
-                g.setFont(iFont);
-                FontMetrics fontMetrics = g.getFontMetrics();
-                g.drawString(iText, x, y + fontMetrics.getAscent());
-            }
-        }
-
-        public int height(Graphics g)
-        {
-            g.setFont(iFont);
-            FontMetrics fontMetrics = g.getFontMetrics();
-            return fontMetrics.getHeight();
-        }
-        int iIndent;
-        private String iPrompt;
-        private String iText;
-        private Font iPromptFont;
-        private Font iFont;
-        private Color iPromptColor;
-        private Color iColor;
-    }
-
-    class ImageLine extends MOutputLine
-    {
-
-        ImageLine(Image aImage, Applet aApplet)
-        {
-            iImage = aImage;
-            iApplet = aApplet;
-        }
-
-        public void draw(Graphics g, int x, int y)
-        {
-            if (iImage != null)
-            {
-                Dimension d = iApplet.getSize();
-                g.drawImage(iImage, (d.width - iImage.getWidth(iApplet)) / 2, y, bkColor, iApplet);
-            }
-        }
-
-        public int height(Graphics g)
-        {
-            return iImage.getHeight(iApplet);
-        }
-        Image iImage;
-        Applet iApplet;
-    }
 
     void clearOutputLines()
     {
@@ -1349,54 +1166,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         }
     }
 
-    class AppletOutput
-    {
 
-        public AppletOutput(ConsoleApplet aApplet)
-        {
-            iApplet = aApplet;
-        }
-        ConsoleApplet iApplet;
-
-        public void write(int c) throws IOException
-        {
-            if (c == '\n')
-            {
-                iApplet.AddLineStatic(0, buffer.toString());
-                buffer = new StringBuffer();
-            } else
-            {
-                buffer.append((char) c);
-            }
-        }
-
-        public void print(String s)
-        {
-            try
-            {
-                int i, nr;
-                nr = s.length();
-                for (i = 0; i < nr; i++)
-                {
-                    write(s.charAt(i));
-                }
-            } catch (IOException e)
-            {
-            }
-        }
-
-        public void println(Exception e)
-        {
-            println(e.getMessage());
-        }
-
-        public void println(String s)
-        {
-            print(s);
-            print("\n");
-        }
-        StringBuffer buffer = new StringBuffer();
-    }
 
     void LoadHints(String filename)
     {
