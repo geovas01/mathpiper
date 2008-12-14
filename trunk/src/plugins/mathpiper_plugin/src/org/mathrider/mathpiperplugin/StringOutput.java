@@ -14,7 +14,7 @@ class StringOutput extends OutputStream
 		this.stringBuffer = new java.lang.StringBuffer();
 	}
 	
-	public void PutChar(char aChar)
+	public void putChar(char aChar)
 	{
 		this.stringBuffer.append(aChar);
 	}
