@@ -178,6 +178,15 @@ class SynchronousInterpreter implements Interpreter
         return singletonInstance;
     }
 
+    public static SynchronousInterpreter getInstance(String docBase)
+    {
+        if (singletonInstance == null)
+        {
+            singletonInstance = new SynchronousInterpreter(docBase);
+        }
+        return singletonInstance;
+    }
+
     public synchronized EvaluationResponse evaluate(String inputExpression)
     {
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();

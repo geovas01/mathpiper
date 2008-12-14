@@ -35,6 +35,8 @@ public class CalculatorPanel extends javax.swing.JPanel
     public CalculatorPanel()
     {
         initComponents();
+
+        mathpiper = Interpreters.getSynchronousInterpreter();
         
        /*
          try
@@ -51,7 +53,7 @@ public class CalculatorPanel extends javax.swing.JPanel
     {
         this.initComponents();
 
-        mathpiper = Interpreters.newSynchronousInterpreter(docBase);
+        mathpiper = Interpreters.getSynchronousInterpreter(docBase);
 
     }//end constructor.
 

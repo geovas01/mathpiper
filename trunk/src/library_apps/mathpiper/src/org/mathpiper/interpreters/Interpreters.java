@@ -42,6 +42,11 @@ public static Interpreter getSynchronousInterpreter()
     return SynchronousInterpreter.getInstance();
 }
 
+public static Interpreter getSynchronousInterpreter(String docBase)
+{
+    return SynchronousInterpreter.getInstance(docBase);
+}
+
 public static Interpreter newAsynchronousInterpreter()
 {
     return AsynchronousInterpreter.newInstance();
