@@ -1187,11 +1187,12 @@ source()
 	//System.out.println("XXXXXXXX name: " + item + "  location: " + location);
 	
 import java.io.*;
-//Print the contents of the Piper script zip file.
- instance = mathPiperInterpreter; //Note:tk:mathPiperInterpreter.getInstance();
- scriptZip = instance.getScriptsZip();
- entries = scriptZip.entries();
+
+ //instance = mathPiperInterpreter; //Note:tk:mathPiperInterpreter.getInstance();
+ //scriptZip = instance.getScriptsZip();
+ //entries = scriptZip.entries();
  
+ //Print the contents of the Piper script zip file.
  //while( entries.hasMoreElements())
  //{
  //   element = entries.nextElement();
@@ -1199,17 +1200,23 @@ import java.io.*;
  //}
  
  location = location.replaceAll("\"","");
- entry = scriptZip.getEntry(location);//location.trim());//"assoc.rep/code.pi"); 
+ entryURL = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource(location);
+
+ //entry = scriptZip.getEntry(location);//location.trim());//"assoc.rep/code.pi"); 
  
- if(entry != null)
+ if(entryURL != null)
  {
- //System.out.println("YYYYYY " + entry);
+ //System.out.println("YYYYYY " + entryURL);
  
- fis = scriptZip.getInputStream(entry);
+ //fis = scriptZip.getInputStream(entry);
+          fis = entryURL.openStream();
  //
-        entry = entry.toString().replaceAll("/","-");
+        //entry = entry.toString().replaceAll("/","-");
+		location = location.replaceAll("/","-");
+		//System.out.println("YYYYYY2 " + location);
          // Create temp file.
-        File tempFile = File.createTempFile(entry, ".mpi");
+        File tempFile = File.createTempFile(location, ".mpi");
+		//System.out.println("YYYYYY3 " + tempFile);
     
         // Delete temp file when program exits.
         tempFile.deleteOnExit();
