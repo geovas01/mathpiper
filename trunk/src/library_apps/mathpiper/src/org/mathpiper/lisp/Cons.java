@@ -75,7 +75,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 	/** Return a pointer to extra info. This allows for annotating
 	  *  an object. Returns NULL by default.
 	  */
-	public ConsPointer extraInfo()
+	public ConsPointer getExtraInfo()
 	{
 		return null;
 	}
