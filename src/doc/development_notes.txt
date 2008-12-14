@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++PrettyPrinter'Get and PrettyPrinter'Set are not in MathPiperDocs.
 -grant {
 permission java.security.AllPermission;
 };
