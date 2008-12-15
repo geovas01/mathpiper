@@ -48,7 +48,7 @@
 			target="${compile.target}" 
 			srcdir="${src.dir}"
 			destdir="${build.classes.dir}"
-			debug="on"
+			debug="off"
 			deprecation="on"
 			optimize="off">
 			<classpath refid="build_classpath" />
