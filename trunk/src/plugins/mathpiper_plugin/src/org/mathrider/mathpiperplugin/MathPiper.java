@@ -105,6 +105,8 @@ public class MathPiper extends JPanel
 		buttonPanel.add(stopCurrentExecutionButton);
 		add(BorderLayout.NORTH, buttonPanel);
 		add(BorderLayout.CENTER, Interfaces.newCalculatorPanel());
+		
+		
 
 		//readFile();
 	}
@@ -128,8 +130,16 @@ public class MathPiper extends JPanel
 	
     // {{{ handleMessage
 	public void handleMessage(EBMessage message) {
-		if (message instanceof PropertiesChanged) {
-			propertiesChanged();
+
+		if (message instanceof org.gjt.sp.jedit.msg.EditorStarted) {
+			org.gjt.sp.jedit.bsh.Interpreter bsh = new org.gjt.sp.jedit.bsh.Interpreter();
+			try{
+				bsh.eval("org.gjt.sp.jedit.jEdit.getAction(\"console.shell.MathPiper-show\").invoke(org.gjt.sp.jedit.jEdit.getFirstView());");
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
     // }}}
@@ -164,7 +174,7 @@ public class MathPiper extends JPanel
      
     // {{{ removeNotify
 	public void removeNotify() {
-		saveFile();
+		//saveFile();
 		super.removeNotify();
 		EditBus.removeFromBus(this);
 	}
