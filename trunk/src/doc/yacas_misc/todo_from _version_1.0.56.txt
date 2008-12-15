@@ -1,0 +1,209 @@
+Yacas todo list (From version 1.0.56).
+
+Current work Ayal:
+I am currently working on cleaning up the system, making it more consistent.
+
+    * fix reference counting problems: right now, where reference counting is optional, this is causing problems. Eg: strings not being freed after an error occurred, the user functions table corrupted after a reload.
+    * Clean up integration code, and document algorithm used.
+    * document the extra Is... predicates for matrices that was added by Jonathan
+    * document threaded use of integration
+    * sparserep from multi, use for uni too
+    * n .. m more elegant
+    * lists/arrays interchangable
+    * make some mechanism for temporary files/directories, for plotter and plugins.
+    * global var access, test code using a function to return a list of global variables.
+    * Clean up Solve code, and document algorithm used.
+    * Put new complex numbers system in place.
+    * Document some long-standing undocumented functions.
+    * extend plugin facilities a bit: the plugins directory could (should?) contain some plugins for specific platforms and libraries, to extend Yacas capabilities, and possible plugins that implement capabilities more efficiently than the current code.
+         1. make changes to the core so functions defined in plugins can replace functions defined in scripts. This is already done, partially, because the system searches c++ defined functions before searching for a scripted function. But more needs to be replacable. It would be nice, for instance, to be able to mount a different file system, one that loads files from over the net, or reads scripts from a zip file.
+         2. Change Yacas code to put most functions supported in plugins. This will allow us to more easily replace functions in the core kernel itself.
+         3. extensions so c++ objects can be addressed too.
+         4. code to process standard c/c++ header files, to automatically create a plugin for it. 
+    * Finalize error reporting (in yacasdebug).
+         1. STILL not all errors dump a stack.
+         2. when stack overflow occurs, it still doesn't show all arguments evaluated. 
+    * Solve broken, and not as powerful as if can be.
+    * Test code, documentation for multivariate polys. 
+
+This is a list of some expressions that currently go wrong:
+
+    * parsing errors: FromBase(16,7d)
+    * exponential algorithm for Limit: Taylor(x,0,5)Sin(x)/x; seems to keep on going for ever, actually due to Limits: Limit(x,0)D(x,2)Sin(x)/x; // never terminates, causing the taylor to never terminate
+    * In> Limit(n, Infinity) n^5/2^n Out> Infinity/(Infinity*Ln(2)); wrong answer -- L'Hopital's theorem is not always the correct thing to do... but it's not easy to decide the growth of exp-log and powers. There is a paper by Richardson, Salvy et al "Asymptotic expansions of exp-log functions" that may be helpful.
+    * TrigSimpCombine(x^500) (This does not affect Integrate(x) anymore -- Leto)
+    * some limits not working correctly when using infinity: Limit(x,Infinity) Zeta(x), Limit(x,Infinity) Factorial(x),
+    * factorize not checking for correctness of arguments: Factorize(Infinity), Factorize(-1) 
+
+
+Future plans
+This is a todo list of things I want to get out of the way before version 2.0.
+emergencies
+
+    * Support for scientific notation in anumber.
+    * Multi-line epoc version.
+    * revisit MathPower: MathPower(0,0.5) locks up.
+    * revisit all analytic functions implemented in anumber, including log, sin, arctan, etc.
+    * remove the final references to stdlib in the code.
+    * Improved complex numbers.
+    * put Nl() in a common place.
+    * test Apart for polys. This might have to be adjusted by adding using the same mechanism used for the integer version.
+    * loading dll only once (defload mechanism), DllUse iso DllLoad
+    * the refcount 0xffff problem? Problem is actually the intermediate expression swell.
+    * improved TraceExp
+    * multivariate polynomials, groebner bases.
+    * Ascii graph plotter.
+    * Ascii help when no browser is around
+    * Taylor on functions containing Abs/Sign can not be trusted. 
+
+    * better error reporting.
+          o show function the error occurred in
+          o if the error was based on an argument type, show the argument
+          o If the error was on the number of arguments, specify number expected and number received.
+          o To detect recursion problems, show the stack (ar the last few items in the stack). Show it in a form Function(internal) Function(rule number) Function And show only the last few. 
+    * Need to improve debugging facilities and tracing facilities. Would be good to see how yacas is stepping through rule applications.
+    * Allow TSimplify() on TSum()..-TSum()..
+    * Sin(Pi/5) = Sqrt(5-Sqrt(5))/Sqrt(8)
+    * Fix the Debian package to not require the new gmp.
+    *
+      Bugs to be fixed
+          o factorization of poly's can not do all polys yet. As a consequence:
+                + integrals over rational polys don't always work correctly.
+                + partial fraction expansion does not always return correct result (esp. the example in MCA).
+                + roots of a polynomial doesn't work yet.
+                + eigenvalues of a matrix doesn't work fully yet 
+          o BUG: InverseTaylor not working correctly for Sin and Tan???
+          o BUG: complex^float.
+          o Mod(a,b) generates some "UniVariate()" calls if a and b are undefined (I expected it to return unevaluated). If one of them is defined, and the other undefined, Mod() returns some numbers. Mod(x,-3) returns unevaluated. I'm not sure what the "correct" meaning of Mod is for negative moduli bases, but the answer should in any case be non-negative. Mod(a,b) is defined as the smallest non-negative number c such that a-c is divisible by b. 
+      Engine functionality
+      These are the items specifying functionality that can not be implemented from within Yacas, so have a rather high priority if the functionality is needed.
+          o Define the Local,.. functions based on their Macro counterparts, in the scripts.
+          o Remove the {} [] [[]] brackets support from the engine to the scripts.
+          o Faster numerical calculation, by caching the internal format, and only converting back to ascii when needed.
+          o Add Karatsuba multiplication.
+          o also define a Head and Tail for arrays, and append/concat/ insert/delete/copy. This will ease swapping between lists and arrays.
+          o Allow for type convertors in pattern matchers. For instance: IsUniVar, should be combined with CanBeUni and NormalForm to get the correct one back.
+          o A RuleBaseDefined-like function that returns a list of defined arities.
+          o HoldEvaluation(function-list)body that holds evaluation of these functions. 
+      Math high priority
+      This is the real meat, the functionality that should be in Yacas 2.0.
+          o render matrices and square roots nicely too, in PrettyForm.
+          o FindZeroes (polynoms and other functions)
+          o redivide some code ('newly')
+          o make suchthat more powerful, so it simplifies sin(x)=cos(x) to tan(x)=1 to x=Pi/4
+          o groebner bases
+          o see if using arrays for matrices speeds up things.
+          o Fix CanBeUni so that it deals correctly with 1/c
+          o Test script has been disregarded recently. Make a tests subdir, install it also, with a lot of small files that can be loaded, each implementing some tests.
+          o EquateCoefs equate coefficients in two polys, and return as list.
+          o /. as with mathematica, treat args as locals.
+          o allow solve to return a list usable in /.
+          o matrix^negative is inverse^positive
+          o BesselJ
+          o Get started on differential equations: first order
+          o try support for sparse objects (matrices, vectors, polynomials).
+          o try support for iterators.
+          o support for Atom("a"):=2; 
+      Documentation
+      The documentation can be improved.
+          o Add more of a general overview:
+                + what is Yacas? How did it come into existence? Why did I write it? Who is it for? Why no user interface? Why no plotting? 
+          o document the algorithms used, and expand on all of the functions currently implemented.
+          o separate manual chapter on tensors. (Serge? Is it going to change?). TSimplify and TExplicitSum, TD, X
+          o document the source code.
+          o mention the use of lists for passing multiple arguments.
+          o document HoldArg in combination with <--
+          o ~/.yacas_history and ~/.yacasrc
+          o document the following commands:
+                + II, ReII, ImII, IsComplexII
+                + ExpressionDepth, PAdicExpandInternal, GetPrimeFactors, Rem, Roots, Apart, Together
+                + UnHoldable, GcdReduce, ApplyPure DestructiveAppendList, PatternMatches, PatternCreate, RuleBaseDefined, TemplateFunction, Lambda (in combination with Apply), Primes, MapArgs, Substitute,
+                + %, |, &, ^, if, else (else binds to the last if)
+                + DivPoly, RootsWithMultiples,
+                + OdeSolve
+                + Dimensions, IsSquareMatrix, Tr.
+                + Deriv, Berlekamp, ExtendedEuclidean, ExtendedEuclideanMonic
+                + IsVariable
+                + the fact that VarList can also be called with a second argument, a filter predicate.
+                + Extended predicates in the pattern matcher (needs to be explained).
+                + CTokenizer(), DefaultTokenizer()
+                + XmlTokenizer, XmlExplodeTag
+                + BSearch, FindIsq Search for a zero in a monotonously growing function. BSearch returns -1 if not found, FindIsq returns the insertion point.
+                + MultiDivide, MultiGcd, Groebner
+                + DefLoadFunction
+                + CharString (input integer, output a string with one char, using the ascii code passed in).
+                + InDebugMode - return True if the Yacas exe is compiled in debug mode, False otherwise.
+                + DebugFile - return file object was read from
+                + DebugLine - return line in file object was read from
+                + FloatIsInt
+                + --server , and its associated --enable-server to the ./configure script 
+          o Add a 'History of Yacas' to the introduction.
+          o Explain what is destructive about the Destructive... routines, why they are there, and when to use them.
+          o Do slightly more on pure functions, to show why they are useful. Show for example Select.
+          o Explain what Simplify currently does (internal algorithm).
+          o The PcreLexer and PcreNextToken functions
+          o The Proteus-specific functions
+          o Html... commands.
+          o FakeDb... functions.
+          o some blurb on the pattern matching/multivirtual functionality. 
+      Engine internal improvements
+      These are nice to haves in the engine.
+          o An environment object. Within(environment)body should then evaluate something within the environment. Together with Apply this would allow for packages.
+          o engine-side apply "op" for speed.
+          o LispCleanupStack: implement LocalLispString and LocalLispPtr.
+          o Clean up c++ code a little: Remove ALL TODO's and write javadoc-able-comments in the source code.
+          o allow access to the rules database from within yacas, for showing the rules to the user.
+          o optimize string concatenation.
+          o Try to find all the places that can use the CArrayGrower with the iArrayOwnedExternally set.
+          o it seems I can still optimize InternalEval 
+      Math nice to have
+          o Clean up TrigSimpCombine and Simplify in such a way as to make the code reusable for other simplifications.
+          o QSort (still relevant? have HeapSort now)
+          o BinarySearch (array!)
+          o FourierTransform?
+          o LaplaceTransform?
+          o Singular Value Decomposition.
+          o Factorization of integers is not done until we can factorize 49000018970000027 = 70000027 * 700000001 and 3000000000000000000000061 = 2380105039001857 * 1260448573 within a reasonable time (say, under 1 hour).
+          o FortranForm
+          o Resultants
+          o some DE algos.
+          o implement Diff(f(x),x)
+          o Try all the 131 Wester tests. 
+      Serge's grand roadmap
+      These plans are possibly further away but (in my opinion) important enough to keep in mind.
+         1. Engine/language improvements
+               1. Multiple-precision (MP) math should be redesigned with the following goals:
+                     1. Internal "big number" format must be better than the current char* strings. There must be two basic classes: "big int" (always signed and dynamically allocated) and "big float". "Big float" may consist simply of two big integers (mantissa and exponent, both signed). I'd rather have the exponent a big integer than a 32-bit -- many MP libraries suffer from the problem that exponents cannot grow.
+                     2. MP wrapper class holds big numbers in the internal format and passes them to either "ANumber" or "GMPNumber" backends with hopefully minimal conversion on input and output. MP algorithms such as ArcSin() should not have to be written separately for each MP backend (as it is right now); the algorithms will be written using the MP wrapper class. Plugins can also use the MP wrapper class and not the internal representation of numbers. Ideally, there will be a "GNU multiple precision scientific library" which will provide all functions such as Exp(), Pow(), Sin(), LnGamma(), BesselJ() etc., for high-speed arbitrary precision calculations. This library could be developed separately from Yacas if the number class architecture is done right.
+                     3. The backend for MP wrapper class will be selected at compile time. It could be either "yacasnumbers" or "gmp", or perhaps something else. All backends should transparently implement the BigNumber functions.
+                     4. The BigNumber class includes basic arithmetic (+ - * / but not Sqrt), modular arithmetic, binary logic, bit shifts, and precision tracking. All other mathematical functions are implemented externally.
+                     5. Almost all MP numerical algorithms should be coded in the script library rather than compiled. (Except for critical ones). Experiments with MathPi() show that keeping the algorithm in the scripts does not really slow things down when the bulk of the calculation is numerical. 
+                  This should mostly take care of the MP calculations - no need to reimplement Karatsuba multiplication etc., it's all already done in GMP and platforms without GMP are probably not suitable for serious numerics. Internal math should be only a fall-back so that things work without external libraries.
+               2. Random numbers in arbitrary-precision should be generated if requested. Need a better interface to make random arrays?
+               3. Libraries such as GMP, NTL, CLN, ... provide many useful functions. We should be able to access these functions using plugins.
+               4. We need to optimize the numeric classes with respect to creation and destruction of number objects. 
+         2. Development of the Yacas language
+               1. Right now, all rules are global. This seems to be a bad design decision. Instead, we want to have "rule objects" that can be manipulated by the scripts. Rules are now implemented using either Rule() or RulePattern calls. This should be made more transparent. First a rule is created as a Yacas object and then a kernel call activates that rule.
+               2. Implement a dictionary container (in a plugin?). Using the dictionary container, we can have a "core evaluator" function that will evaluate a Yacas expression given a set of rules. This will allow to encapsulate rule sets into Yacas objects and to manipulate them more explicitly. E.g. a special simplifier will be implemented as a rule set that will only be activated when requested by the user. The "core evaluator" will also allow to manipulate rules from plugins and will probably make static compilation easier.
+               3. Local() and LocalSymbols() are redundant. It is probably better to have LocalSymbols-like behavior for Local (avoids all clashes).
+               4. The parser is organized in a somewhat ad hoc fashion (since there is no formally defined context-free grammar). For instance, it cannot parse prefix operators as atoms in situations when it's unambiguous. E.g. f(+) is unambiguously an application of the function "f" on the atom "+", but the parser cannot handle this.
+               5. Implement unrolling of tail-recursive functions (but not in the debug version of Yacas - we need to be able to stop infinite recursion).
+               6. Implement iterators over lists, arrays, dictionaries. (Allow iterators to be implemented over generic objects and implement everything as plugins.) This will get rid of many explicit loops in the library and speed up everything. Implement Map()/MapSingle() using iterators.
+               7. Automatic parallelization of "pure functional functions", i.e. functions without side-effects and without local or global static non-constant variables. Suppose we need to evaluate MapSingle() of a pure functional function on some list. Then each element may be computed by a separate thread. This can be easily detected if we are using list iterators. Or suppose we need to sort a list; if we use the recursive sorting algorithm, then each sublist may be sorted by a separate thread. The interpreter should be able to wait for each thread and automatically decide when to generate more threads, depending on how many parallel CPUs we have. This should be completely transparent to the script library; the programmer will only have to keep the functions "purely functional".
+               8. The library should be able to determine which plugins are available. (This can be done using FindFile() and the canonical plugin path DirectoryName() : "/plugins"). It's clear that some plugins will not be available on some platforms; but the library should know about this and print error messages if the user tries to call the unavailable functions.
+               9. Parser improvements:
+                     1. The parser should be able to pick up symbol atoms such as "_" or "+" when they are unambiguously used as atoms. For example, one should be able to call a function f() on the atom "+" by f(+). Currently this only works if the atom is not defined as a prefix operator. (E.g. f(*) works.)
+                     2. DONE? : The parser should read the compound operators such as ":=+" more intelligently. The algorithm should be something like this: a) if ":=+" is defined, use the definition. b) otherwise, find the longest initial substring that is defined (in this case it might be ":=") and split it off as if there was a space after it: ":= +". c) continue parsing after the space in the same way. 
+         3. Library improvements
+               1. Library could be redesigned to streamline all calculations:
+                     1. remove default ad hoc simplifications such as a^2*b^2 <-- (a*b)^2, 4*b/c <-- (4*b)/c etc. -- instead provide functions for collecting powers, exponentials, coefficients for a variable, etc., so that the user can do this when needed. Default simplifications must be more cleanly designed and more basic (e.g. 1+x+1+x should always be simplified, but x^2*y^2 should not be simplified to (x*y)^2.)
+                     2. use property tags to make simplification algorithms more understandable?
+                     3. remove unconventional notation such as a+-b or a^-c.
+                     4. modify precedences of infix operations: 110, 120, 130 instead of 0,1,2 to allow more fine-grained control. Make algorithms more precedence-independent. 
+               2. Implement classical algorithms as well as newest algorithms -- the more different algorithms, the better. There is frequently no "best" algorithm. But we need to analyze all available algorithms and discard those that are clearly always inferior.
+               3. Implement "thresholding": finding the fastest algorithm at runtime. Ideally we want to run "thresholds.ys" on different platforms and use the output to optimize the algorithms. We would then implement all numerical algorithms and automatically determine the thresholds between them. The user may run the thresholding routine if they have lots of spare time, or else use the defaults. 
+         4. Other items
+               1. Improve GUI so that it is more usable than the xterm text mode
+               2. Allow inline graphics in documentation (EPS / PNG / JPG ?)
+               3. All symbolic and numerical algorithms should be documented as soon as they are implemented -- make Yacas a repository of algorithm codes and documentation. 
+      6657552 n. 
