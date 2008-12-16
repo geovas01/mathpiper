@@ -22,7 +22,6 @@ import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.io.CachedStandardFileInputStream;
 import org.mathpiper.*;
 import org.mathpiper.io.OutputStream;
-import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
@@ -47,10 +46,10 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
     boolean calculating = false;
     OutputStream stdoutput = null;
     Interpreter interpreter = null;
-    StringBuffer outp = new StringBuffer();
+    StringBuffer outputStringBuffer = new StringBuffer();
     boolean gotDatahubInit = false;
     final static int nrLines = 100;
-    MOutputLine lines[] = new MOutputLine[nrLines];
+    MathOutputLine lines[] = new MathOutputLine[nrLines];
     int currentLine = 0;
     int totalLinesHeight = 0;
     String inputLine = new String();
@@ -867,21 +866,23 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             {
                 paint(getGraphics());
             }
-            outp.delete(0, outp.length());
+            outputStringBuffer.delete(0, outputStringBuffer.length());
             //String response = "";
             EvaluationResponse response = null;
 
             response = interpreter.evaluate(inputLine);
 
+            
+            outputStringBuffer.append(response.getSideEffects());//todo:tk:hack to try to determine why outputStringBuffer is always being added as an output line as an empty string.
 
             calculating = false;
 
-            AddOutputLine(outp.toString());
-            if (response != null && response.getExceptionMessage() != null)
+            AddOutputLine(outputStringBuffer.toString());
+            if (response.isExceptionThrown() == true)
             {
                 AddLinesStatic(48, "Error> ", response.getExceptionMessage());
             }
-            AddLinesStatic(48, outputPrompt, response.getResult());
+            //AddLinesStatic(48, outputPrompt, response.getSideEffects());//TODO:tk: latex results are returned as a side effect, but normal results are not.  Also, what is a static line?.
             succeed = true;
         }
         {
@@ -927,7 +928,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         outputDirty = true;
     }
 
-    void addLine(MOutputLine aLine)
+    void addLine(MathOutputLine aLine)
     {
         {
             CreateOffscreenImage();
@@ -1530,13 +1531,13 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 return;
             } else
             {
-                outp.delete(0, outp.length());
+                outputStringBuffer.delete(0, outputStringBuffer.length());
                 EvaluationResponse evaluationResponse = null;
 
                 evaluationResponse = interpreter.evaluate(expression);
 
                 calculating = false;
-                AddOutputLine(outp.toString());
+                AddOutputLine(outputStringBuffer.toString());
                 if (evaluationResponse != null && evaluationResponse.getExceptionMessage() != null)
                 {
                     AddLinesStatic(48, "Error> ", evaluationResponse.getExceptionMessage());
