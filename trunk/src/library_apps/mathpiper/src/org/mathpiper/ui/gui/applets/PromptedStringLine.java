@@ -22,7 +22,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-class PromptedStringLine extends MOutputLine {
+class PromptedStringLine extends MathOutputLine {
 
     PromptedStringLine(int aIndent, String aPrompt, String aText, Font aPromptFont, Font aFont, Color aPromptColor, Color aColor) {
         iIndent = aIndent;

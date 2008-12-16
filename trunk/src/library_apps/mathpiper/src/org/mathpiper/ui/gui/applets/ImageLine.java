@@ -24,7 +24,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
-    class ImageLine extends MOutputLine
+    class ImageLine extends MathOutputLine
     {
         Color bkColor = new Color(255, 255, 255); //TODO:tk:This variable was originally in ConsoleApplet.
         ImageLine(Image aImage, Applet aApplet)

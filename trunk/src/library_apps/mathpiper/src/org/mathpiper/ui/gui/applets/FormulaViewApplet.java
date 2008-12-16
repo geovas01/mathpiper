@@ -118,7 +118,7 @@ public class FormulaViewApplet extends Applet
 
 		GraphicsPrimitives gp = new GraphicsPrimitives(g);
 
-		gp.SetLineThickness(0);
+		gp.setLineThickness(0);
 
 		if (expression == null)
 		{

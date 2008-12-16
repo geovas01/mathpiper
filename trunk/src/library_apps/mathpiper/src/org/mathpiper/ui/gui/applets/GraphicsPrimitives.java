@@ -39,7 +39,7 @@ public class GraphicsPrimitives
 			iG2D = (Graphics2D)g;
 		}
 	}
-	public void SetLineThickness(float aThickness)
+	public void setLineThickness(float aThickness)
 	{
 		if (iG2D != null)
 		{
@@ -47,13 +47,13 @@ public class GraphicsPrimitives
 		}
 	}
 
-	public void DrawLine(int x0, int y0, int x1, int y1)
+	public void drawLine(int x0, int y0, int x1, int y1)
 	{
 		iG.drawLine((int)(x0*viewScale),(int)(y0*viewScale),(int)(x1*viewScale),(int)(y1*viewScale));
 	}
 
 
-	void SetGray(int aGray)
+	void setGray(int aGray)
 	{
 		if (prevGray != aGray)
 		{
@@ -62,13 +62,13 @@ public class GraphicsPrimitives
 		}
 	}
 
-	public void DrawText(String text, int x, int y)
+	public void drawText(String text, int x, int y)
 	{
 		iG.drawString(text, (int)(x*viewScale), (int)(y*viewScale));
 	}
 
 
-	void SetFontSize(int aSize)
+	void setFontSize(int aSize)
 	{
 		int newFontSize = (int)(viewScale*aSize);
 		if (prevSetFontSize != newFontSize)
@@ -82,20 +82,20 @@ public class GraphicsPrimitives
 			}
 		}
 	}
-	int GetFontSize()
+	int getFontSize()
 	{
 		return (int)(prevSetFontSize/viewScale);
 	}
-	int TextWidth(String s)
+	int textWidth(String s)
 	{
 		java.awt.geom.Rectangle2D m = metrics.getStringBounds(s,iG);
 		return (int)(m.getWidth()/viewScale);
 	}
-	int GetAscent()
+	int getAscent()
 	{
 		return (int)(metrics.getAscent()/viewScale);
 	}
-	double GetDescent()
+	double getDescent()
 	{
 		return (int)(metrics.getDescent()/viewScale);
 	}

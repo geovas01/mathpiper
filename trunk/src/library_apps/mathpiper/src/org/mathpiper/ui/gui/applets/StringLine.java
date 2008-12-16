@@ -22,7 +22,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-class StringLine extends MOutputLine {
+class StringLine extends MathOutputLine {
 
     StringLine(String aText, Font aFont, Color aColor) {
         iText = aText;

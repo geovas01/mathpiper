@@ -38,60 +38,60 @@ public class SelectSymbol
 
 		int i;
 		iheight = 0;
-		AddSymbol("0");
-		AddSymbol("1");
-		AddSymbol("(");
-		AddSymbol(")");
-		AddSymbol("[");
-		AddSymbol("]");
-		AddSymbol("{");
-		AddSymbol("}");
-		AddSymbol("+");
-		AddSymbol("-");
-		AddSymbol("*");
-		AddSymbol("/");
-		AddSymbol(".");
-		AddSymbol(",");
-		AddSymbol(";");
-		AddSymbol(":");
-		AddSymbol("!");
-		AddSymbol("#");
-		AddSymbol("_");
-		AddSymbol("^");
-		AddSymbol("<");
-		AddSymbol(">");
-		AddSymbol("<=");
-		AddSymbol(">=");
-		AddSymbol(":=");
-		AddSymbol("=");
-		AddSymbol("!");
-		AddSymbol("@");
+		addSymbol("0");
+		addSymbol("1");
+		addSymbol("(");
+		addSymbol(")");
+		addSymbol("[");
+		addSymbol("]");
+		addSymbol("{");
+		addSymbol("}");
+		addSymbol("+");
+		addSymbol("-");
+		addSymbol("*");
+		addSymbol("/");
+		addSymbol(".");
+		addSymbol(",");
+		addSymbol(";");
+		addSymbol(":");
+		addSymbol("!");
+		addSymbol("#");
+		addSymbol("_");
+		addSymbol("^");
+		addSymbol("<");
+		addSymbol(">");
+		addSymbol("<=");
+		addSymbol(">=");
+		addSymbol(":=");
+		addSymbol("=");
+		addSymbol("!");
+		addSymbol("@");
 		iheight = (nr_symbols + iwidth - 1) / iwidth;
 	}
 
-	public void draw(int xpos, int ypos, PiperGraphicsContext aGraphicsContext)
+	public void draw(int xpos, int ypos, MathPiperGraphicsContext aGraphicsContext)
 	{
-		aGraphicsContext.SetFontSize(0, 12);
-		aGraphicsContext.SetColor(255, 255, 255);
-		aGraphicsContext.FillRect(xpos, ypos, iwidth * ispacing, iheight * aGraphicsContext.FontHeight());
-		aGraphicsContext.SetColor(0, 0, 0);
-		aGraphicsContext.DrawRect(xpos, ypos, iwidth * ispacing, iheight * aGraphicsContext.FontHeight());
+		aGraphicsContext.setFontSize(0, 12);
+		aGraphicsContext.setColor(255, 255, 255);
+		aGraphicsContext.fillRect(xpos, ypos, iwidth * ispacing, iheight * aGraphicsContext.fontHeight());
+		aGraphicsContext.setColor(0, 0, 0);
+		aGraphicsContext.drawRect(xpos, ypos, iwidth * ispacing, iheight * aGraphicsContext.fontHeight());
 
 		int x;
 		int y;
-		aGraphicsContext.SetColor(128, 128, 128);
+		aGraphicsContext.setColor(128, 128, 128);
 
 		for (y = 0; y < iheight; y++)
 		{
-			aGraphicsContext.DrawLine(xpos, ypos + y * aGraphicsContext.FontHeight(), xpos + iwidth * ispacing, ypos + y * aGraphicsContext.FontHeight());
+			aGraphicsContext.drawLine(xpos, ypos + y * aGraphicsContext.fontHeight(), xpos + iwidth * ispacing, ypos + y * aGraphicsContext.fontHeight());
 		}
 
 		for (x = 0; x < iwidth; x++)
 		{
-			aGraphicsContext.DrawLine(xpos + x * ispacing, ypos, xpos + x * ispacing, ypos + iheight * aGraphicsContext.FontHeight());
+			aGraphicsContext.drawLine(xpos + x * ispacing, ypos, xpos + x * ispacing, ypos + iheight * aGraphicsContext.fontHeight());
 		}
 
-		aGraphicsContext.SetColor(0, 0, 0);
+		aGraphicsContext.setColor(0, 0, 0);
 
 		for (y = 0; y < iheight; y++)
 		{
@@ -101,27 +101,27 @@ public class SelectSymbol
 
 				if (ix == x && iy == y)
 				{
-					aGraphicsContext.SetColor(128, 128, 128);
-					aGraphicsContext.FillRect(xpos + x * ispacing, ypos + y * aGraphicsContext.FontHeight(), ispacing, aGraphicsContext.FontHeight());
-					aGraphicsContext.SetColor(0, 0, 0);
+					aGraphicsContext.setColor(128, 128, 128);
+					aGraphicsContext.fillRect(xpos + x * ispacing, ypos + y * aGraphicsContext.fontHeight(), ispacing, aGraphicsContext.fontHeight());
+					aGraphicsContext.setColor(0, 0, 0);
 				}
 
 				if (symbols[y * iwidth + x] != null)
 				{
-					aGraphicsContext.DrawText(xpos + x * ispacing + (ispacing - aGraphicsContext.TextWidthInPixels(symbols[y * iwidth + x])) / 2, ypos + (y + 1) * aGraphicsContext.FontHeight() - aGraphicsContext.FontDescent(), symbols[y * iwidth + x]);
+					aGraphicsContext.drawText(xpos + x * ispacing + (ispacing - aGraphicsContext.textWidthInPixels(symbols[y * iwidth + x])) / 2, ypos + (y + 1) * aGraphicsContext.fontHeight() - aGraphicsContext.fontDescent(), symbols[y * iwidth + x]);
 				}
 			}
 		}
 	}
 
-	public void AddSymbol(String sym)
+	public void addSymbol(String sym)
 	{
 		symbols[nr_symbols++] = sym;
 	}
 
-	public int height(PiperGraphicsContext aGraphicsContext)
+	public int height(MathPiperGraphicsContext aGraphicsContext)
 	{
 
-		return iheight * aGraphicsContext.FontHeight();
+		return iheight * aGraphicsContext.fontHeight();
 	}
 };

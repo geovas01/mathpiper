@@ -27,7 +27,7 @@ public class SBoxBuilder
 	SBox[] stack = new SBox[1024];
 	int stackDepth = 0;
 
-	static int FontForSize(int aSize)
+	static int fontForSize(int aSize)
 	{
 
 		if (aSize > 3)
@@ -71,7 +71,7 @@ public class SBoxBuilder
 		stackDepth++;
 	}
 
-	public int StackDepth()
+	public int stackDepth()
 	{
 
 		return stackDepth;
@@ -287,35 +287,35 @@ public class SBoxBuilder
 		public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition)
 		{
 
-			int height = SBoxBuilder.FontForSize(aSize);
-			g.SetFontSize(height);
+			int height = SBoxBuilder.fontForSize(aSize);
+			g.setFontSize(height);
 			iSize = aSize;
 			iPosition = aPosition;
 
 			if (iSymbol.equals("\\pi") || iSymbol.equals("\\wedge") || iSymbol.equals("\\vee"))
 			{
-				iDimension = new Dimension(g.TextWidth("M"), height);
-				iAscent = g.GetAscent();
+				iDimension = new Dimension(g.textWidth("M"), height);
+				iAscent = g.getAscent();
 			}
 			else if (iSymbol.equals("\\neq"))
 			{
-				iDimension = new Dimension(g.TextWidth("="), height);
-				iAscent = g.GetAscent();
+				iDimension = new Dimension(g.textWidth("="), height);
+				iAscent = g.getAscent();
 			}
 			else if (iSymbol.equals("\\infty"))
 			{
-				iDimension = new Dimension(g.TextWidth("oo"), height);
-				iAscent = g.GetAscent();
+				iDimension = new Dimension(g.textWidth("oo"), height);
+				iAscent = g.getAscent();
 			}
 			else if (iSymbol.equals("\\cdot"))
 			{
-				iDimension = new Dimension(g.TextWidth("."), height);
-				iAscent = g.GetAscent();
+				iDimension = new Dimension(g.textWidth("."), height);
+				iAscent = g.getAscent();
 			}
 			else
 			{
-				iAscent = g.GetAscent();
-				iDimension = new Dimension(g.TextWidth(iSymbol), height);
+				iAscent = g.getAscent();
+				iDimension = new Dimension(g.textWidth(iSymbol), height);
 			}
 		}
 
@@ -327,9 +327,9 @@ public class SBoxBuilder
 
 				double deltax = 0.15 * iDimension.width;
 				double deltay = 0.2 * iDimension.height;
-				g.DrawLine((int)(iPosition.x + 1 * deltax), (int)(iPosition.y - iAscent + 2 * deltay), (int)(iPosition.x + iDimension.width - 1 * deltax), (int)(iPosition.y - iAscent + 2 * deltay));
-				g.DrawLine((int)(iPosition.x + 2 * deltax), (int)(iPosition.y - iAscent + 2 * deltay), (int)(iPosition.x + 2 * deltax), (int)(iPosition.y - iAscent + iDimension.height + 0 * deltay));
-				g.DrawLine((int)(iPosition.x + iDimension.width - 2 * deltax), (int)(iPosition.y - iAscent + 2 * deltay), (int)(iPosition.x + iDimension.width - 2 * deltax), (int)(iPosition.y - iAscent + iDimension.height + 0 * deltay));
+				g.drawLine((int)(iPosition.x + 1 * deltax), (int)(iPosition.y - iAscent + 2 * deltay), (int)(iPosition.x + iDimension.width - 1 * deltax), (int)(iPosition.y - iAscent + 2 * deltay));
+				g.drawLine((int)(iPosition.x + 2 * deltax), (int)(iPosition.y - iAscent + 2 * deltay), (int)(iPosition.x + 2 * deltax), (int)(iPosition.y - iAscent + iDimension.height + 0 * deltay));
+				g.drawLine((int)(iPosition.x + iDimension.width - 2 * deltax), (int)(iPosition.y - iAscent + 2 * deltay), (int)(iPosition.x + iDimension.width - 2 * deltax), (int)(iPosition.y - iAscent + iDimension.height + 0 * deltay));
 			}
 			else if (iSymbol.equals("\\wedge") || iSymbol.equals("\\vee"))
 			{
@@ -347,32 +347,32 @@ public class SBoxBuilder
 					ybase = swap;
 				}
 
-				g.DrawLine((int)(iPosition.x + 1 * deltax), ybase, iPosition.x + iDimension.width / 2, ytip);
-				g.DrawLine((int)(iPosition.x + iDimension.width - 1 * deltax), ybase, iPosition.x + iDimension.width / 2, ytip);
+				g.drawLine((int)(iPosition.x + 1 * deltax), ybase, iPosition.x + iDimension.width / 2, ytip);
+				g.drawLine((int)(iPosition.x + iDimension.width - 1 * deltax), ybase, iPosition.x + iDimension.width / 2, ytip);
 			}
 			else if (iSymbol.equals("\\neq"))
 			{
-				g.SetFontSize(SBoxBuilder.FontForSize(iSize));
-				g.DrawText("=", iPosition.x, iPosition.y);
-				g.DrawLine(iPosition.x + (2 * iDimension.width) / 3, iPosition.y - iAscent + (2 * iDimension.height) / 6, iPosition.x + (1 * iDimension.width) / 3, iPosition.y - iAscent + (6 * iDimension.height) / 6);
+				g.setFontSize(SBoxBuilder.fontForSize(iSize));
+				g.drawText("=", iPosition.x, iPosition.y);
+				g.drawLine(iPosition.x + (2 * iDimension.width) / 3, iPosition.y - iAscent + (2 * iDimension.height) / 6, iPosition.x + (1 * iDimension.width) / 3, iPosition.y - iAscent + (6 * iDimension.height) / 6);
 			}
 			else if (iSymbol.equals("\\infty"))
 			{
-				g.SetFontSize(SBoxBuilder.FontForSize(iSize));
-				g.DrawText("o", iPosition.x + 1, iPosition.y);
-				g.DrawText("o", iPosition.x + g.TextWidth("o") - 2, iPosition.y);
+				g.setFontSize(SBoxBuilder.fontForSize(iSize));
+				g.drawText("o", iPosition.x + 1, iPosition.y);
+				g.drawText("o", iPosition.x + g.textWidth("o") - 2, iPosition.y);
 			}
 			else if (iSymbol.equals("\\cdot"))
 			{
 
-				int height = SBoxBuilder.FontForSize(iSize);
-				g.SetFontSize(height);
-				g.DrawText(".", iPosition.x, iPosition.y - height / 3);
+				int height = SBoxBuilder.fontForSize(iSize);
+				g.setFontSize(height);
+				g.drawText(".", iPosition.x, iPosition.y - height / 3);
 			}
 			else
 			{
-				g.SetFontSize(SBoxBuilder.FontForSize(iSize));
-				g.DrawText(iSymbol, iPosition.x, iPosition.y);
+				g.setFontSize(SBoxBuilder.fontForSize(iSize));
+				g.drawText(iSymbol, iPosition.x, iPosition.y);
 			}
 		}
 	}
@@ -406,16 +406,16 @@ public class SBoxBuilder
 
 		public void drawBoundingBox(GraphicsPrimitives g)
 		{
-			g.SetLineThickness(0);
+			g.setLineThickness(0);
 
 			int x0 = iPosition.x;
 			int y0 = iPosition.y - getCalculatedAscent();
 			int x1 = x0 + iDimension.width;
 			int y1 = y0 + iDimension.height;
-			g.DrawLine(x0, y0, x1, y0);
-			g.DrawLine(x1, y0, x1, y1);
-			g.DrawLine(x1, y1, x0, y1);
-			g.DrawLine(x0, y1, x0, y0);
+			g.drawLine(x0, y0, x1, y0);
+			g.drawLine(x1, y0, x1, y1);
+			g.drawLine(x1, y1, x0, y1);
+			g.drawLine(x0, y1, x0, y0);
 
 			int i;
 
@@ -817,7 +817,7 @@ public class SBoxBuilder
 		{
 			iSize = aSize;
 			iPosition = aPosition;
-			iDashheight = SBoxBuilder.FontForSize(iSize);
+			iDashheight = SBoxBuilder.fontForSize(iSize);
 
 			if (iDimension == null)
 			{
@@ -858,8 +858,8 @@ public class SBoxBuilder
 			if (width < ddim.width)
 				width = ddim.width;
 
-			g.SetLineThickness(1);
-			g.DrawLine(iPosition.x, iPosition.y - iDashheight / 2 + 2, iPosition.x + width, iPosition.y - iDashheight / 2 + 2);
+			g.setLineThickness(1);
+			g.drawLine(iPosition.x, iPosition.y - iDashheight / 2 + 2, iPosition.x + width, iPosition.y - iDashheight / 2 + 2);
 		}
 	}
 
@@ -869,28 +869,28 @@ public class SBoxBuilder
 		public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition)
 		{
 
-			int height = SBoxBuilder.FontForSize(aSize);
-			g.SetFontSize(height);
+			int height = SBoxBuilder.fontForSize(aSize);
+			g.setFontSize(height);
 			iSize = aSize;
 			iPosition = aPosition;
-			iAscent = height / 2 + g.GetAscent();
+			iAscent = height / 2 + g.getAscent();
 			iDimension = new Dimension((4 * height) / 3, 2 * height);
 		}
 
 		public void render(GraphicsPrimitives g)
 		{
 
-			int height = SBoxBuilder.FontForSize(iSize);
-			g.SetLineThickness(2);
+			int height = SBoxBuilder.fontForSize(iSize);
+			g.setLineThickness(2);
 
 			int x0 = iPosition.x;
 			int y0 = iPosition.y - iAscent;
 			int x1 = x0 + iDimension.width;
 			int y1 = y0 + iDimension.height;
-			g.DrawLine(x1, y0, x0, y0);
-			g.DrawLine(x0, y0, x0 + (2 * height) / 4, (int)(y0 + y1) / 2);
-			g.DrawLine(x0 + (2 * height) / 4, (int)(y0 + y1) / 2, x0, y1);
-			g.DrawLine(x0, y1, x1, y1);
+			g.drawLine(x1, y0, x0, y0);
+			g.drawLine(x0, y0, x0 + (2 * height) / 4, (int)(y0 + y1) / 2);
+			g.drawLine(x0 + (2 * height) / 4, (int)(y0 + y1) / 2, x0, y1);
+			g.drawLine(x0, y1, x1, y1);
 		}
 	}
 
@@ -900,29 +900,29 @@ public class SBoxBuilder
 		public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition)
 		{
 
-			int height = SBoxBuilder.FontForSize(aSize);
-			g.SetFontSize(height);
+			int height = SBoxBuilder.fontForSize(aSize);
+			g.setFontSize(height);
 			iSize = aSize;
 			iPosition = aPosition;
-			iAscent = height / 2 + g.GetAscent();
+			iAscent = height / 2 + g.getAscent();
 			iDimension = new Dimension((1 * height) / 2, 2 * height);
 		}
 
 		public void render(GraphicsPrimitives g)
 		{
 
-			int height = SBoxBuilder.FontForSize(iSize);
-			g.SetLineThickness(2);
+			int height = SBoxBuilder.fontForSize(iSize);
+			g.setLineThickness(2);
 
 			int x0 = iPosition.x;
 			int y0 = iPosition.y - iAscent;
 			int x1 = x0 + iDimension.width;
 			int y1 = y0 + iDimension.height;
-			g.DrawLine(x1, y0, x1 - iDimension.width / 4, y0);
-			g.DrawLine(x1 - iDimension.width / 4, y0, x1 - (2 * iDimension.width) / 4, y0 + iDimension.width / 4);
-			g.DrawLine(x1 - (2 * iDimension.width) / 4, y0 + iDimension.width / 4, x1 - (2 * iDimension.width) / 4, y0 + iDimension.height - iDimension.width / 4);
-			g.DrawLine(x1 - (2 * iDimension.width) / 4, y0 + iDimension.height - iDimension.width / 4, x1 - (3 * iDimension.width) / 4, y0 + iDimension.height);
-			g.DrawLine(x1 - (3 * iDimension.width) / 4, y0 + iDimension.height, x0, y0 + iDimension.height);
+			g.drawLine(x1, y0, x1 - iDimension.width / 4, y0);
+			g.drawLine(x1 - iDimension.width / 4, y0, x1 - (2 * iDimension.width) / 4, y0 + iDimension.width / 4);
+			g.drawLine(x1 - (2 * iDimension.width) / 4, y0 + iDimension.width / 4, x1 - (2 * iDimension.width) / 4, y0 + iDimension.height - iDimension.width / 4);
+			g.drawLine(x1 - (2 * iDimension.width) / 4, y0 + iDimension.height - iDimension.width / 4, x1 - (3 * iDimension.width) / 4, y0 + iDimension.height);
+			g.drawLine(x1 - (3 * iDimension.width) / 4, y0 + iDimension.height, x0, y0 + iDimension.height);
 		}
 	}
 
@@ -960,16 +960,16 @@ public class SBoxBuilder
 		public void render(GraphicsPrimitives g)
 		{
 			super.render(g);
-			g.SetLineThickness(1);
+			g.setLineThickness(1);
 
 			Dimension dim = iExpressions[0].getDimension();
 			int x0 = iPosition.x;
 			int y0 = iPosition.y - iAscent;
 			int x1 = x0 + dim.width + 6;
 			int y1 = y0 + dim.height + 6;
-			g.DrawLine(x0, y0 + 1, x0 + 3, y1 - 1);
-			g.DrawLine(x0 + 3, y1 - 1, x0 + 6, y0 + 2);
-			g.DrawLine(x0 + 6, y0 + 1, x1, y0 + 1);
+			g.drawLine(x0, y0 + 1, x0 + 3, y1 - 1);
+			g.drawLine(x0 + 3, y1 - 1, x0 + 6, y0 + 2);
+			g.drawLine(x0 + 6, y0 + 1, x1, y0 + 1);
 		}
 	}
 
@@ -1001,8 +1001,8 @@ public class SBoxBuilder
 
 				Dimension dim = iExpressions[0].getDimension();
 				iFontSize = dim.height;
-				g.SetFontSize(dim.height);
-				iBracketWidth = SBoxBuilder.FontForSize(aSize) / 2;
+				g.setFontSize(dim.height);
+				iBracketWidth = SBoxBuilder.fontForSize(aSize) / 2;
 				iDimension = new Dimension(dim.width + 2 * iBracketWidth, dim.height);
 				iAscent = iExpressions[0].getCalculatedAscent();
 			}
@@ -1033,20 +1033,20 @@ public class SBoxBuilder
 			{
 
 				int margin = 2;
-				g.SetLineThickness(2);
+				g.setLineThickness(2);
 
 				if (bracket.equals("["))
 				{
-					g.DrawLine(x + margin, y, x + margin, y + dim.height);
+					g.drawLine(x + margin, y, x + margin, y + dim.height);
 				}
 				else
 				{
-					g.DrawLine(x + iBracketWidth - margin, y, x + iBracketWidth - margin, y + dim.height);
+					g.drawLine(x + iBracketWidth - margin, y, x + iBracketWidth - margin, y + dim.height);
 				}
 
-				g.SetLineThickness(1);
-				g.DrawLine(x + iBracketWidth - margin, y, x + margin, y);
-				g.DrawLine(x + margin, y + dim.height, x + iBracketWidth - margin, y + dim.height);
+				g.setLineThickness(1);
+				g.drawLine(x + iBracketWidth - margin, y, x + margin, y);
+				g.drawLine(x + margin, y + dim.height, x + iBracketWidth - margin, y + dim.height);
 			}
 			else if (bracket.equals("(") || bracket.equals(")"))
 			{
@@ -1070,23 +1070,23 @@ public class SBoxBuilder
 				steps[0] = 0.2f;
 				steps[1] = 0.6f;
 				steps[2] = 0.8f;
-				g.SetLineThickness(1f);
-				g.DrawLine((int)(xstart + (delta * steps[0])), y + (0 * dim.height) / 6, (int)(xstart + (delta * steps[1])), y + (1 * dim.height) / 6);
-				g.SetLineThickness(1.3f);
-				g.DrawLine((int)(xstart + (delta * steps[1])), y + (1 * dim.height) / 6, (int)(xstart + (delta * steps[2])), y + (2 * dim.height) / 6);
-				g.SetLineThickness(1.6f);
-				g.DrawLine((int)(xstart + (delta * steps[2])), y + (2 * dim.height) / 6, (int)(xstart + (delta * steps[2])), y + (4 * dim.height) / 6);
-				g.SetLineThickness(1.3f);
-				g.DrawLine((int)(xstart + (delta * steps[2])), y + (4 * dim.height) / 6, (int)(xstart + (delta * steps[1])), y + (5 * dim.height) / 6);
-				g.SetLineThickness(1f);
-				g.DrawLine((int)(xstart + (delta * steps[1])), y + (5 * dim.height) / 6, (int)(xstart + (delta * steps[0])), y + (6 * dim.height) / 6);
+				g.setLineThickness(1f);
+				g.drawLine((int)(xstart + (delta * steps[0])), y + (0 * dim.height) / 6, (int)(xstart + (delta * steps[1])), y + (1 * dim.height) / 6);
+				g.setLineThickness(1.3f);
+				g.drawLine((int)(xstart + (delta * steps[1])), y + (1 * dim.height) / 6, (int)(xstart + (delta * steps[2])), y + (2 * dim.height) / 6);
+				g.setLineThickness(1.6f);
+				g.drawLine((int)(xstart + (delta * steps[2])), y + (2 * dim.height) / 6, (int)(xstart + (delta * steps[2])), y + (4 * dim.height) / 6);
+				g.setLineThickness(1.3f);
+				g.drawLine((int)(xstart + (delta * steps[2])), y + (4 * dim.height) / 6, (int)(xstart + (delta * steps[1])), y + (5 * dim.height) / 6);
+				g.setLineThickness(1f);
+				g.drawLine((int)(xstart + (delta * steps[1])), y + (5 * dim.height) / 6, (int)(xstart + (delta * steps[0])), y + (6 * dim.height) / 6);
 			}
 			else
 			{
-				g.SetFontSize(iFontSize);
+				g.setFontSize(iFontSize);
 
 				int offset = (iFontSize - iAscent) / 2;
-				g.DrawText(bracket, x, y + offset);
+				g.drawText(bracket, x, y + offset);
 			}
 		}
 	}

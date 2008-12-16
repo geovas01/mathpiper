@@ -21,7 +21,7 @@ package org.mathpiper.ui.gui.applets;
 
 public interface TResult
 {
-	public int NrLines(PiperGraphicsContext  aGraphicsContext, int width) ;
-	public void draw(PiperGraphicsContext  aGraphicsContext, int current_word, int width, int height, int red, int green, int blue);
+	public int nrLines(MathPiperGraphicsContext  aGraphicsContext, int width) ;
+	public void draw(MathPiperGraphicsContext  aGraphicsContext, int current_word, int width, int height, int red, int green, int blue);
 };
 

@@ -78,12 +78,12 @@ class SynchronousInterpreter implements Interpreter
                 int pos = docBase.lastIndexOf("/");
                 String zipFileName = docBase.substring(0, pos + 1) + "mathpiper.jar";
                 //zipFileName = zipFileName.substring(6,zipFileName.length());
-                zipFileName = "file://" + zipFileName.substring(5,zipFileName.length());
+                //zipFileName = "file://" + zipFileName.substring(5,zipFileName.length());
+                zipFileName = zipFileName.substring(5,zipFileName.length());
 
                try
                 {
-                    java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
-
+                    java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(zipFileName));
                //System.out.println("XXXX " + z);
                     UtilityFunctions.zipFile = z;
                 } catch (Exception e)
