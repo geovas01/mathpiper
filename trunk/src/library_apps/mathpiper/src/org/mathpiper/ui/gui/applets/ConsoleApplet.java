@@ -262,7 +262,8 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
 
         //stdoutput = new StringOutputStream(outp);
-        interpreter = Interpreters.getSynchronousInterpreter();
+        String docBase = getDocumentBase().toString();
+        interpreter = Interpreters.getSynchronousInterpreter(docBase);
         interpreter.getEnvironment().iCurrentInput = new CachedStandardFileInputStream(interpreter.getEnvironment().iInputStatus);
 
 
@@ -294,24 +295,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             setBackground(bkColor);
         }
         {
-            /* String version = "";
-            try
-            {
-            java.util.Properties properties = new java.util.Properties();
-            
-            // locate the properties file
-            java.io.File file = new java.io.File("piper.properties");
-            
-            // load the file
-            properties.load(new FileInputStream(file));
-            
-            // read the properties
-            version = properties.getProperty("piper.version");
-            
-            } catch (Exception e)
-            {
-            e.printStackTrace();
-            }//end try/catch.*/
+
 
 
             Font font = new Font("helvetica", Font.PLAIN, 12);
@@ -323,7 +307,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             AddLineStatic(100, "", "Type 'restart' to restart MathPiper, or 'cls' to clear screen.\n", font, c);
             AddLineStatic(100, "", "To see example commands, keep typing 'Example();'\n", font, c);
         }
-        {
+        /*{
             String docbase = getDocumentBase().toString();
 
             if (docbase.substring(0, 4).equals("file"))
@@ -357,10 +341,8 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 }
 
                 interpreter.evaluate("DefaultDirectory(\"" + scriptBase + "\");");
-
-
             }
-        }
+        }*/
 
         try
         {
@@ -369,6 +351,8 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         {
             out.println(e);
         }
+
+        //This is where the initialization parameters from the browser are initialized. tk.
         int i = 1;
         while (true)
         {
@@ -380,7 +364,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             }
             s = unescape(s);
 
-            interpreter.evaluate(s);
+            EvaluationResponse response = interpreter.evaluate(s);
 
             i++;
         }
@@ -409,6 +393,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
     {
         if (!gotDatahubInit)
         {
+            //programMode browser parameter is used here. tk.
             String programMode = getParameter("programMode");
             if (programMode == null)
             {
