@@ -28,7 +28,7 @@ class AppletOutput {
 
     public void write(int c) throws IOException {
         if (c == '\n') {
-            iApplet.AddLineStatic(0, buffer.toString());
+            iApplet.addLineStatic(0, buffer.toString());
             buffer = new StringBuffer();
         } else {
             buffer.append((char) c);

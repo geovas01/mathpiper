@@ -41,11 +41,11 @@ public class Grapher
 		xmax = -xmin;
 		ymax = -ymin;
 		iCallList = aCallList;
-		RunCallList(null);
+		runCallList(null);
 	}
 
 
-	void NextToken()
+	void nextToken()
 	{
 		int startPos = 0;
 		while (startPos < execList.length() && execList.charAt(startPos) == ' ')
@@ -58,7 +58,7 @@ public class Grapher
 	}
 
 
-	void RunCallList(Graphics g)
+	void runCallList(Graphics g)
 	{
 		try
 		{
@@ -72,18 +72,18 @@ public class Grapher
 			}
 
 			execList = iCallList;
-			NextToken();
+			nextToken();
 			while (token.length() > 0)
 			{
 				if (token.equals("lines2d"))
 				{
 					int i;
-					NextToken();
+					nextToken();
 					int nr = Integer.parseInt(token);
-					NextToken();
+					nextToken();
 					double x2,y2=0;
 					x2 = Float.parseFloat(token);
-					NextToken();
+					nextToken();
 					y2 = Float.parseFloat(token);
 					if (g == null)
 					{
@@ -97,9 +97,9 @@ public class Grapher
 					{
 						x1 = x2;
 						y1 = y2;
-						NextToken();
+						nextToken();
 						x2 = Float.parseFloat(token);
-						NextToken();
+						nextToken();
 						y2 = Float.parseFloat(token);
 						if (g == null)
 						{
@@ -120,11 +120,11 @@ public class Grapher
 				}
 				else if (token.equals("pencolor"))
 				{
-					NextToken();
+					nextToken();
 					int red = Integer.parseInt(token);
-					NextToken();
+					nextToken();
 					int green = Integer.parseInt(token);
-					NextToken();
+					nextToken();
 					int blue = Integer.parseInt(token);
 					if (g != null)
 					{
@@ -133,7 +133,7 @@ public class Grapher
 				}
 				else if (token.equals("pensize"))
 				{
-					NextToken();
+					nextToken();
 					float width = Float.parseFloat(token);
 					if (g != null)
 					{
@@ -148,7 +148,7 @@ public class Grapher
 					//TODO raise an exception here
 					return;
 				}
-				NextToken();
+				nextToken();
 			}
 		}
 		catch (Exception e)
@@ -158,7 +158,7 @@ public class Grapher
 	}
 
 
-	void DetermineGraphBounds(int xleft, int ytop, Dimension d)
+	void determineGraphBounds(int xleft, int ytop, Dimension d)
 	{
 		if (fontMetrics != null)
 		{
@@ -197,7 +197,7 @@ public class Grapher
 		font = new Font("Verdana", Font.PLAIN, axesFontHeight);
 		g.setFont(font);
 		fontMetrics = g.getFontMetrics(font);
-		DetermineGraphBounds(xleft, ytop, d);
+		determineGraphBounds(xleft, ytop, d);
 
 		Color grey = new Color(164, 164, 164);
 
@@ -247,7 +247,7 @@ public class Grapher
 		}
 
 		g.setClip(graphx,graphy,graphWidth,graphClipHeight);
-		RunCallList(g);
+		runCallList(g);
 		g.setClip(xleft, ytop, d.width, clipHeight);
 		g.setColor(Color.black);
 		if (g2d != null)

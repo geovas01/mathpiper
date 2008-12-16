@@ -128,7 +128,7 @@ public class DatahubApplet extends Applet
 		synchronized(consoleProgram)
 		{
 			p = unescape(p);
-			currentArticle().SetArticle(p);
+			currentArticle().setArticle(p);
 		}
 	}
 

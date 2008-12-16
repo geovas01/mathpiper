@@ -19,7 +19,7 @@ package org.mathpiper.ui.gui.applets;
 
 import java.awt.Graphics;
 
-public abstract class MOutputLine {
+public abstract class MathOutputLine {
 
     public abstract void draw(Graphics g, int x, int y);
 

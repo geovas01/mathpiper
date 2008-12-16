@@ -35,7 +35,7 @@ public class TexParser
 		System.out.println("[" + nextToken + "]");
 	}
 
-	void NextToken()
+	void nextToken()
 	{
 		nextToken = "";
 
@@ -46,7 +46,7 @@ public class TexParser
 			return;
 		}
 
-		while (currentPos < iCurrentExpression.length() && IsSpace(iCurrentExpression.charAt(currentPos)))
+		while (currentPos < iCurrentExpression.length() && isSpace(iCurrentExpression.charAt(currentPos)))
 			currentPos++;
 
 		if (currentPos == iCurrentExpression.length())
@@ -55,12 +55,12 @@ public class TexParser
 			//showToken();
 			return;
 		}
-		else if (IsAlNum(iCurrentExpression.charAt(currentPos)))
+		else if (isAlNum(iCurrentExpression.charAt(currentPos)))
 		{
 
 			int startPos = currentPos;
 
-			while (currentPos < iCurrentExpression.length() && IsAlNum(iCurrentExpression.charAt(currentPos)))
+			while (currentPos < iCurrentExpression.length() && isAlNum(iCurrentExpression.charAt(currentPos)))
 			{
 				currentPos++;
 			}
@@ -102,7 +102,7 @@ public class TexParser
 
 			int startPos = currentPos;
 
-			while (currentPos < iCurrentExpression.length() && (IsAlNum(iCurrentExpression.charAt(currentPos)) || iCurrentExpression.charAt(currentPos) == '\\'))
+			while (currentPos < iCurrentExpression.length() && (isAlNum(iCurrentExpression.charAt(currentPos)) || iCurrentExpression.charAt(currentPos) == '\\'))
 			{
 				currentPos++;
 			}
@@ -132,7 +132,7 @@ public class TexParser
 	{
 		iCurrentExpression = aExpression;
 		currentPos = 0;
-		NextToken();
+		nextToken();
 
 		return parseTopExpression();
 	}
@@ -157,7 +157,7 @@ public class TexParser
 		{
 
 			String token = nextToken;
-			NextToken();
+			nextToken();
 			parseOneExpression20(builder);
 			builder.process(token);
 		}
@@ -180,7 +180,7 @@ public class TexParser
 			else if (token.equals("\\geq"))
 				token = ">=";
 
-			NextToken();
+			nextToken();
 			parseOneExpression25(builder);
 			builder.process(token);
 		}
@@ -214,13 +214,13 @@ public class TexParser
 			if (nextToken.equals("!"))
 			{
 				builder.process(nextToken);
-				NextToken();
+				nextToken();
 			}
 			else
 			{
 
 				String token = nextToken;
-				NextToken();
+				nextToken();
 				parseOneExpression40(builder);
 				builder.process(token);
 			}
@@ -233,7 +233,7 @@ public class TexParser
 		// atom
 		if (nextToken.equals("{"))
 		{
-			NextToken();
+			nextToken();
 			parseOneExpression10(builder);
 
 			if (!nextToken.equals("}"))
@@ -245,7 +245,7 @@ public class TexParser
 		}
 		else if (nextToken.equals("\\left("))
 		{
-			NextToken();
+			nextToken();
 			parseOneExpression10(builder);
 
 			if (!nextToken.equals("\\right)"))
@@ -259,7 +259,7 @@ public class TexParser
 		}
 		else if (nextToken.equals("\\left["))
 		{
-			NextToken();
+			nextToken();
 			parseOneExpression10(builder);
 
 			if (!nextToken.equals("\\right]"))
@@ -273,7 +273,7 @@ public class TexParser
 		}
 		else if (nextToken.equals("\\sqrt"))
 		{
-			NextToken();
+			nextToken();
 			parseOneExpression25(builder);
 			builder.process("[sqrt]");
 
@@ -281,7 +281,7 @@ public class TexParser
 		}
 		else if (nextToken.equals("\\exp"))
 		{
-			NextToken();
+			nextToken();
 			builder.process("e");
 			parseOneExpression40(builder);
 			builder.process("^");
@@ -294,7 +294,7 @@ public class TexParser
 		}
 		else if (nextToken.equals("\\mathrm"))
 		{
-			NextToken();
+			nextToken();
 
 			if (!matchToken("{"))
 
@@ -308,13 +308,13 @@ public class TexParser
 			String literal = iCurrentExpression.substring(startPos, currentPos);
 			currentPos++;
 			builder.processLiteral(literal);
-			NextToken();
+			nextToken();
 
 			return;
 		}
 		else if (nextToken.equals("-"))
 		{
-			NextToken();
+			nextToken();
 			parseOneExpression30(builder);
 			builder.process("-/1");
 
@@ -322,7 +322,7 @@ public class TexParser
 		}
 		else if (nextToken.equals("\\neg"))
 		{
-			NextToken();
+			nextToken();
 			parseOneExpression30(builder);
 			builder.process("~");
 
@@ -338,7 +338,7 @@ public class TexParser
 		}
 		else if (nextToken.equals("\\frac"))
 		{
-			NextToken();
+			nextToken();
 			parseOneExpression40(builder);
 			parseOneExpression40(builder);
 			builder.process("/");
@@ -347,16 +347,16 @@ public class TexParser
 		}
 		else if (nextToken.equals("\\begin"))
 		{
-			NextToken();
+			nextToken();
 
 			if (!matchToken("{"))
 
 				return;
 
-			NextToken();
+			nextToken();
 
 			String name = nextToken;
-			NextToken();
+			nextToken();
 
 			if (!matchToken("}"))
 
@@ -367,16 +367,16 @@ public class TexParser
 
 				int nrColumns = 0;
 				int nrRows = 0;
-				NextToken();
+				nextToken();
 
 				if (!matchToken("{"))
 
 					return;
 
-				NextToken();
+				nextToken();
 
 				String coldef = nextToken;
-				NextToken();
+				nextToken();
 
 				if (!matchToken("}"))
 
@@ -384,7 +384,7 @@ public class TexParser
 
 				nrColumns = coldef.length();
 				nrRows = 1;
-				NextToken();
+				nextToken();
 
 				while (!nextToken.equals("\\end"))
 				{
@@ -393,11 +393,11 @@ public class TexParser
 					if (nextToken.equals("\\\\"))
 					{
 						nrRows++;
-						NextToken();
+						nextToken();
 					}
 					else if (nextToken.equals("&"))
 					{
-						NextToken();
+						nextToken();
 					}
 					else
 					{
@@ -406,16 +406,16 @@ public class TexParser
 					}
 				}
 
-				NextToken();
+				nextToken();
 
 				if (!matchToken("{"))
 
 					return;
 
-				NextToken();
+				nextToken();
 
 				String name2 = nextToken;
-				NextToken();
+				nextToken();
 
 				if (!matchToken("}"))
 
@@ -434,10 +434,10 @@ public class TexParser
 			builder.process(nextToken);
 		}
 
-		NextToken();
+		nextToken();
 	}
 
-	boolean IsSpace(int c)
+	boolean isSpace(int c)
 	{
 
 		if (c == ' ' || c == '\t' || c == '\r' || c == '\n')
@@ -447,10 +447,10 @@ public class TexParser
 		return false;
 	}
 
-	boolean IsAlNum(int c)
+	boolean isAlNum(int c)
 	{
 
-		if (IsSpace(c))
+		if (isSpace(c))
 
 			return false;
 

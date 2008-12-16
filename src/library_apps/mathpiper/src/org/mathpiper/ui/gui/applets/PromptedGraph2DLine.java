@@ -22,7 +22,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 
-class PromptedGraph2DLine extends MOutputLine {
+class PromptedGraph2DLine extends MathOutputLine {
 
     PromptedGraph2DLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine) {
         iIndent = aIndent;

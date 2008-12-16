@@ -39,35 +39,35 @@ public class HintWindow
 		iTextSize = aTextSize;
 		iCurrentPos = 0;
 	}
-	public  void AddLine(String aText)
+	public  void addLine(String aText)
 	{
 		if (iNrLines >= 20) return;
 		iText[iNrLines] = aText;
 		iNrLines++;
 		iMaxWidth = 0;
 	}
-	public  void AddDescription(String aText)
+	public  void addDescription(String aText)
 	{
 		if (iNrDescriptions >= 20) return;
 		iDescription[iNrDescriptions] = aText;
 		iNrDescriptions++;
 		iMaxWidth = 0;
 	}
-	public  void draw(int x, int y, PiperGraphicsContext  aGraphicsContext)
+	public  void draw(int x, int y, MathPiperGraphicsContext  aGraphicsContext)
 	{
-		aGraphicsContext.SetFontSize(0,iTextSize);
+		aGraphicsContext.setFontSize(0,iTextSize);
 		if (iMaxWidth == 0)
 		{
 			int i;
 			for (i=0;i<iNrLines;i++)
 			{
-				int width = aGraphicsContext.TextWidthInPixels(iText[i]);
+				int width = aGraphicsContext.textWidthInPixels(iText[i]);
 				if (width>iMaxWidth)
 					iMaxWidth = width;
 			}
 			for (i=0;i<iNrDescriptions;i++)
 			{
-				int width = aGraphicsContext.TextWidthInPixels(iDescription[i]);
+				int width = aGraphicsContext.textWidthInPixels(iDescription[i]);
 				if (width>iMaxWidth)
 					iMaxWidth = width;
 			}
@@ -84,12 +84,12 @@ public class HintWindow
 		iy -= (h+4);
 
 		if (!iAllowSelection)
-			aGraphicsContext.SetColor(221,221,238);
+			aGraphicsContext.setColor(221,221,238);
 		else
-			aGraphicsContext.SetColor(221,221,238);
-		aGraphicsContext.FillRect(ix,iy,w,h);
-		aGraphicsContext.SetColor(0,0,0);
-		aGraphicsContext.DrawRect(ix,iy,w,h);
+			aGraphicsContext.setColor(221,221,238);
+		aGraphicsContext.fillRect(ix,iy,w,h);
+		aGraphicsContext.setColor(0,0,0);
+		aGraphicsContext.drawRect(ix,iy,w,h);
 
 		int i;
 
@@ -100,50 +100,50 @@ public class HintWindow
 		{
 			if (!iAllowSelection)
 			{
-				aGraphicsContext.SetColor(0,0,0);
+				aGraphicsContext.setColor(0,0,0);
 			}
 			else
 			{
 				if (i == iCurrentPos)
 				{
-					aGraphicsContext.SetColor(190,190,200);
-					aGraphicsContext.FillRect(1+ix,1+iy+(i)*aGraphicsContext.FontHeight(),w-2,aGraphicsContext.FontHeight()-2);
-					aGraphicsContext.SetColor(0,0,0);
+					aGraphicsContext.setColor(190,190,200);
+					aGraphicsContext.fillRect(1+ix,1+iy+(i)*aGraphicsContext.fontHeight(),w-2,aGraphicsContext.fontHeight()-2);
+					aGraphicsContext.setColor(0,0,0);
 				}
 				else
 				{
-					aGraphicsContext.SetColor(0,0,0);
+					aGraphicsContext.setColor(0,0,0);
 				}
 			}
-			aGraphicsContext.DrawText(ix+2,iy+(i+1)*aGraphicsContext.FontHeight()-aGraphicsContext.FontDescent(),iText[i]);
+			aGraphicsContext.drawText(ix+2,iy+(i+1)*aGraphicsContext.fontHeight()-aGraphicsContext.fontDescent(),iText[i]);
 		}
 
 		if (iNrDescriptions>0)
 		{
-			int offset = (iNrLines+1)*aGraphicsContext.FontHeight()+7;
+			int offset = (iNrLines+1)*aGraphicsContext.fontHeight()+7;
 
-			aGraphicsContext.DrawLine(ix+6,iy+offset-4-aGraphicsContext.FontHeight(),ix+w-6,iy+offset-4-aGraphicsContext.FontHeight());
+			aGraphicsContext.drawLine(ix+6,iy+offset-4-aGraphicsContext.fontHeight(),ix+w-6,iy+offset-4-aGraphicsContext.fontHeight());
 
-			aGraphicsContext.SetFontSize(1,iTextSize);
+			aGraphicsContext.setFontSize(1,iTextSize);
 			for (i=0;i<iNrDescriptions;i++)
 			{
-				aGraphicsContext.DrawText(ix+2,iy+offset+(i)*aGraphicsContext.FontHeight()-aGraphicsContext.FontDescent(),iDescription[i]);
+				aGraphicsContext.drawText(ix+2,iy+offset+(i)*aGraphicsContext.fontHeight()-aGraphicsContext.fontDescent(),iDescription[i]);
 			}
 		}
 	}
 
 
 
-	public  int height(PiperGraphicsContext  aGraphicsContext)
+	public  int height(MathPiperGraphicsContext  aGraphicsContext)
 	{
 		int h;
-		aGraphicsContext.SetFontSize(0,iTextSize);
-		h = iNrLines*aGraphicsContext.FontHeight()+2;
+		aGraphicsContext.setFontSize(0,iTextSize);
+		h = iNrLines*aGraphicsContext.fontHeight()+2;
 
 		if (iNrDescriptions>0)
 		{
-			aGraphicsContext.SetFontSize(1,iTextSize);
-			h += iNrDescriptions*aGraphicsContext.FontHeight()+2;
+			aGraphicsContext.setFontSize(1,iTextSize);
+			h += iNrDescriptions*aGraphicsContext.fontHeight()+2;
 			// space for line
 			h+=7;
 		}

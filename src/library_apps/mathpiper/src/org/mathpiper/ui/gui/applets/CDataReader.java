@@ -28,7 +28,7 @@ public class CDataReader
 	public CDataReader()
 	{
 	}
-	public int Open(URL source)
+	public int open(URL source)
 	{
 		String mark = null;
 		in = null;
@@ -54,7 +54,7 @@ public class CDataReader
 			return 1;
 		return 0;
 	}
-	public String ReadLine()
+	public String readLine()
 	{
 		try
 		{
@@ -67,7 +67,7 @@ public class CDataReader
 		return null;
 	}
 
-	public void Close()
+	public void close()
 	{
 		try
 		{

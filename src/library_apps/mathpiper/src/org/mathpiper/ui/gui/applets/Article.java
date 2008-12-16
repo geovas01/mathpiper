@@ -30,9 +30,9 @@ public class Article
 
 	public Article(String aArticle)
 	{
-		SetArticle(aArticle);
+		setArticle(aArticle);
 	}
-	public void SetArticle(String aArticle)
+	public void setArticle(String aArticle)
 	{
 		iArticle = aArticle;
 		testCode = "";

@@ -91,7 +91,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         addMouseMotionListener(this);
 
         out = new AppletOutput(this);
-        ResetInput();
+        resetInput();
 
         String hintsfilename = getDocumentBase().toString();
         int slash = hintsfilename.lastIndexOf('/');
@@ -100,7 +100,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             hintsfilename = hintsfilename.substring(0, slash + 1);
         }
         hintsfilename = hintsfilename + "hints.txt";
-        LoadHints(hintsfilename);
+        loadHints(hintsfilename);
     }
 
     public void focusGained(FocusEvent evt)
@@ -177,7 +177,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             {
                 inputLine = inputLine.substring(0, ito) + matchToInsert + inputLine.substring(ito, inputLine.length());
                 cursorPos += matchToInsert.length();
-                RefreshHintWindow();
+                refreshHintWindow();
                 repaint();
                 return;
             }
@@ -300,11 +300,11 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             Font font = new Font("helvetica", Font.PLAIN, 12);
             Color c = new Color(96, 96, 96);
 
-            AddLineStatic(100, "", "", font, c);
-            AddLineStatic(100, "", "", font, c);
-            AddLineStatic(100, "", "MathPiper version '" + Version.version + "'.", font, c);
-            AddLineStatic(100, "", "Type 'restart' to restart MathPiper, or 'cls' to clear screen.\n", font, c);
-            AddLineStatic(100, "", "To see example commands, keep typing 'Example();'\n", font, c);
+            addLineStatic(100, "", "", font, c);
+            addLineStatic(100, "", "", font, c);
+            addLineStatic(100, "", "MathPiper version '" + Version.version + "'.", font, c);
+            addLineStatic(100, "", "Type 'restart' to restart MathPiper, or 'cls' to clear screen.\n", font, c);
+            addLineStatic(100, "", "To see example commands, keep typing 'Example();'\n", font, c);
         }
         /*{
             String docbase = getDocumentBase().toString();
@@ -369,7 +369,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         }
 
         gotDatahubInit = false;
-        TryInitThroughDatahub();
+        tryInitThroughDatahub();
 
         i = 1;
         while (true)
@@ -381,14 +381,14 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 break;
             }
             s = unescape(s);
-            AppendHistoryLine(s);
+            appendHistoryLine(s);
             i++;
         }
 
-        ResetInput();
+        resetInput();
     }
 
-    void TryInitThroughDatahub()
+    void tryInitThroughDatahub()
     {
         if (!gotDatahubInit)
         {
@@ -409,7 +409,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
                         String programContentsToLoad = "[" + cons.getProgram() + "];";
                         gotDatahubInit = true; // We're already satisfied here, as we got the contents from the datahub.
-                        InvokeCalculationSilent(programContentsToLoad);
+                        invokeCalculationSilent(programContentsToLoad);
                     }
                 } catch (Exception e)
                 {
@@ -422,7 +422,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
     {
     }
 
-    public void AppendHistoryLine(String line)
+    public void appendHistoryLine(String line)
     {
         //TODO optimize! We need to wrap around the history buffer, this is inefficient.
         if (currentHistoryLine == nrHistoryLines)
@@ -456,7 +456,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         return buf.toString();
     }
 
-    public void ResetInput()
+    public void resetInput()
     {
         if (inputLine.length() > 0)
         {
@@ -550,19 +550,19 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                             toInsert = toInsert.substring(cr + 1, toInsert.length());
                             cr = toInsert.indexOf('\n');
 
-                            AppendHistoryLine(inputLine);
-                            AddLinesStatic(48, inputPrompt, inputLine);
+                            appendHistoryLine(inputLine);
+                            addLinesStatic(48, inputPrompt, inputLine);
                             if (inputLine.charAt(inputLine.length() - 1) == '\\')
                             {
                                 gatheredMultiLine = gatheredMultiLine + inputLine.substring(0, inputLine.length() - 1);
                             } else
                             {
-                                PerformRequest("Out> ", gatheredMultiLine + inputLine, true);
+                                performRequest("Out> ", gatheredMultiLine + inputLine, true);
                             }
-                            ResetInput();
+                            resetInput();
                         }
                         inputLine = inputLine + toInsert;
-                        RefreshHintWindow();
+                        refreshHintWindow();
                         repaint();
                         return;
                     }
@@ -608,7 +608,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 if (cursorPos > 0)
                 {
                     cursorPos--;
-                    RefreshHintWindow();
+                    refreshHintWindow();
                     repaint();
                     return;
                 }
@@ -618,7 +618,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 {
                     cursorPos--;
                     inputLine = new StringBuffer(inputLine).delete(cursorPos, cursorPos + 1).toString();
-                    RefreshHintWindow();
+                    refreshHintWindow();
                     repaint();
                     return;
                 }
@@ -631,7 +631,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                         cursorPos--;
                     }
                     inputLine = new StringBuffer(inputLine).delete(cursorPos, cursorPos + 1).toString();
-                    RefreshHintWindow();
+                    refreshHintWindow();
                     repaint();
                     return;
                 }
@@ -642,7 +642,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                     hintWindow = null;
                 } else
                 {
-                    ResetInput();
+                    resetInput();
                 }
                 repaint();
                 return;
@@ -716,7 +716,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                     } else
                     {
                         int pos = cursorPos;
-                        ResetInput();
+                        resetInput();
                         inputLine = prefix;
                         cursorPos = pos;
                     }
@@ -731,7 +731,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                     if (cursorPos < inputLine.length())
                     {
                         cursorPos++;
-                        RefreshHintWindow();
+                        refreshHintWindow();
                         repaint();
                         return;
                     }
@@ -748,7 +748,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                         handled = true;
                         inputLine = inputLine.substring(0, ito) + matchToInsert + inputLine.substring(ito, inputLine.length());
                         cursorPos += matchToInsert.length();
-                        RefreshHintWindow();
+                        refreshHintWindow();
                         repaint();
                         return;
                     }
@@ -770,7 +770,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                             }
                             inputLine = inputLine.substring(0, ito) + item + inputLine.substring(ito, inputLine.length());
                             cursorPos += item.length();
-                            RefreshHintWindow();
+                            refreshHintWindow();
                             repaint();
                             return;
                         }
@@ -780,17 +780,17 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 {
                     if (inputLine.length() > 0)
                     {
-                        AppendHistoryLine(inputLine);
-                        AddLinesStatic(48, inputPrompt, inputLine);
+                        appendHistoryLine(inputLine);
+                        addLinesStatic(48, inputPrompt, inputLine);
                         if (inputLine.charAt(inputLine.length() - 1) == '\\')
                         {
                             gatheredMultiLine = gatheredMultiLine + inputLine.substring(0, inputLine.length() - 1);
                         } else
                         {
-                            PerformRequest("Out> ", gatheredMultiLine + inputLine, true);
+                            performRequest("Out> ", gatheredMultiLine + inputLine, true);
                         }
-                        ResetInput();
-                        RefreshHintWindow();
+                        resetInput();
+                        refreshHintWindow();
                         repaint(0);
                     }
                 }
@@ -804,14 +804,14 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             {
                 inputLine = new StringBuffer(inputLine).insert(cursorPos, e.getKeyChar()).toString();
                 cursorPos++;
-                RefreshHintWindow();
+                refreshHintWindow();
                 inputDirty = true;
                 repaint();
             }
         }
     }
 
-    boolean DirectCommand(String inputLine)
+    boolean directCommand(String inputLine)
     {
         if (inputLine.equals("restart"))
         {
@@ -831,7 +831,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 {
                     org.mathpiper.ui.gui.applets.DatahubApplet cons = (org.mathpiper.ui.gui.applets.DatahubApplet) dataHub;
                     String programContentsToLoad = "[" + cons.getTestcode() + "];";
-                    InvokeCalculationSilent(programContentsToLoad);
+                    invokeCalculationSilent(programContentsToLoad);
                 }
             } catch (Exception e)
             {
@@ -850,16 +850,16 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         return false;
     }
 
-    void PerformRequest(String outputPrompt, String inputLine, boolean doRepaint)
+    void performRequest(String outputPrompt, String inputLine, boolean doRepaint)
     {
         boolean succeed = false;
-        if (DirectCommand(inputLine))
+        if (directCommand(inputLine))
         {
             return;
         } else
         {
-            ResetInput();
-            RefreshHintWindow();
+            resetInput();
+            refreshHintWindow();
 
             calculating = true;
             if (doRepaint)
@@ -877,10 +877,10 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
             calculating = false;
 
-            AddOutputLine(outputStringBuffer.toString());
+            addOutputLine(outputStringBuffer.toString());
             if (response.isExceptionThrown() == true)
             {
-                AddLinesStatic(48, "Error> ", response.getExceptionMessage());
+                addLinesStatic(48, "Error> ", response.getExceptionMessage());
             }
             //AddLinesStatic(48, outputPrompt, response.getSideEffects());//TODO:tk: latex results are returned as a side effect, but normal results are not.  Also, what is a static line?.
             succeed = true;
@@ -893,17 +893,17 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         }
     }
 
-    void AddLinesStatic(int indent, String prompt, String str)
+    void addLinesStatic(int indent, String prompt, String str)
     {
         int pos;
         while ((pos = str.indexOf('\n')) >= 0)
         {
-            AddLineStatic(indent, prompt, str.substring(0, pos), font, Color.black);
+            addLineStatic(indent, prompt, str.substring(0, pos), font, Color.black);
             str = str.substring(pos + 1, str.length());
         }
         if (str.length() > 0)
         {
-            AddLineStatic(indent, prompt, str, font, Color.black);
+            addLineStatic(indent, prompt, str, font, Color.black);
         }
     }
 
@@ -931,7 +931,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
     void addLine(MathOutputLine aLine)
     {
         {
-            CreateOffscreenImage();
+            createOffscreenImage();
             if (lines[currentLine] != null)
             {
                 totalLinesHeight -= lines[currentLine].height(offGra);
@@ -954,20 +954,20 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         }
     }
 
-    void AddLine(int index, String text)
+    void addLine(int index, String text)
     {
-        AddLineStatic(index, text);
+        addLineStatic(index, text);
         repaint(0);
     }
 
-    void AddLineStatic(int indent, String text)
+    void addLineStatic(int indent, String text)
     {
-        AddLineStatic(indent, "", text, font, Color.black);
+        addLineStatic(indent, "", text, font, Color.black);
     }
     Color iPromptColor = new Color(128, 128, 128);
     Font iPromptFont = new Font("Verdana", Font.PLAIN, 12);
 
-    void AddLineStatic(int indent, String prompt, String text, Font aFont, Color aColor)
+    void addLineStatic(int indent, String prompt, String text, Font aFont, Color aColor)
     {
         addLine(new PromptedStringLine(indent, prompt, text, iPromptFont, aFont, iPromptColor, aColor));
         outputDirty = true;
@@ -979,7 +979,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         paint(g);
     }
 
-    void CreateOffscreenImage()
+    void createOffscreenImage()
     {
         // draw an offScreen drawing
         Dimension dim = getSize();
@@ -992,7 +992,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
     public void paint(Graphics g)
     {
-        CreateOffscreenImage();
+        createOffscreenImage();
 
         // Render image
         paintToBitmap(offGra);
@@ -1006,11 +1006,11 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 g2d = (Graphics2D) g;
                 g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
             }
-            PiperGraphicsContext context = new PiperGraphicsContext(g, 0, 0);
-            context.SetFontSize(1, fontHeight/*12*/);
+            MathPiperGraphicsContext context = new MathPiperGraphicsContext(g, 0, 0);
+            context.setFontSize(1, fontHeight/*12*/);
             int nr_total_lines = 1;
             Dimension d = getSize();
-            hintWindow.draw(5, (int) (d.getHeight() - context.FontHeight() - nr_total_lines * context.FontHeight()), context);
+            hintWindow.draw(5, (int) (d.getHeight() - context.fontHeight() - nr_total_lines * context.fontHeight()), context);
         }
     }
 
@@ -1154,20 +1154,20 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
 
 
-    void LoadHints(String filename)
+    void loadHints(String filename)
     {
         CDataReader file = new CDataReader();
         int opened = 0;
         try
         {
             URL url = new URL(filename);
-            opened = file.Open(url);
+            opened = file.open(url);
         } catch (Exception e)
         {
         }
         if (opened != 0)
         {
-            String line = file.ReadLine();
+            String line = file.readLine();
             String[] tokens = new String[16];
             int nrTokens = 0;
             while (line != null)
@@ -1199,31 +1199,31 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                     the_hints.nrHintTexts++;
                 }
 
-                line = file.ReadLine();
+                line = file.readLine();
             }
-            file.Close();
+            file.close();
         } else
         {
             out.println("could not read hints");
         }
     }
 
-    HintWindow CreateHints(int fontsize)
+    HintWindow createHints(int fontsize)
     {
         HintWindow hw = new HintWindow(fontsize);
         return hw;
     }
 
-    void AddHintLine(HintWindow hints, String aText, String aDescription)
+    void addHintLine(HintWindow hints, String aText, String aDescription)
     {
-        hints.AddLine(aText);
+        hints.addLine(aText);
         if (aDescription.length() > 0)
         {
-            hints.AddDescription(aDescription);
+            hints.addDescription(aDescription);
         }
     }
 
-    HintWindow TryToHint(String text, int length)
+    HintWindow tryToHint(String text, int length)
     {
         HintWindow hints = null;
         int nrhints = the_hints.nrHintTexts;
@@ -1250,17 +1250,17 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 {
                     if (hints == null)
                     {
-                        hints = CreateHints(12 /*iDefaultFontSize*/);
+                        hints = createHints(12 /*iDefaultFontSize*/);
                         hints.iAllowSelection = false;
                     }
-                    AddHintLine(hints, the_hints.hintTexts[i].hint, the_hints.hintTexts[i].description);
+                    addHintLine(hints, the_hints.hintTexts[i].hint, the_hints.hintTexts[i].description);
                 }
             }
         }
         return hints;
     }
 
-    void RefreshHintWindow()
+    void refreshHintWindow()
     {
         ito = cursorPos;
 
@@ -1403,33 +1403,33 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 {
                     matchToInsert = texts[0].substring(lastMatchedWord.length(), texts[0].length());
                 }
-                hintWindow = TryToHint(texts[0], texts[0].length());
+                hintWindow = tryToHint(texts[0], texts[0].length());
             } else if (nrHintLines > 1)
             {
-                hintWindow = CreateHints(12);
+                hintWindow = createHints(12);
                 hintWindow.iAllowSelection = true;
 
                 for (i = 0; i < nrHintLines; i++)
                 {
-                    AddHintLine(hintWindow, texts[i], "");
+                    addHintLine(hintWindow, texts[i], "");
                 }
             }
         }
     }
 
-    public void InvokeCalculation(String expression)
+    public void invokeCalculation(String expression)
     {
         if (!gotDatahubInit)
         {
             start();
         }
-        AppendHistoryLine(expression);
-        AddLinesStatic(48, "In> ", expression);
-        ResetInput();
-        RefreshHintWindow();
+        appendHistoryLine(expression);
+        addLinesStatic(48, "In> ", expression);
+        resetInput();
+        refreshHintWindow();
         inputDirty = true;
         outputDirty = true;
-        PerformRequest("Out> ", expression, false);
+        performRequest("Out> ", expression, false);
         inputDirty = true;
         outputDirty = true;
         repaint();
@@ -1461,7 +1461,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         }
     }
 
-    private void AddOutputLine(String outp)
+    private void addOutputLine(String outp)
     {
         if (outp.length() > 0)
         {
@@ -1471,7 +1471,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 // Print plain text before the dollared content
                 if (dollarPos > 0)
                 {
-                    AddLinesStatic(48, "", outp.substring(0, dollarPos));
+                    addLinesStatic(48, "", outp.substring(0, dollarPos));
                 }
                 // Strip off the left dollar sign
                 outp = outp.substring(dollarPos + 1, outp.length());
@@ -1497,13 +1497,13 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             // If there is some plain text left at the end, print
             if (outp.length() > 0)
             {
-                AddLinesStatic(48, "", outp.toString());
+                addLinesStatic(48, "", outp.toString());
             }
         }
         outputDirty = true;
     }
 
-    public void AddInputLine(String expression)
+    public void addInputLine(String expression)
     {
         synchronized (this)
         {
@@ -1511,10 +1511,10 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             {
                 start();
             }
-            AppendHistoryLine(expression);
-            AddLinesStatic(48, "In> ", expression);
-            ResetInput();
-            RefreshHintWindow();
+            appendHistoryLine(expression);
+            addLinesStatic(48, "In> ", expression);
+            resetInput();
+            refreshHintWindow();
             inputDirty = true;
             outputDirty = true;
             calculating = true;
@@ -1522,11 +1522,11 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         repaint();
     }
 
-    public void InvokeCalculationSilent(String expression)
+    public void invokeCalculationSilent(String expression)
     {
         synchronized (this)
         {
-            if (DirectCommand(expression))
+            if (directCommand(expression))
             {
                 return;
             } else
@@ -1537,14 +1537,14 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 evaluationResponse = interpreter.evaluate(expression);
 
                 calculating = false;
-                AddOutputLine(outputStringBuffer.toString());
+                addOutputLine(outputStringBuffer.toString());
                 if (evaluationResponse != null && evaluationResponse.getExceptionMessage() != null)
                 {
-                    AddLinesStatic(48, "Error> ", evaluationResponse.getExceptionMessage());
+                    addLinesStatic(48, "Error> ", evaluationResponse.getExceptionMessage());
                 }
 
-                ResetInput();
-                RefreshHintWindow();
+                resetInput();
+                refreshHintWindow();
                 inputDirty = true;
                 outputDirty = true;
             }
@@ -1552,7 +1552,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         repaint();
     }
 
-    public void StopCurrentCalculation()
+    public void stopCurrentCalculation()
     {
         interpreter.getEnvironment().iEvalDepth = interpreter.getEnvironment().iMaxEvalDepth + 100;
     }

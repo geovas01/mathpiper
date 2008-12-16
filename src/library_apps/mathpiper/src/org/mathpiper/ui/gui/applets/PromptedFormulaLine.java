@@ -23,7 +23,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-    class PromptedFormulaLine extends MOutputLine
+    class PromptedFormulaLine extends MathOutputLine
     {
 
         PromptedFormulaLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine)
@@ -50,7 +50,7 @@ import java.awt.Graphics;
 
             g.setColor(Color.black);
             GraphicsPrimitives gp = new GraphicsPrimitives(g);
-            gp.SetLineThickness(0);
+            gp.setLineThickness(0);
             expression.calculatePositions(gp, 3, new java.awt.Point(x + iIndent, y + expression.getCalculatedAscent() + 10));
             expression.render(gp);
         }
