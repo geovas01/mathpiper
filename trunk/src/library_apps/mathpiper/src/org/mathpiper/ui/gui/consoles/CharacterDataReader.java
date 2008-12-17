@@ -16,16 +16,16 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.ui.gui.applets;
+package org.mathpiper.ui.gui.consoles;
 
 import java.net.*;
 import java.io.*;
 
-public class CDataReader
+public class CharacterDataReader
 {
 	BufferedReader in;
 
-	public CDataReader()
+	public CharacterDataReader()
 	{
 	}
 	public int open(URL source)

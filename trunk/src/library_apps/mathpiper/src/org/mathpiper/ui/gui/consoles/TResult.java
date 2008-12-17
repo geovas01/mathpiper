@@ -15,34 +15,13 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.applets;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
+package org.mathpiper.ui.gui.consoles;
 
-class StringLine extends MathOutputLine {
 
-    StringLine(String aText, Font aFont, Color aColor) {
-        iText = aText;
-        iFont = aFont;
-        iColor = aColor;
-    }
+public interface TResult
+{
+	public int nrLines(MathPiperGraphicsContext  aGraphicsContext, int width) ;
+	public void draw(MathPiperGraphicsContext  aGraphicsContext, int current_word, int width, int height, int red, int green, int blue);
+};
 
-    public void draw(Graphics g, int x, int y) {
-        g.setColor(iColor);
-        g.setFont(iFont);
-        FontMetrics fontMetrics = g.getFontMetrics();
-        g.drawString(iText, x, y + fontMetrics.getHeight());
-    }
-
-    public int height(Graphics g) {
-        g.setFont(iFont);
-        FontMetrics fontMetrics = g.getFontMetrics();
-        return fontMetrics.getHeight();
-    }
-    private String iText;
-    private Font iFont;
-    private Color iColor;
-}

@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.ui.gui.applets;
+package org.mathpiper.ui.gui.consoles;
 
 
 public class HintWindow

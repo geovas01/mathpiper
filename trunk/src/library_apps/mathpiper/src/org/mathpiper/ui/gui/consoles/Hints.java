@@ -16,11 +16,18 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.ui.gui.applets;
+package org.mathpiper.ui.gui.consoles;
 
-public class HintItem
+
+public class Hints
 {
-	public  String base;
-	public  String hint;
-	public  String description;
+	public  HintItem[] hintTexts = new HintItem[1024];
+	int[] hoffsets = new int[256];
+
+	public  Hints()
+	{
+		nrHintTexts = 0;
+	}
+	public  int nrHintTexts;
+
 };
