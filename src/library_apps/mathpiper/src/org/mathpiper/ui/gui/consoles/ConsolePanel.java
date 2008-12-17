@@ -37,10 +37,7 @@ import org.mathpiper.interpreters.EvaluationResponse;
 
 public class ConsolePanel extends JPanel implements KeyListener, FocusListener, ClipboardOwner, MouseListener, MouseMotionListener, Console
 {
-    public ConsolePanel()
-    {
 
-    }
     AppletOutput out;
     boolean focusGained = false;
     boolean scrolling = false;
@@ -82,15 +79,26 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
     String matchToInsert = "";
     int ito = -1;
     String lastError;
+
+
+    public ConsolePanel()
+    {
+
+        System.out.println("XXXXX");
+
+    }//end constructor.
+
     /// Applet initialization
     public void init()
     {
+        System.out.println("Initializing.");
         this.setSize(400, 400); //todo:tk:
         
         setBackground(bkColor);
         setLayout(null);
         this.setPreferredSize(new Dimension(400,400));
-        this.setFocusable(true);//todo:tk.
+        this.setFocusable(true);
+        requestFocus();
         addKeyListener(this);
         addFocusListener(this);
         addMouseListener(this);
@@ -139,6 +147,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
 
     public void mouseEntered(MouseEvent event)
     {
+        requestFocusInWindow();
     }
 
     public void mouseExited(MouseEvent event)
@@ -148,7 +157,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
     public void mousePressed(MouseEvent event)
     {
      System.out.println("MousePressed.");
-     requestFocusInWindow();
+     
         scrolling = false;
         int th = calcThumbHeight();
         int canvasHeight = getHeight() - fontHeight - 1;
@@ -511,11 +520,13 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
 
     public void keyTyped(KeyEvent e)
     {
+        System.out.println("KeyPressed.");
         //    processKeyEvent(e);
     }
 
     public void keyReleased(KeyEvent e)
     {
+        System.out.println("KeyPressed.");
         //    processKeyEvent(e);
     }
 

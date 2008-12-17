@@ -16,41 +16,54 @@
 
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.ui.gui.consoles;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
-
-public class GuiConsole extends javax.swing.JFrame {
+public class GuiConsole extends JFrame {
 
     /** Creates new form Calculator */
     public GuiConsole() {
-        this.setSize(500,500);
-        this.setPreferredSize(new Dimension(500,500));
+        this.setSize(500, 500);
+        this.setPreferredSize(new Dimension(500, 500));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBackground(Color.WHITE);
 
         ConsolePanel consolePanel = new ConsolePanel();
+        //TempPanel consolePanel = new TempPanel();
         this.getContentPane().add(consolePanel);
+        this.getContentPane().add(new JTextField(20),BorderLayout.NORTH);
         this.pack();
         consolePanel.init();
         consolePanel.start();
 
-        
-        
+        /*//Make textField get the focus whenever frame is activated.
+        this.addWindowFocusListener(new WindowAdapter() {
+
+            public void windowGainedFocus(WindowEvent e) {
+                consolePanel.requestFocusInWindow();
+            }
+        });*/
+
+
+
+
     }
 
-
-
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new GuiConsole().setVisible(true);
             }
         });
     }
-
-    }
+}
