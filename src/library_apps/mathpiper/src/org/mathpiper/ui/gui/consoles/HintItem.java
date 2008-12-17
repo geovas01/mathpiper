@@ -16,12 +16,11 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.ui.gui.applets;
+package org.mathpiper.ui.gui.consoles;
 
-
-public interface TResult
+public class HintItem
 {
-	public int nrLines(MathPiperGraphicsContext  aGraphicsContext, int width) ;
-	public void draw(MathPiperGraphicsContext  aGraphicsContext, int current_word, int width, int height, int red, int green, int blue);
+	public  String base;
+	public  String hint;
+	public  String description;
 };
-

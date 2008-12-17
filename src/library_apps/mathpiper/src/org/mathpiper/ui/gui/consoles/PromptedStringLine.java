@@ -15,35 +15,55 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.applets;
+package org.mathpiper.ui.gui.consoles;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-class PromptedGraph2DLine extends MathOutputLine {
+class PromptedStringLine extends MathOutputLine {
 
-    PromptedGraph2DLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine) {
+    PromptedStringLine(int aIndent, String aPrompt, String aText, Font aPromptFont, Font aFont, Color aPromptColor, Color aColor) {
         iIndent = aIndent;
         iPrompt = aPrompt;
+        iText = aText;
         iPromptFont = aPromptFont;
+        iFont = aFont;
         iPromptColor = aPromptColor;
-        iGrapher = new Grapher(aLine);
+        iColor = aColor;
     }
-    Grapher iGrapher;
 
     public void draw(Graphics g, int x, int y) {
-        iGrapher.paint(g, x, y, size);
+        {
+            g.setColor(iPromptColor);
+            g.setFont(iPromptFont);
+            FontMetrics fontMetrics = g.getFontMetrics();
+            g.drawString(iPrompt, x, y + fontMetrics.getAscent());
+            if (iIndent != 0) {
+                x += iIndent;
+            } else {
+                x += fontMetrics.stringWidth(iPrompt);
+            }
+        }
+        {
+            g.setColor(iColor);
+            g.setFont(iFont);
+            FontMetrics fontMetrics = g.getFontMetrics();
+            g.drawString(iText, x, y + fontMetrics.getAscent());
+        }
     }
 
     public int height(Graphics g) {
-        return size.height;
+        g.setFont(iFont);
+        FontMetrics fontMetrics = g.getFontMetrics();
+        return fontMetrics.getHeight();
     }
-    Dimension size = new Dimension(320, 240);
     int iIndent;
     private String iPrompt;
+    private String iText;
     private Font iPromptFont;
+    private Font iFont;
     private Color iPromptColor;
+    private Color iColor;
 }
-

@@ -15,19 +15,13 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathpiper.ui.gui.consoles;
 
-package org.mathpiper.ui.gui.applets;
+import java.awt.Graphics;
 
+public abstract class MathOutputLine {
 
-public class Hints
-{
-	public  HintItem[] hintTexts = new HintItem[1024];
-	int[] hoffsets = new int[256];
+    public abstract void draw(Graphics g, int x, int y);
 
-	public  Hints()
-	{
-		nrHintTexts = 0;
-	}
-	public  int nrHintTexts;
-
-};
+    public abstract int height(Graphics g);
+}

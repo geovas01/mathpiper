@@ -16,8 +16,9 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.ui.gui.applets;
+package org.mathpiper.ui.gui.applets.storage;
 
+import org.mathpiper.ui.gui.applets.*;
 import java.applet.*;
 import java.net.*;
 import java.io.*;

@@ -15,7 +15,7 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.applets;
+package org.mathpiper.ui.gui.consoles;
 
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -404,7 +404,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                     Applet dataHub = getAppletContext().getApplet("datahub");
                     if (dataHub != null)
                     {
-                        org.mathpiper.ui.gui.applets.DatahubApplet cons = (org.mathpiper.ui.gui.applets.DatahubApplet) dataHub;
+                        org.mathpiper.ui.gui.applets.storage.DatahubApplet cons = (org.mathpiper.ui.gui.applets.storage.DatahubApplet) dataHub;
                         cons.setProgramMode(programMode);
 
                         String programContentsToLoad = "[" + cons.getProgram() + "];";
@@ -829,7 +829,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
                 Applet dataHub = getAppletContext().getApplet("datahub");
                 if (dataHub != null)
                 {
-                    org.mathpiper.ui.gui.applets.DatahubApplet cons = (org.mathpiper.ui.gui.applets.DatahubApplet) dataHub;
+                    org.mathpiper.ui.gui.applets.storage.DatahubApplet cons = (org.mathpiper.ui.gui.applets.storage.DatahubApplet) dataHub;
                     String programContentsToLoad = "[" + cons.getTestcode() + "];";
                     invokeCalculationSilent(programContentsToLoad);
                 }
@@ -1156,7 +1156,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
     void loadHints(String filename)
     {
-        CDataReader file = new CDataReader();
+        CharacterDataReader file = new CharacterDataReader();
         int opened = 0;
         try
         {

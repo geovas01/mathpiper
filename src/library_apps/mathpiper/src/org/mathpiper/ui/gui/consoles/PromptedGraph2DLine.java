@@ -15,13 +15,35 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.applets;
+package org.mathpiper.ui.gui.consoles;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 
-public abstract class MathOutputLine {
+class PromptedGraph2DLine extends MathOutputLine {
 
-    public abstract void draw(Graphics g, int x, int y);
+    PromptedGraph2DLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine) {
+        iIndent = aIndent;
+        iPrompt = aPrompt;
+        iPromptFont = aPromptFont;
+        iPromptColor = aPromptColor;
+        iGrapher = new Grapher(aLine);
+    }
+    Grapher iGrapher;
 
-    public abstract int height(Graphics g);
+    public void draw(Graphics g, int x, int y) {
+        iGrapher.paint(g, x, y, size);
+    }
+
+    public int height(Graphics g) {
+        return size.height;
+    }
+    Dimension size = new Dimension(320, 240);
+    int iIndent;
+    private String iPrompt;
+    private Font iPromptFont;
+    private Color iPromptColor;
 }
+
