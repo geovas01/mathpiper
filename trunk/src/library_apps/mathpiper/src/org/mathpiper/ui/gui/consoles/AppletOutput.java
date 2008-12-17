@@ -21,10 +21,10 @@ import java.io.IOException;
 
 class AppletOutput {
 
-    public AppletOutput(ConsoleApplet aApplet) {
+    public AppletOutput(Console aApplet) {
         iApplet = aApplet;
     }
-    ConsoleApplet iApplet;
+    Console iApplet;
 
     public void write(int c) throws IOException {
         if (c == '\n') {

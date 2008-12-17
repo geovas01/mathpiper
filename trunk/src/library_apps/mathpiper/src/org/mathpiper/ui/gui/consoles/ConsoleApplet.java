@@ -35,7 +35,7 @@ import java.io.*;
 import java.net.*;
 import org.mathpiper.interpreters.EvaluationResponse;
 
-public class ConsoleApplet extends Applet implements KeyListener, FocusListener, ClipboardOwner, MouseListener, MouseMotionListener
+public class ConsoleApplet extends Applet implements KeyListener, FocusListener, ClipboardOwner, MouseListener, MouseMotionListener, Console
 {
 
     AppletOutput out;
@@ -960,7 +960,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         repaint(0);
     }
 
-    void addLineStatic(int indent, String text)
+    public void addLineStatic(int indent, String text)
     {
         addLineStatic(indent, "", text, font, Color.black);
     }
