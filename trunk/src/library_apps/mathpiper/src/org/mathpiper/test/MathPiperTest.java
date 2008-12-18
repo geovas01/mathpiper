@@ -20,9 +20,9 @@
 package org.mathpiper.test;
 
 
+import org.mathpiper.Interfaces;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
-import org.mathpiper.interpreters.Interpreters;
 
 
 public class MathPiperTest
@@ -45,7 +45,7 @@ public class MathPiperTest
 			
 			logFile = new java.io.FileWriter("mathpiper_tests.log");
 			
-			mathPiper = Interpreters.getSynchronousInterpreter();
+			mathPiper = Interfaces.getSynchronousInterpreter();
 			
 			testDirectory = new java.io.File(directory);
 			if(testDirectory.exists() )

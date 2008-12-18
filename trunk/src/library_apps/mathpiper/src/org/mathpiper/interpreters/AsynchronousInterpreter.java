@@ -61,6 +61,22 @@ class AsynchronousInterpreter implements Interpreter
         return singletonInstance;
     }
 
+        public static AsynchronousInterpreter newInstance(String docBase)
+    {
+        SynchronousInterpreter interpreter = SynchronousInterpreter.newInstance(docBase);
+        return new AsynchronousInterpreter(interpreter);
+    }
+
+    public static AsynchronousInterpreter getInstance(String docBase)
+    {
+        if (singletonInstance == null)
+        {
+            SynchronousInterpreter interpreter = SynchronousInterpreter.getInstance(docBase);
+            singletonInstance = new AsynchronousInterpreter(interpreter);
+        }
+        return singletonInstance;
+    }
+
     public EvaluationResponse evaluate(String expression)
     {
 

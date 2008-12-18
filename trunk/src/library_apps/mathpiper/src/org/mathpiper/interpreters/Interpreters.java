@@ -16,45 +16,45 @@
 
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.interpreters;
 
 /**
  *
  */
 public class Interpreters {
-    
-private Interpreters()
-{}
 
-public static Interpreter newSynchronousInterpreter()
-{
-    return SynchronousInterpreter.newInstance();
-}
+    private Interpreters() {
+    }
 
-public static Interpreter newSynchronousInterpreter(String docBase)
-{
-    return SynchronousInterpreter.newInstance(docBase);
-}
+    public static Interpreter newSynchronousInterpreter() {
+        return SynchronousInterpreter.newInstance();
+    }
 
-public static Interpreter getSynchronousInterpreter()
-{
-    return SynchronousInterpreter.getInstance();
-}
+    public static Interpreter newSynchronousInterpreter(String docBase) {
+        return SynchronousInterpreter.newInstance(docBase);
+    }
 
-public static Interpreter getSynchronousInterpreter(String docBase)
-{
-    return SynchronousInterpreter.getInstance(docBase);
-}
+    public static Interpreter getSynchronousInterpreter() {
+        return SynchronousInterpreter.getInstance();
+    }
 
-public static Interpreter newAsynchronousInterpreter()
-{
-    return AsynchronousInterpreter.newInstance();
-}
+    public static Interpreter getSynchronousInterpreter(String docBase) {
+        return SynchronousInterpreter.getInstance(docBase);
+    }
 
-public static Interpreter getAsynchronousInterpreter()
-{
-    return AsynchronousInterpreter.getInstance();
-}
+    public static Interpreter newAsynchronousInterpreter() {
+        return AsynchronousInterpreter.newInstance();
+    }
 
-}
+    public static Interpreter newAsynchronousInterpreter(String docBase) {
+        return AsynchronousInterpreter.newInstance(docBase);
+    }
+
+    public static Interpreter getAsynchronousInterpreter() {
+        return AsynchronousInterpreter.getInstance();
+    }
+
+    public static Interpreter getAsynchronousInterpreter(String docBase) {
+        return AsynchronousInterpreter.getInstance(docBase);
+    }
+}//end class.
