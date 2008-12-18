@@ -159,17 +159,17 @@ class SynchronousInterpreter implements Interpreter
         this(null);
     }
 
-    public static SynchronousInterpreter newInstance()
+    static SynchronousInterpreter newInstance()
     {
         return new SynchronousInterpreter();
     }
 
-    public static SynchronousInterpreter newInstance(String docBase)
+    static SynchronousInterpreter newInstance(String docBase)
     {
         return new SynchronousInterpreter(docBase);
     }
 
-    public static SynchronousInterpreter getInstance()
+    static SynchronousInterpreter getInstance()
     {
         if (singletonInstance == null)
         {
@@ -178,7 +178,7 @@ class SynchronousInterpreter implements Interpreter
         return singletonInstance;
     }
 
-    public static SynchronousInterpreter getInstance(String docBase)
+    static SynchronousInterpreter getInstance(String docBase)
     {
         if (singletonInstance == null)
         {

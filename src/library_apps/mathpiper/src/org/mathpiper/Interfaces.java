@@ -36,19 +36,40 @@ public class Interfaces
         return Interpreters.newSynchronousInterpreter();
     }
 
+    public static Interpreter newSynchronousInterpreter(String docBase)
+    {
+        return Interpreters.newSynchronousInterpreter(docBase);
+    }
+
     public static Interpreter getSynchronousInterpreter()
     {
         return Interpreters.getSynchronousInterpreter();
     }
+
+     public static Interpreter getSynchronousInterpreter(String docBase)
+    {
+        return Interpreters.getSynchronousInterpreter(docBase);
+    }
+
 
     public static Interpreter newAsynchronousInterpreter()
     {
         return Interpreters.newAsynchronousInterpreter();
     }
 
-    public static Interpreter getAsynchronousInterpreter()
+     public static Interpreter newAsynchronousInterpreter(String docBase)
+    {
+        return Interpreters.newAsynchronousInterpreter(docBase);
+    }
+
+     public static Interpreter getAsynchronousInterpreter()
     {
         return Interpreters.getAsynchronousInterpreter();
+    }
+
+     public static Interpreter getAsynchronousInterpreter(String docBase)
+    {
+        return Interpreters.getAsynchronousInterpreter(docBase);
     }
     
     

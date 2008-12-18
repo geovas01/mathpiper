@@ -16,9 +16,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.calculator;
 
-import java.beans.PropertyVetoException;
+import org.mathpiper.Interfaces;
 import org.mathpiper.interpreters.Interpreter;
-import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 
 /**
@@ -37,7 +36,7 @@ public class CalculatorPanel extends javax.swing.JPanel
         initComponents();
 	setBackground(new java.awt.Color(255,255,255));
 
-        mathpiper = Interpreters.getSynchronousInterpreter();
+        mathpiper = Interfaces.getSynchronousInterpreter();
         
        /*
          try
@@ -55,7 +54,7 @@ public class CalculatorPanel extends javax.swing.JPanel
         this.initComponents();
 	setBackground(new java.awt.Color(255,255,255));
 
-        mathpiper = Interpreters.getSynchronousInterpreter(docBase);
+        mathpiper = Interfaces.getSynchronousInterpreter(docBase);
 
     }//end constructor.
 
