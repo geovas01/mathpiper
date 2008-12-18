@@ -45,13 +45,13 @@ class AsynchronousInterpreter implements Interpreter
         removeListeners = new ArrayList<ResponseListener>();
     }//end constructor.
 
-    public static AsynchronousInterpreter newInstance()
+    static AsynchronousInterpreter newInstance()
     {
         SynchronousInterpreter interpreter = SynchronousInterpreter.newInstance();
         return new AsynchronousInterpreter(interpreter);
     }
 
-    public static AsynchronousInterpreter getInstance()
+    static AsynchronousInterpreter getInstance()
     {
         if (singletonInstance == null)
         {
@@ -61,13 +61,13 @@ class AsynchronousInterpreter implements Interpreter
         return singletonInstance;
     }
 
-        public static AsynchronousInterpreter newInstance(String docBase)
+        static AsynchronousInterpreter newInstance(String docBase)
     {
         SynchronousInterpreter interpreter = SynchronousInterpreter.newInstance(docBase);
         return new AsynchronousInterpreter(interpreter);
     }
 
-    public static AsynchronousInterpreter getInstance(String docBase)
+    static AsynchronousInterpreter getInstance(String docBase)
     {
         if (singletonInstance == null)
         {
