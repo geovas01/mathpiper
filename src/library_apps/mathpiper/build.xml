@@ -70,7 +70,7 @@
 		
 		<jar jarfile="${build.dir}/dist/mathpiper.jar"
 			basedir="${build.classes.dir}" update="true"
-			manifest="${mathpiper.dir}/MANIFEST.MF">
+			manifest="${mathpiper.dir}/resources/MANIFEST.MF">
 			<!--<manifest> 
 				<section name="mathpiper" >
 					<attribute name="Build-Date" value="${build.time}"/>
