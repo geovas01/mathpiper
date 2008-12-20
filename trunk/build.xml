@@ -389,7 +389,7 @@
 
 	
 	
-	<target id="mathpiper_tests" name="mathpiper_tests" >
+	<!--<target id="mathpiper_tests" name="mathpiper_tests" >
 		<ant dir="${library_apps.src.dir}/mathpiper/tests" target="compile" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${library_apps.build.dir}/mathpiper/tests"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -400,7 +400,7 @@
 		</ant>
 		
 		
-	</target>
+	</target>-->
 	
 
 	<target id="noop" name="noop" description="Do nothing." >

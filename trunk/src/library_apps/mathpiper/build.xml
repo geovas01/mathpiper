@@ -51,6 +51,14 @@
 			</fileset>
 		</copy>
 		
+		<mkdir dir="${build.classes.dir}/tests" />
+		<mkdir dir="${build.classes.dir}/tests/scripts" />
+		<copy todir="${build.classes.dir}/tests/scripts">
+			<fileset dir="${mathpiper.dir}/tests/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
 		<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/calculator/resources" />
 		<copy todir="${build.classes.dir}/org/mathpiper/ui/gui/calculator/resources">
 			<fileset dir="${mathpiper.dir}/src/org/mathpiper/ui/gui/calculator/resources" >
