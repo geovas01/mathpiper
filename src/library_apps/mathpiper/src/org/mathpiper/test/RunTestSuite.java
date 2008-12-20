@@ -86,7 +86,7 @@ public class RunTestSuite {
                 System.out.println("\nProblem finding test scripts.\n");
             }
 
-            String output = "\n\n***** Tests complete ******\n";
+            String output = "\n\n***** Tests complete *****\n\n";
             System.out.print(output);
             logFile.write(output);
             logFile.close();
