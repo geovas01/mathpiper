@@ -1,0 +1,510 @@
+
+***** Sat Dec 20 15:53:21 EST 2008 *****
+***** Using a new interpreter instance for each test file. *****
+***** MathPiper version: .61 *****
+
+===========================
+arithmetic.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+binaryfactors.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+calculus.mpt: 
+
+Result: True
+
+Side Effects:
+Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=Exp(-phi)
+Exception:
+===========================
+canprove.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+comments.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+complex.mpt: 
+
+Result: True
+
+Side Effects:
+Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=0
+Exception:
+===========================
+c_tex_form.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+cyclotomic.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+deriv.mpt: 
+
+Result: TestYacas((-Sinh(x))/Cosh(x)^2,-Tanh(x)/Cosh(x))
+
+Side Effects:
+
+Exception:
+===========================
+dimensions.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+dot.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+GaussianIntegers.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+includetestfiles: is not a MathPiper test file.
+
+===========================
+integrate.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+io.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+journal.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+linalg.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+lists.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+logic_simplify_test.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+macro.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+mathpiper_tests.log: is not a MathPiper test file.
+
+===========================
+matrixpower.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+multivar.mpt: 
+
+Result: TestYacas(x^5+5*x^4*y+10*x^3*y^2+10*x^2*y^3+5*x*y^4+y^5,y^5+5*x*y^4+10*x^2*y^3+10*x^3*y^2+5*x^4*y+x^5)
+
+Side Effects:
+
+Exception:
+===========================
+nthroot.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+numbers.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+numerics.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts/numerics.mpt: 21 
+
+RoundTo(N(Sinh(2),10)-3.6268604078,10)
+ evaluates to 
+-1e-10
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 25 
+
+RoundTo(N(ArcTan(2*I),12)-N(Complex(1.57079632679,0.54930614433),12),11)
+ evaluates to 
+1e-11
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 28 
+
+RoundTo(N(ArcCosh(-2),8)-Complex(-1.3169579,3.14159265),8)
+ evaluates to 
+-1e-8
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 29 
+
+RoundTo(N(ArcTanh(2),9)-Complex(0.549306144,1.570796327),9)
+ evaluates to 
+1e-9
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 99 
+
+RoundTo(RoundTo([Local(x);x:=Newton(x*Exp(x)-4,x,1,10^(-49));N(x*Exp(x));],49)-4.,49)
+ evaluates to 
+1e-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 219 
+
+RoundTo(RoundTo(N(Zeta(40)),19)-1.0000000000009094948,19)
+ evaluates to 
+-0.2308785779493382222
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 303 
+
+RoundTo(N(Erf(50*I+20)/10^910,22),19)
+ evaluates to 
+Complex(1.093171190029095854,0.0047546330693181896)
+ which differs from 
+Complex(1.0931711900290958541,0.0047546330693181896)
+******************
+Exception:
+===========================
+nummethods.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts/nummethods.mpt: 11 
+
+RoundTo(RoundTo(SumTaylorNum(1,{{k},1/k!},{{k},1/k},21),21)-2.718281828459045235359,21)
+ evaluates to 
+2e-21
+ which differs from 
+0
+******************
+******************
+tests/scripts/nummethods.mpt: 12 
+
+RoundTo(RoundTo(SumTaylorNum(1,{{k},1/k!},21),21)-2.718281828459045235359,21)
+ evaluates to 
+2e-21
+ which differs from 
+0
+******************
+Exception:
+===========================
+ode.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+openmath.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+orthopoly.mpt: 
+
+Result: TestYacas(3891107589471727673898835091294644097395/16032477875245178148605931130545427636128,3891107589471727673898835091294644097395/16032477875245178148605931130545427636128)
+
+Side Effects:
+
+Exception:
+===========================
+outer.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+piper_test.bat: is not a MathPiper test file.
+
+===========================
+plots.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts/plots.mpt: 6 
+
+ToString()Write(Plot2D(a,-1:1,output=data,points=4,depth=0))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+tests/scripts/plots.mpt: 7 
+
+ToString()Write(Plot2D(b,b= -1:1,output=data,points=4))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+tests/scripts/plots.mpt: 14 
+
+ToString()Write(Plot3DS(a,-1:1,-1:1,output=data,points=2))
+ evaluates to 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+******************
+tests/scripts/plots.mpt: 14 
+
+ToString()Write(Plot3DS(x1,x1= -1:1,x2= -1:1,output=data,points=2))
+ evaluates to 
+"{{{-1,-1,0.10114177619107067585},{-1,0,0.10114177619107067585},{-1,1,0.10114177619107067585},{0,-1,0.10114177619107067585},{0,0,0.10114177619107067585},{0,1,0.10114177619107067585},{1,-1,0.10114177619107067585},{1,0,0.10114177619107067585},{1,1,0.10114177619107067585}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+Exception:
+===========================
+poly.mpt: 
+
+Result: TestYacas(x^2+2*x+1,2*x+x^2+1)
+
+Side Effects:
+
+Exception:
+===========================
+predicates.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts/predicates.mpt: 121 
+
+HasFuncArith(a*b+f({b,c}),List)
+ evaluates to 
+True
+ which differs from 
+False
+******************
+Exception:
+===========================
+programming.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+radsimp.mpt: 
+
+Result: TestYacas(Sqrt(2)+Sqrt(3),Sqrt(2)+Sqrt(3))
+
+Side Effects:
+
+Exception:
+===========================
+regress.mpt: 
+
+Result: True
+
+Side Effects:
+Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
+Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
+Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
+Known failure: (D(z)Conjugate(z))=Undefined 
+Known failure: ArcCos(Cos(beta))!=beta 
+Known failure: (Limit(n,Infinity)n^5/2^n)=0 
+Known failure: RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0
+Exception:
+===========================
+scopestack.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+simplify.mpt: 
+
+Result: TestYacas((n+1)/2-(n+1-k)+(n+1-k)/2-k/2,0)
+
+Side Effects:
+
+Exception:
+===========================
+solve.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+sturm.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts/sturm.mpt: 59 
+
+VerifyZero(p.p)
+ evaluates to 
+False
+ which differs from 
+True
+******************
+Exception:
+===========================
+sums.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+tensors.mpt: 
+
+Result: TestYacas(Ndim^2+Ndim+Ndim^3+Ndim+Ndim^2+Ndim^2,3*Ndim^2+2*Ndim+Ndim^3)
+
+Side Effects:
+
+Exception:
+===========================
+test-yacas-c-version: is not a MathPiper test file.
+
+===========================
+trace.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+transforms.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+tr.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+: is not a MathPiper test file.
+
+
+***** Tests complete ******
