@@ -6,7 +6,7 @@
 package org.mathpiper.ui.gui.calculator;
 
 import javax.swing.JApplet;
-import org.mathpiper.Interfaces;
+import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 
@@ -25,7 +25,7 @@ private Interpreter mathPiper;
 
 
 
-     mathPiper = Interfaces.newSynchronousInterpreter(docBase);
+     mathPiper = Interpreters.newSynchronousInterpreter(docBase);
 
 
    }

@@ -16,7 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
-import org.mathpiper.Interfaces;
+import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.ResponseListener;
@@ -32,7 +32,7 @@ public class InterpreterTest implements ResponseListener
         Interpreter interpreter;
         EvaluationResponse response;
        
-        interpreter = Interfaces.getSynchronousInterpreter();
+        interpreter = Interpreters.getSynchronousInterpreter();
         response = interpreter.evaluate("2+2;");
         System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
         
