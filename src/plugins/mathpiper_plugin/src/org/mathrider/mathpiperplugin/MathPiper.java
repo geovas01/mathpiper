@@ -31,7 +31,6 @@ import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 import org.mathrider.mathpiperplugin.MathPiperInterpreter;
 
-import org.mathpiper.Interfaces;
 // }}}
 
 // {{{ MathPiper class
@@ -104,7 +103,7 @@ public class MathPiper extends JPanel
 		buttonPanel.setBackground(new java.awt.Color(255,255,255));
 		buttonPanel.add(stopCurrentExecutionButton);
 		add(BorderLayout.NORTH, buttonPanel);
-		add(BorderLayout.CENTER, Interfaces.newCalculatorPanel());
+		add(BorderLayout.CENTER, new org.mathpiper.ui.gui.calculator.CalculatorPanel() );
 		
 		
 
