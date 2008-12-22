@@ -32,7 +32,7 @@ public class MathPiperShell extends Shell
 	{
 		super("MathPiper");
 		//interpreter = MathPiperInterpreter.getInstance(); 
-		interpreter = org.mathpiper.Interfaces.getSynchronousInterpreter();
+		interpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 		
 		
 		//Console console = (Console) jEdit.getPlugin("org.sageide.SAGEIDEPlugin").getPluginJAR().getClassLoader().loadClass("console.Console",1);

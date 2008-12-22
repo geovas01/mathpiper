@@ -325,8 +325,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		{
 
 				//system = MathPiperInterpreter.getInstance();
-				asynchronousInterpreter = org.mathpiper.Interfaces.getAsynchronousInterpreter();
-				synchronousInterpreter = org.mathpiper.Interfaces.getSynchronousInterpreter();
+				asynchronousInterpreter = org.mathpiper.interpreters.Interpreters.getAsynchronousInterpreter();
+				synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			
 				//org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
 				org.mathpiper.interpreters.ResponseListener responseListener = new org.mathpiper.interpreters.ResponseListener(){
