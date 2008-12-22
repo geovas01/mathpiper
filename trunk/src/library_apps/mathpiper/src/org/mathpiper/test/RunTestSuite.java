@@ -18,7 +18,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
-import org.mathpiper.Interfaces;
+import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import java.io.InputStream;
@@ -49,7 +49,7 @@ public class RunTestSuite {
             {
                 String output;
 
-                mathPiper = Interfaces.newSynchronousInterpreter();
+                mathPiper = Interpreters.newSynchronousInterpreter();
                 output = "\n***** Beginning of tests. *****\n";
                 output = "\n***** " + new java.util.Date() + " *****\n";
                 output += "***** Using a new interpreter instance for each test file. *****\n";

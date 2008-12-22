@@ -1,5 +1,5 @@
 
-***** Sat Dec 20 15:53:21 EST 2008 *****
+***** Mon Dec 22 01:37:53 EST 2008 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .61 *****
 
@@ -507,4 +507,5 @@ Exception:
 : is not a MathPiper test file.
 
 
-***** Tests complete ******
+***** Tests complete *****
+
