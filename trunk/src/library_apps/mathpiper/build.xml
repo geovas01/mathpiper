@@ -91,6 +91,31 @@
 			<exclude name="**/*.bat,**/*.sh" />
 		</jar> 
 	</target>
+	
+	
+	
+	
+	<target id="geogebra_dist" name="geogebra_dist" depends="init" >
+	
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${mathpiper.dir}/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
+
+		
+
+		<mkdir dir="${build.dir}/geogebra_dist" />
+		
+		<copy todir="${build.classes.dir}/tests/scripts">
+			<fileset dir="${mathpiper.dir}/" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+	</target>
+
 
 </project>
 
