@@ -1166,7 +1166,8 @@ home()
 //{{{source()
 source()
 {
-	interpreter = mathPiperInterpreter; //Note:tk:mathPiperInterpreter.getInstance(); 
+	//interpreter = mathPiperInterpreter; //Note:tk:mathPiperInterpreter.getInstance(); 
+	interpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 	//item = list.getSelectedValue();
 	
 	item = functionInfo.toString();
@@ -1201,10 +1202,10 @@ import java.io.*;
  
  location = location.replaceAll("\"","");
  entryURL = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource(location);
-
+ //System.out.println("YYYYYYLocation: " + location);
  //entry = scriptZip.getEntry(location);//location.trim());//"assoc.rep/code.pi"); 
  
- if(entryURL != null)
+ if(entryURL != null && ! location.equalsIgnoreCase(""))
  {
  //System.out.println("YYYYYY " + entryURL);
  
@@ -1213,7 +1214,7 @@ import java.io.*;
  //
         //entry = entry.toString().replaceAll("/","-");
 		location = location.replaceAll("/","-");
-		//System.out.println("YYYYYY2 " + location);
+		
          // Create temp file.
         File tempFile = File.createTempFile(location, ".mpi");
 		//System.out.println("YYYYYY3 " + tempFile);
