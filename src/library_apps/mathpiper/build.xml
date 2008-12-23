@@ -97,22 +97,57 @@
 	
 	<target id="geogebra_dist" name="geogebra_dist" depends="init" >
 	
-		<copy todir="${build.classes.dir}">
+		<!--<copy todir="${build.classes.dir}">
 			<fileset dir="${mathpiper.dir}/scripts" >
 				<include name="**/*" />
 			</fileset>
-		</copy>
+		</copy>-->
 		
 
 		
 
 		<mkdir dir="${build.dir}/geogebra_dist" />
 		
-		<copy todir="${build.classes.dir}/tests/scripts">
-			<fileset dir="${mathpiper.dir}/" >
+		<copy todir="${build.dir}/geogebra_dist">
+			<fileset dir="${mathpiper.dir}/src/" >
+				<include name="org/mathpiper/Version.java" />
+				<include name="org/mathpiper/builtin/" />
+				<include name="org/mathpiper/exceptions/" />
+				<include name="org/mathpiper/interpreters/" />
+				<include name="org/mathpiper/io/" />
+				<include name="org/mathpiper/lisp/" />
+				<include name="org/mathpiper/parametermatchers/" />
+				<include name="org/mathpiper/printers/" />
+				<!--<include name="org/mathpiper/ui/text/consoles/" />-->
+			</fileset>
+		</copy>
+		
+		
+		<mkdir dir="${build.dir}/geogebra_dist/classes" />
+		
+		<copy todir="${build.dir}/geogebra_dist/classes">
+			<fileset dir="${mathpiper.dir}/scripts" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
+		
+		<javac 
+			source="${compile.source}"
+			target="${compile.target}" 
+			srcdir="${build.dir}/geogebra_dist"
+			destdir="${build.dir}/geogebra_dist/classes"
+			debug="off"
+			deprecation="on"
+			optimize="off">
+			<classpath refid="build_classpath" />
+			<include name="**/*.java" />
+		</javac>
+		
+		<jar jarfile="${build.dir}/geogebra_dist/mathpiper.jar"
+			basedir="${build.dir}/geogebra_dist/classes" update="true" >
+			<include name="**/*" />
+
+		</jar> 
 
 	</target>
 
