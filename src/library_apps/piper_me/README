@@ -1,0 +1,14 @@
+1. Compile via ant:
+
+>ant
+
+2. Perform tests:
+
+>test.sh
+
+3. Call Piper:
+
+>piper.sh
+
+
+
