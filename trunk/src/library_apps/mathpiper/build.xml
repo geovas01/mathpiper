@@ -96,6 +96,8 @@
 	
 	
 	<target id="geogebra_dist" name="geogebra_dist" depends="init" >
+		
+		<delete dir="${build.dir}/geogebra_dist" />
 	
 		<!--<copy todir="${build.classes.dir}">
 			<fileset dir="${mathpiper.dir}/scripts" >
@@ -118,18 +120,39 @@
 				<include name="org/mathpiper/lisp/" />
 				<include name="org/mathpiper/parametermatchers/" />
 				<include name="org/mathpiper/printers/" />
-				<!--<include name="org/mathpiper/ui/text/consoles/" />-->
+				<include name="org/mathpiper/ui/text/consoles/" />
 			</fileset>
 		</copy>
 		
 		
 		<mkdir dir="${build.dir}/geogebra_dist/classes" />
 		
-		<copy todir="${build.dir}/geogebra_dist/classes">
+		
+		
+		<!--<copy todir="${build.dir}/geogebra_dist/classes">
 			<fileset dir="${mathpiper.dir}/scripts" >
 				<include name="**/*" />
 			</fileset>
+		</copy>-->
+		
+		<copy todir="${build.dir}/geogebra_dist/classes">
+			<fileset dir="${mathpiper.dir}/scripts" includes="**/*" />
+
+			<filterchain>
+			<filterreader classname="org.apache.tools.ant.filters.StripJavaComments">
+			<!--<param name="foo" value="bar"/>-->
+			</filterreader>
+			<!--<scriptfilter language="beanshell">
+			if (self.getToken().indexOf("bad") != -1) {
+				self.setToken(null);
+				}
+			</scriptfilter>-->
+			</filterchain>
 		</copy>
+
+		
+		
+		
 		
 		<javac 
 			source="${compile.source}"
