@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++ There is a bug in the FindFunction() function which will not check function names in a case-sensitive way.  For example, in this .def file, TexForm() was "hiding" TeXForm().  I moved TeXForm() higher up in the .def file as a temporary workaround for this bug.
 + The Version() function is not listed in the documentation.
 +PrettyPrinter'Get and PrettyPrinter'Set are not in MathPiperDocs.
 -grant {
