@@ -1,4 +1,4 @@
-/*  v 1.06.
+/*  v 1.07.
     This is a MathRider worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
