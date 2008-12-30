@@ -3,6 +3,13 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
++ MathPiper has if/else structure!: if( IsZero(Re(x)) )[
+                        ( Abs(Im(x)) % 4 = 3 And IsPrime(Abs(Im(x))) );
+                ] else if ( IsZero(Im(x)) ) [
+                        ( Abs(Re(x)) % 4 = 3 And IsPrime(Abs(Re(x))) );
+                ] else [
+                        IsPrime(Re(x)^2 + Im(x)^2);
+                ];
 + There is a bug in the FindFunction() function which will not check function names in a case-sensitive way.  For example, in this .def file, TexForm() was "hiding" TeXForm().  I moved TeXForm() higher up in the .def file as a temporary workaround for this bug.
 + The Version() function is not listed in the documentation.
 +PrettyPrinter'Get and PrettyPrinter'Set are not in MathPiperDocs.
