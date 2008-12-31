@@ -112,7 +112,7 @@ public class EnvironmentViewer
      * Returns a GUI table which contains a sorted list of the user functions.
      * 
      * @param aEnvironment the environment to view
-     * @return
+     * @return a JTable which contains the user function names
      */
     public JTable getUserFunctionsTable(Environment aEnvironment)
     {
@@ -179,7 +179,7 @@ public class EnvironmentViewer
      * Returns a GUI table which contains a sorted list of the builtin functions.
      * 
      * @param aEnvironment the environment to view
-     * @return
+     * @return a JTable which contains the built in function names
      */
     public JTable getBuiltinFunctionsTable(Environment aEnvironment)
     {
@@ -246,7 +246,7 @@ public class EnvironmentViewer
      * Returns a GUI table which contains a sorted list of the global variables.
      * 
      * @param aEnvironment the environment to view
-     * @return
+     * @return a JTable which contains the global variable names
      */
     public JTable getGlobalStateTable(Environment aEnvironment)
     {
@@ -313,7 +313,7 @@ public class EnvironmentViewer
      * Returns a GUI table which contains a sorted list of the tokens.
      * 
      * @param aEnvironment the environment to view
-     * @return
+     * @return a JTable which contains the token names
      */
     public JTable getTokenTable(Environment aEnvironment)
     {

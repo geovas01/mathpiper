@@ -6,7 +6,8 @@
 package org.mathpiper.interpreters;
 
 /**
- *
+ * This class is used by an {@link Interpreter} to send the results of an evaluation to
+ * client code.
  */
 public class EvaluationResponse {
     private String result = "";
@@ -20,7 +21,12 @@ public class EvaluationResponse {
     private EvaluationResponse()
     {
     }
-    
+
+    /**
+     * A static factory method which is used to crerate new EvaluationResponse objects.
+     *
+     * @return a new EvaluationResponse
+     */
     public static EvaluationResponse newInstance()
     {
         return new EvaluationResponse();

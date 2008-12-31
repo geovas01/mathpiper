@@ -19,8 +19,29 @@
 
 package org.mathpiper.interpreters;
 
+/**
+ * This interface must be implemented by all client code that uses the
+ * asynchronous {@link Interpreter}.
+ */
 public interface ResponseListener
 {
-    void response(EvaluationResponse response);
-    boolean remove();
+    /**
+     * Called by the asynchronous interperter to provide ResponseListeners with
+     * an {@link EvaluationResponse} object which contains the results of the latest
+     * evaluation.
+     *
+     * @param response
+     */
+    public void response(EvaluationResponse response);
+
+    
+    /**
+     * Tells the asynchronous interpreter whether this ResponseListener would like to
+     * be automatically removed from its listener list after the current evaluation
+     * is complete.
+     *
+     * @return {@code true} if automatic removal is desired and {@code false} otherwise
+     */
+    public boolean remove();
+
 }// end interface.

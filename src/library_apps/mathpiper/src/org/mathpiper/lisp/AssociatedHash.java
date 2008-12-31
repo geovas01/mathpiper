@@ -39,7 +39,8 @@ public class AssociatedHash
      * returns #NULL.
      * 
      * @param aString
-     * @return
+     * @return the object which is associated with the key or null if there is
+     * no object associated with the key.
      */
     public Object lookUp(String aString)
     {
