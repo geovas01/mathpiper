@@ -18,21 +18,59 @@ package org.mathpiper.interpreters;
 
 import org.mathpiper.lisp.Environment;
 
+/**
+ * Interpreter is implemented by all MathPiper interpreters and it allows client code to evaluate
+ * MathPiper scripts and to also control the evaluation process.
+ */
 public interface Interpreter
 {
 
-    EvaluationResponse evaluate(String expression);
+    /**
+     * Evaluates a MathPiper expression.  The results of the evaluation are returned
+     * in a {@link EvaluationResponse} object.
+     *
+     * @param expression the MathPiper expression to be evaluated
+     * @return an EvaluationResponse object
+     */
+    public EvaluationResponse evaluate(String expression);
 
-    void haltEvaluation();
+    /**
+     * Halts the current evaluation.
+     */
+    public void haltEvaluation();
 
     //java.util.zip.ZipFile getScriptsZip();
 
-    void addScriptsDirectory(String directory);
+    /**
+     * Adds a path to the paths which are searched when locating MathPiper scripts.
+     *
+     * @param directoryPath the path to a directory which contains MathPiper scripts
+     */
+    public void addScriptsDirectory(String directoryPath);
    
-     void addResponseListener(ResponseListener listener);
+    /**
+     * Allows asynchrnous interpreter clients to add themselves to the list of listeners which
+     * get notified when the response from an asynchronous evaluation is ready.  These
+     * clients must all implement the {@link ResponseListener} interface.
+     *
+     * @param responseListener a response listener
+     */
+    public void addResponseListener(ResponseListener responseListener);
 
-     void removeResponseListener(ResponseListener listener);
+     /**
+     * Allows asynchrnous interpreter clients to remove themselves from the list of listeners which
+     * get notified when the response from an asynchronous evaluation is ready.
+     * 
+     * @param responseListener a response listener
+     */
+    public void removeResponseListener(ResponseListener listener);
      
-     Environment getEnvironment();
+    /**
+     * Returns the interpreter's execution {@link Environment}.  Warning: the Environment class
+     * is currently not well protected and it will change in the future.
+     * 
+     * @return the Environment.
+     */
+    public Environment getEnvironment();
 
 }

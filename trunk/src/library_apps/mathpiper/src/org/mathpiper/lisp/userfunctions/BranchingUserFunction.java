@@ -248,7 +248,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
      * Return true if the arity of the function equals \a aArity.
      * 
      * @param aArity
-     * @return
+     * @return true of the arities match.
      */
     public boolean isArity(int aArity)
     {
@@ -256,8 +256,9 @@ public class BranchingUserFunction extends SingleArityUserFunction
     }
 
     /**
-     * Return the arity (number of arguments) of the function
-     * @return
+     * Return the arity (number of arguments) of the function.
+     *
+     * @return the arity of the function
      */
     public int arity()
     {
@@ -390,7 +391,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
     /**
      * Return the argument list, stored in #iParamList.
      * 
-     * @return
+     * @return a ConsPointer
      */
     public ConsPointer argList()
     {
