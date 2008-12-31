@@ -127,44 +127,12 @@ public class Console
         int scriptsToRun = i;
 
 
-
-
-
         //Change the default directory. tk.
         if (defaultDirectory != null)
         {
             console.addDirectory(defaultDirectory );
         }
         
-
-        
-/*
-
-            if (scriptsToRun == argv.length)
-            {
-                System.out.println("Out> " + result);
-            }
-        
-            
-        if (scriptsToRun < argv.length)
-        {
-
-            try
-            {
-                for (; scriptsToRun < argv.length; scriptsToRun++)
-                {
-                    interpreter.evaluate("Load(\"" + argv[scriptsToRun] + "\");");
-                }
-            } catch (EvaluationException pe)
-            {
-                pe.printStackTrace();
-            }
-
-            return;
-        }//end if.
-
-*/
-
 
         System.out.println("\nMathPiper version '" + Version.version + "'.");
 

@@ -808,22 +808,23 @@ public abstract class BuiltinFunctionInitialize
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new FileSize(), 1, Evaluator.Fixed | Evaluator.Function),
                 "FileSize");
+	
         //Note:tk:The functions below this point need to have documentation created for them.
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new Evaluator(new org.mathpiper.builtin.functions.ViewEnvironment(), 0, Evaluator.Fixed | Evaluator.Function),
-                "ViewEnvironment");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.TraceOn(), 0, Evaluator.Fixed | Evaluator.Function),
                 "TraceOn");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.TraceOff(), 0, Evaluator.Fixed | Evaluator.Function),
                 "TraceOff");
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        /*aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.ViewEnvironment(), 0, Evaluator.Fixed | Evaluator.Function),
+                "ViewEnvironment");
+	aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.ViewSimulator(), 0, Evaluator.Fixed | Evaluator.Function),
                 "ViewSimulator");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.PlotPoint(), 2, Evaluator.Fixed | Evaluator.Function),
-                "PlotPoint");
+                "PlotPoint");*/
     }
 
 
