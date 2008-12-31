@@ -113,6 +113,7 @@
 		<copy todir="${build.dir}/geogebra_dist">
 			<fileset dir="${mathpiper.dir}/src/" >
 				<include name="org/mathpiper/Version.java" />
+				<include name="org/mathpiper/HowToUse.java" />
 				<include name="org/mathpiper/builtin/" />
 				<include name="org/mathpiper/exceptions/" />
 				<include name="org/mathpiper/interpreters/" />
@@ -121,23 +122,17 @@
 				<include name="org/mathpiper/parametermatchers/" />
 				<include name="org/mathpiper/printers/" />
 				<include name="org/mathpiper/ui/text/consoles/" />
+				<exclude name="org/mathpiper/builtin/functions/ViewEnvironment.java" />
+				<exclude name="org/mathpiper/builtin/functions/PlotPoint.java" />
+				<exclude name="org/mathpiper/builtin/functions/ViewSimulator.java" />
 			</fileset>
 		</copy>
 		
 		
-		<mkdir dir="${build.dir}/geogebra_dist/classes" />
+		<mkdir dir="${build.dir}/geogebra_dist/scripts" />
 		
-		
-		
-		<!--<copy todir="${build.dir}/geogebra_dist/classes">
-			<fileset dir="${mathpiper.dir}/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>-->
-		
-		<copy todir="${build.dir}/geogebra_dist/classes">
+		<copy todir="${build.dir}/geogebra_dist/scripts">
 			<fileset dir="${mathpiper.dir}/scripts" includes="**/*" />
-
 			<filterchain>
 			<filterreader classname="org.apache.tools.ant.filters.StripJavaComments">
 			<!--<param name="foo" value="bar"/>-->
@@ -149,9 +144,15 @@
 			</scriptfilter>-->
 			</filterchain>
 		</copy>
-
 		
 		
+		<mkdir dir="${build.dir}/geogebra_dist/classes" />
+		
+		<copy todir="${build.dir}/geogebra_dist/classes">
+			<fileset dir="${build.dir}/geogebra_dist/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
 		
 		
 		<javac 
@@ -162,7 +163,7 @@
 			debug="off"
 			deprecation="on"
 			optimize="off">
-			<classpath refid="build_classpath" />
+			<!--<classpath refid="build_classpath" />-->
 			<include name="**/*.java" />
 		</javac>
 		

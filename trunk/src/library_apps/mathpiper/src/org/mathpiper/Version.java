@@ -21,58 +21,6 @@ package org.mathpiper;
 public class Version
 {
 
-   public  static final String version = ".62";
+   public  static final String version = ".63";
     
-/*
-    static
-    {
-
-        java.util.zip.ZipFile piperZip = null;
-        String propertyFileName = "";
-        try
-        {
-            java.net.URL propertiesURL = java.lang.ClassLoader.getSystemResource("mathpiper.properties");
-            
-             java.io.InputStream s;
-
-            if (propertiesURL != null)
-            {
-                String propertiesPath = propertiesURL.getPath();
-                if(propertiesPath.indexOf('!') != -1)
-                {
-                    propertyFileName = propertiesPath.substring(0, propertiesPath.lastIndexOf('!'));
-                    piperZip = new java.util.zip.ZipFile(new java.io.File(new java.net.URI(propertyFileName)));
-
-                     java.util.zip.ZipEntry e = piperZip.getEntry("mathpiper.properties");
-
-                    s = piperZip.getInputStream(e);
-                }
-                else
-                {
-                    s = propertiesURL.openStream();
-                }
-
-
-                java.util.Properties properties = new java.util.Properties();
-
-
-
-                properties.load(s);
-
-                version = properties.getProperty("mathpiper.version");
-            } else
-            {
-                System.out.println("mathpiper.properties not found!!!!");
-            }
-
-
-
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }//end try/catch.
-
-
-    }//end constructor.
-  */
 }//end class.
