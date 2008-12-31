@@ -22,10 +22,10 @@ package org.mathpiper.ui.gui.calculator;
 import javax.swing.JPanel;
 
 
-public class Calculator extends javax.swing.JFrame {
+public class CalculatorFrame extends javax.swing.JFrame {
 
     /** Creates new form Calculator */
-    public Calculator() {
+    public CalculatorFrame() {
         initComponents();
         JPanel calculatorPanel = new CalculatorPanel();
         this.getContentPane().add(calculatorPanel);
@@ -54,7 +54,7 @@ public class Calculator extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Calculator().setVisible(true);
+                new CalculatorFrame().setVisible(true);
             }
         });
 

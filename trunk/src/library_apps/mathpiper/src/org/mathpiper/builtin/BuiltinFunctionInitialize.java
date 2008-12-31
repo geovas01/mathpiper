@@ -172,7 +172,6 @@ import org.mathpiper.builtin.functions.SetGlobalLazyVariable;
 import org.mathpiper.builtin.functions.SetVar;
 import org.mathpiper.builtin.functions.ShiftLeft;
 import org.mathpiper.builtin.functions.ShiftRight;
-import org.mathpiper.builtin.functions.ViewEnvironment;
 import org.mathpiper.builtin.functions.StackSize;
 import org.mathpiper.builtin.functions.StringMidGet;
 import org.mathpiper.builtin.functions.StringMidSet;
@@ -819,8 +818,12 @@ public abstract class BuiltinFunctionInitialize
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.TraceOff(), 0, Evaluator.Fixed | Evaluator.Function),
                 "TraceOff");
-
-
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.ViewSimulator(), 0, Evaluator.Fixed | Evaluator.Function),
+                "ViewSimulator");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.PlotPoint(), 2, Evaluator.Fixed | Evaluator.Function),
+                "PlotPoint");
     }
 
 
