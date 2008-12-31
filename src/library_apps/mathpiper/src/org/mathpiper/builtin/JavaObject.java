@@ -21,18 +21,29 @@ package org.mathpiper.builtin;
 import org.mathpiper.lisp.ArgList;
 
 
-/**
- * Abstract class which can be put inside a org.mathpiper.lisp.BuiltinObject.
- * 
- * 
- */
-public abstract class BuiltinContainer
+public class JavaObject extends BuiltinContainer
 {
-	public  BuiltinContainer()
+    private Object javaObject;
+    public JavaObject(Object javaObject)
+    {
+        this.javaObject = javaObject;
+    }
+
+	public String send(ArgList aArgList)
 	{
+		return null;
 	}
-	public abstract String send(ArgList aArgList);
-	public abstract String typeName();
-    public abstract Object getJavaObject();
+	public String typeName()
+	{
+		return "Not implemented yet.";
+	}
+
+    public Object getJavaObject() {
+        return javaObject;
+    }
+
+    
+
+
 }
 

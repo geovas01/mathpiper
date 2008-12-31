@@ -56,4 +56,9 @@ public class Array extends BuiltinContainer
 		iArray.setElement(aItem-1,aObject);
 	}
 
+    public Object getJavaObject()
+    {
+        return null;
+    }
+
 }
