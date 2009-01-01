@@ -3,7 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do
-+ Enable the display of exceptions in the MathRider MathPiper console and perhaps also in the MathPiper text console.
+- Enable the display of exceptions in the MathRider MathPiper console and perhaps also in the MathPiper text console.
 + MathPiper has if/else structure!: if( IsZero(Re(x)) )[
                         ( Abs(Im(x)) % 4 = 3 And IsPrime(Abs(Im(x))) );
                 ] else if ( IsZero(Im(x)) ) [

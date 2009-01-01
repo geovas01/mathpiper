@@ -52,7 +52,7 @@ public class MathPiperShell extends Shell
 			response = interpreter.evaluate("Version();");
 			output.print(null, "MathPiper version " +  response.getResult());
 			
-			if(!response.isExceptionThrown())
+			if(response.isExceptionThrown())
 			{
 				output.print(java.awt.Color.RED,response.getExceptionMessage() );
 			}
@@ -75,7 +75,7 @@ public class MathPiperShell extends Shell
 				output.print(new java.awt.Color(0,120,0),"Side Effects>\n" + response.getSideEffects());
 			}
 			
-			if(!response.isExceptionThrown())
+			if(response.isExceptionThrown())
 			{
 				output.print(java.awt.Color.RED,response.getExceptionMessage() );
 			}
