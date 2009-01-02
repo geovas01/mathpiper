@@ -45,8 +45,8 @@
 	
 	<target id="dist" name="dist" depends="compile" >
 	
-		<copy todir="${build.classes.dir}">
-			<fileset dir="${mathpiper.dir}/scripts" >
+		<copy todir="${build.classes.dir}/org/mathpiper/scripts">
+			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
@@ -130,10 +130,10 @@
 		</copy>
 		
 		
-		<mkdir dir="${build.dir}/geogebra_dist/scripts" />
 		
-		<copy todir="${build.dir}/geogebra_dist/scripts">
-			<fileset dir="${mathpiper.dir}/scripts" includes="**/*" />
+		
+		<copy todir="${build.dir}/geogebra_dist/org/mathpiper/scripts">
+			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" includes="**/*" />
 			<filterchain>
 			<filterreader classname="org.apache.tools.ant.filters.StripJavaComments">
 			<!--<param name="foo" value="bar"/>-->
