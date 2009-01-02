@@ -125,6 +125,7 @@
 				<exclude name="org/mathpiper/builtin/functions/ViewEnvironment.java" />
 				<exclude name="org/mathpiper/builtin/functions/PlotPoint.java" />
 				<exclude name="org/mathpiper/builtin/functions/ViewSimulator.java" />
+				<exclude name="org/mathpiper/interpreters/AsynchronousInterpreter.java" />
 			</fileset>
 		</copy>
 		
@@ -146,7 +147,7 @@
 		</copy>
 		
 		
-		<mkdir dir="${build.dir}/geogebra_dist/classes" />
+	<!--	<mkdir dir="${build.dir}/geogebra_dist/classes" />
 		
 		<copy todir="${build.dir}/geogebra_dist/classes">
 			<fileset dir="${build.dir}/geogebra_dist/scripts" >
@@ -156,14 +157,13 @@
 		
 		
 		<javac 
-			source="${compile.source}"
-			target="${compile.target}" 
+			source="1.4"
+			target="1.4" 
 			srcdir="${build.dir}/geogebra_dist"
 			destdir="${build.dir}/geogebra_dist/classes"
 			debug="off"
 			deprecation="on"
 			optimize="off">
-			<!--<classpath refid="build_classpath" />-->
 			<include name="**/*.java" />
 		</javac>
 		
@@ -171,7 +171,22 @@
 			basedir="${build.dir}/geogebra_dist/classes" update="true" >
 			<include name="**/*" />
 
-		</jar> 
+		</jar> -->
+
+	</target>
+	
+	<target id="geogebra_compile" name="geogebra_compile" >
+			<javac 
+			source="1.4"
+			target="1.4" 
+			srcdir="${build.dir}/geogebra_dist"
+			destdir="${build.dir}/geogebra_dist"
+			debug="off"
+			deprecation="on"
+			optimize="off">
+			<!--<classpath refid="build_classpath" />-->
+			<include name="**/*.java" />
+		</javac>
 
 	</target>
 
