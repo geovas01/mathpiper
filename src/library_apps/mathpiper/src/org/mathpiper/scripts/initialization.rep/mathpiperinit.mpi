@@ -5,14 +5,14 @@
  */
 
 /* Set up drivers, configurable in the .mpiperrc
- *   Set(MultiNomialDriver,"multivar.rep/sparsenomial.mpi");
+ *   Set(MultiNomialDriver,"org/mathpiper/scripts/multivar.rep/sparsenomial.mpi");
  *     or
- *   Set(MultiNomialDriver,"multivar.rep/partialdensenomial.mpi");
+ *   Set(MultiNomialDriver,"org/mathpiper/scripts/multivar.rep/partialdensenomial.mpi");
  */
 
 /* The truly required files (MathPiper NEEDS to load). */
 // syntax must be loaded first
-Use("initialization.rep/stdopers.mpi");
+Use("org/mathpiper/scripts/initialization.rep/stdopers.mpi");
 
 /* Set of functions to define very simple functions. There are scripts that can
    be compiled to plugins. So MathPiper either loads the plugin, or loads the 
@@ -31,18 +31,18 @@ Rule("Defun",3,0,True)
   `Rule(@fn, @nrargs, 0,True)(@bd);
 ];
 
-//TODO remove? Use("base.rep/math.mpi");
+//TODO remove? Use("org/mathpiper/scripts/base.rep/math.mpi");
 
-Use("patterns.rep/code.mpi");
+Use("org/mathpiper/scripts/patterns.rep/code.mpi");
 // at this point <-- can be used
 
-Use("deffunc.rep/code.mpi");
+Use("org/mathpiper/scripts/deffunc.rep/code.mpi");
 
 // at this point := and Function() can be used
 
-Use("constants.rep/code.mpi");
-Use("initialization.rep/standard.mpi");
-Use("initialization.rep/stdarith.mpi");
+Use("org/mathpiper/scripts/constants.rep/code.mpi");
+Use("org/mathpiper/scripts/initialization.rep/standard.mpi");
+Use("org/mathpiper/scripts/initialization.rep/stdarith.mpi");
 
 // at this point arithmetic can be used
 
@@ -62,7 +62,7 @@ Rule(LoadPackages, 1, 1, True)
 	]);
 ];
 
-Use("initialization.rep/packages.mpi");
+Use("org/mathpiper/scripts/initialization.rep/packages.mpi");
 LoadPackages(DefFileList());
 
 
