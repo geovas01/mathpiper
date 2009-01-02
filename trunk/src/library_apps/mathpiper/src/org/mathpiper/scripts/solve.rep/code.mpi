@@ -49,7 +49,7 @@ LocalSymbols(res)
 /* Tries to solve by calling PSolve */
 /* Returns Failed if this doesn't work, and the solution otherwise */
 
-/* CanBeUni is not documented, but defined in univar.rep/code.mpi */
+/* CanBeUni is not documented, but defined in org/mathpiper/scripts/univar.rep/code.mpi */
 /* It returns True iff 'expr' is a polynomial in 'var' */
 
 10 # Solve'Poly(_expr, _var)_(Not CanBeUni(var, expr)) <-- Failed;

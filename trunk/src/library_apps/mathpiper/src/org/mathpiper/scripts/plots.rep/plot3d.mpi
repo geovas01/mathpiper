@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////
 
 /// definitions of backends
-Use("plots.rep/backends_3d.mpi");
+Use("org/mathpiper/scripts/plots.rep/backends_3d.mpi");
 
 /*
 	Plot3DS is an interface for various backends (Plot3DS'...). It calls

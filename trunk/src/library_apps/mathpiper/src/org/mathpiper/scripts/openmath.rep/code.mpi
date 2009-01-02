@@ -651,7 +651,7 @@ OMDef( "List", "list1","list" );
 //     "Gamma"    ,  "nums1", "gamma"
 OMDef( "Infinity" ,  "nums1", "infinity" );
 OMDef( "Undefined",  "nums1", "NaN"      );
-// [20010916 AGP] From initialization.rep/stdopers.mpi:
+// [20010916 AGP] From org/mathpiper/scripts/initialization.rep/stdopers.mpi:
 OMDef( "And"   ,  "logic1", "and"        );
 OMDef( "=="    ,  "logic1", "equivalent" );
 OMDef( "!=="   ,  "logic1", "not",
@@ -678,13 +678,13 @@ OMDef( "^" ,  "arith1", "power"  );
 OMDef( "*" ,  "arith1", "times"  );
 
 
-Use("constants.rep/om.mpi");
-Use("stdfuncs.rep/om.mpi");
-Use("stubs.rep/om.mpi");
-Use("logic.rep/om.mpi");
-Use("complex.rep/om.mpi");
-Use("integrate.rep/om.mpi");
-Use("sums.rep/om.mpi");
-Use("limit.rep/om.mpi");
-//Use("numbers.rep/om.mpi");// Sqrt is loaded before (stubs.rep) than IntNthRoot.
-Use("functional.rep/om.mpi");
+Use("org/mathpiper/scripts/constants.rep/om.mpi");
+Use("org/mathpiper/scripts/stdfuncs.rep/om.mpi");
+Use("org/mathpiper/scripts/stubs.rep/om.mpi");
+Use("org/mathpiper/scripts/logic.rep/om.mpi");
+Use("org/mathpiper/scripts/complex.rep/om.mpi");
+Use("org/mathpiper/scripts/integrate.rep/om.mpi");
+Use("org/mathpiper/scripts/sums.rep/om.mpi");
+Use("org/mathpiper/scripts/limit.rep/om.mpi");
+//Use("org/mathpiper/scripts/numbers.rep/om.mpi");// Sqrt is loaded before (stubs.rep) than IntNthRoot.
+Use("org/mathpiper/scripts/functional.rep/om.mpi");
