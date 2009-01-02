@@ -133,7 +133,7 @@ TestYacas(Cos(Pi-22), Cos(22-Pi));
 
 // Verify that some matrix functions accept only positive
 // integer arguments. Regression test for the fact that the functions
-// in linalg.rep/ didn't check their arguments. 
+// in org/mathpiper/scripts/linalg.rep/ didn't check their arguments.
 
 // Note: Jonathan, perhaps some functions could return something
 // useful if the argument passed in is just a number? I'd imagine
