@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ yd^2 := ft^2/9;A'room := 18*ft*24*ft; causes an exception which crashes MathPiper.
 + It would be nice if MathPiper can be placed into numeric mode like NOn() and NOff().
 + Functions like ToDeg() and ToRad() are needed.
 - Enable the display of exceptions in the MathRider MathPiper console and perhaps also in the MathPiper text console.
