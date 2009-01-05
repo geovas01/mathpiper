@@ -816,7 +816,7 @@ public abstract class BuiltinFunctionInitialize
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.TraceOff(), 0, Evaluator.Fixed | Evaluator.Function),
                 "TraceOff");
-        /*aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.ViewEnvironment(), 0, Evaluator.Fixed | Evaluator.Function),
                 "ViewEnvironment");
 	aEnvironment.getBuiltinFunctions().setAssociation(
@@ -824,7 +824,7 @@ public abstract class BuiltinFunctionInitialize
                 "ViewSimulator");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.PlotPoint(), 2, Evaluator.Fixed | Evaluator.Function),
-                "PlotPoint");*/
+                "PlotPoint");
     }
 
 
