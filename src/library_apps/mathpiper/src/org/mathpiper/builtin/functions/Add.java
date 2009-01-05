@@ -53,7 +53,7 @@ public class Add extends BuiltinFunctionInitialize
             BigNumber y = UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
             int bin = aEnvironment.getPrecision();
             BigNumber z = new BigNumber(bin);
-            z.Add(x, y, aEnvironment.getPrecision());
+            z.add(x, y, aEnvironment.getPrecision());
             result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
             return;
         }

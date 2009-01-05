@@ -37,14 +37,14 @@ public class Fac extends BuiltinFunctionInitialize
         ConsPointer arg = argumentPointer(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
-        int nr = (int) arg.getCons().number(0).Long();
+        int nr = (int) arg.getCons().number(0).toLong();
         LispError.check(nr >= 0, LispError.KLispErrInvalidArg);
         BigNumber fac = new BigNumber("1", 10, 10);
         int i;
         for (i = 2; i <= nr; i++)
         {
             BigNumber m = new BigNumber("" + i, 10, 10);
-            m.Multiply(fac, m, 0);
+            m.multiply(fac, m, 0);
             fac = m;
         }
         result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(fac));

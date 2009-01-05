@@ -148,7 +148,7 @@ public class MathPiperTokenizer
 					aInput.next();
 					while (isDigit( aInput.peek())) aInput.next();
 				}
-				if (BigNumber.NumericSupportForMantissa())
+				if (BigNumber.numericSupportForMantissa())
 				{
 					if (aInput.peek() == 'e' || aInput.peek() == 'E')
 					{

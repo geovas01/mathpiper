@@ -42,10 +42,10 @@ public class FromBase extends BuiltinFunctionInitialize
         BigNumber num = oper.getCons().number(aEnvironment.getPrecision());
         LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
-        LispError.checkArgumentCore(aEnvironment, aStackTop, num.IsInt(), 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, num.isInt(), 1);
 
         // Get a short platform integer from the first argument
-        int base = (int) (num.Double());
+        int base = (int) (num.toDouble());
 
         // Get the number to convert
         ConsPointer fromNum = new ConsPointer();

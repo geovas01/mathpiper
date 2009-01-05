@@ -33,7 +33,7 @@ public class MathSign extends BuiltinFunctionInitialize
     {
         BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
-        z.SetTo(x.Sign());
+        z.setTo(x.sign());
         result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }
 }
