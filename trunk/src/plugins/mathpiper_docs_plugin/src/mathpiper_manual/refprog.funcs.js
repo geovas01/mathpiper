@@ -54,7 +54,7 @@ var funcs_refprogchapter3 = new Array(
 , "BinSplitData"
 , "BinSplitFinal"
 , "SetExactBitsN"
-, "MathGetExactBits"
+, "GetExactBitsN"
 , "InNumericMode"
 , "NonN"
 , "IntLog"

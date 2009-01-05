@@ -96,6 +96,14 @@
 	
 	
 	<target id="geogebra_dist" name="geogebra_dist" depends="init" >
+	
+	<!--  
+	cvs -z3 -d:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra co -P geogebra
+	export CVSROOT=:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra
+	cvs commit -m "The code is now compatible with Java 1.4."
+	cvs import -m "This is a stripped-down version of MathPiper.  An example of how to use MathPiper can be found in the org/mathpiper/HowToUse.java file." geogebra/org/mathpiper/scripts MATHPIPER V0_63
+	
+	-->
 		
 		<delete dir="${build.dir}/geogebra_dist" />
 	

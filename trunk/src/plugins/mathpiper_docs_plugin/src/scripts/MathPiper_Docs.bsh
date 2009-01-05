@@ -254,7 +254,7 @@ userFunctionsDescriptions = new String[][]
 {"Gcd","Greatest common divisor.","Alphabetical","Numbers (Operations)","Built In"},
 {"GcdN","","Alphabetical","Numeric","Built In"},
 {"GenericTypeName","","Alphabetical","Built In"},
-{"GetsExactBitsN","","Alphabetical","Numeric"},
+{"GetExactBitsN","","Alphabetical","Numeric"},
 {"GlobalPop","Restore variables using a global stack.","Alphabetical","Lists (Operations)"},
 {"GlobalPush","Save variables using a global stack.","Alphabetical","Lists (Operations)"},
 {"GoldenRatio","The Golden Ratio.","Alphabetical","Constants (Mathematical)"},
@@ -2065,7 +2065,7 @@ funcs_refprogchapter3 = new String[]{
 , "BinSplitData"
 , "BinSplitFinal"
 , "SetExactBitsN"
-, "MathGetExactBits"
+, "GetExactBitsN"
 , "InNumericMode"
 , "NonN"
 , "IntLog"
