@@ -113,7 +113,7 @@ public class UtilityFunctions {
             if (!aAllowFloat) {
                 return false;
             }
-            if (!BigNumber.NumericSupportForMantissa()) {
+            if (!BigNumber.numericSupportForMantissa()) {
                 return false;
             }
             index++;
@@ -356,7 +356,7 @@ public class UtilityFunctions {
             if (n2 == null) {
                 return false;
             }
-            if (n1.Equals(n2)) {
+            if (n1.equals(n2)) {
                 return true;
             }
             return false;
@@ -674,12 +674,12 @@ public class UtilityFunctions {
 
     // lookup table for transforming the number of digits
     // report the table size
-    int log2_table_range() {
+    int log2TableRange() {
         return log2_table_size;
     }
     // table look-up of small integer logarithms, for converting the number of digits to binary and back
 
-    static double log2_table_lookup(int n) throws Exception {
+    static double log2TableLookup(int n) throws Exception {
         if (n <= log2_table_size && n >= 2) {
             return log2_table[n - 1];
         } else {
@@ -687,16 +687,36 @@ public class UtilityFunctions {
         }
     }
 
-    // convert the number of digits in given base to the number of bits, and back.
-    // need to round the number of digits.
-    // to make sure that there is no hysteresis, we round upwards on digits_to_bits but round down on bits_to_digits
-    public static long digits_to_bits(long digits, int base) throws Exception {
-        return (long) Math.ceil(((double) digits) * log2_table_lookup(base));
+
+    /**
+     * Convert the number of digits in given base to the number of bits.  To make sure there is no hysteresis, the returned
+     * value is rounded up.
+     * 
+     * @param digits
+     * @param base
+     * @return the number of bits
+     * @throws java.lang.Exception
+     */
+    public static long digitsToBits(long digits, int base) throws Exception {
+        return (long) Math.ceil(((double) digits) * log2TableLookup(base));
     }
 
-    public static long bits_to_digits(long bits, int base) throws Exception {
-        return (long) Math.floor(((double) bits) / log2_table_lookup(base));
+
+    /**
+     * Convert the  number of bits in a given base to the number of digits.  To make sure there is no hysteresis, the returned
+     * value is rounded down.
+     * 
+     * @param bits
+     * @param base
+     * @return the number of digits
+     * @throws java.lang.Exception
+     */
+    public static long bitsToDigits(long bits, int base) throws Exception {
+        return (long) Math.floor(((double) bits) / log2TableLookup(base));
     }
+
+
+
     //************************* The following methods were taken from the Functions class.
 
     /**

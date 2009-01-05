@@ -39,7 +39,7 @@ public class Atom extends Parameter
 		// If it is a floating point, don't even bother comparing
 		if (aExpression.getCons() != null)
 			if (aExpression.getCons().number(0) != null)
-				if (!aExpression.getCons().number(0).IsInt())
+				if (!aExpression.getCons().number(0).isInt())
 					return false;
 
 		return (iString == aExpression.getCons().string());

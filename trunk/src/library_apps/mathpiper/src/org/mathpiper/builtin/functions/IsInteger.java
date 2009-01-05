@@ -42,7 +42,7 @@ public class IsInteger extends BuiltinFunctionInitialize
             UtilityFunctions.internalFalse(aEnvironment, result(aEnvironment, aStackTop));
         } else
         {
-            UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), num.IsInt());
+            UtilityFunctions.internalBoolean(aEnvironment, result(aEnvironment, aStackTop), num.isInt());
         }
     }
 }
