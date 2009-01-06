@@ -35,13 +35,13 @@ public class PlotPoint extends BuiltinFunctionInitialize
     {
          ConsPointer consPointer = new ConsPointer();
          aEnvironment.getVariable("Simulator", consPointer);
-         org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame) consPointer.getCons().generic().getJavaObject();
+         org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame) consPointer.getCons().getGeneric().getJavaObject();
          
-         Cons xCons = argumentPointer(aEnvironment, aStackTop, 1).getCons();
-         Cons yCons = argumentPointer(aEnvironment, aStackTop, 2).getCons();
+         Cons xCons = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+         Cons yCons = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
          int xValue = Integer.parseInt(xCons.string());
          int yValue = Integer.parseInt(yCons.string());
          simulator.plotPoint(xValue,yValue);
-         UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }

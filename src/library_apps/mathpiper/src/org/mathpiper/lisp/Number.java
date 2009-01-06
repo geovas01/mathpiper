@@ -113,9 +113,9 @@ public class Number extends Cons {
      * @return
      * @throws java.lang.Exception
      */
-    public BigNumber number(int aPrecision) throws Exception {
+    public BigNumber getNumber(int aPrecision) throws Exception {
         /// If necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
-        if (iBigNumber == null) {  // create and store a BigNumber out of string
+        if (iBigNumber == null) {  // create and store a BigNumber out of the string representation.
             LispError.lispAssert(iStringNumber != null);
             String str;
             str = iStringNumber;

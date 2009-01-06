@@ -367,8 +367,8 @@ public class MathPiperParser extends Parser
         subList.getCons().rest().setCons(iter.getCons().rest().getCons());
         iter.getCons().rest().setCons(null);
 
-        UtilityFunctions.internalReverseList(subList.getCons().subList().getCons().rest(),
-                subList.getCons().subList().getCons().rest());
+        UtilityFunctions.internalReverseList(subList.getCons().getSubList().getCons().rest(),
+                subList.getCons().getSubList().getCons().rest());
         iResult.setCons(subList.getCons());
     }
 

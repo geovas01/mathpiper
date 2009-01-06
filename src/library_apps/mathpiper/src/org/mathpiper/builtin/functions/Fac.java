@@ -33,11 +33,11 @@ public class Fac extends BuiltinFunctionInitialize
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgumentCore(aEnvironment, aStackTop, argumentPointer(aEnvironment, aStackTop, 1).getCons().number(0) != null, 1);
-        ConsPointer arg = argumentPointer(aEnvironment, aStackTop, 1);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getNumber(0) != null, 1);
+        ConsPointer arg = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
-        int nr = (int) arg.getCons().number(0).toLong();
+        int nr = (int) arg.getCons().getNumber(0).toLong();
         LispError.check(nr >= 0, LispError.KLispErrInvalidArg);
         BigNumber fac = new BigNumber("1", 10, 10);
         int i;
@@ -47,6 +47,6 @@ public class Fac extends BuiltinFunctionInitialize
             m.multiply(fac, m, 0);
             fac = m;
         }
-        result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(fac));
+        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(fac));
     }
 }

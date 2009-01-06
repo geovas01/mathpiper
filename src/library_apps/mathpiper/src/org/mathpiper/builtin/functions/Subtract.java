@@ -32,13 +32,13 @@ public class Subtract extends BuiltinFunctionInitialize
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = UtilityFunctions.internalListLength(argumentPointer(aEnvironment, aStackTop, 0));
+        int length = UtilityFunctions.internalListLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
             BigNumber z = new BigNumber(x);
             z.negate(x);
-            result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
+            getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
             return;
         } else
         {
@@ -48,7 +48,7 @@ public class Subtract extends BuiltinFunctionInitialize
             yneg.negate(y);
             BigNumber z = new BigNumber(aEnvironment.getPrecision());
             z.add(x, yneg, aEnvironment.getPrecision());
-            result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
+            getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
             return;
         }
     }
