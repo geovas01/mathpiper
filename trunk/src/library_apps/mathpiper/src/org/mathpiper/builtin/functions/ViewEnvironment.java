@@ -33,6 +33,6 @@ public class ViewEnvironment extends BuiltinFunctionInitialize
     {
          org.mathpiper.ui.gui.EnvironmentViewer viewer = new org.mathpiper.ui.gui.EnvironmentViewer();
          viewer.getViewerFrame(aEnvironment);
-         UtilityFunctions.internalTrue(aEnvironment, result(aEnvironment, aStackTop));
+         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }

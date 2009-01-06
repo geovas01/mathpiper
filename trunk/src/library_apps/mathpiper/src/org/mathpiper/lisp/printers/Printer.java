@@ -49,14 +49,14 @@ public class Printer
 				aOutput.putChar(' ');
 			}
 			// else print "(", print sublist, and print ")"
-			else if (iter.getCons().subList() != null)
+			else if (iter.getCons().getSubList() != null)
 			{
 				if (item != 0)
 				{
 					indent(aOutput,aDepth+1);
 				}
 				aOutput.write("(");
-				printExpression((iter.getCons().subList()),aOutput, aEnvironment,aDepth+1);
+				printExpression((iter.getCons().getSubList()),aOutput, aEnvironment,aDepth+1);
 				aOutput.write(")");
 				item=0;
 			}

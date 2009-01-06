@@ -36,6 +36,6 @@ public class Ceil extends BuiltinFunctionInitialize
         z.negate(x);
         z.floor(z);
         z.negate(z);
-        result(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
+        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
     }
 }

@@ -83,14 +83,14 @@ public class InfixPrinter extends Printer
 			return;
 		}
 
-		if (aExpression.getCons().generic() != null)
+		if (aExpression.getCons().getGeneric() != null)
 		{
 			//TODO display genericclass
-			WriteToken(aOutput,aExpression.getCons().generic().typeName());
+			WriteToken(aOutput,aExpression.getCons().getGeneric().typeName());
 			return;
 		}
 
-		ConsPointer subList = aExpression.getCons().subList();
+		ConsPointer subList = aExpression.getCons().getSubList();
 		LispError.check(subList!=null, LispError.KLispErrUnprintableToken);
 		if (subList.getCons() == null)
 		{

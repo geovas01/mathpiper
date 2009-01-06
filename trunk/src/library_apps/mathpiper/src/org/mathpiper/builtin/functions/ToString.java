@@ -39,10 +39,10 @@ public class ToString extends BuiltinFunctionInitialize
         try
         {
             // Evaluate the body
-            aEnvironment.iEvaluator.evaluate(aEnvironment, result(aEnvironment, aStackTop), argumentPointer(aEnvironment, aStackTop, 1));
+            aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
 
-            //Return the result
-            result(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(oper.toString())));
+            //Return the getResult
+            getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(oper.toString())));
         } catch (Exception e)
         {
             throw e;
