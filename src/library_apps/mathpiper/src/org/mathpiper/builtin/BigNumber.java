@@ -29,11 +29,8 @@ public class BigNumber {
 
     BigInteger javaBigInteger = null;
     BigDecimal javaBigDecimal = null;
-
-
     int iPrecision;
     int iTensExp;
-
     private static BigDecimal zero = new BigDecimal("0");
     private static BigDecimal one = new BigDecimal("1");
     private static BigDecimal two = new BigDecimal("2");
@@ -45,7 +42,6 @@ public class BigNumber {
 
 
     //constructors
-
     /**
      * Create a BigNumber with the specified precision and base.
      *
@@ -56,7 +52,6 @@ public class BigNumber {
     public BigNumber(String aString, int aBasePrecision, int aBase/*=10*/) {
         setTo(aString, aBasePrecision, aBase);
     }
-
 
     /**
      * Create a copy of a BigNumber.
@@ -69,7 +64,6 @@ public class BigNumber {
 
 
     // no constructors from int or double to avoid automatic conversions. TODO:tk:What does this mean?
-
     /**
      * Create a BigNumber with the given precision and initialize it to 0.
      * 
@@ -80,8 +74,6 @@ public class BigNumber {
         iTensExp = 0;
         javaBigInteger = new BigInteger("0");
     }
-
-
 
     /**
      * Set this BigNumber to the same value as another BigNumber.
@@ -94,8 +86,6 @@ public class BigNumber {
         javaBigInteger = aOther.javaBigInteger;
         javaBigDecimal = aOther.javaBigDecimal;
     }
-
-
 
     /**
      * Set this BigNumber to a value specified in the given string using the given precision.
@@ -132,7 +122,6 @@ public class BigNumber {
         }
     }
 
-
     /**
      * Set this BigNumber to the value of the specified Java long.
      *
@@ -141,7 +130,6 @@ public class BigNumber {
     public void setTo(long javaLong) {
         setTo("" + javaLong, iPrecision, 10);
     }
-
 
     /**
      * Set this BigNumber to the value of the specified Java int.
@@ -152,7 +140,6 @@ public class BigNumber {
         setTo((long) javaInt);
     }
 
-    
     /**
      * Set this BigNumber to the value of the specified Java double.
      * 
@@ -162,9 +149,7 @@ public class BigNumber {
         setTo("" + javaDouble, iPrecision, 10);
     }
 
-    
-    
-     /**
+    /**
      * Is the specified string representing a floating point number?
      * 
      * @param aString
@@ -186,13 +171,8 @@ public class BigNumber {
         }
         return false;
     }
-    
-    
-    
-    
+
     // Convert back to other types.
-
-
     /**
      * Return a string representation of this BigNumber which has the specified precision and base.
      * @param aPrecision
@@ -239,8 +219,6 @@ public class BigNumber {
         }
     }//end method.
 
-
-
     /**
      * Return an approximate representation of this BigNumber as a Java double.
      *
@@ -254,7 +232,6 @@ public class BigNumber {
         }
     }
 
-
     /**
      * Return a representation of this BigNumber as a Java long.
      * @return
@@ -266,7 +243,6 @@ public class BigNumber {
             return javaBigDecimal.longValue();
         }
     }
-
 
     /**
      * Determines if the specified BigNumber is equal in value to this one.
@@ -302,7 +278,6 @@ public class BigNumber {
         return true;
     }//end method.
 
-
     /**
      * Determines if this BigNumber is an integer.
      *
@@ -311,7 +286,6 @@ public class BigNumber {
     public boolean isInt() {
         return (javaBigInteger != null && javaBigDecimal == null);
     }
-
 
     /**
      * Determines if this BigNumber is less than 65535.  (Floating point not implemented yet).
@@ -339,7 +313,6 @@ public class BigNumber {
         }
     }
 
-
     /**
      * Convert this BigNumber to an integer.
      */
@@ -349,8 +322,6 @@ public class BigNumber {
             javaBigDecimal = null;
         }
     }
-
-
 
     /**
      * Convert this BigNumber to a float which has the specified precision.
@@ -363,8 +334,6 @@ public class BigNumber {
             javaBigInteger = null;
         }
     }
-
-
 
     /**
      * Determine if this BigNumber is less than the specified BigNumber.
@@ -385,7 +354,6 @@ public class BigNumber {
 
 
     //arithmetic.
-
     /**
      * Multiply the specified BigIntegers using the specified precision and place the result in this BigInteger.
      *
@@ -410,8 +378,6 @@ public class BigNumber {
             javaBigInteger = aX.javaBigInteger.multiply(aY.javaBigInteger);
         }
     }
-
-
 
     /**
      * Add the specified BigIntegers using the specified precision and place the result in this BigInteger.
@@ -441,8 +407,6 @@ public class BigNumber {
         }
     }
 
-
-
     /**
      * Negate the specified BigInteger and place the result in this BigInteger.
      * 
@@ -460,15 +424,13 @@ public class BigNumber {
         }
     }
 
-
-
-   /**
-    * Divide the specified BigIntegers using the specified precision and place the result in this BigInteger.
-    * 
-    * @param aX
-    * @param aY
-    * @param aPrecision
-    */
+    /**
+     * Divide the specified BigIntegers using the specified precision and place the result in this BigInteger.
+     *
+     * @param aX
+     * @param aY
+     * @param aPrecision
+     */
     public void divide(BigNumber aX, BigNumber aY, int aPrecision) {
         //Note: if the two arguments are integers, this method should return an integer result!
         boolean floatResult = (aX.javaBigDecimal != null || aY.javaBigDecimal != null);
@@ -489,8 +451,6 @@ public class BigNumber {
         }
     }
 
-
-
     /**
      * Perform y mod z on the two specified integers.  The result is placed into this BigInteger.
      * 
@@ -506,8 +466,6 @@ public class BigNumber {
         javaBigDecimal = null;
     }
 
-
-
     /**
      * Print the internal state of this number.  Used for debugging purposes.
      *
@@ -521,6 +479,17 @@ public class BigNumber {
             aOutput.write("decimal: " + javaBigDecimal.unscaledValue() + " scale " + javaBigDecimal.scale() + " x 10^(" + iTensExp + ")\n");
         }
     }
+
+
+
+    public String toString() {
+        if (javaBigInteger != null) {
+            return ("Integer: " + javaBigInteger.toString() + "   \n");
+        } else {
+            return ("Decimal: " + javaBigDecimal.unscaledValue() + "  Scale: " + javaBigDecimal.scale() + " x 10^" + iTensExp+"   \n");
+        }
+    }
+
 
 
 
@@ -549,8 +518,6 @@ public class BigNumber {
         javaBigDecimal = null;
     }
 
-
-
     /**
      * Set the precision of this BigInteger (in bits).
      *
@@ -565,10 +532,7 @@ public class BigNumber {
         }
     }
 
-
-
     /// Bitwise operations.
-
     /**
      * Shift the specified BigNumber to the left the specified number of bits and place the result in this BigNumber.
      *
@@ -582,8 +546,6 @@ public class BigNumber {
         javaBigInteger = aX.javaBigInteger.shiftLeft(aNrToShift);
     }
 
-
-
     /**
      * Shift the specified BigNumber to the right the specified number of bits and place the result in this BigNumber.
      * @param aX
@@ -595,8 +557,6 @@ public class BigNumber {
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftRight(aNrToShift);
     }
-
-
 
     /**
      * Perform a GCD operation on the specified BigNumbers and place the result in this BigNumber.
@@ -612,7 +572,6 @@ public class BigNumber {
         javaBigDecimal = null;
     }
 
-
     /**
      * Perform a bitwise AND operation on the specified BigNumbers and place the result in this BigNumber.
      *
@@ -627,8 +586,6 @@ public class BigNumber {
         javaBigDecimal = null;
     }
 
-
-
     /**
      * Perform a bitwise OR operation on the specified BigNumbers and place the result in this BigNumber.
      * @param aX
@@ -641,8 +598,6 @@ public class BigNumber {
         javaBigInteger = aX.javaBigInteger.or(aY.javaBigInteger);
         javaBigDecimal = null;
     }
-
-
 
     /**
      * Perform a bitwise XOR operation on the specified BigNumbers and place the result in this BigNumber.
@@ -658,8 +613,6 @@ public class BigNumber {
         javaBigDecimal = null;
     }
 
-
-
     /**
      * Perform a bitwise NOT operation on the specified BigNumber and place the result in this BigNumber.
      *
@@ -671,8 +624,6 @@ public class BigNumber {
         javaBigInteger = aX.javaBigInteger.not();
         javaBigDecimal = null;
     }
-
-
 
     /**
      * If this BigNumber is an integer, its number of significant bits is returned and if it is a decimal, its binary exponent is returned.  
@@ -711,8 +662,6 @@ public class BigNumber {
         }
     }
 
-
-
     /**
      * Returns the sign of this BigNumber.
      * 
@@ -729,7 +678,6 @@ public class BigNumber {
         return 0;
     }
 
-
     /**
      * Returns the precision of this BigNumber.
      *
@@ -738,8 +686,6 @@ public class BigNumber {
     public int getPrecision() {
         return iPrecision;
     }
-
-
 
     /**
      * Return a decimal representation of this BigNumber.
