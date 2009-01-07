@@ -16,10 +16,10 @@
 
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.consoles;
+package org.mathpiper.ui.gui.worksheets;
 
-import org.mathpiper.ui.gui.consoles.SBoxBuilder;
-import org.mathpiper.ui.gui.consoles.SBox;
+import org.mathpiper.ui.gui.worksheets.SBoxBuilder;
+import org.mathpiper.ui.gui.worksheets.SBox;
 
 
 public class TexParser

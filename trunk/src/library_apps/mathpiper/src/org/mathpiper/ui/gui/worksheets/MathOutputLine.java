@@ -15,34 +15,13 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.consoles;
+package org.mathpiper.ui.gui.worksheets;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-class StringLine extends MathOutputLine {
+public abstract class MathOutputLine {
 
-    StringLine(String aText, Font aFont, Color aColor) {
-        iText = aText;
-        iFont = aFont;
-        iColor = aColor;
-    }
+    public abstract void draw(Graphics g, int x, int y);
 
-    public void draw(Graphics g, int x, int y) {
-        g.setColor(iColor);
-        g.setFont(iFont);
-        FontMetrics fontMetrics = g.getFontMetrics();
-        g.drawString(iText, x, y + fontMetrics.getHeight());
-    }
-
-    public int height(Graphics g) {
-        g.setFont(iFont);
-        FontMetrics fontMetrics = g.getFontMetrics();
-        return fontMetrics.getHeight();
-    }
-    private String iText;
-    private Font iFont;
-    private Color iColor;
+    public abstract int height(Graphics g);
 }
