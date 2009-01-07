@@ -15,37 +15,35 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathpiper.ui.gui.worksheets;
 
-package org.mathpiper.ui.gui.consoles;
-
-import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 
-    class ImageLine extends MathOutputLine
-    {
-        Color bkColor = new Color(255, 255, 255); //TODO:tk:This variable was originally in ConsoleApplet.
-        ImageLine(Image aImage, Applet aApplet)
-        {
-            iImage = aImage;
-            iApplet = aApplet;
-        }
+class PromptedGraph2DLine extends MathOutputLine {
 
-        public void draw(Graphics g, int x, int y)
-        {
-            if (iImage != null)
-            {
-                Dimension d = iApplet.getSize();
-                g.drawImage(iImage, (d.width - iImage.getWidth(iApplet)) / 2, y, bkColor, iApplet);
-            }
-        }
-
-        public int height(Graphics g)
-        {
-            return iImage.getHeight(iApplet);
-        }
-        Image iImage;
-        Applet iApplet;
+    PromptedGraph2DLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine) {
+        iIndent = aIndent;
+        iPrompt = aPrompt;
+        iPromptFont = aPromptFont;
+        iPromptColor = aPromptColor;
+        iGrapher = new Grapher(aLine);
     }
+    Grapher iGrapher;
+
+    public void draw(Graphics g, int x, int y) {
+        iGrapher.paint(g, x, y, size);
+    }
+
+    public int height(Graphics g) {
+        return size.height;
+    }
+    Dimension size = new Dimension(320, 240);
+    int iIndent;
+    private String iPrompt;
+    private Font iPromptFont;
+    private Color iPromptColor;
+}
+

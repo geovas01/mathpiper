@@ -15,19 +15,34 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathpiper.ui.gui.worksheets;
 
-package org.mathpiper.ui.gui.consoles;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 
+class StringLine extends MathOutputLine {
 
-public class Hints
-{
-	public  HintItem[] hintTexts = new HintItem[1024];
-	int[] hoffsets = new int[256];
+    StringLine(String aText, Font aFont, Color aColor) {
+        iText = aText;
+        iFont = aFont;
+        iColor = aColor;
+    }
 
-	public  Hints()
-	{
-		nrHintTexts = 0;
-	}
-	public  int nrHintTexts;
+    public void draw(Graphics g, int x, int y) {
+        g.setColor(iColor);
+        g.setFont(iFont);
+        FontMetrics fontMetrics = g.getFontMetrics();
+        g.drawString(iText, x, y + fontMetrics.getHeight());
+    }
 
-};
+    public int height(Graphics g) {
+        g.setFont(iFont);
+        FontMetrics fontMetrics = g.getFontMetrics();
+        return fontMetrics.getHeight();
+    }
+    private String iText;
+    private Font iFont;
+    private Color iColor;
+}

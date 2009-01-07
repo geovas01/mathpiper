@@ -1,4 +1,4 @@
-package org.mathpiper.ui.gui.consoles;
+package org.mathpiper.ui.gui.worksheets;
 
 import java.awt.Color;
 import java.awt.Dimension;
