@@ -32,207 +32,192 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.BadLocationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 
-public class Console extends javax.swing.JPanel implements ActionListener, KeyListener
-{
-   private Interpreter interpreter = Interpreters.getSynchronousInterpreter();
-   private StringBuilder input = new StringBuilder();
+public class Console extends javax.swing.JPanel implements ActionListener, KeyListener {
+
+    private Interpreter interpreter = Interpreters.getSynchronousInterpreter();
+    private StringBuilder input = new StringBuilder();
+    private JButton button1,  button2,  button3;
+    private JTextArea typeArea;
+    private JScrollPane typePane;
+    private char[] typedKey = new char[1];
+    private JPanel buttons;
+    private boolean deleteFlag = false;
+    private float fontSize = 12;
+    private Font bitstreamVera;
+
+    public Console() {
 
 
-	private JButton button1, button2, button3;
-	private JTextArea typeArea;
-	private JScrollPane typePane;
-	private char[] typedKey = new char[1];
+        this.setLayout(new BorderLayout());
+
+        //keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
+
+        buttons = new JPanel();
+
+        Box guiBox = new Box(BoxLayout.Y_AXIS);
+        typeArea = new JTextArea(30, 20);
+        typeArea.append("In>");
+
+        //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
+
+        //bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
+        //bitstreamVera = bitstreamVera.deriveFont(fontSize);
+        //typeArea.setFont(bitstreamVera);
 
 
+        typeArea.addKeyListener(this);
+        typePane = new JScrollPane(typeArea);
+        guiBox.add(typePane);
 
-	private JPanel buttons;
-	private boolean deleteFlag = false;
-	private float fontSize = 12;
-	private Font bitstreamVera;
+        Box ioBox = new Box(BoxLayout.Y_AXIS);
 
+        button1 = new JButton("Reset");
+        //button1.setBackground(Color.green);
+        button1.addActionListener(this);
+        buttons.add(button1);
+        button2 = new JButton("Font--");
+        button2.addActionListener(this);
+        buttons.add(button2);
+        button3 = new JButton("Font++");
+        button3.addActionListener(this);
+        buttons.add(button3);
 
-	public Console()
-	{
-
-
-		this.setLayout(new BorderLayout());
-
-		//keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
-
-		buttons = new JPanel();
-
-		Box guiBox = new Box(BoxLayout.Y_AXIS);
-		typeArea = new JTextArea(30,20);
-
-		//java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
-
-			//bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
-			//bitstreamVera = bitstreamVera.deriveFont(fontSize);
-			//typeArea.setFont(bitstreamVera);
+        ioBox.add(buttons);
 
 
-			typeArea.addKeyListener(this);
-			typePane = new JScrollPane(typeArea);
-			guiBox.add(typePane);
+        this.add(ioBox, BorderLayout.NORTH);
 
-			Box ioBox = new Box(BoxLayout.Y_AXIS);
-
-			button1 = new JButton("Reset");
-			//button1.setBackground(Color.green);
-			button1.addActionListener(this);
-			buttons.add(button1);
-			button2 = new JButton("Font--");
-			button2.addActionListener(this);
-			buttons.add(button2);
-			button3 = new JButton("Font++");
-			button3.addActionListener(this);
-			buttons.add(button3);
-
-			ioBox.add(buttons);
+        this.add(guiBox, BorderLayout.CENTER);
 
 
-			this.add(ioBox,BorderLayout.NORTH);
+    }//Constructor.
 
-			this.add(guiBox,BorderLayout.CENTER);
+    public void setFontSize(float fontSize) {
+        this.fontSize = fontSize;
+    //bitstreamVera = bitstreamVera.deriveFont(fontSize);
+    //typeArea.setFont(bitstreamVera);
+    }//end method.
 
+    public void actionPerformed(ActionEvent event) {
+        Object src = event.getSource();
 
-	}//Constructor.
-
-
-
-	public void setFontSize(float fontSize)
-	{
-		this.fontSize = fontSize;
-		//bitstreamVera = bitstreamVera.deriveFont(fontSize);
-		//typeArea.setFont(bitstreamVera);
-	}//end method.
-
-
-
-	public void actionPerformed(ActionEvent event)
-	{
-		Object src = event.getSource();
-
-		if (src == button1)
-		{
-			//this.resetAll();
-		}
-		else if (src == button2)
-		{
-			this.fontSize -= 2;
-			//bitstreamVera = bitstreamVera.deriveFont(fontSize);
-			//typeArea.setFont(bitstreamVera);
-		}
-		else if (src == button3)
-		{
-			this.fontSize += 2;
-			//bitstreamVera = bitstreamVera.deriveFont(fontSize);
-			//typeArea.setFont(bitstreamVera);
-		}
-
-	}
-
-
-
-	public void keyPressed(KeyEvent e)
-	{
-	}
-
-	public void keyReleased(KeyEvent e)
-	{
-	}
-
-	public void keyTyped(KeyEvent e)
-	{
-
-		char key = e.getKeyChar();
-		System.out.println((int)key);
-
-        if((int)key == 10)
-        {
-
-            EvaluationResponse response = interpreter.evaluate(input.toString());
-            input.delete(0, input.length());
-            typeArea.append(response.getResult());
-             typeArea.append("\n\n");
-
-            //typeArea.append(new String(typedKey));
-			//typeArea.setCaretPosition( typeArea.getDocument().getLength() );
+        if (src == button1) {
+            //this.resetAll();
+        } else if (src == button2) {
+            this.fontSize -= 2;
+        //bitstreamVera = bitstreamVera.deriveFont(fontSize);
+        //typeArea.setFont(bitstreamVera);
+        } else if (src == button3) {
+            this.fontSize += 2;
+        //bitstreamVera = bitstreamVera.deriveFont(fontSize);
+        //typeArea.setFont(bitstreamVera);
         }
-        else if((int)key == 22)
-		{
-			try
-			{
-				String clipBoard = (String)java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().getData(java.awt.datatransfer.DataFlavor.stringFlavor);
 
-				if(clipBoard.length() != 0)
-				{
-					char[] chars = clipBoard.toCharArray();
-					for(int x = 0; x < chars.length; x++)
-					{
-						//buffer.put((int) chars[x]);
+    }
 
-					}//end for.
-					//setReceiveDataRegisterFull(true);
-				}//end if.
+    public void keyPressed(KeyEvent e) {
+    }
 
-			}
-			catch(NullPointerException ev)
-			{
-				ev.printStackTrace();
-			}
-			catch( IllegalStateException ev)
-			{
-				ev.printStackTrace();
-			}
-			catch(java.awt.datatransfer.UnsupportedFlavorException ev)
-			{
-				ev.printStackTrace();
-			}
-			catch(java.io.IOException ev)
-			{
-				ev.printStackTrace();
-			}
-		}
-		else
-		{
-			//System.out.println(key);
-			//registers[0] = (int) key;
-			if((int)key == 8)
-			{
-				deleteFlag = true;
-			}
+    public void keyReleased(KeyEvent e) {
+    }
+
+    public void keyTyped(KeyEvent e) {
+
+        char key = e.getKeyChar();
+        //System.out.println((int)key);
+
+        if ((int) key == 10) {
+            try {
+                int lineNumber = typeArea.getLineOfOffset(typeArea.getCaretPosition());
+                String line = "";
+
+                //System.out.println("LN: " + lineNumber + "  LSO: " + lineStartOffset + "  LEO: " + lineEndOffset  );
+                if (e.isShiftDown()) {
+                    
+                    int lineStartOffset = typeArea.getLineStartOffset(lineNumber);
+                    int lineEndOffset = typeArea.getLineEndOffset(lineNumber);
+                    line = typeArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+
+                    EvaluationResponse response = interpreter.evaluate(line);
+
+                    String output = "\nResult: " + response.getResult() + "\n";
+
+                    typeArea.insert(output, lineEndOffset + 1);
+                } else {
+                    int lineStartOffset = typeArea.getLineStartOffset(lineNumber-1);
+                    int lineEndOffset = typeArea.getLineEndOffset(lineNumber-1);
+                    line = typeArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+                    if (line.startsWith("In>")) {
+                        typeArea.insert("In>", lineEndOffset);
+                    }
+
+                }
+
+
+
+            //input.delete(0, input.length());
+            // typeArea.append(response.getResult());
+
+            } catch (BadLocationException ex) {
+                System.out.println(ex.getMessage() + " , " + ex.offsetRequested());
+            }
+
+        //typeArea.append(new String(typedKey));
+        //typeArea.setCaretPosition( typeArea.getDocument().getLength() );
+        } else if ((int) key == 22) {
+            try {
+                String clipBoard = (String) java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().getData(java.awt.datatransfer.DataFlavor.stringFlavor);
+
+                if (clipBoard.length() != 0) {
+                    char[] chars = clipBoard.toCharArray();
+                    for (int x = 0; x < chars.length; x++) {
+                        //buffer.put((int) chars[x]);
+                    }//end for.
+                //setReceiveDataRegisterFull(true);
+                }//end if.
+
+            } catch (NullPointerException ev) {
+                ev.printStackTrace();
+            } catch (IllegalStateException ev) {
+                ev.printStackTrace();
+            } catch (java.awt.datatransfer.UnsupportedFlavorException ev) {
+                ev.printStackTrace();
+            } catch (java.io.IOException ev) {
+                ev.printStackTrace();
+            }
+        } else {
+            //System.out.println(key);
+            //registers[0] = (int) key;
+            if ((int) key == 8) {
+                deleteFlag = true;
+            }
 
             input.append(key);
-            //typeArea.append(Character.toString(key));
-			//buffer.put((int) key);
-			//setReceiveDataRegisterFull(true);
-		}
-	}
+        //typeArea.append(Character.toString(key));
+        //buffer.put((int) key);
+        //setReceiveDataRegisterFull(true);
+        }
+    }
 
+    public static void main(String[] args) {
+        Console console = new Console();
 
-
-	public static void main(String[] args)
-	{
-		Console console = new Console();
-
-		JFrame frame = new javax.swing.JFrame();
-		Container contentPane = frame.getContentPane();
-		contentPane.add(console,BorderLayout.CENTER);
-		//frame.setAlwaysOnTop(true);
-		frame.setSize(new Dimension(600, 600));
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		//frame.setResizable(false);
-		frame.setPreferredSize(new Dimension(600, 600));
-		frame.setLocationRelativeTo(null); // added
-		frame.pack();
-		frame.setVisible(true);
-	}//end main.
-
-
+        JFrame frame = new javax.swing.JFrame();
+        Container contentPane = frame.getContentPane();
+        contentPane.add(console, BorderLayout.CENTER);
+        //frame.setAlwaysOnTop(true);
+        frame.setSize(new Dimension(600, 600));
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        //frame.setResizable(false);
+        frame.setPreferredSize(new Dimension(600, 600));
+        frame.setLocationRelativeTo(null); // added
+        frame.pack();
+        frame.setVisible(true);
+    }//end main.
 }//end class.
 
