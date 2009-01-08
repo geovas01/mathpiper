@@ -3,6 +3,35 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++One should be able to multiply an equation by a value.
+This example is from Maxima:
+(%i1) e1 : 3*x + 2*y = 7;
+(%o1) 2*y+3*x=7
+(%i2) e1*3;
+(%o2) 3*(2*y+3*x)=21
+(%i3) expand(%o2);
+(%o3) 6*y+9*x=21
+But MathPiper does not perform the multiplication:
+In> e1 := 3*x+2*y==7
+Result> 3*x+2*y==7
+In> e1*3
+Result> 3*(3*x+2*y==7)
+In> Expand(%)
+Result> 3*(3*x+2*y==7)
+Ted Kosan 12/27/08.
+01/06/09: from Sherm:
+Yes, but why should you care?  If you do Solve(3*e1,x) you get the correct answer.
+Is there really a problem here? 
+However, if you want me to try to "fix" this, add it to the Issues.
+In> (2+x)*(3+y)
+Result> (x+2)*(y+3)
+In> ExpandBrackets(%)
+Result> x*y+3*x+2*y+6
+In> a:=(2+x)*(3+y)
+Result> (x+2)*(y+3)
+In> Expand(a)
+Result> (y+3)*x+2*y+6
+====
 + yd^2 := ft^2/9;A'room := 18*ft*24*ft; causes an exception which crashes MathPiper.
 + It would be nice if MathPiper can be placed into numeric mode like NOn() and NOff().
 + Functions like ToDeg() and ToRad() are needed.
