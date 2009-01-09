@@ -3,6 +3,10 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++This code causes the wrong line to be highlighted when an error:
+A := {{8,4,-3},{6,2,-4},{4,-3,6}};
+v:=14,-4,32;
+SolveMatrix(A,v);
 +One should be able to multiply an equation by a value.
 This example is from Maxima:
 (%i1) e1 : 3*x + 2*y = 7;
