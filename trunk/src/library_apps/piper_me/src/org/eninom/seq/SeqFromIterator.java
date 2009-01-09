@@ -34,6 +34,12 @@ import org.eninom.func.Function;
 import org.eninom.func.Lazy;
 import org.eninom.iterator.ForwardIterator;
 
+//!Sequence Wrapper for Iterators
+/*<literate>*/
+/**
+ * !Sequence wrapper for iterators.
+ */
+@SuppressWarnings("unchecked")
 public class SeqFromIterator<E> implements Seq<E> {
 
   public static <E> SeqFromIterator<E> create(
@@ -73,34 +79,5 @@ public class SeqFromIterator<E> implements Seq<E> {
       return null;
     else
       return restSeq.value();
-  }
-  
-  public static class IntIter implements ForwardIterator<Integer> {
-    public IntIter(int max) {
-      this.max = max;
-    }
-    int max;
-    int cnt = 0;
-    
-    public boolean hasNext() {
-     return (cnt < max);
-    }
-    
-    public Integer next() {
-      return cnt++;
-    }
-  }
-  
-  public static void main(String[] args) {
-    Seq<Integer> S = SeqFromIterator.create(new IntIter(10));
-    while (S != null) {
-      Seq<Integer> T = S;
-      while (T != null) {
-        System.out.print(T.first()+" ");
-        T = T.rest();
-      }
-      S = S.rest();
-      System.out.println();
-    }
   }
 }//`class`

@@ -34,6 +34,30 @@ package org.eninom.collection;
 import org.eninom.iterator.*;
 import org.eninom.seq.Seq;
 
+//! Iterable Interface
+/*<literate>*/
+/**
+ * Interface for an iterable collection. An iterable collection
+ * can deliver a sequence of its elements. We do not consider
+ * iterable collections as sequences by itself, since it might
+ * discard the costs of constructing a view of the rest of
+ * the elements when iterating through them.
+ * Implementations must compute meaningful hashcodes and equality
+ * tests that work for pairs of collections of the same type,
+ * i.e. the concrete instance type are the same and the generic
+ * type parameters have a common ancestor with meaningful equality
+ * tests among them. We do not specify the concrete value of
+ * the hash code in order to give implementations the chance
+ * to provide implementations that do not touch every element,
+ * as this makes sense for very large collections. Likewise,
+ * we do not require that different implementations of this
+ * interface can meaningfully test equality among each others
+ * instances, so that implementations are free to involve
+ * extra-fields apart from the list of elements.<br />
+ * Having said this, the class <i>AbstractIterableCollection</i>
+ * provides default implementations for hash value and equality
+ * tests.
+ */
 public interface IterableCollection<E> {
   public int size();
   public Seq<E> seq();

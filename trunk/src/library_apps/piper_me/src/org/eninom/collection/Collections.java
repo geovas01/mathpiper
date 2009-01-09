@@ -33,7 +33,12 @@ package org.eninom.collection;
 
 import org.eninom.iterator.*;
 
-public class Collections {
+//! Routines for Collections 
+/*<literate>*/
+/**
+This class provides several routines for dealing with collections
+**/
+final public class Collections {
   public static<E> String printToString(IterableCollection<E> collection) {
     StringBuilder str = new StringBuilder();
     str.append("[");

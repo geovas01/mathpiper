@@ -30,7 +30,11 @@ exception statement from your version. */
 
 package org.eninom.collection;
 
-
+//! Mutable Stack Interface
+/*<literate>*/
+/**
+ * Interface for a mutable stack 
+ */
 public interface MutableStack<E> extends IterableCollection<E> {
   public E pop();
   public E top();
