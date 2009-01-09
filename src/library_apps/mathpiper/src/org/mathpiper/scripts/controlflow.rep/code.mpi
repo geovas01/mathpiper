@@ -17,7 +17,7 @@ HoldArgNr("For",4,4);
 
 
 /* 
- * This was an experiment to try to get to using a new ForEach that works the
+ * TODO This was an experiment to try to get to using a new ForEach that works the
  * same on lists and arrays. For some odd reason all sorts of places in the scripts
  * break if we use this version of ForEach. We need to look into this still! I want
  * a ForEach that works on lists as well as arrays.
