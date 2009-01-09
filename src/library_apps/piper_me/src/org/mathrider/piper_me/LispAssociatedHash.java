@@ -11,6 +11,19 @@ import org.eninom.collection.HashMap;
  * points to, but instead relies on the fact that the strings
  * are maintained in a hash table (like LispHashTable above).
  */
-class LispAssociatedHash extends HashMap<String, Object> 
-{}
+class LispAssociatedHash {
+  HashMap<String, Object> map = new HashMap<String, Object>();
+
+  public void put(String key, Object v) {
+    map.put(key,v);
+  }
+
+  public Object get(String key) {
+    return map.get(key);
+  }
+
+  public void remove(String key) {
+    map.remove(key);
+  }
+}
 

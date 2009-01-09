@@ -41,6 +41,11 @@ exception statement from your version.
 
 package org.eninom.numerics;
 
+//! Multiprecision Arithmetic
+/*<literate>*/
+/**
+ * Implementation from the GNU Classpath Project. <br />
+ * <br /> 
 /** This contains various low-level routines for unsigned bigints.
  * The interfaces match the mpn interfaces in gmp,
  * so it should be easy to replace them with fast native functions

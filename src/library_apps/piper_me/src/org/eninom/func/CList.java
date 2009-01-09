@@ -34,7 +34,7 @@ package org.eninom.func;
 /*<literate>*/
 /**
  * This is a list class with Lisp semantics of lists. Besides it
- * offers basic threadsafety under concurrent mutations. That means,
+ * offers basic thread-safety under concurrent mutations. That means,
  * mutual sharing of sublists is possible, and destructive updates
  * to those sublists will affect all participating lists. However,
  * this implementation is optimized for vector processing. Lists obtained
@@ -57,6 +57,7 @@ package org.eninom.func;
  * array reference is needed. In many cases, the Java-VM can optimize
  * away synchronization, since in this case the array reference is
  * never mutated after initialization.
+ * Due to the complexity of CLists API, the class is final.
  * \begin{enumerate} 
  * \item Generate unit tests.
  * \item cooperate with evaluator in order to avoid stack overflow.
@@ -68,8 +69,12 @@ package org.eninom.func;
  * garbage collection (sometimes factor 10 slower!). For instance, with
  * <br /><br />
  * -ms90M -mx90M -XX:NewSize=80M -server <br />
- * I had fast and stable througput on a 2-core processor.
+ * I had fast and stable througput on a 2-core processor.\\
+ * \\
+ * C-Lists do not compute or maintain hashcodes or equality relations
+ * based on their contents.
  */
+@SuppressWarnings("unchecked")
 public final class CList { 
   
 	private Object first;
@@ -124,12 +129,6 @@ public final class CList {
       chunk[1] = rest;
       int j = 2;
       for (int i = pos+1; i < pos + length; i++) {
-        Object e = arr[i];
-        if (e.getClass() == Lazy.class) {
-          Lazy lazy = (Lazy) e;
-          if (!lazy.blackhole())
-            e = lazy.value();
-        }
         chunk[j++] = arr[i];
       }//`for`
     } else {
@@ -137,6 +136,16 @@ public final class CList {
     }//`else`
   }
  
+  /**
+   * Constructor for a (possibly self-referential) array of lazy elements.
+   * The lazy elements are created by a constructor function which takes
+   * the element's array and index.
+   */
+  CList(int size, Function<Cons<Integer,CList>,Object> elmConstructor) {
+    //!TODO
+  }
+  
+  
   /**
    * test for empty list
    */

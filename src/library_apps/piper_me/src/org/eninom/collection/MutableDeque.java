@@ -30,6 +30,11 @@ exception statement from your version. */
 
 package org.eninom.collection;
 
+//! Mutable Deque Interface
+/*<literate>*/
+/**
+ * Interface for a mutable deque 
+ */
 public interface MutableDeque<E> extends MutableQueue<E> {
   public void addFirst(E item);
   public E removeLast();

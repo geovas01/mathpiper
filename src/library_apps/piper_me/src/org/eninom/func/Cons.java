@@ -36,17 +36,21 @@ import org.eninom.iterator.*;
 //!Lisp-like Cons
 /*<literate>*/
 /**
- * 
- * This is a lisp-like object for pairing objects. Though to the outside a
- * <i>Cons</i> looks like a pair, it actually linearizes to the right in such
- * way that lists are stored in chunks of 4 elements each. Attention:
- * rest(cons(a,b)) == b is not necessarily true if b is a cons! On the other
- * hand, it is true if b is not a cons, and first(cons(a,b)) = a also always
+ * This is a pair of two constant objects. More specifically, it suffices
+ * that the elements' hash value and equality relation is constant
+ * throughout their lifetime. <br />
+ *  <br />
+ *  It is possible to subclass <i>Cons</i>, however, all critical methods
+ *  are made final to prevent interface breakage.
+ *  <br />
+ *  <br />
+ *  Our implementation of <i>Cons</i> linearizes to the right in such
+ * way that lists are stored in chunks of 4 elements each:
+ * second(cons(a,b)) == b is not necessarily true if b is a cons. On the other
+ * hand, it is true if b is not a cons, and first(cons(a,b)) ==a also always
  * holds.
- * 
- * TODO: size not global, size should be size of each chunk. Then we can easily
- * add blocks of elements and lazy nodes.
  */
+@SuppressWarnings("unchecked")
 public class Cons<A, B> {
   
   private final static int MAX_H = 4;
@@ -55,14 +59,17 @@ public class Cons<A, B> {
 
   private Cons next = null;
 
-  private int size = 0;
+  private int length = 0;
 
-  // pop:
+  /**
+   * Since a Cons must have exactly two elements, we use the one-element
+   * constructor for removing the first element from a triple.
+   */
   public <C> Cons(Cons<C, ? extends Cons<A, B>> list) {
-    if (list.size < 3)
+    if (list.length < 3)
       throw new IllegalArgumentException();
-    size = list.size - 1;
-    int k = size % MAX_H;
+    length = list.length - 1;
+    int k = length % MAX_H;
     if (k == 0)
       list = list.next;
 
@@ -80,15 +87,18 @@ public class Cons<A, B> {
     }
   }
 
+  /**
+   * Constructor for a pair of elements.
+   */
   public Cons(A a, B b) {
     if ((b == null) || !(b.getClass() == this.getClass())) {
       e2 = a;
       e3 = b;
-      size = 2;
+      length = 2;
     } else {
       Cons list = (Cons) b;
-      size = list.size + 1;
-      int k = list.size % MAX_H;
+      length = list.length + 1;
+      int k = list.length % MAX_H;
       switch (k) {
       case 3:
         e1 = list.e1;
@@ -113,22 +123,25 @@ public class Cons<A, B> {
         break;
       case 0:
         e3 = a;
-        if (size > 0)
+        if (length > 0)
           next = list;
         break;
       }
     }// `else`
   }
 
+  /**
+   * Constructor for an element and a <i>Cons</i>.
+   */
   public Cons(A a, Cons b) {
     if (b == null) {
       e2 = a;
       e3 = b;
-      size = 2;
+      length = 2;
     } else {
       Cons list = (Cons) b;
-      size = list.size + 1;
-      int k = list.size % MAX_H;
+      length = list.length + 1;
+      int k = list.length % MAX_H;
       switch (k) {
       case 3:
         e1 = list.e1;
@@ -153,21 +166,24 @@ public class Cons<A, B> {
         break;
       case 0:
         e3 = a;
-        if (size > 0)
+        if (length > 0)
           next = list;
         break;
       }
     }// `else`
   }
 
+  /**
+   * Constructor for a triple.
+   */
   protected Cons(Object a, Object b, Object c) {
 
-    size = 3;
+    length = 3;
 
     if ((c != null) && (c.getClass() == this.getClass())) {
       Cons list = (Cons) c;
-      int k = list.size % MAX_H;
-      size = 2 + list.size;
+      int k = list.length % MAX_H;
+      length = 2 + list.length;
 
       switch (k) {
       case 0:
@@ -200,14 +216,17 @@ public class Cons<A, B> {
     }// `else`
   }
 
+  /**
+   * Constructor for a quadruple.
+   */
   protected Cons(Object a, Object b, Object c, Object d) {
 
-    size = 4;
+    length = 4;
 
     if ((d != null) && (d.getClass() == this.getClass())) {
       Cons list = (Cons) d;
-      int k = list.size % MAX_H;
-      size = 3 + list.size;
+      int k = list.length % MAX_H;
+      length = 3 + list.length;
 
       switch (k) {
       case 0:
@@ -241,14 +260,17 @@ public class Cons<A, B> {
     }// `else`
   }
 
+  /**
+   * Constructor for a quintuple.
+   */
   protected Cons(Object a, Object b, Object c, Object d, Object e) {
 
-    size = 5;
+    length = 5;
 
     if ((e != null) && (e.getClass() == this.getClass())) {
       Cons list = (Cons) e;
-      int k = list.size % MAX_H;
-      size = 4 + list.size;
+      int k = list.length % MAX_H;
+      length = 4 + list.length;
 
       switch (k) {
       case 0:
@@ -280,23 +302,18 @@ public class Cons<A, B> {
     }// `else`
   }
 
-  /**
-   * It is allowdef to override the <i>size()</i> method
-   * provided that <i>get(i)</i> returns an element for
-   * i < <i>size()</i>.
-   */
-  public int size() {
-    return size;
+  public final int length() {
+    return length;
   }
 
   /**
    * It is allowed to override the <i>get()</i> method.
    */
-  public Object get(int p) {
-    if ((p >= size) || (p < 0))
+  public final Object getElement(int p) {
+    if ((p >= length) || (p < 0))
       throw new IllegalArgumentException();
 
-    int k = size % MAX_H;
+    int k = length % MAX_H;
     if (k > 0) {
       p = p + MAX_H - k;
     }
@@ -322,14 +339,14 @@ public class Cons<A, B> {
   public String toString() {
     StringBuilder str = new StringBuilder();
     str.append("(");
-    ForwardIterator it = iterator();
-    for (int i = 0; i < size - 1; i++) {
+    ForwardIterator<Object> it = objectIterator();
+    for (int i = 0; i < length - 1; i++) {
       Object item = it.next();
       if (item == null)
         str.append("null");
       else
         str.append(item.toString());
-      if (i < size - 2)
+      if (i < length - 2)
         str.append(" ");
     }// `for`
     Object item = it.next();
@@ -345,7 +362,7 @@ public class Cons<A, B> {
     StringBuilder str = new StringBuilder();
     Cons node = this;
     while (node != null) {
-      str.append(node.size);
+      str.append(node.length);
       str.append("[");
       str.append(node.e0);
       str.append(',');
@@ -398,35 +415,17 @@ public class Cons<A, B> {
     }
   }// `inner class`
 
-  public ForwardIterator iterator() {
-    return new ConsIterator(size, this);
+  final public ForwardIterator<Object> objectIterator() {
+    return new ConsIterator(length, this);
   }
 
-  public static <A, B> Cons<A, B> cons(A a, B b) {
-    return new Cons<A, B>(a, b);
+  final public A first() {
+    return (A) getElement(0);
   }
 
-  public static <A, B, C> Cons<A, Cons<B, C>> cons(A a, B b, C c) {
-    return new Cons(a, b, c);
-  }
-
-  public static <A, B, C, D> Cons<A, Cons<B, Cons<C, D>>> cons(A a,
-      B b, C c, D d) {
-    return new Cons(a, b, c, d);
-  }
-
-  public static <A, B, C, D, E> Cons<A, Cons<B, Cons<C, Cons<D, E>>>> cons(
-      A a, B b, C c, D d, E e) {
-    return new Cons(a, b, c, d, e);
-  }
-
-  public A first() {
-    return (A) get(0);
-  }
-
-  public B rest() {
-    if (size == 2)
-      return (B) get(1);
+  final public B second() {
+    if (length == 2)
+      return (B) getElement(1);
     else
       return (B) new Cons(this);
   }
@@ -437,8 +436,8 @@ public class Cons<A, B> {
    * integers are atomic and primitive, we don't need to synchronize access
    * (both, atomicity and primitiveness is needed for correctness). In the worst
    * case, two threads compute the hash value at the same time, this only occurs
-   * as long both run on different processors and access the hash value at the
-   * same time.
+   * as long both run on different processors with different local copies of
+   * the hash value.
    */
   private int hash;
 
@@ -474,9 +473,10 @@ public class Cons<A, B> {
   /**
    * The <i>equals</i>-method compares two <i>Cons</i> structurally. Deep
    * structures are traversed in such way that each substructure is only visited
-   * once, thus avoiding potentially exponential traversal time.
+   * once, thus avoiding potentially exponential traversal time. Elements
+   * of two different classes are always considered unequal.
    */
-  public boolean equals(Object other) {
+  final public boolean equals(Object other) {
     if (this == other)
       return true;
     if (!(other.getClass() == this.getClass()))
@@ -484,7 +484,7 @@ public class Cons<A, B> {
 
     Cons<A, B> b = (Cons<A, B>) other;
 
-    if ((size != b.size) || (hashCode() != b.hashCode()))
+    if ((length != b.length) || (hashCode() != b.hashCode()))
       return false;
 
     Cons<A, B> a = this;
@@ -494,7 +494,10 @@ public class Cons<A, B> {
     //by traversing a list where 2 pointers refer to the
     //next element).
 
+    
     while (a != null) {
+      if (a.getClass() != b.getClass())
+         return false;
       if (!elementEquals(a.e0, b.e0))
         return false;
       if (!elementEquals(a.e1, b.e1))
@@ -515,6 +518,9 @@ public class Cons<A, B> {
       return true;
     if ((a == null) || (b == null))
       return false;
+    if (a.getClass() != b.getClass())
+      return false;
+    
     return a.equals(b);
   }
-}
+}//`class`

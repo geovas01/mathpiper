@@ -32,8 +32,13 @@ package org.eninom.numerics;
 
 import org.eninom.func.*;
 
+//!FFT Routines
+/*<literate>*/
+/**
+ * Routines for FFT. Array lengths must be powers of 2.
+ */
+public final class Fourier {
 //array lengths must be powers of 2
-public class Fourier {
 //convolution that runs in O(n^2) time. Use this function
 //for small arrays or in order to test fastConvolute(...)
   public static double[] convolute(double[] F1, double F2[])
@@ -257,7 +262,7 @@ public static void computeIFFT(double[] aRe, double[] aIm,
   }
 }
 
-//compute FT in O(n log n) time:
+//compute IFFT in O(n log n) time:
 public static Cons<double[],double[]> computeIFFT(double[] aRe, double[] aIm) {
   int n = aRe.length;
   double[] bRe = new double[n];

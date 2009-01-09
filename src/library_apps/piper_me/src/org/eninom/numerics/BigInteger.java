@@ -55,13 +55,17 @@ package org.eninom.numerics;
 
 import java.util.Random;
 
-/** 
+//! Big Integer Implementation
+/*<literate>*/
+/**
+ * Implementation from the GNU Classpath Project. <br />
+ * <br />
  * All integers are stored in 2's-complement form.
  * If words == null, the ival is the value of this BigInteger.
  * Otherwise, the first ival elements of words make the value
  * of this BigInteger, stored in little-endian order, 2's-complement form. 
  */
-public class BigInteger
+public final class BigInteger
 {
   private transient int ival;
   private transient int[] words;

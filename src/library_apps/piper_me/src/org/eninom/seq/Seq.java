@@ -30,7 +30,19 @@ exception statement from your version. */
 
 package org.eninom.seq;
 
+//!Sequence Interface
+/*<literate>*/
+/**
+ * Interface for sequences.
+ */
 public interface Seq<E> {
+  /**
+   * returns the sequence's first element.
+   */
   E first();
+  /**
+   * returns the rest of the sequence, that is, all elements
+   * (in order) except the first.
+   */
   Seq<E> rest();
 }//`interface`

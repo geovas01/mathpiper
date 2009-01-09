@@ -34,8 +34,9 @@ import org.eninom.iterator.ForwardIterator;
 import org.eninom.seq.Seq;
 import org.eninom.seq.SeqFromIterator;
 
-/*
- * Implements a bothsided extendible array. This is an array in which element
+//!Bothside Extendible Array.
+/**
+ * Implements a bothside extendible array. This is an array in which element
  * access takes time O(1), as well as adding and removing new elements at
  * first/last position.
  * 
@@ -67,10 +68,9 @@ import org.eninom.seq.SeqFromIterator;
  * Java like (use polymorphism and a base object), or more like STL. (STL
  * already provides a data structure with similar functionality).
  */
-
-
 @SuppressWarnings("unchecked")
-public class ExtendibleArray<E> implements MutableDeque<E>, MutableRandomAccess<E>,
+public final class ExtendibleArray<E> 
+implements MutableDeque<E>, MutableRandomAccess<E>,
 MutableStack<E> {
   // N is the size of the small array A
   // NTwice is the size of the large array B
@@ -395,7 +395,17 @@ MutableStack<E> {
     }
   }// inner class
   
-  public final String toString() {
+  @Override
+  public int hashCode() {
+    return AbstractIterableCollection.hashCode(this);
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+   return AbstractIterableCollection.equals(this,obj);
+  }
+  
+  public String toString() {
     return Collections.printToString(this);
   }
 }

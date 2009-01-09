@@ -30,20 +30,57 @@ exception statement from your version. */
 
 package org.eninom.func;
 
+//!Chunk for Lazy-Evalution
+/*<literate>*/
+/**
+ * This chunk holds and controls lazy-evaluated values. An
+ * instance of this class is partially thread-safe: It is possible
+ * that multiple threads access a lazy object concurrently, but
+ * for efficiency reasons, no provision is made that prevents
+ * from evaluating the function more than once. However, a thread
+ * won't reevaluate if it can see the result of a previous
+ * evaluation, and processor caches will be synchronized in
+ * such way that only complete results become visible. As an
+ * example, Concurrent Haskell has simililar behavior. 
+ */
+@SuppressWarnings("unchecked")
 public final class Lazy<M,N> {
   
+  /*
+   * Define a marker object for black holes. black holes
+   * are place holders for unevaluated objects.
+   */
   private static Object blackhole = new Object();
   
+  /*
+   * An unevaluated lazy value consists of a function and
+   * the argument it applies to:
+   */
   private Function<M,N> f;
   private M arg;
+  
+  /**
+   * The constructor takes a function and an argument. Both
+   * are applied when the value is accessed the first time.
+   */
   public Lazy(Function<M, N> f, M arg) {
     super();
     this.f = f;
     this.arg = arg;
   }
   
+  /*
+   * We initialize the result as a black hole. The result
+   * is a <i>volatile</i> object in order to synchronize
+   * processor caches. Note that this is a result of Java's
+   * memory model and does not translate to C++, though
+   * similar keywords exist there.
+   */
   private volatile Object result = blackhole;
   
+  /**
+   * Computes the value.
+   */
   public N value() {
     if (result == blackhole)
       synchronized(this) {
@@ -58,7 +95,16 @@ public final class Lazy<M,N> {
     return (N) result;
   }
   
+  /**
+   * Returns true if the value is still blackholed.
+   */
   public boolean blackhole() {
     return result == blackhole;
   }
+  
+  /*
+   * Note: One might be tempted to use blackholing for detecting
+   * cycles during evaluation. This, however, does only work in
+   * single-threaded use.
+   */
 }//`class`

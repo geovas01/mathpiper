@@ -30,6 +30,11 @@ exception statement from your version. */
 
 package org.eninom.collection;
 
+//! Mutable Random Access Interface
+/*<literate>*/
+/**
+ * Interface for a mutable, randomly acessible collection 
+ */
 public interface MutableRandomAccess<E> extends RandomAccess<E> {
   E set(int i, E e);
 }
