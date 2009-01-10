@@ -17,7 +17,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-import org.mathpiper.io.InputStream;
+import java.io.InputStreamReader;
+import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
@@ -429,8 +430,8 @@ public class UtilityFunctions {
         return aOriginal.substring(1, nrc);
     }
 
-    private static void doInternalLoad(Environment aEnvironment, InputStream aInput) throws Exception {
-        InputStream previous = aEnvironment.iCurrentInput;
+    private static void doInternalLoad(Environment aEnvironment, MathPiperInputStream aInput) throws Exception {
+        MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try {
             aEnvironment.iCurrentInput = aInput;
             // TODO make "EndOfFile" a global thing
@@ -478,9 +479,9 @@ public class UtilityFunctions {
         InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);
         aEnvironment.iInputStatus.setTo(hashedname);
 
-        InputStream newInput = null;
+        MathPiperInputStream newInput = null;
 
-        /*java.io.InputStream scriptStream = Scripts.getScriptStream(oper);
+        /*java.io.MathPiperInputStream scriptStream = Scripts.getScriptStream(oper);
         if (scriptStream != null) {
         newInput = new StandardFileInputStream(scriptStream, aEnvironment.iInputStatus);
         LispError.check(newInput != null, LispError.KLispErrFileNotFound);
@@ -489,7 +490,7 @@ public class UtilityFunctions {
         java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(oper);
         if (fileURL != null) //File is on the classpath.
         {
-            newInput = new StandardFileInputStream(fileURL.openStream(), aEnvironment.iInputStatus);
+            newInput = new StandardFileInputStream(new InputStreamReader(fileURL.openStream()), aEnvironment.iInputStatus);
             LispError.check(newInput != null, LispError.KLispErrFileNotFound);
             doInternalLoad(aEnvironment, newInput);
         } else { //File may be in the filesystem.
@@ -540,13 +541,13 @@ public class UtilityFunctions {
         return result.toString();
     }
 
-    public static InputStream openInputFile(String aFileName, InputStatus aInputStatus) throws Exception {//Note:tk:primary method for file opening.
+    public static MathPiperInputStream openInputFile(String aFileName, InputStatus aInputStatus) throws Exception {//Note:tk:primary method for file opening.
         try {
             if (zipFile != null) {
                 java.util.zip.ZipEntry e = zipFile.getEntry(aFileName);
                 if (e != null) {
                     java.io.InputStream s = zipFile.getInputStream(e);
-                    return new StandardFileInputStream(s, aInputStatus);
+                    return new StandardFileInputStream(new InputStreamReader(s), aInputStatus);
                 }
             }
 
@@ -562,12 +563,12 @@ public class UtilityFunctions {
     //return new StandardFileInputStream(aFileName, aInputStatus);
     }
 
-    public static InputStream openInputFile(Environment aEnvironment,
+    public static MathPiperInputStream openInputFile(Environment aEnvironment,
             InputDirectories aInputDirectories, String aFileName,
             InputStatus aInputStatus) throws Exception {
         String othername = aFileName;
         int i = 0;
-        InputStream f = openInputFile(othername, aInputStatus);
+        MathPiperInputStream f = openInputFile(othername, aInputStatus);
         while (f == null && i < aInputDirectories.size()) {
             othername = ((String) aInputDirectories.get(i)) + aFileName;
             f = openInputFile(othername, aInputStatus);
@@ -580,7 +581,7 @@ public class UtilityFunctions {
         InputStatus inputStatus = new InputStatus();
         String othername = aFileName;
         int i = 0;
-        InputStream f = openInputFile(othername, inputStatus);
+        MathPiperInputStream f = openInputFile(othername, inputStatus);
         if (f != null) {
             return othername;
         }
@@ -595,8 +596,8 @@ public class UtilityFunctions {
         return "";
     }
 
-    private static void doLoadDefFile(Environment aEnvironment, InputStream aInput, DefFile def) throws Exception {
-        InputStream previous = aEnvironment.iCurrentInput;
+    private static void doLoadDefFile(Environment aEnvironment, MathPiperInputStream aInput, DefFile def) throws Exception {
+        MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try {
             aEnvironment.iCurrentInput = aInput;
             String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
@@ -642,10 +643,10 @@ public class UtilityFunctions {
 
 
 
-        InputStream newInput = null;
+        MathPiperInputStream newInput = null;
 
 
-        /* java.io.InputStream scriptStream = Scripts.getScriptStream(flatfile);
+        /* java.io.MathPiperInputStream scriptStream = Scripts.getScriptStream(flatfile);
         if (scriptStream != null) {
         newInput = new StandardFileInputStream(scriptStream, aEnvironment.iInputStatus);
         LispError.check(newInput != null, LispError.KLispErrFileNotFound);
@@ -654,7 +655,7 @@ public class UtilityFunctions {
         java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(flatfile);
         if (fileURL != null) //File is on the classpath.
         {
-            newInput = new StandardFileInputStream(fileURL.openStream(), aEnvironment.iInputStatus);
+            newInput = new StandardFileInputStream(new InputStreamReader(fileURL.openStream()), aEnvironment.iInputStatus);
             LispError.check(newInput != null, LispError.KLispErrFileNotFound);
             doLoadDefFile(aEnvironment, newInput, def);
 

@@ -41,7 +41,7 @@ public class Console {
         interpreter.addScriptsDirectory(directory);
     }
 
-    String readLine(InputStream aStream) {
+    String readLine(InputStreamReader aStream) {
         StringBuffer line = new StringBuffer();
         try {
             int c = aStream.read();
@@ -81,7 +81,7 @@ public class Console {
      * @param in console input.
      * @param out console output.
      */
-    public void repl(InputStream in, PrintStream out) {
+    public void repl(InputStream inputStream, PrintStream out) {
         out.println("\nMathPiper version '" + Version.version + "'.");
         out.println("See http://mathrider.org for more information and documentation on MathPiper.");
         out.println("Place a backslash at the end of a line to enter multiline input.");
@@ -99,7 +99,7 @@ public class Console {
         String input;
         while (!quitting) {
             out.print("In> ");
-            input = readLine(in);
+            input = readLine(new InputStreamReader(inputStream));
             input = input.trim();
 
             if(input.endsWith("\\"))

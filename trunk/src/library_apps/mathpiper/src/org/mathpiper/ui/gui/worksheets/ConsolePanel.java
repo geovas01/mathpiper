@@ -21,7 +21,7 @@ import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.io.CachedStandardFileInputStream;
 import org.mathpiper.*;
-import org.mathpiper.io.OutputStream;
+import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
@@ -44,7 +44,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
     int yDown = 0;
     int yStart = 0;
     boolean calculating = false;
-    OutputStream stdoutput = null;
+    MathPiperOutputStream stdoutput = null;
     Interpreter interpreter = null;
     StringBuffer outputStringBuffer = new StringBuffer();
     boolean gotDatahubInit = false;

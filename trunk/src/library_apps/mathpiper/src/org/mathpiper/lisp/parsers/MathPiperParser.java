@@ -25,7 +25,7 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.ConsTraverser;
 import org.mathpiper.lisp.Atom;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
-import org.mathpiper.io.InputStream;
+import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.SubList;
 import org.mathpiper.lisp.InfixOperator;
@@ -45,7 +45,7 @@ public class MathPiperParser extends Parser
     public ConsPointer iResult = new ConsPointer();
 
     public MathPiperParser(MathPiperTokenizer aTokenizer,
-            InputStream aInput,
+            MathPiperInputStream aInput,
             Environment aEnvironment,
             Operators aPrefixOperators,
             Operators aInfixOperators,
@@ -176,7 +176,7 @@ public class MathPiperParser extends Parser
                                 {
                                     //printf("ACCEPT %s\n",lookUp.String());
                                     iLookAhead = lookUp;
-                                    InputStream input = iInput;
+                                    MathPiperInputStream input = iInput;
                                     int newPos = input.position() - (origlen - len);
                                     input.setPosition(newPos);
                                     //printf("Pushhback %s\n",&input.startPtr()[input.position()]);

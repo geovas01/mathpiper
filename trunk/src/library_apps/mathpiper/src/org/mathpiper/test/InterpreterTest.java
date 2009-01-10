@@ -33,14 +33,15 @@ public class InterpreterTest implements ResponseListener
         EvaluationResponse response;
        
         interpreter = Interpreters.getSynchronousInterpreter();
-        response = interpreter.evaluate("2+2;");
+        response = interpreter.evaluate("α := 4;");
         System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
         
         response = interpreter.evaluate("Load(\"test.mpi\");");
         System.out.println("Load test: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
         
-        response = interpreter.evaluate("3+3;");
+       /* response = interpreter.evaluate("3+3;");
          System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
+        * */
         
        /* interpreter = Interpreters.newAsynchronousInterpreter();
         interpreter.addResponseListener(this);
