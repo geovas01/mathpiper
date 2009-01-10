@@ -16,6 +16,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.calculator;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.beans.PropertyVetoException;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
@@ -29,11 +32,25 @@ public class CalculatorPanel extends javax.swing.JPanel
     //private StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
     private Interpreter mathpiper;
     private StringBuilder enteredText = new StringBuilder();
+    private javax.swing.JInternalFrame consoleInternalFrame;
 
     /** Creates new form CalculatorPanel */
     public CalculatorPanel()
     {
         initComponents();
+        
+        consoleInternalFrame = new javax.swing.JInternalFrame();
+        Container contentPane = consoleInternalFrame.getContentPane();
+        contentPane.add(new org.mathpiper.ui.gui.consoles.Console(), BorderLayout.CENTER);
+        consoleInternalFrame.setIconifiable(true);
+        consoleInternalFrame.setResizable(true);
+        consoleInternalFrame.setTitle("Console");
+        consoleInternalFrame.setBounds(275, 140, 320, 220);
+        consoleInternalFrame.setVisible(true);
+       jDesktopPane1.add(consoleInternalFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+
+
 	setBackground(new java.awt.Color(255,255,255));
 
         mathpiper = Interpreters.getSynchronousInterpreter();
@@ -105,13 +122,13 @@ public class CalculatorPanel extends javax.swing.JPanel
 
         setLayout(new java.awt.BorderLayout());
 
-       // jLabel1.setText("MathRider Super Scientific Calculator (http://mathrider.org)");
-        //add(jLabel1, java.awt.BorderLayout.NORTH);
+        jLabel1.setText("MathRider Super Scientific Calculator (http://mathrider.org)");
+        add(jLabel1, java.awt.BorderLayout.NORTH);
 
-       // jLabel2.setText("V.01");
-        //add(jLabel2, java.awt.BorderLayout.SOUTH);
+        jLabel2.setText("V.01");
+        add(jLabel2, java.awt.BorderLayout.SOUTH);
 
-        jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jDesktopPane1.setBackground(new java.awt.Color(238, 236, 242));
         jDesktopPane1.setAutoscrolls(true);
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(400, 400));
 
@@ -131,7 +148,7 @@ public class CalculatorPanel extends javax.swing.JPanel
             }
         });
 
-        decimalPointButton.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        decimalPointButton.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
         decimalPointButton.setText(".");
         decimalPointButton.setMaximumSize(new java.awt.Dimension(27, 27));
         decimalPointButton.setMinimumSize(new java.awt.Dimension(27, 27));
@@ -253,7 +270,7 @@ public class CalculatorPanel extends javax.swing.JPanel
         jButton24.setMinimumSize(new java.awt.Dimension(27, 27));
         jButton24.setPreferredSize(new java.awt.Dimension(27, 27));
 
-        equals.setFont(new java.awt.Font("DejaVu Sans", 0, 14)); // NOI18N
+        equals.setFont(new java.awt.Font("DejaVu Sans", 0, 14));
         equals.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/mathpiper/ui/gui/calculator/resources/equals.gif"))); // NOI18N
         equals.setActionCommand("equals");
         equals.setMaximumSize(new java.awt.Dimension(27, 27));
@@ -428,7 +445,7 @@ public class CalculatorPanel extends javax.swing.JPanel
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jInternalFrame1.setBounds(90, 140, 270, 220);
+        jInternalFrame1.setBounds(10, 140, 270, 220);
         jDesktopPane1.add(jInternalFrame1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jInternalFrame2.setIconifiable(true);
@@ -436,7 +453,7 @@ public class CalculatorPanel extends javax.swing.JPanel
         jInternalFrame2.setTitle("Display");
         jInternalFrame2.setVisible(true);
 
-        display.setFont(new java.awt.Font("DejaVu Sans 14", 0, 18)); // NOI18N
+        display.setFont(new java.awt.Font("DejaVu Sans 14", 0, 18));
         display.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 displayMouseClicked(evt);
