@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.io.InputStream;
+import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -46,11 +46,11 @@ public class FromFile extends BuiltinFunctionInitialize
         String hashedname = aEnvironment.getTokenHash().lookUpUnStringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
-        InputStream previous = aEnvironment.iCurrentInput;
+        MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try
         {
             aEnvironment.iInputStatus.setTo(hashedname);
-            InputStream input = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
+            MathPiperInputStream input = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
                     UtilityFunctions.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
             aEnvironment.iCurrentInput = input;
             // Open file

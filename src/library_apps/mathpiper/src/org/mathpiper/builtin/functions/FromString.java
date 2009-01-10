@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.io.InputStream;
+import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -48,7 +48,7 @@ public class FromString extends BuiltinFunctionInitialize
         aEnvironment.iInputStatus.setTo("String");
         StringInputStream newInput = new StringInputStream(new StringBuffer(oper), aEnvironment.iInputStatus);
 
-        InputStream previous = aEnvironment.iCurrentInput;
+        MathPiperInputStream previous = aEnvironment.iCurrentInput;
         aEnvironment.iCurrentInput = newInput;
         try
         {

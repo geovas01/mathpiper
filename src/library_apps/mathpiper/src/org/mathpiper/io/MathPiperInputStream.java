@@ -18,15 +18,12 @@
 
 package org.mathpiper.io;
 
-import org.mathpiper.io.InputStatus;
-import org.mathpiper.*;
 
-
-/** \class InputStream : pure abstract class declaring the interface
+/** \class MathPiperInputStream : pure abstract class declaring the interface
  *  that needs to be implemented by a file (something that expressions
  *  can be read from).
  */
-public abstract class InputStream
+public abstract class MathPiperInputStream
 {
 	public InputStatus iStatus;
 
@@ -34,7 +31,7 @@ public abstract class InputStream
 	 * needed when an error occurred, and the file has already been
 	 * closed.
 	 */
-	public InputStream(InputStatus aStatus)
+	public MathPiperInputStream(InputStatus aStatus)
 	{
 		iStatus = aStatus;
 	}

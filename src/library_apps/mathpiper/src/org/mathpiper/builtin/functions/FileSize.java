@@ -23,7 +23,7 @@ import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.Atom;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.io.InputStream;
+import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -49,7 +49,7 @@ public class FileSize extends BuiltinFunctionInitialize
         try
         {
             // Open file
-            InputStream newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
+            MathPiperInputStream newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
                     UtilityFunctions.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
             LispError.check(newInput != null, LispError.KLispErrFileNotFound);

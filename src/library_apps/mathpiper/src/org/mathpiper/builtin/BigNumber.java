@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin;
 
-import org.mathpiper.io.OutputStream;
+import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.LispError;
 import java.math.*;
 
@@ -472,7 +472,7 @@ public class BigNumber {
      * @param aOutput
      * @throws java.lang.Exception
      */
-    public void dumpDebugInfo(OutputStream aOutput) throws Exception {
+    public void dumpDebugInfo(MathPiperOutputStream aOutput) throws Exception {
         if (javaBigInteger != null) {
             aOutput.write("integer: " + javaBigInteger.toString() + "\n");
         } else {

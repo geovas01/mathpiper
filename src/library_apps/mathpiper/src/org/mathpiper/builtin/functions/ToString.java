@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.Atom;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.io.OutputStream;
+import org.mathpiper.io.MathPiperOutputStream;
 
 /**
  *
@@ -34,7 +34,7 @@ public class ToString extends BuiltinFunctionInitialize
     {
         StringBuffer oper = new StringBuffer();
         StringOutputStream newOutput = new StringOutputStream(oper);
-        OutputStream previous = aEnvironment.iCurrentOutput;
+        MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = newOutput;
         try
         {

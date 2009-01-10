@@ -18,9 +18,9 @@
 
 package org.mathpiper.io;
 
-/** \class OutputStream : interface an output object should adhere to.
+/** \class MathPiperOutputStream : interface an output object should adhere to.
  */
-public abstract class OutputStream //Note:tk: Made this interface public.
+public abstract class MathPiperOutputStream //Note:tk: Made this interface public.
 {
 	/// write out one character.
 	public abstract void putChar(char aChar) throws Exception;

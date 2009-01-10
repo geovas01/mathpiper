@@ -18,7 +18,7 @@
 
 package org.mathpiper.lisp.tokenizers;
 
-import org.mathpiper.io.InputStream;
+import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.lisp.*;
 import org.mathpiper.*;
@@ -27,11 +27,12 @@ import org.mathpiper.*;
 public class MathPiperTokenizer
 {
 	static String symbolics = new String("~`!@#$^&*-=+:<>?/\\|");
+    static String unicodeVariableChars = "αβγ";
 	String iToken; //Can be used as a token container.
 
 	/// NextToken returns a string representing the next token,
 	/// or an empty list.
-	public String nextToken(InputStream aInput, TokenHash aTokenHashTable) throws Exception
+	public String nextToken(MathPiperInputStream aInput, TokenHash aTokenHashTable) throws Exception
 	{
 		char streamCharacter;
 		int firstpos = aInput.position();
@@ -176,7 +177,7 @@ public class MathPiperTokenizer
 
 	public static boolean isAlpha(char c)
 	{
-		return ( (c>='a' && c<='z') || (c>='A' && c<='Z') || (c == '\'') );
+		return ( (c>='a' && c<='z') || (c>='A' && c<='Z') || (c == '\'') || unicodeVariableChars.indexOf(c) != -1);
 	}
 
 	public static boolean isAlNum(char c)
@@ -188,7 +189,7 @@ public class MathPiperTokenizer
 	
 	public static boolean isSymbolic(char c)
 	{
-		return (symbolics.indexOf(c) >= 0);
+		return (symbolics.indexOf(c) != -1);
 	}
 	
 };

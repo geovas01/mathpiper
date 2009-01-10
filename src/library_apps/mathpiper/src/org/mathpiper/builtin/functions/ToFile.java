@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.io.StandardFileOutputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.io.OutputStream;
+import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
 
@@ -51,7 +51,7 @@ public class ToFile extends BuiltinFunctionInitialize
         LispError.checkCore(aEnvironment, aStackTop, localFP != null, LispError.KLispErrFileNotFound);
         StandardFileOutputStream newOutput = new StandardFileOutputStream(localFP);
 
-        OutputStream previous = aEnvironment.iCurrentOutput;
+        MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = newOutput;
 
         try

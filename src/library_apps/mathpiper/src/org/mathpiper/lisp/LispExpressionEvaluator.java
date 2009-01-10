@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-import org.mathpiper.io.OutputStream;
+import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.userfunctions.Evaluator;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
@@ -231,7 +231,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
                 
 		// Print out the current expression
 		//StringOutput stream(outString);
-                OutputStream stream = new StringOutputStream(outString);
+                MathPiperOutputStream stream = new StringOutputStream(outString);
                 
                 
 		infixprinter.print(aExpression, stream,aEnvironment);
