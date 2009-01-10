@@ -42,15 +42,19 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private Interpreter interpreter = Interpreters.getSynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
     private JButton button1,  button2,  button3;
-    private JTextArea typeArea;
+    private JTextArea textArea;
     private JScrollPane typePane;
     private char[] typedKey = new char[1];
     private JPanel buttons;
     private boolean deleteFlag = false;
     private float fontSize = 12;
     private Font bitstreamVera;
+    private StringBuilder inputLines;
+    private int responseInsertionOffset = 0;
 
     public Console() {
+
+        inputLines = new StringBuilder();
 
 
         this.setLayout(new BorderLayout());
@@ -60,8 +64,8 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         buttons = new JPanel();
 
         Box guiBox = new Box(BoxLayout.Y_AXIS);
-        typeArea = new JTextArea(30, 20);
-        typeArea.append("In>");
+        textArea = new JTextArea(30, 20);
+        textArea.append("In>");
 
         //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 
@@ -70,8 +74,8 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         //typeArea.setFont(bitstreamVera);
 
 
-        typeArea.addKeyListener(this);
-        typePane = new JScrollPane(typeArea);
+        textArea.addKeyListener(this);
+        typePane = new JScrollPane(textArea);
         guiBox.add(typePane);
 
         Box ioBox = new Box(BoxLayout.Y_AXIS);
@@ -133,27 +137,41 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
         if ((int) key == 10) {
             try {
-                int lineNumber = typeArea.getLineOfOffset(typeArea.getCaretPosition());
+                int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
                 String line = "";
 
                 //System.out.println("LN: " + lineNumber + "  LSO: " + lineStartOffset + "  LEO: " + lineEndOffset  );
                 if (e.isShiftDown()) {
-                    
-                    int lineStartOffset = typeArea.getLineStartOffset(lineNumber);
-                    int lineEndOffset = typeArea.getLineEndOffset(lineNumber);
-                    line = typeArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
 
-                    EvaluationResponse response = interpreter.evaluate(line);
+                    captureInputLines(lineNumber);
 
-                    String output = "\nResult: " + response.getResult() + "\n";
+                    System.out.println(inputLines.toString());
+                    EvaluationResponse response = interpreter.evaluate("[" + inputLines.toString().replaceAll(";;", ";") + "];");
 
-                    typeArea.insert(output, lineEndOffset + 1);
+                    String output = "Result: " + response.getResult().trim();
+
+                    if (response.getSideEffects() != "") {
+                        output += "\nSide Effects:\n" + response.getSideEffects();
+                    }
+
+                    if (response.isExceptionThrown()) {
+                        output += "\nException: " + response.getExceptionMessage();
+                    }
+
+                    output += "\n\nIn>";
+
+                    if (textArea.getLineOfOffset(responseInsertionOffset) == textArea.getLineCount()) {
+                        textArea.append(output);
+                    } else {
+
+                        textArea.insert("\n" + output, responseInsertionOffset);
+                    }
                 } else {
-                    int lineStartOffset = typeArea.getLineStartOffset(lineNumber-1);
-                    int lineEndOffset = typeArea.getLineEndOffset(lineNumber-1);
-                    line = typeArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+                    int lineStartOffset = textArea.getLineStartOffset(lineNumber - 1);
+                    int lineEndOffset = textArea.getLineEndOffset(lineNumber - 1);
+                    line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
                     if (line.startsWith("In>")) {
-                        typeArea.insert("In>", lineEndOffset);
+                        textArea.insert("In>", lineEndOffset);
                     }
 
                 }
@@ -202,6 +220,58 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         //buffer.put((int) key);
         //setReceiveDataRegisterFull(true);
         }
+    }//end method.
+
+    private void captureInputLines(int lineNumber) {
+
+        inputLines.delete(0, inputLines.length());
+
+        try {
+            int lineStartOffset = textArea.getLineStartOffset(lineNumber);
+            int lineEndOffset = textArea.getLineEndOffset(lineNumber);
+            String line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+
+            if (line.startsWith("In>")) {
+                //Scan backwards to first line that does not start with In>.
+                do {
+                    lineStartOffset = textArea.getLineStartOffset(lineNumber);
+                    lineEndOffset = textArea.getLineEndOffset(lineNumber);
+                    line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+                    lineNumber--;
+
+                } while (line.startsWith("In>") && lineNumber != -1);//end do/while.
+
+                if (lineNumber != -1) {
+                    lineNumber++;
+                }
+
+
+                //Scan forwards to first line that does not start with In>.
+                boolean pastInputLines = false;
+                do {
+                    lineNumber++;
+                    lineStartOffset = textArea.getLineStartOffset(lineNumber);
+                    lineEndOffset = textArea.getLineEndOffset(lineNumber);
+                    line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+                    if (line.startsWith("In>")) {
+                        inputLines.append(line.substring(3, line.length()).trim());
+                        responseInsertionOffset = lineEndOffset;
+                        if (!line.endsWith(";")) {
+                            inputLines.append(";");
+                        }//end if.
+                    } else {
+                        pastInputLines = true;
+                    }
+
+
+                } while (!pastInputLines && lineNumber <= textArea.getLineCount());//end while.
+
+            }//end if.
+
+        } catch (BadLocationException ex) {
+        }
+
+
     }
 
     public static void main(String[] args) {
