@@ -184,7 +184,9 @@ public class BigNumber {
             return javaBigInteger.toString(aBase);
         } else {
             String result = javaBigDecimal.toString();
+            //System.out.println("BigNumResult: " + result);
 
+            
             int extraExp = 0;
             // Parse out the exponent
             {
@@ -211,10 +213,12 @@ public class BigNumber {
                     }
                 }
                 result = result.substring(0, endpos);
+                }//end if.
+            
                 if ((iTensExp + extraExp) != 0) {
                     result = result + "e" + (iTensExp + extraExp);
                 }
-            }
+            
             return result;
         }
     }//end method.
@@ -486,7 +490,8 @@ public class BigNumber {
         if (javaBigInteger != null) {
             return ("Integer: " + javaBigInteger.toString() + "   \n");
         } else {
-            return ("Decimal: " + javaBigDecimal.unscaledValue() + "  Scale: " + javaBigDecimal.scale() + " x 10^" + iTensExp+"   \n");
+
+            return ("BigDecimal: " + javaBigDecimal.toString() + "  Decimal: " + javaBigDecimal.unscaledValue() + "  Scale: " + javaBigDecimal.scale() + " x 10^" + iTensExp+"   \n");
         }
     }
 
