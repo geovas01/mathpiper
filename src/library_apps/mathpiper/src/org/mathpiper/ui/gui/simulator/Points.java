@@ -4,13 +4,17 @@ package org.mathpiper.ui.gui.simulator;
 
 
 
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 public class Points
 {
-  private ArrayList<Point> pointsList = new ArrayList();
+  private List<Point> pointsList = Collections.synchronizedList(new ArrayList<Point>());
 
   private static final int DOTSIZE = 4;
   private static final int RADIUS = DOTSIZE/2;
@@ -28,7 +32,7 @@ public class Points
 
   }
 
-  public void addPoint(int x, int y)
+  public synchronized void addPoint(int x, int y)
   {
       pointsList.add(new Point(x,y));
   }
@@ -36,7 +40,7 @@ public class Points
 
  
 
-  public void draw(Graphics g)
+  public synchronized void draw(Graphics g)
   // draw a black worm with a red head
   {
     
