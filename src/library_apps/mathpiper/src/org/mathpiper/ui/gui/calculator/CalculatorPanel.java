@@ -45,7 +45,7 @@ public class CalculatorPanel extends javax.swing.JPanel
         consoleInternalFrame.setIconifiable(true);
         consoleInternalFrame.setResizable(true);
         consoleInternalFrame.setTitle("Console");
-        consoleInternalFrame.setBounds(275, 140, 320, 220);
+        consoleInternalFrame.setBounds(0, 330, 430, 300);
         consoleInternalFrame.setVisible(true);
        jDesktopPane1.add(consoleInternalFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -445,7 +445,7 @@ public class CalculatorPanel extends javax.swing.JPanel
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jInternalFrame1.setBounds(10, 140, 270, 220);
+        jInternalFrame1.setBounds(0, 100, 270, 220);
         jDesktopPane1.add(jInternalFrame1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jInternalFrame2.setIconifiable(true);
@@ -472,7 +472,7 @@ public class CalculatorPanel extends javax.swing.JPanel
         });
         jInternalFrame2.getContentPane().add(display, java.awt.BorderLayout.NORTH);
 
-        jInternalFrame2.setBounds(10, 30, 430, 80);
+        jInternalFrame2.setBounds(0, 10, 430, 80);
         jDesktopPane1.add(jInternalFrame2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         add(jDesktopPane1, java.awt.BorderLayout.CENTER);
