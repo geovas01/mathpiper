@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Enhance range operator (..) to step by a given value.  
+Perhaps something like 1,3 .. 20 can be used with 3 being the step value. 
 +Add a way to extract rows and columns (vectors) from matrices.
 +This code causes the wrong line to be highlighted when an error:
 A := {{8,4,-3},{6,2,-4},{4,-3,6}};
