@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 public class SimulatorPanel extends JPanel implements Runnable {
 
     private static final int PWIDTH = 500;   // size of panel
-    private static final int PHEIGHT = 400;
+    private static final int PHEIGHT = 500;
     private static long MAX_STATS_INTERVAL = 1000000000L;
     // private static long MAX_STATS_INTERVAL = 1000L;
     // record stats every 1 second (roughly)
@@ -210,7 +210,7 @@ public class SimulatorPanel extends JPanel implements Runnable {
         }
 
         printStats();
-        System.exit(0);   // so window disappears
+        //System.exit(0);   // so window disappears
     } // end of run()
 
     private void simulatorUpdate() {
@@ -239,8 +239,8 @@ public class SimulatorPanel extends JPanel implements Runnable {
 
         // report frame count & average FPS and UPS at top left
         // dbg.drawString("Frame Count " + frameCount, 10, 25);
-        dbg.drawString("Average FPS/UPS: " + df.format(averageFPS) + ", " +
-                df.format(averageUPS), 20, 25);  // was (10,55)
+        
+        //dbg.drawString("Average FPS/UPS: " + df.format(averageFPS) + ", " + df.format(averageUPS), 20, 25);  // was (10,55)
 
         dbg.setColor(Color.black);
 
@@ -349,9 +349,9 @@ public class SimulatorPanel extends JPanel implements Runnable {
     }  // end of storeStats()
 
     private void printStats() {
-        System.out.println("Frame Count/Loss: " + frameCount + " / " + totalFramesSkipped);
+        /*System.out.println("Frame Count/Loss: " + frameCount + " / " + totalFramesSkipped);
         System.out.println("Average FPS: " + df.format(averageFPS));
         System.out.println("Average UPS: " + df.format(averageUPS));
-        System.out.println("Time Spent: " + timeSpentInGame + " secs");
+        System.out.println("Time Spent: " + timeSpentInGame + " secs");*/
     }  // end of printStats()
 }  // end of SimulatorPanel class

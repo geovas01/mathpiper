@@ -14,7 +14,7 @@ public class SimulatorFrame extends JFrame implements WindowListener
 {
   private static int DEFAULT_FPS = 80;
 
-  private SimulatorPanel wp;        // where the worm is drawn
+  private SimulatorPanel simulatorPanel;        // where the worm is drawn
   private JTextField jtfBox;   // displays no.of boxes used
   private JTextField jtfTime;  // displays time spent in game
 
@@ -29,7 +29,7 @@ public class SimulatorFrame extends JFrame implements WindowListener
     int fps = DEFAULT_FPS;
 
     period = (long) 1000.0/fps;
-    System.out.println("fps: " + fps + "; period: " + period + " ms");
+    //System.out.println("fps: " + fps + "; period: " + period + " ms");
 
     period = period*1000000;    // ms --> nanosecs
    }
@@ -49,15 +49,15 @@ public class SimulatorFrame extends JFrame implements WindowListener
 
   public void plotPoint(int x, int y)
   {
-      wp.plotPoint(x, y);
+      simulatorPanel.plotPoint(x, y);
   }
 
   private void makeGUI(long period)
   {
     Container c = getContentPane();    // default BorderLayout used
 
-    wp = new SimulatorPanel(this, period);
-    c.add(wp, "Center");
+    simulatorPanel = new SimulatorPanel(this, period);
+    c.add(simulatorPanel, "Center");
 
     JPanel ctrls = new JPanel();   // a row of textfields
     ctrls.setLayout( new BoxLayout(ctrls, BoxLayout.X_AXIS));
@@ -84,21 +84,21 @@ public class SimulatorFrame extends JFrame implements WindowListener
   // ----------------- window listener methods -------------
 
   public void windowActivated(WindowEvent e)
-  { wp.resumeSimulator();  }
+  { simulatorPanel.resumeSimulator();  }
 
   public void windowDeactivated(WindowEvent e)
-  {  wp.pauseSimulator();  }
+  {  simulatorPanel.pauseSimulator();  }
 
 
   public void windowDeiconified(WindowEvent e)
-  {  wp.resumeSimulator();  }
+  {  simulatorPanel.resumeSimulator();  }
 
   public void windowIconified(WindowEvent e)
-  {  wp.pauseSimulator(); }
+  {  simulatorPanel.pauseSimulator(); }
 
 
   public void windowClosing(WindowEvent e)
-  {  wp.stopSimulator();  }
+  {  simulatorPanel.stopSimulator();  }
 
 
   public void windowClosed(WindowEvent e) {}
@@ -113,7 +113,7 @@ public class SimulatorFrame extends JFrame implements WindowListener
       fps = Integer.parseInt(args[0]);
 
     long period = (long) 1000.0/fps;
-    System.out.println("fps: " + fps + "; period: " + period + " ms");
+    //System.out.println("fps: " + fps + "; period: " + period + " ms");
 
     new SimulatorFrame(period*1000000L);    // ms --> nanosecs
   }

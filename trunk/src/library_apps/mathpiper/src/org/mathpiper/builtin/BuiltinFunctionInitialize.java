@@ -824,7 +824,7 @@ public abstract class BuiltinFunctionInitialize
                 "ViewSimulator");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.PlotPoint(), 2, Evaluator.Fixed | Evaluator.Function),
-                "PlotPoint");
+                "Plot");
     }
 
 
