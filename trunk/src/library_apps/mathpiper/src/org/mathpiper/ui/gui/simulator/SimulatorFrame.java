@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class SimulatorFrame extends JFrame implements WindowListener
+public class SimulatorFrame extends JFrame implements WindowListener, ActionListener
 {
   private static int DEFAULT_FPS = 80;
 
@@ -54,10 +54,10 @@ public class SimulatorFrame extends JFrame implements WindowListener
 
   private void makeGUI(long period)
   {
-    Container c = getContentPane();    // default BorderLayout used
+    Container container = getContentPane();    // default BorderLayout used
 
     simulatorPanel = new SimulatorPanel(this, period);
-    c.add(simulatorPanel, "Center");
+    container.add(simulatorPanel, "Center");
 
     JPanel ctrls = new JPanel();   // a row of textfields
     ctrls.setLayout( new BoxLayout(ctrls, BoxLayout.X_AXIS));
@@ -70,8 +70,19 @@ public class SimulatorFrame extends JFrame implements WindowListener
     jtfTime.setEditable(false);
     ctrls.add(jtfTime);
 
-    c.add(ctrls, "South");
+    JButton closeButton = new JButton("Clear");
+    closeButton.addActionListener(this);
+
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.add(closeButton);
+
+    container.add(buttonPanel, "South");
   }  // end of makeGUI()
+
+  public void actionPerformed(ActionEvent e)
+  {
+        simulatorPanel.clear();
+  }
 
 
   public void setBoxNumber(int no)
