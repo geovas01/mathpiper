@@ -348,6 +348,11 @@ public class SimulatorPanel extends JPanel implements Runnable {
         }
     }  // end of storeStats()
 
+    public void clear()
+    {
+        points.clear();
+    }
+
     private void printStats() {
         /*System.out.println("Frame Count/Loss: " + frameCount + " / " + totalFramesSkipped);
         System.out.println("Average FPS: " + df.format(averageFPS));

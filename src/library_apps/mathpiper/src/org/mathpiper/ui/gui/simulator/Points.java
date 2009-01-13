@@ -37,6 +37,11 @@ public class Points
       pointsList.add(new Point(x,y));
   }
 
+  public synchronized void clear()
+  {
+      pointsList.clear();
+  }
+
 
  
 

@@ -45,7 +45,7 @@ public class CalculatorPanel extends javax.swing.JPanel
         consoleInternalFrame.setIconifiable(true);
         consoleInternalFrame.setResizable(true);
         consoleInternalFrame.setTitle("Console");
-        consoleInternalFrame.setBounds(0, 320, 430, 280);
+        consoleInternalFrame.setBounds(0, 320, 430, 275);
         consoleInternalFrame.setVisible(true);
        jDesktopPane1.add(consoleInternalFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
