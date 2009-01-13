@@ -12,7 +12,7 @@ public class Points
 {
   private ArrayList<Point> pointsList = new ArrayList();
 
-  private static final int DOTSIZE = 12;
+  private static final int DOTSIZE = 4;
   private static final int RADIUS = DOTSIZE/2;
   private static final int MAXPOINTS = 40;
 
