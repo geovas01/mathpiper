@@ -28,7 +28,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *
  */
-public class PlotPoint extends BuiltinFunctionInitialize
+public class Plot extends BuiltinFunctionInitialize
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

@@ -823,7 +823,7 @@ public abstract class BuiltinFunctionInitialize
                 new Evaluator(new org.mathpiper.builtin.functions.ViewSimulator(), 0, Evaluator.Fixed | Evaluator.Function),
                 "ViewSimulator");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new Evaluator(new org.mathpiper.builtin.functions.PlotPoint(), 2, Evaluator.Fixed | Evaluator.Function),
+                new Evaluator(new org.mathpiper.builtin.functions.Plot(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Plot");
     }
 
