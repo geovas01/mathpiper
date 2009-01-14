@@ -54,27 +54,27 @@ Verify(Taylor2(x,1,6) Ln(x),
 Verify(Taylor2(x,0,6) x/(Exp(x)-1),
        1 - x/2 + x^2/12 - x^4/720 + x^6/30240);
 Verify(Taylor2(x,0,6) Sin(x)^2+Cos(x)^2, 1);
-TestYacas(Taylor2(x,0,14) Sin(Tan(x)) - Tan(Sin(x)),
+TestMathPiper(Taylor2(x,0,14) Sin(Tan(x)) - Tan(Sin(x)),
           -1/30*x^7 - 29/756*x^9 - 1913/75600*x^11 - 95/7392*x^13);
-TestYacas((Taylor2(t,a+1,2) Exp(c*t)),
+TestMathPiper((Taylor2(t,a+1,2) Exp(c*t)),
           Exp(c*(a+1)) + c*Exp(c*(a+1))*(t-a-1) 
                        + c^2*Exp(c*(a+1))*(t-a-1)^2/2);
 
 // Consistency checks
 
-TestYacas(Taylor2(x,0,7) (Sin(x)+Cos(x)),
+TestMathPiper(Taylor2(x,0,7) (Sin(x)+Cos(x)),
           (Taylor2(x,0,7) Sin(x)) + (Taylor2(x,0,7) Cos(x)));
-TestYacas(Taylor2(x,0,7) (a*Sin(x)),
+TestMathPiper(Taylor2(x,0,7) (a*Sin(x)),
           a * (Taylor2(x,0,7) Sin(x)));
-TestYacas(Taylor2(x,0,7) (Sin(x)-Cos(x)),
+TestMathPiper(Taylor2(x,0,7) (Sin(x)-Cos(x)),
           (Taylor2(x,0,7) Sin(x)) - (Taylor2(x,0,7) Cos(x)));
-TestYacas(Taylor2(x,0,7) (Sin(x)*Cos(x)),
+TestMathPiper(Taylor2(x,0,7) (Sin(x)*Cos(x)),
           Taylor2(x,0,7) ((Taylor2(x,0,7) Sin(x)) * (Taylor2(x,0,7) Cos(x))));
-TestYacas(Taylor2(x,0,7) (Sin(x)/Ln(1+x)), 
+TestMathPiper(Taylor2(x,0,7) (Sin(x)/Ln(1+x)), 
           Taylor2(x,0,7) ((Taylor2(x,0,8) Sin(x)) / Taylor2(x,0,8) Ln(1+x)));
-TestYacas(Taylor2(t,0,7) (Sin(t)^2),
+TestMathPiper(Taylor2(t,0,7) (Sin(t)^2),
           Taylor2(t,0,7) ((Taylor2(t,0,7) Sin(t))^2));
-TestYacas(Taylor2(x,0,7) Cos(Ln(x+1)),
+TestMathPiper(Taylor2(x,0,7) Cos(Ln(x+1)),
           Taylor2(x,0,7) (Subst(y,Taylor2(x,0,7)Ln(x+1)) Cos(y)));
 
 100 # Taylor'LPS'CompOrder(_x, jn(_x)) <-- 5;

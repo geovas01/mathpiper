@@ -165,22 +165,22 @@ RoundTo(N((Pi/2-ArcTan(N(Tan(N(Pi/2)-10^(-24)))))*10^24 ), 25)
 /// special functions
 BuiltinPrecisionSet(20);  // let's be gentle
 
-TestYacas(
+TestMathPiper(
 Gamma(10.5)
 , (654729075*Sqrt(Pi))/1024
 );
 
-TestYacas(
+TestMathPiper(
 Gamma(9/2)
 , (105*Sqrt(Pi))/16
 );
 
-TestYacas(
+TestMathPiper(
 Gamma(-10.5)
 , (-2048*Sqrt(Pi))/13749310575
 );
 
-TestYacas(
+TestMathPiper(
 Gamma(-7/2)
 , (16*Sqrt(Pi))/105
 );
@@ -199,17 +199,17 @@ RoundTo(N( Zeta(-11.5) ), 18)
 , 0.020396978715942792
 ,18);
 
-TestYacas(
+TestMathPiper(
 Zeta(40)
 , (261082718496449122051*Pi^40)/20080431172289638826798401128390556640625
 );
 
-TestYacas(
+TestMathPiper(
 Zeta(-11)
 , 691/32760
 );
 
-TestYacas(
+TestMathPiper(
 Zeta(-12)
 , 0
 );
@@ -230,7 +230,7 @@ RoundTo(Internal'ZetaNum(3)-N(Zeta(3)), 20)
 , 0
 ,20);
 
-TestYacas(
+TestMathPiper(
 Bernoulli(40)
 , -261082718496449122051/13530
 );

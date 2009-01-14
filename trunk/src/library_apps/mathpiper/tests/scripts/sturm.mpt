@@ -86,7 +86,7 @@ Verify(NumRealRoots((x^2+20)*(x^2+10)),0);
 sl();
 
 // Simple test on Squarefree
-TestYacas(Monic(SquareFree((x-1)^2*(x-3)^3)),Monic((x-1)*(x-3)));
+TestMathPiper(Monic(SquareFree((x-1)^2*(x-3)^3)),Monic((x-1)*(x-3)));
 
 sl();
 

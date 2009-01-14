@@ -76,7 +76,7 @@ Testing("Determinant");
 Verify(Determinant({{2,3},{3,1}}),-7);
 Verity( Determinant(ToeplitzMatrix(1 .. 10)), -2816 );
 // check that Determinant gives correct symbolic result
-TestYacas(Determinant({{a,b},{c,d}}),a*d-b*c);
+TestMathPiper(Determinant({{a,b},{c,d}}),a*d-b*c);
 
 [
   Local(ll);
