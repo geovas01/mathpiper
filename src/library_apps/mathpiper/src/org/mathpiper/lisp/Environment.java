@@ -47,7 +47,7 @@ public class Environment
 {
 
     public ExpressionEvaluator iEvaluator = new LispExpressionEvaluator();
-    private int iPrecision = 20;
+    private int iPrecision = 10;
     private TokenHash iTokenHash = new TokenHash();
     public Cons iTrueAtom;
     public Cons iFalseAtom;
