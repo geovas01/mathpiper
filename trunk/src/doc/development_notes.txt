@@ -3,6 +3,11 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Internal'xxx functions are created for the cached constants.
+CachedConstant(CacheOfConstantsN, gamma, GammaConstNum());
+CachedConstant(CacheOfConstantsN, GoldenRatio, N( (1+Sqrt(5))/2 ) );
+CachedConstant(CacheOfConstantsN, Catalan, CatalanConstNum() );
+Pi, etc.
 + There are still a number of "numeric" commands which start with the word Math (check the BuiltinFunctionInitialize class).  
 However, some of these might not be "numeric" but simply built in.
 + Document that the underscore character and the back quote character are operators.
