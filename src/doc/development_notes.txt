@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Log the version of mathrider and the version of mathpiper into the activity log.  The subversion version number should also be logged.
 + Internal'xxx functions are created for the cached constants.
 CachedConstant(CacheOfConstantsN, gamma, GammaConstNum());
 CachedConstant(CacheOfConstantsN, GoldenRatio, N( (1+Sqrt(5))/2 ) );
