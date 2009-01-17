@@ -38,22 +38,13 @@ public class CalculatorPanel extends javax.swing.JPanel
     public CalculatorPanel()
     {
         initComponents();
-        
-        consoleInternalFrame = new javax.swing.JInternalFrame();
-        Container contentPane = consoleInternalFrame.getContentPane();
-        contentPane.add(new org.mathpiper.ui.gui.consoles.Console(), BorderLayout.CENTER);
-        consoleInternalFrame.setIconifiable(true);
-        consoleInternalFrame.setResizable(true);
-        consoleInternalFrame.setTitle("Console");
-        consoleInternalFrame.setBounds(0, 320, 430, 275);
-        consoleInternalFrame.setVisible(true);
-       jDesktopPane1.add(consoleInternalFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-
+	
+	mathpiper = Interpreters.getSynchronousInterpreter();
+        initComponents2();
 
 	setBackground(new java.awt.Color(255,255,255));
 
-        mathpiper = Interpreters.getSynchronousInterpreter();
+        
         
        /*
          try
@@ -68,12 +59,33 @@ public class CalculatorPanel extends javax.swing.JPanel
 
     public CalculatorPanel(String docBase)
     {
-        this.initComponents();
+       this.initComponents();
+       
+       //Interpreter must be instantiated with docbase before creating
+       //gui console.
+       mathpiper = Interpreters.getSynchronousInterpreter(docBase);
+       this.initComponents2();
+	
 	setBackground(new java.awt.Color(255,255,255));
 
-        mathpiper = Interpreters.getSynchronousInterpreter(docBase);
+        
 
     }//end constructor.
+    
+    
+    private void initComponents2()
+    {
+	 consoleInternalFrame = new javax.swing.JInternalFrame();
+        Container contentPane = consoleInternalFrame.getContentPane();
+        contentPane.add(new org.mathpiper.ui.gui.consoles.Console(), BorderLayout.CENTER);
+        consoleInternalFrame.setIconifiable(true);
+        consoleInternalFrame.setResizable(true);
+        consoleInternalFrame.setTitle("Console");
+        consoleInternalFrame.setBounds(0, 320, 430, 275);
+        consoleInternalFrame.setVisible(true);
+       jDesktopPane1.add(consoleInternalFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+    }//end method.
 
     /** This method is called from within the constructor to
      * initialize the form.
