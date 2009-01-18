@@ -21,14 +21,19 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import org.mathpiper.lisp.Environment;
 import java.awt.Container;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import org.mathpiper.lisp.GlobalVariable;
+import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
 import org.mathpiper.ui.gui.MultiSplitLayout.Leaf;
 import org.mathpiper.ui.gui.MultiSplitLayout.Split;
@@ -117,6 +122,10 @@ public class EnvironmentViewer
     public JTable getUserFunctionsTable(Environment aEnvironment)
     {
         JTable table = new JTable();
+
+        table.setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+        table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
+        
         final java.util.Map map = (java.util.Map) aEnvironment.getUserFunctions().getMap();
 
         table.setModel(new AbstractTableModel()
@@ -184,6 +193,10 @@ public class EnvironmentViewer
     public JTable getBuiltinFunctionsTable(Environment aEnvironment)
     {
         JTable table = new JTable();
+
+        table.setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+        table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
+
         final java.util.Map map = (java.util.Map) aEnvironment.getBuiltinFunctions().getMap();
 
         table.setModel(new AbstractTableModel()
@@ -251,6 +264,10 @@ public class EnvironmentViewer
     public JTable getGlobalStateTable(Environment aEnvironment)
     {
         JTable table = new JTable();
+
+        table.setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+        table.getSelectionModel().addListSelectionListener(new GlobalVariableListener(table, aEnvironment));
+
         final java.util.Map map = (java.util.Map) aEnvironment.getGlobalState().getMap();
 
         table.setModel(new AbstractTableModel()
@@ -307,7 +324,7 @@ public class EnvironmentViewer
         });
 
         return table;
-    }//end class
+    }//end method.
 
     /**
      * Returns a GUI table which contains a sorted list of the tokens.
@@ -374,5 +391,65 @@ public class EnvironmentViewer
         });
 
         return table;
-    }//end class
+    }//end method.
+
+
+    private class GlobalVariableListener implements ListSelectionListener {
+
+        private JTable table;
+        private Environment iEnvironment;
+        public GlobalVariableListener(JTable table, Environment aEnvironment)
+        {
+            this.table = table;
+            this.iEnvironment = aEnvironment;
+        }
+        public void valueChanged(ListSelectionEvent event) {
+            if (event.getValueIsAdjusting()) {
+                return;
+            }
+            
+          int row =  table.getSelectionModel().getLeadSelectionIndex();
+
+          GlobalVariable o =(GlobalVariable) table.getValueAt(row, 1);
+          try{
+          String data = UtilityFunctions.printExpression(o.getValue(), iEnvironment, 0);
+          System.out.println(data);
+          }
+          catch(Exception ex)
+          {
+              System.out.print(ex);
+          }
+
+        }
+    }//end class.
+
+        private class FunctionListener implements ListSelectionListener {
+
+        private JTable table;
+        private Environment iEnvironment;
+        public FunctionListener(JTable table, Environment aEnvironment)
+        {
+            this.table = table;
+            this.iEnvironment = aEnvironment;
+        }
+        public void valueChanged(ListSelectionEvent event) {
+            if (event.getValueIsAdjusting()) {
+                return;
+            }
+
+          int row =  table.getSelectionModel().getLeadSelectionIndex();
+
+          MultipleArityUserFunction userFunction =(MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
+          try{
+         // String data = UtilityFunctions.printExpression(o.getValue(), iEnvironment, 0);
+          //System.out.println(data);
+          }
+          catch(Exception ex)
+          {
+              System.out.print(ex);
+          }
+
+        }
+    }//end class.
+
 }//end class.
