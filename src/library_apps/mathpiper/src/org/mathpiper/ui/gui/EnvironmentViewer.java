@@ -26,14 +26,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
 import org.mathpiper.ui.gui.MultiSplitLayout.Leaf;
 import org.mathpiper.ui.gui.MultiSplitLayout.Split;
@@ -41,17 +42,15 @@ import org.mathpiper.ui.gui.MultiSplitLayout.Split;
 /**
  * Provides a GUI viewer for a runtime environment.
  */
-public class EnvironmentViewer
-{
+public class EnvironmentViewer {
 
-    public EnvironmentViewer()
-    {
+    private JTextArea textArea = new JTextArea(4, 4);
+
+    public EnvironmentViewer() {
         super();
     }
 
-
-    public JFrame getViewerFrame(Environment aEnvironment)
-    {
+    public JFrame getViewerFrame(Environment aEnvironment) {
 
         JFrame frame = new javax.swing.JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -62,25 +61,42 @@ public class EnvironmentViewer
         Leaf two = new Leaf("two");
         Leaf three = new Leaf("three");
         Leaf four = new Leaf("four");
-        
+
         one.setWeight(0.15);
         two.setWeight(0.28);
         three.setWeight(0.28);
         four.setWeight(0.29);
-        
+
         List children = Arrays.asList(one, new Divider(), two, new Divider(), three, new Divider(), four);
         MultiSplitLayout.Split modelRoot = new Split();
         modelRoot.setChildren(children);
         MultiSplitPane multiSplitPane = new MultiSplitPane();
         multiSplitPane.getMultiSplitLayout().setModel(modelRoot);
-        
+
+
+
+
+        textArea.setEditable(false);
+        JScrollPane outputPane = new JScrollPane(textArea);
+
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, multiSplitPane, outputPane);
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setDividerLocation(150);
+
+
+        Dimension minimumSize = new Dimension(100, 50);
+        multiSplitPane.setMinimumSize(minimumSize);
+        textArea.setMinimumSize(minimumSize);
+
+
         Container contentPane = frame.getContentPane();
-        contentPane.add(multiSplitPane);
+        contentPane.add(splitPane);
 
 
         //Add global state.
         JTable table = this.getGlobalStateTable(aEnvironment);
-       // table.setPreferredSize(new Dimension(400,200));
+        // table.setPreferredSize(new Dimension(400,200));
         JScrollPane scrollPane = new JScrollPane(table);
         multiSplitPane.add(scrollPane, "one");
 
@@ -119,55 +135,44 @@ public class EnvironmentViewer
      * @param aEnvironment the environment to view
      * @return a JTable which contains the user function names
      */
-    public JTable getUserFunctionsTable(Environment aEnvironment)
-    {
+    public JTable getUserFunctionsTable(Environment aEnvironment) {
         JTable table = new JTable();
 
-        table.setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
-        
+
         final java.util.Map map = (java.util.Map) aEnvironment.getUserFunctions().getMap();
 
-        table.setModel(new AbstractTableModel()
-        {
+        table.setModel(new AbstractTableModel() {
 
             private static final long serialVersionUID = 1L;
 
-            public int getColumnCount()
-            {
+            public int getColumnCount() {
                 return 1;
             }
 
-            public int getRowCount()
-            {
+            public int getRowCount() {
                 return map.size();
             }
 
-            public String getColumnName(int column)
-            {
-                if (column == 0)
-                {
+            public String getColumnName(int column) {
+                if (column == 0) {
                     return "User Functions";
-                } else
-                {
+                } else {
                     return "";
                 }
             }
 
-            public Object getValueAt(int rowIndex, int columnIndex)
-            {
-                if (columnIndex == 0)
-                {
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                if (columnIndex == 0) {
                     return getKey(rowIndex);
-                } else
-                {
+                } else {
                     return map.get(getKey(rowIndex));
                 } // if-else
 
             }
 
-            private String getKey(int a_index)
-            {
+            private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
                 Collections.sort(keyList);
@@ -190,55 +195,44 @@ public class EnvironmentViewer
      * @param aEnvironment the environment to view
      * @return a JTable which contains the built in function names
      */
-    public JTable getBuiltinFunctionsTable(Environment aEnvironment)
-    {
+    public JTable getBuiltinFunctionsTable(Environment aEnvironment) {
         JTable table = new JTable();
 
-        table.setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
 
         final java.util.Map map = (java.util.Map) aEnvironment.getBuiltinFunctions().getMap();
 
-        table.setModel(new AbstractTableModel()
-        {
+        table.setModel(new AbstractTableModel() {
 
             private static final long serialVersionUID = 1L;
 
-            public int getColumnCount()
-            {
+            public int getColumnCount() {
                 return 1;
             }
 
-            public int getRowCount()
-            {
+            public int getRowCount() {
                 return map.size();
             }
 
-            public String getColumnName(int column)
-            {
-                if (column == 0)
-                {
+            public String getColumnName(int column) {
+                if (column == 0) {
                     return "Built-In Functions";
-                } else
-                {
+                } else {
                     return "";
                 }
             }
 
-            public Object getValueAt(int rowIndex, int columnIndex)
-            {
-                if (columnIndex == 0)
-                {
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                if (columnIndex == 0) {
                     return getKey(rowIndex);
-                } else
-                {
+                } else {
                     return map.get(getKey(rowIndex));
                 } // if-else
 
             }
 
-            private String getKey(int a_index)
-            {
+            private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
                 Collections.sort(keyList);
@@ -261,55 +255,44 @@ public class EnvironmentViewer
      * @param aEnvironment the environment to view
      * @return a JTable which contains the global variable names
      */
-    public JTable getGlobalStateTable(Environment aEnvironment)
-    {
+    public JTable getGlobalStateTable(Environment aEnvironment) {
         JTable table = new JTable();
 
-        table.setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new GlobalVariableListener(table, aEnvironment));
 
         final java.util.Map map = (java.util.Map) aEnvironment.getGlobalState().getMap();
 
-        table.setModel(new AbstractTableModel()
-        {
+        table.setModel(new AbstractTableModel() {
 
             private static final long serialVersionUID = 1L;
 
-            public int getColumnCount()
-            {
+            public int getColumnCount() {
                 return 2;
             }
 
-            public int getRowCount()
-            {
+            public int getRowCount() {
                 return map.size();
             }
 
-            public String getColumnName(int column)
-            {
-                if (column == 0)
-                {
+            public String getColumnName(int column) {
+                if (column == 0) {
                     return "Global Variables";
-                } else
-                {
+                } else {
                     return "Values";
                 }
             }
 
-            public Object getValueAt(int rowIndex, int columnIndex)
-            {
-                if (columnIndex == 0)
-                {
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                if (columnIndex == 0) {
                     return getKey(rowIndex);
-                } else
-                {
+                } else {
                     return map.get(getKey(rowIndex));
                 } // if-else
 
             }
 
-            private String getKey(int a_index)
-            {
+            private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
                 Collections.sort(keyList);
@@ -332,51 +315,40 @@ public class EnvironmentViewer
      * @param aEnvironment the environment to view
      * @return a JTable which contains the token names
      */
-    public JTable getTokenTable(Environment aEnvironment)
-    {
+    public JTable getTokenTable(Environment aEnvironment) {
         JTable table = new JTable();
         final java.util.Map m_hash = (java.util.Map) aEnvironment.getTokenHash().getMap();
 
-        table.setModel(new AbstractTableModel()
-        {
+        table.setModel(new AbstractTableModel() {
 
             private static final long serialVersionUID = 1L;
 
-            public int getColumnCount()
-            {
+            public int getColumnCount() {
                 return 1;
             }
 
-            public int getRowCount()
-            {
+            public int getRowCount() {
                 return m_hash.size();
             }
 
-            public String getColumnName(int column)
-            {
-                if (column == 0)
-                {
+            public String getColumnName(int column) {
+                if (column == 0) {
                     return "Tokens";
-                } else
-                {
+                } else {
                     return "";
                 }
             }
 
-            public Object getValueAt(int rowIndex, int columnIndex)
-            {
-                if (columnIndex == 0)
-                {
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                if (columnIndex == 0) {
                     return getKey(rowIndex);
-                } else
-                {
+                } else {
                     return m_hash.get(getKey(rowIndex));
                 } // if-else
 
             }
 
-            private String getKey(int a_index)
-            {
+            private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(m_hash.keySet());
                 Collections.sort(keyList);
@@ -393,63 +365,62 @@ public class EnvironmentViewer
         return table;
     }//end method.
 
-
     private class GlobalVariableListener implements ListSelectionListener {
 
         private JTable table;
         private Environment iEnvironment;
-        public GlobalVariableListener(JTable table, Environment aEnvironment)
-        {
+
+        public GlobalVariableListener(JTable table, Environment aEnvironment) {
             this.table = table;
             this.iEnvironment = aEnvironment;
         }
+
         public void valueChanged(ListSelectionEvent event) {
             if (event.getValueIsAdjusting()) {
                 return;
             }
-            
-          int row =  table.getSelectionModel().getLeadSelectionIndex();
 
-          GlobalVariable o =(GlobalVariable) table.getValueAt(row, 1);
-          try{
-          String data = UtilityFunctions.printExpression(o.getValue(), iEnvironment, 0);
-          System.out.println(data);
-          }
-          catch(Exception ex)
-          {
-              System.out.print(ex);
-          }
+            int row = table.getSelectionModel().getLeadSelectionIndex();
+
+            String name = (String) table.getValueAt(row, 0);
+            GlobalVariable o = (GlobalVariable) table.getValueAt(row, 1);
+            try {
+                String data = UtilityFunctions.printExpression(o.getValue(), iEnvironment, 0);
+                //System.out.println(data);
+                textArea.append(name + ": " + data + "\n");
+                textArea.setCaretPosition(textArea.getDocument().getLength());
+            } catch (Exception ex) {
+                System.out.print(ex);
+            }
 
         }
     }//end class.
 
-        private class FunctionListener implements ListSelectionListener {
+    private class FunctionListener implements ListSelectionListener {
 
         private JTable table;
         private Environment iEnvironment;
-        public FunctionListener(JTable table, Environment aEnvironment)
-        {
+
+        public FunctionListener(JTable table, Environment aEnvironment) {
             this.table = table;
             this.iEnvironment = aEnvironment;
         }
+
         public void valueChanged(ListSelectionEvent event) {
             if (event.getValueIsAdjusting()) {
                 return;
             }
 
-          int row =  table.getSelectionModel().getLeadSelectionIndex();
+            int row = table.getSelectionModel().getLeadSelectionIndex();
 
-          MultipleArityUserFunction userFunction =(MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
-          try{
-         // String data = UtilityFunctions.printExpression(o.getValue(), iEnvironment, 0);
-          //System.out.println(data);
-          }
-          catch(Exception ex)
-          {
-              System.out.print(ex);
-          }
+            //MultipleArityUserFunction userFunction =(MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
+            try {
+                // String data = UtilityFunctions.printExpression(o.getValue(), iEnvironment, 0);
+                //System.out.println(data);
+            } catch (Exception ex) {
+                System.out.print(ex);
+            }
 
         }
     }//end class.
-
 }//end class.
