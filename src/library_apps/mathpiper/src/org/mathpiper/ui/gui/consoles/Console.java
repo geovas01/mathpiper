@@ -152,7 +152,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     captureInputLines(lineNumber);
                     boolean encounteredIn = clearPreviousResponse();
 
-                    System.out.println(inputLines.toString()); //TODO remove.
+                   // System.out.println(inputLines.toString()); //TODO remove.
 
                     String code = inputLines.toString().replaceAll(";;", ";").trim();
 
