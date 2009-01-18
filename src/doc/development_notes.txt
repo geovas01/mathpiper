@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ BranchingUserFunction uses Vectors.  Perhaps switch to ArrayLists to improve speed.
 + Change name of Printer to LispPrinter.  Move all printers into a single package.  Change name of FullForm to LispForm.  Create
 MathPiperForm() function.
 + Log the version of mathrider and the version of mathpiper into the activity log.  The subversion version number should also be logged.
