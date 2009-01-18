@@ -104,6 +104,13 @@ class SynchronousInterpreter implements Interpreter
 
 
             }
+            else if (docBase.startsWith("jar:"))
+            {
+            	// used by GeoGebra
+                //eg docBase = "jar:http://www.geogebra.org/webstart/alpha/geogebra_cas.jar!/";
+                evaluate("DefaultDirectory(\"" + docBase + "\");");
+            	
+            }
 
          }
 
