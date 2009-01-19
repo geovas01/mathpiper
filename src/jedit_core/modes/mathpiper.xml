@@ -569,6 +569,8 @@
 			<KEYWORD1>XmlExplodeTag</KEYWORD1>
 			<KEYWORD1>XmlTokenizer</KEYWORD1>
 			<KEYWORD2>Zeta</KEYWORD2>
+			<KEYWORD2>AssignCachedConstantsN</KEYWORD2>
+			<KEYWORD2>ClearCachedConstantsN</KEYWORD2>
             <KEYWORD1>DefaultDirectory</KEYWORD1>
             <KEYWORD1>MacroSet</KEYWORD1>
             <KEYWORD1>MacroClear</KEYWORD1>
