@@ -9,4 +9,6 @@ RoundTo
 NumericEqual
 LogicVerify
 LogicTest
+Testing
+NextTest
 }
