@@ -57,7 +57,14 @@ public class ConsPointer
     
     public String toString()
     {
-        return iCons.toString();
+        if(iCons != null)
+        {
+            return iCons.toString();
+        }
+        else
+        {
+            return "Empty.";
+        }
     }
     
 }
