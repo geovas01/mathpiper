@@ -61,7 +61,6 @@ public class RunTestSuite {
 
                     String scriptName = scriptNames.readLine();
 
-
                     if (scriptName.endsWith(".mpt")) {
 
                         output = "\n===========================\n" + scriptName + ": \n\n";
@@ -71,6 +70,11 @@ public class RunTestSuite {
                         evaluationResponse = mathPiper.evaluate("Load(\"tests/scripts/" + scriptName + "\");");
                         output = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects() + "\nException:" + evaluationResponse.getExceptionMessage();
                         System.out.println(output);
+                        if(evaluationResponse.isExceptionThrown())
+                        {
+                            //break;
+                        }
+
                         logFile.write(output);
                     } else {
                         output = "\n===========================\n" + scriptName + ": is not a MathPiper test file.\n";
