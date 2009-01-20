@@ -34,7 +34,8 @@ public class TrapError extends BuiltinFunctionInitialize
             aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
         } catch (Exception e)
         {
-            aEnvironment.iError = e.toString();
+            //e.printStackTrace();
+            aEnvironment.iError ="Caught in TrapError function: " + e.toString();
             aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
             aEnvironment.iError = null;
         }
