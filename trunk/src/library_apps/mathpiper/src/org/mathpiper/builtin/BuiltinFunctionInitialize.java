@@ -825,6 +825,9 @@ public abstract class BuiltinFunctionInitialize
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.Plot(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Plot");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.Println(), 1, Evaluator.Fixed | Evaluator.Function),
+                "Println");
     }
 
 
