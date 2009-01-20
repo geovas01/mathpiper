@@ -37,7 +37,7 @@ Function("StartTests",{})
   curline:=0;
 ];
 */
-/*
+
 Function("NextTest",{aLeft})
 [
 // curline++;
@@ -46,13 +46,14 @@ Test suite for ":aLeft:" : "
            );
   NewLine();
 ];
-*/
-/*
+
+
 Function("Testing",{aLeft})
 [
+ WriteString("--");
  WriteString(aLeft); NewLine();
 ];
-*/
+
 
 Function("KnownFailure",{expr})
 [
