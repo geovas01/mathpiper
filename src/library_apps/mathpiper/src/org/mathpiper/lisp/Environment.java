@@ -17,6 +17,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import org.mathpiper.lisp.evaluators.LispExpressionEvaluator;
+import org.mathpiper.lisp.evaluators.ExpressionEvaluator;
 import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.collections.Map;
 import org.mathpiper.lisp.collections.TokenMap;
