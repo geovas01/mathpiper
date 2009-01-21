@@ -26,7 +26,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.InfixOperator;
-import org.mathpiper.lisp.Operators;
+import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.printers.LispPrinter;
 
 
@@ -35,17 +35,17 @@ public class MathPiperPrinter extends LispPrinter
 
 	public static int KMaxPrecedence = 60000;
 
-	Operators iPrefixOperators;
-	Operators iInfixOperators;
-	Operators iPostfixOperators;
-	Operators iBodiedOperators;
+	OperatorMap iPrefixOperators;
+	OperatorMap iInfixOperators;
+	OperatorMap iPostfixOperators;
+	OperatorMap iBodiedOperators;
 	char iPrevLastChar;
 	Environment iCurrentEnvironment;
 
-	public MathPiperPrinter(Operators aPrefixOperators,
-	                    Operators aInfixOperators,
-	                    Operators aPostfixOperators,
-	                    Operators aBodiedOperators)
+	public MathPiperPrinter(OperatorMap aPrefixOperators,
+	                    OperatorMap aInfixOperators,
+	                    OperatorMap aPostfixOperators,
+	                    OperatorMap aBodiedOperators)
 	{
 		iPrefixOperators = aPrefixOperators;
 		iInfixOperators = aInfixOperators;

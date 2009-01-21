@@ -16,10 +16,12 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.lisp;
+package org.mathpiper.lisp.collections;
+
+import org.mathpiper.lisp.*;
 
 
-public class Operators extends AssociatedHash // <InfixOperator>
+public class OperatorMap extends Map // <InfixOperator>
 {
 	
 	public void SetOperator(int aPrecedence,String aString)

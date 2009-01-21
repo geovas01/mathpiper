@@ -17,6 +17,10 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import org.mathpiper.lisp.DefFiles;
+import org.mathpiper.lisp.collections.Map;
+import org.mathpiper.lisp.collections.TokenMap;
+import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.Atom;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
@@ -51,7 +55,7 @@ public class Environment
 
     public ExpressionEvaluator iEvaluator = new LispExpressionEvaluator();
     private int iPrecision = 10;
-    private TokenHash iTokenHash = new TokenHash();
+    private TokenMap iTokenHash = new TokenMap();
     public Cons iTrueAtom;
     public Cons iFalseAtom;
     public Cons iEndOfFileAtom;
@@ -66,10 +70,10 @@ public class Environment
     public Cons iCommaAtom;
     public Cons iListAtom;
     public Cons iProgAtom;
-    public Operators iPrefixOperators = new Operators();
-    public Operators iInfixOperators = new Operators();
-    public Operators iPostfixOperators = new Operators();
-    public Operators iBodiedOperators = new Operators();
+    public OperatorMap iPrefixOperators = new OperatorMap();
+    public OperatorMap iInfixOperators = new OperatorMap();
+    public OperatorMap iPostfixOperators = new OperatorMap();
+    public OperatorMap iBodiedOperators = new OperatorMap();
     public int iEvalDepth = 0;
     public int iMaxEvalDepth = 10000;
     //TODO FIXME
@@ -85,9 +89,9 @@ public class Environment
     public MathPiperTokenizer iCurrentTokenizer;
     public MathPiperTokenizer iDefaultTokenizer = new MathPiperTokenizer();
     public MathPiperTokenizer iXmlTokenizer = new XmlTokenizer();
-    public AssociatedHash iGlobalState = new AssociatedHash();
-    public AssociatedHash iUserFunctions = new AssociatedHash();
-    AssociatedHash iBuiltinFunctions = new AssociatedHash();
+    public Map iGlobalState = new Map();
+    public Map iUserFunctions = new Map();
+    Map iBuiltinFunctions = new Map();
     public String iError = null;
     public DefFiles iDefFiles = new DefFiles();
     public InputDirectories iInputDirectories = new InputDirectories();
@@ -126,24 +130,24 @@ public class Environment
         pushLocalFrame(true);
     }
 
-    public TokenHash getTokenHash()
+    public TokenMap getTokenHash()
     {
         return iTokenHash;
     }
 
 
 
-    public AssociatedHash getGlobalState()
+    public Map getGlobalState()
     {
         return iGlobalState;
     }
 
-    public AssociatedHash getUserFunctions()
+    public Map getUserFunctions()
     {
         return iUserFunctions;
     }
     
-   public AssociatedHash getBuiltinFunctions()
+   public Map getBuiltinFunctions()
     {
         return iBuiltinFunctions;
     }
