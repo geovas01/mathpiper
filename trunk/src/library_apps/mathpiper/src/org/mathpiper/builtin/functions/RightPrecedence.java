@@ -44,7 +44,7 @@ public class RightPrecedence extends BuiltinFunctionInitialize
         LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 2);
         int ind = Integer.parseInt(index.getCons().string(), 10);
 
-        aEnvironment.iInfixOperators.SetRightPrecedence(UtilityFunctions.symbolName(aEnvironment, orig), ind);
+        aEnvironment.iInfixOperators.setRightPrecedence(UtilityFunctions.symbolName(aEnvironment, orig), ind);
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }

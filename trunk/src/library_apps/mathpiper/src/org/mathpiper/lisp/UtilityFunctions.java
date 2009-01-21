@@ -752,7 +752,7 @@ public class UtilityFunctions {
         LispError.checkArgumentCore(aEnvironment, aStackTop, precedence.getCons().string() != null, 2);
         int prec = Integer.parseInt(precedence.getCons().string(), 10);
         LispError.checkArgumentCore(aEnvironment, aStackTop, prec <= MathPiperPrinter.KMaxPrecedence, 2);
-        aOps.SetOperator(prec, UtilityFunctions.symbolName(aEnvironment, orig));
+        aOps.setOperator(prec, UtilityFunctions.symbolName(aEnvironment, orig));
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop));
     }
 
@@ -761,7 +761,7 @@ public class UtilityFunctions {
         LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig = BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        aOps.SetOperator(aPrecedence, UtilityFunctions.symbolName(aEnvironment, orig));
+        aOps.setOperator(aPrecedence, UtilityFunctions.symbolName(aEnvironment, orig));
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop));
     }
 
