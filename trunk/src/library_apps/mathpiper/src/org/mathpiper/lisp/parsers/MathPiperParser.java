@@ -29,15 +29,15 @@ import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubList;
 import org.mathpiper.lisp.InfixOperator;
-import org.mathpiper.lisp.Operators;
+import org.mathpiper.lisp.collections.OperatorMap;
 
 public class MathPiperParser extends Parser
 {
 
-    public Operators iPrefixOperators;
-    public Operators iInfixOperators;
-    public Operators iPostfixOperators;
-    public Operators iBodiedOperators;
+    public OperatorMap iPrefixOperators;
+    public OperatorMap iInfixOperators;
+    public OperatorMap iPostfixOperators;
+    public OperatorMap iBodiedOperators;
     
     boolean iError;
     boolean iEndOfFile;
@@ -47,10 +47,10 @@ public class MathPiperParser extends Parser
     public MathPiperParser(MathPiperTokenizer aTokenizer,
             MathPiperInputStream aInput,
             Environment aEnvironment,
-            Operators aPrefixOperators,
-            Operators aInfixOperators,
-            Operators aPostfixOperators,
-            Operators aBodiedOperators)
+            OperatorMap aPrefixOperators,
+            OperatorMap aInfixOperators,
+            OperatorMap aPostfixOperators,
+            OperatorMap aBodiedOperators)
     {
         super(aTokenizer, aInput, aEnvironment);
         iPrefixOperators = aPrefixOperators;

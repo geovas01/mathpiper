@@ -29,7 +29,7 @@ public class LocalFrame
 		iEnvironment = aEnvironment;
 		iEnvironment.pushLocalFrame(aFenced);
 	}
-	public void Delete() throws Exception
+	public void delete() throws Exception
 	{
 		iEnvironment.popLocalFrame();
 	}

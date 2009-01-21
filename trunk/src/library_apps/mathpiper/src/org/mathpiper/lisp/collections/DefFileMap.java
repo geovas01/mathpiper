@@ -16,21 +16,21 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.lisp;
+package org.mathpiper.lisp.collections;
 
-/** DefFile represents one file that can be loaded just-in-time.
+/** DefFileMap represents one file that can be loaded just-in-time.
  */
-public class DefFile
+public class DefFileMap
 {
 	public String iFileName;
 	public boolean   iIsLoaded;
 	
-	public DefFile(String aFile)
+	public DefFileMap(String aFile)
 	{
 		iFileName = aFile;
 		iIsLoaded = false;
 	}
-	public DefFile(DefFile aOther)
+	public DefFileMap(DefFileMap aOther)
 	{
 		iFileName = aOther.iFileName;
 		iIsLoaded = aOther.iIsLoaded;

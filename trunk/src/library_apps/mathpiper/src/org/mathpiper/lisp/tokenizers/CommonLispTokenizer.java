@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.tokenizers;
 
-import org.mathpiper.lisp.TokenHash;
+import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.io.MathPiperInputStream;
 
 /**

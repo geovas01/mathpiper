@@ -18,19 +18,23 @@
 
 package org.mathpiper.lisp;
 
+import org.mathpiper.lisp.collections.*;
+import org.mathpiper.lisp.collections.Map;
+import org.mathpiper.lisp.collections.DefFileMap;
 
-public class DefFiles extends AssociatedHash // <DefFile>
+
+public class DefFiles extends Map // <DefFileMap>
 {
-	DefFile getFile(String aFileName)
+	DefFileMap getFile(String aFileName)
 	{
 		// Create a new entry
-		DefFile file = (DefFile)lookUp(aFileName);
+		DefFileMap file = (DefFileMap)lookUp(aFileName);
 		if (file == null)
 		{
-			DefFile newfile = new DefFile(aFileName);
+			DefFileMap newfile = new DefFileMap(aFileName);
 			// Add the new entry to the hash table
 			setAssociation(newfile, aFileName);
-			file = (DefFile)lookUp(aFileName);
+			file = (DefFileMap)lookUp(aFileName);
 		}
 		return file;
 	}

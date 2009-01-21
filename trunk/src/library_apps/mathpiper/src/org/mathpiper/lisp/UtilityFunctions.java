@@ -17,6 +17,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import org.mathpiper.lisp.collections.OperatorMap;
+import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.SubList;
 import org.mathpiper.lisp.cons.Atom;
@@ -520,7 +522,7 @@ public class UtilityFunctions {
     }
 
     public static void internalUse(Environment aEnvironment, String aFileName) throws Exception {
-        DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
+        DefFileMap def = aEnvironment.iDefFiles.getFile(aFileName);
         if (!def.isLoaded()) {
             def.setLoaded();
             internalLoad(aEnvironment, aFileName);
@@ -601,7 +603,7 @@ public class UtilityFunctions {
         return "";
     }
 
-    private static void doLoadDefFile(Environment aEnvironment, MathPiperInputStream aInput, DefFile def) throws Exception {
+    private static void doLoadDefFile(Environment aEnvironment, MathPiperInputStream aInput, DefFileMap def) throws Exception {
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try {
             aEnvironment.iCurrentInput = aInput;
@@ -639,7 +641,7 @@ public class UtilityFunctions {
         LispError.lispAssert(aFileName != null);
 
         String flatfile = internalUnstringify(aFileName) + ".def";
-        DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
+        DefFileMap def = aEnvironment.iDefFiles.getFile(aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(flatfile);
 
@@ -739,7 +741,7 @@ public class UtilityFunctions {
         return x;
     }
 
-    public static void multiFix(Environment aEnvironment, int aStackTop, Operators aOps) throws Exception {
+    public static void multiFix(Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
         // Get operator
         LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig = BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
@@ -754,7 +756,7 @@ public class UtilityFunctions {
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop));
     }
 
-    public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, Operators aOps) throws Exception {
+    public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
         // Get operator
         LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig = BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
@@ -763,7 +765,7 @@ public class UtilityFunctions {
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop));
     }
 
-    public static InfixOperator operatorInfo(Environment aEnvironment, int aStackTop, Operators aOperators) throws Exception {
+    public static InfixOperator operatorInfo(Environment aEnvironment, int aStackTop, OperatorMap aOperators) throws Exception {
         // Get operator
         LispError.checkArgumentCore(aEnvironment, aStackTop, BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
 

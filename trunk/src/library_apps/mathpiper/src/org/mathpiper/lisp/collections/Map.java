@@ -15,11 +15,11 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp;
+package org.mathpiper.lisp.collections;
 
 import java.util.Collections;
 
-/** AssociatedHash allows you to associate arbitrary
+/** Map allows you to associate arbitrary
  * information with a string in the above hash table. You can
  * specify what type of information to link to the string, and
  * this class then stores that information for a string. It is
@@ -28,7 +28,7 @@ import java.util.Collections;
  * points to, but instead relies on the fact that the strings
  * are maintained in a hash table (like LispHashTable above).
  */
-public class AssociatedHash
+public class Map
 {
     //java.util.Hashtable iMap = new java.util.Hashtable();
     java.util.Map iMap = Collections.synchronizedMap(new java.util.HashMap());

@@ -15,9 +15,11 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp;
+package org.mathpiper.lisp.collections;
 
-public class TokenHash extends AssociatedHash
+import org.mathpiper.lisp.*;
+
+public class TokenMap extends Map
 {
 
    // java.util.Hashtable iMap = new java.util.Hashtable();

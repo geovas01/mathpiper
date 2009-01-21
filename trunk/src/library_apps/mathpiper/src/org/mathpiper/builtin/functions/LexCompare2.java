@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.TokenHash;
+import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -32,7 +32,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 abstract public class LexCompare2
 {
 
-    abstract boolean lexfunc(String f1, String f2, TokenHash aHashTable, int aPrecision);
+    abstract boolean lexfunc(String f1, String f2, TokenMap aHashTable, int aPrecision);
 
     abstract boolean numfunc(BigNumber n1, BigNumber n2);
 
