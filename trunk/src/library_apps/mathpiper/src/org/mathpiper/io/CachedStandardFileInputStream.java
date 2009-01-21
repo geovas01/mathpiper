@@ -19,7 +19,7 @@
 package org.mathpiper.io;
 
 
-import org.mathpiper.*;
+
 import org.mathpiper.io.MathPiperInputStream;
 import java.io.*;
 
