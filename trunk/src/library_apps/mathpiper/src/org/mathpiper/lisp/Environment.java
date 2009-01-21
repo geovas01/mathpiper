@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-import org.mathpiper.lisp.printers.Printer;
+import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
@@ -40,7 +40,7 @@ import org.mathpiper.lisp.userfunctions.BranchingUserFunction;
 
 import org.mathpiper.lisp.userfunctions.ListedMacroUserFunction;
 
-import org.mathpiper.printers.InfixPrinter;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 
 public class Environment
@@ -76,7 +76,7 @@ public class Environment
     public int iLastUniqueId = 1;
     public MathPiperOutputStream iCurrentOutput = null;
     public MathPiperOutputStream iInitialOutput = null;
-    public Printer iCurrentPrinter = null;
+    public LispPrinter iCurrentPrinter = null;
     public MathPiperInputStream iCurrentInput = null;
     public InputStatus iInputStatus = new InputStatus();
     public MathPiperTokenizer iCurrentTokenizer;
@@ -96,7 +96,7 @@ public class Environment
         iCurrentTokenizer = iDefaultTokenizer;
         iInitialOutput = aCurrentOutput;
         iCurrentOutput = aCurrentOutput;
-        iCurrentPrinter = new InfixPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
+        iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
         iTrueAtom = Atom.getInstance(this, "True");
         iFalseAtom = Atom.getInstance(this, "False");

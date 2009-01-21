@@ -19,7 +19,7 @@ package org.mathpiper.interpreters;
 
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
-import org.mathpiper.printers.InfixPrinter;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.io.StringInputStream;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.io.MathPiperInputStream;
-import org.mathpiper.lisp.printers.Printer;
+import org.mathpiper.lisp.printers.LispPrinter;
 
 import org.mathpiper.io.CachedStandardFileInputStream;
 import java.io.*;
@@ -45,7 +45,7 @@ class SynchronousInterpreter implements Interpreter
 
     private Environment environment = null;
     MathPiperTokenizer tokenizer = null;
-    Printer printer = null;
+    LispPrinter printer = null;
     //private String iError = null;
     String defaultDirectory = null;
     String archive = "";
@@ -63,7 +63,7 @@ class SynchronousInterpreter implements Interpreter
         {
             environment = new Environment(sideEffectsStream);
             tokenizer = new MathPiperTokenizer();
-            printer = new InfixPrinter(environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
+            printer = new MathPiperPrinter(environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
 
 
             environment.iCurrentInput = new CachedStandardFileInputStream(environment.iInputStatus);

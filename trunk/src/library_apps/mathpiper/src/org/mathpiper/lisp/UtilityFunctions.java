@@ -27,7 +27,7 @@ import org.mathpiper.io.InputDirectories;
 import org.mathpiper.lisp.behaviours.SubstBase;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
-import org.mathpiper.printers.InfixPrinter;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.JarFileInputStream;
 import org.mathpiper.io.StandardFileInputStream;
@@ -527,7 +527,7 @@ public class UtilityFunctions {
             int aMaxChars) throws Exception {
         StringBuffer result = new StringBuffer();
         StringOutputStream newOutput = new StringOutputStream(result);
-        InfixPrinter infixprinter = new InfixPrinter(aEnvironment.iPrefixOperators,
+        MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators,
                 aEnvironment.iInfixOperators,
                 aEnvironment.iPostfixOperators,
                 aEnvironment.iBodiedOperators);
@@ -744,7 +744,7 @@ public class UtilityFunctions {
         aEnvironment.iEvaluator.evaluate(aEnvironment, precedence, BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 2));
         LispError.checkArgumentCore(aEnvironment, aStackTop, precedence.getCons().string() != null, 2);
         int prec = Integer.parseInt(precedence.getCons().string(), 10);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, prec <= InfixPrinter.KMaxPrecedence, 2);
+        LispError.checkArgumentCore(aEnvironment, aStackTop, prec <= MathPiperPrinter.KMaxPrecedence, 2);
         aOps.SetOperator(prec, UtilityFunctions.symbolName(aEnvironment, orig));
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop));
     }
