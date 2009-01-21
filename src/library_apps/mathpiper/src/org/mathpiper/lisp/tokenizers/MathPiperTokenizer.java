@@ -21,7 +21,7 @@ import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.lisp.*;
-import org.mathpiper.*;
+
 
 public class MathPiperTokenizer {
 

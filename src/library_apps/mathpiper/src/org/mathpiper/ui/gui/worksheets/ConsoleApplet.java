@@ -20,7 +20,7 @@ package org.mathpiper.ui.gui.worksheets;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.io.CachedStandardFileInputStream;
-import org.mathpiper.*;
+
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import java.awt.datatransfer.Clipboard;
@@ -33,6 +33,7 @@ import java.awt.event.*;
 import java.applet.*;
 import java.io.*;
 import java.net.*;
+import org.mathpiper.Version;
 import org.mathpiper.interpreters.EvaluationResponse;
 
 public class ConsoleApplet extends Applet implements KeyListener, FocusListener, ClipboardOwner, MouseListener, MouseMotionListener, Console

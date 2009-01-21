@@ -20,7 +20,7 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.*;
+
 
 public class LispError
 {

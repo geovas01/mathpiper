@@ -19,7 +19,7 @@
 package org.mathpiper.ui.gui.worksheets;
 
 import org.mathpiper.ui.gui.worksheets.TexParser;
-import org.mathpiper.*;
+
 import java.awt.*;
 import java.applet.*;
 import java.awt.event.*;
