@@ -31,9 +31,9 @@ import org.mathpiper.lisp.ArgList;
  */
 public class PatternContainer extends BuiltinContainer
 {
-	protected org.mathpiper.parametermatchers.Pattern iPatternMatcher;
+	protected org.mathpiper.lisp.parametermatchers.Pattern iPatternMatcher;
 	
-	public PatternContainer(org.mathpiper.parametermatchers.Pattern aPatternMatcher)
+	public PatternContainer(org.mathpiper.lisp.parametermatchers.Pattern aPatternMatcher)
 	{
 		iPatternMatcher = aPatternMatcher;
 	}

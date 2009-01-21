@@ -50,7 +50,7 @@ public class GenPatternCreate extends BuiltinFunctionInitialize
         ConsPointer ptr = iter.ptr();
 
 
-        org.mathpiper.parametermatchers.Pattern matcher = new org.mathpiper.parametermatchers.Pattern(aEnvironment, ptr, postpredicate);
+        org.mathpiper.lisp.parametermatchers.Pattern matcher = new org.mathpiper.lisp.parametermatchers.Pattern(aEnvironment, ptr, postpredicate);
         PatternContainer p = new PatternContainer(matcher);
         getResult(aEnvironment, aStackTop).setCons(BuiltinObject.getInstance(p));
     }
