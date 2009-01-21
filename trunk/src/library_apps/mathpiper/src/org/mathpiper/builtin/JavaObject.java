@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin;
 
-import org.mathpiper.lisp.ArgumentList;
+import org.mathpiper.builtin.ArgumentList;
 
 
 public class JavaObject extends BuiltinContainer
