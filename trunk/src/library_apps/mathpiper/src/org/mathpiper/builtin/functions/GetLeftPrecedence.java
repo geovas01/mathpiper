@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.Atom;
+import org.mathpiper.lisp.cons.Atom;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.InfixOperator;
 import org.mathpiper.lisp.LispError;

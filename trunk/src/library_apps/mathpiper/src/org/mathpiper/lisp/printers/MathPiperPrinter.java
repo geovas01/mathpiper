@@ -20,9 +20,9 @@ package org.mathpiper.lisp.printers;
 
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.ConsPointer;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.ConsTraverser;
+import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.InfixOperator;

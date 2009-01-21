@@ -15,8 +15,9 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp;
+package org.mathpiper.lisp.cons;
 
+import org.mathpiper.lisp.*;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinContainer;
 

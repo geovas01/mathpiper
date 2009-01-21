@@ -20,11 +20,11 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.builtin.PatternContainer;
-import org.mathpiper.lisp.BuiltinObject;
+import org.mathpiper.lisp.cons.BuiltinObject;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.ConsTraverser;
+import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.ConsPointer;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *

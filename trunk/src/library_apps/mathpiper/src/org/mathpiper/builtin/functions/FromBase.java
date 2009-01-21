@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.ConsPointer;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
 
 /**
@@ -60,6 +60,6 @@ public class FromBase extends BuiltinFunctionInitialize
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);
-        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(z));
+        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.Number(z));
     }
 }

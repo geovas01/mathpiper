@@ -20,7 +20,7 @@ package org.mathpiper.lisp.userfunctions;
 
 // class EvalFuncBase defines the interface to 'something that can
 
-import org.mathpiper.lisp.ConsPointer;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
 // evaluate'

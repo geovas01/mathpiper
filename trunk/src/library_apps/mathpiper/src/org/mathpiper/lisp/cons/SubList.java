@@ -16,53 +16,69 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.lisp;
+package org.mathpiper.lisp.cons;
 
-import org.mathpiper.builtin.BuiltinContainer;
-import org.mathpiper.*;
+import org.mathpiper.lisp.*;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 
-public class BuiltinObject extends Cons
+public class SubList extends Cons
 {
-	BuiltinContainer iClass;
+	ConsPointer iSubList = new ConsPointer();
 	
-	public static BuiltinObject getInstance(BuiltinContainer aClass) throws Exception
+	public static SubList getInstance(Cons aSubList)
 	{
-		LispError.lispAssert(aClass!=null);
-		BuiltinObject self = new BuiltinObject(aClass);
-		LispError.check(self!=null,LispError.KLispErrNotEnoughMemory);
-		return self;
+		return new SubList(aSubList);
 	}
         
         public Object first()
         {
-            return iClass;
+            return iSubList;
         }
-	
-	public BuiltinContainer getGeneric()
+        
+        
+	public ConsPointer getSubList()
 	{
-		return iClass;
+		return iSubList;
 	}
-	
+        
+        
 	public String string()
 	{
 		return null;
 	}
-	
-	public Cons copy(boolean aRecursed)
+        
+        public String toString()
+        {
+            return iSubList.toString();
+        }
+        
+        
+	public Cons copy(boolean aRecursed) throws Exception
 	{
-		Cons copied = new BuiltinObject(iClass);
+		//TODO recursed copy needs to be implemented still
+		LispError.lispAssert(aRecursed == false);
+		Cons copied = new SubList(iSubList.getCons());
 		return copied;
 	}
-	
+        
+        
 	public Cons setExtraInfo(ConsPointer aData)
 	{
 		//TODO FIXME
+		/*
+		    Cons* result = NEW LispAnnotatedObject<SubList>(this);
+		    result->SetExtraInfo(aData);
+		    return result;
+		*/
 		return null;
 	}
-
-	BuiltinObject(BuiltinContainer aClass)
+        
+        
+	SubList(Cons aSubList)
 	{
-		iClass = aClass;
+		iSubList.setCons(aSubList);
 	}
-};
+	
+}

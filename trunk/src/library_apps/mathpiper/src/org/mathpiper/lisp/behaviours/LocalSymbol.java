@@ -18,8 +18,8 @@
 
 package org.mathpiper.lisp.behaviours;
 
-import org.mathpiper.lisp.ConsPointer;
-import org.mathpiper.lisp.Atom;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Atom;
 import org.mathpiper.lisp.Environment;
 
 /** subst behaviour for changing the local variables to have unique

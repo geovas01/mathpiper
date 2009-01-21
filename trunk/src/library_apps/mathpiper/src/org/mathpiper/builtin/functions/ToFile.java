@@ -23,7 +23,7 @@ import org.mathpiper.io.StandardFileOutputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.lisp.ConsPointer;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
 
 /**
