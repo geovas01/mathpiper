@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.parsers;
 
-import org.mathpiper.printers.InfixPrinter;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.ConsPointer;
@@ -78,7 +78,7 @@ public class MathPiperParser extends Parser
             return;
         }
 
-        readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+        readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
 
         if (iLookAhead != iEnvironment.iEndStatementAtom.string())
         {
@@ -131,7 +131,7 @@ public class MathPiperParser extends Parser
                 // Match opening bracket
                 matchToken(iLookAhead);
                 // Read "index" argument
-                readExpression(InfixPrinter.KMaxPrecedence);
+                readExpression(MathPiperPrinter.KMaxPrecedence);
                 // Match closing bracket
                 if (iLookAhead != iEnvironment.iProgCloseAtom.string())
                 {
@@ -233,7 +233,7 @@ public class MathPiperParser extends Parser
         else if (iLookAhead == iEnvironment.iBracketOpenAtom.string())
         {
             matchToken(iLookAhead);
-            readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+            readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
             matchToken(iEnvironment.iBracketCloseAtom.string());
         } //parse lists
         else if (iLookAhead == iEnvironment.iListOpenAtom.string())
@@ -242,7 +242,7 @@ public class MathPiperParser extends Parser
             matchToken(iLookAhead);
             while (iLookAhead != iEnvironment.iListCloseAtom.string())
             {
-                readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+                readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                 nrargs++;
 
                 if (iLookAhead == iEnvironment.iCommaAtom.string())
@@ -267,7 +267,7 @@ public class MathPiperParser extends Parser
             matchToken(iLookAhead);
             while (iLookAhead != iEnvironment.iProgCloseAtom.string())
             {
-                readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+                readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                 nrargs++;
 
                 if (iLookAhead == iEnvironment.iEndStatementAtom.string())
@@ -297,7 +297,7 @@ public class MathPiperParser extends Parser
                 matchToken(iLookAhead);
                 while (iLookAhead != iEnvironment.iBracketCloseAtom.string())
                 {
-                    readExpression(InfixPrinter.KMaxPrecedence);  // least precedence
+                    readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                     nrargs++;
 
                     if (iLookAhead == iEnvironment.iCommaAtom.string())
@@ -314,7 +314,7 @@ public class MathPiperParser extends Parser
                 op = (InfixOperator) iBodiedOperators.lookUp(theOperator);
                 if (op != null)
                 {
-                    readExpression(op.iPrecedence); // InfixPrinter.KMaxPrecedence
+                    readExpression(op.iPrecedence); // MathPiperPrinter.KMaxPrecedence
                     nrargs++;
                 }
             }

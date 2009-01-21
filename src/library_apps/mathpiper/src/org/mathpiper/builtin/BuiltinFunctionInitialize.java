@@ -198,7 +198,7 @@ import org.mathpiper.lisp.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.userfunctions.Evaluator;
-import org.mathpiper.printers.InfixPrinter;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 
 public abstract class BuiltinFunctionInitialize
@@ -231,20 +231,20 @@ public abstract class BuiltinFunctionInitialize
         
      public static void addFunctions(Environment aEnvironment)
     {
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "While");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "Rule");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "MacroRule");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "RulePattern");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "MacroRulePattern");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "FromFile");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "FromString");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "ToFile");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "ToString");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "ToStdout");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "TraceRule");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "Subst");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "LocalSymbols");
-        aEnvironment.iBodiedOperators.SetOperator(InfixPrinter.KMaxPrecedence, "BackQuote");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "While");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "Rule");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "MacroRule");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "RulePattern");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "MacroRulePattern");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "FromFile");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "FromString");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "ToFile");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "ToString");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "ToStdout");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "TraceRule");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "Subst");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "LocalSymbols");
+        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "BackQuote");
         aEnvironment.iPrefixOperators.SetOperator(0, "`");
         aEnvironment.iPrefixOperators.SetOperator(0, "@");
         aEnvironment.iPrefixOperators.SetOperator(0, "_");

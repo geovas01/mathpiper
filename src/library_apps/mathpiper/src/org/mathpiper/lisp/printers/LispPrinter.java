@@ -22,7 +22,7 @@ import org.mathpiper.lisp.*;
 import org.mathpiper.io.MathPiperOutputStream;
 
 
-public class Printer
+public class LispPrinter
 {
 	public void print(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception
 	{

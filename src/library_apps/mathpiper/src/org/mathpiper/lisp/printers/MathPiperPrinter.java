@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.printers;
+package org.mathpiper.lisp.printers;
 
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -27,10 +27,10 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.InfixOperator;
 import org.mathpiper.lisp.Operators;
-import org.mathpiper.lisp.printers.Printer;
+import org.mathpiper.lisp.printers.LispPrinter;
 
 
-public class InfixPrinter extends Printer
+public class MathPiperPrinter extends LispPrinter
 {
 
 	public static int KMaxPrecedence = 60000;
@@ -42,7 +42,7 @@ public class InfixPrinter extends Printer
 	char iPrevLastChar;
 	Environment iCurrentEnvironment;
 
-	public InfixPrinter(Operators aPrefixOperators,
+	public MathPiperPrinter(Operators aPrefixOperators,
 	                    Operators aInfixOperators,
 	                    Operators aPostfixOperators,
 	                    Operators aBodiedOperators)

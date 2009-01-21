@@ -23,7 +23,7 @@ import org.mathpiper.lisp.userfunctions.Evaluator;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 import org.mathpiper.lisp.userfunctions.UserFunction;
-import org.mathpiper.printers.InfixPrinter;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 
 /**
@@ -227,7 +227,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
     
     	public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception
 	{
-		InfixPrinter infixprinter = new InfixPrinter(aEnvironment.iPrefixOperators,  aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators,  aEnvironment.iBodiedOperators);
+		MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators,  aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators,  aEnvironment.iBodiedOperators);
                 
 		// Print out the current expression
 		//StringOutput stream(outString);

@@ -19,7 +19,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.printers.Printer;
+import org.mathpiper.lisp.printers.LispPrinter;
 
 /**
  *
@@ -31,7 +31,7 @@ public class FullForm extends BuiltinFunctionInitialize
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         getResult(aEnvironment, aStackTop).setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        Printer printer = new Printer();
+        LispPrinter printer = new LispPrinter();
         printer.print(getResult(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
         aEnvironment.write("\n");
     }
