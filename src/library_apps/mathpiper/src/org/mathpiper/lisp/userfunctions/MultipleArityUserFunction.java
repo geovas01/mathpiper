@@ -19,7 +19,7 @@
 package org.mathpiper.lisp.userfunctions;
 
 
-import org.mathpiper.lisp.collections.DefFileMap;
+import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.*;
 import java.util.*;
 
@@ -37,7 +37,7 @@ public class MultipleArityUserFunction
 	ArrayList iFunctions = new ArrayList();//<SingleArityUserFunction*>
 
 	/// File to read for the definition of this function.
-	public DefFileMap iFileToOpen;
+	public DefFile iFileToOpen;
 
 	/// Constructor.
 	public MultipleArityUserFunction()
