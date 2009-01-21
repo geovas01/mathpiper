@@ -231,24 +231,24 @@ public abstract class BuiltinFunctionInitialize
         
      public static void addFunctions(Environment aEnvironment)
     {
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "While");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "Rule");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "MacroRule");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "RulePattern");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "MacroRulePattern");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "FromFile");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "FromString");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "ToFile");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "ToString");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "ToStdout");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "TraceRule");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "Subst");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "LocalSymbols");
-        aEnvironment.iBodiedOperators.SetOperator(MathPiperPrinter.KMaxPrecedence, "BackQuote");
-        aEnvironment.iPrefixOperators.SetOperator(0, "`");
-        aEnvironment.iPrefixOperators.SetOperator(0, "@");
-        aEnvironment.iPrefixOperators.SetOperator(0, "_");
-        aEnvironment.iInfixOperators.SetOperator(0, "_");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "While");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Rule");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "MacroRule");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "RulePattern");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "MacroRulePattern");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "FromFile");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "FromString");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "ToFile");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "ToString");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "ToStdout");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceRule");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Subst");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "LocalSymbols");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "BackQuote");
+        aEnvironment.iPrefixOperators.setOperator(0, "`");
+        aEnvironment.iPrefixOperators.setOperator(0, "@");
+        aEnvironment.iPrefixOperators.setOperator(0, "_");
+        aEnvironment.iInfixOperators.setOperator(0, "_");
 
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new Quote(), 1, Evaluator.Fixed | Evaluator.Macro),

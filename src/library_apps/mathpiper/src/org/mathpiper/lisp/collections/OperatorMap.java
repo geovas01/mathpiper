@@ -24,27 +24,27 @@ import org.mathpiper.lisp.*;
 public class OperatorMap extends Map // <InfixOperator>
 {
 	
-	public void SetOperator(int aPrecedence,String aString)
+	public void setOperator(int aPrecedence,String aString)
 	{
 		InfixOperator op = new InfixOperator(aPrecedence);
 		setAssociation(op, aString);
 	}
 	
-	public void SetRightAssociative(String aString) throws Exception
+	public void setRightAssociative(String aString) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
 		LispError.check(op != null,LispError.KLispErrNotAnInFixOperator);
 		op.SetRightAssociative();
 	}
 	
-	public void SetLeftPrecedence(String aString,int aPrecedence) throws Exception
+	public void setLeftPrecedence(String aString,int aPrecedence) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
 		LispError.check(op != null,LispError.KLispErrNotAnInFixOperator);
 		op.SetLeftPrecedence(aPrecedence);
 	}
 	
-	public void SetRightPrecedence(String aString,int aPrecedence) throws Exception
+	public void setRightPrecedence(String aString,int aPrecedence) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
 		LispError.check(op != null,LispError.KLispErrNotAnInFixOperator);

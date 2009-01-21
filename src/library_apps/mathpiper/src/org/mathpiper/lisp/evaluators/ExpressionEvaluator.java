@@ -20,7 +20,6 @@ package org.mathpiper.lisp.evaluators;
 import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.*;
 
 /**
  * Abstract evaluator for Lisp expressions.
