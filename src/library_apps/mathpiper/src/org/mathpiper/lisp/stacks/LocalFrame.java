@@ -12,25 +12,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
+ */ //}}}
 
-//}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp;
 
-import org.mathpiper.lisp.cons.ConsPointer;
+package org.mathpiper.lisp.stacks;
 
-public class UserStackInformation
+import org.mathpiper.lisp.*;
+
+
+// Local lisp stack, unwindable by the exception handler
+public class LocalFrame
 {
-
-	public ConsPointer iExpression;
-	public ConsPointer iOperator;
-	public int iRulePrecedence;
-	public int iSide; // 0=pattern, 1=body
-
-	public UserStackInformation()
+	Environment iEnvironment;
+	
+	public LocalFrame(Environment aEnvironment, boolean aFenced)
 	{
-		iRulePrecedence = -1;
-		iSide = 0;
+		iEnvironment = aEnvironment;
+		iEnvironment.pushLocalFrame(aFenced);
 	}
+	public void delete() throws Exception
+	{
+		iEnvironment.popLocalFrame();
+	}
+
 }
