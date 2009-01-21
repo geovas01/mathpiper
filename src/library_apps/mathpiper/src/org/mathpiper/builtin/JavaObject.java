@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin;
 
-import org.mathpiper.lisp.ArgList;
+import org.mathpiper.lisp.ArgumentList;
 
 
 public class JavaObject extends BuiltinContainer
@@ -29,7 +29,7 @@ public class JavaObject extends BuiltinContainer
         this.javaObject = javaObject;
     }
 
-	public String send(ArgList aArgList)
+	public String send(ArgumentList aArgList)
 	{
 		return null;
 	}

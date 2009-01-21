@@ -21,7 +21,7 @@ package org.mathpiper.builtin;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointerArray;
-import org.mathpiper.lisp.ArgList;
+import org.mathpiper.lisp.ArgumentList;
 
 
 public class Array extends BuiltinContainer
@@ -32,7 +32,7 @@ public class Array extends BuiltinContainer
 	{
 		iArray = new ConsPointerArray(aSize,aInitialItem);
 	}
-	public String send(ArgList aArgList)
+	public String send(ArgumentList aArgList)
 	{
 		return null;
 	}

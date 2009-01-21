@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin;
 
-import org.mathpiper.lisp.ArgList;
+import org.mathpiper.lisp.ArgumentList;
 
 
 /**
@@ -31,7 +31,7 @@ public abstract class BuiltinContainer
 	public  BuiltinContainer()
 	{
 	}
-	public abstract String send(ArgList aArgList);
+	public abstract String send(ArgumentList aArgList);
 	public abstract String typeName();
     public abstract Object getJavaObject();
 }

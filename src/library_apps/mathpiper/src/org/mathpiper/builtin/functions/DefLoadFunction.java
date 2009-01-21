@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.collections.DefFileMap;
+import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -47,7 +47,7 @@ public class DefLoadFunction extends BuiltinFunctionInitialize
         {
             if (multiUserFunc.iFileToOpen != null)
             {
-                DefFileMap def = multiUserFunc.iFileToOpen;
+                DefFile def = multiUserFunc.iFileToOpen;
                 if (!def.iIsLoaded)
                 {
                     multiUserFunc.iFileToOpen = null;

@@ -22,7 +22,7 @@ package org.mathpiper.builtin;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.ArgList;
+import org.mathpiper.lisp.ArgumentList;
 
 
 /**
@@ -55,7 +55,7 @@ public class PatternContainer extends BuiltinContainer
 	}
 	
 	//From BuiltinContainer
-	public String send(ArgList aArgList)
+	public String send(ArgumentList aArgList)
 	{
 		return null;
 	}
