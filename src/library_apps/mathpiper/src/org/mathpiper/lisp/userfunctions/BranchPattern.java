@@ -19,7 +19,7 @@ package org.mathpiper.lisp.userfunctions;
 
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.PatternContainer;
-import org.mathpiper.lisp.ConsPointer;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 

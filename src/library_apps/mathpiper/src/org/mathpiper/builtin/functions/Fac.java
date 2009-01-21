@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.ConsPointer;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -47,6 +47,6 @@ public class Fac extends BuiltinFunctionInitialize
             m.multiply(fac, m, 0);
             fac = m;
         }
-        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.Number(fac));
+        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.Number(fac));
     }
 }

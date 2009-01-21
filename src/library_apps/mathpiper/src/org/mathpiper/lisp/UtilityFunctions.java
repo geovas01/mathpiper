@@ -17,6 +17,11 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import org.mathpiper.lisp.cons.ConsTraverser;
+import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 import java.io.InputStreamReader;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.exceptions.EvaluationException;

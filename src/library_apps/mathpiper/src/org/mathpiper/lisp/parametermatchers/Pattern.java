@@ -32,11 +32,11 @@ package org.mathpiper.lisp.parametermatchers;
 /// to use these variables).
 
 
-import org.mathpiper.lisp.Cons;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.ConsPointer;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.ConsTraverser;
+import org.mathpiper.lisp.cons.ConsTraverser;
 //import org.mathpiper.lisp.Atom;
 import org.mathpiper.lisp.Environment;
 //import org.mathpiper.lisp.SubList;
@@ -277,10 +277,10 @@ public class Pattern
 							while (last.rest().getCons() != null)
 								last = last.rest().getCons();
 
-							last.rest().setCons(org.mathpiper.lisp.Atom.getInstance(aEnvironment,str));
+							last.rest().setCons(org.mathpiper.lisp.cons.Atom.getInstance(aEnvironment,str));
 
 							ConsPointer pred = new ConsPointer();
-							pred.setCons(org.mathpiper.lisp.SubList.getInstance(third.getCons()));
+							pred.setCons(org.mathpiper.lisp.cons.SubList.getInstance(third.getCons()));
 
 							iPredicates.add(pred);
 						}
