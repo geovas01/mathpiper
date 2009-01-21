@@ -23,7 +23,7 @@ import org.mathpiper.lisp.DefFile;
 
 public class DefFileMap extends Map // <DefFile>
 {
-	DefFile getFile(String aFileName)
+	public DefFile getFile(String aFileName)
 	{
 		// Create a new entry
 		DefFile file = (DefFile)lookUp(aFileName);
