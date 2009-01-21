@@ -16,24 +16,36 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.lisp.collections;
+package org.mathpiper.lisp;
 
-import org.mathpiper.lisp.DefFile;
-
-
-public class DefFileMap extends Map // <DefFile>
+/** DefFile represents one file that can be loaded just-in-time.
+ */
+public class DefFile
 {
-	DefFile getFile(String aFileName)
+	public String iFileName;
+	public boolean   iIsLoaded;
+	
+	public DefFile(String aFile)
 	{
-		// Create a new entry
-		DefFile file = (DefFile)lookUp(aFileName);
-		if (file == null)
-		{
-			DefFile newfile = new DefFile(aFileName);
-			// Add the new entry to the hash table
-			setAssociation(newfile, aFileName);
-			file = (DefFile)lookUp(aFileName);
-		}
-		return file;
+		iFileName = aFile;
+		iIsLoaded = false;
 	}
-}
+	public DefFile(DefFile aOther)
+	{
+		iFileName = aOther.iFileName;
+		iIsLoaded = aOther.iIsLoaded;
+	}
+	public void setLoaded()
+	{
+		iIsLoaded = true;
+	}
+	public boolean isLoaded()
+	{
+		return iIsLoaded;
+	}
+	public String fileName()
+	{
+		return iFileName;
+	}
+
+};
