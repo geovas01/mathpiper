@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-import org.mathpiper.lisp.DefFiles;
+import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.collections.Map;
 import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.collections.OperatorMap;
@@ -93,7 +93,7 @@ public class Environment
     public Map iUserFunctions = new Map();
     Map iBuiltinFunctions = new Map();
     public String iError = null;
-    public DefFiles iDefFiles = new DefFiles();
+    public DefFileMap iDefFiles = new DefFileMap();
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReader = null;
     public String iPrettyPrinter = null;

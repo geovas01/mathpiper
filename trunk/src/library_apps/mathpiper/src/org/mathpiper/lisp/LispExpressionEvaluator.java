@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-import org.mathpiper.lisp.collections.DefFileMap;
+import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.io.MathPiperOutputStream;
@@ -180,7 +180,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator
             MultipleArityUserFunction multiUserFunc = aEnvironment.multiUserFunction(head.string());
             if (multiUserFunc.iFileToOpen != null)
             {
-                DefFileMap def = multiUserFunc.iFileToOpen;
+                DefFile def = multiUserFunc.iFileToOpen;
                 
                 				if(DEBUG)
 				{

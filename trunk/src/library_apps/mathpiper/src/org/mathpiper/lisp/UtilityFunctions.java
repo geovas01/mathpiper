@@ -18,7 +18,7 @@
 package org.mathpiper.lisp;
 
 import org.mathpiper.lisp.collections.OperatorMap;
-import org.mathpiper.lisp.collections.DefFileMap;
+import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.SubList;
 import org.mathpiper.lisp.cons.Atom;
@@ -522,7 +522,7 @@ public class UtilityFunctions {
     }
 
     public static void internalUse(Environment aEnvironment, String aFileName) throws Exception {
-        DefFileMap def = aEnvironment.iDefFiles.getFile(aFileName);
+        DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
         if (!def.isLoaded()) {
             def.setLoaded();
             internalLoad(aEnvironment, aFileName);
@@ -603,7 +603,7 @@ public class UtilityFunctions {
         return "";
     }
 
-    private static void doLoadDefFile(Environment aEnvironment, MathPiperInputStream aInput, DefFileMap def) throws Exception {
+    private static void doLoadDefFile(Environment aEnvironment, MathPiperInputStream aInput, DefFile def) throws Exception {
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try {
             aEnvironment.iCurrentInput = aInput;
@@ -641,7 +641,7 @@ public class UtilityFunctions {
         LispError.lispAssert(aFileName != null);
 
         String flatfile = internalUnstringify(aFileName) + ".def";
-        DefFileMap def = aEnvironment.iDefFiles.getFile(aFileName);
+        DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(flatfile);
 
