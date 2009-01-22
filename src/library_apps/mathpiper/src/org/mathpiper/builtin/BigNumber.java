@@ -372,7 +372,7 @@ public class BigNumber {
 
     //arithmetic.
     /**
-     * Multiply the specified BigIntegers using the specified precision and place the result in this BigInteger.
+     * Multiply the specified BigNumbers using the specified precision and place the result in this BigNumber.
      *
      * @param aX
      * @param aY
@@ -397,7 +397,7 @@ public class BigNumber {
     }
 
     /**
-     * Add the specified BigIntegers using the specified precision and place the result in this BigInteger.
+     * Add the specified BigNumberss using the specified precision and place the result in this BigNumber.
      *
      * @param aX
      * @param aY
@@ -472,7 +472,7 @@ public class BigNumber {
     }
 
     /**
-     * Perform y mod z on the two specified integers.  The result is placed into this BigInteger.
+     * Perform y mod z on the two specified integers.  The result is placed into this BigNumber.
      * 
      * @param aY
      * @param aZ
