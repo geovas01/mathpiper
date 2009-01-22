@@ -21,12 +21,12 @@ import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 
-public class Atom extends Cons
+public class AtomCons extends Cons
 {
 
     String iString;
 
-    Atom(String aString)
+    AtomCons(String aString)
     {
         iString = aString;
     }
@@ -38,10 +38,10 @@ public class Atom extends Cons
 
         {
             /// construct a number from a decimal string representation (also create a number object)
-            self = new Number(aString, aEnvironment.getPrecision());
+            self = new NumberCons(aString, aEnvironment.getPrecision());
         } else
         {
-            self = new Atom((String)aEnvironment.getTokenHash().lookUp(aString));
+            self = new AtomCons((String)aEnvironment.getTokenHash().lookUp(aString));
         }
         
         LispError.check(self != null, LispError.KLispErrNotEnoughMemory);
@@ -67,7 +67,7 @@ public class Atom extends Cons
 
     public Cons copy(boolean aRecursed)
     {
-        return new Atom(iString);
+        return new AtomCons(iString);
     }
 
     public Cons setExtraInfo(ConsPointer aData)
@@ -75,7 +75,7 @@ public class Atom extends Cons
         //TODO FIXME
         System.out.println("NOT YET IMPLEMENTED!!!");
         /*
-        Cons result = new LispAnnotatedObject<Atom>(this);
+        Cons result = new LispAnnotatedObject<AtomCons>(this);
         result->SetExtraInfo(aData);
         return result;
          */

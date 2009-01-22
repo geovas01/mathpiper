@@ -18,8 +18,8 @@
 
 package org.mathpiper.lisp.parsers;
 
-import org.mathpiper.lisp.cons.SubList;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.SubListCons;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.io.MathPiperInputStream;
@@ -51,7 +51,7 @@ public class Parser
 		token = iTokenizer.nextToken(iInput,iEnvironment.getTokenHash());
 		if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
 		{
-			aResult.setCons(Atom.getInstance(iEnvironment,"EndOfFile"));
+			aResult.setCons(AtomCons.getInstance(iEnvironment,"EndOfFile"));
 			return;
 		}
 		parseAtom(aResult,token);
@@ -64,7 +64,7 @@ public class Parser
 		ConsPointer iter = aResult;
 		if (iListed)
 		{
-			aResult.setCons(Atom.getInstance(iEnvironment,"List"));
+			aResult.setCons(AtomCons.getInstance(iEnvironment,"List"));
 			iter  = (aResult.getCons().rest()); //TODO FIXME
 		}
 		for (;;)
@@ -97,11 +97,11 @@ public class Parser
 		{
 			ConsPointer subList = new ConsPointer();
 			parseList(subList);
-			aResult.setCons(SubList.getInstance(subList.getCons()));
+			aResult.setCons(SubListCons.getInstance(subList.getCons()));
 			return;
 		}
 		// else make a simple atom, and return it.
-		aResult.setCons(Atom.getInstance(iEnvironment,aToken));
+		aResult.setCons(AtomCons.getInstance(iEnvironment,aToken));
 	}
 	
 }

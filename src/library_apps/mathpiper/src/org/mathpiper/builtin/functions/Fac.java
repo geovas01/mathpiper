@@ -47,6 +47,6 @@ public class Fac extends BuiltinFunctionInitialize
             m.multiply(fac, m, 0);
             fac = m;
         }
-        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.Number(fac));
+        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(fac));
     }
 }

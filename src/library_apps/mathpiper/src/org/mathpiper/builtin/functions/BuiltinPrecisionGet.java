@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 
 /**
@@ -32,6 +32,6 @@ public class BuiltinPrecisionGet extends BuiltinFunctionInitialize
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         // decimal getPrecision
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + aEnvironment.getPrecision()));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + aEnvironment.getPrecision()));
     }
 }

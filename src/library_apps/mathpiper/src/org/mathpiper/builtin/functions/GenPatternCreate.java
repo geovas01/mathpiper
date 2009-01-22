@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.builtin.PatternContainer;
-import org.mathpiper.lisp.cons.BuiltinObject;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
@@ -52,6 +52,6 @@ public class GenPatternCreate extends BuiltinFunctionInitialize
 
         org.mathpiper.lisp.parametermatchers.Pattern matcher = new org.mathpiper.lisp.parametermatchers.Pattern(aEnvironment, ptr, postpredicate);
         PatternContainer p = new PatternContainer(matcher);
-        getResult(aEnvironment, aStackTop).setCons(BuiltinObject.getInstance(p));
+        getResult(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(p));
     }
 }

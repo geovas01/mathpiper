@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
@@ -53,6 +53,6 @@ public class ConcatenateStrings extends BuiltinFunctionInitialize
     {
         StringBuffer strBuffer = new StringBuffer("");
         ConcatenateStrings(strBuffer, aEnvironment, aStackTop);
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, strBuffer.toString()));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, strBuffer.toString()));
     }
 }

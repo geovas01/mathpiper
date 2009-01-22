@@ -22,7 +22,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.SubListCons;
 
 /**
  *
@@ -73,7 +73,7 @@ public class LazyAnd extends BuiltinFunctionInitialize
                 ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
                 ptr.getCons().rest().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
-                getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(nogos.getCons()));
+                getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(nogos.getCons()));
 
             //aEnvironment.CurrentPrinter().Print(getResult(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
             }

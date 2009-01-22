@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 
 /**
@@ -31,6 +31,6 @@ public class CurrentLine extends BuiltinFunctionInitialize
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + aEnvironment.iInputStatus.lineNumber()));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + aEnvironment.iInputStatus.lineNumber()));
     }
 }

@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -70,6 +70,6 @@ public class BuiltinAssoc extends BuiltinFunctionInitialize
             }
             t = t.rest().getCons();
         }
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "Empty"));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
     }
 }

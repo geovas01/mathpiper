@@ -19,7 +19,7 @@
 package org.mathpiper.lisp.behaviours;
 
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 
 /** subst behaviour for changing the local variables to have unique
@@ -52,7 +52,7 @@ public class LocalSymbol implements SubstBase
 		{
 			if (name == iOriginalNames[i])
 			{
-				aResult.setCons(Atom.getInstance(iEnvironment,iNewNames[i]));
+				aResult.setCons(AtomCons.getInstance(iEnvironment,iNewNames[i]));
 				return true;
 			}
 		}

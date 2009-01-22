@@ -23,7 +23,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.SubListCons;
 
 /**
  *
@@ -53,6 +53,6 @@ public class Concatenate extends BuiltinFunctionInitialize
             iter.goNext();
             arg++;
         }
-        getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(all.getCons()));
+        getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(all.getCons()));
     }
 }

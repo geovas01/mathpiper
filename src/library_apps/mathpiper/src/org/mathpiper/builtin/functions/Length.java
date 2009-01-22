@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -38,14 +38,14 @@ public class Length extends BuiltinFunctionInitialize
         if (subList != null)
         {
             int num = UtilityFunctions.internalListLength(subList.getCons().rest());
-            getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + num));
+            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }
         String string = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         if (UtilityFunctions.internalIsString(string))
         {
             int num = string.length() - 2;
-            getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + num));
+            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }
         BuiltinContainer gen = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getGeneric();
@@ -54,7 +54,7 @@ public class Length extends BuiltinFunctionInitialize
             if (gen.typeName().equals("\"Array\""))
             {
                 int size = ((Array) gen).size();
-                getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + size));
+                getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
                 return;
             }
         //  CHK_ISLIST_CORE(aEnvironment,aStackTop,getArgumentPointer(aEnvironment, aStackTop, 1),1);

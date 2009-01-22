@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.builtin.JavaObject;
-import org.mathpiper.lisp.cons.BuiltinObject;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -36,7 +36,7 @@ public class ViewSimulator extends BuiltinFunctionInitialize
     {
          org.mathpiper.ui.gui.simulator.SimulatorFrame  simulator = new org.mathpiper.ui.gui.simulator.SimulatorFrame();
          JavaObject javaObject = new JavaObject(simulator);
-         aEnvironment.setVariable("Simulator", new ConsPointer(BuiltinObject.getInstance(javaObject)), false);
+         aEnvironment.setVariable("Simulator", new ConsPointer(BuiltinObjectCons.getInstance(javaObject)), false);
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }

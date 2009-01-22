@@ -37,9 +37,9 @@ import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
-//import org.mathpiper.lisp.Atom;
+//import org.mathpiper.lisp.AtomCons;
 import org.mathpiper.lisp.Environment;
-//import org.mathpiper.lisp.SubList;
+//import org.mathpiper.lisp.SubListCons;
 import java.util.*;
 
 /// Class that matches function arguments to a pattern.
@@ -209,7 +209,7 @@ public class Pattern
 	/// The result of this function depends on the value of \a aPattern:
 	/// - If \a aPattern is a number, the corresponding Number is
 	///   constructed and returned.
-	/// - If \a aPattern is an atom, the corresponding Atom is
+	/// - If \a aPattern is an atom, the corresponding AtomCons is
 	///   constructed and returned.
 	/// - If \a aPattern is a list of the form <tt>( _ var )<tt>,
 	///   where \c var is an atom, lookUp() is called on \c var. Then
@@ -221,7 +221,7 @@ public class Pattern
 	/// - If \a aPattern is a list of another form, this function
 	///   calls itself on any of the entries in this list. The
 	///   resulting Parameter objects are collected in a
-	///   SubList, which is returned.
+	///   SubListCons, which is returned.
 	/// - Otherwise, this function returns #null.
 	protected Parameter makeParamMatcher(Environment  aEnvironment, Cons aPattern) throws Exception
 	{
@@ -277,10 +277,10 @@ public class Pattern
 							while (last.rest().getCons() != null)
 								last = last.rest().getCons();
 
-							last.rest().setCons(org.mathpiper.lisp.cons.Atom.getInstance(aEnvironment,str));
+							last.rest().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment,str));
 
 							ConsPointer pred = new ConsPointer();
-							pred.setCons(org.mathpiper.lisp.cons.SubList.getInstance(third.getCons()));
+							pred.setCons(org.mathpiper.lisp.cons.SubListCons.getInstance(third.getCons()));
 
 							iPredicates.add(pred);
 						}

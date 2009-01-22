@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 
@@ -39,6 +39,6 @@ public class Time extends BuiltinFunctionInitialize
         double timeDiff;
         timeDiff = endtime - starttime;
         timeDiff /= 1000.0;
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + timeDiff));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + timeDiff));
     }
 }

@@ -27,8 +27,8 @@ import org.mathpiper.builtin.BigNumber;
  * Holds a single number.
  *  
  */
-public class Number extends Cons {
-    /* Note: Since Number is a LispAtom, shouldn't it extend LispAtom instead of Cons? tk
+public class NumberCons extends Cons {
+    /* Note: Since NumberCons is a LispAtom, shouldn't it extend LispAtom instead of Cons? tk
      */
 
     /// number object; NULL if not yet converted from string
@@ -42,7 +42,7 @@ public class Number extends Cons {
      * @param aNumber
      * @param aString
      */
-    public Number(BigNumber aNumber, String aString) {
+    public NumberCons(BigNumber aNumber, String aString) {
         iStringNumber = aString;
         iBigNumber = aNumber;
     }
@@ -51,7 +51,7 @@ public class Number extends Cons {
      * Construct a number from a BigNumber.
      * @param aNumber
      */
-    public Number(BigNumber aNumber) {
+    public NumberCons(BigNumber aNumber) {
         iStringNumber = null;
         iBigNumber = aNumber;
     }
@@ -62,17 +62,17 @@ public class Number extends Cons {
      * @param aString a number in decimal format
      * @param aBasePrecision the number of decimal digits for the number
      */
-    public Number(String aString, int aBasePrecision) {
+    public NumberCons(String aString, int aBasePrecision) {
         //(also create a number object).
         iStringNumber = aString;
         iBigNumber = null;  // purge whatever it was.
 
     // create a new BigNumber object out of iString, set its precision in digits
-    //TODO FIXME enable this in the end    Number(aBasePrecision);
+    //TODO FIXME enable this in the end    NumberCons(aBasePrecision);
     }
 
     public Cons copy(boolean aRecursed) {
-        return new Number(iBigNumber, iStringNumber);
+        return new NumberCons(iBigNumber, iStringNumber);
     }
 
     public Object first() {
@@ -91,7 +91,7 @@ public class Number extends Cons {
             LispError.lispAssert(iBigNumber != null);  // either the string is null or the number but not both.
 
             iStringNumber = iBigNumber.numToString(0/*TODO FIXME*/, 10);
-        // export the current number to string and store it as Number::iString
+        // export the current number to string and store it as NumberCons::iString
         }
         return iStringNumber;
     }
@@ -142,7 +142,7 @@ public class Number extends Cons {
     */
     public Cons setExtraInfo(ConsPointer aData) {
         /*TODO FIXME
-        Cons* result = NEW LispAnnotatedObject<Number>(this);
+        Cons* result = NEW LispAnnotatedObject<NumberCons>(this);
         result->SetExtraInfo(aData);
         return result;
          */
