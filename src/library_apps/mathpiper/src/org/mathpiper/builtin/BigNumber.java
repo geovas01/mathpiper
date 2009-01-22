@@ -547,7 +547,7 @@ public class BigNumber {
      *
      * @param aPrecision
      */
-    public void precision(int aPrecision) {
+    public void setPrecision(int aPrecision) {
         iPrecision = aPrecision;
         if (javaBigDecimal != null) {
            // if (javaBigDecimal.scale() > aPrecision) {
