@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 
 /**
@@ -33,10 +33,10 @@ public class PrettyPrinterGet extends BuiltinFunctionInitialize
     {
         if (aEnvironment.iPrettyPrinter == null)
         {
-            getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "\"\""));
+            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
         } else
         {
-            getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, aEnvironment.iPrettyPrinter));
+            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.iPrettyPrinter));
         }
     }
 }

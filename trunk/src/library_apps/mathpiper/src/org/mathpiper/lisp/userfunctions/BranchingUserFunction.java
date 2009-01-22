@@ -22,7 +22,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.SubListCons;
 import java.util.*;
 import org.mathpiper.lisp.evaluators.LispExpressionEvaluator;
 
@@ -89,7 +89,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
         if (isTraced())
         {
             ConsPointer tr = new ConsPointer();
-            tr.setCons(SubList.getInstance(aArguments.getCons()));
+            tr.setCons(SubListCons.getInstance(aArguments.getCons()));
             LispExpressionEvaluator.traceShowEnter(aEnvironment, tr);
             tr.setCons(null);
         }
@@ -174,7 +174,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
                     if (isTraced())
                     {
                         ConsPointer tr = new ConsPointer();
-                        tr.setCons(SubList.getInstance(aArguments.getCons()));
+                        tr.setCons(SubListCons.getInstance(aArguments.getCons()));
                         LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr);
                         tr.setCons(null);
                     }
@@ -203,14 +203,14 @@ public class BranchingUserFunction extends SingleArityUserFunction
                         arguments[i].getCons().rest().setCons(arguments[i + 1].getCons());
                     }
                 }
-                aResult.setCons(SubList.getInstance(full.getCons()));
+                aResult.setCons(SubListCons.getInstance(full.getCons()));
             }
 
             /* Trace code */
             if (isTraced())
             {
                 ConsPointer tr = new ConsPointer();
-                tr.setCons(SubList.getInstance(aArguments.getCons()));
+                tr.setCons(SubListCons.getInstance(aArguments.getCons()));
                 LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr);
                 tr.setCons(null);
             }

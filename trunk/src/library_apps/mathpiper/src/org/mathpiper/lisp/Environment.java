@@ -24,7 +24,7 @@ import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.collections.Map;
 import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.collections.OperatorMap;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.printers.LispPrinter;
@@ -108,21 +108,21 @@ public class Environment
         iCurrentOutput = aCurrentOutput;
         iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
-        iTrueAtom = Atom.getInstance(this, "True");
-        iFalseAtom = Atom.getInstance(this, "False");
+        iTrueAtom = AtomCons.getInstance(this, "True");
+        iFalseAtom = AtomCons.getInstance(this, "False");
 
-        iEndOfFileAtom = Atom.getInstance(this, "EndOfFile");
-        iEndStatementAtom = Atom.getInstance(this, ";");
-        iProgOpenAtom = Atom.getInstance(this, "[");
-        iProgCloseAtom = Atom.getInstance(this, "]");
-        iNthAtom = Atom.getInstance(this, "Nth");
-        iBracketOpenAtom = Atom.getInstance(this, "(");
-        iBracketCloseAtom = Atom.getInstance(this, ")");
-        iListOpenAtom = Atom.getInstance(this, "{");
-        iListCloseAtom = Atom.getInstance(this, "}");
-        iCommaAtom = Atom.getInstance(this, ",");
-        iListAtom = Atom.getInstance(this, "List");
-        iProgAtom = Atom.getInstance(this, "Prog");
+        iEndOfFileAtom = AtomCons.getInstance(this, "EndOfFile");
+        iEndStatementAtom = AtomCons.getInstance(this, ";");
+        iProgOpenAtom = AtomCons.getInstance(this, "[");
+        iProgCloseAtom = AtomCons.getInstance(this, "]");
+        iNthAtom = AtomCons.getInstance(this, "Nth");
+        iBracketOpenAtom = AtomCons.getInstance(this, "(");
+        iBracketCloseAtom = AtomCons.getInstance(this, ")");
+        iListOpenAtom = AtomCons.getInstance(this, "{");
+        iListCloseAtom = AtomCons.getInstance(this, "}");
+        iCommaAtom = AtomCons.getInstance(this, ",");
+        iListAtom = AtomCons.getInstance(this, "List");
+        iProgAtom = AtomCons.getInstance(this, "Prog");
 
         iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();

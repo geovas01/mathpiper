@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.InfixOperator;
 import org.mathpiper.lisp.LispError;
@@ -46,6 +46,6 @@ public class GetRightPrecedence extends BuiltinFunctionInitialize
                 LispError.checkCore(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
             }
         }
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + op.iRightPrecedence));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iRightPrecedence));
     }
 }

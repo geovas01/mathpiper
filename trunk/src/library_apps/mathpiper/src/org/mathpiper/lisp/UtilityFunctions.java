@@ -20,8 +20,8 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.cons.ConsTraverser;
-import org.mathpiper.lisp.cons.SubList;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.SubListCons;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import java.io.InputStreamReader;
@@ -174,7 +174,7 @@ public class UtilityFunctions {
     public static void returnUnEvaluated(ConsPointer aResult, ConsPointer aArguments, Environment aEnvironment) throws Exception {
         ConsPointer full = new ConsPointer();
         full.setCons(aArguments.getCons().copy(false));
-        aResult.setCons(SubList.getInstance(full.getCons()));
+        aResult.setCons(SubListCons.getInstance(full.getCons()));
 
         ConsTraverser iter = new ConsTraverser(aArguments);
         iter.goNext();
@@ -194,10 +194,10 @@ public class UtilityFunctions {
         LispError.check(internalIsString(aOperator), LispError.KLispErrNotString);
 
         Cons head =
-                Atom.getInstance(aEnvironment, symbolName(aEnvironment, aOperator));
+                AtomCons.getInstance(aEnvironment, symbolName(aEnvironment, aOperator));
         head.rest().setCons(aArgs.getCons());
         ConsPointer body = new ConsPointer();
-        body.setCons(SubList.getInstance(head));
+        body.setCons(SubListCons.getInstance(head));
         aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
     }
 
@@ -277,7 +277,7 @@ public class UtilityFunctions {
         ConsPointer iter = aArg.getCons().getSubList();
 
         LispError.check(iter.getCons() != null, LispError.KLispErrInvalidArg);
-        aResult.setCons(SubList.getInstance(iter.getCons().rest().getCons()));
+        aResult.setCons(SubListCons.getInstance(iter.getCons().rest().getCons()));
     }
 
     public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception {
@@ -422,7 +422,7 @@ public class UtilityFunctions {
                     oldList = oldList.getCons().rest();
                     next = next.getCons().rest();
                 }
-                aTarget.setCons(SubList.getInstance(newList.getCons()));
+                aTarget.setCons(SubListCons.getInstance(newList.getCons()));
             } else {
                 aTarget.setCons(object.copy(false));
             }
@@ -833,7 +833,7 @@ public class UtilityFunctions {
         ConsPointer next = new ConsPointer();
         next.setCons(iter.getCons().rest().getCons());
         iter.ptr().setCons(next.getCons());
-        BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(copied.getCons()));
+        BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
 
     public static void internalInsert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
@@ -865,7 +865,7 @@ public class UtilityFunctions {
         toInsert.setCons(BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         toInsert.getCons().rest().setCons(iter.getCons());
         iter.ptr().setCons(toInsert.getCons());
-        BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(copied.getCons()));
+        BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
 
     public static void internalReplace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
@@ -900,7 +900,7 @@ public class UtilityFunctions {
         LispError.checkArgumentCore(aEnvironment, aStackTop, iter.ptr().getCons() != null, 2);
         toInsert.getCons().rest().setCons(iter.ptr().getCons().rest().getCons());
         iter.ptr().setCons(toInsert.getCons());
-        BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(copied.getCons()));
+        BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
     /// Implements the MathPiper functions \c RuleBase and \c MacroRuleBase .
     /// The real work is done by Environment::DeclareRuleBase().

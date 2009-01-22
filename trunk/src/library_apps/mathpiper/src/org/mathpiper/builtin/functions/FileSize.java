@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.io.InputStatus;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
@@ -61,6 +61,6 @@ public class FileSize extends BuiltinFunctionInitialize
         {
             aEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + fileSize));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + fileSize));
     }
 }

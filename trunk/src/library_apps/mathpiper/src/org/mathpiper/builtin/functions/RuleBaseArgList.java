@@ -23,7 +23,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.SubListCons;
 import org.mathpiper.lisp.userfunctions.UserFunction;
 
 /**
@@ -55,6 +55,6 @@ public class RuleBaseArgList extends BuiltinFunctionInitialize
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
         head.getCons().rest().setCons(list.getCons());
-        getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(head.getCons()));
+        getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
     }
 }

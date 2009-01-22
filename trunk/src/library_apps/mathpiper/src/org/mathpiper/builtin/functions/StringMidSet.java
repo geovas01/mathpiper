@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.*;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -56,6 +56,6 @@ public class StringMidSet extends BuiltinFunctionInitialize
         str = str + replace.substring(1, replace.length() - 1);
         //System.out.println("from="+from+replace.length()-2);
         str = str + orig.substring(from + replace.length() - 2, orig.length());
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, str));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, str));
     }
 }

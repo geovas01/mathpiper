@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -39,16 +39,16 @@ public class Type extends BuiltinFunctionInitialize
         Cons head = null;
         if (subList == null)
         {
-            getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "\"\""));
+            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
             return;
         }
         head = subList.getCons();
         if (head.string() == null)
         {
-            getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "\"\""));
+            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
             return;
         }
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(head.string())));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(head.string())));
         return;
     }
 }

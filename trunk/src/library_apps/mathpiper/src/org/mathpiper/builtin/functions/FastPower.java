@@ -37,6 +37,6 @@ public class FastPower extends BuiltinFunctionInitialize
         double result = Math.pow(x.toDouble(), y.toDouble());
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.setTo(result);
-        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.Number(z));
+        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }

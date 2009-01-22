@@ -21,51 +21,64 @@ package org.mathpiper.lisp.cons;
 import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.builtin.BuiltinContainer;
 
 
-
-public class BuiltinObject extends Cons
+public class SubListCons extends Cons
 {
-	BuiltinContainer iClass;
+	ConsPointer iSubList = new ConsPointer();
 	
-	public static BuiltinObject getInstance(BuiltinContainer aClass) throws Exception
+	public static SubListCons getInstance(Cons aSubList)
 	{
-		LispError.lispAssert(aClass!=null);
-		BuiltinObject self = new BuiltinObject(aClass);
-		LispError.check(self!=null,LispError.KLispErrNotEnoughMemory);
-		return self;
+		return new SubListCons(aSubList);
 	}
         
         public Object first()
         {
-            return iClass;
+            return iSubList;
         }
-	
-	public BuiltinContainer getGeneric()
+        
+        
+	public ConsPointer getSubList()
 	{
-		return iClass;
+		return iSubList;
 	}
-	
+        
+        
 	public String string()
 	{
 		return null;
 	}
-	
-	public Cons copy(boolean aRecursed)
+        
+        public String toString()
+        {
+            return iSubList.toString();
+        }
+        
+        
+	public Cons copy(boolean aRecursed) throws Exception
 	{
-		Cons copied = new BuiltinObject(iClass);
+		//TODO recursed copy needs to be implemented still
+		LispError.lispAssert(aRecursed == false);
+		Cons copied = new SubListCons(iSubList.getCons());
 		return copied;
 	}
-	
+        
+        
 	public Cons setExtraInfo(ConsPointer aData)
 	{
 		//TODO FIXME
+		/*
+		    Cons* result = NEW LispAnnotatedObject<SubListCons>(this);
+		    result->SetExtraInfo(aData);
+		    return result;
+		*/
 		return null;
 	}
-
-	BuiltinObject(BuiltinContainer aClass)
+        
+        
+	SubListCons(Cons aSubList)
 	{
-		iClass = aClass;
+		iSubList.setCons(aSubList);
 	}
-};
+	
+}

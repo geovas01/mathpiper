@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.SubListCons;
 
 /**
  *
@@ -46,6 +46,6 @@ import org.mathpiper.lisp.cons.SubList;
 				tail.goNext();
 				iter.goNext();
 			}
-			getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(all.getCons()));
+			getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(all.getCons()));
 		}
 	}

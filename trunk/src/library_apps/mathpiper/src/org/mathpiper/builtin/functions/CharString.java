@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -37,6 +37,6 @@ public class CharString extends BuiltinFunctionInitialize
         LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 2);
         LispError.checkArgumentCore(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "\"" + asciiCode + "\""));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + asciiCode + "\""));
     }
 }

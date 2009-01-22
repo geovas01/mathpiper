@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -42,6 +42,6 @@ public class GenArraySize extends BuiltinFunctionInitialize
         LispError.checkArgumentCore(aEnvironment, aStackTop, gen != null, 1);
         LispError.checkArgumentCore(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
         int size = ((Array) gen).size();
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "" + size));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
     }
 }

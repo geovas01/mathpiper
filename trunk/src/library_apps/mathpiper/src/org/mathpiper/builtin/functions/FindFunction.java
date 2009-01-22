@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.Atom;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -54,10 +54,10 @@ public class FindFunction extends BuiltinFunctionInitialize
             DefFile def = multiUserFunc.iFileToOpen;
             if (def != null)
             {
-                getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, def.iFileName));
+                getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, def.iFileName));
                 return;
             }
         }
-        getResult(aEnvironment, aStackTop).setCons(Atom.getInstance(aEnvironment, "\"\""));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
     }
 }

@@ -26,7 +26,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.SubListCons;
 
 
 public class Evaluator extends EvalFuncBase
@@ -83,7 +83,7 @@ public class Evaluator extends EvalFuncBase
 				ConsPointer head = new ConsPointer();
 				head.setCons(aEnvironment.iListAtom.copy(false));
 				head.getCons().rest().setCons(iter.getCons());
-				aEnvironment.iArgumentStack.pushArgumentOnStack(SubList.getInstance(head.getCons()));
+				aEnvironment.iArgumentStack.pushArgumentOnStack(SubListCons.getInstance(head.getCons()));
 			}
 		}
 		else
@@ -107,7 +107,7 @@ public class Evaluator extends EvalFuncBase
 				head.setCons(aEnvironment.iListAtom.copy(false));
 				head.getCons().rest().setCons(iter.getCons());
 				ConsPointer list = new ConsPointer();
-				list.setCons(SubList.getInstance(head.getCons()));
+				list.setCons(SubListCons.getInstance(head.getCons()));
 
 
 				/*

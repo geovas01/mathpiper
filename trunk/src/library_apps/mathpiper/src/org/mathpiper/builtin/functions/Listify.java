@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.SubListCons;
 
 /**
  *
@@ -36,6 +36,6 @@ public class Listify extends BuiltinFunctionInitialize
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
         head.getCons().rest().setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList().getCons());
-        getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(head.getCons()));
+        getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
     }
 }

@@ -38,6 +38,6 @@ public class Abs extends BuiltinFunctionInitialize
         {
             z.negate(x);
         }
-        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.Number(z));
+        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }

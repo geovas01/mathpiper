@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
-import org.mathpiper.lisp.cons.BuiltinObject;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -46,6 +46,6 @@ public class GenArrayCreate extends BuiltinFunctionInitialize
         initarg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         Array array = new Array(size, initarg.getCons());
-        getResult(aEnvironment, aStackTop).setCons(BuiltinObject.getInstance(array));
+        getResult(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(array));
     }
 }

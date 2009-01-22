@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunctionInitialize;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.SubList;
+import org.mathpiper.lisp.cons.SubListCons;
 
 /**
  *
@@ -42,7 +42,7 @@ public class Not extends BuiltinFunctionInitialize
             ConsPointer ptr = new ConsPointer();
             ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
             ptr.getCons().rest().setCons(evaluated.getCons());
-            getResult(aEnvironment, aStackTop).setCons(SubList.getInstance(ptr.getCons()));
+            getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(ptr.getCons()));
         }
     }
 }
