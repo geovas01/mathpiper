@@ -40,7 +40,7 @@ public class SetExactBits extends BuiltinFunctionInitialize
         // do nothing for integers
         if (!(z.isInt()))
         {
-            z.precision((int) (UtilityFunctions.bitsToDigits((long) (y.toDouble()), 10)));
+            z.setPrecision((int) (UtilityFunctions.bitsToDigits((long) (y.toDouble()), 10)));
         }
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
