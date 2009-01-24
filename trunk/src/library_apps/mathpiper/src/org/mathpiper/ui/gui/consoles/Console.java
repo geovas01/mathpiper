@@ -72,7 +72,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textArea.append("Type In> on the left edge of any line to create your own input prompt.\n");
         textArea.append("Press <enter> after an empty In> to erase the In>.\n");
 
-        textArea.append("\nIn>");
+        textArea.append("\nIn> ");
         textArea.setCaretPosition( textArea.getDocument().getLength() );
 
         //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
@@ -172,7 +172,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                         }
 
                         if (!encounteredIn) {
-                            output = "\n" + output + "\n\nIn>";
+                            output = "\n" + output + "\n\nIn> ";
                         }
 
                         if (textArea.getLineOfOffset(responseInsertionOffset) == textArea.getLineCount()) {
@@ -186,7 +186,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber - 1);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber - 1);
                     line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
-                    if(line.startsWith("In>\n"))
+                    if(line.startsWith("In> \n") || line.startsWith("In>\n"))
                     {
                         textArea.replaceRange("", lineStartOffset, lineEndOffset);
                     }else if (line.startsWith("In>")) {
