@@ -318,9 +318,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     lineEndOffset = textArea.getLineEndOffset(lineNumber);
                     line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
                     if (line.startsWith("In>")) {
+                        String eol = new String(line);
                         inputLines.append(line.substring(3, line.length()).trim());
                         responseInsertionOffset = lineEndOffset;
-                        if (!line.endsWith(";") && !line.endsWith(" \n")) {
+                        if (!eol.endsWith(";") && !eol.endsWith(" \n")) {
                             inputLines.append(";");
                         }//end if.
                     } else {
