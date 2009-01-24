@@ -191,6 +191,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                         textArea.replaceRange("", lineStartOffset, lineEndOffset);
                     }else if (line.startsWith("In>")) {
                         textArea.insert("In>", lineEndOffset);
+                        textArea.setCaretPosition( lineEndOffset );
                     }
 
                 }
