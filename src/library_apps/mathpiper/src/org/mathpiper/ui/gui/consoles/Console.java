@@ -71,6 +71,8 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textArea.append("Press <shift><enter> after any input line in a group of input lines to execute them all.\n");
         textArea.append("Type In> on the left edge of any line to create your own input prompt.\n");
         textArea.append("Press <enter> after an empty In> to erase the In>.\n");
+        textArea.append("Any line in a group of lines that does not end with a space will automatically have a ; appended to it.");
+        textArea.append("Pressing <ctrl><enter> at the end of a line automatically appends a space to the line.\n");
 
         textArea.append("\nIn> ");
         textArea.setCaretPosition( textArea.getDocument().getLength() );
@@ -147,6 +149,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             try {
                 int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
                 String line = "";
+                //System.out.println("key pressed"); //TODO remove.
 
                 //System.out.println("LN: " + lineNumber + "  LSO: " + lineStartOffset + "  LEO: " + lineEndOffset  );
                 if (e.isShiftDown()) {
@@ -154,9 +157,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     captureInputLines(lineNumber);
                     boolean encounteredIn = clearPreviousResponse();
 
-                    // System.out.println(inputLines.toString()); //TODO remove.
+                    
 
                     String code = inputLines.toString().replaceAll(";;", ";").trim();
+
+                    //System.out.println(code);
 
                     if (code.length() > 0) {
                         EvaluationResponse response = interpreter.evaluate("[" + code + "];");
@@ -183,15 +188,24 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                         }//end if/else.
                     }//end if.
                 } else {
-                    int lineStartOffset = textArea.getLineStartOffset(lineNumber - 1);
-                    int lineEndOffset = textArea.getLineEndOffset(lineNumber - 1);
+                    int relativeLineOffset = -1;
+                    int cursorInsert = 0;
+                    String eol = "";
+                    if(e.isControlDown())
+                    {
+                        relativeLineOffset = 0;
+                        eol = " \n";
+                        cursorInsert = 2;
+                    }
+                    int lineStartOffset = textArea.getLineStartOffset(lineNumber + relativeLineOffset);
+                    int lineEndOffset = textArea.getLineEndOffset(lineNumber + relativeLineOffset);
                     line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
                     if(line.startsWith("In> \n") || line.startsWith("In>\n"))
                     {
                         textArea.replaceRange("", lineStartOffset, lineEndOffset);
                     }else if (line.startsWith("In>")) {
-                        textArea.insert("In>", lineEndOffset);
-                        textArea.setCaretPosition( lineEndOffset );
+                        textArea.insert(eol + "In> ", lineEndOffset);
+                        textArea.setCaretPosition( lineEndOffset + 4 + cursorInsert );
                     }
 
                 }
@@ -306,7 +320,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     if (line.startsWith("In>")) {
                         inputLines.append(line.substring(3, line.length()).trim());
                         responseInsertionOffset = lineEndOffset;
-                        if (!line.endsWith(";")) {
+                        if (!line.endsWith(";") && !line.endsWith(" \n")) {
                             inputLines.append(";");
                         }//end if.
                     } else {
