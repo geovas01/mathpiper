@@ -67,11 +67,13 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textArea = new JTextArea(30, 20);
         textArea.append("MathPiper version " + org.mathpiper.Version.version + ".\n");
         textArea.append("Enter an expression after any In> prompt and press <shift><enter> to evaluate it.\n");
-         textArea.append("Press <enter> after an expression to create an additional input line.\n");
-         textArea.append("Press <shift><enter> after any input line in a group of input lines to execute them all.\n");
-         textArea.append("Type In> on the left edge of any line to create your own input prompt.\n");
+        textArea.append("Press <enter> after an expression to create an additional input line.\n");
+        textArea.append("Press <shift><enter> after any input line in a group of input lines to execute them all.\n");
+        textArea.append("Type In> on the left edge of any line to create your own input prompt.\n");
+        textArea.append("Press <enter> after an empty In> to erase the In>.\n");
 
         textArea.append("\nIn>");
+        textArea.setCaretPosition( textArea.getDocument().getLength() );
 
         //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 
@@ -100,7 +102,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         ioBox.add(buttons);
 
 
-       // this.add(ioBox, BorderLayout.NORTH);
+        // this.add(ioBox, BorderLayout.NORTH);
 
         this.add(guiBox, BorderLayout.CENTER);
 
@@ -152,7 +154,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     captureInputLines(lineNumber);
                     boolean encounteredIn = clearPreviousResponse();
 
-                   // System.out.println(inputLines.toString()); //TODO remove.
+                    // System.out.println(inputLines.toString()); //TODO remove.
 
                     String code = inputLines.toString().replaceAll(";;", ";").trim();
 
@@ -161,7 +163,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                         String output = "Result: " + response.getResult().trim();
 
-                        if (! response.getSideEffects().equalsIgnoreCase("")) {
+                        if (!response.getSideEffects().equalsIgnoreCase("")) {
                             output += "\nSide Effects:\n" + response.getSideEffects();
                         }
 
@@ -169,8 +171,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                             output += "\nException: " + response.getExceptionMessage();
                         }
 
-                        if(! encounteredIn)
-                        {
+                        if (!encounteredIn) {
                             output = "\n" + output + "\n\nIn>";
                         }
 
@@ -185,7 +186,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber - 1);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber - 1);
                     line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
-                    if (line.startsWith("In>")) {
+                    if(line.startsWith("In>\n"))
+                    {
+                        textArea.replaceRange("", lineStartOffset, lineEndOffset);
+                    }else if (line.startsWith("In>")) {
                         textArea.insert("In>", lineEndOffset);
                     }
 
