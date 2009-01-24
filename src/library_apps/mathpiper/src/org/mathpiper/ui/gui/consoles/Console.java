@@ -71,7 +71,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textArea.append("Press <shift><enter> after any input line in a group of input lines to execute them all.\n");
         textArea.append("Type In> on the left edge of any line to create your own input prompt.\n");
         textArea.append("Press <enter> after an empty In> to erase the In>.\n");
-        textArea.append("Any line in a group of lines that does not end with a space will automatically have a ; appended to it.");
+        textArea.append("Any line in a group that does not end with a space will automatically have a ; appended to it.\n");
         textArea.append("Pressing <ctrl><enter> at the end of a line automatically appends a space to the line.\n");
 
         textArea.append("\nIn> ");
@@ -161,7 +161,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                     String code = inputLines.toString().replaceAll(";;", ";").trim();
 
-                    //System.out.println(code);
+                    System.out.println(code);
 
                     if (code.length() > 0) {
                         EvaluationResponse response = interpreter.evaluate("[" + code + "];");
