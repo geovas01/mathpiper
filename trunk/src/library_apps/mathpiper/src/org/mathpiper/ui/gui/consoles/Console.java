@@ -194,8 +194,13 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     if(e.isControlDown())
                     {
                         relativeLineOffset = 0;
-                        eol = " \n";
-                        cursorInsert = 2;
+                        int textAreaLineCount = textArea.getLineCount();
+                        if(lineNumber+1 == textAreaLineCount )
+                        {
+                            eol = " \n";
+                             cursorInsert = 2;
+                        }
+                       
                     }
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber + relativeLineOffset);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber + relativeLineOffset);
