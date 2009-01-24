@@ -32,13 +32,13 @@ public class Time extends BuiltinFunctionInitialize
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        long starttime = System.currentTimeMillis();
+        long starttime = System.nanoTime();
         ConsPointer res = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, res, getArgumentPointer(aEnvironment, aStackTop, 1));
-        long endtime = System.currentTimeMillis();
+        long endtime = System.nanoTime();
         double timeDiff;
         timeDiff = endtime - starttime;
-        timeDiff /= 1000.0;
+        timeDiff /= 1000000000.0;
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + timeDiff));
     }
 }
