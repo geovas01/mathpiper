@@ -67,12 +67,12 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textArea = new JTextArea(30, 20);
         textArea.append("MathPiper version " + org.mathpiper.Version.version + ".\n");
         textArea.append("Enter an expression after any In> prompt and press <shift><enter> to evaluate it.\n");
-        textArea.append("Press <enter> after an expression to create an additional input line.\n");
+        textArea.append("Press <enter> after an expression to create an additional input line and to append a hidden ;.\n");
         textArea.append("Press <shift><enter> after any input line in a group of input lines to execute them all.\n");
         textArea.append("Type In> on the left edge of any line to create your own input prompt.\n");
         textArea.append("Press <enter> after an empty In> to erase the In>.\n");
-        textArea.append("Any line in a group that does not end with a space will automatically have a ; appended to it.\n");
-        textArea.append("Pressing <ctrl><enter> at the end of a line automatically appends a space to the line.\n");
+        textArea.append("Any line in a group that ends with a \\ will not have a ; appended to it.\n");
+        textArea.append("Pressing <ctrl><enter> at the end of a line automatically appends a \\ to the line.\n");
 
         textArea.append("\nIn> ");
         textArea.setCaretPosition( textArea.getDocument().getLength() );
@@ -160,6 +160,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     
 
                     String code = inputLines.toString().replaceAll(";;", ";").trim();
+                    code = code.replaceAll("\\\\", "");
 
                     System.out.println(code);
 
@@ -197,8 +198,8 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                         int textAreaLineCount = textArea.getLineCount();
                         if(lineNumber+1 == textAreaLineCount )
                         {
-                            eol = " \n";
-                             cursorInsert = 2;
+                            eol = " \\\n";
+                             cursorInsert = 3;
                         }
                        
                     }
@@ -326,7 +327,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                         String eol = new String(line);
                         inputLines.append(line.substring(3, line.length()).trim());
                         responseInsertionOffset = lineEndOffset;
-                        if (!eol.endsWith(";") && !eol.endsWith(" \n")) {
+                        if (!eol.endsWith(";") && !eol.endsWith("\\\n")) {
                             inputLines.append(";");
                         }//end if.
                     } else {
