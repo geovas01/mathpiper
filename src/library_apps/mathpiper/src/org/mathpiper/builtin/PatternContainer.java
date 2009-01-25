@@ -23,6 +23,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.builtin.ArgumentList;
+import org.mathpiper.lisp.parametermatchers.Pattern;
 
 
 /**
@@ -37,6 +38,11 @@ public class PatternContainer extends BuiltinContainer
 	{
 		iPatternMatcher = aPatternMatcher;
 	}
+
+    public Pattern getPattern()
+    {
+        return iPatternMatcher;
+    }
 
 	public boolean matches(Environment  aEnvironment, ConsPointer aArguments) throws Exception
 	{

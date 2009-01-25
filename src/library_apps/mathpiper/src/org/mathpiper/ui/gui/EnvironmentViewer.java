@@ -17,24 +17,36 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import org.mathpiper.lisp.Environment;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.userfunctions.BranchParameter;
+import org.mathpiper.lisp.userfunctions.BranchRuleBase;
+import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
+import org.mathpiper.lisp.userfunctions.UserFunction;
 import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
 import org.mathpiper.ui.gui.MultiSplitLayout.Leaf;
 import org.mathpiper.ui.gui.MultiSplitLayout.Split;
@@ -42,9 +54,11 @@ import org.mathpiper.ui.gui.MultiSplitLayout.Split;
 /**
  * Provides a GUI viewer for a runtime environment.
  */
-public class EnvironmentViewer {
+public class EnvironmentViewer implements ActionListener {
 
     private JTextArea textArea = new JTextArea(4, 4);
+    private List tables = new ArrayList();
+    private JFrame frame;
 
     public EnvironmentViewer() {
         super();
@@ -52,7 +66,7 @@ public class EnvironmentViewer {
 
     public JFrame getViewerFrame(Environment aEnvironment) {
 
-        JFrame frame = new javax.swing.JFrame();
+        frame = new javax.swing.JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //siteTable.getModel().fireTableDataChanged();
@@ -96,24 +110,39 @@ public class EnvironmentViewer {
 
         //Add global state.
         JTable table = this.getGlobalStateTable(aEnvironment);
-        // table.setPreferredSize(new Dimension(400,200));
+        tables.add(table);
         JScrollPane scrollPane = new JScrollPane(table);
+        tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "one");
 
         //Add user functions.
         table = this.getUserFunctionsTable(aEnvironment);
+        tables.add(table);
         scrollPane = new JScrollPane(table);
+        tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "two");
 
         //Add builtin functions.
         table = this.getBuiltinFunctionsTable(aEnvironment);
+        tables.add(table);
         scrollPane = new JScrollPane(table);
+        tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "three");
 
         //Add tokens.
         table = this.getTokenTable(aEnvironment);
+        tables.add(table);
         scrollPane = new JScrollPane(table);
+        tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "four");
+
+        JButton refreshButton = new JButton("Refresh");
+        refreshButton.addActionListener(this);
+        refreshButton.setActionCommand("refresh");
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(refreshButton);
+        contentPane.add(buttonsPanel, BorderLayout.NORTH);
+
 
 
         frame.pack();
@@ -127,6 +156,25 @@ public class EnvironmentViewer {
         frame.setVisible(true);
 
         return frame;
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        String actionCommand = ae.getActionCommand();
+
+        if (actionCommand.equalsIgnoreCase("refresh")) {
+            Iterator tablesIterator = tables.iterator();
+            while (tablesIterator.hasNext()) {
+                JTable table = (JTable) tablesIterator.next();
+                JScrollPane scrollPane = (JScrollPane) tablesIterator.next();
+                AbstractTableModel model = (AbstractTableModel) table.getModel();
+                model.fireTableDataChanged();
+
+                SwingUtilities.updateComponentTreeUI(scrollPane);
+
+
+            }
+        }
+
     }
 
     /**
@@ -199,7 +247,7 @@ public class EnvironmentViewer {
         JTable table = new JTable();
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
+        // table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
 
         final java.util.Map map = (java.util.Map) aEnvironment.getBuiltinFunctions().getMap();
 
@@ -412,14 +460,65 @@ public class EnvironmentViewer {
             }
 
             int row = table.getSelectionModel().getLeadSelectionIndex();
+            String name = (String) table.getValueAt(row, 0);
+            textArea.append("-------------------------------------------------------------------------------------------------------------\n");
+            textArea.append(name + ": \n");
 
-            //MultipleArityUserFunction userFunction =(MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
-            try {
-                // String data = UtilityFunctions.printExpression(o.getValue(), iEnvironment, 0);
-                //System.out.println(data);
-            } catch (Exception ex) {
-                System.out.print(ex);
-            }
+            MultipleArityUserFunction multipleArityUserfunction = (MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
+
+            Iterator multipleArityUserFunctionIterator = multipleArityUserfunction.getFunctions();
+
+            while (multipleArityUserFunctionIterator.hasNext()) {
+                UserFunction userFunction = (UserFunction) multipleArityUserFunctionIterator.next();
+                Iterator rulesIterator = userFunction.getRules();
+
+                while (rulesIterator.hasNext()) {
+
+                    BranchRuleBase branchRuleBase = (BranchRuleBase) rulesIterator.next();
+
+                    try {
+                        int precedence = branchRuleBase.getPrecedence();
+                        ConsPointer predicatePointer1 = branchRuleBase.getPredicate();
+                        String predicate = "";
+                        if (predicatePointer1.toString().equalsIgnoreCase("Empty.")) {
+                            predicate = "NoPredicate";
+                        } else {
+                            predicate = UtilityFunctions.printExpression(predicatePointer1, iEnvironment, 0);
+                        }
+                        if (predicate.equalsIgnoreCase("\"Pattern\"")) {
+                            Iterator patternPredicatesIterator = branchRuleBase.getPredicates();
+                            predicate += ":";
+                            while (patternPredicatesIterator.hasNext()) {
+                                ConsPointer predicatePointer = (ConsPointer) patternPredicatesIterator.next();
+                                String patternPredicate = UtilityFunctions.printExpression(predicatePointer, iEnvironment, 0);
+                                predicate += patternPredicate + "__";
+                            }
+
+                        }
+
+                        Iterator paremetersIterator = userFunction.getParameters();
+                        String parameters = "";
+                        boolean isHold = false;
+                        while(paremetersIterator.hasNext())
+                        {
+                            BranchParameter branchParameter = (BranchParameter) paremetersIterator.next();
+                            parameters = branchParameter.getParameter();
+                            isHold = branchParameter.isHold();
+                            parameters += parameters + ":" + isHold;
+                        }
+
+                        String body = UtilityFunctions.printExpression(branchRuleBase.getBody(), iEnvironment, 0);
+                        //System.out.println(data);
+                        textArea.append("    " + precedence + "__" + predicate + "__" + parameters + "__" + body + "\n\n");
+
+                        textArea.setCaretPosition(textArea.getDocument().getLength());
+                    } catch (Exception ex) {
+                        System.out.print(ex);
+                    }
+
+                }//end while.
+
+            }//end while.
 
         }
     }//end class.

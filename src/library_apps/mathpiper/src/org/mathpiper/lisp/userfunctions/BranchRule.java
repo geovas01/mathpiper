@@ -17,6 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.userfunctions;
 
+import java.util.Iterator;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -26,12 +27,19 @@ import org.mathpiper.lisp.UtilityFunctions;
  */
 class BranchRule extends BranchRuleBase
 {
+        protected int iPrecedence;
+        protected ConsPointer iBody = new ConsPointer();
+        protected ConsPointer iPredicate = new ConsPointer();
 
     public BranchRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
     {
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
         iBody.setCons(aBody.getCons());
+    }
+
+    protected BranchRule()
+    {
     }
 
     /**
@@ -53,22 +61,26 @@ class BranchRule extends BranchRuleBase
     }
 
     /// Access #iPrecedence.
-    public int precedence()
+    public int getPrecedence()
     {
         return iPrecedence;
     }
 
     /// Access #iBody.
-    public ConsPointer body()
+    public ConsPointer getBody()
     {
         return iBody;
     }
 
-    protected BranchRule()
+    public ConsPointer getPredicate()
     {
+        return this.iPredicate;
     }
-    protected int iPrecedence;
-    protected ConsPointer iBody = new ConsPointer();
-    protected ConsPointer iPredicate = new ConsPointer();
+
+    public Iterator getPredicates()
+    {
+        return null;
+    }
+
 }
 
