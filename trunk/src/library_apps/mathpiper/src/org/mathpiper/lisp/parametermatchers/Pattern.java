@@ -50,13 +50,13 @@ import java.util.*;
 public class Pattern
 {
 	/// List of parameter matches, one for every parameter.
-	protected ArrayList iParamMatchers = new ArrayList(); //CDeletingArrayGrower<Parameter*> iParamMatchers;
+	protected List iParamMatchers = new ArrayList(); //CDeletingArrayGrower<Parameter*> iParamMatchers;
 
 	/// List of variables appearing in the pattern.
-	protected ArrayList iVariables = new ArrayList(); //CArrayGrower<String>
+	protected List iVariables = new ArrayList(); //CArrayGrower<String>
 
 	/// List of predicates which need to be true for a match.
-	protected ArrayList iPredicates = new ArrayList(); //CDeletingArrayGrower<ConsPointer[] >
+	protected List iPredicates = new ArrayList(); //CDeletingArrayGrower<ConsPointer[] >
 
 	/// Constructor.
 	/// \param aEnvironment the underlying Lisp environment
