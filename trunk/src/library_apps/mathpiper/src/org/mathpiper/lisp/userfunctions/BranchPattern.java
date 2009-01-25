@@ -17,17 +17,25 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.userfunctions;
 
+import java.util.Iterator;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.PatternContainer;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.parametermatchers.Pattern;
 
 /**
  * A rule which matches if the corresponding {@link PatternContainer} matches.
  */
 class BranchPattern extends BranchRuleBase
 {
+    protected int iPrecedence;    /// The body of this rule.
+    protected ConsPointer iBody = new ConsPointer();    /// Generic object of type \c PatternContainer containing #iPatternClass
+    protected ConsPointer iPredicate = new ConsPointer();    /// The pattern that decides whether this rule matches.
+    protected PatternContainer iPatternClass;
+
+
     /**
     /// Constructor.
      * 
@@ -57,18 +65,34 @@ class BranchPattern extends BranchRuleBase
     }
 
     /// Access #iPrecedence
-    public int precedence()
+    public int getPrecedence()
     {
         return iPrecedence;
     }
 
+    public ConsPointer getPredicate()
+    {
+          return this.iPredicate;
+    }
+
+    public Iterator getPredicates()
+    {
+         if(this.iPatternClass != null)
+        {
+            Pattern pattern = iPatternClass.getPattern();
+            return pattern.getPredicates();
+
+        }
+         else
+         {
+             return null;
+         }
+    }
+
     /// Access #iBody
-    public ConsPointer body()
+    public ConsPointer getBody()
     {
         return iBody;
     }    /// The precedence of this rule.
-    protected int iPrecedence;    /// The body of this rule.
-    protected ConsPointer iBody = new ConsPointer();    /// Generic object of type \c PatternContainer containing #iPatternClass
-    protected ConsPointer iPredicate = new ConsPointer();    /// The pattern that decides whether this rule matches.
-    protected PatternContainer iPatternClass;
+
 }

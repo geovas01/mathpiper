@@ -22,12 +22,23 @@ package org.mathpiper.lisp.userfunctions;
  */
 public class BranchParameter
 {
+        String iParameter;
+        boolean iHold;
 
     public BranchParameter(String aParameter, boolean aHold /*=false*/)
     {
         iParameter = aParameter;
         iHold = aHold;
     }
-    String iParameter;
-    boolean iHold;
+
+    public String getParameter()
+    {
+        return iParameter;
+    }
+
+    public boolean isHold()
+    {
+        return iHold;
+    }
+
 }

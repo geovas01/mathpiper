@@ -18,6 +18,8 @@
 
 package org.mathpiper.lisp.userfunctions;
 
+import java.util.Iterator;
+
 
 /**
  * User function with a specific arity (number of arguments).
@@ -26,4 +28,5 @@ public abstract class SingleArityUserFunction extends UserFunction
 {
 	public abstract int arity();
 	public abstract boolean isArity(int aArity);
+    
 }

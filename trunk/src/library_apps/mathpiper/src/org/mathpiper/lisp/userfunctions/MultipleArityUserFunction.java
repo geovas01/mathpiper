@@ -34,7 +34,7 @@ public class MultipleArityUserFunction
 {
 
 	/// Set of SingleArityUserFunction's provided by this MultipleArityUserFunction.
-	ArrayList iFunctions = new ArrayList();//<SingleArityUserFunction*>
+	List iFunctions = new ArrayList();//<SingleArityUserFunction*>
 
 	/// File to read for the definition of this function.
 	public DefFile iFileToOpen;
@@ -108,6 +108,12 @@ public class MultipleArityUserFunction
 			}
 		}
 	}
+
+
+    public Iterator getFunctions()
+    {
+        return this.iFunctions.iterator();
+    }
 
 
 }

@@ -376,5 +376,10 @@ public class Pattern
 		return true;
 	}
 
+    public Iterator getPredicates()
+    {
+        return this.iPredicates.iterator();
+    }
+
 }
 

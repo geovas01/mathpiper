@@ -17,18 +17,23 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.userfunctions;
 
+import java.util.Iterator;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
 /**
  * Base class for rules.
  */
-abstract class BranchRuleBase
+public abstract class BranchRuleBase
 {
 
     public abstract boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception;
 
-    public abstract int precedence();
+    public abstract int getPrecedence();
 
-    public abstract ConsPointer body();
+    public abstract ConsPointer getPredicate();
+    
+    public abstract Iterator getPredicates();
+
+    public abstract ConsPointer getBody();
 }

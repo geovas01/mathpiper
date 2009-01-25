@@ -163,12 +163,12 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 BranchRuleBase thisRule = ((BranchRuleBase) iRules.get(i));
                 LispError.lispAssert(thisRule != null);
 
-                st.iRulePrecedence = thisRule.precedence();
+                st.iRulePrecedence = thisRule.getPrecedence();
                 boolean matches = thisRule.matches(aEnvironment, arguments);
                 if (matches)
                 {
                     st.iSide = 1;
-                    aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.body());
+                    aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.getBody());
 
                     /*Trace code */
                     if (isTraced())
@@ -345,14 +345,14 @@ public class BranchingUserFunction extends SingleArityUserFunction
         // currently defined rules or past them.
         if (high > 0)
         {
-            if (((BranchRuleBase) iRules.get(0)).precedence() > aPrecedence)
+            if (((BranchRuleBase) iRules.get(0)).getPrecedence() > aPrecedence)
             {
                 mid = 0;
                 // Insert it
                 iRules.add(mid, newRule);
                 return;
             }
-            if (((BranchRuleBase) iRules.get(high - 1)).precedence() < aPrecedence)
+            if (((BranchRuleBase) iRules.get(high - 1)).getPrecedence() < aPrecedence)
             {
                 mid = high;
                 // Insert it
@@ -373,10 +373,10 @@ public class BranchingUserFunction extends SingleArityUserFunction
             }
             mid = (low + high) >> 1;
 
-            if (((BranchRuleBase) iRules.get(mid)).precedence() > aPrecedence)
+            if (((BranchRuleBase) iRules.get(mid)).getPrecedence() > aPrecedence)
             {
                 high = mid;
-            } else if (((BranchRuleBase) iRules.get(mid)).precedence() < aPrecedence)
+            } else if (((BranchRuleBase) iRules.get(mid)).getPrecedence() < aPrecedence)
             {
                 low = (++mid);
             } else
@@ -397,5 +397,18 @@ public class BranchingUserFunction extends SingleArityUserFunction
     {
         return iParamList;
     }
-}
+
+
+
+    public Iterator getRules()
+    {
+        return iRules.iterator();
+    }
+
+    public Iterator getParameters()
+    {
+        return iParameters.iterator();
+    }
+    
+}//end class.
 

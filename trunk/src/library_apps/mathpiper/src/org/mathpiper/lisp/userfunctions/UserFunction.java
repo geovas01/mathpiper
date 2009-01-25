@@ -18,6 +18,7 @@
 
 package org.mathpiper.lisp.userfunctions;
 
+import java.util.Iterator;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.*;
 
@@ -50,6 +51,8 @@ public abstract class UserFunction extends EvalFuncBase
 	public abstract void declareRule(int aPrecedence, ConsPointer aBody) throws Exception;
 	public abstract void declarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception;
 	public abstract ConsPointer argList();
+    public abstract Iterator getRules();
+    public abstract Iterator getParameters();
 
 	public void unFence()
 	{
