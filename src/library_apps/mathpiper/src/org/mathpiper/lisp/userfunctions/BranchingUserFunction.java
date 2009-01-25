@@ -35,10 +35,10 @@ import org.mathpiper.lisp.evaluators.LispExpressionEvaluator;
 public class BranchingUserFunction extends SingleArityUserFunction
 {
     /// List of arguments, with corresponding \c iHold property.
-    protected Vector iParameters = new Vector(); //CArrayGrower<BranchParameter>
+    protected List iParameters = new ArrayList(); //CArrayGrower<BranchParameter>
 
     /// List of rules, sorted on precedence.
-    protected Vector iRules = new Vector();//CDeletingArrayGrower<BranchRuleBase*>
+    protected List iRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
 
     /// List of arguments
     ConsPointer iParamList = new ConsPointer();
