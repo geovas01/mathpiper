@@ -376,10 +376,19 @@ public class Pattern
 		return true;
 	}
 
-    public Iterator getPredicates()
-    {
-        return this.iPredicates.iterator();
+    public List getParameterMatchers() {
+        return iParamMatchers;
     }
+
+    public List getPredicates() {
+        return iPredicates;
+    }
+
+    public List getVariables() {
+        return iVariables;
+    }
+
+
 
 }
 

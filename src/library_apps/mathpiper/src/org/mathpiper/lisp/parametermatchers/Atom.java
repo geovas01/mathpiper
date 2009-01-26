@@ -44,5 +44,10 @@ public class Atom extends Parameter
 
 		return (iString == aExpression.getCons().string());
 	}
+
+    public String getType()
+    {
+        return "Atom";
+    }
 	
 }

@@ -74,4 +74,9 @@ public class Variable extends Parameter
 		//    return false;
 	}
 
+        public String getType()
+    {
+        return "Variable";
+    }
+
 };

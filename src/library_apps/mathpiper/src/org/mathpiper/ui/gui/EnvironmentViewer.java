@@ -43,7 +43,10 @@ import javax.swing.table.AbstractTableModel;
 import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.parametermatchers.Parameter;
+import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.userfunctions.BranchParameter;
+import org.mathpiper.lisp.userfunctions.BranchPattern;
 import org.mathpiper.lisp.userfunctions.BranchRuleBase;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.lisp.userfunctions.UserFunction;
@@ -56,7 +59,7 @@ import org.mathpiper.ui.gui.MultiSplitLayout.Split;
  */
 public class EnvironmentViewer implements ActionListener {
 
-    private JTextArea textArea = new JTextArea(4, 4);
+    private JTextArea textArea = new JTextArea(4, 8);
     private List tables = new ArrayList();
     private JFrame frame;
 
@@ -99,7 +102,7 @@ public class EnvironmentViewer implements ActionListener {
         splitPane.setDividerLocation(150);
 
 
-        Dimension minimumSize = new Dimension(100, 50);
+        Dimension minimumSize = new Dimension(100, 100);
         multiSplitPane.setMinimumSize(minimumSize);
         textArea.setMinimumSize(minimumSize);
 
@@ -148,9 +151,9 @@ public class EnvironmentViewer implements ActionListener {
         frame.pack();
 //frame.setAlwaysOnTop(true);
         frame.setTitle("MathPiper Environment");
-        frame.setSize(new Dimension(700, 300));
+        frame.setSize(new Dimension(700, 400));
         //frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(700, 300));
+        frame.setPreferredSize(new Dimension(700, 400));
         frame.setLocationRelativeTo(null); // added
 
         frame.setVisible(true);
@@ -166,8 +169,8 @@ public class EnvironmentViewer implements ActionListener {
             while (tablesIterator.hasNext()) {
                 JTable table = (JTable) tablesIterator.next();
                 JScrollPane scrollPane = (JScrollPane) tablesIterator.next();
-                AbstractTableModel model = (AbstractTableModel) table.getModel();
-                model.fireTableDataChanged();
+                //AbstractTableModel model = (AbstractTableModel) table.getModel();
+                //model.fireTableDataChanged();
 
                 SwingUtilities.updateComponentTreeUI(scrollPane);
 
@@ -247,7 +250,7 @@ public class EnvironmentViewer implements ActionListener {
         JTable table = new JTable();
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
+        table.getSelectionModel().addListSelectionListener(new DummyListener(table, aEnvironment));
 
         final java.util.Map map = (java.util.Map) aEnvironment.getBuiltinFunctions().getMap();
 
@@ -365,6 +368,10 @@ public class EnvironmentViewer implements ActionListener {
      */
     public JTable getTokenTable(Environment aEnvironment) {
         JTable table = new JTable();
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.getSelectionModel().addListSelectionListener(new DummyListener(table, aEnvironment));
+
         final java.util.Map m_hash = (java.util.Map) aEnvironment.getTokenHash().getMap();
 
         table.setModel(new AbstractTableModel() {
@@ -428,6 +435,11 @@ public class EnvironmentViewer implements ActionListener {
                 return;
             }
 
+            ListSelectionModel listSelectionModel = (ListSelectionModel) event.getSource();
+            if (listSelectionModel.isSelectionEmpty()) {
+                return;
+            }
+
             int row = table.getSelectionModel().getLeadSelectionIndex();
 
             String name = (String) table.getValueAt(row, 0);
@@ -441,7 +453,9 @@ public class EnvironmentViewer implements ActionListener {
                 System.out.print(ex);
             }
 
-        }
+            table.clearSelection();
+
+        }//end method
     }//end class.
 
     private class FunctionListener implements ListSelectionListener {
@@ -459,10 +473,18 @@ public class EnvironmentViewer implements ActionListener {
                 return;
             }
 
+            ListSelectionModel listSelectionModel = (ListSelectionModel) event.getSource();
+            if (listSelectionModel.isSelectionEmpty()) {
+                return;
+            }
+
+            //System.out.println(event);
+
             int row = table.getSelectionModel().getLeadSelectionIndex();
+
             String name = (String) table.getValueAt(row, 0);
             textArea.append("-------------------------------------------------------------------------------------------------------------\n");
-            textArea.append(name + ": \n");
+            textArea.append(name + ":\n");
 
             MultipleArityUserFunction multipleArityUserfunction = (MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
 
@@ -481,45 +503,112 @@ public class EnvironmentViewer implements ActionListener {
                         ConsPointer predicatePointer1 = branchRuleBase.getPredicate();
                         String predicate = "";
                         if (predicatePointer1.toString().equalsIgnoreCase("Empty.")) {
-                            predicate = "NoPredicate";
+                            predicate = "None";
                         } else {
                             predicate = UtilityFunctions.printExpression(predicatePointer1, iEnvironment, 0);
                         }
+
                         if (predicate.equalsIgnoreCase("\"Pattern\"")) {
-                            Iterator patternPredicatesIterator = branchRuleBase.getPredicates();
-                            predicate += ":";
+                            predicate = "(Pattern) ";
+                            BranchPattern branchPattern = (BranchPattern) branchRuleBase;
+                            Pattern pattern = branchPattern.getPattern();
+
+                            Iterator variablesIterator = pattern.getVariables().iterator();
+                            String patternVariables = "";
+                            while (variablesIterator.hasNext()) {
+                                String patternVariable = (String) variablesIterator.next();
+                                patternVariables += patternVariable + ", ";
+                            }
+                            if (patternVariables.contains(",")) {
+                                patternVariables = patternVariables.substring(0, patternVariables.lastIndexOf(","));
+                            }
+
+
+                            Iterator parameterMatchersIterator = pattern.getParameterMatchers().iterator();
+                            String parameterTypes = "";
+                            while (parameterMatchersIterator.hasNext()) {
+                                Parameter parameter = (Parameter) parameterMatchersIterator.next();
+                                String parameterType = (String) parameter.getType();
+                                parameterTypes += parameterType + ", ";
+                            }
+                            if (parameterTypes.contains(",")) {
+                                parameterTypes = parameterTypes.substring(0, parameterTypes.lastIndexOf(","));
+                            }
+
+
+
+                            Iterator patternPredicatesIterator = pattern.getPredicates().iterator();
                             while (patternPredicatesIterator.hasNext()) {
                                 ConsPointer predicatePointer = (ConsPointer) patternPredicatesIterator.next();
                                 String patternPredicate = UtilityFunctions.printExpression(predicatePointer, iEnvironment, 0);
-                                predicate += patternPredicate + "__";
+                                predicate += patternPredicate + ", ";
                             }
+                            if (predicate.contains(",")) {
+                                predicate = predicate.substring(0, predicate.lastIndexOf(","));
+                            }
+                            predicate += "\n        Variables: " + patternVariables;
+                            predicate += "\n        Types: " + parameterTypes;
 
-                        }
+
+                        }//end if.
 
                         Iterator paremetersIterator = userFunction.getParameters();
                         String parameters = "";
                         boolean isHold = false;
-                        while(paremetersIterator.hasNext())
-                        {
+                        while (paremetersIterator.hasNext()) {
                             BranchParameter branchParameter = (BranchParameter) paremetersIterator.next();
-                            parameters = branchParameter.getParameter();
+                            String parameter = branchParameter.getParameter();
                             isHold = branchParameter.isHold();
-                            parameters += parameters + ":" + isHold;
+                            parameters += parameter + "<hold=" + isHold + ">, ";
+                        }
+                        if (parameters.contains(",")) {
+                            parameters = parameters.substring(0, parameters.lastIndexOf(","));
                         }
 
                         String body = UtilityFunctions.printExpression(branchRuleBase.getBody(), iEnvironment, 0);
                         //System.out.println(data);
-                        textArea.append("    " + precedence + "__" + predicate + "__" + parameters + "__" + body + "\n\n");
+                        String indent = "    ";
+                        textArea.append(indent + "Precedence: " + precedence);
+                        textArea.append("\n" + indent + "Parameters: " + parameters);
+                        textArea.append("\n" + indent + "Predicates: " + predicate);
+                        textArea.append("\n" + indent + "Body: " + body + "\n\n");
 
                         textArea.setCaretPosition(textArea.getDocument().getLength());
                     } catch (Exception ex) {
-                        System.out.print(ex);
+                        ex.printStackTrace();
                     }
 
                 }//end while.
 
             }//end while.
 
-        }
+            table.clearSelection();
+
+        }//end method.
     }//end class.
+
+    private class DummyListener implements ListSelectionListener {
+
+        private JTable table;
+        private Environment iEnvironment;
+
+        public DummyListener(JTable table, Environment aEnvironment) {
+            this.table = table;
+            this.iEnvironment = aEnvironment;
+        }
+
+        public void valueChanged(ListSelectionEvent event) {
+            if (event.getValueIsAdjusting()) {
+                return;
+            }
+
+            ListSelectionModel listSelectionModel = (ListSelectionModel) event.getSource();
+            if (listSelectionModel.isSelectionEmpty()) {
+                return;
+            }
+
+            table.clearSelection();
+
+        }//end method.
+    } //end class.
 }//end class.

@@ -77,10 +77,5 @@ class BranchRule extends BranchRuleBase
         return this.iPredicate;
     }
 
-    public Iterator getPredicates()
-    {
-        return null;
-    }
-
 }
 

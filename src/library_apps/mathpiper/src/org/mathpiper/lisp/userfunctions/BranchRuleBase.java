@@ -32,8 +32,6 @@ public abstract class BranchRuleBase
     public abstract int getPrecedence();
 
     public abstract ConsPointer getPredicate();
-    
-    public abstract Iterator getPredicates();
 
     public abstract ConsPointer getBody();
 }
