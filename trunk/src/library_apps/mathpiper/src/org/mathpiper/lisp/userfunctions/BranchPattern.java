@@ -28,13 +28,12 @@ import org.mathpiper.lisp.parametermatchers.Pattern;
 /**
  * A rule which matches if the corresponding {@link PatternContainer} matches.
  */
-class BranchPattern extends BranchRuleBase
-{
+public class BranchPattern extends BranchRuleBase {
+
     protected int iPrecedence;    /// The body of this rule.
     protected ConsPointer iBody = new ConsPointer();    /// Generic object of type \c PatternContainer containing #iPatternClass
     protected ConsPointer iPredicate = new ConsPointer();    /// The pattern that decides whether this rule matches.
     protected PatternContainer iPatternClass;
-
 
     /**
     /// Constructor.
@@ -43,9 +42,7 @@ class BranchPattern extends BranchRuleBase
      * @param aPredicate getGeneric object of type PatternContainer
      * @param aBody body of the rule
      */
-    
-    public BranchPattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
-    {
+    public BranchPattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         iPatternClass = null;
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
@@ -59,40 +56,25 @@ class BranchPattern extends BranchRuleBase
     }
 
     /// Return true if the corresponding pattern matches.
-    public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception
-    {
+    public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception {
         return iPatternClass.matches(aEnvironment, aArguments);
     }
 
     /// Access #iPrecedence
-    public int getPrecedence()
-    {
+    public int getPrecedence() {
         return iPrecedence;
     }
 
-    public ConsPointer getPredicate()
-    {
-          return this.iPredicate;
+    public ConsPointer getPredicate() {
+        return this.iPredicate;
     }
 
-    public Iterator getPredicates()
-    {
-         if(this.iPatternClass != null)
-        {
-            Pattern pattern = iPatternClass.getPattern();
-            return pattern.getPredicates();
-
-        }
-         else
-         {
-             return null;
-         }
+    public Pattern getPattern() {
+        return iPatternClass.getPattern();
     }
 
     /// Access #iBody
-    public ConsPointer getBody()
-    {
+    public ConsPointer getBody() {
         return iBody;
     }    /// The precedence of this rule.
-
 }

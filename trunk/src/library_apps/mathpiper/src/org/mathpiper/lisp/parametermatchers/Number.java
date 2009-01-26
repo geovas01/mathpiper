@@ -42,5 +42,10 @@ public class Number extends Parameter
 			return iNumber.equals(aExpression.getCons().getNumber(aEnvironment.getPrecision()));
 		return false;
 	}
+
+        public String getType()
+    {
+        return "Number";
+    }
 	
 }

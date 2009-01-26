@@ -33,4 +33,6 @@ public abstract class Parameter
 	public abstract boolean argumentMatches(Environment  aEnvironment,
 	                                        ConsPointer  aExpression,
 	                                        ConsPointer[]  arguments) throws Exception;
+
+    public abstract String getType();
 }

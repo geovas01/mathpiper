@@ -62,5 +62,10 @@ public class SubList extends Parameter
 		return true;
 	}
 
+        public String getType()
+    {
+        return "Sublist";
+    }
+
 	
 }
