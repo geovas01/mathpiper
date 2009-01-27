@@ -33,53 +33,41 @@ package org.eninom.func;
 //! Core List Implementation
 /*<literate>*/
 /**
- * This is a list class with Lisp semantics of lists. Besides it
- * offers basic thread-safety under concurrent mutations. That means,
- * mutual sharing of sublists is possible, and destructive updates
- * to those sublists will affect all participating lists. However,
- * this implementation is optimized for vector processing. Lists obtained
- * from an array will retain the array structure unless tailing
- * occurs. Once the tail of a list is obtained, the array structure
- * will be rearranged in such way that mutual sharing is possible.
- * That implies t split off the list's first element from the array.
- * As a result, after tailing the entire list, random access costs
- * linear time instead of constant time. This is the same as in
- * the original Yacas list implementation. The purpose of this class
- * is to provide constant time random access for vector processing
- * routines that keep their vector data local, while at the same time
- * stick with Yacas' semantics that arrays are lists. An attempt is
- * made to provide thread safety to a certain degree. The exact meaning
- * is that the restructuring of the array remains invisible to the
- * user, while the user remains responsible for the visibility of
- * destructive updates, in particular happened-before initialization
- * of elements. This class works best if used without destructive
- * updates and without tailing, since only volatile accesses to the
- * array reference is needed. In many cases, the Java-VM can optimize
- * away synchronization, since in this case the array reference is
- * never mutated after initialization.
- * Due to the complexity of CLists API, the class is final.
- * \begin{enumerate} 
- * \item Generate unit tests.
- * \item cooperate with evaluator in order to avoid stack overflow.
- * \item implement rest(i) and splittail(i)
- * \item add iterator and seq (seq in a way that does not destroy
- * subsequent order in memory)
- * \end{enumerate}
- * The implementation's performance depends heavily on tuning Java's
- * garbage collection (sometimes factor 10 slower!). For instance, with
- * <br /><br />
- * -ms90M -mx90M -XX:NewSize=80M -server <br />
- * I had fast and stable througput on a 2-core processor.\\
- * \\
- * C-Lists do not compute or maintain hashcodes or equality relations
- * based on their contents.
+ * This is a list class with Lisp semantics of lists. Its intended
+ * use is the implementation of datastructures that depend on lazy
+ * evaluation of lists or arrays, for instance Hood-Melville-Queues.
+ * Another appplication of this class is as a data structure for
+ * mutable lists, with special optimization for random access.
+ * <br />
+ * <br />
+ * Instances from this class adapt automatically to the access pattern: 
+ * When instantiated fro an array, the array structure is kept unless
+ * the list is traversed via tailing. Each subsequent tailing will split
+ * off the first list element and allocate a single node for it. This
+ * process is non-reversible, so a list that has been iterated over via
+ * offers no fast randon access any longer.
+ * <br />
+ * <br />
+ * This class offers low-level thread-safety under concurrent mutations.
+ * More specifically, 
+ * mutual sharing of sublists is possible, while destructive updates
+ * to those sublists will affect all participating lists.
  */
 @SuppressWarnings("unchecked")
 public final class CList { 
   
 	private Object first;
 	private volatile Object rest;
-	
+  /*
+   * This class works best if used without destructive
+   * updates and without tailing, since only volatile accesses to the
+   * array reference is needed (see above). In many cases, the Java-VM can optimize
+   * away synchronization, since in this case the array reference is
+   * never mutated after initialization.
+   * 
+   * We define a special marker object fot chunks:
+   */
+  
 	private static final Object chunkmarker = new Object(); 
       
   /*
@@ -367,15 +355,23 @@ public final class CList {
 
   
   /*
-   * the test program's performance depends heavily on tuning
-   * Java's garbage collection (sometimes factor 10 slower!).
+   * We provide a small demonstration for lazy-evaluated lists:
+   *  We define an infinite
+   * list of integers, in chunks of 16 subsequent integers each.
+   * 
+   * 
+   * On multiprocessors, the program's performance depends heavily 
+   * on the tuning parameters of the garbage collector. The newsize
+   * of the generational GC should be large, otherwise
+   * the performance can drop dramatically (often factor 10 slower!).
    * With \\
    * \\
-   * -ms90M -mx90M -XX:NewSize=80M -server \\
+   * -ms390M -mx390M -XX:NewSize=250M -server \\
    * \\
-   * I had fast and stable througput on a 2-core processor.
+   * the program performed well and with stable througput on an AMD 2-core
+   * processor.
   */
-  static Function<Long,CList> listRest = new Function<Long,CList>(){
+  private static Function<Long,CList> listRest = new Function<Long,CList>(){
     
    private static final int chunk_size = 16;
    public CList get(Long n) {
