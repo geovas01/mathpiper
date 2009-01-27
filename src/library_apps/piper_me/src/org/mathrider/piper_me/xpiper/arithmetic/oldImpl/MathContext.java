@@ -38,7 +38,6 @@ exception statement from your version. */
 
 package org.mathrider.piper_me.xpiper.arithmetic.oldImpl;
 
-import org.eninom.numerics.*;
 
 /**
  * Immutable objects describing settings such as rounding mode and digit
