@@ -374,26 +374,13 @@ MutableStack<E> {
   // get iterator:
 
   public final ForwardIterator<E> iterator() {
-    return new MyIterator();
+    return new RandomAccess.Iterator<E>(this);
   }
   
   //TODO: optimize (don't wrap iterator)
   public final Seq<E> seq() {
     return SeqFromIterator.create(iterator());
   }
-
-  private class MyIterator implements ForwardIterator<E> {
-
-    private int index = 0;
-
-    public boolean hasNext() {
-      return index < size();
-    }
-
-    public final E next() {
-      return get(index++);
-    }
-  }// inner class
   
   @Override
   public int hashCode() {

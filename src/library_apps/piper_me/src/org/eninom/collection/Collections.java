@@ -39,6 +39,13 @@ import org.eninom.iterator.*;
 This class provides several routines for dealing with collections
 **/
 final public class Collections {
+  /**
+   * This class has no instances.
+   */
+  private Collections() {
+   
+      }
+  
   public static<E> String printToString(IterableCollection<E> collection) {
     StringBuilder str = new StringBuilder();
     str.append("[");

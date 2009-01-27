@@ -40,7 +40,7 @@ import org.eninom.iterator.ForwardIterator;
  * !Sequence wrapper for iterators.
  */
 @SuppressWarnings("unchecked")
-public class SeqFromIterator<E> implements Seq<E> {
+public final class SeqFromIterator<E> implements Seq<E> {
 
   public static <E> SeqFromIterator<E> create(
       ForwardIterator<E> it) {

@@ -30,7 +30,7 @@ exception statement from your version. */
 
 package org.eninom.collection;
 
-import org.eninom.iterator.ForwardIterator;
+import org.eninom.iterator.*;
 
 //! Abstract Iterable Collection
 /*<literate>*/
@@ -82,10 +82,15 @@ public abstract class AbstractIterableCollection<E> implements
   @SuppressWarnings("unchecked")
   public static <E> boolean equals(IterableCollection<E> c,
       Object obj) {
+    
     if (c == obj) {
       return true;
     }
-    if (!(obj instanceof IterableCollection)) {
+    
+    if (( c == null) || (obj == null))
+      return false;
+    
+    if (c.getClass() != (obj.getClass())) {
       return false;
     }
     IterableCollection<Object> d = (IterableCollection<Object>) obj;
@@ -109,5 +114,11 @@ public abstract class AbstractIterableCollection<E> implements
   @Override
   public boolean equals(Object obj) {
     return equals(this, obj);
+  }
+  
+  @Override
+  final public String toString() {
+    
+    return Collections.printToString(this);
   }
 }
