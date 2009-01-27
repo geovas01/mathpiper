@@ -487,18 +487,18 @@ public class EnvironmentViewer implements ActionListener {
 
             MultipleArityUserFunction multipleArityUserfunction = (MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
 
-            DefFile defFile = multipleArityUserfunction.iFileToOpen;
+            String defFileLocation = multipleArityUserfunction.iFileLocation;
             String location = "Not specified in a .def file.";
-            if(defFile != null)
+            if(defFileLocation != null)
             {
-                location = defFile.iFileName;
+                location = defFileLocation;
             }
 
 
 
             textArea.append("-------------------------------------------------------------------------------------------------------------\n");
-            textArea.append(name + ":\n");
-            textArea.append("    Source Script: " + location + "\n");
+            textArea.append("Name: " + name + "\n");
+            textArea.append("Source Script: " + location + "\n\n");
 
             Iterator multipleArityUserFunctionIterator = multipleArityUserfunction.getFunctions();
 
@@ -558,8 +558,8 @@ public class EnvironmentViewer implements ActionListener {
                             if (predicate.contains(",")) {
                                 predicate = predicate.substring(0, predicate.lastIndexOf(","));
                             }
-                            predicate += "\n        Variables: " + patternVariables;
-                            predicate += "\n        Types: " + parameterTypes;
+                            predicate += "\n    Variables: " + patternVariables;
+                            predicate += "\n    Types: " + parameterTypes;
 
 
                         }//end if.
@@ -579,11 +579,10 @@ public class EnvironmentViewer implements ActionListener {
 
                         String body = UtilityFunctions.printExpression(branchRuleBase.getBody(), iEnvironment, 0);
                         //System.out.println(data);
-                        String indent = "    ";
-                        textArea.append(indent + "Precedence: " + precedence);
-                        textArea.append("\n" + indent + "Parameters: " + parameters);
-                        textArea.append("\n" + indent + "Predicates: " + predicate);
-                        textArea.append("\n" + indent + "Body: " + body + "\n\n");
+                        textArea.append( "Precedence: " + precedence);
+                        textArea.append("\n" + "Parameters: " + parameters);
+                        textArea.append("\n" + "Predicates: " + predicate);
+                        textArea.append("\n" + "Body:\n" + body + "\n\n");
 
                         textArea.setCaretPosition(textArea.getDocument().getLength());
                     } catch (Exception ex) {

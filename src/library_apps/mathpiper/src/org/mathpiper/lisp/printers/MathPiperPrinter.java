@@ -32,6 +32,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
 
 public class MathPiperPrinter extends LispPrinter
 {
+     StringBuilder spaces = new StringBuilder();
 
 	public static int KMaxPrecedence = 60000;
 
@@ -169,16 +170,24 @@ public class MathPiperPrinter extends LispPrinter
 					}
 					WriteToken(aOutput,"}");
 				}
-				else if (string == iCurrentEnvironment.iProgAtom.string())
+				else if (string == iCurrentEnvironment.iProgAtom.string())  // Program block brackets.
 				{
 					WriteToken(aOutput,"[");
+                    aOutput.write("\n");
+                    spaces.append("    ");
+                    
 					while (iter.getCons() != null)
 					{
+                        aOutput.write( spaces.toString());
 						Print(iter.ptr(), aOutput, KMaxPrecedence);
 						iter.goNext();
 						WriteToken(aOutput,";");
+                        aOutput.write("\n");
 					}
+                    
 					WriteToken(aOutput,"]");
+                    aOutput.write("\n");
+                    spaces.delete(0, 4);
 				}
 				else if (string == iCurrentEnvironment.iNthAtom.string())
 				{
