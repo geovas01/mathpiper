@@ -1,0 +1,22 @@
+\documentclass[12pt]{book}
+
+%\usepackage[pdftex]{graphicx}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\lstnewenvironment{code}{\lstset{language=java,basicstyle=\small,frame=single,
+literate={=}{$:=$}2 {==}{$=$}1 {<=}{$\leq$}1 {>=}{$\geq$}1 {!=}{$\neq$}1 {*}{$\ \times\ $}3,
+escapeinside=``
+}}{}
+
+
+\setlength{\textwidth}{16.5cm}
+\setlength{\textheight}{23cm}
+\setlength{\oddsidemargin}{-0.25cm}
+\setlength{\evensidemargin}{-0.25cm}
+\setlength{\topmargin}{-0.6cm}
+\setlength{\headheight}{0.8cm}
+\setlength{\headsep}{0.8cm}
+\setlength{\textheight}{22cm}
+
+\input{impl-doc}
