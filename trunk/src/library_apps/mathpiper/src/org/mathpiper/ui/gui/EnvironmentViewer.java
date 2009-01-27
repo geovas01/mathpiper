@@ -40,6 +40,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -483,10 +484,21 @@ public class EnvironmentViewer implements ActionListener {
             int row = table.getSelectionModel().getLeadSelectionIndex();
 
             String name = (String) table.getValueAt(row, 0);
-            textArea.append("-------------------------------------------------------------------------------------------------------------\n");
-            textArea.append(name + ":\n");
 
             MultipleArityUserFunction multipleArityUserfunction = (MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
+
+            DefFile defFile = multipleArityUserfunction.iFileToOpen;
+            String location = "Not specified in a .def file.";
+            if(defFile != null)
+            {
+                location = defFile.iFileName;
+            }
+
+
+
+            textArea.append("-------------------------------------------------------------------------------------------------------------\n");
+            textArea.append(name + ":\n");
+            textArea.append("    Source Script: " + location + "\n");
 
             Iterator multipleArityUserFunctionIterator = multipleArityUserfunction.getFunctions();
 
@@ -503,7 +515,7 @@ public class EnvironmentViewer implements ActionListener {
                         ConsPointer predicatePointer1 = branchRuleBase.getPredicate();
                         String predicate = "";
                         if (predicatePointer1.toString().equalsIgnoreCase("Empty.")) {
-                            predicate = "None";
+                            predicate = "None.";
                         } else {
                             predicate = UtilityFunctions.printExpression(predicatePointer1, iEnvironment, 0);
                         }
