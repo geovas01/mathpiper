@@ -628,6 +628,7 @@ public class UtilityFunctions {
                         throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, -1);
                     }
                     multiUser.iFileToOpen = def;
+                    multiUser.iFileLocation = def.fileName();
                 }
             }
         } catch (Exception e) {

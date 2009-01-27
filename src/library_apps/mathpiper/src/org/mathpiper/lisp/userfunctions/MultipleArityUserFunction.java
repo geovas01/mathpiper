@@ -38,6 +38,8 @@ public class MultipleArityUserFunction
 
 	/// File to read for the definition of this function.
 	public DefFile iFileToOpen;
+    
+    public String iFileLocation;
 
 	/// Constructor.
 	public MultipleArityUserFunction()
