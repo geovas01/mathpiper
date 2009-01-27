@@ -55,6 +55,13 @@ package org.eninom.numerics;
 
 public class MPN
 {
+  /**
+   * This class has no instances.
+   */
+  private MPN() {
+    
+      }
+  
   /** Add x[0:size-1] and y, and write the size least
    * significant words of the result to dest.
    * Return carry, either 0 or 1.

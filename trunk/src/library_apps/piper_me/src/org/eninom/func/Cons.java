@@ -45,10 +45,12 @@ import org.eninom.iterator.*;
  *  <br />
  *  <br />
  *  Our implementation of <i>Cons</i> linearizes to the right in such
- * way that lists are stored in chunks of 4 elements each:
+ * way that lists are stored in chunks of 4 elements.
+ * <br />
+ * <br />
  * second(cons(a,b)) == b is not necessarily true if b is a cons. On the other
- * hand, it is true if b is not a cons, and first(cons(a,b)) ==a also always
- * holds.
+ * hand, it is true if b is not a cons, and first(cons(a,b)) == ais  also always
+ * true.
  */
 @SuppressWarnings("unchecked")
 public class Cons<A, B> {
@@ -479,6 +481,11 @@ public class Cons<A, B> {
   final public boolean equals(Object other) {
     if (this == other)
       return true;
+    
+    
+    if (other == null)
+      return false;
+    
     if (!(other.getClass() == this.getClass()))
       return false;
 

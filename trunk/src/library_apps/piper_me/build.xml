@@ -1,18 +1,39 @@
-<project name="Piper-ME" default="dist" basedir=".">
+<project name="piperme" default="test" basedir=".">
 	<description>
-		simple example build file
+		build file for piper-me and unit tests
 	</description>
 	<!-- set global properties for this build -->
 	<property name="src" location="src:tests"/>
 	<property name="scripts" location="scripts"/>
-	<property name="build" location="build"/>
+	<property name="srcTests" location="test"/>
+	<property name="buildroot" location="build"/>
+	<property name="build" location="${buildroot}/jar"/>
+	<property name="buildTests" location="${buildroot}/test"/>
 	<property name="dist"  location="dist"/>
+	<property name="lib" location="lib"/>
+	<property name="test.class.name" value="org.AllTests" />
+	
+	<path id="build.classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	
+	<path id="test.classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<pathelement location="${build}" />
+		<pathelement location="${buildTests}" />
+	</path>
+	
 	
 	<target name="init">
 		<!-- Create the time stamp -->
 		<tstamp/>
 		<!-- Create the build directory structure used by compile -->
 		<mkdir dir="${build}"/>
+		<mkdir dir="${buildTests}"/>
 	</target>
 	
 	<target name="compile" depends="init"
@@ -20,10 +41,7 @@
 			
 		<!-- Compile the java code from ${src} into ${build} -->
 		<javac srcdir="${src}" destdir="${build}" target="jsr14">
-			<classpath>
-				<pathelement path="${classpath}"/>
-				<pathelement location="lib/junit-4.1.jar"/>
-			</classpath> 
+			<classpath refid="build.classpath" />
 		</javac>
 	</target>
 	
@@ -31,18 +49,36 @@
 		description="generate the distribution" >
 		<!-- Create the distribution directory -->
 		<mkdir dir="${dist}/lib"/>
-		
 		<!-- Put everything in ${build} into the piper-me.jar file -->
-		<jar jarfile="${dist}/lib/piper-me.jar"> 
+		<jar jarfile="${dist}/lib/piper-me.jar">
 			<fileset dir="${build}"/>
-    			<fileset dir="${scripts}"/>
+			<fileset dir="${scripts}"/>
 		</jar>
 	</target>
+	
+	<target name="compileTests" depends="dist"
+		description="compile the tests " >
+		
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${srcTests}" destdir="${buildTests}" target="jsr14">
+			<classpath refid="test.classpath" />
+		</javac>
+	</target>
+	
+	<target name="test" depends="compileTests"
+		description="run the tests " >
+		<junit fork="yes" haltonfailure="yes">
+			<test name="${test.class.name}" />
+			<formatter type="plain" usefile="false" />
+			<classpath refid="test.classpath" />
+		</junit>
+	</target>
+	
 	
 	<target name="clean"
 		description="clean up" >
 		<!-- Delete the ${build} and ${dist} directory trees -->
-		<delete dir="${build}"/>
+		<delete dir="${buildroot}"/>
 		<delete dir="${dist}"/>
 	</target>
 </project>

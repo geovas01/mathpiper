@@ -38,6 +38,12 @@ import org.eninom.func.*;
  * Routines for FFT. Array lengths must be powers of 2.
  */
 public final class Fourier {
+  /**
+   * This class has no instances.
+   */
+  private Fourier() {
+   
+      }
 //array lengths must be powers of 2
 //convolution that runs in O(n^2) time. Use this function
 //for small arrays or in order to test fastConvolute(...)

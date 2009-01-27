@@ -30,6 +30,8 @@ exception statement from your version. */
 
 package org.eninom.collection;
 
+import org.eninom.iterator.ForwardIterator;
+
 //! Random Access Interface
 /*<literate>*/
 /**
@@ -37,4 +39,20 @@ package org.eninom.collection;
  */
 public interface RandomAccess<E> extends IterableCollection<E> {
   E get(int i);
+  
+  static public class Iterator<E> implements ForwardIterator<E> {
+    private int i = 0;
+    private RandomAccess<E> collection;
+    public Iterator(RandomAccess<E> collection) {
+      super();
+      this.collection = collection;
+    }
+    public boolean hasNext() {
+      return i < collection.size();
+    }
+    
+    public E next() {
+      return collection.get(i++);
+    }
+  }
 }
