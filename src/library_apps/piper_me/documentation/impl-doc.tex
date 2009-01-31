@@ -47,24 +47,68 @@
 
 
 \title{
-{\LARGE Piper-ME}\\
+{\LARGE Piper-ME and XPiper}\\
 }
 
 \maketitle
 
-\chapter{Introduction}
+\chapter{Piper-ME and X-Piper}
+
+Piper-ME is a port of Yacas to the Java Mobile Edition platform, version 1.2 
+(that is, including double precision floating point numbers). The port is, however,
+not finished yet. Most classes from the standard libraries which are nor part of
+Java ME have been replaced by simplified reimplementation (in particular hashmaps
+and extensdible arrays) or taken from the classpath project (big numbers). Only
+console and file system based classes are not ported yet.\\
+\\
+X-Piper is planned to become a reimplementation of Piper/Yacas, which might
+not be compatible. It is targeted to resolve the following issues:
+\begin{enumerate}
+\item Scoping of local symbols.
+\item LGPL-Licence compatibility.
+\item Multiple precision arithmetic.
+\end{enumerate}
+
+
+\chapter{Data Structures}
+
+\section{Helper Data Structures}
+
+
+\section{List Structure}
+
+\input{src4tex/CList.java}
 
 \chapter{Large Numbers}
 \input{src4tex/BigNumber.java}
 
-\chapter{Abstract Syntax Tree}
+\chapter{Interpreter}
+
+\section{Programming Concepts}
+
+The development of the X-Piper interpreter is a work in progress. It is implemented
+in such way that experimentation with different language features should be easy.
+As a result, modules that deal with the syntactical structure of the language will
+be developed at later. In order to test language features without being able to
+parse source code, several interpreter modules are implemented as libraries which
+are accessible from Java-code:
+\begin{enumerate}
+\item Construction of abstract syntax trees (ASTs).
+\item Rulebase and scoping.
+\item Evaluation of funxctions.
+\end{enumerate}
+
+\section{Tokenizer and Parser}
+
+\chapter{Abstract Syntax Tree, Rule Definition}
 \input{src4tex/Var.java}
-\input{src4tex/Fun.java}
-\input{src4tex/FunDefNode.java}
 
-\chapter{List Structure}
+\section{Rule Builder}
 
-\input{src4tex/CList.java}
 
+\input{src4tex/Rule.java}
+\input{src4tex/RuleDefNode.java}
+
+\chapter{Evaluation}
 
 \end{document}

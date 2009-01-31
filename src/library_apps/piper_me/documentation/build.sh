@@ -1,7 +1,8 @@
 rm -rvf implementation-html/*
 rm -vf src4tex/*
 mkdir src4tex
-for x in `find ../src -name "*.java" -print`; do cp -v $x src4tex/.; done
+for x in `find ../common -name "*.java" -print`; do cp -v $x src4tex/.; done
+for x in `find ../xpiper -name "*.java" -print`; do cp -v $x src4tex/.; done
 
 
 for x in `find src4tex -name "*.java" -print`

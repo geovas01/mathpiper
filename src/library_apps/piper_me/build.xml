@@ -3,7 +3,7 @@
 		build file for piper-me and unit tests
 	</description>
 	<!-- set global properties for this build -->
-	<property name="src" location="src:tests"/>
+	<property name="src" location="common:piper_me:xpiper:tests"/>
 	<property name="scripts" location="scripts"/>
 	<property name="srcTests" location="test"/>
 	<property name="buildroot" location="build"/>
