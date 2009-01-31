@@ -1,5 +1,6 @@
 package org.mathrider.piper_me.ast;
 
+import org.eninom.collection.IterableCollection;
 import org.eninom.func.CList;
 import org.mathrider.piper_me.eval.Evaluator;
 
@@ -40,6 +41,13 @@ public final class Rules {
    * completion of the definition.
    */
   public RuleDefNode def(Var funName, CList<Var> args) {
-    return new RuleDefNode(eval, funName, args);
+    return new RuleDefNode(this, funName, args);
+  }
+  
+  /**
+   * 
+   */
+  void establish(Var funName, CList<Var> args, IterableCollection<Predicate> predicates, Expression e) {
+    //TODO
   }
 }// `class`
