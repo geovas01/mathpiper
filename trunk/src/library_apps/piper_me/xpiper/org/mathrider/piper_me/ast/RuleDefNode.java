@@ -1,7 +1,8 @@
 package org.mathrider.piper_me.ast;
 
+import org.eninom.collection.ExtendibleArray;
+import org.eninom.collection.MutableStack;
 import org.eninom.func.CList;
-import org.mathrider.piper_me.eval.Evaluator;
 
 /*
  (C) Oliver Glier 2008. This file belongs to Piper-ME/XPiper, which
@@ -24,19 +25,65 @@ import org.mathrider.piper_me.eval.Evaluator;
  */
 public class RuleDefNode {
 
-  private Evaluator eval;
+  private Rules builder;
 
   private Var funName;
 
   private CList<Var> args;
+  
+  MutableStack<Predicate> predicates = new ExtendibleArray<Predicate>();
 
   /**
    * The constructor is package-private as it should only be called from a
    * rule-builder instance.
    */
-  RuleDefNode(Evaluator eval, Var funName, CList<Var> args) {
-    this.eval = eval;
+  RuleDefNode(Rules builder, Var funName, CList<Var> args) {
+    this.builder = builder;
     this.funName = funName;
     this.args = args;
+  }
+  
+  /**
+   * Establish the first predicate.
+   */
+  public RuleDefNode when(Predicate p) {
+    if (predicates.size() != 0)
+      throw new IllegalStateException("Predicate list is not empty");
+    predicates.push(p);
+    return this;
+  }
+  
+  /**
+   * Add a predicate to the predicate list.
+   */
+  public RuleDefNode or(Predicate p) {
+    if (predicates.size() == 0)
+      throw new IllegalStateException("Predicate list is empty");
+    predicates.push(p);
+    return this;
+  }
+  
+  /**
+   * Establish a rule for the list of collected predicates and return the
+   * rule builder object. After that, the list of predicates is empty and
+   * the node can be reused in order to define another rule for the same
+   * function.
+   */
+  public RuleDefNode to(Expression e) {
+    if (predicates.size() == 0)
+      throw new IllegalStateException("Predicate list is empty");
+    builder.establish(funName,args,predicates,e);
+    predicates = new ExtendibleArray<Predicate>();
+    return this;
+  }
+  
+  /**
+   * Return to the rule builder object. This is only possible if
+   * the list of predicates is empty.
+   */
+  public Rules endfun() {
+    if (predicates.size() != 0)
+      throw new IllegalStateException("Predicate list is not empty");
+    return builder;
   }
 }// `class`
