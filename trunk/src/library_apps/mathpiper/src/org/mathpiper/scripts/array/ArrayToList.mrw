@@ -1,0 +1,5 @@
+%mathpiper
+
+ArrayToList(array):= (array[1 .. ArraySize(array) ]);
+
+%/mathpiper
