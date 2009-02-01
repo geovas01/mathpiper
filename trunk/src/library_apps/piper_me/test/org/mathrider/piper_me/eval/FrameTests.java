@@ -40,7 +40,7 @@ public class FrameTests extends TestCase {
     Expression e2 = new Expression();
     Expression e3 = new Expression();
     
-    outer.setLGlobal(A, e1);
+    outer.setGlobal(A, e1);
     assertEquals(e1, outer.value(A));
     assertEquals(e1, inbetween.value(A));
     assertEquals(e1, inner.value(A));
@@ -50,7 +50,7 @@ public class FrameTests extends TestCase {
     assertEquals(e2, inbetween.value(A));
     assertEquals(e1, inner.value(A));
    
-    outer.setLGlobal(B, e3);
+    outer.setGlobal(B, e3);
     assertEquals(e1, outer.value(A));
     assertEquals(e2, inbetween.value(A));
     assertEquals(e1, inner.value(A));
@@ -59,7 +59,7 @@ public class FrameTests extends TestCase {
     assertEquals(e3, inner.value(B));
     
     
-    inner.setLGlobal(B, e1);
+    inner.setGlobal(B, e1);
     inbetween.importGlobal(inner);
     assertEquals(e2, inbetween.value(A));
     assertEquals(e1, inbetween.value(B));

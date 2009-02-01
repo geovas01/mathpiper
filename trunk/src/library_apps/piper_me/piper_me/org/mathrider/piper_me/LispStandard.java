@@ -528,6 +528,7 @@ public class LispStandard
     return null;
   }
 
+  @SuppressWarnings("unchecked")
   public static LispInput OpenInputFile(LispEnvironment aEnvironment,
       ExtendibleArray aInputDirectories, String aFileName,
       InputStatus aInputStatus) throws Exception
@@ -545,6 +546,7 @@ public class LispStandard
   }
 
 
+  @SuppressWarnings("unchecked")
   public static String InternalFindFile(String aFileName, ExtendibleArray aInputDirectories) throws Exception
   {
     InputStatus inputStatus = new InputStatus();

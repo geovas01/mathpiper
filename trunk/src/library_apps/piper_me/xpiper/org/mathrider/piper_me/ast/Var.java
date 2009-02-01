@@ -24,6 +24,7 @@ import org.eninom.func.Cons;
  * different.
  */
 public final class Var extends Expression {
+  
   private final String name;
 
   private final int arity;
@@ -46,7 +47,7 @@ public final class Var extends Expression {
 
   @Override
   public String toString() {
-    return name + "?" + arity;
+    return "@" + name + "?" + arity;
   }
 
   static private class Key extends Cons<String, Integer> {
@@ -72,5 +73,4 @@ public final class Var extends Expression {
     }
     return v;
   }
-
 }// `class`

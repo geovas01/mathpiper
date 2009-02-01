@@ -89,8 +89,10 @@ public class RuleDefNode {
    */
   private void compileRuleExtension(Expression predicate,
       Expression expr) {
-    Expression newExpr = frame.value(funName);
-    // TODO ...
-    store.put(funName, newExpr);
+    if (predicate != Chars.TRUE) {  
+      Expression oldExpr = frame.value(funName);
+      // TODO: combine old an new expression ...
+    }
+    store.put(funName, expr);
   }
 }// `class`
