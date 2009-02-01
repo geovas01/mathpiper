@@ -1,0 +1,13 @@
+%mathpiper,def="true"
+
+/// ExpN(x). Algorithm: for x<0, divide 1 by ExpN(-x); for x>1, compute ExpN(x/2)^2 recursively; for 0<x<1, use the Taylor series.
+// (This is not optimal; it would be much better to use SumTaylorNum and DoublingMinus1 from elemfuncs.mpi. But this should be debugged for now, since ExpN is important for many algorithms.)
+/// TODO FIXME: No precision tracking yet. (i.e. the correct number of digits is not always there in the answer)
+
+Defun("ExpN", {x})
+	If(Equals(x,0),1,
+	 If(LessThan(x,0),DivideN(1, ExpN(MathNegate(x))),
+	  If(GreaterThan(x,1), MathExpDoubling(MathExpTaylor0(MathMul2Exp(x,MathNegate(MathBitCount(x)))), MathBitCount(x)), MathExpTaylor0(x)
+	)));
+
+%/mathpiper

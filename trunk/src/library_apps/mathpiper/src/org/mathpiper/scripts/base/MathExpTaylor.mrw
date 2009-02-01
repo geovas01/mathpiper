@@ -1,0 +1,30 @@
+%mathpiper,def="false"
+
+// simple Taylor expansion, use only for 0<=x<1
+Defun("MathExpTaylor0",{x})
+[
+  Local(i,aResult,term,eps);
+  // Exp(x)=Sum(i=0 to Inf)  x^(i) /(i)!
+  // Which incrementally becomes the algorithm:
+  //
+  // i <- 0
+  Set(i,0);
+  // sum <- 1
+  Set(aResult,1.0);
+  // term <- 1
+  Set(term,1.0);
+  Set(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
+  // While (term>epsilon)
+  While(GreaterThan(AbsN(term),eps))
+  [
+    //   i <- i+1
+    Set(i,AddN(i,1));
+    //   term <- term*x/(i)
+    Set(term,DivideN(MultiplyN(term,x),i));
+    //   sum <- sum+term
+    Set(aResult,AddN(aResult,term));
+  ];
+  aResult;
+];
+
+%/mathpiper

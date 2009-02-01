@@ -1,4 +1,4 @@
-%mathpiper
+%mathpiper,def="true"
 
 ArrayToList(array):= (array[1 .. ArraySize(array) ]);
 

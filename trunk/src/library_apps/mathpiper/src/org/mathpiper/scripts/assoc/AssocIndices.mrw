@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+AssocIndices(associndiceslist_IsList) <--
+  DestructiveReverse(MapSingle("Head",associndiceslist));
+
+%/mathpiper
