@@ -32,6 +32,7 @@ import org.mathrider.piper_me.ast.*;
  * values from H. The binding of w to 3 from the original outer block of
  * f's definion is lost, and instead the value of w is taken from frame G or
  * its parents.<br /><br />
+ * 
  * A value can be bound to a variable either locally or globally. 
  * A global value id visible snd can be extended by child frames, however,
  * redifinions or extensions do not traverse back to parent frames. They
@@ -40,7 +41,10 @@ import org.mathrider.piper_me.ast.*;
  * from a block. This implies executing the block and afterwards importing
  * all or some of its global values.<br />
  * A local value is invisible for any other frame. It is possible to use
- * both, local and global values, as arguments for function calls.
+ * both, local and global values, as arguments for function calls.<br /><br />
+ * 
+ * This class is exporatory. A more sophisticated interpreter might use
+ * a less straightforward organization of stackframes.
  */
 public final class Frame {
 
@@ -51,8 +55,8 @@ public final class Frame {
    * compile this map into an plain array and resolve variables to indices.
    */
   private HashMap<Var, Expression> 
-      locals = new HashMap<Var, Expression>(),
-      overwrites = new HashMap<Var, Expression>();
+      locals = new HashMap<Var, Expression>(8),
+      overwrites = new HashMap<Var, Expression>(4);
   /**
    * The constructor needs a reference to the parent frame. This one can be
    * null.
@@ -91,7 +95,7 @@ public final class Frame {
    * set a value globally. This can be used in order to import expressions
    * from other frames.
    */
-  public void setLGlobal(Var v, Expression e) {
+  public void setGlobal(Var v, Expression e) {
     overwrites.put(v, e);
   }
   
@@ -118,15 +122,26 @@ public final class Frame {
     Frame frame = this;
     Expression e = locals.get(v);
     /*
-     * We don't use recursion in order to prevent stack overflow. 
+     * We don't use recursion in order to prevent stack overflow. We also
+     * count the depth until we find a definition. If the depth is larger
+     * than a certain value, we cash the definition in the global store
+     * of some closer parent.  Note that the modification of the store
+     * is unsynchronized. For a multithreaded interpreter it might be
+     * necessary to introduce "buffer-frames" before the first frame of a
+     * sub-thread.
      */
+    int depth = 0;
     while ((e == null) && (frame != null)) {
-      
+      depth++;
       e = frame.overwrites.get(v);
       frame = frame.parent;
     }//`while`
     if (e == null)
       e = v;
+    
+    if (depth > 4)
+      parent.parent.overwrites.put(v, e);
+    
     return e;
   }
 }// `class`

@@ -485,6 +485,7 @@ class LispEnvironment
 
 
   LispDefFiles iDefFiles = new LispDefFiles();
+  @SuppressWarnings("unchecked")
   ExtendibleArray iInputDirectories = new ExtendibleArray();
 
   String iPrettyReader = null;
