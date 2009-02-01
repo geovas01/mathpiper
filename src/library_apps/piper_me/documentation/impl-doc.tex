@@ -54,7 +54,7 @@
 
 \chapter{Piper-ME and X-Piper}
 
-Piper-ME is a port of Yacas to the Java Mobile Edition platform, version 1.2 
+Piper-ME is a port of Yacas to the Java Mobile Edition platform, CLDC version 1.1 
 (that is, including double precision floating point numbers). The port is, however,
 not finished yet. Most classes from the standard libraries which are nor part of
 Java ME have been replaced by simplified reimplementation (in particular hashmaps
@@ -67,19 +67,6 @@ not be compatible. It is targeted to resolve the following issues:
 \item Scoping of local symbols.
 \item Multiple precision arithmetic.
 \end{enumerate}
-
-
-\chapter{Data Structures}
-
-\section{Helper Data Structures}
-
-
-\section{List Structure}
-
-\input{src4tex/CList.java}
-
-\chapter{Large Numbers}
-\input{src4tex/BigNumber.java}
 
 \chapter{Interpreter}
 
@@ -94,19 +81,52 @@ are accessible from Java-code:
 \begin{enumerate}
 \item Construction of abstract syntax trees (ASTs).
 \item Rulebase and scoping.
-\item Evaluation of funxctions.
+\item Evaluation of functions.
 \end{enumerate}
 
 \section{Tokenizer and Parser}
 
-\chapter{Abstract Syntax Tree, Rule Definition}
+\chapter{Expressions and Abstract Syntax Trees}
+
+Internally, an expression can be one of the folliwing things:
+
+\begin{enumerate}
+\item A Variable,
+\item A constant number or string.
+\item An operator or a function symbol.
+\item A list of expressions (a block).
+\end{enumerate}
+
+Syntactically, there might be some variations, especially of blocks, but that is 
+now unimportant.
+
 \input{src4tex/Var.java}
 
-\section{Rule Builder}
-
-\input{src4tex/Rules.java}
-\input{src4tex/RuleDefNode.java}
 
 \chapter{Evaluation}
+
+\section{Frames and Rule Builder}
+
+\input{src4tex/Frame.java}
+\input{src4tex/RuleDefNode.java}
+
+\chapter{Data Structures}
+
+\section{Helper Data Structures}
+
+
+\section{List Structure}
+
+Lists are represented by a list structure taken from {\em eninom.lib}. The capabiliy
+of dealing with lazy values is not used in Piper-ME.
+
+We introduce CList:
+ 
+\input{src4tex/CList.java}
+
+\chapter{Large Numbers}
+\input{src4tex/BigNumber.java}
+
+
 
 \end{document}
