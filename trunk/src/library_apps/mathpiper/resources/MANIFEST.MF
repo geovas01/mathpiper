@@ -1,2 +1,2 @@
-Main-Class: org/mathpiper/Interfaces
+Main-Class: org/mathpiper/ui/gui/calculator/CalculatorFrame
 Class-Path: mathpiper.jar
