@@ -142,7 +142,7 @@ public class CalculatorPanel extends javax.swing.JPanel
 
         jDesktopPane1.setBackground(new java.awt.Color(238, 236, 242));
         jDesktopPane1.setAutoscrolls(true);
-        jDesktopPane1.setPreferredSize(new java.awt.Dimension(400, 400));
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(500, 550));
 
         jInternalFrame1.setIconifiable(true);
         jInternalFrame1.setResizable(true);
