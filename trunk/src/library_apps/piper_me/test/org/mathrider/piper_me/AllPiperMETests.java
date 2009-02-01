@@ -1,7 +1,7 @@
 package org.mathrider.piper_me;
 
 
-import org.mathrider.piper_me.ast.ASTTests;
+import org.mathrider.piper_me.eval.FrameTests;
 
 import junit.framework.*;
 import junit.textui.*;
@@ -10,7 +10,7 @@ public class AllPiperMETests {
 
   public static Test suite() {
     TestSuite suite = new TestSuite();
-    suite.addTestSuite(ASTTests.class);
+    suite.addTestSuite(FrameTests.class);
    return suite;
   }
   
