@@ -9,27 +9,9 @@
 
 <body>
 
-<SCRIPT>
-function evaluate() {
-   a = document.mathpiper.evaluate(document.mathpiperform.expression.value);
-   document.mathpiperform.result.value = a;
-   }
-</SCRIPT>
 
-<form name="mathpiperform" onchange="evaluate()" >
-<div align="center">
-<br><br>
-<input type="text" name="expression" size="45" value="2">
-<br><br>
-<textarea name="result" rows="4" cols="20" readonly="true">
+<applet name="mathpiper" code="org.mathpiper.ui.gui.calculator.Applet" archive = "mathpiper.jar" width="700" height="650" hspace="0" vspace="0" align="middle" MAYSCRIPT>
+</applet>
 
-</textarea>
-
-</div>
-</form>
-
-		<applet name="mathpiper" code="org.mathpiper.ui.gui.calculator.Applet" archive = "mathpiper.jar" width="500" height="500" hspace="0" vspace="0" align="middle" MAYSCRIPT>
-
-		</applet>
 </body>
 </html>
