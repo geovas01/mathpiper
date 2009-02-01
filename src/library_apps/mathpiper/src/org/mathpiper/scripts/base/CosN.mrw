@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+Defun("CosN",{x})Trigonometry(x,0.0,1.0,1.0);
+
+%/mathpiper

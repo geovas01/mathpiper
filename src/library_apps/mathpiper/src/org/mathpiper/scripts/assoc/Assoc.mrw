@@ -1,0 +1,10 @@
+%mathpiper,def="true"
+
+/* Assoc : given an assoc list like for example l:={{a,2},{b,3}},
+   Assoc(b,l) will return {b,3}. if the key is not in the list,
+   it will return the atom Empty.
+*/
+
+Function("Assoc",{key,list})  Builtin'Assoc(key,list);
+
+%/mathpiper
