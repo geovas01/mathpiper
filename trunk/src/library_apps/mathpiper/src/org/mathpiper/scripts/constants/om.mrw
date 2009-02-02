@@ -1,0 +1,10 @@
+%mathpiper,def="false"
+
+//From code.mpi.def:
+OMDef( "I", "nums1", "i" );
+OMDef( "CachedConstant",        "piper", "CachedConstant"        );
+OMDef( "AssignCachedConstants", "piper", "AssignCachedConstants" );
+OMDef( "ClearCachedConstants",  "piper", "ClearCachedConstants"  );
+OMDef( "Pi", "nums1", "pi" );
+
+%/mathpiper

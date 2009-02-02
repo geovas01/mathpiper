@@ -1,0 +1,16 @@
+%mathpiper,def="true"
+
+TemplateFunction("Until",{predicate,body})
+[
+  Eval(body);
+  While (Equals(Eval(predicate),False))
+  [
+    Eval(body);
+  ];
+  True;
+];
+UnFence("Until",2);
+HoldArgNr("Until",2,1);
+HoldArgNr("Until",2,2);
+
+%/mathpiper

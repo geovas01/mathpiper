@@ -1,0 +1,24 @@
+%mathpiper,def="false"
+
+LocalSymbols(i,nr)
+[
+  TemplateFunction("ForEachInArray",{item,list,body})
+  [
+    Local(i,nr);
+    MacroLocal(item);
+    Set(i,1);
+    Set(nr,Length(list));
+    While(i<=nr)
+    [
+      MacroSet(item,list[i]);
+      Eval(body);
+      Set(i,AddN(i,1));
+    ];
+  ];
+];
+
+UnFence("ForEachInArray",3);
+HoldArgNr("ForEachInArray",3,1);
+HoldArgNr("ForEachInArray",3,3);
+
+%/mathpiper

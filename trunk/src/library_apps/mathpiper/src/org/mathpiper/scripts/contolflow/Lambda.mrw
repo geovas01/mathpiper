@@ -1,0 +1,10 @@
+%mathpiper,def="true"
+
+/* Lambda was introduced as a form of pure function that can be passed on to the function Apply as a first argument.
+ * The original method, passing it in as a list, had the disadvantage that the list was evaluated, which caused the
+ * arguments to be evaluated too. This resulted in unwanted behaviour sometimes (expressions being prematurely evaluated
+ * in the body of the pure function). The arguments to Lambda are not evaluated.
+ */
+DefMacroRuleBase("Lambda",{args,body});
+
+%/mathpiper

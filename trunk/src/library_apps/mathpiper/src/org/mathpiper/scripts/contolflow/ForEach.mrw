@@ -1,0 +1,26 @@
+%mathpiper,def="true"
+
+/*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
+TemplateFunction("ForEach",{item,list,body})
+[
+  If(And(Equals(IsGeneric(list),True),
+         Equals(GenericTypeName(list),"Array")
+         ),
+    `ForEachInArray(@item,list,@body),
+    [
+      Local(foreachtail);
+      MacroLocal(item);
+      Set(foreachtail,list);
+      While(Not(Equals(foreachtail,{})))
+      [
+        MacroSet(item,Head(foreachtail));
+        Eval(body);
+        Set(foreachtail,Tail(foreachtail));
+      ];
+    ]);
+];
+UnFence("ForEach",3);
+HoldArgNr("ForEach",3,1);
+HoldArgNr("ForEach",3,3);
+
+%mathpiper
