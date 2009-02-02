@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+1 # Denom(_x / _y)      <-- y;
+2 # Denom(x_IsNumber)   <-- 1;
+
+%/mathpiper

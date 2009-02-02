@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+Function("NrArgs",{aLeft}) Length(Listify(aLeft))-1;
+
+%/mathpiper

@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+Function("/@",{func,lst}) Apply("MapSingle",{func,lst});
+
+%/mathpiper
