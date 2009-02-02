@@ -15,8 +15,8 @@
 Use("org/mathpiper/scripts/initialization.rep/stdopers.mpi");
 
 /* Set of functions to define very simple functions. There are scripts that can
-   be compiled to plugins. So MathPiper either loads the plugin, or loads the 
-   scripts at this point. The functions in these plugins need to be defined with 
+   be compiled to plugins. So MathPiper either loads the plugin, or loads the
+   scripts at this point. The functions in these plugins need to be defined with
    these "Defun" functions.
  */
 DefMacroRuleBase("Defun",{func,args,body});
