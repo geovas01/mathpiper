@@ -1,0 +1,14 @@
+%mathpiper,def="check"
+
+Function("TableForm",{list})
+[
+  Local(i);
+  ForEach(i,list)
+  [
+    Write(i);
+    NewLine();
+  ];
+  True;
+];
+
+%/mathpiper
