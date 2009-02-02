@@ -1,0 +1,15 @@
+%mathpiper,def="false"
+/* PollardCombineLists combines two assoc lists used for factoring.
+   the first element in each item list is the factor, and the second
+   the exponent. Thus, an assoc list of {{2,3},{3,5}} means 2^3*3^5.
+*/
+PollardCombineLists(_left,_right) <--
+[
+  ForEach(item,right)
+  [
+    PollardMerge(left,item);
+  ];
+  left;
+];
+
+%/mathpiper

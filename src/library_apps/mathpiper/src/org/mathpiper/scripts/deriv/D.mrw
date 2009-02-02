@@ -1,0 +1,35 @@
+%mathpiper,def="true"
+
+RuleBase("D",{aVar,aFunc});
+RuleBase("D",{aVar,aCount,aFunc});
+
+Rule("D",2,1,IsList(aVar) And Not(IsList(aFunc)))
+	Map("D",{aVar,FillList(aFunc, Length(aVar))});
+Rule("D",2,1,IsList(aVar) And IsList(aFunc))
+	Map("D",{aVar,aFunc});
+
+Rule("D",2,3,True)
+[
+  MacroLocal(aVar);
+  Apply("Deriv",{aVar,1,aFunc});
+];
+
+Rule("D",3,1,IsList(aVar) And Not(IsList(aFunc)))
+	Map("D",{aVar,
+                 FillList(aCount, Length(aVar)),
+                 FillList(aFunc, Length(aVar))});
+Rule("D",3,1,IsList(aVar) And IsList(aFunc))
+	Map("D",{aVar,
+                 FillList(aCount, Length(aVar)),
+                 aFunc});
+Rule("D",3,3,True)
+[
+  MacroLocal(aVar);
+  Apply("Deriv",{aVar,aCount,aFunc});
+];
+
+
+HoldArg("D",aVar);
+HoldArg("D",aFunc);
+
+%/mathpiper

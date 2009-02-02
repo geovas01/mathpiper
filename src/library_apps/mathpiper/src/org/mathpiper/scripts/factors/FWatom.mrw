@@ -1,0 +1,6 @@
+%mathpiper,def="false"
+
+10 # FWatom({_a,1}) <-- a;
+20 # FWatom({_a,_n}) <-- UnList({Atom("^"),a, n});
+
+%/mathpiper
