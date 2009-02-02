@@ -1,0 +1,60 @@
+%mathpiper,def="true"
+
+RuleBase("Macro",{oper,args,body});
+HoldArg("Macro",oper);
+HoldArg("Macro",args);
+HoldArg("Macro",body);
+
+// macro with variable number of arguments: Macro("func",{x,y, ...})body;
+Rule("Macro",3,2047,
+	And(GreaterThan(Length(args), 1), Equals( MathNth(args, Length(args)), Atom("...") ))
+)
+[
+  DestructiveDelete(args,Length(args));	// remove trailing "..."
+  Retract(oper,Length(args));
+  `DefMacroRuleBaseListed(@oper,@args);
+  MacroRule(oper,Length(args),1025,True) body;	// at precedence 1025, for flexibility
+];
+
+// macro with a fixed number of arguments
+Rule("Macro",3,2048,True)
+[
+  Retract(oper,Length(args));
+  `DefMacroRuleBase(@oper,@args);
+  MacroRule(oper,Length(args),1025,True) body;
+];
+
+RuleBase("Macro",{oper});
+// macro with variable number of arguments: Macro() f(x,y, ...)
+Rule("Macro",1,2047,
+	And(IsFunction(oper), GreaterThan(Length(oper), 1), Equals( MathNth(oper, Length(oper)), Atom("...") ))
+)
+[
+	Local(args,name);
+	Set(args,Tail(Listify(oper)));
+	DestructiveDelete(args,Length(args));	// remove trailing "..."
+  Set(name,Type(oper));
+	If(RuleBaseDefined(Type(oper),Length(args)),
+		False,	// do nothing
+		`DefMacroRuleBaseListed(@name,@args)
+	);
+];
+// macro with a fixed number of arguments
+Rule("Macro",1,2048,
+	And(IsFunction(oper))
+)
+[
+	Local(args,name);
+	Set(args,Tail(Listify(oper)));
+  Set(name,Type(oper));
+	If(RuleBaseDefined(Type(oper),Length(args)),
+		False,	// do nothing
+		[
+      `DefMacroRuleBase(@name,@args);
+    ]
+	);
+];
+
+
+
+%/mathpiper

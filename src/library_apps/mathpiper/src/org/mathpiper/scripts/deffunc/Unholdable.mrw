@@ -1,0 +1,19 @@
+%mathpiper,def="false"
+
+// this will "unhold" a variable - used to make sure that := with Eval()
+// immediately on the right hand side evaluates its argument
+RuleBase("UnHoldable",{var});
+HoldArg("UnHoldable",var);
+UnFence("UnHoldable",1);
+Rule("UnHoldable",1,10,Equals(Type(Eval(var)),"Eval"))
+[
+  MacroSet(var,Eval(Eval(var)));
+/* Echo({"unheld",var,Eval(var)}); */
+];
+Rule("UnHoldable",1,20,True)
+[
+/* Echo({"held"}); */
+  True;
+];
+
+%/mathpiper
