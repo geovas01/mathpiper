@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+/*
+.. operator is implemented with the Table function.
+*/
+10 # (count'from_IsInteger .. count'to_IsInteger)_(count'from <= count'to)
+   <-- Table(i,i,count'from,count'to,1);
+20 # (count'from_IsInteger .. count'to_IsInteger)
+   <-- Table(i,i,count'from,count'to,-1);
+
+%/mathpiper
