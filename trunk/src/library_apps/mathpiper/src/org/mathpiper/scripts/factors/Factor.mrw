@@ -1,0 +1,7 @@
+%mathpiper,def="true"
+
+// This is so Factor(Sin(x)) doesn't return FWatom(Sin(x))
+//Factor(_p) <-- FW(Factors(p));
+10 # Factor(p_CanBeUni) <-- FW(Factors(p));
+
+%/mathpiper

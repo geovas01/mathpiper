@@ -1,0 +1,8 @@
+%mathpiper,def="true"
+
+/* New factorization : split between integers and polynomials. */
+10 # Factors(p_IsInteger) <-- FactorizeInt(p);
+20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  BinaryFactors(p);
+30 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+
+%/mathpiper

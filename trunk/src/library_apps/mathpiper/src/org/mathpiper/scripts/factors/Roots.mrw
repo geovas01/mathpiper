@@ -1,0 +1,24 @@
+%mathpiper,def="true"
+
+10 # Roots(poly_CanBeUni) <--
+[
+  Local(factors,result,uni,root,i,deg);
+  factors:=Factors(poly);
+  result:={};
+  ForEach(item,factors)
+  [
+    uni:=MakeUni(item[1]);
+    deg:=Degree(uni);
+    If(deg > 0 And deg < 3,
+      [
+        root:= PSolve(uni);
+        If(Not IsList(root),root:={root});
+        For(i:=0,i<item[2],i++)
+          result:= Concat(root, result);
+      ]
+      );
+  ];
+  result;
+];
+
+%/mathpiper
