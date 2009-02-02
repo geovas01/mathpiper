@@ -1,0 +1,8 @@
+%mathpiper,def="true"
+
+/*Real parts */
+110 # Re(Complex(_r,_i)) <-- r;
+120 # Re(Undefined) <-- Undefined;
+300 # Re(_x) <-- x;
+
+%/mathpiper

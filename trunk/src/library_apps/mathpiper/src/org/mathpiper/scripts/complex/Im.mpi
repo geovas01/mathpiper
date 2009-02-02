@@ -1,0 +1,8 @@
+%mathpiper,def="true"
+
+/* Imaginary parts */
+110 # Im(Complex(_r,_i)) <-- i;
+120 # Im(Undefined) <-- Undefined;
+300 # Im(_x) <-- 0;
+
+%/mathpiper

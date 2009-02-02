@@ -1,0 +1,5 @@
+%mathpiper,def="false"
+
+ReII(_c) <-- NN(c)[1];
+
+%/mathpiper
