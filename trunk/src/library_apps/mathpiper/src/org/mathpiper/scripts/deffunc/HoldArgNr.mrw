@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+Function("HoldArgNr",{function,arity,index})
+[
+  Local(args);
+  args:=RuleBaseArgList(function,arity);
+/* Echo({"holdnr ",args}); */
+  ApplyPure("HoldArg",{function,args[index]});
+];
+
+%/mathpiper
