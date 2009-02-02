@@ -1,0 +1,10 @@
+%mathpiper,def="check"
+
+Function("++",{aVar})
+[
+   MacroSet(aVar,AddN(Eval(aVar),1));
+];
+UnFence("++",1);
+HoldArg("++",aVar);
+
+%/mathpiper
