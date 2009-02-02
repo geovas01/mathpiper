@@ -1,0 +1,5 @@
+%mathpiper,def="false"
+
+ImII(_c) <-- NN(c)[2];
+
+%/mathpiper
