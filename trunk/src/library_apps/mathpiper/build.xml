@@ -47,7 +47,7 @@
 	
 		<copy todir="${build.classes.dir}/org/mathpiper/scripts">
 			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" >
-				<include name="**/*" />
+				<include name="*.rep/**/*" />
 			</fileset>
 		</copy>
 		
@@ -145,7 +145,7 @@
 		
 		
 		<copy todir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts">
-			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" includes="**/*" />
+			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" includes="*/rep/**/*" />
 			<filterchain>
 			<filterreader classname="org.apache.tools.ant.filters.StripJavaComments">
 			<!--<param name="foo" value="bar"/>-->

@@ -12,7 +12,7 @@ import java.awt.event.*;
 
 public class SimulatorFrame extends JFrame implements WindowListener, ActionListener
 {
-  private static int DEFAULT_FPS = 80;
+  private static int DEFAULT_FPS = 10; //;80;
 
   private SimulatorPanel simulatorPanel;        // where the worm is drawn
   private JTextField jtfBox;   // displays no.of boxes used
