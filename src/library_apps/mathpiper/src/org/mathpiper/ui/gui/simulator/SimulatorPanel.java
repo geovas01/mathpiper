@@ -8,8 +8,8 @@ import java.text.DecimalFormat;
 //import com.sun.j3d.utils.timer.J3DTimer;
 public class SimulatorPanel extends JPanel implements Runnable {
 
-    private static final int PWIDTH = 500;   // size of panel
-    private static final int PHEIGHT = 500;
+    private static final int PWIDTH = 505;   // size of panel
+    private static final int PHEIGHT = 505;
     private static long MAX_STATS_INTERVAL = 1000000000L;
     // private static long MAX_STATS_INTERVAL = 1000L;
     // record stats every 1 second (roughly)
