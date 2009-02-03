@@ -819,12 +819,15 @@ public abstract class BuiltinFunctionInitialize
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.ViewEnvironment(), 0, Evaluator.Fixed | Evaluator.Function),
                 "ViewEnvironment");
-	aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.ViewSimulator(), 0, Evaluator.Fixed | Evaluator.Function),
                 "ViewSimulator");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.Plot(), 2, Evaluator.Fixed | Evaluator.Function),
                 "Plot");
+                aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.SetPlotColor(), 3, Evaluator.Fixed | Evaluator.Function),
+                "SetPlotColor");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.Println(), 1, Evaluator.Fixed | Evaluator.Function),
                 "Println");

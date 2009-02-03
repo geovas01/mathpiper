@@ -115,6 +115,11 @@ public class SimulatorFrame extends JFrame implements WindowListener, ActionList
   public void windowClosed(WindowEvent e) {}
   public void windowOpened(WindowEvent e) {}
 
+  public void setColor(int red, int green, int blue)
+  {
+       simulatorPanel.setColor(red, green, blue);
+  }
+
   // ----------------------------------------------------
 
   public static void main(String args[])
