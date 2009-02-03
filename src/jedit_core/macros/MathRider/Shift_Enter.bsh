@@ -1488,7 +1488,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 						result = result.trim();
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
-						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",preserve=\"false\"\n" + result + "\n" + indentAmount + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
+						indentAmountPeriod = indentAmount.toString().replaceFirst(" ",".");
+						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",preserve=\"false\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
 						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
 				 
