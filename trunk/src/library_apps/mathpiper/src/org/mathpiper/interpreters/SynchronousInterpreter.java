@@ -200,6 +200,7 @@ class SynchronousInterpreter implements Interpreter
         if (inputExpression.length() == 0)
         {
             //return (String) "";
+            evaluationResponse.setResult("Empty Input");
             return evaluationResponse;
         }
         String resultString = "";
