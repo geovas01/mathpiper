@@ -242,7 +242,7 @@ public class SimulatorPanel extends JPanel implements Runnable {
         
         //dbg.drawString("Average FPS/UPS: " + df.format(averageFPS) + ", " + df.format(averageUPS), 20, 25);  // was (10,55)
 
-        dbg.setColor(Color.black);
+        //dbg.setColor(Color.black);
 
         points.draw(dbg);
 
@@ -352,6 +352,11 @@ public class SimulatorPanel extends JPanel implements Runnable {
     {
         points.clear();
     }
+
+   public void setColor(int red, int green, int blue)
+  {
+       Points.setColor(red, green, blue);
+  }
 
     private void printStats() {
         /*System.out.println("Frame Count/Loss: " + frameCount + " / " + totalFramesSkipped);
