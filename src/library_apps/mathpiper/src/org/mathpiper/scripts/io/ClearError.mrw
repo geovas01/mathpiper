@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+/// delete error
+ClearError(error'class_IsString) <-- AssocDelete(GetErrorTableau(), error'class);
+
+%/mathpiper
