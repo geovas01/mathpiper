@@ -1,0 +1,72 @@
+%mathpiper,def="true"
+
+/* Division */
+
+50 # 0 / 0 <-- Undefined;
+
+52 # x_IsPositiveNumber / 0 <-- Infinity;
+52 # x_IsNegativeNumber / 0 <-- -Infinity;
+55 # (_x / y_IsNumber)_(IsZero(y)) <-- Undefined;
+55 # 0 / _x <-- 0;
+60 # (x_IsNumber / y_IsNumber)_(InNumericMode() /* Sorry, Serge Or
+                                Not(IsInteger(x) And IsInteger(y)) */ ) <--
+    DivideN(x,y);
+
+// unnecessary rule (see #100 below). TODO: REMOVE
+//55 # x_IsNumber / y_IsNegativeNumber <-- (-x)/(-y);
+
+56 # (x_IsNonZeroInteger / y_IsNonZeroInteger)_(GcdN(x,y) > 1) <--
+     [
+       Local(gcd);
+       Set(x,x);
+       Set(y,y);
+       Set(gcd,GcdN(x,y));
+       DivN(x,gcd)/DivN(y,gcd);
+     ];
+
+
+90 # x_IsInfinity / y_IsInfinity <-- Undefined;
+95  # x_IsInfinity / y_IsNumber <-- Sign(y)*x;
+95  # x_IsInfinity / y_IsComplex <-- Infinity;
+
+90 # Undefined / _y <-- Undefined;
+90 # _y / Undefined <-- Undefined;
+
+
+100 # _x / _x <-- 1;
+100 # _x /  1 <-- x;
+100 # (_x / y_IsNegativeNumber) <-- -x/(-y);
+100 # (_x / - _y) <-- -x/y;
+// fractions
+200 # (_x / _y)/ _z <-- x/(y*z);
+230 # _x / (_y / _z) <-- (x*z)/y;
+
+240 # (xlist_IsList / ylist_IsList)_(Length(xlist)=Length(ylist)) <--
+	 Map("/",{xlist,ylist});
+
+
+250 # (x_IsList / _y)_(Not(IsList(y))) <--
+[
+   Local(i,result);
+   result:={};
+   For(i:=1,i<=Length(x),i++)
+   [ DestructiveInsert(result,i,x[i] / y); ];
+   result;
+];
+
+250 # (_x / y_IsList)_(Not(IsList(x))) <--
+[
+   Local(i,result);
+   result:={};
+   For(i:=1,i<=Length(y),i++)
+   [ DestructiveInsert(result,i,x/y[i]); ];
+   result;
+];
+
+250 # _x / Infinity <-- 0;
+250 # _x / (-Infinity) <-- 0;
+
+
+400 # 0 / _x <-- 0;
+
+%/mathpiper
