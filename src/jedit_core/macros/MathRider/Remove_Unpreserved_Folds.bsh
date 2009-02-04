@@ -67,7 +67,13 @@ void remove_output_folds()
 					startFoldType = foldInfo.get(0);
 					foldStartOffset = foldInfo.get(1);
 					
-					endFoldType = buffer.getLineText(lineNumber).split(",")[0];
+					endFoldType = buffer.getLineText(lineNumber);
+					if(endFoldType.charAt(0) == '.')
+					{
+						endFoldType = endFoldType.substring(1,endFoldType.length());
+						endFoldType =" " + endFoldType;
+					}
+					endFoldType = endFoldType.split(",")[0];
 					endFoldType = endFoldType.replace("/","");
 					
 					if(endFoldType.equalsIgnoreCase(startFoldType) )
