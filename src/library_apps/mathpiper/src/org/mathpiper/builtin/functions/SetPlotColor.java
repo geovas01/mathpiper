@@ -42,7 +42,7 @@ public class SetPlotColor extends BuiltinFunctionInitialize
          Cons blueCons = getArgumentPointer(aEnvironment, aStackTop, 3).getCons();
          int redValue = Integer.parseInt(redCons.string());
          int greenValue = Integer.parseInt(greenCons.string());
-         int blueValue = Integer.parseInt(greenCons.string());
+         int blueValue = Integer.parseInt(blueCons.string());
          simulator.setColor(redValue, greenValue, blueValue);
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }

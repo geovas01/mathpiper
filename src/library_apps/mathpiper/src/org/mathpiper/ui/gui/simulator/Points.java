@@ -55,7 +55,7 @@ public class Points
 
       for(Point point : pointsList)
       {
-        g.setColor(g.getColor());
+        g.setColor(point.getColor());
         g.fillOval(point.getX(), point.getY(), DOTSIZE, DOTSIZE);
       }
 
