@@ -6,6 +6,7 @@
             <name>mathpiper</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <source-roots>
+                <root id="src.examples.dir"/>
                 <root id="src.tests.dir"/>
                 <root id="src.src.dir"/>
             </source-roots>
