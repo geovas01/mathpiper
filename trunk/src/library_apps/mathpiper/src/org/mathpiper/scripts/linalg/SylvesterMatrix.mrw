@@ -1,0 +1,44 @@
+%mathpiper,def="true"
+
+/* SylvesterMatrix */
+
+Function("SylvesterMatrix",{poly1, poly2, var})
+[
+  Local(i,m,p,q,y,z,result);
+  y:=Degree(poly1,var);
+  z:=Degree(poly2,var);
+  m:=y+z;
+  p:={};
+  q:={};
+  result:=ZeroMatrix(m,m);
+
+  For(i:=y,i>=0,i--)
+    DestructiveAppend(p,Coef(poly1,var,i));
+  For(i:=z,i>=0,i--)
+    DestructiveAppend(q,Coef(poly2,var,i));
+
+  For(i:=1,i<=z,i++)
+  [
+    Local(j,k);
+        k:=1;
+    For(j:=i,k<=Length(p),j++)
+        [
+          result[i][j]:=p[k];
+          k++;
+        ];
+  ];
+
+  For(i:=1,i<=y,i++)
+  [
+    Local(j,k);
+        k:=1;
+    For(j:=i,k<=Length(q),j++)
+        [
+          result[i+z][j]:=q[k];
+          k++;
+        ];
+  ];
+  result;
+];
+
+%/mathpiper

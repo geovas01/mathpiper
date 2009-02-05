@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+10 # Norm(_v) <-- PNorm(v,2);
+
+%/mathpiper

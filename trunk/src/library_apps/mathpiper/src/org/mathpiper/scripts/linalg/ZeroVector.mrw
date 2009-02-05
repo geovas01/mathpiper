@@ -1,0 +1,14 @@
+%mathpiper,def="true"
+
+Function("ZeroVector",{n})
+[
+    Local(i,result);
+    result:={};
+    For(i:=1,i<=n,i++)
+    [
+      DestructiveInsert(result,1,0);
+    ];
+    result;
+];
+
+%/mathpiper

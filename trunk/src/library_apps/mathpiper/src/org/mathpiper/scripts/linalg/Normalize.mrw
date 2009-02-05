@@ -1,0 +1,14 @@
+%mathpiper,def="true"
+
+Function("Normalize",{vector})
+[
+  Local(norm);
+  norm:=0;
+  ForEach(item,vector)
+  [
+    norm:=norm+item*item;
+  ];
+  (1/(norm^(1/2)))*vector;
+];
+
+%/mathpiper

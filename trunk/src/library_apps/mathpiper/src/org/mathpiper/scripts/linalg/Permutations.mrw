@@ -1,0 +1,33 @@
+%mathpiper,def="true"
+
+Function("Permutations",{result,list})
+[
+  If (Length(list) = 0,
+  [
+    result;
+  ],
+  [
+    Local(head);
+    Local(newresult);
+    Local(i);
+    head:=list[1];
+    newresult:={};
+    ForEach(item,result)
+    [
+      For(i:=Length(item)+1,i>0,i--)
+      [
+        DestructiveInsert(newresult,1,Insert(item,i,head));
+      ];
+    ];
+    newresult:=DestructiveReverse(newresult);
+    Permutations(newresult,Tail(list));
+  ]);
+];
+
+
+Function("Permutations",{list})
+[
+  Permutations({{}},list);
+];
+
+%/mathpiper
