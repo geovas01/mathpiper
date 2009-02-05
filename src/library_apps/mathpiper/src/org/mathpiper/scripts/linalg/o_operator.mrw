@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+_x o _y <-- Outer(x,y);
+
+%/mathpiper

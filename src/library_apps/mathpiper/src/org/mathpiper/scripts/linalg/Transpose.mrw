@@ -1,0 +1,13 @@
+%mathpiper,def="true"
+
+Transpose(matrix_IsList)_(Length(Dimensions(matrix))>1) <--
+[
+  Local(i,j,result);
+  result:=ZeroMatrix(Length(matrix[1]),Length(matrix));
+  For(i:=1,i<=Length(matrix),i++)
+    For(j:=1,j<=Length(matrix[1]),j++)
+      result[j][i]:=matrix[i][j];
+  result;
+];
+
+%/mathpiper

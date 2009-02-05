@@ -1,0 +1,34 @@
+%mathpiper,def="true"
+
+/* Levi-civita symbol */
+Function("LeviCivita",{indices})
+[
+  Local(i,j,length,left,right,factor);
+  length:=Length(indices);
+  factor:=1;
+
+  For (j:=length,j>1,j--)
+  [
+    For(i:=1,i<j,i++)
+    [
+      left:=indices[i];
+      right:=indices[i+1];
+
+      If (Equals(left,right),
+      [ factor := 0 ; ],
+      [
+        If(Not(Apply("<",{left,right})),
+        [
+/*
+          Swap(indices,i,i+1);
+*/
+          indices:=Insert(Delete(indices,i),i+1,left);
+          factor:= -factor;
+        ]);
+      ]);
+    ];
+  ];
+  factor;
+];
+
+%/mathpiper

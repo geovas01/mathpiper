@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+Function("BaseVector",{row,n})
+[
+    Local(i,result);
+    result:=ZeroVector(n);
+    result[row] := 1;
+    result;
+];
+
+%/mathpiper

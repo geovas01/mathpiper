@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+Trace(matrix_IsList) <-- Tr(matrix);
+
+%/mathpiper

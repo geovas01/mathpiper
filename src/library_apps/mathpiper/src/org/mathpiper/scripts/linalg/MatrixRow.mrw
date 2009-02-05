@@ -1,0 +1,14 @@
+%mathpiper,def="true"
+
+Function("MatrixRow",{matrix,row})
+[
+  Check(row > 0, "MatrixRow: row index out of range");
+  Check(row <= Length(matrix), "MatrixRow: row index out of range");
+
+  Local(result);
+  result:=matrix[row];
+
+  result;
+];
+
+%/mathpiper

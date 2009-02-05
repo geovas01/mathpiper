@@ -1,0 +1,27 @@
+%mathpiper,def="true"
+
+Function("Inverse",{matrix})
+[
+  Local(perms,indices,inv,det,n);
+  n:=Length(matrix);
+  indices:=Table(i,i,1,n,1);
+  perms:=Permutations(indices);
+  inv:=ZeroMatrix(n,n);
+  det:=0;
+  ForEach(item,perms)
+  [
+    Local(i,lc);
+    lc := LeviCivita(item);
+    det:=det+Factorize(i,1,n,matrix[i][item[i] ])* lc;
+    For(i:=1,i<=n,i++)
+        [
+         inv[item[i] ][i] := inv[item[i] ][i]+
+           Factorize(j,1,n,
+             If(j=i,1,matrix[j][item[j] ]))*lc;
+        ];
+  ];
+  Check(det != 0, "Zero determinant");
+  (1/det)*inv;
+];
+
+%/mathpiper

@@ -1,0 +1,18 @@
+%mathpiper,def="true"
+
+//
+// Diagonal: return a vector with the diagonal elements of the matrix
+//
+Function("Diagonal",{A})
+[
+	Local(result,i,n);
+	n:=Length(A);
+	result:=ZeroVector(n);
+	For(i:=1,i<=n,i++)
+	[
+		result[i] := A[i][i];
+	];
+	result;
+];
+
+%/mathpiper

@@ -1,0 +1,16 @@
+%mathpiper,def="false"
+
+20 # SymbolicDeterminant(_matrix) <--
+[
+  Local(perms,indices,result);
+  Check((IsMatrix(matrix)),"Determinant: Argument must be a matrix");
+  indices:=Table(i,i,1,Length(matrix),1);
+  perms:=Permutations(indices);
+  result:=0;
+  ForEach(item,perms)
+     result:=result+Factorize(i,1,Length(matrix),matrix[i][item[i] ])*
+                    LeviCivita(item);
+  result;
+];
+
+%/mathpiper

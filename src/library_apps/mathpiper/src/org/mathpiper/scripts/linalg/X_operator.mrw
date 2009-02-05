@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+x X y := CrossProduct(x,y);
+
+%/mathpiper
