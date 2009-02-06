@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+/* VarList: return the variables this expression depends on. */
+VarList(_expr) <-- VarList(expr,"IsVariable");
+
+Function("VarList",{expr,filter})
+[
+  RemoveDuplicates(VarListAll(expr,filter));
+];
+
+%/mathpiper

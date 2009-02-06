@@ -1,0 +1,34 @@
+%mathpiper,def="true"
+
+//////////////////////////////////////////////////
+/// Global stack operations on variables
+//////////////////////////////////////////////////
+
+
+LocalSymbols(GlobalStack, x)
+[
+  GlobalStack := {};
+
+	GlobalPop(x_IsAtom) <--
+	[
+		Check(Length(GlobalStack)>0, "GlobalPop: Error: empty GlobalStack");
+		MacroSet(x, PopFront(GlobalStack));
+		Eval(x);
+	];
+
+	HoldArgNr("GlobalPop", 1, 1);
+
+	GlobalPop() <--
+	[
+		Check(Length(GlobalStack)>0, "GlobalPop: Error: empty GlobalStack");
+		PopFront(GlobalStack);
+	];
+
+	GlobalPush(_x) <--
+	[
+		Push(GlobalStack, x);
+		x;
+	];
+];
+
+%/mathpiper

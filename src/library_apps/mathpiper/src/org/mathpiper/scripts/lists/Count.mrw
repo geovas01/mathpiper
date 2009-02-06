@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+Function("Count",{list,element})
+[
+   Local(result);
+   Set(result,0);
+   ForEach(item,list) If(Equals(item, element), Set(result,AddN(result,1)));
+   result;
+];
+
+%/mathpiper

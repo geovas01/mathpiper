@@ -1,0 +1,18 @@
+%mathpiper,def="true"
+
+TemplateFunction("MapSingle",{func,list})
+[
+  Local(mapsingleresult);
+  mapsingleresult:={};
+
+  ForEach(mapsingleitem,list)
+  [
+    DestructiveInsert(mapsingleresult,1,
+      Apply(func,{mapsingleitem}));
+  ];
+  DestructiveReverse(mapsingleresult);
+];
+UnFence("MapSingle",2);
+HoldArg("MapSingle",func);
+
+%/mathpiper

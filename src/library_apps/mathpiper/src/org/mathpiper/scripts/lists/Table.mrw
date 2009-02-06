@@ -1,0 +1,28 @@
+%mathpiper,def="true"
+
+/* Juan: TemplateFunction (as defined in the file "deffunc")
+ * also makes the arguments to the function local symbols.
+ * Use HoldArgNr to specify the index of a variable to hold
+ * (since they are defined as local symbols).
+ */
+
+TemplateFunction("Table",{body,var,count'from,count'to,step})
+  LocalSymbols(result,nr,ii)
+  [
+    MacroLocal(var);
+    result:={};
+    nr := (count'to - count'from) / step;
+    ii := 0;
+    While( ii <= nr )
+      [
+       MacroSet( var, count'from + ii * step );
+       DestructiveInsert( result,1,Eval(body) );
+       Set(ii,AddN(ii,1));
+      ];
+    DestructiveReverse(result);
+  ];
+HoldArgNr("Table",5,1); /* body */
+HoldArgNr("Table",5,2); /* var */
+UnFence("Table",5);
+
+%/mathpiper

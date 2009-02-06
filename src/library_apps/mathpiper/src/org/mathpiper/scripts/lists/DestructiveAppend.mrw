@@ -1,0 +1,8 @@
+%mathpiper,def="true"
+
+Function("DestructiveAppend",{list,element})
+[
+  DestructiveInsert(list,Length(list)+1,element);
+];
+
+%/mathpiper

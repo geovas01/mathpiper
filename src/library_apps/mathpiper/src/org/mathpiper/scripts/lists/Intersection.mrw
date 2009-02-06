@@ -1,0 +1,21 @@
+%mathpiper,def="true"
+
+Function("Intersection",{list1,list2})
+[
+  Local(l2,index,result);
+  l2:=FlatCopy(list2);
+  result:={};
+  ForEach(item,list1)
+  [
+    Set(index, Find(l2,item));
+    If(index>0,
+      [
+        DestructiveDelete(l2,index);
+        DestructiveInsert(result,1,item);
+      ]
+      );
+  ];
+  DestructiveReverse(result);
+];
+
+%/mathpiper

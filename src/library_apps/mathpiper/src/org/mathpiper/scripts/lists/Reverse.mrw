@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+// Non-destructive Reverse operation
+Reverse(list):=DestructiveReverse(FlatCopy(list));
+
+%/mathpiper
