@@ -162,7 +162,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     String code = inputLines.toString().replaceAll(";;", ";").trim();
                     code = code.replaceAll("\\\\", "");
 
-                    System.out.println(code);
+                    //System.out.println(code);
 
                     if (code.length() > 0) {
                         EvaluationResponse response = interpreter.evaluate("[" + code + "];");
