@@ -1,0 +1,12 @@
+%mathpiper,def="true"
+
+Function("Swap",{list,index1,index2})
+[
+  Local(item1,item2);
+  item1:=list[index1];
+  item2:=list[index2];
+  list[index1] := item2;
+  list[index2] := item1;
+];
+
+%/mathpiper

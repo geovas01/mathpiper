@@ -1,0 +1,24 @@
+%mathpiper,def="true"
+
+/* ���� Drop ���� */
+
+/* Needs to check the parameters */
+
+/*
+ * Drop( list, n ) gives 'list' with its first n elements dropped
+ * Drop( list, -n ) gives 'list' with its last n elements dropped
+ * Drop( list, {m,n} ) gives 'list' with elements m through n dropped
+ */
+
+RuleBase("Drop", {lst, range});
+
+Rule("Drop", 2, 1, IsList(range))
+    Concat(Take(lst,range[1]-1), Drop(lst, range[2]));
+
+Rule("Drop", 2, 2, range >= 0)
+    If( range = 0 Or lst = {}, lst, Drop( Tail(lst), range-1 ));
+
+Rule("Drop", 2, 2, range < 0)
+    Take( lst, Length(lst) + range );
+
+%/mathpiper

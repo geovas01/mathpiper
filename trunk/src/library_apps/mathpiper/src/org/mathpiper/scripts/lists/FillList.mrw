@@ -1,0 +1,12 @@
+%mathpiper,def="true"
+
+Function("FillList", {aItem, aLength})
+[
+  Local(i, aResult);
+  aResult:={};
+  For(i:=0, i<aLength, i++)
+    DestructiveInsert(aResult,1,aItem);
+  aResult;
+];
+
+%/mathpiper

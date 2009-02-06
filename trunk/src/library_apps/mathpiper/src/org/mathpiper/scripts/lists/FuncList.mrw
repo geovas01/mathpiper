@@ -1,0 +1,44 @@
+%mathpiper,def="true"
+
+//////////////////////////////////////////////////
+/// FuncList --- list all function atoms used in an expression
+//////////////////////////////////////////////////
+/// like VarList except collects functions
+
+10 # FuncList(expr_IsAtom) <-- {};
+20 # FuncList(expr_IsFunction) <--
+RemoveDuplicates(
+	Concat(
+		{Head(Listify(expr))},
+		Apply("Concat",
+			MapSingle("FuncList", Tail(Listify(expr)))
+		)
+	)
+);
+
+/*
+This is like FuncList except only looks at arguments of a given list of functions. All other functions become "opaque".
+
+*/
+10 # FuncList(expr_IsAtom, look'list_IsList) <-- {};
+// a function not in the looking list - return its type
+20 # FuncList(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, Atom(Type(expr)))) <-- {Atom(Type(expr))};
+// a function in the looking list - traverse its arguments
+30 # FuncList(expr_IsFunction, look'list_IsList) <--
+RemoveDuplicates(
+	Concat(
+		{Head(Listify(expr))},
+		[	// gave up trying to do it using Map and MapSingle... so writing a loop now.
+			// obtain a list of functions, considering only functions in look'list
+			Local(item, result);
+			result := {};
+			ForEach(item, expr) result := Concat(result, FuncList(item, look'list));
+			result;
+		]
+	)
+);
+
+HoldArgNr("FuncList", 1, 1);
+HoldArgNr("FuncList", 2, 1);
+
+%/mathpiper

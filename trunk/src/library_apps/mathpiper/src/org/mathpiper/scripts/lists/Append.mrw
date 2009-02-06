@@ -1,0 +1,8 @@
+%mathpiper,def="true"
+
+Function("Append",{list,element})
+[
+  Insert(list,Length(list)+1,element);
+];
+
+%/mathpiper

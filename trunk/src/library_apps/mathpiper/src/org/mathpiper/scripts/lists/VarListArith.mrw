@@ -1,0 +1,7 @@
+%mathpiper,def="true"
+
+/// VarListArith --- obtain arithmetic variables
+// currently the VarList(x,y) semantic is convoluted so let's introduce a new name; but in principle this needs to be cleaned up
+VarListArith(expr) := VarListSome(expr, {Atom("+"), Atom("-"), *, /});
+
+%/mathpiper

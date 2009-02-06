@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+/* ���� Partition ���� */
+
+/* Partition( list, n ) partitions 'list' into non-overlapping sublists of length n */
+
+Partition(lst, len):=
+	If( Length(lst) < len Or len = 0, {},
+        	Concat( {Take(lst,len)}, Partition(Drop(lst,len), len) ));
+
+%/mathpiper

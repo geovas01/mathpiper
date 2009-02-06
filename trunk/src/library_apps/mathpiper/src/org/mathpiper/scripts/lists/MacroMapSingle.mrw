@@ -1,0 +1,20 @@
+%mathpiper,def="true"
+
+/* Another Macro... hack for /: to work. */
+TemplateFunction("MacroMapSingle",{func,list})
+[
+  Local(mapsingleresult);
+  mapsingleresult:={};
+
+  ForEach(mapsingleitem,list)
+  [
+    DestructiveInsert(mapsingleresult,1,
+      `ApplyPure(func,{Hold(Hold(@mapsingleitem))}));
+  ];
+  DestructiveReverse(mapsingleresult);
+];
+UnFence("MacroMapSingle",2);
+HoldArg("MacroMapSingle",func);
+HoldArg("MacroMapSingle",list);
+
+%/mathpiper

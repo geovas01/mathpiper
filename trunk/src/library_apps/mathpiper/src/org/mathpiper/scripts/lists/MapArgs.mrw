@@ -1,0 +1,13 @@
+%mathpiper,def="true"
+
+TemplateFunction("MapArgs",{expr,oper})
+[
+  Set(expr,Listify(expr));
+   UnList(Concat({expr[1]},
+     Apply("MapSingle",{oper,Tail(expr)})
+   ) );
+];
+UnFence("MapArgs",2);
+HoldArg("MapArgs",oper);
+
+%/mathpiper

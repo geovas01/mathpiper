@@ -1,0 +1,17 @@
+%mathpiper,def="true"
+
+Function("Contains",{list,element})
+[
+  Local(result);
+  Set(result,False);
+  While(And(Not(result), Not(Equals(list, {}))))
+  [
+    If(Equals(Head(list),element),
+      Set(result, True),
+      Set(list, Tail(list))
+      );
+  ];
+  result;
+];
+
+%/mathpiper

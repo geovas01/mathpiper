@@ -1,0 +1,19 @@
+%mathpiper,def="true"
+
+Function("Find",{list,element})
+[
+  Local(result,count);
+  Set(result, -1);
+  Set(count, 1);
+  While(And(result<0, Not(Equals(list, {}))))
+  [
+    If(Equals(Head(list), element),
+      Set(result, count)
+      );
+    Set(list,Tail(list));
+    Set(count,AddN(count,1));
+  ];
+  result;
+];
+
+%/mathpiper

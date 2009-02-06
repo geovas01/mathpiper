@@ -1,0 +1,21 @@
+%mathpiper,def="true"
+
+Function("Difference",{list1,list2})
+[
+  Local(l2,index,result);
+  l2:=FlatCopy(list2);
+  result:=FlatCopy(list1);
+  ForEach(item,list1)
+  [
+    Set(index,Find(l2,item));
+    If(index>0,
+      [
+        DestructiveDelete(l2,index);
+        DestructiveDelete(result,Find(result,item));
+      ]
+      );
+  ];
+  result;
+];
+
+%/mathpiper
