@@ -15,30 +15,41 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.io.StandardFileOutputStream;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.userfunctions.UserFunction;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.ConsTraverser;
 
 /**
  *
  *
  */
-public class Println extends BuiltinFunctionInitialize
-{
+public class Sysout extends BuiltinFunctionInitialize {
+    
+    private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
-    {
-        LispError.checkArgumentCore(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        String orig = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
-        System.out.println(orig);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.internalUnstringify(orig);
-//        UserFunction.traceOn();
-       // System.out.println(oper);
-    }
+
+
+    public void eval(Environment aEnvironment, int aStackTop) throws Exception {
+        ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList();
+        if (subList != null)
+        {
+            ConsTraverser iter = new ConsTraverser(subList);
+            iter.goNext();
+            while (iter.getCons() != null)
+            {
+                aEnvironment.iCurrentPrinter.print(iter.ptr(), out, aEnvironment);
+                iter.goNext();
+            }
+        }
+        System.out.println();
+        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+
+    }//end method.
+
+
 }

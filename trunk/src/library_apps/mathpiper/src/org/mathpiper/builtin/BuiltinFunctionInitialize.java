@@ -829,8 +829,8 @@ public abstract class BuiltinFunctionInitialize
                 new Evaluator(new org.mathpiper.builtin.functions.SetPlotColor(), 3, Evaluator.Fixed | Evaluator.Function),
                 "SetPlotColor");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new Evaluator(new org.mathpiper.builtin.functions.Println(), 1, Evaluator.Fixed | Evaluator.Function),
-                "Println");
+                new Evaluator(new org.mathpiper.builtin.functions.Sysout(), 1, Evaluator.Variable | Evaluator.Function),
+                "Sysout");
     }
 
 
