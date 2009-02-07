@@ -1,4 +1,4 @@
-package org.mathrider.piper_me.ast;
+package org.mathrider.piper_me.types;
 
 import org.eninom.func.CList;
 

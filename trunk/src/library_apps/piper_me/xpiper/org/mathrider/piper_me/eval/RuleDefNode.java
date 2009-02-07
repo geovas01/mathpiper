@@ -1,9 +1,5 @@
 package org.mathrider.piper_me.eval;
 
-import org.eninom.collection.HashMap;
-
-import org.mathrider.piper_me.ast.*;
-
 /*
  (C) Oliver Glier 2008. This file belongs to Piper-ME/XPiper, which
  is part of a modified version of Yacas ((C) Ayal Pinkus et al.)
@@ -16,6 +12,12 @@ import org.mathrider.piper_me.ast.*;
  For the time being, it is not possible to grant such an exception for 
  Piper-ME/XPiper due to its reliance of the original Yacas code.
  */
+
+import org.eninom.collection.HashMap;
+
+import org.mathrider.piper_me.types.Chars;
+import org.mathrider.piper_me.types.Expression;
+import org.mathrider.piper_me.types.Var;
 
 //! Begin Rule-Definition
 /*<literate>*/
