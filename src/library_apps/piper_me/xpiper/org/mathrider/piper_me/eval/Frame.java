@@ -1,11 +1,5 @@
 package org.mathrider.piper_me.eval;
 
-import org.eninom.collection.HashMap;
-import org.eninom.func.Cons;
-import org.eninom.iterator.ForwardIterator;
-
-import org.mathrider.piper_me.ast.*;
-
 /*
  (C) Oliver Glier 2008. This file belongs to Piper-ME/XPiper, which
  is part of a modified version of Yacas ((C) Ayal Pinkus et al.)
@@ -19,40 +13,24 @@ import org.mathrider.piper_me.ast.*;
  Piper-ME/XPiper due to its reliance of the original Yacas code.
  */
 
+import org.eninom.collection.HashMap;
+
+import org.mathrider.piper_me.types.*;
+
 //! Frame
 /*<literate>*/
 /**
- * This class represents a frame. Frames are created when a block is executed,
- * its parent frame is always the frame of the enclosing execution.
- * Example: With the execution of [w = 3; f(x,y) = [v = 2; x + w * v * y]],
- * f is defined as the expression [v = 2; x + w * v * y]. If f is imported
- * by another frame G and then evaluted for x=4 and y=6, a frame H with
- * x=4 and y=6 and v=2 and parent G is created f's body
- * [v = 2; x + w * v * y] and then x + w * v * y is evaluated with the
- * values from H. The binding of w to 3 from the original outer block of
- * f's definion is lost, and instead the value of w is taken from frame G or
- * its parents.<br /><br />
- * 
+ * This class represents a frame for dynamic scoping. 
  * A value can be bound to a variable either locally or globally. 
- * A global value id visible snd can be extended by child frames, however,
- * redifinions or extensions do not traverse back to parent frames. They
- * can be imported explicitely by other frames. However, frames are not
- * programmatically accessible. Instead, global definitons can be imported
- * from a block. This implies executing the block and afterwards importing
- * all or some of its global values.<br />
- * A local value is invisible for any other frame. It is possible to use
- * both, local and global values, as arguments for function calls.<br /><br />
- * 
- * This class is exporatory. A more sophisticated interpreter might use
- * a less straightforward organization of stackframes.
+ * To global value, dynamic scopng applis, while local variables
+ * are only visible within a block (and unvisible in inner blocks).
  */
 public final class Frame {
 
   private Frame parent;
 
   /*
-   * Values are stored in a hashmap. More sophisticated interpreters should
-   * compile this map into an plain array and resolve variables to indices.
+   * Values are stored in a hashmap.
    */
   private HashMap<Var, Expression> 
       locals = new HashMap<Var, Expression>(8),
@@ -99,18 +77,6 @@ public final class Frame {
     overwrites.put(v, e);
   }
   
-  /**
-   * import all global definitions from another frame (module)
-   */
-  public void importGlobal(Frame frame) {
-    ForwardIterator<Cons<Var, Expression>> it = 
-      frame.overwrites.iterator();
-    
-    while(it.hasNext()) {
-      Cons<Var, Expression> mapping = it.next();
-      overwrites.put(mapping.first(), mapping.second());
-    }
-  }
   
   /**
    * Return an expression. First, the local definitions are examined. If the
@@ -130,18 +96,21 @@ public final class Frame {
      * necessary to introduce "buffer-frames" before the first frame of a
      * sub-thread.
      */
-    int depth = 0;
     while ((e == null) && (frame != null)) {
-      depth++;
       e = frame.overwrites.get(v);
       frame = frame.parent;
     }//`while`
     if (e == null)
       e = v;
     
-    if (depth > 4)
-      parent.parent.overwrites.put(v, e);
     
     return e;
+  }
+  
+  /**
+   * deletes the parent frame for context-free execution:
+   */
+  public void deleteContext() {
+    parent = null;
   }
 }// `class`

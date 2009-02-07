@@ -1,7 +1,6 @@
-package org.mathrider.piper_me.ast;
+package org.mathrider.piper_me.types;
 
 import org.eninom.collection.HashMap;
-import org.eninom.func.Cons;
 
 /*
  (C) Oliver Glier 2008. This file belongs to Piper-ME/XPiper, which
@@ -19,57 +18,45 @@ import org.eninom.func.Cons;
 //! Variable
 /*<literate>*/
 /**
- * Instances of this class identify variables. In Piper, a variable is a pair of
- * a name and an arity, that is, variables of equal name but distinct arity are
- * different.
+ * Variables are essentially unique symbols for assigning values to. Our
+ * variables have no associated arity: If a variable is assigned a value,
+ * the assignment affects all associated and currently defined arities,
+ * including 0.
  */
 public final class Var extends Expression {
   
   private final String name;
 
-  private final int arity;
-
   /**
    * The constructor is package-private: Variables are placed in a pool.
    */
-  private Var(String name, int arity) {
+  private Var(String name) {
     this.name = name;
-    this.arity = arity;
   }
 
   public String name() {
     return name;
   }
 
-  public int arity() {
-    return arity;
-  }
-
   @Override
   public String toString() {
-    return "@" + name + "?" + arity;
+    return name;
   }
 
-  static private class Key extends Cons<String, Integer> {
-    public Key(String name, int arity) {
-      super(name, arity);
-    }
-  };
-
-  static private HashMap<Key, Var> pool = new HashMap<Key, Var>();
+  static private HashMap<String, Var> pool = new HashMap<String, Var>();
 
   /**
-   * returns variable. Variables are stored in a global pool and identified by
-   * name and arity. This method always returns the same object for given name
-   * and arity. For compliance with Java ME, weak hashmaps are not used, i.e.
-   * the pool is never garbage-collected.
+   * Returns variable. Each name has a unique associated variable. Currenly,
+   * variables are never removed from memory. Doing so would involve close
+   * cooperation with the parser and the environment to keep track of used
+   * variable names. 
    */
-  static public synchronized Var byName(String name, int arity) {
-    Key k = new Key(name, arity);
-    Var v = pool.get(k);
+  static public synchronized Var byName(String name) {
+
+    Var v = pool.get(name);
     if (v == null) {
-      v = new Var(name, arity);
-      pool.put(k, v);
+      v = new Var(name);
+      pool.put(name, v);
     }
     return v;
   }

@@ -1,6 +1,6 @@
 package org.mathrider.piper_me.eval;
 
-import org.mathrider.piper_me.ast.*;
+import org.mathrider.piper_me.types.*;
 
 import junit.framework.TestCase;
 
@@ -13,10 +13,10 @@ public class FrameTests extends TestCase {
   
   static public void testRuleDefSyntax() {
     Frame frame = new Frame(null);
-    Var plus = Var.byName("plus",2);
-    Var A = Var.byName("A",0);
-    Var B = Var.byName("B",0);
-    Var B2 = Var.byName("B",0);
+    Var plus = Var.byName("plus");
+    Var A = Var.byName("A");
+    Var B = Var.byName("B");
+    Var B2 = Var.byName("B");
     assertTrue(B == B2);
     Expression P1 = new Expression();
     Expression P2 = new Expression();
@@ -34,8 +34,8 @@ public class FrameTests extends TestCase {
     Frame inbetween = new Frame(outer);
     Frame inner = new Frame(inbetween);
    
-    Var A = Var.byName("A",0);
-    Var B = Var.byName("B",0);
+    Var A = Var.byName("A");
+    Var B = Var.byName("B");
     Expression e1 = new Expression();
     Expression e2 = new Expression();
     Expression e3 = new Expression();
@@ -56,13 +56,6 @@ public class FrameTests extends TestCase {
     assertEquals(e1, inner.value(A));
     assertEquals(e3, outer.value(B));
     assertEquals(e3, inbetween.value(B));
-    assertEquals(e3, inner.value(B));
-    
-    
-    inner.setGlobal(B, e1);
-    inbetween.importGlobal(inner);
-    assertEquals(e2, inbetween.value(A));
-    assertEquals(e1, inbetween.value(B));
-   
+    assertEquals(e3, inner.value(B));   
   }
 }
