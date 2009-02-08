@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+RuleBase("=>",{a,b});
+
+%/mathpiper

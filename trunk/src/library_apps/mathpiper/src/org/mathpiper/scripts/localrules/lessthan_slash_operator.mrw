@@ -1,0 +1,7 @@
+%mathpiper,def="false"
+
+RuleBase("<-",{left,right});
+HoldArg("<-",left);
+HoldArg("<-",right);
+
+%/mathpiper

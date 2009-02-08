@@ -1,0 +1,13 @@
+%mathpiper,def="true"
+
+5 # (_expression /: LocPatterns(_patterns)) <--
+[
+  MacroSubstitute(expression,"LocPredicate","LocChange");
+];
+10 # (_expression /: _patterns) <--
+[
+  Set(patterns, LocProcess(patterns));
+  MacroSubstitute(expression,"LocPredicate","LocChange");
+];
+
+%/mathpiper

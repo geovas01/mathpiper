@@ -1,0 +1,13 @@
+%mathpiper,def="true"
+
+TemplateFunction("WithValue",{var,val,expr})
+[
+  If(IsList(var),
+     ApplyPure("MacroLocal",var),
+     MacroLocal(var)
+    );
+  ApplyPure(":=",{var,val});
+  Eval(expr);
+];
+
+%/mathpiper

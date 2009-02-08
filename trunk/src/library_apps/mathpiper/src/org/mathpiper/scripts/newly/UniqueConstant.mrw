@@ -1,0 +1,10 @@
+%mathpiper,def="true"
+
+UniqueConstant() <--
+[
+  Local(result);
+  result := String(LocalSymbols(C)(C));
+  Atom(StringMidGet(2,Length(result)-1,result));
+];
+
+%/mathpiper
