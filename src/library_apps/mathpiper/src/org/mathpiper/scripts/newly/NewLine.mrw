@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+NewLine() := WriteN(Nl(),1);
+NewLine(n):= WriteN(Nl(),n);
+
+%/mathpiper

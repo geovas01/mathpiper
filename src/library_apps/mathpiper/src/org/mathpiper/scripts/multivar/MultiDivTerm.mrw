@@ -1,0 +1,25 @@
+%mathpiper,def="check"
+
+MultiDivTerm(MultiNomial(_vars,_term1),MultiNomial(_vars,_term2)) <--
+[
+  Local(lm1,lm2);
+  Set(lm1,MultiLeadingTerm(MultiNomial(vars,term1)) );
+  Set(lm2,MultiLeadingTerm(MultiNomial(vars,term2)) );
+  CreateTerm(vars,{lm1[1]-lm2[1],lm1[2] / lm2[2]});
+];
+MultiS(_g,_h,MultiNomial(_vars,_terms)) <--
+[
+  Local(gamma);
+
+  gamma :=Max(MultiDegree(g),MultiDegree(h));
+  Local(result,topterm);
+  topterm := MM(Factorize(vars^gamma));
+
+  result :=
+    MultiDivTerm(topterm,MultiLT(g))*g -
+    MultiDivTerm(topterm,MultiLT(h))*h;
+
+  result;
+];
+
+%/mathpiper

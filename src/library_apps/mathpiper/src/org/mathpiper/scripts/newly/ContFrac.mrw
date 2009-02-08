@@ -1,0 +1,30 @@
+%mathpiper,def="true"
+
+//////////////////////////////////////////////////
+/// continued fractions for polynomials
+//////////////////////////////////////////////////
+
+/// main interface
+10 # ContFrac(_n) <-- ContFrac(n, 6);
+50 # ContFrac(_n,_depth) <-- ContFracEval(ContFracList(n, depth), rest);
+
+40 # ContFrac(n_CanBeUni,_depth)_(Length(VarList(n)) = 1) <--
+[
+  ContFracDoPoly(n,depth,VarList(n)[1]);
+];
+
+5  # ContFracDoPoly(_exp,0,_var) <-- rest;
+5  # ContFracDoPoly(0,0,_var) <-- rest;
+10 # ContFracDoPoly(_exp,_depth,_var) <--
+[
+  Local(content,exp2,first,second);
+  first:=Coef(exp,var,0);
+  exp:=exp-first;
+  content:=Content(exp);
+  exp2:=DivPoly(1,PrimitivePart(exp),var,5+3*depth)-1;
+  second:=Coef(exp2,0);
+  exp2 := exp2 - second;
+  first+content/((1+second)+ContFracDoPoly(exp2,depth-1,var));
+];
+
+%/mathpiper

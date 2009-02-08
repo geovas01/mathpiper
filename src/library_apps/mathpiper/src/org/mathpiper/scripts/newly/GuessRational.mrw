@@ -1,0 +1,33 @@
+%mathpiper,def="true"
+
+/// guess the rational number behind an imprecise number
+/// prec parameter is the max number of digits you can have in the denominator
+GuessRational(_x) <-- GuessRational(x, Floor(1/2*BuiltinPrecisionGet()));
+GuessRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
+	Local(denom'estimate, cf, i);
+	denom'estimate := 1;
+	cf := ContFracList(x);
+	For(i:=2, i<=Length(cf) And denom'estimate < 10^prec, i++)
+		[	// estimate the denominator
+			denom'estimate := denom'estimate * If(
+				cf[i] = 1,
+				If(
+					i+2<=Length(cf),	// have at least two more terms, do a full estimate
+					RoundTo(N(Eval(cf[i]+1/(cf[i+1]+1/cf[i+2]))), 3),
+					// have only one more term
+					RoundTo(N(Eval(cf[i]+1/cf[i+1])), 3)
+				),
+				// term is not 1, use the simple estimate
+				cf[i]
+			);
+		];
+	If (denom'estimate < 10^prec,
+		If(InVerboseMode(), Echo({"GuessRational: all ", i, "terms are within limits"})),
+		i--	// do not use the last term
+	);
+	i--;	// loop returns one more number
+	If(InVerboseMode(), Echo({"GuessRational: using ", i, "terms of the continued fraction"}));
+	ContFracEval(Take(cf, i));
+];
+
+%/mathpiper

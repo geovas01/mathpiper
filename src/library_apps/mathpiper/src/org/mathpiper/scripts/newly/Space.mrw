@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+Space() := WriteN(" ",1);
+Space(n):= WriteN(" ",n);
+
+%/mathpiper

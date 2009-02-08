@@ -1,0 +1,30 @@
+%mathpiper,def="true"
+
+/* Small theorem prover for propositional logic, based on the
+ * resolution principle.
+ * Written by Ayal Pinkus, based on the simple theorem prover from "Prolog, Ivan Bratko, chapter 20"
+ * Version 0.1 initial implementation.
+ *
+ *
+ * Examples:
+CanProve(( (a=>b) And (b=>c)=>(a=>c) ))  <-- True
+CanProve(a  Or   Not a)                  <-- True
+CanProve(True  Or  a)                    <-- True
+CanProve(False  Or  a)                   <-- a
+CanProve(a  And   Not a)                 <-- False
+CanProve(a  Or b Or (a And b))           <-- a Or b
+ */
+
+ // <==> LogicSimplify(expr, 3)
+
+/* CanProve tries to prove that the negation of the negation of
+   the proposition is true. Negating twice is just a trick to
+   allow all the simplification rules a la De Morgan to operate
+ */
+/*CanProve(_proposition)    <-- CanProveAux( Not CanProveAux( Not proposition));*/
+
+CanProveAux(_proposition)    <-- LogicSimplify(proposition, 3);
+
+CanProve(_proposition)      <-- CanProveAux( proposition );
+
+%/mathpiper

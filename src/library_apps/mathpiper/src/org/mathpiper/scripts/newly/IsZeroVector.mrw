@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+Function("IsZeroVector",{aList}) aList = ZeroVector(Length(aList));
+
+%/mathpiper

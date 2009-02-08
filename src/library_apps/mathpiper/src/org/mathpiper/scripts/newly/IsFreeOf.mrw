@@ -1,0 +1,18 @@
+%mathpiper,def="true"
+
+1 # IsFreeOf({},_expr) <-- True;
+2 # IsFreeOf(var_IsList, _expr) <-- And(IsFreeOf(Head(var),expr), IsFreeOf(Tail(var),expr));
+
+4 # IsFreeOf(_var,{}) <-- True;
+5 # IsFreeOf(_var,expr_IsList) <-- And(IsFreeOf(var,Head(expr)), IsFreeOf(var,Tail(expr)));
+
+/* Accept any variable. */
+10 # IsFreeOf(_expr,_expr) <-- False;
+
+/* Otherwise check all leafs of a function. */
+11 # IsFreeOf(_var,expr_IsFunction) <-- IsFreeOf(var,Tail(Listify(expr)));
+
+/* Else it doesn't depend on any variable. */
+12 # IsFreeOf(_var,_expr) <-- True;
+
+%/mathpiper

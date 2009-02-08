@@ -1,0 +1,22 @@
+%mathpiper,def="true"
+
+//////////////////////////////////////////////////
+/// ContFracEval: evaluate continued fraction from the list of coefficients
+//////////////////////////////////////////////////
+/// Each coefficient is either a single expression or a list of 2 expressions, giving the term and the numerator of the current level in the fraction.
+/// ContFracEval({{a0, b0}, {a1, b1}, ...}) = a0+b0/(a1+b1/(...))
+/// ContFracEval({a0, a1, ...}) = a0+1/(a1+1/(...))
+
+10 # ContFracEval({}, _rest) <-- rest;
+// finish recursion here
+10 # ContFracEval({{_n, _m}}, _rest) <-- n+m+rest;
+15 # ContFracEval({_n}, _rest) <-- n+rest;
+/// Continued fractions with nontrivial numerators
+20 # ContFracEval(list_IsList, _rest)_(IsList(Head(list))) <-- Head(Head(list)) + Tail(Head(list)) / ContFracEval(Tail(list), rest);
+/// Continued fractions with unit numerators
+30 # ContFracEval(list_IsList, _rest) <-- Head(list) + 1 / ContFracEval(Tail(list), rest);
+
+/// evaluate continued fraction: main interface
+ContFracEval(list_IsList) <-- ContFracEval(list, 0);
+
+%/mathpiper
