@@ -28,7 +28,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
  *
  *
  */
-public class Sysout extends BuiltinFunctionInitialize {
+public class SysOut extends BuiltinFunctionInitialize {
     
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
 
@@ -47,7 +47,9 @@ public class Sysout extends BuiltinFunctionInitialize {
                 iter.goNext();
             }
         }
-        System.out.println(out.toString());
+        String output = out.toString();
+        System.out.println(output);
+        aEnvironment.iCurrentOutput.write(output);
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
 
     }//end method.
