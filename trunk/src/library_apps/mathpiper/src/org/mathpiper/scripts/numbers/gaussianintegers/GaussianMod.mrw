@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+GaussianMod(z_IsGaussianInteger,w_IsGaussianInteger) <-- z - w * Round(z/w);
+
+%/mathpiper

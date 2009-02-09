@@ -1,0 +1,25 @@
+%mathpiper,def="true"
+
+Function("IsGaussianPrime",{x})
+[
+        if( IsGaussianInteger(x) )[
+                if( IsZero(Re(x)) )[
+                        ( Abs(Im(x)) % 4 = 3 And IsPrime(Abs(Im(x))) );
+                ] else if ( IsZero(Im(x)) ) [
+                        ( Abs(Re(x)) % 4 = 3 And IsPrime(Abs(Re(x))) );
+                ] else [
+                        IsPrime(Re(x)^2 + Im(x)^2);
+                ];
+        ] else [
+                False;
+        ];
+
+];
+
+
+/*
+10 # IsGaussianPrime(p_IsInteger) <-- IsPrime(p) And Mod(p,3)=1;
+20 # IsGaussianPrime(p_IsGaussianInteger) <-- IsPrime(GaussianNorm(p));
+*/
+
+%/mathpiper
