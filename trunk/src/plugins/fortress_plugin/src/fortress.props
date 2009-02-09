@@ -1,0 +1,81 @@
+# Properties file for Fortress plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.fortressplugin.FortressPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.fortressplugin.FortressPlugin.name=Fortress
+plugin.org.mathrider.fortressplugin.FortressPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.fortressplugin.FortressPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.fortressplugin.FortressPlugin.docs=index.html
+plugin.org.mathrider.fortressplugin.FortressPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.fortressplugin.FortressPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.fortressplugin.FortressPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.fortressplugin.FortressPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.fortressplugin.FortressPlugin..longdescription=description.html
+#}}}
+
+
+
+
+fortress.shell.msg.info=\nFortress Shell \n\
+
+
+fortress.shell.msg.usage=Fortress, a computer algebra system for beginners.
+
+
+
+# plugin menu
+plugin.org.mathrider.fortressplugin.FortressPlugin.menu=fortress
+#	- \
+#	fortress.choose-file \
+#	fortress.save-file \
+#	fortress.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+fortress.label=fortress
+
+# action labels for actions supplied by actions.xml
+fortress.choose-file.label=Choose notepad file
+fortress.save-file.label=Save notepad file
+fortress.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.fortress.option-pane=fortress
+
+# Option pane activation BeanShell snippet
+options.fortress.code=new org.mathrider.fortressplugin.FortressOptionPane();
+
+# Option pane labels
+options.fortress.label=fortress
+options.fortress.file=File:
+options.fortress.choose-file=Choose
+options.fortress.choose-file.title=Choose a notepad file
+options.fortress.choose-font=Font:
+options.fortress.show-filepath.title=Display notepad file path
+
+# window title
+fortress.title=Fortress
+
+# window toolbar buttons
+fortress.choose-file.icon=Open.png
+fortress.save-file.icon=Save.png
+fortress.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.fortress.show-filepath=true
+options.fortress.font=Monospaced
+options.fortress.fontstyle=0
+options.fortress.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.fortress.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

@@ -289,6 +289,21 @@
 		
 	</target>
 	
+	<target id="fortress_plugin" name="fortress_plugin" >
+		<ant dir="${plugins.src.dir}/fortress_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/fortress_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/fortress_plugin/src"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/fortress_plugin/dist/fortress_plugin.jar" todir="${plugins.jars.dir}"/> 
+		
+		<copy file="${plugins.src.dir}/fortress_plugin/fortress_unix_run.sh" todir="${master.build.dir}/mathrider"/>
+		
+	</target>
+	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
 		geogebra_plugin, hoteqn_plugin, clojure_plugin, u6502_plugin, jung_plugin" />
