@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+GaussianNorm(z_IsGaussianInteger) <-- Re(z)^2+Im(z)^2;
+
+%/mathpiper

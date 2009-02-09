@@ -1,0 +1,8 @@
+%mathpiper,def="true"
+
+10 # GaussianGcd(n_IsGaussianInteger,m_IsGaussianInteger) <--
+[
+	If(N(Abs(m))=0,n, GaussianGcd(m,n - m*Round(n/m) ) );
+];
+
+%/mathpiper
