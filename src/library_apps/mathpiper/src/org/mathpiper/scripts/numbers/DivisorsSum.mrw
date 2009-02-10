@@ -1,0 +1,26 @@
+%mathpiper,def="true"
+
+// Algorithm adapted from:
+// Elementary Number Theory, David M. Burton
+// Theorem 6.2 p112
+5  # DivisorsSum(0)	<-- 0;
+5  # DivisorsSum(1)	<-- 1;
+10 # DivisorsSum(_n) 	<--
+[
+	Check(IsPositiveInteger(n),
+		"DivisorsSum: argument must be positive integer");
+	Local(factors,i,sum,len,p,k);
+	p:=0;k:=0;
+	factors:={};
+	factors:=Factors(n);
+	len:=Length(factors);
+	sum:=1;
+	For(i:=1,i<=len,i++)[
+		p:=factors[i][1];
+		k:=factors[i][2];
+		sum:=sum*(p^(k+1)-1)/(p-1);
+	];
+	sum;
+];
+
+%/mathpiper

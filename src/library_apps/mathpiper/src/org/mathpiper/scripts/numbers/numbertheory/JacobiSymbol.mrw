@@ -1,0 +1,27 @@
+%mathpiper,def="true"
+
+/* Implementation of some number theoretical functions for MathPiper */
+/* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
+
+/** Compute the Jacobi symbol JS(m/n) - n must be odd, both positive.
+See the Algo book for documentation.
+
+*/
+
+10 # JacobiSymbol(_a, 1) <-- 1;
+15 # JacobiSymbol(0, _b) <-- 0;
+18 # JacobiSymbol(_a, _b) _ (Gcd(a,b)>1) <-- 0;
+
+20 # JacobiSymbol(_a, b_IsOdd)_(a>=Abs(b) Or a<0) <-- JacobiSymbol(Mod(a,Abs(b)),Abs(b));
+
+30 # JacobiSymbol(a_IsEven, b_IsOdd) <--
+[
+	Local(c, s);
+	// compute c,s where a=c*2^s and c is odd
+	{c,s}:=FindPrimeFactorSimple(a, 2);	// use the "Simple" function because we don't expect a worst case here
+	If(Mod(s,2)=1 And Abs(Mod(b,8)-4)=1, -1, 1) * JacobiSymbol(c,b);
+];
+
+40 # JacobiSymbol(a_IsOdd, b_IsOdd) <-- If(Mod(a,4)=3 And Mod(b,4)=3, -1, 1) * JacobiSymbol(b,a);
+
+%/mathpiper

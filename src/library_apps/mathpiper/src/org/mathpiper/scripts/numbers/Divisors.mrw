@@ -1,0 +1,24 @@
+%mathpiper,def="true"
+
+// Algorithm adapted from:
+// Elementary Number Theory, David M. Burton
+// Theorem 6.2 p112
+5  # Divisors(0)	<-- 0;
+5  # Divisors(1)	<-- 1;
+// Unsure about if there should also be a function that returns
+// n's divisors, may have to change name in future
+10 # Divisors(_n)	<--
+[
+	Check(IsPositiveInteger(n),
+		"Divisors: argument must be positive integer");
+	Local(len,sum,factors,i);
+	sum:=1;
+	factors:=Factors(n);
+	len:=Length(factors);
+	For(i:=1,i<=len,i++)[
+		sum:=sum*(factors[i][2]+1);
+	];
+	sum;
+];
+
+%/mathpiper

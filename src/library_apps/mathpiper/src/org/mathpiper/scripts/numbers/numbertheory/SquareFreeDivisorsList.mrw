@@ -1,0 +1,21 @@
+%mathpiper,def="true"
+
+/* Implementation of some number theoretical functions for MathPiper */
+/* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
+
+/* Returns a list of the square-free divisors of n */
+SquareFreeDivisorsList(n_IsPositiveInteger) <--
+[
+ Local(nFactors,f,result,oldresult,x);
+ nFactors:= Factors(n);
+ result := {1};
+ ForEach (f,nFactors)
+    [
+      oldresult := result;
+        ForEach (x,oldresult)
+	  result:=Append(result,x*f[1]);
+    ];
+  result;
+];
+
+%/mathpiper

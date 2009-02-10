@@ -1,0 +1,27 @@
+%mathpiper,def="true"
+
+// Carmichael numbers are odd,squarefree and have at least 3 prime factors
+5  # IsCarmichaelNumber(n_IsEven)		<-- False;
+5  # IsCarmichaelNumber(_n)_(n<561)		<-- False;
+10 # IsCarmichaelNumber(n_IsPositiveInteger)	<--
+[
+	Local(i,factors,length,carmichael);
+
+	factors:=Factors(n);
+	carmichael:=True;
+	length:=Length(factors);
+	if( length < 3)[
+		 carmichael:=False;
+	] else [
+		For(i:=1,i<=length And carmichael,i++)[
+			//Echo( n-1,"%",factors[i][1]-1,"=", Mod(n-1,factors[i][1]-1) );
+			If( Mod(n-1,factors[i][1]-1) != 0, carmichael:=False );
+			If(factors[i][2]>1,carmichael:=False);	// squarefree
+		];
+	];
+	carmichael;
+];
+
+IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
+
+%/mathpiper

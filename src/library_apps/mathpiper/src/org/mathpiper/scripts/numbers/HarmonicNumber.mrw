@@ -1,0 +1,14 @@
+%mathpiper,def="true"
+
+10 # 	HarmonicNumber(n_IsInteger)	<-- HarmonicNumber(n,1);
+HarmonicNumber(n_IsInteger,r_IsPositiveInteger) <--
+[
+	// small speed up
+	if( r=1 )[
+		Sum(k,1,n,1/k);
+	] else [
+		Sum(k,1,n,1/k^r);
+	];
+];
+
+%/mathpiper

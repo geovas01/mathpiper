@@ -1,0 +1,14 @@
+%mathpiper,def="true"
+
+// Algorithm adapted from:
+// Elementary Number Theory, David M. Burton
+// Definition 9.2 p191
+
+10 # LegendreSymbol(_a,_p)	<--
+[
+        Check( IsInteger(a) And IsInteger(p) And p>2 And IsCoprime(a,p) And IsPrime(p),
+                "LegendreSymbol: Invalid arguments");
+	If(IsQuadraticResidue(a,p), 1, -1 );
+];
+
+%/mathpiper

@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+10 # BellNumber(n_IsInteger)		<-- Sum(k,1,n,StirlingNumber2(n,k));
+
+%/mathpiper

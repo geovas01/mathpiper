@@ -1,0 +1,17 @@
+%mathpiper,def="true"
+
+/// Product of small primes <= 257. Computed only once.
+LocalSymbols(p, q)
+[
+	// p:= 1;
+	ProductPrimesTo257() := 2*3*[
+		If(
+			IsInteger(p),
+			p,
+			p := Factorize(Select({{q}, Mod(q^2,24)=1 And IsSmallPrime(q)}, 5 .. 257))
+		);
+//		p;
+	];
+];
+
+%/mathpiper

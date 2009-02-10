@@ -1,0 +1,21 @@
+%mathpiper,def="true"
+
+/* Implementation of some number theoretical functions for MathPiper */
+/* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
+
+/* RamanujanSum(k,n) = the sum of the n-th powers of the
+k-th primitive roots of the identity */
+
+10 # RamanujanSum(k_IsPositiveInteger,0) <-- Totient(k);
+
+20 # RamanujanSum(k_IsPositiveInteger,n_IsPositiveInteger) <--
+[
+ Local(s,gcd,d);
+ s:= 0;
+ gcd := Gcd(n,k);
+ ForEach (d,DivisorsList(gcd))
+  s:=s+d*Moebius(k/d);
+ s;
+];
+
+%/mathpiper
