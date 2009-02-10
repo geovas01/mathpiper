@@ -358,6 +358,11 @@ public class SimulatorPanel extends JPanel implements Runnable {
        Points.setColor(red, green, blue);
   }
 
+  public void setPlotWidth(int plotWidth)
+  {
+       Points.setPlotWidth(plotWidth);
+  }
+
     private void printStats() {
         /*System.out.println("Frame Count/Loss: " + frameCount + " / " + totalFramesSkipped);
         System.out.println("Average FPS: " + df.format(averageFPS));

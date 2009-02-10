@@ -120,6 +120,11 @@ public class SimulatorFrame extends JFrame implements WindowListener, ActionList
        simulatorPanel.setColor(red, green, blue);
   }
 
+  public void setPlotWidth(int plotWidth)
+  {
+       simulatorPanel.setPlotWidth(plotWidth);
+  }
+
   // ----------------------------------------------------
 
   public static void main(String args[])

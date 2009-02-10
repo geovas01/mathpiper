@@ -16,11 +16,13 @@ public class Points
 {
   private List<Point> pointsList = Collections.synchronizedList(new ArrayList<Point>());
 
-  private static final int DOTSIZE = 4;
-  private static final int RADIUS = DOTSIZE/2;
+  //private static final int DOTSIZE = 4;
+  //private static final int RADIUS = DOTSIZE/2;
   private static final int MAXPOINTS = 40;
 
   private static volatile Color color = new Color(0,0,0);
+
+  private static volatile int plotWidth = 4;
 
 
   private int pWidth, pHeight;   // panel dimensions
@@ -36,7 +38,7 @@ public class Points
 
   public synchronized void addPoint(int x, int y)
   {
-      pointsList.add(new Point(x,y, color));
+      pointsList.add(new Point(x,y, color, plotWidth));
   }
 
   public synchronized void clear()
@@ -56,7 +58,7 @@ public class Points
       for(Point point : pointsList)
       {
         g.setColor(point.getColor());
-        g.fillOval(point.getX(), point.getY(), DOTSIZE, DOTSIZE);
+        g.fillOval(point.getX(), point.getY(), point.getPlotWidth(), point.getPlotWidth());
       }
 
     
@@ -67,12 +69,14 @@ public class Points
       private int x;
       private int y;
       private Color color;
+      private int plotWidth;
 
-      private Point(int x, int y, Color color)
+      private Point(int x, int y, Color color, int plotWidth)
       {
           this.x=x;
           this.y=y;
           this.color = color;
+          this.plotWidth = plotWidth;
       }
 
         public int getX() {
@@ -87,6 +91,10 @@ public class Points
             return this.color;
         }
 
+        public int getPlotWidth() {
+            return this.plotWidth;
+        }
+
   }
 
 public static synchronized void setColor(int red, int green, int blue)
@@ -96,5 +104,10 @@ public static synchronized void setColor(int red, int green, int blue)
         color = new Color(red, green, blue);
     }
 }
+
+  public static void setPlotWidth(int plotWidthParam)
+  {
+       plotWidth = plotWidthParam;
+  }
 
 }  // end of Worm class
