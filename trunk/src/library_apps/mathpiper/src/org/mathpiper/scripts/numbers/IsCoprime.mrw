@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+5  # IsCoprime(list_IsList)                     <-- (Lcm(list) = Product(list));
+10 # IsCoprime(n_IsInteger,m_IsInteger)		<-- (Gcd(n,m) = 1);
+
+%/mathpiper

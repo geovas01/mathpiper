@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsSquareFree(n_IsInteger)	<-- ( Moebius(n) != 0 );
+
+%/mathpiper

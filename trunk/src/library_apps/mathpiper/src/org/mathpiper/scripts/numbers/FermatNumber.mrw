@@ -1,0 +1,9 @@
+%mathpiper,def="true"
+
+Function("FermatNumber",{n})[
+	Check(IsPositiveInteger(n),
+		"FermatNumber: argument must be a positive integer");
+	2^(2^n)+1;
+];
+
+%/mathpiper

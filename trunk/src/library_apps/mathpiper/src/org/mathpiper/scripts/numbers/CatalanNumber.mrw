@@ -1,0 +1,9 @@
+%mathpiper,def="true"
+
+CatalanNumber(_n) <--
+[
+	Check( IsPositiveInteger(n), "CatalanNumber: Error: argument must be positive" );
+	Bin(2*n,n)/(n+1);
+];
+
+%/mathpiper

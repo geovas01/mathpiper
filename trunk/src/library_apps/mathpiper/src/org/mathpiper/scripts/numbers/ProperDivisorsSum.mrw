@@ -1,0 +1,10 @@
+%mathpiper,def="true"
+
+10 # ProperDivisorsSum(_n) <--
+[
+        Check(IsPositiveInteger(n),
+                "ProperDivisorsSum: argument must be positive integer");
+        DivisorsSum(n)-n;
+];
+
+%/mathpiper
