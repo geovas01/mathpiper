@@ -1,0 +1,51 @@
+%mathpiper,def="true"
+
+ExtendedEuclideanMonic(_f,_g) <--
+[
+   Local(rho,r,s,t,i);
+
+/*
+Echo({f,g});
+Echo({});
+*/
+
+   /* Initialize the loop */
+   rho:={LeadingCoef(f),LeadingCoef(g)};
+   r:={Monic(f),Monic(g)};
+   s:={1/(rho[1]),0};
+   t:={0,1/(rho[2])};
+   i:=1;
+
+   Local(q,newr,news,newt,newrho);
+   newr:=r[2];
+   While(newr != 0)
+   [
+     q   :=Div(r[i],r[i+1]);
+     newr:=Mod(r[i],r[i+1]);
+     newrho:=LeadingCoef(newr);
+
+
+     If (newr != 0, newr:=Monic(newr));
+     news  :=(s[i]-q*s[i+1]);
+     newt  :=(t[i]-q*t[i+1]);
+     If(newrho != 0,
+       [
+         news:=news/newrho;
+         newt:=newt/newrho;
+       ]);
+     DestructiveAppend(rho,newrho);
+     DestructiveAppend(r  ,newr);
+     DestructiveAppend(s,news);
+     DestructiveAppend(t,newt);
+     i++;
+   ];
+
+/*
+TableForm({i,r,s,t});
+Echo({});
+*/
+
+   {r[i],s[i],t[i]};
+];
+
+%/mathpiper

@@ -1,0 +1,44 @@
+%mathpiper,def="check"
+
+/* Partial fraction expansion of g/f with Degree(g)<Degree(f) */
+PartFracExpand(_g,_f) <--
+[
+  Local(mlist,vlist,res);
+
+/* Echo({"factors = ",Factors(f)}); */
+
+  mlist:=Map("^",Transpose(Factors(f)));
+
+/* Echo({"mlist = ",mlist}); */
+
+  vlist:=Map("Rem",{FillList(g,Length(mlist)),mlist});
+
+
+/* Echo({"g = ",g}); */
+/* Echo({"vlist = ",vlist}); */
+
+  If(IsInteger(f),
+    res:=ChineseRemainderInteger(mlist,vlist)[2],
+    res:=ChineseRemainderPoly(mlist,vlist)[2]
+    );
+
+
+/* Echo({res,mlist});  */
+  Local(result,divlist);
+
+
+  divlist:=Map("/",{res,mlist});
+
+  If(Length(divlist)<2,
+    Add(divlist),
+    [
+      result:=divlist[1];
+      ForEach(item,Tail(divlist))
+      [
+        result:=UnList({Atom("+"),result,item});
+      ];
+      result;
+    ]);
+];
+
+%/mathpiper

@@ -1,0 +1,33 @@
+%mathpiper,def="true"
+
+10 # Together((_f/_g) + (_h/_i)) <--
+     Expand(f*i+h*g)/Expand(g*i);
+10 # Together((_f/_g) - (_h/_i)) <--
+     Expand(f*i-h*g)/Expand(g*i);
+
+20 # Together(_f + (_g / _h)) <--
+     Expand(f*h+g)/h;
+20 # Together((_f/_g) + _h) <--
+     Expand(f+h*g)/g;
+
+20 # Together(_f - (_g / _h)) <--
+     Expand(f*h-g)/h;
+20 # Together((_f/_g) - _h) <--
+     Expand(f-h*g)/g;
+
+20 # Together(- (_g / _h)) <-- (-g)/h;
+
+20 # Together((_f/_g) * _h) <--
+     Expand(f*h)/g;
+20 # Together(_h * (_f/_g)) <--
+     Expand(f*h)/g;
+
+20 # Together((_f/_g) / _h) <--
+     (f)/Expand(g*h);
+20 # Together(_h / (_f/_g)) <--
+     Expand(g*h)/f;
+
+20 # Together(- _f) <-- - Together(f);
+30 # Together(_f) <--  f;
+
+%/mathpiper
