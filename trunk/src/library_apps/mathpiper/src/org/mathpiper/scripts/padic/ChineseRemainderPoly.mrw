@@ -1,0 +1,33 @@
+%mathpiper,def="check"
+
+ChineseRemainderPoly(mlist_IsList,vlist_IsList) <--
+[
+  Local(m,i,nr,result,msub,euclid,clist);
+  clist:={};
+  m:=Factorize(mlist);
+  result:=0;
+
+/* Echo({mlist,m}); */
+
+
+  nr:=Length(mlist);
+  For(i:=1,i<=nr,i++)
+  [
+    msub:=Div(m,mlist[i]);
+
+/* Echo({Factor(msub)}); */
+
+    euclid := ExtendedEuclideanMonic(msub,mlist[i]);
+    Local(c);
+
+    c:=vlist[i] * euclid[2];
+
+    c:=Mod(c, mlist[i]);
+
+    DestructiveAppend(clist,c);
+    result:=result + msub * c;
+  ];
+  {Expand(result),clist};
+];
+
+%/mathpiper
