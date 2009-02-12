@@ -290,10 +290,10 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
         }
 
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Enter(");
+            System.out.print("Enter{(");
 
         } else {
-            aEnvironment.write("Enter(");
+            aEnvironment.write("Enter{(");
         }
         {
             String function = "";
@@ -378,9 +378,9 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
             }
         }
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Leave(");
+            System.out.print("Leave}(");
         } else {
-            aEnvironment.write("Leave(");
+            aEnvironment.write("Leave}(");
         }
         traceShowExpression(aEnvironment, aExpression);
 
