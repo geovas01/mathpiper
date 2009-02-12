@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -27,7 +27,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class Subst extends BuiltinFunctionInitialize
+public class Subst extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -36,7 +36,7 @@ public class Subst extends BuiltinFunctionInitialize
         from.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         to.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         body.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        org.mathpiper.lisp.behaviours.Subst behaviour = new org.mathpiper.lisp.behaviours.Subst(aEnvironment, from, to);
-        UtilityFunctions.internalSubstitute(getResult(aEnvironment, aStackTop), body, behaviour);
+        org.mathpiper.lisp.behaviours.Substitute behaviour = new org.mathpiper.lisp.behaviours.Substitute(aEnvironment, from, to);
+        UtilityFunctions.substitute(getResult(aEnvironment, aStackTop), body, behaviour);
     }
 }

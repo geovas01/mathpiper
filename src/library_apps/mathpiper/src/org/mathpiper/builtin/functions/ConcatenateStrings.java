@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
@@ -27,7 +27,7 @@ import org.mathpiper.lisp.LispError;
  *
  *  
  */
-public class ConcatenateStrings extends BuiltinFunctionInitialize
+public class ConcatenateStrings extends BuiltinFunction
 {
 
     void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Exception
@@ -39,7 +39,7 @@ public class ConcatenateStrings extends BuiltinFunctionInitialize
         iter.goNext();
         while (iter.getCons() != null)
         {
-            LispError.checkIsStringCore(aEnvironment, aStackTop, iter.ptr(), arg);
+            LispError.checkIsString(aEnvironment, aStackTop, iter.ptr(), arg);
             String thisString = iter.getCons().string();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);

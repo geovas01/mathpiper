@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.cons.SubListCons;
  *
  *  
  */
-public class Concatenate extends BuiltinFunctionInitialize
+public class Concatenate extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -44,7 +44,7 @@ public class Concatenate extends BuiltinFunctionInitialize
         iter.goNext();
         while (iter.getCons() != null)
         {
-            LispError.checkIsListCore(aEnvironment, aStackTop, iter.ptr(), arg);
+            LispError.checkIsList(aEnvironment, aStackTop, iter.ptr(), arg);
             UtilityFunctions.internalFlatCopy(tail.ptr(), iter.ptr().getCons().getSubList().getCons().rest());
             while (tail.getCons() != null)
             {

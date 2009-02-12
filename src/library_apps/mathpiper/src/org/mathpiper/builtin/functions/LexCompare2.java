@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.LispError;
@@ -40,8 +40,8 @@ abstract public class LexCompare2
     {
         ConsPointer result1 = new ConsPointer();
         ConsPointer result2 = new ConsPointer();
-        result1.setCons(BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        result2.setCons(BuiltinFunctionInitialize.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        result1.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        result2.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         boolean cmp;
         BigNumber n1 = result1.getCons().getNumber(aEnvironment.getPrecision());
         BigNumber n2 = result2.getCons().getNumber(aEnvironment.getPrecision());
@@ -54,14 +54,14 @@ abstract public class LexCompare2
             String str2;
             str1 = result1.getCons().string();
             str2 = result2.getCons().string();
-            LispError.checkArgumentCore(aEnvironment, aStackTop, str1 != null, 1);
-            LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
+            LispError.checkArgument(aEnvironment, aStackTop, str1 != null, 1);
+            LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2);
             // the getPrecision argument is ignored in "lex" functions
             cmp = lexfunc(str1, str2,
                     aEnvironment.getTokenHash(),
                     aEnvironment.getPrecision());
         }
 
-        UtilityFunctions.internalBoolean(aEnvironment, BuiltinFunctionInitialize.getResult(aEnvironment, aStackTop), cmp);
+        UtilityFunctions.internalBoolean(aEnvironment, BuiltinFunction.getResult(aEnvironment, aStackTop), cmp);
     }
 }

@@ -201,7 +201,7 @@ import org.mathpiper.lisp.userfunctions.Evaluator;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 
-public abstract class BuiltinFunctionInitialize
+public abstract class BuiltinFunction
 {
 	public abstract void eval(Environment aEnvironment,int aStackTop) throws Exception;
 

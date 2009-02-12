@@ -22,24 +22,24 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 
-/** subst behaviour for changing the local variables to have unique
+/** Substitute behaviour for changing the local variables to have unique
  * names.
  */
-public class LocalSymbol implements SubstBase
+public class LocalSymbolSubstitute implements SubstituteBase
 {
 	Environment iEnvironment;
 	String[] iOriginalNames;
 	String[] iNewNames;
-	int iNrNames;
+	int iNumberOfNames;
 	
-	public LocalSymbol(Environment aEnvironment,
+	public LocalSymbolSubstitute(Environment aEnvironment,
 	                            String[] aOriginalNames,
 	                            String[] aNewNames, int aNrNames)
 	{
 		iEnvironment = aEnvironment;
 		iOriginalNames = aOriginalNames;
 		iNewNames = aNewNames;
-		iNrNames = aNrNames;
+		iNumberOfNames = aNrNames;
 	}
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
@@ -48,7 +48,7 @@ public class LocalSymbol implements SubstBase
 			return false;
 
 		int i;
-		for (i=0;i<iNrNames;i++)
+		for (i=0;i<iNumberOfNames;i++)
 		{
 			if (name == iOriginalNames[i])
 			{

@@ -19,7 +19,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinContainer;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class Length extends BuiltinFunctionInitialize
+public class Length extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -37,7 +37,7 @@ public class Length extends BuiltinFunctionInitialize
         ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList();
         if (subList != null)
         {
-            int num = UtilityFunctions.internalListLength(subList.getCons().rest());
+            int num = UtilityFunctions.listLength(subList.getCons().rest());
             getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }

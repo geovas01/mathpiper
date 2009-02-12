@@ -18,7 +18,7 @@
 package org.mathpiper.lisp.userfunctions;
 
 import org.mathpiper.lisp.stacks.UserStackInformation;
-import org.mathpiper.lisp.behaviours.BackQuote;
+import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
@@ -135,8 +135,8 @@ public class MacroUserFunction extends BranchingUserFunction
                     {
                         st.iSide = 1;
 
-                        BackQuote behaviour = new BackQuote(aEnvironment);
-                        UtilityFunctions.internalSubstitute(substedBody, thisRule.getBody(), behaviour);
+                        BackQuoteSubstitute behaviour = new BackQuoteSubstitute(aEnvironment);
+                        UtilityFunctions.substitute(substedBody, thisRule.getBody(), behaviour);
                         //              aEnvironment.iEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                         break;
                     }

@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -27,7 +27,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class Retract extends BuiltinFunctionInitialize
+public class Retract extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -36,14 +36,14 @@ public class Retract extends BuiltinFunctionInitialize
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = evaluated.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.symbolName(aEnvironment, orig);
 
         ConsPointer arity = new ConsPointer();
         arity.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, arity.getCons().string() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, arity.getCons().string() != null, 2);
         int ar = Integer.parseInt(arity.getCons().string(), 10);
         aEnvironment.retract(oper, ar);
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

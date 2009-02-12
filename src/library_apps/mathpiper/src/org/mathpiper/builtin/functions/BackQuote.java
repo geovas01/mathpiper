@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -27,14 +27,14 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class BackQuote extends BuiltinFunctionInitialize
+public class BackQuote extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.behaviours.BackQuote behaviour = new org.mathpiper.lisp.behaviours.BackQuote(aEnvironment);
+        org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
         ConsPointer result = new ConsPointer();
-        UtilityFunctions.internalSubstitute(result, getArgumentPointer(aEnvironment, aStackTop, 1), behaviour);
+        UtilityFunctions.substitute(result, getArgumentPointer(aEnvironment, aStackTop, 1), behaviour);
         aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), result);
     }
 }

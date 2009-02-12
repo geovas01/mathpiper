@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class ToBase extends BuiltinFunctionInitialize
+public class ToBase extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -40,9 +40,9 @@ public class ToBase extends BuiltinFunctionInitialize
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         // check that getResult is a number, and that it is in fact an integer
         BigNumber num = oper.getCons().getNumber(aEnvironment.getPrecision());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
-        LispError.checkArgumentCore(aEnvironment, aStackTop, num.isInt(), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, num.isInt(), 1);
 
         // Get a short platform integer from the first argument
         int base = (int) (num.toLong());

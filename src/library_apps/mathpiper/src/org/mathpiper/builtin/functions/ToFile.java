@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import java.io.FileOutputStream;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.StandardFileOutputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -30,25 +30,25 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  * 
  */
-public class ToFile extends BuiltinFunctionInitialize
+public class ToFile extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
         ConsPointer evaluated = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = evaluated.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
         // Open file for writing
         FileOutputStream localFP = new FileOutputStream(oper);
-        LispError.checkCore(aEnvironment, aStackTop, localFP != null, LispError.KLispErrFileNotFound);
+        LispError.check(aEnvironment, aStackTop, localFP != null, LispError.KLispErrFileNotFound);
         StandardFileOutputStream newOutput = new StandardFileOutputStream(localFP);
 
         MathPiperOutputStream previous = aEnvironment.iCurrentOutput;

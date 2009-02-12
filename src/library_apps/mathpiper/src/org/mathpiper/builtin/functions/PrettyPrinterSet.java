@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -28,22 +28,22 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class PrettyPrinterSet extends BuiltinFunctionInitialize
+public class PrettyPrinterSet extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = UtilityFunctions.internalListLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
             aEnvironment.iPrettyPrinter = null;
         } else
         {
-            LispError.checkCore(aEnvironment, aStackTop, nrArguments == 2, LispError.KLispErrWrongNumberOfArgs);
+            LispError.check(aEnvironment, aStackTop, nrArguments == 2, LispError.KLispErrWrongNumberOfArgs);
             ConsPointer oper = new ConsPointer();
             oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons());
             oper.goNext();
-            LispError.checkIsStringCore(aEnvironment, aStackTop, oper, 1);
+            LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyPrinter = oper.getCons().string();
         }
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

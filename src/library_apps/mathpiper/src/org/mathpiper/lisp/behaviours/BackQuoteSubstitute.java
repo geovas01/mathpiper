@@ -24,7 +24,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubListCons;
 
-/** subst behaviour for backquote mechanism as in LISP.
+/** Substitute behaviour for backquote mechanism as in LISP.
  * When typing `(...) all occurrences of @a will be
  * replaced with:
  * 1) a evaluated if a is an atom
@@ -32,11 +32,11 @@ import org.mathpiper.lisp.cons.SubListCons;
  *    head of function if a is a function. For instance, if
  *    a is f(x) and f is g, then f(x) gets replaced by g(x)
  */
-public class BackQuote implements SubstBase
+public class BackQuoteSubstitute implements SubstituteBase
 {
 	Environment iEnvironment;
 
-	public BackQuote(Environment aEnvironment)
+	public BackQuoteSubstitute(Environment aEnvironment)
 	{
 		iEnvironment = aEnvironment;
 	}
@@ -77,7 +77,7 @@ public class BackQuote implements SubstBase
 			result.getCons().rest().setCons(args.getCons());
 			ConsPointer result2 = new ConsPointer();
 			result2.setCons(SubListCons.getInstance(result.getCons()));
-			UtilityFunctions.internalSubstitute(aResult, result2,this);
+			UtilityFunctions.substitute(aResult, result2,this);
 			return true;
 		}
 		//      return false;

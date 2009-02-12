@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.parsers.Parser;
 
@@ -26,7 +26,7 @@ import org.mathpiper.lisp.parsers.Parser;
  *
  *  
  */
-public class ReadLispListed extends BuiltinFunctionInitialize
+public class ReadLispListed extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -26,15 +26,15 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class Nth extends BuiltinFunctionInitialize
+public class Nth extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
         str = getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
+        LispError.checkArgument(aEnvironment, aStackTop, str != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
         int index = Integer.parseInt(str);
         UtilityFunctions.internalNth(getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1), index);
     }

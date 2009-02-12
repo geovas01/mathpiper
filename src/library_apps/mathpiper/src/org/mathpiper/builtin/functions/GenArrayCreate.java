@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.Array;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class GenArrayCreate extends BuiltinFunctionInitialize
+public class GenArrayCreate extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -37,8 +37,8 @@ public class GenArrayCreate extends BuiltinFunctionInitialize
         ConsPointer sizearg = new ConsPointer();
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.getCons() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.getCons().string() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().string() != null, 1);
 
         int size = Integer.parseInt(sizearg.getCons().string(), 10);
 

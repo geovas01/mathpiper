@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -28,14 +28,14 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class GenericTypeName extends BuiltinFunctionInitialize
+public class GenericTypeName extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons().getGeneric() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons().getGeneric() != null, 1);
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, evaluated.getCons().getGeneric().typeName()));
     }
 }

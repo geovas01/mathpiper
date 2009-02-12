@@ -8,15 +8,15 @@ import org.mathpiper.lisp.Environment;
 /** Substing one expression for another. The simplest form
  * of substitution
  */
-public class Subst
-			implements SubstBase
+public class Substitute
+			implements SubstituteBase
 {
 
 	Environment iEnvironment;
 	ConsPointer iToMatch;
 	ConsPointer iToReplaceWith;
 
-	public Subst(Environment aEnvironment, ConsPointer aToMatch, ConsPointer aToReplaceWith)
+	public Substitute(Environment aEnvironment, ConsPointer aToMatch, ConsPointer aToReplaceWith)
 	{
 		iEnvironment = aEnvironment;
 		iToMatch = aToMatch;

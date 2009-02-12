@@ -99,7 +99,7 @@ public class MathPiperPrinter extends LispPrinter
 		}
 		else
 		{
-			int length = UtilityFunctions.internalListLength(subList);
+			int length = UtilityFunctions.listLength(subList);
 			string = subList.getCons().string();
 			InfixOperator prefix  = (InfixOperator)iPrefixOperators.lookUp(string);
 			InfixOperator infix   = (InfixOperator)iInfixOperators.lookUp(string);
