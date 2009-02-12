@@ -241,32 +241,31 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
     }
 
     public static void traceShowArg(Environment aEnvironment, ConsPointer aParam, ConsPointer aValue) throws Exception {
-        for (int i = 0; i < aEnvironment.iEvalDepth + 2; i++) {
+        for (int i = 0; i < aEnvironment.iEvalDepth; i++) {
             if (TRACE_TO_STANDARD_OUT) {
                 System.out.print("  ");
             } else {
-
                 aEnvironment.write("  ");
             }
         }
 
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print("Arg(");
-            System.out.print("  ");
+            //System.out.print("  ");
 
         } else {
             aEnvironment.write("Arg(");
-            aEnvironment.write("  ");
+           // aEnvironment.write("  ");
         }
 
         traceShowExpression(aEnvironment, aParam);
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print(",");
-            System.out.print("  ");
+            //System.out.print("  ");
 
         } else {
             aEnvironment.write(",");
-            aEnvironment.write("  ");
+           // aEnvironment.write("  ");
         }
 
         traceShowExpression(aEnvironment, aValue);
