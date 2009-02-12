@@ -28,29 +28,29 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class StringMidSet extends BuiltinFunctionInitialize
+public class StringMidSet extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        LispError.checkIsStringCore(aEnvironment, aStackTop, evaluated, 3);
+        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
         String orig = evaluated.getCons().string();
         ConsPointer index = new ConsPointer();
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().string() != null, 1);
         int from = Integer.parseInt(index.getCons().string(), 10);
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, from > 0, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, from > 0, 1);
 
         ConsPointer ev2 = new ConsPointer();
         ev2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkIsStringCore(aEnvironment, aStackTop, ev2, 2);
+        LispError.checkIsString(aEnvironment, aStackTop, ev2, 2);
         String replace = ev2.getCons().string();
 
-        LispError.checkCore(aEnvironment, aStackTop, from + replace.length() - 2 < orig.length(), LispError.KLispErrInvalidArg);
+        LispError.check(aEnvironment, aStackTop, from + replace.length() - 2 < orig.length(), LispError.KLispErrInvalidArg);
         String str;
         str = orig.substring(0, from);
         str = str + replace.substring(1, replace.length() - 1);

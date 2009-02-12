@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
  *
  *  
  */
-public class DefLoadFunction extends BuiltinFunctionInitialize
+public class DefLoadFunction extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -38,7 +38,7 @@ public class DefLoadFunction extends BuiltinFunctionInitialize
         ConsPointer name = new ConsPointer();
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = name.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
         MultipleArityUserFunction multiUserFunc =

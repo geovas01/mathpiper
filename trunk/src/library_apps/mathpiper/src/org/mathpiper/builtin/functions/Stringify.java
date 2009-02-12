@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -27,7 +27,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class Stringify extends BuiltinFunctionInitialize
+public class Stringify extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -36,9 +36,9 @@ public class Stringify extends BuiltinFunctionInitialize
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = evaluated.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));
     }

@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinContainer;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class GenArraySize extends BuiltinFunctionInitialize
+public class GenArraySize extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -39,8 +39,8 @@ public class GenArraySize extends BuiltinFunctionInitialize
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         BuiltinContainer gen = evaluated.getCons().getGeneric();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, gen != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
         int size = ((Array) gen).size();
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
     }

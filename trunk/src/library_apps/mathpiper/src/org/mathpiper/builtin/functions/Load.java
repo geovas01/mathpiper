@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -27,20 +27,20 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class Load extends BuiltinFunctionInitialize
+public class Load extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
 
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get file name
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = evaluated.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         UtilityFunctions.internalLoad(aEnvironment, orig);
         

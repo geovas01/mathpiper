@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
@@ -31,14 +31,14 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
  *
  *  
  */
-public class ExplodeTag extends BuiltinFunctionInitialize
+public class ExplodeTag extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer out = new ConsPointer();
         out.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkIsStringCore(aEnvironment, aStackTop, out, 1);
+        LispError.checkIsString(aEnvironment, aStackTop, out, 1);
 
         String str = out.getCons().string();
         int strInd = 0;
@@ -48,7 +48,7 @@ public class ExplodeTag extends BuiltinFunctionInitialize
             getResult(aEnvironment, aStackTop).setCons(out.getCons());
             return;
         }
-        LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(strInd) == '<', 1);
+        LispError.checkArgument(aEnvironment, aStackTop, str.charAt(strInd) == '<', 1);
         strInd++;
         String type = "\"Open\"";
 
@@ -94,9 +94,9 @@ public class ExplodeTag extends BuiltinFunctionInitialize
                 name = name + c;
             }
             name = name + "\"";
-            LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(strInd) == '=', 1);
+            LispError.checkArgument(aEnvironment, aStackTop, str.charAt(strInd) == '=', 1);
             strInd++;
-            LispError.checkArgumentCore(aEnvironment, aStackTop, str.charAt(strInd) == '\"', 1);
+            LispError.checkArgument(aEnvironment, aStackTop, str.charAt(strInd) == '\"', 1);
             String value = new String();
 
             value = value + (str.charAt(strInd));

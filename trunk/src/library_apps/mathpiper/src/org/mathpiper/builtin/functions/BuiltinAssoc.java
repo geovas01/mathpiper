@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class BuiltinAssoc extends BuiltinFunctionInitialize
+public class BuiltinAssoc extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -46,9 +46,9 @@ public class BuiltinAssoc extends BuiltinFunctionInitialize
         Cons t;
 
         //check that it is a compound object
-        LispError.checkArgumentCore(aEnvironment, aStackTop, list.getCons().getSubList() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, list.getCons().getSubList() != null, 2);
         t = list.getCons().getSubList().getCons();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, t != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, t != null, 2);
         t = t.rest().getCons();
 
         while (t != null)

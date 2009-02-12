@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
 
@@ -27,12 +27,12 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class Subtract extends BuiltinFunctionInitialize
+public class Subtract extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = UtilityFunctions.internalListLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int length = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);

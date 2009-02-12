@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -28,20 +28,20 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class RightPrecedence extends BuiltinFunctionInitialize
+public class RightPrecedence extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.checkArgumentCore(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         ConsPointer index = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, index, getArgumentPointer(aEnvironment, aStackTop, 2));
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().string() != null, 2);
         int ind = Integer.parseInt(index.getCons().string(), 10);
 
         aEnvironment.iInfixOperators.setRightPrecedence(UtilityFunctions.symbolName(aEnvironment, orig), ind);

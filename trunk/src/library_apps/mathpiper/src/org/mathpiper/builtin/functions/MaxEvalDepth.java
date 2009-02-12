@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -28,15 +28,15 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class MaxEvalDepth extends BuiltinFunctionInitialize
+public class MaxEvalDepth extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer index = new ConsPointer();
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().string() != null, 1);
 
         int ind = Integer.parseInt(index.getCons().string(), 10);
         aEnvironment.iMaxEvalDepth = ind;

@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.userfunctions.UserFunction;
  *
  *  
  */
-public class RuleBaseDefined extends BuiltinFunctionInitialize
+public class RuleBaseDefined extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -37,13 +37,13 @@ public class RuleBaseDefined extends BuiltinFunctionInitialize
         ConsPointer name = new ConsPointer();
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = name.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.getCons().string() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().string() != null, 2);
 
         int arity = Integer.parseInt(sizearg.getCons().string(), 10);
 

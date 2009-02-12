@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -27,15 +27,15 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class CharString extends BuiltinFunctionInitialize
+public class CharString extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
         str = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
+        LispError.checkArgument(aEnvironment, aStackTop, str != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + asciiCode + "\""));
     }

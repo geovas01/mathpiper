@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
@@ -28,7 +28,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class NewLocal extends BuiltinFunctionInitialize
+public class NewLocal extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -43,7 +43,7 @@ public class NewLocal extends BuiltinFunctionInitialize
             while (iter.getCons() != null)
             {
                 String variable = iter.getCons().string();
-                LispError.checkArgumentCore(aEnvironment, aStackTop, variable != null, nr);
+                LispError.checkArgument(aEnvironment, aStackTop, variable != null, nr);
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocal(variable, null);
                 iter.goNext();

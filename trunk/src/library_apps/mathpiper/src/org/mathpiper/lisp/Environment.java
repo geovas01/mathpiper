@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.tokenizers.XmlTokenizer;
 import org.mathpiper.io.InputStatus;
 
@@ -81,7 +81,7 @@ public class Environment
     public int iMaxEvalDepth = 10000;
     //TODO FIXME
     public ArgumentStack iArgumentStack;
-    public LocalVariableFrame iLocalsList;
+    public LocalVariableFrame iLocalVariablesList;
     public boolean iSecure = false;
     public int iLastUniqueId = 1;
     public MathPiperOutputStream iCurrentOutput = null;
@@ -128,7 +128,7 @@ public class Environment
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
         //mc.addFunctions(this);
 
-        BuiltinFunctionInitialize.addFunctions(this);
+        BuiltinFunction.addFunctions(this);
 
         pushLocalFrame(true);
     }
@@ -168,9 +168,9 @@ public class Environment
 
     public ConsPointer findLocal(String aVariable) throws Exception
     {
-        LispError.check(iLocalsList != null, LispError.KLispErrInvalidStack);
+        LispError.check(iLocalVariablesList != null, LispError.KLispErrInvalidStack);
         //    check(iLocalsList.iFirst != null,KLispErrInvalidStack);
-        LispLocalVariable t = iLocalsList.iFirst;
+        LocalVariable t = iLocalVariablesList.iFirst;
 
         while (t != null)
         {
@@ -240,42 +240,40 @@ public class Environment
     {
         if (aFenced)
         {
-            LocalVariableFrame newFrame =
-                    new LocalVariableFrame(iLocalsList, null);
-            iLocalsList = newFrame;
+            LocalVariableFrame newFrame = new LocalVariableFrame(iLocalVariablesList, null);
+            iLocalVariablesList = newFrame;
         } else
         {
-            LocalVariableFrame newFrame =
-                    new LocalVariableFrame(iLocalsList, iLocalsList.iFirst);
-            iLocalsList = newFrame;
+            LocalVariableFrame newFrame = new LocalVariableFrame(iLocalVariablesList, iLocalVariablesList.iFirst);
+            iLocalVariablesList = newFrame;
         }
     }
 
     public void popLocalFrame() throws Exception
     {
-        LispError.lispAssert(iLocalsList != null);
-        LocalVariableFrame nextFrame = iLocalsList.iNext;
-        iLocalsList.delete();
-        iLocalsList = nextFrame;
+        LispError.lispAssert(iLocalVariablesList != null);
+        LocalVariableFrame nextFrame = iLocalVariablesList.iNext;
+        iLocalVariablesList.delete();
+        iLocalVariablesList = nextFrame;
     }
 
     public void newLocal(String aVariable, Cons aValue) throws Exception
     {
-        LispError.lispAssert(iLocalsList != null);
-        iLocalsList.add(new LispLocalVariable(aVariable, aValue));
+        LispError.lispAssert(iLocalVariablesList != null);
+        iLocalVariablesList.add(new LocalVariable(aVariable, aValue));
     }
 
-    class LispLocalVariable
+    class LocalVariable
     {
 
-        public LispLocalVariable(String aVariable, Cons aValue)
+        public LocalVariable(String aVariable, Cons aValue)
         {
             iNext = null;
             iVariable = aVariable;
             iValue.setCons(aValue);
 
         }
-        LispLocalVariable iNext;
+        LocalVariable iNext;
         String iVariable;
         ConsPointer iValue = new ConsPointer();
     }
@@ -283,14 +281,14 @@ public class Environment
     class LocalVariableFrame
     {
 
-        public LocalVariableFrame(LocalVariableFrame aNext, LispLocalVariable aFirst)
+        public LocalVariableFrame(LocalVariableFrame aNext, LocalVariable aFirst)
         {
             iNext = aNext;
             iFirst = aFirst;
             iLast = aFirst;
         }
 
-        void add(LispLocalVariable aNew)
+        void add(LocalVariable aNew)
         {
             aNew.iNext = iFirst;
             iFirst = aNew;
@@ -298,8 +296,8 @@ public class Environment
 
         void delete()
         {
-            LispLocalVariable t = iFirst;
-            LispLocalVariable next;
+            LocalVariable t = iFirst;
+            LocalVariable next;
             while (t != iLast)
             {
                 next = t.iNext;
@@ -307,8 +305,8 @@ public class Environment
             }
         }
         LocalVariableFrame iNext;
-        LispLocalVariable iFirst;
-        LispLocalVariable iLast;
+        LocalVariable iFirst;
+        LocalVariable iLast;
     }
 
     public int getUniqueId()
@@ -338,7 +336,7 @@ public class Environment
                 (MultipleArityUserFunction) iUserFunctions.lookUp(aArguments.getCons().string());
         if (multiUserFunc != null)
         {
-            int arity = UtilityFunctions.internalListLength(aArguments) - 1;
+            int arity = UtilityFunctions.listLength(aArguments) - 1;
             return multiUserFunc.userFunction(arity);
         }
         return null;

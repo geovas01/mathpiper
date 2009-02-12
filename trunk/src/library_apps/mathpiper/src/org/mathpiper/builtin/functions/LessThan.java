@@ -18,14 +18,14 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 
 /**
  *
  *  
  */
-public class LessThan extends BuiltinFunctionInitialize
+public class LessThan extends BuiltinFunction
 {
 
     LexLessThan compare = new LexLessThan();

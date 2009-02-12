@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -28,26 +28,26 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class StringMidGet extends BuiltinFunctionInitialize
+public class StringMidGet extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        LispError.checkIsStringCore(aEnvironment, aStackTop, evaluated, 3);
+        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
         String orig = evaluated.getCons().string();
 
         ConsPointer index = new ConsPointer();
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().string() != null, 1);
         int from = Integer.parseInt(index.getCons().string(), 10);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, from > 0, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, from > 0, 1);
 
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, index.getCons().string() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().string() != null, 2);
         int count = Integer.parseInt(index.getCons().string(), 10);
 
 

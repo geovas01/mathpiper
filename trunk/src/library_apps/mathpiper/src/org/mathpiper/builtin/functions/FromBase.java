@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class FromBase extends BuiltinFunctionInitialize
+public class FromBase extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -40,9 +40,9 @@ public class FromBase extends BuiltinFunctionInitialize
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         // check that getResult is a number, and that it is in fact an integer
         BigNumber num = oper.getCons().getNumber(aEnvironment.getPrecision());
-        LispError.checkArgumentCore(aEnvironment, aStackTop, num != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
-        LispError.checkArgumentCore(aEnvironment, aStackTop, num.isInt(), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, num.isInt(), 1);
 
         // Get a short platform integer from the first argument
         int base = (int) (num.toDouble());
@@ -52,10 +52,10 @@ public class FromBase extends BuiltinFunctionInitialize
         fromNum.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         String str2;
         str2 = fromNum.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, str2 != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2);
 
         // Added, unquote a string
-        LispError.checkArgumentCore(aEnvironment, aStackTop, UtilityFunctions.internalIsString(str2), 2);
+        LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.internalIsString(str2), 2);
         str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
 
         // convert using correct base

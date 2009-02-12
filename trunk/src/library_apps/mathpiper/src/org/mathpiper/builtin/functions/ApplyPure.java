@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -28,7 +28,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class ApplyPure extends BuiltinFunctionInitialize
+public class ApplyPure extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -38,8 +38,8 @@ public class ApplyPure extends BuiltinFunctionInitialize
         ConsPointer args = new ConsPointer();
         args.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, args.getCons().getSubList() != null, 2);
-        LispError.checkCore(aEnvironment, aStackTop, args.getCons().getSubList().getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, args.getCons().getSubList() != null, 2);
+        LispError.check(aEnvironment, aStackTop, args.getCons().getSubList().getCons() != null, 2);
 
         // Apply a pure string
         if (oper.getCons().string() != null)
@@ -52,8 +52,8 @@ public class ApplyPure extends BuiltinFunctionInitialize
 
             ConsPointer args2 = new ConsPointer();
             args2.setCons(args.getCons().getSubList().getCons().rest().getCons());
-            LispError.checkArgumentCore(aEnvironment, aStackTop, oper.getCons().getSubList() != null, 1);
-            LispError.checkArgumentCore(aEnvironment, aStackTop, oper.getCons().getSubList().getCons() != null, 1);
+            LispError.checkArgument(aEnvironment, aStackTop, oper.getCons().getSubList() != null, 1);
+            LispError.checkArgument(aEnvironment, aStackTop, oper.getCons().getSubList().getCons() != null, 1);
             UtilityFunctions.internalApplyPure(oper, args2, getResult(aEnvironment, aStackTop), aEnvironment);
         }
     }

@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -27,16 +27,16 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class UnList extends BuiltinFunctionInitialize
+public class UnList extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgumentCore(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList() != null, 1);
         Cons subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList().getCons();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, subList != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, subList.string() == aEnvironment.iListAtom.string(), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, subList != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, subList.string() == aEnvironment.iListAtom.string(), 1);
         UtilityFunctions.internalTail(getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
     }
 }

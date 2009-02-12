@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.lisp.cons.ConsTraverser;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -28,7 +28,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class ClearVar extends BuiltinFunctionInitialize
+public class ClearVar extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -43,7 +43,7 @@ public class ClearVar extends BuiltinFunctionInitialize
             {
                 String str;
                 str = iter.getCons().string();
-                LispError.checkArgumentCore(aEnvironment, aStackTop, str != null, nr);
+                LispError.checkArgument(aEnvironment, aStackTop, str != null, nr);
                 aEnvironment.unsetVariable(str);
                 iter.goNext();
                 nr++;

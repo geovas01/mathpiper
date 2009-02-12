@@ -18,43 +18,42 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.behaviours.LocalSymbol;
+import org.mathpiper.lisp.behaviours.LocalSymbolSubstitute;
 
 /**
  *
  *  
  */
-public class LocalSymbols extends BuiltinFunctionInitialize
+public class LocalSymbols extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = UtilityFunctions.internalListLength(getArgumentPointer(aEnvironment, aStackTop, 0));
-        int nrSymbols = nrArguments - 2;
+        int numberOfArguments = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int numberOfSymbols = numberOfArguments - 2;
 
-        String names[] = new String[nrSymbols];
-        String localnames[] = new String[nrSymbols];
+        String atomNames[] = new String[numberOfSymbols];
+        String localAtomNames[] = new String[numberOfSymbols];
 
-        int uniquenumber = aEnvironment.getUniqueId();
+        int uniqueNumber = aEnvironment.getUniqueId();
         int i;
-        for (i = 0; i < nrSymbols; i++)
+        for (i = 0; i < numberOfSymbols; i++)
         {
-            String atomname = getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), i + 1).getCons().string();
-            LispError.checkArgumentCore(aEnvironment, aStackTop, atomname != null, i + 1);
-            names[i] = atomname;
-            int len = atomname.length();
-            String newname = "$" + atomname + uniquenumber;
-            String variable = (String) aEnvironment.getTokenHash().lookUp(newname);
-            localnames[i] = variable;
+            String atomName = getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), i + 1).getCons().string();
+            LispError.checkArgument(aEnvironment, aStackTop, atomName != null, i + 1);
+            atomNames[i] = atomName;
+            String newAtomName = "$" + atomName + uniqueNumber;
+            String variable = (String) aEnvironment.getTokenHash().lookUp(newAtomName);
+            localAtomNames[i] = variable;
         }
-        LocalSymbol behaviour = new LocalSymbol(aEnvironment, names, localnames, nrSymbols);
+        LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
         ConsPointer result = new ConsPointer();
-        UtilityFunctions.internalSubstitute(result, getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), nrArguments - 1), behaviour);
+        UtilityFunctions.substitute(result, getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), result);
     }
 }

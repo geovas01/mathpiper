@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperInputStream;
@@ -29,19 +29,19 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  * 
  */
-public class FromFile extends BuiltinFunctionInitialize
+public class FromFile extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkCore(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
         ConsPointer evaluated = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = evaluated.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         String hashedname = aEnvironment.getTokenHash().lookUpUnStringify(orig);
 
@@ -54,7 +54,7 @@ public class FromFile extends BuiltinFunctionInitialize
                     UtilityFunctions.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
             aEnvironment.iCurrentInput = input;
             // Open file
-            LispError.checkCore(aEnvironment, aStackTop, input != null, LispError.KLispErrFileNotFound);
+            LispError.check(aEnvironment, aStackTop, input != null, LispError.KLispErrFileNotFound);
 
             // Evaluate the body
             aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));

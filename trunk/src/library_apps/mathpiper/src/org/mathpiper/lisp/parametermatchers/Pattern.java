@@ -244,7 +244,7 @@ public class Pattern
 			ConsPointer  sublist = aPattern.getSubList();
 			LispError.lispAssert(sublist != null);
 
-			int num = UtilityFunctions.internalListLength(sublist);
+			int num = UtilityFunctions.listLength(sublist);
 
 			// variable matcher here...
 			if (num>1)

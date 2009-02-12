@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -29,14 +29,14 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class SystemCall extends BuiltinFunctionInitialize
+public class SystemCall extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgumentCore(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
         String ls_str;
         Process ls_proc = Runtime.getRuntime().exec(oper);

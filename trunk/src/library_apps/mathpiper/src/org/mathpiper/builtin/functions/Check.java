@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -27,7 +27,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class Check extends BuiltinFunctionInitialize
+public class Check extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -38,7 +38,7 @@ public class Check extends BuiltinFunctionInitialize
         {
             ConsPointer evaluated = new ConsPointer();
             aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));
-            LispError.checkIsStringCore(aEnvironment, aStackTop, evaluated, 2);
+            LispError.checkIsString(aEnvironment, aStackTop, evaluated, 2);
             throw new Exception(evaluated.getCons().string());
         }
         getResult(aEnvironment, aStackTop).setCons(pred.getCons());

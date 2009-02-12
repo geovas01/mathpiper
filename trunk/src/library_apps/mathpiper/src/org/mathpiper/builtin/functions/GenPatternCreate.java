@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.PatternContainer;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class GenPatternCreate extends BuiltinFunctionInitialize
+public class GenPatternCreate extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -41,10 +41,10 @@ public class GenPatternCreate extends BuiltinFunctionInitialize
         postpredicate.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         ConsTraverser iter = new ConsTraverser(pattern);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getCons() != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getCons().getSubList() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons().getSubList() != null, 1);
         iter.goSub();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, iter.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons() != null, 1);
         iter.goNext();
 
         ConsPointer ptr = iter.ptr();

@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  * 
  */
-public class FromString extends BuiltinFunctionInitialize
+public class FromString extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -39,9 +39,9 @@ public class FromString extends BuiltinFunctionInitialize
         aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
-        LispError.checkArgumentCore(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = evaluated.getCons().string();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;

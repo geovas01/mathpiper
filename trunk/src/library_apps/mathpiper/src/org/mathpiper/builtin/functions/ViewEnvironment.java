@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
 
@@ -26,7 +26,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class ViewEnvironment extends BuiltinFunctionInitialize
+public class ViewEnvironment extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception

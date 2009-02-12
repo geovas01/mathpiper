@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinContainer;
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class GenArrayGet extends BuiltinFunctionInitialize
+public class GenArrayGet extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -39,18 +39,18 @@ public class GenArrayGet extends BuiltinFunctionInitialize
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         BuiltinContainer gen = evaluated.getCons().getGeneric();
-        LispError.checkArgumentCore(aEnvironment, aStackTop, gen != null, 1);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
-        LispError.checkArgumentCore(aEnvironment, aStackTop, sizearg.getCons().string() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().string() != null, 2);
 
         int size = Integer.parseInt(sizearg.getCons().string(), 10);
 
-        LispError.checkArgumentCore(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
+        LispError.checkArgument(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
         Cons object = ((Array) gen).getElement(size);
 
         getResult(aEnvironment, aStackTop).setCons(object.copy(false));

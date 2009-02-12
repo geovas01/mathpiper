@@ -18,7 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
@@ -29,7 +29,7 @@ import org.mathpiper.lisp.LispError;
  *
  *  
  */
-public class GetRightPrecedence extends BuiltinFunctionInitialize
+public class GetRightPrecedence extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -43,7 +43,7 @@ public class GetRightPrecedence extends BuiltinFunctionInitialize
             {   // or maybe it's a bodied function
 
                 op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                LispError.checkCore(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
+                LispError.check(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
             }
         }
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iRightPrecedence));

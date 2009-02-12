@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
@@ -32,14 +32,14 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class FileSize extends BuiltinFunctionInitialize
+public class FileSize extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer fnameObject = new ConsPointer();
         fnameObject.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkIsStringCore(aEnvironment, aStackTop, fnameObject, 1);
+        LispError.checkIsString(aEnvironment, aStackTop, fnameObject, 1);
         String fname = UtilityFunctions.internalUnstringify(fnameObject.getCons().string());
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(fname);
 

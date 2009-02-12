@@ -20,7 +20,7 @@ package org.mathpiper.lisp.userfunctions;
 
 // new-style evaluator, passing arguments onto the stack in Environment
 
-import org.mathpiper.builtin.BuiltinFunctionInitialize;
+import org.mathpiper.builtin.BuiltinFunction;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
@@ -38,11 +38,11 @@ public class Evaluator extends EvalFuncBase
 	public static int Fixed = 0;     // fixed number of arguments
 	public static int Variable = 2;  // variable number of arguments
 	
-	BuiltinFunctionInitialize iCalledFunction;
+	BuiltinFunction iCalledFunction;
 	int iNumberOfArguments;
 	int iFlags;
 
-	public Evaluator(BuiltinFunctionInitialize aCalledFunction,int aNumberOfArguments, int aFlags)
+	public Evaluator(BuiltinFunction aCalledFunction,int aNumberOfArguments, int aFlags)
 	{
 		iCalledFunction = aCalledFunction;
 		iNumberOfArguments = aNumberOfArguments;
