@@ -45,7 +45,7 @@ public class NewLocal extends BuiltinFunction
                 String variable = iter.getCons().string();
                 LispError.checkArgument(aEnvironment, aStackTop, variable != null, nr);
                 // printf("Variable %s\n",variable.String());
-                aEnvironment.newLocal(variable, null);
+                aEnvironment.newLocalVariable(variable, null);
                 iter.goNext();
                 nr++;
             }

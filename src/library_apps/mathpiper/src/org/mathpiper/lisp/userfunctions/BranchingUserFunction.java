@@ -151,7 +151,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
             {
                 String variable = ((BranchParameter) iParameters.get(i)).iParameter;
                 // setCons the variable to the new value
-                aEnvironment.newLocal(variable, arguments[i].getCons());
+                aEnvironment.newLocalVariable(variable, arguments[i].getCons());
             }
 
             // walk the rules database, returning the evaluated result if the

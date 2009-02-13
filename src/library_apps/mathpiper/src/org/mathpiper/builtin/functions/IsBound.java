@@ -36,7 +36,7 @@ public class IsBound extends BuiltinFunction
         if (str != null)
         {
             ConsPointer val = new ConsPointer();
-            aEnvironment.getVariable(str, val);
+            aEnvironment.getGlobalVariable(str, val);
             if (val.getCons() != null)
             {
                 UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

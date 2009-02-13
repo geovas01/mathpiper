@@ -166,7 +166,7 @@ public class Environment
     }
 
 
-    public ConsPointer findLocal(String aVariable) throws Exception
+    public ConsPointer findLocalVariable(String aVariable) throws Exception
     {
         LispError.check(iLocalVariablesList != null, LispError.KLispErrInvalidStack);
         //    check(iLocalsList.iFirst != null,KLispErrInvalidStack);
@@ -183,9 +183,9 @@ public class Environment
         return null;
     }
 
-    public void setVariable(String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception
+    public void setGlobalVariable(String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception
     {
-        ConsPointer local = findLocal(aVariable);
+        ConsPointer local = findLocalVariable(aVariable);
         if (local != null)
         {
             local.setCons(aValue.getCons());
@@ -199,10 +199,10 @@ public class Environment
         }
     }
 
-    public void getVariable(String aVariable, ConsPointer aResult) throws Exception
+    public void getGlobalVariable(String aVariable, ConsPointer aResult) throws Exception
     {
         aResult.setCons(null);
-        ConsPointer local = findLocal(aVariable);
+        ConsPointer local = findLocalVariable(aVariable);
         if (local != null)
         {
             aResult.setCons(local.getCons());
@@ -225,9 +225,9 @@ public class Environment
         }
     }
 
-    public void unsetVariable(String aString) throws Exception
+    public void unsetLocalVariable(String aString) throws Exception
     {
-        ConsPointer local = findLocal(aString);
+        ConsPointer local = findLocalVariable(aString);
         if (local != null)
         {
             local.setCons(null);
@@ -257,7 +257,7 @@ public class Environment
         iLocalVariablesList = nextFrame;
     }
 
-    public void newLocal(String aVariable, Cons aValue) throws Exception
+    public void newLocalVariable(String aVariable, Cons aValue) throws Exception
     {
         LispError.lispAssert(iLocalVariablesList != null);
         iLocalVariablesList.add(new LocalVariable(aVariable, aValue));
@@ -321,7 +321,7 @@ public class Environment
         multiUserFunc.holdArgument(aVariable);
     }
 
-    public void retract(String aOperator, int aArity) throws Exception
+    public void retractFunction(String aOperator, int aArity) throws Exception
     {
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
         if (multiUserFunc != null)
@@ -330,7 +330,7 @@ public class Environment
         }
     }
 
-    public UserFunction userFunction(ConsPointer aArguments) throws Exception
+    public UserFunction getUserFunction(ConsPointer aArguments) throws Exception
     {
         MultipleArityUserFunction multiUserFunc =
                 (MultipleArityUserFunction) iUserFunctions.lookUp(aArguments.getCons().string());
@@ -342,7 +342,7 @@ public class Environment
         return null;
     }
 
-    public UserFunction userFunction(String aName, int aArity) throws Exception
+    public UserFunction getUserFunction(String aName, int aArity) throws Exception
     {
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aName);
         if (multiUserFunc != null)
@@ -362,7 +362,7 @@ public class Environment
         userFunc.unFence();
     }
 
-    public MultipleArityUserFunction multiUserFunction(String aOperator) throws Exception
+    public MultipleArityUserFunction getMultiUserFunction(String aOperator) throws Exception
     {
         // Find existing multiuser func.
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
@@ -380,7 +380,7 @@ public class Environment
 
     public void declareRuleBase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
     {
-        MultipleArityUserFunction multiUserFunc = multiUserFunction(aOperator);
+        MultipleArityUserFunction multiUserFunc = getMultiUserFunction(aOperator);
 
         // add an operator with this arity to the multiuserfunc.
         BranchingUserFunction newFunc;
@@ -422,7 +422,7 @@ public class Environment
 
     public void declareMacroRuleBase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
     {
-        MultipleArityUserFunction multiUserFunc = multiUserFunction(aOperator);
+        MultipleArityUserFunction multiUserFunc = getMultiUserFunction(aOperator);
         MacroUserFunction newFunc;
         if (aListed)
         {
