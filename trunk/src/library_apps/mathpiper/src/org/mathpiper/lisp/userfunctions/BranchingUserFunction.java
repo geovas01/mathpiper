@@ -67,7 +67,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
      * Evaluate the function with the given arguments.
      * First, all arguments are evaluated by the evaluator associated
      * with aEnvironment, unless the iHold flag of the
-     * corresponding parameter is true. Then a new LispLocalFrame is
+     * corresponding parameter is true. Then a new LocalFrame is
      * constructed, in which the actual arguments are assigned to the
      * names of the formal arguments, as stored in iParameter. Then
      * all rules in <b>iRules</b> are tried one by one. The body of the
@@ -88,10 +88,10 @@ public class BranchingUserFunction extends SingleArityUserFunction
         /*Trace code*/
         if (isTraced())
         {
-            ConsPointer tr = new ConsPointer();
-            tr.setCons(SubListCons.getInstance(aArguments.getCons()));
-            LispExpressionEvaluator.traceShowEnter(aEnvironment, tr);
-            tr.setCons(null);
+            ConsPointer argumentsConsPointer = new ConsPointer();
+            argumentsConsPointer.setCons(SubListCons.getInstance(aArguments.getCons()));
+            LispExpressionEvaluator.traceShowEnter(aEnvironment, argumentsConsPointer);
+            argumentsConsPointer.setCons(null);
         }
 
         ConsTraverser consTraverser = new ConsTraverser(aArguments);

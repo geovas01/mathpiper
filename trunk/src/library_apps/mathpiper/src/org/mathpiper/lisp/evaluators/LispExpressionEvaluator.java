@@ -82,8 +82,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
         aEnvironment.iEvalDepth++;
         if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
             if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
-                LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth,
-                        LispError.KLispErrUserInterrupt);
+                LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.KLispErrUserInterrupt);
             } else {
                 LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.KLispErrMaxRecurseDepthReached);
             }
@@ -242,7 +241,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
     }
 
     public static void traceShowArg(Environment aEnvironment, ConsPointer aParam, ConsPointer aValue) throws Exception {
-        for (int i = 0; i < evalDepth; i++){ //aEnvironment.iEvalDepth; i++) {
+        for (int i = 0; i < evalDepth; i++) { //aEnvironment.iEvalDepth; i++) {
             if (TRACE_TO_STANDARD_OUT) {
                 System.out.print("    ");
             } else {
@@ -252,36 +251,36 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
 
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print("Arg(");
-            //System.out.print("    ");
+        //System.out.print("    ");
 
         } else {
             aEnvironment.write("Arg(");
-           // aEnvironment.write("    ");
+        // aEnvironment.write("    ");
         }
 
         traceShowExpression(aEnvironment, aParam);
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print(",");
-            //System.out.print("    ");
+        //System.out.print("    ");
 
         } else {
             aEnvironment.write(",");
-           // aEnvironment.write("    ");
+        // aEnvironment.write("    ");
         }
 
         traceShowExpression(aEnvironment, aValue);
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print(");\n");
-            //System.out.print("    ");
+        //System.out.print("    ");
 
         } else {
             aEnvironment.write(");\n");
-            //aEnvironment.write("    ");
+        //aEnvironment.write("    ");
         }
     }
 
     public static void traceShowEnter(Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        for (int i = 0; i < evalDepth; i++){  // aEnvironment.iEvalDepth; i++) {
+        for (int i = 0; i < evalDepth; i++) {  // aEnvironment.iEvalDepth; i++) {
             if (TRACE_TO_STANDARD_OUT) {
                 System.out.print("    ");
             } else {
@@ -369,7 +368,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
     public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult,
             ConsPointer aExpression) throws Exception {
         evalDepth--;
-        for (int i = 0; i <evalDepth; i++){  // aEnvironment.iEvalDepth; i++) {
+        for (int i = 0; i < evalDepth; i++) {  // aEnvironment.iEvalDepth; i++) {
             if (TRACE_TO_STANDARD_OUT) {
                 System.out.print("    ");
 
@@ -397,7 +396,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
         } else {
             aEnvironment.write(");\n");
         }
-        
+
     }
 
     /*
