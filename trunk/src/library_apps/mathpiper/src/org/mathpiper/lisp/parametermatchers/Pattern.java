@@ -334,7 +334,7 @@ public class Pattern
 		for (i=0;i<iVariables.size();i++)
 		{
 			// setCons the variable to the new value
-			aEnvironment.newLocal((String)iVariables.get(i),arguments[i].getCons());
+			aEnvironment.newLocalVariable((String)iVariables.get(i),arguments[i].getCons());
 		}
 	}
 

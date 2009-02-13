@@ -225,7 +225,7 @@ public class UtilityFunctions {
                 LispError.check(var != null, LispError.KLispErrInvalidArg);
                 ConsPointer newly = new ConsPointer();
                 newly.setCons(args2.getCons().copy(false));
-                aEnvironment.newLocal(var, newly.getCons());
+                aEnvironment.newLocalVariable(var, newly.getCons());
                 oper2.setCons(oper2.getCons().rest().getCons());
                 args2.setCons(args2.getCons().rest().getCons());
             }
@@ -462,7 +462,7 @@ public class UtilityFunctions {
                 else {
                     ConsPointer result = new ConsPointer();
                     aEnvironment.iEvaluator.evaluate(aEnvironment, result, readIn);
-                    aEnvironment.setVariable("LoadResult", result, false);//Note:tk:added to make getResult of executing Loaded code available.
+                    aEnvironment.setGlobalVariable("LoadResult", result, false);//Note:tk:added to make getResult of executing Loaded code available.
                 }
             }
         } catch (Exception e) {
@@ -623,7 +623,7 @@ public class UtilityFunctions {
                 } // Else evaluate
                 else {
                     String str = token;
-                    MultipleArityUserFunction multiUser = aEnvironment.multiUserFunction(str);
+                    MultipleArityUserFunction multiUser = aEnvironment.getMultiUserFunction(str);
                     if (multiUser.iFileToOpen != null) {
                         throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, -1);
                     }
@@ -802,7 +802,7 @@ public class UtilityFunctions {
 
         ConsPointer result = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
-        aEnvironment.setVariable(variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+        aEnvironment.setGlobalVariable(variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunction.getResult(aEnvironment, aStackTop));
     }
 

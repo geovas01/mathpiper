@@ -100,7 +100,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
             }
 
             ConsPointer val = new ConsPointer();
-            aEnvironment.getVariable(str, val);
+            aEnvironment.getGlobalVariable(str, val);
             if (val.getCons() != null) {
                 aResult.setCons(val.getCons().copy(false));
                 aEnvironment.iEvalDepth--;
@@ -160,11 +160,11 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
         Cons head = subList.getCons();
         UserFunction userFunc = null;
 
-        userFunc = (UserFunction) aEnvironment.userFunction(subList);
+        userFunc = (UserFunction) aEnvironment.getUserFunction(subList);
         if (userFunc != null) {
             return userFunc;
         } else if (head.string() != null) {
-            MultipleArityUserFunction multiUserFunc = aEnvironment.multiUserFunction(head.string());
+            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultiUserFunction(head.string());
             if (multiUserFunc.iFileToOpen != null) {
                 DefFile def = multiUserFunc.iFileToOpen;
 
@@ -205,7 +205,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
                     }
                 }
             }
-            userFunc = aEnvironment.userFunction(subList);
+            userFunc = aEnvironment.getUserFunction(subList);
         }
         return userFunc;
     }//end method.

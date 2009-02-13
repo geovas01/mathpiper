@@ -34,7 +34,7 @@ public class SetPlotColor extends BuiltinFunction
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
          ConsPointer consPointer = new ConsPointer();
-         aEnvironment.getVariable("Simulator", consPointer);
+         aEnvironment.getGlobalVariable("Simulator", consPointer);
          org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame) consPointer.getCons().getGeneric().getJavaObject();
 
          Cons redCons = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();

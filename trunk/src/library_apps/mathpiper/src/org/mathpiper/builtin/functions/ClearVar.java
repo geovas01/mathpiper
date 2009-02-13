@@ -44,7 +44,7 @@ public class ClearVar extends BuiltinFunction
                 String str;
                 str = iter.getCons().string();
                 LispError.checkArgument(aEnvironment, aStackTop, str != null, nr);
-                aEnvironment.unsetVariable(str);
+                aEnvironment.unsetLocalVariable(str);
                 iter.goNext();
                 nr++;
             }

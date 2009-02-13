@@ -264,7 +264,7 @@ class SynchronousInterpreter implements Interpreter
             environment.iEvaluator.evaluate(environment, result, inputExpressionPointer);
 
             String percent = (String)environment.getTokenHash().lookUp("%");
-            environment.setVariable(percent, result, true);
+            environment.setGlobalVariable(percent, result, true);
 
             StringBuffer string_out = new StringBuffer();
             MathPiperOutputStream output = new StringOutputStream(string_out);
@@ -307,7 +307,7 @@ class SynchronousInterpreter implements Interpreter
             if (inputExpression.trim().startsWith("Load"))
             {
                 ConsPointer loadResult = new ConsPointer();
-                environment.getVariable("LoadResult", loadResult);
+                environment.getGlobalVariable("LoadResult", loadResult);
                 StringBuffer string_out = new StringBuffer();
                 MathPiperOutputStream output = new StringOutputStream(string_out);
                 printer.rememberLastChar(' ');

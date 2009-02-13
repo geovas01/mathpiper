@@ -45,7 +45,7 @@ public class Retract extends BuiltinFunction
         arity.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, arity.getCons().string() != null, 2);
         int ar = Integer.parseInt(arity.getCons().string(), 10);
-        aEnvironment.retract(oper, ar);
+        aEnvironment.retractFunction(oper, ar);
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
