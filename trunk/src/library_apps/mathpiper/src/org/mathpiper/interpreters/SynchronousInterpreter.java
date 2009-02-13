@@ -327,7 +327,7 @@ class SynchronousInterpreter implements Interpreter
         return evaluationResponse;
     }
 
-    public void haltEvaluation()
+    public synchronized void haltEvaluation()
     {
         environment.iEvalDepth = environment.iMaxEvalDepth + 100;
     }
