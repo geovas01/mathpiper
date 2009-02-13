@@ -145,10 +145,10 @@ public class UtilityFunctions {
     }
 
     public static int listLength(ConsPointer aOriginal) throws Exception {
-        ConsTraverser iter = new ConsTraverser(aOriginal);
+        ConsTraverser consTraverser = new ConsTraverser(aOriginal);
         int length = 0;
-        while (iter.getCons() != null) {
-            iter.goNext();
+        while (consTraverser.getCons() != null) {
+            consTraverser.goNext();
             length++;
         }
         return length;
@@ -176,15 +176,15 @@ public class UtilityFunctions {
         full.setCons(aArguments.getCons().copy(false));
         aResult.setCons(SubListCons.getInstance(full.getCons()));
 
-        ConsTraverser iter = new ConsTraverser(aArguments);
-        iter.goNext();
+        ConsTraverser consTraverser = new ConsTraverser(aArguments);
+        consTraverser.goNext();
 
-        while (iter.getCons() != null) {
+        while (consTraverser.getCons() != null) {
             ConsPointer next = new ConsPointer();
-            aEnvironment.iEvaluator.evaluate(aEnvironment, next, iter.ptr());
+            aEnvironment.iEvaluator.evaluate(aEnvironment, next, consTraverser.ptr());
             full.getCons().rest().setCons(next.getCons());
             full.setCons(next.getCons());
-            iter.goNext();
+            consTraverser.goNext();
         }
         full.getCons().rest().setCons(null);
     }
@@ -259,15 +259,15 @@ public class UtilityFunctions {
         LispError.check(aArg.getCons() != null, LispError.KLispErrInvalidArg);
         LispError.check(aArg.getCons().getSubList() != null, LispError.KLispErrInvalidArg);
         LispError.check(n >= 0, LispError.KLispErrInvalidArg);
-        ConsTraverser iter = new ConsTraverser(aArg.getCons().getSubList());
+        ConsTraverser consTraverser = new ConsTraverser(aArg.getCons().getSubList());
 
         while (n > 0) {
-            LispError.check(iter.getCons() != null, LispError.KLispErrInvalidArg);
-            iter.goNext();
+            LispError.check(consTraverser.getCons() != null, LispError.KLispErrInvalidArg);
+            consTraverser.goNext();
             n--;
         }
-        LispError.check(iter.getCons() != null, LispError.KLispErrInvalidArg);
-        aResult.setCons(iter.getCons().copy(false));
+        LispError.check(consTraverser.getCons() != null, LispError.KLispErrInvalidArg);
+        aResult.setCons(consTraverser.getCons().copy(false));
     }
 
     public static void internalTail(ConsPointer aResult, ConsPointer aArg) throws Exception {
@@ -385,21 +385,21 @@ public class UtilityFunctions {
             if (aExpression2.getCons().getSubList() == null) {
                 return false;
             }
-            ConsTraverser iter1 = new ConsTraverser(aExpression1.getCons().getSubList());
-            ConsTraverser iter2 = new ConsTraverser(aExpression2.getCons().getSubList());
+            ConsTraverser consTraverser1 = new ConsTraverser(aExpression1.getCons().getSubList());
+            ConsTraverser consTraverser2 = new ConsTraverser(aExpression2.getCons().getSubList());
 
-            while (iter1.getCons() != null && iter2.getCons() != null) {
+            while (consTraverser1.getCons() != null && consTraverser2.getCons() != null) {
                 // compare two list elements
-                if (!internalEquals(aEnvironment, iter1.ptr(), iter2.ptr())) {
+                if (!internalEquals(aEnvironment, consTraverser1.ptr(), consTraverser2.ptr())) {
                     return false;
                 }
 
                 // Step to rest
-                iter1.goNext();
-                iter2.goNext();
+                consTraverser1.goNext();
+                consTraverser2.goNext();
             }
             // Lists don't have the same length
-            if (iter1.getCons() != iter2.getCons()) {
+            if (consTraverser1.getCons() != consTraverser2.getCons()) {
                 return false;            // Same!
             }
             return true;
@@ -825,15 +825,15 @@ public class UtilityFunctions {
         int ind = Integer.parseInt(index.getCons().string(), 10);
         LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 2);
 
-        ConsTraverser iter = new ConsTraverser(copied);
+        ConsTraverser consTraverser = new ConsTraverser(copied);
         while (ind > 0) {
-            iter.goNext();
+            consTraverser.goNext();
             ind--;
         }
-        LispError.check(aEnvironment, aStackTop, iter.getCons() != null, LispError.KLispErrListNotLongEnough);
+        LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.KLispErrListNotLongEnough);
         ConsPointer next = new ConsPointer();
-        next.setCons(iter.getCons().rest().getCons());
-        iter.ptr().setCons(next.getCons());
+        next.setCons(consTraverser.getCons().rest().getCons());
+        consTraverser.ptr().setCons(next.getCons());
         BuiltinFunction.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
 
@@ -856,16 +856,16 @@ public class UtilityFunctions {
         int ind = Integer.parseInt(index.getCons().string(), 10);
         LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 2);
 
-        ConsTraverser iter = new ConsTraverser(copied);
+        ConsTraverser consTraverser = new ConsTraverser(copied);
         while (ind > 0) {
-            iter.goNext();
+            consTraverser.goNext();
             ind--;
         }
 
         ConsPointer toInsert = new ConsPointer();
         toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        toInsert.getCons().rest().setCons(iter.getCons());
-        iter.ptr().setCons(toInsert.getCons());
+        toInsert.getCons().rest().setCons(consTraverser.getCons());
+        consTraverser.ptr().setCons(toInsert.getCons());
         BuiltinFunction.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
 
@@ -889,18 +889,18 @@ public class UtilityFunctions {
         }
         LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 2);
 
-        ConsTraverser iter = new ConsTraverser(copied);
+        ConsTraverser consTraverser = new ConsTraverser(copied);
         while (ind > 0) {
-            iter.goNext();
+            consTraverser.goNext();
             ind--;
         }
 
         ConsPointer toInsert = new ConsPointer();
         toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, iter.ptr() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, iter.ptr().getCons() != null, 2);
-        toInsert.getCons().rest().setCons(iter.ptr().getCons().rest().getCons());
-        iter.ptr().setCons(toInsert.getCons());
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.ptr() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.ptr().getCons() != null, 2);
+        toInsert.getCons().rest().setCons(consTraverser.ptr().getCons().rest().getCons());
+        consTraverser.ptr().setCons(toInsert.getCons());
         BuiltinFunction.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
     /// Implements the MathPiper functions \c RuleBase and \c MacroRuleBase .

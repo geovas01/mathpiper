@@ -35,12 +35,12 @@ public class Write extends BuiltinFunction
         ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList();
         if (subList != null)
         {
-            ConsTraverser iter = new ConsTraverser(subList);
-            iter.goNext();
-            while (iter.getCons() != null)
+            ConsTraverser consTraverser = new ConsTraverser(subList);
+            consTraverser.goNext();
+            while (consTraverser.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(iter.ptr(), aEnvironment.iCurrentOutput, aEnvironment);
-                iter.goNext();
+                aEnvironment.iCurrentPrinter.print(consTraverser.ptr(), aEnvironment.iCurrentOutput, aEnvironment);
+                consTraverser.goNext();
             }
         }
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

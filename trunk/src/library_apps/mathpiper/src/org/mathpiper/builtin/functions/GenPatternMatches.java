@@ -47,14 +47,14 @@ public class GenPatternMatches extends BuiltinFunction
 
         PatternContainer patclass = (PatternContainer) gen;
 
-        ConsTraverser iter = new ConsTraverser(list);
-        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons().getSubList() != null, 2);
-        iter.goSub();
-        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons() != null, 2);
-        iter.goNext();
+        ConsTraverser consTraverser = new ConsTraverser(list);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons().getSubList() != null, 2);
+        consTraverser.goSub();
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2);
+        consTraverser.goNext();
 
-        ConsPointer ptr = iter.ptr();
+        ConsPointer ptr = consTraverser.ptr();
         LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2);
         boolean matches = patclass.matches(aEnvironment, ptr);
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), matches);

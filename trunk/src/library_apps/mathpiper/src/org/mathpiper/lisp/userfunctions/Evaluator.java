@@ -61,8 +61,8 @@ public class Evaluator extends EvalFuncBase
 		// Push a place holder for the getResult: push full expression so it is available for error reporting
 		aEnvironment.iArgumentStack.pushArgumentOnStack(aArguments.getCons());
 
-		ConsTraverser iter = new ConsTraverser(aArguments);
-		iter.goNext();
+		ConsTraverser consTraverser = new ConsTraverser(aArguments);
+		consTraverser.goNext();
 
 		int i;
 		int numberOfArguments = iNumberOfArguments;
@@ -74,15 +74,15 @@ public class Evaluator extends EvalFuncBase
 		{
 			for (i=0;i<numberOfArguments;i++)
 			{
-				LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iArgumentStack.pushArgumentOnStack(iter.getCons().copy(false));
-				iter.goNext();
+				LispError.check(consTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
+				aEnvironment.iArgumentStack.pushArgumentOnStack(consTraverser.getCons().copy(false));
+				consTraverser.goNext();
 			}
 			if ((iFlags & Variable) != 0)
 			{
 				ConsPointer head = new ConsPointer();
 				head.setCons(aEnvironment.iListAtom.copy(false));
-				head.getCons().rest().setCons(iter.getCons());
+				head.getCons().rest().setCons(consTraverser.getCons());
 				aEnvironment.iArgumentStack.pushArgumentOnStack(SubListCons.getInstance(head.getCons()));
 			}
 		}
@@ -91,11 +91,11 @@ public class Evaluator extends EvalFuncBase
 			ConsPointer argument = new ConsPointer();
 			for (i=0;i<numberOfArguments;i++)
 			{
-				LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-				LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.evaluate(aEnvironment, argument, iter.ptr());
+				LispError.check(consTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
+				LispError.check(consTraverser.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
+				aEnvironment.iEvaluator.evaluate(aEnvironment, argument, consTraverser.ptr());
 				aEnvironment.iArgumentStack.pushArgumentOnStack(argument.getCons());
-				iter.goNext();
+				consTraverser.goNext();
 			}
 			if ((iFlags & Variable) != 0)
 			{
@@ -105,7 +105,7 @@ public class Evaluator extends EvalFuncBase
 				//printf("Enter\n");
 				ConsPointer head = new ConsPointer();
 				head.setCons(aEnvironment.iListAtom.copy(false));
-				head.getCons().rest().setCons(iter.getCons());
+				head.getCons().rest().setCons(consTraverser.getCons());
 				ConsPointer list = new ConsPointer();
 				list.setCons(SubListCons.getInstance(head.getCons()));
 

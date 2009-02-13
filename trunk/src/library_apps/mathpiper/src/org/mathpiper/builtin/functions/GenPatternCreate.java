@@ -40,14 +40,14 @@ public class GenPatternCreate extends BuiltinFunction
         ConsPointer postpredicate = new ConsPointer();
         postpredicate.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        ConsTraverser iter = new ConsTraverser(pattern);
-        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons().getSubList() != null, 1);
-        iter.goSub();
-        LispError.checkArgument(aEnvironment, aStackTop, iter.getCons() != null, 1);
-        iter.goNext();
+        ConsTraverser consTraverser = new ConsTraverser(pattern);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons().getSubList() != null, 1);
+        consTraverser.goSub();
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 1);
+        consTraverser.goNext();
 
-        ConsPointer ptr = iter.ptr();
+        ConsPointer ptr = consTraverser.ptr();
 
 
         org.mathpiper.lisp.parametermatchers.Pattern matcher = new org.mathpiper.lisp.parametermatchers.Pattern(aEnvironment, ptr, postpredicate);

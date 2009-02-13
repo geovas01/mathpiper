@@ -37,11 +37,11 @@ public class LazyAnd extends BuiltinFunction
         int nrnogos = 0;
         ConsPointer evaluated = new ConsPointer();
 
-        ConsTraverser iter = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
-        iter.goNext();
-        while (iter.getCons() != null)
+        ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
+        consTraverser.goNext();
+        while (consTraverser.getCons() != null)
         {
-            aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, iter.ptr());
+            aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, consTraverser.ptr());
             if (UtilityFunctions.isFalse(aEnvironment, evaluated))
             {
                 UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
@@ -55,7 +55,7 @@ public class LazyAnd extends BuiltinFunction
                 nogos.setCons(ptr.getCons());
             }
 
-            iter.goNext();
+            consTraverser.goNext();
         }
 
         if (nogos.getCons() != null)

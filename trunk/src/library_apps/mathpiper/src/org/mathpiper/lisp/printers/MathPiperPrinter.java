@@ -157,15 +157,15 @@ public class MathPiperPrinter extends LispPrinter
 			}
 			else
 			{
-				ConsTraverser iter = new ConsTraverser(subList.getCons().rest());
+				ConsTraverser consTraverser = new ConsTraverser(subList.getCons().rest());
 				if (string == iCurrentEnvironment.iListAtom.string())
 				{
 					WriteToken(aOutput,"{");
-					while (iter.getCons() != null)
+					while (consTraverser.getCons() != null)
 					{
-						Print(iter.ptr(), aOutput, KMaxPrecedence);
-						iter.goNext();
-						if (iter.getCons() != null)
+						Print(consTraverser.ptr(), aOutput, KMaxPrecedence);
+						consTraverser.goNext();
+						if (consTraverser.getCons() != null)
 							WriteToken(aOutput,",");
 					}
 					WriteToken(aOutput,"}");
@@ -176,11 +176,11 @@ public class MathPiperPrinter extends LispPrinter
                     aOutput.write("\n");
                     spaces.append("    ");
                     
-					while (iter.getCons() != null)
+					while (consTraverser.getCons() != null)
 					{
                         aOutput.write( spaces.toString());
-						Print(iter.ptr(), aOutput, KMaxPrecedence);
-						iter.goNext();
+						Print(consTraverser.ptr(), aOutput, KMaxPrecedence);
+						consTraverser.goNext();
 						WriteToken(aOutput,";");
                         aOutput.write("\n");
 					}
@@ -191,10 +191,10 @@ public class MathPiperPrinter extends LispPrinter
 				}
 				else if (string == iCurrentEnvironment.iNthAtom.string())
 				{
-					Print(iter.ptr(), aOutput, 0);
-					iter.goNext();
+					Print(consTraverser.ptr(), aOutput, 0);
+					consTraverser.goNext();
 					WriteToken(aOutput,"[");
-					Print(iter.ptr(), aOutput, KMaxPrecedence);
+					Print(consTraverser.ptr(), aOutput, KMaxPrecedence);
 					WriteToken(aOutput,"]");
 				}
 				else
@@ -217,7 +217,7 @@ public class MathPiperPrinter extends LispPrinter
 					}
 					WriteToken(aOutput,"(");
 
-					ConsTraverser counter = new ConsTraverser(iter.ptr());
+					ConsTraverser counter = new ConsTraverser(consTraverser.ptr());
 					int nr=0;
 
 					while (counter.getCons() != null)
@@ -230,15 +230,15 @@ public class MathPiperPrinter extends LispPrinter
 						nr--;
 					while (nr-- != 0)
 					{
-						Print(iter.ptr(), aOutput, KMaxPrecedence);
+						Print(consTraverser.ptr(), aOutput, KMaxPrecedence);
 
-						iter.goNext();
+						consTraverser.goNext();
 						if (nr != 0)
 							WriteToken(aOutput,",");
 					}
 					WriteToken(aOutput,")");
-					if (iter.getCons() != null)
-						Print(iter.ptr(), aOutput, bodied.iPrecedence);
+					if (consTraverser.getCons() != null)
+						Print(consTraverser.ptr(), aOutput, bodied.iPrecedence);
 
 					if (bracket) WriteToken(aOutput,")");
 				}

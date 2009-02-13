@@ -39,12 +39,12 @@ public class ProgBody extends BuiltinFunction
 
             // Evaluate args one by one.
 
-            ConsTraverser iter = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
-            iter.goNext();
-            while (iter.getCons() != null)
+            ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
+            consTraverser.goNext();
+            while (consTraverser.getCons() != null)
             {
-                aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), iter.ptr());
-                iter.goNext();
+                aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), consTraverser.ptr());
+                consTraverser.goNext();
             }
         } catch (Exception e)
         {
