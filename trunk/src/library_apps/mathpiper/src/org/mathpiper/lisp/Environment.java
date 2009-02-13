@@ -77,7 +77,7 @@ public class Environment
     public OperatorMap iInfixOperators = new OperatorMap();
     public OperatorMap iPostfixOperators = new OperatorMap();
     public OperatorMap iBodiedOperators = new OperatorMap();
-    public int iEvalDepth = 0;
+    public volatile int iEvalDepth = 0;
     public int iMaxEvalDepth = 10000;
     //TODO FIXME
     public ArgumentStack iArgumentStack;
