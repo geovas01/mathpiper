@@ -43,21 +43,21 @@ public class SubList extends Parameter
 			return false;
 		int i;
 
-		ConsTraverser iter = new ConsTraverser(aExpression);
-		iter.goSub();
+		ConsTraverser consTraverser = new ConsTraverser(aExpression);
+		consTraverser.goSub();
 
 		for (i=0;i<iNrMatchers;i++)
 		{
-			ConsPointer  ptr = iter.ptr();
+			ConsPointer  ptr = consTraverser.ptr();
 			if (ptr == null)
 				return false;
-			if (iter.getCons() == null)
+			if (consTraverser.getCons() == null)
 				return false;
 			if (!iMatchers[i].argumentMatches(aEnvironment,ptr,arguments))
 				return false;
-			iter.goNext();
+			consTraverser.goNext();
 		}
-		if (iter.getCons() != null)
+		if (consTraverser.getCons() != null)
 			return false;
 		return true;
 	}

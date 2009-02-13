@@ -348,24 +348,24 @@ public class MathPiperParser extends Parser
     {
         ConsPointer subList = new ConsPointer();
         subList.setCons(SubListCons.getInstance(iResult.getCons()));
-        ConsTraverser iter = new ConsTraverser(iResult);
+        ConsTraverser consTraverser = new ConsTraverser(iResult);
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)
         {
-            if (iter.getCons() == null)
+            if (consTraverser.getCons() == null)
             {
                 fail();
                 return;
             }
-            iter.goNext();
+            consTraverser.goNext();
         }
-        if (iter.getCons() == null)
+        if (consTraverser.getCons() == null)
         {
             fail();
             return;
         }
-        subList.getCons().rest().setCons(iter.getCons().rest().getCons());
-        iter.getCons().rest().setCons(null);
+        subList.getCons().rest().setCons(consTraverser.getCons().rest().getCons());
+        consTraverser.getCons().rest().setCons(null);
 
         UtilityFunctions.internalReverseList(subList.getCons().getSubList().getCons().rest(),
                 subList.getCons().getSubList().getCons().rest());

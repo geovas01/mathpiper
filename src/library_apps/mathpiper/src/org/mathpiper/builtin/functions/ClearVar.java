@@ -36,16 +36,16 @@ public class ClearVar extends BuiltinFunction
         ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList();
         if (subList != null)
         {
-            ConsTraverser iter = new ConsTraverser(subList);
-            iter.goNext();
+            ConsTraverser consTraverser = new ConsTraverser(subList);
+            consTraverser.goNext();
             int nr = 1;
-            while (iter.getCons() != null)
+            while (consTraverser.getCons() != null)
             {
                 String str;
-                str = iter.getCons().string();
+                str = consTraverser.getCons().string();
                 LispError.checkArgument(aEnvironment, aStackTop, str != null, nr);
                 aEnvironment.unsetLocalVariable(str);
-                iter.goNext();
+                consTraverser.goNext();
                 nr++;
             }
         }

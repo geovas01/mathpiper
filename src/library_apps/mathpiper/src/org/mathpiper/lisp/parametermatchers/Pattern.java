@@ -72,14 +72,14 @@ public class Pattern
 	                                 ConsPointer  aPattern,
 	                                 ConsPointer  aPostPredicate) throws Exception
 	{
-		ConsTraverser iter = new ConsTraverser(aPattern);
+		ConsTraverser consTraverser = new ConsTraverser(aPattern);
 
-		while (iter.getCons() != null)
+		while (consTraverser.getCons() != null)
 		{
-			Parameter matcher = makeParamMatcher(aEnvironment,iter.getCons());
+			Parameter matcher = makeParamMatcher(aEnvironment,consTraverser.getCons());
 			LispError.lispAssert(matcher!=null);
 			iParamMatchers.add(matcher);
-			iter.goNext();
+			consTraverser.goNext();
 		}
 		ConsPointer  post = new ConsPointer();
 		post.setCons(aPostPredicate.getCons());
@@ -111,22 +111,22 @@ public class Pattern
 			}
 
 		}
-		ConsTraverser iter = new ConsTraverser(aArguments);
+		ConsTraverser consTraverser = new ConsTraverser(aArguments);
 
 		for (i=0;i<iParamMatchers.size();i++)
 		{
-			if (iter.getCons() == null)
+			if (consTraverser.getCons() == null)
 				return false;
-			ConsPointer  ptr = iter.ptr();
+			ConsPointer  ptr = consTraverser.ptr();
 			if (ptr==null)
 				return false;
 			if (!((Parameter)iParamMatchers.get(i)).argumentMatches(aEnvironment,ptr,arguments))
 			{
 				return false;
 			}
-			iter.goNext();
+			consTraverser.goNext();
 		}
-		if (iter.getCons() != null)
+		if (consTraverser.getCons() != null)
 			return false;
 
 		{
@@ -292,12 +292,12 @@ public class Pattern
 			Parameter[] matchers = new Parameter[num];
 
 			int i;
-			ConsTraverser iter = new ConsTraverser(sublist);
+			ConsTraverser consTraverser = new ConsTraverser(sublist);
 			for (i=0;i<num;i++)
 			{
-				matchers[i] = makeParamMatcher(aEnvironment,iter.getCons());
+				matchers[i] = makeParamMatcher(aEnvironment,consTraverser.getCons());
 				LispError.lispAssert(matchers[i] != null);
-				iter.goNext();
+				consTraverser.goNext();
 			}
 			return new SubList(matchers, num);
 		}

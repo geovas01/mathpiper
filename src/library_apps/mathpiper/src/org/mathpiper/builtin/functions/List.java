@@ -36,15 +36,15 @@ import org.mathpiper.lisp.cons.SubListCons;
 			all.setCons(aEnvironment.iListAtom.copy(false));
 			ConsTraverser tail = new ConsTraverser(all);
 			tail.goNext();
-			ConsTraverser iter = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
-			iter.goNext();
-			while (iter.getCons() != null)
+			ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
+			consTraverser.goNext();
+			while (consTraverser.getCons() != null)
 			{
 				ConsPointer evaluated = new ConsPointer();
-				aEnvironment.iEvaluator.evaluate(aEnvironment,evaluated,iter.ptr());
+				aEnvironment.iEvaluator.evaluate(aEnvironment,evaluated,consTraverser.ptr());
 				tail.ptr().setCons(evaluated.getCons());
 				tail.goNext();
-				iter.goNext();
+				consTraverser.goNext();
 			}
 			getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(all.getCons()));
 		}

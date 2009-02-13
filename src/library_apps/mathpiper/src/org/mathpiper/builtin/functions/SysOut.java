@@ -39,12 +39,12 @@ public class SysOut extends BuiltinFunction {
         ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList();
         if (subList != null)
         {
-            ConsTraverser iter = new ConsTraverser(subList);
-            iter.goNext();
-            while (iter.getCons() != null)
+            ConsTraverser consTraverser = new ConsTraverser(subList);
+            consTraverser.goNext();
+            while (consTraverser.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(iter.ptr(), out, aEnvironment);
-                iter.goNext();
+                aEnvironment.iCurrentPrinter.print(consTraverser.ptr(), out, aEnvironment);
+                consTraverser.goNext();
             }
         }
         String output = out.toString();

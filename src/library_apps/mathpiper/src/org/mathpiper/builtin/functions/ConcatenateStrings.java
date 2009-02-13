@@ -35,15 +35,15 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
         int arg = 1;
 
-        ConsTraverser iter = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
-        iter.goNext();
-        while (iter.getCons() != null)
+        ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
+        consTraverser.goNext();
+        while (consTraverser.getCons() != null)
         {
-            LispError.checkIsString(aEnvironment, aStackTop, iter.ptr(), arg);
-            String thisString = iter.getCons().string();
+            LispError.checkIsString(aEnvironment, aStackTop, consTraverser.ptr(), arg);
+            String thisString = consTraverser.getCons().string();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);
-            iter.goNext();
+            consTraverser.goNext();
             arg++;
         }
         aStringBuffer.append('\"');

@@ -53,13 +53,13 @@ public class BranchingUserFunction extends SingleArityUserFunction
     {
         // iParamList and #iParameters are setCons from \a aParameters.
         iParamList.setCons(aParameters.getCons());
-        ConsTraverser iter = new ConsTraverser(aParameters);
-        while (iter.getCons() != null)
+        ConsTraverser consTraverser = new ConsTraverser(aParameters);
+        while (consTraverser.getCons() != null)
         {
-            LispError.check(iter.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
-            BranchParameter param = new BranchParameter(iter.getCons().string(), false);
+            LispError.check(consTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
+            BranchParameter param = new BranchParameter(consTraverser.getCons().string(), false);
             iParameters.add(param);
-            iter.goNext();
+            consTraverser.goNext();
         }
     }
 
@@ -94,8 +94,8 @@ public class BranchingUserFunction extends SingleArityUserFunction
             tr.setCons(null);
         }
 
-        ConsTraverser iter = new ConsTraverser(aArguments);
-        iter.goNext();
+        ConsTraverser consTraverser = new ConsTraverser(aArguments);
+        consTraverser.goNext();
 
         // unrollable arguments
         ConsPointer[] arguments;
@@ -115,22 +115,22 @@ public class BranchingUserFunction extends SingleArityUserFunction
         // Walk over all arguments, evaluating them as necessary
         for (i = 0; i < arity; i++)
         {
-            LispError.check(iter.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
+            LispError.check(consTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
             if (((BranchParameter) iParameters.get(i)).iHold)
             {
-                arguments[i].setCons(iter.getCons().copy(false));
+                arguments[i].setCons(consTraverser.getCons().copy(false));
             } else
             {
-                LispError.check(iter.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-                aEnvironment.iEvaluator.evaluate(aEnvironment, arguments[i], iter.ptr());
+                LispError.check(consTraverser.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
+                aEnvironment.iEvaluator.evaluate(aEnvironment, arguments[i], consTraverser.ptr());
             }
-            iter.goNext();
+            consTraverser.goNext();
         }
 	
         /*Trace code */
         if (isTraced())
         {
-            //ConsTraverser iter2 = new ConsTraverser(aArguments);
+            //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
             ConsPointer iter2 = new ConsPointer(aArguments.getCons());
 
             iter2.goNext();

@@ -41,30 +41,30 @@ public class ListedMacroUserFunction extends MacroUserFunction
 	public void evaluate(ConsPointer aResult, Environment aEnvironment, ConsPointer aArguments) throws Exception
 	{
 		ConsPointer newArgs = new ConsPointer();
-		ConsTraverser iter = new ConsTraverser(aArguments);
+		ConsTraverser consTraverser = new ConsTraverser(aArguments);
 		ConsPointer ptr =  newArgs;
 		int arity = arity();
 		int i=0;
-		while (i < arity && iter.getCons() != null)
+		while (i < arity && consTraverser.getCons() != null)
 		{
-			ptr.setCons(iter.getCons().copy(false));
+			ptr.setCons(consTraverser.getCons().copy(false));
 			ptr = (ptr.getCons().rest());
 			i++;
-			iter.goNext();
+			consTraverser.goNext();
 		}
-		if (iter.getCons().rest().getCons() == null)
+		if (consTraverser.getCons().rest().getCons() == null)
 		{
-			ptr.setCons(iter.getCons().copy(false));
+			ptr.setCons(consTraverser.getCons().copy(false));
 			ptr = (ptr.getCons().rest());
 			i++;
-			iter.goNext();
-			LispError.lispAssert(iter.getCons() == null);
+			consTraverser.goNext();
+			LispError.lispAssert(consTraverser.getCons() == null);
 		}
 		else
 		{
 			ConsPointer head = new ConsPointer();
 			head.setCons(aEnvironment.iListAtom.copy(false));
-			head.getCons().rest().setCons(iter.getCons());
+			head.getCons().rest().setCons(consTraverser.getCons());
 			ptr.setCons(SubListCons.getInstance(head.getCons()));
 		}
 		super.evaluate(aResult, aEnvironment, newArgs);

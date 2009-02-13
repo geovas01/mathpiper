@@ -36,17 +36,17 @@ public class NewLocal extends BuiltinFunction
         ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList();
         if (subList != null)
         {
-            ConsTraverser iter = new ConsTraverser(subList);
-            iter.goNext();
+            ConsTraverser consTraverser = new ConsTraverser(subList);
+            consTraverser.goNext();
 
             int nr = 1;
-            while (iter.getCons() != null)
+            while (consTraverser.getCons() != null)
             {
-                String variable = iter.getCons().string();
+                String variable = consTraverser.getCons().string();
                 LispError.checkArgument(aEnvironment, aStackTop, variable != null, nr);
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocalVariable(variable, null);
-                iter.goNext();
+                consTraverser.goNext();
                 nr++;
             }
         }

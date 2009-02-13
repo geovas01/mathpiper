@@ -185,41 +185,41 @@ public class Environment
 
     public void setGlobalVariable(String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception
     {
-        ConsPointer local = findLocalVariable(aVariable);
-        if (local != null)
+        ConsPointer localVariable = findLocalVariable(aVariable);
+        if (localVariable != null)
         {
-            local.setCons(aValue.getCons());
+            localVariable.setCons(aValue.getCons());
             return;
         }
-        GlobalVariable global = new GlobalVariable(aValue);
-        iGlobalState.setAssociation(global, aVariable);
+        GlobalVariable globalVariable = new GlobalVariable(aValue);
+        iGlobalState.setAssociation(globalVariable, aVariable);
         if (aGlobalLazyVariable)
         {
-            global.setEvalBeforeReturn(true);
+            globalVariable.setEvalBeforeReturn(true);
         }
     }
 
     public void getGlobalVariable(String aVariable, ConsPointer aResult) throws Exception
     {
         aResult.setCons(null);
-        ConsPointer local = findLocalVariable(aVariable);
-        if (local != null)
+        ConsPointer localVariable = findLocalVariable(aVariable);
+        if (localVariable != null)
         {
-            aResult.setCons(local.getCons());
+            aResult.setCons(localVariable.getCons());
             return;
         }
-        GlobalVariable l = (GlobalVariable) iGlobalState.lookUp(aVariable);
-        if (l != null)
+        GlobalVariable globalVariable = (GlobalVariable) iGlobalState.lookUp(aVariable);
+        if (globalVariable != null)
         {
-            if (l.iEvalBeforeReturn)
+            if (globalVariable.iEvalBeforeReturn)
             {
-                iEvaluator.evaluate(this, aResult, l.iValue);
-                l.iValue.setCons(aResult.getCons());
-                l.iEvalBeforeReturn = false;
+                iEvaluator.evaluate(this, aResult, globalVariable.iValue);
+                globalVariable.iValue.setCons(aResult.getCons());
+                globalVariable.iEvalBeforeReturn = false;
                 return;
             } else
             {
-                aResult.setCons(l.iValue.getCons());
+                aResult.setCons(globalVariable.iValue.getCons());
                 return;
             }
         }
@@ -227,10 +227,10 @@ public class Environment
 
     public void unsetLocalVariable(String aString) throws Exception
     {
-        ConsPointer local = findLocalVariable(aString);
-        if (local != null)
+        ConsPointer localVariable = findLocalVariable(aString);
+        if (localVariable != null)
         {
-            local.setCons(null);
+            localVariable.setCons(null);
             return;
         }
         iGlobalState.release(aString);
@@ -240,21 +240,21 @@ public class Environment
     {
         if (aFenced)
         {
-            LocalVariableFrame newFrame = new LocalVariableFrame(iLocalVariablesList, null);
-            iLocalVariablesList = newFrame;
+            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesList, null);
+            iLocalVariablesList = newLocalVariableFrame;
         } else
         {
-            LocalVariableFrame newFrame = new LocalVariableFrame(iLocalVariablesList, iLocalVariablesList.iFirst);
-            iLocalVariablesList = newFrame;
+            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesList, iLocalVariablesList.iFirst);
+            iLocalVariablesList = newLocalVariableFrame;
         }
     }
 
     public void popLocalFrame() throws Exception
     {
         LispError.lispAssert(iLocalVariablesList != null);
-        LocalVariableFrame nextFrame = iLocalVariablesList.iNext;
+        LocalVariableFrame nextLocalVariableFrame = iLocalVariablesList.iNext;
         iLocalVariablesList.delete();
-        iLocalVariablesList = nextFrame;
+        iLocalVariablesList = nextLocalVariableFrame;
     }
 
     public void newLocalVariable(String aVariable, Cons aValue) throws Exception
