@@ -32,14 +32,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
+import org.mathpiper.interpreters.ResponseListener;
 
-public class Console extends javax.swing.JPanel implements ActionListener, KeyListener {
+public class Console extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener {
 
-    private Interpreter interpreter = Interpreters.getSynchronousInterpreter();
+    private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
     private JButton button1,  button2,  button3;
     private JTextArea textArea;
@@ -51,8 +53,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private Font bitstreamVera;
     private StringBuilder inputLines;
     private int responseInsertionOffset = -1;
+    private boolean encounteredIn = false;
 
     public Console() {
+        interpreter.addResponseListener(this);
 
         inputLines = new StringBuilder();
 
@@ -75,7 +79,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textArea.append("Pressing <ctrl><enter> at the end of a line automatically appends a \\ to the line.\n");
 
         textArea.append("\nIn> ");
-        textArea.setCaretPosition( textArea.getDocument().getLength() );
+        textArea.setCaretPosition(textArea.getDocument().getLength());
 
         //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 
@@ -90,21 +94,22 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
         Box ioBox = new Box(BoxLayout.Y_AXIS);
 
-        button1 = new JButton("Reset");
+        button1 = new JButton("Halt Calculation");
+        button1.setEnabled(false);
         //button1.setBackground(Color.green);
         button1.addActionListener(this);
         buttons.add(button1);
-        button2 = new JButton("Font--");
+        /*button2 = new JButton("Font--");
         button2.addActionListener(this);
         buttons.add(button2);
         button3 = new JButton("Font++");
         button3.addActionListener(this);
-        buttons.add(button3);
+        buttons.add(button3);*/
 
         ioBox.add(buttons);
 
 
-        // this.add(ioBox, BorderLayout.NORTH);
+        this.add(ioBox, BorderLayout.NORTH);
 
         this.add(guiBox, BorderLayout.CENTER);
 
@@ -121,7 +126,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         Object src = event.getSource();
 
         if (src == button1) {
-            //this.resetAll();
+            interpreter.haltEvaluation();
         } else if (src == button2) {
             this.fontSize -= 2;
         //bitstreamVera = bitstreamVera.deriveFont(fontSize);
@@ -155,9 +160,9 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 if (e.isShiftDown()) {
 
                     captureInputLines(lineNumber);
-                    boolean encounteredIn = clearPreviousResponse();
+                    clearPreviousResponse();
 
-                    
+
 
                     String code = inputLines.toString().replaceAll(";;", ";").trim();
                     code = code.replaceAll("\\\\", "");
@@ -165,53 +170,31 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     //System.out.println(code);
 
                     if (code.length() > 0) {
-                        EvaluationResponse response = interpreter.evaluate("[" + code + "];");
+                        interpreter.evaluate("[" + code + "];");
+                        button1.setEnabled(true);
 
-                        String output = "Result: " + response.getResult().trim();
-
-                        if (!response.getSideEffects().equalsIgnoreCase("")) {
-                            output += "\nSide Effects:\n" + response.getSideEffects();
-                        }
-
-                        if (response.isExceptionThrown()) {
-                            output += "\nException: " + response.getExceptionMessage();
-                        }
-
-                        if (!encounteredIn) {
-                            output = "\n" + output + "\n\nIn> ";
-                        }
-
-                        if (textArea.getLineOfOffset(responseInsertionOffset) == textArea.getLineCount()) {
-                            textArea.append(output);
-                        } else {
-
-                            textArea.insert(output, responseInsertionOffset);
-                        }//end if/else.
                     }//end if.
                 } else {
                     int relativeLineOffset = -1;
                     int cursorInsert = 0;
                     String eol = "";
-                    if(e.isControlDown())
-                    {
+                    if (e.isControlDown()) {
                         relativeLineOffset = 0;
                         int textAreaLineCount = textArea.getLineCount();
-                        if(lineNumber+1 == textAreaLineCount )
-                        {
+                        if (lineNumber + 1 == textAreaLineCount) {
                             eol = " \\\n";
-                             cursorInsert = 3;
+                            cursorInsert = 3;
                         }
-                       
+
                     }
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber + relativeLineOffset);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber + relativeLineOffset);
                     line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
-                    if(line.startsWith("In> \n") || line.startsWith("In>\n"))
-                    {
+                    if (line.startsWith("In> \n") || line.startsWith("In>\n")) {
                         textArea.replaceRange("", lineStartOffset, lineEndOffset);
-                    }else if (line.startsWith("In>")) {
+                    } else if (line.startsWith("In>")) {
                         textArea.insert(eol + "In> ", lineEndOffset);
-                        textArea.setCaretPosition( lineEndOffset + 4 + cursorInsert );
+                        textArea.setCaretPosition(lineEndOffset + 4 + cursorInsert);
                     }
 
                 }
@@ -262,13 +245,62 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }
     }//end method.
 
-    private boolean clearPreviousResponse() {
+    public void response(EvaluationResponse response) {
+        
+
+
+        
+        String output = "Result: " + response.getResult().trim();
+
+        if (!response.getSideEffects().equalsIgnoreCase("")) {
+            output += "\nSide Effects:\n" + response.getSideEffects();
+        }
+
+        if (response.isExceptionThrown()) {
+            output += "\nException: " + response.getExceptionMessage();
+        }
+
+        if (!encounteredIn) {
+            output = "\n" + output + "\n\nIn> ";
+        }
+
+        final String finalOutput = output;
+        try {
+            if (textArea.getLineOfOffset(responseInsertionOffset) == textArea.getLineCount()) {
+                         SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    button1.setEnabled(false);
+                    textArea.append(finalOutput);
+                }
+            });
+                
+                //textArea.setCaretPosition( textArea.getDocument().getLength() );
+            } else {
+                         SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    button1.setEnabled(false);
+                     textArea.insert(finalOutput, responseInsertionOffset);
+                }
+            });
+               
+            }//end if/else.
+        } catch (BadLocationException ex) {
+            System.out.println(ex);
+        }
+    }//end method.
+
+    public boolean remove() {
+        return false;
+    }
+
+    private void clearPreviousResponse() {
 
         try {
             int lineNumber = textArea.getLineOfOffset(responseInsertionOffset);
 
             if (responseInsertionOffset == -1 || lineNumber == textArea.getLineCount()) {
-                return false;
+                encounteredIn = false;
+                return;
             }
 
             String line = "";
@@ -284,11 +316,12 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             } while (!line.startsWith("In>") && lineNumber < textArea.getLineCount());
 
             textArea.replaceRange("\n\n", responseInsertionOffset, lineStartOffset);
-
-            return line.startsWith("In>");
+            encounteredIn = line.startsWith("In>");
+            return;
 
         } catch (BadLocationException ex) {
-            return false;
+            encounteredIn = false;
+            return;
         }
     }//end method.
 
