@@ -834,6 +834,9 @@ public abstract class BuiltinFunction
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new org.mathpiper.builtin.functions.SysOut(), 1, Evaluator.Variable | Evaluator.Function),
                 "SysOut");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new Evaluator(new org.mathpiper.builtin.functions.CurrentTime(), 1, Evaluator.Variable | Evaluator.Function),
+                "CurrentTime");
     }
 
 
