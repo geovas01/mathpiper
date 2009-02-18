@@ -3,7 +3,10 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
-ExpandFrac() is a function.
++ Use this code to debug halt mechanism.
+In> a := CurrentTime() + 5000000000
+In> While(a > CurrentTime()) [];
++ExpandFrac() is a function.
 + CharString() is a function.  Research it.
 + GroupLayoutManager needs to be bundled with the calculator applet because Macs don't include it in their Java 1.6.
 Hi dovev, I just tried the whole story in this blog entry again. I used 5.5 RC 1. In step 4, I only needed this:
