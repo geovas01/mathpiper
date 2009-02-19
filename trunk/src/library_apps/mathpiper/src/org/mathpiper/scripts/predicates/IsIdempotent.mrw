@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsIdempotent(A_IsMatrix) <-- (A^2 = A);
+
+%/mathpiper

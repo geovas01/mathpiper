@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsOddFunction(f,x):= (f = Eval(-Subst(x,-x)f));
+
+%/mathpiper

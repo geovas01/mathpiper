@@ -1,0 +1,17 @@
+%mathpiper,def="true"
+
+/// HasExpr --- test for an expression containing a subexpression
+/// for checking dependence on variables, this may be faster than using VarList or IsFreeOf and this also can be used on non-variables, e.g. strings or numbers or other atoms or even on non-atoms
+// an expression contains itself -- check early
+10 # HasExpr(_expr, _atom) _ Equals(expr, atom) <-- True;
+// an atom contains itself
+15 # HasExpr(expr_IsAtom, _atom) <-- Equals(expr, atom);
+// a list contains an atom if one element contains it
+// we test for lists now because lists are also functions
+// first take care of the empty list:
+19 # HasExpr({}, _atom) <-- False;
+20 # HasExpr(expr_IsList, _atom) <-- HasExpr(Head(expr), atom) Or HasExpr(Tail(expr), atom);
+// a function contains an atom if one of its arguments contains it
+30 # HasExpr(expr_IsFunction, _atom) <-- HasExpr(Tail(Listify(expr)), atom);
+
+%/mathpiper

@@ -1,0 +1,55 @@
+%mathpiper,def="true"
+
+/* Evaluates distribution dst at point x
+   known distributions are:
+   1. Discrete distributions
+   -- BernoulliDistribution(p)
+   -- BinomialDistribution(p,n)
+   -- DiscreteUniformDistribution(a,b)
+   -- PoissonDistribution(l)
+   2. Continuous distributions
+   -- ExponentialDistribution(l)
+   -- NormalDistrobution(a,s)
+   -- ContinuousUniformDistribution(a,b)
+   -- tDistribution(m)
+   -- GammaDistribution(m)
+   -- ChiSquareDistribution(m)
+
+  DiscreteDistribution(domain,probabilities) represent arbitrary
+  distribution with finite number of possible values; domain list
+  contains possible values such that
+  Pr(X=domain[i])=probabilities[i].
+  TODO: Should domain contain numbers only?
+*/
+
+
+/* Evaluates Cumulative probability function CDF(x)=Pr(X<x) */
+
+10 # CDF(BernoulliDistribution(_p), x_IsNumber) <-- If(x<=0,0,If(x>0 And x<=1, p,1));
+11 # CDF(BernoulliDistribution(_p), _x) <-- Hold(If(x<=0,0,If(x>0 And x<=1, p,1)));
+
+10 # CDF(BinomialDistribution(_p,_n),m_IsNumber)_(m<=0) <-- 0;
+10 # CDF(BinomialDistribution(_p,n_IsInteger),m_IsNumber)_(m>n) <-- 1;
+10 # CDF(BinomialDistribution(_p,_n),_m) <-- Sum @ { i, 0, m-1, PDF(BinomialDistribution(p,n),i)};
+
+10 # CDF(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(x<=a) <-- 0;
+10 # CDF(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(x>b) <-- 1;
+10 # CDF(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(a<x And x<=b) <-- (x-a)/(b-a+1);
+11 # CDF(DiscreteUniformDistribution( _a, _b), _x) <--Hold(If(x<=a,0,If(x<=b,(x-a)/(b-a),1)));
+
+10 # CDF(PoissonDistribution(_l), x_IsNumber)_(x<=0) <-- 0;
+10 # CDF(PoissonDistribution(_l), _x) <-- Sum @ {i,0,x-1,PDF(PoissonDistribution(l),i)};
+
+10 # CDF( ChiSquareDistribution(_m), _x) <-- IncompleteGamma(x/2,m/2)/Gamma(x/2);
+10 # CDF( DiscreteDistribution( dom_IsList, prob_IsList), _x)   <--
+      [
+	 Local(i,cdf,y);
+
+	 i := 1;
+	 cdf:=0;
+	 y:=dom[i];
+	 While(y<x) [cdf:=cdf+prob[i];i++;];
+	 cdf;
+      ];
+
+%/mathpiper

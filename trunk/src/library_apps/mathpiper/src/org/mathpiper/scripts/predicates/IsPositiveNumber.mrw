@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsPositiveNumber(x):= IsNumber(x) And x > 0;
+
+%/mathpiper

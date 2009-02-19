@@ -1,0 +1,13 @@
+%mathpiper,def="true"
+
+/// HasFunc --- test for an expression containing a function
+/// function name given as string.
+10 # HasFunc(_expr, string_IsString) <-- HasFunc(expr, Atom(string));
+/// function given as atom.
+// atom contains no functions
+10 # HasFunc(expr_IsAtom, atom_IsAtom) <-- False;
+// a list contains the function List so we test it together with functions
+// a function contains itself, or maybe an argument contains it
+20 # HasFunc(expr_IsFunction, atom_IsAtom) <-- Equals(Head(Listify(expr)), atom) Or ListHasFunc(Tail(Listify(expr)), atom);
+
+%/mathpiper

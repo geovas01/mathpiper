@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+Function ("IsBoolean", {x})
+	(x=True) Or (x=False) Or IsFunction(x) And Contains({"=", ">", "<", ">=", "<=", "!=", "And", "Not", "Or"}, Type(x));
+
+%/mathpiper

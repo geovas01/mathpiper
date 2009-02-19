@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsConstant(_n) <-- (VarList(n) = {});
+
+%/mathpiper

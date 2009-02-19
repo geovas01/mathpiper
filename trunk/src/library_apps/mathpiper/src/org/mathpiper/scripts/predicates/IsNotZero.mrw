@@ -1,0 +1,12 @@
+%mathpiper,def="true"
+
+/*
+10 # IsNotZero(x_IsNumber)       <-- ( RoundTo(x,BuiltinPrecisionGet()) != 0);
+*/
+
+
+10 # IsNotZero(x_IsNumber) <-- ( AbsN(x)  >= PowerN(10, -BuiltinPrecisionGet()));
+10 # IsNotZero(x_IsInfinity) <-- True;
+60000 # IsNotZero(_x) <-- False;
+
+%/mathpiper
