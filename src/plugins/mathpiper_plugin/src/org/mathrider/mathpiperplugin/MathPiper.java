@@ -81,7 +81,7 @@ public class MathPiper extends JPanel
 		//textArea = new MathPiperTextArea();
 		//textArea.setFont(MathPiperOptionPane.makeFont());
 		
-		JButton stopCurrentExecutionButton = new JButton("Stop Current Calculation");
+		/*JButton stopCurrentExecutionButton = new JButton("Stop Current Calculation");
 		stopCurrentExecutionButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				/*
@@ -94,7 +94,7 @@ public class MathPiper extends JPanel
 				{
 					e.printStackTrace();
 				}
-				*/
+				
 			}
 		});
 		
@@ -102,7 +102,8 @@ public class MathPiper extends JPanel
 		javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
 		buttonPanel.setBackground(new java.awt.Color(255,255,255));
 		buttonPanel.add(stopCurrentExecutionButton);
-		add(BorderLayout.NORTH, buttonPanel);
+		add(BorderLayout.NORTH, buttonPanel);*/
+		
 		add(BorderLayout.CENTER, new org.mathpiper.ui.gui.calculator.CalculatorPanel() );
 		
 		
