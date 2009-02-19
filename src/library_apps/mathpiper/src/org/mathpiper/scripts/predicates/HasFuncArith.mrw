@@ -1,0 +1,7 @@
+%mathpiper,def="true"
+
+/// Analyse arithmetic expressions
+
+HasFuncArith(expr, atom) := HasFuncSome(expr, atom, {Atom("+"), Atom("-"), *, /});
+
+%/mathpiper

@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsNegativeNumber(x):= IsNumber(x) And x < 0;
+
+%/mathpiper

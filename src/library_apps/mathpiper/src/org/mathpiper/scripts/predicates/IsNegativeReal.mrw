@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+/* See if a number, when evaluated, would be a positive real value */
+
+IsNegativeReal(_r) <--
+[
+  r:=N(Eval(r));
+  (IsNumber(r) And r <= 0);
+];
+
+%/mathpiper

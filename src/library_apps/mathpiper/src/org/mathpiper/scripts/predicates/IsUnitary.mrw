@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsUnitary(A_IsMatrix) <-- (Transpose(Conjugate(A))*A = Identity(Length(A)));
+
+%/mathpiper

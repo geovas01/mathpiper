@@ -1,0 +1,12 @@
+%mathpiper,def="true"
+
+10 # IsInfinity(Infinity) <-- True;
+10 # IsInfinity(-(_x)) <-- IsInfinity(x);
+
+// This is just one example, we probably need to extend this further to include all
+// cases for f*Infinity where f can be guaranteed to not be zero
+11 # IsInfinity(Sign(_x)*y_IsInfinity) <-- True;
+
+60000 # IsInfinity(_x) <-- False;
+
+%/mathpiper

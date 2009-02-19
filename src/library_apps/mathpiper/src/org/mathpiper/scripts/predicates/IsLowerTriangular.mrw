@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsLowerTriangular(A_IsMatrix) <-- (IsUpperTriangular(Transpose(A)));
+
+%/mathpiper

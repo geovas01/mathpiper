@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+IsHermitian(A_IsMatrix) <-- (Conjugate(Transpose(A))=A);
+
+%/mathpiper

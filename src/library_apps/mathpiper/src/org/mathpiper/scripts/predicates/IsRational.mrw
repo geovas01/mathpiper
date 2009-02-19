@@ -1,0 +1,24 @@
+%mathpiper,def="true"
+
+/* changed definition of IsRational, Nobbi 030529
+Function("IsRational",{aLeft}) Type(aLeft) = "/";
+
+Function("IsRationalNumeric",{aLeft})
+    Type(aLeft) = "/" And
+    IsNumber(aLeft[1]) And
+    IsNumber(aLeft[2]);
+
+IsRationalOrNumber(_x) <-- (IsNumber(x) Or IsRationalNumeric(x));
+
+10 # IsRationalOrInteger(x_IsInteger) <-- True;
+10 # IsRationalOrInteger(x_IsInteger / y_IsInteger) <-- True;
+20 # IsRationalOrInteger(_x) <-- False;
+
+*/
+
+10 # IsRational(x_IsInteger) <-- True;
+10 # IsRational(x_IsInteger / y_IsInteger) <-- True;
+10 # IsRational(-(x_IsInteger / y_IsInteger)) <-- True;
+60000 # IsRational(_x) <-- False;
+
+%/mathpiper
