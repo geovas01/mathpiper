@@ -56,8 +56,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private boolean encounteredIn = false;
 
     public Console() {
-        interpreter.addResponseListener(this);
-
+      
         inputLines = new StringBuilder();
 
 
@@ -170,6 +169,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     //System.out.println(code);
 
                     if (code.length() > 0) {
+                        interpreter.addResponseListener(this);
                         interpreter.evaluate("[" + code + "];");
                         button1.setEnabled(true);
 
@@ -290,7 +290,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     }//end method.
 
     public boolean remove() {
-        return false;
+        return true;
     }
 
     private void clearPreviousResponse() {
