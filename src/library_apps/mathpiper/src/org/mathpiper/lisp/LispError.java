@@ -172,7 +172,7 @@ public class LispError
             }
             if (aError == KLispErrUserInterrupt)
             {
-                return "User interrupted calculation.";
+                return "User halted calculation.";
             }
             if (aError == KLispErrNonBooleanPredicateInPattern)
             {

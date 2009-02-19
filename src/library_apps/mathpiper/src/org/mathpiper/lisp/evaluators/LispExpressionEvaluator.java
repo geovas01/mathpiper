@@ -79,12 +79,14 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
      */
     public void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null);
-        aEnvironment.iEvalDepth++;
-        if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
-            if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
-                LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.KLispErrUserInterrupt);
-            } else {
-                LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.KLispErrMaxRecurseDepthReached);
+        synchronized (aEnvironment) {
+            aEnvironment.iEvalDepth++;
+            if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
+                if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
+                    LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.KLispErrUserInterrupt);
+                } else {
+                    LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.KLispErrMaxRecurseDepthReached);
+                }
             }
         }
 
