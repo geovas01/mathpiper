@@ -1,0 +1,8 @@
+%mathpiper,def="check"
+
+10 # SimpExpand(SimpAdd(_x,_y)) <-- SimpExpand(x) + SimpExpand(y);
+10 # SimpExpand(SimpMul(_x,_y)) <-- SimpExpand(x) * SimpExpand(y);
+10 # SimpExpand(SimpDiv(_x,_y)) <-- SimpExpand(x) / SimpExpand(y);
+20 # SimpExpand(_x) <-- x;
+
+%/mathpiper

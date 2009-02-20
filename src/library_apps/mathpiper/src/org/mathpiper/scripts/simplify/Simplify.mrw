@@ -1,0 +1,21 @@
+%mathpiper,def="true"
+
+10 # Simplify(expr_IsList) <-- MapSingle("Simplify",expr);
+
+15 # Simplify(Complex(_r,_i)) <-- Complex(Simplify(r),Simplify(i));
+
+20 # Simplify((_xex) == (_yex)) <-- (Simplify(xex-yex) == 0);
+
+20 # Simplify((_xex) > (_yex)) <-- (Simplify(xex-yex) > 0);
+20 # Simplify((_xex) < (_yex)) <-- (Simplify(xex-yex) < 0);
+20 # Simplify((_xex) >= (_yex)) <-- (Simplify(xex-yex) >= 0);
+20 # Simplify((_xex) <= (_yex)) <-- (Simplify(xex-yex) <= 0);
+20 # Simplify((_xex) !== (_yex)) <-- (Simplify(xex-yex) !== 0);
+
+// conditionals
+25 # Simplify(if (_a) _b) <-- "if" @ {Simplify(a), Simplify(b)};
+25 # Simplify(_a else _b) <-- "else" @ {Simplify(a), Simplify(b)};
+
+50 # Simplify(_expr) <-- MultiSimp(Eval(expr));
+
+%/mathpiper

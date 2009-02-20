@@ -1,0 +1,25 @@
+%mathpiper,def="false"
+
+/* Distributed multiplication rule */
+10 # SimpImplode(SimpMul(SimpAdd(_x,_y),_z)) <--
+     SimpImplode(SimpAdd(SimpImplode(SimpMul(x,z)),
+                 SimpImplode(SimpMul(y,z))));
+10 # SimpImplode(SimpMul(_z,SimpAdd(_x,_y))) <--
+     SimpImplode(SimpAdd(SimpImplode(SimpMul(z,x)),
+                 SimpImplode(SimpMul(z,y))));
+/* Distributed division rule  */
+10 # SimpImplode(SimpDiv(SimpAdd(_x,_y),_z)) <--
+     SimpImplode(SimpAdd(SimpImplode(SimpDiv(x,z)),
+     SimpImplode(SimpDiv(y,z))));
+
+
+
+20 # SimpImplode(SimpAdd(_x,_y)) <--
+     SimpAdd(SimpImplode(x),SimpImplode(y));
+20 # SimpImplode(SimpMul(_x,_y)) <--
+     SimpMul(SimpImplode(x),SimpImplode(y));
+20 # SimpImplode(SimpDiv(_x,_y)) <--
+     SimpDiv(SimpImplode(x),SimpImplode(y));
+30 # SimpImplode(_x) <-- x;
+
+%/mathpiper

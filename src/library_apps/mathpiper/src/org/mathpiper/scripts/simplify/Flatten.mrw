@@ -1,0 +1,16 @@
+%mathpiper,def="true"
+
+RuleBase("DoFlatten",{doflattenx});
+UnFence("DoFlatten",1);
+
+10 # DoFlatten(_doflattenx)_(Type(doflattenx)=flattenoper) <--
+     Apply("Concat",MapSingle("DoFlatten",Tail(Listify(doflattenx))));
+20 # DoFlatten(_doflattenx) <-- { doflattenx };
+
+
+Function("Flatten",{body,flattenoper})
+[
+  DoFlatten(body);
+];
+
+%/mathpiper

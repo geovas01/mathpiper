@@ -1,0 +1,34 @@
+%mathpiper,def="true"
+
+Function("Newton",{function,variable,initial,accuracy})
+[	// since we call a function with HoldArg(), we need to evaluate some variables by hand
+  `Newton(@function,@variable,initial,accuracy,-Infinity,Infinity);
+];
+
+Function("Newton",{function,variable,initial,accuracy,min,max})
+[
+  Local(result,adjust,delta,requiredPrec);
+  MacroLocal(variable);
+  requiredPrec := BuiltinPrecisionGet();
+  accuracy:=N((accuracy/10)*10); // Making sure accuracy is rounded correctly
+  BuiltinPrecisionSet(requiredPrec+2);
+  function:=N(function);
+  adjust:= -function/Apply("D",{variable,function});
+  delta:=10000;
+  result:=initial;
+  While (result > min And result < max
+      // avoid numerical underflow due to fixed point math, FIXME when have real floating math
+      And N(Eval( Max(Re(delta), -Re(delta), Im(delta), -Im(delta)) ) ) > accuracy)
+  [
+    MacroSet(variable,result);
+    delta:=N(Eval(adjust));
+    result:=result+delta;
+  ];
+
+  BuiltinPrecisionSet(requiredPrec);
+  result:=N(Eval((result/10)*10)); // making sure result is rounded to correct precision
+  if (result <= min Or result >= max) [result := Fail;];
+  result;
+];
+
+%/mathpiper
