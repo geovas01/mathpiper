@@ -1,0 +1,6 @@
+%mathpiper,def="true"
+
+//ExpandBrackets(_xx) <-- SimpExpand(SimpImplode(SimpFlatten(xx)));
+ExpandBrackets(x) := NormalForm(MM(x));
+
+%/mathpiper

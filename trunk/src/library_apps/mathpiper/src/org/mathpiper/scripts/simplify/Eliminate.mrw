@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+Eliminate(_var,_replace,_function) <-- Simplify(Subst(var,replace)function);
+
+%/mathpiper
