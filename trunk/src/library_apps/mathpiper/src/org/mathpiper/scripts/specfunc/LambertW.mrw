@@ -1,0 +1,49 @@
+%mathpiper,def="true"
+
+//Jonathan Leto
+
+/////////////////////////////////////////////////
+/// Lambert's $W$ function.
+/////////////////////////////////////////////////
+/// Serge Winitzki
+
+10 # LambertW(0) <-- 0;
+10 # LambertW(Infinity) <-- Infinity;
+10 # LambertW(Undefined) <-- Undefined;
+10 # LambertW(-Infinity) <-- Infinity + I*Pi;
+10 # LambertW(-Exp(-1)) <-- -1;
+20 # LambertW(_x * Ln(_x)) <-- Ln(x);
+20 # LambertW(Ln(_x) * _x) <-- Ln(x);
+
+30 # LambertW(x_IsConstant) _ InNumericMode() <-- Internal'LambertWNum(Eval(x));
+
+/* {Internal'LambertWNum} computes a numeric approximation of Lambert's $W$ function
+to the current precision. It uses a Halley iteration
+$$ W'=W-(W-x*Exp(-W))/(W+1-(W+2)/(W+1)*(W-x*Exp(-W))/2) $$.
+The function has real values for real $x >= -Exp(-1)$. (This point is a logarithmic branching point.)
+*/
+10 # Internal'LambertWNum(x_IsNumber)_(x < -ExpN(-1)) <-- Undefined;
+20 # Internal'LambertWNum(x_IsNumber) <--
+[
+	Local(W);
+	NewtonNum(
+	  `Hold(
+	  {
+	  {W},
+	  [
+	  	Local(a);
+		a:=W- @x*ExpN(-W);
+		W-a/(W+1-(W+2)/(W+1)*a/2.);
+	  ]}),
+	// initial approximation is the two-point global Pade:
+	  If(
+		x<0,
+		x*ExpN(1) / (1+1 / (1 / SqrtN(2*(x*ExpN(1)+1)) - 1 / SqrtN(2) + 1/(ExpN(1)-1))),
+		Internal'LnNum(1+x)*(1-Internal'LnNum(1+Internal'LnNum(1+x))/(2+Internal'LnNum(1+x)))
+	  ),
+	  10,	// initial approximation is good to about 3 digits
+	  3	// 3rd order scheme
+	);
+];
+
+%/mathpiper

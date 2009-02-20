@@ -1,0 +1,51 @@
+%mathpiper,def="true"
+
+//Jonathan Leto
+
+// Ex:
+// Bessel of order n:
+// ApproxInfSum((-1)^k*(x/2)^(2*k+c[1])/(k! * Gamma(k+c[1]+1) ),1,x,{n} );
+
+Function("ApproxInfSum",{expr,start,x})[
+	ApproxInfSum(expr,start,x,{0});
+];
+
+/// FIXME this has a roundoff problem when InNumericMode()=True
+// Summation must be on k
+Function("ApproxInfSum",{expr,start,x,c})
+[
+        Local(term,result,k);
+        Local(prec,eps,tmp);
+        prec:=BuiltinPrecisionGet();
+//        BuiltinPrecisionSet(Ceil(1.2*prec)); // this is a guess
+        BuiltinPrecisionSet(prec+2); // this is a guess
+//        eps:=5*10^(-prec);
+        eps:=10^(-prec);
+//Echo(expr);
+//Echo("     eps = ",N(Eval(eps)));
+
+        term:=1;
+        k:=start;
+        result:=0;
+        While( N(Abs(term) >= eps) )[
+                term:=N(Eval(expr));
+		//Echo({"term is ",term});
+                k:=k+1;
+		result:=result+term;
+
+        ];
+		If(InVerboseMode(), Echo("ApproxInfSum: Info: using ", k, " terms of the series"));
+        BuiltinPrecisionSet(prec);
+        // This should not round, only truncate
+        // some outputs will be off by one in the last digit
+
+//Echo("lastterm = ",N(Eval(term)));
+
+//Echo("r1",result);
+//Echo("r2",RoundTo(result,prec));
+//Echo("r3",N((result/10)*10));
+
+  result;
+];
+
+%/mathpiper

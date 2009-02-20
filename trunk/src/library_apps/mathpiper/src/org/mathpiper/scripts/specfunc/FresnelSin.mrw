@@ -1,0 +1,16 @@
+%mathpiper,def="true"
+
+//Jonathan Leto
+
+/////////////////////////////////////////////////
+/// Fresnel integrals
+/////////////////////////////////////////////////
+
+10 # FresnelSin(0)		<-- 0;
+10 # FresnelSin(Infinity)	<-- 1/2;
+10 # FresnelSin(x_IsNumber)_(x<0)	<-- -FresnelSin(x);
+
+40 # FresnelSin(x_IsNumber)_(Abs(x) <= 1) <-- N(Sqrt(2/Pi)*ApproxInfSum((-1)^(k+1)*x^(2*k+1)/(k! * (2*k+1)),1,x));
+
+
+%/mathpiper
