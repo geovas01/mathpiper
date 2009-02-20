@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+///// Serge Winitzki
+
+10 # LnGamma(_n)_(IsInteger(n) And n<=0) <-- Infinity;
+
+20 # LnGamma(n_IsRationalOrNumber)_(IsPositiveInteger(n) Or FloatIsInt(2*n)) <-- Ln((Round(2*n)/2-1)!);
+
+30 # LnGamma(x_IsConstant)_(InNumericMode()) <-- Internal'LnGammaNum(N(Eval(x)));
+
+%/mathpiper

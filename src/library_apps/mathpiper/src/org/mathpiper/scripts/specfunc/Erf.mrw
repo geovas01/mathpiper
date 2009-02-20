@@ -1,0 +1,62 @@
+%mathpiper,def="true"
+
+//Jonathan Leto
+
+/////////////////////////////////////////////////
+/// Error and complementary error functions
+/////////////////////////////////////////////////
+
+10 # Erf(0)		<-- 0;
+//10 # Erfc(0)		<-- 1;
+10 # Erf(Infinity)	<-- 1;
+10 # Erf(Undefined) <-- Undefined;
+//10 # Erfc(Infinity)	<-- 0;
+10 # Erf(x_IsNumber)_(x<0)	<-- -Erf(-x);
+//40 # Erf(x_IsNumber)_(Abs(x) <= 1 )  <-- N(2/Sqrt(Pi)*ApproxInfSum((-1)^k*x^(2*k+1)/((2*k+1)*k!),0,x));
+
+LocalSymbols(k)
+[
+	40 # Erf(_x)_(InNumericMode() And (IsNumber(x) Or IsComplex(x)) And Abs(x) <= 1) <--
+[
+  Local(prec);
+  prec := BuiltinPrecisionGet(); // N(...) modifies the precision
+  2 / SqrtN(Internal'Pi()) * x
+	* SumTaylorNum(x^2, 1, {{k}, -(2*k-1)/(2*k+1)/k},
+	// the number of terms n must satisfy n*Ln(n/Exp(1))>10^prec
+//	Hold({{k}, [Echo(k); k;]}) @
+		N(1+87/32*Exp(LambertW(prec*421/497)), 20)
+	);
+
+];
+
+];	// LocalSymbols(k)
+
+// asymptotic expansion, can be used only for low enough precision or large enough |x| (see predicates). Also works for complex x.
+LocalSymbols(n'max, k)
+[
+
+	50 # Erf(_x)_(InNumericMode() And (IsNumber(x) Or IsComplex(x))
+		And (
+			[	// strongest condition: the exp(-x^2) asymptotic is already good
+				n'max := 0;
+				Re(x^2) > BuiltinPrecisionGet()*3295/1431+0.121;
+			]
+			Or
+			[	// next condition: the exp(-x^2) helps but we need a few terms of the series too
+				n'max := N(Min((BuiltinPrecisionGet()*3295/1431+0.121)/Internal'LnNum(Abs(x)), 2*Internal'LnNum(Abs(x))), 10);
+				2*Abs(x)+Re(x^2) > BuiltinPrecisionGet()*3295/1431+0.121;
+			]
+			Or
+			[	// worst case: exp(-x^2) does not help and we need the full series
+	// hack: save a value computed in the predicate to use in the body of rule
+				n'max := N(({{k}, k+Internal'LnNum(k)} @ BuiltinPrecisionGet()*3295/1431)/2 - 3/2, 10);
+				Abs(x) > n'max+3/2;
+			]
+		)
+	) <-- If(Re(x)!=0, Sign(Re(x)), 0) - Exp(-x^2)/x/SqrtN(Internal'Pi())
+	// the series is 1 - 1/2/x^2 + 1*3/2^2/x^4 - 1*3*5/2^3/x^6 + ...
+	* SumTaylorNum(1/x^2, 1, {{k}, -(2*k-1)/2 }, Max(0, Floor(n'max)));
+
+];	// LocalSymbols(n'max, k)
+
+%/mathpiper

@@ -1,0 +1,39 @@
+%mathpiper,def="true"
+
+/// coded by Jonathan Leto
+
+// When x is <= 1, the series is monotonely decreasing from the
+// start, so we don't have to worry about loss of precision from the
+// series definition.
+// When {n} is an integer, this is fast.
+// When {n} is not, it is pretty slow due to Gamma()
+
+Function("BesselNsmall",{n,x,modified})
+[
+        Local(term,result,k);
+        Local(prec,eps,tmp);
+        prec:=BuiltinPrecisionGet();
+        BuiltinPrecisionSet(Ceil(1.2*prec)); // this is a guess
+        eps:=5*10^(-prec);
+
+        term:=1;
+        k:=0;
+        result:=0;
+        While( Abs(term) >= eps )[
+                term:=x^(2*k+n);
+		// The only difference between BesselJ and BesselI
+		// is an alternating term
+		If( k%2=1 And modified=0 , term:=term*-1 );
+		term:=N(term/(2^(2*k+n)* k! * Gamma(k+n+1) ));
+                //Echo({"term is ",term});
+                result:=result+term;
+                k:=k+1;
+        ];
+        BuiltinPrecisionSet(prec);
+	// This should not round, only truncate
+	// some outputs will be off by one in the last digit
+	RoundTo(result,prec);
+
+];
+
+%/mathpiper

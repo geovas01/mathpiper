@@ -1,0 +1,7 @@
+%mathpiper,def="true"
+//Jonathan Leto
+
+// This is buggy
+40 # BesselY(_n,x_IsComplex)_(Abs(x)<= 2*Gamma(n) )  <-- N((Cos(n*Pi)*BesselJ(n,x) - BesselJ(-n,x))/Sin(Pi*n));
+
+%/mathpiper

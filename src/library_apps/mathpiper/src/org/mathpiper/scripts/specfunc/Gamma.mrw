@@ -1,0 +1,21 @@
+%mathpiper,def="true"
+
+/////////////////////////////////////////////////
+/// Euler's Gamma function
+////////////////////////////////////////////////////
+/// Serge Winitzki
+
+/// User visible functions: Gamma(x), LnGamma(x)
+
+5 # Gamma(Infinity)	<-- Infinity;
+
+10 # Gamma(_n)_(IsInteger(n) And n<=0) <-- Infinity;
+
+
+20 # Gamma(n_IsRationalOrNumber)_(IsPositiveInteger(n) Or FloatIsInt(2*n)) <-- (Round(2*n)/2-1)!;
+
+
+30 # Gamma(x_IsConstant)_(InNumericMode()) <-- Internal'GammaNum(N(Eval(x)));
+
+
+%/mathpiper

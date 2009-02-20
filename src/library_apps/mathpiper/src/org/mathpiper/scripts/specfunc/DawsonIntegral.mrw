@@ -1,0 +1,17 @@
+%mathpiper,def="check"
+
+//Jonathan Leto
+
+// needs Erf() that takes complex argument
+/*
+10 # DawsonIntegral(_x) <-- [
+	Local(result,prec);
+	prec:=BuiltinPrecisionGet();
+	BuiltinPrecisionSet(prec+5);
+	result:=N(I*Sqrt(Pi)*Exp(-x^2)*Erf(-I*x)/2);
+	BuiltinPrecisionSet(prec);
+	RoundTo(result,prec);
+];
+*/
+
+%/mathpiper
