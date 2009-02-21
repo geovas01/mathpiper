@@ -1,0 +1,7 @@
+%mathpiper,def="true"
+
+100 # 1/Csc(_x)		<-- Sin(x);
+
+100 # Csc(_x)		<-- 1/Sin(x);
+
+%/mathpiper

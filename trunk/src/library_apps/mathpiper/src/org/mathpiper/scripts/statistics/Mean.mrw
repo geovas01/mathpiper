@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+Mean(x) := Add(x)/Length(x);
+
+%/mathpiper

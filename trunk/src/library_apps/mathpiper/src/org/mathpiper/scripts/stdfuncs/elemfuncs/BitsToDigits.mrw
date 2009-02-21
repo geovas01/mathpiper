@@ -1,0 +1,7 @@
+%mathpiper,def="true"
+
+/// BitsToDigits(n,base) and DigitsToBits(n,base). Enough to compute at low precision.
+// this is now a call to the kernel functions, so leave as a reference implementation
+BitsToDigits(n, base) := FloorN(0.51+n*N(Ln(2)/Ln(base),10));
+
+%/mathpiper

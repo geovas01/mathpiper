@@ -1,0 +1,26 @@
+%mathpiper,def="true"
+
+/// coded by Serge Winitzki. See essays documentation for algorithms.
+
+//////////////////////////////////////////////////
+/// Numerical method: AGM sequence
+//////////////////////////////////////////////////
+
+/// compute the AGM sequence up to a given precision
+AG'Mean(a, b, eps) :=
+[
+	Local(a1, b1);
+	If(InVerboseMode(), Echo("AG'Mean: Info: at prec. ", BuiltinPrecisionGet()));
+	// AGM main loop
+	While(Abs(a-b)>=eps)
+	[
+		a1 := DivideN(a+b, 2);
+		b1 := SqrtN(MultiplyN(a, b));	// avoid Sqrt() which uses N() inside it
+		a := a1;
+		b := b1;
+	];
+	DivideN(a+b, 2);
+];
+//UnFence(AG'Mean, 3);
+
+%/mathpiper

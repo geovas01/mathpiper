@@ -1,0 +1,24 @@
+%mathpiper,def="check"
+
+/** This file contains routines for numerical evaluation of elementary functions:
+ *  PowerN, ExpN, SinN etc.
+ *  It is assumed that the arguments are real (not complex) floating-point or integer numbers. (The {InNumericMode()} flag does not have to be set.)
+ *  The result is an exact integer or a floating-point number correct to BuiltinPrecisionGet() digits.
+ *
+ *  If a better optimized version of these functions is available through the kernel,
+ *  then the kernel version will automatically shadow these functions.
+ *  These implementations are not necessarily the best optimized versions.
+ */
+
+/// Cos(x), Taylor series
+CosN'Taylor(x) :=
+[
+	Local(num'terms, prec, Bx);
+	prec := DivN(BuiltinPrecisionGet()*3919, 1702); // P*Ln(10)
+	Bx := -DivN(MathBitCount(x)*1143, 1649)-2; // -Ln(x)-2
+	num'terms := DivN( DivN( prec-1, DivN( MathBitCount( prec-1)*1588, 2291)+Bx), 2)+1;
+	// (P*Ln(10)-1)/(Ln(P*Ln(10)-1)-Ln(x)-2); use Ln(x)<=B(x)*Ln(2)
+	SumTaylorNum(MultiplyN(x,x), 1, {{k}, -1/(2*k*(2*k-1))}, num'terms);
+];
+
+%/mathpiper

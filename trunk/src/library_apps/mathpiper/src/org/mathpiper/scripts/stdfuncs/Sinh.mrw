@@ -1,0 +1,31 @@
+%mathpiper,def="true"
+
+2 # Sinh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) = "Complex")) <-- N(Eval( (Exp(x)-Exp(-x))/2 ));
+5   # Sinh(- _x)	<-- -Sinh(x);
+
+5   # Sinh(- _x)	<-- -Sinh(x);
+
+100 # Sinh(_x)^2-Cosh(_x)^2 	<-- 1;
+100 # Sinh(_x)+Cosh(_x)		<-- Exp(x);
+100 # Sinh(_x)-Cosh(_x)		<-- Exp(-x);
+
+//100 # Sinh(I*_x)        <-- I*Sin(x);
+
+100 # Sinh(_x)/Cosh(_x) <-- Tanh(x);
+100 # Sinh(_x)*Csch(_x) <-- 1;
+
+200 # Sinh(0)		<-- 0;
+200 # Sinh(Infinity)	<-- Infinity;
+200 # Sinh(-Infinity)	<-- -Infinity;
+200 # Sinh(ArcSinh(_x)) <-- x;
+200 # Sinh(ArcCosh(_x)) <-- Sqrt((x-1)/(x+1))*(x+1);
+200 # Sinh(ArcTanh(_x)) <-- x/Sqrt(1-x^2);
+
+200 # Sinh(Undefined) <-- Undefined;
+
+/* Threading of standard analytic functions */
+Sinh(xlist_IsList) <-- MapSingle("Sinh",xlist);
+
+
+
+%/mathpiper

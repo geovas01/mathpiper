@@ -1,0 +1,28 @@
+%mathpiper,def="true"
+
+5 # (ArcTan(x_IsConstant))_(IsNegativeNumber(N(Eval(x))))   <-- -ArcTan(-x);
+
+//TODO fix! 4 # ArcTan(Tan(_x))           <-- x;
+4 # ArcTan(-Tan(_x))           <-- -ArcTan(Tan(x));
+110 # ArcTan(Complex(_r,_i)) <--
+     (- I*0.5)*Ln(Complex(1,Complex(r,i))/ Complex(1, - Complex(r,i)));
+
+150 # ArcTan(- _x)_(Not IsConstant(x))             <-- -ArcTan(x);
+160 # (ArcTan(x_IsConstant))_(IsNegativeNumber(N(Eval(x)))) <-- -ArcTan(-x);
+
+200 # ArcTan(Sqrt(3)) <-- Pi/3;
+200 # ArcTan(-Sqrt(3)) <-- -Pi/3;
+200 # ArcTan(1) <-- Pi/4;
+200 # ArcTan(0) <-- 0;
+200 # ArcTan(_n)_(n = -1) <-- -Pi/4;
+
+200 # ArcTan(Infinity) <-- Pi/2;
+200 # ArcTan(-Infinity) <-- -Pi/2;
+200 # ArcTan(Undefined) <-- Undefined;
+
+ArcTan(xlist_IsList) <-- MapSingle("ArcTan",xlist);
+
+2 # ArcTan(x_IsNumber)_InNumericMode() <-- ArcTanNum(x);
+
+
+%/mathpiper

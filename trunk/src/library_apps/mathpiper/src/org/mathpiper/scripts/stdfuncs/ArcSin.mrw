@@ -1,0 +1,27 @@
+%mathpiper,def="true"
+
+2 # ArcSin(x_IsNumber)_(InNumericMode() And Abs(x)<=1) <-- ArcSinNum(x);
+/// complex ArcSin
+3 # ArcSin(x_IsNumber)_InNumericMode() <-- Sign(x)*(Pi/2+I*ArcCosh(x));
+4 # ArcSin(Sin(_x))           <-- x;
+110 # ArcSin(Complex(_r,_i)) <--
+    (- I) * Ln((I*Complex(r,i)) + ((1-(Complex(r,i)^2))^(1/2)));
+
+150 # ArcSin(- _x)_(Not IsConstant(x))             <-- -ArcSin(x);
+160 # (ArcSin(x_IsConstant))_(IsNegativeNumber(N(Eval(x)))) <-- -ArcSin(-x);
+
+200 # ArcSin(0) <-- 0;
+200 # ArcSin(1/2) <-- Pi/6;
+200 # ArcSin(Sqrt(1/2)) <-- Pi/4;
+200 # ArcSin(Sqrt(3/4)) <-- Pi/3;
+200 # ArcSin(1) <-- Pi/2;
+200 # ArcSin(_n)_(n = -1) <-- -Pi/2;
+200 # ArcSin(_n)_(-n = Sqrt(3/4)) <-- -Pi/3;
+200 # ArcSin(_n)_(-n = Sqrt(1/2)) <-- -Pi/4;
+200 # ArcSin(_n)_(-n = 1/2) <-- -Pi/6;
+
+ArcSin(xlist_IsList) <-- MapSingle("ArcSin",xlist);
+
+200 # ArcSin(Undefined) <-- Undefined;
+
+%/mathpiper
