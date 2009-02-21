@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+BinomialDistribution(_p, _n)_
+	(If(IsRationalOrNumber(p),p<0 Or p>1, False)
+	 Or (IsConstant(n) And Not IsPositiveInteger(n)) )
+	<-- Undefined;
+
+%/mathpiper

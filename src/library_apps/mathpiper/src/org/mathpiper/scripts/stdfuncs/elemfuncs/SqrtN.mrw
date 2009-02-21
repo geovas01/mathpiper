@@ -1,0 +1,54 @@
+%mathpiper,def="true"
+
+/** This file contains routines for numerical evaluation of elementary functions:
+ *  PowerN, ExpN, SinN etc.
+ *  It is assumed that the arguments are real (not complex) floating-point or integer numbers. (The {InNumericMode()} flag does not have to be set.)
+ *  The result is an exact integer or a floating-point number correct to BuiltinPrecisionGet() digits.
+ *
+ *  If a better optimized version of these functions is available through the kernel,
+ *  then the kernel version will automatically shadow these functions.
+ *  These implementations are not necessarily the best optimized versions.
+ */
+
+/// SqrtN(x).
+SqrtN(x) := MathSqrt1(x);	// to have another function is easier for debugging
+
+/// Compute square root(x) with nonnegative x. FIXME: No precision tracking yet.
+10 # MathSqrt1(0) <-- 0;
+/// negative or non-numeric arguments give error message
+100 # MathSqrt1(_x) <-- [ Echo("SqrtN: invalid argument: ", x); False;];
+
+// this is too slow at the moment
+30 # MathSqrt1(x_IsPositiveNumber) <-- x*NewtonNum({{r}, r+r*(1-x*r^2)/2}, FastPower(x,-0.5), 4, 2);
+
+30 # MathSqrt1(x_IsPositiveNumber) <-- MathSqrtFloat(x);
+
+// for integers, we need to compute Sqrt(x) to (the number of bits in x) + 1 bits to figure out whether Sqrt(x) is itself an integer. If Sqrt(x) for integer x is exactly equal to an integer, we should return the integer answer rather than the float answer. For this answer, the current precision might be insufficient, therefore we compute with potentially more digits. This is slower but we assume this is what the user wants when calling SqrtN() on an integer.
+20 # MathSqrt1(x_IsInteger) _ (GreaterThan(x,0)) <--
+[
+	Local(result);
+	If(ModN(x,4)<2 And ModN(x,3)<2 And ModN(x+1,5)<3,
+		// now the number x has a nonzero chance of being an exact square
+		[
+			// check whether increased precision would be at all necessary
+//			Echo("checking integer case");
+			GlobalPush(BuiltinPrecisionGet());
+			If(MathBitCount(x)+3>DigitsToBits(BuiltinPrecisionGet(), 10),
+			  BuiltinPrecisionSet(BitsToDigits(MathBitCount(x), 10)+1));
+				// need one more digit to decide whether Sqrt(x) is integer
+			// otherwise the current precision is sufficient
+
+			// convert x to float and use the float routine
+			result := MathSqrtFloat(x+0.);
+			// decide whether result is integer: decrease precision and compare
+			If(FloatIsInt(SetExactBitsN(result, GetExactBitsN(result)-3)), result:= Floor(result+0.5));
+			BuiltinPrecisionSet(GlobalPop());
+		],
+		// now the number x cannot be an exact square; current precision is sufficient
+		result := MathSqrtFloat(x+0.)
+	);
+	// need to set the correct precision on the result - will have no effect on integer answers
+	SetExactBitsN(result, DigitsToBits(BuiltinPrecisionGet(),10));
+];
+
+%/mathpiper

@@ -1,0 +1,8 @@
+%mathpiper,def="true"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+ExponentialDistribution(l_IsRationalOrNumber)_(l<0) <-- Undefined;
+
+%/mathpiper

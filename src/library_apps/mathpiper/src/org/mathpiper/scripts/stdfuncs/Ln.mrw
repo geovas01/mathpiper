@@ -1,0 +1,19 @@
+%mathpiper,def="true"
+
+2 # Ln(0)                    <-- -Infinity;
+2 # Ln(1)                    <-- 0;
+2 # Ln(Infinity)                    <-- Infinity;
+2 # Ln(Undefined)                   <-- Undefined;
+
+/* 2 # Ln(-Infinity)                    <-- 0; */
+2 # Ln(x_IsNegativeNumber)_InNumericMode() <-- Complex(Ln(-x), Pi);
+3 # Ln(x_IsNumber)_(InNumericMode() And x>=1) <-- Internal'LnNum(x);
+4 # Ln(Exp(_x))              <-- x;
+
+3 # Ln(Complex(_r,_i)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));
+4 # Ln(x_IsNegativeNumber) <-- Complex(Ln(-x), Pi);
+5 # Ln(x_IsNumber)_(InNumericMode() And x<1) <-- - Internal'LnNum(DivideN(1, x));
+
+Ln(xlist_IsList) <-- MapSingle("Ln",xlist);
+
+%/mathpiper

@@ -1,0 +1,5 @@
+%mathpiper,def="true"
+
+Variance(x) := Add((x-Mean(x))^2)/Length(x);
+
+%/mathpiper

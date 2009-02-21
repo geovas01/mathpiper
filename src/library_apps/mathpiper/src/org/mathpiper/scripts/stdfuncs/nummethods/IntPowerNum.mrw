@@ -1,0 +1,32 @@
+%mathpiper,def="true"
+
+/// coded by Serge Winitzki. See essays documentation for algorithms.
+
+//////////////////////////////////////////////////
+/// Numerical method: integer powers by binary reduction
+//////////////////////////////////////////////////
+
+/// generalized integer Power function using the classic binary method.
+5 # IntPowerNum(_x, 0, _func, _unity) <-- unity;
+10 # IntPowerNum(_x, n_IsInteger, _func, _unity) <--
+[
+	// use binary method
+	Local(result);
+	// unity might be of non-scalar type, avoid assignment
+	While(n > 0)
+	[
+		If(
+			(n&1) = 1,
+			If(
+				IsBound(result), // if result is already assigned
+				result := Apply(func, {result,x}),
+				result := x, // avoid multiplication
+			)
+		);
+		x := Apply(func, {x,x});
+		n := n>>1;
+	];
+	result;
+];
+
+%/mathpiper
