@@ -1,0 +1,10 @@
+%mathpiper,def="true"
+
+10 # BigOh(UniVariate(_var,_first,_coefs),_var,_degree) <--
+    [
+     While(first+Length(coefs)>=(degree+1) And Length(coefs)>0) DestructiveDelete(coefs,Length(coefs));
+     UniVariate(var,first,coefs);
+    ];
+20 # BigOh(_uv,_var,_degree)_CanBeUni(uv,var) <-- NormalForm(BigOh(MakeUni(uv,var),var,degree));
+
+%/mathpiper

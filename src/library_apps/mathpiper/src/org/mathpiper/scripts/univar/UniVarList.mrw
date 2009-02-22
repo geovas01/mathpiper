@@ -1,0 +1,7 @@
+%mathpiper,def="true"
+
+//Note:tk:since this is used in more than one univariate function, I am publishing it as a def.
+
+UniVarList(expr) := VarList(expr);
+
+%/mathpiper

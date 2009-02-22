@@ -36,4 +36,15 @@
   NormalForm(Mod(MakeUni(n,vars),MakeUni(m,vars)));
 ];
 
+
+//Note:tk:moved here from univariate.rep.
+0 # Mod(n_IsUniVar,m_IsUniVar)_(Degree(n) < Degree(m)) <-- n;
+1 # Mod(n_IsUniVar,m_IsUniVar)_
+    (n[1] = m[1] And Degree(n) >= Degree(m)) <--
+[
+    UniVariate(n[1],0,
+               UniDivide(Concat(ZeroVector(n[2]),n[3]),
+                         Concat(ZeroVector(m[2]),m[3]))[2]);
+];
+
 %/mathpiper

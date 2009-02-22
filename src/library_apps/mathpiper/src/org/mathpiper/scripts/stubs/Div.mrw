@@ -24,4 +24,15 @@
   NormalForm(Div(nl,ml));
 ];
 
+
+//Note:tk:moved here from univariate.rep.
+0 # Div(n_IsUniVar,m_IsUniVar)_(Degree(n) < Degree(m)) <-- 0;
+1 # Div(n_IsUniVar,m_IsUniVar)_
+    (n[1] = m[1] And Degree(n) >= Degree(m)) <--
+[
+    UniVariate(n[1],0,
+               UniDivide(Concat(ZeroVector(n[2]),n[3]),
+                         Concat(ZeroVector(m[2]),m[3]))[1]);
+];
+
 %/mathpiper

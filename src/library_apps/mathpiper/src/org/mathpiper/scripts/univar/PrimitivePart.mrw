@@ -1,0 +1,7 @@
+%mathpiper,def="true"
+
+10 # PrimitivePart(UniVariate(_var,_first,_coefs)) <--
+	UniVariate(var,0,coefs/Gcd(coefs));
+20 # PrimitivePart(poly_CanBeUni) <-- NormalForm(PrimitivePart(MakeUni(poly)));
+
+%/mathpiper

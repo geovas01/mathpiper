@@ -1,0 +1,8 @@
+%mathpiper,def="true"
+
+//Note:tk:since this is used in a number of univariate functions, I am publishing it as a def.
+
+0 # NormalForm(UniVariate(_var,_first,_coefs)) <--
+    ExpandUniVariate(var,first,coefs);
+
+%/mathpiper
