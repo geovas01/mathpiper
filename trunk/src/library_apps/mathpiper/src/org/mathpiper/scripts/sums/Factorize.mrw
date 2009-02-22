@@ -1,0 +1,30 @@
+%mathpiper,def="true"
+
+Function("Factorize",{sumvar,sumfrom,sumto,sumbody})
+[
+   Local(sumi,sumsum);
+   sumsum:=1;
+   For(sumi:=sumfrom,sumi<=sumto And sumsum!=0,sumi++)
+       [
+        MacroLocal(sumvar);
+        MacroSet(sumvar,sumi);
+        sumsum:=sumsum*Eval(sumbody);
+       ];
+   sumsum;
+];
+UnFence("Factorize",4);
+HoldArg("Factorize",sumvar);
+HoldArg("Factorize",sumbody);
+
+Factorize(sumlist_IsList) <--
+[
+   Local(sumi,sumsum);
+   sumsum:=1;
+   ForEach(sumi,sumlist)
+   [
+     sumsum:=sumsum*sumi;
+   ];
+   sumsum;
+];
+
+%/mathpiper

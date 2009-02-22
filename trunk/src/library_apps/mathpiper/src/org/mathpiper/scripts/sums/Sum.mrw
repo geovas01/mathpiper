@@ -1,0 +1,28 @@
+%mathpiper,def="true"
+
+/* Sums */
+
+RuleBase("Sum",{sumvar'arg,sumfrom'arg,sumto'arg,sumbody'arg});
+
+5  # Sum(_sumvar,sumfrom_IsNumber,sumto_IsNumber,_sumbody)_(sumfrom>sumto) <-- 0;
+
+10 # Sum(_sumvar,sumfrom_IsNumber,sumto_IsNumber,_sumbody)_(sumto<sumfrom) <--
+     ApplyPure("Sum",{sumvar,sumto,sumfrom,sumbody});
+20 # Sum(_sumvar,sumfrom_IsNumber,sumto_IsNumber,_sumbody) <--
+LocalSymbols(sumi,sumsum)[
+   Local(sumi,sumsum);
+   sumsum:=0;
+   For(sumi:=sumfrom,sumi<=sumto,sumi++)
+       [
+        MacroLocal(sumvar);
+        MacroSet(sumvar,sumi);
+        sumsum:=sumsum+Eval(sumbody);
+       ];
+   sumsum;
+];
+
+UnFence("Sum",4);
+HoldArg("Sum",sumvar'arg);
+HoldArg("Sum",sumbody'arg);
+
+%/mathpiper

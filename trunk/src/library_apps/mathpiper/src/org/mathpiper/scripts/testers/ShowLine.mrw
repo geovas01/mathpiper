@@ -1,0 +1,6 @@
+%mathpiper,def="check"
+
+// print current file and line
+ShowLine() := [Echo({CurrentFile(),": ",CurrentLine()});];
+
+%/mathpiper

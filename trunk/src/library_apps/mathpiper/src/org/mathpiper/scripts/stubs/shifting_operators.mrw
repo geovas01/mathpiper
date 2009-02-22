@@ -1,0 +1,12 @@
+%mathpiper,def="true"
+
+/* def file definitions
+<<
+>>
+
+/* Shifting operators */
+
+n_IsInteger << m_IsInteger <-- ShiftLeft(n,m);
+n_IsInteger >> m_IsInteger <-- ShiftRight(n,m);
+
+%/mathpiper

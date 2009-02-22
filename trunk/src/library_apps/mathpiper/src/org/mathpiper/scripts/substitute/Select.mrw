@@ -1,0 +1,19 @@
+%mathpiper,def="check"
+
+LocalSymbols(predicate,list,result,item)
+[
+  Function("Select",{predicate,list})
+  [
+    Local(result);
+    result:={};
+    ForEach(item,list)
+    [
+      If(Apply(predicate,{item}),DestructiveAppend(result,item));
+    ];
+    result;
+  ];
+  HoldArg("Select",predicate);
+  UnFence("Select",2);
+];
+
+%/mathpiper

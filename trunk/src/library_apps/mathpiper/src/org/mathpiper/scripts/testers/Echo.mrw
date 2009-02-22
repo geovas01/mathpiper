@@ -1,0 +1,25 @@
+%mathpiper,def="true"
+
+10 # EchoInternal(string_IsString) <--
+[
+  WriteString(string);
+];
+
+20 # EchoInternal(_item) <--
+[
+  Write(item);Space();
+];
+
+RuleBaseListed("Echo",{args});
+10 # Echo(list_IsList)<--
+[
+  ForEach(item,list) EchoInternal(item);
+  NewLine();
+];
+20 # Echo(_item)<--
+[
+  EchoInternal(item);
+  NewLine();
+];
+
+%/mathpiper

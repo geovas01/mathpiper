@@ -1,0 +1,10 @@
+%mathpiper,def="check"
+
+/* Tensor package. This code intends to simplify tensorial expressions.
+ */
+
+RuleBase("TList",{head,tail});
+
+//Not defined in the scripts. todo:tk.
+
+%/mathpiper

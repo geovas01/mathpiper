@@ -1,0 +1,11 @@
+%mathpiper,def="true"
+
+/* Expand expands polynomials.
+ */
+10 # Expand(expr_CanBeUni) <-- NormalForm(MakeUni(expr));
+20 # Expand(_expr) <-- expr;
+
+10 # Expand(expr_CanBeUni(var),_var) <-- NormalForm(MakeUni(expr,var));
+20 # Expand(_expr,_var) <-- expr;
+
+%/mathpiper

@@ -1,0 +1,48 @@
+%mathpiper,def="true"
+
+/*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, and then MathPiper is confused if it hasn't loaded all the Function() declarations beforehand.
+FIXME
+/// Min, Max with many arguments
+*/
+
+Retract("Max", 1);
+Retract("Max", 2);
+Retract("Max", 3);
+
+//Function() Max(list);
+
+;
+//Function() Max(l1, l2);
+
+Function() Max(l1, l2, l3, ...);
+
+
+
+10 # Max(_l1, _l2, l3_IsList) <-- Max(Concat({l1, l2}, l3));
+20 # Max(_l1, _l2, _l3) <-- Max({l1, l2, l3});
+/**/
+
+10 # Max(l1_IsList,l2_IsList) <-- Map("Max",{l1,l2});
+
+
+20 # Max(l1_IsRationalOrNumber,l2_IsRationalOrNumber) <-- If(l1>l2,l1,l2);
+
+
+30 # Max(l1_IsConstant,l2_IsConstant) <-- If(N(Eval(l1-l2))>0,l1,l2);
+
+// Max on empty lists
+10 # Max({}) <-- Undefined;
+
+
+20 # Max(list_IsList) <--
+[
+  Local(result);
+  result:= list[1];
+  ForEach(item,Tail(list)) result:=Max(result,item);
+  result;
+];
+
+
+30 # Max(_x) <-- x;
+
+%/mathpiper

@@ -1,0 +1,13 @@
+%mathpiper,def="true"
+
+5 # Round(Infinity) <-- Infinity;
+5 # Round(-Infinity) <-- -Infinity;
+5 # Round(Undefined) <-- Undefined;
+
+10 # Round(x_IsRationalOrNumber) <-- FloorN(N(x+0.5));
+10 # Round(x_IsList) <-- MapSingle("Round",x);
+
+20 # Round(x_IsComplex)  _ (IsRationalOrNumber(Re(x)) And IsRationalOrNumber(Im(x)) )
+		<-- FloorN(N(Re(x)+0.5)) + FloorN(N(Im(x)+0.5))*I;
+
+%/mathpiper
