@@ -1,0 +1,21 @@
+%mathpiper,def="true"
+
+/** Maximum bound on the absolute value of the roots of a
+  polynomial p in variable x, according to Knuth:
+
+  Max( Abs(a[n-1]/a[n]) , Abs(a[n-2]/a[n])^(1/2), ... , Abs(a[0]/a[n])^(1/n) )
+
+ As described in Davenport.
+ */
+ 5 # MaximumBound(_p)_(IsZero(p Where x==0)) <-- MaximumBound(Simplify(p/x));
+10 # MaximumBound(_p)_(Degree(p)>0) <--
+[
+  Local(an);
+  an:=Coef(p,(Degree(p)-1) .. 0)/Coef(p,Degree(p));
+  an := N(Eval(Abs(an)^(1/(1 .. Degree(p)))));
+  Rationalize(2*Max(an));
+];
+
+20 # MaximumBound(_p) <-- Infinity;
+
+%/mathpiper

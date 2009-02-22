@@ -1,0 +1,18 @@
+%mathpiper,def="true"
+
+10 # MinimumBound(_p)_(IsZero(p Where x==0)) <-- 0;
+
+20 # MinimumBound(_p)_(Degree(p)>0) <--
+[
+  Local(an,result);
+  an:=Coef(p,1 .. (Degree(p)))/Coef(p,0);
+  an := N(Eval(Abs(an)^(1/(1 .. Degree(p)))));
+
+  result:=0;
+  an:=2*Max(an);
+  if(Not IsZero(an)) [result := 1/an;];
+  Simplify(Rationalize(result));
+];
+30 # MinimumBound(_p) <-- -Infinity;
+
+%/mathpiper
