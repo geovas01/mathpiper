@@ -1,0 +1,101 @@
+%mathpiper,def="true"
+
+BoundRealRoots(_p) <--
+[
+  BoundRealRoots(p,MinimumBound(p),MaximumBound(p));
+];
+
+BoundRealRoots(_p,_Mmin,_Mmax) <--
+[
+  Local(S,N,work,result,Vmin,Vmax,a,b,Va,Vb,c,Vc,x);
+
+  result:={};
+  if (IsZero(p Where x==0))
+  [
+    p:=Simplify(p/x);
+    result:={{0,0}};
+  ];
+  S:=SturmSequence(p);
+  Vmin := SturmVariations(S,-Infinity);
+  Vmax := SturmVariations(S,Infinity);
+
+//Echo("Vmin,Vmax = ",Vmin,Vmax);
+
+  N:=Vmin - Vmax;
+
+//Echo("N = ",N);
+
+//Echo("Mmin,Mmax = ",Mmin,Mmax);
+  work:={};
+  if (N=1)
+  [
+    result:={{-Mmax,Mmax}};
+  ];
+  if (N>1)
+  [
+    work :=
+    {
+      {-Mmax,-Mmin,Vmin,SturmVariations(S,-Mmin)},
+      { Mmin, Mmax,SturmVariations(S, Mmin),Vmax}
+    };
+  ];
+
+//Echo("Work start = ",work);
+    While(work != {})
+    [
+      {a,b,Va,Vb} := Head(work);
+      work := Tail(work);
+      c:=(a+b)/2;
+//Echo(a,b,c);
+      Vc := SturmVariations(S,c);
+      if (IsZero(p Where x == c))
+      [
+        Local(M,Vcmin,Vcplus,pnew);
+        pnew := Simplify((p Where x == x+c)/x);
+        M:=MinimumBound(pnew);
+//Echo("Mi = ",M);
+        Vcmin  := SturmVariations(S, c-M);
+        Vcplus := SturmVariations(S, c+M);
+        result:=Concat(result,{{c,c}});
+
+        if (Va = Vcmin+1)
+        [
+          result:=Concat(result,{{a,c-M}});
+        ];
+        if (Va > Vcmin+1)
+        [
+          work:=Concat(work,{{a,c-M,Va,Vcmin}});
+        ];
+        if (Vb = Vcplus-1)
+        [
+          result:=Concat(result,{{c+M,b}});
+        ];
+        if (Vb < Vcplus-1)
+        [
+          work:=Concat(work,{{c+M,b,Vcplus,Vb}});
+        ];
+      ]
+      else
+      [
+        if (Va = Vc+1)
+        [
+          result:=Concat(result,{{a,c}});
+        ];
+        if (Va > Vc+1)
+        [
+          work:=Concat(work,{{a,c,Va,Vc}});
+        ];
+        if (Vb = Vc-1)
+        [
+          result:=Concat(result,{{c,b}});
+        ];
+        if (Vb < Vc-1)
+        [
+          work:=Concat(work,{{c,b,Vc,Vb}});
+        ];
+      ];
+    ];
+    result;
+];
+
+%/mathpiper

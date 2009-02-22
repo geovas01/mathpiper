@@ -1,0 +1,21 @@
+%mathpiper,def="true"
+
+SquareFree(_p) <--
+[
+  Local(dp,gcd);
+//Echo("1...");
+  dp:=MakeMultiNomial(`(D(x)(@p)),{x});
+//  dp:=dp/MultiLeadingCoef(dp);
+
+//Echo("2...",dp);
+  p:=MakeMultiNomial(p,{x});
+//Echo(NormalForm(p));
+//Echo(NormalForm(dp));
+  gcd:=MultiGcd(p,dp);
+//Echo(NormalForm(gcd));
+//Echo(NormalForm(MultiDivide(p,{gcd})[1][1]));
+  NormalForm(MultiDivide(p,{gcd})[1][1]);
+//  Div(p,Gcd(p,Monic(`(D(x)(@p)))));
+];
+
+%/mathpiper
