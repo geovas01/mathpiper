@@ -1,0 +1,75 @@
+%mathpiper,def="true"
+
+10 # IsUniVar(UniVariate(_var,_first,_coefs)) <-- True;
+20 # IsUniVar(_anything) <-- False;
+
+200 # aLeft_IsUniVar ^ aRight_IsPositiveInteger <--
+      RepeatedSquaresMultiply(aLeft,aRight);
+
+
+200 # aLeft_IsUniVar - aRight_IsUniVar <--
+[
+  Local(from,result);
+  Local(curl,curr,left,right);
+
+  curl:=aLeft[2];
+  curr:=aRight[2];
+  left:=aLeft[3];
+  right:=aRight[3];
+  result:={};
+  from:=Min(curl,curr);
+
+  While(curl<curr And left != {})
+  [
+    DestructiveAppend(result,Head(left));
+    left:=Tail(left);
+    curl++;
+  ];
+  While(curl<curr)
+  [
+    DestructiveAppend(result,0);
+    curl++;
+  ];
+  While(curr<curl And right != {})
+  [
+    DestructiveAppend(result,-Head(right));
+    right:=Tail(right);
+    curr++;
+  ];
+  While(curr<curl)
+  [
+    DestructiveAppend(result,0);
+    curr++;
+  ];
+  While(left != {} And right != {})
+  [
+    DestructiveAppend(result,Head(left)-Head(right));
+    left  := Tail(left);
+    right := Tail(right);
+  ];
+
+
+  While(left != {})
+  [
+    DestructiveAppend(result,Head(left));
+    left  := Tail(left);
+  ];
+  While(right != {})
+  [
+    DestructiveAppend(result,-Head(right));
+    right := Tail(right);
+  ];
+
+  UniVariate(aLeft[1],from,result);
+];
+
+
+
+/*TODO this can be made twice as fast!*/
+
+201 # (aLeft_IsUniVar * _aRight)_((IsFreeOf(aLeft[1],aRight))) <--
+[
+    aRight*aLeft;
+];
+
+%/mathpiper

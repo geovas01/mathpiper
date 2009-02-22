@@ -1,0 +1,18 @@
+%mathpiper,def="true"
+
+RuleBase("Degree",{expr});
+Rule("Degree",1,0, IsUniVar(expr))
+[
+
+  Local(i,min,max);
+  min:=expr[2];
+  max:=min+Length(expr[3]);
+  i:=max;
+  While(i >= min And IsZero(Coef(expr,i))) i--;
+  i;
+];
+
+10 # Degree(_poly)      <-- Degree(MakeUni(poly));
+10 # Degree(_poly,_var) <-- Degree(MakeUni(poly,var));
+
+%/mathpiper

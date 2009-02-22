@@ -7,4 +7,7 @@
 10 # IsZero(x_IsNumber) <-- ( MathSign(x) = 0 Or AbsN(x)  < PowerN(10, -BuiltinPrecisionGet()));
 60000 # IsZero(_x) <-- False;
 
+//Note:tk:moved here from univariate.rep.
+20 # IsZero(UniVariate(_var,_first,_coefs)) <-- IsZeroVector(coefs);
+
 %/mathpiper
