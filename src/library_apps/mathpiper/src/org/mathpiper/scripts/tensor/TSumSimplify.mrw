@@ -1,0 +1,46 @@
+%mathpiper,def="check"
+
+/* Terminating condition for the tensorial simplification */
+
+10 # TSumSimplify(TList(Delta(_ind,_ind),_list))_Contains(indices,ind) <--
+
+[
+  /* Remove the index from the list of indices to sum over, since
+     it is now implicitly summed over by simplifying the delta */
+  DestructiveDelete(indices,Find(indices,ind));
+
+/* Return result simplified for this delta */
+  Ndim*TSumRest(list);
+];
+
+11 # TSumSimplify(TList(Delta(_ind1,_ind2),_list))_
+     Contains(indices,ind2) <--
+[
+  /* Remove the index from the list of indices to sum over, since
+     it is now implicitly summed over by simplifying the delta */
+  DestructiveDelete(indices,Find(indices,ind2));
+
+  /* Return result simplified for this delta */
+  TSumRest( Subst(ind2,ind1)list );
+];
+11 # TSumSimplify(TList(Delta(_ind1,_ind2),_list))_
+     Contains(indices,ind1) <--
+[
+  /* Remove the index from the list of indices to sum over, since
+     it is now implicitly summed over by simplifying the delta */
+  DestructiveDelete(indices,Find(indices,ind1));
+
+  /* Return result simplified for this delta */
+  TSumRest( Subst(ind1,ind2)list );
+];
+
+
+
+1010 # TSumSimplify(TList(_term,_list)) <--
+[
+  term*TSumRest(list);
+];
+
+UnFence("TSumSimplify",1); 
+
+%/mathpiper

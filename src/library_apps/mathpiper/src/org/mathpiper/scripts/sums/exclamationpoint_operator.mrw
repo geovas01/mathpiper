@@ -1,0 +1,62 @@
+%mathpiper,def="true"
+
+/* Factorials */
+
+10 # 0! <-- 1;
+10 # (Infinity)! <-- Infinity;
+20 # ((n_IsPositiveInteger)!) <-- [
+	Check(n <= 65535, "Factorial: Error: the argument " : ( ToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
+	MathFac(n);
+];
+
+25 # ((x_IsConstant)!)_(FloatIsInt(x) And x>0) <-- (Round(x)!);
+
+30 # ((x_IsNumber)!)_InNumericMode() <-- Internal'GammaNum(x+1);
+
+40 # (n_IsList)! <-- MapSingle("!",n);
+
+/* formulae for half-integer factorials:
+
+(+(2*z+1)/2)! = Sqrt(Pi)*(2*z+1)! / (2^(2*z+1)*z!) for z >= 0
+(-(2*z+1)/2)! = Sqrt(Pi)*(-1)^z*z!*2^(2*z) / (2*z)! for z >= 0
+
+Double factorials are more efficient:
+	(2*n-1)!! := 1*3*...*(2*n-1) = (2*n)! / (2^n*n!)
+	(2*n)!! := 2*4*...*(2*n) = 2^n*n!
+
+*/
+/* // old version - not using double factorials
+HalfIntegerFactorial(n_IsOdd) _ (n>0) <--
+	Sqrt(Pi) * ( n! / ( 2^n*((n-1)/2)! ) );
+HalfIntegerFactorial(n_IsOdd) _ (n<0)  <--
+	Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^(-n-1)*((-n-1)/2)! / (-n-1)! );
+*/
+// new version using double factorials
+HalfIntegerFactorial(n_IsOdd) _ (n>0) <--
+	Sqrt(Pi) * ( n!! / 2^((n+1)/2) );
+HalfIntegerFactorial(n_IsOdd) _ (n<0)  <--
+	Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^((-n-1)/2) / (-n-2)!! );
+//HalfIntegerFactorial(n_IsOdd) _ (n= -1)  <-- Sqrt(Pi);
+
+/* Want to also compute (2.5)! */
+40 # (n_IsRationalOrNumber)! _(Denom(Rationalize(n))=2) <-- HalfIntegerFactorial(Numer(Rationalize(n)));
+
+/// partial factorial
+n1_IsRationalOrNumber *** n2_IsRationalOrNumber <--
+[
+	Check(n2-n1 <= 65535, "Partial factorial: Error: the range " : ( ToString() Write(n2-n1) ) : " is too large, you may want to avoid exact calculation");
+	If(n2-n1<0,
+		1,
+		Factorial'partial(n1, n2)
+	);
+];
+
+/// recursive routine to evaluate "partial factorial" a*(a+1)*...*b
+// TODO lets document why the >>1 as used here is allowed (rounding down? What is the idea behind this algorithm?)
+2# Factorial'partial(_a, _b) _ (b-a>=4) <-- Factorial'partial(a, a+((b-a)>>1)) * Factorial'partial(a+((b-a)>>1)+1, b);
+3# Factorial'partial(_a, _b) _ (b-a>=3) <-- a*(a+1)*(a+2)*(a+3);
+4# Factorial'partial(_a, _b) _ (b-a>=2) <-- a*(a+1)*(a+2);
+5# Factorial'partial(_a, _b) _ (b-a>=1) <-- a*(a+1);
+6# Factorial'partial(_a, _b) _ (b-a>=0) <-- a;
+
+%/mathpiper

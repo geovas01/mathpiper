@@ -1,0 +1,12 @@
+%mathpiper,def="true"
+
+/* Tensor package. This code intends to simplify tensorial expressions.
+ */
+
+/* functions internal to tensors */
+RuleBase("Delta",{ind1,ind2});
+
+//Not defined in the scripts. todo:tk.
+
+
+%/mathpiper

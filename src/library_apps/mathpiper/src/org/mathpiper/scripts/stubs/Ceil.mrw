@@ -1,0 +1,25 @@
+%mathpiper,def="true"
+
+5 # Ceil(Infinity) <-- Infinity;
+5 # Ceil(-Infinity) <-- -Infinity;
+5 # Ceil(Undefined) <-- Undefined;
+
+10 # Ceil(x_IsRationalOrNumber)
+   <--
+   [
+     x:=N(x);
+     Local(prec,result,n);
+     Set(prec,BuiltinPrecisionGet());
+     If(IsZero(x),Set(n,2),
+     If(x>0,
+       Set(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
+       Set(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
+       ));
+     If(n>prec,BuiltinPrecisionSet(n));
+     Set(result,CeilN(x));
+     BuiltinPrecisionSet(prec);
+     result;
+   ];
+//   CeilN (N(x));
+
+%/mathpiper

@@ -1,0 +1,29 @@
+%mathpiper,def="check"
+
+/** This file contains routines for numerical evaluation of elementary functions:
+ *  PowerN, ExpN, SinN etc.
+ *  It is assumed that the arguments are real (not complex) floating-point or integer numbers. (The {InNumericMode()} flag does not have to be set.)
+ *  The result is an exact integer or a floating-point number correct to BuiltinPrecisionGet() digits.
+ *
+ *  If a better optimized version of these functions is available through the kernel,
+ *  then the kernel version will automatically shadow these functions.
+ *  These implementations are not necessarily the best optimized versions.
+ */
+
+/// Identity transformation, compute 1-Cos(x) from value=1-Cos(x/2^n)
+
+//Changed CosN'Doubling1 to CosN'Doubling. Note:tk.
+CosN'Doubling(value, n) :=
+[
+	Local(shift, result);
+	shift := n;
+	result := value;
+	While (shift>0)	// lose 'shift' bits of precision here
+	[
+		result := MultiplyN(MathMul2Exp(result, 1), 2 - result);
+		shift--;
+	];
+	result;
+];
+
+%/mathpiper

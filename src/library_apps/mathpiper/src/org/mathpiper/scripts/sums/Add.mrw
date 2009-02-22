@@ -1,0 +1,17 @@
+%mathpiper,def="true"
+
+Function() Add(val, ...);
+
+10 # Add({}) <-- 0;
+20 # Add(values_IsList) <--
+[
+   Local(i, sum);
+   sum:=0;
+   ForEach(i, values) [ sum := sum + i; ];
+   sum;
+];
+
+// Add(1) should return 1
+30 # Add(_value) <-- value;
+
+%/mathpiper

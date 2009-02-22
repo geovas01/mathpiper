@@ -1,0 +1,10 @@
+%mathpiper,def="true"
+
+Function("LogicVerify",{aLeft,aRight})
+[
+  If(aLeft != aRight,
+    Verify(CanProve(aLeft => aRight),True)
+  );
+];
+
+%/mathpiper

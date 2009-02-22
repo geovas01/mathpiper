@@ -1,0 +1,22 @@
+%mathpiper,def="true"
+
+/// even/odd double factorial: product of even or odd integers up to n
+1# (n_IsPositiveInteger)!! _ (n<=3) <-- n;
+2# (n_IsPositiveInteger)!! <--
+[
+	Check(n<=65535, "Double factorial: Error: the argument " : ( ToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
+	Factorial'double(2+Mod(n, 2), n);
+];
+// special cases
+3# (_n)!! _ (n= -1 Or n=0)<-- 1;
+
+// the purpose of this mess "Div(a+b,2)+1+Mod(Div(a+b,2)+1-a, 2)" is to obtain the smallest integer which is >= Div(a+b,2)+1 and is also odd or even when a is odd or even; we need to add at most 1 to (Div(a+b,2)+1)
+2# Factorial'double(_a, _b) _ (b-a>=6) <-- Factorial'double(a, Div(a+b,2)) * Factorial'double(Div(a+b,2)+1+Mod(Div(a+b,2)+1-a, 2), b);
+3# Factorial'double(_a, _b) _ (b-a>=4) <-- a*(a+2)*(a+4);
+4# Factorial'double(_a, _b) _ (b-a>=2) <-- a*(a+2);
+5# Factorial'double(_a, _b) <-- a;
+
+/// double factorial for lists is threaded
+30 # (n_IsList)!! <-- MapSingle("!!",n);
+
+%/mathpiper

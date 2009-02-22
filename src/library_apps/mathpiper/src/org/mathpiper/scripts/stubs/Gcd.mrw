@@ -1,0 +1,49 @@
+%mathpiper,def="true"
+
+0 # Gcd(0,0) <-- 1;
+1 # Gcd(0,_m) <-- Abs(m);
+1 # Gcd(_n,0) <-- Abs(n);
+1 # Gcd(_m,_m) <-- Abs(m);
+2 # Gcd(_n,1) <-- 1;
+2 # Gcd(1,_m) <-- 1;
+2 # Gcd(n_IsInteger,m_IsInteger) <-- GcdN(n,m);
+3 # Gcd(_n,_m)_(IsGaussianInteger(m) And IsGaussianInteger(n) )<-- GaussianGcd(n,m);
+
+4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
+4 # Gcd( (_n),-(_m)) <-- Gcd(n,m);
+4 # Gcd(Sqrt(n_IsInteger),Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n,m));
+4 # Gcd(Sqrt(n_IsInteger),m_IsInteger) <-- Sqrt(Gcd(n,m^2));
+4 # Gcd(n_IsInteger,Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n^2,m));
+
+5 # Gcd(n_IsRational,m_IsRational) <--
+[
+  Gcd(Numer(n),Numer(m))/Lcm(Denom(n),Denom(m));
+];
+
+
+10 # Gcd(list_IsList)_(Length(list)>2) <--
+    [
+      Local(first);
+      first:=Gcd(list[1],list[2]);
+      Gcd(first:Tail(Tail(list)));
+    ];
+14 # Gcd({0}) <-- 1;
+15 # Gcd({_head}) <-- head;
+
+20 # Gcd(list_IsList)_(Length(list)=2) <-- Gcd(list[1],list[2]);
+
+30 # Gcd(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=1) <--
+[
+  Local(vars);
+  vars:=VarList(n+m);
+  NormalForm(Gcd(MakeUni(n,vars),MakeUni(m,vars)));
+];
+
+100 # Gcd(n_IsConstant,m_IsConstant) <-- 1;
+110 # Gcd(_m,_n) <--
+[
+  Echo("Not simplified");
+];
+
+%/mathpiper
+
