@@ -247,9 +247,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     public void response(EvaluationResponse response) {
         
-
-
-        
         String output = "Result: " + response.getResult().trim();
 
         if (!response.getSideEffects().equalsIgnoreCase("")) {
