@@ -26,6 +26,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -99,7 +100,7 @@ public class Build {
                     mpiDefFileOut = new BufferedWriter(new FileWriter(newMPIDefFile));
 
 
-                    //Place class files in package dir
+                    //Place files in package dir
                     if (packageDirectoryFile.exists()) {
                         java.io.File[] packageDirectoryContentsArray = packageDirectoryFile.listFiles(new java.io.FilenameFilter() {
 
@@ -119,41 +120,18 @@ public class Build {
                         String classNameUpper = null;
 
                         for (int x2 = 0; x2 < packageDirectoryContentsArray.length; x2++) {
-                            //Process each script in a .rep directory.
-                            File scriptFile = packageDirectoryContentsArray[x2];
-                            System.out.println("    " + scriptFile.getName());
+                            //Process each script or subdirectory in a .rep directory.***********************************************************************************
+                            File scriptFileOrSubdirectoy = packageDirectoryContentsArray[x2];
+                            System.out.println("    " + scriptFileOrSubdirectoy.getName());
 
-                            if (scriptFile.getName().endsWith(".mrw")) {
+                            if (scriptFileOrSubdirectoy.getName().endsWith(".mrw")) {
+                            //Process a .mrw files that is in a top-level package. ************************************************************************
 
-
-                                List<Fold> folds = scanMRWFile(scriptFile);
-
-                                for (Fold fold : folds) {
-
-                                    String foldType = fold.getType();
-                                    if (foldType.equalsIgnoreCase("%mathpiper")) {
-
-                                        mpiFileOut.write(fold.getContents());
-
-
-                                        if (fold.getAttributes().containsKey("def")) {
-                                            String defAttribute = (String) fold.getAttributes().get("def");
-                                            if (defAttribute.equalsIgnoreCase("true")) {
-                                                mpiDefFileOut.write(scriptFile.getName().replace(".mrw", ""));
-                                                mpiDefFileOut.write("\n");
-                                            }
-                                        }
-
-                                    } else if (foldType.equalsIgnoreCase("%html")) {
-                                    }
-
-
-
-
-                                }//end subpackage for.
+                            processMRWFile(scriptFileOrSubdirectoy,mpiDefFileOut, mpiFileOut);
 
                             } else {
-                                java.io.File[] packageSubDirectoryContentsArray = scriptFile.listFiles(new java.io.FilenameFilter() {
+                                //Process a subdirectory.***********************************************************************************************
+                                java.io.File[] packageSubDirectoryContentsArray = scriptFileOrSubdirectoy.listFiles(new java.io.FilenameFilter() {
 
                                     public boolean accept(java.io.File file, String name) {
                                         if (name.startsWith(".")) {
@@ -166,13 +144,35 @@ public class Build {
 
                                 Arrays.sort(packageSubDirectoryContentsArray);
 
+                    BufferedWriter mpiSubDirectoyFileOut = null;
+                    File newMPISubDirectoyFile = new File(newPackagePath + "/" + scriptFileOrSubdirectoy.getName() + ".mpi");
+                    newMPISubDirectoyFile.createNewFile();
+                    mpiSubDirectoyFileOut = new BufferedWriter(new FileWriter(newMPISubDirectoyFile));
 
+                    //mpi.def file
+                    BufferedWriter mpiSubDirectoyDefFileOut = null;
+                    File newMPISubDirectoyDefFile = new File(newPackagePath + "/" + scriptFileOrSubdirectoy.getName() + ".mpi.def" );
+                    newMPISubDirectoyDefFile.createNewFile();
+                    mpiSubDirectoyDefFileOut = new BufferedWriter(new FileWriter(newMPISubDirectoyDefFile));
 
                                 for (int x3 = 0; x3 < packageSubDirectoryContentsArray.length; x3++) {
-                                    //Process each script in a .rep directory.
+                                    //Process each script in a package subdirectlry directory.
                                     File scriptFile2 = packageSubDirectoryContentsArray[x3];
                                     System.out.println("        " + scriptFile2.getName());
-                                }
+                                    
+                                    processMRWFile(scriptFile2,mpiSubDirectoyDefFileOut, mpiSubDirectoyFileOut);
+
+                                                        //mpi file.
+
+
+                                }//end subpackage for.
+
+                         if (mpiSubDirectoyFileOut != null) {
+                        mpiSubDirectoyFileOut.close();
+                        mpiSubDirectoyDefFileOut.write("}\n");
+                        mpiSubDirectoyDefFileOut.close();
+                    }
+
                             }//end else.
 
                         }//end package for.
@@ -343,4 +343,33 @@ public class Build {
             return type;
         }
     }//end inner class.
+
+
+    private void processMRWFile(File mrwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws IOException
+    {
+                                List<Fold> folds = scanMRWFile(mrwFile);
+
+                                for (Fold fold : folds) {
+
+                                    String foldType = fold.getType();
+                                    if (foldType.equalsIgnoreCase("%mathpiper")) {
+
+                                        mpiFileOut.write(fold.getContents());
+
+
+                                        if (fold.getAttributes().containsKey("def")) {
+                                            String defAttribute = (String) fold.getAttributes().get("def");
+                                            if (defAttribute.equalsIgnoreCase("true")) {
+                                                mpiDefFileOut.write(mrwFile.getName().replace(".mrw", ""));
+                                                mpiDefFileOut.write("\n");
+                                            }
+                                        }
+
+                                    } else if (foldType.equalsIgnoreCase("%html")) {
+                                    }
+
+
+                                }//end subpackage for.
+    }
+
 }//end class.
