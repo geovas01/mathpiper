@@ -267,8 +267,6 @@ public class Build {
         boolean inFold = false;
 
         try {
-            // Open the file that is the first
-            // command line parameter
             FileInputStream fstream = new FileInputStream(mrwFile);
             // Get the object of DataInputStream
             DataInputStream in = new DataInputStream(fstream);
@@ -359,9 +357,15 @@ public class Build {
 
                                         if (fold.getAttributes().containsKey("def")) {
                                             String defAttribute = (String) fold.getAttributes().get("def");
-                                            if (defAttribute.equalsIgnoreCase("true")) {
-                                                mpiDefFileOut.write(mrwFile.getName().replace(".mrw", ""));
-                                                mpiDefFileOut.write("\n");
+                                            if (!defAttribute.equalsIgnoreCase("")) {
+
+                                                String[] defFunctionNames = defAttribute.split(";");
+
+                                                for(int x = 0; x < defFunctionNames.length; x++)
+                                                {
+                                                    mpiDefFileOut.write(defFunctionNames[x]);
+                                                    mpiDefFileOut.write("\n");
+                                                }//enf if.
                                             }
                                         }
 
