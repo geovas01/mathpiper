@@ -1,4 +1,4 @@
-%mathpiper,def="MathExpTaylor",public="false"
+%mathpiper,def="MathExpTaylor",scope="private"
 
 // simple Taylor expansion, use only for 0<=x<1
 Defun("MathExpTaylor0",{x})

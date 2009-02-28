@@ -1,4 +1,4 @@
-%mathpiper,def="SortFactorList",public="false"
+%mathpiper,def="SortFactorList",scope="private"
 
 /// Sort the list of prime factors using HeapSort()
 LocalSymbols(a,b, list) [

@@ -1,4 +1,4 @@
-%mathpiper,def="ForEachInArray",public="false"
+%mathpiper,def="ForEachInArray",scope="private"
 
 LocalSymbols(i,nr)
 [

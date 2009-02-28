@@ -1,4 +1,4 @@
-%mathpiper,def="IsComplexII",public="false"
+%mathpiper,def="IsComplexII",scope="private"
 
 IsComplexII(_c) <-- (ImII(c) != 0);
 

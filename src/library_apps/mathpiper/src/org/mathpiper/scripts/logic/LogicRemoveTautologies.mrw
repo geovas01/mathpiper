@@ -1,4 +1,4 @@
-%mathpiper,def="LogicRemoveTautologies",public="false"
+%mathpiper,def="LogicRemoveTautologies",scope="private"
 
  // not clear is this will stay, but it is eq. to LogicSimplify(expr, 2)
 

@@ -1,4 +1,4 @@
-%mathpiper,def="NN",public="false"
+%mathpiper,def="NN",scope="private"
 
 LocalSymbols(complexReduce) [
 

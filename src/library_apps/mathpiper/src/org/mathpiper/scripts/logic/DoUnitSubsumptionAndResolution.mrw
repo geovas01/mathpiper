@@ -1,4 +1,4 @@
-%mathpiper,def="DoUnitSubsumptionAndResolution",public="false"
+%mathpiper,def="DoUnitSubsumptionAndResolution",scope="private"
 
 // perform unit subsumption and resolutiuon for a unit clause # i
 // a boolean indicated whether there was a change is returned

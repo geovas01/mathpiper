@@ -1,4 +1,4 @@
-%mathpiper,def="II",public="false"
+%mathpiper,def="II",scope="private"
 
 //
 // II is the imaginary number Sqrt(-1), and remains that way.

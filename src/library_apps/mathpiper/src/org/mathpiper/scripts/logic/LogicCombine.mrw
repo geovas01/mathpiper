@@ -1,4 +1,4 @@
-%mathpiper,def="LogicCombine",public="false"
+%mathpiper,def="LogicCombine",scope="private"
 
 /* LogicCombine is responsible for scanning a list of lists, which represent
    a form (p1  Or  p2  Or  ...)  And  (q1  Or  q2  Or  ...)  And ... by scanning the lists
