@@ -1,4 +1,4 @@
-%mathpiper,def="WilkinsonMatrix",public="false"
+%mathpiper,def="WilkinsonMatrix",scope="private"
 
 // Used to test numerical eigenvalue algorithms, because it
 // has eigenvalues extremely close to each other.

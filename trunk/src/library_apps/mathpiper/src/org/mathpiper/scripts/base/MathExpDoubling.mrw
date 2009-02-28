@@ -1,4 +1,4 @@
-%mathpiper,def="MathExpDoubling",public="false"
+%mathpiper,def="MathExpDoubling",scope="private"
 
 /// Identity transformation, compute Exp(x) from value=Exp(x/2^n) by squaring the value n times
 Defun("MathExpDoubling", {value, n})

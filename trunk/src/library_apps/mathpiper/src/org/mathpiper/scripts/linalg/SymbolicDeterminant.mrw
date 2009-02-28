@@ -1,4 +1,4 @@
-%mathpiper,def="SymbolicDeterminant",public="false"
+%mathpiper,def="SymbolicDeterminant",scope="private"
 
 20 # SymbolicDeterminant(_matrix) <--
 [

@@ -1,4 +1,4 @@
-%mathpiper,def="IsNotComplex",public="false"
+%mathpiper,def="IsNotComplex",scope="private"
 
 IsNotComplex(x) := Not(IsComplex(x));
 

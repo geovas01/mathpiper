@@ -1,4 +1,4 @@
-%mathpiper,def="AntiDeriv",public="false"
+%mathpiper,def="AntiDeriv",scope="private"
 
 //todo:tk:this file need to be broken down further.
 

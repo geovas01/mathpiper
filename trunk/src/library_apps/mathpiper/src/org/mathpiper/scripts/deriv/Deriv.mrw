@@ -1,4 +1,4 @@
-%mathpiper,def="Deriv",public="false"
+%mathpiper,def="Deriv",scope="private"
 
 
 5 # (Deriv(_var,1)_func) <-- Deriv(var)func;
