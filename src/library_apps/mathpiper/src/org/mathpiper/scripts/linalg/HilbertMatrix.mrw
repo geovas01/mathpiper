@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="HilbertMatrix"
 
 // The arguments of the following functions should be checked
 // notoriously hard to manipulate numerically

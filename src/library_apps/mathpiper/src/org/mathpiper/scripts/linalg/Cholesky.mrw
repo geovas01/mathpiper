@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Cholesky"
 
 // Cholesky Decomposition, adapted from:
 //	Fundamentals Of Matrix Computation (2nd), David S. Watkins, pp38

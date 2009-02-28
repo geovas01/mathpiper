@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="LU"
 
 // In place LU decomposition
 // Pivotting is not implemented

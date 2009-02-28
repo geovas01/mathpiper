@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="InverseTaylor"
 
 /* InverseTaylor : given a function y=f(x), determine the Taylor series
  * expansion of the inverse f^-1(y)=x this function around y0=f(x0).

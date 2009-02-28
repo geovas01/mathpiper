@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Groebner"
 
 /*
   Groebner : Calculate the Groebner basis of a set of polynomials.

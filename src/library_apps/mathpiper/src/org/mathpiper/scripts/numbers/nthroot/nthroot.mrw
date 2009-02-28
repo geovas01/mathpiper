@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="NthRoot;NthRoot'Calc;NthRoot'List;NthRoot'Save;NthRoot'Restore;NthRoot'Clear"
 
 /* def file definitions
 NthRoot

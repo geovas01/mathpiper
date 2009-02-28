@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Diverge"
 
 RuleBase("Diverge", {aFunc, aBasis});
 Rule("Diverge", 2, 1, IsList(aBasis) And IsList(aFunc) And Length(aBasis) = Length(aFunc))

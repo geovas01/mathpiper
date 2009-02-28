@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsSkewSymmetric"
 
 IsSkewSymmetric(A_IsMatrix) <-- (Transpose(A)=(-1*A));
 

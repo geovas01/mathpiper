@@ -1,4 +1,4 @@
-%mathpiper,def="false"
+%mathpiper,def="PositiveIntPower",public="false"
 
 // first define the binary exponentiation algorithm, MathIntPower.
 // Later, the PowerN function will be defined through IntPower and MathLn/ExpN. Note that ExpN uses IntPower.

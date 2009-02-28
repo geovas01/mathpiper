@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Eliminate"
 
 Eliminate(_var,_replace,_function) <-- Simplify(Subst(var,replace)function);
 

@@ -1,5 +1,5 @@
 
-%mathpiper,def="true"
+%mathpiper,def="ArrayCreateFromList"
 
 ArrayCreateFromList(list):=
 [

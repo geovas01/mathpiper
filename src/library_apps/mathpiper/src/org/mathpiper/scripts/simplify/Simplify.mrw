@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Simplify"
 
 10 # Simplify(expr_IsList) <-- MapSingle("Simplify",expr);
 

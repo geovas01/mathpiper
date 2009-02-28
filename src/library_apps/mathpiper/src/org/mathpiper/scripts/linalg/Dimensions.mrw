@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Dimensions"
 
 /* Code that returns the list of the dimensions of a tensor
    Code submitted by Dirk Reusch.

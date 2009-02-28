@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="InProduct"
 
 Function("InProduct",{aLeft,aRight})
 [

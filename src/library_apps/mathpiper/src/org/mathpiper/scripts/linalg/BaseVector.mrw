@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="BaseVector"
 
 Function("BaseVector",{row,n})
 [

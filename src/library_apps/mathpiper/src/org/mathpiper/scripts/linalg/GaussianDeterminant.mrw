@@ -1,4 +1,4 @@
-%mathpiper,def="false"
+%mathpiper,def="GaussianDeterminant",public="false"
 
 GaussianDeterminant(matrix):=
 [

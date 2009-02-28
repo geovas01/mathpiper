@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="For"
 
 /* Defining a For function */
 TemplateFunction("For",{start,predicate,increment,body})

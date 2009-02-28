@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="Contradict",public="false"
 
 10 # Contradict((_x) - (_y) == 0, (_x) - (_z) == 0)_(y != z)     <-- True;
 12 # Contradict((_x) == (_y), (_x) == (_z))_(y != z)             <-- True;

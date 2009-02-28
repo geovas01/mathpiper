@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsBoolType"
 
 0 # IsBoolType(True) <-- True;
 0 # IsBoolType(False) <-- True;

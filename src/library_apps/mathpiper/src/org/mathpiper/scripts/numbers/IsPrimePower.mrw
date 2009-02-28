@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsPrimePower"
 
 /* Returns whether n is a prime^m. */
 10 # IsPrimePower(n_IsPrime) <-- True;

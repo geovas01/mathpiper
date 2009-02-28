@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="GetPrimePower"
 
 /// Check whether n is a power of some prime integer and return that integer and the power.
 /// This routine uses only integer arithmetic.

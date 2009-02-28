@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="FrobeniusNorm"
 
 FrobeniusNorm(matrix_IsMatrix) <--
 [

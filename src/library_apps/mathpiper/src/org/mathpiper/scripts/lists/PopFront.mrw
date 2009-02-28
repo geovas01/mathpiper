@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="PopFront"
 
 Function("PopFront",{stack}) Pop(stack,1);
 

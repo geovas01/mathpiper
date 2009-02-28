@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Bernoulli1"
 
 /// Find one Bernoulli number for large index
 /// compute Riemann's zeta function and combine with the fractional part

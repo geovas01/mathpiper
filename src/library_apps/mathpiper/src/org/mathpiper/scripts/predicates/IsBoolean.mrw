@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsBoolean"
 
 Function ("IsBoolean", {x})
 	(x=True) Or (x=False) Or IsFunction(x) And Contains({"=", ">", "<", ">=", "<=", "!=", "And", "Not", "Or"}, Type(x));

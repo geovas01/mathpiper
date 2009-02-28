@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="GaussianFactorPrime"
 
 /* GaussianFactorPrime(p): auxiliary function for Gaussian factors.
 If p is a rational prime of the form 4n+1, we find a factor of p in the

@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="PartFracExpand",public="false"
 
 /* Partial fraction expansion of g/f with Degree(g)<Degree(f) */
 PartFracExpand(_g,_f) <--

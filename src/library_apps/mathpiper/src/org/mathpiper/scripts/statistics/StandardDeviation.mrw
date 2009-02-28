@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="StandardDeviation"
 
 // stdev in Wester benchmark
 StandardDeviation(x) := Sqrt(UnbiasedVariance(x));

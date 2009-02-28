@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="GuessRational"
 
 /// guess the rational number behind an imprecise number
 /// prec parameter is the max number of digits you can have in the denominator

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Transpose"
 
 Transpose(matrix_IsList)_(Length(Dimensions(matrix))>1) <--
 [

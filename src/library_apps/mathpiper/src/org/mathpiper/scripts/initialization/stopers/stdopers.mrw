@@ -1,4 +1,4 @@
-%mathpiper,def="false"
+%mathpiper,def=""
 
 
 /* stdopers is loaded immediately after MathPiper is started. It contains

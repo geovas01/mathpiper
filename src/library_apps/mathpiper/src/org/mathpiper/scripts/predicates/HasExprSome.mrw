@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="HasExprSome"
 
 /// Same except only look at function arguments for functions in a given list
 HasExprSome(_expr, _atom, _look'list) _ Equals(expr, atom) <-- True;

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="^"
 
 /* Faster version of raising power to 0.5 */
 50 # _x ^ (1/2) <-- Sqrt(x);

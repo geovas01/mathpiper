@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def=":"
 
 /* Operators for functional programming. todo:tk:move some of this documentation into the proper function's .mrw files.
  * Examples:

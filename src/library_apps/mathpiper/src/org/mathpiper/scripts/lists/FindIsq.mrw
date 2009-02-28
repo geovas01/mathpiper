@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="FindIsq"
 
 LocalSymbols(max,f,low,high,mid,current)
 [

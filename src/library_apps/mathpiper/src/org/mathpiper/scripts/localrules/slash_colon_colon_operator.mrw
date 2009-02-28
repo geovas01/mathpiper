@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="/::"
 
 5 # (_expression /:: LocPatterns(_patterns)) <--
 [

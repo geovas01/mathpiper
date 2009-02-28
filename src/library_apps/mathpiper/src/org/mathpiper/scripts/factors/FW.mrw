@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="FW"
 
 /* FW: pass FW the result of Factors, and it will show it in the
  * form of p0^n0*p1^n1*...

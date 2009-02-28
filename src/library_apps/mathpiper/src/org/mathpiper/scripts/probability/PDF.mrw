@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="PDF"
 
 /* Evaluates distribution dst at point x
    known distributions are:

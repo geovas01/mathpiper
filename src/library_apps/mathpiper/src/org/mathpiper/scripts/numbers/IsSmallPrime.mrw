@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsSmallPrime"
 
 /* Returns whether n is a small by a lookup table, very fast.
 The largest prime number in the table is returned by FastIsPrime(0). */

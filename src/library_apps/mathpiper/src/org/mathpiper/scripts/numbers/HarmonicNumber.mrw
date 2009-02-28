@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="HarmonicNumber"
 
 10 # 	HarmonicNumber(n_IsInteger)	<-- HarmonicNumber(n,1);
 HarmonicNumber(n_IsInteger,r_IsPositiveInteger) <--

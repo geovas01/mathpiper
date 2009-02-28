@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ProductPrimesTo257",public="false"
 
 /// Product of small primes <= 257. Computed only once.
 LocalSymbols(p, q)

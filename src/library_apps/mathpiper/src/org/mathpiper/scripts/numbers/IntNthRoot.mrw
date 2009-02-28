@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IntNthRoot"
 
 /// Compute integer part of s-th root of (positive) integer n.
 // algorithm using floating-point math

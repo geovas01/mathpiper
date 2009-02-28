@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Arg"
 
 10 # Arg(Complex(Cos(_x),Sin(_x))) <-- x;
 10 # Arg(x_IsZero) <-- Undefined;

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ExtendedEuclideanMonic"
 
 ExtendedEuclideanMonic(_f,_g) <--
 [

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IntLog"
 
 /// Return integer part of the logarithm of x in given base. Use only integer arithmetic.
 10 # IntLog(_x, _base) _ (base<=1) <-- Undefined;

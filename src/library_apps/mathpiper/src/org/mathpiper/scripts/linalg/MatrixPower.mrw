@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MatrixPower"
 
 //////
 // power of a matrix (dr)

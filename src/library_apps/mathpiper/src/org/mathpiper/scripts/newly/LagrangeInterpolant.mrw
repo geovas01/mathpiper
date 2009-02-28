@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="LagrangeInterpolant"
 
 LagrangeInt(_var,_list) <--
 [

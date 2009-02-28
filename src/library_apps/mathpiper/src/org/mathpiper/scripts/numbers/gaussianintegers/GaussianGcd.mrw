@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="GaussianGcd"
 
 10 # GaussianGcd(n_IsGaussianInteger,m_IsGaussianInteger) <--
 [

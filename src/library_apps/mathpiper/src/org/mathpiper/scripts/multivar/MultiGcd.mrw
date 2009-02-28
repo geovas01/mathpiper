@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MultiGcd"
 
 //TODO optimize this! keeps on converting to and from internal format!
 

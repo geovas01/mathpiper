@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="FuncListArith"
 
 /* FuncListArith() is defined to only look at arithmetic operations +, -, *, /.
 

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsIrregularPrime"
 
 5  # IsIrregularPrime(p_IsComposite)	<-- False;
 // First irregular prime is 37

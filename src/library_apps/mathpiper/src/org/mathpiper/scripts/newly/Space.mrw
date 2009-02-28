@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Space"
 
 Space() := WriteN(" ",1);
 Space(n):= WriteN(" ",n);

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="HasFuncSome"
 
 /// function name given as string.
 10 # HasFuncSome(_expr, string_IsString, _look'list) <-- HasFuncSome(expr, Atom(string), look'list);

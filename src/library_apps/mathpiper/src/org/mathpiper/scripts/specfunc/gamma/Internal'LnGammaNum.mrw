@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Internal'LnGammaNum",scope="private"
 
 /////////////////////////////////////////////////
 /// Euler's Gamma function

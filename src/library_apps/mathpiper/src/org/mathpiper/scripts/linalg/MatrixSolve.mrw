@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MatrixSolve"
 
 10 # MatrixSolve(matrix_IsDiagonal,b_IsVector) <--
 [

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsVariable"
 
 IsVariable(_expr) <-- (IsAtom(expr) And Not(expr=Infinity) And Not(expr= -Infinity) And Not(expr=Undefined) And Not(IsNumber(N(Eval(expr)))));
 

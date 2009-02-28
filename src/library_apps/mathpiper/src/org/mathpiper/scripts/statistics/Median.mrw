@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Median"
 
 Median(x) :=
 [

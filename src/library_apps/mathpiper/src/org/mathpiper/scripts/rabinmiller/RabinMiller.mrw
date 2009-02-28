@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="RabinMiller"
 
 /*
  * File `rabinmiller.mpi' is an implementation of the

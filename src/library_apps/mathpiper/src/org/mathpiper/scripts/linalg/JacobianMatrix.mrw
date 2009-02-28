@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="JacobianMatrix"
 
 // The arguments of the following functions should be checked
 // this takes N funcs in N vars

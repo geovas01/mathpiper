@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="FactorGaussianInteger"
 
 // Algorithm adapted from: Number Theory: A Programmer's Guide
 //			Mark Herkommer

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="TrialFactorize"
 //todo:tk:This functions was commented out for some reason.
 
 /// Simple trial factorization: can be very slow for integers > 1,000,000.

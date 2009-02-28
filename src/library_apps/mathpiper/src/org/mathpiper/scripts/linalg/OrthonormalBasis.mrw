@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="OrthonormalBasis"
 
 // Like orthogonalization, only normalize all vectors
 Function("OrthonormalBasis",{W})[

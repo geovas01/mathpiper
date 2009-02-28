@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IncompleteGamma"
 
 /* IncompleteGamma function \int\limits_{0}^xt^{a-1}e^{-t}dt
 

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="NewLine"
 
 NewLine() := WriteN(Nl(),1);
 NewLine(n):= WriteN(Nl(),n);

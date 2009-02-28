@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Re"
 
 /*Real parts */
 110 # Re(Complex(_r,_i)) <-- r;

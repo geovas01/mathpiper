@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Sparsity"
 
 Function("Sparsity",{matrix})
 [

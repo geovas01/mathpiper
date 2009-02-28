@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Complex"
 
 0 # Complex(_r,i_IsZero) <-- r;
 2 # Complex(Complex(_r1,_i1),_i2) <-- Complex(r1,i1+i2);

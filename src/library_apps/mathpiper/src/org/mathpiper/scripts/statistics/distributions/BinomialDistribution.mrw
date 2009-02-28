@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="BinomialDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsTwinPrime"
 
 IsTwinPrime(n_IsPositiveInteger)	<-- (IsPrime(n) And IsPrime(n+2));
 

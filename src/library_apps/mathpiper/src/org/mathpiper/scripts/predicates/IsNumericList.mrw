@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsNumericList"
 
 // check that all items in the list are numbers
 IsNumericList(_arg'list) <-- IsList(arg'list) And
