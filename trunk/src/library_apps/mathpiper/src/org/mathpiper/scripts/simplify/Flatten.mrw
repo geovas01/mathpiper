@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Flatten"
 
 RuleBase("DoFlatten",{doflattenx});
 UnFence("DoFlatten",1);

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="sign'change",public="false"
 
 /// utility function: check whether the derivative changes sign in given 3 numbers, return 0 or 1. Also return 1 when one of the arguments is not a number.
 sign'change(x,y,z) :=

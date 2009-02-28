@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsPositiveReal"
 
 /* See if a number, when evaluated, would be a positive real value */
 IsPositiveReal(_r) <--

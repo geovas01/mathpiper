@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="AddTo"
 
 // (a or b) and (c or d) -> (a and c) or (a and d) or (b and c) or (b and d)
 20 # (list_IsList AddTo _rest) <--

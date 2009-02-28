@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ReversePoly"
 
 /* Lagrangian power series reversion. Copied
    from Knuth seminumerical algorithms */

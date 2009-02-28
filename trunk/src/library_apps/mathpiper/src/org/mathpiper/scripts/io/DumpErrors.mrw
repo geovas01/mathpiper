@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="DumpErrors"
 
 /// print all errors and clear the tableau
 DumpErrors() <--

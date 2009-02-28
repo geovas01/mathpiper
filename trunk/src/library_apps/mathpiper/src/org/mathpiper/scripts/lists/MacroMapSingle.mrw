@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MacroMapSingle"
 
 /* Another Macro... hack for /: to work. */
 TemplateFunction("MacroMapSingle",{func,list})

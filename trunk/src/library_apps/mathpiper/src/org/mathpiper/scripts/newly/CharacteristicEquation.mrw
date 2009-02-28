@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="CharacteristicEquation"
 
 Function("CharacteristicEquation",{matrix,var})
    SymbolicDeterminant(matrix-var*Identity(Length(matrix)));

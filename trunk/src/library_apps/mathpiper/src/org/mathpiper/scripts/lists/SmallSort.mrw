@@ -1,4 +1,4 @@
-%mathpiper,def="false"
+%mathpiper,def="SmallSort"
 
 /// fast in-place sorting of a list (or array!)
 /// SmallSort sorts up to 3 elements, HeapSort sorts 4 and more elements

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="HessianMatrix"
 
 // The arguments of the following functions should be checked
 // this takes 1 func in N vars

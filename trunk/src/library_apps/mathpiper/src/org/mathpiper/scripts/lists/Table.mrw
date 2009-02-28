@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Table"
 
 /* Juan: TemplateFunction (as defined in the file "deffunc")
  * also makes the arguments to the function local symbols.

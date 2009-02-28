@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="FermatNumber"
 
 Function("FermatNumber",{n})[
 	Check(IsPositiveInteger(n),

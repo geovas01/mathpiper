@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="FactorQS"
 
 // The bud of an Quadratic Seive algorithm
 // congruence solving code must be written first

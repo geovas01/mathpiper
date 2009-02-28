@@ -1,4 +1,4 @@
-%mathpiper,def="false"
+%mathpiper,def=""
 
 // From code.mpi.def:
 OMDef( "Complex"  , "complex1","complex_cartesian" );

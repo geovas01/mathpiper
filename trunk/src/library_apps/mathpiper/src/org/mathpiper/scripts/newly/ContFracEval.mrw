@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ContFracEval"
 
 //////////////////////////////////////////////////
 /// ContFracEval: evaluate continued fraction from the list of coefficients

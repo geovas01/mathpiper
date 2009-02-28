@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Map"
 
 LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
 [

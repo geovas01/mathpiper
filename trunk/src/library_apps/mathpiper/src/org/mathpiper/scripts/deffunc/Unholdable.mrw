@@ -1,4 +1,4 @@
-%mathpiper,def="false"
+%mathpiper,def="UnHoldable",public="false"
 
 // this will "unhold" a variable - used to make sure that := with Eval()
 // immediately on the right hand side evaluates its argument

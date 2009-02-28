@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="LogicFindWith",public="false"
 
 /* find the number of the list that contains n in it, a pointer to a list of lists in passed */
 LogicFindWith(_list, _i, _n) <--

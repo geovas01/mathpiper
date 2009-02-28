@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="DefinePattern",private="true"
 
 RuleBase("DefinePattern",
          {patternleft,patternright,patternprecedence,postpredicate});

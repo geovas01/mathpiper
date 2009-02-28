@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ExtendedEuclidean"
 
 /* Extended Euclidean algorithm. Algorithm taken from
  * "Modern Computer Algebra". It does a Gcd calculation, but

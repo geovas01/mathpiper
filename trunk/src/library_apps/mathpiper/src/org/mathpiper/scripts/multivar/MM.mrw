@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MM"
 
 MM(_expr) <--  MM(expr,MultiExpressionList(expr));
 MM(_expr,_vars) <--  MakeMultiNomial(expr,vars);

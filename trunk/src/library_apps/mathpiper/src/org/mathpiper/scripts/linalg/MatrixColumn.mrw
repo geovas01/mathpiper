@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MatrixColumn"
 
 Function("MatrixColumn",{matrix,col})
 [

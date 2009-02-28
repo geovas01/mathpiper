@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="TanN"
 
 Defun("TanN",{x})DivideN(SinN(x),CosN(x));
 

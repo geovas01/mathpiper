@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Subsumes"
 
 10 # Subsumes((_x) - (_y) == 0, Not ((_x) - (_z)==0))_(y!=z)    <-- True;
 // suif_tmp0_127_1-72==0 And 78-suif_tmp0_127_1>=0

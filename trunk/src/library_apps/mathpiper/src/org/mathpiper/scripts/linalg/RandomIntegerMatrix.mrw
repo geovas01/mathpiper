@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="RandomIntegerMatrix"
 
 RandomIntegerMatrix(_rows,_cols,_coefmin,_coefmax) <--
 	GenMatrix({{i,j}, FloorN(coefmin+Random()*(coefmax+1-coefmin))}, rows, cols );

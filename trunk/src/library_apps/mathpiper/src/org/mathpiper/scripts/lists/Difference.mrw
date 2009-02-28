@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Difference"
 
 Function("Difference",{list1,list2})
 [

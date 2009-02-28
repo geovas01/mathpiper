@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Numer"
 
 1 # Numer(_x / _y)      <-- x;
 2 # Numer(x_IsNumber)   <-- x;

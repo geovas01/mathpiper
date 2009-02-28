@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Newton"
 
 Function("Newton",{function,variable,initial,accuracy})
 [	// since we call a function with HoldArg(), we need to evaluate some variables by hand

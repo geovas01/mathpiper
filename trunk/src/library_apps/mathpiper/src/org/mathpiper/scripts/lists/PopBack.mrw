@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="PopBack"
 
 Function("PopBack",{stack})  Pop(stack,Length(stack));
 

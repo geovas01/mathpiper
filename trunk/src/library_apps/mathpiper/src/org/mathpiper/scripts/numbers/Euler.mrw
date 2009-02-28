@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Euler"
 
 5  # Euler(0)		<-- 1;
 10 # Euler(n_IsOdd)	<-- 0;

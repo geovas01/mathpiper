@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ExpressionDepth"
 
 10 # ExpressionDepth(expression_IsFunction) <--
 [

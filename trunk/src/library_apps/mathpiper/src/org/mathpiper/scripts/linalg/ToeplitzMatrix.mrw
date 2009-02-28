@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ToeplitzMatrix"
 
 // The arguments of the following functions should be checked
 ToeplitzMatrix(N):=GenMatrix({{i,j},N[Abs(i-j)+1]}, Length(N), Length(N) );

@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="CheckIntPower",public="false"
 
 /// Check whether n is a power of some integer, assuming that it has no prime factors <= limit.
 /// This routine uses only integer arithmetic.

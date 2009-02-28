@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Outer"
 
 // outer product of vectors
 Outer(t1_IsVector, t2_IsVector) <--

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Count"
 
 Function("Count",{list,element})
 [

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsSymmetric"
 
 IsSymmetric(A_IsMatrix) <-- (Transpose(A)=A);
 

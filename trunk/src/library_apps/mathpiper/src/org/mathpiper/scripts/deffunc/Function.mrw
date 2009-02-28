@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Function"
 
 /* Defining a macro-like function that declares a function
  * with only one rule.

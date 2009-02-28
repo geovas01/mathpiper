@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="HeapSort"
 
 HeapSort(list, compare) := HeapSort(list, ArrayCreate(Length(list), 0), 1, Length(list), compare);
 

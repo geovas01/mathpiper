@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="AddGaussianFactor"
 
 /* AddGaussianFactor: auxiliary function for Gaussian Factors.
 L is a lists of factors of the Gaussian integer z and p is a Gaussian prime

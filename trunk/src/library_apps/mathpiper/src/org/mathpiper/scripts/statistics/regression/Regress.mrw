@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Regress"
 
 
 /* Finds the rengression of y onto x, that is

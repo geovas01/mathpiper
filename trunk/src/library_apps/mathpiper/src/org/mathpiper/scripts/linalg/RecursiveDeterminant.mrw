@@ -1,4 +1,4 @@
-%mathpiper,def="false"
+%mathpiper,def="RecursiveDeterminant",public="false"
 
 /* Recursive calculation of determinant, provided by Sebastian Ferraro
  */

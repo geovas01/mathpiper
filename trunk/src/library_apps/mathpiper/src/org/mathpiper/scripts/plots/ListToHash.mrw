@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ListToHash"
 
 /// utility function: convert options lists of the form
 /// "{key=value, key=value}" into a hash of the same form.

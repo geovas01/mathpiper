@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsGaussianUnit"
 
 IsGaussianUnit(z_IsGaussianInteger) <-- GaussianNorm(z)=1;
 

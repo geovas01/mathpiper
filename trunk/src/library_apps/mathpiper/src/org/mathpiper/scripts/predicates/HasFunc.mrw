@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="HasFunc"
 
 /// HasFunc --- test for an expression containing a function
 /// function name given as string.

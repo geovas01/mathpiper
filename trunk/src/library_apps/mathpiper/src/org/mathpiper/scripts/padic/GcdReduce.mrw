@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="GcdReduce"
 
 /* Reduce rational function by dividing gcd away */
 GcdReduce(_f,_var)<--

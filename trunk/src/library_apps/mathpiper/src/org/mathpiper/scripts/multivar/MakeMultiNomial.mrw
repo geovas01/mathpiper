@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MakeMultiNomial"
 
 
 /* code pertaining to creating the internal format for multivariate

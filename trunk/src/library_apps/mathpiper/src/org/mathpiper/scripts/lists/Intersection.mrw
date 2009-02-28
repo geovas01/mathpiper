@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Intersection"
 
 Function("Intersection",{list1,list2})
 [

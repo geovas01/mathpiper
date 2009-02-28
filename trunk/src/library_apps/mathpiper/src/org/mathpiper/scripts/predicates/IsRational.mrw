@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsRational"
 
 /* changed definition of IsRational, Nobbi 030529
 Function("IsRational",{aLeft}) Type(aLeft) = "/";

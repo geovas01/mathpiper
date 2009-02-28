@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ListHasFunc"
 
 /// ListHasFunc --- test for one of the elements of a list to contain a function
 /// this is mainly useful to test whether a list has nested lists, i.e. ListHasFunc({1,2,3}, List)=False and ListHasFunc({1,2,{3}}, List)=True.

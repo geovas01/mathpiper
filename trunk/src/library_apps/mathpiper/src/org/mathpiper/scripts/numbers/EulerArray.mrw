@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="EulerArray"
 
 /** Compute an array of Euler numbers using recurrence relations.
 */

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ForEach"
 
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
 TemplateFunction("ForEach",{item,list,body})

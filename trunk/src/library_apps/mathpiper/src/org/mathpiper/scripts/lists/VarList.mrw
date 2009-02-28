@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="VarList"
 
 /* VarList: return the variables this expression depends on. */
 VarList(_expr) <-- VarList(expr,"IsVariable");

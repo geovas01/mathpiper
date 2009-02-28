@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Internal'BernoulliArray1",scope="private"
 
 /// Bernoulli numbers; algorithm from: R. P. Brent, "A FORTRAN multiple-precision arithmetic package", ACM TOMS vol. 4, no. 1, p. 57 (1978).
 /// this may be good for floating-point (not exact) evaluation of B[n] at large n

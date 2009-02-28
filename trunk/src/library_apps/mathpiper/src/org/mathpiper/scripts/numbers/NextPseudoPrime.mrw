@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="NextPseudoPrime"
 
 /// obtain next number that has good chances of being prime (not divisible by 2,3)
 1# NextPseudoPrime(i_IsInteger)_(i<=1) <-- 2;

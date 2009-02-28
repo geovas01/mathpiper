@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="OrthogonalBasis"
 
 // This is the standard textbook definition of the Gram-Schmidt
 // Orthogonalization process, from:

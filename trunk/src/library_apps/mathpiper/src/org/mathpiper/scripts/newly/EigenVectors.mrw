@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="EigenVectors"
 
 EigenVectors(_matrix,_eigenvalues) <--
 [

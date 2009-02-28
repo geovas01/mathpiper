@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="RemoveRepeated"
 
 10 # RemoveRepeated({}) <-- {};
 10 # RemoveRepeated({_x}) <-- {x};

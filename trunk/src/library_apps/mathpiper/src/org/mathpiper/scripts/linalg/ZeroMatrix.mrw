@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ZeroMatrix"
 
 5  # ZeroMatrix(n_IsNonNegativeInteger) <--  ZeroMatrix(n,n);
 

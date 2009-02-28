@@ -1,4 +1,6 @@
-%mathpiper,def="check"
+%mathpiper,def=""
+
+//todo:tk:this function is completely commented out.
 
 /*
 TRun(_f,_g,_degree)<--

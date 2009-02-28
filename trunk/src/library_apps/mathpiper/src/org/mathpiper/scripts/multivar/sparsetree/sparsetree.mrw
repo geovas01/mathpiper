@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="CreateSparseTree;SparseTreeMap;SparseTreeScan;AddSparseTrees;MultiplyAddSparseTrees;SparseTreeGet"
 
 /* def file definitions
 CreateSparseTree

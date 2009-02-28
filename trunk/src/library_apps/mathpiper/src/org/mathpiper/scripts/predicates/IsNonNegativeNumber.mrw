@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsNonNegativeNumber"
 
 IsNonNegativeNumber(x):= IsNumber(x) And x >= 0;
 

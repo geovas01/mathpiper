@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def=""
 
 // From code.mpi.def:
 OMDef( "BellNumber",      "piper","BellNumber" );

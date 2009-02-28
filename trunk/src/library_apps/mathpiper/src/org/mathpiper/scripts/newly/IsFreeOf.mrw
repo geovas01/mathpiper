@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsFreeOf"
 
 1 # IsFreeOf({},_expr) <-- True;
 2 # IsFreeOf(var_IsList, _expr) <-- And(IsFreeOf(Head(var),expr), IsFreeOf(Tail(var),expr));

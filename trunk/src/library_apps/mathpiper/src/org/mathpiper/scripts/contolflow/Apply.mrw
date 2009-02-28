@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Apply"
 
 10 # Apply(_applyoper,_applyargs) _ (Or(IsString(applyoper), IsList(applyoper))) <-- ApplyPure(applyoper,applyargs);
 20 # Apply(applyoper_IsAtom,_applyargs) <-- ApplyPure(String(applyoper),applyargs);

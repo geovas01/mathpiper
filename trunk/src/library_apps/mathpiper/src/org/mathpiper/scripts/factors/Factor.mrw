@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Factor"
 
 // This is so Factor(Sin(x)) doesn't return FWatom(Sin(x))
 //Factor(_p) <-- FW(Factors(p));

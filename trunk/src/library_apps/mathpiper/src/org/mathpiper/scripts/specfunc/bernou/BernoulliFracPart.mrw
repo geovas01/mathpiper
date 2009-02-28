@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="BernoulliFracPart"
 
 /// Find the fractional part of Bernoulli number with even index >=2
 /// return negative if the sign of the Bernoulli number is negative

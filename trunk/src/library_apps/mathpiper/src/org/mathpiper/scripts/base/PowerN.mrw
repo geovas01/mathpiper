@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="PowerN"
 
 // power function that works for all real x, y
 /// FIXME: No precision tracking yet.

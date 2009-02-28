@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Rationalize"
 
 Function("Rationalize",{a'number})
   Substitute(a'number,{{x},IsNumber(x) And Not(IsInteger(x))},"RationalizeNumber");

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="StirlingNumber1"
 
 10 # StirlingNumber1(n_IsInteger,0) <-- If(n=0,1,0);
 10 # StirlingNumber1(n_IsInteger,1) <-- (-1)^(n-1)*(n-1)!;

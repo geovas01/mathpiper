@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def=".."
 
 /*
 .. operator is implemented with the Table function.

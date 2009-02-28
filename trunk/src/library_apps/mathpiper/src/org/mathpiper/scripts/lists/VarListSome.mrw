@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="VarListSome"
 
 /// VarListSome is just like FuncList(x,y)
 

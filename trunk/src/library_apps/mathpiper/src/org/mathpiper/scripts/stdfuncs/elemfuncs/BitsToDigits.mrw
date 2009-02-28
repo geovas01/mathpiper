@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="BitsToDigits"
 
 /// BitsToDigits(n,base) and DigitsToBits(n,base). Enough to compute at low precision.
 // this is now a call to the kernel functions, so leave as a reference implementation

@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="RationalForm",private="true"
 
 10 # RationalForm((g_CanBeUni(var))/(f_CanBeUni(var)),_var)
      <-- { MakeUni(g,var),MakeUni(f,var)};

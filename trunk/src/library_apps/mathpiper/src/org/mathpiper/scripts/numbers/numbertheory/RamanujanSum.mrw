@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="RamanujanSum"
 
 /* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */

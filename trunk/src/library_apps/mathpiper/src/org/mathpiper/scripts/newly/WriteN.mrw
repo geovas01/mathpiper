@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="WriteN"
 
 WriteN(string,n) :=
 [

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsIdempotent"
 
 IsIdempotent(A_IsMatrix) <-- (A^2 = A);
 

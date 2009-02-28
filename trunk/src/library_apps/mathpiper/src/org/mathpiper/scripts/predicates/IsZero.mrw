@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsZero"
 
 //10 # IsZero(x_IsNumber) <-- (DivideN( Round( MultiplyN(x, 10^BuiltinPrecisionGet()) ), 10^BuiltinPrecisionGet() ) = 0);
 

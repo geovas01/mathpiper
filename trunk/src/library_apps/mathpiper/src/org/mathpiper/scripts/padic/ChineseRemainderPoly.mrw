@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="ChineseRemainderPoly"
 
 ChineseRemainderPoly(mlist_IsList,vlist_IsList) <--
 [

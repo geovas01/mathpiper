@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="FindPrimeFactor"
 
 /// Auxiliary function. Return the power of a given prime contained in a given integer and remaining integer.
 /// E.g. FindPrimeFactor(63, 3) returns {7, 2} and FindPrimeFactor(42,17) returns {42, 0}

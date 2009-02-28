@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsComposite"
 
 5  # IsComposite(1)			<-- False;
 10 # IsComposite(n_IsPositiveInteger) 	<-- (Not IsPrime(n));

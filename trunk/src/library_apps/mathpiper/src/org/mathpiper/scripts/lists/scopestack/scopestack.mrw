@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="NewStack;PushStackFrame;PopStackFrame;StackDepth;AddToStack;IsOnStack;FindOnStack"
 
 /* def file list
 NewStack

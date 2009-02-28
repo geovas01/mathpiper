@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsCarmichaelNumber"
 
 // Carmichael numbers are odd,squarefree and have at least 3 prime factors
 5  # IsCarmichaelNumber(n_IsEven)		<-- False;
