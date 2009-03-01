@@ -1,6 +1,0 @@
-%mathpiper,def="!=="
-//todo:tk:where is the rest of this function?
-
-RuleBase("!==",{left,right});
-
-%/mathpiper
