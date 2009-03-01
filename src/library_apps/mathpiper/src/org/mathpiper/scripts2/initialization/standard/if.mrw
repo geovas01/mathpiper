@@ -1,8 +1,0 @@
-%mathpiper,def="if"
-
-RuleBase("if",{predicate,body});
-(if(True) _body) <-- Eval(body);
-HoldArg("if",body);
-UnFence("if",2);
-
-%/mathpiper

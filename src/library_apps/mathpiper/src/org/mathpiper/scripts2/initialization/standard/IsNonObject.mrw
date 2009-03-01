@@ -1,6 +1,0 @@
-%mathpiper,def="IsNonObject"
-
-10 # IsNonObject(Object(_x)) <-- False;
-20 # IsNonObject(_x)         <-- True;
-
-%/mathpiper

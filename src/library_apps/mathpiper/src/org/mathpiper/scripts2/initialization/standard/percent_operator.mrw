@@ -1,5 +1,0 @@
-%mathpiper,def="%"
-
-a_IsNonNegativeInteger % b_IsPositiveInteger <-- Mod(a,b);
-
-%/mathpiper

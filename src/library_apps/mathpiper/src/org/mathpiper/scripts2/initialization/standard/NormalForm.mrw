@@ -1,7 +1,0 @@
-%mathpiper,def="NormalForm"
-//todo:tk:where is the rest of this function?
-
-RuleBase("NormalForm",{expression});
-Rule("NormalForm",1,1000,True) expression;
-
-%/mathpiper
