@@ -204,61 +204,9 @@ public class Build {
 
     }//end method.
 
-    public static void main(String[] args) {
-
-        String scriptsDirectory;
-
-        if (args.length > 0) {
-            scriptsDirectory = args[0];
-        } else {
-            scriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/scripts/";
-        }
-
-        String outputDirectory = "/home/tkosan/NetBeansProjects/scripts/";
-        File newScriptsDirectory = new File(outputDirectory);
-        Boolean directoryCreated = newScriptsDirectory.mkdir();
-
-        //String outputDirectory = "/home/tkosan/temp/mathpiper/org/mathpiper/scripts/";
-
-        Build scripts = new Build();
-        scripts.compileScripts(scriptsDirectory, outputDirectory);
-
-    }//end main
-
-    /** @param filePath the name of the file to open. Not sure if it can accept URLs or just filenames. Path handling could be better, and buffer sizes are hardcoded
-     */
-    private static String readFileAsString(File file) throws IOException {
-        StringBuilder fileData = new StringBuilder(1000);
-        BufferedReader reader = new BufferedReader(
-                new FileReader(file));
-        char[] buf = new char[1024];
-        int numRead = 0;
-        while ((numRead = reader.read(buf)) != -1) {
-            String readData = String.valueOf(buf, 0, numRead);
-            fileData.append(readData);
-            buf = new char[1024];
-        }
-        reader.close();
-        return fileData.toString();
-    }//end method.
-
-    private static void writeStringToFile(String string, String fileName) throws IOException {
-        try {
-
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
 
 
-            //someText.replaceAll("\n", System.getProperty("line.separator"));
 
-            out.write(string);
-            out.close();
-
-        } catch (IOException e) {
-
-            System.out.println("Exception ");
-
-        }
-    }//end method.
 
     List scanMRWFile(File mrwFile) {
         List<Fold> folds = new ArrayList();
@@ -374,6 +322,30 @@ public class Build {
 
 
                                 }//end subpackage for.
-    }
+    }//end method.
+
+
+    public static void main(String[] args) {
+
+        String scriptsDirectory;
+
+        if (args.length > 0) {
+            scriptsDirectory = args[0];
+        } else {
+            scriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/scripts2/";
+        }
+
+        String outputDirectory = "/home/tkosan/NetBeansProjects/scripts/";
+        File newScriptsDirectory = new File(outputDirectory);
+        Boolean directoryCreated = newScriptsDirectory.mkdir();
+
+        //String outputDirectory = "/home/tkosan/temp/mathpiper/org/mathpiper/scripts/";
+
+        Build scripts = new Build();
+        scripts.compileScripts(scriptsDirectory, outputDirectory);
+
+    }//end main
+
+    
 
 }//end class.
