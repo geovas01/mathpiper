@@ -28,13 +28,17 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection;
+package org.eninom.collection.mutable;
 
-//! Mutable Random Access Interface
+import org.eninom.collection.IterableCollection;
+
+//! Mutable Queue Interface
 /*<literate>*/
 /**
- * Interface for a mutable, randomly acessible collection 
+ * Interface for a mutable queue 
  */
-public interface MutableRandomAccess<E> extends RandomAccess<E> {
-  E set(int i, E e);
+public interface MutableQueue<E> extends IterableCollection<E> {
+  public void addLast(E item);
+  public E removeFirst();
+  public E first();
 }

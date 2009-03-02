@@ -1,7 +1,7 @@
 package org.mathrider.piper_me;
 
 import org.mathrider.piper_me.arithmetic.BigNumber;
-import org.eninom.collection.ExtendibleArray;
+import org.eninom.collection.mutable.ExtendibleArray;
 import java.io.*;
 
 class MathCommands

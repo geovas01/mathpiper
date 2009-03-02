@@ -1,6 +1,6 @@
 package org.mathrider.piper_me;
 
-import org.eninom.collection.HashMap;
+import org.eninom.collection.mutable.HashMap;
 
 /** LispAssociatedHash allows you to associate arbitrary
  * information with a string in the above hash table. You can

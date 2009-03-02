@@ -1,6 +1,6 @@
 package org.mathrider.piper_me;
 
-import org.eninom.collection.ExtendibleArray;
+import org.eninom.collection.mutable.ExtendibleArray;
 
 /// Set of LispArityUserFunction's.
 /// By using this class, you can associate multiple functions (with

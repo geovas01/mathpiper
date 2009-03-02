@@ -28,10 +28,12 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection;
+package org.eninom.collection.mutable;
 
 import java.util.NoSuchElementException;
 
+import org.eninom.collection.Collections;
+import org.eninom.collection.IterableCollection;
 import org.eninom.func.Cons;
 import org.eninom.iterator.ForwardIterator;
 import org.eninom.seq.Seq;
@@ -40,10 +42,9 @@ import org.eninom.seq.SeqFromIterator;
 // ! Mutable Hashmap
 /* <literate> */
 /**
- * ATTENTION: This is work in progress and basically untested! <br />
- * <br />
- * This is a mutable hashmap. We need it in our implementations of low-level
- * immutable data structures, for instance for traversal. <br />
+ * This mutable hashmap is a helper class. It serves as a replacement for
+ * the hashmap implementation from the Java collections, which is not
+ * present in Java ME.<br />
  * The key values must not be null. Furthermore, their equal-methods must be
  * consistent to their hash codes. Note that for the equality and hash value of
  * maps, iteration order is irrelevant. The Function-interface is not

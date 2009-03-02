@@ -57,17 +57,20 @@ public class Cons<A, B> {
   
   private final static int MAX_H = 4;
 
-  private Object e0, e1, e2, e3;
+  private final Object a0, a1, a2, a3;
 
-  private Cons next = null;
+  private final Cons next;
 
-  private int length = 0;
+  private final int length;
 
   /**
    * Since a Cons must have exactly two elements, we use the one-element
    * constructor for removing the first element from a triple.
    */
   public <C> Cons(Cons<C, ? extends Cons<A, B>> list) {
+    
+    Object e0 = null, e1 = null, e2 = null, e3 = null;
+    
     if (list.length < 3)
       throw new IllegalArgumentException();
     length = list.length - 1;
@@ -79,20 +82,26 @@ public class Cons<A, B> {
 
     switch (k) {
     case 0:
-      e0 = list.e0;
+      e0 = list.a0;
     case 3:
-      e1 = list.e1;
+      e1 = list.a1;
     case 2:
-      e2 = list.e2;
+      e2 = list.a2;
     case 1:
-      e3 = list.e3;
+      e3 = list.a3;
     }
+    
+    a0 = e0; a1 = e1; a2 = e2; a3 = e3;
   }
 
   /**
    * Constructor for a pair of elements.
    */
   public Cons(A a, B b) {
+    
+    Object e0 = null, e1 = null, e2 = null, e3 = null;
+    
+    Cons listNext = null; 
     if ((b == null) || !(b.getClass() == this.getClass())) {
       e2 = a;
       e3 = b;
@@ -103,39 +112,45 @@ public class Cons<A, B> {
       int k = list.length % MAX_H;
       switch (k) {
       case 3:
-        e1 = list.e1;
+        e1 = list.a1;
       case 2:
-        e2 = list.e2;
+        e2 = list.a2;
       case 1:
-        e3 = list.e3;
+        e3 = list.a3;
       case 0:
       }
       switch (k) {
       case 3:
         e0 = a;
-        next = list.next;
+        listNext = list.next;
         break;
       case 2:
         e1 = a;
-        next = list.next;
+        listNext = list.next;
         break;
       case 1:
         e2 = a;
-        next = list.next;
+        listNext = list.next;
         break;
       case 0:
         e3 = a;
         if (length > 0)
-          next = list;
+          listNext = list;
         break;
       }
     }// `else`
+    a0 = e0; a1 = e1; a2 = e2; a3 = e3;
+    next = listNext;
   }
 
   /**
    * Constructor for an element and a <i>Cons</i>.
    */
   public Cons(A a, Cons b) {
+    
+    Object e0 = null, e1 = null, e2 = null, e3 = null;
+    
+    Cons listNext = null;
     if (b == null) {
       e2 = a;
       e3 = b;
@@ -146,33 +161,36 @@ public class Cons<A, B> {
       int k = list.length % MAX_H;
       switch (k) {
       case 3:
-        e1 = list.e1;
+        e1 = list.a1;
       case 2:
-        e2 = list.e2;
+        e2 = list.a2;
       case 1:
-        e3 = list.e3;
+        e3 = list.a3;
       case 0:
       }
       switch (k) {
       case 3:
         e0 = a;
-        next = list.next;
+        listNext = list.next;
         break;
       case 2:
         e1 = a;
-        next = list.next;
+        listNext = list.next;
         break;
       case 1:
         e2 = a;
-        next = list.next;
+        listNext = list.next;
         break;
       case 0:
         e3 = a;
         if (length > 0)
-          next = list;
+          listNext = list;
         break;
       }
     }// `else`
+    a0 = e0; a1 = e1; a2 = e2; a3 = e3;
+    
+    next = listNext;
   }
 
   /**
@@ -180,8 +198,9 @@ public class Cons<A, B> {
    */
   protected Cons(Object a, Object b, Object c) {
 
-    length = 3;
-
+    Object e0 = null, e1 = null, e2 = null, e3 = null;
+    
+    Cons listNext = null;
     if ((c != null) && (c.getClass() == this.getClass())) {
       Cons list = (Cons) c;
       int k = list.length % MAX_H;
@@ -191,31 +210,34 @@ public class Cons<A, B> {
       case 0:
         e2 = a;
         e3 = b;
-        next = list;
+        listNext = list;
         break;
       case 1:
         e1 = a;
         e2 = b;
-        e3 = list.e3;
-        next = list.next;
+        e3 = list.a3;
+        listNext = list.next;
         break;
       case 2:
         e0 = a;
         e1 = b;
-        e2 = list.e2;
-        e3 = list.e3;
-        next = list.next;
+        e2 = list.a2;
+        e3 = list.a3;
+        listNext = list.next;
         break;
       case 3:
         e3 = a;
-        next = new Cons(b, list);
+        listNext = new Cons(b, list);
         break;
       }// `switch`
     } else {
+      length = 3;
       e1 = a;
       e2 = b;
       e3 = c;
     }// `else`
+    a0 = e0; a1 = e1; a2 = e2; a3 = e3;
+    next = listNext;
   }
 
   /**
@@ -223,8 +245,9 @@ public class Cons<A, B> {
    */
   protected Cons(Object a, Object b, Object c, Object d) {
 
-    length = 4;
-
+    Object e0 = null, e1 = null, e2 = null, e3 = null;
+    
+    Cons listNext = null;
     if ((d != null) && (d.getClass() == this.getClass())) {
       Cons list = (Cons) d;
       int k = list.length % MAX_H;
@@ -235,31 +258,36 @@ public class Cons<A, B> {
         e1 = a;
         e2 = b;
         e3 = c;
-        next = list;
+        listNext = list;
         break;
       case 1:
         e0 = a;
         e1 = b;
         e2 = c;
-        e3 = list.e3;
-        next = list.next;
+        e3 = list.a3;
+        listNext = list.next;
         break;
       case 2:
         e3 = a;
-        next = new Cons(b, c, list);
+        listNext = new Cons(b, c, list);
         break;
       case 3:
         e2 = a;
         e3 = b;
-        next = new Cons(c, list);
+        listNext = new Cons(c, list);
         break;
       }// `switch`
     } else {
+      length = 4;
       e0 = a;
       e1 = b;
       e2 = c;
       e3 = d;
     }// `else`
+    
+    a0 = e0; a1 = e1; a2 = e2; a3 = e3;
+    
+    next = listNext;
   }
 
   /**
@@ -267,8 +295,9 @@ public class Cons<A, B> {
    */
   protected Cons(Object a, Object b, Object c, Object d, Object e) {
 
-    length = 5;
-
+    Object e0 = null, e1 = null, e2 = null, e3 = null;
+    
+    Cons listNext = null;
     if ((e != null) && (e.getClass() == this.getClass())) {
       Cons list = (Cons) e;
       int k = list.length % MAX_H;
@@ -280,28 +309,31 @@ public class Cons<A, B> {
         e1 = b;
         e2 = c;
         e3 = d;
-        next = list;
+        listNext = list;
         break;
       case 1:
         e3 = a;
-        next = new Cons(b, c, d, list);
+        listNext = new Cons(b, c, d, list);
         break;
       case 2:
         e2 = a;
         e3 = b;
-        next = new Cons(c, d, list);
+        listNext = new Cons(c, d, list);
         break;
       case 3:
         e1 = a;
         e2 = b;
         e3 = c;
-        next = new Cons(d, list);
+        listNext = new Cons(d, list);
         break;
       }// `switch`
     } else {
+      length = 5;
       e3 = a;
-      next = new Cons(b, c, d, e);
+      listNext = new Cons(b, c, d, e);
     }// `else`
+    a0 = e0; a1 = e1; a2 = e2; a3 = e3;
+    next = listNext;
   }
 
   public final int length() {
@@ -326,13 +358,13 @@ public class Cons<A, B> {
     }// `while`
     switch (p) {
     case 0:
-      return node.e0;
+      return node.a0;
     case 1:
-      return node.e1;
+      return node.a1;
     case 2:
-      return node.e2;
+      return node.a2;
     case 3:
-      return node.e3;
+      return node.a3;
     default:
       return null;
     }// `switch`
@@ -366,13 +398,13 @@ public class Cons<A, B> {
     while (node != null) {
       str.append(node.length);
       str.append("[");
-      str.append(node.e0);
+      str.append(node.a0);
       str.append(',');
-      str.append(node.e1);
+      str.append(node.a1);
       str.append(',');
-      str.append(node.e2);
+      str.append(node.a2);
       str.append(',');
-      str.append(node.e3);
+      str.append(node.a3);
       str.append("]");
       node = node.next;
       if (node != null)
@@ -403,15 +435,15 @@ public class Cons<A, B> {
       remaining = remaining - 1;
       switch (k) {
       case 0:
-        return node.e0;
+        return node.a0;
       case 1:
-        Object e = node.e3;
+        Object e = node.a3;
         node = node.next;
         return e;
       case 2:
-        return node.e2;
+        return node.a2;
       case 3:
-        return node.e1;
+        return node.a1;
       }
       return null;
     }
@@ -457,14 +489,14 @@ public class Cons<A, B> {
     // traversal
     if (next != null)
       sum = next.hashCode();
-    if (e0 != null)
-      sum = sum + e0.hashCode();
-    if (e1 != null)
-      sum = sum + e1.hashCode();
-    if (e2 != null)
-      sum = sum + e2.hashCode();
-    if (e3 != null)
-      sum = sum + e3.hashCode();
+    if (a0 != null)
+      sum = sum + a0.hashCode();
+    if (a1 != null)
+      sum = sum + a1.hashCode();
+    if (a2 != null)
+      sum = sum + a2.hashCode();
+    if (a3 != null)
+      sum = sum + a3.hashCode();
 
     if (sum == 0)
       sum = -1;
@@ -505,13 +537,13 @@ public class Cons<A, B> {
     while (a != null) {
       if (a.getClass() != b.getClass())
          return false;
-      if (!elementEquals(a.e0, b.e0))
+      if (!elementEquals(a.a0, b.a0))
         return false;
-      if (!elementEquals(a.e1, b.e1))
+      if (!elementEquals(a.a1, b.a1))
         return false;
-      if (!elementEquals(a.e2, b.e2))
+      if (!elementEquals(a.a2, b.a2))
         return false;
-      if (!elementEquals(a.e3, b.e3))
+      if (!elementEquals(a.a3, b.a3))
         return false;
 
       a = a.next;

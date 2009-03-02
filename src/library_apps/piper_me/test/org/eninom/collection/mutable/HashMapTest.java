@@ -1,4 +1,4 @@
-package org.eninom.collection;
+package org.eninom.collection.mutable;
 
 import junit.framework.TestCase;
 
