@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="DivPoly"
 
 DivPoly(_A,_B,_var,_deg) <--
 [

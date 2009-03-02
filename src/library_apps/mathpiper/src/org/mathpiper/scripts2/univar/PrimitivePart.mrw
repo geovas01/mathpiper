@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="PrimitivePart"
 
 10 # PrimitivePart(UniVariate(_var,_first,_coefs)) <--
 	UniVariate(var,0,coefs/Gcd(coefs));

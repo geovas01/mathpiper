@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="UniVarList"
 
 //Note:tk:since this is used in more than one univariate function, I am publishing it as a def.
 

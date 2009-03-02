@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Abs"
 
 10 # Abs(Infinity) 	<-- Infinity; //Note:tk:moved here from stdfuncts.
 

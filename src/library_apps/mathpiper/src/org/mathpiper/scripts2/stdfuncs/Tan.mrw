@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Tan"
 
 1 # TanMap( _n )_(Not(IsRationalOrNumber(n))) <-- UnList({Atom("Tan"),n*Pi});
 2 # TanMap( _n )_(n<0) <-- -TanMap(-n);

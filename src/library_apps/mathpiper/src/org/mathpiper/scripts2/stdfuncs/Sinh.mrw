@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Sinh"
 
 2 # Sinh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) = "Complex")) <-- N(Eval( (Exp(x)-Exp(-x))/2 ));
 5   # Sinh(- _x)	<-- -Sinh(x);

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="NewtonLn"
 
 /// low-level numerical calculations of elementary functions.
 /// These are only called if InNumericMode() returns True

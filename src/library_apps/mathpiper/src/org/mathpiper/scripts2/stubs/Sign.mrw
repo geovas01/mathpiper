@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Sign"
 
 10 # Sign(n_IsPositiveNumber) <-- 1;
 10 # Sign(n_IsZero) <-- 0;

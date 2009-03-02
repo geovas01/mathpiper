@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="LogicTest"
 
 /* LogicTest compares the truth tables of two expressions. */
 LocalSymbols(TrueFalse)

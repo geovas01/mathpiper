@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Cot"
 
 100 # 1/Cot(_x)		<-- Tan(x);
 

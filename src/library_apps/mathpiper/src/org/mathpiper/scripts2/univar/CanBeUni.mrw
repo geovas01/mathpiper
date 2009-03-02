@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="CanBeUni"
 
 /* CanBeUni returns whether the function can be converted to a
  * univariate, with respect to a variable.

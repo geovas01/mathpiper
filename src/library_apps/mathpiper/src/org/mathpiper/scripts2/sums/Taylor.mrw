@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Taylor"
 
 /*COMMENT FROM AYAL: Jitse, I added some code to make Taylor2 work in the most general case too I believe.
   Could you check to see if you agree with my changes? If that is correct, perhaps we can start calling Taylor2

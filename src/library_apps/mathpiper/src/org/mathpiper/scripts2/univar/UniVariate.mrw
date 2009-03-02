@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="UniVariate"
 
 //Auxiliary function.
 ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)

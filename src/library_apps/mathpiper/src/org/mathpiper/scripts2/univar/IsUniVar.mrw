@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="IsUniVar"
 
 10 # IsUniVar(UniVariate(_var,_first,_coefs)) <-- True;
 20 # IsUniVar(_anything) <-- False;

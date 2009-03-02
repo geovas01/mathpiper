@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Lcm"
 
 /* Least common multiple */
 5  # Lcm(a_IsInteger,b_IsInteger) <-- Div(a*b,Gcd(a,b));

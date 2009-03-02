@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Sech"
 
 100 # Sech(_x)		<-- 1/Cosh(x);
 

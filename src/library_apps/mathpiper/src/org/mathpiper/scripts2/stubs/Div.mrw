@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Div"
 
 /* Integer divisions */
 0 # Div(n_IsInteger,m_IsInteger) <-- DivN(n,m);

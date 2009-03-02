@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MakeUni"
 
 Function("MakeUni",{expression}) MakeUni(expression,UniVarList(expression));
 

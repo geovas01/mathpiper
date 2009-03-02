@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="DivTermList"
 
 // Implements the division of polynomials!
 
