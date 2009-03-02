@@ -28,8 +28,11 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection;
+package org.eninom.collection.mutable;
 
+import org.eninom.collection.AbstractIterableCollection;
+import org.eninom.collection.Collections;
+import org.eninom.collection.RandomAccess;
 import org.eninom.iterator.ForwardIterator;
 import org.eninom.seq.Seq;
 import org.eninom.seq.SeqFromIterator;
@@ -123,16 +126,19 @@ MutableStack<E> {
     if (A != null) {
       s.append("(");
       for (int i = 0; i < A.length; i++) {
-        if (i > 0)
+        if (i > 0) {
           s.append(",");
-        if (A[i] != null)
+        }
+        if (A[i] != null) {
           s.append(A[i].toString());
-        else
+        } else {
           s.append("*");
+        }
       }
       s.append(")");
-    } else
+    } else {
       s.append("*");
+    }
   }
 
   // ========== Initialization and Construction : ==========
@@ -156,24 +162,28 @@ MutableStack<E> {
 
   public ExtendibleArray(int size) {
     init();
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size; i++) {
       addLast(null);
+    }
   }
 
   public final int size() {
-    if (NTwice == INITIAL_CAPACITY)
+    if (NTwice == INITIAL_CAPACITY) {
       return b;
-    else
+    } else {
       return b + N;
+    }
   }
 
   public final E get(int i) {
-    if ((i < 0) || (i >= size()))
+    if ((i < 0) || (i >= size())) {
       throw new java.lang.IndexOutOfBoundsException();
-    if ((i < b) || (i >= N))
+    }
+    if ((i < b) || (i >= N)) {
       return (E) B[(i + p0) & maskNTwice];
-    else
+    } else {
       return (E) A[(i + p1 - b) & maskN];
+    }
   }
   
   public final E last() {
@@ -185,8 +195,9 @@ MutableStack<E> {
   }
     
   public final E set(int i, E x) {
-    if ((i < 0) || (i >= size()))
+    if ((i < 0) || (i >= size())) {
       throw new java.lang.IndexOutOfBoundsException();
+    }
     if ((i < b) || (i >= N)) {
       int k = (i + p0) & maskNTwice;
       Object old = B[k];
@@ -215,8 +226,9 @@ MutableStack<E> {
     B[p0] = x;
 
     b++;
-    if (p0 == q2) // B is full => A is empty
+    if (p0 == q2) {
       makeNewB(); // make B to A and create empty B
+    }
   }
 
   public final void addLast(E x) {
@@ -231,8 +243,9 @@ MutableStack<E> {
     q2 &= maskNTwice;
     b++;
 
-    if (p0 == q2) // B is full => A is empty
+    if (p0 == q2) {
       makeNewB(); // make B to A and create empty B
+    }
   }
 
   public final boolean add(E x) {
@@ -254,12 +267,14 @@ MutableStack<E> {
   }
 
   public final E removeFirst() {
-    if (size() <= 0)
+    if (size() <= 0) {
       throw new java.util.NoSuchElementException();
+    }
     if (NTwice != INITIAL_CAPACITY) {
-      if (b == 0)
+      if (b == 0) {
         // B is empty => A is full
         makeNewA(); // make A to B and create empty A
+      }
 
       if (NTwice != INITIAL_CAPACITY) { // move one item from B to A
         A[q1++] = B[p2];
@@ -279,17 +294,20 @@ MutableStack<E> {
       B[p0++] = null;
       p0 &= maskNTwice;
       return (E) x;
-    } else
+    } else {
       return null;
+    }
   }
 
   public final E removeLast() {
-    if (size() <= 0)
+    if (size() <= 0) {
       throw new java.util.NoSuchElementException();
+    }
     if (NTwice != INITIAL_CAPACITY) {
-      if (b == 0)
+      if (b == 0) {
         // B is empty => A is full
         makeNewA(); // make A to B and create empty A
+      }
 
       if (NTwice != INITIAL_CAPACITY) { // move one item from B to A
         p1--;
@@ -313,8 +331,9 @@ MutableStack<E> {
       Object x = B[q2];
       B[q2] = null;
       return (E) x;
-    } else
+    } else {
       return null;
+    }
   }
 
   private void makeNewA() { // make A to B and create empty A
@@ -341,8 +360,9 @@ MutableStack<E> {
   public final Object[] toArray() {
     int n = this.size();
     Object[] A = new Object[n];
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) {
       A[i] = get(i);
+    }
     return A;
   }
   
@@ -354,8 +374,9 @@ MutableStack<E> {
     int n = size()-1;
     Object tmp = get(n);
     addLast((E)tmp);
-    for (int j = n; j > i; j--)
+    for (int j = n; j > i; j--) {
       set(j,get(j-1));
+    }
     set(i,x);
   }
   
@@ -392,6 +413,7 @@ MutableStack<E> {
    return AbstractIterableCollection.equals(this,obj);
   }
   
+  @Override
   public String toString() {
     return Collections.printToString(this);
   }

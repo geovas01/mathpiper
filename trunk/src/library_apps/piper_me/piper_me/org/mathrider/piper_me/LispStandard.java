@@ -1,6 +1,6 @@
 package org.mathrider.piper_me;
 
-import org.eninom.collection.ExtendibleArray;
+import org.eninom.collection.mutable.ExtendibleArray;
 import org.mathrider.piper_me.arithmetic.BigNumber;
 
 public class LispStandard

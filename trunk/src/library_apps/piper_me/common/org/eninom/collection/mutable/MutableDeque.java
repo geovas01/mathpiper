@@ -28,15 +28,15 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection;
+package org.eninom.collection.mutable;
 
-//! Mutable Stack Interface
+//! Mutable Deque Interface
 /*<literate>*/
 /**
- * Interface for a mutable stack 
+ * Interface for a mutable deque 
  */
-public interface MutableStack<E> extends IterableCollection<E> {
-  public E pop();
-  public E top();
-  public void push(E item);
+public interface MutableDeque<E> extends MutableQueue<E> {
+  public void addFirst(E item);
+  public E removeLast();
+  public E last();
 }

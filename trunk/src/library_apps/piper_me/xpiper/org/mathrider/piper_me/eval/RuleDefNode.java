@@ -13,7 +13,7 @@ package org.mathrider.piper_me.eval;
  Piper-ME/XPiper due to its reliance of the original Yacas code.
  */
 
-import org.eninom.collection.HashMap;
+import org.eninom.collection.mutable.HashMap;
 
 import org.mathrider.piper_me.types.Chars;
 import org.mathrider.piper_me.types.Expression;

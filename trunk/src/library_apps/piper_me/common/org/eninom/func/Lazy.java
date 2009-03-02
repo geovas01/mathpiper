@@ -56,8 +56,8 @@ public final class Lazy<T> {
    * An unevaluated lazy value consists of a function and
    * the argument it applies to:
    */
-  private Function f;
-  private Object arg;
+  private volatile Function f;
+  private volatile Object arg;
   
   /**
    * The constructor takes a function and an argument. Both

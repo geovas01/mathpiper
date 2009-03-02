@@ -1,6 +1,6 @@
 package org.mathrider.piper_me.types;
 
-import org.eninom.collection.HashMap;
+import org.eninom.collection.mutable.HashMap;
 
 /*
  (C) Oliver Glier 2008. This file belongs to Piper-ME/XPiper, which
