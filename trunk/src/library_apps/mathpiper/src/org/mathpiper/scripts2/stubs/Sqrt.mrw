@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Sqrt"
 
 0 # Sqrt(0) <-- 0;
 0 # Sqrt(Infinity) <--  Infinity;

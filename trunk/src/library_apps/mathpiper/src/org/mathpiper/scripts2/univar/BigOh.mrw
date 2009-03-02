@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="BigOh"
 
 10 # BigOh(UniVariate(_var,_first,_coefs),_var,_degree) <--
     [

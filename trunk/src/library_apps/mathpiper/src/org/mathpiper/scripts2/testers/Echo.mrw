@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Echo"
 
 10 # EchoInternal(string_IsString) <--
 [

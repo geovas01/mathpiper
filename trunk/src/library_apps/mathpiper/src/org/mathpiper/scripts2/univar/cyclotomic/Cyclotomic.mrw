@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Cyclotomic"
 
 //  Cyclotomic(n,x):
 //  Returns the cyclotomic polinomial in the variable x

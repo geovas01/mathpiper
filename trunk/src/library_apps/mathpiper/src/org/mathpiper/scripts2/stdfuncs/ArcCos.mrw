@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ArcCos"
 
 2 # ArcCos(x_IsNumber)_InNumericMode() <-- Internal'Pi()/2-ArcSin(x);
 4 # ArcCos(Cos(_x))           <-- x;

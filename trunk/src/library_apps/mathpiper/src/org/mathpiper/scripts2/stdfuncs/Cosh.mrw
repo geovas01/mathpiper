@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Cosh"
 
 5   # Cosh(- _x)	<-- Cosh(x);
 

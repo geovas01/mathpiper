@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="DropEndZeroes"
 
 DropEndZeroes(list):=
 [

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="!!"
 
 /// even/odd double factorial: product of even or odd integers up to n
 1# (n_IsPositiveInteger)!! _ (n<=3) <-- n;

@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="OldCyclotomic"
 
 // OldInternalCyclotomic(n,x,WantNormalForm) is the internal implementation
 // WantNormalForm is a boolean parameter. If it is true, returns the normal

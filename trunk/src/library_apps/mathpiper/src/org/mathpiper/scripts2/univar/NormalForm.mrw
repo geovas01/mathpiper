@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="NormalForm"
 
 //Note:tk:since this is used in a number of univariate functions, I am publishing it as a def.
 

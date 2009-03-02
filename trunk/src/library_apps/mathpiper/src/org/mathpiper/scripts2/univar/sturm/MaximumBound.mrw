@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MaximumBound"
 
 /** Maximum bound on the absolute value of the roots of a
   polynomial p in variable x, according to Knuth:

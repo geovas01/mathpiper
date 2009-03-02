@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="UniDivide"
 
 /* division algo: (for zero-base univariates:) */
 Function("UniDivide",{u,v})

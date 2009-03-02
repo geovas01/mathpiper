@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Bin"
 
 /* Binomials -- now using partial factorial for speed */
 // Bin(n,m) = Bin(n, n-m)

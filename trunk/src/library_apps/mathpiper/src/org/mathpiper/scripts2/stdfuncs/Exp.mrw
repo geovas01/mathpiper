@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Exp"
 
 2 # Exp(x_IsNumber)_InNumericMode() <-- ExpNum(x);
 4 # Exp(Ln(_x))           <-- x;

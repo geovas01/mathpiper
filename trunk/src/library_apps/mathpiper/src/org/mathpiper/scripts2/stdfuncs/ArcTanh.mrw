@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ArcTanh"
 
 10 # ArcTanh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) = "Complex")) <-- N(Eval( Ln((1+x)/(1-x))/2 ));
 

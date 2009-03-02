@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Monic"
 
 10 # Monic(UniVariate(_var,_first,_coefs)) <--
 [

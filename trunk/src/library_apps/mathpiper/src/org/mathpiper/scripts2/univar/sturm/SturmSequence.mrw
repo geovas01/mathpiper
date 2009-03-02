@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="SturmSequence"
 
 /** SturmSequence(p) : generate a Sturm sequence for a polynomial in x.
  */

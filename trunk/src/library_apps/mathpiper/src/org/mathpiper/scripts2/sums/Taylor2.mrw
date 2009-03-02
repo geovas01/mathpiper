@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Taylor2"
 
 /*
  * Taylor(x,a,n) y  ---  ENTRY POINT

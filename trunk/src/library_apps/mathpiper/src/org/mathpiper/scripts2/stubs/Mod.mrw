@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Mod"
 
 0 # Mod(_n,m_IsRationalOrNumber)_(m<0) <-- `Hold(Mod(@n,@m));
 

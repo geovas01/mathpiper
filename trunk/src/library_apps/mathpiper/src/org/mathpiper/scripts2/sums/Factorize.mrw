@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Factorize"
 
 Function("Factorize",{sumvar,sumfrom,sumto,sumbody})
 [

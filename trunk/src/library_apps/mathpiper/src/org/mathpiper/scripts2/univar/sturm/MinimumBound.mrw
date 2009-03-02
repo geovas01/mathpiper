@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="MinimumBound"
 
 10 # MinimumBound(_p)_(IsZero(p Where x==0)) <-- 0;
 

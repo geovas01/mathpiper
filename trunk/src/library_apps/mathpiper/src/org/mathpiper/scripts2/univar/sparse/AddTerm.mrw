@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="AddTerm"
 
 /*
 Note:tk:I am publishing this function as a def because

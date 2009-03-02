@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="ArcSin"
 
 2 # ArcSin(x_IsNumber)_(InNumericMode() And Abs(x)<=1) <-- ArcSinNum(x);
 /// complex ArcSin

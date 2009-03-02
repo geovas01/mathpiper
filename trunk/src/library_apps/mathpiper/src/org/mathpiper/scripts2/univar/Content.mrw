@@ -1,4 +1,4 @@
-%mathpiper,def="true"
+%mathpiper,def="Content"
 
 10 # Content(UniVariate(_var,_first,_coefs)) <-- Gcd(coefs)*var^first;
 20 # Content(poly_CanBeUni) <-- NormalForm(Content(MakeUni(poly)));
