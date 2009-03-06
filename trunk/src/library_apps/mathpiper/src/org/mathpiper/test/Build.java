@@ -276,7 +276,8 @@ public class Build {
             type = headerParts[0];
 
             for (int x = 1; x < headerParts.length; x++) {
-                String[] headerPart = headerParts[x].split("=");
+                headerParts[x] = headerParts[x].replaceFirst("=", ",");
+                String[] headerPart = headerParts[x].split(",");
                 String attributeName = headerPart[0];
                 String attributeValue = headerPart[1].replace("\"", "");
                 attributes.put(attributeName, attributeValue);

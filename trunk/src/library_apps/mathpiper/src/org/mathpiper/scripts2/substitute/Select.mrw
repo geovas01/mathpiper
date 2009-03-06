@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="Select",scope="private"
 
 LocalSymbols(predicate,list,result,item)
 [

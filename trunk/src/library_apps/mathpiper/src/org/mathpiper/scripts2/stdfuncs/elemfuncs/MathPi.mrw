@@ -1,4 +1,6 @@
-%mathpiper,def="MathPi",scope="private"
+%mathpiper,def="",scope="private"
+
+//todo:tk:this MathPI cannot be in a def file because it conflicts with the MathPI in base.rep/elemfunctions.
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.

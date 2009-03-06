@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="MathExpThreshold;SetMathExpThreshold"
 
 /* def file definitions
 MathExpThreshold

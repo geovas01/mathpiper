@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="SumFunc",scope="private"
 
 // Attempt to Sum series
 
