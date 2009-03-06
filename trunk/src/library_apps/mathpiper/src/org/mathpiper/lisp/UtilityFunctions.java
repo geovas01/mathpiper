@@ -660,6 +660,7 @@ public class UtilityFunctions {
         LispError.check(newInput != null, LispError.KLispErrFileNotFound);
         doLoadDefFile(aEnvironment, newInput, def);
         } else {*/
+//System.out.println("Loading: " + flatfile);
         java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(flatfile);
         if (fileURL != null) //File is on the classpath.
         {
