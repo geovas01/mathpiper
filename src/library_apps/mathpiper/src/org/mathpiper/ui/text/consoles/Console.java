@@ -67,7 +67,7 @@ public class Console {
         }
 
         if (!response.getExceptionMessage().equalsIgnoreCase("")) {
-            responseString = responseString + response.getExceptionMessage() + "\n";
+            responseString = responseString + response.getExceptionMessage() +  " Source file name: " + response.getSourceFileName() + " Near line number: " + response.getLineNumber() + "\n";
         }
 
 

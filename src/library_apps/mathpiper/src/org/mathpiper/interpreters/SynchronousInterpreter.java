@@ -154,7 +154,7 @@ class SynchronousInterpreter implements Interpreter
             
             if(evaluationResponse.isExceptionThrown())
             {
-                System.out.println(evaluationResponse.getExceptionMessage());
+                System.out.println(evaluationResponse.getExceptionMessage() + " Source file name: " + evaluationResponse.getSourceFileName() + " Near line number: " + evaluationResponse.getLineNumber());
             }
 
 
@@ -290,7 +290,12 @@ class SynchronousInterpreter implements Interpreter
             {
                 EvaluationException mpe = (EvaluationException) exception;
                 int errorLineNumber = mpe.getLineNumber();
+                if(errorLineNumber == -1)
+                {
+                    errorLineNumber = environment.iInputStatus.lineNumber();
+                }
                 evaluationResponse.setLineNumber(errorLineNumber);
+                evaluationResponse.setSourceFileName(environment.iInputStatus.fileName());
             }
             evaluationResponse.setException(exception);
             evaluationResponse.setExceptionMessage(exception.getMessage());
