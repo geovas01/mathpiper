@@ -494,6 +494,7 @@ public class UtilityFunctions {
         LispError.check(newInput != null, LispError.KLispErrFileNotFound);
         doInternalLoad(aEnvironment, newInput);
         } else {*/
+//System.out.println("Loading: " + oper);
         java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(oper);
         if (fileURL != null) //File is on the classpath.
         {
