@@ -13,8 +13,7 @@ Macro("MacroMapArgs",{expr,oper})
    );
 ];
 
-//todo:tk:I think these were meant to refer to MacroMapArgs (See MapArgs).
-UnFence("MapArgs",2);
-HoldArg("MapArgs",oper);
+UnFence("MacroMapArgs",2);
+HoldArg("MacroMapArgs",oper);
 
 %/mathpiper
