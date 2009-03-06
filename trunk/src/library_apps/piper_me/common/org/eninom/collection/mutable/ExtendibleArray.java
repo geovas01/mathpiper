@@ -167,7 +167,7 @@ MutableStack<E> {
     }
   }
 
-  public final int size() {
+  public final long size() {
     if (NTwice == INITIAL_CAPACITY) {
       return b;
     } else {
@@ -175,10 +175,11 @@ MutableStack<E> {
     }
   }
 
-  public final E get(int i) {
-    if ((i < 0) || (i >= size())) {
+  public final E get(long k) {
+    if ((k < 0) || (k >= size())) {
       throw new java.lang.IndexOutOfBoundsException();
     }
+    int i = (int) k;
     if ((i < b) || (i >= N)) {
       return (E) B[(i + p0) & maskNTwice];
     } else {
@@ -358,7 +359,7 @@ MutableStack<E> {
   // copy to standard array:
 
   public final Object[] toArray() {
-    int n = this.size();
+    int n = (int) this.size();
     Object[] A = new Object[n];
     for (int i = 0; i < n; i++) {
       A[i] = get(i);
@@ -371,7 +372,7 @@ MutableStack<E> {
       add(x);
       return;
     }
-    int n = size()-1;
+    int n = (int) size()-1;
     Object tmp = get(n);
     addLast((E)tmp);
     for (int j = n; j > i; j--) {

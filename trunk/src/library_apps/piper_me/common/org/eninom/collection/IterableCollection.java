@@ -59,7 +59,7 @@ import org.eninom.seq.Seq;
  * tests.
  */
 public interface IterableCollection<E> {
-  public int size();
+  public long size();
   public Seq<E> seq();
   public ForwardIterator<E> iterator();
 }

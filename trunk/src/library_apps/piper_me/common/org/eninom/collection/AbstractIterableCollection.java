@@ -97,7 +97,7 @@ public abstract class AbstractIterableCollection<E> implements
     if (c.size() != d.size()) {
       return false;
     }
-    int n = c.size();
+    long n = c.size();
     ForwardIterator<E> it1 = c.iterator();
     ForwardIterator<Object> it2 = d.iterator();
     for (int i = 0; i < n; i++) {

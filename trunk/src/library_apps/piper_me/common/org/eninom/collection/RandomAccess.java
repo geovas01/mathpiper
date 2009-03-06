@@ -38,7 +38,7 @@ import org.eninom.iterator.ForwardIterator;
  * Interface for a mutable, randomly acessible collection 
  */
 public interface RandomAccess<E> extends IterableCollection<E> {
-  E get(int i);
+  E get(long i);
   
   static public class Iterator<E> implements ForwardIterator<E> {
     private int i = 0;
