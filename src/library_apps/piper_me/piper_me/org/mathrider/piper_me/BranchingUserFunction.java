@@ -242,7 +242,7 @@ class BranchingUserFunction extends LispArityUserFunction
 
       // walk the rules database, returning the evaluated result if the
       // predicate is true.
-      int nrRules = iRules.size();
+      int nrRules = (int) iRules.size();
       UserStackInformation st = aEnvironment.iEvaluator.StackInformation();
       for (i=0;i<nrRules;i++)
       {
@@ -320,7 +320,7 @@ class BranchingUserFunction extends LispArityUserFunction
   public void HoldArgument(String aVariable)
   {
     int i;
-    int nrc=iParameters.size();
+    int nrc=(int) iParameters.size();
     for (i=0;i<nrc;i++)
     {
         if (((BranchParameter)iParameters.get(i)).iParameter == aVariable)
@@ -337,7 +337,7 @@ class BranchingUserFunction extends LispArityUserFunction
   /// Return the arity (number of arguments) of the function.
   public int Arity()
   {
-    return iParameters.size();
+    return (int) iParameters.size();
   }
 
   /// Add a BranchRule to the list of rules.
@@ -383,7 +383,7 @@ class BranchingUserFunction extends LispArityUserFunction
     // Find place to insert
     int low,high,mid;
     low=0;
-    high=iRules.size();
+    high=(int) iRules.size();
 
     // Constant time: find out if the precedence is before any of the
     // currently defined rules or past them.

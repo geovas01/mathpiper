@@ -68,7 +68,7 @@ class PiperPatternPredicateBase
     LispPtr[]  arguments = null;
     if (iVariables.size() > 0)
     {
-        arguments = new LispPtr[iVariables.size()];
+        arguments = new LispPtr[(int) iVariables.size()];
         for (i=0;i<iVariables.size();i++)
         {
           arguments[i] = new LispPtr();
@@ -129,7 +129,7 @@ class PiperPatternPredicateBase
 
     LispPtr[]  arguments = null;
     if (iVariables.size() > 0)
-        arguments = new LispPtr[iVariables.size()];
+        arguments = new LispPtr[(int) iVariables.size()];
     for (i=0;i<iVariables.size();i++)
     {
       arguments[i] = new LispPtr();
@@ -285,7 +285,7 @@ class PiperPatternPredicateBase
         }
     }
     iVariables.add(aVariable);
-    return iVariables.size()-1;
+    return (int) iVariables.size()-1;
   }
 
   /// Set local variables corresponding to the pattern variables.

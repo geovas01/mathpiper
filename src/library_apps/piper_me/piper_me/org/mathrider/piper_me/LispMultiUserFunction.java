@@ -21,7 +21,7 @@ class LispMultiUserFunction
     {
       int i;
       //Find function body with the right arity
-      int nrc=iFunctions.size();
+      int nrc=(int) iFunctions.size();
       for (i=0;i<nrc;i++)
       {
         LispError.LISPASSERT(iFunctions.get(i) != null);
@@ -52,7 +52,7 @@ class LispMultiUserFunction
     {
       int i;
       //Find function body with the right arity
-      int nrc=iFunctions.size();
+      int nrc=(int) iFunctions.size();
       for (i=0;i<nrc;i++)
       {
           LispError.LISPASSERT(((LispArityUserFunction)iFunctions.get(i)) != null);
@@ -68,7 +68,7 @@ class LispMultiUserFunction
     {
       int i;
       //Find function body with the right arity
-      int nrc=iFunctions.size();
+      int nrc=(int) iFunctions.size();
       for (i=0;i<nrc;i++)
       {
         LispError.LISPASSERT(((LispArityUserFunction)iFunctions.get(i)) != null);

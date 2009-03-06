@@ -92,7 +92,7 @@ class MacroUserFunction extends BranchingUserFunction
  
         // walk the rules database, returning the evaluated result if the
         // predicate is true.
-        int nrRules = iRules.size();
+        int nrRules = (int) iRules.size();
         UserStackInformation st = aEnvironment.iEvaluator.StackInformation();
         for (i=0;i<nrRules;i++)
         {

@@ -227,7 +227,7 @@ public final class HashMap<Key, Value> implements
     }// `else`
   }
 
-  final public int size() {
+  final public long size() {
     return size;
   }
 
@@ -251,7 +251,7 @@ public final class HashMap<Key, Value> implements
           trueHashCode = trueHashCode + hc;
         } else {
           List list = (List) table[i];
-          trueSize = trueSize + list.arr.size() / 2;
+          trueSize = trueSize + (int) list.arr.size() / 2;
           for (int k = 0; k < list.arr.size(); k = k + 2) {
             int hc = list.arr.get(k).hashCode();
             if (hc < 0) {
