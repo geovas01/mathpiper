@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="RepeatedSquaresMultiply",scope="private"
 
 /* Repeated squares multiplication
  TODO put somewhere else!!!

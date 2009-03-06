@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="Rem",scope="private"
 
 //Note:tk:this was not listed in the def file.
 0 # Rem(n_IsNumber,m_IsNumber) <-- n-m*Div(n,m);

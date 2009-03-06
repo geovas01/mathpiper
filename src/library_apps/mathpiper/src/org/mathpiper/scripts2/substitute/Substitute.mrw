@@ -1,4 +1,4 @@
-%mathpiper,def="check"
+%mathpiper,def="Substitute",scope="private"
 
 Function("Substitute",{body,predicate,change})
 [
