@@ -150,8 +150,12 @@ class SynchronousInterpreter implements Interpreter
             }*/
 
 
-            evaluate("Load(\"org/mathpiper/scripts/initialization.rep/mathpiperinit.mpi\");");
-
+            EvaluationResponse evaluationResponse = evaluate("Load(\"org/mathpiper/scripts/initialization.rep/mathpiperinit.mpi\");");
+            
+            if(evaluationResponse.isExceptionThrown())
+            {
+                System.out.println(evaluationResponse.getExceptionMessage());
+            }
 
 
         } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
