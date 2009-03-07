@@ -23,4 +23,4 @@ Defun("Trigonometry",{x,i,sum,term})
   sum;
 ];
 
-%mathpiper
+%/mathpiper
