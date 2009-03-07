@@ -48,7 +48,8 @@ public class SysOut extends BuiltinFunction {
             }
         }
         String output = out.toString();
-        System.out.print(output);
+        output = output.replace("\"", "");
+        System.out.println(output);
         aEnvironment.iCurrentOutput.write(output);
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
 
