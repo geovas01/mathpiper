@@ -2,6 +2,10 @@
 
 //todo:tk:this file need to be broken down further.
 
+//todo:tk:this code was moved here from Integrate.mrw because it was causing a "rulebase with this arity already defined" error.
+RuleBase("IntegrateMultiplicative",{var,from,a,b});
+UnFence("IntegrateMultiplicative",4);
+
 ////////////////////////////////////////////////
 //
 // Anti-derivative of a univariate polynomial
