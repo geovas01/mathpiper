@@ -2,7 +2,8 @@
 
 Function("Testing",{aLeft})
 [
- SysOut("--", aLeft);
+ WriteString("--");
+ WriteString(aLeft); NewLine();
 ];
 
 %/mathpiper
