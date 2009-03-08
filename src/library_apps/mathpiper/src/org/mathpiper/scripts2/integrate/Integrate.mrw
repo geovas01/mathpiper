@@ -2,8 +2,7 @@
 
 //todo:tk:this file need to be broken down further.
 
-RuleBase("IntegrateMultiplicative",{var,from,a,b});
-UnFence("IntegrateMultiplicative",4);
+
 
 10# (Integrate(_var)(expr_IsList))
     <-- Map("Integrate",{FillList(var,Length(expr)),expr});
