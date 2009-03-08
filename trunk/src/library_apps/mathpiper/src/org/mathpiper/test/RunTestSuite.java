@@ -69,6 +69,10 @@ public class RunTestSuite {
 
                         evaluationResponse = mathPiper.evaluate("Load(\"tests/scripts/" + scriptName + "\");");
                         output = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects() + "\nException:" + evaluationResponse.getExceptionMessage();
+                        if(evaluationResponse.isExceptionThrown())
+                        {
+                            output = output + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber();
+                        }
                         System.out.println(output);
                         if(evaluationResponse.isExceptionThrown())
                         {
