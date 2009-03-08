@@ -325,7 +325,8 @@ public class Build {
                                             }
                                         }
 
-                                    } else if (foldType.equalsIgnoreCase("%html")) {
+                                    } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
+                                        System.out.println("        **** Contains docs *****");
                                     }
 
 
