@@ -48,3 +48,34 @@
 ];
 
 %/mathpiper
+
+
+%mathpiper_docs
+*CMD Div --- Determine divisor of two mathematical objects
+*CMD Mod --- Determine remainder of two mathematical objects after dividing one by the other
+
+*STD
+*CALL
+	Div(x,y)
+	Mod(x,y)
+
+*PARMS
+
+{x}, {y} -- integers or univariate polynomials
+
+*DESC
+
+{Div} performs integer division and {Mod} returns the remainder after division. {Div} and
+{Mod} are also defined for polynomials.
+
+If {Div(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+
+*E.G.
+
+	In> Div(5,3)
+	Out> 1;
+	In> Mod(5,3)
+	Out> 2;
+
+*SEE Gcd, Lcm
+%/mathpiper_docs

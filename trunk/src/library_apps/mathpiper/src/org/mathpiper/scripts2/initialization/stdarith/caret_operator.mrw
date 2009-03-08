@@ -85,3 +85,31 @@
 400 # _x ^ 0 <-- 1;
 
 %/mathpiper
+
+
+%mathpiper_docs
+*CMD ^ --- arithmetic power
+*STD
+*CALL
+
+	x^y
+Precedence:
+*EVAL OpPrecedence("^")
+
+*PARMS
+
+{x} and {y} -- objects for which arithmetic operations are defined
+
+*DESC
+
+These are the basic arithmetic operations. They can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+These operators are implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+*E.G.
+
+	In> 2^3
+	Out> 8;
+%/mathpiper_docs

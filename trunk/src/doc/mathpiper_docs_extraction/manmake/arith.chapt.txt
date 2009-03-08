@@ -5,172 +5,22 @@
 numbers. Many of them also work on polynomials.
 
 
-*CMD + --- arithmetic addition
-*STD
-*CALL
-
-	x+y
-	+x
-Precedence:
-*EVAL OpPrecedence("+")
-
-*PARMS
-
-{x} and {y} -- objects for which arithmetic addition is defined
-
-
-*DESC
-
-The addition operators can work on integers,
-rational numbers, complex numbers, vectors, matrices and lists.
-
-These operators are implemented in the standard math library (as opposed
-to being built-in). This means that they can be extended by the user.
-
-*E.G.
-
-	In> 2+3
-	Out> 5;
 
 
 
-*CMD - --- arithmetic subtraction or negation
-*STD
-*CALL
-
-	x-y
-Precedence: left-side:
-*EVAL OpPrecedence("-")
-, right-side:
-*EVAL OpRightPrecedence("-")
-
-	-x
-
-*PARMS
-
-{x} and {y} -- objects for which subtraction is defined
-
-*DESC
-
-The subtraction operators can work on integers,
-rational numbers, complex numbers, vectors, matrices and lists.
-
-These operators are implemented in the standard math library (as opposed
-to being built-in). This means that they can be extended by the user.
-
-*E.G.
-
-	In> 2-3
-	Out> -1;
-	In> - 3
-	Out> -3;
 
 
-*CMD * --- arithmetic multiplication
-*STD
-*CALL
-
-	x*y
-Precedence:
-*EVAL OpPrecedence("*")
-
-*PARMS
-
-{x} and {y} -- objects for which arithmetic multiplication is defined
-
-*DESC
-
-The multiplication operator can work on integers,
-rational numbers, complex numbers, vectors, matrices and lists.
-
-This operator is implemented in the standard math library (as opposed
-to being built-in). This means that they can be extended by the user.
-
-*E.G.
-
-	In> 2*3
-	Out> 6;
 
 
-*CMD / --- arithmetic division
-*STD
-*CALL
-
-	x/y
-Precedence:
-*EVAL OpPrecedence("/")
-
-*PARMS
-
-{x} and {y} -- objects for which arithmetic division is defined
-
-*DESC
-
-The division operator can work on integers,
-rational numbers, complex numbers, vectors, matrices and lists.
-
-This operator is implemented in the standard math library (as opposed
-to being built-in). This means that they can be extended by the user.
-
-*E.G.
-
-	In> 6/2
-	Out> 3;
 
 
-*CMD ^ --- arithmetic power
-*STD
-*CALL
-
-	x^y
-Precedence:
-*EVAL OpPrecedence("^")
-
-*PARMS
-
-{x} and {y} -- objects for which arithmetic operations are defined
-
-*DESC
-
-These are the basic arithmetic operations. They can work on integers,
-rational numbers, complex numbers, vectors, matrices and lists.
-
-These operators are implemented in the standard math library (as opposed
-to being built-in). This means that they can be extended by the user.
-
-*E.G.
-
-	In> 2^3
-	Out> 8;
 
 
-*CMD Div --- Determine divisor of two mathematical objects
-*CMD Mod --- Determine remainder of two mathematical objects after dividing one by the other
 
-*STD
-*CALL
-	Div(x,y)
-	Mod(x,y)
 
-*PARMS
 
-{x}, {y} -- integers or univariate polynomials
 
-*DESC
 
-{Div} performs integer division and {Mod} returns the remainder after division. {Div} and
-{Mod} are also defined for polynomials.
-
-If {Div(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
-
-*E.G.
-
-	In> Div(5,3)
-	Out> 1;
-	In> Mod(5,3)
-	Out> 2;
-
-*SEE Gcd, Lcm
 
 *CMD Gcd --- greatest common divisor
 *STD

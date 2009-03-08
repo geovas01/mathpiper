@@ -70,3 +70,31 @@
 400 # 0 / _x <-- 0;
 
 %/mathpiper
+
+
+%mathpiper_docs
+*CMD / --- arithmetic division
+*STD
+*CALL
+
+	x/y
+Precedence:
+*EVAL OpPrecedence("/")
+
+*PARMS
+
+{x} and {y} -- objects for which arithmetic division is defined
+
+*DESC
+
+The division operator can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+This operator is implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+*E.G.
+
+	In> 6/2
+	Out> 3;
+%/mathpiper_docs

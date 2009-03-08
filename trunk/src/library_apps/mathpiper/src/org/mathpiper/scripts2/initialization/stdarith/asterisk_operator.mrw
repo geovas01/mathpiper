@@ -98,3 +98,31 @@
 400 # (_x) * (_x) <-- x^2;
 
 %/mathpiper
+
+
+%mathpiper_docs
+*CMD * --- arithmetic multiplication
+*STD
+*CALL
+
+	x*y
+Precedence:
+*EVAL OpPrecedence("*")
+
+*PARMS
+
+{x} and {y} -- objects for which arithmetic multiplication is defined
+
+*DESC
+
+The multiplication operator can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+This operator is implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+*E.G.
+
+	In> 2*3
+	Out> 6;
+%/mathpiper_docs

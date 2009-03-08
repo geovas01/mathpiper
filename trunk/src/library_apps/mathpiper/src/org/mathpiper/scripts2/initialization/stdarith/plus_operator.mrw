@@ -60,3 +60,34 @@ SumListSide(_x, y_IsList) <--
 250 # _x + Undefined <-- Undefined;
 
 %/mathpiper
+
+
+
+%mathpiper_docs
+*CMD + --- arithmetic addition
+*STD
+*CALL
+
+	x+y
+	+x
+Precedence:
+*EVAL OpPrecedence("+")
+
+*PARMS
+
+{x} and {y} -- objects for which arithmetic addition is defined
+
+
+*DESC
+
+The addition operators can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+These operators are implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+*E.G.
+
+	In> 2+3
+	Out> 5;
+%/mathpiper_docs

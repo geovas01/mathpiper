@@ -69,3 +69,37 @@ LocalSymbols(x,y,xarg,yarg)
 210 # (x_IsNumber / v_IsNumber) - (y_IsNumber / z_IsNumber) <--(x*z-y*v)/(v*z);
 
 %/mathpiper
+
+
+%mathpiper_docs
+*CMD - --- arithmetic subtraction or negation
+*STD
+*CALL
+
+	x-y
+Precedence: left-side:
+*EVAL OpPrecedence("-")
+, right-side:
+*EVAL OpRightPrecedence("-")
+
+	-x
+
+*PARMS
+
+{x} and {y} -- objects for which subtraction is defined
+
+*DESC
+
+The subtraction operators can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+These operators are implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+*E.G.
+
+	In> 2-3
+	Out> -1;
+	In> - 3
+	Out> -3;
+%/mathpiper_docs
