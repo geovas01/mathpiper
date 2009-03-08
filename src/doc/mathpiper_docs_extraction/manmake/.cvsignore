@@ -1,0 +1,14 @@
+Makefile.in
+*.html
+*.ps
+*.pdf
+*.aux
+*.toc
+*.dvi
+*.idx
+*.ilg
+*.ind
+*.log
+*.tex
+*.chapt
+
