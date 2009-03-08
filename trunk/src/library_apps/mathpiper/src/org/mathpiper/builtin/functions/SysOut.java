@@ -51,6 +51,7 @@ public class SysOut extends BuiltinFunction {
         output = output.replace("\"", "");
         System.out.println(output);
         aEnvironment.iCurrentOutput.write(output);
+        aEnvironment.iCurrentOutput.write("\n");
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
 
     }//end method.
