@@ -201,3 +201,116 @@ HoldArg("else",otherwise);
 UnFence("else",2);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="N"
+*CMD N --- try determine numerical approximation of expression
+
+*STD
+*CALL
+	N(expression)
+	N(expression, precision)
+*PARMS
+
+{expression} -- expression to evaluate
+
+{precision} -- integer, precision to use
+
+*DESC
+
+The function {N} instructs {Yacas} to try to coerce an expression in to a numerical approximation to the
+expression {expr}, using {prec} digits precision if the second calling
+sequence is used, and the default precision otherwise. This overrides the normal
+behaviour, in which expressions are kept in symbolic form (eg. {Sqrt(2)} instead of {1.41421}).
+
+Application of the {N} operator will make Yacas
+calculate floating point representations of functions whenever
+possible. In addition, the variable {Pi} is bound to
+the value of $Pi$ calculated at the current precision.
+(This value is a "cached constant", so it is not recalculated each time {N} is used, unless the precision is increased.)
+
+
+{N} is a macro. Its argument {expr} will only 
+be evaluated after switching to numeric mode.
+
+*E.G.
+
+	In> 1/2
+	Out> 1/2;
+	In> N(1/2)
+	Out> 0.5;
+	In> Sin(1)
+	Out> Sin(1);
+	In> N(Sin(1),10)
+	Out> 0.8414709848;
+	In> Pi
+	Out> Pi;
+	In> N(Pi,20)
+	Out> 3.14159265358979323846;
+
+*SEE Pi
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Numer"
+*CMD Numer --- numerator of an expression
+*STD
+*CALL
+	Numer(expr)
+
+*PARMS
+
+{expr} -- expression to determine numerator of
+
+*DESC
+
+This function determines the numerator of the rational expression
+"expr" and returns it. As a special case, if its argument is numeric
+but not rational, it returns this number. If "expr" is neither
+rational nor numeric, the function returns unevaluated.
+
+*E.G.
+
+	In> Numer(2/7)
+	Out> 2;
+	In> Numer(a / x^2)
+	Out> a;
+	In> Numer(5)
+	Out> 5;
+
+*SEE Denom, IsRational, IsNumber
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Denom"
+*CMD Denom --- denominator of an expression
+*STD
+*CALL
+	Denom(expr)
+
+*PARMS
+
+{expr} -- expression to determine denominator of
+
+*DESC
+
+This function determines the denominator of the rational expression
+"expr" and returns it. As a special case, if its argument is numeric
+but not rational, it returns {1}. If "expr" is
+neither rational nor numeric, the function returns unevaluated.
+
+*E.G.
+
+	In> Denom(2/7)
+	Out> 7;
+	In> Denom(a / x^2)
+	Out> x^2;
+	In> Denom(5)
+	Out> 1;
+
+*SEE Numer, IsRational, IsNumber
+%/mathpiper_docs
+

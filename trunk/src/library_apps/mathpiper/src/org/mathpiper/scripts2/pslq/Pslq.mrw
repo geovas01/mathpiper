@@ -329,6 +329,40 @@ Echo("************** H[i][j] = ",H[i][j]);
 
 /* end of file */
 
-
-
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Pslq"
+*CMD Pslq --- search for integer relations between reals
+*STD
+*CALL
+	Pslq(xlist,precision)
+
+*PARMS
+
+{xlist} -- list of numbers
+
+{precision} -- required number of digits precision of calculation
+
+*DESC
+
+This function is an integer relation detection algorithm. This means
+that, given the numbers $x[i]$ in the list "xlist", it tries
+to find integer coefficients $a[i]$ such that
+$a[1]*x[1]$ + ... + $a[n]*x[n] = 0$.
+The list of integer coefficients is returned.
+
+The numbers in "xlist" must evaluate to floating point numbers if
+the {N} operator is applied on them.
+
+*EG
+
+	In> Pslq({ 2*Pi+3*Exp(1), Pi, Exp(1) },20)
+	Out> {1,-2,-3};
+
+Note: in this example the system detects correctly that
+$1 * (2*Pi+3*e) + (-2) * Pi + (-3) * e = 0$.
+
+*SEE N
+%/mathpiper_docs

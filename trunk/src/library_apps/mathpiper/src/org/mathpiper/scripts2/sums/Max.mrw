@@ -45,3 +45,36 @@ Function() Max(l1, l2, l3, ...);
 30 # Max(_x) <-- x;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Max"
+*CMD Max --- maximum of a number of values
+*STD
+*CALL
+	Max(x,y)
+	Max(list)
+
+*PARMS
+
+{x}, {y} -- pair of values to determine the maximum of
+
+{list} -- list of values from which the maximum is sought
+
+*DESC
+
+This function returns the maximum value of its argument(s). If the
+first calling sequence is used, the larger of "x" and "y" is
+returned. If one uses the second form, the largest of the entries in
+"list" is returned. In both cases, this function can only be used
+with numerical values and not with symbolic arguments.
+
+*E.G.
+
+	In> Max(2,3);
+	Out> 3;
+	In> Max({5,8,4});
+	Out> 8;
+
+*SEE Min, Sum
+%/mathpiper_docs

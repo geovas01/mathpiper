@@ -11,3 +11,33 @@
 20 # IsZero(UniVariate(_var,_first,_coefs)) <-- IsZeroVector(coefs);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsZero"
+*CMD IsZero --- test whether argument is zero
+*STD
+*CALL
+	IsZero(n)
+
+*PARMS
+
+{n} -- number to test
+
+*DESC
+
+{IsZero(n)} evaluates to {True} if
+"n" is zero. In case "n" is not a number, the function returns
+{False}.
+
+*E.G.
+
+	In> IsZero(3.25)
+	Out> False;
+	In> IsZero(0)
+	Out> True;
+	In> IsZero(x)
+	Out> False;
+
+*SEE IsNumber, IsNotZero
+%/mathpiper_docs

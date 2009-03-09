@@ -82,3 +82,155 @@ LocalSymbols(nNum,mNum)
 Function("!=",{aLeft,aRight}) Not(aLeft=aRight);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="<"
+*CMD < --- test for "less than"
+*STD
+*CALL
+	e1 < e2
+Precedence:
+*EVAL OpPrecedence("<")
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+The two expression are evaluated. If both results are numeric, they
+are compared. If the first expression is smaller than the second one,
+the result is {True} and it is {False} otherwise. If either of the expression is not numeric, after
+evaluation, the expression is returned with evaluated arguments.
+
+The word "numeric" in the previous paragraph has the following
+meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
+
+*E.G.
+
+	In> 2 < 5;
+	Out> True;
+	In> Cos(1) < 5;
+	Out> True;
+
+*SEE IsNumber, IsInfinity, N
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=">"
+*CMD > --- test for "greater than"
+*STD
+*CALL
+	e1 > e2
+Precedence:
+*EVAL OpPrecedence(">")
+
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+The two expression are evaluated. If both results are numeric, they
+are compared. If the first expression is larger than the second one,
+the result is {True} and it is {False} otherwise. If either of the expression is not numeric, after
+evaluation, the expression is returned with evaluated arguments.
+
+The word "numeric" in the previous paragraph has the following
+meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
+
+*E.G.
+
+	In> 2 > 5;
+	Out> False;
+	In> Cos(1) > 5;
+	Out> False
+
+*SEE IsNumber, IsInfinity, N
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="<="
+*CMD <= --- test for "less or equal"
+*STD
+*CALL
+	e1 <= e2
+Precedence:
+*EVAL OpPrecedence("<=")
+
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+The two expression are evaluated. If both results are numeric, they
+are compared. If the first expression is smaller than or equals the
+second one, the result is {True} and it is {False} otherwise. If either of the expression is not
+numeric, after evaluation, the expression is returned with evaluated
+arguments.
+
+The word "numeric" in the previous paragraph has the following
+meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
+
+*E.G.
+
+	In> 2 <= 5;
+	Out> True;
+	In> Cos(1) <= 5;
+	Out> True
+
+*SEE IsNumber, IsInfinity, N
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=">="
+*CMD >= --- test for "greater or equal"
+*STD
+*CALL
+	e1 >= e2
+Precedence:
+*EVAL OpPrecedence(">=")
+
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+The two expression are evaluated. If both results are numeric, they
+are compared. If the first expression is larger than or equals the
+second one, the result is {True} and it is {False} otherwise. If either of the expression is not
+numeric, after evaluation, the expression is returned with evaluated
+arguments.
+
+The word "numeric" in the previous paragraph has the following
+meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
+
+*E.G.
+
+	In> 2 >= 5;
+	Out> False;
+	In> Cos(1) >= 5;
+	Out> False
+
+*SEE IsNumber, IsInfinity, N
+%/mathpiper_docs
+
+
+
