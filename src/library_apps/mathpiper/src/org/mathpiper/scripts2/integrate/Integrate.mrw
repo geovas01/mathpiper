@@ -96,3 +96,45 @@
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Integrate"
+*CMD Integrate --- integration
+*STD
+*CALL
+	Integrate(var, x1, x2) expr
+	Integrate(var) expr
+
+*PARMS
+
+{var} -- atom, variable to integrate over
+
+{x1} -- first point of definite integration
+
+{x2} -- second point of definite integration
+
+{expr} -- expression to integrate
+
+*DESC
+
+This function integrates the expression {expr} with respect to the
+variable {var}. The first calling format is used to perform
+definite integration: the integration is carried out from $var=x1$
+to $var=x2$". The second form is for indefinite integration.
+
+Some simple integration rules have currently been
+implemented. Polynomials, some quotients of polynomials,
+trigonometric functions and their inverses, hyperbolic functions
+and their inverses, {Exp}, and {Ln}, and products of these
+functions with polynomials can be integrated.
+
+*E.G.
+
+	In> Integrate(x,a,b) Cos(x)
+	Out> Sin(b)-Sin(a);
+	In> Integrate(x) Cos(x)
+	Out> Sin(x);
+
+*SEE D, UniqueConstant
+%/mathpiper_docs

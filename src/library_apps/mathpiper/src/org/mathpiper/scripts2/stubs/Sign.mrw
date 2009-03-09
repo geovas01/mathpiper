@@ -12,3 +12,41 @@
 100 # Sign(_a)^n_IsOdd <-- Sign(a);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Sign"
+*CMD Sign --- sign of a number
+*STD
+*CALL
+	Sign(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function returns the sign of the real number $x$. It is "1"
+for positive numbers and "-1" for negative numbers. Somewhat
+arbitrarily, {Sign(0)} is defined to be 1.
+
+This function is connected to the {Abs} function by
+the identity $Abs(x) * Sign(x) = x$ for real $x$.
+
+This function is threaded, meaning that if the argument {x} is a
+list, the function is applied to all entries in the list.
+
+*E.G.
+
+	In> Sign(2)
+	Out> 1;
+	In> Sign(-3)
+	Out> -1;
+	In> Sign(0)
+	Out> 1;
+	In> Sign(-3) * Abs(-3)
+	Out> -3;
+
+*SEE Arg, Abs
+%/mathpiper_docs

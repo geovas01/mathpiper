@@ -25,3 +25,53 @@ ArcSin(xlist_IsList) <-- MapSingle("ArcSin",xlist);
 200 # ArcSin(Undefined) <-- Undefined;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="ArcSin"
+*CMD ArcSin --- inverse trigonometric function arc-sine
+*STD
+*CALL
+	ArcSin(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the inverse trigonometric function arcsine. For
+instance, the value of $ArcSin(x)$ is a number $y$ such that
+$Sin(y)$ equals $x$.
+
+Note that the number $y$ is not unique. For instance, $Sin(0)$ and
+$Sin(Pi)$ both equal 0, so what should $ArcSin(0)$ be? In Yacas,
+it is agreed that the value of $ArcSin(x)$ should be in the interval
+[-$Pi$/2,$Pi$/2]. 
+
+Usually, Yacas leaves this function alone unless it is forced to do
+a numerical evaluation by the {N} function. If the
+argument is -1, 0, or 1 however, Yacas will simplify the
+expression. If the argument is complex,  the expression will be
+rewritten using the {Ln} function.
+
+This function is threaded, meaning that if the argument {x} is a
+list, the function is applied to all entries in the list.
+
+*E.G.
+
+	In> ArcSin(1)
+	Out> Pi/2;
+	
+	In> ArcSin(1/3)
+	Out> ArcSin(1/3);
+	In> Sin(ArcSin(1/3))
+	Out> 1/3;
+	
+	In> x:=N(ArcSin(0.75))
+	Out> 0.848062;
+	In> N(Sin(x))
+	Out> 0.7499999477;
+
+*SEE Sin, Cos, Tan, N, Pi, Ln, ArcCos, ArcTan
+%/mathpiper_docs

@@ -44,3 +44,41 @@
 Sin(xlist_IsList) <-- MapSingle("Sin",xlist);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Sin"
+*CMD Sin --- trigonometric sine function
+*STD
+*CALL
+	Sin(x)
+
+*PARMS
+
+{x} -- argument to the function, in radians
+
+*DESC
+
+This function represents the trigonometric function sine. Yacas leaves 
+expressions alone even if x is a number, trying to keep the result as 
+exact as possible. The floating point approximations of these functions 
+can be forced by using the {N} function.
+
+Yacas knows some trigonometric identities, so it can simplify to exact
+results even if {N} is not used. This is the case, for instance,
+when the argument is a multiple of $Pi$/6 or $Pi$/4.
+
+These functions are threaded, meaning that if the argument {x} is a
+list, the function is applied to all entries in the list.
+
+*E.G.
+
+	In> Sin(1)
+	Out> Sin(1);
+	In> N(Sin(1),20)
+	Out> 0.84147098480789650665;
+	In> Sin(Pi/4)
+	Out> Sqrt(2)/2;
+
+*SEE Cos, Tan, ArcSin, ArcCos, ArcTan, N, Pi
+%/mathpiper_docs
