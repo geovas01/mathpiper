@@ -128,9 +128,9 @@ public class Build {
                             System.out.println("    " + scriptFileOrSubdirectoy.getName());
 
                             if (scriptFileOrSubdirectoy.getName().endsWith(".mrw")) {
-                            //Process a .mrw files that is in a top-level package. ************************************************************************
+                                //Process a .mrw files that is in a top-level package. ************************************************************************
 
-                            processMRWFile(scriptFileOrSubdirectoy,mpiDefFileOut, mpiFileOut);
+                                processMRWFile(scriptFileOrSubdirectoy, mpiDefFileOut, mpiFileOut);
 
                             } else {
                                 //Process a subdirectory.***********************************************************************************************
@@ -147,36 +147,36 @@ public class Build {
 
                                 Arrays.sort(packageSubDirectoryContentsArray);
 
-                    BufferedWriter mpiSubDirectoyFileOut = null;
-                    File newMPISubDirectoyFile = new File(newPackagePath + "/" + scriptFileOrSubdirectoy.getName() + ".mpi");
-                    newMPISubDirectoyFile.createNewFile();
-                    mpiSubDirectoyFileOut = new BufferedWriter(new FileWriter(newMPISubDirectoyFile));
+                                BufferedWriter mpiSubDirectoyFileOut = null;
+                                File newMPISubDirectoyFile = new File(newPackagePath + "/" + scriptFileOrSubdirectoy.getName() + ".mpi");
+                                newMPISubDirectoyFile.createNewFile();
+                                mpiSubDirectoyFileOut = new BufferedWriter(new FileWriter(newMPISubDirectoyFile));
 
-                   packagesFile.write("\"org/mathpiper/scripts/" + newPackageName + "/"+ scriptFileOrSubdirectoy.getName() + ".mpi" +"\",\n");
+                                packagesFile.write("\"org/mathpiper/scripts/" + newPackageName + "/" + scriptFileOrSubdirectoy.getName() + ".mpi" + "\",\n");
 
-                    //mpi.def file
-                    BufferedWriter mpiSubDirectoyDefFileOut = null;
-                    File newMPISubDirectoyDefFile = new File(newPackagePath + "/" + scriptFileOrSubdirectoy.getName() + ".mpi.def" );
-                    newMPISubDirectoyDefFile.createNewFile();
-                    mpiSubDirectoyDefFileOut = new BufferedWriter(new FileWriter(newMPISubDirectoyDefFile));
+                                //mpi.def file
+                                BufferedWriter mpiSubDirectoyDefFileOut = null;
+                                File newMPISubDirectoyDefFile = new File(newPackagePath + "/" + scriptFileOrSubdirectoy.getName() + ".mpi.def");
+                                newMPISubDirectoyDefFile.createNewFile();
+                                mpiSubDirectoyDefFileOut = new BufferedWriter(new FileWriter(newMPISubDirectoyDefFile));
 
                                 for (int x3 = 0; x3 < packageSubDirectoryContentsArray.length; x3++) {
                                     //Process each script in a package subdirectlry directory.
                                     File scriptFile2 = packageSubDirectoryContentsArray[x3];
                                     System.out.println("        " + scriptFile2.getName());
-                                    
-                                    processMRWFile(scriptFile2,mpiSubDirectoyDefFileOut, mpiSubDirectoyFileOut);
 
-                                                        //mpi file.
+                                    processMRWFile(scriptFile2, mpiSubDirectoyDefFileOut, mpiSubDirectoyFileOut);
+
+                                //mpi file.
 
 
                                 }//end subpackage for.
 
-                         if (mpiSubDirectoyFileOut != null) {
-                        mpiSubDirectoyFileOut.close();
-                        mpiSubDirectoyDefFileOut.write("}\n\n");
-                        mpiSubDirectoyDefFileOut.close();
-                    }
+                                if (mpiSubDirectoyFileOut != null) {
+                                    mpiSubDirectoyFileOut.close();
+                                    mpiSubDirectoyDefFileOut.write("}\n\n");
+                                    mpiSubDirectoyDefFileOut.close();
+                                }
 
                             }//end else.
 
@@ -209,10 +209,6 @@ public class Build {
         }
 
     }//end method.
-
-
-
-
 
     List scanMRWFile(File mrwFile) {
         List<Fold> folds = new ArrayList();
@@ -298,41 +294,44 @@ public class Build {
         }
     }//end inner class.
 
+    private void processMRWFile(File mrwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws IOException {
+        List<Fold> folds = scanMRWFile(mrwFile);
 
-    private void processMRWFile(File mrwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws IOException
-    {
-                                List<Fold> folds = scanMRWFile(mrwFile);
+        for (Fold fold : folds) {
 
-                                for (Fold fold : folds) {
+            String foldType = fold.getType();
+            if (foldType.equalsIgnoreCase("%mathpiper")) {
 
-                                    String foldType = fold.getType();
-                                    if (foldType.equalsIgnoreCase("%mathpiper")) {
+                String scopeAttribute = "";
+                if (fold.getAttributes().containsKey("scope")) {
+                    scopeAttribute = (String) fold.getAttributes().get("scope");
+                }
 
-                                        mpiFileOut.write(fold.getContents());
+                if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
+
+                    mpiFileOut.write(fold.getContents());
+
+                    if (fold.getAttributes().containsKey("def")) {
+                        String defAttribute = (String) fold.getAttributes().get("def");
+                        if (!defAttribute.equalsIgnoreCase("")) {
+
+                            String[] defFunctionNames = defAttribute.split(";");
+
+                            for (int x = 0; x < defFunctionNames.length; x++) {
+                                mpiDefFileOut.write(defFunctionNames[x]);
+                                mpiDefFileOut.write("\n");
+                            }//end if.
+                        }//end if.
+                    }//end if.
+                }//end if.
+
+            } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
+                System.out.println("        **** Contains docs *****");
+            }
 
 
-                                        if (fold.getAttributes().containsKey("def")) {
-                                            String defAttribute = (String) fold.getAttributes().get("def");
-                                            if (!defAttribute.equalsIgnoreCase("")) {
-
-                                                String[] defFunctionNames = defAttribute.split(";");
-
-                                                for(int x = 0; x < defFunctionNames.length; x++)
-                                                {
-                                                    mpiDefFileOut.write(defFunctionNames[x]);
-                                                    mpiDefFileOut.write("\n");
-                                                }//enf if.
-                                            }
-                                        }
-
-                                    } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
-                                        System.out.println("        **** Contains docs *****");
-                                    }
-
-
-                                }//end subpackage for.
+        }//end subpackage for.
     }//end method.
-
 
     public static void main(String[] args) {
 
@@ -358,7 +357,4 @@ public class Build {
         scripts.compileScripts(scriptsDirectory, outputDirectory);
 
     }//end main
-
-    
-
 }//end class.

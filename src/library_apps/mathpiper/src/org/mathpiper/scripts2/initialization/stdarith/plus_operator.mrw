@@ -63,6 +63,14 @@ SumListSide(_x, y_IsList) <--
 
 
 
+
+%mathpiper,scope="nobuild",type="test"
+//This fold is used to test the + operator.
+    Verify(3 + 2 , 5);
+%/mathpiper
+
+
+
 %mathpiper_docs
 *CMD + --- arithmetic addition
 *STD
