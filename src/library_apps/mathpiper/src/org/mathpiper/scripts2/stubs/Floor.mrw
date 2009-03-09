@@ -41,3 +41,29 @@
 */
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Floor"
+*CMD Floor --- round a number downwards
+*STD
+*CALL
+	Floor(x)
+
+*PARMS
+
+{x} -- a number
+
+*DESC
+
+This function returns $Floor(x)$, the largest integer smaller than or equal to $x$.
+
+*E.G.
+
+	In> Floor(1.1)
+	Out> 1;
+	In> Floor(-1.1)
+	Out> -2;
+
+*SEE Ceil, Round
+%/mathpiper_docs

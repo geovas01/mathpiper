@@ -23,3 +23,29 @@
 //   CeilN (N(x));
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Ceil"
+*CMD Ceil --- round a number upwards
+*STD
+*CALL
+	Ceil(x)
+
+*PARMS
+
+{x} -- a number
+
+*DESC
+
+This function returns $Ceil(x)$, the smallest integer larger than or equal to $x$.
+
+*E.G.
+
+	In> Ceil(1.1)
+	Out> 2;
+	In> Ceil(-1.1)
+	Out> -1;
+
+*SEE Floor, Round
+%/mathpiper_docs
