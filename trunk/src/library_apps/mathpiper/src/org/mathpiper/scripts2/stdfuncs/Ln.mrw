@@ -17,3 +17,37 @@
 Ln(xlist_IsList) <-- MapSingle("Ln",xlist);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Ln"
+*CMD Ln --- natural logarithm
+*STD
+*CALL
+	Ln(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function calculates the natural logarithm of "x". This is the
+inverse function of the exponential function, {Exp}, i.e. $Ln(x) = y$ implies that $Exp(y) = x$. For complex
+arguments, the imaginary part of the logarithm is in the interval
+(-$Pi$,$Pi$]. This is compatible with the branch cut of {Arg}.
+
+This function is threaded, meaning that if the argument {x} is a
+list, the function is applied to all entries in the list.
+
+*E.G.
+
+	In> Ln(1)
+	Out> 0;
+	In> Ln(Exp(x))
+	Out> x;
+	In> D(x) Ln(x)
+	Out> 1/x;
+
+*SEE Exp, Arg
+%/mathpiper_docs

@@ -160,5 +160,50 @@ UnFence("LimitArgs",1); /* Allow LimitArgs to have access to the local variables
 UnFence("Limit",3);
 
 
-
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Limit"
+*CMD Limit --- limit of an expression
+*STD
+*CALL
+	Limit(var, val) expr
+	Limit(var, val, dir) expr
+
+*PARMS
+
+{var} -- a variable
+
+{val} -- a number
+
+{dir} -- a direction ({Left} or {Right})
+
+{expr} -- an expression
+
+*DESC
+
+This command tries to determine the value that the expression "expr"
+converges to when the variable "var" approaches "val". One may use
+{Infinity} or {-Infinity} for
+"val". The result of {Limit} may be one of the
+symbols {Undefined} (meaning that the limit does not
+exist), {Infinity}, or {-Infinity}.
+
+The second calling sequence is used for unidirectional limits. If one
+gives "dir" the value {Left}, the limit is taken as
+"var" approaches "val" from the positive infinity; and {Right} will take the limit from the negative infinity.
+
+*E.G.
+
+	In> Limit(x,0) Sin(x)/x
+	Out> 1;
+	In> Limit(x,0) (Sin(x)-Tan(x))/(x^3)
+	Out> -1/2;
+	In> Limit(x,0) 1/x
+	Out> Undefined;
+	In> Limit(x,0,Left) 1/x
+	Out> -Infinity;
+	In> Limit(x,0,Right) 1/x
+	Out> Infinity;
+%/mathpiper_docs

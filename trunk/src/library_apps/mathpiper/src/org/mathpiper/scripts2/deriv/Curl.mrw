@@ -10,3 +10,37 @@ Rule("Curl", 2, 1, Length(aBasis)=Length(aFunc))
 	};
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Curl"
+*CMD Curl --- curl of a vector field
+*STD
+*CALL
+	Curl(vector, basis)
+
+*PARMS
+
+{vector} -- vector field to take the curl of
+
+{basis} -- list of variables forming the basis
+
+*DESC
+
+This function takes the curl of the vector field "vector" with
+respect to the variables "basis". The curl is defined in the usual way,
+
+	Curl(f,x) = {
+	    D(x[2]) f[3] - D(x[3]) f[2],
+	    D(x[3]) f[1] - D(x[1]) f[3],
+	    D(x[1]) f[2] - D(x[2]) f[1]
+	}
+Both "vector" and "basis" should be lists of length 3.
+
+*EG
+
+	In> Curl({x*y,x*y,x*y},{x,y,z})
+	Out> {x,-y,y-x};
+
+*SEE D, Diverge
+%/mathpiper_docs

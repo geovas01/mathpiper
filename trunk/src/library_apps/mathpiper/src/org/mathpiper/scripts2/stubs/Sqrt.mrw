@@ -24,3 +24,41 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 400 # Sqrt(x_IsInteger/y_IsInteger)_(IsInteger(SqrtN(x)) And IsInteger(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Sqrt"
+*CMD Sqrt --- square root
+*STD
+*CALL
+	Sqrt(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function calculates the square root of "x". If the result is
+not rational, the call is returned unevaluated unless a numerical
+approximation is forced with the {N} function. This
+function can also handle negative and complex arguments.
+
+This function is threaded, meaning that if the argument {x} is a
+list, the function is applied to all entries in the list.
+
+*E.G.
+
+	In> Sqrt(16)
+	Out> 4;
+	In> Sqrt(15)
+	Out> Sqrt(15);
+	In> N(Sqrt(15))
+	Out> 3.8729833462;
+	In> Sqrt(4/9)
+	Out> 2/3;
+	In> Sqrt(-1)
+	Out> Complex(0,1);
+
+*SEE Exp, ^, N
+%/mathpiper_docs
