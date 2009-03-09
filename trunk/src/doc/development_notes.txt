@@ -3,6 +3,21 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ %mathpiper
+//This does not create a function for some reason.
+a := OldSolve(x^2 + y^2 == 25,y);
+f(x) := D(x)a;
+Echo(f(x));
+Echo(f(3));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      (-2*x)/(2*Sqrt(25-x^2)) 
+      (-2*x)/(2*Sqrt(25-x^2))
+.   %/output
 + Use this code to debug halt mechanism.
 In> a := CurrentTime() + 5000000000
 In> While(a > CurrentTime()) [];
