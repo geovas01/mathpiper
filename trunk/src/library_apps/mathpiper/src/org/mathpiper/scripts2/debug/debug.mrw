@@ -261,3 +261,87 @@ DebugShowCode():=
 
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="TraceExp"
+*CMD TraceExp --- evaluate with tracing enabled
+*CORE
+*CALL
+	TraceExp(expr)
+
+*PARMS
+
+{expr} -- expression to trace
+
+*DESC
+
+The expression "expr" is evaluated with the tracing facility turned
+on. This means that every subexpression, which is evaluated, is shown
+before and after evaluation. Before evaluation, it is shown in the
+form {TrEnter(x)}, where {x}
+denotes the subexpression being evaluated. After the evaluation the
+line {TrLeave(x,y)} is printed, where {y} is the result of the evaluation. The indentation
+shows the nesting level.
+
+Note that this command usually generates huge amounts of output. A
+more specific form of tracing (eg. {TraceRule}) is
+probably more useful  for all but very simple expressions.
+
+*E.G. notest
+
+	In> TraceExp(2+3);
+	  TrEnter(2+3);
+	    TrEnter(2);
+	    TrLeave(2, 2);
+	    TrEnter(3);
+	    TrLeave(3, 3);
+	    TrEnter(IsNumber(x));
+	      TrEnter(x);
+	      TrLeave(x, 2);
+	    TrLeave(IsNumber(x),True);
+	    TrEnter(IsNumber(y));
+	      TrEnter(y);
+	      TrLeave(y, 3);
+	    TrLeave(IsNumber(y),True);
+	    TrEnter(True);
+	    TrLeave(True, True);
+	    TrEnter(MathAdd(x,y));
+	      TrEnter(x);
+	      TrLeave(x, 2);
+	      TrEnter(y);
+	      TrLeave(y, 3);
+	    TrLeave(MathAdd(x,y),5);
+	  TrLeave(2+3, 5);
+	Out> 5;
+
+*SEE TraceStack, TraceRule
+%/mathpiper_docs
+
+
+
+
+%mathpiper_docs,name="Time"
+*CMD Time --- measure the time taken by a function
+*STD
+*CALL
+	Time(expr)
+*PARMS
+{expr} -- any expression
+*DESC
+
+The function {Time(expr)} evaluates the expression {expr} and prints the time in seconds needed for the evaluation.
+The time is printed to the current output stream.
+The built-in function {GetTime} is used for timing.
+
+The result is the "user time" as reported by the OS, not the real ("wall clock") time.
+Therefore, any CPU-intensive processes running alongside Yacas will not significantly affect the result of {Time}.
+
+*EG notest
+	In> Time(N(MathLog(1000),40))
+	0.34 seconds taken
+	Out> 6.9077552789821370520539743640530926228033;
+
+*SEE GetTime
+%/mathpiper_docs
