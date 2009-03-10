@@ -11,3 +11,34 @@ UnFence("MapArgs",2);
 HoldArg("MapArgs",oper);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="MapArgs"
+*CMD MapArgs --- apply a function to all top-level arguments
+*STD
+*CALL
+	MapArgs(expr, fn)
+
+*PARMS
+
+{expr} -- an expression to work on
+
+{fn} -- an operation to perform on each argument
+
+*DESC
+
+Every top-level argument in "expr" is substituted by the result of
+applying "fn" to this argument. Here "fn" can be either the name
+of a function or a pure function (see Apply for more information on 
+pure functions).
+
+*E.G.
+
+	In> MapArgs(f(x,y,z),"Sin");
+	Out> f(Sin(x),Sin(y),Sin(z));
+	In> MapArgs({3,4,5,6}, {{x},x^2});
+	Out> {9,16,25,36};
+
+*SEE MapSingle, Map, Apply
+%/mathpiper_docs
