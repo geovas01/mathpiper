@@ -715,4 +715,86 @@ can be useful in the {~/.MathPiperrc} file.
 
 
 
+%mathpiper_docs,name="Version"
+*CMD Version --- show version of Yacas
+*CORE
+*CALL
+	Version()
+
+*DESC
+
+The function {Version()} returns a string representing the version of the currently running Yacas interpreter.
+
+*E.G. notest
+
+	In> Version()
+	Out> "1.0.48rev3";
+	In> LessThan(Version(), "1.0.47")
+	Out> False;
+	In> GreaterThan(Version(), "1.0.47")
+	Out> True;
+
+The last two calls show that the {LessThan} and {GreaterThan}
+functions can be used for comparing version numbers. This 
+method is only guaranteed, however, if the version is always expressed
+in the form {d.d.dd} as above.
+
+*REM
+Note that on the Windows platforms the output may be different:
+In> Version()
+Out> "Windows-latest";
+
+*SEE LessThan, GreaterThan
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
 
