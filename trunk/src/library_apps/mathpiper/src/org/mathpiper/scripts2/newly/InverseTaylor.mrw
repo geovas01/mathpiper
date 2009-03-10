@@ -12,3 +12,55 @@ Function("InverseTaylor",{var,val,degree,func})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="InverseTaylor"
+*CMD InverseTaylor --- Taylor expansion of inverse
+*STD
+*CALL
+	InverseTaylor(var, at, order) expr
+
+*PARMS
+
+{var} -- variable
+
+{at} -- point to get inverse Taylor series around
+
+{order} -- order of approximation
+
+{expr} -- expression to get inverse Taylor series for
+
+*DESC
+
+This function builds the Taylor series expansion of the inverse of the
+expression "expr" with respect to the variable "var" around "at"
+up to order "order". It uses the function {ReversePoly} to perform the task.
+
+*E.G.
+
+	In> PrettyPrinter'Set("PrettyForm")
+	
+	True
+	
+	In> exp1 := Taylor(x,0,7) Sin(x)
+	
+	     3    5      7
+	    x    x      x
+	x - -- + --- - ----
+	    6    120   5040
+	
+	In> exp2 := InverseTaylor(x,0,7) ArcSin(x)
+	
+	 5      7     3
+	x      x     x
+	--- - ---- - -- + x
+	120   5040   6
+	
+	In> Simplify(exp1-exp2)
+	
+	0
+
+
+*SEE ReversePoly, Taylor, BigOh
+%/mathpiper_docs

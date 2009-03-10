@@ -28,3 +28,45 @@ Factorize(sumlist_IsList) <--
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Factorize"
+*CMD Factorize --- product of a list of values
+*STD
+*CALL
+	Factorize(list)
+	Factorize(var, from, to, body)
+
+*PARMS
+
+{list} -- list of values to multiply
+
+{var} -- variable to iterate over
+
+{from} -- integer value to iterate from
+
+{to} -- integer value to iterate up to
+
+{body} -- expression to evaluate for each iteration
+
+*DESC
+
+The first form of the {Factorize} command simply
+multiplies all the entries in "list" and returns their product.
+
+If the second calling sequence is used, the expression "body" is
+evaluated while the variable "var" ranges over all integers from
+"from" up to "to", and the product of all the results is
+returned. Obviously, "to" should be greater than or equal to
+"from".
+
+*E.G.
+
+	In> Factorize({1,2,3,4});
+	Out> 24;
+	In> Factorize(i, 1, 4, i);
+	Out> 24;
+
+*SEE Sum, Apply
+%/mathpiper_docs

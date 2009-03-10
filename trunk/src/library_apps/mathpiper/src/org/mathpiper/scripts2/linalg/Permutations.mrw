@@ -31,3 +31,29 @@ Function("Permutations",{list})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Permutations"
+*CMD Permutations --- get all permutations of a list
+*STD
+*CALL
+	Permutations(list)
+
+*PARMS
+
+{list} -- a list of elements
+
+*DESC
+
+Permutations returns a list with all the permutations of
+the original list.
+
+*E.G.
+
+	In> Permutations({a,b,c})
+	Out> {{a,b,c},{a,c,b},{c,a,b},{b,a,c},
+	{b,c,a},{c,b,a}};
+
+*SEE LeviCivita
+%/mathpiper_docs
