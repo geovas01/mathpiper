@@ -47,3 +47,333 @@ Write the (decimal) number {255} in hexadecimal notation:
 
 
 
+%mathpiper_docs,name="MaxEvalDepth"
+*CMD MaxEvalDepth --- set the maximum evaluation depth
+*CORE
+*CALL
+	MaxEvalDepth(n)
+
+*PARMS
+
+{n} -- new maximum evaluation depth
+
+*DESC
+
+Use this command to set the maximum evaluation depth to the integer
+"n". The default value is 1000. The function {MaxEvalDepth} returns {True}.
+
+The point of having a maximum evaluation depth is to catch any
+infinite recursion. For example, after the definition {f(x) := f(x)}, evaluating the expression {f(x)} would call {f(x)}, which would
+call {f(x)}, etc. The interpreter will halt if
+the maximum evaluation depth is reached. Also indirect recursion, e.g.
+the pair of definitions {f(x) := g(x)} and {g(x) := f(x)}, will be caught.
+
+*E.G. notest
+
+An example of an infinite recursion, caught because the maximum
+evaluation depth is reached.
+
+	In> f(x) := f(x)
+	Out> True;
+	In> f(x)
+	Error on line 1 in file [CommandLine]
+	Max evaluation stack depth reached.
+	Please use MaxEvalDepth to increase the stack
+	size as needed.
+
+However, a long calculation may cause the maximum evaluation depth to
+be reached without the presence of infinite recursion. The function {MaxEvalDepth} is meant for these cases.
+
+	In> 10 # g(0) <-- 1;
+	Out> True;
+	In> 20 # g(n_IsPositiveInteger) <-- \
+	  2 * g(n-1);
+	Out> True;
+	In> g(1001);
+	Error on line 1 in file [CommandLine]
+	Max evaluation stack depth reached.
+	Please use MaxEvalDepth to increase the stack
+	size as needed.
+	
+	In> MaxEvalDepth(10000);
+	Out> True;
+	In> g(1001);
+	Out> 21430172143725346418968500981200036211228096234
+	1106721488750077674070210224987224498639675763139171
+	6255189345835106293650374290571384628087196915514939
+	7149607869135549648461970842149210124742283755908364
+	3060929499671638825347975351183310878921541258291423
+	92955373084335320859663305248773674411336138752;
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Hold"
+*CMD Hold --- keep expression unevaluated
+*CORE
+*CALL
+	Hold(expr)
+
+*PARMS
+
+{expr} -- expression to keep unevaluated
+
+*DESC
+
+The expression "expr" is returned unevaluated. This is useful to
+prevent the evaluation of a certain expression in a context in which
+evaluation normally takes place.
+
+The function {UnList()} also leaves its result unevaluated. Both functions stop the process of evaluation (no more rules will be applied).
+
+*E.G. notest
+
+	In> Echo({ Hold(1+1), "=", 1+1 });
+	 1+1 = 2
+	Out> True;
+
+*SEE Eval, HoldArg, UnList
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Eval"
+*CMD Eval --- force evaluation of expression
+*CORE
+*CALL
+	Eval(expr)
+
+*PARMS
+
+{expr} -- expression to evaluate
+
+*DESC
+
+This function explicitly requests an evaluation of the expression
+"expr", and returns the result of this evaluation.
+
+*E.G.
+
+	In> a := x;
+	Out> x;
+	In> x := 5;
+	Out> 5;
+	In> a;
+	Out> x;
+	In> Eval(a);
+	Out> 5;
+
+The variable {a} is bound to {x},
+and {x} is bound to 5. Hence evaluating {a} will give {x}. Only when an extra
+evaluation of {a} is requested, the value 5 is
+returned.
+
+Note that the behavior would be different if we had exchanged the
+assignments. If the assignment {a := x} were given
+while {x} had the value 5, the variable {a} would also get the value 5 because the assignment
+operator {:=} evaluates the right-hand side.
+
+*SEE Hold, HoldArg, :=
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="While"
+*CMD While --- loop while a condition is met
+*CORE
+*CALL
+	While(pred) body
+
+*PARMS
+
+{pred} -- predicate deciding whether to keep on looping
+
+{body} -- expression to loop over
+
+*DESC
+
+Keep on evaluating "body" while "pred" evaluates to {True}. More precisely, {While}
+evaluates the predicate "pred", which should evaluate to either {True} or {False}. If the result is {True}, the expression "body" is evaluated and then
+the predicate "pred" is again evaluated. If it is still {True}, the expressions "body" and "pred" are again
+evaluated and so on until "pred" evaluates to {False}. At that point, the loop terminates and {While}
+returns {True}.
+
+In particular, if "pred" immediately evaluates to {False}, the body is never executed. {While} is the fundamental looping construct on which
+all other loop commands are based. It is equivalent to the {while} command in the programming language C.
+
+*E.G. notest
+
+	In> x := 0;
+	Out> 0;
+	In> While (x! < 10^6) \
+	  [ Echo({x, x!}); x++; ];
+	 0  1
+	 1  1
+	 2  2
+	 3  6
+	 4  24
+	 5  120
+	 6  720
+	 7  5040
+	 8  40320
+	 9  362880
+	Out> True;
+
+*SEE Until, For
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="If"
+*CMD If --- branch point
+*CORE
+*CALL
+	If(pred, then)
+	If(pred, then, else)
+
+*PARMS
+
+{pred} -- predicate to test
+
+{then} -- expression to evaluate if "pred" is {True}
+
+{else} -- expression to evaluate if "pred" is {False}
+
+*DESC
+
+This command implements a branch point. The predicate "pred" is
+evaluated, which should result in either {True} or {False}. In the first case, the expression "then" is
+evaluated and returned. If the predicate yields {False}, the expression "else" (if present) is evaluated and
+returned. If there is no "else" branch (i.e. if the first calling
+sequence is used), the {If} expression returns {False}.
+
+*E.G.
+
+The sign function is defined to be 1 if its argument is positive and
+-1 if its argument is negative. A possible implementation is
+	In> mysign(x) := If (IsPositiveReal(x), 1, -1);
+	Out> True;
+	In> mysign(Pi);
+	Out> 1;
+	In> mysign(-2.5);
+	Out> -1;
+Note that this will give incorrect results, if "x" cannot be
+numerically approximated.
+	In> mysign(a);
+	Out> -1;
+Hence a better implementation would be
+	In> mysign(_x)_IsNumber(N(x)) <-- If \
+	  (IsPositiveReal(x), 1, -1);
+	Out> True;
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+*CMD SystemCall --- pass a command to the shell
+*CORE
+*CALL
+	SystemCall(str)
+
+*PARMS
+
+{str} -- string containing the command to call
+
+*DESC
+
+The command contained in the string "str" is executed by the
+underlying operating system (OS).
+The return value of {SystemCall} is {True} or {False} according to the exit code of the command.
+
+The {SystemCall} function is not allowed in the body of the {Secure} command and will lead to an error.
+
+*E.G. notest
+
+In a UNIX environment, the command {SystemCall("ls")} would print the contents of the current directory.
+
+	In> SystemCall("ls")
+	AUTHORS
+	COPYING
+	ChangeLog
+... (truncated to save space)
+	Out> True;
+
+The standard UNIX command {test} returns success or failure depending on conditions.
+For example, the following command will check if a directory exists:
+
+	In> SystemCall("test -d scripts/")
+	Out> True;
+
+Check that a file exists:
+	In> SystemCall("test -f COPYING")
+	Out> True;
+	In> SystemCall("test -f nosuchfile.txt")
+	Out> False;
+
+*SEE Secure
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Use"
+*CMD Use --- load a file, but not twice
+*CORE
+*CALL
+	Use(name)
+
+*PARMS
+
+{name} -- name of the file to load
+
+*DESC
+
+If the file "name" has been loaded before, either by an earlier call
+to {Use} or via the {DefLoad}
+mechanism, nothing happens. Otherwise all expressions in the file are
+read and evaluated. {Use} always returns {True}.
+
+The purpose of this function is to make sure that the file will at
+least have been loaded, but is not loaded twice.
+
+*SEE Load, DefLoad, DefaultDirectory
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Subst"
+*CMD Subst --- perform a substitution
+*STD
+*CALL
+	Subst(from, to) expr
+
+*PARMS
+
+{from} -- expression to be substituted
+
+{to} -- expression to substitute for "from"
+
+{expr} -- expression in which the substitution takes place
+
+*DESC
+
+This function substitutes every occurrence of "from" in "expr" by
+"to". This is a syntactical substitution: only places where "from"
+occurs as a subexpression are affected.
+
+*E.G.
+
+	In> Subst(x, Sin(y)) x^2+x+1;
+	Out> Sin(y)^2+Sin(y)+1;
+	In> Subst(a+b, x) a+b+c;
+	Out> x+c;
+	In> Subst(b+c, x) a+b+c;
+	Out> a+b+c;
+
+The explanation for the last result is that the expression {a+b+c} is internally stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.
+
+*SEE WithValue, /:
+%/mathpiper_docs
+
+
+
+
