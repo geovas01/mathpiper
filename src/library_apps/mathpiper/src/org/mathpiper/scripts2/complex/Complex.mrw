@@ -101,3 +101,40 @@
 */
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Complex"
+*CMD Complex --- construct a complex number
+*STD
+*CALL
+	Complex(r, c)
+
+*PARMS
+
+{r} -- real part
+
+{c} -- imaginary part
+
+*DESC
+
+This function represents the complex number "r + I*c", where "I"
+is the imaginary unit. It is the standard representation used in Yacas
+to represent complex numbers. Both "r" and "c" are supposed to be
+real.
+
+Note that, at the moment, many functions in Yacas assume that all
+numbers are real unless it is obvious that it is a complex
+number. Hence {Im(Sqrt(x))} evaluates to {0} which is only true for nonnegative "x".
+
+*E.G.
+
+	In> I
+	Out> Complex(0,1);
+	In> 3+4*I
+	Out> Complex(3,4);
+	In> Complex(-2,0)
+	Out> -2;
+
+*SEE Re, Im, I, Abs, Arg
+%/mathpiper_docs
