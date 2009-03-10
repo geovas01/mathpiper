@@ -6,3 +6,31 @@
 300 # Re(_x) <-- x;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Re"
+*CMD Re --- real part of a complex number
+*STD
+*CALL
+	Re(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function returns the real part of the complex number "x".
+
+*E.G.
+
+	In> Re(5)
+	Out> 5;
+	In> Re(I)
+	Out> 0;
+	In> Re(Complex(3,4))
+	Out> 3;
+
+*SEE Complex, Im
+%/mathpiper_docs
