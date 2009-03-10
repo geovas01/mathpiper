@@ -15,3 +15,31 @@ Function() Add(val, ...);
 30 # Add(_value) <-- value;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Add"
+*CMD Add --- find sum of a list of values
+*STD
+*CALL
+	Add(val1, val2, ...)
+	Add({list})
+
+*PARMS
+
+{val1}, {val2} -- expressions
+
+{{list}} -- list of expressions to add
+
+*DESC
+
+This function adds all its arguments and returns their sum. It accepts any
+number of arguments. The arguments can be also passed as a list.
+
+*E.G.
+
+	In> Add(1,4,9);
+	Out> 14;
+	In> Add(1 .. 10);
+	Out> 55;
+%/mathpiper_docs

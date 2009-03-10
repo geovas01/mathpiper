@@ -32,3 +32,36 @@ Function("LeviCivita",{indices})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="LeviCivita"
+*CMD LeviCivita --- totally anti-symmetric Levi-Civita symbol
+*STD
+*CALL
+	LeviCivita(list)
+
+*PARMS
+
+{list} -- a list of integers 1 .. n in some order
+
+*DESC
+
+{LeviCivita} implements the Levi-Civita symbol. This is generally
+useful for tensor calculus.  {list}  should be a list of integers,
+and this function returns 1 if the integers are in successive order,
+eg. {LeviCivita( {1,2,3,...} )}  would return 1. Swapping two elements of this
+list would return -1. So, {LeviCivita( {2,1,3} )} would evaluate
+to -1.
+
+*E.G.
+
+	In> LeviCivita({1,2,3})
+	Out> 1;
+	In> LeviCivita({2,1,3})
+	Out> -1;
+	In> LeviCivita({2,2,3})
+	Out> 0;
+
+*SEE Permutations
+%/mathpiper_docs

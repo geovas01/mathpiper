@@ -58,3 +58,45 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Taylor"
+*CMD Taylor --- univariate Taylor series expansion
+*STD
+*CALL
+	Taylor(var, at, order) expr
+
+*PARMS
+
+{var} -- variable
+
+{at} -- point to get Taylor series around
+
+{order} -- order of approximation
+
+{expr} -- expression to get Taylor series for
+
+*DESC
+
+This function returns the Taylor series expansion of the expression
+"expr" with respect to the variable "var" around "at" up to order
+"order". This is a polynomial which agrees with "expr" at the
+point "var = at", and furthermore the first "order" derivatives of
+the polynomial at this point agree with "expr". Taylor expansions
+around removable singularities are correctly handled by taking the
+limit as "var" approaches "at".
+
+*E.G.
+
+	In> PrettyForm(Taylor(x,0,9) Sin(x))
+	
+	     3    5      7       9
+	    x    x      x       x
+	x - -- + --- - ---- + ------
+	    6    120   5040   362880
+	
+	Out> True;
+
+*SEE D, InverseTaylor, ReversePoly, BigOh
+%/mathpiper_docs

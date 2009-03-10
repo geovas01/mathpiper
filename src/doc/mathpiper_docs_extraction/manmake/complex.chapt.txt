@@ -1,3 +1,6 @@
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
 
 			Complex numbers
 
