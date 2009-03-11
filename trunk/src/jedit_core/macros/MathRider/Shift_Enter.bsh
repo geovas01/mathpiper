@@ -518,54 +518,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 				output_fold_type = "%output,name=\"" + foldName + "\"";
 				//System.out.println(
-				
-				
-				//Note: Since Load returns "True", it kills what was in %.
-				//lastResult = system.evaluate("%");
-				//System.out.println(" XXXXX: " + lastResult);
-				
-				//if(foldProperties.get("output").equalsIgnoreCase("latex") )
-				//{
-				//	result = system.evaluate("TeXForm(Hold(" + result + "));");
-				//	result = result.replace("\"$","$");
-				//	result = result.replace("$\"","$");
-				//	output_fold_type = "%hoteqn";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
-				//{	
-				//	result = system.evaluate("OMForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
-				//{	
-				//	result = system.evaluate("PrettyForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("c") )
-				//{	
-				//	result = system.evaluate("CForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
-				//{	
-				//	result = system.evaluate("FullForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("table") )
-				//{	
-				//	result = system.evaluate("TableForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
-				//{
-				//	output_fold_type = "%geogebra";
-				//}
-				//else
-				//{
-				//	output_fold_type = "%output";
-				//}
-	//Sy	stem.out.println("Out> " + result);
-				
+								
 					
 			}catch(org.mathrider.maxima.MathPiperException ye) 
 			{
@@ -588,100 +541,25 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 
 			try 
 			{   
-				//tempFilePath = tempFile.getAbsolutePath();
+
+				abcl = org.mathrider.abclplugin.ABCLShell.getInterpreter();
 				
-				//tempFilePath = ChangeToForwardSlash(tempFilePath);
-			
-				
-				//Determine how many lines are in the result.
-				//numberOfLines = 0;
-				//charIndex = 0;
-				//while(charIndex != result.length()){
-				//	if(result.charAt(charIndex) == "\n"){
-				//		numberOfLines++;
-				//	}
-				//	charIndex++;
-				//}//end while
-				
-				
-				//Make room at the end of the current fold for output and place output there.
-				//currentCaretPosition = textArea.getCaretPosition();
-        	
-				
-			//{{{
-			org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
-				response(response)
-				{
-					System.out.println("XXXX " + response + ", " + foldType);
-				}//end method.
-				
-				remove()
-				{
-					return true;
-				}//end method.
-				
-			};//end interface implementation.
-			//}}}
-				system = MaximaWrapper.getInstance();
-				system.addResponseListener(responseListener);
-				//System.out.println(tempFilePath);
 				tempFileName = tempFile.getName();
-				sendString = "load(\""+tempFileName+"\");\n";
-				system.send(sendString);
+				//System.out.println("******* " + tempFileName);
+				//sendString =("(load \"" + tempFileName + "\")");
+				//result = abcl.eval(sendString);
+				result = abcl.eval(codeText);
+				result = result.toString();
 				output_fold_type = "%output";
 				//System.out.println(
 				
-				
-				//Note: Since Load returns "True", it kills what was in %.
-				//lastResult = system.evaluate("%");
-				//System.out.println(" XXXXX: " + lastResult);
-				
-				//if(foldProperties.get("output").equalsIgnoreCase("latex") )
-				//{
-				//	result = system.evaluate("TeXForm(Hold(" + result + "));");
-				//	result = result.replace("\"$","$");
-				//	result = result.replace("$\"","$");
-				//	output_fold_type = "%hoteqn";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
-				//{	
-				//	result = system.evaluate("OMForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
-				//{	
-				//	result = system.evaluate("PrettyForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("c") )
-				//{	
-				//	result = system.evaluate("CForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
-				//{	
-				//	result = system.evaluate("FullForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("table") )
-				//{	
-				//	result = system.evaluate("TableForm(" + result + ");");
-				//	output_fold_type = "%output";
-				//}
-				//else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
-				//{
-				//	output_fold_type = "%geogebra";
-				//}
-				//else
-				//{
-				//	output_fold_type = "%output";
-				//}
-	//Sy	stem.out.println("Out> " + result);
-				
 					
-			}catch(org.mathrider.maxima.MathPiperException ye) 
+					
+			}catch(Throwable t) 
 			{
-				result = ye.getMessage();
+				t = (org.armedbear.lisp.ConditionThrowable) t;
+				result = t.getMessage() + "  " + t.getCondition();
+				t.printStackTrace();
 				output_fold_type = "%error ";
 			}
 			
