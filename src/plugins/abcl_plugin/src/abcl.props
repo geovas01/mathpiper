@@ -1,0 +1,81 @@
+# Properties file for ABCL plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.abclplugin.ABCLPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.abclplugin.ABCLPlugin.name=ABCL
+plugin.org.mathrider.abclplugin.ABCLPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.abclplugin.ABCLPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.abclplugin.ABCLPlugin.docs=index.html
+plugin.org.mathrider.abclplugin.ABCLPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.abclplugin.ABCLPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.abclplugin.ABCLPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.abclplugin.ABCLPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.abclplugin.ABCLPlugin..longdescription=description.html
+#}}}
+
+
+
+
+abcl.shell.msg.info=\nABCL Shell \n\
+
+
+abcl.shell.msg.usage=ABCL, a computer algebra system for beginners.
+
+
+
+# plugin menu
+plugin.org.mathrider.abclplugin.ABCLPlugin.menu=abcl
+#	- \
+#	piper.choose-file \
+#	piper.save-file \
+#	piper.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+abcl.label=abcl
+
+# action labels for actions supplied by actions.xml
+abcl.choose-file.label=Choose notepad file
+abcl.save-file.label=Save notepad file
+abcl.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.abcl.option-pane=abcl
+
+# Option pane activation BeanShell snippet
+options.abcl.code=new org.mathrider.abclplugin.ABCLOptionPane();
+
+# Option pane labels
+options.abcl.label=abcl
+options.abcl.file=File:
+options.abcl.choose-file=Choose
+options.abcl.choose-file.title=Choose a notepad file
+options.abcl.choose-font=Font:
+options.abcl.show-filepath.title=Display notepad file path
+
+# window title
+abcl.title=ABCL
+
+# window toolbar buttons
+abcl.choose-file.icon=Open.png
+abcl.save-file.icon=Save.png
+abcl.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.abcl.show-filepath=true
+options.abcl.font=Monospaced
+options.abcl.fontstyle=0
+options.abcl.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.abcl.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
