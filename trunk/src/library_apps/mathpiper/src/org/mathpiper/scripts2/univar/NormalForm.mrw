@@ -1,6 +1,10 @@
-%mathpiper,def="NormalForm"
+%mathpiper,def=""
 
-//Note:tk:since this is used in a number of univariate functions, I am publishing it as a def.
+/*
+Note:tk:since this version of NormalForm is only used in univariate functions, and since
+ the standard version of NormalForm is published as a def in standard.mrw,
+I am not publishing it as a def here.
+*/
 
 0 # NormalForm(UniVariate(_var,_first,_coefs)) <--
     ExpandUniVariate(var,first,coefs);
