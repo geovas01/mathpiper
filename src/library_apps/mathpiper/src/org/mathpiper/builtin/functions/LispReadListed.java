@@ -26,7 +26,7 @@ import org.mathpiper.lisp.parsers.Parser;
  *
  *  
  */
-public class ReadLispListed extends BuiltinFunction
+public class LispReadListed extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
