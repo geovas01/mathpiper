@@ -6,3 +6,39 @@ Rule("@",2,2,True       ) Apply(func,{arg});
 
 %/mathpiper
 
+
+
+%mathpiper_docs,name="@"
+*CMD @ --- apply a function
+*STD
+*CALL
+	fn @ arglist
+Precedence:
+*EVAL OpPrecedence("@")
+
+*PARMS
+
+{fn} -- function to apply
+
+{arglist} -- single argument, or a list of arguments
+
+*DESC
+
+This function is a shorthand for {Apply}. It applies the
+function "fn" to the argument(s) in "arglist" and returns the
+result. The first parameter "fn" can either be a string containing
+the name of a function or a pure function.
+
+This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
+
+*E.G.
+
+	In> "Sin" @ a
+	Out> Sin(a);
+	In> {{a},Sin(a)} @ a
+	Out> Sin(a);
+	In> "f" @ {a,b}
+	Out> f(a,b);
+
+*SEE Apply
+%/mathpiper_docs
