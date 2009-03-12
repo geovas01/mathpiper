@@ -51,3 +51,48 @@ LocalSymbols(CFormAllFunctions) [
 ]; // LocalSymbols(CFormAllFunctions)
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsCFormable"
+*CMD IsCFormable --- check possibility to export expression to C++ code
+*STD
+*CALL
+	IsCFormable(expr)
+	IsCFormable(expr, funclist)
+	
+*PARMS
+
+{expr} -- expression to be exported (this argument is not evaluated)
+
+{funclist} -- list of "allowed" function atoms
+
+*DESC
+
+{IsCFormable} returns {True} if the Yacas expression {expr} can be exported
+into C++ code. This is a check whether the C++ exporter {CForm} can be safely
+used on the expression.
+
+A Yacas expression is considered exportable if it contains only functions that can be translated into C++ (e.g. {UnList} cannot be exported). All variables and constants are considered exportable.
+
+The verbose option prints names of functions that are not exportable.
+
+The second calling format of {IsCFormable} can be used to "allow" certain function names that will be available in the C++ code.
+
+*E.G. notest
+
+	In> IsCFormable(Sin(a1)+2*Cos(b1))
+	Out> True;
+	In> V(IsCFormable(1+func123(b1)))
+	IsCFormable: Info: unexportable function(s):
+	  func123
+	Out> False;
+This returned {False} because the function {func123} is not available in C++. We can
+explicitly allow this function and then the expression will be considered
+exportable:
+
+	In> IsCFormable(1+func123(b1), {func123})
+	Out> True;
+
+*SEE CForm, V
+%/mathpiper_docs

@@ -4,3 +4,31 @@ NewLine() := WriteN(Nl(),1);
 NewLine(n):= WriteN(Nl(),n);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="NewLine"
+*CMD NewLine --- print one or more newline characters
+*STD
+*CALL
+	NewLine()
+	NewLine(nr)
+
+*PARMS
+
+{nr} -- the number of newline characters to print
+
+*DESC
+
+The command {NewLine()} prints one newline character
+on the current output. The second form prints "nr" newlines on the
+current output. The result is always True.
+
+*E.G. notest
+
+	In> NewLine();
+	
+	Out> True;
+
+*SEE Echo, Write, Space
+%/mathpiper_docs

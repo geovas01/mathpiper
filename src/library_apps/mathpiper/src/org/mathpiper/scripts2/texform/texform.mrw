@@ -1,4 +1,4 @@
-%mathpiper,def="TeXForm",scope="private"
+%mathpiper,def="TeXForm"
 
 /* def file definitions
 TeXForm
@@ -356,6 +356,28 @@ Function ("TeXFormPrintMatrix", {M})
 	ConcatStrings(result, " \\end{array} ");
 ];
 
-
-
 %/mathpiper
+
+
+
+%mathpiper_docs,name="TeXForm"
+*CMD TeXForm --- export expressions to $LaTeX$
+*STD
+*CALL
+	TeXForm(expr)
+
+*PARMS
+
+{expr} -- an expression to be exported
+
+*DESC
+
+{TeXForm} returns a string containing a $LaTeX$ representation of the Yacas expression {expr}. Currently the exporter handles most expression types but not all.
+
+*EG
+
+	In> TeXForm(Sin(a1)+2*Cos(b1))
+	Out> "$\sin a_{1} + 2 \cos b_{1}$";
+
+*SEE PrettyForm, CForm
+%/mathpiper_docs
