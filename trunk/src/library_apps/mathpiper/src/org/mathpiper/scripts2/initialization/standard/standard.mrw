@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="Nth;NrArgs;IsNonObject;Numer;Denom;NormalForm;==;!==;+-;/-;*-;^-;:=-;:=+;&;|;%;if;else;N;NonN;InNumericMode;V;InVerboseMode"
 
 /* See the documentation on the assignment of the precedence of the rules.
  */
@@ -313,4 +313,47 @@ neither rational nor numeric, the function returns unevaluated.
 
 *SEE Numer, IsRational, IsNumber
 %/mathpiper_docs
+
+
+
+%mathpiper_docs,name="V;InVerboseMode"
+*CMD V, InVerboseMode --- set verbose output mode
+*STD
+*CALL
+	V(expression)
+	InVerboseMode()
+
+*PARMS
+
+{expression} -- expression to be evaluated in verbose mode
+
+*DESC
+
+The function {V(expression)} will evaluate the expression in 
+verbose mode. Various parts of Yacas can show extra information
+about the work done while doing a calculation when using {V}.
+
+In verbose mode, {InVerboseMode()} will return {True}, otherwise
+it will return {False}.
+
+*E.G. notest
+
+	In> OldSolve({x+2==0},{x})
+	Out> {{-2}};
+	In> V(OldSolve({x+2==0},{x}))
+	Entering OldSolve
+	From  x+2==0  it follows that  x  = -2 
+	   x+2==0  simplifies to  True 
+	Leaving OldSolve
+	Out> {{-2}};
+	In> InVerboseMode()
+	Out> False
+	In> V(InVerboseMode())
+	Out> True
+
+*SEE Echo, N, OldSolve
+%/mathpiper_docs
+
+
+
 
