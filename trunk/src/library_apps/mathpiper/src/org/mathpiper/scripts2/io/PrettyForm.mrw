@@ -441,6 +441,68 @@ HoldArg("EvalFormula",f);
 {x,y,width,height,oper,args,base}
 */
 
-
-
 %/mathpiper
+
+
+
+%mathpiper_docs,name="PrettyForm"
+*CMD PrettyForm --- print an expression nicely with ASCII art
+*STD
+*CALL
+	PrettyForm(expr)
+
+*PARMS
+
+{expr} -- an expression
+
+*DESC
+
+{PrettyForm} renders an expression in a nicer way, using ascii art.
+This is generally useful when the result of a calculation is more
+complex than a simple number.
+
+*E.G.
+
+	In> Taylor(x,0,9)Sin(x)
+	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880;
+	In> PrettyForm(%)
+	
+	     3    5      7       9
+	    x    x      x       x
+	x - -- + --- - ---- + ------
+	    6    120   5040   362880
+	
+	Out> True;
+
+*SEE EvalFormula, PrettyPrinter'Set
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+*CMD EvalFormula --- print an evaluation nicely with ASCII art
+*STD
+*CALL
+	EvalFormula(expr)
+
+*PARMS
+
+{expr} -- an expression
+
+*DESC
+
+Show an evaluation in a nice way, using {PrettyPrinter'Set}
+to show 'input = output'.
+
+*E.G.
+
+	In> EvalFormula(Taylor(x,0,7)Sin(x))
+	
+	                                      3    5
+	                                     x    x  
+	Taylor( x , 0 , 5 , Sin( x ) ) = x - -- + ---
+	                                     6    120
+
+
+*SEE PrettyForm
+%/mathpiper_docs

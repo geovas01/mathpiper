@@ -269,7 +269,7 @@ Hence a better implementation would be
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="SystemCall"
 *CMD SystemCall --- pass a command to the shell
 *CORE
 *CALL
@@ -870,8 +870,714 @@ Most functions also return {Undefined} when evaluated on it.
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="FullForm"
+*CMD FullForm --- print an expression in LISP-format
+*CORE
+*CALL
+	FullForm(expr)
 
+*PARMS
+
+{expr} -- expression to be printed in LISP-format
+
+*DESC
+
+Evaluates "expr", and prints it in LISP-format on the current
+output. It is followed by a newline. The evaluated expression is also
+returned.
+
+This can be useful if you want to study the internal representation of
+a certain expression.
+
+*E.G. notest
+
+	In> FullForm(a+b+c);
+	(+ (+ a b )c )
+	Out> a+b+c;
+	In> FullForm(2*I*b^2);
+	(* (Complex 0 2 )(^ b 2 ))
+	Out> Complex(0,2)*b^2;
+
+The first example shows how the expression {a+b+c} is
+internally represented. In the second example, {2*I} is
+first evaluated to {Complex(0,2)} before the expression
+is printed.
+
+*SEE LispRead, Listify, Unlist
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Write"
+*CMD Write --- low-level printing routine
+*CORE
+*CALL
+	Write(expr, ...)
+
+*PARMS
+
+{expr} -- expression to be printed
+
+*DESC
+
+The expression "expr" is evaluated and written to the current
+output. Note that Write accept an arbitrary number of arguments, all
+of which are written to the current output (see second
+example). {Write} always returns {True}.
+
+*E.G. notest
+
+	In> Write(1);
+	1Out> True;
+	In> Write(1,2);
+	 1 2Out> True;
+
+Write does not write a newline, so the {Out>} prompt
+immediately follows the output of {Write}.
+
+*SEE Echo, WriteString
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="WriteString"
+*CMD WriteString --- low-level printing routine for strings
+*CORE
+*CALL
+	WriteString(string)
+
+*PARMS
+
+{string} -- the string to be printed
+
+*DESC
+
+The expression "string" is evaluated and written to the current
+output without quotation marks. The argument should be a
+string. WriteString always returns True.
+
+*E.G. notest
+
+	In> Write("Hello, world!");
+	"Hello, world!"Out> True;
+	In> WriteString("Hello, world!");
+	Hello, world!Out> True;
+
+This example clearly shows the difference between Write and
+WriteString. Note that Write and WriteString do not write a newline,
+so the {Out>} prompt immediately follows the output.
+
+*SEE Echo, Write
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="FromFile"
+*CMD FromFile --- connect current input to a file
+*CORE
+*CALL
+	FromFile(name) body
+
+*PARMS
+
+{name} - string, the name of the file to read
+
+{body} - expression to be evaluated
+
+*DESC
+
+The current input is connected to the file "name". Then the expression
+"body" is evaluated. If some functions in "body" try to read
+from current input, they will now read from the file "name". Finally, the
+file is closed and the result of evaluating "body" is returned.
+
+*E.G. notest
+
+Suppose that the file {foo} contains
+
+	2 + 5;
+
+Then we can have the following dialogue:
+
+	In> FromFile("foo") res := Read();
+	Out> 2+5;
+	In> FromFile("foo") res := ReadToken();
+	Out> 2;
+
+*SEE ToFile, FromString, Read, ReadToken
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="FromString"
+*CMD FromString --- connect current input to a string
+*CORE
+*CALL
+	FromString(str) body;
+
+*PARMS
+
+{str} -- a string containing the text to parse
+
+{body} -- expression to be evaluated
+
+*DESC
+
+The commands in "body" are executed, but everything that is read
+from the current input is now read from the string "str". The
+result of "body" is returned.
+
+*E.G.
+
+	In> FromString("2+5; this is never read") \
+	  res := Read();
+	Out> 2+5;
+	In> FromString("2+5; this is never read") \
+	  res := Eval(Read());
+	Out> 7;
+
+*SEE ToString, FromFile, Read, ReadToken
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="ToFile"
+*CMD ToFile --- connect current output to a file
+*CORE
+*CALL
+	ToFile(name) body
+
+*PARMS
+
+{name} -- string, the name of the file to write the result to
+
+{body} -- expression to be evaluated
+
+*DESC
+
+The current output is connected to the file "name". Then the expression
+"body" is evaluated. Everything that the commands in "body" print
+to the current output, ends up in the file "name". Finally, the
+file is closed and the result of evaluating "body" is returned.
+
+If the file is opened again, the old contents will be overwritten.
+This is a limitation of {ToFile}: one cannot append to a file that has already been created.
+
+*E.G. notest
+
+Here is how one can create a file with C code to evaluate an expression:
+
+	In> ToFile("expr1.c") WriteString(
+	  CForm(Sqrt(x-y)*Sin(x)) );
+	Out> True;
+The file {expr1.c} was created in the current working directory and it
+contains the line
+	sqrt(x-y)*sin(x)
+
+As another example, take a look at the following command:
+
+	In> [ Echo("Result:");  \
+	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
+	Result:
+	
+	     3    5      7       9
+	    x    x      x       x
+	x - -- + --- - ---- + ------
+	    6    120   5040   362880
+	
+	Out> True;
+
+Now suppose one wants to send the output of this command to a
+file. This can be achieved as follows:
+
+	In> ToFile("out") [ Echo("Result:");  \
+	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
+	Out> True;
+
+After this command the file {out} contains:
+
+	
+	Result:
+	
+	     3    5      7       9
+	    x    x      x       x
+	x - -- + --- - ---- + ------
+	    6    120   5040   362880
+	
+
+*SEE FromFile, ToString, Echo, Write, WriteString, PrettyForm, Taylor
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="ToString"
+*CMD ToString --- connect current output to a string
+*CORE
+*CALL
+	ToString() body
+
+*PARMS
+
+{body} -- expression to be evaluated
+
+*DESC
+
+The commands in "body" are executed. Everything that is printed on
+the current output, by {Echo} for instance, is
+collected in a string and this string is returned.
+
+*E.G.
+
+	In> str := ToString() [ WriteString(  \
+	  "The square of 8 is "); Write(8^2); ];
+	Out> "The square of 8 is  64";
+
+*SEE FromFile, ToString, Echo, Write, WriteString
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Read"
+*CMD Read --- read an expression from current input
+*CORE
+*CALL
+	Read()
+
+*DESC
+
+Read an expression from the current input, and return it unevaluated. When
+the end of an input file is encountered, the token atom {EndOfFile} is returned.
+
+*E.G.
+
+	In> FromString("2+5;") Read();
+	Out> 2+5;
+	In> FromString("") Read();
+	Out> EndOfFile;
+
+*SEE FromFile, FromString, LispRead, ReadToken, Write
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Read"
+*CMD Read --- read an expression from current input
+*CORE
+*CALL
+	Read()
+
+*DESC
+
+Read an expression from the current input, and return it unevaluated. When
+the end of an input file is encountered, the token atom {EndOfFile} is returned.
+
+*E.G.
+
+	In> FromString("2+5;") Read();
+	Out> 2+5;
+	In> FromString("") Read();
+	Out> EndOfFile;
+
+*SEE FromFile, FromString, LispRead, ReadToken, Write
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="ToStdout"
+*CMD ToStdout --- select initial output stream for output
+*CORE
+*CALL
+	ToStdout() body
+
+*PARMS
+
+{body} -- expression to be evaluated
+
+*DESC
+
+When using {ToString} or {ToFile}, it might happen that something needs to be
+written to the standard default initial output (typically the screen). {ToStdout} can be used to select this stream.
+
+*EG
+
+	In> ToString()[Echo("aaaa");ToStdout()Echo("bbbb");];
+	bbbb
+	Out> "aaaa
+	"
+
+*SEE ToString, ToFile
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="ReadCmdLineString"
+*CMD ReadCmdLineString --- read an expression from command line and return in string
+*CORE
+*CALL
+	ReadCmdLineString(prompt)
+
+*PARMS
+
+{prompt} -- string representing the prompt shown on screen
+
+*DESC
+
+This function allows for interactive input similar to the command line.
+When using this function, the history from the command line is also available.
+
+The result is returned in a string, so it still needs to be parsed.
+
+This function will typically be used in situations where one wants a custom 
+read-eval-print loop. 
+
+
+*E.G. notest
+
+The following defines a function that when invoked keeps asking
+for an expression (the <i>read</i> step), and then takes 
+the derivative of it (the <i>eval</i> step) and then 
+uses PrettyForm to display the result (the <i>print</i> step).
+
+	In> ReEvPr() := \
+	In>   While(True) [ \
+	In>     PrettyForm(Deriv(x) \
+	In>      FromString(ReadCmdLineString("Deriv> "):";")Read()); \
+	In> ];
+	Out> True;
+
+Then one can invoke the command, from which the following interaction
+might follow:
+
+	In> ReEvPr()
+	Deriv> Sin(a^2*x/b)
+	
+	   /  2     \         
+	   | a  * x |    2    
+	Cos| ------ | * a  * b
+	   \   b    /         
+	----------------------
+	           2          
+	          b           
+	
+	Deriv> Sin(x)
+	
+	Cos( x )
+	
+	Deriv> 
+
+*SEE Read, LispRead, LispReadListed
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="LispRead;LispReadListed"
+*CMD LispRead --- read expressions in LISP syntax
+*CMD LispReadListed --- read expressions in LISP syntax
+*CORE
+*CALL
+	LispRead()
+	LispReadListed()
+
+*DESC
+
+The function {LispRead} reads an expression in the LISP syntax from the current input, and returns
+it unevaluated. When the end of an input file is encountered, the
+special token atom {EndOfFile} is returned.
+
+The Yacas expression {a+b} is written in the LISP syntax as {(+ a b)}. The advantage of this syntax is that it is
+less ambiguous than the infix operator grammar that Yacas uses by
+default.
+
+The function {LispReadListed} reads a LISP expression and returns
+it in a list, instead of the form usual to Yacas (expressions).
+The result can be thought of as applying {Listify} to {LispRead}.
+The function {LispReadListed} is more useful for reading arbitrary LISP expressions, because the 
+first object in a list can be itself a list (this is never the case for Yacas expressions where the first object in a list is always a function atom).
+
+*E.G. notest
+
+	In> FromString("(+ a b)") LispRead();
+	Out> a+b;
+	In> FromString("(List (Sin x) (- (Cos x)))") \
+	  LispRead();
+	Out> {Sin(x),-Cos(x)};
+	In> FromString("(+ a b)")LispRead()
+	Out> a+b;
+	In> FromString("(+ a b)")LispReadListed()
+	Out> {+,a,b};
+
+*SEE FromFile, FromString, Read, ReadToken, FullForm
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="ReadToken"
+*CMD ReadToken --- read a token from current input
+*CORE
+*CALL
+	ReadToken()
+
+*DESC
+
+Read a token from the current input, and return it unevaluated.
+The returned object is a Yacas atom (not a string).
+When
+the end of an input file is encountered, the token atom {EndOfFile} is returned.
+
+A token is for computer languages what a word is for human languages:
+it is the smallest unit in which a command can be divided, so that the
+semantics (that is the meaning) of the command is in some sense a
+combination of the semantics of the tokens. Hence {a := foo} consists of three tokens, namely {a}, {:=}, and {foo}.
+
+The parsing of the string depends on the syntax of the language.
+The part of the kernel that does the parsing is the "tokenizer".
+Yacas can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives {DefaultTokenizer} or {XmlTokenizer}.
+Setting a tokenizer is a global action that affects all {ReadToken} calls.
+
+*E.G. notest
+
+	In> FromString("a := Sin(x)") While \
+	  ((tok := ReadToken()) != EndOfFile) \
+	  Echo(tok);
+	a
+	:=
+	Sin
+	(
+	x
+	)
+	Out> True;
+
+We can read some junk too:
+	In> FromString("-$3")ReadToken();
+	Out> -$;
+The result is an atom with the string representation {-$}.
+Yacas assumes that {-$} is an operator symbol yet to be defined.
+The "{3}" will be in the next token.
+(The results will be different if a non-default tokenizer is selected.)
+
+
+*SEE FromFile, FromString, Read, LispRead, DefaultTokenizer
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Load"
+*CMD Load --- evaluate all expressions in a file
+*CORE
+*CALL
+	Load(name)
+
+*PARMS
+
+{name} -- string, name of the file to load
+
+*DESC
+
+The file "name" is opened. All expressions in the file are read and
+evaluated. {Load} always returns {true}.
+
+*SEE Use, DefLoad, DefaultDirectory, FindFile
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Use"
+*CMD Use --- load a file, but not twice
+*CORE
+*CALL
+	Use(name)
+
+*PARMS
+
+{name} -- string, name of the file to load
+
+*DESC
+
+If the file "name" has been loaded before, either by an earlier call
+to {Use} or via the {DefLoad}
+mechanism, nothing happens. Otherwise all expressions in the file are
+read and evaluated. {Use} always returns {true}.
+
+The purpose of this function is to make sure that the file will at
+least have been loaded, but is not loaded twice.
+
+*SEE Load, DefLoad, DefaultDirectory
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="DefLoad"
+*CMD DefLoad --- load a {.def} file
+*CORE
+*CALL
+	DefLoad(name)
+
+*PARMS
+
+{name} -- string, name of the file (without {.def} suffix)
+
+*DESC
+
+The suffix {.def} is appended to "name" and the
+file with this name is loaded. It should contain a list of functions,
+terminated by a closing brace \} (the end-of-list delimiter). This
+tells the system to load the file "name" as soon as the user calls
+one of the functions named in the file (if not done so already). This
+allows for faster startup times, since not all of the rules databases
+need to be loaded, just the descriptions on which files to load for
+which functions.
+
+*SEE Load, Use, DefaultDirectory
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="FindFile"
+*CMD FindFile --- find a file in the current path
+*CORE
+*CALL
+	FindFile(name)
+
+*PARMS
+
+{name} -- string, name of the file or directory to find
+
+*DESC
+
+The result of this command is the full path to the file that would be
+opened when the command {Load(name)} would be
+invoked. This means that the input directories are subsequently
+searched for a file called "name". If such a file is not found, {FindFile} returns an empty string.
+
+{FindFile("")} returns the name of the default directory (the first one on the search path).
+
+*SEE Load, DefaultDirectory
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="PatchLoad"
+*CMD PatchLoad --- execute commands between {<?} and {?>} in file
+*CORE
+*CALL
+	PatchLoad(name)
+
+*PARMS
+
+{name} -- string, name of the file to "patch"
+
+*DESC
+
+{PatchLoad} loads in a file and outputs the contents to the current
+output. The file can contain blocks delimited by {<?} and {?>}
+(meaning "Yacas Begin" and "Yacas End"). The piece of text between
+such delimiters is treated as a separate file with Yacas instructions,
+which is then loaded and executed. All output of write statements
+in that block will be written to the same current output.
+
+This is similar to the way PHP works. You can have a static text file
+with dynamic content generated by Yacas.
+
+*SEE PatchString, Load
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="XmlExplodeTag"
+*CMD XmlExplodeTag --- convert XML strings to tag objects
+*CORE
+*CALL
+	XmlExplodeTag(xmltext)
+*PARMS
+
+{xmltext} -- string containing some XML tokens
+
+*DESC
+
+{XmlExplodeTag} parses the first XML token in {xmltext}
+and returns a Yacas expression.
+
+The following subset of XML syntax is supported currently:
+
+*	{<TAG [options]>} -- an opening tag
+*	{</TAG [options]>} -- a closing tag
+*	{<TAG [options] />} -- an open/close tag
+*	plain (non-tag) text
+
+The tag options take the form {paramname="value"}.
+
+If given an XML tag, {XmlExplodeTag} returns a structure of the form {XmlTag(name,params,type)}.
+In the returned object,
+{name} is the (capitalized) tag name, {params} is an assoc list with
+the options (key fields capitalized), and type can be either "Open", "Close" or "OpenClose".
+
+If given a plain text string, the same string is returned.
+
+
+*E.G.
+	In> XmlExplodeTag("some plain text")
+	Out> "some plain text";
+	In> XmlExplodeTag("<a name=\"blah blah\"
+	  align=\"left\">")
+	Out> XmlTag("A",{{"ALIGN","left"},
+	  {"NAME","blah blah"}},"Open");
+	In> XmlExplodeTag("</p>")
+	Out> XmlTag("P",{},"Close");
+	In> XmlExplodeTag("<br/>")
+	Out> XmlTag("BR",{},"OpenClose");
+
+*SEE XmlTokenizer
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="DefaultTokenizer;XmlTokenizer"
+*CMD DefaultTokenizer --- select the default syntax tokenizer for parsing the input
+*CMD XmlTokenizer --- select an XML syntax tokenizer for parsing the input
+*CORE
+*CALL
+	DefaultTokenizer()
+	XmlTokenizer()
+
+*DESC
+
+A "tokenizer" is an internal routine in the kernel that parses the input into Yacas expressions.
+This affects all input typed in by a user at the prompt and also the input redirected from files or strings using {FromFile} and {FromString} and read using {Read} or {ReadToken}.
+
+The Yacas environment currently supports some experimental tokenizers for 
+various syntaxes. {DefaultTokenizer} switches to the tokenizer used for
+default Yacas syntax. {XmlTokenizer} switches to an XML syntax.
+Note that setting the tokenizer is a global side effect.
+One typically needs
+to switch back to the default tokenizer when finished reading the special syntax.
+
+Care needs to be taken when kernel errors are raised during a non-default tokenizer operation (as with any global change in the environment).
+Errors need to be
+caught with the {TrapError} function. The error handler code should re-instate
+the default tokenizer,
+or else the user will be unable to continue the session
+(everything a user types will be parsed using a non-default tokenizer).
+
+When reading XML syntax, the supported formats are the same as those of {XmlExplodeTag}.
+The parser does not validate anything in the XML input.
+After an XML token has been read in, it can be converted into an
+Yacas expression with {XmlExplodeTag}.
+Note that when reading XML, any plain text between tags is returned as one token.
+Any malformed XML will be treated as plain text.
+
+
+*EG notest
+
+	In> [XmlTokenizer(); q:=ReadToken(); \
+	  DefaultTokenizer();q;]
+	<a>Out> <a>;
+
+Note that:
+*	1. after switching to {XmlTokenizer} the {In>} prompt disappeared; the user typed {<a>} and the {Out>} prompt with the resulting expression appeared.
+*	2. The resulting expression is an atom with the string representation {<a>};
+it is <i>not</i> a string.
+
+*SEE OMRead, TrapError, XmlExplodeTag, ReadToken, FromFile, FromString
 %/mathpiper_docs
 
 
@@ -947,5 +1653,9 @@ Most functions also return {Undefined} when evaluated on it.
 %/mathpiper_docs
 
 
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
 
 

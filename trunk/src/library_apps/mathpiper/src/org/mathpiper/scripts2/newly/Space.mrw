@@ -4,3 +4,30 @@ Space() := WriteN(" ",1);
 Space(n):= WriteN(" ",n);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Space"
+*CMD Space --- print one or more spaces
+*STD
+*CALL
+	Space()
+	Space(nr)
+
+*PARMS
+
+{nr} -- the number of spaces to print
+
+*DESC
+
+The command {Space()} prints one space on the
+current output. The second form prints {nr} spaces on the current
+output. The result is always True.
+
+*E.G. notest
+
+	In> Space(5);
+	     Out> True;
+
+*SEE Echo, Write, NewLine
+%/mathpiper_docs

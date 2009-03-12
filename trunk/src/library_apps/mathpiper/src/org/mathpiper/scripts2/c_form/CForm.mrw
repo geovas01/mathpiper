@@ -225,3 +225,27 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 	: CFormStatement(body) : CUndent();
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="CForm"
+*CMD CForm --- export expression to C++ code
+*STD
+*CALL
+	CForm(expr)
+	
+*PARMS
+
+{expr} -- expression to be exported
+
+*DESC
+
+{CForm} returns a string containing C++ code that attempts to implement the Yacas expression {expr}. Currently the exporter handles most expression types but not all.
+
+*EG
+
+	In> CForm(Sin(a1)+2*Cos(b1));
+	Out> "sin(a1) + 2 * cos(b1)";
+
+*SEE PrettyForm, TeXForm, IsCFormable
+%/mathpiper_docs
