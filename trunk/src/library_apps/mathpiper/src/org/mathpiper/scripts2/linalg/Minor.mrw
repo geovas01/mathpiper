@@ -3,3 +3,45 @@
 Minor(matrix,i,j) := CoFactor(matrix,i,j)*(-1)^(i+j);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Minor"
+*CMD Minor --- get principal minor of a matrix
+*STD
+*CALL
+	Minor(M,i,j)
+
+*PARMS
+
+{M} -- a matrix
+
+{i}, {j} - positive integers
+
+*DESC
+
+Minor returns the minor of a matrix around
+the element ($i$, $j$). The minor is the determinant of the matrix obtained from $M$ by
+deleting the $i$-th row and the $j$-th column.
+
+*E.G.
+
+	In> A := {{1,2,3}, {4,5,6}, {7,8,9}};
+	Out> {{1,2,3},{4,5,6},{7,8,9}};
+	In> PrettyForm(A);
+	
+	/                    \
+	| ( 1 ) ( 2 ) ( 3 )  |
+	|                    |
+	| ( 4 ) ( 5 ) ( 6 )  |
+	|                    |
+	| ( 7 ) ( 8 ) ( 9 )  |
+	\                    /
+	Out> True;
+	In> Minor(A,1,2);
+	Out> -6;
+	In> Determinant({{2,3}, {8,9}});
+	Out> -6;
+
+*SEE CoFactor, Determinant, Inverse
+%/mathpiper_docs

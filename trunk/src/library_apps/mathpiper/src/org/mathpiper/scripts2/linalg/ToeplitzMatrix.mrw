@@ -4,3 +4,37 @@
 ToeplitzMatrix(N):=GenMatrix({{i,j},N[Abs(i-j)+1]}, Length(N), Length(N) );
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="ToeplitzMatrix"
+*CMD ToeplitzMatrix --- create a Toeplitz matrix
+*STD
+*CALL
+	ToeplitzMatrix(N)
+*PARMS
+
+{N} -- an $n$-dimensional row vector
+
+*DESC
+
+The function {ToeplitzMatrix} calculates the Toeplitz matrix given
+an $n$-dimensional row vector. This matrix has the same entries in
+all diagonal columns, from upper left to lower right.
+
+*E.G.
+
+	In> PrettyForm(ToeplitzMatrix({1,2,3,4,5}))
+
+	/                                \
+	| ( 1 ) ( 2 ) ( 3 ) ( 4 ) ( 5 )  |
+	|                                |
+	| ( 2 ) ( 1 ) ( 2 ) ( 3 ) ( 4 )  |
+	|                                |
+	| ( 3 ) ( 2 ) ( 1 ) ( 2 ) ( 3 )  |
+	|                                |
+	| ( 4 ) ( 3 ) ( 2 ) ( 1 ) ( 2 )  |
+	|                                |
+	| ( 5 ) ( 4 ) ( 3 ) ( 2 ) ( 1 )  |
+	\                                /
+%/mathpiper_docs

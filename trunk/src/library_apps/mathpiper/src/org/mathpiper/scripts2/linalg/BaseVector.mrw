@@ -9,3 +9,31 @@ Function("BaseVector",{row,n})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="BaseVector"
+*CMD BaseVector --- base vector
+*STD
+*CALL
+	BaseVector(k, n)
+
+*PARMS
+
+{k} -- index of the base vector to construct
+
+{n} -- dimension of the vector
+
+*DESC
+
+This command returns the "k"-th base vector of dimension "n". This
+is a vector of length "n" with all zeroes except for the "k"-th
+entry, which contains a 1.
+
+*E.G.
+
+	In> BaseVector(2,4)
+	Out> {0,1,0,0};
+
+*SEE ZeroVector, Identity
+%/mathpiper_docs

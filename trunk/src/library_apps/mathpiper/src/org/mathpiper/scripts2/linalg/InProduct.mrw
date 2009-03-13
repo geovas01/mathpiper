@@ -17,3 +17,30 @@ Function("InProduct",{aLeft,aRight})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="InProduct"
+*CMD InProduct --- inner product of vectors (deprecated)
+*STD
+*CALL
+	InProduct(a,b)
+
+*PARMS
+
+{a}, {b} -- vectors of equal length
+
+*DESC
+
+The inner product of the two vectors "a" and "b" is returned. The
+vectors need to have the same size.
+
+This function is superceded by the {.} operator.
+
+*E.G.
+
+	In> {a,b,c} . {d,e,f};
+	Out> a*d+b*e+c*f;
+
+*SEE Dot, CrossProduct
+%/mathpiper_docs

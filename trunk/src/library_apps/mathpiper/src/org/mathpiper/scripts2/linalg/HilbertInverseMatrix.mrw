@@ -4,3 +4,36 @@ HilbertInverseMatrix(n):=GenMatrix({{i,j},
 	(-1)^(i+j)*(i+j-1)*Bin(n+i-1,n-j)*Bin(n+j-1,n-i)*Bin(i+j-2,i-1)^2},n,n);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="HilbertInverseMatrix"
+*CMD HilbertInverseMatrix --- create a Hilbert inverse matrix
+*STD
+*CALL
+	HilbertInverseMatrix(n)
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+The function {HilbertInverseMatrix} returns the {n} by {n} inverse of the
+corresponding Hilbert matrix. All Hilbert inverse matrices have integer
+entries that grow in magnitude rapidly.
+
+*E.G.
+	In> PrettyForm(HilbertInverseMatrix(4))
+
+	/                                         \
+	| ( 16 )   ( -120 )  ( 240 )   ( -140 )   |
+	|                                         |
+	| ( -120 ) ( 1200 )  ( -2700 ) ( 1680 )   |
+	|                                         |
+	| ( 240 )  ( -2700 ) ( 6480 )  ( -4200 )  |
+	|                                         |
+	| ( -140 ) ( 1680 )  ( -4200 ) ( 2800 )   |
+	\                                         /
+
+*SEE HilbertMatrix
+%/mathpiper_docs
