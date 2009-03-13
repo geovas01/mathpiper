@@ -21,3 +21,26 @@ IsDiagonal(A_IsMatrix) <--
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsDiagonal"
+*CMD IsDiagonal --- test for a diagonal matrix
+*STD
+*CALL
+	IsDiagonal(A)
+
+*PARMS
+
+{A} -- a matrix
+
+*DESC
+
+{IsDiagonal(A)} returns {True} if {A} is a diagonal square matrix and {False} otherwise.
+
+*E.G.
+	In> IsDiagonal(Identity(5))
+	Out> True;
+	In> IsDiagonal(HilbertMatrix(5))
+	Out> False;
+%/mathpiper_docs

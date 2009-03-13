@@ -12,3 +12,27 @@ Function("ZeroVector",{n})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="ZeroVector"
+*CMD ZeroVector --- create a vector with all zeroes
+*STD
+*CALL
+	ZeroVector(n)
+
+*PARMS
+
+{n} -- length of the vector to return
+
+*DESC
+
+This command returns a vector of length "n", filled with zeroes.
+
+*E.G.
+
+	In> ZeroVector(4)
+	Out> {0,0,0,0};
+
+*SEE BaseVector, ZeroMatrix, IsZeroVector
+%/mathpiper_docs

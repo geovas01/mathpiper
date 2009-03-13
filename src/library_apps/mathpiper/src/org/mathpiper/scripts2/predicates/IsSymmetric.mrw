@@ -3,3 +3,45 @@
 IsSymmetric(A_IsMatrix) <-- (Transpose(A)=A);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsSymmetric"
+*CMD IsSymmetric --- test for a symmetric matrix
+*STD
+*CALL
+	IsSymmetric(A)
+
+*PARMS
+
+{A} -- a matrix
+
+*DESC
+
+{IsSymmetric(A)} returns {True} if {A} is symmetric and {False} otherwise.
+$A$ is symmetric iff Transpose ($A$) =$A$.
+
+*E.G.
+
+	In> A := {{1,0,0,0,1},{0,2,0,0,0},{0,0,3,0,0},
+	  {0,0,0,4,0},{1,0,0,0,5}};
+	In> PrettyForm(A)
+
+	/                                \
+	| ( 1 ) ( 0 ) ( 0 ) ( 0 ) ( 1 )  |
+	|                                |
+	| ( 0 ) ( 2 ) ( 0 ) ( 0 ) ( 0 )  |
+	|                                |
+	| ( 0 ) ( 0 ) ( 3 ) ( 0 ) ( 0 )  |
+	|                                |
+	| ( 0 ) ( 0 ) ( 0 ) ( 4 ) ( 0 )  |
+	|                                |
+	| ( 1 ) ( 0 ) ( 0 ) ( 0 ) ( 5 )  |
+	\                                /
+	Out> True;
+	In> IsSymmetric(A)
+	Out> True;
+		
+
+*SEE IsHermitian, IsSkewSymmetric
+%/mathpiper_docs

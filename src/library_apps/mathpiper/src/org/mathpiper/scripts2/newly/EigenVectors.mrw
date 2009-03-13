@@ -23,3 +23,36 @@ EigenVectors(_matrix,_eigenvalues) <--
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="EigenVectors"
+*CMD EigenVectors --- get eigenvectors of a matrix
+*STD
+*CALL
+	EigenVectors(A,eigenvalues)
+
+*PARMS
+
+{matrix} -- a square matrix
+
+{eigenvalues} -- list of eigenvalues as returned by {EigenValues}
+
+*DESC
+
+{EigenVectors} returns a list of the eigenvectors of a matrix.
+It uses the eigenvalues and the matrix to set up n equations with
+n unknowns for each eigenvalue, and then calls {Solve} to determine
+the values of each vector.
+
+*E.G.
+
+	In> M:={{1,2},{2,1}}
+	Out> {{1,2},{2,1}};
+	In> e:=EigenValues(M)
+	Out> {3,-1};
+	In> EigenVectors(M,e)
+	Out> {{-ki2/ -1,ki2},{-ki2,ki2}};
+
+*SEE EigenValues, CharacteristicEquation
+%/mathpiper_docs

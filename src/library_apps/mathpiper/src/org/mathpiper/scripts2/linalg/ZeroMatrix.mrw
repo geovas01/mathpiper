@@ -12,3 +12,35 @@
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="ZeroMatrix"
+*CMD ZeroMatrix --- make a zero matrix
+*STD
+*CALL
+	ZeroMatrix(n)
+	ZeroMatrix(n, m)
+
+*PARMS
+
+{n} -- number of rows
+
+{m} -- number of columns
+
+*DESC
+
+This command returns a matrix with {n} rows and {m} columns,
+completely filled with zeroes. If only given one parameter,
+it returns the square {n} by {n} zero matrix.
+
+*E.G.
+
+	In> ZeroMatrix(3,4)
+	Out> {{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+	In> ZeroMatrix(3)
+	Out> {{0,0,0},{0,0,0},{0,0,0}};
+
+
+*SEE ZeroVector, Identity
+%/mathpiper_docs

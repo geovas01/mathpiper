@@ -23,3 +23,33 @@ Function("CrossProduct",{aLeft,aRight})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="CrossProduct"
+*CMD CrossProduct --- outer product of vectors
+*STD
+*CALL
+	CrossProduct(a,b)
+	a X b
+Precedence:
+*EVAL OpPrecedence("X")
+
+*PARMS
+
+{a}, {b} -- three-dimensional vectors
+
+*DESC
+
+The cross product of the vectors "a"
+and "b" is returned. The result is perpendicular to both "a" and
+"b" and its length is the product of the lengths of the vectors.
+Both "a" and "b" have to be three-dimensional.
+
+*E.G.
+
+	In> {a,b,c} X {d,e,f};
+	Out> {b*f-c*e,c*d-a*f,a*e-b*d};
+
+*SEE InProduct
+%/mathpiper_docs

@@ -67,3 +67,51 @@ Dot1(_t1,_t2,_m,_n) <--
 ]; // LocalSymbols(Dot0,Dot1)
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Dot"
+*CMD Dot, . --- get dot product of tensors
+*STD
+*CALL
+	Dot(t1,t2)
+	t1 . t2
+Precedence:
+*EVAL OpPrecedence(".")
+
+*PARMS
+
+{t1,t2} -- tensor lists (currently only vectors and matrices are supported)
+
+*DESC
+
+{Dot} returns the dot (aka inner) product of two tensors t1 and t2. The last
+index of t1 and the first index of t2 are contracted. Currently {Dot} works
+only for vectors and matrices. {Dot}-multiplication of two vectors, a matrix
+with a vector (and vice versa) or two matrices yields either a scalar, a
+vector or a matrix.
+
+*E.G.
+
+	In> Dot({1,2},{3,4})
+	Out> 11;
+	In> Dot({{1,2},{3,4}},{5,6})
+	Out> {17,39};
+	In> Dot({5,6},{{1,2},{3,4}})
+	Out> {23,34};
+	In> Dot({{1,2},{3,4}},{{5,6},{7,8}})
+	Out> {{19,22},{43,50}};
+
+	Or, using the "."-Operator:
+
+	In> {1,2} . {3,4}
+	Out> 11;
+	In> {{1,2},{3,4}} . {5,6}
+	Out> {17,39};
+	In> {5,6} . {{1,2},{3,4}}
+	Out> {23,34};
+	In> {{1,2},{3,4}} . {{5,6},{7,8}}
+	Out> {{19,22},{43,50}};
+
+*SEE Outer, Cross, IsScalar, IsVector, IsMatrix
+%/mathpiper_docs
