@@ -26,3 +26,46 @@ HoldArgNr("Table",5,2); /* var */
 UnFence("Table",5);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Table"
+*CMD Table --- evaluate while some variable ranges over interval
+*STD
+*CALL
+	Table(body, var, from, to, step)
+
+*PARMS
+
+{body} -- expression to evaluate multiple times
+
+{var} -- variable to use as loop variable
+
+{from} -- initial value for "var"
+
+{to} -- final value for "var"
+
+{step} -- step size with which "var" is incremented
+
+*DESC
+
+This command generates a list of values from "body", by assigning
+variable "var" values from "from" up to "to", incrementing
+"step" each time. So, the variable "var" first gets the value
+"from", and the expression "body" is evaluated. Then the value
+"from"+"step" is assigned to "var" and the expression "body"
+is again evaluated. This continues, incrementing "var" with "step"
+on every iteration, until "var" exceeds "to". At that moment, all
+the results are assembled in a list and this list is returned.
+
+*E.G.
+
+	In> Table(i!, i, 1, 9, 1);
+	Out> {1,2,6,24,120,720,5040,40320,362880};
+	In> Table(i, i, 3, 16, 4);
+	Out> {3,7,11,15};
+	In> Table(i^2, i, 10, 1, -1);
+	Out> {100,81,64,49,36,25,16,9,4,1};
+
+*SEE For, MapSingle, .., TableForm
+%/mathpiper_docs

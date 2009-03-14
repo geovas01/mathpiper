@@ -17,3 +17,31 @@ LocalSymbols(predicate,list,result,item)
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Select"
+*CMD Select --- select entries satisfying some predicate
+*STD
+*CALL
+	Select(pred, list)
+
+*PARMS
+
+{pred} -- a predicate
+
+{list} -- a list of elements to select from
+
+*DESC
+
+{Select} returns a sublist of "list" which contains all
+the entries for which the predicate "pred" returns
+{True} when applied to this entry.
+
+*E.G.
+
+	In> Select("IsInteger",{a,b,2,c,3,d,4,e,f})
+	Out> {2,3,4};
+
+*SEE Length, Find, Count
+%/mathpiper_docs

@@ -9,3 +9,36 @@ Function("Count",{list,element})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Count"
+*CMD Count --- count the number of occurrences of an expression
+*STD
+*CALL
+	Count(list, expr)
+
+*PARMS
+
+{list} -- the list to examine
+
+{expr} -- expression to look for in "list"
+
+*DESC
+
+This command counts the number of times that the expression "expr"
+occurs in "list" and returns this number.
+
+*E.G.
+
+	In> lst := {a,b,c,b,a};
+	Out> {a,b,c,b,a};
+	In> Count(lst, a);
+	Out> 2;
+	In> Count(lst, c);
+	Out> 1;
+	In> Count(lst, x);
+	Out> 0;
+
+*SEE Length, Select, Contains
+%/mathpiper_docs
