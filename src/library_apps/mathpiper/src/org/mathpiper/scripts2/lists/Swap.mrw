@@ -10,3 +10,37 @@ Function("Swap",{list,index1,index2})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Swap"
+*CMD Swap --- swap two elements in a list
+*STD
+*CALL
+	Swap(list, i1, i2)
+
+*PARMS
+
+{list} -- the list in which a pair of entries should be swapped
+
+{i1, i2} -- indices of the entries in "list" to swap
+
+*DESC
+
+This command swaps the pair of entries with entries "i1" and "i2"
+in "list". So the element at index "i1" ends up at index "i2"
+and the entry at "i2" is put at index "i1". Both indices should be
+valid to address elements in the list. Then the updated list is
+returned.
+
+{Swap()} works also on generic arrays.
+
+*E.G.
+
+	In> lst := {a,b,c,d,e,f};
+	Out> {a,b,c,d,e,f};
+	In> Swap(lst, 2, 4);
+	Out> {a,d,c,b,e,f};
+
+*SEE Replace, DestructiveReplace, Array'Create
+%/mathpiper_docs

@@ -4,3 +4,34 @@
 Reverse(list):=DestructiveReverse(FlatCopy(list));
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Reverse"
+*CMD Reverse --- return the reversed list (without touching the original)
+*STD
+*CALL
+	Reverse(list)
+
+*PARMS
+
+{list} -- list to reverse
+
+*DESC
+
+This function returns a list reversed, without changing the
+original list. It is similar to {DestructiveReverse}, but safer
+and slower.
+
+
+*EG
+
+	In> lst:={a,b,c,13,19}
+	Out> {a,b,c,13,19};
+	In> revlst:=Reverse(lst)
+	Out> {19,13,c,b,a};
+	In> lst
+	Out> {a,b,c,13,19};
+
+*SEE FlatCopy, DestructiveReverse
+%/mathpiper_docs

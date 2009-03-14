@@ -3,3 +3,45 @@
 //todo:tk:not defined in the scripts.
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="FuncListSome"
+*CMD FuncList --- list of functions used in an expression
+*CMD FuncListArith --- list of functions used in an expression
+*CMD FuncListSome --- list of functions used in an expression
+*STD
+*CALL
+	FuncList(expr)
+	FuncListArith(expr)
+	FuncListSome(expr, list)
+
+*PARMS
+
+{expr} -- an expression
+
+{list} -- list of function atoms to be considered "transparent"
+
+*DESC
+
+The command {FuncList(expr)} returns a list of all function atoms that appear
+in the expression {expr}. The expression is recursively traversed.
+
+The command {FuncListSome(expr, list)} does the same, except it only looks at arguments of a given {list} of functions. All other functions become "opaque" (as if they do not contain any other functions).
+For example, {FuncListSome(a + Sin(b-c))} will see that the expression has a "{-}" operation and return {{+,Sin,-}}, but {FuncListSome(a + Sin(b-c), {+})} will not look at arguments of {Sin()} and will return {{+,Sin}}.
+
+{FuncListArith} is defined through {FuncListSome} to look only at arithmetic operations {+}, {-}, {*}, {/}.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {Atom("+")} to obtain the unevaluated atom "{+}".
+
+*E.G. notest
+
+	In> FuncList(x+y*Cos(Ln(x)/x))
+	Out> {+,*,Cos,/,Ln};
+	In> FuncListArith(x+y*Cos(Ln(x)/x))
+	Out> {+,*,Cos};
+	In> FuncListSome({a+b*2,c/d},{List})
+	Out> {List,+,/};
+
+*SEE VarList, HasExpr, HasFunc
+%/mathpiper_docs

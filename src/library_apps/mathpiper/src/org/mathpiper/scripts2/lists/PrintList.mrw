@@ -15,3 +15,30 @@
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="PrintList"
+*CMD PrintList --- print list with padding
+*STD
+*CALL
+	PrintList(list)
+	PrintList(list, padding);
+
+*PARMS
+
+{list} -- a list to be printed
+
+{padding} -- (optional) a string
+
+*DESC
+
+Prints {list} and inserts the {padding} string between each pair of items of the list. Items of the list which are strings are printed without quotes, unlike {Write()}. Items of the list which are themselves lists are printed inside braces {{}}. If padding is not specified, a standard one is used (comma, space).
+
+*E.G.
+
+	In> PrintList({a,b,{c, d}}, " .. ")
+	Out> " a ..  b .. { c ..  d}";
+
+*SEE Write, WriteString
+%/mathpiper_docs

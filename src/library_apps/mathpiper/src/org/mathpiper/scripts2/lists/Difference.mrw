@@ -19,3 +19,36 @@ Function("Difference",{list1,list2})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Difference"
+*CMD Difference --- return the difference of two lists
+*STD
+*CALL
+	Difference(l1, l2)
+
+*PARMS
+
+{l1}, {l2} -- two lists
+
+*DESC
+
+The difference of the lists "l1" and "l2" is determined and
+returned. The difference contains all elements that occur in "l1"
+but not in "l2". The order of elements in "l1" is preserved. If a
+certain expression occurs "n1" times in the first list and "n2"
+times in the second list, it will occur "n1-n2" times in the result
+if "n1" is greater than "n2" and not at all otherwise.
+
+*E.G.
+
+	In> Difference({a,b,c}, {b,c,d});
+	Out> {a};
+	In> Difference({a,e,i,o,u}, {f,o,u,r,t,e,e,n});
+	Out> {a,i};
+	In> Difference({1,2,2,3,3,3}, {2,2,3,4,4});
+	Out> {1,3,3};
+
+*SEE Intersection, Union
+%/mathpiper_docs

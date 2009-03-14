@@ -19,3 +19,35 @@ Function("Intersection",{list1,list2})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Intersection"
+*CMD Intersection --- return the intersection of two lists
+*STD
+*CALL
+	Intersection(l1, l2)
+
+*PARMS
+
+{l1}, {l2} -- two lists
+
+*DESC
+
+The intersection of the lists "l1" and "l2" is determined and
+returned. The intersection contains all elements that occur in both
+lists. The entries in the result are listed in the same order as in
+"l1". If an expression occurs multiple times in both "l1" and
+"l2", then it will occur the same number of times in the result.
+
+*E.G.
+
+	In> Intersection({a,b,c}, {b,c,d});
+	Out> {b,c};
+	In> Intersection({a,e,i,o,u}, {f,o,u,r,t,e,e,n});
+	Out> {e,o,u};
+	In> Intersection({1,2,2,3,3,3}, {1,1,2,2,3,3});
+	Out> {1,2,2,3,3};
+
+*SEE Union, Difference
+%/mathpiper_docs

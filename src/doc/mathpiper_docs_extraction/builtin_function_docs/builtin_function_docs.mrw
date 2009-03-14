@@ -1582,8 +1582,539 @@ it is <i>not</i> a string.
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="Head"
+*CMD Head --- the first element of a list
+*CORE
+*CALL
+	Head(list)
 
+*PARMS
+
+{list} -- a list
+
+*DESC
+
+This function returns the first element of a list. If it is applied to
+a general expression, it returns the first operand. An error is
+returned if "list" is an atom.
+
+*E.G.
+
+	In> Head({a,b,c})
+	Out> a;
+	In> Head(f(a,b,c));
+	Out> a;
+
+*SEE Tail, Length
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Tail"
+*CMD Tail --- returns a list without its first element
+*CORE
+*CALL
+	Tail(list)
+
+*PARMS
+
+{list} -- a list
+
+*DESC
+
+This function returns "list" without its first element.
+
+*E.G.
+
+	In> Tail({a,b,c})
+	Out> {b,c};
+
+*SEE Head, Length
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Length"
+*CMD Length --- the length of a list or string
+*CORE
+*CALL
+	Length(object)
+
+*PARMS
+
+{object} -- a list, array or string
+
+*DESC
+
+Length returns the length of a list.
+This function also works on strings and arrays.
+
+*E.G.
+
+	In> Length({a,b,c})
+	Out> 3;
+	In> Length("abcdef");
+	Out> 6;
+
+*SEE Head, Tail, Nth, Count
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="DestructiveReverse"
+*CMD DestructiveReverse --- reverse a list destructively
+*CORE
+*CALL
+	DestructiveReverse(list)
+
+*PARMS
+
+{list} -- list to reverse
+
+*DESC
+
+This command reverses "list" in place, so that the original is
+destroyed. This means that any variable bound to "list" will now have
+an undefined content, and should not be used any more. 
+The reversed list is returned.
+
+Destructive commands are faster than their nondestructive
+counterparts. {Reverse} is the non-destructive version of
+this function.
+
+*E.G.
+
+	In> lst := {a,b,c,13,19};
+	Out> {a,b,c,13,19};
+	In> revlst := DestructiveReverse(lst);
+	Out> {19,13,c,b,a};
+	In> lst;
+	Out> {a};
+
+*SEE FlatCopy, Reverse
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="List"
+*CMD List --- construct a list
+*CORE
+*CALL
+	List(expr1, expr2, ...)
+
+*PARMS
+
+{expr1}, {expr2} -- expressions making up the list
+
+*DESC
+
+A list is constructed whose first entry is "expr1", the second entry
+is "expr2", and so on. This command is equivalent to the expression
+"{expr1, expr2, ...}".
+
+*E.G.
+
+	In> List();
+	Out> {};
+	In> List(a,b);
+	Out> {a,b};
+	In> List(a,{1,2},d);
+	Out> {a,{1,2},d};
+
+*SEE UnList, Listify
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="UnList"
+*CMD UnList --- convert a list to a function application
+*CORE
+*CALL
+	UnList(list)
+
+*PARMS
+
+{list} -- list to be converted
+
+*DESC
+
+This command converts a list to a function application. The first
+entry of "list" is treated as a function atom, and the following entries
+are the arguments to this function. So the function referred to in the
+first element of "list" is applied to the other elements.
+
+Note that "list" is evaluated before the function application is
+formed, but the resulting expression is left unevaluated. The functions {UnList()} and {Hold()} both stop the process of evaluation.
+
+*E.G.
+
+	In> UnList({Cos, x});
+	Out> Cos(x);
+	In> UnList({f});
+	Out> f();
+	In> UnList({Taylor,x,0,5,Cos(x)});
+	Out> Taylor(x,0,5)Cos(x);
+	In> Eval(%);
+	Out> 1-x^2/2+x^4/24;
+
+*SEE List, Listify, Hold
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Listify"
+*CMD Listify --- convert a function application to a list
+*CORE
+*CALL
+	Listify(expr)
+
+*PARMS
+
+{expr} -- expression to be converted
+
+*DESC
+
+The parameter "expr" is expected to be a compound object, i.e. not
+an atom. It is evaluated and then converted to a list. The first entry
+in the list is the top-level operator in the evaluated expression and
+the other entries are the arguments to this operator. Finally, the
+list is returned.
+
+*E.G.
+
+	In> Listify(Cos(x));
+	Out> {Cos,x};
+	In> Listify(3*a);
+	Out> {*,3,a};
+
+*SEE List, UnList, IsAtom
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Concat"
+*CMD Concat --- concatenate lists
+*CORE
+*CALL
+	Concat(list1, list2, ...)
+
+*PARMS
+
+{list1}, {list2}, ... -- lists to concatenate
+
+*DESC
+
+The lists "list1", "list2", ... are evaluated and
+concatenated. The resulting big list is returned.
+
+*E.G.
+
+	In> Concat({a,b}, {c,d});
+	Out> {a,b,c,d};
+	In> Concat({5}, {a,b,c}, {{f(x)}});
+	Out> {5,a,b,c,{f(x)}};
+
+*SEE ConcatStrings, :, Insert
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Delete"
+*CMD Delete --- delete an element from a list
+*CORE
+*CALL
+	Delete(list, n)
+
+*PARMS
+
+{list} -- list from which an element should be removed
+
+{n} -- index of the element to remove
+
+*DESC
+
+This command deletes the n-th element from "list". The first
+parameter should be a list, while "n" should be a positive integer
+less than or equal to the length of "list". The entry with index
+"n" is removed (the first entry has index 1), and the resulting list
+is returned.
+
+*E.G.
+
+	In> Delete({a,b,c,d,e,f}, 4);
+	Out> {a,b,c,e,f};
+
+*SEE DestructiveDelete, Insert, Replace
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Insert"
+*CMD Insert --- insert an element into a list
+*CORE
+*CALL
+	Insert(list, n, expr)
+
+*PARMS
+
+{list} -- list in which "expr" should be inserted
+
+{n} -- index at which to insert
+
+{expr} -- expression to insert in "list"
+
+*DESC
+
+The expression "expr" is inserted just before the n-th entry in
+"list". The first parameter "list" should be a list, while "n"
+should be a positive integer less than or equal to the length of
+"list" plus one. The expression "expr" is placed between the
+entries in "list" with entries "n-1" and "n". There are two
+border line cases: if "n" is 1, the expression "expr" is placed in
+front of the list (just as by the {:} operator); if "n"
+equals the length of "list" plus one, the expression "expr" is
+placed at the end of the list (just as by {Append}). In any
+case, the resulting list is returned.
+
+*E.G.
+
+	In> Insert({a,b,c,d}, 4, x);
+	Out> {a,b,c,x,d};
+	In> Insert({a,b,c,d}, 5, x);
+	Out> {a,b,c,d,x};
+	In> Insert({a,b,c,d}, 1, x);
+	Out> {x,a,b,c,d};
+
+*SEE DestructiveInsert, :, Append, Delete, Remove
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="DestructiveDelete"
+*CMD DestructiveDelete --- delete an element destructively from a list
+*CORE
+*CALL
+	DestructiveDelete(list, n)
+
+*PARMS
+
+{list} -- list from which an element should be removed
+
+{n} -- index of the element to remove
+
+*DESC
+
+This is the destructive counterpart of {Delete}. This
+command yields the same result as the corresponding call to
+{Delete}, but the original list is modified. So if a
+variable is bound to "list", it will now be bound to the list with
+the n-th entry removed.
+
+Destructive commands run faster than their nondestructive counterparts
+because the latter copy the list before they alter it.
+
+*E.G.
+
+	In> lst := {a,b,c,d,e,f};
+	Out> {a,b,c,d,e,f};
+	In> Delete(lst, 4);
+	Out> {a,b,c,e,f};
+	In> lst;
+	Out> {a,b,c,d,e,f};
+	In> DestructiveDelete(lst, 4);
+	Out> {a,b,c,e,f};
+	In> lst;
+	Out> {a,b,c,e,f};
+
+*SEE Delete, DestructiveInsert, DestructiveReplace
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="DestructiveInsert"
+*CMD DestructiveInsert --- insert an element destructively into a list
+*CORE
+*CALL
+	DestructiveInsert(list, n, expr)
+
+*PARMS
+
+{list} -- list in which "expr" should be inserted
+
+{n} -- index at which to insert
+
+{expr} -- expression to insert in "list"
+
+*DESC
+
+This is the destructive counterpart of {Insert}. This
+command yields the same result as the corresponding call to
+{Insert}, but the original list is modified. So if a
+variable is bound to "list", it will now be bound to the list with
+the expression "expr" inserted.
+
+Destructive commands run faster than their nondestructive counterparts
+because the latter copy the list before they alter it.
+
+*E.G.
+
+	In> lst := {a,b,c,d};
+	Out> {a,b,c,d};
+	In> Insert(lst, 2, x);
+	Out> {a,x,b,c,d};
+	In> lst;
+	Out> {a,b,c,d};
+	In> DestructiveInsert(lst, 2, x);
+	Out> {a,x,b,c,d};
+	In> lst;
+	Out> {a,x,b,c,d};
+
+*SEE Insert, DestructiveDelete, DestructiveReplace
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Replace"
+*CMD Replace --- replace an entry in a list
+
+*CORE
+
+*CALL
+	Replace(list, n, expr)
+
+*PARMS
+
+{list} -- list of which an entry should be replaced
+
+{n} -- index of entry to replace
+
+{expr} -- expression to replace the n-th entry with
+
+*DESC
+
+The n-th entry of "list" is replaced by the expression
+"expr". This is equivalent to calling {Delete} and
+{Insert} in sequence. To be precise, the expression
+{Replace(list, n, expr)} has the same result as the
+expression {Insert(Delete(list, n), n, expr)}.
+
+*E.G.
+
+	In> Replace({a,b,c,d,e,f}, 4, x);
+	Out> {a,b,c,x,e,f};
+
+*SEE Delete, Insert, DestructiveReplace
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="DestructiveReplace"
+*CMD DestructiveReplace --- replace an entry destructively in a list
+
+*CORE
+
+*CALL
+	DestructiveReplace(list, n, expr)
+
+*PARMS
+
+{list} -- list of which an entry should be replaced
+
+{n} -- index of entry to replace
+
+{expr} -- expression to replace the n-th entry with
+
+*DESC
+
+This is the destructive counterpart of {Replace}. This
+command yields the same result as the corresponding call to
+{Replace}, but the original list is modified. So if a
+variable is bound to "list", it will now be bound to the list with
+the expression "expr" inserted.
+
+Destructive commands run faster than their nondestructive counterparts
+because the latter copy the list before they alter it.
+
+*E.G.
+
+	In> lst := {a,b,c,d,e,f};
+	Out> {a,b,c,d,e,f};
+	In> Replace(lst, 4, x);
+	Out> {a,b,c,x,e,f};
+	In> lst;
+	Out> {a,b,c,d,e,f};
+	In> DestructiveReplace(lst, 4, x);
+	Out> {a,b,c,x,e,f};
+	In> lst;
+	Out> {a,b,c,x,e,f};
+
+*SEE Replace, DestructiveDelete, DestructiveInsert
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="FlatCopy"
+*CMD FlatCopy --- copy the top level of a list
+*CORE
+*CALL
+	FlatCopy(list)
+
+*PARMS
+
+{list} -- list to be copied
+
+*DESC
+
+A copy of "list" is made and returned. The list is not recursed
+into, only the first level is copied. This is useful in combination
+with the destructive commands that actually modify lists in place (for
+efficiency).
+
+*E.G.
+
+The following shows a possible way to define a command that reverses a
+list nondestructively.
+
+	In> reverse(l_IsList) <-- DestructiveReverse \
+	  (FlatCopy(l));
+	Out> True;
+	In> lst := {a,b,c,d,e};
+	Out> {a,b,c,d,e};
+	In> reverse(lst);
+	Out> {e,d,c,b,a};
+	In> lst;
+	Out> {a,b,c,d,e};
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Type"
+*CMD Type --- return the type of an expression
+*CORE
+*CALL
+	Type(expr)
+
+*PARMS
+
+{expr} -- expression to examine
+
+*DESC
+
+The type of the expression "expr" is represented as a string and
+returned. So, if "expr" is a list, the string {"List"} is returned. In general, the top-level
+operator of "expr" is returned. If the argument "expr" is an atom,
+the result is the empty string {""}.
+
+*E.G.
+
+	In> Type({a,b,c});
+	Out> "List";
+	In> Type(a*(b+c));
+	Out> "*";
+	In> Type(123);
+	Out> "";
+
+*SEE IsAtom, NrArgs
 %/mathpiper_docs
 
 
@@ -1659,3 +2190,31 @@ it is <i>not</i> a string.
 %/mathpiper_docs
 
 
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=""
+
+%/mathpiper_docs
