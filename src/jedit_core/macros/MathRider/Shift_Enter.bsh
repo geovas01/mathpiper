@@ -544,20 +544,20 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 
 				abcl = org.mathrider.abclplugin.ABCLShell.getInterpreter();
 				
-				tempFileName = tempFile.getName();
+				//tempFileName = tempFile.getName();
 				//System.out.println("******* " + tempFileName);
 				//sendString =("(load \"" + tempFileName + "\")");
 				//result = abcl.eval(sendString);
 				result = abcl.eval(codeText);
-				result = result.toString();
+				result = result.writeToString();
 				output_fold_type = "%output";
 				//System.out.println(
 				
 					
 					
-			}catch(Throwable t) 
+			}catch(Exception t) 
 			{
-				t = (org.armedbear.lisp.ConditionThrowable) t;
+				//t = (org.armedbear.lisp.ConditionThrowable) t;
 				result = t.getMessage() + "  " + t.getCondition();
 				t.printStackTrace();
 				output_fold_type = "%error ";
