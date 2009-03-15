@@ -3,3 +3,30 @@
 IsNegativeNumber(x):= IsNumber(x) And x < 0;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsNegativeNumber"
+*CMD IsNegativeNumber --- test for a negative number
+*STD
+*CALL
+	IsNegativeNumber(n)
+
+*PARMS
+
+{n} -- number to test
+
+*DESC
+
+{IsNegativeNumber(n)} evaluates to {True} if $n$ is (strictly) negative, i.e.
+if $n<0$. If {n} is not a number, the functions return {False}. 
+
+*E.G.
+
+	In> IsNegativeNumber(6);
+	Out> False;
+	In> IsNegativeNumber(-2.5);
+	Out> True;
+
+*SEE IsNumber, IsPositiveNumber, IsNotZero, IsNegativeInteger, IsNegativeReal
+%/mathpiper_docs

@@ -461,3 +461,28 @@ printing every element in the list on a separate line.
 
 *SEE PrettyForm, Echo, Table
 %/mathpiper_docs
+
+
+
+%mathpiper_docs,name="IsNonObject"
+*CMD IsNonObject --- test whether argument is not an {Object()}
+*STD
+*CALL
+	IsNonObject(expr)
+
+*PARMS
+
+{expr} -- the expression to examine
+
+*DESC
+
+This function returns {True} if "expr" is not of
+the form {Object(...)} and {False}
+otherwise.
+
+*HEAD Bugs
+
+In fact, the result is always {True}.
+
+*SEE Object
+%/mathpiper_docs

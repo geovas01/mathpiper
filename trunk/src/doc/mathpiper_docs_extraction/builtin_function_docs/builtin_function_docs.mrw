@@ -2167,56 +2167,279 @@ Prepare a "floating zero" representing an interval [-4, 4]:
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="Not"
+*CMD Not --- logical negation
+*CORE
+*CALL
+	Not expr
 
+*PARMS
+
+{expr} -- a boolean expression
+
+*DESC
+
+Not returns the logical negation of the argument expr. If {expr} is
+{False} it returns {True}, and if {expr} is {True}, {Not expr} returns {False}.
+If the argument is neither {True} nor {False}, it returns the entire
+expression with evaluated arguments.
+
+*E.G.
+
+	In> Not True
+	Out> False;
+	In> Not False
+	Out> True;
+	In> Not(a)
+	Out> Not a;
+
+*SEE And, Or
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="And"
+*CMD And --- logical conjunction
+*CORE
+*CALL
+	a1 And a2
+Precedence:
+*EVAL OpPrecedence("And")
 
+	And(a1, a2, a3, ..., aN)
+
+*PARMS
+
+{a}1, ..., {a}N -- boolean values (may evaluate to {True} or {False})
+
+*DESC
+
+This function returns {True} if all arguments are true. The
+{And} operation is "lazy", i.e. it returns {False} as soon as a {False} argument
+is found (from left to right). If an argument other than {True} or
+{False} is encountered a new {And} expression is returned with all
+arguments that didn't evaluate to {True} or {False} yet.
+
+*E.G.
+
+	In> True And False
+	Out> False;
+	In> And(True,True)
+	Out> True;
+	In> False And a
+	Out> False;
+	In> True And a
+	Out> And(a);
+	In> And(True,a,True,b)
+	Out> b And a;
+
+*SEE Or, Not
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="Or"
+*CMD Or --- logical disjunction
+*CORE
+*CALL
+	a1 Or a2
+Precedence:
+*EVAL OpPrecedence("Or")
+	Or(a1, a2, a3, ..., aN)
 
+*PARMS
+
+{a}1, ..., {a}N -- boolean expressions (may evaluate to {True} or {False})
+
+*DESC
+
+This function returns {True} if an argument is encountered
+that is true (scanning from left to right). The
+{Or} operation is "lazy", i.e. it returns {True} as soon as a {True} argument
+is found (from left to right). If an argument other than {True} or
+{False} is encountered, an unevaluated {Or} expression is returned with all
+arguments that didn't evaluate to {True} or {False} yet.
+
+*E.G.
+
+	In> True Or False
+	Out> True;
+	In> False Or a
+	Out> Or(a);
+	In> Or(False,a,b,True)
+	Out> True;
+
+*SEE And, Not
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="IsFunction"
+*CMD IsFunction --- test for a composite object
+*CORE
+*CALL
+	IsFunction(expr)
 
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is a composite object, i.e. not an
+atom. This includes not only obvious functions such as {f(x)}, but also expressions such as {x+5} and lists.
+
+*E.G.
+
+	In> IsFunction(x+5);
+	Out> True;
+	In> IsFunction(x);
+	Out> False;
+
+*SEE IsAtom, IsList, Type
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="IsAtom"
+*CMD IsAtom --- test for an atom
+*CORE
+*CALL
+	IsAtom(expr)
 
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is an atom. Numbers, strings, and
+variables are all atoms.
+
+*E.G.
+
+	In> IsAtom(x+5);
+	Out> False;
+	In> IsAtom(5);
+	Out> True;
+
+*SEE IsFunction, IsNumber, IsString
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="IsString"
+*CMD IsString --- test for an string
+*CORE
+*CALL
+	IsString(expr)
 
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is a string. A string is a text
+within quotes, e.g. {"duh"}.
+
+*E.G.
+
+	In> IsString("duh");
+	Out> True;
+	In> IsString(duh);
+	Out> False;
+
+*SEE IsAtom, IsNumber
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="IsNumber"
+*CMD IsNumber --- test for a number
+*CORE
+*CALL
+	IsNumber(expr)
 
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is a number. There are two kinds
+of numbers, integers (e.g. 6) and reals (e.g. -2.75 or 6.0). Note that a
+complex number is represented by the {Complex}
+function, so {IsNumber} will return {False}.
+
+*E.G.
+
+	In> IsNumber(6);
+	Out> True;
+	In> IsNumber(3.25);
+	Out> True;
+	In> IsNumber(I);
+	Out> False;
+	In> IsNumber("duh");
+	Out> False;
+
+*SEE IsAtom, IsString, IsInteger, IsPositiveNumber, IsNegativeNumber, Complex
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="IsList"
+*CMD IsList --- test for a list
+*CORE
+*CALL
+	IsList(expr)
 
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is a list. A list is a sequence
+between curly braces, e.g. {{2, 3, 5}}.
+
+*E.G.
+
+	In> IsList({2,3,5});
+	Out> True;
+	In> IsList(2+3+5);
+	Out> False;
+
+*SEE IsFunction
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="IsBound"
+*CMD IsBound --- test for a bound variable
+*CORE
+*CALL
+	IsBound(var)
 
+*PARMS
+
+{var} -- variable to test
+
+*DESC
+
+This function tests whether the variable "var" is bound, i.e. whether
+it has been assigned a value. The argument "var" is not evaluated.
+
+*E.G.
+
+	In> IsBound(x);
+	Out> False;
+	In> x := 5;
+	Out> 5;
+	In> IsBound(x);
+	Out> True;
+
+*SEE IsAtom
 %/mathpiper_docs
 
 

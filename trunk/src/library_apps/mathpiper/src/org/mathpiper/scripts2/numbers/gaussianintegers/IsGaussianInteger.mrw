@@ -10,3 +10,32 @@
 15 # IsGaussianInteger(_x)	<-- False;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsGaussianInteger"
+*CMD IsGaussianInteger ---  test for a Gaussian integer
+*STD
+*CALL
+	IsGaussianInteger(z)
+*PARMS
+
+{z} -- a complex or real number	
+
+*DESC
+
+This function returns {True} if the argument is a Gaussian integer and {False} otherwise.
+A Gaussian integer is a generalization
+of integers into the complex plane. A complex number $a+b*I$ is a Gaussian
+integer if and only if $a$ and $b$ are integers.
+
+*E.G.
+	In> IsGaussianInteger(5)
+	Out> True;
+	In> IsGaussianInteger(5+6*I)
+	Out> True;
+	In> IsGaussianInteger(1+2.5*I)
+	Out> False;
+
+*SEE  IsGaussianUnit, IsGaussianPrime
+%/mathpiper_docs
