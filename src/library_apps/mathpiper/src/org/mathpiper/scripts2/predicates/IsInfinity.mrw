@@ -10,3 +10,30 @@
 60000 # IsInfinity(_x) <-- False;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsInfinity"
+*CMD IsInfinity --- test for an infinity
+*STD
+*CALL
+	IsInfinity(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether {expr} is an infinity. This is only the
+case if {expr} is either {Infinity} or {-Infinity}.
+
+*E.G.
+
+	In> IsInfinity(10^1000);
+	Out> False;
+	In> IsInfinity(-Infinity);
+	Out> True;
+
+*SEE Integer
+%/mathpiper_docs

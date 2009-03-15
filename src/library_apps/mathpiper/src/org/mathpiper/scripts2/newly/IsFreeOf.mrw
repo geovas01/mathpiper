@@ -16,3 +16,44 @@
 12 # IsFreeOf(_var,_expr) <-- True;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsFreeOf"
+*CMD IsFreeOf --- test whether expression depends on variable
+*STD
+*CALL
+	IsFreeOf(var, expr)
+	IsFreeOf({var, ...}, expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+{var} -- variable to look for in "expr"
+
+*DESC
+
+This function checks whether the expression "expr" (after being
+evaluated) depends on the variable "var". It returns {False} if this is the case and {True}
+otherwise.
+
+The second form test whether the expression depends on <i>any</i> of
+the variables named in the list. The result is {True} if none of the variables appear in the expression and {False} otherwise.
+
+*E.G.
+
+	In> IsFreeOf(x, Sin(x));
+	Out> False;
+	In> IsFreeOf(y, Sin(x));
+	Out> True;
+	In> IsFreeOf(x, D(x) a*x+b);
+	Out> True;
+	In> IsFreeOf({x,y}, Sin(x));
+	Out> False;
+
+The third command returns {True} because the
+expression {D(x) a*x+b} evaluates to {a}, which does not depend on {x}.
+
+*SEE Contains
+%/mathpiper_docs

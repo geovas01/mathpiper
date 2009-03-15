@@ -3,3 +3,30 @@
 IsPositiveNumber(x):= IsNumber(x) And x > 0;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsPositiveNumber"
+*CMD IsPositiveNumber --- test for a positive number
+*STD
+*CALL
+	IsPositiveNumber(n)
+
+*PARMS
+
+{n} -- number to test
+
+*DESC
+
+{IsPositiveNumber(n)} evaluates to {True} if $n$ is (strictly) positive, i.e.
+if $n>0$. If {n} is not a number the function returns {False}.
+
+*E.G.
+
+	In> IsPositiveNumber(6);
+	Out> True;
+	In> IsPositiveNumber(-2.5);
+	Out> False;
+
+*SEE IsNumber, IsNegativeNumber, IsNotZero, IsPositiveInteger, IsPositiveReal
+%/mathpiper_docs
