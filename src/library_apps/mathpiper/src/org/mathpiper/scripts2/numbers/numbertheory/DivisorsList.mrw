@@ -21,3 +21,29 @@ DivisorsList(n_IsPositiveInteger) <--
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="DivisorsList"
+*CMD DivisorsList --- the list of divisors
+*STD
+*CALL
+	DivisorsList(n)
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+{DivisorsList} creates a list of the divisors of $n$.
+This is useful for loops like
+
+	ForEach(d,DivisorsList(n))
+
+*E.G.
+
+	In> DivisorsList(18)
+	Out> {1,2,3,6,9,18};
+
+*SEE DivisorsSum
+%/mathpiper_docs

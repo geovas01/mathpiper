@@ -7,3 +7,28 @@ CatalanNumber(_n) <--
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="CatalanNumber"
+*CMD CatalanNumber --- return the {n}th Catalan Number
+*STD
+*CALL
+	CatalanNumber(n)
+*PARMS
+
+{n}	-- positive integer
+
+*DESC
+
+This function returns the {n}-th Catalan number, defined as $Bin(2*n,n)/(n+1)$.
+
+*E.G.
+
+	In> CatalanNumber(10)
+	Out> 16796;
+	In> CatalanNumber(5)
+	Out> 42;
+
+*SEE Bin
+%/mathpiper_docs

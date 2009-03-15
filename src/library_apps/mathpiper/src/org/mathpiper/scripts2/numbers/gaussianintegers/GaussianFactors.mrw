@@ -47,3 +47,41 @@ by factoring its norm */
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="GaussianFactors"
+*CMD GaussianFactors --- factorization in Gaussian integers
+*STD
+*CALL
+	GaussianFactors(z)
+
+*PARMS
+
+{z} -- Gaussian integer
+
+*DESC
+
+This function decomposes a Gaussian integer number {z} into a product of
+Gaussian prime factors.
+A Gaussian integer is a complex number with integer real and imaginary parts.
+A Gaussian integer $z$ can be decomposed into Gaussian primes essentially in a
+unique way (up to Gaussian units and associated prime factors), i.e. one
+can write $z$ as
+$$z = u*p[1]^n[1] * ... * p[s]^n[s]$$,
+where $u$ is a Gaussian unit and $p[1]$, $p[2]$, ..., $p[s]$ are Gaussian primes. 
+
+The factorization is returned as a list of pairs. The first member of
+each pair is the factor (a Gaussian integer) and the second member denotes the power to
+which this factor should be raised. So the factorization is returned as 
+a list, e.g. {{{p1,n1}, {p2,n2}, ...}}.
+
+*E.G.
+
+	In> GaussianFactors(5)
+	Out> {{Complex(2,1),1},{Complex(2,-1),1}};
+	In> GaussianFactors(3+I)
+	Out> {{Complex(1,1),1},{Complex(2,-1),1}};
+
+*SEE Factors, IsGaussianPrime, IsGaussianUnit
+%/mathpiper_docs

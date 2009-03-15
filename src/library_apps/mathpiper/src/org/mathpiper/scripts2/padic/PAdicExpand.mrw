@@ -47,3 +47,42 @@ Expand(x); /* TODO no idea why this is needed! Mod/Div/UniVariate thing :-( */
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="PAdicExpand"
+*CMD PAdicExpand --- p-adic expansion
+*STD
+*CALL
+	PAdicExpand(n, p)
+
+*PARMS
+
+{n} -- number or polynomial to expand
+
+{p} -- base to expand in
+
+*DESC
+
+This command computes the $p$-adic expansion of $n$. In other words,
+$n$ is expanded in powers of $p$. The argument $n$ can be either
+an integer or a univariate polynomial. The base $p$ should be of the
+same type.
+
+*E.G.
+
+	In> PrettyForm(PAdicExpand(1234, 10));
+	
+	               2     3
+	3 * 10 + 2 * 10  + 10  + 4
+	
+	Out> True;
+	In> PrettyForm(PAdicExpand(x^3, x-1));
+	
+	                             2            3
+	3 * ( x - 1 ) + 3 * ( x - 1 )  + ( x - 1 )  + 1
+	
+	Out> True;
+
+*SEE Mod, ContFrac, FromBase, ToBase
+%/mathpiper_docs

@@ -22,3 +22,32 @@
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name=""
+*CMD IsIrregularPrime --- test for an irregular prime
+*STD
+*CALL
+	IsIrregularPrime(n)
+
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+This function returns {True} if {n} is an irregular prime. A prime number $n$
+is irregular if and only if {n} divides the numerator of a Bernoulli number $B[2*i]$,
+where $2*i+1 < n $. Small irregular primes are quite rare; the only irregular primes under 100
+are  37, 59 and 67. Asymptotically, roughly 40{%} of primes are irregular.
+
+*E.G.
+
+	In> IsIrregularPrime(5)
+	Out> False;
+	In> Select(IsIrregularPrime,1 .. 100)
+	Out> {37,59,67};
+
+*SEE IsPrime
+%/mathpiper_docs

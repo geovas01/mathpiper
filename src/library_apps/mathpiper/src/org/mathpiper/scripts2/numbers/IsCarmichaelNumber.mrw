@@ -25,3 +25,36 @@
 IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsCarmichaelNumber"
+*CMD IsCarmichaelNumber --- test for a Carmichael number
+*STD
+*CALL
+	IsCarmichaelNumber(n)
+
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+This function returns {True} if {n} is a Carmichael number, also called an absolute pseudoprime.
+They have the property that $ b^(n-1) % n == 1 $ for all $b$ satisfying $Gcd(b,n)==1$. These numbers
+cannot be proved composite by Fermat's little theorem. Because the previous property is extremely
+slow to test, the following equivalent property is tested by Yacas: for all prime factors $p[i]$ of $n$,
+$(n-1) % (p[i] - 1) == 0$ and $n$ must be square free. Also, Carmichael numbers must be odd and have
+at least three prime factors. Although these numbers are rare (there are only 43 such numbers between $1$ and $10^6$),
+it has recently been proven that there are infinitely many of them.
+
+*E.G. notest
+
+	In> IsCarmichaelNumber(561)
+	Out> True;
+	In> Time(Select(IsCarmichaelNumber,1 .. 10000))
+	504.19 seconds taken
+	Out> {561,1105,1729,2465,2821,6601,8911};
+
+*SEE IsSquareFree, IsComposite
+%/mathpiper_docs

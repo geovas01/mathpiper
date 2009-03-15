@@ -22,3 +22,28 @@
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Divisors"
+*CMD Divisors --- number of divisors
+*STD
+*CALL
+	Divisors(n)
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+{Divisors} returns the number of positive divisors of a number.
+A number is prime if and only if it has two divisors, 1 and itself.
+
+*E.G.
+	In> Divisors(180)
+	Out> 18;
+	In> Divisors(37)
+	Out> 2;
+
+*SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
+%/mathpiper_docs

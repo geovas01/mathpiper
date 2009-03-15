@@ -187,3 +187,40 @@ CyclotomicFactor(_a,_b) <--
 
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Cyclotomic"
+*CMD Cyclotomic --- construct the cyclotomic polynomial
+*STD
+*CALL
+	Cyclotomic(n,x)
+
+*PARMS
+
+{n} -- positive integer
+
+{x} -- variable
+
+*DESC
+
+Returns the cyclotomic polynomial in the variable {x}
+(which is the minimal polynomial of the $n$-th primitive
+roots of the unit, over the field of rational numbers).
+ 
+For $n$ even, we write $n= m*k$, where $k$ is a power of $2$ 
+and $m$ is odd, and reduce it to the case of even $m$ since
+$$ Cyclotomic(n,x) = Cyclotomic(m,-x^(k/2)) $$.
+
+If $m=1$, $n$ is a power of $2$, and $Cyclotomic(n,x)= x^k+1$.
+
+For $n$ odd, the algorithm is based on the formula
+$$ Cyclotomic(n,x) := Prod((x^(n/d)-1)^mu(d)) $$,
+where $d$ runs through the divisors of $n$.
+In order to compute this in a efficient way, we use the function
+{MoebiusDivisorsList}. Then we compute in {poly1} the product
+of $x^(n/d)-1$ with $mu(d)=1$ , and in {poly2} the product of these polynomials
+with  $mu(d)= -1$. Finally we compute the quotient {poly1}/{poly2}.
+
+*SEE RamanujanSum
+%/mathpiper_docs
