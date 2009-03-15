@@ -300,3 +300,61 @@ Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in Yacas.
 
 *SEE Gamma, N, CachedConstant
 %/mathpiper_docs
+
+
+
+%mathpiper_docs,name="CachedConstant"
+*CMD CachedConstant --- precompute multiple-precision constants
+*STD
+*CALL
+	CachedConstant(cache, Cname, Cfunc)
+
+*PARMS
+{cache} -- atom, name of the cache
+
+{Cname} -- atom, name of the constant
+
+{Cfunc} -- expression that evaluates the constant
+
+*DESC
+
+This function is used to create precomputed multiple-precision values of
+constants. Caching these values will save time if they are frequently used.
+
+The call to {CachedConstant} defines a new function named {Cname()} that
+returns the value of the constant at given precision. If the precision is
+increased, the value will be recalculated as necessary, otherwise calling {Cname()} will take very little time.
+
+The parameter {Cfunc} must be an expression that can be evaluated and returns
+the value of the desired constant at the current precision. (Most arbitrary-precision mathematical functions do this by default.)
+
+The associative list {cache} contains elements of the form {{Cname, prec, value}}, as illustrated in the example. If this list does not exist, it will be created.
+
+This mechanism is currently used by {N()} to precompute the values of $Pi$ and $gamma$ (and the golden ratio through {GoldenRatio}, and {Catalan}).
+The name of the cache for {N()} is {CacheOfConstantsN}.
+The code in the function {N()} assigns unevaluated calls to {Internal'Pi()} and {Internal'gamma()} to the atoms {Pi} and {gamma} and declares them to be lazy global variables through {SetGlobalLazyVariable} (with equivalent functions assigned to other constants that are added to the list of cached constants).
+
+The result is that the constants will be recalculated only when they are used in the expression under {N()}.
+In other words, the code in {N()} does the equivalent of
+
+	SetGlobalLazyVariable(mypi,Hold(Internal'Pi()));
+	SetGlobalLazyVariable(mygamma,Hold(Internal'gamma()));
+
+After this, evaluating an expression such as {1/2+gamma} will call the function {Internal'gamma()} but not the function {Internal'Pi()}.
+
+*EG notest
+
+	In> CachedConstant( my'cache, Ln2, Internal'LnNum(2) )
+	Out> True;
+	In> Internal'Ln2()
+	Out> 0.6931471806;
+	In> V(N(Internal'Ln2(),20))
+	CachedConstant: Info: constant Ln2 is being
+	  recalculated at precision 20 
+	Out> 0.69314718055994530942;
+	In> my'cache
+	Out> {{"Ln2",20,0.69314718055994530942}};
+
+
+*SEE N, Builtin'Precision'Set, Pi, GoldenRatio, Catalan, gamma
+%/mathpiper_docs

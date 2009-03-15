@@ -159,3 +159,73 @@ Out> 2.7182818007;
 */
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="SumTaylorNum"
+*CMD SumTaylorNum --- optimized numerical evaluation of Taylor series
+*STD
+*CALL
+	SumTaylorNum(x, NthTerm, order)
+	SumTaylorNum(x, NthTerm, TermFactor, order)
+	SumTaylorNum(x, ZerothTerm, TermFactor, order)
+
+*PARMS
+
+{NthTerm} -- a function specifying $n$-th coefficient of the series
+
+{ZerothTerm} -- value of the $0$-th coefficient of the series
+
+{x} -- number, value of the expansion variable
+
+{TermFactor} -- a function specifying the ratio of $n$-th term to the previous one
+
+{order} -- power of $x$ in the last term
+
+*DESC
+
+{SumTaylorNum} computes a Taylor series $Sum(k,0,n,a[k]*x^k)$
+numerically. This function allows very efficient computations of
+functions given by Taylor series, although some tweaking of the
+parameters is required for good results.
+
+The coefficients $a[k]$ of the Taylor series are given as functions of one integer variable ($k$). It is convenient to pass them to {SumTaylorNum} as closures.
+For example, if a function {a(k)} is defined, then
+	SumTaylorNum(x, {{k}, a(k)}, n)
+computes the series $Sum(k, 0, n, a(k)*x^k)$.
+
+Often a simple relation between successive coefficients $a[k-1]$,
+$a[k]$ of the series is available; usually they are related by a
+rational factor. In this case, the second form of {SumTaylorNum} should
+be used because it will compute the series faster. The function
+{TermFactor} applied to an integer $k>=1$ must return the ratio
+$a[k]$/$a[k-1]$. (If possible, the function {TermFactor} should return
+a rational number and not a floating-point number.) The function
+{NthTerm} may also be given, but the current implementation only calls
+{NthTerm(0)} and obtains all other coefficients by using {TermFactor}.
+Instead of the function {NthTerm}, a number giving the $0$-th term can be given.
+
+The algorithm is described elsewhere in the documentation.
+The number of terms {order}+1
+must be specified and a sufficiently high precision must be preset in
+advance to achieve the desired accuracy.
+(The function {SumTaylorNum} does not change the current precision.)
+
+*E.G.
+To compute 20 digits of $Exp(1)$ using the Taylor series, one needs 21
+digits of working precision and 21 terms of the series. 
+
+	In> Builtin'Precision'Set(21)
+	Out> True;
+	In> SumTaylorNum(1, {{k},1/k!}, 21)
+	Out> 2.718281828459045235351;
+	In> SumTaylorNum(1, 1, {{k},1/k}, 21)
+	Out> 2.71828182845904523535;
+	In> SumTaylorNum(1, {{k},1/k!}, {{k},1/k}, 21)
+	Out> 2.71828182845904523535;
+	In> RoundTo(N(Ln(%)),20)
+	Out> 1;
+
+
+*SEE Taylor
+%/mathpiper_docs

@@ -96,3 +96,58 @@ LN(x_IsNumber)_(x>1 ) <--
 */
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="NewtonNum"
+*CMD NewtonNum --- low-level optimized Newton's iterations
+*STD
+*CALL
+	NewtonNum(func, x0, prec0, order)
+	NewtonNum(func, x0, prec0)
+	NewtonNum(func, x0)
+
+*PARMS
+
+{func} -- a function specifying the iteration sequence
+
+{x0} -- initial value (must be close enough to the root)
+
+{prec0} -- initial precision (at least 4, default 5)
+
+{order} -- convergence order (typically 2 or 3, default 2)
+
+*DESC
+
+This function is an optimized interface for computing Newton's
+iteration sequences for numerical solution of equations in arbitrary precision.
+
+{NewtonNum} will iterate the given function starting from the initial
+value, until the sequence converges within current precision.
+Initially, up to 5 iterations at the initial precision {prec0} is
+performed (the low precision is set for speed). The initial value {x0}
+must be close enough to the root so that the initial iterations
+converge. If the sequence does not produce even a single correct digit
+of the root after these initial iterations, an error message is
+printed. The default value of the initial precision is 5.
+
+The {order} parameter should give the convergence order of the scheme.
+Normally, Newton iteration converges quadratically (so the default
+value is {order}=2) but some schemes converge faster and you can speed
+up this function by specifying the correct order. (Caution: if you give
+{order}=3 but the sequence is actually quadratic, the result will be
+silently incorrect. It is safe to use {order}=2.)
+
+*REM
+The verbose option {V} can be used to monitor the convergence. The
+achieved exact digits should roughly form a geometric progression.
+
+*EG
+
+	In> Builtin'Precision'Set(20)
+	Out> True;
+	In> NewtonNum({{x}, x+Sin(x)}, 3, 5, 3)
+	Out> 3.14159265358979323846;
+
+*SEE Newton
+%/mathpiper_docs
