@@ -3,3 +3,28 @@
 GaussianNorm(z_IsGaussianInteger) <-- Re(z)^2+Im(z)^2;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="GaussianNorm"
+*CMD GaussianNorm --- norm of a Gaussian integer
+*STD
+*CALL
+	GaussianNorm(z)
+
+*PARMS
+
+{z} -- Gaussian integer
+
+*DESC
+
+This function returns the norm of a Gaussian integer $z=a+b*I$, defined as
+$a^2+b^2$.
+
+*E.G.
+
+	In> GaussianNorm(2+I)
+	Out> 5; 
+
+*SEE IsGaussianInteger
+%/mathpiper_docs

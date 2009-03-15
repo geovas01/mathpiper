@@ -19,3 +19,28 @@ SquareFreeDivisorsList(n_IsPositiveInteger) <--
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="SquareFreeDivisorsList"
+*CMD SquareFreeDivisorsList --- the list of square-free divisors
+*STD
+*CALL
+	SquareFreeDivisorsList(n)
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+{SquareFreeDivisorsList} creates a list of the square-free divisors of $n$.
+Square-free numbers are numbers that have only simple prime factors (no prime powers).
+For example, $18=2*3*3$ is not square-free because it contains a square of $3$ as a factor.
+
+*E.G.
+
+	In> SquareFreeDivisorsList(18)
+	Out> {1,2,3,6};
+
+*SEE DivisorsList
+%/mathpiper_docs

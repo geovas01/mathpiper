@@ -9,3 +9,30 @@
 	Sum(k,0,n-m,(-1)^k*Bin(k+n-1,k+n-m)*Bin(2*n-m,n-k-m)*StirlingNumber2(k-m+n,k));
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="StirlingNumber1"
+*CMD StirlingNumber1 --- return the {n,m}th Stirling Number of the first kind
+*STD
+*CALL
+	StirlingNumber1(n,m)
+*PARMS
+
+{n}, {m}	-- positive integers
+
+*DESC
+
+This function returns the signed Stirling Number of the first kind.
+All Stirling Numbers are integers. If $ m > n $, then {StirlingNumber1} returns
+$0$.
+
+*E.G.
+
+	In> StirlingNumber1(10,5)
+	Out> -269325;
+	In> StirlingNumber1(3,6)
+	Out> 0;
+
+*SEE StirlingNumber2
+%/mathpiper_docs

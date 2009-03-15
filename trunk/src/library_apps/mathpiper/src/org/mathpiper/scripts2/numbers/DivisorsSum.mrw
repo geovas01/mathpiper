@@ -24,3 +24,29 @@
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="DivisorsSum"
+*CMD DivisorsSum --- the sum of  divisors
+*STD
+*CALL
+	DivisorsSum(n)
+*PARMS
+
+{n}	-- positive integer
+
+*DESC
+
+{DivisorsSum} returns the sum all numbers that divide it. A number
+{n} is prime if and only if the sum of its divisors are {n+1}.
+
+*E.G.
+
+	In> DivisorsSum(180)
+	Out> 546;
+	In> DivisorsSum(37)
+	Out> 38;
+
+*SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
+%/mathpiper_docs

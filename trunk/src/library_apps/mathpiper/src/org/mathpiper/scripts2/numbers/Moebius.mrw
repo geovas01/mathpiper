@@ -22,3 +22,33 @@
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Moebius"
+*CMD Moebius --- the Moebius function
+*STD 
+*CALL
+	Moebius(n)
+*PARMS  
+
+{n}     -- positive integer
+
+*DESC
+
+The Moebius function is 0 when a prime factor is repeated (which means it
+is not square-free) and is $(-1)^r$ if $n$ has $r$ distinct factors. Also,
+$Moebius(1)==1$.
+
+*E.G.
+	In> Moebius(10)
+	Out> 1;
+	In> Moebius(11)
+	Out> -1;
+	In> Moebius(12)
+	Out> 0;
+	In> Moebius(13)
+	Out> -1;
+
+*SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, MoebiusDivisorsList
+%/mathpiper_docs

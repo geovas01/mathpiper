@@ -7,3 +7,37 @@
 20 # IsPrimePower(n_IsPositiveInteger) <-- (GetPrimePower(n)[2] > 1);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IsPrimePower"
+*CMD IsPrimePower --- test for a power of a prime number
+*STD
+*CALL
+	IsPrimePower(n)
+
+*PARMS
+
+{n} -- integer to test
+
+*DESC
+
+This command tests whether "n", which should be a positive integer,
+is a prime power, that is whether it is of the form $p^m$, with
+"p" prime and "m" an integer.
+
+This function does not try to decompose the number $n$ into factors.
+Instead we check for all prime numbers $r=2$, $3$, ... that the $r$-th root of $n$ is an integer, and we find such $r$ and $m$ that $n=m^r$, we check that $m$ is a prime. If it is not a prime, we execute the same function call on $m$.
+
+*E.G.
+
+	In> IsPrimePower(9)
+	Out> True;
+	In> IsPrimePower(10)
+	Out> False;
+	In> Select("IsPrimePower", 1 .. 50)
+	Out> {2,3,4,5,7,8,9,11,13,16,17,19,23,25,27,
+	  29,31,32,37,41,43,47,49};
+
+*SEE IsPrime, Factors
+%/mathpiper_docs

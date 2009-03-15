@@ -8,3 +8,30 @@
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="ProperDivisorsSum"
+*CMD ProperDivisorsSum --- the sum of proper divisors
+*STD 
+*CALL
+	ProperDivisorsSum(n)
+*PARMS  
+
+{n}     -- positive integer
+
+*DESC
+
+{ProperDivisorsSum} returns the sum of proper divisors, i.e. {ProperDivisors(n)-n},
+since {n} is not counted.
+{n} is prime if and only if {ProperDivisorsSum(n)==1}.
+
+*E.G.
+	In> ProperDivisorsSum(180)
+	Out> 366;
+	In> ProperDivisorsSum(37)
+	Out> 1;
+
+
+*SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
+%/mathpiper_docs

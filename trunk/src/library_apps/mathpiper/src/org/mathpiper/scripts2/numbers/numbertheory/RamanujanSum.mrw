@@ -19,3 +19,27 @@ k-th primitive roots of the identity */
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="RamanujanSum"
+*CMD RamanujanSum --- compute the "Ramanujan sum"
+*STD
+*CALL
+	RamanujanSum(k,n)
+
+*PARMS
+
+{k}, {n} -- positive integers
+
+*DESC
+This function computes the Ramanujan sum, i.e. the sum of the $n$-th powers of 
+the $k$-th primitive roots of the unit:
+
+$$ Sum(l,1,k, Exp(2*Pi*I*(l*n)/k)) $$
+
+where $l$ runs thought the integers between $1$ and $k-1$ that are coprime to $l$.
+
+The computation is done by using the formula in T. M. Apostol,
+<i>Introduction to Analytic Theory</i> (Springer-Verlag), Theorem 8.6.
+%/mathpiper_docs
