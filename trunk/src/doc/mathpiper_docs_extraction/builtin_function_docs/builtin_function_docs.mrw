@@ -2587,12 +2587,181 @@ details.
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="Set"
+*CMD Set --- assignment
+*CORE
+*CALL
+	Set(var, exp)
 
+*PARMS
+
+{var} -- variable which should be assigned
+
+{exp} -- expression to assign to the variable
+
+*DESC
+
+The expression "exp" is evaluated and assigned it to the variable
+named "var". The first argument is not evaluated. The value True
+is returned.
+
+The statement {Set(var, exp)} is equivalent to {var := exp}, but the {:=} operator
+has more uses, e.g. changing individual entries in a list.
+
+*E.G.
+
+	In> Set(a, Sin(x)+3);
+	Out> True;
+	In> a;
+	Out> Sin(x)+3;
+
+*SEE Clear, :=
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="Clear"
+*CMD Clear --- undo an assignment
+*CORE
+*CALL
+	Clear(var, ...)
 
+*PARMS
+
+{var} -- name of variable to be cleared
+
+*DESC
+
+All assignments made to the variables listed as arguments are
+undone. From now on, all these variables remain unevaluated (until a
+subsequent assignment is made). The result of the expression is
+True.
+
+*E.G.
+
+	In> a := 5;
+	Out> 5;
+	In> a^2;
+	Out> 25;
+	
+	In> Clear(a);
+	Out> True;
+	In> a^2;
+	Out> a^2;
+
+*SEE Set, :=
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Local"
+*CMD Local --- declare new local variables
+*CORE
+*CALL
+	Local(var, ...)
+
+*PARMS
+
+{var} -- name of variable to be declared as local
+
+*DESC
+
+All variables in the argument list are declared as local
+variables. The arguments are not evaluated. The value True is
+returned.
+
+By default, all variables in Yacas are global. This means that the
+variable has the same value everywhere. But sometimes it is useful to
+have a private copy of some variable, either to prevent the outside
+world from changing it or to prevent accidental changes to the outside
+world. This can be achieved by declaring the variable local. Now only
+expressions within the {Prog} block (or its
+syntactic equivalent, the {[  ]} block) can access
+and change it. Functions called within this block cannot access the
+local copy unless this is specifically allowed with {UnFence}.
+
+*E.G.
+
+	In> a := 3;
+	Out> 3;
+	
+	In> [ a := 4; a; ];
+	Out> 4;
+	In> a;
+	Out> 4;
+	
+	In> [ Local(a); a := 5; a; ];
+	Out> 5;
+	In> a;
+	Out> 4;
+
+In the first block, {a} is not declared local and
+hence defaults to be a global variable. Indeed, changing the variable
+inside the block also changes the value of {a}
+outside the block. However, in the second block {a}
+is defined to be local and now the value outside the block stays the
+same, even though {a} is assigned the value 5 inside
+the block.
+
+*SEE LocalSymbols, Prog, [], UnFence
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="SetGlobalLazyVariable"
+*CMD SetGlobalLazyVariable --- global variable is to be evaluated lazily
+*CORE
+*CALL
+	SetGlobalLazyVariable(var,value)
+
+*PARMS
+
+{var} -- variable (held argument)
+
+{value} -- value to be set to (evaluated before it is assigned)
+
+*DESC
+
+{SetGlobalLazyVariable} enforces that a global variable will re-evaluate
+when used. This functionality doesn't survive if {Clear(var)}
+is called afterwards.
+
+Places where this is used include the global variables {%} and {I}.
+
+The use of lazy in the name stems from the concept of lazy evaluation.
+The object the global variable is bound to will only be evaluated when
+called. The {SetGlobalLazyVariable} property only holds once: after 
+that, the result of evaluation is stored in the global variable, and it won't be reevaluated again:
+
+	In> SetGlobalLazyVariable(a,Hold(Taylor(x,0,30)Sin(x)))
+	Out> True
+
+Then the first time you call {a} it evaluates {Taylor(...)} and assigns the result to {a}. The next time
+you call {a} it immediately returns the result.
+{SetGlobalLazyVariable} is called for {%} each time {%} changes.
+
+The following example demonstrates the sequence of execution:
+
+	In> SetGlobalLazyVariable(test,Hold(Write("hello")))
+	Out> True
+
+The text "hello" is not written out to screen yet. However, evaluating
+the variable {test} forces the expression to be evaluated:
+
+	In> test
+	"hello"Out> True
+
+*E.G.
+
+	In> Set(a,Hold(2+3))
+	Out> True
+	In> a
+	Out> 2+3
+	In> SetGlobalLazyVariable(a,Hold(2+3))
+	Out> True
+	In> a
+	Out> 5
+
+
+*SEE Set, Clear, Local, %, I
 %/mathpiper_docs

@@ -93,3 +93,179 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom(":=")
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name=":="
+*CMD := --- assign a variable or a list; define a function
+*STD
+*CALL
+	var := expr
+	{var1, var2, ...} := {expr1, expr2, ...}
+	var[i] := expr
+	fn(arg1, arg2, ...) := expr
+Precedence:
+*EVAL OpPrecedence(":=")
+
+*PARMS
+
+{var} -- atom, variable which should be assigned
+
+{expr} -- expression to assign to the variable or body of function
+
+{i} -- index (can be integer or string)
+
+{fn} -- atom, name of a new function to define
+
+{arg1}, {arg2} -- atoms, names of arguments of the new function {fn}
+
+*DESC
+
+The {:=} operator can be used
+in a number of ways. In all cases, some sort of assignment or definition takes
+place.
+
+The first form is the most basic one. It evaluates the expression on
+the right-hand side and assigns it to the variable named on the
+left-hand side. The left-hand side is not evaluated. The evaluated
+expression is also returned.
+
+The second form is a small extension, which allows one to do multiple
+assignments. The first entry in the list on the right-hand side is
+assigned to the first variable mentioned in the left-hand side, the
+second entry on the right-hand side to the second variable on the
+left-hand side, etc. The list on the right-hand side must have at
+least as many entries as the list on the left-hand side. Any excess
+entries are silently ignored. The result of the expression is the list
+of values that have been assigned.
+
+The third form allows one to change an entry in the list. If the index
+"i" is an integer, the "i"-th entry in the list is changed to the
+expression on the right-hand side. It is assumed that the length of
+the list is at least "i". If the index "i" is a string, then
+"var" is considered to be an associative list (sometimes called hash
+table), and the key "i" is paired with the value "exp". In both
+cases, the right-hand side is evaluated before the assignment and the
+result of the assignment is {True}.
+
+The last form defines a function. For example, the assignment {fn(x) := x^2} removes any rules previously associated with {fn(x)} and defines the rule {fn(_x) <-- x^2}. Note that the left-hand side may take a different form if
+{fn} is defined to be a prefix, infix or bodied function. This case
+is special since the right-hand side is not evaluated
+immediately, but only when the function {fn} is used. If this takes
+time, it may be better to force an immediate evaluation with {Eval} (see the last example). If the expression on the right hand side begins with {Eval()}, then it <i>will</i> be evaluated before defining the new function.
+
+A variant of the function definition can be used to make a function accepting a variable number of arguments. The last argument
+
+*E.G.
+
+A simple assignment:
+
+	In> a := Sin(x) + 3;
+	Out> Sin(x)+3;
+	In> a;
+	Out> Sin(x)+3;
+
+Multiple assignments:
+
+	In> {a,b,c} := {1,2,3};
+	Out> {1,2,3};
+	In> a;
+	Out> 1;
+	In> b+c;
+	Out> 5;
+
+Assignment to a list:
+
+	In> xs := { 1,2,3,4,5 };
+	Out> {1,2,3,4,5};
+	In> xs[3] := 15;
+	Out> True;
+	In> xs;
+	Out> {1,2,15,4,5};
+
+Building an associative list:
+
+	In> alist := {};
+	Out> {};
+	In> alist["cherry"] := "red";
+	Out> True;
+	In> alist["banana"] := "yellow";
+	Out> True;
+	In> alist["cherry"];
+	Out> "red";
+	In> alist;
+	Out> {{"banana","yellow"},{"cherry","red"}};
+
+Defining a function:
+
+	In> f(x) := x^2;
+	Out> True;
+	In> f(3);
+	Out> 9;
+	In> f(Sin(a));
+	Out> Sin(a)^2;
+
+Defining a function with variable number of arguments:
+
+	In> f(x, ...) := If(IsList(x),Sum(x),x);
+	Out> True;
+	In> f(2);
+	Out> 2;
+	In> f(1,2,3);
+	Out> 6;
+
+Defining a new infix operator:
+
+	In> Infix("*&*",10);
+	Out> True;
+	In> x1 *&* x2 := x1/x2 + x2/x1;
+	Out> True;
+	In> Sin(a) *&* Cos(a);
+	Out> Tan(1)+Cos(1)/Sin(1);
+	In> Clear(a);
+	Out> True;
+	In> Sin(a) *&* Exp(a);
+	Out> Sin(a)/Exp(a)+Exp(a)/Sin(a);
+
+In the following example, it may take some time to compute the Taylor
+expansion. This has to be done every time the function {f} is called.
+
+	In> f(a) := Taylor(x,0,25) Sin(x);
+	Out> True;
+	In> f(1);
+	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
+	x^11/39916800+x^13/6227020800-x^15/
+	1307674368000+x^17/355687428096000-x^19/
+	121645100408832000+x^21/51090942171709440000
+	-x^23/25852016738884976640000+x^25
+	/15511210043330985984000000;
+	In> f(2);
+	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
+	x^11/39916800+x^13/6227020800-x^15
+	/1307674368000+x^17/355687428096000-x^19/
+	121645100408832000+x^21/51090942171709440000
+	-x^23/25852016738884976640000+x^25/
+	15511210043330985984000000;
+
+The remedy is to evaluate the Taylor expansion immediately. Now the
+expansion is computed only once.
+
+	In> f(a) := Eval(Taylor(x,0,25) Sin(x));
+	Out> True;
+	In> f(1);
+	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
+	x^11/39916800+x^13/6227020800-x^15/
+	1307674368000+x^17/355687428096000-x^19/
+	121645100408832000+x^21/51090942171709440000
+	-x^23/25852016738884976640000+x^25
+	/15511210043330985984000000;
+	In> f(2);
+	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
+	x^11/39916800+x^13/6227020800-x^15
+	/1307674368000+x^17/355687428096000-x^19/
+	121645100408832000+x^21/51090942171709440000
+	-x^23/25852016738884976640000+x^25/
+	15511210043330985984000000;
+
+*SEE Set, Clear, [], Rule, Infix, Eval, Function
+%/mathpiper_docs
