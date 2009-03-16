@@ -3,3 +3,36 @@
 Eliminate(_var,_replace,_function) <-- Simplify(Subst(var,replace)function);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Eliminate"
+*CMD Eliminate --- substitute and simplify
+*STD
+*CALL
+	Eliminate(var, value, expr)
+
+*PARMS
+
+{var} -- variable (or subexpression) to substitute
+
+{value} -- new value of "var"
+
+{expr} -- expression in which the substitution should take place
+
+*DESC
+
+This function uses {Subst} to replace all instances
+of the variable (or subexpression) "var" in the expression "expr"
+with "value", calls {Simplify} to simplify the
+resulting expression, and returns the result.
+
+*E.G.
+
+	In> Subst(Cos(b), c) (Sin(a)+Cos(b)^2/c)
+	Out> Sin(a)+c^2/c;
+	In> Eliminate(Cos(b), c, Sin(a)+Cos(b)^2/c)
+	Out> Sin(a)+c;
+
+*SEE SuchThat, Subst, Simplify
+%/mathpiper_docs

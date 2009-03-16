@@ -127,3 +127,37 @@ Function("PSolve",{uni,var})
      ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="PSolve"
+*CMD PSolve --- solve a polynomial equation
+*STD
+*CALL
+	PSolve(poly, var)
+
+*PARMS
+
+{poly} -- a polynomial in "var"
+
+{var} -- a variable
+
+*DESC
+
+This commands returns a list containing the roots of "poly",
+considered as a polynomial in the variable "var". If there is only
+one root, it is not returned as a one-entry list but just by
+itself. A double root occurs twice in the result, and similarly for
+roots of higher multiplicity. All polynomials of degree up to 4 are
+handled.
+
+*E.G.
+
+	In> PSolve(b*x+a,x)
+	Out> -a/b;
+	In> PSolve(c*x^2+b*x+a,x)
+	Out> {(Sqrt(b^2-4*c*a)-b)/(2*c),(-(b+
+	Sqrt(b^2-4*c*a)))/(2*c)};
+
+*SEE Solve, Factor
+%/mathpiper_docs
