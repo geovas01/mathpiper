@@ -460,3 +460,54 @@ Out( 6 ) = Complex(Cos(a)*Cos(b)+Sin(a)*Sin(b),Sin(a)*Cos(b)-Cos(a)*Sin(b));
 
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="TrigSimpCombine"
+*CMD TrigSimpCombine --- combine products of trigonometric functions
+*STD
+*CALL
+	TrigSimpCombine(expr)
+
+*PARMS
+
+{expr} -- expression to simplify
+
+*DESC
+
+This function applies the product rules of trigonometry, e.g.
+$Cos(u)*Sin(v) = (1/2)*(Sin(v-u) + Sin(v+u))$. As a
+result, all products of the trigonometric functions {Cos} and {Sin} disappear. The function also tries to simplify the resulting expression as much as
+possible by combining all similar terms.
+
+This function is used in for instance {Integrate},
+to bring down the expression into a simpler form that hopefully can be
+integrated easily.
+
+*E.G.
+
+	In> PrettyPrinter'Set("PrettyForm");
+	
+	True
+	
+	In> TrigSimpCombine(Cos(a)^2+Sin(a)^2)
+	
+	1
+	
+	In> TrigSimpCombine(Cos(a)^2-Sin(a)^2)
+	
+	Cos( -2 * a )
+	
+	Out>
+	In> TrigSimpCombine(Cos(a)^2*Sin(b))
+	
+	Sin( b )   Sin( -2 * a + b ) 
+	-------- + ----------------- 
+	   2               4         
+	
+	    Sin( -2 * a - b )
+	  - -----------------
+	            4
+
+*SEE Simplify, Integrate, Expand, Sin, Cos, Tan
+%/mathpiper_docs
