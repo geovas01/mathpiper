@@ -55,3 +55,25 @@
 10 # PDF(tDistribution(_m),x) <-- Gamma((m+1)/2)*(1+x^2/m)^(-(m+1)/2)/Gamma(m/2)/Sqrt(Pi*m);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="PDF"
+*CMD PDF --- probability density function
+*STD
+*CALL
+	PDF(dist,x)
+
+*PARMS
+{dist} -- a distribution type
+
+{x} -- a value of random variable
+
+*DESC
+If {dist} is a discrete distribution, then {PDF} returns the
+probability for a random variable with distribution {dist} to take a
+value of {x}. If {dist} is a continuous distribution, then {PDF}
+returns the density function at point $x$.
+
+*SEE CDF
+%/mathpiper_docs
