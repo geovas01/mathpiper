@@ -1,4 +1,4 @@
-%mathpiper,def="LnExpand",scope="private"
+%mathpiper,def="LnExpand"
 
 ////////////////////// Log rules stuff //////////////////////
 
@@ -11,3 +11,38 @@
 2 # LnExpand(_a)            <-- a;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="LnExpand"
+*CMD LnExpand --- expand a logarithmic expression using standard logarithm rules
+*STD
+*CALL
+	LnExpand(expr)
+
+*PARMS
+
+{expr} -- the logarithm of an expression
+
+*DESC
+
+{LnExpand} takes an expression of the form $Ln(expr)$, and applies logarithm
+rules to expand this into multiple {Ln} expressions where possible.  An
+expression like $Ln(a*b^n)$ would be expanded to $Ln(a)+n*Ln(b)$.
+
+If the logarithm of an integer is discovered, it is factorised using {Factors}
+and expanded as though {LnExpand} had been given the factorised form.  So 
+$Ln(18)$ goes to $Ln(x)+2*Ln(3)$.
+
+*EG
+	In> LnExpand(Ln(a*b^n))
+	Out> Ln(a)+Ln(b)*n
+	In> LnExpand(Ln(a^m/b^n))
+	Out> Ln(a)*m-Ln(b)*n
+	In> LnExpand(Ln(60))
+	Out> 2*Ln(2)+Ln(3)+Ln(5)
+	In> LnExpand(Ln(60/25))
+	Out> 2*Ln(2)+Ln(3)-Ln(5)
+
+*SEE Ln, LnCombine, Factors
+%/mathpiper_docs

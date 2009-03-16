@@ -19,3 +19,31 @@
 50 # Simplify(_expr) <-- MultiSimp(Eval(expr));
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Simplify"
+*CMD Simplify --- try to simplify an expression
+*STD
+*CALL
+	Simplify(expr)
+
+*PARMS
+
+{expr} -- expression to simplify
+
+*DESC
+
+This function tries to simplify the expression {expr} as much
+as possible. It does this by grouping powers within terms, and then
+grouping similar terms.
+
+*E.G.
+
+	In> a*b*a^2/b-a^3
+	Out> (b*a^3)/b-a^3;
+	In> Simplify(a*b*a^2/b-a^3)
+	Out> 0;
+
+*SEE TrigSimpCombine, RadSimp
+%/mathpiper_docs

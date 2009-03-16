@@ -1,4 +1,4 @@
-%mathpiper,def="LnCombine",scope="private"
+%mathpiper,def="LnCombine"
 
 ////////////////////// Log rules stuff //////////////////////
 
@@ -70,3 +70,29 @@ LnCombine(_a) <-- DoLnCombine(CanonicalAdd(a));
 
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="LnCombine"
+*CMD LnCombine --- combine logarithmic expressions using standard logarithm rules
+*STD
+*CALL
+	LnCombine(expr)
+
+*PARMS
+
+{expr} -- an expression possibly containing multiple {Ln} terms to be combined
+
+*DESC
+
+{LnCombine} finds {Ln} terms in the expression it is given, and combines them
+using logarithm rules.  It is intended to be the exact converse of {LnExpand}.
+
+*EG
+	In> LnCombine(Ln(a)+Ln(b)*n)
+	Out> Ln(a*b^n)
+	In> LnCombine(2*Ln(2)+Ln(3)-Ln(5))
+	Out> Ln(12/5)
+
+*SEE Ln, LnExpand
+%/mathpiper_docs
