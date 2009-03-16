@@ -4,3 +4,36 @@ RuleBase("Object",{pred,x});
 Rule("Object",2,0,Apply(pred,{x})=True) x;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Object"
+*CMD Object --- create an incomplete type
+*STD
+*CALL
+	Object("pred", exp)
+
+*PARMS
+
+{pred} -- name of the predicate to apply
+
+{exp} -- expression on which "pred" should be applied
+
+*DESC
+
+This function returns "obj" as soon as "pred" returns {True} when applied on "obj". This is used to declare
+so-called incomplete types.
+
+*E.G.
+
+	In> a := Object("IsNumber", x);
+	Out> Object("IsNumber",x);
+	In> Eval(a);
+	Out> Object("IsNumber",x);
+	In> x := 5;
+	Out> 5;
+	In> Eval(a);
+	Out> 5;
+
+*SEE IsNonObject
+%/mathpiper_docs
