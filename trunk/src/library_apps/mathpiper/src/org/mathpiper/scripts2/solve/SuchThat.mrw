@@ -85,3 +85,44 @@ SuchThat(_function,_var) <-- SuchThat(function,0,var);
     SuchThat(x , right^2 , var);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="SuchThat"
+*CMD SuchThat --- special purpose solver
+*STD
+*CALL
+	SuchThat(expr, var)
+
+*PARMS
+
+{expr} -- expression to make zero
+
+{var} -- variable (or subexpression) to solve for
+
+*DESC
+
+This functions tries to find a value of the variable "var" which
+makes the expression "expr" zero. It is also possible to pass a
+subexpression as "var", in which case {SuchThat}
+will try to solve for that subexpression.
+
+Basically, only expressions in which "var" occurs only once are
+handled; in fact, {SuchThat} may even give wrong
+results if the variables occurs more than once. This is a consequence
+of the implementation, which repeatedly applies the inverse of the top
+function until the variable "var" is reached.
+
+*E.G.
+
+	In> SuchThat(a+b*x, x)
+	Out> (-a)/b;
+	In> SuchThat(Cos(a)+Cos(b)^2, Cos(b))
+	Out> Cos(a)^(1/2);
+	In> A:=Expand(a*x+b*x+c, x)
+	Out> (a+b)*x+c;
+	In> SuchThat(A, x)
+	Out> (-c)/(a+b);
+
+*SEE Solve, OldSolve, Subst, Simplify
+%/mathpiper_docs

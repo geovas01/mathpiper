@@ -1,4 +1,4 @@
-%mathpiper,def="Solve;OldSolve"
+%mathpiper,def="Solve"
 
 /* def file definitions
 Solve
@@ -246,163 +246,99 @@ LocalSymbols(x)
 20 # Solve'Divide(_e, _v) <-- Failed;
 
 
-/********** Solve'System **********/
-
-// for now, just use a very simple backsubstitution scheme
-Solve'System(_eqns, _vars) <-- Solve'SimpleBackSubstitution(eqns,vars);
-
-// Check(False, "Solve'System: not implemented");
-
-10 # Solve'SimpleBackSubstitution'FindAlternativeForms((_lx) == (_rx)) <--
-[
-  Local(newEq);
-  newEq := (Simplify(lx) == Simplify(rx));
-  If (newEq != (lx == rx) And newEq != (0==0),DestructiveAppend(eq,newEq));
-  newEq := (Simplify(lx - rx) == 0);
-  If (newEq != (lx == rx) And newEq != (0==0),DestructiveAppend(eq,newEq));
-];
-20 # Solve'SimpleBackSubstitution'FindAlternativeForms(_equation) <--
-[
-];
-UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
-
-/* Solving sets of equations using simple backsubstitution.
- * Solve'SimpleBackSubstitution takes all combinations of equations and
- * variables to solve for, and it then uses SuchThat to find an expression
- * for this variable, and then if found backsubstitutes it in the other
- * equations in the hope that they become simpler, resulting in a final
- * set of solutions.
- */
-10 # Solve'SimpleBackSubstitution(eq_IsList,var_IsList) <--
-[
- If(InVerboseMode(), Echo({"Entering Solve'SimpleBackSubstitution"}));
-
-  Local(result,i,j,nrvar,nreq,sub,nrSet,origEq);
-  eq:=FlatCopy(eq);
-  origEq:=FlatCopy(eq);
-  nrvar:=Length(var);
-  result:={FlatCopy(var)};
-  nrSet := 0;
-
-//Echo("Before: ",eq);
-  ForEach(equation,origEq)
-  [
-//Echo("equation ",equation);
-    Solve'SimpleBackSubstitution'FindAlternativeForms(equation);
-  ];
-//  eq:=Simplify(eq);
-//Echo("After: ",eq);
-
-  nreq:=Length(eq);
-
-  /* Loop over each variable, solving for it */
-
-/* Echo({eq});  */
-
-  For(j:=1,j<=nreq And nrSet < nrvar,j++)
-  [
-    Local(vlist);
-    vlist:=VarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
-    For(i:=1,i<=nrvar And nrSet < nrvar,i++)
-    [
-
-//Echo("eq[",j,"] = ",eq[j]);
-//Echo("var[",i,"] = ",var[i]);
-//Echo("varlist = ",vlist);
-//Echo();
-
-      If(Count(vlist,var[i]) = 1,
-         [
-           sub := Listify(eq[j]);
-           sub := sub[2]-sub[3];
-//Echo("using ",sub);
-           sub:=SuchThat(sub,var[i]);
-           If(InVerboseMode(), Echo({"From ",eq[j]," it follows that ",var[i]," = ",sub}));
-           If(SolveFullSimplify=True,
-             result:=Simplify(Subst(var[i],sub)result),
-             result[1][i]:=sub
-             );
-//Echo("result = ",result," i = ",i);
-           nrSet++;
-
-//Echo("current result is ",result);
-           Local(k,reset);
-           reset:=False;
-           For(k:=1,k<=nreq  And nrSet < nrvar,k++)
-           If(Contains(VarListAll(eq[k],`Lambda({pt},Contains(@var,pt))),var[i]),
-           [
-             Local(original);
-             original:=eq[k];
-             eq[k]:=Subst(var[i],sub)eq[k];
-             If(Simplify(Simplify(eq[k])) = (0 == 0),
-               eq[k] := (0 == 0),
-               Solve'SimpleBackSubstitution'FindAlternativeForms(eq[k])
-               );
-//             eq[k]:=Simplify(eq[k]);
-//             eq[k]:=Simplify(eq[k]); //@@@??? TODO I found one example where simplifying twice gives a different result from simplifying once!
-             If(original!=(0==0) And eq[k] = (0 == 0),reset:=True);
-             If(InVerboseMode(), Echo({"   ",original," simplifies to ",eq[k]}));
-           ]);
-           nreq:=Length(eq);
-           vlist:=VarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
-           i:=nrvar+1;
-           // restart at the beginning of the variables.
-           If(reset,j:=1);
-         ]);
-    ];
-  ];
-
-
-//Echo("Finished finding results ",var," = ",result);
-//  eq:=origEq;
-//  nreq := Length(eq);
-  Local(zeroeq,tested);
-  tested:={};
-//  zeroeq:=FillList(0==0,nreq);
-
-  ForEach(item,result)
-  [
-/*
-    Local(eqSimplified);
-    eqSimplified := eq;
-    ForEach(map,Transpose({var,item}))
-    [
-      eqSimplified := Subst(map[1],map[2])eqSimplified;
-    ];
-    eqSimplified := Simplify(Simplify(eqSimplified));
-
-    Echo(eqSimplified);
-
-    If(eqSimplified = zeroeq,
-    [
-      DestructiveAppend(tested,Map("==",{var,item}));
-    ]);
-*/
-    DestructiveAppend(tested,Map("==",{var,item}));
-  ];
-
-
-
-/* Echo({"tested is ",tested});  */
- If(InVerboseMode(), Echo({"Leaving Solve'SimpleBackSubstitution"}));
-  tested;
-];
-
-
-
-
-/********** OldSolve **********/
-10 # OldSolve(eq_IsList,var_IsList) <-- Solve'SimpleBackSubstitution(eq,var);
-
-
-90 # OldSolve((left_IsList) == right_IsList,_var) <--
-      OldSolve(Map("==",{left,right}),var);
-
-
-100 # OldSolve(_left == _right,_var) <--
-     SuchThat(left - right , 0 , var);
-
-/* HoldArg("OldSolve",arg1); */
-/* HoldArg("OldSolve",arg2); */
-
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Solve"
+*CMD Solve --- solve an equation
+*STD
+*CALL
+	Solve(eq, var)
+
+*PARMS
+
+{eq} -- equation to solve
+
+{var} -- variable to solve for
+
+*DESC
+
+This command tries to solve an equation. If {eq} does not contain the
+{==} operator, it is assumed that the user wants to solve $eq ==
+0$. The result is a list of equations of the form {var == value}, each
+representing a solution of the given equation. The {Where} operator
+can be used to substitute this solution in another expression. If the
+given equation {eq} does not have any solutions, or if {Solve} is
+unable to find any, then an empty list is returned.
+
+The current implementation is far from perfect. In particular, the
+user should keep the following points in mind:
+*	{Solve} cannot solve all equations. If it is given a equation
+it can not solve, it raises an error via {Check}. Unfortunately, this
+is not displayed by the inline pretty-printer; call {PrettyPrinter'Set} to
+change this. If an equation cannot be solved analytically, you may
+want to call {Newton} to get a numerical solution.
+*	Systems of equations are not handled yet. For linear systems,
+{MatrixSolve} can be used. The old version of {Solve}, with the name
+{OldSolve} might be able to solve nonlinear systems of equations.
+*	The periodicity of the trigonometric functions {Sin}, {Cos},
+and {Tan} is not taken into account. The same goes for the (imaginary)
+periodicity of {Exp}. This causes {Solve} to miss solutions.
+*	It is assumed that all denominators are nonzero. Hence, a
+solution reported by {Solve} may in fact fail to be a solution because
+a denominator vanishes.
+*	In general, it is wise not to have blind trust in the results
+returned by {Solve}. A good strategy is to substitute the solutions
+back in the equation.
+
+*E.G. notest
+
+First a simple example, where everything works as it should. The
+quadratic equation $x^2 + x == 0$ is solved. Then the result is
+checked by substituting it back in the quadratic.
+
+	In> quadratic := x^2+x;
+	Out> x^2+x;
+	In> Solve(quadratic, x);
+	Out> {x==0,x==(-1)};
+	In> quadratic Where %;
+	Out> {0,0};
+
+If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
+{Solve} can not do this.
+
+	In> PrettyPrinter'Set("DefaultPrint");
+	Out> True;
+	In> Solve(Exp(x) == Sin(x), x);
+	Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
+	Out> {};
+
+The equation $Cos(x) == 1/2$ has an infinite number of solutions,
+namely $x == (2*k + 1/3) * Pi$ and $x == (2*k - 1/3) * Pi$ for any
+integer $k$. However, {Solve} only reports the solutions with $k == 0$.
+
+	In> Solve(Cos(x) == 1/2, x);
+	Out> {x==Pi/3,x== -Pi/3};
+
+For the equation $x/Sin(x) == 0$, a spurious solution at $x == 0$ is
+returned. However, the fraction is undefined at that point.
+
+	In> Solve(x / Sin(x) == 0, x);
+	Out> {x==0};
+
+At first sight, the equation $Sqrt(x) == a$ seems to have the solution
+$x == a^2$. However, this is not true for eg. $a == -1$.
+
+	In> PrettyPrinter'Set("DefaultPrint");
+	Out> True;
+	In> Solve(Sqrt(x) == a, x);
+	Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
+	Out> {};
+	In> Solve(Sqrt(x) == 2, x);
+	Out> {x==4};
+	In> Solve(Sqrt(x) == -1, x);
+	Out> {};
+
+*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinter'Set, PSolve, Where, ==
+%/mathpiper_docs
