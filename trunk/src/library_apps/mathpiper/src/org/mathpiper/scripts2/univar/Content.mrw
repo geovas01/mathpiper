@@ -4,3 +4,36 @@
 20 # Content(poly_CanBeUni) <-- NormalForm(Content(MakeUni(poly)));
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Content"
+*CMD Content --- content of a univariate polynomial
+*STD
+*CALL
+	Content(expr)
+
+*PARMS
+
+{expr} -- univariate polynomial
+
+*DESC
+
+This command determines the content of a univariate polynomial. The
+content is the greatest common divisor of all the terms in the
+polynomial. Every polynomial can be written as the product of the
+content with the primitive part.
+
+*E.G.
+
+	In> poly := 2*x^2 + 4*x;
+	Out> 2*x^2+4*x;
+	In> c := Content(poly);
+	Out> 2*x;
+	In> pp := PrimitivePart(poly);
+	Out> x+2;
+	In> Expand(pp*c);
+	Out> 2*x^2+4*x;
+
+*SEE PrimitivePart, Gcd
+%/mathpiper_docs
