@@ -266,3 +266,8 @@ IntFunc(x,Erf(_x), x*Erf(x)+ 1/(Exp(x^2)*Sqrt(Pi)) );
 
 
 %/mathpiper
+
+    %output,preserve="false"
+      Processing...
+.   %/output
+

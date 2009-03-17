@@ -43,12 +43,14 @@
 	
 	
 	<target name="buildscripts" depends="">
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
 		<taskdef name="buildscripts"
               classname="org.mathpiper.test.Build"
               classpath="${build.classes.dir}"  />
 
-      <buildscripts scriptsDirectory="Are you ready?"
-                 outputDirectory="Important Question"/>
+      <buildscripts scriptsDirectory="${src.dir}/org/mathpiper/scripts2/"
+                 outputDirectory="${build.classes.dir}/org/mathpiper/scripts/"/>
       
       </target>
 
@@ -58,11 +60,11 @@
 	
 	<target id="dist" name="dist" depends="compile,buildscripts" >
 	
-		<copy todir="${build.classes.dir}/org/mathpiper/scripts">
+		<!--<copy todir="${build.classes.dir}/org/mathpiper/scripts">
 			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" >
 				<include name="*.rep/**/*" />
 			</fileset>
-		</copy>
+		</copy>-->
 		
 		<mkdir dir="${build.classes.dir}/tests" />
 		<mkdir dir="${build.classes.dir}/tests/scripts" />

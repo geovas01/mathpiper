@@ -361,9 +361,10 @@ public class Build {
     
     public void execute()
     {
-	    System.out.println("************************************ build.java *******");
-	    System.out.println(this.scriptsDirectory);
-	    System.out.println(this.outputDirectory);
+	    System.out.println("****************** Compiling scripts2 *******");
+	    System.out.println("Source directory: " + this.scriptsDirectory);
+	    System.out.println("Destination directory: " + this.outputDirectory);
+	    compileScripts();
     }//end method.
 
     public static void main(String[] args) {
