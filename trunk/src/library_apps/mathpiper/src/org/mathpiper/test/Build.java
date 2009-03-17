@@ -41,8 +41,33 @@ public class Build {
 
     private java.io.File scriptsDir;
     private java.io.FileWriter packagesFile;
+    
+    private String scriptsDirectory;
+    private String outputDirectory;
+    
+    public Build()
+    {
+    }//end constructor.
+    
+    public Build(String scriptsDirectory, String outputDirectory)
+    {
+	    this.scriptsDirectory = scriptsDirectory;
+	    this.outputDirectory = outputDirectory;
+    }//end constructor.
+    
+    public void setScriptsDirectory(String scriptsDirectory)
+    {
+	    this.scriptsDirectory = scriptsDirectory;
+    }//end method.
+    
+    public void setOutputDirectory(String outputDirectory)
+    {
+	    this.outputDirectory = outputDirectory;
+    }//end method.
 
-    public void compileScripts(String scriptsDirectory, String outputDirectory) {
+    
+    
+    public void compileScripts() {
 
         StringBuilder mainScriptsClassBuffer = new StringBuilder();
 
@@ -332,6 +357,14 @@ public class Build {
 
         }//end subpackage for.
     }//end method.
+    
+    
+    public void execute()
+    {
+	    System.out.println("************************************ build.java *******");
+	    System.out.println(this.scriptsDirectory);
+	    System.out.println(this.outputDirectory);
+    }//end method.
 
     public static void main(String[] args) {
 
@@ -353,8 +386,8 @@ public class Build {
 
         //String outputDirectory = "/home/tkosan/temp/mathpiper/org/mathpiper/scripts/";
 
-        Build scripts = new Build();
-        scripts.compileScripts(scriptsDirectory, outputDirectory);
+        Build scripts = new Build(scriptsDirectory, outputDirectory);
+        scripts.compileScripts();
 
     }//end main
 }//end class.
