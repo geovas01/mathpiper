@@ -1,0 +1,68 @@
+%mathpiper,def="Show"
+Macro("Show",{id})    [SysOut(<<,@id,>>);];
+Macro("Show",{id,x})  [SysOut(<<,@id,>>,Hold(@x),Eval(@x));];
+%/mathpiper
+
+%mathpiper_docs,name="Show"
+*CMD Show --- debug routine using SysOut to print ID and (optional) variable(s)
+
+*STD
+*CALL
+	Show(ID)
+	Show(ID,list)
+
+*PARMS
+
+{ID} -- an arbitrary identifier for this printout
+
+{list} -- a list of items to be printed (may be a single item)
+
+*DESC
+
+If passed a single item, {Show} will display it using SysOut().  
+The dispayed value will be enclosed with << >> (see below).
+ID need not, and probably should not, be quoted.
+
+If there are two arguments, the first should be an ID as above, and the second 
+should be a list of variables which are bound to values at the place where
+{Show} is called.  Using SysOut(), the list of variable names will be printed
+out, along with a list of their currently bound values.
+
+{Show} can be called with any number of variable names in the list.
+
+{Show} always returns {True}.
+
+Because {Show} uses SysOut() to print its output, the output will be visible
+both on Standard Output and also on the Shell console (if MathPiper is started
+this way), or on the MathRider Activity Log (if started in MathRider).  
+The latter is very useful for debugging programs which hang in a loop or
+otherwise, because standard output may not then be visible, but the alternative
+output will usually be available.
+
+*E.G. notest
+	In> var1:=123
+	Result> 123
+	In> var2:= "a string"
+	Result> "a string"
+	In> var3:=Sin(x)+Exp(x)
+	Result> Sin(x)+Exp(x)
+	In> Show(ID1)
+	Result> True
+	Side Effects>
+	<<ID1>>
+	In> Show(ID2,{var1})
+	Result> True
+	Side Effects>
+	<<ID2>>{var1}{123}
+	In> Show(ID3,{var1,var2})
+	Result> True
+	Side Effects>
+	<<ID3>>{var1,var2}{123,a string}
+	In> Show(ID4,{var1,var2,var3})
+	Result> True
+	Side Effects>
+	<<ID4>>{var1,var2,var3}{123,a string,Sin(x)+Exp(x)}
+
+
+*SEE Tell
+%/mathpiper_docs
