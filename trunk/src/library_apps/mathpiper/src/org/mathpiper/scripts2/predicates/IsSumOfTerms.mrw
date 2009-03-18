@@ -23,6 +23,8 @@
 // if we get to this point, Listify the expression and try again
 22 # IsSumOfTerms(_var,_expr) <-- IsSumOfTerms(var,Listify(expr))
 
+%/mathpiper
+
 %mathpiper_docs,name="IsSumOfTerms"
 *CMD IsSumOfTerms --- check for expression being a sum of terms in variable
 
