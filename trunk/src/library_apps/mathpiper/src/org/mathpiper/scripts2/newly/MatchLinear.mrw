@@ -1,4 +1,9 @@
-%mathpiper,def="MatchLinear"
+%mathpiper,def="MatchLinear;MatchPureSquared"
+
+/*
+todo:tk:MatchPureSquared() is in this file because it is grouped with MatchLinear in a
+LocalSymbols() block.
+*/
 
 /* Def file definitions
 MatchPureSquared
