@@ -37,7 +37,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
 
     public static boolean DEBUG = false;
     public static boolean VERBOSE_DEBUG = false;
-    public static boolean TRACE_TO_STANDARD_OUT = false;
+    public static boolean TRACE_TO_STANDARD_OUT = true;
     private static int evalDepth = 0;
 
     /**
