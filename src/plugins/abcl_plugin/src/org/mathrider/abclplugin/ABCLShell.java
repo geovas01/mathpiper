@@ -19,7 +19,7 @@
 
 package org.mathrider.abclplugin;
 
-//import javax.script.*;
+import javax.script.*;
 import org.armedbear.lisp.*;
 
 import java.awt.Color;
@@ -44,8 +44,8 @@ import java.util.Map.Entry;
 
 public class ABCLShell extends Shell
 {
-	//private static ScriptEngine interpreter;
-	private static Interpreter interpreter;
+	private static ScriptEngine interpreter;
+	//private static Interpreter interpreter;
 
 	public ABCLShell() //throws org.mathrider.abcl.Piperexception
 	{
@@ -54,12 +54,12 @@ public class ABCLShell extends Shell
 
 	}//end constructor.
 	
-	public static synchronized Interpreter getInterpreter()
+	public static synchronized ScriptEngine getInterpreter()
 	{
 		if(interpreter == null)
 		{
-			//interpreter = new ScriptEngineManager().getEngineByExtension("lisp");
-			interpreter = Interpreter.createInstance();
+			interpreter = new ScriptEngineManager().getEngineByExtension("lisp");
+			//interpreter = Interpreter.createInstance();
 			return interpreter;
 		}
 		else
@@ -92,8 +92,20 @@ public class ABCLShell extends Shell
 
 		try {
 			
-			LispObject response = interpreter.eval(script);
-			output.print(null, response.writeToString() );
+			Object response = interpreter.eval(script);
+			
+			if(response instanceof LispObject)
+			{
+				LispObject lispObject = (LispObject) response;
+				String responseString = lispObject.writeToString();
+				responseString = responseString.replaceAll("ABCL-SCRIPT-USER::","");
+				output.print(null,  responseString);
+			}
+			else
+			{
+				output.print(null,  response.toString());
+			}
+			
 		}
 		catch(Throwable e)
 		{

@@ -548,8 +548,20 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				//System.out.println("******* " + tempFileName);
 				//sendString =("(load \"" + tempFileName + "\")");
 				//result = abcl.eval(sendString);
-				result = abcl.eval(codeText);
-				result = result.writeToString();
+				response = abcl.eval(codeText);
+				
+			if(response instanceof org.armedbear.lisp.LispObject)
+			{
+				org.armedbear.lisp.LispObject lispObject = (org.armedbear.lisp.LispObject) response;
+				String responseString = lispObject.writeToString();
+				responseString = responseString.replaceAll("ABCL-SCRIPT-USER::","");
+				result = responseString;
+			}
+			else
+			{
+				result=response.toString();
+			}
+			
 				output_fold_type = "%output";
 				//System.out.println(
 				
