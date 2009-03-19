@@ -21,7 +21,7 @@
 20 # IsSumOfTerms(_var,expr_IsList()) <-- False;
 
 // if we get to this point, Listify the expression and try again
-22 # IsSumOfTerms(_var,_expr) <-- IsSumOfTerms(var,Listify(expr))
+22 # IsSumOfTerms(_var,_expr) <-- IsSumOfTerms(var,Listify(expr));
 
 %/mathpiper
 
