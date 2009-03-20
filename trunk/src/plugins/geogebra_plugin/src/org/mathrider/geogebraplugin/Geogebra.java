@@ -62,9 +62,9 @@ import geogebra.GeoGebraApplet;
  *
  */
 public class Geogebra extends JPanel
-    implements EBComponent, GeogebraActions, DefaultFocusComponent {
+	implements EBComponent, GeogebraActions, DefaultFocusComponent {
 
-    // {{{ Instance Variables
+	// {{{ Instance Variables
 	//private static final long serialVersionUID = 6412255692894321789L;
 
 	private String filename;
@@ -78,11 +78,11 @@ public class Geogebra extends JPanel
 	//private GeogebraTextArea textArea;
 
 	private GeogebraToolPanel toolPanel;
-	
-	private static GeoGebraApplet geoGebraApplet;
-    // }}}
 
-    // {{{ Constructor
+	private static GeoGebraApplet geoGebraApplet;
+	// }}}
+
+	// {{{ Constructor
 	/**
 	 * 
 	 * @param view the current jedit window
@@ -104,70 +104,85 @@ public class Geogebra extends JPanel
 			this.setPreferredSize(new Dimension(500, 250));
 
 		geoGebraApplet = new GeoGebraApplet();
-		
-
-// Now try to get an applet stub for this class.
 
 
-String homeDir = org.gjt.sp.jedit.jEdit.getJEditHome();
-if(homeDir.indexOf(":") != -1){
-		homeDir = homeDir.split(":")[1];
-}
-        MathriderAppletStub stub = new MathriderAppletStub(this,
-               geoGebraApplet, "geogebra.applet.", homeDir + java.io.File.separator +"jars" + java.io.File.separator + "scripts" + java.io.File.separator + "init.ggb");
-        
+		// Now try to get an applet stub for this class.
+
+
+		String homeDir = org.gjt.sp.jedit.jEdit.getJEditHome();
+		if(homeDir.indexOf(":") != -1){
+			homeDir = homeDir.split(":")[1];
+		}
+		MathriderAppletStub stub = new MathriderAppletStub(this,
+		                           geoGebraApplet, "geogebra.applet.", homeDir + java.io.File.separator +"jars" + java.io.File.separator + "scripts" + java.io.File.separator + "init.ggb");
+
 		geoGebraApplet.setStub(stub);
 
 		add(BorderLayout.CENTER, geoGebraApplet);
-// Initialize and start the applet
-        geoGebraApplet.init();
-		
-		
-		//Set look and feel to jEdit look and feel.
-		try
-		{
-			String lf = org.gjt.sp.jedit.jEdit.getProperty("lookAndFeel");
-			if(lf != null && lf.length() != 0)
-				javax.swing.UIManager.setLookAndFeel(lf);
-			else if(org.gjt.sp.jedit.OperatingSystem.isMacOS())
-			{
-				javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
-					.getSystemLookAndFeelClassName());
-			}
-			else
-			{
-				javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
-					.getCrossPlatformLookAndFeelClassName());
-			}
-		}
-		catch(Exception e)
-		{
-			Log.log(Log.ERROR,jEdit.class,e);
-		}
 
-		
-		
-		
-        geoGebraApplet.start();
-		
-		
+		Runnable initGeoGebra = new Runnable() {
+			                        public void run() {
+
+				                        // Initialize and start the applet
+				                        geoGebraApplet.init();
+
+
+				                        //Set look and feel to jEdit look and feel.
+				                        try
+				                        {
+					                        String lf = org.gjt.sp.jedit.jEdit.getProperty("lookAndFeel");
+					                        if(lf != null && lf.length() != 0)
+						                        javax.swing.UIManager.setLookAndFeel(lf);
+					                        else if(org.gjt.sp.jedit.OperatingSystem.isMacOS())
+					                        {
+						                        javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
+						                                                             .getSystemLookAndFeelClassName());
+					                        }
+					                        else
+					                        {
+						                        javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
+						                                                             .getCrossPlatformLookAndFeelClassName());
+					                        }
+				                        }
+				                        catch(Exception e)
+				                        {
+					                        Log.log(Log.ERROR,jEdit.class,e);
+				                        }
+
+
+
+
+				                        geoGebraApplet.start();
+
+			                        }
+		                        };
+
+
+							Thread runner = new Thread(initGeoGebra);
+							runner.start();
+
+
+
+
+
+
 		//String initCommands = "<?xml version=\"1.0\" encoding=\"utf-8\"?><geogebra format=\"3.01\"><gui>	<show algebraView=\"true\" auxiliaryObjects=\"false\" algebraInput=\"true\" cmdList=\"true\"/>	<splitDivider loc=\"138\" locVertical=\"400\" horizontal=\"true\"/>	<font  size=\"12\"/></gui><euclidianView>	<size  width=\"715\" height=\"761\"/>	<coordSystem xZero=\"215.0\" yZero=\"315.0\" scale=\"50.0\" yscale=\"50.0\"/>	<evSettings axes=\"true\" grid=\"false\" pointCapturing=\"3\" pointStyle=\"0\" rightAngleStyle=\"1\"/>	<bgColor r=\"255\" g=\"255\" b=\"255\"/>	<axesColor r=\"0\" g=\"0\" b=\"0\"/>	<gridColor r=\"192\" g=\"192\" b=\"192\"/>	<lineStyle axes=\"1\" grid=\"10\"/>	<axis id=\"0\" show=\"true\" label=\"\" unitLabel=\"\" tickStyle=\"1\" showNumbers=\"true\"/>	<axis id=\"1\" show=\"true\" label=\"\" unitLabel=\"\" tickStyle=\"1\" showNumbers=\"true\"/></euclidianView><kernel>	<continuous val=\"false\"/>	<decimals val=\"2\"/>	<angleUnit val=\"degree\"/>	<coordStyle val=\"0\"/></kernel><construction title=\"\" author=\"\" date=\"\"></construction></geogebra>";
 		//geoGebraApplet.setXML(initCommands);
-		
+
 		java.awt.Container container = geoGebraApplet.getContentPane();
-		
+
 		adjustSplitPane(container);
-		
+
 
 		//javax.swing.JSplitPane splitPane = (javax.swing.JSplitPane) geoGebraApplet.getContentPane();
 		//splitPane.setDividerLocation(40);
 		//geoGebraApplet.refreshViews();
-		
+
 
 
 	}//end constructor.
-    // }}}
-	
+	// }}}
+
 	//{{{
 	//This fixes a problem where the look and feel does not display correctly.
 	//For some reason, adjusting the split pane corrects the display.
@@ -177,14 +192,14 @@ if(homeDir.indexOf(":") != -1){
 		{
 			return;
 		}
-		
+
 		java.awt.Component[] components = container.getComponents();
-		
+
 		if(components == null)
 		{
 			return;
 		}
-		
+
 		for(int x = 0; x < components.length; x++)
 		{
 			if(components[x] instanceof javax.swing.JSplitPane)
@@ -195,46 +210,46 @@ if(homeDir.indexOf(":") != -1){
 			}
 			else if (components[x] instanceof java.awt.Container)
 			{
-				
+
 				adjustSplitPane((java.awt.Container) components[x]);
 			}
 		}
 	}//end
 	//}}}
 
-    // {{{ Member Functions
-	
-	
+	// {{{ Member Functions
+
+
 	// {{{ getGeoGebraApplet
 	public static geogebra.GeoGebraApplet getGeoGebraApplet()
 	{
 		return geoGebraApplet;
 	}//end method
 	// }}}
-    
-    // {{{ focusOnDefaultComponent
+
+	// {{{ focusOnDefaultComponent
 	public void focusOnDefaultComponent() {
 		//textArea.requestFocus();
 	}
-    // }}}
+	// }}}
 
-    // {{{ getFileName
+	// {{{ getFileName
 	public String getFilename() {
 		return filename;
 	}
-    // }}}
+	// }}}
 
 	// EBComponent implementation
-	
-    // {{{ handleMessage
+
+	// {{{ handleMessage
 	public void handleMessage(EBMessage message) {
 		if (message instanceof PropertiesChanged) {
 			propertiesChanged();
 		}
 	}
-    // }}}
-    
-    // {{{ propertiesChanged
+	// }}}
+
+	// {{{ propertiesChanged
 	private void propertiesChanged() {
 		/*String propertyFilename = jEdit
 				.getProperty(GeogebraPlugin.OPTION_PREFIX + "filepath");
@@ -244,43 +259,43 @@ if(homeDir.indexOf(":") != -1){
 			defaultFilename = propertyFilename;
 			filename = defaultFilename;
 			readFile();
-		}
+	}
 		Font newFont = GeogebraOptionPane.makeFont();
 		if (!newFont.equals(textArea.getFont())) {
 			textArea.setFont(newFont);
-		}*/
+	}*/
 	}//end method.
-	
-	
-    // }}}
+
+
+	// }}}
 
 	// These JComponent methods provide the appropriate points
 	// to subscribe and unsubscribe this object to the EditBus.
 
-    // {{{ addNotify
+	// {{{ addNotify
 	public void addNotify() {
 		super.addNotify();
 		EditBus.addToBus(this);
 	}
-     // }}}
-     
-    // {{{ removeNotify
+	// }}}
+
+	// {{{ removeNotify
 	public void removeNotify() {
 		//saveFile();
 		super.removeNotify();
 		EditBus.removeFromBus(this);
 	}
-    // }}}
-    
+	// }}}
+
 	// GeogebraActions implementation
 
-    // {{{
+	// {{{
 	public void reset() {
 		geoGebraApplet.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
 	}
-    // }}}
-    
-    // {{{ chooseFile
+	// }}}
+
+	// {{{ chooseFile
 	public void chooseFile() {
 		/*
 		String[] paths = GUIUtilities.showVFSFileDialog(view, null,
@@ -290,21 +305,21 @@ if(homeDir.indexOf(":") != -1){
 			filename = paths[0];
 			toolPanel.propertiesChanged();
 			readFile();
-		}
+	}
 		*/
 	}
-    // }}}
+	// }}}
 
-    // {{{ copyToBuffer
+	// {{{ copyToBuffer
 	public void copyToBuffer() {
 		/*
 		jEdit.newFile(view);
 		view.getEditPane().getTextArea().setText(textArea.getText());
 		*/
 	}//end method.
-    // }}}
+	// }}}
 
-    // }}}
+	// }}}
 }//end class.
 // }}}
 
