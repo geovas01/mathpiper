@@ -1,51 +1,12 @@
-To execute these abcl folds, place the cursor inside
+To execute these lisp folds, place the cursor inside
 of a fold and press <shift><enter>.
 
-
-%abcl,description="Addition"
-    (+ 1 2 3)
-
-%/abcl
+%lisp
+(+ 2 3)
+%/lisp
 
 
 
-
-    
-    
-%abcl,description="Show a message dialog."
-    (. javax.swing.JOptionPane (showMessageDialog nil "Hello World"))
-
-%/abcl
-
-
-
-
-
-%abcl,description="doto example."
-    (doto (new java.util.HashMap) (put "a" 1) (put "b" 2))
-
-%/abcl
-
-
-    
-    
-    
-
-%abcl,description="Measuring execution time."
-    (defn foo [n]
-      (loop [i 1]
-        (if (< i n)
-          (recur (inc i))
-          i)))
-     
-    (time (foo 100000))
-
-
-%/abcl
-
-
-
-
-    
-    
-    
+%lisp
+(union '(a b c) '(c b s))
+%/lisp
