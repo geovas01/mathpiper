@@ -47,6 +47,11 @@
 		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
 		<pathelement path="${master.lib.dir}/jars/abcl.jar" />
 		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
+		<pathelement path="${master.lib.dir}/jars/geogebra_cas.jar" />
+		<pathelement path="${master.lib.dir}/jars/geogebra_export.jar" />
+		<pathelement path="${master.lib.dir}/jars/geogebra_gui.jar" />
+		<pathelement path="${master.lib.dir}/jars/geogebra_main.jar" />
+		<pathelement path="${master.lib.dir}/jars/geogebra_properties.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />
 		<pathelement path="${plugins.jars.dir}/jung2.jar" />
