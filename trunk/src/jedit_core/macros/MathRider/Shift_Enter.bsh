@@ -566,12 +566,18 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				//System.out.println(
 				
 					
-					
-			}catch(Exception t) 
+			
+			
+			}catch(Throwable e) 
 			{
-				//t = (org.armedbear.lisp.ConditionThrowable) t;
-				result = t.getMessage() + "  " + t.getCondition();
-				t.printStackTrace();
+				//result = e.toString();
+				//e.printStackTrace();
+				
+				cause = (org.armedbear.lisp.ConditionThrowable) e.getCause().getCause();
+				condition = cause.getCondition();
+				//System.out.println("condition: " + condition.writeToString() +"  report: " + condition.getConditionReport() );
+				result = condition.getConditionReport();
+				
 				output_fold_type = "%error ";
 			}
 			
