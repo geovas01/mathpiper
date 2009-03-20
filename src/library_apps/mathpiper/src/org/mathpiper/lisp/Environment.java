@@ -60,7 +60,9 @@ public class Environment
     private int iPrecision = 10;
     private TokenMap iTokenHash = new TokenMap();
     public Cons iTrueAtom;
+    public final String iTrueString;
     public Cons iFalseAtom;
+    public final String iFalseString;
     public Cons iEndOfFileAtom;
     public Cons iEndStatementAtom;
     public Cons iProgOpenAtom;
@@ -109,8 +111,9 @@ public class Environment
         iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
         iTrueAtom = AtomCons.getInstance(this, "True");
+        iTrueString = iTrueAtom.string();
         iFalseAtom = AtomCons.getInstance(this, "False");
-
+        iFalseString = iFalseAtom.string();
         iEndOfFileAtom = AtomCons.getInstance(this, "EndOfFile");
         iEndStatementAtom = AtomCons.getInstance(this, ";");
         iProgOpenAtom = AtomCons.getInstance(this, "[");
