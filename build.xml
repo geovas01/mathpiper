@@ -140,7 +140,7 @@
 		</ant>
 	</target>
 	
-	<target id="mathpiper_plugin" name="mathpiper_plugin" depends="mathpiper_library" >
+	<target id="mathpiper_plugin" name="mathpiper_plugin" depends="" >
 		<ant dir="${plugins.src.dir}/mathpiper_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/mathpiper_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
