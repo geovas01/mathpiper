@@ -282,9 +282,13 @@ public class UtilityFunctions {
 
     public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null);
+
         //return aExpression.getCons().string() == aEnvironment.iTrueAtom.string();
-        String expressionString = aExpression.getCons().string();
-        return expressionString != null && expressionString != aEnvironment.iFalseString ;
+        String expressionString  = aExpression.getCons().string();
+
+
+        //System.out.println(expressionString);
+        return (expressionString != null && expressionString != aEnvironment.iFalseString) || internalIsList(aExpression) ;
     }
 
     public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception {
