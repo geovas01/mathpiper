@@ -7,9 +7,10 @@
 /// List of all defined backends and their symbolic labels.
 /// Add any new backends here
 Plot2D'outputs() := {
-	{"default", "java"},
+	{"default", "geogebra"},
 	{"data", "Plot2D'data"},
 	{"java", "Plot2D'java"},
+    {"geogebra", "Plot2D'geogebra"},
 };
 
 /*
@@ -58,4 +59,46 @@ Plot2D'java(values_IsList, _options'hash) <--
 
 
 
+
+//GeoGebra backend.
+Plot2D'geogebra(values_IsList, _options'hash) <--
+[
+  Local(result,count);
+  count := 0;
+  result:="";
+
+
+  ForEach(function,values)
+  [
+
+    function:=Select(Lambda({item},item[2] != Undefined),function);
+
+    ForEach(item,function)
+    [
+      result := result:"(":String(item[1]):",":String(item[2]):")":Nl();
+    ];
+  ];
+  WriteString(result);
+  True;
+];
+
+
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,scope="nobuild"
+Retract("Plot2D'geogebra",2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
