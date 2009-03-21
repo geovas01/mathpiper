@@ -282,12 +282,14 @@ public class UtilityFunctions {
 
     public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null);
-        return aExpression.getCons().string() == aEnvironment.iTrueAtom.string();
+        //return aExpression.getCons().string() == aEnvironment.iTrueAtom.string();
+        String expressionString = aExpression.getCons().string();
+        return expressionString != null && expressionString != aEnvironment.iFalseString ;
     }
 
     public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null);
-        return aExpression.getCons().string() == aEnvironment.iFalseAtom.string();
+        return aExpression.getCons().string() == aEnvironment.iFalseString;
     }
 
     public static String symbolName(Environment aEnvironment, String aSymbol) {
