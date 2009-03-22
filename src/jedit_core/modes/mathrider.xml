@@ -30,73 +30,10 @@
         <EOL_SPAN TYPE="COMMENT3">%/group</EOL_SPAN>
 
 
-		<!--<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%piper</EOL_SPAN>
-		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%maxima</EOL_SPAN>
-		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%lisp</EOL_SPAN>
-        <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%geogebra</EOL_SPAN>
-        <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%hoteqn</EOL_SPAN>
-		<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%end</EOL_SPAN>
-        <EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%beanshell</EOL_SPAN>
-	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%html</EOL_SPAN>
-	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%uasm65</EOL_SPAN>
-	<EOL_SPAN TYPE="KEYWORD3" AT_LINE_START="TRUE">%group</EOL_SPAN> 
-
-
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%hoteqn</BEGIN>
-			<END>%end</END>
-		</SPAN>
-        
-
-		
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%maxima</BEGIN>
-			<END>%end</END>
-		</SPAN>
-		
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%lisp</BEGIN>
-			<END>%end</END>
-		</SPAN>
-        
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%output</BEGIN>
-			<END>%end</END>
-		</SPAN>
-        
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%error</BEGIN>
-			<END>%end</END>
-		</SPAN>
-        
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%geogebra</BEGIN>
-			<END>%end</END>
-		</SPAN>
-        
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%beanshell</BEGIN>
-			<END>%end</END>
-		</SPAN>  
-		
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%html</BEGIN>
-			<END>%end</END>
-		</SPAN>
-		
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%uasm65</BEGIN>
-			<END>%end</END>
-		</SPAN>
-		
-		<SPAN TYPE="MARKUP" >
-			<BEGIN>%group</BEGIN>
-			<END>%end</END>
-		</SPAN>
-        
-        
--->
-
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiperdocs::MAIN">
+			<BEGIN>%mathpiper_docs[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/mathpiper_docs</END>
+		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
 			<BEGIN>%mathpiper[0-9a-zA-Z,="._() ]*</BEGIN>
