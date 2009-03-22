@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import org.mathrider.piper_me.PiperInterpreter;
-import org.mathrider.piper_me.SimpleTest;
 
 public class PiperTest implements org.mathrider.piper_me.FileLocator 
 {
