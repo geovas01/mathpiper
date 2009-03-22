@@ -4,7 +4,7 @@ package org.mathrider.piper_me;
 import java.io.*;
 
 
-public class PiperConsole extends Thread
+public class PiperConsole extends Thread implements FileLocator
 {
     static String readLine(InputStream aStream)
 	
@@ -27,9 +27,10 @@ public class PiperConsole extends Thread
   }
   //static boolean quitting = false;
 
-  
   public static void main(String[] argv)
   {
+    org.mathrider.piper_me.StdFileInput.locator = new PiperConsole();
+    
     String defaultDirectory = null;
     String archive = "";
 
@@ -178,6 +179,19 @@ public class PiperConsole extends Thread
 	  }
     }
   }
+  public InputStream getStream(String name) {
+    InputStream is = getClass().getResourceAsStream(name);
+    if (is == null)
+      is = getClass().getResourceAsStream("/"+name);
+    if (is == null) {
+      try {
+        is = new BufferedInputStream(new FileInputStream(name));
+      } catch (FileNotFoundException e) {
+        is = null;
+      }
+    }
+    return is;
+  }
+    
 }
 
-// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:

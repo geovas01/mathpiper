@@ -62,4 +62,5 @@ public interface IterableCollection<E> {
   public long size();
   public Seq<E> seq();
   public ForwardIterator<E> iterator();
+  public boolean contains(E e);
 }

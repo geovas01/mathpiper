@@ -2,9 +2,15 @@
 
 package org.mathrider.piper_me.tests;
 
-import org.mathrider.piper_me.PiperInterpreter;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
-public class PiperTest
+import org.mathrider.piper_me.PiperInterpreter;
+import org.mathrider.piper_me.SimpleTest;
+
+public class PiperTest implements org.mathrider.piper_me.FileLocator 
 {
 	private java.io.File testDirectory;
 	private String result;
@@ -19,6 +25,7 @@ public class PiperTest
 	
 	public void test(String directory)
 	{
+    org.mathrider.piper_me.StdFileInput.locator = this;
 		try{
 			
 			logFile = new java.io.FileWriter("piper_tests.log");
@@ -101,6 +108,20 @@ public class PiperTest
 		pt.test(directory);
 		
 	}//end main
+  
+   public InputStream getStream(String name) {
+      InputStream is = getClass().getResourceAsStream(name);
+      if (is == null)
+        is = getClass().getResourceAsStream("/"+name);
+      if (is == null) {
+        try {
+          is = new BufferedInputStream(new FileInputStream(name));
+        } catch (FileNotFoundException e) {
+          is = null;
+        }
+      }
+      return is;
+   }
 	
 }//end class.
 
