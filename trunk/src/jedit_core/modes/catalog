@@ -245,6 +245,9 @@
 <MODE NAME="mathpiper"		FILE="mathpiper.xml"
 				FILE_NAME_GLOB="*.{mpi,mpt,ys,yts}" />
 				
+<MODE NAME="mathpiperdocs"	FILE="mathpiperdocs.xml"
+				FILE_NAME_GLOB="*.{mpd}" />
+				
 <MODE NAME="mathpipertrace"		FILE="mathpipertrace.xml"
 				FILE_NAME_GLOB="*.{mpr}" />
                 
