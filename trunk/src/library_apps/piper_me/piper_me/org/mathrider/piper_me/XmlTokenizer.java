@@ -11,7 +11,7 @@ class XmlTokenizer extends LispTokenizer
     char c;
     int firstpos=0;
     if (aInput.EndOfStream())
-      return aHashTable.LookUp(aInput.StartPtr().substring(firstpos,aInput.Position()));
+      return aHashTable.LookUp(aInput.substring(firstpos,aInput.Position()));
     //skipping spaces
     while (IsSpace(aInput.Peek())) aInput.Next();
     firstpos = aInput.Position();
@@ -31,7 +31,7 @@ class XmlTokenizer extends LispTokenizer
         c = aInput.Next();
       }
     }
-    return aHashTable.LookUp(aInput.StartPtr().substring(firstpos,aInput.Position()));
+    return aHashTable.LookUp(aInput.substring(firstpos,aInput.Position()));
   }
 
   private static boolean IsSpace(int c)

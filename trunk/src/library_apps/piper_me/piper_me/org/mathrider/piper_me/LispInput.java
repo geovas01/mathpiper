@@ -45,4 +45,12 @@ abstract class LispInput
     public abstract void SetPosition(int aPosition);
 
     InputStatus iStatus;
+    
+    public String substring(int start, int end) {
+      StringBuffer buffer = StartPtr();
+      StringBuffer sub = new StringBuffer();
+      for (int i = start; i < end; i++)
+        sub.append(buffer.charAt(i));
+      return sub.toString();
+    }
 };
