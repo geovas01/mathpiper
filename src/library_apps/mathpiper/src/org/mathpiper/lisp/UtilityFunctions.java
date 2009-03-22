@@ -284,16 +284,32 @@ public class UtilityFunctions {
         LispError.lispAssert(aExpression.getCons() != null);
 
         //return aExpression.getCons().string() == aEnvironment.iTrueAtom.string();
-        String expressionString  = aExpression.getCons().string();
+        String expressionString = aExpression.getCons().string();
 
+//return expressionString == aEnvironment.iTrueString;
 
-        //System.out.println(expressionString);
-        return (expressionString != null && expressionString != aEnvironment.iFalseString) || internalIsList(aExpression) ;
-    }
+        if (expressionString == aEnvironment.iTrueString) {
+            return true;
+        } else if (internalIsList(aExpression)) {
+            if(listLength(aExpression.getCons().getSubList()) == 1)  {
+                //Empty list.
+                return false;
+            } else {
+                //Non-empty list.
+                return true;
+            }
+        } else {
+            //Anything other than False returns true.
+            return expressionString != null && expressionString != aEnvironment.iFalseString;
+        }
+
+    }//end method.
 
     public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null);
-        return aExpression.getCons().string() == aEnvironment.iFalseString;
+        //return aExpression.getCons().string() == aEnvironment.iFalseString;
+
+        return aExpression.getCons().string() == aEnvironment.iFalseString || (internalIsList(aExpression) && (listLength(aExpression.getCons().getSubList()) == 1));
     }
 
     public static String symbolName(Environment aEnvironment, String aSymbol) {
@@ -704,7 +720,6 @@ public class UtilityFunctions {
         }
     }
 
-
     /**
      * Convert the number of digits in given base to the number of bits.  To make sure there is no hysteresis, the returned
      * value is rounded up.
@@ -717,7 +732,6 @@ public class UtilityFunctions {
     public static long digitsToBits(long digits, int base) throws Exception {
         return (long) Math.ceil(((double) digits) * log2TableLookup(base));
     }
-
 
     /**
      * Convert the  number of bits in a given base to the number of digits.  To make sure there is no hysteresis, the returned
@@ -732,10 +746,7 @@ public class UtilityFunctions {
         return (long) Math.floor(((double) bits) / log2TableLookup(base));
     }
 
-
-
     //************************* The following methods were taken from the Functions class.
-
     /**
      * Construct a {@link BigNumber}.
      * @param aEnvironment the current {@link Environment}.
