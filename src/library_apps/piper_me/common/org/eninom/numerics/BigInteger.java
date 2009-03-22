@@ -72,6 +72,15 @@ public final class BigInteger {
 
   private transient volatile int[] words;
 
+  static private final char[]digits = {'0', '1', '2', '3', 
+    '4', '5', '6', '7', '8',
+    '7', '8', '9', 'A', 'B',
+    'C', 'D', 'E', 'F', 'G'};
+  
+  static private char forDigit(int digit) {
+    return digits[digit];  
+  }
+  
   /**
    * We pre-allocate integers in the range minFixNum..maxFixNum. Note that we
    * must at least preallocate 0, 1, and 10.
@@ -1529,7 +1538,7 @@ public final class BigInteger {
             int hex_digit = (word >> (4 * j)) & 0xF;
             // Suppress leading zeros:
             if ((hex_digit > 0) || (buffer.length() > buf_start)) {
-              buffer.append(Character.forDigit(hex_digit, 16));
+              buffer.append(forDigit(hex_digit));
             }
           }
         }
@@ -1537,7 +1546,7 @@ public final class BigInteger {
         int i = buffer.length();
         for (;;) {
           int digit = MPN.divmod_1(work, work, len, radix);
-          buffer.append(Character.forDigit(digit, radix));
+          buffer.append(forDigit(digit));
           while ((len > 0) && (work[len - 1] == 0)) {
             len--;
           }
