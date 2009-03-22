@@ -2,7 +2,7 @@ package org.mathrider.piper_me;
 
 import org.eninom.collection.mutable.ExtendibleArray;
 
-class LispEnvironment
+public class LispEnvironment
 {
   //TODO FIXME
 
@@ -338,8 +338,8 @@ class LispEnvironment
   LispOutput iInitialOutput = null;
 
   LispPrinter iCurrentPrinter = null;
-  LispInput   iCurrentInput   = null;
-  InputStatus iInputStatus    = new InputStatus();
+  public LispInput   iCurrentInput   = null;
+  public InputStatus iInputStatus    = new InputStatus();
   LispTokenizer iCurrentTokenizer;
   LispTokenizer iDefaultTokenizer = new LispTokenizer();
   LispTokenizer iXmlTokenizer = new XmlTokenizer();

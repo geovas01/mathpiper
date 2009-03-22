@@ -3,7 +3,7 @@ package org.mathrider.piper_me;
 
 
 /** CachedStdFileInput : input from stdin */
-class CachedStdFileInput extends LispInput
+public class CachedStdFileInput extends LispInput
 {
     public CachedStdFileInput(InputStatus aStatus)
     {

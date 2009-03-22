@@ -32,8 +32,8 @@ package org.eninom.collection.mutable;
 
 import java.util.NoSuchElementException;
 
+import org.eninom.collection.Set;
 import org.eninom.collection.Collections;
-import org.eninom.collection.IterableCollection;
 import org.eninom.func.Cons;
 import org.eninom.iterator.ForwardIterator;
 import org.eninom.seq.Seq;
@@ -52,7 +52,7 @@ import org.eninom.seq.SeqFromIterator;
  */
 @SuppressWarnings("unchecked")
 public final class HashMap<Key, Value> implements
-    IterableCollection<Cons<Key, Value>> {
+    Set<Cons<Key, Value>> {
   private int size = 0;
   private Object[] table;
   private int hashSum = 0;
@@ -85,14 +85,16 @@ public final class HashMap<Key, Value> implements
     }
   }
 
-  private static int DEFAULT_INITIAL_CAPACITY = 1513;
+  public final static int DEFAULT_INITIAL_CAPACITY = 1513;
 
   public HashMap() {
     table = new Object[2 * DEFAULT_INITIAL_CAPACITY];
   }
 
-  public HashMap(int initialCapacity) {
-    table = new Object[2 * initialCapacity];
+  public HashMap(long initialCapacity) {
+    if (initialCapacity > Integer.MAX_VALUE / 2)
+      throw new IllegalArgumentException("Capacity too large "+initialCapacity);
+    table = new Object[(int)(2 * initialCapacity)];
   }
 
   /**
@@ -170,9 +172,9 @@ public final class HashMap<Key, Value> implements
             list.arr.set(i, key);
             list.arr.set(i + 1, value);
           }// `if`
-          if (list.arr.size() == 0) {
-            table[k] = null;
-            table[k + 1] = null;
+          if (list.arr.size() == 2) {
+            table[k] = list.arr.get(0);
+            table[k + 1] = list.arr.get(1);
           }// `if`
           hashSum = hashSum - hc;
           size = size - 1;
@@ -181,7 +183,7 @@ public final class HashMap<Key, Value> implements
     }// `else`
   }
 
-  final public boolean contains(Key a) {
+  final public boolean containsKey(Key a) {
     int hc = a.hashCode();
     if (hc < 0) {
       hc = -hc;
@@ -221,6 +223,31 @@ public final class HashMap<Key, Value> implements
       for (int i = 0; i < list.arr.size(); i = i + 2) {
         if (a.equals(list.arr.get(i))) {
           return (Value) list.arr.get(i + 1);
+        }
+      }// `for`
+      return null;
+    }// `else`
+  }
+  
+  final public Key getSameKey(Key a) {
+    int hc = a.hashCode();
+    if (hc < 0) {
+      hc = -hc;
+    }
+    int k = 2 * (hc % (table.length / 2));
+    if (table[k] == null) {
+      return (Key) table[k];
+    } else if (table[k].getClass() != List.class) {
+      if (a.equals(table[k])) {
+        return (Key) table[k];
+      } else {
+        return null;
+      }
+    } else {
+      List list = (List) table[k];
+      for (int i = 0; i < list.arr.size(); i = i + 2) {
+        if (a.equals(list.arr.get(i))) {
+          return (Key) list.arr.get(i);
         }
       }// `for`
       return null;
@@ -312,6 +339,43 @@ public final class HashMap<Key, Value> implements
       return (tablePos < table.length);
     }
   }
+  
+  private class KeyIterator implements
+  ForwardIterator<Key> {
+
+int listPos = 0;
+int tablePos = 0;
+
+public KeyIterator() {
+  tablePos = advanceTablePos(0);
+}
+
+public Key next() {
+  if (!hasNext()) {
+    throw new NoSuchElementException("No next element.");
+  }
+
+  if (table[tablePos].getClass() != List.class) {
+    Key result = (Key) table[tablePos];
+    tablePos = advanceTablePos(tablePos + 2);
+    return result;
+  } else {
+    List list = (List) table[tablePos];
+    Key result = (Key) list.arr.get(listPos);
+    listPos = listPos + 2;
+    if (listPos >= list.arr.size()) {
+      listPos = 0;
+      tablePos = advanceTablePos(tablePos + 2);
+    }// `if`
+    return result;
+  }// `else`
+}
+
+public boolean hasNext() {
+  return (tablePos < table.length);
+}
+}
+
 
   private int advanceTablePos(int tablePos) {
     while ((tablePos < table.length) && (table[tablePos] == null)) {
@@ -322,6 +386,10 @@ public final class HashMap<Key, Value> implements
 
   final public ForwardIterator<Cons<Key, Value>> iterator() {
     return new Iterator();
+  }
+  
+  final public ForwardIterator<Key> keyIterator() {
+    return new KeyIterator();
   }
 
   public final Seq<Cons<Key, Value>> seq() {
@@ -390,14 +458,16 @@ public final class HashMap<Key, Value> implements
       Cons<Key, Value> pair = it.next();
       Object key = pair.first();
       Object value = pair.second();
-      if (!map2.contains(key)) {
+      if (!map2.containsKey(key)) {
         return false;
       }
       Object value2 = map2.get(key);
-      if ((value == null) ^ (value2 == null)) {
-        return false;
-      } else if (!value.equals(value2)) {
-        ;
+
+ 	  if (value == null) {
+         if (value2 != null)
+           return false;
+       }
+       else if ((value2 == null) || !value.equals(value2)) {
         return false;
       }
     }// `for`
@@ -424,5 +494,34 @@ public final class HashMap<Key, Value> implements
     }
     s.append("]");
     return s.toString();
+  }
+
+  public boolean contains(Cons<Key, Value> e) {
+    Key k = e.first();
+    if (k == null)
+      return false;
+    
+    if (!containsKey(k))
+      return false;
+    
+    Value v = get(k);
+    if (v == null)
+      return e.second() == null;
+    else
+    return v.equals(e.second());
+  }
+
+  public Cons<Key, Value> getSame(Cons<Key, Value> e) {
+    Key k = getSameKey(e.first());
+    if (k == null)
+      return null;
+
+    Value v = get(k);
+    
+    if (((v == null) && (e.second() == null)) 
+        || ((v != null) && (e.second() != null) 
+            && v.equals(e.second())))
+      return new Cons<Key, Value>(k,v);
+    else return null;
   }
 }// `class`

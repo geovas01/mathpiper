@@ -30,7 +30,6 @@ exception statement from your version. */
 
 package org.eninom.collection.mutable;
 
-import org.eninom.collection.AbstractIterableCollection;
 import org.eninom.collection.Collections;
 import org.eninom.collection.RandomAccess;
 import org.eninom.iterator.ForwardIterator;
@@ -406,16 +405,20 @@ MutableStack<E> {
   
   @Override
   public int hashCode() {
-    return AbstractIterableCollection.hashCode(this);
+    return Collections.hashCode(this);
   }
   
   @Override
   public boolean equals(Object obj) {
-   return AbstractIterableCollection.equals(this,obj);
+   return Collections.equals(this,obj);
   }
   
   @Override
   public String toString() {
     return Collections.printToString(this);
+  }
+
+  public boolean contains(E e) {
+    return Collections.contains(this, e); 
   }
 }

@@ -3,11 +3,14 @@
 		build file for piper-me and unit tests
 	</description>
 	<!-- set global properties for this build -->
-	<property name="src" location="common:piper_me:xpiper:tests"/>
+	
+	<property name="src" location="common:piper_me"/>
+	<property name="srcx" location="xpiper:tests"/>
 	<property name="scripts" location="scripts"/>
 	<property name="srcTests" location="test"/>
 	<property name="buildroot" location="build"/>
 	<property name="build" location="${buildroot}/jar"/>
+	<property name="buildx" location="${buildroot}/jar-x"/>
 	<property name="buildTests" location="${buildroot}/test"/>
 	<property name="dist"  location="dist"/>
 	<property name="lib" location="lib"/>
@@ -19,10 +22,20 @@
 		</fileset>
 	</path>
 	
+	<path id="buildx.classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<pathelement location="${dist}/lib/piper-me.jar"/>
+		
+	</path>
+	
 	<path id="test.classpath">
 		<fileset dir="${lib}">
 			<include name="**/*.jar"/>
 		</fileset>
+		<pathelement location="${dist}/lib/piper-me.jar"/>
+		<pathelement location="${dist}/lib/piper-x.jar"/>
 		<pathelement location="${build}" />
 		<pathelement location="${buildTests}" />
 	</path>
@@ -33,6 +46,7 @@
 		<tstamp/>
 		<!-- Create the build directory structure used by compile -->
 		<mkdir dir="${build}"/>
+		<mkdir dir="${buildx}"/>
 		<mkdir dir="${buildTests}"/>
 	</target>
 	
@@ -45,7 +59,7 @@
 		</javac>
 	</target>
 	
-	<target name="dist" depends="compile"
+	<target name="distbase" depends="compile"
 		description="generate the distribution" >
 		<!-- Create the distribution directory -->
 		<mkdir dir="${dist}/lib"/>
@@ -53,6 +67,26 @@
 		<jar jarfile="${dist}/lib/piper-me.jar">
 			<fileset dir="${build}"/>
 			<fileset dir="${scripts}"/>
+		</jar>
+	</target>
+	
+	<target name="compilex" depends="distbase"
+		description="compile the source " >
+		
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${srcx}" destdir="${buildx}" target="jsr14">
+			<classpath refid="buildx.classpath" />
+		</javac>
+	</target>
+		
+	
+	<target name="dist" depends="compilex"
+		description="generate the distribution" >
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/lib"/>
+		<!-- Put everything in ${build} into the piper-x.jar file -->
+		<jar jarfile="${dist}/lib/piper-x.jar">
+			<fileset dir="${buildx}"/>
 		</jar>
 	</target>
 	

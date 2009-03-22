@@ -4,12 +4,17 @@ package org.mathrider.piper_me;
 import java.io.*;
 
 
-class StdFileInput extends StringInput
+public class StdFileInput extends StringInput
 {
+  public static FileLocator locator = null;
+  
   public StdFileInput(String aFileName, InputStatus aStatus) throws Exception
   {
     super(new StringBuffer(),aStatus);
-    FileInputStream stream = new FileInputStream(aFileName);
+    
+    
+    InputStream stream = locator.getStream(aFileName);
+    
     int c;
     while (true)
     {

@@ -139,7 +139,7 @@ class LispTokenizer
         continue;
       }
     }
-    return aHashTable.LookUp(aInput.StartPtr().substring(firstpos,aInput.Position()));
+    return aHashTable.LookUp(aInput.StartPtr().toString().substring(firstpos,aInput.Position()));
   }
 
   static boolean IsDigit(char c)
