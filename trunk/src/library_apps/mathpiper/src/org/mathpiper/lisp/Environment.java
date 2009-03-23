@@ -381,7 +381,7 @@ public class Environment
         return multiUserFunc;
     }
 
-    public void declareRuleBase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
+    public void declareRuleDatabase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
     {
         MultipleArityUserFunction multiUserFunc = getMultiUserFunction(aOperator);
 
@@ -423,7 +423,7 @@ public class Environment
         }
     }
 
-    public void declareMacroRuleBase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
+    public void declareMacroRuleDatabase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
     {
         MultipleArityUserFunction multiUserFunc = getMultiUserFunction(aOperator);
         MacroUserFunction newFunc;

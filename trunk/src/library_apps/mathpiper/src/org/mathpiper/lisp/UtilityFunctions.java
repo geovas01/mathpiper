@@ -925,7 +925,7 @@ public class UtilityFunctions {
     /// Implements the MathPiper functions \c RuleBase and \c MacroRuleBase .
     /// The real work is done by Environment::DeclareRuleBase().
 
-    public static void internalRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void internalRuleDatabase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         //TESTARGS(3);
 
         // Get operator
@@ -941,7 +941,7 @@ public class UtilityFunctions {
         LispError.checkIsList(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
-        aEnvironment.declareRuleBase(UtilityFunctions.symbolName(aEnvironment, orig),
+        aEnvironment.declareRuleDatabase(UtilityFunctions.symbolName(aEnvironment, orig),
                 args.getCons().getSubList().getCons().rest(), aListed);
 
         // Return true
@@ -1005,7 +1005,7 @@ public class UtilityFunctions {
         LispError.checkIsList(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
-        aEnvironment.declareMacroRuleBase(UtilityFunctions.symbolName(aEnvironment, orig),
+        aEnvironment.declareMacroRuleDatabase(UtilityFunctions.symbolName(aEnvironment, orig),
                 args.getCons().getSubList().getCons().rest(), aListed);
 
         // Return true
