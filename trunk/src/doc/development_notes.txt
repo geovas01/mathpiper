@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Base in MathPiper means Database.
++ Rule in MathPiper means rewrite rule.
 + %mathpiper
 //This does not create a function for some reason.
 a := OldSolve(x^2 + y^2 == 25,y);
