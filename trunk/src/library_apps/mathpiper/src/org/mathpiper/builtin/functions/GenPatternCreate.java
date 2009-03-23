@@ -42,7 +42,7 @@ public class GenPatternCreate extends BuiltinFunction
 
         ConsTraverser consTraverser = new ConsTraverser(pattern);
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons().getSubList() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons().getSublistPointer() != null, 1);
         consTraverser.goSub();
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 1);
         consTraverser.goNext();

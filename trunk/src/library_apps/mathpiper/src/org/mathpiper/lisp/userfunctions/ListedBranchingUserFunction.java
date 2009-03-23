@@ -47,14 +47,14 @@ public class ListedBranchingUserFunction extends BranchingUserFunction
 		while (i < arity && consTraverser.getCons() != null)
 		{
 			ptr.setCons(consTraverser.getCons().copy(false));
-			ptr = (ptr.getCons().rest());
+			ptr = (ptr.getCons().getRestPointer());
 			i++;
 			consTraverser.goNext();
 		}
-		if (consTraverser.getCons().rest().getCons() == null)
+		if (consTraverser.getCons().getRestPointer().getCons() == null)
 		{
 			ptr.setCons(consTraverser.getCons().copy(false));
-			ptr = (ptr.getCons().rest());
+			ptr = (ptr.getCons().getRestPointer());
 			i++;
 			consTraverser.goNext();
 			LispError.lispAssert(consTraverser.getCons() == null);
@@ -63,7 +63,7 @@ public class ListedBranchingUserFunction extends BranchingUserFunction
 		{
 			ConsPointer head = new ConsPointer();
 			head.setCons(aEnvironment.iListAtom.copy(false));
-			head.getCons().rest().setCons(consTraverser.getCons());
+			head.getCons().getRestPointer().setCons(consTraverser.getCons());
 			ptr.setCons(SubListCons.getInstance(head.getCons()));
 		}
 		super.evaluate(aResult, aEnvironment, newArgs);

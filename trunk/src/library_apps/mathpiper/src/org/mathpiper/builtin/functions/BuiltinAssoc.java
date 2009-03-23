@@ -46,19 +46,19 @@ public class BuiltinAssoc extends BuiltinFunction
         Cons t;
 
         //check that it is a compound object
-        LispError.checkArgument(aEnvironment, aStackTop, list.getCons().getSubList() != null, 2);
-        t = list.getCons().getSubList().getCons();
+        LispError.checkArgument(aEnvironment, aStackTop, list.getCons().getSublistPointer() != null, 2);
+        t = list.getCons().getSublistPointer().getCons();
         LispError.checkArgument(aEnvironment, aStackTop, t != null, 2);
-        t = t.rest().getCons();
+        t = t.getRestPointer().getCons();
 
         while (t != null)
         {
-            if (t.getSubList() != null)
+            if (t.getSublistPointer() != null)
             {
-                Cons sub = t.getSubList().getCons();
+                Cons sub = t.getSublistPointer().getCons();
                 if (sub != null)
                 {
-                    sub = sub.rest().getCons();
+                    sub = sub.getRestPointer().getCons();
                     ConsPointer temp = new ConsPointer();
                     temp.setCons(sub);
                     if (UtilityFunctions.internalEquals(aEnvironment, key, temp))
@@ -68,7 +68,7 @@ public class BuiltinAssoc extends BuiltinFunction
                     }
                 }
             }
-            t = t.rest().getCons();
+            t = t.getRestPointer().getCons();
         }
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
     }

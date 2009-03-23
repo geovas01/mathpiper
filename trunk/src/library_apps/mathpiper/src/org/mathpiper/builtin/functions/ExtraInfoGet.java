@@ -35,7 +35,7 @@ public class ExtraInfoGet extends BuiltinFunction
         ConsPointer object = new ConsPointer();
         object.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        ConsPointer result = object.getCons().getExtraInfo();
+        ConsPointer result = object.getCons().getExtraInfoPointer();
         if (result == null)
         {
             UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));

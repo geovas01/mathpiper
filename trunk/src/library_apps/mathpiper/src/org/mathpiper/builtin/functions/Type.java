@@ -35,7 +35,7 @@ public class Type extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer subList = evaluated.getCons().getSubList();
+        ConsPointer subList = evaluated.getCons().getSublistPointer();
         Cons head = null;
         if (subList == null)
         {

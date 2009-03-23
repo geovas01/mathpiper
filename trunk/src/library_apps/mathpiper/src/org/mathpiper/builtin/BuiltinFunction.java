@@ -223,7 +223,7 @@ public abstract class BuiltinFunction
 		while(n != 0)
 		{
 			n--;
-			loop = loop.getCons().rest();
+			loop = loop.getCons().getRestPointer();
 		}
 		return loop;
 	}

@@ -39,7 +39,7 @@ public class HoldArg extends BuiltinFunction
         // The arguments
         String tohold = getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, tohold != null, 2);
-        aEnvironment.holdArgument(UtilityFunctions.symbolName(aEnvironment, orig), tohold);
+        aEnvironment.holdArgument(UtilityFunctions.getSymbolName(aEnvironment, orig), tohold);
         // Return true
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }

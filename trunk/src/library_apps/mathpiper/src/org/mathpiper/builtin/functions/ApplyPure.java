@@ -38,22 +38,22 @@ public class ApplyPure extends BuiltinFunction
         ConsPointer args = new ConsPointer();
         args.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        LispError.checkArgument(aEnvironment, aStackTop, args.getCons().getSubList() != null, 2);
-        LispError.check(aEnvironment, aStackTop, args.getCons().getSubList().getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, args.getCons().getSublistPointer() != null, 2);
+        LispError.check(aEnvironment, aStackTop, args.getCons().getSublistPointer().getCons() != null, 2);
 
         // Apply a pure string
         if (oper.getCons().string() != null)
         {
             UtilityFunctions.internalApplyString(aEnvironment, getResult(aEnvironment, aStackTop),
                     oper.getCons().string(),
-                    args.getCons().getSubList().getCons().rest());
+                    args.getCons().getSublistPointer().getCons().getRestPointer());
         } else
         {   // Apply a pure function {args,body}.
 
             ConsPointer args2 = new ConsPointer();
-            args2.setCons(args.getCons().getSubList().getCons().rest().getCons());
-            LispError.checkArgument(aEnvironment, aStackTop, oper.getCons().getSubList() != null, 1);
-            LispError.checkArgument(aEnvironment, aStackTop, oper.getCons().getSubList().getCons() != null, 1);
+            args2.setCons(args.getCons().getSublistPointer().getCons().getRestPointer().getCons());
+            LispError.checkArgument(aEnvironment, aStackTop, oper.getCons().getSublistPointer() != null, 1);
+            LispError.checkArgument(aEnvironment, aStackTop, oper.getCons().getSublistPointer().getCons() != null, 1);
             UtilityFunctions.internalApplyPure(oper, args2, getResult(aEnvironment, aStackTop), aEnvironment);
         }
     }

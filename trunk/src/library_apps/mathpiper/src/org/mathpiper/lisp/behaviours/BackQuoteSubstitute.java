@@ -42,8 +42,8 @@ public class BackQuoteSubstitute implements SubstituteBase
 	}
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
-		if (aElement.getCons().getSubList() == null) return false;
-		Cons ptr = aElement.getCons().getSubList().getCons();
+		if (aElement.getCons().getSublistPointer() == null) return false;
+		Cons ptr = aElement.getCons().getSublistPointer().getCons();
 		if (ptr == null) return false;
 		if (ptr.string() == null) return false;
 
@@ -55,7 +55,7 @@ public class BackQuoteSubstitute implements SubstituteBase
 
 		if (!ptr.string().equals("@"))
 			return false;
-		ptr = ptr.rest().getCons();
+		ptr = ptr.getRestPointer().getCons();
 		if (ptr == null)
 			return false;
 		if (ptr.string() != null)
@@ -67,14 +67,14 @@ public class BackQuoteSubstitute implements SubstituteBase
 		}
 		else
 		{
-			ptr = ptr.getSubList().getCons();
+			ptr = ptr.getSublistPointer().getCons();
 			ConsPointer cur = new ConsPointer();
 			cur.setCons(ptr);
 			ConsPointer args = new ConsPointer();
-			args.setCons(ptr.rest().getCons());
+			args.setCons(ptr.getRestPointer().getCons());
 			ConsPointer result = new ConsPointer();
 			iEnvironment.iEvaluator.evaluate(iEnvironment, result, cur);
-			result.getCons().rest().setCons(args.getCons());
+			result.getCons().getRestPointer().setCons(args.getCons());
 			ConsPointer result2 = new ConsPointer();
 			result2.setCons(SubListCons.getInstance(result.getCons()));
 			UtilityFunctions.substitute(aResult, result2,this);

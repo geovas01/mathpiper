@@ -39,7 +39,7 @@ public class Retract extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = evaluated.getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.symbolName(aEnvironment, orig);
+        String oper = UtilityFunctions.getSymbolName(aEnvironment, orig);
 
         ConsPointer arity = new ConsPointer();
         arity.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());

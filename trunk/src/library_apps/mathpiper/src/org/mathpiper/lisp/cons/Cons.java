@@ -34,7 +34,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     ConsPointer iCdr = new ConsPointer();
 
-    public ConsPointer rest() {
+    public ConsPointer getRestPointer() {
         return iCdr;
     }
 
@@ -51,7 +51,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
      *  If this object is a list, return a pointer to it.
      *  Default behaviour is to return NULL.
      */
-    public ConsPointer getSubList() {
+    public ConsPointer getSublistPointer() {
         return null;
     }
 
@@ -72,7 +72,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
      *  Return a pointer to extra info. This allows for annotating
      *  an object. Returns NULL by default.
      */
-    public ConsPointer getExtraInfo() {
+    public ConsPointer getExtraInfoPointer() {
         return null;
     }
 
@@ -85,8 +85,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         }
 
         //So, no strings.
-        ConsPointer iter1 = getSubList();
-        ConsPointer iter2 = aOther.getSubList();
+        ConsPointer iter1 = getSublistPointer();
+        ConsPointer iter2 = aOther.getSublistPointer();
         if (!(iter1 != null && iter2 != null)) {
             return false;
         }
@@ -97,8 +97,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
                 return false;
             }
 
-            iter1 = iter1.getCons().rest();
-            iter2 = iter2.getCons().rest();
+            iter1 = iter1.getCons().getRestPointer();
+            iter2 = iter2.getCons().getRestPointer();
         }
         //One list longer than the other?
         if (iter1.getCons() == null && iter2.getCons() == null) {

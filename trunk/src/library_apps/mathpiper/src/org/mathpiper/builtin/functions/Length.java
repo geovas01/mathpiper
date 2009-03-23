@@ -34,10 +34,10 @@ public class Length extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList();
+        ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer();
         if (subList != null)
         {
-            int num = UtilityFunctions.listLength(subList.getCons().rest());
+            int num = UtilityFunctions.listLength(subList.getCons().getRestPointer());
             getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }

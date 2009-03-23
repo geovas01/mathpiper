@@ -38,7 +38,7 @@ public class LazyOr extends BuiltinFunction
 
         ConsPointer evaluated = new ConsPointer();
 
-        ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
+        ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer());
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {
@@ -53,7 +53,7 @@ public class LazyOr extends BuiltinFunction
                 nrnogos++;
 
                 ptr.setCons(evaluated.getCons().copy(false));
-                ptr.getCons().rest().setCons(nogos.getCons());
+                ptr.getCons().getRestPointer().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
             }
             consTraverser.goNext();
@@ -72,7 +72,7 @@ public class LazyOr extends BuiltinFunction
                 nogos.setCons(ptr.getCons());
 
                 ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
-                ptr.getCons().rest().setCons(nogos.getCons());
+                ptr.getCons().getRestPointer().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
                 getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(nogos.getCons()));
             }

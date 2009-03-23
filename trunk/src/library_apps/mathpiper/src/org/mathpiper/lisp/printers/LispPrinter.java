@@ -50,14 +50,14 @@ public class LispPrinter
 				aOutput.putChar(' ');
 			}
 			// else print "(", print sublist, and print ")"
-			else if (iter.getCons().getSubList() != null)
+			else if (iter.getCons().getSublistPointer() != null)
 			{
 				if (item != 0)
 				{
 					indent(aOutput,aDepth+1);
 				}
 				aOutput.write("(");
-				printExpression((iter.getCons().getSubList()),aOutput, aEnvironment,aDepth+1);
+				printExpression((iter.getCons().getSublistPointer()),aOutput, aEnvironment,aDepth+1);
 				aOutput.write(")");
 				item=0;
 			}
@@ -65,7 +65,7 @@ public class LispPrinter
 			{
 				aOutput.write("[BuiltinObject]");
 			}
-			iter = (iter.getCons().rest());
+			iter = (iter.getCons().getRestPointer());
 			item++;
 		} // print rest element
 	}
