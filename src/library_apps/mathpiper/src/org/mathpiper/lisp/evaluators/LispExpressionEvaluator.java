@@ -112,7 +112,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
             return;
         }
         {
-            ConsPointer subList = aExpression.getCons().getSubList();
+            ConsPointer subList = aExpression.getCons().getSublistPointer();
 
             if (subList != null) {
                 Cons head = subList.getCons();
@@ -141,7 +141,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
                         ConsPointer oper = new ConsPointer();
                         ConsPointer args2 = new ConsPointer();
                         oper.setCons(subList.getCons());
-                        args2.setCons(subList.getCons().rest().getCons());
+                        args2.setCons(subList.getCons().getRestPointer().getCons());
                         UtilityFunctions.internalApplyPure(oper, args2, aResult, aEnvironment);
                         aEnvironment.iEvalDepth--;
                         return;
@@ -298,8 +298,8 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
         }
         {
             String function = "";
-            if (aExpression.getCons().getSubList() != null) {
-                ConsPointer sub = aExpression.getCons().getSubList();
+            if (aExpression.getCons().getSublistPointer() != null) {
+                ConsPointer sub = aExpression.getCons().getSublistPointer();
                 if (sub.getCons().string() != null) {
                     function = sub.getCons().string();
                 }

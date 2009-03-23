@@ -38,7 +38,7 @@ public class SubListCons extends Cons
         }
         
         
-	public ConsPointer getSubList()
+	public ConsPointer getSublistPointer()
 	{
 		return iSubList;
 	}

@@ -65,7 +65,7 @@ public class Parser
 		if (iListed)
 		{
 			aResult.setCons(AtomCons.getInstance(iEnvironment,"List"));
-			iter  = (aResult.getCons().rest()); //TODO FIXME
+			iter  = (aResult.getCons().getRestPointer()); //TODO FIXME
 		}
 		for (;;)
 		{
@@ -82,7 +82,7 @@ public class Parser
 			// results list.
 
 			parseAtom(iter,token);
-			iter = (iter.getCons().rest()); //TODO FIXME
+			iter = (iter.getCons().getRestPointer()); //TODO FIXME
 		}
 	}
 

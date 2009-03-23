@@ -32,7 +32,7 @@ public class Write extends BuiltinFunction
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList();
+        ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer();
         if (subList != null)
         {
             ConsTraverser consTraverser = new ConsTraverser(subList);

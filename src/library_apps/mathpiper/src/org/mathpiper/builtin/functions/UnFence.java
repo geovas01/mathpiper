@@ -41,7 +41,7 @@ public class UnFence extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string() != null, 2);
         int arity = Integer.parseInt(getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string(), 10);
 
-        aEnvironment.unFenceRule(UtilityFunctions.symbolName(aEnvironment, orig), arity);
+        aEnvironment.unFenceRule(UtilityFunctions.getSymbolName(aEnvironment, orig), arity);
 
         // Return true
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

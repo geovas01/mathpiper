@@ -238,10 +238,10 @@ public class Pattern
 		}
 
 		// Else it must be a sublist
-		if (aPattern.getSubList() != null)
+		if (aPattern.getSublistPointer() != null)
 		{
 			// See if it is a variable template:
-			ConsPointer  sublist = aPattern.getSubList();
+			ConsPointer  sublist = aPattern.getSublistPointer();
 			LispError.lispAssert(sublist != null);
 
 			int num = UtilityFunctions.listLength(sublist);
@@ -252,7 +252,7 @@ public class Pattern
 				Cons head = sublist.getCons();
 				if (head.string() == aEnvironment.getTokenHash().lookUp("_"))
 				{
-					Cons second = head.rest().getCons();
+					Cons second = head.getRestPointer().getCons();
 					if (second.string() != null)
 					{
 						int index = lookUp(second.string());
@@ -262,22 +262,22 @@ public class Pattern
 						{
 							ConsPointer third = new ConsPointer();
 
-							Cons predicate = second.rest().getCons();
-							if (predicate.getSubList() != null)
+							Cons predicate = second.getRestPointer().getCons();
+							if (predicate.getSublistPointer() != null)
 							{
-								UtilityFunctions.internalFlatCopy(third, predicate.getSubList());
+								UtilityFunctions.internalFlatCopy(third, predicate.getSublistPointer());
 							}
 							else
 							{
-								third.setCons(second.rest().getCons().copy(false));
+								third.setCons(second.getRestPointer().getCons().copy(false));
 							}
 
 							String str = second.string();
 							Cons last = third.getCons();
-							while (last.rest().getCons() != null)
-								last = last.rest().getCons();
+							while (last.getRestPointer().getCons() != null)
+								last = last.getRestPointer().getCons();
 
-							last.rest().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment,str));
+							last.getRestPointer().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment,str));
 
 							ConsPointer pred = new ConsPointer();
 							pred.setCons(org.mathpiper.lisp.cons.SubListCons.getInstance(third.getCons()));

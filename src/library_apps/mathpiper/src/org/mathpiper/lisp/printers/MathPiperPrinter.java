@@ -91,7 +91,7 @@ public class MathPiperPrinter extends LispPrinter
 			return;
 		}
 
-		ConsPointer subList = aExpression.getCons().getSubList();
+		ConsPointer subList = aExpression.getCons().getSublistPointer();
 		LispError.check(subList!=null, LispError.KLispErrUnprintableToken);
 		if (subList.getCons() == null)
 		{
@@ -127,16 +127,16 @@ public class MathPiperPrinter extends LispPrinter
 
 				if (prefix != null)
 				{
-					right = subList.getCons().rest();
+					right = subList.getCons().getRestPointer();
 				}
 				else if (infix != null)
 				{
-					left  = subList.getCons().rest();
-					right = subList.getCons().rest().getCons().rest();
+					left  = subList.getCons().getRestPointer();
+					right = subList.getCons().getRestPointer().getCons().getRestPointer();
 				}
 				else if (postfix != null)
 				{
-					left = subList.getCons().rest();
+					left = subList.getCons().getRestPointer();
 				}
 
 				if (iPrecedence < op.iPrecedence)
@@ -157,7 +157,7 @@ public class MathPiperPrinter extends LispPrinter
 			}
 			else
 			{
-				ConsTraverser consTraverser = new ConsTraverser(subList.getCons().rest());
+				ConsTraverser consTraverser = new ConsTraverser(subList.getCons().getRestPointer());
 				if (string == iCurrentEnvironment.iListAtom.string())
 				{
 					WriteToken(aOutput,"{");

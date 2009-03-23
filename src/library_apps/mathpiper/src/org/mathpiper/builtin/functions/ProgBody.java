@@ -39,7 +39,7 @@ public class ProgBody extends BuiltinFunction
 
             // Evaluate args one by one.
 
-            ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSubList());
+            ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer());
             consTraverser.goNext();
             while (consTraverser.getCons() != null)
             {
