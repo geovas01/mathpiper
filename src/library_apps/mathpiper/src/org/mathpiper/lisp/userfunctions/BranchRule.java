@@ -67,12 +67,12 @@ class BranchRule extends BranchRuleDatabase
     }
 
     /// Access #iBody.
-    public ConsPointer getBody()
+    public ConsPointer getBodyPointer()
     {
         return iBody;
     }
 
-    public ConsPointer getPredicate()
+    public ConsPointer getPredicatePointer()
     {
         return this.iPredicate;
     }

@@ -48,7 +48,7 @@ public class MultipleArityUserFunction
 	}
 
 	/// Return user function with given arity.
-	public UserFunction userFunction(int aArity) throws Exception
+	public UserFunction getUserFunction(int aArity) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
@@ -79,7 +79,7 @@ public class MultipleArityUserFunction
 	}
 
 	/// Add another SingleArityUserFunction to #iFunctions.
-	public  void defineRuleBase(SingleArityUserFunction aNewFunction) throws Exception
+	public  void addRuleDatabaseEntry(SingleArityUserFunction aNewFunction) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
@@ -95,7 +95,7 @@ public class MultipleArityUserFunction
 	}
 
 	/// Deletet user function with given arity.
-	public  void deleteBase(int aArity) throws Exception
+	public  void deleteRuleDatabaseEntry(int aArity) throws Exception
 	{
 		int i;
 		//Find function body with the right arity

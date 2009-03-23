@@ -512,7 +512,7 @@ public class EnvironmentViewer implements ActionListener {
 
                     try {
                         int precedence = branchRuleBase.getPrecedence();
-                        ConsPointer predicatePointer1 = branchRuleBase.getPredicate();
+                        ConsPointer predicatePointer1 = branchRuleBase.getPredicatePointer();
                         String predicate = "";
                         if (predicatePointer1.toString().equalsIgnoreCase("Empty.")) {
                             predicate = "None.";
@@ -577,7 +577,7 @@ public class EnvironmentViewer implements ActionListener {
                             parameters = parameters.substring(0, parameters.lastIndexOf(","));
                         }
 
-                        String body = UtilityFunctions.printExpression(branchRuleBase.getBody(), iEnvironment, 0);
+                        String body = UtilityFunctions.printExpression(branchRuleBase.getBodyPointer(), iEnvironment, 0);
                         //System.out.println(data);
                         textArea.append( "Precedence: " + precedence);
                         textArea.append("\n" + "Parameters: " + parameters);
