@@ -46,3 +46,13 @@ StringMid'Get
 StringMid'Set
 
 
+//Proposes function name changes:
+RuleBase -> RuleDatabase
+MacroRuleBase -> MacroRuleDatabase
+RuleBaseArgList -> RuleDatabaseArgs
+MacroRuleBase  -> MacroRuleDatabase
+MacroRuleBaseListed  -> MacroRuleDatabaseListed
+
+
+
+
