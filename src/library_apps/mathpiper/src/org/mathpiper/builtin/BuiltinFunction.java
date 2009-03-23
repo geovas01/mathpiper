@@ -50,8 +50,8 @@ import org.mathpiper.builtin.functions.DebugFile;
 import org.mathpiper.builtin.functions.DebugLine;
 import org.mathpiper.builtin.functions.DefLoad;
 import org.mathpiper.builtin.functions.DefLoadFunction;
-import org.mathpiper.builtin.functions.DefMacroRuleBase;
-import org.mathpiper.builtin.functions.DefMacroRuleBaseListed;
+import org.mathpiper.builtin.functions.DefMacroRuleDatabase;
+import org.mathpiper.builtin.functions.DefMacroRuleDatabaseListed;
 import org.mathpiper.builtin.functions.DefaultDirectory;
 import org.mathpiper.builtin.functions.DefaultTokenizer;
 import org.mathpiper.builtin.functions.Delete;
@@ -129,8 +129,8 @@ import org.mathpiper.builtin.functions.Load;
 import org.mathpiper.builtin.functions.LocalSymbols;
 import org.mathpiper.builtin.functions.MacroNewRule;
 import org.mathpiper.builtin.functions.MacroNewRulePattern;
-import org.mathpiper.builtin.functions.MacroRuleBase;
-import org.mathpiper.builtin.functions.MacroRuleBaseListed;
+import org.mathpiper.builtin.functions.MacroRuleDatabase;
+import org.mathpiper.builtin.functions.MacroRuleDatabaseListed;
 import org.mathpiper.builtin.functions.MacroSetVar;
 import org.mathpiper.builtin.functions.MathIsSmall;
 import org.mathpiper.builtin.functions.MathNegate;
@@ -404,19 +404,19 @@ public abstract class BuiltinFunction
                 new Evaluator(new RuleBase(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "RuleBase");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new Evaluator(new MacroRuleBase(), 2, Evaluator.Fixed | Evaluator.Function),
+                new Evaluator(new MacroRuleDatabase(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MacroRuleBase");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new RuleBaseListed(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "RuleBaseListed");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new Evaluator(new MacroRuleBaseListed(), 2, Evaluator.Fixed | Evaluator.Function),
+                new Evaluator(new MacroRuleDatabaseListed(), 2, Evaluator.Fixed | Evaluator.Function),
                 "MacroRuleBaseListed");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new Evaluator(new DefMacroRuleBase(), 2, Evaluator.Fixed | Evaluator.Macro),
+                new Evaluator(new DefMacroRuleDatabase(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "DefMacroRuleBase");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new Evaluator(new DefMacroRuleBaseListed(), 2, Evaluator.Fixed | Evaluator.Macro),
+                new Evaluator(new DefMacroRuleDatabaseListed(), 2, Evaluator.Fixed | Evaluator.Macro),
                 "DefMacroRuleBaseListed");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new Evaluator(new HoldArg(), 2, Evaluator.Fixed | Evaluator.Macro),

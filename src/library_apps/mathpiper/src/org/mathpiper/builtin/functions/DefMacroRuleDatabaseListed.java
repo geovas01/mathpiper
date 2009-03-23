@@ -24,11 +24,11 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class DefMacroRuleBase extends BuiltinFunction
+public class DefMacroRuleDatabaseListed extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.UtilityFunctions.internalDefMacroRuleBase(aEnvironment, aStackTop, false);
+        org.mathpiper.lisp.UtilityFunctions.internalDefMacroRuleBase(aEnvironment, aStackTop, true);
     }
 }
