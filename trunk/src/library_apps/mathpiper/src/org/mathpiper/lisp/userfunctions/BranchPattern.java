@@ -65,7 +65,7 @@ public class BranchPattern extends BranchRuleDatabase {
         return iPrecedence;
     }
 
-    public ConsPointer getPredicate() {
+    public ConsPointer getPredicatePointer() {
         return this.iPredicate;
     }
 
@@ -74,7 +74,7 @@ public class BranchPattern extends BranchRuleDatabase {
     }
 
     /// Access #iBody
-    public ConsPointer getBody() {
+    public ConsPointer getBodyPointer() {
         return iBody;
     }    /// The precedence of this rule.
 }

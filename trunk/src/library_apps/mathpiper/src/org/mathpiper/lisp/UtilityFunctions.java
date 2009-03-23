@@ -939,10 +939,10 @@ public class UtilityFunctions {
         LispError.checkArgument(aEnvironment, aStackTop, functionName != null, 1);
         argsPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        // The arguments
+        // Check the arguments.
         LispError.checkIsList(aEnvironment, aStackTop, argsPointer, 2);
 
-        // Finally define the rule base
+        // Finally define the rule database.
         aEnvironment.declareRuleDatabase(UtilityFunctions.getSymbolName(aEnvironment, functionName),
                 argsPointer.getCons().getSublistPointer().getCons().getRestPointer(), aListed);
 

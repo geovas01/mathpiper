@@ -1,0 +1,1054 @@
+
+***** Mon Mar 23 02:51:51 EST 2009 *****
+***** Using a new interpreter instance for each test file. *****
+***** MathPiper version: .75 *****
+
+===========================
+arithmetic.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Test arithmetic : 
+
+Test suite for Basic calculations : 
+
+Test suite for Testing math stuff : 
+--IntegerOperations
+--PowerN
+--Rounding
+--Bases
+--Factorization
+Exception:
+===========================
+binaryfactors.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+calculus.mpt: 
+
+Result: True
+
+Side Effects:
+--UnaryFunctionInverses
+--Derivatives
+--Limits
+Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=Exp(-phi) 
+--Pslq
+Exception:
+===========================
+canprove.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Propositional logic theorem prover : 
+******************
+tests/scripts/canprove.mpt: 12 
+
+CanProve(False Or a)
+ evaluates to 
+True
+ which differs from 
+a
+******************
+Exception:
+===========================
+comments.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Checking comment syntax supported :
+Exception:
+===========================
+complex.mpt: 
+
+Result: True
+
+Side Effects:
+Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=0
+Exception:
+===========================
+c_tex_form.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for TeXForm()... : 
+--IsCFormable
+Exception:
+===========================
+cyclotomic.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Cyclotomic Polynomials :
+Exception:
+===========================
+deriv.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+dimensions.mpt: 
+
+Result: True
+
+Side Effects:
+---- Dimensions (Tensor Rank)
+Exception:
+===========================
+dot.mpt: 
+
+Result: True
+
+Side Effects:
+---- Dot
+Exception:
+===========================
+GaussianIntegers.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Gaussian Integers :
+Exception:
+===========================
+includetestfiles: is not a MathPiper test file.
+
+===========================
+integrate.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts/integrate.mpt: 28 
+
+Integrate(x)Sin(x)/(2*y+4)
+ evaluates to 
+(-Cos(x))/(2*y+4)
+ which differs from 
+(-Cos(x))/(2*(y+2))
+******************
+Exception:
+===========================
+io.mpt: 
+
+Result: True
+
+Side Effects:
+--Error reporting
+Exception:
+===========================
+journal.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+linalg.mpt: 
+
+Result: True
+
+Side Effects:
+--LeviCivita
+--VectorProducts
+
+Test suite for Inproduct : 
+
+Test suite for Identity matrices : 
+
+Test suite for Check linear algebra : 
+--Normalize
+--DiagonalMatrix
+--ZeroMatrix
+--Transpose
+--Determinant
+--CoFactor
+--Minor
+--Inverse
+--SolveMatrix
+--Trace
+Exception:
+===========================
+lists.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for VarList : 
+--BubbleSort
+--HeapSort
+--ListOperations
+--Length
+--Nth
+--Concat
+--Binary searching
+--AssocDelete
+---- Arithmetic Operations
+Exception:
+===========================
+logic_simplify_test.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for CNF : 
+******************
+tests/scripts/logic_simplify_test.mpt: 11 
+
+CNF(A And A)
+ evaluates to 
+True
+ which differs from 
+A
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 12 
+
+CNF(A And True)
+ evaluates to 
+True
+ which differs from 
+A
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 17 
+
+CNF(A Or False)
+ evaluates to 
+True
+ which differs from 
+A
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 31 
+
+CanProve(A And(A Or B Or C))
+ evaluates to 
+True
+ which differs from 
+A
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 44 
+
+$TrueFalse10({A},A And A)
+ evaluates to 
+{True,True}
+ which differs from 
+{False,True}
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 45 
+
+$TrueFalse10({A},A And True)
+ evaluates to 
+{True,True}
+ which differs from 
+{False,True}
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 48 
+
+$TrueFalse10({A},A Or False)
+ evaluates to 
+{True,True}
+ which differs from 
+{False,True}
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 58 
+
+$TrueFalse10({A,B,C},A And(A Or B Or C))
+ evaluates to 
+{{{True,True},{True,True}},{{True,True},{True,True}}}
+ which differs from 
+{{{False,False},{False,False}},{{True,True},{True,True}}}
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 64 
+
+$TrueFalse10({A},CNF(A And A))
+ evaluates to 
+{True,True}
+ which differs from 
+{False,True}
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 65 
+
+$TrueFalse10({A},CNF(A And True))
+ evaluates to 
+{True,True}
+ which differs from 
+{False,True}
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 70 
+
+$TrueFalse10({A},CNF(A Or False))
+ evaluates to 
+{True,True}
+ which differs from 
+{False,True}
+******************
+******************
+tests/scripts/logic_simplify_test.mpt: 84 
+
+$TrueFalse10({A,B,C},CanProve(A And(A Or B Or C)))
+ evaluates to 
+{{{True,True},{True,True}},{{True,True},{True,True}}}
+ which differs from 
+{{{False,False},{False,False}},{{True,True},{True,True}}}
+******************
+Exception:
+===========================
+macro.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+mathpiper_tests.log: is not a MathPiper test file.
+
+===========================
+matrixpower.mpt: 
+
+Result: True
+
+Side Effects:
+---- MatrixPower
+Exception:
+===========================
+multivar.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Test arithmetic :
+Exception:
+===========================
+nthroot.mpt: 
+
+Result: True
+
+Side Effects:
+---- NthRoot
+Exception:
+===========================
+numbers.mpt: 
+
+Result: True
+
+Side Effects:
+--Integer logarithms and roots
+--Factorial
+--Random numbers
+Exception:
+===========================
+numerics.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts/numerics.mpt: 9 
+
+RoundTo(N(Sqrt(2),5)-1.41421,5)
+ evaluates to 
+-0.00001
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 16 
+
+RoundTo(N(Pi,70)-3.1415926535897932384626433832795028841971693993751058209749445923078164062862,70)
+ evaluates to 
+-4.102067615E-10
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 18 
+
+RoundTo(N(Sec(2),9)-(-2.402997962),9)
+ evaluates to 
+2E-9
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 20 
+
+RoundTo(N(Cot(2),9)-(-0.457657554),9)
+ evaluates to 
+-1E-9
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 21 
+
+RoundTo(N(Sinh(2),10)-3.6268604078,10)
+ evaluates to 
+-6E-9
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 23 
+
+RoundTo(N(ArcSin(2),9)-Complex(1.570796327,1.316957897),9)
+ evaluates to 
+Complex(3E-9,-7E-9)
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 24 
+
+RoundTo(N(ArcCos(2),9)-Complex(0,-1.316957897),9)
+ evaluates to 
+Complex(0,7E-9)
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 25 
+
+RoundTo(N(ArcTan(2*I),12)-N(Complex(1.57079632679,0.54930614433),12),11)
+ evaluates to 
+-2.1E-10
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 26 
+
+RoundTo(N(ArcSinh(2),9)-1.443635475,9)
+ evaluates to 
+-5E-9
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 27 
+
+RoundTo(N(ArcCosh(2),9)-1.316957897,9)
+ evaluates to 
+-7E-9
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 29 
+
+RoundTo(N(ArcTanh(2),9)-Complex(0.549306144,1.570796327),9)
+ evaluates to 
+Complex(1E-9,3E-9)
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 42 
+
+RoundTo(RoundTo(N(Sin(2.0)),49)-0.9092974268256816953960198659117448427022549714479,49)
+ evaluates to 
+1E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 47 
+
+RoundTo(RoundTo(N(Sin(2.0)),50)-0.90929742682568169539601986591174484270225497144789,50)
+ evaluates to 
+3E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 52 
+
+RoundTo(RoundTo(N(Sin(2.0)),51)-0.90929742682568169539601986591174484270225497144789,51)
+ evaluates to 
+2.1E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 62 
+
+RoundTo(RoundTo(N(Tan(20.0)),49)-2.2371609442247422652871732477303491783724839749188,49)
+ evaluates to 
+2E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 67 
+
+RoundTo(RoundTo(N(Exp(10.32),54),54)-30333.2575962246035600343483350109621778376486335450125,48)
+ evaluates to 
+1.3E-47
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 72 
+
+RoundTo(RoundTo(N(Ln(10.32/4.07)),49)-0.93044076059891305468974486564632598071134270468,49)
+ evaluates to 
+1E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 77 
+
+RoundTo(RoundTo(N(1.3^10.32),48)-14.99323664825717956473936947123246987802978985306,48)
+ evaluates to 
+4E-47
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 82 
+
+RoundTo(RoundTo(N(Sqrt(5.3),51),51)-2.302172886644267644194841586420201850185830282633675,51)
+ evaluates to 
+-2E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 106 
+
+RoundTo(RoundTo(N(ArcSin(0.32)),49)-0.3257294872946301593103199105324500784354180998123,49)
+ evaluates to 
+1E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 111 
+
+RoundTo(RoundTo(N(Sin(N(ArcSin(0.1234567)))),49)-0.1234567,49)
+ evaluates to 
+1E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 118 
+
+RoundTo(RoundTo(N((1-Sin(N(ArcSin(1-10^(-25)))))*10^25),25)-1.,25)
+ evaluates to 
+-2E-25
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 123 
+
+RoundTo(N(ArcSin(N(Sin(1.234567),50)),50)-N(1.234567,50),49)
+ evaluates to 
+1E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 128 
+
+RoundTo(RoundTo(N(ArcCos(0.32)),49)-1.2450668395002664599210017811073013636631665998753,49)
+ evaluates to 
+-3E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 133 
+
+RoundTo(RoundTo(N(ArcTan(0.32)),49)-0.3097029445424561999173808103924156700884366304804,49)
+ evaluates to 
+1E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 138 
+
+RoundTo(RoundTo(N(Cos(N(ArcCos(0.1234567)))),49)-0.1234567,49)
+ evaluates to 
+1E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 187 
+
+RoundTo(RoundTo(N(Internal'GammaNum(10.5)),13)-1133278.3889487855673,13)
+ evaluates to 
+2.144327E-7
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 192 
+
+RoundTo(RoundTo(N(Gamma(10.5)),13)-1133278.3889487855673,13)
+ evaluates to 
+2.144327E-7
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 219 
+
+RoundTo(RoundTo(N(Zeta(40)),19)-1.0000000000009094948,19)
+ evaluates to 
+2E-19
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 224 
+
+RoundTo(RoundTo(N(Zeta(1.5)),19)-2.6123753486854883433,19)
+ evaluates to 
+-3E-19
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 283 
+
+RoundTo(N(BesselJ(0,.5))-RoundTo(.93846980724081290422840467359971262556892679709682,50),50)
+ evaluates to 
+-1E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 284 
+
+RoundTo(N(BesselJ(0,.9))-RoundTo(.80752379812254477730240904228745534863542363027564,50),50)
+ evaluates to 
+-1E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 285 
+
+RoundTo(N(BesselJ(0,.99999))-RoundTo(.76520208704756659155313775543958045290339472808482,50),50)
+ evaluates to 
+-1E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 291 
+
+RoundTo(N(BesselJ(11,11))-RoundTo(.20101400990926940339478738551009382430831534125484,50),50)
+ evaluates to 
+-1E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 293 
+
+RoundTo(RoundTo(N(BesselJ(1,10)),50)-RoundTo(.04347274616886143666974876802585928830627286711859,50),50)
+ evaluates to 
+1.1E-49
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 294 
+
+RoundTo(N(BesselJ(10,10))-RoundTo(.20748610663335885769727872351875342803274461128682,50),50)
+ evaluates to 
+-1E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 295 
+
+RoundTo(RoundTo(N(BesselJ(1,3.6)),50)-RoundTo(.09546554717787640384570674422606098601943275490885,50),50)
+ evaluates to 
+1E-50
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 300 
+
+RoundTo(N(Erf(Sqrt(0.8)),20),19)
+ evaluates to 
+0.7940967892679316913
+ which differs from 
+0.7940967892679316912
+******************
+******************
+tests/scripts/numerics.mpt: 303 
+
+RoundTo(N(Erf(50*I+20)/10^910,22),19)
+ evaluates to 
+Complex(1.093171190029095858,0.0047546330693181896)
+ which differs from 
+Complex(1.093171190029095854,0.0047546330693181896)
+******************
+--Gamma constant
+******************
+tests/scripts/numerics.mpt: 308 
+
+RoundTo(Internal'gamma()+0-0.5772156649015328606065120900824024310422,BuiltinPrecisionGet())
+ evaluates to 
+1E-40
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 311 
+
+RoundTo(RoundTo(Internal'gamma()+0,19)-0.5772156649015328606,19)
+ evaluates to 
+1E-19
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 312 
+
+RoundTo(RoundTo(N(1/2+gamma+Pi),19)-4.2188083184913260991,19)
+ evaluates to 
+-1E-19
+ which differs from 
+0
+******************
+Exception:
+===========================
+nummethods.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+ode.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+openmath.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Converting to and from OpenMath expressions :
+Exception:
+===========================
+orthopoly.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Testing orthogonal polynomials :
+Exception:
+===========================
+outer.mpt: 
+
+Result: True
+
+Side Effects:
+---- Outer
+Exception:
+===========================
+piper_test.bat: is not a MathPiper test file.
+
+===========================
+plots.mpt: 
+
+Result: False
+
+Side Effects:
+******************
+tests/scripts/plots.mpt: 6 
+
+ToString()Write(Plot2D(a,-1:1,output=data,points=4,depth=0))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+tests/scripts/plots.mpt: 7 
+
+ToString()Write(Plot2D(b,b= -1:1,output=data,points=4))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+tests/scripts/plots.mpt: 14 
+
+ToString()Write(Plot3DS(a,-1:1,-1:1,output=data,points=2))
+ evaluates to 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+******************
+tests/scripts/plots.mpt: 14 
+
+ToString()Write(Plot3DS(x1,x1= -1:1,x2= -1:1,output=data,points=2))
+ evaluates to 
+"{{{-1,-1,0.1011417762},{-1,0,0.1011417762},{-1,1,0.1011417762},{0,-1,0.1011417762},{0,0,0.1011417762},{0,1,0.1011417762},{1,-1,0.1011417762},{1,0,0.1011417762},{1,1,0.1011417762}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+******************
+tests/scripts/plots.mpt: 23 
+
+RoundTo(RoundTo(f(3),BuiltinPrecisionGet())-0.6666666667,BuiltinPrecisionGet())
+ evaluates to 
+1E-10
+ which differs from 
+0
+******************
+******************
+tests/scripts/plots.mpt: 26 
+
+RoundTo(RoundTo(f1(3),BuiltinPrecisionGet())-0.6666666667,BuiltinPrecisionGet())
+ evaluates to 
+1E-10
+ which differs from 
+0
+******************
+Exception:
+===========================
+poly.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Polynomials :
+Exception:
+===========================
+predicates.mpt: 
+
+Result: True
+
+Side Effects:
+--Predicates
+--Boolean Operations
+--NumberCompares
+--comparisons in exponential notation
+******************
+tests/scripts/predicates.mpt: 79 
+
+1.0000000000000000000000000000111>1
+ evaluates to 
+False
+ which differs from 
+True
+******************
+******************
+tests/scripts/predicates.mpt: 80 
+
+0.999999999999999999999999999992<1
+ evaluates to 
+False
+ which differs from 
+True
+******************
+--Matrix predicates
+******************
+tests/scripts/predicates.mpt: 121 
+
+HasFuncArith(a*b+f({b,c}),List)
+ evaluates to 
+True
+ which differs from 
+False
+******************
+--IsConstant
+---- IsScalar
+---- IsVector
+---- IsVector(IsNumber)
+---- Matrix Predicates
+------ IsMatrix
+------ IsMatrix(IsInteger)
+------ IsSquareMatrix
+Exception:
+===========================
+programming.mpt: 
+
+Result: True
+
+Side Effects:
+--Apply
+--ThreadingListables
+--MapSingle
+--Function definitions
+--LocalVariables
+Exception:
+===========================
+radsimp.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Testing simplifying nested radicals :
+Exception:
+===========================
+regress.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Regression on bug reports : 
+******************
+tests/scripts/regress.mpt: 192 
+
+RoundTo(RoundTo(N(ArcSin(0.0000000321232123),50),50)-0.00000003212321230000000552466124302049336784679316,50)
+ evaluates to 
+5.524661243E-24
+ which differs from 
+0
+******************
+******************
+tests/scripts/regress.mpt: 304 
+
+RoundTo(N(Cos(Pi*.5))-0,BuiltinPrecisionGet())
+ evaluates to 
+-2E-10
+ which differs from 
+0
+******************
+Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
+Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
+Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
+Known failure: (D(z)Conjugate(z))=Undefined 
+Known failure: ArcCos(Cos(beta))!=beta 
+Known failure: (Limit(n,Infinity)n^5/2^n)=0 
+Known failure: RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0
+Exception:
+===========================
+scopestack.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+simplify.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Simplify : 
+******************
+tests/scripts/simplify.mpt: 10 
+Simplify((xx+II)^4) evaluates to 
+xx^4+4*xx^3*II+6*xx^2*II^2+4*xx*II^3+II^4
+ which differs from 
+xx^4+4*xx^3*II-6*xx^2-4*xx*II+1
+ by 
+6*xx^2*II^2+6*xx^2+4*xx*II^3+4*xx*II+II^4-1
+******************
+Exception:
+===========================
+solve.mpt: 
+
+Result: True
+
+Side Effects:
+--Solve
+--PSolve
+Exception:In function "If" : 
+bad argument number 1(counting from 1) : 
+
+The offending argument Not Apply(compare,{left,right}) evaluated to Not Complex(2.00000000000000000000000000001,1.2E-29)<Complex... Source file: tests/scripts/solve.mpt Line number: 176
+===========================
+sturm.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+sums.mpt: 
+
+Result: True
+
+Side Effects:
+--Taylor
+Exception:
+===========================
+tensors.mpt: 
+
+Result: True
+
+Side Effects:
+Test suite for Tensors :
+Exception:
+===========================
+test-yacas-c-version: is not a MathPiper test file.
+
+===========================
+trace.mpt: 
+
+Result: True
+
+Side Effects:
+---- Trace
+Exception:
+===========================
+transforms.mpt: 
+
+Result: True
+
+Side Effects:
+
+Exception:
+===========================
+tr.mpt: 
+
+Result: True
+
+Side Effects:
+---- Tr (trace of tensor)
+Exception:
+===========================
+: is not a MathPiper test file.
+
+
+***** Tests complete *****
+

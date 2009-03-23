@@ -121,11 +121,11 @@ public class MacroUserFunction extends BranchingUserFunction
 
                 // walk the rules database, returning the evaluated result if the
                 // predicate is true.
-                int nrRules = iRules.size();
+                int nrRules = iBranchRules.size();
                 UserStackInformation st = aEnvironment.iEvaluator.stackInformation();
                 for (i = 0; i < nrRules; i++)
                 {
-                    BranchRuleDatabase thisRule = ((BranchRuleDatabase) iRules.get(i));
+                    BranchRuleDatabase thisRule = ((BranchRuleDatabase) iBranchRules.get(i));
                     //TODO remove            CHECKPTR(thisRule);
                     LispError.lispAssert(thisRule != null);
 
@@ -136,13 +136,13 @@ public class MacroUserFunction extends BranchingUserFunction
                         st.iSide = 1;
 
                         BackQuoteSubstitute behaviour = new BackQuoteSubstitute(aEnvironment);
-                        UtilityFunctions.substitute(substedBody, thisRule.getBody(), behaviour);
+                        UtilityFunctions.substitute(substedBody, thisRule.getBodyPointer(), behaviour);
                         //              aEnvironment.iEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                         break;
                     }
 
                     // If rules got inserted, walk back
-                    while (thisRule != ((BranchRuleDatabase) iRules.get(i)) && i > 0)
+                    while (thisRule != ((BranchRuleDatabase) iBranchRules.get(i)) && i > 0)
                     {
                         i--;
                     }

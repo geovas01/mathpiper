@@ -31,7 +31,7 @@ public abstract class BranchRuleDatabase
 
     public abstract int getPrecedence();
 
-    public abstract ConsPointer getPredicate();
+    public abstract ConsPointer getPredicatePointer();
 
-    public abstract ConsPointer getBody();
+    public abstract ConsPointer getBodyPointer();
 }

@@ -38,7 +38,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
     protected List iParameters = new ArrayList(); //CArrayGrower<BranchParameter>
 
     /// List of rules, sorted on precedence.
-    protected List iRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
+    protected List<BranchRuleDatabase> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
 
     /// List of arguments
     ConsPointer iParamList = new ConsPointer();
@@ -156,11 +156,11 @@ public class BranchingUserFunction extends SingleArityUserFunction
 
             // walk the rules database, returning the evaluated result if the
             // predicate is true.
-            int nrRules = iRules.size();
+            int nrRules = iBranchRules.size();
             UserStackInformation st = aEnvironment.iEvaluator.stackInformation();
             for (i = 0; i < nrRules; i++)
             {
-                BranchRuleDatabase thisRule = ((BranchRuleDatabase) iRules.get(i));
+                BranchRuleDatabase thisRule = ((BranchRuleDatabase) iBranchRules.get(i));
                 LispError.lispAssert(thisRule != null);
 
                 st.iRulePrecedence = thisRule.getPrecedence();
@@ -168,7 +168,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 if (matches)
                 {
                     st.iSide = 1;
-                    aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.getBody());
+                    aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
 
                     /*Trace code */
                     if (isTraced())
@@ -183,7 +183,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 }
 
                 // If rules got inserted, walk back
-                while (thisRule != ((BranchRuleDatabase) iRules.get(i)) && i > 0)
+                while (thisRule != ((BranchRuleDatabase) iBranchRules.get(i)) && i > 0)
                 {
                     i--;
                 }
@@ -339,24 +339,24 @@ public class BranchingUserFunction extends SingleArityUserFunction
          
           int low, high, mid;
         low = 0;
-        high = iRules.size();
+        high = iBranchRules.size();
 
         // Constant time: find out if the precedence is before any of the
         // currently defined rules or past them.
         if (high > 0)
         {
-            if (((BranchRuleDatabase) iRules.get(0)).getPrecedence() > aPrecedence)
+            if (((BranchRuleDatabase) iBranchRules.get(0)).getPrecedence() > aPrecedence)
             {
                 mid = 0;
                 // Insert it
-                iRules.add(mid, newRule);
+                iBranchRules.add(mid, newRule);
                 return;
             }
-            if (((BranchRuleDatabase) iRules.get(high - 1)).getPrecedence() < aPrecedence)
+            if (((BranchRuleDatabase) iBranchRules.get(high - 1)).getPrecedence() < aPrecedence)
             {
                 mid = high;
                 // Insert it
-                iRules.add(mid, newRule);
+                iBranchRules.add(mid, newRule);
                 return;
             }
         }
@@ -368,21 +368,21 @@ public class BranchingUserFunction extends SingleArityUserFunction
             {
                 mid = low;
                 // Insert it
-                iRules.add(mid, newRule);
+                iBranchRules.add(mid, newRule);
                 return;
             }
             mid = (low + high) >> 1;
 
-            if (((BranchRuleDatabase) iRules.get(mid)).getPrecedence() > aPrecedence)
+            if (((BranchRuleDatabase) iBranchRules.get(mid)).getPrecedence() > aPrecedence)
             {
                 high = mid;
-            } else if (((BranchRuleDatabase) iRules.get(mid)).getPrecedence() < aPrecedence)
+            } else if (((BranchRuleDatabase) iBranchRules.get(mid)).getPrecedence() < aPrecedence)
             {
                 low = (++mid);
             } else
             {
                 // Insert it
-                iRules.add(mid, newRule);
+                iBranchRules.add(mid, newRule);
                 return;
             }
         }
@@ -402,7 +402,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
 
     public Iterator getRules()
     {
-        return iRules.iterator();
+        return iBranchRules.iterator();
     }
 
     public Iterator getParameters()
