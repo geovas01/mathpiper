@@ -160,7 +160,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
             UserStackInformation st = aEnvironment.iEvaluator.stackInformation();
             for (i = 0; i < nrRules; i++)
             {
-                BranchRuleBase thisRule = ((BranchRuleBase) iRules.get(i));
+                BranchRuleDatabase thisRule = ((BranchRuleDatabase) iRules.get(i));
                 LispError.lispAssert(thisRule != null);
 
                 st.iRulePrecedence = thisRule.getPrecedence();
@@ -183,7 +183,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 }
 
                 // If rules got inserted, walk back
-                while (thisRule != ((BranchRuleBase) iRules.get(i)) && i > 0)
+                while (thisRule != ((BranchRuleDatabase) iRules.get(i)) && i > 0)
                 {
                     i--;
                 }
@@ -328,7 +328,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
      * @param aPrecedence
      * @param newRule
      */
-    void insertRule(int aPrecedence, BranchRuleBase newRule)
+    void insertRule(int aPrecedence, BranchRuleDatabase newRule)
     {
         // Find place to insert
 
@@ -345,14 +345,14 @@ public class BranchingUserFunction extends SingleArityUserFunction
         // currently defined rules or past them.
         if (high > 0)
         {
-            if (((BranchRuleBase) iRules.get(0)).getPrecedence() > aPrecedence)
+            if (((BranchRuleDatabase) iRules.get(0)).getPrecedence() > aPrecedence)
             {
                 mid = 0;
                 // Insert it
                 iRules.add(mid, newRule);
                 return;
             }
-            if (((BranchRuleBase) iRules.get(high - 1)).getPrecedence() < aPrecedence)
+            if (((BranchRuleDatabase) iRules.get(high - 1)).getPrecedence() < aPrecedence)
             {
                 mid = high;
                 // Insert it
@@ -373,10 +373,10 @@ public class BranchingUserFunction extends SingleArityUserFunction
             }
             mid = (low + high) >> 1;
 
-            if (((BranchRuleBase) iRules.get(mid)).getPrecedence() > aPrecedence)
+            if (((BranchRuleDatabase) iRules.get(mid)).getPrecedence() > aPrecedence)
             {
                 high = mid;
-            } else if (((BranchRuleBase) iRules.get(mid)).getPrecedence() < aPrecedence)
+            } else if (((BranchRuleDatabase) iRules.get(mid)).getPrecedence() < aPrecedence)
             {
                 low = (++mid);
             } else

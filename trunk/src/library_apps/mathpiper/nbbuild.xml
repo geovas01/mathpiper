@@ -71,4 +71,19 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+   	<target name="buildscripts" >
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
+		<taskdef name="buildscripts"
+              classname="org.mathpiper.test.Build"
+              classpath="${build.classes.dir}"  />
+
+      <buildscripts scriptsDirectory="${basedir}/src/org/mathpiper/scripts2/"
+                 outputDirectory="${basedir}/build/classes/org/mathpiper/scripts/"/>
+      
+      </target>
+    
+            <target name="-post-compile-test"  depends="buildscripts">
+        </target>
 </project>

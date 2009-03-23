@@ -15,23 +15,16 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 package org.mathpiper.lisp.userfunctions;
 
-import java.util.Iterator;
+// class EvalFuncBase defines the interface to 'something that can
+
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
-/**
- * Base class for rules.
- */
-public abstract class BranchRuleBase
+// evaluate'
+public abstract class EvalFuncDatabase
 {
-
-    public abstract boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception;
-
-    public abstract int getPrecedence();
-
-    public abstract ConsPointer getPredicate();
-
-    public abstract ConsPointer getBody();
-}
+	public abstract void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
+};

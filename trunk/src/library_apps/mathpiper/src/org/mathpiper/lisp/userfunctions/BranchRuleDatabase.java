@@ -15,20 +15,23 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathpiper.lisp.userfunctions;
 
-package org.mathpiper.builtin.functions;
-
-import org.mathpiper.builtin.BuiltinFunction;
+import java.util.Iterator;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
 /**
- *
- *  
+ * Base class for rules.
  */
-	public class MacroRuleBase extends BuiltinFunction
-	{
-		public void eval(Environment aEnvironment,int aStackTop) throws Exception
-		{
-			org.mathpiper.lisp.UtilityFunctions.internalRuleBase(aEnvironment, aStackTop, false);
-		}
-	}
+public abstract class BranchRuleDatabase
+{
+
+    public abstract boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception;
+
+    public abstract int getPrecedence();
+
+    public abstract ConsPointer getPredicate();
+
+    public abstract ConsPointer getBody();
+}

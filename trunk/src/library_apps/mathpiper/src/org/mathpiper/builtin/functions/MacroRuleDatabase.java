@@ -16,15 +16,19 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.lisp.userfunctions;
+package org.mathpiper.builtin.functions;
 
-// class EvalFuncBase defines the interface to 'something that can
-
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 
-// evaluate'
-public abstract class EvalFuncBase
-{
-	public abstract void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
-};
+/**
+ *
+ *  
+ */
+	public class MacroRuleDatabase extends BuiltinFunction
+	{
+		public void eval(Environment aEnvironment,int aStackTop) throws Exception
+		{
+			org.mathpiper.lisp.UtilityFunctions.internalRuleBase(aEnvironment, aStackTop, false);
+		}
+	}

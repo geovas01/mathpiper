@@ -48,7 +48,7 @@ import org.mathpiper.lisp.parametermatchers.Parameter;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.userfunctions.BranchParameter;
 import org.mathpiper.lisp.userfunctions.BranchPattern;
-import org.mathpiper.lisp.userfunctions.BranchRuleBase;
+import org.mathpiper.lisp.userfunctions.BranchRuleDatabase;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.lisp.userfunctions.UserFunction;
 import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
@@ -508,7 +508,7 @@ public class EnvironmentViewer implements ActionListener {
 
                 while (rulesIterator.hasNext()) {
 
-                    BranchRuleBase branchRuleBase = (BranchRuleBase) rulesIterator.next();
+                    BranchRuleDatabase branchRuleBase = (BranchRuleDatabase) rulesIterator.next();
 
                     try {
                         int precedence = branchRuleBase.getPrecedence();

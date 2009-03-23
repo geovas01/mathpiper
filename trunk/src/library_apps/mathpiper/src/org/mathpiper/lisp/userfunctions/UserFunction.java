@@ -27,7 +27,7 @@ import org.mathpiper.lisp.*;
 /**
  * Provides the base user function API.
  */
-public abstract class UserFunction extends EvalFuncBase
+public abstract class UserFunction extends EvalFuncDatabase
 {
 /// Abstract class providing the basic user function API.
 /// Instances of this class are associated to the name of the function

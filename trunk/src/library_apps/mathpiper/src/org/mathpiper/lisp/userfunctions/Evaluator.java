@@ -29,7 +29,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubListCons;
 
 
-public class Evaluator extends EvalFuncBase
+public class Evaluator extends EvalFuncDatabase
 {
 	// FunctionFlags can be ORed when passed to the constructor of this function
 
