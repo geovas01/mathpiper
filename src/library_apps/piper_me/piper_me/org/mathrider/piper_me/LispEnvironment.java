@@ -4,10 +4,12 @@ import org.eninom.collection.mutable.ExtendibleArray;
 
 public class LispEnvironment
 {
+  final OutputFileLocator outputFileLocator;
   //TODO FIXME
 
-  LispEnvironment(LispOutput aCurrentOutput/*TODO FIXME*/) throws Exception
+  LispEnvironment(LispOutput aCurrentOutput/*TODO FIXME*/, OutputFileLocator outputFileLocator) throws Exception
   {
+    this.outputFileLocator = outputFileLocator;
     iCurrentTokenizer = iDefaultTokenizer;
     iInitialOutput = aCurrentOutput;
     iCurrentOutput = aCurrentOutput;
@@ -35,6 +37,14 @@ public class LispEnvironment
     mc=null;
     PushLocalFrame(true);
   }
+  
+  
+
+  public OutputFileLocator getOutputFileLocator() {
+    return outputFileLocator;
+  }
+
+
 
   StringIntern HashTable()
   {

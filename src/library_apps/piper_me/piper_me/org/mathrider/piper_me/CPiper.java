@@ -3,11 +3,11 @@ package org.mathrider.piper_me;
 
 public class CPiper
 {
-  public CPiper(LispOutput stdoutput)
+  public CPiper(LispOutput stdoutput, OutputFileLocator outputFileLocator)
   {
     try
     {
-      env = new LispEnvironment(stdoutput);
+      env = new LispEnvironment(stdoutput, outputFileLocator);
       tokenizer = new LispTokenizer();
       printer = new InfixPrinter(env.iPrefixOperators, env.iInfixOperators, env.iPostfixOperators, env.iBodiedOperators);
     }

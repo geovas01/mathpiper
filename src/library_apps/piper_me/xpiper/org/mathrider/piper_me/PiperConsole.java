@@ -4,7 +4,7 @@ package org.mathrider.piper_me;
 import java.io.*;
 
 
-public class PiperConsole extends Thread implements FileLocator
+public class PiperConsole extends Thread implements FileLocator, OutputFileLocator
 {
     static String readLine(InputStream aStream)
 	
@@ -29,7 +29,7 @@ public class PiperConsole extends Thread implements FileLocator
 
   public static void main(String[] argv)
   {
-    org.mathrider.piper_me.StdFileInput.locator = new PiperConsole();
+    PiperConsole locator = new PiperConsole();
     
     String defaultDirectory = null;
     String archive = "";
@@ -73,7 +73,7 @@ public class PiperConsole extends Thread implements FileLocator
 
 
     StdFileOutput stdoutput = new StdFileOutput(System.out);
-    CPiper piper = new CPiper(stdoutput);
+    CPiper piper = new CPiper(stdoutput, locator);
     piper.env.iCurrentInput = new CachedStdFileInput(piper.env.iInputStatus);
 
     try
@@ -191,6 +191,10 @@ public class PiperConsole extends Thread implements FileLocator
       }
     }
     return is;
+  }
+
+  public OutputStream getOutputStream(String name) throws Exception {
+    return new FileOutputStream(name);
   }
     
 }

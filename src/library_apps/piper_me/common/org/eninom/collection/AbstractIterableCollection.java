@@ -30,7 +30,6 @@ exception statement from your version. */
 
 package org.eninom.collection;
 
-import org.eninom.iterator.*;
 
 //! Abstract Iterable Collection
 /*<literate>*/

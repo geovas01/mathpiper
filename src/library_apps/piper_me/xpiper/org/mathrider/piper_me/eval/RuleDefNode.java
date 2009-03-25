@@ -92,7 +92,8 @@ public class RuleDefNode {
   private void compileRuleExtension(Expression predicate,
       Expression expr) {
     if (predicate != Chars.TRUE) {  
-      Expression oldExpr = frame.value(funName);
+      //Expression oldExpr = 
+        frame.value(funName);
       // TODO: combine old an new expression ...
     }
     store.put(funName, expr);
