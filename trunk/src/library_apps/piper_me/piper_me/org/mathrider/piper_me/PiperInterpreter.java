@@ -19,12 +19,12 @@ public class PiperInterpreter {
     private StringBuffer outputCollector;
  
     /** Creates a new instance of PiperInterpreter */
-    public PiperInterpreter() throws Piperexception 
+    public PiperInterpreter(OutputFileLocator outputFileLocator) throws Piperexception 
     {
 	outputCollector = new StringBuffer();
 	stringOutput = new StringOutput(outputCollector);
 	
-        piper = new CPiper(stringOutput);
+        piper = new CPiper(stringOutput, outputFileLocator);
 
         boolean scripts_found = loadScripts();
  

@@ -5,11 +5,13 @@ package org.mathrider.piper_me.tests;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.mathrider.piper_me.PiperInterpreter;
 
-public class PiperTest implements org.mathrider.piper_me.FileLocator 
+public class PiperTest implements org.mathrider.piper_me.FileLocator, org.mathrider.piper_me.OutputFileLocator  
 {
 	private java.io.File testDirectory;
 	private String result;
@@ -52,7 +54,7 @@ public class PiperTest implements org.mathrider.piper_me.FileLocator
 				//Execute each .pit file in the specified directory.
 				for(int x = 0; x < files.length; x++)
 				{	
-          PiperInterpreter piper = new PiperInterpreter();
+          PiperInterpreter piper = new PiperInterpreter(this);
 					output = "\n===========================\n" + files[x].getName() + ": "; 
 					System.out.print(output);
 					logFile.write(output);
@@ -120,6 +122,10 @@ public class PiperTest implements org.mathrider.piper_me.FileLocator
         }
       }
       return is;
+   }
+   
+   public OutputStream getOutputStream(String name) throws Exception {
+     return new FileOutputStream(name);
    }
 	
 }//end class.
