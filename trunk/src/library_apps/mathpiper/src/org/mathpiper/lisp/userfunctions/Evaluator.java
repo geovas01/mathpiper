@@ -24,7 +24,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
 // evaluate'
-public abstract class EvalFuncDatabase
+public abstract class Evaluator
 {
 	public abstract void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
 };
