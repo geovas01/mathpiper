@@ -266,7 +266,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
     }
 
     /**
-     *  Add a BranchRule to the list of rules.
+     *  Add a RuleBranch to the list of rules.
      * See: insertRule()
      * 
      * @param aPrecedence
@@ -277,14 +277,14 @@ public class BranchingUserFunction extends SingleArityUserFunction
     public void declareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
     {
         // New branching rule.
-        BranchRule newRule = new BranchRule(aPrecedence, aPredicate, aBody);
+        RuleBranch newRule = new RuleBranch(aPrecedence, aPredicate, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
         insertRule(aPrecedence, newRule);
     }
 
     /**
-     * Add a BranchRuleTruePredicate to the list of rules.
+     * Add a TruePredicateRuleBranch to the list of rules.
      * See: insertRule()
      * 
      * @param aPrecedence
@@ -294,14 +294,14 @@ public class BranchingUserFunction extends SingleArityUserFunction
     public void declareRule(int aPrecedence, ConsPointer aBody) throws Exception
     {
         // New branching rule.
-        BranchRule newRule = new BranchRuleTruePredicate(aPrecedence, aBody);
+        RuleBranch newRule = new TruePredicateRuleBranch(aPrecedence, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
         insertRule(aPrecedence, newRule);
     }
 
     /**
-     *  Add a BranchPattern to the list of rules.
+     *  Add a PatternBranch to the list of rules.
      *  See: insertRule()
      * 
      * @param aPrecedence
@@ -312,7 +312,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
     public void declarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
     {
         // New branching rule.
-        BranchPattern newRule = new BranchPattern(aPrecedence, aPredicate, aBody);
+        PatternBranch newRule = new PatternBranch(aPrecedence, aPredicate, aBody);
         LispError.check(newRule != null, LispError.KLispErrCreatingRule);
 
         insertRule(aPrecedence, newRule);

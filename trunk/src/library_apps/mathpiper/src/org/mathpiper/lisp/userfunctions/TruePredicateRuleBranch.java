@@ -23,10 +23,10 @@ import org.mathpiper.lisp.Environment;
 /**
  * A rule that always matches.
  */
-class BranchRuleTruePredicate extends BranchRule
+class TruePredicateRuleBranch extends RuleBranch
 {
 
-    public BranchRuleTruePredicate(int aPrecedence, ConsPointer aBody)
+    public TruePredicateRuleBranch(int aPrecedence, ConsPointer aBody)
     {
         iPrecedence = aPrecedence;
         iBody.setCons(aBody.getCons());
