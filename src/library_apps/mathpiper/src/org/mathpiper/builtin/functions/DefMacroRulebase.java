@@ -15,7 +15,6 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
@@ -25,10 +24,11 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-	public class MacroRuleDatabase extends BuiltinFunction
-	{
-		public void eval(Environment aEnvironment,int aStackTop) throws Exception
-		{
-			org.mathpiper.lisp.UtilityFunctions.internalRuleDatabase(aEnvironment, aStackTop, false);
-		}
-	}
+public class DefMacroRulebase extends BuiltinFunction
+{
+
+    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    {
+        org.mathpiper.lisp.UtilityFunctions.internalDefMacroRuleBase(aEnvironment, aStackTop, false);
+    }
+}

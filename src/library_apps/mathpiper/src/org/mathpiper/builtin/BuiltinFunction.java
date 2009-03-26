@@ -50,8 +50,8 @@ import org.mathpiper.builtin.functions.DebugFile;
 import org.mathpiper.builtin.functions.DebugLine;
 import org.mathpiper.builtin.functions.DefLoad;
 import org.mathpiper.builtin.functions.DefLoadFunction;
-import org.mathpiper.builtin.functions.DefMacroRuleDatabase;
-import org.mathpiper.builtin.functions.DefMacroRuleDatabaseListed;
+import org.mathpiper.builtin.functions.DefMacroRulebase;
+import org.mathpiper.builtin.functions.DefMacroRulebaseListed;
 import org.mathpiper.builtin.functions.DefaultDirectory;
 import org.mathpiper.builtin.functions.DefaultTokenizer;
 import org.mathpiper.builtin.functions.Delete;
@@ -129,8 +129,8 @@ import org.mathpiper.builtin.functions.Load;
 import org.mathpiper.builtin.functions.LocalSymbols;
 import org.mathpiper.builtin.functions.MacroNewRule;
 import org.mathpiper.builtin.functions.MacroNewRulePattern;
-import org.mathpiper.builtin.functions.MacroRuleDatabase;
-import org.mathpiper.builtin.functions.MacroRuleDatabaseListed;
+import org.mathpiper.builtin.functions.MacroRulebase;
+import org.mathpiper.builtin.functions.MacroRulebaseListed;
 import org.mathpiper.builtin.functions.MacroSetVar;
 import org.mathpiper.builtin.functions.MathIsSmall;
 import org.mathpiper.builtin.functions.MathNegate;
@@ -162,10 +162,10 @@ import org.mathpiper.builtin.functions.Replace;
 import org.mathpiper.builtin.functions.Retract;
 import org.mathpiper.builtin.functions.RightAssociative;
 import org.mathpiper.builtin.functions.RightPrecedence;
-import org.mathpiper.builtin.functions.RuleBase;
-import org.mathpiper.builtin.functions.RuleBaseArgList;
-import org.mathpiper.builtin.functions.RuleBaseDefined;
-import org.mathpiper.builtin.functions.RuleBaseListed;
+import org.mathpiper.builtin.functions.Rulebase;
+import org.mathpiper.builtin.functions.RulebaseArgList;
+import org.mathpiper.builtin.functions.RulebaseDefined;
+import org.mathpiper.builtin.functions.RulebaseListed;
 import org.mathpiper.builtin.functions.Secure;
 import org.mathpiper.builtin.functions.SetExactBits;
 import org.mathpiper.builtin.functions.SetGlobalLazyVariable;
@@ -401,22 +401,22 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new Bodied(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Bodied");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RuleBase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Rulebase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "RuleBase");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroRuleDatabase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new MacroRulebase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MacroRuleBase");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RuleBaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new RulebaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "RuleBaseListed");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroRuleDatabaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new MacroRulebaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MacroRuleBaseListed");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DefMacroRuleDatabase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new DefMacroRulebase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "DefMacroRuleBase");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DefMacroRuleDatabaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new DefMacroRulebaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "DefMacroRuleBaseListed");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new HoldArg(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
@@ -686,13 +686,13 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new GenPatternMatches(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Pattern'Matches");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RuleBaseDefined(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new RulebaseDefined(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "RuleBaseDefined");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new DefLoadFunction(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "DefLoadFunction");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RuleBaseArgList(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new RulebaseArgList(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "RuleBaseArgList");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new NewRulePattern(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),

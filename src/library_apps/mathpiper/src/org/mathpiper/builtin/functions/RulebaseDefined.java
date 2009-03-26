@@ -23,14 +23,13 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.SubListCons;
 import org.mathpiper.lisp.userfunctions.UserFunctionEvaluator;
 
 /**
  *
  *  
  */
-public class RuleBaseArgList extends BuiltinFunction
+public class RulebaseDefined extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
@@ -49,12 +48,6 @@ public class RuleBaseArgList extends BuiltinFunction
         int arity = Integer.parseInt(sizearg.getCons().string(), 10);
 
         UserFunctionEvaluator userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity);
-        LispError.check(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
-
-        ConsPointer list = userFunc.argList();
-        ConsPointer head = new ConsPointer();
-        head.setCons(aEnvironment.iListAtom.copy(false));
-        head.getCons().getRestPointer().setCons(list.getCons());
-        getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
+        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), userFunc != null);
     }
 }
