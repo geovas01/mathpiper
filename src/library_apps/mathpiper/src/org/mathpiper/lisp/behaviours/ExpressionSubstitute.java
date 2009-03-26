@@ -8,7 +8,7 @@ import org.mathpiper.lisp.Environment;
 /** Substing one expression for another. The simplest form
  * of substitution
  */
-public class Substitute
+public class ExpressionSubstitute
 			implements SubstituteBase
 {
 
@@ -16,7 +16,7 @@ public class Substitute
 	ConsPointer iToMatch;
 	ConsPointer iToReplaceWith;
 
-	public Substitute(Environment aEnvironment, ConsPointer aToMatch, ConsPointer aToReplaceWith)
+	public ExpressionSubstitute(Environment aEnvironment, ConsPointer aToMatch, ConsPointer aToReplaceWith)
 	{
 		iEnvironment = aEnvironment;
 		iToMatch = aToMatch;
