@@ -23,7 +23,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 
 /** Behaviour for substituting sub-expressions.
  */
-public interface SubstituteBase
+public interface Substitute
 {
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception;
 };
