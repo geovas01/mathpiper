@@ -31,7 +31,7 @@ import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.InputDirectories;
-import org.mathpiper.lisp.behaviours.SubstituteBase;
+import org.mathpiper.lisp.behaviours.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
@@ -431,7 +431,7 @@ public class UtilityFunctions {
         return false;
     }
 
-    public static void substitute(ConsPointer aTarget, ConsPointer aSource, SubstituteBase aBehaviour) throws Exception {
+    public static void substitute(ConsPointer aTarget, ConsPointer aSource, Substitute aBehaviour) throws Exception {
         Cons object = aSource.getCons();
         LispError.lispAssert(object != null);
         if (!aBehaviour.matches(aTarget, aSource)) {

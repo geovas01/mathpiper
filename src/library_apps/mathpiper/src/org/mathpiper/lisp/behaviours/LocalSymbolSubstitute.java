@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
 /** Substitute behaviour for changing the local variables to have unique
  * names.
  */
-public class LocalSymbolSubstitute implements SubstituteBase
+public class LocalSymbolSubstitute implements Substitute
 {
 	Environment iEnvironment;
 	String[] iOriginalNames;

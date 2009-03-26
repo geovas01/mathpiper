@@ -9,7 +9,7 @@ import org.mathpiper.lisp.Environment;
  * of substitution
  */
 public class ExpressionSubstitute
-			implements SubstituteBase
+			implements Substitute
 {
 
 	Environment iEnvironment;

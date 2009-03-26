@@ -32,7 +32,7 @@ import org.mathpiper.lisp.cons.SubListCons;
  *    head of function if a is a function. For instance, if
  *    a is f(x) and f is g, then f(x) gets replaced by g(x)
  */
-public class BackQuoteSubstitute implements SubstituteBase
+public class BackQuoteSubstitute implements Substitute
 {
 	Environment iEnvironment;
 
