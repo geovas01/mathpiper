@@ -29,7 +29,7 @@ import org.mathpiper.lisp.Environment;
 public class ShiftRight extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
         BigNumber n = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);

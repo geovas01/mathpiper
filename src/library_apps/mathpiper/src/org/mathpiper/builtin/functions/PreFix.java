@@ -28,7 +28,7 @@ import org.mathpiper.lisp.Environment;
 public class PreFix extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
     }

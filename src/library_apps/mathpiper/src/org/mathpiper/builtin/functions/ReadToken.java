@@ -29,7 +29,7 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 public class ReadToken extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;

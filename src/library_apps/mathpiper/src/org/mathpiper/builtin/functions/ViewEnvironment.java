@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class ViewEnvironment extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          org.mathpiper.ui.gui.EnvironmentViewer viewer = new org.mathpiper.ui.gui.EnvironmentViewer();
          viewer.getViewerFrame(aEnvironment);

@@ -32,7 +32,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class SystemCall extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();

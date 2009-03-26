@@ -28,7 +28,7 @@ import org.mathpiper.lisp.Environment;
 public class DebugLine extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         throw new Exception("Cannot call DebugLine in non-debug version of MathPiper");
     }

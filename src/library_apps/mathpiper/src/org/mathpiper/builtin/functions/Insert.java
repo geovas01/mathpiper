@@ -28,7 +28,7 @@ import org.mathpiper.lisp.Environment;
 public class Insert extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         UtilityFunctions.internalInsert(aEnvironment, aStackTop, false);
     }

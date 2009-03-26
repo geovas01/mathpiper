@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Environment;
 public class MacroNewRule extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.UtilityFunctions.internalNewRule(aEnvironment, aStackTop);
     }

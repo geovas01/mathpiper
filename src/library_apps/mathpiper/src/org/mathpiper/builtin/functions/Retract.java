@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class Retract extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
         ConsPointer evaluated = new ConsPointer();

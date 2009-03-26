@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class Check extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer pred = new ConsPointer();
         aEnvironment.iEvaluator.evaluate(aEnvironment, pred, getArgumentPointer(aEnvironment, aStackTop, 1));

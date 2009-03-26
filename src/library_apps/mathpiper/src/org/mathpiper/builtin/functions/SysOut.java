@@ -34,7 +34,7 @@ public class SysOut extends BuiltinFunction {
 
 
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         StringOutput out = new StringOutput();
         ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer();
         if (subList != null)

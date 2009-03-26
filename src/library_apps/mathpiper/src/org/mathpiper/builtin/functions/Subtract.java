@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class Subtract extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         int length = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (length == 2)

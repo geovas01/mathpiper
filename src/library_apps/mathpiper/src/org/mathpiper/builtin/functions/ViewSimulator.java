@@ -32,7 +32,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class ViewSimulator extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          org.mathpiper.ui.gui.simulator.SimulatorFrame  simulator = new org.mathpiper.ui.gui.simulator.SimulatorFrame();
          JavaObject javaObject = new JavaObject(simulator);

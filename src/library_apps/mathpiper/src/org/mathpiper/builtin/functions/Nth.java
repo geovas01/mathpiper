@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class Nth extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
         str = getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string();

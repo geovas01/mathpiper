@@ -28,7 +28,7 @@ import org.mathpiper.lisp.Environment;
 public class DebugFile extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         throw new Exception("Cannot call DebugFile in non-debug version of MathPiper");
     }

@@ -49,7 +49,7 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
     }
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         StringBuffer strBuffer = new StringBuffer("");
         ConcatenateStrings(strBuffer, aEnvironment, aStackTop);

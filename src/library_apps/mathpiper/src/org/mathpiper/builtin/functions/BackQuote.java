@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class BackQuote extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
         ConsPointer result = new ConsPointer();

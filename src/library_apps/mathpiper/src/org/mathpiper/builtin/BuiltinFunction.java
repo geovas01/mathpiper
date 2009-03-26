@@ -203,7 +203,7 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 public abstract class BuiltinFunction
 {
-	public abstract void eval(Environment aEnvironment,int aStackTop) throws Exception;
+	public abstract void evaluate(Environment aEnvironment,int aStackTop) throws Exception;
 
 	public static ConsPointer getResult(Environment aEnvironment,int aStackTop) throws Exception
 	{

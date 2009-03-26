@@ -28,7 +28,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class DefaultTokenizer extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.iCurrentTokenizer = aEnvironment.iDefaultTokenizer;
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

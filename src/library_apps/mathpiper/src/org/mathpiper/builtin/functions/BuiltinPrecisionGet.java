@@ -29,7 +29,7 @@ import org.mathpiper.lisp.Environment;
 public class BuiltinPrecisionGet extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // decimal getPrecision
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + aEnvironment.getPrecision()));

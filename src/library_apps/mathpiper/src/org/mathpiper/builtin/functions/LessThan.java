@@ -30,7 +30,7 @@ public class LessThan extends BuiltinFunction
 
     LexLessThan compare = new LexLessThan();
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         compare.Compare(aEnvironment, aStackTop);
     }

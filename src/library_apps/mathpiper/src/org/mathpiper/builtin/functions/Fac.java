@@ -31,7 +31,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class Fac extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getNumber(0) != null, 1);
         ConsPointer arg = getArgumentPointer(aEnvironment, aStackTop, 1);

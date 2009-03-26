@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class CharString extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
         str = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();

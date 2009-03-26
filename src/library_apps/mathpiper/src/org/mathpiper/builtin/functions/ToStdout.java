@@ -28,7 +28,7 @@ import org.mathpiper.io.MathPiperOutputStream;
 public class ToStdout extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;

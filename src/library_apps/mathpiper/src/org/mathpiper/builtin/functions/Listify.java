@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.SubListCons;
 public class Listify extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer() != null, 1);
         ConsPointer head = new ConsPointer();
