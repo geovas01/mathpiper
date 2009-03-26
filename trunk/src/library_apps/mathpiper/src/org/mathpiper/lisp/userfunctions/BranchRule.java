@@ -25,7 +25,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 /**
  * A rule with a predicate (the rule matches if the predicate evaluates to True.).
  */
-class BranchRule extends BranchRuleDatabase
+class BranchRule extends Branch
 {
         protected int iPrecedence;
         protected ConsPointer iBody = new ConsPointer();

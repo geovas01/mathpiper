@@ -42,7 +42,7 @@ import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 import org.mathpiper.lisp.userfunctions.MacroUserFunction;
 
-import org.mathpiper.lisp.userfunctions.UserFunction;
+import org.mathpiper.lisp.userfunctions.UserFunctionEvaluator;
 
 import org.mathpiper.lisp.userfunctions.ListedBranchingUserFunction;
 
@@ -333,7 +333,7 @@ public class Environment
         }
     }
 
-    public UserFunction getUserFunction(ConsPointer aArguments) throws Exception
+    public UserFunctionEvaluator getUserFunction(ConsPointer aArguments) throws Exception
     {
         MultipleArityUserFunction multiUserFunc =
                 (MultipleArityUserFunction) iUserFunctions.lookUp(aArguments.getCons().string());
@@ -345,7 +345,7 @@ public class Environment
         return null;
     }
 
-    public UserFunction getUserFunction(String aName, int aArity) throws Exception
+    public UserFunctionEvaluator getUserFunction(String aName, int aArity) throws Exception
     {
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aName);
         if (multiUserFunc != null)
@@ -360,7 +360,7 @@ public class Environment
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
 
         LispError.check(multiUserFunc != null, LispError.KLispErrInvalidArg);
-        UserFunction userFunc = multiUserFunc.getUserFunction(aArity);
+        UserFunctionEvaluator userFunc = multiUserFunc.getUserFunction(aArity);
         LispError.check(userFunc != null, LispError.KLispErrInvalidArg);
         userFunc.unFence();
     }
@@ -407,7 +407,7 @@ public class Environment
         LispError.check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
         // Get the specific user function with the right arity
-        UserFunction userFunc = (UserFunction) multiUserFunc.getUserFunction(aArity);
+        UserFunctionEvaluator userFunc = (UserFunctionEvaluator) multiUserFunc.getUserFunction(aArity);
         LispError.check(userFunc != null, LispError.KLispErrCreatingRule);
 
         // Declare a new evaluation rule
@@ -444,7 +444,7 @@ public class Environment
         LispError.check(multiUserFunc != null, LispError.KLispErrCreatingRule);
 
         // Get the specific user function with the right arity
-        UserFunction userFunc = multiUserFunc.getUserFunction(aArity);
+        UserFunctionEvaluator userFunc = multiUserFunc.getUserFunction(aArity);
         LispError.check(userFunc != null, LispError.KLispErrCreatingRule);
 
         // Declare a new evaluation rule

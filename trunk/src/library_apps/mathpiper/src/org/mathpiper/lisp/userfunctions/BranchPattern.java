@@ -28,7 +28,7 @@ import org.mathpiper.lisp.parametermatchers.Pattern;
 /**
  * A rule which matches if the corresponding {@link PatternContainer} matches.
  */
-public class BranchPattern extends BranchRuleDatabase {
+public class BranchPattern extends Branch {
 
     protected int iPrecedence;    /// The body of this rule.
     protected ConsPointer iBody = new ConsPointer();    /// Generic object of type \c PatternContainer containing #iPatternClass

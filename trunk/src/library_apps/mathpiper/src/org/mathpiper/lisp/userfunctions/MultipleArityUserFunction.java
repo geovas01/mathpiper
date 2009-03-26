@@ -48,7 +48,7 @@ public class MultipleArityUserFunction
 	}
 
 	/// Return user function with given arity.
-	public UserFunction getUserFunction(int aArity) throws Exception
+	public UserFunctionEvaluator getUserFunction(int aArity) throws Exception
 	{
 		int i;
 		//Find function body with the right arity

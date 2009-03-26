@@ -29,7 +29,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubListCons;
 
 
-public class Evaluator extends EvalFuncDatabase
+public class BuiltinFunctionEvaluator extends EvalFuncDatabase
 {
 	// FunctionFlags can be ORed when passed to the constructor of this function
 
@@ -38,13 +38,13 @@ public class Evaluator extends EvalFuncDatabase
 	public static int Fixed = 0;     // fixed number of arguments
 	public static int Variable = 2;  // variable number of arguments
 	
-	BuiltinFunction iCalledFunction;
+	BuiltinFunction iCalledBuiltinFunction;
 	int iNumberOfArguments;
 	int iFlags;
 
-	public Evaluator(BuiltinFunction aCalledFunction,int aNumberOfArguments, int aFlags)
+	public BuiltinFunctionEvaluator(BuiltinFunction aCalledBuiltinFunction,int aNumberOfArguments, int aFlags)
 	{
-		iCalledFunction = aCalledFunction;
+		iCalledBuiltinFunction = aCalledBuiltinFunction;
 		iNumberOfArguments = aNumberOfArguments;
 		iFlags = aFlags;
 	}
@@ -127,7 +127,7 @@ public class Evaluator extends EvalFuncDatabase
 			}
 		}
 
-		iCalledFunction.eval(aEnvironment,stacktop);
+		iCalledBuiltinFunction.eval(aEnvironment,stacktop);
 		aResult.setCons(aEnvironment.iArgumentStack.getElement(stacktop).getCons());
 		aEnvironment.iArgumentStack.popTo(stacktop);
 	}
