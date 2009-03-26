@@ -125,7 +125,7 @@ public class MacroUserFunction extends BranchingUserFunction
                 UserStackInformation st = aEnvironment.iEvaluator.stackInformation();
                 for (i = 0; i < nrRules; i++)
                 {
-                    BranchRuleDatabase thisRule = ((BranchRuleDatabase) iBranchRules.get(i));
+                    Branch thisRule = ((Branch) iBranchRules.get(i));
                     //TODO remove            CHECKPTR(thisRule);
                     LispError.lispAssert(thisRule != null);
 
@@ -142,7 +142,7 @@ public class MacroUserFunction extends BranchingUserFunction
                     }
 
                     // If rules got inserted, walk back
-                    while (thisRule != ((BranchRuleDatabase) iBranchRules.get(i)) && i > 0)
+                    while (thisRule != ((Branch) iBranchRules.get(i)) && i > 0)
                     {
                         i--;
                     }

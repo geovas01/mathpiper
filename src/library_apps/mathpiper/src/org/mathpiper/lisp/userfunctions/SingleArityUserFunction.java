@@ -24,7 +24,7 @@ import java.util.Iterator;
 /**
  * User function with a specific arity (number of arguments).
  */
-public abstract class SingleArityUserFunction extends UserFunction
+public abstract class SingleArityUserFunction extends UserFunctionEvaluator
 {
 	public abstract int arity();
 	public abstract boolean isArity(int aArity);

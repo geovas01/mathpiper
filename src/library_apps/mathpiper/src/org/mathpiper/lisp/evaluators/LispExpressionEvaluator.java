@@ -23,10 +23,10 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
-import org.mathpiper.lisp.userfunctions.Evaluator;
+import org.mathpiper.lisp.userfunctions.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
-import org.mathpiper.lisp.userfunctions.UserFunction;
+import org.mathpiper.lisp.userfunctions.UserFunctionEvaluator;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 /**
@@ -119,7 +119,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
                 if (head != null) {
                     if (head.string() != null) {
                         {
-                            Evaluator evaluator = (Evaluator) aEnvironment.getBuiltinFunctions().lookUp(head.string());
+                            BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(head.string());
                             // Try to find a built-in command
                             if (evaluator != null) {
                                 evaluator.evaluate(aResult, aEnvironment, subList);
@@ -128,7 +128,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
                             }
                         }
                         {
-                            UserFunction userFunc;
+                            UserFunctionEvaluator userFunc;
                             userFunc = getUserFunction(aEnvironment, subList);
                             if (userFunc != null) {
                                 userFunc.evaluate(aResult, aEnvironment, subList);
@@ -157,11 +157,11 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
         aEnvironment.iEvalDepth--;
     }
 
-    UserFunction getUserFunction(Environment aEnvironment, ConsPointer subList) throws Exception {
+    UserFunctionEvaluator getUserFunction(Environment aEnvironment, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
-        UserFunction userFunc = null;
+        UserFunctionEvaluator userFunc = null;
 
-        userFunc = (UserFunction) aEnvironment.getUserFunction(subList);
+        userFunc = (UserFunctionEvaluator) aEnvironment.getUserFunction(subList);
         if (userFunc != null) {
             return userFunc;
         } else if (head.string() != null) {

@@ -24,7 +24,7 @@ import org.mathpiper.lisp.Environment;
 /**
  * Base class for rules.
  */
-public abstract class BranchRuleDatabase
+public abstract class Branch
 {
 
     public abstract boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception;
