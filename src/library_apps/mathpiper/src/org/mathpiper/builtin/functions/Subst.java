@@ -36,7 +36,7 @@ public class Subst extends BuiltinFunction
         from.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         to.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         body.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        org.mathpiper.lisp.behaviours.Substitute behaviour = new org.mathpiper.lisp.behaviours.Substitute(aEnvironment, from, to);
+        org.mathpiper.lisp.behaviours.ExpressionSubstitute behaviour = new org.mathpiper.lisp.behaviours.ExpressionSubstitute(aEnvironment, from, to);
         UtilityFunctions.substitute(getResult(aEnvironment, aStackTop), body, behaviour);
     }
 }
