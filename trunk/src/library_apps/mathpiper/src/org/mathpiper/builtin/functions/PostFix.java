@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class PostFix extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         int nrArguments = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 2)

@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class CurrentTime extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         long currentTime = System.nanoTime();
 

@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class ProgBody extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Allow accessing previous locals.
         aEnvironment.pushLocalFrame(false);

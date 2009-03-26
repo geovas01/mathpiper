@@ -29,7 +29,7 @@ import org.mathpiper.lisp.parsers.Parser;
 public class LispReadListed extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Parser parser = new Parser(aEnvironment.iCurrentTokenizer,
                 aEnvironment.iCurrentInput,

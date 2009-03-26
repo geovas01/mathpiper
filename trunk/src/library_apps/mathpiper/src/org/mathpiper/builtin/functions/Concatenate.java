@@ -32,7 +32,7 @@ import org.mathpiper.lisp.cons.SubListCons;
 public class Concatenate extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer all = new ConsPointer();
         all.setCons(aEnvironment.iListAtom.copy(false));

@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class Subst extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer from = new ConsPointer(), to = new ConsPointer(), body = new ConsPointer();
         from.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());

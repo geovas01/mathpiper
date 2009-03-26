@@ -32,7 +32,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class FromBase extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get the base to convert to:
         // Evaluate first argument, and store getResult in oper

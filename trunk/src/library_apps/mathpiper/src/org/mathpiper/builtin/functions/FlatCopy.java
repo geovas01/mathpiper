@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.SubListCons;
 public class FlatCopy extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer copied = new ConsPointer();
         UtilityFunctions.internalFlatCopy(copied, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer());

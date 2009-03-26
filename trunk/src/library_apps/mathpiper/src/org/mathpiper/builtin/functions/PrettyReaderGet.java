@@ -29,7 +29,7 @@ import org.mathpiper.lisp.Environment;
 public class PrettyReaderGet extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         if (aEnvironment.iPrettyReader == null)
         {

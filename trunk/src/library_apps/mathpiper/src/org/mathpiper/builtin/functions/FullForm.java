@@ -28,7 +28,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
 public class FullForm extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         getResult(aEnvironment, aStackTop).setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispPrinter printer = new LispPrinter();

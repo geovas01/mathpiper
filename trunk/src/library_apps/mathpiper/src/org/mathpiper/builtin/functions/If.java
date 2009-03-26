@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class If extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         int nrArguments = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         LispError.check(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.KLispErrWrongNumberOfArgs);

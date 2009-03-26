@@ -28,7 +28,7 @@ import org.mathpiper.lisp.Environment;
 public class MacroSetVar extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         UtilityFunctions.internalSetVar(aEnvironment, aStackTop, true, false);
     }

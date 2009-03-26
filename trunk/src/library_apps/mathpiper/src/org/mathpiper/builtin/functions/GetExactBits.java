@@ -30,7 +30,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class GetExactBits extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber numberToCheck = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
         BigNumber numberToReturn = new BigNumber(aEnvironment.getPrecision());

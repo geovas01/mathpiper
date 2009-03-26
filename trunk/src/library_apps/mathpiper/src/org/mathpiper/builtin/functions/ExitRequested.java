@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class ExitRequested extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
     }

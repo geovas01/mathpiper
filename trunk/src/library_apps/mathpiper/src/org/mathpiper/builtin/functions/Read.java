@@ -28,7 +28,7 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 public class Read extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         MathPiperParser parser = new MathPiperParser(aEnvironment.iCurrentTokenizer,
                 aEnvironment.iCurrentInput,

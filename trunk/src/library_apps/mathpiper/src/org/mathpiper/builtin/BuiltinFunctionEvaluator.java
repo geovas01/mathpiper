@@ -21,7 +21,7 @@ package org.mathpiper.builtin;
 // new-style evaluator, passing arguments onto the stack in Environment
 
 import org.mathpiper.lisp.userfunctions.*;
-import org.mathpiper.builtin.UtilityFunctions;
+import org.mathpiper.builtin.BuiltinFunction;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
@@ -30,7 +30,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubListCons;
 
 
-public class BuiltinFunctionEvaluator extends FunctionEvaluator
+public class BuiltinFunctionEvaluator extends Evaluator
 {
 	// FunctionFlags can be ORed when passed to the constructor of this function
 
@@ -39,11 +39,11 @@ public class BuiltinFunctionEvaluator extends FunctionEvaluator
 	public static int Fixed = 0;     // fixed number of arguments
 	public static int Variable = 2;  // variable number of arguments
 	
-	UtilityFunctions iCalledBuiltinFunction;
+	BuiltinFunction iCalledBuiltinFunction;
 	int iNumberOfArguments;
 	int iFlags;
 
-	public BuiltinFunctionEvaluator(UtilityFunctions aCalledBuiltinFunction,int aNumberOfArguments, int aFlags)
+	public BuiltinFunctionEvaluator(BuiltinFunction aCalledBuiltinFunction,int aNumberOfArguments, int aFlags)
 	{
 		iCalledBuiltinFunction = aCalledBuiltinFunction;
 		iNumberOfArguments = aNumberOfArguments;
@@ -128,7 +128,7 @@ public class BuiltinFunctionEvaluator extends FunctionEvaluator
 			}
 		}
 
-		iCalledBuiltinFunction.eval(aEnvironment,stacktop);
+		iCalledBuiltinFunction.evaluate(aEnvironment,stacktop);
 		aResult.setCons(aEnvironment.iArgumentStack.getElement(stacktop).getCons());
 		aEnvironment.iArgumentStack.popTo(stacktop);
 	}

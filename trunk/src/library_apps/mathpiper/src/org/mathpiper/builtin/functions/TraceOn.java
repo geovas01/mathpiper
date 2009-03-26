@@ -30,7 +30,7 @@ import org.mathpiper.lisp.userfunctions.UserFunctionEvaluator;
 public class TraceOn extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          UserFunctionEvaluator.traceOn();
          aEnvironment.write("Tracing is on.\n");

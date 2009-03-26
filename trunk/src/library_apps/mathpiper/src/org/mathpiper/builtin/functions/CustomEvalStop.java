@@ -29,7 +29,7 @@ import org.mathpiper.lisp.Environment;
 public class CustomEvalStop extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : LispCustomEvalStop");////TODO fixme
 

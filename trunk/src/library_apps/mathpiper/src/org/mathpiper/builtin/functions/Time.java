@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class Time extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         long starttime = System.nanoTime();
         ConsPointer res = new ConsPointer();

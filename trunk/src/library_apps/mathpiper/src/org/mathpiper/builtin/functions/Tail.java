@@ -29,7 +29,7 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class Tail extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer first = new ConsPointer();
         UtilityFunctions.internalTail(first, getArgumentPointer(aEnvironment, aStackTop, 1));

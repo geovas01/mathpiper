@@ -30,7 +30,7 @@ import org.mathpiper.io.MathPiperOutputStream;
 public class ToString extends BuiltinFunction
 {
 
-    public void eval(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         StringBuffer oper = new StringBuffer();
         StringOutputStream newOutput = new StringOutputStream(oper);
