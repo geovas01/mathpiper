@@ -33,10 +33,13 @@ public class InterpreterTest implements ResponseListener
         EvaluationResponse response;
        
         interpreter = Interpreters.getSynchronousInterpreter();
-        response = interpreter.evaluate("α := 4;");
-        System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
+
         
-        response = interpreter.evaluate("Load(\"test.mpi\");");
+        // response = interpreter.evaluate("Tell(a);");
+       // System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
+         
+        
+        response = interpreter.evaluate("Load(\"/home/tkosan/NetBeansProjects/mathpiper/tests/manual_tests/myMatch_new.mpi\");");
         System.out.println("Load test: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
         
        /* response = interpreter.evaluate("3+3;");
