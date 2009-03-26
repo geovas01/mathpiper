@@ -182,6 +182,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
                         aEnvironment.write(buf);*/
 
                         aEnvironment.write("Debug> Loading file" + def.iFileName + " for function " + head.string() + "\n");
+                        int debugBreakpoint = 0;
                     }
                 }
 
