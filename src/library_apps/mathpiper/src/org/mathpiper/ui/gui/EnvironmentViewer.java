@@ -47,7 +47,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.parametermatchers.Parameter;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.userfunctions.BranchParameter;
-import org.mathpiper.lisp.userfunctions.BranchPattern;
+import org.mathpiper.lisp.userfunctions.PatternBranch;
 import org.mathpiper.lisp.userfunctions.Branch;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.lisp.userfunctions.UserFunctionEvaluator;
@@ -522,7 +522,7 @@ public class EnvironmentViewer implements ActionListener {
 
                         if (predicate.equalsIgnoreCase("\"Pattern\"")) {
                             predicate = "(Pattern) ";
-                            BranchPattern branchPattern = (BranchPattern) branchRuleBase;
+                            PatternBranch branchPattern = (PatternBranch) branchRuleBase;
                             Pattern pattern = branchPattern.getPattern();
 
                             Iterator variablesIterator = pattern.getVariables().iterator();

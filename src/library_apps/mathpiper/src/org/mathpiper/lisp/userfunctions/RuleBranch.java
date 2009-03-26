@@ -25,20 +25,20 @@ import org.mathpiper.lisp.UtilityFunctions;
 /**
  * A rule with a predicate (the rule matches if the predicate evaluates to True.).
  */
-class BranchRule extends Branch
+class RuleBranch extends Branch
 {
         protected int iPrecedence;
         protected ConsPointer iBody = new ConsPointer();
         protected ConsPointer iPredicate = new ConsPointer();
 
-    public BranchRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
+    public RuleBranch(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
     {
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
         iBody.setCons(aBody.getCons());
     }
 
-    protected BranchRule()
+    protected RuleBranch()
     {
     }
 
