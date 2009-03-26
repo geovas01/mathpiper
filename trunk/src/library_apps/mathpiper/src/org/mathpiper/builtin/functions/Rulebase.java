@@ -24,11 +24,11 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class RuleBaseListed extends BuiltinFunction
+public class Rulebase extends BuiltinFunction
 {
 
     public void eval(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.UtilityFunctions.internalRuleDatabase(aEnvironment, aStackTop, true);
+        org.mathpiper.lisp.UtilityFunctions.internalRuleDatabase(aEnvironment, aStackTop, false);
     }
 }

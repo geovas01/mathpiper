@@ -12,7 +12,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-	public class MacroRuleDatabaseListed extends BuiltinFunction
+	public class MacroRulebaseListed extends BuiltinFunction
 	{
 		public void eval(Environment aEnvironment,int aStackTop) throws Exception
 		{
