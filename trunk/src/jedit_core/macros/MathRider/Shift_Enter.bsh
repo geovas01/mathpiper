@@ -1423,7 +1423,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 							}
 						}
 					
-						result = result.trim();
+						//result = result.trim();
 						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
 						result = indentAmount + "  " + result;
 						indentAmountPeriod = indentAmount.toString().replaceFirst(" ",".");
