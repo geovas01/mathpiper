@@ -495,7 +495,10 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
 				response(response)
 				{
-					System.out.println("WWWW " + response + ", " + foldName);
+					System.out.println("WWWW " + response );
+					result = response;
+					displayResult();
+					
 				}//end method.
 				
 				remove()
@@ -516,7 +519,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				//runCommandInConsole(view,"Maxima","Load(\""+path+"\");");
 				//runCommandInConsole(view,"Maxima",codeText + "\n");
 				
-				output_fold_type = "%output,name=\"" + foldName + "\"";
+				output_fold_type = "%output";
 				//System.out.println(
 								
 					
