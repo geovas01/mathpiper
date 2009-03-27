@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Need to add monospaced font that is already being included for the u6502 plugin to MathRider as a whole.
 +HotEqn doesn't render exponent if there is a space between them and parentheses:
     %hoteqn,preserve="false"
       \left( Ay - \frac{Ay + Cy}{2} \right)  ^{2}
