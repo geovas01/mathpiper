@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import org.mathrider.ResponseListener;
 import java.io.*;
 import errorlist.*;
+import org.gjt.sp.jedit.jEdit;
 
 /**
  *
@@ -57,7 +58,8 @@ public class MaximaWrapper implements Runnable
 		removeListeners = new ArrayList<ResponseListener>();
 		ArrayList command = new ArrayList();
 		//command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
-		command.add("/usr/bin/maxima");
+		//command.add("/usr/bin/maxima");
+		command.add(jEdit.getProperty("maxima.path"));
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		Process maximaProcess = processBuilder.start();
 		inputStream = maximaProcess.getInputStream();

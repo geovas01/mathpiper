@@ -115,6 +115,7 @@ mathpiperdocs.width=400
 hoteqn.dock-position=bottom
 vfs.browser.y=50
 vfs.browser.x=50
+maxima.path=/usr/bin/maxima
 plugin-blacklist.CommonControls.jar=false
 plugin-manager.mirror.cached-id=switch
 plugin-blacklist.QuickNotepad.jar=false
