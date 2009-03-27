@@ -16,27 +16,24 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.builtin.functions;
+package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.builtin.JavaObject;
-import org.mathpiper.lisp.cons.BuiltinObjectCons;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.userfunctions.UserFunctionEvaluator;
 
 /**
  *
- *
+ *  
  */
-public class ViewSimulator extends BuiltinFunction
+public class TraceOn extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         org.mathpiper.ui.gui.simulator.SimulatorFrame  simulator = new org.mathpiper.ui.gui.simulator.SimulatorFrame();
-         JavaObject javaObject = new JavaObject(simulator);
-         aEnvironment.setGlobalVariable("Simulator", new ConsPointer(BuiltinObjectCons.getInstance(javaObject)), false);
+         UserFunctionEvaluator.traceOn();
+         aEnvironment.write("Tracing is on.\n");
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }

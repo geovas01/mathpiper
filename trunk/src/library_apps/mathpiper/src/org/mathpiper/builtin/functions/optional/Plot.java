@@ -16,23 +16,32 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.builtin.functions;
+package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
 
 /**
  *
- *  
+ *
  */
-public class ViewEnvironment extends BuiltinFunction
+public class Plot extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         org.mathpiper.ui.gui.EnvironmentViewer viewer = new org.mathpiper.ui.gui.EnvironmentViewer();
-         viewer.getViewerFrame(aEnvironment);
+         ConsPointer consPointer = new ConsPointer();
+         aEnvironment.getGlobalVariable("Simulator", consPointer);
+         org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame) consPointer.getCons().getGeneric().getJavaObject();
+         
+         Cons xCons = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+         Cons yCons = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
+         int xValue = Integer.parseInt(xCons.string());
+         int yValue = Integer.parseInt(yCons.string());
+         simulator.plotPoint(xValue,yValue);
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }

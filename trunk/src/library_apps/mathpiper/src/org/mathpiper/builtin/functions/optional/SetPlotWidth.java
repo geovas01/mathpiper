@@ -16,24 +16,31 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.builtin.functions;
+package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.userfunctions.UserFunctionEvaluator;
 
 /**
  *
- *  
+ *
  */
-public class TraceOn extends BuiltinFunction
+public class SetPlotWidth extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         UserFunctionEvaluator.traceOn();
-         aEnvironment.write("Tracing is on.\n");
+         ConsPointer consPointer = new ConsPointer();
+         aEnvironment.getGlobalVariable("Simulator", consPointer);
+         org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame) consPointer.getCons().getGeneric().getJavaObject();
+
+         Cons redCons = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+         int plotWidth = Integer.parseInt(redCons.string());
+
+         simulator.setPlotWidth(plotWidth);
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }

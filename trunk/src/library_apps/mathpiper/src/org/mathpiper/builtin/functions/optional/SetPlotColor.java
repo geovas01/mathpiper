@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.builtin.functions;
+package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.Cons;
