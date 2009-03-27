@@ -51,7 +51,7 @@ public class MaximaWrapper implements Runnable
 	private ArrayList<ResponseListener> removeListeners;
 
 	/** Creates a new instance of MaximaWrapper */
-	protected MaximaWrapper() throws IOException
+	protected MaximaWrapper() throws Throwable
 	{
 
 		responseListeners = new ArrayList<ResponseListener>();
@@ -98,7 +98,7 @@ public class MaximaWrapper implements Runnable
 		return prompt;
 	}//end method.
 
-	public static MaximaWrapper getInstance() throws IOException
+	public static MaximaWrapper getInstance() throws Throwable
 	{
 		if(maximaInstance == null) {
 			maximaInstance = new MaximaWrapper();
@@ -108,7 +108,7 @@ public class MaximaWrapper implements Runnable
 
 
 
-	public synchronized void send(String send) throws IOException
+	public synchronized void send(String send) throws Throwable
 	{
 		outputStream.write(send.getBytes());
 		outputStream.flush();
@@ -131,6 +131,10 @@ public class MaximaWrapper implements Runnable
 			{
 				notifyListeners(ioe.toString());
 			}
+			catch(Throwable e)
+			{
+				e.printStackTrace();
+			}
 		}//end while.
 
 	}//end method.
@@ -141,7 +145,7 @@ public class MaximaWrapper implements Runnable
 	}//end method.
 
 
-	protected String getResponse() throws IOException
+	protected String getResponse() throws Throwable
 	{
 		boolean keepChecking = true;
 
