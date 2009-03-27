@@ -56,7 +56,8 @@ public class MaximaWrapper implements Runnable
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
 		ArrayList command = new ArrayList();
-		command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
+		//command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
+		command.add("/usr/bin/maxima");
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		Process maximaProcess = processBuilder.start();
 		inputStream = maximaProcess.getInputStream();
