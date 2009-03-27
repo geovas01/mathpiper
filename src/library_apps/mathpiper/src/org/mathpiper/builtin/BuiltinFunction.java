@@ -811,28 +811,28 @@ public abstract class BuiltinFunction
 	
         //Note:tk:The functions below this point need to have documentation created for them.
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.TraceOn(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.TraceOn(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "TraceOn");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.TraceOff(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.TraceOff(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "TraceOff");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.ViewEnvironment(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.ViewEnvironment(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ViewEnvironment");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.ViewSimulator(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.ViewSimulator(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ViewSimulator");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.Plot(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.Plot(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Plot");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.SetPlotColor(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.SetPlotColor(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "SetPlotColor");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.SetPlotWidth(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.SetPlotWidth(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "SetPlotWidth");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.SysOut(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.SysOut(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "SysOut");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.CurrentTime(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
