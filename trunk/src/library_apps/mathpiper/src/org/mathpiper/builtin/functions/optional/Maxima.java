@@ -69,6 +69,9 @@ public class Maxima extends BuiltinFunction {
             responseBuffer = new StringBuffer();
             inputPromptPattern = Pattern.compile("\\n\\(%i[0-9]+\\)|MAXIMA>");
             startMessage = getResponse();
+
+            send("display2d:false;\n");
+            getResponse();
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -79,6 +82,10 @@ public class Maxima extends BuiltinFunction {
         {
             System.out.println("Maxima is not installed");
         }
+
+
+
+
     /*//Add temporary files directory to maxima search path.
     File tempFile = File.createTempFile("mathrider", ".tmp");
     tempFile.deleteOnExit();
