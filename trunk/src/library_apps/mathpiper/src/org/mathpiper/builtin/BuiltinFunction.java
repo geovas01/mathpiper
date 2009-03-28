@@ -835,8 +835,11 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.SysOut(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "SysOut");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.CurrentTime(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.CurrentTime(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "CurrentTime");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.Maxima(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                "Maxima");
     }
 
 
