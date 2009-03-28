@@ -838,7 +838,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.CurrentTime(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "CurrentTime");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.Maxima(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.Maxima(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Maxima");
     }
 
