@@ -24,7 +24,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubListCons;
 import java.util.*;
-import org.mathpiper.lisp.evaluators.LispExpressionEvaluator;
+import org.mathpiper.lisp.LispExpressionEvaluator;
 
 /**
  * A function (usually mathematical) which is defined by one or more rules.
