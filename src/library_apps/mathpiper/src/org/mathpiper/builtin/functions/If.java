@@ -36,17 +36,17 @@ public class If extends BuiltinFunction
         LispError.check(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.KLispErrWrongNumberOfArgs);
 
         ConsPointer predicate = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, predicate, getArgumentPointer(aEnvironment, aStackTop, 1));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         if (UtilityFunctions.isTrue(aEnvironment, predicate))
         {
-            aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 2));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 2));
         } else
         {
             LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isFalse(aEnvironment, predicate), 1);
             if (nrArguments == 4)
             {
-                aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 3));
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 3));
             } else
             {
                 UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));

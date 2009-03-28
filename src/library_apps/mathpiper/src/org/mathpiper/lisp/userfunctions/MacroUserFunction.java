@@ -85,7 +85,7 @@ public class MacroUserFunction extends BranchingUserFunction
             } else
             {
                 LispError.check(consTraverser.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-                aEnvironment.iEvaluator.evaluate(aEnvironment, arguments[i], consTraverser.ptr());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arguments[i], consTraverser.ptr());
             }
             consTraverser.goNext();
         }
@@ -122,7 +122,7 @@ public class MacroUserFunction extends BranchingUserFunction
                 // walk the rules database, returning the evaluated result if the
                 // predicate is true.
                 int nrRules = iBranchRules.size();
-                UserStackInformation st = aEnvironment.iEvaluator.stackInformation();
+                UserStackInformation st = aEnvironment.iLispExpressionEvaluator.stackInformation();
                 for (i = 0; i < nrRules; i++)
                 {
                     Branch thisRule = ((Branch) iBranchRules.get(i));
@@ -137,7 +137,7 @@ public class MacroUserFunction extends BranchingUserFunction
 
                         BackQuoteSubstitute behaviour = new BackQuoteSubstitute(aEnvironment);
                         UtilityFunctions.substitute(substedBody, thisRule.getBodyPointer(), behaviour);
-                        //              aEnvironment.iEvaluator.Eval(aEnvironment, aResult, thisRule.body());
+                        //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                         break;
                     }
 
@@ -159,7 +159,7 @@ public class MacroUserFunction extends BranchingUserFunction
 
         if (substedBody.getCons() != null)
         {
-            aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, substedBody);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, substedBody);
         } else
         // No predicate was true: return a new expression with the evaluated
         // arguments.

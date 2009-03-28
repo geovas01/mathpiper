@@ -41,7 +41,7 @@ import org.mathpiper.lisp.cons.SubListCons;
 			while (consTraverser.getCons() != null)
 			{
 				ConsPointer evaluated = new ConsPointer();
-				aEnvironment.iEvaluator.evaluate(aEnvironment,evaluated,consTraverser.ptr());
+				aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment,evaluated,consTraverser.ptr());
 				tail.ptr().setCons(evaluated.getCons());
 				tail.goNext();
 				consTraverser.goNext();

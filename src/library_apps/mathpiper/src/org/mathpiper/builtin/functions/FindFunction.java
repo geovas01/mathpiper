@@ -48,7 +48,7 @@ public class FindFunction extends BuiltinFunction
         String oper = UtilityFunctions.internalUnstringify(orig);
 
         MultipleArityUserFunction multiUserFunc =
-                aEnvironment.getMultiUserFunction((String)aEnvironment.getTokenHash().lookUp(oper));
+                aEnvironment.getMultipleArityUserFunction((String)aEnvironment.getTokenHash().lookUp(oper));
         if (multiUserFunc != null)
         {
             /*DefFile def = multiUserFunc.iFileToOpen;

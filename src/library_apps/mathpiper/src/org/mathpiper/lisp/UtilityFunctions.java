@@ -181,7 +181,7 @@ public class UtilityFunctions {
 
         while (consTraverser.getCons() != null) {
             ConsPointer next = new ConsPointer();
-            aEnvironment.iEvaluator.evaluate(aEnvironment, next, consTraverser.ptr());
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, next, consTraverser.ptr());
             full.getCons().getRestPointer().setCons(next.getCons());
             full.setCons(next.getCons());
             consTraverser.goNext();
@@ -198,7 +198,7 @@ public class UtilityFunctions {
         head.getRestPointer().setCons(aArgs.getCons());
         ConsPointer body = new ConsPointer();
         body.setCons(SubListCons.getInstance(head));
-        aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
     }
 
     public static void internalApplyPure(ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
@@ -230,7 +230,7 @@ public class UtilityFunctions {
                 args2.setCons(args2.getCons().getRestPointer().getCons());
             }
             LispError.check(args2.getCons() == null, LispError.KLispErrInvalidArg);
-            aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, body);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
         } catch (EvaluationException e) {
             throw e;
         } finally {
@@ -483,7 +483,7 @@ public class UtilityFunctions {
                 } // Else evaluate
                 else {
                     ConsPointer result = new ConsPointer();
-                    aEnvironment.iEvaluator.evaluate(aEnvironment, result, readIn);
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, readIn);
                     aEnvironment.setGlobalVariable("LoadResult", result, false);//Note:tk:added to make getResult of executing Loaded code available.
                 }
             }
@@ -646,7 +646,7 @@ public class UtilityFunctions {
                 } // Else evaluate
                 else {
                     String str = token;
-                    MultipleArityUserFunction multiUser = aEnvironment.getMultiUserFunction(str);
+                    MultipleArityUserFunction multiUser = aEnvironment.getMultipleArityUserFunction(str);
                     if (multiUser.iFileToOpen != null) {
                         throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, -1);
                     }
@@ -768,7 +768,7 @@ public class UtilityFunctions {
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         ConsPointer precedence = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, precedence, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, precedence, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
         LispError.checkArgument(aEnvironment, aStackTop, precedence.getCons().string() != null, 2);
         int prec = Integer.parseInt(precedence.getCons().string(), 10);
         LispError.checkArgument(aEnvironment, aStackTop, prec <= MathPiperPrinter.KMaxPrecedence, 2);
@@ -811,7 +811,7 @@ public class UtilityFunctions {
         String variableString = null;
         if (aMacroMode) {
             ConsPointer result = new ConsPointer();
-            aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
             variableString = result.getCons().string();
         } else {
             variableString = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
@@ -820,7 +820,7 @@ public class UtilityFunctions {
         LispError.checkArgument(aEnvironment, aStackTop, !UtilityFunctions.isNumber(variableString, true), 1);
 
         ConsPointer result = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
         aEnvironment.setGlobalVariable(variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunction.getResult(aEnvironment, aStackTop));
     }
@@ -924,7 +924,7 @@ public class UtilityFunctions {
     }
     /**
      *Implements the MathPiper functions RuleBase and MacroRuleBase .
-     * The real work is done by Environment.declareRuleDatabase().
+     * The real work is done by Environment.declareRulebase().
      */
 
     public static void internalRuleDatabase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
@@ -943,7 +943,7 @@ public class UtilityFunctions {
         LispError.checkIsList(aEnvironment, aStackTop, argsPointer, 2);
 
         // Finally define the rule database.
-        aEnvironment.declareRuleDatabase(UtilityFunctions.getSymbolName(aEnvironment, functionName),
+        aEnvironment.declareRulebase(UtilityFunctions.getSymbolName(aEnvironment, functionName),
                 argsPointer.getCons().getSublistPointer().getCons().getRestPointer(), aListed);
 
         // Return true
@@ -1007,7 +1007,7 @@ public class UtilityFunctions {
         LispError.checkIsList(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
-        aEnvironment.declareMacroRuleDatabase(UtilityFunctions.getSymbolName(aEnvironment, orig),
+        aEnvironment.declareMacroRulebase(UtilityFunctions.getSymbolName(aEnvironment, orig),
                 args.getCons().getSublistPointer().getCons().getRestPointer(), aListed);
 
         // Return true

@@ -56,7 +56,7 @@ class RuleBranch extends Branch
     public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception
     {
         ConsPointer pred = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, pred, iPredicate);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, iPredicate);
         return UtilityFunctions.isTrue(aEnvironment, pred);
     }
 

@@ -211,7 +211,7 @@ class SynchronousInterpreter implements Interpreter
         try
         {
             environment.iEvalDepth = 0;
-            environment.iEvaluator.resetStack();
+            environment.iLispExpressionEvaluator.resetStack();
 
 
             //iError = null;
@@ -265,7 +265,7 @@ class SynchronousInterpreter implements Interpreter
             }
 
             ConsPointer result = new ConsPointer();
-            environment.iEvaluator.evaluate(environment, result, inputExpressionPointer);
+            environment.iLispExpressionEvaluator.evaluate(environment, result, inputExpressionPointer);
 
             String percent = (String)environment.getTokenHash().lookUp("%");
             environment.setGlobalVariable(percent, result, true);

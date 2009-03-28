@@ -56,7 +56,7 @@ import org.mathpiper.lisp.userfunctions.Evaluator;
 public class Environment
 {
 
-    public Evaluator iEvaluator = new LispExpressionEvaluator();
+    public Evaluator iLispExpressionEvaluator = new LispExpressionEvaluator();
     private int iPrecision = 10;
     private TokenMap iTokenHash = new TokenMap();
     public Cons iTrueAtom;
@@ -216,7 +216,7 @@ public class Environment
         {
             if (globalVariable.iEvalBeforeReturn)
             {
-                iEvaluator.evaluate(this, aResult, globalVariable.iValue);
+                iLispExpressionEvaluator.evaluate(this, aResult, globalVariable.iValue);
                 globalVariable.iValue.setCons(aResult.getCons());
                 globalVariable.iEvalBeforeReturn = false;
                 return;
@@ -319,38 +319,37 @@ public class Environment
 
     public void holdArgument(String aOperator, String aVariable) throws Exception
     {
-        MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-        LispError.check(multiUserFunc != null, LispError.KLispErrInvalidArg);
-        multiUserFunc.holdArgument(aVariable);
+        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
+        LispError.check(multipleArityUserFunc != null, LispError.KLispErrInvalidArg);
+        multipleArityUserFunc.holdArgument(aVariable);
     }
 
     public void retractFunction(String aOperator, int aArity) throws Exception
     {
-        MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-        if (multiUserFunc != null)
+        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
+        if (multipleArityUserFunc != null)
         {
-            multiUserFunc.deleteRuleDatabaseEntry(aArity);
+            multipleArityUserFunc.deleteRuleDatabaseEntry(aArity);
         }
     }
 
     public UserFunction getUserFunction(ConsPointer aArguments) throws Exception
     {
-        MultipleArityUserFunction multiUserFunc =
-                (MultipleArityUserFunction) iUserFunctions.lookUp(aArguments.getCons().string());
-        if (multiUserFunc != null)
+        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aArguments.getCons().string());
+        if (multipleArityUserFunc != null)
         {
             int arity = UtilityFunctions.listLength(aArguments) - 1;
-            return multiUserFunc.getUserFunction(arity);
+            return multipleArityUserFunc.getUserFunction(arity);
         }
         return null;
     }
 
     public UserFunction getUserFunction(String aName, int aArity) throws Exception
     {
-        MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aName);
-        if (multiUserFunc != null)
+        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aName);
+        if (multipleArityUserFunc != null)
         {
-            return multiUserFunc.getUserFunction(aArity);
+            return multipleArityUserFunc.getUserFunction(aArity);
         }
         return null;
     }
@@ -365,36 +364,36 @@ public class Environment
         userFunc.unFence();
     }
 
-    public MultipleArityUserFunction getMultiUserFunction(String aOperator) throws Exception
+    public MultipleArityUserFunction getMultipleArityUserFunction(String aOperator) throws Exception
     {
         // Find existing multiuser func.
-        MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
+        MultipleArityUserFunction multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
 
         // If none exists, add one to the user functions list
-        if (multiUserFunc == null)
+        if (multipleArityUserFunction == null)
         {
-            MultipleArityUserFunction newMulti = new MultipleArityUserFunction();
-            iUserFunctions.setAssociation(newMulti, aOperator);
-            multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-            LispError.check(multiUserFunc != null, LispError.KLispErrCreatingUserFunction);
+            MultipleArityUserFunction newMultipleArityUserFunction = new MultipleArityUserFunction();
+            iUserFunctions.setAssociation(newMultipleArityUserFunction, aOperator);
+            multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
+            LispError.check(multipleArityUserFunction != null, LispError.KLispErrCreatingUserFunction);
         }
-        return multiUserFunc;
+        return multipleArityUserFunction;
     }
 
-    public void declareRuleDatabase(String aOperator, ConsPointer aParametersPointer, boolean aListed) throws Exception
+    public void declareRulebase(String aOperator, ConsPointer aParametersPointer, boolean aListed) throws Exception
     {
-        MultipleArityUserFunction multiUserFunction = getMultiUserFunction(aOperator);
+        MultipleArityUserFunction multipleArityUserFunction = getMultipleArityUserFunction(aOperator);
 
         // add an operator with this arity to the multiuserfunc.
-        BranchingUserFunction newFunction;
+        BranchingUserFunction newBranchingUserFunction;
         if (aListed)
         {
-            newFunction = new ListedBranchingUserFunction(aParametersPointer);
+            newBranchingUserFunction = new ListedBranchingUserFunction(aParametersPointer);
         } else
         {
-            newFunction = new BranchingUserFunction(aParametersPointer);
+            newBranchingUserFunction = new BranchingUserFunction(aParametersPointer);
         }
-        multiUserFunction.addRuleDatabaseEntry(newFunction);
+        multipleArityUserFunction.addRuleDatabaseEntry(newBranchingUserFunction);
     }
 
     public void defineRule(String aOperator, int aArity,
@@ -402,53 +401,52 @@ public class Environment
             ConsPointer aBody) throws Exception
     {
         // Find existing multiuser func.
-        MultipleArityUserFunction multiUserFunc =
-                (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-        LispError.check(multiUserFunc != null, LispError.KLispErrCreatingRule);
+        MultipleArityUserFunction multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
+        LispError.check(multipleArityUserFunction != null, LispError.KLispErrCreatingRule);
 
         // Get the specific user function with the right arity
-        UserFunction userFunc = (UserFunction) multiUserFunc.getUserFunction(aArity);
-        LispError.check(userFunc != null, LispError.KLispErrCreatingRule);
+        UserFunction userFunction = (UserFunction) multipleArityUserFunction.getUserFunction(aArity);
+        LispError.check(userFunction != null, LispError.KLispErrCreatingRule);
 
         // Declare a new evaluation rule
-
-
         if (UtilityFunctions.isTrue(this, aPredicate))
         {
             //        printf("FastPredicate on %s\n",aOperator->String());
-            userFunc.declareRule(aPrecedence, aBody);
+            userFunction.declareRule(aPrecedence, aBody);
         } else
         {
-            userFunc.declareRule(aPrecedence, aPredicate, aBody);
+            userFunction.declareRule(aPrecedence, aPredicate, aBody);
         }
     }
 
-    public void declareMacroRuleDatabase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
+    public void declareMacroRulebase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
     {
-        MultipleArityUserFunction multiUserFunc = getMultiUserFunction(aOperator);
-        MacroUserFunction newFunc;
+        MultipleArityUserFunction multipleArityUserFunc = getMultipleArityUserFunction(aOperator);
+
+        MacroUserFunction newMacroUserFunction;
+
         if (aListed)
         {
-            newFunc = new ListedMacroUserFunction(aParameters);
+            newMacroUserFunction = new ListedMacroUserFunction(aParameters);
         } else
         {
-            newFunc = new MacroUserFunction(aParameters);
+            newMacroUserFunction = new MacroUserFunction(aParameters);
         }
-        multiUserFunc.addRuleDatabaseEntry(newFunc);
+        multipleArityUserFunc.addRuleDatabaseEntry(newMacroUserFunction);
     }
 
     public void defineRulePattern(String aOperator, int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
     {
         // Find existing multiuser func.
-        MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-        LispError.check(multiUserFunc != null, LispError.KLispErrCreatingRule);
+        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
+        LispError.check(multipleArityUserFunc != null, LispError.KLispErrCreatingRule);
 
         // Get the specific user function with the right arity
-        UserFunction userFunc = multiUserFunc.getUserFunction(aArity);
-        LispError.check(userFunc != null, LispError.KLispErrCreatingRule);
+        UserFunction userFunction = multipleArityUserFunc.getUserFunction(aArity);
+        LispError.check(userFunction != null, LispError.KLispErrCreatingRule);
 
         // Declare a new evaluation rule
-        userFunc.declarePattern(aPrecedence, aPredicate, aBody);
+        userFunction.declarePattern(aPrecedence, aPredicate, aBody);
     }
     
     /**

@@ -318,7 +318,7 @@ public class LispError
                 error = error + strout;
 
                 ConsPointer eval = new ConsPointer();
-                aEnvironment.iEvaluator.evaluate(aEnvironment, eval, arg);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, eval, arg);
                 error = error + " evaluated to ";
                 strout = UtilityFunctions.printExpression(eval, aEnvironment, 60);
                 error = error + strout;

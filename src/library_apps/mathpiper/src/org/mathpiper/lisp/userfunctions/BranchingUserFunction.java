@@ -122,7 +122,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
             } else
             {
                 LispError.check(consTraverser.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-                aEnvironment.iEvaluator.evaluate(aEnvironment, arguments[i], consTraverser.ptr());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arguments[i], consTraverser.ptr());
             }
             consTraverser.goNext();
         }
@@ -157,7 +157,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
             // walk the rules database, returning the evaluated result if the
             // predicate is true.
             int nrRules = iBranchRules.size();
-            UserStackInformation st = aEnvironment.iEvaluator.stackInformation();
+            UserStackInformation st = aEnvironment.iLispExpressionEvaluator.stackInformation();
             for (i = 0; i < nrRules; i++)
             {
                 Branch thisRule = ((Branch) iBranchRules.get(i));
@@ -168,7 +168,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
                 if (matches)
                 {
                     st.iSide = 1;
-                    aEnvironment.iEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
 
                     /*Trace code */
                     if (isTraced())
