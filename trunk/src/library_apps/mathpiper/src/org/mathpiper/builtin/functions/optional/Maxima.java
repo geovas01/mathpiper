@@ -181,6 +181,11 @@ public class Maxima extends BuiltinFunction {
         try {
             send(orig + ";\n");
             String response = getResponse();
+            
+            if(response.startsWith("\n"))
+            {
+                response = response.substring(1);
+            }
 
             getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, response));
         } catch (Throwable t) {
