@@ -19,7 +19,6 @@ package org.mathpiper.lisp;
 
 import org.mathpiper.lisp.stacks.ArgumentStack;
 import org.mathpiper.lisp.evaluators.LispExpressionEvaluator;
-import org.mathpiper.lisp.evaluators.ExpressionEvaluator;
 import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.collections.Map;
 import org.mathpiper.lisp.collections.TokenMap;
@@ -51,12 +50,13 @@ import org.mathpiper.lisp.userfunctions.BranchingUserFunction;
 import org.mathpiper.lisp.userfunctions.ListedMacroUserFunction;
 
 import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.userfunctions.Evaluator;
 
 
 public class Environment
 {
 
-    public ExpressionEvaluator iEvaluator = new LispExpressionEvaluator();
+    public Evaluator iEvaluator = new LispExpressionEvaluator();
     private int iPrecision = 10;
     private TokenMap iTokenHash = new TokenMap();
     public Cons iTrueAtom;

@@ -80,7 +80,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
      * @param aArguments the arguments to the function
      * @throws java.lang.Exception
      */
-    public void evaluate(ConsPointer aResult, Environment aEnvironment, ConsPointer aArguments) throws Exception
+    public void evaluate( Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception
     {
         int arity = arity();
         int i;

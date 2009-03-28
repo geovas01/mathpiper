@@ -50,7 +50,7 @@ public class BuiltinFunctionEvaluator extends Evaluator
 		iFlags = aFlags;
 	}
 	
-	public void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception
+	public void evaluate(Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
 		if ((iFlags & Variable) == 0)
 		{
