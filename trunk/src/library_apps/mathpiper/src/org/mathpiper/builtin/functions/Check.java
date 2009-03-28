@@ -33,11 +33,11 @@ public class Check extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer pred = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, pred, getArgumentPointer(aEnvironment, aStackTop, 1));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, getArgumentPointer(aEnvironment, aStackTop, 1));
         if (!UtilityFunctions.isTrue(aEnvironment, pred))
         {
             ConsPointer evaluated = new ConsPointer();
-            aEnvironment.iEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));
             LispError.checkIsString(aEnvironment, aStackTop, evaluated, 2);
             throw new Exception(evaluated.getCons().string());
         }

@@ -34,7 +34,7 @@ public class Secure extends BuiltinFunction
         aEnvironment.iSecure = true;
         try
         {
-            aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
         } catch (Exception e)
         {
             throw e;

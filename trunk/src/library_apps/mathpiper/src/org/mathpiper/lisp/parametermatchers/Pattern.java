@@ -314,7 +314,7 @@ public class Pattern {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
             ConsPointer pred = new ConsPointer();
-            aEnvironment.iEvaluator.evaluate(aEnvironment, pred, ((ConsPointer) iPredicates.get(i)));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, ((ConsPointer) iPredicates.get(i)));
             if (UtilityFunctions.isFalse(aEnvironment, pred)) {
                 return false;
             }

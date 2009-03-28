@@ -94,7 +94,7 @@ public class BuiltinFunctionEvaluator extends Evaluator
 			{
 				LispError.check(consTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 				LispError.check(consTraverser.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-				aEnvironment.iEvaluator.evaluate(aEnvironment, argument, consTraverser.ptr());
+				aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argument, consTraverser.ptr());
 				aEnvironment.iArgumentStack.pushArgumentOnStack(argument.getCons());
 				consTraverser.goNext();
 			}
@@ -116,7 +116,7 @@ public class BuiltinFunctionEvaluator extends Evaluator
 				printf("before %s\n",res.String());
 				*/
 
-				aEnvironment.iEvaluator.evaluate(aEnvironment, argument, list);
+				aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argument, list);
 
 				/*
 				PrintExpression(res, arg,aEnvironment,100);

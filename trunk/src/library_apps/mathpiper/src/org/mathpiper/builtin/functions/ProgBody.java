@@ -43,7 +43,7 @@ public class ProgBody extends BuiltinFunction
             consTraverser.goNext();
             while (consTraverser.getCons() != null)
             {
-                aEnvironment.iEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), consTraverser.ptr());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), consTraverser.ptr());
                 consTraverser.goNext();
             }
         } catch (Exception e)

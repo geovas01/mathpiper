@@ -34,7 +34,7 @@ public class Time extends BuiltinFunction
     {
         long starttime = System.nanoTime();
         ConsPointer res = new ConsPointer();
-        aEnvironment.iEvaluator.evaluate(aEnvironment, res, getArgumentPointer(aEnvironment, aStackTop, 1));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, res, getArgumentPointer(aEnvironment, aStackTop, 1));
         long endtime = System.nanoTime();
         double timeDiff;
         timeDiff = endtime - starttime;
