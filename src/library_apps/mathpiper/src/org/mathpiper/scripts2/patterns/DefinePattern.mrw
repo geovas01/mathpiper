@@ -1,11 +1,10 @@
 %mathpiper,def="DefinePattern",private="true"
 
-RuleBase("DefinePattern",
-         {patternleft,patternright,patternprecedence,postpredicate});
+RuleBase("DefinePattern",{patternleft, patternright, patternprecedence, postpredicate});
+
 Rule("DefinePattern",4,9,Equals(Type(patternleft),"_"))
 [
- DefinePattern(patternleft[1],patternright,
-               patternprecedence,patternleft[2]);
+    DefinePattern(patternleft[1], patternright, patternprecedence, patternleft[2]);
 ];
 
 Rule("DefinePattern",4,10,True)
@@ -16,14 +15,17 @@ Rule("DefinePattern",4,10,True)
   Set(patternoper,String(Head(patternflat)));
   Set(arity,Length(patternvars));
   DefLoadFunction(patternoper);
+
   If(Not(RuleBaseDefined(patternoper,arity)),
      [
       MacroRuleBase(patternoper,MakeVector(arg,arity));
      ]
     );
+
   Set(patt,Pattern'Create(patternvars,postpredicate));
-  MacroRulePattern(patternoper,arity,patternprecedence,
-            patt)patternright;
+
+  MacroRulePattern(patternoper,arity,patternprecedence, patt)patternright;
+
   True;
 ];
 
