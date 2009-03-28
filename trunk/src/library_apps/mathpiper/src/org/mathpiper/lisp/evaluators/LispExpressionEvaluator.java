@@ -28,17 +28,13 @@ import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 import org.mathpiper.lisp.userfunctions.UserFunction;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.userfunctions.Evaluator;
 
 /**
  *  The basic evaluator for Lisp expressions.
  * 
  */
-public class LispExpressionEvaluator extends ExpressionEvaluator {
-
-    public static boolean DEBUG = false;
-    public static boolean VERBOSE_DEBUG = false;
-    public static boolean TRACE_TO_STANDARD_OUT = true;
-    private static int evalDepth = 0;
+public class LispExpressionEvaluator extends Evaluator {
 
     /**
      * <p>
@@ -122,7 +118,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
                             BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(head.string());
                             // Try to find a built-in command
                             if (evaluator != null) {
-                                evaluator.evaluate(aResult, aEnvironment, subList);
+                                evaluator.evaluate(aEnvironment, aResult, subList);
                                 aEnvironment.iEvalDepth--;
                                 return;
                             }
@@ -131,7 +127,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
                             UserFunction userFunc;
                             userFunc = getUserFunction(aEnvironment, subList);
                             if (userFunc != null) {
-                                userFunc.evaluate(aResult, aEnvironment, subList);
+                                userFunc.evaluate(aEnvironment, aResult, subList);
                                 aEnvironment.iEvalDepth--;
                                 return;
                             }
@@ -212,195 +208,7 @@ public class LispExpressionEvaluator extends ExpressionEvaluator {
         return userFunc;
     }//end method.
 
-    public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
-        // Print out the current expression
-        //StringOutput stream(outString);
-        MathPiperOutputStream stream = new StringOutputStream(outString);
-
-
-        infixprinter.print(aExpression, stream, aEnvironment);
-
-        // Escape quotes.
-        for (int i = outString.length() - 1; i >= 0; --i) {
-            char c = outString.charAt(i);
-            if (c == '\"') {
-                //outString.insert(i, '\\');
-                outString.deleteCharAt(i);
-            }
-        }
-
-    }//end method.
-
-    public static void traceShowExpression(Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        StringBuffer outString = new StringBuffer();
-        showExpression(outString, aEnvironment, aExpression);
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(outString.toString());
-        } else {
-            aEnvironment.write(outString.toString());
-        }
-    }
-
-    public static void traceShowArg(Environment aEnvironment, ConsPointer aParam, ConsPointer aValue) throws Exception {
-        for (int i = 0; i < evalDepth; i++) { //aEnvironment.iEvalDepth; i++) {
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print("    ");
-            } else {
-                aEnvironment.write("    ");
-            }
-        }
-
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Arg(");
-        //System.out.print("    ");
-
-        } else {
-            aEnvironment.write("Arg(");
-        // aEnvironment.write("    ");
-        }
-
-        traceShowExpression(aEnvironment, aParam);
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",");
-        //System.out.print("    ");
-
-        } else {
-            aEnvironment.write(",");
-        // aEnvironment.write("    ");
-        }
-
-        traceShowExpression(aEnvironment, aValue);
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(");\n");
-        //System.out.print("    ");
-
-        } else {
-            aEnvironment.write(");\n");
-        //aEnvironment.write("    ");
-        }
-    }
-
-    public static void traceShowEnter(Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        for (int i = 0; i < evalDepth; i++) {  // aEnvironment.iEvalDepth; i++) {
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print("    ");
-            } else {
-                aEnvironment.write("    ");
-            }
-        }
-
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Enter{(");
-
-        } else {
-            aEnvironment.write("Enter{(");
-        }
-        {
-            String function = "";
-            if (aExpression.getCons().getSublistPointer() != null) {
-                ConsPointer sub = aExpression.getCons().getSublistPointer();
-                if (sub.getCons().string() != null) {
-                    function = sub.getCons().string();
-                }
-            }
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print(function);
-            } else {
-                aEnvironment.write(function);
-            }
-        }
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",");
-
-        } else {
-            aEnvironment.write(",");
-        }
-
-        traceShowExpression(aEnvironment, aExpression);
-
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",");
-        } else {
-            aEnvironment.write(",");
-        }
-
-        if (DEBUG) {
-            //aEnvironment.write( aExpression.iFileName ? aExpression.iFileName : ""); //file Note:tk.
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print(",");
-            } else {
-                aEnvironment.write(",");
-            }
-        //LispChar buf[30];
-        //InternalIntToAscii(buf,aExpression.iLine);
-        //aEnvironment.write(buf); //line
-        } else {
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print("");//file
-            } else {
-                aEnvironment.write("");
-            }
-
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print(",");
-
-            } else {
-                aEnvironment.write(",");
-            }
-
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print("0");//line
-
-            } else {
-                aEnvironment.write("0");
-            }
-
-        }
-
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(");\n");
-
-        } else {
-            aEnvironment.write(");\n");
-        }
-        evalDepth++;
-    }
-
-    public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult,
-            ConsPointer aExpression) throws Exception {
-        evalDepth--;
-        for (int i = 0; i < evalDepth; i++) {  // aEnvironment.iEvalDepth; i++) {
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print("    ");
-
-            } else {
-                aEnvironment.write("    ");
-            }
-        }
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Leave}(");
-        } else {
-            aEnvironment.write("Leave}(");
-        }
-        traceShowExpression(aEnvironment, aExpression);
-
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",");
-        } else {
-            aEnvironment.write(",");
-        }
-
-        traceShowExpression(aEnvironment, aResult);
-
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(");\n");
-        } else {
-            aEnvironment.write(");\n");
-        }
-
-    }
 
     /*
     void TracedStackEvaluator::PushFrame()

@@ -38,7 +38,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		return (arity() <= aArity);
 	}
 	
-	public void evaluate(ConsPointer aResult, Environment aEnvironment, ConsPointer aArguments) throws Exception
+	public void evaluate( Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
 		ConsPointer newArgs = new ConsPointer();
 		ConsTraverser consTraverser = new ConsTraverser(aArguments);
@@ -67,7 +67,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 			head.getCons().getRestPointer().setCons(consTraverser.getCons());
 			ptr.setCons(SubListCons.getInstance(head.getCons()));
 		}
-		super.evaluate(aResult, aEnvironment, newArgs);
+		super.evaluate(aEnvironment, aResult, newArgs);
 	}
 }
 

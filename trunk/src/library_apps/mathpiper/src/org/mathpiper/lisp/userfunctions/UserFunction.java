@@ -45,7 +45,7 @@ public abstract class UserFunction extends Evaluator
 		iFenced = true;
 		//iTraced = false;
 	}
-	public abstract void evaluate(ConsPointer aResult,Environment aEnvironment, ConsPointer aArguments) throws Exception;
+	public abstract void evaluate(Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception;
 	public abstract void holdArgument(String aVariable);
 	public abstract void declareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception;
 	public abstract void declareRule(int aPrecedence, ConsPointer aBody) throws Exception;
