@@ -6,10 +6,12 @@ Rule("<--",2,1,Equals(Type(patternleft),"#"))
 [
   DefinePattern(patternleft[2],patternright,patternleft[1],True);
 ];
+
 Rule("<--",2,2,IsFunction(patternleft))
 [
  DefinePattern(patternleft,patternright,0,True);
 ];
+
 HoldArg("<--",patternleft);
 HoldArg("<--",patternright);
 
