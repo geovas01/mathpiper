@@ -28,7 +28,7 @@ import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 import org.mathpiper.lisp.userfunctions.UserFunction;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
-import org.mathpiper.lisp.userfunctions.Evaluator;
+import org.mathpiper.lisp.Evaluator;
 
 /**
  *  The basic evaluator for Lisp expressions.
