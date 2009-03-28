@@ -27,7 +27,7 @@ import org.mathpiper.lisp.*;
 /**
  * Provides the base user function API.
  */
-public abstract class UserFunctionEvaluator extends Evaluator
+public abstract class UserFunction extends Evaluator
 {
 /// Abstract class providing the basic user function API.
 /// Instances of this class are associated to the name of the function
@@ -40,7 +40,7 @@ public abstract class UserFunctionEvaluator extends Evaluator
         /**
          * 
          */
-        public UserFunctionEvaluator()
+        public UserFunction()
 	{
 		iFenced = true;
 		//iTraced = false;

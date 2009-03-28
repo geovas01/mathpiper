@@ -24,7 +24,7 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.SubListCons;
-import org.mathpiper.lisp.userfunctions.UserFunctionEvaluator;
+import org.mathpiper.lisp.userfunctions.UserFunction;
 
 /**
  *
@@ -48,7 +48,7 @@ public class RulebaseArgList extends BuiltinFunction
 
         int arity = Integer.parseInt(sizearg.getCons().string(), 10);
 
-        UserFunctionEvaluator userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity);
+        UserFunction userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity);
         LispError.check(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
 
         ConsPointer list = userFunc.argList();
