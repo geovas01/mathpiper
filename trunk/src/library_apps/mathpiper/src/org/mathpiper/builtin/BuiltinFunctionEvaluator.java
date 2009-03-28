@@ -20,6 +20,7 @@ package org.mathpiper.builtin;
 
 // new-style evaluator, passing arguments onto the stack in Environment
 
+import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.userfunctions.*;
 import org.mathpiper.builtin.BuiltinFunction;
 

@@ -18,6 +18,7 @@
 
 package org.mathpiper.lisp.userfunctions;
 
+import org.mathpiper.lisp.Evaluator;
 import java.util.Iterator;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.*;
