@@ -47,11 +47,22 @@ StringMid'Set
 
 
 //Proposes function name changes:
-RuleBase -> RuleDatabase
-MacroRuleBase -> MacroRuleDatabase
-RuleBaseArgList -> RuleDatabaseArgs
-MacroRuleBase  -> MacroRuleDatabase
-MacroRuleBaseListed  -> MacroRuleDatabaseListed
+
+//Make RuleBase names read more like the name Database does.
+RuleBase -> Rulebase
+MacroRuleBase -> MacroRulebase
+RuleBaseArgList -> RulebaseArgs
+MacroRuleBase  -> MacroRulebase
+MacroRuleBaseListed  -> MacroRulebaseListed
+
+/*In general, make function names read like Object.method. For example,
+FindFile -> FileFind
+FindFunction -> FunctionFind
+ConcatStrings -> StringsConcat
+etc.
+
+
+
 
 
 
