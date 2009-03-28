@@ -35,26 +35,26 @@ public class DefLoadFunction extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer name = new ConsPointer();
-        name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        String orig = name.getCons().string();
+        ConsPointer namePointer = new ConsPointer();
+        namePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        String orig = namePointer.getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
-        MultipleArityUserFunction multiUserFunc =
+        MultipleArityUserFunction multiUserFunction =
                 aEnvironment.getMultiUserFunction((String)aEnvironment.getTokenHash().lookUp(oper));
-        if (multiUserFunc != null)
+        if (multiUserFunction != null)
         {
-            if (multiUserFunc.iFileToOpen != null)
+            if (multiUserFunction.iFileToOpen != null)
             {
-                DefFile def = multiUserFunc.iFileToOpen;
+                DefFile def = multiUserFunction.iFileToOpen;
                 if (!def.iIsLoaded)
                 {
-                    multiUserFunc.iFileToOpen = null;
+                    multiUserFunction.iFileToOpen = null;
                     UtilityFunctions.internalUse(aEnvironment, def.iFileName);
-                }
-            }
-        }
+                }//end if.
+            }//end if.
+        }//end if.
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
