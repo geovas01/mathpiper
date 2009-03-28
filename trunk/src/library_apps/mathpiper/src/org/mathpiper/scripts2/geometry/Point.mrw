@@ -1,0 +1,35 @@
+%mathpiper,def=""
+
+Point(x,y) := List(x,y);
+
+Point(x,y,z) := List(x,y,z);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Point"
+*CMD Point --- return a list which contains a point
+*STD
+*CALL
+	Point(x, y)
+	Point(x, y, z)
+*PARMS
+
+{x} -- x coordinate of the point
+
+{y} -- y coordinatte of the point
+
+{z} -- z coordinate of the point
+
+*DESC
+
+Creates either a 2D point or a 3D point.
+
+*E.G.
+
+	In> Point(5,2)
+	Result> {5,2}
+
+*SEE IsPoint, Midpoint, Distance, Slope, Segment
+%/mathpiper_docs

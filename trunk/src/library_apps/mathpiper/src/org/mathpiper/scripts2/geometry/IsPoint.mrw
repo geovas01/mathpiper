@@ -1,0 +1,33 @@
+%mathpiper,def=""
+
+IsPoint(p) := If(IsList(p) And (Length(p) = 2 Or Length(p) = 3),True,False);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsPoint"
+*CMD IsPoint --- test for a point
+*STD
+*CALL
+	IsPoint(p)
+*PARMS
+
+{p} -- point to test
+
+
+*DESC
+
+Tests if a value is a point.
+
+*E.G.
+
+	In> p := Point(2,3)
+	Result> {2,3}
+	In> IsPoint(p)
+	Result> True
+	In> IsPoint(4)
+	Result> False
+	
+*SEE Point, Midpoint, Distance, Slope, Segment
+%/mathpiper_docs
