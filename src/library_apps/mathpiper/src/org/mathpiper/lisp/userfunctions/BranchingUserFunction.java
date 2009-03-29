@@ -32,7 +32,7 @@ import org.mathpiper.lisp.Evaluator;
  * by consulting a set of rewritng rules.  The body of the first rule that
  * matches is evaluated and its result is returned as the function's result.
  */
-public class BranchingUserFunction extends SingleArityUserFunction
+public class BranchingUserFunction extends UserFunction
 {
     /// List of arguments, with corresponding \c iHold property.
     protected List<BranchParameter> iParameters = new ArrayList(); //CArrayGrower<BranchParameter>
