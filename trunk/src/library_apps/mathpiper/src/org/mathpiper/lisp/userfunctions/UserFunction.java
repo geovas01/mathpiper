@@ -64,4 +64,8 @@ public abstract class UserFunction extends Evaluator
 		return iFenced;
 	}
 
+    public abstract int arity();
+
+    public abstract boolean isArity(int aArity);
+
 };
