@@ -35,7 +35,7 @@ import org.mathpiper.lisp.Evaluator;
 public class BranchingUserFunction extends SingleArityUserFunction
 {
     /// List of arguments, with corresponding \c iHold property.
-    protected List iParameters = new ArrayList(); //CArrayGrower<BranchParameter>
+    protected List<BranchParameter> iParameters = new ArrayList(); //CArrayGrower<BranchParameter>
 
     /// List of rules, sorted on precedence.
     protected List<Branch> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
