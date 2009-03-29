@@ -40,8 +40,10 @@ midpoint formula.
 
 	In> PointA := Point(2,3)
 	Result> {2,3}
+	
 	In> PointB := Point(6,8)
 	Result> {6,8}
+	
 	In> Midpoint(PointA, PointB)
 	Result> {4,11/2}
 

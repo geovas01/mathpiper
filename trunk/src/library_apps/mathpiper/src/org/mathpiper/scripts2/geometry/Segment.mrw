@@ -35,8 +35,10 @@ This function returns a list which represents a segment by its endpoints.
 
 	In> PointA := Point(2,3)
 	Result> {2,3}
+	
 	In> PointB := Point(6,8)
 	Result> {6,8}
+	
 	In> Segment(PointA,PointB)
 	Result> {{2,3},{6,8}}
 
