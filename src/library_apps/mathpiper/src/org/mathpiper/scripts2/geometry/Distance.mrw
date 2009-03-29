@@ -36,8 +36,10 @@ distance formula.
 
 	In> PointA := Point(2,3)
 	Result> {2,3}
+	
 	In> PointB := Point(6,8)
 	Result> {6,8}
+	
 	In> Distance(PointA, PointB)
 	Result> Sqrt(41)
 

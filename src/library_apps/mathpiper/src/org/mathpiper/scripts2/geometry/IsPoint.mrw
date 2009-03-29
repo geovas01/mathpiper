@@ -24,8 +24,10 @@ Tests if a value is a point.
 
 	In> p := Point(2,3)
 	Result> {2,3}
+	
 	In> IsPoint(p)
 	Result> True
+	
 	In> IsPoint(4)
 	Result> False
 	
