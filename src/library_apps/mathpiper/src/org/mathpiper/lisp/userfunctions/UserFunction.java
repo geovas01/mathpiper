@@ -36,7 +36,6 @@ public abstract class UserFunction extends Evaluator
 /// evaluate the function with some arguments.
     
 	boolean iFenced;
-	public static boolean iTraced = false;
 	
         /**
          * 
@@ -63,21 +62,6 @@ public abstract class UserFunction extends Evaluator
 	public boolean fenced()
 	{
 		return iFenced;
-	}
-
-	public static void traceOn()
-	{
-		iTraced = true;
-	}
-	
-	public static void traceOff()
-	{
-		iTraced = false;
-	}
-	
-	public static boolean isTraced()
-	{
-		return iTraced;
 	}
 
 };

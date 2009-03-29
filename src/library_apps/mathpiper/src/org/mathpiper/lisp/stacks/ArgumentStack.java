@@ -102,8 +102,16 @@ public class ArgumentStack
            
             //System.out.println()
         }
-    }
+    }//end method.
+
+
+    public ConsPointer[]  getElements(int quantity) throws IndexOutOfBoundsException
+    {
+        int last = iStackTopIndex;
+        int first = last - quantity;
+        return iArgumentStack.getElements(first, last);
+    }//end method.
     
     
     
-}
+}//end class.
