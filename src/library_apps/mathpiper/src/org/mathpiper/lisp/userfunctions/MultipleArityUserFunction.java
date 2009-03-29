@@ -34,7 +34,7 @@ public class MultipleArityUserFunction
 {
 
 	/// Set of SingleArityUserFunction's provided by this MultipleArityUserFunction.
-	List iFunctions = new ArrayList();//<SingleArityUserFunction*>
+	List<SingleArityUserFunction> iFunctions = new ArrayList();//
 
 	/// File to read for the definition of this function.
 	public DefFile iFileToOpen;
@@ -79,7 +79,7 @@ public class MultipleArityUserFunction
 	}
 
 	/// Add another SingleArityUserFunction to #iFunctions.
-	public  void addRuleDatabaseEntry(SingleArityUserFunction aNewFunction) throws Exception
+	public  void addRulebaseEntry(SingleArityUserFunction aNewFunction) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
@@ -95,7 +95,7 @@ public class MultipleArityUserFunction
 	}
 
 	/// Deletet user function with given arity.
-	public  void deleteRuleDatabaseEntry(int aArity) throws Exception
+	public  void deleteRulebaseEntry(int aArity) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
