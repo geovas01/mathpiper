@@ -30,13 +30,19 @@ public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 
 	
 	
-	public MaximaShell() throws IOException
+	public MaximaShell()
 	{
 		super("Maxima");
 		
-		maxima = MaximaWrapper.getInstance(); 
-		maximaStartMessage = maxima.getStartMessage();
-		maxima.addResponseListener(this);
+		try{
+		
+			maxima = MaximaWrapper.getInstance(); 
+			maximaStartMessage = maxima.getStartMessage();
+			maxima.addResponseListener(this);
+		}catch(Throwable t)
+		{
+			t.printStackTrace();
+		}
 
 		
 	}//end constructor.
@@ -95,9 +101,9 @@ public class MaximaShell extends Shell implements org.mathrider.ResponseListener
 			
 			
 			
-		}catch(Exception ye) 
+		}catch(Throwable t) 
 		{
-			output.print(null,ye.getMessage() );
+			output.print(null,t.getMessage() );
 			output.commandDone();
 		}
 
