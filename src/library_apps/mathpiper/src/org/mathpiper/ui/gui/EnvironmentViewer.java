@@ -50,7 +50,7 @@ import org.mathpiper.lisp.userfunctions.BranchParameter;
 import org.mathpiper.lisp.userfunctions.PatternBranch;
 import org.mathpiper.lisp.userfunctions.Branch;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
-import org.mathpiper.lisp.userfunctions.UserFunction;
+import org.mathpiper.lisp.userfunctions.SingleArityUserFunction;
 import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
 import org.mathpiper.ui.gui.MultiSplitLayout.Leaf;
 import org.mathpiper.ui.gui.MultiSplitLayout.Split;
@@ -503,7 +503,7 @@ public class EnvironmentViewer implements ActionListener {
             Iterator multipleArityUserFunctionIterator = multipleArityUserfunction.getFunctions();
 
             while (multipleArityUserFunctionIterator.hasNext()) {
-                UserFunction userFunction = (UserFunction) multipleArityUserFunctionIterator.next();
+                SingleArityUserFunction userFunction = (SingleArityUserFunction) multipleArityUserFunctionIterator.next();
                 Iterator rulesIterator = userFunction.getRules();
 
                 while (rulesIterator.hasNext()) {
