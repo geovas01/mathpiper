@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions.optional;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.userfunctions.UserFunction;
+import org.mathpiper.lisp.userfunctions.SingleArityUserFunction;
 
 /**
  *
@@ -32,7 +32,7 @@ public class TraceOn extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         UserFunction.traceOn();
+         SingleArityUserFunction.traceOn();
          aEnvironment.write("Tracing is on.\n");
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
