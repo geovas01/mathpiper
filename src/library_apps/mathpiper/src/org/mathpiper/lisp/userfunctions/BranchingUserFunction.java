@@ -331,12 +331,6 @@ public class BranchingUserFunction extends SingleArityUserFunction
     void insertRule(int aPrecedence, Branch newRule)
     {
         // Find place to insert
-
-
-
-         
-         
-         
           int low, high, mid;
         low = 0;
         high = iBranchRules.size();

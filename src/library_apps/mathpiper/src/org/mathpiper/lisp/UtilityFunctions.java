@@ -1018,37 +1018,37 @@ public class UtilityFunctions {
         int arity;
         int precedence;
 
-        ConsPointer ar = new ConsPointer();
-        ConsPointer pr = new ConsPointer();
-        ConsPointer predicate = new ConsPointer();
-        ConsPointer body = new ConsPointer();
+        ConsPointer arityPointer = new ConsPointer();
+        ConsPointer precedencePointer = new ConsPointer();
+        ConsPointer predicatePointer = new ConsPointer();
+        ConsPointer bodyPointer = new ConsPointer();
         String orig = null;
 
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         orig = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        ar.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        pr.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        predicate.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 4).getCons());
-        body.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 5).getCons());
+        arityPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        precedencePointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+        predicatePointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 4).getCons());
+        bodyPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 5).getCons());
 
         // The arity
-        LispError.checkArgument(aEnvironment, aStackTop, ar.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, ar.getCons().string() != null, 2);
-        arity = Integer.parseInt(ar.getCons().string(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, arityPointer.getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, arityPointer.getCons().string() != null, 2);
+        arity = Integer.parseInt(arityPointer.getCons().string(), 10);
 
         // The precedence
-        LispError.checkArgument(aEnvironment, aStackTop, pr.getCons() != null, 3);
-        LispError.checkArgument(aEnvironment, aStackTop, pr.getCons().string() != null, 3);
-        precedence = Integer.parseInt(pr.getCons().string(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, precedencePointer.getCons() != null, 3);
+        LispError.checkArgument(aEnvironment, aStackTop, precedencePointer.getCons().string() != null, 3);
+        precedence = Integer.parseInt(precedencePointer.getCons().string(), 10);
 
         // Finally define the rule base
         aEnvironment.defineRulePattern(UtilityFunctions.getSymbolName(aEnvironment, orig),
                 arity,
                 precedence,
-                predicate,
-                body);
+                predicatePointer,
+                bodyPointer);
 
         // Return true
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunction.getResult(aEnvironment, aStackTop));
