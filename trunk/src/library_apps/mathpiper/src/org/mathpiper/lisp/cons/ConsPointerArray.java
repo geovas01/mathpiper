@@ -52,6 +52,24 @@ public class ConsPointerArray
 	{
 		return iArray[aItem];
 	}
+
+    public ConsPointer[] getElements(int first, int last) throws IndexOutOfBoundsException
+    {
+        if(first < last && first >0 && last > 0 && first < iSize-1 && last < iSize-1)
+        {
+            ConsPointer[] arguments = new ConsPointer[last-first];
+            int i = 0;
+            for(int x = first; x < last; x++)
+            {
+                arguments[i++] = iArray[x];
+            }
+            return arguments;
+        }
+        else
+        {
+            throw new IndexOutOfBoundsException("Stack index is out of bounds.");
+        }
+    }
 	
 	public void setElement(int aItem,Cons aCons)
 	{

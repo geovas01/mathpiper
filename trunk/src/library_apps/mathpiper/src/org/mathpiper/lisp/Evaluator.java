@@ -34,6 +34,7 @@ public abstract class Evaluator
     public static boolean TRACE_TO_STANDARD_OUT = true;
     public static boolean VERBOSE_DEBUG = false;
     private static int evalDepth = 0;
+    public static boolean iTraced = false;
 
     public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
@@ -186,6 +187,18 @@ public abstract class Evaluator
         } else {
             aEnvironment.write(");\n");
         }
+    }
+
+    public static boolean isTraced() {
+        return iTraced;
+    }
+
+    public static void traceOff() {
+        iTraced = false;
+    }
+
+    public static void traceOn() {
+        iTraced = true;
     }
     UserStackInformation iBasicInfo = new UserStackInformation();
 
