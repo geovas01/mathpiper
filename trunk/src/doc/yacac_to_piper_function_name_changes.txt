@@ -55,7 +55,7 @@ RuleBaseArgList -> RulebaseArgs
 MacroRuleBase  -> MacroRulebase
 MacroRuleBaseListed  -> MacroRulebaseListed
 
-/*In general, make function names read like Object.method. For example,
+//In general, make function names read like Object.method. For example,
 FindFile -> FileFind
 FindFunction -> FunctionFind
 ConcatStrings -> StringsConcat
@@ -63,6 +63,10 @@ Use -> ScriptUse
 Load -> ScriptLoad
 
 etc.
+
+
+//Misc.
+Echo -> Print
 
 
 
