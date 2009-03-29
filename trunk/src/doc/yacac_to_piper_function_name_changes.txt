@@ -59,6 +59,9 @@ MacroRuleBaseListed  -> MacroRulebaseListed
 FindFile -> FileFind
 FindFunction -> FunctionFind
 ConcatStrings -> StringsConcat
+Use -> ScriptUse
+Load -> ScriptLoad
+
 etc.
 
 
