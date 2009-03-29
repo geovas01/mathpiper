@@ -338,13 +338,13 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				try  //todo:tk:This code is a hack to prevent a second fold update occurring before the first update is finished.
 				{
 					
-					Thread.sleep(300);
+					Thread.sleep(400);
 				}
 				catch(InterruptedException e)
 				{
 				}
 				
-	//System.out.println("XXXXXXXXX Received response from ASync.");
+	System.out.println("<shift><enter> Received response from ASync.");
 					
 				//result = evaluationResponse[2];
 				result = evaluationResponse.getResult();//("load_result");
