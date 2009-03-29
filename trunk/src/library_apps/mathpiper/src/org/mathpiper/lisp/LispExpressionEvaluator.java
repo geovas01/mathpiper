@@ -26,7 +26,7 @@ import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
-import org.mathpiper.lisp.userfunctions.SingleArityUserFunction;
+import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.Evaluator;
 
@@ -124,7 +124,7 @@ public class LispExpressionEvaluator extends Evaluator {
                             }
                         }
                         {
-                            SingleArityUserFunction userFunc;
+                            SingleArityBranchingUserFunction userFunc;
                             userFunc = getUserFunction(aEnvironment, subList);
                             if (userFunc != null) {
                                 userFunc.evaluate(aEnvironment, aResult, subList);
@@ -153,11 +153,11 @@ public class LispExpressionEvaluator extends Evaluator {
         aEnvironment.iEvalDepth--;
     }
 
-    SingleArityUserFunction getUserFunction(Environment aEnvironment, ConsPointer subList) throws Exception {
+    SingleArityBranchingUserFunction getUserFunction(Environment aEnvironment, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
-        SingleArityUserFunction userFunc = null;
+        SingleArityBranchingUserFunction userFunc = null;
 
-        userFunc = (SingleArityUserFunction) aEnvironment.getUserFunction(subList);
+        userFunc = (SingleArityBranchingUserFunction) aEnvironment.getUserFunction(subList);
         if (userFunc != null) {
             return userFunc;
         } else if (head.string() != null) {
