@@ -329,7 +329,7 @@ public class Environment
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
         if (multipleArityUserFunc != null)
         {
-            multipleArityUserFunc.deleteRuleDatabaseEntry(aArity);
+            multipleArityUserFunc.deleteRulebaseEntry(aArity);
         }
     }
 
@@ -393,7 +393,7 @@ public class Environment
         {
             newBranchingUserFunction = new BranchingUserFunction(aParametersPointer);
         }
-        multipleArityUserFunction.addRuleDatabaseEntry(newBranchingUserFunction);
+        multipleArityUserFunction.addRulebaseEntry(newBranchingUserFunction);
     }
 
     public void defineRule(String aOperator, int aArity,
@@ -432,7 +432,7 @@ public class Environment
         {
             newMacroUserFunction = new MacroUserFunction(aParameters);
         }
-        multipleArityUserFunc.addRuleDatabaseEntry(newMacroUserFunction);
+        multipleArityUserFunc.addRulebaseEntry(newMacroUserFunction);
     }
 
     public void defineRulePattern(String aOperator, int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
