@@ -41,11 +41,11 @@ import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 import org.mathpiper.lisp.userfunctions.MacroUserFunction;
 
-import org.mathpiper.lisp.userfunctions.SingleArityUserFunction;
+import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 
 import org.mathpiper.lisp.userfunctions.ListedBranchingUserFunction;
 
-import org.mathpiper.lisp.userfunctions.BranchingUserFunction;
+import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 
 import org.mathpiper.lisp.userfunctions.ListedMacroUserFunction;
 
@@ -333,7 +333,7 @@ public class Environment
         }
     }
 
-    public SingleArityUserFunction getUserFunction(ConsPointer aArguments) throws Exception
+    public SingleArityBranchingUserFunction getUserFunction(ConsPointer aArguments) throws Exception
     {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aArguments.getCons().string());
         if (multipleArityUserFunc != null)
@@ -344,7 +344,7 @@ public class Environment
         return null;
     }
 
-    public SingleArityUserFunction getUserFunction(String aName, int aArity) throws Exception
+    public SingleArityBranchingUserFunction getUserFunction(String aName, int aArity) throws Exception
     {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aName);
         if (multipleArityUserFunc != null)
@@ -359,7 +359,7 @@ public class Environment
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
 
         LispError.check(multiUserFunc != null, LispError.KLispErrInvalidArg);
-        SingleArityUserFunction userFunc = multiUserFunc.getUserFunction(aArity);
+        SingleArityBranchingUserFunction userFunc = multiUserFunc.getUserFunction(aArity);
         LispError.check(userFunc != null, LispError.KLispErrInvalidArg);
         userFunc.unFence();
     }
@@ -385,13 +385,13 @@ public class Environment
         MultipleArityUserFunction multipleArityUserFunction = getMultipleArityUserFunction(aOperator);
 
         // add an operator with this arity to the multiuserfunc.
-        BranchingUserFunction newBranchingUserFunction;
+        SingleArityBranchingUserFunction newBranchingUserFunction;
         if (aListed)
         {
             newBranchingUserFunction = new ListedBranchingUserFunction(aParametersPointer);
         } else
         {
-            newBranchingUserFunction = new BranchingUserFunction(aParametersPointer);
+            newBranchingUserFunction = new SingleArityBranchingUserFunction(aParametersPointer);
         }
         multipleArityUserFunction.addRulebaseEntry(newBranchingUserFunction);
     }
@@ -405,7 +405,7 @@ public class Environment
         LispError.check(multipleArityUserFunction != null, LispError.KLispErrCreatingRule);
 
         // Get the specific user function with the right arity
-        SingleArityUserFunction userFunction = (SingleArityUserFunction) multipleArityUserFunction.getUserFunction(aArity);
+        SingleArityBranchingUserFunction userFunction = (SingleArityBranchingUserFunction) multipleArityUserFunction.getUserFunction(aArity);
         LispError.check(userFunction != null, LispError.KLispErrCreatingRule);
 
         // Declare a new evaluation rule
@@ -442,7 +442,7 @@ public class Environment
         LispError.check(multipleArityUserFunc != null, LispError.KLispErrCreatingRule);
 
         // Get the specific user function with the right arity
-        SingleArityUserFunction userFunction = multipleArityUserFunc.getUserFunction(aArity);
+        SingleArityBranchingUserFunction userFunction = multipleArityUserFunc.getUserFunction(aArity);
         LispError.check(userFunction != null, LispError.KLispErrCreatingRule);
 
         // Declare a new evaluation rule

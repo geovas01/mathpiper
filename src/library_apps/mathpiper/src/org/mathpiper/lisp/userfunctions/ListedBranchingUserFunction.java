@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubListCons;
 
 
-public class ListedBranchingUserFunction extends BranchingUserFunction
+public class ListedBranchingUserFunction extends SingleArityBranchingUserFunction
 {
 	public ListedBranchingUserFunction(ConsPointer  aParameters) throws Exception
 	{

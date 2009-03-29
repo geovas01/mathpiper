@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispExpressionEvaluator;
 import org.mathpiper.lisp.cons.SubListCons;
 
-public class MacroUserFunction extends BranchingUserFunction
+public class MacroUserFunction extends SingleArityBranchingUserFunction
 {
 
     public MacroUserFunction(ConsPointer aParameters) throws Exception

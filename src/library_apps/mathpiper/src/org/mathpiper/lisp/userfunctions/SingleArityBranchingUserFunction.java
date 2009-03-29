@@ -32,7 +32,7 @@ import org.mathpiper.lisp.Evaluator;
  * by consulting a set of rewritng rules.  The body of the first rule that
  * matches is evaluated and its result is returned as the function's result.
  */
-public class BranchingUserFunction extends SingleArityUserFunction
+public class SingleArityBranchingUserFunction extends Evaluator
 {
     /// List of arguments, with corresponding \c iHold property.
     protected List<BranchParameter> iParameters = new ArrayList(); //CArrayGrower<BranchParameter>
@@ -42,6 +42,11 @@ public class BranchingUserFunction extends SingleArityUserFunction
 
     /// List of arguments
     ConsPointer iParamList = new ConsPointer();
+/// Abstract class providing the basic user function API.
+/// Instances of this class are associated to the name of the function
+/// via an associated hash table. When obtained, they can be used to
+/// evaluate the function with some arguments.
+    boolean iFenced = true;
 
     /**
      * Constructor.
@@ -49,7 +54,7 @@ public class BranchingUserFunction extends SingleArityUserFunction
      * @param aParameters linked list constaining the names of the arguments
      * @throws java.lang.Exception
      */
-    public BranchingUserFunction(ConsPointer aParameters) throws Exception
+    public SingleArityBranchingUserFunction(ConsPointer aParameters) throws Exception
     {
         // iParamList and #iParameters are setCons from \a aParameters.
         iParamList.setCons(aParameters.getCons());
@@ -402,6 +407,14 @@ public class BranchingUserFunction extends SingleArityUserFunction
     public Iterator getParameters()
     {
         return iParameters.iterator();
+    }
+
+    public void unFence() {
+        iFenced = false;
+    }
+
+    public boolean fenced() {
+        return iFenced;
     }
     
 }//end class.

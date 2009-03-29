@@ -26,15 +26,15 @@ import java.util.*;
 
 
 /**
- * Holds a set of {@link SingleArityUserFunction} which are associated with one function name.
- * A specific SingleArityUserFunction can be selected by providing its name.  The
+ * Holds a set of {@link SingleArityBranchingUserFunction} which are associated with one function name.
+ * A specific SingleArityBranchingUserFunction can be selected by providing its name.  The
  * name of the file in which the function is defined can also be specified.
  */
 public class MultipleArityUserFunction
 {
 
-	/// Set of SingleArityUserFunction's provided by this MultipleArityUserFunction.
-	List<SingleArityUserFunction> iFunctions = new ArrayList();//
+	/// Set of SingleArityBranchingUserFunction's provided by this MultipleArityUserFunction.
+	List<SingleArityBranchingUserFunction> iFunctions = new ArrayList();//
 
 	/// File to read for the definition of this function.
 	public DefFile iFileToOpen;
@@ -48,7 +48,7 @@ public class MultipleArityUserFunction
 	}
 
 	/// Return user function with given arity.
-	public SingleArityUserFunction getUserFunction(int aArity) throws Exception
+	public SingleArityBranchingUserFunction getUserFunction(int aArity) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
@@ -56,9 +56,9 @@ public class MultipleArityUserFunction
 		for (i=0;i<nrc;i++)
 		{
 			LispError.lispAssert(iFunctions.get(i) != null);
-			if (((SingleArityUserFunction)iFunctions.get(i)).isArity(aArity))
+			if (((SingleArityBranchingUserFunction)iFunctions.get(i)).isArity(aArity))
 			{
-				return (SingleArityUserFunction)iFunctions.get(i);
+				return (SingleArityBranchingUserFunction)iFunctions.get(i);
 			}
 		}
 
@@ -74,22 +74,22 @@ public class MultipleArityUserFunction
 		for (i=0;i<iFunctions.size();i++)
 		{
 			LispError.lispAssert(iFunctions.get(i) != null);
-			((SingleArityUserFunction)iFunctions.get(i)).holdArgument(aVariable);
+			((SingleArityBranchingUserFunction)iFunctions.get(i)).holdArgument(aVariable);
 		}
 	}
 
-	/// Add another SingleArityUserFunction to #iFunctions.
-	public  void addRulebaseEntry(SingleArityUserFunction aNewFunction) throws Exception
+	/// Add another SingleArityBranchingUserFunction to #iFunctions.
+	public  void addRulebaseEntry(SingleArityBranchingUserFunction aNewFunction) throws Exception
 	{
 		int i;
 		//Find function body with the right arity
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			LispError.lispAssert(((SingleArityUserFunction)iFunctions.get(i)) != null);
+			LispError.lispAssert(((SingleArityBranchingUserFunction)iFunctions.get(i)) != null);
 			LispError.lispAssert(aNewFunction != null);
-			LispError.check(!((SingleArityUserFunction)iFunctions.get(i)).isArity(aNewFunction.arity()),LispError.KLispErrArityAlreadyDefined);
-			LispError.check(!aNewFunction.isArity(((SingleArityUserFunction)iFunctions.get(i)).arity()),LispError.KLispErrArityAlreadyDefined);
+			LispError.check(!((SingleArityBranchingUserFunction)iFunctions.get(i)).isArity(aNewFunction.arity()),LispError.KLispErrArityAlreadyDefined);
+			LispError.check(!aNewFunction.isArity(((SingleArityBranchingUserFunction)iFunctions.get(i)).arity()),LispError.KLispErrArityAlreadyDefined);
 		}
 		iFunctions.add(aNewFunction);
 	}
@@ -102,8 +102,8 @@ public class MultipleArityUserFunction
 		int nrc=iFunctions.size();
 		for (i=0;i<nrc;i++)
 		{
-			LispError.lispAssert(((SingleArityUserFunction)iFunctions.get(i)) != null);
-			if (((SingleArityUserFunction)iFunctions.get(i)).isArity(aArity))
+			LispError.lispAssert(((SingleArityBranchingUserFunction)iFunctions.get(i)) != null);
+			if (((SingleArityBranchingUserFunction)iFunctions.get(i)).isArity(aArity))
 			{
 				iFunctions.remove(i);
 				return;
