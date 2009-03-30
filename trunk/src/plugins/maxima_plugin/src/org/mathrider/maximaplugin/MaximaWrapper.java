@@ -24,7 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.mathrider.ResponseListener;
 import java.io.*;
-import errorlist.*;
+//import errorlist.*;
 import org.gjt.sp.jedit.jEdit;
 
 /**

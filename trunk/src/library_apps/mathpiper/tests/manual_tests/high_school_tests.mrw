@@ -1,52 +1,287 @@
+
+
 %mathpiper
+Echo("pp.100.  Express the following in lowest terms. The letter symbols that appear represent positive integers.");
+NewLine();
+
+
 equations1 := {
-4*x^2-49==0,
-4*x^2-27==x^2,
-x^2-3==0,
-(x/-3)==-2,
-(2+1/3)*x == -13,
-(6*x+5)/4-3*x/2==x
+{18/48,"3/8"},
+85/100,
+{56/-12,"-14/3"},
+-91/49,
+{(32*a^2)/(16*a),"2*a"},
+(45*x^3*y)/(-15*y^2),
+{(a*b*c)/(c*d),"a*b/d"},
+(2*x + 2)/(x + 1),
+{(2*a - 1)/(b - 2*a*b),"-1/b"},
+(a*b)/(b*a),
+{(6*a + 4)/(12*a),"(3*a+2)/(6*a)"},
+(a + 1)/(a*b + b),
+{(14 - 7*x)/(21),"(2-x)/3"},
+(3*x - x^2)/(x^2 - x),//x is not equal to 1.
+{(a^2 + 7*a)/(a^2),"(a+7)/a"},
+(x^2 - 3*x)/(6*x - 2*x^2),//x is not equal to 3.
+{(5*a^2 - a)/(5*a - 1),"a"},
+(10*a^2 - 2*a)/(10*a^2 + 2*a),
 };
 
+count := 1;
 ForEach(e,equations1)
 [
-Echo("Equation: ",e);
-
-Echo("MathPiper:",Solve(e,x));
-
-me := ToString()[WriteString("solve(");Write( Subst(==,=)e);WriteString(",x)");];
-Echo("Maxima:",Maxima(me));
+    If(IsList(e), [answer := e[2]; e := e[1];]);
+    
+    
+    Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
+    
+    //Echo(PrettyForm(e));
+    
+    Echo("MathPiper:    ",Simplify(e));
+    
+    me := ToString()[WriteString("ratsimp(");Write(e);WriteString(")");];
+    Echo("Maxima:",Maxima(me));
+    
+    count := count + 1;
 
 ];
+
+count - 1;
+
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Result: 18
       
       Side effects:
-      Equation: 4*x^2-49==0 
-      MathPiper:{x==7/2,x==(-7)/2} 
-      Maxima:(%o49) [x = -7/2,x = 7/2]
+      pp.100.  Express the following in lowest terms. The letter symbols that appear represent positive integers.
+      
+      #1 Problem:   3/8   Answer: "3/8"
+      MathPiper:    3/8 
+      Maxima:(%o669) 3/8
        
-      Equation: 4*x^2-27==x^2 
-      MathPiper:{x==3,x==(-3)} 
-      Maxima:(%o50) [x = -3,x = 3]
+      #2 Problem:   17/20 
+      MathPiper:    17/20 
+      Maxima:(%o670) 17/20
        
-      Equation: x^2-3==0 
-      MathPiper:{x==Sqrt(3),x==(-Sqrt(12))/2} 
-      Maxima:(%o51) [x = -sqrt(3),x = sqrt(3)]
+      #3 Problem:   (-14)/3   Answer: "-14/3"
+      MathPiper:    (-14)/3 
+      Maxima:(%o671) -14/3
        
-      Equation: -x/3==(-2) 
-      MathPiper:{x==6} 
-      Maxima:(%o52) [x = 6]
+      #4 Problem:   (-13)/7 
+      MathPiper:    (-13)/7 
+      Maxima:(%o672) -13/7
        
-      Equation: (7*x)/3==(-13) 
-      MathPiper:{x==(-39)/7} 
-      Maxima:(%o53) [x = -39/7]
+      #5 Problem:   (32*a^2)/(16*a)   Answer: "2*a"
+      MathPiper:    2*a 
+      Maxima:(%o673) 2*a
        
-      Equation: (6*x+5)/4-(3*x)/2==x 
-      MathPiper:{x==5/4} 
-      Maxima:(%o54) [x = 5/4]
+      #6 Problem:   -(45*x^3*y)/(15*y^2) 
+      MathPiper:    ((-3)*x^3)/y 
+      Maxima:(%o674) -3*x^3/y
+       
+      #7 Problem:   (a*b*c)/(c*d)   Answer: "a*b/d"
+      MathPiper:    (a*b)/d 
+      Maxima:(%o675) a*b/d
+       
+      #8 Problem:   (2*x+2)/(x+1) 
+      MathPiper:    2 
+      Maxima:(%o676) 2
+       
+      #9 Problem:   (2*a-1)/(b-2*a*b)   Answer: "-1/b"
+      MathPiper:    (2*a-1)/(b*((-2)*a+1)) 
+      Maxima:(%o677) -1/b
+       
+      #10 Problem:   (a*b)/(b*a) 
+      MathPiper:    1 
+      Maxima:(%o678) 1
+       
+      #11 Problem:   (6*a+4)/(12*a)   Answer: "(3*a+2)/(6*a)"
+      MathPiper:    (3*a+2)/(6*a) 
+      Maxima:(%o679) (3*a+2)/(6*a)
+       
+      #12 Problem:   (a+1)/(a*b+b) 
+      MathPiper:    1/b 
+      Maxima:(%o680) 1/b
+       
+      #13 Problem:   (14-7*x)/21   Answer: "(2-x)/3"
+      MathPiper:    (2-x)/3 
+      Maxima:(%o681) -(x-2)/3
+       
+      #14 Problem:   (3*x-x^2)/(x^2-x) 
+      MathPiper:    (3-x)/(x-1) 
+      Maxima:(%o682) -(x-3)/(x-1)
+       
+      #15 Problem:   (a^2+7*a)/a^2   Answer: "(a+7)/a"
+      MathPiper:    (a+7)/a 
+      Maxima:(%o683) (a+7)/a
+       
+      #16 Problem:   (x^2-3*x)/(6*x-2*x^2) 
+      MathPiper:    (x-3)/(2*(3-x)) 
+      Maxima:(%o684) -1/2
+       
+      #17 Problem:   (5*a^2-a)/(5*a-1)   Answer: "a"
+      MathPiper:    a 
+      Maxima:(%o685) a
+       
+      #18 Problem:   (10*a^2-2*a)/(10*a^2+2*a) 
+      MathPiper:    (5*a-1)/(5*a+1) 
+      Maxima:(%o686) (5*a-1)/(5*a+1)
 .   %/output
+
+
+
+
+
+
+%mathpiper
+Echo("pp.105.  Perform the following additions.  Express each result in lowest terms. The letter symbols that appear represent positive integers.");
+NewLine();
+
+
+equations1 := {
+{2/3 + 5/3,"7/3"},
+1/9 + 4/9 + 5/9,
+{2/7 + 3/7 + 5/7,"10/7"},
+a/y + b/y + c/y,
+{a/x + 3*a/x + 4*a/x,"8*a/x"},
+x/(x+y) + x/(x + y),
+{a/(a + 1) + 1/(a + 1),"1"},
+2/3 + 4/5,
+{3 + 7/6 + 2/3,"29/6"},
+y/3 + 2*y/9,
+{3*y + y/5,"16*y/5"},
+x/2 + x/3 + x/4,
+{4/a + 3/(2*a),"11/(2*a)"},
+1/a + 1/b + 1/c,
+{b*c + 1/c,"(b*c^2+1)/c"},
+x/(x+y) + 7,
+{1/(2*m) + (a + 3)/(4*m),"(a+5)/(4*m)"},
+9/x^2 + 4/x,
+{a/(x + y) + b/(x + y),"(a+b)/(x+y)"},
+1/a + 3/(a*b) + 2/b,
+{2*x/a + 3*y/b,"(2*b*x+3*a*y)/(a*b)"},
+2/a + 7/(a*b*c) + 6/c,
+};
+
+count := 1;
+ForEach(e,equations1)
+[
+    If(IsList(e), [answer := e[2]; e := e[1];]);
+    
+    
+    Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
+    
+    //Echo(PrettyForm(e));
+    
+    Echo("MathPiper:    ",Simplify(e));
+    
+    me := ToString()[WriteString("ratsimp(");Write(e);WriteString(")");];
+    Echo("Maxima:",Maxima(me));
+    
+    count := count + 1;
+
+];
+
+count - 1;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 22
+      
+      Side effects:
+      pp.105.  Perform the following additions.  Express each result in lowest terms. The letter symbols that appear represent positive integers.
+      
+      #1 Problem:   7/3   Answer: "7/3"
+      MathPiper:    7/3 
+      Maxima:(%o687) 7/3
+       
+      #2 Problem:   10/9 
+      MathPiper:    10/9 
+      Maxima:(%o688) 10/9
+       
+      #3 Problem:   10/7   Answer: "10/7"
+      MathPiper:    10/7 
+      Maxima:(%o689) 10/7
+       
+      #4 Problem:   (a+b+c)/y 
+      MathPiper:    (a+b+c)/y 
+      Maxima:(%o690) (c+b+a)/y
+       
+      #5 Problem:   (8*a)/x   Answer: "8*a/x"
+      MathPiper:    (8*a)/x 
+      Maxima:(%o691) 8*a/x
+       
+      #6 Problem:   (2*x)/(x+y) 
+      MathPiper:    (2*x)/(x+y) 
+      Maxima:(%o692) 2*x/(y+x)
+       
+      #7 Problem:   1   Answer: "1"
+      MathPiper:    1 
+      Maxima:(%o693) 1
+       
+      #8 Problem:   22/15 
+      MathPiper:    22/15 
+      Maxima:(%o694) 22/15
+       
+      #9 Problem:   29/6   Answer: "29/6"
+      MathPiper:    29/6 
+      Maxima:(%o695) 29/6
+       
+      #10 Problem:   y/3+(2*y)/9 
+      MathPiper:    (5*y)/9 
+      Maxima:(%o696) 5*y/9
+       
+      #11 Problem:   3*y+y/5   Answer: "16*y/5"
+      MathPiper:    (16*y)/5 
+      Maxima:(%o697) 16*y/5
+       
+      #12 Problem:   x/2+x/3+x/4 
+      MathPiper:    (13*x)/12 
+      Maxima:(%o698) 13*x/12
+       
+      #13 Problem:   4/a+3/(2*a)   Answer: "11/(2*a)"
+      MathPiper:    (11*a)/(2*a^2) 
+      Maxima:(%o699) 11/(2*a)
+       
+      #14 Problem:   1/a+1/b+1/c 
+      MathPiper:    (a*b+a*c+b*c)/(a*b*c) 
+      Maxima:(%o700) ((b+a)*c+a*b)/(a*b*c)
+       
+      #15 Problem:   b*c+1/c   Answer: "(b*c^2+1)/c"
+      MathPiper:    (b*c^2+1)/c 
+      Maxima:(%o701) (b*c^2+1)/c
+       
+      #16 Problem:   x/(x+y)+7 
+      MathPiper:    (8*x+7*y)/(x+y) 
+      Maxima:(%o702) (7*y+8*x)/(y+x)
+       
+      #17 Problem:   1/(2*m)+(a+3)/(4*m)   Answer: "(a+5)/(4*m)"
+      MathPiper:    (m*a+5*m)/(4*m^2) 
+      Maxima:(%o703) (a+5)/(4*m)
+       
+      #18 Problem:   9/x^2+4/x 
+      MathPiper:    (4*x^2+9*x)/x^3 
+      Maxima:(%o704) (4*x+9)/x^2
+       
+      #19 Problem:   (a+b)/(x+y)   Answer: "(a+b)/(x+y)"
+      MathPiper:    (a+b)/(x+y) 
+      Maxima:(%o705) (b+a)/(y+x)
+       
+      #20 Problem:   1/a+3/(a*b)+2/b 
+      MathPiper:    (2*a^2*b+a*b^2+3*a*b)/(a^2*b^2) 
+      Maxima:(%o706) (b+2*a+3)/(a*b)
+       
+      #21 Problem:   (2*x)/a+(3*y)/b   Answer: "(2*b*x+3*a*y)/(a*b)"
+      MathPiper:    (2*x*b+3*a*y)/(a*b) 
+      Maxima:(%o707) (3*a*y+2*b*x)/(a*b)
+       
+      #22 Problem:   2/a+7/(a*b*c)+6/c 
+      MathPiper:    (6*a^2*b*c+2*a*b*c^2+7*a*c)/(a^2*b*c^2) 
+      Maxima:(%o708) (2*b*c+6*a*b+7)/(a*b*c)
+.   %/output
+
+
+
 
 
