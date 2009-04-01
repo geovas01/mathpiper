@@ -463,3 +463,11 @@ count - 1;
 .   %/output
 
 
+
+%mathpiper
+//Manipulating symbolic equations.
+
+z := a*b+c;
+2*z;
+z/6;
+%/mathpiper
