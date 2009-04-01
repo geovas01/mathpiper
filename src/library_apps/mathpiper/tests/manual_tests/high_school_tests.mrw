@@ -284,4 +284,182 @@ count - 1;
 
 
 
+%mathpiper
+Echo("pp.112. Find the following products.  Express each result in lowest terms.  The letter symbols represent positive integers.");
+NewLine();
+
+
+equations1 := {
+{3*(4/9),"4/3"},
+{5*(7/11),""},
+{2/3*6,"4"},
+{5/8*4/15,""},
+{91/119*34/39,"2/3"},
+{a/b*1/a,""},
+{(3*a)/(2*b)*(5*a^2)/(9*b),"(5*a^3)/(6*b^2)"},
+{(a/b)*(a/b),""},
+{(1/x^2)*(2/3)*(x/4),"1/(6*x)"},
+{(m^2/n)*(n/m^2),""},
+{((a^2+a*x)/3)*(6/(a+x)),"2*a"},
+{((2*x+12)/(x+5))*((3*x+15)/(x+6)),""},
+{((x + 1)/x)*(x^2/(x^2+x)),"1"},
+{((4*x*y)/(x+3))*((3*x^2+9*x)/(16*y^2)),""},
+{(2/6)*(1/2)*(3/4),"1/8"},
+{(a/2)*(4/a^2)*(3/5),""},
+{((3*x+12)/x)*(2*x^2/(x+4)),"6*x"},
+{(y^3/(15*x+6))*((5*x+2)/y),""},
+{((2*a+b)/(7*a*b))*3*b^2/(4*a+2*b),"(3*b)/(14*a)"},
+{(5/(a^3+a^2*y))*((a^2+a*y)/25),""},
+{((2*a^2+3*a^2)/b)*(b^3/a^2),"5*b^2"},
+{((4*y+4)/7)*(14/(2*y^2+2*y)),""},
+{skip,""},
+{skip,""},
+{(4*a+4)/4,"a+1"},
+{(2*x+6)/2,""},
+{(a^2+a)/a,"a+1"},
+{(a*x+a*y)/a,""},
+};
+
+count := 1;
+ForEach(e,equations1)
+[
+    If(IsList(e), [answer := e[2]; e := e[1];]);
+    
+    
+    Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
+    
+    //Echo(PrettyForm(e));
+    
+    Echo("MathPiper:    ",Simplify(e));
+    
+    me := ToString()[WriteString("ratsimp(");Write(e);WriteString(")");];
+    Echo("Maxima:",Maxima(me));
+    
+    count := count + 1;
+
+];
+
+count - 1;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 28
+      
+      Side effects:
+      pp.112. Find the following products.  Express each result in lowest terms.  The letter symbols represent positive integers.
+      
+      #1 Problem:   4/3   Answer: "4/3"
+      MathPiper:    4/3 
+      Maxima:(%o173) 4/3
+       
+      #2 Problem:   35/11   Answer: ""
+      MathPiper:    35/11 
+      Maxima:(%o174) 35/11
+       
+      #3 Problem:   4   Answer: "4"
+      MathPiper:    4 
+      Maxima:(%o175) 4
+       
+      #4 Problem:   1/6   Answer: ""
+      MathPiper:    1/6 
+      Maxima:(%o176) 1/6
+       
+      #5 Problem:   2/3   Answer: "2/3"
+      MathPiper:    2/3 
+      Maxima:(%o177) 2/3
+       
+      #6 Problem:   a/(b*a)   Answer: ""
+      MathPiper:    1/b 
+      Maxima:(%o178) 1/b
+       
+      #7 Problem:   (5*a^2*3*a)/(2*b*9*b)   Answer: "(5*a^3)/(6*b^2)"
+      MathPiper:    (5*a^3)/(6*b^2) 
+      Maxima:(%o179) 5*a^3/(6*b^2)
+       
+      #8 Problem:   a^2/b^2   Answer: ""
+      MathPiper:    a^2/b^2 
+      Maxima:(%o180) a^2/b^2
+       
+      #9 Problem:   (2*x)/(12*x^2)   Answer: "1/(6*x)"
+      MathPiper:    1/(6*x) 
+      Maxima:(%o181) 1/(6*x)
+       
+      #10 Problem:   1   Answer: ""
+      MathPiper:    1 
+      Maxima:(%o182) 1
+       
+      #11 Problem:   (6*(a^2+a*x))/(3*(a+x))   Answer: "2*a"
+      MathPiper:    2*a 
+      Maxima:(%o183) 2*a
+       
+      #12 Problem:   ((3*x+15)*(2*x+12))/((x+5)*(x+6))   Answer: ""
+      MathPiper:    6 
+      Maxima:(%o184) 6
+       
+      #13 Problem:   (x^2*(x+1))/(x*(x^2+x))   Answer: "1"
+      MathPiper:    1 
+      Maxima:(%o185) 1
+       
+      #14 Problem:   ((3*x^2+9*x)*4*x*y)/((x+3)*16*y^2)   Answer: ""
+      MathPiper:    (3*x^2)/(4*y) 
+      Maxima:(%o186) 3*x^2/(4*y)
+       
+      #15 Problem:   1/8   Answer: "1/8"
+      MathPiper:    1/8 
+      Maxima:(%o187) 1/8
+       
+      #16 Problem:   (12*a)/(10*a^2)   Answer: ""
+      MathPiper:    6/(5*a) 
+      Maxima:(%o188) 6/(5*a)
+       
+      #17 Problem:   (2*x^2*(3*x+12))/(x*(x+4))   Answer: "6*x"
+      MathPiper:    6*x 
+      Maxima:(%o189) 6*x
+       
+      #18 Problem:   ((5*x+2)*y^3)/((15*x+6)*y)   Answer: ""
+      MathPiper:    y^2/3 
+      Maxima:(%o190) y^2/3
+       
+      #19 Problem:   (b^2*3*(2*a+b))/(7*a*b*(4*a+2*b))   Answer: "(3*b)/(14*a)"
+      MathPiper:    (3*b)/(14*a) 
+      Maxima:(%o191) 3*b/(14*a)
+       
+      #20 Problem:   (5*(a^2+a*y))/(25*(a^3+a^2*y))   Answer: ""
+      MathPiper:    1/(5*a) 
+      Maxima:(%o192) 1/(5*a)
+       
+      #21 Problem:   (b^3*(2*a^2+3*a^2))/(b*a^2)   Answer: "5*b^2"
+      MathPiper:    5*b^2 
+      Maxima:(%o193) 5*b^2
+       
+      #22 Problem:   (14*(4*y+4))/(7*(2*y^2+2*y))   Answer: ""
+      MathPiper:    4/y 
+      Maxima:(%o194) 4/y
+       
+      #23 Problem:   skip   Answer: ""
+      MathPiper:    skip 
+      Maxima:(%o195) skip
+       
+      #24 Problem:   skip   Answer: ""
+      MathPiper:    skip 
+      Maxima:(%o196) skip
+       
+      #25 Problem:   (4*a+4)/4   Answer: "a+1"
+      MathPiper:    a+1 
+      Maxima:(%o197) a+1
+       
+      #26 Problem:   (2*x+6)/2   Answer: ""
+      MathPiper:    x+3 
+      Maxima:(%o198) x+3
+       
+      #27 Problem:   (a^2+a)/a   Answer: "a+1"
+      MathPiper:    a+1 
+      Maxima:(%o199) a+1
+       
+      #28 Problem:   (a*x+a*y)/a   Answer: ""
+      MathPiper:    x+y 
+      Maxima:(%o200) y+x
+.   %/output
+
 
