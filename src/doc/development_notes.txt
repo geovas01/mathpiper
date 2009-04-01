@@ -1010,3 +1010,31 @@ then hung.
 }}}
 
 
+{{{MathCad functions
+//Statistics:
+mean
+stdev
+Stdev
+rnorm
+
+//other
+linterp:
+cspline
+pspline
+lspline
+slope
+intercept
+corr
+last (as in  0..last(vector))
+linfit
+
+
+}}}
+
+
+{{{Other MathPiper function ideas:
+Satisfies - See pp.61 "Fundamental Mathematics" Wade & Taylor.
+
+
+}}}
+
