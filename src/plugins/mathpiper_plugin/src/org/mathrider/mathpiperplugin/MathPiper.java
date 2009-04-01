@@ -56,6 +56,9 @@ public class MathPiper extends JPanel
 	private MathPiperTextArea textArea;
 
 	private MathPiperToolPanel toolPanel;
+	
+	private JButton haltCurrentExecutionButton;
+
     // }}}
 
     // {{{ Constructor
@@ -81,28 +84,34 @@ public class MathPiper extends JPanel
 		//textArea = new MathPiperTextArea();
 		//textArea.setFont(MathPiperOptionPane.makeFont());
 		
-		/*JButton stopCurrentExecutionButton = new JButton("Stop Current Calculation");
-		stopCurrentExecutionButton.addActionListener(new java.awt.event.ActionListener() {
+		haltCurrentExecutionButton = new JButton("Halt Calculation");
+		haltCurrentExecutionButton.setForeground(java.awt.Color.RED);
+		haltCurrentExecutionButton.setEnabled(false);
+		haltCurrentExecutionButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				/*
+				
 				try
 				{
-					MathPiperInterpreter interpreter = MathPiperInterpreter.getInstance();
-					interpreter.stopCurrentCalculation();
+					org.mathpiper.interpreters.Interpreter interpreter  = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+					interpreter.haltEvaluation();
 				}
-				catch(MathPiperException e)
+				catch(Exception e)
 				{
 					e.printStackTrace();
+				}
+				finally
+				{
+					haltCurrentExecutionButton.setEnabled(false);
 				}
 				
 			}
 		});
 		
-		//JScrollPane pane = new JScrollPane(stopCurrentExecutionButton);
+		JScrollPane pane = new JScrollPane(haltCurrentExecutionButton);
 		javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
 		buttonPanel.setBackground(new java.awt.Color(255,255,255));
-		buttonPanel.add(stopCurrentExecutionButton);
-		add(BorderLayout.NORTH, buttonPanel);*/
+		buttonPanel.add(haltCurrentExecutionButton);
+		add(BorderLayout.NORTH, buttonPanel);
 		
 		add(BorderLayout.CENTER, new org.mathpiper.ui.gui.calculator.CalculatorPanel() );
 		
@@ -113,6 +122,13 @@ public class MathPiper extends JPanel
     // }}}
 
     // {{{ Member Functions
+    
+    // {{{ focusOnDefaultComponent
+    public void setHaltButtonState(boolean state)
+    {
+	    haltCurrentExecutionButton.setEnabled(state);
+    }
+        // }}}
     
     // {{{ focusOnDefaultComponent
 	public void focusOnDefaultComponent() {
