@@ -9,3 +9,26 @@ Function("HoldArgNr",{function,arity,index})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="HoldArgNr"
+*CMD HoldArgNr --- specify argument as not evaluated
+*STD
+*CALL
+	HoldArgNr("function", arity, argNum)
+
+*PARMS
+{"function"} -- string, function name
+
+{arity}, {argNum} -- positive integers
+
+*DESC
+
+Declares the argument numbered {argNum} of the function named {"function"} with
+specified {arity} to be unevaluated ("held"). Useful if you don't know symbolic
+names of parameters, for instance, when the function was not declared using an
+explicit {RuleBase} call. Otherwise you could use {HoldArg}.
+
+*SEE HoldArg, RuleBase
+%/mathpiper_docs
