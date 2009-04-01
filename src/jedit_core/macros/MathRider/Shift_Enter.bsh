@@ -359,7 +359,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 					
 					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 
-					adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 1);
+					adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 2);
 					result =  evaluationResponse.getExceptionMessage() + " Error near line " + adjustedErrorLineNumber;							
 					
 					filePath = textArea.getBuffer().getPath();
@@ -432,7 +432,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 			//System.out.println("XTTXTXTXTT :" + result);
 			
-			wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
 			wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(false);
 			
 			displayResult();
@@ -456,7 +456,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
         	
 				asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");");
 				
-			wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
 			wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(true);
 			
 			output_fold_type = "%output";
