@@ -77,3 +77,28 @@ IntNthRoot1(_n, s_IsInteger) <--
 */
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="IntNthRoot"
+*CMD IntNthRoot --- integer part of $n$-th root
+*STD
+*CALL
+	IntNthRoot(x, n)
+
+*PARMS
+
+{x}, {n} -- positive integers
+
+*DESC
+
+{IntNthRoot} calculates the integer part of the $n$-th root of $x$. The algorithm uses only integer math and may be faster than computing $x^(1/n)$ with floating-point and rounding.
+
+This function is used to test numbers for prime powers.
+
+*EG
+	In> IntNthRoot(65537^111, 37)
+	Out> 281487861809153;
+
+*SEE IntLog, MathPower, IsPrimePower
+%/mathpiper_docs
