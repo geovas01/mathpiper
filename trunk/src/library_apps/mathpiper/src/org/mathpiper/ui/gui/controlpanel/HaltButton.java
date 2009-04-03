@@ -47,7 +47,7 @@ public class HaltButton extends JButton {
         });
     }//end constructor.
 
-    static  HaltButton getInstance() {
+    public static  HaltButton getInstance() {
         if (singletonInstance == null) {
             singletonInstance = new HaltButton();
         }
