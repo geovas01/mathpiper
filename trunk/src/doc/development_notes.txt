@@ -339,6 +339,7 @@ Initial release:
 
 {{{MATHPIPER BUGS.
 ===
++Factors(3*b*c^3-3*a*c^2*d-12*a*b*c^2+12*a^2*c*d+12*a^2*b*c-12*a^3*d) 3s are not factored out.
 +RandomInteger is present as a link in the MathPiper documentation, but it is not present as a top-level function in the code.
 +I think the generated output of following formula is wrong:
 In> Sum(n,1,k,n)
