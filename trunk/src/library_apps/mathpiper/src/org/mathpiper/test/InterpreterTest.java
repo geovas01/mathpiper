@@ -16,6 +16,10 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
+import java.awt.Container;
+import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
@@ -66,6 +70,14 @@ public class InterpreterTest implements ResponseListener
     
     public static void main(String[] args)
     {
-        new InterpreterTest();
+        //new InterpreterTest();
+        
+        JFrame frame = new JFrame();
+        Container contentPane = frame.getContentPane();
+        JButton haltButton = org.mathpiper.ui.gui.controlpanel.HaltButton.getInstance();
+        contentPane.add(haltButton);
+        frame.setBounds ( 10 , 10 , 200 , 90 );
+        frame.setVisible(true);
+
     }
 }
