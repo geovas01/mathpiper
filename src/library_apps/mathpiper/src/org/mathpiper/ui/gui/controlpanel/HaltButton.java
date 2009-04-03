@@ -52,5 +52,6 @@ public class HaltButton extends JButton {
             singletonInstance = new HaltButton();
         }
         return singletonInstance;
-    }
+    }//end method.
+    
 }//end class.
