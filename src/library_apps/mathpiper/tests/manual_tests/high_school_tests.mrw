@@ -464,6 +464,202 @@ count - 1;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%mathpiper
+Echo("pp.130.  Problems 1-24: Perform the following divisions.  Express results in lowest terms.  The letter symbols represent positive integers.  Problems 27-40:  Perform the following calculations.  Express results in lowest terms.  In exercises in which letter symbols appear, tell what values of the letter symbols must be excluded.  Problems 41-63: Combine the following expressions into a single fraction in lowest terms.  Indicate the values of the letter symbols which must be excluded.");
+NewLine();
+
+
+equations1 := {
+{(7/8)/(2/3),"21/16"},
+{4/(3/5),""},
+{(3/5)/4,"3/20"},
+{(a/b)/a,""},
+{a/(a/b),"b"},
+{((x+y)/x)/x,""},
+{x/((x+y)/x),"x^2/(x+y)"},
+{(x/y)/(y/x),""},
+{(x/(x+y))/(x/y),"y/(x+y)"},
+{a/(a*b),""},
+{(a*b)/a,"b"},
+{(x/2)/((5*x^2)/8),""},
+{((a+b)/a)/(b/a),"(a+b)/b"},
+{((a+b)/a)/(a/b),""},
+{((2*a)/(3*b))/((4*a)/27),"9/(2*b)"},
+{(a/(a+b))/((3*a)/(a*c+b*c)),""},
+{((5*x+10)/x^2)/(5/x),"(x+2)/x"},
+{((x*y+x)/(y))/((a*y+a)/(y^2)),""},
+{(y^2/(15*x+6))/(y/(5*x+2)),"y/3"},
+{((3*x+12)/x)/((x+4)/(2*x^2)),""},
+{(5/(a^3+a^2*y))/(25/(a^2+a*y)),"1/(5*a)"},
+{((2*a+b)/(7*a*b))/((4*a+2*b)/(3*b^2)),""},
+{((4*y+4)/7)/((2*y^2+2*y)/14),"4/y"},
+{((2*a^2+3*a^2)/b)/(a^2/b^3),""},
+
+};
+
+count := 1;
+ForEach(e,equations1)
+[
+    If(IsList(e), [answer := e[2]; e := e[1];]);
+    
+    
+    Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
+    
+    //Echo(PrettyForm(e));
+    
+    Echo("MathPiper:    ",Simplify(e));
+    
+    me := ToString()[WriteString("ratsimp(");Write(e);WriteString(")");];
+    Echo("Maxima:",Maxima(me));
+    
+    count := count + 1;
+
+];
+
+count - 1;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 24
+      
+      Side effects:
+      pp.130.  Problems 1-24: Perform the following divisions.  Express results in lowest terms.  The letter symbols represent positive integers.  Problems 27-40:  Perform the following calculations.  Express results in lowest terms.  In exercises in which letter symbols appear, tell what values of the letter symbols must be excluded.  Problems 41-63: Combine the following expressions into a single fraction in lowest terms.  Indicate the values of the letter symbols which must be excluded.
+      
+      #1 Problem:   21/16   Answer: "21/16"
+      MathPiper:    21/16 
+      Maxima:(%o99) 21/16
+       
+      #2 Problem:   20/3   Answer: ""
+      MathPiper:    20/3 
+      Maxima:(%o100) 20/3
+       
+      #3 Problem:   3/20   Answer: "3/20"
+      MathPiper:    3/20 
+      Maxima:(%o101) 3/20
+       
+      #4 Problem:   a/(b*a)   Answer: ""
+      MathPiper:    1/b 
+      Maxima:(%o102) 1/b
+       
+      #5 Problem:   (a*b)/a   Answer: "b"
+      MathPiper:    b 
+      Maxima:(%o103) b
+       
+      #6 Problem:   (x+y)/x^2   Answer: ""
+      MathPiper:    (x+y)/x^2 
+      Maxima:(%o104) (y+x)/x^2
+       
+      #7 Problem:   x^2/(x+y)   Answer: "x^2/(x+y)"
+      MathPiper:    x^2/(x+y) 
+      Maxima:(%o105) x^2/(y+x)
+       
+      #8 Problem:   x^2/y^2   Answer: ""
+      MathPiper:    x^2/y^2 
+      Maxima:(%o106) x^2/y^2
+       
+      #9 Problem:   (x*y)/((x+y)*x)   Answer: "y/(x+y)"
+      MathPiper:    y/(x+y) 
+      Maxima:(%o107) y/(y+x)
+       
+      #10 Problem:   a/(a*b)   Answer: ""
+      MathPiper:    1/b 
+      Maxima:(%o108) 1/b
+       
+      #11 Problem:   (a*b)/a   Answer: "b"
+      MathPiper:    b 
+      Maxima:(%o109) b
+       
+      #12 Problem:   (8*x)/(10*x^2)   Answer: ""
+      MathPiper:    4/(5*x) 
+      Maxima:(%o110) 4/(5*x)
+       
+      #13 Problem:   ((a+b)*a)/(a*b)   Answer: "(a+b)/b"
+      MathPiper:    (a+b)/b 
+      Maxima:(%o111) (b+a)/b
+       
+      #14 Problem:   ((a+b)*b)/a^2   Answer: ""
+      MathPiper:    ((a+b)*b)/a^2 
+      Maxima:(%o112) (b^2+a*b)/a^2
+       
+      #15 Problem:   (54*a)/(3*b*4*a)   Answer: "9/(2*b)"
+      MathPiper:    9/(2*b) 
+      Maxima:(%o113) 9/(2*b)
+       
+      #16 Problem:   (a*(a*c+b*c))/((a+b)*3*a)   Answer: ""
+      MathPiper:    c/3 
+      Maxima:(%o114) c/3
+       
+      #17 Problem:   ((5*x+10)*x)/(5*x^2)   Answer: "(x+2)/x"
+      MathPiper:    (x+2)/x 
+      Maxima:(%o115) (x+2)/x
+       
+      #18 Problem:   ((x*y+x)*y^2)/(y*(a*y+a))   Answer: ""
+      MathPiper:    (x*y)/a 
+      Maxima:(%o116) x*y/a
+       
+      #19 Problem:   (y^2*(5*x+2))/((15*x+6)*y)   Answer: "y/3"
+      MathPiper:    y/3 
+      Maxima:(%o117) y/3
+       
+      #20 Problem:   ((3*x+12)*2*x^2)/(x*(x+4))   Answer: ""
+      MathPiper:    6*x 
+      Maxima:(%o118) 6*x
+       
+      #21 Problem:   (5*(a^2+a*y))/(25*(a^3+a^2*y))   Answer: "1/(5*a)"
+      MathPiper:    1/(5*a) 
+      Maxima:(%o119) 1/(5*a)
+       
+      #22 Problem:   ((2*a+b)*3*b^2)/(7*a*b*(4*a+2*b))   Answer: ""
+      MathPiper:    (3*b)/(14*a) 
+      Maxima:(%o120) 3*b/(14*a)
+       
+      #23 Problem:   (14*(4*y+4))/(7*(2*y^2+2*y))   Answer: "4/y"
+      MathPiper:    4/y 
+      Maxima:(%o121) 4/y
+       
+      #24 Problem:   ((2*a^2+3*a^2)*b^3)/(b*a^2)   Answer: ""
+      MathPiper:    5*b^2 
+      Maxima:(%o122) 5*b^2
+.   %/output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %mathpiper
 //Manipulating symbolic equations.
 
