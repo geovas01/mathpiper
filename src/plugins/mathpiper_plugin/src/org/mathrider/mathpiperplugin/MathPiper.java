@@ -84,7 +84,7 @@ public class MathPiper extends JPanel
 		//textArea = new MathPiperTextArea();
 		//textArea.setFont(MathPiperOptionPane.makeFont());
 		
-		haltCurrentExecutionButton = new JButton("Halt Calculation");
+		/*haltCurrentExecutionButton = new JButton("Halt Calculation");
 		haltCurrentExecutionButton.setForeground(java.awt.Color.RED);
 		haltCurrentExecutionButton.setEnabled(false);
 		haltCurrentExecutionButton.addActionListener(new java.awt.event.ActionListener() {
@@ -105,13 +105,14 @@ public class MathPiper extends JPanel
 				}
 				
 			}
-		});
+		});*/
 		
 		JScrollPane pane = new JScrollPane(haltCurrentExecutionButton);
 		javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
 		buttonPanel.setBackground(new java.awt.Color(255,255,255));
+		JButton haltCurrentExecutionButton =  org.mathpiper.ui.gui.controlpanel.HaltButton.getInstance();
 		buttonPanel.add(haltCurrentExecutionButton);
-		add(BorderLayout.NORTH, buttonPanel);
+		//add(BorderLayout.NORTH, buttonPanel);
 		
 		add(BorderLayout.CENTER, new org.mathpiper.ui.gui.calculator.CalculatorPanel() );
 		

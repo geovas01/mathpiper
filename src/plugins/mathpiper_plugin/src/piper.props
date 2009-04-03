@@ -4,7 +4,7 @@
 #{{{ Must be in order.
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.activate=defer
+plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.activate=startup
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
 plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.name=MathPiper
