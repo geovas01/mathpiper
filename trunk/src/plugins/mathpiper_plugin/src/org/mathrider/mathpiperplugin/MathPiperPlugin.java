@@ -11,6 +11,11 @@ import org.gjt.sp.jedit.EditPlugin;
 public class MathPiperPlugin extends EditPlugin {
 	public static final String NAME = "mathpiper";
 	public static final String OPTION_PREFIX = "options.mathpiper.";
+	
+	public void start()
+	{
+		//System.out.println("XXXXXXXXXXXXXXXXXXXXXXX  loading MathPiperPlugin");
+	}
 }//end class.
 
 /* {{{ License.

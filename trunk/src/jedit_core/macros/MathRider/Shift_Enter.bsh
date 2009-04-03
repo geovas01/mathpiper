@@ -433,7 +433,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			//System.out.println("XTTXTXTXTT :" + result);
 			
 			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(false);
+			//wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(false);
 			
 			displayResult();
 
@@ -457,7 +457,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");");
 				
 			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(true);
+			//wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(true);
 			
 			output_fold_type = "%output";
 			result = "Processing...";

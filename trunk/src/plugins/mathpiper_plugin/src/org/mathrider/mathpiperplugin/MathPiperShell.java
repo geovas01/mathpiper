@@ -86,7 +86,7 @@ public class MathPiperShell extends Shell
 
 	public void stop(Console console)
 	{
-
+		 interpreter.haltEvaluation();
 	}
 
 	public boolean waitFor(Console console)
