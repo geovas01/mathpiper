@@ -1,6 +1,6 @@
 #jEdit properties
 #Mon Oct 27 20:45:09 EST 2008
-buffer.maxLineLen=110
+buffer.maxLineLen=132
 plugin-blacklist.ConfigurableFoldHandler.jar=false
 close-docking-area.shortcut=
 buffer.folding=custom
