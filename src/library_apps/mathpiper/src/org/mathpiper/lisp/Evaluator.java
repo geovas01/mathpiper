@@ -31,7 +31,7 @@ import org.mathpiper.lisp.stacks.UserStackInformation;
 public abstract class Evaluator
 {
     public static boolean DEBUG = false;
-    public static boolean TRACE_TO_STANDARD_OUT = true;
+    public static boolean TRACE_TO_STANDARD_OUT = false;
     public static boolean VERBOSE_DEBUG = false;
     private static int evalDepth = 0;
     public static boolean iTraced = false;
