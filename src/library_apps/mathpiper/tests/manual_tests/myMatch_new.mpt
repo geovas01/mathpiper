@@ -1,9 +1,15 @@
-Load test: Result: True  Side Effects: Tracing is on.
+init:
+deps-jar:
+compile-single:
+run-single:
+Maxima is initialized
+Debug> Loading file"org/mathpiper/scripts/predicates.rep/code.mpi" for function IsMatrix
+Debug> Finished loading file "org/mathpiper/scripts/predicates.rep/code.mpi"
 Leave}(TraceOn(),True);
-Enter{(tellMe,tellMe(x,p1),,0);
+Enter<user>{(tellMe,tellMe(x,p1));
 Arg(x,x);
 Arg(p1,x+B);
-Enter{(Prog,[
+Enter<builtin>{(Prog,[
     Local(m,ccs);
     Tell(CASE,expr);
     m:=myMatchLinear(var,expr);
@@ -11,17 +17,20 @@ Enter{(Prog,[
     ccs:=trythis(var,expr);
     Tell(2,ccs);
 ]
-,,0);
-    Enter{(Local,Local(m,ccs),,0);
+);
+    Arg(Local(m,ccs),{Local(m,ccs),Tell(CASE,expr),m:=myMatchLinear(var,expr),Tell(1,m),ccs:=trythis(var,expr),Tell(2,ccs)});
+    Enter<builtin>{(Local,Local(m,ccs));
+        Arg(m,{m,ccs});
     Leave}(Local(m,ccs),True);
-    Enter{(Function,Function(BenchCall,{expr})[
+Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tell
+    Enter<user>{(Function,Function(BenchCall,{expr})[
     Echo({In&gt ,expr});
     WriteString(<font color=ff0000>);
     Eval(expr);
     WriteString(</font>);
     True;
 ]
-,,0);
+);
         Arg(BenchCall,BenchCall);
         Arg({expr},{expr});
         Arg([
@@ -39,26 +48,28 @@ Enter{(Prog,[
     True;
 ]
 );
-        Enter{(And,GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)),,0);
-            Enter{(GreaterThan,GreaterThan(Length(args),1),,0);
-                Enter{(Length,Length(args),,0);
+        Enter<builtin>{(And,GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)));
+            Arg(GreaterThan(Length(args),1),{GreaterThan(Length(args),1),Equals(MathNth(args,Length(args)),Atom(...))});
+            Enter<builtin>{(GreaterThan,GreaterThan(Length(args),1));
+                Enter<builtin>{(Length,Length(args));
                 Leave}(Length(args),1);
             Leave}(GreaterThan(Length(args),1),False);
         Leave}(GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)),False);
-        Enter{(Prog,[
+        Enter<builtin>{(Prog,[
     Retract(oper,Length(args));
     MacroRuleBase(oper,args);
     MacroRule(oper,Length(args),1025,True)body;
 ]
-,,0);
-            Enter{(Retract,Retract(oper,Length(args)),,0);
-                Enter{(Length,Length(args),,0);
+);
+            Arg(Retract(oper,Length(args)),{Retract(oper,Length(args)),MacroRuleBase(oper,args),MacroRule(oper,Length(args),1025,True)body});
+            Enter<builtin>{(Retract,Retract(oper,Length(args)));
+                Enter<builtin>{(Length,Length(args));
                 Leave}(Length(args),1);
             Leave}(Retract(oper,Length(args)),True);
-            Enter{(MacroRuleBase,MacroRuleBase(oper,args),,0);
+            Enter<builtin>{(MacroRuleBase,MacroRuleBase(oper,args));
             Leave}(MacroRuleBase(oper,args),True);
-            Enter{(MacroRule,MacroRule(oper,Length(args),1025,True)body,,0);
-                Enter{(Length,Length(args),,0);
+            Enter<builtin>{(MacroRule,MacroRule(oper,Length(args),1025,True)body);
+                Enter<builtin>{(Length,Length(args));
                 Leave}(Length(args),1);
             Leave}(MacroRule(oper,Length(args),1025,True)body,True);
         Leave}([
@@ -75,15 +86,15 @@ Enter{(Prog,[
     True;
 ]
 ,True);
-    Enter{(HoldArg,HoldArg(BenchCall,expr),,0);
+    Enter<builtin>{(HoldArg,HoldArg(BenchCall,expr));
     Leave}(HoldArg(BenchCall,expr),True);
-    Enter{(Function,Function(BenchShow,{expr})[
+    Enter<user>{(Function,Function(BenchShow,{expr})[
     Echo({In&gt ,expr});
     WriteString(<font color=ff0000> );
     Echo({Out&gt ,Eval(expr),</font>});
     True;
 ]
-,,0);
+);
         Arg(BenchShow,BenchShow);
         Arg({expr},{expr});
         Arg([
@@ -99,26 +110,28 @@ Enter{(Prog,[
     True;
 ]
 );
-        Enter{(And,GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)),,0);
-            Enter{(GreaterThan,GreaterThan(Length(args),1),,0);
-                Enter{(Length,Length(args),,0);
+        Enter<builtin>{(And,GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)));
+            Arg(GreaterThan(Length(args),1),{GreaterThan(Length(args),1),Equals(MathNth(args,Length(args)),Atom(...))});
+            Enter<builtin>{(GreaterThan,GreaterThan(Length(args),1));
+                Enter<builtin>{(Length,Length(args));
                 Leave}(Length(args),1);
             Leave}(GreaterThan(Length(args),1),False);
         Leave}(GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)),False);
-        Enter{(Prog,[
+        Enter<builtin>{(Prog,[
     Retract(oper,Length(args));
     MacroRuleBase(oper,args);
     MacroRule(oper,Length(args),1025,True)body;
 ]
-,,0);
-            Enter{(Retract,Retract(oper,Length(args)),,0);
-                Enter{(Length,Length(args),,0);
+);
+            Arg(Retract(oper,Length(args)),{Retract(oper,Length(args)),MacroRuleBase(oper,args),MacroRule(oper,Length(args),1025,True)body});
+            Enter<builtin>{(Retract,Retract(oper,Length(args)));
+                Enter<builtin>{(Length,Length(args));
                 Leave}(Length(args),1);
             Leave}(Retract(oper,Length(args)),True);
-            Enter{(MacroRuleBase,MacroRuleBase(oper,args),,0);
+            Enter<builtin>{(MacroRuleBase,MacroRuleBase(oper,args));
             Leave}(MacroRuleBase(oper,args),True);
-            Enter{(MacroRule,MacroRule(oper,Length(args),1025,True)body,,0);
-                Enter{(Length,Length(args),,0);
+            Enter<builtin>{(MacroRule,MacroRule(oper,Length(args),1025,True)body);
+                Enter<builtin>{(Length,Length(args));
                 Leave}(Length(args),1);
             Leave}(MacroRule(oper,Length(args),1025,True)body,True);
         Leave}([
@@ -134,12 +147,12 @@ Enter{(Prog,[
     True;
 ]
 ,True);
-    Enter{(HoldArg,HoldArg(BenchShow,expr),,0);
+    Enter<builtin>{(HoldArg,HoldArg(BenchShow,expr));
     Leave}(HoldArg(BenchShow,expr),True);
-    Enter{(<--,10#EchoInternal(string _IsString)<--[
+    Enter<user>{(<--,10#EchoInternal(string _IsString)<--[
     WriteString(string);
 ]
-,,0);
+);
         Arg(10#EchoInternal(string _IsString),10#EchoInternal(string _IsString));
         Arg([
     WriteString(string);
@@ -148,61 +161,64 @@ Enter{(Prog,[
     WriteString(string);
 ]
 );
-        Enter{(Equals,Equals(Type(patternleft),#),,0);
-            Enter{(Type,Type(patternleft),,0);
+        Enter<builtin>{(Equals,Equals(Type(patternleft),#));
+            Enter<builtin>{(Type,Type(patternleft));
             Leave}(Type(patternleft),#);
         Leave}(Equals(Type(patternleft),#),True);
-        Enter{(Prog,[
+        Enter<builtin>{(Prog,[
     DefinePattern(patternleft[2],patternright,patternleft[1],True);
 ]
-,,0);
-            Enter{(DefinePattern,DefinePattern(patternleft[2],patternright,patternleft[1],True),,0);
-                Enter{(Nth,patternleft[2],,0);
+);
+            Arg(DefinePattern(patternleft[2],patternright,patternleft[1],True),{DefinePattern(patternleft[2],patternright,patternleft[1],True)});
+            Enter<user>{(DefinePattern,DefinePattern(patternleft[2],patternright,patternleft[1],True));
+                Enter<user>{(Nth,patternleft[2]);
                     Arg(patternleft,10#EchoInternal(string _IsString));
                     Arg(2,2);
-                    Enter{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),,0);
-                        Enter{(Equals,Equals(IsFunction(alist),True),,0);
-                            Enter{(IsFunction,IsFunction(alist),,0);
+                    Enter<builtin>{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)));
+                        Arg(Equals(IsFunction(alist),True),{Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)});
+                        Enter<builtin>{(Equals,Equals(IsFunction(alist),True));
+                            Enter<builtin>{(IsFunction,IsFunction(alist));
                             Leave}(IsFunction(alist),True);
                         Leave}(Equals(IsFunction(alist),True),True);
-                        Enter{(Equals,Equals(IsInteger(aindex),True),,0);
-                            Enter{(IsInteger,IsInteger(aindex),,0);
+                        Enter<builtin>{(Equals,Equals(IsInteger(aindex),True));
+                            Enter<builtin>{(IsInteger,IsInteger(aindex));
                             Leave}(IsInteger(aindex),True);
                         Leave}(Equals(IsInteger(aindex),True),True);
-                        Enter{(Not,Not Equals(Head(Listify(alist)),Nth),,0);
-                            Enter{(Equals,Equals(Head(Listify(alist)),Nth),,0);
-                                Enter{(Head,Head(Listify(alist)),,0);
-                                    Enter{(Listify,Listify(alist),,0);
+                        Enter<builtin>{(Not,Not Equals(Head(Listify(alist)),Nth));
+                            Enter<builtin>{(Equals,Equals(Head(Listify(alist)),Nth));
+                                Enter<builtin>{(Head,Head(Listify(alist)));
+                                    Enter<builtin>{(Listify,Listify(alist));
                                     Leave}(Listify(alist),{#,10,EchoInternal(string _IsString)});
                                 Leave}(Head(Listify(alist)),#);
                             Leave}(Equals(Head(Listify(alist)),Nth),False);
                         Leave}(Not Equals(Head(Listify(alist)),Nth),True);
                     Leave}(And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),True);
-                    Enter{(MathNth,MathNth(alist,aindex),,0);
+                    Enter<builtin>{(MathNth,MathNth(alist,aindex));
                     Leave}(MathNth(alist,aindex),EchoInternal(string _IsString));
                 Leave}(patternleft[2],EchoInternal(string _IsString));
-                Enter{(Nth,patternleft[1],,0);
+                Enter<user>{(Nth,patternleft[1]);
                     Arg(patternleft,10#EchoInternal(string _IsString));
                     Arg(1,1);
-                    Enter{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),,0);
-                        Enter{(Equals,Equals(IsFunction(alist),True),,0);
-                            Enter{(IsFunction,IsFunction(alist),,0);
+                    Enter<builtin>{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)));
+                        Arg(Equals(IsFunction(alist),True),{Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)});
+                        Enter<builtin>{(Equals,Equals(IsFunction(alist),True));
+                            Enter<builtin>{(IsFunction,IsFunction(alist));
                             Leave}(IsFunction(alist),True);
                         Leave}(Equals(IsFunction(alist),True),True);
-                        Enter{(Equals,Equals(IsInteger(aindex),True),,0);
-                            Enter{(IsInteger,IsInteger(aindex),,0);
+                        Enter<builtin>{(Equals,Equals(IsInteger(aindex),True));
+                            Enter<builtin>{(IsInteger,IsInteger(aindex));
                             Leave}(IsInteger(aindex),True);
                         Leave}(Equals(IsInteger(aindex),True),True);
-                        Enter{(Not,Not Equals(Head(Listify(alist)),Nth),,0);
-                            Enter{(Equals,Equals(Head(Listify(alist)),Nth),,0);
-                                Enter{(Head,Head(Listify(alist)),,0);
-                                    Enter{(Listify,Listify(alist),,0);
+                        Enter<builtin>{(Not,Not Equals(Head(Listify(alist)),Nth));
+                            Enter<builtin>{(Equals,Equals(Head(Listify(alist)),Nth));
+                                Enter<builtin>{(Head,Head(Listify(alist)));
+                                    Enter<builtin>{(Listify,Listify(alist));
                                     Leave}(Listify(alist),{#,10,EchoInternal(string _IsString)});
                                 Leave}(Head(Listify(alist)),#);
                             Leave}(Equals(Head(Listify(alist)),Nth),False);
                         Leave}(Not Equals(Head(Listify(alist)),Nth),True);
                     Leave}(And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),True);
-                    Enter{(MathNth,MathNth(alist,aindex),,0);
+                    Enter<builtin>{(MathNth,MathNth(alist,aindex));
                     Leave}(MathNth(alist,aindex),10);
                 Leave}(patternleft[1],10);
                 Arg(patternleft[2],EchoInternal(string _IsString));
@@ -212,11 +228,11 @@ Enter{(Prog,[
 );
                 Arg(patternleft[1],10);
                 Arg(True,True);
-                Enter{(Equals,Equals(Type(patternleft),_),,0);
-                    Enter{(Type,Type(patternleft),,0);
+                Enter<builtin>{(Equals,Equals(Type(patternleft),_));
+                    Enter<builtin>{(Type,Type(patternleft));
                     Leave}(Type(patternleft),EchoInternal);
                 Leave}(Equals(Type(patternleft),_),False);
-                Enter{(Prog,[
+                Enter<builtin>{(Prog,[
     Local(patternflat,patternvars,patt,patternoper,arity);
     Set(patternflat,Listify(patternleft));
     Set(patternvars,Tail(patternflat));
@@ -231,46 +247,53 @@ Enter{(Prog,[
     MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
     True;
 ]
-,,0);
-                    Enter{(Local,Local(patternflat,patternvars,patt,patternoper,arity),,0);
+);
+                    Arg(Local(patternflat,patternvars,patt,patternoper,arity),{Local(patternflat,patternvars,patt,patternoper,arity),Set(patternflat,Listify(patternleft)),Set(patternvars,Tail(patternflat)),Set(patternoper,String(Head(patternflat))),Set(arity,Length(patternvars)),DefLoadFunction(patternoper),If(Not RuleBaseDefined(patternoper,arity),[
+    MacroRuleBase(patternoper,MakeVector(arg,arity));
+]
+),Set(patt,Pattern'Create(patternvars,postpredicate)),MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,True});
+                    Enter<builtin>{(Local,Local(patternflat,patternvars,patt,patternoper,arity));
+                        Arg(patternflat,{patternflat,patternvars,patt,patternoper,arity});
                     Leave}(Local(patternflat,patternvars,patt,patternoper,arity),True);
-                    Enter{(Set,Set(patternflat,Listify(patternleft)),,0);
-                        Enter{(Listify,Listify(patternleft),,0);
+                    Enter<builtin>{(Set,Set(patternflat,Listify(patternleft)));
+                        Enter<builtin>{(Listify,Listify(patternleft));
                         Leave}(Listify(patternleft),{EchoInternal,string _IsString});
                     Leave}(Set(patternflat,Listify(patternleft)),True);
-                    Enter{(Set,Set(patternvars,Tail(patternflat)),,0);
-                        Enter{(Tail,Tail(patternflat),,0);
+                    Enter<builtin>{(Set,Set(patternvars,Tail(patternflat)));
+                        Enter<builtin>{(Tail,Tail(patternflat));
                         Leave}(Tail(patternflat),{string _IsString});
                     Leave}(Set(patternvars,Tail(patternflat)),True);
-                    Enter{(Set,Set(patternoper,String(Head(patternflat))),,0);
-                        Enter{(String,String(Head(patternflat)),,0);
-                            Enter{(Head,Head(patternflat),,0);
+                    Enter<builtin>{(Set,Set(patternoper,String(Head(patternflat))));
+                        Enter<builtin>{(String,String(Head(patternflat)));
+                            Enter<builtin>{(Head,Head(patternflat));
                             Leave}(Head(patternflat),EchoInternal);
                         Leave}(String(Head(patternflat)),EchoInternal);
                     Leave}(Set(patternoper,String(Head(patternflat))),True);
-                    Enter{(Set,Set(arity,Length(patternvars)),,0);
-                        Enter{(Length,Length(patternvars),,0);
+                    Enter<builtin>{(Set,Set(arity,Length(patternvars)));
+                        Enter<builtin>{(Length,Length(patternvars));
                         Leave}(Length(patternvars),1);
                     Leave}(Set(arity,Length(patternvars)),True);
-                    Enter{(DefLoadFunction,DefLoadFunction(patternoper),,0);
+                    Enter<builtin>{(DefLoadFunction,DefLoadFunction(patternoper));
                     Leave}(DefLoadFunction(patternoper),True);
-                    Enter{(If,If(Not RuleBaseDefined(patternoper,arity),[
+                    Enter<builtin>{(If,If(Not RuleBaseDefined(patternoper,arity),[
     MacroRuleBase(patternoper,MakeVector(arg,arity));
 ]
-),,0);
-                        Enter{(Not,Not RuleBaseDefined(patternoper,arity),,0);
-                            Enter{(RuleBaseDefined,RuleBaseDefined(patternoper,arity),,0);
+));
+                        Arg(Not RuleBaseDefined(patternoper,arity),Not RuleBaseDefined(patternoper,arity));
+                        Enter<builtin>{(Not,Not RuleBaseDefined(patternoper,arity));
+                            Enter<builtin>{(RuleBaseDefined,RuleBaseDefined(patternoper,arity));
                             Leave}(RuleBaseDefined(patternoper,arity),False);
                         Leave}(Not RuleBaseDefined(patternoper,arity),True);
-                        Enter{(Prog,[
+                        Enter<builtin>{(Prog,[
     MacroRuleBase(patternoper,MakeVector(arg,arity));
 ]
-,,0);
-                            Enter{(MacroRuleBase,MacroRuleBase(patternoper,MakeVector(arg,arity)),,0);
-                                Enter{(MakeVector,MakeVector(arg,arity),,0);
+);
+                            Arg(MacroRuleBase(patternoper,MakeVector(arg,arity)),{MacroRuleBase(patternoper,MakeVector(arg,arity))});
+                            Enter<builtin>{(MacroRuleBase,MacroRuleBase(patternoper,MakeVector(arg,arity)));
+                                Enter<user>{(MakeVector,MakeVector(arg,arity));
                                     Arg(arg,arg);
                                     Arg(arity,1);
-                                    Enter{(Prog,[
+                                    Enter<builtin>{(Prog,[
     Local(res,i);
     res:={};
     i:=1;
@@ -282,746 +305,30 @@ Enter{(Prog,[
 ;
     DestructiveReverse(res);
 ]
-,,0);
-                                        Enter{(Local,Local(res,i),,0);
+);
+                                        Arg(Local(res,i),{Local(res,i),res:={},i:=1,Set(dimension,AddN(dimension,1)),While(LessThan(i,dimension))[
+    DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i))));
+    Set(i,AddN(i,1));
+]
+,DestructiveReverse(res)});
+                                        Enter<builtin>{(Local,Local(res,i));
+                                            Arg(res,{res,i});
                                         Leave}(Local(res,i),True);
-                                        Enter{(:=,res:={},,0);
+                                        Enter<user>{(:=,res:={});
                                             Arg(res,res);
                                             Arg({},{});
-                                            Enter{(IsList,IsList(aLeftAssign),,0);
+                                            Enter<builtin>{(IsList,IsList(aLeftAssign));
                                             Leave}(IsList(aLeftAssign),False);
-                                            Enter{(IsAtom,IsAtom(aLeftAssign),,0);
+                                            Enter<builtin>{(IsAtom,IsAtom(aLeftAssign));
                                             Leave}(IsAtom(aLeftAssign),True);
-                                            Enter{(Prog,[
+                                            Enter<builtin>{(Prog,[
     MacroSet(aLeftAssign,Eval(aRightAssign));
     Eval(aLeftAssign);
 ]
-,,0);
-                                                Enter{(MacroSet,MacroSet(aLeftAssign,Eval(aRightAssign)),,0);
-                                                    Enter{(Eval,Eval(aRightAssign),,0);
-                                                        Enter{(List,{},,0);
-                                                        Leave}({},{});
-                                                    Leave}(Eval(aRightAssign),{});
-                                                Leave}(MacroSet(aLeftAssign,Eval(aRightAssign)),True);
-                                                Enter{(Eval,Eval(aLeftAssign),,0);
-                                                Leave}(Eval(aLeftAssign),{});
-                                            Leave}([
-    MacroSet(aLeftAssign,Eval(aRightAssign));
-    Eval(aLeftAssign);
-]
-,{});
-                                        Leave}(res:={},{});
-                                        Enter{(:=,i:=1,,0);
-                                            Arg(i,i);
-                                            Arg(1,1);
-                                            Enter{(IsList,IsList(aLeftAssign),,0);
-                                            Leave}(IsList(aLeftAssign),False);
-                                            Enter{(IsAtom,IsAtom(aLeftAssign),,0);
-                                            Leave}(IsAtom(aLeftAssign),True);
-                                            Enter{(Prog,[
-    MacroSet(aLeftAssign,Eval(aRightAssign));
-    Eval(aLeftAssign);
-]
-,,0);
-                                                Enter{(MacroSet,MacroSet(aLeftAssign,Eval(aRightAssign)),,0);
-                                                    Enter{(Eval,Eval(aRightAssign),,0);
-                                                    Leave}(Eval(aRightAssign),1);
-                                                Leave}(MacroSet(aLeftAssign,Eval(aRightAssign)),True);
-                                                Enter{(Eval,Eval(aLeftAssign),,0);
-                                                Leave}(Eval(aLeftAssign),1);
-                                            Leave}([
-    MacroSet(aLeftAssign,Eval(aRightAssign));
-    Eval(aLeftAssign);
-]
-,1);
-                                        Leave}(i:=1,1);
-                                        Enter{(Set,Set(dimension,AddN(dimension,1)),,0);
-                                            Enter{(AddN,AddN(dimension,1),,0);
-                                            Leave}(AddN(dimension,1),2);
-                                        Leave}(Set(dimension,AddN(dimension,1)),True);
-                                        Enter{(While,While(LessThan(i,dimension))[
-    DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i))));
-    Set(i,AddN(i,1));
-]
-,,0);
-                                            Enter{(LessThan,LessThan(i,dimension),,0);
-                                            Leave}(LessThan(i,dimension),True);
-                                            Enter{(Prog,[
-    DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i))));
-    Set(i,AddN(i,1));
-]
-,,0);
-                                                Enter{(DestructiveInsert,DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i)))),,0);
-                                                    Enter{(Atom,Atom(ConcatStrings(String(vec),String(i))),,0);
-                                                        Enter{(ConcatStrings,ConcatStrings(String(vec),String(i)),,0);
-                                                            Enter{(List,{String(vec),String(i)},,0);
-                                                                Enter{(String,String(vec),,0);
-                                                                Leave}(String(vec),arg);
-                                                                Enter{(String,String(i),,0);
-                                                                Leave}(String(i),1);
-                                                            Leave}({String(vec),String(i)},{arg,1});
-                                                        Leave}(ConcatStrings(String(vec),String(i)),arg1);
-                                                    Leave}(Atom(ConcatStrings(String(vec),String(i))),arg1);
-                                                Leave}(DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i)))),{arg1});
-                                                Enter{(Set,Set(i,AddN(i,1)),,0);
-                                                    Enter{(AddN,AddN(i,1),,0);
-                                                    Leave}(AddN(i,1),2);
-                                                Leave}(Set(i,AddN(i,1)),True);
-                                            Leave}([
-    DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i))));
-    Set(i,AddN(i,1));
-]
-,True);
-                                            Enter{(LessThan,LessThan(i,dimension),,0);
-                                            Leave}(LessThan(i,dimension),False);
-                                        Leave}(While(LessThan(i,dimension))[
-    DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i))));
-    Set(i,AddN(i,1));
-]
-,True);
-                                        Enter{(DestructiveReverse,DestructiveReverse(res),,0);
-                                        Leave}(DestructiveReverse(res),{arg1});
-                                    Leave}([
-    Local(res,i);
-    res:={};
-    i:=1;
-    Set(dimension,AddN(dimension,1));
-    While(LessThan(i,dimension))[
-        DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i))));
-        Set(i,AddN(i,1));
-]
-;
-    DestructiveReverse(res);
-]
-,{arg1});
-                                Leave}(MakeVector(arg,arity),{arg1});
-                            Leave}(MacroRuleBase(patternoper,MakeVector(arg,arity)),True);
-                        Leave}([
-    MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-,True);
-                    Leave}(If(Not RuleBaseDefined(patternoper,arity),[
-    MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-),True);
-                    Enter{(Set,Set(patt,Pattern'Create(patternvars,postpredicate)),,0);
-                        Enter{(Pattern'Create,Pattern'Create(patternvars,postpredicate),,0);
-                        Leave}(Pattern'Create(patternvars,postpredicate),Pattern);
-                    Leave}(Set(patt,Pattern'Create(patternvars,postpredicate)),True);
-                    Enter{(MacroRulePattern,MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,,0);
-                    Leave}(MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,True);
-                Leave}([
-    Local(patternflat,patternvars,patt,patternoper,arity);
-    Set(patternflat,Listify(patternleft));
-    Set(patternvars,Tail(patternflat));
-    Set(patternoper,String(Head(patternflat)));
-    Set(arity,Length(patternvars));
-    DefLoadFunction(patternoper);
-    If(Not RuleBaseDefined(patternoper,arity),[
-        MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
 );
-    Set(patt,Pattern'Create(patternvars,postpredicate));
-    MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
-    True;
-]
-,True);
-            Leave}(DefinePattern(patternleft[2],patternright,patternleft[1],True),True);
-        Leave}([
-    DefinePattern(patternleft[2],patternright,patternleft[1],True);
-]
-,True);
-    Leave}(10#EchoInternal(string _IsString)<--[
-    WriteString(string);
-]
-,True);
-    Enter{(<--,20#EchoInternal(_item)<--[
-    Write(item);
-    Space();
-]
-,,0);
-        Arg(20#EchoInternal(_item),20#EchoInternal(_item));
-        Arg([
-    Write(item);
-    Space();
-]
-,[
-    Write(item);
-    Space();
-]
-);
-        Enter{(Equals,Equals(Type(patternleft),#),,0);
-            Enter{(Type,Type(patternleft),,0);
-            Leave}(Type(patternleft),#);
-        Leave}(Equals(Type(patternleft),#),True);
-        Enter{(Prog,[
-    DefinePattern(patternleft[2],patternright,patternleft[1],True);
-]
-,,0);
-            Enter{(DefinePattern,DefinePattern(patternleft[2],patternright,patternleft[1],True),,0);
-                Enter{(Nth,patternleft[2],,0);
-                    Arg(patternleft,20#EchoInternal(_item));
-                    Arg(2,2);
-                    Enter{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),,0);
-                        Enter{(Equals,Equals(IsFunction(alist),True),,0);
-                            Enter{(IsFunction,IsFunction(alist),,0);
-                            Leave}(IsFunction(alist),True);
-                        Leave}(Equals(IsFunction(alist),True),True);
-                        Enter{(Equals,Equals(IsInteger(aindex),True),,0);
-                            Enter{(IsInteger,IsInteger(aindex),,0);
-                            Leave}(IsInteger(aindex),True);
-                        Leave}(Equals(IsInteger(aindex),True),True);
-                        Enter{(Not,Not Equals(Head(Listify(alist)),Nth),,0);
-                            Enter{(Equals,Equals(Head(Listify(alist)),Nth),,0);
-                                Enter{(Head,Head(Listify(alist)),,0);
-                                    Enter{(Listify,Listify(alist),,0);
-                                    Leave}(Listify(alist),{#,20,EchoInternal(_item)});
-                                Leave}(Head(Listify(alist)),#);
-                            Leave}(Equals(Head(Listify(alist)),Nth),False);
-                        Leave}(Not Equals(Head(Listify(alist)),Nth),True);
-                    Leave}(And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),True);
-                    Enter{(MathNth,MathNth(alist,aindex),,0);
-                    Leave}(MathNth(alist,aindex),EchoInternal(_item));
-                Leave}(patternleft[2],EchoInternal(_item));
-                Enter{(Nth,patternleft[1],,0);
-                    Arg(patternleft,20#EchoInternal(_item));
-                    Arg(1,1);
-                    Enter{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),,0);
-                        Enter{(Equals,Equals(IsFunction(alist),True),,0);
-                            Enter{(IsFunction,IsFunction(alist),,0);
-                            Leave}(IsFunction(alist),True);
-                        Leave}(Equals(IsFunction(alist),True),True);
-                        Enter{(Equals,Equals(IsInteger(aindex),True),,0);
-                            Enter{(IsInteger,IsInteger(aindex),,0);
-                            Leave}(IsInteger(aindex),True);
-                        Leave}(Equals(IsInteger(aindex),True),True);
-                        Enter{(Not,Not Equals(Head(Listify(alist)),Nth),,0);
-                            Enter{(Equals,Equals(Head(Listify(alist)),Nth),,0);
-                                Enter{(Head,Head(Listify(alist)),,0);
-                                    Enter{(Listify,Listify(alist),,0);
-                                    Leave}(Listify(alist),{#,20,EchoInternal(_item)});
-                                Leave}(Head(Listify(alist)),#);
-                            Leave}(Equals(Head(Listify(alist)),Nth),False);
-                        Leave}(Not Equals(Head(Listify(alist)),Nth),True);
-                    Leave}(And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),True);
-                    Enter{(MathNth,MathNth(alist,aindex),,0);
-                    Leave}(MathNth(alist,aindex),20);
-                Leave}(patternleft[1],20);
-                Arg(patternleft[2],EchoInternal(_item));
-                Arg(patternright,[
-    Write(item);
-    Space();
-]
-);
-                Arg(patternleft[1],20);
-                Arg(True,True);
-                Enter{(Equals,Equals(Type(patternleft),_),,0);
-                    Enter{(Type,Type(patternleft),,0);
-                    Leave}(Type(patternleft),EchoInternal);
-                Leave}(Equals(Type(patternleft),_),False);
-                Enter{(Prog,[
-    Local(patternflat,patternvars,patt,patternoper,arity);
-    Set(patternflat,Listify(patternleft));
-    Set(patternvars,Tail(patternflat));
-    Set(patternoper,String(Head(patternflat)));
-    Set(arity,Length(patternvars));
-    DefLoadFunction(patternoper);
-    If(Not RuleBaseDefined(patternoper,arity),[
-        MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-);
-    Set(patt,Pattern'Create(patternvars,postpredicate));
-    MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
-    True;
-]
-,,0);
-                    Enter{(Local,Local(patternflat,patternvars,patt,patternoper,arity),,0);
-                    Leave}(Local(patternflat,patternvars,patt,patternoper,arity),True);
-                    Enter{(Set,Set(patternflat,Listify(patternleft)),,0);
-                        Enter{(Listify,Listify(patternleft),,0);
-                        Leave}(Listify(patternleft),{EchoInternal,_item});
-                    Leave}(Set(patternflat,Listify(patternleft)),True);
-                    Enter{(Set,Set(patternvars,Tail(patternflat)),,0);
-                        Enter{(Tail,Tail(patternflat),,0);
-                        Leave}(Tail(patternflat),{_item});
-                    Leave}(Set(patternvars,Tail(patternflat)),True);
-                    Enter{(Set,Set(patternoper,String(Head(patternflat))),,0);
-                        Enter{(String,String(Head(patternflat)),,0);
-                            Enter{(Head,Head(patternflat),,0);
-                            Leave}(Head(patternflat),EchoInternal);
-                        Leave}(String(Head(patternflat)),EchoInternal);
-                    Leave}(Set(patternoper,String(Head(patternflat))),True);
-                    Enter{(Set,Set(arity,Length(patternvars)),,0);
-                        Enter{(Length,Length(patternvars),,0);
-                        Leave}(Length(patternvars),1);
-                    Leave}(Set(arity,Length(patternvars)),True);
-                    Enter{(DefLoadFunction,DefLoadFunction(patternoper),,0);
-                    Leave}(DefLoadFunction(patternoper),True);
-                    Enter{(If,If(Not RuleBaseDefined(patternoper,arity),[
-    MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-),,0);
-                        Enter{(Not,Not RuleBaseDefined(patternoper,arity),,0);
-                            Enter{(RuleBaseDefined,RuleBaseDefined(patternoper,arity),,0);
-                            Leave}(RuleBaseDefined(patternoper,arity),True);
-                        Leave}(Not RuleBaseDefined(patternoper,arity),False);
-                    Leave}(If(Not RuleBaseDefined(patternoper,arity),[
-    MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-),False);
-                    Enter{(Set,Set(patt,Pattern'Create(patternvars,postpredicate)),,0);
-                        Enter{(Pattern'Create,Pattern'Create(patternvars,postpredicate),,0);
-                        Leave}(Pattern'Create(patternvars,postpredicate),Pattern);
-                    Leave}(Set(patt,Pattern'Create(patternvars,postpredicate)),True);
-                    Enter{(MacroRulePattern,MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,,0);
-                    Leave}(MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,True);
-                Leave}([
-    Local(patternflat,patternvars,patt,patternoper,arity);
-    Set(patternflat,Listify(patternleft));
-    Set(patternvars,Tail(patternflat));
-    Set(patternoper,String(Head(patternflat)));
-    Set(arity,Length(patternvars));
-    DefLoadFunction(patternoper);
-    If(Not RuleBaseDefined(patternoper,arity),[
-        MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-);
-    Set(patt,Pattern'Create(patternvars,postpredicate));
-    MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
-    True;
-]
-,True);
-            Leave}(DefinePattern(patternleft[2],patternright,patternleft[1],True),True);
-        Leave}([
-    DefinePattern(patternleft[2],patternright,patternleft[1],True);
-]
-,True);
-    Leave}(20#EchoInternal(_item)<--[
-    Write(item);
-    Space();
-]
-,True);
-    Enter{(RuleBaseListed,RuleBaseListed(Echo,{args}),,0);
-    Leave}(RuleBaseListed(Echo,{args}),True);
-    Enter{(<--,10#Echo(list _IsList)<--[
-    ForEach(item,list)EchoInternal(item);
-    NewLine();
-]
-,,0);
-        Arg(10#Echo(list _IsList),10#Echo(list _IsList));
-        Arg([
-    ForEach(item,list)EchoInternal(item);
-    NewLine();
-]
-,[
-    ForEach(item,list)EchoInternal(item);
-    NewLine();
-]
-);
-        Enter{(Equals,Equals(Type(patternleft),#),,0);
-            Enter{(Type,Type(patternleft),,0);
-            Leave}(Type(patternleft),#);
-        Leave}(Equals(Type(patternleft),#),True);
-        Enter{(Prog,[
-    DefinePattern(patternleft[2],patternright,patternleft[1],True);
-]
-,,0);
-            Enter{(DefinePattern,DefinePattern(patternleft[2],patternright,patternleft[1],True),,0);
-                Enter{(Nth,patternleft[2],,0);
-                    Arg(patternleft,10#Echo(list _IsList));
-                    Arg(2,2);
-                    Enter{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),,0);
-                        Enter{(Equals,Equals(IsFunction(alist),True),,0);
-                            Enter{(IsFunction,IsFunction(alist),,0);
-                            Leave}(IsFunction(alist),True);
-                        Leave}(Equals(IsFunction(alist),True),True);
-                        Enter{(Equals,Equals(IsInteger(aindex),True),,0);
-                            Enter{(IsInteger,IsInteger(aindex),,0);
-                            Leave}(IsInteger(aindex),True);
-                        Leave}(Equals(IsInteger(aindex),True),True);
-                        Enter{(Not,Not Equals(Head(Listify(alist)),Nth),,0);
-                            Enter{(Equals,Equals(Head(Listify(alist)),Nth),,0);
-                                Enter{(Head,Head(Listify(alist)),,0);
-                                    Enter{(Listify,Listify(alist),,0);
-                                    Leave}(Listify(alist),{#,10,Echo(list _IsList)});
-                                Leave}(Head(Listify(alist)),#);
-                            Leave}(Equals(Head(Listify(alist)),Nth),False);
-                        Leave}(Not Equals(Head(Listify(alist)),Nth),True);
-                    Leave}(And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),True);
-                    Enter{(MathNth,MathNth(alist,aindex),,0);
-                    Leave}(MathNth(alist,aindex),Echo(list _IsList));
-                Leave}(patternleft[2],Echo(list _IsList));
-                Enter{(Nth,patternleft[1],,0);
-                    Arg(patternleft,10#Echo(list _IsList));
-                    Arg(1,1);
-                    Enter{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),,0);
-                        Enter{(Equals,Equals(IsFunction(alist),True),,0);
-                            Enter{(IsFunction,IsFunction(alist),,0);
-                            Leave}(IsFunction(alist),True);
-                        Leave}(Equals(IsFunction(alist),True),True);
-                        Enter{(Equals,Equals(IsInteger(aindex),True),,0);
-                            Enter{(IsInteger,IsInteger(aindex),,0);
-                            Leave}(IsInteger(aindex),True);
-                        Leave}(Equals(IsInteger(aindex),True),True);
-                        Enter{(Not,Not Equals(Head(Listify(alist)),Nth),,0);
-                            Enter{(Equals,Equals(Head(Listify(alist)),Nth),,0);
-                                Enter{(Head,Head(Listify(alist)),,0);
-                                    Enter{(Listify,Listify(alist),,0);
-                                    Leave}(Listify(alist),{#,10,Echo(list _IsList)});
-                                Leave}(Head(Listify(alist)),#);
-                            Leave}(Equals(Head(Listify(alist)),Nth),False);
-                        Leave}(Not Equals(Head(Listify(alist)),Nth),True);
-                    Leave}(And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),True);
-                    Enter{(MathNth,MathNth(alist,aindex),,0);
-                    Leave}(MathNth(alist,aindex),10);
-                Leave}(patternleft[1],10);
-                Arg(patternleft[2],Echo(list _IsList));
-                Arg(patternright,[
-    ForEach(item,list)EchoInternal(item);
-    NewLine();
-]
-);
-                Arg(patternleft[1],10);
-                Arg(True,True);
-                Enter{(Equals,Equals(Type(patternleft),_),,0);
-                    Enter{(Type,Type(patternleft),,0);
-                    Leave}(Type(patternleft),Echo);
-                Leave}(Equals(Type(patternleft),_),False);
-                Enter{(Prog,[
-    Local(patternflat,patternvars,patt,patternoper,arity);
-    Set(patternflat,Listify(patternleft));
-    Set(patternvars,Tail(patternflat));
-    Set(patternoper,String(Head(patternflat)));
-    Set(arity,Length(patternvars));
-    DefLoadFunction(patternoper);
-    If(Not RuleBaseDefined(patternoper,arity),[
-        MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-);
-    Set(patt,Pattern'Create(patternvars,postpredicate));
-    MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
-    True;
-]
-,,0);
-                    Enter{(Local,Local(patternflat,patternvars,patt,patternoper,arity),,0);
-                    Leave}(Local(patternflat,patternvars,patt,patternoper,arity),True);
-                    Enter{(Set,Set(patternflat,Listify(patternleft)),,0);
-                        Enter{(Listify,Listify(patternleft),,0);
-                        Leave}(Listify(patternleft),{Echo,list _IsList});
-                    Leave}(Set(patternflat,Listify(patternleft)),True);
-                    Enter{(Set,Set(patternvars,Tail(patternflat)),,0);
-                        Enter{(Tail,Tail(patternflat),,0);
-                        Leave}(Tail(patternflat),{list _IsList});
-                    Leave}(Set(patternvars,Tail(patternflat)),True);
-                    Enter{(Set,Set(patternoper,String(Head(patternflat))),,0);
-                        Enter{(String,String(Head(patternflat)),,0);
-                            Enter{(Head,Head(patternflat),,0);
-                            Leave}(Head(patternflat),Echo);
-                        Leave}(String(Head(patternflat)),Echo);
-                    Leave}(Set(patternoper,String(Head(patternflat))),True);
-                    Enter{(Set,Set(arity,Length(patternvars)),,0);
-                        Enter{(Length,Length(patternvars),,0);
-                        Leave}(Length(patternvars),1);
-                    Leave}(Set(arity,Length(patternvars)),True);
-                    Enter{(DefLoadFunction,DefLoadFunction(patternoper),,0);
-                    Leave}(DefLoadFunction(patternoper),True);
-                    Enter{(If,If(Not RuleBaseDefined(patternoper,arity),[
-    MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-),,0);
-                        Enter{(Not,Not RuleBaseDefined(patternoper,arity),,0);
-                            Enter{(RuleBaseDefined,RuleBaseDefined(patternoper,arity),,0);
-                            Leave}(RuleBaseDefined(patternoper,arity),True);
-                        Leave}(Not RuleBaseDefined(patternoper,arity),False);
-                    Leave}(If(Not RuleBaseDefined(patternoper,arity),[
-    MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-),False);
-                    Enter{(Set,Set(patt,Pattern'Create(patternvars,postpredicate)),,0);
-                        Enter{(Pattern'Create,Pattern'Create(patternvars,postpredicate),,0);
-                        Leave}(Pattern'Create(patternvars,postpredicate),Pattern);
-                    Leave}(Set(patt,Pattern'Create(patternvars,postpredicate)),True);
-                    Enter{(MacroRulePattern,MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,,0);
-                    Leave}(MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,True);
-                Leave}([
-    Local(patternflat,patternvars,patt,patternoper,arity);
-    Set(patternflat,Listify(patternleft));
-    Set(patternvars,Tail(patternflat));
-    Set(patternoper,String(Head(patternflat)));
-    Set(arity,Length(patternvars));
-    DefLoadFunction(patternoper);
-    If(Not RuleBaseDefined(patternoper,arity),[
-        MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-);
-    Set(patt,Pattern'Create(patternvars,postpredicate));
-    MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
-    True;
-]
-,True);
-            Leave}(DefinePattern(patternleft[2],patternright,patternleft[1],True),True);
-        Leave}([
-    DefinePattern(patternleft[2],patternright,patternleft[1],True);
-]
-,True);
-    Leave}(10#Echo(list _IsList)<--[
-    ForEach(item,list)EchoInternal(item);
-    NewLine();
-]
-,True);
-    Enter{(<--,20#Echo(_item)<--[
-    EchoInternal(item);
-    NewLine();
-]
-,,0);
-        Arg(20#Echo(_item),20#Echo(_item));
-        Arg([
-    EchoInternal(item);
-    NewLine();
-]
-,[
-    EchoInternal(item);
-    NewLine();
-]
-);
-        Enter{(Equals,Equals(Type(patternleft),#),,0);
-            Enter{(Type,Type(patternleft),,0);
-            Leave}(Type(patternleft),#);
-        Leave}(Equals(Type(patternleft),#),True);
-        Enter{(Prog,[
-    DefinePattern(patternleft[2],patternright,patternleft[1],True);
-]
-,,0);
-            Enter{(DefinePattern,DefinePattern(patternleft[2],patternright,patternleft[1],True),,0);
-                Enter{(Nth,patternleft[2],,0);
-                    Arg(patternleft,20#Echo(_item));
-                    Arg(2,2);
-                    Enter{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),,0);
-                        Enter{(Equals,Equals(IsFunction(alist),True),,0);
-                            Enter{(IsFunction,IsFunction(alist),,0);
-                            Leave}(IsFunction(alist),True);
-                        Leave}(Equals(IsFunction(alist),True),True);
-                        Enter{(Equals,Equals(IsInteger(aindex),True),,0);
-                            Enter{(IsInteger,IsInteger(aindex),,0);
-                            Leave}(IsInteger(aindex),True);
-                        Leave}(Equals(IsInteger(aindex),True),True);
-                        Enter{(Not,Not Equals(Head(Listify(alist)),Nth),,0);
-                            Enter{(Equals,Equals(Head(Listify(alist)),Nth),,0);
-                                Enter{(Head,Head(Listify(alist)),,0);
-                                    Enter{(Listify,Listify(alist),,0);
-                                    Leave}(Listify(alist),{#,20,Echo(_item)});
-                                Leave}(Head(Listify(alist)),#);
-                            Leave}(Equals(Head(Listify(alist)),Nth),False);
-                        Leave}(Not Equals(Head(Listify(alist)),Nth),True);
-                    Leave}(And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),True);
-                    Enter{(MathNth,MathNth(alist,aindex),,0);
-                    Leave}(MathNth(alist,aindex),Echo(_item));
-                Leave}(patternleft[2],Echo(_item));
-                Enter{(Nth,patternleft[1],,0);
-                    Arg(patternleft,20#Echo(_item));
-                    Arg(1,1);
-                    Enter{(And,And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),,0);
-                        Enter{(Equals,Equals(IsFunction(alist),True),,0);
-                            Enter{(IsFunction,IsFunction(alist),,0);
-                            Leave}(IsFunction(alist),True);
-                        Leave}(Equals(IsFunction(alist),True),True);
-                        Enter{(Equals,Equals(IsInteger(aindex),True),,0);
-                            Enter{(IsInteger,IsInteger(aindex),,0);
-                            Leave}(IsInteger(aindex),True);
-                        Leave}(Equals(IsInteger(aindex),True),True);
-                        Enter{(Not,Not Equals(Head(Listify(alist)),Nth),,0);
-                            Enter{(Equals,Equals(Head(Listify(alist)),Nth),,0);
-                                Enter{(Head,Head(Listify(alist)),,0);
-                                    Enter{(Listify,Listify(alist),,0);
-                                    Leave}(Listify(alist),{#,20,Echo(_item)});
-                                Leave}(Head(Listify(alist)),#);
-                            Leave}(Equals(Head(Listify(alist)),Nth),False);
-                        Leave}(Not Equals(Head(Listify(alist)),Nth),True);
-                    Leave}(And(Equals(IsFunction(alist),True),Equals(IsInteger(aindex),True),Not Equals(Head(Listify(alist)),Nth)),True);
-                    Enter{(MathNth,MathNth(alist,aindex),,0);
-                    Leave}(MathNth(alist,aindex),20);
-                Leave}(patternleft[1],20);
-                Arg(patternleft[2],Echo(_item));
-                Arg(patternright,[
-    EchoInternal(item);
-    NewLine();
-]
-);
-                Arg(patternleft[1],20);
-                Arg(True,True);
-                Enter{(Equals,Equals(Type(patternleft),_),,0);
-                    Enter{(Type,Type(patternleft),,0);
-                    Leave}(Type(patternleft),Echo);
-                Leave}(Equals(Type(patternleft),_),False);
-                Enter{(Prog,[
-    Local(patternflat,patternvars,patt,patternoper,arity);
-    Set(patternflat,Listify(patternleft));
-    Set(patternvars,Tail(patternflat));
-    Set(patternoper,String(Head(patternflat)));
-    Set(arity,Length(patternvars));
-    DefLoadFunction(patternoper);
-    If(Not RuleBaseDefined(patternoper,arity),[
-        MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-);
-    Set(patt,Pattern'Create(patternvars,postpredicate));
-    MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
-    True;
-]
-,,0);
-                    Enter{(Local,Local(patternflat,patternvars,patt,patternoper,arity),,0);
-                    Leave}(Local(patternflat,patternvars,patt,patternoper,arity),True);
-                    Enter{(Set,Set(patternflat,Listify(patternleft)),,0);
-                        Enter{(Listify,Listify(patternleft),,0);
-                        Leave}(Listify(patternleft),{Echo,_item});
-                    Leave}(Set(patternflat,Listify(patternleft)),True);
-                    Enter{(Set,Set(patternvars,Tail(patternflat)),,0);
-                        Enter{(Tail,Tail(patternflat),,0);
-                        Leave}(Tail(patternflat),{_item});
-                    Leave}(Set(patternvars,Tail(patternflat)),True);
-                    Enter{(Set,Set(patternoper,String(Head(patternflat))),,0);
-                        Enter{(String,String(Head(patternflat)),,0);
-                            Enter{(Head,Head(patternflat),,0);
-                            Leave}(Head(patternflat),Echo);
-                        Leave}(String(Head(patternflat)),Echo);
-                    Leave}(Set(patternoper,String(Head(patternflat))),True);
-                    Enter{(Set,Set(arity,Length(patternvars)),,0);
-                        Enter{(Length,Length(patternvars),,0);
-                        Leave}(Length(patternvars),1);
-                    Leave}(Set(arity,Length(patternvars)),True);
-                    Enter{(DefLoadFunction,DefLoadFunction(patternoper),,0);
-                    Leave}(DefLoadFunction(patternoper),True);
-                    Enter{(If,If(Not RuleBaseDefined(patternoper,arity),[
-    MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-),,0);
-                        Enter{(Not,Not RuleBaseDefined(patternoper,arity),,0);
-                            Enter{(RuleBaseDefined,RuleBaseDefined(patternoper,arity),,0);
-                            Leave}(RuleBaseDefined(patternoper,arity),True);
-                        Leave}(Not RuleBaseDefined(patternoper,arity),False);
-                    Leave}(If(Not RuleBaseDefined(patternoper,arity),[
-    MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-),False);
-                    Enter{(Set,Set(patt,Pattern'Create(patternvars,postpredicate)),,0);
-                        Enter{(Pattern'Create,Pattern'Create(patternvars,postpredicate),,0);
-                        Leave}(Pattern'Create(patternvars,postpredicate),Pattern);
-                    Leave}(Set(patt,Pattern'Create(patternvars,postpredicate)),True);
-                    Enter{(MacroRulePattern,MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,,0);
-                    Leave}(MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,True);
-                Leave}([
-    Local(patternflat,patternvars,patt,patternoper,arity);
-    Set(patternflat,Listify(patternleft));
-    Set(patternvars,Tail(patternflat));
-    Set(patternoper,String(Head(patternflat)));
-    Set(arity,Length(patternvars));
-    DefLoadFunction(patternoper);
-    If(Not RuleBaseDefined(patternoper,arity),[
-        MacroRuleBase(patternoper,MakeVector(arg,arity));
-]
-);
-    Set(patt,Pattern'Create(patternvars,postpredicate));
-    MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
-    True;
-]
-,True);
-            Leave}(DefinePattern(patternleft[2],patternright,patternleft[1],True),True);
-        Leave}([
-    DefinePattern(patternleft[2],patternright,patternleft[1],True);
-]
-,True);
-    Leave}(20#Echo(_item)<--[
-    EchoInternal(item);
-    NewLine();
-]
-,True);
-    Enter{(Function,Function(KnownFailure,{expr})[
-    Local(rfail);
-    Echo({Known failure: ,expr});
-    Set(rfail,Eval(expr));
-    If(rfail,Echo({Failure resolved!}));
-]
-,,0);
-        Arg(KnownFailure,KnownFailure);
-        Arg({expr},{expr});
-        Arg([
-    Local(rfail);
-    Echo({Known failure: ,expr});
-    Set(rfail,Eval(expr));
-    If(rfail,Echo({Failure resolved!}));
-]
-,[
-    Local(rfail);
-    Echo({Known failure: ,expr});
-    Set(rfail,Eval(expr));
-    If(rfail,Echo({Failure resolved!}));
-]
-);
-        Enter{(And,GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)),,0);
-            Enter{(GreaterThan,GreaterThan(Length(args),1),,0);
-                Enter{(Length,Length(args),,0);
-                Leave}(Length(args),1);
-            Leave}(GreaterThan(Length(args),1),False);
-        Leave}(GreaterThan(Length(args),1)And Equals(MathNth(args,Length(args)),Atom(...)),False);
-        Enter{(Prog,[
-    Retract(oper,Length(args));
-    MacroRuleBase(oper,args);
-    MacroRule(oper,Length(args),1025,True)body;
-]
-,,0);
-            Enter{(Retract,Retract(oper,Length(args)),,0);
-                Enter{(Length,Length(args),,0);
-                Leave}(Length(args),1);
-            Leave}(Retract(oper,Length(args)),True);
-            Enter{(MacroRuleBase,MacroRuleBase(oper,args),,0);
-            Leave}(MacroRuleBase(oper,args),True);
-            Enter{(MacroRule,MacroRule(oper,Length(args),1025,True)body,,0);
-                Enter{(Length,Length(args),,0);
-                Leave}(Length(args),1);
-            Leave}(MacroRule(oper,Length(args),1025,True)body,True);
-        Leave}([
-    Retract(oper,Length(args));
-    MacroRuleBase(oper,args);
-    MacroRule(oper,Length(args),1025,True)body;
-]
-,True);
-    Leave}(Function(KnownFailure,{expr})[
-    Local(rfail);
-    Echo({Known failure: ,expr});
-    Set(rfail,Eval(expr));
-    If(rfail,Echo({Failure resolved!}));
-]
-,True);
-    Enter{(HoldArg,HoldArg(KnownFailure,expr),,0);
-    Leave}(HoldArg(KnownFailure,expr),True);
-    Enter{(LocalSymbols,LocalSymbols(TrueFalse)[
-    MacroRuleBase(TrueFalse,{var,expr});
-    10#TrueFalse(var _IsAtom,_expr)<-- `{@expr Where@var==False,@expr Where@var==True};
-    20#TrueFalse({},_expr)<-- ` @expr;
-    30#TrueFalse(var _IsList,_expr)<-- `[
-        Local(t,h);
-        Set(h,Head(@var));
-        Set(t,Tail(@var));
-        TrueFalse(h,TrueFalse(t,@expr));
-]
-;
-    Macro(LogicTest,{vars,expr1,expr2})Verify(TrueFalse(@vars,@expr1),TrueFalse(@vars,@expr2));
-]
-,,0);
-        Enter{(Prog,[
-    MacroRuleBase($TrueFalse11,{var,expr});
-    10# $TrueFalse11(var _IsAtom,_expr)<-- `{@expr Where@var==False,@expr Where@var==True};
-    20# $TrueFalse11({},_expr)<-- ` @expr;
-    30# $TrueFalse11(var _IsList,_expr)<-- `[
-        Local(t,h);
-        Set(h,Head(@var));
-        Set(t,Tail(@var));
-        $TrueFalse11(h,$TrueFalse11(t,@expr));
-]
-;
-    Macro(LogicTest,{vars,expr1,expr2})Verify($TrueFalse11(@vars,@expr1),$TrueFalse11(@vars,@expr2));
-]
-,,0);
-            Enter{(MacroRuleBase,MacroRuleBase($TrueFalse11,{var,expr}),,0);
-                Enter{(List,{var,expr},,0);
-                Leave}({var,expr},{x,x+B});  Errors: Could not create user function.
+                                                Arg(MacroSet(aLeftAssign,Eval(aRightAssign)),{MacroSet(aLeftAssign,Eval(aRightAssign)),Eval(aLeftAssign)});
+                                                Enter<builtin>{(MacroSet,MacroSet(aLeftAssign,Eval(aRightAssign)));
+                                                    Enter<builtin>{(Eval,Eval(aRightAssign));
+                                                        Enter<builtin>{(List,{});
+                                                            Arg(Load test: Result: True  Side Effects: Tracing is on.  Errors: Assertion failed.
+BUILD SUCCESSFUL (total time: 1 second)

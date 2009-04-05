@@ -176,8 +176,12 @@ public class LispExpressionEvaluator extends Evaluator {
                         sprintf(buf,      "Debug> Loading file %s for function %s\n",def.iFileName.c_str(),head.String().c_str());
                         #endif
                         aEnvironment.write(buf);*/
+                        if (TRACE_TO_STANDARD_OUT) {
+                            System.out.print("Debug> Loading file" + def.iFileName + " for function " + head.string() + "\n");
+                        } else {
+                            aEnvironment.write("Debug> Loading file" + def.iFileName + " for function " + head.string() + "\n");
+                        }
 
-                        aEnvironment.write("Debug> Loading file" + def.iFileName + " for function " + head.string() + "\n");
                         int debugBreakpoint = 0;
                     }
                 }
@@ -198,8 +202,12 @@ public class LispExpressionEvaluator extends Evaluator {
                         sprintf(buf,      "Debug> Finished loading file %s\n",def.iFileName.c_str());
                         #endif*/
 
+                        if (TRACE_TO_STANDARD_OUT) {
+                            System.out.print("Debug> Finished loading file " + def.iFileName + "\n");
+                        } else {
+                            aEnvironment.write("Debug> Finished loading file " + def.iFileName + "\n");
+                        }
 
-                        aEnvironment.write("Debug> Finished loading file " + def.iFileName + "\n");
                     }
                 }
             }
@@ -207,9 +215,6 @@ public class LispExpressionEvaluator extends Evaluator {
         }
         return userFunc;
     }//end method.
-
-
-
     /*
     void TracedStackEvaluator::PushFrame()
     {
