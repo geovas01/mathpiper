@@ -44,8 +44,17 @@ public class Retract extends BuiltinFunction
         ConsPointer arityPointer = new ConsPointer();
         arityPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, arityPointer.getCons().string() != null, 2);
-        int arity = Integer.parseInt(arityPointer.getCons().string(), 10);
-        aEnvironment.retractFunction(oper, arity);
+        String arityString = arityPointer.getCons().string();
+        if(arityString.equalsIgnoreCase("*"))
+        {
+            aEnvironment.retractFunction(oper, -1);
+        }
+        else
+        {
+            int arity = Integer.parseInt(arityString, 10);
+            aEnvironment.retractFunction(oper, arity);
+        }
+  
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
