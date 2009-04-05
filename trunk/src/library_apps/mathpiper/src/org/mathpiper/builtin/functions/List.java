@@ -32,9 +32,9 @@ import org.mathpiper.lisp.cons.SubListCons;
 	{
 		public void evaluate(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			ConsPointer all = new ConsPointer();
-			all.setCons(aEnvironment.iListAtom.copy(false));
-			ConsTraverser tail = new ConsTraverser(all);
+			ConsPointer allPointer = new ConsPointer();
+			allPointer.setCons(aEnvironment.iListAtom.copy(false));
+			ConsTraverser tail = new ConsTraverser(allPointer);
 			tail.goNext();
 			ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer());
 			consTraverser.goNext();
@@ -46,6 +46,6 @@ import org.mathpiper.lisp.cons.SubListCons;
 				tail.goNext();
 				consTraverser.goNext();
 			}
-			getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(all.getCons()));
+			getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(allPointer.getCons()));
 		}
 	}
