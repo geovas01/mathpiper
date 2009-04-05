@@ -1,0 +1,70 @@
+
+//Tell(a);
+
+/////////////////////////////////////////////////////////////////
+//                    my MatchLinear   
+/////////////////////////////////////////////////////////////////
+
+10 # myMatchLinear(var_(Not IsAtom),expr) <-- List();
+
+12 # myMatchLinear(_var,expr_CanBeUni) <--
+[
+  Local(d,c);
+  d := myDegree(expr,var);
+  Tell(1,{expr,d});
+  If(d = 1,  [c:=Coef(expr,var,{1,0}); Tell(ooo,{c}); c;], List() );
+];
+
+14 # myMatchLinear(_var,_expr) <-- List();
+
+
+
+/////////////////////////////////////////////////////////////////
+//                    my Degree   
+/////////////////////////////////////////////////////////////////
+
+10 # myDegree(expr_CanBeUni,_var)  <-- [Tell(D2,{expr,var}); Degree(expr,var);];
+
+20 # myDegree(_expr,_var) <-- False;
+
+
+Retract("tellMe",2);
+Retract("trythis",2);
+
+Clear(p1);
+Clear(p2);
+Clear(ss);
+Clear(cc);
+
+p1 := A*x+B;
+p2 := A*x^2+B*x+C;
+ss := Sin(x);
+cc := 23;
+
+10 # trythis(_var,_expr)_(mm:=myMatchLinear(var,expr)) <-- Tell("Here is the output: ",mm);
+20 # trythis(_var,_expr) <-- Tell("NADA");
+
+
+tellMe(_var,_expr) <--
+[
+   Local(m,ccs);
+   Tell(CASE,expr);
+   m := myMatchLinear(var,expr);
+   Tell(1,m);
+   ccs := trythis(var,expr);
+   Tell(2,ccs);
+];
+
+tellMe(x,p1);  NewLine();
+tellMe(x,p2);  NewLine();
+tellMe(x,ss);  NewLine();
+tellMe(x,cc);  NewLine();
+
+
+
+
+
+
+
+
+
