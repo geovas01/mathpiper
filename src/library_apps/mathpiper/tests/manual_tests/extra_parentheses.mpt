@@ -1,0 +1,416 @@
+In> ee:=a*b*c/(d*e)
+Result> (a*b*c)/(d*e)
+
+In> TraceOn()
+Result> True
+Side Effects>
+Tracing is on.
+Leave}(TraceOn(),True);
+
+In> ee:=a*b*c/(d*e)
+Result> (a*b*c)/(d*e)
+Side Effects>
+Enter<user>{(:=,ee:=a*b*c/(d*e));
+Arg(ee,ee);
+Arg(a*b*c/(d*e),a*b*c/(d*e));
+Enter<builtin>{(IsList,IsList(aLeftAssign));
+Leave}(IsList(aLeftAssign),False);
+Enter<builtin>{(IsAtom,IsAtom(aLeftAssign));
+Leave}(IsAtom(aLeftAssign),True);
+Enter<builtin>{(Prog,[
+    MacroSet(aLeftAssign,Eval(aRightAssign));
+    Eval(aLeftAssign);
+]
+);
+    Arg(MacroSet(aLeftAssign,Eval(aRightAssign)),{MacroSet(aLeftAssign,Eval(aRightAssign)),Eval(aLeftAssign)});
+    Enter<builtin>{(MacroSet,MacroSet(aLeftAssign,Eval(aRightAssign)));
+        Enter<builtin>{(Eval,Eval(aRightAssign));
+            Enter<user>{(*,a*b*c/(d*e));
+                Enter<user>{(*,a*b);
+                    Arg(a,a);
+                    Arg(b,b);
+                    Enter<builtin>{(IsNumber,IsNumber(x));
+                    Leave}(IsNumber(x),False);
+                    Enter<user>{(IsMatrix,IsMatrix(x));
+                        Arg(x,a);
+                        Enter<builtin>{(If,If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False));
+                            Arg(IsList($x10)And Length($x10)>0,IsList($x10)And Length($x10)>0);
+                            Enter<builtin>{(And,IsList($x10)And Length($x10)>0);
+                                Arg(IsList($x10),{IsList($x10),Length($x10)>0});
+                                Enter<builtin>{(IsList,IsList($x10));
+                                Leave}(IsList($x10),False);
+                            Leave}(IsList($x10)And Length($x10)>0,False);
+                        Leave}(If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False),False);
+                    Leave}(IsMatrix(x),False);
+                    Enter<user>{(IsMatrix,IsMatrix(x));
+                        Arg(x,a);
+                        Enter<builtin>{(If,If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False));
+                            Arg(IsList($x10)And Length($x10)>0,IsList($x10)And Length($x10)>0);
+                            Enter<builtin>{(And,IsList($x10)And Length($x10)>0);
+                                Arg(IsList($x10),{IsList($x10),Length($x10)>0});
+                                Enter<builtin>{(IsList,IsList($x10));
+                                Leave}(IsList($x10),False);
+                            Leave}(IsList($x10)And Length($x10)>0,False);
+                        Leave}(If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False),False);
+                    Leave}(IsMatrix(x),False);
+                    Enter<builtin>{(IsList,IsList(x));
+                    Leave}(IsList(x),False);
+                    Enter<user>{(IsNonObject,IsNonObject(x));
+                        Arg(x,a);
+                    Leave}(IsNonObject(x),True);
+                    Enter<builtin>{(IsList,IsList(y));
+                    Leave}(IsList(y),False);
+                    Enter<builtin>{(IsNumber,IsNumber(y));
+                    Leave}(IsNumber(y),False);
+                    Enter<builtin>{(=,f= -1);
+                        Enter<user>{(-,-1);
+                            Arg(1,1);
+                            Enter<builtin>{(IsNumber,IsNumber(x));
+                            Leave}(IsNumber(x),True);
+                            Enter<builtin>{(SubtractN,SubtractN(0,x));
+                            Leave}(SubtractN(0,x),-1);
+                        Leave}(-1,-1);
+                    Leave}(f= -1,False);
+                    Enter<builtin>{(=,f= -1);
+                        Enter<user>{(-,-1);
+                            Arg(1,1);
+                            Enter<builtin>{(IsNumber,IsNumber(x));
+                            Leave}(IsNumber(x),True);
+                            Enter<builtin>{(SubtractN,SubtractN(0,x));
+                            Leave}(SubtractN(0,x),-1);
+                        Leave}(-1,-1);
+                    Leave}(f= -1,False);
+                    Enter<builtin>{(IsList,IsList(aLeft));
+                    Leave}(IsList(aLeft),False);
+                    Enter<user>{(IsInfinity,IsInfinity(x));
+                        Arg(x,a);
+                    Leave}(IsInfinity(x),False);
+                    Enter<builtin>{(IsNumber,IsNumber(x));
+                    Leave}(IsNumber(x),False);
+                Leave}(a*b,a*b);
+                Enter<user>{(/,c/(d*e));
+                    Enter<user>{(*,d*e);
+                        Arg(d,d);
+                        Arg(e,e);
+                        Enter<builtin>{(IsNumber,IsNumber(x));
+                        Leave}(IsNumber(x),False);
+                        Enter<user>{(IsMatrix,IsMatrix(x));
+                            Arg(x,d);
+                            Enter<builtin>{(If,If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False));
+                                Arg(IsList($x10)And Length($x10)>0,IsList($x10)And Length($x10)>0);
+                                Enter<builtin>{(And,IsList($x10)And Length($x10)>0);
+                                    Arg(IsList($x10),{IsList($x10),Length($x10)>0});
+                                    Enter<builtin>{(IsList,IsList($x10));
+                                    Leave}(IsList($x10),False);
+                                Leave}(IsList($x10)And Length($x10)>0,False);
+                            Leave}(If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False),False);
+                        Leave}(IsMatrix(x),False);
+                        Enter<user>{(IsMatrix,IsMatrix(x));
+                            Arg(x,d);
+                            Enter<builtin>{(If,If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False));
+                                Arg(IsList($x10)And Length($x10)>0,IsList($x10)And Length($x10)>0);
+                                Enter<builtin>{(And,IsList($x10)And Length($x10)>0);
+                                    Arg(IsList($x10),{IsList($x10),Length($x10)>0});
+                                    Enter<builtin>{(IsList,IsList($x10));
+                                    Leave}(IsList($x10),False);
+                                Leave}(IsList($x10)And Length($x10)>0,False);
+                            Leave}(If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False),False);
+                        Leave}(IsMatrix(x),False);
+                        Enter<builtin>{(IsList,IsList(x));
+                        Leave}(IsList(x),False);
+                        Enter<user>{(IsNonObject,IsNonObject(x));
+                            Arg(x,d);
+                        Leave}(IsNonObject(x),True);
+                        Enter<builtin>{(IsList,IsList(y));
+                        Leave}(IsList(y),False);
+                        Enter<builtin>{(IsNumber,IsNumber(y));
+                        Leave}(IsNumber(y),False);
+                        Enter<builtin>{(=,f= -1);
+                            Enter<user>{(-,-1);
+                                Arg(1,1);
+                                Enter<builtin>{(IsNumber,IsNumber(x));
+                                Leave}(IsNumber(x),True);
+                                Enter<builtin>{(SubtractN,SubtractN(0,x));
+                                Leave}(SubtractN(0,x),-1);
+                            Leave}(-1,-1);
+                        Leave}(f= -1,False);
+                        Enter<builtin>{(=,f= -1);
+                            Enter<user>{(-,-1);
+                                Arg(1,1);
+                                Enter<builtin>{(IsNumber,IsNumber(x));
+                                Leave}(IsNumber(x),True);
+                                Enter<builtin>{(SubtractN,SubtractN(0,x));
+                                Leave}(SubtractN(0,x),-1);
+                            Leave}(-1,-1);
+                        Leave}(f= -1,False);
+                        Enter<builtin>{(IsList,IsList(aLeft));
+                        Leave}(IsList(aLeft),False);
+                        Enter<user>{(IsInfinity,IsInfinity(x));
+                            Arg(x,d);
+                        Leave}(IsInfinity(x),False);
+                        Enter<builtin>{(IsNumber,IsNumber(x));
+                        Leave}(IsNumber(x),False);
+                    Leave}(d*e,d*e);
+                    Arg(c,c);
+                    Arg(d*e,d*e);
+                    Enter<builtin>{(IsNumber,IsNumber(y));
+                    Leave}(IsNumber(y),False);
+                    Enter<user>{(IsNonZeroInteger,IsNonZeroInteger(x));
+                        Arg(x,c);
+                        Enter<builtin>{(And,IsInteger(x)And x!=0);
+                            Arg(IsInteger(x),{IsInteger(x),x!=0});
+                            Enter<builtin>{(IsInteger,IsInteger(x));
+                            Leave}(IsInteger(x),False);
+                        Leave}(IsInteger(x)And x!=0,False);
+                    Leave}(IsNonZeroInteger(x),False);
+                    Enter<builtin>{(IsNumber,IsNumber(x));
+                    Leave}(IsNumber(x),False);
+                    Enter<user>{(IsInfinity,IsInfinity(x));
+                        Arg(x,c);
+                    Leave}(IsInfinity(x),False);
+                    Enter<user>{(IsInfinity,IsInfinity(x));
+                        Arg(x,c);
+                    Leave}(IsInfinity(x),False);
+                    Enter<user>{(IsInfinity,IsInfinity(x));
+                        Arg(x,c);
+                    Leave}(IsInfinity(x),False);
+                    Enter<user>{(IsNegativeNumber,IsNegativeNumber(y));
+                        Arg(y,d*e);
+                        Enter<builtin>{(And,IsNumber(x)And x<0);
+                            Arg(IsNumber(x),{IsNumber(x),x<0});
+                            Enter<builtin>{(IsNumber,IsNumber(x));
+                            Leave}(IsNumber(x),False);
+                        Leave}(IsNumber(x)And x<0,False);
+                    Leave}(IsNegativeNumber(y),False);
+                    Enter<builtin>{(IsList,IsList(xlist));
+                    Leave}(IsList(xlist),False);
+                    Enter<builtin>{(IsList,IsList(y));
+                    Leave}(IsList(y),False);
+                    Enter<builtin>{(IsList,IsList(x));
+                    Leave}(IsList(x),False);
+                Leave}(c/(d*e),c/(d*e));
+                Arg(a*b,a*b);
+                Arg(c/(d*e),c/(d*e));
+                Enter<builtin>{(IsNumber,IsNumber(x));
+                Leave}(IsNumber(x),False);
+                Enter<user>{(IsMatrix,IsMatrix(x));
+                    Arg(x,a*b);
+                    Enter<builtin>{(If,If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False));
+                        Arg(IsList($x10)And Length($x10)>0,IsList($x10)And Length($x10)>0);
+                        Enter<builtin>{(And,IsList($x10)And Length($x10)>0);
+                            Arg(IsList($x10),{IsList($x10),Length($x10)>0});
+                            Enter<builtin>{(IsList,IsList($x10));
+                            Leave}(IsList($x10),False);
+                        Leave}(IsList($x10)And Length($x10)>0,False);
+                    Leave}(If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False),False);
+                Leave}(IsMatrix(x),False);
+                Enter<user>{(IsMatrix,IsMatrix(x));
+                    Arg(x,a*b);
+                    Enter<builtin>{(If,If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False));
+                        Arg(IsList($x10)And Length($x10)>0,IsList($x10)And Length($x10)>0);
+                        Enter<builtin>{(And,IsList($x10)And Length($x10)>0);
+                            Arg(IsList($x10),{IsList($x10),Length($x10)>0});
+                            Enter<builtin>{(IsList,IsList($x10));
+                            Leave}(IsList($x10),False);
+                        Leave}(IsList($x10)And Length($x10)>0,False);
+                    Leave}(If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False),False);
+                Leave}(IsMatrix(x),False);
+                Enter<builtin>{(IsList,IsList(x));
+                Leave}(IsList(x),False);
+                Enter<user>{(IsNonObject,IsNonObject(x));
+                    Arg(x,a*b);
+                Leave}(IsNonObject(x),True);
+                Enter<builtin>{(IsList,IsList(y));
+                Leave}(IsList(y),False);
+                Enter<user>{(/,(x*y)/z);
+                    Enter<user>{(*,x*y);
+                        Arg(x,a*b);
+                        Arg(y,c);
+                        Enter<builtin>{(IsNumber,IsNumber(x));
+                        Leave}(IsNumber(x),False);
+                        Enter<user>{(IsMatrix,IsMatrix(x));
+                            Arg(x,a*b);
+                            Enter<builtin>{(If,If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False));
+                                Arg(IsList($x10)And Length($x10)>0,IsList($x10)And Length($x10)>0);
+                                Enter<builtin>{(And,IsList($x10)And Length($x10)>0);
+                                    Arg(IsList($x10),{IsList($x10),Length($x10)>0});
+                                    Enter<builtin>{(IsList,IsList($x10));
+                                    Leave}(IsList($x10),False);
+                                Leave}(IsList($x10)And Length($x10)>0,False);
+                            Leave}(If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False),False);
+                        Leave}(IsMatrix(x),False);
+                        Enter<user>{(IsMatrix,IsMatrix(x));
+                            Arg(x,a*b);
+                            Enter<builtin>{(If,If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False));
+                                Arg(IsList($x10)And Length($x10)>0,IsList($x10)And Length($x10)>0);
+                                Enter<builtin>{(And,IsList($x10)And Length($x10)>0);
+                                    Arg(IsList($x10),{IsList($x10),Length($x10)>0});
+                                    Enter<builtin>{(IsList,IsList($x10));
+                                    Leave}(IsList($x10),False);
+                                Leave}(IsList($x10)And Length($x10)>0,False);
+                            Leave}(If(IsList($x10)And Length($x10)>0,[
+    Local(n);
+    n:=Length($x10);
+    If(Length(Select(IsVector,$x10))=n,MapSingle(Length,$x10)=Length($x10[1])+ZeroVector(n),False);
+]
+,False),False);
+                        Leave}(IsMatrix(x),False);
+                        Enter<builtin>{(IsList,IsList(x));
+                        Leave}(IsList(x),False);
+                        Enter<user>{(IsNonObject,IsNonObject(x));
+                            Arg(x,a*b);
+                        Leave}(IsNonObject(x),True);
+                        Enter<builtin>{(IsList,IsList(y));
+                        Leave}(IsList(y),False);
+                        Enter<builtin>{(IsNumber,IsNumber(y));
+                        Leave}(IsNumber(y),False);
+                        Enter<builtin>{(=,f= -1);
+                            Enter<user>{(-,-1);
+                                Arg(1,1);
+                                Enter<builtin>{(IsNumber,IsNumber(x));
+                                Leave}(IsNumber(x),True);
+                                Enter<builtin>{(SubtractN,SubtractN(0,x));
+                                Leave}(SubtractN(0,x),-1);
+                            Leave}(-1,-1);
+                        Leave}(f= -1,False);
+                        Enter<builtin>{(=,f= -1);
+                            Enter<user>{(-,-1);
+                                Arg(1,1);
+                                Enter<builtin>{(IsNumber,IsNumber(x));
+                                Leave}(IsNumber(x),True);
+                                Enter<builtin>{(SubtractN,SubtractN(0,x));
+                                Leave}(SubtractN(0,x),-1);
+                            Leave}(-1,-1);
+                        Leave}(f= -1,False);
+                        Enter<builtin>{(IsList,IsList(aLeft));
+                        Leave}(IsList(aLeft),False);
+                        Enter<user>{(IsInfinity,IsInfinity(x));
+                            Arg(x,a*b);
+                        Leave}(IsInfinity(x),False);
+                        Enter<builtin>{(IsNumber,IsNumber(x));
+                        Leave}(IsNumber(x),False);
+                    Leave}(x*y,a*b*c);
+                    Arg(x*y,a*b*c);
+                    Arg(z,d*e);
+                    Enter<builtin>{(IsNumber,IsNumber(y));
+                    Leave}(IsNumber(y),False);
+                    Enter<user>{(IsNonZeroInteger,IsNonZeroInteger(x));
+                        Arg(x,a*b*c);
+                        Enter<builtin>{(And,IsInteger(x)And x!=0);
+                            Arg(IsInteger(x),{IsInteger(x),x!=0});
+                            Enter<builtin>{(IsInteger,IsInteger(x));
+                            Leave}(IsInteger(x),False);
+                        Leave}(IsInteger(x)And x!=0,False);
+                    Leave}(IsNonZeroInteger(x),False);
+                    Enter<builtin>{(IsNumber,IsNumber(x));
+                    Leave}(IsNumber(x),False);
+                    Enter<user>{(IsInfinity,IsInfinity(x));
+                        Arg(x,a*b*c);
+                    Leave}(IsInfinity(x),False);
+                    Enter<user>{(IsInfinity,IsInfinity(x));
+                        Arg(x,a*b*c);
+                    Leave}(IsInfinity(x),False);
+                    Enter<user>{(IsInfinity,IsInfinity(x));
+                        Arg(x,a*b*c);
+                    Leave}(IsInfinity(x),False);
+                    Enter<user>{(IsNegativeNumber,IsNegativeNumber(y));
+                        Arg(y,d*e);
+                        Enter<builtin>{(And,IsNumber(x)And x<0);
+                            Arg(IsNumber(x),{IsNumber(x),x<0});
+                            Enter<builtin>{(IsNumber,IsNumber(x));
+                            Leave}(IsNumber(x),False);
+                        Leave}(IsNumber(x)And x<0,False);
+                    Leave}(IsNegativeNumber(y),False);
+                    Enter<builtin>{(IsList,IsList(xlist));
+                    Leave}(IsList(xlist),False);
+                    Enter<builtin>{(IsList,IsList(y));
+                    Leave}(IsList(y),False);
+                    Enter<builtin>{(IsList,IsList(x));
+                    Leave}(IsList(x),False);
+                Leave}((x*y)/z,(a*b*c)/(d*e));
+            Leave}(a*b*c/(d*e),(a*b*c)/(d*e));
+        Leave}(Eval(aRightAssign),(a*b*c)/(d*e));
+    Leave}(MacroSet(aLeftAssign,Eval(aRightAssign)),True);
+    Enter<builtin>{(Eval,Eval(aLeftAssign));
+    Leave}(Eval(aLeftAssign),(a*b*c)/(d*e));
+Leave}([
+    MacroSet(aLeftAssign,Eval(aRightAssign));
+    Eval(aLeftAssign);
+]
+,(a*b*c)/(d*e));
+Leave}(ee:=a*b*c/(d*e),(a*b*c)/(d*e));
