@@ -80,7 +80,7 @@ public abstract class Evaluator
         }
     }
 
-    public static void traceShowEnter(Environment aEnvironment, ConsPointer aExpression) throws Exception {
+    public static void traceShowEnter(Environment aEnvironment, ConsPointer aExpression, String extraInfo) throws Exception {
         for (int i = 0; i < evalDepth; i++) {
             // aEnvironment.iEvalDepth; i++) {
             if (TRACE_TO_STANDARD_OUT) {
@@ -90,9 +90,9 @@ public abstract class Evaluator
             }
         }
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Enter{(");
+            System.out.print("Enter<" + extraInfo + ">{(");
         } else {
-            aEnvironment.write("Enter{(");
+            aEnvironment.write("Enter<" + extraInfo + ">{(");
         }
         {
             String function = "";
@@ -114,7 +114,7 @@ public abstract class Evaluator
             aEnvironment.write(",");
         }
         traceShowExpression(aEnvironment, aExpression);
-        if (TRACE_TO_STANDARD_OUT) {
+        /*if (TRACE_TO_STANDARD_OUT) {
             System.out.print(",");
         } else {
             aEnvironment.write(",");
@@ -126,7 +126,7 @@ public abstract class Evaluator
                 aEnvironment.write(",");
             }
         } else {
-            if (TRACE_TO_STANDARD_OUT) {
+           if (TRACE_TO_STANDARD_OUT) {
                 System.out.print("");
             } else {
                 aEnvironment.write("");
@@ -141,7 +141,7 @@ public abstract class Evaluator
             } else {
                 aEnvironment.write("0");
             }
-        }
+        }*/
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print(");\n");
         } else {

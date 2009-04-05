@@ -70,14 +70,16 @@ public class InterpreterTest implements ResponseListener
     
     public static void main(String[] args)
     {
-        //new InterpreterTest();
-        
+        new InterpreterTest();
+
+        /*
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
         JButton haltButton = org.mathpiper.ui.gui.controlpanel.HaltButton.getInstance();
         contentPane.add(haltButton);
         frame.setBounds ( 10 , 10 , 200 , 90 );
         frame.setVisible(true);
+         */
 
     }
 }

@@ -37,9 +37,10 @@ Clear(ss);
 Clear(cc);
 
 p1 := A*x+B;
-p2 := A*x^2+B*x+C;
-ss := Sin(x);
-cc := 23;
+p1 := x+B;
+//p2 := A*x^2+B*x+C;
+//ss := Sin(x);
+//cc := 23;
 
 10 # trythis(_var,_expr)_(mm:=myMatchLinear(var,expr)) <-- Tell("Here is the output: ",mm);
 20 # trythis(_var,_expr) <-- Tell("NADA");
@@ -55,11 +56,13 @@ tellMe(_var,_expr) <--
    Tell(2,ccs);
 ];
 
+//TraceOn();
 tellMe(x,p1);  NewLine();
-tellMe(x,p2);  NewLine();
+//TraceOff();
+/*tellMe(x,p2);  NewLine();
 tellMe(x,ss);  NewLine();
 tellMe(x,cc);  NewLine();
-
+*/
 
 
 

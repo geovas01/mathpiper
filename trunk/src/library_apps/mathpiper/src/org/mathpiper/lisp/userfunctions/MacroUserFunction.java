@@ -56,7 +56,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         {
             ConsPointer tr = new ConsPointer();
             tr.setCons(SubListCons.getInstance(aArguments.getCons()));
-            LispExpressionEvaluator.traceShowEnter(aEnvironment, tr);
+            LispExpressionEvaluator.traceShowEnter(aEnvironment, tr,"macro");
             tr.setCons(null);
         }
 

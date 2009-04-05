@@ -95,7 +95,7 @@ public class SingleArityBranchingUserFunction extends Evaluator
         {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-            Evaluator.traceShowEnter(aEnvironment, argumentsPointer);
+            Evaluator.traceShowEnter(aEnvironment, argumentsPointer,"user");
             argumentsPointer.setCons(null);
         }
 
@@ -103,31 +103,31 @@ public class SingleArityBranchingUserFunction extends Evaluator
         consTraverser.goNext();
 
         // unrollable arguments
-        ConsPointer[] arguments;
+        ConsPointer[] argumentsPointer;
         if (arity == 0)
         {
-            arguments = null;
+            argumentsPointer = null;
         } else
         {
             LispError.lispAssert(arity > 0);
-            arguments = new ConsPointer[arity];
+            argumentsPointer = new ConsPointer[arity];
             for (i = 0; i < arity; i++)
             {
-                arguments[i] = new ConsPointer();
+                argumentsPointer[i] = new ConsPointer();
             }
         }
 
-        // Walk over all arguments, evaluating them as necessary
+        // Walk over all arguments, evaluating them as necessary ********************************************************
         for (i = 0; i < arity; i++)
         {
             LispError.check(consTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
             if (((BranchParameter) iParameters.get(i)).iHold)
             {
-                arguments[i].setCons(consTraverser.getCons().copy(false));
+                argumentsPointer[i].setCons(consTraverser.getCons().copy(false));
             } else
             {
                 LispError.check(consTraverser.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arguments[i], consTraverser.ptr());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsPointer[i], consTraverser.ptr());
             }
             consTraverser.goNext();
         }
@@ -141,7 +141,7 @@ public class SingleArityBranchingUserFunction extends Evaluator
             iter2.goNext();
             for (i = 0; i < arity; i++)
             {
-                Evaluator.traceShowArg(aEnvironment, iter2, arguments[i]);
+                Evaluator.traceShowArg(aEnvironment, iter2, argumentsPointer[i]);
 
                 iter2.goNext();
             }//end if.
@@ -156,32 +156,32 @@ public class SingleArityBranchingUserFunction extends Evaluator
             {
                 String variable = ((BranchParameter) iParameters.get(i)).iParameter;
                 // setCons the variable to the new value
-                aEnvironment.newLocalVariable(variable, arguments[i].getCons());
+                aEnvironment.newLocalVariable(variable, argumentsPointer[i].getCons());
             }
 
             // walk the rules database, returning the evaluated result if the
             // predicate is true.
             int nrRules = iBranchRules.size();
-            UserStackInformation st = aEnvironment.iLispExpressionEvaluator.stackInformation();
+            UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
             for (i = 0; i < nrRules; i++)
             {
                 Branch thisRule = ((Branch) iBranchRules.get(i));
                 LispError.lispAssert(thisRule != null);
 
-                st.iRulePrecedence = thisRule.getPrecedence();
-                boolean matches = thisRule.matches(aEnvironment, arguments);
+                userStackInformation.iRulePrecedence = thisRule.getPrecedence();
+                boolean matches = thisRule.matches(aEnvironment, argumentsPointer);
                 if (matches)
                 {
-                    st.iSide = 1;
+                    userStackInformation.iSide = 1;
                     aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
 
                     /*Trace code */
                     if (isTraced())
                     {
-                        ConsPointer argumentsPointer = new ConsPointer();
-                         argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                        Evaluator.traceShowLeave(aEnvironment, aResult,  argumentsPointer);
-                         argumentsPointer.setCons(null);
+                        ConsPointer argumentsPointer2 = new ConsPointer();
+                         argumentsPointer2.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
+                        Evaluator.traceShowLeave(aEnvironment, aResult,  argumentsPointer2);
+                         argumentsPointer2.setCons(null);
                     }//end if.
 
                     return;
@@ -202,10 +202,10 @@ public class SingleArityBranchingUserFunction extends Evaluator
                     full.getCons().getRestPointer().setCons(null);
                 } else
                 {
-                    full.getCons().getRestPointer().setCons(arguments[0].getCons());
+                    full.getCons().getRestPointer().setCons(argumentsPointer[0].getCons());
                     for (i = 0; i < arity - 1; i++)
                     {
-                        arguments[i].getCons().getRestPointer().setCons(arguments[i + 1].getCons());
+                        argumentsPointer[i].getCons().getRestPointer().setCons(argumentsPointer[i + 1].getCons());
                     }
                 }
                 aResult.setCons(SubListCons.getInstance(full.getCons()));
@@ -214,10 +214,10 @@ public class SingleArityBranchingUserFunction extends Evaluator
             /* Trace code */
             if (isTraced())
             {
-                ConsPointer argumentsPointer = new ConsPointer();
-                argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer);
-                argumentsPointer.setCons(null);
+                ConsPointer argumentsPointer3 = new ConsPointer();
+                argumentsPointer3.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
+                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3);
+                argumentsPointer3.setCons(null);
             }
 
         } catch (Exception e)
