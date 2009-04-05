@@ -324,7 +324,7 @@ public class SingleArityBranchingUserFunction extends Evaluator
     }
 
     /**
-     * Insert any BranchRuleBase object in the list of rules.
+     * Insert any Branch object in the list of rules.
      * This function does the real work for declareRule() and
      * declarePattern(): it inserts the rule in <b>iRules</b>, while
      * keeping it sorted. The algorithm is O(log n), where
