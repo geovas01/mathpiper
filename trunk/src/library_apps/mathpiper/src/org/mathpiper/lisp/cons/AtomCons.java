@@ -24,11 +24,12 @@ import org.mathpiper.lisp.cons.Cons;
 public class AtomCons extends Cons
 {
 
-    String iString;
+    String iCar;
+    ConsPointer iCdr = new ConsPointer();
 
     AtomCons(String aString)
     {
-        iString = aString;
+        iCar = aString;
     }
 
     public static Cons getInstance(Environment aEnvironment, String aString) throws Exception
@@ -50,24 +51,22 @@ public class AtomCons extends Cons
     
     public Object first()
     {
-        return iString;
+        return iCar;
     }
 
     public String string()
     {
-        return iString;
+        return iCar;
     }
     
-          public String toString()
+        /*public String toString()
         {
-
             return string();
-            
-        }
+        }*/
 
     public Cons copy(boolean aRecursed)
     {
-        return new AtomCons(iString);
+        return new AtomCons(iCar);
     }
 
     public Cons setExtraInfo(ConsPointer aData)
@@ -80,5 +79,9 @@ public class AtomCons extends Cons
         return result;
          */
         return null;
+    }
+
+    public ConsPointer getRestPointer() {
+        return iCdr;
     }
 };

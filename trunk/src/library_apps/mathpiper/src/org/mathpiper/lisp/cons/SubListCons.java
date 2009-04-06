@@ -25,22 +25,23 @@ import org.mathpiper.lisp.cons.Cons;
 
 public class SubListCons extends Cons
 {
-	ConsPointer iSubList = new ConsPointer();
+	ConsPointer iCar = new ConsPointer();
 	
 	public static SubListCons getInstance(Cons aSubList)
 	{
 		return new SubListCons(aSubList);
 	}
+    ConsPointer iCdr = new ConsPointer();
         
         public Object first()
         {
-            return iSubList;
+            return iCar;
         }
         
         
 	public ConsPointer getSublistPointer()
 	{
-		return iSubList;
+		return iCar;
 	}
         
         
@@ -49,17 +50,18 @@ public class SubListCons extends Cons
 		return null;
 	}
         
-        public String toString()
+        /*
+         public String toString()
         {
-            return iSubList.toString();
-        }
+            return iCar.toString();
+        }*/
         
         
 	public Cons copy(boolean aRecursed) throws Exception
 	{
 		//TODO recursed copy needs to be implemented still
 		LispError.lispAssert(aRecursed == false);
-		Cons copied = new SubListCons(iSubList.getCons());
+		Cons copied = new SubListCons(iCar.getCons());
 		return copied;
 	}
         
@@ -78,7 +80,11 @@ public class SubListCons extends Cons
         
 	SubListCons(Cons aSubList)
 	{
-		iSubList.setCons(aSubList);
+		iCar.setCons(aSubList);
 	}
+
+    public ConsPointer getRestPointer() {
+        return iCdr;
+    }
 	
 }

@@ -32,9 +32,10 @@ public class NumberCons extends Cons {
      */
 
     /// number object; NULL if not yet converted from string
-    BigNumber iBigNumber;
+    BigNumber iCarBigNumber;
     /// string representation in decimal; NULL if not yet converted from BigNumber
-    String iStringNumber;
+    String iCarStringNumber;
+    ConsPointer iCdr = new ConsPointer();
 
     /**
      * Construct a number from either a BigNumber or a String.
@@ -43,8 +44,8 @@ public class NumberCons extends Cons {
      * @param aString
      */
     public NumberCons(BigNumber aNumber, String aString) {
-        iStringNumber = aString;
-        iBigNumber = aNumber;
+        iCarStringNumber = aString;
+        iCarBigNumber = aNumber;
     }
 
     /**
@@ -52,8 +53,8 @@ public class NumberCons extends Cons {
      * @param aNumber
      */
     public NumberCons(BigNumber aNumber) {
-        iStringNumber = null;
-        iBigNumber = aNumber;
+        iCarStringNumber = null;
+        iCarBigNumber = aNumber;
     }
 
     /**
@@ -64,19 +65,19 @@ public class NumberCons extends Cons {
      */
     public NumberCons(String aString, int aBasePrecision) {
         //(also create a number object).
-        iStringNumber = aString;
-        iBigNumber = null;  // purge whatever it was.
+        iCarStringNumber = aString;
+        iCarBigNumber = null;  // purge whatever it was.
 
     // create a new BigNumber object out of iString, set its precision in digits
     //TODO FIXME enable this in the end    NumberCons(aBasePrecision);
     }
 
     public Cons copy(boolean aRecursed) {
-        return new NumberCons(iBigNumber, iStringNumber);
+        return new NumberCons(iCarBigNumber, iCarStringNumber);
     }
 
     public Object first() {
-        return iBigNumber;
+        return iCarBigNumber;
     }
 
 
@@ -87,13 +88,13 @@ public class NumberCons extends Cons {
      * @throws java.lang.Exception
      */
     public String string() throws Exception {
-        if (iStringNumber == null) {
-            LispError.lispAssert(iBigNumber != null);  // either the string is null or the number but not both.
+        if (iCarStringNumber == null) {
+            LispError.lispAssert(iCarBigNumber != null);  // either the string is null or the number but not both.
 
-            iStringNumber = iBigNumber.numToString(0/*TODO FIXME*/, 10);
+            iCarStringNumber = iCarBigNumber.numToString(0/*TODO FIXME*/, 10);
         // export the current number to string and store it as NumberCons::iString
         }
-        return iStringNumber;
+        return iCarStringNumber;
     }
 
     public String toString() {
@@ -118,23 +119,23 @@ public class NumberCons extends Cons {
      */
     public BigNumber getNumber(int aPrecision) throws Exception {
         /// If necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
-        if (iBigNumber == null) {  // create and store a BigNumber out of the string representation.
-            LispError.lispAssert(iStringNumber != null);
+        if (iCarBigNumber == null) {  // create and store a BigNumber out of the string representation.
+            LispError.lispAssert(iCarStringNumber != null);
             String str;
-            str = iStringNumber;
+            str = iCarStringNumber;
             // aBasePrecision is in digits, not in bits, ok
-            iBigNumber = new BigNumber(str, aPrecision, 10/*TODO FIXME BASE10*/);
+            iCarBigNumber = new BigNumber(str, aPrecision, 10/*TODO FIXME BASE10*/);
         } // check if the BigNumber object has enough precision, if not, extend it
         // (applies only to floats). Note that iNumber->GetPrecision() might be < 0
-        else if (!iBigNumber.isInt() && iBigNumber.getPrecision() < aPrecision) {
-            if (iStringNumber != null) {// have string representation, can extend precision
-                iBigNumber.setTo(iStringNumber, aPrecision, 10);
+        else if (!iCarBigNumber.isInt() && iCarBigNumber.getPrecision() < aPrecision) {
+            if (iCarStringNumber != null) {// have string representation, can extend precision
+                iCarBigNumber.setTo(iCarStringNumber, aPrecision, 10);
             } else {
                 // do not have string representation, cannot extend precision!
             }
         }
 
-        return iBigNumber;
+        return iCarBigNumber;
     }
 
     /**
@@ -147,5 +148,9 @@ public class NumberCons extends Cons {
         return result;
          */
         return null;
+    }
+
+    public ConsPointer getRestPointer() {
+        return iCdr;
     }
 }
