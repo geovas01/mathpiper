@@ -72,14 +72,19 @@ public class ConsPointer
         }
     }*/
 
-    /*public String toString()
+    public String toString()
     {
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();
-        printer.print(this, out, aEnvironment);
+        try{
+        printer.print(this, out, null);
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
         return out.toString();
 
-    }*/
+    }
     
 }
