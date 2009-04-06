@@ -27,7 +27,8 @@ import org.mathpiper.builtin.BuiltinContainer;
 
 public class BuiltinObjectCons extends Cons
 {
-	BuiltinContainer iClass;
+	BuiltinContainer iCarBuiltin;
+    ConsPointer iCdr = new ConsPointer();
 	
 	public static BuiltinObjectCons getInstance(BuiltinContainer aClass) throws Exception
 	{
@@ -36,15 +37,16 @@ public class BuiltinObjectCons extends Cons
 		LispError.check(self!=null,LispError.KLispErrNotEnoughMemory);
 		return self;
 	}
+    
         
         public Object first()
         {
-            return iClass;
+            return iCarBuiltin;
         }
 	
 	public BuiltinContainer getGeneric()
 	{
-		return iClass;
+		return iCarBuiltin;
 	}
 	
 	public String string()
@@ -54,7 +56,7 @@ public class BuiltinObjectCons extends Cons
 	
 	public Cons copy(boolean aRecursed)
 	{
-		Cons copied = new BuiltinObjectCons(iClass);
+		Cons copied = new BuiltinObjectCons(iCarBuiltin);
 		return copied;
 	}
 	
@@ -66,6 +68,10 @@ public class BuiltinObjectCons extends Cons
 
 	BuiltinObjectCons(BuiltinContainer aClass)
 	{
-		iClass = aClass;
+		iCarBuiltin = aClass;
 	}
+
+    public ConsPointer getRestPointer() {
+        return iCdr;
+    }
 };

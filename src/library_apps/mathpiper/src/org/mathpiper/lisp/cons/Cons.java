@@ -32,11 +32,7 @@ import org.mathpiper.builtin.BuiltinContainer;
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
 
-    ConsPointer iCdr = new ConsPointer();
-
-    public ConsPointer getRestPointer() {
-        return iCdr;
-    }
+    public abstract ConsPointer getRestPointer();
 
     abstract Object first();
 

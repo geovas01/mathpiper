@@ -17,7 +17,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.cons;
 
+import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.printers.LispPrinter;
 
 /** 
  * Provides a smart pointer type to CONS
@@ -54,10 +56,11 @@ public class ConsPointer
 
     public void goNext()
     {
-        iCons = iCons.iCdr.iCons;
+        iCons = iCons.getRestPointer().iCons;
     }
     
-    public String toString()
+    /* note:tk:removing to avoid confusion in the debugger.
+     public String toString()
     {
         if(iCons != null)
         {
@@ -67,6 +70,16 @@ public class ConsPointer
         {
             return "Empty.";
         }
-    }
+    }*/
+
+    /*public String toString()
+    {
+        StringOutput out = new StringOutput();
+        LispPrinter printer = new LispPrinter();
+        printer.print(this, out, aEnvironment);
+
+        return out.toString();
+
+    }*/
     
 }
