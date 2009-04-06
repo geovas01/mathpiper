@@ -7,6 +7,8 @@
 100 # _x  *  1  <-- x;
 100 # (_f  * _x)_(f= -1)  <-- -x;
 100 # (_x  * _f)_(f= -1)  <-- -x;
+105 # (f_IsNegativeNumber * _x)  <-- -(-f)*x;
+105 # (_x * f_IsNegativeNumber)  <-- -(-f)*x;
 
 95 # x_IsMatrix * y_IsMatrix <--
 [
