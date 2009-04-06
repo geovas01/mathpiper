@@ -1,0 +1,32 @@
+%mathpiper
+
+Retract("Manipulate",*);
+
+
+10 # Manipulate(_symbolicEquation)_HasFunc(symbolicEquation, "==") <--
+[
+    //Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equIndex, leftOrder, rightOrder);
+    
+    listForm := Listify(symbolicEquation);
+    
+    operator := listForm[1];
+    
+    If(HasFunc(listForm[2],"==" ), [operandIndex := 3; equIndex := 2; ], [ operandIndex := 2; equIndex := 3;]);
+    
+    operand := listForm[operandIndex];
+    left := EquLeft(listForm[equIndex]);
+    right := EquRight(listForm[equIndex]);
+    
+    If(operator = ^, [ leftOrder := `({left,operand});rightOrder := `({right,operand});],  [leftOrder := `({operand,left}); rightOrder := `({operand,right});]);
+    
+    
+    leftManipulated := ExpandBrackets(Simplify(Apply(String(operator), leftOrder)));
+    rightManipulated := ExpandBrackets(Simplify(Apply(String(operator), rightOrder)));
+    
+    leftManipulated == rightManipulated;
+
+];
+
+
+%/mathpiper
+
