@@ -160,7 +160,7 @@ public abstract class Evaluator
         }
     }
 
-    public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception {
+    public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression, String extraInfo) throws Exception {
         evalDepth--;
         for (int i = 0; i < evalDepth; i++) {
             // aEnvironment.iEvalDepth; i++) {
@@ -171,9 +171,9 @@ public abstract class Evaluator
             }
         }
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Leave}(");
+            System.out.print("Leave<" + extraInfo + ">}(");
         } else {
-            aEnvironment.write("Leave}(");
+            aEnvironment.write("Leave<" + extraInfo + ">}(");
         }
         traceShowExpression(aEnvironment, aExpression);
         if (TRACE_TO_STANDARD_OUT) {

@@ -164,7 +164,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-            Evaluator.traceShowLeave(aEnvironment, aResultPointer, argumentsPointer);
+            Evaluator.traceShowLeave(aEnvironment, aResultPointer, argumentsPointer,"builtin");
             argumentsPointer.setCons(null);
         }//end if.
 

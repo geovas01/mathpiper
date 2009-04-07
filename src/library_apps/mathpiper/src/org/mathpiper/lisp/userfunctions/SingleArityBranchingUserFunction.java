@@ -180,7 +180,7 @@ public class SingleArityBranchingUserFunction extends Evaluator
                     {
                         ConsPointer argumentsPointer2 = new ConsPointer();
                          argumentsPointer2.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                        Evaluator.traceShowLeave(aEnvironment, aResult,  argumentsPointer2);
+                        Evaluator.traceShowLeave(aEnvironment, aResult,  argumentsPointer2,"user");
                          argumentsPointer2.setCons(null);
                     }//end if.
 
@@ -216,7 +216,7 @@ public class SingleArityBranchingUserFunction extends Evaluator
             {
                 ConsPointer argumentsPointer3 = new ConsPointer();
                 argumentsPointer3.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3);
+                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3,"user");
                 argumentsPointer3.setCons(null);
             }
 
