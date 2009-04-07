@@ -47,7 +47,7 @@ import java.util.*;
 public class Pattern {
     /// List of parameter matches, one for every parameter.
 
-    protected List iParamMatchers = new ArrayList(); //CDeletingArrayGrower<Parameter*> iParamMatchers;
+    protected List iParamMatchers = new ArrayList(); //CDeletingArrayGrower<PatternParameter*> iParamMatchers;
 
     /// List of variables appearing in the pattern.
     protected List iVariables = new ArrayList(); //CArrayGrower<String>
@@ -71,7 +71,7 @@ public class Pattern {
         ConsTraverser consTraverser = new ConsTraverser(aPattern);
 
         while (consTraverser.getCons() != null) {
-            Parameter matcher = makeParamMatcher(aEnvironment, consTraverser.getCons());
+            PatternParameter matcher = makeParamMatcher(aEnvironment, consTraverser.getCons());
             LispError.lispAssert(matcher != null);
             iParamMatchers.add(matcher);
             consTraverser.goNext();
@@ -84,7 +84,7 @@ public class Pattern {
 
     /// Try to match the pattern against \a aArguments.
     /// First, every argument in \a aArguments is matched against the
-    /// corresponding Parameter in #iParamMatches. If any
+    /// corresponding PatternParameter in #iParamMatches. If any
     /// match fails, matches() returns false. Otherwise, a temporary
     /// LispLocalFrame is constructed, then setPatternVariables() and
     /// checkPredicates() are called, and then the LispLocalFrame is
@@ -113,7 +113,7 @@ public class Pattern {
             if (ptr == null) {
                 return false;
             }
-            if (!((Parameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, ptr, arguments)) {
+            if (!((PatternParameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, ptr, arguments)) {
                 return false;
             }
             consTraverser.goNext();
@@ -160,7 +160,7 @@ public class Pattern {
         }
 
         for (i = 0; i < iParamMatchers.size(); i++) {
-            if (!((Parameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, aArguments[i], arguments)) {
+            if (!((PatternParameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, aArguments[i], arguments)) {
                 return false;
             }
         }
@@ -202,10 +202,10 @@ public class Pattern {
     ///   correspoding Variable is constructed and returned.
     /// - If \a aPattern is a list of another form, this function
     ///   calls itself on any of the entries in this list. The
-    ///   resulting Parameter objects are collected in a
+    ///   resulting PatternParameter objects are collected in a
     ///   SubListCons, which is returned.
     /// - Otherwise, this function returns #null.
-    protected Parameter makeParamMatcher(Environment aEnvironment, Cons aPattern) throws Exception {
+    protected PatternParameter makeParamMatcher(Environment aEnvironment, Cons aPattern) throws Exception {
         if (aPattern == null) {
             return null;
         }
@@ -262,7 +262,7 @@ public class Pattern {
                 }
             }
 
-            Parameter[] matchers = new Parameter[num];
+            PatternParameter[] matchers = new PatternParameter[num];
 
             int i;
             ConsTraverser consTraverser = new ConsTraverser(sublist);

@@ -35,7 +35,7 @@ import org.mathpiper.lisp.Evaluator;
 public class SingleArityBranchingUserFunction extends Evaluator
 {
     /// List of arguments, with corresponding \c iHold property.
-    protected List<BranchParameter> iParameters = new ArrayList(); //CArrayGrower<BranchParameter>
+    protected List<FunctionParameter> iParameters = new ArrayList(); //CArrayGrower<FunctionParameter>
 
     /// List of rules, sorted on precedence.
     protected List<Branch> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
@@ -62,7 +62,7 @@ public class SingleArityBranchingUserFunction extends Evaluator
         while (consTraverser.getCons() != null)
         {
             LispError.check(consTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
-            BranchParameter param = new BranchParameter(consTraverser.getCons().string(), false);
+            FunctionParameter param = new FunctionParameter(consTraverser.getCons().string(), false);
             iParameters.add(param);
             consTraverser.goNext();
         }
@@ -121,7 +121,7 @@ public class SingleArityBranchingUserFunction extends Evaluator
         for (i = 0; i < arity; i++)
         {
             LispError.check(consTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-            if (((BranchParameter) iParameters.get(i)).iHold)
+            if (((FunctionParameter) iParameters.get(i)).iHold)
             {
                 argumentsPointer[i].setCons(consTraverser.getCons().copy(false));
             } else
@@ -154,7 +154,7 @@ public class SingleArityBranchingUserFunction extends Evaluator
             // define the local variables.
             for (i = 0; i < arity; i++)
             {
-                String variable = ((BranchParameter) iParameters.get(i)).iParameter;
+                String variable = ((FunctionParameter) iParameters.get(i)).iParameter;
                 // setCons the variable to the new value
                 aEnvironment.newLocalVariable(variable, argumentsPointer[i].getCons());
             }
@@ -242,9 +242,9 @@ public class SingleArityBranchingUserFunction extends Evaluator
         int nrc = iParameters.size();
         for (i = 0; i < nrc; i++)
         {
-            if (((BranchParameter) iParameters.get(i)).iParameter == aVariable)
+            if (((FunctionParameter) iParameters.get(i)).iParameter == aVariable)
             {
-                ((BranchParameter) iParameters.get(i)).iHold = true;
+                ((FunctionParameter) iParameters.get(i)).iHold = true;
             }
         }
     }
