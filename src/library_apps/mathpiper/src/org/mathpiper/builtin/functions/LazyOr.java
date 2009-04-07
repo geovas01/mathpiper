@@ -42,7 +42,7 @@ public class LazyOr extends BuiltinFunction
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, consTraverser.ptr());
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, consTraverser.getPointer());
             if (UtilityFunctions.isTrue(aEnvironment, evaluated))
             {
                 UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

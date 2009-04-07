@@ -43,7 +43,7 @@ public class SysOut extends BuiltinFunction {
             consTraverser.goNext();
             while (consTraverser.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(consTraverser.ptr(), out, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(consTraverser.getPointer(), out, aEnvironment);
                 consTraverser.goNext();
             }
         }

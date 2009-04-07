@@ -30,34 +30,34 @@ import org.mathpiper.lisp.cons.Cons;
  */
 public class ConsTraverser
 {
-	ConsPointer iPtr;
+	ConsPointer iPointer;
 	
 	public ConsTraverser(ConsPointer aPtr)
 	{
-		iPtr = aPtr;
+		iPointer = aPtr;
 	}
 	
 	public Cons getCons()
 	{
-		return iPtr.getCons();
+		return iPointer.getCons();
 	}
 	
-	public ConsPointer ptr()
+	public ConsPointer getPointer()
 	{
-		return iPtr;
+		return iPointer;
 	}
 	
 	public void goNext() throws Exception
 	{
-		LispError.check(iPtr.getCons() != null,LispError.KLispErrListNotLongEnough);
-		iPtr = (iPtr.getCons().getRestPointer());
+		LispError.check(iPointer.getCons() != null,LispError.KLispErrListNotLongEnough);
+		iPointer = (iPointer.getCons().getRestPointer());
 	}
 	
 	public void goSub() throws Exception
 	{
-		LispError.check(iPtr.getCons() != null,LispError.KLispErrInvalidArg);
-		LispError.check(iPtr.getCons().getSublistPointer() != null,LispError.KLispErrNotList);
-		iPtr = iPtr.getCons().getSublistPointer();
+		LispError.check(iPointer.getCons() != null,LispError.KLispErrInvalidArg);
+		LispError.check(iPointer.getCons().getSublistPointer() != null,LispError.KLispErrNotList);
+		iPointer = iPointer.getCons().getSublistPointer();
 	}
 
 };
