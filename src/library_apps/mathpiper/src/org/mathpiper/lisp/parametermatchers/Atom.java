@@ -23,7 +23,7 @@ import org.mathpiper.lisp.Environment;
 
 
 /// Class for matching an expression to a given atom.
-public class Atom extends Parameter
+public class Atom extends PatternParameter
 {
 	protected String iString;
 	

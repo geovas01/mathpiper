@@ -15,24 +15,30 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+package org.mathpiper.lisp.userfunctions;
 
-package org.mathpiper.lisp.parametermatchers;
-
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.Environment;
-
-
-/// Abstract class for matching one argument to a pattern.
-public abstract class Parameter
+/**
+ * Contains the name of a parameter and if it is put on hold.
+ */
+public class FunctionParameter
 {
-	/// Check whether some expression matches to the pattern.
-	/// \param aEnvironment the underlying Lisp environment.
-	/// \param aExpression the expression to test.
-	/// \param arguments (input/output) actual values of the pattern
-	/// variables for \a aExpression.
-	public abstract boolean argumentMatches(Environment  aEnvironment,
-	                                        ConsPointer  aExpression,
-	                                        ConsPointer[]  arguments) throws Exception;
+        String iParameter;
+        boolean iHold;
 
-    public abstract String getType();
+    public FunctionParameter(String aParameter, boolean aHold /*=false*/)
+    {
+        iParameter = aParameter;
+        iHold = aHold;
+    }
+
+    public String getParameter()
+    {
+        return iParameter;
+    }
+
+    public boolean isHold()
+    {
+        return iHold;
+    }
+
 }

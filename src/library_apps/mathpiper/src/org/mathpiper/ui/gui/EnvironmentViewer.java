@@ -44,9 +44,9 @@ import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.parametermatchers.Parameter;
+import org.mathpiper.lisp.parametermatchers.PatternParameter;
 import org.mathpiper.lisp.parametermatchers.Pattern;
-import org.mathpiper.lisp.userfunctions.BranchParameter;
+import org.mathpiper.lisp.userfunctions.FunctionParameter;
 import org.mathpiper.lisp.userfunctions.PatternBranch;
 import org.mathpiper.lisp.userfunctions.Branch;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
@@ -539,7 +539,7 @@ public class EnvironmentViewer implements ActionListener {
                             Iterator parameterMatchersIterator = pattern.getParameterMatchers().iterator();
                             String parameterTypes = "";
                             while (parameterMatchersIterator.hasNext()) {
-                                Parameter parameter = (Parameter) parameterMatchersIterator.next();
+                                PatternParameter parameter = (PatternParameter) parameterMatchersIterator.next();
                                 String parameterType = (String) parameter.getType();
                                 parameterTypes += parameterType + ", ";
                             }
@@ -568,7 +568,7 @@ public class EnvironmentViewer implements ActionListener {
                         String parameters = "";
                         boolean isHold = false;
                         while (paremetersIterator.hasNext()) {
-                            BranchParameter branchParameter = (BranchParameter) paremetersIterator.next();
+                            FunctionParameter branchParameter = (FunctionParameter) paremetersIterator.next();
                             String parameter = branchParameter.getParameter();
                             isHold = branchParameter.isHold();
                             parameters += parameter + "<hold=" + isHold + ">, ";

@@ -38,7 +38,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         while (consTraverser.getCons() != null)
         {
             LispError.check(consTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
-            ((BranchParameter) iParameters.get(i)).iHold = true;
+            ((FunctionParameter) iParameters.get(i)).iHold = true;
             consTraverser.goNext();
             i++;
         }
@@ -79,7 +79,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         {
             arguments[i] = new ConsPointer();
             LispError.check(consTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-            if (((BranchParameter) iParameters.get(i)).iHold)
+            if (((FunctionParameter) iParameters.get(i)).iHold)
             {
                 arguments[i].setCons(consTraverser.getCons().copy(false));
             } else
@@ -114,7 +114,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
                 // define the local variables.
                 for (i = 0; i < arity; i++)
                 {
-                    String variable = ((BranchParameter) iParameters.get(i)).iParameter;
+                    String variable = ((FunctionParameter) iParameters.get(i)).iParameter;
                     // setCons the variable to the new value
                     aEnvironment.newLocalVariable(variable, arguments[i].getCons());
                 }

@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
 
 
 /// Class for matching an expression to a given number.
-public class Number extends Parameter
+public class Number extends PatternParameter
 {
 	protected BigNumber iNumber;
 	

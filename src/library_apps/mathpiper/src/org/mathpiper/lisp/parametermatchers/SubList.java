@@ -23,13 +23,13 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 
 
-/// Class for matching against a list of Parameter objects.
-public class SubList extends Parameter
+/// Class for matching against a list of PatternParameter objects.
+public class SubList extends PatternParameter
 {
-	protected Parameter[] iMatchers;
+	protected PatternParameter[] iMatchers;
 	protected int iNrMatchers;
 	
-	public SubList(Parameter[] aMatchers, int aNrMatchers)
+	public SubList(PatternParameter[] aMatchers, int aNrMatchers)
 	{
 		iMatchers = aMatchers;
 		iNrMatchers = aNrMatchers;
