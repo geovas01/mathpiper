@@ -181,7 +181,7 @@ public class UtilityFunctions {
 
         while (consTraverser.getCons() != null) {
             ConsPointer next = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, next, consTraverser.ptr());
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, next, consTraverser.getPointer());
             full.getCons().getRestPointer().setCons(next.getCons());
             full.setCons(next.getCons());
             consTraverser.goNext();
@@ -362,7 +362,7 @@ public class UtilityFunctions {
         ConsTraverser res = new ConsTraverser(aResult);
 
         while (orig.getCons() != null) {
-            res.ptr().setCons(orig.getCons().copy(false));
+            res.getPointer().setCons(orig.getCons().copy(false));
             orig.goNext();
             res.goNext();
         }
@@ -412,7 +412,7 @@ public class UtilityFunctions {
 
             while (consTraverser1.getCons() != null && consTraverser2.getCons() != null) {
                 // compare two list elements
-                if (!internalEquals(aEnvironment, consTraverser1.ptr(), consTraverser2.ptr())) {
+                if (!internalEquals(aEnvironment, consTraverser1.getPointer(), consTraverser2.getPointer())) {
                     return false;
                 }
 
@@ -852,7 +852,7 @@ public class UtilityFunctions {
         LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.KLispErrListNotLongEnough);
         ConsPointer next = new ConsPointer();
         next.setCons(consTraverser.getCons().getRestPointer().getCons());
-        consTraverser.ptr().setCons(next.getCons());
+        consTraverser.getPointer().setCons(next.getCons());
         BuiltinFunction.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
 
@@ -884,7 +884,7 @@ public class UtilityFunctions {
         ConsPointer toInsert = new ConsPointer();
         toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         toInsert.getCons().getRestPointer().setCons(consTraverser.getCons());
-        consTraverser.ptr().setCons(toInsert.getCons());
+        consTraverser.getPointer().setCons(toInsert.getCons());
         BuiltinFunction.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
 
@@ -916,10 +916,10 @@ public class UtilityFunctions {
 
         ConsPointer toInsert = new ConsPointer();
         toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.ptr() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.ptr().getCons() != null, 2);
-        toInsert.getCons().getRestPointer().setCons(consTraverser.ptr().getCons().getRestPointer().getCons());
-        consTraverser.ptr().setCons(toInsert.getCons());
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getPointer() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getPointer().getCons() != null, 2);
+        toInsert.getCons().getRestPointer().setCons(consTraverser.getPointer().getCons().getRestPointer().getCons());
+        consTraverser.getPointer().setCons(toInsert.getCons());
         BuiltinFunction.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
     /**

@@ -39,7 +39,7 @@ public class Write extends BuiltinFunction
             consTraverser.goNext();
             while (consTraverser.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(consTraverser.ptr(), aEnvironment.iCurrentOutput, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(consTraverser.getPointer(), aEnvironment.iCurrentOutput, aEnvironment);
                 consTraverser.goNext();
             }
         }

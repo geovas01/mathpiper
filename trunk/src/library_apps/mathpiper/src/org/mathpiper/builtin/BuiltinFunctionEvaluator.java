@@ -93,8 +93,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             ConsPointer argumentPointer = new ConsPointer();
             for (i = 0; i < numberOfArguments; i++) {
                 LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-                LispError.check(argumentsConsTraverser.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentPointer, argumentsConsTraverser.ptr());
+                LispError.check(argumentsConsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentPointer, argumentsConsTraverser.getPointer());
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentPointer.getCons());
                 argumentsConsTraverser.goNext();
             }
@@ -141,7 +141,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             argumentsConsTraverser2.goNext();
             while (argumentsConsTraverser2.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(argumentsConsTraverser2.ptr(), aEnvironment.iCurrentOutput, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(argumentsConsTraverser2.getPointer(), aEnvironment.iCurrentOutput, aEnvironment);
                 argumentsConsTraverser2.goNext();
                 argumentsCounter++;
             }*/

@@ -41,7 +41,7 @@ public class LazyAnd extends BuiltinFunction
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, consTraverser.ptr());
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, consTraverser.getPointer());
             if (UtilityFunctions.isFalse(aEnvironment, evaluated))
             {
                 UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));

@@ -109,7 +109,7 @@ public class Pattern {
             if (consTraverser.getCons() == null) {
                 return false;
             }
-            ConsPointer ptr = consTraverser.ptr();
+            ConsPointer ptr = consTraverser.getPointer();
             if (ptr == null) {
                 return false;
             }

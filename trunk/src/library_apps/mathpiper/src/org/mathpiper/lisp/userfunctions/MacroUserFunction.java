@@ -45,8 +45,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         unFence();
     }
 
-    public void evaluate( Environment aEnvironment,ConsPointer aResult,
-            ConsPointer aArguments) throws Exception
+    public void evaluate( Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception
     {
         int arity = arity();
         int i;
@@ -84,8 +83,8 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
                 arguments[i].setCons(consTraverser.getCons().copy(false));
             } else
             {
-                LispError.check(consTraverser.ptr() != null, LispError.KLispErrWrongNumberOfArgs);
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arguments[i], consTraverser.ptr());
+                LispError.check(consTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arguments[i], consTraverser.getPointer());
             }
             consTraverser.goNext();
         }

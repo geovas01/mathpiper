@@ -54,7 +54,7 @@ public class GenPatternMatches extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2);
         consTraverser.goNext();
 
-        ConsPointer ptr = consTraverser.ptr();
+        ConsPointer ptr = consTraverser.getPointer();
         LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2);
         boolean matches = patclass.matches(aEnvironment, ptr);
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), matches);

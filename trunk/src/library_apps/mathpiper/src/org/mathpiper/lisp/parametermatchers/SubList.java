@@ -48,7 +48,7 @@ public class SubList extends PatternParameter
 
 		for (i=0;i<iNrMatchers;i++)
 		{
-			ConsPointer  ptr = consTraverser.ptr();
+			ConsPointer  ptr = consTraverser.getPointer();
 			if (ptr == null)
 				return false;
 			if (consTraverser.getCons() == null)

@@ -163,7 +163,7 @@ public class MathPiperPrinter extends LispPrinter
 					WriteToken(aOutput,"{");
 					while (consTraverser.getCons() != null)
 					{
-						Print(consTraverser.ptr(), aOutput, KMaxPrecedence);
+						Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
 						consTraverser.goNext();
 						if (consTraverser.getCons() != null)
 							WriteToken(aOutput,",");
@@ -179,7 +179,7 @@ public class MathPiperPrinter extends LispPrinter
 					while (consTraverser.getCons() != null)
 					{
                         aOutput.write( spaces.toString());
-						Print(consTraverser.ptr(), aOutput, KMaxPrecedence);
+						Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
 						consTraverser.goNext();
 						WriteToken(aOutput,";");
                         aOutput.write("\n");
@@ -191,10 +191,10 @@ public class MathPiperPrinter extends LispPrinter
 				}
 				else if (string == iCurrentEnvironment.iNthAtom.string())
 				{
-					Print(consTraverser.ptr(), aOutput, 0);
+					Print(consTraverser.getPointer(), aOutput, 0);
 					consTraverser.goNext();
 					WriteToken(aOutput,"[");
-					Print(consTraverser.ptr(), aOutput, KMaxPrecedence);
+					Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
 					WriteToken(aOutput,"]");
 				}
 				else
@@ -217,7 +217,7 @@ public class MathPiperPrinter extends LispPrinter
 					}
 					WriteToken(aOutput,"(");
 
-					ConsTraverser counter = new ConsTraverser(consTraverser.ptr());
+					ConsTraverser counter = new ConsTraverser(consTraverser.getPointer());
 					int nr=0;
 
 					while (counter.getCons() != null)
@@ -230,7 +230,7 @@ public class MathPiperPrinter extends LispPrinter
 						nr--;
 					while (nr-- != 0)
 					{
-						Print(consTraverser.ptr(), aOutput, KMaxPrecedence);
+						Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
 
 						consTraverser.goNext();
 						if (nr != 0)
@@ -238,7 +238,7 @@ public class MathPiperPrinter extends LispPrinter
 					}
 					WriteToken(aOutput,")");
 					if (consTraverser.getCons() != null)
-						Print(consTraverser.ptr(), aOutput, bodied.iPrecedence);
+						Print(consTraverser.getPointer(), aOutput, bodied.iPrecedence);
 
 					if (bracket) WriteToken(aOutput,")");
 				}
