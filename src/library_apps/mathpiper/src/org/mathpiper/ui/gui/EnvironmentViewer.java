@@ -510,84 +510,11 @@ public class EnvironmentViewer implements ActionListener {
 
                     Branch branchRuleBase = (Branch) rulesIterator.next();
 
-                    try {
-                        int precedence = branchRuleBase.getPrecedence();
-                        ConsPointer predicatePointer1 = branchRuleBase.getPredicatePointer();
-                        String predicate = "";
-                        if (predicatePointer1.toString().equalsIgnoreCase("Empty.")) {
-                            predicate = "None.";
-                        } else {
-                            predicate = UtilityFunctions.printExpression(predicatePointer1, iEnvironment, 0);
-                        }
+                    String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(branchRuleBase, iEnvironment, userFunction);
+                    textArea.append(ruleDump);
+                    textArea.append("\n");
+                    textArea.setCaretPosition(textArea.getDocument().getLength());
 
-                        if (predicate.equalsIgnoreCase("\"Pattern\"")) {
-                            predicate = "(Pattern) ";
-                            PatternBranch branchPattern = (PatternBranch) branchRuleBase;
-                            Pattern pattern = branchPattern.getPattern();
-
-                            Iterator variablesIterator = pattern.getVariables().iterator();
-                            String patternVariables = "";
-                            while (variablesIterator.hasNext()) {
-                                String patternVariable = (String) variablesIterator.next();
-                                patternVariables += patternVariable + ", ";
-                            }
-                            if (patternVariables.contains(",")) {
-                                patternVariables = patternVariables.substring(0, patternVariables.lastIndexOf(","));
-                            }
-
-
-                            Iterator parameterMatchersIterator = pattern.getParameterMatchers().iterator();
-                            String parameterTypes = "";
-                            while (parameterMatchersIterator.hasNext()) {
-                                PatternParameter parameter = (PatternParameter) parameterMatchersIterator.next();
-                                String parameterType = (String) parameter.getType();
-                                parameterTypes += parameterType + ", ";
-                            }
-                            if (parameterTypes.contains(",")) {
-                                parameterTypes = parameterTypes.substring(0, parameterTypes.lastIndexOf(","));
-                            }
-
-
-
-                            Iterator patternPredicatesIterator = pattern.getPredicates().iterator();
-                            while (patternPredicatesIterator.hasNext()) {
-                                ConsPointer predicatePointer = (ConsPointer) patternPredicatesIterator.next();
-                                String patternPredicate = UtilityFunctions.printExpression(predicatePointer, iEnvironment, 0);
-                                predicate += patternPredicate + ", ";
-                            }
-                            if (predicate.contains(",")) {
-                                predicate = predicate.substring(0, predicate.lastIndexOf(","));
-                            }
-                            predicate += "\n    Variables: " + patternVariables;
-                            predicate += "\n    Types: " + parameterTypes;
-
-
-                        }//end if.
-
-                        Iterator paremetersIterator = userFunction.getParameters();
-                        String parameters = "";
-                        boolean isHold = false;
-                        while (paremetersIterator.hasNext()) {
-                            FunctionParameter branchParameter = (FunctionParameter) paremetersIterator.next();
-                            String parameter = branchParameter.getParameter();
-                            isHold = branchParameter.isHold();
-                            parameters += parameter + "<hold=" + isHold + ">, ";
-                        }
-                        if (parameters.contains(",")) {
-                            parameters = parameters.substring(0, parameters.lastIndexOf(","));
-                        }
-
-                        String body = UtilityFunctions.printExpression(branchRuleBase.getBodyPointer(), iEnvironment, 0);
-                        //System.out.println(data);
-                        textArea.append( "Precedence: " + precedence);
-                        textArea.append("\n" + "Parameters: " + parameters);
-                        textArea.append("\n" + "Predicates: " + predicate);
-                        textArea.append("\n" + "Body:\n" + body + "\n\n");
-
-                        textArea.setCaretPosition(textArea.getDocument().getLength());
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
 
                 }//end while.
 
