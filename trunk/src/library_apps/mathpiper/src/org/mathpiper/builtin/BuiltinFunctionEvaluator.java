@@ -133,18 +133,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
 
         /*Trace code */  // todo:tk:This section of code generates illegal argument errors.
-        if (isTraced()) {
-        /*ConsPointer subList = BuiltinFunction.getArgumentPointer(aEnvironment, stackTop, 1).getCons().getSublistPointer();
-        if (subList != null) {
-            int argumentsCounter = 0;
-            ConsTraverser argumentsConsTraverser2 = new ConsTraverser(subList);
-            argumentsConsTraverser2.goNext();
-            while (argumentsConsTraverser2.getCons() != null)
-            {
-                aEnvironment.iCurrentPrinter.print(argumentsConsTraverser2.getPointer(), aEnvironment.iCurrentOutput, aEnvironment);
-                argumentsConsTraverser2.goNext();
-                argumentsCounter++;
-            }*/
+     /*   if (isTraced()) {
+
                 ConsPointer[] argumentsFromStack = aEnvironment.iArgumentStack.getElements(this.iNumberOfArguments);
 
                 //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
@@ -155,8 +145,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
                     iter2.goNext();
                 }//end if.
-            //}//end if.
-        }//end if.
+        }//end if.*/
 
         iCalledBuiltinFunction.evaluate(aEnvironment, stackTop);
         aResultPointer.setCons(aEnvironment.iArgumentStack.getElement(stackTop).getCons());

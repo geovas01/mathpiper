@@ -15,11 +15,9 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp;
 
 // class EvalFuncBase defines the interface to 'something that can
-
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -28,13 +26,14 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.stacks.UserStackInformation;
 
 // evaluate'
-public abstract class Evaluator
-{
+public abstract class Evaluator {
+
     public static boolean DEBUG = false;
     public static boolean TRACE_TO_STANDARD_OUT = false;
     public static boolean VERBOSE_DEBUG = false;
     private static int evalDepth = 0;
     public static boolean iTraced = false;
+    UserStackInformation iBasicInfo = new UserStackInformation();
 
     public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
@@ -115,32 +114,32 @@ public abstract class Evaluator
         }
         traceShowExpression(aEnvironment, aExpression);
         /*if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",");
+        System.out.print(",");
         } else {
-            aEnvironment.write(",");
+        aEnvironment.write(",");
         }
         if (DEBUG) {
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print(",");
-            } else {
-                aEnvironment.write(",");
-            }
+        if (TRACE_TO_STANDARD_OUT) {
+        System.out.print(",");
         } else {
-           if (TRACE_TO_STANDARD_OUT) {
-                System.out.print("");
-            } else {
-                aEnvironment.write("");
-            }
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print(",");
-            } else {
-                aEnvironment.write(",");
-            }
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print("0");
-            } else {
-                aEnvironment.write("0");
-            }
+        aEnvironment.write(",");
+        }
+        } else {
+        if (TRACE_TO_STANDARD_OUT) {
+        System.out.print("");
+        } else {
+        aEnvironment.write("");
+        }
+        if (TRACE_TO_STANDARD_OUT) {
+        System.out.print(",");
+        } else {
+        aEnvironment.write(",");
+        }
+        if (TRACE_TO_STANDARD_OUT) {
+        System.out.print("0");
+        } else {
+        aEnvironment.write("0");
+        }
         }*/
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print(");\n");
@@ -153,12 +152,43 @@ public abstract class Evaluator
     public static void traceShowExpression(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         StringBuffer outString = new StringBuffer();
         showExpression(outString, aEnvironment, aExpression);
+
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print(outString.toString());
         } else {
             aEnvironment.write(outString.toString());
         }
-    }
+    }//end method.
+
+    public static void traceShowRule(Environment aEnvironment, ConsPointer aExpression, String ruleDump) throws Exception {
+
+        /*for (int i = 0; i < evalDepth; i++) {
+        // aEnvironment.iEvalDepth; i++) {
+        if (TRACE_TO_STANDARD_OUT) {
+        System.out.print("    ");
+        } else {
+        aEnvironment.write("    ");
+        }
+        }*/
+
+        String function = "";
+        if (aExpression.getCons().getSublistPointer() != null) {
+            ConsPointer sub = aExpression.getCons().getSublistPointer();
+            if (sub.getCons().string() != null) {
+                function = sub.getCons().string();
+            }
+        }
+
+        if (TRACE_TO_STANDARD_OUT) {
+            System.out.print("Rule in function (" + function +") matched: vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
+            System.out.print(ruleDump);
+            System.out.print("Rule end: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n");
+        } else {
+            aEnvironment.write("Rule in function (" + function +") matched: vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
+            aEnvironment.write(ruleDump);
+            aEnvironment.write("Rule end: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n");
+        }
+    }//end method.
 
     public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression, String extraInfo) throws Exception {
         evalDepth--;
@@ -187,7 +217,7 @@ public abstract class Evaluator
         } else {
             aEnvironment.write(");\n");
         }
-    }
+    }//end method.
 
     public static boolean isTraced() {
         return iTraced;
@@ -200,21 +230,16 @@ public abstract class Evaluator
     public static void traceOn() {
         iTraced = true;
     }
-    UserStackInformation iBasicInfo = new UserStackInformation();
 
-	public abstract void evaluate(Environment aEnvironment,ConsPointer aResult, ConsPointer aArgumentsOrExpression) throws Exception;
+    public abstract void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aArgumentsOrExpression) throws Exception;
 
-        public void resetStack()
-    {
+    public void resetStack() {
     }
 
-    public UserStackInformation stackInformation()
-    {
+    public UserStackInformation stackInformation() {
         return iBasicInfo;
     }
 
-    public void showStack(Environment aEnvironment, MathPiperOutputStream aOutput)
-    {
+    public void showStack(Environment aEnvironment, MathPiperOutputStream aOutput) {
     }
-    
 };

@@ -25,6 +25,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
@@ -39,6 +40,12 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.JarFileInputStream;
 import org.mathpiper.io.StandardFileInputStream;
 import org.mathpiper.io.StringOutputStream;
+import org.mathpiper.lisp.parametermatchers.Pattern;
+import org.mathpiper.lisp.parametermatchers.PatternParameter;
+import org.mathpiper.lisp.userfunctions.Branch;
+import org.mathpiper.lisp.userfunctions.FunctionParameter;
+import org.mathpiper.lisp.userfunctions.PatternBranch;
+import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 
 public class UtilityFunctions {
 
@@ -291,7 +298,7 @@ public class UtilityFunctions {
         if (expressionString == aEnvironment.iTrueString) {
             return true;
         } else if (internalIsList(aExpression)) {
-            if(listLength(aExpression.getCons().getSublistPointer()) == 1)  {
+            if (listLength(aExpression.getCons().getSublistPointer()) == 1) {
                 //Empty list.
                 return false;
             } else {
@@ -922,11 +929,11 @@ public class UtilityFunctions {
         consTraverser.getPointer().setCons(toInsert.getCons());
         BuiltinFunction.getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
+
     /**
      *Implements the MathPiper functions RuleBase and MacroRuleBase .
      * The real work is done by Environment.declareRulebase().
      */
-
     public static void internalRuleDatabase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         //TESTARGS(3);
 
@@ -1053,6 +1060,92 @@ public class UtilityFunctions {
         // Return true
         UtilityFunctions.internalTrue(aEnvironment, BuiltinFunction.getResult(aEnvironment, aStackTop));
     }
-}
+
+    public static String dumpRule(Branch branch, Environment aEnvironment, SingleArityBranchingUserFunction userFunction) {
+        StringBuilder dumpResult = new StringBuilder();
+        try {
+            int precedence = branch.getPrecedence();
+            ConsPointer predicatePointer1 = branch.getPredicatePointer();
+            String predicate = "";
+            String predicatePointerString = predicatePointer1.toString();
+            if (predicatePointerString == null || predicatePointerString.equalsIgnoreCase("Empty.")) {
+                predicate = "None.";
+            } else {
+                predicate = UtilityFunctions.printExpression(predicatePointer1, aEnvironment, 0);
+            }
+
+            if (predicate.equalsIgnoreCase("\"Pattern\"")) {
+                predicate = "(Pattern) ";
+                PatternBranch branchPattern = (PatternBranch) branch;
+                Pattern pattern = branchPattern.getPattern();
+
+                Iterator variablesIterator = pattern.getVariables().iterator();
+                String patternVariables = "";
+                while (variablesIterator.hasNext()) {
+                    String patternVariable = (String) variablesIterator.next();
+                    patternVariables += patternVariable + ", ";
+                }
+                if (patternVariables.contains(",")) {
+                    patternVariables = patternVariables.substring(0, patternVariables.lastIndexOf(","));
+                }
+
+
+                Iterator parameterMatchersIterator = pattern.getParameterMatchers().iterator();
+                String parameterTypes = "";
+                while (parameterMatchersIterator.hasNext()) {
+                    PatternParameter parameter = (PatternParameter) parameterMatchersIterator.next();
+                    String parameterType = (String) parameter.getType();
+                    parameterTypes += parameterType + ", ";
+                }
+                if (parameterTypes.contains(",")) {
+                    parameterTypes = parameterTypes.substring(0, parameterTypes.lastIndexOf(","));
+                }
+
+
+
+                Iterator patternPredicatesIterator = pattern.getPredicates().iterator();
+                while (patternPredicatesIterator.hasNext()) {
+                    ConsPointer predicatePointer = (ConsPointer) patternPredicatesIterator.next();
+                    String patternPredicate = UtilityFunctions.printExpression(predicatePointer, aEnvironment, 0);
+                    predicate += patternPredicate + ", ";
+                }
+                if (predicate.contains(",")) {
+                    predicate = predicate.substring(0, predicate.lastIndexOf(","));
+                }
+                predicate += "\n    Variables: " + patternVariables;
+                predicate += "\n    Types: " + parameterTypes;
+
+
+            }//end if.
+
+            Iterator paremetersIterator = userFunction.getParameters();
+            String parameters = "";
+            boolean isHold = false;
+            while (paremetersIterator.hasNext()) {
+                FunctionParameter branchParameter = (FunctionParameter) paremetersIterator.next();
+                String parameter = branchParameter.getParameter();
+                isHold = branchParameter.isHold();
+                parameters += parameter + "<hold=" + isHold + ">, ";
+            }
+            if (parameters.contains(",")) {
+                parameters = parameters.substring(0, parameters.lastIndexOf(","));
+            }
+
+            String body = UtilityFunctions.printExpression(branch.getBodyPointer(), aEnvironment, 0);
+            //System.out.println(data);
+
+            dumpResult.append("Precedence: " + precedence);
+            dumpResult.append("\n" + "Parameters: " + parameters);
+            dumpResult.append("\n" + "Predicates: " + predicate);
+            dumpResult.append("\n" + "Body:\n" + body + "\n");
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return dumpResult.toString();
+
+    }//end method.
+}//end class.
 
 

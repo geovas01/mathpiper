@@ -1,5 +1,5 @@
 
-***** Sun Mar 29 02:15:20 EST 2009 *****
+***** Wed Apr 08 02:58:27 EST 2009 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .75a *****
 
@@ -950,6 +950,15 @@ RoundTo(N(Cos(Pi*.5))-0,BuiltinPrecisionGet())
  which differs from 
 0
 ******************
+******************
+tests/scripts/regress.mpt: 326 
+
+(Integrate(x,a,b)Cos(x)^2)-((b-Sin((-2)*b)/2)/2-(a-Sin((-2)*a)/2)/2)
+ evaluates to 
+(Sin(2*b)/2+b)/2-(Sin(2*a)/2+a)/2-((b-(-Sin(2*b))/2)/2-(a-(-Sin(2*a))/2)/2)
+ which differs from 
+0
+******************
 Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
 Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
 Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
@@ -1010,6 +1019,15 @@ Result: True
 
 Side Effects:
 --Taylor
+******************
+tests/scripts/sums.mpt: 339 
+
+$pp12342
+ evaluates to 
+Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
+ which differs from 
+Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))
+******************
 Exception:
 ===========================
 tensors.mpt: 

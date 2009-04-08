@@ -24,6 +24,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispExpressionEvaluator;
 import org.mathpiper.lisp.cons.SubListCons;
 
@@ -45,7 +46,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         unFence();
     }
 
-    public void evaluate( Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception
+    public void evaluate( Environment aEnvironment,ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception
     {
         int arity = arity();
         int i;
@@ -54,12 +55,12 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         if (isTraced())
         {
             ConsPointer tr = new ConsPointer();
-            tr.setCons(SubListCons.getInstance(aArguments.getCons()));
+            tr.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
             LispExpressionEvaluator.traceShowEnter(aEnvironment, tr,"macro");
             tr.setCons(null);
         }
 
-        ConsTraverser consTraverser = new ConsTraverser(aArguments);
+        ConsTraverser consTraverser = new ConsTraverser(aArgumentsPointer);
         consTraverser.goNext();
 
         // unrollable arguments
@@ -93,7 +94,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         if (isTraced())
         {
             //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
-            ConsPointer iter2 = new ConsPointer(aArguments.getCons());
+            ConsPointer iter2 = new ConsPointer(aArgumentsPointer.getCons());
 
             iter2.goNext();
             for (i = 0; i < arity; i++)
@@ -132,6 +133,13 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
                     boolean matches = thisRule.matches(aEnvironment, arguments);
                     if (matches)
                     {
+                        /* Rule dump trace code. */
+                        if (isTraced()) {
+                            ConsPointer argumentsPointer = new ConsPointer();
+                            argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
+                            String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(thisRule, aEnvironment, this);
+                            Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
+                        }
                         st.iSide = 1;
 
                         BackQuoteSubstitute behaviour = new BackQuoteSubstitute(aEnvironment);
@@ -164,7 +172,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         // arguments.
         {
             ConsPointer full = new ConsPointer();
-            full.setCons(aArguments.getCons().copy(false));
+            full.setCons(aArgumentsPointer.getCons().copy(false));
             if (arity == 0)
             {
                 full.getCons().getRestPointer().setCons(null);
@@ -184,7 +192,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction
         if (isTraced())
         {
             ConsPointer tr = new ConsPointer();
-            tr.setCons(SubListCons.getInstance(aArguments.getCons()));
+            tr.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
             LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr,"macro");
             tr.setCons(null);
         }
