@@ -41,7 +41,6 @@ import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 import org.mathpiper.lisp.userfunctions.MacroUserFunction;
 
-import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 
 import org.mathpiper.lisp.userfunctions.ListedBranchingUserFunction;
 
@@ -51,6 +50,9 @@ import org.mathpiper.lisp.userfunctions.ListedMacroUserFunction;
 
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.Evaluator;
+
+import org.mathpiper.lisp.localvariables.LocalVariable;
+import org.mathpiper.lisp.localvariables.LocalVariableFrame;
 
 
 public class Environment
@@ -266,51 +268,9 @@ public class Environment
         iLocalVariablesList.add(new LocalVariable(aVariable, aValue));
     }
 
-    class LocalVariable
-    {
 
-        public LocalVariable(String aVariable, Cons aValue)
-        {
-            iNext = null;
-            iVariable = aVariable;
-            iValue.setCons(aValue);
 
-        }
-        LocalVariable iNext;
-        String iVariable;
-        ConsPointer iValue = new ConsPointer();
-    }
 
-    class LocalVariableFrame
-    {
-
-        public LocalVariableFrame(LocalVariableFrame aNext, LocalVariable aFirst)
-        {
-            iNext = aNext;
-            iFirst = aFirst;
-            iLast = aFirst;
-        }
-
-        void add(LocalVariable aNew)
-        {
-            aNew.iNext = iFirst;
-            iFirst = aNew;
-        }
-
-        void delete()
-        {
-            LocalVariable t = iFirst;
-            LocalVariable next;
-            while (t != iLast)
-            {
-                next = t.iNext;
-                t = next;
-            }
-        }
-        LocalVariableFrame iNext;
-        LocalVariable iFirst;
-        LocalVariable iLast;
-    }
 
     public int getUniqueId()
     {
