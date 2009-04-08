@@ -141,18 +141,18 @@ public class SingleArityBranchingUserFunction extends Evaluator
             argumentsTraverser.goNext();
         }
 	
-        /*Trace code */
+        /*Argument trace code */
         if (isTraced())
         {
             //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
-            ConsPointer iter2 = new ConsPointer(aArgumentsPointer.getCons());
+            ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
-            iter2.goNext();
+            traceArgumentPointer.goNext();
             for (i = 0; i < arity; i++)
             {
-                Evaluator.traceShowArg(aEnvironment, iter2, argumentsResultPointerArray[i]);
+                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[i]);
 
-                iter2.goNext();
+                traceArgumentPointer.goNext();
             }//end if.
         }//end if.
 
