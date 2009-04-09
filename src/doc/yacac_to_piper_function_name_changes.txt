@@ -67,6 +67,8 @@ etc.
 
 //Misc.
 Echo -> Print
+== -> =
+= -> ==
 
 
 
