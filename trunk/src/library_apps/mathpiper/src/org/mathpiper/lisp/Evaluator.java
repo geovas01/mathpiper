@@ -48,7 +48,8 @@ public abstract class Evaluator {
                 //outString.insert(i, '\\');
                 outString.deleteCharAt(i);
             }
-        }
+        }// end for.
+
     }
 
     public static void traceShowArg(Environment aEnvironment, ConsPointer aParam, ConsPointer aValue) throws Exception {
@@ -151,25 +152,29 @@ public abstract class Evaluator {
 
     public static void traceShowExpression(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         StringBuffer outString = new StringBuffer();
+
         showExpression(outString, aEnvironment, aExpression);
 
+        String expression = outString.toString();
+        expression = expression.replace("\n", "");
+
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(outString.toString());
+            System.out.print(expression);
         } else {
-            aEnvironment.write(outString.toString());
+            aEnvironment.write(expression);
         }
     }//end method.
 
     public static void traceShowRule(Environment aEnvironment, ConsPointer aExpression, String ruleDump) throws Exception {
 
-        /*for (int i = 0; i < evalDepth; i++) {
-        // aEnvironment.iEvalDepth; i++) {
-        if (TRACE_TO_STANDARD_OUT) {
-        System.out.print("    ");
-        } else {
-        aEnvironment.write("    ");
+        for (int i = 0; i < evalDepth; i++) {
+            // aEnvironment.iEvalDepth; i++) {
+            if (TRACE_TO_STANDARD_OUT) {
+                System.out.print("    ");
+            } else {
+                aEnvironment.write("    ");
+            }
         }
-        }*/
 
         String function = "";
         if (aExpression.getCons().getSublistPointer() != null) {
@@ -179,14 +184,16 @@ public abstract class Evaluator {
             }
         }
 
+        ruleDump = ruleDump.replace("\n", "");
+
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Rule in function (" + function +") matched: vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
+            System.out.print("**** Rule in function (" + function + ") matched: ");
             System.out.print(ruleDump);
-            System.out.print("Rule end: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n");
+            System.out.print("\n");
         } else {
-            aEnvironment.write("Rule in function (" + function +") matched: vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
+            aEnvironment.write("**** Rule in function (" + function + ") matched: ");
             aEnvironment.write(ruleDump);
-            aEnvironment.write("Rule end: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n");
+            aEnvironment.write("\n");
         }
     }//end method.
 

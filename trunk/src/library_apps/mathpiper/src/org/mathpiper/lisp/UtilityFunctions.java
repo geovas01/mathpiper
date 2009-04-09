@@ -1134,10 +1134,10 @@ public class UtilityFunctions {
             String body = UtilityFunctions.printExpression(branch.getBodyPointer(), aEnvironment, 0);
             //System.out.println(data);
 
-            dumpResult.append("Precedence: " + precedence);
-            dumpResult.append("\n" + "Parameters: " + parameters);
-            dumpResult.append("\n" + "Predicates: " + predicate);
-            dumpResult.append("\n" + "Body:\n" + body + "\n");
+            dumpResult.append("Precedence: " + precedence +", ");
+            dumpResult.append("\n" + "Parameters: " + parameters +", ");
+            dumpResult.append("\n" + "Predicates: " + predicate +", ");
+            dumpResult.append("\n" + "Body: \n" + body + "\n");
 
 
         } catch (Exception ex) {
