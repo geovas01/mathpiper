@@ -3,6 +3,31 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Why does this code accept symbolicEquation in RuleBase but work with just _s in f()?
+%mathpiper
+Retract("f",*);
+
+RuleBase("f",{symbolicEquation});
+HoldArg("f",s);
+10 # f(_s)  <--
+[
+    Echo(s);
+];
+
+%/mathpiper
+Name: f
+Source Script: Not specified in a .def file.
+
+Precedence: 10, 
+Parameters: symbolicEquation<hold=false>, 
+Predicates: (Pattern) True, 
+    Variables: s,
+    Types: Variable, 
+Body: 
+[
+    Echo(s);
+]
+
 +Need to add monospaced font that is already being included for the u6502 plugin to MathRider as a whole.
 +HotEqn doesn't render exponent if there is a space between them and parentheses:
     %hoteqn,preserve="false"
