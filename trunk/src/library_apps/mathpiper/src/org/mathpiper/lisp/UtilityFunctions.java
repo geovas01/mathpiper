@@ -1109,10 +1109,10 @@ public class UtilityFunctions {
                     String patternPredicate = UtilityFunctions.printExpression(predicatePointer, aEnvironment, 0);
                     predicate += patternPredicate + ", ";
                 }
-                if (predicate.contains(",")) {
+                /*if (predicate.contains(",")) {
                     predicate = predicate.substring(0, predicate.lastIndexOf(","));
-                }
-                predicate += "\n    Variables: " + patternVariables;
+                }*/
+                predicate += "\n    Variables: " + patternVariables + ",";
                 predicate += "\n    Types: " + parameterTypes;
 
 
