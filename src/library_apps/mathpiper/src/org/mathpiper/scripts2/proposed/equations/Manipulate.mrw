@@ -1,32 +1,58 @@
 %mathpiper
 
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
 Retract("Manipulate",*);
 
-
-10 # Manipulate(_symbolicEquation)_HasFunc(symbolicEquation, "==") <--
+RuleBase("Manipulate",{symbolicEquation});
+HoldArg("Manipulate",symbolicEquation);
+10 # Manipulate(_symbolicEquation)_HasFunc(Eval(symbolicEquation), "==") <--
 [
-    //Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equIndex, leftOrder, rightOrder);
-    
+    Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equIndex, leftOrder, rightOrder);
+
     listForm := Listify(symbolicEquation);
     
     operator := listForm[1];
     
-    If(HasFunc(listForm[2],"==" ), [operandIndex := 3; equIndex := 2; ], [ operandIndex := 2; equIndex := 3;]);
+    If(HasFunc(Eval(listForm[2]),"==" ), [operandIndex := 3; equIndex := 2; ], [ operandIndex := 2; equIndex := 3;]);
     
     operand := listForm[operandIndex];
-    left := EquLeft(listForm[equIndex]);
-    right := EquRight(listForm[equIndex]);
+    equation := Eval(listForm[equIndex]);
+    left := EquLeft(equation);
+    right := EquRight(equation);
     
-    If(operator = ^, [ leftOrder := `({left,operand});rightOrder := `({right,operand});],  [leftOrder := `({operand,left}); rightOrder := `({operand,right});]);
+    If(operandIndex = 3, [ leftOrder := `({left,operand});rightOrder := `({right,operand});],  [leftOrder := `({operand,left}); rightOrder := `({operand,right});]);
     
     
     leftManipulated := ExpandBrackets(Simplify(Apply(String(operator), leftOrder)));
-    rightManipulated := ExpandBrackets(Simplify(Apply(String(operator), rightOrder)));
+    rightManipulated := ExpandBrackets(Simplify(Apply(String(operator), rightOrder)));   
     
     leftManipulated == rightManipulated;
 
 ];
 
-
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+%mathpiper,scope="nobuild",subtype="test"
+
+Clear(equ,a);
+
+equ := y == m*x+b;
+
+Tell(1, Manipulate(2*equ));
+Tell(2, Manipulate(2*equ));
+Tell(3, Manipulate(equ*2));
+Tell(4, Manipulate(2/equ));
+Tell(5, Manipulate(equ/2));
+Tell(6, Manipulate(equ^2));
+
+equ := Sqrt(a) == 3;
+
+Tell(7, Manipulate(equ^2));
+
+%/mathpiper
