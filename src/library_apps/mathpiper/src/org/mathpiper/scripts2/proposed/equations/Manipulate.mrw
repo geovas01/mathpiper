@@ -8,16 +8,16 @@ RuleBase("Manipulate",{symbolicEquation});
 HoldArg("Manipulate",symbolicEquation);
 10 # Manipulate(_symbolicEquation)_HasFunc(Eval(symbolicEquation), "==") <--
 [
-    Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equIndex, leftOrder, rightOrder);
+    Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equationIndex, leftOrder, rightOrder);
 
     listForm := Listify(symbolicEquation);
     
     operator := listForm[1];
     
-    If(HasFunc(Eval(listForm[2]),"==" ), [operandIndex := 3; equIndex := 2; ], [ operandIndex := 2; equIndex := 3;]);
+    If(HasFunc(Eval(listForm[2]),"==" ), [operandIndex := 3; equationIndex := 2; ], [ operandIndex := 2; equationIndex := 3;]);
     
     operand := listForm[operandIndex];
-    equation := Eval(listForm[equIndex]);
+    equation := Eval(listForm[equationIndex]);
     left := EquLeft(equation);
     right := EquRight(equation);
     
@@ -33,9 +33,6 @@ HoldArg("Manipulate",symbolicEquation);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 %mathpiper,scope="nobuild",subtype="test"
@@ -43,16 +40,16 @@ HoldArg("Manipulate",symbolicEquation);
 Clear(equ,a);
 
 equ := y == m*x+b;
-
 Tell(1, Manipulate(2*equ));
-Tell(2, Manipulate(2*equ));
-Tell(3, Manipulate(equ*2));
-Tell(4, Manipulate(2/equ));
-Tell(5, Manipulate(equ/2));
-Tell(6, Manipulate(equ^2));
+Tell(2, Manipulate(equ*2));
+Tell(3, Manipulate(2/equ));
+Tell(4, Manipulate(equ/2));
+Tell(5, Manipulate(equ^2));
 
 equ := Sqrt(a) == 3;
-
-Tell(7, Manipulate(equ^2));
+Tell(6, Manipulate(equ^2));
 
 %/mathpiper
+
+
+
