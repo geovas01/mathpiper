@@ -57,7 +57,9 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     public SingleArityBranchingUserFunction(ConsPointer aParameters) throws Exception {
         // iParameterList and #iParameters are setCons from \a aParameters.
         iParameterList.setCons(aParameters.getCons());
+
         ConsTraverser parameterTraverser = new ConsTraverser(aParameters);
+
         while (parameterTraverser.getCons() != null) {
             LispError.check(parameterTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
             FunctionParameter parameter = new FunctionParameter(parameterTraverser.getCons().string(), false);
