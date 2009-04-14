@@ -146,28 +146,31 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             }//end if.
         }//end if.
 
-        // declare a new local stack.
+        // Create a new local variables frame
         aEnvironment.pushLocalFrame(fenced());
+	
         try {
             // define the local variables.
             for (i = 0; i < arity; i++) {
-                String variable = ((FunctionParameter) iParameters.get(i)).iParameter;
+                String variableName = ((FunctionParameter) iParameters.get(i)).iParameter;
                 // set the variable to the new value
-                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[i].getCons());
+                aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[i].getCons());
             }
 
             // walk the rules database, returning the evaluated result if the
             // predicate is true.
             int numberOfRules = iBranchRules.size();
+	    
             UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
+	    
             for (i = 0; i < numberOfRules; i++) {
                 Branch thisRule = ((Branch) iBranchRules.get(i));
                 LispError.lispAssert(thisRule != null);
 
-
-
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
+		
                 boolean matches = thisRule.matches(aEnvironment, argumentsResultPointerArray);
+		
                 if (matches) {
                     
                     /* Rule dump trace code. */
@@ -179,9 +182,10 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     }
 
                     userStackInformation.iSide = 1;
+		    
                     aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
 
-                    /*Trace code */
+                    /*Leave trace code */
                     if (isTraced()) {
                         ConsPointer argumentsPointer2 = new ConsPointer();
                         argumentsPointer2.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
@@ -190,15 +194,17 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     }//end if.
 
                     return;
-                }
+                }//end if matches.
 
                 // If rules got inserted, walk back
                 while (thisRule != ((Branch) iBranchRules.get(i)) && i > 0) {
                     i--;
                 }
-            }            // No predicate was true: return a new expression with the evaluated
+            }//end for.
+	    
+	    
+	    // No predicate was true: return a new expression with the evaluated
             // arguments.
-
             ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.getCons().copy(false));
             if (arity == 0) {
