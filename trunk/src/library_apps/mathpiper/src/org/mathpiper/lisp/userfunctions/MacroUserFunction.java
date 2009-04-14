@@ -40,6 +40,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
             parameterTraverser.goNext();
             i++;
         }
+	//Macros are all unfenced.
         unFence();
     }
 
