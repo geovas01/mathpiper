@@ -85,7 +85,7 @@ public class Environment
     public int iMaxEvalDepth = 10000;
     //TODO FIXME
     public ArgumentStack iArgumentStack;
-    public LocalVariableFrame iLocalVariablesList;
+    public LocalVariableFrame iLocalVariablesFrame;
     public boolean iSecure = false;
     public int iLastUniqueId = 1;
     public MathPiperOutputStream iCurrentOutput = null;
@@ -171,23 +171,6 @@ public class Environment
     }
 
 
-    public ConsPointer findLocalVariable(String aVariable) throws Exception
-    {
-        LispError.check(iLocalVariablesList != null, LispError.KLispErrInvalidStack);
-        //    check(iLocalsList.iFirst != null,KLispErrInvalidStack);
-        LocalVariable t = iLocalVariablesList.iFirst;
-
-        while (t != null)
-        {
-            if (t.iVariable == aVariable)
-            {
-                return t.iValue;
-            }
-            t = t.iNext;
-        }
-        return null;
-    }
-
     public void setGlobalVariable(String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception
     {
         ConsPointer localVariable = findLocalVariable(aVariable);
@@ -230,6 +213,25 @@ public class Environment
         }
     }
 
+
+        public ConsPointer findLocalVariable(String aVariable) throws Exception
+    {
+        LispError.check(iLocalVariablesFrame != null, LispError.KLispErrInvalidStack);
+        //    check(iLocalsList.iFirst != null,KLispErrInvalidStack);
+        LocalVariable localVariable = iLocalVariablesFrame.iFirst;
+
+        while (localVariable != null)
+        {
+            if (localVariable.iVariable == aVariable)
+            {
+                return localVariable.iValue;
+            }
+            localVariable = localVariable.iNext;
+        }
+        return null;
+    }//end method.
+        
+
     public void unsetLocalVariable(String aString) throws Exception
     {
         ConsPointer localVariable = findLocalVariable(aString);
@@ -241,31 +243,33 @@ public class Environment
         iGlobalState.release(aString);
     }
 
+
+    public void newLocalVariable(String aVariable, Cons aValue) throws Exception
+    {
+        LispError.lispAssert(iLocalVariablesFrame != null);
+        iLocalVariablesFrame.add(new LocalVariable(aVariable, aValue));
+    }
+
+
     public void pushLocalFrame(boolean aFenced)
     {
         if (aFenced)
         {
-            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesList, null);
-            iLocalVariablesList = newLocalVariableFrame;
+            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesFrame, null);
+            iLocalVariablesFrame = newLocalVariableFrame;
         } else
         {
-            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesList, iLocalVariablesList.iFirst);
-            iLocalVariablesList = newLocalVariableFrame;
+            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesFrame, iLocalVariablesFrame.iFirst);
+            iLocalVariablesFrame = newLocalVariableFrame;
         }
     }
 
     public void popLocalFrame() throws Exception
     {
-        LispError.lispAssert(iLocalVariablesList != null);
-        LocalVariableFrame nextLocalVariableFrame = iLocalVariablesList.iNext;
-        iLocalVariablesList.delete();
-        iLocalVariablesList = nextLocalVariableFrame;
-    }
-
-    public void newLocalVariable(String aVariable, Cons aValue) throws Exception
-    {
-        LispError.lispAssert(iLocalVariablesList != null);
-        iLocalVariablesList.add(new LocalVariable(aVariable, aValue));
+        LispError.lispAssert(iLocalVariablesFrame != null);
+        LocalVariableFrame nextLocalVariableFrame = iLocalVariablesFrame.iNext;
+        iLocalVariablesFrame.delete();
+        iLocalVariablesFrame = nextLocalVariableFrame;
     }
 
 
