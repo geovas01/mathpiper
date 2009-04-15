@@ -69,6 +69,7 @@ etc.
 Echo -> Print
 == -> =
 = -> ==
+D -> Derive //Because syntax highlighting in D is too general.
 
 
 
