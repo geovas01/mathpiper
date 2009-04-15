@@ -99,7 +99,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
         ConsTraverser argumentsTraverser = new ConsTraverser(aArgumentsPointer);
 
-        //Strip the word "Function" from the head of the list.
+        //Strip the function name from the head of the list.
         argumentsTraverser.goNext();
 
         //Creat an array which holds pointers to each argument.
@@ -146,7 +146,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             }//end if.
         }//end if.
 
-        // Create a new local variables frame
+        // Create a new local variables frame that has the same fenced state as this function.
         aEnvironment.pushLocalFrame(fenced());
 	
         try {
