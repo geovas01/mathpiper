@@ -87,7 +87,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
      */
     public void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
-        int i;
+        int parameterIndex;
 
         /*Enter trace code*/
         if (isTraced()) {
@@ -109,18 +109,18 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         } else {
             LispError.lispAssert(arity > 0);
             argumentsResultPointerArray = new ConsPointer[arity];
-            for (i = 0; i < arity; i++) {
-                argumentsResultPointerArray[i] = new ConsPointer();
+            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+                argumentsResultPointerArray[parameterIndex] = new ConsPointer();
             }
         }
 
         // Walk over all arguments, evaluating them as necessary ********************************************************
-        for (i = 0; i < arity; i++) {
+        for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
             LispError.check(argumentsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 
-            if (((FunctionParameter) iParameters.get(i)).iHold) {
+            if (((FunctionParameter) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
-                argumentsResultPointerArray[i].setCons(argumentsTraverser.getCons().copy(false));
+                argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy(false));
             } else {
                 //If the parameter is not on hold:
 
@@ -128,7 +128,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 LispError.check(argumentsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[i], argumentsTraverser.getPointer());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[parameterIndex], argumentsTraverser.getPointer());
             }
             argumentsTraverser.goNext();
         }
@@ -139,8 +139,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
             traceArgumentPointer.goNext();
-            for (i = 0; i < arity; i++) {
-                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[i]);
+            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[parameterIndex]);
 
                 traceArgumentPointer.goNext();
             }//end if.
@@ -151,10 +151,10 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 	
         try {
             // define the local variables.
-            for (i = 0; i < arity; i++) {
-                String variableName = ((FunctionParameter) iParameters.get(i)).iParameter;
+            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+                String variableName = ((FunctionParameter) iParameters.get(parameterIndex)).iParameter;
                 // set the variable to the new value
-                aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[i].getCons());
+                aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[parameterIndex].getCons());
             }
 
             // walk the rules database, returning the evaluated result if the
@@ -163,8 +163,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 	    
             UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
 	    
-            for (i = 0; i < numberOfRules; i++) {
-                Branch thisRule = ((Branch) iBranchRules.get(i));
+            for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
+                Branch thisRule = ((Branch) iBranchRules.get(parameterIndex));
                 LispError.lispAssert(thisRule != null);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
@@ -197,8 +197,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 }//end if matches.
 
                 // If rules got inserted, walk back
-                while (thisRule != ((Branch) iBranchRules.get(i)) && i > 0) {
-                    i--;
+                while (thisRule != ((Branch) iBranchRules.get(parameterIndex)) && parameterIndex > 0) {
+                    parameterIndex--;
                 }
             }//end for.
 	    
@@ -211,8 +211,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 full.getCons().getRestPointer().setCons(null);
             } else {
                 full.getCons().getRestPointer().setCons(argumentsResultPointerArray[0].getCons());
-                for (i = 0; i < arity - 1; i++) {
-                    argumentsResultPointerArray[i].getCons().getRestPointer().setCons(argumentsResultPointerArray[i + 1].getCons());
+                for (parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
+                    argumentsResultPointerArray[parameterIndex].getCons().getRestPointer().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
             aResult.setCons(SubListCons.getInstance(full.getCons()));
