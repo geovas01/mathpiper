@@ -112,6 +112,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
 
         if (substitutedBodyPointer.getCons() != null) {
+            //Note:tk:substituted body must be evaluated after the local frame has been popped.
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, substitutedBodyPointer);
         } else // No predicate was true: return a new expression with the evaluated
         // arguments.
