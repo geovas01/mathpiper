@@ -46,7 +46,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
     public void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
-        int ruleIndex;
+        int parameterIndex;
 
         /*Enter trace code*/
         if (isTraced()) {
@@ -71,14 +71,14 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
         }
 
         // Walk over all arguments, evaluating them as necessary ********************************************************
-        for (ruleIndex = 0; ruleIndex < arity; ruleIndex++) {
-            argumentsResultPointerArray[ruleIndex] = new ConsPointer();
+        for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+            argumentsResultPointerArray[parameterIndex] = new ConsPointer();
 
             LispError.check(argumentsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 
-            if (((FunctionParameter) iParameters.get(ruleIndex)).iHold) {
+            if (((FunctionParameter) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
-                argumentsResultPointerArray[ruleIndex].setCons(argumentsTraverser.getCons().copy(false));
+                argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy(false));
             } else {
                 //If the parameter is not on hold:
 
@@ -86,7 +86,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                 LispError.check(argumentsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[ruleIndex], argumentsTraverser.getPointer());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[parameterIndex], argumentsTraverser.getPointer());
             }
             argumentsTraverser.goNext();
         }
@@ -97,33 +97,33 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
             ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
             traceArgumentPointer.goNext();
-            for (ruleIndex = 0; ruleIndex < arity; ruleIndex++) {
-                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[ruleIndex]);
+            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[parameterIndex]);
 
                 traceArgumentPointer.goNext();
             }//end if.
         }//end if.
 
-        ConsPointer substedBody = new ConsPointer();
+        ConsPointer substitutedBodyPointer = new ConsPointer();
 
         //Create a new local variable frame that is unfenced (false = unfenced).
         aEnvironment.pushLocalFrame(false);
 
         try {
             // define the local variables.
-            for (ruleIndex = 0; ruleIndex < arity; ruleIndex++) {
-                String variable = ((FunctionParameter) iParameters.get(ruleIndex)).iParameter;
+            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+                String variable = ((FunctionParameter) iParameters.get(parameterIndex)).iParameter;
 
                 // setCons the variable to the new value
-                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[ruleIndex].getCons());
+                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex].getCons());
             }
 
             // walk the rules database, returning the evaluated result if the
             // predicate is true.
             int numberOfRules = iBranchRules.size();
             UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
-            for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
-                Branch thisRule = ((Branch) iBranchRules.get(ruleIndex));
+            for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
+                Branch thisRule = ((Branch) iBranchRules.get(parameterIndex));
                 //TODO remove            CHECKPTR(thisRule);
                 LispError.lispAssert(thisRule != null);
 
@@ -143,14 +143,15 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
                     BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
 
-                    UtilityFunctions.substitute(substedBody, thisRule.getBodyPointer(), backQuoteSubstitute);
+                    ConsPointer originalBodyPointer =  thisRule.getBodyPointer();
+                    UtilityFunctions.substitute(substitutedBodyPointer,originalBodyPointer, backQuoteSubstitute);
                     //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                     break;
                 }
 
                 // If rules got inserted, walk back
-                while (thisRule != ((Branch) iBranchRules.get(ruleIndex)) && ruleIndex > 0) {
-                    ruleIndex--;
+                while (thisRule != ((Branch) iBranchRules.get(parameterIndex)) && parameterIndex > 0) {
+                    parameterIndex--;
                 }
             }
         } catch (Exception e) {
@@ -161,8 +162,8 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
 
 
-        if (substedBody.getCons() != null) {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, substedBody);
+        if (substitutedBodyPointer.getCons() != null) {
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, substitutedBodyPointer);
         } else // No predicate was true: return a new expression with the evaluated
         // arguments.
         {
@@ -172,8 +173,8 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                 full.getCons().getRestPointer().setCons(null);
             } else {
                 full.getCons().getRestPointer().setCons(argumentsResultPointerArray[0].getCons());
-                for (ruleIndex = 0; ruleIndex < arity - 1; ruleIndex++) {
-                    argumentsResultPointerArray[ruleIndex].getCons().getRestPointer().setCons(argumentsResultPointerArray[ruleIndex + 1].getCons());
+                for (parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
+                    argumentsResultPointerArray[parameterIndex].getCons().getRestPointer().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
             aResult.setCons(SubListCons.getInstance(full.getCons()));

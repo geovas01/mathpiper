@@ -43,8 +43,10 @@ public class BackQuoteSubstitute implements Substitute
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
 		if (aElement.getCons().getSublistPointer() == null) return false;
+
 		Cons ptr = aElement.getCons().getSublistPointer().getCons();
 		if (ptr == null) return false;
+
 		if (ptr.string() == null) return false;
 
 		if (ptr.string().equals("`"))
@@ -55,9 +57,12 @@ public class BackQuoteSubstitute implements Substitute
 
 		if (!ptr.string().equals("@"))
 			return false;
+
 		ptr = ptr.getRestPointer().getCons();
+
 		if (ptr == null)
 			return false;
+
 		if (ptr.string() != null)
 		{
 			ConsPointer cur = new ConsPointer();
