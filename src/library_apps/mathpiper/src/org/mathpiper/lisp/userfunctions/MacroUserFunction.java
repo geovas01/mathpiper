@@ -40,13 +40,13 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
             parameterTraverser.goNext();
             i++;
         }
-	//Macros are all unfenced.
+        //Macros are all unfenced.
         unFence();
     }
 
     public void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
-        int i;
+        int ruleIndex;
 
         /*Enter trace code*/
         if (isTraced()) {
@@ -58,7 +58,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
         ConsTraverser argumentsTraverser = new ConsTraverser(aArgumentsPointer);
 
-        //Strip the word "Function" from the head of the list.
+        //Strip the function name from the head of the list.
         argumentsTraverser.goNext();
 
         //Creat an array which holds pointers to each argument.
@@ -70,15 +70,15 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
             argumentsResultPointerArray = new ConsPointer[arity];
         }
 
-         // Walk over all arguments, evaluating them as necessary ********************************************************
-        for (i = 0; i < arity; i++) {
-            argumentsResultPointerArray[i] = new ConsPointer();
+        // Walk over all arguments, evaluating them as necessary ********************************************************
+        for (ruleIndex = 0; ruleIndex < arity; ruleIndex++) {
+            argumentsResultPointerArray[ruleIndex] = new ConsPointer();
 
             LispError.check(argumentsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 
-            if (((FunctionParameter) iParameters.get(i)).iHold) {
+            if (((FunctionParameter) iParameters.get(ruleIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
-                argumentsResultPointerArray[i].setCons(argumentsTraverser.getCons().copy(false));
+                argumentsResultPointerArray[ruleIndex].setCons(argumentsTraverser.getCons().copy(false));
             } else {
                 //If the parameter is not on hold:
 
@@ -86,7 +86,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                 LispError.check(argumentsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[i], argumentsTraverser.getPointer());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[ruleIndex], argumentsTraverser.getPointer());
             }
             argumentsTraverser.goNext();
         }
@@ -97,63 +97,68 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
             ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
             traceArgumentPointer.goNext();
-            for (i = 0; i < arity; i++) {
-                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[i]);
+            for (ruleIndex = 0; ruleIndex < arity; ruleIndex++) {
+                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[ruleIndex]);
 
                 traceArgumentPointer.goNext();
             }//end if.
         }//end if.
 
         ConsPointer substedBody = new ConsPointer();
-        {
-            // declare a new local stack.
-            aEnvironment.pushLocalFrame(false);
-            try {
-                // define the local variables.
-                for (i = 0; i < arity; i++) {
-                    String variable = ((FunctionParameter) iParameters.get(i)).iParameter;
-                    // setCons the variable to the new value
-                    aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[i].getCons());
-                }
 
-                // walk the rules database, returning the evaluated result if the
-                // predicate is true.
-                int nrRules = iBranchRules.size();
-                UserStackInformation st = aEnvironment.iLispExpressionEvaluator.stackInformation();
-                for (i = 0; i < nrRules; i++) {
-                    Branch thisRule = ((Branch) iBranchRules.get(i));
-                    //TODO remove            CHECKPTR(thisRule);
-                    LispError.lispAssert(thisRule != null);
+        //Create a new local variable frame that is unfenced (false = unfenced).
+        aEnvironment.pushLocalFrame(false);
 
-                    st.iRulePrecedence = thisRule.getPrecedence();
-                    boolean matches = thisRule.matches(aEnvironment, argumentsResultPointerArray);
-                    if (matches) {
-                        /* Rule dump trace code. */
-                        if (isTraced()) {
-                            ConsPointer argumentsPointer = new ConsPointer();
-                            argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                            String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(thisRule, aEnvironment, this);
-                            Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
-                        }
-                        st.iSide = 1;
+        try {
+            // define the local variables.
+            for (ruleIndex = 0; ruleIndex < arity; ruleIndex++) {
+                String variable = ((FunctionParameter) iParameters.get(ruleIndex)).iParameter;
 
-                        BackQuoteSubstitute behaviour = new BackQuoteSubstitute(aEnvironment);
-                        UtilityFunctions.substitute(substedBody, thisRule.getBodyPointer(), behaviour);
-                        //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
-                        break;
-                    }
-
-                    // If rules got inserted, walk back
-                    while (thisRule != ((Branch) iBranchRules.get(i)) && i > 0) {
-                        i--;
-                    }
-                }
-            } catch (Exception e) {
-                throw e;
-            } finally {
-                aEnvironment.popLocalFrame();
+                // setCons the variable to the new value
+                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[ruleIndex].getCons());
             }
+
+            // walk the rules database, returning the evaluated result if the
+            // predicate is true.
+            int numberOfRules = iBranchRules.size();
+            UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
+            for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
+                Branch thisRule = ((Branch) iBranchRules.get(ruleIndex));
+                //TODO remove            CHECKPTR(thisRule);
+                LispError.lispAssert(thisRule != null);
+
+                userStackInformation.iRulePrecedence = thisRule.getPrecedence();
+
+                boolean matches = thisRule.matches(aEnvironment, argumentsResultPointerArray);
+
+                if (matches) {
+                    /* Rule dump trace code. */
+                    if (isTraced()) {
+                        ConsPointer argumentsPointer = new ConsPointer();
+                        argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
+                        String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(thisRule, aEnvironment, this);
+                        Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
+                    }
+                    userStackInformation.iSide = 1;
+
+                    BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
+
+                    UtilityFunctions.substitute(substedBody, thisRule.getBodyPointer(), backQuoteSubstitute);
+                    //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
+                    break;
+                }
+
+                // If rules got inserted, walk back
+                while (thisRule != ((Branch) iBranchRules.get(ruleIndex)) && ruleIndex > 0) {
+                    ruleIndex--;
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            aEnvironment.popLocalFrame();
         }
+
 
 
         if (substedBody.getCons() != null) {
@@ -167,15 +172,15 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                 full.getCons().getRestPointer().setCons(null);
             } else {
                 full.getCons().getRestPointer().setCons(argumentsResultPointerArray[0].getCons());
-                for (i = 0; i < arity - 1; i++) {
-                    argumentsResultPointerArray[i].getCons().getRestPointer().setCons(argumentsResultPointerArray[i + 1].getCons());
+                for (ruleIndex = 0; ruleIndex < arity - 1; ruleIndex++) {
+                    argumentsResultPointerArray[ruleIndex].getCons().getRestPointer().setCons(argumentsResultPointerArray[ruleIndex + 1].getCons());
                 }
             }
             aResult.setCons(SubListCons.getInstance(full.getCons()));
         }
         //FINISH:
 
-        /*Trace code */
+        /*Leave trace code */
         if (isTraced()) {
             ConsPointer tr = new ConsPointer();
             tr.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
