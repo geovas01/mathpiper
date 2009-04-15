@@ -48,6 +48,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 /// evaluate the function with some arguments.
     boolean iFenced = true;
 
+    protected String functionType = "user";
+
     /**
      * Constructor.
      *
@@ -87,68 +89,14 @@ public class SingleArityBranchingUserFunction extends Evaluator {
      */
     public void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
+        ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aArgumentsPointer);
         int parameterIndex;
-
-        /*Enter trace code*/
-        if (isTraced()) {
-            ConsPointer argumentsPointer = new ConsPointer();
-            argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-            Evaluator.traceShowEnter(aEnvironment, argumentsPointer, "user");
-            argumentsPointer.setCons(null);
-        }
-
-        ConsTraverser argumentsTraverser = new ConsTraverser(aArgumentsPointer);
-
-        //Strip the function name from the head of the list.
-        argumentsTraverser.goNext();
-
-        //Creat an array which holds pointers to each argument.
-        ConsPointer[] argumentsResultPointerArray;
-        if (arity == 0) {
-            argumentsResultPointerArray = null;
-        } else {
-            LispError.lispAssert(arity > 0);
-            argumentsResultPointerArray = new ConsPointer[arity];
-            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
-                argumentsResultPointerArray[parameterIndex] = new ConsPointer();
-            }
-        }
-
-        // Walk over all arguments, evaluating them as necessary ********************************************************
-        for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
-            LispError.check(argumentsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-
-            if (((FunctionParameter) iParameters.get(parameterIndex)).iHold) {
-                //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
-                argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy(false));
-            } else {
-                //If the parameter is not on hold:
-
-                //Verify that the pointer to the arguments is not null.
-                LispError.check(argumentsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
-
-                //Evaluate each argument and place the result into argumentsResultPointerArray[i];
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[parameterIndex], argumentsTraverser.getPointer());
-            }
-            argumentsTraverser.goNext();
-        }
-
-        /*Argument trace code */
-        if (isTraced()) {
-            //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
-            ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
-
-            traceArgumentPointer.goNext();
-            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
-                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[parameterIndex]);
-
-                traceArgumentPointer.goNext();
-            }//end if.
-        }//end if.
 
         // Create a new local variables frame that has the same fenced state as this function.
         aEnvironment.pushLocalFrame(fenced());
-	
+
+       
+
         try {
             // define the local variables.
             for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
@@ -189,7 +137,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     if (isTraced()) {
                         ConsPointer argumentsPointer2 = new ConsPointer();
                         argumentsPointer2.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                        Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, "user");
+                        Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType);
                         argumentsPointer2.setCons(null);
                     }//end if.
 
@@ -222,7 +170,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             if (isTraced()) {
                 ConsPointer argumentsPointer3 = new ConsPointer();
                 argumentsPointer3.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, "user");
+                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType);
                 argumentsPointer3.setCons(null);
             }
 
@@ -232,6 +180,73 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             aEnvironment.popLocalFrame();
         }
     }
+
+
+    protected ConsPointer[] evaluateArguments(Environment aEnvironment, ConsPointer aArgumentsPointer) throws Exception
+    {
+         int arity = arity();
+        int parameterIndex;
+
+        /*Enter trace code*/
+        if (isTraced()) {
+            ConsPointer argumentsPointer = new ConsPointer();
+            argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
+            Evaluator.traceShowEnter(aEnvironment, argumentsPointer, functionType);
+            argumentsPointer.setCons(null);
+        }
+
+        ConsTraverser argumentsTraverser = new ConsTraverser(aArgumentsPointer);
+
+        //Strip the function name from the head of the list.
+        argumentsTraverser.goNext();
+
+        //Creat an array which holds pointers to each argument.
+        ConsPointer[] argumentsResultPointerArray;
+        if (arity == 0) {
+            argumentsResultPointerArray = null;
+        } else {
+            LispError.lispAssert(arity > 0);
+            argumentsResultPointerArray = new ConsPointer[arity];
+        }
+
+        // Walk over all arguments, evaluating them as necessary ********************************************************
+        for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+
+            argumentsResultPointerArray[parameterIndex] = new ConsPointer();
+
+            LispError.check(argumentsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
+
+            if (((FunctionParameter) iParameters.get(parameterIndex)).iHold) {
+                //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
+                argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy(false));
+            } else {
+                //If the parameter is not on hold:
+
+                //Verify that the pointer to the arguments is not null.
+                LispError.check(argumentsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
+
+                //Evaluate each argument and place the result into argumentsResultPointerArray[i];
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[parameterIndex], argumentsTraverser.getPointer());
+            }
+            argumentsTraverser.goNext();
+        }//end for.
+
+        /*Argument trace code */
+        if (isTraced()) {
+            //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
+            ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
+
+            traceArgumentPointer.goNext();
+            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[parameterIndex]);
+
+                traceArgumentPointer.goNext();
+            }//end if.
+        }//end if.
+
+        return argumentsResultPointerArray;
+
+    }//end method.
 
     /**
      * Put an argument on hold.
