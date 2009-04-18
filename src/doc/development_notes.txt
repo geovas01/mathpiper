@@ -3,6 +3,9 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++MathPiper should indicate these two expressions to be equal, but it doesn't:
+e1: (o-h)^2+(p-k)^2-((x-h)^2+(y-k)^2)
+e2: (h-o)^2+(k-p)^2-((x-h)^2+(y-k)^2)
 + Why does this code accept symbolicEquation in RuleBase but work with just _s in f()?
 %mathpiper
 Retract("f",*);
