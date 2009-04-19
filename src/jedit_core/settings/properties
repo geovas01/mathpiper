@@ -173,7 +173,6 @@ vfs.browser.horizontalSplitter=187
 options.splitter=234
 error-list.height=273
 search.replace.value=
-buffer.wrap=soft
 vfs.browser.extendedState=0
 jung.dock-position=right
 geogebra.y=50
