@@ -40,10 +40,12 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.JarFileInputStream;
 import org.mathpiper.io.StandardFileInputStream;
 import org.mathpiper.io.StringOutputStream;
+import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.parametermatchers.PatternParameter;
 import org.mathpiper.lisp.userfunctions.Branch;
 import org.mathpiper.lisp.userfunctions.FunctionParameter;
+import org.mathpiper.lisp.userfunctions.MacroUserFunction;
 import org.mathpiper.lisp.userfunctions.PatternBranch;
 import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 
@@ -1110,7 +1112,7 @@ public class UtilityFunctions {
                     predicate += patternPredicate + ", ";
                 }
                 /*if (predicate.contains(",")) {
-                    predicate = predicate.substring(0, predicate.lastIndexOf(","));
+                predicate = predicate.substring(0, predicate.lastIndexOf(","));
                 }*/
                 predicate += "\n    Variables: " + patternVariables + ",";
                 predicate += "\n    Types: " + parameterTypes;
@@ -1134,10 +1136,26 @@ public class UtilityFunctions {
             String body = UtilityFunctions.printExpression(branch.getBodyPointer(), aEnvironment, 0);
             //System.out.println(data);
 
-            dumpResult.append("Precedence: " + precedence +", ");
-            dumpResult.append("\n" + "Parameters: " + parameters +", ");
-            dumpResult.append("\n" + "Predicates: " + predicate +", ");
-            dumpResult.append("\n" + "Body: \n" + body + "\n");
+            String substitutedMacroBody = "";
+
+            if (userFunction instanceof MacroUserFunction) {
+                BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
+                ConsPointer substitutedBodyPointer = new ConsPointer();
+                UtilityFunctions.substitute(substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
+                substitutedMacroBody = UtilityFunctions.printExpression(substitutedBodyPointer, aEnvironment, 0);
+            }
+
+            dumpResult.append("Precedence: " + precedence + ", ");
+            dumpResult.append("\n" + "Parameters: " + parameters + ", ");
+            dumpResult.append("\n" + "Predicates: " + predicate + ", ");
+
+            if (userFunction instanceof MacroUserFunction) {
+                dumpResult.append("\n" + "Body: \n" + body + ", ");
+                dumpResult.append("\n" + "Substituted Macro Body: \n" + substitutedMacroBody + "\n");
+            } else {
+                dumpResult.append("\n" + "Body: \n" + body + "\n");
+            }
+
 
 
         } catch (Exception ex) {
