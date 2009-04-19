@@ -455,7 +455,7 @@ public class UtilityFunctions {
             } else {
                 aTarget.setCons(object.copy(false));
             }
-        }
+        }//end matches if.
     }
 
     public static String internalUnstringify(String aOriginal) throws Exception {
@@ -810,7 +810,7 @@ public class UtilityFunctions {
      * Sets a variable in the current {@link Environment}.
      * @param aEnvironment holds the execution environment of the program.
      * @param aStackTop 
-     * @param aMacroMode boolean which determines whether the first argument should be evaluated.
+     * @param aMacroMode boolean which determines whether the getFirstPointer argument should be evaluated.
      * @param aGlobalLazyVariable
      * @throws java.lang.Exception
      */
