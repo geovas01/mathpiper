@@ -1,0 +1,193 @@
+//exercises pp. 295.
+
+%group
+//Exercise 1.
+
+
+%geogebra
+y^2=6x
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+pValue := EquRight(Solve(6==4*p,p)[1]);
+Echo("Focus: (",pValue,",0)  Directx: (",-pValue,",0)   Length of Latus Rectum: ",4*pValue);
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Focus: (3/2 ,0)  Directx: ((-3)/2 ,0)   Length of Latus Rectum: 6
+.   %/output
+
+
+
+%/group
+
+
+
+
+%group
+//Exercise 2.
+
+
+%geogebra
+x^2=16y
+x^2=y
+y^2=x
+y^2=9x
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+
+%mathpiper
+
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+equations := {x^2==16*y, x^2==y, y^2==x, y^2==9*x};
+
+ForEach(equation,equations)
+[
+    rhs := EquRight(equation);
+    coef := LeadingCoef(rhs);
+    pValue := EquRight(Solve(coef==4*p,p)[1]);
+    If(Contains(VarList(rhs),x),
+    Echo("Focus: (",pValue,",0)  Directx: (",-pValue,",0)   Length of Latus Rectum: ",4*pValue),
+    Echo("Focus: (0,",pValue,")  Directx: (0,",-pValue,")   Length of Latus Rectum: ",4*pValue));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Focus: (0,4 )  Directx: (0,-4 )   Length of Latus Rectum: 16 
+      Focus: (0,1/4 )  Directx: (0,(-1)/4 )   Length of Latus Rectum: 1 
+      Focus: (1/4 ,0)  Directx: ((-1)/4 ,0)   Length of Latus Rectum: 1 
+      Focus: (9/4 ,0)  Directx: ((-9)/4 ,0)   Length of Latus Rectum: 9
+.   %/output
+
+
+%/group
+
+
+
+
+%group
+//Exercise 3.
+
+//(a) y^2 == 4*3 * y.
+//(b) y^2 == 4*5 * y
+
+%/group
+
+
+
+%group
+//Exercise 4.
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+equation := y^2 == 24*x;
+
+lhs := EquLeft(equation);
+rhs := EquRight(equation);
+points := {Point(6,-12),Point(4,9),Point(9,16),Point(2/3,-4),Point(0,0),Point(-6,12),Point(-24,-24),Point(15000,-600)};
+
+ForEach(point,points)
+[
+    lhsSub := Subst(y,point[2]) lhs;
+    rhsSub := Subst(x,point[1]) rhs;
+    
+    Echo(point,,,lhsSub,,,rhsSub,,,N(Eval(lhsSub)),,,N(Eval(rhsSub)));
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      {6,-12} , (-12)^2 , 24*6 , 144 , 144 
+      {4,9} , 9^2 , 24*4 , 81 , 96 
+      {9,16} , 16^2 , 24*9 , 256 , 216 
+      {2/3,-4} , (-4)^2 , 24*2/3 , 16 , 16.00000000 
+      {0,0} , 0^2 , 24*0 , 0 , 0 
+      {-6,12} , 12^2 , 24*(-6) , 144 , -144 
+      {-24,-24} , (-24)^2 , 24*(-24) , 576 , -576 
+      {15000,-600} , (-600)^2 , 24*15000 , 360000 , 360000
+.   %/output
+
+%/group
+
+
+
+
+%group
+//Exercise 5.
+
+
+%mathpiper
+
+equ := y^2 == 4*p*x;
+
+answerA := Solve(equ Where x==10 And y==40,p);
+
+Echo("Answer A: ",answerA);
+
+answerB := Solve(equ Where y==8 And p==40,x);
+
+Echo("Answer B: ",N(answerB));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Answer A: {p==40} 
+      Answer B: {x==0.4}
+.   %/output
+
+
+%/group
+
+
+
+%group
+//Exercise 6. NOT FINISHED YET.
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+pValue := EquRight(Solve(x^2 == 4*p*y Where x==20 And y==4,p)[1]);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 25
+.   %/output
+
+%/group
+
+
