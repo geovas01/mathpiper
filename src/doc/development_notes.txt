@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++If there are spaces after commas in dbt directives that create tables, this causes an error.
 +IsVariable link in VarList is broken.
 +Functions need to be created which obtain the base and exponent of an expression.
 +Monospaced font works fine on windows but not on linux.  So, we need to use the monospaced font we are already using for UASM65 for the text area of MathRider.
