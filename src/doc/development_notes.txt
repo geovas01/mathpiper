@@ -3,6 +3,9 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Solve can't solve this equation:
+equ := x + p == Sqrt((x - p)^2 + y^2);
+Solve(equ,y);
 +The SetFormulaMaxWidth(120) function in PrettyPrint is not published as a def.  Should it be?
 +If there are spaces after commas in dbt directives that create tables, this causes an error.
 +IsVariable link in VarList is broken.

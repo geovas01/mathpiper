@@ -176,7 +176,7 @@ Echo("Answer B: ",N(answerB));
 
 
 %group
-//Exercise 6. NOT FINISHED YET.
+//Exercise 6.
 
 %mathpiper
 Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
@@ -187,6 +187,164 @@ pValue := EquRight(Solve(x^2 == 4*p*y Where x==20 And y==4,p)[1]);
     %output,preserve="false"
       Result: 25
 .   %/output
+
+Answer: x^2 = 4*25*y
+
+%/group
+
+
+%group
+//Exercise 7.
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+pValue := EquRight(Solve(x^2 == 4*p*y Where x==10 And y==4,p)[1]);
+
+f(x) := EquRight(Solve(x^2 == 4*pValue*y,y)[1]);
+
+Echo("a) y = ",f(x));
+Echo("b) ",f(5));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) y = x^2/25 
+      b) 1
+.   %/output
+
+
+%/group
+
+
+
+%group
+//Exercise 8.
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+pValue := EquRight(Solve(x^2 == 4*p*y Where x==240 And y==8,p)[1]);
+
+f(x) := EquRight(Solve(x^2 == 4*pValue*y,y)[1]);
+
+Echo("a) y = ",f(x));
+Echo("b) ",f(60));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) y = x^2/7200 
+      b) 1/2
+.   %/output
+
+
+%/group
+
+
+
+%group
+//Exercise 9.
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+pValue := EquRight(Solve(x^2 == 4*p*y Where x==600 And y==90,p)[1]);
+
+f(x) := EquRight(Solve(x^2 == 4*pValue*y,y)[1]);
+
+Echo("a) y = ",f(x));
+Echo("b) ",f(200));
+Echo("c) ",f(400));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) y = x^2/4000 
+      b) 10 
+      c) 40
+.   %/output
+
+
+%/group
+
+
+
+%group
+//Exercise 10.
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+pValue := EquRight(Solve(x^2 == 4*p*y Where x==100 And y==50,p)[1]);
+
+f(x) := EquRight(Solve(x^2 == 4*pValue*y,y)[1]);
+
+Echo("a) y = ",f(x));
+Echo("b) ",f(50)+3);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) y = x^2/200 
+      b) 31/2
+.   %/output
+
+
+%/group
+
+
+
+%group
+//Exercise 11.
+
+
+
+%geogebra
+a:x^2 = 4y
+P:Point[a]
+A:(0,1)
+l1:y = -1
+c:Circle[P,A]
+Intersect[c,l1]
+Segment[P,A]
+Segment[P,B]
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+//A proof is not being attempted at this time.
+
+%/group
+
+
+
+%group
+//Exercise 12.
+
+
+%mathpiper
+
+equ := x + p == Sqrt((x - p)^2 + y^2);
+OldSolve(equ,y);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: Sqrt((p+1000)^2-(1000-p)^2)
+.   %/output
+
+
 
 %/group
 
