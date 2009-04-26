@@ -3,6 +3,17 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Why doesn't D() create a callable function?:
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+f(x) := EquRight(Solve(x^2 == 1200 * y,y)[1]);
+
+Echo("b) ",f(60));
+
+d(x) := D(x)f(x);
+Echo("c) ",d(60));
+%/mathpiper
 +This was suggested on the Maxima list for Maxima:
 > package_info("functs");
    author: unknown,
