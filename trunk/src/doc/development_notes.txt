@@ -3,7 +3,11 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
-+Why doesn't D() create a callable function?:
++Should any decimal value in a rational number cause the whol rational number to be converted into a decimal value?
+In> .3/22
+Result> .3/22
+In> N(.3/22)
+Result> 0.01363636364+Why doesn't D() create a callable function?:
 %mathpiper
 Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
 
