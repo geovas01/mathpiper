@@ -28,43 +28,26 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection;
+package org.eninom.collection.arrays;
 
+import org.eninom.collection.ImmutableCollection;
+import org.eninom.collection.List;
+import org.eninom.func.Function;
 
-//! Abstract Iterable Collection
+//! Immutable double[] Interface
 /*<literate>*/
 /**
- * This abstract class provides a default implementation
- * for the computation of hash values and equality tests.
- * The equality test does not consider the exact instance type,
- * so that instances of two different concrete classes using
- * these methods can be compared with each other and are
- * equal if and only if the order of their elements is
- * the same.<br /> 
- * <br />
- * Deriving from this class is considered as an implementation
- * detail. When two concrete classes derive from this class,
- * no assumptions can be made about the compatibility
- * of cross-class equality tests and hash values, or results
- * of <i> instanceof AbstractIterableCollection</i> for
- * future releases, except if stated explicitely by the
- * authors of the derived classes. 
+ * Interface for an immutable double array. The class <i> PrimitiveArrays </i> provides
+ * constructors. 
  */
-public abstract class AbstractIterableCollection<E> implements
-    IterableCollection<E> {
+public interface DoubleArray extends  ImmutableCollection<Double>, Function<Long,Double>, List<Double> {
+  /**
+   * get the <i>i</i>-th array element.
+   */
+  double at(long i);
   
-  @Override
-  public int hashCode() {
-    return Collections.hashCode(this);
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    return Collections.equals(this, obj);
-  }
-  
-  @Override
-  final public String toString() {
-    return Collections.printToString(this);
-  }
-}
+  /**
+   * return the the data as a primitive, mutable array.
+   */
+  double[] asMutableArray();
+}//`class`

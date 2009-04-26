@@ -55,7 +55,6 @@ public final class HashMap<Key, Value> implements
     Set<Cons<Key, Value>> {
   private int size = 0;
   private Object[] table;
-  private int hashSum = 0;
 
   /*
    * Wrap extendible array class so that the class can be used to differentiate
@@ -139,7 +138,6 @@ public final class HashMap<Key, Value> implements
       list.arr.addLast(a);
       list.arr.addLast(b);
     }// else
-    hashSum = hashSum + hc;
     size = size + 1;
   }
 
@@ -159,7 +157,6 @@ public final class HashMap<Key, Value> implements
       if (a.equals(table[k])) {
         table[k] = null;
         table[k + 1] = null;
-        hashSum = hashSum - hc;
         size = size - 1;
       } // `if`
     } else {
@@ -176,7 +173,6 @@ public final class HashMap<Key, Value> implements
             table[k] = list.arr.get(0);
             table[k + 1] = list.arr.get(1);
           }// `if`
-          hashSum = hashSum - hc;
           size = size - 1;
         }// `if`
       }// `for`
@@ -295,9 +291,6 @@ public final class HashMap<Key, Value> implements
     }// `for`
     if (size != trueSize) {
       throw new IllegalStateException("Wrong size.");
-    }
-    if (hashSum == trueHashCode) {
-      throw new IllegalStateException("Wrong hash.");
     }
   }
 
@@ -420,72 +413,14 @@ public boolean hasNext() {
       }// `else`
     }// `while`
     this.table = newMap.table;
-    this.hashSum = newMap.hashSum;
   };
-
-  @Override
-  final public int hashCode() {
-    return hashSum;
-  }
-
-  @Override
-  final public boolean equals(Object other) {
-
-    if (this == other) {
-      return true;
-    }
-
-    if (other == null) {
-      return false;
-    }
-
-    if (other.getClass() != HashMap.class) {
-      return false;
-    }
-
-    HashMap<Object, Object> map2 = (HashMap<Object, Object>) other;
-
-    if (map2.size != this.size) {
-      return false;
-    }
-
-    if (map2.hashSum != this.hashSum) {
-      return false;
-    }
-
-    ForwardIterator<Cons<Key, Value>> it = this.iterator();
-    while (it.hasNext()) {
-      Cons<Key, Value> pair = it.next();
-      Object key = pair.first();
-      Object value = pair.second();
-      if (!map2.containsKey(key)) {
-        return false;
-      }
-      Object value2 = map2.get(key);
-
- 	  if (value == null) {
-         if (value2 != null)
-           return false;
-       }
-       else if ((value2 == null) || !value.equals(value2)) {
-        return false;
-      }
-    }// `for`
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return Collections.printToString(this);
-  }
 
   /**
    * Debug string
    */
   public String debug() {
     StringBuffer s = new StringBuffer();
-    s.append(size + " c:" + table.length / 2 + " hc:" + hashSum
-        + " [");
+    s.append(size + " c:" + table.length / 2 + " [");
     for (int i = 0; i < table.length; i++) {
       if (i > 0) {
         s.append(",");
@@ -523,5 +458,19 @@ public boolean hasNext() {
             && v.equals(e.second())))
       return new Cons<Key, Value>(k,v);
     else return null;
+  }
+  
+  @Override
+  public int hashCode() {
+    return Collections.hashCodeForSets(this);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return Collections.equalsForSet(this, obj);
+  }
+  
+  public String toString() {
+   return Collections.toStringSorted(this); 
   }
 }// `class`

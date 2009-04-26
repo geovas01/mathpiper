@@ -28,17 +28,48 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection.mutable;
+package org.eninom.collection;
 
-import org.eninom.collection.List;
+import org.eninom.iterator.ForwardIterator;
 
-//! Mutable Queue Interface
+//! List Interface
 /*<literate>*/
 /**
- * Interface for a mutable queue 
+ * Interface for a mutable, randomly acessible collection. The performance of
+ * get(i) is implementation-dependent. 
  */
-public interface MutableQueue<E> extends List<E> {
-  public void addLast(E item);
-  public E removeFirst();
-  public E first();
+public interface List<E> extends IterableCollection<E> {
+  E get(long i);
+  
+  /**
+   * Two Lists are equal if and only if they have the same size and the sequence of
+   * elements are equal. This allows to test different implementations for equality.
+   */
+  public boolean equals(Object obj);
+  
+  /**
+   * The hashcode of a List is the sum of the hashcodes of its elements.
+   */
+  public int hashCode();
+  
+  /**
+   * The string representation of a list is defined in Collections.toString(List).
+   */
+  public String toString();
+  
+  static public class RandomAccessIterator<E> implements ForwardIterator<E> {
+    private int i = 0;
+    private List<E> collection;
+    public RandomAccessIterator(List<E> collection) {
+      super();
+      this.collection = collection;
+    }
+    public boolean hasNext() {
+      return i < collection.size();
+    }
+    
+    public E next() {
+      return collection.get(i++);
+    }
+  }
 }

@@ -1,5 +1,6 @@
 package org.eninom.collection.mutable;
 
+import org.eninom.collection.Collections;
 import org.eninom.collection.Set;
 import org.eninom.iterator.ForwardIterator;
 import org.eninom.seq.Seq;
@@ -56,31 +57,22 @@ public final class HashSet<E> implements Set<E> {
   public void remove(E e) {
     asMap.remove(e);
   }
-  
-  @SuppressWarnings("unchecked")
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    final HashSet<E> other = (HashSet<E>) obj;
-    if (asMap == null) {
-      if (other.asMap != null)
-        return false;
-    } else if (!asMap.equals(other.asMap))
-      return false;
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-   return asMap.hashCode();
-  }
 
   public E getSame(E item) {
     return asMap.getSameKey(item);
+  }
+ 
+  @Override
+  public int hashCode() {
+    return Collections.hashCodeForSets(this);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return Collections.equalsForSet(this, obj);
+  }
+  
+  public String toString() {
+   return Collections.toStringSorted(this); 
   }
 }

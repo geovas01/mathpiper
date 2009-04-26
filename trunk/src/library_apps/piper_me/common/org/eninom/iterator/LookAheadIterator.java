@@ -28,17 +28,51 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection.mutable;
+package org.eninom.iterator;
 
-import org.eninom.collection.List;
+import java.util.NoSuchElementException;
 
-//! Mutable Queue Interface
+import org.eninom.iterator.ForwardIterator;
+
+
+//!Iterator Wrapper for Sequences
 /*<literate>*/
 /**
- * Interface for a mutable queue 
+ * Iterator wrapper for sequences.
  */
-public interface MutableQueue<E> extends List<E> {
-  public void addLast(E item);
-  public E removeFirst();
-  public E first();
-}
+public final class LookAheadIterator<E> implements ForwardIterator<E> {
+  
+  @SuppressWarnings("unused")
+  private ForwardIterator<E> S;
+  private boolean finished = false;
+  private E lookAhead; 
+  
+  public LookAheadIterator(ForwardIterator<E> S) { 
+    this.S = S;
+    if (S.hasNext())
+      lookAhead = S.next();
+    else
+      finished = true;
+  }
+  
+  public E next() {
+    if (finished)
+      throw new NoSuchElementException();
+      
+    E result = lookAhead;
+    if (S.hasNext())
+      lookAhead = S.next();
+    else
+      finished = true;
+    return result;
+    
+  }
+  
+  public E peek() {
+    return lookAhead;
+  }
+  
+  public boolean hasNext() {
+    return !finished;
+  }
+}//`class`

@@ -28,17 +28,26 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection.mutable;
+package org.eninom.collection.arrays;
 
+import org.eninom.collection.ImmutableCollection;
 import org.eninom.collection.List;
+import org.eninom.func.Function;
 
-//! Mutable Queue Interface
+//! Immutable long[] Interface
 /*<literate>*/
 /**
- * Interface for a mutable queue 
+ * Interface for an immutable long array. The class <i> PrimitiveArrays </i> provides
+ * constructors. 
  */
-public interface MutableQueue<E> extends List<E> {
-  public void addLast(E item);
-  public E removeFirst();
-  public E first();
-}
+public interface LongArray extends  ImmutableCollection<Long>, Function<Long,Long>, List<Long> {
+  /**
+   * get the <i>i</i>-th array element.
+   */
+  long at(long i);
+  
+  /**
+   * return the the data as a primitive, mutable array.
+   */
+  long[] asMutableArray();
+}//`class`
