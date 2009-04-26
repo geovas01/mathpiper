@@ -3,6 +3,16 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++This was suggested on the Maxima list for Maxima:
+> package_info("functs");
+   author: unknown,
+   maintainer: unknown,
+   approved by: nobody,
+   revision: XXX,
+   location: share/simplification,
+   regression tests: none,
+   last update: last Tuesday,
+   ...)
 +Solve can't solve this equation:
 equ := x + p == Sqrt((x - p)^2 + y^2);
 Solve(equ,y);
