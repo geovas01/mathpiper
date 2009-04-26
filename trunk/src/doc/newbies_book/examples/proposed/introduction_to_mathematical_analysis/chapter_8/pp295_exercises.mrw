@@ -334,14 +334,19 @@ Segment[P,B]
 
 
 %mathpiper
-
+Clear(x,p,y);
 equ := x + p == Sqrt((x - p)^2 + y^2);
-OldSolve(equ,y);
+equ2 := OldSolve(equ,y);
+equ3 := Simplify(equ2^2);
 
+Echo(equ,equ2,equ3);
 %/mathpiper
 
     %output,preserve="false"
-      Result: Sqrt((p+1000)^2-(1000-p)^2)
+      Result: True
+      
+      Side effects:
+      x+p==Sqrt((x-p)^2+y^2) Sqrt((x+p)^2-(x-p)^2) 4*x*p
 .   %/output
 
 
@@ -349,3 +354,230 @@ OldSolve(equ,y);
 %/group
 
 
+
+
+
+%group
+//Exercise 13.
+
+
+%geogebra
+l: y = -300
+A:(0,300)
+p:Parabola[A,l]
+B:Point[p]
+t:Tangent[B,p]
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+a) x^2 = 1200 y
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+p := 300;
+w := 60;
+
+Echo("a) x^2 = ",4*p*y);
+
+f(x) := EquRight(Solve(x^2 == 4*p*y,y)[1]);
+
+Echo("b) ",f(w/2));
+
+d(x) := Eval(D(x)f(x))
+;
+Echo("c) ",d(w/2));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) x^2 = 1200*y 
+      b) 3/4 
+      c) 1/20
+.   %/output
+
+
+%/group
+
+
+
+
+
+%group
+//Exercise 14.
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+p := 660;
+w := 200;
+
+Echo("a) x^2 = ",4*p*y);
+
+f(x) := EquRight(Solve(x^2 == 4*p*y,y)[1]);
+
+Echo("b) ",f(w/2));
+
+d(x) := Eval(D(x)f(x))
+;
+Echo("c) ",d(w/2));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) x^2 = 2640*y 
+      b) 125/33 
+      c) 5/66
+.   %/output
+
+
+%/group
+
+
+
+
+%group
+//Exercise 15.
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+p := 508;
+w := 100.4;
+
+Echo("a) x^2 = ",4*p*y);
+
+f(x) := EquRight(Solve(x^2 == 4*p*y,y)[1]);
+
+Echo("b) ",N(f(w/2)));
+
+d(x) := Eval(D(x)f(x))
+;
+Echo("c) ",N(d(w/2)));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) x^2 = 2032*y 
+      b) 1.240177165 
+      c) 0.04940944882
+.   %/output
+
+
+%/group
+
+
+
+%group
+
+
+
+
+%geogebra
+x^2
+i:Integral[f(x),0,10]
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+
+%mathpiper
+
+Integrate(x,0,10)x^2;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 1000/3
+.   %/output
+
+
+%/group
+
+
+
+
+%group
+//Exercise 16: skipping for now.
+
+%/group
+
+
+
+
+%group
+//Exercise 17.
+
+a) Parabola.
+b) Circle.
+c) Circle.
+
+%/group
+
+
+
+%group
+//Exercise 18.
+
+%geogebra
+l: y = -5/4
+A:(0,5/4)
+p:Parabola[A,l]
+P:Point[p]
+t:Tangent[P,p]
+B:(0,-20)
+s:Slope[t]
+
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+
+f(x) := EquRight(Solve(x^2 == 5*y,y)[1]);
+
+Echo("a) ",N(f(10)));
+
+d(x) := Eval(D(x)f(x))
+;
+Echo("b) ",N(d(10)));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) 20 
+      b) 4
+.   %/output
+
+
+%/group
+
+
+
+Exercises 19 and 20: skipping for now.
