@@ -28,31 +28,26 @@ this exception to your version of the library, but you are not
 obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
-package org.eninom.collection;
+package org.eninom.collection.arrays;
 
-import org.eninom.iterator.ForwardIterator;
+import org.eninom.collection.ImmutableCollection;
+import org.eninom.collection.List;
+import org.eninom.func.Function;
 
-//! Random Access Interface
+//! Immutable int[] Interface
 /*<literate>*/
 /**
- * Interface for a mutable, randomly acessible collection 
+ * Interface for an immutable integer array. The class <i> PrimitiveArrays </i> provides
+ * constructors. 
  */
-public interface RandomAccess<E> extends IterableCollection<E> {
-  E get(long i);
+public interface IntegerArray extends ImmutableCollection<Integer>, Function<Long,Integer>, List<Integer> {
+  /**
+   * get the <i>i</i>-th array element.
+   */
+  int at(long i);
   
-  static public class Iterator<E> implements ForwardIterator<E> {
-    private int i = 0;
-    private RandomAccess<E> collection;
-    public Iterator(RandomAccess<E> collection) {
-      super();
-      this.collection = collection;
-    }
-    public boolean hasNext() {
-      return i < collection.size();
-    }
-    
-    public E next() {
-      return collection.get(i++);
-    }
-  }
-}
+  /**
+   * return the the data as a primitive, mutable array.
+   */
+  int[] asMutableArray();
+}//`class`

@@ -47,185 +47,19 @@
 
 
 \title{
-{\LARGE Piper-ME and XPiper}\\
+{\LARGE Piper-ME}\\
 }
 
 \maketitle
 
-\chapter{Piper-ME and X-Piper}
+\chapter{Piper-ME}
 
 Piper-ME is a port of Yacas to the Java Mobile Edition platform, CLDC version 1.1 
 (that is, including double precision floating point numbers). The port is, however,
 not finished yet. Most classes from the standard libraries which are nor part of
 Java ME have been replaced by simplified reimplementation (in particular hashmaps
-and extensdible arrays) or taken from the classpath project (big numbers). Only
-console and file system based classes are not ported yet.\\
-\\
-X-Piper is planned to become a reimplementation of Piper/Yacas, which might
-not be compatible. It is targeted to resolve the following issues:
-\begin{enumerate}
-\item Scoping of local symbols.
-\item Multiple precision arithmetic.
-\end{enumerate}
+and extensdible arrays) or taken from the classpath project (big numbers).
 
-
-\chapter{Language}
-
-\section{Programming Concepts}
-
-The development of the X-Piper interpreter is a work in progress. It is implemented
-in such way that experimentation with different language features should be easy.
-The goal is to develop a language which is mostly compatible to Yacas/Piper and
-has some additional features:
-
-\begin{itemize}
-\item Dynamic scoping of rule extensions.
-\item Modules.
-\end{itemize}
-
-\section{Modules}
-
-\begin{verbatim}
-m = eval `[f(x,y=...),  ...]
-or
-m = [f(x,y=...),  ...]
-or
-m = import "<modulename>"
-\end{verbatim}
-
-results in a variable binding (exported bindings + previous bindings).
-If the block starts with  "Module", all previous definitions are
-ingored. If the block is imported via the code loader, and if
-it is a module, then the resulting variable binding is saved in
-memory until the source (actively) signals it has changed or
-some other internal policy demands to remove the binding from
-memory.
-
-It is possible to use bindings from an evaluated module:
-
-\begin{verbatim}
-use m
-\end{verbatim}
-
-copies all exported bindings from m into the current binding.
-For rules, this means they are preceeded with m's definitions.
-One has to be careful if m is not the result of a context-less
-definition: In this case, also the relevant rules that have
-been extended at the time of executing m's definition are
-imported into the current binding.
-
-
-
-What is:
-
-\begin{verbatim}
-f = [g(x)=3*x, f(x)=g(x)+2 ].f;
-f(2)
-\end{verbatim}
-?
-
-a) g(2)+2 (unevaluated g cause g is undefined in the outer context or
-b) 8, because f "knows" about the lexically closer defintion of g.
-
-A strong case can be made that b) is the desired behavior, otherwise
-module encapsulation does not work for function objects.
-
-How can we achieve this?
-
-If f is a contant, we don't need t care. If f is an uninterpreted
-block, it should also be treated like a constant.
-Otherwise, f will be extended by the definition of the inner block,
-just like in the import statement. However, the co-related
-definition is lost. A solution would be that each rule keeps
-a reference on the variable binding where it has been defined,
-and before the predicate or the body is evaluated, this variable
-binding is pushed onto the stack. So a rule should look like:
-
-name, arguments, binding, predicate, body, [precedence]
-
-
-what about control structures like "forEach"?
-
-The discussion will clarify some further concepts:
-
-forEach(i, {1, 2, 3}, [writeLn i]) should print 1, 2, 3.
-
-In slightly different syntax than the reference manual:
-
-\begin{verbatim}
-forEach(i, list, body) = [
-
-  local k = 0
-  local n = length(list)
-  while (k < n) [
-    \&i = list[k]
-    k = k + 1
-    
-    eval(body)
-  ]
-]
-\end{verbatim}
-
-The difference is that locals should only be local to
-the current context and not be passed to inner blocks.
-Non-local variables have dynamic scope, so unfencing
-is not necessary. Global variables do not exist, state
-can be modelled by threads. 
-\&i ist similar to MacrosSet, but this should not concern
-us here. We will clarify difference and ensure (partial)
-compatibility to Yacas/Piper along our way.
-For simplicity, there is n
-support for tail-recursion, the while loop becomes part
-of the execution model.
-
-
-\chapter{Interpreter}
-
-\section{Tokenizer and Parser}
-
-\chapter{Expressions and Abstract Syntax Trees}
-
-Internally, an expression can be one of the folliwing things:
-
-\begin{enumerate}
-\item A variable, including operators and function symbols
-\item A constant number or string.
-\item An assignment of a variable or an extension of a rule (will be explained later).
-\item A list of expressions.
-\item An accessor of the form $G.a$, where $G$ is a list and $a$ is a variable name.
-\end{enumerate}
-
-Syntactically, there might be some variations, especially of blocks, but that is 
-now unimportant.
-
-\input{src4tex/Var.java}
-
-
-\chapter{Evaluation}
-
-
-\section{Frames and Rule Builder}
-
-\input{src4tex/Frame.java}
-\input{src4tex/RuleDefNode.java}
-
-\chapter{Data Structures}
-
-\section{Helper Data Structures}
-
-
-\section{List Structure}
-
-Lists are represented by a list structure taken from {\em eninom.lib}. The capabiliy
-of dealing with lazy values is not used in Piper-ME.
-
-We introduce CList:
- 
-\input{src4tex/CList.java}
-
-\chapter{Large Numbers}
-\input{src4tex/BigNumber.java}
-
-
+\chapter{Integration to Mobile Applications}
 
 \end{document}

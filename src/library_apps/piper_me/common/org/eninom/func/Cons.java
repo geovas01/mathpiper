@@ -53,7 +53,7 @@ import org.eninom.iterator.*;
  * true.
  */
 @SuppressWarnings("unchecked")
-public class Cons<A, B> {
+public final class Cons<A, B> {
   
   private final static int MAX_H = 4;
 
@@ -340,14 +340,11 @@ public class Cons<A, B> {
     return length;
   }
 
-  /**
-   * It is allowed to override the <i>get()</i> method.
-   */
-  public final Object getElement(int p) {
+  public final Object getElement(long p) {
     if ((p >= length) || (p < 0))
       throw new IllegalArgumentException();
 
-    int k = length % MAX_H;
+    long k = length % MAX_H;
     if (k > 0) {
       p = p + MAX_H - k;
     }
@@ -356,7 +353,7 @@ public class Cons<A, B> {
       p = p - MAX_H;
       node = node.next;
     }// `while`
-    switch (p) {
+    switch ((int) p) {
     case 0:
       return node.a0;
     case 1:
@@ -479,7 +476,7 @@ public class Cons<A, B> {
    * Returns the hash code. The hashcode depends on the hashcodes of elements
    * which are stored in the <i>Cons</i>-Object.
    */
-  public final int hashCode() {
+  public int hashCode() {
 
     if (hash != 0)
       return hash;
@@ -510,7 +507,7 @@ public class Cons<A, B> {
    * once, thus avoiding potentially exponential traversal time. Elements
    * of two different classes are always considered unequal.
    */
-  final public boolean equals(Object other) {
+  public boolean equals(Object other) {
     if (this == other)
       return true;
     
