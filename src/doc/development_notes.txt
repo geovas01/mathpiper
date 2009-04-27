@@ -3,6 +3,9 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++RadSimp() is broken:
+equ := Sqrt((x-c)^2 +y^2) + Sqrt((x+c)^2 + y^2) == 2*a;
+RadSimp(equ);
 +Should any decimal value in a rational number cause the whol rational number to be converted into a decimal value?
 In> .3/22
 Result> .3/22
