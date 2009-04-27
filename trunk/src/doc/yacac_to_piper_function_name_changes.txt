@@ -71,7 +71,8 @@ Echo -> Print
 = -> ==
 D -> Derive //Because syntax highlighting in D is too general.
 Change a number of bodied operators like D and Integrate to non-bodied operators to make function calls uniform.  For example, Integrate is bodied but WithValue is not.
-
+Listify -> FunctionToList
+UnList -> ListToFunction
 
 
 
