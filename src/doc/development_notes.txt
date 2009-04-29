@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++In the proposed newbies book examples, pp291_exercises.mrw will not syntax highlight but changing the name slightly allows it to work.
 +Neither FindRealRoots() or NumRealRoots() works with x^3+12x-21==0 which has one real root and two complex roots.
 +RadSimp() is broken:
 equ := Sqrt((x-c)^2 +y^2) + Sqrt((x+c)^2 + y^2) == 2*a;
