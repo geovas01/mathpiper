@@ -43,7 +43,7 @@ number, i.e. an integer or a fraction of integers.
 *E.G.
 
 	In> IsRational(5)
-	Out> False;
+	Out> True;
 	In> IsRational(2/7)
 	Out> True;
 	In> IsRational(0.5)
