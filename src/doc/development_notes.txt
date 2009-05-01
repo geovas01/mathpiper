@@ -3,6 +3,71 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++HasFunc bug:
+%mathpiper
+//HasFunc bug.  If the variable that is passed to HasFunc is a MacroLocal, it will not be evaluated.
+
+Retract("Bug",*);
+
+RuleBase("Bug",{symbolicEquation});
+HoldArg("Bug",symbolicEquation);
+10 # Bug(_symbolicEquation)_HasFunc(Eval(symbolicEquation), "==") <--
+
+[
+    Echo("Bug rule ran.");
+];
+
+
+
+ForEach(equ,{y == m*x})
+[
+    Echo(equ);
+    Echo(Bug(equ));
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      y==m*x 
+      Bug(equ)
+.   %/output
+
+
+
+%mathpiper
+Retract("Bug",*);
+
+RuleBase("Bug",{symbolicEquation});
+HoldArg("Bug",symbolicEquation);
+10 # Bug(_symbolicEquation) <--
+[
+    a := symbolicEquation;
+    Echo(a);
+];
+
+ForEach(equ,{y == m*x})
+[
+    Echo(equ);
+    equ := Eval(equ);
+    Echo(equ);
+    Echo(Bug(Eval(equ)));
+];
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      y==m*x 
+      y==m*x 
+      Eval(equ) 
+      True
+.   %/output
+
 +In the proposed newbies book examples, pp291_exercises.mrw will not syntax highlight but changing the name slightly allows it to work.
 +Neither FindRealRoots() or NumRealRoots() works with x^3+12x-21==0 which has one real root and two complex roots.
 +RadSimp() is broken:
