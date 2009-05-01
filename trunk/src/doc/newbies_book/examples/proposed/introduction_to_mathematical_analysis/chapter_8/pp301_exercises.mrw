@@ -1,5 +1,150 @@
 %group
+//Exercise 1 and Exercise 2 (skipping 2d for now)..
+
+%geogebra
+a:x^2/169+y^2/25 = 1
+b:x^2/4+y^2/(25/4)=1
+c:25*x^2+9*y^2=900
+d:4*x^2+25*y^2=100
+e:4*x^2+y^2=1
+f:16*x^2+25*y^2=1
+
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+
+%mathpiper
+
+Function("IsRationalNumeric",{aLeft})
+    Type(aLeft) = "/" And
+    IsNumber(aLeft[1]) And
+    IsNumber(aLeft[2]);
+
+EllipseGetAxes(expr) :=
+[
+    
+    Local(a,b);
+    Local(coef,coefInverted,denom);
+    
+    coef := LeadingCoef(EquLeft(expr),x);
+    
+    if(Denom(coef) = 1)
+        [coefInverted := 1/coef; denom := coefInverted;]
+    else if(IsRationalNumeric(coef))
+        [ denom := 1/coef; ]
+    else
+       [ denom := Denom(coef);];
+    a := denom;
+    
+    
+    coef := LeadingCoef(EquLeft(expr),y);
+    
+    if(Denom(coef) = 1)
+        [coefInverted := 1/coef; denom := coefInverted;]
+    else if(IsRationalNumeric(coef))
+        [ denom := 1/coef; ]
+    else
+       [ denom := Denom(coef);];
+    b := denom;
+    
+    {Sqrt(a),Sqrt(b)};
+
+];
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+a:=x^2/169+y^2/25 == 1;
+b:=x^2/4+y^2/(25/4)==1;
+c:=25*x^2+9*y^2==900;
+d:=4*x^2+25*y^2==100;
+e:=4*x^2+y^2==1;
+f:=16*x^2+25*y^2==1;
+
+
+ForEach(equ,{a,b,c,d,e,f})
+[   
+    eq := equ; //Note:tk:Workaround for HasFunc bug (which is reported in the development notes).
+    equ2 := Manipulate(eq/EquRight(eq));  
+    //Echo(equ,equ2);
+    axes := EllipseGetAxes(equ2);
+    
+    If(axes[1] > axes[2], foci := Sqrt(axes[1]^2 - axes[2]^2), foci := Sqrt(axes[2]^2 - axes[1]^2));
+    
+    
+    If(axes[1] > axes[2], eccentricity := foci / axes[1], eccentricity := foci / axes[2]);
+    
+    //Note:this code needs more work to properly calculate the latera recta for different orientations of the ellipses.
+    f(x) := Eval(EquRight(Solve(eq,y)[1]));
+    latusRectum := f(foci) * 2;
+    
+    Echo("Axes: ",axes,"  Foci: ",N(foci), "  Eccentricity: ", (eccentricity), "  Latus Rectum: ", latusRectum);
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Axes: {13,5}   Foci: 12   Eccentricity: 12/13   Latus Rectum: 50/13 
+      Axes: {2,5/2}   Foci: 1.5   Eccentricity: 3/5   Latus Rectum: Sqrt(175/16) 
+      Axes: {6,10}   Foci: 8   Eccentricity: 4/5   Latus Rectum: Complex(0,Sqrt(2800/9)) 
+      Axes: {5,2}   Foci: 4.582575695   Eccentricity: Sqrt(21/25)   Latus Rectum: 8/5 
+      Axes: {1/2,1}   Foci: 0.86602540378   Eccentricity: Sqrt(3/4)   Latus Rectum: Complex(0,Sqrt(8)) 
+      Axes: {1/4,1/5}   Foci: 0.15   Eccentricity: 3/5   Latus Rectum: 8/25
+.   %/output
+
 
 %/group
+
+
+
+
+%group
+//Exercise 3.
+
+
+%mathpiper
+
+a := (11/2);
+b := (5/2);
+answerA := x^2/a^2 + y^2/b^2 == 1;
+
+a := (2/2);
+b := (9/2);
+answerB := x^2/a^2 + y^2/b^2 == 1;
+
+
+
+
+a := 26/2;
+b := 2*Sqrt(a^2 - 5^2);
+
+answerC := x^2/a^2 + y^2/b^2 == 1;
+
+Echo(answerA, answerB, answerC);
+
+//Note: answerC still needs work.
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      (4*x^2)/121+(4*y^2)/25==1 x^2+(4*y^2)/81==1 x^2/169+y^2/576==1
+.   %/output
+
+
+%/group
+
+
+
 
 
