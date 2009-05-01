@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Add a workspace window to MathRider which is similar to Matlab's workspace window.
 +HasFunc bug:
 %mathpiper
 //HasFunc bug.  If the variable that is passed to HasFunc is a MacroLocal, it will not be evaluated.
