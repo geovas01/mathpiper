@@ -1,0 +1,94 @@
+%beanshell
+s = "*CMD D --- take derivative of expression with respect to variable\n*STD\n*CALL\n	D(variable) expression\n	D(list) expression\n	D(variable,n) expression\n\n*PARMS\n\n{variable} -- variable\n\n{list} -- a list of variables\n\n{expression} -- expression to take derivatives of\n\n{n} -- order of derivative\n\n*DESC\n\nThis function calculates the derivative of the expression {expr} with\n\nrespect to the variable {var} and returns it. If the third calling\n\nformat is used, the {n}-th derivative is determined. Yacas knows\n\nhow to differentiate standard functions such as {Ln}\n\nand {Sin}.\n\n\n\nThe {D} operator is threaded in both {var} and\n\n{expr}. This means that if either of them is a list, the function is\n\napplied to each entry in the list. The results are collected in\n\nanother list which is returned. If both {var} and {expr} are a\n\nlist, their lengths should be equal. In this case, the first entry in\n\nthe list {expr} is differentiated with respect to the first entry in\n\nthe list {var}, the second entry in {expr} is differentiated with\n\nrespect to the second entry in {var}, and so on.\n\n\n\nThe {D} operator returns the original function if $n=0$, a common\n\nmathematical idiom that simplifies many formulae.\n\n\n\n*E.G.\n\n\n\n	In> D(x)Sin(x*y)\n\n	Out> y*Cos(x*y);\n\n	In> D({x,y,z})Sin(x*y)\n\n	Out> {y*Cos(x*y),x*Cos(x*y),0};\n\n	In> D(x,2)Sin(x*y)\n\n	Out> -Sin(x*y)*y^2;\n\n	In> D(x){Sin(x),Cos(x)}\n\n	Out> {Cos(x),-Sin(x)};\n\n\n\n*SEE Integrate, Taylor, Diverge, Curl\n";
+foldOutput = s;
+
+
+
+
+
+
+
+%/beanshell
+
+    %output ,preserve="false"
+      *CMD D --- take derivative of expression with respect to variable
+      *STD
+      *CALL
+      	D(variable) expression
+      	D(list) expression
+      	D(variable,n) expression
+      
+      *PARMS
+      
+      {variable} -- variable
+      
+      {list} -- a list of variables
+      
+      {expression} -- expression to take derivatives of
+      
+      {n} -- order of derivative
+      
+      *DESC
+      
+      This function calculates the derivative of the expression {expr} with
+      
+      respect to the variable {var} and returns it. If the third calling
+      
+      format is used, the {n}-th derivative is determined. Yacas knows
+      
+      how to differentiate standard functions such as {Ln}
+      
+      and {Sin}.
+      
+      
+      
+      The {D} operator is threaded in both {var} and
+      
+      {expr}. This means that if either of them is a list, the function is
+      
+      applied to each entry in the list. The results are collected in
+      
+      another list which is returned. If both {var} and {expr} are a
+      
+      list, their lengths should be equal. In this case, the first entry in
+      
+      the list {expr} is differentiated with respect to the first entry in
+      
+      the list {var}, the second entry in {expr} is differentiated with
+      
+      respect to the second entry in {var}, and so on.
+      
+      
+      
+      The {D} operator returns the original function if $n=0$, a common
+      
+      mathematical idiom that simplifies many formulae.
+      
+      
+      
+      *E.G.
+      
+      
+      
+      	In> D(x)Sin(x*y)
+      
+      	Out> y*Cos(x*y);
+      
+      	In> D({x,y,z})Sin(x*y)
+      
+      	Out> {y*Cos(x*y),x*Cos(x*y),0};
+      
+      	In> D(x,2)Sin(x*y)
+      
+      	Out> -Sin(x*y)*y^2;
+      
+      	In> D(x){Sin(x),Cos(x)}
+      
+      	Out> {Cos(x),-Sin(x)};
+      
+      
+      
+      *SEE Integrate, Taylor, Diverge, Curl
+.   %/output 
+
+
