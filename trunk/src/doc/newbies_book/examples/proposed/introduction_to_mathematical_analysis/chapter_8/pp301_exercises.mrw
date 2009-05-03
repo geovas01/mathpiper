@@ -347,7 +347,7 @@ Echo("Equation: ",equ);
 
 
 
-%group,description="exercise 11"
+%group,description="exercises 11 and 12."
 
 
 %geogebra
@@ -383,20 +383,27 @@ h(x) := f(x)*2*x*2;
 
 Echo(h(x),,, h(4) );
 
-Simplify(h(x));
+
+//Exercise 12.
+
+dx := D(x) (2*x*2*Sqrt(-100*(9*x^2-225)))/50;
+
+maxX := EquRight(N(Solve(dx==0,x))[1]);
+
+maxArea := a(maxX);
+
+Echo("Exercise 12: ", maxArea);
+
 %/mathpiper
 
     %output,preserve="false"
-      Result: (2*x*Sqrt(-100*(9*x^2-225)))/25
+      Result: True
       
       Side effects:
       28.80000000 28.8 21.99636333 23.53805429 
-      (2*x*2*Sqrt(-100*(9*x^2-225)))/50 , 28.80000000
+      (2*x*2*Sqrt(-100*(9*x^2-225)))/50 , 28.80000000 
+      Exercise 12: 30.00000001
 .   %/output
-
-        %output,preserve="false"
-          HotEqn updated.
-.       %/output
 
 
 %/group
@@ -404,6 +411,104 @@ Simplify(h(x));
 
 
 
+%group,description="exercise 13"
+//Skipping showing centers and foci.
 
+
+%geogebra
+
+a:25x^2+16y^2=1600
+b:x^2+32y=0
+c:4x^2+9y^2=144
+d:4x+9y^2=0
+e:2x^2+2y^2=49
+f:x^2+y^2=8x
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 14"
+
+
+%mathpiper
+a := 186000000/2;
+c := 3000000/2;
+b := N(Sqrt(a^2 - c^2));
+minorAxis := b*2;
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 185975804.9
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 15"
+
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+Clear(x,y);
+P := Point(x,y);
+equ := Distance(P,Point(-32,0)) == 4/5*Distance(P,Point(-50,y));
+
+//Solve would not solve the version of this equation which had square roots so I removed them by squaring.
+Echo(Manipulate(equ^2));
+
+Solve(equ,y);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {}
+      
+      Side effects:
+      x^2+64*x+y^2+1024==(16*x^2)/25+64*x+1600
+.   %/output
+
+
+%/group
+
+
+
+
+%group,description="exercise 16"
+
+%mathpiper,output="geogebra"
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+Clear(x,y);
+P := Point(x,y);
+cirEqu := x^2 + y^2/(1/2) ==10;
+
+
+
+%/mathpiper
+
+    %geogebra,preserve="false"
+      Result: x^2+2*y^2=10
+.   %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+.       %/output
+
+/group
 
 
