@@ -1,4 +1,4 @@
-%group
+%group,description="exercises 1 and 2"
 //Exercise 1 and Exercise 2 (skipping 2d for now)..
 
 %geogebra
@@ -83,7 +83,18 @@ ForEach(equ,{a,b,c,d,e,f})
     f(x) := Eval(EquRight(Solve(eq,y)[1]));
     latusRectum := f(foci) * 2;
     
-    Echo("Axes: ",axes,"  Foci: ",N(foci), "  Eccentricity: ", (eccentricity), "  Latus Rectum: ", latusRectum);
+    //Exercise 4 calculations.
+    pinSeparation := 2 * foci;
+    stringLength := If(axes[1] > axes[2], 2*axes[1], 2*axes[2]);
+    stringLoopLength := pinSeparation + stringLength;
+    
+    Echo("Axes: ",axes,
+    "  Foci: ",N(foci),
+    "  Eccentricity: ", (eccentricity),
+    "  Latus Rectum: ", latusRectum,
+    "  Pin Separation: ",pinSeparation,
+    "  String Length: ",stringLength,
+    "  String Loop Length: ",stringLoopLength);
 ];
 
 
@@ -93,12 +104,12 @@ ForEach(equ,{a,b,c,d,e,f})
       Result: True
       
       Side effects:
-      Axes: {13,5}   Foci: 12   Eccentricity: 12/13   Latus Rectum: 50/13 
-      Axes: {2,5/2}   Foci: 1.5   Eccentricity: 3/5   Latus Rectum: Sqrt(175/16) 
-      Axes: {6,10}   Foci: 8   Eccentricity: 4/5   Latus Rectum: Complex(0,Sqrt(2800/9)) 
-      Axes: {5,2}   Foci: 4.582575695   Eccentricity: Sqrt(21/25)   Latus Rectum: 8/5 
-      Axes: {1/2,1}   Foci: 0.86602540378   Eccentricity: Sqrt(3/4)   Latus Rectum: Complex(0,Sqrt(8)) 
-      Axes: {1/4,1/5}   Foci: 0.15   Eccentricity: 3/5   Latus Rectum: 8/25
+      Axes: {13,5}   Foci: 12   Eccentricity: 12/13   Latus Rectum: 50/13   Pin Separation: 24   String Length: 26   String Loop Length: 50 
+      Axes: {2,5/2}   Foci: 1.5   Eccentricity: 3/5   Latus Rectum: Sqrt(175/16)   Pin Separation: 3   String Length: 5   String Loop Length: 8 
+      Axes: {6,10}   Foci: 8   Eccentricity: 4/5   Latus Rectum: Complex(0,Sqrt(2800/9))   Pin Separation: 16   String Length: 20   String Loop Length: 36 
+      Axes: {5,2}   Foci: 4.582575695   Eccentricity: Sqrt(21/25)   Latus Rectum: 8/5   Pin Separation: Sqrt(84)   String Length: 10   String Loop Length: Sqrt(84)+10 
+      Axes: {1/2,1}   Foci: 0.86602540378   Eccentricity: Sqrt(3/4)   Latus Rectum: Complex(0,Sqrt(8))   Pin Separation: Sqrt(3)   String Length: 2   String Loop Length: Sqrt(3)+2 
+      Axes: {1/4,1/5}   Foci: 0.15   Eccentricity: 3/5   Latus Rectum: 8/25   Pin Separation: 3/10   String Length: 1/2   String Loop Length: 4/5
 .   %/output
 
 
@@ -107,7 +118,7 @@ ForEach(equ,{a,b,c,d,e,f})
 
 
 
-%group
+%group,description="exercise 3"
 //Exercise 3.
 
 
@@ -117,10 +128,11 @@ a := (11/2);
 b := (5/2);
 answerA := x^2/a^2 + y^2/b^2 == 1;
 
+
+
 a := (2/2);
 b := (9/2);
 answerB := x^2/a^2 + y^2/b^2 == 1;
-
 
 
 
@@ -129,20 +141,267 @@ b := 2*Sqrt(a^2 - 5^2);
 
 answerC := x^2/a^2 + y^2/b^2 == 1;
 
-Echo(answerA, answerB, answerC);
 
-//Note: answerC still needs work.
+
+a := 48/2;
+b := 2*Sqrt(a^2 - 7^2);
+
+answerD := x^2/a^2 + y^2/b^2 == 1;
+
+Echo(answerA, answerB, answerC, answerD);
+
+//Note: the answer book may have an error in it for C or D.
 %/mathpiper
 
     %output,preserve="false"
       Result: True
       
       Side effects:
-      (4*x^2)/121+(4*y^2)/25==1 x^2+(4*y^2)/81==1 x^2/169+y^2/576==1
+      (4*x^2)/121+(4*y^2)/25==1 x^2+(4*y^2)/81==1 x^2/169+y^2/576==1 x^2/576+y^2/2108==1
 .   %/output
 
 
 %/group
+
+
+
+
+%group,description="exercise 4"
+//Exercise 4 (See exercise 1).
+
+%/group
+
+
+
+
+%group,description="exercise 5"
+//Exercise 5.
+
+%mathpiper
+Clear(a,b,c,d,e,f,g,x,y);
+
+a := 40/2;
+c := 24/2;
+b := Sqrt(a^2 - c^2);
+
+x^2/a^2 + y^2/b^2 ==1;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: x^2/400+y^2/256==1
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 6"
+
+%mathpiper
+Clear(a,b,c,d,e,f,g,x,y);
+
+a := (28-8)/2;
+c := 8/2;
+b := Sqrt(a^2 - c^2);
+
+{a,b,x^2/a^2 + y^2/b^2 ==1};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {10,Sqrt(84),x^2/100+y^2/84==1}
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 7"
+
+%mathpiper
+b := 16;
+a := 20;
+c := Sqrt(a^2 - b^2);
+
+equ := x^2/a^2 + y^2/b^2 ==1;
+Echo("Equation: ",equ);
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+f(x) := N(Eval(EquRight(Solve(equ,y)[1])));
+
+Echo("Heights: ", f(9), f(16), f(10) );
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Equation: x^2/400+y^2/256==1 
+      Heights: 14.28845688 9.6 13.85640646
+.   %/output
+
+
+%/group
+
+
+
+
+%group,description="exercise 8"
+
+%mathpiper
+b := 18-12;
+a := 10;
+c := Sqrt(a^2 - b^2);
+
+equ := x^2/a^2 + y^2/b^2 ==1;
+Echo("Equation: ",equ);
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+f(x) := N(Eval(EquRight(Solve(equ,y)[1])));
+
+Echo("Height: ", f(a-4)+12 );
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Equation: x^2/100+y^2/36==1 
+      Height: 16.80000000
+.   %/output
+
+
+%/group
+
+
+
+
+%group,description="exercise 9"
+
+%mathpiper
+b := 15;
+a := 50/2;
+c := Sqrt(a^2 - b^2);
+
+equ := x^2/a^2 + y^2/b^2 ==1;
+Echo("Equation: ",equ);
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+f(x) := N(Eval(EquRight(Solve(equ,y)[1])));
+
+heightInMiddle := f(0)+5;
+
+Echo("Heights: ", heightInMiddle - f(15), heightInMiddle - f(20));
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Equation: x^2/625+y^2/225==1 
+      Heights: 8.00000000 11.00000000
+.   %/output
+
+
+%/group
+
+
+
+
+%group,description="exercise 10"
+
+%mathpiper
+b := 37.8;
+a := 152/2;
+c := Sqrt(a^2 - b^2);
+
+equ := x^2/a^2 + y^2/b^2 ==1;
+Echo("Equation: ",equ);
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Equation: x^2/5776+y^2/1428.84==1
+.   %/output
+
+
+%/group
+
+
+
+
+%group,description="exercise 11"
+
+
+%geogebra
+a:9x^2 + 25y^2=225
+b:x=4
+c:x=-4
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+f(x) := N(EquRight(Solve(9*x^2 + 25*y^2==225,y)[1]));
+
+a(x) := 
+[
+    //Local(height, width, area);
+    height := f(x)*2;
+    width := x*2;
+    area := width * height;
+];
+
+Echo(a(4), a(3), a(2), a(4.5));
+
+h(x) := f(x)*2*x*2;
+
+Echo(h(x),,, h(4) );
+
+Simplify(h(x));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: (2*x*Sqrt(-100*(9*x^2-225)))/25
+      
+      Side effects:
+      28.80000000 28.8 21.99636333 23.53805429 
+      (2*x*2*Sqrt(-100*(9*x^2-225)))/50 , 28.80000000
+.   %/output
+
+        %output,preserve="false"
+          HotEqn updated.
+.       %/output
+
+
+%/group
+
+
 
 
 
