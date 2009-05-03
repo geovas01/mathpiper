@@ -1,96 +1,271 @@
-%beanshell
-s = "*CMD D --- take derivative of expression with respect to variable\n*STD\n*CALL\n	D(variable) expression\n	D(list) expression\n	D(variable,n) expression\n\n*PARMS\n\n{variable} -- variable\n\n{list} -- a list of variables\n\n{expression} -- expression to take derivatives of\n\n{n} -- order of derivative\n\n*DESC\n\nThis function calculates the derivative of the expression {expr} with\n\nrespect to the variable {var} and returns it. If the third calling\n\nformat is used, the {n}-th derivative is determined. Yacas knows\n\nhow to differentiate standard functions such as {Ln}\n\nand {Sin}.\n\n\n\nThe {D} operator is threaded in both {var} and\n\n{expr}. This means that if either of them is a list, the function is\n\napplied to each entry in the list. The results are collected in\n\nanother list which is returned. If both {var} and {expr} are a\n\nlist, their lengths should be equal. In this case, the first entry in\n\nthe list {expr} is differentiated with respect to the first entry in\n\nthe list {var}, the second entry in {expr} is differentiated with\n\nrespect to the second entry in {var}, and so on.\n\n\n\nThe {D} operator returns the original function if $n=0$, a common\n\nmathematical idiom that simplifies many formulae.\n\n\n\n*E.G.\n\n\n\n	In> D(x)Sin(x*y)\n\n	Out> y*Cos(x*y);\n\n	In> D({x,y,z})Sin(x*y)\n\n	Out> {y*Cos(x*y),x*Cos(x*y),0};\n\n	In> D(x,2)Sin(x*y)\n\n	Out> -Sin(x*y)*y^2;\n\n	In> D(x){Sin(x),Cos(x)}\n\n	Out> {Cos(x),-Sin(x)};\n\n\n\n*SEE Integrate, Taylor, Diverge, Curl\n";
-foldOutput = s;
+%beanshell,output="html"
 
 
+private String applyBold(String line)
+{
+    line = line.replaceAll("\\{","<b><tt>");
+    line = line.replaceAll("\\}","</tt></b>");
+    return line;
+}//end method.
+
+s = "*CMD D --- take derivative of expression with respect to variable\n*STD\n*CALL\n	D(variable) expression\n	D(list) expression\n	D(variable,n) expression\n\n*PARMS\n\n{variable} -- variable\n\n{list} -- a list of variables\n\n{expression} -- expression to take derivatives of\n\n{n} -- order of derivative\n\n*DESC\n\nThis function calculates the derivative of the expression {expr} with\nrespect to the variable {var} and returns it. If the third calling\nformat is used, the {n}-th derivative is determined. Yacas knows\nhow to differentiate standard functions such as {Ln}\nand {Sin}.\n\nThe {D} operator is threaded in both {var} and\n{expr}. This means that if either of them is a list, the function is\napplied to each entry in the list. The results are collected in\nanother list which is returned. If both {var} and {expr} are a\nlist, their lengths should be equal. In this case, the first entry in\nthe list {expr} is differentiated with respect to the first entry in\nthe list {var}, the second entry in {expr} is differentiated with\nrespect to the second entry in {var}, and so on.\n\nThe {D} operator returns the original function if $n=0$, a common\nmathematical idiom that simplifies many formulae.\n\n*E.G.\n\n	In> D(x)Sin(x*y)\n	Out> y*Cos(x*y);\n	In> D({x,y,z})Sin(x*y)\n	Out> {y*Cos(x*y),x*Cos(x*y),0};\n	In> D(x,2)Sin(x*y)\n	Out> -Sin(x*y)*y^2;\n	In> D(x){Sin(x),Cos(x)}\n	Out> {Cos(x),-Sin(x)};\n\n*SEE Integrate, Taylor, Diverge, Curl\n";
 
 
+String[] lines = s.split("\n");
 
+StringBuilder html = new StringBuilder();
+
+html.append("<html>\n");
+
+for(int x = 0; x < lines.length; x++)
+{
+    //foldOutput = foldOutput + lines[x];
+    
+    String line = lines[x].trim();
+    
+    if(line.startsWith("*CMD"))
+    {
+        line = line.substring(line.indexOf(" "), line.length() );
+        html.append("<h3>\n<hr>" + line + "\n</h3>\n\n");
+        
+    }
+    else if(line.startsWith("*STD"))
+    {
+        html.append("<h5 align=right>Standard library</h5><h5>\n\n");
+    }
+    else if(line.startsWith("*CALL"))
+    {
+        html.append("Calling format:\n</h5>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>\n");
+
+        while(true)
+        {
+            x++;
+            
+            String line = lines[x].trim();
+            
+            if(line.startsWith("*"))
+            {
+                x--;
+                break;
+            }
+            if(line.equalsIgnoreCase(""))
+            {
+                continue;
+            }
+            
+            html.append(line);
+            html.append("\n");
+        }//end while.
+        
+        html.append("</pre></tr>\n</table>\n<p>\n\n");
+    }
+    else if(line.startsWith("*PARMS"))
+    {
+        html.append("<h5>\nParameters:\n</h5>\n");
+
+        while(true)
+        {
+            x++;
+            
+            String line = lines[x].trim();
+            
+            if(line.startsWith("*"))
+            {
+                x--;
+                break;
+            }
+            if(line.equalsIgnoreCase(""))
+            {
+                continue;
+            }
+            
+            line = applyBold(line);
+            //foldOutput = foldOutput + line;
+            
+            html.append("\n<p>\n");
+            html.append(line);
+            html.append("\n");
+        }//end while.
+        
+        html.append("\n<p>\n\n");
+    }
+    else if(line.startsWith("*DESC"))
+    {
+        html.append("<h5>\nDescription:\n</h5>\n");
+
+        while(true)
+        {
+            x++;
+            
+            String line = lines[x].trim();
+            
+            if(line.startsWith("*"))
+            {
+                x--;
+                break;
+            }
+            if(line.equalsIgnoreCase(""))
+            {
+                html.append("\n<p>\n");
+                continue;
+            }
+            
+            line = applyBold(line);
+            //foldOutput = foldOutput + line;
+            
+            
+            html.append(line);
+            html.append("\n");
+        }//end while.
+        
+        html.append("\n<p>\n\n");
+    }    
+    else if(line.startsWith("*E.G."))
+    {
+        html.append("<h5>\nExamples:\n</h5>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>");
+
+        while(true)
+        {
+            x++;
+            
+            String line = lines[x].trim();
+            
+            if(line.startsWith("*"))
+            {
+                x--;
+                break;
+            }
+            if(line.equalsIgnoreCase(""))
+            {
+                html.append("\n<br />\n");
+                continue;
+            }
+            
+            line = line.replaceAll(">","&gt;");
+            
+            
+            html.append(line);
+            html.append("\n");
+        }//end while.
+        
+        html.append("\n</pre></tr>\n</table>\n<p>\n\n");
+    }        
+    else if(line.startsWith("*SEE"))
+    {
+            
+        String line = lines[x].trim();
+
+        html.append("<h5>\nSee also:\n</h5>" + line + "\n");
+
+    }
+
+
+   
+}//end for.
+
+html.append("</html>\n");
+
+foldOutput = html.toString();
 
 
 %/beanshell
 
-    %output ,preserve="false"
-      *CMD D --- take derivative of expression with respect to variable
-      *STD
-      *CALL
-      	D(variable) expression
-      	D(list) expression
-      	D(variable,n) expression
+    %html ,preserve="false"
+      <html>
+      <h3>
+      <hr> D --- take derivative of expression with respect to variable
+      </h3>
       
-      *PARMS
+      <h5 align=right>Standard library</h5><h5>
       
-      {variable} -- variable
+      Calling format:
+      </h5>
+      <table cellpadding="0" width="100%">
+      <tr><td width=100% bgcolor="#DDDDEE"><pre>
+      D(variable) expression
+      D(list) expression
+      D(variable,n) expression
+      </pre></tr>
+      </table>
+      <p>
       
-      {list} -- a list of variables
+      <h5>
+      Parameters:
+      </h5>
       
-      {expression} -- expression to take derivatives of
+      <p>
+      <b><tt>variable</tt></b> -- variable
       
-      {n} -- order of derivative
+      <p>
+      <b><tt>list</tt></b> -- a list of variables
       
-      *DESC
+      <p>
+      <b><tt>expression</tt></b> -- expression to take derivatives of
       
-      This function calculates the derivative of the expression {expr} with
+      <p>
+      <b><tt>n</tt></b> -- order of derivative
       
-      respect to the variable {var} and returns it. If the third calling
+      <p>
       
-      format is used, the {n}-th derivative is determined. Yacas knows
+      <h5>
+      Description:
+      </h5>
       
-      how to differentiate standard functions such as {Ln}
+      <p>
+      This function calculates the derivative of the expression <b><tt>expr</tt></b> with
+      respect to the variable <b><tt>var</tt></b> and returns it. If the third calling
+      format is used, the <b><tt>n</tt></b>-th derivative is determined. Yacas knows
+      how to differentiate standard functions such as <b><tt>Ln</tt></b>
+      and <b><tt>Sin</tt></b>.
       
-      and {Sin}.
-      
-      
-      
-      The {D} operator is threaded in both {var} and
-      
-      {expr}. This means that if either of them is a list, the function is
-      
+      <p>
+      The <b><tt>D</tt></b> operator is threaded in both <b><tt>var</tt></b> and
+      <b><tt>expr</tt></b>. This means that if either of them is a list, the function is
       applied to each entry in the list. The results are collected in
-      
-      another list which is returned. If both {var} and {expr} are a
-      
+      another list which is returned. If both <b><tt>var</tt></b> and <b><tt>expr</tt></b> are a
       list, their lengths should be equal. In this case, the first entry in
+      the list <b><tt>expr</tt></b> is differentiated with respect to the first entry in
+      the list <b><tt>var</tt></b>, the second entry in <b><tt>expr</tt></b> is differentiated with
+      respect to the second entry in <b><tt>var</tt></b>, and so on.
       
-      the list {expr} is differentiated with respect to the first entry in
-      
-      the list {var}, the second entry in {expr} is differentiated with
-      
-      respect to the second entry in {var}, and so on.
-      
-      
-      
-      The {D} operator returns the original function if $n=0$, a common
-      
+      <p>
+      The <b><tt>D</tt></b> operator returns the original function if $n=0$, a common
       mathematical idiom that simplifies many formulae.
       
+      <p>
       
+      <p>
       
-      *E.G.
+      <h5>
+      Examples:
+      </h5>
+      <table cellpadding="0" width="100%">
+      <tr><td width=100% bgcolor="#DDDDEE"><pre>
+      <br />
+      In&gt; D(x)Sin(x*y)
+      Out&gt; y*Cos(x*y);
+      In&gt; D({x,y,z})Sin(x*y)
+      Out&gt; {y*Cos(x*y),x*Cos(x*y),0};
+      In&gt; D(x,2)Sin(x*y)
+      Out&gt; -Sin(x*y)*y^2;
+      In&gt; D(x){Sin(x),Cos(x)}
+      Out&gt; {Cos(x),-Sin(x)};
       
+      <br />
       
+      </pre></tr>
+      </table>
+      <p>
       
-      	In> D(x)Sin(x*y)
-      
-      	Out> y*Cos(x*y);
-      
-      	In> D({x,y,z})Sin(x*y)
-      
-      	Out> {y*Cos(x*y),x*Cos(x*y),0};
-      
-      	In> D(x,2)Sin(x*y)
-      
-      	Out> -Sin(x*y)*y^2;
-      
-      	In> D(x){Sin(x),Cos(x)}
-      
-      	Out> {Cos(x),-Sin(x)};
-      
-      
-      
-      *SEE Integrate, Taylor, Diverge, Curl
-.   %/output 
+      <h5>
+      See also:
+      </h5>*SEE Integrate, Taylor, Diverge, Curl
+      </html>
+.   %/html 
 
+        %output,preserve="false"
+          
+.       %/output
 
 
 
@@ -147,5 +322,121 @@ mathematical idiom that simplifies many formulae.
 
 *SEE Integrate, Taylor, Diverge, Curl
 %/group
+
+
+
+
+
+%html
+
+<html>
+
+<h3>
+<hr>D -- take derivative of expression with respect to variable
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+D(variable) expression
+D(list) expression
+D(variable,n) expression
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>variable</tt></b> -- variable
+
+
+<p>
+<b><tt>list</tt></b> -- a list of variables
+
+
+<p>
+<b><tt>expression</tt></b> -- expression to take derivatives of
+
+
+<p>
+<b><tt>n</tt></b> -- order of derivative
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function calculates the derivative of the expression <b><tt>expr</tt></b> with
+respect to the variable <b><tt>var</tt></b> and returns it. If the third calling
+format is used, the <b><tt>n</tt></b>-th derivative is determined. MathPiper knows
+how the differentiate standard functions such as <b><tt>Ln</tt></b>
+and <b><tt>Sin</tt></b>.
+
+
+<p>
+The <b><tt>D</tt></b> operator is threaded in both <b><tt>var</tt></b> and
+<b><tt>expr</tt></b>. This means that if either of them is a list, the function is
+applied to each entry in the list. The results are collected in
+another list which is returned. If both <b><tt>var</tt></b> and <b><tt>expr</tt></b> are a
+list, their lengths should be equal. In this case, the first entry in
+the list <b><tt>expr</tt></b> is differentiated with respect to the first entry in
+the list <b><tt>var</tt></b>, the second entry in <b><tt>expr</tt></b> is differentiated with
+respect to the second entry in <b><tt>var</tt></b>, and so on.
+
+
+<p>
+The <b><tt>D</tt></b> operator returns the original function if <b> n=0</b>, a common
+mathematical idiom that simplifies many formulae.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; D(x)Sin(x*y)
+Out&gt; y*Cos(x*y);
+In&gt; D({x,y,z})Sin(x*y)
+Out&gt; {y*Cos(x*y),x*Cos(x*y),0};
+In&gt; D(x,2)Sin(x*y)
+Out&gt; -Sin(x*y)*y^2;
+In&gt; D(x){Sin(x),Cos(x)}
+Out&gt; {Cos(x),-Sin(x)};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Integrate" target="Chapters">
+Integrate
+</a>
+, <a href="ref.html?Taylor" target="Chapters">
+Taylor
+</a>
+, <a href="ref.html?Diverge" target="Chapters">
+Diverge
+</a>
+, <a href="ref.html?Curl" target="Chapters">
+Curl
+</a>
+
+</html>
+
+%/html
+
+    %output,preserve="false"
+      
+.   %/output
 
 
