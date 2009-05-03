@@ -675,11 +675,17 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 					}//end else.
 					
 					foldOutput = "";
-					
 				}
 				
 	//System.out.println("tempFilePath: " + tempFilePath);
+	            if(foldProperties.get("output").equalsIgnoreCase("html") )
+				{
+					output_fold_type = "%html ";
+				}
+				else
+				{
 				output_fold_type = "%output ";
+				}
 	//Sy	stem.out.println("Out> " + result);
 				
 					
