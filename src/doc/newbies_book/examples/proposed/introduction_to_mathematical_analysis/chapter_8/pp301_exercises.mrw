@@ -26,7 +26,7 @@ Function("IsRationalNumeric",{aLeft})
     IsNumber(aLeft[1]) And
     IsNumber(aLeft[2]);
 
-EllipseGetAxes(expr) :=
+EllipseGetSemiAxes(expr) :=
 [
     
     Local(a,b);
@@ -72,12 +72,12 @@ ForEach(equ,{a,b,c,d,e,f})
     eq := equ; //Note:tk:Workaround for HasFunc bug (which is reported in the development notes).
     equ2 := Manipulate(eq/EquRight(eq));  
     //Echo(equ,equ2);
-    axes := EllipseGetAxes(equ2);
+    semiAxes := EllipseGetSemiAxes(equ2);
     
-    If(axes[1] > axes[2], foci := Sqrt(axes[1]^2 - axes[2]^2), foci := Sqrt(axes[2]^2 - axes[1]^2));
+    If(semiAxes[1] > semiAxes[2], foci := Sqrt(semiAxes[1]^2 - semiAxes[2]^2), foci := Sqrt(semiAxes[2]^2 - semiAxes[1]^2));
     
     
-    If(axes[1] > axes[2], eccentricity := foci / axes[1], eccentricity := foci / axes[2]);
+    If(semiAxes[1] > semiAxes[2], eccentricity := foci / semiAxes[1], eccentricity := foci / semiAxes[2]);
     
     //Note:this code needs more work to properly calculate the latera recta for different orientations of the ellipses.
     f(x) := Eval(EquRight(Solve(eq,y)[1]));
@@ -85,10 +85,10 @@ ForEach(equ,{a,b,c,d,e,f})
     
     //Exercise 4 calculations.
     pinSeparation := 2 * foci;
-    stringLength := If(axes[1] > axes[2], 2*axes[1], 2*axes[2]);
+    stringLength := If(semiAxes[1] > semiAxes[2], 2*semiAxes[1], 2*semiAxes[2]);
     stringLoopLength := pinSeparation + stringLength;
     
-    Echo("Axes: ",axes,
+    Echo("Semi Axes: ",semiAxes,
     "  Foci: ",N(foci),
     "  Eccentricity: ", (eccentricity),
     "  Latus Rectum: ", latusRectum,
@@ -104,12 +104,12 @@ ForEach(equ,{a,b,c,d,e,f})
       Result: True
       
       Side effects:
-      Axes: {13,5}   Foci: 12   Eccentricity: 12/13   Latus Rectum: 50/13   Pin Separation: 24   String Length: 26   String Loop Length: 50 
-      Axes: {2,5/2}   Foci: 1.5   Eccentricity: 3/5   Latus Rectum: Sqrt(175/16)   Pin Separation: 3   String Length: 5   String Loop Length: 8 
-      Axes: {6,10}   Foci: 8   Eccentricity: 4/5   Latus Rectum: Complex(0,Sqrt(2800/9))   Pin Separation: 16   String Length: 20   String Loop Length: 36 
-      Axes: {5,2}   Foci: 4.582575695   Eccentricity: Sqrt(21/25)   Latus Rectum: 8/5   Pin Separation: Sqrt(84)   String Length: 10   String Loop Length: Sqrt(84)+10 
-      Axes: {1/2,1}   Foci: 0.86602540378   Eccentricity: Sqrt(3/4)   Latus Rectum: Complex(0,Sqrt(8))   Pin Separation: Sqrt(3)   String Length: 2   String Loop Length: Sqrt(3)+2 
-      Axes: {1/4,1/5}   Foci: 0.15   Eccentricity: 3/5   Latus Rectum: 8/25   Pin Separation: 3/10   String Length: 1/2   String Loop Length: 4/5
+      Semi Axes: {13,5}   Foci: 12   Eccentricity: 12/13   Latus Rectum: 50/13   Pin Separation: 24   String Length: 26   String Loop Length: 50 
+      Semi Axes: {2,5/2}   Foci: 1.5   Eccentricity: 3/5   Latus Rectum: Sqrt(175/16)   Pin Separation: 3   String Length: 5   String Loop Length: 8 
+      Semi Axes: {6,10}   Foci: 8   Eccentricity: 4/5   Latus Rectum: Complex(0,Sqrt(2800/9))   Pin Separation: 16   String Length: 20   String Loop Length: 36 
+      Semi Axes: {5,2}   Foci: 4.582575695   Eccentricity: Sqrt(21/25)   Latus Rectum: 8/5   Pin Separation: Sqrt(84)   String Length: 10   String Loop Length: Sqrt(84)+10 
+      Semi Axes: {1/2,1}   Foci: 0.86602540378   Eccentricity: Sqrt(3/4)   Latus Rectum: Complex(0,Sqrt(8))   Pin Separation: Sqrt(3)   String Length: 2   String Loop Length: Sqrt(3)+2 
+      Semi Axes: {1/4,1/5}   Foci: 0.15   Eccentricity: 3/5   Latus Rectum: 8/25   Pin Separation: 3/10   String Length: 1/2   String Loop Length: 4/5
 .   %/output
 
 
