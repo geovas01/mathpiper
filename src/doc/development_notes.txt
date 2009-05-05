@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++The While and For functions need a way to break and continue.
++Functions need a return statement.
 +Use /// and /** **/ for commenting student's .mrw files.  Add special syntax highlighting for these comments.
 +Add a workspace window to MathRider which is similar to Matlab's workspace window.
 +HasFunc bug:
