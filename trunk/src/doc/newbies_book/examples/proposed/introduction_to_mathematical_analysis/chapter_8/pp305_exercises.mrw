@@ -1,10 +1,140 @@
-//
-%group,description=""
+%group,description="exercise 1 and 2"
+
+
+
+%mathpiper
+correction(a,b) :=
+[
+    //Local(key,table);
+    key := N(Round((b/a)*10)/10);
+    key := String(key);
+    table := {{"0.0",27.3},{"0.1",17.6},{"0.2",11.5},{"0.3",7.4},{"0.4",4.6},{"0.5",2.8},{"0.6",1.6},{"0.7",.8},{"0.8",.3},{"0.9",.1}};
+    
+    table[key];
+
+];
+
+a := 20;
+b := 6;
+
+A := N(Pi * a * b);
+Echo("Area: ",A);
+
+P := N(Pi*(a+b) + correction(a,b));
+Echo("Perimeter: ",P);
+
+NewLine();
+
+
+//2a)
+a := 10;
+b := 7;
+
+A := N(Pi * a * b);
+Echo("Area: ",A);
+
+P := N(Pi*(a+b) + correction(a,b));
+Echo("Perimeter: ",P);
+
+NewLine();
+
+
+//2b)
+a := 10;
+b := 2;
+
+A := N(Pi * a * b);
+Echo("Area: ",A);
+
+P := N(Pi*(a+b) + correction(a,b));
+Echo("Perimeter: ",P);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Area: 376.9911184 
+      Perimeter: 89.08140899 
+      
+      Area: 219.9114858 
+      Perimeter: 54.20707511 
+      
+      Area: 62.83185308 
+      Perimeter: 49.19911184
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercises 3 and 4"
 
 
 %mathpiper
 
+//3)
+height := 60;
+a := 25/height * y;
+b := 4/5 * a;
+
+area := Pi*a*b;
+
+volume := Integrate(y,0,height)area;
+N(volume);
+
+
+//4)
+height := 20;
+a := 6/height * y;
+b := 6/12 * a;
+
+area := Pi*a*b;
+
+volume := Integrate(y,0,height)area;
+N(volume);
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: 376.9911185
+.   %/output
+
+
+%/group
+
+
+
+
+%group,description="exercises 5 and 6"
+
+
+%mathpiper
+
+
+a := 15;
+b := 3/5*a;
+area := Pi*a*b;
+perimeter := N(Pi*(a+b) + correction(a,b));
+Echo("5)",,,2*a,,,2*b,,,(area),,,perimeter);
+
+a := 20;
+b := 4/5*a;
+area := Pi*a*b;
+perimeter := N(Pi*(a+b) + correction(a,b));
+Echo("6)",,,2*a,,,2*b,,,(area),,,perimeter);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      5), 30 , 18 , 135*Pi , 76.99822369 
+      6), 40 , 32 , 320*Pi , 113.3973355
+.   %/output
 
 
 %/group
