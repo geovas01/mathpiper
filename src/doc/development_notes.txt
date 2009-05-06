@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++We might be able to implement a MathPiper Clear(*) function by having a file which holds the global variables which should be present when MathPiper first launches and then clearing all variables except the ones on this list.
 +MathPiper solve bug: Solve((x^2)^(1/2)==y, x)
 +String processing needs to be significantly improved.  For example, turing lists into strings and strings into lists.  Also, perhaps use Python's string processing functions as a guide.
 +Rounding to a specified number of digits still needs to be implemented.
