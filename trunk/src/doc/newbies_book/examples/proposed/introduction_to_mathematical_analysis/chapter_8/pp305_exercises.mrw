@@ -140,3 +140,191 @@ Echo("6)",,,2*a,,,2*b,,,(area),,,perimeter);
 %/group
 
 
+
+
+%group,description="exercise 7 and 8"
+
+
+%mathpiper
+
+//Exercise 7.
+a := 10;
+b := 8;
+c := Sqrt(a^2 - b^2);
+
+pinDistance := 2*c;
+Echo("Pin Distance: ", pinDistance);
+
+stringLength := 2*a + pinDistance;
+Echo("String Length: ", stringLength);
+
+area := Pi*a*b;
+Echo("Area: ",area);
+
+NewLine();
+
+
+//Exercise 8a.
+a := 12.5;
+b := 7.5;
+c := Sqrt(a^2 - b^2);
+N([
+pinDistance := 2*c;
+Echo("Pin Distance: ", pinDistance);
+
+stringLength := 2*a + pinDistance;
+Echo("String Length: ", stringLength);
+
+area := Pi*a*b;
+Echo("Area: ",area);
+]);
+
+NewLine();
+
+
+
+//Exercise 8b.
+a := 13;
+b := 5;
+c := Sqrt(a^2 - b^2);
+
+pinDistance := 2*c;
+Echo("Pin Distance: ", pinDistance);
+
+stringLength := 2*a + pinDistance;
+Echo("String Length: ", stringLength);
+
+area := Pi*a*b;
+Echo("Area: ",area);
+
+NewLine();
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Pin Distance: 12 
+      String Length: 32 
+      Area: 80*Pi 
+      
+      Pin Distance: 20.0000 
+      String Length: 45.0000 
+      Area: 294.5243113 
+      
+      Pin Distance: 24 
+      String Length: 50 
+      Area: 65*Pi
+.   %/output
+
+
+%/group
+
+
+
+%group,description="exercises 9 and 10"
+
+
+%mathpiper
+
+//9.
+a := 133/2;
+b := 101/2;
+N([
+area := Pi*a*b;
+perimeter := Pi*(a + b) + correction(a,b);
+]);
+Echo("Area: ",area,"   Perimeter: ",perimeter);
+
+
+//10a.
+a := 94/2;
+b := 78/2;
+N([
+area := Pi*a*b;
+perimeter := Pi*(a + b) + correction(a,b);
+]);
+Echo("Area: ",area,"   Perimeter: ",perimeter);
+
+
+
+//10b.
+a := 43/2;
+b := 27/2;
+N([
+area := Pi*a*b;
+perimeter := Pi*(a + b) + correction(a,b);
+]);
+Echo("Area: ",area,"   Perimeter: ",perimeter);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      Area: 10550.25353    Perimeter: 367.8663405 
+      Area: 5758.539333    Perimeter: 270.4769682 
+      Area: 911.8472675    Perimeter: 111.5557429
+.   %/output
+
+%/group
+
+
+
+%group,description="exercise 11"
+
+
+%mathpiper
+
+a := 120/2;
+b := 40;
+
+area := ExpandBrackets
+((Pi*a*b)/2);
+
+
+/* b) One idea is to integrate the area under the parabolic curve. */
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 1200*Pi
+.   %/output
+
+
+%/group
+
+
+
+
+%group,description="exercise 12"
+The questions in this exercise are explained in section IV.
+%/group
+
+
+
+
+%group,description="exercise 13"
+
+
+%mathpiper
+Clear(a,b);
+
+a := 1/2*d;
+b := N(a*Cos(55*Pi/180));
+
+Echo(Simplify(2*a),Simplify(2*b));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      d (1.147152873*d)/2
+.   %/output
+
+
+%/group
+
+
