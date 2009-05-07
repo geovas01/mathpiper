@@ -1,5 +1,5 @@
 
-***** Tue Apr 14 23:52:15 EST 2009 *****
+***** Thu May 07 03:02:56 EDT 2009 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .75a *****
 
@@ -46,16 +46,7 @@ canprove.mpt:
 Result: True
 
 Side Effects:
-Test suite for Propositional logic theorem prover : 
-******************
-tests/scripts/canprove.mpt: 12 
-
-CanProve(False Or a)
- evaluates to 
-True
- which differs from 
-a
-******************
+Test suite for Propositional logic theorem prover :
 Exception:
 ===========================
 comments.mpt: 
@@ -205,115 +196,7 @@ logic_simplify_test.mpt:
 Result: True
 
 Side Effects:
-Test suite for CNF : 
-******************
-tests/scripts/logic_simplify_test.mpt: 11 
-
-CNF(A And A)
- evaluates to 
-True
- which differs from 
-A
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 12 
-
-CNF(A And True)
- evaluates to 
-True
- which differs from 
-A
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 17 
-
-CNF(A Or False)
- evaluates to 
-True
- which differs from 
-A
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 31 
-
-CanProve(A And(A Or B Or C))
- evaluates to 
-True
- which differs from 
-A
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 44 
-
-$TrueFalse10({A},A And A)
- evaluates to 
-{True,True}
- which differs from 
-{False,True}
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 45 
-
-$TrueFalse10({A},A And True)
- evaluates to 
-{True,True}
- which differs from 
-{False,True}
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 48 
-
-$TrueFalse10({A},A Or False)
- evaluates to 
-{True,True}
- which differs from 
-{False,True}
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 58 
-
-$TrueFalse10({A,B,C},A And(A Or B Or C))
- evaluates to 
-{{{True,True},{True,True}},{{True,True},{True,True}}}
- which differs from 
-{{{False,False},{False,False}},{{True,True},{True,True}}}
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 64 
-
-$TrueFalse10({A},CNF(A And A))
- evaluates to 
-{True,True}
- which differs from 
-{False,True}
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 65 
-
-$TrueFalse10({A},CNF(A And True))
- evaluates to 
-{True,True}
- which differs from 
-{False,True}
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 70 
-
-$TrueFalse10({A},CNF(A Or False))
- evaluates to 
-{True,True}
- which differs from 
-{False,True}
-******************
-******************
-tests/scripts/logic_simplify_test.mpt: 84 
-
-$TrueFalse10({A,B,C},CanProve(A And(A Or B Or C)))
- evaluates to 
-{{{True,True},{True,True}},{{True,True},{True,True}}}
- which differs from 
-{{{False,False},{False,False}},{{True,True},{True,True}}}
-******************
+Test suite for CNF :
 Exception:
 ===========================
 macro.mpt: 
@@ -1022,7 +905,7 @@ Side Effects:
 ******************
 tests/scripts/sums.mpt: 339 
 
-$pp12342
+$pp12382
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
