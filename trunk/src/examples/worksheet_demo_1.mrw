@@ -455,6 +455,7 @@ demonstration.
 /*Execute this Piper code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
+Clear(x);
 a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
 b;
