@@ -293,32 +293,37 @@ public class UtilityFunctions {
         LispError.lispAssert(aExpression.getCons() != null);
 
         //return aExpression.getCons().string() == aEnvironment.iTrueAtom.string();
+        return aExpression.getCons().string() == aEnvironment.iTrueString;
+
+        /* Code which returns True for everything except False and {};
         String expressionString = aExpression.getCons().string();
 
-//return expressionString == aEnvironment.iTrueString;
+        //return expressionString == aEnvironment.iTrueString;
 
         if (expressionString == aEnvironment.iTrueString) {
-            return true;
+        return true;
         } else if (internalIsList(aExpression)) {
-            if (listLength(aExpression.getCons().getSublistPointer()) == 1) {
-                //Empty list.
-                return false;
-            } else {
-                //Non-empty list.
-                return true;
-            }
+        if (listLength(aExpression.getCons().getSublistPointer()) == 1) {
+        //Empty list.
+        return false;
         } else {
-            //Anything other than False returns true.
-            return expressionString != null && expressionString != aEnvironment.iFalseString;
+        //Non-empty list.
+        return true;
         }
+        } else {
+        //Anything other than False returns true.
+        return expressionString != null && expressionString != aEnvironment.iFalseString;
+        }*/
 
     }//end method.
 
     public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null);
-        //return aExpression.getCons().string() == aEnvironment.iFalseString;
+        return aExpression.getCons().string() == aEnvironment.iFalseString;
 
+        /* Code which returns True for everything except False and {};
         return aExpression.getCons().string() == aEnvironment.iFalseString || (internalIsList(aExpression) && (listLength(aExpression.getCons().getSublistPointer()) == 1));
+         */
     }
 
     public static String getSymbolName(Environment aEnvironment, String aSymbol) {
