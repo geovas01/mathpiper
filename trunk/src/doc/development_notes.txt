@@ -3,6 +3,16 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Why doesn't Simplify completely simplify equ2 to 16?:
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+equ1 := x-Sqrt(x^2-16);
+Echo(equ1);
+equa := (x+Sqrt(x^2-4^2));
+equ2 := Simplify(equ1 * equa);
+equ3 := Simplify(equ2);
+%/mathpiper
 +Limit can't do this calculation: Limit(x,Infinity) x-Sqrt(x^2-16);
 +Simplify can't simplify (2*Sqrt((4*((a^2+b^2)/a^2-1))/b^2)*b^2)/2  Should simplify to (2*b^2)/a
 +Solve cannot solve the following for y: Sqrt((x+25)^2+y^2)-Sqrt((25-x)^2+y^2)==40
