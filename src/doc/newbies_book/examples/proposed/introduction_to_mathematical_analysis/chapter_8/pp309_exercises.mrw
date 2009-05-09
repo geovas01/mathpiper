@@ -1,0 +1,317 @@
+%group,description="exercise 1"
+
+
+%mathpiper
+a:= Sqrt(9);
+b:= Sqrt(16);
+c:= Sqrt(a^2 + b^2);
+latusRectum := 2*b^2/a;
+Echo(a,b,c,eccentricity,latusRectum);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      3 4 5 5/4 32/3
+.   %/output
+
+
+%geogebra
+
+a: 3;
+b: 4;
+c: 5;
+
+e:(x^2/a^2)-(y^2/b^2) = 1
+b/a*x;
+-b/a*x;
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 2a"
+
+
+%mathpiper
+a:= Sqrt(16);
+b:= Sqrt(9);
+c:= Sqrt(a^2 + b^2);
+eccentricity := c/a;
+latusRectum := 2*b^2/a;
+Echo(a,b,c,eccentricity,latusRectum);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      4 3 5 5/4 9/2
+.   %/output
+
+
+%geogebra
+
+a: 4;
+b: 3;
+c: 5;
+
+e:(x^2/a^2)-(y^2/b^2) = 1
+b/a*x;
+-b/a*x;
+
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 2b"
+
+
+%mathpiper
+a:= Sqrt(25);
+b:= Sqrt(144);
+c:= Sqrt(a^2 + b^2);
+latusRectum := 2*b^2/a;
+Echo(a,b,c,eccentricity,latusRectum);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      5 12 13 5/4 288/5
+.   %/output
+
+
+%geogebra
+
+a: 5;
+b: 12;
+c: 13;
+
+e:(x^2/a^2)-(y^2/b^2) = 1
+b/a*x;
+-b/a*x;
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 2c"
+
+
+%mathpiper
+a:= Sqrt(144);
+b:= Sqrt(25);
+c:= Sqrt(a^2 + b^2);
+latusRectum := 2*b^2/a;
+Echo(a,b,c,eccentricity,latusRectum);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      12 5 13 5/4 25/6
+.   %/output
+
+
+%geogebra
+
+a: 12;
+b: 5;
+c: 13;
+
+e:(x^2/a^2)-(y^2/b^2) = 1
+b/a*x;
+-b/a*x;
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 3"
+
+%mathpiper
+
+a:= Sqrt(9);
+b:= Sqrt(16);
+c:= Sqrt(a^2 + b^2);
+
+Echo(a,b,c);
+
+f(x) := EquRight(Solve(x^2/a^2 - y^2/b^2 == 1,y)[2]);
+
+Echo(f(x));
+
+latusRectum := f(c)*2;
+
+Echo("a) Latus Rectum: ",latusRectum);
+
+
+//---------------------------
+NewLine()
+;
+Clear(a,b);
+c:= Sqrt(a^2 + b^2);
+
+Echo(a,b,c);
+
+f(x) := EquRight(Solve(x^2/a^2 - y^2/b^2 == 1,y)[2]);
+
+Echo(f(x));
+
+latusRectum := f(c)*2;
+
+Echo("a) Latus Rectum: ",latusRectum);
+
+//Note: this should simplify to (2*b^2)/a but Simplify can't do it.
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      3 4 5 
+      8*Sqrt(-(1-x^2/9)/4) 
+      a) Latus Rectum: 32/3 
+      
+      a b Sqrt(a^2+b^2) 
+      (Sqrt((4*(x^2/a^2-1))/b^2)*b^2)/2 
+      a) Latus Rectum: (2*Sqrt((4*((a^2+b^2)/a^2-1))/b^2)*b^2)/2
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 4"
+These calculations are part of exercise 2.
+%/group
+
+
+
+
+%group,description="exercise 5"
+
+%mathpiper
+c := 10;
+a := 12/2;
+b := Sqrt(c^2-a^2);
+equ := x^2/a^2-y^2/b^2==1;
+Echo("a) ",equ);
+NewLine();
+
+c := 6;
+a := 10/2;
+b := Sqrt(c^2-a^2);
+equ := x^2/a^2-y^2/b^2==1;
+Echo("b) ",equ);
+NewLine();
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      a) x^2/36-y^2/64==1 
+      
+      b) x^2/25-y^2/11==1
+.   %/output
+
+%/group
+
+
+
+%group,description="exercise 6"
+
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+equ1 := x-Sqrt(x^2-16);
+
+Echo(equ1);
+
+equa := (x+Sqrt(x^2-4^2));
+equ2 := Simplify(equ1 * equa);
+equ3 := Simplify(equ2);
+equ4 := equ3/equa;
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 16/(x+Sqrt(x^2-16))
+      
+      Side effects:
+      x-Sqrt(x^2-16)
+.   %/output
+
+%/group
+
+
+
+
+%group,description=""
+
+%geogebra
+c1:Circle[(-5,0),4]
+m1:Midpoint[c1]
+c2:Circle[(3,0),1]
+m2:Midpoint[c2]
+A=(2,2)
+s1:Segment[A,m1]
+s2:Segment[A,m2]
+p1:Intersect[s1,c1]
+p2:Intersect[s2,c2]
+c3:Circle[A,p1]
+B:(2,1)
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+%/group
+
+
