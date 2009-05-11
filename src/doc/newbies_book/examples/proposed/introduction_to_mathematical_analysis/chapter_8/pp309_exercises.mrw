@@ -291,26 +291,191 @@ equ4 := equ3/equa;
 
 
 
-%group,description=""
+%group,description="exercise 7"
+
+Skipping the proof.
 
 %geogebra
 c1:Circle[(-5,0),4]
 m1:Midpoint[c1]
 c2:Circle[(3,0),1]
 m2:Midpoint[c2]
-A=(2,2)
+A=(1.25,4)
 s1:Segment[A,m1]
 s2:Segment[A,m2]
 p1:Intersect[s1,c1]
 p2:Intersect[s2,c2]
 c3:Circle[A,p1]
-B:(2,1)
+a=s1-s2
 %/geogebra
 
     %output,preserve="false"
       GeoGebra updated.
 .   %/output
 
+//Hyperbola.
+
+%/group
+
+
+
+%group,description="exercise 8"
+
+Skipping the proof.
+
+%geogebra
+c1:Circle[(-5,0),9]
+m1:Midpoint[c1]
+c2:Circle[(-3,-3),1]
+m2:Midpoint[c2]
+A=(1.25,4)
+s1:Segment[A,m1]
+s2:Segment[A,m2]
+p1:Intersect[s1,c1]
+p2:Intersect[s2,c2]
+c3:Circle[A,p1]
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+//Circle.
+%/group
+
+
+
+%group,description="exercise 9"
+
+Skipping the proof.
+
+%geogebra
+c1:Circle[(-5,0),9]
+m1:Midpoint[c1]
+c2:Circle[(4,0),1]
+m2:Midpoint[c2]
+A=(1.25,4)
+s1:Segment[A,m1]
+s2:Segment[A,m2]
+p1:Intersect[s1,c1]
+p2:Intersect[s2,c2]
+c3:Circle[A,p1]
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+//Parabola.
+%/group
+
+
+
+%group,description="exercise 10"
+
+Skipping the proof.
+
+%geogebra
+c1:x=-4
+//m1:Midpoint[c1]
+c2:Circle[(4,0),1]
+m2:Midpoint[c2]
+A=(1.25,4)
+p1:Point[c1]
+s1:Segment[A,p1]
+s2:Segment[A,m2]
+
+//p2:Intersect[s2,c2]
+c3:Circle[A,p1]
+a:s1-s2
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+//Hyperbola.
+%/group
+
+
+
+%group,description="exercise 11"
+
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+P := Point(x,y);
+
+P2 := Point(-25,0);
+line := Point(-16,y);
+equ1 := Distance(P, P2) == 5/4 * Distance(P, line);
+
+equ2 := Manipulate(equ1^2);
+
+Solve(equ2,y);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {y==Sqrt(-4*(x^2+50*x+625-((25*x^2)/16+50*x+400)))/2,y==(-Sqrt(-4*(x^2+50*x+625-((25*x^2)/16+50*x+400))))/2}
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 12"
+
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+P := Point(x,y);
+
+P2 := Point(-50,0);
+line := Point(-32,y);
+equ1 := Distance(P, P2) == 5/4 * Distance(P, line);
+
+equ2 := Manipulate(equ1^2);
+
+Solve(equ2,y);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {y==Sqrt(-4*(x^2+100*x+2500-((25*x^2)/16+100*x+1600)))/2,y==(-Sqrt(-4*(x^2+100*x+2500-((25*x^2)/16+100*x+1600))))/2}
+.   %/output
+
+%/group
+
+
+
+%group,description="exercise 13"
+//Skipping equation.
+
+%geogebra
+r=2
+c:Circle[(5,0),r]
+d:Circle[(-5,0),r+8]
+Intersection[c,d]
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercise 14 (skipping)"
 
 %/group
 
