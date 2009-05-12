@@ -38,8 +38,9 @@ public class Number extends PatternParameter
 	                               ConsPointer  aExpression,
 	                               ConsPointer[]  arguments) throws Exception
 	{
-		if (aExpression.getCons().getNumber(aEnvironment.getPrecision()) != null)
-			return iNumber.equals(aExpression.getCons().getNumber(aEnvironment.getPrecision()));
+        BigNumber bigNumber = aExpression.getCons().getNumber(aEnvironment.getPrecision());
+		if (bigNumber != null)
+			return iNumber.equals(bigNumber);
 		return false;
 	}
 

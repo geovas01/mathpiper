@@ -160,7 +160,9 @@ public class Pattern {
         }
 
         for (i = 0; i < iParamMatchers.size(); i++) {
-            if (!((PatternParameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, aArguments[i], arguments)) {
+            PatternParameter patternParameter = (PatternParameter) iParamMatchers.get(i);
+            ConsPointer argument = aArguments[i];
+            if (! patternParameter.argumentMatches(aEnvironment, argument, arguments)) {
                 return false;
             }
         }
