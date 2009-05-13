@@ -1,3 +1,40 @@
+//Proposed function name changes: 
+
+//Make RuleBase names read more like the name Database does.
+RuleBase -> Rulebase
+MacroRuleBase -> MacroRulebase
+RuleBaseArgList -> RulebaseArgs
+MacroRuleBase  -> MacroRulebase
+MacroRuleBaseListed  -> MacroRulebaseListed
+
+//In general, make function names read like Object.method. For example,
+FindFile -> FileFind
+FindFunction -> FunctionFind
+ConcatStrings -> StringsConcat
+Use -> ScriptUse
+Load -> ScriptLoad
+etc.
+
+
+//In general, spell function names out completely.
+RulebaseArgs -> RulebaseArguments
+EquRight -> EquationRight
+etc.
+
+
+//Misc.
+Echo -> Print
+== -> =, = -> ==  //This is to make == uniform with !=, >=, <=, etc.  This change also makes interoperating with geogebra and maxima easier.
+D -> Derive //Because syntax highlighting just "D" is too general.
+Change a number of bodied operators like D and Integrate to non-bodied operators to make function calls uniform.  For example, Integrate is bodied but WithValue is not.
+Listify -> FunctionToList
+UnList -> ListToFunction
+FindRealRoots -> RealRootsFind
+NumRealRoots -> RealRootsNum
+
+
+
+============================= Changes that have already been done.
 //Changed these function names.
 MathAbs -> AbsN
 MathAdd -> AddN
@@ -44,39 +81,3 @@ ExtraInfo'Get
 ExtraInfo'Set
 StringMid'Get
 StringMid'Set
-
-
-//Proposes function name changes:
-
-//Make RuleBase names read more like the name Database does.
-RuleBase -> Rulebase
-MacroRuleBase -> MacroRulebase
-RuleBaseArgList -> RulebaseArgs
-MacroRuleBase  -> MacroRulebase
-MacroRuleBaseListed  -> MacroRulebaseListed
-
-//In general, make function names read like Object.method. For example,
-FindFile -> FileFind
-FindFunction -> FunctionFind
-ConcatStrings -> StringsConcat
-Use -> ScriptUse
-Load -> ScriptLoad
-
-etc.
-
-
-//Misc.
-Echo -> Print
-== -> =
-= -> ==
-D -> Derive //Because syntax highlighting in D is too general.
-Change a number of bodied operators like D and Integrate to non-bodied operators to make function calls uniform.  For example, Integrate is bodied but WithValue is not.
-Listify -> FunctionToList
-UnList -> ListToFunction
-FindRealRoots -> RealRootsFind
-NumRealRoots -> RealRootsNum
-:= -> :  //To make assignment easier to type and to make it similar to maxima.
-
-
-
-
