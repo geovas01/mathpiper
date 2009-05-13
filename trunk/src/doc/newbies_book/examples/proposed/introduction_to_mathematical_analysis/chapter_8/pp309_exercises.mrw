@@ -480,3 +480,78 @@ Intersection[c,d]
 %/group
 
 
+
+%group,description="exercise 15"
+
+
+%mathpiper,description="a)"
+Clear(a,b,x,y,c);
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+c := 50/2;
+
+d1 := 140*x;
+d2 := 140*(x+(6/60));
+
+equ1 := Solve(d1 - d2 == 2*a,a) ;
+equ2 := EquRight(equ1[1]);
+a := Abs(Simplify(equ2));
+Echo(equ1,,, equ2,,, a);
+
+b := Sqrt(c^2 - a^2);
+
+equ3 := x^2/a^2 - y^2/b^2 == 1;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: x^2/49-y^2/576==1
+      
+      Side effects:
+      {a==(140*x-140*(x+1/10))/2} , (140*x-140*(x+1/10))/2 , 7
+.   %/output
+
+
+
+%mathpiper,description="b)"
+Clear(a,b,x,y,c);
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+c := 50/2;
+
+d1 := 140*x;
+d2 := 140*(x-(6/60));
+
+equ1 := Solve(d1 - d2 == 2*a,a) ;
+equ2 := EquRight(equ1[1]);
+a := Abs(Simplify(equ2));
+Echo(equ1,,, equ2,,, a);
+
+b := Sqrt(c^2 - a^2);
+
+equ3 := x^2/a^2 - y^2/b^2 == 1;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: x^2/49-y^2/576==1
+      
+      Side effects:
+      {a==(140*x-140*(x-1/10))/2} , (140*x-140*(x-1/10))/2 , 7
+.   %/output
+
+%/group
+
+
+
+
+
+%group,description="Skipping exercises 16, 17, and 18"
+
+%/group
+
+
