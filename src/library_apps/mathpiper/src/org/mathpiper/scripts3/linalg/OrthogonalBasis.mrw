@@ -1,0 +1,50 @@
+%mathpiper,def="OrthogonalBasis"
+
+// This is the standard textbook definition of the Gram-Schmidt
+// Orthogonalization process, from:
+// Friedberg,Insel,Spence "Linear Algebra"  (1997)
+// TODO: This function does not check if the input vectors are LI, it
+// only checks for zero vectors
+Function("OrthogonalBasis",{W})[
+	Local(V,j,k);
+
+	V:=ZeroMatrix(Length(W),Length(W[1]) );
+
+	V[1]:=W[1];
+	For(k:=2,k<=Length(W),k++)[
+		Check(Not IsZero(Norm(W[k])) ,
+			"OrthogonalBasis: Input vectors must be linearly independent");
+		V[k]:=W[k]-Sum(j,1,k-1,InProduct(W[k],V[j])*V[j]/Norm(V[j])^2);
+	];
+	V;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="OrthogonalBasis"
+*CMD OrthogonalBasis --- create an orthogonal basis 
+*STD
+*CALL
+	OrthogonalBasis(W)
+
+*PARMS
+
+{W} - A linearly independent set of row vectors (aka a matrix)
+
+*DESC
+
+Given a linearly independent set {W} (constructed of rows vectors),
+this command returns an orthogonal basis {V} for {W}, which means 
+that span(V) = span(W) and {InProduct(V[i],V[j]) = 0} when {i != j}.
+This function uses the Gram-Schmidt orthogonalization process.
+
+*E.G.
+
+	In> OrthogonalBasis({{1,1,0},{2,0,1},{2,2,1}}) 
+	Out> {{1,1,0},{1,-1,1},{-1/3,1/3,2/3}};
+
+
+*SEE OrthonormalBasis, InProduct
+%/mathpiper_docs

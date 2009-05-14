@@ -1,0 +1,31 @@
+%mathpiper,def="IsIdempotent"
+
+IsIdempotent(A_IsMatrix) <-- (A^2 = A);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsIdempotent"
+*CMD IsIdempotent --- test for an idempotent matrix
+*STD
+*CALL
+	IsIdempotent(A)
+
+*PARMS
+
+{A} -- a square matrix
+
+*DESC
+
+{IsIdempotent(A)} returns {True} if {A} is idempotent and {False} otherwise.
+$A$ is idempotent iff $A^2=A$. Note that this also implies that $A$ raised
+to any power is also equal to $A$.
+
+*E.G.
+
+	In> IsIdempotent(ZeroMatrix(10,10));
+	Out> True;
+	In> IsIdempotent(Identity(20))
+	Out> True;
+%/mathpiper_docs

@@ -1,0 +1,40 @@
+%mathpiper,def="Append"
+
+Function("Append",{list,element})
+[
+  Insert(list,Length(list)+1,element);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Append"
+*CMD Append --- append an entry at the end of a list
+*STD
+*CALL
+	Append(list, expr)
+
+*PARMS
+
+{list} -- list to append "expr" to
+
+{expr} -- expression to append to the list
+
+*DESC
+
+The expression "expr" is appended at the end of "list" and the
+resulting list is returned.
+
+Note that due to the underlying data structure, the time it takes to
+append an entry at the end of a list grows linearly with the length of
+the list, while the time for prepending an entry at the beginning is
+constant.
+
+*E.G.
+
+	In> Append({a,b,c,d}, 1);
+	Out> {a,b,c,d,1};
+
+*SEE Concat, :, DestructiveAppend
+%/mathpiper_docs

@@ -1,0 +1,31 @@
+%mathpiper,def="TSum"
+
+/* Tensor package. This code intends to simplify tensorial expressions.
+ */
+
+RuleBase("TSum",{indices,body});
+
+/* The only TSum summation simplification: summing over no indices
+   means no summation. */
+10 # (TSum({})(_body)) <-- body;
+
+/* Explicit summation when Ndim is defined. This summation will
+   be invoked when using TExplicitSum. */
+20 # (TSum(_indices)(_body))_(IsInteger(Ndim)) <--
+    LocalSymbols(index,i,sum)
+    [
+      Local(index,i,sum);
+      index:=indices[1];
+      sum:=0;
+      MacroLocal(index);
+      For(i:=1,i<=Ndim,i++)
+      [
+        MacroSet(index,i);
+        sum:=sum+Eval(TSum(Tail(indices))body);
+      ];
+      sum;
+    ];
+
+UnFence("TSum",2);
+
+%/mathpiper

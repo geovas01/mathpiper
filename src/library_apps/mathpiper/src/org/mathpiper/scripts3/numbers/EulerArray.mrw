@@ -1,0 +1,20 @@
+%mathpiper,def="EulerArray"
+
+/** Compute an array of Euler numbers using recurrence relations.
+*/
+10 # EulerArray(n_IsInteger) <--
+[
+	Local(E,i,sum,r);
+	E:=ZeroVector(n+1);
+	E[1]:=1;
+	For(i:=1,2*i<=n,i++)[
+		sum:=0;
+		For(r:=0,r<=i-1,r++)[
+			sum:=sum+Bin(2*i,2*r)*E[2*r+1];
+		];
+		E[2*i+1] := -sum;
+	];
+	E;
+];
+
+%/mathpiper

@@ -1,0 +1,82 @@
+%mathpiper,def="/:"
+
+5 # (_expression /: LocPatterns(_patterns)) <--
+[
+  MacroSubstitute(expression,"LocPredicate","LocChange");
+];
+10 # (_expression /: _patterns) <--
+[
+  Set(patterns, LocProcess(patterns));
+  MacroSubstitute(expression,"LocPredicate","LocChange");
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="/:"
+*CMD /: --- local simplification rules
+*CMD /:: --- local simplification rules
+*STD
+*CALL
+	expression /: patterns
+	expressions /:: patterns
+Precedence:
+*EVAL OpPrecedence("/:")
+
+
+*PARMS
+
+{expression} -- an expression
+
+{patterns} -- a list of patterns
+
+*DESC
+
+Sometimes you have an expression, and you want to use specific
+simplification rules on it that are not done by default. This
+can be done with the {/:} and the {/::} operators. Suppose we have the
+expression containing things such as {Ln(a*b)}, and we want
+to change these into {Ln(a)+Ln(b)}, the easiest way
+to do this is using the {/:} operator, as follows:
+
+	In> Sin(x)*Ln(a*b)
+	Out> Sin(x)*Ln(a*b);
+	In> % /: { Ln(_x*_y) <- Ln(x)+Ln(y) }
+	Out> Sin(x)*(Ln(a)+Ln(b));
+
+A whole list of simplification rules can be built up in the list,
+and they will be applied to the expression on the left hand side
+of {/:} .
+
+The forms the patterns can have are one of:
+
+	pattern <- replacement
+	{pattern,replacement}
+	{pattern,postpredicate,replacement}
+
+Note that for these local rules, {<-} should be used instead of
+{<--} which would be used in a global rule.
+
+The {/:} operator traverses an expression much as {Subst} does, that is, top
+down, trying to apply the rules from the beginning of the list of
+rules to the end of the list of rules. If the rules cannot be applied
+to an expression, it will try subexpressions of that
+expression and so on.
+
+It might be necessary sometimes to use the {/::} operator, which
+repeatedly applies the {/:} operator until the result doesn't change
+any more. Caution is required, since rules can contradict each other,
+which could result in an infinite loop. To detect this situation,
+just use /: repeatedly on the expression. The repetitive nature
+should become apparent.
+
+*E.G.
+
+	In> Sin(u)*Ln(a*b) /: {Ln(_x*_y) <- Ln(x)+Ln(y)}
+	Out> Sin(u)*(Ln(a)+Ln(b));
+	In> Sin(u)*Ln(a*b) /:: { a <- 2, b <- 3 }
+	Out> Sin(u)*Ln(6);
+
+*SEE Subst
+%/mathpiper_docs

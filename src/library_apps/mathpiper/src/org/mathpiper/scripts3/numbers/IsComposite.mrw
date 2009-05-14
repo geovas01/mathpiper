@@ -1,0 +1,37 @@
+%mathpiper,def="IsComposite"
+
+5  # IsComposite(1)			<-- False;
+10 # IsComposite(n_IsPositiveInteger) 	<-- (Not IsPrime(n));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsComposite"
+*CMD IsComposite --- test for a composite number
+*STD
+*CALL
+	IsComposite(n)
+
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+This function is the logical negation of {IsPrime}, except for the number 1, which is
+neither prime nor composite.
+
+*E.G.
+
+	In> IsComposite(1)
+	Out> False;
+	In> IsComposite(7)
+	Out> False;
+	In> IsComposite(8)
+	Out> True;
+	In> Select(IsComposite,1 .. 20)
+	Out> {4,6,8,9,10,12,14,15,16,18,20};
+
+*SEE IsPrime
+%/mathpiper_docs

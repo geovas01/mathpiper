@@ -1,0 +1,104 @@
+%mathpiper,def=""
+
+//////////////////////////////////////////////////
+/// Backends for 2D plotting
+//////////////////////////////////////////////////
+
+/// List of all defined backends and their symbolic labels.
+/// Add any new backends here
+Plot2D'outputs() := {
+	{"default", "geogebra"},
+	{"data", "Plot2D'data"},
+	{"java", "Plot2D'java"},
+    {"geogebra", "Plot2D'geogebra"},
+};
+
+/*
+	How backends work:
+	Plot2D'<backend>(values, options'hash)
+	options'hash is a hash that contains all plotting options:
+	["xrange"] - a list of {x1, x2}, ["xname"] - name of the variable to plot, ["yname"] - array of string representations of the function(s), and perhaps other options relevant to the particular backend.
+	{values} is a list of lists of pairs of the form {{{x1, y1}, {x2, y2}, ...}, {{x1, z1}, {x2, z2}, ...}, ...} corresponding to the functions y(x), z(x), ... to be plotted. The abscissa points x[i] are not the same for all functions.
+	The backend should prepare the graph of the function(s). The "datafile" backend Plot2D'datafile(values, options'hash) may be used to output all data to file(s), in which case the file name should be given by the value options'hash["filename"]. Multiple files are created with names obtained by appending numbers to the filename.
+	Note that the "data" backend does not do anything and simply returns the data.
+	The backend Plot2D'datafile takes care not to write "Infinity" or "Undefined" data points (it just ignores them). Custom backends should either use Plot2D'datafile or take care of this themselves.
+*/
+
+/// trivial backend: return data list (do not confuse with Plot2D'get'data() defined in the main code which is the middle-level plotting routine)
+Plot2D'data(values_IsList, _options'hash) <-- values;
+
+/// The Java back-end generates a call-list that the Java graph plotter can handle
+Plot2D'java(values_IsList, _options'hash) <--
+[
+  Local(result,count);
+  count := 0;
+  result:="$plot2d:";
+
+  result := result:" pensize 2.0 ";
+  ForEach(function,values)
+  [
+    result := result:ColorForGraphNr(count);
+    count++;
+    result:=result:" lines2d ":String(Length(function));
+
+    function:=Select(Lambda({item},item[2] != Undefined),function);
+
+    ForEach(item,function)
+    [
+      result := result:" ":String(item[1]):" ":String(item[2]):" ";
+    ];
+  ];
+  WriteString(result:"$");
+  True;
+];
+
+10 # ColorForGraphNr(0) <-- " pencolor 64 64 128 ";
+10 # ColorForGraphNr(1) <-- " pencolor 128 64 64 ";
+10 # ColorForGraphNr(2) <-- " pencolor 64 128 64 ";
+20 # ColorForGraphNr(_count) <-- ColorForGraphNr(Mod(count,3));
+
+
+
+
+//GeoGebra backend.
+Plot2D'geogebra(values_IsList, _options'hash) <--
+[
+  Local(result,count);
+  count := 0;
+  result:="";
+
+
+  ForEach(function,values)
+  [
+
+    function:=Select(Lambda({item},item[2] != Undefined),function);
+
+    ForEach(item,function)
+    [
+      result := result:"(":String(item[1]):",":String(item[2]):")":Nl();
+    ];
+  ];
+  WriteString(result);
+  True;
+];
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,scope="nobuild"
+Retract("Plot2D'geogebra",2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

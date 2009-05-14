@@ -1,0 +1,60 @@
+%mathpiper,def="Abs"
+
+10 # Abs(Infinity) 	<-- Infinity; //Note:tk:moved here from stdfuncts.
+
+10 # Abs(n_IsNumber) <-- AbsN(n);
+10 # Abs(n_IsPositiveNumber/m_IsPositiveNumber) <-- n/m;
+10 # Abs(n_IsNegativeNumber/m_IsPositiveNumber) <-- (-n)/m;
+10 # Abs(n_IsPositiveNumber/m_IsNegativeNumber) <-- n/(-m);
+10 # Abs( Sqrt(_x)) <-- Sqrt(x);
+10 # Abs(-Sqrt(_x)) <-- Sqrt(x);
+10 # Abs(Complex(_r,_i)) <-- Sqrt(r^2 + i^2);
+10 # Abs(n_IsInfinity) <-- Infinity;
+10 # Abs(Undefined) <-- Undefined;
+20 # Abs(n_IsList) <-- MapSingle("Abs",n);
+
+100 # Abs(_a^_n) <-- Abs(a)^n;
+100 # Abs(_a)^n_IsEven <-- a^n;
+100 # Abs(_a)^n_IsOdd <-- Sign(a)*a^n;
+
+
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Abs"
+*CMD Abs --- absolute value or modulus of complex number
+*STD
+*CALL
+	Abs(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function returns the absolute value (also called the modulus) of
+"x". If "x" is positive, the absolute value is "x" itself; if
+"x" is negative, the absolute value is "-x". For complex "x",
+the modulus is the "r" in the polar decomposition
+$x = r *Exp(I*phi)$.
+
+This function is connected to the {Sign} function by
+the identity "Abs(x) * Sign(x) = x" for real "x".
+
+This function is threaded, meaning that if the argument {x} is a
+list, the function is applied to all entries in the list.
+
+*E.G.
+
+	In> Abs(2);
+	Out> 2;
+	In> Abs(-1/2);
+	Out> 1/2;
+	In> Abs(3+4*I);
+	Out> 5;
+
+*SEE Sign, Arg
+%/mathpiper_docs

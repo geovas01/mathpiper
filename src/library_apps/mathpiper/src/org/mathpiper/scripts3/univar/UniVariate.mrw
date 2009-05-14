@@ -1,0 +1,113 @@
+%mathpiper,def="UniVariate"
+
+//Auxiliary function.
+ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)
+   <--
+   [
+//Echo("fact, coefs = ",fact,coefs);
+     UniVariate(var,first+shift,fact*coefs);
+   ];
+
+
+
+RuleBase("UniVariate",{var,first,coefs});
+
+Rule("UniVariate",3,10,Length(coefs)>0 And coefs[1]=0)
+  UniVariate(var,first+1,Tail(coefs));
+Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
+    ExpandUniVariate(var,first,coefs);
+
+500 # UniVariate(_var,_f1,_c1) + UniVariate(_var,_f2,_c2) <--
+[
+  Local(from,result);
+  Local(curl,curr,left,right);
+
+  Set(curl, f1);
+  Set(curr, f2);
+  Set(left, c1);
+  Set(right, c2);
+  Set(result, {});
+  Set(from, Min(curl,curr));
+
+  While(And(LessThan(curl,curr),left != {}))
+  [
+    DestructiveAppend(result,Head(left));
+    Set(left,Tail(left));
+    Set(curl,AddN(curl,1));
+  ];
+  While(LessThan(curl,curr))
+  [
+    DestructiveAppend(result,0);
+    Set(curl,AddN(curl,1));
+  ];
+  While(And(LessThan(curr,curl), right != {}))
+  [
+    DestructiveAppend(result,Head(right));
+    Set(right,Tail(right));
+    Set(curr,AddN(curr,1));
+  ];
+  While(LessThan(curr,curl))
+  [
+    DestructiveAppend(result,0);
+    Set(curr,AddN(curr,1));
+  ];
+  While(And(left != {}, right != {}))
+  [
+    DestructiveAppend(result,Head(left)+Head(right));
+    Set(left, Tail(left));
+    Set(right, Tail(right));
+  ];
+  While(left != {})
+  [
+    DestructiveAppend(result,Head(left));
+    Set(left, Tail(left));
+  ];
+  While(right != {})
+  [
+    DestructiveAppend(result,Head(right));
+    Set(right, Tail(right));
+  ];
+
+  UniVariate(var,from,result);
+];
+
+
+200 # UniVariate(_var,_first,_coefs) + a_IsNumber <--
+      UniVariate(var,first,coefs) + UniVariate(var,0,{a});
+200 # a_IsNumber + UniVariate(_var,_first,_coefs) <--
+      UniVariate(var,first,coefs) + UniVariate(var,0,{a});
+
+
+200 # - UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,-coefs);
+
+
+200 # (_factor * UniVariate(_var,_first,_coefs))_((IsFreeOf(var,factor))) <--
+  UniVariate(var,first,coefs*factor);
+
+200 # (UniVariate(_var,_first,_coefs)/_factor)_((IsFreeOf(var,factor))) <--
+  UniVariate(var,first,coefs/factor);
+
+
+
+200 # UniVariate(_var,_f1,_c1) * UniVariate(_var,_f2,_c2) <--
+[
+  Local(i,j,n,shifted,result);
+  Set(result,MakeUni(0,var));
+//Echo("c1 = ",var,f1,c1);
+//Echo("c2 = ",var,f2,c2);
+  Set(n,Length(c1));
+  For(i:=1,i<=n,i++)
+  [
+//Echo("before = ",result);
+//Echo("parms = ",var,c1,c2,f1,f2,f1+i-1);
+    Set(result,result+ShiftUniVar(UniVariate(var,f2,c2),MathNth(c1,i),f1+i-1));
+//Echo("after = ",result);
+  ];
+//Echo("result = ",result);
+  result;
+];
+
+
+
+
+%/mathpiper

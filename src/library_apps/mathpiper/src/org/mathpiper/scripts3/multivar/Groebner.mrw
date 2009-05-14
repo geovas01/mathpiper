@@ -1,0 +1,41 @@
+%mathpiper,def="Groebner"
+
+/*
+  Groebner : Calculate the Groebner basis of a set of polynomials.
+  Nice example of its power is
+
+In> TableForm(Groebner({x*(y-1),y*(x-1)}))
+ x*y-x
+ x*y-y
+ y-x
+ y^2-y
+In> Factor(y^2-y)
+Out> y*(y-1);
+
+From which you can see that x = y, and x^2 = x so x is 0 or 1.
+
+*/
+
+Groebner(f_IsList) <--
+[
+  Local(vars,i,j,S,nr,r);
+  nr:=Length(f);
+  vars:=VarList(f);
+  For(i:=1,i<=nr,i++)
+  [
+    f[i] := MakeMultiNomial(f[i],vars);
+  ];
+  S:={};
+  For(i:=1,i<nr,i++)
+  For(j:=i+1,j<=nr,j++)
+  [
+    r := (MultiDivide(MultiS(f[i],f[j],f[i]),f)[2]);
+    If(NormalForm(r) != 0, S:= r:S);
+    f:=Concat(f,S);
+    S:={};
+    nr:=Length(f);
+  ];
+  MapSingle("NormalForm",Concat(f));
+];
+
+%/mathpiper

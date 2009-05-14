@@ -1,0 +1,63 @@
+%mathpiper,def="Take"
+
+/* ���� Take ���� */
+
+/* Needs to check the parameters */
+
+/*
+ * Take( list, n ) gives the first n elements of 'list'
+ * Take( list, -n ) gives the last n elements of 'list'
+ * Take( list, {m,n} ) elements m through n of 'list'
+ */
+
+RuleBase("Take", {lst, range});
+
+Rule("Take", 2, 1, IsList(range))
+    Take( Drop(lst, range[1] -1), range[2] - range[1] + 1);
+
+Rule("Take", 2, 2, range >= 0)
+    If( Length(lst)=0 Or range=0, {},
+        Concat({Head(lst)}, Take(Tail(lst), range-1)));
+
+Rule("Take", 2, 2, range < 0)
+    Drop( lst, Length(lst) + range );
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Take"
+*CMD Take --- take a sublist from a list, dropping the rest
+*STD
+*CALL
+	Take(list, n)
+	Take(list, -n)
+	Take(list, {m,n})
+
+*PARMS
+
+{list} -- list to act on
+
+{n}, {m} -- positive integers describing the entries to take
+
+*DESC
+
+This command takes a sublist of "list", drops the rest, and returns
+the selected sublist. The first calling sequence selects the first
+"n" entries in "list". The second form takes the last "n"
+entries. The last invocation selects the sublist beginning with entry
+number "m" and ending with the "n"-th entry.
+
+*E.G.
+
+	In> lst := {a,b,c,d,e,f,g};
+	Out> {a,b,c,d,e,f,g};
+	In> Take(lst, 2);
+	Out> {a,b};
+	In> Take(lst, -3);
+	Out> {e,f,g};
+	In> Take(lst, {2,4});
+	Out> {b,c,d};
+
+*SEE Drop, Select, Remove
+%/mathpiper_docs

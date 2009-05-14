@@ -1,0 +1,36 @@
+%mathpiper,def="ExpandBrackets"
+
+//ExpandBrackets(_xx) <-- SimpExpand(SimpImplode(SimpFlatten(xx)));
+ExpandBrackets(x) := NormalForm(MM(x));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ExpandBrackets"
+*CMD ExpandBrackets --- expand all brackets
+*STD
+*CALL
+	ExpandBrackets(expr)
+
+*PARMS
+
+{expr} -- an expression
+
+*DESC
+
+This command tries to expand all the brackets by repeatedly using the
+distributive laws $a * (b+c) = a*b + a*c$ and $(a+b) * c = a*c + b*c$.
+It goes further than {Expand}, in that it expands all brackets.
+
+*E.G.
+
+	In> Expand((a-x)*(b-x),x)
+	Out> x^2-(b+a)*x+a*b;
+	In> Expand((a-x)*(b-x),{x,a,b})
+	Out> x^2-(b+a)*x+b*a;
+	In> ExpandBrackets((a-x)*(b-x))
+	Out> a*b-x*b+x^2-a*x;
+
+*SEE Expand
+%/mathpiper_docs

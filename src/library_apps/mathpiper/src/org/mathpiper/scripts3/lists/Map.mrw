@@ -1,0 +1,53 @@
+%mathpiper,def="Map"
+
+LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
+[
+  Function("Map",{func,lists})
+  [
+    Local(mapsingleresult,mapsingleitem);
+    mapsingleresult:={};
+    lists:=Transpose(lists);
+    ForEach(mapsingleitem,lists)
+    [
+      DestructiveInsert(mapsingleresult,1,Apply(func,mapsingleitem));
+    ];
+    DestructiveReverse(mapsingleresult);
+  ];
+  UnFence("Map",2);
+  HoldArg("Map",func);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Map"
+*CMD Map --- apply an $n$-ary function to all entries in a list
+*STD
+*CALL
+	Map(fn, list)
+
+*PARMS
+
+{fn} -- function to apply
+
+{list} -- list of lists of arguments
+
+*DESC
+
+This function applies "fn" to every list of arguments to be found in
+"list". So the first entry of "list" should be a list containing
+the first, second, third, ... argument to "fn", and the same goes
+for the other entries of "list". The function can either be given as
+a string or as a pure function (see Apply for more information on 
+pure functions).
+
+*E.G.
+
+	In> MapSingle("Sin",{a,b,c});
+	Out> {Sin(a),Sin(b),Sin(c)};
+	In> Map("+",{{a,b},{c,d}});
+	Out> {a+c,b+d};
+
+*SEE MapSingle, MapArgs, Apply
+%/mathpiper_docs

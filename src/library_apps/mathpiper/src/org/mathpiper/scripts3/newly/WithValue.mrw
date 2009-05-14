@@ -1,0 +1,51 @@
+%mathpiper,def="WithValue"
+
+TemplateFunction("WithValue",{var,val,expr})
+[
+  If(IsList(var),
+     ApplyPure("MacroLocal",var),
+     MacroLocal(var)
+    );
+  ApplyPure(":=",{var,val});
+  Eval(expr);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="WithValue"
+*CMD WithValue --- temporary assignment during an evaluation
+*STD
+*CALL
+	WithValue(var, val, expr)
+	WithValue({var,...}, {val,...}, expr)
+
+*PARMS
+
+{var} -- variable to assign to
+
+{val} -- value to be assigned to "var"
+
+{expr} -- expression to evaluate with "var" equal to "val"
+
+*DESC
+
+First, the expression "val" is assigned to the variable
+"var". Then, the expression "expr" is evaluated and
+returned. Finally, the assignment is reversed so that the variable
+"var" has the same value as it had before {WithValue} was evaluated.
+
+The second calling sequence assigns the first element in the list of
+values to the first element in the list of variables, the second value
+to the second variable, etc.
+
+*E.G.
+
+	In> WithValue(x, 3, x^2+y^2+1);
+	Out> y^2+10;
+	In> WithValue({x,y}, {3,2}, x^2+y^2+1);
+	Out> 14;
+
+*SEE Subst, /:
+%/mathpiper_docs

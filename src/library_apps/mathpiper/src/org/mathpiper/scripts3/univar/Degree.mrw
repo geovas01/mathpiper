@@ -1,0 +1,54 @@
+%mathpiper,def="Degree"
+
+RuleBase("Degree",{expr});
+Rule("Degree",1,0, IsUniVar(expr))
+[
+
+  Local(i,min,max);
+  min:=expr[2];
+  max:=min+Length(expr[3]);
+  i:=max;
+  While(i >= min And IsZero(Coef(expr,i))) i--;
+  i;
+];
+
+10 # Degree(_poly)      <-- Degree(MakeUni(poly));
+10 # Degree(_poly,_var) <-- Degree(MakeUni(poly,var));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Degree"
+*CMD Degree --- degree of a polynomial
+*STD
+*CALL
+	Degree(expr)
+	Degree(expr, var)
+
+*PARMS
+
+{expr} -- a polynomial
+
+{var} -- a variable occurring in "expr"
+
+*DESC
+
+This command returns the degree of the polynomial "expr" with
+respect to the variable "var". The degree is the highest power of
+"var" occurring in the polynomial. If only one variable occurs in
+"expr", the first calling sequence can be used. Otherwise the user
+should use the second form in which the variable is explicitly
+mentioned.
+
+*E.G.
+
+	In> Degree(x^5+x-1);
+	Out> 5;
+	In> Degree(a+b*x^3, a);
+	Out> 1;
+	In> Degree(a+b*x^3, x);
+	Out> 3;
+
+*SEE Expand, Coef
+%/mathpiper_docs

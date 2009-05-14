@@ -1,0 +1,51 @@
+%mathpiper,def="Pop"
+
+Function("Pop",{stack,index})
+[
+  Local(result);
+  result:=stack[index];
+  DestructiveDelete(stack,index);
+  result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Pop"
+*CMD Pop --- remove an element from a stack
+*STD
+*CALL
+	Pop(stack, n)
+
+*PARMS
+
+{stack} -- a list (which serves as the stack container)
+
+{n} -- index of the element to remove
+
+*DESC
+
+This is part of a simple implementation of a stack, internally
+represented as a list. This command removes the element with index
+"n" from the stack and returns this element. The top of the stack is
+represented by the index 1. Invalid indices, for example indices
+greater than the number of element on the stack, lead to an error.
+
+*E.G.
+
+	In> stack := {};
+	Out> {};
+	In> Push(stack, x);
+	Out> {x};
+	In> Push(stack, x2);
+	Out> {x2,x};
+	In> Push(stack, x3);
+	Out> {x3,x2,x};
+	In> Pop(stack, 2);
+	Out> x2;
+	In> stack;
+	Out> {x3,x};
+
+*SEE Push, PopFront, PopBack
+%/mathpiper_docs

@@ -1,0 +1,65 @@
+%mathpiper,def="HasExpr"
+
+/// HasExpr --- test for an expression containing a subexpression
+/// for checking dependence on variables, this may be faster than using VarList or IsFreeOf and this also can be used on non-variables, e.g. strings or numbers or other atoms or even on non-atoms
+// an expression contains itself -- check early
+10 # HasExpr(_expr, _atom) _ Equals(expr, atom) <-- True;
+// an atom contains itself
+15 # HasExpr(expr_IsAtom, _atom) <-- Equals(expr, atom);
+// a list contains an atom if one element contains it
+// we test for lists now because lists are also functions
+// first take care of the empty list:
+19 # HasExpr({}, _atom) <-- False;
+20 # HasExpr(expr_IsList, _atom) <-- HasExpr(Head(expr), atom) Or HasExpr(Tail(expr), atom);
+// a function contains an atom if one of its arguments contains it
+30 # HasExpr(expr_IsFunction, _atom) <-- HasExpr(Tail(Listify(expr)), atom);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="HasExpr"
+*CMD HasExpr --- check for expression containing a subexpression
+*CMD HasExprArith --- check for expression containing a subexpression
+*CMD HasExprSome --- check for expression containing a subexpression
+*STD
+*CALL
+	HasExpr(expr, x)
+	HasExprArith(expr, x)
+	HasExprSome(expr, x, list)
+
+*PARMS
+
+{expr} -- an expression
+
+{x} -- a subexpression to be found
+
+{list} -- list of function atoms to be considered "transparent"
+
+*DESC
+
+The command {HasExpr} returns {True} if the expression {expr} contains a literal subexpression {x}. The expression is recursively traversed.
+
+The command {HasExprSome} does the same, except it only looks at arguments of a given {list} of functions. All other functions become "opaque" (as if they do not contain anything).
+
+{HasExprArith} is defined through {HasExprSome} to look only at arithmetic operations {+}, {-}, {*}, {/}.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {Atom("+")} to obtain the unevaluated atom "{+}".
+
+*E.G.
+
+	In> HasExpr(x+y*Cos(Ln(z)/z), z)
+	Out> True;
+	In> HasExpr(x+y*Cos(Ln(z)/z), Ln(z))
+	Out> True;
+	In> HasExpr(x+y*Cos(Ln(z)/z), z/Ln(z))
+	Out> False;
+	In> HasExprArith(x+y*Cos(Ln(x)/x), z)
+	Out> False;
+	In> HasExprSome({a+b*2,c/d},c/d,{List})
+	Out> True;
+	In> HasExprSome({a+b*2,c/d},c,{List})
+	Out> False;
+
+*SEE FuncList, VarList, HasFunc
+%/mathpiper_docs

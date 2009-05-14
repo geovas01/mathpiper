@@ -1,0 +1,89 @@
+%mathpiper,def="LagrangeInterpolant"
+
+LagrangeInt(_var,_list) <--
+[
+  Local(nr);
+  nr:=Length(list);
+  Factorize(FillList(var,nr)-list);
+];
+
+LagrangeInterpolant(list_IsList,_values,_var) <--
+[
+  Local(i,nr,sublist);
+  nr:=Length(list);
+  result:=0;
+  For(i:=1,i<=nr,i++)
+  [
+    sublist:=FlatCopy(list);
+    DestructiveDelete(sublist,i);
+    result:=result + values[i]*LagrangeInt(var,sublist)/LagrangeInt(list[i],sublist);
+  ];
+  result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="LagrangeInterpolant"
+*CMD LagrangeInterpolant --- polynomial interpolation
+*STD
+*CALL
+	LagrangeInterpolant(xlist, ylist, var)
+
+*PARMS
+
+{xlist} -- list of argument values
+
+{ylist} -- list of function values
+
+{var} -- free variable for resulting polynomial
+
+*DESC
+
+This function returns a polynomial in the variable "var" which
+interpolates the points "(xlist, ylist)". Specifically, the value of
+the resulting polynomial at "xlist[1]" is "ylist[1]", the value at
+"xlist[2]" is "ylist[2]", etc. The degree of the polynomial is not
+greater than the length of "xlist".
+
+The lists "xlist" and "ylist" should be of equal
+length. Furthermore, the entries of "xlist" should be all distinct
+to ensure that there is one and only one solution.
+
+This routine uses the Lagrange interpolant formula to build up the
+polynomial.
+
+*E.G.
+
+	In> f := LagrangeInterpolant({0,1,2}, \
+	  {0,1,1}, x);
+	Out> (x*(x-1))/2-x*(x-2);
+	In> Eval(Subst(x,0) f);
+	Out> 0;
+	In> Eval(Subst(x,1) f);
+	Out> 1;
+	In> Eval(Subst(x,2) f);
+	Out> 1;
+	
+	In> PrettyPrinter'Set("PrettyForm");
+	
+	True
+	
+	In> LagrangeInterpolant({x1,x2,x3}, {y1,y2,y3}, x)
+	
+	y1 * ( x - x2 ) * ( x - x3 ) 
+	---------------------------- 
+	 ( x1 - x2 ) * ( x1 - x3 )   
+	
+	  y2 * ( x - x1 ) * ( x - x3 )
+	+ ----------------------------
+	   ( x2 - x1 ) * ( x2 - x3 )
+	
+	  y3 * ( x - x1 ) * ( x - x2 )
+	+ ----------------------------
+	   ( x3 - x1 ) * ( x3 - x2 )
+
+
+*SEE Subst
+%/mathpiper_docs

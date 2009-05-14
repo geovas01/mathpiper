@@ -1,0 +1,45 @@
+%mathpiper,def="Round"
+
+5 # Round(Infinity) <-- Infinity;
+5 # Round(-Infinity) <-- -Infinity;
+5 # Round(Undefined) <-- Undefined;
+
+10 # Round(x_IsRationalOrNumber) <-- FloorN(N(x+0.5));
+10 # Round(x_IsList) <-- MapSingle("Round",x);
+
+20 # Round(x_IsComplex)  _ (IsRationalOrNumber(Re(x)) And IsRationalOrNumber(Im(x)) )
+		<-- FloorN(N(Re(x)+0.5)) + FloorN(N(Im(x)+0.5))*I;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Round"
+*CMD Round --- round a number to the nearest integer
+*STD
+*CALL
+	Round(x)
+
+*PARMS
+
+{x} -- a number
+
+*DESC
+
+This function returns the integer closest to $x$. Half-integers
+(i.e. numbers of the form $n + 0.5$, with $n$ an integer) are
+rounded upwards.
+
+*E.G.
+
+	In> Round(1.49)
+	Out> 1;
+	In> Round(1.51)
+	Out> 2;
+	In> Round(-1.49)
+	Out> -1;
+	In> Round(-1.51)
+	Out> -2;
+
+*SEE Floor, Ceil
+%/mathpiper_docs

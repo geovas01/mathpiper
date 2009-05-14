@@ -1,0 +1,22 @@
+%mathpiper,def="TruncRadian"
+
+/// low-level numerical calculations of elementary functions.
+/// These are only called if InNumericMode() returns True
+
+/* TruncRadian truncates the radian r so it is between 0 and 2*Pi.
+ * It calculates r mod 2*Pi using the required precision.
+ */
+TruncRadian(_r) <--
+[
+  Local(twopi);
+  // increase precision by the number of digits of r before decimal point; enough to evaluate Abs(r) with 1 digit of precision
+  N([
+    r:=Eval(r);
+    twopi:=2*Internal'Pi();
+    r:=r-FloorN(r/twopi)*twopi;
+  ], BuiltinPrecisionGet() + IntLog(Ceil(Abs(N(Eval(r), 1))), 10));
+  r;
+];
+HoldArg("TruncRadian",r);
+
+%/mathpiper

@@ -1,0 +1,46 @@
+%mathpiper,def="TrialFactorize"
+//todo:tk:This functions was commented out for some reason.
+
+/// Simple trial factorization: can be very slow for integers > 1,000,000.
+/// Try all prime factors up to Sqrt(n).
+/// Resulting factors are automatically sorted.
+/// This function is not used any more.
+/*
+2# TrialFactorize(n_IsPrimePower) <-- {GetPrimePower(n)};
+3# TrialFactorize(n_IsInteger) <--
+[
+	Local(factorization);
+	factorization := TrialFactorize(n, n);	// TrialFactorize will limit to Sqrt(n) automatically
+	If(
+		Head(factorization) = 1,	// all factors were smaller than Sqrt(n)
+		Tail(factorization),
+		// the first element needs to be replaced
+		Concat(Tail(factorization), {{Head(factorization),1}})
+	);
+];
+*/
+
+
+/// Auxiliary function. Factorizes by trials. Return prime factors up to given limit and the remaining number.
+/// E.g. TrialFactorize(42, 2) returns {21, {{2, 1}}} and TrialFactorize(37, 4) returns {37}
+TrialFactorize(n, limit) :=
+[
+	Local(power, prime, result);
+	result := {n};	// first element of result will be replaced by the final value of n
+	prime := 2;	// first prime
+	While(prime <= limit And n>1 And prime*prime <= n)
+	[	// find the max power of prime which divides n
+		{n, power} := FindPrimeFactor(n, prime);
+		If(
+			power>0,
+			DestructiveAppend(result, {prime,power})
+		);
+		prime := NextPseudoPrime(prime);	// faster than NextPrime and we don't need real primes here
+	];
+	// replace the first element which was n by the new n
+	DestructiveReplace(result, 1, n);
+];
+
+
+
+%/mathpiper

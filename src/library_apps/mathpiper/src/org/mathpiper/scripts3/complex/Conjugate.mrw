@@ -1,0 +1,37 @@
+%mathpiper,def="Conjugate"
+
+LocalSymbols(a,x)
+[
+Function("Conjugate",{a})
+  Substitute(a,{{x},Type(x)="Complex"},{{x},Complex(x[1],-(x[2]))});
+]; // LocalSymbols(a,x)
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Conjugate"
+*CMD Conjugate --- complex conjugate
+*STD
+*CALL
+	Conjugate(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function returns the complex conjugate of "x". The complex
+conjugate of $a + I*b$ is $a - I*b$. This function assumes that all
+unbound variables are real.
+
+*E.G.
+
+	In> Conjugate(2)
+	Out> 2;
+	In> Conjugate(Complex(a,b))
+	Out> Complex(a,-b);
+
+*SEE Complex, Re, Im
+%/mathpiper_docs

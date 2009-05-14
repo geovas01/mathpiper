@@ -1,0 +1,25 @@
+%mathpiper,def="IsNumericList"
+
+// check that all items in the list are numbers
+IsNumericList(_arg'list) <-- IsList(arg'list) And
+	("And" @ (MapSingle(Hold({{x},IsNumber(N(Eval(x)))}), arg'list)));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsNumericList"
+*CMD IsNumericList --- test for a list of numbers
+*STD
+*CALL
+	IsNumericList({list})
+
+*PARMS
+
+{{list}} -- a list
+
+*DESC
+Returns {True} when called on a list of numbers or expressions that evaluate to numbers using {N()}. Returns {False} otherwise.
+
+*SEE N, IsNumber
+%/mathpiper_docs

@@ -1,0 +1,41 @@
+%mathpiper,def="Normalize"
+
+Function("Normalize",{vector})
+[
+  Local(norm);
+  norm:=0;
+  ForEach(item,vector)
+  [
+    norm:=norm+item*item;
+  ];
+  (1/(norm^(1/2)))*vector;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Normalize"
+*CMD Normalize --- normalize a vector
+*STD
+*CALL
+	Normalize(v)
+
+*PARMS
+
+{v} -- a vector
+
+*DESC
+
+Return the normalized (unit) vector parallel to {v}: a vector having the same
+direction but with length 1.
+
+*E.G.
+
+	In> v:=Normalize({3,4})
+	Out> {3/5,4/5};
+	In> v . v
+	Out> 1;
+
+*SEE InProduct, CrossProduct
+%/mathpiper_docs

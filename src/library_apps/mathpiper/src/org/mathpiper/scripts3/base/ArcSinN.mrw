@@ -1,0 +1,20 @@
+%mathpiper,def="ArcSinN"
+
+Defun("ArcSinN",{int1})
+[
+  Local(result,eps);
+	Set(result,FastArcSin(int1));
+  Local(x,q,s,c);
+  Set(q,SubtractN(SinN(result),int1));
+  Set(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
+  While(GreaterThan(AbsN(q),eps))
+  [
+		Set(s,SubtractN(int1,SinN(result)));
+    Set(c,CosN(result));
+    Set(q,DivideN(s,c));
+    Set(result,AddN(result,q));
+  ];
+  result;
+];
+
+%/mathpiper

@@ -1,0 +1,42 @@
+%mathpiper,def="Factors"
+
+/* New factorization : split between integers and polynomials. */
+10 # Factors(p_IsInteger) <-- FactorizeInt(p);
+20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  BinaryFactors(p);
+30 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Factors"
+*CMD Factors --- factorization
+*STD
+*CALL
+	Factors(x)
+
+*PARMS
+
+{x} -- integer or univariate polynomial
+
+*DESC
+
+This function decomposes the integer number {x} into a product of
+numbers. Alternatively, if {x} is a univariate polynomial, it is
+decomposed in irreducible polynomials.
+
+The factorization is returned as a list of pairs. The first member of
+each pair is the factor, while the second member denotes the power to
+which this factor should be raised. So the factorization
+$x = p1^n1 * ... * p9^n9$
+is returned as {{{p1,n1}, ..., {p9,n9}}}.
+
+*E.G.
+
+	In> Factors(24);
+	Out> {{2,3},{3,1}};
+	In> Factors(2*x^3 + 3*x^2 - 1);
+	Out> {{2,1},{x+1,2},{x-1/2,1}};
+
+*SEE Factor, IsPrime, GaussianFactors
+%/mathpiper_docs

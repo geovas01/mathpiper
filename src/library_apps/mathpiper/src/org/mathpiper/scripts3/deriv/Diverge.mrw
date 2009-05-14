@@ -1,0 +1,39 @@
+%mathpiper,def="Diverge"
+
+RuleBase("Diverge", {aFunc, aBasis});
+Rule("Diverge", 2, 1, IsList(aBasis) And IsList(aFunc) And Length(aBasis) = Length(aFunc))
+	Add(Map("D", {aBasis,aFunc}));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Diverge"
+*CMD Diverge --- divergence of a vector field
+*STD
+*CALL
+	Diverge(vector, basis)
+
+*PARMS
+
+{vector} -- vector field to calculate the divergence of
+
+{basis} -- list of variables forming the basis
+
+*DESC
+
+This function calculates the divergence of the vector field "vector"
+with respect to the variables "basis". The divergence is defined as
+
+	Diverge(f,x) = D(x[1]) f[1] + ...
+	    + D(x[n]) f[n],
+where {n} is the length of the lists "vector" and
+"basis". These lists should have equal length.
+
+*EG
+
+	In> Diverge({x*y,x*y,x*y},{x,y,z})
+	Out> y+x;
+
+*SEE D, Curl
+%/mathpiper_docs

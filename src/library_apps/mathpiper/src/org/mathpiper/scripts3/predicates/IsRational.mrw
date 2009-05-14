@@ -1,0 +1,57 @@
+%mathpiper,def="IsRational"
+
+/* changed definition of IsRational, Nobbi 030529
+Function("IsRational",{aLeft}) Type(aLeft) = "/";
+
+Function("IsRationalNumeric",{aLeft})
+    Type(aLeft) = "/" And
+    IsNumber(aLeft[1]) And
+    IsNumber(aLeft[2]);
+
+IsRationalOrNumber(_x) <-- (IsNumber(x) Or IsRationalNumeric(x));
+
+10 # IsRationalOrInteger(x_IsInteger) <-- True;
+10 # IsRationalOrInteger(x_IsInteger / y_IsInteger) <-- True;
+20 # IsRationalOrInteger(_x) <-- False;
+
+*/
+
+10 # IsRational(x_IsInteger) <-- True;
+10 # IsRational(x_IsInteger / y_IsInteger) <-- True;
+10 # IsRational(-(x_IsInteger / y_IsInteger)) <-- True;
+60000 # IsRational(_x) <-- False;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsRational"
+*CMD IsRational --- test whether argument is a rational
+*STD
+*CALL
+	IsRational(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This commands tests whether the expression "expr" is a rational
+number, i.e. an integer or a fraction of integers.
+
+*E.G.
+
+	In> IsRational(5)
+	Out> True;
+	In> IsRational(2/7)
+	Out> True;
+	In> IsRational(0.5)
+	Out> False;
+	In> IsRational(a/b)
+	Out> False;
+	In> IsRational(x + 1/x)
+	Out> False;
+
+*SEE Numer, Denom
+%/mathpiper_docs

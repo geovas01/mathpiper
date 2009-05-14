@@ -1,0 +1,30 @@
+%mathpiper,def="BernoulliDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+BernoulliDistribution(p_IsRationalOrNumber)_(p<0 Or p>1) <-- Undefined;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="BernoulliDistribution"
+*CMD BernoulliDistribution --- Bernoulli distribution
+*STD
+*CALL 
+	BernoulliDistribution(p)
+
+*PARMS
+
+{p} -- number, probability of an event in a single trial
+
+*DESC 
+A random variable has a Bernoulli distribution with probability {p} if
+it can be interpreted as an indicator of an event, where {p} is the
+probability to observe the event in a single trial.
+
+Numerical value of {p} must satisfy $0<p<1$.
+
+*SEE BinomialDistribution
+%/mathpiper_docs

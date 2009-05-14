@@ -1,0 +1,43 @@
+%mathpiper,def="Factor"
+
+// This is so Factor(Sin(x)) doesn't return FWatom(Sin(x))
+//Factor(_p) <-- FW(Factors(p));
+10 # Factor(p_CanBeUni) <-- FW(Factors(p));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Factor"
+*CMD Factor --- factorization, in pretty form
+*STD
+*CALL
+	Factor(x)
+
+*PARMS
+
+{x} -- integer or univariate polynomial
+
+*DESC
+
+This function factorizes "x", similarly to {Factors}, but
+it shows the result in a nicer human readable format.
+
+*E.G.
+
+	In> PrettyForm(Factor(24));
+	
+	 3
+	2  * 3
+	
+	Out> True;
+	In> PrettyForm(Factor(2*x^3 + 3*x^2 - 1));
+	
+	             2   /     1 \
+	2 * ( x + 1 )  * | x - - |
+	                 \     2 /
+	
+	Out> True;
+
+*SEE Factors, IsPrime, PrettyForm
+%/mathpiper_docs

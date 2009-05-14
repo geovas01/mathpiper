@@ -1,0 +1,39 @@
+%mathpiper,def="AssocIndices"
+
+AssocIndices(associndiceslist_IsList) <--
+  DestructiveReverse(MapSingle("Head",associndiceslist));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="AssocIndices"
+*CMD AssocIndices --- return the keys in an association list
+*STD
+*CALL
+	AssocIndices(alist)
+
+*PARMS
+
+{alist} -- association list to examine
+
+*DESC
+
+All the keys in the association list "alist" are assembled in a list
+and this list is returned.
+
+*E.G.
+
+	In> writer := {};
+	Out> {};
+	In> writer["Iliad"] := "Homer";
+	Out> True;
+	In> writer["Henry IV"] := "Shakespeare";
+	Out> True;
+	In> writer["Ulysses"] := "James Joyce";
+	Out> True;
+	In> AssocIndices(writer);
+	Out> {"Iliad","Henry IV","Ulysses"};
+
+*SEE Assoc, AssocDelete
+%/mathpiper_docs

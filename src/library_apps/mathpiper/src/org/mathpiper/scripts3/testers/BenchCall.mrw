@@ -1,0 +1,13 @@
+%mathpiper,def="BenchCall",scope="private"
+
+Function("BenchCall",{expr})
+[
+  Echo({"In&gt ",expr});
+  WriteString("<font color=ff0000>");
+  Eval(expr);
+  WriteString("</font>");
+  True;
+];
+HoldArg("BenchCall",expr);
+
+%/mathpiper

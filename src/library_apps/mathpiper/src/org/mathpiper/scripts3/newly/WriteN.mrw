@@ -1,0 +1,10 @@
+%mathpiper,def="WriteN"
+
+WriteN(string,n) :=
+[
+  Local(i);
+  For(i:=1,i<=n,i++) WriteString(string);
+  True;
+];
+
+%/mathpiper

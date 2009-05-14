@@ -1,0 +1,27 @@
+%mathpiper,def="RoundTo"
+
+/* Functions that aid in testing */
+
+/* Round to specified number of digits */
+10 # RoundTo(x_IsNumber, prec_IsPositiveInteger) <--
+[
+  Local(oldPrec,result);
+  oldPrec:=BuiltinPrecisionGet();
+  BuiltinPrecisionSet(prec);
+  Set(result,DivideN( Round( MultiplyN(x, 10^prec) ), 10^prec ));
+  BuiltinPrecisionSet(oldPrec);
+  result;
+];
+// complex numbers too
+10 # RoundTo(Complex(r_IsNumber, i_IsNumber), prec_IsPositiveInteger) <-- Complex(RoundTo(r, prec), RoundTo(i, prec));
+
+// Infinities, rounding does not apply.
+20 # RoundTo( Infinity,prec_IsPositiveInteger) <--  Infinity;
+20 # RoundTo(-Infinity,prec_IsPositiveInteger) <-- -Infinity;
+
+Macro(NumericEqual,{left,right,precision})
+[
+  Verify(RoundTo((@left)-(@right),@precision),0);
+];
+
+%/mathpiper

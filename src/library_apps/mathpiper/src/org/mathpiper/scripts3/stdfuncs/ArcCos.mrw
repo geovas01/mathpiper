@@ -1,0 +1,77 @@
+%mathpiper,def="ArcCos"
+
+2 # ArcCos(x_IsNumber)_InNumericMode() <-- Internal'Pi()/2-ArcSin(x);
+4 # ArcCos(Cos(_x))           <-- x;
+
+ /* TODO check! */
+200 # ArcCos(0) <-- Pi/2;
+200 # ArcCos(1/2) <-- Pi/3;
+200 # ArcCos(Sqrt(1/2)) <-- Pi/4;
+200 # ArcCos(Sqrt(3/4)) <-- Pi/6;
+200 # ArcCos(1) <-- 0;
+200 # ArcCos(_n)_(n = -1) <-- Pi;
+200 # ArcCos(_n)_(-n = Sqrt(3/4)) <-- 5/6*Pi;
+200 # ArcCos(_n)_(-n = Sqrt(1/2)) <-- 3/4*Pi;
+200 # ArcCos(_n)_(-n = 1/2) <-- 2/3*Pi;
+
+200 # ArcCos(Undefined) <-- Undefined;
+
+ArcCos(xlist_IsList) <-- MapSingle("ArcCos",xlist);
+
+110 # ArcCos(Complex(_r,_i)) <--
+    (- I)*Ln(Complex(r,i) + (Complex(r,i)^2 - 1)^(1/2));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ArcCos"
+
+*CMD ArcCos --- inverse trigonometric function arc-cosine
+*STD
+*CALL
+	ArcCos(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function represents the inverse trigonometric function arc-cosine. For
+instance, the value of $ArcCos(x)$ is a number $y$ such that
+$Cos(y)$ equals $x$.
+
+Note that the number $y$ is not unique. For instance, $Cos(Pi/2)$ and
+$Cos(3*Pi/2)$ both equal 0, so what should $ArcCos(0)$ be? In Yacas,
+it is agreed that the value of $ArcCos(x)$ should be in the interval [0,$Pi$] .
+
+Usually, Yacas leaves this function alone unless it is forced to do
+a numerical evaluation by the {N} function. If the
+argument is -1, 0, or 1 however, Yacas will simplify the
+expression. If the argument is complex,  the expression will be
+rewritten using the {Ln} function.
+
+This function is threaded, meaning that if the argument {x} is a
+list, the function is applied to all entries in the list.
+
+*E.G.
+
+
+	In> ArcCos(0)
+	Out> Pi/2
+
+	In> ArcCos(1/3)
+	Out> ArcCos(1/3)
+	In> Cos(ArcCos(1/3))
+	Out> 1/3
+
+	In> x:=N(ArcCos(0.75))
+	Out> 0.7227342478
+	In> N(Cos(x))
+	Out> 0.75
+
+
+*SEE Sin, Cos, Tan, N, Pi, Ln, ArcSin, ArcTan
+
+%/mathpiper_docs

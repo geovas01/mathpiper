@@ -1,0 +1,44 @@
+%mathpiper,def="Arg"
+
+10 # Arg(Complex(Cos(_x),Sin(_x))) <-- x;
+10 # Arg(x_IsZero) <-- Undefined;
+15 # Arg(x_IsPositiveReal) <-- 0;
+15 # Arg(x_IsNegativeReal) <-- Pi;
+20 # Arg(Complex(r_IsZero,i_IsConstant)) <-- Sign(i)*Pi/2;
+30 # Arg(Complex(r_IsPositiveReal,i_IsConstant)) <-- ArcTan(i/r);
+40 # Arg(Complex(r_IsNegativeReal,i_IsPositiveReal)) <-- Pi+ArcTan(i/r);
+50 # Arg(Complex(r_IsNegativeReal,i_IsNegativeReal)) <-- ArcTan(i/r)-Pi;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Arg"
+*CMD Arg --- argument of a complex number
+*STD
+*CALL
+	Arg(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function returns the argument of "x". The argument is the angle
+with the positive real axis in the Argand diagram, or the angle
+"phi" in the polar representation $r * Exp(I*phi)$ of "x". The
+result is in the range ($-Pi$, $Pi$], that is, excluding $-Pi$ but including $Pi$. The
+argument of 0 is {Undefined}.
+
+*E.G.
+
+	In> Arg(2)
+	Out> 0;
+	In> Arg(-1)
+	Out> Pi;
+	In> Arg(1+I)
+	Out> Pi/4;
+
+*SEE Abs, Sign
+%/mathpiper_docs

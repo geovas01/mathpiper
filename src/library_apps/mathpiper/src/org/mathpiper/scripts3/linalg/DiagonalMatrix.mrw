@@ -1,0 +1,41 @@
+%mathpiper,def="DiagonalMatrix"
+
+Function("DiagonalMatrix",{list})
+[
+  Local(result,i,n);
+  n:=Length(list);
+  result:=Identity(n);
+  For(i:=1,i<=n,i++)
+  [
+    result[i][i] := list[i];
+  ];
+  result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="DiagonalMatrix"
+*CMD DiagonalMatrix --- construct a diagonal matrix
+*STD
+*CALL
+	DiagonalMatrix(d)
+
+*PARMS
+
+{d} -- list of values to put on the diagonal
+
+*DESC
+
+This command constructs a diagonal matrix, that is a square matrix
+whose off-diagonal entries are all zero. The elements of the vector
+"d" are put on the diagonal.
+
+*E.G.
+
+	In> DiagonalMatrix(1 .. 4)
+	Out> {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+
+*SEE Identity, ZeroMatrix
+%/mathpiper_docs

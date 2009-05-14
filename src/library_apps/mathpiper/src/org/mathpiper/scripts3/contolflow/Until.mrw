@@ -1,0 +1,69 @@
+%mathpiper,def="Until"
+
+TemplateFunction("Until",{predicate,body})
+[
+  Eval(body);
+  While (Equals(Eval(predicate),False))
+  [
+    Eval(body);
+  ];
+  True;
+];
+UnFence("Until",2);
+HoldArgNr("Until",2,1);
+HoldArgNr("Until",2,2);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Until"
+*CMD Until --- loop until a condition is met
+*STD
+*CALL
+	Until(pred) body
+
+*PARMS
+
+{pred} -- predicate deciding whether to stop
+
+{body} -- expression to loop over
+
+*DESC
+
+Keep on evaluating "body" until "pred" becomes {True}. More precisely, {Until} first
+evaluates the expression "body". Then the predicate "pred" is
+evaluated, which should yield either {True} or {False}. In the latter case, the expressions "body"
+and "pred" are again evaluated and this continues as long as
+"pred" is {False}. As soon as "pred" yields {True}, the loop terminates and {Until} returns {True}.
+
+The main difference with {While} is that {Until} always evaluates the body at least once, but {While} may not evaluate the body at all. Besides, the
+meaning of the predicate is reversed: {While} stops
+if "pred" is {False} while {Until} stops if "pred" is {True}.
+The command
+{Until(pred) body;} is equivalent to {pred; While(Not pred) body;}. In fact, the
+implementation of {Until} is based on the internal
+command {While}. The {Until}
+command can be compared to the {do ... while}
+construct in the programming language C.
+
+*E.G. notest
+
+	In> x := 0;
+	Out> 0;
+	In> Until (x! > 10^6) \
+	  [ Echo({x, x!}); x++; ];
+	 0  1
+	 1  1
+	 2  2
+	 3  6
+	 4  24
+	 5  120
+	 6  720
+	 7  5040
+	 8  40320
+	 9  362880
+	Out> True;
+
+*SEE While, For
+%/mathpiper_docs

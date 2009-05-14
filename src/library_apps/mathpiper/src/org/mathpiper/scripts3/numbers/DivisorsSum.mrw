@@ -1,0 +1,52 @@
+%mathpiper,def="DivisorsSum"
+
+// Algorithm adapted from:
+// Elementary Number Theory, David M. Burton
+// Theorem 6.2 p112
+5  # DivisorsSum(0)	<-- 0;
+5  # DivisorsSum(1)	<-- 1;
+10 # DivisorsSum(_n) 	<--
+[
+	Check(IsPositiveInteger(n),
+		"DivisorsSum: argument must be positive integer");
+	Local(factors,i,sum,len,p,k);
+	p:=0;k:=0;
+	factors:={};
+	factors:=Factors(n);
+	len:=Length(factors);
+	sum:=1;
+	For(i:=1,i<=len,i++)[
+		p:=factors[i][1];
+		k:=factors[i][2];
+		sum:=sum*(p^(k+1)-1)/(p-1);
+	];
+	sum;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="DivisorsSum"
+*CMD DivisorsSum --- the sum of  divisors
+*STD
+*CALL
+	DivisorsSum(n)
+*PARMS
+
+{n}	-- positive integer
+
+*DESC
+
+{DivisorsSum} returns the sum all numbers that divide it. A number
+{n} is prime if and only if the sum of its divisors are {n+1}.
+
+*E.G.
+
+	In> DivisorsSum(180)
+	Out> 546;
+	In> DivisorsSum(37)
+	Out> 38;
+
+*SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
+%/mathpiper_docs

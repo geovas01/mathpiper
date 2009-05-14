@@ -1,0 +1,37 @@
+%mathpiper,def="BinomialDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+BinomialDistribution(_p, _n)_
+	(If(IsRationalOrNumber(p),p<0 Or p>1, False)
+	 Or (IsConstant(n) And Not IsPositiveInteger(n)) )
+	<-- Undefined;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="BinomialDistribution"
+*CMD BinomialDistribution --- binomial distribution
+*STD
+*CALL
+	BinomialDistribution(p,n)
+
+*PARMS
+{p} -- number, probability to observe an event in single trial
+
+{n} -- number of trials
+
+*DESC
+Suppose we repeat a trial {n} times, the probability to observe an
+event in a single trial is {p} and outcomes in all trials are mutually
+independent. Then the number of trials when the event occurred
+is distributed according to the binomial distribution. The probability
+of that is {BinomialDistribution}{(p,n)}.
+
+Numerical value of {p} must satisfy $0<p<1$. Numerical value
+of {n} must be a positive integer. 
+
+*SEE BernoulliDistribution
+%/mathpiper_docs

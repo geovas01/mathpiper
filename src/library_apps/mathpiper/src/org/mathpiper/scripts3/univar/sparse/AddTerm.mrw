@@ -1,0 +1,41 @@
+%mathpiper,def="AddTerm"
+
+/*
+Note:tk:I am publishing this function as a def because
+but it seems like it was meant to be a published function.
+*/
+
+// Add a term into a termlist: this function assumes that
+//  1) the list of terms is sorted in decreasing order of exponents
+//  2) there are not two terms with the same exponent.
+//  3) There is no term with cero coefficient
+// This assumptions are preserved.
+
+// The parameter begining tell us where to begin the search
+// (it is used for increasing the efficency of the algorithms!)
+// The function returns the position at which the new term is added plus 1.
+// (to be used as begining for sucesive AddTerm calls
+
+Function("AddTerm",{termlist,term,begining})
+[
+ Local(l,i);
+ l := Length(termlist);
+ If(term[2]!=0,
+ [
+  i:=begining;
+// Fix-me: search by using binary search ?
+  If (l>=1, While ((i<=l) And (term[1]<termlist[i][1])) i++);
+  If  (i>l, [DestructiveAppend(termlist,term);i++;],
+          If (term[1]=termlist[i][1],
+             [ Local(nc);
+               nc:=termlist[i][2]+term[2];
+                 If(nc!=0,DestructiveReplace(termlist,i,{term[1],nc}),
+                          [DestructiveDelete(termlist,i);i--;]);
+             ],  DestructiveInsert(termlist,i,term))
+     );
+ ]
+  );
+ i+1;
+];
+
+%/mathpiper

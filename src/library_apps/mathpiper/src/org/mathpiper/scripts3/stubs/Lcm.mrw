@@ -1,0 +1,53 @@
+%mathpiper,def="Lcm"
+
+/* Least common multiple */
+5  # Lcm(a_IsInteger,b_IsInteger) <-- Div(a*b,Gcd(a,b));
+
+10 # Lcm(list_IsList)_(Length(list)>2) <--
+[
+	Local(first);
+	first:=Lcm(list[1],list[2]);
+	Lcm(first:Tail(Tail(list)));
+];
+
+10 # Lcm(list_IsList)_(Length(list)=2) <-- Lcm(list[1],list[2]);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Lcm"
+*CMD Lcm --- least common multiple
+*STD
+*CALL
+	Lcm(n,m)
+	Lcm(list)
+
+*PARMS
+
+{n}, {m} -- integers or univariate polynomials
+{list}	 -- list of integers
+
+*DESC
+
+This command returns the least common multiple of "n" and "m" or all of
+the integers in the list {list}.
+The least common multiple of two numbers "n" and "m" is the lowest
+number which is an integer multiple of both "n" and "m".
+It is calculated with the formula
+$$Lcm(n,m) = Div(n*m,Gcd(n,m))$$.
+
+This means it also works on polynomials, since {Div}, {Gcd} and multiplication are also defined for
+them.
+
+*E.G.
+
+	In> Lcm(60,24)
+	Out> 120;
+	In> Lcm({3,5,7,9})
+	Out> 315;
+
+
+*SEE Gcd
+
+%/mathpiper_docs

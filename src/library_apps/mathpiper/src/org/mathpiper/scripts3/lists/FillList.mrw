@@ -1,0 +1,39 @@
+%mathpiper,def="FillList"
+
+Function("FillList", {aItem, aLength})
+[
+  Local(i, aResult);
+  aResult:={};
+  For(i:=0, i<aLength, i++)
+    DestructiveInsert(aResult,1,aItem);
+  aResult;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="FillList"
+*CMD FillList --- fill a list with a certain expression
+*STD
+*CALL
+	FillList(expr, n)
+
+*PARMS
+
+{expr} -- expression to fill the list with
+
+{n} -- the length of the list to construct
+
+*DESC
+
+This command creates a list of length "n" in which all slots contain
+the expression "expr" and returns this list.
+
+*E.G.
+
+	In> FillList(x, 5);
+	Out> {x,x,x,x,x};
+
+*SEE MakeVector, ZeroVector, RandomIntegerVector
+%/mathpiper_docs

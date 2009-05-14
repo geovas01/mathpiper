@@ -1,0 +1,55 @@
+%mathpiper,def="HasFuncArith"
+
+/// Analyse arithmetic expressions
+
+HasFuncArith(expr, atom) := HasFuncSome(expr, atom, {Atom("+"), Atom("-"), *, /});
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="HasFuncArith"
+*CMD HasFunc --- check for expression containing a function
+*CMD HasFuncArith --- check for expression containing a function
+*CMD HasFuncSome --- check for expression containing a function
+*STD
+*CALL
+	HasFunc(expr, func)
+	HasFuncArith(expr, func)
+	HasFuncSome(expr, func, list)
+
+*PARMS
+
+{expr} -- an expression
+
+{func} -- a function atom to be found
+
+{list} -- list of function atoms to be considered "transparent"
+
+*DESC
+
+The command {HasFunc} returns {True} if the expression {expr} contains a function {func}. The expression is recursively traversed.
+
+The command {HasFuncSome} does the same, except it only looks at arguments of a given {list} of functions. Arguments of all other functions become "opaque" (as if they do not contain anything).
+
+{HasFuncArith} is defined through {HasFuncSome} to look only at arithmetic operations {+}, {-}, {*}, {/}.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {Atom("+")} to obtain the unevaluated atom "{+}".
+
+*E.G.
+
+	In> HasFunc(x+y*Cos(Ln(z)/z), Ln)
+	Out> True;
+	In> HasFunc(x+y*Cos(Ln(z)/z), Sin)
+	Out> False;
+	In> HasFuncArith(x+y*Cos(Ln(x)/x), Cos)
+	Out> True;
+	In> HasFuncArith(x+y*Cos(Ln(x)/x), Ln)
+	Out> False;
+	In> HasFuncSome({a+b*2,c/d},/,{List})
+	Out> True;
+	In> HasFuncSome({a+b*2,c/d},*,{List})
+	Out> False;
+
+*SEE FuncList, VarList, HasExpr
+%/mathpiper_docs

@@ -1,0 +1,21 @@
+%mathpiper,def="NN",scope="private"
+
+LocalSymbols(complexReduce) [
+
+  Set(complexReduce,
+    Hold(
+    {
+      Exp(x_IsComplexII) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))
+    }));
+
+  NN(_c) <--
+  [
+    Local(result);
+    c := (c /:: complexReduce);
+    result := Coef(Expand(c,II),II,{0,1});
+    result;
+  ];
+
+]; //LocalSymbols(complexReduce)
+
+%/mathpiper

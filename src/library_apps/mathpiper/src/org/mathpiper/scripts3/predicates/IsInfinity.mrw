@@ -1,0 +1,39 @@
+%mathpiper,def="IsInfinity"
+
+10 # IsInfinity(Infinity) <-- True;
+10 # IsInfinity(-(_x)) <-- IsInfinity(x);
+
+// This is just one example, we probably need to extend this further to include all
+// cases for f*Infinity where f can be guaranteed to not be zero
+11 # IsInfinity(Sign(_x)*y_IsInfinity) <-- True;
+
+60000 # IsInfinity(_x) <-- False;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsInfinity"
+*CMD IsInfinity --- test for an infinity
+*STD
+*CALL
+	IsInfinity(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether {expr} is an infinity. This is only the
+case if {expr} is either {Infinity} or {-Infinity}.
+
+*E.G.
+
+	In> IsInfinity(10^1000);
+	Out> False;
+	In> IsInfinity(-Infinity);
+	Out> True;
+
+*SEE Integer
+%/mathpiper_docs

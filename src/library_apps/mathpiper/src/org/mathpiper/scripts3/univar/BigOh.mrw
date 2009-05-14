@@ -1,0 +1,39 @@
+%mathpiper,def="BigOh"
+
+10 # BigOh(UniVariate(_var,_first,_coefs),_var,_degree) <--
+    [
+     While(first+Length(coefs)>=(degree+1) And Length(coefs)>0) DestructiveDelete(coefs,Length(coefs));
+     UniVariate(var,first,coefs);
+    ];
+20 # BigOh(_uv,_var,_degree)_CanBeUni(uv,var) <-- NormalForm(BigOh(MakeUni(uv,var),var,degree));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="BigOh"
+*CMD BigOh --- drop all terms of a certain order in a polynomial
+*STD
+*CALL
+	BigOh(poly, var, degree)
+
+*PARMS
+
+{poly} -- a univariate polynomial
+
+{var} -- a free variable
+
+{degree} -- positive integer
+
+*DESC
+
+This function drops all terms of order "degree" or higher in
+"poly", which is a polynomial in the variable "var".
+
+*E.G.
+
+	In> BigOh(1+x+x^2+x^3,x,2)
+	Out> x+1;
+
+*SEE Taylor, InverseTaylor
+%/mathpiper_docs

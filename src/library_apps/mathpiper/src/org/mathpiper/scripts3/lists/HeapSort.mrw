@@ -1,0 +1,83 @@
+%mathpiper,def="HeapSort"
+
+HeapSort(list, compare) := HeapSort(list, ArrayCreate(Length(list), 0), 1, Length(list), compare);
+
+// this will sort "list" and mangle "tmplist"
+1 # HeapSort(_list, _tmplist, _first, _last, _compare) _ (last - first <= 2) <-- SmallSort(list, first, last, compare);
+2 # HeapSort(_list, _tmplist, _first, _last, _compare) <--
+[	// See: J. W. J. Williams, Algorithm 232 (Heapsort), Com. of ACM, vol. 7, no. 6, p. 347 (1964)
+	// sort two halves recursively, then merge two halves
+	// cannot merge in-place efficiently, so need a second list
+	Local(mid, ileft, iright, pleft);
+	mid := first+((last-first)>>1);
+	HeapSort(list, tmplist, first, mid, compare);
+	HeapSort(list, tmplist, mid+1, last, compare);
+	// copy the lower part to temporary array
+	For(ileft := first,  ileft <= mid, ileft++)
+		tmplist[ileft] := list[ileft];
+	For(
+		[ileft := first; pleft := first; iright := mid+1;],
+		ileft <= mid,	// if the left half is finished, we don't have to do any more work
+		pleft++	// one element is stored at each iteration
+	)	// merge two halves
+		// elements before pleft have been stored
+		// the smallest element of the right half is at iright
+		// the smallest element of the left half is at ileft, access through tmplist
+	If(	// we copy an element from ileft either if it is smaller or if the right half is finished; it is unnecessary to copy the remainder of the right half since the right half stays in the "list"
+		iright>last Or Apply(compare,{tmplist[ileft],list[iright]}),
+		[	// take element from ileft
+			list[pleft] := tmplist[ileft];
+			ileft++;
+		],
+		[	// take element from iright
+			list[pleft] := list[iright];
+			iright++;
+		]
+	);
+
+	list;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="HeapSort"
+*CMD BubbleSort --- sort a list
+*CMD HeapSort --- sort a list
+*STD
+*CALL
+	BubbleSort(list, compare)
+	HeapSort(list, compare)
+
+*PARMS
+
+{list} -- list to sort
+
+{compare} -- function used to compare elements of {list}
+
+*DESC
+
+This command returns {list} after it is sorted using {compare} to
+compare elements. The function {compare} should accept two arguments,
+which will be elements of {list}, and compare them. It should return
+{True} if in the sorted list the second argument
+should come after the first one, and {False}
+otherwise.
+
+The function {BubbleSort} uses the so-called "bubble sort" algorithm to do the
+sorting by swapping elements that are out of order. This algorithm is easy to
+implement, though it is not particularly fast. The sorting time is proportional
+to $n^2$ where $n$ is the length of the list.
+
+The function {HeapSort} uses a recursive algorithm "heapsort" and is much
+faster for large lists. The sorting time is proportional to $n*Ln(n)$ where $n$
+is the length of the list.
+
+*E.G.
+
+	In> BubbleSort({4,7,23,53,-2,1}, "<");
+	Out> {-2,1,4,7,23,53};
+	In> HeapSort({4,7,23,53,-2,1}, ">");
+	Out> {53,23,7,4,1,-2};
+%/mathpiper_docs

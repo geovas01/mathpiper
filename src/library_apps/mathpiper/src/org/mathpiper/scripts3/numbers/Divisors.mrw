@@ -1,0 +1,49 @@
+%mathpiper,def="Divisors"
+
+// Algorithm adapted from:
+// Elementary Number Theory, David M. Burton
+// Theorem 6.2 p112
+5  # Divisors(0)	<-- 0;
+5  # Divisors(1)	<-- 1;
+// Unsure about if there should also be a function that returns
+// n's divisors, may have to change name in future
+10 # Divisors(_n)	<--
+[
+	Check(IsPositiveInteger(n),
+		"Divisors: argument must be positive integer");
+	Local(len,sum,factors,i);
+	sum:=1;
+	factors:=Factors(n);
+	len:=Length(factors);
+	For(i:=1,i<=len,i++)[
+		sum:=sum*(factors[i][2]+1);
+	];
+	sum;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Divisors"
+*CMD Divisors --- number of divisors
+*STD
+*CALL
+	Divisors(n)
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+{Divisors} returns the number of positive divisors of a number.
+A number is prime if and only if it has two divisors, 1 and itself.
+
+*E.G.
+	In> Divisors(180)
+	Out> 18;
+	In> Divisors(37)
+	Out> 2;
+
+*SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
+%/mathpiper_docs

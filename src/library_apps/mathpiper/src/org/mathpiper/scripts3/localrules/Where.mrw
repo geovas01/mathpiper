@@ -1,0 +1,93 @@
+%mathpiper,def="Where"
+
+RuleBase("Where",{left,right});
+//HoldArg("Where",left);
+//HoldArg("Where",right);
+UnFence("Where",2);
+10 # (_body Where var_IsAtom == _value)
+     <-- `[Local(@var);@var := @value;@body;];
+20 # (_body Where (_a And _b))
+     <--
+[
+  Set(body,`(@body Where @a));
+  `(@body Where @b);
+];
+
+30 # (_body Where {}) <-- {};
+40 # (_body Where list_IsList)_IsList(list[1])
+     <--
+     [
+       Local(head,rest);
+       head:=Head(list);
+       rest:=Tail(list);
+       rest:= `(@body Where @rest);
+       `(@body Where @head) : rest;
+     ];
+
+50 # (_body Where list_IsList)
+     <--
+     [
+       Local(head,rest);
+       While (list != {})
+       [
+          head:=Head(list);
+          body := `(@body Where @head);
+          list:=Tail(list);
+        ];
+        body;
+     ];
+
+
+60 # (_body Where _var == _value) <-- Subst(var,value)body;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Where"
+*CMD Where --- substitute result into expression
+*STD
+*CALL
+	expr Where x==v
+	expr Where x1==v1 And x2==v2 And ...
+	expr Where {x1==v1 And x2==v2,x1==v3
+	  And x2==v4,...}
+
+*PARMS
+
+{expr} - expression to evaluate
+
+{x} - variable to set
+
+{v} - value to substitute for variable
+
+*DESC
+
+The operator {Where} fills in values for variables, in its simplest form.
+It accepts sets of variable/value pairs defined as 
+
+	var1==val1 And var2==val2 And ...
+
+and fills in the corresponding values. Lists of value pairs are
+also possible, as:
+
+	{var1==val1 And var2==val2, var1==val3
+	  And var2==val4}
+
+These values might be obtained through {Solve}.
+
+This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
+
+*E.G.
+
+	In> x^2+y^2 Where x==2
+	Out> y^2+4;
+	In> x^2+y^2 Where x==2 And y==3
+	Out> 13;
+	In> x^2+y^2 Where {x==2 And y==3}
+	Out> {13};
+	In> x^2+y^2 Where {x==2 And y==3,x==4 And y==5}
+	Out> {13,41};
+
+*SEE Solve, AddTo
+%/mathpiper_docs

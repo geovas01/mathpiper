@@ -1,0 +1,31 @@
+%mathpiper,def="Bernoulli1"
+
+/// Find one Bernoulli number for large index
+/// compute Riemann's zeta function and combine with the fractional part
+Bernoulli1(n_IsEven)_(n>=2) <-- [
+	Local(B, prec);
+	prec := BuiltinPrecisionGet();
+	// estimate the size of B[n] using Stirling formula
+	// and compute Ln(B[n])/Ln(10) to find the number of digits
+	BuiltinPrecisionSet(10);
+	BuiltinPrecisionSet(
+		Ceil(N((1/2*Ln(8*Pi*n)-n+n*Ln(n/2/Pi))/Ln(10)))+3	// 3 guard digits
+	);
+	If (InVerboseMode(), Echo({"Bernoulli: using zeta funcion, precision ", BuiltinPrecisionSet(), ", n = ", n}));
+	B := Floor(N(	// compute integer part of B
+		If(	// use different methods to compute Zeta function
+			n>250,	// threshold is roughly right for internal math
+			Internal'ZetaNum2(n, n/17+1),	// with this method, a single Bernoulli number n is computed in O(n*M(P)) operations where P = O(n*Ln(n)) is the required precision
+			// Brent's method requires n^2*P+n*M(P)
+			// simple array method requires
+			Internal'ZetaNum1(n, n/17+1)	// this gives O(n*Ln(n)*M(P))
+		)
+		*N(2*n! /(2*Pi)^n)))
+		// 2*Pi*e is approx. 17, add 1 to guard precision
+		* (2*Mod(n/2,2)-1)	// sign of B
+		+ BernoulliFracPart(n);	// this already has the right sign
+	BuiltinPrecisionSet(prec);	// restore old precision
+	B;
+];
+
+%/mathpiper

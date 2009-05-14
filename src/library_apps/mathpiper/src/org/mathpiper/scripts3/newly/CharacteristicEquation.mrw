@@ -1,0 +1,40 @@
+%mathpiper,def="CharacteristicEquation"
+
+Function("CharacteristicEquation",{matrix,var})
+   SymbolicDeterminant(matrix-var*Identity(Length(matrix)));
+HoldArg("CharacteristicEquation",var);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="CharacteristicEquation"
+*CMD CharacteristicEquation --- get characteristic polynomial of a matrix
+*STD
+*CALL
+	CharacteristicEquation(matrix,var)
+
+*PARMS
+
+{matrix} -- a matrix
+
+{var} -- a free variable
+
+*DESC
+
+CharacteristicEquation
+returns the characteristic equation of "matrix", using
+"var". The zeros of this equation are the eigenvalues
+of the matrix, Det(matrix-I*var);
+
+*E.G.
+
+	In> A:=DiagonalMatrix({a,b,c})
+	Out> {{a,0,0},{0,b,0},{0,0,c}};
+	In> B:=CharacteristicEquation(A,x)
+	Out> (a-x)*(b-x)*(c-x);
+	In> Expand(B,x)
+	Out> (b+a+c)*x^2-x^3-((b+a)*c+a*b)*x+a*b*c;
+
+*SEE EigenValues, EigenVectors
+%/mathpiper_docs

@@ -1,0 +1,63 @@
+%mathpiper,def="ContFracEval"
+
+//////////////////////////////////////////////////
+/// ContFracEval: evaluate continued fraction from the list of coefficients
+//////////////////////////////////////////////////
+/// Each coefficient is either a single expression or a list of 2 expressions, giving the term and the numerator of the current level in the fraction.
+/// ContFracEval({{a0, b0}, {a1, b1}, ...}) = a0+b0/(a1+b1/(...))
+/// ContFracEval({a0, a1, ...}) = a0+1/(a1+1/(...))
+
+10 # ContFracEval({}, _rest) <-- rest;
+// finish recursion here
+10 # ContFracEval({{_n, _m}}, _rest) <-- n+m+rest;
+15 # ContFracEval({_n}, _rest) <-- n+rest;
+/// Continued fractions with nontrivial numerators
+20 # ContFracEval(list_IsList, _rest)_(IsList(Head(list))) <-- Head(Head(list)) + Tail(Head(list)) / ContFracEval(Tail(list), rest);
+/// Continued fractions with unit numerators
+30 # ContFracEval(list_IsList, _rest) <-- Head(list) + 1 / ContFracEval(Tail(list), rest);
+
+/// evaluate continued fraction: main interface
+ContFracEval(list_IsList) <-- ContFracEval(list, 0);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ContFracEval"
+*CMD ContFracList --- manipulate continued fractions
+*CMD ContFracEval --- manipulate continued fractions
+*STD
+*CALL
+	ContFracList(frac)
+	ContFracList(frac, depth)
+	ContFracEval(list)
+	ContFracEval(list, rest)
+
+*PARMS
+
+{frac} -- a number to be expanded
+
+{depth} -- desired number of terms
+
+{list} -- a list of coefficients
+
+{rest} -- expression to put at the end of the continued fraction
+
+*DESC
+
+The function {ContFracList} computes terms of the continued fraction
+representation of a rational number {frac}.  It returns a list of terms of length {depth}. If {depth} is not specified, it returns all terms.
+
+The function {ContFracEval} converts a list of coefficients into a continued fraction expression. The optional parameter {rest} specifies the symbol to put at the end of the expansion. If it is not given, the result is the same as if {rest=0}.
+
+*E.G.
+
+	In> A:=ContFracList(33/7 + 0.000001)
+	Out> {4,1,2,1,1,20409,2,1,13,2,1,4,1,1,3,3,2};
+	In> ContFracEval(Take(A, 5))
+	Out> 33/7;
+	In> ContFracEval(Take(A,3), remainder)
+	Out> 1/(1/(remainder+2)+1)+4;
+	
+*SEE ContFrac, GuessRational
+%/mathpiper_docs

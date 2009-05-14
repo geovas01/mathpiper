@@ -1,0 +1,49 @@
+%mathpiper,def="DestructiveAppend"
+
+Function("DestructiveAppend",{list,element})
+[
+  DestructiveInsert(list,Length(list)+1,element);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="DestructiveAppend"
+*CMD DestructiveAppend --- destructively append an entry to a list
+*STD
+*CALL
+	DestructiveAppend(list, expr)
+
+*PARMS
+
+{list} -- list to append "expr" to
+
+{expr} -- expression to append to the list
+
+*DESC
+
+This is the destructive counterpart of {Append}. This
+command yields the same result as the corresponding call to
+{Append}, but the original list is modified. So if a
+variable is bound to "list", it will now be bound to the list with
+the expression "expr" inserted.
+
+Destructive commands run faster than their nondestructive counterparts
+because the latter copy the list before they alter it.
+
+*E.G.
+
+	In> lst := {a,b,c,d};
+	Out> {a,b,c,d};
+	In> Append(lst, 1);
+	Out> {a,b,c,d,1};
+	In> lst
+	Out> {a,b,c,d};
+	In> DestructiveAppend(lst, 1);
+	Out> {a,b,c,d,1};
+	In> lst;
+	Out> {a,b,c,d,1};
+
+*SEE Concat, :, Append
+%/mathpiper_docs

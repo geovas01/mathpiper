@@ -1,0 +1,23 @@
+%mathpiper,def="SparseUniVar"
+
+/*
+Note:tk:I am publishing this function as a def because
+but it seems like it was meant to be a published function.
+*/
+
+// SparceUniVariate(variable,termlist) implements an internal representation
+// for univariate polynomials
+// termlist is the list of terms in the form {exponent,coeficient}
+
+RuleBase("SparseUniVar",{var,termlist});
+
+300 # SparseUniVar(_var,_terms1) * SparseUniVar(_var,_terms2) <--
+SparseUniVar(var, MultiplyTerms(terms1,terms2));
+
+300 # SparseUniVar(_var,_terms1) + SparseUniVar(_var,_terms2) <--
+SparseUniVar(var, AddTerms(terms1,terms2));
+
+300 # SparseUniVar(_var,_terms1) - SparseUniVar(_var,_terms2) <--
+SparseUniVar(var, SubstractTerms(terms1,terms2));
+
+%/mathpiper

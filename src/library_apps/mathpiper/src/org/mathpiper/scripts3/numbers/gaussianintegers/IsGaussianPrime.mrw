@@ -1,0 +1,69 @@
+%mathpiper,def="IsGaussianPrime"
+
+Function("IsGaussianPrime",{x})
+[
+        if( IsGaussianInteger(x) )[
+                if( IsZero(Re(x)) )[
+                        ( Abs(Im(x)) % 4 = 3 And IsPrime(Abs(Im(x))) );
+                ] else if ( IsZero(Im(x)) ) [
+                        ( Abs(Re(x)) % 4 = 3 And IsPrime(Abs(Re(x))) );
+                ] else [
+                        IsPrime(Re(x)^2 + Im(x)^2);
+                ];
+        ] else [
+                False;
+        ];
+
+];
+
+
+/*
+10 # IsGaussianPrime(p_IsInteger) <-- IsPrime(p) And Mod(p,3)=1;
+20 # IsGaussianPrime(p_IsGaussianInteger) <-- IsPrime(GaussianNorm(p));
+*/
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsGaussianPrime"
+*CMD IsGaussianPrime ---  test for a Gaussian prime
+*STD
+*CALL
+	IsGaussianPrime(z)
+*PARMS
+
+{z} -- a complex or real number
+
+*DESC
+
+This function returns {True} if the argument
+is a Gaussian prime and {False} otherwise.
+
+A prime element $x$ of a ring is divisible only by the units of
+the ring and by associates of $x$.
+("Associates" of $x$ are elements of the form $x*u$ where $u$ is
+a unit of the ring).
+
+Gaussian primes are Gaussian integers $z=a+b*I$ that satisfy one of the 
+following properties:
+
+*	If $Re(z)$ and $Im(z)$ are nonzero then $z$ is a Gaussian prime if and only 
+if $Re(z)^2 + Im(z)^2$ is an ordinary prime.
+*	If $Re(z)==0$ then $z$ is a Gaussian prime if and only if $Im(z)$ is an
+ordinary prime and $Im(z):=Mod(3,4)$.
+*	If $Im(z)==0$ then $z$ is a Gaussian prime
+if and only if $Re(z)$ is an ordinary prime and $Re(z):=Mod(3,4)$.
+
+*E.G.
+	In> IsGaussianPrime(13)
+	Out> False;
+	In> IsGaussianPrime(2+2*I)
+	Out> False;
+	In> IsGaussianPrime(2+3*I)
+	Out> True;
+	In> IsGaussianPrime(3)
+	Out> True;
+
+*SEE  IsGaussianInteger, GaussianFactors
+%/mathpiper_docs
