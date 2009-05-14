@@ -1,0 +1,16 @@
+%mathpiper,def="MultiplyTerms"
+
+Function("MultiplyTerms",{terms1,terms2})
+[
+ Local(result,t1,t2,begining);
+ result:={};
+ ForEach (t1,terms1)
+ [
+   begining :=1;
+   ForEach (t2,terms2)
+     begining := AddTerm(result,{t1[1]+t2[1],t1[2]*t2[2]},1);
+ ];
+ result;
+];
+
+%/mathpiper

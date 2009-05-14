@@ -1,0 +1,31 @@
+%mathpiper,def="tDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+tDistribution(m_IsRationalOrNumber)_(Not IsPositiveInteger(m)) <-- Undefined;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="tDistribution"
+*CMD tDistribution --- Student's $t$ distribution
+*STD
+*CALL
+	{tDistribution}(m)
+
+*PARMS 
+{m} -- integer, number of degrees of freedom
+
+*DESC
+
+*REM what does it do???
+The function {tDistribution} returns the ...
+
+Let $Y$ and $Z$ be independent random variables, $Y$ have the 
+NormalDistribution(0,1), {Z} have ChiSquareDistribution(m). Then 
+$Y/Sqrt(Z/m)$ has tDistribution(m).
+
+Numerical value of {m} must be positive integer.
+%/mathpiper_docs

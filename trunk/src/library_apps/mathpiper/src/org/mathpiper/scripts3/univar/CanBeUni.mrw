@@ -1,0 +1,36 @@
+%mathpiper,def="CanBeUni"
+
+/* CanBeUni returns whether the function can be converted to a
+ * univariate, with respect to a variable.
+ */
+Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
+
+
+/* Accepting an expression as being convertable to univariate */
+
+/* Dealing wiht a list of variables. The poly should be expandable
+ * to each of these variables (smells like tail recursion)
+ */
+10 # CanBeUni({},_expression) <-- True;
+20 # CanBeUni(var_IsList,_expression) <--
+    CanBeUni(Head(var),expression) And CanBeUni(Tail(var),expression);
+
+/* Atom can always be a polynom to any variable */
+30 # CanBeUni(_var,expression_IsAtom) <-- True;
+35 # CanBeUni(_var,expression_IsFreeOf(var)) <-- True;
+
+/* Other patterns supported. */
+40 # CanBeUni(_var,_x + _y) <-- CanBeUni(var,x) And CanBeUni(var,y);
+40 # CanBeUni(_var,_x - _y) <-- CanBeUni(var,x) And CanBeUni(var,y);
+40 # CanBeUni(_var,   + _y) <-- CanBeUni(var,y);
+40 # CanBeUni(_var,   - _y) <-- CanBeUni(var,y);
+40 # CanBeUni(_var,_x * _y) <-- CanBeUni(var,x) And CanBeUni(var,y);
+40 # CanBeUni(_var,_x / _y) <-- CanBeUni(var,x) And IsFreeOf(var,y);
+/* Special case again: raising powers */
+40 # CanBeUni(_var,_x ^ y_IsInteger)_(y >= 0 And CanBeUni(var,x)) <-- True;
+41 # CanBeUni(_var,(x_IsFreeOf(var)) ^ (y_IsFreeOf(var))) <-- True;
+50 # CanBeUni(_var,UniVariate(_var,_first,_coefs)) <-- True;
+1000 # CanBeUni(_var,_f)_(Not(IsFreeOf(var,f))) <-- False;
+1001 # CanBeUni(_var,_f) <-- True;
+
+%/mathpiper

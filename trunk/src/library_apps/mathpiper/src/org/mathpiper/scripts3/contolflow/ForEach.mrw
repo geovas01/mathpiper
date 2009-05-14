@@ -1,0 +1,62 @@
+%mathpiper,def="ForEach"
+
+/*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
+TemplateFunction("ForEach",{item,list,body})
+[
+  If(And(Equals(IsGeneric(list),True),
+         Equals(GenericTypeName(list),"Array")
+         ),
+    `ForEachInArray(@item,list,@body),
+    [
+      Local(foreachtail);
+      MacroLocal(item);
+      Set(foreachtail,list);
+      While(Not(Equals(foreachtail,{})))
+      [
+        MacroSet(item,Head(foreachtail));
+        Eval(body);
+        Set(foreachtail,Tail(foreachtail));
+      ];
+    ]);
+];
+UnFence("ForEach",3);
+HoldArgNr("ForEach",3,1);
+HoldArgNr("ForEach",3,3);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="ForEach"
+*CMD ForEach --- loop over all entries in list
+*STD
+*CALL
+	ForEach(var, list) body
+
+*PARMS
+
+{var} -- looping variable
+
+{list} -- list of values to assign to "var"
+
+{body} -- expression to evaluate with different values of "var"
+
+*DESC
+
+The expression "body" is evaluated multiple times. The first time,
+"var" has the value of the first element of "list", then it gets
+the value of the second element and so on. {ForEach}
+returns {True}.
+
+*E.G. notest
+
+	 In> ForEach(i,{2,3,5,7,11}) Echo({i, i!});
+	 2  2
+	 3  6
+	 5  120
+	 7  5040
+	 11  39916800
+	Out> True;
+
+*SEE For
+%/mathpiper_docs

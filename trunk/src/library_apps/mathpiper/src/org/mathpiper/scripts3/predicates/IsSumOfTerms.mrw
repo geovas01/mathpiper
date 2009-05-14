@@ -1,0 +1,86 @@
+%mathpiper,def="IsSumOfTerms"
+
+// an expression free of the variable -- obviously not a sum of terms in it
+10 # IsSumOfTerms(_var,expr_IsFreeOf(var)) <-- False;
+
+// an Atom cannot be a sum of terms
+12 # IsSumOfTerms(_var,expr_IsAtom()) <-- False;
+
+// after being "Listified", expr is a sum of terms if headed by "+" or "-"
+14 # IsSumOfTerms(_var,expr_IsList())_(expr[1]=Atom("+") Or expr[1]=Atom("-")) <-- True;
+
+// after being "Listified", an expr headed by "*" is not considered a sum 
+// of terms unless one or the other operand is free of the variable
+16 # IsSumOfTerms(_var,expr_IsList())_(expr[1]=Atom("*")) <-- Or(IsFreeOf(var,expr[2]),IsFreeOf(var,expr[3]));
+
+// after being "Listified", an expr headed by "/" is not considered a sum 
+// of terms unless the denominator (only) is free of the variable
+18 # IsSumOfTerms(_var,expr_IsList())_(expr[1]=Atom("/")) <-- IsFreeOf(var,expr[3]);
+
+// after being "Listified", any other expression is not a sum of terms
+20 # IsSumOfTerms(_var,expr_IsList()) <-- False;
+
+// if we get to this point, Listify the expression and try again
+22 # IsSumOfTerms(_var,_expr) <-- IsSumOfTerms(var,Listify(expr));
+
+%/mathpiper
+
+%mathpiper_docs,name="IsSumOfTerms"
+*CMD IsSumOfTerms --- check for expression being a sum of terms in variable
+
+*STD
+*CALL
+	IsSumOfTerms(var,expr)
+
+*PARMS
+
+{var} -- a variable name
+
+{expr} -- an expression to be tested
+
+*DESC
+
+The command {IsSumOfTerms} returns {True} if the expression {expr} can be 
+considered to be a "sum of terms" in the given variable {var}.  The criteria
+are reasonable but somewhat arbitrary.  The criteria were selected after
+a lot of experimentation, specifically to aid the logic used in Integration.
+
+The criteria for {expr} to be a sum of terms in {var} are:
+     o  {expr} is a function of variable {var}
+     o  {expr} can best be described as a sum (or difference) of two or more
+        functions of {var}  OR
+        {expr} is a monomial in {var} (this latter is to simplify the logic)
+     o  {expr} is not better described as a product of functions of {var}
+     o  {expr} is not better described as a quotient of functions of {var}
+        (i.e., is a rational function)
+
+Note that the last three criteria are somewhat subjective!  
+
+*E.G.
+
+    In> IsSumOfTerms(x,23)
+    Result> False
+    In> IsSumOfTerms(x,23*x)
+    Result> True
+    In> IsSumOfTerms(x,5*y)
+    Result> False
+    In> IsSumOfTerms(x,a*x^2-b*x-c/x)
+    Result> True
+    In> IsSumOfTerms(x,Sin(x))
+    Result> False
+    In> IsSumOfTerms(x,Sin(x)+Exp(x))
+    Result> True
+    In> IsSumOfTerms(x,d*(x^2-1))
+    Result> True
+    In> IsSumOfTerms(x,(x^2-1)*d)
+    Result> True
+    In> IsSumOfTerms(x,(x^2-1)/d)
+    Result> True
+    In> IsSumOfTerms(x,d/(x^2-1))
+    Result> False
+    In> IsSumOfTerms(x,(x^2-1)*(x^2+1))
+    Result> False
+    In> IsSumOfTerms(x,(x^2-1)/(x^2+1))
+    Result> False    
+    
+%/mathpiper_docs

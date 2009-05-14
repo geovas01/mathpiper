@@ -1,0 +1,45 @@
+%mathpiper,def="IsNegativeReal"
+
+/* See if a number, when evaluated, would be a positive real value */
+
+IsNegativeReal(_r) <--
+[
+  r:=N(Eval(r));
+  (IsNumber(r) And r <= 0);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsNegativeReal"
+*CMD IsNegativeReal --- test for a numerically negative value
+*STD
+*CALL
+	IsNegativeReal(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tries to approximate {expr} numerically. It returns {True} if this approximation is negative. In case no
+approximation can be found, the function returns {False}. Note that round-off errors may cause incorrect
+results.
+
+*E.G.
+
+	In> IsNegativeReal(Sin(1)-3/4);
+	Out> False;
+	In> IsNegativeReal(Sin(1)-6/7);
+	Out> True;
+	In> IsNegativeReal(Exp(x));
+	Out> False;
+
+The last result is because {Exp(x)} cannot be
+numerically approximated if {x} is not known. Hence
+Yacas can not determine the sign of this expression.
+
+*SEE IsPositiveReal, IsNegativeNumber, N
+%/mathpiper_docs

@@ -1,0 +1,12 @@
+%mathpiper,def="KnownFailure"
+
+Function("KnownFailure",{expr})
+[
+  Local(rfail);
+  Echo({"Known failure: ", expr});
+  Set(rfail,Eval(expr));
+  If(rfail,Echo({"Failure resolved!"}));
+];
+HoldArg("KnownFailure",expr);
+
+%/mathpiper

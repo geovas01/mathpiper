@@ -1,0 +1,32 @@
+%mathpiper,def="Eulerian"
+
+Eulerian(n_IsInteger,k_IsInteger) <-- Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Eulerian"
+*CMD Eulerian --- Eulerian numbers
+*STD
+*CALL
+	Eulerian(n,m)
+
+*PARMS
+
+{n}, {m} --- integers
+
+*DESC
+
+The Eulerian numbers can be viewed as a generalization of the binomial coefficients,
+and are given explicitly by $$ Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n) $$ .
+
+*E.G.
+
+	In> Eulerian(6,2)
+	Out> 302;
+	In> Eulerian(10,9)
+	Out> 1;
+
+*SEE Bin
+%/mathpiper_docs

@@ -1,0 +1,69 @@
+%mathpiper,def="Floor"
+
+5 # Floor(Infinity) <-- Infinity;
+5 # Floor(-Infinity) <-- -Infinity;
+5 # Floor(Undefined) <-- Undefined;
+
+
+10 # Floor(x_IsRationalOrNumber)
+   <--
+   [
+     x:=N(Eval(x));
+//Echo("x = ",x);
+     Local(prec,result,n);
+     Set(prec,BuiltinPrecisionGet());
+     If(IsZero(x),
+       Set(n,2),
+       If(x>0,
+         Set(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
+         Set(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
+       ));
+     If(n>prec,BuiltinPrecisionSet(n));
+//Echo("Before");
+     Set(result,FloorN(x));
+//Echo("After");
+     BuiltinPrecisionSet(prec);
+     result;
+   ];
+
+//     FloorN(N(x));
+
+
+//todo:tk:should this be removed because it is no longer needed?
+/* Changed by Nobbi before redefinition of Rational
+10 # Floor(x_IsNumber) <-- FloorN(x);
+10 # Ceil (x_IsNumber) <-- CeilN (x);
+10 # Round(x_IsNumber) <-- FloorN(x+0.5);
+
+20 # Floor(x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- FloorN(N(x));
+20 # Ceil (x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- CeilN (N(x));
+20 # Round(x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- FloorN(N(x+0.5));
+*/
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Floor"
+*CMD Floor --- round a number downwards
+*STD
+*CALL
+	Floor(x)
+
+*PARMS
+
+{x} -- a number
+
+*DESC
+
+This function returns $Floor(x)$, the largest integer smaller than or equal to $x$.
+
+*E.G.
+
+	In> Floor(1.1)
+	Out> 1;
+	In> Floor(-1.1)
+	Out> -2;
+
+*SEE Ceil, Round
+%/mathpiper_docs

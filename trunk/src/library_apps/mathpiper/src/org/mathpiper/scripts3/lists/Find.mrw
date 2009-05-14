@@ -1,0 +1,52 @@
+%mathpiper,def="Find"
+
+Function("Find",{list,element})
+[
+  Local(result,count);
+  Set(result, -1);
+  Set(count, 1);
+  While(And(result<0, Not(Equals(list, {}))))
+  [
+    If(Equals(Head(list), element),
+      Set(result, count)
+      );
+    Set(list,Tail(list));
+    Set(count,AddN(count,1));
+  ];
+  result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Find"
+*CMD Find --- get the index at which a certain element occurs
+*STD
+*CALL
+	Find(list, expr)
+
+*PARMS
+
+{list} -- the list to examine
+
+{expr} -- expression to look for in "list"
+
+*DESC
+
+This commands returns the index at which the expression "expr"
+occurs in "list". If "expr" occurs more than once, the lowest
+index is returned. If "expr" does not occur at all,
+{-1} is returned.
+
+*E.G.
+
+	In> Find({a,b,c,d,e,f}, d);
+	Out> 4;
+	In> Find({1,2,3,2,1}, 2);
+	Out> 2;
+	In> Find({1,2,3,2,1}, 4);
+	Out> -1;
+
+*SEE Contains
+%/mathpiper_docs

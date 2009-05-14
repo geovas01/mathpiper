@@ -1,0 +1,39 @@
+%mathpiper,def="Euler"
+
+5  # Euler(0)		<-- 1;
+10 # Euler(n_IsOdd)	<-- 0;
+10 # Euler(n_IsEven)	<-- - Sum(r,0,n/2-1,Bin(n,2*r)*Euler(2*r));
+10 # Euler(n_IsNonNegativeInteger,_x)	<-- Sum(i,0,Round(n/2),Bin(n,2*i)*Euler(2*i)*(x-1/2)^(n-2*i)/2^(2*i));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Euler"
+*CMD Euler --- Euler numbers and polynomials
+*STD
+*CALL
+	Euler(index)
+	Euler(index,x)
+
+*PARMS
+
+{x} -- expression that will be the variable in the polynomial
+
+{index} -- expression that can be evaluated to an integer
+
+*DESC
+
+{Euler(n)} evaluates the $n$-th Euler number. {Euler(n,x)} returns the $n$-th Euler polynomial in the variable $x$.
+
+*E.G.
+
+	In> Euler(6)
+	Out> -61;
+	In> A:=Euler(5,x)
+	Out> (x-1/2)^5+(-10*(x-1/2)^3)/4+(25*(x-1/2))/16;
+	In> Simplify(A)
+	Out> (2*x^5-5*x^4+5*x^2-1)/2;
+
+*SEE Bin
+%/mathpiper_docs

@@ -1,0 +1,125 @@
+%mathpiper,def="GuessRational"
+
+/// guess the rational number behind an imprecise number
+/// prec parameter is the max number of digits you can have in the denominator
+GuessRational(_x) <-- GuessRational(x, Floor(1/2*BuiltinPrecisionGet()));
+GuessRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
+	Local(denom'estimate, cf, i);
+	denom'estimate := 1;
+	cf := ContFracList(x);
+	For(i:=2, i<=Length(cf) And denom'estimate < 10^prec, i++)
+		[	// estimate the denominator
+			denom'estimate := denom'estimate * If(
+				cf[i] = 1,
+				If(
+					i+2<=Length(cf),	// have at least two more terms, do a full estimate
+					RoundTo(N(Eval(cf[i]+1/(cf[i+1]+1/cf[i+2]))), 3),
+					// have only one more term
+					RoundTo(N(Eval(cf[i]+1/cf[i+1])), 3)
+				),
+				// term is not 1, use the simple estimate
+				cf[i]
+			);
+		];
+	If (denom'estimate < 10^prec,
+		If(InVerboseMode(), Echo({"GuessRational: all ", i, "terms are within limits"})),
+		i--	// do not use the last term
+	);
+	i--;	// loop returns one more number
+	If(InVerboseMode(), Echo({"GuessRational: using ", i, "terms of the continued fraction"}));
+	ContFracEval(Take(cf, i));
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="GuessRational"
+*CMD GuessRational --- find optimal rational approximations
+*CMD NearRational --- find optimal rational approximations
+*CMD BracketRational --- find optimal rational approximations
+*STD
+*CALL
+	GuessRational(x)
+	GuessRational(x, digits)
+	NearRational(x)
+	NearRational(x, digits)
+	BracketRational(x, eps)
+
+*PARMS
+
+{x} -- a number to be approximated (must be already evaluated to floating-point)
+
+{digits} -- desired number of decimal digits (integer)
+
+{eps} -- desired precision
+
+*DESC
+
+The functions {GuessRational(x)} and {NearRational(x)} attempt to find "optimal"
+rational approximations to a given value {x}. The approximations are "optimal"
+in the sense of having smallest numerators and denominators among all rational
+numbers close to {x}. This is done by computing a continued fraction
+representation of {x} and truncating it at a suitably chosen term.  Both
+functions return a rational number which is an approximation of {x}.
+
+Unlike the function {Rationalize()} which converts floating-point numbers to
+rationals without loss of precision, the functions {GuessRational()} and
+{NearRational()} are intended to find the best rational that is <i>approximately</i>
+equal to a given value.
+
+The function {GuessRational()} is useful if you have obtained a
+floating-point representation of a rational number and you know
+approximately how many digits its exact representation should contain.
+This function takes an optional second parameter {digits} which limits
+the number of decimal digits in the denominator of the resulting
+rational number. If this parameter is not given, it defaults to half
+the current precision. This function truncates the continuous fraction
+expansion when it encounters an unusually large value (see example).
+This procedure does not always give the "correct" rational number; a
+rule of thumb is that the floating-point number should have at least as
+many digits as the combined number of digits in the numerator and the
+denominator of the correct rational number.
+
+The function {NearRational(x)} is useful if one needs to
+approximate a given value, i.e. to find an "optimal" rational number
+that lies in a certain small interval around a certain value {x}. This
+function takes an optional second parameter {digits} which has slightly
+different meaning: it specifies the number of digits of precision of
+the approximation; in other words, the difference between {x} and the
+resulting rational number should be at most one digit of that
+precision. The parameter {digits} also defaults to half of the current
+precision.
+
+The function {BracketRational(x,eps)} can be used to find approximations with a given relative precision from above and from below.
+This function returns a list of two rational numbers {{r1,r2}} such that $r1<x<r2$ and $Abs(r2-r1)<Abs(x*eps)$.
+The argument {x} must be already evaluated to enough precision so that this approximation can be meaningfully found.
+If the approximation with the desired precision cannot be found, the function returns an empty list.
+
+*E.G.
+
+Start with a rational number and obtain a floating-point approximation:
+	In> x:=N(956/1013)
+	Out> 0.9437314906
+	In> Rationalize(x)
+	Out> 4718657453/5000000000;
+	In> V(GuessRational(x))
+	
+	GuessRational: using 10 terms of the
+	  continued fraction
+	Out> 956/1013;
+	In> ContFracList(x)
+	Out> {0,1,16,1,3,2,1,1,1,1,508848,3,1,2,1,2,2};
+The first 10 terms of this continued fraction correspond to the correct continued fraction for the original rational number.
+	In> NearRational(x)
+	Out> 218/231;
+This function found a different rational number closeby because the precision was not high enough.
+	In> NearRational(x, 10)
+	Out> 956/1013;
+Find an approximation to $Ln(10)$ good to 8 digits:
+	In> BracketRational(N(Ln(10)), 10^(-8))
+	Out> {12381/5377,41062/17833};
+
+
+*SEE ContFrac, ContFracList, Rationalize
+%/mathpiper_docs

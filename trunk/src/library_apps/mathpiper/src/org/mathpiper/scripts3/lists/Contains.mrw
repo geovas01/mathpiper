@@ -1,0 +1,54 @@
+%mathpiper,def="Contains"
+
+Function("Contains",{list,element})
+[
+  Local(result);
+  Set(result,False);
+  While(And(Not(result), Not(Equals(list, {}))))
+  [
+    If(Equals(Head(list),element),
+      Set(result, True),
+      Set(list, Tail(list))
+      );
+  ];
+  result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Contains"
+*CMD Contains --- test whether a list contains a certain element
+*STD
+*CALL
+	Contains(list, expr)
+
+*PARMS
+
+{list} -- list to examine
+
+{expr} -- expression to look for in "list"
+
+*DESC
+
+This command tests whether "list" contains the expression "expr"
+as an entry. It returns {True} if it does and
+{False} otherwise. Only the top level of "list" is
+examined. The parameter "list" may also be a general expression, in
+that case the top-level operands are tested for the occurrence of
+"expr".
+
+*E.G.
+
+	In> Contains({a,b,c,d}, b);
+	Out> True;
+	In> Contains({a,b,c,d}, x);
+	Out> False;
+	In> Contains({a,{1,2,3},z}, 1);
+	Out> False;
+	In> Contains(a*b, b);
+	Out> True;
+
+*SEE Find, Count
+%/mathpiper_docs

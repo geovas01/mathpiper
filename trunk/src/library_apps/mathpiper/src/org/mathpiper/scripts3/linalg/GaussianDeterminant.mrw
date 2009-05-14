@@ -1,0 +1,41 @@
+%mathpiper,def="GaussianDeterminant",scope="private"
+
+GaussianDeterminant(matrix):=
+[
+  Local(n,s,result);
+  n:=Length(matrix);
+	result:=1;
+
+  [
+    matrix:=FlatCopy(matrix);
+    Local(i);
+    For(i:=1,i<=n,i++)
+    [
+      matrix[i]:=FlatCopy(matrix[i]);
+    ];
+  ];
+
+  // gaussian elimination
+  ForEach(i, 1 .. (n-1) )
+  [
+    ForEach(k, (i+1) .. n )
+    [
+      s:=matrix[k][i];
+      ForEach(j, i .. n )
+      [
+        matrix[k][j] := matrix[k][j] - (s/matrix[i][i])*matrix[i][j];
+        //Echo({"matrix[",k,"][",j,"] =", aug[k][j]," - ",
+        //      matrix[k][i],"/",matrix[i][i],"*",matrix[i][j]," k i =", k,i  });
+      ];
+    ];
+  ];
+
+//Echo("mat: ",matrix);
+//Echo("diagmat: ",Diagonal(matrix));
+	// now upper triangular
+  ForEach(i, Diagonal(matrix) )
+    result:=result*i;
+  result;
+];
+
+%/mathpiper

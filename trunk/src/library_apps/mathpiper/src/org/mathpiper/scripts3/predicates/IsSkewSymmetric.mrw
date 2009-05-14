@@ -1,0 +1,40 @@
+%mathpiper,def="IsSkewSymmetric"
+
+IsSkewSymmetric(A_IsMatrix) <-- (Transpose(A)=(-1*A));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsSkewSymmetric"
+*CMD IsSkewSymmetric --- test for a skew-symmetric matrix
+*STD
+*CALL
+	IsSkewSymmetric(A)
+
+*PARMS
+
+{A} -- a square matrix
+
+*DESC
+
+{IsSkewSymmetric(A)} returns {True} if {A} is skew symmetric and {False} otherwise.
+$A$ is skew symmetric iff $Transpose(A)$ =$-A$. 
+
+*E.G.
+
+	In> A := {{0,-1},{1,0}}
+	Out> {{0,-1},{1,0}};
+	In> PrettyForm(%)
+
+	/               \
+	| ( 0 ) ( -1 )  |
+	|               |
+	| ( 1 ) ( 0 )   |
+	\               /
+	Out> True;
+	In> IsSkewSymmetric(A);
+	Out> True;
+
+*SEE IsSymmetric, IsHermitian
+%/mathpiper_docs

@@ -1,0 +1,39 @@
+%mathpiper,def="Identity"
+
+Identity(n_IsNonNegativeInteger) <--
+[
+    Local(i,result);
+    result:={};
+    For(i:=1,i<=n,i++)
+    [
+      DestructiveAppend(result,BaseVector(i,n));
+    ];
+    result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Identity"
+*CMD Identity --- make identity matrix
+*STD
+*CALL
+	Identity(n)
+
+*PARMS
+
+{n} -- size of the matrix
+
+*DESC
+
+This commands returns the identity matrix of size "n" by "n". This
+matrix has ones on the diagonal while the other entries are zero.
+
+*E.G.
+
+	In> Identity(3)
+	Out> {{1,0,0},{0,1,0},{0,0,1}};
+
+*SEE BaseVector, ZeroMatrix, DiagonalMatrix
+%/mathpiper_docs

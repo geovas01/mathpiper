@@ -1,0 +1,21 @@
+%mathpiper,def="GaussianFactorPrime"
+
+/* GaussianFactorPrime(p): auxiliary function for Gaussian factors.
+If p is a rational prime of the form 4n+1, we find a factor of p in the
+Gaussian Integers. We compute
+  a = (2n)!
+By Wilson's theorem a^2 is -1 (mod p), it follows that
+
+        p| (a+I)(a-I)
+
+in the Gaussian integers. The desired factor is then the Gaussian GCD of a+i
+and p. Note: If the result is Complex(a,b), then p=a^2+b^2 */
+
+GaussianFactorPrime(p_IsInteger) <-- [
+ Local(a,i);
+ a := 1;
+ For (i:=2,i<=(p-1)/2,i++) a := Mod(a*i,p);
+ GaussianGcd(a+I,p);
+];
+
+%/mathpiper

@@ -1,0 +1,33 @@
+%mathpiper,def="IsNegativeInteger"
+
+IsNegativeInteger(x):= IsInteger(x) And x < 0;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsNegativeInteger"
+*CMD IsNegativeInteger --- test for a negative integer
+*STD
+*CALL
+	IsNegativeInteger(n)
+
+*PARMS
+
+{n} -- integer to test
+
+*DESC
+
+This function tests whether the integer {n} is (strictly)
+negative. The negative integers are -1, -2, -3, -4, -5, etc. If
+{n} is not a integer, the function returns {False}.
+
+*E.G.
+
+	In> IsNegativeInteger(31);
+	Out> False;
+	In> IsNegativeInteger(-2);
+	Out> True;
+
+*SEE IsPositiveInteger, IsNonZeroInteger, IsNegativeNumber
+%/mathpiper_docs

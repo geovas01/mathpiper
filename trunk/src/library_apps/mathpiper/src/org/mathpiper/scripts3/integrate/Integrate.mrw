@@ -1,0 +1,144 @@
+%mathpiper,def="Integrate"
+
+//todo:tk:this file need to be broken down further.
+
+
+10# (Integrate(_var)(expr_IsList))
+    <-- Map("Integrate",{FillList(var,Length(expr)),expr});
+20 # (Integrate(_var)(_expr)) <-- IntSub(var,expr,AntiDeriv(var,IntClean(var,expr)));
+
+
+10 # IntSub(_var,_expr,Integrate(_var)(_expr2)) <--
+     `Hold(Integrate(@var)(@expr));
+20 # IntSub(_var,_expr,_result) <-- result;	// + UniqueConstant();
+
+////////////////////////////////////////////////
+//
+// Integrate over a range
+//
+////////////////////////////////////////////////
+10# (Integrate(_var,_from,_to)(expr_IsList))
+    <-- Map("Integrate",{FillList(var,Length(expr)),
+                         FillList(from,Length(expr)),
+			 FillList(to,Length(expr)),
+                         expr});
+
+20 # (Integrate(_var,_from,_to)(_expr))
+    <-- defIntegrate(var,from,to,expr,a,b);
+
+////////////////////////////////////////////////
+//
+// separate rules can be added here for specific integrals
+// to defIntegrate
+//
+////////////////////////////////////////////////
+
+10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsOddFunction(expr,var)) <-- 0;
+
+// We need to define this case (integrating from 0 to 0 over an even function) 
+// explicitly, otherwise the integration ends up going in to infinite recursion.
+// Extended it a little bit more, since if you are integrating from A to A, 
+// then the result is obviously zero. There are perhaps situations where
+// this does not work, where we need to simplify (to-from) first. A naive 
+// implementation caused a test to fail.
+
+10 # defIntegrate(_var,_from,_from,_expr,_a,_b) <-- 0;
+
+12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsEvenFunction(expr,var))
+        <-- 2*defIntegrate(var,0,to,expr,a,b);
+
+100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) != "AntiDeriv")
+        <-- IntegrateRange(var,expr,from,to,AntiDeriv(var,IntClean(var,expr)));
+
+101 # defIntegrate(_var,_from,_to,_expr,_a,_b)
+    <-- `Hold(Integrate(@var,@from,@to)(@expr));
+//    <-- IntegrateRange(var,expr,from,to,AntiDeriv(var,expr));
+
+
+////////////////////////////////////////////////
+//
+// No anti-derivative found, return unavaluated.
+//
+////////////////////////////////////////////////
+10 # IntegrateRange(_var,_expr,_from,_to,Integrate(_var)_expr2)
+    <-- `Hold(Integrate(@var,@from,@to)@expr);
+
+////////////////////////////////////////////////
+//
+// Anti-derivative found, return result.
+//
+////////////////////////////////////////////////
+20 # IntegrateRange(_var,_expr,_from,_to,_antideriv)
+    <-- `(@antideriv Where @var == @to) - `(@antideriv Where @var == @from);
+
+////////////////////////////////////////////////
+//
+// IntClean cleans up an expression before passing
+// it on to integration. This function normalizes
+// an expression in a way desirable for integration.
+// TrigSimpCombine, for instance, expands expressions
+// containing trigonometric functions so that they are
+// additive as opposed to multiplicative.
+//
+// If the expression doesn't contain the variable,
+// just return it as-is. This fixes:
+// In> Integrate(x) z^100
+//
+// If the expression can be considered to be a sum
+// of terms in var, then avoid premature simplification.
+////////////////////////////////////////////////
+10 # IntClean(_var,_expr) <--
+[
+	if( IsFreeOf(var,expr) Or IsSumOfTerms(var,expr) )[
+		expr;
+	] else if ( HasFunc(expr,Sin) Or HasFunc(expr,Cos) )[
+		Simplify(TrigSimpCombine(expr));
+	] else [
+		Simplify(expr);
+	];
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Integrate"
+*CMD Integrate --- integration
+
+*STD
+*CALL
+	Integrate(var, x1, x2) expr
+	Integrate(var) expr
+
+*PARMS
+
+{var} -- atom, variable to integrate over
+
+{x1} -- first point of definite integration
+
+{x2} -- second point of definite integration
+
+{expr} -- expression to integrate
+
+*DESC
+
+This function integrates the expression {expr} with respect to the
+variable {var}. The first calling format is used to perform
+definite integration: the integration is carried out from $var=x1$
+to $var=x2$. The second form is for indefinite integration.
+
+Some simple integration rules have currently been
+implemented. Polynomials, some quotients of polynomials,
+trigonometric functions and their inverses, hyperbolic functions
+and their inverses, {Exp}, and {Ln}, and products of these
+functions with polynomials can be integrated.
+
+*E.G.
+
+	In> Integrate(x,a,b) Cos(x)
+	Out> Sin(b)-Sin(a);
+	In> Integrate(x) Cos(x)
+	Out> Sin(x);
+
+*SEE D, UniqueConstant
+%/mathpiper_docs

@@ -1,0 +1,64 @@
+%mathpiper,def="Drop"
+
+/* ���� Drop ���� */
+
+/* Needs to check the parameters */
+
+/*
+ * Drop( list, n ) gives 'list' with its first n elements dropped
+ * Drop( list, -n ) gives 'list' with its last n elements dropped
+ * Drop( list, {m,n} ) gives 'list' with elements m through n dropped
+ */
+
+RuleBase("Drop", {lst, range});
+
+Rule("Drop", 2, 1, IsList(range))
+    Concat(Take(lst,range[1]-1), Drop(lst, range[2]));
+
+Rule("Drop", 2, 2, range >= 0)
+    If( range = 0 Or lst = {}, lst, Drop( Tail(lst), range-1 ));
+
+Rule("Drop", 2, 2, range < 0)
+    Take( lst, Length(lst) + range );
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Drop"
+*CMD Drop --- drop a range of elements from a list
+
+*STD
+
+*CALL
+	Drop(list, n)
+	Drop(list, -n)
+	Drop(list, {m,n})
+
+*PARMS
+
+{list} -- list to act on
+
+{n}, {m} -- positive integers describing the entries to drop
+
+*DESC
+
+This command removes a sublist of "list" and returns a list
+containing the remaining entries. The first calling sequence drops the
+first "n" entries in "list". The second form drops the last "n"
+entries. The last invocation drops the elements with indices "m"
+through "n".
+
+*E.G.
+
+	In> lst := {a,b,c,d,e,f,g};
+	Out> {a,b,c,d,e,f,g};
+	In> Drop(lst, 2);
+	Out> {c,d,e,f,g};
+	In> Drop(lst, -3);
+	Out> {a,b,c,d};
+	In> Drop(lst, {2,4});
+	Out> {a,e,f,g};
+
+*SEE Take, Select, Remove
+%/mathpiper_docs

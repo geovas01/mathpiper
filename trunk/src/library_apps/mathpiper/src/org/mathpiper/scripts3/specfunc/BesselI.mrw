@@ -1,0 +1,41 @@
+%mathpiper,def="BesselI"
+
+//Jonathan Leto
+
+10 # BesselI(0,0)	<-- 1;
+
+10 # BesselI(_n,0)_(n>0) <-- 0;
+
+10 # BesselI(_n,0)_(n<0 And IsInteger(n)) <-- 0;
+
+
+// The following should be ComplexInfinity, if/when that is implemented
+10 # BesselI(_n,0)_(n<0 And Not IsInteger(n)) <-- Infinity;
+
+
+20 # BesselI(1/2,_x)	<-- Sqrt(2/(x*Pi))*Sinh(x);
+
+
+20 # BesselI(3/2,_x)    <-- Sqrt(2/(x*Pi))*(Cosh(x) - Sinh(x)/x);
+
+
+20 # BesselI(5/2,_x)    <-- Sqrt(2/(x*Pi))*((3/x^2 + 1)*Sinh(x) - 3*Cosh(x)/x );
+
+
+30 # BesselI(_n,_z)_(n<0 And IsInteger(n) ) <-- BesselI(-n,z);
+
+
+// When I put "And InNumericMode()" on the next rule, I lose precision. Why ?
+// Also, if I move the the "_IsComplex" to the end with "IsComplex(x)"
+// I lose precision.
+
+
+//40 # BesselI(_n,x_IsComplex)_(Abs(x)<= 2*Gamma(n) )  <-- N(BesselNsmall(n,x,1));
+
+
+40 # BesselI(_n,x_IsComplex)_(IsConstant(x) And Abs(x)<= 2*Gamma(n) )  <--
+[
+ApproxInfSum((x/2)^(2*k+c[1])/(k! * Gamma(k+c[1]+1) ),0,x,{n} );
+];
+
+%/mathpiper

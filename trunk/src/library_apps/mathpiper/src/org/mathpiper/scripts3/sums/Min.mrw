@@ -1,0 +1,74 @@
+%mathpiper,def="Min"
+
+/*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, 
+and then MathPiper is confused if it hasn't loaded all the Function() declarations beforehand.
+FIXME
+/// Min, Max with many arguments
+*/
+
+Retract("Min", 1);
+Retract("Min", 2);
+Retract("Min", 3);
+
+//Function() Min(list);
+
+//Function() Min(l1, l2)
+
+Function() Min(l1, l2, l3, ...);
+
+10 # Min(_l1, _l2, l3_IsList) <-- Min(Concat({l1, l2}, l3));
+20 # Min(_l1, _l2, _l3) <-- Min({l1, l2, l3});
+
+10 # Min(l1_IsList,l2_IsList) <-- Map("Min",{l1,l2});
+
+20 # Min(l1_IsRationalOrNumber,l2_IsRationalOrNumber) <-- If(l1<l2,l1,l2);
+
+30 # Min(l1_IsConstant,l2_IsConstant) <-- If(N(Eval(l1-l2))<0,l1,l2);
+
+//Min on an empty list.
+10 # Min({}) <-- Undefined;
+
+20 # Min(list_IsList) <--
+[
+  Local(result);
+  result:= list[1];
+  ForEach(item,Tail(list)) result:=Min(result,item);
+  result;
+];
+
+30 # Min(_x) <-- x;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Min"
+*CMD Min --- minimum of a number of values
+*STD
+*CALL
+	Min(x,y)
+	Min(list)
+
+*PARMS
+
+{x}, {y} -- pair of values to determine the minimum of
+
+{list} -- list of values from which the minimum is sought
+
+*DESC
+
+This function returns the minimum value of its argument(s). If the
+first calling sequence is used, the smaller of "x" and "y" is
+returned. If one uses the second form, the smallest of the entries in
+"list" is returned. In both cases, this function can only be used
+with numerical values and not with symbolic arguments.
+
+*E.G.
+
+	In> Min(2,3);
+	Out> 2;
+	In> Min({5,8,4});
+	Out> 4;
+
+*SEE Max, Sum
+%/mathpiper_docs

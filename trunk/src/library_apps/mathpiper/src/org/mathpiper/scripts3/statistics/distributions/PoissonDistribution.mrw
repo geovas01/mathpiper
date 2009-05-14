@@ -1,0 +1,8 @@
+%mathpiper,def="PoissonDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+PoissonDistribution(l_IsRationalOrNumber)_(l<=0) <-- Undefined;
+
+%/mathpiper

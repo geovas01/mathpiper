@@ -1,0 +1,8 @@
+%mathpiper,def="GeometricDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+GeometricDistribution(p_IsRationalOrNumber)_(p<0 Or p>1) <-- Undefined;
+
+%/mathpiper

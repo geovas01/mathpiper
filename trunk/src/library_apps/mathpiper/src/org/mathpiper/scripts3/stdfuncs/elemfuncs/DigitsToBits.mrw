@@ -1,0 +1,17 @@
+%mathpiper,def="DigitsToBits"
+
+/** This file contains routines for numerical evaluation of elementary functions:
+ *  PowerN, ExpN, SinN etc.
+ *  It is assumed that the arguments are real (not complex) floating-point or integer numbers. (The {InNumericMode()} flag does not have to be set.)
+ *  The result is an exact integer or a floating-point number correct to BuiltinPrecisionGet() digits.
+ *
+ *  If a better optimized version of these functions is available through the kernel,
+ *  then the kernel version will automatically shadow these functions.
+ *  These implementations are not necessarily the best optimized versions.
+ */
+
+/// BitsToDigits(n,base) and DigitsToBits(n,base). Enough to compute at low precision.
+// this is now a call to the kernel functions, so leave as a reference implementation
+DigitsToBits(n, base) := FloorN(0.51+n*N(Ln(base)/Ln(2),10));
+
+%/mathpiper

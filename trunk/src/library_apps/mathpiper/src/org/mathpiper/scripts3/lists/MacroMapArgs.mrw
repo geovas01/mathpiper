@@ -1,0 +1,19 @@
+%mathpiper,def="MacroMapArgs"
+
+/* Another Macro... hack for /: to work. */
+Macro("MacroMapArgs",{expr,oper})
+[
+  Local(ex,tl,op);
+  Set(op,@oper);
+  Set(ex,Listify(@expr));
+  Set(tl,Tail(ex));
+
+   UnList(Concat({ex[1]},
+     `MacroMapSingle(@op,Hold(@tl)))
+   );
+];
+
+UnFence("MacroMapArgs",2);
+HoldArg("MacroMapArgs",oper);
+
+%/mathpiper

@@ -1,0 +1,80 @@
+%mathpiper,def="LambertW"
+
+//Jonathan Leto
+
+/////////////////////////////////////////////////
+/// Lambert's $W$ function.
+/////////////////////////////////////////////////
+/// Serge Winitzki
+
+10 # LambertW(0) <-- 0;
+10 # LambertW(Infinity) <-- Infinity;
+10 # LambertW(Undefined) <-- Undefined;
+10 # LambertW(-Infinity) <-- Infinity + I*Pi;
+10 # LambertW(-Exp(-1)) <-- -1;
+20 # LambertW(_x * Ln(_x)) <-- Ln(x);
+20 # LambertW(Ln(_x) * _x) <-- Ln(x);
+
+30 # LambertW(x_IsConstant) _ InNumericMode() <-- Internal'LambertWNum(Eval(x));
+
+/* {Internal'LambertWNum} computes a numeric approximation of Lambert's $W$ function
+to the current precision. It uses a Halley iteration
+$$ W'=W-(W-x*Exp(-W))/(W+1-(W+2)/(W+1)*(W-x*Exp(-W))/2) $$.
+The function has real values for real $x >= -Exp(-1)$. (This point is a logarithmic branching point.)
+*/
+10 # Internal'LambertWNum(x_IsNumber)_(x < -ExpN(-1)) <-- Undefined;
+20 # Internal'LambertWNum(x_IsNumber) <--
+[
+	Local(W);
+	NewtonNum(
+	  `Hold(
+	  {
+	  {W},
+	  [
+	  	Local(a);
+		a:=W- @x*ExpN(-W);
+		W-a/(W+1-(W+2)/(W+1)*a/2.);
+	  ]}),
+	// initial approximation is the two-point global Pade:
+	  If(
+		x<0,
+		x*ExpN(1) / (1+1 / (1 / SqrtN(2*(x*ExpN(1)+1)) - 1 / SqrtN(2) + 1/(ExpN(1)-1))),
+		Internal'LnNum(1+x)*(1-Internal'LnNum(1+Internal'LnNum(1+x))/(2+Internal'LnNum(1+x)))
+	  ),
+	  10,	// initial approximation is good to about 3 digits
+	  3	// 3rd order scheme
+	);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="LambertW"
+*CMD LambertW --- Lambert's $W$ function
+
+*STD
+*CALL
+	LambertW(x)
+*PARMS
+
+{x} -- expression, argument of the function
+
+*DESC
+
+Lambert's $W$ function is (a multiple-valued, complex function) defined for any (complex) $z$ by
+$$ W(z) * Exp(W(z)) = z$$.
+This function is sometimes useful to represent solutions of transcendental equations. For example, the equation $Ln(x)=3*x$ can be "solved" by writing $x= -3*W(-1/3)$. It is also possible to take a derivative or integrate this function "explicitly".
+
+For real arguments $x$, $W(x)$ is real if $x>= -Exp(-1)$.
+
+To compute the numeric value of the  principal branch of Lambert's $W$ function for real arguments $x>= -Exp(-1)$ to current precision, one can call {N(LambertW(x))} (where the function {N} tries to approximate its argument with a real value).
+
+*E.G.
+	In> LambertW(0)
+	Out> 0;
+	In> N(LambertW(-0.24/Sqrt(3*Pi)))
+	Out> -0.0851224014;
+
+*SEE Exp
+%/mathpiper_docs

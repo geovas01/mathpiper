@@ -1,0 +1,9 @@
+%mathpiper,def="ListHasFunc"
+
+/// ListHasFunc --- test for one of the elements of a list to contain a function
+/// this is mainly useful to test whether a list has nested lists, i.e. ListHasFunc({1,2,3}, List)=False and ListHasFunc({1,2,{3}}, List)=True.
+// need to exclude the List atom itself, so don't use Listify
+19 # ListHasFunc({}, _atom) <-- False;
+20 # ListHasFunc(expr_IsList, atom_IsAtom) <-- HasFunc(Head(expr), atom) Or ListHasFunc(Tail(expr), atom);
+
+%/mathpiper

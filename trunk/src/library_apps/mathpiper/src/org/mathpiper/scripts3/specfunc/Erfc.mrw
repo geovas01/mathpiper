@@ -1,0 +1,7 @@
+%mathpiper,def="Erfc"
+
+//Jonathan Leto
+
+10 # Erfc(_x)		<-- 1 - Erf(x);
+
+%/mathpiper

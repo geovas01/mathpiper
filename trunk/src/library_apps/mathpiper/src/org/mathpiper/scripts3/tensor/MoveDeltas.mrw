@@ -1,0 +1,23 @@
+%mathpiper,def="MoveDeltas",scope="private"
+
+/* Tensor package. This code intends to simplify tensorial expressions.
+ */
+
+/* Move the delta factors to the front, so they can be simplified
+   away. It uses ApplyDelta to move a factor either to the front
+   or to the back of the list. Input is a list of factors, as
+   returned by Flatten(expressions,"*")
+   */
+MoveDeltas(_list) <--
+[
+  Local(result,i,nr);
+  result:={};
+  nr:=Length(list);
+  For(i:=1,i<=nr,i++)
+  [
+    ApplyDelta(result,list[i]);
+  ];
+  result;
+];
+
+%/mathpiper

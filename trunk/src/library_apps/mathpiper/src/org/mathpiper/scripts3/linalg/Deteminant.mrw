@@ -1,0 +1,49 @@
+%mathpiper,def="Determinant"
+
+10 # Determinant(_matrix)_(IsUpperTriangular(matrix) Or IsLowerTriangular(matrix)) <--
+[
+	Local(result);
+	result:=1;
+	ForEach(i, Diagonal(matrix) )
+		result:=result*i;
+	result;
+];
+
+//
+// The fast determinant routine that does the determinant numerically, rule 20,
+// divides things by the elements on the diagonal of the matrix. So if one of these
+// elements happens to be zero, the result is something like Infinity or Undefined.
+// Use the symbolic determinant in that case, as it is slower but much more robust.
+//
+15 # Determinant(_matrix)_(Length(Select("IsZero",Diagonal(matrix))) > 0) <-- SymbolicDeterminant(matrix);
+
+// Not numeric entries, so lets treat it symbolically.
+16 # Determinant(_matrix)_(VarList(matrix) != {}) <-- SymbolicDeterminant(matrix);
+
+20 # Determinant(_matrix) <-- GaussianDeterminant(matrix);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Determinant"
+*CMD Determinant --- determinant of a matrix
+*STD
+*CALL
+	Determinant(M)
+
+*PARMS
+
+{M} -- a matrix
+
+*DESC
+
+Returns the determinant of a matrix M.
+
+*E.G.
+
+	In> A:=DiagonalMatrix(1 .. 4)
+	Out> {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+	In> Determinant(A)
+	Out> 24;
+%/mathpiper_docs

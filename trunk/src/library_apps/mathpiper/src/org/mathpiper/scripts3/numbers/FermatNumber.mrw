@@ -1,0 +1,33 @@
+%mathpiper,def="FermatNumber"
+
+Function("FermatNumber",{n})[
+	Check(IsPositiveInteger(n),
+		"FermatNumber: argument must be a positive integer");
+	2^(2^n)+1;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="FermatNumber"
+*CMD FermatNumber --- return the {n}th Fermat Number
+*STD
+*CALL
+	FermatNumber(n)
+*PARMS  
+
+{n}     -- positive integer
+
+*DESC
+
+This function returns the {n}-th Fermat number, which is defined as
+$2^(2^n) + 1$. 
+
+*E.G.
+
+	In> FermatNumber(7)
+	Out> 340282366920938463463374607431768211457;
+
+*SEE	Factor
+%/mathpiper_docs

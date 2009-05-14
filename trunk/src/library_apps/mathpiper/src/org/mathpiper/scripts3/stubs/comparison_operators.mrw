@@ -1,0 +1,312 @@
+%mathpiper,def="<;>;<=;>=;!="
+
+/* def file definitions
+=
+<
+>
+<=
+>=
+!=
+
+*/
+
+/* Comparison operators. They call the internal comparison routines when
+ * both arguments are numbers. The value Infinity is also understood.
+*/
+
+// Undefined is a very special case as we return False for everything
+1 # Undefined <  _x  <--  False;
+1 # Undefined <= _x  <--  False;
+1 # Undefined >  _x  <--  False;
+1 # Undefined >= _x  <--  False;
+1 # _x <  Undefined  <--  False;
+1 # _x <= Undefined  <--  False;
+1 # _x >  Undefined  <--  False;
+1 # _x >= Undefined  <--  False;
+
+
+// If n and m are numbers, use the standard LessThan function immediately
+5 # (n_IsNumber < m_IsNumber) <-- LessThan(n-m,0);
+
+
+// If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
+LocalSymbols(nNum,mNum)
+[
+  10 # (_n < _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));IsNumber(nNum) And IsNumber(mNum);] <-- LessThan(nNum-mNum,0);
+];
+
+// Deal with Infinity
+20 #  (Infinity < _n)_(Not(IsInfinity(n)))  <-- False;
+20 #  (-Infinity < _n)_(Not(IsInfinity(n))) <-- True;
+20 #  (_n < Infinity)_(Not(IsInfinity(n)))  <-- True;
+20 #  (_n < -Infinity)_(Not(IsInfinity(n))) <-- False;
+
+// Lots of known identities go here
+30 # (_n1/_n2) < 0  <--  (n1 < 0) != (n2 < 0);
+30 # (_n1*_n2) < 0  <--  (n1 < 0) != (n2 < 0);
+
+// This doesn't sadly cover the case where a and b have opposite signs
+30 # ((_n1+_n2) < 0)_((n1 < 0) And (n2 < 0))  <--  True;
+30 # ((_n1+_n2) < 0)_((n1 > 0) And (n2 > 0))  <--  False;
+30 #  _x^a_IsOdd  < 0  <--  x < 0;
+30 #  _x^a_IsEven < 0  <--  False; // This is wrong for complex x
+
+// Add other functions here!  Everything we can compare to 0 should be here.
+40 # (Sqrt(_x))_(x > 0) < 0          <--  False;
+
+40 # (Sin(_x) < 0)_(Not(IsEven(N(x/Pi))) And IsEven(N(Floor(x/Pi)))) <-- False;
+40 # (Sin(_x) < 0)_(Not(IsOdd (N(x/Pi))) And IsOdd (N(Floor(x/Pi)))) <-- True;
+
+40 # Cos(_x) < 0 <-- Sin(Pi/2-x) < 0;
+
+40 # (Tan(_x) < 0)_(Not(IsEven(N(2*x/Pi))) And IsEven(N(Floor(2*x/Pi)))) <-- False;
+40 # (Tan(_x) < 0)_(Not(IsOdd (N(2*x/Pi))) And IsOdd (N(Floor(2*x/Pi)))) <-- True;
+
+// Functions that need special treatment with more than one of the comparison
+// operators as they always return true or false.  For these we must define
+// both the `<' and `>=' operators.
+40 # (Complex(_a,_b) <  0)_(b!=0) <--  False;
+40 # (Complex(_a,_b) >= 0)_(b!=0) <--  False;
+40 # (Sqrt(_x))_(x < 0) <  0      <--  False;
+40 # (Sqrt(_x))_(x < 0) >= 0      <--  False;
+
+// Deal with negated terms
+50 # -(_x) < 0 <-- Not((x<0) Or (x=0));
+
+// Define each of {>,<=,>=} in terms of <
+50 # _n >  _m <-- m < n;
+50 # _n <= _m <-- m >= n;
+50 # _n >= _m <-- Not(n<m);
+
+
+Function("!=",{aLeft,aRight}) Not(aLeft=aRight);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="<"
+*CMD < --- test for "less than"
+*STD
+*CALL
+	e1 < e2
+Precedence:
+*EVAL OpPrecedence("<")
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+The two expression are evaluated. If both results are numeric, they
+are compared. If the first expression is smaller than the second one,
+the result is {True} and it is {False} otherwise. If either of the expression is not numeric, after
+evaluation, the expression is returned with evaluated arguments.
+
+The word "numeric" in the previous paragraph has the following
+meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
+
+*E.G.
+
+	In> 2 < 5;
+	Out> True;
+	In> Cos(1) < 5;
+	Out> True;
+
+*SEE IsNumber, IsInfinity, N
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=">"
+*CMD > --- test for "greater than"
+*STD
+*CALL
+	e1 > e2
+Precedence:
+*EVAL OpPrecedence(">")
+
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+The two expression are evaluated. If both results are numeric, they
+are compared. If the first expression is larger than the second one,
+the result is {True} and it is {False} otherwise. If either of the expression is not numeric, after
+evaluation, the expression is returned with evaluated arguments.
+
+The word "numeric" in the previous paragraph has the following
+meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
+
+*E.G.
+
+	In> 2 > 5;
+	Out> False;
+	In> Cos(1) > 5;
+	Out> False
+
+*SEE IsNumber, IsInfinity, N
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="<="
+*CMD <= --- test for "less or equal"
+*STD
+*CALL
+	e1 <= e2
+Precedence:
+*EVAL OpPrecedence("<=")
+
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+The two expression are evaluated. If both results are numeric, they
+are compared. If the first expression is smaller than or equals the
+second one, the result is {True} and it is {False} otherwise. If either of the expression is not
+numeric, after evaluation, the expression is returned with evaluated
+arguments.
+
+The word "numeric" in the previous paragraph has the following
+meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
+
+*E.G.
+
+	In> 2 <= 5;
+	Out> True;
+	In> Cos(1) <= 5;
+	Out> True
+
+*SEE IsNumber, IsInfinity, N
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name=">="
+*CMD >= --- test for "greater or equal"
+*STD
+*CALL
+	e1 >= e2
+Precedence:
+*EVAL OpPrecedence(">=")
+
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+The two expression are evaluated. If both results are numeric, they
+are compared. If the first expression is larger than or equals the
+second one, the result is {True} and it is {False} otherwise. If either of the expression is not
+numeric, after evaluation, the expression is returned with evaluated
+arguments.
+
+The word "numeric" in the previous paragraph has the following
+meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
+
+*E.G.
+
+	In> 2 >= 5;
+	Out> False;
+	In> Cos(1) >= 5;
+	Out> False
+
+*SEE IsNumber, IsInfinity, N
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="!="
+*CMD != --- test for "not equal"
+*STD
+*CALL
+	e1 != e2
+Precedence:
+*EVAL OpPrecedence("!=")
+
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+Both expressions are evaluated and compared. If they turn out to be
+equal, the result is {False}. Otherwise, the result
+is {True}.
+
+The expression {e1 != e2} is equivalent to {Not(e1 = e2)}.
+
+*E.G.
+
+	In> 1 != 2;
+	Out> True;
+	In> 1 != 1;
+	Out> False;
+
+*SEE =
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="="
+*CMD = --- test for equality of expressions
+*STD
+*CALL
+	e1 = e2
+Precedence:
+*EVAL OpPrecedence("=")
+
+
+*PARMS
+
+{e1}, {e2} -- expressions to be compared
+
+*DESC
+
+Both expressions are evaluated and compared. If they turn out to be equal, the
+result is {True}. Otherwise, the result is {False}. The function {Equals} does
+the same.
+
+Note that the test is on syntactic equality, not mathematical equality. Hence
+even if the result is {False}, the expressions can still be
+<i>mathematically</i> equal; see the examples below. Put otherwise, this
+function tests whether the two expressions would be displayed in the same way
+if they were printed.
+
+*E.G.
+
+	In> e1 := (x+1) * (x-1);
+	Out> (x+1)*(x-1);
+	In> e2 := x^2 - 1;
+	Out> x^2-1;
+	
+	In> e1 = e2;
+	Out> False;
+	In> Expand(e1) = e2;
+	Out> True;
+
+*SEE !=, Equals
+%/mathpiper_docs
+
+
+
+

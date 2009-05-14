@@ -1,0 +1,47 @@
+%mathpiper,def="MakeVector"
+
+RuleBase("MakeVector",{vec,dimension});
+Rule("MakeVector",2,1,True)
+[
+    Local(res,i);
+    res:={};
+    i:=1;
+    Set(dimension,AddN(dimension,1));
+    While(LessThan(i,dimension))
+    [
+      DestructiveInsert(res,1,Atom(ConcatStrings(String(vec),String(i))));
+      Set(i,AddN(i,1));
+    ];
+    DestructiveReverse(res);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="MakeVector"
+*CMD MakeVector --- vector of uniquely numbered variable names
+*STD
+*CALL
+	MakeVector(var,n)
+
+*PARMS
+
+{var} -- free variable
+
+{n} -- length of the vector
+
+*DESC
+
+A list of length "n" is generated. The first entry contains the
+identifier "var" with the number 1 appended to it, the second entry
+contains "var" with the suffix 2, and so on until the last entry
+which contains "var" with the number "n" appended to it.
+
+*E.G.
+
+	In> MakeVector(a,3)
+	Out> {a1,a2,a3};
+
+*SEE RandomIntegerVector, ZeroVector
+%/mathpiper_docs

@@ -1,0 +1,14 @@
+%mathpiper,def="DropEndZeroes"
+
+DropEndZeroes(list):=
+[
+  Local(end);
+  end:=Length(list);
+  While(list[end] = 0)
+  [
+    DestructiveDelete(list,end);
+    end:=end-1;
+  ];
+];
+
+%/mathpiper

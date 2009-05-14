@@ -1,0 +1,59 @@
+%mathpiper,def="Permutations"
+
+Function("Permutations",{result,list})
+[
+  If (Length(list) = 0,
+  [
+    result;
+  ],
+  [
+    Local(head);
+    Local(newresult);
+    Local(i);
+    head:=list[1];
+    newresult:={};
+    ForEach(item,result)
+    [
+      For(i:=Length(item)+1,i>0,i--)
+      [
+        DestructiveInsert(newresult,1,Insert(item,i,head));
+      ];
+    ];
+    newresult:=DestructiveReverse(newresult);
+    Permutations(newresult,Tail(list));
+  ]);
+];
+
+
+Function("Permutations",{list})
+[
+  Permutations({{}},list);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Permutations"
+*CMD Permutations --- get all permutations of a list
+*STD
+*CALL
+	Permutations(list)
+
+*PARMS
+
+{list} -- a list of elements
+
+*DESC
+
+Permutations returns a list with all the permutations of
+the original list.
+
+*E.G.
+
+	In> Permutations({a,b,c})
+	Out> {{a,b,c},{a,c,b},{c,a,b},{b,a,c},
+	{b,c,a},{c,b,a}};
+
+*SEE LeviCivita
+%/mathpiper_docs

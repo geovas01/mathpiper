@@ -1,0 +1,37 @@
+%mathpiper,def="GaussianGcd"
+
+10 # GaussianGcd(n_IsGaussianInteger,m_IsGaussianInteger) <--
+[
+	If(N(Abs(m))=0,n, GaussianGcd(m,n - m*Round(n/m) ) );
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="GaussianGcd"
+*CMD GaussianGcd --- greatest common divisor in Gaussian integers
+*STD
+*CALL
+	GaussianGcd(z,w)
+
+*PARMS
+
+{z}, {w} -- Gaussian integers 
+
+*DESC
+
+This function returns the greatest common divisor, in the ring of Gaussian
+integers, computed using Euclid's algorithm. Note that in the Gaussian
+integers, the greatest common divisor is only defined up to a Gaussian unit factor.
+
+*E.G.
+
+	In> GaussianGcd(2+I,5)
+	Out> Complex(2,1);
+The GCD of two mutually prime Gaussian integers might come out to be equal to some Gaussian unit instead of $1$:
+	In> GaussianGcd(2+I,3+I)
+	Out> -1;
+
+*SEE Gcd, Lcm, IsGaussianUnit
+%/mathpiper_docs

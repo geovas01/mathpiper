@@ -1,0 +1,36 @@
+%mathpiper,def="IsConstant"
+
+IsConstant(_n) <-- (VarList(n) = {});
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsConstant"
+*CMD IsConstant --- test for a constant
+*STD
+*CALL
+	IsConstant(expr)
+
+*PARMS
+
+{expr} -- some expression
+
+*DESC
+
+{IsConstant} returns {True} if the
+expression is some constant or a function with constant arguments. It
+does this by checking that no variables are referenced in the
+expression. {Pi} is considered a constant.
+
+*E.G.
+
+	In> IsConstant(Cos(x))
+	Out> False;
+	In> IsConstant(Cos(2))
+	Out> True;
+	In> IsConstant(Cos(2+x))
+	Out> False;
+
+*SEE IsNumber, IsInteger, VarList
+%/mathpiper_docs

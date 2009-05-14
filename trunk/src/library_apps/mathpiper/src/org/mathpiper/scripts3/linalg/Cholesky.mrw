@@ -1,0 +1,79 @@
+%mathpiper,def="Cholesky"
+
+// Cholesky Decomposition, adapted from:
+//	Fundamentals Of Matrix Computation (2nd), David S. Watkins, pp38
+// This algorithm performs O(n^3) flops where A is nxn
+// Given the positive definite matrix A, a matrix R is returned such that
+// A = Transpose(R) * R
+
+10 # Cholesky(A_IsMatrix) <--
+[
+	Local(matrix,n,k,j);
+	n:=Length(A);
+	matrix:=ZeroMatrix(n);
+
+	// copy entries of A into matrix
+        ForEach(i,1 .. n)
+                ForEach(j,1 .. n)
+			matrix[i][j] := A[i][j];
+
+	// in place algorithm for cholesky decomp
+	ForEach(i,1 .. n)[
+		For(k:=1,k<=(i-1),k++)
+			matrix[i][i] := matrix[i][i] - matrix[k][i]^2;
+		Check( matrix[i][i] > 0, "Cholesky: Matrix is not positive definite");
+		matrix[i][i] := Sqrt(matrix[i][i]);
+		//Echo({"matrix[",i,"][",i,"] = ", matrix[i][i] });
+		For(j:=i+1,j<=n,j++)[
+			For(k:=1,k<=(i-1),k++)
+				matrix[i][j]:= matrix[i][j] - matrix[k][i]*matrix[k][j];
+			matrix[i][j] := matrix[i][j]/matrix[i][i];
+			//Echo({"matrix[",i,"][",j,"] = ", matrix[i][j] });
+		];
+	];
+	// cholesky factorization is upper triangular
+	ForEach(i,1 .. n)
+		ForEach(j,1 .. n)
+			If(i>j,matrix[i][j] := 0);
+	matrix;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Cholesky"
+*CMD Cholesky --- find the Cholesky Decomposition
+*STD
+*CALL
+	Cholesky(A)
+
+*PARMS
+
+{A} -- a square positive definite matrix
+
+*DESC
+
+{Cholesky} returns a upper triangular matrix {R} such that {Transpose(R)*R = A}.
+The matrix {A} must be positive definite, {Cholesky} will notify the user if the matrix
+is not. Some families of positive definite matrices are all symmetric matrices, diagonal
+matrices with positive elements and Hilbert matrices.
+
+*E.G.
+
+	In> A:={{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}}
+	Out> {{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}};
+	In> R:=Cholesky(A);
+	Out> {{2,-1,2,1},{0,3,0,-2},{0,0,2,1},{0,0,0,1}};
+	In> Transpose(R)*R = A
+	Out> True;
+	In> Cholesky(4*Identity(5))
+	Out> {{2,0,0,0,0},{0,2,0,0,0},{0,0,2,0,0},{0,0,0,2,0},{0,0,0,0,2}};
+	In> Cholesky(HilbertMatrix(3))
+	Out> {{1,1/2,1/3},{0,Sqrt(1/12),Sqrt(1/12)},{0,0,Sqrt(1/180)}};
+	In> Cholesky(ToeplitzMatrix({1,2,3}))
+	In function "Check" :
+	CommandLine(1) : "Cholesky: Matrix is not positive definite"
+
+*SEE IsSymmetric, IsDiagonal, Diagonal
+%/mathpiper_docs

@@ -1,0 +1,34 @@
+%mathpiper,def="IsGaussianUnit"
+
+IsGaussianUnit(z_IsGaussianInteger) <-- GaussianNorm(z)=1;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsGaussianUnit"
+*CMD IsGaussianUnit ---  test for a Gaussian unit
+*STD
+*CALL
+	IsGaussianUnit(z)
+*PARMS
+
+{z} -- a Gaussian integer	
+
+*DESC
+
+This function returns {True} if the argument is a unit in the Gaussian 
+integers and {False} otherwise. A unit in a ring is an element that divides 
+any other element.
+
+There are four "units" in the ring of Gaussian integers, which are 
+$1$, $-1$, $I$, and $-I$.
+	
+*E.G.
+	In> IsGaussianInteger(I)
+	Out> True;
+	In> IsGaussianUnit(5+6*I)
+	Out> False;
+
+*SEE  IsGaussianInteger, IsGaussianPrime, GaussianNorm
+%/mathpiper_docs

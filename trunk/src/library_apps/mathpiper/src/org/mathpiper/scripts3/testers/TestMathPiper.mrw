@@ -1,0 +1,77 @@
+%mathpiper,def="TestMathPiper"
+
+/* Testing MathPiper functionality by checking expressions against correct
+   answer.
+   Use with algebraic expressions only, since we need Simplify() for that to work.
+ */
+
+/*
+Macro ("TestMathPiper", {expr, ans})
+[
+	Local(diff,exprEval, ansEval);
+  exprEval:= @expr;
+  ansEval:= @ans;
+
+	diff := Simplify(exprEval - ansEval);
+		If (Simplify(diff)=0, True,
+			[
+			  WriteString("******************");
+			  NewLine();
+			  ShowLine();
+			  Write(Hold(@expr));
+			  WriteString(" evaluates to ");
+			  NewLine();
+			  Write(exprEval);
+			  NewLine();
+			  WriteString(" which differs from ");
+			  NewLine();
+			  Write(ansEval);
+			  NewLine();
+			  WriteString(" by ");
+			  NewLine();
+			  Write(diff);
+			  NewLine();
+			  WriteString("******************");
+			  NewLine();
+			  False;
+			 ]
+			);
+];
+*/
+
+
+
+Function ("TestMathPiper", {expr, ans})
+[
+	Local(diff);
+	diff := Simplify(Eval(expr)-Eval(ans));
+		If (Simplify(diff)=0, True,
+			[
+			  WriteString("******************");
+			  NewLine();
+			  ShowLine();
+			  Write(expr);
+			  WriteString(" evaluates to ");
+			  NewLine();
+			  Write(Eval(expr));
+			  NewLine();
+			  WriteString(" which differs from ");
+			  NewLine();
+			  Write(Eval(ans));
+			  NewLine();
+			  WriteString(" by ");
+			  NewLine();
+			  Write(diff);
+			  NewLine();
+			  WriteString("******************");
+			  NewLine();
+			  False;
+			 ]
+			);
+];
+
+HoldArg("TestMathPiper", expr);
+HoldArg("TestMathPiper", ans);
+
+
+%/mathpiper

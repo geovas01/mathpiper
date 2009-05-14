@@ -1,0 +1,39 @@
+%mathpiper,def="RemoveDuplicates"
+
+Function("RemoveDuplicates",{list})
+[
+   Local(result);
+   Set(result,{});
+   ForEach(item,list)
+     If(Not(Contains(result,item)),DestructiveAppend(result,item));
+   result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="RemoveDuplicates"
+*CMD RemoveDuplicates --- remove any duplicates from a list
+*STD
+*CALL
+	RemoveDuplicates(list)
+
+*PARMS
+
+{list} -- list to act on
+
+*DESC
+
+This command removes all duplicate elements from a given list and returns the resulting list.
+To be
+precise, the second occurrence of any entry is deleted, as are the
+third, the fourth, etc.
+
+*E.G.
+
+	In> RemoveDuplicates({1,2,3,2,1});
+	Out> {1,2,3};
+	In> RemoveDuplicates({a,1,b,1,c,1});
+	Out> {a,1,b,c};
+%/mathpiper_docs

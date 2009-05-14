@@ -1,0 +1,39 @@
+%mathpiper,def="GcdN"
+
+/** This file contains routines for numerical evaluation of elementary functions:
+ *  PowerN, ExpN, SinN etc.
+ *  It is assumed that the arguments are real (not complex) floating-point or integer numbers. (The {InNumericMode()} flag does not have to be set.)
+ *  The result is an exact integer or a floating-point number correct to BuiltinPrecisionGet() digits.
+ *
+ *  If a better optimized version of these functions is available through the kernel,
+ *  then the kernel version will automatically shadow these functions.
+ *  These implementations are not necessarily the best optimized versions.
+ */
+
+/// GcdN(x,y). Compute the GCD of two integers using the binary Euclidean algorithm.
+5 # GcdN(x_IsNegativeInteger, y_IsInteger) <-- GcdN(-x, y);
+5 # GcdN(y_IsNegativeInteger, x_IsNegativeInteger) <-- GcdN(x, -y);
+6 # GcdN(0, _x) <-- 0;
+6 # GcdN(_x, 0) <-- 0;
+
+10 # GcdN(x_IsInteger, y_IsInteger) <--
+[
+	Local(z);
+	While(x!=y)
+	[
+		While(x<y)
+		[
+			y:=y-x;
+			While((y&1) = 0)
+			[
+				y := ShiftRight(y,1);
+			];
+		];
+		z:=x;
+		x:=y;
+		y:=z;
+	];
+	x;
+];
+
+%/mathpiper

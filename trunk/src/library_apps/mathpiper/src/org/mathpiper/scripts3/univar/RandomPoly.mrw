@@ -1,0 +1,8 @@
+%mathpiper,def="RandomPoly"
+
+/* Generate a random polynomial */
+
+RandomPoly(_var,_degree,_coefmin,_coefmax) <--
+  NormalForm(UniVariate(var,0,RandomIntegerVector(degree+1,coefmin,coefmax)));
+
+%/mathpiper

@@ -1,0 +1,7 @@
+%mathpiper,def="Digamma"
+
+//Jonathan Leto
+
+10 # Digamma(_n)_(IsPositiveInteger(n)) <-- Sum(m,1,n-1,1/m) - gamma;
+
+%/mathpiper

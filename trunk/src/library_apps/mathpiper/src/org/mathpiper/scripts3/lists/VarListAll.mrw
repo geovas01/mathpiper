@@ -1,0 +1,28 @@
+%mathpiper,def="VarListAll"
+
+/*
+ * RuleBase for VarListAll: recursively traverse an expression looking
+ * up all variables the expression depends on.
+ */
+/* Accept any variable. */
+
+VarListAll(_expr) <-- VarListAll(expr,"IsVariable");
+
+10 # VarListAll(_expr,_filter)_(Apply(filter,{expr}) = True) <--
+     {expr};
+
+/* Otherwise check all leafs of a function. */
+20 # VarListAll(expr_IsFunction,_filter) <--
+[
+  Local(item,result, flatlist);
+  Set(flatlist,Tail(Listify(expr)));
+  Set(result,{});
+  ForEach(item,flatlist)
+    Set(result,Concat(result,VarListAll(item,filter)));
+  result;
+];
+
+/* Else it doesn't depend on any variable. */
+30 # VarListAll(_expr,_filter) <-- {};
+
+%/mathpiper

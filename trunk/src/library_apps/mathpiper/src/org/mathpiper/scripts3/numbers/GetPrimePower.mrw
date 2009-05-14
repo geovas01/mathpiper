@@ -1,0 +1,45 @@
+%mathpiper,def="GetPrimePower"
+
+/// Check whether n is a power of some prime integer and return that integer and the power.
+/// This routine uses only integer arithmetic.
+/// Returns {p, s} where p is a prime and n=p^s.
+/// If no powers found, returns {n, 1}. Primality testing of n is not done.
+20 # GetPrimePower(n_IsPositiveInteger) <--
+[
+	Local(s, factors, new'factors);
+	// first, separate any small prime factors
+	factors := TrialFactorize(n, 257);	// "factors" = {n1, {p1,s1},{p2,s2},...} or just {n} if no factors found
+	If(
+		Length(factors) > 1,	// factorized into something
+		// now we return {n, 1} either if we haven't completely factorized, or if we factorized into more than one prime factor; otherwise we return the information about prime factors
+		If(
+			factors[1] = 1 And Length(factors) = 2,	// factors = {1, {p, s}}, so we have a prime power n=p^s
+			factors[2],
+			{n, 1}
+		),
+		// not factorizable into small prime factors -- use main algorithm
+		[
+			factors := CheckIntPower(n, 257);	// now factors = {p, s} with n=p^s
+			If(
+				factors[2] > 1,	// factorized into something
+				// now need to check whether p is a prime or a prime power and recalculate "s"
+				If(
+					IsPrime(factors[1]),
+					factors,	// ok, prime power, return information
+					[	// not prime, need to check if it's a prime power
+						new'factors := GetPrimePower(factors[1]);	// recursive call; now new'factors = {p1, s1} where n = (p1^s1)^s; we need to check that s1>1
+						If(
+							new'factors[2] > 1,
+							{new'factors[1], new'factors[2]*factors[2]},	// recalculate and return prime power information
+							{n, 1}	// not a prime power
+						);
+					]
+				),
+				// not factorizable -- return {n, 1}
+				{n, 1}
+			);
+		]
+	);
+];
+
+%/mathpiper

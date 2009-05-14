@@ -1,0 +1,33 @@
+%mathpiper,def="IsAmicablePair"
+
+IsAmicablePair(m_IsPositiveInteger,n_IsPositiveInteger) <-- ( ProperDivisorsSum(m)=n And ProperDivisorsSum(n)=m );
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsAmicablePair"
+*CMD IsAmicablePair --- test for a pair of amicable numbers
+*STD
+*CALL
+	IsAmicablePair(m,n)
+
+*PARMS
+
+{m}, {n} -- positive integers
+
+*DESC
+
+This function tests if a pair of numbers are amicable. A pair of 
+numbers $m$, $n$ has this property if the sum of the proper divisors of $m$ is
+$n$ and the sum of the proper divisors of $n$ is $m$.
+
+*E.G.
+
+	In> IsAmicablePair(200958394875, 209194708485 )
+	Out> True;
+	In> IsAmicablePair(220, 284)
+	Out> True;
+
+*SEE ProperDivisorsSum
+%/mathpiper_docs

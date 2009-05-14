@@ -1,0 +1,32 @@
+%mathpiper,def="IsTwinPrime"
+
+IsTwinPrime(n_IsPositiveInteger)	<-- (IsPrime(n) And IsPrime(n+2));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsTwinPrime"
+*CMD IsTwinPrime --- test for a twin prime
+*STD
+*CALL
+	IsTwinPrime(n)
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+This function returns {True} if {n} is a twin prime. By definition, a twin
+prime is a prime number $n$ such that $n+2$ is also a prime number. 
+
+*E.G.
+	In> IsTwinPrime(101)
+	Out> True;
+	In> IsTwinPrime(7)
+	Out> False;
+	In> Select(IsTwinPrime, 1 .. 100)
+	Out> {3,5,11,17,29,41,59,71};
+
+*SEE IsPrime
+%/mathpiper_docs

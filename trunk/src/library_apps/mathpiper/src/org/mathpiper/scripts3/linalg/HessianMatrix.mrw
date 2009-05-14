@@ -1,0 +1,48 @@
+%mathpiper,def="HessianMatrix"
+
+// The arguments of the following functions should be checked
+// this takes 1 func in N vars
+HessianMatrix(f,v):=GenMatrix({{i,j}, Deriv(v[i]) Deriv(v[j]) f},Length(v),Length(v));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="HessianMatrix"
+*CMD HessianMatrix --- create the Hessian matrix
+*STD
+*CALL
+	HessianMatrix(function,var)
+*PARMS
+
+{function} -- a function in $n$ variables
+
+{var} -- an $n$-dimensional vector of variables
+
+*DESC
+
+The function {HessianMatrix} calculates the Hessian matrix
+of a vector.
+
+If $f(x)$ is a function of an $n$-dimensional vector $x$, then the ($i$,$j$)-th element of the Hessian matrix of the function $f(x)$ is defined as 
+$ Deriv(x[i]) Deriv(x[j]) f(x) $. If the third
+order mixed partials are continuous, then the Hessian
+matrix is symmetric (a standard theorem of calculus).
+
+The Hessian matrix is used in the second derivative test 
+to discern if a critical point is a local maximum, a local
+minimum or a saddle point.
+
+
+*E.G.
+
+	In> HessianMatrix(3*x^2-2*x*y+y^2-8*y, {x,y} )
+	Out> {{6,-2},{-2,2}};
+	In> PrettyForm(%)
+
+	/                \
+	| ( 6 )  ( -2 )  |
+	|                |
+	| ( -2 ) ( 2 )   |
+	\                /
+%/mathpiper_docs

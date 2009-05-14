@@ -1,0 +1,63 @@
+%mathpiper,def="LeadingCoef"
+
+//todo:tk:moved here form Coef.mrw.
+10 # LeadingCoef(uv_IsUniVar) <-- Coef(uv,Degree(uv));
+
+20 # LeadingCoef(uv_CanBeUni) <--
+[
+  Local(uvi);
+  uvi:=MakeUni(uv);
+  Coef(uvi,Degree(uvi));
+];
+10 # LeadingCoef(uv_CanBeUni(var),_var) <--
+[
+  Local(uvi);
+  uvi:=MakeUni(uv,var);
+  Coef(uvi,var,Degree(uvi));
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="LeadingCoef"
+*CMD LeadingCoef --- leading coefficient of a polynomial
+*STD
+*CALL
+	LeadingCoef(poly)
+	LeadingCoef(poly, var)
+
+*PARMS
+
+{poly} -- a polynomial
+
+{var} -- a variable
+
+*DESC
+
+This function returns the leading coefficient of "poly", regarded as
+a polynomial in the variable "var". The leading coefficient is the
+coefficient of the term of highest degree. If only one variable
+appears in the expression "poly", it is obvious that it should be
+regarded as a polynomial in this variable and the first calling
+sequence may be used.
+
+*E.G.
+
+	In> poly := 2*x^2 + 4*x;
+	Out> 2*x^2+4*x;
+	In> lc := LeadingCoef(poly);
+	Out> 2;
+	In> m := Monic(poly);
+	Out> x^2+2*x;
+	In> Expand(lc*m);
+	Out> 2*x^2+4*x;
+	
+	In> LeadingCoef(2*a^2 + 3*a*b^2 + 5, a);
+	Out> 2;
+	In> LeadingCoef(2*a^2 + 3*a*b^2 + 5, b);
+	Out> 3*a;
+	
+*SEE Coef, Monic
+
+%/mathpiper_docs

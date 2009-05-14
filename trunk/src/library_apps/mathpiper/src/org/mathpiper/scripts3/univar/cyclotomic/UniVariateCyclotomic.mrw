@@ -1,0 +1,9 @@
+%mathpiper,def="UniVariateCyclotomic"
+
+// This function returns the Cyclotomic polynomial, but in the univariate
+// representation
+
+10  # UniVariateCyclotomic(1,_x) <-- UniVariate(x,0,{-1,1});
+20  # UniVariateCyclotomic(n_IsInteger,_x) <-- OldInternalCyclotomic(n,x,False);
+
+%/mathpiper

@@ -1,0 +1,9 @@
+%mathpiper,def="PAdicExpandInternal"
+
+10 # PAdicExpandInternal(0,_y) <-- {};
+20 # PAdicExpandInternal(_x,_y) <--
+[
+  Mod(x,y) : PAdicExpandInternal(Div(x,y),y);
+];
+
+%/mathpiper

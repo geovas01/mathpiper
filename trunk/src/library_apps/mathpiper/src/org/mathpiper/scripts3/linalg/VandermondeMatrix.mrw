@@ -1,0 +1,51 @@
+%mathpiper,def="VandermondeMatrix"
+
+Function("VandermondeMatrix",{vector})[
+	Local(len,i,j,item,matrix);
+	len:=Length(vector);
+	matrix:=ZeroMatrix(len,len);
+
+	For(i:=1,i<=Length(matrix),i++)[
+		For(j:=1,j<=Length(matrix[1]),j++)[
+      			matrix[j][i]:=vector[i]^(j-1);
+		];
+	];
+
+	matrix;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="VandermondeMatrix"
+*CMD VandermondeMatrix --- create the Vandermonde matrix
+*STD
+*CALL
+	VandermondeMatrix(vector)
+*PARMS
+
+{vector} -- an $n$-dimensional vector 
+
+*DESC
+
+The function {VandermondeMatrix} calculates the Vandermonde matrix
+of a vector.
+
+The ($i$,$j$)-th element of the Vandermonde matrix is defined as $i^(j-1)$.
+
+*E.G.
+	In> VandermondeMatrix({1,2,3,4})
+	Out> {{1,1,1,1},{1,2,3,4},{1,4,9,16},{1,8,27,64}};
+	In>PrettyForm(%)
+
+	/                            \
+	| ( 1 ) ( 1 ) ( 1 )  ( 1 )   |
+	|                            |
+	| ( 1 ) ( 2 ) ( 3 )  ( 4 )   |
+	|                            |
+	| ( 1 ) ( 4 ) ( 9 )  ( 16 )  |
+	|                            |
+	| ( 1 ) ( 8 ) ( 27 ) ( 64 )  |
+	\                            /
+%/mathpiper_docs
