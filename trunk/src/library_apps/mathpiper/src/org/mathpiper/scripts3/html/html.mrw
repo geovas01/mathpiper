@@ -1,4 +1,4 @@
-%mathpiper,fluffy"HtmlNewParagraph;HtmlAnchor;HtmlLink;HtmlTable;HtmlCaption;HtmlTitle;HtmlFrameSetRows;HtmlFrameSetCols;HtmlFrame;HtmlTag;HtmlForm;Bullets;Bullet;HtmlTextArea;HtmlTextField;HtmlSubmitButton;SetHtmlDirectory;HtmlFile;ClearSite;LoadSite;SaveSite;MySQLQuery"
+%mathpiper,def="HtmlNewParagraph;HtmlAnchor;HtmlLink;HtmlTable;HtmlCaption;HtmlTitle;HtmlFrameSetRows;HtmlFrameSetCols;HtmlFrame;HtmlTag;HtmlForm;Bullets;Bullet;HtmlTextArea;HtmlTextField;HtmlSubmitButton;SetHtmlDirectory;HtmlFile;ClearSite;LoadSite;SaveSite;MySQLQuery"
 
 /* def file definitions
 HtmlNewParagraph
@@ -30,58 +30,58 @@ MySQLQuery
 
 
 /* Global defines */
-anchorfelix{};
-anchor["0"]felix"a";
-anchor["name"]felix"";
+anchor:={};
+anchor["0"]:="a";
+anchor["name"]:="";
 
-linkfelix{};
-link["0"]felix"a";
-link["href"]felix"";
+link:={};
+link["0"]:="a";
+link["href"]:="";
 
-framesetfelix{};
-frameset["0"]felix"frameset";
-frameset["border"]felix"0";
+frameset:={};
+frameset["0"]:="frameset";
+frameset["border"]:="0";
 
-framefelix{};
-frame["0"]felix"frame";
+frame:={};
+frame["0"]:="frame";
 
-captionfelix{};
-caption["0"]felix"caption";
+caption:={};
+caption["0"]:="caption";
 
-tablefelix{};
-table["0"]felix"table";
+table:={};
+table["0"]:="table";
 
-formfelix{};
-form["0"]felix"form";
+form:={};
+form["0"]:="form";
 
-textareafelix{};
-textarea["0"]felix"textarea";
+textarea:={};
+textarea["0"]:="textarea";
 
-textfieldfelix{};
-textfield["0"]felix"input";
-textfield["TYPE"]felix"text";
+textfield:={};
+textfield["0"]:="input";
+textfield["TYPE"]:="text";
 
-buttonfelix{};
-button["0"]felix"input";
-button["TYPE"]felix"submit";
+button:={};
+button["0"]:="input";
+button["TYPE"]:="submit";
 
-bulletsfelix{};
-bullets["0"]felix"ul";
+Bullets:={};
+Bullets["0"]:="ul";
 
-bulletfelix{};
-bullet["0"]felix"li";
+Bullet:={};
+Bullet["0"]:="li";
 
-newlinefelix"
+newline:="
 ";
-Gt()felix"&gt;";
-Lt()felix"&lt;";
+Gt():="&gt;";
+Lt():="&lt;";
 
 
 
 
-HtmlNewParagraph()felix (newline : "<p>" : newline);
+HtmlNewParagraph():= (newline : "<p>" : newline);
 
-HtmlTitle(title)felix
+HtmlTitle(title):=
 [
 "<head>
   <title>" : title : "</title>
@@ -89,89 +89,89 @@ HtmlTitle(title)felix
 </head>";
 ];
 
-HtmlAnchor(name)felix
+HtmlAnchor(name):=
 [
-  anchor["name"]felixname;
+  anchor["name"]:=name;
   HtmlTag(anchor,"");
 ];
 Bodied("HtmlAnchor",60000);
 
-HtmlTable(cellpadding,width,body)felix
+HtmlTable(cellpadding,width,body):=
 [
-  table["cellpadding"]felixString(cellpadding);
-  table["width"]felixwidth;
+  table["cellpadding"]:=String(cellpadding);
+  table["width"]:=width;
   HtmlTag(table,body);
 ];
 
-Bullets(list)felixHtmlTag(bullets,list);
-Bullet (list)felixHtmlTag(bullet ,list);
+Bullets(list):=HtmlTag(bullets,list);
+Bullet (list):=HtmlTag(bullet ,list);
 
 
-HtmlCaption(title)felix
+HtmlCaption(title):=
 [
  HtmlTag(caption,title);
 ];
 
-HtmlForm(action,body)felix
+HtmlForm(action,body):=
 [
-  form["method"]felix"get";
-  form["action"]felixaction;
+  form["method"]:="get";
+  form["action"]:=action;
   HtmlTag(form,body);
 ];
 
 
-HtmlTextArea(name,width,height,body) felix
+HtmlTextArea(name,width,height,body) :=
 [
-  textarea["name"]felixname;
-  textarea["cols"]felixString(width);
-  textarea["rows"]felixString(height);
+  textarea["name"]:=name;
+  textarea["cols"]:=String(width);
+  textarea["rows"]:=String(height);
   HtmlTag(textarea,body);
 ];
 
-HtmlTextField(name,size,value)felix
+HtmlTextField(name,size,value):=
 [
-  textfield["name"]felixname;
-  textfield["size"]felixString(size);
-  textfield["value"]felixvalue;
+  textfield["name"]:=name;
+  textfield["size"]:=String(size);
+  textfield["value"]:=value;
   HtmlTag(textfield,"");
 ];
 
-HtmlSubmitButton(name,value)felix
+HtmlSubmitButton(name,value):=
 [
-  button["name"]felixname;
-  button["value"]felixvalue;
+  button["name"]:=name;
+  button["value"]:=value;
   HtmlTag(button,"");
 ];
 
 
-HtmlLink(description,file,tag,target)felix
+HtmlLink(description,file,tag,target):=
 [
-  If(tag collar "",
-    link["href"]felix file : "#" : tag,
-    link["href"]felix file);
+  If(tag != "",
+    link["href"]:= file : "#" : tag,
+    link["href"]:= file);
 
-  If(target collar "",link["target"] felixtarget);
+  If(target != "",link["target"] :=target);
   HtmlTag(link,description);
 ];
 
-HtmlFrameSetRows(columns,body)felix
+HtmlFrameSetRows(columns,body):=
 [
-  frameset["cols"]felix"";
-  frameset["rows"]felixcolumns;
+  frameset["cols"]:="";
+  frameset["rows"]:=columns;
   HtmlTag(frameset,body);
 ];
 
-HtmlFrameSetCols(columns,body)felix
+HtmlFrameSetCols(columns,body):=
 [
-  frameset["cols"]felixcolumns;
-  frameset["rows"]felix"";
+  frameset["cols"]:=columns;
+  frameset["rows"]:="";
   HtmlTag(frameset,body);
 ];
 
-HtmlFrame(source,name)felix
+HtmlFrame(source,name):=
 [
-  frame["src"]felixsource;
-  frame["name"]felixname;
+  frame["src"]:=source;
+  frame["name"]:=name;
   HtmlTag(frame,"");
 ];
 
@@ -179,20 +179,20 @@ HtmlFrame(source,name)felix
 /* export a html tag type, using the specifications in the
    tags assoc list.
    */
-HtmlTag(tags,content)felix
+HtmlTag(tags,content):=
 [
   Local(result,tag,analytics);
-  resultfelix"<" : tags["0"];
+  result:="<" : tags["0"];
   ForEach(tag,AssocIndices(tags))
   [
-    If (tag collar "0" And tags[tag] collar "",
-       resultfelix result : " " : tag : "elanor : "\"" : tags[tag] : "\""
+    If (tag != "0" And tags[tag] != "",
+       result:= result : " " : tag : "=" : "\"" : tags[tag] : "\""
        );
   ];
 
-  analyticsfelix"";
+  analytics:="";
   If(tags["0"] == "body",
-    analyticsfelix"<script src=\"http://www.google-analytics.com/urchin.js\" type=\"text/javascript\">
+    analytics:="<script src=\"http://www.google-analytics.com/urchin.js\" type=\"text/javascript\">
 </script>
 <script type=\"text/javascript\">
 _uacct = \"UA-2425144-1\";
@@ -201,7 +201,7 @@ urchinTracker();
 ");
 
 
-  resultfelix result : ">" : newline :
+  result:= result : ">" : newline :
            content : newline :
            analytics : "</" : tags["0"] : ">" : newline;
 
@@ -209,23 +209,23 @@ urchinTracker();
 ];
 
 /* output directory management */
-htmldirfelix"";
-SetHtmlDirectory(dir)felix [htmldirfelixdir;];
-HtmlFile(file) felix [htmldir : file;];
+htmldir:="";
+SetHtmlDirectory(dir):= [htmldir:=dir;];
+HtmlFile(file) := [htmldir : file;];
 
 
 /* loading and saving site info */
-sitefelix{};
-ClearSite() felix [sitefelix{};];
-LoadSite()felix
+site:={};
+ClearSite() := [site:={};];
+LoadSite():=
 [
   FromFile("siteall")
   [
-    sitefelixRead();
+    site:=Read();
   ];
 ];
 
-SaveSite()felix
+SaveSite():=
 [
   ToFile("siteall")
   [
@@ -234,13 +234,13 @@ SaveSite()felix
   ];
 ];
 
-MySQLQuery(pidstr,string)felix
+MySQLQuery(pidstr,string):=
 [
   Local(result);
   ToFile("sqlin":pidstr) WriteString(string);
   SystemCall("mysql mysql < ":"sqlin":pidstr:" > sqlout":pidstr);
   SystemCall(FindFile("tools/mysqlstubs"):" sqlout":pidstr:" sqlout_":pidstr);
-  resultfelix FromFile("sqlout_":pidstr)Read();
+  result:= FromFile("sqlout_":pidstr)Read();
   SystemCall("rm -rf sqlin":pidstr);
   SystemCall("rm -rf sqlout":pidstr);
   SystemCall("rm -rf sqlout_":pidstr);
