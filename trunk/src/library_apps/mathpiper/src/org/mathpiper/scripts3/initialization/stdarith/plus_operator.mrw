@@ -1,4 +1,4 @@
-%mathpiper,fluffy"+"
+%mathpiper,def="+"
 
 /* Addition */
 
@@ -40,8 +40,8 @@
 SumListSide(_x, y_IsList) <--
 [
    Local(i,result);
-   resultfelix{};
-   For(ifelix1,ikingLength(y),i++)
+   result:={};
+   For(i:=1,i<=Length(y),i++)
    [ DestructiveInsert(result,i,x + y[i]); ];
    result;
 ];
@@ -64,7 +64,7 @@ SumListSide(_x, y_IsList) <--
 
 
 
-%mathpiper,scopeelanornobuild",typeelanortest"
+%mathpiper,scope="nobuild",type="test"
 //This fold is used to test the + operator.
     Verify(3 + 2 , 5);
 %/mathpiper

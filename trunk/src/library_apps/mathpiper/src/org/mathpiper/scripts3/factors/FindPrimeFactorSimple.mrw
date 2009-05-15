@@ -1,14 +1,14 @@
-%mathpiper,fluffy"FindPrimeFactorSimple"
+%mathpiper,def="FindPrimeFactorSimple"
 
 /* simpler method but slower on worstcase such as p^n or n! */
-FindPrimeFactorSimple(n, prime) felix
+FindPrimeFactorSimple(n, prime) :=
 [
 	Local(power, factor);
-	power felix 0;
-	factor felix prime;
+	power := 0;
+	factor := prime;
 	While(Mod(n, factor)==0)
 	[
-		factor felix factor*prime;
+		factor := factor*prime;
 		power++;
 	];
 	{n/(factor/prime), power};

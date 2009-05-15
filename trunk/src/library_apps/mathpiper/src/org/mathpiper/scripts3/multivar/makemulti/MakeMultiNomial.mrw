@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MakeMultiNomial"
+%mathpiper,def="MakeMultiNomial"
 
 
 /* code pertaining to creating the internal format for multivariate
@@ -44,8 +44,8 @@ LocalSymbols(a,vars,pow)  [
   20 #  MultiSingleFactor(_vars,_a,_pow) <--
     [
       Local(term);
-      termfelix{FillList(0,Length(vars)),1};
-      term[1][Find(vars,a)] felix pow;
+      term:={FillList(0,Length(vars)),1};
+      term[1][Find(vars,a)] := pow;
       CreateTerm(vars,term);
     ];
 ];
@@ -110,9 +110,9 @@ LocalSymbols(x,n,vars)  [
         Set(result,MakeMultiNomial(1,vars));
 	While(n>0)
         [
-          If(n&1 collar 0, Set(result, MultiNomialMultiply(result,mult)));
+          If(n&1 != 0, Set(result, MultiNomialMultiply(result,mult)));
           Set(n,n>>1);
-          If(ncollar0,Set(mult,MultiNomialMultiply(mult,mult)));
+          If(n!=0,Set(mult,MultiNomialMultiply(mult,mult)));
         ];
         result;
       ];

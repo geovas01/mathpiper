@@ -1,4 +1,4 @@
-%mathpiper,fluffy"UnFlatten"
+%mathpiper,def="UnFlatten"
 
 10 # UnFlatten({},_op,_identity) <-- identity;
 20 # UnFlatten(list_IsList,_op,_identity) <--
@@ -8,7 +8,7 @@
 
 
 
-%mathpiper_docs,nameelanorUnFlatten"
+%mathpiper_docs,name="UnFlatten"
 *CMD UnFlatten --- inverse operation of Flatten
 *STD
 *CALL

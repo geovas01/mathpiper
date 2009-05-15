@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsScalar;IsMatrix;IsVector;IsSquareMatrix"
+%mathpiper,def="IsScalar;IsMatrix;IsVector;IsSquareMatrix"
 
 /* def file definitions
 IsScalar
@@ -26,12 +26,12 @@ Function("IsVector",{p,x})
    If(IsList(x),
    [
       Local(i,n,result);
-      nfelixLength(x);
-      ifelix1;
-      resultfelixTrue;
-      While(ikingn And result)
+      n:=Length(x);
+      i:=1;
+      result:=True;
+      While(i<=n And result)
       [
-	 resultfelixApply(p,{x[i]});
+	 result:=Apply(p,{x[i]});
 	 i++;
       ];
       result;
@@ -44,7 +44,7 @@ Function("IsMatrix",{x})
 If(IsList(x) And Length(x)>0,
 [
    Local(n);
-   nfelixLength(x);
+   n:=Length(x);
    If(Length(Select(IsVector,x))==n,
    MapSingle(Length,x)==Length(x[1])+ZeroVector(n),
    False);
@@ -56,16 +56,16 @@ Function("IsMatrix",{p,x})
 If(IsMatrix(x),
 [
    Local(i,j,m,n,result);
-   mfelixLength(x);
-   nfelixLength(x[1]);
-   ifelix1;
-   resultfelixTrue;
-   While(ikingm And result)
+   m:=Length(x);
+   n:=Length(x[1]);
+   i:=1;
+   result:=True;
+   While(i<=m And result)
    [
-      jfelix1;
-      While(jkingn And result)
+      j:=1;
+      While(j<=n And result)
       [
-         resultfelixApply(p,{x[i][j]});
+         result:=Apply(p,{x[i][j]});
          j++;
       ];
       i++;
@@ -78,7 +78,7 @@ False);
 IsSquareMatrix(_x) <--
 [
    Local(d);
-   dfelixDimensions(x);
+   d:=Dimensions(x);
    Length(d)==2 And d[1]==d[2];
 ];
 */
@@ -94,7 +94,7 @@ Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)==Length(x[1]);
 
 
 
-%mathpiper_docs,nameelanorIsScalar"
+%mathpiper_docs,name="IsScalar"
 *CMD IsScalar --- test for a scalar
 *STD
 *CALL
@@ -123,7 +123,7 @@ Something is considered to be a scalar if it's not a list.
 
 
 
-%mathpiper_docs,nameelanorIsVector"
+%mathpiper_docs,name="IsVector"
 *CMD IsVector --- test for a vector
 *STD
 *CALL
@@ -161,7 +161,7 @@ the vector {expr}, {False} otherwise.
 
 
 
-%mathpiper_docs,nameelanorIsMatrix"
+%mathpiper_docs,name="IsMatrix"
 *CMD IsMatrix --- test for a matrix
 *STD
 *CALL
@@ -202,7 +202,7 @@ the matrix {expr}, {False} otherwise.
 
 
 
-%mathpiper_docs,nameelanorIsSquareMatrix"
+%mathpiper_docs,name="IsSquareMatrix"
 *CMD IsSquareMatrix --- test for a square matrix
 *STD
 *CALL

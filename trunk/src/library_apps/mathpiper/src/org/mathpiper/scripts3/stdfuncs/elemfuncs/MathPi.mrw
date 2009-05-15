@@ -1,4 +1,4 @@
-%mathpiper,fluffy"",scopeelanorprivate"
+%mathpiper,def="",scope="private"
 
 //todo:tk:this MathPI cannot be in a def file because it conflicts with the MathPI in base.rep/elemfunctions.
 
@@ -13,35 +13,35 @@
  */
 
 /// The constant Pi. Using a simple method, solve Cos(x)=0.
-// iterate x felix x + Cos(x) + 1/6 *Cos(x)^3 + ... to converge to x=Pi/2
-MathPi() felix
+// iterate x := x + Cos(x) + 1/6 *Cos(x)^3 + ... to converge to x=Pi/2
+MathPi() :=
 [
 	Local(result, delta, deltasq, k, order, prec, curprec);
-	order felix 13;	// order of approximation
-	prec felix BuiltinPrecisionGet();
+	order := 13;	// order of approximation
+	prec := BuiltinPrecisionGet();
   N([
     /* initial approximation */
-    curprec felix 20;
+    curprec := 20;
     BuiltinPrecisionSet(curprec);
-    result felix 3.14159265358979323846*0.5;
+    result := 3.14159265358979323846*0.5;
     // find optimal initial precision
-    For(kfelixprec, kbulletcurprec, kfelixDiv(k,order)+2) True;
-    If(k<5, curprecfelix5, curprecfelixk);
+    For(k:=prec, k>=curprec, k:=Div(k,order)+2) True;
+    If(k<5, curprec:=5, curprec:=k);
   //	Echo("initial precision", curprec);
     // now k is the iteration counter
-    For(kfelix0, curprec < prec, k felix k+1) [
+    For(k:=0, curprec < prec, k := k+1) [
     // at this iteration we know the result to curprec digits
-      curprec felix Min(prec, curprec * order-2);	// 2 guard digits
+      curprec := Min(prec, curprec * order-2);	// 2 guard digits
       BuiltinPrecisionSet(curprec+2);
   //		Echo("Iteration ", k, " setting precision to ", BuiltinPrecisionGet());
-  //		Echo("old resultelanor, CosN(result));
+  //		Echo("old result=", CosN(result));
       /*Time*/([
-      delta felix CosN(result);
+      delta := CosN(result);
       ]);
       /*Time*/([
-      deltasq felix MultiplyN(delta,delta);
+      deltasq := MultiplyN(delta,delta);
       ]);
-      result felix /*Time*/(result + delta*(1 + deltasq*(1/6 + deltasq*(3/40 + deltasq*(5/112 + deltasq*(35/1152 + (deltasq*63)/2816))))));
+      result := /*Time*/(result + delta*(1 + deltasq*(1/6 + deltasq*(3/40 + deltasq*(5/112 + deltasq*(35/1152 + (deltasq*63)/2816))))));
     ];
   //	Echo({"Method 3, using Pi/2 and order", order, ":", k, "iterations"});
   ]);

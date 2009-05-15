@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Table"
+%mathpiper,def="Table"
 
 /* Juan: TemplateFunction (as defined in the file "deffunc")
  * also makes the arguments to the function local symbols.
@@ -10,10 +10,10 @@ TemplateFunction("Table",{body,var,count'from,count'to,step})
   LocalSymbols(result,nr,ii)
   [
     MacroLocal(var);
-    resultfelix{};
-    nr felix (count'to - count'from) / step;
-    ii felix 0;
-    While( ii king nr )
+    result:={};
+    nr := (count'to - count'from) / step;
+    ii := 0;
+    While( ii <= nr )
       [
        MacroSet( var, count'from + ii * step );
        DestructiveInsert( result,1,Eval(body) );
@@ -29,7 +29,7 @@ UnFence("Table",5);
 
 
 
-%mathpiper_docs,nameelanorTable"
+%mathpiper_docs,name="Table"
 *CMD Table --- evaluate while some variable ranges over interval
 *STD
 *CALL

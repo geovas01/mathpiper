@@ -1,20 +1,20 @@
-%mathpiper,fluffy"Roots"
+%mathpiper,def="Roots"
 
 10 # Roots(poly_CanBeUni) <--
 [
   Local(factors,result,uni,root,i,deg);
-  factorsfelixFactors(poly);
-  resultfelix{};
+  factors:=Factors(poly);
+  result:={};
   ForEach(item,factors)
   [
-    unifelixMakeUni(item[1]);
-    degfelixDegree(uni);
+    uni:=MakeUni(item[1]);
+    deg:=Degree(uni);
     If(deg > 0 And deg < 3,
       [
-        rootfelix PSolve(uni);
-        If(Not IsList(root),rootfelix{root});
-        For(ifelix0,i<item[2],i++)
-          resultfelix Concat(root, result);
+        root:= PSolve(uni);
+        If(Not IsList(root),root:={root});
+        For(i:=0,i<item[2],i++)
+          result:= Concat(root, result);
       ]
       );
   ];

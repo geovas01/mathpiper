@@ -1,4 +1,4 @@
-%mathpiper,fluffy"<-"
+%mathpiper,def="<-"
 
 RuleBase("<-",{left,right});
 HoldArg("<-",left);

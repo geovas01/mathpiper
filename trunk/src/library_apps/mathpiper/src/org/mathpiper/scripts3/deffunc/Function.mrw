@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Function"
+%mathpiper,def="Function"
 
 /* Defining a macro-like function that declares a function
  * with only one rule.
@@ -64,7 +64,7 @@ Rule("Function",1,2048,
 
 
 
-%mathpiper_docs,nameelanorFunction"
+%mathpiper_docs,name="Function"
 *CMD Function --- declare or define a function
 *STD
 *CALL
@@ -112,7 +112,7 @@ This will declare a new function with two or more arguments, but define no rules
 
 This defines a function {FirstOf} which returns the
 first element of a list. Equivalent definitions would be
-{FirstOf(_list) <-- list[1]} or {FirstOf(list) felix list[1]}.
+{FirstOf(_list) <-- list[1]} or {FirstOf(list) := list[1]}.
 	In> Function("FirstOf", {list})  list[1];
 	Out> True;
 	In> FirstOf({a,b,c});
@@ -127,5 +127,5 @@ The following function will print all arguments to a string:
 	In> PrintAll(1,2,3);
 	Out> " 1 2 3";
 
-*SEE TemplateFunction, Rule, RuleBase,  RuleBaseListed, felix, Retract
+*SEE TemplateFunction, Rule, RuleBase,  RuleBaseListed, :=, Retract
 %/mathpiper_docs

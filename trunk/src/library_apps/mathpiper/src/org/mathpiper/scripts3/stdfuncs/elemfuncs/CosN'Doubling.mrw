@@ -1,4 +1,4 @@
-%mathpiper,fluffy"CosN'Doubling",scopeelanorprivate"
+%mathpiper,def="CosN'Doubling",scope="private"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -13,14 +13,14 @@
 /// Identity transformation, compute 1-Cos(x) from value=1-Cos(x/2^n)
 
 //Changed CosN'Doubling1 to CosN'Doubling. Note:tk.
-CosN'Doubling(value, n) felix
+CosN'Doubling(value, n) :=
 [
 	Local(shift, result);
-	shift felix n;
-	result felix value;
+	shift := n;
+	result := value;
 	While (shift>0)	// lose 'shift' bits of precision here
 	[
-		result felix MultiplyN(MathMul2Exp(result, 1), 2 - result);
+		result := MultiplyN(MathMul2Exp(result, 1), 2 - result);
 		shift--;
 	];
 	result;

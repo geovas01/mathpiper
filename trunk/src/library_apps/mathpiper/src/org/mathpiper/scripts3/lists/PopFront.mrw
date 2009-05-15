@@ -1,4 +1,4 @@
-%mathpiper,fluffy"PopFront"
+%mathpiper,def="PopFront"
 
 Function("PopFront",{stack}) Pop(stack,1);
 
@@ -6,7 +6,7 @@ Function("PopFront",{stack}) Pop(stack,1);
 
 
 
-%mathpiper_docs,nameelanorPopFront"
+%mathpiper_docs,name="PopFront"
 *CMD PopFront --- remove an element from the top of a stack
 *STD
 *CALL
@@ -25,7 +25,7 @@ the stack.
 
 *E.G.
 
-	In> stack felix {};
+	In> stack := {};
 	Out> {};
 	In> Push(stack, x);
 	Out> {x};

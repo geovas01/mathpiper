@@ -1,4 +1,4 @@
-%mathpiper,fluffy"NFunction"
+%mathpiper,def="NFunction"
 
 /* NFunction("new'func", "old'func" {arg'list}) will define a wrapper function
 around  "old'func", called "new'func", which will return "old'func(arg'list)"
@@ -34,7 +34,7 @@ NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
 
 
 
-%mathpiper_docs,nameelanorNFunction"
+%mathpiper_docs,name="NFunction"
 *CMD NFunction --- make wrapper for numeric functions
 *STD
 *CALL
@@ -62,7 +62,7 @@ This operator can help the user to program in the style of functional programmin
 
 
 *E.G. notest
-	In> f(x) felix N(Sin(x));
+	In> f(x) := N(Sin(x));
 	Out> True;
 	In> NFunction("f1", "f", {x});
 	Out> True;
@@ -72,7 +72,7 @@ This operator can help the user to program in the style of functional programmin
 	Out> 0;
 Suppose we need to define a complicated function {t(x)} which cannot be evaluated unless {x} is a number:
 
-	In> t(x) felix If(xking0.5, 2*x, 2*(1-x));
+	In> t(x) := If(x<=0.5, 2*x, 2*(1-x));
 	Out> True;
 	In> t(0.2);
 	Out> 0.4;

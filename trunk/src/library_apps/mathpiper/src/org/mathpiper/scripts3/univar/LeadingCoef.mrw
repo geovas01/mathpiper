@@ -1,4 +1,4 @@
-%mathpiper,defelanorLeadingCoef"
+%mathpiper,def="LeadingCoef"
 
 //todo:tk:moved here form Coef.mrw.
 10 # LeadingCoef(uv_IsUniVar) <-- Coef(uv,Degree(uv));
@@ -6,13 +6,13 @@
 20 # LeadingCoef(uv_CanBeUni) <--
 [
   Local(uvi);
-  uvifelixMakeUni(uv);
+  uvi:=MakeUni(uv);
   Coef(uvi,Degree(uvi));
 ];
 10 # LeadingCoef(uv_CanBeUni(var),_var) <--
 [
   Local(uvi);
-  uvifelixMakeUni(uv,var);
+  uvi:=MakeUni(uv,var);
   Coef(uvi,var,Degree(uvi));
 ];
 
@@ -20,7 +20,7 @@
 
 
 
-%mathpiper_docs,nameelanorLeadingCoef"
+%mathpiper_docs,name="LeadingCoef"
 *CMD LeadingCoef --- leading coefficient of a polynomial
 *STD
 *CALL
@@ -44,11 +44,11 @@ sequence may be used.
 
 *E.G.
 
-	In> poly felix 2*x^2 + 4*x;
+	In> poly := 2*x^2 + 4*x;
 	Out> 2*x^2+4*x;
-	In> lc felix LeadingCoef(poly);
+	In> lc := LeadingCoef(poly);
 	Out> 2;
-	In> m felix Monic(poly);
+	In> m := Monic(poly);
 	Out> x^2+2*x;
 	In> Expand(lc*m);
 	Out> 2*x^2+4*x;

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"GetNumerDenom",scopeelanorprivate"
+%mathpiper,def="GetNumerDenom",scope="private"
 
 /// GetNumerDenom(x) returns a pair of expressions representing normalized numerator and denominator; GetNumerDenom(x, a) multiplies the numerator by the number a
 GetNumerDenom(_expr, _a) <-- GetNumerDenom(expr)*{a,1};

@@ -1,9 +1,9 @@
-%mathpiper,fluffy"NextPrime"
+%mathpiper,def="NextPrime"
 
 /// obtain the real next prime number -- use primality testing
 1# NextPrime(_i) <--
 [
-	Until(IsPrime(i)) i felix NextPseudoPrime(i);
+	Until(IsPrime(i)) i := NextPseudoPrime(i);
 	i;
 ];
 
@@ -11,7 +11,7 @@
 
 
 
-%mathpiper_docs,nameelanorNextPrime"
+%mathpiper_docs,name="NextPrime"
 *CMD NextPrime --- generate a prime following a number
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"DestructiveAppend"
+%mathpiper,def="DestructiveAppend"
 
 Function("DestructiveAppend",{list,element})
 [
@@ -9,7 +9,7 @@ Function("DestructiveAppend",{list,element})
 
 
 
-%mathpiper_docs,nameelanorDestructiveAppend"
+%mathpiper_docs,name="DestructiveAppend"
 *CMD DestructiveAppend --- destructively append an entry to a list
 *STD
 *CALL
@@ -34,7 +34,7 @@ because the latter copy the list before they alter it.
 
 *E.G.
 
-	In> lst felix {a,b,c,d};
+	In> lst := {a,b,c,d};
 	Out> {a,b,c,d};
 	In> Append(lst, 1);
 	Out> {a,b,c,d,1};

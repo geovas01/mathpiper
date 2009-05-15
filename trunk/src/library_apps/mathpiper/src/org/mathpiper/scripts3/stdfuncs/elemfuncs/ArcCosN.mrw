@@ -1,4 +1,4 @@
-%mathpiper,fluffy""
+%mathpiper,def=""
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.

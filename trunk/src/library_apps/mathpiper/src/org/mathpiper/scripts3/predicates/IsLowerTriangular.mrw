@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsLowerTriangular"
+%mathpiper,def="IsLowerTriangular"
 
 IsLowerTriangular(A_IsMatrix) <-- (IsUpperTriangular(Transpose(A)));
 
@@ -6,7 +6,7 @@ IsLowerTriangular(A_IsMatrix) <-- (IsUpperTriangular(Transpose(A)));
 
 
 
-%mathpiper_docs,nameelanorIsLowerTriangular"
+%mathpiper_docs,name="IsLowerTriangular"
 *CMD IsLowerTriangular --- test for a lower triangular matrix
 *CMD IsUpperTriangular --- test for an upper triangular matrix
 *STD

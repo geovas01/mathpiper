@@ -1,10 +1,10 @@
-%mathpiper,defelanorVerifyDiv"
+%mathpiper,def="VerifyDiv"
 
 VerifyDiv(_u,_v) <--
 [
   Local(q,r);
-  qfelixDiv(u,v);
-  rfelixRem(u,v);
+  q:=Div(u,v);
+  r:=Rem(u,v);
 
   Verify(Expand(u),Expand(q*v+r));
 ];

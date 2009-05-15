@@ -1,10 +1,10 @@
-%mathpiper,fluffy"Intersection"
+%mathpiper,def="Intersection"
 
 Function("Intersection",{list1,list2})
 [
   Local(l2,index,result);
-  l2felixFlatCopy(list2);
-  resultfelix{};
+  l2:=FlatCopy(list2);
+  result:={};
   ForEach(item,list1)
   [
     Set(index, Find(l2,item));
@@ -22,7 +22,7 @@ Function("Intersection",{list1,list2})
 
 
 
-%mathpiper_docs,nameelanorIntersection"
+%mathpiper_docs,name="Intersection"
 *CMD Intersection --- return the intersection of two lists
 *STD
 *CALL

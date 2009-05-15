@@ -1,4 +1,4 @@
-%mathpiper,fluffy"GaussianFactors"
+%mathpiper,def="GaussianFactors"
 
 /* GaussianFactors(n) : returns a list of factors of n, in a similar
 way to Factors(n).
@@ -9,14 +9,14 @@ its integer prime factors. */
 10 # GaussianFactors(n_IsInteger) <--
 [
  Local(ifactors,gfactors,p,alpha);
- ifactors felix Factors(n);
- gfactors felix {};
+ ifactors := Factors(n);
+ gfactors := {};
  ForEach(p,ifactors)
  [
    If (p[1]==2, [ DestructiveAppend(gfactors,{1+I,p[2]});
                  DestructiveAppend(gfactors,{1-I,p[2]}); ]);
    If (Mod(p[1],4)==3, DestructiveAppend(gfactors,p));
-   If (Mod(p[1],4)==1, [ alpha felix GaussianFactorPrime(p[1]);
+   If (Mod(p[1],4)==1, [ alpha := GaussianFactorPrime(p[1]);
                         DestructiveAppend(gfactors,{alpha,p[2]});
                         DestructiveAppend(gfactors,{Conjugate(alpha),p[2]});
                       ]);
@@ -30,15 +30,15 @@ by factoring its norm */
 20 # GaussianFactors(z_IsGaussianInteger) <--
 [
  Local(n,nfactors,gfactors,p);
-  gfactors felix{};
-  n felix GaussianNorm(z);
-  nfactors felix Factors(n);
+  gfactors :={};
+  n := GaussianNorm(z);
+  nfactors := Factors(n);
   ForEach(p,nfactors)
   [
    If (p[1]==2, [ AddGaussianFactor(gfactors,z,1+I);]);
    If (Mod(p[1],4)==3, AddGaussianFactor(gfactors,z,p[1]));
    If (Mod(p[1],4)==1, [ Local(alpha);
-                        alpha felix GaussianFactorPrime(p[1]);
+                        alpha := GaussianFactorPrime(p[1]);
                         AddGaussianFactor(gfactors,z,alpha);
                         AddGaussianFactor(gfactors,z,Conjugate(alpha));
                       ]);
@@ -50,7 +50,7 @@ by factoring its norm */
 
 
 
-%mathpiper_docs,nameelanorGaussianFactors"
+%mathpiper_docs,name="GaussianFactors"
 *CMD GaussianFactors --- factorization in Gaussian integers
 *STD
 *CALL

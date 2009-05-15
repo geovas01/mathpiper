@@ -1,19 +1,19 @@
-%mathpiper,defelanorUniTaylor"
+%mathpiper,def="UniTaylor"
 
 Function("UniTaylor",{taylorfunction,taylorvariable,taylorat,taylororder})
 [
   Local(n,result,dif,polf);
-  resultfelix{};
+  result:={};
   [
     MacroLocal(taylorvariable);
     MacroSet(taylorvariable,taylorat);
     DestructiveAppend(result,Eval(taylorfunction));
   ];
-  diffelixtaylorfunction;
-  polffelix(taylorvariable-taylorat);
-  For(nfelix1,nkingtaylororder,n++)
+  dif:=taylorfunction;
+  polf:=(taylorvariable-taylorat);
+  For(n:=1,n<=taylororder,n++)
   [
-    diffelix Deriv(taylorvariable) dif;
+    dif:= Deriv(taylorvariable) dif;
     MacroLocal(taylorvariable);
     MacroSet(taylorvariable,taylorat);
     DestructiveAppend(result,(Eval(dif)/n!));

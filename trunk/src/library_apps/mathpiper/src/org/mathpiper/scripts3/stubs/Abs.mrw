@@ -1,4 +1,4 @@
-%mathpiper,defelanorAbs"
+%mathpiper,def="Abs"
 
 10 # Abs(Infinity) 	<-- Infinity; //Note:tk:moved here from stdfuncts.
 
@@ -23,7 +23,7 @@
 
 
 
-%mathpiper_docs,nameelanorAbs"
+%mathpiper_docs,name="Abs"
 *CMD Abs --- absolute value or modulus of complex number
 *STD
 *CALL

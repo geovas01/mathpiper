@@ -1,4 +1,4 @@
-%mathpiper,defelanorTanh"
+%mathpiper,def="Tanh"
 
 2 # Tanh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) == "Complex")) <-- N(Eval( Sinh(x)/Cosh(x) ));
 

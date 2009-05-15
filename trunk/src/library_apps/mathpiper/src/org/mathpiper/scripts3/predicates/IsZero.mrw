@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsZero"
+%mathpiper,def="IsZero"
 
 //10 # IsZero(x_IsNumber) <-- (DivideN( Round( MultiplyN(x, 10^BuiltinPrecisionGet()) ), 10^BuiltinPrecisionGet() ) == 0);
 
@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,nameelanorIsZero"
+%mathpiper_docs,name="IsZero"
 *CMD IsZero --- test whether argument is zero
 *STD
 *CALL

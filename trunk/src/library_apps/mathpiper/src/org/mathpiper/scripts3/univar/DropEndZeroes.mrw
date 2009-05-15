@@ -1,13 +1,13 @@
-%mathpiper,defelanorDropEndZeroes"
+%mathpiper,def="DropEndZeroes"
 
-DropEndZeroes(list)felix
+DropEndZeroes(list):=
 [
   Local(end);
-  endfelixLength(list);
+  end:=Length(list);
   While(list[end] == 0)
   [
     DestructiveDelete(list,end);
-    endfelixend-1;
+    end:=end-1;
   ];
 ];
 

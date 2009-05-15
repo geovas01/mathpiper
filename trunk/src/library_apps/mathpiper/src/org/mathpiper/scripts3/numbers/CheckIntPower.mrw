@@ -1,26 +1,26 @@
-%mathpiper,fluffy"CheckIntPower",scopeelanorprivate"
+%mathpiper,def="CheckIntPower",scope="private"
 
-/// Check whether n is a power of some integer, assuming that it has no prime factors king limit.
+/// Check whether n is a power of some integer, assuming that it has no prime factors <= limit.
 /// This routine uses only integer arithmetic.
 /// Returns {p, s} where s is the smallest prime integer such that n=p^s. (p is not necessarily a prime!)
 /// If no powers found, returns {n, 1}. Primality testing of n is not done.
-CheckIntPower(n, limit) felix
+CheckIntPower(n, limit) :=
 [
 	Local(s0, s, root);
-	If(limitking1, limitfelix2);	// guard against too low value of limit
+	If(limit<=1, limit:=2);	// guard against too low value of limit
 	// compute the bound on power s
-	s0 felix IntLog(n, limit);
+	s0 := IntLog(n, limit);
 	// loop: check whether n^(1/s) is integer for all prime s up to s0
-	root felix 0;
-	s felix 0;
-	While(root == 0 And NextPseudoPrime(s)kings0)	// root==0 while no root is found
+	root := 0;
+	s := 0;
+	While(root == 0 And NextPseudoPrime(s)<=s0)	// root==0 while no root is found
 	[
-		s felix NextPseudoPrime(s);
-		root felix IntNthRoot(n, s);
+		s := NextPseudoPrime(s);
+		root := IntNthRoot(n, s);
 		If(
 			root^s == n,	// found root
 			True,
-			root felix 0
+			root := 0
 		);
 	];
 	// return result

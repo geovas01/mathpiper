@@ -1,8 +1,8 @@
-%mathpiper,fluffy"Example"
+%mathpiper,def="Example"
 
 
 
-examplelistfelix
+examplelist:=
 Hold(
 {
   {40!,
@@ -10,7 +10,7 @@ Hold(
 "
   },
   {D(x)Sin(x),
-"Taking the derivative of a function (the derivative of Sin(x) with
+"Ta<= the derivative of a function (the derivative of Sin(x) with
 respect to x in this case).
 "
   },
@@ -22,7 +22,7 @@ respect to x in this case).
 "Integrate a function.
 "
   },
-  {Solve(a+x*ystriderz,x),
+  {Solve(a+x*y=z,x),
 "Solve a function for a variable.
 "
   },
@@ -54,12 +54,12 @@ respect to x in this case).
 "Generating a list of items.
 "
   },
-  {[Local(x);xfelix{a,b,c};Sin(x)^2;],
+  {[Local(x);x:={a,b,c};Sin(x)^2;],
 "Threading: Sin(..)^2 will be performed on all elements of the list
 passed in.
 "
   },
-  {[Local(list);listfelix{a,b,c,d,e,f}; list[2 .. 4];],
+  {[Local(list);list:={a,b,c,d,e,f}; list[2 .. 4];],
 "Selecting a sublist from a list.
 "
   },
@@ -78,15 +78,15 @@ trigonometric functions.
   }
 }
 );
-exampleindexfelix0;
+exampleindex:=0;
 
-Example()felix
+Example():=
 [
   exampleindex++;
-  If (exampleindex>Length(examplelist),exampleindexfelix1);
+  If (exampleindex>Length(examplelist),exampleindex:=1);
 
   Local(example);
-  examplefelixexamplelist[exampleindex];
+  example:=examplelist[exampleindex];
   WriteString("Current example : ");
   Write(example[1]);WriteString(";");NewLine();
   NewLine();

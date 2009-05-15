@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Union"
+%mathpiper,def="Union"
 
 Function("Union",{list1,list2})
 [
@@ -9,7 +9,7 @@ Function("Union",{list1,list2})
 
 
 
-%mathpiper_docs,nameelanorUnion"
+%mathpiper_docs,name="Union"
 *CMD Union --- return the union of two lists
 *STD
 *CALL

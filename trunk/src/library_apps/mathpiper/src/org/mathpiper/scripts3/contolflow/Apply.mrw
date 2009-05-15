@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Apply"
+%mathpiper,def="Apply"
 
 10 # Apply(_applyoper,_applyargs) _ (Or(IsString(applyoper), IsList(applyoper))) <-- ApplyPure(applyoper,applyargs);
 20 # Apply(applyoper_IsAtom,_applyargs) <-- ApplyPure(String(applyoper),applyargs);
@@ -10,7 +10,7 @@ UnFence("Apply",2);
 
 
 
-%mathpiper_docs,nameelanorApply"
+%mathpiper_docs,name="Apply"
 *CMD Apply --- apply a function to arguments
 *STD
 *CALL

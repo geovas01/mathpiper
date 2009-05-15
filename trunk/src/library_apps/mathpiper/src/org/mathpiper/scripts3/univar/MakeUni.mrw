@@ -1,4 +1,4 @@
-%mathpiper,defelanorMakeUni"
+%mathpiper,def="MakeUni"
 
 Function("MakeUni",{expression}) MakeUni(expression,UniVarList(expression));
 
@@ -9,10 +9,10 @@ RuleBase("MakeUni",{expression,var});
 6 # MakeUni(_expr,var_IsList) <--
 [
   Local(result,item);
-  resultfelixexpression;
+  result:=expression;
   ForEach(item,var)
   [
-    resultfelixMakeUni(result,item);
+    result:=MakeUni(result,item);
   ];
   result;
 ];
@@ -23,7 +23,7 @@ RuleBase("MakeUni",{expression,var});
 20 # MakeUni(UniVariate(_v,_first,_coefs),_var) <--
 [
   Local(reslist,item);
-  reslistfelix{};
+  reslist:={};
   ForEach(item,expression[3])
   [
     If(IsFreeOf(var,item),

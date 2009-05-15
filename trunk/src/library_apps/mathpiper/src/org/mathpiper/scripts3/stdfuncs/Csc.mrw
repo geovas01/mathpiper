@@ -1,4 +1,4 @@
-%mathpiper,defelanorCsc"
+%mathpiper,def="Csc"
 
 100 # 1/Csc(_x)		<-- Sin(x);
 

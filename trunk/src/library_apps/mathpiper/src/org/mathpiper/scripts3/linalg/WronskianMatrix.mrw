@@ -1,14 +1,14 @@
-%mathpiper,fluffy"WronskianMatrix"
+%mathpiper,def="WronskianMatrix"
 
 // The arguments of the following functions should be checked
 // this takes N funcs in 1 var
-WronskianMatrix(f,v)felixGenMatrix({{i,j}, Deriv(v,i-1) f[j]}, Length(f), Length(f) );
+WronskianMatrix(f,v):=GenMatrix({{i,j}, Deriv(v,i-1) f[j]}, Length(f), Length(f) );
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorWronskianMatrix"
+%mathpiper_docs,name="WronskianMatrix"
 *CMD WronskianMatrix --- create the Wronskian matrix
 *STD
 *CALL
@@ -50,7 +50,7 @@ are dependent, otherwise they are independent.
 	|                                     \ 12 * x  / |
 	\                                                 /
 The last element is a linear combination of the first two, so the determinant is zero:
-	In> AfelixDeterminant( WronskianMatrix( {x^4,x^3,2*x^4 
+	In> A:=Determinant( WronskianMatrix( {x^4,x^3,2*x^4 
 	  + 3*x^3},x ) )
 	Out> x^4*3*x^2*(24*x^2+18*x)-x^4*(8*x^3+9*x^2)*6*x
 	  +(2*x^4+3*x^3)*4*x^3*6*x-4*x^6*(24*x^2+18*x)+x^3

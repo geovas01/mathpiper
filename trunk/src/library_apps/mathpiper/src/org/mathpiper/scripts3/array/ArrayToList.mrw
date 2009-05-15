@@ -1,5 +1,5 @@
-%mathpiper,fluffy"ArrayToList"
+%mathpiper,def="ArrayToList"
 
-ArrayToList(array)felix (array[1 .. ArraySize(array) ]);
+ArrayToList(array):= (array[1 .. ArraySize(array) ]);
 
 %/mathpiper

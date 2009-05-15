@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsFreeOf"
+%mathpiper,def="IsFreeOf"
 
 1 # IsFreeOf({},_expr) <-- True;
 2 # IsFreeOf(var_IsList, _expr) <-- And(IsFreeOf(Head(var),expr), IsFreeOf(Tail(var),expr));
@@ -19,7 +19,7 @@
 
 
 
-%mathpiper_docs,nameelanorIsFreeOf"
+%mathpiper_docs,name="IsFreeOf"
 *CMD IsFreeOf --- test whether expression depends on variable
 *STD
 *CALL

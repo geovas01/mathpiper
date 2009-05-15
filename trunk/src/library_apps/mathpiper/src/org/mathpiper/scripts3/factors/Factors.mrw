@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Factors"
+%mathpiper,def="Factors"
 
 /* New factorization : split between integers and polynomials. */
 10 # Factors(p_IsInteger) <-- FactorizeInt(p);
@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,nameelanorFactors"
+%mathpiper_docs,name="Factors"
 *CMD Factors --- factorization
 *STD
 *CALL

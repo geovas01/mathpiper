@@ -1,4 +1,4 @@
-%mathpiper,fluffy"AddGaussianFactor"
+%mathpiper,def="AddGaussianFactor"
 
 /* AddGaussianFactor: auxiliary function for Gaussian Factors.
 L is a lists of factors of the Gaussian integer z and p is a Gaussian prime
@@ -9,9 +9,9 @@ to the list */
 AddGaussianFactor(L_IsList,z_IsGaussianInteger,p_IsGaussianInteger) <--
 [
  Local(e);
- e felix0;
- While (IsGaussianInteger(zfelix z/p)) e++;
- If (e collar 0, DestructiveAppend(L,{p,e}));
+ e :=0;
+ While (IsGaussianInteger(z:= z/p)) e++;
+ If (e != 0, DestructiveAppend(L,{p,e}));
 ];
 
 %/mathpiper

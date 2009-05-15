@@ -1,5 +1,5 @@
-%mathpiper,fluffy"X"
+%mathpiper,def="X"
 
-x X y felix CrossProduct(x,y);
+x X y := CrossProduct(x,y);
 
 %/mathpiper

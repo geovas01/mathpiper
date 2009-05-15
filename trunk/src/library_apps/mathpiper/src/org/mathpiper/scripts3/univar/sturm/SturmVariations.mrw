@@ -1,12 +1,12 @@
-%mathpiper,defelanorSturmVariations"
+%mathpiper,def="SturmVariations"
 
 10 # SturmVariations(_S,Infinity) <--
 [
   Local(i,s);
-  sfelixFillList(0,Length(S));
-  For(ifelix1,ikingLength(S),i++)
+  s:=FillList(0,Length(S));
+  For(i:=1,i<=Length(S),i++)
   [
-    s[i] felix LeadingCoef(S[i]);
+    s[i] := LeadingCoef(S[i]);
   ];
   SturmVariations(s);
 ];
@@ -14,10 +14,10 @@
 10 # SturmVariations(_S,-Infinity) <--
 [
   Local(i,s);
-  sfelixFillList(0,Length(S));
-  For(ifelix1,ikingLength(S),i++)
+  s:=FillList(0,Length(S));
+  For(i:=1,i<=Length(S),i++)
   [
-    s[i] felix ((-1)^Degree(S[i]))*LeadingCoef(S[i]);
+    s[i] := ((-1)^Degree(S[i]))*LeadingCoef(S[i]);
   ];
   SturmVariations(s);
 ];
@@ -27,18 +27,18 @@ SturmVariations(_S) <--
 [
   Local(result,prev);
 //Echo("S = ",S);
-  resultfelix0;
-  While(Length(S)>0 And IsZero(S[1])) SfelixTail(S);
+  result:=0;
+  While(Length(S)>0 And IsZero(S[1])) S:=Tail(S);
 //Echo("S = ",S);
   if (Length(S)>0)
   [
-    prevfelixS[1];
+    prev:=S[1];
     ForEach(item,Tail(S))
     [
       if(Not IsZero(item))
       [
         if (prev*item < 0) [result++;];
-        prevfelixitem;
+        prev:=item;
       ];
     ];
   ];

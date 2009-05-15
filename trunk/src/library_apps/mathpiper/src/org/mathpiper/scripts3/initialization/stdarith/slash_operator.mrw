@@ -1,4 +1,4 @@
-%mathpiper,fluffy"/"
+%mathpiper,def="/"
 
 /* Division */
 
@@ -48,8 +48,8 @@
 250 # (x_IsList / _y)_(Not(IsList(y))) <--
 [
    Local(i,result);
-   resultfelix{};
-   For(ifelix1,ikingLength(x),i++)
+   result:={};
+   For(i:=1,i<=Length(x),i++)
    [ DestructiveInsert(result,i,x[i] / y); ];
    result;
 ];
@@ -57,8 +57,8 @@
 250 # (_x / y_IsList)_(Not(IsList(x))) <--
 [
    Local(i,result);
-   resultfelix{};
-   For(ifelix1,ikingLength(y),i++)
+   result:={};
+   For(i:=1,i<=Length(y),i++)
    [ DestructiveInsert(result,i,x/y[i]); ];
    result;
 ];

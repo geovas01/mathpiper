@@ -1,4 +1,4 @@
-%mathpiper,defelanorDelta"
+%mathpiper,def="Delta"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */

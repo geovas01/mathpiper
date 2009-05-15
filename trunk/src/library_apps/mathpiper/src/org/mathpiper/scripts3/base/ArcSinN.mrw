@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ArcSinN"
+%mathpiper,def="ArcSinN"
 
 Defun("ArcSinN",{int1})
 [

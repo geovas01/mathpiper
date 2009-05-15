@@ -1,5 +1,5 @@
-%mathpiper,fluffy"IsComplexII",scopeelanorprivate"
+%mathpiper,def="IsComplexII",scope="private"
 
-IsComplexII(_c) <-- (ImII(c) collar 0);
+IsComplexII(_c) <-- (ImII(c) != 0);
 
 %/mathpiper

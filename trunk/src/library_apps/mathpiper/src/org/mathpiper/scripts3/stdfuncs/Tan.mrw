@@ -1,4 +1,4 @@
-%mathpiper,defelanorTan"
+%mathpiper,def="Tan"
 
 1 # TanMap( _n )_(Not(IsRationalOrNumber(n))) <-- UnList({Atom("Tan"),n*Pi});
 2 # TanMap( _n )_(n<0) <-- -TanMap(-n);
@@ -41,7 +41,7 @@ Tan(xlist_IsList) <-- MapSingle("Tan",xlist);
 
 
 
-%mathpiper_docs,nameelanorTan"
+%mathpiper_docs,name="Tan"
 *CMD Tan --- trigonometric tangent function
 *STD
 *CALL

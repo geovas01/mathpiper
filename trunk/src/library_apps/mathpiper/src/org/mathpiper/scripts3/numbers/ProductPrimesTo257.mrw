@@ -1,14 +1,14 @@
-%mathpiper,fluffy"ProductPrimesTo257",scopeelanorprivate"
+%mathpiper,def="ProductPrimesTo257",scope="private"
 
-/// Product of small primes king 257. Computed only once.
+/// Product of small primes <= 257. Computed only once.
 LocalSymbols(p, q)
 [
-	// pfelix 1;
-	ProductPrimesTo257() felix 2*3*[
+	// p:= 1;
+	ProductPrimesTo257() := 2*3*[
 		If(
 			IsInteger(p),
 			p,
-			p felix Factorize(Select({{q}, Mod(q^2,24)==1 And IsSmallPrime(q)}, 5 .. 257))
+			p := Factorize(Select({{q}, Mod(q^2,24)==1 And IsSmallPrime(q)}, 5 .. 257))
 		);
 //		p;
 	];

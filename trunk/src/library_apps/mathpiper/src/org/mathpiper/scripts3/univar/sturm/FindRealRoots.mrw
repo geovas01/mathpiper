@@ -1,10 +1,10 @@
-%mathpiper,defelanorFindRealRoots"
+%mathpiper,def="FindRealRoots"
 
 FindRealRoots(_p) <--
 [
 //Echo("0...");
 //Echo("0...");
-  pfelixSquareFree(Rationalize(p));
+  p:=SquareFree(Rationalize(p));
 //Echo("1...");
 //Echo("2...",MinimumBound(p));
 //Echo("3...",MaximumBound(p));
@@ -15,55 +15,55 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
 [
   Local(bounds,result,i,prec,requiredPrec);
 //Echo("bounds1");
-  bounds felix BoundRealRoots(p,Mmin,Mmax);
+  bounds := BoundRealRoots(p,Mmin,Mmax);
 //Echo("bounds2");
-  resultfelixFillList(0,Length(bounds));
-  requiredPrec felix BuiltinPrecisionGet();
+  result:=FillList(0,Length(bounds));
+  requiredPrec := BuiltinPrecisionGet();
   BuiltinPrecisionSet(BuiltinPrecisionGet()+2);
-  precfelix10^-(requiredPrec+1);
+  prec:=10^-(requiredPrec+1);
 
-  For(ifelix1,ikingLength(bounds),i++)
+  For(i:=1,i<=Length(bounds),i++)
   [
     Local(a,b,c,r);
-    {a,b} felix bounds[i];
-    cfelixN(Eval((a+b)/2));
+    {a,b} := bounds[i];
+    c:=N(Eval((a+b)/2));
 //Echo(a,b,c);
-    r felix Fail;
+    r := Fail;
 //Echo("newton1",`Hold(Newton(@p,x,@c,@prec,@a,@b)));
-    if (a collar b) [r felix `Newton(@p,x,@c,prec,a,b);];
+    if (a != b) [r := `Newton(@p,x,@c,prec,a,b);];
 //Echo("newton2",r," ",CurrentFile(),CurrentLine());
     if (r == Fail)
     [
       Local(c,cold,pa,pb,pc);
-      pafelix(p Where xstridera);
-      pbfelix(p Where xstriderb);
-      cfelix((a+b)/2);
-      cold felix a;
+      pa:=(p Where x=a);
+      pb:=(p Where x=b);
+      c:=((a+b)/2);
+      cold := a;
       While (Abs(cold-c)>prec)
       [
-        pcfelix(p Where xstriderc);
+        pc:=(p Where x=c);
 //Echo(a,b,c);
         if (Abs(pc) < prec)
         [
-          afelixc;
-          bfelixc;
+          a:=c;
+          b:=c;
         ]
         else if (pa*pc < 0)
         [
-          bfelixc;
-          pbfelixpc;
+          b:=c;
+          pb:=pc;
         ]
         else
         [
-          afelixc;
-          pafelixpc;
+          a:=c;
+          pa:=pc;
         ];
-        coldfelixc;
-        cfelix((a+b)/2);
+        cold:=c;
+        c:=((a+b)/2);
       ];
-      rfelixc;
+      r:=c;
     ];
-    result[i] felix N(Eval((r/10)*(10)),requiredPrec);
+    result[i] := N(Eval((r/10)*(10)),requiredPrec);
   ];
   BuiltinPrecisionSet(requiredPrec);
   result;
@@ -73,7 +73,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
 
 
 
-%mathpiper_docs,nameelanorFindRealRoots"
+%mathpiper_docs,name="FindRealRoots"
 *CMD FindRealRoots --- find the real roots of a polynomial
 *STD
 *CALL
@@ -91,7 +91,7 @@ of the result can be improved by increasing the calculation precision.
 
 *E.G. notest
 
-	In> pfelixExpand((x+3.1)^5*(x-6.23))
+	In> p:=Expand((x+3.1)^5*(x-6.23))
 	Out> x^6+9.27*x^5-0.465*x^4-300.793*x^3-
 	1394.2188*x^2-2590.476405*x-1783.5961073;
 	In> FindRealRoots(p)

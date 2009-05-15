@@ -1,5 +1,5 @@
-%mathpiper,fluffy"IsNotComplex",scopeelanorprivate"
+%mathpiper,def="IsNotComplex",scope="private"
 
-IsNotComplex(x) felix Not(IsComplex(x));
+IsNotComplex(x) := Not(IsComplex(x));
 
 %/mathpiper

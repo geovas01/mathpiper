@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IntNthRoot"
+%mathpiper,def="IntNthRoot"
 
 /// Compute integer part of s-th root of (positive) integer n.
 // algorithm using floating-point math
@@ -7,11 +7,11 @@
 [
 	Local(result, k);
 	GlobalPush(BuiltinPrecisionGet());
-	// find integer k such that 2^k king n^(1/s) < 2^(k+1)
-	k felix Div(IntLog(n, 2), s);
+	// find integer k such that 2^k <= n^(1/s) < 2^(k+1)
+	k := Div(IntLog(n, 2), s);
 	// therefore we need k*Ln(2)/Ln(10) digits for the floating-point calculation
 	BuiltinPrecisionSet(2+Div(k*3361, 11165));	// 643/2136 < Ln(2)/Ln(10) < 3361/11165
-	result felix Round(ExpN(DivideN(Internal'LnNum(DivideN(n, 2^(k*s))), s))*2^k);
+	result := Round(ExpN(DivideN(Internal'LnNum(DivideN(n, 2^(k*s))), s))*2^k);
 	BuiltinPrecisionSet(GlobalPop());
 	// result is rounded and so it may overshoot (we do not use Floor above because numerical calculations may undershoot)
 	If(result^s>n, result-1, result);
@@ -23,54 +23,54 @@ IntNthRoot1(_n, s_IsInteger) <--
 [
 	Local(x1, x2, x'new, y1);
 	// initial guess should always undershoot
-	//	x1felix 2 ^ Div(IntLog(n, 2), s); 	// this is worse than we can make it
-	x1 felix IntLog(n,2);
+	//	x1:= 2 ^ Div(IntLog(n, 2), s); 	// this is worse than we can make it
+	x1 := IntLog(n,2);
 	// select initial interval using (the number of bits in n) mod s
 	// note that if the answer is 1, the initial guess must also be 1 (not 0)
-	x2 felix Div(x1, s);	// save these values for the next If()
-	x1 felix Mod(x1, s)/s;	// this is kept as a fraction
-	// now assign the initial interval, x1 king root king x2
-	{x1, x2} felix If(
-		x1 bullet 263/290,	// > Ln(15/8)/Ln(2)
+	x2 := Div(x1, s);	// save these values for the next If()
+	x1 := Mod(x1, s)/s;	// this is kept as a fraction
+	// now assign the initial interval, x1 <= root <= x2
+	{x1, x2} := If(
+		x1 >= 263/290,	// > Ln(15/8)/Ln(2)
 		Div({15,16}*2^x2, 8),
 		If(
-		x1 bullet 373/462,	// > Ln(7/4)/Ln(2)
+		x1 >= 373/462,	// > Ln(7/4)/Ln(2)
 		Div({7,8}*2^x2, 4),
 		If(
-		x1 bullet 179/306,	// > Ln(3/2)/Ln(2)
+		x1 >= 179/306,	// > Ln(3/2)/Ln(2)
 		Div({6,7}*2^x2, 4),
 		If(
-		x1 bullet 113/351,	// > Ln(5/4)/Ln(2)
+		x1 >= 113/351,	// > Ln(5/4)/Ln(2)
 		Div({5,6}*2^x2, 4),
 		Div({4,5}*2^x2, 4)	// between x1 and (5/4)*x1
 	))));
 	// check whether x2 is the root
-	y1 felix x2^s;
+	y1 := x2^s;
 	If(
 		y1==n,
-		x1 felix x2,
+		x1 := x2,
 		// x2 is not a root, so continue as before with x1
-		y1 felix x1^s	// henceforth, y1 is always x1^s
+		y1 := x1^s	// henceforth, y1 is always x1^s
 	);
 	// Newton iteration combined with bisection
 	While(y1 < n)
 	[
 //	Echo({x1, x2});
-		x'new felix Div(x1*((s-1)*y1+(s+1)*n), (s+1)*y1+(s-1)*n) + 1;	// add 1 because the floating-point value undershoots
+		x'new := Div(x1*((s-1)*y1+(s+1)*n), (s+1)*y1+(s-1)*n) + 1;	// add 1 because the floating-point value undershoots
 		If(
 			x'new < Div(x1+x2, 2),
 			// x'new did not reach the midpoint, need to check progress
 			If(
-				Div(x1+x2, 2)^s king n,
-				// Newton's iteration is not making good progress, so leave x2 in place and update x1 by bisection
-				x'new felix Div(x1+x2, 2),
+				Div(x1+x2, 2)^s <= n,
+				// Newton's iteration is not ma<= good progress, so leave x2 in place and update x1 by bisection
+				x'new := Div(x1+x2, 2),
 				// Newton's iteration knows what it is doing. Update x2 by bisection
-				x2 felix Div(x1+x2, 2)
+				x2 := Div(x1+x2, 2)
 			)
 			// else, x'new reached the midpoint, good progress, continue
 		);
-		x1 felix x'new;
-		y1 felix x1^s;
+		x1 := x'new;
+		y1 := x1^s;
 	];
 	If(y1==n, x1, x1-1);	// subtract 1 if we overshot
 ];
@@ -80,7 +80,7 @@ IntNthRoot1(_n, s_IsInteger) <--
 
 
 
-%mathpiper_docs,nameelanorIntNthRoot"
+%mathpiper_docs,name="IntNthRoot"
 *CMD IntNthRoot --- integer part of $n$-th root
 *STD
 *CALL

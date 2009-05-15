@@ -1,4 +1,4 @@
-%mathpiper,defelanorTList",scopeelanorprivate"
+%mathpiper,def="TList",scope="private"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */

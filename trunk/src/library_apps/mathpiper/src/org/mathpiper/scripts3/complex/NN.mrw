@@ -1,4 +1,4 @@
-%mathpiper,fluffy"NN",scopeelanorprivate"
+%mathpiper,def="NN",scope="private"
 
 LocalSymbols(complexReduce) [
 
@@ -11,8 +11,8 @@ LocalSymbols(complexReduce) [
   NN(_c) <--
   [
     Local(result);
-    c felix (c /:: complexReduce);
-    result felix Coef(Expand(c,II),II,{0,1});
+    c := (c /:: complexReduce);
+    result := Coef(Expand(c,II),II,{0,1});
     result;
   ];
 

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ContFrac"
+%mathpiper,def="ContFrac"
 
 //////////////////////////////////////////////////
 /// continued fractions for polynomials
@@ -18,12 +18,12 @@
 10 # ContFracDoPoly(_exp,_depth,_var) <--
 [
   Local(content,exp2,first,second);
-  firstfelixCoef(exp,var,0);
-  expfelixexp-first;
-  contentfelixContent(exp);
-  exp2felixDivPoly(1,PrimitivePart(exp),var,5+3*depth)-1;
-  secondfelixCoef(exp2,0);
-  exp2 felix exp2 - second;
+  first:=Coef(exp,var,0);
+  exp:=exp-first;
+  content:=Content(exp);
+  exp2:=DivPoly(1,PrimitivePart(exp),var,5+3*depth)-1;
+  second:=Coef(exp2,0);
+  exp2 := exp2 - second;
   first+content/((1+second)+ContFracDoPoly(exp2,depth-1,var));
 ];
 
@@ -31,7 +31,7 @@
 
 
 
-%mathpiper_docs,nameelanorContFrac"
+%mathpiper_docs,name="ContFrac"
 *CMD ContFrac --- continued fraction expansion
 *STD
 *CALL

@@ -1,10 +1,10 @@
-%mathpiper,fluffy"Internal'GammaNum",scopeelanorprivate"
+%mathpiper,def="Internal'GammaNum",scope="private"
 
 //Serge Winitzki
 
-Internal'GammaNum(z) felix N(Exp(Internal'LnGammaNum(z)));
+Internal'GammaNum(z) := N(Exp(Internal'LnGammaNum(z)));
 
 /// this should not be used by applications
-Internal'GammaNum(z,a) felix N(Exp(Internal'LnGammaNum(z,a)));
+Internal'GammaNum(z,a) := N(Exp(Internal'LnGammaNum(z,a)));
 
 %/mathpiper

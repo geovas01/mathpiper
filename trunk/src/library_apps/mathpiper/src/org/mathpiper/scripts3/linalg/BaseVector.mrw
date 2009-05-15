@@ -1,10 +1,10 @@
-%mathpiper,fluffy"BaseVector"
+%mathpiper,def="BaseVector"
 
 Function("BaseVector",{row,n})
 [
     Local(i,result);
-    resultfelixZeroVector(n);
-    result[row] felix 1;
+    result:=ZeroVector(n);
+    result[row] := 1;
     result;
 ];
 
@@ -12,7 +12,7 @@ Function("BaseVector",{row,n})
 
 
 
-%mathpiper_docs,nameelanorBaseVector"
+%mathpiper_docs,name="BaseVector"
 *CMD BaseVector --- base vector
 *STD
 *CALL

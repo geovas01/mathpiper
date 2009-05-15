@@ -1,10 +1,10 @@
-%mathpiper,defelanorNumRealRoots"
+%mathpiper,def="NumRealRoots"
 
 NumRealRoots(_p) <--
 [
   Local(S);
-  pfelixSquareFree(Rationalize(p));
-  SfelixSturmSequence(p);
+  p:=SquareFree(Rationalize(p));
+  S:=SturmSequence(p);
   SturmVariations(S,-Infinity)-SturmVariations(S,Infinity);
 ];
 
@@ -12,7 +12,7 @@ NumRealRoots(_p) <--
 
 
 
-%mathpiper_docs,nameelanorNumRealRoots"
+%mathpiper_docs,name="NumRealRoots"
 *CMD NumRealRoots --- return the number of real roots of a polynomial
 *STD
 *CALL

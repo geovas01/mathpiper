@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsRationalOrNumber"
+%mathpiper,def="IsRationalOrNumber"
 
 10 # IsRationalOrNumber(x_IsNumber) <-- True;
 10 # IsRationalOrNumber(x_IsNumber / y_IsNumber) <-- True;

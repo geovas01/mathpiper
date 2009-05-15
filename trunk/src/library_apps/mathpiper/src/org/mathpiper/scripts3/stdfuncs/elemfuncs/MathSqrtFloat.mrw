@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MathSqrtFloat",scopeelanorprivate"
+%mathpiper,def="MathSqrtFloat",scope="private"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -15,46 +15,46 @@
 MathSqrtFloat(_A) <--
 [
 	Local(bitshift, a0, x0, x0sq, targetbits, subtargetbits, gotbits, targetprec);
-	bitshift felix ShiftRight(MathBitCount(A)-1,1);
+	bitshift := ShiftRight(MathBitCount(A)-1,1);
 	// this is how many bits of precision we need
-	targetprec felix BuiltinPrecisionGet();
+	targetprec := BuiltinPrecisionGet();
 	// argument reduction: a0 is between 1 and 4 and has the full target precision
-	a0 felix MathMul2Exp(A, -bitshift*2);	// this bit shift would be wrong for integer A
+	a0 := MathMul2Exp(A, -bitshift*2);	// this bit shift would be wrong for integer A
 	BuiltinPrecisionSet(10);	// enough to compute at this point
 	// cannot get more target bits than 1 + (the bits in A)
 	// if this is less than the requested precision, the result will be silently less precise, but c'est la vie
-	targetbits felix Min(DigitsToBits(targetprec, 10), 1+GetExactBitsN(A));
+	targetbits := Min(DigitsToBits(targetprec, 10), 1+GetExactBitsN(A));
 	// initial approximation
-	x0 felix DivideN(14+22*a0, 31+5*a0);
-	// this approximation gives at least 7 bits (relative error < 0.005) of Sqrt(a0) for 1 king a0 king 4
-	gotbits felix 7;
+	x0 := DivideN(14+22*a0, 31+5*a0);
+	// this approximation gives at least 7 bits (relative error < 0.005) of Sqrt(a0) for 1 <= a0 <= 4
+	gotbits := 7;
 	// find the conditions for the last 2 iterations to be done in almost optimal precision
-	subtargetbits felix DivN(targetbits+8, 9);
-	If(gotbits bullet subtargetbits, subtargetbits felix DivN(targetbits+2, 3));
-	If(gotbits bullet subtargetbits, subtargetbits felix targetbits*4);
-//	Echo("debug: subtargetbitselanor, subtargetbits, "a0elanor, a0, "targetbitselanor, targetbits, "bitshiftelanor, bitshift, "targetprecelanor, targetprec);
+	subtargetbits := DivN(targetbits+8, 9);
+	If(gotbits >= subtargetbits, subtargetbits := DivN(targetbits+2, 3));
+	If(gotbits >= subtargetbits, subtargetbits := targetbits*4);
+//	Echo("debug: subtargetbits=", subtargetbits, "a0=", a0, "targetbits=", targetbits, "bitshift=", bitshift, "targetprec=", targetprec);
 	// now perform Halley iterations until we get at least subtargetbits, then start with subtargetbits and perform further Halley iterations
 	While(gotbits < targetbits)
 	[
-		gotbits felix 3*gotbits+1;	// Halley iteration; get 3n+2 bits, allow 1 bit for roundoff
+		gotbits := 3*gotbits+1;	// Halley iteration; get 3n+2 bits, allow 1 bit for roundoff
 		// check for suboptimal last iterations
-		If(gotbits bullet subtargetbits,
+		If(gotbits >= subtargetbits,
 		[	// it could be very suboptimal to continue with our value of gotbits, so we curb precision for the last 2 iterations which dominate the calculation time at high precision
-			gotbits felix subtargetbits;
-			subtargetbits felix targetbits*4;	// make sure that the above condition never becomes true again
+			gotbits := subtargetbits;
+			subtargetbits := targetbits*4;	// make sure that the above condition never becomes true again
 		]);
 		BuiltinPrecisionSet(BitsToDigits(gotbits, 10)+2);	// guard digits
-		x0 felix SetExactBitsN(x0, gotbits+6);	// avoid roundoff
-		x0sq felix MultiplyN(x0, x0);
-// this gives too much roundoff error		x0 felix MultiplyN(x0, DivideN(3*a0+x0sq, a0+3*x0sq));
+		x0 := SetExactBitsN(x0, gotbits+6);	// avoid roundoff
+		x0sq := MultiplyN(x0, x0);
+// this gives too much roundoff error		x0 := MultiplyN(x0, DivideN(3*a0+x0sq, a0+3*x0sq));
 // rather use this equivalent formula:
-		x0 felix AddN(x0, MultiplyN(x0*2, DivideN(a0-x0sq, a0+3*x0sq)));
+		x0 := AddN(x0, MultiplyN(x0*2, DivideN(a0-x0sq, a0+3*x0sq)));
 //		Echo("debug: ", gotbits, x0, GetExactBitsN(x0), BuiltinPrecisionGet());
 	];
 	// avoid truncating a precise result in x0 by calling BuiltinPrecisionSet() too soon
-	x0 felix SetExactBitsN(MathMul2Exp(x0, bitshift), gotbits);
+	x0 := SetExactBitsN(MathMul2Exp(x0, bitshift), gotbits);
 	BuiltinPrecisionSet(targetprec);
-//	Echo("debug: answerelanor, x0);
+//	Echo("debug: answer=", x0);
 	x0;
 ];
 

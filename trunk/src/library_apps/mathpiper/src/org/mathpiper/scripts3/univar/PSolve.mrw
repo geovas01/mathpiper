@@ -1,4 +1,4 @@
-%mathpiper,defelanorPSolve"
+%mathpiper,def="PSolve"
 
 RuleBase("PSolve",{uni});
 
@@ -8,10 +8,10 @@ Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) == 1)
 Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) == 2)
     [
      Local(a,b,c,d);
-     cfelixCoef(uni,0);
-     bfelixCoef(uni,1);
-     afelixCoef(uni,2);
-     dfelixb*b-4*a*c;
+     c:=Coef(uni,0);
+     b:=Coef(uni,1);
+     a:=Coef(uni,2);
+     d:=b*b-4*a*c;
      {(-b+Sqrt(d))/(2*a),(-b-Sqrt(d))/(2*a)};
     ];
 
@@ -33,24 +33,24 @@ Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) == 3 )
    After solving g(x') = 0, return x = x' + adjust.
 */
 
-     adjust felix (-Coef(uni,2))/(3*Coef(uni,3));
-     coef3 felix Coef(uni,3);
-     coef1 felix 2*Coef(uni,2)*adjust+3*Coef(uni,3)*adjust^2+Coef(uni,1);
-     coef0 felix Coef(uni,2)*adjust^2+Coef(uni,3)*adjust^3+
+     adjust := (-Coef(uni,2))/(3*Coef(uni,3));
+     coef3 := Coef(uni,3);
+     coef1 := 2*Coef(uni,2)*adjust+3*Coef(uni,3)*adjust^2+Coef(uni,1);
+     coef0 := Coef(uni,2)*adjust^2+Coef(uni,3)*adjust^3+
               adjust*Coef(uni,1)+Coef(uni,0);
 
-     pfelixcoef3;
-     qfelixcoef1/p;
-     rfelixcoef0/p;
-    wfelixComplex(-1/2,Sqrt(3/4));
-    wwfelixComplex(-1/2,-Sqrt(3/4));
+     p:=coef3;
+     q:=coef1/p;
+     r:=coef0/p;
+    w:=Complex(-1/2,Sqrt(3/4));
+    ww:=Complex(-1/2,-Sqrt(3/4));
 
 /* Equation is xxx + qx + r = 0 */
 /* 	Let x = a + b
 	a^3 + b^3 + 3(aab + bba) + q(a + b) + r = 0
 	a^3 + b^3 + (3ab+q)x + r = 0
 
-	Let 3ab+q = 0. This is permissible, for we can still find a+b strider x
+	Let 3ab+q = 0. This is permissible, for we can still find a+b = x
 
 	a^3 + b^3 = -r
 	(ab)^3 = -q^3/27
@@ -61,11 +61,11 @@ Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) == 3 )
                 a^3 = -r/2 + Sqrt(q^3/27+ rr/4)
                 b^3 = -r/2 - Sqrt(q^3/27+ rr/4)
 	Therefore there are three values for each of a and b.
-	Clearly if ab = -q/3 is true then (wa)(wwb) strider (wb)(wwa) strider -q/3
+	Clearly if ab = -q/3 is true then (wa)(wwb) = (wb)(wwa) = -q/3
 */
 
-  afelix(-r/2 + Sqrt(q^3/27+ r*r/4))^(1/3);
-  bfelix(-r/2 - Sqrt(q^3/27+ r*r/4))^(1/3);
+  a:=(-r/2 + Sqrt(q^3/27+ r*r/4))^(1/3);
+  b:=(-r/2 - Sqrt(q^3/27+ r*r/4))^(1/3);
 
   {a+b+adjust,w*a+ww*b+adjust,ww*a+w*b+adjust};
 ];
@@ -88,7 +88,7 @@ the other three equations and rearranging gives
   2st = a1 q - a3          (6)
   t^2 = q^2 - a4           (7)
 We now take the square (6) and substitute (5) and (7):
-  4 (a1^2/4 - a2 + 2q) (q^2 - a4) = (a1 q - a3)^2  <strider>
+  4 (a1^2/4 - a2 + 2q) (q^2 - a4) = (a1 q - a3)^2  <=>
   8 q^3 - 4 a2 q^2 + (2 a1 a3 - 8 a4) q + 4 a2 a4 - a1^2 a4 - a3^2 = 0.
 Miraculously, we got a cubic equation for q. Suppose we can solve this
 equation. We can then compute t from (7): t = sqrt(q^2 - a4). If t is
@@ -107,16 +107,16 @@ Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) == 4 )
 [
     Local(coef4,a1,a2,a3,a4,y,y1,z,t,s);
 
-    coef4felixCoef(uni,4);
-    a1felixCoef(uni,3)/coef4;
-    a2felixCoef(uni,2)/coef4;
-    a3felixCoef(uni,1)/coef4;
-    a4felixCoef(uni,0)/coef4;
+    coef4:=Coef(uni,4);
+    a1:=Coef(uni,3)/coef4;
+    a2:=Coef(uni,2)/coef4;
+    a3:=Coef(uni,1)/coef4;
+    a4:=Coef(uni,0)/coef4;
 
     /* y1 = 2q, with q as above. */
-    y1felixHead(PSolve(y^3-a2*y^2+(a1*a3-4*a4)*y+(4*a2*a4-a3^2-a1^2*a4),y));
-    t felix Sqrt(y1^2/4-a4);
-    If(t==0, sfelixSqrt(y1+a1^2/4-a2), sfelix(a1*y1-2*a3)/(4*t));
+    y1:=Head(PSolve(y^3-a2*y^2+(a1*a3-4*a4)*y+(4*a2*a4-a3^2-a1^2*a4),y));
+    t := Sqrt(y1^2/4-a4);
+    If(t==0, s:=Sqrt(y1+a1^2/4-a2), s:=(a1*y1-2*a3)/(4*t));
     Concat(PSolve(z^2+(a1/2+s)*z+y1/2+t,z),
            PSolve(z^2+(a1/2-s)*z+y1/2-t,z));
 ];
@@ -130,7 +130,7 @@ Function("PSolve",{uni,var})
 
 
 
-%mathpiper_docs,nameelanorPSolve"
+%mathpiper_docs,name="PSolve"
 *CMD PSolve --- solve a polynomial equation
 *STD
 *CALL

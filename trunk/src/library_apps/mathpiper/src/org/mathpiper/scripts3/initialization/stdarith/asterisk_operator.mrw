@@ -1,4 +1,4 @@
-%mathpiper,fluffy"*"
+%mathpiper,def="*"
 
 /* Multiplication */
 
@@ -13,13 +13,13 @@
 95 # x_IsMatrix * y_IsMatrix <--
 [
    Local(i,j,k,row,result);
-   resultfelixZeroMatrix(Length(x),Length(y[1]));
-   For(ifelix1,ikingLength(x),i++)
-   For(jfelix1,jkingLength(y),j++)
-   For(kfelix1,kkingLength(y[1]),k++)
+   result:=ZeroMatrix(Length(x),Length(y[1]));
+   For(i:=1,i<=Length(x),i++)
+   For(j:=1,j<=Length(y),j++)
+   For(k:=1,k<=Length(y[1]),k++)
    [
-     rowfelixresult[i];
-     row[k]felix row[k]+x[i][j]*y[j][k];
+     row:=result[i];
+     row[k]:= row[k]+x[i][j]*y[j][k];
    ];
    result;
 ];
@@ -28,8 +28,8 @@
 96 # x_IsMatrix * y_IsList <--
 [
    Local(i,result);
-   resultfelix{};
-   For(ifelix1,ikingLength(x),i++)
+   result:={};
+   For(i:=1,i<=Length(x),i++)
    [ DestructiveInsert(result,i,x[i] . y); ];
    result;
 ];
@@ -39,8 +39,8 @@
 98 # (x_IsNonObject * y_IsList)_Not(IsList(x)) <--
 [
    Local(i,result);
-   resultfelix{};
-   For(ifelix1,ikingLength(y),i++)
+   result:={};
+   For(i:=1,i<=Length(y),i++)
    [ DestructiveInsert(result,i,x * y[i]); ];
    result;
 ];

@@ -1,4 +1,4 @@
-%mathpiper,defelanorLn"
+%mathpiper,def="Ln"
 
 2 # Ln(0)                    <-- -Infinity;
 2 # Ln(1)                    <-- 0;
@@ -7,7 +7,7 @@
 
 /* 2 # Ln(-Infinity)                    <-- 0; */
 2 # Ln(x_IsNegativeNumber)_InNumericMode() <-- Complex(Ln(-x), Pi);
-3 # Ln(x_IsNumber)_(InNumericMode() And xbullet1) <-- Internal'LnNum(x);
+3 # Ln(x_IsNumber)_(InNumericMode() And x>=1) <-- Internal'LnNum(x);
 4 # Ln(Exp(_x))              <-- x;
 
 3 # Ln(Complex(_r,_i)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));
@@ -20,7 +20,7 @@ Ln(xlist_IsList) <-- MapSingle("Ln",xlist);
 
 
 
-%mathpiper_docs,nameelanorLn"
+%mathpiper_docs,name="Ln"
 *CMD Ln --- natural logarithm
 *STD
 *CALL

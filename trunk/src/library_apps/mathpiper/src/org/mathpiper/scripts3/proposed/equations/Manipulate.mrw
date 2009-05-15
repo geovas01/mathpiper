@@ -6,28 +6,28 @@ Retract("Manipulate",*);
 
 RuleBase("Manipulate",{symbolicEquation});
 HoldArg("Manipulate",symbolicEquation);
-10 # Manipulate(_symbolicEquation)_HasFunc(Eval(symbolicEquation), "strider") <--
+10 # Manipulate(_symbolicEquation)_HasFunc(Eval(symbolicEquation), "=") <--
 [
     Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equationIndex, leftOrder, rightOrder);
 
-    listForm felix Listify(symbolicEquation);
+    listForm := Listify(symbolicEquation);
     
-    operator felix listForm[1];
+    operator := listForm[1];
     
-    If(HasFunc(Eval(listForm[2]),"strider" ), [operandIndex felix 3; equationIndex felix 2; ], [ operandIndex felix 2; equationIndex felix 3;]);
+    If(HasFunc(Eval(listForm[2]),"=" ), [operandIndex := 3; equationIndex := 2; ], [ operandIndex := 2; equationIndex := 3;]);
     
-    operand felix listForm[operandIndex];
-    equation felix Eval(listForm[equationIndex]);
-    left felix EquLeft(equation);
-    right felix EquRight(equation);
+    operand := listForm[operandIndex];
+    equation := Eval(listForm[equationIndex]);
+    left := EquLeft(equation);
+    right := EquRight(equation);
     
-    If(operandIndex == 3, [ leftOrder felix `({left,operand});rightOrder felix `({right,operand});],  [leftOrder felix `({operand,left}); rightOrder felix `({operand,right});]);
+    If(operandIndex == 3, [ leftOrder := `({left,operand});rightOrder := `({right,operand});],  [leftOrder := `({operand,left}); rightOrder := `({operand,right});]);
     
     
-    leftManipulated felix ExpandBrackets(Simplify(Apply(String(operator), leftOrder)));
-    rightManipulated felix ExpandBrackets(Simplify(Apply(String(operator), rightOrder)));   
+    leftManipulated := ExpandBrackets(Simplify(Apply(String(operator), leftOrder)));
+    rightManipulated := ExpandBrackets(Simplify(Apply(String(operator), rightOrder)));   
     
-    leftManipulated strider rightManipulated;
+    leftManipulated = rightManipulated;
 
 ];
 
@@ -35,18 +35,18 @@ HoldArg("Manipulate",symbolicEquation);
 
 
 
-%mathpiper,scopeelanornobuild",subtypeelanortest"
+%mathpiper,scope="nobuild",subtype="test"
 
 Clear(equ,a);
 
-equ felix y strider m*x+b;
+equ := y = m*x+b;
 Tell(1, Manipulate(2*equ));
 Tell(2, Manipulate(equ*2));
 Tell(3, Manipulate(2/equ));
 Tell(4, Manipulate(equ/2));
 Tell(5, Manipulate(equ^2));
 
-equ felix Sqrt(a) strider 3;
+equ := Sqrt(a) = 3;
 Tell(6, Manipulate(equ^2));
 
 %/mathpiper

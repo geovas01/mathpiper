@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Norm"
+%mathpiper,def="Norm"
 
 10 # Norm(_v) <-- PNorm(v,2);
 

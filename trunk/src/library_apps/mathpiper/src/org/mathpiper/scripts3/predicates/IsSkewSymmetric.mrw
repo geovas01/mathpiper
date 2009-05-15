@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsSkewSymmetric"
+%mathpiper,def="IsSkewSymmetric"
 
 IsSkewSymmetric(A_IsMatrix) <-- (Transpose(A)==(-1*A));
 
@@ -6,7 +6,7 @@ IsSkewSymmetric(A_IsMatrix) <-- (Transpose(A)==(-1*A));
 
 
 
-%mathpiper_docs,nameelanorIsSkewSymmetric"
+%mathpiper_docs,name="IsSkewSymmetric"
 *CMD IsSkewSymmetric --- test for a skew-symmetric matrix
 *STD
 *CALL
@@ -23,7 +23,7 @@ $A$ is skew symmetric iff $Transpose(A)$ =$-A$.
 
 *E.G.
 
-	In> A felix {{0,-1},{1,0}}
+	In> A := {{0,-1},{1,0}}
 	Out> {{0,-1},{1,0}};
 	In> PrettyForm(%)
 

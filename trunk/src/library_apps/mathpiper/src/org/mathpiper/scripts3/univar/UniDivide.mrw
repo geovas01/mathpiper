@@ -1,29 +1,29 @@
-%mathpiper,defelanorUniDivide"
+%mathpiper,def="UniDivide"
 
 /* division algo: (for zero-base univariates:) */
 Function("UniDivide",{u,v})
 [
   Local(m,n,q,r,k,j);
-  m felix Length(u)-1;
-  n felix Length(v)-1;
+  m := Length(u)-1;
+  n := Length(v)-1;
   While (m>0 And IsZero(u[m+1])) m--;
   While (n>0 And IsZero(v[n+1])) n--;
-  q felix ZeroVector(m-n+1);
-  r felix FlatCopy(u);  /*  (m should be bullet n) */
-  For(kfelixm-n,kbullet0,k--)
+  q := ZeroVector(m-n+1);
+  r := FlatCopy(u);  /*  (m should be >= n) */
+  For(k:=m-n,k>=0,k--)
   [
-    q[k+1] felix r[n+k+1]/v[n+1];
-    For (jfelixn+k-1,jbulletk,j--)
+    q[k+1] := r[n+k+1]/v[n+1];
+    For (j:=n+k-1,j>=k,j--)
     [
-      r[j+1] felix r[j+1] - q[k+1]*v[j-k+1];
+      r[j+1] := r[j+1] - q[k+1]*v[j-k+1];
     ];
   ];
   Local(end);
-  endfelixLength(r);
+  end:=Length(r);
   While (end>n)
   [
     DestructiveDelete(r,end);
-    endfelixend-1;
+    end:=end-1;
   ];
 
   {q,r};

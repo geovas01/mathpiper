@@ -1,4 +1,4 @@
-%mathpiper,fluffy"PAdicExpand"
+%mathpiper,def="PAdicExpand"
 
 /*
  TODO:
@@ -18,7 +18,7 @@
    Out( 2 ) = Sin(5);
 
    Alternative:
-   f(x)felix
+   f(x):=
    [
      UnHoldable(x);
      Sin(x);
@@ -42,7 +42,7 @@ Expand(x); /* TODO no idea why this is needed! Mod/Div/UniVariate thing :-( */
 10 # PAdicExpand(_x,_y) <--
 [
   Local(coefs);
-  coefsfelixPAdicExpandInternal(x,y);
+  coefs:=PAdicExpandInternal(x,y);
   Subst(p,y)Add(coefs*(p^(0 .. Length(coefs))));
 ];
 
@@ -50,7 +50,7 @@ Expand(x); /* TODO no idea why this is needed! Mod/Div/UniVariate thing :-( */
 
 
 
-%mathpiper_docs,nameelanorPAdicExpand"
+%mathpiper_docs,name="PAdicExpand"
 *CMD PAdicExpand --- p-adic expansion
 *STD
 *CALL

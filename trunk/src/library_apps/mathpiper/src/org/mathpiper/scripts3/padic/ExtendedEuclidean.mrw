@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ExtendedEuclidean"
+%mathpiper,def="ExtendedEuclidean"
 
 /* Extended Euclidean algorithm. Algorithm taken from
  * "Modern Computer Algebra". It does a Gcd calculation, but
@@ -23,19 +23,19 @@ ExtendedEuclidean(_f,_g) <--
    Local(r,s,t,i);
 
    /* Initialize the loop */
-   rfelix{f,g};
-   sfelix{1,0};
-   tfelix{0,1};
-   ifelix1;
+   r:={f,g};
+   s:={1,0};
+   t:={0,1};
+   i:=1;
 
    Local(q,newr,news,newt);
-   newrfelix1;
-   While(newr collar 0)
+   newr:=1;
+   While(newr != 0)
    [
-     newrfelixRem(r[i],r[i+1]);
-     q   felixDiv(r[i],r[i+1]);
-     news  felix(s[i]-q*s[i+1]);
-     newt  felix(t[i]-q*t[i+1]);
+     newr:=Rem(r[i],r[i+1]);
+     q   :=Div(r[i],r[i+1]);
+     news  :=(s[i]-q*s[i+1]);
+     newt  :=(t[i]-q*t[i+1]);
      DestructiveAppend(r  ,newr);
      DestructiveAppend(s,news);
      DestructiveAppend(t,newt);

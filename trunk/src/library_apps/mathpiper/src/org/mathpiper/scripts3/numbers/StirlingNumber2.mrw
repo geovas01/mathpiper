@@ -1,4 +1,4 @@
-%mathpiper,fluffy"StirlingNumber2"
+%mathpiper,def="StirlingNumber2"
 
 10 # StirlingNumber2(n_IsInteger,0) <-- If(n==0,1,0);
 20 # StirlingNumber2(n_IsInteger,k_IsInteger) <-- Sum(i,0,k-1,(-1)^i*Bin(k,i)*(k-i)^n)/ k! ;
@@ -7,7 +7,7 @@
 
 
 
-%mathpiper_docs,nameelanorStirlingNumber2"
+%mathpiper_docs,name="StirlingNumber2"
 *CMD StirlingNumber2 --- return the {n,m}th Stirling Number of the second kind
 *STD
 *CALL

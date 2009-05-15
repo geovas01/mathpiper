@@ -1,4 +1,4 @@
-%mathpiper,fluffy"BinSplitNum;BinSplitData;BinSplitFinal"
+%mathpiper,def="BinSplitNum;BinSplitData;BinSplitFinal"
 
 /*
 def file definitions
@@ -18,7 +18,7 @@ BinSplitFinal
 
 
 /// High-level interface routine
-BinSplitNum(m,n,a,b,p,q) felix BinSplitFinal(BinSplitData(m,n,a,b,p,q));
+BinSplitNum(m,n,a,b,p,q) := BinSplitFinal(BinSplitData(m,n,a,b,p,q));
 
 /// Low-level routine: compute the floating-point answer from P, Q, B, T data
 BinSplitFinal({_P,_Q,_B,_T}) <-- DivideN(T, MultiplyN(B, Q));
@@ -49,7 +49,7 @@ BinSplitCombine({_P1, _Q1, _B1, _T1}, {_P2, _Q2, _B2, _T2}) <-- {P1*P2, Q1*Q2, B
 
 
 
-%mathpiper_docs,nameelanorBinSplitNum;BinSplitData;BinSplitFinal"
+%mathpiper_docs,name="BinSplitNum;BinSplitData;BinSplitFinal"
 *CMD BinSplitNum --- computations of series by the binary splitting method
 *CMD BinSplitData --- computations of series by the binary splitting method
 *CMD BinSplitFinal --- computations of series by the binary splitting method

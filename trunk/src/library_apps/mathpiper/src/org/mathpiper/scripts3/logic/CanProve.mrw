@@ -1,4 +1,4 @@
-%mathpiper,fluffy"CanProve"
+%mathpiper,def="CanProve"
 
 /* Small theorem prover for propositional logic, based on the
  * resolution principle.
@@ -15,7 +15,7 @@ CanProve(a  And   Not a)                 <-- False
 CanProve(a  Or b Or (a And b))           <-- a Or b
  */
 
- // <strider> LogicSimplify(expr, 3)
+ // <=> LogicSimplify(expr, 3)
 
 /* CanProve tries to prove that the negation of the negation of
    the proposition is true. Negating twice is just a trick to
@@ -31,7 +31,7 @@ CanProve(_proposition)      <-- CanProveAux( proposition );
 
 
 
-%mathpiper_docs,nameelanorCanProve"
+%mathpiper_docs,name="CanProve"
 *CMD CanProve --- try to prove statement
 *STD
 *CALL

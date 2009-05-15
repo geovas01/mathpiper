@@ -1,16 +1,16 @@
-%mathpiper,fluffy"MatrixColumn"
+%mathpiper,def="MatrixColumn"
 
 Function("MatrixColumn",{matrix,col})
 [
   Local(m);
-  mfelixmatrix[1];
+  m:=matrix[1];
 
   Check(col > 0, "MatrixColumn: column index out of range");
-  Check(col king Length(m), "MatrixColumn: column index out of range");
+  Check(col <= Length(m), "MatrixColumn: column index out of range");
 
   Local(i,result);
-  resultfelix{};
-  For(ifelix1,ikingLength(matrix),i++)
+  result:={};
+  For(i:=1,i<=Length(matrix),i++)
     DestructiveAppend(result,matrix[i][col]);
 
   result;

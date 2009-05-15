@@ -1,4 +1,4 @@
-%mathpiper,defelanorTaylor"
+%mathpiper,def="Taylor"
 
 /*COMMENT FROM AYAL: Jitse, I added some code to make Taylor2 work in the most general case too I believe.
   Could you check to see if you agree with my changes? If that is correct, perhaps we can start calling Taylor2
@@ -7,7 +7,7 @@
 Function("Taylor",{taylorvariable,taylorat,taylororder,taylorfunction})
   Taylor1(taylorvariable,taylorat,taylororder)(taylorfunction);
 
-/*COMMENT FROM AYAL: this is the old slow but working version of Taylor series expansion. Jitse wrote a
+/*COMMENT FROM AYAL: this is the old slow but wor<= version of Taylor series expansion. Jitse wrote a
  * faster version which resides in taylor.mpi, and uses lazy power series. This slow but correct version is still
  * useful for tests (the old and the new routine should yield identical results).
  */
@@ -19,39 +19,39 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
     [
       MacroLocal(taylorvariable);
       MacroSet(taylorvariable, taylorat);
-      resultfelixEval(taylorfunction);
+      result:=Eval(taylorfunction);
     ];
     If(result==Undefined,
     [
-      resultfelixApply("Limit",{taylorvariable,taylorat,taylorfunction});
+      result:=Apply("Limit",{taylorvariable,taylorat,taylorfunction});
     ]);
 /*
     MacroSet(taylorvariable,taylorat);
-    resultfelixEval(taylorfunction);
+    result:=Eval(taylorfunction);
 */
   ];
-  diffelixtaylorfunction;
-  polffelix(taylorvariable-taylorat);
-  For(nfelix1,result collar Undefined And nkingtaylororder,n++)
+  dif:=taylorfunction;
+  polf:=(taylorvariable-taylorat);
+  For(n:=1,result != Undefined And n<=taylororder,n++)
   [
-    diffelix Deriv(taylorvariable) dif;
+    dif:= Deriv(taylorvariable) dif;
     Local(term);
     MacroLocal(taylorvariable);
     [
       MacroLocal(taylorvariable);
       MacroSet(taylorvariable, taylorat);
-      termfelixEval(dif);
+      term:=Eval(dif);
     ];
     If(term==Undefined,
     [
-      termfelixApply("Limit",{taylorvariable,taylorat,dif});
+      term:=Apply("Limit",{taylorvariable,taylorat,dif});
     ]);
 
-    resultfelixresult+(term/(n!))*(polf^n);
-/*    resultfelixresult+Apply("Limit",{taylorvariable,taylorat,(dif/(n!))})*(polf^n); */
+    result:=result+(term/(n!))*(polf^n);
+/*    result:=result+Apply("Limit",{taylorvariable,taylorat,(dif/(n!))})*(polf^n); */
 /*
     MacroSet(taylorvariable,taylorat);
-    resultfelixresult+(Eval(dif)/(n!))*(polf^n);
+    result:=result+(Eval(dif)/(n!))*(polf^n);
 */
   ];
   result;
@@ -61,7 +61,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
 
 
 
-%mathpiper_docs,nameelanorTaylor"
+%mathpiper_docs,name="Taylor"
 *CMD Taylor --- univariate Taylor series expansion
 *STD
 *CALL
@@ -84,7 +84,7 @@ This function returns the Taylor series expansion of the expression
 "order". This is a polynomial which agrees with "expr" at the
 point "var = at", and furthermore the first "order" derivatives of
 the polynomial at this point agree with "expr". Taylor expansions
-around removable singularities are correctly handled by taking the
+around removable singularities are correctly handled by ta<= the
 limit as "var" approaches "at".
 
 *E.G.

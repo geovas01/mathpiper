@@ -1,16 +1,16 @@
-%mathpiper,fluffy"Conjugate"
+%mathpiper,def="Conjugate"
 
 LocalSymbols(a,x)
 [
 Function("Conjugate",{a})
-  Substitute(a,{{x},Type(x)elanorComplex"},{{x},Complex(x[1],-(x[2]))});
+  Substitute(a,{{x},Type(x)="Complex"},{{x},Complex(x[1],-(x[2]))});
 ]; // LocalSymbols(a,x)
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorConjugate"
+%mathpiper_docs,name="Conjugate"
 *CMD Conjugate --- complex conjugate
 *STD
 *CALL

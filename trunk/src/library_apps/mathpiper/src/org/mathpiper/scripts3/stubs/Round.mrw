@@ -1,4 +1,4 @@
-%mathpiper,defelanorRound"
+%mathpiper,def="Round"
 
 5 # Round(Infinity) <-- Infinity;
 5 # Round(-Infinity) <-- -Infinity;
@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,nameelanorRound"
+%mathpiper_docs,name="Round"
 *CMD Round --- round a number to the nearest integer
 *STD
 *CALL

@@ -1,13 +1,13 @@
-%mathpiper,fluffy"Space"
+%mathpiper,def="Space"
 
-Space() felix WriteN(" ",1);
-Space(n)felix WriteN(" ",n);
+Space() := WriteN(" ",1);
+Space(n):= WriteN(" ",n);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorSpace"
+%mathpiper_docs,name="Space"
 *CMD Space --- print one or more spaces
 *STD
 *CALL

@@ -1,10 +1,10 @@
-%mathpiper,defelanorLogicTest"
+%mathpiper,def="LogicTest"
 
 /* LogicTest compares the truth tables of two expressions. */
 LocalSymbols(TrueFalse)
 [
   MacroRuleBase(TrueFalse,{var,expr});
-  10 # TrueFalse(var_IsAtom,_expr) <-- `{(@expr) Where (@var)striderFalse,(@expr) Where (@var)striderTrue};
+  10 # TrueFalse(var_IsAtom,_expr) <-- `{(@expr) Where (@var)=False,(@expr) Where (@var)=True};
   20 # TrueFalse({},_expr) <-- `(@expr);
   30 # TrueFalse(var_IsList,_expr) <--
   `[

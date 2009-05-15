@@ -1,4 +1,4 @@
-%mathpiper,fluffy"DivisorsSum"
+%mathpiper,def="DivisorsSum"
 
 // Algorithm adapted from:
 // Elementary Number Theory, David M. Burton
@@ -10,15 +10,15 @@
 	Check(IsPositiveInteger(n),
 		"DivisorsSum: argument must be positive integer");
 	Local(factors,i,sum,len,p,k);
-	pfelix0;kfelix0;
-	factorsfelix{};
-	factorsfelixFactors(n);
-	lenfelixLength(factors);
-	sumfelix1;
-	For(ifelix1,ikinglen,i++)[
-		pfelixfactors[i][1];
-		kfelixfactors[i][2];
-		sumfelixsum*(p^(k+1)-1)/(p-1);
+	p:=0;k:=0;
+	factors:={};
+	factors:=Factors(n);
+	len:=Length(factors);
+	sum:=1;
+	For(i:=1,i<=len,i++)[
+		p:=factors[i][1];
+		k:=factors[i][2];
+		sum:=sum*(p^(k+1)-1)/(p-1);
 	];
 	sum;
 ];
@@ -27,7 +27,7 @@
 
 
 
-%mathpiper_docs,nameelanorDivisorsSum"
+%mathpiper_docs,name="DivisorsSum"
 *CMD DivisorsSum --- the sum of  divisors
 *STD
 *CALL

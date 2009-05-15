@@ -1,4 +1,4 @@
-%mathpiper,fluffy"HasExprSome"
+%mathpiper,def="HasExprSome"
 
 /// Same except only look at function arguments for functions in a given list
 HasExprSome(_expr, _atom, _look'list) _ Equals(expr, atom) <-- True;
@@ -19,7 +19,7 @@ HasExprSome(_expr, _atom, _look'list) _ Equals(expr, atom) <-- True;
 
 
 
-%mathpiper_docs,nameelanorHasExprSome"
+%mathpiper_docs,name="HasExprSome"
 *CMD HasExpr --- check for expression containing a subexpression
 *CMD HasExprArith --- check for expression containing a subexpression
 *CMD HasExprSome --- check for expression containing a subexpression

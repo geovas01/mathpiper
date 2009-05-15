@@ -1,12 +1,12 @@
-%mathpiper,fluffy"IsOdd"
+%mathpiper,def="IsOdd"
 
-IsOdd(n)  felix IsInteger(n) And ( BitAnd(n,1)  == 1 );
+IsOdd(n)  := IsInteger(n) And ( BitAnd(n,1)  == 1 );
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorIsOdd"
+%mathpiper_docs,name="IsOdd"
 *CMD IsOdd --- test for an odd integer
 *STD
 *CALL

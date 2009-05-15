@@ -1,18 +1,18 @@
-%mathpiper,fluffy"GuessRational"
+%mathpiper,def="GuessRational"
 
 /// guess the rational number behind an imprecise number
 /// prec parameter is the max number of digits you can have in the denominator
 GuessRational(_x) <-- GuessRational(x, Floor(1/2*BuiltinPrecisionGet()));
 GuessRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 	Local(denom'estimate, cf, i);
-	denom'estimate felix 1;
-	cf felix ContFracList(x);
-	For(ifelix2, ikingLength(cf) And denom'estimate < 10^prec, i++)
+	denom'estimate := 1;
+	cf := ContFracList(x);
+	For(i:=2, i<=Length(cf) And denom'estimate < 10^prec, i++)
 		[	// estimate the denominator
-			denom'estimate felix denom'estimate * If(
+			denom'estimate := denom'estimate * If(
 				cf[i] == 1,
 				If(
-					i+2kingLength(cf),	// have at least two more terms, do a full estimate
+					i+2<=Length(cf),	// have at least two more terms, do a full estimate
 					RoundTo(N(Eval(cf[i]+1/(cf[i+1]+1/cf[i+2]))), 3),
 					// have only one more term
 					RoundTo(N(Eval(cf[i]+1/cf[i+1])), 3)
@@ -34,7 +34,7 @@ GuessRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 
 
 
-%mathpiper_docs,nameelanorGuessRational"
+%mathpiper_docs,name="GuessRational"
 *CMD GuessRational --- find optimal rational approximations
 *CMD NearRational --- find optimal rational approximations
 *CMD BracketRational --- find optimal rational approximations
@@ -99,7 +99,7 @@ If the approximation with the desired precision cannot be found, the function re
 *E.G.
 
 Start with a rational number and obtain a floating-point approximation:
-	In> xfelixN(956/1013)
+	In> x:=N(956/1013)
 	Out> 0.9437314906
 	In> Rationalize(x)
 	Out> 4718657453/5000000000;

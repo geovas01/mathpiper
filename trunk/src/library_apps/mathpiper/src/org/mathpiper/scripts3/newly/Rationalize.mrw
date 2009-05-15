@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Rationalize"
+%mathpiper,def="Rationalize"
 
 Function("Rationalize",{a'number})
   Substitute(a'number,{{x},IsNumber(x) And Not(IsInteger(x))},"RationalizeNumber");
@@ -7,7 +7,7 @@ Function("Rationalize",{a'number})
 
 
 
-%mathpiper_docs,nameelanorRationalize"
+%mathpiper_docs,name="Rationalize"
 *CMD Rationalize --- convert floating point numbers to fractions
 *STD
 *CALL

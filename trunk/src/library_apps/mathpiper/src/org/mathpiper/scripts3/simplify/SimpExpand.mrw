@@ -1,4 +1,4 @@
-%mathpiper,fluffy"SimpExpand",scopeelanorprivate"
+%mathpiper,def="SimpExpand",scope="private"
 
 10 # SimpExpand(SimpAdd(_x,_y)) <-- SimpExpand(x) + SimpExpand(y);
 10 # SimpExpand(SimpMul(_x,_y)) <-- SimpExpand(x) * SimpExpand(y);

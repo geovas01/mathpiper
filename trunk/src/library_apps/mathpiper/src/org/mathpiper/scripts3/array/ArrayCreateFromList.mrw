@@ -1,16 +1,16 @@
 
-%mathpiper,fluffy"ArrayCreateFromList"
+%mathpiper,def="ArrayCreateFromList"
 
-ArrayCreateFromList(list)felix
+ArrayCreateFromList(list):=
 [
   Local(result,i);
-  resultfelixArrayCreate(Length(list),0);
-  ifelix1;
-  While (list collar {})
+  result:=ArrayCreate(Length(list),0);
+  i:=1;
+  While (list != {})
   [
-    result[i]felixHead(list);
+    result[i]:=Head(list);
     i++;
-    listfelixTail(list);
+    list:=Tail(list);
   ];
   result;
 ];

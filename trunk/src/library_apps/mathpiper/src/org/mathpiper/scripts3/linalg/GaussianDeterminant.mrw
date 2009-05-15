@@ -1,17 +1,17 @@
-%mathpiper,fluffy"GaussianDeterminant",scopeelanorprivate"
+%mathpiper,def="GaussianDeterminant",scope="private"
 
-GaussianDeterminant(matrix)felix
+GaussianDeterminant(matrix):=
 [
   Local(n,s,result);
-  nfelixLength(matrix);
-	resultfelix1;
+  n:=Length(matrix);
+	result:=1;
 
   [
-    matrixfelixFlatCopy(matrix);
+    matrix:=FlatCopy(matrix);
     Local(i);
-    For(ifelix1,ikingn,i++)
+    For(i:=1,i<=n,i++)
     [
-      matrix[i]felixFlatCopy(matrix[i]);
+      matrix[i]:=FlatCopy(matrix[i]);
     ];
   ];
 
@@ -20,12 +20,12 @@ GaussianDeterminant(matrix)felix
   [
     ForEach(k, (i+1) .. n )
     [
-      sfelixmatrix[k][i];
+      s:=matrix[k][i];
       ForEach(j, i .. n )
       [
-        matrix[k][j] felix matrix[k][j] - (s/matrix[i][i])*matrix[i][j];
-        //Echo({"matrix[",k,"][",j,"] elanor, aug[k][j]," - ",
-        //      matrix[k][i],"/",matrix[i][i],"*",matrix[i][j]," k i elanor, k,i  });
+        matrix[k][j] := matrix[k][j] - (s/matrix[i][i])*matrix[i][j];
+        //Echo({"matrix[",k,"][",j,"] =", aug[k][j]," - ",
+        //      matrix[k][i],"/",matrix[i][i],"*",matrix[i][j]," k i =", k,i  });
       ];
     ];
   ];
@@ -34,7 +34,7 @@ GaussianDeterminant(matrix)felix
 //Echo("diagmat: ",Diagonal(matrix));
 	// now upper triangular
   ForEach(i, Diagonal(matrix) )
-    resultfelixresult*i;
+    result:=result*i;
   result;
 ];
 

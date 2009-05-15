@@ -1,31 +1,31 @@
-%mathpiper,fluffy"ChineseRemainderPoly"
+%mathpiper,def="ChineseRemainderPoly"
 
 ChineseRemainderPoly(mlist_IsList,vlist_IsList) <--
 [
   Local(m,i,nr,result,msub,euclid,clist);
-  clistfelix{};
-  mfelixFactorize(mlist);
-  resultfelix0;
+  clist:={};
+  m:=Factorize(mlist);
+  result:=0;
 
 /* Echo({mlist,m}); */
 
 
-  nrfelixLength(mlist);
-  For(ifelix1,ikingnr,i++)
+  nr:=Length(mlist);
+  For(i:=1,i<=nr,i++)
   [
-    msubfelixDiv(m,mlist[i]);
+    msub:=Div(m,mlist[i]);
 
 /* Echo({Factor(msub)}); */
 
-    euclid felix ExtendedEuclideanMonic(msub,mlist[i]);
+    euclid := ExtendedEuclideanMonic(msub,mlist[i]);
     Local(c);
 
-    cfelixvlist[i] * euclid[2];
+    c:=vlist[i] * euclid[2];
 
-    cfelixMod(c, mlist[i]);
+    c:=Mod(c, mlist[i]);
 
     DestructiveAppend(clist,c);
-    resultfelixresult + msub * c;
+    result:=result + msub * c;
   ];
   {Expand(result),clist};
 ];

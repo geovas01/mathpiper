@@ -1,14 +1,14 @@
-%mathpiper,fluffy"VarListArith"
+%mathpiper,def="VarListArith"
 
 /// VarListArith --- obtain arithmetic variables
 // currently the VarList(x,y) semantic is convoluted so let's introduce a new name; but in principle this needs to be cleaned up
-VarListArith(expr) felix VarListSome(expr, {Atom("+"), Atom("-"), *, /});
+VarListArith(expr) := VarListSome(expr, {Atom("+"), Atom("-"), *, /});
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorVarListArith"
+%mathpiper_docs,name="VarListArith"
 *CMD VarList --- list of variables appearing in an expression
 *CMD VarListArith --- list of variables appearing in an expression
 *CMD VarListSome --- list of variables appearing in an expression

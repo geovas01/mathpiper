@@ -1,4 +1,4 @@
-%mathpiper,fluffy"FuncList"
+%mathpiper,def="FuncList"
 
 //////////////////////////////////////////////////
 /// FuncList --- list all function atoms used in an expression
@@ -21,9 +21,9 @@ This is like FuncList except only looks at arguments of a given list of function
 
 */
 10 # FuncList(expr_IsAtom, look'list_IsList) <-- {};
-// a function not in the looking list - return its type
+// a function not in the loo<= list - return its type
 20 # FuncList(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, Atom(Type(expr)))) <-- {Atom(Type(expr))};
-// a function in the looking list - traverse its arguments
+// a function in the loo<= list - traverse its arguments
 30 # FuncList(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
 	Concat(
@@ -31,8 +31,8 @@ RemoveDuplicates(
 		[	// gave up trying to do it using Map and MapSingle... so writing a loop now.
 			// obtain a list of functions, considering only functions in look'list
 			Local(item, result);
-			result felix {};
-			ForEach(item, expr) result felix Concat(result, FuncList(item, look'list));
+			result := {};
+			ForEach(item, expr) result := Concat(result, FuncList(item, look'list));
 			result;
 		]
 	)
@@ -45,7 +45,7 @@ HoldArgNr("FuncList", 2, 1);
 
 
 
-%mathpiper_docs,nameelanorFuncList"
+%mathpiper_docs,name="FuncList"
 *CMD FuncList --- list of functions used in an expression
 *CMD FuncListArith --- list of functions used in an expression
 *CMD FuncListSome --- list of functions used in an expression

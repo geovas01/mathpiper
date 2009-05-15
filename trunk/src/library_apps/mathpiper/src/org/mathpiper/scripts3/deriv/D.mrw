@@ -1,4 +1,4 @@
-%mathpiper,fluffy"D"
+%mathpiper,def="D"
 
 RuleBase("D",{aVar,aFunc});
 RuleBase("D",{aVar,aCount,aFunc});
@@ -36,7 +36,7 @@ HoldArg("D",aFunc);
 
 
 
-%mathpiper_docs,nameelanorD"
+%mathpiper_docs,name="D"
 *CMD D --- take derivative of expression with respect to variable
 *STD
 *CALL

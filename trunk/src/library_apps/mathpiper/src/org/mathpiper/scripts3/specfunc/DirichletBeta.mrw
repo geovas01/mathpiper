@@ -1,29 +1,29 @@
-%mathpiper,fluffy"DirichletBeta"
+%mathpiper,def="DirichletBeta"
 
 //Jonathan Leto
 
-// This is really slow for x king 3
+// This is really slow for x <= 3
 5  # DirichletBeta(1)		<-- Pi/4;
 5  # DirichletBeta(2)		<-- Catalan;
 5  # DirichletBeta(3)		<-- Pi^3/32;
 6  # DirichletBeta(n_IsOdd)	<-- [
 		Local(k);
-		kfelix(n-1)/2;
+		k:=(n-1)/2;
 		(-1)^k*Euler(2*k)*(Pi/2)^(2*k+1)/(2*(2*k)!);
 ];
 
 
-10 # DirichletBeta(x_IsRationalOrNumber)_(InNumericMode() And xbullet1 ) <-- [
+10 # DirichletBeta(x_IsRationalOrNumber)_(InNumericMode() And x>=1 ) <-- [
 	Local(prec,eps,term,result,k);
-	precfelixBuiltinPrecisionGet();
+	prec:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(prec+3);
-	epsfelix10^(-prec);
-	resultfelix0;
-	termfelix1;
-	For(kfelix0, Abs(term) > eps, k++ )[
-		termfelix(-1)^k/(2*k+1)^x;
+	eps:=10^(-prec);
+	result:=0;
+	term:=1;
+	For(k:=0, Abs(term) > eps, k++ )[
+		term:=(-1)^k/(2*k+1)^x;
 		Echo("term is ",term);
-		resultfelixresult+term;
+		result:=result+term;
 	];
 	BuiltinPrecisionSet(prec);
 	RoundTo(result,prec);

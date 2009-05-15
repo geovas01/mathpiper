@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsSumOfTerms"
+%mathpiper,def="IsSumOfTerms"
 
 // an expression free of the variable -- obviously not a sum of terms in it
 10 # IsSumOfTerms(_var,expr_IsFreeOf(var)) <-- False;
@@ -25,7 +25,7 @@
 
 %/mathpiper
 
-%mathpiper_docs,nameelanorIsSumOfTerms"
+%mathpiper_docs,name="IsSumOfTerms"
 *CMD IsSumOfTerms --- check for expression being a sum of terms in variable
 
 *STD

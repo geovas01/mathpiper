@@ -1,18 +1,18 @@
-%mathpiper,fluffy"IsUpperTriangular"
+%mathpiper,def="IsUpperTriangular"
 
 IsUpperTriangular(A_IsMatrix) <--
 [
         Local(i,j,m,n,result);
-        mfelixLength(A);
-        nfelixLength(A[1]);
-        ifelix2;
-        resultfelix(m==n);
-        While(ikingm And result)
+        m:=Length(A);
+        n:=Length(A[1]);
+        i:=2;
+        result:=(m==n);
+        While(i<=m And result)
         [
-                jfelix1;
-                While(jkingn And result)
+                j:=1;
+                While(j<=n And result)
                 [
-                        resultfelix (ikingj Or A[i][j] == 0);
+                        result:= (i<=j Or A[i][j] == 0);
                         j++;
                 ];
                 i++;
@@ -24,7 +24,7 @@ IsUpperTriangular(A_IsMatrix) <--
 
 
 
-%mathpiper_docs,nameelanorIsUpperTriangular"
+%mathpiper_docs,name="IsUpperTriangular"
 *CMD IsLowerTriangular --- test for a lower triangular matrix
 *CMD IsUpperTriangular --- test for an upper triangular matrix
 *STD

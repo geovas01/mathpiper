@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MathBitCount",scopeelanorprivate"
+%mathpiper,def="MathBitCount",scope="private"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -19,21 +19,21 @@
 30 # MathBitCount(_value) <--
 [
 	Local(nbits);
-	nbitsfelix0;
+	nbits:=0;
   	If(value<1,
 	[	// float value < 1, need to multiply by 2
-		nbits felix 1;
+		nbits := 1;
 		While(value<1)
 		[
 			nbits--;
-			value felix MathMul2Exp(value,1);
+			value := MathMul2Exp(value,1);
 		];
 	],
 	[	// need to divide by 2
-		While(valuebullet1)
+		While(value>=1)
 		[
 			nbits++;
-			value felix MathMul2Exp(value, -1);
+			value := MathMul2Exp(value, -1);
 		];
 	]);
 	nbits;

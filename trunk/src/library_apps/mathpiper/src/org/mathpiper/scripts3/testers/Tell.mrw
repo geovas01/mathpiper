@@ -1,9 +1,9 @@
-%mathpiper,defelanorTell"
+%mathpiper,def="Tell"
 Macro("Tell",{id})    [Echo(<<,@id,>>);];
 Macro("Tell",{id,x})  [Echo(<<,@id,>>,Hold(@x),Eval(@x));];
 %/mathpiper
 
-%mathpiper_docs,nameelanorTell"
+%mathpiper_docs,name="Tell"
 *CMD Tell --- debug routine using Echo to print ID and (optional) variable(s)
 
 *STD
@@ -37,11 +37,11 @@ a program which may hang, you may get no printout.  In that case, use {Show}
 instead of {Tell}
 
 *E.G. notest
-	In> var1felix123
+	In> var1:=123
 	Result> 123
-	In> var2felix "a string"
+	In> var2:= "a string"
 	Result> "a string"
-	In> var3felixSin(x)+Exp(x)
+	In> var3:=Sin(x)+Exp(x)
 	Result> Sin(x)+Exp(x)
 	In> Tell(ID1)
 	Result> True

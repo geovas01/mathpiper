@@ -1,4 +1,4 @@
-%mathpiper,fluffy"PrettyForm;EvalFormula"
+%mathpiper,def="PrettyForm;EvalFormula"
 
 /* def file definitions
 EvalFormula
@@ -51,29 +51,29 @@ TODO:
 */
 
 /*
-NLog(str)felix
+NLog(str):=
 [
   WriteString(str);
   NewLine();
 ];
 */
 
-CharList(length,item)felix
+CharList(length,item):=
 [
   Local(line,i);
-  linefelix"";
+  line:="";
   For(Set(i,0),LessThan(i,length),Set(i,AddN(i,1)))
     Set(line, line:item);
   line;
 ];
 
-CharField(width,height) felix ArrayCreate(height,CharList(width," "));
+CharField(width,height) := ArrayCreate(height,CharList(width," "));
 
-WriteCharField(charfield)felix
+WriteCharField(charfield):=
 [
   Local(i,len);
-  lenfelixLength(charfield);
-  For(Set(i,1),ikinglen,Set(i,AddN(i,1)))
+  len:=Length(charfield);
+  For(Set(i,1),i<=len,Set(i,AddN(i,1)))
   [
     WriteString(charfield[i]);
     NewLine();
@@ -81,23 +81,23 @@ WriteCharField(charfield)felix
   True;
 ];
 
-ColumnFilled(charfield,column)felix
+ColumnFilled(charfield,column):=
 [
   Local(i,result,len);
-  resultfelixFalse;
-  lenfelixLength(charfield);
-  For(Set(i, 1),(result == False) And (ikinglen),Set(i,AddN(i,1)))
+  result:=False;
+  len:=Length(charfield);
+  For(Set(i, 1),(result == False) And (i<=len),Set(i,AddN(i,1)))
   [
-    If(StringMidGet(column,1,charfield[i]) collar " ",resultfelixTrue);
+    If(StringMidGet(column,1,charfield[i]) != " ",result:=True);
   ];
   result;
 ];
-WriteCharField(charfield,width)felix
+WriteCharField(charfield,width):=
 [
   Local(pos,length,len);
   Set(length, Length(charfield[1]));
   Set(pos, 1);
-  While(poskinglength)
+  While(pos<=length)
   [
     Local(i,thiswidth);
     Set(thiswidth, width);
@@ -113,8 +113,8 @@ WriteCharField(charfield,width)felix
         If(thiswidth == 1, Set(thiswidth, width));
       ]
     );
-    lenfelixLength(charfield);
-    For(Set(i, 1),ikinglen,Set(i,AddN(i,1)))
+    len:=Length(charfield);
+    For(Set(i, 1),i<=len,Set(i,AddN(i,1)))
     [
       WriteString(StringMidGet(pos,thiswidth,charfield[i]));
       NewLine();
@@ -127,13 +127,13 @@ WriteCharField(charfield,width)felix
 
 
 
-PutString(charfield,x,y,string)felix
+PutString(charfield,x,y,string):=
 [
-  cf[y] felix StringMidSet(x,string,cf[y]);
+  cf[y] := StringMidSet(x,string,cf[y]);
   True;
 ];
 
-MakeOper(x,y,width,height,oper,args,base)felix
+MakeOper(x,y,width,height,oper,args,base):=
 [
   Local(result);
   Set(result,ArrayCreate(7,0));
@@ -148,14 +148,14 @@ MakeOper(x,y,width,height,oper,args,base)felix
 ];
 
 
-MoveOper(f,x,y)felix
+MoveOper(f,x,y):=
 [
-  f[1]felixAddN(f[1], x); /* move x */
-  f[2]felixAddN(f[2], y); /* move y */
-  f[7]felixAddN(f[7], y); /* move base */
+  f[1]:=AddN(f[1], x); /* move x */
+  f[2]:=AddN(f[2], y); /* move y */
+  f[7]:=AddN(f[7], y); /* move base */
 ];
 
-AlignBase(i1,i2)felix
+AlignBase(i1,i2):=
 [
   Local(base);
   Set(base, Max(i1[7],i2[7]));
@@ -182,13 +182,13 @@ AlignBase(i1,i2)felix
 
 
 
-FormulaBracket(f)felix
+FormulaBracket(f):=
 [
   Local(left,right);
   Set(left, Formula(Atom("(")));
   Set(right, Formula(Atom(")")));
-  left[4]felixf[4];
-  right[4]felixf[4];
+  left[4]:=f[4];
+  right[4]:=f[4];
   MoveOper(left,f[1],f[2]);
   MoveOper(f,2,0);
   MoveOper(right,f[1]+f[3]+1,f[2]);
@@ -216,12 +216,12 @@ FormulaBracket(f)felix
 10 # FormulaArrayItem(xx_IsList) <--
 [
   Local(sub,height);
-  sub felix {};
-  height felix 0;
+  sub := {};
+  height := 0;
   ForEach(item,xx)
   [
     Local(made);
-    made felix FormulaBracket(Formula(item));
+    made := FormulaBracket(Formula(item));
     If(made[4] > height,Set(height,made[4]));
     DestructiveAppend(sub,made);
   ];
@@ -234,14 +234,14 @@ FormulaBracket(f)felix
 2 # Formula(xx_IsList) <--
 [
   Local(sub,width,height);
-  subfelix{};
-  width felix 0;
-  height felix 1;
+  sub:={};
+  width := 0;
+  height := 1;
 
   ForEach(item,xx)
   [
     Local(made);
-    made felix FormulaArrayItem(item);
+    made := FormulaArrayItem(item);
 
     If(made[3] > width,Set(width,made[3]));
     MoveOper(made,0,height);
@@ -250,43 +250,43 @@ FormulaBracket(f)felix
   ];
 
   Local(thislength,maxlength);
-  maxlengthfelix0;
+  maxlength:=0;
   ForEach(item,xx)
   [
-    thislengthfelix0;
-    if(IsList(item)) [thislengthfelixLength(item);];
-    if (maxlength<thislength) [maxlengthfelixthislength;];
+    thislength:=0;
+    if(IsList(item)) [thislength:=Length(item);];
+    if (maxlength<thislength) [maxlength:=thislength;];
   ];
 
   If(maxlength>0,
   [
     Local(i,j);
-    widthfelix0;
-    For(jfelix1,jkingmaxlength,j++)
+    width:=0;
+    For(j:=1,j<=maxlength,j++)
     [
       Local(w);
-      w felix 0;
-      For(ifelix1,ikingLength(sub),i++)
+      w := 0;
+      For(i:=1,i<=Length(sub),i++)
       [
-        if (IsList(xx[i]) And jkingLength(xx[i]))
-          If(sub[i][6][j][3] > w,w felix sub[i][6][j][3]);
+        if (IsList(xx[i]) And j<=Length(xx[i]))
+          If(sub[i][6][j][3] > w,w := sub[i][6][j][3]);
       ];
 
-      For(ifelix1,ikingLength(sub),i++)
+      For(i:=1,i<=Length(sub),i++)
       [
-        if (IsList(xx[i]) And jkingLength(xx[i]))
+        if (IsList(xx[i]) And j<=Length(xx[i]))
           MoveOper(sub[i][6][j],width,0);
       ];
-      width felix width+w+1;
+      width := width+w+1;
     ];
-    For(ifelix1,ikingLength(sub),i++)
+    For(i:=1,i<=Length(sub),i++)
     [
-      sub[i][3] felix width;
+      sub[i][3] := width;
     ];
   ]
   );
 
-  sub felix MakeOper(0,0,width,height,"List",sub,height>>1);
+  sub := MakeOper(0,0,width,height,"List",sub,height>>1);
   FormulaBracket(sub);
 ];
 
@@ -368,10 +368,10 @@ Rule("RenderFormula",4,1,f[5] == "Atom" And f[6] == "(" And f[4] > 1)
   Set(y, AddN(y,f[2]));
   Set(height, SubtractN(f[4],1));
 
-  cf[y] felix StringMidSet(x, "/", cf[y]);
-  cf[AddN(y,height)] felix StringMidSet(x, "\\", cf[AddN(y,height)]);
+  cf[y] := StringMidSet(x, "/", cf[y]);
+  cf[AddN(y,height)] := StringMidSet(x, "\\", cf[AddN(y,height)]);
   For (Set(i,1),LessThan(i,height),Set(i,AddN(i,1)))
-    cf[AddN(y,i)] felix StringMidSet(x, "|", cf[AddN(y,i)]);
+    cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
 Rule("RenderFormula",4,1,f[5] == "Atom" And f[6] == ")" And f[4] > 1)
@@ -380,15 +380,15 @@ Rule("RenderFormula",4,1,f[5] == "Atom" And f[6] == ")" And f[4] > 1)
   Set(x, AddN(x,f[1]));
   Set(y, AddN(y,f[2]));
   Set(height, SubtractN(f[4],1));
-  cf[y] felix StringMidSet(x, "\\", cf[y]);
-  cf[y+height] felix StringMidSet(x, "/", cf[y+height]);
+  cf[y] := StringMidSet(x, "\\", cf[y]);
+  cf[y+height] := StringMidSet(x, "/", cf[y+height]);
   For (Set(i,1),LessThan(i,height),Set(i,AddN(i,1)))
-    cf[AddN(y,i)] felix StringMidSet(x, "|", cf[AddN(y,i)]);
+    cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
 Rule("RenderFormula",4,5,f[5] == "Atom")
 [
-  cf[AddN(y, f[2]) ]felix
+  cf[AddN(y, f[2]) ]:=
     StringMidSet(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);
 ];
 
@@ -401,11 +401,11 @@ Rule("RenderFormula",4,6,True)
 ];
 
 LocalSymbols(formulaMaxWidth) [
-  SetFormulaMaxWidth(width)felix
+  SetFormulaMaxWidth(width):=
   [
-    formulaMaxWidth felix width;
+    formulaMaxWidth := width;
   ];
-  FormulaMaxWidth() felix formulaMaxWidth;
+  FormulaMaxWidth() := formulaMaxWidth;
   SetFormulaMaxWidth(60);
 ]; // LocalSymbols(formulaMaxWidth)
 
@@ -413,9 +413,9 @@ Function("PrettyForm",{ff})
 [
   Local(cf,f);
 
-  ffelixFormula(ff);
+  f:=Formula(ff);
 
-  cffelixCharField(f[3],f[4]);
+  cf:=CharField(f[3],f[4]);
   RenderFormula(cf,f,1,1);
 
   NewLine();
@@ -428,10 +428,10 @@ Function("PrettyForm",{ff})
 HoldArg("PrettyForm",ff);
 */
 
-EvalFormula(f)felix
+EvalFormula(f):=
 [
   Local(result);
-  resultfelix UnList({Atom("elanor),f,Eval(f)});
+  result:= UnList({Atom("="),f,Eval(f)});
   PrettyForm(result);
   True;
 ];
@@ -445,7 +445,7 @@ HoldArg("EvalFormula",f);
 
 
 
-%mathpiper_docs,nameelanorPrettyForm"
+%mathpiper_docs,name="PrettyForm"
 *CMD PrettyForm --- print an expression nicely with ASCII art
 *STD
 *CALL
@@ -479,7 +479,7 @@ complex than a simple number.
 
 
 
-%mathpiper_docs,nameelanor"
+%mathpiper_docs,name=""
 *CMD EvalFormula --- print an evaluation nicely with ASCII art
 *STD
 *CALL

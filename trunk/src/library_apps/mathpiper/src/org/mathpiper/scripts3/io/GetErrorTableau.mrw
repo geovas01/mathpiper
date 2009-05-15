@@ -1,4 +1,4 @@
-%mathpiper,fluffy"GetErrorTableau;ClearErrors;GetError"
+%mathpiper,def="GetErrorTableau;ClearErrors;GetError"
 
 /* def file definitions
 ClearErrors
@@ -14,7 +14,7 @@ LocalSymbols(ErrorTableau) [
   /// global error tableau. Its entries do not have to be lists.
   Set(ErrorTableau, {});
 
-  GetErrorTableau() felix ErrorTableau;
+  GetErrorTableau() := ErrorTableau;
 
   ClearErrors() <-- Set(ErrorTableau, {});
 
@@ -32,9 +32,9 @@ LocalSymbols(ErrorTableau) [
 GetError(error'class_IsString) <--
 [
 	Local(error);
-	error felix GetErrorTableau()[error'class];
+	error := GetErrorTableau()[error'class];
 	If(
-		error collar Empty,
+		error != Empty,
 		error,
 		False
 	);

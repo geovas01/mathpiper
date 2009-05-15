@@ -1,4 +1,4 @@
-%mathpiper,fluffy""
+%mathpiper,def=""
 
 // From code.mpi.def:
 OMDef( ":"        , "mathpiper","prepend"    );

@@ -1,4 +1,4 @@
-%mathpiper,fluffy""
+%mathpiper,def=""
 
 //////////////////////////////////////////////////
 /// Backends for 2D plotting
@@ -6,7 +6,7 @@
 
 /// List of all defined backends and their symbolic labels.
 /// Add any new backends here
-Plot2D'outputs() felix {
+Plot2D'outputs() := {
 	{"default", "geogebra"},
 	{"data", "Plot2D'data"},
 	{"java", "Plot2D'java"},
@@ -31,21 +31,21 @@ Plot2D'data(values_IsList, _options'hash) <-- values;
 Plot2D'java(values_IsList, _options'hash) <--
 [
   Local(result,count);
-  count felix 0;
-  resultfelix"$plot2d:";
+  count := 0;
+  result:="$plot2d:";
 
-  result felix result:" pensize 2.0 ";
+  result := result:" pensize 2.0 ";
   ForEach(function,values)
   [
-    result felix result:ColorForGraphNr(count);
+    result := result:ColorForGraphNr(count);
     count++;
-    resultfelixresult:" lines2d ":String(Length(function));
+    result:=result:" lines2d ":String(Length(function));
 
-    functionfelixSelect(Lambda({item},item[2] collar Undefined),function);
+    function:=Select(Lambda({item},item[2] != Undefined),function);
 
     ForEach(item,function)
     [
-      result felix result:" ":String(item[1]):" ":String(item[2]):" ";
+      result := result:" ":String(item[1]):" ":String(item[2]):" ";
     ];
   ];
   WriteString(result:"$");
@@ -64,18 +64,18 @@ Plot2D'java(values_IsList, _options'hash) <--
 Plot2D'geogebra(values_IsList, _options'hash) <--
 [
   Local(result,count);
-  count felix 0;
-  resultfelix"";
+  count := 0;
+  result:="";
 
 
   ForEach(function,values)
   [
 
-    functionfelixSelect(Lambda({item},item[2] collar Undefined),function);
+    function:=Select(Lambda({item},item[2] != Undefined),function);
 
     ForEach(item,function)
     [
-      result felix result:"(":String(item[1]):",":String(item[2]):")":Nl();
+      result := result:"(":String(item[1]):",":String(item[2]):")":Nl();
     ];
   ];
   WriteString(result);
@@ -86,18 +86,18 @@ Plot2D'geogebra(values_IsList, _options'hash) <--
 
 %/mathpiper
 
-    %output,preserveelanorfalse"
+    %output,preserve="false"
       Result: True
 .   %/output
 
 
 
-%mathpiper,scopeelanornobuild"
+%mathpiper,scope="nobuild"
 Retract("Plot2D'geogebra",2);
 
 %/mathpiper
 
-    %output,preserveelanorfalse"
+    %output,preserve="false"
       Result: True
 .   %/output
 

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsIrregularPrime"
+%mathpiper,def="IsIrregularPrime"
 
 5  # IsIrregularPrime(p_IsComposite)	<-- False;
 // First irregular prime is 37
@@ -10,11 +10,11 @@
 [
 	Local(i,irregular);
 
-	ifelix1;
-	irregularfelixFalse;
+	i:=1;
+	irregular:=False;
 
 	While( 2*i + 1 < p And (irregular == False) )[
-		If( Abs(Numer(Bernoulli(2*i))) % p == 0, irregularfelixTrue );
+		If( Abs(Numer(Bernoulli(2*i))) % p == 0, irregular:=True );
 		i++;
 	];
 	irregular;
@@ -25,7 +25,7 @@
 
 
 
-%mathpiper_docs,nameelanor"
+%mathpiper_docs,name=""
 *CMD IsIrregularPrime --- test for an irregular prime
 *STD
 *CALL

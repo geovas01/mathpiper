@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Bernoulli"
+%mathpiper,def="Bernoulli"
 
 /////////////////////////////////////////////////
 /// Bernoulli numbers and polynomials
@@ -12,25 +12,25 @@
 30 # Bernoulli(n_IsOdd) <-- 0;
 
 /// numerical computations of Bernulli numbers use two different methods, one good for small numbers and one good only for very large numbers (using Zeta function)
-20 # Bernoulli(n_IsEven)_(nkingBernoulli1Threshold()) <-- Internal'BernoulliArray(n)[n+1];
+20 # Bernoulli(n_IsEven)_(n<=Bernoulli1Threshold()) <-- Internal'BernoulliArray(n)[n+1];
 20 # Bernoulli(n_IsEven)_(n>Bernoulli1Threshold()) <-- Bernoulli1(n);
 
 LocalSymbols(bernoulli1Threshold) [
   /// Bernoulli1Threshold could in principle be set by the user
-  If(Not IsBound(bernoulli1Threshold), bernoulli1Threshold felix 20);
+  If(Not IsBound(bernoulli1Threshold), bernoulli1Threshold := 20);
 
-  Bernoulli1Threshold() felix bernoulli1Threshold;
-  SetBernoulli1Threshold(threshold) felix [ bernoulli1Threshold felix threshold;];
+  Bernoulli1Threshold() := bernoulli1Threshold;
+  SetBernoulli1Threshold(threshold) := [ bernoulli1Threshold := threshold;];
 
 ] ; // LocalSymbols(bernoulli1Threshold)
 
 /// Bernoulli polynomials of degree n in variable x
 Bernoulli(n_IsInteger, _x) <-- [
 	Local(B, i, result);
-	B felix Internal'BernoulliArray(n);
-	result felix B[1];
-	For(ifelixn-1, ibullet0, i--) [
-		result felix result * x + B[n-i+1]*Bin(n,i);
+	B := Internal'BernoulliArray(n);
+	result := B[1];
+	For(i:=n-1, i>=0, i--) [
+		result := result * x + B[n-i+1]*Bin(n,i);
 	];
 	result;
 ];
@@ -39,7 +39,7 @@ Bernoulli(n_IsInteger, _x) <-- [
 
 
 
-%mathpiper_docs,nameelanorBernoulli"
+%mathpiper_docs,name="Bernoulli"
 *CMD Bernoulli --- Bernoulli numbers and polynomials
 *STD
 *CALL

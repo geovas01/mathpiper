@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Limit"
+%mathpiper,def="Limit"
 
 /*                            */
 /*  Limit operator rule base  */
@@ -10,7 +10,7 @@
 /*  Special limit #1:  0 ^ 0;  #2:  1 ^ Infinity;  #3:  Infinity ^ 0  */
 200 # Lim(_var, _tar, _dir, _x ^ _y)_
 ( [
-    Local(lx,ly); lx felix Lim(var, tar, dir, x); ly felix Lim(var, tar, dir, y);
+    Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
     ((IsZero(lx) And IsZero(ly)) Or ((lx == 1) And IsInfinity(ly)) Or (IsInfinity(lx) And IsZero(ly)));
 ] )
 <-- Exp(Lim(var, tar, dir, y * Ln(x)));
@@ -26,10 +26,10 @@
 300 # Lim(_var, _tar, _dir, _x / _y)_
 ( [
     Local(lx,ly,infx,infy);
-     lx felix Lim(var, tar, dir, x);
-     ly felix Lim(var, tar, dir, y);
-     infx felix (IsInfinity(lx) Or (IsZero(Re(lx)) And IsInfinity(Im(lx))));
-     infy felix (IsInfinity(ly) Or (IsZero(Re(ly)) And IsInfinity(Im(ly))));
+     lx := Lim(var, tar, dir, x);
+     ly := Lim(var, tar, dir, y);
+     infx := (IsInfinity(lx) Or (IsZero(Re(lx)) And IsInfinity(Im(lx))));
+     infy := (IsInfinity(ly) Or (IsZero(Re(ly)) And IsInfinity(Im(ly))));
     ((IsZero(lx) And IsZero(ly)) Or
      (infx And infy)
      );
@@ -45,8 +45,8 @@ Dir(Left) <-- -1;
 /*  To get the sign of the denominator on one side:  */
 Sign(_var, _tar, _dir, _exp, _n)
 <-- [
-  Local(der, coef); der felix ApplyPure("D", {var, exp});
-  coef felix Eval(ApplyPure("Subst", {var, tar, der}));
+  Local(der, coef); der := ApplyPure("D", {var, exp});
+  coef := Eval(ApplyPure("Subst", {var, tar, der}));
   If ( coef == 0,
        Sign(var, tar, dir, der, n+1),
        (Sign(coef)*Dir(dir)) ^ n
@@ -97,7 +97,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 /*  Special limit #8:  Infinity - Infinity  */
 500 # Lim(_var, _tar, _dir, _x - _y)_
 ( [
-    Local(lx,ly); lx felix Lim(var, tar, dir, x); ly felix Lim(var, tar, dir, y);
+    Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
     ((lx == Infinity) And (ly == Infinity)) Or ((lx == -Infinity) And (ly == -Infinity));
 ] )
 <-- Lim(var, tar, dir, x*(1-y/x));
@@ -116,7 +116,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 /*  Special limit #9:  Infinity + (-Infinity)  */
 600 # Lim(_var, _tar, _dir, _x + _y)_
 ( [
-    Local(lx,ly); lx felix Lim(var, tar, dir, x); ly felix Lim(var, tar, dir, y);
+    Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
     ((lx == Infinity) And (ly == -Infinity)) Or ((lx == -Infinity) And (ly == Infinity));
 ] )
 <-- Lim(var, tar, dir, x*(1+y/x));
@@ -143,7 +143,7 @@ UnFence("LimitArgs",1); /* Allow LimitArgs to have access to the local variables
 
 20 # Lim(_var, _tar, _exp)
 <-- [
-  Local(l); l felix Lim(var, tar, Left, exp);
+  Local(l); l := Lim(var, tar, Left, exp);
   If ( l == Lim(var, tar, Right, exp),
        l,
        Undefined
@@ -164,7 +164,7 @@ UnFence("Limit",3);
 
 
 
-%mathpiper_docs,nameelanorLimit"
+%mathpiper_docs,name="Limit"
 *CMD Limit --- limit of an expression
 *STD
 *CALL

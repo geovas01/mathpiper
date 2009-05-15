@@ -1,9 +1,9 @@
-%mathpiper,fluffy"UniqueConstant"
+%mathpiper,def="UniqueConstant"
 
 UniqueConstant() <--
 [
   Local(result);
-  result felix String(LocalSymbols(C)(C));
+  result := String(LocalSymbols(C)(C));
   Atom(StringMidGet(2,Length(result)-1,result));
 ];
 
@@ -11,7 +11,7 @@ UniqueConstant() <--
 
 
 
-%mathpiper_docs,nameelanorUniqueConstant"
+%mathpiper_docs,name="UniqueConstant"
 *CMD UniqueConstant --- create a unique identifier
 *STD
 *CALL

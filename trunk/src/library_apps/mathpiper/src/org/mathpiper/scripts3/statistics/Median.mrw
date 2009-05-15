@@ -1,11 +1,11 @@
-%mathpiper,fluffy"Median"
+%mathpiper,def="Median"
 
-Median(x) felix
+Median(x) :=
 [
  Local(sx,n,n2); // s[orted]x
- sx felix BubbleSort(x,"<");
- n felix Length(x);
- n2 felix (n>>1);
+ sx := BubbleSort(x,"<");
+ n := Length(x);
+ n2 := (n>>1);
  If(Mod(n,2) == 1, sx[n2+1], (sx[n2]+sx[n2+1])/2);
 ];
 

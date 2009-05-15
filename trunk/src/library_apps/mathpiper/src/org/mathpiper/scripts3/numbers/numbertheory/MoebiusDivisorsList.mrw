@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MoebiusDivisorsList"
+%mathpiper,def="MoebiusDivisorsList"
 
 /* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
@@ -6,7 +6,7 @@
 /* Returns a list of pairs {d,m}
    where d runs through the square free divisors of  n
    and m=Moebius(m)
-   This is much more efficient than making a list of all
+   This is much more efficient than ma<= a list of all
    square-free divisors of n, and then compute Moebius on each of them.
    It is useful for computing the Cyclotomic polinomials.
    It can be useful in other computations based on
@@ -15,13 +15,13 @@
 MoebiusDivisorsList(n_IsPositiveInteger) <--
 [
  Local(nFactors,f,result,oldresult,x);
- nFactorsfelix Factors(n);
- result felix {{1,1}};
+ nFactors:= Factors(n);
+ result := {{1,1}};
  ForEach (f,nFactors)
     [
-      oldresult felix result;
+      oldresult := result;
         ForEach (x,oldresult)
-	  resultfelixAppend(result,{x[1]*f[1],-x[2]});
+	  result:=Append(result,{x[1]*f[1],-x[2]});
     ];
   result;
 ];
@@ -30,7 +30,7 @@ MoebiusDivisorsList(n_IsPositiveInteger) <--
 
 
 
-%mathpiper_docs,nameelanorMoebiusDivisorsList"
+%mathpiper_docs,name="MoebiusDivisorsList"
 *CMD MoebiusDivisorsList --- the list of divisors and Moebius values
 *STD
 *CALL
@@ -42,7 +42,7 @@ MoebiusDivisorsList(n_IsPositiveInteger) <--
 *DESC
 
 Returns a list of pairs of the form {{d,m}}, where {d} runs through the squarefree divisors of $n$ and $m=Moebius(d)$. 
-This is more efficient than making a list of all 
+This is more efficient than ma<= a list of all 
 square-free divisors of $n$ and then computing {Moebius} on each of them.
 It is useful for computing the cyclotomic polynomials. 
 It can be useful in other computations based on the Moebius inversion formula. 

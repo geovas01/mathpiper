@@ -1,6 +1,6 @@
-%mathpiper,fluffy"UnHoldable",scopeelanorprivate"
+%mathpiper,def="UnHoldable",scope="private"
 
-// this will "unhold" a variable - used to make sure that felix with Eval()
+// this will "unhold" a variable - used to make sure that := with Eval()
 // immediately on the right hand side evaluates its argument
 RuleBase("UnHoldable",{var});
 HoldArg("UnHoldable",var);

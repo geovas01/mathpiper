@@ -1,4 +1,4 @@
-%mathpiper,defelanorKnownFailure"
+%mathpiper,def="KnownFailure"
 
 Function("KnownFailure",{expr})
 [

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"RandomSeed;Random;Rng;RngSeed;RngCreate"
+%mathpiper,def="RandomSeed;Random;Rng;RngSeed;RngCreate"
 
 /* def file definitions
 
@@ -21,9 +21,9 @@ It provides only one global RNG with a globally assigned seed.
 
 New interface allows creating many RNG objects:
 
-	r1felixRngCreate();	// create a default RNG object, assign structure to r1
-	r2felixRngCreate(12345);	// create RNG object with given seed
-	r3felixRngCreate(seedstrider0, enginestrideradvanced, diststridergauss); 	// extended options: specify seed, type of RNG engine and the type of statistical distribution
+	r1:=RngCreate();	// create a default RNG object, assign structure to r1
+	r2:=RngCreate(12345);	// create RNG object with given seed
+	r3:=RngCreate(seed=0, engine=advanced, dist=gauss); 	// extended options: specify seed, type of RNG engine and the type of statistical distribution
 	Rng(r1); Rng(r1); Rng(r2);	// generate some floating-point numbers
 	RngSeed(r1, 12345);	// r1 is re-initialized with given seed, r2 is unaffected
 
@@ -39,11 +39,11 @@ and state is a "RNG state object", e.g. a list of all numbers that specify the c
 RngSeed(r1, seed) expects an integer seed.
 It will re-initialize the RNG object r1 with the given seed.
 
-The "RNG engine API": calling RngCreate with enginestriderSomeEngine expects that:
+The "RNG engine API": calling RngCreate with engine=SomeEngine expects that:
 	SomeEngine(seed_IsInteger) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
 	SomeEngine(state1_IsList) will update the RNG state object state1 and return the pair {new state object, new number}.
 
-The "RNG distribution adaptor API": calling RngCreate with distributionstriderSomeDist expects that:
+The "RNG distribution adaptor API": calling RngCreate with distribution=SomeDist expects that:
 	SomeDist(r1) will update the RNG object r1 and return the pair {new state object, new number}. r1 is a full RNG object, not just a state object.
 
 
@@ -56,13 +56,13 @@ The "RNG distribution adaptor API": calling RngCreate with distributionstriderSo
 /// The idea is that options must be easy to type, but procedure names could be long.
 
 LocalSymbols(knownRNGEngines, knownRNGDists) [
-  knownRNGEngines felix
+  knownRNGEngines :=
   {
     { "default", "RNGEngine'LCG'2"},
     { "advanced", "RNGEngine'L'Ecuyer"},
   };
 
-  knownRNGDists felix
+  knownRNGDists :=
   {
     {"default", "FlatRNGDist"},
     {"flat", "FlatRNGDist"},
@@ -70,8 +70,8 @@ LocalSymbols(knownRNGEngines, knownRNGDists) [
     {"gauss", "GaussianRNGDist"},
   };
 
-  KnownRNGDists() felix knownRNGDists;
-  KnownRNGEngines() felix knownRNGEngines;
+  KnownRNGDists() := knownRNGDists;
+  KnownRNGEngines() := knownRNGEngines;
 ];
 
 
@@ -93,28 +93,28 @@ Function() Rng(r);
 
 RngCreate() <-- RngCreate(0);
 
-10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {Atom("seed") strider a'seed});
+10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {Atom("seed") = a'seed});
 
 // a single option given: convert explicitly to a list
-20 # RngCreate(_key strider _value) <-- (RngCreate @ {{key strider value}});
-20 # RngCreate(_key == _value) <-- (RngCreate @ {{key strider value}});
+20 # RngCreate(_key = _value) <-- (RngCreate @ {{key = value}});
+20 # RngCreate(_key == _value) <-- (RngCreate @ {{key = value}});
 
 // expect a list of options
 30 # RngCreate(options_IsList) <--
 [
-	options felix ListToHash @ {options};
+	options := ListToHash @ {options};
 	// check options and assign defaults
 	If(
-		options["seed"] == Empty Or options["seed"] king 0,
-		options["seed"] felix 76544321	// some default seed out of the blue sky
+		options["seed"] == Empty Or options["seed"] <= 0,
+		options["seed"] := 76544321	// some default seed out of the blue sky
 	);
 	If(
-		options["engine"] == Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] collar Empty),
-		options["engine"] felix "default"
+		options["engine"] == Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] != Empty),
+		options["engine"] := "default"
 	);
 	If(
-		options["dist"] == Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] collar Empty),
-		options["dist"] felix "default"
+		options["dist"] == Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] != Empty),
+		options["dist"] := "default"
 	);
 
 	// construct a new RNG object
@@ -130,7 +130,7 @@ RngCreate() <-- RngCreate(0);
 Rng(_r) <--
 [
 	Local(state, result);
-	{state, result} felix (r[1] @ {r});	// this calls SomeDist(r)
+	{state, result} := (r[1] @ {r});	// this calls SomeDist(r)
 	DestructiveReplace(r, 3, state);	// update RNG object
 	result;	// return floating-point number
 ];
@@ -140,8 +140,8 @@ RngSeed(_r, seed_IsInteger) <--
 [
 	Local(state);
 	(Assert("warning", {"RngSeed: seed must be positive", seed}) seed > 0
-	) Or (seedfelix76544321);
-	state felix (r[2] @ {seed});	// this calls SomeEngine(r)
+	) Or (seed:=76544321);
+	state := (r[2] @ {seed});	// this calls SomeEngine(r)
 	DestructiveReplace(r, 3, state);	// update object
 	True;
 ];
@@ -168,18 +168,18 @@ FlatRNGDist(_r) <-- (r[2] @ {r[3]});	// this calls SomeEngine(state)
 GaussianRNGDist(_rng) <--
 [
 	// a Gaussian distributed complex number p + I*q is made up of two uniformly distributed numbers x,y according to the formula:
-	// afelix2*x-1, bfelix2*y-1, mfelixa^2+b^2; p = a*Sqrt(-2*Ln(m)/m); qfelixb*Sqrt(-2*Ln(m)/m);
+	// a:=2*x-1, b:=2*y-1, m:=a^2+b^2; p = a*Sqrt(-2*Ln(m)/m); q:=b*Sqrt(-2*Ln(m)/m);
 	// here we need to make sure that m is nonzero and strictly less than 1.
 	Local(a,b,m, new'state, rnumber);
-	new'state felix rng[3];	// this will be updated at the end
-	mfelix0;
-	While(m==0 Or mbullet1)	// repeat generating new x,y  - should not take more than one iteration really
+	new'state := rng[3];	// this will be updated at the end
+	m:=0;
+	While(m==0 Or m>=1)	// repeat generating new x,y  - should not take more than one iteration really
 	[
-		{new'state, rnumber} felix (rng[2] @ {new'state});
-		afelix2*rnumber-1;
-		{new'state, rnumber} felix (rng[2] @ {new'state});
-		bfelix2*rnumber-1;
-		mfelixa*a+b*b;
+		{new'state, rnumber} := (rng[2] @ {new'state});
+		a:=2*rnumber-1;
+		{new'state, rnumber} := (rng[2] @ {new'state});
+		b:=2*rnumber-1;
+		m:=a*a+b*b;
 	];
 	{new'state, (a+I*b)*SqrtN(-2*DivideN(Internal'LnNum(m),m))};
 ];
@@ -212,10 +212,10 @@ RNGEngine'LCG'4(seed_IsInteger) <-- {seed};
 RNGEngine'LCG'4(state_IsList) <-- LCG'4(state);
 
 /// parameters from P. Hellekalek, 1994; see G. S. Fishman, Math. Comp. vol. 54, 331 (1990)
-LCG'1(state) felix RandomLCG(state, 2147483647,950706376,0);
-LCG'2(state) felix RandomLCG(state, 4294967296,1099087573,0);
-LCG'3(state) felix RandomLCG(state, 281474976710656,68909602460261,0);
-LCG'4(state) felix RandomLCG(state, 18014398509481984,2783377640906189,0);
+LCG'1(state) := RandomLCG(state, 2147483647,950706376,0);
+LCG'2(state) := RandomLCG(state, 4294967296,1099087573,0);
+LCG'3(state) := RandomLCG(state, 281474976710656,68909602460261,0);
+LCG'4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);
 
 /// Linear congruential generator engine: backend
 // state is a list with one element
@@ -234,15 +234,15 @@ RNGEngine'L'Ecuyer(a'seed_IsInteger) <--
 [
 	// use LCG'2 as auxiliary RNG to fill the seeds
 	Local(rng'aux, result);
-	rng'aux felix (RngCreate @ {a'seed});
+	rng'aux := (RngCreate @ {a'seed});
 	// this will be the state vector
-	resultfelixZeroVector(6);
+	result:=ZeroVector(6);
 	// fill the state object with random numbers
 	Local(i);
-	For(ifelix1, iking6, i++)
+	For(i:=1, i<=6, i++)
 	[
 		Rng(rng'aux);
-		result[i] felix rng'aux[3][1];	// hack to get the integer part
+		result[i] := rng'aux[3][1];	// hack to get the integer part
 	];
 	// return the state object
 	result;
@@ -252,11 +252,11 @@ RNGEngine'L'Ecuyer(a'seed_IsInteger) <--
 RNGEngine'L'Ecuyer(state_IsList) <--
 [
 	Local(new'state, result);
-	new'state felix {
+	new'state := {
 		Mod(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2],
 		Mod(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5]
 	};
-	resultfelixMod(state[1]-state[4], 4294967087);
+	result:=Mod(state[1]-state[4], 4294967087);
 	{
 		new'state,
 		DivideN(If(result==0, 4294967087, result), 4294967088)
@@ -267,14 +267,14 @@ RNGEngine'L'Ecuyer(state_IsList) <--
 /// old interface: using one global RNG object
 //////////////////////////////////////////////////
 /* this is a little slower but entirely equivalent to the code below
-GlobalRNG felix RngCreate(76544321);
-Random() felix Rng(GlobalRNG);
-RandomSeed(seed) felix RngSeed(GlobalRNG, seed);
+GlobalRNG := RngCreate(76544321);
+Random() := Rng(GlobalRNG);
+RandomSeed(seed) := RngSeed(GlobalRNG, seed);
 */
 
 LocalSymbols(RandSeed) [
   // initial seed should be nonzero
-  RandSeedfelix76544321;
+  RandSeed:=76544321;
 
   /// assign random seed
   Function("RandomSeed", {seed}) Set(RandSeed, seed);
@@ -282,7 +282,7 @@ LocalSymbols(RandSeed) [
   /// Linear congruential generator
   RandomLCG(_im, _ia, _ic) <--
   [
-    RandSeedfelixModN(RandSeed*ia+ic,im);
+    RandSeed:=ModN(RandSeed*ia+ic,im);
     DivideN(RandSeed,im);	// should never give 1
   ];
 ]; // LocalSymbols(RandSeed)
@@ -307,7 +307,7 @@ Function("Random",{}) Random3();
 
 
 
-%mathpiper_docs,nameelanorRandom;RandomSeed"
+%mathpiper_docs,name="Random;RandomSeed"
 *CMD Random, RandomSeed --- (pseudo-) random number generator
 *STD
 *CALL
@@ -331,7 +331,7 @@ Each seed value will result in the same sequence of pseudo-random numbers.
 
 
 
-%mathpiper_docs,nameelanorRngCreate;RngSeed;Rng"
+%mathpiper_docs,name="RngCreate;RngSeed;Rng"
 *CMD RngCreate --- manipulate random number generators as objects
 *CMD RngSeed --- manipulate random number generators as objects
 *CMD Rng --- manipulate random number generators as objects
@@ -339,7 +339,7 @@ Each seed value will result in the same sequence of pseudo-random numbers.
 *CALL
 	RngCreate()
 	RngCreate(init)
-	RngCreate(optionstridervalue,...)
+	RngCreate(option=value,...)
 	RngSeed(r, init)
 	Rng(r)
 	
@@ -388,14 +388,14 @@ However, the {Random} function is slightly faster.
 
 *E.G.
 
-	In> r1felixRngCreate(seed=1,dist=gauss)
+	In> r1:=RngCreate(seed=1,dist=gauss)
 	Out> {"GaussianRNGDist","RNGEngine'LCG'2",{1}}
 	In> Rng(r1)
 	Out> Complex(-1.6668466417,0.228904004);
 	In> Rng(r1);
 	Out> Complex(0.0279296109,-0.5382405341);
 The second RNG gives a uniform distribution (default option) but uses a more complicated algorithm:
-	In> [r2felixRngCreate(engine=advanced);Rng(r2);]
+	In> [r2:=RngCreate(engine=advanced);Rng(r2);]
 	Out> 0.3653615377;
 The generator {r1} can be re-initialized with seed 1 again to obtain the same sequence:
 	In> RngSeed(r1, 1)
@@ -410,7 +410,7 @@ The generator {r1} can be re-initialized with seed 1 again to obtain the same se
 
 
 
-%mathpiper_docs,nameelanorRandomIntegerMatrix"
+%mathpiper_docs,name="RandomIntegerMatrix"
 *CMD RandomIntegerMatrix --- generate a matrix of random integers
 
 *STD
@@ -455,7 +455,7 @@ are uniformly distributed in this interval.
 
 
 
-%mathpiper_docs,nameelanorRandomIntegerVector"
+%mathpiper_docs,name="RandomIntegerVector"
 *CMD RandomIntegerVector --- generate a vector of random integers
 
 *STD
@@ -487,7 +487,7 @@ are uniformly distributed in this interval.
 
 
 
-%mathpiper_docs,nameelanorRandomPoly"
+%mathpiper_docs,name="RandomPoly"
 *CMD RandomPoly --- construct a random polynomial
 *STD
 *CALL

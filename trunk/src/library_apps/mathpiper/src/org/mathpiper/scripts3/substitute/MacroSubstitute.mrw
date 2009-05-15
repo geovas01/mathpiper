@@ -1,4 +1,4 @@
-%mathpiper,defelanorMacroSubstitute",scopeelanorprivate"
+%mathpiper,def="MacroSubstitute",scope="private"
 
 /*Extremely hacky workaround, MacroSubstitute is actually the same as Substitute,
   but without re-evaluating its arguments. I could not just change Substitute, as

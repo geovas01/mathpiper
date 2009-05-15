@@ -1,6 +1,6 @@
-%mathpiper,fluffy"Assoc"
+%mathpiper,def="Assoc"
 
-/* Assoc : given an assoc list like for example lfelix{{a,2},{b,3}},
+/* Assoc : given an assoc list like for example l:={{a,2},{b,3}},
    Assoc(b,l) will return {b,3}. if the key is not in the list,
    it will return the atom Empty.
 */
@@ -11,7 +11,7 @@ Function("Assoc",{key,list})  Builtin'Assoc(key,list);
 
 
 
-%mathpiper_docs,nameelanorAssoc"
+%mathpiper_docs,name="Assoc"
 *CMD Assoc --- return element stored in association list
 *STD
 *CALL
@@ -38,18 +38,18 @@ intuitively) be accessed as {alist[key]}.
 
 *E.G.
 
-	In> writer felix {};
+	In> writer := {};
 	Out> {};
-	In> writer["Iliad"] felix "Homer";
+	In> writer["Iliad"] := "Homer";
 	Out> True;
-	In> writer["Henry IV"] felix "Shakespeare";
+	In> writer["Henry IV"] := "Shakespeare";
 	Out> True;
-	In> writer["Ulysses"] felix "James Joyce";
+	In> writer["Ulysses"] := "James Joyce";
 	Out> True;
 	In> Assoc("Henry IV", writer);
 	Out> {"Henry IV","Shakespeare"};
 	In> Assoc("War and Peace", writer);
 	Out> Empty;
 
-*SEE AssocIndices, [], felix, AssocDelete
+*SEE AssocIndices, [], :=, AssocDelete
 %/mathpiper_docs

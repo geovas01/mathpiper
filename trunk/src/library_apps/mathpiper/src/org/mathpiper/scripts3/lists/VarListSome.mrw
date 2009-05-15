@@ -1,4 +1,4 @@
-%mathpiper,fluffy"VarListSome"
+%mathpiper,def="VarListSome"
 
 /// VarListSome is just like FuncList(x,y)
 
@@ -6,15 +6,15 @@
 // an atom should be a variable to qualify
 10 # VarListSome(expr_IsVariable, _look'list) <-- {expr};
 15 # VarListSome(expr_IsAtom, _look'list) <-- {};
-// a function not in the looking list - return it whole
+// a function not in the loo<= list - return it whole
 20 # VarListSome(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, Atom(Type(expr)))) <-- {expr};
-// a function in the looking list - traverse its arguments
+// a function in the loo<= list - traverse its arguments
 30 # VarListSome(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
 		[	// obtain a list of functions, considering only functions in look'list
 			Local(item, result);
-			result felix {};
-			ForEach(item, expr) result felix Concat(result, VarListSome(item, look'list));
+			result := {};
+			ForEach(item, expr) result := Concat(result, VarListSome(item, look'list));
 			result;
 		]
 );
@@ -23,7 +23,7 @@ RemoveDuplicates(
 
 
 
-%mathpiper_docs,nameelanorVarListSome"
+%mathpiper_docs,name="VarListSome"
 *CMD VarList --- list of variables appearing in an expression
 *CMD VarListArith --- list of variables appearing in an expression
 *CMD VarListSome --- list of variables appearing in an expression

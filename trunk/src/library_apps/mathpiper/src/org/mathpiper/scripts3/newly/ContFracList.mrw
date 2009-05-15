@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ContFracList"
+%mathpiper,def="ContFracList"
 
 /////////////////////////////////////////////////
 /// Continued fractions stuff
@@ -8,7 +8,7 @@
 /// if order is not given, computes to the end
 10 # ContFracList(_n) <-- ContFracList(n, Infinity);
 /// compute list of given length
-10 # ContFracList(_n, _depth)_(depth king 0) <-- {};
+10 # ContFracList(_n, _depth)_(depth <= 0) <-- {};
 20 # ContFracList(n_IsInteger, _depth) <-- {n};
 // prevent infinite loop when in numeric mode
 30 # ContFracList(n_IsNumber, _depth) _InNumericMode() <-- NonN(ContFracList(Rationalize(n), depth));
@@ -24,7 +24,7 @@
 
 
 
-%mathpiper_docs,nameelanorContFracList"
+%mathpiper_docs,name="ContFracList"
 *CMD ContFracList --- manipulate continued fractions
 *CMD ContFracEval --- manipulate continued fractions
 *STD
@@ -53,7 +53,7 @@ The function {ContFracEval} converts a list of coefficients into a continued fra
 
 *E.G.
 
-	In> AfelixContFracList(33/7 + 0.000001)
+	In> A:=ContFracList(33/7 + 0.000001)
 	Out> {4,1,2,1,1,20409,2,1,13,2,1,4,1,1,3,3,2};
 	In> ContFracEval(Take(A, 5))
 	Out> 33/7;

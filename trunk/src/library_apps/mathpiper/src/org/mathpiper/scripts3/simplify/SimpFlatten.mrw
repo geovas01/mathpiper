@@ -1,4 +1,4 @@
-%mathpiper,fluffy"SimpFlatten",scopeelanorprivate"
+%mathpiper,def="SimpFlatten",scope="private"
 
 RuleBase("SimpAdd",{x,y});
 RuleBase("SimpMul",{x,y});

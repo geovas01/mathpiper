@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Contains"
+%mathpiper,def="Contains"
 
 Function("Contains",{list,element})
 [
@@ -18,7 +18,7 @@ Function("Contains",{list,element})
 
 
 
-%mathpiper_docs,nameelanorContains"
+%mathpiper_docs,name="Contains"
 *CMD Contains --- test whether a list contains a certain element
 *STD
 *CALL

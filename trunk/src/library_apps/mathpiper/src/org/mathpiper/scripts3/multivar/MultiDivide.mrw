@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MultiDivide"
+%mathpiper,def="MultiDivide"
 
 /*************************************************************
   MultiDivide :
@@ -14,16 +14,16 @@
 20 # MultiDivide(_f,g_IsList) <--
 [
   Local(i,v,q,r,nr);
-  vfelixMultiExpressionList(f+Sum(g));
-  ffelixMakeMultiNomial(f,v);
-  nr felix Length(g);
-  For(ifelix1,ikingnr,i++)
+  v:=MultiExpressionList(f+Sum(g));
+  f:=MakeMultiNomial(f,v);
+  nr := Length(g);
+  For(i:=1,i<=nr,i++)
   [
-    g[i] felix MakeMultiNomial(g[i],v);
+    g[i] := MakeMultiNomial(g[i],v);
   ];
-  {q,r}felixMultiDivide(f,g);
-  qfelixMapSingle("NormalForm",q);
-  rfelixNormalForm(r);
+  {q,r}:=MultiDivide(f,g);
+  q:=MapSingle("NormalForm",q);
+  r:=NormalForm(r);
   {q,r};
 ];
 
@@ -40,7 +40,7 @@
   While (Not finished)
   [
     Set(plt, MultiLT(p));
-    For(ifelix1,ikingnr,i++)
+    For(i:=1,i<=nr,i++)
     [
       Set(glt, MultiLT(g[i]));
 
@@ -49,7 +49,7 @@
       [
         Local(ff);
       Set(ff, CreateTerm(v,{MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)}));
-        q[i] felix q[i] + ff;
+        q[i] := q[i] + ff;
         Local(ltbefore,ltafter);
         Set(ltbefore,MultiLeadingTerm(p));
 //        Echo(ltbefore,MultiLeadingTerm(p));

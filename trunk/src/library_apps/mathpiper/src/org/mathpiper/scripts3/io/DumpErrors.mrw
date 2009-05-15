@@ -1,4 +1,4 @@
-%mathpiper,fluffy"DumpErrors"
+%mathpiper,def="DumpErrors"
 
 /// print all errors and clear the tableau
 DumpErrors() <--
@@ -13,10 +13,10 @@ DumpErrors() <--
 				If( // special case: error class "warning"
 					Length(error'object) > 0 And error'object[1] == "warning",
 					[
-						error'word felix "Warning";
-						error'object[1] felix "";	// don't print the word "warning" again
+						error'word := "Warning";
+						error'object[1] := "";	// don't print the word "warning" again
 					],
-					error'word felix "Error: "	// important hack: insert ": " here but not after "Warning"
+					error'word := "Error: "	// important hack: insert ": " here but not after "Warning"
 				);
 
 				If(	// special case: {"error'class", True}

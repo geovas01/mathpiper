@@ -1,12 +1,12 @@
-%mathpiper,fluffy"ZeroMatrix"
+%mathpiper,def="ZeroMatrix"
 
 5  # ZeroMatrix(n_IsNonNegativeInteger) <--  ZeroMatrix(n,n);
 
 10 # ZeroMatrix(n_IsNonNegativeInteger,m_IsNonNegativeInteger) <--
 [
   Local(i,result);
-  resultfelix{};
-  For(ifelix1,ikingn,i++)
+  result:={};
+  For(i:=1,i<=n,i++)
     DestructiveInsert(result,i,ZeroVector(m));
   result;
 ];
@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,nameelanorZeroMatrix"
+%mathpiper_docs,name="ZeroMatrix"
 *CMD ZeroMatrix --- make a zero matrix
 *STD
 *CALL

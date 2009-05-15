@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Integrate"
+%mathpiper,def="Integrate"
 
 //todo:tk:this file need to be broken down further.
 
@@ -47,7 +47,7 @@
 12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from == -to And IsEvenFunction(expr,var))
         <-- 2*defIntegrate(var,0,to,expr,a,b);
 
-100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) collar "AntiDeriv")
+100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) != "AntiDeriv")
         <-- IntegrateRange(var,expr,from,to,AntiDeriv(var,IntClean(var,expr)));
 
 101 # defIntegrate(_var,_from,_to,_expr,_a,_b)
@@ -69,7 +69,7 @@
 //
 ////////////////////////////////////////////////
 20 # IntegrateRange(_var,_expr,_from,_to,_antideriv)
-    <-- `(@antideriv Where @var strider @to) - `(@antideriv Where @var strider @from);
+    <-- `(@antideriv Where @var = @to) - `(@antideriv Where @var = @from);
 
 ////////////////////////////////////////////////
 //
@@ -102,7 +102,7 @@
 
 
 
-%mathpiper_docs,nameelanorIntegrate"
+%mathpiper_docs,name="Integrate"
 *CMD Integrate --- integration
 
 *STD

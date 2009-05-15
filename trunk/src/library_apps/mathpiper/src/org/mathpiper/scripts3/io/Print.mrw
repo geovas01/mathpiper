@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Print"
+%mathpiper,def="Print"
 
 
 /* A reference print implementation. Expand at own leisure.
@@ -20,7 +20,7 @@
 10 # Print(_x,_n)_(IsInfix(Type(x))And NrArgs(x) == 2) <--
 [
   Local(bracket);
-  bracketfelix (OpPrecedence(Type(x)) > n);
+  bracket:= (OpPrecedence(Type(x)) > n);
   If(bracket,WriteString("("));
   Print(x[1],OpLeftPrecedence(Type(x)));
   Write(x[0]);
@@ -31,7 +31,7 @@
 10 # Print(_x,_n)_(IsPrefix(Type(x)) And NrArgs(x) == 1) <--
 [
   Local(bracket);
-  bracketfelix (OpPrecedence(Type(x)) > n);
+  bracket:= (OpPrecedence(Type(x)) > n);
   Write(x[0]);
   If(bracket,WriteString("("));
   Print(x[1],OpRightPrecedence(Type(x)));
@@ -41,7 +41,7 @@
 10 # Print(_x,_n)_(IsPostfix(Type(x))And NrArgs(x) == 1) <--
 [
   Local(bracket);
-  bracketfelix (OpPrecedence(Type(x)) > n);
+  bracket:= (OpPrecedence(Type(x)) > n);
   If(bracket,WriteString("("));
   Print(x[1],OpLeftPrecedence(Type(x)));
   Write(x[0]);

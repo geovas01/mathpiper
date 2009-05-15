@@ -1,12 +1,12 @@
-%mathpiper,fluffy"IsPositiveInteger"
+%mathpiper,def="IsPositiveInteger"
 
-IsPositiveInteger(x)felix IsInteger(x) And x > 0;
+IsPositiveInteger(x):= IsInteger(x) And x > 0;
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorIsPositiveInteger"
+%mathpiper_docs,name="IsPositiveInteger"
 *CMD IsPositiveInteger --- test for a positive integer
 *STD
 *CALL

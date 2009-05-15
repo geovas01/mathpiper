@@ -1,4 +1,4 @@
-%mathpiper,fluffy"CDF"
+%mathpiper,def="CDF"
 
 /* Evaluates distribution dst at point x
    known distributions are:
@@ -25,19 +25,19 @@
 
 /* Evaluates Cumulative probability function CDF(x)=Pr(X<x) */
 
-10 # CDF(BernoulliDistribution(_p), x_IsNumber) <-- If(xking0,0,If(x>0 And xking1, p,1));
-11 # CDF(BernoulliDistribution(_p), _x) <-- Hold(If(xking0,0,If(x>0 And xking1, p,1)));
+10 # CDF(BernoulliDistribution(_p), x_IsNumber) <-- If(x<=0,0,If(x>0 And x<=1, p,1));
+11 # CDF(BernoulliDistribution(_p), _x) <-- Hold(If(x<=0,0,If(x>0 And x<=1, p,1)));
 
-10 # CDF(BinomialDistribution(_p,_n),m_IsNumber)_(mking0) <-- 0;
+10 # CDF(BinomialDistribution(_p,_n),m_IsNumber)_(m<=0) <-- 0;
 10 # CDF(BinomialDistribution(_p,n_IsInteger),m_IsNumber)_(m>n) <-- 1;
 10 # CDF(BinomialDistribution(_p,_n),_m) <-- Sum @ { i, 0, m-1, PDF(BinomialDistribution(p,n),i)};
 
-10 # CDF(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(xkinga) <-- 0;
+10 # CDF(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(x<=a) <-- 0;
 10 # CDF(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(x>b) <-- 1;
-10 # CDF(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(a<x And xkingb) <-- (x-a)/(b-a+1);
-11 # CDF(DiscreteUniformDistribution( _a, _b), _x) <--Hold(If(xkinga,0,If(xkingb,(x-a)/(b-a),1)));
+10 # CDF(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(a<x And x<=b) <-- (x-a)/(b-a+1);
+11 # CDF(DiscreteUniformDistribution( _a, _b), _x) <--Hold(If(x<=a,0,If(x<=b,(x-a)/(b-a),1)));
 
-10 # CDF(PoissonDistribution(_l), x_IsNumber)_(xking0) <-- 0;
+10 # CDF(PoissonDistribution(_l), x_IsNumber)_(x<=0) <-- 0;
 10 # CDF(PoissonDistribution(_l), _x) <-- Sum @ {i,0,x-1,PDF(PoissonDistribution(l),i)};
 
 10 # CDF( ChiSquareDistribution(_m), _x) <-- IncompleteGamma(x/2,m/2)/Gamma(x/2);
@@ -45,10 +45,10 @@
       [
 	 Local(i,cdf,y);
 
-	 i felix 1;
-	 cdffelix0;
-	 yfelixdom[i];
-	 While(y<x) [cdffelixcdf+prob[i];i++;];
+	 i := 1;
+	 cdf:=0;
+	 y:=dom[i];
+	 While(y<x) [cdf:=cdf+prob[i];i++;];
 	 cdf;
       ];
 

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"FermatNumber"
+%mathpiper,def="FermatNumber"
 
 Function("FermatNumber",{n})[
 	Check(IsPositiveInteger(n),
@@ -10,7 +10,7 @@ Function("FermatNumber",{n})[
 
 
 
-%mathpiper_docs,nameelanorFermatNumber"
+%mathpiper_docs,name="FermatNumber"
 *CMD FermatNumber --- return the {n}th Fermat Number
 *STD
 *CALL

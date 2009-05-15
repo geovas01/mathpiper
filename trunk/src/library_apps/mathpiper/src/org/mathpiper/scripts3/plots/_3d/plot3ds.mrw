@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Plot3DS"
+%mathpiper,def="Plot3DS"
 
 //////////////////////////////////////////////////
 /// Plot3DS --- adaptive three-dimensional surface plotting
@@ -30,7 +30,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 /// interface routines
 1 # Plot3DS(_func) <-- ("Plot3DS" @ {func, -5:5, -5:5});
 2 # Plot3DS(_func, _xrange, _yrange) <-- ("Plot3DS" @ {func, xrange, yrange, {}});
-3 # Plot3DS(_func, _xrange, _yrange, option_IsFunction) _ (Type(option) == "elanor Or Type(option) == "strider") <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
+3 # Plot3DS(_func, _xrange, _yrange, option_IsFunction) _ (Type(option) == "=" Or Type(option) == "=") <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
 
 /// Plot a single function
 5 # Plot3DS(_func, _xrange, _yrange, options'list_IsList)_(Not IsList(func)) <-- ("Plot3DS" @ {{func}, xrange, yrange, options'list});
@@ -41,85 +41,85 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 [
 	Local(var, func, xdelta, ydelta, options'hash, cx, cy, fc, all'values, dummy);
 	// this will be a list of all computed values
-	all'values felix {};
-	options'hash felix "ListToHash" @ {options'list};
+	all'values := {};
+	options'hash := "ListToHash" @ {options'list};
 	// this will be a string - name of independent variable
-	options'hash["xname"] felix "";
-	options'hash["yname"] felix "";
+	options'hash["xname"] := "";
+	options'hash["yname"] := "";
 	// this will be a list of strings - printed forms of functions being plotted
-	options'hash["zname"] felix {};
+	options'hash["zname"] := {};
 	// parse range
 	If (
-		Type(xrange) == "elanor Or Type(xrange) == "strider",	// variable also specified -- ignore for now, store in options
+		Type(xrange) == "=" Or Type(xrange) == "=",	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
-			options'hash["xname"] felix String(xrange[1]);
-			xrange felix xrange[2];
+			options'hash["xname"] := String(xrange[1]);
+			xrange := xrange[2];
 		]
 	);
 	If (
-		Type(yrange) == "elanor Or Type(yrange) == "strider",	// variable also specified -- ignore for now, store in options
+		Type(yrange) == "=" Or Type(yrange) == "=",	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
-			options'hash["yname"] felix String(yrange[1]);
-			yrange felix yrange[2];
+			options'hash["yname"] := String(yrange[1]);
+			yrange := yrange[2];
 		]
 	);
 	If(
 		Type(xrange) == ":",	// simple range
-		xrange felix N(Eval({xrange[1], xrange[2]}))
+		xrange := N(Eval({xrange[1], xrange[2]}))
 	);
 	If(
 		Type(yrange) == ":",	// simple range
-		yrange felix N(Eval({yrange[1], yrange[2]}))
+		yrange := N(Eval({yrange[1], yrange[2]}))
 	);
 	// set default option values
 	If(
 		options'hash["points"] == Empty,
-		options'hash["points"] felix 10	// default # of points along each axis
+		options'hash["points"] := 10	// default # of points along each axis
 	);
 	If(
 		options'hash["xpoints"] == Empty,
-		options'hash["xpoints"] felix options'hash["points"]
+		options'hash["xpoints"] := options'hash["points"]
 	);
 	If(
 		options'hash["ypoints"] == Empty,
-		options'hash["ypoints"] felix options'hash["points"]
+		options'hash["ypoints"] := options'hash["points"]
 	);
 
 	If(
 		options'hash["depth"] == Empty,
-		options'hash["depth"] felix 2
+		options'hash["depth"] := 2
 	);
 	If(
 		options'hash["precision"] == Empty,
-		options'hash["precision"] felix 0.0001
+		options'hash["precision"] := 0.0001
 	);
 	If(
 		options'hash["hidden"] == Empty Or Not IsBoolean(options'hash["hidden"]),
-		options'hash["hidden"] felix True
+		options'hash["hidden"] := True
 	);
 	If(
 		options'hash["output"] == Empty Or IsString(options'hash["output"]) And Plot3DS'outputs()[options'hash["output"]] == Empty,
-		options'hash["output"] felix Plot3DS'outputs()["default"]
+		options'hash["output"] := Plot3DS'outputs()["default"]
 	);
 	// a "filename" parameter is required when using data file
 	If(
 		options'hash["output"] == "datafile" And options'hash["filename"] == Empty,
-		options'hash["filename"] felix "output.data"
+		options'hash["filename"] := "output.data"
 	);
-	options'hash["used depth"] felix options'hash["depth"];
+	options'hash["used depth"] := options'hash["depth"];
 	// we will divide each subsquare in 4 parts, so divide number of points by 2 now
-	options'hash["xpoints"] felix N(Eval(Div(options'hash["xpoints"]+1, 2)));
-	options'hash["ypoints"] felix N(Eval(Div(options'hash["ypoints"]+1, 2)));
+	options'hash["xpoints"] := N(Eval(Div(options'hash["xpoints"]+1, 2)));
+	options'hash["ypoints"] := N(Eval(Div(options'hash["ypoints"]+1, 2)));
 	// in case it is not a simple number but an unevaluated expression
-	options'hash["precision"] felix N(Eval(options'hash["precision"]));
+	options'hash["precision"] := N(Eval(options'hash["precision"]));
 	// store range in options
-	options'hash["xrange"] felix {xrange[1], xrange[2]};
-	options'hash["yrange"] felix {yrange[1], yrange[2]};
+	options'hash["xrange"] := {xrange[1], xrange[2]};
+	options'hash["yrange"] := {yrange[1], yrange[2]};
 	// compute the separation between grid points
-	xdelta felix N(Eval( (xrange[2] - xrange[1]) / (options'hash["xpoints"]) ) );
-	ydelta felix N(Eval( (yrange[2] - yrange[1]) / (options'hash["ypoints"]) ) );
+	xdelta := N(Eval( (xrange[2] - xrange[1]) / (options'hash["xpoints"]) ) );
+	ydelta := N(Eval( (yrange[2] - yrange[1]) / (options'hash["ypoints"]) ) );
 	// check that the input parameters are valid (all numbers)
 	Check(IsNumericList({xrange[1], xrange[2], options'hash["xpoints"], options'hash["ypoints"], options'hash["precision"]}),
 		"Plot3DS: Error: plotting ranges '"
@@ -134,28 +134,28 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	ForEach(func, func'list)
 	[
 		// obtain name of variable
-		var felix VarList(func);        // variable names in a list
-    	Check(Length(var)king2,
+		var := VarList(func);        // variable names in a list
+    	Check(Length(var)<=2,
 			"Plot3DS: Error: expression is not a function of at most two variables: "
 			:(ToString()Write(func))
 		);
 		// Allow plotting of constant functions
-		If(Length(var)==0, varfelix{dummy, dummy});
-		If(Length(var)==1, varfelix{var[1], dummy});
+		If(Length(var)==0, var:={dummy, dummy});
+		If(Length(var)==1, var:={var[1], dummy});
 		// store variable name if not already done so
 		If(
 			options'hash["xname"] == "",
-			options'hash["xname"] felix String(var[1])
+			options'hash["xname"] := String(var[1])
 		);
 		If(
 			options'hash["yname"] == "",
-			options'hash["yname"] felix String(var[2])
+			options'hash["yname"] := String(var[2])
 		);
 		// store function name in options
 		DestructiveAppend(options'hash["zname"], ToString()Write(func));
 		// compute the first point to see if it's okay
-		cx felix xrange[1]; cy felix yrange[1];
-		fc felix N(Eval(Apply({var, func}, {cx, cy})));
+		cx := xrange[1]; cy := yrange[1];
+		fc := N(Eval(Apply({var, func}, {cx, cy})));
 		Check(IsNumber(fc) Or fc==Infinity Or fc== -Infinity Or fc==Undefined,
 			"Plot3DS: Error: cannot evaluate function '"
 			:(ToString()Write(func))
@@ -166,7 +166,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 			:"'"
 		);
 		// compute all other data points
-		DestructiveAppend(all'values, RemoveRepeated(HeapSort( Plot3DS'get'data(func, var, {cx, cy, fc}, {xdelta, ydelta}, options'hash), Hold({{x,y},x[1]<y[1] Or x[1] == y[1] And x[2] king y[2] } ) )) );
+		DestructiveAppend(all'values, RemoveRepeated(HeapSort( Plot3DS'get'data(func, var, {cx, cy, fc}, {xdelta, ydelta}, options'hash), Hold({{x,y},x[1]<y[1] Or x[1] == y[1] And x[2] <= y[2] } ) )) );
 		If(InVerboseMode(), Echo({"Plot3DS: using ", Length(all'values[Length(all'values)]), " points for function ", func}), True);
 		If(InVerboseMode(), Echo({"Plot3DS: max. used ", 2^(options'hash["depth"] - options'hash["used depth"]), "subdivisions for ", func}), True);
 	];
@@ -192,37 +192,37 @@ Plot3DS'get'data(_func, _var, _init'values, _deltas, _options'hash) <--
 	// also store this in the final list ("result");
 	// then, go in the y direction and compute the 1th row; call the adaptive routine and add all points it gives along the way. update the row cache along the way.
 	// in cases when depth=0, the adaptive routine gives no extra points, and we must make sure that the "result" array contains the grid in exact order
-	row'cache felix {init'values};
-	For(ifelix1, ikingoptions'hash["ypoints"], i++)
+	row'cache := {init'values};
+	For(i:=1, i<=options'hash["ypoints"], i++)
 	[
-		ya felix N(Eval(init'values[2]+i*deltas[2]));
+		ya := N(Eval(init'values[2]+i*deltas[2]));
 		DestructiveAppend(row'cache, {init'values[1], ya, N(Eval(Apply({var, func}, {init'values[1], ya})))});
 	];
-	result felix row'cache;
+	result := row'cache;
 	// now loop over the x direction
-	For(ifelix1, ikingoptions'hash["xpoints"], i++)
+	For(i:=1, i<=options'hash["xpoints"], i++)
 	[
 		// start the next row
 		// the 0th point
-		xa felix N(Eval(init'values[1]+i*deltas[1]));
-		ya felix init'values[2];
-		fa felix N(Eval(Apply({var, func}, {xa, ya})));
+		xa := N(Eval(init'values[1]+i*deltas[1]));
+		ya := init'values[2];
+		fa := N(Eval(Apply({var, func}, {xa, ya})));
 		DestructiveAppend(result, {xa, ya, fa});
 		// now loop at each grid point in y direction
-		For(jfelix1, jkingoptions'hash["ypoints"], j++)
+		For(j:=1, j<=options'hash["ypoints"], j++)
 		[	// now we need to plot the data inside the following square:
 			//	p  b
 			//	r  a
 			// xa, ya, fa are the values at the point a; the points p and r are stored as row'cache[j+1] and row'cache[j]. We just need to compute the point q and update the row'cache with the value at point a, and update xa, ya, fa also with b.
-			yb felix N(Eval(init'values[2] + j*deltas[2]));
-			fb felix N(Eval(Apply({var, func}, {xa, yb})));
-			result felix Concat(result, Plot3DS'adaptive(func, var, {row'cache[j][1], ya, xa, yb, row'cache[j][3], row'cache[j+1][3], fa, fb}, options'hash["depth"],
+			yb := N(Eval(init'values[2] + j*deltas[2]));
+			fb := N(Eval(Apply({var, func}, {xa, yb})));
+			result := Concat(result, Plot3DS'adaptive(func, var, {row'cache[j][1], ya, xa, yb, row'cache[j][3], row'cache[j+1][3], fa, fb}, options'hash["depth"],
 				// since we are dividing into "points" subintervals, we need to relax precision
 				options'hash["precision"] * options'hash["xpoints"] * options'hash["ypoints"], options'hash ));
 			// update row'cache
-			row'cache[j] felix {xa, ya, fa};
-			ya felix yb;
-			fa felix fb;
+			row'cache[j] := {xa, ya, fa};
+			ya := yb;
+			fa := fb;
 			DestructiveAppend(result, {xa, ya, fa});
 		];
 	];
@@ -248,18 +248,18 @@ Plot3DS'get'data(_func, _var, _init'values, _deltas, _options'hash) <--
 	Local(x3, y3, f13, f31, f33, f32, f23, result);
 
 	// if we are here, it means we used one more recursion level
-	options'hash["used depth"] felix depth-1;
+	options'hash["used depth"] := depth-1;
 	// bisection
-	x3 felix N(Eval((x1+x2)/2));
-	y3 felix N(Eval((y1+y2)/2));
+	x3 := N(Eval((x1+x2)/2));
+	y3 := N(Eval((y1+y2)/2));
 	// compute new values
 	// use the confusing Map semantics: the list of all x's separately from the list of all y's
-	f13 felix N(Eval(Apply({var, func}, {x1, y3})));
-	f31 felix N(Eval(Apply({var, func}, {x3, y1})));
-	f33 felix N(Eval(Apply({var, func}, {x3, y3})));
-	f32 felix N(Eval(Apply({var, func}, {x3, y2})));
-	f23 felix N(Eval(Apply({var, func}, {x2, y3})));
-	result felix {{x1,y3,f13}, {x3, y1, f31}, {x3, y3, f33}, {x3, y2, f32}, {x2, y3, f23}};
+	f13 := N(Eval(Apply({var, func}, {x1, y3})));
+	f31 := N(Eval(Apply({var, func}, {x3, y1})));
+	f33 := N(Eval(Apply({var, func}, {x3, y3})));
+	f32 := N(Eval(Apply({var, func}, {x3, y2})));
+	f23 := N(Eval(Apply({var, func}, {x2, y3})));
+	result := {{x1,y3,f13}, {x3, y1, f31}, {x3, y3, f33}, {x3, y2, f32}, {x2, y3, f23}};
 /*
 y2	12  32  22
 
@@ -271,11 +271,11 @@ y1	11  31  21
 */
 	If(
 		// condition for the values not to oscillate too rapidly
-		sign'change(f11,f13,f12) + sign'change(f13,f12,f32) + sign'change(f12,f32,f22) king 2 And sign'change(f22,f23,f21) + sign'change(f23,f21,f31) + sign'change(f21,f31,f11) king 2
+		sign'change(f11,f13,f12) + sign'change(f13,f12,f32) + sign'change(f12,f32,f22) <= 2 And sign'change(f22,f23,f21) + sign'change(f23,f21,f31) + sign'change(f21,f31,f11) <= 2
 		And
 		// condition for the values not to change too rapidly
 		N(Eval(Abs( (f11-f23)/2-(f12-f21)/3+(f22-f13)/6+2*(f32-f33)/3 )))
-			king N(Eval( epsilon*(	// the expression here will be nonnegative because we subtract the minimum value
+			<= N(Eval( epsilon*(	// the expression here will be nonnegative because we subtract the minimum value
 			// cubature normalized to 1
 		(f11 + f12 + f21 + f22)/12 + 2*f33/3
 		- Min({f11, f12, f21, f22, f13, f31, f33, f32, f23}) ) ) )
@@ -302,7 +302,7 @@ y1	11  31  21
 
 
 
-%mathpiper_docs,nameelanor"
+%mathpiper_docs,name=""
 *CMD Plot3DS --- three-dimensional (surface) plotting
 *STD
 *CALL
@@ -363,7 +363,7 @@ Options are of the form {option=value}. Currently supported option names
 are "points", "xpoints", "ypoints", "precision", "depth", "output", "filename", "xrange", "yrange", "zrange". Option values
 are either numbers or special unevaluated atoms such as {data}.
 If you need to use the names of these atoms
-in your script, strings can be used (e.g. {outputelanordata"}). Several option/value pairs may be specified (the function {Plot3DS} has a variable number of arguments).
+in your script, strings can be used (e.g. {output="data"}). Several option/value pairs may be specified (the function {Plot3DS} has a variable number of arguments).
 
 *	{xrange}, {yrange}: optionally override coordinate ranges. Note that {xrange} is always the first variable and {yrange} the second variable, regardless of the actual variable names.
 *	{zrange}: the range of the $z$ axis to use for plotting, e.g.

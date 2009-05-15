@@ -1,8 +1,8 @@
-%mathpiper,fluffy"FuncListArith"
+%mathpiper,def="FuncListArith"
 
 /* FuncListArith() is defined to only look at arithmetic operations +, -, *, /.  */
 
-FuncListArith(expr) felix FuncList(expr, {Atom("+"), Atom("-"), *, /});
+FuncListArith(expr) := FuncList(expr, {Atom("+"), Atom("-"), *, /});
 
 HoldArgNr("FuncListArith", 1, 1);
 
@@ -10,7 +10,7 @@ HoldArgNr("FuncListArith", 1, 1);
 
 
 
-%mathpiper_docs,nameelanorFuncListArith"
+%mathpiper_docs,name="FuncListArith"
 *CMD FuncList --- list of functions used in an expression
 *CMD FuncListArith --- list of functions used in an expression
 *CMD FuncListSome --- list of functions used in an expression

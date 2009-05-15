@@ -1,8 +1,8 @@
-%mathpiper,fluffy"BesselNsmall",scopeelanorprivate"
+%mathpiper,def="BesselNsmall",scope="private"
 
 /// coded by Jonathan Leto
 
-// When x is king 1, the series is monotonely decreasing from the
+// When x is <= 1, the series is monotonely decreasing from the
 // start, so we don't have to worry about loss of precision from the
 // series definition.
 // When {n} is an integer, this is fast.
@@ -12,22 +12,22 @@ Function("BesselNsmall",{n,x,modified})
 [
         Local(term,result,k);
         Local(prec,eps,tmp);
-        precfelixBuiltinPrecisionGet();
+        prec:=BuiltinPrecisionGet();
         BuiltinPrecisionSet(Ceil(1.2*prec)); // this is a guess
-        epsfelix5*10^(-prec);
+        eps:=5*10^(-prec);
 
-        termfelix1;
-        kfelix0;
-        resultfelix0;
-        While( Abs(term) bullet eps )[
-                termfelixx^(2*k+n);
+        term:=1;
+        k:=0;
+        result:=0;
+        While( Abs(term) >= eps )[
+                term:=x^(2*k+n);
 		// The only difference between BesselJ and BesselI
 		// is an alternating term
-		If( k%2==1 And modified==0 , termfelixterm*-1 );
-		termfelixN(term/(2^(2*k+n)* k! * Gamma(k+n+1) ));
+		If( k%2==1 And modified==0 , term:=term*-1 );
+		term:=N(term/(2^(2*k+n)* k! * Gamma(k+n+1) ));
                 //Echo({"term is ",term});
-                resultfelixresult+term;
-                kfelixk+1;
+                result:=result+term;
+                k:=k+1;
         ];
         BuiltinPrecisionSet(prec);
 	// This should not round, only truncate

@@ -1,13 +1,13 @@
-%mathpiper,fluffy"DiagonalMatrix"
+%mathpiper,def="DiagonalMatrix"
 
 Function("DiagonalMatrix",{list})
 [
   Local(result,i,n);
-  nfelixLength(list);
-  resultfelixIdentity(n);
-  For(ifelix1,ikingn,i++)
+  n:=Length(list);
+  result:=Identity(n);
+  For(i:=1,i<=n,i++)
   [
-    result[i][i] felix list[i];
+    result[i][i] := list[i];
   ];
   result;
 ];
@@ -16,7 +16,7 @@ Function("DiagonalMatrix",{list})
 
 
 
-%mathpiper_docs,nameelanorDiagonalMatrix"
+%mathpiper_docs,name="DiagonalMatrix"
 *CMD DiagonalMatrix --- construct a diagonal matrix
 *STD
 *CALL

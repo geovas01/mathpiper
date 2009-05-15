@@ -1,4 +1,4 @@
-%mathpiper,defelanorLnExpand"
+%mathpiper,def="LnExpand"
 
 ////////////////////// Log rules stuff //////////////////////
 
@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,nameelanorLnExpand"
+%mathpiper_docs,name="LnExpand"
 *CMD LnExpand --- expand a logarithmic expression using standard logarithm rules
 *STD
 *CALL

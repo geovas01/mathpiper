@@ -1,12 +1,12 @@
-%mathpiper,fluffy"FindIsq"
+%mathpiper,def="FindIsq"
 
 LocalSymbols(max,f,low,high,mid,current)
 [
-FindIsq(max,f)  felix
+FindIsq(max,f)  :=
 [
   Local(low,high,mid,current);
-  lowfelix1;
-  highfelixmax+1;
+  low:=1;
+  high:=max+1;
   Set(mid,((high+low)>>1));
   While(high>low And mid>1)
   [
@@ -14,7 +14,7 @@ FindIsq(max,f)  felix
     Set(current,Apply(f,{mid}));
 //Echo({low,high,current});
     If(current == 0,
-       highfelixlow-1,
+       high:=low-1,
        If(current > 0,
           Set(high,mid),
           Set(low,mid+1)

@@ -1,26 +1,26 @@
-%mathpiper,fluffy"Inverse"
+%mathpiper,def="Inverse"
 
 Function("Inverse",{matrix})
 [
   Local(perms,indices,inv,det,n);
-  nfelixLength(matrix);
-  indicesfelixTable(i,i,1,n,1);
-  permsfelixPermutations(indices);
-  invfelixZeroMatrix(n,n);
-  detfelix0;
+  n:=Length(matrix);
+  indices:=Table(i,i,1,n,1);
+  perms:=Permutations(indices);
+  inv:=ZeroMatrix(n,n);
+  det:=0;
   ForEach(item,perms)
   [
     Local(i,lc);
-    lc felix LeviCivita(item);
-    detfelixdet+Factorize(i,1,n,matrix[i][item[i] ])* lc;
-    For(ifelix1,ikingn,i++)
+    lc := LeviCivita(item);
+    det:=det+Factorize(i,1,n,matrix[i][item[i] ])* lc;
+    For(i:=1,i<=n,i++)
         [
-         inv[item[i] ][i] felix inv[item[i] ][i]+
+         inv[item[i] ][i] := inv[item[i] ][i]+
            Factorize(j,1,n,
              If(j==i,1,matrix[j][item[j] ]))*lc;
         ];
   ];
-  Check(det collar 0, "Zero determinant");
+  Check(det != 0, "Zero determinant");
   (1/det)*inv;
 ];
 
@@ -28,7 +28,7 @@ Function("Inverse",{matrix})
 
 
 
-%mathpiper_docs,nameelanorInverse"
+%mathpiper_docs,name="Inverse"
 *CMD Inverse --- get inverse of a matrix
 *STD
 *CALL
@@ -47,9 +47,9 @@ matrix elements.
 
 *E.G.
 
-	In> AfelixDiagonalMatrix({a,b,c})
+	In> A:=DiagonalMatrix({a,b,c})
 	Out> {{a,0,0},{0,b,0},{0,0,c}};
-	In> BfelixInverse(A)
+	In> B:=Inverse(A)
 	Out> {{(b*c)/(a*b*c),0,0},{0,(a*c)/(a*b*c),0},
 	{0,0,(a*b)/(a*b*c)}};
 	In> Simplify(B)

@@ -1,17 +1,17 @@
-%mathpiper,fluffy"Apart"
+%mathpiper,def="Apart"
 
 Apart(_f) <-- Apart(f,x);
 
 Apart(_f,_var) <--
 [
   Local(rat);
-  ratfelixRationalForm(f,var);
+  rat:=RationalForm(f,var);
   If(Degree(rat[1],var) == 0 And Degree(rat[2],var) == 0,
      [
-       ratfelix{Coef(rat[1],var,0),Coef(rat[2],var,0)};
+       rat:={Coef(rat[1],var,0),Coef(rat[2],var,0)};
        Local(summed,add);
-       summed felix Eval(PartFracExpand(Rem(rat[1],rat[2]),rat[2]));
-       addfelix(rat[1]/rat[2] - summed);
+       summed := Eval(PartFracExpand(Rem(rat[1],rat[2]),rat[2]));
+       add:=(rat[1]/rat[2] - summed);
        add + summed;
      ]
      ,

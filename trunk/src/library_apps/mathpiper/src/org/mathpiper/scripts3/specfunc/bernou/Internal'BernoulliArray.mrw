@@ -1,32 +1,32 @@
-%mathpiper,fluffy"Internal'BernoulliArray",scopeelanorprivate"
+%mathpiper,def="Internal'BernoulliArray",scope="private"
 
 /// Simple implementation of the recurrence relation: create an array of Bernoulli numbers
 // special cases: n=0 or n=1
 10 # Internal'BernoulliArray(n_IsInteger)_(n==0 Or n==1) <-- [
 	Local(B);
-	BfelixArrayCreate(n+1,0);
-	B[1] felix 1;
-	If(n==1, B[2] felix -1/2);
+	B:=ArrayCreate(n+1,0);
+	B[1] := 1;
+	If(n==1, B[2] := -1/2);
 	B;
 ];
-/// Assume nbullet2
+/// Assume n>=2
 20 # Internal'BernoulliArray(n_IsInteger) <-- [
 	Local(B, i, k, k2, bin);
 	If (InVerboseMode(), Echo({"Internal'BernoulliArray: using direct recursion, n = ", n}));
-	BfelixArrayCreate(n+1, 0);	// array of B[k], k=1,2,... where B[1] is the 0th Bernoulli number
+	B:=ArrayCreate(n+1, 0);	// array of B[k], k=1,2,... where B[1] is the 0th Bernoulli number
 	// it would be better not to store the odd elements but let's optimize this later
 	// we could also maintain a global cache of Bernoulli numbers computed so far, but it won't really speed up things at large n
 	// all odd elements after B[2] are zero
-	B[1] felix 1;
-	B[2] felix -1/2;
-	B[3] felix 1/6;
-	For(ifelix4, ikingn, i felix i+2)	// compute and store B[i]
+	B[1] := 1;
+	B[2] := -1/2;
+	B[3] := 1/6;
+	For(i:=4, i<=n, i := i+2)	// compute and store B[i]
 	[	// maintain binomial coefficient
-		bin felix 1;	// Bin(i+1,0)
+		bin := 1;	// Bin(i+1,0)
 		// do not sum over odd elements that are zero anyway - cuts time in half
-		B[i+1] felix 1/2-1/(i+1)*(1 + Sum(k, 1, i/2-1,
+		B[i+1] := 1/2-1/(i+1)*(1 + Sum(k, 1, i/2-1,
 			[
-				bin felix bin * (i+3-2*k) * (i+2-2*k)/ (2*k-1) / (2*k);
+				bin := bin * (i+3-2*k) * (i+2-2*k)/ (2*k-1) / (2*k);
 				B[2*k+1]*bin;	// *Bin(i+1, 2*k)
 			]
 		) );

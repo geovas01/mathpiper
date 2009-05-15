@@ -1,4 +1,4 @@
-%mathpiper,fluffy"InverseTaylor"
+%mathpiper,def="InverseTaylor"
 
 /* InverseTaylor : given a function y=f(x), determine the Taylor series
  * expansion of the inverse f^-1(y)=x this function around y0=f(x0).
@@ -7,7 +7,7 @@
 Function("InverseTaylor",{var,val,degree,func})
 [
   Local(l1);
-  l1felixUniTaylor(func,var,val,degree);
+  l1:=UniTaylor(func,var,val,degree);
   val+ReversePoly(l1,var,var,var,degree+1);
 ];
 
@@ -15,7 +15,7 @@ Function("InverseTaylor",{var,val,degree,func})
 
 
 
-%mathpiper_docs,nameelanorInverseTaylor"
+%mathpiper_docs,name="InverseTaylor"
 *CMD InverseTaylor --- Taylor expansion of inverse
 *STD
 *CALL
@@ -43,14 +43,14 @@ up to order "order". It uses the function {ReversePoly} to perform the task.
 	
 	True
 	
-	In> exp1 felix Taylor(x,0,7) Sin(x)
+	In> exp1 := Taylor(x,0,7) Sin(x)
 	
 	     3    5      7
 	    x    x      x
 	x - -- + --- - ----
 	    6    120   5040
 	
-	In> exp2 felix InverseTaylor(x,0,7) ArcSin(x)
+	In> exp2 := InverseTaylor(x,0,7) ArcSin(x)
 	
 	 5      7     3
 	x      x     x

@@ -1,4 +1,4 @@
-%mathpiper,defelanor<<;>>"
+%mathpiper,def="<<;>>"
 
 /* def file definitions
 <<
@@ -13,7 +13,7 @@ n_IsInteger >> m_IsInteger <-- ShiftRight(n,m);
 %/mathpiper
 
 
-%mathpiper_docs,nameelanor<<;>>"
+%mathpiper_docs,name="<<;>>"
 *CMD << --- binary shift left operator
 *CMD >> --- binary shift right operator
 *STD

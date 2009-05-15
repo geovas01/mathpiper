@@ -1,4 +1,4 @@
-%mathpiper,fluffy"OMREP;OMDef;OMForm;OMRead;OMParse;OMEcho;OMEchoEscape"
+%mathpiper,def="OMREP;OMDef;OMForm;OMRead;OMParse;OMEcho;OMEchoEscape"
 
 /* def file definitions
 OMREP
@@ -34,7 +34,7 @@ Rule("OMREP",1,1,True)
     Set(errorObject, "");
     TrapError(Set(input, FromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()),Set(errorObject,OMGetCoreError()));
     If(Not(errorObject == ""), errorObject);
-    If (Not(IsExitRequested()) And errorObjectelanor",
+    If (Not(IsExitRequested()) And errorObject="",
     [
       Set(stringOut,"");
       Set(result,False);
@@ -42,12 +42,12 @@ Rule("OMREP",1,1,True)
       If(Not(errorObject == ""), errorObject);
       If(Not(stringOut == ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);
-      If(PrettyPrinter'Get()elanor",
+      If(PrettyPrinter'Get()="",
       [
         Apply("OMForm",{result});
       ],
       Apply(PrettyPrinter'Get(),{result}));
-      If(count > 0 And (countfelixcount-1) == 0, Exit());
+      If(count > 0 And (count:=count-1) == 0, Exit());
     ]);
   ];
 ];
@@ -55,10 +55,10 @@ Rule("OMREP",1,1,True)
 
 LocalSymbols(omindent) [
   // Function definitions
-  OMIndent() felix [omindent felix omindent + 2;];
-  OMUndent() felix [omindent felix omindent - 2;];
-  OMClearIndent() felix [omindent felix 0;];
-  OMIndentSpace() felix Space(omindent);
+  OMIndent() := [omindent := omindent + 2;];
+  OMUndent() := [omindent := omindent - 2;];
+  OMClearIndent() := [omindent := 0;];
+  OMIndentSpace() := Space(omindent);
 
   // Initialization of indentation
   OMClearIndent();
@@ -75,7 +75,7 @@ LocalSymbols(omindent) [
      OMIndent();
      If(IsAtom(expression),
         If(expression == Atom("%"),
-           Secure(expression felix Eval(expression))
+           Secure(expression := Eval(expression))
            )
         );
      OMFormExpression(expression);
@@ -86,13 +86,13 @@ LocalSymbols(omindent) [
 10 # OMFormExpression(i_IsString)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
 11 # OMFormExpression(i_IsInteger) <-- OMEcho("<OMI>":String(i):"</OMI>");
 12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":String(i):"\"/>");
-13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ String(i) ] collar Empty)
+13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ String(i) ] != Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ String(i) ][1]
                 :"\" name=\"":OMSymbol()[ String(i) ][2]:"\"/>"
                 );
 14 # OMFormExpression(i_IsConstant)// Should we rather evaluate it?
      <-- OMEcho("<OMV name=\"":String(i):"\"/>");
-15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ String(i) ] collar Empty)
+15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ String(i) ] != Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ String(i) ][1]
                 :"\" name=\"":OMSymbol()[ String(i) ][2]:"\"/>"
                 );
@@ -106,8 +106,8 @@ LocalSymbols(omindent) [
      [
      Local(cd, name);
      If(IsList(function[1]),
-        [ cd felix function[1][1]; name felix function[1][2]; ],
-        [ cd felix "error";        name felix function[1];    ]);
+        [ cd := function[1][1]; name := function[1][2]; ],
+        [ cd := "error";        name := function[1];    ]);
      OMEcho("<OME>");
      OMIndent();
      OMEcho("<OMS cd=\"":cd:"\" name=\"":name:"\"/>");
@@ -169,19 +169,19 @@ LocalSymbols(omindent) [
      <--
      [
      Local(arity);
-     arity felix Length(function);
+     arity := Length(function);
      OMEcho("<OMS cd=\"piper\" name=\"":Type(function):"\"/>");
      If(arity > 0, ForEach(arg, function) OMFormExpression(arg));
      ];
-10 # OMFormFunction(function_IsFunction)_(OMSymbol()[ Type(function) ] collar Empty)
+10 # OMFormFunction(function_IsFunction)_(OMSymbol()[ Type(function) ] != Empty)
      <--
      [
      Local(symbolDef);
      // [20051016 AGP] The "signature" feature is an old attempt at pattern
      // matching, but now that we have real predicates in the mappings it's
      // probably obsolete. I'll think about removing it.
-     symbolDef felix OMSymbol()[ OMSignature(function) ];
-     If(symbolDef == Empty, symbolDef felix OMSymbol()[ Type(function) ] );
+     symbolDef := OMSymbol()[ OMSignature(function) ];
+     If(symbolDef == Empty, symbolDef := OMSymbol()[ Type(function) ] );
      If(symbolDef == Empty Or Length(symbolDef) < 3 Or symbolDef[3] == {},
         [
         OMEcho("<OMS cd=\"":symbolDef[1]:"\" name=\"":symbolDef[2]:"\"/>");
@@ -189,11 +189,11 @@ LocalSymbols(omindent) [
         ],
         [
         Local(result);
-        result felix OMApplyMapping(function, symbolDef[3]);
+        result := OMApplyMapping(function, symbolDef[3]);
         //Check(IsList(result), ToString()Echo("Mapping result is not a list: ", result));
         If(IsList(result),
            [
-           result felix UnList(Subst($, function[0]) result);
+           result := UnList(Subst($, function[0]) result);
            OMFormExpression(result[0]);
            ForEach(i, result) OMFormExpression(i);
            ],
@@ -280,18 +280,18 @@ OMSignature(_function) <-- "";
 OMSignature(function_IsFunction) <--
 [
   Local(makeSig);
-  makeSig felix {ConcatStrings, Type(function), "_"};
+  makeSig := {ConcatStrings, Type(function), "_"};
   Local(type);
-  type felix "";// If "function" doesn't have parameters, the signature is "f_".
+  type := "";// If "function" doesn't have parameters, the signature is "f_".
   ForEach(arg, function)
   [
     If(Type(arg) == "List",
-       type felix "L",
+       type := "L",
        If(IsFunction(arg),
-          type felix "F",
+          type := "F",
           If(IsInteger(arg),
-             type felix "I",
-             type felix "V"
+             type := "I",
+             type := "V"
              )
           )
        );
@@ -311,38 +311,38 @@ HoldArgNr("OMSignature", 1, 1);
 //      rules. It means that you forgot to call OMNextToken() from your rule.
 
 LocalSymbols(omtoken) [
-  OMNextToken() felix
+  OMNextToken() :=
   [
-    omtoken felix XmlExplodeTag(String(ReadToken()));
+    omtoken := XmlExplodeTag(String(ReadToken()));
   ];
-  OMToken() felix omtoken;
+  OMToken() := omtoken;
 ]; // LocalSymbols(omtoken)
 
-OMRead()felix
+OMRead():=
 [
   Local(result);
   TrapError(
   [
     XmlTokenizer();
     OMNextToken();
-    result felix MatchOMOBJ(OMToken());
+    result := MatchOMOBJ(OMToken());
     DefaultTokenizer();
   ],
   [
-    result felix OMGetCoreError();
+    result := OMGetCoreError();
     DefaultTokenizer();
   ]);
   result;
 ];
 
 
-OMDump(str)felix
+OMDump(str):=
 FromString(str:" EndOfFile")
 [
   Local(result);
   XmlTokenizer();
   OMNextToken();
-  While(OMToken() collar "EndOfFile")
+  While(OMToken() != "EndOfFile")
   [
     Echo("Exploded ",OMToken());
     OMNextToken();
@@ -361,7 +361,7 @@ FromString(str:" EndOfFile")
   // Any attributes are ignored.
   Local(result);
   OMNextToken();
-  result felix ReadOMOBJ(OMToken());
+  result := ReadOMOBJ(OMToken());
   MatchClose(XmlTag("OMOBJ",{},"Close"));
   result;
 ];
@@ -384,7 +384,7 @@ FromString(str:" EndOfFile")
 [
   Local(result);
   OMNextToken();
-  result felix Atom(OMToken());
+  result := Atom(OMToken());
   OMNextToken();
   MatchClose(XmlTag("OMI",{},"Close"));
   result;
@@ -406,7 +406,7 @@ FromString(str:" EndOfFile")
 [
   Local(result);
   OMNextToken();
-  If(IsString(OMToken()), [result felix OMToken(); OMNextToken();], result felix "");
+  If(IsString(OMToken()), [result := OMToken(); OMNextToken();], result := "");
   MatchClose(XmlTag("OMSTR",{},"Close"));
   result;
 ];
@@ -419,11 +419,11 @@ FromString(str:" EndOfFile")
 10 # ReadOMOBJ(XmlTag("OMA",{},"Open")) <--
 [
   Local(result, new);
-  resultfelix{};
+  result:={};
   OMNextToken();
-  While (OMToken() collar XmlTag("OMA",{},"Close"))
+  While (OMToken() != XmlTag("OMA",{},"Close"))
   [
-    newfelixReadOMOBJ(OMToken());
+    new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
   ];
   MatchClose(XmlTag("OMA",{},"Close"));
@@ -433,11 +433,11 @@ FromString(str:" EndOfFile")
 10 # ReadOMOBJ(XmlTag("OMBIND",{},"Open")) <--
 [
   Local(result, new);
-  resultfelix{};
+  result:={};
   OMNextToken();
-  While (OMToken() collar XmlTag("OMBIND",{},"Close"))
+  While (OMToken() != XmlTag("OMBIND",{},"Close"))
   [
-    newfelixReadOMOBJ(OMToken());
+    new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
   ];
   MatchClose(XmlTag("OMBIND",{},"Close"));
@@ -446,11 +446,11 @@ FromString(str:" EndOfFile")
 10 # ReadOMOBJ(XmlTag("OMBVAR",{},"Open")) <--
 [
   Local(result, new);
-  resultfelix{};
+  result:={};
   OMNextToken();
-  While (OMToken() collar XmlTag("OMBVAR",{},"Close"))
+  While (OMToken() != XmlTag("OMBVAR",{},"Close"))
   [
-    newfelixReadOMOBJ(OMToken());
+    new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
   ];
   MatchClose(XmlTag("OMBVAR",{},"Close"));
@@ -458,17 +458,17 @@ FromString(str:" EndOfFile")
 ];
 
 10 # OMApplyReverseMapping(piperExp_IsFunction) <-- piperExp;
-10 # OMApplyReverseMapping(piperExp_IsFunction)_(OMSymbol()[ Type(piperExp) ] collar Empty)
+10 # OMApplyReverseMapping(piperExp_IsFunction)_(OMSymbol()[ Type(piperExp) ] != Empty)
      <--
      [
      Local(symbolDef, result);
-     symbolDef felix OMSymbol()[ Type(piperExp) ];
+     symbolDef := OMSymbol()[ Type(piperExp) ];
      If(symbolDef[4] == {},
-        result felix piperExp,
+        result := piperExp,
         [
-          result felix OMApplyMapping(piperExp, symbolDef[4]);
-          result felix Subst($, piperExp[0]) result;
-          If(IsList(result), result felix UnList(result));
+          result := OMApplyMapping(piperExp, symbolDef[4]);
+          result := Subst($, piperExp[0]) result;
+          If(IsList(result), result := UnList(result));
         ]
        );
      result;
@@ -477,22 +477,22 @@ FromString(str:" EndOfFile")
 10 # OMApplyMapping(_function, _mapping) <--
 [
   Local(expandRules, result);
-  expandRules felix { _(_path) <- OMPathSelect(path, function) };
-  expandRules[1][2][2] felix function;// the "function" variable is not expanded above.
+  expandRules := { _(_path) <- OMPathSelect(path, function) };
+  expandRules[1][2][2] := function;// the "function" variable is not expanded above.
 
-  mapping felix (mapping /: expandRules);// "/:" has lower precedence than "felix".
+  mapping := (mapping /: expandRules);// "/:" has lower precedence than ":=".
 
   Local(ruleMatched);
-  ruleMatched felix False;
+  ruleMatched := False;
   If(Type(mapping) == "|",
      [
-     mapping felix Flatten(mapping, "|");
+     mapping := Flatten(mapping, "|");
      ForEach(rule, mapping)
        If(Not ruleMatched,
           [
           If(Type(rule) == "_",
-             If( Eval(rule[2]), [ result felix rule[1]; ruleMatched felix True; ] ),
-             [ result felix rule; ruleMatched felix True; ]
+             If( Eval(rule[2]), [ result := rule[1]; ruleMatched := True; ] ),
+             [ result := rule; ruleMatched := True; ]
             );
           ]
          );
@@ -500,12 +500,12 @@ FromString(str:" EndOfFile")
      [
      If(Type(mapping) == "_",
         If(Eval(mapping[2]),
-           result felix mapping[1],
-           result felix Listify(function)
+           result := mapping[1],
+           result := Listify(function)
           ),
-	result felix mapping
+	result := mapping
        );
-     ruleMatched felix True;
+     ruleMatched := True;
      ]
     );
 
@@ -520,15 +520,15 @@ FromString(str:" EndOfFile")
 
 11 # OMPathSelect(path_IsNumber, _expression) <--
 [
-  If(path bullet 0 And path king Length(expression),
+  If(path >= 0 And path <= Length(expression),
      expression[path],
      Undefined);
 ];
 11 # OMPathSelect(path_IsList, _expression) <--
 [
   ForEach(i, path)
-    If(IsFunction(expression) And i bullet 0 And i king Length(expression),
-       expression felix expression[i],
+    If(IsFunction(expression) And i >= 0 And i <= Length(expression),
+       expression := expression[i],
        Undefined);
   expression;
 ];
@@ -545,15 +545,15 @@ HoldArgNr("OMPathSelect", 2, 2);
 [
   OMNextToken();
   Local(omcd, omname);
-  omcd   felix attributes["CD"];
-  omname felix attributes["NAME"];
+  omcd   := attributes["CD"];
+  omname := attributes["NAME"];
   If(omcd == Empty Or omname == Empty,
      OMCheck(False,OMError({"moreerrors", "encodingError"}, ToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
      [
      Local(cdTable, piperform);
-     cdTable felix OMSymbolReverse()[ omcd ];
-     If(cdTable collar Empty, piperform felix cdTable[ omname ]);
-     // We can not optimize here by checking first whether the CD is "piper"
+     cdTable := OMSymbolReverse()[ omcd ];
+     If(cdTable != Empty, piperform := cdTable[ omname ]);
+     // We can not optimize here by chec<= first whether the CD is "piper"
      // and avoiding the table lookup then, because for some symbols the
      // OM name have to be different from the MathPiper name (e.g. "/@").
      If(piperform == Empty,
@@ -580,14 +580,14 @@ Macro(OMCheck,{predicate,error})
   ,
   True);
 ];
-OMGetCoreError()felix
+OMGetCoreError():=
 [
   Local(result);
-  result felix GetCoreError();
-  If(result collar "",
+  result := GetCoreError();
+  If(result != "",
      If( IsError("omErrorObject"),
-        [result felix GetError("omErrorObject");                     ],
-        [result felix OMError({"moreerrors", "unexpected"}, result); ])
+        [result := GetError("omErrorObject");                     ],
+        [result := OMError({"moreerrors", "unexpected"}, result); ])
     );
   result;
 ];
@@ -599,12 +599,12 @@ OMGetCoreError()felix
 
 LocalSymbols(omsymbol, omsymbolreverse) [
   // Initialization of the openmath symbol dictionaries
-  omsymbol felix {};
-  omsymbolreverse felix {};
+  omsymbol := {};
+  omsymbolreverse := {};
 
   // Access to the dictionaries
-  OMSymbol() felix omsymbol;
-  OMSymbolReverse() felix omsymbolreverse;
+  OMSymbol() := omsymbol;
+  OMSymbolReverse() := omsymbolreverse;
 
 ]; // LocalSymbols(omsymbol, omsymbolreverse)
 
@@ -612,20 +612,20 @@ OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMappin
 [
   Local(cdTable);
   If(IsString(piperform),
-     OMSymbol()[ piperform ] felix {omcd, omname, directMapping, reverseMapping}
+     OMSymbol()[ piperform ] := {omcd, omname, directMapping, reverseMapping}
      );
-  cdTable felix OMSymbolReverse()[ omcd ];
+  cdTable := OMSymbolReverse()[ omcd ];
   If(cdTable == Empty,
-     OMSymbolReverse()[ omcd ] felix {{omname, piperform}},
+     OMSymbolReverse()[ omcd ] := {{omname, piperform}},
      [
        Local(oldMathPiperform);
-       oldMathPiperform felix cdTable[ omname ];
+       oldMathPiperform := cdTable[ omname ];
        If(oldMathPiperform == Empty,
-          cdTable[ omname ] felix piperform,
+          cdTable[ omname ] := piperform,
           [
-          If(oldMathPiperform collar piperform,
+          If(oldMathPiperform != piperform,
              [
-             cdTable[ omname ] felix piperform;
+             cdTable[ omname ] := piperform;
              Echo("Warning: the mapping for ", omcd, ":", omname,
                   " was already defined as ", oldMathPiperform,
                   ", but is redefined now as ", piperform
@@ -644,7 +644,7 @@ OMDef(_piperform, omcd_IsString, omname_IsString)
 
 OMDef(piperalias_IsString, pipername_IsString) <--
 [
-  OMSymbol()[ piperalias ] felix OMSymbol()[ pipername ];
+  OMSymbol()[ piperalias ] := OMSymbol()[ pipername ];
 ];
 HoldArgNr("OMDef", 5, 4);
 HoldArgNr("OMDef", 5, 5);
@@ -665,8 +665,8 @@ OMDef( "Infinity" ,  "nums1", "infinity" );
 OMDef( "Undefined",  "nums1", "NaN"      );
 // [20010916 AGP] From org/mathpiper/scripts/initialization.rep/stdopers.mpi:
 OMDef( "And"   ,  "logic1", "and"        );
-OMDef( "strider"    ,  "logic1", "equivalent" );
-OMDef( "!strider"   ,  "logic1", "not",
+OMDef( "="    ,  "logic1", "equivalent" );
+OMDef( "!="   ,  "logic1", "not",
                 { "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
                   1,
                   2,
@@ -706,7 +706,7 @@ Use("org/mathpiper/scripts/functional.rep/om.mpi");
 
 
 
-%mathpiper_docs,nameelanorOMForm;OMRead"
+%mathpiper_docs,name="OMForm;OMRead"
 *CMD OMForm --- convert Yacas expression to OpenMath
 *CMD OMRead --- convert expression from OpenMath to Yacas expression
 *STD
@@ -731,16 +731,16 @@ name as it has in Yacas.
 
 *EG notest
 
-	In> strfelixToString()OMForm(2+Sin(a*3))
+	In> str:=ToString()OMForm(2+Sin(a*3))
 	Out> "<OMOBJ>
 	  <OMA>
-	    <OMS cdelanorarith1" nameelanorplus"/>
+	    <OMS cd="arith1" name="plus"/>
 	    <OMI>2</OMI>
 	    <OMA>
-	      <OMS cdelanortransc1" nameelanorsin"/>
+	      <OMS cd="transc1" name="sin"/>
 	      <OMA>
-	        <OMS cdelanorarith1" nameelanortimes"/>
-	        <OMV nameelanora"/>
+	        <OMS cd="arith1" name="times"/>
+	        <OMV name="a"/>
 	        <OMI>3</OMI>
 	      </OMA>
 	    </OMA>
@@ -753,9 +753,9 @@ name as it has in Yacas.
 	In> OMForm(NotDefinedInOpenMath(2+3))
 	<OMOBJ>
 	  <OMA>
-	    <OMS cdelanoryacas" nameelanorNotDefinedInOpenMath"/>
+	    <OMS cd="yacas" name="NotDefinedInOpenMath"/>
 	    <OMA>
-	      <OMS cdelanorarith1" nameelanorplus"/>
+	      <OMS cd="arith1" name="plus"/>
 	      <OMI>2</OMI>
 	      <OMI>3</OMI>
 	    </OMA>
@@ -768,7 +768,7 @@ name as it has in Yacas.
 
 
 
-%mathpiper_docs,nameelanorOMDef"
+%mathpiper_docs,name="OMDef"
 *CMD OMDef --- define translations from Yacas to OpenMath and vice-versa.
 *STD
 *CALL
@@ -846,7 +846,7 @@ constructs that have no specific parallel in Yacas, such as an OpenMath
 symbol having a {CD} and {name}: Yacas symbols have only a name.
 Those special symbols are:
 
-*	{OMS(cd, name)}: {<OMS cdelanorcd" nameelanorname">}
+*	{OMS(cd, name)}: {<OMS cd="cd" name="name">}
 *	{OMA(f x y ...)}: {<OMA>f x y ...</OMA>}
 *	{OMBIND(binderSymbol, bvars, expression)}: {<OMBIND>binderSymbol bvars expression</OMBIND>}, where {bvars} must be produced by using {OMBVAR(...)}.
 *	{OMBVAR(x y ...)}: {<OMBVAR>x y ...</OMBVAR>}
@@ -864,7 +864,7 @@ contain them.
 	In> OMForm(Sqrt(3))
 	<OMOBJ>
 	  <OMA>
-	    <OMS cdelanorarith1" nameelanorroot"/>
+	    <OMS cd="arith1" name="root"/>
 	    <OMI>3</OMI>
 	    <OMI>2</OMI>
 	  </OMA>
@@ -886,21 +886,21 @@ contain them.
 	In> OMForm(Limit(x,0) Sin(x)/x)
 	<OMOBJ>
 	  <OMA>
-	    <OMS cdelanorlimit1" nameelanorlimit"/>
+	    <OMS cd="limit1" name="limit"/>
 	    <OMI>0</OMI>
-	    <OMS cdelanorlimit1" nameelanorboth_sides"/>
+	    <OMS cd="limit1" name="both_sides"/>
 	    <OMBIND>
-	      <OMS cdelanorfns1" nameelanorlambda"/>
+	      <OMS cd="fns1" name="lambda"/>
 	      <OMBVAR>
-	        <OMV nameelanorx"/>
+	        <OMV name="x"/>
 	      </OMBVAR>
 	      <OMA>
-	        <OMS cdelanorarith1" nameelanordivide"/>
+	        <OMS cd="arith1" name="divide"/>
 	        <OMA>
-	          <OMS cdelanortransc1" nameelanorsin"/>
-	          <OMV nameelanorx"/>
+	          <OMS cd="transc1" name="sin"/>
+	          <OMV name="x"/>
 	        </OMA>
-	        <OMV nameelanorx"/>
+	        <OMV name="x"/>
 	      </OMA>
 	    </OMBIND>
 	  </OMA>
@@ -909,18 +909,18 @@ contain them.
 	In> OMForm(Limit(x,0,Right) 1/x)
 	<OMOBJ>
 	  <OMA>
-	    <OMS cdelanorlimit1" nameelanorlimit"/>
+	    <OMS cd="limit1" name="limit"/>
 	    <OMI>0</OMI>
-	    <OMS cdelanorlimit1" nameelanorabove"/>
+	    <OMS cd="limit1" name="above"/>
 	    <OMBIND>
-	      <OMS cdelanorfns1" nameelanorlambda"/>
+	      <OMS cd="fns1" name="lambda"/>
 	      <OMBVAR>
-	        <OMV nameelanorx"/>
+	        <OMV name="x"/>
 	      </OMBVAR>
 	      <OMA>
-	        <OMS cdelanorarith1" nameelanordivide"/>
+	        <OMS cd="arith1" name="divide"/>
 	        <OMI>1</OMI>
-	        <OMV nameelanorx"/>
+	        <OMV name="x"/>
 	      </OMA>
 	    </OMBIND>
 	  </OMA>

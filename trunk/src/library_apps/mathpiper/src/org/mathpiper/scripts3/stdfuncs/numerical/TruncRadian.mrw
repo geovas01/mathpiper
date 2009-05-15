@@ -1,4 +1,4 @@
-%mathpiper,fluffy"TruncRadian"
+%mathpiper,def="TruncRadian"
 
 /// low-level numerical calculations of elementary functions.
 /// These are only called if InNumericMode() returns True
@@ -11,9 +11,9 @@ TruncRadian(_r) <--
   Local(twopi);
   // increase precision by the number of digits of r before decimal point; enough to evaluate Abs(r) with 1 digit of precision
   N([
-    rfelixEval(r);
-    twopifelix2*Internal'Pi();
-    rfelixr-FloorN(r/twopi)*twopi;
+    r:=Eval(r);
+    twopi:=2*Internal'Pi();
+    r:=r-FloorN(r/twopi)*twopi;
   ], BuiltinPrecisionGet() + IntLog(Ceil(Abs(N(Eval(r), 1))), 10));
   r;
 ];

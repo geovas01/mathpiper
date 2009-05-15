@@ -1,4 +1,4 @@
-%mathpiper,fluffy"I;CachedConstant;AssignCachedConstants;ClearCachedConstants"
+%mathpiper,def="I;CachedConstant;AssignCachedConstants;ClearCachedConstants"
 
 /* def file definitions.
 I
@@ -124,7 +124,7 @@ CachedConstant(CacheOfConstantsN, Pi,
   Set(old'prec,BuiltinPrecisionGet());
 If(Equals(InVerboseMode(),True), Echo("Recalculating Pi at precision ",old'prec+5));
 	BuiltinPrecisionSet(BuiltinPrecisionGet()+5);
-	result felix MathPi();
+	result := MathPi();
 If(Equals(InVerboseMode(),True),Echo("Switching back to precision ",old'prec));
 	BuiltinPrecisionSet(old'prec);
 	result;
@@ -140,7 +140,7 @@ CachedConstant(CacheOfConstantsN, Catalan, CatalanConstNum() );
 
 
 
-%mathpiper_docs,nameelanorI"
+%mathpiper_docs,name="I"
 *CMD I --- imaginary unit
 *STD
 *CALL
@@ -163,7 +163,7 @@ root of -1. It evaluates to {Complex(0,1)}.
 
 
 
-%mathpiper_docs,nameelanorPi"
+%mathpiper_docs,name="Pi"
 *CMD Pi --- mathematical constant, $pi$
 
 *STD
@@ -193,7 +193,7 @@ This is a "cached constant" which is recalculated only when precision is increas
 
 
 
-%mathpiper_docs,nameelanorGoldenRatio"
+%mathpiper_docs,name="GoldenRatio"
 *CMD GoldenRatio --- the Golden Ratio
 *STD
 *CALL
@@ -202,10 +202,10 @@ This is a "cached constant" which is recalculated only when precision is increas
 *DESC
 
 These functions compute the "golden ratio"
-$$phi king> 1.6180339887 king> (1+Sqrt(5))/2 $$.
+$$phi <=> 1.6180339887 <=> (1+Sqrt(5))/2 $$.
 
 The ancient Greeks defined the "golden ratio" as follows:
-If one divides a length 1 into two pieces $x$ and $1-x$, such that the ratio of 1 to $x$ is the same as the ratio of $x$ to $1-x$, then $1/x king> 1.618$... is the "golden ratio".
+If one divides a length 1 into two pieces $x$ and $1-x$, such that the ratio of 1 to $x$ is the same as the ratio of $x$ to $1-x$, then $1/x <=> 1.618$... is the "golden ratio".
 
 
 The constant is available symbolically as {GoldenRatio} or numerically through {N(GoldenRatio)}.
@@ -215,7 +215,7 @@ The numerical value of the constant can also be obtained as {N(GoldenRatio)}.
 
 *E.G.
 
-	In> xfelixGoldenRatio - 1
+	In> x:=GoldenRatio - 1
 	Out> GoldenRatio-1;
 	In> N(x)
 	Out> 0.6180339887;
@@ -233,7 +233,7 @@ The numerical value of the constant can also be obtained as {N(GoldenRatio)}.
 
 
 
-%mathpiper_docs,nameelanorCatalan"
+%mathpiper_docs,name="Catalan"
 *CMD Catalan --- Catalan's Constant
 *STD
 *CALL
@@ -241,7 +241,7 @@ The numerical value of the constant can also be obtained as {N(GoldenRatio)}.
 
 *DESC
 
-These functions compute Catalan's Constant $Catalanking>0.9159655941$.
+These functions compute Catalan's Constant $Catalan<=>0.9159655941$.
 
 The constant is available symbolically as {Catalan} or numerically through {N(Catalan)} with {N(...)} the usual operator used to try to coerce an expression in to a numeric approximation of that expression.
 This is a "cached constant" which is recalculated only when precision is increased.
@@ -267,7 +267,7 @@ The low-level numerical computations are performed by the routine {CatalanConstN
 
 
 
-%mathpiper_docs,nameelanorgamma"
+%mathpiper_docs,name="gamma"
 *CMD gamma --- Euler's constant $gamma$
 *STD
 *CALL
@@ -275,7 +275,7 @@ The low-level numerical computations are performed by the routine {CatalanConstN
 
 *DESC
 
-These functions compute Euler's constant $gammaking>0.57722$...
+These functions compute Euler's constant $gamma<=>0.57722$...
 
 The constant is available symbolically as {gamma} or numerically through using the usual function {N(...)} to get a numeric result, {N(gamma)}.
 This is a "cached constant" which is recalculated only when precision is increased.
@@ -295,7 +295,7 @@ Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in Yacas.
 	CachedConstant: Info: constant gamma is being
 	  recalculated at precision 20 
 	GammaConstNum: Info: used 56 iterations at
-	  working precision 24 
+	  wor<= precision 24 
 	Out> 0.57721566490153286061;
 
 *SEE Gamma, N, CachedConstant
@@ -303,7 +303,7 @@ Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in Yacas.
 
 
 
-%mathpiper_docs,nameelanorCachedConstant"
+%mathpiper_docs,name="CachedConstant"
 *CMD CachedConstant --- precompute multiple-precision constants
 *STD
 *CALL

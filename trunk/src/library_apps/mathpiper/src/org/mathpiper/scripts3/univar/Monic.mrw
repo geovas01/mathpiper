@@ -1,4 +1,4 @@
-%mathpiper,defelanorMonic"
+%mathpiper,def="Monic"
 
 10 # Monic(UniVariate(_var,_first,_coefs)) <--
 [
@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,nameelanorMonic"
+%mathpiper_docs,name="Monic"
 *CMD Monic --- monic part of a polynomial
 *STD
 *CALL
@@ -38,11 +38,11 @@ calling sequence may be used.
 
 *E.G.
 
-	In> poly felix 2*x^2 + 4*x;
+	In> poly := 2*x^2 + 4*x;
 	Out> 2*x^2+4*x;
-	In> lc felix LeadingCoef(poly);
+	In> lc := LeadingCoef(poly);
 	Out> 2;
-	In> m felix Monic(poly);
+	In> m := Monic(poly);
 	Out> x^2+2*x;
 	In> Expand(lc*m);
 	Out> 2*x^2+4*x;

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"HasFunc"
+%mathpiper,def="HasFunc"
 
 /// HasFunc --- test for an expression containing a function
 /// function name given as string.
@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,nameelanorHasFunc"
+%mathpiper_docs,name="HasFunc"
 *CMD HasFunc --- check for expression containing a function
 *CMD HasFuncArith --- check for expression containing a function
 *CMD HasFuncSome --- check for expression containing a function
