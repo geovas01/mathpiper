@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Trigonometry",scopeelanorprivate"
+%mathpiper,def="Trigonometry",scope="private"
 
 Defun("Trigonometry",{x,i,sum,term})
 [

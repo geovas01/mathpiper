@@ -1,17 +1,17 @@
-%mathpiper,defelanorSquareFree"
+%mathpiper,def="SquareFree"
 
 SquareFree(_p) <--
 [
   Local(dp,gcd);
 //Echo("1...");
-  dpfelixMakeMultiNomial(`(D(x)(@p)),{x});
-//  dpfelixdp/MultiLeadingCoef(dp);
+  dp:=MakeMultiNomial(`(D(x)(@p)),{x});
+//  dp:=dp/MultiLeadingCoef(dp);
 
 //Echo("2...",dp);
-  pfelixMakeMultiNomial(p,{x});
+  p:=MakeMultiNomial(p,{x});
 //Echo(NormalForm(p));
 //Echo(NormalForm(dp));
-  gcdfelixMultiGcd(p,dp);
+  gcd:=MultiGcd(p,dp);
 //Echo(NormalForm(gcd));
 //Echo(NormalForm(MultiDivide(p,{gcd})[1][1]));
   NormalForm(MultiDivide(p,{gcd})[1][1]);
@@ -22,7 +22,7 @@ SquareFree(_p) <--
 
 
 
-%mathpiper_docs,nameelanorSquareFree"
+%mathpiper_docs,name="SquareFree"
 *CMD SquareFree --- return the square-free part of polynomial
 *STD
 *CALL

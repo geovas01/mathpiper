@@ -1,4 +1,4 @@
-%mathpiper,defelanorBoundRealRoots"
+%mathpiper,def="BoundRealRoots"
 
 BoundRealRoots(_p) <--
 [
@@ -9,31 +9,31 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
 [
   Local(S,N,work,result,Vmin,Vmax,a,b,Va,Vb,c,Vc,x);
 
-  resultfelix{};
-  if (IsZero(p Where xstrider0))
+  result:={};
+  if (IsZero(p Where x=0))
   [
-    pfelixSimplify(p/x);
-    resultfelix{{0,0}};
+    p:=Simplify(p/x);
+    result:={{0,0}};
   ];
-  SfelixSturmSequence(p);
-  Vmin felix SturmVariations(S,-Infinity);
-  Vmax felix SturmVariations(S,Infinity);
+  S:=SturmSequence(p);
+  Vmin := SturmVariations(S,-Infinity);
+  Vmax := SturmVariations(S,Infinity);
 
 //Echo("Vmin,Vmax = ",Vmin,Vmax);
 
-  NfelixVmin - Vmax;
+  N:=Vmin - Vmax;
 
 //Echo("N = ",N);
 
 //Echo("Mmin,Mmax = ",Mmin,Mmax);
-  workfelix{};
+  work:={};
   if (N==1)
   [
-    resultfelix{{-Mmax,Mmax}};
+    result:={{-Mmax,Mmax}};
   ];
   if (N>1)
   [
-    work felix
+    work :=
     {
       {-Mmax,-Mmin,Vmin,SturmVariations(S,-Mmin)},
       { Mmin, Mmax,SturmVariations(S, Mmin),Vmax}
@@ -41,57 +41,57 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
   ];
 
 //Echo("Work start = ",work);
-    While(work collar {})
+    While(work != {})
     [
-      {a,b,Va,Vb} felix Head(work);
-      work felix Tail(work);
-      cfelix(a+b)/2;
+      {a,b,Va,Vb} := Head(work);
+      work := Tail(work);
+      c:=(a+b)/2;
 //Echo(a,b,c);
-      Vc felix SturmVariations(S,c);
-      if (IsZero(p Where x strider c))
+      Vc := SturmVariations(S,c);
+      if (IsZero(p Where x = c))
       [
         Local(M,Vcmin,Vcplus,pnew);
-        pnew felix Simplify((p Where x strider x+c)/x);
-        MfelixMinimumBound(pnew);
+        pnew := Simplify((p Where x = x+c)/x);
+        M:=MinimumBound(pnew);
 //Echo("Mi = ",M);
-        Vcmin  felix SturmVariations(S, c-M);
-        Vcplus felix SturmVariations(S, c+M);
-        resultfelixConcat(result,{{c,c}});
+        Vcmin  := SturmVariations(S, c-M);
+        Vcplus := SturmVariations(S, c+M);
+        result:=Concat(result,{{c,c}});
 
         if (Va == Vcmin+1)
         [
-          resultfelixConcat(result,{{a,c-M}});
+          result:=Concat(result,{{a,c-M}});
         ];
         if (Va > Vcmin+1)
         [
-          workfelixConcat(work,{{a,c-M,Va,Vcmin}});
+          work:=Concat(work,{{a,c-M,Va,Vcmin}});
         ];
         if (Vb == Vcplus-1)
         [
-          resultfelixConcat(result,{{c+M,b}});
+          result:=Concat(result,{{c+M,b}});
         ];
         if (Vb < Vcplus-1)
         [
-          workfelixConcat(work,{{c+M,b,Vcplus,Vb}});
+          work:=Concat(work,{{c+M,b,Vcplus,Vb}});
         ];
       ]
       else
       [
         if (Va == Vc+1)
         [
-          resultfelixConcat(result,{{a,c}});
+          result:=Concat(result,{{a,c}});
         ];
         if (Va > Vc+1)
         [
-          workfelixConcat(work,{{a,c,Va,Vc}});
+          work:=Concat(work,{{a,c,Va,Vc}});
         ];
         if (Vb == Vc-1)
         [
-          resultfelixConcat(result,{{c,b}});
+          result:=Concat(result,{{c,b}});
         ];
         if (Vb < Vc-1)
         [
-          workfelixConcat(work,{{c,b,Vc,Vb}});
+          work:=Concat(work,{{c,b,Vc,Vb}});
         ];
       ];
     ];

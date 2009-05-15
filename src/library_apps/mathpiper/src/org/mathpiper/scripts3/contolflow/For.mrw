@@ -1,4 +1,4 @@
-%mathpiper,fluffy"For"
+%mathpiper,def="For"
 
 /* Defining a For function */
 TemplateFunction("For",{start,predicate,increment,body})
@@ -20,7 +20,7 @@ HoldArgNr("For",4,4);
 
 
 
-%mathpiper_docs,nameelanorFor"
+%mathpiper_docs,name="For"
 *CMD For --- C-style {for} loop
 *STD
 *CALL
@@ -46,7 +46,7 @@ predicate yields {True}. One traversal of the loop
 consists of the subsequent evaluations of "body", "incr", and
 "pred". Finally, the value {True} is returned.
 
-This command is most often used in a form such as {For(i=1, iking10, i++) body}, which evaluates {body} with
+This command is most often used in a form such as {For(i=1, i<=10, i++) body}, which evaluates {body} with
 {i} subsequently set to 1, 2, 3, 4, 5, 6, 7, 8, 9,
 and 10.
 
@@ -55,7 +55,7 @@ equivalent to {init; While(pred) [body; incr;]}.
 
 *E.G. notest
 
-	In> For (ifelix1, iking10, i++) Echo({i, i!});
+	In> For (i:=1, i<=10, i++) Echo({i, i!});
 	 1  1
 	 2  2
 	 3  6

@@ -1,22 +1,22 @@
-%mathpiper,fluffy"LagrangeInterpolant"
+%mathpiper,def="LagrangeInterpolant"
 
 LagrangeInt(_var,_list) <--
 [
   Local(nr);
-  nrfelixLength(list);
+  nr:=Length(list);
   Factorize(FillList(var,nr)-list);
 ];
 
 LagrangeInterpolant(list_IsList,_values,_var) <--
 [
   Local(i,nr,sublist);
-  nrfelixLength(list);
-  resultfelix0;
-  For(ifelix1,ikingnr,i++)
+  nr:=Length(list);
+  result:=0;
+  For(i:=1,i<=nr,i++)
   [
-    sublistfelixFlatCopy(list);
+    sublist:=FlatCopy(list);
     DestructiveDelete(sublist,i);
-    resultfelixresult + values[i]*LagrangeInt(var,sublist)/LagrangeInt(list[i],sublist);
+    result:=result + values[i]*LagrangeInt(var,sublist)/LagrangeInt(list[i],sublist);
   ];
   result;
 ];
@@ -25,7 +25,7 @@ LagrangeInterpolant(list_IsList,_values,_var) <--
 
 
 
-%mathpiper_docs,nameelanorLagrangeInterpolant"
+%mathpiper_docs,name="LagrangeInterpolant"
 *CMD LagrangeInterpolant --- polynomial interpolation
 *STD
 *CALL
@@ -56,7 +56,7 @@ polynomial.
 
 *E.G.
 
-	In> f felix LagrangeInterpolant({0,1,2}, \
+	In> f := LagrangeInterpolant({0,1,2}, \
 	  {0,1,1}, x);
 	Out> (x*(x-1))/2-x*(x-2);
 	In> Eval(Subst(x,0) f);

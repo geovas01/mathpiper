@@ -1,13 +1,13 @@
-%mathpiper,fluffy"AddTo"
+%mathpiper,def="AddTo"
 
 // (a or b) and (c or d) -> (a and c) or (a and d) or (b and c) or (b and d)
 20 # (list_IsList AddTo _rest) <--
 [
   Local(res);
-  resfelix{};
+  res:={};
   ForEach(item,list)
   [
-    res felix Concat(res,item AddTo rest);
+    res := Concat(res,item AddTo rest);
   ];
   res;
 ];
@@ -21,7 +21,7 @@
 
 
 
-%mathpiper_docs,nameelanorAddTo"
+%mathpiper_docs,name="AddTo"
 *CMD AddTo --- add an equation to a set of equations or set of set of equations
 *STD
 *CALL
@@ -46,27 +46,27 @@ AddTo then acts as a AND operation:
 
 This function is useful for adding an identity to an already
 existing set of equations. Suppose a solve command returned
-{abullet0 And xstridera,a<0 And xstrider -a} from an expression xstriderAbs(a),
-then a new identity astrider2 could be added as follows:
+{a>=0 And x=a,a<0 And x= -a} from an expression x=Abs(a),
+then a new identity a=2 could be added as follows:
 
-	In> astrider2 AddTo {abullet0 And xstridera,a<0 And xstrider -a}
-	Out> {astrider2 And abullet0 And xstridera,astrider2 And a<0
-	  And xstrider -a};
+	In> a=2 AddTo {a>=0 And x=a,a<0 And x= -a}
+	Out> {a=2 And a>=0 And x=a,a=2 And a<0
+	  And x= -a};
 
 Passing this set of set of identities back to solve, solve
 should recognize that the second one is not a possibility
-any more, since astrider2 And a<0 can never be true at the same time.
+any more, since a=2 And a<0 can never be true at the same time.
 
 This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
 
 *E.G.
 
-	In> {Astrider2,cstriderd} AddTo {bstrider3 And dstrider2}
-	Out> {Astrider2 And bstrider3 And dstrider2,cstriderd
-	  And bstrider3 And dstrider2};
-	In> {Astrider2,cstriderd} AddTo {bstrider3, dstrider2}
-	Out> {Astrider2 And bstrider3,Astrider2 And dstrider2,cstriderd
-	  And bstrider3,cstriderd And dstrider2};
+	In> {A=2,c=d} AddTo {b=3 And d=2}
+	Out> {A=2 And b=3 And d=2,c=d
+	  And b=3 And d=2};
+	In> {A=2,c=d} AddTo {b=3, d=2}
+	Out> {A=2 And b=3,A=2 And d=2,c=d
+	  And b=3,c=d And d=2};
 
 *SEE Where, Solve
 %/mathpiper_docs

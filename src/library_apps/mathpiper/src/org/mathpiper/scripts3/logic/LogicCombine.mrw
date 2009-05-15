@@ -1,4 +1,4 @@
-%mathpiper,fluffy"LogicCombine",scopeelanorprivate"
+%mathpiper,def="LogicCombine",scope="private"
 
 /* LogicCombine is responsible for scanning a list of lists, which represent
    a form (p1  Or  p2  Or  ...)  And  (q1  Or  q2  Or  ...)  And ... by scanning the lists
@@ -8,21 +8,21 @@
 LogicCombine(_list) <--
 [
   Local(i, j);
-  For(Set(i,1), ikingLength(list), Set(i,AddN(i,1)))
+  For(Set(i,1), i<=Length(list), Set(i,AddN(i,1)))
   [
     //Echo({"list[", i, "/", Length(list), "]: ", list[i], Nl()});
 
-    For(j felix 1, (jkingLength(list[i])), j++)
+    For(j := 1, (j<=Length(list[i])), j++)
     [
       Local(tocombine, n, k);
       Set(n, list[i][j]);
 
-      {tocombine, k} felix LogicFindWith(list, i, n);// search forward for n, tocombine is the list we
+      {tocombine, k} := LogicFindWith(list, i, n);// search forward for n, tocombine is the list we
                                                   // will combine the current one with
-      If(tocombine collar -1,
+      If(tocombine != -1,
       [
         Local(combination);
-        Check(k collar -1, "k is -1");
+        Check(k != -1, "k is -1");
 
         Set(combination, LogicRemoveTautologies(Concat(list[i], list[tocombine])));
         If(combination == {},                      // the combined clause is false, so the whole thing is false

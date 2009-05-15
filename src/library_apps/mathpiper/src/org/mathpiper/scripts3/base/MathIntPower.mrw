@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MathIntPower",scopeelanorprivate"
+%mathpiper,def="MathIntPower",scope="private"
 
 // power x^y only for integer y (perhaps negative)
 Defun("MathIntPower", {x,y})

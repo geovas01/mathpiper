@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsIdempotent"
+%mathpiper,def="IsIdempotent"
 
 IsIdempotent(A_IsMatrix) <-- (A^2 == A);
 
@@ -6,7 +6,7 @@ IsIdempotent(A_IsMatrix) <-- (A^2 == A);
 
 
 
-%mathpiper_docs,nameelanorIsIdempotent"
+%mathpiper_docs,name="IsIdempotent"
 *CMD IsIdempotent --- test for an idempotent matrix
 *STD
 *CALL

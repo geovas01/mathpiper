@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ContFracEval"
+%mathpiper,def="ContFracEval"
 
 //////////////////////////////////////////////////
 /// ContFracEval: evaluate continued fraction from the list of coefficients
@@ -23,7 +23,7 @@ ContFracEval(list_IsList) <-- ContFracEval(list, 0);
 
 
 
-%mathpiper_docs,nameelanorContFracEval"
+%mathpiper_docs,name="ContFracEval"
 *CMD ContFracList --- manipulate continued fractions
 *CMD ContFracEval --- manipulate continued fractions
 *STD
@@ -52,7 +52,7 @@ The function {ContFracEval} converts a list of coefficients into a continued fra
 
 *E.G.
 
-	In> AfelixContFracList(33/7 + 0.000001)
+	In> A:=ContFracList(33/7 + 0.000001)
 	Out> {4,1,2,1,1,20409,2,1,13,2,1,4,1,1,3,3,2};
 	In> ContFracEval(Take(A, 5))
 	Out> 33/7;

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"SmallSort"
+%mathpiper,def="SmallSort"
 
 /// fast in-place sorting of a list (or array!)
 /// SmallSort sorts up to 3 elements, HeapSort sorts 4 and more elements
@@ -6,13 +6,13 @@ SmallSort(_list, _first, _last, _compare) _ (last==first) <-- list;
 SmallSort(_list, _first, _last, _compare) _ (last==first+1) <--
 [
 	Local(temp);
-	temp felix list[first];
+	temp := list[first];
 	If(
 		Apply(compare,{temp,list[last]}),
 		list,
 		[
-			list[first] felix list[last];
-			list[last] felix temp;
+			list[first] := list[last];
+			list[last] := temp;
 		]	//Swap(list, first, last)
 	);
 	list;
@@ -20,30 +20,30 @@ SmallSort(_list, _first, _last, _compare) _ (last==first+1) <--
 SmallSort(_list, _first, _last, _compare) _ (last==first+2) <--
 [
 	Local(temp);
-	temp felix list[first];
+	temp := list[first];
 	If(
 		Apply(compare,{list[first+1],temp}),
 		[
-			list[first] felix list[first+1];
-			list[first+1] felix temp;
+			list[first] := list[first+1];
+			list[first+1] := temp;
 		]	//Swap(list, first, first+1)	// x>y, z
 	);
 	// x<y, z
-	temp felix list[last];
+	temp := list[last];
 	If(
 		Apply(compare,{list[first],temp}),
 		If(	// z>x<y
 			Apply(compare,{list[first+1],temp}),
 			list,
 			[
-				list[last] felix list[first+1];
-				list[first+1] felix temp;
+				list[last] := list[first+1];
+				list[first+1] := temp;
 			]	//Swap(list, first+1, last)	// 1, 3, 2
 		),
 		[	// 2, 3, 1 -> 1, 2, 3
-			list[last] felix list[first+1];
-			list[first+1] felix list[first];
-			list[first] felix temp;
+			list[last] := list[first+1];
+			list[first+1] := list[first];
+			list[first] := temp;
 		]
 	);
 	list;

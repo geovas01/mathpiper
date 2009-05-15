@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsPerfect"
+%mathpiper,def="IsPerfect"
 
 IsPerfect(n_IsPositiveInteger) <-- ProperDivisorsSum(n)==n;
 

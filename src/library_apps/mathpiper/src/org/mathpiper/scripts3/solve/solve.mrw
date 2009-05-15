@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Solve"
+%mathpiper,def="Solve"
 
 /* def file definitions
 Solve
@@ -11,7 +11,7 @@ OldSolve
  *
  * 10.  Call Solve'System for systems of equations.
  * 20.  Check arguments.
- * 30.  Get rid of "strider" in 'expr'.
+ * 30.  Get rid of "=" in 'expr'.
  * 40.  Special cases.
  * 50.  If 'expr' is a polynomial in 'x', try to use PSolve.
  * 60.  If 'expr' is a product, solve for either factor.
@@ -19,10 +19,10 @@ OldSolve
  * 80.  If 'expr' is a sum and one of the terms is free of 'x',
  *      try to use Solve'Simple.
  * 90.  If every occurance of 'x' is in the same context, use this to reduce
- *      the equation. For example, in 'Cos(x) + Cos(x)^2 strider 1', the variable
+ *      the equation. For example, in 'Cos(x) + Cos(x)^2 = 1', the variable
  *      'x' always occurs in the context 'Cos(x)', and hence we can attack
- *      the equation by first solving 'y + y^2 strider 1', and then 'Cos(x) strider y'.
- *      This does not work for 'Exp(x) + Cos(x) strider 2'.
+ *      the equation by first solving 'y + y^2 = 1', and then 'Cos(x) = y'.
+ *      This does not work for 'Exp(x) + Cos(x) = 2'.
  * 100. Apply Simplify to 'expr', and try again.
  * 110. Give up.
  */
@@ -32,22 +32,22 @@ LocalSymbols(res)
   10  # Solve(expr_IsList, var_IsList) <-- Solve'System(expr, var);
   20  # Solve(_expr, _var)_(Not IsAtom(var) Or IsNumber(var) Or IsString(var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(ToString() Write(var)):", is not the name of a variable") False; {}; ];
-  30  # Solve(_lhs strider _rhs, _var) <-- Solve(lhs - rhs, var);
-  40  # Solve(0, _var) <-- {var strider var};
+  30  # Solve(_lhs = _rhs, _var) <-- Solve(lhs - rhs, var);
+  40  # Solve(0, _var) <-- {var = var};
   41  # Solve(a_IsConstant, _var) <-- {};
   42  # Solve(_expr, _var)_(Not HasExpr(expr,var)) <--
         [ Assert("Solve", "expression ":(ToString() Write(expr)):" does not depend on ":ToString() Write(var)) False; {}; ];
-  50  # Solve(_expr, _var)_((res felix Solve'Poly(expr, var)) collar Failed) <-- res;
+  50  # Solve(_expr, _var)_((res := Solve'Poly(expr, var)) != Failed) <-- res;
   60  # Solve(_e1 * _e2, _var) <-- Union(Solve(e1,var), Solve(e2,var));
   70  # Solve(_e1 / _e2, _var) <-- Solve(e1, var);
-  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And (res felix Solve'Simple(e1,-e2,var)) collar Failed) <-- res;
-  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And (res felix Solve'Simple(e2,-e1,var)) collar Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And (res felix Solve'Simple(e1,e2,var)) collar Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And (res felix Solve'Simple(e2,e1,var)) collar Failed) <-- res;
-  85  # Solve(_expr, _var)_((res felix Solve'Simple(expr, 0, var)) collar Failed) <-- res;
-  90  # Solve(_expr, _var)_((res felix Solve'Reduce(expr, var)) collar Failed) <-- res;
-  95  # Solve(_expr, _var)_((res felix Solve'Divide(expr, var)) collar Failed) <-- res;
-  100 # Solve(_expr, _var)_((res felix Simplify(expr)) collar expr) <-- Solve(res, var);
+  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And (res := Solve'Simple(e1,-e2,var)) != Failed) <-- res;
+  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And (res := Solve'Simple(e2,-e1,var)) != Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And (res := Solve'Simple(e1,e2,var)) != Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And (res := Solve'Simple(e2,e1,var)) != Failed) <-- res;
+  85  # Solve(_expr, _var)_((res := Solve'Simple(expr, 0, var)) != Failed) <-- res;
+  90  # Solve(_expr, _var)_((res := Solve'Reduce(expr, var)) != Failed) <-- res;
+  95  # Solve(_expr, _var)_((res := Solve'Divide(expr, var)) != Failed) <-- res;
+  100 # Solve(_expr, _var)_((res := Simplify(expr)) != expr) <-- Solve(res, var);
   110 # Solve(_expr, _var) <--
         [ Assert("Solve'Fails", "cannot solve equation ":(ToString() Write(expr)):" for ":ToString() Write(var)) False; {}; ];
 ];
@@ -72,12 +72,12 @@ LocalSymbols(res)
 LocalSymbols(x)
 [
   Local(roots);
-  roots felix PSolve(expr, var);
+  roots := PSolve(expr, var);
   If(Type(roots) == "PSolve",
      Failed,                              /* Case 3 */
      If(Type(roots) == "List",
-        MapSingle({{x},varstriderx}, roots),   /* Case 2 */
-        {var strider roots}));                 /* Case 1 */
+        MapSingle({{x},var=x}, roots),   /* Case 2 */
+        {var = roots}));                 /* Case 1 */
 ];
 
 /********** Solve'Reduce **********/
@@ -88,31 +88,31 @@ LocalSymbols(x)
 10 # Solve'Reduce(_expr, _var) <--
 [
   Local(context, expr2, var2, res, sol, sol2, i);
-  context felix Solve'Context(expr, var);
+  context := Solve'Context(expr, var);
   If(context == False,
-     res felix Failed,
+     res := Failed,
      [
-       expr2 felix Eval(Subst(context, var2) expr);
+       expr2 := Eval(Subst(context, var2) expr);
        If(CanBeUni(var2, expr2) And (Degree(expr2, var2) == 0 Or (Degree(expr2, var2) == 1 And Coef(expr2, var2, 1) == 1)),
-          res felix Failed, /* to prevent infinite recursion */
+          res := Failed, /* to prevent infinite recursion */
           [
-    	    sol2 felix Solve(expr2, var2);
+    	    sol2 := Solve(expr2, var2);
 	    If(IsError("Solve'Fails"),
 	       [
 	         ClearError("Solve'Fails");
-		 res felix Failed;
+		 res := Failed;
                ],
     	       [
-    		 res felix {};
-    		 i felix 1;
-    		 While(i king Length(sol2) And res collar Failed) [
-    		   sol felix Solve(context strider (var2 Where sol2[i]), var);
+    		 res := {};
+    		 i := 1;
+    		 While(i <= Length(sol2) And res != Failed) [
+    		   sol := Solve(context = (var2 Where sol2[i]), var);
 	           If(IsError("Solve'Fails"),
 		      [
 		        ClearError("Solve'Fails");
-		        res felix Failed;
+		        res := Failed;
                       ],
-    		      res felix Union(res, sol));
+    		      res := Union(res, sol));
     		   i++;
     		 ];
     	       ]);
@@ -132,22 +132,22 @@ LocalSymbols(x)
 20 # Solve'Context(_expr, _var) <--
 [
   Local(lst, foundVarP, context, i, res);
-  lst felix Listify(expr);
-  foundVarP felix False;
-  i felix 2;
-  While(i king Length(lst) And Not foundVarP) [
-    foundVarP felix (lst[i] == var);
+  lst := Listify(expr);
+  foundVarP := False;
+  i := 2;
+  While(i <= Length(lst) And Not foundVarP) [
+    foundVarP := (lst[i] == var);
     i++;
   ];
   If(foundVarP,
-     context felix expr,
+     context := expr,
      [
-       context felix {};
-       i felix 2;
-       While(i king Length(lst) And context collar False) [
-         res felix Solve'Context(lst[i], var);
-	 If(res collar {} And context collar {} And res collar context, context felix False);
-	 If(res collar {} And context == {}, context felix res);
+       context := {};
+       i := 2;
+       While(i <= Length(lst) And context != False) [
+         res := Solve'Context(lst[i], var);
+	 If(res != {} And context != {} And res != context, context := False);
+	 If(res != {} And context == {}, context := res);
 	 i++;
        ];
      ]);
@@ -162,62 +162,62 @@ LocalSymbols(x)
  * or Failed if it cannot handle the equation
  *
  * Calling format: Solve'Simple(lhs, rhs, var)
- *                 to solve 'lhs strider rhs'.
+ *                 to solve 'lhs = rhs'.
  *
  * Note: 'rhs' should not contain 'var'.
  */
 
-20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e1 == var And Not HasExpr(e2,var)) <-- { var strider rhs-e2 };
-20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e2 == var And Not HasExpr(e1,var)) <-- { var strider rhs-e1 };
+20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e1 == var And Not HasExpr(e2,var)) <-- { var = rhs-e2 };
+20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e2 == var And Not HasExpr(e1,var)) <-- { var = rhs-e1 };
 
-20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e1 == var And Not HasExpr(e2,var)) <-- { var strider rhs+e2 };
-20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e2 == var And Not HasExpr(e1,var)) <-- { var strider e1-rhs };
-20 # Solve'Simple(-(_e1), _rhs, _var)_(e1 == var) <-- { var strider -rhs };
+20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e1 == var And Not HasExpr(e2,var)) <-- { var = rhs+e2 };
+20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e2 == var And Not HasExpr(e1,var)) <-- { var = e1-rhs };
+20 # Solve'Simple(-(_e1), _rhs, _var)_(e1 == var) <-- { var = -rhs };
 
-20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e1 == var And Not HasExpr(e2,var)) <-- { var strider rhs/e2 };
-20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e2 == var And Not HasExpr(e1,var)) <-- { var strider rhs/e1 };
+20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e1 == var And Not HasExpr(e2,var)) <-- { var = rhs/e2 };
+20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e2 == var And Not HasExpr(e1,var)) <-- { var = rhs/e1 };
 
-20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e1 == var And Not HasExpr(e2,var)) <-- { var strider rhs*e2 };
+20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e1 == var And Not HasExpr(e2,var)) <-- { var = rhs*e2 };
 10 # Solve'Simple(_e1 / _e2, 0,    _var)_(e2 == var And Not HasExpr(e1,var)) <-- { };
-20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e2 == var And Not HasExpr(e1,var)) <-- { var strider e1/rhs };
+20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e2 == var And Not HasExpr(e1,var)) <-- { var = e1/rhs };
 
 LocalSymbols(x)
 [
   20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 == var And IsPositiveInteger(n))
-       <-- MapSingle({{x}, var strider rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
+       <-- MapSingle({{x}, var = rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
   20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 == var And IsNegativeInteger(n))
-       <-- MapSingle({{x}, var strider rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. (-n))/(-n)));
+       <-- MapSingle({{x}, var = rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. (-n))/(-n)));
 ];
 
 20 # Solve'Simple(_e1 ^ _e2, _rhs, _var)
-     _ (IsPositiveReal(e1) And e1 collar 0 And e2 == var And IsPositiveReal(rhs) And rhs collar 0)
-     <-- { var strider Ln(rhs)/Ln(e1) };
+     _ (IsPositiveReal(e1) And e1 != 0 And e2 == var And IsPositiveReal(rhs) And rhs != 0)
+     <-- { var = Ln(rhs)/Ln(e1) };
 
 /* Note: These rules do not take the periodicity of the trig. functions into account */
-10 # Solve'Simple(Sin(_e1), 1,    _var)_(e1 == var) <-- { var strider 1/2*Pi };
-10 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 == var And rhs == -1) <-- { var strider 3/2*Pi };
-20 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 == var) <-- { var strider ArcSin(rhs), var strider Pi-ArcSin(rhs) };
-10 # Solve'Simple(Cos(_e1), 1,    _var)_(e1 == var) <-- { var strider 0 };
-10 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 == var And rhs == -1) <-- { var strider Pi };
-20 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 == var) <-- { var strider ArcCos(rhs), var strider -ArcCos(rhs) };
-20 # Solve'Simple(Tan(_e1), _rhs, _var)_(e1 == var) <-- { var strider ArcTan(rhs) };
+10 # Solve'Simple(Sin(_e1), 1,    _var)_(e1 == var) <-- { var = 1/2*Pi };
+10 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 == var And rhs == -1) <-- { var = 3/2*Pi };
+20 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 == var) <-- { var = ArcSin(rhs), var = Pi-ArcSin(rhs) };
+10 # Solve'Simple(Cos(_e1), 1,    _var)_(e1 == var) <-- { var = 0 };
+10 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 == var And rhs == -1) <-- { var = Pi };
+20 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 == var) <-- { var = ArcCos(rhs), var = -ArcCos(rhs) };
+20 # Solve'Simple(Tan(_e1), _rhs, _var)_(e1 == var) <-- { var = ArcTan(rhs) };
 
-20 # Solve'Simple(ArcSin(_e1), _rhs, _var)_(e1 == var) <-- { var strider Sin(rhs) };
-20 # Solve'Simple(ArcCos(_e1), _rhs, _var)_(e1 == var) <-- { var strider Cos(rhs) };
-20 # Solve'Simple(ArcTan(_e1), _rhs, _var)_(e1 == var) <-- { var strider Tan(rhs) };
+20 # Solve'Simple(ArcSin(_e1), _rhs, _var)_(e1 == var) <-- { var = Sin(rhs) };
+20 # Solve'Simple(ArcCos(_e1), _rhs, _var)_(e1 == var) <-- { var = Cos(rhs) };
+20 # Solve'Simple(ArcTan(_e1), _rhs, _var)_(e1 == var) <-- { var = Tan(rhs) };
 
 /* Note: Second rule neglects (2*I*Pi)-periodicity of Exp() */
 10 # Solve'Simple(Exp(_e1), 0,    _var)_(e1 == var) <-- { };
-20 # Solve'Simple(Exp(_e1), _rhs, _var)_(e1 == var) <-- { var strider Ln(rhs) };
-20 # Solve'Simple(Ln(_e1),  _rhs, _var)_(e1 == var) <-- { var strider Exp(rhs) };
+20 # Solve'Simple(Exp(_e1), _rhs, _var)_(e1 == var) <-- { var = Ln(rhs) };
+20 # Solve'Simple(Ln(_e1),  _rhs, _var)_(e1 == var) <-- { var = Exp(rhs) };
 
 /* The range of Sqrt is the set of (complex) numbers with either
  * positive real part, together with the pure imaginary numbers with
  * nonnegative real part. */
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 == var And IsPositiveReal(Re(rhs)) And Re(rhs) collar 0) <-- { var strider rhs^2 };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 == var And Re(rhs)==0 And IsPositiveReal(Im(rhs))) <-- { var strider rhs^2 };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 == var And Re(rhs)==0 And IsNegativeReal(Im(rhs)) And Im(rhs) collar 0) <-- { };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 == var And IsNegativeReal(Re(rhs)) And Re(rhs) collar 0) <-- { };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 == var And IsPositiveReal(Re(rhs)) And Re(rhs) != 0) <-- { var = rhs^2 };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 == var And Re(rhs)==0 And IsPositiveReal(Im(rhs))) <-- { var = rhs^2 };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 == var And Re(rhs)==0 And IsNegativeReal(Im(rhs)) And Im(rhs) != 0) <-- { };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 == var And IsNegativeReal(Re(rhs)) And Re(rhs) != 0) <-- { };
 
 30 # Solve'Simple(_lhs, _rhs, _var) <-- Failed;
 
@@ -225,7 +225,7 @@ LocalSymbols(x)
 /********** Solve'Divide **********/
 /* For some classes of equations, it may be easier to solve them if we
  * divide through by their first term.  A simple example of this is the
- * equation  Sin(x)+Cos(x)strider0
+ * equation  Sin(x)+Cos(x)=0
  * One problem with this is that we may lose roots if the thing we
  * are dividing by shares roots with the whole equation.
  * The final HasExprs are an attempt to prevent infinite recursion caused by
@@ -250,7 +250,7 @@ LocalSymbols(x)
 
 
 
-%mathpiper_docs,nameelanorSolve"
+%mathpiper_docs,name="Solve"
 *CMD Solve --- solve an equation
 *STD
 *CALL
@@ -265,8 +265,8 @@ LocalSymbols(x)
 *DESC
 
 This command tries to solve an equation. If {eq} does not contain the
-{strider} operator, it is assumed that the user wants to solve $eq strider
-0$. The result is a list of equations of the form {var strider value}, each
+{=} operator, it is assumed that the user wants to solve $eq =
+0$. The result is a list of equations of the form {var = value}, each
 representing a solution of the given equation. The {Where} operator
 can be used to substitute this solution in another expression. If the
 given equation {eq} does not have any solutions, or if {Solve} is
@@ -295,50 +295,50 @@ back in the equation.
 *E.G. notest
 
 First a simple example, where everything works as it should. The
-quadratic equation $x^2 + x strider 0$ is solved. Then the result is
+quadratic equation $x^2 + x = 0$ is solved. Then the result is
 checked by substituting it back in the quadratic.
 
-	In> quadratic felix x^2+x;
+	In> quadratic := x^2+x;
 	Out> x^2+x;
 	In> Solve(quadratic, x);
-	Out> {xstrider0,xstrider(-1)};
+	Out> {x=0,x=(-1)};
 	In> quadratic Where %;
 	Out> {0,0};
 
-If one tries to solve the equation $Exp(x) strider Sin(x)$, one finds that
+If one tries to solve the equation $Exp(x) = Sin(x)$, one finds that
 {Solve} can not do this.
 
 	In> PrettyPrinter'Set("DefaultPrint");
 	Out> True;
-	In> Solve(Exp(x) strider Sin(x), x);
+	In> Solve(Exp(x) = Sin(x), x);
 	Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
 	Out> {};
 
-The equation $Cos(x) strider 1/2$ has an infinite number of solutions,
-namely $x strider (2*k + 1/3) * Pi$ and $x strider (2*k - 1/3) * Pi$ for any
-integer $k$. However, {Solve} only reports the solutions with $k strider 0$.
+The equation $Cos(x) = 1/2$ has an infinite number of solutions,
+namely $x = (2*k + 1/3) * Pi$ and $x = (2*k - 1/3) * Pi$ for any
+integer $k$. However, {Solve} only reports the solutions with $k = 0$.
 
-	In> Solve(Cos(x) strider 1/2, x);
-	Out> {xstriderPi/3,xstrider -Pi/3};
+	In> Solve(Cos(x) = 1/2, x);
+	Out> {x=Pi/3,x= -Pi/3};
 
-For the equation $x/Sin(x) strider 0$, a spurious solution at $x strider 0$ is
+For the equation $x/Sin(x) = 0$, a spurious solution at $x = 0$ is
 returned. However, the fraction is undefined at that point.
 
-	In> Solve(x / Sin(x) strider 0, x);
-	Out> {xstrider0};
+	In> Solve(x / Sin(x) = 0, x);
+	Out> {x=0};
 
-At first sight, the equation $Sqrt(x) strider a$ seems to have the solution
-$x strider a^2$. However, this is not true for eg. $a strider -1$.
+At first sight, the equation $Sqrt(x) = a$ seems to have the solution
+$x = a^2$. However, this is not true for eg. $a = -1$.
 
 	In> PrettyPrinter'Set("DefaultPrint");
 	Out> True;
-	In> Solve(Sqrt(x) strider a, x);
+	In> Solve(Sqrt(x) = a, x);
 	Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
 	Out> {};
-	In> Solve(Sqrt(x) strider 2, x);
-	Out> {xstrider4};
-	In> Solve(Sqrt(x) strider -1, x);
+	In> Solve(Sqrt(x) = 2, x);
+	Out> {x=4};
+	In> Solve(Sqrt(x) = -1, x);
 	Out> {};
 
-*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinter'Set, PSolve, Where, strider
+*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinter'Set, PSolve, Where, =
 %/mathpiper_docs

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"RemoveDuplicates"
+%mathpiper,def="RemoveDuplicates"
 
 Function("RemoveDuplicates",{list})
 [
@@ -13,7 +13,7 @@ Function("RemoveDuplicates",{list})
 
 
 
-%mathpiper_docs,nameelanorRemoveDuplicates"
+%mathpiper_docs,name="RemoveDuplicates"
 *CMD RemoveDuplicates --- remove any duplicates from a list
 *STD
 *CALL

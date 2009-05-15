@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MultiplyNum"
+%mathpiper,def="MultiplyNum"
 
 /// coded by Serge Winitzki. See essays documentation for algorithms.
 
@@ -52,7 +52,7 @@ Function() MultiplyNum(x);
 
 
 
-%mathpiper_docs,nameelanorMultiplyNum"
+%mathpiper_docs,name="MultiplyNum"
 *CMD MultiplyNum --- optimized numerical multiplication
 *STD
 *CALL

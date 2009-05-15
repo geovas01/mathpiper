@@ -1,4 +1,4 @@
-%mathpiper,fluffy"TemplateFunction"
+%mathpiper,def="TemplateFunction"
 
 RuleBase("TemplateFunction",{oper,args,body});
 Bodied("TemplateFunction",60000);
@@ -9,10 +9,10 @@ Rule("TemplateFunction",3,2047,True)
 [
   Retract(oper,Length(args));
   Local(arglist);
-  arglistfelixFlatCopy(args);
+  arglist:=FlatCopy(args);
 
   DestructiveAppend(arglist,{args,UnList({Hold,body})});
-  arglistfelixApplyPure("LocalSymbols",arglist);
+  arglist:=ApplyPure("LocalSymbols",arglist);
 
   MacroRuleBase(oper,arglist[1]);
   MacroRule(oper,Length(args),1025,True) arglist[2];

@@ -1,16 +1,16 @@
-%mathpiper,fluffy"Decimal"
+%mathpiper,def="Decimal"
 
 10 # Decimal( n_IsInteger ) <-- {n,{0}};
 10 # Decimal( (n_IsPositiveInteger) / (d_IsPositiveInteger) ) <--
 [
   Local(result,rev,first,period,repeat,static);
-  resultfelix{Div(n,d)};
+  result:={Div(n,d)};
   Decimal(result,Mod(n,d),d,350);
-  revfelixDecimalFindPeriod(result);
-  firstfelixrev[1];
-  periodfelixrev[2];
-  repeatfelixresult[first .. (first+period-1)];
-  staticfelixresult[1 .. (first-1)];
+  rev:=DecimalFindPeriod(result);
+  first:=rev[1];
+  period:=rev[2];
+  repeat:=result[first .. (first+period-1)];
+  static:=result[1 .. (first-1)];
   DestructiveAppend(static,repeat);
 ];
 20 # Decimal(_n/_m)_((n/m)<0) <-- "-":Decimal(-n/m);
@@ -20,7 +20,7 @@
   While(count>0)
   [
     DestructiveAppend(result,Div(10*n,d));
-    nfelixMod(10*n,d);
+    n:=Mod(10*n,d);
     count--;
   ];
 ];
@@ -28,22 +28,22 @@
 DecimalFindPeriod(_list) <--
 [
   Local(period,nr,reversed,first,i);
-  reversedfelixTail(DestructiveReverse(FlatCopy(Tail(list))));
-  nrfelixLength(reversed)>>1;
-  periodfelix1;
-  firstfelixreversed[1];
+  reversed:=Tail(DestructiveReverse(FlatCopy(Tail(list))));
+  nr:=Length(reversed)>>1;
+  period:=1;
+  first:=reversed[1];
 
-  For(ifelix1,i<nr,i++)
+  For(i:=1,i<nr,i++)
   [
     If(reversed[i+1] == first And DecimalMatches(reversed,i),
       [
-        periodfelixi;
-        ifelixnr;
+        period:=i;
+        i:=nr;
       ]
       );
   ];
 
-  firstfelixLength(list)-period;
+  first:=Length(list)-period;
   While(first>1 And list[first] == list[first+period]) first--;
   first++;
 
@@ -53,15 +53,15 @@ DecimalFindPeriod(_list) <--
 DecimalMatches(_reversed,_period) <--
 [
   Local(nr,matches,first);
-  nrfelix0;
-  matchesfelixTrue;
-  firstfelix1;
+  nr:=0;
+  matches:=True;
+  first:=1;
   While((nr<100) And matches)
   [
-    matches felix (matches And
+    matches := (matches And
        (reversed[first .. (first+period-1)] == reversed[(first+period) .. (first+2*period-1)]));
-    firstfelixfirst+period;
-    nrfelixnr+period;
+    first:=first+period;
+    nr:=nr+period;
   ];
   matches;
 ];
@@ -70,7 +70,7 @@ DecimalMatches(_reversed,_period) <--
 
 
 
-%mathpiper_docs,nameelanorDecimal"
+%mathpiper_docs,name="Decimal"
 *CMD Decimal --- decimal representation of a rational
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"DefinePattern",privateelanortrue"
+%mathpiper,def="DefinePattern",private="true"
 
 RuleBase("DefinePattern",{patternleft, patternright, patternprecedence, postpredicate});
 

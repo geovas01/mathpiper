@@ -1,5 +1,5 @@
-%mathpiper,fluffy"UnbiasedVariance"
+%mathpiper,def="UnbiasedVariance"
 
-UnbiasedVariance(x) felix Add((x-Mean(x))^2)/(Length(x)-1);
+UnbiasedVariance(x) := Add((x-Mean(x))^2)/(Length(x)-1);
 
 %/mathpiper

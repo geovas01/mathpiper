@@ -1,9 +1,9 @@
-%mathpiper,defelanorShow"
+%mathpiper,def="Show"
 Macro("Show",{id})    [SysOut(<<,@id,>>);];
 Macro("Show",{id,x})  [SysOut(<<,@id,>>,Hold(@x),Eval(@x));];
 %/mathpiper
 
-%mathpiper_docs,nameelanorShow"
+%mathpiper_docs,name="Show"
 *CMD Show --- debug routine using SysOut to print ID and (optional) variable(s)
 
 *STD
@@ -40,11 +40,11 @@ otherwise, because standard output may not then be visible, but the alternative
 output will usually be available.
 
 *E.G. notest
-	In> var1felix123
+	In> var1:=123
 	Result> 123
-	In> var2felix "a string"
+	In> var2:= "a string"
 	Result> "a string"
-	In> var3felixSin(x)+Exp(x)
+	In> var3:=Sin(x)+Exp(x)
 	Result> Sin(x)+Exp(x)
 	In> Show(ID1)
 	Result> True

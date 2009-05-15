@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Magnitude"
+%mathpiper,def="Magnitude"
 
 Function("Magnitude",{x}) [
 	Sqrt(Re(x)^2 + Im(x)^2);

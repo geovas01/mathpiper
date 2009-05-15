@@ -1,21 +1,21 @@
-%mathpiper,fluffy"RootsWithMultiples"
+%mathpiper,def="RootsWithMultiples"
 
 10 # RootsWithMultiples(poly_CanBeUni) <--
 [
   Local(factors,result,uni,root,i,deg);
-  factorsfelixFactors(poly);
-  resultfelix{};
+  factors:=Factors(poly);
+  result:={};
   ForEach(item,factors)
   [
-    unifelixMakeUni(item[1]);
+    uni:=MakeUni(item[1]);
 
-    degfelixDegree(uni);
+    deg:=Degree(uni);
     If(deg > 0 And deg < 3,
       [
-        rootfelix PSolve(uni);
-        If(Not IsList(root),rootfelix{root});
-        For(ifelix1,ikingLength(root),i++)
-          resultfelix Concat({{root[i],item[2]}}, result);
+        root:= PSolve(uni);
+        If(Not IsList(root),root:={root});
+        For(i:=1,i<=Length(root),i++)
+          result:= Concat({{root[i],item[2]}}, result);
       ]
       );
   ];

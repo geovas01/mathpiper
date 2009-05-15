@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Complex"
+%mathpiper,def="Complex"
 
 0 # Complex(_r,i_IsZero) <-- r;
 2 # Complex(Complex(_r1,_i1),_i2) <-- Complex(r1,i1+i2);
@@ -26,8 +26,8 @@
 110 # Complex(_r1,_i1) * Complex(_r2,_i2) <--
 [	// the Karatsuba trick
 	Local(A,B);
-	Afelixr1*r2;
-	Bfelixi1*i2;
+	A:=r1*r2;
+	B:=i1*i2;
 	Complex(A-B,(r1+i1)*(r2+i2)-A-B);
 ];
 */
@@ -71,16 +71,16 @@
 [
 	// use binary method
 	Local(result, x);
-	xfelixComplex(r,i);
-	resultfelix1;
+	x:=Complex(r,i);
+	result:=1;
 	While(n > 0)
 	[
 		if ((n&1) == 1)
 		[
-		  result felix result*x;
+		  result := result*x;
 		];
-		x felix x*x;
-		n felix n>>1;
+		x := x*x;
+		n := n>>1;
 	];
 	result;
 ];
@@ -88,13 +88,13 @@
 
 /*[	// this method is disabled b/c it suffers from severe roundoff errors
   Local(rr,ii,count,sign);
-  rrfelixr^n;
-  iifelix0;
-  For(countfelix1,countkingn,countfelixcount+2) [
-    signfelixIf(IsZero(Mod(count-1,4)),1,-1);
-    iifelixii+sign*Bin(n,count)*i^count*r^(n-count);
+  rr:=r^n;
+  ii:=0;
+  For(count:=1,count<=n,count:=count+2) [
+    sign:=If(IsZero(Mod(count-1,4)),1,-1);
+    ii:=ii+sign*Bin(n,count)*i^count*r^(n-count);
     If(count<n,
-      rrfelixrr-sign*Bin(n,count+1)*i^(count+1)*r^(n-count-1));
+      rr:=rr-sign*Bin(n,count+1)*i^(count+1)*r^(n-count-1));
   ];
   Complex(rr,ii);
 ];
@@ -104,7 +104,7 @@
 
 
 
-%mathpiper_docs,nameelanorComplex"
+%mathpiper_docs,name="Complex"
 *CMD Complex --- construct a complex number
 *STD
 *CALL

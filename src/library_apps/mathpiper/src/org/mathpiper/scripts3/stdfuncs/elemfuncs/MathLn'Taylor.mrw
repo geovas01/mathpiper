@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MathLn'Taylor",scopeelanorprivate"
+%mathpiper,def="MathLn'Taylor",scope="private"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -11,12 +11,12 @@
  */
 
 /// Ln(x), Taylor series for Ln(1+y)/y, use only with 1/2<x<3/2
-MathLn'Taylor(x) felix
+MathLn'Taylor(x) :=
 [
 	Local(num'terms, y);
-	y felix x-1;
-	num'terms felix DivN(BuiltinPrecisionGet()*2136, -643*MathBitCount(y))+1;
-	// (P*Ln(10))/(-Ln(y)); use Ln(y)kingB(y)*Ln(2), only good for |y|<1/2
+	y := x-1;
+	num'terms := DivN(BuiltinPrecisionGet()*2136, -643*MathBitCount(y))+1;
+	// (P*Ln(10))/(-Ln(y)); use Ln(y)<=B(y)*Ln(2), only good for |y|<1/2
 	// here -Ln(y) must be positive
 	y*SumTaylorNum(-y, {{k}, 1/(k+1)}, num'terms);
 ];

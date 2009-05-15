@@ -1,6 +1,6 @@
-%mathpiper,defelanorShowLine",scopeelanorprivate"
+%mathpiper,def="ShowLine",scope="private"
 
 // print current file and line
-ShowLine() felix [Echo({CurrentFile(),": ",CurrentLine()});];
+ShowLine() := [Echo({CurrentFile(),": ",CurrentLine()});];
 
 %/mathpiper

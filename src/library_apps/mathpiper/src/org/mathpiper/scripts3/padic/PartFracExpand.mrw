@@ -1,4 +1,4 @@
-%mathpiper,fluffy"PartFracExpand",scopeelanorprivate"
+%mathpiper,def="PartFracExpand",scope="private"
 
 /* Partial fraction expansion of g/f with Degree(g)<Degree(f) */
 PartFracExpand(_g,_f) <--
@@ -7,19 +7,19 @@ PartFracExpand(_g,_f) <--
 
 /* Echo({"factors = ",Factors(f)}); */
 
-  mlistfelixMap("^",Transpose(Factors(f)));
+  mlist:=Map("^",Transpose(Factors(f)));
 
 /* Echo({"mlist = ",mlist}); */
 
-  vlistfelixMap("Rem",{FillList(g,Length(mlist)),mlist});
+  vlist:=Map("Rem",{FillList(g,Length(mlist)),mlist});
 
 
 /* Echo({"g = ",g}); */
 /* Echo({"vlist = ",vlist}); */
 
   If(IsInteger(f),
-    resfelixChineseRemainderInteger(mlist,vlist)[2],
-    resfelixChineseRemainderPoly(mlist,vlist)[2]
+    res:=ChineseRemainderInteger(mlist,vlist)[2],
+    res:=ChineseRemainderPoly(mlist,vlist)[2]
     );
 
 
@@ -27,15 +27,15 @@ PartFracExpand(_g,_f) <--
   Local(result,divlist);
 
 
-  divlistfelixMap("/",{res,mlist});
+  divlist:=Map("/",{res,mlist});
 
   If(Length(divlist)<2,
     Add(divlist),
     [
-      resultfelixdivlist[1];
+      result:=divlist[1];
       ForEach(item,Tail(divlist))
       [
-        resultfelixUnList({Atom("+"),result,item});
+        result:=UnList({Atom("+"),result,item});
       ];
       result;
     ]);

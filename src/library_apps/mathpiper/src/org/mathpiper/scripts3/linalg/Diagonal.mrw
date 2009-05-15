@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Diagonal"
+%mathpiper,def="Diagonal"
 
 //
 // Diagonal: return a vector with the diagonal elements of the matrix
@@ -6,11 +6,11 @@
 Function("Diagonal",{A})
 [
 	Local(result,i,n);
-	nfelixLength(A);
-	resultfelixZeroVector(n);
-	For(ifelix1,ikingn,i++)
+	n:=Length(A);
+	result:=ZeroVector(n);
+	For(i:=1,i<=n,i++)
 	[
-		result[i] felix A[i][i];
+		result[i] := A[i][i];
 	];
 	result;
 ];
@@ -19,7 +19,7 @@ Function("Diagonal",{A})
 
 
 
-%mathpiper_docs,nameelanorDiagonal"
+%mathpiper_docs,name="Diagonal"
 *CMD Diagonal --- extract the diagonal from a matrix
 *STD
 *CALL

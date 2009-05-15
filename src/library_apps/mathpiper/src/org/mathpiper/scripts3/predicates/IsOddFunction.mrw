@@ -1,12 +1,12 @@
-%mathpiper,fluffy"IsOddFunction"
+%mathpiper,def="IsOddFunction"
 
-IsOddFunction(f,x)felix (f == Eval(-Subst(x,-x)f));
+IsOddFunction(f,x):= (f == Eval(-Subst(x,-x)f));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorIsOddFunction"
+%mathpiper_docs,name="IsOddFunction"
 *CMD IsEvenFunction --- Return true if function is an even function, False otherwise
 *CMD IsOddFunction --- Return true if function is an odd function, False otherwise
 

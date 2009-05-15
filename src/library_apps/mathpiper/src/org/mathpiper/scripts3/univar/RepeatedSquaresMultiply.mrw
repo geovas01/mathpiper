@@ -1,4 +1,4 @@
-%mathpiper,defelanorRepeatedSquaresMultiply",scopeelanorprivate"
+%mathpiper,def="RepeatedSquaresMultiply",scope="private"
 
 /* Repeated squares multiplication
  TODO put somewhere else!!!
@@ -12,7 +12,7 @@
   Local(m,b);
   Set(m,1);
   Set(b,1);
-  While(mkingn) Set(m,(ShiftLeft(m,1)));
+  While(m<=n) Set(m,(ShiftLeft(m,1)));
   Set(m, ShiftRight(m,1));
   While(m>0)
   [

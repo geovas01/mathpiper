@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ForEachInArray",scopeelanorprivate"
+%mathpiper,def="ForEachInArray",scope="private"
 
 LocalSymbols(i,nr)
 [
@@ -8,7 +8,7 @@ LocalSymbols(i,nr)
     MacroLocal(item);
     Set(i,1);
     Set(nr,Length(list));
-    While(ikingnr)
+    While(i<=nr)
     [
       MacroSet(item,list[i]);
       Eval(body);

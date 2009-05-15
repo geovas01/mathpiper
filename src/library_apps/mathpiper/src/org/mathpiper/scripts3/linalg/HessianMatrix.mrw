@@ -1,14 +1,14 @@
-%mathpiper,fluffy"HessianMatrix"
+%mathpiper,def="HessianMatrix"
 
 // The arguments of the following functions should be checked
 // this takes 1 func in N vars
-HessianMatrix(f,v)felixGenMatrix({{i,j}, Deriv(v[i]) Deriv(v[j]) f},Length(v),Length(v));
+HessianMatrix(f,v):=GenMatrix({{i,j}, Deriv(v[i]) Deriv(v[j]) f},Length(v),Length(v));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorHessianMatrix"
+%mathpiper_docs,name="HessianMatrix"
 *CMD HessianMatrix --- create the Hessian matrix
 *STD
 *CALL

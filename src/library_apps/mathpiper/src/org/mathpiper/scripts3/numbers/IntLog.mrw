@@ -1,40 +1,40 @@
-%mathpiper,fluffy"IntLog"
+%mathpiper,def="IntLog"
 
 /// Return integer part of the logarithm of x in given base. Use only integer arithmetic.
-10 # IntLog(_x, _base) _ (baseking1) <-- Undefined;
+10 # IntLog(_x, _base) _ (base<=1) <-- Undefined;
 /// Use variable steps to speed up operation for large numbers x
 20 # IntLog(_x, _base) <--
 [
 	Local(result, step, old'step, factor, old'factor);
-	result felix 0;
-	old'step felix step felix 1;
-	old'factor felix factor felix base;
+	result := 0;
+	old'step := step := 1;
+	old'factor := factor := base;
 	// first loop: increase step
-	While (x bullet factor)
+	While (x >= factor)
 	[
-		old'factor felix factor;
-		factor felix factor*factor;
-		old'step felix step;
-		step felix step*2;
+		old'factor := factor;
+		factor := factor*factor;
+		old'step := step;
+		step := step*2;
 	];
-	If(x bullet base,
+	If(x >= base,
 	  [
-		step felix old'step;
-		result felix step;
-		x felix Div(x, old'factor);
+		step := old'step;
+		result := step;
+		x := Div(x, old'factor);
 	  ],
-	  step felix 0
+	  step := 0
 	);
 	// second loop: decrease step
-	While (step > 0 And x collar 1)
+	While (step > 0 And x != 1)
 	[
-		step felix Div(step,2);	// for each step size down to 1, divide by factor if x is up to it
-		factor felix base^step;
+		step := Div(step,2);	// for each step size down to 1, divide by factor if x is up to it
+		factor := base^step;
 		If(
-			x bullet factor,
+			x >= factor,
 			[
-				xfelixDiv(x, factor);
-				result felix result + step;
+				x:=Div(x, factor);
+				result := result + step;
 			]
 		);
 	];
@@ -45,7 +45,7 @@
 
 
 
-%mathpiper_docs,nameelanorIntLog"
+%mathpiper_docs,name="IntLog"
 *CMD IntLog --- integer part of logarithm
 *STD
 *CALL

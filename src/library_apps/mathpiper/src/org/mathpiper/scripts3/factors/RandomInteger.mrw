@@ -1,6 +1,6 @@
-%mathpiper,fluffy"RandomInteger" 
+%mathpiper,def="RandomInteger" 
 //todo:tk:this function should be placed into another package and also listed in a def file.
 
-RandomInteger(n) felix FloorN(Random()*n);
+RandomInteger(n) := FloorN(Random()*n);
 
 %/mathpiper

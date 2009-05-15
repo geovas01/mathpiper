@@ -1,11 +1,11 @@
-%mathpiper,defelanorVerify"
+%mathpiper,def="Verify"
 
 /*
 Macro("Verify",{aLeft,aRight})
 [
 
 	Local(result);
-	result felix @aLeft;	// to save time
+	result := @aLeft;	// to save time
   If (Not(Equals(result,@aRight)),
     [
       WriteString("******************");
@@ -35,7 +35,7 @@ Function("Verify",{aLeft,aRight})
 [
 
 	Local(result);
-	result felix Eval(aLeft);	// to save time
+	result := Eval(aLeft);	// to save time
   If (Not(Equals(result,aRight)),
     [
       WriteString("******************");

@@ -1,13 +1,13 @@
-%mathpiper,fluffy"ArcSinNum"
+%mathpiper,def="ArcSinNum"
 
 /// low-level numerical calculations of elementary functions.
 /// These are only called if InNumericMode() returns True
 
-ArcSinNum(x) felix
+ArcSinNum(x) :=
 [
 	// need to be careful when |x| close to 1
 	If(
-		239*Abs(x) bullet 169,	// 169/239 is a good enough approximation of 1/Sqrt(2)
+		239*Abs(x) >= 169,	// 169/239 is a good enough approximation of 1/Sqrt(2)
 		// use trigonometric identity to avoid |x| close to 1
 		Sign(x)*(Internal'Pi()/2-ArcSinN(Sqrt(1-x^2))),
 		ArcSinN(x)

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"OldSolve"
+%mathpiper,def="OldSolve"
 /********** Solve'System **********/
 
 // for now, just use a very simple backsubstitution scheme
@@ -6,13 +6,13 @@ Solve'System(_eqns, _vars) <-- Solve'SimpleBackSubstitution(eqns,vars);
 
 // Check(False, "Solve'System: not implemented");
 
-10 # Solve'SimpleBackSubstitution'FindAlternativeForms((_lx) strider (_rx)) <--
+10 # Solve'SimpleBackSubstitution'FindAlternativeForms((_lx) = (_rx)) <--
 [
   Local(newEq);
-  newEq felix (Simplify(lx) strider Simplify(rx));
-  If (newEq collar (lx strider rx) And newEq collar (0strider0),DestructiveAppend(eq,newEq));
-  newEq felix (Simplify(lx - rx) strider 0);
-  If (newEq collar (lx strider rx) And newEq collar (0strider0),DestructiveAppend(eq,newEq));
+  newEq := (Simplify(lx) = Simplify(rx));
+  If (newEq != (lx = rx) And newEq != (0=0),DestructiveAppend(eq,newEq));
+  newEq := (Simplify(lx - rx) = 0);
+  If (newEq != (lx = rx) And newEq != (0=0),DestructiveAppend(eq,newEq));
 ];
 20 # Solve'SimpleBackSubstitution'FindAlternativeForms(_equation) <--
 [
@@ -31,11 +31,11 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
  If(InVerboseMode(), Echo({"Entering Solve'SimpleBackSubstitution"}));
 
   Local(result,i,j,nrvar,nreq,sub,nrSet,origEq);
-  eqfelixFlatCopy(eq);
-  origEqfelixFlatCopy(eq);
-  nrvarfelixLength(var);
-  resultfelix{FlatCopy(var)};
-  nrSet felix 0;
+  eq:=FlatCopy(eq);
+  origEq:=FlatCopy(eq);
+  nrvar:=Length(var);
+  result:={FlatCopy(var)};
+  nrSet := 0;
 
 //Echo("Before: ",eq);
   ForEach(equation,origEq)
@@ -43,20 +43,20 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 //Echo("equation ",equation);
     Solve'SimpleBackSubstitution'FindAlternativeForms(equation);
   ];
-//  eqfelixSimplify(eq);
+//  eq:=Simplify(eq);
 //Echo("After: ",eq);
 
-  nreqfelixLength(eq);
+  nreq:=Length(eq);
 
   /* Loop over each variable, solving for it */
 
 /* Echo({eq});  */
 
-  For(jfelix1,jkingnreq And nrSet < nrvar,j++)
+  For(j:=1,j<=nreq And nrSet < nrvar,j++)
   [
     Local(vlist);
-    vlistfelixVarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
-    For(ifelix1,ikingnrvar And nrSet < nrvar,i++)
+    vlist:=VarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
+    For(i:=1,i<=nrvar And nrSet < nrvar,i++)
     [
 
 //Echo("eq[",j,"] = ",eq[j]);
@@ -66,72 +66,72 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
       If(Count(vlist,var[i]) == 1,
          [
-           sub felix Listify(eq[j]);
-           sub felix sub[2]-sub[3];
+           sub := Listify(eq[j]);
+           sub := sub[2]-sub[3];
 //Echo("using ",sub);
-           subfelixSuchThat(sub,var[i]);
+           sub:=SuchThat(sub,var[i]);
            If(InVerboseMode(), Echo({"From ",eq[j]," it follows that ",var[i]," == ",sub}));
            If(SolveFullSimplify==True,
-             resultfelixSimplify(Subst(var[i],sub)result),
-             result[1][i]felixsub
+             result:=Simplify(Subst(var[i],sub)result),
+             result[1][i]:=sub
              );
 //Echo("result = ",result," i = ",i);
            nrSet++;
 
 //Echo("current result is ",result);
            Local(k,reset);
-           resetfelixFalse;
-           For(kfelix1,kkingnreq  And nrSet < nrvar,k++)
+           reset:=False;
+           For(k:=1,k<=nreq  And nrSet < nrvar,k++)
            If(Contains(VarListAll(eq[k],`Lambda({pt},Contains(@var,pt))),var[i]),
            [
              Local(original);
-             originalfelixeq[k];
-             eq[k]felixSubst(var[i],sub)eq[k];
-             If(Simplify(Simplify(eq[k])) == (0 strider 0),
-               eq[k] felix (0 strider 0),
+             original:=eq[k];
+             eq[k]:=Subst(var[i],sub)eq[k];
+             If(Simplify(Simplify(eq[k])) == (0 = 0),
+               eq[k] := (0 = 0),
                Solve'SimpleBackSubstitution'FindAlternativeForms(eq[k])
                );
-//             eq[k]felixSimplify(eq[k]);
-//             eq[k]felixSimplify(eq[k]); //@@@??? TODO I found one example where simplifying twice gives a different result from simplifying once!
-             If(originalcollar(0strider0) And eq[k] == (0 strider 0),resetfelixTrue);
+//             eq[k]:=Simplify(eq[k]);
+//             eq[k]:=Simplify(eq[k]); //@@@??? TODO I found one example where simplifying twice gives a different result from simplifying once!
+             If(original!=(0=0) And eq[k] == (0 = 0),reset:=True);
              If(InVerboseMode(), Echo({"   ",original," simplifies to ",eq[k]}));
            ]);
-           nreqfelixLength(eq);
-           vlistfelixVarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
-           ifelixnrvar+1;
+           nreq:=Length(eq);
+           vlist:=VarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
+           i:=nrvar+1;
            // restart at the beginning of the variables.
-           If(reset,jfelix1);
+           If(reset,j:=1);
          ]);
     ];
   ];
 
 
 //Echo("Finished finding results ",var," = ",result);
-//  eqfelixorigEq;
-//  nreq felix Length(eq);
+//  eq:=origEq;
+//  nreq := Length(eq);
   Local(zeroeq,tested);
-  testedfelix{};
-//  zeroeqfelixFillList(0strider0,nreq);
+  tested:={};
+//  zeroeq:=FillList(0=0,nreq);
 
   ForEach(item,result)
   [
 /*
     Local(eqSimplified);
-    eqSimplified felix eq;
+    eqSimplified := eq;
     ForEach(map,Transpose({var,item}))
     [
-      eqSimplified felix Subst(map[1],map[2])eqSimplified;
+      eqSimplified := Subst(map[1],map[2])eqSimplified;
     ];
-    eqSimplified felix Simplify(Simplify(eqSimplified));
+    eqSimplified := Simplify(Simplify(eqSimplified));
 
     Echo(eqSimplified);
 
     If(eqSimplified == zeroeq,
     [
-      DestructiveAppend(tested,Map("strider",{var,item}));
+      DestructiveAppend(tested,Map("=",{var,item}));
     ]);
 */
-    DestructiveAppend(tested,Map("strider",{var,item}));
+    DestructiveAppend(tested,Map("=",{var,item}));
   ];
 
 
@@ -148,11 +148,11 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 10 # OldSolve(eq_IsList,var_IsList) <-- Solve'SimpleBackSubstitution(eq,var);
 
 
-90 # OldSolve((left_IsList) strider right_IsList,_var) <--
-      OldSolve(Map("strider",{left,right}),var);
+90 # OldSolve((left_IsList) = right_IsList,_var) <--
+      OldSolve(Map("=",{left,right}),var);
 
 
-100 # OldSolve(_left strider _right,_var) <--
+100 # OldSolve(_left = _right,_var) <--
      SuchThat(left - right , 0 , var);
 
 /* HoldArg("OldSolve",arg1); */
@@ -162,7 +162,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
 
 
-%mathpiper_docs,nameelanorOldSolve"
+%mathpiper_docs,name="OldSolve"
 *CMD OldSolve --- old version of {Solve}
 *STD
 *CALL
@@ -191,7 +191,7 @@ to solve a single equation and the second one for systems of
 equations.
 
 The first calling sequence solves the equation "eq" for the variable
-"var". Use the {strider} operator to form the equation.
+"var". Use the {=} operator to form the equation.
 The value of "var" which satisfies the equation, is returned. Note
 that only one solution is found and returned.
 
@@ -211,9 +211,9 @@ large group of simple nonlinear equations.
 
 *E.G.
 
-	In> OldSolve(a+x*ystriderz,x)
+	In> OldSolve(a+x*y=z,x)
 	Out> (z-a)/y;
-	In> OldSolve({a*x+ystrider0,x+zstrider0},{x,y})
+	In> OldSolve({a*x+y=0,x+z=0},{x,y})
 	Out> {{-z,z*a}};
 
 This means that "x = (z-a)/y" is a solution of the first equation
@@ -222,8 +222,8 @@ equations in the second command.
 
 An example which {OldSolve} cannot solve:
 
-	In> OldSolve({x^2-x strider y^2-y,x^2-x strider y^3+y},{x,y});
+	In> OldSolve({x^2-x = y^2-y,x^2-x = y^3+y},{x,y});
 	Out> {};
 
-*SEE Solve, SuchThat, Eliminate, PSolve, strider
+*SEE Solve, SuchThat, Eliminate, PSolve, =
 %/mathpiper_docs

@@ -1,10 +1,10 @@
-%mathpiper,fluffy"Contradict",scopeelanorprivate"
+%mathpiper,def="Contradict",scope="private"
 
-10 # Contradict((_x) - (_y) strider 0, (_x) - (_z) strider 0)_(y collar z)     <-- True;
-12 # Contradict((_x) strider (_y), (_x) strider (_z))_(y collar z)             <-- True;
-13 # Contradict((_x) - (_y) strider 0, (_x) - (_z) bullet 0)_(z > y)      <-- True;
-14 # Contradict((_x) - (_y) strider 0, (_x) - (_z) >  0)_(z > y)      <-- True;
-14 # Contradict(Not (_x) - (_y) bullet 0, (_x) - (_z) >  0)_(z > y)  <-- True;
+10 # Contradict((_x) - (_y) = 0, (_x) - (_z) = 0)_(y != z)     <-- True;
+12 # Contradict((_x) = (_y), (_x) = (_z))_(y != z)             <-- True;
+13 # Contradict((_x) - (_y) = 0, (_x) - (_z) >= 0)_(z > y)      <-- True;
+14 # Contradict((_x) - (_y) = 0, (_x) - (_z) >  0)_(z > y)      <-- True;
+14 # Contradict(Not (_x) - (_y) >= 0, (_x) - (_z) >  0)_(z > y)  <-- True;
 15 # Contradict(_a, _b)                                          <-- Equals(SimpleNegate(a), b);
 
 %/mathpiper

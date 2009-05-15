@@ -1,19 +1,19 @@
-%mathpiper,fluffy"Swap"
+%mathpiper,def="Swap"
 
 Function("Swap",{list,index1,index2})
 [
   Local(item1,item2);
-  item1felixlist[index1];
-  item2felixlist[index2];
-  list[index1] felix item2;
-  list[index2] felix item1;
+  item1:=list[index1];
+  item2:=list[index2];
+  list[index1] := item2;
+  list[index2] := item1;
 ];
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorSwap"
+%mathpiper_docs,name="Swap"
 *CMD Swap --- swap two elements in a list
 *STD
 *CALL
@@ -37,7 +37,7 @@ returned.
 
 *E.G.
 
-	In> lst felix {a,b,c,d,e,f};
+	In> lst := {a,b,c,d,e,f};
 	Out> {a,b,c,d,e,f};
 	In> Swap(lst, 2, 4);
 	Out> {a,d,c,b,e,f};

@@ -1,6 +1,6 @@
-%mathpiper,defelanorArcSin"
+%mathpiper,def="ArcSin"
 
-2 # ArcSin(x_IsNumber)_(InNumericMode() And Abs(x)king1) <-- ArcSinNum(x);
+2 # ArcSin(x_IsNumber)_(InNumericMode() And Abs(x)<=1) <-- ArcSinNum(x);
 /// complex ArcSin
 3 # ArcSin(x_IsNumber)_InNumericMode() <-- Sign(x)*(Pi/2+I*ArcCosh(x));
 4 # ArcSin(Sin(_x))           <-- x;
@@ -28,7 +28,7 @@ ArcSin(xlist_IsList) <-- MapSingle("ArcSin",xlist);
 
 
 
-%mathpiper_docs,nameelanorArcSin"
+%mathpiper_docs,name="ArcSin"
 *CMD ArcSin --- inverse trigonometric function arc-sine
 *STD
 *CALL
@@ -68,7 +68,7 @@ list, the function is applied to all entries in the list.
 	In> Sin(ArcSin(1/3))
 	Out> 1/3;
 	
-	In> xfelixN(ArcSin(0.75))
+	In> x:=N(ArcSin(0.75))
 	Out> 0.848062;
 	In> N(Sin(x))
 	Out> 0.7499999477;

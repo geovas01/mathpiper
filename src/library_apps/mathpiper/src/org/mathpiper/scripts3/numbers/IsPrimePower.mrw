@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsPrimePower"
+%mathpiper,def="IsPrimePower"
 
 /* Returns whether n is a prime^m. */
 10 # IsPrimePower(n_IsPrime) <-- True;
@@ -10,7 +10,7 @@
 
 
 
-%mathpiper_docs,nameelanorIsPrimePower"
+%mathpiper_docs,name="IsPrimePower"
 *CMD IsPrimePower --- test for a power of a prime number
 *STD
 *CALL

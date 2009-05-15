@@ -1,5 +1,5 @@
-%mathpiper,fluffy"Variance"
+%mathpiper,def="Variance"
 
-Variance(x) felix Add((x-Mean(x))^2)/Length(x);
+Variance(x) := Add((x-Mean(x))^2)/Length(x);
 
 %/mathpiper

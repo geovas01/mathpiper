@@ -1,4 +1,4 @@
-%mathpiper,defelanorUniVariate"
+%mathpiper,def="UniVariate"
 
 //Auxiliary function.
 ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)
@@ -29,7 +29,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
   Set(result, {});
   Set(from, Min(curl,curr));
 
-  While(And(LessThan(curl,curr),left collar {}))
+  While(And(LessThan(curl,curr),left != {}))
   [
     DestructiveAppend(result,Head(left));
     Set(left,Tail(left));
@@ -40,7 +40,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
     DestructiveAppend(result,0);
     Set(curl,AddN(curl,1));
   ];
-  While(And(LessThan(curr,curl), right collar {}))
+  While(And(LessThan(curr,curl), right != {}))
   [
     DestructiveAppend(result,Head(right));
     Set(right,Tail(right));
@@ -51,18 +51,18 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
     DestructiveAppend(result,0);
     Set(curr,AddN(curr,1));
   ];
-  While(And(left collar {}, right collar {}))
+  While(And(left != {}, right != {}))
   [
     DestructiveAppend(result,Head(left)+Head(right));
     Set(left, Tail(left));
     Set(right, Tail(right));
   ];
-  While(left collar {})
+  While(left != {})
   [
     DestructiveAppend(result,Head(left));
     Set(left, Tail(left));
   ];
-  While(right collar {})
+  While(right != {})
   [
     DestructiveAppend(result,Head(right));
     Set(right, Tail(right));
@@ -96,7 +96,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
 //Echo("c1 = ",var,f1,c1);
 //Echo("c2 = ",var,f2,c2);
   Set(n,Length(c1));
-  For(ifelix1,ikingn,i++)
+  For(i:=1,i<=n,i++)
   [
 //Echo("before = ",result);
 //Echo("parms = ",var,c1,c2,f1,f2,f1+i-1);

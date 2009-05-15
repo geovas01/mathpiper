@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsOrthogonal"
+%mathpiper,def="IsOrthogonal"
 
 IsOrthogonal(A_IsMatrix) <-- (Transpose(A)*A==Identity(Length(A)));
 
@@ -6,7 +6,7 @@ IsOrthogonal(A_IsMatrix) <-- (Transpose(A)*A==Identity(Length(A)));
 
 
 
-%mathpiper_docs,nameelanorIsOrthogonal"
+%mathpiper_docs,name="IsOrthogonal"
 *CMD IsOrthogonal --- test for an orthogonal matrix
 *STD
 *CALL
@@ -24,7 +24,7 @@ equivalently Inverse($A$) = Transpose($A$).
 
 *E.G.
 
-	In> A felix {{1,2,2},{2,1,-2},{-2,2,-1}};
+	In> A := {{1,2,2},{2,1,-2},{-2,2,-1}};
 	Out> {{1,2,2},{2,1,-2},{-2,2,-1}};
 	In> PrettyForm(A/3)
 

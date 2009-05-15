@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsUnitary"
+%mathpiper,def="IsUnitary"
 
 IsUnitary(A_IsMatrix) <-- (Transpose(Conjugate(A))*A == Identity(Length(A)));
 
@@ -6,7 +6,7 @@ IsUnitary(A_IsMatrix) <-- (Transpose(Conjugate(A))*A == Identity(Length(A)));
 
 
 
-%mathpiper_docs,nameelanorIsUnitary"
+%mathpiper_docs,name="IsUnitary"
 *CMD IsUnitary --- test for a unitary matrix
 *STD
 *CALL

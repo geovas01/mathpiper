@@ -1,4 +1,4 @@
-%mathpiper,fluffy"BrentLn"
+%mathpiper,def="BrentLn"
 
 /// low-level numerical calculations of elementary functions.
 /// These are only called if InNumericMode() returns True
@@ -12,14 +12,14 @@ CachedConstant(Ln2, Internal'LnNum(2));	// this is only useful for BrentLn
 10 # BrentLn(x_IsInteger)_(BuiltinPrecisionGet()>40) <--
 [
 	Local(y, n, k, eps);
-	n felix BuiltinPrecisionGet();	// decimal digits
+	n := BuiltinPrecisionGet();	// decimal digits
 	// initial power of x
-	k felix 1 + Div(IntLog(4*10^n, x), 2);	// now x^(2*k)>4*10^n
+	k := 1 + Div(IntLog(4*10^n, x), 2);	// now x^(2*k)>4*10^n
 	BuiltinPrecisionSet(n+5);	// guard digits
-	eps felix DivideN(1, 10^n);	// precision
-	y felix PowerN(x, k);	// not yet divided by 4
+	eps := DivideN(1, 10^n);	// precision
+	y := PowerN(x, k);	// not yet divided by 4
 	// this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
-	y felix DivideN(Internal'Pi()*y, (2*k)*AG'Mean(4, y, eps));
+	y := DivideN(Internal'Pi()*y, (2*k)*AG'Mean(4, y, eps));
 	BuiltinPrecisionSet(n);
 	RoundTo(y, n);	// do not return a more precise number than we really have
 ];
@@ -34,20 +34,20 @@ CachedConstant(Ln2, Internal'LnNum(2));	// this is only useful for BrentLn
 [
 	Local(y, n, n1, k, eps);
   N([
-    n felix BuiltinPrecisionGet();	// decimal digits
+    n := BuiltinPrecisionGet();	// decimal digits
     // effective precision is n+Ln(n)/Ln(10)
-    n1 felix n + IntLog(n,10);	// Ln(2) < 7050/10171
+    n1 := n + IntLog(n,10);	// Ln(2) < 7050/10171
     // initial power of 2
-    k felix 2 + Div(n1*28738, 2*8651)	// Ln(10)/Ln(2) < 28738/8651; now 2^(2*k)>4*10^n1
+    k := 2 + Div(n1*28738, 2*8651)	// Ln(10)/Ln(2) < 28738/8651; now 2^(2*k)>4*10^n1
     // find how many binary digits we already have in x, and multiply by a sufficiently large power of 2 so that y=x*2^k is larger than 2*10^(n1/2)
     - IntLog(Floor(x), 2);
     // now we need k*Ln(2)/Ln(10) additional digits to compensate for cancellation at the final subtraction
     BuiltinPrecisionSet(n1+2+Div(k*3361, 11165));	// Ln(2)/Ln(10) < 3361/11165
-    eps felix DivideN(1, 10^(n1+1));	// precision
-    y felix x*2^(k-2);	// divided already by 4
+    eps := DivideN(1, 10^(n1+1));	// precision
+    y := x*2^(k-2);	// divided already by 4
     // initial values for AGM
     // this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
-    yfelixInternal'Pi()*y/(2*AG'Mean(1,y,eps)) - k*Ln2();
+    y:=Internal'Pi()*y/(2*AG'Mean(1,y,eps)) - k*Ln2();
     BuiltinPrecisionSet(n);
   ]);
 	y;	// do not return a more precise number than we really have

@@ -1,4 +1,4 @@
-%mathpiper,defelanorTSumRest",scopeelanorprivate"
+%mathpiper,def="TSumRest",scope="private"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */

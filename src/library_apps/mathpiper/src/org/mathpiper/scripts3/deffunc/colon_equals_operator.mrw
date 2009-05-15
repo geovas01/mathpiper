@@ -1,32 +1,32 @@
-%mathpiper,fluffy"felix"
+%mathpiper,def=":="
 
-/* felix assignment. */
-RuleBase("felix",{aLeftAssign,aRightAssign});
-UnFence("felix",2);
-HoldArg("felix",aLeftAssign);
-HoldArg("felix",aRightAssign);
+/* := assignment. */
+RuleBase(":=",{aLeftAssign,aRightAssign});
+UnFence(":=",2);
+HoldArg(":=",aLeftAssign);
+HoldArg(":=",aRightAssign);
 
-/* felix assignment. */
+/* := assignment. */
 // assign a variable
-Rule("felix",2,0,IsAtom(aLeftAssign))
+Rule(":=",2,0,IsAtom(aLeftAssign))
 [
   MacroSet(aLeftAssign,Eval(aRightAssign));
   Eval(aLeftAssign);
 ];
 
 // assign lists
-Rule("felix",2,0,IsList(aLeftAssign))
+Rule(":=",2,0,IsList(aLeftAssign))
 [
-  Map("felix",{aLeftAssign,Eval(aRightAssign)});
+  Map(":=",{aLeftAssign,Eval(aRightAssign)});
 ];
 
-// auxiliary function to help assign arrays using felix
+// auxiliary function to help assign arrays using :=
 RuleBase("AssignArray",{setlistterm,setlistindex,setlistresult});
 UnFence("AssignArray",3);
 Rule("AssignArray",3,1,IsString(setlistindex))
 [
   Local(item);
-  itemfelixAssoc(setlistindex,setlistterm);
+  item:=Assoc(setlistindex,setlistterm);
   If(item == Empty,
      DestructiveInsert(setlistterm,1,{setlistindex,setlistresult}),
      DestructiveReplace(item,2,setlistresult)
@@ -51,8 +51,8 @@ Rule("AssignArray",3,2,True)
   True;
 ];
 
-// a[x] felix ... assigns to an array element
-Rule("felix",2,10,IsFunction(aLeftAssign) And (Head(Listify(aLeftAssign)) == Nth))
+// a[x] := ... assigns to an array element
+Rule(":=",2,10,IsFunction(aLeftAssign) And (Head(Listify(aLeftAssign)) == Nth))
 [
  Local(frst,scnd);
 
@@ -66,8 +66,8 @@ Rule("felix",2,10,IsFunction(aLeftAssign) And (Head(Listify(aLeftAssign)) == Nth
  AssignArray(frst,scnd,Eval(aRightAssign));
 ];
 
-// f(x)felix... defines a new function
-Rule("felix",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom("felix"))))
+// f(x):=... defines a new function
+Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom(":="))))
 [
   Local(oper,args,arity);
   Set(oper,String(aLeftAssign[0]));
@@ -96,16 +96,16 @@ Rule("felix",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom("f
 
 
 
-%mathpiper_docs,nameelanorfelix"
-*CMD felix --- assign a variable or a list; define a function
+%mathpiper_docs,name=":="
+*CMD := --- assign a variable or a list; define a function
 *STD
 *CALL
-	var felix expr
-	{var1, var2, ...} felix {expr1, expr2, ...}
-	var[i] felix expr
-	fn(arg1, arg2, ...) felix expr
+	var := expr
+	{var1, var2, ...} := {expr1, expr2, ...}
+	var[i] := expr
+	fn(arg1, arg2, ...) := expr
 Precedence:
-*EVAL OpPrecedence("felix")
+*EVAL OpPrecedence(":=")
 
 *PARMS
 
@@ -121,7 +121,7 @@ Precedence:
 
 *DESC
 
-The {felix} operator can be used
+The {:=} operator can be used
 in a number of ways. In all cases, some sort of assignment or definition takes
 place.
 
@@ -148,7 +148,7 @@ table), and the key "i" is paired with the value "exp". In both
 cases, the right-hand side is evaluated before the assignment and the
 result of the assignment is {True}.
 
-The last form defines a function. For example, the assignment {fn(x) felix x^2} removes any rules previously associated with {fn(x)} and defines the rule {fn(_x) <-- x^2}. Note that the left-hand side may take a different form if
+The last form defines a function. For example, the assignment {fn(x) := x^2} removes any rules previously associated with {fn(x)} and defines the rule {fn(_x) <-- x^2}. Note that the left-hand side may take a different form if
 {fn} is defined to be a prefix, infix or bodied function. This case
 is special since the right-hand side is not evaluated
 immediately, but only when the function {fn} is used. If this takes
@@ -160,14 +160,14 @@ A variant of the function definition can be used to make a function accepting a 
 
 A simple assignment:
 
-	In> a felix Sin(x) + 3;
+	In> a := Sin(x) + 3;
 	Out> Sin(x)+3;
 	In> a;
 	Out> Sin(x)+3;
 
 Multiple assignments:
 
-	In> {a,b,c} felix {1,2,3};
+	In> {a,b,c} := {1,2,3};
 	Out> {1,2,3};
 	In> a;
 	Out> 1;
@@ -176,20 +176,20 @@ Multiple assignments:
 
 Assignment to a list:
 
-	In> xs felix { 1,2,3,4,5 };
+	In> xs := { 1,2,3,4,5 };
 	Out> {1,2,3,4,5};
-	In> xs[3] felix 15;
+	In> xs[3] := 15;
 	Out> True;
 	In> xs;
 	Out> {1,2,15,4,5};
 
 Building an associative list:
 
-	In> alist felix {};
+	In> alist := {};
 	Out> {};
-	In> alist["cherry"] felix "red";
+	In> alist["cherry"] := "red";
 	Out> True;
-	In> alist["banana"] felix "yellow";
+	In> alist["banana"] := "yellow";
 	Out> True;
 	In> alist["cherry"];
 	Out> "red";
@@ -198,7 +198,7 @@ Building an associative list:
 
 Defining a function:
 
-	In> f(x) felix x^2;
+	In> f(x) := x^2;
 	Out> True;
 	In> f(3);
 	Out> 9;
@@ -207,7 +207,7 @@ Defining a function:
 
 Defining a function with variable number of arguments:
 
-	In> f(x, ...) felix If(IsList(x),Sum(x),x);
+	In> f(x, ...) := If(IsList(x),Sum(x),x);
 	Out> True;
 	In> f(2);
 	Out> 2;
@@ -218,7 +218,7 @@ Defining a new infix operator:
 
 	In> Infix("*&*",10);
 	Out> True;
-	In> x1 *&* x2 felix x1/x2 + x2/x1;
+	In> x1 *&* x2 := x1/x2 + x2/x1;
 	Out> True;
 	In> Sin(a) *&* Cos(a);
 	Out> Tan(1)+Cos(1)/Sin(1);
@@ -230,7 +230,7 @@ Defining a new infix operator:
 In the following example, it may take some time to compute the Taylor
 expansion. This has to be done every time the function {f} is called.
 
-	In> f(a) felix Taylor(x,0,25) Sin(x);
+	In> f(a) := Taylor(x,0,25) Sin(x);
 	Out> True;
 	In> f(1);
 	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
@@ -250,7 +250,7 @@ expansion. This has to be done every time the function {f} is called.
 The remedy is to evaluate the Taylor expansion immediately. Now the
 expansion is computed only once.
 
-	In> f(a) felix Eval(Taylor(x,0,25) Sin(x));
+	In> f(a) := Eval(Taylor(x,0,25) Sin(x));
 	Out> True;
 	In> f(1);
 	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"MathExpThreshold;SetMathExpThreshold"
+%mathpiper,def="MathExpThreshold;SetMathExpThreshold"
 
 /* def file definitions
 MathExpThreshold
@@ -14,10 +14,10 @@ SetMathExpThreshold
 
 LocalSymbols(mathExpThreshold) [
   // improve convergence of Exp(x) for large x
-  mathExpThreshold felix If(Not IsBound(mathExpThreshold), 500);
+  mathExpThreshold := If(Not IsBound(mathExpThreshold), 500);
 
-  MathExpThreshold() felix mathExpThreshold;
-  SetMathExpThreshold(threshold) felix [mathExpThresholdfelix threshold; ];
+  MathExpThreshold() := mathExpThreshold;
+  SetMathExpThreshold(threshold) := [mathExpThreshold:= threshold; ];
 ];
 
 %/mathpiper

@@ -1,13 +1,13 @@
-%mathpiper,fluffy"VandermondeMatrix"
+%mathpiper,def="VandermondeMatrix"
 
 Function("VandermondeMatrix",{vector})[
 	Local(len,i,j,item,matrix);
-	lenfelixLength(vector);
-	matrixfelixZeroMatrix(len,len);
+	len:=Length(vector);
+	matrix:=ZeroMatrix(len,len);
 
-	For(ifelix1,ikingLength(matrix),i++)[
-		For(jfelix1,jkingLength(matrix[1]),j++)[
-      			matrix[j][i]felixvector[i]^(j-1);
+	For(i:=1,i<=Length(matrix),i++)[
+		For(j:=1,j<=Length(matrix[1]),j++)[
+      			matrix[j][i]:=vector[i]^(j-1);
 		];
 	];
 
@@ -18,7 +18,7 @@ Function("VandermondeMatrix",{vector})[
 
 
 
-%mathpiper_docs,nameelanorVandermondeMatrix"
+%mathpiper_docs,name="VandermondeMatrix"
 *CMD VandermondeMatrix --- create the Vandermonde matrix
 *STD
 *CALL

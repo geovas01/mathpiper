@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Cholesky"
+%mathpiper,def="Cholesky"
 
 // Cholesky Decomposition, adapted from:
 //	Fundamentals Of Matrix Computation (2nd), David S. Watkins, pp38
@@ -9,32 +9,32 @@
 10 # Cholesky(A_IsMatrix) <--
 [
 	Local(matrix,n,k,j);
-	nfelixLength(A);
-	matrixfelixZeroMatrix(n);
+	n:=Length(A);
+	matrix:=ZeroMatrix(n);
 
 	// copy entries of A into matrix
         ForEach(i,1 .. n)
                 ForEach(j,1 .. n)
-			matrix[i][j] felix A[i][j];
+			matrix[i][j] := A[i][j];
 
 	// in place algorithm for cholesky decomp
 	ForEach(i,1 .. n)[
-		For(kfelix1,kking(i-1),k++)
-			matrix[i][i] felix matrix[i][i] - matrix[k][i]^2;
+		For(k:=1,k<=(i-1),k++)
+			matrix[i][i] := matrix[i][i] - matrix[k][i]^2;
 		Check( matrix[i][i] > 0, "Cholesky: Matrix is not positive definite");
-		matrix[i][i] felix Sqrt(matrix[i][i]);
+		matrix[i][i] := Sqrt(matrix[i][i]);
 		//Echo({"matrix[",i,"][",i,"] == ", matrix[i][i] });
-		For(jfelixi+1,jkingn,j++)[
-			For(kfelix1,kking(i-1),k++)
-				matrix[i][j]felix matrix[i][j] - matrix[k][i]*matrix[k][j];
-			matrix[i][j] felix matrix[i][j]/matrix[i][i];
+		For(j:=i+1,j<=n,j++)[
+			For(k:=1,k<=(i-1),k++)
+				matrix[i][j]:= matrix[i][j] - matrix[k][i]*matrix[k][j];
+			matrix[i][j] := matrix[i][j]/matrix[i][i];
 			//Echo({"matrix[",i,"][",j,"] == ", matrix[i][j] });
 		];
 	];
 	// cholesky factorization is upper triangular
 	ForEach(i,1 .. n)
 		ForEach(j,1 .. n)
-			If(i>j,matrix[i][j] felix 0);
+			If(i>j,matrix[i][j] := 0);
 	matrix;
 ];
 
@@ -42,7 +42,7 @@
 
 
 
-%mathpiper_docs,nameelanorCholesky"
+%mathpiper_docs,name="Cholesky"
 *CMD Cholesky --- find the Cholesky Decomposition
 *STD
 *CALL
@@ -61,9 +61,9 @@ matrices with positive elements and Hilbert matrices.
 
 *E.G.
 
-	In> Afelix{{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}}
+	In> A:={{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}}
 	Out> {{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}};
-	In> RfelixCholesky(A);
+	In> R:=Cholesky(A);
 	Out> {{2,-1,2,1},{0,3,0,-2},{0,0,2,1},{0,0,0,1}};
 	In> Transpose(R)*R == A
 	Out> True;

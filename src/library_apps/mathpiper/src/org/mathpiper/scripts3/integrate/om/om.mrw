@@ -1,4 +1,4 @@
-%mathpiper,fluffy""
+%mathpiper,def=""
 
 // From code.mpi.def:
 OMDef( "Integrate", "calculus1","defint", // Same argument reordering as Sum.

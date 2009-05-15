@@ -1,4 +1,4 @@
-%mathpiper,fluffy"RamanujanSum"
+%mathpiper,def="RamanujanSum"
 
 /* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
@@ -11,10 +11,10 @@ k-th primitive roots of the identity */
 20 # RamanujanSum(k_IsPositiveInteger,n_IsPositiveInteger) <--
 [
  Local(s,gcd,d);
- sfelix 0;
- gcd felix Gcd(n,k);
+ s:= 0;
+ gcd := Gcd(n,k);
  ForEach (d,DivisorsList(gcd))
-  sfelixs+d*Moebius(k/d);
+  s:=s+d*Moebius(k/d);
  s;
 ];
 
@@ -22,7 +22,7 @@ k-th primitive roots of the identity */
 
 
 
-%mathpiper_docs,nameelanorRamanujanSum"
+%mathpiper_docs,name="RamanujanSum"
 *CMD RamanujanSum --- compute the "Ramanujan sum"
 *STD
 *CALL

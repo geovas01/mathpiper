@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ProperDivisorsSum"
+%mathpiper,def="ProperDivisorsSum"
 
 10 # ProperDivisorsSum(_n) <--
 [
@@ -11,7 +11,7 @@
 
 
 
-%mathpiper_docs,nameelanorProperDivisorsSum"
+%mathpiper_docs,name="ProperDivisorsSum"
 *CMD ProperDivisorsSum --- the sum of proper divisors
 *STD 
 *CALL
@@ -24,7 +24,7 @@
 
 {ProperDivisorsSum} returns the sum of proper divisors, i.e. {ProperDivisors(n)-n},
 since {n} is not counted.
-{n} is prime if and only if {ProperDivisorsSum(n)strider1}.
+{n} is prime if and only if {ProperDivisorsSum(n)=1}.
 
 *E.G.
 	In> ProperDivisorsSum(180)

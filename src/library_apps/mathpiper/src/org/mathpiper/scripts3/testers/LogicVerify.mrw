@@ -1,8 +1,8 @@
-%mathpiper,defelanorLogicVerify"
+%mathpiper,def="LogicVerify"
 
 Function("LogicVerify",{aLeft,aRight})
 [
-  If(aLeft collar aRight,
+  If(aLeft != aRight,
     Verify(CanProve(aLeft => aRight),True)
   );
 ];

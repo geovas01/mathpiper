@@ -1,13 +1,13 @@
-%mathpiper,defelanorfalse"
+%mathpiper,def="false"
 
 // From code.mpi.def:
 OMDef( "Not", "logic1","not" );
-OMDef( "elanor , "relation1","eq"  );
-OMDef( ">elanor, "relation1","geq" );
+OMDef( "=" , "relation1","eq"  );
+OMDef( ">=", "relation1","geq" );
 OMDef( ">" , "relation1","gt"  );
-OMDef( "<elanor, "relation1","leq" );
+OMDef( "<=", "relation1","leq" );
 OMDef( "<" , "relation1","lt"  );
-OMDef( "!elanor, "relation1","neq" );
+OMDef( "!=", "relation1","neq" );
 OMDef( "Gcd", "arith1","gcd" );
 OMDef( "Sqrt", "arith1","root", { $, _1, 2 }, $(_1)_(_2==2) | (_1^(1/_2)) );
 // Test [result: Sqrt(16)]:

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IncompleteGamma"
+%mathpiper,def="IncompleteGamma"
 
 /* IncompleteGamma function \int\limits_{0}^xt^{a-1}e^{-t}dt
 
@@ -12,24 +12,24 @@
    for large x.
 */
 
-IncompleteGamma(_x, _a)_(xkinga+1) <--
+IncompleteGamma(_x, _a)_(x<=a+1) <--
 [
    Local(prec,eps);
-   precfelixBuiltinPrecisionGet();
+   prec:=BuiltinPrecisionGet();
    BuiltinPrecisionSet(Ceil(prec+1)); // this is a guess
-   epsfelix5*10^(-prec);
+   eps:=5*10^(-prec);
 
    Local(term,result,k);
 
-   termfelix1/a;
-   kfelix0;
-   resultfelix0;
-   While( Abs(term) bullet eps )[
-		  kfelixk+1;
-		  resultfelixresult+term;
-		  termfelix -x*(a+k-1)*term/k/(a+k);
+   term:=1/a;
+   k:=0;
+   result:=0;
+   While( Abs(term) >= eps )[
+		  k:=k+1;
+		  result:=result+term;
+		  term:= -x*(a+k-1)*term/k/(a+k);
    ];
-   resultfelix N(x^a*result);
+   result:= N(x^a*result);
    BuiltinPrecisionSet(prec);
    // This should not round, only truncate
    // some outputs will be off by one in the last digit
@@ -40,22 +40,22 @@ IncompleteGamma(_x, _a)_(xkinga+1) <--
 100 # IncompleteGamma(_x, _a)_(x>a+1) <--
 [ // Asymptotic expansion
    Local(prec,eps);
-   precfelixBuiltinPrecisionGet();
+   prec:=BuiltinPrecisionGet();
    Builtin'Precision''Set(Ceil(prec+1)); // this is a guess
-   epsfelix5*10^(-prec);
+   eps:=5*10^(-prec);
 
    Local(term,result,k,expr);
 
-   termfelix1;
-   kfelix0;
-   resultfelix0;
-   While( Abs(term) bullet eps )[
-		  kfelixk+1;
-		  resultfelixresult+term;
-		  termfelixterm*(a-k)/x;
+   term:=1;
+   k:=0;
+   result:=0;
+   While( Abs(term) >= eps )[
+		  k:=k+1;
+		  result:=result+term;
+		  term:=term*(a-k)/x;
 		  //Echo({"term is ",term});
    ];
-  resultfelixN(Gamma(a)-x^(a-1)*Exp(-x)*result);
+  result:=N(Gamma(a)-x^(a-1)*Exp(-x)*result);
   BuiltinPrecisionSet(prec);
   // This should not round, only truncate
   // some outputs will be off by one in the last digit

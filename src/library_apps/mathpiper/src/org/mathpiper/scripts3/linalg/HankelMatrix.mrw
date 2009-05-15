@@ -1,7 +1,7 @@
-%mathpiper,fluffy"HankelMatrix"
+%mathpiper,def="HankelMatrix"
 
 // The arguments of the following functions should be checked
-HankelMatrix(n)felixGenMatrix({{i,j}, If(i+j-1>n,0,i+j-1) }, n,n );
-HankelMatrix(m,n)felixGenMatrix({{i,j}, If(i+j-1>n,0,i+j-1)}, m,n );
+HankelMatrix(n):=GenMatrix({{i,j}, If(i+j-1>n,0,i+j-1) }, n,n );
+HankelMatrix(m,n):=GenMatrix({{i,j}, If(i+j-1>n,0,i+j-1)}, m,n );
 
 %/mathpiper

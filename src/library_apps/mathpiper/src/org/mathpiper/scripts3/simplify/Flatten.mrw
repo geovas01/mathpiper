@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Flatten"
+%mathpiper,def="Flatten"
 
 RuleBase("DoFlatten",{doflattenx});
 UnFence("DoFlatten",1);
@@ -17,7 +17,7 @@ Function("Flatten",{body,flattenoper})
 
 
 
-%mathpiper_docs,nameelanorFlatten"
+%mathpiper_docs,name="Flatten"
 *CMD Flatten --- flatten expression w.r.t. some operator
 *STD
 *CALL

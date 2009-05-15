@@ -1,4 +1,4 @@
-%mathpiper,fluffy"tDistribution"
+%mathpiper,def="tDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
@@ -9,7 +9,7 @@ tDistribution(m_IsRationalOrNumber)_(Not IsPositiveInteger(m)) <-- Undefined;
 
 
 
-%mathpiper_docs,nameelanortDistribution"
+%mathpiper_docs,name="tDistribution"
 *CMD tDistribution --- Student's $t$ distribution
 *STD
 *CALL

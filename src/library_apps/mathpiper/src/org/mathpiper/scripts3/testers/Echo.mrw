@@ -1,4 +1,4 @@
-%mathpiper,defelanorEcho"
+%mathpiper,def="Echo"
 
 10 # EchoInternal(string_IsString) <--
 [
@@ -26,7 +26,7 @@ RuleBaseListed("Echo",{args});
 
 
 
-%mathpiper_docs,nameelanorEcho"
+%mathpiper_docs,name="Echo"
 *CMD Echo --- high-level printing routine
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Expectation"
+%mathpiper,def="Expectation"
 
 /* Evaluates distribution dst at point x
    known distributions are:

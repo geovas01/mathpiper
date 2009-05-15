@@ -1,4 +1,4 @@
-%mathpiper,defelanorSqrt"
+%mathpiper,def="Sqrt"
 
 0 # Sqrt(0) <-- 0;
 0 # Sqrt(Infinity) <--  Infinity;
@@ -27,7 +27,7 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 
 
 
-%mathpiper_docs,nameelanorSqrt"
+%mathpiper_docs,name="Sqrt"
 *CMD Sqrt --- square root
 *STD
 *CALL

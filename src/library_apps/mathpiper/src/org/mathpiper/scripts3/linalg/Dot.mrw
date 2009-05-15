@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Dot"
+%mathpiper,def="Dot"
 
 //////
 // dot product for vectors and matrices (dr)
@@ -14,10 +14,10 @@ Dot(t1_IsVector,t2_IsVector)_(Length(t1)==Length(t2)) <--
 Dot(t1_IsMatrix,t2_IsVector)_(Length(t1[1])==Length(t2)) <--
 [
    Local(i,n,m,result);
-   nfelixLength(t1);
-   mfelixLength(t2);
-   resultfelixList();
-   For(ifelix1,ikingn,i++)
+   n:=Length(t1);
+   m:=Length(t2);
+   result:=List();
+   For(i:=1,i<=n,i++)
 	DestructiveInsert(result,1,Dot0(t1[i],t2,m));
    DestructiveReverse(result);
 ];
@@ -32,11 +32,11 @@ Dot(t1_IsMatrix,t2_IsMatrix)_(Length(t1[1])==Length(t2)
                                   And Length(t2[1])>0) <--
 [
    Local(i,n,k,l,result);
-   nfelixLength(t1);
-   kfelixLength(t2);
-   lfelixLength(t2[1]);
-   resultfelixList();
-   For(ifelix1,ikingn,i++)
+   n:=Length(t1);
+   k:=Length(t2);
+   l:=Length(t2[1]);
+   result:=List();
+   For(i:=1,i<=n,i++)
       DestructiveInsert(result,1,Dot1(t1[i],t2,k,l));
    DestructiveReverse(result);
 ];
@@ -45,9 +45,9 @@ Dot(t1_IsMatrix,t2_IsMatrix)_(Length(t1[1])==Length(t2)
 Dot0(_t1,_t2,_n) <--
 [
    Local(i,result);
-   resultfelix0;
-   For(ifelix1,ikingn,i++)
-      resultfelixresult+t1[i]*t2[i];
+   result:=0;
+   For(i:=1,i<=n,i++)
+      result:=result+t1[i]*t2[i];
    result;
 ];
 
@@ -57,10 +57,10 @@ Dot0(_t1,_t2,_n) <--
 Dot1(_t1,_t2,_m,_n) <--
 [
    Local(i,j,result);
-   resultfelixZeroVector(n);
-   For(ifelix1,ikingn,i++)
-      For(jfelix1,jkingm,j++)
-         result[i]felixresult[i]+t1[j]*t2[j][i];
+   result:=ZeroVector(n);
+   For(i:=1,i<=n,i++)
+      For(j:=1,j<=m,j++)
+         result[i]:=result[i]+t1[j]*t2[j][i];
    result;
 ];
 
@@ -70,7 +70,7 @@ Dot1(_t1,_t2,_m,_n) <--
 
 
 
-%mathpiper_docs,nameelanorDot"
+%mathpiper_docs,name="Dot"
 *CMD Dot, . --- get dot product of tensors
 *STD
 *CALL

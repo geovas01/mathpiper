@@ -1,14 +1,14 @@
-%mathpiper,fluffy"JacobianMatrix"
+%mathpiper,def="JacobianMatrix"
 
 // The arguments of the following functions should be checked
 // this takes N funcs in N vars
-JacobianMatrix(f,v)felixGenMatrix({{i,j},Deriv(v[j])f[i]},Length(f),Length(f));
+JacobianMatrix(f,v):=GenMatrix({{i,j},Deriv(v[j])f[i]},Length(f),Length(f));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorJacobianMatrix"
+%mathpiper_docs,name="JacobianMatrix"
 *CMD JacobianMatrix --- calculate the Jacobian matrix of $n$ functions in $n$ variables
 *STD
 *CALL

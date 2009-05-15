@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Repunit"
+%mathpiper,def="Repunit"
 
 10 # 	Repunit(0)	<-- 0;
 // Number consisting of n 1's

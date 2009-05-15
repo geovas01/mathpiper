@@ -1,4 +1,4 @@
-%mathpiper,fluffy""
+%mathpiper,def=""
 
 //todo:tk:not defined in the scripts.
 
@@ -6,7 +6,7 @@
 
 
 
-%mathpiper_docs,nameelanorFuncListSome"
+%mathpiper_docs,name="FuncListSome"
 *CMD FuncList --- list of functions used in an expression
 *CMD FuncListArith --- list of functions used in an expression
 *CMD FuncListSome --- list of functions used in an expression

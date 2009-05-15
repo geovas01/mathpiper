@@ -1,17 +1,17 @@
-%mathpiper,fluffy"IsPositiveReal"
+%mathpiper,def="IsPositiveReal"
 
 /* See if a number, when evaluated, would be a positive real value */
 IsPositiveReal(_r) <--
 [
-  rfelixN(Eval(r));
-  (IsNumber(r) And r bullet 0);
+  r:=N(Eval(r));
+  (IsNumber(r) And r >= 0);
 ];
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorIsPositiveReal"
+%mathpiper_docs,name="IsPositiveReal"
 *CMD IsPositiveReal --- test for a numerically positive value
 *STD
 *CALL

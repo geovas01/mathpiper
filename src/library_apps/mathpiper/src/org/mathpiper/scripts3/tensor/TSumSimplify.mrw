@@ -1,4 +1,4 @@
-%mathpiper,defelanorTSumSimplify",scopeelanorprivate"
+%mathpiper,def="TSumSimplify",scope="private"
 
 /* Terminating condition for the tensorial simplification */
 

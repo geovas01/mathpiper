@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Append"
+%mathpiper,def="Append"
 
 Function("Append",{list,element})
 [
@@ -9,7 +9,7 @@ Function("Append",{list,element})
 
 
 
-%mathpiper_docs,nameelanorAppend"
+%mathpiper_docs,name="Append"
 *CMD Append --- append an entry at the end of a list
 *STD
 *CALL

@@ -1,17 +1,17 @@
-%mathpiper,fluffy"SuchThat"
+%mathpiper,def="SuchThat"
 
 10 # ContainsExpression(_body,_body) <-- True;
 15 # ContainsExpression(body_IsAtom,_expr) <-- False;
 20 # ContainsExpression(body_IsFunction,_expr) <--
 [
   Local(result,args);
-  resultfelixFalse;
-  argsfelixTail(Listify(body));
-  While(args collar {})
+  result:=False;
+  args:=Tail(Listify(body));
+  While(args != {})
   [
-    resultfelixContainsExpression(Head(args),expr);
-    argsfelixTail(args);
-    if (result == True) (argsfelix{});
+    result:=ContainsExpression(Head(args),expr);
+    args:=Tail(args);
+    if (result == True) (args:={});
   ];
   result;
 ];
@@ -88,7 +88,7 @@ SuchThat(_function,_var) <-- SuchThat(function,0,var);
 
 
 
-%mathpiper_docs,nameelanorSuchThat"
+%mathpiper_docs,name="SuchThat"
 *CMD SuchThat --- special purpose solver
 *STD
 *CALL
@@ -119,7 +119,7 @@ function until the variable "var" is reached.
 	Out> (-a)/b;
 	In> SuchThat(Cos(a)+Cos(b)^2, Cos(b))
 	Out> Cos(a)^(1/2);
-	In> AfelixExpand(a*x+b*x+c, x)
+	In> A:=Expand(a*x+b*x+c, x)
 	Out> (a+b)*x+c;
 	In> SuchThat(A, x)
 	Out> (-c)/(a+b);

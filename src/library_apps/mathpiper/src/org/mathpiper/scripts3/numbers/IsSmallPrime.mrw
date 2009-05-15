@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsSmallPrime"
+%mathpiper,def="IsSmallPrime"
 
 /* Returns whether n is a small by a lookup table, very fast.
 The largest prime number in the table is returned by FastIsPrime(0). */
@@ -10,7 +10,7 @@ The largest prime number in the table is returned by FastIsPrime(0). */
 
 
 
-%mathpiper_docs,nameelanorIsSmallPrime"
+%mathpiper_docs,name="IsSmallPrime"
 *CMD IsPrime --- test for a prime number
 *CMD IsSmallPrime --- test for a (small) prime number
 *STD
@@ -29,10 +29,10 @@ is a prime number. A number $n$ is a prime number if it is only divisible
 by 1 and itself. As a special case, 1 is not considered a prime number.
 The first prime numbers are 2, 3, 5, ...
 
-The function {IsShortPrime} only works for numbers $nking65537$ but it is very fast.
+The function {IsShortPrime} only works for numbers $n<=65537$ but it is very fast.
 
 The function {IsPrime} operates on all numbers and uses different algorithms depending on the magnitude of the number $n$.
-For small numbers $nking65537$, a constant-time table lookup is performed.
+For small numbers $n<=65537$, a constant-time table lookup is performed.
 (The function {IsShortPrime} is used for that.)
 For numbers $n$ between $65537$ and $34155071728321$, the function uses the Rabin-Miller test together with table lookups to guarantee correct results.
 

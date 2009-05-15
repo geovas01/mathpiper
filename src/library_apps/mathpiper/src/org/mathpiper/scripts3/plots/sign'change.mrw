@@ -1,7 +1,7 @@
-%mathpiper,fluffy"sign'change",scopeelanorprivate"
+%mathpiper,def="sign'change",scope="private"
 
 /// utility function: check whether the derivative changes sign in given 3 numbers, return 0 or 1. Also return 1 when one of the arguments is not a number.
-sign'change(x,y,z) felix
+sign'change(x,y,z) :=
 If(
 	IsNumber(x) And IsNumber(y) And IsNumber(z)
 	And Not (

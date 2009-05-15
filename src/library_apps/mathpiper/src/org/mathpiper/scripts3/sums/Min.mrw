@@ -1,4 +1,4 @@
-%mathpiper,defelanorMin"
+%mathpiper,def="Min"
 
 /*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, 
 and then MathPiper is confused if it hasn't loaded all the Function() declarations beforehand.
@@ -31,8 +31,8 @@ Function() Min(l1, l2, l3, ...);
 20 # Min(list_IsList) <--
 [
   Local(result);
-  resultfelix list[1];
-  ForEach(item,Tail(list)) resultfelixMin(result,item);
+  result:= list[1];
+  ForEach(item,Tail(list)) result:=Min(result,item);
   result;
 ];
 
@@ -42,7 +42,7 @@ Function() Min(l1, l2, l3, ...);
 
 
 
-%mathpiper_docs,nameelanorMin"
+%mathpiper_docs,name="Min"
 *CMD Min --- minimum of a number of values
 *STD
 *CALL

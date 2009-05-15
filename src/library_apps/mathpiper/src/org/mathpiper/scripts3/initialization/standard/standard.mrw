@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Nth;NrArgs;IsNonObject;Numer;Denom;NormalForm;++;--;TableForm;strider;!strider;+-;/-;*-;^-;felix-;felix+;&;|;%;if;else;N;NonN;InNumericMode;V;InVerboseMode"
+%mathpiper,def="Nth;NrArgs;IsNonObject;Numer;Denom;NormalForm;++;--;TableForm;=;!=;+-;/-;*-;^-;:=-;:=+;&;|;%;if;else;N;NonN;InNumericMode;V;InVerboseMode"
 
 /* See the documentation on the assignment of the precedence of the rules.
  */
@@ -23,8 +23,8 @@ Rule("Nth",2,14,
     )
 [
   Local(result);
-  resultfelix"";
-  ForEach(i,aindex) [ result felix result : StringMidGet(i,1,alist); ];
+  result:="";
+  ForEach(i,aindex) [ result := result : StringMidGet(i,1,alist); ];
   result;
 ];
 
@@ -55,7 +55,7 @@ Rule("Nth",2,30,
 Rule("Nth",2,40,Equals(IsString(aindex),True))
 [
   Local(as);
-  as felix Assoc(aindex,alist);
+  as := Assoc(aindex,alist);
   If (Not(Equals(as,Empty)),Set(as,Nth(as,2)));
   as;
 ];
@@ -93,7 +93,7 @@ LocalSymbols(Numeric) [
           ClearCachedConstantsN();
       ]);
       BuiltinPrecisionSet(prev'digits);
-      Check(errorStringelanor",errorString);
+      Check(errorString="",errorString);
       numeric'result;
   ];
 
@@ -114,9 +114,9 @@ LocalSymbols(Numeric) [
   [
     Local(result);
     GlobalPush(Numeric);
-    Numeric felix False;
-    result felix (@expr);
-    Numeric felix GlobalPop();
+    Numeric := False;
+    result := (@expr);
+    Numeric := GlobalPop();
     result;
   ];
 
@@ -174,8 +174,8 @@ Rule("NormalForm",1,1000,True) expression;
 
 
 
-RuleBase("strider",{left,right});
-RuleBase("!strider",{left,right});
+RuleBase("=",{left,right});
+RuleBase("!=",{left,right});
 
 
 a_IsNonNegativeInteger & b_IsNonNegativeInteger <-- BitAnd(a,b);
@@ -204,7 +204,7 @@ UnFence("else",2);
 
 
 
-%mathpiper_docs,nameelanorN"
+%mathpiper_docs,name="N"
 *CMD N --- try determine numerical approximation of expression
 
 *STD
@@ -254,7 +254,7 @@ be evaluated after switching to numeric mode.
 
 
 
-%mathpiper_docs,nameelanorNumer"
+%mathpiper_docs,name="Numer"
 *CMD Numer --- numerator of an expression
 *STD
 *CALL
@@ -285,7 +285,7 @@ rational nor numeric, the function returns unevaluated.
 
 
 
-%mathpiper_docs,nameelanorDenom"
+%mathpiper_docs,name="Denom"
 *CMD Denom --- denominator of an expression
 *STD
 *CALL
@@ -316,7 +316,7 @@ neither rational nor numeric, the function returns unevaluated.
 
 
 
-%mathpiper_docs,nameelanorV;InVerboseMode"
+%mathpiper_docs,name="V;InVerboseMode"
 *CMD V, InVerboseMode --- set verbose output mode
 *STD
 *CALL
@@ -338,12 +338,12 @@ it will return {False}.
 
 *E.G. notest
 
-	In> OldSolve({x+2strider0},{x})
+	In> OldSolve({x+2=0},{x})
 	Out> {{-2}};
-	In> V(OldSolve({x+2strider0},{x}))
+	In> V(OldSolve({x+2=0},{x}))
 	Entering OldSolve
-	From  x+2strider0  it follows that  x  = -2 
-	   x+2strider0  simplifies to  True 
+	From  x+2=0  it follows that  x  = -2 
+	   x+2=0  simplifies to  True 
 	Leaving OldSolve
 	Out> {{-2}};
 	In> InVerboseMode()
@@ -356,7 +356,7 @@ it will return {False}.
 
 
 
-%mathpiper_docs,nameelanorNth"
+%mathpiper_docs,name="Nth"
 *CMD Nth --- return the $n$-th element of a list
 *CORE
 *CALL
@@ -372,7 +372,7 @@ it will return {False}.
 
 The entry with index "n" from "list" is returned. The first entry
 has index 1. It is possible to pick several entries of the list by
-taking "n" to be a list of indices.
+ta<= "n" to be a list of indices.
 
 More generally, {Nth} returns the n-th operand of the
 expression passed as first argument.
@@ -382,7 +382,7 @@ An alternative but equivalent form of {Nth(list, n)} is
 
 *E.G.
 
-	In> lst felix {a,b,c,13,19};
+	In> lst := {a,b,c,13,19};
 	Out> {a,b,c,13,19};
 	In> Nth(lst, 3);
 	Out> c;
@@ -398,7 +398,7 @@ An alternative but equivalent form of {Nth(list, n)} is
 
 
 
-%mathpiper_docs,nameelanorNrArgs"
+%mathpiper_docs,name="NrArgs"
 *CMD NrArgs --- return number of top-level arguments
 *STD
 *CALL
@@ -428,7 +428,7 @@ that would lead to an error.
 
 
 
-%mathpiper_docs,nameelanorTableForm"
+%mathpiper_docs,name="TableForm"
 *CMD TableForm --- print each entry in a list on a line
 *STD
 *CALL
@@ -464,7 +464,7 @@ printing every element in the list on a separate line.
 
 
 
-%mathpiper_docs,nameelanorIsNonObject"
+%mathpiper_docs,name="IsNonObject"
 *CMD IsNonObject --- test whether argument is not an {Object()}
 *STD
 *CALL
@@ -489,7 +489,7 @@ In fact, the result is always {True}.
 
 
 
-%mathpiper_docs,nameelanor++"
+%mathpiper_docs,name="++"
 *CMD ++ --- increment variable
 *STD
 *CALL
@@ -503,25 +503,25 @@ In fact, the result is always {True}.
 
 The variable with name "var" is incremented, i.e. the number 1 is
 added to it. The expression {x++} is equivalent to
-the assignment {x felix x + 1}, except that the
+the assignment {x := x + 1}, except that the
 assignment returns the new value of {x} while {x++} always returns true. In this respect, Yacas' {++} differs from the corresponding operator in the
 programming language C.
 
 *E.G.
 
-	In> x felix 5;
+	In> x := 5;
 	Out> 5;
 	In> x++;
 	Out> True;
 	In> x;
 	Out> 6;
 
-*SEE --, felix
+*SEE --, :=
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,nameelanor--"
+%mathpiper_docs,name="--"
 *CMD -- --- decrement variable
 *STD
 *CALL
@@ -535,7 +535,7 @@ programming language C.
 
 The variable with name "var" is decremented, i.e. the number 1 is
 subtracted from it. The expression {x--} is
-equivalent to the assignment {x felix x - 1}, except
+equivalent to the assignment {x := x - 1}, except
 that the assignment returns the new value of {x}
 while {x--} always returns true. In this respect,
 Yacas' {--} differs from the corresponding operator
@@ -543,19 +543,19 @@ in the programming language C.
 
 *E.G.
 
-	In> x felix 5;
+	In> x := 5;
 	Out> 5;
 	In> x--;
 	Out> True;
 	In> x;
 	Out> 4;
 
-*SEE ++, felix
+*SEE ++, :=
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,nameelanorInNumericMode;NonN"
+%mathpiper_docs,name="InNumericMode;NonN"
 *CMD InNumericMode --- determine if currently in numeric mode
 *CMD NonN --- calculate part in non-numeric mode
 

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"SquareFreeDivisorsList"
+%mathpiper,def="SquareFreeDivisorsList"
 
 /* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
@@ -7,13 +7,13 @@
 SquareFreeDivisorsList(n_IsPositiveInteger) <--
 [
  Local(nFactors,f,result,oldresult,x);
- nFactorsfelix Factors(n);
- result felix {1};
+ nFactors:= Factors(n);
+ result := {1};
  ForEach (f,nFactors)
     [
-      oldresult felix result;
+      oldresult := result;
         ForEach (x,oldresult)
-	  resultfelixAppend(result,x*f[1]);
+	  result:=Append(result,x*f[1]);
     ];
   result;
 ];
@@ -22,7 +22,7 @@ SquareFreeDivisorsList(n_IsPositiveInteger) <--
 
 
 
-%mathpiper_docs,nameelanorSquareFreeDivisorsList"
+%mathpiper_docs,name="SquareFreeDivisorsList"
 *CMD SquareFreeDivisorsList --- the list of square-free divisors
 *STD
 *CALL

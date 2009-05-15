@@ -1,4 +1,4 @@
-%mathpiper,defelanorExpand"
+%mathpiper,def="Expand"
 
 /* Expand expands polynomials.
  */
@@ -12,7 +12,7 @@
 
 
 
-%mathpiper_docs,nameelanorExpand"
+%mathpiper_docs,name="Expand"
 *CMD Expand --- transform a polynomial to an expanded form
 *STD
 *CALL

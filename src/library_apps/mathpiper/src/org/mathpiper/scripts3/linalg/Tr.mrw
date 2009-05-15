@@ -1,18 +1,18 @@
-%mathpiper,fluffy"Tr"
+%mathpiper,def="Tr"
 
 Tr(x_IsList) <--
 [
    Local(i,j,n,d,r,aux,result);
-   dfelixDimensions(x);
-   rfelixLength(d); // tensor rank
-   nfelixMin(d);    // minimal dim
-   resultfelix0;
-   For(ifelix1,ikingn,i++)
+   d:=Dimensions(x);
+   r:=Length(d); // tensor rank
+   n:=Min(d);    // minimal dim
+   result:=0;
+   For(i:=1,i<=n,i++)
    [
-      auxfelixx[i];
-      For(jfelix2,jkingr,j++)
-	 auxfelixaux[i];
-      resultfelixresult+aux;
+      aux:=x[i];
+      For(j:=2,j<=r,j++)
+	 aux:=aux[i];
+      result:=result+aux;
    ];
    result;
 ];

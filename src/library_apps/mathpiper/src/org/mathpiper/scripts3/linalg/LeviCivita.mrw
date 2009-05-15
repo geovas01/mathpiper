@@ -1,29 +1,29 @@
-%mathpiper,fluffy"LeviCivita"
+%mathpiper,def="LeviCivita"
 
 /* Levi-civita symbol */
 Function("LeviCivita",{indices})
 [
   Local(i,j,length,left,right,factor);
-  lengthfelixLength(indices);
-  factorfelix1;
+  length:=Length(indices);
+  factor:=1;
 
-  For (jfelixlength,j>1,j--)
+  For (j:=length,j>1,j--)
   [
-    For(ifelix1,i<j,i++)
+    For(i:=1,i<j,i++)
     [
-      leftfelixindices[i];
-      rightfelixindices[i+1];
+      left:=indices[i];
+      right:=indices[i+1];
 
       If (Equals(left,right),
-      [ factor felix 0 ; ],
+      [ factor := 0 ; ],
       [
         If(Not(Apply("<",{left,right})),
         [
 /*
           Swap(indices,i,i+1);
 */
-          indicesfelixInsert(Delete(indices,i),i+1,left);
-          factorfelix -factor;
+          indices:=Insert(Delete(indices,i),i+1,left);
+          factor:= -factor;
         ]);
       ]);
     ];
@@ -35,7 +35,7 @@ Function("LeviCivita",{indices})
 
 
 
-%mathpiper_docs,nameelanorLeviCivita"
+%mathpiper_docs,name="LeviCivita"
 *CMD LeviCivita --- totally anti-symmetric Levi-Civita symbol
 *STD
 *CALL

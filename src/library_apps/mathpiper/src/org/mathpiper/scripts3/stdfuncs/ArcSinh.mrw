@@ -1,4 +1,4 @@
-%mathpiper,defelanorArcSinh"
+%mathpiper,def="ArcSinh"
 
 10 # ArcSinh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) == "Complex")) <-- N(Eval( Ln(x+Sqrt(x^2+1)) ));
 

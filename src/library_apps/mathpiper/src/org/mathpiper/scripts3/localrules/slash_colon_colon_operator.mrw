@@ -1,4 +1,4 @@
-%mathpiper,fluffy"/::"
+%mathpiper,def="/::"
 
 5 # (_expression /:: LocPatterns(_patterns)) <--
 [
@@ -10,7 +10,7 @@
   Set(patterns, LocProcess(patterns));
   Set(old, expression);
   Set(expression, MacroSubstitute(expression,"LocPredicate","LocChange"));
-  While (expression collar old)
+  While (expression != old)
   [
     Set(old, expression);
     Set(expression, MacroSubstitute(expression,"LocPredicate","LocChange"));
@@ -23,7 +23,7 @@
 
 
 
-%mathpiper_docs,nameelanor/::"
+%mathpiper_docs,name="/::"
 *CMD /: --- local simplification rules
 *CMD /:: --- local simplification rules
 *STD

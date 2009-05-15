@@ -1,4 +1,4 @@
-%mathpiper,fluffy"/@"
+%mathpiper,def="/@"
 
 Function("/@",{func,lst}) Apply("MapSingle",{func,lst});
 
@@ -6,7 +6,7 @@ Function("/@",{func,lst}) Apply("MapSingle",{func,lst});
 
 
 
-%mathpiper_docs,nameelanor/@"
+%mathpiper_docs,name="/@"
 *CMD /@ --- apply a function to all entries in a list
 *STD
 *CALL

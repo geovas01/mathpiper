@@ -1,4 +1,4 @@
-%mathpiper,fluffy"BesselJ"
+%mathpiper,def="BesselJ"
 
 //Jonathan Leto
 
@@ -24,9 +24,9 @@
 // Also, if I move the the "_IsComplex" to the end with "IsComplex(x)"
 // I lose precision.
 
-//40 # BesselJ(_n,x_IsComplex)_(Abs(x)king 2*Gamma(n) )  <-- N(BesselNsmall(n,x,0));
+//40 # BesselJ(_n,x_IsComplex)_(Abs(x)<= 2*Gamma(n) )  <-- N(BesselNsmall(n,x,0));
 
-40 # BesselJ(_n,x_IsComplex)_(N(Abs(x)king 2*Gamma(n)) )  <--
+40 # BesselJ(_n,x_IsComplex)_(N(Abs(x)<= 2*Gamma(n)) )  <--
 [
 ApproxInfSum((-1)^k*(x/2)^(2*k+c[1])/(k! * Gamma(k+c[1]+1) ),0,x,{n} );
 ];

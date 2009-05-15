@@ -1,4 +1,4 @@
-%mathpiper,defelanorSec"
+%mathpiper,def="Sec"
 
 100 # 1/Sec(_x)		<-- Cos(x);
 100 # Sec(_x)		<-- 1/Cos(x);

@@ -1,4 +1,4 @@
-%mathpiper,defelanorAddTerms"
+%mathpiper,def="AddTerms"
 
 /*
 Note:tk:I am publishing this function as a def because
@@ -8,9 +8,9 @@ but it seems like it was meant to be a published function.
 Function("AddTerms",{terms1,terms2})
 [
   Local(result,begining,t);
-  begining felix1;
+  begining :=1;
   ForEach (t,terms2)
-     begining felixAddTerm(terms1,t,begining);
+     begining :=AddTerm(terms1,t,begining);
   terms1;
 ];
 

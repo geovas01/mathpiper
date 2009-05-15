@@ -1,4 +1,4 @@
-%mathpiper,fluffy"GlobalPush;GlobalPop"
+%mathpiper,def="GlobalPush;GlobalPop"
 
 //////////////////////////////////////////////////
 /// Global stack operations on variables
@@ -7,7 +7,7 @@
 
 LocalSymbols(GlobalStack, x)
 [
-  GlobalStack felix {};
+  GlobalStack := {};
 
 	GlobalPop(x_IsAtom) <--
 	[
@@ -35,7 +35,7 @@ LocalSymbols(GlobalStack, x)
 
 
 
-%mathpiper_docs,nameelanorGlobalPop;GlobalPush"
+%mathpiper_docs,name="GlobalPop;GlobalPush"
 *CMD GlobalPop --- restore variables using a global stack
 *CMD GlobalPush --- save variables using a global stack
 *STD

@@ -1,14 +1,14 @@
-%mathpiper,defelanorFactorize"
+%mathpiper,def="Factorize"
 
 Function("Factorize",{sumvar,sumfrom,sumto,sumbody})
 [
    Local(sumi,sumsum);
-   sumsumfelix1;
-   For(sumifelixsumfrom,sumikingsumto And sumsumcollar0,sumi++)
+   sumsum:=1;
+   For(sumi:=sumfrom,sumi<=sumto And sumsum!=0,sumi++)
        [
         MacroLocal(sumvar);
         MacroSet(sumvar,sumi);
-        sumsumfelixsumsum*Eval(sumbody);
+        sumsum:=sumsum*Eval(sumbody);
        ];
    sumsum;
 ];
@@ -19,10 +19,10 @@ HoldArg("Factorize",sumbody);
 Factorize(sumlist_IsList) <--
 [
    Local(sumi,sumsum);
-   sumsumfelix1;
+   sumsum:=1;
    ForEach(sumi,sumlist)
    [
-     sumsumfelixsumsum*sumi;
+     sumsum:=sumsum*sumi;
    ];
    sumsum;
 ];
@@ -31,7 +31,7 @@ Factorize(sumlist_IsList) <--
 
 
 
-%mathpiper_docs,nameelanorFactorize"
+%mathpiper_docs,name="Factorize"
 *CMD Factorize --- product of a list of values
 *STD
 *CALL

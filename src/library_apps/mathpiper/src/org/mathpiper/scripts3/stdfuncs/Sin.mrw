@@ -1,4 +1,4 @@
-%mathpiper,defelanorSin"
+%mathpiper,def="Sin"
 
 
 1 # SinMap( _n )_(Not(IsRationalOrNumber(n))) <-- UnList({Atom("Sin"),n*Pi});
@@ -47,7 +47,7 @@ Sin(xlist_IsList) <-- MapSingle("Sin",xlist);
 
 
 
-%mathpiper_docs,nameelanorSin"
+%mathpiper_docs,name="Sin"
 *CMD Sin --- trigonometric sine function
 *STD
 *CALL

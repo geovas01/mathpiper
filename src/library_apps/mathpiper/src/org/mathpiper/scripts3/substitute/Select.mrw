@@ -1,11 +1,11 @@
-%mathpiper,defelanorSelect",scopeelanorprivate"
+%mathpiper,def="Select",scope="private"
 
 LocalSymbols(predicate,list,result,item)
 [
   Function("Select",{predicate,list})
   [
     Local(result);
-    resultfelix{};
+    result:={};
     ForEach(item,list)
     [
       If(Apply(predicate,{item}),DestructiveAppend(result,item));
@@ -20,7 +20,7 @@ LocalSymbols(predicate,list,result,item)
 
 
 
-%mathpiper_docs,nameelanorSelect"
+%mathpiper_docs,name="Select"
 *CMD Select --- select entries satisfying some predicate
 *STD
 *CALL

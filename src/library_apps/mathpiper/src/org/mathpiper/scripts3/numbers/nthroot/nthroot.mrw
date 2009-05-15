@@ -1,4 +1,4 @@
-%mathpiper,fluffy"NthRoot;NthRoot'Calc;NthRoot'List;NthRoot'Save;NthRoot'Restore;NthRoot'Clear"
+%mathpiper,def="NthRoot;NthRoot'Calc;NthRoot'List;NthRoot'Save;NthRoot'Restore;NthRoot'Clear"
 
 /* def file definitions
 NthRoot
@@ -33,15 +33,15 @@ LocalSymbols(m,n,r,
 [
 
 // interface function for nth root of m
-// mbullet0, n>1, integers
+// m>=0, n>1, integers
 // m^(1/n) --> f*(r^(1/n))
 NthRoot(m_IsNonNegativeInteger,n_IsInteger)_(n>1) <--
 [
    Local(r);
-   rfelixNthRoot'Restore(m,n);
+   r:=NthRoot'Restore(m,n);
    If(Length(r)==0,
    [
-      rfelixNthRoot'Calc(m,n);
+      r:=NthRoot'Calc(m,n);
       NthRoot'Save(m,n,r);
    ]);
    r;
@@ -85,7 +85,7 @@ Function("NthRoot'List",{n})
    If(Length(NthRoot'Table)>0,
    [
       Local(p,xx);
-      pfelixSelect({{xx},Head(xx)==n},NthRoot'Table);
+      p:=Select({{xx},Head(xx)==n},NthRoot'Table);
       If(Length(p)==1,Tail(p[1]),List());
    ],
    List());
@@ -94,11 +94,11 @@ Function("NthRoot'List",{n})
 Function("NthRoot'Restore",{m,n})
 [
    Local(p);
-   pfelixNthRoot'List(n);
+   p:=NthRoot'List(n);
    If(Length(p)>0,
    [
       Local(r,xx);
-      rfelixSelect({{xx},Head(xx)==m},p);
+      r:=Select({{xx},Head(xx)==m},p);
       If(Length(r)==1,Head(Tail(r[1])),List());
    ],
    List());
@@ -107,13 +107,13 @@ Function("NthRoot'Restore",{m,n})
 Function("NthRoot'Save",{m,n,r})
 [
    Local(p);
-   pfelixNthRoot'List(n);
+   p:=NthRoot'List(n);
    If(Length(p)==0,
    // create power list and save root
    DestructiveInsert(NthRoot'Table,1,List(n,List(m,r))),
    [
       Local(rr,xx);
-      rrfelixSelect({{xx},Head(xx)==m},p);
+      rr:=Select({{xx},Head(xx)==m},p);
       If(Length(rr)==0,
       [
 	 // save root only
@@ -140,7 +140,7 @@ NthRoot'Clear();
 
 
 
-%mathpiper_docs,nameelanorNthRoot"
+%mathpiper_docs,name="NthRoot"
 *CMD NthRoot --- calculate/simplify nth root of an integer
 *STD
 *CALL

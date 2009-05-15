@@ -1,4 +1,4 @@
-%mathpiper,fluffy"BinomialDistribution"
+%mathpiper,def="BinomialDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
@@ -12,7 +12,7 @@ BinomialDistribution(_p, _n)_
 
 
 
-%mathpiper_docs,nameelanorBinomialDistribution"
+%mathpiper_docs,name="BinomialDistribution"
 *CMD BinomialDistribution --- binomial distribution
 *STD
 *CALL

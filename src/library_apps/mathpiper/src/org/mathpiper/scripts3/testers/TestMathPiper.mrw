@@ -1,6 +1,6 @@
-%mathpiper,defelanorTestMathPiper"
+%mathpiper,def="TestMathPiper"
 
-/* Testing MathPiper functionality by checking expressions against correct
+/* Testing MathPiper functionality by chec<= expressions against correct
    answer.
    Use with algebraic expressions only, since we need Simplify() for that to work.
  */
@@ -9,10 +9,10 @@
 Macro ("TestMathPiper", {expr, ans})
 [
 	Local(diff,exprEval, ansEval);
-  exprEvalfelix @expr;
-  ansEvalfelix @ans;
+  exprEval:= @expr;
+  ansEval:= @ans;
 
-	diff felix Simplify(exprEval - ansEval);
+	diff := Simplify(exprEval - ansEval);
 		If (Simplify(diff)==0, True,
 			[
 			  WriteString("******************");
@@ -44,7 +44,7 @@ Macro ("TestMathPiper", {expr, ans})
 Function ("TestMathPiper", {expr, ans})
 [
 	Local(diff);
-	diff felix Simplify(Eval(expr)-Eval(ans));
+	diff := Simplify(Eval(expr)-Eval(ans));
 		If (Simplify(diff)==0, True,
 			[
 			  WriteString("******************");

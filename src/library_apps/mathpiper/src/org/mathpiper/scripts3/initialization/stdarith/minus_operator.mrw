@@ -1,4 +1,4 @@
-%mathpiper,fluffy"-"
+%mathpiper,def="-"
 
 /* Subtraction arity 1 */
 
@@ -49,8 +49,8 @@ LocalSymbols(x,y,xarg,yarg)
 241 # (x_IsNonObject - y_IsList)_Not(IsList(x)) <--
 [
    Local(i,result);
-   resultfelix{};
-   For(ifelix1,ikingLength(y),i++)
+   result:={};
+   For(i:=1,i<=Length(y),i++)
    [ DestructiveInsert(result,i,x - y[i]); ];
    result;
 ];

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Together"
+%mathpiper,def="Together"
 
 10 # Together((_f/_g) + (_h/_i)) <--
      Expand(f*i+h*g)/Expand(g*i);

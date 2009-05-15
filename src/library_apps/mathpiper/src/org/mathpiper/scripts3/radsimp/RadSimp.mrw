@@ -1,4 +1,4 @@
-%mathpiper,fluffy"RadSimp"
+%mathpiper,def="RadSimp"
 
 
 /* Simplification of nested radicals.
@@ -35,7 +35,7 @@ RadSimpTry(_n,_result,_current,_max)<--
     Local(i);
 
     // First, look for perfect match
-    ifelixBSearch(max,Hold({{try},ClampRadicals(N(Eval((result+Sqrt(try))-n),20))}));
+    i:=BSearch(max,Hold({{try},ClampRadicals(N(Eval((result+Sqrt(try))-n),20))}));
     If(i>0,
     [
       Set(result,result+Sqrt(i));
@@ -46,7 +46,7 @@ RadSimpTry(_n,_result,_current,_max)<--
     // Otherwise, search for another solution
     if (LessThan(N(Eval(result-n)), 0))
     [
-      For (Set(i,current),ikingmax,Set(i,AddN(i,1)))
+      For (Set(i,current),i<=max,Set(i,AddN(i,1)))
       [
         Local(new, test);
         Set(test,result+Sqrt(i));
@@ -70,7 +70,7 @@ RadSimpTry(_n,_result,_current,_max)<--
 
 
 
-%mathpiper_docs,nameelanorRadSimp"
+%mathpiper_docs,name="RadSimp"
 *CMD RadSimp --- simplify expression with nested radicals
 *STD
 *CALL

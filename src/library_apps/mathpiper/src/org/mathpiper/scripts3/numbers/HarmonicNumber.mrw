@@ -1,4 +1,4 @@
-%mathpiper,fluffy"HarmonicNumber"
+%mathpiper,def="HarmonicNumber"
 
 10 # 	HarmonicNumber(n_IsInteger)	<-- HarmonicNumber(n,1);
 HarmonicNumber(n_IsInteger,r_IsPositiveInteger) <--
@@ -15,7 +15,7 @@ HarmonicNumber(n_IsInteger,r_IsPositiveInteger) <--
 
 
 
-%mathpiper_docs,nameelanorHarmonicNumber"
+%mathpiper_docs,name="HarmonicNumber"
 *CMD HarmonicNumber --- return the {n}th Harmonic Number
 *STD
 *CALL

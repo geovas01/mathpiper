@@ -1,13 +1,13 @@
-%mathpiper,fluffy"NewLine"
+%mathpiper,def="NewLine"
 
-NewLine() felix WriteN(Nl(),1);
-NewLine(n)felix WriteN(Nl(),n);
+NewLine() := WriteN(Nl(),1);
+NewLine(n):= WriteN(Nl(),n);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorNewLine"
+%mathpiper_docs,name="NewLine"
 *CMD NewLine --- print one or more newline characters
 *STD
 *CALL

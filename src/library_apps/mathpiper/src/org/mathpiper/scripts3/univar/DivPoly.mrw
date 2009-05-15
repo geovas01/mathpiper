@@ -1,31 +1,31 @@
-%mathpiper,defelanorDivPoly"
+%mathpiper,def="DivPoly"
 
 DivPoly(_A,_B,_var,_deg) <--
 [
   Local(a,b,c,i,j,denom);
-  bfelixMakeUni(B,var);
-  denomfelixCoef(b,0);
+  b:=MakeUni(B,var);
+  denom:=Coef(b,0);
 
   if (denom == 0)
   [
     Local(f);
-    ffelixContent(b);
-    bfelixPrimitivePart(b);
-    AfelixSimplify(A/f);
-    denomfelixCoef(b,0);
+    f:=Content(b);
+    b:=PrimitivePart(b);
+    A:=Simplify(A/f);
+    denom:=Coef(b,0);
   ];
-  afelixMakeUni(A,var);
+  a:=MakeUni(A,var);
 
-  cfelixFillList(0,deg+1);
-  For(ifelix0,ikingdeg,i++)
+  c:=FillList(0,deg+1);
+  For(i:=0,i<=deg,i++)
   [
     Local(sum,j);
-    sumfelix0;
-    For(jfelix0,j<i,j++)
+    sum:=0;
+    For(j:=0,j<i,j++)
     [
-      sum felix sum + c[j+1]*Coef(b,i-j);
+      sum := sum + c[j+1]*Coef(b,i-j);
     ];
-    c[i+1] felix (Coef(a,i)-sum) / denom;
+    c[i+1] := (Coef(a,i)-sum) / denom;
   ];
   NormalForm(UniVariate(var,0,c));
 ];

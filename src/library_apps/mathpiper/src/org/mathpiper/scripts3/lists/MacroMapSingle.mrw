@@ -1,10 +1,10 @@
-%mathpiper,fluffy"MacroMapSingle"
+%mathpiper,def="MacroMapSingle"
 
 /* Another Macro... hack for /: to work. */
 TemplateFunction("MacroMapSingle",{func,list})
 [
   Local(mapsingleresult);
-  mapsingleresultfelix{};
+  mapsingleresult:={};
 
   ForEach(mapsingleitem,list)
   [

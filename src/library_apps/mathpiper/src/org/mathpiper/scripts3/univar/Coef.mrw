@@ -1,9 +1,9 @@
-%mathpiper,defelanorCoef"
+%mathpiper,def="Coef"
 
 5 # Coef(uv_IsUniVar,order_IsList) <--
 [
   Local(result);
-  resultfelix{};
+  result:={};
   ForEach(item,order)
   [
     DestructiveAppend(result,Coef(uv,item));
@@ -12,7 +12,7 @@
 ];
 
 10 # Coef(uv_IsUniVar,order_IsInteger)_(order<uv[2]) <-- 0;
-10 # Coef(uv_IsUniVar,order_IsInteger)_(orderbulletuv[2]+Length(uv[3])) <-- 0;
+10 # Coef(uv_IsUniVar,order_IsInteger)_(order>=uv[2]+Length(uv[3])) <-- 0;
 20 # Coef(uv_IsUniVar,order_IsInteger) <-- uv[3][(order-uv[2])+1];
 30 # Coef(uv_CanBeUni,_order)_(IsInteger(order) Or IsList(order)) <-- Coef(MakeUni(uv),order);
 
@@ -25,7 +25,7 @@ Function("Coef",{expression,var,order})
 
 
 
-%mathpiper_docs,nameelanorCoef"
+%mathpiper_docs,name="Coef"
 *CMD Coef --- coefficient of a polynomial
 *STD
 *CALL
@@ -48,7 +48,7 @@ coefficients.
 
 *E.G.
 
-	In> e felix Expand((a+x)^4,x)
+	In> e := Expand((a+x)^4,x)
 	Out> x^4+4*a*x^3+(a^2+(2*a)^2+a^2)*x^2+
 	(a^2*2*a+2*a^3)*x+a^4;
 	In> Coef(e,a,2)

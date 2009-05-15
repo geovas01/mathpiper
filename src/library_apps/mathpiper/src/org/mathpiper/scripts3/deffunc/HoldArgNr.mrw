@@ -1,9 +1,9 @@
-%mathpiper,fluffy"HoldArgNr"
+%mathpiper,def="HoldArgNr"
 
 Function("HoldArgNr",{function,arity,index})
 [
   Local(args);
-  argsfelixRuleBaseArgList(function,arity);
+  args:=RuleBaseArgList(function,arity);
 /* Echo({"holdnr ",args}); */
   ApplyPure("HoldArg",{function,args[index]});
 ];
@@ -12,7 +12,7 @@ Function("HoldArgNr",{function,arity,index})
 
 
 
-%mathpiper_docs,nameelanorHoldArgNr"
+%mathpiper_docs,name="HoldArgNr"
 *CMD HoldArgNr --- specify argument as not evaluated
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,defelanorIsUniVar"
+%mathpiper,def="IsUniVar"
 
 10 # IsUniVar(UniVariate(_var,_first,_coefs)) <-- True;
 20 # IsUniVar(_anything) <-- False;
@@ -12,17 +12,17 @@
   Local(from,result);
   Local(curl,curr,left,right);
 
-  curlfelixaLeft[2];
-  currfelixaRight[2];
-  leftfelixaLeft[3];
-  rightfelixaRight[3];
-  resultfelix{};
-  fromfelixMin(curl,curr);
+  curl:=aLeft[2];
+  curr:=aRight[2];
+  left:=aLeft[3];
+  right:=aRight[3];
+  result:={};
+  from:=Min(curl,curr);
 
-  While(curl<curr And left collar {})
+  While(curl<curr And left != {})
   [
     DestructiveAppend(result,Head(left));
-    leftfelixTail(left);
+    left:=Tail(left);
     curl++;
   ];
   While(curl<curr)
@@ -30,10 +30,10 @@
     DestructiveAppend(result,0);
     curl++;
   ];
-  While(curr<curl And right collar {})
+  While(curr<curl And right != {})
   [
     DestructiveAppend(result,-Head(right));
-    rightfelixTail(right);
+    right:=Tail(right);
     curr++;
   ];
   While(curr<curl)
@@ -41,23 +41,23 @@
     DestructiveAppend(result,0);
     curr++;
   ];
-  While(left collar {} And right collar {})
+  While(left != {} And right != {})
   [
     DestructiveAppend(result,Head(left)-Head(right));
-    left  felix Tail(left);
-    right felix Tail(right);
+    left  := Tail(left);
+    right := Tail(right);
   ];
 
 
-  While(left collar {})
+  While(left != {})
   [
     DestructiveAppend(result,Head(left));
-    left  felix Tail(left);
+    left  := Tail(left);
   ];
-  While(right collar {})
+  While(right != {})
   [
     DestructiveAppend(result,-Head(right));
-    right felix Tail(right);
+    right := Tail(right);
   ];
 
   UniVariate(aLeft[1],from,result);

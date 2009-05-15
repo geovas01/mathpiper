@@ -1,4 +1,4 @@
-%mathpiper,defelanorCos"
+%mathpiper,def="Cos"
 
 1 # CosMap( _n )_(Not(IsRationalOrNumber(n))) <-- UnList({Atom("Cos"),n*Pi});
 2 # CosMap( _n )_(n<0) <-- CosMap(-n);
@@ -37,16 +37,16 @@
 400 # Cos(x_IsRationalOrNumber) <--
     [
      Local(ll);
-     llfelix FloorN(N(Eval(x/Pi)));
-     If(IsEven(ll),xfelix(x - Pi*ll),xfelix(-x + Pi*(ll+1)));
+     ll:= FloorN(N(Eval(x/Pi)));
+     If(IsEven(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
      UnList({Cos,x});
      ];
 
 400 # Cos(x_IsRationalOrNumber) <--
     [
      Local(ll);
-     llfelix FloorN(N(Eval(Abs(x)/Pi)));
-     If(IsEven(ll),xfelix(Abs(x) - Pi*ll),xfelix(-Abs(x) + Pi*(ll+1)));
+     ll:= FloorN(N(Eval(Abs(x)/Pi)));
+     If(IsEven(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
      UnList({Cos,x});
      ];
 
@@ -60,7 +60,7 @@ Cos(xlist_IsList) <-- MapSingle("Cos",xlist);
 
 
 
-%mathpiper_docs,nameelanorCos"
+%mathpiper_docs,name="Cos"
 *CMD Cos --- trigonometric cosine function
 *STD
 *CALL

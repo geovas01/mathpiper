@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ForEach"
+%mathpiper,def="ForEach"
 
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
 TemplateFunction("ForEach",{item,list,body})
@@ -27,7 +27,7 @@ HoldArgNr("ForEach",3,3);
 
 
 
-%mathpiper_docs,nameelanorForEach"
+%mathpiper_docs,name="ForEach"
 *CMD ForEach --- loop over all entries in list
 *STD
 *CALL

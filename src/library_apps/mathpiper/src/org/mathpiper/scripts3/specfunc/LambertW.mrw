@@ -1,4 +1,4 @@
-%mathpiper,fluffy"LambertW"
+%mathpiper,def="LambertW"
 
 //Jonathan Leto
 
@@ -20,7 +20,7 @@
 /* {Internal'LambertWNum} computes a numeric approximation of Lambert's $W$ function
 to the current precision. It uses a Halley iteration
 $$ W'=W-(W-x*Exp(-W))/(W+1-(W+2)/(W+1)*(W-x*Exp(-W))/2) $$.
-The function has real values for real $x bullet -Exp(-1)$. (This point is a logarithmic branching point.)
+The function has real values for real $x >= -Exp(-1)$. (This point is a logarithmic branching point.)
 */
 10 # Internal'LambertWNum(x_IsNumber)_(x < -ExpN(-1)) <-- Undefined;
 20 # Internal'LambertWNum(x_IsNumber) <--
@@ -32,7 +32,7 @@ The function has real values for real $x bullet -Exp(-1)$. (This point is a loga
 	  {W},
 	  [
 	  	Local(a);
-		afelixW- @x*ExpN(-W);
+		a:=W- @x*ExpN(-W);
 		W-a/(W+1-(W+2)/(W+1)*a/2.);
 	  ]}),
 	// initial approximation is the two-point global Pade:
@@ -50,7 +50,7 @@ The function has real values for real $x bullet -Exp(-1)$. (This point is a loga
 
 
 
-%mathpiper_docs,nameelanorLambertW"
+%mathpiper_docs,name="LambertW"
 *CMD LambertW --- Lambert's $W$ function
 
 *STD
@@ -66,9 +66,9 @@ Lambert's $W$ function is (a multiple-valued, complex function) defined for any 
 $$ W(z) * Exp(W(z)) = z$$.
 This function is sometimes useful to represent solutions of transcendental equations. For example, the equation $Ln(x)=3*x$ can be "solved" by writing $x= -3*W(-1/3)$. It is also possible to take a derivative or integrate this function "explicitly".
 
-For real arguments $x$, $W(x)$ is real if $xbullet -Exp(-1)$.
+For real arguments $x$, $W(x)$ is real if $x>= -Exp(-1)$.
 
-To compute the numeric value of the  principal branch of Lambert's $W$ function for real arguments $xbullet -Exp(-1)$ to current precision, one can call {N(LambertW(x))} (where the function {N} tries to approximate its argument with a real value).
+To compute the numeric value of the  principal branch of Lambert's $W$ function for real arguments $x>= -Exp(-1)$ to current precision, one can call {N(LambertW(x))} (where the function {N} tries to approximate its argument with a real value).
 
 *E.G.
 	In> LambertW(0)

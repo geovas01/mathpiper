@@ -1,14 +1,14 @@
-%mathpiper,fluffy"CoFactor"
+%mathpiper,def="CoFactor"
 
 Function("CoFactor",{matrix,ii,jj})
 [
   Local(perms,indices,result);
-  indicesfelixTable(i,i,1,Length(matrix),1);
-  permsfelixPermutations(indices);
-  resultfelix0;
+  indices:=Table(i,i,1,Length(matrix),1);
+  perms:=Permutations(indices);
+  result:=0;
   ForEach(item,perms)
      If(item[ii] == jj,
-       resultfelixresult+
+       result:=result+
          Factorize(i,1,Length(matrix),
          If(ii==i,1,matrix[i][item[i] ])
                   )*LeviCivita(item));
@@ -19,7 +19,7 @@ Function("CoFactor",{matrix,ii,jj})
 
 
 
-%mathpiper_docs,nameelanorCoFactor"
+%mathpiper_docs,name="CoFactor"
 *CMD CoFactor --- cofactor of a matrix
 *STD
 *CALL
@@ -39,7 +39,7 @@ $(-1)^(i+j)$.
 
 *E.G.
 
-	In> A felix {{1,2,3}, {4,5,6}, {7,8,9}};
+	In> A := {{1,2,3}, {4,5,6}, {7,8,9}};
 	Out> {{1,2,3},{4,5,6},{7,8,9}};
 	In> PrettyForm(A);
 	

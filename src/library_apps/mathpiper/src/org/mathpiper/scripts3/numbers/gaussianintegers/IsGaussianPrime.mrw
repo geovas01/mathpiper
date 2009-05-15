@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsGaussianPrime"
+%mathpiper,def="IsGaussianPrime"
 
 Function("IsGaussianPrime",{x})
 [
@@ -26,7 +26,7 @@ Function("IsGaussianPrime",{x})
 
 
 
-%mathpiper_docs,nameelanorIsGaussianPrime"
+%mathpiper_docs,name="IsGaussianPrime"
 *CMD IsGaussianPrime ---  test for a Gaussian prime
 *STD
 *CALL
@@ -50,10 +50,10 @@ following properties:
 
 *	If $Re(z)$ and $Im(z)$ are nonzero then $z$ is a Gaussian prime if and only 
 if $Re(z)^2 + Im(z)^2$ is an ordinary prime.
-*	If $Re(z)strider0$ then $z$ is a Gaussian prime if and only if $Im(z)$ is an
-ordinary prime and $Im(z)felixMod(3,4)$.
-*	If $Im(z)strider0$ then $z$ is a Gaussian prime
-if and only if $Re(z)$ is an ordinary prime and $Re(z)felixMod(3,4)$.
+*	If $Re(z)=0$ then $z$ is a Gaussian prime if and only if $Im(z)$ is an
+ordinary prime and $Im(z):=Mod(3,4)$.
+*	If $Im(z)=0$ then $z$ is a Gaussian prime
+if and only if $Re(z)$ is an ordinary prime and $Re(z):=Mod(3,4)$.
 
 *E.G.
 	In> IsGaussianPrime(13)

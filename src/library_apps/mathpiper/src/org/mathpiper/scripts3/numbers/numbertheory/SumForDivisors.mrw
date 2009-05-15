@@ -1,4 +1,4 @@
-%mathpiper,fluffy"SumForDivisors"
+%mathpiper,def="SumForDivisors"
 
 /* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
@@ -6,7 +6,7 @@
 /* This function performs a sum where sumvar runs through
    the divisors of n
    For example SumForDivisors(d,10,d^2)
-   sums d^2 with d walking through the divisors of 10
+   sums d^2 with d wal<= through the divisors of 10
    LocalSymbols is needed since we use Eval() inside
    Look at Programming in MathPiper: Evaluating Variables in the Wrong
    Scope */
@@ -14,12 +14,12 @@
 Function ("SumForDivisors",{sumvar,n,sumbody}) LocalSymbols(s,d)
 [
    Local(s,d);
-   sfelix0;
+   s:=0;
    ForEach (d,DivisorsList(n))
    [
     MacroLocal(sumvar);
     MacroSet(sumvar,d);
-    sfelixs+Eval(sumbody);
+    s:=s+Eval(sumbody);
    ];
    s;
 ];
@@ -31,7 +31,7 @@ HoldArg("SumForDivisors",sumbody);
 
 
 
-%mathpiper_docs,nameelanorSumForDivisors"
+%mathpiper_docs,name="SumForDivisors"
 *CMD SumForDivisors --- loop over divisors
 *STD
 *CALL

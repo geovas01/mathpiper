@@ -1,4 +1,4 @@
-%mathpiper,defelanorMaximumBound"
+%mathpiper,def="MaximumBound"
 
 /** Maximum bound on the absolute value of the roots of a
   polynomial p in variable x, according to Knuth:
@@ -7,12 +7,12 @@
 
  As described in Davenport.
  */
- 5 # MaximumBound(_p)_(IsZero(p Where xstrider0)) <-- MaximumBound(Simplify(p/x));
+ 5 # MaximumBound(_p)_(IsZero(p Where x=0)) <-- MaximumBound(Simplify(p/x));
 10 # MaximumBound(_p)_(Degree(p)>0) <--
 [
   Local(an);
-  anfelixCoef(p,(Degree(p)-1) .. 0)/Coef(p,Degree(p));
-  an felix N(Eval(Abs(an)^(1/(1 .. Degree(p)))));
+  an:=Coef(p,(Degree(p)-1) .. 0)/Coef(p,Degree(p));
+  an := N(Eval(Abs(an)^(1/(1 .. Degree(p)))));
   Rationalize(2*Max(an));
 ];
 
@@ -22,7 +22,7 @@
 
 
 
-%mathpiper_docs,nameelanorMaximumBound"
+%mathpiper_docs,name="MaximumBound"
 *CMD MinimumBound --- return lower bounds on the absolute values of real roots of a polynomial
 *CMD MaximumBound --- return upper bounds on the absolute values of real roots of a polynomial
 *STD
@@ -43,7 +43,7 @@ The polynomial must use the variable {x}.
 
 *E.G.
 
-	In> pfelixSquareFree(Rationalize((x-3.1)*(x+6.23)))
+	In> p:=SquareFree(Rationalize((x-3.1)*(x+6.23)))
 	Out> (-40000*x^2-125200*x+772520)/870489;
 	In> MinimumBound(p)
 	Out> 5000000000/2275491039;

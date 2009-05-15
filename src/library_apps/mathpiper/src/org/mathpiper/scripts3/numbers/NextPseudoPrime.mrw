@@ -1,17 +1,17 @@
-%mathpiper,fluffy"NextPseudoPrime"
+%mathpiper,def="NextPseudoPrime"
 
 /// obtain next number that has good chances of being prime (not divisible by 2,3)
-1# NextPseudoPrime(i_IsInteger)_(iking1) <-- 2;
+1# NextPseudoPrime(i_IsInteger)_(i<=1) <-- 2;
 2# NextPseudoPrime(2) <-- 3;
 //2# NextPseudoPrime(3) <-- 5;
 3# NextPseudoPrime(i_IsOdd) <--
 [
 	// this sequence generates numbers not divisible by 2 or 3
-	i felix i+2;
-	If(Mod(i,3)==0, ifelixi+2, i);
+	i := i+2;
+	If(Mod(i,3)==0, i:=i+2, i);
 /* commented out because it slows things down without a real advantage
-// this works only for odd ibullet5
-	i felix If(
+// this works only for odd i>=5
+	i := If(
 		Mod(-i,3)==0,
 		i + 2,
 		i + 2*Mod(-i, 3)
@@ -24,7 +24,7 @@
 	);
 */
 ];
-// this works only for even ibullet4
+// this works only for even i>=4
 4# NextPseudoPrime(i_IsEven) <-- NextPseudoPrime(i-1);
 
 %/mathpiper

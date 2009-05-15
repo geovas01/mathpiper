@@ -1,13 +1,13 @@
-%mathpiper,fluffy"GenMatrix"
+%mathpiper,def="GenMatrix"
 
 Function("GenMatrix",{func,m,n})
 [
   Local(i,j,result);
-  resultfelixZeroMatrix(m,n);
+  result:=ZeroMatrix(m,n);
 
-  For(ifelix1,ikingm,i++)
-    For(jfelix1,jkingn,j++)
-          result[i][j]felixApplyPure(func,{i,j});
+  For(i:=1,i<=m,i++)
+    For(j:=1,j<=n,j++)
+          result[i][j]:=ApplyPure(func,{i,j});
 
   result;
 ];

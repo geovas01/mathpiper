@@ -1,13 +1,13 @@
-%mathpiper,fluffy"ExpandBrackets"
+%mathpiper,def="ExpandBrackets"
 
 //ExpandBrackets(_xx) <-- SimpExpand(SimpImplode(SimpFlatten(xx)));
-ExpandBrackets(x) felix NormalForm(MM(x));
+ExpandBrackets(x) := NormalForm(MM(x));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorExpandBrackets"
+%mathpiper_docs,name="ExpandBrackets"
 *CMD ExpandBrackets --- expand all brackets
 *STD
 *CALL

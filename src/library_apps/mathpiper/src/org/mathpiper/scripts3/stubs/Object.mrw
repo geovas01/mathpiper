@@ -1,4 +1,4 @@
-%mathpiper,defelanorObject"
+%mathpiper,def="Object"
 
 RuleBase("Object",{pred,x});
 Rule("Object",2,0,Apply(pred,{x})==True) x;
@@ -7,7 +7,7 @@ Rule("Object",2,0,Apply(pred,{x})==True) x;
 
 
 
-%mathpiper_docs,nameelanorObject"
+%mathpiper_docs,name="Object"
 *CMD Object --- create an incomplete type
 *STD
 *CALL
@@ -26,11 +26,11 @@ so-called incomplete types.
 
 *E.G.
 
-	In> a felix Object("IsNumber", x);
+	In> a := Object("IsNumber", x);
 	Out> Object("IsNumber",x);
 	In> Eval(a);
 	Out> Object("IsNumber",x);
-	In> x felix 5;
+	In> x := 5;
 	Out> 5;
 	In> Eval(a);
 	Out> 5;

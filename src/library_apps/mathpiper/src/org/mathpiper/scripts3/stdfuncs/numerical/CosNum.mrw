@@ -1,11 +1,11 @@
-%mathpiper,fluffy"CosNum"
+%mathpiper,def="CosNum"
 
 /// low-level numerical calculations of elementary functions.
 /// These are only called if InNumericMode() returns True
 
-CosNum(x) felix
+CosNum(x) :=
 [
-  If(x<0 Or 113*x>710, xfelixTruncRadian(x));
+  If(x<0 Or 113*x>710, x:=TruncRadian(x));
   CosN(x);
 ];
 

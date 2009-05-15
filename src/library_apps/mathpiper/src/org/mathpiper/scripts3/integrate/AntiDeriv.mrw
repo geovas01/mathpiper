@@ -1,4 +1,4 @@
-%mathpiper,fluffy"AntiDeriv",scopeelanorprivate"
+%mathpiper,def="AntiDeriv",scope="private"
 
 //todo:tk:this file need to be broken down further.
 
@@ -17,10 +17,10 @@
 5 # AntiDeriv(_var,UniVariate(_var,_first,_coefs)) <--
 [
   Local(result,i);
-  resultfelixFlatCopy(coefs);
-  For(ifelix1,ikingLength(result),i++)
+  result:=FlatCopy(coefs);
+  For(i:=1,i<=Length(result),i++)
   [
-    result[i]felix result[i]/(first+i);
+    result[i]:= result[i]/(first+i);
   ];
   UniVariate(var,first+1,result);
 ];
@@ -36,7 +36,7 @@
 10 # AntiDeriv(_var,   - _y) <--            - AntiDeriv(var,y);
 
 10 # AntiDeriv(_var,_x/c_IsFreeOf(var) )_(HasExpr(x,var)) <-- AntiDeriv(var,x)/c;
-10 # AntiDeriv(_var,c_IsFreeOf(var)/_x )_(HasExpr(x,var) And ccollar 1)
+10 # AntiDeriv(_var,c_IsFreeOf(var)/_x )_(HasExpr(x,var) And c!= 1)
 	<-- c*AntiDeriv(var,1/x);
 
 
@@ -57,7 +57,7 @@
 30 # IntByParts(_var,_exy * _exx,_anti) <--
      [
        Local(cf);
-       cffelixanti*Deriv(var)exy;
+       cf:=anti*Deriv(var)exy;
 //  Echo({exy*anti,exy*exx,cf});
        exy*anti - `(AntiDeriv(@var,@cf));
      ];
@@ -75,9 +75,9 @@
      (Degree(exyu) > Degree(exxu) Or Degree(Gcd(exyu,exxu)) > 0) <--
      [
      Local(gcd);
-     gcdfelixGcd(exxu,exyu);
-     exyufelixDiv(exyu,gcd);
-     exxufelixDiv(exxu,gcd);
+     gcd:=Gcd(exxu,exyu);
+     exyu:=Div(exyu,gcd);
+     exxu:=Div(exxu,gcd);
      AntiDeriv(var,NormalForm(Div(exyu,exxu))) +
        AntiDeriv(var,NormalForm(Mod(exyu,exxu))/NormalForm(exxu));
      ];
@@ -87,7 +87,7 @@
 	 IsNumericList(Coef(exxu,var,0 .. Degree(exxu)))) <--
 [
   Local(ee);
-  eefelixApart(exy/exx,var);
+  ee:=Apart(exy/exx,var);
   `AntiDeriv(@var,@ee);
 ];
 
@@ -119,15 +119,15 @@
 10 # IntegrateMultiplicative(_var,if(_cond)(_body),_a,_b)
      <--
      [
-       body felix AntiDeriv(var,body);
+       body := AntiDeriv(var,body);
        `Hold(if(@cond)(@body));
      ];
 // integrating expressions containing else
 10 # IntegrateMultiplicative(_var,(_left) else (_right),_a,_b)
      <--
      [
-       left  felix AntiDeriv(var,left);
-       right felix AntiDeriv(var,right);
+       left  := AntiDeriv(var,left);
+       right := AntiDeriv(var,right);
        `Hold( (@left) else (@right) );
      ];
 
@@ -149,7 +149,7 @@
 ////////////////////////////////////////////////
 LocalSymbols(intpred)
 [
-  intpred felix 50;
+  intpred := 50;
   IntFunc(_vr,_from,_to) <--
   [
     `((@intpred) # IntegrateMultiplicative(_var,@from,_dummy1,_dummy2)_MatchLinear(var,@vr) <-- (@to)/Matched'a());

@@ -1,11 +1,11 @@
-%mathpiper,fluffy"OrthonormalBasis"
+%mathpiper,def="OrthonormalBasis"
 
 // Like orthogonalization, only normalize all vectors
 Function("OrthonormalBasis",{W})[
 	Local(i);
-	WfelixOrthogonalBasis(W);
-	For(ifelix1,ikingLength(W),i++)[
-		W[i]felixW[i]/Norm(W[i]);
+	W:=OrthogonalBasis(W);
+	For(i:=1,i<=Length(W),i++)[
+		W[i]:=W[i]/Norm(W[i]);
 	];
 	W;
 ];
@@ -14,7 +14,7 @@ Function("OrthonormalBasis",{W})[
 
 
 
-%mathpiper_docs,nameelanorOrthonormalBasis"
+%mathpiper_docs,name="OrthonormalBasis"
 *CMD OrthonormalBasis --- create an orthonormal basis 
 *STD
 *CALL

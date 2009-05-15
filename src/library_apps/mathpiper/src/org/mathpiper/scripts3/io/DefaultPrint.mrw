@@ -1,4 +1,4 @@
-%mathpiper,fluffy"DefaultPrint"
+%mathpiper,def="DefaultPrint"
 
 /// The new default pretty-printer: DefaultPrint
 Function("DefaultPrint", {x})

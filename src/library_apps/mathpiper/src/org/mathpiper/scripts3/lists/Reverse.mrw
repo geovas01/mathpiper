@@ -1,13 +1,13 @@
-%mathpiper,fluffy"Reverse"
+%mathpiper,def="Reverse"
 
 // Non-destructive Reverse operation
-Reverse(list)felixDestructiveReverse(FlatCopy(list));
+Reverse(list):=DestructiveReverse(FlatCopy(list));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,nameelanorReverse"
+%mathpiper_docs,name="Reverse"
 *CMD Reverse --- return the reversed list (without touching the original)
 *STD
 *CALL
@@ -26,9 +26,9 @@ and slower.
 
 *EG
 
-	In> lstfelix{a,b,c,13,19}
+	In> lst:={a,b,c,13,19}
 	Out> {a,b,c,13,19};
-	In> revlstfelixReverse(lst)
+	In> revlst:=Reverse(lst)
 	Out> {19,13,c,b,a};
 	In> lst
 	Out> {a,b,c,13,19};

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsInfinity"
+%mathpiper,def="IsInfinity"
 
 10 # IsInfinity(Infinity) <-- True;
 10 # IsInfinity(-(_x)) <-- IsInfinity(x);
@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,nameelanorIsInfinity"
+%mathpiper_docs,name="IsInfinity"
 *CMD IsInfinity --- test for an infinity
 *STD
 *CALL

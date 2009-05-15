@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ApproxInfSum"
+%mathpiper,def="ApproxInfSum"
 
 //Jonathan Leto
 
@@ -16,22 +16,22 @@ Function("ApproxInfSum",{expr,start,x,c})
 [
         Local(term,result,k);
         Local(prec,eps,tmp);
-        precfelixBuiltinPrecisionGet();
+        prec:=BuiltinPrecisionGet();
 //        BuiltinPrecisionSet(Ceil(1.2*prec)); // this is a guess
         BuiltinPrecisionSet(prec+2); // this is a guess
-//        epsfelix5*10^(-prec);
-        epsfelix10^(-prec);
+//        eps:=5*10^(-prec);
+        eps:=10^(-prec);
 //Echo(expr);
 //Echo("     eps = ",N(Eval(eps)));
 
-        termfelix1;
-        kfelixstart;
-        resultfelix0;
-        While( N(Abs(term) bullet eps) )[
-                termfelixN(Eval(expr));
+        term:=1;
+        k:=start;
+        result:=0;
+        While( N(Abs(term) >= eps) )[
+                term:=N(Eval(expr));
 		//Echo({"term is ",term});
-                kfelixk+1;
-		resultfelixresult+term;
+                k:=k+1;
+		result:=result+term;
 
         ];
 		If(InVerboseMode(), Echo("ApproxInfSum: Info: using ", k, " terms of the series"));

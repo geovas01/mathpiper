@@ -1,4 +1,4 @@
-%mathpiper,fluffy"@"
+%mathpiper,def="@"
 
 RuleBase("@",{func,arg});
 Rule("@",2,1,IsList(arg)) Apply(func,arg);
@@ -8,7 +8,7 @@ Rule("@",2,2,True       ) Apply(func,{arg});
 
 
 
-%mathpiper_docs,nameelanor@"
+%mathpiper_docs,name="@"
 *CMD @ --- apply a function
 *STD
 *CALL

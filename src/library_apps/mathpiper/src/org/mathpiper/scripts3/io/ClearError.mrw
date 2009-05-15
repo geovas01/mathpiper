@@ -1,4 +1,4 @@
-%mathpiper,fluffy"ClearError"
+%mathpiper,def="ClearError"
 
 /// delete error
 ClearError(error'class_IsString) <-- AssocDelete(GetErrorTableau(), error'class);

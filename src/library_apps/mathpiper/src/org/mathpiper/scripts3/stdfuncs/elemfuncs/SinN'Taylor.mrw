@@ -1,4 +1,4 @@
-%mathpiper,fluffy"SinN'Taylor",scopeelanorprivate"
+%mathpiper,def="SinN'Taylor",scope="private"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -11,13 +11,13 @@
  */
 
 /// Compute Sin(x), Taylor series for Sin(x)/x
-SinN'Taylor(x) felix
+SinN'Taylor(x) :=
 [
 	Local(num'terms, prec, Bx);
-	prec felix DivN(BuiltinPrecisionGet()*3919, 1702); // P*Ln(10)
-	Bx felix -DivN(MathBitCount(x)*1143, 1649)-2; // -Ln(x)-2
-	num'terms felix DivN( DivN( prec+Bx, DivN( MathBitCount( prec+Bx)*1588, 2291)+Bx)+1, 2)+1;
-	// (P*Ln(10)-Ln(x)-2)/(Ln(P*Ln(10)-Ln(x)-2)-Ln(x)-2); use Ln(x)kingB(x)*Ln(2)
+	prec := DivN(BuiltinPrecisionGet()*3919, 1702); // P*Ln(10)
+	Bx := -DivN(MathBitCount(x)*1143, 1649)-2; // -Ln(x)-2
+	num'terms := DivN( DivN( prec+Bx, DivN( MathBitCount( prec+Bx)*1588, 2291)+Bx)+1, 2)+1;
+	// (P*Ln(10)-Ln(x)-2)/(Ln(P*Ln(10)-Ln(x)-2)-Ln(x)-2); use Ln(x)<=B(x)*Ln(2)
 	x*SumTaylorNum(MultiplyN(x,x), 1, {{k}, -1/(2*k*(2*k+1))}, num'terms);
 ];
 

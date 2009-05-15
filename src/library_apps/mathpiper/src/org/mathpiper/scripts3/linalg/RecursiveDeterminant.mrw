@@ -1,4 +1,4 @@
-%mathpiper,fluffy"RecursiveDeterminant",scopeelanorprivate"
+%mathpiper,def="RecursiveDeterminant",scope="private"
 
 /* Recursive calculation of determinant, provided by Sebastian Ferraro
  */
@@ -10,12 +10,12 @@
   */
   Local(result);
   If(Equals(Length(matrix),1),matrix[1][1],[
-    resultfelix0;
+    result:=0;
     ForEach(i,1 .. Length(matrix))
       //Consider only non-zero entries
       If(Not(Equals(matrix[1][i],0)),
         //Transpose and Drop eliminate row 1, column i
-        resultfelixresult+matrix[1][i]*(-1)^(i+1)* RecursiveDeterminant(Transpose(Drop(Transpose(Drop(matrix,{1,1})),{i,i}))));
+        result:=result+matrix[1][i]*(-1)^(i+1)* RecursiveDeterminant(Transpose(Drop(Transpose(Drop(matrix,{1,1})),{i,i}))));
     result;
   ]);
 ];

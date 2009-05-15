@@ -1,10 +1,10 @@
-%mathpiper,fluffy"Difference"
+%mathpiper,def="Difference"
 
 Function("Difference",{list1,list2})
 [
   Local(l2,index,result);
-  l2felixFlatCopy(list2);
-  resultfelixFlatCopy(list1);
+  l2:=FlatCopy(list2);
+  result:=FlatCopy(list1);
   ForEach(item,list1)
   [
     Set(index,Find(l2,item));
@@ -22,7 +22,7 @@ Function("Difference",{list1,list2})
 
 
 
-%mathpiper_docs,nameelanorDifference"
+%mathpiper_docs,name="Difference"
 *CMD Difference --- return the difference of two lists
 *STD
 *CALL

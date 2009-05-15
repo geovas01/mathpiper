@@ -1,4 +1,4 @@
-%mathpiper,fluffy"PartitionsP"
+%mathpiper,def="PartitionsP"
 
 /// the restricted partition function
 /// partitions of length k
@@ -22,21 +22,21 @@
 10 # PartitionsP'HR(n_IsPositiveInteger) <--
 [
 	Local(P0, A, lambda, mu, mu'k, result, term, j, k, l, prec, epsilon);
-	resultfelix0;
-	termfelix1;	// initial value must be nonzero
+	result:=0;
+	term:=1;	// initial value must be nonzero
 	GlobalPush(BuiltinPrecisionGet());
 	// precision must be at least Pi/Ln(10)*Sqrt(2*n/3)-Ln(4*n*Sqrt(3))/Ln(10)
 	// here Pi/Ln(10) < 161/118, and Ln(4*Sqrt(3))/Ln(10) <1 so it is disregarded. Add 2 guard digits and compensate for round-off errors by not subtracting Ln(n)/Ln(10) now
-	prec felix 2+Div(IntNthRoot(Div(2*n+2,3),2)*161+117,118);
+	prec := 2+Div(IntNthRoot(Div(2*n+2,3),2)*161+117,118);
 	BuiltinPrecisionSet(prec);	// compensate for round-off errors
-	epsilon felix PowerN(10,-prec)*n*10;	// stop when term < epsilon
+	epsilon := PowerN(10,-prec)*n*10;	// stop when term < epsilon
 
 	// get the leading term approximation P0 - compute once at high precision
-	lambda felix N(Sqrt(n - 1/24));
-	mu felix N(Pi*lambda*Sqrt(2/3));
+	lambda := N(Sqrt(n - 1/24));
+	mu := N(Pi*lambda*Sqrt(2/3));
 	// the hoops with DivideN are needed to avoid roundoff error at large n due to fixed precision:
 	// Exp(mu)/(n) must be computed by dividing by n, not by multiplying by 1/n
-	P0 felix N(1-1/mu)*DivideN(ExpN(mu),(n-DivideN(1,24))*4*SqrtN(3));
+	P0 := N(1-1/mu)*DivideN(ExpN(mu),(n-DivideN(1,24))*4*SqrtN(3));
 	/*
 	the series is now equal to
 	P0*Sum(k,1,Infinity,
@@ -46,42 +46,42 @@
 	)
 	*/
 
-	A felix 0;	// this is also used as a flag
+	A := 0;	// this is also used as a flag
 	// this is a heuristic, because the next term error is expensive
 	// to calculate and the theoretic bounds have arbitrary constants
 	// use at most 5+Sqrt(n)/2 terms, stop when the term is nonzero and result stops to change at precision prec
-	For(kfelix1, kking5+Div(IntNthRoot(n,2),2) And (A==0 Or Abs(term)>epsilon), k++)
+	For(k:=1, k<=5+Div(IntNthRoot(n,2),2) And (A==0 Or Abs(term)>epsilon), k++)
 	[
 		// compute A(k,n)
-		Afelix0;
-		For(lfelix1,lkingk,l++)
+		A:=0;
+		For(l:=1,l<=k,l++)
 		[
 			If(
 				Gcd(l,k)==1,
-				A felix A + Cos(Pi*
+				A := A + Cos(Pi*
 				  (	// replace Exp(I*Pi*...) by Cos(Pi*...) since the imaginary part always cancels
 					Sum(j,1,k-1, j*(Mod(l*j,k)/k-1/2)) - 2*l*n
 					// replace (x/y - Floor(x/y)) by Mod(x,y)/y for integer x,y
 				  )/k)
 			);
-			AfelixN(A);	// avoid accumulating symbolic Cos() expressions
+			A:=N(A);	// avoid accumulating symbolic Cos() expressions
 		];
 
-		term felix If(
+		term := If(
 			A==0,	// avoid long calculations if the term is 0
 			0,
 			N( A*Sqrt(k)*(
 			  [
-			  	mu'k felix mu/k;	// save time, compute mu/k once
+			  	mu'k := mu/k;	// save time, compute mu/k once
 			    Exp(mu'k-mu)*(mu'k-1) + Exp(-mu'k-mu)*(mu'k+1);
 			  ]
 			)/(mu-1) )
 		);
-//		Echo("kelanor, k, "termelanor, term);
-		result felix result + term;
+//		Echo("k=", k, "term=", term);
+		result := result + term;
 //		Echo("result", new'result* P0);
 	];
-	result felix result * P0;
+	result := result * P0;
 	BuiltinPrecisionSet(GlobalPop());
 	Round(result);
 ];
@@ -94,26 +94,26 @@
 	   GlobalPush(BuiltinPrecisionGet());
 	   // this is an overshoot, but seems to work up to at least n=4096
 	   BuiltinPrecisionSet(10 + Floor(N(Sqrt(n))) );
-	   pafelix0;
-		 CfelixPi*Sqrt(2/3)/k;
-		 lambdafelixSqrt(m - 1/24);
-	   termfelix1;
+	   pa:=0;
+		 C:=Pi*Sqrt(2/3)/k;
+		 lambda:=Sqrt(m - 1/24);
+	   term:=1;
 	   // this is a heuristic, because the next term error is expensive
 	   // to calculate and the theoretic bounds have arbitrary constants
-	   For(kfelix1,kking5+Floor(SqrtN(n)*0.5) And ( term==0 Or Abs(term)>0.1) ,k++)[
-			   Afelix0;
-			   For(hfelix1,hkingk,h++)[
+	   For(k:=1,k<=5+Floor(SqrtN(n)*0.5) And ( term==0 Or Abs(term)>0.1) ,k++)[
+			   A:=0;
+			   For(h:=1,h<=k,h++)[
 					   if( Gcd(h,k)==1 )[
-							   AfelixA+Exp(I*Pi*Sum(j,1,k-1,(j/k)*((h*j)/k - Floor((h*j)/k) -1/2))
+							   A:=A+Exp(I*Pi*Sum(j,1,k-1,(j/k)*((h*j)/k - Floor((h*j)/k) -1/2))
 - 2*Pi*I*h*n/k );
 					   ];
 			   ];
-			   If(Acollar0, termfelix N(A*Sqrt(k)*(Deriv(m) Sinh(C*lambda)/lambda) Where mstridern ),termfelix0 );
+			   If(A!=0, term:= N(A*Sqrt(k)*(Deriv(m) Sinh(C*lambda)/lambda) Where m=n ),term:=0 );
 //			   Echo("Term ",k,"is ",N(term/(Pi*Sqrt(2))));
-			   pafelixpa+term;
+			   pa:=pa+term;
 //			   Echo("result", N(pa/(Pi*Sqrt(2))));
 	   ];
-	   pafelixN(pa/(Pi*Sqrt(2)));
+	   pa:=N(pa/(Pi*Sqrt(2)));
 	   BuiltinPrecisionSet(GlobalPop());
 	   Round(pa);
  ];
@@ -125,24 +125,24 @@ PartitionsP'recur(number_IsPositiveInteger) <--
 [
 	// need storage of n values PartitionsP(k) for k=1,...,n
 	Local(sign, cache, n, k, pentagonal, P);
-	cachefelixArrayCreate(number+1,1);	// cache[n] == PartitionsP(n-1)
-	n felix 1;
+	cache:=ArrayCreate(number+1,1);	// cache[n] == PartitionsP(n-1)
+	n := 1;
 	While(n<number)	// this will never execute if number==1
 	[
 		n++;
 		// compute PartitionsP(n) now
-		P felix 0;
-		k felix 1;
-		pentagonal felix 1;	// pentagonal is always equal to the first element in the k-th pair of the "pentagonal sequence" of pairs {k*(3*k-1)/2, k*(3*k+1)/2}
-		sign felix 1;
-		While(pentagonalkingn)
+		P := 0;
+		k := 1;
+		pentagonal := 1;	// pentagonal is always equal to the first element in the k-th pair of the "pentagonal sequence" of pairs {k*(3*k-1)/2, k*(3*k+1)/2}
+		sign := 1;
+		While(pentagonal<=n)
 		[
-			P felix P + (cache[n-pentagonal+1]+If(pentagonal+kkingn, cache[n-pentagonal-k+1], 0))*sign;
-			pentagonal felix pentagonal + 3*k+1;
+			P := P + (cache[n-pentagonal+1]+If(pentagonal+k<=n, cache[n-pentagonal-k+1], 0))*sign;
+			pentagonal := pentagonal + 3*k+1;
 			k++;
-			sign felix -sign;
+			sign := -sign;
 		];
-		cache[n+1] felix P;	// P(n) computed, store result
+		cache[n+1] := P;	// P(n) computed, store result
 	];
 	cache[number+1];
 ];

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"CForm"
+%mathpiper,def="CForm"
 
 /* CForm: convert MathPiper objects to C/C++ code. */
 
@@ -33,7 +33,7 @@ Function ("CFormBracketIf", {predicate, string})
 */
 
 // CFormMaxPrec should perhaps only be used from within this file, it is thus not in the .def file.
-CFormMaxPrec() felix 60000;	 /* This precedence will never be bracketed. It is equal to KMaxPrec */
+CFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is equal to KMaxPrec */
 
 100 # CForm(_x) <-- CForm(x, CFormMaxPrec());
 
@@ -57,16 +57,16 @@ CFormMaxPrec() felix 60000;	 /* This precedence will never be bracketed. It is e
 
 
 LocalSymbols(cformRegularOps) [
-  cformRegularOps felix { {"+"," + "}, {"-"," - "}, {"*"," * "},
-                       {"/"," / "}, {"felix"," = "}, {"strider"," strider "},
-                       {"elanor," strider "}, {"!elanor," collar "}, {"<elanor," king "},
-                       {">elanor," bullet "}, {"<"," < "}, {">"," > "},
+  cformRegularOps := { {"+"," + "}, {"-"," - "}, {"*"," * "},
+                       {"/"," / "}, {":="," = "}, {"="," = "},
+                       {"="," = "}, {"!="," != "}, {"<="," <= "},
+                       {">="," >= "}, {"<"," < "}, {">"," > "},
                        {"And"," && "}, {"Or"," || "}, {">>", " >> "},
                        { "<<", " << " }, { "&", " & " }, { "|", " | " },
                        { "%", " % " }, { "^", " ^ " },
                      };
 
-  CFormRegularOps() felix cformRegularOps;
+  CFormRegularOps() := cformRegularOps;
 ]; // LocalSymbols(cformRegularOps)
 
 	/* This is the template for "regular" binary infix operators:
@@ -80,14 +80,14 @@ LocalSymbols(cformRegularOps) [
 100 # CForm(- _y, _p) <-- CFormBracketIf(p<OpPrecedence("-"), ConcatStrings(" - ", CForm(y, OpRightPrecedence("-")) ) );
 
 	/* power's argument is never bracketed but it must be put in braces. */
-100 # CForm(_x ^ _y, _p) <-- CFormBracketIf(pkingOpPrecedence("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
+100 # CForm(_x ^ _y, _p) <-- CFormBracketIf(p<=OpPrecedence("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
 
 100 # CForm(if(_pred)_body, _p) <-- "if (":CForm(pred,60000):") ":CForm(body);
 100 # CForm(_left else _right, _p) <-- CForm(left):" else ":CForm(right);
 
 
 LocalSymbols(cformMathFunctions) [
-  cformMathFunctions felix
+  cformMathFunctions :=
     {
       {"Sqrt","sqrt"},
       {"Cos","cos"},
@@ -112,7 +112,7 @@ LocalSymbols(cformMathFunctions) [
     {"!","factorial"}
     };
 
-  CFormMathFunctions() felix cformMathFunctions;
+  CFormMathFunctions() := cformMathFunctions;
 
 ]; // LocalSymbols(cformMathFunctions)
 
@@ -136,12 +136,12 @@ LocalSymbols(cformMathFunctions) [
 CFormArgs(list_IsList) <--
 [
   Local(i,nr,result);
-  resultfelix"";
-  nrfelixLength(list);
-  For (ifelix1,ikingnr,i++)
+  result:="";
+  nr:=Length(list);
+  For (i:=1,i<=nr,i++)
   [
-    resultfelixresult:CForm(list[i]);
-    If (i<nr, resultfelixresult:", ");
+    result:=result:CForm(list[i]);
+    If (i<nr, result:=result:", ");
   ];
   result;
 ];
@@ -170,28 +170,28 @@ CFormArgs(list_IsList) <--
 100 # CForm(Nth(_x, _i), _p) <-- ConcatStrings(CForm(x, CFormMaxPrec()), "[", CForm(i, CFormMaxPrec()), "]");
 
 LocalSymbols(cindent) [
-  cindentfelix1;
+  cindent:=1;
 
-  NlIndented()felix
+  NlIndented():=
   [
     Local(result);
 // carriage return, so needs to start at the beginning of the line
-    resultfelix
+    result:=
 "
 ";
     Local(i);
-    For(ifelix1,i<cindent,i++)
+    For(i:=1,i<cindent,i++)
     [
-      resultfelixresult:"  ";
+      result:=result:"  ";
     ];
     result;
   ];
-  CIndent() felix
+  CIndent() :=
   [
   (cindent++);
   "";
   ];
-  CUndent() felix
+  CUndent() :=
   [
   (cindent--);
   "";
@@ -203,12 +203,12 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 120 # CForm(_x,_p)_(Type(x) == "Prog") <--
 [
   Local(result);
-  resultfelixCIndent():"{":NlIndented();
+  result:=CIndent():"{":NlIndented();
   ForEach(item,Tail(Listify(x)))
   [
-    resultfelixresult:CFormStatement(item);
+    result:=result:CFormStatement(item);
   ];
-  resultfelixresult:"}":CUndent():NlIndented();
+  result:=result:"}":CUndent():NlIndented();
   result;
 ];
 
@@ -228,7 +228,7 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 
 
 
-%mathpiper_docs,nameelanorCForm"
+%mathpiper_docs,name="CForm"
 *CMD CForm --- export expression to C++ code
 *STD
 *CALL

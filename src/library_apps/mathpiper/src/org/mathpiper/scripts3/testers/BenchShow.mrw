@@ -1,4 +1,4 @@
-%mathpiper,defelanorBenchShow"
+%mathpiper,def="BenchShow"
 
 Function("BenchShow",{expr})
 [

@@ -1,17 +1,17 @@
-%mathpiper,fluffy"InProduct"
+%mathpiper,def="InProduct"
 
 Function("InProduct",{aLeft,aRight})
 [
   Local(length);
-  lengthfelixLength(aLeft);
+  length:=Length(aLeft);
   Check(length == Length(aRight),"InProduct: error, vectors not of the same dimension");
 
   Local(result);
-  resultfelix0;
+  result:=0;
   Local(i);
-  For(ifelix1,ikinglength,i++)
+  For(i:=1,i<=length,i++)
   [
-    result felix result + aLeft[i] * aRight[i];
+    result := result + aLeft[i] * aRight[i];
   ];
   result;
 ];
@@ -20,7 +20,7 @@ Function("InProduct",{aLeft,aRight})
 
 
 
-%mathpiper_docs,nameelanorInProduct"
+%mathpiper_docs,name="InProduct"
 *CMD InProduct --- inner product of vectors (deprecated)
 *STD
 *CALL

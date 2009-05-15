@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Curl"
+%mathpiper,def="Curl"
 
 RuleBase("Curl", {aFunc, aBasis});
 
@@ -13,7 +13,7 @@ Rule("Curl", 2, 1, Length(aBasis)==Length(aFunc))
 
 
 
-%mathpiper_docs,nameelanorCurl"
+%mathpiper_docs,name="Curl"
 *CMD Curl --- curl of a vector field
 *STD
 *CALL

@@ -1,13 +1,13 @@
-%mathpiper,fluffy""
+%mathpiper,def=""
 
 Segment(PointA_IsPoint,PointB_IsPoint) <--
 [
     Local(x1,x2,y1,y2);
     
-    x1 felix PointA[1];
-    x2 felix PointB[1];
-    y1 felix PointA[2];
-    y2 felix PointB[2];
+    x1 := PointA[1];
+    x2 := PointB[1];
+    y1 := PointA[2];
+    y2 := PointB[2];
 
     {{x1,y1},{x2,y2}};
 ];
@@ -16,7 +16,7 @@ Segment(PointA_IsPoint,PointB_IsPoint) <--
 
 
 
-%mathpiper_docs,nameelanorSegment"
+%mathpiper_docs,name="Segment"
 *CMD Segment --- returns a list which contains the endpoints of a segment
 *STD
 *CALL
@@ -33,10 +33,10 @@ This function returns a list which represents a segment by its endpoints.
 
 *E.G.
 
-	In> PointA felix Point(2,3)
+	In> PointA := Point(2,3)
 	Result> {2,3}
 	
-	In> PointB felix Point(6,8)
+	In> PointB := Point(6,8)
 	Result> {6,8}
 	
 	In> Segment(PointA,PointB)

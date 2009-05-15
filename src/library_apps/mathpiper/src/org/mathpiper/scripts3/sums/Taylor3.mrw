@@ -1,4 +1,4 @@
-%mathpiper,defelanorTaylor3"
+%mathpiper,def="Taylor3"
 
 
 
@@ -54,7 +54,7 @@ Bodied("Taylor3'TaylorCoefs",0);
      Local(result,add,i);
      Set(result,Taylor3'TaylorCoefs(var,degree)(X));
      Set(add, Taylor3'TaylorCoefs(var,degree)(Y));
-     For(ifelix1,ikingdegree+1,i++)
+     For(i:=1,i<=degree+1,i++)
      [
        ArraySet(result,i,ArrayGet(result,i)+ArrayGet(add,i));
      ];
@@ -67,7 +67,7 @@ Bodied("Taylor3'TaylorCoefs",0);
      Local(result,add,i);
      Set(result,Taylor3'TaylorCoefs(var,degree)(X));
      Set(add, Taylor3'TaylorCoefs(var,degree)(Y));
-     For(ifelix1,ikingdegree+1,i++)
+     For(i:=1,i<=degree+1,i++)
      [
        ArraySet(result,i,ArrayGet(result,i)-ArrayGet(add,i));
      ];
@@ -79,7 +79,7 @@ Bodied("Taylor3'TaylorCoefs",0);
    [
      Local(result,add,i);
      Set(result,Taylor3'TaylorCoefs(var,degree)(Y));
-     For(ifelix1,ikingdegree+1,i++)
+     For(i:=1,i<=degree+1,i++)
      [
        ArraySet(result,i,-ArrayGet(result,i));
      ];
@@ -96,13 +96,13 @@ Bodied("Taylor3'TaylorCoefs",0);
   <--
 [
   Local(result,factor);
-  factorfelixTaylor3'TaylorCoefs(var,degree)(X);
-  resultfelixArrayCreate(degree+1,0);
-  result[1] felix 1;
+  factor:=Taylor3'TaylorCoefs(var,degree)(X);
+  result:=ArrayCreate(degree+1,0);
+  result[1] := 1;
   //TODO@@@ optimize
   While(N>0)
   [
-    resultfelixTaylor3'MultiplyCoefs(result,factor,degree);
+    result:=Taylor3'MultiplyCoefs(result,factor,degree);
     N--;
   ];
   result;
@@ -128,8 +128,8 @@ Bodied("Taylor3'TaylorCoefs",0);
       (
         [
           Local(result);
-          resultfelix Deriv(var)UnList({Atom(any),var});
-          Type(result) collar "Deriv";
+          result:= Deriv(var)UnList({Atom(any),var});
+          Type(result) != "Deriv";
         ]
       )           <--
       [
@@ -150,7 +150,7 @@ Taylor3'FuncCoefs(_fname,_degree) <--
 [
   Local(sins,i);
   Set(sins, ArrayCreate(degree+1,0));
-  For (ifelix0,ikingdegree,Set(i,i+1))
+  For (i:=0,i<=degree,Set(i,i+1))
   [
     ArraySet(sins,i+1, Taylor3'CompCoeff(fname,i));
   ];
@@ -164,19 +164,19 @@ Taylor3'FuncCoefs(_fname,_degree) <--
 110 # (Taylor3'TaylorCoefs(_var,_degree)(f_IsFunction))_(NrArgs(f) == 1 And (Taylor3'UniFunction(Type(f)))) <--
 [
   Local(sins,i,j,result,xx,expr,sinfact);
-  expr felix f[1];
-  sinsfelixTaylor3'FuncCoefs(Type(f),degree);
+  expr := f[1];
+  sins:=Taylor3'FuncCoefs(Type(f),degree);
 //Echo("sins = ",sins);
-  exprfelixTaylor3'TaylorCoefs(var,degree)expr;
-  resultfelixArrayCreate(degree+1,0);
+  expr:=Taylor3'TaylorCoefs(var,degree)expr;
+  result:=ArrayCreate(degree+1,0);
   ArraySet(result,1, ArrayGet(sins,1));
-  xxfelixexpr;
+  xx:=expr;
 //Echo("8...",sins,expr);
-  For (ifelix2,ikingdegree+1,i++)
+  For (i:=2,i<=degree+1,i++)
   [
     Set(sinfact,sins[i]);
 //Echo("8.1..",i," ",j);
-    For (jfelix1,jkingdegree+1,j++)
+    For (j:=1,j<=degree+1,j++)
     [
       ArraySet(result,j,ArrayGet(result,j) + (ArrayGet(xx,j) * sinfact));
     ];

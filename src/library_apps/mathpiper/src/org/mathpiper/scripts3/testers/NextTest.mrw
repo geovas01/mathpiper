@@ -1,4 +1,4 @@
-%mathpiper,defelanorNextTest"
+%mathpiper,def="NextTest"
 
 Function("NextTest",{aLeft})
 [

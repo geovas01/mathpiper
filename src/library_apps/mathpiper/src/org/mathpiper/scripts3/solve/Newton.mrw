@@ -1,4 +1,4 @@
-%mathpiper,fluffy"Newton"
+%mathpiper,def="Newton"
 
 Function("Newton",{function,variable,initial,accuracy})
 [	// since we call a function with HoldArg(), we need to evaluate some variables by hand
@@ -9,25 +9,25 @@ Function("Newton",{function,variable,initial,accuracy,min,max})
 [
   Local(result,adjust,delta,requiredPrec);
   MacroLocal(variable);
-  requiredPrec felix BuiltinPrecisionGet();
-  accuracyfelixN((accuracy/10)*10); // Making sure accuracy is rounded correctly
+  requiredPrec := BuiltinPrecisionGet();
+  accuracy:=N((accuracy/10)*10); // Ma<= sure accuracy is rounded correctly
   BuiltinPrecisionSet(requiredPrec+2);
-  functionfelixN(function);
-  adjustfelix -function/Apply("D",{variable,function});
-  deltafelix10000;
-  resultfelixinitial;
+  function:=N(function);
+  adjust:= -function/Apply("D",{variable,function});
+  delta:=10000;
+  result:=initial;
   While (result > min And result < max
       // avoid numerical underflow due to fixed point math, FIXME when have real floating math
       And N(Eval( Max(Re(delta), -Re(delta), Im(delta), -Im(delta)) ) ) > accuracy)
   [
     MacroSet(variable,result);
-    deltafelixN(Eval(adjust));
-    resultfelixresult+delta;
+    delta:=N(Eval(adjust));
+    result:=result+delta;
   ];
 
   BuiltinPrecisionSet(requiredPrec);
-  resultfelixN(Eval((result/10)*10)); // making sure result is rounded to correct precision
-  if (result king min Or result bullet max) [result felix Fail;];
+  result:=N(Eval((result/10)*10)); // ma<= sure result is rounded to correct precision
+  if (result <= min Or result >= max) [result := Fail;];
   result;
 ];
 
@@ -35,7 +35,7 @@ Function("Newton",{function,variable,initial,accuracy,min,max})
 
 
 
-%mathpiper_docs,nameelanorNewton"
+%mathpiper_docs,name="Newton"
 *CMD Newton --- solve an equation numerically with Newton's method
 *STD
 *CALL

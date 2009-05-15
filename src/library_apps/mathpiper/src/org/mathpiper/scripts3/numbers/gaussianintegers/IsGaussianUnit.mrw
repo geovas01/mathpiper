@@ -1,4 +1,4 @@
-%mathpiper,fluffy"IsGaussianUnit"
+%mathpiper,def="IsGaussianUnit"
 
 IsGaussianUnit(z_IsGaussianInteger) <-- GaussianNorm(z)==1;
 
@@ -6,7 +6,7 @@ IsGaussianUnit(z_IsGaussianInteger) <-- GaussianNorm(z)==1;
 
 
 
-%mathpiper_docs,nameelanorIsGaussianUnit"
+%mathpiper_docs,name="IsGaussianUnit"
 *CMD IsGaussianUnit ---  test for a Gaussian unit
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,fluffy"FresnelSin"
+%mathpiper,def="FresnelSin"
 
 //Jonathan Leto
 
@@ -10,7 +10,7 @@
 10 # FresnelSin(Infinity)	<-- 1/2;
 10 # FresnelSin(x_IsNumber)_(x<0)	<-- -FresnelSin(x);
 
-40 # FresnelSin(x_IsNumber)_(Abs(x) king 1) <-- N(Sqrt(2/Pi)*ApproxInfSum((-1)^(k+1)*x^(2*k+1)/(k! * (2*k+1)),1,x));
+40 # FresnelSin(x_IsNumber)_(Abs(x) <= 1) <-- N(Sqrt(2/Pi)*ApproxInfSum((-1)^(k+1)*x^(2*k+1)/(k! * (2*k+1)),1,x));
 
 
 %/mathpiper

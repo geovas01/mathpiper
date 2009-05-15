@@ -1,12 +1,12 @@
-%mathpiper,fluffy"Subsumes"
+%mathpiper,def="Subsumes"
 
-10 # Subsumes((_x) - (_y) strider 0, Not ((_x) - (_z)strider0))_(ycollarz)    <-- True;
-// suif_tmp0_127_1-72strider0 And 78-suif_tmp0_127_1bullet0
-20 # Subsumes((_x) - (_y) strider 0, (_z) - (_x) bullet 0)_(zbullety)        <-- True;
-20 # Subsumes((_x) - (_y) strider 0, (_z) - (_x) >  0)_(z>y)         <-- True;
-// suif_tmp0_127_1-72strider0 And suif_tmp0_127_1-63bullet0
-30 # Subsumes((_x) - (_y) strider 0, (_x) - (_z) bullet 0)_(ybulletz)        <-- True;
-30 # Subsumes((_x) - (_y) strider 0, (_x) - (_z) > 0)_(y>z)          <-- True;
+10 # Subsumes((_x) - (_y) = 0, Not ((_x) - (_z)=0))_(y!=z)    <-- True;
+// suif_tmp0_127_1-72=0 And 78-suif_tmp0_127_1>=0
+20 # Subsumes((_x) - (_y) = 0, (_z) - (_x) >= 0)_(z>=y)        <-- True;
+20 # Subsumes((_x) - (_y) = 0, (_z) - (_x) >  0)_(z>y)         <-- True;
+// suif_tmp0_127_1-72=0 And suif_tmp0_127_1-63>=0
+30 # Subsumes((_x) - (_y) = 0, (_x) - (_z) >= 0)_(y>=z)        <-- True;
+30 # Subsumes((_x) - (_y) = 0, (_x) - (_z) > 0)_(y>z)          <-- True;
 
 90 # Subsumes((_x), (_x))                                       <-- True;
 

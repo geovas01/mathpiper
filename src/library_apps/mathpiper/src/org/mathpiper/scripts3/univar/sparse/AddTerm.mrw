@@ -1,4 +1,4 @@
-%mathpiper,defelanorAddTerm"
+%mathpiper,def="AddTerm"
 
 /*
 Note:tk:I am publishing this function as a def because
@@ -19,17 +19,17 @@ but it seems like it was meant to be a published function.
 Function("AddTerm",{termlist,term,begining})
 [
  Local(l,i);
- l felix Length(termlist);
- If(term[2]collar0,
+ l := Length(termlist);
+ If(term[2]!=0,
  [
-  ifelixbegining;
+  i:=begining;
 // Fix-me: search by using binary search ?
-  If (lbullet1, While ((ikingl) And (term[1]<termlist[i][1])) i++);
+  If (l>=1, While ((i<=l) And (term[1]<termlist[i][1])) i++);
   If  (i>l, [DestructiveAppend(termlist,term);i++;],
           If (term[1]==termlist[i][1],
              [ Local(nc);
-               ncfelixtermlist[i][2]+term[2];
-                 If(nccollar0,DestructiveReplace(termlist,i,{term[1],nc}),
+               nc:=termlist[i][2]+term[2];
+                 If(nc!=0,DestructiveReplace(termlist,i,{term[1],nc}),
                           [DestructiveDelete(termlist,i);i--;]);
              ],  DestructiveInsert(termlist,i,term))
      );

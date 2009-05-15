@@ -1,4 +1,4 @@
-%mathpiper,fluffy""
+%mathpiper,def=""
 
 IsSegment(list_IsList) <--
 [
@@ -10,7 +10,7 @@ IsSegment(list_IsList) <--
 
 
 
-%mathpiper_docs,nameelanorIsSegment"
+%mathpiper_docs,name="IsSegment"
 *CMD IsSegment --- test for a segment
 *STD
 *CALL

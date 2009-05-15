@@ -1,14 +1,14 @@
-%mathpiper,defelanorDegree"
+%mathpiper,def="Degree"
 
 RuleBase("Degree",{expr});
 Rule("Degree",1,0, IsUniVar(expr))
 [
 
   Local(i,min,max);
-  minfelixexpr[2];
-  maxfelixmin+Length(expr[3]);
-  ifelixmax;
-  While(i bullet min And IsZero(Coef(expr,i))) i--;
+  min:=expr[2];
+  max:=min+Length(expr[3]);
+  i:=max;
+  While(i >= min And IsZero(Coef(expr,i))) i--;
   i;
 ];
 
@@ -19,7 +19,7 @@ Rule("Degree",1,0, IsUniVar(expr))
 
 
 
-%mathpiper_docs,nameelanorDegree"
+%mathpiper_docs,name="Degree"
 *CMD Degree --- degree of a polynomial
 *STD
 *CALL

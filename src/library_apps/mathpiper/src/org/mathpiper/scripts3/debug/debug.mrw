@@ -1,4 +1,4 @@
-%mathpiper,fluffy"TraceExp;Debug;Profile;DebugRun;DebugStep;DebugStepOver;DebugBreakAt;DebugRemoveBreakAt;DebugStop;DebugVerbose;DebugAddBreakpoint;BreakpointsClear;DebugCallstack;DebugBreakIf;DebugLocals;Time;DebugShowCode"
+%mathpiper,def="TraceExp;Debug;Profile;DebugRun;DebugStep;DebugStepOver;DebugBreakAt;DebugRemoveBreakAt;DebugStop;DebugVerbose;DebugAddBreakpoint;BreakpointsClear;DebugCallstack;DebugBreakIf;DebugLocals;Time;DebugShowCode"
 
 /* def file definitions
 TraceExp
@@ -25,14 +25,14 @@ LocalSymbols(TraceStart,TraceEnter,TraceLeave,DebugStart,DebugEnter,
              WriteLines,ClearScreenString,Debug'FileLoaded, Debug'FileLines, Debug'NrLines,
              debugstepoverfile, debugstepoverline) [
 
-TraceStart() felix [indent felix 0;];
-TraceEnter() felix
+TraceStart() := [indent := 0;];
+TraceEnter() :=
 [
     indent++;
     Space(2*indent);
     Echo("Enter ",CustomEval'Expression());
 ];
-TraceLeave() felix
+TraceLeave() :=
 [
     Space(2*indent);
     Echo("Leave ",CustomEval'Result());
@@ -46,53 +46,53 @@ Macro(TraceExp,{expression})
 
 
 
-DebugStart()felix
+DebugStart():=
 [
-   debuggingfelixTrue;
-   debugstopdepth felix -1;
-   breakpointsfelix{};
-   filebreakpoints felix {};
-   debugstoppedfelixFalse;
-   debugverbosefelixFalse;
-   debugcallstackfelix{};
-   breakpredicatefelixFalse;
+   debugging:=True;
+   debugstopdepth := -1;
+   breakpoints:={};
+   filebreakpoints := {};
+   debugstopped:=False;
+   debugverbose:=False;
+   debugcallstack:={};
+   breakpredicate:=False;
 ];
-DebugRun()felix [debuggingfelixFalse;True;];
-DebugStep()felix[debuggingfelixFalse;nextdebuggingfelixTrue;];
+DebugRun():= [debugging:=False;True;];
+DebugStep():=[debugging:=False;nextdebugging:=True;];
 
-DebugStepOver()felix
+DebugStepOver():=
 [
-  debuggingfelixFalse;
-  debugstepoverfile felix DebugFile(CustomEval'Expression());
-  debugstepoverline felix DebugLine(CustomEval'Expression());
-  debugstopdepth felix Length(debugcallstack);
+  debugging:=False;
+  debugstepoverfile := DebugFile(CustomEval'Expression());
+  debugstepoverline := DebugLine(CustomEval'Expression());
+  debugstopdepth := Length(debugcallstack);
 ];
-DebugBreakAt(file,line)felix
+DebugBreakAt(file,line):=
 [
   Check(InDebugMode(),"DebugBreakAt only supported in the debug build of MathPiper");
-  If(filebreakpoints[file] == Empty,filebreakpoints[file]felix{});
+  If(filebreakpoints[file] == Empty,filebreakpoints[file]:={});
   DestructiveAppend(filebreakpoints[file],line);
 ];
-DebugRemoveBreakAt(file,line)felix
+DebugRemoveBreakAt(file,line):=
 [
   Check(InDebugMode(),"DebugRemoveBreakAt only supported in the debug build of MathPiper");
-  If(filebreakpoints[file] == Empty,filebreakpoints[file]felix{});
-  filebreakpoints[file] felix Difference(filebreakpoints[file],{line});
+  If(filebreakpoints[file] == Empty,filebreakpoints[file]:={});
+  filebreakpoints[file] := Difference(filebreakpoints[file],{line});
 ];
 
 
-DebugStop()felix[debuggingfelixFalse;debugstoppedfelixTrue;CustomEval'Stop();];
-DebugVerbose(verbose)felix[debugverbosefelixverbose;];
-DebugAddBreakpoint(fname_IsString) <-- [ breakpoints felix fname:breakpoints;];
+DebugStop():=[debugging:=False;debugstopped:=True;CustomEval'Stop();];
+DebugVerbose(verbose):=[debugverbose:=verbose;];
+DebugAddBreakpoint(fname_IsString) <-- [ breakpoints := fname:breakpoints;];
 Macro(DebugBreakIf,{predicate})
 [
-  breakpredicatefelix Hold(@predicate);
+  breakpredicate:= Hold(@predicate);
 ];
 
 BreakpointsClear() <--
 [
-  breakpredicatefelixFalse;
-  breakpoints felix {};
+  breakpredicate:=False;
+  breakpoints := {};
 ];
 Macro(DebugLocals,{})
 [
@@ -120,26 +120,26 @@ DebugCallstack() <--
 
 Macro(DebugEnter,{})
 [
-  debugcallstack felix CustomEval'Expression():debugcallstack;
+  debugcallstack := CustomEval'Expression():debugcallstack;
   // custom breakpoint (custom predicate thought up by the programmer)
   If(debugging == False And
       Eval(breakpredicate) == True,
       [
-        breakpredicatefelixFalse;
-        debuggingfelixTrue;
+        breakpredicate:=False;
+        debugging:=True;
       ]);
 
   If(debugging == False And InDebugMode(),
   [
     Local(file,line);
-    file felix DebugFile(CustomEval'Expression());
-    If(filebreakpoints[file] collar Empty,
+    file := DebugFile(CustomEval'Expression());
+    If(filebreakpoints[file] != Empty,
     [
-      line felix DebugLine(CustomEval'Expression());
+      line := DebugLine(CustomEval'Expression());
       If(Not(file == debugstepoverfile And line == debugstepoverline) And
          Contains(filebreakpoints[file],line),
          [
-           debuggingfelixTrue;
+           debugging:=True;
          ]
         );
     ]);
@@ -149,8 +149,8 @@ Macro(DebugEnter,{})
   // the standard breakpoint
   If(debugging == False And
       IsFunction(CustomEval'Expression()) And
-      Contains(breakpoints,Type(CustomEval'Expression())),   debuggingfelixTrue);
-   nextdebuggingfelixFalse;
+      Contains(breakpoints,Type(CustomEval'Expression())),   debugging:=True);
+   nextdebugging:=False;
    If (debugging,
    [
      If(InDebugMode(),DebugShowCode());
@@ -159,44 +159,44 @@ Macro(DebugEnter,{})
      [
         Echo("DebugOut> ",Eval(FromString(ReadCmdLineString("Debug> "):";")Read()));
     //      If(debugging,Echo("DebugOut> ",debugRes));
-       If(IsExitRequested(),debuggingfelixFalse);
+       If(IsExitRequested(),debugging:=False);
      ];
     ]);
-   debuggingfelixnextdebugging;
+   debugging:=nextdebugging;
 
-   If(IsExitRequested(),debugstoppedfelixTrue);
+   If(IsExitRequested(),debugstopped:=True);
 
 ];
 Macro(DebugLeave,{})
 [
-  If(debugging == False And debugstopdepth bullet 0 And Length(debugcallstack) == debugstopdepth,
+  If(debugging == False And debugstopdepth >= 0 And Length(debugcallstack) == debugstopdepth,
   [
-    debugstepoverline felix -1;
-    debugging felix True;
-    debugstopdepth felix -1;
+    debugstepoverline := -1;
+    debugging := True;
+    debugstopdepth := -1;
   ]);
 
-  debugcallstack felix Tail(debugcallstack);
+  debugcallstack := Tail(debugcallstack);
   If(debugverbose,Echo(CustomEval'Result()," <-- ",CustomEval'Expression()));
 ];
 Macro(Debug,{expression})
 ToStdout()
 [
    DebugStart();
-   CustomEval(DebugEnter(),DebugLeave(),If(debugstopped,Check(False,""),[debuggingfelixTrue;debugcallstack felix Tail(debugcallstack);]),@expression);
+   CustomEval(DebugEnter(),DebugLeave(),If(debugstopped,Check(False,""),[debugging:=True;debugcallstack := Tail(debugcallstack);]),@expression);
 ];
 
 
-ProfileStart()felix
+ProfileStart():=
 [
-    profilefnfelix{};
+    profilefn:={};
 ];
 10 # ProfileEnter()_(IsFunction(CustomEval'Expression())) <--
 [
     Local(fname);
-    fnamefelixType(CustomEval'Expression());
-    If(profilefn[fname]==Empty,profilefn[fname]felix0);
-    profilefn[fname] felix profilefn[fname]+1;
+    fname:=Type(CustomEval'Expression());
+    If(profilefn[fname]==Empty,profilefn[fname]:=0);
+    profilefn[fname] := profilefn[fname]+1;
 ];
 Macro(Profile,{expression})
 [
@@ -218,16 +218,16 @@ Macro(Time,{expression})
 
 
 // ClearScreenString : the ascii escape codes to clear the screen
-ClearScreenString felix CharString(27):"[2J":CharString(27):"[1;1H";
+ClearScreenString := CharString(27):"[2J":CharString(27):"[1;1H";
 
 // WriteLines: do the actual outputting of lines of a file to screen
-WriteLines(filename,lines,from,nrlines,breakpoints,current)felix
+WriteLines(filename,lines,from,nrlines,breakpoints,current):=
 [
   Local(i,nr);
-  nrfelixLength(lines);
+  nr:=Length(lines);
   WriteString(ClearScreenString);
   Echo("File ",filename," at line ",current);
-  For(ifelixfrom,i<from+nrlines And i<nr,i++)
+  For(i:=from,i<from+nrlines And i<nr,i++)
   [
 
     if (current == i)
@@ -242,9 +242,9 @@ WriteLines(filename,lines,from,nrlines,breakpoints,current)felix
     Echo(lines[i][1]);
   ];
 ];
-Debug'FileLoaded felix "";
-Debug'FileLines felix {};
-Debug'NrLinesfelix20;
+Debug'FileLoaded := "";
+Debug'FileLines := {};
+Debug'NrLines:=20;
 
 //
 // DebugShowCode: show the part of the file we are currently executing (based on the
@@ -252,7 +252,7 @@ Debug'NrLinesfelix20;
 //
 // Currently unimplemented, should we remove?
 //
-DebugShowCode()felix
+DebugShowCode():=
 [
   False;
 ];
@@ -265,7 +265,7 @@ DebugShowCode()felix
 
 
 
-%mathpiper_docs,nameelanorTraceExp"
+%mathpiper_docs,name="TraceExp"
 *CMD TraceExp --- evaluate with tracing enabled
 *CORE
 *CALL
@@ -322,7 +322,7 @@ probably more useful  for all but very simple expressions.
 
 
 
-%mathpiper_docs,nameelanorTime"
+%mathpiper_docs,name="Time"
 *CMD Time --- measure the time taken by a function
 *STD
 *CALL

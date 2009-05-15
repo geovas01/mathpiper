@@ -1,10 +1,10 @@
-%mathpiper,fluffy"FillList"
+%mathpiper,def="FillList"
 
 Function("FillList", {aItem, aLength})
 [
   Local(i, aResult);
-  aResultfelix{};
-  For(ifelix0, i<aLength, i++)
+  aResult:={};
+  For(i:=0, i<aLength, i++)
     DestructiveInsert(aResult,1,aItem);
   aResult;
 ];
@@ -13,7 +13,7 @@ Function("FillList", {aItem, aLength})
 
 
 
-%mathpiper_docs,nameelanorFillList"
+%mathpiper_docs,name="FillList"
 *CMD FillList --- fill a list with a certain expression
 *STD
 *CALL

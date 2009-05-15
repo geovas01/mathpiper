@@ -1,4 +1,4 @@
-%mathpiper,fluffy""
+%mathpiper,def=""
 
 
 
@@ -40,7 +40,7 @@ Use("org/mathpiper/scripts/patterns.rep/code.mpi");
 
 Use("org/mathpiper/scripts/deffunc.rep/code.mpi");
 
-// at this point felix and Function() can be used
+// at this point := and Function() can be used
 
 Use("org/mathpiper/scripts/constants.rep/code.mpi");
 Use("org/mathpiper/scripts/initialization.rep/standard.mpi");
@@ -81,7 +81,7 @@ Rule("REP",0,1,True)
       TrapError(Set(input, FromString(ReadCmdLineString("In> "))ApplyPure(PrettyReader'Get(),{})),Set(errorString,GetCoreError())),
       TrapError(Set(input, FromString(ConcatStrings(ReadCmdLineString("In> "),";"))Read()),Set(errorString,GetCoreError())));
     If(Not(errorString == ""), WriteString(errorString));
-    If (Not(IsExitRequested()) And errorStringelanor",
+    If (Not(IsExitRequested()) And errorString="",
     [
       Set(stringOut,"");
       Set(result,False);
@@ -89,7 +89,7 @@ Rule("REP",0,1,True)
       If(Not(stringOut == ""), WriteString(stringOut));
       If(Not(errorString == ""), WriteString(errorString));
       SetGlobalLazyVariable(%,result);
-      If(PrettyPrinter'Get()elanor",
+      If(PrettyPrinter'Get()="",
       [
         Write(Atom("Out> "),result);
         NewLine();

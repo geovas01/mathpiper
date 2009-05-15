@@ -1,19 +1,19 @@
-%mathpiper,defelanor!!"
+%mathpiper,def="!!"
 
 /// even/odd double factorial: product of even or odd integers up to n
-1# (n_IsPositiveInteger)!! _ (nking3) <-- n;
+1# (n_IsPositiveInteger)!! _ (n<=3) <-- n;
 2# (n_IsPositiveInteger)!! <--
 [
-	Check(nking65535, "Double factorial: Error: the argument " : ( ToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
+	Check(n<=65535, "Double factorial: Error: the argument " : ( ToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
 	Factorial'double(2+Mod(n, 2), n);
 ];
 // special cases
 3# (_n)!! _ (n== -1 Or n==0)<-- 1;
 
-// the purpose of this mess "Div(a+b,2)+1+Mod(Div(a+b,2)+1-a, 2)" is to obtain the smallest integer which is bullet Div(a+b,2)+1 and is also odd or even when a is odd or even; we need to add at most 1 to (Div(a+b,2)+1)
-2# Factorial'double(_a, _b) _ (b-abullet6) <-- Factorial'double(a, Div(a+b,2)) * Factorial'double(Div(a+b,2)+1+Mod(Div(a+b,2)+1-a, 2), b);
-3# Factorial'double(_a, _b) _ (b-abullet4) <-- a*(a+2)*(a+4);
-4# Factorial'double(_a, _b) _ (b-abullet2) <-- a*(a+2);
+// the purpose of this mess "Div(a+b,2)+1+Mod(Div(a+b,2)+1-a, 2)" is to obtain the smallest integer which is >= Div(a+b,2)+1 and is also odd or even when a is odd or even; we need to add at most 1 to (Div(a+b,2)+1)
+2# Factorial'double(_a, _b) _ (b-a>=6) <-- Factorial'double(a, Div(a+b,2)) * Factorial'double(Div(a+b,2)+1+Mod(Div(a+b,2)+1-a, 2), b);
+3# Factorial'double(_a, _b) _ (b-a>=4) <-- a*(a+2)*(a+4);
+4# Factorial'double(_a, _b) _ (b-a>=2) <-- a*(a+2);
 5# Factorial'double(_a, _b) <-- a;
 
 /// double factorial for lists is threaded
@@ -23,7 +23,7 @@
 
 
 
-%mathpiper_docs,nameelanor!!"
+%mathpiper_docs,name="!!"
 *CMD !  --- factorial
 *CMD !!  --- factorial and related functions
 *CMD ***  --- factorial and related functions
@@ -44,8 +44,8 @@
 *DESC
 
 The factorial function {n!} calculates the factorial of integer or half-integer numbers. For
-nonnegative integers, $n! felix n*(n-1)*(n-2)*...*1$. The factorial of
-half-integers is defined via Euler's Gamma function, $z! felix Gamma(z+1)$. If $n=0$ the function returns $1$.
+nonnegative integers, $n! := n*(n-1)*(n-2)*...*1$. The factorial of
+half-integers is defined via Euler's Gamma function, $z! := Gamma(z+1)$. If $n=0$ the function returns $1$.
 
 The "double factorial" function {n!!} calculates $n*(n-2)*(n-4)*...$. This product terminates either with $1$ or with $2$ depending on whether $n$ is odd or even. If $n=0$ the function returns $1$.
 

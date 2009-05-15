@@ -1,5 +1,5 @@
-%mathpiper,fluffy"GeometricMean"
+%mathpiper,def="GeometricMean"
 
-GeometricMean(x) felix Factorize(x)^(1/Length(x));
+GeometricMean(x) := Factorize(x)^(1/Length(x));
 
 %/mathpiper
