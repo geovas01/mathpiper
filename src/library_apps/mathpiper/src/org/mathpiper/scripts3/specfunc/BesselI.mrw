@@ -1,4 +1,4 @@
-%mathpiper,def="BesselI"
+%mathpiper,fluffy"BesselI"
 
 //Jonathan Leto
 
@@ -30,10 +30,10 @@
 // I lose precision.
 
 
-//40 # BesselI(_n,x_IsComplex)_(Abs(x)<= 2*Gamma(n) )  <-- N(BesselNsmall(n,x,1));
+//40 # BesselI(_n,x_IsComplex)_(Abs(x)king 2*Gamma(n) )  <-- N(BesselNsmall(n,x,1));
 
 
-40 # BesselI(_n,x_IsComplex)_(IsConstant(x) And Abs(x)<= 2*Gamma(n) )  <--
+40 # BesselI(_n,x_IsComplex)_(IsConstant(x) And Abs(x)king 2*Gamma(n) )  <--
 [
 ApproxInfSum((x/2)^(2*k+c[1])/(k! * Gamma(k+c[1]+1) ),0,x,{n} );
 ];

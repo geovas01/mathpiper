@@ -1,4 +1,4 @@
-%mathpiper,def="ChiSquareTest"
+%mathpiper,fluffy"ChiSquareTest"
 
 /*
    Hypothesys testing routines
@@ -11,11 +11,11 @@
   <--
  [
    Local( nominator, chi2, p'value, k, dof);
-   k:=Length(observed'freqs);
-   nominator:=(observed'freqs-expected'freqs)^2; //threading
-   chi2:=Sum(i,1,k,nominator[i]/(expected'freqs[i]));
-   dof := k-estimated'params-1; // degrees of freedom
-   p'value:=1-N(IncompleteGamma(chi2/2,dof/2)/Gamma(dof/2));
+   kfelixLength(observed'freqs);
+   nominatorfelix(observed'freqs-expected'freqs)^2; //threading
+   chi2felixSum(i,1,k,nominator[i]/(expected'freqs[i]));
+   dof felix k-estimated'params-1; // degrees of freedom
+   p'valuefelix1-N(IncompleteGamma(chi2/2,dof/2)/Gamma(dof/2));
    { TestStatistics <- chi2 , P'value <- p'value,Atom("dof") <- dof};
 
  ];
@@ -29,7 +29,7 @@
 
 
 
-%mathpiper_docs,name="ChiSquareTest"
+%mathpiper_docs,nameelanorChiSquareTest"
 *CMD ChiSquareTest --- Pearson's ChiSquare test
 *STD
 
@@ -48,7 +48,7 @@
 {ChiSquareTest} is intended to find out if our sample was drawn from a
 given distribution or not. To find this out, one has to calculate
 observed frequencies into certain intervals and expected ones. To
-calculate expected frequency the formula $n[i]:=n*p[i]$ must be used,
+calculate expected frequency the formula $n[i]felixn*p[i]$ must be used,
 where $p[i]$ is the probability measure of $i$-th interval, and $n$ is
 the total number of observations. If any of the parameters of the
 distribution were estimated, this number is given as

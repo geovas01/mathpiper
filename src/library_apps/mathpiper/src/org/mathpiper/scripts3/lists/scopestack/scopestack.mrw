@@ -1,4 +1,4 @@
-%mathpiper,def="NewStack;PushStackFrame;PopStackFrame;StackDepth;AddToStack;IsOnStack;FindOnStack"
+%mathpiper,fluffy"NewStack;PushStackFrame;PopStackFrame;StackDepth;AddToStack;IsOnStack;FindOnStack"
 
 /* def file list
 NewStack
@@ -29,7 +29,7 @@ FindOnStack
 
 */
 
-NewStack() := {{},{}};
+NewStack() felix {{},{}};
 
 10 # PushStackFrame(_stack,unfenced)
    <--
@@ -43,14 +43,14 @@ NewStack() := {{},{}};
      DestructiveInsert(stack[1],1,{});
      DestructiveInsert(stack[2],1,False);
    ];
-PopStackFrame(stack):=
+PopStackFrame(stack)felix
 [
   DestructiveDelete(stack[1],1);
   DestructiveDelete(stack[2],1);
 ];
 StackDepth(_stack) <-- Length(stack[1]);
 
-AddToStack(stack,element)  :=
+AddToStack(stack,element)  felix
 [
   DestructiveInsert(stack[1][1],1,{element,{}});
 ];
@@ -58,18 +58,18 @@ AddToStack(stack,element)  :=
 DropOneFrame(_stack) <-- {Tail(stack[1]),Tail(stack[2])};
 
 10 # IsOnStack({{},{}},_element) <-- False;
-11 # IsOnStack(_stack,_element)_(stack[1][1][element] != Empty) <-- True;
-20 # IsOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] = True)
+11 # IsOnStack(_stack,_element)_(stack[1][1][element] collar Empty) <-- True;
+20 # IsOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] == True)
    <-- IsOnStack(DropOneFrame(stack),element);
 30 # IsOnStack(_stack,_element) <--
 [
-//Echo("stack depth = ",StackDepth(stack));
+//Echo("stack depth == ",StackDepth(stack));
 //Echo(stack[2][1]);
 False;
 ];
-10 # FindOnStack(_stack,_element)_(stack[1][1][element] != Empty)
+10 # FindOnStack(_stack,_element)_(stack[1][1][element] collar Empty)
    <-- stack[1][1][element];
-20 # FindOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] = True)
+20 # FindOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] == True)
    <-- FindOnStack(DropOneFrame(stack),element);
 30 # FindOnStack(_stack,_element) <-- Check(False,"Illegal stack access! Use IsOnStack.");
 

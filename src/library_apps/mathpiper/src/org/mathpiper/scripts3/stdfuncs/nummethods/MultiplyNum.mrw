@@ -1,4 +1,4 @@
-%mathpiper,def="MultiplyNum"
+%mathpiper,fluffy"MultiplyNum"
 
 /// coded by Serge Winitzki. See essays documentation for algorithms.
 
@@ -18,15 +18,15 @@ Function() MultiplyNum(x);
 10 # MultiplyNum(x_IsRational, y_IsRationalOrNumber) <--
 [
 	If(
-        Type(y) = "/",  // IsRational(y), changed by Nobbi before redefinition of IsRational
+        Type(y) == "/",  // IsRational(y), changed by Nobbi before redefinition of IsRational
 		DivideN(Numer(x)*Numer(y), Denom(x)*Denom(y)),
 		// y is floating-point
 		// avoid multiplication or division by 1
 		If(
-			Numer(x)=1,
+			Numer(x)==1,
 			DivideN(y, Denom(x)),
 			If(
-				Denom(x)=1,
+				Denom(x)==1,
 				MultiplyN(y, Numer(x)),
 				DivideN(MultiplyN(y, Numer(x)), Denom(x))
 			)
@@ -46,13 +46,13 @@ Function() MultiplyNum(x);
 
 /// more than 2 operands
 30 # MultiplyNum(x_IsRationalOrNumber, y_IsNumericList)_(Length(y)>1) <-- MultiplyNum(MultiplyNum(x, Head(y)), Tail(y));
-40 # MultiplyNum(x_IsRationalOrNumber, y_IsNumericList)_(Length(y)=1) <-- MultiplyNum(x, Head(y));
+40 # MultiplyNum(x_IsRationalOrNumber, y_IsNumericList)_(Length(y)==1) <-- MultiplyNum(x, Head(y));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="MultiplyNum"
+%mathpiper_docs,nameelanorMultiplyNum"
 *CMD MultiplyNum --- optimized numerical multiplication
 *STD
 *CALL

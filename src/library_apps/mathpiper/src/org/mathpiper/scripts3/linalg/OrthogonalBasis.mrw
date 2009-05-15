@@ -1,4 +1,4 @@
-%mathpiper,def="OrthogonalBasis"
+%mathpiper,fluffy"OrthogonalBasis"
 
 // This is the standard textbook definition of the Gram-Schmidt
 // Orthogonalization process, from:
@@ -8,13 +8,13 @@
 Function("OrthogonalBasis",{W})[
 	Local(V,j,k);
 
-	V:=ZeroMatrix(Length(W),Length(W[1]) );
+	VfelixZeroMatrix(Length(W),Length(W[1]) );
 
-	V[1]:=W[1];
-	For(k:=2,k<=Length(W),k++)[
+	V[1]felixW[1];
+	For(kfelix2,kkingLength(W),k++)[
 		Check(Not IsZero(Norm(W[k])) ,
 			"OrthogonalBasis: Input vectors must be linearly independent");
-		V[k]:=W[k]-Sum(j,1,k-1,InProduct(W[k],V[j])*V[j]/Norm(V[j])^2);
+		V[k]felixW[k]-Sum(j,1,k-1,InProduct(W[k],V[j])*V[j]/Norm(V[j])^2);
 	];
 	V;
 ];
@@ -23,7 +23,7 @@ Function("OrthogonalBasis",{W})[
 
 
 
-%mathpiper_docs,name="OrthogonalBasis"
+%mathpiper_docs,nameelanorOrthogonalBasis"
 *CMD OrthogonalBasis --- create an orthogonal basis 
 *STD
 *CALL
@@ -37,7 +37,7 @@ Function("OrthogonalBasis",{W})[
 
 Given a linearly independent set {W} (constructed of rows vectors),
 this command returns an orthogonal basis {V} for {W}, which means 
-that span(V) = span(W) and {InProduct(V[i],V[j]) = 0} when {i != j}.
+that span(V) == span(W) and {InProduct(V[i],V[j]) == 0} when {i collar j}.
 This function uses the Gram-Schmidt orthogonalization process.
 
 *E.G.

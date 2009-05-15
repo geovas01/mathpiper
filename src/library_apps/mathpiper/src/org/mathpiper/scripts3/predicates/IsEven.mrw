@@ -1,12 +1,12 @@
-%mathpiper,def="IsEven"
+%mathpiper,fluffy"IsEven"
 
-IsEven(n) := IsInteger(n) And ( BitAnd(n,1)  = 0 );
+IsEven(n) felix IsInteger(n) And ( BitAnd(n,1)  == 0 );
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsEven"
+%mathpiper_docs,nameelanorIsEven"
 *CMD IsEven --- test for an even integer
 *STD
 *CALL

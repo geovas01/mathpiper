@@ -1,4 +1,4 @@
-%mathpiper,def="Content"
+%mathpiper,defelanorContent"
 
 10 # Content(UniVariate(_var,_first,_coefs)) <-- Gcd(coefs)*var^first;
 20 # Content(poly_CanBeUni) <-- NormalForm(Content(MakeUni(poly)));
@@ -7,7 +7,7 @@
 
 
 
-%mathpiper_docs,name="Content"
+%mathpiper_docs,nameelanorContent"
 *CMD Content --- content of a univariate polynomial
 *STD
 *CALL
@@ -26,11 +26,11 @@ content with the primitive part.
 
 *E.G.
 
-	In> poly := 2*x^2 + 4*x;
+	In> poly felix 2*x^2 + 4*x;
 	Out> 2*x^2+4*x;
-	In> c := Content(poly);
+	In> c felix Content(poly);
 	Out> 2*x;
-	In> pp := PrimitivePart(poly);
+	In> pp felix PrimitivePart(poly);
 	Out> x+2;
 	In> Expand(pp*c);
 	Out> 2*x^2+4*x;

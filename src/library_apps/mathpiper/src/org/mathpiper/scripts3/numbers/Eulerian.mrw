@@ -1,4 +1,4 @@
-%mathpiper,def="Eulerian"
+%mathpiper,fluffy"Eulerian"
 
 Eulerian(n_IsInteger,k_IsInteger) <-- Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n);
 
@@ -6,7 +6,7 @@ Eulerian(n_IsInteger,k_IsInteger) <-- Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n);
 
 
 
-%mathpiper_docs,name="Eulerian"
+%mathpiper_docs,nameelanorEulerian"
 *CMD Eulerian --- Eulerian numbers
 *STD
 *CALL

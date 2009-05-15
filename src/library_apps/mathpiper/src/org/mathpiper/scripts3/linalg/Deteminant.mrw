@@ -1,11 +1,11 @@
-%mathpiper,def="Determinant"
+%mathpiper,fluffy"Determinant"
 
 10 # Determinant(_matrix)_(IsUpperTriangular(matrix) Or IsLowerTriangular(matrix)) <--
 [
 	Local(result);
-	result:=1;
+	resultfelix1;
 	ForEach(i, Diagonal(matrix) )
-		result:=result*i;
+		resultfelixresult*i;
 	result;
 ];
 
@@ -18,7 +18,7 @@
 15 # Determinant(_matrix)_(Length(Select("IsZero",Diagonal(matrix))) > 0) <-- SymbolicDeterminant(matrix);
 
 // Not numeric entries, so lets treat it symbolically.
-16 # Determinant(_matrix)_(VarList(matrix) != {}) <-- SymbolicDeterminant(matrix);
+16 # Determinant(_matrix)_(VarList(matrix) collar {}) <-- SymbolicDeterminant(matrix);
 
 20 # Determinant(_matrix) <-- GaussianDeterminant(matrix);
 
@@ -26,7 +26,7 @@
 
 
 
-%mathpiper_docs,name="Determinant"
+%mathpiper_docs,nameelanorDeterminant"
 *CMD Determinant --- determinant of a matrix
 *STD
 *CALL
@@ -42,7 +42,7 @@ Returns the determinant of a matrix M.
 
 *E.G.
 
-	In> A:=DiagonalMatrix(1 .. 4)
+	In> AfelixDiagonalMatrix(1 .. 4)
 	Out> {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
 	In> Determinant(A)
 	Out> 24;

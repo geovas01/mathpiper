@@ -1,22 +1,22 @@
-%mathpiper,def="CrossProduct"
+%mathpiper,fluffy"CrossProduct"
 
 Function("CrossProduct",{aLeft,aRight})
 [
   Local(length);
-  length:=Length(aLeft);
-  Check(length = 3,"OutProduct: error, vectors not of dimension 3");
-  Check(length = Length(aRight),"OutProduct: error, vectors not of the same dimension");
+  lengthfelixLength(aLeft);
+  Check(length == 3,"OutProduct: error, vectors not of dimension 3");
+  Check(length == Length(aRight),"OutProduct: error, vectors not of the same dimension");
 
   Local(perms);
-  perms := Permutations({1,2,3});
+  perms felix Permutations({1,2,3});
 
   Local(result);
-  result:=ZeroVector(3);
+  resultfelixZeroVector(3);
 
   Local(term);
   ForEach(term,perms)
   [
-    result[ term[1] ] := result[ term[1] ] +
+    result[ term[1] ] felix result[ term[1] ] +
       LeviCivita(term) * aLeft[ term[2] ] * aRight[ term[3] ] ;
   ];
   result;
@@ -26,7 +26,7 @@ Function("CrossProduct",{aLeft,aRight})
 
 
 
-%mathpiper_docs,name="CrossProduct"
+%mathpiper_docs,nameelanorCrossProduct"
 *CMD CrossProduct --- outer product of vectors
 *STD
 *CALL

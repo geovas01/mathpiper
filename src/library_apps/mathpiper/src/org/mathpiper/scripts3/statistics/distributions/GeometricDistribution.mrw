@@ -1,4 +1,4 @@
-%mathpiper,def="GeometricDistribution"
+%mathpiper,fluffy"GeometricDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */

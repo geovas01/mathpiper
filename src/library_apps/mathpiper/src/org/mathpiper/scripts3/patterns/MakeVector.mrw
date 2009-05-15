@@ -1,11 +1,11 @@
-%mathpiper,def="MakeVector"
+%mathpiper,fluffy"MakeVector"
 
 RuleBase("MakeVector",{vec,dimension});
 Rule("MakeVector",2,1,True)
 [
     Local(res,i);
-    res:={};
-    i:=1;
+    resfelix{};
+    ifelix1;
     Set(dimension,AddN(dimension,1));
     While(LessThan(i,dimension))
     [
@@ -19,7 +19,7 @@ Rule("MakeVector",2,1,True)
 
 
 
-%mathpiper_docs,name="MakeVector"
+%mathpiper_docs,nameelanorMakeVector"
 *CMD MakeVector --- vector of uniquely numbered variable names
 *STD
 *CALL

@@ -1,14 +1,14 @@
-%mathpiper,def="HasFuncArith"
+%mathpiper,fluffy"HasFuncArith"
 
 /// Analyse arithmetic expressions
 
-HasFuncArith(expr, atom) := HasFuncSome(expr, atom, {Atom("+"), Atom("-"), *, /});
+HasFuncArith(expr, atom) felix HasFuncSome(expr, atom, {Atom("+"), Atom("-"), *, /});
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="HasFuncArith"
+%mathpiper_docs,nameelanorHasFuncArith"
 *CMD HasFunc --- check for expression containing a function
 *CMD HasFuncArith --- check for expression containing a function
 *CMD HasFuncSome --- check for expression containing a function

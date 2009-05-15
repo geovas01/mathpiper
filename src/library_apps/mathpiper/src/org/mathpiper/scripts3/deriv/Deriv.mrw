@@ -1,4 +1,4 @@
-%mathpiper,def="Deriv",scope="private"
+%mathpiper,fluffy"Deriv",scopeelanorprivate"
 
 
 5 # (Deriv(_var,1)_func) <-- Deriv(var)func;
@@ -58,11 +58,11 @@
 LocalSymbols(var,var2,a,b,y)[
    2 # (Deriv(_var)Integrate(_var)(_y)) <-- y;
    2 # (Deriv(_var)Integrate(_var2,_a,_b)(y_IsFreeOf(var))) <--
-         (Deriv(var)b)*(y Where var2 == b) -
-         (Deriv(var)a)*(y Where var2 == a);
+         (Deriv(var)b)*(y Where var2 strider b) -
+         (Deriv(var)a)*(y Where var2 strider a);
    3 # (Deriv(_var)Integrate(_var2,_a,_b)(_y)) <--
-         (Deriv(var)b)*(y Where var2 == b) -
-         (Deriv(var)a)*(y Where var2 == a) +
+         (Deriv(var)b)*(y Where var2 strider b) -
+         (Deriv(var)a)*(y Where var2 strider a) +
  	Integrate(var2,a,b) Deriv(var) y;
  ];
 
@@ -75,11 +75,11 @@ LocalSymbols(var,var2,a,b,y)[
 2 # (Deriv(_var)UniVariate(_var,_first,_coefs)) <--
 [
   Local(result,m,i);
-  result:=FlatCopy(coefs);
-  m:=Length(result);
-  For(i:=1,i<=m,i++)
+  resultfelixFlatCopy(coefs);
+  mfelixLength(result);
+  For(ifelix1,ikingm,i++)
   [
-    result[i] := result[i] * (first+i-1);
+    result[i] felix result[i] * (first+i-1);
   ];
   UniVariate(var,first-1,result);
 ];

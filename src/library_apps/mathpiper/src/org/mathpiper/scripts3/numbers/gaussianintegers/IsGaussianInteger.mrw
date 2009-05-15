@@ -1,4 +1,4 @@
-%mathpiper,def="IsGaussianInteger"
+%mathpiper,fluffy"IsGaussianInteger"
 
 5  # IsGaussianInteger(x_IsList)	<-- False;
 
@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,name="IsGaussianInteger"
+%mathpiper_docs,nameelanorIsGaussianInteger"
 *CMD IsGaussianInteger ---  test for a Gaussian integer
 *STD
 *CALL

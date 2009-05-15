@@ -1,4 +1,4 @@
-%mathpiper,def="MultiGcd"
+%mathpiper,fluffy"MultiGcd"
 
 //TODO optimize this! keeps on converting to and from internal format!
 
@@ -8,7 +8,7 @@
 20 # MultiGcd(_f,_g) <--
 [
   Local(v);
-  v:=MultiExpressionList(f+g);  //hier
+  vfelixMultiExpressionList(f+g);  //hier
   NormalForm(MultiGcd(MakeMultiNomial(f,v),MakeMultiNomial(g,v)));
 ];
 
@@ -19,13 +19,13 @@
   MultiGcd(g,f);
 ];
 
-5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(MultiLM(MultiNomial(vars,terms)) = MultiLM(g))
+5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(MultiLM(MultiNomial(vars,terms)) == MultiLM(g))
      <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
 
-5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(Select({{n},n<0},MultiLM(MultiNomial(vars,terms))-MultiLM(g)) != {})
+5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(Select({{n},n<0},MultiLM(MultiNomial(vars,terms))-MultiLM(g)) collar {})
      <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
 
-5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(NormalForm(g) = 0)
+5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(NormalForm(g) == 0)
      <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
 10 # MultiGcd(f_IsMulti,g_IsMulti) <--
 [
@@ -35,17 +35,17 @@
     Set(g,Subst(a,a)g);
   ];
   Local(new);
-  While(g != 0)
+  While(g collar 0)
   [
 //Echo("before f",f,NormalForm(f));
 //Echo("before g",g,NormalForm(g));
     Set(new, MultiDivide(f,{g}));
 //Echo("new g",NormalForm(new[1][1]),NormalForm(new[2]));
-If(new[1][1]=0,
+If(new[1][1]==0,
 [
-  g:=MakeMultiNomial(1,MultiVars(f));
+  gfelixMakeMultiNomial(1,MultiVars(f));
 //Echo("PRIM ",MultiPrimitivePart(g));
-  new[2]:=0;
+  new[2]felix0;
 ]);
     Set(new, new[2]);
     Set(f,g);

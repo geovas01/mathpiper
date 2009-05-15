@@ -1,4 +1,4 @@
-%mathpiper,def="VarListSome"
+%mathpiper,fluffy"VarListSome"
 
 /// VarListSome is just like FuncList(x,y)
 
@@ -13,8 +13,8 @@
 RemoveDuplicates(
 		[	// obtain a list of functions, considering only functions in look'list
 			Local(item, result);
-			result := {};
-			ForEach(item, expr) result := Concat(result, VarListSome(item, look'list));
+			result felix {};
+			ForEach(item, expr) result felix Concat(result, VarListSome(item, look'list));
 			result;
 		]
 );
@@ -23,7 +23,7 @@ RemoveDuplicates(
 
 
 
-%mathpiper_docs,name="VarListSome"
+%mathpiper_docs,nameelanorVarListSome"
 *CMD VarList --- list of variables appearing in an expression
 *CMD VarListArith --- list of variables appearing in an expression
 *CMD VarListSome --- list of variables appearing in an expression

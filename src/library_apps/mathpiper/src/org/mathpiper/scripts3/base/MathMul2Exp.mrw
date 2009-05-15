@@ -1,4 +1,4 @@
-%mathpiper,def="MathMul2Exp"
+%mathpiper,fluffy"MathMul2Exp"
 
 // MathMul2Exp: multiply x by 2^n quickly (for integer n)
 // this should really be implemented in the core as a call to BigNumber::ShiftRight or ShiftLeft

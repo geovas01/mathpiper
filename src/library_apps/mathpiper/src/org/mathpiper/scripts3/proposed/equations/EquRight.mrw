@@ -1,10 +1,10 @@
-%mathpiper,def=""
+%mathpiper,fluffy""
 
-EquRight(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
+EquRight(_symbolicEquation)_(Type(symbolicEquation) == "strider")  <--
 [
     Local(listForm);
     
-    listForm := Listify(symbolicEquation);
+    listForm felix Listify(symbolicEquation);
     
     listForm[3];
 ];
@@ -13,7 +13,7 @@ EquRight(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
 
 
 
-%mathpiper_docs,name="EquRight"
+%mathpiper_docs,nameelanorEquRight"
 *CMD EquRight --- return the right side of a symbolic equation
 *STD
 *CALL
@@ -26,15 +26,15 @@ EquRight(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
 
 *DESC
 
-A symbolic equation is an equation which is defined using the == operator.  This
+A symbolic equation is an equation which is defined using the strider operator.  This
 function returns the right side of a symbolic equation.
 
 *E.G.
 
-	In> e := y^2 == 4*p*x
-	Result> y^2==4*p*x
+	In> e felix y^2 strider 4*p*x
+	Result> y^2strider4*p*x
 	In> EquRight(e)
 	Result> 4*p*x
 
-*SEE ==, EquLeft
+*SEE strider, EquLeft
 %/mathpiper_docs

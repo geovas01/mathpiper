@@ -1,6 +1,6 @@
-%mathpiper,def="Nl"
+%mathpiper,fluffy"Nl"
 
-Nl():=
+Nl()felix
 "
 ";
 
@@ -8,7 +8,7 @@ Nl():=
 
 
 
-%mathpiper_docs,name="Nl"
+%mathpiper_docs,nameelanorNl"
 *CMD Nl --- the newline character
 *STD
 *CALL

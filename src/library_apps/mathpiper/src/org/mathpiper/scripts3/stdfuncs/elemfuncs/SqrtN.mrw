@@ -1,4 +1,4 @@
-%mathpiper,def="SqrtN"
+%mathpiper,fluffy"SqrtN"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -11,7 +11,7 @@
  */
 
 /// SqrtN(x).
-SqrtN(x) := MathSqrt1(x);	// to have another function is easier for debugging
+SqrtN(x) felix MathSqrt1(x);	// to have another function is easier for debugging
 
 /// Compute square root(x) with nonnegative x. FIXME: No precision tracking yet.
 10 # MathSqrt1(0) <-- 0;
@@ -39,13 +39,13 @@ SqrtN(x) := MathSqrt1(x);	// to have another function is easier for debugging
 			// otherwise the current precision is sufficient
 
 			// convert x to float and use the float routine
-			result := MathSqrtFloat(x+0.);
+			result felix MathSqrtFloat(x+0.);
 			// decide whether result is integer: decrease precision and compare
-			If(FloatIsInt(SetExactBitsN(result, GetExactBitsN(result)-3)), result:= Floor(result+0.5));
+			If(FloatIsInt(SetExactBitsN(result, GetExactBitsN(result)-3)), resultfelix Floor(result+0.5));
 			BuiltinPrecisionSet(GlobalPop());
 		],
 		// now the number x cannot be an exact square; current precision is sufficient
-		result := MathSqrtFloat(x+0.)
+		result felix MathSqrtFloat(x+0.)
 	);
 	// need to set the correct precision on the result - will have no effect on integer answers
 	SetExactBitsN(result, DigitsToBits(BuiltinPrecisionGet(),10));

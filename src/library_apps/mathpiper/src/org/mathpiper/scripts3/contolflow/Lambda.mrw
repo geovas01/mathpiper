@@ -1,4 +1,4 @@
-%mathpiper,def="Lambda"
+%mathpiper,fluffy"Lambda"
 
 /* Lambda was introduced as a form of pure function that can be passed on to the function Apply as a first argument.
  * The original method, passing it in as a list, had the disadvantage that the list was evaluated, which caused the

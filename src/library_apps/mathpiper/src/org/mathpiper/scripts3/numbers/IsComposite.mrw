@@ -1,4 +1,4 @@
-%mathpiper,def="IsComposite"
+%mathpiper,fluffy"IsComposite"
 
 5  # IsComposite(1)			<-- False;
 10 # IsComposite(n_IsPositiveInteger) 	<-- (Not IsPrime(n));
@@ -7,7 +7,7 @@
 
 
 
-%mathpiper_docs,name="IsComposite"
+%mathpiper_docs,nameelanorIsComposite"
 *CMD IsComposite --- test for a composite number
 *STD
 *CALL

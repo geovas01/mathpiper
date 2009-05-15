@@ -1,4 +1,4 @@
-%mathpiper,def="Im"
+%mathpiper,fluffy"Im"
 
 /* Imaginary parts */
 110 # Im(Complex(_r,_i)) <-- i;
@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="Im"
+%mathpiper_docs,nameelanorIm"
 *CMD Im --- imaginary part of a complex number
 *STD
 *CALL

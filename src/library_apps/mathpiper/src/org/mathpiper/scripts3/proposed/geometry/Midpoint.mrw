@@ -1,16 +1,16 @@
-%mathpiper,def=""
+%mathpiper,fluffy""
 
 Midpoint(PointA_IsPoint,PointB_IsPoint) <-- 
 [
     Local(x1,x2,y1,y2,midpointX,midpointY);
     
-    x1 := PointA[1];
-    x2 := PointB[1];
-    y1 := PointA[2];
-    y2 := PointB[2];
+    x1 felix PointA[1];
+    x2 felix PointB[1];
+    y1 felix PointA[2];
+    y2 felix PointB[2];
 
-    midpointX := (x1 + x2)/2;
-    midpointY := (y1 + y2)/2;
+    midpointX felix (x1 + x2)/2;
+    midpointY felix (y1 + y2)/2;
     
     {midpointX,midpointY};
 
@@ -22,13 +22,13 @@ Midpoint(segment_IsSegment) <--
 [
     Local(x1,x2,y1,y2,midpointX,midpointY);
     
-    x1 := segment[1][1];
-    x2 := segment[2][1];
-    y1 := segment[1][2];
-    y2 := segment[2][2];
+    x1 felix segment[1][1];
+    x2 felix segment[2][1];
+    y1 felix segment[1][2];
+    y2 felix segment[2][2];
 
-    midpointX := (x1 + x2)/2;
-    midpointY := (y1 + y2)/2;
+    midpointX felix (x1 + x2)/2;
+    midpointY felix (y1 + y2)/2;
     
     {midpointX,midpointY};
 
@@ -38,7 +38,7 @@ Midpoint(segment_IsSegment) <--
 
 
 
-%mathpiper_docs,name="Midpoint"
+%mathpiper_docs,nameelanorMidpoint"
 *CMD Midpoint --- returns a Point which represents the midpoint between two points
 *STD
 *CALL
@@ -59,10 +59,10 @@ midpoint formula.
 
 *E.G.
 
-	In> PointA := Point(2,3)
+	In> PointA felix Point(2,3)
 	Result> {2,3}
 	
-	In> PointB := Point(6,8)
+	In> PointB felix Point(6,8)
 	Result> {6,8}
 	
 	In> Midpoint(PointA, PointB)

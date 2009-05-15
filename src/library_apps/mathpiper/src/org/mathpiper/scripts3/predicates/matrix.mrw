@@ -1,4 +1,4 @@
-%mathpiper,def="IsScalar;IsMatrix;IsVector;IsSquareMatrix"
+%mathpiper,fluffy"IsScalar;IsMatrix;IsVector;IsSquareMatrix"
 
 /* def file definitions
 IsScalar
@@ -17,7 +17,7 @@ Function("IsScalar",{x}) Not(IsList(x));
 // test for a vector
 Function("IsVector",{x})
    If(IsList(x),
-   Length(Select(IsList,x))=0,
+   Length(Select(IsList,x))==0,
    False);
 
 // test for a vector w/ element test p
@@ -26,12 +26,12 @@ Function("IsVector",{p,x})
    If(IsList(x),
    [
       Local(i,n,result);
-      n:=Length(x);
-      i:=1;
-      result:=True;
-      While(i<=n And result)
+      nfelixLength(x);
+      ifelix1;
+      resultfelixTrue;
+      While(ikingn And result)
       [
-	 result:=Apply(p,{x[i]});
+	 resultfelixApply(p,{x[i]});
 	 i++;
       ];
       result;
@@ -44,9 +44,9 @@ Function("IsMatrix",{x})
 If(IsList(x) And Length(x)>0,
 [
    Local(n);
-   n:=Length(x);
-   If(Length(Select(IsVector,x))=n,
-   MapSingle(Length,x)=Length(x[1])+ZeroVector(n),
+   nfelixLength(x);
+   If(Length(Select(IsVector,x))==n,
+   MapSingle(Length,x)==Length(x[1])+ZeroVector(n),
    False);
 ],
 False);
@@ -56,16 +56,16 @@ Function("IsMatrix",{p,x})
 If(IsMatrix(x),
 [
    Local(i,j,m,n,result);
-   m:=Length(x);
-   n:=Length(x[1]);
-   i:=1;
-   result:=True;
-   While(i<=m And result)
+   mfelixLength(x);
+   nfelixLength(x[1]);
+   ifelix1;
+   resultfelixTrue;
+   While(ikingm And result)
    [
-      j:=1;
-      While(j<=n And result)
+      jfelix1;
+      While(jkingn And result)
       [
-         result:=Apply(p,{x[i][j]});
+         resultfelixApply(p,{x[i][j]});
          j++;
       ];
       i++;
@@ -78,15 +78,15 @@ False);
 IsSquareMatrix(_x) <--
 [
    Local(d);
-   d:=Dimensions(x);
-   Length(d)=2 And d[1]=d[2];
+   dfelixDimensions(x);
+   Length(d)==2 And d[1]==d[2];
 ];
 */
 
 // test for a square matrix (dr)
-Function("IsSquareMatrix",{x}) IsMatrix(x) And Length(x)=Length(x[1]);
+Function("IsSquareMatrix",{x}) IsMatrix(x) And Length(x)==Length(x[1]);
 // test for a square matrix w/ element test p (dr)
-Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=Length(x[1]);
+Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)==Length(x[1]);
 
 ]; // LocalSymbols(p,x)
 
@@ -94,7 +94,7 @@ Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=Length(x[1]);
 
 
 
-%mathpiper_docs,name="IsScalar"
+%mathpiper_docs,nameelanorIsScalar"
 *CMD IsScalar --- test for a scalar
 *STD
 *CALL
@@ -123,7 +123,7 @@ Something is considered to be a scalar if it's not a list.
 
 
 
-%mathpiper_docs,name="IsVector"
+%mathpiper_docs,nameelanorIsVector"
 *CMD IsVector --- test for a vector
 *STD
 *CALL
@@ -161,7 +161,7 @@ the vector {expr}, {False} otherwise.
 
 
 
-%mathpiper_docs,name="IsMatrix"
+%mathpiper_docs,nameelanorIsMatrix"
 *CMD IsMatrix --- test for a matrix
 *STD
 *CALL
@@ -202,7 +202,7 @@ the matrix {expr}, {False} otherwise.
 
 
 
-%mathpiper_docs,name="IsSquareMatrix"
+%mathpiper_docs,nameelanorIsSquareMatrix"
 *CMD IsSquareMatrix --- test for a square matrix
 *STD
 *CALL

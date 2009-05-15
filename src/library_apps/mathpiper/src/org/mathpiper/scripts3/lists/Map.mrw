@@ -1,12 +1,12 @@
-%mathpiper,def="Map"
+%mathpiper,fluffy"Map"
 
 LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
 [
   Function("Map",{func,lists})
   [
     Local(mapsingleresult,mapsingleitem);
-    mapsingleresult:={};
-    lists:=Transpose(lists);
+    mapsingleresultfelix{};
+    listsfelixTranspose(lists);
     ForEach(mapsingleitem,lists)
     [
       DestructiveInsert(mapsingleresult,1,Apply(func,mapsingleitem));
@@ -21,7 +21,7 @@ LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
 
 
 
-%mathpiper_docs,name="Map"
+%mathpiper_docs,nameelanorMap"
 *CMD Map --- apply an $n$-ary function to all entries in a list
 *STD
 *CALL

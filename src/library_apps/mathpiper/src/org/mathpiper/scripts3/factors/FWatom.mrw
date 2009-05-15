@@ -1,4 +1,4 @@
-%mathpiper,def="FWatom",scope="private"
+%mathpiper,fluffy"FWatom",scopeelanorprivate"
 
 10 # FWatom({_a,1}) <-- a;
 20 # FWatom({_a,_n}) <-- UnList({Atom("^"),a, n});

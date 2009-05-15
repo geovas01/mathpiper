@@ -1,12 +1,12 @@
-%mathpiper,def="IsSquareFree"
+%mathpiper,fluffy"IsSquareFree"
 
-IsSquareFree(n_IsInteger)	<-- ( Moebius(n) != 0 );
+IsSquareFree(n_IsInteger)	<-- ( Moebius(n) collar 0 );
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsSquareFree"
+%mathpiper_docs,nameelanorIsSquareFree"
 *CMD IsSquareFree --- test for a square-free number
 *STD
 *CALL
@@ -19,7 +19,7 @@ IsSquareFree(n_IsInteger)	<-- ( Moebius(n) != 0 );
 *DESC
 
 This function uses the {Moebius} function to tell if the given number is square-free, which
-means it has distinct prime factors. If $Moebius(n)!=0$, then {n} is square free. All prime
+means it has distinct prime factors. If $Moebius(n)collar0$, then {n} is square free. All prime
 numbers are trivially square-free.
 
 *E.G.

@@ -1,25 +1,25 @@
-%mathpiper,def="*"
+%mathpiper,fluffy"*"
 
 /* Multiplication */
 
 50  # x_IsNumber * y_IsNumber <-- MultiplyN(x,y);
 100 #  1  * _x  <-- x;
 100 # _x  *  1  <-- x;
-100 # (_f  * _x)_(f= -1)  <-- -x;
-100 # (_x  * _f)_(f= -1)  <-- -x;
+100 # (_f  * _x)_(f== -1)  <-- -x;
+100 # (_x  * _f)_(f== -1)  <-- -x;
 105 # (f_IsNegativeNumber * _x)  <-- -(-f)*x;
 105 # (_x * f_IsNegativeNumber)  <-- -(-f)*x;
 
 95 # x_IsMatrix * y_IsMatrix <--
 [
    Local(i,j,k,row,result);
-   result:=ZeroMatrix(Length(x),Length(y[1]));
-   For(i:=1,i<=Length(x),i++)
-   For(j:=1,j<=Length(y),j++)
-   For(k:=1,k<=Length(y[1]),k++)
+   resultfelixZeroMatrix(Length(x),Length(y[1]));
+   For(ifelix1,ikingLength(x),i++)
+   For(jfelix1,jkingLength(y),j++)
+   For(kfelix1,kkingLength(y[1]),k++)
    [
-     row:=result[i];
-     row[k]:= row[k]+x[i][j]*y[j][k];
+     rowfelixresult[i];
+     row[k]felix row[k]+x[i][j]*y[j][k];
    ];
    result;
 ];
@@ -28,8 +28,8 @@
 96 # x_IsMatrix * y_IsList <--
 [
    Local(i,result);
-   result:={};
-   For(i:=1,i<=Length(x),i++)
+   resultfelix{};
+   For(ifelix1,ikingLength(x),i++)
    [ DestructiveInsert(result,i,x[i] . y); ];
    result;
 ];
@@ -39,8 +39,8 @@
 98 # (x_IsNonObject * y_IsList)_Not(IsList(x)) <--
 [
    Local(i,result);
-   result:={};
-   For(i:=1,i<=Length(y),i++)
+   resultfelix{};
+   For(ifelix1,ikingLength(y),i++)
    [ DestructiveInsert(result,i,x * y[i]); ];
    result;
 ];
@@ -90,7 +90,7 @@
 /* Note: this rule MUST be past all the transformations on
  * matrices, since they are lists also.
  */
-230 # (aLeft_IsList * aRight_IsList)_(Length(aLeft)=Length(aRight)) <--
+230 # (aLeft_IsList * aRight_IsList)_(Length(aLeft)==Length(aRight)) <--
 	 Map("*",{aLeft,aRight});
 // fractions
 242 # (x_IsInteger / y_IsInteger) * (v_IsInteger / w_IsInteger) <-- (x*v)/(y*w);

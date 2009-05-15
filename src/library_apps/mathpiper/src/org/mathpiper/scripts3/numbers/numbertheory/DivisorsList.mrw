@@ -1,4 +1,4 @@
-%mathpiper,def="DivisorsList"
+%mathpiper,fluffy"DivisorsList"
 
 /* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
@@ -8,14 +8,14 @@
 DivisorsList(n_IsPositiveInteger) <--
 [
  Local(nFactors,f,result,oldresult,x);
- nFactors:= Factors(n);
- result := {1};
+ nFactorsfelix Factors(n);
+ result felix {1};
  ForEach (f,nFactors)
     [
-      oldresult := result;
-      For (k:=1,k<=f[2],k++)
+      oldresult felix result;
+      For (kfelix1,kkingf[2],k++)
         ForEach (x,oldresult)
-	  result:=Append(result,x*f[1]^k);
+	  resultfelixAppend(result,x*f[1]^k);
     ];
   result;
 ];
@@ -24,7 +24,7 @@ DivisorsList(n_IsPositiveInteger) <--
 
 
 
-%mathpiper_docs,name="DivisorsList"
+%mathpiper_docs,nameelanorDivisorsList"
 *CMD DivisorsList --- the list of divisors
 *STD
 *CALL

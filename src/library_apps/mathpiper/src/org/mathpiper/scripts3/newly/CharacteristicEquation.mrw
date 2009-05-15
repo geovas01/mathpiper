@@ -1,4 +1,4 @@
-%mathpiper,def="CharacteristicEquation"
+%mathpiper,fluffy"CharacteristicEquation"
 
 Function("CharacteristicEquation",{matrix,var})
    SymbolicDeterminant(matrix-var*Identity(Length(matrix)));
@@ -8,7 +8,7 @@ HoldArg("CharacteristicEquation",var);
 
 
 
-%mathpiper_docs,name="CharacteristicEquation"
+%mathpiper_docs,nameelanorCharacteristicEquation"
 *CMD CharacteristicEquation --- get characteristic polynomial of a matrix
 *STD
 *CALL
@@ -29,9 +29,9 @@ of the matrix, Det(matrix-I*var);
 
 *E.G.
 
-	In> A:=DiagonalMatrix({a,b,c})
+	In> AfelixDiagonalMatrix({a,b,c})
 	Out> {{a,0,0},{0,b,0},{0,0,c}};
-	In> B:=CharacteristicEquation(A,x)
+	In> BfelixCharacteristicEquation(A,x)
 	Out> (a-x)*(b-x)*(c-x);
 	In> Expand(B,x)
 	Out> (b+a+c)*x^2-x^3-((b+a)*c+a*b)*x+a*b*c;

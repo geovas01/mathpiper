@@ -1,4 +1,4 @@
-%mathpiper,def="ReII",scope="private"
+%mathpiper,fluffy"ReII",scopeelanorprivate"
 
 ReII(_c) <-- NN(c)[1];
 

@@ -1,4 +1,4 @@
-%mathpiper,def="Factor"
+%mathpiper,fluffy"Factor"
 
 // This is so Factor(Sin(x)) doesn't return FWatom(Sin(x))
 //Factor(_p) <-- FW(Factors(p));
@@ -8,7 +8,7 @@
 
 
 
-%mathpiper_docs,name="Factor"
+%mathpiper_docs,nameelanorFactor"
 *CMD Factor --- factorization, in pretty form
 *STD
 *CALL

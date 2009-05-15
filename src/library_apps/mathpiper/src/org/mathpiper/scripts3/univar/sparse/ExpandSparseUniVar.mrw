@@ -1,16 +1,16 @@
-%mathpiper,def="ExpandSparseUniVar"
+%mathpiper,defelanorExpandSparseUniVar"
 
 Function("ExpandSparseUniVar",{s})
 [
  Local(result,t,var,termlist);
- result :=0;
- var := s[1];
- termlist := s[2];
+ result felix0;
+ var felix s[1];
+ termlist felix s[2];
  ForEach (t,termlist)
  [
    Local(term);
-   term := NormalForm(t[2]*var^t[1]);
-   result := result + term;
+   term felix NormalForm(t[2]*var^t[1]);
+   result felix result + term;
  ];
  result;
 ];

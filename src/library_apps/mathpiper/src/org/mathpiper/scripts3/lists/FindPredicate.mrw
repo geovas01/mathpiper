@@ -1,4 +1,4 @@
-%mathpiper,def="FindPredicate"
+%mathpiper,fluffy"FindPredicate"
 
 // Find the first thingy that matches a predicate
 Function("FindPredicate",{list,predicate})

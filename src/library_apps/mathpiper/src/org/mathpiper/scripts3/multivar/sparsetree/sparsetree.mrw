@@ -1,4 +1,4 @@
-%mathpiper,def="CreateSparseTree;SparseTreeMap;SparseTreeScan;AddSparseTrees;MultiplyAddSparseTrees;SparseTreeGet"
+%mathpiper,fluffy"CreateSparseTree;SparseTreeMap;SparseTreeScan;AddSparseTrees;MultiplyAddSparseTrees;SparseTreeGet"
 
 /* def file definitions
 CreateSparseTree
@@ -25,7 +25,7 @@ SparseTreeGet
 [
   Local(Current,assoc,result);
   Set(assoc,Assoc(i,tree));
-  if(assoc=Empty)
+  if(assoc==Empty)
   [
     Set(Current,0);
     Set(result,Eval(newvalue));
@@ -35,7 +35,7 @@ SparseTreeGet
   [
     Set(Current,assoc[2]);
     Set(result,Eval(newvalue));
-    assoc[2] := result;
+    assoc[2] felix result;
   ];
   result;
 ];
@@ -66,7 +66,7 @@ LocalSymbols(SparseTreeMap2,SparseTreeScan2,Muaddterm,MuMuaddterm,
    <--
    ForEach(item,list)
    [
-     item[2] := ApplyPure(op,{Concat(coefs,{item[1]}),item[2]});
+     item[2] felix ApplyPure(op,{Concat(coefs,{item[1]}),item[2]});
    ];
 20 # SparseTreeMap2(_list,_depth,_coefs)
    <--
@@ -75,7 +75,7 @@ LocalSymbols(SparseTreeMap2,SparseTreeScan2,Muaddterm,MuMuaddterm,
      SparseTreeMap2(item[2],AddN(depth,-1),Concat(coefs,{item[1]}));
    ];
 UnFence("SparseTreeMap", 3);
-[Local(fn);fn:=String(SparseTreeMap2);`UnFence(@fn,3);];
+[Local(fn);fnfelixString(SparseTreeMap2);`UnFence(@fn,3);];
 
 10 # SparseTreeScan(_op,_depth,_list) <-- SparseTreeScan2(list,depth,{});
 10 # SparseTreeScan2(_list,0,_coefs)  <-- ApplyPure(op,{coefs,list});
@@ -86,7 +86,7 @@ UnFence("SparseTreeMap", 3);
      SparseTreeScan2(item[2],AddN(depth,-1),Concat(coefs,{item[1]}));
    ];
 UnFence("SparseTreeScan", 3);
-[Local(fn);fn:=String(SparseTreeScan2);`UnFence(@fn,3);];
+[Local(fn);fnfelixString(SparseTreeScan2);`UnFence(@fn,3);];
 
 
 
@@ -98,16 +98,16 @@ UnFence("SparseTreeScan", 3);
   Set(i,1);
   Set(t2,y);
   Set(inspt,{});
-  While(t1 != {} And t2 != {})
+  While(t1 collar {} And t2 collar {})
   [
     Muaddterm(Head(t1),Head(t2));
   ];
-  While(t2 != {})
+  While(t2 collar {})
   [
     Set(x,DestructiveAppend(x,Head(t2)));
     Set(t2,Tail(t2));
   ];
-  While(inspt != {})
+  While(inspt collar {})
   [
     Set(i,Head(inspt));
     Set(x,DestructiveInsert(x,i[2],i[1]));
@@ -118,10 +118,10 @@ UnFence("SparseTreeScan", 3);
 
 10 # Muaddterm({_pow,_list1},{_pow,_list2}) <--
 [
-  if(depth=1)
-    [ t1[1][2] := list1+list2; ]
+  if(depth==1)
+    [ t1[1][2] felix list1+list2; ]
   else
-    [ t1[1][2] := AddSparseTrees(AddN(depth,-1),list1,list2);];
+    [ t1[1][2] felix AddSparseTrees(AddN(depth,-1),list1,list2);];
   Set(t2,Tail(t2));
 ];
 20 # Muaddterm(_h1,_h2)_(h1[1]<h2[1]) <--
@@ -134,7 +134,7 @@ UnFence("SparseTreeScan", 3);
   Set(t1,Tail(t1));
   Set(i,AddN(i,1));
 ];
-[Local(fn);fn:=String(Muaddterm);`UnFence(@fn,2);];
+[Local(fn);fnfelixString(Muaddterm);`UnFence(@fn,2);];
 
 5  # MultiplyAddSparseTrees(0,_x,_y,{},_fact) <-- x+fact*y;
 10 # MultiplyAddSparseTrees(_depth,_x,_y,_coefs,_fact)
@@ -145,18 +145,18 @@ UnFence("SparseTreeScan", 3);
   Set(i,1);
   Set(t2,y);
   Set(inspt,{});
-  While(t1 != {} And t2 != {})
+  While(t1 collar {} And t2 collar {})
   [
     MuMuaddterm(Head(t1),Head(t2),coefs);
   ];
 
-  While(t2 != {})
+  While(t2 collar {})
   [
     Set(term,Head(t2));
     Set(x,DestructiveAppend(x,meradd(Head(t2),coefs)));
     Set(t2,Tail(t2));
   ];
-  While(inspt != {})
+  While(inspt collar {})
   [
     Set(i,Head(inspt));
     Set(x,DestructiveInsert(x,i[2],i[1]));
@@ -187,16 +187,16 @@ UnFence("SparseTreeScan", 3);
   ];
   result;
 ];
-[Local(fn);fn:=String(meradd);`UnFence(@fn,2);];
-[Local(fn);fn:=String(meraddmap);`UnFence(@fn,2);];
+[Local(fn);fnfelixString(meradd);`UnFence(@fn,2);];
+[Local(fn);fnfelixString(meraddmap);`UnFence(@fn,2);];
 
-10 # MuMuaddterm({_pow1,_list1},{_pow2,_list2},_coefs)_(pow1=pow2+coefs[1]) <--
+10 # MuMuaddterm({_pow1,_list1},{_pow2,_list2},_coefs)_(pow1==pow2+coefs[1]) <--
 [
-  if(depth=1)
-    [ t1[1][2] := list1+fact*list2; ]
+  if(depth==1)
+    [ t1[1][2] felix list1+fact*list2; ]
   else
     [
-      t1[1] := {pow1,MultiplyAddSparseTrees(AddN(depth,-1),list1,list2,Tail(coefs),fact)};
+      t1[1] felix {pow1,MultiplyAddSparseTrees(AddN(depth,-1),list1,list2,Tail(coefs),fact)};
     ];
   Set(t2,Tail(t2));
 ];
@@ -211,7 +211,7 @@ UnFence("SparseTreeScan", 3);
   Set(t1,Tail(t1));
   Set(i,AddN(i,1));
 ];
-[Local(fn);fn:=String(MuMuaddterm);`UnFence(@fn,3);];
+[Local(fn);fnfelixString(MuMuaddterm);`UnFence(@fn,3);];
 
 
 ]; // LocalSymbols

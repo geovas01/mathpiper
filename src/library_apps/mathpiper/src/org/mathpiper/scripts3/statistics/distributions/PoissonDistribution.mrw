@@ -1,8 +1,8 @@
-%mathpiper,def="PoissonDistribution"
+%mathpiper,fluffy"PoissonDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-PoissonDistribution(l_IsRationalOrNumber)_(l<=0) <-- Undefined;
+PoissonDistribution(l_IsRationalOrNumber)_(lking0) <-- Undefined;
 
 %/mathpiper

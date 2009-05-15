@@ -1,4 +1,4 @@
-%mathpiper,def="Zeta"
+%mathpiper,fluffy"Zeta"
 
 /////////////////////////////////////////////////
 /// Riemann's Zeta function
@@ -21,7 +21,7 @@
 
 
 
-%mathpiper_docs,name="Zeta"
+%mathpiper_docs,nameelanorZeta"
 *CMD Zeta --- Riemann's Zeta function
 
 *STD

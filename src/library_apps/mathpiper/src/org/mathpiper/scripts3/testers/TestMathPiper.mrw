@@ -1,4 +1,4 @@
-%mathpiper,def="TestMathPiper"
+%mathpiper,defelanorTestMathPiper"
 
 /* Testing MathPiper functionality by checking expressions against correct
    answer.
@@ -9,11 +9,11 @@
 Macro ("TestMathPiper", {expr, ans})
 [
 	Local(diff,exprEval, ansEval);
-  exprEval:= @expr;
-  ansEval:= @ans;
+  exprEvalfelix @expr;
+  ansEvalfelix @ans;
 
-	diff := Simplify(exprEval - ansEval);
-		If (Simplify(diff)=0, True,
+	diff felix Simplify(exprEval - ansEval);
+		If (Simplify(diff)==0, True,
 			[
 			  WriteString("******************");
 			  NewLine();
@@ -44,8 +44,8 @@ Macro ("TestMathPiper", {expr, ans})
 Function ("TestMathPiper", {expr, ans})
 [
 	Local(diff);
-	diff := Simplify(Eval(expr)-Eval(ans));
-		If (Simplify(diff)=0, True,
+	diff felix Simplify(Eval(expr)-Eval(ans));
+		If (Simplify(diff)==0, True,
 			[
 			  WriteString("******************");
 			  NewLine();

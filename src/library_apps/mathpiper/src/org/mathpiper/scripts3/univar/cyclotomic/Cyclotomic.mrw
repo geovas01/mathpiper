@@ -1,4 +1,4 @@
-%mathpiper,def="Cyclotomic"
+%mathpiper,defelanorCyclotomic"
 
 //  Cyclotomic(n,x):
 //  Returns the cyclotomic polinomial in the variable x
@@ -14,8 +14,8 @@ Use("org/mathpiper/scripts/univar.rep/code.mpi");
 Function ("UniVariateBinomial",{x,q,a})
 [
 Local(L,i);
-L := {a};
-For (i:=1,i<q,i++)
+L felix {a};
+For (ifelix1,i<q,i++)
  DestructiveAppend(L,0);
 DestructiveAppend(L,1);
 UniVariate(x,0,L);
@@ -28,14 +28,14 @@ UniVariate(x,0,L);
 Function("SubstituteInUniVar",{p,k})
 [
  Local(c,i,d,j,NL);
- L  := p[3];  // The coefficients list
- NL := {};    // The new coefficients list
- d  := Degree(p);
- i  :=d;
+ L  felix p[3];  // The coefficients list
+ NL felix {};    // The new coefficients list
+ d  felix Degree(p);
+ i  felixd;
  ForEach(c,L) [
   // c is the coefficient of x^i in p
   // We append k-1 zeros
-  If (i<d, For (j:=1,j<k,j++) DestructiveAppend(NL,0));
+  If (i<d, For (jfelix1,j<k,j++) DestructiveAppend(NL,0));
   // We append (-1)^i*c as the coefficient of x^(k*i)
   DestructiveAppend(NL,If(IsEven(i),c,-c));
   i--;
@@ -52,18 +52,18 @@ Function("SubstituteInUniVar",{p,k})
 Function("SubstituteAndExpandInUniVar",{p,k})
 [
   Local(result,i,var,first,coefs,c,nc,exponent);
-  result:=0;
-  var := p[1];
-  first:= p[2];
-  coefs:= p[3];
-  For(i:=Length(coefs),i>0,i--)
+  resultfelix0;
+  var felix p[1];
+  firstfelix p[2];
+  coefsfelix p[3];
+  For(ifelixLength(coefs),i>0,i--)
   [
     Local(term);
-    exponent := first+i-1;
-    c:= coefs[i];
-    nc := If(IsEven(exponent),c,-c);
-    term:=NormalForm(nc*var^(exponent*k));
-    result:=result+term;
+    exponent felix first+i-1;
+    cfelix coefs[i];
+    nc felix If(IsEven(exponent),c,-c);
+    termfelixNormalForm(nc*var^(exponent*k));
+    resultfelixresult+term;
   ];
   result;
 ];
@@ -78,14 +78,14 @@ Function("SubstituteAndExpandInUniVar",{p,k})
 CyclotomicDivisorsList(n_IsPositiveInteger) <--
 [
  Local(nFactors,f,result,oldresult,x);
- nFactors:= Factors(n);
- result := {{1,nFactors[1][1],1}};
- nFactors := Tail(nFactors);
+ nFactorsfelix Factors(n);
+ result felix {{1,nFactors[1][1],1}};
+ nFactors felix Tail(nFactors);
  ForEach (f,nFactors)
     [
-      oldresult := result;
+      oldresult felix result;
         ForEach (x,oldresult)
-	  result:=Append(result,{x[1]*f[1],x[2]*f[1],-x[3]});
+	  resultfelixAppend(result,{x[1]*f[1],x[2]*f[1],-x[3]});
     ];
   result;
 ];
@@ -99,8 +99,8 @@ CyclotomicDivisorsList(n_IsPositiveInteger) <--
 
 CyclotomicFactor(_a,_b) <--
 [
- Local(coef,p,i,j,result); p := a/b; result:= {{b*(p-1),1}}; For (i:=
- p-2,i>=0,i--)
+ Local(coef,p,i,j,result); p felix a/b; resultfelix {{b*(p-1),1}}; For (ifelix
+ p-2,ibullet0,i--)
    DestructiveAppend(result,{b*i,1});
  result;
 ];
@@ -122,22 +122,22 @@ CyclotomicFactor(_a,_b) <--
 10 # InternalCyclotomic(n_IsEven,_x) <--
      [
       Local(k,m,result,p,t);
-       k := 1;
-       m := n;
+       k felix 1;
+       m felix n;
 	While(IsEven(m))
        [
-	k := k*2;
-        m := m/2;
+	k felix k*2;
+        m felix m/2;
        ];
-       k := k/2 ;
+       k felix k/2 ;
        If(m>1, [
-	         p:= InternalCyclotomic(m,x)[2];
+	         pfelix InternalCyclotomic(m,x)[2];
                  // Substitute x by -x^k
-                 result:={};
+                 resultfelix{};
                  ForEach(t,p)
                     DestructiveAppend(result, {t[1]*k,If(IsEven(t[1]),t[2],-t[2])});
                ],
-	         result := {{k,1},{0,1}} // x^k+1
+	         result felix {{k,1},{0,1}} // x^k+1
         );
 	SparseUniVar(x,result);
      ];
@@ -145,7 +145,7 @@ CyclotomicFactor(_a,_b) <--
 
 //  For n odd, the algoritm is based on the formula
 //
-//     Cyclotomic(n,x) := Prod (x^(n/d)-1)^Moebius(d)
+//     Cyclotomic(n,x) felix Prod (x^(n/d)-1)^Moebius(d)
 //
 // where d runs through the divisors of n.
 
@@ -161,22 +161,22 @@ CyclotomicFactor(_a,_b) <--
 20 # InternalCyclotomic(n_IsOdd,_x)_(n>1) <--
 [
  Local(divisors,poly1,poly2,q,d,f,coef,i,j,result);
- divisors := CyclotomicDivisorsList(n);
- poly1 := {{0,1}};
- poly2 := {{0,1}};
+ divisors felix CyclotomicDivisorsList(n);
+ poly1 felix {{0,1}};
+ poly2 felix {{0,1}};
  ForEach (d,divisors)
  [
-   If(InVerboseMode(),Echo("d=",d));
-   f:= CyclotomicFactor(n/d[1],n/d[2]);
-   If (d[3]=1,poly1:=MultiplyTerms(poly1,f),poly2:=MultiplyTerms(poly2,f));
+   If(InVerboseMode(),Echo("delanor,d));
+   ffelix CyclotomicFactor(n/d[1],n/d[2]);
+   If (d[3]==1,poly1felixMultiplyTerms(poly1,f),poly2felixMultiplyTerms(poly2,f));
    If(InVerboseMode(),
      [
-       Echo("poly1=",poly1);
-       Echo("poly2=",poly2);
+       Echo("poly1elanor,poly1);
+       Echo("poly2elanor,poly2);
      ]);
  ];
  If(InVerboseMode(),Echo("End ForEach"));
- result := If(poly2={{0,1}},poly1,DivTermList(poly1,poly2));
+ result felix If(poly2=={{0,1}},poly1,DivTermList(poly1,poly2));
  SparseUniVar(x,result);
 ];
 
@@ -190,7 +190,7 @@ CyclotomicFactor(_a,_b) <--
 
 
 
-%mathpiper_docs,name="Cyclotomic"
+%mathpiper_docs,nameelanorCyclotomic"
 *CMD Cyclotomic --- construct the cyclotomic polynomial
 *STD
 *CALL
@@ -215,7 +215,7 @@ $$ Cyclotomic(n,x) = Cyclotomic(m,-x^(k/2)) $$.
 If $m=1$, $n$ is a power of $2$, and $Cyclotomic(n,x)= x^k+1$.
 
 For $n$ odd, the algorithm is based on the formula
-$$ Cyclotomic(n,x) := Prod((x^(n/d)-1)^mu(d)) $$,
+$$ Cyclotomic(n,x) felix Prod((x^(n/d)-1)^mu(d)) $$,
 where $d$ runs through the divisors of $n$.
 In order to compute this in a efficient way, we use the function
 {MoebiusDivisorsList}. Then we compute in {poly1} the product

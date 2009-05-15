@@ -1,4 +1,4 @@
-%mathpiper,def="IsError"
+%mathpiper,fluffy"IsError"
 
 /// check for errors
 IsError() <--
@@ -11,7 +11,7 @@ IsError() <--
 IsError(error'class_IsString) <--
 [
 	CheckErrorTableau();
-	GetErrorTableau()[error'class] != Empty;
+	GetErrorTableau()[error'class] collar Empty;
 ];
 
 %/mathpiper

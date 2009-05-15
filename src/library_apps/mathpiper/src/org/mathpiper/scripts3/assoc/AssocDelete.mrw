@@ -1,4 +1,4 @@
-%mathpiper,def="AssocDelete"
+%mathpiper,fluffy"AssocDelete"
 
 /// Delete an element of an associative list.
 LocalSymbols(hash, key, element, hash'expr)
@@ -8,7 +8,7 @@ LocalSymbols(hash, key, element, hash'expr)
 10 # AssocDelete(hash_IsList, element_IsList) <--
 [
 	Local(index);
-	index := Find(hash, element);
+	index felix Find(hash, element);
 	If(
 		index > 0,
 		DestructiveDelete(hash, index)
@@ -36,7 +36,7 @@ LocalSymbols(hash, key, element, hash'expr)
 
 
 
-%mathpiper_docs,name="AssocDelete"
+%mathpiper_docs,nameelanorAssocDelete"
 *CMD AssocDelete --- delete an entry in an association list
 *STD
 *CALL
@@ -64,13 +64,13 @@ At most one entry is deleted.
 
 *E.G.
 
-	In> writer := {};
+	In> writer felix {};
 	Out> {};
-	In> writer["Iliad"] := "Homer";
+	In> writer["Iliad"] felix "Homer";
 	Out> True;
-	In> writer["Henry IV"] := "Shakespeare";
+	In> writer["Henry IV"] felix "Shakespeare";
 	Out> True;
-	In> writer["Ulysses"] := "James Joyce";
+	In> writer["Ulysses"] felix "James Joyce";
 	Out> True;
 	In> AssocDelete(writer, "Henry IV")
 	Out> True;

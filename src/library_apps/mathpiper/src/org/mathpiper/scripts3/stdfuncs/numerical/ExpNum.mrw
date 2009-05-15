@@ -1,4 +1,4 @@
-%mathpiper,def="ExpNum"
+%mathpiper,fluffy"ExpNum"
 
 /// low-level numerical calculations of elementary functions.
 /// These are only called if InNumericMode() returns True
@@ -6,11 +6,11 @@
 // large positive x
 10 # ExpNum(x_IsNumber) _ (x > MathExpThreshold()) <-- [
 	Local(i, y);
-	i:=0;
-	For(i:=0, x > MathExpThreshold(), i++)
-		x := DivideN(x, 2.);
-	For(y:= ExpN(x), i>0, i--)
-		y := MultiplyN(y, y);
+	ifelix0;
+	For(ifelix0, x > MathExpThreshold(), i++)
+		x felix DivideN(x, 2.);
+	For(yfelix ExpN(x), i>0, i--)
+		y felix MultiplyN(y, y);
 	y;
 
 ];

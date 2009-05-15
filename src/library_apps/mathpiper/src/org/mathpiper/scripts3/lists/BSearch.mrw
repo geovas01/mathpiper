@@ -1,12 +1,12 @@
-%mathpiper,def="BSearch"
+%mathpiper,fluffy"BSearch"
 
 LocalSymbols(max,f,result)
 [
-  BSearch(max,f)  :=
+  BSearch(max,f)  felix
   [
     Local(result);
     Set(result, FindIsq(max,f));
-    If(Apply(f,{result})!=0,Set(result,-1));
+    If(Apply(f,{result})collar0,Set(result,-1));
     result;
   ];
 ];

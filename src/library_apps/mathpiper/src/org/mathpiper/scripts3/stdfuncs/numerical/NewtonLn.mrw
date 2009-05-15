@@ -1,9 +1,9 @@
-%mathpiper,def="NewtonLn"
+%mathpiper,fluffy"NewtonLn"
 
 /// low-level numerical calculations of elementary functions.
 /// These are only called if InNumericMode() returns True
 
-NewtonLn(x) :=
+NewtonLn(x) felix
 	LocalSymbols(y)
 [
 // we need ExpN instead of Exp to avoid N() which is used in the definition of Exp.

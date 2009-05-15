@@ -1,4 +1,4 @@
-%mathpiper,def="MoveDeltas",scope="private"
+%mathpiper,defelanorMoveDeltas",scopeelanorprivate"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
@@ -11,9 +11,9 @@
 MoveDeltas(_list) <--
 [
   Local(result,i,nr);
-  result:={};
-  nr:=Length(list);
-  For(i:=1,i<=nr,i++)
+  resultfelix{};
+  nrfelixLength(list);
+  For(ifelix1,ikingnr,i++)
   [
     ApplyDelta(result,list[i]);
   ];

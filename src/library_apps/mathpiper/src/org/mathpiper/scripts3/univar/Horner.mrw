@@ -1,19 +1,19 @@
-%mathpiper,def="Horner"
+%mathpiper,defelanorHorner"
 
 Horner(_e,_v) <--
 [
   Local(uni,coefs,result);
-  uni := MakeUni(e,v);
-  coefs:=DestructiveReverse(uni[3]);
-  result:=0;
+  uni felix MakeUni(e,v);
+  coefsfelixDestructiveReverse(uni[3]);
+  resultfelix0;
 
-  While(coefs != {})
+  While(coefs collar {})
   [
-    result := result*v;
-    result := result+Head(coefs);
-    coefs  := Tail(coefs);
+    result felix result*v;
+    result felix result+Head(coefs);
+    coefs  felix Tail(coefs);
   ];
-  result:=result*v^uni[2];
+  resultfelixresult*v^uni[2];
   result;
 ];
 
@@ -21,7 +21,7 @@ Horner(_e,_v) <--
 
 
 
-%mathpiper_docs,name="Horner"
+%mathpiper_docs,nameelanorHorner"
 *CMD Horner --- convert a polynomial into the Horner form
 *STD
 *CALL
@@ -50,7 +50,7 @@ disappeared.
 
 *E.G.
 
-	In> expr1:=Expand((1+x)^4)
+	In> expr1felixExpand((1+x)^4)
 	Out> x^4+4*x^3+6*x^2+4*x+1;
 	In> Horner(expr1,x)
 	Out> (((x+4)*x+6)*x+4)*x+1;

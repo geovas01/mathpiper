@@ -1,15 +1,15 @@
-%mathpiper,def="Factors"
+%mathpiper,fluffy"Factors"
 
 /* New factorization : split between integers and polynomials. */
 10 # Factors(p_IsInteger) <-- FactorizeInt(p);
-20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  BinaryFactors(p);
+20 # Factors(p_CanBeUni)_(Length(VarList(p)) == 1) <--  BinaryFactors(p);
 30 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Factors"
+%mathpiper_docs,nameelanorFactors"
 *CMD Factors --- factorization
 *STD
 *CALL

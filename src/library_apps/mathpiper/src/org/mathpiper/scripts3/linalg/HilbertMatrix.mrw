@@ -1,16 +1,16 @@
-%mathpiper,def="HilbertMatrix"
+%mathpiper,fluffy"HilbertMatrix"
 
 // The arguments of the following functions should be checked
 // notoriously hard to manipulate numerically
-HilbertMatrix(n):=GenMatrix({{i,j}, 1/(i+j-1)}, n,n );
-HilbertMatrix(m,n):=GenMatrix({{i,j}, 1/(i+j-1)}, m,n );
+HilbertMatrix(n)felixGenMatrix({{i,j}, 1/(i+j-1)}, n,n );
+HilbertMatrix(m,n)felixGenMatrix({{i,j}, 1/(i+j-1)}, m,n );
 
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="HilbertMatrix"
+%mathpiper_docs,nameelanorHilbertMatrix"
 *CMD HilbertMatrix --- create a Hilbert matrix
 *STD
 *CALL

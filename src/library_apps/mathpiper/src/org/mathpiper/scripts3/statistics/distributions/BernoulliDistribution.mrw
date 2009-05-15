@@ -1,4 +1,4 @@
-%mathpiper,def="BernoulliDistribution"
+%mathpiper,fluffy"BernoulliDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
@@ -9,7 +9,7 @@ BernoulliDistribution(p_IsRationalOrNumber)_(p<0 Or p>1) <-- Undefined;
 
 
 
-%mathpiper_docs,name="BernoulliDistribution"
+%mathpiper_docs,nameelanorBernoulliDistribution"
 *CMD BernoulliDistribution --- Bernoulli distribution
 *STD
 *CALL 

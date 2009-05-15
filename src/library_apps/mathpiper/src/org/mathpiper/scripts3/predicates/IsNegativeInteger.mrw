@@ -1,12 +1,12 @@
-%mathpiper,def="IsNegativeInteger"
+%mathpiper,fluffy"IsNegativeInteger"
 
-IsNegativeInteger(x):= IsInteger(x) And x < 0;
+IsNegativeInteger(x)felix IsInteger(x) And x < 0;
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsNegativeInteger"
+%mathpiper_docs,nameelanorIsNegativeInteger"
 *CMD IsNegativeInteger --- test for a negative integer
 *STD
 *CALL

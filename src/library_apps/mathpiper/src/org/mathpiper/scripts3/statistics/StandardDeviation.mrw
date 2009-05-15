@@ -1,7 +1,7 @@
-%mathpiper,def="StandardDeviation"
+%mathpiper,fluffy"StandardDeviation"
 
 // stdev in Wester benchmark
-StandardDeviation(x) := Sqrt(UnbiasedVariance(x));
+StandardDeviation(x) felix Sqrt(UnbiasedVariance(x));
 // Why Sqrt(1.01) --> Sqrt(1.01) ?
 
 %/mathpiper

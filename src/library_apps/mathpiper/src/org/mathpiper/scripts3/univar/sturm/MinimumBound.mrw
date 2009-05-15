@@ -1,16 +1,16 @@
-%mathpiper,def="MinimumBound"
+%mathpiper,defelanorMinimumBound"
 
-10 # MinimumBound(_p)_(IsZero(p Where x==0)) <-- 0;
+10 # MinimumBound(_p)_(IsZero(p Where xstrider0)) <-- 0;
 
 20 # MinimumBound(_p)_(Degree(p)>0) <--
 [
   Local(an,result);
-  an:=Coef(p,1 .. (Degree(p)))/Coef(p,0);
-  an := N(Eval(Abs(an)^(1/(1 .. Degree(p)))));
+  anfelixCoef(p,1 .. (Degree(p)))/Coef(p,0);
+  an felix N(Eval(Abs(an)^(1/(1 .. Degree(p)))));
 
-  result:=0;
-  an:=2*Max(an);
-  if(Not IsZero(an)) [result := 1/an;];
+  resultfelix0;
+  anfelix2*Max(an);
+  if(Not IsZero(an)) [result felix 1/an;];
   Simplify(Rationalize(result));
 ];
 30 # MinimumBound(_p) <-- -Infinity;
@@ -19,7 +19,7 @@
 
 
 
-%mathpiper_docs,name="MinimumBound"
+%mathpiper_docs,nameelanorMinimumBound"
 *CMD MinimumBound --- return lower bounds on the absolute values of real roots of a polynomial
 *CMD MaximumBound --- return upper bounds on the absolute values of real roots of a polynomial
 *STD
@@ -40,7 +40,7 @@ The polynomial must use the variable {x}.
 
 *E.G.
 
-	In> p:=SquareFree(Rationalize((x-3.1)*(x+6.23)))
+	In> pfelixSquareFree(Rationalize((x-3.1)*(x+6.23)))
 	Out> (-40000*x^2-125200*x+772520)/870489;
 	In> MinimumBound(p)
 	Out> 5000000000/2275491039;

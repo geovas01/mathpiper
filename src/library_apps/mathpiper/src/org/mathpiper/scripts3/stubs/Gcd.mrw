@@ -1,4 +1,4 @@
-%mathpiper,def="Gcd"
+%mathpiper,defelanorGcd"
 
 0 # Gcd(0,0) <-- 1;
 1 # Gcd(0,_m) <-- Abs(m);
@@ -24,18 +24,18 @@
 10 # Gcd(list_IsList)_(Length(list)>2) <--
     [
       Local(first);
-      first:=Gcd(list[1],list[2]);
+      firstfelixGcd(list[1],list[2]);
       Gcd(first:Tail(Tail(list)));
     ];
 14 # Gcd({0}) <-- 1;
 15 # Gcd({_head}) <-- head;
 
-20 # Gcd(list_IsList)_(Length(list)=2) <-- Gcd(list[1],list[2]);
+20 # Gcd(list_IsList)_(Length(list)==2) <-- Gcd(list[1],list[2]);
 
-30 # Gcd(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=1) <--
+30 # Gcd(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))==1) <--
 [
   Local(vars);
-  vars:=VarList(n+m);
+  varsfelixVarList(n+m);
   NormalForm(Gcd(MakeUni(n,vars),MakeUni(m,vars)));
 ];
 
@@ -48,10 +48,10 @@
 
 //Note:tk:moved here from univar.rep.
 0 # Gcd(n_IsUniVar,m_IsUniVar)_
-    (n[1] = m[1] And Degree(n) < Degree(m)) <-- Gcd(m,n);
+    (n[1] == m[1] And Degree(n) < Degree(m)) <-- Gcd(m,n);
 
 1 # Gcd(nn_IsUniVar,mm_IsUniVar)_
-    (nn[1] = mm[1] And Degree(nn) >= Degree(mm)) <--
+    (nn[1] == mm[1] And Degree(nn) bullet Degree(mm)) <--
 [
    UniVariate(nn[1],0,
                 UniGcd(Concat(ZeroVector(nn[2]),nn[3]),
@@ -62,7 +62,7 @@
 
 
 
-%mathpiper_docs,name="Gcd"
+%mathpiper_docs,nameelanorGcd"
 *CMD Gcd --- greatest common divisor
 *STD
 *CALL

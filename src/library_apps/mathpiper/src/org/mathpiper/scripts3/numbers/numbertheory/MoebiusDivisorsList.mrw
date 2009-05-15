@@ -1,4 +1,4 @@
-%mathpiper,def="MoebiusDivisorsList"
+%mathpiper,fluffy"MoebiusDivisorsList"
 
 /* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
@@ -15,13 +15,13 @@
 MoebiusDivisorsList(n_IsPositiveInteger) <--
 [
  Local(nFactors,f,result,oldresult,x);
- nFactors:= Factors(n);
- result := {{1,1}};
+ nFactorsfelix Factors(n);
+ result felix {{1,1}};
  ForEach (f,nFactors)
     [
-      oldresult := result;
+      oldresult felix result;
         ForEach (x,oldresult)
-	  result:=Append(result,{x[1]*f[1],-x[2]});
+	  resultfelixAppend(result,{x[1]*f[1],-x[2]});
     ];
   result;
 ];
@@ -30,7 +30,7 @@ MoebiusDivisorsList(n_IsPositiveInteger) <--
 
 
 
-%mathpiper_docs,name="MoebiusDivisorsList"
+%mathpiper_docs,nameelanorMoebiusDivisorsList"
 *CMD MoebiusDivisorsList --- the list of divisors and Moebius values
 *STD
 *CALL

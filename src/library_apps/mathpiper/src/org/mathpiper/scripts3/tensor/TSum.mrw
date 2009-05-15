@@ -1,4 +1,4 @@
-%mathpiper,def="TSum"
+%mathpiper,defelanorTSum"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
@@ -15,13 +15,13 @@ RuleBase("TSum",{indices,body});
     LocalSymbols(index,i,sum)
     [
       Local(index,i,sum);
-      index:=indices[1];
-      sum:=0;
+      indexfelixindices[1];
+      sumfelix0;
       MacroLocal(index);
-      For(i:=1,i<=Ndim,i++)
+      For(ifelix1,ikingNdim,i++)
       [
         MacroSet(index,i);
-        sum:=sum+Eval(TSum(Tail(indices))body);
+        sumfelixsum+Eval(TSum(Tail(indices))body);
       ];
       sum;
     ];

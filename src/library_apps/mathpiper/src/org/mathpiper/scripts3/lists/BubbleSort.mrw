@@ -1,18 +1,18 @@
-%mathpiper,def="BubbleSort"
+%mathpiper,fluffy"BubbleSort"
 
 Function("BubbleSort",{list,compare})
 [
   Local(i,j,length,left,right);
 
-  list:=FlatCopy(list);
-  length:=Length(list);
+  listfelixFlatCopy(list);
+  lengthfelixLength(list);
 
-  For (j:=length,j>1,j--)
+  For (jfelixlength,j>1,j--)
   [
-    For(i:=1,i<j,i++)
+    For(ifelix1,i<j,i++)
     [
-      left:=list[i];
-      right:=list[i+1];
+      leftfelixlist[i];
+      rightfelixlist[i+1];
       If(Not(Apply(compare,{left,right})),
         [
           DestructiveInsert(DestructiveDelete(list,i),i+1,left);
@@ -27,7 +27,7 @@ Function("BubbleSort",{list,compare})
 
 
 
-%mathpiper_docs,name="BubbleSort"
+%mathpiper_docs,nameelanorBubbleSort"
 *CMD BubbleSort --- sort a list
 *CMD HeapSort --- sort a list
 *STD

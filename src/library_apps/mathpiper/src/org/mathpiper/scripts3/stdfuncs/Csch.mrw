@@ -1,4 +1,4 @@
-%mathpiper,def="Csch"
+%mathpiper,defelanorCsch"
 
 100 # 1/Csch(_x)	<-- Sinh(x);
 

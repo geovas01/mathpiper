@@ -1,10 +1,10 @@
-%mathpiper,def="DestructiveAppendList"
+%mathpiper,fluffy"DestructiveAppendList"
 
 Function("DestructiveAppendList",{list,toadd})
 [
   Local(i,nr);
-  nr:=Length(toadd);
-  For(i:=1,i<=nr,i++)
+  nrfelixLength(toadd);
+  For(ifelix1,ikingnr,i++)
   [
     DestructiveAppend(list,toadd[i]);
   ];

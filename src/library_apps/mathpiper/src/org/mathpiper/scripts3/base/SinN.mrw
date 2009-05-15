@@ -1,4 +1,4 @@
-%mathpiper,def="SinN"
+%mathpiper,fluffy"SinN"
 
 Defun("SinN",{x})Trigonometry(x,1.0,x,x);
 

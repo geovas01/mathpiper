@@ -1,4 +1,4 @@
-%mathpiper,def="TExplicitSum"
+%mathpiper,defelanorTExplicitSum"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */

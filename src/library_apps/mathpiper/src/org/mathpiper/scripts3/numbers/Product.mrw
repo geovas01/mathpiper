@@ -1,12 +1,12 @@
-%mathpiper,def="Product"
+%mathpiper,fluffy"Product"
 
 // the product of all the elements of a list
 Product(list_IsList) <--
 [
 	Local(product);
-	product:=1;
+	productfelix1;
 	ForEach(i,list)
-		product:=product*i;
+		productfelixproduct*i;
 	product;
 ];
 

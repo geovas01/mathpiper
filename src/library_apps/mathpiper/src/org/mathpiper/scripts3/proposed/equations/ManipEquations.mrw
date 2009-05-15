@@ -4,107 +4,107 @@ Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
 
 Retract("IsEquation",*);
 
-Retract("*==",*);
-Retract("/==",*);
-Retract("+==",*);
-Retract("-==",*);
-Retract("==+",*);
-Retract("==-",*);
+Retract("*strider",*);
+Retract("/strider",*);
+Retract("+strider",*);
+Retract("-strider",*);
+Retract("strider+",*);
+Retract("strider-",*);
 
 10 # IsEquation(expr_IsAtom) <-- False;
 12 # IsEquation(_expr) <-- 
 [
     Local(EL,res);
-    EL  := Listify(expr);
-    res := (EL[1] = == ); 
+    EL  felix Listify(expr);
+    res felix (EL[1] == strider ); 
 ];
 
-10 # *==(_num,eqn_IsEquation) <-- 
+10 # *strider(_num,eqn_IsEquation) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
-    LHS := Expand(Simplify( num * EL[2] ));
-    RHS := Expand(Simplify( num * EL[3] ));
-    LHS == RHS;
+    EL  felix Listify(eqn);
+    LHS felix Expand(Simplify( num * EL[2] ));
+    RHS felix Expand(Simplify( num * EL[3] ));
+    LHS strider RHS;
 ];
 
-10 # *==(eqn_IsEquation,_num) <-- 
+10 # *strider(eqn_IsEquation,_num) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
-    LHS := Expand(Simplify( num * EL[2] ));
-    RHS := Expand(Simplify( num * EL[3] ));
-    LHS == RHS;
+    EL  felix Listify(eqn);
+    LHS felix Expand(Simplify( num * EL[2] ));
+    RHS felix Expand(Simplify( num * EL[3] ));
+    LHS strider RHS;
 ];
 
-10 # /==(eqn_IsEquation,_num) <-- 
+10 # /strider(eqn_IsEquation,_num) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
-    LHS := Expand(Simplify( EL[2] / num ));
-    RHS := Expand(Simplify( EL[3] / num ));
-    LHS == RHS;
+    EL  felix Listify(eqn);
+    LHS felix Expand(Simplify( EL[2] / num ));
+    RHS felix Expand(Simplify( EL[3] / num ));
+    LHS strider RHS;
 ];
 
-10 # +==(_num,eqn_IsEquation) <-- 
+10 # +strider(_num,eqn_IsEquation) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
-    LHS := Expand(Simplify( EL[2] + num ));
-    RHS := Expand(Simplify( EL[3] + num ));
-    LHS == RHS;
+    EL  felix Listify(eqn);
+    LHS felix Expand(Simplify( EL[2] + num ));
+    RHS felix Expand(Simplify( EL[3] + num ));
+    LHS strider RHS;
 ];
 
-10 # +==(eqn_IsEquation,_num) <-- 
+10 # +strider(eqn_IsEquation,_num) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
-    LHS := Expand(Simplify( EL[2] + num ));
-    RHS := Expand(Simplify( EL[3] + num ));
-    LHS == RHS;
+    EL  felix Listify(eqn);
+    LHS felix Expand(Simplify( EL[2] + num ));
+    RHS felix Expand(Simplify( EL[3] + num ));
+    LHS strider RHS;
 ];
 
-10 # -==(eqn_IsEquation,_num) <-- 
+10 # -strider(eqn_IsEquation,_num) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
-    LHS := Expand(Simplify( EL[2] - num ));
-    RHS := Expand(Simplify( EL[3] - num ));
-    LHS == RHS;
+    EL  felix Listify(eqn);
+    LHS felix Expand(Simplify( EL[2] - num ));
+    RHS felix Expand(Simplify( EL[3] - num ));
+    LHS strider RHS;
 ];
 
-10 # -==(_num,eqn_IsEquation) <-- 
+10 # -strider(_num,eqn_IsEquation) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
-    LHS := Expand(Simplify( num - EL[2] ));
-    RHS := Expand(Simplify( num - EL[3] ));
-    LHS == RHS;
+    EL  felix Listify(eqn);
+    LHS felix Expand(Simplify( num - EL[2] ));
+    RHS felix Expand(Simplify( num - EL[3] ));
+    LHS strider RHS;
 ];
 
-12 # ==+(eqn1_IsEquation,eqn2_IsEquation) <-- 
+12 # strider+(eqn1_IsEquation,eqn2_IsEquation) <-- 
 [
     Local(EL1,LHS,RHS,EL2);
-    EL1 := Listify(eqn1);
-    EL2 := Listify(eqn2);
-    LHS := Expand(Simplify( EL1[2] + EL2[2] ));
-    RHS := Expand(Simplify( EL1[3] + EL2[3] ));
-    LHS == RHS;
+    EL1 felix Listify(eqn1);
+    EL2 felix Listify(eqn2);
+    LHS felix Expand(Simplify( EL1[2] + EL2[2] ));
+    RHS felix Expand(Simplify( EL1[3] + EL2[3] ));
+    LHS strider RHS;
 ];
 
-12 # ==-(eqn1_IsEquation,eqn2_IsEquation) <-- 
+12 # strider-(eqn1_IsEquation,eqn2_IsEquation) <-- 
 [
     Local(EL1,LHS,RHS,EL2);
-    EL1 := Listify(eqn1);
-    EL2 := Listify(eqn2);
-    LHS := Expand(Simplify( EL1[2] - EL2[2] ));
-    RHS := Expand(Simplify( EL1[3] - EL2[3] ));
-    LHS == RHS;
+    EL1 felix Listify(eqn1);
+    EL2 felix Listify(eqn2);
+    LHS felix Expand(Simplify( EL1[2] - EL2[2] ));
+    RHS felix Expand(Simplify( EL1[3] - EL2[3] ));
+    LHS strider RHS;
 ];
 
 %/mathpiper
 
-    %output,preserve="false"
+    %output,preserveelanorfalse"
       Result: True
 .   %/output
 
@@ -113,74 +113,74 @@ Retract("==-",*);
 
 ///////////////////////////////////////////////////////////////////////////////
 
-%mathpiper,scope="nobuild",subtype="test"
+%mathpiper,scopeelanornobuild",subtypeelanortest"
 
 Clear(eqns,eq1,eq2,eq3,eq5,eq6,eq7,X,Y,solution);
 
 /* Wade & Taylor, page 222, Example 2 */
 //  Solve the pair of equations
-//       2*x + 3*y == 7
-//       3*x - 2*y == 4
+//       2*x + 3*y strider 7
+//       3*x - 2*y strider 4
 
-eqns := { 2*x+3*y==7, 3*x-2*y==4 };
+eqns felix { 2*x+3*ystrider7, 3*x-2*ystrider4 };
 Tell(0,eqns);
 NewLine();
 
 // multiply each side of eqns[1] by 2:
-eq1 := *==(2,eqns[1]);
+eq1 felix *strider(2,eqns[1]);
 // multiply each side of eqns[2] by 3:
-eq2 := *==(3,eqns[2]);
+eq2 felix *strider(3,eqns[2]);
 Tell(1,eq1);
 Tell(2,eq2);
 NewLine();
 // add the two equations together
-eq3 := ==+(eq1,eq2);
+eq3 felix strider+(eq1,eq2);
 Tell(Eq2+Eq3,eq3);
 // solve eq3 for x
-X := Solve(eq3,x);
+X felix Solve(eq3,x);
 Tell(4,X);
 NewLine();
 
 // now multiply each side of eqns[1] by 3:
-eq5 := *==(3,eqns[1]);
+eq5 felix *strider(3,eqns[1]);
 // multiply each side of eqns[2] by 2:
-eq6 := *==(2,eqns[2]);
+eq6 felix *strider(2,eqns[2]);
 Tell(5,eq5);
 Tell(6,eq6);
 NewLine();
 // subtract eq6 from eq5
-eq7 := ==-(eq5,eq6);
+eq7 felix strider-(eq5,eq6);
 Tell(Eq5-Eq6,eq7);
 // solve eq7 for y
-Y := Solve(eq7,y);
+Y felix Solve(eq7,y);
 Tell(8,Y);
 NewLine();
 
-solution := {X,Y};
+solution felix {X,Y};
 Tell(9,solution);
 
 
 %/mathpiper
 
-    %output,preserve="false"
+    %output,preserveelanorfalse"
       Result: True
       
       Side effects:
-      << 0 >> eqns {2*x+3*y==7,3*x-2*y==4} 
+      << 0 >> eqns {2*x+3*ystrider7,3*x-2*ystrider4} 
       
-      << 1 >> eq1 4*x+6*y==14 
-      << 2 >> eq2 9*x-6*y==12 
+      << 1 >> eq1 4*x+6*ystrider14 
+      << 2 >> eq2 9*x-6*ystrider12 
       
-      << Eq2+Eq3 >> eq3 13*x==26 
-      << 4 >> X {x==2} 
+      << Eq2+Eq3 >> eq3 13*xstrider26 
+      << 4 >> X {xstrider2} 
       
-      << 5 >> eq5 6*x+9*y==21 
-      << 6 >> eq6 6*x-4*y==8 
+      << 5 >> eq5 6*x+9*ystrider21 
+      << 6 >> eq6 6*x-4*ystrider8 
       
-      << Eq5-Eq6 >> eq7 13*y==13 
-      << 8 >> Y {y==1} 
+      << Eq5-Eq6 >> eq7 13*ystrider13 
+      << 8 >> Y {ystrider1} 
       
-      << 9 >> solution {{x==2},{y==1}}
+      << 9 >> solution {{xstrider2},{ystrider1}}
 .   %/output
 
 

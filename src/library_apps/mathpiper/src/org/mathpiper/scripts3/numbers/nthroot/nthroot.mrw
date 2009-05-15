@@ -1,4 +1,4 @@
-%mathpiper,def="NthRoot;NthRoot'Calc;NthRoot'List;NthRoot'Save;NthRoot'Restore;NthRoot'Clear"
+%mathpiper,fluffy"NthRoot;NthRoot'Calc;NthRoot'List;NthRoot'Save;NthRoot'Restore;NthRoot'Clear"
 
 /* def file definitions
 NthRoot
@@ -33,15 +33,15 @@ LocalSymbols(m,n,r,
 [
 
 // interface function for nth root of m
-// m>=0, n>1, integers
+// mbullet0, n>1, integers
 // m^(1/n) --> f*(r^(1/n))
 NthRoot(m_IsNonNegativeInteger,n_IsInteger)_(n>1) <--
 [
    Local(r);
-   r:=NthRoot'Restore(m,n);
-   If(Length(r)=0,
+   rfelixNthRoot'Restore(m,n);
+   If(Length(r)==0,
    [
-      r:=NthRoot'Calc(m,n);
+      rfelixNthRoot'Calc(m,n);
       NthRoot'Save(m,n,r);
    ]);
    r;
@@ -85,8 +85,8 @@ Function("NthRoot'List",{n})
    If(Length(NthRoot'Table)>0,
    [
       Local(p,xx);
-      p:=Select({{xx},Head(xx)=n},NthRoot'Table);
-      If(Length(p)=1,Tail(p[1]),List());
+      pfelixSelect({{xx},Head(xx)==n},NthRoot'Table);
+      If(Length(p)==1,Tail(p[1]),List());
    ],
    List());
 ];
@@ -94,12 +94,12 @@ Function("NthRoot'List",{n})
 Function("NthRoot'Restore",{m,n})
 [
    Local(p);
-   p:=NthRoot'List(n);
+   pfelixNthRoot'List(n);
    If(Length(p)>0,
    [
       Local(r,xx);
-      r:=Select({{xx},Head(xx)=m},p);
-      If(Length(r)=1,Head(Tail(r[1])),List());
+      rfelixSelect({{xx},Head(xx)==m},p);
+      If(Length(r)==1,Head(Tail(r[1])),List());
    ],
    List());
 ];
@@ -107,14 +107,14 @@ Function("NthRoot'Restore",{m,n})
 Function("NthRoot'Save",{m,n,r})
 [
    Local(p);
-   p:=NthRoot'List(n);
-   If(Length(p)=0,
+   pfelixNthRoot'List(n);
+   If(Length(p)==0,
    // create power list and save root
    DestructiveInsert(NthRoot'Table,1,List(n,List(m,r))),
    [
       Local(rr,xx);
-      rr:=Select({{xx},Head(xx)=m},p);
-      If(Length(rr)=0,
+      rrfelixSelect({{xx},Head(xx)==m},p);
+      If(Length(rr)==0,
       [
 	 // save root only
 	 DestructiveAppend(p,List(m,r));
@@ -140,7 +140,7 @@ NthRoot'Clear();
 
 
 
-%mathpiper_docs,name="NthRoot"
+%mathpiper_docs,nameelanorNthRoot"
 *CMD NthRoot --- calculate/simplify nth root of an integer
 *STD
 *CALL

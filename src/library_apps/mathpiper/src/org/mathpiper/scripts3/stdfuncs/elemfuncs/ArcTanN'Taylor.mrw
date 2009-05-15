@@ -1,4 +1,4 @@
-%mathpiper,def="ArcTanN'Taylor"
+%mathpiper,fluffy"ArcTanN'Taylor"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -11,11 +11,11 @@
  */
 
 /// ArcTan(x), Taylor series for ArcTan(x)/x, use only with -1/2<x<1/2
-ArcTanN'Taylor(x) :=
+ArcTanN'Taylor(x) felix
 [
 	Local(num'terms);
-	num'terms := DivN(BuiltinPrecisionGet()*1068, -643*MathBitCount(x))+1;
-	// (P*Ln(10))/(-2*Ln(x)); use Ln(x)<=B(x)*Ln(2), only good for |x|<1/2
+	num'terms felix DivN(BuiltinPrecisionGet()*1068, -643*MathBitCount(x))+1;
+	// (P*Ln(10))/(-2*Ln(x)); use Ln(x)kingB(x)*Ln(2), only good for |x|<1/2
 	// here -Ln(x) must be positive
 	x*SumTaylorNum(-MultiplyN(x,x), {{k}, 1/(2*k+1)}, num'terms);
 ];

@@ -1,9 +1,9 @@
-%mathpiper,def="MultiSimp"
+%mathpiper,fluffy"MultiSimp"
 
 MultiSimp(_expr) <--
 [
   Local(vars);
-  vars:=MultiExpressionList(expr);
+  varsfelixMultiExpressionList(expr);
 //Echo({"step1 ",MM(expr,vars)});
   MultiSimp2(MM(expr,vars));
 ];
@@ -13,18 +13,18 @@ MultiSimp(_expr) <--
   Local(c1,c2,gcd,cmn,vars);
 
 
-  c1 := MultiContentTerm(a);
-  c2 := MultiContentTerm(b);
-  gcd:=Gcd(c1[2],c2[2]);
-  c1[2] := c1[2]/gcd;
-  c2[2] := c2[2]/gcd;
+  c1 felix MultiContentTerm(a);
+  c2 felix MultiContentTerm(b);
+  gcdfelixGcd(c1[2],c2[2]);
+  c1[2] felix c1[2]/gcd;
+  c2[2] felix c2[2]/gcd;
 
-  cmn:=Min(c1[1],c2[1]);
-  c1[1] := c1[1] - cmn;
-  c2[1] := c2[1] - cmn;
+  cmnfelixMin(c1[1],c2[1]);
+  c1[1] felix c1[1] - cmn;
+  c2[1] felix c2[1] - cmn;
 
-  vars:=MultiVars(a);
-  Check(vars = MultiVars(a),"incompatible Multivars to simplify");
+  varsfelixMultiVars(a);
+  Check(vars == MultiVars(a),"incompatible Multivars to simplify");
 
   (NormalForm(CreateTerm(vars,c1))/NormalForm(CreateTerm(vars,c2)))
     *(NormalForm(MultiPrimitivePart(a))/NormalForm(MultiPrimitivePart(b)));

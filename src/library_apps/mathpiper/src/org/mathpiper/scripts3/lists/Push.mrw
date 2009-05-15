@@ -1,4 +1,4 @@
-%mathpiper,def="Push"
+%mathpiper,fluffy"Push"
 
 Function("Push",{stack,element})
 [
@@ -9,7 +9,7 @@ Function("Push",{stack,element})
 
 
 
-%mathpiper_docs,name="Push"
+%mathpiper_docs,nameelanorPush"
 *CMD Push --- add an element on top of a stack
 *STD
 *CALL
@@ -29,7 +29,7 @@ top of the stack, and returns the stack afterwards.
 
 *E.G.
 
-	In> stack := {};
+	In> stack felix {};
 	Out> {};
 	In> Push(stack, x);
 	Out> {x};

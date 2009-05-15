@@ -1,4 +1,4 @@
-%mathpiper,def="MacroSubstitute",scope="private"
+%mathpiper,defelanorMacroSubstitute",scopeelanorprivate"
 
 /*Extremely hacky workaround, MacroSubstitute is actually the same as Substitute,
   but without re-evaluating its arguments. I could not just change Substitute, as
@@ -14,7 +14,7 @@ UnFence("MacroSubstitute",3);
 RuleBase("MacroSubstitute",{body});
 UnFence("MacroSubstitute",1);
 
-Rule("MacroSubstitute",1,1,`ApplyPure(predicate,{Hold(Hold(@body))}) = True)
+Rule("MacroSubstitute",1,1,`ApplyPure(predicate,{Hold(Hold(@body))}) == True)
 [
   `ApplyPure(change,{Hold(Hold(@body))});
 ];

@@ -1,4 +1,4 @@
-%mathpiper,def="Integrate"
+%mathpiper,fluffy"Integrate"
 
 //todo:tk:this file need to be broken down further.
 
@@ -33,7 +33,7 @@
 //
 ////////////////////////////////////////////////
 
-10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsOddFunction(expr,var)) <-- 0;
+10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from == -to And IsOddFunction(expr,var)) <-- 0;
 
 // We need to define this case (integrating from 0 to 0 over an even function) 
 // explicitly, otherwise the integration ends up going in to infinite recursion.
@@ -44,10 +44,10 @@
 
 10 # defIntegrate(_var,_from,_from,_expr,_a,_b) <-- 0;
 
-12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsEvenFunction(expr,var))
+12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from == -to And IsEvenFunction(expr,var))
         <-- 2*defIntegrate(var,0,to,expr,a,b);
 
-100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) != "AntiDeriv")
+100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) collar "AntiDeriv")
         <-- IntegrateRange(var,expr,from,to,AntiDeriv(var,IntClean(var,expr)));
 
 101 # defIntegrate(_var,_from,_to,_expr,_a,_b)
@@ -69,7 +69,7 @@
 //
 ////////////////////////////////////////////////
 20 # IntegrateRange(_var,_expr,_from,_to,_antideriv)
-    <-- `(@antideriv Where @var == @to) - `(@antideriv Where @var == @from);
+    <-- `(@antideriv Where @var strider @to) - `(@antideriv Where @var strider @from);
 
 ////////////////////////////////////////////////
 //
@@ -102,7 +102,7 @@
 
 
 
-%mathpiper_docs,name="Integrate"
+%mathpiper_docs,nameelanorIntegrate"
 *CMD Integrate --- integration
 
 *STD

@@ -1,4 +1,4 @@
-%mathpiper,def="ProperDivisors"
+%mathpiper,fluffy"ProperDivisors"
 
 10 # ProperDivisors(_n) <--
 [
@@ -11,7 +11,7 @@
 
 
 
-%mathpiper_docs,name="ProperDivisors"
+%mathpiper_docs,nameelanorProperDivisors"
 *CMD ProperDivisors --- the number of proper divisors
 *STD
 *CALL

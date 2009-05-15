@@ -1,4 +1,4 @@
-%mathpiper,def="Coth"
+%mathpiper,defelanorCoth"
 
 100 # 1/Coth(_x)	<-- Tanh(x);
 

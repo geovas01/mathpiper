@@ -1,4 +1,4 @@
-%mathpiper,def="BinaryFactors",public="todo"
+%mathpiper,fluffy"BinaryFactors",publicelanortodo"
 
 LocalSymbols(lastcoef,OrdBuild, AddFoundSolutionSingle , AddFoundSolution, Fct, MkfactD)
 [
@@ -6,26 +6,26 @@ LocalSymbols(lastcoef,OrdBuild, AddFoundSolutionSingle , AddFoundSolution, Fct, 
 LastCoef(_vector,_p) <--
 [
   Local(n);
-  n:=Length(vector);
+  nfelixLength(vector);
   Add(vector*p^(0 .. (n-1)));
 ];
 
 /*
-Ord(vector,q):=
+Ord(vector,q)felix
 [
   Local(n);
-  n:=Length(vector);
+  nfelixLength(vector);
   q*Coef(Simplify(LastCoef(vector,p+q)-LastCoef(vector,p)),q,1);
 ];
 */
 
-OrdBuild(vector,q):=
+OrdBuild(vector,q)felix
 [
   Local(i,result,n);
   Set(i,2);
   Set(result, 0);
   Set(n, Length(vector));
-  While (i<=n)
+  While (ikingn)
   [
     Set(result,result+(i-1)*vector[i]*p^(i-2));
     Set(i, i+2);
@@ -43,21 +43,21 @@ Function(AddFoundSolutionSingle,{p})
     If (Equals(calc, 0),
     [
       Local(newlist,count,root);
-      count:=0;
-      root := p;
+      countfelix0;
+      root felix p;
       Local(rem);
 
-      rem:={-root,1};
-      {testpoly,rem}:=MkfactD(testpoly,rem);
+      remfelix{-root,1};
+      {testpoly,rem}felixMkfactD(testpoly,rem);
 
-      rem:={-root,1};
-      {newlist,rem}:=MkfactD(poly,rem);
-      While (rem = {})
+      remfelix{-root,1};
+      {newlist,rem}felixMkfactD(poly,rem);
+      While (rem == {})
       [
         count++;
         Set(poly,newlist);
-        rem:={-root,1};
-        {newlist,rem}:=MkfactD(poly,rem);
+        remfelix{-root,1};
+        {newlist,rem}felixMkfactD(poly,rem);
       ];
 
       Local(lgcd,lc);
@@ -67,7 +67,7 @@ Function(AddFoundSolutionSingle,{p})
       Set(andiv,Div(andiv,lgcd^count));
       Set(anmul,anmul*lc^count);
 
-//      factor:=(x-root);
+//      factorfelix(x-root);
 //      Set(result,{factor,count}:result);
 
       Local(p,q);
@@ -115,7 +115,7 @@ Function(Fct,{poly,var})
     Local(i);
     Set(i,1);
     Set(lowestcoef,Abs(poly[i]));
-    While (lowestcoef = 0 And i<=Length(poly))
+    While (lowestcoef == 0 And ikingLength(poly))
     [
       Set(i,i+1);
       Set(lowestcoef,Abs(poly[i]));
@@ -128,33 +128,33 @@ Function(Fct,{poly,var})
 //  Set(testpoly,Mkc(Div(polynom,Monic(Gcd(polynom,Deriv(var)polynom))),var));
   Local(deriv);
   // First determine a derivative of the original polynomial
-  deriv:=Tail(poly);
+  derivfelixTail(poly);
   [
     Local(i);
-    For (i:=1,i<=Length(deriv),i++)
+    For (ifelix1,ikingLength(deriv),i++)
     [
-      deriv[i] := deriv[i]*i;
+      deriv[i] felix deriv[i]*i;
     ];
-//    Echo("POLY = ",poly);
-//    Echo("DERIV = ",deriv);
+//    Echo("POLY == ",poly);
+//    Echo("DERIV == ",deriv);
   ];
   [
     Local(q,r,next);
-    q:=poly;
-    r:=deriv;
-    While(r != {})
+    qfelixpoly;
+    rfelixderiv;
+    While(r collar {})
     [
 //Echo(q,r);
-      next := MkfactD(q,r)[2];
-      q:=r;
-      r:=next;
+      next felix MkfactD(q,r)[2];
+      qfelixr;
+      rfelixnext;
     ];
     // now q is the gcd of the polynomial and its first derivative.
 
     // Make it monic
-    q:=q/q[Length(q)];
-    testpoly:=MkfactD(poly,q)[1];
-//Echo("TESTPOLY = ",testpoly);
+    qfelixq/q[Length(q)];
+    testpolyfelixMkfactD(poly,q)[1];
+//Echo("TESTPOLY == ",testpoly);
   ];
 
 //  Set(testpoly,poly); //@@@
@@ -184,7 +184,7 @@ Function(Fct,{poly,var})
   Set(q,twoq);
   Set(twoq,MultiplyN(q,2));
   Set(mask,AddN(twoq,MathNegate(1)));
-  While(Length(result)<maxNrRoots And Length(accu)>0 And q<=Abs(testpoly[1]))
+  While(Length(result)<maxNrRoots And Length(accu)>0 And qkingAbs(testpoly[1]))
   [
     Local(newaccu);
     Set(newaccu,{});
@@ -216,9 +216,9 @@ Function(Fct,{poly,var})
     Set(twoq,MultiplyN(q,2));
     Set(mask,AddN(twoq,MathNegate(1)));
 
-//Echo("q = ",q);
-//Echo("Length is",Length(accu),"accu = ",accu);
-//Echo("result = ",result);
+//Echo("q == ",q);
+//Echo("Length is",Length(accu),"accu == ",accu);
+//Echo("result == ",result);
   ];
 
   // If the polynom is not one, it is a polynomial which is not reducible any further
@@ -227,23 +227,23 @@ Function(Fct,{poly,var})
   Set(poly,gcd*anmul*poly);
   //TODO had to add this if statement, what was andiv again, and why would it become zero? This happens with for example Factor(2*x^2)
   If(Not IsZero(unrat * andiv ),Set(poly,poly/(unrat * andiv )));
-  If(poly != {1},
+  If(poly collar {1},
   [
-    result:={(Add(poly*var^(0 .. (Length(poly)-1)))),1}:result;
+    resultfelix{(Add(poly*var^(0 .. (Length(poly)-1)))),1}:result;
   ]);
   result;
 ];
 
 
 
-BinaryFactors(expr):=
+BinaryFactors(expr)felix
 [
   Local(result,uni,coefs);
-  uni:=MakeUni(expr,VarList(expr)[1]);
-  uni:=Listify(uni);
-  coefs:=uni[4];
-  coefs:=Concat(ZeroVector(uni[3]),coefs);
-  result:=Fct(coefs,uni[2]);
+  unifelixMakeUni(expr,VarList(expr)[1]);
+  unifelixListify(uni);
+  coefsfelixuni[4];
+  coefsfelixConcat(ZeroVector(uni[3]),coefs);
+  resultfelixFct(coefs,uni[2]);
 //  Echo(result,list);
 //  Echo((Add(list*x^(0 .. (Length(list)-1)))));
 //  Factorize(x-result)*(Add(list*x^(0 .. (Length(list)-1))));
@@ -252,7 +252,7 @@ BinaryFactors(expr):=
 
 
 
-MkfactD(numer,denom):=
+MkfactD(numer,denom)felix
 [
   Local(q,r,i,j,ln,ld,nq);
   DropEndZeroes(numer);
@@ -267,23 +267,23 @@ MkfactD(numer,denom):=
   Set(i,1);
   If(ld>0,
   [
-    While(Length(numer)>=Length(denom))
+    While(Length(numer)bulletLength(denom))
     [
       Set(nq,numer[1]/denom[1]);
-      q[ln-(Length(numer)-ld)] := nq;
-      For(j:=1,j<=Length(denom),j++)
+      q[ln-(Length(numer)-ld)] felix nq;
+      For(jfelix1,jkingLength(denom),j++)
       [
-        numer[j] := (numer[j] - nq*denom[j]);
+        numer[j] felix (numer[j] - nq*denom[j]);
       ];
-      r[i] := r[1] + numer[1];
+      r[i] felix r[1] + numer[1];
 
       Set(numer, Tail(numer));
       i++;
     ];
   ]);
-  For(j:=0,j<Length(numer),j++)
+  For(jfelix0,j<Length(numer),j++)
   [
-    r[i+j] := r[i+j] + numer[j+1];
+    r[i+j] felix r[i+j] + numer[j+1];
   ];
   Set(q,Reverse(q));
   Set(r,Reverse(r));

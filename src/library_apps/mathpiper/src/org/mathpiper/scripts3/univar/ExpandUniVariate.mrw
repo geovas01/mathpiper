@@ -1,14 +1,14 @@
-%mathpiper,def="ExpandUniVariate"
+%mathpiper,defelanorExpandUniVariate"
 
 Function("ExpandUniVariate",{var,first,coefs})
 [
   Local(result,i);
-  result:=0;
-  For(i:=Length(coefs),i>0,i--)
+  resultfelix0;
+  For(ifelixLength(coefs),i>0,i--)
   [
     Local(term);
-    term:=NormalForm(coefs[i])*var^(first+i-1);
-    result:=result+term;
+    termfelixNormalForm(coefs[i])*var^(first+i-1);
+    resultfelixresult+term;
   ];
   result;
 ];

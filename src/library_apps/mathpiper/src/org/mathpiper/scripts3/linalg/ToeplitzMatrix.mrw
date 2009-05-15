@@ -1,13 +1,13 @@
-%mathpiper,def="ToeplitzMatrix"
+%mathpiper,fluffy"ToeplitzMatrix"
 
 // The arguments of the following functions should be checked
-ToeplitzMatrix(N):=GenMatrix({{i,j},N[Abs(i-j)+1]}, Length(N), Length(N) );
+ToeplitzMatrix(N)felixGenMatrix({{i,j},N[Abs(i-j)+1]}, Length(N), Length(N) );
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="ToeplitzMatrix"
+%mathpiper_docs,nameelanorToeplitzMatrix"
 *CMD ToeplitzMatrix --- create a Toeplitz matrix
 *STD
 *CALL

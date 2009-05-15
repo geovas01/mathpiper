@@ -1,4 +1,4 @@
-%mathpiper,def="MathFloatPower",scope="private"
+%mathpiper,fluffy"MathFloatPower",scopeelanorprivate"
 
 // power function for non-integer argument y -- use ExpN and LogN
 /* Serge, I disabled this one for now, until we get a compiled version of LogN that does not hang in

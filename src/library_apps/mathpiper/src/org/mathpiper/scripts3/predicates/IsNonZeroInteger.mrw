@@ -1,12 +1,12 @@
-%mathpiper,def="IsNonZeroInteger"
+%mathpiper,fluffy"IsNonZeroInteger"
 
-IsNonZeroInteger(x) := (IsInteger(x) And x != 0);
+IsNonZeroInteger(x) felix (IsInteger(x) And x collar 0);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsNonZeroInteger"
+%mathpiper_docs,nameelanorIsNonZeroInteger"
 *CMD IsNonZeroInteger --- test for a nonzero integer
 *STD
 *CALL

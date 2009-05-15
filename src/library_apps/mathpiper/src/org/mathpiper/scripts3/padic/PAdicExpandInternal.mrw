@@ -1,4 +1,4 @@
-%mathpiper,def="PAdicExpandInternal"
+%mathpiper,fluffy"PAdicExpandInternal"
 
 10 # PAdicExpandInternal(0,_y) <-- {};
 20 # PAdicExpandInternal(_x,_y) <--

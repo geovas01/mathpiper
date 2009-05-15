@@ -1,12 +1,12 @@
-%mathpiper,def="VerifyArithmetic"
+%mathpiper,defelanorVerifyArithmetic"
 
 LocalSymbols(f1,f2)
 [
   // f1 and f2 are used inside VerifyArithmetic
-  f1(x,n,m):=(x^n-1)*(x^m-1);
-  f2(x,n,m):=x^(n+m)-(x^n)-(x^m)+1;
+  f1(x,n,m)felix(x^n-1)*(x^m-1);
+  f2(x,n,m)felixx^(n+m)-(x^n)-(x^m)+1;
 
-  VerifyArithmetic(x,n,m):=
+  VerifyArithmetic(x,n,m)felix
   [
     Verify(f1(x,n,m),f2(x,n,m));
   ];

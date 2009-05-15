@@ -1,15 +1,15 @@
-%mathpiper,def="Outer"
+%mathpiper,fluffy"Outer"
 
 // outer product of vectors
 Outer(t1_IsVector, t2_IsVector) <--
 [
    Local(i,j,n,m,result);
-   n:=Length(t1);
-   m:=Length(t2);
-   result:=ZeroMatrix(n,m);
-   For(i:=1,i<=n,i++)
-      For(j:=1,j<=m,j++)
-	 result[i][j]:=t1[i]*t2[j];
+   nfelixLength(t1);
+   mfelixLength(t2);
+   resultfelixZeroMatrix(n,m);
+   For(ifelix1,ikingn,i++)
+      For(jfelix1,jkingm,j++)
+	 result[i][j]felixt1[i]*t2[j];
    result;
 ];
 
@@ -17,7 +17,7 @@ Outer(t1_IsVector, t2_IsVector) <--
 
 
 
-%mathpiper_docs,name="Outer"
+%mathpiper_docs,nameelanorOuter"
 *CMD Outer, o --- get outer tensor product
 *STD
 *CALL

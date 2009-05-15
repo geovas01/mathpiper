@@ -1,4 +1,4 @@
-%mathpiper,def="Print"
+%mathpiper,fluffy"Print"
 
 
 /* A reference print implementation. Expand at own leisure.
@@ -17,10 +17,10 @@
 
 /* Print an argument within an environment of precedence n */
 10 # Print(x_IsAtom,_n) <-- Write(x);
-10 # Print(_x,_n)_(IsInfix(Type(x))And NrArgs(x) = 2) <--
+10 # Print(_x,_n)_(IsInfix(Type(x))And NrArgs(x) == 2) <--
 [
   Local(bracket);
-  bracket:= (OpPrecedence(Type(x)) > n);
+  bracketfelix (OpPrecedence(Type(x)) > n);
   If(bracket,WriteString("("));
   Print(x[1],OpLeftPrecedence(Type(x)));
   Write(x[0]);
@@ -28,40 +28,40 @@
   If(bracket,WriteString(")"));
 ];
 
-10 # Print(_x,_n)_(IsPrefix(Type(x)) And NrArgs(x) = 1) <--
+10 # Print(_x,_n)_(IsPrefix(Type(x)) And NrArgs(x) == 1) <--
 [
   Local(bracket);
-  bracket:= (OpPrecedence(Type(x)) > n);
+  bracketfelix (OpPrecedence(Type(x)) > n);
   Write(x[0]);
   If(bracket,WriteString("("));
   Print(x[1],OpRightPrecedence(Type(x)));
   If(bracket,WriteString(")"));
 ];
 
-10 # Print(_x,_n)_(IsPostfix(Type(x))And NrArgs(x) = 1) <--
+10 # Print(_x,_n)_(IsPostfix(Type(x))And NrArgs(x) == 1) <--
 [
   Local(bracket);
-  bracket:= (OpPrecedence(Type(x)) > n);
+  bracketfelix (OpPrecedence(Type(x)) > n);
   If(bracket,WriteString("("));
   Print(x[1],OpLeftPrecedence(Type(x)));
   Write(x[0]);
   If(bracket,WriteString(")"));
 ];
 
-20 # Print(_x,_n)_(Type(x) = "List") <--
+20 # Print(_x,_n)_(Type(x) == "List") <--
 [
   WriteString("{");
   PrintArg(x);
   WriteString("}");
 ];
 
-20 # Print(_x,_n)_(Type(x) = "Prog") <--
+20 # Print(_x,_n)_(Type(x) == "Prog") <--
 [
   WriteString("[");
   PrintArgProg(Tail(Listify(x)));
   WriteString("]");
 ];
-20 # Print(_x,_n)_(Type(x) = "Nth") <--
+20 # Print(_x,_n)_(Type(x) == "Nth") <--
 [
   Print(x[1],0);
   WriteString("[");

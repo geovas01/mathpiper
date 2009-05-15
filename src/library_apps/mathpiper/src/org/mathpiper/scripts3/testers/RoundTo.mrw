@@ -1,4 +1,4 @@
-%mathpiper,def="RoundTo"
+%mathpiper,defelanorRoundTo"
 
 /* Functions that aid in testing */
 
@@ -6,7 +6,7 @@
 10 # RoundTo(x_IsNumber, prec_IsPositiveInteger) <--
 [
   Local(oldPrec,result);
-  oldPrec:=BuiltinPrecisionGet();
+  oldPrecfelixBuiltinPrecisionGet();
   BuiltinPrecisionSet(prec);
   Set(result,DivideN( Round( MultiplyN(x, 10^prec) ), 10^prec ));
   BuiltinPrecisionSet(oldPrec);

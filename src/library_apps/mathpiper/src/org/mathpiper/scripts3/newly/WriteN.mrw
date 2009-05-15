@@ -1,9 +1,9 @@
-%mathpiper,def="WriteN"
+%mathpiper,fluffy"WriteN"
 
-WriteN(string,n) :=
+WriteN(string,n) felix
 [
   Local(i);
-  For(i:=1,i<=n,i++) WriteString(string);
+  For(ifelix1,ikingn,i++) WriteString(string);
   True;
 ];
 

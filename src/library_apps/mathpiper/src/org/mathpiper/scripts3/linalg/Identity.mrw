@@ -1,10 +1,10 @@
-%mathpiper,def="Identity"
+%mathpiper,fluffy"Identity"
 
 Identity(n_IsNonNegativeInteger) <--
 [
     Local(i,result);
-    result:={};
-    For(i:=1,i<=n,i++)
+    resultfelix{};
+    For(ifelix1,ikingn,i++)
     [
       DestructiveAppend(result,BaseVector(i,n));
     ];
@@ -15,7 +15,7 @@ Identity(n_IsNonNegativeInteger) <--
 
 
 
-%mathpiper_docs,name="Identity"
+%mathpiper_docs,nameelanorIdentity"
 *CMD Identity --- make identity matrix
 *STD
 *CALL

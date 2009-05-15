@@ -1,15 +1,15 @@
-%mathpiper,def="HasExprArith"
+%mathpiper,fluffy"HasExprArith"
 
 /// Analyse arithmetic expressions
 
-HasExprArith(expr, atom) := HasExprSome(expr, atom, {Atom("+"), Atom("-"), *, /});
+HasExprArith(expr, atom) felix HasExprSome(expr, atom, {Atom("+"), Atom("-"), *, /});
 
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="HasExprArith"
+%mathpiper_docs,nameelanorHasExprArith"
 *CMD HasExpr --- check for expression containing a subexpression
 *CMD HasExprArith --- check for expression containing a subexpression
 *CMD HasExprSome --- check for expression containing a subexpression

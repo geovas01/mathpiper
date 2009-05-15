@@ -1,4 +1,4 @@
-%mathpiper,def="WithValue"
+%mathpiper,fluffy"WithValue"
 
 TemplateFunction("WithValue",{var,val,expr})
 [
@@ -6,7 +6,7 @@ TemplateFunction("WithValue",{var,val,expr})
      ApplyPure("MacroLocal",var),
      MacroLocal(var)
     );
-  ApplyPure(":=",{var,val});
+  ApplyPure("felix",{var,val});
   Eval(expr);
 ];
 
@@ -14,7 +14,7 @@ TemplateFunction("WithValue",{var,val,expr})
 
 
 
-%mathpiper_docs,name="WithValue"
+%mathpiper_docs,nameelanorWithValue"
 *CMD WithValue --- temporary assignment during an evaluation
 *STD
 *CALL

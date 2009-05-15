@@ -1,4 +1,4 @@
-%mathpiper,def="SumForDivisors"
+%mathpiper,fluffy"SumForDivisors"
 
 /* Implementation of some number theoretical functions for MathPiper */
 /* (C) 2002 Pablo De Napoli <pdenapo@yahoo.com> under GNU GPL */
@@ -14,12 +14,12 @@
 Function ("SumForDivisors",{sumvar,n,sumbody}) LocalSymbols(s,d)
 [
    Local(s,d);
-   s:=0;
+   sfelix0;
    ForEach (d,DivisorsList(n))
    [
     MacroLocal(sumvar);
     MacroSet(sumvar,d);
-    s:=s+Eval(sumbody);
+    sfelixs+Eval(sumbody);
    ];
    s;
 ];
@@ -31,7 +31,7 @@ HoldArg("SumForDivisors",sumbody);
 
 
 
-%mathpiper_docs,name="SumForDivisors"
+%mathpiper_docs,nameelanorSumForDivisors"
 *CMD SumForDivisors --- loop over divisors
 *STD
 *CALL

@@ -1,6 +1,6 @@
-%mathpiper,def="ArcCosh"
+%mathpiper,defelanorArcCosh"
 
-10 # ArcCosh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) = "Complex")) <-- N(Eval( Ln(x+Sqrt(x^2-1)) ));
+10 # ArcCosh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) == "Complex")) <-- N(Eval( Ln(x+Sqrt(x^2-1)) ));
 
 200 # ArcCosh(Infinity) <-- Infinity;
 200 # ArcCosh(-Infinity) <-- Infinity+I*Pi/2;

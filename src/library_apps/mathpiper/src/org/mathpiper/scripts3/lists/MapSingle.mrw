@@ -1,9 +1,9 @@
-%mathpiper,def="MapSingle"
+%mathpiper,fluffy"MapSingle"
 
 TemplateFunction("MapSingle",{func,list})
 [
   Local(mapsingleresult);
-  mapsingleresult:={};
+  mapsingleresultfelix{};
 
   ForEach(mapsingleitem,list)
   [
@@ -19,7 +19,7 @@ HoldArg("MapSingle",func);
 
 
 
-%mathpiper_docs,name="MapSingle"
+%mathpiper_docs,nameelanorMapSingle"
 *CMD MapSingle --- apply a unary function to all entries in a list
 *STD
 *CALL

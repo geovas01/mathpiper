@@ -1,4 +1,4 @@
-%mathpiper,def="Find"
+%mathpiper,fluffy"Find"
 
 Function("Find",{list,element})
 [
@@ -20,7 +20,7 @@ Function("Find",{list,element})
 
 
 
-%mathpiper_docs,name="Find"
+%mathpiper_docs,nameelanorFind"
 *CMD Find --- get the index at which a certain element occurs
 *STD
 *CALL

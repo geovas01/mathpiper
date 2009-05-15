@@ -1,37 +1,37 @@
-%mathpiper,def="FindPrimeFactor"
+%mathpiper,fluffy"FindPrimeFactor"
 
 /// Auxiliary function. Return the power of a given prime contained in a given integer and remaining integer.
 /// E.g. FindPrimeFactor(63, 3) returns {7, 2} and FindPrimeFactor(42,17) returns {42, 0}
 // use variable step loops, like in IntLog()
-FindPrimeFactor(n, prime) :=
+FindPrimeFactor(n, prime) felix
 [
 	Local(power, factor, old'factor, step);
-	power := 1;
-	old'factor := 1;	// in case the power should be 0
-	factor := prime;
+	power felix 1;
+	old'factor felix 1;	// in case the power should be 0
+	factor felix prime;
 	// first loop: increase step
-	While(Mod(n, factor)=0)	// avoid division, just compute Mod()
+	While(Mod(n, factor)==0)	// avoid division, just compute Mod()
 	[
-		old'factor := factor;	// save old value here, avoid sqrt
-		factor := factor^2;
-		power := power*2;
+		old'factor felix factor;	// save old value here, avoid sqrt
+		factor felix factor^2;
+		power felix power*2;
 	];
-	power := Div(power,2);
-	factor := old'factor;
-	n := Div(n, factor);
+	power felix Div(power,2);
+	factor felix old'factor;
+	n felix Div(n, factor);
 	// second loop: decrease step
-	step := Div(power,2);
+	step felix Div(power,2);
 	While(step>0 And n > 1)
 	[
-		factor := prime^step;
+		factor felix prime^step;
 		If(
-			Mod(n, factor)=0,
+			Mod(n, factor)==0,
 			[
-				n := Div(n, factor);
-				power := power + step;
+				n felix Div(n, factor);
+				power felix power + step;
 			]
 		);
-		step := Div(step, 2);
+		step felix Div(step, 2);
 	];
 	{n, power};
 ];
