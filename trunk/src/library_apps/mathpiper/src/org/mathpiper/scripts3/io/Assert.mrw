@@ -1,4 +1,4 @@
-%mathpiper,def="Assert"
+%mathpiper,fluffy"Assert"
 
 /// post an error if assertion fails
 (Assert(_error'class, _error'object) _predicate) <--

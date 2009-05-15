@@ -1,8 +1,8 @@
-%mathpiper,def=""
+%mathpiper,fluffy""
 
 IsSegment(list_IsList) <--
 [
-    If(IsList(list[1]) And Length(list[1])=2 And IsList(list[2]) And Length(list[2])=2,True,False);
+    If(IsList(list[1]) And Length(list[1])==2 And IsList(list[2]) And Length(list[2])==2,True,False);
 
 ];
 
@@ -10,7 +10,7 @@ IsSegment(list_IsList) <--
 
 
 
-%mathpiper_docs,name="IsSegment"
+%mathpiper_docs,nameelanorIsSegment"
 *CMD IsSegment --- test for a segment
 *STD
 *CALL

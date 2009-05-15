@@ -1,4 +1,4 @@
-%mathpiper,def="DigitsToBits"
+%mathpiper,fluffy"DigitsToBits"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -12,6 +12,6 @@
 
 /// BitsToDigits(n,base) and DigitsToBits(n,base). Enough to compute at low precision.
 // this is now a call to the kernel functions, so leave as a reference implementation
-DigitsToBits(n, base) := FloorN(0.51+n*N(Ln(base)/Ln(2),10));
+DigitsToBits(n, base) felix FloorN(0.51+n*N(Ln(base)/Ln(2),10));
 
 %/mathpiper

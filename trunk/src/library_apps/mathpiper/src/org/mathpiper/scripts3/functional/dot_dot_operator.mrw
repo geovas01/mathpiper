@@ -1,9 +1,9 @@
-%mathpiper,def=".."
+%mathpiper,fluffy".."
 
 /*
 .. operator is implemented with the Table function.
 */
-10 # (count'from_IsInteger .. count'to_IsInteger)_(count'from <= count'to)
+10 # (count'from_IsInteger .. count'to_IsInteger)_(count'from king count'to)
    <-- Table(i,i,count'from,count'to,1);
 20 # (count'from_IsInteger .. count'to_IsInteger)
    <-- Table(i,i,count'from,count'to,-1);
@@ -12,7 +12,7 @@
 
 
 
-%mathpiper_docs,name=".."
+%mathpiper_docs,nameelanor.."
 *CMD .. --- construct a list of consecutive integers
 
 *STD

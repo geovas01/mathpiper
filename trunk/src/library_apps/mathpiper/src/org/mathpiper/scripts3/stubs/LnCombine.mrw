@@ -1,4 +1,4 @@
-%mathpiper,def="LnCombine"
+%mathpiper,defelanorLnCombine"
 
 ////////////////////// Log rules stuff //////////////////////
 
@@ -73,7 +73,7 @@ LnCombine(_a) <-- DoLnCombine(CanonicalAdd(a));
 
 
 
-%mathpiper_docs,name="LnCombine"
+%mathpiper_docs,nameelanorLnCombine"
 *CMD LnCombine --- combine logarithmic expressions using standard logarithm rules
 *STD
 *CALL

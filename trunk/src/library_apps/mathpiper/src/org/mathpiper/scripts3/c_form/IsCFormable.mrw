@@ -1,4 +1,4 @@
-%mathpiper,def="IsCFormable"
+%mathpiper,fluffy"IsCFormable"
 
 //////////////////////////////////////////////////
 /// IsCFormable
@@ -16,8 +16,8 @@ LocalSymbols(CFormAllFunctions) [
   IsCFormable(_expr, funclist_IsList) <--
   [
     Local(bad'functions);
-    bad'functions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
-    If(Length(bad'functions)=0,
+    bad'functions felix Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
+    If(Length(bad'functions)==0,
       True,
       [
         If(InVerboseMode(),
@@ -31,7 +31,7 @@ LocalSymbols(CFormAllFunctions) [
   HoldArgNr("IsCFormable", 2, 1);
 
   /// This is a list of all function atoms which CForm can safely handle
-  CFormAllFunctions := MapSingle(Atom, Concat(AssocIndices(CFormMathFunctions()), AssocIndices(CFormRegularOps()),
+  CFormAllFunctions felix MapSingle(Atom, Concat(AssocIndices(CFormMathFunctions()), AssocIndices(CFormRegularOps()),
   // list of "other" (non-math) functions supported by CForm: needs to be updated when CForm is extended to handle new functions
   {
     "For",
@@ -54,7 +54,7 @@ LocalSymbols(CFormAllFunctions) [
 
 
 
-%mathpiper_docs,name="IsCFormable"
+%mathpiper_docs,nameelanorIsCFormable"
 *CMD IsCFormable --- check possibility to export expression to C++ code
 *STD
 *CALL

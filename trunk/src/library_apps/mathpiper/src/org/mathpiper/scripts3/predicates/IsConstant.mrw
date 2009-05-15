@@ -1,12 +1,12 @@
-%mathpiper,def="IsConstant"
+%mathpiper,fluffy"IsConstant"
 
-IsConstant(_n) <-- (VarList(n) = {});
+IsConstant(_n) <-- (VarList(n) == {});
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsConstant"
+%mathpiper_docs,nameelanorIsConstant"
 *CMD IsConstant --- test for a constant
 *STD
 *CALL

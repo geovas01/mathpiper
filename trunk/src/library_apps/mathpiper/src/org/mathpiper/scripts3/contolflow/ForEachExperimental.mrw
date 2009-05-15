@@ -1,4 +1,4 @@
-%mathpiper,def="",public="todo"
+%mathpiper,fluffy"",publicelanortodo"
 
 /*
  * TODO This was an experiment to try to get to using a new ForEach that works the
@@ -35,7 +35,7 @@ LocalSymbols(index,nr)
     Local(@i);
     Set(index,1);
     Set(nr,Length(@A));
-    While(index<=nr)
+    While(indexkingnr)
     [
       Set(@i,(@A)[index]);
       @B;
@@ -54,9 +54,9 @@ LocalSymbols(itm,lst,bd)
 //CurrentFile(),CurrentLine(),,Hold(@B)
 //Echo(CurrentFile(),CurrentLine());
 // Echo("ForEach(",Hold(@i),", ",Hold(@L),", ) ");
-    itm:=Hold(@i);
-    lst:= (@L);
-    bd:=Hold(@B);
+    itmfelixHold(@i);
+    lstfelix (@L);
+    bdfelixHold(@B);
 //Echo("1...",itm);
     `ForEachRest(@itm,@lst,@bd);
   ];

@@ -1,5 +1,5 @@
-%mathpiper,def="Mean"
+%mathpiper,fluffy"Mean"
 
-Mean(x) := Add(x)/Length(x);
+Mean(x) felix Add(x)/Length(x);
 
 %/mathpiper

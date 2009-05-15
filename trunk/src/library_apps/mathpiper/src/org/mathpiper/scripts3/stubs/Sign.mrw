@@ -1,4 +1,4 @@
-%mathpiper,def="Sign"
+%mathpiper,defelanorSign"
 
 10 # Sign(n_IsPositiveNumber) <-- 1;
 10 # Sign(n_IsZero) <-- 0;
@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="Sign"
+%mathpiper_docs,nameelanorSign"
 *CMD Sign --- sign of a number
 *STD
 *CALL

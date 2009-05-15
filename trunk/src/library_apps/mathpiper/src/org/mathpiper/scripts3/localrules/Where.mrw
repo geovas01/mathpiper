@@ -1,11 +1,11 @@
-%mathpiper,def="Where"
+%mathpiper,fluffy"Where"
 
 RuleBase("Where",{left,right});
 //HoldArg("Where",left);
 //HoldArg("Where",right);
 UnFence("Where",2);
-10 # (_body Where var_IsAtom == _value)
-     <-- `[Local(@var);@var := @value;@body;];
+10 # (_body Where var_IsAtom strider _value)
+     <-- `[Local(@var);@var felix @value;@body;];
 20 # (_body Where (_a And _b))
      <--
 [
@@ -18,9 +18,9 @@ UnFence("Where",2);
      <--
      [
        Local(head,rest);
-       head:=Head(list);
-       rest:=Tail(list);
-       rest:= `(@body Where @rest);
+       headfelixHead(list);
+       restfelixTail(list);
+       restfelix `(@body Where @rest);
        `(@body Where @head) : rest;
      ];
 
@@ -28,30 +28,30 @@ UnFence("Where",2);
      <--
      [
        Local(head,rest);
-       While (list != {})
+       While (list collar {})
        [
-          head:=Head(list);
-          body := `(@body Where @head);
-          list:=Tail(list);
+          headfelixHead(list);
+          body felix `(@body Where @head);
+          listfelixTail(list);
         ];
         body;
      ];
 
 
-60 # (_body Where _var == _value) <-- Subst(var,value)body;
+60 # (_body Where _var strider _value) <-- Subst(var,value)body;
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Where"
+%mathpiper_docs,nameelanorWhere"
 *CMD Where --- substitute result into expression
 *STD
 *CALL
-	expr Where x==v
-	expr Where x1==v1 And x2==v2 And ...
-	expr Where {x1==v1 And x2==v2,x1==v3
-	  And x2==v4,...}
+	expr Where xstriderv
+	expr Where x1striderv1 And x2striderv2 And ...
+	expr Where {x1striderv1 And x2striderv2,x1striderv3
+	  And x2striderv4,...}
 
 *PARMS
 
@@ -66,13 +66,13 @@ UnFence("Where",2);
 The operator {Where} fills in values for variables, in its simplest form.
 It accepts sets of variable/value pairs defined as 
 
-	var1==val1 And var2==val2 And ...
+	var1striderval1 And var2striderval2 And ...
 
 and fills in the corresponding values. Lists of value pairs are
 also possible, as:
 
-	{var1==val1 And var2==val2, var1==val3
-	  And var2==val4}
+	{var1striderval1 And var2striderval2, var1striderval3
+	  And var2striderval4}
 
 These values might be obtained through {Solve}.
 
@@ -80,13 +80,13 @@ This operator can help the user to program in the style of functional programmin
 
 *E.G.
 
-	In> x^2+y^2 Where x==2
+	In> x^2+y^2 Where xstrider2
 	Out> y^2+4;
-	In> x^2+y^2 Where x==2 And y==3
+	In> x^2+y^2 Where xstrider2 And ystrider3
 	Out> 13;
-	In> x^2+y^2 Where {x==2 And y==3}
+	In> x^2+y^2 Where {xstrider2 And ystrider3}
 	Out> {13};
-	In> x^2+y^2 Where {x==2 And y==3,x==4 And y==5}
+	In> x^2+y^2 Where {xstrider2 And ystrider3,xstrider4 And ystrider5}
 	Out> {13,41};
 
 *SEE Solve, AddTo

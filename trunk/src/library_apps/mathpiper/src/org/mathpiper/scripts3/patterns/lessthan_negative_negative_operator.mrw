@@ -1,4 +1,4 @@
-%mathpiper,def="<--"
+%mathpiper,fluffy"<--"
 
 RuleBase("<--",{patternleft,patternright});
 

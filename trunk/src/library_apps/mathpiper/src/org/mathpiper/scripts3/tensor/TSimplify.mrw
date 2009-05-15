@@ -1,4 +1,4 @@
-%mathpiper,def="TSimplify"
+%mathpiper,defelanorTSimplify"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
@@ -26,19 +26,19 @@ TSimplify(TSum(_indices)(_f)) <--
   Local(flat);
 
   /* Convert expressions of the form (a*b*c) to {a,b,c} */
-  flat:=Flatten(body,"*");
+  flatfelixFlatten(body,"*");
 
   /* Move the deltas to the front. */
-  flat:=MoveDeltas(flat);
+  flatfelixMoveDeltas(flat);
 
   /* Simplify the deltas away (removing the required indices) */
-  flat:=TSumRest(flat);
+  flatfelixTSumRest(flat);
 
   /* Determine if there are indices the summand still depends on */
   Local(varlist,independ,nrdims);
-  varlist:=VarList(flat);
-  independ:=Intersection(indices,varlist);
-  nrdims:=Length(indices)-Length(independ);
+  varlistfelixVarList(flat);
+  independfelixIntersection(indices,varlist);
+  nrdimsfelixLength(indices)-Length(independ);
 
   /* Return result, still summing over the indices not removed by deltas */
   Ndim^nrdims*TSum(independ)flat;

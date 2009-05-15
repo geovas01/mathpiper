@@ -1,4 +1,4 @@
-%mathpiper,def="Macro"
+%mathpiper,fluffy"Macro"
 
 RuleBase("Macro",{oper,args,body});
 HoldArg("Macro",oper);
@@ -59,7 +59,7 @@ Rule("Macro",1,2048,
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,nameelanor"
 *CMD Macro --- declare or define a macro
 *STD
 *CALL
@@ -91,13 +91,13 @@ the following example defines a looping function.
 
 	In> Macro("myfor",{init,pred,inc,body}) [@init;While(@pred)[@body;@inc;];True;];
 	Out> True;
-	In> a:=10
+	In> afelix10
 	Out> 10;
 
 Here this new macro {myfor} is used to loop, using a variable {a} from the
 calling environment.
 
-	In> myfor(i:=1,i<10,i++,Echo(a*i))
+	In> myfor(ifelix1,i<10,i++,Echo(a*i))
 	10 
 	20 
 	30 

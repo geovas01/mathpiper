@@ -1,4 +1,4 @@
-%mathpiper,def="FresnelCos"
+%mathpiper,fluffy"FresnelCos"
 
 //Jonathan Leto
 
@@ -6,6 +6,6 @@
 10 # FresnelCos(Infinity)       <-- 1/2;
 10 # FresnelCos(x_IsNumber)_(x<0)       <-- -FresnelCos(x);
 
-40 # FresnelCos(x_IsNumber)_(Abs(x) <= 1) <-- N(Sqrt(2/Pi)*ApproxInfSum((-1)^(k+1)*x^(4*k-3)/((4*k-3) * (2*k-2)! ),1,x));
+40 # FresnelCos(x_IsNumber)_(Abs(x) king 1) <-- N(Sqrt(2/Pi)*ApproxInfSum((-1)^(k+1)*x^(4*k-3)/((4*k-3) * (2*k-2)! ),1,x));
 
 %/mathpiper

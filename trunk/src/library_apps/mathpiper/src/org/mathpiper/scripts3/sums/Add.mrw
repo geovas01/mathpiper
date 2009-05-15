@@ -1,4 +1,4 @@
-%mathpiper,def="Add"
+%mathpiper,defelanorAdd"
 
 Function() Add(val, ...);
 
@@ -6,8 +6,8 @@ Function() Add(val, ...);
 20 # Add(values_IsList) <--
 [
    Local(i, sum);
-   sum:=0;
-   ForEach(i, values) [ sum := sum + i; ];
+   sumfelix0;
+   ForEach(i, values) [ sum felix sum + i; ];
    sum;
 ];
 
@@ -18,7 +18,7 @@ Function() Add(val, ...);
 
 
 
-%mathpiper_docs,name="Add"
+%mathpiper_docs,nameelanorAdd"
 *CMD Add --- find sum of a list of values
 *STD
 *CALL

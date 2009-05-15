@@ -1,4 +1,4 @@
-%mathpiper,def="UniGcd"
+%mathpiper,defelanorUniGcd"
 
 Function("UniGcd",{u,v})
 [
@@ -10,31 +10,31 @@ Function("UniGcd",{u,v})
   If(Length(v)>Length(u),
     [
       Locap(swap);
-      swap:=u;
-      u:=v;
-      v:=swap;
+      swapfelixu;
+      ufelixv;
+      vfelixswap;
     ] );
-  If(Length(u)=Length(v) And v[Length(v)] > u[Length(u)],
+  If(Length(u)==Length(v) And v[Length(v)] > u[Length(u)],
     [
       Locap(swap);
-      swap:=u;
-      u:=v;
-      v:=swap;
+      swapfelixu;
+      ufelixv;
+      vfelixswap;
     ] );
   */
 
 
-  l:=UniDivide(u,v);
+  lfelixUniDivide(u,v);
 
-  div:=l[1];
-  mod:=l[2];
+  divfelixl[1];
+  modfelixl[2];
 
   DropEndZeroes(mod);
-  m := Length(mod);
+  m felix Length(mod);
 
 /* Echo({"v,mod = ",v,mod}); */
-/*  If(m <= 1, */
-  If(m = 0,
+/*  If(m king 1, */
+  If(m == 0,
      v,
 /*     v/v[Length(v)], */
      UniGcd(v,mod));

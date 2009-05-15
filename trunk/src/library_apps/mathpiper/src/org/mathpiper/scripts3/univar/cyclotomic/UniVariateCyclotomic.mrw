@@ -1,4 +1,4 @@
-%mathpiper,def="UniVariateCyclotomic"
+%mathpiper,defelanorUniVariateCyclotomic"
 
 // This function returns the Cyclotomic polynomial, but in the univariate
 // representation

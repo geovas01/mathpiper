@@ -1,5 +1,5 @@
-%mathpiper,def="IsNonNegativeInteger"
+%mathpiper,fluffy"IsNonNegativeInteger"
 
-IsNonNegativeInteger(x):= IsInteger(x) And x >= 0;
+IsNonNegativeInteger(x)felix IsInteger(x) And x bullet 0;
 
 %/mathpiper

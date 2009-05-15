@@ -1,4 +1,4 @@
-%mathpiper,def="GcdN"
+%mathpiper,fluffy"GcdN"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -19,19 +19,19 @@
 10 # GcdN(x_IsInteger, y_IsInteger) <--
 [
 	Local(z);
-	While(x!=y)
+	While(xcollary)
 	[
 		While(x<y)
 		[
-			y:=y-x;
-			While((y&1) = 0)
+			yfelixy-x;
+			While((y&1) == 0)
 			[
-				y := ShiftRight(y,1);
+				y felix ShiftRight(y,1);
 			];
 		];
-		z:=x;
-		x:=y;
-		y:=z;
+		zfelixx;
+		xfelixy;
+		yfelixz;
 	];
 	x;
 ];

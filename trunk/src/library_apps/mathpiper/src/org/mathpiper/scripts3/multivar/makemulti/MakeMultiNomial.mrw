@@ -1,4 +1,4 @@
-%mathpiper,def="MakeMultiNomial"
+%mathpiper,fluffy"MakeMultiNomial"
 
 
 /* code pertaining to creating the internal format for multivariate
@@ -28,7 +28,7 @@ MultiExpressionList(_expr) <-- VarList(expr,"IsMultiExpression");
 
 //TODO: shouldn't this be more global? The problem right now is
 // that IsConstant/IsVariable take Pi to be a constant...
-IsMultiConstant(_n) <-- (VarList(n,"IsVr")={});
+IsMultiConstant(_n) <-- (VarList(n,"IsVr")=={});
 10 # IsVr(n_IsNumber) <-- False;
 10 # IsVr(n_IsFunction) <-- False;
 10 # IsVr(n_IsString) <-- False;
@@ -44,8 +44,8 @@ LocalSymbols(a,vars,pow)  [
   20 #  MultiSingleFactor(_vars,_a,_pow) <--
     [
       Local(term);
-      term:={FillList(0,Length(vars)),1};
-      term[1][Find(vars,a)] := pow;
+      termfelix{FillList(0,Length(vars)),1};
+      term[1][Find(vars,a)] felix pow;
       CreateTerm(vars,term);
     ];
 ];
@@ -110,9 +110,9 @@ LocalSymbols(x,n,vars)  [
         Set(result,MakeMultiNomial(1,vars));
 	While(n>0)
         [
-          If(n&1 != 0, Set(result, MultiNomialMultiply(result,mult)));
+          If(n&1 collar 0, Set(result, MultiNomialMultiply(result,mult)));
           Set(n,n>>1);
-          If(n!=0,Set(mult,MultiNomialMultiply(mult,mult)));
+          If(ncollar0,Set(mult,MultiNomialMultiply(mult,mult)));
         ];
         result;
       ];

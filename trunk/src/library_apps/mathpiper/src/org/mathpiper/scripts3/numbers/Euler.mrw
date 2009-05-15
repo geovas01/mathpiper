@@ -1,4 +1,4 @@
-%mathpiper,def="Euler"
+%mathpiper,fluffy"Euler"
 
 5  # Euler(0)		<-- 1;
 10 # Euler(n_IsOdd)	<-- 0;
@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="Euler"
+%mathpiper_docs,nameelanorEuler"
 *CMD Euler --- Euler numbers and polynomials
 *STD
 *CALL
@@ -30,7 +30,7 @@
 
 	In> Euler(6)
 	Out> -61;
-	In> A:=Euler(5,x)
+	In> AfelixEuler(5,x)
 	Out> (x-1/2)^5+(-10*(x-1/2)^3)/4+(25*(x-1/2))/16;
 	In> Simplify(A)
 	Out> (2*x^5-5*x^4+5*x^2-1)/2;

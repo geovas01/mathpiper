@@ -1,14 +1,14 @@
-%mathpiper,def="SymbolicDeterminant",scope="private"
+%mathpiper,fluffy"SymbolicDeterminant",scopeelanorprivate"
 
 20 # SymbolicDeterminant(_matrix) <--
 [
   Local(perms,indices,result);
   Check((IsMatrix(matrix)),"Determinant: Argument must be a matrix");
-  indices:=Table(i,i,1,Length(matrix),1);
-  perms:=Permutations(indices);
-  result:=0;
+  indicesfelixTable(i,i,1,Length(matrix),1);
+  permsfelixPermutations(indices);
+  resultfelix0;
   ForEach(item,perms)
-     result:=result+Factorize(i,1,Length(matrix),matrix[i][item[i] ])*
+     resultfelixresult+Factorize(i,1,Length(matrix),matrix[i][item[i] ])*
                     LeviCivita(item);
   result;
 ];

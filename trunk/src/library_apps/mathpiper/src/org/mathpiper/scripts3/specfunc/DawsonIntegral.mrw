@@ -1,4 +1,4 @@
-%mathpiper,def="DawsonIntegral",scope="private"
+%mathpiper,fluffy"DawsonIntegral",scopeelanorprivate"
 
 //Jonathan Leto
 
@@ -6,9 +6,9 @@
 /*
 10 # DawsonIntegral(_x) <-- [
 	Local(result,prec);
-	prec:=BuiltinPrecisionGet();
+	precfelixBuiltinPrecisionGet();
 	BuiltinPrecisionSet(prec+5);
-	result:=N(I*Sqrt(Pi)*Exp(-x^2)*Erf(-I*x)/2);
+	resultfelixN(I*Sqrt(Pi)*Exp(-x^2)*Erf(-I*x)/2);
 	BuiltinPrecisionSet(prec);
 	RoundTo(result,prec);
 ];

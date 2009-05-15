@@ -1,4 +1,4 @@
-%mathpiper,def="ApplyDelta",scope="private"
+%mathpiper,defelanorApplyDelta",scopeelanorprivate"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
@@ -8,7 +8,7 @@
 20 # ApplyDelta(_result,(_x) ^ (n_IsInteger))_(n>0) <--
     [
       Local(i);
-      For(i:=1,i<=n,i++)
+      For(ifelix1,ikingn,i++)
       [
         ApplyDelta(result,x);
       ];

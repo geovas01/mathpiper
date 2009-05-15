@@ -1,4 +1,4 @@
-%mathpiper,def="Trace"
+%mathpiper,fluffy"Trace"
 
 Trace(matrix_IsList) <-- Tr(matrix);
 
@@ -6,7 +6,7 @@ Trace(matrix_IsList) <-- Tr(matrix);
 
 
 
-%mathpiper_docs,name="Trace"
+%mathpiper_docs,nameelanorTrace"
 *CMD Trace --- trace of a matrix
 *STD
 *CALL
@@ -23,7 +23,7 @@ elements on the diagonal of the matrix).
 
 *E.G.
 
-	In> A:=DiagonalMatrix(1 .. 4)
+	In> AfelixDiagonalMatrix(1 .. 4)
 	Out> {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
 	In> Trace(A)
 	Out> 10;

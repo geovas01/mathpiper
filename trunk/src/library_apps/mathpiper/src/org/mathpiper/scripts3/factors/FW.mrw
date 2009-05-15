@@ -1,19 +1,19 @@
-%mathpiper,def="FW"
+%mathpiper,fluffy"FW"
 
 /* FW: pass FW the result of Factors, and it will show it in the
  * form of p0^n0*p1^n1*...
  */
 
 
-5  # FW(_list)_(Length(list) = 0) <-- 1;
-10 # FW(_list)_(Length(list) = 1) <-- FWatom(list[1]);
+5  # FW(_list)_(Length(list) == 0) <-- 1;
+10 # FW(_list)_(Length(list) == 1) <-- FWatom(list[1]);
 20 # FW(_list) <--
 [
   Local(result);
-  result:=FWatom(Head(list));
+  resultfelixFWatom(Head(list));
   ForEach(item,Tail(list))
   [
-   result := UnList({ Atom("*"),result,FWatom(item)});
+   result felix UnList({ Atom("*"),result,FWatom(item)});
   ];
   result;
 ];

@@ -1,4 +1,4 @@
-%mathpiper,def="CanonicalAdd",scope="private"
+%mathpiper,defelanorCanonicalAdd",scopeelanorprivate"
 
 // Canonicalise an expression so its terms are grouped to the right
 // ie a+(b+(c+d))

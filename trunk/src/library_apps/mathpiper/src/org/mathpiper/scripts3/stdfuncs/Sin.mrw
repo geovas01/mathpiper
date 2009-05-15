@@ -1,4 +1,4 @@
-%mathpiper,def="Sin"
+%mathpiper,defelanorSin"
 
 
 1 # SinMap( _n )_(Not(IsRationalOrNumber(n))) <-- UnList({Atom("Sin"),n*Pi});
@@ -33,7 +33,7 @@
 110 # Sin(Complex(_r,_i)) <--
     (Exp(I*Complex(r,i)) - Exp(- I*Complex(r,i))) / (I*2) ;
 
-200 # Sin(v_CanBeUni(Pi))_(Not(InNumericMode()) And Degree(v,Pi) < 2 And Coef(v,Pi,0) = 0) <--
+200 # Sin(v_CanBeUni(Pi))_(Not(InNumericMode()) And Degree(v,Pi) < 2 And Coef(v,Pi,0) == 0) <--
 [
   SinMap(Coef(v,Pi,1));
 ];
@@ -47,7 +47,7 @@ Sin(xlist_IsList) <-- MapSingle("Sin",xlist);
 
 
 
-%mathpiper_docs,name="Sin"
+%mathpiper_docs,nameelanorSin"
 *CMD Sin --- trigonometric sine function
 *STD
 *CALL

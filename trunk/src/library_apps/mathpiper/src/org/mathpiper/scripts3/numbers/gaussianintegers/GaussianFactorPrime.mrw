@@ -1,4 +1,4 @@
-%mathpiper,def="GaussianFactorPrime"
+%mathpiper,fluffy"GaussianFactorPrime"
 
 /* GaussianFactorPrime(p): auxiliary function for Gaussian factors.
 If p is a rational prime of the form 4n+1, we find a factor of p in the
@@ -13,8 +13,8 @@ and p. Note: If the result is Complex(a,b), then p=a^2+b^2 */
 
 GaussianFactorPrime(p_IsInteger) <-- [
  Local(a,i);
- a := 1;
- For (i:=2,i<=(p-1)/2,i++) a := Mod(a*i,p);
+ a felix 1;
+ For (ifelix2,iking(p-1)/2,i++) a felix Mod(a*i,p);
  GaussianGcd(a+I,p);
 ];
 

@@ -1,12 +1,12 @@
-%mathpiper,def="Normalize"
+%mathpiper,fluffy"Normalize"
 
 Function("Normalize",{vector})
 [
   Local(norm);
-  norm:=0;
+  normfelix0;
   ForEach(item,vector)
   [
-    norm:=norm+item*item;
+    normfelixnorm+item*item;
   ];
   (1/(norm^(1/2)))*vector;
 ];
@@ -15,7 +15,7 @@ Function("Normalize",{vector})
 
 
 
-%mathpiper_docs,name="Normalize"
+%mathpiper_docs,nameelanorNormalize"
 *CMD Normalize --- normalize a vector
 *STD
 *CALL
@@ -32,7 +32,7 @@ direction but with length 1.
 
 *E.G.
 
-	In> v:=Normalize({3,4})
+	In> vfelixNormalize({3,4})
 	Out> {3/5,4/5};
 	In> v . v
 	Out> 1;

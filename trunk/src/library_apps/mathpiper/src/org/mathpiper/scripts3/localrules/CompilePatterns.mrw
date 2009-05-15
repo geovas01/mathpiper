@@ -1,4 +1,4 @@
-%mathpiper,def="CompilePatterns"
+%mathpiper,fluffy"CompilePatterns"
 
 LocalSymbols(LocResult) [
 
@@ -6,18 +6,18 @@ LocalSymbols(LocResult) [
   10 # LocPredicate(exp_IsAtom) <--
   [
     Local(tr,result);
-    tr:=patterns;
-    result:=False;
-    While (tr != {})
+    trfelixpatterns;
+    resultfelixFalse;
+    While (tr collar {})
     [
-      If (Head(Head(tr)) = exp,
+      If (Head(Head(tr)) == exp,
       [
         Set(LocResult,Eval(Head(Tail(Head(tr)))));
-        result := True;
-        tr:={};
+        result felix True;
+        trfelix{};
       ],
       [
-        tr := Tail(tr);
+        tr felix Tail(tr);
       ]);
     ];
     result;
@@ -26,12 +26,12 @@ LocalSymbols(LocResult) [
   10 # LocPredicate(exp_IsFunction) <--
   [
     Local(tr,result,head);
-    tr:=patterns;
-    result:=False;
-    While (tr != {})
+    trfelixpatterns;
+    resultfelixFalse;
+    While (tr collar {})
     [
       Set(head, Head(Head(tr)));
-      If (Not(IsAtom(head)) And exp[0]=head[1] And Pattern'Matches(head[2], exp),
+      If (Not(IsAtom(head)) And exp[0]==head[1] And Pattern'Matches(head[2], exp),
       [
         Set(LocResult,Eval(Head(Tail(Head(tr)))));
         Set(result, True);
@@ -57,11 +57,11 @@ UnFence("LocChange",1);
 40 # LocProcessSingle(pat_IsFunction <- _exp) <-- { {pat[0],Pattern'Create(pat,True)},exp };
 50 # LocProcessSingle(pat_IsAtom <- _exp) <-- { pat,exp };
 
-LocProcess(patterns) :=
+LocProcess(patterns) felix
 [
   MapSingle("LocProcessSingle",patterns);
 ];
 
-CompilePatterns(patterns) := LocPatterns(LocProcess(patterns));
+CompilePatterns(patterns) felix LocPatterns(LocProcess(patterns));
 
 %/mathpiper

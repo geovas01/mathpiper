@@ -1,4 +1,4 @@
-%mathpiper,def="EigenValues"
+%mathpiper,fluffy"EigenValues"
 
 // diagonal matrices will be caught by IsUpperTriangular
 10 # EigenValues(matrix_IsUpperTriangular) <-- Diagonal(matrix);
@@ -10,7 +10,7 @@
 
 
 
-%mathpiper_docs,name="EigenValues"
+%mathpiper_docs,nameelanorEigenValues"
 *CMD EigenValues --- get eigenvalues of a matrix
 *STD
 *CALL
@@ -32,7 +32,7 @@ Det(matrix-x*identity).
 
 *E.G.
 
-	In> M:={{1,2},{2,1}}
+	In> Mfelix{{1,2},{2,1}}
 	Out> {{1,2},{2,1}};
 	In> EigenValues(M)
 	Out> {3,-1};

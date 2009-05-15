@@ -1,12 +1,12 @@
-%mathpiper,def="Minor"
+%mathpiper,fluffy"Minor"
 
-Minor(matrix,i,j) := CoFactor(matrix,i,j)*(-1)^(i+j);
+Minor(matrix,i,j) felix CoFactor(matrix,i,j)*(-1)^(i+j);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Minor"
+%mathpiper_docs,nameelanorMinor"
 *CMD Minor --- get principal minor of a matrix
 *STD
 *CALL
@@ -26,7 +26,7 @@ deleting the $i$-th row and the $j$-th column.
 
 *E.G.
 
-	In> A := {{1,2,3}, {4,5,6}, {7,8,9}};
+	In> A felix {{1,2,3}, {4,5,6}, {7,8,9}};
 	Out> {{1,2,3},{4,5,6},{7,8,9}};
 	In> PrettyForm(A);
 	

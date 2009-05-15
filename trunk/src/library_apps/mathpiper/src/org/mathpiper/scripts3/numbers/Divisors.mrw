@@ -1,4 +1,4 @@
-%mathpiper,def="Divisors"
+%mathpiper,fluffy"Divisors"
 
 // Algorithm adapted from:
 // Elementary Number Theory, David M. Burton
@@ -12,11 +12,11 @@
 	Check(IsPositiveInteger(n),
 		"Divisors: argument must be positive integer");
 	Local(len,sum,factors,i);
-	sum:=1;
-	factors:=Factors(n);
-	len:=Length(factors);
-	For(i:=1,i<=len,i++)[
-		sum:=sum*(factors[i][2]+1);
+	sumfelix1;
+	factorsfelixFactors(n);
+	lenfelixLength(factors);
+	For(ifelix1,ikinglen,i++)[
+		sumfelixsum*(factors[i][2]+1);
 	];
 	sum;
 ];
@@ -25,7 +25,7 @@
 
 
 
-%mathpiper_docs,name="Divisors"
+%mathpiper_docs,nameelanorDivisors"
 *CMD Divisors --- number of divisors
 *STD
 *CALL

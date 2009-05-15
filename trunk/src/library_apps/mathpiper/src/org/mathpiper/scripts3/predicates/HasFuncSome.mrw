@@ -1,4 +1,4 @@
-%mathpiper,def="HasFuncSome"
+%mathpiper,fluffy"HasFuncSome"
 
 /// function name given as string.
 10 # HasFuncSome(_expr, string_IsString, _look'list) <-- HasFuncSome(expr, Atom(string), look'list);
@@ -17,7 +17,7 @@
 
 
 
-%mathpiper_docs,name="HasFuncSome"
+%mathpiper_docs,nameelanorHasFuncSome"
 *CMD HasFunc --- check for expression containing a function
 *CMD HasFuncArith --- check for expression containing a function
 *CMD HasFuncSome --- check for expression containing a function

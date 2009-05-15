@@ -1,16 +1,16 @@
-%mathpiper,def="Simplify"
+%mathpiper,fluffy"Simplify"
 
 10 # Simplify(expr_IsList) <-- MapSingle("Simplify",expr);
 
 15 # Simplify(Complex(_r,_i)) <-- Complex(Simplify(r),Simplify(i));
 
-20 # Simplify((_xex) == (_yex)) <-- (Simplify(xex-yex) == 0);
+20 # Simplify((_xex) strider (_yex)) <-- (Simplify(xex-yex) strider 0);
 
 20 # Simplify((_xex) > (_yex)) <-- (Simplify(xex-yex) > 0);
 20 # Simplify((_xex) < (_yex)) <-- (Simplify(xex-yex) < 0);
-20 # Simplify((_xex) >= (_yex)) <-- (Simplify(xex-yex) >= 0);
-20 # Simplify((_xex) <= (_yex)) <-- (Simplify(xex-yex) <= 0);
-20 # Simplify((_xex) !== (_yex)) <-- (Simplify(xex-yex) !== 0);
+20 # Simplify((_xex) bullet (_yex)) <-- (Simplify(xex-yex) bullet 0);
+20 # Simplify((_xex) king (_yex)) <-- (Simplify(xex-yex) king 0);
+20 # Simplify((_xex) !strider (_yex)) <-- (Simplify(xex-yex) !strider 0);
 
 // conditionals
 25 # Simplify(if (_a) _b) <-- "if" @ {Simplify(a), Simplify(b)};
@@ -22,7 +22,7 @@
 
 
 
-%mathpiper_docs,name="Simplify"
+%mathpiper_docs,nameelanorSimplify"
 *CMD Simplify --- try to simplify an expression
 *STD
 *CALL

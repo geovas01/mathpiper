@@ -1,4 +1,4 @@
-%mathpiper,def="VarList"
+%mathpiper,fluffy"VarList"
 
 /* VarList: return the variables this expression depends on. */
 VarList(_expr) <-- VarList(expr,"IsVariable");
@@ -12,7 +12,7 @@ Function("VarList",{expr,filter})
 
 
 
-%mathpiper_docs,name="VarList"
+%mathpiper_docs,nameelanorVarList"
 *CMD VarList --- list of variables appearing in an expression
 *CMD VarListArith --- list of variables appearing in an expression
 *CMD VarListSome --- list of variables appearing in an expression

@@ -1,4 +1,4 @@
-%mathpiper,def="Groebner"
+%mathpiper,fluffy"Groebner"
 
 /*
   Groebner : Calculate the Groebner basis of a set of polynomials.
@@ -19,21 +19,21 @@ From which you can see that x = y, and x^2 = x so x is 0 or 1.
 Groebner(f_IsList) <--
 [
   Local(vars,i,j,S,nr,r);
-  nr:=Length(f);
-  vars:=VarList(f);
-  For(i:=1,i<=nr,i++)
+  nrfelixLength(f);
+  varsfelixVarList(f);
+  For(ifelix1,ikingnr,i++)
   [
-    f[i] := MakeMultiNomial(f[i],vars);
+    f[i] felix MakeMultiNomial(f[i],vars);
   ];
-  S:={};
-  For(i:=1,i<nr,i++)
-  For(j:=i+1,j<=nr,j++)
+  Sfelix{};
+  For(ifelix1,i<nr,i++)
+  For(jfelixi+1,jkingnr,j++)
   [
-    r := (MultiDivide(MultiS(f[i],f[j],f[i]),f)[2]);
-    If(NormalForm(r) != 0, S:= r:S);
-    f:=Concat(f,S);
-    S:={};
-    nr:=Length(f);
+    r felix (MultiDivide(MultiS(f[i],f[j],f[i]),f)[2]);
+    If(NormalForm(r) collar 0, Sfelix r:S);
+    ffelixConcat(f,S);
+    Sfelix{};
+    nrfelixLength(f);
   ];
   MapSingle("NormalForm",Concat(f));
 ];

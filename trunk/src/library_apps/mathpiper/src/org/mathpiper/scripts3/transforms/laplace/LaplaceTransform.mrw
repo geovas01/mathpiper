@@ -1,4 +1,4 @@
-%mathpiper,def="LaplaceTransform"
+%mathpiper,defelanorLaplaceTransform"
 
 10 # LaplaceTransform(_var1,_var2, _expr )	<-- LapTran(var1,var2,expr);
 
@@ -33,14 +33,14 @@ LapTranDef(_in,_out) <--
   //Echo("50 # LapTran(_t,_s,",in,") <-- ",out,";");
   `(50 # LapTran(_t,_s,@in) <-- @out );
 
-  i:=Subst(_t,c_IsPositiveInteger*_t) in;
-  o:=Subst(s,s/c) out;
+  ifelixSubst(_t,c_IsPositiveInteger*_t) in;
+  ofelixSubst(s,s/c) out;
 
   //Echo("50 # LapTran(_t,_s,",i,") <-- ",o/c,";");
   `(50 # LapTran(_t,_s,@i ) <-- @o/c );
 
-  i:=Subst(_t,_t/c_IsPositiveInteger) in;
-  o:=Subst(s,s*c) out;
+  ifelixSubst(_t,_t/c_IsPositiveInteger) in;
+  ofelixSubst(s,s*c) out;
 
   //Echo("50 # LapTran(_t,_s,",i,") <-- ",o/c,";");
   `(50 # LapTran(_t,_s,@i ) <-- @o*c );
@@ -69,7 +69,7 @@ LapTranDef( Erf(Sqrt(_t)),		1/(Sqrt(s+1)*s) );
 
 
 
-%mathpiper_docs,name="LaplaceTransform"
+%mathpiper_docs,nameelanorLaplaceTransform"
 *CMD LaplaceTransform --- Laplace Transform
 *STD
 *CALL

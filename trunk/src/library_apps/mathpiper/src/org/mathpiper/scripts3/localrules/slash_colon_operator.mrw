@@ -1,4 +1,4 @@
-%mathpiper,def="/:"
+%mathpiper,fluffy"/:"
 
 5 # (_expression /: LocPatterns(_patterns)) <--
 [
@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,name="/:"
+%mathpiper_docs,nameelanor/:"
 *CMD /: --- local simplification rules
 *CMD /:: --- local simplification rules
 *STD

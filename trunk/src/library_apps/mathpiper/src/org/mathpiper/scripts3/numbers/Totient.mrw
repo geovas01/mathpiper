@@ -1,4 +1,4 @@
-%mathpiper,def="Totient"
+%mathpiper,fluffy"Totient"
 
 // Algorithm adapted from:
 // Elementary Number Theory, David M. Burton
@@ -9,11 +9,11 @@
 	Check(IsPositiveInteger(n),
 		"Totient: argument must be positive integer");
 	Local(i,sum,factors,len);
-	sum:=n;
-        factors:=Factors(n);
-        len:=Length(factors);
-        For(i:=1,i<=len,i++)[
-		sum:=sum*(1-1/factors[i][1]);
+	sumfelixn;
+        factorsfelixFactors(n);
+        lenfelixLength(factors);
+        For(ifelix1,ikinglen,i++)[
+		sumfelixsum*(1-1/factors[i][1]);
         ];
 	sum;
 ];

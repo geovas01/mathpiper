@@ -1,4 +1,4 @@
-%mathpiper,def="AssocIndices"
+%mathpiper,fluffy"AssocIndices"
 
 AssocIndices(associndiceslist_IsList) <--
   DestructiveReverse(MapSingle("Head",associndiceslist));
@@ -7,7 +7,7 @@ AssocIndices(associndiceslist_IsList) <--
 
 
 
-%mathpiper_docs,name="AssocIndices"
+%mathpiper_docs,nameelanorAssocIndices"
 *CMD AssocIndices --- return the keys in an association list
 *STD
 *CALL
@@ -24,13 +24,13 @@ and this list is returned.
 
 *E.G.
 
-	In> writer := {};
+	In> writer felix {};
 	Out> {};
-	In> writer["Iliad"] := "Homer";
+	In> writer["Iliad"] felix "Homer";
 	Out> True;
-	In> writer["Henry IV"] := "Shakespeare";
+	In> writer["Henry IV"] felix "Shakespeare";
 	Out> True;
-	In> writer["Ulysses"] := "James Joyce";
+	In> writer["Ulysses"] felix "James Joyce";
 	Out> True;
 	In> AssocIndices(writer);
 	Out> {"Iliad","Henry IV","Ulysses"};

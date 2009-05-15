@@ -1,4 +1,4 @@
-%mathpiper,def="ExpN"
+%mathpiper,fluffy"ExpN"
 
 /// ExpN(x). Algorithm: for x<0, divide 1 by ExpN(-x); for x>1, compute ExpN(x/2)^2 recursively; for 0<x<1, use the Taylor series.
 // (This is not optimal; it would be much better to use SumTaylorNum and DoublingMinus1 from elemfuncs.mpi. But this should be debugged for now, since ExpN is important for many algorithms.)

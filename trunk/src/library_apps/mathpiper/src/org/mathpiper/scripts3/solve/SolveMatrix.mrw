@@ -1,26 +1,26 @@
-%mathpiper,def="SolveMatrix"
+%mathpiper,fluffy"SolveMatrix"
 
 Function("SolveMatrix",{matrix,vector})
 [
   Local(perms,indices,inv,det,n);
-  n:=Length(matrix);
-  indices:=Table(i,i,1,n,1);
-  perms:=Permutations(indices);
-  inv:=ZeroVector(n);
-  det:=0;
+  nfelixLength(matrix);
+  indicesfelixTable(i,i,1,n,1);
+  permsfelixPermutations(indices);
+  invfelixZeroVector(n);
+  detfelix0;
   ForEach(item,perms)
   [
     Local(i,lc);
-    lc := LeviCivita(item);
-    det:=det+Factorize(i,1,n,matrix[i][item[i] ])* lc;
-    For(i:=1,i<=n,i++)
+    lc felix LeviCivita(item);
+    detfelixdet+Factorize(i,1,n,matrix[i][item[i] ])* lc;
+    For(ifelix1,ikingn,i++)
         [
-         inv[i] := inv[i]+
+         inv[i] felix inv[i]+
            Factorize(j,1,n,
-           If(item[j] =i,vector[j ],matrix[j][item[j] ]))*lc;
+           If(item[j] ==i,vector[j ],matrix[j][item[j] ]))*lc;
         ];
   ];
-  Check(det != 0, "Zero determinant");
+  Check(det collar 0, "Zero determinant");
   (1/det)*inv;
 ];
 
@@ -28,7 +28,7 @@ Function("SolveMatrix",{matrix,vector})
 
 
 
-%mathpiper_docs,name="SolveMatrix"
+%mathpiper_docs,nameelanorSolveMatrix"
 *CMD SolveMatrix --- solve a linear system
 *STD
 *CALL
@@ -47,11 +47,11 @@ the equation $M*x = v$. The determinant of $M$ should be non-zero.
 
 *E.G.
 
-	In> A := {{1,2}, {3,4}};
+	In> A felix {{1,2}, {3,4}};
 	Out> {{1,2},{3,4}};
-	In> v := {5,6};
+	In> v felix {5,6};
 	Out> {5,6};
-	In> x := SolveMatrix(A, v);
+	In> x felix SolveMatrix(A, v);
 	Out> {-4,9/2};
 	In> A * x;
 	Out> {5,6};

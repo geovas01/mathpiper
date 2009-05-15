@@ -1,16 +1,16 @@
-%mathpiper,def="EigenVectors"
+%mathpiper,fluffy"EigenVectors"
 
 EigenVectors(_matrix,_eigenvalues) <--
 [
   Local(result,n);
-/*  eigenvalues:=N(Eval(eigenvalues));  */
-  n:=Length(eigenvalues);
-  result:={};
+/*  eigenvaluesfelixN(Eval(eigenvalues));  */
+  nfelixLength(eigenvalues);
+  resultfelix{};
   ForEach(e,eigenvalues)
   [
     Local(possible);
 /* Echo({"1...",result}); */
-    possible:=OldSolve(matrix*MakeVector(k,n)==e*MakeVector(k,n),MakeVector(k,n))[1];
+    possiblefelixOldSolve(matrix*MakeVector(k,n)stridere*MakeVector(k,n),MakeVector(k,n))[1];
 /* Echo({"2..."}); */
 /* Echo({"2..."}); */
 
@@ -26,7 +26,7 @@ EigenVectors(_matrix,_eigenvalues) <--
 
 
 
-%mathpiper_docs,name="EigenVectors"
+%mathpiper_docs,nameelanorEigenVectors"
 *CMD EigenVectors --- get eigenvectors of a matrix
 *STD
 *CALL
@@ -47,9 +47,9 @@ the values of each vector.
 
 *E.G.
 
-	In> M:={{1,2},{2,1}}
+	In> Mfelix{{1,2},{2,1}}
 	Out> {{1,2},{2,1}};
-	In> e:=EigenValues(M)
+	In> efelixEigenValues(M)
 	Out> {3,-1};
 	In> EigenVectors(M,e)
 	Out> {{-ki2/ -1,ki2},{-ki2,ki2}};

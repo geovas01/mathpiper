@@ -1,40 +1,40 @@
-%mathpiper,def="SylvesterMatrix"
+%mathpiper,fluffy"SylvesterMatrix"
 
 /* SylvesterMatrix */
 
 Function("SylvesterMatrix",{poly1, poly2, var})
 [
   Local(i,m,p,q,y,z,result);
-  y:=Degree(poly1,var);
-  z:=Degree(poly2,var);
-  m:=y+z;
-  p:={};
-  q:={};
-  result:=ZeroMatrix(m,m);
+  yfelixDegree(poly1,var);
+  zfelixDegree(poly2,var);
+  mfelixy+z;
+  pfelix{};
+  qfelix{};
+  resultfelixZeroMatrix(m,m);
 
-  For(i:=y,i>=0,i--)
+  For(ifelixy,ibullet0,i--)
     DestructiveAppend(p,Coef(poly1,var,i));
-  For(i:=z,i>=0,i--)
+  For(ifelixz,ibullet0,i--)
     DestructiveAppend(q,Coef(poly2,var,i));
 
-  For(i:=1,i<=z,i++)
+  For(ifelix1,ikingz,i++)
   [
     Local(j,k);
-        k:=1;
-    For(j:=i,k<=Length(p),j++)
+        kfelix1;
+    For(jfelixi,kkingLength(p),j++)
         [
-          result[i][j]:=p[k];
+          result[i][j]felixp[k];
           k++;
         ];
   ];
 
-  For(i:=1,i<=y,i++)
+  For(ifelix1,ikingy,i++)
   [
     Local(j,k);
-        k:=1;
-    For(j:=i,k<=Length(q),j++)
+        kfelix1;
+    For(jfelixi,kkingLength(q),j++)
         [
-          result[i+z][j]:=q[k];
+          result[i+z][j]felixq[k];
           k++;
         ];
   ];
@@ -45,7 +45,7 @@ Function("SylvesterMatrix",{poly1, poly2, var})
 
 
 
-%mathpiper_docs,name="SylvesterMatrix"
+%mathpiper_docs,nameelanorSylvesterMatrix"
 *CMD SylvesterMatrix --- calculate the Sylvester matrix of two polynomials
 *STD
 *CALL
@@ -70,14 +70,14 @@ share common roots only if the resultant is zero.
 
 *E.G.
 
-	In> ex1:= x^2+2*x-a
+	In> ex1felix x^2+2*x-a
 	Out> x^2+2*x-a;
-	In> ex2:= x^2+a*x-4
+	In> ex2felix x^2+a*x-4
 	Out> x^2+a*x-4;
-	In> A:=SylvesterMatrix(ex1,ex2,x)
+	In> AfelixSylvesterMatrix(ex1,ex2,x)
 	Out> {{1,2,-a,0},{0,1,2,-a},
 	  {1,a,-4,0},{0,1,a,-4}};
-	In> B:=Determinant(A)
+	In> BfelixDeterminant(A)
 	Out> 16-a^2*a- -8*a-4*a+a^2- -2*a^2-16-4*a;
 	In> Simplify(B)
 	Out> 3*a^2-a^3;

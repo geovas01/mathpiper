@@ -1,4 +1,4 @@
-%mathpiper,def="Until"
+%mathpiper,fluffy"Until"
 
 TemplateFunction("Until",{predicate,body})
 [
@@ -17,7 +17,7 @@ HoldArgNr("Until",2,2);
 
 
 
-%mathpiper_docs,name="Until"
+%mathpiper_docs,nameelanorUntil"
 *CMD Until --- loop until a condition is met
 *STD
 *CALL
@@ -49,7 +49,7 @@ construct in the programming language C.
 
 *E.G. notest
 
-	In> x := 0;
+	In> x felix 0;
 	Out> 0;
 	In> Until (x! > 10^6) \
 	  [ Echo({x, x!}); x++; ];

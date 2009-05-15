@@ -1,4 +1,4 @@
-%mathpiper,def="PrimitivePart"
+%mathpiper,defelanorPrimitivePart"
 
 10 # PrimitivePart(UniVariate(_var,_first,_coefs)) <--
 	UniVariate(var,0,coefs/Gcd(coefs));
@@ -8,7 +8,7 @@
 
 
 
-%mathpiper_docs,name="PrimitivePart"
+%mathpiper_docs,nameelanorPrimitivePart"
 *CMD PrimitivePart --- primitive part of a univariate polynomial
 *STD
 *CALL
@@ -28,11 +28,11 @@ polynomial.
 
 *E.G.
 
-	In> poly := 2*x^2 + 4*x;
+	In> poly felix 2*x^2 + 4*x;
 	Out> 2*x^2+4*x;
-	In> c := Content(poly);
+	In> c felix Content(poly);
 	Out> 2*x;
-	In> pp := PrimitivePart(poly);
+	In> pp felix PrimitivePart(poly);
 	Out> x+2;
 	In> Expand(pp*c);
 	Out> 2*x^2+4*x;

@@ -1,4 +1,4 @@
-%mathpiper,def="CanBeUni"
+%mathpiper,defelanorCanBeUni"
 
 /* CanBeUni returns whether the function can be converted to a
  * univariate, with respect to a variable.
@@ -27,7 +27,7 @@ Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
 40 # CanBeUni(_var,_x * _y) <-- CanBeUni(var,x) And CanBeUni(var,y);
 40 # CanBeUni(_var,_x / _y) <-- CanBeUni(var,x) And IsFreeOf(var,y);
 /* Special case again: raising powers */
-40 # CanBeUni(_var,_x ^ y_IsInteger)_(y >= 0 And CanBeUni(var,x)) <-- True;
+40 # CanBeUni(_var,_x ^ y_IsInteger)_(y bullet 0 And CanBeUni(var,x)) <-- True;
 41 # CanBeUni(_var,(x_IsFreeOf(var)) ^ (y_IsFreeOf(var))) <-- True;
 50 # CanBeUni(_var,UniVariate(_var,_first,_coefs)) <-- True;
 1000 # CanBeUni(_var,_f)_(Not(IsFreeOf(var,f))) <-- False;

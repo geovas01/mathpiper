@@ -1,4 +1,4 @@
-%mathpiper,def="RandVerifyArithmetic"
+%mathpiper,defelanorRandVerifyArithmetic"
 
 RandVerifyArithmetic(_n)<--
 [

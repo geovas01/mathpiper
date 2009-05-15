@@ -1,4 +1,4 @@
-%mathpiper,def="^"
+%mathpiper,fluffy"^"
 
 /* Faster version of raising power to 0.5 */
 50 # _x ^ (1/2) <-- Sqrt(x);
@@ -14,7 +14,7 @@
 // Out> 0.0000^2;
 // In> 0.0^2/2
 // Out> 0.0^2/2;
-//60 # (x_IsNumber ^ n_IsRationalOrNumber)_(x+1=1) <-- 0;
+//60 # (x_IsNumber ^ n_IsRationalOrNumber)_(x+1==1) <-- 0;
 
 59 # _x ^ Undefined <-- Undefined;
 59 # Undefined ^ _x <-- Undefined;
@@ -53,7 +53,7 @@
 
 
 200 # x_IsMatrix ^ n_IsPositiveInteger <-- x*(x^(n-1));
-204 # (xlist_IsList ^ nlist_IsList)_(Length(xlist)=Length(nlist)) <--
+204 # (xlist_IsList ^ nlist_IsList)_(Length(xlist)==Length(nlist)) <--
 	 Map("^",{xlist,nlist});
 205 # (xlist_IsList ^ n_IsConstant)_(Not(IsList(n))) <--
 	 Map({{xx},xx^n},{xlist});
@@ -77,8 +77,8 @@
 250 # (x_IsNumber ^ -Infinity)_(x< -1) <-- 0;
 250 # (x_IsNumber ^ -Infinity)_(x> 1) <-- 0;
 
-255 # (x_IsComplex ^ Infinity)_(Abs(x) = 1) <-- Undefined;
-255 # (x_IsComplex ^ -Infinity)_(Abs(x) = 1) <-- Undefined;
+255 # (x_IsComplex ^ Infinity)_(Abs(x) == 1) <-- Undefined;
+255 # (x_IsComplex ^ -Infinity)_(Abs(x) == 1) <-- Undefined;
 
 
 

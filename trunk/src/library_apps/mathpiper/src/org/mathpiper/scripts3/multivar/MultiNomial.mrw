@@ -1,4 +1,4 @@
-%mathpiper,def="MultiNomial"
+%mathpiper,fluffy"MultiNomial"
 
 // The basic container for multivariates
 RuleBase("MultiNomial",{vars,terms});

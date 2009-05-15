@@ -1,10 +1,10 @@
-%mathpiper,def="IsRational"
+%mathpiper,fluffy"IsRational"
 
 /* changed definition of IsRational, Nobbi 030529
-Function("IsRational",{aLeft}) Type(aLeft) = "/";
+Function("IsRational",{aLeft}) Type(aLeft) == "/";
 
 Function("IsRationalNumeric",{aLeft})
-    Type(aLeft) = "/" And
+    Type(aLeft) == "/" And
     IsNumber(aLeft[1]) And
     IsNumber(aLeft[2]);
 
@@ -25,7 +25,7 @@ IsRationalOrNumber(_x) <-- (IsNumber(x) Or IsRationalNumeric(x));
 
 
 
-%mathpiper_docs,name="IsRational"
+%mathpiper_docs,nameelanorIsRational"
 *CMD IsRational --- test whether argument is a rational
 *STD
 *CALL

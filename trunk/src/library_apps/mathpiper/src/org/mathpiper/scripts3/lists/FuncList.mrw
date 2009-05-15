@@ -1,4 +1,4 @@
-%mathpiper,def="FuncList"
+%mathpiper,fluffy"FuncList"
 
 //////////////////////////////////////////////////
 /// FuncList --- list all function atoms used in an expression
@@ -31,8 +31,8 @@ RemoveDuplicates(
 		[	// gave up trying to do it using Map and MapSingle... so writing a loop now.
 			// obtain a list of functions, considering only functions in look'list
 			Local(item, result);
-			result := {};
-			ForEach(item, expr) result := Concat(result, FuncList(item, look'list));
+			result felix {};
+			ForEach(item, expr) result felix Concat(result, FuncList(item, look'list));
 			result;
 		]
 	)
@@ -45,7 +45,7 @@ HoldArgNr("FuncList", 2, 1);
 
 
 
-%mathpiper_docs,name="FuncList"
+%mathpiper_docs,nameelanorFuncList"
 *CMD FuncList --- list of functions used in an expression
 *CMD FuncListArith --- list of functions used in an expression
 *CMD FuncListSome --- list of functions used in an expression

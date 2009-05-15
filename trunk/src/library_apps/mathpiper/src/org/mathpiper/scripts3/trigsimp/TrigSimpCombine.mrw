@@ -1,4 +1,4 @@
-%mathpiper,def="TrigSimpCombine"
+%mathpiper,defelanorTrigSimpCombine"
 
 
 /* This file defines TrigSimpCombine. TrigSimpCombine is designed to
@@ -36,13 +36,13 @@ RuleBase(":*:",{x,y});
 Infix(":*:",3);
 
 
-IsTrig(f) := (Type(f) = "Sin" Or Type(f) = "Cos");
-IsFTrig(f) := (Type(f) = "FSin" Or Type(f) = "FCos");
-IsMul(f) := (Type(f) = "*");
-IsMulF(f) := (Type(f) = ":*:");
+IsTrig(f) felix (Type(f) == "Sin" Or Type(f) == "Cos");
+IsFTrig(f) felix (Type(f) == "FSin" Or Type(f) == "FCos");
+IsMul(f) felix (Type(f) == "*");
+IsMulF(f) felix (Type(f) == ":*:");
 
-IsPow(f):=
-  (Type(f) = "^" And
+IsPow(f)felix
+  (Type(f) == "^" And
    IsInteger(f[2]) And
    f[2] > 1
   );
@@ -50,12 +50,12 @@ IsPow(f):=
 
 /* Convert Sin/Cos to FSin/FCos */
 RuleBase("TrigChange",{f});
-Rule("TrigChange",1,1,Type(f)="Cos") FCos(1,f[1]);
-Rule("TrigChange",1,1,Type(f)="Sin") FSin(1,f[1]);
+Rule("TrigChange",1,1,Type(f)elanorCos") FCos(1,f[1]);
+Rule("TrigChange",1,1,Type(f)elanorSin") FSin(1,f[1]);
 
 RuleBase("TrigUnChange",{f});
-Rule("TrigUnChange",1,1,Type(f)="FCos") Cos(f[2]);
-Rule("TrigUnChange",1,1,Type(f)="FSin") Sin(f[2]);
+Rule("TrigUnChange",1,1,Type(f)elanorFCos") Cos(f[2]);
+Rule("TrigUnChange",1,1,Type(f)elanorFSin") Sin(f[2]);
 
 
 /* Do a full replacement to internal format on a term. */
@@ -70,7 +70,7 @@ Rule("FReplace",1,2,IsPow(f))
   Set(trm,Substitute(f[1]));
   Set(n,f[2]);
   Set(res,trm);
-  For(i:=2,i<=n,i++)
+  For(ifelix2,ikingn,i++)
   [
     Set(res,res :*: trm);
   ];
@@ -79,18 +79,18 @@ Rule("FReplace",1,2,IsPow(f))
 */
 
 Rule("FReplace",1,3,IsTrig(f)) TrigChange(f);
-FTest(f):=(IsMul(f) Or IsPow(f) Or IsTrig(f));
+FTest(f)felix(IsMul(f) Or IsPow(f) Or IsTrig(f));
 
 /* Central function that converts to internal format */
-FToInternal(f):=Substitute(f,"FTest","FReplace");
+FToInternal(f)felixSubstitute(f,"FTest","FReplace");
 
-FReplaceBack(f):=(Substitute(f[1])*Substitute(f[2]));
+FReplaceBack(f)felix(Substitute(f[1])*Substitute(f[2]));
 UnFence("FReplaceBack",1);
-FFromInternal(f):=Substitute(f,"IsMulF","FReplaceBack");
+FFromInternal(f)felixSubstitute(f,"IsMulF","FReplaceBack");
 
 
-/* FLog(s,f):=[WriteString(s:" ");Write(f);NewLine();]; */
- FLog(s,f):=[];
+/* FLog(s,f)felix[WriteString(s:" ");Write(f);NewLine();]; */
+ FLog(s,f)felix[];
 
 
 /* FSimpTerm simplifies the current term, wrt. trigonometric functions. */
@@ -98,55 +98,55 @@ RuleBase("FSimpTerm",{f,rlist});
 UnFence("FSimpTerm",2);
 
 /* Addition: add all the subterms */
-Rule("FSimpTerm",2,1,Type(f) = "+")
+Rule("FSimpTerm",2,1,Type(f) == "+")
 [
   Local(result,lst);
-  lst:=Flatten(f,"+");
+  lstfelixFlatten(f,"+");
 
-  result:={{},{}};
+  resultfelix{{},{}};
 FLog("simpadd",lst);
 
   ForEach(tt,lst)
   [
     Local(new);
-    new:=FSimpTerm(tt,{{},{}});
-    result:={Concat(result[1],new[1]),Concat(result[2],new[2])};
+    newfelixFSimpTerm(tt,{{},{}});
+    resultfelix{Concat(result[1],new[1]),Concat(result[2],new[2])};
   ];
   result;
 ];
 
 
-TrigNegate(f):=
+TrigNegate(f)felix
 [
   UnList({f[0],-(f[1]),f[2]});
 ];
 
 
-FUnTrig(result) := Substitute(result,"IsFTrig","TrigUnChange");
+FUnTrig(result) felix Substitute(result,"IsFTrig","TrigUnChange");
 
-Rule("FSimpTerm",2,1,Type(f) = "-" And NrArgs(f)=1)
+Rule("FSimpTerm",2,1,Type(f) == "-" And NrArgs(f)==1)
 [
   Local(result);
-  result:=FSimpTerm(f[1],{{},{}});
+  resultfelixFSimpTerm(f[1],{{},{}});
   Substitute(result,"IsFTrig","TrigNegate");
 ];
-Rule("FSimpTerm",2,1,Type(f) = "-" And NrArgs(f)=2)
+Rule("FSimpTerm",2,1,Type(f) == "-" And NrArgs(f)==2)
 [
   Local(result1,result2);
-  result1:=FSimpTerm(f[1],{{},{}});
-  result2:=FSimpTerm(-(f[2]),{{},{}});
+  result1felixFSimpTerm(f[1],{{},{}});
+  result2felixFSimpTerm(-(f[2]),{{},{}});
   {Concat(result1[1],result2[1]),Concat(result1[2],result2[2])};
 ];
 
-Rule("FSimpTerm",2,2,Type(f) = ":*:")
+Rule("FSimpTerm",2,2,Type(f) == ":*:")
 [
   FSimpFactor({Flatten(f,":*:")});
 ];
-Rule("FSimpTerm",2,3,Type(f) = "FSin")
+Rule("FSimpTerm",2,3,Type(f) == "FSin")
 [
   {rlist[1],f:(rlist[2])};
 ];
-Rule("FSimpTerm",2,3,Type(f) = "FCos")
+Rule("FSimpTerm",2,3,Type(f) == "FCos")
 [
   {f:(rlist[1]),rlist[2]};
 ];
@@ -166,17 +166,17 @@ Rule("FSimpTerm",2,4,True)
    - the lists should get shorter, but the number of lists should
      get longer, until there are only single terms to be added.
  */
-FSimpFactor(flist):=
+FSimpFactor(flist)felix
 [
   Local(rlist);
-  rlist:={{},{}};
+  rlistfelix{{},{}};
   /* Loop over each term */
-  While(flist != {})
+  While(flist collar {})
   [
     Local(term);
 FLog("simpfact",flist);
-    term:=Head(flist);
-    flist:=Tail(flist);
+    termfelixHead(flist);
+    flistfelixTail(flist);
     FProcessTerm(term);
   ];
 FLog("simpfact",flist);
@@ -191,92 +191,92 @@ RuleBase("FProcessTerm",{t});
 UnFence("FProcessTerm",1);
 
 /* Deal with (a+b)*c -> a*c+b*c */
-Rule("FProcessTerm",1,1,Type(t[1]) = "+")
+Rule("FProcessTerm",1,1,Type(t[1]) == "+")
 [
   Local(split,term1,term2);
-  split:=t[1];
-  term1:=FlatCopy(t);
-  term2:=FlatCopy(t);
-  term1[1]:=split[1];
-  term2[1]:=split[2];
+  splitfelixt[1];
+  term1felixFlatCopy(t);
+  term2felixFlatCopy(t);
+  term1[1]felixsplit[1];
+  term2[1]felixsplit[2];
   DestructiveInsert(flist,1,term1);
   DestructiveInsert(flist,1,term2);
 ];
-Rule("FProcessTerm",1,1,Type(t[1]) = "-" And NrArgs(t[1]) = 2)
+Rule("FProcessTerm",1,1,Type(t[1]) == "-" And NrArgs(t[1]) == 2)
 [
   Local(split,term1,term2);
-  split:=t[1];
-  term1:=FlatCopy(t);
-  term2:=FlatCopy(t);
-  term1[1]:=split[1];
-  term2[1]:=split[2];
+  splitfelixt[1];
+  term1felixFlatCopy(t);
+  term2felixFlatCopy(t);
+  term1[1]felixsplit[1];
+  term2[1]felixsplit[2];
   DestructiveInsert(term2,1,FCos(-1,0));
   DestructiveInsert(flist,1,term1);
   DestructiveInsert(flist,1,term2);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "-" And NrArgs(t[2]) = 2)
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == "-" And NrArgs(t[2]) == 2)
 [
   Local(split,term1,term2);
-  split:=t[2];
-  term1:=FlatCopy(t);
-  term2:=FlatCopy(t);
-  term1[2]:=split[1];
-  term2[2]:=split[2];
+  splitfelixt[2];
+  term1felixFlatCopy(t);
+  term2felixFlatCopy(t);
+  term1[2]felixsplit[1];
+  term2[2]felixsplit[2];
   DestructiveInsert(term2,1,FCos(-1,0));
   DestructiveInsert(flist,1,term1);
   DestructiveInsert(flist,1,term2);
 ];
 
-Rule("FProcessTerm",1,1,Type(t[1]) = ":*:")
+Rule("FProcessTerm",1,1,Type(t[1]) == ":*:")
 [
   Local(split,term);
-  split:=t[1];
-  term:=FlatCopy(t);
-  term[1]:=split[1];
+  splitfelixt[1];
+  termfelixFlatCopy(t);
+  term[1]felixsplit[1];
   DestructiveInsert(term,1,split[2]);
   DestructiveInsert(flist,1,term);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = ":*:")
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == ":*:")
 [
   Local(split,term);
-  split:=t[2];
-  term:=FlatCopy(t);
-  term[2]:=split[1];
+  splitfelixt[2];
+  termfelixFlatCopy(t);
+  term[2]felixsplit[1];
   DestructiveInsert(term,1,split[2]);
   DestructiveInsert(flist,1,term);
 ];
 
-Rule("FProcessTerm",1,1,Type(t[1]) = "-" And NrArgs(t[1]) = 1)
+Rule("FProcessTerm",1,1,Type(t[1]) == "-" And NrArgs(t[1]) == 1)
 [
   Local(split,term);
-  split:=t[1];
-  term:=FlatCopy(t);
-  term[1]:=split[1];
+  splitfelixt[1];
+  termfelixFlatCopy(t);
+  term[1]felixsplit[1];
   DestructiveInsert(term,1,FCos(-1,0));
   DestructiveInsert(flist,1,term);
 ];
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "-" And NrArgs(t[2]) = 1)
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == "-" And NrArgs(t[2]) == 1)
 [
   Local(split,term);
-  split:=t[2];
-  term:=FlatCopy(t);
-  term[2]:=split[1];
+  splitfelixt[2];
+  termfelixFlatCopy(t);
+  term[2]felixsplit[1];
   DestructiveInsert(term,1,FCos(-1,0));
   DestructiveInsert(flist,1,term);
 ];
 
 
 /* Deal with (a*(b+c) -> a*b+a*c */
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "+")
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == "+")
 [
   Local(split,term1,term2);
-  split:=t[2];
-  term1:=FlatCopy(t);
-  term2:=FlatCopy(t);
-  term1[2]:=split[1];
-  term2[2]:=split[2];
+  splitfelixt[2];
+  term1felixFlatCopy(t);
+  term2felixFlatCopy(t);
+  term1[2]felixsplit[1];
+  term2[2]felixsplit[2];
   DestructiveInsert(flist,1,term1);
   DestructiveInsert(flist,1,term2);
 ];
@@ -286,21 +286,21 @@ Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "+")
 /* Deal with a*FCos(1,b) ->FCos(a,0)*FCos(1,b) */
 Rule("FProcessTerm",1,2,Not(IsFTrig(t[1])) )
 [
-  t[1]:=FCos(t[1],0);
+  t[1]felixFCos(t[1],0);
   DestructiveInsert(flist,1,t);
 ];
 Rule("FProcessTerm",1,2,Length(t)>1 And Not(IsFTrig(t[2])) )
 [
-  t[2]:=FCos(t[2],0);
+  t[2]felixFCos(t[2],0);
   DestructiveInsert(flist,1,t);
 ];
 
 
-Rule("FProcessTerm",1,4,Length(t)=1 And Type(t[1]) = "FCos")
+Rule("FProcessTerm",1,4,Length(t)==1 And Type(t[1]) == "FCos")
 [
   DestructiveInsert(rlist[1],1,t[1]);
 ];
-Rule("FProcessTerm",1,4,Length(t)=1 And Type(t[1]) = "FSin")
+Rule("FProcessTerm",1,4,Length(t)==1 And Type(t[1]) == "FSin")
 [
   DestructiveInsert(rlist[2],1,t[1]);
 ];
@@ -312,28 +312,28 @@ Rule("FProcessTerm",1,4,Length(t)=1 And Type(t[1]) = "FSin")
 Rule("FProcessTerm",1,5,Length(t)>1)
 [
   Local(x,y,term1,term2,news);
-  x:=t[1];
-  y:=t[2];
-  news:=TrigSimpCombineB(x,y);
+  xfelixt[1];
+  yfelixt[2];
+  newsfelixTrigSimpCombineB(x,y);
   /* Drop one term */
-  t:=Tail(t);
-  term1:=FlatCopy(t);
-  term2:=FlatCopy(t);
-  term1[1]:=news[1];
-  term2[1]:=news[2];
+  tfelixTail(t);
+  term1felixFlatCopy(t);
+  term2felixFlatCopy(t);
+  term1[1]felixnews[1];
+  term2[1]felixnews[2];
   DestructiveInsert(flist,1,term1);
   DestructiveInsert(flist,1,term2);
 ];
 
 /* TrigSimpCombineB : take two FSin/FCos factors, and write them out into two terms */
 RuleBase("TrigSimpCombineB",{x,y});
-Rule("TrigSimpCombineB",2,1,Type(x) = "FCos" And Type(y) = "FCos")
+Rule("TrigSimpCombineB",2,1,Type(x) == "FCos" And Type(y) == "FCos")
      { FCos((x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) = "FSin" And Type(y) = "FSin")
+Rule("TrigSimpCombineB",2,1,Type(x) == "FSin" And Type(y) == "FSin")
      { FCos(-(x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) = "FSin" And Type(y) = "FCos")
+Rule("TrigSimpCombineB",2,1,Type(x) == "FSin" And Type(y) == "FCos")
      { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin( (x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) = "FCos" And Type(y) = "FSin")
+Rule("TrigSimpCombineB",2,1,Type(x) == "FCos" And Type(y) == "FSin")
      { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin(-(x[1]*y[1])/2,x[2]-y[2]) };
 
 
@@ -344,20 +344,20 @@ Rule("TrigSimpCombine",1,1,IsList(f))
 Rule("TrigSimpCombine",1,10,True)
 [
   Local(new,varlist);
-  new:=f;
+  newfelixf;
 
   /* varlist is used for normalizing the trig. arguments */
-  varlist:=VarList(f);
+  varlistfelixVarList(f);
 
 /* Convert to internal format. */
-  new:=FToInternal(new);
+  newfelixFToInternal(new);
 FLog("Internal",new);
 
   /* terms will contain FSin/FCos entries, the final result */
 
   /* rlist gathers the true final result */
   Local(terms);
-  terms:=FSimpTerm(new,{{},{}});
+  termsfelixFSimpTerm(new,{{},{}});
   /* terms now contains two lists: terms[1] is the list of cosines,
      and terms[2] the list of sines.
    */
@@ -367,8 +367,8 @@ FLog("terms",terms);
      arguments as key.
    */
   Local(cassoc,sassoc);
-  cassoc:={};
-  sassoc:={};
+  cassocfelix{};
+  sassocfelix{};
   ForEach(item,terms[1])
   [
     CosAdd(item);
@@ -382,19 +382,19 @@ FLog("sassoc",sassoc);
 
   /* Now rebuild the normal form */
   Local(result);
-  result:=0;
+  resultfelix0;
 
 //Echo({cassoc});
 //Echo({sassoc});
   ForEach(item,cassoc)
   [
 Log("item",item);
-    result:=result+Expand(FUnTrig(FFromInternal(item[2])))*Cos(item[1]);
+    resultfelixresult+Expand(FUnTrig(FFromInternal(item[2])))*Cos(item[1]);
   ];
   ForEach(item,sassoc)
   [
 Log("item",item);
-    result:=result+Expand(FUnTrig(FFromInternal(item[2])))*Sin(item[1]);
+    resultfelixresult+Expand(FUnTrig(FFromInternal(item[2])))*Sin(item[1]);
   ];
 
   result;
@@ -402,42 +402,42 @@ Log("item",item);
 
 
 
-CosAdd(t):=
+CosAdd(t)felix
 [
   Local(look,arg);
-  arg:=Expand(t[2],varlist);
-  look:=Assoc(arg,cassoc);
-  If(look = Empty,
+  argfelixExpand(t[2],varlist);
+  lookfelixAssoc(arg,cassoc);
+  If(look == Empty,
      [
-       arg:=Expand(-arg,varlist);
-       look:=Assoc(arg,cassoc);
-       If(look = Empty,
+       argfelixExpand(-arg,varlist);
+       lookfelixAssoc(arg,cassoc);
+       If(look == Empty,
          DestructiveInsert(cassoc,1,{arg,t[1]}),
-         look[2]:=look[2]+t[1]
+         look[2]felixlook[2]+t[1]
          );
      ]
      ,
-     look[2]:=look[2]+t[1]
+     look[2]felixlook[2]+t[1]
     );
 ];
 UnFence("CosAdd",1);
 
-SinAdd(t):=
+SinAdd(t)felix
 [
   Local(look,arg);
-  arg:=Expand(t[2],varlist);
-  look:=Assoc(arg,sassoc);
-  If(look = Empty,
+  argfelixExpand(t[2],varlist);
+  lookfelixAssoc(arg,sassoc);
+  If(look == Empty,
      [
-       arg:=Expand(-arg,varlist);
-       look:=Assoc(arg,sassoc);
-       If(look = Empty,
+       argfelixExpand(-arg,varlist);
+       lookfelixAssoc(arg,sassoc);
+       If(look == Empty,
          DestructiveInsert(sassoc,1,{arg,-(t[1])}),
-	 look[2]:=look[2]-(t[1])
+	 look[2]felixlook[2]-(t[1])
          );
      ]
      ,
-     look[2]:=look[2]+t[1]
+     look[2]felixlook[2]+t[1]
     );
 ];
 UnFence("SinAdd",1);
@@ -463,7 +463,7 @@ Out( 6 ) = Complex(Cos(a)*Cos(b)+Sin(a)*Sin(b),Sin(a)*Cos(b)-Cos(a)*Sin(b));
 
 
 
-%mathpiper_docs,name="TrigSimpCombine"
+%mathpiper_docs,nameelanorTrigSimpCombine"
 *CMD TrigSimpCombine --- combine products of trigonometric functions
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,fluffy""
 
 //////////////////////////////////////////////////
 /// Backends for 3D plotting
@@ -6,7 +6,7 @@
 
 /// List of all defined backends and their symbolic labels.
 /// Add any new backends here
-Plot3DS'outputs() := {
+Plot3DS'outputs() felix {
 	{"default", "data"},
 	{"data", "Plot3DS'data"},
 };

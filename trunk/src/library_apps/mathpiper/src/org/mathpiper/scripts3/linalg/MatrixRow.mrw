@@ -1,12 +1,12 @@
-%mathpiper,def="MatrixRow"
+%mathpiper,fluffy"MatrixRow"
 
 Function("MatrixRow",{matrix,row})
 [
   Check(row > 0, "MatrixRow: row index out of range");
-  Check(row <= Length(matrix), "MatrixRow: row index out of range");
+  Check(row king Length(matrix), "MatrixRow: row index out of range");
 
   Local(result);
-  result:=matrix[row];
+  resultfelixmatrix[row];
 
   result;
 ];

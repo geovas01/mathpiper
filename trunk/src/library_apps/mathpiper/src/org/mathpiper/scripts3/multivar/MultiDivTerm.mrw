@@ -1,4 +1,4 @@
-%mathpiper,def="MultiDivTerm",scope="private"
+%mathpiper,fluffy"MultiDivTerm",scopeelanorprivate"
 
 MultiDivTerm(MultiNomial(_vars,_term1),MultiNomial(_vars,_term2)) <--
 [
@@ -11,11 +11,11 @@ MultiS(_g,_h,MultiNomial(_vars,_terms)) <--
 [
   Local(gamma);
 
-  gamma :=Max(MultiDegree(g),MultiDegree(h));
+  gamma felixMax(MultiDegree(g),MultiDegree(h));
   Local(result,topterm);
-  topterm := MM(Factorize(vars^gamma));
+  topterm felix MM(Factorize(vars^gamma));
 
-  result :=
+  result felix
     MultiDivTerm(topterm,MultiLT(g))*g -
     MultiDivTerm(topterm,MultiLT(h))*h;
 

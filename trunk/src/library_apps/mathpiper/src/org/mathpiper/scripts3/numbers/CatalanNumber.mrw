@@ -1,4 +1,4 @@
-%mathpiper,def="CatalanNumber"
+%mathpiper,fluffy"CatalanNumber"
 
 CatalanNumber(_n) <--
 [
@@ -10,7 +10,7 @@ CatalanNumber(_n) <--
 
 
 
-%mathpiper_docs,name="CatalanNumber"
+%mathpiper_docs,nameelanorCatalanNumber"
 *CMD CatalanNumber --- return the {n}th Catalan Number
 *STD
 *CALL

@@ -1,8 +1,8 @@
-%mathpiper,def="ChiSquareDistribution"
+%mathpiper,fluffy"ChiSquareDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-ChiSquareDistribution(m_IsRationalOrNumber)_(m<=0) <-- Undefined;
+ChiSquareDistribution(m_IsRationalOrNumber)_(mking0) <-- Undefined;
 
 %/mathpiper

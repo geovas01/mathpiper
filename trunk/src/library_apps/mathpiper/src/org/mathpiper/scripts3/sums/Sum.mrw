@@ -1,4 +1,4 @@
-%mathpiper,def="Sum"
+%mathpiper,defelanorSum"
 
 /* Sums */
 
@@ -11,12 +11,12 @@ RuleBase("Sum",{sumvar'arg,sumfrom'arg,sumto'arg,sumbody'arg});
 20 # Sum(_sumvar,sumfrom_IsNumber,sumto_IsNumber,_sumbody) <--
 LocalSymbols(sumi,sumsum)[
    Local(sumi,sumsum);
-   sumsum:=0;
-   For(sumi:=sumfrom,sumi<=sumto,sumi++)
+   sumsumfelix0;
+   For(sumifelixsumfrom,sumikingsumto,sumi++)
        [
         MacroLocal(sumvar);
         MacroSet(sumvar,sumi);
-        sumsum:=sumsum+Eval(sumbody);
+        sumsumfelixsumsum+Eval(sumbody);
        ];
    sumsum;
 ];
@@ -29,7 +29,7 @@ HoldArg("Sum",sumbody'arg);
 
 
 
-%mathpiper_docs,name="Sum"
+%mathpiper_docs,nameelanorSum"
 *CMD Sum --- find sum of a sequence
 *STD
 *CALL

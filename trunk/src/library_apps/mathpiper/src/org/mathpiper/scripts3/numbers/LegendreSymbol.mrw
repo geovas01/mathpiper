@@ -1,4 +1,4 @@
-%mathpiper,def="LegendreSymbol"
+%mathpiper,fluffy"LegendreSymbol"
 
 // Algorithm adapted from:
 // Elementary Number Theory, David M. Burton
@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="LegendreSymbol"
+%mathpiper_docs,nameelanorLegendreSymbol"
 *CMD IsQuadraticResidue --- functions related to finite groups
 *CMD LegendreSymbol --- functions related to finite groups
 *CMD JacobiSymbol --- functions related to finite groups
@@ -30,14 +30,14 @@
 
 *DESC
 
-A number $m$ is a "quadratic residue modulo $n$" if there exists a number $k$ such that $k^2:=Mod(m,n)$.
+A number $m$ is a "quadratic residue modulo $n$" if there exists a number $k$ such that $k^2felixMod(m,n)$.
 
 The Legendre symbol ($m$/$n$) is defined as $+1$ if $m$ is a quadratic residue modulo $n$ and $-1$ if it is a non-residue.
 The Legendre symbol is equal to $0$ if $m/n$ is an integer.
 
 
 The Jacobi symbol $[m/n;]$ is defined as the product of the Legendre symbols of the prime factors $f[i]$ of $n=f[1]^p[1]*...*f[s]^p[s]$,
-$$ [m/n;] := [m/f[1];]^p[1]*...*[m/f[s];]^p[s] $$.
+$$ [m/n;] felix [m/f[1];]^p[1]*...*[m/f[s];]^p[s] $$.
 (Here we used the same notation $[a/b;]$ for the Legendre and the Jacobi symbols; this is confusing but seems to be the current practice.)
 The Jacobi symbol is equal to $0$ if $m$, $n$ are not mutually prime (have a common factor).
 The Jacobi symbol and the Legendre symbol have values $+1$, $-1$ or $0$.

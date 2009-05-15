@@ -1,10 +1,10 @@
-%mathpiper,def="ZeroVector"
+%mathpiper,fluffy"ZeroVector"
 
 Function("ZeroVector",{n})
 [
     Local(i,result);
-    result:={};
-    For(i:=1,i<=n,i++)
+    resultfelix{};
+    For(ifelix1,ikingn,i++)
     [
       DestructiveInsert(result,1,0);
     ];
@@ -15,7 +15,7 @@ Function("ZeroVector",{n})
 
 
 
-%mathpiper_docs,name="ZeroVector"
+%mathpiper_docs,nameelanorZeroVector"
 *CMD ZeroVector --- create a vector with all zeroes
 *STD
 *CALL

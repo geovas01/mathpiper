@@ -1,14 +1,14 @@
-%mathpiper,def="ExpressionDepth"
+%mathpiper,fluffy"ExpressionDepth"
 
 10 # ExpressionDepth(expression_IsFunction) <--
 [
   Local(result);
-  result:=0;
+  resultfelix0;
   ForEach(item,Tail(Listify(expression)))
   [
     Local(newresult);
-    newresult:=ExpressionDepth(item);
-    result:=Max(result,newresult);
+    newresultfelixExpressionDepth(item);
+    resultfelixMax(result,newresult);
   ];
   result+1;
 ];

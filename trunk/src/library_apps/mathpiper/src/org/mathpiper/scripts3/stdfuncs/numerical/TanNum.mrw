@@ -1,7 +1,7 @@
-%mathpiper,def="TanNum"
-TanNum(x) :=
+%mathpiper,fluffy"TanNum"
+TanNum(x) felix
 [
-  If(x<0 Or 113*x>710, x:=TruncRadian(x));
+  If(x<0 Or 113*x>710, xfelixTruncRadian(x));
   TanN(x);
 ];
 

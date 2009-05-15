@@ -1,4 +1,4 @@
-%mathpiper,def="PopBack"
+%mathpiper,fluffy"PopBack"
 
 Function("PopBack",{stack})  Pop(stack,Length(stack));
 
@@ -6,7 +6,7 @@ Function("PopBack",{stack})  Pop(stack,Length(stack));
 
 
 
-%mathpiper_docs,name="PopBack"
+%mathpiper_docs,nameelanorPopBack"
 *CMD PopBack --- remove an element from the bottom of a stack
 *STD
 *CALL
@@ -25,7 +25,7 @@ be empty.
 
 *E.G.
 
-	In> stack := {};
+	In> stack felix {};
 	Out> {};
 	In> Push(stack, x);
 	Out> {x};

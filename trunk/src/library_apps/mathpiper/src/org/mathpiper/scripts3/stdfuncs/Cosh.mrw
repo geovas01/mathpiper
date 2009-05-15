@@ -1,4 +1,4 @@
-%mathpiper,def="Cosh"
+%mathpiper,defelanorCosh"
 
 5   # Cosh(- _x)	<-- Cosh(x);
 
@@ -19,7 +19,7 @@
 
 Cosh(xlist_IsList) <-- MapSingle("Cosh",xlist);
 
-2 # Cosh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) = "Complex")) <-- N(Eval( (Exp(x)+Exp(-x))/2 ));
+2 # Cosh(_x)_(InNumericMode() And (IsNumber(x) Or Type(x) == "Complex")) <-- N(Eval( (Exp(x)+Exp(-x))/2 ));
 
 
 

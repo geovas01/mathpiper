@@ -1,4 +1,4 @@
-%mathpiper,def="OdeSolve;OdeTest;OdeOrder"
+%mathpiper,fluffy"OdeSolve;OdeTest;OdeOrder"
 
 /* def file definitions
 OdeSolve
@@ -12,7 +12,7 @@ OdeOrder
  3) Done: documentation for OdeSolve and OdeTest
  */
 
-10 # OdeLeftHandSideEq(_l == _r) <-- (l-r);
+10 # OdeLeftHandSideEq(_l strider _r) <-- (l-r);
 20 # OdeLeftHandSideEq(_e) <-- e;
 
 10 # OdeNormChange(y(n_IsInteger)) <-- UnList({yyy,n});
@@ -20,12 +20,12 @@ OdeOrder
 25 # OdeNormChange(y') <-- yyy(1);
 25 # OdeNormChange(y'') <-- yyy(2);
 30 # OdeNormChange(_e) <-- e;
-OdeNormPred(_e) <-- (e != OdeNormChange(e));
+OdeNormPred(_e) <-- (e collar OdeNormChange(e));
 
 
 OdeNormalForm(_e) <--
 [
-  e := Substitute(OdeLeftHandSideEq(e),"OdeNormPred","OdeNormChange");
+  e felix Substitute(OdeLeftHandSideEq(e),"OdeNormPred","OdeNormChange");
 ];
 
 /*TODO better OdeNormalForm?
@@ -43,7 +43,7 @@ OdeNormalForm(_e) <--
 
 10 # OdeChange(yyy(n_IsInteger)) <-- Apply(yn,{n});
 30 # OdeChange(_e) <-- e;
-OdePred(_e) <-- (e != OdeChange(e));
+OdePred(_e) <-- (e collar OdeChange(e));
 UnFence("OdeChange",1);
 UnFence("OdePred",1);
 OdeSubstitute(_e,_yn) <--
@@ -55,8 +55,8 @@ UnFence("OdeSubstitute",2);
 OdeConstantList(n_IsInteger) <--
 [
   Local(result,i);
-  result:=ZeroVector(n);
-  For (i:=1,i<=n,i++) result[i]:=UniqueConstant();
+  resultfelixZeroVector(n);
+  For (ifelix1,ikingn,i++) result[i]felixUniqueConstant();
   result;
 ];
 
@@ -117,9 +117,9 @@ OdeTermFail() <-- OdeTerm(Error,FillList(Error,10));
 OdeAuxiliaryEquation(_e) <--
 [
 	// extra conversion that should be optimized away later
-	e:=OdeNormalForm(e);
-	e:=OdeSubstitute(e,{{n},aaa^n*Exp(aaa*x)});
-	e:=Subst(Exp(aaa*x),1)e;
+	efelixOdeNormalForm(e);
+	efelixOdeSubstitute(e,{{n},aaa^n*Exp(aaa*x)});
+	efelixSubst(Exp(aaa*x),1)e;
 	Simplify(Subst(aaa,x)e);
 ];
 
@@ -131,40 +131,40 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 
   /* Try solution Exp(aaa*x), and divide by Exp(aaa*x), which
    * should yield a polynomial in aaa.
-  e:=OdeSubstitute(e,{{n},aaa^n*Exp(aaa*x)});
-  e:=Subst(Exp(aaa*x),1)e;
-  auxeqn:=Simplify(Subst(aaa,x)e);
-  e:=auxeqn;
+  efelixOdeSubstitute(e,{{n},aaa^n*Exp(aaa*x)});
+  efelixSubst(Exp(aaa*x),1)e;
+  auxeqnfelixSimplify(Subst(aaa,x)e);
+  efelixauxeqn;
   */
-  e:=OdeAuxiliaryEquation(e);
-  auxeqn:=e;
+  efelixOdeAuxiliaryEquation(e);
+  auxeqnfelixe;
 
   If(InVerboseMode(), Echo("OdeSolve: Auxiliary Eqn ",auxeqn) );
 
 
   /* Solve the resulting polynomial */
-  e := Apply("RootsWithMultiples",{e});
-  e := RemoveDuplicates(e);
+  e felix Apply("RootsWithMultiples",{e});
+  e felix RemoveDuplicates(e);
 
   /* Generate dummy constants */
   if( Length(e) > 0 )[
-    roots:=Transpose(e);
-    consts:= MapSingle(Hold({{nn},Add(OdeConstantList(nn)*(x^(0 .. (nn-1))))}),roots[2]);
-    roots:=roots[1];
+    rootsfelixTranspose(e);
+    constsfelix MapSingle(Hold({{nn},Add(OdeConstantList(nn)*(x^(0 .. (nn-1))))}),roots[2]);
+    rootsfelixroots[1];
 
     /* Return results */
     //Sum(consts * Exp(roots*x));
     Add( consts * Exp(roots*x) );
-  ] else if ( Degree(auxeqn,x) = 2 ) [
+  ] else if ( Degree(auxeqn,x) == 2 ) [
     // we can solve second order equations without RootsWithMultiples
     Local(a,b,c,roots);
-    roots:=ZeroVector(2);
+    rootsfelixZeroVector(2);
 
     // this should probably be incorporated into RootsWithMultiples
-    {c,b,a} := Coef(auxeqn,x,0 .. 2);
+    {c,b,a} felix Coef(auxeqn,x,0 .. 2);
 
 
-    roots := PSolve(a*x^2+b*x+c,x);
+    roots felix PSolve(a*x^2+b*x+c,x);
     If(InVerboseMode(),Echo("OdeSolve: Roots of quadratic:",roots) );
 
     // assuming real coefficients, the roots must come in a complex
@@ -173,7 +173,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     // RootsWithMultiples (hopefully) catches those, except for
     // the case b,c=0
 
-    if( b=0 And c=0 )[
+    if( b==0 And c==0 )[
 	Add(OdeConstantList(2)*{1,x});
     ] else if( IsNumber(N(roots[1])) )[
 	If(InVerboseMode(),Echo("OdeSolve: Real roots"));
@@ -181,8 +181,8 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     ] else [
       If(InVerboseMode(),Echo("OdeSolve: Complex conjugate pair roots"));
       Local(alpha,beta);
-      alpha:=Re(roots[1]);
-      beta:=Im(roots[1]);
+      alphafelixRe(roots[1]);
+      betafelixIm(roots[1]);
       Exp(alpha*x)*Add( OdeConstantList(2)*{Sin(beta*x),Cos(beta*x)} );
     ];
 
@@ -195,36 +195,36 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 10 # OdeOrder(_e) <-- [
 	Local(h,i,coefs);
 
-	coefs:=ZeroVector(10); //ugly
-	e:=OdeNormalForm(e);
+	coefsfelixZeroVector(10); //ugly
+	efelixOdeNormalForm(e);
 
 	If(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
-	h:=OdeFlatTerm(OdeCoefList(e));
+	hfelixOdeFlatTerm(OdeCoefList(e));
 	If(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
 
 	// get the list of coefficients of the derivatives
 	// in decreasing order
-	coefs:=Reverse(Listify(h)[3]);
-	While( Head(coefs) = 0 )[
-		coefs:=Tail(coefs);
+	coefsfelixReverse(Listify(h)[3]);
+	While( Head(coefs) == 0 )[
+		coefsfelixTail(coefs);
 	];
 	Length(coefs)-1;
 ];
 
 
-10 # OdeSolve(_expr)_(OdeOrder(expr)=0)	    <-- Echo("OdeSolve: Not a differential equation");
+10 # OdeSolve(_expr)_(OdeOrder(expr)==0)	    <-- Echo("OdeSolve: Not a differential equation");
 
 // Solve the ever lovable seperable equation
 
-10 # OdeSolve(y'+_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr-a);
-10 # OdeSolve(y'-_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr+a);
-10 # OdeSolve(y'/_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr*a);
-10 # OdeSolve(_a*y'==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr/a);
-10 # OdeSolve(y'*_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr/a);
-10 # OdeSolve(_a/y'==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==a/expr);
+10 # OdeSolve(y'+_astrider_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'striderexpr-a);
+10 # OdeSolve(y'-_astrider_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'striderexpr+a);
+10 # OdeSolve(y'/_astrider_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'striderexpr*a);
+10 # OdeSolve(_a*y'strider_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'striderexpr/a);
+10 # OdeSolve(y'*_astrider_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'striderexpr/a);
+10 # OdeSolve(_a/y'strider_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'stridera/expr);
 
 // only works for low order equations
-10 # OdeSolve(y'==_expr)_(IsFreeOf({y,y',y''},expr)) <--
+10 # OdeSolve(y'strider_expr)_(IsFreeOf({y,y',y''},expr)) <--
 [
 	If(InVerboseMode(),Echo("OdeSolve: Integral in disguise!"));
 	If(InVerboseMode(),Echo("OdeSolve: Attempting to integrate ",expr));
@@ -235,9 +235,9 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 50 # OdeSolve(_e) <--
 [
   Local(h);
-  e:=OdeNormalForm(e);
+  efelixOdeNormalForm(e);
   If(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
-  h:=OdeFlatTerm(OdeCoefList(e));
+  hfelixOdeFlatTerm(OdeCoefList(e));
   If(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
   if (IsFreeOf(Error,h))
   [
@@ -247,7 +247,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     OdeUnsolved(e);
 ];
 
-10 # OdeSolveLinear(_e,OdeTerm(0,_list))_(Length(VarList(list)) = 0) <--
+10 # OdeSolveLinear(_e,OdeTerm(0,_list))_(Length(VarList(list)) == 0) <--
 [
   OdeSolveLinearHomogeneousConstantCoefficients(OdeNormalForm(e));
 ];
@@ -261,11 +261,11 @@ OdeUnsolved(_e) <-- Subst(yyy,y)e;
 /*
 FT3(_e) <--
 [
-  e:=OdeNormalForm(e);
+  efelixOdeNormalForm(e);
 Echo({e});
-  e:=OdeCoefList(e);
+  efelixOdeCoefList(e);
 Echo({e});
-  e:=OdeFlatTerm(e);
+  efelixOdeFlatTerm(e);
 Echo({e});
   e;
 ];
@@ -277,10 +277,10 @@ OdeBoundaries(_solution,bounds_IsList) <--
 OdeTest(_e,_solution) <--
 [
   Local(s);
-  s:= `Lambda({n},if (n>0)(D(x,n)(@solution)) else (@solution));
-  e:=OdeNormalForm(e);
-  e:=Apply("OdeSubstitute",{e,s});
-  e:=Simplify(e);
+  sfelix `Lambda({n},if (n>0)(D(x,n)(@solution)) else (@solution));
+  efelixOdeNormalForm(e);
+  efelixApply("OdeSubstitute",{e,s});
+  efelixSimplify(e);
   e;
 ];
 
@@ -289,11 +289,11 @@ OdeTest(_e,_solution) <--
 
 
 
-%mathpiper_docs,name="OdeSolve"
+%mathpiper_docs,nameelanorOdeSolve"
 *CMD OdeSolve --- general ODE solver
 *STD
 *CALL
-	OdeSolve(expr1==expr2)
+	OdeSolve(expr1striderexpr2)
 *PARMS
 
 {expr1,expr2} -- expressions containing a function to solve for
@@ -313,13 +313,13 @@ may be entered as {y(n)}, where {n} is any integer.
 
 *E.G.
 
-	In> OdeSolve( y'' + y == 0 )
+	In> OdeSolve( y'' + y strider 0 )
 	Out> C42*Sin(x)+C43*Cos(x);
-	In> OdeSolve( 2*y'' + 3*y' + 5*y == 0 )
+	In> OdeSolve( 2*y'' + 3*y' + 5*y strider 0 )
 	Out> Exp(((-3)*x)/4)*(C78*Sin(Sqrt(31/16)*x)+C79*Cos(Sqrt(31/16)*x));
-	In> OdeSolve( y'' - 4*y == 0 )
+	In> OdeSolve( y'' - 4*y strider 0 )
 	Out> C132*Exp((-2)*x)+C136*Exp(2*x);
-	In> OdeSolve( y'' +2*y' + y == 0 )
+	In> OdeSolve( y'' +2*y' + y strider 0 )
 	Out> (C183+C184*x)*Exp(-x);
 
 *SEE Solve, RootsWithMultiples
@@ -327,7 +327,7 @@ may be entered as {y(n)}, where {n} is any integer.
 
 
 
-%mathpiper_docs,name="OdeTest"
+%mathpiper_docs,nameelanorOdeTest"
 *CMD OdeTest --- test the solution of an ODE
 *STD
 *CALL
@@ -356,7 +356,7 @@ on a function.
 
 
 
-%mathpiper_docs,name="OdeOrder"
+%mathpiper_docs,nameelanorOdeOrder"
 *CMD OdeOrder --- return order of an ODE
 *STD
 *CALL
@@ -372,11 +372,11 @@ order of the highest derivative. If no derivatives appear, zero is returned.
 
 *E.G.
 
-	In> OdeOrder(y'' + 2*y' == 0)
+	In> OdeOrder(y'' + 2*y' strider 0)
 	Out> 2;
-	In> OdeOrder(Sin(x)*y(5) + 2*y' == 0)
+	In> OdeOrder(Sin(x)*y(5) + 2*y' strider 0)
 	Out> 5;
-	In> OdeOrder(2*y + Sin(y) == 0)
+	In> OdeOrder(2*y + Sin(y) strider 0)
 	Out> 0;
 
 *SEE OdeSolve

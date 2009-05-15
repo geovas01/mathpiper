@@ -1,4 +1,4 @@
-%mathpiper,def="SimpImplode",scope="private"
+%mathpiper,fluffy"SimpImplode",scopeelanorprivate"
 
 /* Distributed multiplication rule */
 10 # SimpImplode(SimpMul(SimpAdd(_x,_y),_z)) <--

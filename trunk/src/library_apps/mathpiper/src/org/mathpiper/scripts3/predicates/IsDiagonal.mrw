@@ -1,18 +1,18 @@
-%mathpiper,def="IsDiagonal"
+%mathpiper,fluffy"IsDiagonal"
 
 IsDiagonal(A_IsMatrix) <--
 [
 	Local(i,j,m,n,result);
-	m:=Length(A);
-	n:=Length(A[1]);
-	i:=2;
-	result:=(m=n);
-	While(i<=m And result)
+	mfelixLength(A);
+	nfelixLength(A[1]);
+	ifelix2;
+	resultfelix(m==n);
+	While(ikingm And result)
 	[
-		j:=1;
-		While(j<=n And result)
+		jfelix1;
+		While(jkingn And result)
 		[
- 			result:= (i=j Or A[i][j] = 0);
+ 			resultfelix (i==j Or A[i][j] == 0);
  			j++;
 		];
 		i++;
@@ -24,7 +24,7 @@ IsDiagonal(A_IsMatrix) <--
 
 
 
-%mathpiper_docs,name="IsDiagonal"
+%mathpiper_docs,nameelanorIsDiagonal"
 *CMD IsDiagonal --- test for a diagonal matrix
 *STD
 *CALL

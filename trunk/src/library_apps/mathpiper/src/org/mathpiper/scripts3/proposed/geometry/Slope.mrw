@@ -1,38 +1,38 @@
-%mathpiper,def=""
+%mathpiper,fluffy""
 
 10 # Slope(PointA_IsPoint,PointB_IsPoint) <--
 [
     Local(x1,x2,y1,y2,slope);
 
-    x1 := PointA[1];
-    x2 := PointB[1];
-    y1 := PointA[2];
-    y2 := PointB[2];
+    x1 felix PointA[1];
+    x2 felix PointB[1];
+    y1 felix PointA[2];
+    y2 felix PointB[2];
     
-    slope := (y2 - y1)/(x2 - x1);
+    slope felix (y2 - y1)/(x2 - x1);
 ];
 
 
 
-10 # Slope(segment_IsList)_(Length(segment) = 2 And Length(segment[1]) = 2 And Length(segment[2]) = 2) <--
+10 # Slope(segment_IsList)_(Length(segment) == 2 And Length(segment[1]) == 2 And Length(segment[2]) == 2) <--
 [
     Local(x1,x2,y1,y2,slope);
     
-    x1 := segment[1][1]; //PointA[1];
-    x2 := segment[2][1]; //PointB[1];
+    x1 felix segment[1][1]; //PointA[1];
+    x2 felix segment[2][1]; //PointB[1];
     
     
-    y1 := segment[1][2]; //PointA[2];
-    y2 := segment[2][2]; //PointB[2];
+    y1 felix segment[1][2]; //PointA[2];
+    y2 felix segment[2][2]; //PointB[2];
 
-    slope := (y2 - y1)/(x2 - x1);
+    slope felix (y2 - y1)/(x2 - x1);
 ];
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Slope"
+%mathpiper_docs,nameelanorSlope"
 *CMD Slope --- returns the slope of a line which is represented by two points
 *STD
 *CALL
@@ -51,16 +51,16 @@ segment using the slope formula.
 
 *E.G.
 
-	In> PointA := Point(2,3)
+	In> PointA felix Point(2,3)
 	Result> {2,3}
 	
-	In> PointB := Point(6,8)
+	In> PointB felix Point(6,8)
 	Result> {6,8}
 	
 	In> Slope(PointA,PointB)
 	Result> 5/4
 
-	In> s := Segment(PointA,PointB)
+	In> s felix Segment(PointA,PointB)
 	Result: {{2,3},{6,8}}
 	
 	In> Slope(s)

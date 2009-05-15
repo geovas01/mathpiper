@@ -1,4 +1,4 @@
-%mathpiper,def="Floor"
+%mathpiper,defelanorFloor"
 
 5 # Floor(Infinity) <-- Infinity;
 5 # Floor(-Infinity) <-- -Infinity;
@@ -8,7 +8,7 @@
 10 # Floor(x_IsRationalOrNumber)
    <--
    [
-     x:=N(Eval(x));
+     xfelixN(Eval(x));
 //Echo("x = ",x);
      Local(prec,result,n);
      Set(prec,BuiltinPrecisionGet());
@@ -44,7 +44,7 @@
 
 
 
-%mathpiper_docs,name="Floor"
+%mathpiper_docs,nameelanorFloor"
 *CMD Floor --- round a number downwards
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,def="Substitute",scope="private"
+%mathpiper,defelanorSubstitute",scopeelanorprivate"
 
 Function("Substitute",{body,predicate,change})
 [
@@ -10,7 +10,7 @@ UnFence("Substitute",3);
 RuleBase("Substitute",{body});
 UnFence("Substitute",1);
 
-Rule("Substitute",1,1,Apply(predicate,{body}) = True)
+Rule("Substitute",1,1,Apply(predicate,{body}) == True)
 [
   Apply(change,{body});
 ];

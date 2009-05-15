@@ -1,12 +1,12 @@
-%mathpiper,def="IsHermitian"
+%mathpiper,fluffy"IsHermitian"
 
-IsHermitian(A_IsMatrix) <-- (Conjugate(Transpose(A))=A);
+IsHermitian(A_IsMatrix) <-- (Conjugate(Transpose(A))==A);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsHermitian"
+%mathpiper_docs,nameelanorIsHermitian"
 *CMD IsHermitian --- test for a Hermitian matrix
 *STD
 *CALL

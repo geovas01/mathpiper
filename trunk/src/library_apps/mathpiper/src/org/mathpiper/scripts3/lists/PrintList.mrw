@@ -1,4 +1,4 @@
-%mathpiper,def="PrintList"
+%mathpiper,fluffy"PrintList"
 
 //////////////////////////////////////////////////
 /// Print a list using a padding string
@@ -18,7 +18,7 @@
 
 
 
-%mathpiper_docs,name="PrintList"
+%mathpiper_docs,nameelanorPrintList"
 *CMD PrintList --- print list with padding
 *STD
 *CALL

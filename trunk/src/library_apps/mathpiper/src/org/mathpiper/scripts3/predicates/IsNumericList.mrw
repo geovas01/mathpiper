@@ -1,4 +1,4 @@
-%mathpiper,def="IsNumericList"
+%mathpiper,fluffy"IsNumericList"
 
 // check that all items in the list are numbers
 IsNumericList(_arg'list) <-- IsList(arg'list) And
@@ -8,7 +8,7 @@ IsNumericList(_arg'list) <-- IsList(arg'list) And
 
 
 
-%mathpiper_docs,name="IsNumericList"
+%mathpiper_docs,nameelanorIsNumericList"
 *CMD IsNumericList --- test for a list of numbers
 *STD
 *CALL

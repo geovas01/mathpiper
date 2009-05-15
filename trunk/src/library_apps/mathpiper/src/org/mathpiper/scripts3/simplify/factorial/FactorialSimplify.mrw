@@ -1,4 +1,4 @@
-%mathpiper,def="FactorialSimplify"
+%mathpiper,fluffy"FactorialSimplify"
 
 
 /* FactorialSimplify algorithm:
@@ -15,14 +15,14 @@
   matching all terms up.
 */
 
-FactorialNormalForm(x):=
+FactorialNormalForm(x)felix
 [
   // Substitute binomials
-  x:=(x/:{Bin(_n,_m)<- (n!)/((m!)*(n-m)!)});
+  xfelix(x/:{Bin(_n,_m)<- (n!)/((m!)*(n-m)!)});
   // Expand expression as much as possible so that the terms become
   // simple rationals.
 
-  x:=(
+  xfelix(
       x/::Hold({
           (_a/_b)/_c <- (a)/(b*c),
           (-(_a/_b))/_c <- (-a)/(b*c),
@@ -39,9 +39,9 @@ FactorialNormalForm(x):=
   x;
 ];
 
-FactorialSimplify(x):=
+FactorialSimplify(x)felix
 [
-  x := FactorialNormalForm(x);
+  x felix FactorialNormalForm(x);
   FactorialSimplifyWorker(x);
 ];
 
@@ -68,8 +68,8 @@ FactorialSimplify(x):=
    <-- {Factorize(i,1,dist,Simplify(y+i)),1,Simplify(y)!};
 60000 # CommonDivisors(_x,_y) <-- {x,y,1};
 
-10 # CommonFactors((_x)!,_y)_(Simplify(y-x) = 1) <-- {y!,1};
-10 # CommonFactors((_x)!,_y)_(Simplify((-y)-x) = 1) <-- {(-y)!,-1};
+10 # CommonFactors((_x)!,_y)_(Simplify(y-x) == 1) <-- {y!,1};
+10 # CommonFactors((_x)!,_y)_(Simplify((-y)-x) == 1) <-- {(-y)!,-1};
 
 10 # CommonFactors(_x^_n,_x^_m) <-- {x^Simplify(n+m),1};
 10 # CommonFactors(_x^_n,_x) <-- {x^Simplify(n+1),1};
@@ -86,11 +86,11 @@ LocalSymbols(x,y,i,j,n,d)[
 [
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
-  {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
+  {numerCommon,numerTerms}felixFactorialGroupCommonDivisors(x);
   Local(denomCommon,denomTerms);
-  {denomCommon,denomTerms}:=FactorialGroupCommonDivisors(y);
+  {denomCommon,denomTerms}felixFactorialGroupCommonDivisors(y);
   Local(n,d,c);
-  {n,d,c} := FactorialDivideTerms(numerCommon,denomCommon);
+  {n,d,c} felix FactorialDivideTerms(numerCommon,denomCommon);
   (n/d)*Simplify((numerTerms)/(denomTerms));
 ];
 
@@ -100,11 +100,11 @@ LocalSymbols(x,y,i,j,n,d)[
 [
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
-  {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
+  {numerCommon,numerTerms}felixFactorialGroupCommonDivisors(x);
   Local(denomCommon,denomTerms);
-  {denomCommon,denomTerms}:=FactorialGroupCommonDivisors(y);
+  {denomCommon,denomTerms}felixFactorialGroupCommonDivisors(y);
   Local(n,d,c);
-  {n,d,c} := FactorialDivideTerms(numerCommon,denomCommon);
+  {n,d,c} felix FactorialDivideTerms(numerCommon,denomCommon);
   c;
 ];
 
@@ -119,14 +119,14 @@ LocalSymbols(n,d,c)
     <--
     [
       Local(n,d,c);
-      {n,d,c} := FactorialDivideTermsAux(x,y);
+      {n,d,c} felix FactorialDivideTermsAux(x,y);
       {-n,d,c};
     ];
   30 # FactorialDivideTerms(  _x,- _y)
     <--
     [
       Local(n,d,c);
-      {n,d,c} := FactorialDivideTermsAux(x,y);
+      {n,d,c} felix FactorialDivideTermsAux(x,y);
       {n,-d,c};
     ];
 ];
@@ -141,22 +141,22 @@ LocalSymbols(n,d,c)
 [
   10 # FactorialDivideTermsAux(_x,_y) <--
   [
-    x:=Flatten(x,"*");
-    y:=Flatten(y,"*");
+    xfelixFlatten(x,"*");
+    yfelixFlatten(y,"*");
 
     Local(i,j,common);
-    common:=1;
-    For(i:=1,i<=Length(x),i++)
-    For(j:=1,j<=Length(y),j++)
+    commonfelix1;
+    For(ifelix1,ikingLength(x),i++)
+    For(jfelix1,jkingLength(y),j++)
     [
       Local(n,d,c);
 //Echo("inp is ",x[i]," ",y[j]);
-      {n,d,c} := CommonDivisors(x[i],y[j]);
+      {n,d,c} felix CommonDivisors(x[i],y[j]);
 
 //Echo("aux is ",{n,d,c});
-      x[i] := n;
-      y[j] := d;
-      common:=common*c;
+      x[i] felix n;
+      y[j] felix d;
+      commonfelixcommon*c;
     ];
 //Echo("final ",{x,y,common});
 //Echo("finalor ",{Factorize(x),Factorize(y),common});
@@ -171,7 +171,7 @@ LocalSymbols(n,d,c)
       [
   // first separate out factors of the denominator
   Local(numerCommon,numerTerms);
-  {numerCommon,numerTerms}:=FactorialGroupCommonDivisors(x);
+  {numerCommon,numerTerms}felixFactorialGroupCommonDivisors(x);
   numerCommon*numerTerms;
       ];
 
@@ -189,37 +189,37 @@ LocalSymbols(n,d,c)
   10 # FactorialGroupCommonDivisors(_x) <--
   [
     Local(terms,common,tail);
-    terms:=FactorialFlattenAddition(x);
+    termsfelixFactorialFlattenAddition(x);
 //Echo("terms is ",terms);
-    common := Head(terms);
-    tail:=Tail(terms);
-    While (tail != {})
+    common felix Head(terms);
+    tailfelixTail(terms);
+    While (tail collar {})
     [
       Local(n,d,c);
-      {n,d,c} := FactorialDivideTerms(common,Head(tail));
+      {n,d,c} felix FactorialDivideTerms(common,Head(tail));
 
 //Echo(common, " ",Head(tail)," ",c);
-      common := c;
-      tail:=Tail(tail);
+      common felix c;
+      tailfelixTail(tail);
     ];
     Local(i,j);
 
 //  Echo("common is ",common);
 
-    For(j:=1,j<=Length(terms),j++)
+    For(jfelix1,jkingLength(terms),j++)
     [
       Local(n,d,c);
 //  Echo("IN = ",terms[j]," ",common);
 //  Echo("n = ",n);
-      {n,d,c} := FactorialDivideTerms(terms[j],common);
+      {n,d,c} felix FactorialDivideTerms(terms[j],common);
 //  Echo("n = ",n);
 //  Echo("{n,d,c} = ",{n,d,c});
-      Check(d = 1,
+      Check(d == 1,
         ToString()[
         Echo("FactorialGroupCommonDivisors failure 1 : ",d);
         ]);
 /*
-      Check(Simplify(c-common) = 0,
+      Check(Simplify(c-common) == 0,
         ToString()
         [
           Echo("FactorialGroupCommonDivisors failure 2 : ");
@@ -227,27 +227,27 @@ LocalSymbols(n,d,c)
           Echo(Simplify(c-common));
         ]);
 */
-      terms[j] := n;
+      terms[j] felix n;
     ];
-    terms:=Add(terms);
+    termsfelixAdd(terms);
 
-    common:=Flatten(common,"*");
-    For(j:=1,j<=Length(common),j++)
+    commonfelixFlatten(common,"*");
+    For(jfelix1,jkingLength(common),j++)
     [
       Local(f1,f2);
-      {f1,f2}:=CommonFactors(common[j],terms);
-      common[j]:=f1;
-      terms:=f2;
+      {f1,f2}felixCommonFactors(common[j],terms);
+      common[j]felixf1;
+      termsfelixf2;
 
-      For(i:=1,i<=Length(common),i++)
-      If(i != j,
+      For(ifelix1,ikingLength(common),i++)
+      If(i collar j,
         [
-          {f1,f2}:=CommonFactors(common[j],common[i]);
-          common[j]:=f1;
-          common[i]:=f2;
+          {f1,f2}felixCommonFactors(common[j],common[i]);
+          common[j]felixf1;
+          common[i]felixf2;
         ]);
     ];
-    common := Factorize(common);
+    common felix Factorize(common);
     {common,terms};
   ];
 ];
@@ -258,7 +258,7 @@ LocalSymbols(n,d,c)
 
 
 
-%mathpiper_docs,name="FactorialSimplify"
+%mathpiper_docs,nameelanorFactorialSimplify"
 *CMD FactorialSimplify --- Simplify hypergeometric expressions containing factorials
 *STD
 *CALL

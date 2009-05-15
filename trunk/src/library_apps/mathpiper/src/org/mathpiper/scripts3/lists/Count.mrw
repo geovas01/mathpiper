@@ -1,4 +1,4 @@
-%mathpiper,def="Count"
+%mathpiper,fluffy"Count"
 
 Function("Count",{list,element})
 [
@@ -12,7 +12,7 @@ Function("Count",{list,element})
 
 
 
-%mathpiper_docs,name="Count"
+%mathpiper_docs,nameelanorCount"
 *CMD Count --- count the number of occurrences of an expression
 *STD
 *CALL
@@ -31,7 +31,7 @@ occurs in "list" and returns this number.
 
 *E.G.
 
-	In> lst := {a,b,c,b,a};
+	In> lst felix {a,b,c,b,a};
 	Out> {a,b,c,b,a};
 	In> Count(lst, a);
 	Out> 2;

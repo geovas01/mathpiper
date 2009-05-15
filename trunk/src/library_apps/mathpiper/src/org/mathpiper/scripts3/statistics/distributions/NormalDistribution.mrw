@@ -1,8 +1,8 @@
-%mathpiper,def="NormalDistribution"
+%mathpiper,fluffy"NormalDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-NormalDistribution( _m , s2_IsRationalOrNumber)_(s2<=0) <-- Undefined;
+NormalDistribution( _m , s2_IsRationalOrNumber)_(s2king0) <-- Undefined;
 
 %/mathpiper

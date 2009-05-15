@@ -1,4 +1,4 @@
-%mathpiper,def="",scope="private"
+%mathpiper,defelanor",scopeelanorprivate"
 //todo:tk:this conflicts with "org/mathpiper/scripts/linalg.rep/code.mpi" when published as a def file.
 /* Tensor package. This code intends to simplify tensorial expressions.
  */

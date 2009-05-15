@@ -1,13 +1,13 @@
-%mathpiper,def="IsCoprime"
+%mathpiper,fluffy"IsCoprime"
 
-5  # IsCoprime(list_IsList)                     <-- (Lcm(list) = Product(list));
-10 # IsCoprime(n_IsInteger,m_IsInteger)		<-- (Gcd(n,m) = 1);
+5  # IsCoprime(list_IsList)                     <-- (Lcm(list) == Product(list));
+10 # IsCoprime(n_IsInteger,m_IsInteger)		<-- (Gcd(n,m) == 1);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsCoprime"
+%mathpiper_docs,nameelanorIsCoprime"
 *CMD IsCoprime --- test if integers are coprime 
 *STD
 *CALL

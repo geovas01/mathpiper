@@ -1,4 +1,4 @@
-%mathpiper,def="/"
+%mathpiper,fluffy"/"
 
 /* Division */
 
@@ -41,15 +41,15 @@
 200 # (_x / _y)/ _z <-- x/(y*z);
 230 # _x / (_y / _z) <-- (x*z)/y;
 
-240 # (xlist_IsList / ylist_IsList)_(Length(xlist)=Length(ylist)) <--
+240 # (xlist_IsList / ylist_IsList)_(Length(xlist)==Length(ylist)) <--
 	 Map("/",{xlist,ylist});
 
 
 250 # (x_IsList / _y)_(Not(IsList(y))) <--
 [
    Local(i,result);
-   result:={};
-   For(i:=1,i<=Length(x),i++)
+   resultfelix{};
+   For(ifelix1,ikingLength(x),i++)
    [ DestructiveInsert(result,i,x[i] / y); ];
    result;
 ];
@@ -57,8 +57,8 @@
 250 # (_x / y_IsList)_(Not(IsList(x))) <--
 [
    Local(i,result);
-   result:={};
-   For(i:=1,i<=Length(y),i++)
+   resultfelix{};
+   For(ifelix1,ikingLength(y),i++)
    [ DestructiveInsert(result,i,x/y[i]); ];
    result;
 ];

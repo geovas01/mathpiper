@@ -1,4 +1,4 @@
-%mathpiper,def="Max"
+%mathpiper,defelanorMax"
 
 /*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, and then MathPiper is confused if it hasn't loaded all the Function() declarations beforehand.
 FIXME
@@ -36,8 +36,8 @@ Function() Max(l1, l2, l3, ...);
 20 # Max(list_IsList) <--
 [
   Local(result);
-  result:= list[1];
-  ForEach(item,Tail(list)) result:=Max(result,item);
+  resultfelix list[1];
+  ForEach(item,Tail(list)) resultfelixMax(result,item);
   result;
 ];
 
@@ -48,7 +48,7 @@ Function() Max(l1, l2, l3, ...);
 
 
 
-%mathpiper_docs,name="Max"
+%mathpiper_docs,nameelanorMax"
 *CMD Max --- maximum of a number of values
 *STD
 *CALL

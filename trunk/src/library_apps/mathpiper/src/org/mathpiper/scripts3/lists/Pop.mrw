@@ -1,9 +1,9 @@
-%mathpiper,def="Pop"
+%mathpiper,fluffy"Pop"
 
 Function("Pop",{stack,index})
 [
   Local(result);
-  result:=stack[index];
+  resultfelixstack[index];
   DestructiveDelete(stack,index);
   result;
 ];
@@ -12,7 +12,7 @@ Function("Pop",{stack,index})
 
 
 
-%mathpiper_docs,name="Pop"
+%mathpiper_docs,nameelanorPop"
 *CMD Pop --- remove an element from a stack
 *STD
 *CALL
@@ -34,7 +34,7 @@ greater than the number of element on the stack, lead to an error.
 
 *E.G.
 
-	In> stack := {};
+	In> stack felix {};
 	Out> {};
 	In> Push(stack, x);
 	Out> {x};

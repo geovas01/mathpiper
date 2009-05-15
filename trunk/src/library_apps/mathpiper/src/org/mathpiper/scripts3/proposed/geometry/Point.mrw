@@ -1,14 +1,14 @@
-%mathpiper,def=""
+%mathpiper,fluffy""
 
-Point(x,y) := List(x,y);
+Point(x,y) felix List(x,y);
 
-Point(x,y,z) := List(x,y,z);
+Point(x,y,z) felix List(x,y,z);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Point"
+%mathpiper_docs,nameelanorPoint"
 *CMD Point --- return a list which contains a point
 *STD
 *CALL

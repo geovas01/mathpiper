@@ -1,4 +1,4 @@
-%mathpiper,def=":"
+%mathpiper,fluffy":"
 
 /* Operators for functional programming. todo:tk:move some of this documentation into the proper function's .mrw files.
  * Examples:
@@ -22,7 +22,7 @@ UnFence(":",2);
 
 
 
-%mathpiper_docs,name=":"
+%mathpiper_docs,nameelanor:"
 *CMD : --- prepend item to list, or concatenate strings
 *STD
 *CALL

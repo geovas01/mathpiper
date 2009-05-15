@@ -1,12 +1,12 @@
-%mathpiper,def="IsZeroVector"
+%mathpiper,fluffy"IsZeroVector"
 
-Function("IsZeroVector",{aList}) aList = ZeroVector(Length(aList));
+Function("IsZeroVector",{aList}) aList == ZeroVector(Length(aList));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsZeroVector"
+%mathpiper_docs,nameelanorIsZeroVector"
 *CMD IsZeroVector --- test whether list contains only zeroes
 *STD
 *CALL
