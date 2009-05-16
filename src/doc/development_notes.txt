@@ -8,12 +8,25 @@ Development notes.
 //exercise 17.
 Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
 Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
 P := Point(x,y);
 A := Point(10,10);
 B := Point(-10,-10);
 equ1:= Distance(A,P) - Distance(B,P) == 20;
 Echo(equ1);
 equ2 := Solve(equ1,y);
+//MathPiper can't solve this equation.  MathCad gives y=50/x.
+
+
+Clear(a);
+P := Point(x,y);
+A := Point(a,a);
+B := Point(-a,-a);
+equ1:= Distance(A,P) - Distance(B,P) == 2*a;
+Echo(equ1);
+equ2 := Solve(equ1,y);
+//MathPiper can't solve this equation (it doesn't return).  MathCad gives y=a^2/2*x.
+
 %/mathpiper
 +Why doesn't Simplify completely simplify equ2 to 16?:
 %mathpiper
