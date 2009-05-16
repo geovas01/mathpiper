@@ -416,6 +416,10 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 					output_fold_type = "%geogebra";
 				}
+				else if(foldProperties.get("output").equalsIgnoreCase("trace") )
+				{
+					output_fold_type = "%mathpiper_trace";
+				}
 				else
 				{
 					output_fold_type = "%output";

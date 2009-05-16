@@ -34,6 +34,11 @@
 			<BEGIN>%mathpiper_docs[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/mathpiper_docs</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpipertrace::MAIN">
+			<BEGIN>%mathpiper_trace[0-9a-zA-Z,="._() ]*</BEGIN>
+			<END>%/mathpiper_trace</END>
+		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
 			<BEGIN>%mathpiper[0-9a-zA-Z,="._() ]*</BEGIN>
