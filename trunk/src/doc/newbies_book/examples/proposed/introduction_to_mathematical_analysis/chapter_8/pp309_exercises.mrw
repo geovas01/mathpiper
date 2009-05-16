@@ -574,7 +574,7 @@ B := Point(-a,-a);
 equ1:= Distance(A,P) - Distance(B,P) == 2*a;
 Echo(equ1);
 equ2 := Solve(equ1,y);
-//MathPiper can't solve this equation.  MathCad gives y=50/x.
+//MathPiper can't solve this equation (it doesn't return).  MathCad gives y=a^2/2*x.
 
 %/mathpiper
 
