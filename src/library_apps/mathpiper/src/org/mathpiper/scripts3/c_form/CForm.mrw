@@ -58,8 +58,8 @@ CFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is equa
 
 LocalSymbols(cformRegularOps) [
   cformRegularOps := { {"+"," + "}, {"-"," - "}, {"*"," * "},
-                       {"/"," / "}, {":="," = "}, {"="," = "},
-                       {"="," = "}, {"!="," != "}, {"<="," <= "},
+                       {"/"," / "}, {":="," = "}, {"=="," == "},
+                       {"="," == "}, {"!="," != "}, {"<="," <= "},
                        {">="," >= "}, {"<"," < "}, {">"," > "},
                        {"And"," && "}, {"Or"," || "}, {">>", " >> "},
                        { "<<", " << " }, { "&", " & " }, { "|", " | " },
@@ -119,14 +119,14 @@ LocalSymbols(cformMathFunctions) [
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
 
-120 # CForm(expr_IsFunction, _p)_(NrArgs(expr)==2 And Contains(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
+120 # CForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And Contains(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
       CFormBracketIf(p<OpPrecedence(Type(expr)), ConcatStrings(CForm(Listify(expr)[2], OpLeftPrecedence(Type(expr))), CFormRegularOps()[Type(expr)], CForm(Listify(expr)[3], OpRightPrecedence(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
 
 120 # CForm(expr_IsFunction, _p) _
-      (NrArgs(expr)==1 And Contains(AssocIndices(CFormMathFunctions()), Type(expr)) ) <--
+      (NrArgs(expr)=1 And Contains(AssocIndices(CFormMathFunctions()), Type(expr)) ) <--
       ConcatStrings(CFormMathFunctions()[Type(expr)], "(", CForm( Listify(expr)[2], CFormMaxPrec()),")" );
 
 /* functions */
@@ -200,7 +200,7 @@ LocalSymbols(cindent) [
 
 CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 
-120 # CForm(_x,_p)_(Type(x) == "Prog") <--
+120 # CForm(_x,_p)_(Type(x) = "Prog") <--
 [
   Local(result);
   result:=CIndent():"{":NlIndented();

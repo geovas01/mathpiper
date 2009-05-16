@@ -14,7 +14,7 @@
   sgn2 := Sign(m1*n2);
   sgn1*sgn2*Floor(DivideN(sgn1*n1*m2,sgn2*m1*n2));
 ];
-30 # Div(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))==1) <--
+30 # Div(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=1) <--
 [
 
   Local(vars,nl,ml);
@@ -28,7 +28,7 @@
 //Note:tk:moved here from univariate.rep.
 0 # Div(n_IsUniVar,m_IsUniVar)_(Degree(n) < Degree(m)) <-- 0;
 1 # Div(n_IsUniVar,m_IsUniVar)_
-    (n[1] == m[1] And Degree(n) >= Degree(m)) <--
+    (n[1] = m[1] And Degree(n) >= Degree(m)) <--
 [
     UniVariate(n[1],0,
                UniDivide(Concat(ZeroVector(n[2]),n[3]),

@@ -5,8 +5,8 @@
 50  # x_IsNumber * y_IsNumber <-- MultiplyN(x,y);
 100 #  1  * _x  <-- x;
 100 # _x  *  1  <-- x;
-100 # (_f  * _x)_(f== -1)  <-- -x;
-100 # (_x  * _f)_(f== -1)  <-- -x;
+100 # (_f  * _x)_(f= -1)  <-- -x;
+100 # (_x  * _f)_(f= -1)  <-- -x;
 105 # (f_IsNegativeNumber * _x)  <-- -(-f)*x;
 105 # (_x * f_IsNegativeNumber)  <-- -(-f)*x;
 
@@ -90,7 +90,7 @@
 /* Note: this rule MUST be past all the transformations on
  * matrices, since they are lists also.
  */
-230 # (aLeft_IsList * aRight_IsList)_(Length(aLeft)==Length(aRight)) <--
+230 # (aLeft_IsList * aRight_IsList)_(Length(aLeft)=Length(aRight)) <--
 	 Map("*",{aLeft,aRight});
 // fractions
 242 # (x_IsInteger / y_IsInteger) * (v_IsInteger / w_IsInteger) <-- (x*v)/(y*w);

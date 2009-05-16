@@ -1,6 +1,6 @@
 %mathpiper,def="LogicSimplify"
 
- // (expression, level==1..3
+ // (expression, level=1..3
 
 // Some shortcuts to match prev interface
 

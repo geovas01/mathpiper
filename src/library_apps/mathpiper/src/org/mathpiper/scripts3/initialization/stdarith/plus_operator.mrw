@@ -35,7 +35,7 @@
 
 //  220 # + x_IsList          <-- MapSingle("+",x);	// this rule is never active
 
-220 # (xlist_IsList + ylist_IsList)_(Length(xlist)==Length(ylist)) <-- Map("+",{xlist,ylist});
+220 # (xlist_IsList + ylist_IsList)_(Length(xlist)=Length(ylist)) <-- Map("+",{xlist,ylist});
 
 SumListSide(_x, y_IsList) <--
 [

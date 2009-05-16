@@ -1,6 +1,6 @@
 %mathpiper,def="IsEvenFunction"
 
-IsEvenFunction(f,x):= (f == Eval(Subst(x,-x)f));
+IsEvenFunction(f,x):= (f = Eval(Subst(x,-x)f));
 
 %/mathpiper
 

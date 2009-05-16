@@ -14,7 +14,7 @@
 
 
 
-10 # Slope(segment_IsList)_(Length(segment) == 2 And Length(segment[1]) == 2 And Length(segment[2]) == 2) <--
+10 # Slope(segment_IsList)_(Length(segment) = 2 And Length(segment[1]) = 2 And Length(segment[2]) = 2) <--
 [
     Local(x1,x2,y1,y2,slope);
     

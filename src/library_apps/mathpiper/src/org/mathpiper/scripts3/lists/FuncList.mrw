@@ -21,9 +21,9 @@ This is like FuncList except only looks at arguments of a given list of function
 
 */
 10 # FuncList(expr_IsAtom, look'list_IsList) <-- {};
-// a function not in the loo<= list - return its type
+// a function not in the looking list - return its type
 20 # FuncList(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, Atom(Type(expr)))) <-- {Atom(Type(expr))};
-// a function in the loo<= list - traverse its arguments
+// a function in the looking list - traverse its arguments
 30 # FuncList(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
 	Concat(

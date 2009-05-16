@@ -9,7 +9,7 @@ TRun(_f,_g,_degree)<--
   l2:=ReversePoly(f,g,t,z,degree);
   l3:=Subst(z,f)l2;
   l4:=BigOh(l3,t,degree);
-  Echo({g," = ",l4});
+  Echo({g," == ",l4});
   NewLine();
 ];
 
@@ -27,7 +27,7 @@ TRun(_f,_degree)<--
   l3:=Subst(t,Taylor(t,0,degree)f)l2;
   l4:=BigOh(l3,t,degree);
 
-  Echo({t," = ",Simplify(l4)});
+  Echo({t," == ",Simplify(l4)});
   NewLine();
 ];
 TRun(Sin(a*t),3);

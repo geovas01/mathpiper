@@ -33,21 +33,21 @@ Rule("OMREP",1,1,True)
   [
     Set(errorObject, "");
     TrapError(Set(input, FromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()),Set(errorObject,OMGetCoreError()));
-    If(Not(errorObject == ""), errorObject);
+    If(Not(errorObject = ""), errorObject);
     If (Not(IsExitRequested()) And errorObject="",
     [
       Set(stringOut,"");
       Set(result,False);
       TrapError(Set(stringOut,ToString()[Secure(Set(result,Eval(input)));]),Set(errorObject,OMGetCoreError()));
-      If(Not(errorObject == ""), errorObject);
-      If(Not(stringOut == ""), WriteString(stringOut));
+      If(Not(errorObject = ""), errorObject);
+      If(Not(stringOut = ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);
       If(PrettyPrinter'Get()="",
       [
         Apply("OMForm",{result});
       ],
       Apply(PrettyPrinter'Get(),{result}));
-      If(count > 0 And (count:=count-1) == 0, Exit());
+      If(count > 0 And (count:=count-1) = 0, Exit());
     ]);
   ];
 ];
@@ -74,7 +74,7 @@ LocalSymbols(omindent) [
      OMEcho("<OMOBJ>");
      OMIndent();
      If(IsAtom(expression),
-        If(expression == Atom("%"),
+        If(expression = Atom("%"),
            Secure(expression := Eval(expression))
            )
         );
@@ -98,10 +98,10 @@ LocalSymbols(omindent) [
                 );
 16 # OMFormExpression(i_IsVariable)
      <-- OMEcho("<OMV name=\"":String(i):"\"/>");
-16 # OMFormExpression(i_IsVariable)_(i == Empty)
+16 # OMFormExpression(i_IsVariable)_(i = Empty)
      <-- False; // This is useful for void expressions.
 
-10 # OMFormExpression(function_IsFunction)_(Type(function) == "OMError")
+10 # OMFormExpression(function_IsFunction)_(Type(function) = "OMError")
      <--
      [
      Local(cd, name);
@@ -115,7 +115,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OME>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) == "OME")
+10 # OMFormExpression(function_IsFunction)_(Type(function) = "OME")
      <--
      [
      OMEcho("<OME>");
@@ -124,9 +124,9 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OME>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) == "OMS")
+10 # OMFormExpression(function_IsFunction)_(Type(function) = "OMS")
      <-- OMEcho("<OMS cd=\"":function[1]:"\" name=\"":function[2]:"\"/>");
-10 # OMFormExpression(function_IsFunction)_(Type(function) == "OMBIND")
+10 # OMFormExpression(function_IsFunction)_(Type(function) = "OMBIND")
      <--
      [
      OMEcho("<OMBIND>");
@@ -135,7 +135,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OMBIND>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) == "OMBVAR")
+10 # OMFormExpression(function_IsFunction)_(Type(function) = "OMBVAR")
      <--
      [
      OMEcho("<OMBVAR>");
@@ -144,7 +144,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OMBVAR>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) == "OMA")
+10 # OMFormExpression(function_IsFunction)_(Type(function) = "OMA")
      <--
      [
      // This is not the same as the next rule: this is OMA(a,b,c,...),
@@ -181,8 +181,8 @@ LocalSymbols(omindent) [
      // matching, but now that we have real predicates in the mappings it's
      // probably obsolete. I'll think about removing it.
      symbolDef := OMSymbol()[ OMSignature(function) ];
-     If(symbolDef == Empty, symbolDef := OMSymbol()[ Type(function) ] );
-     If(symbolDef == Empty Or Length(symbolDef) < 3 Or symbolDef[3] == {},
+     If(symbolDef = Empty, symbolDef := OMSymbol()[ Type(function) ] );
+     If(symbolDef = Empty Or Length(symbolDef) < 3 Or symbolDef[3] = {},
         [
         OMEcho("<OMS cd=\"":symbolDef[1]:"\" name=\"":symbolDef[2]:"\"/>");
         ForEach(arg, function) OMFormExpression(arg);
@@ -197,7 +197,7 @@ LocalSymbols(omindent) [
            OMFormExpression(result[0]);
            ForEach(i, result) OMFormExpression(i);
            ],
-           If(result == Empty,
+           If(result = Empty,
               Echo("No rule matched ", function, symbolDef[3]),
               Echo("Unexpected result value from OMApplyMapping(): ", result)
              )
@@ -285,7 +285,7 @@ OMSignature(function_IsFunction) <--
   type := "";// If "function" doesn't have parameters, the signature is "f_".
   ForEach(arg, function)
   [
-    If(Type(arg) == "List",
+    If(Type(arg) = "List",
        type := "L",
        If(IsFunction(arg),
           type := "F",
@@ -353,7 +353,7 @@ FromString(str:" EndOfFile")
 
 
 
-10 # MatchClose(_x)_(x == OMToken()) <-- [OMNextToken();True;];
+10 # MatchClose(_x)_(x = OMToken()) <-- [OMNextToken();True;];
 20 # MatchClose(_x) <-- Check(False,ToString()Echo("encodingError:unexpected closing brace")); //@@@ TODO better error reporting
 
 10 # MatchOMOBJ(XmlTag("OMOBJ",_attributes,"Open")) <--
@@ -463,7 +463,7 @@ FromString(str:" EndOfFile")
      [
      Local(symbolDef, result);
      symbolDef := OMSymbol()[ Type(piperExp) ];
-     If(symbolDef[4] == {},
+     If(symbolDef[4] = {},
         result := piperExp,
         [
           result := OMApplyMapping(piperExp, symbolDef[4]);
@@ -484,13 +484,13 @@ FromString(str:" EndOfFile")
 
   Local(ruleMatched);
   ruleMatched := False;
-  If(Type(mapping) == "|",
+  If(Type(mapping) = "|",
      [
      mapping := Flatten(mapping, "|");
      ForEach(rule, mapping)
        If(Not ruleMatched,
           [
-          If(Type(rule) == "_",
+          If(Type(rule) = "_",
              If( Eval(rule[2]), [ result := rule[1]; ruleMatched := True; ] ),
              [ result := rule; ruleMatched := True; ]
             );
@@ -498,7 +498,7 @@ FromString(str:" EndOfFile")
          );
      ],
      [
-     If(Type(mapping) == "_",
+     If(Type(mapping) = "_",
         If(Eval(mapping[2]),
            result := mapping[1],
            result := Listify(function)
@@ -510,8 +510,8 @@ FromString(str:" EndOfFile")
     );
 
   If(ruleMatched,
-     If(Type(result) == ":",
-        If(Length(result) == 2,
+     If(Type(result) = ":",
+        If(Length(result) = 2,
            result[1]:result[2],
            result),// Perhaps we should give a warning here.
         result),
@@ -547,17 +547,17 @@ HoldArgNr("OMPathSelect", 2, 2);
   Local(omcd, omname);
   omcd   := attributes["CD"];
   omname := attributes["NAME"];
-  If(omcd == Empty Or omname == Empty,
+  If(omcd = Empty Or omname = Empty,
      OMCheck(False,OMError({"moreerrors", "encodingError"}, ToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
      [
      Local(cdTable, piperform);
      cdTable := OMSymbolReverse()[ omcd ];
      If(cdTable != Empty, piperform := cdTable[ omname ]);
-     // We can not optimize here by chec<= first whether the CD is "piper"
+     // We can not optimize here by checking first whether the CD is "piper"
      // and avoiding the table lookup then, because for some symbols the
      // OM name have to be different from the MathPiper name (e.g. "/@").
-     If(piperform == Empty,
-        If(cd == "piper", Atom(omname), OMS(omcd, omname)),
+     If(piperform = Empty,
+        If(cd = "piper", Atom(omname), OMS(omcd, omname)),
         If(IsString(piperform), Atom(piperform), piperform));
      ]
     );
@@ -615,12 +615,12 @@ OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMappin
      OMSymbol()[ piperform ] := {omcd, omname, directMapping, reverseMapping}
      );
   cdTable := OMSymbolReverse()[ omcd ];
-  If(cdTable == Empty,
+  If(cdTable = Empty,
      OMSymbolReverse()[ omcd ] := {{omname, piperform}},
      [
        Local(oldMathPiperform);
        oldMathPiperform := cdTable[ omname ];
-       If(oldMathPiperform == Empty,
+       If(oldMathPiperform = Empty,
           cdTable[ omname ] := piperform,
           [
           If(oldMathPiperform != piperform,
@@ -665,8 +665,8 @@ OMDef( "Infinity" ,  "nums1", "infinity" );
 OMDef( "Undefined",  "nums1", "NaN"      );
 // [20010916 AGP] From org/mathpiper/scripts/initialization.rep/stdopers.mpi:
 OMDef( "And"   ,  "logic1", "and"        );
-OMDef( "="    ,  "logic1", "equivalent" );
-OMDef( "!="   ,  "logic1", "not",
+OMDef( "=="    ,  "logic1", "equivalent" );
+OMDef( "!=="   ,  "logic1", "not",
                 { "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
                   1,
                   2,
@@ -876,11 +876,11 @@ contain them.
 	Out> 16^(1/3)
 
 	In> OMDef("Limit", "limit1", "limit", \
-	      {  $, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3==Left)  \
-	      |{ $, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3==Right) \
+	      {  $, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)  \
+	      |{ $, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Right) \
 	      |{ $, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },      \
-	      { $, _{3,2,1}, _1, Left,  _{3,3}}_(_2==OMS("limit1", "below")) \
-	      |{$, _{3,2,1}, _1, Right, _{3,3}}_(_2==OMS("limit1", "above")) \
+	      { $, _{3,2,1}, _1, Left,  _{3,3}}_(_2=OMS("limit1", "below")) \
+	      |{$, _{3,2,1}, _1, Right, _{3,3}}_(_2=OMS("limit1", "above")) \
 	      |{$, _{3,2,1}, _1, _{3,3}}                                    \
 	     );
 	In> OMForm(Limit(x,0) Sin(x)/x)

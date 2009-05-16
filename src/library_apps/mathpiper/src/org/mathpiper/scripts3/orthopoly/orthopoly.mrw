@@ -37,7 +37,7 @@ Usage:
 	OrthoT(n, x) gives the n-th Tschebyscheff polynomial of the 1st kind
 	OrthoU(n, x) gives the n-th Tschebyscheff polynomial of the 2nd kind
 
-  If c is a list of coefficients c[1], c[2], ..., c[N], then Ortho*Sum(c, ...) where * is one of P, G, H, L, T, U, computes the sum of a series c[1]*P_0+c[2]*P_1+...+c[N]*P_N, where P_k is the relevant polynomial of k-th order. (For polynomials ta<= parameters: the parameters must remain constant throughout the summation.) Note that the intermediate polynomials are not evaluated and the recurrence relations are different for this computation, so there may be a numerical difference between Ortho*(c, ...) and computing the sum of the series directly.
+  If c is a list of coefficients c[1], c[2], ..., c[N], then Ortho*Sum(c, ...) where * is one of P, G, H, L, T, U, computes the sum of a series c[1]*P_0+c[2]*P_1+...+c[N]*P_N, where P_k is the relevant polynomial of k-th order. (For polynomials taking parameters: the parameters must remain constant throughout the summation.) Note that the intermediate polynomials are not evaluated and the recurrence relations are different for this computation, so there may be a numerical difference between Ortho*(c, ...) and computing the sum of the series directly.
 
   Internal functions that may be useful:
 	OrthoPolyCoeffs(name_IsString, n_IsInteger, parameters_IsList) returns a list of coefficients of the polynomial. Here "name" must be one of the predefined names: "Jacobi", "Gegenbauer", "Hermite", "Laguerre", "Tscheb1",  "Tscheb2"; and "parameters" is a list of extra parameters for the given family of polynomials, e.g. {a,b} for the Jacobi, {a} for Laguerre and {} for Hermite polynomials.
@@ -46,7 +46,7 @@ Usage:
 */
 
 10 # EvaluateHornerScheme({}, _x) <-- 0;
-/* Strictly spea<=, the following rule is not needed, but it doesn't hurt */
+/* Strictly speaking, the following rule is not needed, but it doesn't hurt */
 10 # EvaluateHornerScheme({_coeffs}, _x) <-- coeffs;
 20 # EvaluateHornerScheme(coeffs_IsList, _x) <-- Head(coeffs)+x*EvaluateHornerScheme(Tail(coeffs), x);
 
@@ -207,7 +207,7 @@ OrthoPolyCoeffs(name, n, p) returns the list of coefficients for orthogonal poly
 */
 
 /* A fast implementation that works directly with lists and saves memory. Same recurrence as in OrthoPolyNumeric() */
-/* note: here we pass "name" instead of "KnownOrthoPoly()[name]" for efficiency, but strictly spea<= we don't need to use this global constant */
+/* note: here we pass "name" instead of "KnownOrthoPoly()[name]" for efficiency, but strictly speaking we don't need to use this global constant */
 
 20 # OrthoPolyCoeffs(name_IsString, n_IsInteger, p_IsList)_(n>1) <-- [
 	Local(ruleCoeffs, tmpCoeffs, newCoeffs, prevCoeffs, index, jndex, tmptmpCoeffs, prevCoeffsA, newCoeffsA, tmpCoeffsA);
@@ -304,7 +304,7 @@ OrthoPolySumCoeffs(name_IsString, c_IsList, p_IsList) <-- [
 //////////////////////////////////////////////////
 /// Very fast computation of Chebyshev polynomials
 //////////////////////////////////////////////////
-/// (This is not used now because of numerical instability, until I figure out how much to increase the wor<= precision to get P correct digits.)
+/// (This is not used now because of numerical instability, until I figure out how much to increase the working precision to get P correct digits.)
 /// See: W. Koepf. Efficient computation of Chebyshev polynomials in computer algebra (unpublished preprint). Contrary to Koepf's claim (unsupported by any calculation in his paper) that the method is numerically stable, I found unsatisfactory numerical behavior for very large orders.
 /// Koepf suggests to use M. Bronstein's algorithm for finding rational solutions of linear ODEs for all other orthogonal polynomials (may be faster than recursion if we want to find the analytic form of the polynomial, but still slower if an explicit formula is available).
 //////////////////////////////////////////////////
@@ -347,7 +347,7 @@ BitList(n) := BitList(n, {});
 		// Invariant: n[i+1] = 2*n[i] + BitList[i] and we need to have FastOrthoT(n[i]), FastOrthoT(1+n[i]) as T1, T2. Initially n[1]=1 and after the cycle n[i]=n.
 		{T1, T2} := If
 		(
-			i==1,
+			i=1,
 			{2*T1*T2-x, 2*T2^2-1},
 			{2*T1^2-1, 2*T1*T2-x}
 		);
@@ -369,7 +369,7 @@ BitList(n) := BitList(n, {});
 		// Invariant: n[i+1] = 2*n[i] + BitList[i] and we need to have U(n[i]), T(n[i]), T(1+n[i]) as U1, T1, T2. Initially n[1]=1 and after the cycle n[i]=n.
 		{U1, T1, T2} := If
 		(
-			i==1,
+			i=1,
 			{2*U1*T2, 2*T1*T2-x, 2*T2^2-1},
 			{2*U1*T1-1, 2*T1^2-1, 2*T1*T2-x}
 		);

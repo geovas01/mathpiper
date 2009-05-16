@@ -1,6 +1,6 @@
 %mathpiper,def="IsEven"
 
-IsEven(n) := IsInteger(n) And ( BitAnd(n,1)  == 0 );
+IsEven(n) := IsInteger(n) And ( BitAnd(n,1)  = 0 );
 
 %/mathpiper
 

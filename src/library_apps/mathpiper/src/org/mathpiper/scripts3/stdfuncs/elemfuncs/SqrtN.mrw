@@ -13,7 +13,7 @@
 /// SqrtN(x).
 SqrtN(x) := MathSqrt1(x);	// to have another function is easier for debugging
 
-/// Compute square root(x) with nonnegative x. FIXME: No precision trac<= yet.
+/// Compute square root(x) with nonnegative x. FIXME: No precision tracking yet.
 10 # MathSqrt1(0) <-- 0;
 /// negative or non-numeric arguments give error message
 100 # MathSqrt1(_x) <-- [ Echo("SqrtN: invalid argument: ", x); False;];
@@ -31,7 +31,7 @@ SqrtN(x) := MathSqrt1(x);	// to have another function is easier for debugging
 		// now the number x has a nonzero chance of being an exact square
 		[
 			// check whether increased precision would be at all necessary
-//			Echo("chec<= integer case");
+//			Echo("checking integer case");
 			GlobalPush(BuiltinPrecisionGet());
 			If(MathBitCount(x)+3>DigitsToBits(BuiltinPrecisionGet(), 10),
 			  BuiltinPrecisionSet(BitsToDigits(MathBitCount(x), 10)+1));

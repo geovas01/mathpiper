@@ -14,7 +14,7 @@
 200 # ArcTan(-Sqrt(3)) <-- -Pi/3;
 200 # ArcTan(1) <-- Pi/4;
 200 # ArcTan(0) <-- 0;
-200 # ArcTan(_n)_(n == -1) <-- -Pi/4;
+200 # ArcTan(_n)_(n = -1) <-- -Pi/4;
 
 200 # ArcTan(Infinity) <-- Pi/2;
 200 # ArcTan(-Infinity) <-- -Pi/2;

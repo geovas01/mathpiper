@@ -1,6 +1,6 @@
 %mathpiper,def="IsOdd"
 
-IsOdd(n)  := IsInteger(n) And ( BitAnd(n,1)  == 1 );
+IsOdd(n)  := IsInteger(n) And ( BitAnd(n,1)  = 1 );
 
 %/mathpiper
 

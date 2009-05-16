@@ -16,7 +16,7 @@ DoUnitSubsumptionAndResolution(_list) <--
 
       For(i:=1, (Not isFalse And Not isTrue) And i <= Length(list), i++)
       [
-        If(Length(list[i]) == 1, [
+        If(Length(list[i]) = 1, [
           Local(x); Set(x, list[i][1]); //n := SimpleNegate(x);
           //Echo({"Unit clause ", x, Nl()});
 
@@ -39,7 +39,7 @@ DoUnitSubsumptionAndResolution(_list) <--
                         If(i>j, i--);   // i also needs to be decremented
                         Set(deletedClause, True);
                         Set(changed, True);
-                        If(Length(list) == 0, [Set(isTrue, True);]);
+                        If(Length(list) = 0, [Set(isTrue, True);]);
                     ],
                       // else, try unit resolution
                     If(Contradict(x, list[j][k]), [
@@ -47,7 +47,7 @@ DoUnitSubsumptionAndResolution(_list) <--
                         DestructiveDelete(list[j], k);
                         k--;
                         Set(changed, True);
-                        If(Length(list[j]) == 0, [Set(isFalse, True);]);
+                        If(Length(list[j]) = 0, [Set(isFalse, True);]);
                     ])
                     );
                 ];

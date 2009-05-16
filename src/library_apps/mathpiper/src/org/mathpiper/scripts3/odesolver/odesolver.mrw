@@ -12,7 +12,7 @@ OdeOrder
  3) Done: documentation for OdeSolve and OdeTest
  */
 
-10 # OdeLeftHandSideEq(_l = _r) <-- (l-r);
+10 # OdeLeftHandSideEq(_l == _r) <-- (l-r);
 20 # OdeLeftHandSideEq(_e) <-- e;
 
 10 # OdeNormChange(y(n_IsInteger)) <-- UnList({yyy,n});
@@ -155,7 +155,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     /* Return results */
     //Sum(consts * Exp(roots*x));
     Add( consts * Exp(roots*x) );
-  ] else if ( Degree(auxeqn,x) == 2 ) [
+  ] else if ( Degree(auxeqn,x) = 2 ) [
     // we can solve second order equations without RootsWithMultiples
     Local(a,b,c,roots);
     roots:=ZeroVector(2);
@@ -173,7 +173,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     // RootsWithMultiples (hopefully) catches those, except for
     // the case b,c=0
 
-    if( b==0 And c==0 )[
+    if( b=0 And c=0 )[
 	Add(OdeConstantList(2)*{1,x});
     ] else if( IsNumber(N(roots[1])) )[
 	If(InVerboseMode(),Echo("OdeSolve: Real roots"));
@@ -205,26 +205,26 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 	// get the list of coefficients of the derivatives
 	// in decreasing order
 	coefs:=Reverse(Listify(h)[3]);
-	While( Head(coefs) == 0 )[
+	While( Head(coefs) = 0 )[
 		coefs:=Tail(coefs);
 	];
 	Length(coefs)-1;
 ];
 
 
-10 # OdeSolve(_expr)_(OdeOrder(expr)==0)	    <-- Echo("OdeSolve: Not a differential equation");
+10 # OdeSolve(_expr)_(OdeOrder(expr)=0)	    <-- Echo("OdeSolve: Not a differential equation");
 
 // Solve the ever lovable seperable equation
 
-10 # OdeSolve(y'+_a=_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'=expr-a);
-10 # OdeSolve(y'-_a=_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'=expr+a);
-10 # OdeSolve(y'/_a=_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'=expr*a);
-10 # OdeSolve(_a*y'=_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'=expr/a);
-10 # OdeSolve(y'*_a=_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'=expr/a);
-10 # OdeSolve(_a/y'=_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'=a/expr);
+10 # OdeSolve(y'+_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr-a);
+10 # OdeSolve(y'-_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr+a);
+10 # OdeSolve(y'/_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr*a);
+10 # OdeSolve(_a*y'==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr/a);
+10 # OdeSolve(y'*_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr/a);
+10 # OdeSolve(_a/y'==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==a/expr);
 
 // only works for low order equations
-10 # OdeSolve(y'=_expr)_(IsFreeOf({y,y',y''},expr)) <--
+10 # OdeSolve(y'==_expr)_(IsFreeOf({y,y',y''},expr)) <--
 [
 	If(InVerboseMode(),Echo("OdeSolve: Integral in disguise!"));
 	If(InVerboseMode(),Echo("OdeSolve: Attempting to integrate ",expr));
@@ -247,7 +247,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     OdeUnsolved(e);
 ];
 
-10 # OdeSolveLinear(_e,OdeTerm(0,_list))_(Length(VarList(list)) == 0) <--
+10 # OdeSolveLinear(_e,OdeTerm(0,_list))_(Length(VarList(list)) = 0) <--
 [
   OdeSolveLinearHomogeneousConstantCoefficients(OdeNormalForm(e));
 ];
@@ -293,7 +293,7 @@ OdeTest(_e,_solution) <--
 *CMD OdeSolve --- general ODE solver
 *STD
 *CALL
-	OdeSolve(expr1=expr2)
+	OdeSolve(expr1==expr2)
 *PARMS
 
 {expr1,expr2} -- expressions containing a function to solve for
@@ -313,13 +313,13 @@ may be entered as {y(n)}, where {n} is any integer.
 
 *E.G.
 
-	In> OdeSolve( y'' + y = 0 )
+	In> OdeSolve( y'' + y == 0 )
 	Out> C42*Sin(x)+C43*Cos(x);
-	In> OdeSolve( 2*y'' + 3*y' + 5*y = 0 )
+	In> OdeSolve( 2*y'' + 3*y' + 5*y == 0 )
 	Out> Exp(((-3)*x)/4)*(C78*Sin(Sqrt(31/16)*x)+C79*Cos(Sqrt(31/16)*x));
-	In> OdeSolve( y'' - 4*y = 0 )
+	In> OdeSolve( y'' - 4*y == 0 )
 	Out> C132*Exp((-2)*x)+C136*Exp(2*x);
-	In> OdeSolve( y'' +2*y' + y = 0 )
+	In> OdeSolve( y'' +2*y' + y == 0 )
 	Out> (C183+C184*x)*Exp(-x);
 
 *SEE Solve, RootsWithMultiples
@@ -372,11 +372,11 @@ order of the highest derivative. If no derivatives appear, zero is returned.
 
 *E.G.
 
-	In> OdeOrder(y'' + 2*y' = 0)
+	In> OdeOrder(y'' + 2*y' == 0)
 	Out> 2;
-	In> OdeOrder(Sin(x)*y(5) + 2*y' = 0)
+	In> OdeOrder(Sin(x)*y(5) + 2*y' == 0)
 	Out> 5;
-	In> OdeOrder(2*y + Sin(y) = 0)
+	In> OdeOrder(2*y + Sin(y) == 0)
 	Out> 0;
 
 *SEE OdeSolve

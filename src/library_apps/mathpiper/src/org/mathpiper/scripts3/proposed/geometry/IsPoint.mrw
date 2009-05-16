@@ -1,6 +1,6 @@
 %mathpiper,def=""
 
-IsPoint(p) := If(IsList(p) And (Length(p) == 2 Or Length(p) == 3),True,False);
+IsPoint(p) := If(IsList(p) And (Length(p) = 2 Or Length(p) = 3),True,False);
 
 %/mathpiper
 

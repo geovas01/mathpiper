@@ -1,4 +1,4 @@
-%mathpiper,def="Nth;NrArgs;IsNonObject;Numer;Denom;NormalForm;++;--;TableForm;=;!=;+-;/-;*-;^-;:=-;:=+;&;|;%;if;else;N;NonN;InNumericMode;V;InVerboseMode"
+%mathpiper,def="Nth;NrArgs;IsNonObject;Numer;Denom;NormalForm;++;--;TableForm;==;!==;+-;/-;*-;^-;:=-;:=+;&;|;%;if;else;N;NonN;InNumericMode;V;InVerboseMode"
 
 /* See the documentation on the assignment of the precedence of the rules.
  */
@@ -174,8 +174,8 @@ Rule("NormalForm",1,1000,True) expression;
 
 
 
-RuleBase("=",{left,right});
-RuleBase("!=",{left,right});
+RuleBase("==",{left,right});
+RuleBase("!==",{left,right});
 
 
 a_IsNonNegativeInteger & b_IsNonNegativeInteger <-- BitAnd(a,b);
@@ -188,9 +188,9 @@ HoldArg("if",body);
 UnFence("if",2);
 
 RuleBase("else",{ifthen,otherwise});
-0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) == True) <--
+0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = True) <--
      Eval(body);
-0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) == False) <--
+0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = False) <--
      Eval(otherwise);
 1 # (if (_predicate) _body else _otherwise) <--
     UnList({Atom("else"),
@@ -338,12 +338,12 @@ it will return {False}.
 
 *E.G. notest
 
-	In> OldSolve({x+2=0},{x})
+	In> OldSolve({x+2==0},{x})
 	Out> {{-2}};
-	In> V(OldSolve({x+2=0},{x}))
+	In> V(OldSolve({x+2==0},{x}))
 	Entering OldSolve
-	From  x+2=0  it follows that  x  = -2 
-	   x+2=0  simplifies to  True 
+	From  x+2==0  it follows that  x  = -2 
+	   x+2==0  simplifies to  True 
 	Leaving OldSolve
 	Out> {{-2}};
 	In> InVerboseMode()
@@ -372,7 +372,7 @@ it will return {False}.
 
 The entry with index "n" from "list" is returned. The first entry
 has index 1. It is possible to pick several entries of the list by
-ta<= "n" to be a list of indices.
+taking "n" to be a list of indices.
 
 More generally, {Nth} returns the n-th operand of the
 expression passed as first argument.

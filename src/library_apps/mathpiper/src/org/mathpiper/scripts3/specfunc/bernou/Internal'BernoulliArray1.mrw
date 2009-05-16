@@ -12,8 +12,8 @@ Internal'BernoulliArray1(n_IsEven) _ (n>=2) <--
 	f := ArrayCreate(n/2, 0);
 	C[1] := 1;
 	C[2] := -1/2;
-	C[3] := 1/12;	// C[2*k+1] == B[2*k]/(2*k)!
-	f[1] := 2;	// f[k] == (2k)!
+	C[3] := 1/12;	// C[2*k+1] = B[2*k]/(2*k)!
+	f[1] := 2;	// f[k] = (2k)!
 	For(k:=2, k<=n/2, k++)	// we could start with k=1 but it would be awkward to compute f[] recursively
 	[
 		// compute f[k]

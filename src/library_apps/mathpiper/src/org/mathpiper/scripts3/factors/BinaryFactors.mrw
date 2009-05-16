@@ -52,7 +52,7 @@ Function(AddFoundSolutionSingle,{p})
 
       rem:={-root,1};
       {newlist,rem}:=MkfactD(poly,rem);
-      While (rem == {})
+      While (rem = {})
       [
         count++;
         Set(poly,newlist);
@@ -115,7 +115,7 @@ Function(Fct,{poly,var})
     Local(i);
     Set(i,1);
     Set(lowestcoef,Abs(poly[i]));
-    While (lowestcoef == 0 And i<=Length(poly))
+    While (lowestcoef = 0 And i<=Length(poly))
     [
       Set(i,i+1);
       Set(lowestcoef,Abs(poly[i]));
@@ -135,8 +135,8 @@ Function(Fct,{poly,var})
     [
       deriv[i] := deriv[i]*i;
     ];
-//    Echo("POLY == ",poly);
-//    Echo("DERIV == ",deriv);
+//    Echo("POLY = ",poly);
+//    Echo("DERIV = ",deriv);
   ];
   [
     Local(q,r,next);
@@ -154,7 +154,7 @@ Function(Fct,{poly,var})
     // Make it monic
     q:=q/q[Length(q)];
     testpoly:=MkfactD(poly,q)[1];
-//Echo("TESTPOLY == ",testpoly);
+//Echo("TESTPOLY = ",testpoly);
   ];
 
 //  Set(testpoly,poly); //@@@
@@ -216,9 +216,9 @@ Function(Fct,{poly,var})
     Set(twoq,MultiplyN(q,2));
     Set(mask,AddN(twoq,MathNegate(1)));
 
-//Echo("q == ",q);
-//Echo("Length is",Length(accu),"accu == ",accu);
-//Echo("result == ",result);
+//Echo("q = ",q);
+//Echo("Length is",Length(accu),"accu = ",accu);
+//Echo("result = ",result);
   ];
 
   // If the polynom is not one, it is a polynomial which is not reducible any further

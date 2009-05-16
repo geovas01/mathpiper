@@ -32,16 +32,16 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
 //Echo("newton1",`Hold(Newton(@p,x,@c,@prec,@a,@b)));
     if (a != b) [r := `Newton(@p,x,@c,prec,a,b);];
 //Echo("newton2",r," ",CurrentFile(),CurrentLine());
-    if (r == Fail)
+    if (r = Fail)
     [
       Local(c,cold,pa,pb,pc);
-      pa:=(p Where x=a);
-      pb:=(p Where x=b);
+      pa:=(p Where x==a);
+      pb:=(p Where x==b);
       c:=((a+b)/2);
       cold := a;
       While (Abs(cold-c)>prec)
       [
-        pc:=(p Where x=c);
+        pc:=(p Where x==c);
 //Echo(a,b,c);
         if (Abs(pc) < prec)
         [

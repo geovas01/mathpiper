@@ -6,7 +6,7 @@ FindPrimeFactorSimple(n, prime) :=
 	Local(power, factor);
 	power := 0;
 	factor := prime;
-	While(Mod(n, factor)==0)
+	While(Mod(n, factor)=0)
 	[
 		factor := factor*prime;
 		power++;

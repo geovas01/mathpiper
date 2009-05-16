@@ -24,7 +24,7 @@
 		While(x<y)
 		[
 			y:=y-x;
-			While((y&1) == 0)
+			While((y&1) = 0)
 			[
 				y := ShiftRight(y,1);
 			];

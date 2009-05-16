@@ -10,7 +10,7 @@ FindPrimeFactor(n, prime) :=
 	old'factor := 1;	// in case the power should be 0
 	factor := prime;
 	// first loop: increase step
-	While(Mod(n, factor)==0)	// avoid division, just compute Mod()
+	While(Mod(n, factor)=0)	// avoid division, just compute Mod()
 	[
 		old'factor := factor;	// save old value here, avoid sqrt
 		factor := factor^2;
@@ -25,7 +25,7 @@ FindPrimeFactor(n, prime) :=
 	[
 		factor := prime^step;
 		If(
-			Mod(n, factor)==0,
+			Mod(n, factor)=0,
 			[
 				n := Div(n, factor);
 				power := power + step;

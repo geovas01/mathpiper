@@ -26,7 +26,7 @@ GammaConstNum() :=
      U:=U+A;
      V:=V+B;
     ];
-    If(InVerboseMode(), Echo("GammaConstNum: Info: used", k, "iterations at wor<= precision", BuiltinPrecisionGet()));
+    If(InVerboseMode(), Echo("GammaConstNum: Info: used", k, "iterations at working precision", BuiltinPrecisionGet()));
     result:=DivideN(U,V);	// N(U/V)
   ]);
   BuiltinPrecisionSet(prec);	// restore precision

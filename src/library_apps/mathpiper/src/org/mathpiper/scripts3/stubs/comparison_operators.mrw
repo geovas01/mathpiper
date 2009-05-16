@@ -1,7 +1,7 @@
 %mathpiper,def="<;>;<=;>=;!="
 
 /* def file definitions
-==
+=
 <
 >
 <=
@@ -71,7 +71,7 @@ LocalSymbols(nNum,mNum)
 40 # (Sqrt(_x))_(x < 0) >= 0      <--  False;
 
 // Deal with negated terms
-50 # -(_x) < 0 <-- Not((x<0) Or (x==0));
+50 # -(_x) < 0 <-- Not((x<0) Or (x=0));
 
 // Define each of {>,<=,>=} in terms of <
 50 # _n >  _m <-- m < n;
@@ -79,7 +79,7 @@ LocalSymbols(nNum,mNum)
 50 # _n >= _m <-- Not(n<m);
 
 
-Function("!=",{aLeft,aRight}) Not(aLeft==aRight);
+Function("!=",{aLeft,aRight}) Not(aLeft=aRight);
 
 %/mathpiper
 
@@ -107,7 +107,7 @@ evaluation, the expression is returned with evaluated arguments.
 The word "numeric" in the previous paragraph has the following
 meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
 quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
-coerce the arguments passed to this comparison operator to a real value before ma<= the comparison.
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
 *E.G.
 
@@ -144,7 +144,7 @@ evaluation, the expression is returned with evaluated arguments.
 The word "numeric" in the previous paragraph has the following
 meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
 quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
-coerce the arguments passed to this comparison operator to a real value before ma<= the comparison.
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
 *E.G.
 
@@ -182,7 +182,7 @@ arguments.
 The word "numeric" in the previous paragraph has the following
 meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
 quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
-coerce the arguments passed to this comparison operator to a real value before ma<= the comparison.
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
 *E.G.
 
@@ -220,7 +220,7 @@ arguments.
 The word "numeric" in the previous paragraph has the following
 meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
 quotient of two numbers, or an infinity (i.e. {IsInfinity} returns {True}). Yacas will try to 
-coerce the arguments passed to this comparison operator to a real value before ma<= the comparison.
+coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
 *E.G.
 
@@ -253,7 +253,7 @@ Both expressions are evaluated and compared. If they turn out to be
 equal, the result is {False}. Otherwise, the result
 is {True}.
 
-The expression {e1 != e2} is equivalent to {Not(e1 == e2)}.
+The expression {e1 != e2} is equivalent to {Not(e1 = e2)}.
 
 *E.G.
 
@@ -262,16 +262,16 @@ The expression {e1 != e2} is equivalent to {Not(e1 == e2)}.
 	In> 1 != 1;
 	Out> False;
 
-*SEE ==
+*SEE =
 %/mathpiper_docs
 
 
 
 %mathpiper_docs,name="="
-*CMD == --- test for equality of expressions
+*CMD = --- test for equality of expressions
 *STD
 *CALL
-	e1 == e2
+	e1 = e2
 Precedence:
 *EVAL OpPrecedence("=")
 
@@ -299,9 +299,9 @@ if they were printed.
 	In> e2 := x^2 - 1;
 	Out> x^2-1;
 	
-	In> e1 == e2;
+	In> e1 = e2;
 	Out> False;
-	In> Expand(e1) == e2;
+	In> Expand(e1) = e2;
 	Out> True;
 
 *SEE !=, Equals

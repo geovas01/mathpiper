@@ -50,14 +50,14 @@
 	// this is a heuristic, because the next term error is expensive
 	// to calculate and the theoretic bounds have arbitrary constants
 	// use at most 5+Sqrt(n)/2 terms, stop when the term is nonzero and result stops to change at precision prec
-	For(k:=1, k<=5+Div(IntNthRoot(n,2),2) And (A==0 Or Abs(term)>epsilon), k++)
+	For(k:=1, k<=5+Div(IntNthRoot(n,2),2) And (A=0 Or Abs(term)>epsilon), k++)
 	[
 		// compute A(k,n)
 		A:=0;
 		For(l:=1,l<=k,l++)
 		[
 			If(
-				Gcd(l,k)==1,
+				Gcd(l,k)=1,
 				A := A + Cos(Pi*
 				  (	// replace Exp(I*Pi*...) by Cos(Pi*...) since the imaginary part always cancels
 					Sum(j,1,k-1, j*(Mod(l*j,k)/k-1/2)) - 2*l*n
@@ -68,7 +68,7 @@
 		];
 
 		term := If(
-			A==0,	// avoid long calculations if the term is 0
+			A=0,	// avoid long calculations if the term is 0
 			0,
 			N( A*Sqrt(k)*(
 			  [
@@ -100,15 +100,15 @@
 	   term:=1;
 	   // this is a heuristic, because the next term error is expensive
 	   // to calculate and the theoretic bounds have arbitrary constants
-	   For(k:=1,k<=5+Floor(SqrtN(n)*0.5) And ( term==0 Or Abs(term)>0.1) ,k++)[
+	   For(k:=1,k<=5+Floor(SqrtN(n)*0.5) And ( term=0 Or Abs(term)>0.1) ,k++)[
 			   A:=0;
 			   For(h:=1,h<=k,h++)[
-					   if( Gcd(h,k)==1 )[
+					   if( Gcd(h,k)=1 )[
 							   A:=A+Exp(I*Pi*Sum(j,1,k-1,(j/k)*((h*j)/k - Floor((h*j)/k) -1/2))
 - 2*Pi*I*h*n/k );
 					   ];
 			   ];
-			   If(A!=0, term:= N(A*Sqrt(k)*(Deriv(m) Sinh(C*lambda)/lambda) Where m=n ),term:=0 );
+			   If(A!=0, term:= N(A*Sqrt(k)*(Deriv(m) Sinh(C*lambda)/lambda) Where m==n ),term:=0 );
 //			   Echo("Term ",k,"is ",N(term/(Pi*Sqrt(2))));
 			   pa:=pa+term;
 //			   Echo("result", N(pa/(Pi*Sqrt(2))));
@@ -125,9 +125,9 @@ PartitionsP'recur(number_IsPositiveInteger) <--
 [
 	// need storage of n values PartitionsP(k) for k=1,...,n
 	Local(sign, cache, n, k, pentagonal, P);
-	cache:=ArrayCreate(number+1,1);	// cache[n] == PartitionsP(n-1)
+	cache:=ArrayCreate(number+1,1);	// cache[n] = PartitionsP(n-1)
 	n := 1;
-	While(n<number)	// this will never execute if number==1
+	While(n<number)	// this will never execute if number=1
 	[
 		n++;
 		// compute PartitionsP(n) now

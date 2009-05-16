@@ -7,7 +7,7 @@
 
  As described in Davenport.
  */
- 5 # MaximumBound(_p)_(IsZero(p Where x=0)) <-- MaximumBound(Simplify(p/x));
+ 5 # MaximumBound(_p)_(IsZero(p Where x==0)) <-- MaximumBound(Simplify(p/x));
 10 # MaximumBound(_p)_(Degree(p)>0) <--
 [
   Local(an);

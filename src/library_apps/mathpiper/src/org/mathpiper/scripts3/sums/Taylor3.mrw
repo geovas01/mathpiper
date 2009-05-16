@@ -158,10 +158,10 @@ Taylor3'FuncCoefs(_fname,_degree) <--
 ];
 
 
-100 # (Taylor3'TaylorCoefs(_var,_degree)(Ln(_f)))_(Simplify(f-1) == var) <-- Taylor3'FuncCoefs("Ln",degree);
+100 # (Taylor3'TaylorCoefs(_var,_degree)(Ln(_f)))_(Simplify(f-1) = var) <-- Taylor3'FuncCoefs("Ln",degree);
 
 
-110 # (Taylor3'TaylorCoefs(_var,_degree)(f_IsFunction))_(NrArgs(f) == 1 And (Taylor3'UniFunction(Type(f)))) <--
+110 # (Taylor3'TaylorCoefs(_var,_degree)(f_IsFunction))_(NrArgs(f) = 1 And (Taylor3'UniFunction(Type(f)))) <--
 [
   Local(sins,i,j,result,xx,expr,sinfact);
   expr := f[1];

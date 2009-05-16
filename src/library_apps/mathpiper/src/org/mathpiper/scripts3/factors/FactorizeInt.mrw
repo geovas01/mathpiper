@@ -13,11 +13,11 @@
   // do a quick check first - this will save us time especially if we want to move 257 up a lot
   If(
   	Gcd(ProductPrimesTo257(), n) > 1,	// if this is > 1, we need to separate some factors. Gcd() is very fast
-	small'powers := TrialFactorize(n, 257),	// value is {n1, {p1,q1}, {p2,q2}, ...} and n1==1 if completely factorized into these factors, and the remainder otherwise
+	small'powers := TrialFactorize(n, 257),	// value is {n1, {p1,q1}, {p2,q2}, ...} and n1=1 if completely factorized into these factors, and the remainder otherwise
 	small'powers := {n}	// pretend we had run TrialFactorize without success
   );
   n := small'powers[1];	// remainder
-  If(n==1, Tail(small'powers),
+  If(n=1, Tail(small'powers),
   // if n!=1, need to factorize the remainder with Pollard Rho algorithm
 	  [
 	  	If(InVerboseMode(), Echo({"FactorizeInt: Info: remaining number ", n}));

@@ -11,7 +11,7 @@
 200 # Lim(_var, _tar, _dir, _x ^ _y)_
 ( [
     Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
-    ((IsZero(lx) And IsZero(ly)) Or ((lx == 1) And IsInfinity(ly)) Or (IsInfinity(lx) And IsZero(ly)));
+    ((IsZero(lx) And IsZero(ly)) Or ((lx = 1) And IsInfinity(ly)) Or (IsInfinity(lx) And IsZero(ly)));
 ] )
 <-- Exp(Lim(var, tar, dir, y * Ln(x)));
 
@@ -47,7 +47,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 <-- [
   Local(der, coef); der := ApplyPure("D", {var, exp});
   coef := Eval(ApplyPure("Subst", {var, tar, der}));
-  If ( coef == 0,
+  If ( coef = 0,
        Sign(var, tar, dir, der, n+1),
        (Sign(coef)*Dir(dir)) ^ n
      );
@@ -71,10 +71,10 @@ Sign(_var, _tar, _dir, _exp, _n)
 
 /*  To avoid some infinite recursions  */
 400 # Lim(_var, _tar, _dir, _x * Exp(_y))_
-(IsInfinity(Lim(var, tar, dir, x)) And (Lim(var, tar, dir, y) == -Infinity))
+(IsInfinity(Lim(var, tar, dir, x)) And (Lim(var, tar, dir, y) = -Infinity))
 <-- Lim(var, tar, dir, x/Exp(-y));
 400 # Lim(_var, _tar, _dir, Exp(_x) * _y)_
-((Lim(var, tar, dir, x) == -Infinity) And IsInfinity(Lim(var, tar, dir, y)))
+((Lim(var, tar, dir, x) = -Infinity) And IsInfinity(Lim(var, tar, dir, y)))
 <-- Lim(var, tar, dir, y/Exp(-x));
 400 # Lim(_var, _tar, _dir, Ln(_x) * _y)_
 (IsZero(Lim(var, tar, dir, x)) And IsZero(Lim(var, tar, dir, y)))
@@ -98,7 +98,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 500 # Lim(_var, _tar, _dir, _x - _y)_
 ( [
     Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
-    ((lx == Infinity) And (ly == Infinity)) Or ((lx == -Infinity) And (ly == -Infinity));
+    ((lx = Infinity) And (ly = Infinity)) Or ((lx = -Infinity) And (ly = -Infinity));
 ] )
 <-- Lim(var, tar, dir, x*(1-y/x));
 
@@ -117,7 +117,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 600 # Lim(_var, _tar, _dir, _x + _y)_
 ( [
     Local(lx,ly); lx := Lim(var, tar, dir, x); ly := Lim(var, tar, dir, y);
-    ((lx == Infinity) And (ly == -Infinity)) Or ((lx == -Infinity) And (ly == Infinity));
+    ((lx = Infinity) And (ly = -Infinity)) Or ((lx = -Infinity) And (ly = Infinity));
 ] )
 <-- Lim(var, tar, dir, x*(1+y/x));
 
@@ -144,7 +144,7 @@ UnFence("LimitArgs",1); /* Allow LimitArgs to have access to the local variables
 20 # Lim(_var, _tar, _exp)
 <-- [
   Local(l); l := Lim(var, tar, Left, exp);
-  If ( l == Lim(var, tar, Right, exp),
+  If ( l = Lim(var, tar, Right, exp),
        l,
        Undefined
      );

@@ -17,7 +17,7 @@ Function("Inverse",{matrix})
         [
          inv[item[i] ][i] := inv[item[i] ][i]+
            Factorize(j,1,n,
-             If(j==i,1,matrix[j][item[j] ]))*lc;
+             If(j=i,1,matrix[j][item[j] ]))*lc;
         ];
   ];
   Check(det != 0, "Zero determinant");

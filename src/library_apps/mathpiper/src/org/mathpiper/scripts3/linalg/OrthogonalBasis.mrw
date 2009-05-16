@@ -37,7 +37,7 @@ Function("OrthogonalBasis",{W})[
 
 Given a linearly independent set {W} (constructed of rows vectors),
 this command returns an orthogonal basis {V} for {W}, which means 
-that span(V) == span(W) and {InProduct(V[i],V[j]) == 0} when {i != j}.
+that span(V) = span(W) and {InProduct(V[i],V[j]) = 0} when {i != j}.
 This function uses the Gram-Schmidt orthogonalization process.
 
 *E.G.

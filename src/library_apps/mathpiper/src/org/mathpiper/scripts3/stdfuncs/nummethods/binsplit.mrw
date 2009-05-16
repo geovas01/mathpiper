@@ -32,9 +32,9 @@ BinSplitCombine({_P1, _Q1, _B1, _T1}, {_P2, _Q2, _B2, _T2}) <-- {P1*P2, Q1*Q2, B
 // base of recursion
 10 # BinSplitData(_m, _n, _a, _b, _p, _q)_(m>n) <-- {1,1,1,0};
 
-10 # BinSplitData(_m, _n, _a, _b, _p, _q)_(m==n) <-- {p@m, q@m, b@m, (a@m)*(p@m)};
+10 # BinSplitData(_m, _n, _a, _b, _p, _q)_(m=n) <-- {p@m, q@m, b@m, (a@m)*(p@m)};
 
-10 # BinSplitData(_m, _n, _a, _b, _p, _q)_(m+1==n) <-- {(p@m)*(p@n), (q@m)*(q@n), (b@m)*(b@n), (p@m)*((a@m)*(b@n)*(q@n)+(a@n)*(b@m)*(p@n))};
+10 # BinSplitData(_m, _n, _a, _b, _p, _q)_(m+1=n) <-- {(p@m)*(p@n), (q@m)*(q@n), (b@m)*(b@n), (p@m)*((a@m)*(b@n)*(q@n)+(a@n)*(b@m)*(p@n))};
 
 // could implement some more cases of recursion base, to improve speed
 

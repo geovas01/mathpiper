@@ -24,7 +24,7 @@
 
 {ProperDivisorsSum} returns the sum of proper divisors, i.e. {ProperDivisors(n)-n},
 since {n} is not counted.
-{n} is prime if and only if {ProperDivisorsSum(n)=1}.
+{n} is prime if and only if {ProperDivisorsSum(n)==1}.
 
 *E.G.
 	In> ProperDivisorsSum(180)

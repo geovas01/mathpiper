@@ -13,7 +13,7 @@
 		Length(factors) > 1,	// factorized into something
 		// now we return {n, 1} either if we haven't completely factorized, or if we factorized into more than one prime factor; otherwise we return the information about prime factors
 		If(
-			factors[1] == 1 And Length(factors) == 2,	// factors = {1, {p, s}}, so we have a prime power n=p^s
+			factors[1] = 1 And Length(factors) = 2,	// factors = {1, {p, s}}, so we have a prime power n=p^s
 			factors[2],
 			{n, 1}
 		),

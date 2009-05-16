@@ -39,7 +39,7 @@ NthRoot(m_IsNonNegativeInteger,n_IsInteger)_(n>1) <--
 [
    Local(r);
    r:=NthRoot'Restore(m,n);
-   If(Length(r)==0,
+   If(Length(r)=0,
    [
       r:=NthRoot'Calc(m,n);
       NthRoot'Save(m,n,r);
@@ -85,8 +85,8 @@ Function("NthRoot'List",{n})
    If(Length(NthRoot'Table)>0,
    [
       Local(p,xx);
-      p:=Select({{xx},Head(xx)==n},NthRoot'Table);
-      If(Length(p)==1,Tail(p[1]),List());
+      p:=Select({{xx},Head(xx)=n},NthRoot'Table);
+      If(Length(p)=1,Tail(p[1]),List());
    ],
    List());
 ];
@@ -98,8 +98,8 @@ Function("NthRoot'Restore",{m,n})
    If(Length(p)>0,
    [
       Local(r,xx);
-      r:=Select({{xx},Head(xx)==m},p);
-      If(Length(r)==1,Head(Tail(r[1])),List());
+      r:=Select({{xx},Head(xx)=m},p);
+      If(Length(r)=1,Head(Tail(r[1])),List());
    ],
    List());
 ];
@@ -108,13 +108,13 @@ Function("NthRoot'Save",{m,n,r})
 [
    Local(p);
    p:=NthRoot'List(n);
-   If(Length(p)==0,
+   If(Length(p)=0,
    // create power list and save root
    DestructiveInsert(NthRoot'Table,1,List(n,List(m,r))),
    [
       Local(rr,xx);
-      rr:=Select({{xx},Head(xx)==m},p);
-      If(Length(rr)==0,
+      rr:=Select({{xx},Head(xx)=m},p);
+      If(Length(rr)=0,
       [
 	 // save root only
 	 DestructiveAppend(p,List(m,r));

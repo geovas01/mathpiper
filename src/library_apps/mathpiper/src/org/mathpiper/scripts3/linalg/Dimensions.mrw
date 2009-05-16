@@ -13,7 +13,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
 //Echo("GETTING ",x);
 //Echo(Length(Select(IsList,x)));
 //Echo("END");
-      If(Length(x)>0 And Length(Select(IsList,x))==Length(x),
+      If(Length(x)>0 And Length(Select(IsList,x))=Length(x),
       [
         n:=Length(x);
 	dim:=MapSingle(Dimensions,x);
@@ -22,7 +22,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
 	For(i:=1,i<=m,i++)
 	[
 	    aux:=Table(dim[j][i],j,1,n,1);
-	    If(Min(aux)==Max(aux),
+	    If(Min(aux)=Max(aux),
 	    result:=DestructiveAppend(result,dim[1][i]),
 	    i:=m+1);
         ];

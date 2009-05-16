@@ -13,7 +13,7 @@ Function("RationalizeNumber",{x})
     i:=i+1;
 //Echo(x,"/",n);
   ];
-  Floor(x+0.5)/n; //FIXME forced thun<= to string representation
+  Floor(x+0.5)/n; //FIXME forced thunking to string representation
 ];
 
 %/mathpiper

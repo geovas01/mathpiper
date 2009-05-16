@@ -83,7 +83,7 @@
      ];
 
 11 # IntRat(_var,_exy / _exx,_exyu,_exxu)_
-        (Degree(exxu,var) > 1 And LeadingCoef(exxu)==1 And
+        (Degree(exxu,var) > 1 And LeadingCoef(exxu)=1 And
 	 IsNumericList(Coef(exxu,var,0 .. Degree(exxu)))) <--
 [
   Local(ee);

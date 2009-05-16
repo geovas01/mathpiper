@@ -7,9 +7,9 @@
 	done := False;
 	For(i:=0, Not done, i++)
 	[
-		While(i<Length(list) And list[i]==list[i+1])
+		While(i<Length(list) And list[i]=list[i+1])
 			DestructiveDelete(list, i);
-		If(i==Length(list), done := True);
+		If(i=Length(list), done := True);
 	];
 	list;
 ];

@@ -38,7 +38,7 @@ LocalSymbols(x)
 /* TODO move to this precedence everywhere? */
 LocalSymbols(x,y,xarg,yarg)
 [
-  10 # ((x_IsList) - (y_IsList))_(Length(x)==Length(y)) <--
+  10 # ((x_IsList) - (y_IsList))_(Length(x)=Length(y)) <--
   [
     Map({{xarg,yarg},xarg-yarg},{x,y});
   ];

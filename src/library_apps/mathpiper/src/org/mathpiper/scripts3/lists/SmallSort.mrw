@@ -2,8 +2,8 @@
 
 /// fast in-place sorting of a list (or array!)
 /// SmallSort sorts up to 3 elements, HeapSort sorts 4 and more elements
-SmallSort(_list, _first, _last, _compare) _ (last==first) <-- list;
-SmallSort(_list, _first, _last, _compare) _ (last==first+1) <--
+SmallSort(_list, _first, _last, _compare) _ (last=first) <-- list;
+SmallSort(_list, _first, _last, _compare) _ (last=first+1) <--
 [
 	Local(temp);
 	temp := list[first];
@@ -17,7 +17,7 @@ SmallSort(_list, _first, _last, _compare) _ (last==first+1) <--
 	);
 	list;
 ];
-SmallSort(_list, _first, _last, _compare) _ (last==first+2) <--
+SmallSort(_list, _first, _last, _compare) _ (last=first+2) <--
 [
 	Local(temp);
 	temp := list[first];

@@ -25,8 +25,8 @@ LocalSymbols(a,b)[
   Check(IsUniVar(expr),ToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
-//  Check(a == Hold(a), ToString()(Echo({"Found bound variable a which should have been unbound, in MatchLinear: ", a, "=", Eval(a)})));
-//  Check(b == Hold(b), ToString()(Echo({"Found bound variable b which should have been unbound, in MatchLinear: ", b, "=", Eval(b)})));
+//  Check(a = Hold(a), ToString()(Echo({"Found bound variable a which should have been unbound, in MatchLinear: ", a, "=", Eval(a)})));
+//  Check(b = Hold(b), ToString()(Echo({"Found bound variable b which should have been unbound, in MatchLinear: ", b, "=", Eval(b)})));
 
   a := Coef(expr,1);
   b := Coef(expr,0);
@@ -46,8 +46,8 @@ UnFence("MatchLinear",2);
 ];
 20 # MatchPureSquared(_var,_sign2,_sign0,_expr) <-- False;
 
-10 # MatchPureSquared(_expr,_sign2,_sign0)_(Degree(expr,var)==2 And
-                                    Coef(expr,1) == 0 And
+10 # MatchPureSquared(_expr,_sign2,_sign0)_(Degree(expr,var)=2 And
+                                    Coef(expr,1) = 0 And
 				    IsNumber(Coef(expr,0)) And
 				    IsNumber(Coef(expr,2)) And
 				    Coef(expr,0)*sign0 > 0 And
@@ -56,8 +56,8 @@ UnFence("MatchLinear",2);
 [
   Check(IsUniVar(expr),ToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
-//  Check(a == Hold(a), "Found bound variable which should have been unbound, in MatchLinear");
-//  Check(b == Hold(b), "Found bound variable which should have been unbound, in MatchLinear");
+//  Check(a = Hold(a), "Found bound variable which should have been unbound, in MatchLinear");
+//  Check(b = Hold(b), "Found bound variable which should have been unbound, in MatchLinear");
   a := Coef(expr,2);
   b := Coef(expr,0);
   True;

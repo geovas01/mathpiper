@@ -4,8 +4,8 @@ Function("CrossProduct",{aLeft,aRight})
 [
   Local(length);
   length:=Length(aLeft);
-  Check(length == 3,"OutProduct: error, vectors not of dimension 3");
-  Check(length == Length(aRight),"OutProduct: error, vectors not of the same dimension");
+  Check(length = 3,"OutProduct: error, vectors not of dimension 3");
+  Check(length = Length(aRight),"OutProduct: error, vectors not of the same dimension");
 
   Local(perms);
   perms := Permutations({1,2,3});

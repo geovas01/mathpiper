@@ -14,7 +14,7 @@ Common'digits(x,y) :=
 	Local(diff);
 	diff := Abs(x-y);
 	If(
-		diff==0,
+		diff=0,
 		Infinity,
 		// use approximation Ln(2)/Ln(10) > 351/1166
 		Div(IntLog(FloorN(DivideN(Max(Abs(x), Abs(y)), diff)), 2)*351, 1166)

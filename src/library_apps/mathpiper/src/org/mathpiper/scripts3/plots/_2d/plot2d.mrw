@@ -32,7 +32,7 @@ Function() Plot2D(func, range, options, ...);
 /// interface routines
 1 # Plot2D(_func) <-- ("Plot2D" @ {func, -5:5});
 2 # Plot2D(_func, _range) <-- ("Plot2D" @ {func, range, {}});
-3 # Plot2D(_func, _range, option_IsFunction) _ (Type(option) == "=" Or Type(option) == "=") <-- ("Plot2D" @ {func, range, {option}});
+3 # Plot2D(_func, _range, option_IsFunction) _ (Type(option) = "=" Or Type(option) = "==") <-- ("Plot2D" @ {func, range, {option}});
 
 /// Plot a single function
 5 # Plot2D(_func, _range, options'list_IsList)_(Not IsList(func)) <-- ("Plot2D" @ {{func}, range, options'list});
@@ -50,7 +50,7 @@ Function() Plot2D(func, range, options, ...);
 	options'hash["yname"] := {};
 	// parse range
 	If (
-		Type(range) == "=" Or Type(range) == "=",	// variable also specified -- ignore for now, store in options
+		Type(range) = "=" Or Type(range) = "==",	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
 			options'hash["xname"] := String(range[1]);
@@ -58,29 +58,29 @@ Function() Plot2D(func, range, options, ...);
 		]
 	);
 	If(
-		Type(range) == ":",	// simple range
+		Type(range) = ":",	// simple range
 		range := N(Eval({range[1], range[2]}))
 	);
 	// set default option values
 	If(
-		options'hash["points"] == Empty,
+		options'hash["points"] = Empty,
 		options'hash["points"] := 23
 	);
 	If(
-		options'hash["depth"] == Empty,
+		options'hash["depth"] = Empty,
 		options'hash["depth"] := 5
 	);
 	If(
-		options'hash["precision"] == Empty,
+		options'hash["precision"] = Empty,
 		options'hash["precision"] := 0.0001
 	);
 	If(
-		options'hash["output"] == Empty Or IsString(options'hash["output"]) And Plot2D'outputs()[options'hash["output"]] == Empty,
+		options'hash["output"] = Empty Or IsString(options'hash["output"]) And Plot2D'outputs()[options'hash["output"]] = Empty,
 		options'hash["output"] := Plot2D'outputs()["default"]
 	);
 	// a "filename" parameter is required when using data file
 	If(
-		options'hash["output"] == "datafile" And options'hash["filename"] == Empty,
+		options'hash["output"] = "datafile" And options'hash["filename"] = Empty,
 		options'hash["filename"] := "output.data"
 	);
 	// we will divide each subinterval in 4 parts, so divide number of points by 4 now
@@ -111,10 +111,10 @@ Function() Plot2D(func, range, options, ...);
 			:(ToString()Write(func))
 		);
 		// Allow plotting of constant functions
-		If(Length(var)==0, var:={dummy});
+		If(Length(var)=0, var:={dummy});
 		// store variable name if not already done so
 		If(
-			options'hash["xname"] == "",
+			options'hash["xname"] = "",
 			options'hash["xname"] := String(VarList(var)[1])
 		);
 		// store function name in options
@@ -122,7 +122,7 @@ Function() Plot2D(func, range, options, ...);
 		// compute the first point to see if it's okay
 		c := range[1];
 		fc := N(Eval(Apply({var, func}, {c})));
-		Check(IsNumber(fc) Or fc==Infinity Or fc== -Infinity Or fc==Undefined,
+		Check(IsNumber(fc) Or fc=Infinity Or fc= -Infinity Or fc=Undefined,
 			"Plot2D: Error: cannot evaluate function '"
 			:(ToString()Write(func))
 			:"' at point '"
@@ -155,7 +155,7 @@ Plot2D'get'data(_func, _var, _x'init, _y'init, _delta'x, _options'hash) <--
 	result := { {c,fc} := {x'init, y'init} };
 	For(i:=0, i<options'hash["points"], i++)
 	[
-		{a,fa} := {c, fc};	// this is to save time but here a == x'init + i*delta'x
+		{a,fa} := {c, fc};	// this is to save time but here a = x'init + i*delta'x
 		// build subintervals
 		{b, c} := N(Eval({x'init + (i+1/2)*delta'x, x'init + (i+1)*delta'x}));	// this is not computed using "a" to reduce roundoff error
 		{fb, fc} := N(Eval(MapSingle({var, func}, {b, c})));

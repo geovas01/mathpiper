@@ -23,7 +23,7 @@ Function("BesselNsmall",{n,x,modified})
                 term:=x^(2*k+n);
 		// The only difference between BesselJ and BesselI
 		// is an alternating term
-		If( k%2==1 And modified==0 , term:=term*-1 );
+		If( k%2=1 And modified=0 , term:=term*-1 );
 		term:=N(term/(2^(2*k+n)* k! * Gamma(k+n+1) ));
                 //Echo({"term is ",term});
                 result:=result+term;

@@ -2,6 +2,6 @@
 
 //Jonathan Leto
 
-10 # Sinc(_x)		<-- If(x==0,1,Sin(x)/x);
+10 # Sinc(_x)		<-- If(x=0,1,Sin(x)/x);
 
 %/mathpiper

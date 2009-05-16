@@ -6,7 +6,7 @@ Apart(_f,_var) <--
 [
   Local(rat);
   rat:=RationalForm(f,var);
-  If(Degree(rat[1],var) == 0 And Degree(rat[2],var) == 0,
+  If(Degree(rat[1],var) = 0 And Degree(rat[2],var) = 0,
      [
        rat:={Coef(rat[1],var,0),Coef(rat[2],var,0)};
        Local(summed,add);

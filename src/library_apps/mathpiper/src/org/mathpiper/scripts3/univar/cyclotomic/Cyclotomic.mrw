@@ -168,7 +168,7 @@ CyclotomicFactor(_a,_b) <--
  [
    If(InVerboseMode(),Echo("d=",d));
    f:= CyclotomicFactor(n/d[1],n/d[2]);
-   If (d[3]==1,poly1:=MultiplyTerms(poly1,f),poly2:=MultiplyTerms(poly2,f));
+   If (d[3]=1,poly1:=MultiplyTerms(poly1,f),poly2:=MultiplyTerms(poly2,f));
    If(InVerboseMode(),
      [
        Echo("poly1=",poly1);
@@ -176,7 +176,7 @@ CyclotomicFactor(_a,_b) <--
      ]);
  ];
  If(InVerboseMode(),Echo("End ForEach"));
- result := If(poly2=={{0,1}},poly1,DivTermList(poly1,poly2));
+ result := If(poly2={{0,1}},poly1,DivTermList(poly1,poly2));
  SparseUniVar(x,result);
 ];
 

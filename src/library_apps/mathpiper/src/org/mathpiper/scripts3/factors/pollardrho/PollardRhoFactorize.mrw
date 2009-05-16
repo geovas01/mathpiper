@@ -35,7 +35,7 @@ PollardRhoPolynomial(_x) <-- x^2+1;
   Local(x,y,restarts,gcd,repeat);
   gcd:=1;
   restarts := 100;	// allow at most this many restartings of the algorithm
-  While(gcd == 1 And restarts>=0)	// outer loop: this will be typically executed only once but it is needed to restart the iteration if it "stalls"
+  While(gcd = 1 And restarts>=0)	// outer loop: this will be typically executed only once but it is needed to restart the iteration if it "stalls"
   [
   	restarts--;
     /* Pick a random value between 1 and n-1 */
@@ -47,13 +47,13 @@ PollardRhoPolynomial(_x) <-- x^2+1;
 //		Echo({"debug PollardRho: entering gcd loop, n=", n});
 
     /* loop until failure or success found */
-    While(gcd == 1 And repeat>=0)
+    While(gcd = 1 And repeat>=0)
     [
       x:= Mod( PollardRhoPolynomial(x), n);
    	  y:= Mod( PollardRhoPolynomial(
 	  	Mod( PollardRhoPolynomial(y), n)	// this is faster for large numbers
 	  ), n);
-   	  If(x-y == 0,
+   	  If(x-y = 0,
        	 [
 		 	gcd := 1;
 		 	repeat--;	// guard against "stalling" in an infinite loop but allow a few repetitions

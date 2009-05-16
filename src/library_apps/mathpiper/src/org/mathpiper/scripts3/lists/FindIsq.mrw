@@ -13,7 +13,7 @@ FindIsq(max,f)  :=
     Set(mid,((high+low)>>1));
     Set(current,Apply(f,{mid}));
 //Echo({low,high,current});
-    If(current == 0,
+    If(current = 0,
        high:=low-1,
        If(current > 0,
           Set(high,mid),

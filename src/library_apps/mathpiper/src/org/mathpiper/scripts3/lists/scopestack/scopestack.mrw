@@ -59,17 +59,17 @@ DropOneFrame(_stack) <-- {Tail(stack[1]),Tail(stack[2])};
 
 10 # IsOnStack({{},{}},_element) <-- False;
 11 # IsOnStack(_stack,_element)_(stack[1][1][element] != Empty) <-- True;
-20 # IsOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] == True)
+20 # IsOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] = True)
    <-- IsOnStack(DropOneFrame(stack),element);
 30 # IsOnStack(_stack,_element) <--
 [
-//Echo("stack depth == ",StackDepth(stack));
+//Echo("stack depth = ",StackDepth(stack));
 //Echo(stack[2][1]);
 False;
 ];
 10 # FindOnStack(_stack,_element)_(stack[1][1][element] != Empty)
    <-- stack[1][1][element];
-20 # FindOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] == True)
+20 # FindOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] = True)
    <-- FindOnStack(DropOneFrame(stack),element);
 30 # FindOnStack(_stack,_element) <-- Check(False,"Illegal stack access! Use IsOnStack.");
 

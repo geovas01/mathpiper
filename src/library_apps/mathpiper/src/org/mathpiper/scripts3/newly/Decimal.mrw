@@ -35,7 +35,7 @@ DecimalFindPeriod(_list) <--
 
   For(i:=1,i<nr,i++)
   [
-    If(reversed[i+1] == first And DecimalMatches(reversed,i),
+    If(reversed[i+1] = first And DecimalMatches(reversed,i),
       [
         period:=i;
         i:=nr;
@@ -44,7 +44,7 @@ DecimalFindPeriod(_list) <--
   ];
 
   first:=Length(list)-period;
-  While(first>1 And list[first] == list[first+period]) first--;
+  While(first>1 And list[first] = list[first+period]) first--;
   first++;
 
   {first,period};
@@ -59,7 +59,7 @@ DecimalMatches(_reversed,_period) <--
   While((nr<100) And matches)
   [
     matches := (matches And
-       (reversed[first .. (first+period-1)] == reversed[(first+period) .. (first+2*period-1)]));
+       (reversed[first .. (first+period-1)] = reversed[(first+period) .. (first+2*period-1)]));
     first:=first+period;
     nr:=nr+period;
   ];

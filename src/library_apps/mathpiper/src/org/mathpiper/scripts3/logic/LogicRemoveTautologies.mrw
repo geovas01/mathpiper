@@ -57,7 +57,7 @@ LogicRemoveTautologies(_e) <--
             ])
         );
     ];
-    Check(len == Length(e), "The length computation is incorrect");
+    Check(len = Length(e), "The length computation is incorrect");
   ];
 
   If(negationfound, {True}, e);            /* note that a list is returned */
