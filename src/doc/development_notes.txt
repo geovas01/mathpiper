@@ -3,6 +3,18 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++MathPiper can't solve:
+%mathpiper
+//exercise 17.
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+P := Point(x,y);
+A := Point(10,10);
+B := Point(-10,-10);
+equ1:= Distance(A,P) - Distance(B,P) == 20;
+Echo(equ1);
+equ2 := Solve(equ1,y);
+%/mathpiper
 +Why doesn't Simplify completely simplify equ2 to 16?:
 %mathpiper
 Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
