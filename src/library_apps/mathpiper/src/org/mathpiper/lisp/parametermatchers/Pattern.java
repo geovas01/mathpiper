@@ -95,30 +95,30 @@ public class Pattern {
     public boolean matches(Environment aEnvironment, ConsPointer aArguments) throws Exception {
         int i;
 
-        ConsPointer[] arguments = null;
+        ConsPointer[] argumentsPointer = null;
         if (iVariables.size() > 0) {
-            arguments = new ConsPointer[iVariables.size()];
+            argumentsPointer = new ConsPointer[iVariables.size()];
             for (i = 0; i < iVariables.size(); i++) {
-                arguments[i] = new ConsPointer();
+                argumentsPointer[i] = new ConsPointer();
             }
 
         }
-        ConsTraverser consTraverser = new ConsTraverser(aArguments);
+        ConsTraverser argumentsTraverser = new ConsTraverser(aArguments);
 
         for (i = 0; i < iParamMatchers.size(); i++) {
-            if (consTraverser.getCons() == null) {
+            if (argumentsTraverser.getCons() == null) {
                 return false;
             }
-            ConsPointer ptr = consTraverser.getPointer();
-            if (ptr == null) {
+            ConsPointer argumentsPointer2 = argumentsTraverser.getPointer();
+            if (argumentsPointer2 == null) {
                 return false;
             }
-            if (!((PatternParameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, ptr, arguments)) {
+            if (!((PatternParameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, argumentsPointer2, argumentsPointer)) {
                 return false;
             }
-            consTraverser.goNext();
+            argumentsTraverser.goNext();
         }
-        if (consTraverser.getCons() != null) {
+        if (argumentsTraverser.getCons() != null) {
             return false;
         }
 
@@ -126,7 +126,7 @@ public class Pattern {
             // setCons the local variables.
             aEnvironment.pushLocalFrame(false);
             try {
-                setPatternVariables(aEnvironment, arguments);
+                setPatternVariables(aEnvironment, argumentsPointer);
 
                 // do the predicates
                 if (!checkPredicates(aEnvironment)) {
@@ -140,7 +140,7 @@ public class Pattern {
         }
 
         // setCons the local variables for sure now
-        setPatternVariables(aEnvironment, arguments);
+        setPatternVariables(aEnvironment, argumentsPointer);
 
         return true;
     }
