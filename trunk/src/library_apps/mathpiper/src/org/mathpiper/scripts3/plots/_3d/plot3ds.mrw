@@ -30,7 +30,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 /// interface routines
 1 # Plot3DS(_func) <-- ("Plot3DS" @ {func, -5:5, -5:5});
 2 # Plot3DS(_func, _xrange, _yrange) <-- ("Plot3DS" @ {func, xrange, yrange, {}});
-3 # Plot3DS(_func, _xrange, _yrange, option_IsFunction) _ (Type(option) == "=" Or Type(option) == "=") <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
+3 # Plot3DS(_func, _xrange, _yrange, option_IsFunction) _ (Type(option) = "=" Or Type(option) = "==") <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
 
 /// Plot a single function
 5 # Plot3DS(_func, _xrange, _yrange, options'list_IsList)_(Not IsList(func)) <-- ("Plot3DS" @ {{func}, xrange, yrange, options'list});
@@ -50,7 +50,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	options'hash["zname"] := {};
 	// parse range
 	If (
-		Type(xrange) == "=" Or Type(xrange) == "=",	// variable also specified -- ignore for now, store in options
+		Type(xrange) = "=" Or Type(xrange) = "==",	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
 			options'hash["xname"] := String(xrange[1]);
@@ -58,7 +58,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		]
 	);
 	If (
-		Type(yrange) == "=" Or Type(yrange) == "=",	// variable also specified -- ignore for now, store in options
+		Type(yrange) = "=" Or Type(yrange) = "==",	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
 			options'hash["yname"] := String(yrange[1]);
@@ -66,46 +66,46 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		]
 	);
 	If(
-		Type(xrange) == ":",	// simple range
+		Type(xrange) = ":",	// simple range
 		xrange := N(Eval({xrange[1], xrange[2]}))
 	);
 	If(
-		Type(yrange) == ":",	// simple range
+		Type(yrange) = ":",	// simple range
 		yrange := N(Eval({yrange[1], yrange[2]}))
 	);
 	// set default option values
 	If(
-		options'hash["points"] == Empty,
+		options'hash["points"] = Empty,
 		options'hash["points"] := 10	// default # of points along each axis
 	);
 	If(
-		options'hash["xpoints"] == Empty,
+		options'hash["xpoints"] = Empty,
 		options'hash["xpoints"] := options'hash["points"]
 	);
 	If(
-		options'hash["ypoints"] == Empty,
+		options'hash["ypoints"] = Empty,
 		options'hash["ypoints"] := options'hash["points"]
 	);
 
 	If(
-		options'hash["depth"] == Empty,
+		options'hash["depth"] = Empty,
 		options'hash["depth"] := 2
 	);
 	If(
-		options'hash["precision"] == Empty,
+		options'hash["precision"] = Empty,
 		options'hash["precision"] := 0.0001
 	);
 	If(
-		options'hash["hidden"] == Empty Or Not IsBoolean(options'hash["hidden"]),
+		options'hash["hidden"] = Empty Or Not IsBoolean(options'hash["hidden"]),
 		options'hash["hidden"] := True
 	);
 	If(
-		options'hash["output"] == Empty Or IsString(options'hash["output"]) And Plot3DS'outputs()[options'hash["output"]] == Empty,
+		options'hash["output"] = Empty Or IsString(options'hash["output"]) And Plot3DS'outputs()[options'hash["output"]] = Empty,
 		options'hash["output"] := Plot3DS'outputs()["default"]
 	);
 	// a "filename" parameter is required when using data file
 	If(
-		options'hash["output"] == "datafile" And options'hash["filename"] == Empty,
+		options'hash["output"] = "datafile" And options'hash["filename"] = Empty,
 		options'hash["filename"] := "output.data"
 	);
 	options'hash["used depth"] := options'hash["depth"];
@@ -140,15 +140,15 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 			:(ToString()Write(func))
 		);
 		// Allow plotting of constant functions
-		If(Length(var)==0, var:={dummy, dummy});
-		If(Length(var)==1, var:={var[1], dummy});
+		If(Length(var)=0, var:={dummy, dummy});
+		If(Length(var)=1, var:={var[1], dummy});
 		// store variable name if not already done so
 		If(
-			options'hash["xname"] == "",
+			options'hash["xname"] = "",
 			options'hash["xname"] := String(var[1])
 		);
 		If(
-			options'hash["yname"] == "",
+			options'hash["yname"] = "",
 			options'hash["yname"] := String(var[2])
 		);
 		// store function name in options
@@ -156,7 +156,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		// compute the first point to see if it's okay
 		cx := xrange[1]; cy := yrange[1];
 		fc := N(Eval(Apply({var, func}, {cx, cy})));
-		Check(IsNumber(fc) Or fc==Infinity Or fc== -Infinity Or fc==Undefined,
+		Check(IsNumber(fc) Or fc=Infinity Or fc= -Infinity Or fc=Undefined,
 			"Plot3DS: Error: cannot evaluate function '"
 			:(ToString()Write(func))
 			:"' at point '"
@@ -166,7 +166,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 			:"'"
 		);
 		// compute all other data points
-		DestructiveAppend(all'values, RemoveRepeated(HeapSort( Plot3DS'get'data(func, var, {cx, cy, fc}, {xdelta, ydelta}, options'hash), Hold({{x,y},x[1]<y[1] Or x[1] == y[1] And x[2] <= y[2] } ) )) );
+		DestructiveAppend(all'values, RemoveRepeated(HeapSort( Plot3DS'get'data(func, var, {cx, cy, fc}, {xdelta, ydelta}, options'hash), Hold({{x,y},x[1]<y[1] Or x[1] = y[1] And x[2] <= y[2] } ) )) );
 		If(InVerboseMode(), Echo({"Plot3DS: using ", Length(all'values[Length(all'values)]), " points for function ", func}), True);
 		If(InVerboseMode(), Echo({"Plot3DS: max. used ", 2^(options'hash["depth"] - options'hash["used depth"]), "subdivisions for ", func}), True);
 	];

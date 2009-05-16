@@ -4,7 +4,7 @@
 LocalSymbols(TrueFalse)
 [
   MacroRuleBase(TrueFalse,{var,expr});
-  10 # TrueFalse(var_IsAtom,_expr) <-- `{(@expr) Where (@var)=False,(@expr) Where (@var)=True};
+  10 # TrueFalse(var_IsAtom,_expr) <-- `{(@expr) Where (@var)==False,(@expr) Where (@var)==True};
   20 # TrueFalse({},_expr) <-- `(@expr);
   30 # TrueFalse(var_IsList,_expr) <--
   `[

@@ -10,7 +10,7 @@ Function("ApproxInfSum",{expr,start,x})[
 	ApproxInfSum(expr,start,x,{0});
 ];
 
-/// FIXME this has a roundoff problem when InNumericMode()==True
+/// FIXME this has a roundoff problem when InNumericMode()=True
 // Summation must be on k
 Function("ApproxInfSum",{expr,start,x,c})
 [

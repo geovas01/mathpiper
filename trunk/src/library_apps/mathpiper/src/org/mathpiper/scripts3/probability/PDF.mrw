@@ -25,7 +25,7 @@
 10 # PDF(BernoulliDistribution(_p),0) <-- p;
 10 # PDF(BernoulliDistribution(_p),1) <-- 1-p;
 10 # PDF(BernoulliDistribution(_p),x_IsNumber)_(x != 0 And x != 1) <-- 0;
-10 # PDF(BernoulliDistribution(_p),_x) <-- Hold(If(x==0,p,If(x==1,1-p,0)));
+10 # PDF(BernoulliDistribution(_p),_x) <-- Hold(If(x=0,p,If(x=1,1-p,0)));
 
 10 # PDF(BinomialDistribution(_p,_n),_k) <-- Bin(n,k)*p^k*(1-p)^(n-k);
 
@@ -43,11 +43,11 @@
 
 10 # PDF(ContinuousUniformDistribution(_a,_b),x)_(a<b) <-- If(x<a Or x>b,0,1/(b-a));
 
-10 # PDF( DiscreteDistribution( dom_IsList, prob_IsList), _x)_( Length(dom)==Length(prob) And Simplify(Add(prob))==1) <--
+10 # PDF( DiscreteDistribution( dom_IsList, prob_IsList), _x)_( Length(dom)=Length(prob) And Simplify(Add(prob))=1) <--
     [
       Local(i);
       i:=Find(dom,x);
-      If(i == -1,0,prob[i]);
+      If(i = -1,0,prob[i]);
     ];
 10 # PDF( ChiSquareDistribution( _m),x_IsRationalOrNumber)_(x<=0) <-- 0;
 20 # PDF( ChiSquareDistribution( _m),_x) <-- x^(m/2-1)*Exp(-x/2)/2^(m/2)/Gamma(m/2);

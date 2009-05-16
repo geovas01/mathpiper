@@ -30,7 +30,7 @@
   // set bit.
   l2 := l2>>1;
 
-  // initialize u and u2 (u2=u^2).
+  // initialize u and u2 (u2==u^2).
   u  := 1 << l2;
   u2 := u << l2;
 
@@ -38,17 +38,17 @@
   While( l2 != 0 )
   [
  	 l2--;
-     // Get that bit in v, and v2 = v^2.
+     // Get that bit in v, and v2 == v^2.
       v  := 1<<l2;
       v2 := v<<l2;
 
-      // uv2 = 2*u*v, where 2=1<<1, and
-      // v=1<<l2, thus 2*u*v =
-      // (1<<1)*u*(1<<l2) = u<<(l2+1)
+      // uv2 == 2*u*v, where 2==1<<1, and
+      // v==1<<l2, thus 2*u*v ==
+      // (1<<1)*u*(1<<l2) == u<<(l2+1)
       uv2 := u<<(l2 + 1);
 
-      // n == (u+v)^2  == u^2 + 2*u*v + v^2
-      //   == u2+uv2+v2
+      // n = (u+v)^2  = u^2 + 2*u*v + v^2
+      //   = u2+uv2+v2
        n := u2 + uv2 + v2;
 
       // if n (possible new best estimate for

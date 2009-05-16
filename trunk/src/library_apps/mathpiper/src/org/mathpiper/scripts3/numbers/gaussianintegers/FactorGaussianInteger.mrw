@@ -24,13 +24,13 @@ Function("FactorGaussianInteger",{x}) [
 	if( IsComposite(norm) )[
 		For(i:=0, i^2 <= norm, i++ )[	// real part
 			For(j:=0, i^2 + j^2 <= norm, j++)[	// complex part
-				if( Not( (i == re And j == im) Or
-					 (i == im And j == re) ) )[ // no associates
+				if( Not( (i = re And j = im) Or
+					 (i = im And j = re) ) )[ // no associates
 					d:=i^2+j^2;
 					if( d > 1 )[
 						a := re * i + im * j;
 						b := im * i - re * j;
-						While( (Mod(a,d) == 0) And  (Mod(b,d) == 0) ) [
+						While( (Mod(a,d) = 0) And  (Mod(b,d) = 0) ) [
 							FactorGaussianInteger(Complex(i,j));
 							re:= a/d;
 							im:= b/d;

@@ -1,6 +1,6 @@
 %mathpiper,def=""
 
-EquRight(_symbolicEquation)_(Type(symbolicEquation) == "=")  <--
+EquRight(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
 [
     Local(listForm);
     
@@ -26,15 +26,15 @@ EquRight(_symbolicEquation)_(Type(symbolicEquation) == "=")  <--
 
 *DESC
 
-A symbolic equation is an equation which is defined using the = operator.  This
+A symbolic equation is an equation which is defined using the == operator.  This
 function returns the right side of a symbolic equation.
 
 *E.G.
 
-	In> e := y^2 = 4*p*x
-	Result> y^2=4*p*x
+	In> e := y^2 == 4*p*x
+	Result> y^2==4*p*x
 	In> EquRight(e)
 	Result> 4*p*x
 
-*SEE =, EquLeft
+*SEE ==, EquLeft
 %/mathpiper_docs

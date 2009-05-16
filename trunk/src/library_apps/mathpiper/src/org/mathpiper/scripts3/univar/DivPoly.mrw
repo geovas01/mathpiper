@@ -6,7 +6,7 @@ DivPoly(_A,_B,_var,_deg) <--
   b:=MakeUni(B,var);
   denom:=Coef(b,0);
 
-  if (denom == 0)
+  if (denom = 0)
   [
     Local(f);
     f:=Content(b);

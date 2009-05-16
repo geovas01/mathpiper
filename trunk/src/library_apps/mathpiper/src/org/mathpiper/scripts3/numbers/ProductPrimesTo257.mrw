@@ -8,7 +8,7 @@ LocalSymbols(p, q)
 		If(
 			IsInteger(p),
 			p,
-			p := Factorize(Select({{q}, Mod(q^2,24)==1 And IsSmallPrime(q)}, 5 .. 257))
+			p := Factorize(Select({{q}, Mod(q^2,24)=1 And IsSmallPrime(q)}, 5 .. 257))
 		);
 //		p;
 	];

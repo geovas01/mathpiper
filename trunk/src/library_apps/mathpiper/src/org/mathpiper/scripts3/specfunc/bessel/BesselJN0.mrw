@@ -6,7 +6,7 @@
 // Only about 2 digits precision for complex
 // This is just a temporary implementation, I would not want to
 // expose users to it until it is much more robust
-// I am still loo<= for a good arbitrary precision algorithm.
+// I am still looking for a good arbitrary precision algorithm.
 Function("BesselJN0",{x})
 [
 	Local(ax,z,xx,y,result,res1,res2);

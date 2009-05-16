@@ -9,7 +9,7 @@ OMDef( "<=", "relation1","leq" );
 OMDef( "<" , "relation1","lt"  );
 OMDef( "!=", "relation1","neq" );
 OMDef( "Gcd", "arith1","gcd" );
-OMDef( "Sqrt", "arith1","root", { $, _1, 2 }, $(_1)_(_2==2) | (_1^(1/_2)) );
+OMDef( "Sqrt", "arith1","root", { $, _1, 2 }, $(_1)_(_2=2) | (_1^(1/_2)) );
 // Test [result: Sqrt(16)]:
 // FromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
 // Test [result: IntNthRoot(16,3))]:

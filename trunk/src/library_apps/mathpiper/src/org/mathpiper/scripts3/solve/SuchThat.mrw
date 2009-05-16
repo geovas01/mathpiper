@@ -11,7 +11,7 @@
   [
     result:=ContainsExpression(Head(args),expr);
     args:=Tail(args);
-    if (result == True) (args:={});
+    if (result = True) (args:={});
   ];
   result;
 ];
@@ -19,7 +19,7 @@
 
 SuchThat(_function,_var) <-- SuchThat(function,0,var);
 
-10 # SuchThat(_left,_right,_var)_(left == var) <-- right;
+10 # SuchThat(_left,_right,_var)_(left = var) <-- right;
 
 /*This interferes a little with the multi-equation solver...
 15 # SuchThat(_left,_right,_var)_CanBeUni(var,left-right) <--

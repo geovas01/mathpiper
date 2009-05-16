@@ -28,7 +28,7 @@ MultiExpressionList(_expr) <-- VarList(expr,"IsMultiExpression");
 
 //TODO: shouldn't this be more global? The problem right now is
 // that IsConstant/IsVariable take Pi to be a constant...
-IsMultiConstant(_n) <-- (VarList(n,"IsVr")=={});
+IsMultiConstant(_n) <-- (VarList(n,"IsVr")={});
 10 # IsVr(n_IsNumber) <-- False;
 10 # IsVr(n_IsFunction) <-- False;
 10 # IsVr(n_IsString) <-- False;

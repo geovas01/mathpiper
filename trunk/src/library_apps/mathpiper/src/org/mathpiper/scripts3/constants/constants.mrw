@@ -155,7 +155,7 @@ root of -1. It evaluates to {Complex(0,1)}.
 
 	In> I
 	Out> Complex(0,1);
-	In> I == Sqrt(-1)
+	In> I = Sqrt(-1)
 	Out> True;
 
 *SEE Complex
@@ -295,7 +295,7 @@ Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in Yacas.
 	CachedConstant: Info: constant gamma is being
 	  recalculated at precision 20 
 	GammaConstNum: Info: used 56 iterations at
-	  wor<= precision 24 
+	  working precision 24 
 	Out> 0.57721566490153286061;
 
 *SEE Gamma, N, CachedConstant

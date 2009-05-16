@@ -6,9 +6,9 @@
 // an atom should be a variable to qualify
 10 # VarListSome(expr_IsVariable, _look'list) <-- {expr};
 15 # VarListSome(expr_IsAtom, _look'list) <-- {};
-// a function not in the loo<= list - return it whole
+// a function not in the looking list - return it whole
 20 # VarListSome(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, Atom(Type(expr)))) <-- {expr};
-// a function in the loo<= list - traverse its arguments
+// a function in the looking list - traverse its arguments
 30 # VarListSome(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
 		[	// obtain a list of functions, considering only functions in look'list

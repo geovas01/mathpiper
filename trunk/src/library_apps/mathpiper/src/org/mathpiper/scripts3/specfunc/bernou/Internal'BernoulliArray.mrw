@@ -2,11 +2,11 @@
 
 /// Simple implementation of the recurrence relation: create an array of Bernoulli numbers
 // special cases: n=0 or n=1
-10 # Internal'BernoulliArray(n_IsInteger)_(n==0 Or n==1) <-- [
+10 # Internal'BernoulliArray(n_IsInteger)_(n=0 Or n=1) <-- [
 	Local(B);
 	B:=ArrayCreate(n+1,0);
 	B[1] := 1;
-	If(n==1, B[2] := -1/2);
+	If(n=1, B[2] := -1/2);
 	B;
 ];
 /// Assume n>=2

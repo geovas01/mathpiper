@@ -10,7 +10,7 @@
 	Lcm(first:Tail(Tail(list)));
 ];
 
-10 # Lcm(list_IsList)_(Length(list)==2) <-- Lcm(list[1],list[2]);
+10 # Lcm(list_IsList)_(Length(list)=2) <-- Lcm(list[1],list[2]);
 
 %/mathpiper
 

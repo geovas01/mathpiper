@@ -12,7 +12,7 @@ Function("PNorm",{v,p})
 	];
 
 	// make it look nicer when p = 2
-	If(p==2,Sqrt(result),(result)^(1/p) );
+	If(p=2,Sqrt(result),(result)^(1/p) );
 ];
 
 %/mathpiper

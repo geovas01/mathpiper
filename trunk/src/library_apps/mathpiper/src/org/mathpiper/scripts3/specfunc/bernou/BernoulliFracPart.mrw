@@ -12,7 +12,7 @@ BernoulliFracPart(n_IsEven)_(n>=2) <-- [
 	// sum over all primes p such that n / p-1 is integer
 	// enough to check up to n/3 now
 	For(p:=5, p<=n/3+1, p:=NextPrime(p))
-		If(Mod(n, p-1)==0, sum := sum + 1/p);
+		If(Mod(n, p-1)=0, sum := sum + 1/p);
 	// for negative Bernoulli numbers, let's change sign
 	// Mod(n/2, 2) is 0 for negative Bernoulli numbers and 1 for positive ones
 	Div(Numer(sum), Denom(sum)) - sum

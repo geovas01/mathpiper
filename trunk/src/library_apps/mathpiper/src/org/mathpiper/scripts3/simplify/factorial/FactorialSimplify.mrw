@@ -68,8 +68,8 @@ FactorialSimplify(x):=
    <-- {Factorize(i,1,dist,Simplify(y+i)),1,Simplify(y)!};
 60000 # CommonDivisors(_x,_y) <-- {x,y,1};
 
-10 # CommonFactors((_x)!,_y)_(Simplify(y-x) == 1) <-- {y!,1};
-10 # CommonFactors((_x)!,_y)_(Simplify((-y)-x) == 1) <-- {(-y)!,-1};
+10 # CommonFactors((_x)!,_y)_(Simplify(y-x) = 1) <-- {y!,1};
+10 # CommonFactors((_x)!,_y)_(Simplify((-y)-x) = 1) <-- {(-y)!,-1};
 
 10 # CommonFactors(_x^_n,_x^_m) <-- {x^Simplify(n+m),1};
 10 # CommonFactors(_x^_n,_x) <-- {x^Simplify(n+1),1};
@@ -214,12 +214,12 @@ LocalSymbols(n,d,c)
       {n,d,c} := FactorialDivideTerms(terms[j],common);
 //  Echo("n = ",n);
 //  Echo("{n,d,c} = ",{n,d,c});
-      Check(d == 1,
+      Check(d = 1,
         ToString()[
         Echo("FactorialGroupCommonDivisors failure 1 : ",d);
         ]);
 /*
-      Check(Simplify(c-common) == 0,
+      Check(Simplify(c-common) = 0,
         ToString()
         [
           Echo("FactorialGroupCommonDivisors failure 2 : ");

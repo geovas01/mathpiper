@@ -1,6 +1,6 @@
 %mathpiper,def="IsOrthogonal"
 
-IsOrthogonal(A_IsMatrix) <-- (Transpose(A)*A==Identity(Length(A)));
+IsOrthogonal(A_IsMatrix) <-- (Transpose(A)*A=Identity(Length(A)));
 
 %/mathpiper
 

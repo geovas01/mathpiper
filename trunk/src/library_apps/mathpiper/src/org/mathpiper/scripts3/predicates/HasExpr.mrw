@@ -1,7 +1,7 @@
 %mathpiper,def="HasExpr"
 
 /// HasExpr --- test for an expression containing a subexpression
-/// for chec<= dependence on variables, this may be faster than using VarList or IsFreeOf and this also can be used on non-variables, e.g. strings or numbers or other atoms or even on non-atoms
+/// for checking dependence on variables, this may be faster than using VarList or IsFreeOf and this also can be used on non-variables, e.g. strings or numbers or other atoms or even on non-atoms
 // an expression contains itself -- check early
 10 # HasExpr(_expr, _atom) _ Equals(expr, atom) <-- True;
 // an atom contains itself

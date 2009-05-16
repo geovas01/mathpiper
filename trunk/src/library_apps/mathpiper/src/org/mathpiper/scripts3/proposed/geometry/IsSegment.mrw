@@ -2,7 +2,7 @@
 
 IsSegment(list_IsList) <--
 [
-    If(IsList(list[1]) And Length(list[1])==2 And IsList(list[2]) And Length(list[2])==2,True,False);
+    If(IsList(list[1]) And Length(list[1])=2 And IsList(list[2]) And Length(list[2])=2,True,False);
 
 ];
 

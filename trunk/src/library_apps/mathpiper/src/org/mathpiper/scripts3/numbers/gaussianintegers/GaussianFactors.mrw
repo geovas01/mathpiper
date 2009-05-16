@@ -13,10 +13,10 @@ its integer prime factors. */
  gfactors := {};
  ForEach(p,ifactors)
  [
-   If (p[1]==2, [ DestructiveAppend(gfactors,{1+I,p[2]});
+   If (p[1]=2, [ DestructiveAppend(gfactors,{1+I,p[2]});
                  DestructiveAppend(gfactors,{1-I,p[2]}); ]);
-   If (Mod(p[1],4)==3, DestructiveAppend(gfactors,p));
-   If (Mod(p[1],4)==1, [ alpha := GaussianFactorPrime(p[1]);
+   If (Mod(p[1],4)=3, DestructiveAppend(gfactors,p));
+   If (Mod(p[1],4)=1, [ alpha := GaussianFactorPrime(p[1]);
                         DestructiveAppend(gfactors,{alpha,p[2]});
                         DestructiveAppend(gfactors,{Conjugate(alpha),p[2]});
                       ]);
@@ -35,9 +35,9 @@ by factoring its norm */
   nfactors := Factors(n);
   ForEach(p,nfactors)
   [
-   If (p[1]==2, [ AddGaussianFactor(gfactors,z,1+I);]);
-   If (Mod(p[1],4)==3, AddGaussianFactor(gfactors,z,p[1]));
-   If (Mod(p[1],4)==1, [ Local(alpha);
+   If (p[1]=2, [ AddGaussianFactor(gfactors,z,1+I);]);
+   If (Mod(p[1],4)=3, AddGaussianFactor(gfactors,z,p[1]));
+   If (Mod(p[1],4)=1, [ Local(alpha);
                         alpha := GaussianFactorPrime(p[1]);
                         AddGaussianFactor(gfactors,z,alpha);
                         AddGaussianFactor(gfactors,z,Conjugate(alpha));

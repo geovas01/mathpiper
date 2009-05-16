@@ -1,7 +1,7 @@
 %mathpiper,def="IsBoolean"
 
 Function ("IsBoolean", {x})
-	(x==True) Or (x==False) Or IsFunction(x) And Contains({"=", ">", "<", ">=", "<=", "!=", "And", "Not", "Or"}, Type(x));
+	(x=True) Or (x=False) Or IsFunction(x) And Contains({"=", ">", "<", ">=", "<=", "!=", "And", "Not", "Or"}, Type(x));
 
 %/mathpiper
 
@@ -22,7 +22,7 @@ Function ("IsBoolean", {x})
 IsBoolean returns True if the argument is of a boolean type.
 This means it has to be either True, False, or an expression involving
 functions that return a boolean result, e.g.
-{==}, {>}, {<}, {>=}, {<=}, {!=}, {And}, {Not}, {Or}.
+{=}, {>}, {<}, {>=}, {<=}, {!=}, {And}, {Not}, {Or}.
 
 *E.G.
 

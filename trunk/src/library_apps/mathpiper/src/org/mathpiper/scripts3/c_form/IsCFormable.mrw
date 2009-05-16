@@ -17,7 +17,7 @@ LocalSymbols(CFormAllFunctions) [
   [
     Local(bad'functions);
     bad'functions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
-    If(Length(bad'functions)==0,
+    If(Length(bad'functions)=0,
       True,
       [
         If(InVerboseMode(),

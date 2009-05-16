@@ -86,7 +86,7 @@ ColumnFilled(charfield,column):=
   Local(i,result,len);
   result:=False;
   len:=Length(charfield);
-  For(Set(i, 1),(result == False) And (i<=len),Set(i,AddN(i,1)))
+  For(Set(i, 1),(result = False) And (i<=len),Set(i,AddN(i,1)))
   [
     If(StringMidGet(column,1,charfield[i]) != " ",result:=True);
   ];
@@ -110,7 +110,7 @@ WriteCharField(charfield,width):=
         [
           Set(thiswidth,SubtractN(thiswidth,1));
         ];
-        If(thiswidth == 1, Set(thiswidth, width));
+        If(thiswidth = 1, Set(thiswidth, width));
       ]
     );
     len:=Length(charfield);
@@ -308,7 +308,7 @@ FormulaBracket(f):=
 ];
 
 RuleBase("BracketOn",{op,f,prec});
-Rule("BracketOn",3,1,IsFunction(f) And NrArgs(f) == 2
+Rule("BracketOn",3,1,IsFunction(f) And NrArgs(f) = 2
      And IsInfix(Type(f)) And OpPrecedence(Type(f)) > prec)
 [
  FormulaBracket(op);
@@ -318,7 +318,7 @@ Rule("BracketOn",3,2,True)
   op;
 ];
 
-10 # Formula(f_IsFunction)_(NrArgs(f) == 2 And IsInfix(Type(f))) <--
+10 # Formula(f_IsFunction)_(NrArgs(f) = 2 And IsInfix(Type(f))) <--
 [
   Local(l,r,oper,width,height,base);
   Set(l, Formula(f[1]));
@@ -361,7 +361,7 @@ RuleBase("RenderFormula",{cf,f,x,y});
        \
 */
 
-Rule("RenderFormula",4,1,f[5] == "Atom" And f[6] == "(" And f[4] > 1)
+Rule("RenderFormula",4,1,f[5] = "Atom" And f[6] = "(" And f[4] > 1)
 [
   Local(height,i);
   Set(x, AddN(x,f[1]));
@@ -374,7 +374,7 @@ Rule("RenderFormula",4,1,f[5] == "Atom" And f[6] == "(" And f[4] > 1)
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
-Rule("RenderFormula",4,1,f[5] == "Atom" And f[6] == ")" And f[4] > 1)
+Rule("RenderFormula",4,1,f[5] = "Atom" And f[6] = ")" And f[4] > 1)
 [
   Local(height,i);
   Set(x, AddN(x,f[1]));
@@ -386,7 +386,7 @@ Rule("RenderFormula",4,1,f[5] == "Atom" And f[6] == ")" And f[4] > 1)
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
-Rule("RenderFormula",4,5,f[5] == "Atom")
+Rule("RenderFormula",4,5,f[5] = "Atom")
 [
   cf[AddN(y, f[2]) ]:=
     StringMidSet(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);

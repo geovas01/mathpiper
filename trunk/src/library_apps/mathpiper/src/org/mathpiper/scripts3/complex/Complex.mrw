@@ -75,7 +75,7 @@
 	result:=1;
 	While(n > 0)
 	[
-		if ((n&1) == 1)
+		if ((n&1) = 1)
 		[
 		  result := result*x;
 		];

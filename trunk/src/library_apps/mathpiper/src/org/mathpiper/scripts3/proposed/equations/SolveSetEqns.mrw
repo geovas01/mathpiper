@@ -20,7 +20,7 @@ Retract("CheckEquationSolution",*);
     If(InVerboseMode(),Tell(SolveLinearSysViaMatrix,{eqns,vars}));
     LE := Length(eqns);
     LV := Length(vars);
-    E  := Assert() LE==LV;
+    E  := Assert() LE=LV;
     Check(E,"Number of equations != Number of variables");
     
     LHS := {};
@@ -56,7 +56,7 @@ Retract("CheckEquationSolution",*);
     If(InVerboseMode(),Tell(SolveLinearSysViaGauss,{eqns,vars}));
     LE := Length(eqns);
     LV := Length(vars);
-    E  := Assert() LE==LV;
+    E  := Assert() LE=LV;
     Check(E,"Number of equations != Number of variables");
     
     If(InVerboseMode(),Tell(0,{LE,LV,E}));
@@ -68,7 +68,7 @@ Retract("CheckEquationSolution",*);
     E2 := Listify(s3);
     s2 := (s2 Where s3);
     s1 := (s1 Where s2 And s3);
-    If( E2[2]==E2[3], ans:=Inconsistent-Set, ans:=List(s1,s2,s3));
+    If( E2[2]=E2[3], ans:=Inconsistent-Set, ans:=List(s1,s2,s3));
     ans;
 ];
 
@@ -90,7 +90,7 @@ Retract("CheckEquationSolution",*);
     If( InVerboseMode(), [Tell(2,{LHS,RHS}); Tell(3,{svar,sval});]);
     V    := Eliminate(svar,sval,LHS);
     If(InVerboseMode(),Tell(4,V));
-    V == RHS;
+    V = RHS;
 ];
 
 12 # CheckEquationSolution( eqns_IsList, solns_IsList ) <--
@@ -125,31 +125,31 @@ Clear(eqns1,eqns2,eqns3,eqns4,eqns5,solution);
 
 NewLine();
 
-eqns1 := {2*x-2*y+z=(-7),3*x+y+2*z=(-2),5*x+3*y-3*z=(-7)};  //  3 eqns, 3 unknowns
+eqns1 := {2*x-2*y+z==(-7),3*x+y+2*z==(-2),5*x+3*y-3*z==(-7)};  //  3 eqns, 3 unknowns
 Tell(Independent,eqns1);
 solution := SolveLinearSysViaMatrix(eqns1,{x,y,z});
 Tell(11,solution);
 NewLine();
 
-eqns2 := {3*x-2*y+z=1,x-y-z=2,6*x-4*y+2*z=3};  // 3 eqns, 3 unks, inconsistent
+eqns2 := {3*x-2*y+z==1,x-y-z==2,6*x-4*y+2*z==3};  // 3 eqns, 3 unks, inconsistent
 Tell(Inconsistent,eqns2);
 solution := SolveLinearSysViaMatrix(eqns2,{x,y,z});
 Tell(13,solution);
 NewLine();
 
-eqns3 := {2*x+3*y=12,3*x+2*y=12};  // 2 eqns, 2 unknown, independent
+eqns3 := {2*x+3*y==12,3*x+2*y==12};  // 2 eqns, 2 unknown, independent
 Tell(Independent,eqns3);
 solution := SolveLinearSysViaMatrix(eqns3,{x,y});
 Tell(15,solution);
 NewLine();
 
-eqns4 := {2*x+3*y=6,4*x+6*y=12};  // 2 eqns, 2 unknowns, dependent
+eqns4 := {2*x+3*y==6,4*x+6*y==12};  // 2 eqns, 2 unknowns, dependent
 Tell(Dependent,eqns4);
 solution := SolveLinearSysViaMatrix(eqns4,{x,y});
 Tell(17,solution);
 NewLine();
 
-eqns5 := {2*x+3*y=6,2*x+3*y=8};  // 2 eqns, 2 unknowns, parallel (inconsistent)
+eqns5 := {2*x+3*y==6,2*x+3*y==8};  // 2 eqns, 2 unknowns, parallel (inconsistent)
 Tell(Inconsistent,eqns5);
 solution := SolveLinearSysViaMatrix(eqns5,{x,y});
 Tell(19,solution);
@@ -161,23 +161,23 @@ NewLine();
       Result: True
       
       Side effects:
-      << Independent >> eqns1 {2*x-2*y+z=(-7),3*x+y+2*z=(-2),5*x+3*y-3*z=(-7)} 
+      << Independent >> eqns1 {2*x-2*y+z==(-7),3*x+y+2*z==(-2),5*x+3*y-3*z==(-7)} 
       << det >> Det -52 
       << 11 >> solution {-2,2,1} 
       
-      << Inconsistent >> eqns2 {3*x-2*y+z=1,x-y-z=2,6*x-4*y+2*z=3} 
+      << Inconsistent >> eqns2 {3*x-2*y+z==1,x-y-z==2,6*x-4*y+2*z==3} 
       << det >> Det 0 
       << 13 >> solution {Undefined,Infinity,Infinity} 
       
-      << Independent >> eqns3 {2*x+3*y=12,3*x+2*y=12} 
+      << Independent >> eqns3 {2*x+3*y==12,3*x+2*y==12} 
       << det >> Det -5 
       << 15 >> solution {12/5,12/5} 
       
-      << Dependent >> eqns4 {2*x+3*y=6,4*x+6*y=12} 
+      << Dependent >> eqns4 {2*x+3*y==6,4*x+6*y==12} 
       << det >> Det 0 
       << 17 >> solution {Undefined,Undefined} 
       
-      << Inconsistent >> eqns5 {2*x+3*y=6,2*x+3*y=8} 
+      << Inconsistent >> eqns5 {2*x+3*y==6,2*x+3*y==8} 
       << det >> Det 0 
       << 19 >> solution {Infinity,Infinity}
 .   %/output

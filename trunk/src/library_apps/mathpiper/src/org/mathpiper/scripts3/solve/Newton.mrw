@@ -10,7 +10,7 @@ Function("Newton",{function,variable,initial,accuracy,min,max})
   Local(result,adjust,delta,requiredPrec);
   MacroLocal(variable);
   requiredPrec := BuiltinPrecisionGet();
-  accuracy:=N((accuracy/10)*10); // Ma<= sure accuracy is rounded correctly
+  accuracy:=N((accuracy/10)*10); // Making sure accuracy is rounded correctly
   BuiltinPrecisionSet(requiredPrec+2);
   function:=N(function);
   adjust:= -function/Apply("D",{variable,function});
@@ -26,7 +26,7 @@ Function("Newton",{function,variable,initial,accuracy,min,max})
   ];
 
   BuiltinPrecisionSet(requiredPrec);
-  result:=N(Eval((result/10)*10)); // ma<= sure result is rounded to correct precision
+  result:=N(Eval((result/10)*10)); // making sure result is rounded to correct precision
   if (result <= min Or result >= max) [result := Fail;];
   result;
 ];

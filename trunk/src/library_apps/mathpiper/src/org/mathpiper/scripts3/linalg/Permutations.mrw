@@ -2,7 +2,7 @@
 
 Function("Permutations",{result,list})
 [
-  If (Length(list) == 0,
+  If (Length(list) = 0,
   [
     result;
   ],

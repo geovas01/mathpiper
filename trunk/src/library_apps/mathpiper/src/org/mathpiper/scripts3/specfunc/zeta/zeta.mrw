@@ -95,8 +95,8 @@ Zeta3() :=
 
 
 /// User interface for Internal'ZetaNum(s,n)
-10 # Internal'ZetaNum(_s) _ (N(s)==0) <-- -0.5;
-10 # Internal'ZetaNum(_s) _ (N(s)==1) <-- Infinity;
+10 # Internal'ZetaNum(_s) _ (N(s)=0) <-- -0.5;
+10 # Internal'ZetaNum(_s) _ (N(s)=1) <-- Infinity;
 20 # Internal'ZetaNum(_s) <-- [
 	Local(n, prec, result);
 	prec := BuiltinPrecisionGet();

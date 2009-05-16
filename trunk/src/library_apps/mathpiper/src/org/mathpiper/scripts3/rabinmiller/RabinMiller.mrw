@@ -56,14 +56,14 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
   ];
 
   a := FastModularPower(b, q, n);
-  flag := (a == 1 Or a == m);
+  flag := (a = 1 Or a = m);
   i := 1;
 
   While (Not(flag) And (i < r))
   [
 	root := a;	// this is the value of the root if flag becomes true now
     a := ModN(a*a, n);
-    flag := (a == m);
+    flag := (a = m);
     i++;
   ];
 
@@ -105,7 +105,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
     i++;
   ];
   // the function returns "Overflow" when we failed to check (i.e. the number n was too large)
-  If (continue And (i == 8), Overflow, prime);
+  If (continue And (i = 8), Overflow, prime);
 ];
 
 
@@ -138,14 +138,14 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
 	  If(prime, roots'of'minus1 := Union(roots'of'minus1, {root}));
 	  If(Length(roots'of'minus1)>3, prime := False);
 	  If(InVerboseMode() And prime, Echo("RabinMiller: Info: ", n, "is spp base", b));
-	  If( // this whole If() clause is only wor<= when InVerboseMode() is in effect and the test is terminated in the unusual way
+	  If( // this whole If() clause is only working when InVerboseMode() is in effect and the test is terminated in the unusual way
 	  	InVerboseMode() And Length(roots'of'minus1)>3,
 	  	[	// we can actually find a factor of n now
 			Local(factor);
 			roots'of'minus1 := Difference(roots'of'minus1,{0});
 			Echo("RabinMiller: Info: ", n, "is composite via roots of -1 ; ", roots'of'minus1);
 			factor := Gcd(n, If(
-				roots'of'minus1[1]+roots'of'minus1[2]==n,
+				roots'of'minus1[1]+roots'of'minus1[2]=n,
 				roots'of'minus1[1]+roots'of'minus1[3],
 				roots'of'minus1[1]+roots'of'minus1[2]
 			));

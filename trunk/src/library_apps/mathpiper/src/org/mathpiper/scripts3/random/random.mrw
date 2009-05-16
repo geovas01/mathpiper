@@ -23,7 +23,7 @@ New interface allows creating many RNG objects:
 
 	r1:=RngCreate();	// create a default RNG object, assign structure to r1
 	r2:=RngCreate(12345);	// create RNG object with given seed
-	r3:=RngCreate(seed=0, engine=advanced, dist=gauss); 	// extended options: specify seed, type of RNG engine and the type of statistical distribution
+	r3:=RngCreate(seed==0, engine==advanced, dist==gauss); 	// extended options: specify seed, type of RNG engine and the type of statistical distribution
 	Rng(r1); Rng(r1); Rng(r2);	// generate some floating-point numbers
 	RngSeed(r1, 12345);	// r1 is re-initialized with given seed, r2 is unaffected
 
@@ -39,11 +39,11 @@ and state is a "RNG state object", e.g. a list of all numbers that specify the c
 RngSeed(r1, seed) expects an integer seed.
 It will re-initialize the RNG object r1 with the given seed.
 
-The "RNG engine API": calling RngCreate with engine=SomeEngine expects that:
+The "RNG engine API": calling RngCreate with engine==SomeEngine expects that:
 	SomeEngine(seed_IsInteger) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
 	SomeEngine(state1_IsList) will update the RNG state object state1 and return the pair {new state object, new number}.
 
-The "RNG distribution adaptor API": calling RngCreate with distribution=SomeDist expects that:
+The "RNG distribution adaptor API": calling RngCreate with distribution==SomeDist expects that:
 	SomeDist(r1) will update the RNG object r1 and return the pair {new state object, new number}. r1 is a full RNG object, not just a state object.
 
 
@@ -81,7 +81,7 @@ LocalSymbols(knownRNGEngines, knownRNGDists) [
 
 Function() RngCreate();
 Function() RngCreate(seed, ...);
-HoldArg("RngCreate", seed);	// this is needed to prevent evaluation of == and also to prevent substitution of variables, e.g. if "seed" is defined
+HoldArg("RngCreate", seed);	// this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
 //UnFence("RngCreate", 0);
 //UnFence("RngCreate", 1);
 Function() RngSeed(r, seed);
@@ -93,11 +93,11 @@ Function() Rng(r);
 
 RngCreate() <-- RngCreate(0);
 
-10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {Atom("seed") = a'seed});
+10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {Atom("seed") == a'seed});
 
 // a single option given: convert explicitly to a list
-20 # RngCreate(_key = _value) <-- (RngCreate @ {{key = value}});
-20 # RngCreate(_key == _value) <-- (RngCreate @ {{key = value}});
+20 # RngCreate(_key == _value) <-- (RngCreate @ {{key == value}});
+20 # RngCreate(_key = _value) <-- (RngCreate @ {{key == value}});
 
 // expect a list of options
 30 # RngCreate(options_IsList) <--
@@ -105,15 +105,15 @@ RngCreate() <-- RngCreate(0);
 	options := ListToHash @ {options};
 	// check options and assign defaults
 	If(
-		options["seed"] == Empty Or options["seed"] <= 0,
+		options["seed"] = Empty Or options["seed"] <= 0,
 		options["seed"] := 76544321	// some default seed out of the blue sky
 	);
 	If(
-		options["engine"] == Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] != Empty),
+		options["engine"] = Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] != Empty),
 		options["engine"] := "default"
 	);
 	If(
-		options["dist"] == Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] != Empty),
+		options["dist"] = Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] != Empty),
 		options["dist"] := "default"
 	);
 
@@ -173,7 +173,7 @@ GaussianRNGDist(_rng) <--
 	Local(a,b,m, new'state, rnumber);
 	new'state := rng[3];	// this will be updated at the end
 	m:=0;
-	While(m==0 Or m>=1)	// repeat generating new x,y  - should not take more than one iteration really
+	While(m=0 Or m>=1)	// repeat generating new x,y  - should not take more than one iteration really
 	[
 		{new'state, rnumber} := (rng[2] @ {new'state});
 		a:=2*rnumber-1;
@@ -259,7 +259,7 @@ RNGEngine'L'Ecuyer(state_IsList) <--
 	result:=Mod(state[1]-state[4], 4294967087);
 	{
 		new'state,
-		DivideN(If(result==0, 4294967087, result), 4294967088)
+		DivideN(If(result=0, 4294967087, result), 4294967088)
 	};
 ];
 
@@ -339,7 +339,7 @@ Each seed value will result in the same sequence of pseudo-random numbers.
 *CALL
 	RngCreate()
 	RngCreate(init)
-	RngCreate(option=value,...)
+	RngCreate(option==value,...)
 	RngSeed(r, init)
 	Rng(r)
 	

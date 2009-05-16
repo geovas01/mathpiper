@@ -10,7 +10,7 @@ GuessRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 	For(i:=2, i<=Length(cf) And denom'estimate < 10^prec, i++)
 		[	// estimate the denominator
 			denom'estimate := denom'estimate * If(
-				cf[i] == 1,
+				cf[i] = 1,
 				If(
 					i+2<=Length(cf),	// have at least two more terms, do a full estimate
 					RoundTo(N(Eval(cf[i]+1/(cf[i+1]+1/cf[i+2]))), 3),

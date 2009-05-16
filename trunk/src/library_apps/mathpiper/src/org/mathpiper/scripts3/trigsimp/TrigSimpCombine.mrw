@@ -36,13 +36,13 @@ RuleBase(":*:",{x,y});
 Infix(":*:",3);
 
 
-IsTrig(f) := (Type(f) == "Sin" Or Type(f) == "Cos");
-IsFTrig(f) := (Type(f) == "FSin" Or Type(f) == "FCos");
-IsMul(f) := (Type(f) == "*");
-IsMulF(f) := (Type(f) == ":*:");
+IsTrig(f) := (Type(f) = "Sin" Or Type(f) = "Cos");
+IsFTrig(f) := (Type(f) = "FSin" Or Type(f) = "FCos");
+IsMul(f) := (Type(f) = "*");
+IsMulF(f) := (Type(f) = ":*:");
 
 IsPow(f):=
-  (Type(f) == "^" And
+  (Type(f) = "^" And
    IsInteger(f[2]) And
    f[2] > 1
   );
@@ -98,7 +98,7 @@ RuleBase("FSimpTerm",{f,rlist});
 UnFence("FSimpTerm",2);
 
 /* Addition: add all the subterms */
-Rule("FSimpTerm",2,1,Type(f) == "+")
+Rule("FSimpTerm",2,1,Type(f) = "+")
 [
   Local(result,lst);
   lst:=Flatten(f,"+");
@@ -124,13 +124,13 @@ TrigNegate(f):=
 
 FUnTrig(result) := Substitute(result,"IsFTrig","TrigUnChange");
 
-Rule("FSimpTerm",2,1,Type(f) == "-" And NrArgs(f)==1)
+Rule("FSimpTerm",2,1,Type(f) = "-" And NrArgs(f)=1)
 [
   Local(result);
   result:=FSimpTerm(f[1],{{},{}});
   Substitute(result,"IsFTrig","TrigNegate");
 ];
-Rule("FSimpTerm",2,1,Type(f) == "-" And NrArgs(f)==2)
+Rule("FSimpTerm",2,1,Type(f) = "-" And NrArgs(f)=2)
 [
   Local(result1,result2);
   result1:=FSimpTerm(f[1],{{},{}});
@@ -138,15 +138,15 @@ Rule("FSimpTerm",2,1,Type(f) == "-" And NrArgs(f)==2)
   {Concat(result1[1],result2[1]),Concat(result1[2],result2[2])};
 ];
 
-Rule("FSimpTerm",2,2,Type(f) == ":*:")
+Rule("FSimpTerm",2,2,Type(f) = ":*:")
 [
   FSimpFactor({Flatten(f,":*:")});
 ];
-Rule("FSimpTerm",2,3,Type(f) == "FSin")
+Rule("FSimpTerm",2,3,Type(f) = "FSin")
 [
   {rlist[1],f:(rlist[2])};
 ];
-Rule("FSimpTerm",2,3,Type(f) == "FCos")
+Rule("FSimpTerm",2,3,Type(f) = "FCos")
 [
   {f:(rlist[1]),rlist[2]};
 ];
@@ -191,7 +191,7 @@ RuleBase("FProcessTerm",{t});
 UnFence("FProcessTerm",1);
 
 /* Deal with (a+b)*c -> a*c+b*c */
-Rule("FProcessTerm",1,1,Type(t[1]) == "+")
+Rule("FProcessTerm",1,1,Type(t[1]) = "+")
 [
   Local(split,term1,term2);
   split:=t[1];
@@ -202,7 +202,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) == "+")
   DestructiveInsert(flist,1,term1);
   DestructiveInsert(flist,1,term2);
 ];
-Rule("FProcessTerm",1,1,Type(t[1]) == "-" And NrArgs(t[1]) == 2)
+Rule("FProcessTerm",1,1,Type(t[1]) = "-" And NrArgs(t[1]) = 2)
 [
   Local(split,term1,term2);
   split:=t[1];
@@ -215,7 +215,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) == "-" And NrArgs(t[1]) == 2)
   DestructiveInsert(flist,1,term2);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == "-" And NrArgs(t[2]) == 2)
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "-" And NrArgs(t[2]) = 2)
 [
   Local(split,term1,term2);
   split:=t[2];
@@ -228,7 +228,7 @@ Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == "-" And NrArgs(t[2]) == 2)
   DestructiveInsert(flist,1,term2);
 ];
 
-Rule("FProcessTerm",1,1,Type(t[1]) == ":*:")
+Rule("FProcessTerm",1,1,Type(t[1]) = ":*:")
 [
   Local(split,term);
   split:=t[1];
@@ -238,7 +238,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) == ":*:")
   DestructiveInsert(flist,1,term);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == ":*:")
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = ":*:")
 [
   Local(split,term);
   split:=t[2];
@@ -248,7 +248,7 @@ Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == ":*:")
   DestructiveInsert(flist,1,term);
 ];
 
-Rule("FProcessTerm",1,1,Type(t[1]) == "-" And NrArgs(t[1]) == 1)
+Rule("FProcessTerm",1,1,Type(t[1]) = "-" And NrArgs(t[1]) = 1)
 [
   Local(split,term);
   split:=t[1];
@@ -257,7 +257,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) == "-" And NrArgs(t[1]) == 1)
   DestructiveInsert(term,1,FCos(-1,0));
   DestructiveInsert(flist,1,term);
 ];
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == "-" And NrArgs(t[2]) == 1)
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "-" And NrArgs(t[2]) = 1)
 [
   Local(split,term);
   split:=t[2];
@@ -269,7 +269,7 @@ Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == "-" And NrArgs(t[2]) == 1)
 
 
 /* Deal with (a*(b+c) -> a*b+a*c */
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) == "+")
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "+")
 [
   Local(split,term1,term2);
   split:=t[2];
@@ -296,11 +296,11 @@ Rule("FProcessTerm",1,2,Length(t)>1 And Not(IsFTrig(t[2])) )
 ];
 
 
-Rule("FProcessTerm",1,4,Length(t)==1 And Type(t[1]) == "FCos")
+Rule("FProcessTerm",1,4,Length(t)=1 And Type(t[1]) = "FCos")
 [
   DestructiveInsert(rlist[1],1,t[1]);
 ];
-Rule("FProcessTerm",1,4,Length(t)==1 And Type(t[1]) == "FSin")
+Rule("FProcessTerm",1,4,Length(t)=1 And Type(t[1]) = "FSin")
 [
   DestructiveInsert(rlist[2],1,t[1]);
 ];
@@ -327,13 +327,13 @@ Rule("FProcessTerm",1,5,Length(t)>1)
 
 /* TrigSimpCombineB : take two FSin/FCos factors, and write them out into two terms */
 RuleBase("TrigSimpCombineB",{x,y});
-Rule("TrigSimpCombineB",2,1,Type(x) == "FCos" And Type(y) == "FCos")
+Rule("TrigSimpCombineB",2,1,Type(x) = "FCos" And Type(y) = "FCos")
      { FCos((x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) == "FSin" And Type(y) == "FSin")
+Rule("TrigSimpCombineB",2,1,Type(x) = "FSin" And Type(y) = "FSin")
      { FCos(-(x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) == "FSin" And Type(y) == "FCos")
+Rule("TrigSimpCombineB",2,1,Type(x) = "FSin" And Type(y) = "FCos")
      { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin( (x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) == "FCos" And Type(y) == "FSin")
+Rule("TrigSimpCombineB",2,1,Type(x) = "FCos" And Type(y) = "FSin")
      { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin(-(x[1]*y[1])/2,x[2]-y[2]) };
 
 
@@ -407,11 +407,11 @@ CosAdd(t):=
   Local(look,arg);
   arg:=Expand(t[2],varlist);
   look:=Assoc(arg,cassoc);
-  If(look == Empty,
+  If(look = Empty,
      [
        arg:=Expand(-arg,varlist);
        look:=Assoc(arg,cassoc);
-       If(look == Empty,
+       If(look = Empty,
          DestructiveInsert(cassoc,1,{arg,t[1]}),
          look[2]:=look[2]+t[1]
          );
@@ -427,11 +427,11 @@ SinAdd(t):=
   Local(look,arg);
   arg:=Expand(t[2],varlist);
   look:=Assoc(arg,sassoc);
-  If(look == Empty,
+  If(look = Empty,
      [
        arg:=Expand(-arg,varlist);
        look:=Assoc(arg,sassoc);
-       If(look == Empty,
+       If(look = Empty,
          DestructiveInsert(sassoc,1,{arg,-(t[1])}),
 	 look[2]:=look[2]-(t[1])
          );

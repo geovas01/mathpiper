@@ -10,7 +10,7 @@ Hold(
 "
   },
   {D(x)Sin(x),
-"Ta<= the derivative of a function (the derivative of Sin(x) with
+"Taking the derivative of a function (the derivative of Sin(x) with
 respect to x in this case).
 "
   },
@@ -22,7 +22,7 @@ respect to x in this case).
 "Integrate a function.
 "
   },
-  {Solve(a+x*y=z,x),
+  {Solve(a+x*y==z,x),
 "Solve a function for a variable.
 "
   },

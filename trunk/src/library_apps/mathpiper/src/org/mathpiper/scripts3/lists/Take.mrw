@@ -16,7 +16,7 @@ Rule("Take", 2, 1, IsList(range))
     Take( Drop(lst, range[1] -1), range[2] - range[1] + 1);
 
 Rule("Take", 2, 2, range >= 0)
-    If( Length(lst)==0 Or range==0, {},
+    If( Length(lst)=0 Or range=0, {},
         Concat({Head(lst)}, Take(Tail(lst), range-1)));
 
 Rule("Take", 2, 2, range < 0)

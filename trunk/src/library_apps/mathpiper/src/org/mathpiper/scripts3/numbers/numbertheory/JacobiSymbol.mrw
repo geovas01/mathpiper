@@ -19,10 +19,10 @@ See the Algo book for documentation.
 	Local(c, s);
 	// compute c,s where a=c*2^s and c is odd
 	{c,s}:=FindPrimeFactorSimple(a, 2);	// use the "Simple" function because we don't expect a worst case here
-	If(Mod(s,2)==1 And Abs(Mod(b,8)-4)==1, -1, 1) * JacobiSymbol(c,b);
+	If(Mod(s,2)=1 And Abs(Mod(b,8)-4)=1, -1, 1) * JacobiSymbol(c,b);
 ];
 
-40 # JacobiSymbol(a_IsOdd, b_IsOdd) <-- If(Mod(a,4)==3 And Mod(b,4)==3, -1, 1) * JacobiSymbol(b,a);
+40 # JacobiSymbol(a_IsOdd, b_IsOdd) <-- If(Mod(a,4)=3 And Mod(b,4)=3, -1, 1) * JacobiSymbol(b,a);
 
 %/mathpiper
 

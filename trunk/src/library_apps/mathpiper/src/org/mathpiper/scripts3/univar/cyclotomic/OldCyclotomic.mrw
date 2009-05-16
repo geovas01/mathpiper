@@ -39,7 +39,7 @@
  [
    q:=n/d[1];
    f:=UniVariateBinomial(x,q,-1);
-   If (d[2]==1,poly1:=poly1*f,poly2:=poly2*f);
+   If (d[2]=1,poly1:=poly1*f,poly2:=poly2*f);
  ];
  result := Div(poly1,poly2);
  If(WantNormalForm,NormalForm(result),result);

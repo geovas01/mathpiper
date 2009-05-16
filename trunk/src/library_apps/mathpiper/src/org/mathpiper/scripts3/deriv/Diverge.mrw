@@ -1,7 +1,7 @@
 %mathpiper,def="Diverge"
 
 RuleBase("Diverge", {aFunc, aBasis});
-Rule("Diverge", 2, 1, IsList(aBasis) And IsList(aFunc) And Length(aBasis) == Length(aFunc))
+Rule("Diverge", 2, 1, IsList(aBasis) And IsList(aFunc) And Length(aBasis) = Length(aFunc))
 	Add(Map("D", {aBasis,aFunc}));
 
 %/mathpiper

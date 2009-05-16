@@ -6,13 +6,13 @@ Solve'System(_eqns, _vars) <-- Solve'SimpleBackSubstitution(eqns,vars);
 
 // Check(False, "Solve'System: not implemented");
 
-10 # Solve'SimpleBackSubstitution'FindAlternativeForms((_lx) = (_rx)) <--
+10 # Solve'SimpleBackSubstitution'FindAlternativeForms((_lx) == (_rx)) <--
 [
   Local(newEq);
-  newEq := (Simplify(lx) = Simplify(rx));
-  If (newEq != (lx = rx) And newEq != (0=0),DestructiveAppend(eq,newEq));
-  newEq := (Simplify(lx - rx) = 0);
-  If (newEq != (lx = rx) And newEq != (0=0),DestructiveAppend(eq,newEq));
+  newEq := (Simplify(lx) == Simplify(rx));
+  If (newEq != (lx == rx) And newEq != (0==0),DestructiveAppend(eq,newEq));
+  newEq := (Simplify(lx - rx) == 0);
+  If (newEq != (lx == rx) And newEq != (0==0),DestructiveAppend(eq,newEq));
 ];
 20 # Solve'SimpleBackSubstitution'FindAlternativeForms(_equation) <--
 [
@@ -64,14 +64,14 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 //Echo("varlist = ",vlist);
 //Echo();
 
-      If(Count(vlist,var[i]) == 1,
+      If(Count(vlist,var[i]) = 1,
          [
            sub := Listify(eq[j]);
            sub := sub[2]-sub[3];
 //Echo("using ",sub);
            sub:=SuchThat(sub,var[i]);
-           If(InVerboseMode(), Echo({"From ",eq[j]," it follows that ",var[i]," == ",sub}));
-           If(SolveFullSimplify==True,
+           If(InVerboseMode(), Echo({"From ",eq[j]," it follows that ",var[i]," = ",sub}));
+           If(SolveFullSimplify=True,
              result:=Simplify(Subst(var[i],sub)result),
              result[1][i]:=sub
              );
@@ -87,13 +87,13 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
              Local(original);
              original:=eq[k];
              eq[k]:=Subst(var[i],sub)eq[k];
-             If(Simplify(Simplify(eq[k])) == (0 = 0),
-               eq[k] := (0 = 0),
+             If(Simplify(Simplify(eq[k])) = (0 == 0),
+               eq[k] := (0 == 0),
                Solve'SimpleBackSubstitution'FindAlternativeForms(eq[k])
                );
 //             eq[k]:=Simplify(eq[k]);
 //             eq[k]:=Simplify(eq[k]); //@@@??? TODO I found one example where simplifying twice gives a different result from simplifying once!
-             If(original!=(0=0) And eq[k] == (0 = 0),reset:=True);
+             If(original!=(0==0) And eq[k] = (0 == 0),reset:=True);
              If(InVerboseMode(), Echo({"   ",original," simplifies to ",eq[k]}));
            ]);
            nreq:=Length(eq);
@@ -111,7 +111,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 //  nreq := Length(eq);
   Local(zeroeq,tested);
   tested:={};
-//  zeroeq:=FillList(0=0,nreq);
+//  zeroeq:=FillList(0==0,nreq);
 
   ForEach(item,result)
   [
@@ -126,12 +126,12 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
     Echo(eqSimplified);
 
-    If(eqSimplified == zeroeq,
+    If(eqSimplified = zeroeq,
     [
-      DestructiveAppend(tested,Map("=",{var,item}));
+      DestructiveAppend(tested,Map("==",{var,item}));
     ]);
 */
-    DestructiveAppend(tested,Map("=",{var,item}));
+    DestructiveAppend(tested,Map("==",{var,item}));
   ];
 
 
@@ -148,11 +148,11 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 10 # OldSolve(eq_IsList,var_IsList) <-- Solve'SimpleBackSubstitution(eq,var);
 
 
-90 # OldSolve((left_IsList) = right_IsList,_var) <--
-      OldSolve(Map("=",{left,right}),var);
+90 # OldSolve((left_IsList) == right_IsList,_var) <--
+      OldSolve(Map("==",{left,right}),var);
 
 
-100 # OldSolve(_left = _right,_var) <--
+100 # OldSolve(_left == _right,_var) <--
      SuchThat(left - right , 0 , var);
 
 /* HoldArg("OldSolve",arg1); */
@@ -191,7 +191,7 @@ to solve a single equation and the second one for systems of
 equations.
 
 The first calling sequence solves the equation "eq" for the variable
-"var". Use the {=} operator to form the equation.
+"var". Use the {==} operator to form the equation.
 The value of "var" which satisfies the equation, is returned. Note
 that only one solution is found and returned.
 
@@ -211,9 +211,9 @@ large group of simple nonlinear equations.
 
 *E.G.
 
-	In> OldSolve(a+x*y=z,x)
+	In> OldSolve(a+x*y==z,x)
 	Out> (z-a)/y;
-	In> OldSolve({a*x+y=0,x+z=0},{x,y})
+	In> OldSolve({a*x+y==0,x+z==0},{x,y})
 	Out> {{-z,z*a}};
 
 This means that "x = (z-a)/y" is a solution of the first equation
@@ -222,8 +222,8 @@ equations in the second command.
 
 An example which {OldSolve} cannot solve:
 
-	In> OldSolve({x^2-x = y^2-y,x^2-x = y^3+y},{x,y});
+	In> OldSolve({x^2-x == y^2-y,x^2-x == y^3+y},{x,y});
 	Out> {};
 
-*SEE Solve, SuchThat, Eliminate, PSolve, =
+*SEE Solve, SuchThat, Eliminate, PSolve, ==
 %/mathpiper_docs

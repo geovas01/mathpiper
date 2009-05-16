@@ -25,7 +25,7 @@ LogicCombine(_list) <--
         Check(k != -1, "k is -1");
 
         Set(combination, LogicRemoveTautologies(Concat(list[i], list[tocombine])));
-        If(combination == {},                      // the combined clause is false, so the whole thing is false
+        If(combination = {},                      // the combined clause is false, so the whole thing is false
           [Set(list, {{}}); Set(i, Length(list)+1);], [/*Set(i, 0);*/]);
       ]);
     ];

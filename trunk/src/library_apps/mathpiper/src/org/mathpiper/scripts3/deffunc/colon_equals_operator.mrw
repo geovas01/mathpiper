@@ -27,7 +27,7 @@ Rule("AssignArray",3,1,IsString(setlistindex))
 [
   Local(item);
   item:=Assoc(setlistindex,setlistterm);
-  If(item == Empty,
+  If(item = Empty,
      DestructiveInsert(setlistterm,1,{setlistindex,setlistresult}),
      DestructiveReplace(item,2,setlistresult)
      );
@@ -52,7 +52,7 @@ Rule("AssignArray",3,2,True)
 ];
 
 // a[x] := ... assigns to an array element
-Rule(":=",2,10,IsFunction(aLeftAssign) And (Head(Listify(aLeftAssign)) == Nth))
+Rule(":=",2,10,IsFunction(aLeftAssign) And (Head(Listify(aLeftAssign)) = Nth))
 [
  Local(frst,scnd);
 

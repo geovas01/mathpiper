@@ -2,7 +2,7 @@
 
 
 /* Finds the rengression of y onto x, that is
-   y = alpha + beta * x
+   y == alpha + beta * x
 
    Example usage:
    x := 1 .. 5;

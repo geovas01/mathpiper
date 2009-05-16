@@ -77,17 +77,17 @@ Rule("REP",0,1,True)
   While(Not(IsExitRequested()))
   [
     Set(errorString, "");
-    If(And(IsString(PrettyReader'Get()),Not(PrettyReader'Get() == "")),
+    If(And(IsString(PrettyReader'Get()),Not(PrettyReader'Get() = "")),
       TrapError(Set(input, FromString(ReadCmdLineString("In> "))ApplyPure(PrettyReader'Get(),{})),Set(errorString,GetCoreError())),
       TrapError(Set(input, FromString(ConcatStrings(ReadCmdLineString("In> "),";"))Read()),Set(errorString,GetCoreError())));
-    If(Not(errorString == ""), WriteString(errorString));
+    If(Not(errorString = ""), WriteString(errorString));
     If (Not(IsExitRequested()) And errorString="",
     [
       Set(stringOut,"");
       Set(result,False);
       Set(stringOut,ToString()[TrapError(Set(result,Eval(input)),Set(errorString,GetCoreError()));]);
-      If(Not(stringOut == ""), WriteString(stringOut));
-      If(Not(errorString == ""), WriteString(errorString));
+      If(Not(stringOut = ""), WriteString(stringOut));
+      If(Not(errorString = ""), WriteString(errorString));
       SetGlobalLazyVariable(%,result);
       If(PrettyPrinter'Get()="",
       [

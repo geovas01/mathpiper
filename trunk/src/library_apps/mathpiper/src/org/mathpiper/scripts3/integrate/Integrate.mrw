@@ -33,7 +33,7 @@
 //
 ////////////////////////////////////////////////
 
-10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from == -to And IsOddFunction(expr,var)) <-- 0;
+10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsOddFunction(expr,var)) <-- 0;
 
 // We need to define this case (integrating from 0 to 0 over an even function) 
 // explicitly, otherwise the integration ends up going in to infinite recursion.
@@ -44,7 +44,7 @@
 
 10 # defIntegrate(_var,_from,_from,_expr,_a,_b) <-- 0;
 
-12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from == -to And IsEvenFunction(expr,var))
+12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsEvenFunction(expr,var))
         <-- 2*defIntegrate(var,0,to,expr,a,b);
 
 100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) != "AntiDeriv")
@@ -69,7 +69,7 @@
 //
 ////////////////////////////////////////////////
 20 # IntegrateRange(_var,_expr,_from,_to,_antideriv)
-    <-- `(@antideriv Where @var = @to) - `(@antideriv Where @var = @from);
+    <-- `(@antideriv Where @var == @to) - `(@antideriv Where @var == @from);
 
 ////////////////////////////////////////////////
 //

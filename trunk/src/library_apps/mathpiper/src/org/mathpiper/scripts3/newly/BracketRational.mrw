@@ -22,7 +22,7 @@ BracketRational(r,eps):=
 	// now r1 and r2 are some rational numbers.
 	// decide whether the search was successful.
 	If(
-		n==Length(cflist),
+		n=Length(cflist),
 		{},	// return empty list if not enough precision
 		If(N(Eval(r-r1))>0,
 			{r1, r2},	// successive approximations are always bracketing, we only need to decide their order

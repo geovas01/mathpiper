@@ -28,7 +28,7 @@
 
 10 # Expectation(BinomialDistribution(_p,_n)) <-- n*p;
 
-10 # Expectation( DiscreteDistribution( dom_IsList, prob_IsList))_( Length(dom)==Length(prob) And Simplify(Sum(prob))==1) <-- Sum @ {i,1,Length(dom),dom[i]*prob[i]};
+10 # Expectation( DiscreteDistribution( dom_IsList, prob_IsList))_( Length(dom)=Length(prob) And Simplify(Sum(prob))=1) <-- Sum @ {i,1,Length(dom),dom[i]*prob[i]};
 
 
 

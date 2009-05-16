@@ -17,7 +17,7 @@ Function("IsScalar",{x}) Not(IsList(x));
 // test for a vector
 Function("IsVector",{x})
    If(IsList(x),
-   Length(Select(IsList,x))==0,
+   Length(Select(IsList,x))=0,
    False);
 
 // test for a vector w/ element test p
@@ -45,8 +45,8 @@ If(IsList(x) And Length(x)>0,
 [
    Local(n);
    n:=Length(x);
-   If(Length(Select(IsVector,x))==n,
-   MapSingle(Length,x)==Length(x[1])+ZeroVector(n),
+   If(Length(Select(IsVector,x))=n,
+   MapSingle(Length,x)=Length(x[1])+ZeroVector(n),
    False);
 ],
 False);
@@ -79,14 +79,14 @@ IsSquareMatrix(_x) <--
 [
    Local(d);
    d:=Dimensions(x);
-   Length(d)==2 And d[1]==d[2];
+   Length(d)=2 And d[1]=d[2];
 ];
 */
 
 // test for a square matrix (dr)
-Function("IsSquareMatrix",{x}) IsMatrix(x) And Length(x)==Length(x[1]);
+Function("IsSquareMatrix",{x}) IsMatrix(x) And Length(x)=Length(x[1]);
 // test for a square matrix w/ element test p (dr)
-Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)==Length(x[1]);
+Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=Length(x[1]);
 
 ]; // LocalSymbols(p,x)
 

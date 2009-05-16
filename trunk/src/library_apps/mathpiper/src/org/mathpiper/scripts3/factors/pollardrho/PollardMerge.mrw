@@ -1,7 +1,7 @@
 %mathpiper,def="PollardMerge",scope="private"
 
 5 # PollardMerge(_list,{1,_n}) <-- True;
-10 # PollardMerge(_list,_item)_(Assoc(item[1],list) == Empty) <--
+10 # PollardMerge(_list,_item)_(Assoc(item[1],list) = Empty) <--
   DestructiveInsert(list,1,item);
 
 20 # PollardMerge(_list,_item) <--

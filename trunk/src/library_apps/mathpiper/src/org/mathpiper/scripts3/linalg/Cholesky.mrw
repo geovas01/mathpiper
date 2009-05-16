@@ -23,12 +23,12 @@
 			matrix[i][i] := matrix[i][i] - matrix[k][i]^2;
 		Check( matrix[i][i] > 0, "Cholesky: Matrix is not positive definite");
 		matrix[i][i] := Sqrt(matrix[i][i]);
-		//Echo({"matrix[",i,"][",i,"] == ", matrix[i][i] });
+		//Echo({"matrix[",i,"][",i,"] = ", matrix[i][i] });
 		For(j:=i+1,j<=n,j++)[
 			For(k:=1,k<=(i-1),k++)
 				matrix[i][j]:= matrix[i][j] - matrix[k][i]*matrix[k][j];
 			matrix[i][j] := matrix[i][j]/matrix[i][i];
-			//Echo({"matrix[",i,"][",j,"] == ", matrix[i][j] });
+			//Echo({"matrix[",i,"][",j,"] = ", matrix[i][j] });
 		];
 	];
 	// cholesky factorization is upper triangular
@@ -65,7 +65,7 @@ matrices with positive elements and Hilbert matrices.
 	Out> {{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}};
 	In> R:=Cholesky(A);
 	Out> {{2,-1,2,1},{0,3,0,-2},{0,0,2,1},{0,0,0,1}};
-	In> Transpose(R)*R == A
+	In> Transpose(R)*R = A
 	Out> True;
 	In> Cholesky(4*Identity(5))
 	Out> {{2,0,0,0,0},{0,2,0,0,0},{0,0,2,0,0},{0,0,0,2,0},{0,0,0,0,2}};

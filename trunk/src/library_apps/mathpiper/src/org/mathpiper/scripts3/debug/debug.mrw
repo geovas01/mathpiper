@@ -70,13 +70,13 @@ DebugStepOver():=
 DebugBreakAt(file,line):=
 [
   Check(InDebugMode(),"DebugBreakAt only supported in the debug build of MathPiper");
-  If(filebreakpoints[file] == Empty,filebreakpoints[file]:={});
+  If(filebreakpoints[file] = Empty,filebreakpoints[file]:={});
   DestructiveAppend(filebreakpoints[file],line);
 ];
 DebugRemoveBreakAt(file,line):=
 [
   Check(InDebugMode(),"DebugRemoveBreakAt only supported in the debug build of MathPiper");
-  If(filebreakpoints[file] == Empty,filebreakpoints[file]:={});
+  If(filebreakpoints[file] = Empty,filebreakpoints[file]:={});
   filebreakpoints[file] := Difference(filebreakpoints[file],{line});
 ];
 
@@ -122,21 +122,21 @@ Macro(DebugEnter,{})
 [
   debugcallstack := CustomEval'Expression():debugcallstack;
   // custom breakpoint (custom predicate thought up by the programmer)
-  If(debugging == False And
-      Eval(breakpredicate) == True,
+  If(debugging = False And
+      Eval(breakpredicate) = True,
       [
         breakpredicate:=False;
         debugging:=True;
       ]);
 
-  If(debugging == False And InDebugMode(),
+  If(debugging = False And InDebugMode(),
   [
     Local(file,line);
     file := DebugFile(CustomEval'Expression());
     If(filebreakpoints[file] != Empty,
     [
       line := DebugLine(CustomEval'Expression());
-      If(Not(file == debugstepoverfile And line == debugstepoverline) And
+      If(Not(file = debugstepoverfile And line = debugstepoverline) And
          Contains(filebreakpoints[file],line),
          [
            debugging:=True;
@@ -147,7 +147,7 @@ Macro(DebugEnter,{})
 
 
   // the standard breakpoint
-  If(debugging == False And
+  If(debugging = False And
       IsFunction(CustomEval'Expression()) And
       Contains(breakpoints,Type(CustomEval'Expression())),   debugging:=True);
    nextdebugging:=False;
@@ -169,7 +169,7 @@ Macro(DebugEnter,{})
 ];
 Macro(DebugLeave,{})
 [
-  If(debugging == False And debugstopdepth >= 0 And Length(debugcallstack) == debugstopdepth,
+  If(debugging = False And debugstopdepth >= 0 And Length(debugcallstack) = debugstopdepth,
   [
     debugstepoverline := -1;
     debugging := True;
@@ -195,7 +195,7 @@ ProfileStart():=
 [
     Local(fname);
     fname:=Type(CustomEval'Expression());
-    If(profilefn[fname]==Empty,profilefn[fname]:=0);
+    If(profilefn[fname]=Empty,profilefn[fname]:=0);
     profilefn[fname] := profilefn[fname]+1;
 ];
 Macro(Profile,{expression})
@@ -230,7 +230,7 @@ WriteLines(filename,lines,from,nrlines,breakpoints,current):=
   For(i:=from,i<from+nrlines And i<nr,i++)
   [
 
-    if (current == i)
+    if (current = i)
       WriteString(">")
     else
       WriteString(" ");

@@ -1,6 +1,6 @@
 %mathpiper,def="MinimumBound"
 
-10 # MinimumBound(_p)_(IsZero(p Where x=0)) <-- 0;
+10 # MinimumBound(_p)_(IsZero(p Where x==0)) <-- 0;
 
 20 # MinimumBound(_p)_(Degree(p)>0) <--
 [

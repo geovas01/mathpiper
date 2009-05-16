@@ -1,6 +1,6 @@
 %mathpiper,def="IsAmicablePair"
 
-IsAmicablePair(m_IsPositiveInteger,n_IsPositiveInteger) <-- ( ProperDivisorsSum(m)==n And ProperDivisorsSum(n)==m );
+IsAmicablePair(m_IsPositiveInteger,n_IsPositiveInteger) <-- ( ProperDivisorsSum(m)=n And ProperDivisorsSum(n)=m );
 
 %/mathpiper
 

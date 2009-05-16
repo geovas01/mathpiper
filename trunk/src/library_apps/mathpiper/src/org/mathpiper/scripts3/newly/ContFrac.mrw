@@ -8,7 +8,7 @@
 10 # ContFrac(_n) <-- ContFrac(n, 6);
 50 # ContFrac(_n,_depth) <-- ContFracEval(ContFracList(n, depth), rest);
 
-40 # ContFrac(n_CanBeUni,_depth)_(Length(VarList(n)) == 1) <--
+40 # ContFrac(n_CanBeUni,_depth)_(Length(VarList(n)) = 1) <--
 [
   ContFracDoPoly(n,depth,VarList(n)[1]);
 ];

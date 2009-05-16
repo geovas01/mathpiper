@@ -10,7 +10,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
   Local(S,N,work,result,Vmin,Vmax,a,b,Va,Vb,c,Vc,x);
 
   result:={};
-  if (IsZero(p Where x=0))
+  if (IsZero(p Where x==0))
   [
     p:=Simplify(p/x);
     result:={{0,0}};
@@ -27,7 +27,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
 
 //Echo("Mmin,Mmax = ",Mmin,Mmax);
   work:={};
-  if (N==1)
+  if (N=1)
   [
     result:={{-Mmax,Mmax}};
   ];
@@ -48,17 +48,17 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
       c:=(a+b)/2;
 //Echo(a,b,c);
       Vc := SturmVariations(S,c);
-      if (IsZero(p Where x = c))
+      if (IsZero(p Where x == c))
       [
         Local(M,Vcmin,Vcplus,pnew);
-        pnew := Simplify((p Where x = x+c)/x);
+        pnew := Simplify((p Where x == x+c)/x);
         M:=MinimumBound(pnew);
 //Echo("Mi = ",M);
         Vcmin  := SturmVariations(S, c-M);
         Vcplus := SturmVariations(S, c+M);
         result:=Concat(result,{{c,c}});
 
-        if (Va == Vcmin+1)
+        if (Va = Vcmin+1)
         [
           result:=Concat(result,{{a,c-M}});
         ];
@@ -66,7 +66,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
         [
           work:=Concat(work,{{a,c-M,Va,Vcmin}});
         ];
-        if (Vb == Vcplus-1)
+        if (Vb = Vcplus-1)
         [
           result:=Concat(result,{{c+M,b}});
         ];
@@ -77,7 +77,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
       ]
       else
       [
-        if (Va == Vc+1)
+        if (Va = Vc+1)
         [
           result:=Concat(result,{{a,c}});
         ];
@@ -85,7 +85,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
         [
           work:=Concat(work,{{a,c,Va,Vc}});
         ];
-        if (Vb == Vc-1)
+        if (Vb = Vc-1)
         [
           result:=Concat(result,{{c,b}});
         ];

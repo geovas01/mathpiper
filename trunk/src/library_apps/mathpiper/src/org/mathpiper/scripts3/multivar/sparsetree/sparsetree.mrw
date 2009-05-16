@@ -25,7 +25,7 @@ SparseTreeGet
 [
   Local(Current,assoc,result);
   Set(assoc,Assoc(i,tree));
-  if(assoc==Empty)
+  if(assoc=Empty)
   [
     Set(Current,0);
     Set(result,Eval(newvalue));
@@ -118,7 +118,7 @@ UnFence("SparseTreeScan", 3);
 
 10 # Muaddterm({_pow,_list1},{_pow,_list2}) <--
 [
-  if(depth==1)
+  if(depth=1)
     [ t1[1][2] := list1+list2; ]
   else
     [ t1[1][2] := AddSparseTrees(AddN(depth,-1),list1,list2);];
@@ -190,9 +190,9 @@ UnFence("SparseTreeScan", 3);
 [Local(fn);fn:=String(meradd);`UnFence(@fn,2);];
 [Local(fn);fn:=String(meraddmap);`UnFence(@fn,2);];
 
-10 # MuMuaddterm({_pow1,_list1},{_pow2,_list2},_coefs)_(pow1==pow2+coefs[1]) <--
+10 # MuMuaddterm({_pow1,_list1},{_pow2,_list2},_coefs)_(pow1=pow2+coefs[1]) <--
 [
-  if(depth==1)
+  if(depth=1)
     [ t1[1][2] := list1+fact*list2; ]
   else
     [

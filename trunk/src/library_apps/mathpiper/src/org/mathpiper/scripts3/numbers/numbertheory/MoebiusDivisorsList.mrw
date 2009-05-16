@@ -6,7 +6,7 @@
 /* Returns a list of pairs {d,m}
    where d runs through the square free divisors of  n
    and m=Moebius(m)
-   This is much more efficient than ma<= a list of all
+   This is much more efficient than making a list of all
    square-free divisors of n, and then compute Moebius on each of them.
    It is useful for computing the Cyclotomic polinomials.
    It can be useful in other computations based on
@@ -42,7 +42,7 @@ MoebiusDivisorsList(n_IsPositiveInteger) <--
 *DESC
 
 Returns a list of pairs of the form {{d,m}}, where {d} runs through the squarefree divisors of $n$ and $m=Moebius(d)$. 
-This is more efficient than ma<= a list of all 
+This is more efficient than making a list of all 
 square-free divisors of $n$ and then computing {Moebius} on each of them.
 It is useful for computing the cyclotomic polynomials. 
 It can be useful in other computations based on the Moebius inversion formula. 

@@ -17,7 +17,7 @@ Function("SolveMatrix",{matrix,vector})
         [
          inv[i] := inv[i]+
            Factorize(j,1,n,
-           If(item[j] ==i,vector[j ],matrix[j][item[j] ]))*lc;
+           If(item[j] =i,vector[j ],matrix[j][item[j] ]))*lc;
         ];
   ];
   Check(det != 0, "Zero determinant");

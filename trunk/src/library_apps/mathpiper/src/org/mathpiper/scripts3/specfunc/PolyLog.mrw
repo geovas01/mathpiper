@@ -5,17 +5,17 @@
 ////// Polylogarithm Function
 /// coded by Jonathan Leto: PolyLog, Dirichlet*, Digamma, Bessel*, Erf*, Fresnel*, Beta,
 ///			    CatalanConstNum, Sinc, Beta, DawsonIntegral
-// Note: currently, the numerics are only wor<= for x \in [-1,1]
+// Note: currently, the numerics are only working for x \in [-1,1]
 
 10 # PolyLog(_n,0)		<-- 0;
 // this is nicer than -Ln(1/2)
 10 # PolyLog(1,1/2)             <-- Ln(2);
 10 # PolyLog(_n,1)		<-- Zeta(n);
-10 # PolyLog(_n,_m)_(m== -1)	<-- DirichletEta(n);
+10 # PolyLog(_n,_m)_(m= -1)	<-- DirichletEta(n);
 10 # PolyLog(_n,_x)_(n< 0)	<-- (1/((1-x)^(-n+1)))*Sum(i,0,-n,Eulerian(-n,i)*x^(-n-i) );
-//10 # PolyLog(_n,_x)_(n== -3)	<-- x*(x^2 + 4*x + 1)/(x-1)^4;
-//10 # PolyLog(_n,_x)_(n== -2)	<-- x*(x+1)/(1-x)^3;
-//10 # PolyLog(_n,_x)_(n== -1)	<-- x/(1-x)^2;
+//10 # PolyLog(_n,_x)_(n= -3)	<-- x*(x^2 + 4*x + 1)/(x-1)^4;
+//10 # PolyLog(_n,_x)_(n= -2)	<-- x*(x+1)/(1-x)^3;
+//10 # PolyLog(_n,_x)_(n= -1)	<-- x/(1-x)^2;
 10 # PolyLog(0,_x)		<-- x/(1-x);
 10 # PolyLog(1,_x)		<-- -Ln(1-x);
 // special values

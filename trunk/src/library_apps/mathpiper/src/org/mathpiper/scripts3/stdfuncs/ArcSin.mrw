@@ -15,10 +15,10 @@
 200 # ArcSin(Sqrt(1/2)) <-- Pi/4;
 200 # ArcSin(Sqrt(3/4)) <-- Pi/3;
 200 # ArcSin(1) <-- Pi/2;
-200 # ArcSin(_n)_(n == -1) <-- -Pi/2;
-200 # ArcSin(_n)_(-n == Sqrt(3/4)) <-- -Pi/3;
-200 # ArcSin(_n)_(-n == Sqrt(1/2)) <-- -Pi/4;
-200 # ArcSin(_n)_(-n == 1/2) <-- -Pi/6;
+200 # ArcSin(_n)_(n = -1) <-- -Pi/2;
+200 # ArcSin(_n)_(-n = Sqrt(3/4)) <-- -Pi/3;
+200 # ArcSin(_n)_(-n = Sqrt(1/2)) <-- -Pi/4;
+200 # ArcSin(_n)_(-n = 1/2) <-- -Pi/6;
 
 ArcSin(xlist_IsList) <-- MapSingle("ArcSin",xlist);
 
