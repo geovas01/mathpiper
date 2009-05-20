@@ -550,7 +550,7 @@ equ3 := x^2/a^2 - y^2/b^2 == 1;
 
 
 
-%group,description="Skipping exercises 16, 17, and 18"
+%group,description="exercises 17, and 18"
 
 
 %mathpiper
@@ -567,24 +567,26 @@ equ2 := Solve(equ1,y);
 //MathPiper can't solve this equation.  MathCad gives y=50/x.
 
 
+
+//exercise 18.
 Clear(a);
 P := Point(x,y);
 A := Point(a,a);
 B := Point(-a,-a);
 equ1:= Distance(A,P) - Distance(B,P) == 2*a;
 Echo(equ1);
-equ2 := Solve(equ1,y);
+//equ2 := Solve(equ1,y);
 //MathPiper can't solve this equation (it doesn't return).  MathCad gives y=a^2/2*x.
 
 %/mathpiper
 
-    %error,preserve="false"
+    %output,preserve="false"
       Result: True
       
       Side effects:
       Sqrt((x-10)^2+(y-10)^2)-Sqrt((x+10)^2+(y+10)^2)==20 
        Sqrt((x-a)^2+(y-a)^2)-Sqrt((x+a)^2+(y+a)^2)==2*a
-.   %/error
+.   %/output
 
 
 %/group
