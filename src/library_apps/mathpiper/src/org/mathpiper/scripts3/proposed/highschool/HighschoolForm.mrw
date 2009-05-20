@@ -1,0 +1,20 @@
+%mathpiper,def=""
+
+Retract("HighschoolForm",*);
+
+HighschoolForm(expression) :=
+[
+    expression := expression /: { (x_IsNegativeNumber) / _y <- [Echo(x,/,y);]};
+    
+    expression := expression  /: {_z^((x_IsNegativeInteger)/y_IsNumber) <- {z,x,y}};
+    
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
