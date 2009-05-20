@@ -3,6 +3,16 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Experimenting with HighschoolForm rules.
+In> Hold((-13)/7) /: { (-x_IsNumber) / _y <- [Echo("-",x,/,y);]};
+Result> True
+Side Effects>
+In> 4^-1/2 /: { (-x_IsNumber) / _y <- [Echo("-",x,/,y);]};
+Result> 4^((-1)/2)
+In> 4^-1/2 /: { _z^(-x_IsNumber) / _y <- [Echo("-",x,/,y);]};
+Result> 4^((-1)/2)
+In> 4^-1/2 /: { _z^((-x_IsNumber) / _y) <- [Echo("-",x,/,y);]};
+Result> 4^((-1)/2)
 +MathPiper can't solve:
 %mathpiper
 //exercise 17.
