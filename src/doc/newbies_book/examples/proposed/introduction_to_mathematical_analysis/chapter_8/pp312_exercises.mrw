@@ -157,23 +157,59 @@ x*y=-4
 %/geogebra
 
 
+
+
+%geogebra
+//Model to explore rectangular hyperbolas.
+a:3
+A=(a,a)
+B=(-a,-a)
+e:x*y=a^2/2
+P:Point[e]
+s1:Segment[A,P]
+s2:Segment[B,P]
+d:s2-s1
+
+//Here is a normal hyperbola for comparison:
+e2:y^2/a^2 - x^2/a^2 = -1
+
+C:(0,0)
+c1:Circle[C,A]
+c2:Circle[C,P]
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
 For rectangular hyperbola, a = b.
 
 
 %mathpiper
 
-//Note: these are wrong.  Presently looking at pp309 ex. 17 and 18 for information.
-
 k := 100;
-a := Sqrt(2*k);
-c := Sqrt(a^2 + a^2);
-Echo("a) ",a,,,c);
+a := N(Sqrt(2*k));
+foci := a;
+Echo("a) ",a,,,foci);
 
 
 k := -16;
 a := N(Sqrt(-2*k));
-c := Sqrt(a^2 + a^2);
-Echo("b) ",a,,,c);
+foci := a;
+Echo("b) ",a,,,foci);
+
+
+k := 20;
+a := N(Sqrt(2*k));
+foci := a;
+Echo("c) ",a,,,foci);
+
+
+k := -4;
+a := N(Sqrt(-2*k));
+foci := a;
+Echo("d) ",a,,,foci);
 
 %/mathpiper
 
@@ -182,10 +218,40 @@ Echo("b) ",a,,,c);
       Result: True
       
       Side effects:
-      a) Sqrt(200) , 20 
-      b) 5.656854250 , Sqrt(64.00000002)
+      a) 14.14213562 , 14.14213562 
+      b) 5.656854250 , 5.656854250 
+      c) 6.324555320 , 6.324555320 
+      d) 2.828427125 , 2.828427125
 .   %/output
 
+
+%/group
+
+
+
+%group,description="exercise 7"
+
+
+
+%geogebra
+a:x*y = 20
+b:x*y = 30
+c:x*y = 40
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+%/group
+
+
+
+
+%group,description="exercises 8 and 9 (skipping)"
 
 %/group
 
