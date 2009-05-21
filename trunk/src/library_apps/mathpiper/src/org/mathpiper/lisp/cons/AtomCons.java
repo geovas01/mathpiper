@@ -84,4 +84,11 @@ public class AtomCons extends Cons
     public ConsPointer getRestPointer() {
         return iCdr;
     }
-};
+
+    public String toString()
+    {
+        return iCar;
+    }//end method.
+   
+
+}//end class.
