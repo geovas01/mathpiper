@@ -35,6 +35,35 @@ x^(1/2)
 
 %group,description="exercise 2."
 
+
+%geogebra
+aa:y=1/2*x^2
+
+ab:y=x
+
+b:y=Sqrt(2*x)
+
+c:y=2*3.14159*Sqrt(x)
+
+d:y=1/x
+
+e:y=1/x^1.41
+
+f:y=1/x^2
+
+g:y=x^2
+
+h:y=1/x
+
+j:y=x^4
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
 %/group
+
 
 
