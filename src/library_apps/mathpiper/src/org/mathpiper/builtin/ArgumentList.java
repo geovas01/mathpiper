@@ -18,10 +18,32 @@
 
 package org.mathpiper.builtin;
 
+import java.util.List;
 
-public abstract class ArgumentList
+//todo:tk:this class can probably be replaced by a List.
+public  class ArgumentList
 {
-	public abstract int numberOfArguments();
-	public abstract String getArgument(int aIndex);
-	public abstract boolean compare(int aIndex, String aString);
+    private List argumentList;
+
+    public ArgumentList(List argumentList)
+    {
+        this.argumentList = argumentList;
+    }//end constructor.
+
+    
+	public  int numberOfArguments()
+    {
+        return argumentList.size();
+    }
+
+
+	public  Object getArgument(int aIndex)
+    {
+        return argumentList.get(aIndex);
+    }
+	
+    /*public  boolean compare(int aIndex, String aString);
+    {
+        return false;
+    }*/
 }
