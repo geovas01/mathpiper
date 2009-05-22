@@ -15,80 +15,136 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.util.Locale;
 import org.mathpiper.builtin.ArgumentList;
 
+public class JavaObject extends BuiltinContainer {
 
-public class JavaObject extends BuiltinContainer
-{
     private Object javaObject;
-    public JavaObject(Object javaObject)
-    {
+
+    public JavaObject(Object javaObject) {
         this.javaObject = javaObject;
     }
 
-	public String send(ArgumentList aArgList)
-	{
-        //todo:tk:this code is currently only experimental.
-        String methodName = (String)aArgList.getArgument(0);
+    public String send(ArgumentList aArgList) {
+        return null;
+    }
+
+
+    // Narrow a type from String to the
+    // narrowest possible type
+    protected Object narrow(String argstring) {
+        // Try integer
         try {
-	    //Class<?> c = Class.forName((String)aArgList.getArgument(0));
-            Class<?> c = javaObject.getClass();
+            return Integer.valueOf(argstring);
+        } catch (NumberFormatException nfe) {
+        }
 
-	    //Object javaObject = c.newInstance();
+        // Try double
+        try {
+            return Double.valueOf(argstring);
+        } catch (NumberFormatException nfe) {
+        }
 
-	    Method[] allMethods = c.getDeclaredMethods();
-	    for (Method m : allMethods) {
-		String mname = m.getName();
+        // Try boolean
+        if (argstring.equalsIgnoreCase("true")) {
+            return Boolean.TRUE;
+        } else if (argstring.equalsIgnoreCase("false")) {
+            return Boolean.FALSE;
+        }
 
-        Type genericReturnType = m.getGenericReturnType();
-		if (!mname.startsWith(methodName) ){ //|| (genericReturnType != boolean.class)) {
-		    continue;
-		}
- 		Type[] pType = m.getGenericParameterTypes();
- 		/*if ((pType.length != 1)  || Locale.class.isAssignableFrom(pType[0].getClass())) {
- 		    continue;
- 		}*/
+        // Give up -- it's a string
+        return argstring;
+    }
 
-        //Involking method.
-		try {
-		    m.setAccessible(true);
-		    //Object o = m.invoke(t, new Locale(args[1], args[2], args[3]));
-             Object o = m.invoke(javaObject, aArgList.getArgument(1),aArgList.getArgument(2));
-		    //out.format("%s() returned %b%n", mname, (Boolean) o);
+    // Narrow the the arguments
+    protected Object[] narrow(String argstrings[],
+            int startIndex) {
+        Object narrowed[] =
+                new Object[argstrings.length - startIndex];
 
-		// Handle any exceptions thrown by method to be invoked.
-		} catch (InvocationTargetException x) {
-		    Throwable cause = x.getCause();
-		    //err.format("invocation of %s failed: %s%n", mname, cause.getMessage());
-		}
-	    }
+        for (int i = 0; i < narrowed.length; ++i) {
+            narrowed[i] = narrow(argstrings[startIndex + i]);
+        }
 
-        // production code should handle these exceptions more gracefully
-	} catch (IllegalAccessException x) {
-	    x.printStackTrace();
-	}
+        return narrowed;
+    }
 
+    // Get an array of the types of the give
+    // array of objects
+    protected Class[] getTypes(Object objs[]) {
+        Class types[] = new Class[objs.length];
 
-		return null;
-	}
-	public String typeName()
-	{
-		return "Not implemented yet.";
-	}
+        for (int i = 0; i < objs.length; ++i) {
+            types[i] = objs[i].getClass();
+
+            // Convert wrapper types (like Double)
+            // to primitive types (like double)
+
+            if (types[i] == Double.class) {
+                types[i] = double.class;
+            }
+            if (types[i] == Integer.class) {
+                types[i] = int.class;
+            }
+        }
+
+        return types;
+    }
+
+    public String execute(String line[]) throws Exception {
+
+        if (line.length < 1) {
+            throw new Exception(
+                    "Syntax error: must specify at least a method name");
+        }
+
+        // The first two tokens are the class and method
+        //String className = line[0];
+        String className = javaObject.getClass().getName();
+        String methodName = line[0];
+
+        // Narrow the arguments
+        Object args[] = narrow(line, 1);
+        Class types[] = getTypes(args);
+
+        try {
+            // Find the specified class
+            Class clas = Class.forName(className);
+
+            // Find the specified method
+            Method method = clas.getDeclaredMethod(methodName, types);
+
+            // Invoke the method on the narrowed arguments
+            Object retval = method.invoke(javaObject, args);
+
+            // Return the result of the invocation
+            return retval.toString();
+        } catch (ClassNotFoundException cnfe) {
+            throw new Exception(
+                    "Can't find class " + className);
+        } catch (NoSuchMethodException nsme) {
+            throw new Exception(
+                    "Can't find method " + methodName + " in " + className);
+        } catch (IllegalAccessException iae) {
+            throw new Exception(
+                    "Not allowed to call method " + methodName + " in " + className);
+        } catch (InvocationTargetException ite) {
+            // If the method itself throws an exception, we want to save it
+            throw (Exception) new Exception(
+                    "Exception while executing command").initCause(ite);
+        }
+    }
+
+    public String typeName() {
+        return "Not implemented yet.";
+    }
 
     public Object getJavaObject() {
         return javaObject;
     }
-
-    
-
-
 }
 
