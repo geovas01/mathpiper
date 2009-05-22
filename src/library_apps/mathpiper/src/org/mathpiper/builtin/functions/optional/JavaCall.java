@@ -49,13 +49,13 @@ public class JavaCall extends BuiltinFunction {
             argumentCons = consTraverser.getPointer().getCons();
             ConsPointer result = new ConsPointer();
 
-            String argumentConsString = argumentCons.string();
+            String argumentConsString = argumentCons.string().replace("\"", "");
             // argumentConsString = argumentConsString.replace("\"", "");
             aEnvironment.getGlobalVariable(argumentConsString, result);
 
             BuiltinContainer builtinContainer;
 
-            if (result != null) {
+            if (result.getCons() != null) {
 
                 builtinContainer = result.getCons().getGeneric();
 

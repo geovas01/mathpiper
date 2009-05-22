@@ -844,7 +844,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.MacroExpand(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "MacroExpand");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.JavaCall(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.JavaCall(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "JavaCall");
     }
 
