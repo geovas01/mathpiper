@@ -15,11 +15,36 @@ HoldArg(":",aRightAssign);
 // assign a variable
 Rule(":",2,0,IsAtom(aLeftAssign))
 [
-  MacroSet(aLeftAssign,Eval(aRightAssign));
-  Eval(aLeftAssign);
+  //MacroSet(aLeftAssign,Eval(aRightAssign));
+  //Eval(aLeftAssign);
   
-  Echo(aLeftAssign, aRightAssign);
+  Echo(test,aLeftAssign, aRightAssign);
+  
+  
+  
+  //JavaCall(GeoGebra,evalCommand,
+  
+  
 ];
+
+
+
+
+Point(x,y) :=
+[
+
+//JavaCall(GeoGebra,evalCommand,"(2,2)");
+
+    Local(command);
+    
+    command := (ConcatStrings("(",String(x),String(,),String(y),")"));
+
+    JavaCall("GeoGebra","evalCommand",command);
+    //ConcatStrings("(",String(x),String(,),String(y),")");
+
+];
+
+
 
 
 /*

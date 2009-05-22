@@ -158,8 +158,8 @@ public class Geogebra extends JPanel
 		                        };
 
 
-							Thread runner = new Thread(initGeoGebra);
-							runner.start();
+		Thread runner = new Thread(initGeoGebra);
+		runner.start();
 
 
 
@@ -179,6 +179,15 @@ public class Geogebra extends JPanel
 		//geoGebraApplet.refreshViews();
 
 
+		try{
+			org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+			org.mathpiper.lisp.Environment environment = synchronousInterpreter.getEnvironment();
+			org.mathpiper.builtin.JavaObject javaObject = new org.mathpiper.builtin.JavaObject(geoGebraApplet);
+			environment.setGlobalVariable("GeoGebra", new org.mathpiper.lisp.cons.ConsPointer(org.mathpiper.lisp.cons.BuiltinObjectCons.getInstance(javaObject)), false);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 
 	}//end constructor.
 	// }}}
