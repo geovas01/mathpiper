@@ -65,6 +65,11 @@ public class PatternContainer extends BuiltinContainer
 	{
 		return null;
 	}
+
+	public String execute(String[] arguemnts) throws Exception
+	{
+		return null;
+	}
 	
 	public String typeName()
 	{

@@ -19,7 +19,6 @@ package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
 import org.mathpiper.builtin.ArgumentList;
-import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
@@ -50,7 +49,7 @@ public class JavaCall extends BuiltinFunction {
             ConsPointer result = new ConsPointer();
 
             String argumentConsString = argumentCons.string();
-            // argumentConsString = argumentConsString.replace("\"", "");
+
             aEnvironment.getGlobalVariable(argumentConsString, result);
 
             BuiltinContainer builtinContainer;
@@ -61,42 +60,19 @@ public class JavaCall extends BuiltinFunction {
 
                 if (builtinContainer != null) {
 
-                    //System.out.println(argumentCons);
                     consTraverser.goNext();
 
                     ArrayList argumentArrayList = new ArrayList();
                     while (consTraverser.getCons() != null) {
                         argumentCons = consTraverser.getPointer().getCons();
 
-                        if(argumentCons.getNumber(10) != null)
-                        {
-                            BigNumber bigNumber = argumentCons.getNumber(10);
-                            if(bigNumber.isInt())
-                            {
-                                long number = bigNumber.toLong();
-
-                                argumentArrayList.add((int)number);
-                            }
-                            else
-                            {
-                                double number = bigNumber.toDouble();
-                                argumentArrayList.add(number);
-                            }
-                        }
-                        else
-                        {
-                            argumentArrayList.add(argumentCons.string());
-                        }
-                        // System.out.println(argumentCons);
-
                         consTraverser.goNext();
 
                     }//end while.
 
                     ArgumentList argumentList = new ArgumentList(argumentArrayList);
-                    builtinContainer.send(argumentList);
 
-
+                    builtinContainer.execute((String[]) argumentArrayList.toArray(new String[0]));
 
                 }//end if.
 
