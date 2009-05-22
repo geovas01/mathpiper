@@ -68,7 +68,11 @@ public class JavaCall extends BuiltinFunction {
                     while (consTraverser.getCons() != null) {
                         argumentCons = consTraverser.getPointer().getCons();
 
-                        argumentArrayList.add(argumentCons.string());
+                        String argumentString = argumentCons.string();
+
+                        argumentString = argumentString.replace("\"", "");
+                        
+                        argumentArrayList.add(argumentString);
 
                         consTraverser.goNext();
 
