@@ -18,12 +18,11 @@
 package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
-import org.mathpiper.builtin.ArgumentList;
-import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.ConsTraverser;
@@ -79,9 +78,10 @@ public class JavaCall extends BuiltinFunction {
                     }//end while.
 
 
-                    builtinContainer.execute((String[]) argumentArrayList.toArray(new String[0]));
+                    String response = builtinContainer.execute((String[]) argumentArrayList.toArray(new String[0]));
 
-
+                     getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, response));
+                     return;
 
                 }//end if.
 
@@ -89,7 +89,7 @@ public class JavaCall extends BuiltinFunction {
 
         }//end if.
 
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
 
     }//end method.
 }
