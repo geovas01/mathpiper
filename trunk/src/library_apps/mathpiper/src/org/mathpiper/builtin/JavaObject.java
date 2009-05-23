@@ -140,7 +140,7 @@ public class JavaObject extends BuiltinContainer {
     }
 
     public String typeName() {
-        return "Not implemented yet.";
+        return javaObject.getClass().getName();
     }
 
     public Object getJavaObject() {
