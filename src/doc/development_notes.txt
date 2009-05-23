@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++IsInteger exists, but is not in the API docs.
 +Experimenting with HighschoolForm rules.
 In> Hold((-13)/7) /: { (-x_IsNumber) / _y <- [Echo("-",x,/,y);]};
 Result> True
