@@ -39,7 +39,7 @@ Point(x,y) :=
     
     command := (ConcatStrings("(",String(x),String(,),String(y),")"));
 
-    JavaCall("GeoGebra","evalCommand",command);
+    JavaCall("geogebra","evalCommand",command);
     //ConcatStrings("(",String(x),String(,),String(y),")");
 
 ];
@@ -130,6 +130,24 @@ Rule("=:",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom("=:")
 ];
 */
 
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper
+ForEach(x,1 .. 10)
+[
+    command := (ConcatStrings("(",String(x),String(,),String(2),")"));
+
+    JavaCall("geogebra","evalCommand",command);
+
+];
 
 %/mathpiper
 
