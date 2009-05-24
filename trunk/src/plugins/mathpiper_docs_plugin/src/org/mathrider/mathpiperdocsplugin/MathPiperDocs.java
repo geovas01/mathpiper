@@ -33,8 +33,6 @@ import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 import org.gjt.sp.jedit.bsh.Interpreter;
 
-import org.mathrider.mathpiperplugin.MathPiperInterpreter;
-
 
 //import bsh.Interpreter;
 
@@ -230,7 +228,7 @@ public class MathPiperDocs extends JPanel
 				bshInterpreter.set("editorPane",editorPane);
 				bshInterpreter.set("view",view);
 				bshInterpreter.set("toolPanel",this.toolPanel);
-				//bshInterpreter.set("mathPiperInterpreter",org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter());//Note:tk:fixing race condition.
+
 				java.net.URL homePage = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader().getResource("mathpiper_manual/books2.html");
 				java.util.ArrayList pageList = new java.util.ArrayList();
 				//pageList.add(homePage);
