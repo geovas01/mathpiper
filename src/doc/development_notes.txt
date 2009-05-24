@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++I think this is a bug.  If an associative list is assigned to a variable multiple times, the list grows instead of being replaced.
 +There is a bug in the assignment operator (:=).  7/16 := z  treats 7/16 as a variable name.  Similarly, 7*6 := z.
 +IsInteger exists, but is not in the API docs.
 +Experimenting with HighschoolForm rules.
