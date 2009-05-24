@@ -67,3 +67,219 @@ j:y=x^4
 
 
 
+
+
+%group,description="exercise 3"
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+Clear(k);
+
+k := EquRight(Solve(600==k*1/10,k)[1]);
+
+f(x) := k*1/x;
+
+ForEach(x,{1,3,15,40,100})
+[
+    Echo(x,,,f(x),,,x*f(x));
+
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      1 , 6000 , 6000 
+      3 , 2000 , 6000 
+      15 , 400 , 6000 
+      40 , 150 , 6000 
+      100 , 60 , 6000
+.   %/output
+
+%/group
+
+
+%group,description="exercise 4"
+
+
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+
+Clear(k);
+
+
+f(x) := x^2;
+
+ForEach(x,{1,10,100})
+[
+    Echo(x,,,f(x),,,x*f(x));
+
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      1 , 1 , 1 
+      10 , 100 , 1000 
+      100 , 10000 , 1000000
+.   %/output
+
+%/group
+
+
+
+%group,description="4"
+
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+
+
+%/mathpiper
+
+%/group
+
+
+
+
+%group,description="exercises 5"
+
+
+%geogebra,description="this is the answer"
+
+A=(0,50)
+B=(0,-50)
+c:Circle[(0,0),50]
+a:y^2/900-x^2/1600 = 1
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+%mathpiper
+Clear(a,b,x,y,c,P,A,B);
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+P := Point(x,y);
+c := 50;
+A := Point(0,c);
+B := Point(0,-c);
+
+d1 := Distance(A,P);
+d2 := Distance(B,P);
+
+a := (600/10)/2;
+
+equ0 := d1 - d2 == 2*a;
+
+b := Sqrt(c^2 - a^2);
+
+equ1 := y^2/a^2 - x^2/b^2 == 1;  
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: y^2/900-x^2/1600==1
+.   %/output
+
+%/group
+
+
+
+
+
+%group,description="exercises 6"
+
+
+%mathpiper
+Clear(a,b,x,y,c,P,A,B);
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+P := Point(x,y);
+c := 50;
+A := Point(0,c);
+B := Point(0,-c);
+
+d1 := Distance(A,P);
+d2 := Distance(B,P);
+
+a := (800/10)/2;
+
+equ0 := d1 - d2 == 2*a;
+
+b := Sqrt(c^2 - a^2);
+
+equ1 := y^2/a^2 - x^2/b^2 == 1;  
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: y^2/1600-x^2/900==1
+.   %/output
+
+%/group
+
+
+
+
+%group,description="exercises 7"
+
+
+%mathpiper
+Clear(a,b,x,y,c,P,A,B);
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+P := Point(x,y);
+c := 500;
+A := Point(c,0);
+B := Point(-c,0);
+
+d1 := Distance(A,P);
+d2 := Distance(B,P);
+
+a := 600/2;
+
+equ0 := d1 - d2 == 2*a;
+
+b := Sqrt(c^2 - a^2);
+
+equ1 := x^2/a^2 - y^2/b^2 == 1;  
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: x^2/90000-y^2/160000==1
+.   %/output
+
+%/group
+
+
+
+%group,description="exercises 8 and 9 (skipping)"
+
+%/group
+
+
