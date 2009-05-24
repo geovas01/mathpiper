@@ -1,4 +1,4 @@
-package org.mathrider.geogebraplugin;
+package org.mathrider;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class GeoGebraXMLParse {
         }
     }//end constructor.
 
-    public String parse(String xml) {
+    public synchronized String parse(String xml) {
         ByteArrayInputStream xmlStream = new ByteArrayInputStream(xml.getBytes());
         try {
             parser.parse(xmlStream, handler);
