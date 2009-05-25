@@ -1,0 +1,83 @@
+%group,description="Exercise 1"
+
+a) (x-4)^2 = 10*(y-2)
+b) (x+4)*(y+5) = 20
+c) (x+1)^2 + 4*(y-3)^2 = 100
+d) (x-10)*y = -1
+
+%/group
+
+
+
+
+%group,description="Exercise 2"
+
+
+%geogebra
+a:(x+2)^2/25 + (y-3)^2/9 =1
+
+b:(y+4)^2 = 12*(x-6)
+
+c:x^2 + y^2 - 6*x + 8*x - 24 =0
+
+d:x^2 + 2*x = 10*y + 19
+
+e:16*x^2 - 64*x + 25*y^2 + 50 * y = 311
+
+f:x^2 + 4*y^2 - 48*y - 52 = 0
+
+g:(x-2)*(y+11) = 10
+
+h:x*y + 3*y - 4*x = 0
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+
+%group,description="Exercise 3"
+
+
+%geogebra
+
+a:(x-7)^2/36 - (y+8)^2/64 = 1
+
+b:y^2/16 - (x+15)^2/9 = 1
+
+c:16*x^2 + 96*x - 9*y^2 + 180*y = 612
+
+d:9x^2 - 90*x - 16*y^2 - 256*y = 223
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+%group,description="Exercise 4"
+
+
+%geogebra
+//a=5 and b=3.
+//Foci are at (-5 + Sqrt(25 + 9),-3)  and (-5 - Sqrt(25 + 9),-3)..
+a:(x+5)^2/25 + (y+3)^2/9 = 1
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
