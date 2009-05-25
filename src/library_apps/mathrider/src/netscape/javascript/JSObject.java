@@ -42,16 +42,39 @@ public class JSObject{
 
     public Object call(String methodName,Object args[]){
 	    
-	    //System.out.println("XXXXX: " + methodName + ",  " + args.length + ", " + args[0]);
+	    //System.out.println("AAAAAA: " + methodName + ",  " + args.length + ", " + args[0]);
 	    String objectName = (String) args[0];
 	    
-	    if(methodName.equalsIgnoreCase("GeoGebraAddListener"))
+	    if(methodName.equalsIgnoreCase("GeoGebraAddListener") || methodName.equalsIgnoreCase("GeoGebraUpdateListener"))
 	    {
 		    String xml = applet.getXML(objectName);
+		    //System.out.println("BBBBBB: " + xml);
+		    String expression;
+		    if(xml.startsWith("<expression"))
+		    {
+			    expression = xml.substring(xml.indexOf("exp=\"") + 5, xml.indexOf("\"/>"));
+			    expression = expression.replace("=",":=");
+			    expression = expression.replace("\u00b9","^1");
+			    expression = expression.replace("\u00b2","^2");
+			    expression = expression.replace("\u00b3","^3");
+			    expression = expression.replace("\u8308","^4");
+			    expression = expression.replace("\u8309","^5");
+			    expression = expression.replace("\u8310","^6");
+			    expression = expression.replace("\u8311","^7");
+			    expression = expression.replace("\u8312","^8");
+			    expression = expression.replace("\u8313","^9");
+			    expression = expression.replace(" ","");
+			    //System.out.println("BBBBBB22: " + expression);
+			    synchronousInterpreter.evaluate(expression + ";");
+			    xml = xml.substring(xml.indexOf("\n"), xml.length());
+		    }
+		    
 		    String list = xmlParser.parse(xml);
+		    synchronousInterpreter.evaluate("Clear(" + objectName +");");
+		    //System.out.println("CCCCC: " + list);
 		    synchronousInterpreter.evaluate(objectName + " := " + list + ";");
 	    }
-	    else if(methodName.equalsIgnoreCase("GeoGebraUpdateListener"))
+	    /*else if(methodName.equalsIgnoreCase("GeoGebraUpdateListener"))
 	    {
 		    String xml = applet.getXML(objectName);
 		    String list = xmlParser.parse(xml);
@@ -60,7 +83,7 @@ public class JSObject{
 		    org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate(objectName + " := " + list + ";");
 		  
 		    //System.out.println("QQQQQ: " + response.getResult() + "YYYY " + response.getExceptionMessage());
-	    }
+	    }*/
 	    
 	return "True";
     }
