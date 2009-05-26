@@ -14,8 +14,26 @@
 */
 
 
+%mathpiper,description="Fold 1. Add two numbers together."
+2 + 3;
 
-%mathpiper
+%/mathpiper
+
+
+
+
+%mathpiper,description="Fold 2. Add seven numbers together."
+1 + 2 + 3 + 4 + 5 + 6 + 7;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 27
+.   %/output
+
+
+
+%mathpiper,description="Fold 3. Caclulate two to the third power."
 2^3;
 
 %/mathpiper
@@ -27,8 +45,7 @@
 
 
 
-
-%mathpiper
+%mathpiper,description="Fold 4. Calcuate a numeric value."
 N(9.5/3.2);
 
 %/mathpiper
@@ -39,18 +56,20 @@ N(9.5/3.2);
 
 
 
-%mathpiper
-1/2 + 1/3;
+
+%mathpiper,description="Fold 5. Add three rational numbers together."
+1/2 + 1/3 + 1/8;
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: 5/6
+      Result: 23/24
 .   %/output
 
 
 
-%mathpiper
+
+%mathpiper,description="Fold 6. Calculate the numerator of a rational number."
 a := 1/2 + 1/3;
 Numer(a);
 
@@ -62,7 +81,7 @@ Numer(a);
 
 
 
-%mathpiper
+%mathpiper,description="Fold 7. Factor a number."
 Factor(8);
 
 %/mathpiper
@@ -73,7 +92,7 @@ Factor(8);
 
 
 
-%mathpiper
+%mathpiper,description="Fold 8. Factor a symbolic expression."
 Factor(x^2 + 24*x + 80);
 
 %/mathpiper
@@ -84,9 +103,55 @@ Factor(x^2 + 24*x + 80);
 
 
 
-%mathpiper
+
+//**************** The following examples have errors in them. *****************
+
+%mathpiper,description="Fold 9. Missing semicolon error."
+2 + 3
 
 %/mathpiper
+
+    %error,preserve="false"
+      Result: String index out of range: 0 Error near line 89
+.   %/error
+
+
+
+
+%mathpiper,description="Fold 10. Unknown operator error. Should be a forward slash for division."
+3 \ 5;
+
+%/mathpiper
+
+    %error,preserve="false"
+      Result: Error parsing expression, near token \. Error near line 123
+.   %/error
+
+
+
+
+/* 
+    The area below this line is where the user should add their own folds.
+    Place the cursor on a blank line then right click on it to bring up
+    a popup menu which can be used to automatically insert folds at the cursor.
+*/
+
+
+%mathpiper,description="Fold 11. Place your code inside this fold.
+
+
+
+%/mathpiper
+
+
+
+
+
+
+
+
+
+
 
 
 
