@@ -101,7 +101,8 @@ Factor(x^2 + 24*x + 80);
     plugin at the bottom of the application will be opened.  The Error List
     plugin can be closed by clicking on the tab labeled "Error List".
     
-    Fix the errors that are present in these two folds and then reexecute them.
+    Fix the errors that are present in these two folds and then execute
+    them again.
 */
 
 %mathpiper,description="Fold 9. Missing semicolon error."
