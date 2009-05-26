@@ -22,14 +22,15 @@
 
 
 
+
+
 %mathpiper,description="Fold 2. Add seven numbers together."
 1 + 2 + 3 + 4 + 5 + 6 + 7;
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 27
-.   %/output
+
+
 
 
 
@@ -38,9 +39,7 @@
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 8
-.   %/output
+
 
 
 
@@ -50,9 +49,7 @@ N(9.5/3.2);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 2.96875
-.   %/output
+
 
 
 
@@ -62,9 +59,7 @@ N(9.5/3.2);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 23/24
-.   %/output
+
 
 
 
@@ -75,9 +70,8 @@ Numer(a);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 5
-.   %/output
+
+
 
 
 
@@ -86,9 +80,8 @@ Factor(8);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 2^3
-.   %/output
+
+
 
 
 
@@ -97,23 +90,26 @@ Factor(x^2 + 24*x + 80);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: (x+20)*(x+4)
-.   %/output
 
 
 
 
-//**************** The following examples have errors in them. *****************
+
+/*
+    The following two examples have errors in them.  When they are executed
+    an error message will be placed into the output fold and the Error List
+    plugin at the bottom of the application will be opened.  The Error List
+    plugin can be closed by clicking on the tab labeled "Error List".
+    
+    Fix the errors that are present in these two folds and then reexecute them.
+*/
 
 %mathpiper,description="Fold 9. Missing semicolon error."
 2 + 3
 
 %/mathpiper
 
-    %error,preserve="false"
-      Result: String index out of range: 0 Error near line 89
-.   %/error
+
 
 
 
@@ -123,9 +119,7 @@ Factor(x^2 + 24*x + 80);
 
 %/mathpiper
 
-    %error,preserve="false"
-      Result: Error parsing expression, near token \. Error near line 123
-.   %/error
+
 
 
 
@@ -135,7 +129,6 @@ Factor(x^2 + 24*x + 80);
     Place the cursor on a blank line then right click on it to bring up
     a popup menu which can be used to automatically insert folds at the cursor.
 */
-
 
 %mathpiper,description="Fold 11. Place your code inside this fold.
 
