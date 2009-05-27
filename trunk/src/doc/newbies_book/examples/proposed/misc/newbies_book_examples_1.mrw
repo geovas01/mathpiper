@@ -1,16 +1,16 @@
 /*  v 1.00.
-    This is a MathRider worksheet file and it consists of folds which contain source
-    code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
-    a fold and then executed by placing the cursor anywhere inside the code and
-    pressing <shift><enter>.  The result of the execution will be
-    placed at the bottom of the fold within an indented output fold.
-
-    Folds can be opened and closed by pressing the small triangles in the gutter
-    which is on the left side of the text area.  There are additional fold operations
-    in the Folding menu at the top of the window.
-    
-    This worksheet contains examples which go with the "MathRider Worksheet Files" chapter
-    of the "MathRider for Newbies" book.
+  This is a MathRider worksheet file and it consists of folds which contain source
+  code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
+  a fold and then executed by placing the cursor anywhere inside the code and
+  pressing <shift><enter>.  The result of the execution will be
+  placed at the bottom of the fold within an indented output fold.
+  
+  Folds can be opened and closed by pressing the small triangles in the gutter
+  which is on the left side of the text area.  There are additional fold operations
+  in the Folding menu at the top of the window.
+  
+  This worksheet contains examples which go with the "MathRider Worksheet Files" chapter
+  of the "MathRider for Newbies" book.
 */
 
 
