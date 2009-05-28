@@ -805,6 +805,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 							continue;
 						}
 						
+						currentLine = currentLine.replace("==","=");
 						returnFlag = geogebra.evalCommand(currentLine);
 						
 						if(returnFlag == false)

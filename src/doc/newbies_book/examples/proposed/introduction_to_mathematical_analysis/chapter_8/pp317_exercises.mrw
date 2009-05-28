@@ -81,3 +81,109 @@ a:(x+5)^2/25 + (y+3)^2/9 = 1
 %/group
 
 
+
+
+%group,description="Exercise 5"
+
+
+
+%geogebra
+A=(3,1)
+B=(3,9)
+c = (9-1)/2
+b = 3
+a = Sqrt(c^2 + b^2)
+f:(y-a)^2/a^2 + (x-3)^2/b^2 = 1
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+%/group
+
+
+
+
+%group,description="Exercise 6"
+
+
+%geogebra
+d:y=6
+A:(-3,-4)
+p = (6- -4)/2
+f:(x+3)^2 = -4*p*(y-1)
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+
+%group,description="Exercise 7"
+
+%geogebra
+
+A = (1,-2)
+B = (9,-2)
+
+a = 10/2
+c = (9-1)/2
+b = Sqrt(a^2 - c^2)
+
+f:(x-a)^2/a^2 + (y+2)^2/b^2 = 1
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+%/group
+
+
+
+%group,description="Exercise 8"
+//This exercise is not finished.
+
+
+
+%mathpiper,output="geogebra"
+
+Clear(A,B,C,a,b,c);
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+A := Point(3,2);
+B := Point(3,12);
+C := Point(3,4);
+
+c := Distance(A,B) / 2;
+
+a := Distance(Midpoint(A,B),C);
+
+b := Sqrt(c^2 - a^2);
+
+equ1 := y^2/a^2 - x^2/b^2 == 1;
+
+
+%/mathpiper
+
+    %geogebra,preserve="false"
+      Result: y^2/9-x^2/16==1
+.   %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+.       %/output
+
+
+%/group
+
+
