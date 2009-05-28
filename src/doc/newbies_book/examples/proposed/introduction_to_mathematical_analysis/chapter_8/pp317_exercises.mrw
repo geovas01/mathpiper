@@ -170,18 +170,79 @@ a := Distance(Midpoint(A,B),C);
 
 b := Sqrt(c^2 - a^2);
 
-equ1 := y^2/a^2 - x^2/b^2 == 1;
+equ1 := (y-7)^2/a^2 - (x-3)^2/b^2 == 1;
 
 
 %/mathpiper
 
     %geogebra,preserve="false"
-      Result: y^2/9-x^2/16==1
+      Result: (y-7)^2/9-(x-3)^2/16==1
 .   %/geogebra
 
         %output,preserve="false"
           GeoGebra updated.
 .       %/output
+
+
+%/group
+
+
+
+
+%group,description="Exercise 9"
+
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+Clear(A,B,C,a,b,c);
+
+A := Point(0,-6);
+B := Point(0,0);
+P := Point(x,y);
+
+equ1 := Distance(A,P) == 2*Distance(B,P);
+
+//Putting into a form that GeoGebra can accept.
+Manipulate(equ1^2);
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: x^2+y^2+12*y+36==4*x^2+4*y^2
+.   %/output
+
+%/group
+
+
+
+
+%group,description="Exercise 10"
+
+
+%mathpiper
+Clear(x,y,z,a,b);
+
+y(x) := x-Rationalize(.01)*x^2;
+
+dy(x) := D(x) y(x);
+
+highPoint :=Solve(dy(x) == 0,x);
+
+Echo(y,,,dy(x),,,highPoint);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      y , 1-(2*x)/100 , {x==50}
+.   %/output
 
 
 %/group
