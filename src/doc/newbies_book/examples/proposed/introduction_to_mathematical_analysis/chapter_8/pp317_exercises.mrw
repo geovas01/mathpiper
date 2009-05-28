@@ -245,6 +245,20 @@ Echo(y,,,dy(x),,,highPoint);
 .   %/output
 
 
+x-.01x^2 = y
+-.01x^2 + x = y
+x^2 -100x = -100y
+x^2 -100x + 2500 = -100y + 2500
+(x-50)^2 = 100(y+25)
+
+
+%/group
+
+
+
+%group,description="Exercise 11"
+
+
 %/group
 
 
