@@ -247,14 +247,14 @@ public class MathPiperPrinter extends LispPrinter
 	}
 	void WriteToken(MathPiperOutputStream aOutput,String aString) throws Exception
 	{
-		if (MathPiperTokenizer.isAlNum(iPrevLastChar) && (MathPiperTokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
+		/*if (MathPiperTokenizer.isAlNum(iPrevLastChar) && (MathPiperTokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
 		{
 			aOutput.write(" ");
 		}
 		else if (MathPiperTokenizer.isSymbolic(iPrevLastChar) && MathPiperTokenizer.isSymbolic(aString.charAt(0)))
 		{
 			aOutput.write(" ");
-		}
+		}*/
 		aOutput.write(aString);
 		rememberLastChar(aString.charAt(aString.length()-1));
 	}
