@@ -48,7 +48,12 @@ public class JavaCall extends BuiltinFunction {
 			argumentCons = consTraverser.getPointer().getCons();
 			ConsPointer result = new ConsPointer();
 
-			String argumentConsString = argumentCons.string().replace("\"", "");
+			String argumentConsString = argumentCons.string();
+
+            //Strip leading and trailing quotes.
+            argumentConsString = argumentConsString.substring(1,argumentConsString.length());
+            argumentConsString = argumentConsString.substring(0,argumentConsString.length()-1);
+
 			// argumentConsString = argumentConsString.replace("\"", "");
 			aEnvironment.getGlobalVariable(argumentConsString, result);
 
@@ -69,7 +74,9 @@ public class JavaCall extends BuiltinFunction {
 
 						String argumentString = argumentCons.string();
 
-						argumentString = argumentString.replace("\"", "");
+                        //Strip leading and trailing quotes.
+						argumentString = argumentString.substring(1,argumentString.length());
+                        argumentString = argumentString.substring(0,argumentString.length()-1);
 
 						argumentArrayList.add(argumentString);
 
