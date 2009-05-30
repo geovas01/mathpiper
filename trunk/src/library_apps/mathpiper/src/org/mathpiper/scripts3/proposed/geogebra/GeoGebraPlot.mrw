@@ -1,7 +1,7 @@
 %mathpiper
 Retract("GeoGebraPlot",*);
-RuleBase("GeoGebraPlot",{function});
-HoldArg("GeoGebraPlot",function);
+//MacroRuleBase("GeoGebraPlot",{function});
+//HoldArg("GeoGebraPlot",function);
 
 20 # GeoGebraPlot(function_IsFunction)_(Not IsList(function)) <--
 [
@@ -37,7 +37,6 @@ HoldArg("GeoGebraPlot",function);
         labelIndex++;
     ];
 
-
 ];
 
 %/mathpiper
@@ -45,4 +44,21 @@ HoldArg("GeoGebraPlot",function);
     %output,preserve="false"
       Result: True
 .   %/output
+
+
+%mathpiper
+Retract("GeoGebraPoint",*);
+10 # GeoGebraPoint(name_IsString, x_IsNumber, y_IsNumber)  <--
+[
+    command := PatchString("<?Write(Atom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
+    
+    JavaCall("geogebra","evalCommand",command);
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
