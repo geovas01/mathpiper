@@ -259,6 +259,136 @@ x^2 -100x + 2500 = -100y + 2500
 %group,description="Exercise 11"
 
 
+%mathpiper,description="parametric version"
+/*Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");*/
+
+//Note:I am manually loading GeoGebraPlot for this code.
+
+points := {};
+ForEach(t,1 .. 10)
+[
+    x := 20*t;
+    y := 32*t - 16*t^2;
+    
+    points := Append(points,x);
+    points := Append(points,y);
+
+];
+
+Echo(points);
+GeoGebraPlot(points);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,description="equation version"
+Clear(x,t);
+t := x/20;
+f(x) := 32*t-16*t^2;
+
+GeoGebraPlot(f(x));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
+.   %/output
+
+
 %/group
+
+32x/20 - 16(x/20)^2 = y
+
+^2
+
+32x/20 - 16x^2/400 = y
+
+*400
+
+640x - 16x^2 = 400y
+
+reorder
+
+-16x^2 + 640x = 400y
+
+/-16
+
+x^2 - 40x = -25y
+
+complete the square
+
+x^2 -40x+400 = -25y + 400
+
+factor
+
+(x-20)^2 = -25(y-16)
+
+
+%group,description="Exercise 12"
+
+
+%mathpiper,description="parametric version"
+/*Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");*/
+
+//Note:I am manually loading GeoGebraPlot for this code.
+Clear(x,y,t,a,b);
+points := {};
+ForEach(t,1 .. 10)
+[
+    x := a*t;
+    y := 32*t - 16*t^2;
+    
+    points := Append(points,x);
+    points := Append(points,y);
+
+];
+
+Echo(points);
+GeoGebraPlot(points);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,description="equation version"
+Clear(x,t);
+t := x/20;
+f(x) := 32*t-16*t^2;
+f(x);
+
+GeoGebraPlot(f(x));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
+.   %/output
+
+
+-16(x/a)^2 + b(x/a) = y
+
+-16x^2/a^2 + bx/a = y
+
+-16x^2 + abx = a^2y
+
+x^2 - abx/16 = a^2y/16
+
+x^2 - abx/16 + (ab)^2/1024 = (a^2/16)*y + (ab)^2/1024
+
+(x - ab/32)^2 = (a^2/16)*y + (ab)^2/1024
+
+%/group
+
 
 
