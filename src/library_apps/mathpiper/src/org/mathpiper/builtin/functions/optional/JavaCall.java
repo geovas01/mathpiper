@@ -90,8 +90,14 @@ public class JavaCall extends BuiltinFunction {
 
 					if(response == null)
 					{
-						response = "null";
+						UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+                        return;
 					}
+                    else if(response.equalsIgnoreCase(""))
+                    {
+                        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+                        return;
+                    }
 					getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, response));
 
 					return;
