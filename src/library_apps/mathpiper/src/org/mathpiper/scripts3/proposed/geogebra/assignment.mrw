@@ -158,53 +158,6 @@ ForEach(x,1 .. 10)
 
 
 
-%mathpiper
-Retract("GPlot",*);
-RuleBase("GPlot",{function});
-HoldArg("GPlot",function);
-
-20 # GPlot(function_IsFunction)_(Not IsList(function)) <--
-[
-    function2 := (Subst(==,=) function);
-    
-    command := ConcatStrings(ToString()Write(function2));
-    
-    JavaCall("geogebra","evalCommand",command);
-];
-
-
-10 # GPlot(list_IsList)_(IsEven(Length(list)And IsNumericList(list)) )  <--
-[
-    Local();
-    length := Length(list);
-    index := 1;
-    labelIndex := 1;
-    template := "<element type=\"point\" label=\"A<?Write(labelIndex)?>\"> <show object=\"true\" label=\"false\"/><objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>	<layer val=\"0\"/>	<animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>	<coords x=\"<?Write(x)?>\" y=\"<?Write(y)?>\" z=\"1.0\"/>	<pointSize val=\"3\"/></element>";
-
-    
-    While(index < length+1)
-    [
-        x := list[index];
-        index++;
-        y := list[index];
-        index++;
-        
-        
-        code := PatchString(template);
-        //Echo(code);
-        JavaCall("geogebra","evalXML",code);
-       
-        labelIndex++;
-    ];
-
-
-];
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
