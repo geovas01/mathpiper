@@ -122,7 +122,12 @@ public class JavaObject extends BuiltinContainer {
             Object retval = method.invoke(javaObject, args);
 
             // Return the result of the invocation
-            return retval.toString();
+            if (retval == null) {
+                //The method returned void.
+                return "";
+            } else {
+                return retval.toString();
+            }
         } catch (ClassNotFoundException cnfe) {
             throw new Exception(
                     "Can't find class " + className);
