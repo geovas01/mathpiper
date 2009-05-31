@@ -49,8 +49,8 @@ public class JSObject{
 		{
 			String independentXML = applet.getXML(objectName);
 			String dependentXML = applet.getAlgorithmXML(objectName);
-			System.out.println("BBBBBBindependentXML: " + independentXML);
-			System.out.println("BBBBBBdependentXML: " + dependentXML);
+			//System.out.println("BBBBBBindependentXML: " + independentXML);
+			//System.out.println("BBBBBBdependentXML: " + dependentXML);
 			String expression = null;
 
 			if(independentXML.startsWith("<expression") || dependentXML.startsWith("<expression"))
@@ -61,6 +61,8 @@ public class JSObject{
 				{
 					expressionXML = independentXML.substring(0, independentXML.indexOf("\n"));
 					independentXML = independentXML.substring(independentXML.indexOf("\n"), independentXML.length());
+					//System.out.println("CCCCC " + expressionXML);
+					//System.out.println("DDDDD " + independentXML);
 				}
 				else
 				{
@@ -68,17 +70,19 @@ public class JSObject{
 					independentXML = dependentXML.substring(dependentXML.indexOf("\n"), dependentXML.length());
 				}
 
+				expressionXML = expressionXML.replace("\u00b9","^1");
+				expressionXML = expressionXML.replace("\u00b2","^2");
+				expressionXML = expressionXML.replace("\u00b3","^3");
+				expressionXML = expressionXML.replace("\u8308","^4");
+				expressionXML = expressionXML.replace("\u8309","^5");
+				expressionXML = expressionXML.replace("\u8310","^6");
+				expressionXML = expressionXML.replace("\u8311","^7");
+				expressionXML = expressionXML.replace("\u8312","^8");
+				expressionXML = expressionXML.replace("\u8313","^9");
+
 				expression = (String) xmlParser.parseExpression(expressionXML).get("exp");
 
-				expression = expression.replace("\u00b9","^1");
-				expression = expression.replace("\u00b2","^2");
-				expression = expression.replace("\u00b3","^3");
-				expression = expression.replace("\u8308","^4");
-				expression = expression.replace("\u8309","^5");
-				expression = expression.replace("\u8310","^6");
-				expression = expression.replace("\u8311","^7");
-				expression = expression.replace("\u8312","^8");
-				expression = expression.replace("\u8313","^9");
+
 				String[] parts = expression.split("=");
 				parts[1] = parts[1].trim();
 
@@ -95,9 +99,9 @@ public class JSObject{
 				}//end for.
 
 
-				expression = parts[0] + ":=" + expressionBuilder.toString();;
-				//expression = expression.replace(" ","");
-				System.out.println("BBBBBBexpression: " + expression);
+				expression = parts[0] + ":=" + expressionBuilder.toString();
+
+				//System.out.println("BBBBBBexpression: " + expression);
 				synchronousInterpreter.evaluate(expression + ";");
 
 			}//end if.
