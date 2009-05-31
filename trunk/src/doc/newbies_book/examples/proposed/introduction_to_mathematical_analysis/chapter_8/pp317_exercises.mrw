@@ -392,3 +392,72 @@ x^2 - abx/16 + (ab)^2/1024 = (a^2/16)*y + (ab)^2/1024
 
 
 
+
+
+
+%group,description="Exercise 13"
+
+
+%geogebra
+(x + 100000)*y = 15000000
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+%/group
+
+
+
+
+
+%group,description="exercise 14"
+
+%geogebra
+(x+.91) * (y+.25) = 1.14
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+y=(.73 - .2x)/(.73 + .8x)
+y(.73 + .8x) = .73 - .2x
+.73y + .8xy = .73 - .2x
+.91y + xy = .91 - .25x
+xy + .91y = .91 - .25x
+xy + .25x + .91y = .91
+xy + .25x + .91y + .2275 = .91 + .2275
+(x + .91)(y + .25) = 1.1375
+%/group
+
+
+
+
+%group,description="Exercise 15"
+
+
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+Clear(x,y,c,e,a);
+P := Point(x,y);
+A := Point(c,0);
+
+equ1 := Distance(A,P) == e * Distance(Point(0,y),P);
+Manipulate(equ1^2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: x^2-2*x*c+c^2+y^2==e^2*x^2
+.   %/output
+
+
+%/group
+
+
