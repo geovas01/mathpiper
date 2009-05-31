@@ -53,17 +53,22 @@ public class JSObject{
 			System.out.println("BBBBBBdependentXML: " + dependentXML);
 			String expression = null;
 
-			if(independentXML.startsWith("<expression") || !dependentXML.equalsIgnoreCase(""))
+			if(independentXML.startsWith("<expression") || dependentXML.startsWith("<expression"))
 			{
+				String expressionXML;
+
 				if(independentXML.startsWith("<expression"))
 				{
-					expression = independentXML.substring(independentXML.indexOf("exp=\"") + 5, independentXML.indexOf("\"/>"));
+					expressionXML = independentXML.substring(0, independentXML.indexOf("\n"));
 					independentXML = independentXML.substring(independentXML.indexOf("\n"), independentXML.length());
 				}
 				else
 				{
-					expression = dependentXML.substring(dependentXML.indexOf("exp=\"") + 5, dependentXML.indexOf("\"/>"));
-				}//end else.
+					expressionXML = dependentXML.substring(0, dependentXML.indexOf("\n"));
+					independentXML = dependentXML.substring(dependentXML.indexOf("\n"), dependentXML.length());
+				}
+
+				expression = (String) xmlParser.parseExpression(expressionXML).get("exp");
 
 				expression = expression.replace("\u00b9","^1");
 				expression = expression.replace("\u00b2","^2");
@@ -76,8 +81,21 @@ public class JSObject{
 				expression = expression.replace("\u8313","^9");
 				String[] parts = expression.split("=");
 				parts[1] = parts[1].trim();
-				parts[1] = parts[1].replace(" ","*");
-				expression = parts[0] + ":=" + parts[1];
+
+				//Multiplication juxtaposition code.
+				parts[1] = parts[1].replaceAll("  ", " ");
+				StringBuilder expressionBuilder = new StringBuilder(parts[1]);
+				for (int x = 0; x < expressionBuilder.length(); x++) {
+					if (expressionBuilder.charAt(x) == ' ') {
+						String around = expressionBuilder.substring(x - 1, x + 2);
+						if (around.indexOf("/") == -1 && around.indexOf("*") == -1 && around.indexOf("+") == -1 && around.indexOf("-") == -1) {
+							expressionBuilder.replace(x, x + 1, "*");
+						}//end if.
+					}//end if.
+				}//end for.
+
+
+				expression = parts[0] + ":=" + expressionBuilder.toString();;
 				//expression = expression.replace(" ","");
 				System.out.println("BBBBBBexpression: " + expression);
 				synchronousInterpreter.evaluate(expression + ";");
@@ -85,7 +103,7 @@ public class JSObject{
 			}//end if.
 
 
-			String list = xmlParser.parse(independentXML);
+			String list = xmlParser.parseElement(independentXML);
 			synchronousInterpreter.evaluate("Clear(" + objectName +");");
 			//System.out.println("CCCCC: " + list);
 			synchronousInterpreter.evaluate(objectName + " := " + list + ";");

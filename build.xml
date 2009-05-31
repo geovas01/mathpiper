@@ -10,6 +10,7 @@
 	<!-- Misc properties -->
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
+	<property name="master.compile.debug" value="true" />
 	<property environment="env" />
 	<property name="version" value=".75" />
 	
@@ -127,6 +128,7 @@
 			<property name="build.dir" value="${library_apps.build.dir}/mathrider"/>
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="compile.debug" value="${master.compile.debug}"/>
 			<property name="src.dir" value="${library_apps.src.dir}/mathrider/src"/>
 			<reference refid="build_classpath"/>
 		</ant>
