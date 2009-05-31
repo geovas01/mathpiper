@@ -10,7 +10,7 @@
 	<!-- Misc properties -->
 	<property name="master.compile.source" value="1.5" />
 	<property name="master.compile.target" value="1.5" />
-	<property name="master.compile.debug" value="true" />
+	<property name="master.compile.debug" value="false" />
 	<property environment="env" />
 	<property name="version" value=".75" />
 	
