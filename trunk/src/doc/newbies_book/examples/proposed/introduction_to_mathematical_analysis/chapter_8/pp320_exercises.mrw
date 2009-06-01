@@ -1,1 +1,45 @@
+%group,description="Exercise 1"
+
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+equ1 := 4*x^2 + 9*y^2 == 100;
+
+equ2 := Solve(equ1,y);
+Echo("equ2: ",equ2);
+f(x) := Eval(EquRight(equ2[2]));
+Echo("f(x): ",f(x));
+g(x) := Eval(D(x)f(x));
+Echo("g(x): ",g(x));
+
+{f(4), g(4)};
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {-2,8/9}
+      
+      Side effects:
+      equ2: {y==Sqrt(-36*(4*x^2-100))/18,y==(-Sqrt(-36*(4*x^2-100)))/18} 
+      f(x): (-Sqrt(-36*(4*x^2-100)))/18 
+      g(x): (288*x)/(36*Sqrt(-36*(4*x^2-100)))
+.   %/output
+
+
+
+%geogebra
+
+//Sqrt(-36*(4*x^2-100))/18
+a(x)=-1/3 * Sqrt(100-4*x^2)
+b(x)=(288*x)/(36*Sqrt(-36*(4*x^2-100)))
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+%/group
+
 
