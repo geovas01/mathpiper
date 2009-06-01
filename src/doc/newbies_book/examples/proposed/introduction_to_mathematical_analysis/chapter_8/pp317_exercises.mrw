@@ -437,7 +437,7 @@ xy + .25x + .91y + .2275 = .91 + .2275
 
 
 
-%group,description="Exercise 15"
+%group,description="Exercises 15 and 16"
 
 
 %mathpiper
@@ -457,6 +457,17 @@ Manipulate(equ1^2);
       Result: x^2-2*x*c+c^2+y^2==e^2*x^2
 .   %/output
 
+c = 1
+a) Parabola.
+b) Ellipse
+c) Hyperbola.
+
+%/group
+
+
+
+
+%group,description="Exercise 17 (skipping)."
 
 %/group
 
