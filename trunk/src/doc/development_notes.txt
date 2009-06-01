@@ -3,6 +3,18 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Why doesn't the following code produce functions (f(x) and g(x) that can be evaluated?:
+%mathpiper
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+equ1 := 4*x^2 + 9*y^2 == 100;
+equ2 := Solve(equ1,y);
+Echo("equ2: ",equ2);
+f(x) := EquRight(equ2[2]);
+Echo("f(x): ",f(x));
+g(x) := D(x)f(x);
+Echo("g(x): ",g(x));
+{f(4), g(4)};
+%/mathpiper
 +Integrate(0) hangs.
 +This should give a result other than 5E1: 
 In> N(1/.02)
