@@ -427,7 +427,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	//Sy	stem.out.println("Out> " + evaluationResponse);
 			if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 			{
-				result = "Result: " + evaluationResponse.getResult() + "\n\nSide effects:\n" + evaluationResponse.getSideEffects();
+				result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
 			}
 			else
 			{
@@ -800,7 +800,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 							
 							currentLine = currentLine.subSequence(7, currentLine.length());
 						}
-						else if(currentLine.startsWith("Side effects:"))
+						else if(currentLine.startsWith("Side Effects:"))
 						{
 							continue;
 						}
