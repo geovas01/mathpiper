@@ -1,4 +1,4 @@
-%group,description="Exercise 1"
+%group,description="Example 1"
 
 
 %mathpiper
@@ -38,6 +38,52 @@ b(x)=(288*x)/(36*Sqrt(-36*(4*x^2-100)))
     %output,preserve="false"
       GeoGebra updated.
 .   %/output
+
+
+
+%group,description="Exercise 1"
+//Not finished yet.  Adding geogebra plotting capabilities to GeoGebra first.
+
+%mathpiper
+
+//a)
+x1a := 6;
+y1a := 2;
+ma := 5;
+equa := y - y1a == ma*(x - x1a);
+Echo("equa: ",equa);
+
+
+//b)
+x1b := 2;
+y1b := -10;
+mb := -1/ma;
+equb := y - y1b == mb*(x - x1b);
+Echo("equb: ",equb);
+
+
+//c)
+x1c := -3;
+y1c := -2;
+ma := 5;
+equa := y - y1c == ma*(x - x1c);
+Echo("equa: ",equa);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side effects:
+      equa: y-2==5*(x-6) 
+      equb: y+10==(2-x)/5 
+      equa: y+2==5*(x+3)
+.   %/output
+
+
+%/group
+
+
 
 
 %/group
