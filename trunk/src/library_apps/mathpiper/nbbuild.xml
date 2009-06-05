@@ -72,7 +72,7 @@
 
     -->
     
-   	<target name="buildscripts" >
+   	<target name="buildscripts2" >
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
 		<taskdef name="buildscripts"
@@ -83,7 +83,23 @@
                  outputDirectory="${basedir}/build/classes/org/mathpiper/scripts/"/>
       
       </target>
+
+	
+	
+	
+   	<target name="buildscripts3" >
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
+		<taskdef name="buildscripts"
+              classname="org.mathpiper.test.Build"
+              classpath="${build.classes.dir}"  />
+
+      <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts3/"
+                 outputScriptsDirectory="${basedir}/build/classes/org/mathpiper/scripts/"/>
+      
+      </target>
+      
     
-            <target name="-post-compile-test"  depends="buildscripts">
+            <target name="-post-compile-test"  depends="buildscripts3">
         </target>
 </project>
