@@ -39,34 +39,19 @@ b(x)=(288*x)/(36*Sqrt(-36*(4*x^2-100)))
       GeoGebra updated.
 .   %/output
 
+%/group
+
+
 
 
 %group,description="Exercise 1"
-//Not finished yet.  Adding geogebra plotting capabilities to GeoGebra first.
 
-%mathpiper
 
-//a)
+%mathpiper,title="a"
 x1a := 6;
 y1a := 2;
 ma := 5;
 equa := y - y1a == ma*(x - x1a);
-Echo("equa: ",equa);
-
-
-//b)
-x1b := 2;
-y1b := -10;
-mb := -1/ma;
-equb := y - y1b == mb*(x - x1b);
-Echo("equb: ",equb);
-
-
-//c)
-x1c := -3;
-y1c := -2;
-ma := 5;
-equa := y - y1c == ma*(x - x1c);
 Echo("equa: ",equa);
 
 %/mathpiper
@@ -74,17 +59,205 @@ Echo("equa: ",equa);
     %output,preserve="false"
       Result: True
       
-      Side effects:
-      equa: y-2==5*(x-6) 
-      equb: y+10==(2-x)/5 
-      equa: y+2==5*(x+3)
+      Side Effects:
+      equa: y-2==5*(x-6)
 .   %/output
 
+
+%mathpiper,title="b"
+x1b := 2;
+y1b := -10;
+mb := -1/ma;
+equb := y - y1b == mb*(x - x1b);
+Echo("equb: ",equb);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      equb: y+10==(2-x)/5
+.   %/output
+
+
+
+%mathpiper,title="c"
+x1c := -3;
+y1c := -2;
+mc := 5;
+equc := y - y1c == mc*(x - x1c);
+Echo("equc ",equc);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      equc y+2==5*(x+3)
+.   %/output
+
+
+%mathpiper,title="d"
+y1d := 9;
+y2d := 15;
+x1d := -6;
+x2d := 12;
+md := (y1d - y2d) / (x1d - x2d);
+equd := (y - y2d) == md*(x - x2d);
+Echo("equd ", equd);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      equd y-15==(x-12)/3
+.   %/output
+
+
+
+%mathpiper,title="e"
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+A := Point(2,-3);
+B := Point(8,11);
+C := Point(6,-5);
+segment1 := Segment(A,B);
+midpoint := Midpoint(segment1);
+
+segment2 := Segment(C,midpoint);
+slope := Slope(segment2);
+eque := (y - C[2]) == slope*(x - C[1]);
+//{A,B,segment1,midpoint,segment2,slope,eque};
+Echo("eque ",eque);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      eque y+5==-9*(x-6)
+.   %/output
+
+
+
+%mathpiper,title="f"
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+A := Point(-6,1);
+B := Point(2,-7);
+
+segment1 := Segment(A,B);
+midpoint := Midpoint(segment1);
+slope1 := Slope(segment1);
+slope2 := -1/slope1;
+
+equf := (y - midpoint[2]) == slope2*(x - midpoint[1]);
+//{A,B,segment1,midpoint,segment2,slope,eque};
+Echo("equf ",equf);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      equf y+3==x+2
+.   %/output
+
+
+
+%mathpiper,title="g"
+//g)
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+A := Point(0,0);
+equ1 := 3*x - 7*y == 15;
+equ2 := EquRight(Solve(equ1,y)[1]);
+slope1 := Coef(equ2,x,1);
+slope2 := -1/slope1;
+equg := (y - A[2]) == slope2*(x - A[1]);
+//{A,B,segment1,midpoint,segment2,slope,eque};
+Echo("equg ",equg);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      equg y==(-7*x)/3
+.   %/output
+
+
+
+%mathpiper,title="h"
+Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geometry.mpi");
+
+A := Point(18,-1);
+B := Point(6,5);
+midpoint := Midpoint(A,B);
+
+equ1 := 5*x - 2*y == 9;
+equ2 := EquRight(Solve(equ1,y)[1]);
+slope1 := Coef(equ2,x,1);
+
+equh := (y - midpoint[2]) == slope1*(x - midpoint[1]);
+//{A,B,segment1,midpoint,segment2,slope,eque};
+Echo("equh ",equh);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      equh y-2==(5*(x-12))/2
+.   %/output
 
 %/group
 
 
 
+
+%group,description="Exercise 2"
+
+
+%mathpiper
+A := Point(8,-1);
+B := Point(14,11);
+C := Point(-2,17);
+
+sideA := Segment(B,C);
+sideB := Segment(A,C);
+sideC := Segment(B,A);
+
+slopeSideA := Slope(sideA);
+slopeSideB := Slope(sideB);
+slopeSideC := Slope(sideC);
+
+midpointSideA := Midpoint(sideA);
+midpointSideB := Midpoint(sideB);
+midpointSideC := Midpoint(sideC);
+
+equSideA := (y - midpointSideA[2]) == slopeSideA*(x - midpointSideA[1]);
+equSideB := (y - midpointSideB[2]) == slopeSideB*(x - midpointSideB[1]);
+equSideC := (y - midpointSideC[2]) == slopeSideC*(x - midpointSideC[1]);
+
+{equSideA,equSideB,equSideC};
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {y-14==(-3*(x-6))/8,y-8==(-9*(x-3))/5,y-5==2*(x-11)}
+.   %/output
 
 %/group
 
