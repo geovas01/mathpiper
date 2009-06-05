@@ -39,11 +39,31 @@ Retract("GeoGebraPlot",*);
 
 ];
 
+
+5 # GeoGebraPlot(list_IsList)_(IsMatrix(IsInteger,list)) <--
+[
+    flatList := {};
+    
+    ForEach(subList,list)
+    [
+        DestructiveAppend(flatList,subList[1]);
+        DestructiveAppend(flatList, subList[2]);
+    ];
+    
+    GeoGebraPlot(flatList);
+
+];
+
 %/mathpiper
 
     %output,preserve="false"
       Result: True
 .   %/output
+
+
+
+
+
 
 
 %mathpiper
