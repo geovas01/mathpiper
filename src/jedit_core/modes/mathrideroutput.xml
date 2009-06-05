@@ -16,7 +16,7 @@
 		HIGHLIGHT_DIGITS="FALSE"
 		DIGIT_RE="(0[lL]?|[1-9]\d{0,9}(\d{0,9}[lL])?|0[xX]\p{XDigit}{1,8}(\p{XDigit}{0,8}[lL])?|0[0-7]{1,11}([0-7]{0,11}[lL])?|([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?[fFdD]?|[0-9]+([eE][+-]?[0-9]+[fFdD]?|([eE][+-]?[0-9]+)?[fFdD]))">
 
-        <SEQ TYPE="LABEL">Side effects:</SEQ>
+        <SEQ TYPE="LABEL">Side Effects:</SEQ>
         <SEQ TYPE="MARKUP">Result:</SEQ>
         
         <SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="s19::MAIN">
