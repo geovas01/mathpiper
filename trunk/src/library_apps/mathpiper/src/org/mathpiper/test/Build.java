@@ -44,9 +44,10 @@ public class Build {
     private String sourceScriptsDirectory = null;
     private String outputScriptsDirectory = null;
     private String outputDocsDirectory = null;
-    private java.io.FileWriter documentation;
-    private java.io.FileWriter documentationIndex;
+    private java.io.FileWriter documentationFile;
+    private java.io.FileWriter documentationIndexFile;
     private long documentationOffset = 0;
+    private java.io.FileWriter functionCategoriesFile;
 
     public Build() {
     }//end constructor.
@@ -62,8 +63,9 @@ public class Build {
         this.outputDocsDirectory = outputDocsDirectory;
         try {
 
-            documentation = new java.io.FileWriter(outputDocsDirectory + "documentation.txt");
-            documentationIndex = new java.io.FileWriter(outputDocsDirectory + "documentationIndex.txt");
+            documentationFile = new java.io.FileWriter(outputDocsDirectory + "documentation.txt");
+            documentationIndexFile = new java.io.FileWriter(outputDocsDirectory + "documentation_index.txt");
+            functionCategoriesFile = new java.io.FileWriter(outputDocsDirectory + "function_categories.txt");
 
         } catch (java.io.IOException e) {
             e.printStackTrace();
@@ -241,9 +243,10 @@ public class Build {
             packagesFile.write("\n};\n");
             packagesFile.close();
 
-            if (documentation != null) {
-                documentation.close();
-                documentationIndex.close();
+            if (documentationFile != null) {
+                documentationFile.close();
+                documentationIndexFile.close();
+                functionCategoriesFile.close();
             }
 
 
@@ -370,29 +373,60 @@ public class Build {
 
             } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
                 System.out.println("        **** Contains docs *****");
-                if (documentation != null) {
+                if (documentationFile != null) {
+
+                    String functionNamesString = "";
                     if (fold.getAttributes().containsKey("name")) {
-                        String functionName = (String) fold.getAttributes().get("name");
-                        documentationIndex.write(functionName + ",");
-                        documentationIndex.write(documentationOffset + ",");
+                        functionNamesString = (String) fold.getAttributes().get("name");
 
-                        String docs = fold.getContents();
-                        documentation.write(docs);
-                        documentationOffset += docs.length();
-                        documentationIndex.write(documentationOffset + "\n");
+                        String[] functionNames = functionNamesString.split(";");
 
-                        documentation.write("\n==========\n");
+                        for (String functionName : functionNames) {
+
+                            documentationIndexFile.write(functionName + ",");
+                            documentationIndexFile.write(documentationOffset + ",");
+
+                            String contents = fold.getContents();
+                            documentationFile.write(contents);
+                            documentationOffset += contents.length();
+                            documentationIndexFile.write(documentationOffset + "\n");
+
+                            documentationFile.write("\n==========\n");
+
+
+                            if (fold.getAttributes().containsKey("categories")) {
+                                functionCategoriesFile.write(functionName + ",");
+                                int commandIndex = contents.indexOf("*CMD");
+                                String descriptionLine = contents.substring(commandIndex,contents.indexOf("\n", commandIndex));
+                                String description = descriptionLine.substring(descriptionLine.lastIndexOf("--")+2);
+                                description = description.trim();
+                                 functionCategoriesFile.write(description + ",");
+                                String functionCategories = (String) fold.getAttributes().get("categories");
+                                String[] categoryNames = functionCategories.split(";");
+                                String categories = "";
+                                for (String categoryName : categoryNames) {
+                                    categories = categories + categoryName + ",";
+                                }//end for.
+                                categories = categories.substring(0, categories.length() - 1);
+                                functionCategoriesFile.write(categories);
+                                functionCategoriesFile.write("\n");
+                            }//end if.
+                        }//end for.
                     }//end if.
+
+
+
+
                 }//end if.
 
-            }
+            }//end if.
 
 
         }//end subpackage for.
     }//end method.
 
     public void execute() {
-        System.out.println("****************** Compiling scripts2 *******");
+        System.out.println("****************** Compiling scripts *******");
         System.out.println("Source directory: " + this.sourceScriptsDirectory);
         System.out.println("Destination directory: " + this.outputScriptsDirectory);
         compileScripts();
@@ -405,7 +439,7 @@ public class Build {
         if (args.length > 0) {
             sourceScriptsDirectory = args[0];
         } else {
-            sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/scripts2/";
+            sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/scripts3/";
         }
 
         String outputScriptsDirectory = "/home/tkosan/NetBeansProjects/scripts/";
@@ -427,7 +461,7 @@ public class Build {
 
         Map functionDocs = new HashMap();
         try {
-            BufferedReader documentationIndex = new BufferedReader(new FileReader(outputDocsDirectory.getPath() + "/documentationIndex.txt"));
+            BufferedReader documentationIndex = new BufferedReader(new FileReader(outputDocsDirectory.getPath() + "/documentation_index.txt"));
 
             String line;
             while ((line = documentationIndex.readLine()) != null) {
