@@ -70,7 +70,7 @@ Dot1(_t1,_t2,_m,_n) <--
 
 
 
-%mathpiper_docs,name="Dot"
+%mathpiper_docs,name="Dot",categories="User Functions;Linear Algebra"
 *CMD Dot, . --- get dot product of tensors
 *STD
 *CALL

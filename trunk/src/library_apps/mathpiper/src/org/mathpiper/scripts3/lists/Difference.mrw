@@ -22,7 +22,7 @@ Function("Difference",{list1,list2})
 
 
 
-%mathpiper_docs,name="Difference"
+%mathpiper_docs,name="Difference",categories="User Functions;Lists (Operations)"
 *CMD Difference --- return the difference of two lists
 *STD
 *CALL

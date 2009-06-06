@@ -10,7 +10,7 @@
 
 
 
-%mathpiper_docs,name="EigenValues"
+%mathpiper_docs,name="EigenValues",categories="User Functions;Linear Algebra"
 *CMD EigenValues --- get eigenvalues of a matrix
 *STD
 *CALL

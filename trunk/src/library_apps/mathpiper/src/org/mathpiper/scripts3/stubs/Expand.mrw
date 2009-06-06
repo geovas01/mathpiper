@@ -12,7 +12,7 @@
 
 
 
-%mathpiper_docs,name="Expand"
+%mathpiper_docs,name="Expand",categories="User Functions;Polynomials (Operations)"
 *CMD Expand --- transform a polynomial to an expanded form
 *STD
 *CALL

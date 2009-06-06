@@ -50,7 +50,7 @@
 %/mathpiper
 
 
-%mathpiper_docs,name="Div;Mod"
+%mathpiper_docs,name="Div;Mod",categories="User Functions;Numbers (Operations);Built In"
 *CMD Div --- Determine divisor of two mathematical objects
 *CMD Mod --- Determine remainder of two mathematical objects after dividing one by the other
 

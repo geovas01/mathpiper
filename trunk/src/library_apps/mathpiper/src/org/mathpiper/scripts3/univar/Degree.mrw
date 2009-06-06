@@ -19,7 +19,7 @@ Rule("Degree",1,0, IsUniVar(expr))
 
 
 
-%mathpiper_docs,name="Degree"
+%mathpiper_docs,name="Degree",categories="User Functions;Polynomials (Operations)"
 *CMD Degree --- degree of a polynomial
 *STD
 *CALL

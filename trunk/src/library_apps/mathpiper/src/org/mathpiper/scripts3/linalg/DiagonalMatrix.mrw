@@ -16,7 +16,7 @@ Function("DiagonalMatrix",{list})
 
 
 
-%mathpiper_docs,name="DiagonalMatrix"
+%mathpiper_docs,name="DiagonalMatrix",categories="User Functions;Linear Algebra"
 *CMD DiagonalMatrix --- construct a diagonal matrix
 *STD
 *CALL

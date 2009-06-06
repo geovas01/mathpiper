@@ -24,7 +24,7 @@ DivisorsList(n_IsPositiveInteger) <--
 
 
 
-%mathpiper_docs,name="DivisorsList"
+%mathpiper_docs,name="DivisorsList",categories="User Functions;Number Theory"
 *CMD DivisorsList --- the list of divisors
 *STD
 *CALL

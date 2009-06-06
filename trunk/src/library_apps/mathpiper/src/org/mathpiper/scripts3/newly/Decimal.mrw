@@ -70,7 +70,7 @@ DecimalMatches(_reversed,_period) <--
 
 
 
-%mathpiper_docs,name="Decimal"
+%mathpiper_docs,name="Decimal",categories="User Functions;Numbers (Operations)"
 *CMD Decimal --- decimal representation of a rational
 *STD
 *CALL

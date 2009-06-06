@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="Euler"
+%mathpiper_docs,name="Euler",categories="User Functions;Special"
 *CMD Euler --- Euler numbers and polynomials
 *STD
 *CALL

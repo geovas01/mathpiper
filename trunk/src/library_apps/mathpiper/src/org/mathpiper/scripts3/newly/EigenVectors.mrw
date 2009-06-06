@@ -26,7 +26,7 @@ EigenVectors(_matrix,_eigenvalues) <--
 
 
 
-%mathpiper_docs,name="EigenVectors"
+%mathpiper_docs,name="EigenVectors",categories="User Functions;Linear Algebra"
 *CMD EigenVectors --- get eigenvectors of a matrix
 *STD
 *CALL

@@ -19,7 +19,7 @@ Function("Diagonal",{A})
 
 
 
-%mathpiper_docs,name="Diagonal"
+%mathpiper_docs,name="Diagonal",categories="User Functions;Linear Algebra"
 *CMD Diagonal --- extract the diagonal from a matrix
 *STD
 *CALL

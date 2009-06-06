@@ -8,7 +8,7 @@ Rule("Diverge", 2, 1, IsList(aBasis) And IsList(aFunc) And Length(aBasis) = Leng
 
 
 
-%mathpiper_docs,name="Diverge"
+%mathpiper_docs,name="Diverge",categories="User Functions;Calculus Related (Symbolic)"
 *CMD Diverge --- divergence of a vector field
 *STD
 *CALL
