@@ -59,7 +59,7 @@ Rule("Macro",1,2048,
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="Macro"
 *CMD Macro --- declare or define a macro
 *STD
 *CALL
