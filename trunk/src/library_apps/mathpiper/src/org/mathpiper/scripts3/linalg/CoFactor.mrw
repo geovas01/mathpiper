@@ -19,7 +19,7 @@ Function("CoFactor",{matrix,ii,jj})
 
 
 
-%mathpiper_docs,name="CoFactor"
+%mathpiper_docs,name="CoFactor",categories="User Functions;Linear Algebra"
 *CMD CoFactor --- cofactor of a matrix
 *STD
 *CALL

@@ -31,7 +31,7 @@ CanProve(_proposition)      <-- CanProveAux( proposition );
 
 
 
-%mathpiper_docs,name="CanProve"
+%mathpiper_docs,name="CanProve",categories="User Functions;Propositional Logic"
 *CMD CanProve --- try to prove statement
 *STD
 *CALL

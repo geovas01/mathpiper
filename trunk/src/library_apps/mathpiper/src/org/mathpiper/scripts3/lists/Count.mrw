@@ -12,7 +12,7 @@ Function("Count",{list,element})
 
 
 
-%mathpiper_docs,name="Count"
+%mathpiper_docs,name="Count",categories="User Functions;Lists (Operations)"
 *CMD Count --- count the number of occurrences of an expression
 *STD
 *CALL

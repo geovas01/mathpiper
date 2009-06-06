@@ -190,7 +190,7 @@ CyclotomicFactor(_a,_b) <--
 
 
 
-%mathpiper_docs,name="Cyclotomic"
+%mathpiper_docs,name="Cyclotomic",categories="User Functions;Number Theory"
 *CMD Cyclotomic --- construct the cyclotomic polynomial
 *STD
 *CALL

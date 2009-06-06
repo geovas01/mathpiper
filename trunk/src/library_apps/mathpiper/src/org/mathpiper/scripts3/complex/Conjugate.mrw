@@ -10,7 +10,7 @@ Function("Conjugate",{a})
 
 
 
-%mathpiper_docs,name="Conjugate"
+%mathpiper_docs,name="Conjugate",categories="User Functions;Numbers (Complex)"
 *CMD Conjugate --- complex conjugate
 *STD
 *CALL

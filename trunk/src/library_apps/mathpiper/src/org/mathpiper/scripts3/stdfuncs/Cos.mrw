@@ -60,7 +60,7 @@ Cos(xlist_IsList) <-- MapSingle("Cos",xlist);
 
 
 
-%mathpiper_docs,name="Cos"
+%mathpiper_docs,name="Cos",categories="User Functions;Calculus Related (Symbolic)"
 *CMD Cos --- trigonometric cosine function
 *STD
 *CALL

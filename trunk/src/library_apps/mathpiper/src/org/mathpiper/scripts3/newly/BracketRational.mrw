@@ -35,7 +35,7 @@ BracketRational(r,eps):=
 
 
 
-%mathpiper_docs,name="BracketRational",categories="User Functions;"
+%mathpiper_docs,name="BracketRational",categories="User Functions"
 *CMD GuessRational --- find optimal rational approximations
 *CMD NearRational --- find optimal rational approximations
 *CMD BracketRational --- find optimal rational approximations

@@ -13,7 +13,7 @@ Rule("Curl", 2, 1, Length(aBasis)=Length(aFunc))
 
 
 
-%mathpiper_docs,name="Curl"
+%mathpiper_docs,name="Curl",categories="User Functions;Calculus Related (Symbolic)"
 *CMD Curl --- curl of a vector field
 *STD
 *CALL

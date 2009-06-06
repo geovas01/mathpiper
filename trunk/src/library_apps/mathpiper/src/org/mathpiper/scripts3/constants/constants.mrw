@@ -233,7 +233,7 @@ The numerical value of the constant can also be obtained as {N(GoldenRatio)}.
 
 
 
-%mathpiper_docs,name="Catalan"
+%mathpiper_docs,name="Catalan",categories="User Functions;Constants (Mathematical)"
 *CMD Catalan --- Catalan's Constant
 *STD
 *CALL
@@ -303,7 +303,7 @@ Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in Yacas.
 
 
 
-%mathpiper_docs,name="CachedConstant"
+%mathpiper_docs,name="CachedConstant",categories="User Functions"
 *CMD CachedConstant --- precompute multiple-precision constants
 *STD
 *CALL

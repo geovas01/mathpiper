@@ -18,7 +18,7 @@ Function("Contains",{list,element})
 
 
 
-%mathpiper_docs,name="Contains"
+%mathpiper_docs,name="Contains",categories="User Functions;Lists (Operations)"
 *CMD Contains --- test whether a list contains a certain element
 *STD
 *CALL
