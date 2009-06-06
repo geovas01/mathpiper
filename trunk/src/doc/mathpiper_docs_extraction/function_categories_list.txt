@@ -45,40 +45,40 @@ BracketRational;
 BubbleSort;
 BuiltinPrecisionGet;,categories="User Functions;"
 BuiltinPrecisionSet;,categories="User Functions;Built In"
-CachedConstant;,categories="User Functions;"
-CanProve;,categories="User Functions;Propositional Logic"
-Catalan;,categories="User Functions;Constants (Mathematical)"
-CatalanNumber;,categories="User Functions;Number Theory"
-Ceil;,categories="User Functions;Numbers (Operations);Built In"
+CachedConstant;
+CanProve;
+Catalan;
+CatalanNumber;
+Ceil;
 CeilN;,categories="User Functions;Numeric;Built In"
 CForm;
-CharacteristicEquation;,categories="User Functions;Linear Algebra"
+CharacteristicEquation;
 Check;,categories="User Functions;Built In"
-ChiSquareTest;,categories="User Functions;Probability & Statistics"
-Cholesky;,categories="User Functions;Linear Algebra"
+ChiSquareTest;
+Cholesky;
 Clear;,categories="User Functions;Variables;Built In"
 ClearError;,categories="User Functions;"
 ClearErrors;,categories="User Functions;"
-Coef;,categories="User Functions;Polynomials (Operations)"
-CoFactor;,categories="User Functions;Linear Algebra"
+Coef;
+CoFactor;
 Complex;
 Concat;,categories="User Functions;Lists (Operations);Built In"
 ConcatStrings;,categories="User Functions;String Manipulation;Built In"
-Conjugate;,categories="User Functions;Numbers (Complex)"
-Contains;,categories="User Functions;Lists (Operations)"
-Content;,categories="User Functions;Polynomials (Operations)"
-ContFrac;,categories="User Functions;Numbers (Operations)"
-ContFracEval;,categories="User Functions;"
-ContFracList;,categories="User Functions;"
-Cos;,categories="User Functions;Calculus Related (Symbolic)"
+Conjugate;
+Contains;
+Content;
+ContFrac;
+ContFracEval;
+ContFracList;
+Cos;
 CosN;,categories="User Functions;Numeric"
 CoshN;,categories="User Functions;Numeric"
-Count;,categories="User Functions;Lists (Operations)"
-CrossProduct;,categories="User Functions;Linear Algebra"
-Curl;,categories="User Functions;Calculus Related (Symbolic)"
+Count;
+CrossProduct;
+Curl;
 CurrentFile;,categories="User Functions;Built In"
 CurrentLine;,categories="User Functions;Built In"
-Cyclotomic;,categories="User Functions;Number Theory"
+Cyclotomic;
 D;,categories="User Functions;Calculus Related (Symbolic)"
 Decimal;,categories="User Functions;Numbers (Operations)"
 DefaultTokenizer;,categories="User Functions;Input/Output;Built In"
