@@ -28,7 +28,7 @@ ArcSin(xlist_IsList) <-- MapSingle("ArcSin",xlist);
 
 
 
-%mathpiper_docs,name="ArcSin"
+%mathpiper_docs,name="ArcSin",categories="User Functions;Calculus Related (Symbolic)"
 *CMD ArcSin --- inverse trigonometric function arc-sine
 *STD
 *CALL

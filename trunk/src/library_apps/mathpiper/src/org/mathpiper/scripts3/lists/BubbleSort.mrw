@@ -27,7 +27,7 @@ Function("BubbleSort",{list,compare})
 
 
 
-%mathpiper_docs,name="BubbleSort"
+%mathpiper_docs,name="BubbleSort",categories="User Functions;Lists (Operations)"
 *CMD BubbleSort --- sort a list
 *CMD HeapSort --- sort a list
 *STD

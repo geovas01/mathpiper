@@ -489,7 +489,7 @@ In fact, the result is always {True}.
 
 
 
-%mathpiper_docs,name="++"
+%mathpiper_docs,name="++",categories="Operators"
 *CMD ++ --- increment variable
 *STD
 *CALL

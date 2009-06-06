@@ -7,7 +7,7 @@ AssocIndices(associndiceslist_IsList) <--
 
 
 
-%mathpiper_docs,name="AssocIndices"
+%mathpiper_docs,name="AssocIndices",categories="User Functions;Lists (Operations)"
 *CMD AssocIndices --- return the keys in an association list
 *STD
 *CALL

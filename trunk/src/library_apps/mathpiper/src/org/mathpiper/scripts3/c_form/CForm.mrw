@@ -228,7 +228,7 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 
 
 
-%mathpiper_docs,name="CForm"
+%mathpiper_docs,name="CForm",categories="User Functions;Input/Output"
 *CMD CForm --- export expression to C++ code
 *STD
 *CALL

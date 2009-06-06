@@ -21,7 +21,7 @@
 
 
 
-%mathpiper_docs,name="AddTo"
+%mathpiper_docs,name="AddTo",categories="User Functions;Functional Operators"
 *CMD AddTo --- add an equation to a set of equations or set of set of equations
 *STD
 *CALL

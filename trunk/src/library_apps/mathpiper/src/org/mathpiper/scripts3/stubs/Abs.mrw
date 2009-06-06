@@ -23,7 +23,7 @@
 
 
 
-%mathpiper_docs,name="Abs"
+%mathpiper_docs,name="Abs",categories="User Functions;Calculus Related (Symbolic);Built In"
 *CMD Abs --- absolute value or modulus of complex number
 *STD
 *CALL

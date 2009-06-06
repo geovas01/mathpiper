@@ -11,7 +11,7 @@
 
 
 
-%mathpiper_docs,name="Bin"
+%mathpiper_docs,name="Bin",categories="User Functions;Combinatorics"
 *CMD Bin --- binomial coefficients
 *STD
 *CALL

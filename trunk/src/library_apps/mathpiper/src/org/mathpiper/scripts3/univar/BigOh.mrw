@@ -11,7 +11,7 @@
 
 
 
-%mathpiper_docs,name="BigOh"
+%mathpiper_docs,name="BigOh",categories="User Functions;Series"
 *CMD BigOh --- drop all terms of a certain order in a polynomial
 *STD
 *CALL

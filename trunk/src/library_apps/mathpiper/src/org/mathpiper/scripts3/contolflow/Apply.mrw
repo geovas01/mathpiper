@@ -10,7 +10,7 @@ UnFence("Apply",2);
 
 
 
-%mathpiper_docs,name="Apply"
+%mathpiper_docs,name="Apply",categories="User Functions;Control Flow"
 *CMD Apply --- apply a function to arguments
 *STD
 *CALL

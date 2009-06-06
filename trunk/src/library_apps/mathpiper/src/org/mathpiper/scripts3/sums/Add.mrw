@@ -18,7 +18,7 @@ Function() Add(val, ...);
 
 
 
-%mathpiper_docs,name="Add"
+%mathpiper_docs,name="Add",categories="User Functions;Series"
 *CMD Add --- find sum of a list of values
 *STD
 *CALL
