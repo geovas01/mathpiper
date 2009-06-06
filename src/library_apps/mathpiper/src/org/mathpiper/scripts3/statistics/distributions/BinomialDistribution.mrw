@@ -12,7 +12,7 @@ BinomialDistribution(_p, _n)_
 
 
 
-%mathpiper_docs,name="BinomialDistribution"
+%mathpiper_docs,name="BinomialDistribution",categories="User Functions;Probability & Statistics"
 *CMD BinomialDistribution --- binomial distribution
 *STD
 *CALL

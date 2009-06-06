@@ -39,7 +39,7 @@ Bernoulli(n_IsInteger, _x) <-- [
 
 
 
-%mathpiper_docs,name="Bernoulli"
+%mathpiper_docs,name="Bernoulli",categories="User Functions;Special"
 *CMD Bernoulli --- Bernoulli numbers and polynomials
 *STD
 *CALL

@@ -11,7 +11,7 @@ Function("Assoc",{key,list})  Builtin'Assoc(key,list);
 
 
 
-%mathpiper_docs,name="Assoc"
+%mathpiper_docs,name="Assoc",categories="User Functions;Lists (Operations)"
 *CMD Assoc --- return element stored in association list
 *STD
 *CALL

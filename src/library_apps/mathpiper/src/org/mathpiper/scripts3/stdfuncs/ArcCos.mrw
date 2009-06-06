@@ -25,7 +25,7 @@ ArcCos(xlist_IsList) <-- MapSingle("ArcCos",xlist);
 
 
 
-%mathpiper_docs,name="ArcCos"
+%mathpiper_docs,name="ArcCos",categories="User Functions;Calculus Related (Symbolic)"
 
 *CMD ArcCos --- inverse trigonometric function arc-cosine
 *STD

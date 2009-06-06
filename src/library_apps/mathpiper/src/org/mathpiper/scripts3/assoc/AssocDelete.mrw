@@ -36,7 +36,7 @@ LocalSymbols(hash, key, element, hash'expr)
 
 
 
-%mathpiper_docs,name="AssocDelete"
+%mathpiper_docs,name="AssocDelete",categories="User Functions;Lists (Operations)"
 *CMD AssocDelete --- delete an entry in an association list
 *STD
 *CALL
