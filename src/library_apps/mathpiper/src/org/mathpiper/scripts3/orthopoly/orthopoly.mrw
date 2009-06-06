@@ -486,7 +486,7 @@ OrthoPolyCoeffs("Tscheb2", n_IsInteger, {}) <-- ChebUCoeffs(n);
 
 
 
-%mathpiper_docs,name="EvaluateHornerScheme"
+%mathpiper_docs,name="EvaluateHornerScheme",categories="User Functions;Polynomials (Operations)"
 *CMD EvaluateHornerScheme --- fast evaluation of polynomials
 *STD
 *CALL

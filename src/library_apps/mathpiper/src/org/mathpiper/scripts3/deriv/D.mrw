@@ -36,7 +36,7 @@ HoldArg("D",aFunc);
 
 
 
-%mathpiper_docs,name="D"
+%mathpiper_docs,name="D",categories="User Functions;Calculus Related (Symbolic)"
 *CMD D --- take derivative of expression with respect to variable
 *STD
 *CALL

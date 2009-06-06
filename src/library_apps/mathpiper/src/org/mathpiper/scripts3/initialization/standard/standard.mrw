@@ -285,7 +285,7 @@ rational nor numeric, the function returns unevaluated.
 
 
 
-%mathpiper_docs,name="Denom"
+%mathpiper_docs,name="Denom",categories="User Functions;Numbers (Operations)"
 *CMD Denom --- denominator of an expression
 *STD
 *CALL

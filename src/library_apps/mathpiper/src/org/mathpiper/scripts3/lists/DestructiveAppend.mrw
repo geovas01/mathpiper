@@ -9,7 +9,7 @@ Function("DestructiveAppend",{list,element})
 
 
 
-%mathpiper_docs,name="DestructiveAppend"
+%mathpiper_docs,name="DestructiveAppend",categories="User Functions;Lists (Operations)"
 *CMD DestructiveAppend --- destructively append an entry to a list
 *STD
 *CALL

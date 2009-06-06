@@ -14,7 +14,7 @@ Exp(xlist_IsList) <-- MapSingle("Exp",xlist);
 
 
 
-%mathpiper_docs,name="Exp"
+%mathpiper_docs,name="Exp",categories="User Functions;Calculus Related (Symbolic)"
 *CMD Exp --- exponential function
 *STD
 *CALL

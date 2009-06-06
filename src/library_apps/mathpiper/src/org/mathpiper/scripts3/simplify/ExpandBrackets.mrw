@@ -7,7 +7,7 @@ ExpandBrackets(x) := NormalForm(MM(x));
 
 
 
-%mathpiper_docs,name="ExpandBrackets"
+%mathpiper_docs,name="ExpandBrackets",categories="User Functions;Polynomials (Operations)"
 *CMD ExpandBrackets --- expand all brackets
 *STD
 *CALL

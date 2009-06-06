@@ -25,7 +25,7 @@ Rule("Drop", 2, 2, range < 0)
 
 
 
-%mathpiper_docs,name="Drop"
+%mathpiper_docs,name="Drop",categories="User Functions;Lists (Operations)"
 *CMD Drop --- drop a range of elements from a list
 
 *STD
