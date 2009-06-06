@@ -31,7 +31,7 @@
 
 
 
-%mathpiper_docs,name="ContFrac"
+%mathpiper_docs,name="ContFrac",categories="User Functions;Numbers (Operations)"
 *CMD ContFrac --- continued fraction expansion
 *STD
 *CALL

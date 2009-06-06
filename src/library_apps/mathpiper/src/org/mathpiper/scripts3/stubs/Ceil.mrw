@@ -26,7 +26,7 @@
 
 
 
-%mathpiper_docs,name="Ceil"
+%mathpiper_docs,name="Ceil",categories="User Functions;Numbers (Operations);Built In"
 *CMD Ceil --- round a number upwards
 *STD
 *CALL

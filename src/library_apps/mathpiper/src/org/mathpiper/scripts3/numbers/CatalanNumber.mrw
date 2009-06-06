@@ -10,7 +10,7 @@ CatalanNumber(_n) <--
 
 
 
-%mathpiper_docs,name="CatalanNumber"
+%mathpiper_docs,name="CatalanNumber",categories="User Functions;Number Theory"
 *CMD CatalanNumber --- return the {n}th Catalan Number
 *STD
 *CALL

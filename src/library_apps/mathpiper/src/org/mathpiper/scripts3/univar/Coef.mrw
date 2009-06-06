@@ -25,7 +25,7 @@ Function("Coef",{expression,var,order})
 
 
 
-%mathpiper_docs,name="Coef"
+%mathpiper_docs,name="Coef",categories="User Functions;Polynomials (Operations)"
 *CMD Coef --- coefficient of a polynomial
 *STD
 *CALL

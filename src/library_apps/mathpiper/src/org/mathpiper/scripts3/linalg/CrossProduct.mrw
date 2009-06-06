@@ -26,7 +26,7 @@ Function("CrossProduct",{aLeft,aRight})
 
 
 
-%mathpiper_docs,name="CrossProduct"
+%mathpiper_docs,name="CrossProduct",categories="User Functions;Linear Algebra"
 *CMD CrossProduct --- outer product of vectors
 *STD
 *CALL

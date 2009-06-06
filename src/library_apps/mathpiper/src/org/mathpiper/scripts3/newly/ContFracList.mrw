@@ -24,7 +24,7 @@
 
 
 
-%mathpiper_docs,name="ContFracList"
+%mathpiper_docs,name="ContFracList",categories="User Functions"
 *CMD ContFracList --- manipulate continued fractions
 *CMD ContFracEval --- manipulate continued fractions
 *STD

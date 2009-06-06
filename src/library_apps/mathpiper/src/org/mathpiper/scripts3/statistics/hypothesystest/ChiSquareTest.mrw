@@ -29,7 +29,7 @@
 
 
 
-%mathpiper_docs,name="ChiSquareTest"
+%mathpiper_docs,name="ChiSquareTest",categories="User Functions;Probability & Statistics"
 *CMD ChiSquareTest --- Pearson's ChiSquare test
 *STD
 

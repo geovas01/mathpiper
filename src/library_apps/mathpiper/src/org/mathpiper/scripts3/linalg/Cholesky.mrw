@@ -42,7 +42,7 @@
 
 
 
-%mathpiper_docs,name="Cholesky"
+%mathpiper_docs,name="Cholesky",categories="User Functions;Linear Algebra"
 *CMD Cholesky --- find the Cholesky Decomposition
 *STD
 *CALL
