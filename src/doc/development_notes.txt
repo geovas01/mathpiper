@@ -3,7 +3,13 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
-+ This produces an error: 101!/100!  I think it may be because ! is at a lower precedence than /.
++ This produces a parsing error: 
+In> 101!/100!
+Result> 
+Error parsing expression, near token !/.
+In> 101! /100!
+Result> 101
+
 +Consider using Inconsolata monospaced programmer's font: http://www.codinghorror.com/blog/archives/000969.html
 +Integrate(0) hangs.
 +This should give a result other than 5E1: 
