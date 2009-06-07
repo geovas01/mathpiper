@@ -73,7 +73,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
 
 
 
-%mathpiper_docs,name="FindRealRoots"
+%mathpiper_docs,name="FindRealRoots",categories="User Functions;Solvers (Numeric)"
 *CMD FindRealRoots --- find the real roots of a polynomial
 *STD
 *CALL

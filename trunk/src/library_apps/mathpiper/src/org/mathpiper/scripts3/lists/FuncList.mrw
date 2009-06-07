@@ -45,7 +45,7 @@ HoldArgNr("FuncList", 2, 1);
 
 
 
-%mathpiper_docs,name="FuncList"
+%mathpiper_docs,name="FuncList",categories="User Functions;Lists (Operations)"
 *CMD FuncList --- list of functions used in an expression
 *CMD FuncListArith --- list of functions used in an expression
 *CMD FuncListSome --- list of functions used in an expression

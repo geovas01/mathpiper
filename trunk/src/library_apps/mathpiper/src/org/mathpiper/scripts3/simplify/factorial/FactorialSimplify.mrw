@@ -258,7 +258,7 @@ LocalSymbols(n,d,c)
 
 
 
-%mathpiper_docs,name="FactorialSimplify"
+%mathpiper_docs,name="FactorialSimplify",categories="User Functions;Expression Simplification"
 *CMD FactorialSimplify --- Simplify hypergeometric expressions containing factorials
 *STD
 *CALL

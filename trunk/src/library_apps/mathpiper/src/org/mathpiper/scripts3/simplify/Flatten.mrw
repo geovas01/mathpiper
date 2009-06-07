@@ -17,7 +17,7 @@ Function("Flatten",{body,flattenoper})
 
 
 
-%mathpiper_docs,name="Flatten"
+%mathpiper_docs,name="Flatten",categories="User Functions;Lists (Operations)"
 *CMD Flatten --- flatten expression w.r.t. some operator
 *STD
 *CALL
