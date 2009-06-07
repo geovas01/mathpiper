@@ -127,31 +127,31 @@ Expand;
 ExpandBrackets;
 ExtraInfoGet;,categories="User Functions"
 ExtraInfoSet;,categories="User Functions;Built In"
-Factor;,categories="User Functions;Number Theory"
-FactorialSimplify;,categories="User Functions;Expression Simplification"
-Factorize;,categories="User Functions;Series"
+Factor;
+FactorialSimplify;
+Factorize;
 Factors;,categories="User Functions;Number Theory"
 False;,categories="User Functions;Constants (System)"
-FermatNumber;,categories="User Functions;Number Theory"
-FillList;,categories="User Functions;Lists (Operations)"
-Find;,categories="User Functions;Lists (Operations)"
+FermatNumber;
+FillList;
+Find;
 FindFile;,categories="User Functions;Input/Output;Built In"
 FindFunction;,categories="User Functions;Built In"
-FindRealRoots;,categories="User Functions;Solvers (Numeric)"
+FindRealRoots;
 FlatCopy;,categories="User Functions;Lists (Operations);Built In"
-Flatten;,categories="User Functions;Lists (Operations)"
-Floor;,categories="User Functions;Numbers (Operations);Built In"
+Flatten;
+Floor;
 FloorN;,categories="User Functions;Numeric;Built In"
-For;,categories="User Functions;Control Flow"
-ForEach;,categories="User Functions;Control Flow"
+For;
+ForEach;
 FromBase;,categories="User Functions;Numbers (Operations);Built In"
 FromFile;,categories="User Functions;Input/Output;Built In"
 FromString;,categories="User Functions;Input/Output;Built In"
 FullForm;,categories="User Functions;Input/Output;Built In"
-FuncList;,categories="User Functions;Lists (Operations)"
-FuncListArith;,categories="User Functions;Lists (Operations)"
-FuncListSome;,categories="User Functions;Lists (Operations)"
-Function;,categories="User Functions;Control Flow"
+FuncList;
+FuncListArith;
+FuncListSome;
+Function;
 Gamma;,categories="User Functions;Special"
 gamma;,categories="User Functions;Constants (Mathematical)"
 GarbageCollect;,categories="User Functions;Built In"
