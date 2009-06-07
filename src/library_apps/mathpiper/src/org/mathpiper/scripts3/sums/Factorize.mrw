@@ -31,7 +31,7 @@ Factorize(sumlist_IsList) <--
 
 
 
-%mathpiper_docs,name="Factorize"
+%mathpiper_docs,name="Factorize",categories="User Functions;Series"
 *CMD Factorize --- product of a list of values
 *STD
 *CALL

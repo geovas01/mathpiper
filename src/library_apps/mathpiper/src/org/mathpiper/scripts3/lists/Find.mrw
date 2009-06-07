@@ -20,7 +20,7 @@ Function("Find",{list,element})
 
 
 
-%mathpiper_docs,name="Find"
+%mathpiper_docs,name="Find",categories="User Functions;Lists (Operations)"
 *CMD Find --- get the index at which a certain element occurs
 *STD
 *CALL

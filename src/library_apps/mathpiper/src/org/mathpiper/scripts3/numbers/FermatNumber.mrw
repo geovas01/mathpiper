@@ -10,7 +10,7 @@ Function("FermatNumber",{n})[
 
 
 
-%mathpiper_docs,name="FermatNumber"
+%mathpiper_docs,name="FermatNumber",categories="User Functions;Number Theory"
 *CMD FermatNumber --- return the {n}th Fermat Number
 *STD
 *CALL

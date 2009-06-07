@@ -27,7 +27,7 @@ HoldArgNr("ForEach",3,3);
 
 
 
-%mathpiper_docs,name="ForEach"
+%mathpiper_docs,name="ForEach",categories="User Functions;Control Flow"
 *CMD ForEach --- loop over all entries in list
 *STD
 *CALL

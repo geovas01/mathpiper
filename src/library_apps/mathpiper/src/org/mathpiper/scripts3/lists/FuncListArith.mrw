@@ -10,7 +10,7 @@ HoldArgNr("FuncListArith", 1, 1);
 
 
 
-%mathpiper_docs,name="FuncListArith"
+%mathpiper_docs,name="FuncListArith",categories="User Functions;Lists (Operations)"
 *CMD FuncList --- list of functions used in an expression
 *CMD FuncListArith --- list of functions used in an expression
 *CMD FuncListSome --- list of functions used in an expression

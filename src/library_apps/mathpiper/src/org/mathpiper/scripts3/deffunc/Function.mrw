@@ -64,7 +64,7 @@ Rule("Function",1,2048,
 
 
 
-%mathpiper_docs,name="Function"
+%mathpiper_docs,name="Function",categories="User Functions;Control Flow"
 *CMD Function --- declare or define a function
 *STD
 *CALL

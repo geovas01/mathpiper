@@ -20,7 +20,7 @@ HoldArgNr("For",4,4);
 
 
 
-%mathpiper_docs,name="For"
+%mathpiper_docs,name="For",categories="User Functions;Control Flow"
 *CMD For --- C-style {for} loop
 *STD
 *CALL
