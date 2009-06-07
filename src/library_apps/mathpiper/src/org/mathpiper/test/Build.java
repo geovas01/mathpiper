@@ -81,6 +81,19 @@ public class Build {
         this.outputScriptsDirectory = outputDirectory;
     }//end method.
 
+    public void setOutputDocsDirectory(String outputDocsDirectory) {
+        this.outputDocsDirectory = outputDocsDirectory;
+        try {
+
+            documentationFile = new java.io.FileWriter(outputDocsDirectory + "documentation.txt");
+            documentationIndexFile = new java.io.FileWriter(outputDocsDirectory + "documentation_index.txt");
+            functionCategoriesFile = new java.io.FileWriter(outputDocsDirectory + "function_categories.txt");
+
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }//end method.
+
     public void compileScripts() {
 
         StringBuilder mainScriptsClassBuffer = new StringBuilder();
@@ -395,20 +408,33 @@ public class Build {
 
 
                             if (fold.getAttributes().containsKey("categories")) {
-                                functionCategoriesFile.write(functionName + ",");
+
+
                                 int commandIndex = contents.indexOf("*CMD");
-                                String descriptionLine = contents.substring(commandIndex,contents.indexOf("\n", commandIndex));
-                                String description = descriptionLine.substring(descriptionLine.lastIndexOf("--")+2);
+                                String descriptionLine = contents.substring(commandIndex, contents.indexOf("\n", commandIndex));
+                                String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
                                 description = description.trim();
-                                 functionCategoriesFile.write(description + ",");
+
                                 String functionCategories = (String) fold.getAttributes().get("categories");
                                 String[] categoryNames = functionCategories.split(";");
                                 String categories = "";
+
+                                int categoryIndex = 0;
                                 for (String categoryName : categoryNames) {
-                                    categories = categories + categoryName + ",";
+                                    if (categoryIndex == 0) {
+                                        functionCategoriesFile.write(categoryName + ",");
+                                    } else {
+                                        categories = categories + categoryName + ",";
+                                    }
+                                    categoryIndex++;
                                 }//end for.
-                                categories = categories.substring(0, categories.length() - 1);
-                                functionCategoriesFile.write(categories);
+
+                                functionCategoriesFile.write(functionName + ",");
+                                functionCategoriesFile.write(description);
+                                if (!categories.equalsIgnoreCase("")) {
+                                    categories = categories.substring(0, categories.length() - 1);
+                                    functionCategoriesFile.write("," + categories);
+                                }
                                 functionCategoriesFile.write("\n");
                             }//end if.
                         }//end for.
@@ -426,6 +452,7 @@ public class Build {
     }//end method.
 
     public void execute() {
+        //execute() method is needed by ant to run this class.
         System.out.println("****************** Compiling scripts *******");
         System.out.println("Source directory: " + this.sourceScriptsDirectory);
         System.out.println("Destination directory: " + this.outputScriptsDirectory);

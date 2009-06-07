@@ -90,16 +90,15 @@
    	<target name="buildscripts3" >
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
-		<taskdef name="buildscripts"
-              classname="org.mathpiper.test.Build"
-              classpath="${build.classes.dir}"  />
+		<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"  />
 
       <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts3/"
-                 outputScriptsDirectory="${basedir}/build/classes/org/mathpiper/scripts/"/>
+                 outputScriptsDirectory="${basedir}/build/classes/org/mathpiper/scripts/"
+		 outputDocsDirectory="${basedir}/build/classes/org/mathpiper/ui/gui/help/data/"/>
       
       </target>
       
     
-            <target name="-post-compile-test"  depends="buildscripts3">
-        </target>
+      <target name="-post-compile-test"  depends="buildscripts3">
+      </target>
 </project>
