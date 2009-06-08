@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Add a Range() function which is similar to Python's range();
 + This produces a parsing error: 
 In> 101!/100!
 Result> 
