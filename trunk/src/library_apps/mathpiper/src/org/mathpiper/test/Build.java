@@ -20,6 +20,7 @@ package org.mathpiper.test;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -44,7 +45,7 @@ public class Build {
     private String sourceScriptsDirectory = null;
     private String outputScriptsDirectory = null;
     private String outputDocsDirectory = null;
-    private java.io.FileWriter documentationFile;
+    private java.io.DataOutputStream documentationFile;
     private java.io.FileWriter documentationIndexFile;
     private long documentationOffset = 0;
     private java.io.FileWriter functionCategoriesFile;
@@ -63,7 +64,7 @@ public class Build {
         this.outputDocsDirectory = outputDocsDirectory;
         try {
 
-            documentationFile = new java.io.FileWriter(outputDocsDirectory + "documentation.txt");
+            documentationFile = new DataOutputStream(new java.io.FileOutputStream(outputDocsDirectory + "documentation.txt"));
             documentationIndexFile = new java.io.FileWriter(outputDocsDirectory + "documentation_index.txt");
             functionCategoriesFile = new java.io.FileWriter(outputDocsDirectory + "function_categories.txt");
 
@@ -85,7 +86,7 @@ public class Build {
         this.outputDocsDirectory = outputDocsDirectory;
         try {
 
-            documentationFile = new java.io.FileWriter(outputDocsDirectory + "documentation.txt");
+            documentationFile = new DataOutputStream(new java.io.FileOutputStream(outputDocsDirectory + "documentation.txt"));
             documentationIndexFile = new java.io.FileWriter(outputDocsDirectory + "documentation_index.txt");
             functionCategoriesFile = new java.io.FileWriter(outputDocsDirectory + "function_categories.txt");
 
@@ -400,12 +401,16 @@ public class Build {
                             documentationIndexFile.write(documentationOffset + ",");
 
                             String contents = fold.getContents();
-                            documentationFile.write(contents);
-                            documentationOffset += contents.length();
+                            byte[] contentsBytes = contents.getBytes();
+                            documentationFile.write(contentsBytes,0,contentsBytes.length);
+                           
+                            documentationOffset = documentationOffset + contents.length();
                             documentationIndexFile.write(documentationOffset + "\n");
 
-                            documentationFile.write("\n==========\n");
-
+                             byte[] separator = "\n==========\n".getBytes();
+                            documentationFile.write(separator,0,separator.length);
+                            
+                            documentationOffset = documentationOffset + separator.length;
 
                             if (fold.getAttributes().containsKey("categories")) {
 
