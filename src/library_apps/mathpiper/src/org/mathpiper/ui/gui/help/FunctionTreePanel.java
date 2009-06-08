@@ -36,9 +36,11 @@ import java.util.Map;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -61,7 +63,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
     public FunctionTreePanel() {
         this.setLayout(new BorderLayout());
-        
+
         URL fileURL = java.lang.ClassLoader.getSystemResource("org/mathpiper/ui/gui/help/data/function_categories.txt");
         if (fileURL != null) //File is on the classpath.
         {
@@ -336,11 +338,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
         try {
             //documentationReader = new InputStreamReader(url.openStream());
-            documentFile = new RandomAccessFile(new File(url.toURI()),"r");
+            documentFile = new RandomAccessFile(new File(url.toURI()), "r");
 
-        }  catch (URISyntaxException e) {
+        } catch (URISyntaxException e) {
             e.printStackTrace();
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }//end method.
@@ -361,29 +363,38 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
             int startIndex = Integer.parseInt(functionIndexes[0]);
             int endIndex = Integer.parseInt(functionIndexes[1]);
             int length = endIndex - startIndex;
-            char[] documentationData = new char[length];
-                            System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
-   /*         try {
+            byte[] documentationData = new byte[length];
+            System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
+            try {
 
                 documentFile.seek(startIndex);
                 documentFile.read(documentationData, 0, length);
                 String documentationDataString = new String(documentationData);
                 String html = textToHtml(documentationDataString);
                 editorPane.setText(html);
+                //editorPane.validate();
+
+                final JScrollBar verticalScrollBar = docsScrollPane.getVerticalScrollBar();
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run() {
+                        verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+                    }
+                });
+
+
 
 
             //functionInfo = nodeInfo;
             //displayFunctionDocs(functionInfo.toString());
             } catch (IOException ex) {
                 ex.printStackTrace();
-            } */
+            }
         } else {
             //toolPanel.sourceButtonEnabled(false);
             //Note:tk:Perhaps display top of chapter here?
         }
     }//end method.
-
-
 
     private String applyBold(String line) {
         line = line.replaceAll("\\{", "<b><tt>");
@@ -418,6 +429,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
                 while (true) {
                     x++;
 
+                    if (x == lines.length) {
+                        //This code exits the converter if it is the last *XXX command in the document.
+                        break;
+                    }//end if.
+
                     line = lines[x].trim();
 
                     if (line.startsWith("*")) {
@@ -438,6 +454,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
                 while (true) {
                     x++;
+
+                    if (x == lines.length) {
+                        //This code exits the converter if it is the last *XXX command in the document.
+                        break;
+                    }//end if.
 
                     line = lines[x].trim();
 
@@ -464,6 +485,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
                 while (true) {
                     x++;
 
+                    if (x == lines.length) {
+                        //This code exits the converter if it is the last *XXX command in the document.
+                        break;
+                    }//end if.
+
                     line = lines[x].trim();
 
                     if (line.startsWith("*")) {
@@ -489,6 +515,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
                 while (true) {
                     x++;
+
+                    if (x == lines.length) {
+                        //This code exits the converter if it is the last *XXX command in the document.
+                        break;
+                    }//end if.
 
                     line = lines[x].trim();
 
