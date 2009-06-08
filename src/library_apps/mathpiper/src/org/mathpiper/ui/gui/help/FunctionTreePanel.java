@@ -16,19 +16,37 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.help;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTree;
+import javax.swing.ToolTipManager;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class FunctionTreePanel {
+public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
+    private JScrollPane docsScrollPane;
     private String[][] userFunctionsDescriptions;
     private String[][] programmerFunctionsDescriptions;
     private String[][] operatorsDescriptions;
@@ -36,13 +54,23 @@ public class FunctionTreePanel {
     private DefaultMutableTreeNode programmerFunctionsNode;
     private DefaultMutableTreeNode operatorsNode;
     private List allFunctions;
+    private JTree functionsTree;
+    private Map documentationIndex;
+    private RandomAccessFile documentFile;
+    private JEditorPane editorPane;
 
     public FunctionTreePanel() {
+        this.setLayout(new BorderLayout());
+        
         URL fileURL = java.lang.ClassLoader.getSystemResource("org/mathpiper/ui/gui/help/data/function_categories.txt");
         if (fileURL != null) //File is on the classpath.
         {
             System.out.println("Found categories file.");
             loadCategories(fileURL);
+            loadDocumentationIndex(java.lang.ClassLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation_index.txt"));
+            this.openDocumentationFile(java.lang.ClassLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation.txt"));
+
+
             this.populateUserFunctionNode();
             this.populateProgrammerFunctionNode();
             operatorsNode = new DefaultMutableTreeNode(new FunctionInfo("Operators", "Operators."));
@@ -50,6 +78,26 @@ public class FunctionTreePanel {
             processFunctionDescriptions();
 
             createTree();
+
+            ToolTipManager.sharedInstance().registerComponent(functionsTree);
+
+            functionsTree.getSelectionModel().setSelectionMode(javax.swing.tree.TreeSelectionModel.SINGLE_TREE_SELECTION);
+            functionsTree.addTreeSelectionListener(this);
+            functionsTree.setShowsRootHandles(true);
+//tree.setRootVisible(false);
+            JScrollPane treeView = new JScrollPane(functionsTree);
+
+
+            editorPane = new JEditorPane();
+            editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+            //JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
+            docsScrollPane = new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+            JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeView, docsScrollPane);
+            splitPane.setOneTouchExpandable(true);
+            //tree.getPreferredScrollableViewportSize().width;
+            splitPane.setDividerLocation(290);
+            this.add(splitPane);
 
         }//end if.
     }//end constructor.
@@ -253,11 +301,251 @@ public class FunctionTreePanel {
 
         populateNode(mathpiperFunctionsRootNode, operatorsDescriptions);
 
-        JTree tree = new FunctionInfoTree(mathpiperFunctionsRootNode);
-        int x=0;
+        functionsTree = new FunctionInfoTree(mathpiperFunctionsRootNode);
+
+    }//end method.
+
+    private void loadDocumentationIndex(URL url) {
+        documentationIndex = new HashMap();
+        try {
+            BufferedReader documentationIndexReader = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            String line;
+            while ((line = documentationIndexReader.readLine()) != null) {
+
+                String[] values = line.split(",");
+
+                if (values[0].indexOf(";") != -1) {
+                    String[] functionNames = values[0].split(";");
+                    for (String name : functionNames) {
+                        documentationIndex.put(name, values[1] + "," + values[2]);
+                    }//end for.
+                } else {
+                    documentationIndex.put(values[0], values[1] + "," + values[2]);
+                }//end else.
+            }//end while.
+
+            documentationIndexReader.close();
+
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }//end method.
+
+    private void openDocumentationFile(URL url) {
+
+        try {
+            //documentationReader = new InputStreamReader(url.openStream());
+            documentFile = new RandomAccessFile(new File(url.toURI()),"r");
+
+        }  catch (URISyntaxException e) {
+            e.printStackTrace();
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }//end method.
+
+    public void valueChanged(TreeSelectionEvent e) {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) functionsTree.getLastSelectedPathComponent();
+        System.out.println("XXXXX");
+        if (node == null) //Nothing is selected.
+        {
+            return;
+        }
+
+        Object nodeInfo = node.getUserObject();
+        if (node.isLeaf()) {
+            String functionName = nodeInfo.toString();
+            String functionIndexesString = (String) this.documentationIndex.get(functionName);
+            String[] functionIndexes = functionIndexesString.split(",");
+            int startIndex = Integer.parseInt(functionIndexes[0]);
+            int endIndex = Integer.parseInt(functionIndexes[1]);
+            int length = endIndex - startIndex;
+            char[] documentationData = new char[length];
+                            System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
+   /*         try {
+
+                documentFile.seek(startIndex);
+                documentFile.read(documentationData, 0, length);
+                String documentationDataString = new String(documentationData);
+                String html = textToHtml(documentationDataString);
+                editorPane.setText(html);
+
+
+            //functionInfo = nodeInfo;
+            //displayFunctionDocs(functionInfo.toString());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } */
+        } else {
+            //toolPanel.sourceButtonEnabled(false);
+            //Note:tk:Perhaps display top of chapter here?
+        }
+    }//end method.
+
+
+
+    private String applyBold(String line) {
+        line = line.replaceAll("\\{", "<b><tt>");
+        line = line.replaceAll("\\}", "</tt></b>");
+        return line;
+    }//end method.
+
+    private String textToHtml(String s) {
+//s = "*CMD D --- take derivative of expression with respect to variable\n*STD\n*CALL\n	D(variable) expression\n	D(list) expression\n	D(variable,n) expression\n\n*PARMS\n\n{variable} -- variable\n\n{list} -- a list of variables\n\n{expression} -- expression to take derivatives of\n\n{n} -- order of derivative\n\n*DESC\n\nThis function calculates the derivative of the expression {expr} with\nrespect to the variable {var} and returns it. If the third calling\nformat is used, the {n}-th derivative is determined. Yacas knows\nhow to differentiate standard functions such as {Ln}\nand {Sin}.\n\nThe {D} operator is threaded in both {var} and\n{expr}. This means that if either of them is a list, the function is\napplied to each entry in the list. The results are collected in\nanother list which is returned. If both {var} and {expr} are a\nlist, their lengths should be equal. In this case, the first entry in\nthe list {expr} is differentiated with respect to the first entry in\nthe list {var}, the second entry in {expr} is differentiated with\nrespect to the second entry in {var}, and so on.\n\nThe {D} operator returns the original function if $n=0$, a common\nmathematical idiom that simplifies many formulae.\n\n*E.G.\n\n	In> D(x)Sin(x*y)\n	Out> y*Cos(x*y);\n	In> D({x,y,z})Sin(x*y)\n	Out> {y*Cos(x*y),x*Cos(x*y),0};\n	In> D(x,2)Sin(x*y)\n	Out> -Sin(x*y)*y^2;\n	In> D(x){Sin(x),Cos(x)}\n	Out> {Cos(x),-Sin(x)};\n\n*SEE Integrate, Taylor, Diverge, Curl\n";
+
+
+        String[] lines = s.split("\n");
+
+        StringBuilder html = new StringBuilder();
+
+        html.append("<html>\n");
+
+        for (int x = 0; x < lines.length; x++) {
+            //foldOutput = foldOutput + lines[x];
+
+            String line = lines[x].trim();
+
+            if (line.startsWith("*CMD")) {
+                line = line.substring(line.indexOf(" "), line.length());
+                html.append("<h3>\n<hr>" + line + "\n</h3>\n\n");
+
+            } else if (line.startsWith("*STD")) {
+                html.append("<h5 align=right>Standard library</h5><h5>\n\n");
+            } else if (line.startsWith("*CALL")) {
+                html.append("Calling format:\n</h5>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>\n");
+
+                while (true) {
+                    x++;
+
+                    line = lines[x].trim();
+
+                    if (line.startsWith("*")) {
+                        x--;
+                        break;
+                    }
+                    if (line.equalsIgnoreCase("")) {
+                        continue;
+                    }
+
+                    html.append(line);
+                    html.append("\n");
+                }//end while.
+
+                html.append("</pre></tr>\n</table>\n<p>\n\n");
+            } else if (line.startsWith("*PARMS")) {
+                html.append("<h5>\nParameters:\n</h5>\n");
+
+                while (true) {
+                    x++;
+
+                    line = lines[x].trim();
+
+                    if (line.startsWith("*")) {
+                        x--;
+                        break;
+                    }
+                    if (line.equalsIgnoreCase("")) {
+                        continue;
+                    }
+
+                    line = applyBold(line);
+                    //foldOutput = foldOutput + line;
+
+                    html.append("\n<p>\n");
+                    html.append(line);
+                    html.append("\n");
+                }//end while.
+
+                html.append("\n<p>\n\n");
+            } else if (line.startsWith("*DESC")) {
+                html.append("<h5>\nDescription:\n</h5>\n");
+
+                while (true) {
+                    x++;
+
+                    line = lines[x].trim();
+
+                    if (line.startsWith("*")) {
+                        x--;
+                        break;
+                    }
+                    if (line.equalsIgnoreCase("")) {
+                        html.append("\n<p>\n");
+                        continue;
+                    }
+
+                    line = applyBold(line);
+                    //foldOutput = foldOutput + line;
+
+
+                    html.append(line);
+                    html.append("\n");
+                }//end while.
+
+                html.append("\n<p>\n\n");
+            } else if (line.startsWith("*E.G.")) {
+                html.append("<h5>\nExamples:\n</h5>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>");
+
+                while (true) {
+                    x++;
+
+                    line = lines[x].trim();
+
+                    if (line.startsWith("*")) {
+                        x--;
+                        break;
+                    }
+                    if (line.equalsIgnoreCase("")) {
+                        html.append("\n<br />\n");
+                        continue;
+                    }
+
+                    line = line.replaceAll(">", "&gt;");
+
+
+                    html.append(line);
+                    html.append("\n");
+                }//end while.
+
+                html.append("\n</pre></tr>\n</table>\n<p>\n\n");
+            } else if (line.startsWith("*SEE")) {
+
+                line = lines[x].trim();
+
+                html.append("<h5>\nSee also:\n</h5>" + line + "\n");
+
+            }
+
+
+
+        }//end for.
+
+        html.append("</html>\n");
+
+        return html.toString();
+
     }//end method.
 
     public static void main(String[] args) {
-        new FunctionTreePanel();
+
+        JFrame frame = new javax.swing.JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel helpPanel = new FunctionTreePanel();
+
+
+        Container contentPane = frame.getContentPane();
+        contentPane.add(helpPanel);
+
+        frame.pack();
+//frame.setAlwaysOnTop(true);
+        frame.setTitle("MathPiper Help");
+        frame.setSize(new Dimension(700, 700));
+        //frame.setResizable(false);
+        frame.setPreferredSize(new Dimension(700, 700));
+        frame.setLocationRelativeTo(null); // added
+
+        frame.setVisible(true);
     }//end main.
 }
