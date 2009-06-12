@@ -558,6 +558,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
     }//end method.
 
+
+
+
     public static void main(String[] args) {
 
         JFrame frame = new javax.swing.JFrame();

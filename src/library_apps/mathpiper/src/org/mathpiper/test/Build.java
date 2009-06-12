@@ -30,6 +30,7 @@ import java.io.InputStreamReader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,7 @@ public class Build {
     private java.io.FileWriter documentationIndexFile;
     private long documentationOffset = 0;
     private java.io.FileWriter functionCategoriesFile;
+    private List<CategoryEntry> functionCategoriesList = new ArrayList<CategoryEntry>();
 
     public Build() {
     }//end constructor.
@@ -248,6 +250,11 @@ public class Build {
 
                 }//end for.
 
+                Collections.sort(functionCategoriesList);
+                for(CategoryEntry entry:functionCategoriesList)
+                {
+                    functionCategoriesFile.write(entry.toString() + "\n");
+                }
 
 
             } else {
@@ -425,22 +432,38 @@ public class Build {
                                 String categories = "";
 
                                 int categoryIndex = 0;
+                                String functionCategoryName = "";
+
                                 for (String categoryName : categoryNames) {
                                     if (categoryIndex == 0) {
-                                        functionCategoriesFile.write(categoryName + ",");
+                                        //functionCategoriesFile.write(categoryName + ",");
+                                        functionCategoryName = categoryName;
+
                                     } else {
                                         categories = categories + categoryName + ",";
                                     }
                                     categoryIndex++;
                                 }//end for.
 
-                                functionCategoriesFile.write(functionName + ",");
-                                functionCategoriesFile.write(description);
+                                //functionCategoriesFile.write(functionName + ",");
+
+
+                                //functionCategoriesFile.write(description);
+
+
                                 if (!categories.equalsIgnoreCase("")) {
                                     categories = categories.substring(0, categories.length() - 1);
-                                    functionCategoriesFile.write("," + categories);
+                                    //functionCategoriesFile.write("," + categories);
+
                                 }
-                                functionCategoriesFile.write("\n");
+                                //functionCategoriesFile.write("\n");
+                                if(functionCategoryName.equalsIgnoreCase(""))
+                                {
+                                    functionCategoryName = "Uncategorized";
+                                }
+                                CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, description, categories);
+                                functionCategoriesList.add(categoryEntry);
+                                
                             }//end if.
                         }//end for.
                     }//end if.
@@ -463,6 +486,41 @@ public class Build {
         System.out.println("Destination directory: " + this.outputScriptsDirectory);
         compileScripts();
     }//end method.
+
+
+
+        private class CategoryEntry implements Comparable
+    {
+        private String categoryName;
+        private String functionName;
+        private String description;
+        private String categories;
+
+        public CategoryEntry(String categoryName, String functionName, String description, String categories)
+        {
+            this.categoryName = categoryName;
+            this.functionName = functionName;
+            this.description = description;
+            this.categories = categories;
+        }
+        public int compareTo(Object o)
+        {
+            CategoryEntry categoryEntry = (CategoryEntry) o;
+            return this.functionName.compareTo(categoryEntry.getFunctionName());
+        }//end method.
+
+        public String getFunctionName()
+        {
+            return this.functionName;
+        }//end method.
+
+        public String toString()
+        {
+            return categoryName + "," + functionName + "," + description + "," + categories;
+        }//end method.
+
+    }//end class.
+
 
     public static void main(String[] args) {
 
