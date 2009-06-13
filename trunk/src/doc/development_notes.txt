@@ -3,6 +3,14 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++D(x) does not properly handle symbolic equations:
+%mathpiper,output=""
+u := Exp(x) + y(x)^4 == 4*x^2 + y(x);
+D(x)u;
+%/mathpiper
+    %output,preserve="false"
+      Result: Deriv(x)Exp(x)+y(x)^4==4*x^2+y(x)
+.   %/output
 +Functions cannot be cleared by the Clear() function but they need to be.
 +Add commas to first example in worksheet_demo_1.mrw
 +Add a Range() function which is similar to Python's range();
