@@ -94,7 +94,8 @@
 
       <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts3/"
                  outputScriptsDirectory="${basedir}/build/classes/org/mathpiper/scripts/"
-		 outputDocsDirectory="${basedir}/build/classes/org/mathpiper/ui/gui/help/data/"/>
+		 outputDocsDirectory="${basedir}/build/classes/org/mathpiper/ui/gui/help/data/"
+		 baseDirectory="${basedir}/"/>
       
       </target>
       

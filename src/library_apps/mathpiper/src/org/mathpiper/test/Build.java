@@ -46,6 +46,7 @@ public class Build {
     private String sourceScriptsDirectory = null;
     private String outputScriptsDirectory = null;
     private String outputDocsDirectory = null;
+    private String sourceDirectory = null;
     private java.io.DataOutputStream documentationFile;
     private java.io.FileWriter documentationIndexFile;
     private long documentationOffset = 0;
@@ -95,6 +96,10 @@ public class Build {
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
+    }//end method.
+
+    public void setBaseDirectory(String baseDirectory) {
+        this.sourceDirectory = baseDirectory + "src/";
     }//end method.
 
     public void compileScripts() {
@@ -250,9 +255,12 @@ public class Build {
 
                 }//end for.
 
+                if (documentationFile != null) {
+                    processBuiltinDocs();
+                }
+
                 Collections.sort(functionCategoriesList);
-                for(CategoryEntry entry:functionCategoriesList)
-                {
+                for (CategoryEntry entry : functionCategoriesList) {
                     functionCategoriesFile.write(entry.toString() + "\n");
                 }
 
@@ -265,6 +273,7 @@ public class Build {
             packagesFile.close();
 
             if (documentationFile != null) {
+
                 documentationFile.close();
                 documentationIndexFile.close();
                 functionCategoriesFile.close();
@@ -277,21 +286,21 @@ public class Build {
 
     }//end method.
 
-    List scanMRWFile(File mrwFile) {
+    List scanSourceFile(File sourceFile) {
         List<Fold> folds = new ArrayList();
         StringBuilder foldContents = new StringBuilder();
         String foldHeader = "";
         boolean inFold = false;
 
         try {
-            FileInputStream fstream = new FileInputStream(mrwFile);
+            FileInputStream fstream = new FileInputStream(sourceFile);
             // Get the object of DataInputStream
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String line;
             //Read File Line By Line
             while ((line = br.readLine()) != null) {
-
+                line = line.trim();
                 //System.out.println(line);
 
                 if (line.startsWith("%/")) {
@@ -362,7 +371,7 @@ public class Build {
     }//end inner class.
 
     private void processMRWFile(File mrwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws IOException {
-        List<Fold> folds = scanMRWFile(mrwFile);
+        List<Fold> folds = scanSourceFile(mrwFile);
 
         for (Fold fold : folds) {
 
@@ -394,90 +403,94 @@ public class Build {
 
             } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
                 System.out.println("        **** Contains docs *****");
-                if (documentationFile != null) {
 
-                    String functionNamesString = "";
-                    if (fold.getAttributes().containsKey("name")) {
-                        functionNamesString = (String) fold.getAttributes().get("name");
-
-                        String[] functionNames = functionNamesString.split(";");
-
-                        for (String functionName : functionNames) {
-
-                            documentationIndexFile.write(functionName + ",");
-                            documentationIndexFile.write(documentationOffset + ",");
-
-                            String contents = fold.getContents();
-                            byte[] contentsBytes = contents.getBytes();
-                            documentationFile.write(contentsBytes,0,contentsBytes.length);
-                           
-                            documentationOffset = documentationOffset + contents.length();
-                            documentationIndexFile.write(documentationOffset + "\n");
-
-                             byte[] separator = "\n==========\n".getBytes();
-                            documentationFile.write(separator,0,separator.length);
-                            
-                            documentationOffset = documentationOffset + separator.length;
-
-                            if (fold.getAttributes().containsKey("categories")) {
-
-
-                                int commandIndex = contents.indexOf("*CMD");
-                                String descriptionLine = contents.substring(commandIndex, contents.indexOf("\n", commandIndex));
-                                String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
-                                description = description.trim();
-
-                                String functionCategories = (String) fold.getAttributes().get("categories");
-                                String[] categoryNames = functionCategories.split(";");
-                                String categories = "";
-
-                                int categoryIndex = 0;
-                                String functionCategoryName = "";
-
-                                for (String categoryName : categoryNames) {
-                                    if (categoryIndex == 0) {
-                                        //functionCategoriesFile.write(categoryName + ",");
-                                        functionCategoryName = categoryName;
-
-                                    } else {
-                                        categories = categories + categoryName + ",";
-                                    }
-                                    categoryIndex++;
-                                }//end for.
-
-                                //functionCategoriesFile.write(functionName + ",");
-
-
-                                //functionCategoriesFile.write(description);
-
-
-                                if (!categories.equalsIgnoreCase("")) {
-                                    categories = categories.substring(0, categories.length() - 1);
-                                    //functionCategoriesFile.write("," + categories);
-
-                                }
-                                //functionCategoriesFile.write("\n");
-                                if(functionCategoryName.equalsIgnoreCase(""))
-                                {
-                                    functionCategoryName = "Uncategorized";
-                                }
-                                CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, description, categories);
-                                functionCategoriesList.add(categoryEntry);
-                                
-                            }//end if.
-                        }//end for.
-                    }//end if.
-
-
-
-
-                }//end if.
+                processMathPiperDocsFold(fold);
 
             }//end if.
 
 
         }//end subpackage for.
     }//end method.
+
+    private void processMathPiperDocsFold(Fold fold) throws IOException {
+        if (documentationFile != null) {
+
+            String functionNamesString = "";
+            if (fold.getAttributes().containsKey("name")) {
+                functionNamesString = (String) fold.getAttributes().get("name");
+
+                String[] functionNames = functionNamesString.split(";");
+
+                for (String functionName : functionNames) {
+
+                    documentationIndexFile.write(functionName + ",");
+                    documentationIndexFile.write(documentationOffset + ",");
+
+                    String contents = fold.getContents();
+                    byte[] contentsBytes = contents.getBytes();
+                    documentationFile.write(contentsBytes, 0, contentsBytes.length);
+
+                    documentationOffset = documentationOffset + contents.length();
+                    documentationIndexFile.write(documentationOffset + "\n");
+
+                    byte[] separator = "\n==========\n".getBytes();
+                    documentationFile.write(separator, 0, separator.length);
+
+                    documentationOffset = documentationOffset + separator.length;
+
+                    if (fold.getAttributes().containsKey("categories")) {
+
+
+                        int commandIndex = contents.indexOf("*CMD");
+                        String descriptionLine = contents.substring(commandIndex, contents.indexOf("\n", commandIndex));
+                        String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
+                        description = description.trim();
+
+                        String functionCategories = (String) fold.getAttributes().get("categories");
+                        String[] categoryNames = functionCategories.split(";");
+                        String categories = "";
+
+                        int categoryIndex = 0;
+                        String functionCategoryName = "";
+
+                        for (String categoryName : categoryNames) {
+                            if (categoryIndex == 0) {
+                                //functionCategoriesFile.write(categoryName + ",");
+                                functionCategoryName = categoryName;
+
+                            } else {
+                                categories = categories + categoryName + ",";
+                            }
+                            categoryIndex++;
+                        }//end for.
+
+                        //functionCategoriesFile.write(functionName + ",");
+
+
+                        //functionCategoriesFile.write(description);
+
+
+                        if (!categories.equalsIgnoreCase("")) {
+                            categories = categories.substring(0, categories.length() - 1);
+                        //functionCategoriesFile.write("," + categories);
+
+                        }
+                        //functionCategoriesFile.write("\n");
+                        if (functionCategoryName.equalsIgnoreCase("")) {
+                            functionCategoryName = "Uncategorized";
+                        }
+                        CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, description, categories);
+                        functionCategoriesList.add(categoryEntry);
+
+                    }//end if.
+                }//end for.
+            }//end if.
+
+
+
+
+        }//end if.
+    }//end method
 
     public void execute() {
         //execute() method is needed by ant to run this class.
@@ -487,40 +500,87 @@ public class Build {
         compileScripts();
     }//end method.
 
+    private class CategoryEntry implements Comparable {
 
-
-        private class CategoryEntry implements Comparable
-    {
         private String categoryName;
         private String functionName;
         private String description;
         private String categories;
 
-        public CategoryEntry(String categoryName, String functionName, String description, String categories)
-        {
+        public CategoryEntry(String categoryName, String functionName, String description, String categories) {
             this.categoryName = categoryName;
             this.functionName = functionName;
             this.description = description;
             this.categories = categories;
         }
-        public int compareTo(Object o)
-        {
+
+        public int compareTo(Object o) {
             CategoryEntry categoryEntry = (CategoryEntry) o;
             return this.functionName.compareTo(categoryEntry.getFunctionName());
         }//end method.
 
-        public String getFunctionName()
-        {
+        public String getFunctionName() {
             return this.functionName;
         }//end method.
 
-        public String toString()
-        {
+        public String toString() {
             return categoryName + "," + functionName + "," + description + "," + categories;
         }//end method.
-
     }//end class.
 
+    private void processBuiltinDocs() {
+        // try {
+
+        File builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/");
+        if (builtinFunctionsSourceDir.exists()) {
+            java.io.File[] javaFilesDirectory = builtinFunctionsSourceDir.listFiles(new java.io.FilenameFilter() {
+                public boolean accept(java.io.File file, String name) {
+                    if (name.endsWith(".java")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+
+            Arrays.sort(javaFilesDirectory);
+
+            for (int x = 0; x < javaFilesDirectory.length; x++) {
+                File javaFile = javaFilesDirectory[x];
+                String javaFileName = javaFile.getName();
+
+
+                System.out.println(javaFileName);
+
+                List<Fold> folds = scanSourceFile(javaFile);
+                for (Fold fold : folds) {
+
+                    String foldType = fold.getType();
+                    if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
+                        System.out.println("        **** Contains docs *****  " + javaFileName);
+                        try {
+                            processMathPiperDocsFold(fold);
+                        } catch (java.io.IOException e) {
+                            e.printStackTrace();
+                        }
+                    }//end if
+                }//end for
+
+                int x2 = 0;
+
+
+
+
+            }//end for
+
+        }//end if.
+
+    /*               } catch (java.io.IOException e) {
+    e.printStackTrace();
+    }*/
+
+
+    }//end method.
 
     public static void main(String[] args) {
 
@@ -547,6 +607,8 @@ public class Build {
         //String outputDirectory = "/home/tkosan/temp/mathpiper/org/mathpiper/scripts/";
 
         Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory, outputDocsDirectory.getPath() + "/");
+
+        scripts.setBaseDirectory("/home/tkosan/NetBeansProjects/mathpiper/");
         scripts.compileScripts();
 
         Map functionDocs = new HashMap();
