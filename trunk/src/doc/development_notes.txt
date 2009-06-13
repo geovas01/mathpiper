@@ -3,9 +3,10 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Functions cannot be cleared by the Clear() function but they need to be.
 +Add commas to first example in worksheet_demo_1.mrw
-+ Add a Range() function which is similar to Python's range();
-+ This produces a parsing error: 
++Add a Range() function which is similar to Python's range();
++This produces a parsing error: 
 In> 101!/100!
 Result> 
 Error parsing expression, near token !/.
