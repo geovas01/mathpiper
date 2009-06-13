@@ -31,6 +31,7 @@ Listify -> FunctionToList
 UnList -> ListToFunction
 FindRealRoots -> RealRootsFind
 NumRealRoots -> RealRootsNum
+Clear -> Unbind (or perhaps IsAssigned and Unassign?)
 
 
 
