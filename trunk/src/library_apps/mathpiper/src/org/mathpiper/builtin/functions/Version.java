@@ -34,3 +34,39 @@ public class Version extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + org.mathpiper.Version.version + "\""));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Version",categories="User Functions;Built In"
+*CMD Version --- show version of MathPiper
+*CORE
+*CALL
+	Version()
+
+*DESC
+
+The function {Version()} returns a string representing the version of the currently running MathPiper interpreter.
+
+*E.G. notest
+
+	In> Version()
+	Out> "1.0.48rev3";
+	In> LessThan(Version(), "1.0.47")
+	Out> False;
+	In> GreaterThan(Version(), "1.0.47")
+	Out> True;
+
+The last two calls show that the {LessThan} and {GreaterThan}
+functions can be used for comparing version numbers. This
+method is only guaranteed, however, if the version is always expressed
+in the form {d.d.dd} as above.
+
+*REM
+Note that on the Windows platforms the output may be different:
+In> Version()
+Out> "Windows-latest";
+
+*SEE LessThan, GreaterThan
+%mathpiper_docs
+*/

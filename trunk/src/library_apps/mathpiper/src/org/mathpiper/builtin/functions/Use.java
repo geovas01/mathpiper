@@ -45,3 +45,29 @@ public class Use extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+/*
+%mathpiper_docs,name="Use",categories="User Functions;Control Flow;Input/Output;Built In"
+*CMD Use --- load a file, but not twice
+*CORE
+*CALL
+	Use(name)
+
+*PARMS
+
+{name} -- name of the file to load
+
+*DESC
+
+If the file "name" has been loaded before, either by an earlier call
+to {Use} or via the {DefLoad}
+mechanism, nothing happens. Otherwise all expressions in the file are
+read and evaluated. {Use} always returns {True}.
+
+The purpose of this function is to make sure that the file will at
+least have been loaded, but is not loaded twice.
+
+*SEE Load, DefLoad, DefaultDirectory
+%mathpiper_docs
+*/

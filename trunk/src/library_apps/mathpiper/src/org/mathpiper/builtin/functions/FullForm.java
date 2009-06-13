@@ -36,3 +36,43 @@ public class FullForm extends BuiltinFunction
         aEnvironment.write("\n");
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="FullForm",categories="User Functions;Input/Output;Built In"
+*CMD FullForm --- print an expression in LISP-format
+*CORE
+*CALL
+	FullForm(expr)
+
+*PARMS
+
+{expr} -- expression to be printed in LISP-format
+
+*DESC
+
+Evaluates "expr", and prints it in LISP-format on the current
+output. It is followed by a newline. The evaluated expression is also
+returned.
+
+This can be useful if you want to study the internal representation of
+a certain expression.
+
+*E.G. notest
+
+	In> FullForm(a+b+c);
+	(+ (+ a b )c )
+	Out> a+b+c;
+	In> FullForm(2*I*b^2);
+	(* (Complex 0 2 )(^ b 2 ))
+	Out> Complex(0,2)*b^2;
+
+The first example shows how the expression {a+b+c} is
+internally represented. In the second example, {2*I} is
+first evaluated to {Complex(0,2)} before the expression
+is printed.
+
+*SEE LispRead, Listify, Unlist
+%mathpiper_docs
+*/

@@ -152,7 +152,7 @@ import org.mathpiper.builtin.functions.PrettyPrinterSet;
 import org.mathpiper.builtin.functions.PrettyReaderGet;
 import org.mathpiper.builtin.functions.PrettyReaderSet;
 import org.mathpiper.builtin.functions.ProgBody;
-import org.mathpiper.builtin.functions.Quote;
+import org.mathpiper.builtin.functions.Hold;
 import org.mathpiper.builtin.functions.Read;
 import org.mathpiper.builtin.functions.ReadCmdLineString;
 import org.mathpiper.builtin.functions.LispRead;
@@ -251,7 +251,7 @@ public abstract class BuiltinFunction
         aEnvironment.iInfixOperators.setOperator(0, "_");
 
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Quote(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Hold(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "Hold");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Eval(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

@@ -58,3 +58,44 @@ public class ToBase extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(str)));
     }
 }
+
+
+/*
+%mathpiper_docs,name="ToBase",categories="User Functions;Numbers (Operations);Built In"
+*CMD ToBase --- conversion of a number in decimal base to non-decimal base
+*CORE
+*CALL
+	ToBase(base, number)
+
+*PARMS
+
+{base} -- integer, base to convert to/from
+
+{number} -- integer, number to write out in a different base
+
+{"string"} -- string representing a number in a different base
+
+*DESC
+
+In Yacas, all numbers are written in decimal notation (base 10).
+The two functions {FromBase}, {ToBase} convert numbers between base 10 and a different base.
+Numbers in non-decimal notation are represented by strings.
+
+
+*REM where is this p-adic capability? - sw
+These functions use the p-adic expansion capabilities of the built-in
+arbitrary precision math libraries.
+
+Non-integer arguments are not supported.
+
+*E.G.
+
+
+Write the (decimal) number {255} in hexadecimal notation:
+
+	In> ToBase(16,255)
+	Out> "ff";
+
+*SEE PAdicExpand,FromBase
+%/mathpiper_docs
+ */

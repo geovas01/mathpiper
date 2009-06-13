@@ -40,3 +40,30 @@ public class PrettyReaderGet extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="PrettyReaderGet",categories="User Functions;Built In"
+*CMD PrettyReaderGet --- get routine that is currently used as pretty-reader
+
+*CORE
+
+*CALL
+	PrettyReaderGet()
+
+*DESC
+
+{PrettyReaderGet()} returns the current reader, or it returns
+an empty string if the default pretty printer is used.
+
+
+
+*E.G.
+
+	In> PrettyReader'Get()
+	Result> ""
+
+*SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderSet
+%mathpiper_docs
+*/

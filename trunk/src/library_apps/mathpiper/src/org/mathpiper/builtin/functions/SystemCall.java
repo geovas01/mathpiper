@@ -50,3 +50,50 @@ public class SystemCall extends BuiltinFunction
         }
     }
 }
+
+
+/*
+%mathpiper_docs,name="SystemCall",categories="User Functions;Control Flow;Built In"
+*CMD SystemCall --- pass a command to the shell
+*CORE
+*CALL
+	SystemCall(str)
+
+*PARMS
+
+{str} -- string containing the command to call
+
+*DESC
+
+The command contained in the string "str" is executed by the
+underlying operating system (OS).
+The return value of {SystemCall} is {True} or {False} according to the exit code of the command.
+
+The {SystemCall} function is not allowed in the body of the {Secure} command and will lead to an error.
+
+*E.G. notest
+
+In a UNIX environment, the command {SystemCall("ls")} would print the contents of the current directory.
+
+	In> SystemCall("ls")
+	AUTHORS
+	COPYING
+	ChangeLog
+... (truncated to save space)
+	Out> True;
+
+The standard UNIX command {test} returns success or failure depending on conditions.
+For example, the following command will check if a directory exists:
+
+	In> SystemCall("test -d scripts/")
+	Out> True;
+
+Check that a file exists:
+	In> SystemCall("test -f COPYING")
+	Out> True;
+	In> SystemCall("test -f nosuchfile.txt")
+	Out> False;
+
+*SEE Secure
+%mathpiper_docs
+*/

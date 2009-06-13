@@ -50,3 +50,37 @@ public class WriteString extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="WriteString",categories="User Functions;Input/Output;Built In"
+*CMD WriteString --- low-level printing routine for strings
+*CORE
+*CALL
+	WriteString(string)
+
+*PARMS
+
+{string} -- the string to be printed
+
+*DESC
+
+The expression "string" is evaluated and written to the current
+output without quotation marks. The argument should be a
+string. WriteString always returns True.
+
+*E.G. notest
+
+	In> Write("Hello, world!");
+	"Hello, world!"Out> True;
+	In> WriteString("Hello, world!");
+	Hello, world!Out> True;
+
+This example clearly shows the difference between Write and
+WriteString. Note that Write and WriteString do not write a newline,
+so the {Out>} prompt immediately follows the output.
+
+*SEE Echo, Write
+%mathpiper_docs
+*/

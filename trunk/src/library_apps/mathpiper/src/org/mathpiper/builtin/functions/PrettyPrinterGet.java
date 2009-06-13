@@ -40,3 +40,30 @@ public class PrettyPrinterGet extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="PrettyPrinterGet",categories="User Functions;Built In"
+*CMD PrettyPrinterGet --- get routine to use as pretty-printer
+
+*CORE
+
+*CALL
+	PrettyPrinterGet()
+
+*DESC
+
+{PrettyPrinterGet()} returns the current pretty printer, or it returns
+an empty string if the default pretty printer is used.
+
+
+
+*E.G.
+
+	In> PrettyPrinter'Get()
+	Result> ""
+
+*SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReaderSet, PrettyReaderGet, PrettyPrinterSet
+%mathpiper_docs
+*/

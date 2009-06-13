@@ -49,3 +49,45 @@ public class PrettyReaderSet extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="PrettyReaderSet",categories="User Functions;Built In"
+*CMD PrettyReaderSet --- set routine to use as pretty-reader
+
+*CORE
+
+*CALL
+	PrettyReaderSet(reader)
+	PrettyReaderSet()
+
+*PARMS
+
+{reader} -- a string containing the name of a function that can read an expression from current input.
+
+
+*DESC
+
+This function sets up the function reader to read in the input on
+the command line. This can be reset to the internal reader with {PrettyReaderSet()} (when no argument is given, the system returns to the default).
+
+Currently implemented PrettyReaders are: {LispRead}, {OMRead}.
+
+MathPiper allows you to configure a few things at startup. The file
+{~/.mathpiperrc} is written in the MathPiper language and
+will be executed when MapthPiper is run. This function
+can be useful in the {~/.MathPiperrc} file.
+
+*E.G.
+
+	In> Taylor(x,0,5)Sin(x)
+	Out> x-x^3/6+x^5/120
+	In> PrettyReaderSet("LispRead")
+	Out> True
+	In> (Taylor x 0 5 (Sin x))
+	Out> x-x^3/6+x^5/120
+
+*SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderGet
+%mathpiper_docs
+*/

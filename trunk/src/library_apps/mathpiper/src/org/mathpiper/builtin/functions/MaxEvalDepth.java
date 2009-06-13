@@ -43,3 +43,64 @@ public class MaxEvalDepth extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+/*
+%mathpiper_docs,name="MaxEvalDepth",categories="User Functions;Control Flow;Built In"
+*CMD MaxEvalDepth --- set the maximum evaluation depth
+*CORE
+*CALL
+	MaxEvalDepth(n)
+
+*PARMS
+
+{n} -- new maximum evaluation depth
+
+*DESC
+
+Use this command to set the maximum evaluation depth to the integer
+"n". The default value is 1000. The function {MaxEvalDepth} returns {True}.
+
+The point of having a maximum evaluation depth is to catch any
+infinite recursion. For example, after the definition {f(x) := f(x)}, evaluating the expression {f(x)} would call {f(x)}, which would
+call {f(x)}, etc. The interpreter will halt if
+the maximum evaluation depth is reached and an error message will be printed. Also indirect recursion, e.g.
+the pair of definitions {f(x) := g(x)} and {g(x) := f(x)}, will be caught.
+
+*E.G. notest
+
+An example of an infinite recursion, caught because the maximum
+evaluation depth is reached.
+
+	In> f(x) := f(x)
+	Out> True;
+	In> f(x)
+	Error on line 1 in file [CommandLine]
+	Max evaluation stack depth reached.
+	Please use MaxEvalDepth to increase the stack
+	size as needed.
+
+However, a long calculation may cause the maximum evaluation depth to
+be reached without the presence of infinite recursion. The function {MaxEvalDepth} is meant for these cases.
+
+	In> 10 # g(0) <-- 1;
+	Out> True;
+	In> 20 # g(n_IsPositiveInteger) <-- \
+	  2 * g(n-1);
+	Out> True;
+	In> g(1001);
+	Error on line 1 in file [CommandLine]
+	Max evaluation stack depth reached.
+	Please use MaxEvalDepth to increase the stack
+	size as needed.
+
+	In> MaxEvalDepth(10000);
+	Out> True;
+	In> g(1001);
+	Out> 21430172143725346418968500981200036211228096234
+	1106721488750077674070210224987224498639675763139171
+	6255189345835106293650374290571384628087196915514939
+	7149607869135549648461970842149210124742283755908364
+	3060929499671638825347975351183310878921541258291423
+	92955373084335320859663305248773674411336138752;
+%/mathpiper_docs
+ */
