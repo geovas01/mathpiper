@@ -32,4 +32,47 @@ public class Eval extends BuiltinFunction
     {
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
     }
-}
+}//end class
+
+
+/*
+ %mathpiper_docs,name="Eval",categories="User Functions;Control Flow;Built In"
+*CMD Eval --- force evaluation of expression
+*CORE
+*CALL
+	Eval(expr)
+
+*PARMS
+
+{expr} -- expression to evaluate
+
+*DESC
+
+This function explicitly requests an evaluation of the expression
+"expr", and returns the result of this evaluation.
+
+*E.G.
+
+	In> a := x;
+	Out> x;
+	In> x := 5;
+	Out> 5;
+	In> a;
+	Out> x;
+	In> Eval(a);
+	Out> 5;
+
+The variable {a} is bound to {x},
+and {x} is bound to 5. Hence evaluating {a} will give {x}. Only when an extra
+evaluation of {a} is requested, the value 5 is
+returned.
+
+Note that the behavior would be different if we had exchanged the
+assignments. If the assignment {a := x} were given
+while {x} had the value 5, the variable {a} would also get the value 5 because the assignment
+operator {:=} evaluates the right-hand side.
+
+*SEE Hold, HoldArg, :=
+%/mathpiper_docs
+
+ */
