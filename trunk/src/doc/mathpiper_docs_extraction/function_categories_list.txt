@@ -6,7 +6,7 @@ AbsN;,categories="User Functions;Numeric;Built In"
 Add;
 AddN;,categories="User Functions;Numeric;Built In"
 AddTo;
-And;,categories="User Functions;Predicates;Built In"
+And;
 AndN;,categories="User Functions;Numeric"
 Append;
 Apply;
@@ -118,7 +118,7 @@ EndOfFile;,categories="User Functions;Constants (System)"
 Equals;,categories="User Functions;Built In"
 Euler;
 Eulerian;
-Eval;,categories="User Functions;Control Flow;Built In"
+Eval;
 EvalFormula;,categories="User Functions;Input/Output"
 EvaluateHornerScheme;
 Exp;
@@ -144,10 +144,10 @@ Floor;
 FloorN;,categories="User Functions;Numeric;Built In"
 For;
 ForEach;
-FromBase;,categories="User Functions;Numbers (Operations);Built In"
+FromBase;
 FromFile;,categories="User Functions;Input/Output;Built In"
 FromString;,categories="User Functions;Input/Output;Built In"
-FullForm;,categories="User Functions;Input/Output;Built In"
+FullForm;
 FuncList;
 FuncListArith;
 FuncListSome;
@@ -179,13 +179,13 @@ HeapSort;,categories="User Functions;Lists (Operations)"
 HessianMatrix;,categories="User Functions;Matrices (Special)"
 HilbertInverseMatrix;,categories="User Functions;Matrices (Special)"
 HilbertMatrix;,categories="User Functions;Matrices (Special)"
-Hold;,categories="User Functions;Control Flow;Built In"
+Hold;
 HoldArg;,categories="User Functions;Built In"
 HoldArgNr;,categories="User Functions"
 Horner;,categories="User Functions;Polynomials (Operations)"
 I;,categories="User Functions;Numbers (Complex)"
 Identity;,categories="User Functions;Linear Algebra"
-If;,categories="User Functions;Control Flow;Built In"
+If;
 Im;,categories="User Functions;Numbers (Complex)"
 Infinity;,categories="User Functions;Constants (Mathematical)"
 Infix;,categories="User Functions;Built In"
@@ -298,7 +298,7 @@ MatchLinear;,categories="User Functions;Predicates"
 MatrixPower;,categories="User Functions;Linear Algebra"
 MatrixSolve;,categories="User Functions;Solvers (Symbolic)"
 Max;,categories="User Functions;Numbers (Operations)"
-MaxEvalDepth;,categories="User Functions;Control Flow;Built In"
+MaxEvalDepth;
 MaximumBound;,categories="User Functions;Solvers (Numeric)"
 Min;,categories="User Functions;Numbers (Operations)"
 MinimumBound;,categories="User Functions;Solvers (Numeric)"
@@ -440,7 +440,7 @@ String;,categories="User Functions;String Manipulation;Built In"
 StringMidGet;,categories="User Functions;String Manipulation;Built In"
 StringMidSet;,categories="User Functions;String Manipulation;Built In"
 Subfactorial;,categories="User Functions;Combinatorics"
-Subst;,categories="User Functions;Control Flow;Built In"
+Subst;
 SubtractN;,categories="User Functions;Numeric;Built In"
 SuchThat;,categories="User Functions;Solvers (Symbolic)"
 Sum;,categories="User Functions;Series"
@@ -448,7 +448,7 @@ SumForDivisors;,categories="User Functions;Number Theory"
 SumTaylorNum;,categories="User Functions"
 Swap;,categories="User Functions;Lists (Operations)"
 SylvesterMatrix;,categories="User Functions;Matrices (Special)"
-SystemCall;,categories="User Functions;Control Flow;Built In"
+SystemCall;
 Table;,categories="User Functions;Lists (Operations)"
 TableForm;,categories="User Functions;Lists (Operations)"
 Tail;,categories="User Functions;Lists (Operations);Built In"
@@ -468,8 +468,8 @@ ToStdout;,categories="User Functions;Input/Output;Built In"
 ToString;,categories="User Functions;Input/Output;Built In"
 Trace;,categories="User Functions;Linear Algebra"
 TraceExp;,categories="User Functions;Control Flow"
-TraceRule;,categories="User Functions;Control Flow;Built In"
-TraceStack;,categories="User Functions;Control Flow;Built In"
+TraceRule;
+TraceStack;
 Transpose;,categories="User Functions;Linear Algebra"
 TrapError;,categories="User Functions;Built In"
 TrigSimpCombine;,categories="User Functions;Expression Simplification"
@@ -483,7 +483,7 @@ Union;,categories="User Functions;Lists (Operations)"
 UniqueConstant;,categories="User Functions;Variables"
 UnList;,categories="User Functions;Lists (Operations);Built In"
 Until;,categories="User Functions;Control Flow"
-Use;,categories="User Functions;Control Flow;Input/Output;Built In"
+Use;
 V;,categories="User Functions;Input/Output"
 VandermondeMatrix;,categories="User Functions;Matrices (Special)"
 VarList;,categories="User Functions;Lists (Operations)"
@@ -493,10 +493,10 @@ Verify;,categories="User Functions"
 VerifyArithmetic;,categories="User Functions"
 VerifyDiv;,categories="User Functions"
 Where;,categories="User Functions;Functional Operators"
-While;,categories="User Functions;Control Flow;Built In"
+While;
 WithValue;,categories="User Functions;Control Flow"
-Write;,categories="User Functions;Input/Output;Built In"
-WriteString;,categories="User Functions;Input/Output;Built In"
+Write;
+WriteString;
 WronskianMatrix;,categories="User Functions;Matrices (Special)"
 XmlExplodeTag;,categories="User Functions;Input/Output;Built In"
 XmlTokenizer;,categories="User Functions;Input/Output;Built In"

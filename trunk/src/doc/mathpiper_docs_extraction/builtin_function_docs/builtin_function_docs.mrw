@@ -1,977 +1,6 @@
-%mathpiper_docs,name="FromBase;ToBase"
-*CMD FromBase --- conversion of a number from non-decimal base to decimal base
-*CMD ToBase --- conversion of a number in decimal base to non-decimal base
-*CORE
-*CALL
-	FromBase(base,"string")
-	ToBase(base, number)
 
-*PARMS
 
-{base} -- integer, base to convert to/from
-
-{number} -- integer, number to write out in a different base
-
-{"string"} -- string representing a number in a different base
-
-*DESC
-
-In Yacas, all numbers are written in decimal notation (base 10).
-The two functions {FromBase}, {ToBase} convert numbers between base 10 and a different base.
-Numbers in non-decimal notation are represented by strings.
-
-{FromBase} converts an integer, written as a string in base
-{base}, to base 10. {ToBase} converts {number},
-written in base 10, to base {base}.
-
-*REM where is this p-adic capability? - sw
-These functions use the p-adic expansion capabilities of the built-in
-arbitrary precision math libraries.
-
-Non-integer arguments are not supported.
-
-*E.G.
-
-Write the binary number {111111} as a decimal number:
-
-	In> FromBase(2,"111111")
-	Out> 63;
-
-Write the (decimal) number {255} in hexadecimal notation:
-
-	In> ToBase(16,255)
-	Out> "ff";
-
-*SEE PAdicExpand
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="MaxEvalDepth"
-*CMD MaxEvalDepth --- set the maximum evaluation depth
-*CORE
-*CALL
-	MaxEvalDepth(n)
-
-*PARMS
-
-{n} -- new maximum evaluation depth
-
-*DESC
-
-Use this command to set the maximum evaluation depth to the integer
-"n". The default value is 1000. The function {MaxEvalDepth} returns {True}.
-
-The point of having a maximum evaluation depth is to catch any
-infinite recursion. For example, after the definition {f(x) := f(x)}, evaluating the expression {f(x)} would call {f(x)}, which would
-call {f(x)}, etc. The interpreter will halt if
-the maximum evaluation depth is reached. Also indirect recursion, e.g.
-the pair of definitions {f(x) := g(x)} and {g(x) := f(x)}, will be caught.
-
-*E.G. notest
-
-An example of an infinite recursion, caught because the maximum
-evaluation depth is reached.
-
-	In> f(x) := f(x)
-	Out> True;
-	In> f(x)
-	Error on line 1 in file [CommandLine]
-	Max evaluation stack depth reached.
-	Please use MaxEvalDepth to increase the stack
-	size as needed.
-
-However, a long calculation may cause the maximum evaluation depth to
-be reached without the presence of infinite recursion. The function {MaxEvalDepth} is meant for these cases.
-
-	In> 10 # g(0) <-- 1;
-	Out> True;
-	In> 20 # g(n_IsPositiveInteger) <-- \
-	  2 * g(n-1);
-	Out> True;
-	In> g(1001);
-	Error on line 1 in file [CommandLine]
-	Max evaluation stack depth reached.
-	Please use MaxEvalDepth to increase the stack
-	size as needed.
-	
-	In> MaxEvalDepth(10000);
-	Out> True;
-	In> g(1001);
-	Out> 21430172143725346418968500981200036211228096234
-	1106721488750077674070210224987224498639675763139171
-	6255189345835106293650374290571384628087196915514939
-	7149607869135549648461970842149210124742283755908364
-	3060929499671638825347975351183310878921541258291423
-	92955373084335320859663305248773674411336138752;
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Hold"
-*CMD Hold --- keep expression unevaluated
-*CORE
-*CALL
-	Hold(expr)
-
-*PARMS
-
-{expr} -- expression to keep unevaluated
-
-*DESC
-
-The expression "expr" is returned unevaluated. This is useful to
-prevent the evaluation of a certain expression in a context in which
-evaluation normally takes place.
-
-The function {UnList()} also leaves its result unevaluated. Both functions stop the process of evaluation (no more rules will be applied).
-
-*E.G. notest
-
-	In> Echo({ Hold(1+1), "=", 1+1 });
-	 1+1 = 2
-	Out> True;
-
-*SEE Eval, HoldArg, UnList
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Eval"
-*CMD Eval --- force evaluation of expression
-*CORE
-*CALL
-	Eval(expr)
-
-*PARMS
-
-{expr} -- expression to evaluate
-
-*DESC
-
-This function explicitly requests an evaluation of the expression
-"expr", and returns the result of this evaluation.
-
-*E.G.
-
-	In> a := x;
-	Out> x;
-	In> x := 5;
-	Out> 5;
-	In> a;
-	Out> x;
-	In> Eval(a);
-	Out> 5;
-
-The variable {a} is bound to {x},
-and {x} is bound to 5. Hence evaluating {a} will give {x}. Only when an extra
-evaluation of {a} is requested, the value 5 is
-returned.
-
-Note that the behavior would be different if we had exchanged the
-assignments. If the assignment {a := x} were given
-while {x} had the value 5, the variable {a} would also get the value 5 because the assignment
-operator {:=} evaluates the right-hand side.
-
-*SEE Hold, HoldArg, :=
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="While"
-*CMD While --- loop while a condition is met
-*CORE
-*CALL
-	While(pred) body
-
-*PARMS
-
-{pred} -- predicate deciding whether to keep on looping
-
-{body} -- expression to loop over
-
-*DESC
-
-Keep on evaluating "body" while "pred" evaluates to {True}. More precisely, {While}
-evaluates the predicate "pred", which should evaluate to either {True} or {False}. If the result is {True}, the expression "body" is evaluated and then
-the predicate "pred" is again evaluated. If it is still {True}, the expressions "body" and "pred" are again
-evaluated and so on until "pred" evaluates to {False}. At that point, the loop terminates and {While}
-returns {True}.
-
-In particular, if "pred" immediately evaluates to {False}, the body is never executed. {While} is the fundamental looping construct on which
-all other loop commands are based. It is equivalent to the {while} command in the programming language C.
-
-*E.G. notest
-
-	In> x := 0;
-	Out> 0;
-	In> While (x! < 10^6) \
-	  [ Echo({x, x!}); x++; ];
-	 0  1
-	 1  1
-	 2  2
-	 3  6
-	 4  24
-	 5  120
-	 6  720
-	 7  5040
-	 8  40320
-	 9  362880
-	Out> True;
-
-*SEE Until, For
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="If"
-*CMD If --- branch point
-*CORE
-*CALL
-	If(pred, then)
-	If(pred, then, else)
-
-*PARMS
-
-{pred} -- predicate to test
-
-{then} -- expression to evaluate if "pred" is {True}
-
-{else} -- expression to evaluate if "pred" is {False}
-
-*DESC
-
-This command implements a branch point. The predicate "pred" is
-evaluated, which should result in either {True} or {False}. In the first case, the expression "then" is
-evaluated and returned. If the predicate yields {False}, the expression "else" (if present) is evaluated and
-returned. If there is no "else" branch (i.e. if the first calling
-sequence is used), the {If} expression returns {False}.
-
-*E.G.
-
-The sign function is defined to be 1 if its argument is positive and
--1 if its argument is negative. A possible implementation is
-	In> mysign(x) := If (IsPositiveReal(x), 1, -1);
-	Out> True;
-	In> mysign(Pi);
-	Out> 1;
-	In> mysign(-2.5);
-	Out> -1;
-Note that this will give incorrect results, if "x" cannot be
-numerically approximated.
-	In> mysign(a);
-	Out> -1;
-Hence a better implementation would be
-	In> mysign(_x)_IsNumber(N(x)) <-- If \
-	  (IsPositiveReal(x), 1, -1);
-	Out> True;
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="SystemCall"
-*CMD SystemCall --- pass a command to the shell
-*CORE
-*CALL
-	SystemCall(str)
-
-*PARMS
-
-{str} -- string containing the command to call
-
-*DESC
-
-The command contained in the string "str" is executed by the
-underlying operating system (OS).
-The return value of {SystemCall} is {True} or {False} according to the exit code of the command.
-
-The {SystemCall} function is not allowed in the body of the {Secure} command and will lead to an error.
-
-*E.G. notest
-
-In a UNIX environment, the command {SystemCall("ls")} would print the contents of the current directory.
-
-	In> SystemCall("ls")
-	AUTHORS
-	COPYING
-	ChangeLog
-... (truncated to save space)
-	Out> True;
-
-The standard UNIX command {test} returns success or failure depending on conditions.
-For example, the following command will check if a directory exists:
-
-	In> SystemCall("test -d scripts/")
-	Out> True;
-
-Check that a file exists:
-	In> SystemCall("test -f COPYING")
-	Out> True;
-	In> SystemCall("test -f nosuchfile.txt")
-	Out> False;
-
-*SEE Secure
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Use"
-*CMD Use --- load a file, but not twice
-*CORE
-*CALL
-	Use(name)
-
-*PARMS
-
-{name} -- name of the file to load
-
-*DESC
-
-If the file "name" has been loaded before, either by an earlier call
-to {Use} or via the {DefLoad}
-mechanism, nothing happens. Otherwise all expressions in the file are
-read and evaluated. {Use} always returns {True}.
-
-The purpose of this function is to make sure that the file will at
-least have been loaded, but is not loaded twice.
-
-*SEE Load, DefLoad, DefaultDirectory
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Subst"
-*CMD Subst --- perform a substitution
-*CORE
-*CALL
-	Subst(from, to) expr
-
-*PARMS
-
-{from} -- expression to be substituted
-
-{to} -- expression to substitute for "from"
-
-{expr} -- expression in which the substitution takes place
-
-*DESC
-
-This function substitutes every occurrence of "from" in "expr" by
-"to". This is a syntactical substitution: only places where "from"
-occurs as a subexpression are affected.
-
-*E.G.
-
-	In> Subst(x, Sin(y)) x^2+x+1;
-	Out> Sin(y)^2+Sin(y)+1;
-	In> Subst(a+b, x) a+b+c;
-	Out> x+c;
-	In> Subst(b+c, x) a+b+c;
-	Out> a+b+c;
-
-The explanation for the last result is that the expression {a+b+c} is internally stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.
-
-*SEE WithValue, /:
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="TraceStack"
-*CMD TraceStack --- show calling stack after an error occurs
-*CORE
-*CALL
-	TraceStack(expression)
-
-*PARMS
-
-{expression} -- an expression to evaluate
-
-*DESC
-
-TraceStack shows the calling stack after an error occurred.
-It shows the last few items on the stack, not to flood the screen.
-These are usually the only items of interest on the stack.
-This is probably by far the most useful debugging function in
-Yacas. It shows the last few things it did just after an error
-was generated somewhere.
-
-For each stack frame, it shows if the function evaluated was a
-built-in function or a user-defined function, and for the user-defined
-function, the number of the rule it is trying whether it was evaluating
-the pattern matcher of the rule, or the body code of the rule.
-
-This functionality is not offered by default because it slows
-down the evaluation code.
-
-*E.G. notest
-
-Here is an example of a function calling itself recursively,
-causing Yacas to flood its stack:
-
-	In> f(x):=f(Sin(x))
-	Out> True;
-	In> TraceStack(f(2))
-	Debug> 982 :  f (Rule # 0 in body)
-	Debug> 983 :  f (Rule # 0 in body)
-	Debug> 984 :  f (Rule # 0 in body)
-	Debug> 985 :  f (Rule # 0 in body)
-	Debug> 986 :  f (Rule # 0 in body)
-	Debug> 987 :  f (Rule # 0 in body)
-	Debug> 988 :  f (Rule # 0 in body)
-	Debug> 989 :  f (Rule # 0 in body)
-	Debug> 990 :  f (Rule # 0 in body)
-	Debug> 991 :  f (Rule # 0 in body)
-	Debug> 992 :  f (Rule # 0 in body)
-	Debug> 993 :  f (Rule # 0 in body)
-	Debug> 994 :  f (Rule # 0 in body)
-	Debug> 995 :  f (User function)
-	Debug> 996 :  Sin (Rule # 0 in pattern)
-	Debug> 997 :  IsList (Internal function)
-	Error on line 1 in file [CommandLine]
-	Max evaluation stack depth reached.
-	Please use MaxEvalDepth to increase the stack
-	size as needed.
-
-*SEE TraceExp, TraceRule
-%/mathpiper_docs
-
-
-
-
-
-
-%mathpiper_docs,name="TraceRule"
-*CMD TraceRule --- turn on tracing for a particular function
-*CORE
-*CALL
-	TraceRule(template) expr
-
-*PARMS
-
-{template} -- template showing the operator to trace
-
-{expr} -- expression to evaluate with tracing on
-
-*DESC
-
-The tracing facility is turned on for subexpressions of the form
-"template", and the expression "expr" is evaluated. The template
-"template" is an example of the function to trace on. Specifically, all
-subexpressions with the same top-level operator and arity as "template"
-are shown. The subexpressions are displayed before (indicated with {TrEnter}) and after ({TrLeave})
-evaluation. In between, the arguments are shown before and after
-evaluation ({TrArg}). Only functions defined in
-scripts can be traced.
-
-This is useful for tracing a function that is called from within
-another function. This way you can see how your function behaves
-in the environment it is used in.
-
-*E.G. notest
-
-	In> TraceRule(x+y) 2+3*5+4;
-	    TrEnter(2+3*5+4);
-	      TrEnter(2+3*5);
-	          TrArg(2, 2);
-	          TrArg(3*5, 15);
-	      TrLeave(2+3*5, 17);
-	        TrArg(2+3*5, 17);
-	        TrArg(4, 4);
-	    TrLeave(2+3*5+4, 21);
-	Out> 21;
-
-*SEE TraceStack, TraceExp
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="quit;restart"
-*CMD quit --- stop Yacas from running, from the command line
-*CMD restart --- restart Yacas (to start with a clean slate)
-*CORE
-*CALL
-	quit
-	restart
-
-*DESC
-
-Type {quit} or {restart} at the Yacas prompt to exit or to restart the interpreter.
-
-The directives {quit} and {restart} are <i>not</i> reserved words or variable names.
-They take effect only when typed as first characters at a prompt.
-
-Pressing {Ctrl-C} will stop the currently running calculation.
-If there is no currently running calculation, {Ctrl-C} will quit the interpreter.
-
-When the interpreter quits, it saves the command history
-(so quitting by {Ctrl-C} does not mean a "crash").
-
-This command is not a function but a special directive that only applies while running MathPiper interactively.  It should not be used in scripts.
-
-*E.G.
-
-To be effective, the directive must be typed immediately after the prompt:
-	In> quit
-	Quitting...
-We can use variables named {quit}:
-	In> 1+quit
-	Out> quit+1;
-There is no effect if we type some spaces first: 
-	In>       restart
-	Out> restart;
-
-*SEE Exit
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="DefaultDirectory"
-*CMD DefaultDirectory --- add directory to path for Yacas scripts
-*CORE
-*CALL
-	DefaultDirectory(path)
-
-*PARMS
-
-{path} -- a string containing a full path where yacas script files reside
-
-*DESC
-
-When loading files, yacas is also allowed to
-look in the folder "path". {path} will be prepended
-to the file name before trying to load the file.
-This means that "path" should end with a forward slash (under Unix-like
-operating systems).
-
-Yacas first tries to load a file from the current
-directory, and otherwise it tries to load from
-directories defined with this function, in the
-order they are defined. Note there will be at least one directory
-specified at start-up time, defined during compilation. This
-is the directory Yacas searches for the initialization scripts
-and standard scripts.
-
-MathPiper allows you to configure a few things at startup. The file
-{~/.mathpiperrc} is written in the MathPiper language and
-will be executed when MapthPiper is run. This function
-can be useful in the {~/.MathPiperrc} file.
-
-*E.G.
-
-	In> DefaultDirectory("/home/user/myscripts/");
-	Out> True;
-
-*SEE Load, Use, DefLoad, FindFile
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="PrettyPrinter'Set;PrettyPrinter'Get"
-*CMD PrettyPrinter'Set --- set routine to use as pretty-printer
-*CMD PrettyPrinter'Get --- get routine to use as pretty-printer
-
-*CORE
-
-*CALL
-	PrettyPrinter'Set(printer)
-	PrettyPrinter'Set()
-	PrettyPrinter'Get()
-
-*PARMS
-
-{printer} -- a string containing the name of a function that can "pretty-print" an expression.
-
-
-*DESC
-
-This function sets up the function printer to print out the results on
-the command line. This can be reset to the internal printer with {PrettyPrinter'Set()} (when no argument is given, the system returns to the default).
-
-Currently implemented prettyprinters are: {PrettyForm}, {TeXForm}, {Print}, {OMForm}, {CForm} and {DefaultPrint}.
-
-{PrettyPrinter'Get()} returns the current pretty printer, or it returns
-an empty string if the default pretty printer is used.
-
-MathPiper allows you to configure a few things at startup. The file
-{~/.mathpiperrc} is written in the MathPiper language and
-will be executed when MapthPiper is run. This function
-can be useful in the {~/.MathPiperrc} file.
-
-*E.G.
-
-	In> Taylor(x,0,5)Sin(x)
-	Out> x-x^3/6+x^5/120;
-	In> PrettyPrinter'Set("PrettyForm");
-	
-	True
-	
-	In> Taylor(x,0,5)Sin(x)
-	
-	     3    5
-	    x    x
-	x - -- + ---
-	    6    120
-	
-	In> PrettyPrinter'Set();
-	Out> True;
-	In> Taylor(x,0,5)Sin(x)
-	Out> x-x^3/6+x^5/120;
-
-*SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReader'Set, PrettyReader'Get
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="PrettyReader'Set;PrettyReader'Get"
-*CMD PrettyReader'Set --- set routine to use as pretty-reader
-*CMD PrettyReader'Get --- get routine that is currently used as pretty-reader
-
-*CORE
-
-*CALL
-	PrettyReader'Set(reader)
-	PrettyReader'Set()
-	PrettyReader'Get()
-
-*PARMS
-
-{reader} -- a string containing the name of a function that can read an expression from current input.
-
-
-*DESC
-
-This function sets up the function reader to read in the input on
-the command line. This can be reset to the internal reader with {PrettyReader'Set()} (when no argument is given, the system returns to the default).
-
-Currently implemented PrettyReaders are: {LispRead}, {OMRead}.
-
-{PrettyReader'Get()} returns the current reader, or it returns
-an empty string if the default pretty printer is used.
-
-MathPiper allows you to configure a few things at startup. The file
-{~/.mathpiperrc} is written in the MathPiper language and
-will be executed when MapthPiper is run. This function
-can be useful in the {~/.MathPiperrc} file.
-
-*E.G.
-
-	In> Taylor(x,0,5)Sin(x)
-	Out> x-x^3/6+x^5/120
-	In> PrettyReader'Set("LispRead")
-	Out> True
-	In> (Taylor x 0 5 (Sin x))
-	Out> x-x^3/6+x^5/120
-
-*SEE Read, LispRead, OMRead, PrettyPrinter'Set, PrettyPrinter'Get
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="MaxEvalDepth"
-*CMD MaxEvalDepth --- set depth of recursion stack
-*CORE
-*CALL
-	MaxEvalDepth(n)
-*PARMS
-{n} -- integer
-*DESC
-Sets the maximum depth of recursive function call. An error message is printed when too many recursive calls are executed, and this function can be used to increase or decrease the limit as necessary.
-
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="HistorySize"
-*CMD HistorySize --- set size of history file
-*CORE
-*CALL
-	HistorySize(n)
-
-*PARMS
-
-{n} -- number of lines to store in history file
-
-*DESC
-
-When exiting, yacas saves the command line history to a
-file {~/.yacas_history}. By default it will
-save the last 1024 lines. The default can be
-overridden with this function. Passing -1 tells the system to save <i>all</i>
-lines.
-
-MathPiper allows you to configure a few things at startup. The file
-{~/.mathpiperrc} is written in the MathPiper language and
-will be executed when MapthPiper is run. This function
-can be useful in the {~/.MathPiperrc} file.
-
-*E.G.
-
-	In> HistorySize(200)
-	Out> True;
-	In> quit
-
-*SEE quit
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Version"
-*CMD Version --- show version of Yacas
-*CORE
-*CALL
-	Version()
-
-*DESC
-
-The function {Version()} returns a string representing the version of the currently running Yacas interpreter.
-
-*E.G. notest
-
-	In> Version()
-	Out> "1.0.48rev3";
-	In> LessThan(Version(), "1.0.47")
-	Out> False;
-	In> GreaterThan(Version(), "1.0.47")
-	Out> True;
-
-The last two calls show that the {LessThan} and {GreaterThan}
-functions can be used for comparing version numbers. This 
-method is only guaranteed, however, if the version is always expressed
-in the form {d.d.dd} as above.
-
-*REM
-Note that on the Windows platforms the output may be different:
-In> Version()
-Out> "Windows-latest";
-
-*SEE LessThan, GreaterThan
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="%"
-*CMD % --- previous result
-*CORE
-*CALL
-	%
-
-*DESC
-
-{%} evaluates to the previous result on the command line. {%} is a global
-variable that is bound to the previous result from the command line.
-Using {%} will evaluate the previous result. (This uses the functionality
-offered by the {SetGlobalLazyVariable} command).
-
-Typical examples are {Simplify(%)} and {PrettyForm(%)} to simplify and show the result in a nice
-form respectively.
-
-*E.G.
-
-	In> Taylor(x,0,5)Sin(x)
-	Out> x-x^3/6+x^5/120;
-	In> PrettyForm(%)
-	
-	     3    5
-	    x    x
-	x - -- + ---
-	    6    120
-	
-	
-
-*SEE SetGlobalLazyVariable
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="True;False"
-*CMD True --- boolean constant representing true
-*CMD False --- boolean constant representing false
-*CORE
-*CALL
-	True
-	False
-
-*DESC
-
-{True} and {False} are typically a result
-of boolean expressions such as {2 < 3} or {True And False}.
-
-*SEE And, Or, Not
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="EndOfFile"
-*CMD EndOfFile --- end-of-file marker
-*CORE
-*CALL
-	EndOfFile
-
-*DESC
-
-End of file marker when reading from file. If a file
-contains the expression {EndOfFile;} the
-operation will stop reading the file at that point.
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Infinity",description="todo:tk:Infinity is defined in multiple places so I am placing it here for now."
-
-*CMD Infinity --- constant representing mathematical infinity
-*STD
-*CALL
-	Infinity
-
-*DESC
-
-Infinity represents infinitely large values. It can be the result of certain
-calculations.
-
-Note that for most analytic functions Yacas understands {Infinity} as a positive number.
-Thus {Infinity*2} will return {Infinity}, and {a < Infinity} will evaluate to {True}.
-
-*E.G.
-
-	In> 2*Infinity
-	Out> Infinity;
-	In> 2<Infinity
-	Out> True;
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Undefined",description"todo:tk:Undefined is defined in multiple places so I am putting it here for now."
-*CMD Undefined --- constant signifying an undefined result
-*STD
-*CALL
-	Undefined
-
-*DESC
-
-{Undefined} is a token that can be returned by a function when it considers
-its input to be invalid or when no meaningful answer can be given. The result is then "undefined".
-
-Most functions also return {Undefined} when evaluated on it.
-
-*E.G.
-
-	In> 2*Infinity
-	Out> Infinity;
-	In> 0*Infinity
-	Out> Undefined;
-	In> Sin(Infinity);
-	Out> Undefined;
-	In> Undefined+2*Exp(Undefined);
-	Out> Undefined;
-
-*SEE Infinity
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="FullForm"
-*CMD FullForm --- print an expression in LISP-format
-*CORE
-*CALL
-	FullForm(expr)
-
-*PARMS
-
-{expr} -- expression to be printed in LISP-format
-
-*DESC
-
-Evaluates "expr", and prints it in LISP-format on the current
-output. It is followed by a newline. The evaluated expression is also
-returned.
-
-This can be useful if you want to study the internal representation of
-a certain expression.
-
-*E.G. notest
-
-	In> FullForm(a+b+c);
-	(+ (+ a b )c )
-	Out> a+b+c;
-	In> FullForm(2*I*b^2);
-	(* (Complex 0 2 )(^ b 2 ))
-	Out> Complex(0,2)*b^2;
-
-The first example shows how the expression {a+b+c} is
-internally represented. In the second example, {2*I} is
-first evaluated to {Complex(0,2)} before the expression
-is printed.
-
-*SEE LispRead, Listify, Unlist
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Write"
-*CMD Write --- low-level printing routine
-*CORE
-*CALL
-	Write(expr, ...)
-
-*PARMS
-
-{expr} -- expression to be printed
-
-*DESC
-
-The expression "expr" is evaluated and written to the current
-output. Note that Write accept an arbitrary number of arguments, all
-of which are written to the current output (see second
-example). {Write} always returns {True}.
-
-*E.G. notest
-
-	In> Write(1);
-	1Out> True;
-	In> Write(1,2);
-	 1 2Out> True;
-
-Write does not write a newline, so the {Out>} prompt
-immediately follows the output of {Write}.
-
-*SEE Echo, WriteString
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="WriteString"
-*CMD WriteString --- low-level printing routine for strings
-*CORE
-*CALL
-	WriteString(string)
-
-*PARMS
-
-{string} -- the string to be printed
-
-*DESC
-
-The expression "string" is evaluated and written to the current
-output without quotation marks. The argument should be a
-string. WriteString always returns True.
-
-*E.G. notest
-
-	In> Write("Hello, world!");
-	"Hello, world!"Out> True;
-	In> WriteString("Hello, world!");
-	Hello, world!Out> True;
-
-This example clearly shows the difference between Write and
-WriteString. Note that Write and WriteString do not write a newline,
-so the {Out>} prompt immediately follows the output.
-
-*SEE Echo, Write
-%/mathpiper_docs
-
-
-
+/*
 %mathpiper_docs,name="FromFile"
 *CMD FromFile --- connect current input to a file
 *CORE
@@ -1005,10 +34,12 @@ Then we can have the following dialogue:
 	Out> 2;
 
 *SEE ToFile, FromString, Read, ReadToken
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="FromString"
 *CMD FromString --- connect current input to a string
 *CORE
@@ -1037,10 +68,12 @@ result of "body" is returned.
 	Out> 7;
 
 *SEE ToString, FromFile, Read, ReadToken
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="ToFile"
 *CMD ToFile --- connect current output to a file
 *CORE
@@ -1106,10 +139,12 @@ After this command the file {out} contains:
 	
 
 *SEE FromFile, ToString, Echo, Write, WriteString, PrettyForm, Taylor
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="ToString"
 *CMD ToString --- connect current output to a string
 *CORE
@@ -1133,10 +168,12 @@ collected in a string and this string is returned.
 	Out> "The square of 8 is  64";
 
 *SEE FromFile, ToString, Echo, Write, WriteString
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Read"
 *CMD Read --- read an expression from current input
 *CORE
@@ -1156,10 +193,12 @@ the end of an input file is encountered, the token atom {EndOfFile} is returned.
 	Out> EndOfFile;
 
 *SEE FromFile, FromString, LispRead, ReadToken, Write
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Read"
 *CMD Read --- read an expression from current input
 *CORE
@@ -1179,10 +218,12 @@ the end of an input file is encountered, the token atom {EndOfFile} is returned.
 	Out> EndOfFile;
 
 *SEE FromFile, FromString, LispRead, ReadToken, Write
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="ToStdout"
 *CMD ToStdout --- select initial output stream for output
 *CORE
@@ -1206,10 +247,12 @@ written to the standard default initial output (typically the screen). {ToStdout
 	"
 
 *SEE ToString, ToFile
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="ReadCmdLineString"
 *CMD ReadCmdLineString --- read an expression from command line and return in string
 *CORE
@@ -1266,10 +309,12 @@ might follow:
 	Deriv> 
 
 *SEE Read, LispRead, LispReadListed
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="LispRead;LispReadListed"
 *CMD LispRead --- read expressions in LISP syntax
 *CMD LispReadListed --- read expressions in LISP syntax
@@ -1284,15 +329,15 @@ The function {LispRead} reads an expression in the LISP syntax from the current 
 it unevaluated. When the end of an input file is encountered, the
 special token atom {EndOfFile} is returned.
 
-The Yacas expression {a+b} is written in the LISP syntax as {(+ a b)}. The advantage of this syntax is that it is
-less ambiguous than the infix operator grammar that Yacas uses by
+The MathPiper expression {a+b} is written in the LISP syntax as {(+ a b)}. The advantage of this syntax is that it is
+less ambiguous than the infix operator grammar that MathPiper uses by
 default.
 
 The function {LispReadListed} reads a LISP expression and returns
-it in a list, instead of the form usual to Yacas (expressions).
+it in a list, instead of the form usual to MathPiper (expressions).
 The result can be thought of as applying {Listify} to {LispRead}.
 The function {LispReadListed} is more useful for reading arbitrary LISP expressions, because the 
-first object in a list can be itself a list (this is never the case for Yacas expressions where the first object in a list is always a function atom).
+first object in a list can be itself a list (this is never the case for MathPiper expressions where the first object in a list is always a function atom).
 
 *E.G. notest
 
@@ -1307,10 +352,12 @@ first object in a list can be itself a list (this is never the case for Yacas ex
 	Out> {+,a,b};
 
 *SEE FromFile, FromString, Read, ReadToken, FullForm
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="ReadToken"
 *CMD ReadToken --- read a token from current input
 *CORE
@@ -1320,7 +367,7 @@ first object in a list can be itself a list (this is never the case for Yacas ex
 *DESC
 
 Read a token from the current input, and return it unevaluated.
-The returned object is a Yacas atom (not a string).
+The returned object is a MathPiper atom (not a string).
 When
 the end of an input file is encountered, the token atom {EndOfFile} is returned.
 
@@ -1331,7 +378,7 @@ combination of the semantics of the tokens. Hence {a := foo} consists of three t
 
 The parsing of the string depends on the syntax of the language.
 The part of the kernel that does the parsing is the "tokenizer".
-Yacas can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives {DefaultTokenizer} or {XmlTokenizer}.
+MathPiper can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives {DefaultTokenizer} or {XmlTokenizer}.
 Setting a tokenizer is a global action that affects all {ReadToken} calls.
 
 *E.G. notest
@@ -1351,16 +398,18 @@ We can read some junk too:
 	In> FromString("-$3")ReadToken();
 	Out> -$;
 The result is an atom with the string representation {-$}.
-Yacas assumes that {-$} is an operator symbol yet to be defined.
+MathPiper assumes that {-$} is an operator symbol yet to be defined.
 The "{3}" will be in the next token.
 (The results will be different if a non-default tokenizer is selected.)
 
 
 *SEE FromFile, FromString, Read, LispRead, DefaultTokenizer
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Load"
 *CMD Load --- evaluate all expressions in a file
 *CORE
@@ -1377,10 +426,12 @@ The file "name" is opened. All expressions in the file are read and
 evaluated. {Load} always returns {true}.
 
 *SEE Use, DefLoad, DefaultDirectory, FindFile
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Use"
 *CMD Use --- load a file, but not twice
 *CORE
@@ -1402,10 +453,12 @@ The purpose of this function is to make sure that the file will at
 least have been loaded, but is not loaded twice.
 
 *SEE Load, DefLoad, DefaultDirectory
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="DefLoad"
 *CMD DefLoad --- load a {.def} file
 *CORE
@@ -1428,10 +481,12 @@ need to be loaded, just the descriptions on which files to load for
 which functions.
 
 *SEE Load, Use, DefaultDirectory
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="FindFile"
 *CMD FindFile --- find a file in the current path
 *CORE
@@ -1452,10 +507,12 @@ searched for a file called "name". If such a file is not found, {FindFile} retur
 {FindFile("")} returns the name of the default directory (the first one on the search path).
 
 *SEE Load, DefaultDirectory
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="PatchLoad"
 *CMD PatchLoad --- execute commands between {<?} and {?>} in file
 *CORE
@@ -1470,19 +527,21 @@ searched for a file called "name". If such a file is not found, {FindFile} retur
 
 {PatchLoad} loads in a file and outputs the contents to the current
 output. The file can contain blocks delimited by {<?} and {?>}
-(meaning "Yacas Begin" and "Yacas End"). The piece of text between
-such delimiters is treated as a separate file with Yacas instructions,
+(meaning "MathPiper Begin" and "MathPiper End"). The piece of text between
+such delimiters is treated as a separate file with MathPiper instructions,
 which is then loaded and executed. All output of write statements
 in that block will be written to the same current output.
 
 This is similar to the way PHP works. You can have a static text file
-with dynamic content generated by Yacas.
+with dynamic content generated by MathPiper.
 
 *SEE PatchString, Load
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="XmlExplodeTag"
 *CMD XmlExplodeTag --- convert XML strings to tag objects
 *CORE
@@ -1495,7 +554,7 @@ with dynamic content generated by Yacas.
 *DESC
 
 {XmlExplodeTag} parses the first XML token in {xmltext}
-and returns a Yacas expression.
+and returns a MathPiper expression.
 
 The following subset of XML syntax is supported currently:
 
@@ -1527,10 +586,12 @@ If given a plain text string, the same string is returned.
 	Out> XmlTag("BR",{},"OpenClose");
 
 *SEE XmlTokenizer
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="DefaultTokenizer;XmlTokenizer"
 *CMD DefaultTokenizer --- select the default syntax tokenizer for parsing the input
 *CMD XmlTokenizer --- select an XML syntax tokenizer for parsing the input
@@ -1541,12 +602,12 @@ If given a plain text string, the same string is returned.
 
 *DESC
 
-A "tokenizer" is an internal routine in the kernel that parses the input into Yacas expressions.
+A "tokenizer" is an internal routine in the kernel that parses the input into MathPiper expressions.
 This affects all input typed in by a user at the prompt and also the input redirected from files or strings using {FromFile} and {FromString} and read using {Read} or {ReadToken}.
 
-The Yacas environment currently supports some experimental tokenizers for 
+The MathPiper environment currently supports some experimental tokenizers for 
 various syntaxes. {DefaultTokenizer} switches to the tokenizer used for
-default Yacas syntax. {XmlTokenizer} switches to an XML syntax.
+default MathPiper syntax. {XmlTokenizer} switches to an XML syntax.
 Note that setting the tokenizer is a global side effect.
 One typically needs
 to switch back to the default tokenizer when finished reading the special syntax.
@@ -1561,7 +622,7 @@ or else the user will be unable to continue the session
 When reading XML syntax, the supported formats are the same as those of {XmlExplodeTag}.
 The parser does not validate anything in the XML input.
 After an XML token has been read in, it can be converted into an
-Yacas expression with {XmlExplodeTag}.
+MathPiper expression with {XmlExplodeTag}.
 Note that when reading XML, any plain text between tags is returned as one token.
 Any malformed XML will be treated as plain text.
 
@@ -1578,10 +639,12 @@ Note that:
 it is <i>not</i> a string.
 
 *SEE OMRead, TrapError, XmlExplodeTag, ReadToken, FromFile, FromString
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Head"
 *CMD Head --- the first element of a list
 *CORE
@@ -1606,10 +669,12 @@ returned if "list" is an atom.
 	Out> a;
 
 *SEE Tail, Length
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Tail"
 *CMD Tail --- returns a list without its first element
 *CORE
@@ -1630,10 +695,12 @@ This function returns "list" without its first element.
 	Out> {b,c};
 
 *SEE Head, Length
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Length"
 *CMD Length --- the length of a list or string
 *CORE
@@ -1657,10 +724,12 @@ This function also works on strings and arrays.
 	Out> 6;
 
 *SEE Head, Tail, Nth, Count
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="DestructiveReverse"
 *CMD DestructiveReverse --- reverse a list destructively
 *CORE
@@ -1692,10 +761,12 @@ this function.
 	Out> {a};
 
 *SEE FlatCopy, Reverse
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="List"
 *CMD List --- construct a list
 *CORE
@@ -1722,10 +793,12 @@ is "expr2", and so on. This command is equivalent to the expression
 	Out> {a,{1,2},d};
 
 *SEE UnList, Listify
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="UnList"
 *CMD UnList --- convert a list to a function application
 *CORE
@@ -1758,10 +831,12 @@ formed, but the resulting expression is left unevaluated. The functions {UnList(
 	Out> 1-x^2/2+x^4/24;
 
 *SEE List, Listify, Hold
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Listify"
 *CMD Listify --- convert a function application to a list
 *CORE
@@ -1788,10 +863,12 @@ list is returned.
 	Out> {*,3,a};
 
 *SEE List, UnList, IsAtom
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Concat"
 *CMD Concat --- concatenate lists
 *CORE
@@ -1815,10 +892,12 @@ concatenated. The resulting big list is returned.
 	Out> {5,a,b,c,{f(x)}};
 
 *SEE ConcatStrings, :, Insert
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Delete"
 *CMD Delete --- delete an element from a list
 *CORE
@@ -1845,10 +924,12 @@ is returned.
 	Out> {a,b,c,e,f};
 
 *SEE DestructiveDelete, Insert, Replace
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Insert"
 *CMD Insert --- insert an element into a list
 *CORE
@@ -1886,10 +967,12 @@ case, the resulting list is returned.
 	Out> {x,a,b,c,d};
 
 *SEE DestructiveInsert, :, Append, Delete, Remove
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="DestructiveDelete"
 *CMD DestructiveDelete --- delete an element destructively from a list
 *CORE
@@ -1927,10 +1010,12 @@ because the latter copy the list before they alter it.
 	Out> {a,b,c,e,f};
 
 *SEE Delete, DestructiveInsert, DestructiveReplace
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="DestructiveInsert"
 *CMD DestructiveInsert --- insert an element destructively into a list
 *CORE
@@ -1970,10 +1055,12 @@ because the latter copy the list before they alter it.
 	Out> {a,x,b,c,d};
 
 *SEE Insert, DestructiveDelete, DestructiveReplace
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Replace"
 *CMD Replace --- replace an entry in a list
 
@@ -2004,10 +1091,12 @@ expression {Insert(Delete(list, n), n, expr)}.
 	Out> {a,b,c,x,e,f};
 
 *SEE Delete, Insert, DestructiveReplace
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="DestructiveReplace"
 *CMD DestructiveReplace --- replace an entry destructively in a list
 
@@ -2049,10 +1138,12 @@ because the latter copy the list before they alter it.
 	Out> {a,b,c,x,e,f};
 
 *SEE Replace, DestructiveDelete, DestructiveInsert
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="FlatCopy"
 *CMD FlatCopy --- copy the top level of a list
 *CORE
@@ -2084,10 +1175,12 @@ list nondestructively.
 	Out> {e,d,c,b,a};
 	In> lst;
 	Out> {a,b,c,d,e};
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Type"
 *CMD Type --- return the type of an expression
 *CORE
@@ -2115,10 +1208,12 @@ the result is the empty string {""}.
 	Out> "";
 
 *SEE IsAtom, NrArgs
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="SetExactBits;GetExactBits"
 *CMD SetExactBits --- manipulate precision of floating-point numbers
 *CMD GetExactBits --- manipulate precision of floating-point numbers
@@ -2133,7 +1228,7 @@ the result is the empty string {""}.
 {bits} -- integer, number of bits 
 
 *DESC
-Each floating-point number in Yacas has an internal precision counter that stores the number of exact bits in the mantissa.
+Each floating-point number in MathPiper has an internal precision counter that stores the number of exact bits in the mantissa.
 The number of exact bits is automatically updated after each arithmetic operation to reflect the gain or loss of precision due to round-off.
 The functions {GetExactBits}, {SetExactBits} allow to query or set the precision flags of individual number objects.
 
@@ -2162,11 +1257,13 @@ Prepare a "floating zero" representing an interval [-4, 4]:
 	In> x=0
 	Out> True;
 
-*SEE Builtin'Precision'Set, Builtin'Precision'Get
-%/mathpiper_docs
+*SEE BuiltinPrecisionSet, BuiltinPrecisionGet
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Not"
 *CMD Not --- logical negation
 *CORE
@@ -2194,11 +1291,13 @@ expression with evaluated arguments.
 	Out> Not a;
 
 *SEE And, Or
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
-%mathpiper_docs,name="And"
+/*
+%mathpiper_docs,name="And",categories="User Functions;Predicates;Built In"
 *CMD And --- logical conjunction
 *CORE
 *CALL
@@ -2234,10 +1333,12 @@ arguments that didn't evaluate to {True} or {False} yet.
 	Out> b And a;
 
 *SEE Or, Not
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Or"
 *CMD Or --- logical disjunction
 *CORE
@@ -2270,10 +1371,12 @@ arguments that didn't evaluate to {True} or {False} yet.
 	Out> True;
 
 *SEE And, Not
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="IsFunction"
 *CMD IsFunction --- test for a composite object
 *CORE
@@ -2297,10 +1400,12 @@ atom. This includes not only obvious functions such as {f(x)}, but also expressi
 	Out> False;
 
 *SEE IsAtom, IsList, Type
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="IsAtom"
 *CMD IsAtom --- test for an atom
 *CORE
@@ -2324,10 +1429,12 @@ variables are all atoms.
 	Out> True;
 
 *SEE IsFunction, IsNumber, IsString
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="IsString"
 *CMD IsString --- test for an string
 *CORE
@@ -2351,10 +1458,12 @@ within quotes, e.g. {"duh"}.
 	Out> False;
 
 *SEE IsAtom, IsNumber
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="IsNumber"
 *CMD IsNumber --- test for a number
 *CORE
@@ -2384,10 +1493,12 @@ function, so {IsNumber} will return {False}.
 	Out> False;
 
 *SEE IsAtom, IsString, IsInteger, IsPositiveNumber, IsNegativeNumber, Complex
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="IsList"
 *CMD IsList --- test for a list
 *CORE
@@ -2411,10 +1522,12 @@ between curly braces, e.g. {{2, 3, 5}}.
 	Out> False;
 
 *SEE IsFunction
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="IsBound"
 *CMD IsBound --- test for a bound variable
 *CORE
@@ -2440,15 +1553,17 @@ it has been assigned a value. The argument "var" is not evaluated.
 	Out> True;
 
 *SEE IsAtom
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
-%mathpiper_docs,name="StringMid'Set"
-*CMD StringMid'Set --- change a substring
+/*
+%mathpiper_docs,name="StringMidSet"
+*CMD StringMidSet --- change a substring
 *CORE
 *CALL
-	StringMid'Set(index,substring,string)
+	StringMidSet(index,substring,string)
 
 *PARMS
 
@@ -2465,19 +1580,21 @@ a new changed copy.
 
 *E.G.
 
-	In> StringMid'Set(3,"XY","abcdef")
+	In> StringMidSet(3,"XY","abcdef")
 	Out> "abXYef";
 
-*SEE StringMid'Get, Length
-%/mathpiper_docs
+*SEE StringMidGet, Length
+%mathpiper_docs
+*/
 
 
 
-%mathpiper_docs,name="StringMid'Get"
-*CMD StringMid'Get --- retrieve a substring
+/*
+%mathpiper_docs,name="StringMidGet"
+*CMD StringMidGet --- retrieve a substring
 *CORE
 *CALL
-	StringMid'Get(index,length,string)
+	StringMidGet(index,length,string)
 
 *PARMS
 
@@ -2489,21 +1606,23 @@ a new changed copy.
 
 *DESC
 
-{StringMid'Get} returns a part of a string. Substrings can also be
+{StringMidGet} returns a part of a string. Substrings can also be
 accessed using the {[]} operator.
 
 *E.G.
 
-	In> StringMid'Get(3,2,"abcdef")
+	In> StringMidGet(3,2,"abcdef")
 	Out> "cd";
 	In> "abcdefg"[2 .. 4]
 	Out> "bcd";
 
-*SEE StringMid'Set, Length
-%/mathpiper_docs
+*SEE StringMidSet, Length
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="String;Atom"
 *CMD String --- convert atom to string
 *CMD Atom --- convert string to atom
@@ -2532,10 +1651,12 @@ as the evaluated argument. Example: {Atom("foo");} returns
 	Out> "a";
 	In> Atom("a")
 	Out> a;
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="ConcatStrings"
 *CMD ConcatStrings --- concatenate strings
 *CORE
@@ -2556,10 +1677,12 @@ Concatenates strings.
 	Out> "abc";
 
 *SEE :
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="PatchString"
 *CMD PatchString --- execute commands between {<?} and {?>} in strings
 *CORE
@@ -2583,10 +1706,12 @@ details.
 	Out> "Two plus three is 5 ";
 
 *SEE PatchLoad
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Set"
 *CMD Set --- assignment
 *CORE
@@ -2616,10 +1741,12 @@ has more uses, e.g. changing individual entries in a list.
 	Out> Sin(x)+3;
 
 *SEE Clear, :=
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Clear"
 *CMD Clear --- undo an assignment
 *CORE
@@ -2650,10 +1777,12 @@ True.
 	Out> a^2;
 
 *SEE Set, :=
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Local"
 *CMD Local --- declare new local variables
 *CORE
@@ -2670,7 +1799,7 @@ All variables in the argument list are declared as local
 variables. The arguments are not evaluated. The value True is
 returned.
 
-By default, all variables in Yacas are global. This means that the
+By default, all variables in MathPiper are global. This means that the
 variable has the same value everywhere. But sometimes it is useful to
 have a private copy of some variable, either to prevent the outside
 world from changing it or to prevent accidental changes to the outside
@@ -2704,10 +1833,12 @@ same, even though {a} is assigned the value 5 inside
 the block.
 
 *SEE LocalSymbols, Prog, [], UnFence
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="SetGlobalLazyVariable"
 *CMD SetGlobalLazyVariable --- global variable is to be evaluated lazily
 *CORE
@@ -2764,10 +1895,12 @@ the variable {test} forces the expression to be evaluated:
 
 
 *SEE Set, Clear, Local, %, I
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="/*;*/;//"
 *CMD	/* --- Start of comment
 *CMD	*/ --- end of comment
@@ -2786,10 +1919,12 @@ Introduce a comment block in a source file, similar to C++ comments.
 
 	a+b; // get result
 	a + /* add them */ b;
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Prog;[;]"
 *CMD Prog --- block of statements
 *CMD [ --- beginning of block of statements
@@ -2811,10 +1946,12 @@ arguments in order and return the result of the last evaluated expression.
 {Prog(a,b);} is the same as typing {[a;b;];} and is very useful for writing out
 function bodies. The {[ ... ]} construct is a syntactically nicer version of the
 {Prog} call; it is converted into {Prog(...)} during the parsing stage.
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Bodied;Infix;Postfix;Prefix"
 *CMD Bodied --- define function syntax (bodied function)
 *CMD Infix --- define function syntax (infix operator)
@@ -2882,10 +2019,12 @@ Note that, due to a current parser limitation, a function atom that is declared 
 	CommandLine(1) : Error parsing expression
 
 *SEE IsBodied, OpPrecedence
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="IsBodied;IsInfix;IsPostfix;IsPrefix"
 *CMD IsBodied --- check for function syntax
 *CMD IsInfix --- check for function syntax
@@ -2919,10 +2058,12 @@ Check whether the function with given name {"op"} has been declared as a
 	Out> True;
 
 *SEE Bodied, OpPrecedence
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="OpPrecedence;OpLeftPrecedence;OpRightPrecedence"
 *CMD OpPrecedence --- get operator precedence
 *CMD OpLeftPrecedence --- get operator precedence
@@ -2948,10 +2089,12 @@ For infix operators, right precedence can differ from left precedence. Bodied fu
 	Out> 6;
 	In> OpLeftPrecedence("!")
 	Out> 0;
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="RightAssociative"
 *CMD RightAssociative --- declare associativity
 *CORE
@@ -2971,10 +2114,12 @@ not implemented. (All infix operators are by default left-associative until
 they are declared to be right-associative.)
 
 *SEE OpPrecedence
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="LeftPrecedence;RightPrecedence"
 *CMD LeftPrecedence --- set operator precedence
 *CMD RightPrecedence --- set operator precedence
@@ -2999,13 +2144,15 @@ This functionality was required in order to display expressions like {a-(b-c)}
 correctly. Thus, {a+b+c} is the same as {a+(b+c)}, but {a-(b-c)} is not
 the same as {a-b-c}.
 
-Note that the left and right precedence of an infix operator does not affect the way Yacas interprets expressions typed by the user. You cannot make Yacas parse {a-b-c} as {a-(b-c)} unless you declare the operator "{-}" to be right-associative.
+Note that the left and right precedence of an infix operator does not affect the way MathPiper interprets expressions typed by the user. You cannot make MathPiper parse {a-b-c} as {a-(b-c)} unless you declare the operator "{-}" to be right-associative.
 
 *SEE OpPrecedence, OpLeftPrecedence, OpRightPrecedence, RightAssociative
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="RuleBase"
 *CMD RuleBase --- define function with a fixed number of arguments
 *CORE
@@ -3032,10 +2179,12 @@ with different number of arguments.
 
 
 *SEE MacroRuleBase, RuleBaseListed, MacroRuleBaseListed, HoldArg, Retract
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="RuleBaseListed"
 *CMD RuleBaseListed --- define function with variable number of arguments
 *CORE
@@ -3105,10 +2254,12 @@ The function {f} now appears to occupy all arities greater than 3:
 
 
 *SEE RuleBase, Retract, Echo
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name=""
 *CMD Rule --- define a rewrite rule
 *CORE
@@ -3137,10 +2288,12 @@ a different number of arguments.
 
 Rules with a low precedence value will be tried before rules with a high value, so
 a rule with precedence 0 will be tried before a rule with precedence 1.
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="HoldArg"
 *CMD HoldArg --- mark argument as not evaluated
 *CORE
@@ -3166,10 +2319,12 @@ The {parameter} must be an atom from the list of symbolic
 arguments used when calling {RuleBase}.
 
 *SEE RuleBase, HoldArgNr, RuleBaseArgList
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Retract"
 *CMD Retract --- erase rules for a function
 *CORE
@@ -3184,16 +2339,18 @@ arguments used when calling {RuleBase}.
 *DESC
 
 Remove a rulebase for the function named {"function"} with the specific {arity}, if it exists at all. This will make
-Yacas forget all rules defined for a given function. Rules for functions with
+MathPiper forget all rules defined for a given function. Rules for functions with
 the same name but different arities are not affected.
 
 Assignment {:=} of a function does this to the function being (re)defined.
 
 *SEE RuleBaseArgList, RuleBase, :=
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="UnFence"
 *CMD UnFence --- change local variable scope for a function
 *CORE
@@ -3214,10 +2371,12 @@ function. This is useful for defining macro-like
 procedures (looping and such).
 
 The standard library functions {For} and {ForEach} use {UnFence}.
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="RuleBaseArgList"
 *CMD RuleBaseArgList --- obtain list of arguments
 *CORE
@@ -3235,10 +2394,12 @@ Returns a list of atoms, symbolic parameters specified in the {RuleBase} call
 for the function named {"operator"} with the specific {arity}.
 
 *SEE RuleBase, HoldArgNr, HoldArg
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="todo"
 *CMD MacroSet --- define rules in functions
 *CMD MacroClear --- define rules in functions
@@ -3257,10 +2418,12 @@ rules based on parameters.
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro versions!
 
 *SEE Set, Clear, Local, RuleBase, Rule, Backquoting
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="`;Backquoting"
 *A {`}
 *CMD Backquoting --- macro expansion (LISP-style backquoting)
@@ -3329,10 +2492,12 @@ the first argument of {Set} would be unevaluated.
 
 
 *SEE MacroSet, MacroLocal, MacroRuleBase, Hold, HoldArg, DefMacroRuleBase
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="DefMacroRuleBase"
 *CMD DefMacroRuleBase --- define a function as a macro
 *CORE
@@ -3434,10 +2599,12 @@ a variable {a} from the calling environment.
 	Out> 10;
 
 *SEE RuleBase, Backquoting, DefMacroRuleBaseListed
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="DefMacroRuleBaseListed"
 *CMD DefMacroRuleBaseListed --- define macro with variable number of arguments
 *CORE
@@ -3456,17 +2623,19 @@ This does the same as {DefMacroRuleBase} (define a macro), but with a variable
 number of arguments, similar to {RuleBaseListed}.
 
 *SEE RuleBase, RuleBaseListed, Backquoting, DefMacroRuleBase
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
-%mathpiper_docs,name="ExtraInfo'Set;ExtraInfo'Get"
+/*
+%mathpiper_docs,name="ExtraInfo;ExtraInfo"
 *A object properties
-*CMD ExtraInfo'Set, ExtraInfo'Get --- annotate objects with additional information
+*CMD ExtraInfo, ExtraInfo --- annotate objects with additional information
 *CORE
 *CALL
-	ExtraInfo'Set(expr,tag)
-	ExtraInfo'Get(expr)
+	ExtraInfo(expr,tag)
+	ExtraInfo(expr)
 
 *PARMS
 
@@ -3478,9 +2647,9 @@ number of arguments, similar to {RuleBaseListed}.
 
 Sometimes it is useful to be able to add extra tag information to "annotate"
 objects or to label them as having certain "properties". The functions
-{ExtraInfo'Set} and {ExtraInfo'Get} enable this.
+{ExtraInfo} and {ExtraInfo} enable this.
 
-The function {ExtraInfo'Set} returns the tagged expression, leaving
+The function {ExtraInfo} returns the tagged expression, leaving
 the original expression alone. This means there is a common pitfall:
 be sure to assign the returned value to a variable, or the tagged
 expression is lost when the temporary object is destroyed.
@@ -3490,11 +2659,11 @@ returned, in order to keep the atomic objects small. To tag an
 object, a new type of object is created from the old object, with
 one added property (the tag). The tag can be any expression whatsoever.
 
-The function {ExtraInfo'Get(x)} retrieves this tag expression from an object
+The function {ExtraInfo(x)} retrieves this tag expression from an object
 {x}. If an object has no tag, it looks the same as if it had a tag with value
 {False}.
 
-No part of the Yacas core uses tags in a way that is visible to the outside
+No part of the MathPiper core uses tags in a way that is visible to the outside
 world, so for specific purposes a programmer can devise a format to use for tag
 information. Association lists (hashes) are a natural fit for this, although it
 is not required and a tag can be any object (except the atom {False} because it
@@ -3513,30 +2682,32 @@ examples).
 
 	In> a:=2*b
 	Out> 2*b;
-	In> a:=ExtraInfo'Set(a,{{"type","integer"}})
+	In> a:=ExtraInfo(a,{{"type","integer"}})
 	Out> 2*b;
 	In> a
 	Out> 2*b;
-	In> ExtraInfo'Get(a)
+	In> ExtraInfo(a)
 	Out> {{"type","integer"}};
-	In> ExtraInfo'Get(a)["type"]
+	In> ExtraInfo(a)["type"]
 	Out> "integer";
 	In> c:=a
 	Out> 2*b;
-	In> ExtraInfo'Get(c)
+	In> ExtraInfo(c)
 	Out> {{"type","integer"}};
 	In> c
 	Out> 2*b;
 	In> d:=FlatCopy(a);
 	Out> 2*b;
-	In> ExtraInfo'Get(d)
+	In> ExtraInfo(d)
 	Out> False;
 
 *SEE Assoc, :=
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="FindFunction"
 *CMD FindFunction --- find the library file where a function is defined
 *CORE
@@ -3562,10 +2733,12 @@ This means that functions that are not listed in {.def} files will not be found 
 	Out> "integrate.rep/code.ys";
 
 *SEE Vi
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
+/*
 %mathpiper_docs,name="Secure"
 *CMD Secure --- guard the host OS
 *CORE
@@ -3584,11 +2757,180 @@ when e.g. a script is sent over the
 Internet to be evaluated on a remote computer, which is potentially unsafe.
 
 *SEE SystemCall
-%/mathpiper_docs
+%mathpiper_docs
+*/
 
 
 
 
 
+/*
+%mathpiper_docs,name="quit;restart"
+*CMD quit --- stop MathPiper from running, from the command line
+*CMD restart --- restart MathPiper (to start with a clean slate)
+*CORE
+*CALL
+	quit
+	restart
 
+*DESC
+
+Type {quit} or {restart} at the MathPiper prompt to exit or to restart the interpreter.
+
+The directives {quit} and {restart} are <i>not</i> reserved words or variable names.
+They take effect only when typed as first characters at a prompt.
+
+Pressing {Ctrl-C} will stop the currently running calculation.
+If there is no currently running calculation, {Ctrl-C} will quit the interpreter.
+
+When the interpreter quits, it saves the command history
+(so quitting by {Ctrl-C} does not mean a "crash").
+
+This command is not a function but a special directive that only applies while running MathPiper interactively.  It should not be used in scripts.
+
+*E.G.
+
+To be effective, the directive must be typed immediately after the prompt:
+	In> quit
+	Quitting...
+We can use variables named {quit}:
+	In> 1+quit
+	Out> quit+1;
+There is no effect if we type some spaces first: 
+	In>       restart
+	Out> restart;
+
+*SEE Exit
+%mathpiper_docs
+*/
+
+
+/*
+%mathpiper_docs,name="%"
+*CMD % --- previous result
+*CORE
+*CALL
+	%
+
+*DESC
+
+{%} evaluates to the previous result on the command line. {%} is a global
+variable that is bound to the previous result from the command line.
+Using {%} will evaluate the previous result. (This uses the functionality
+offered by the {SetGlobalLazyVariable} command).
+
+Typical examples are {Simplify(%)} and {PrettyForm(%)} to simplify and show the result in a nice
+form respectively.
+
+*E.G.
+
+	In> Taylor(x,0,5)Sin(x)
+	Out> x-x^3/6+x^5/120;
+	In> PrettyForm(%)
+	
+	     3    5
+	    x    x
+	x - -- + ---
+	    6    120
+	
+	
+
+*SEE SetGlobalLazyVariable
+%mathpiper_docs
+*/
+
+
+/*
+%mathpiper_docs,name="True;False"
+*CMD True --- boolean constant representing true
+*CMD False --- boolean constant representing false
+*CORE
+*CALL
+	True
+	False
+
+*DESC
+
+{True} and {False} are typically a result
+of boolean expressions such as {2 < 3} or {True And False}.
+
+*SEE And, Or, Not
+%mathpiper_docs
+*/
+
+
+
+
+/*
+%mathpiper_docs,name="EndOfFile"
+*CMD EndOfFile --- end-of-file marker
+*CORE
+*CALL
+	EndOfFile
+
+*DESC
+
+End of file marker when reading from file. If a file
+contains the expression {EndOfFile;} the
+operation will stop reading the file at that point.
+%mathpiper_docs
+*/
+
+
+
+/*
+%mathpiper_docs,name="Infinity",description="todo:tk:Infinity is defined in multiple places so I am placing it here for now."
+
+*CMD Infinity --- constant representing mathematical infinity
+*STD
+*CALL
+	Infinity
+
+*DESC
+
+Infinity represents infinitely large values. It can be the result of certain
+calculations.
+
+Note that for most analytic functions MathPiper understands {Infinity} as a positive number.
+Thus {Infinity*2} will return {Infinity}, and {a < Infinity} will evaluate to {True}.
+
+*E.G.
+
+	In> 2*Infinity
+	Out> Infinity;
+	In> 2<Infinity
+	Out> True;
+%mathpiper_docs
+*/
+
+
+
+/*
+%mathpiper_docs,name="Undefined",description"todo:tk:Undefined is defined in multiple places so I am putting it here for now."
+*CMD Undefined --- constant signifying an undefined result
+*STD
+*CALL
+	Undefined
+
+*DESC
+
+{Undefined} is a token that can be returned by a function when it considers
+its input to be invalid or when no meaningful answer can be given. The result is then "undefined".
+
+Most functions also return {Undefined} when evaluated on it.
+
+*E.G.
+
+	In> 2*Infinity
+	Out> Infinity;
+	In> 0*Infinity
+	Out> Undefined;
+	In> Sin(Infinity);
+	Out> Undefined;
+	In> Undefined+2*Exp(Undefined);
+	Out> Undefined;
+
+*SEE Infinity
+%mathpiper_docs
+*/
 
