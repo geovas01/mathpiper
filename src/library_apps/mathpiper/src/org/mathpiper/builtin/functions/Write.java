@@ -46,3 +46,37 @@ public class Write extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Write",categories="User Functions;Input/Output;Built In"
+*CMD Write --- low-level printing routine
+*CORE
+*CALL
+	Write(expr, ...)
+
+*PARMS
+
+{expr} -- expression to be printed
+
+*DESC
+
+The expression "expr" is evaluated and written to the current
+output. Note that Write accept an arbitrary number of arguments, all
+of which are written to the current output (see second
+example). {Write} always returns {True}.
+
+*E.G. notest
+
+	In> Write(1);
+	1Out> True;
+	In> Write(1,2);
+	 1 2Out> True;
+
+Write does not write a newline, so the {Out>} prompt
+immediately follows the output of {Write}.
+
+*SEE Echo, WriteString
+%mathpiper_docs
+*/

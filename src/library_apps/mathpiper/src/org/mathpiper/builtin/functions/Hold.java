@@ -24,7 +24,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  tkosan
  */
-public class Quote extends BuiltinFunction
+public class Hold extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -32,3 +32,32 @@ public class Quote extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().copy(false));
     }
 }
+
+/*
+%mathpiper_docs,name="Hold",categories="User Functions;Control Flow;Built In"
+*CMD Hold --- keep expression unevaluated
+*CORE
+*CALL
+	Hold(expr)
+
+*PARMS
+
+{expr} -- expression to keep unevaluated
+
+*DESC
+
+The expression "expr" is returned unevaluated. This is useful to
+prevent the evaluation of a certain expression in a context in which
+evaluation normally takes place.
+
+The function {UnList()} also leaves its result unevaluated. Both functions stop the process of evaluation (no more rules will be applied).
+
+*E.G. notest
+
+	In> Echo({ Hold(1+1), "=", 1+1 });
+	 1+1 = 2
+	Out> True;
+
+*SEE Eval, HoldArg, UnList
+%mathpiper_docs
+*/

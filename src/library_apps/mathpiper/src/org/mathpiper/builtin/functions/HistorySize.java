@@ -36,3 +36,39 @@ public class HistorySize extends BuiltinFunction
         throw new EvaluationException("Function not yet supported",-1);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="HistorySize",categories="User Functions;Built In"
+*CMD HistorySize --- set size of history file
+*CORE
+*CALL
+	HistorySize(n)
+
+*PARMS
+
+{n} -- number of lines to store in history file
+
+*DESC
+
+When exiting, MathPiper saves the command line history to a
+file {~/.MathPiper_history}. By default it will
+save the last 1024 lines. The default can be
+overridden with this function. Passing -1 tells the system to save <i>all</i>
+lines.
+
+MathPiper allows you to configure a few things at startup. The file
+{~/.mathpiperrc} is written in the MathPiper language and
+will be executed when MapthPiper is run. This function
+can be useful in the {~/.MathPiperrc} file.
+
+*E.G.
+
+	In> HistorySize(200)
+	Out> True;
+	In> quit
+
+*SEE quit
+%mathpiper_docs
+*/

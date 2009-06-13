@@ -36,3 +36,50 @@ public class TraceRule extends BuiltinFunction
         throw new EvaluationException("Function not yet supported",-1);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="TraceRule",categories="User Functions;Control Flow;Built In"
+*CMD TraceRule --- turn on tracing for a particular function
+*CORE
+*CALL
+	TraceRule(template) expr
+
+*PARMS
+
+{template} -- template showing the operator to trace
+
+{expr} -- expression to evaluate with tracing on
+
+*DESC
+
+The tracing facility is turned on for subexpressions of the form
+"template", and the expression "expr" is evaluated. The template
+"template" is an example of the function to trace on. Specifically, all
+subexpressions with the same top-level operator and arity as "template"
+are shown. The subexpressions are displayed before (indicated with {TrEnter}) and after ({TrLeave})
+evaluation. In between, the arguments are shown before and after
+evaluation ({TrArg}). Only functions defined in
+scripts can be traced.
+
+This is useful for tracing a function that is called from within
+another function. This way you can see how your function behaves
+in the environment it is used in.
+
+*E.G. notest
+
+	In> TraceRule(x+y) 2+3*5+4;
+	    TrEnter(2+3*5+4);
+	      TrEnter(2+3*5);
+	          TrArg(2, 2);
+	          TrArg(3*5, 15);
+	      TrLeave(2+3*5, 17);
+	        TrArg(2+3*5, 17);
+	        TrArg(4, 4);
+	    TrLeave(2+3*5+4, 21);
+	Out> 21;
+
+*SEE TraceStack, TraceExp
+%mathpiper_docs
+*/

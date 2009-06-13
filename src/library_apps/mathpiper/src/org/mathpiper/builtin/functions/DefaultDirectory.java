@@ -40,3 +40,45 @@ public class DefaultDirectory extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+/*
+%mathpiper_docs,name="DefaultDirectory",categories="User Functions;Built In"
+*CMD DefaultDirectory --- add directory to path for MathPiper scripts
+*CORE
+*CALL
+	DefaultDirectory(path)
+
+*PARMS
+
+{path} -- a string containing a full path where MathPiper script files reside
+
+*DESC
+
+When loading files, MathPiper is also allowed to
+look in the folder "path". {path} will be prepended
+to the file name before trying to load the file.
+This means that "path" should end with a forward slash (under Unix-like
+operating systems).
+
+MathPiper first tries to load a file from the current
+directory, and otherwise it tries to load from
+directories defined with this function, in the
+order they are defined. Note there will be at least one directory
+specified at start-up time, defined during compilation. This
+is the directory MathPiper searches for the initialization scripts
+and standard scripts.
+
+MathPiper allows you to configure a few things at startup. The file
+{~/.mathpiperrc} is written in the MathPiper language and
+will be executed when MapthPiper is run. This function
+can be useful in the {~/.MathPiperrc} file.
+
+*E.G.
+
+	In> DefaultDirectory("/home/user/myscripts/");
+	Out> True;
+
+*SEE Load, Use, DefLoad, FindFile
+%mathpiper_docs
+*/

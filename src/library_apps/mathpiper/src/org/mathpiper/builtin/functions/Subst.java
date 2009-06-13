@@ -40,3 +40,40 @@ public class Subst extends BuiltinFunction
         UtilityFunctions.substitute(getResult(aEnvironment, aStackTop), body, behaviour);
     }
 }
+
+
+/*
+%mathpiper_docs,name="Subst",categories="User Functions;Control Flow;Built In"
+*CMD Subst --- perform a substitution
+*CORE
+*CALL
+	Subst(from, to) expr
+
+*PARMS
+
+{from} -- expression to be substituted
+
+{to} -- expression to substitute for "from"
+
+{expr} -- expression in which the substitution takes place
+
+*DESC
+
+This function substitutes every occurrence of "from" in "expr" by
+"to". This is a syntactical substitution: only places where "from"
+occurs as a subexpression are affected.
+
+*E.G.
+
+	In> Subst(x, Sin(y)) x^2+x+1;
+	Out> Sin(y)^2+Sin(y)+1;
+	In> Subst(a+b, x) a+b+c;
+	Out> x+c;
+	In> Subst(b+c, x) a+b+c;
+	Out> a+b+c;
+
+The explanation for the last result is that the expression {a+b+c} is internally stored as {(a+b)+c}. Hence {a+b} is a subexpression, but {b+c} is not.
+
+*SEE WithValue, /:
+%mathpiper_docs
+*/

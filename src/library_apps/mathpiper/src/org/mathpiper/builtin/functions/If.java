@@ -54,3 +54,49 @@ public class If extends BuiltinFunction
         }
     }
 }
+
+
+/*
+%mathpiper_docs,name="If",categories="User Functions;Control Flow;Built In"
+*CMD If --- branch point
+*CORE
+*CALL
+	If(pred, then)
+	If(pred, then, else)
+
+*PARMS
+
+{pred} -- predicate to test
+
+{then} -- expression to evaluate if "pred" is {True}
+
+{else} -- expression to evaluate if "pred" is {False}
+
+*DESC
+
+This command implements a branch point. The predicate "pred" is
+evaluated, which should result in either {True} or {False}. In the first case, the expression "then" is
+evaluated and returned. If the predicate yields {False}, the expression "else" (if present) is evaluated and
+returned. If there is no "else" branch (i.e. if the first calling
+sequence is used), the {If} expression returns {False}.
+
+*E.G.
+
+The sign function is defined to be 1 if its argument is positive and
+-1 if its argument is negative. A possible implementation is
+	In> mysign(x) := If (IsPositiveReal(x), 1, -1);
+	Out> True;
+	In> mysign(Pi);
+	Out> 1;
+	In> mysign(-2.5);
+	Out> -1;
+Note that this will give incorrect results, if "x" cannot be
+numerically approximated.
+	In> mysign(a);
+	Out> -1;
+Hence a better implementation would be
+	In> mysign(_x)_IsNumber(N(x)) <-- If \
+	  (IsPositiveReal(x), 1, -1);
+	Out> True;
+%mathpiper_docs
+*/

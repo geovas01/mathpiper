@@ -49,3 +49,56 @@ public class PrettyPrinterSet extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="PrettyPrinterSet",categories="User Functions;Built In"
+*CMD PrettyPrinterSet --- set routine to use as pretty-printer
+
+*CORE
+
+*CALL
+	PrettyPrinterSet(printer)
+	PrettyPrinterSet()
+
+*PARMS
+
+{printer} -- a string containing the name of a function that can "pretty-print" an expression.
+
+
+*DESC
+
+This function sets up the function printer to print out the results on
+the command line. This can be reset to the internal printer with {PrettyPrinterSet()} (when no argument is given, the system returns to the default).
+
+Currently implemented prettyprinters are: {PrettyForm}, {TeXForm}, {Print}, {OMForm}, {CForm} and {DefaultPrint}.
+
+MathPiper allows you to configure a few things at startup. The file
+{~/.mathpiperrc} is written in the MathPiper language and
+will be executed when MapthPiper is run. This function
+can be useful in the {~/.MathPiperrc} file.
+
+*E.G.
+
+	In> Taylor(x,0,5)Sin(x)
+	Out> x-x^3/6+x^5/120;
+	In> PrettyPrinterSet("PrettyForm");
+
+	True
+
+	In> Taylor(x,0,5)Sin(x)
+
+	     3    5
+	    x    x
+	x - -- + ---
+	    6    120
+
+	In> PrettyPrinterSet();
+	Out> True;
+	In> Taylor(x,0,5)Sin(x)
+	Out> x-x^3/6+x^5/120;
+
+*SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReaderSet, PrettyReaderGet, PrettyPrinterGet
+%mathpiper_docs
+*/
