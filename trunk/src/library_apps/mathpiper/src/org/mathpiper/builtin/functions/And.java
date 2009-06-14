@@ -28,7 +28,7 @@ import org.mathpiper.lisp.cons.SubListCons;
  *
  *  
  */
-public class LazyAnd extends BuiltinFunction
+public class And extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

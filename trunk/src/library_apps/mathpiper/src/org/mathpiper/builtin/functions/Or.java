@@ -28,7 +28,7 @@ import org.mathpiper.lisp.cons.SubListCons;
  *
  *  
  */
-public class LazyOr extends BuiltinFunction
+public class Or extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
