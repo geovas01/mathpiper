@@ -1,7 +1,7 @@
 
-***** Fri May 22 02:58:38 EDT 2009 *****
+***** Sun Jun 14 02:57:30 EDT 2009 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .75a *****
+***** MathPiper version: .75b *****
 
 ===========================
 arithmetic.mpt: 
@@ -690,7 +690,7 @@ ToString()Write(Plot2D(a,-1:1,output=data,points=4,depth=0))
 ******************
 tests/scripts/plots.mpt: 7 
 
-ToString()Write(Plot2D(b,b= -1:1,output=data,points=4))
+ToString()Write(Plot2D(b,b=-1:1,output=data,points=4))
  evaluates to 
 "{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
  which differs from 
@@ -708,7 +708,7 @@ ToString()Write(Plot3DS(a,-1:1,-1:1,output=data,points=2))
 ******************
 tests/scripts/plots.mpt: 14 
 
-ToString()Write(Plot3DS(x1,x1= -1:1,x2= -1:1,output=data,points=2))
+ToString()Write(Plot3DS(x1,x1=-1:1,x2=-1:1,output=data,points=2))
  evaluates to 
 "{{{-1,-1,0.1011417762},{-1,0,0.1011417762},{-1,1,0.1011417762},{0,-1,0.1011417762},{0,0,0.1011417762},{0,1,0.1011417762},{1,-1,0.1011417762},{1,0,0.1011417762},{1,1,0.1011417762}}}"
  which differs from 
@@ -844,7 +844,7 @@ tests/scripts/regress.mpt: 326
 ******************
 Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
 Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
-Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
+Known failure: Gcd(10,3.3)!=3.3AndGcd(10,3.3)!=1 
 Known failure: (D(z)Conjugate(z))=Undefined 
 Known failure: ArcCos(Cos(beta))!=beta 
 Known failure: (Limit(n,Infinity)n^5/2^n)=0 
@@ -886,7 +886,7 @@ Side Effects:
 Exception:In function "If" : 
 bad argument number 1(counting from 1) : 
 
-The offending argument Not Apply(compare,{left,right}) evaluated to Not Complex(2.00000000000000000000000000001,1.2E-29)<Complex... Source file: tests/scripts/solve.mpt Line number: 176
+The offending argument NotApply(compare,{left,right}) evaluated to NotComplex(2.00000000000000000000000000001,1.2E-29)<Complex(... Source file: tests/scripts/solve.mpt Line number: 176
 ===========================
 sturm.mpt: 
 

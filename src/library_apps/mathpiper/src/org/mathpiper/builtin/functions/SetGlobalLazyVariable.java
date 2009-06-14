@@ -33,3 +33,66 @@ public class SetGlobalLazyVariable extends BuiltinFunction
         UtilityFunctions.internalSetVar(aEnvironment, aStackTop, false, true);
     }
 }
+
+
+
+
+/*
+%mathpiper_docs,name="SetGlobalLazyVariable",categories="User Functions;Variables;Built In"
+*CMD SetGlobalLazyVariable --- global variable is to be evaluated lazily
+*CORE
+*CALL
+	SetGlobalLazyVariable(var,value)
+
+*PARMS
+
+{var} -- variable (held argument)
+
+{value} -- value to be set to (evaluated before it is assigned)
+
+*DESC
+
+{SetGlobalLazyVariable} enforces that a global variable will re-evaluate
+when used. This functionality doesn't survive if {Clear(var)}
+is called afterwards.
+
+Places where this is used include the global variables {%} and {I}.
+
+The use of lazy in the name stems from the concept of lazy evaluation.
+The object the global variable is bound to will only be evaluated when
+called. The {SetGlobalLazyVariable} property only holds once: after
+that, the result of evaluation is stored in the global variable, and it won't be reevaluated again:
+
+	In> SetGlobalLazyVariable(a,Hold(Taylor(x,0,30)Sin(x)))
+	Out> True
+
+Then the first time you call {a} it evaluates {Taylor(...)} and assigns the result to {a}. The next time
+you call {a} it immediately returns the result.
+{SetGlobalLazyVariable} is called for {%} each time {%} changes.
+
+The following example demonstrates the sequence of execution:
+
+	In> SetGlobalLazyVariable(test,Hold(Write("hello")))
+	Out> True
+
+The text "hello" is not written out to screen yet. However, evaluating
+the variable {test} forces the expression to be evaluated:
+
+	In> test
+	"hello"Out> True
+
+*E.G.
+
+	In> Set(a,Hold(2+3))
+	Out> True
+	In> a
+	Out> 2+3
+	In> SetGlobalLazyVariable(a,Hold(2+3))
+	Out> True
+	In> a
+	Out> 5
+
+
+*SEE Set, Clear, Local, %, I
+%/mathpiper_docs
+*/

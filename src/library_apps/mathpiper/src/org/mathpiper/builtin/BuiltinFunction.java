@@ -21,7 +21,7 @@ package org.mathpiper.builtin;
 import org.mathpiper.builtin.functions.Abs;
 import org.mathpiper.builtin.functions.Add;
 import org.mathpiper.builtin.functions.ApplyPure;
-import org.mathpiper.builtin.functions.Atomize;
+import org.mathpiper.builtin.functions.Atom;
 import org.mathpiper.builtin.functions.BackQuote;
 import org.mathpiper.builtin.functions.BitAnd;
 import org.mathpiper.builtin.functions.BitCount;
@@ -35,7 +35,7 @@ import org.mathpiper.builtin.functions.BuiltinPrecisionSet;
 import org.mathpiper.builtin.functions.Ceil;
 import org.mathpiper.builtin.functions.CharString;
 import org.mathpiper.builtin.functions.Check;
-import org.mathpiper.builtin.functions.ClearVar;
+import org.mathpiper.builtin.functions.Clear;
 import org.mathpiper.builtin.functions.CommonLispTokenizer;
 import org.mathpiper.builtin.functions.Concatenate;
 import org.mathpiper.builtin.functions.ConcatenateStrings;
@@ -138,7 +138,7 @@ import org.mathpiper.builtin.functions.MathSign;
 import org.mathpiper.builtin.functions.MaxEvalDepth;
 import org.mathpiper.builtin.functions.Mod;
 import org.mathpiper.builtin.functions.Multiply;
-import org.mathpiper.builtin.functions.NewLocal;
+import org.mathpiper.builtin.functions.Local;
 import org.mathpiper.builtin.functions.NewRule;
 import org.mathpiper.builtin.functions.NewRulePattern;
 import org.mathpiper.builtin.functions.Not;
@@ -169,7 +169,7 @@ import org.mathpiper.builtin.functions.RulebaseListed;
 import org.mathpiper.builtin.functions.Secure;
 import org.mathpiper.builtin.functions.SetExactBits;
 import org.mathpiper.builtin.functions.SetGlobalLazyVariable;
-import org.mathpiper.builtin.functions.SetVar;
+import org.mathpiper.builtin.functions.Set;
 import org.mathpiper.builtin.functions.ShiftLeft;
 import org.mathpiper.builtin.functions.ShiftRight;
 import org.mathpiper.builtin.functions.StackSize;
@@ -293,22 +293,22 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new Load(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Load");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new SetVar(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Set(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "Set");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new MacroSetVar(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "MacroSet");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ClearVar(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Clear(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "Clear");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ClearVar(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new Clear(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "MacroClear");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new NewLocal(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Local(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "Local");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new NewLocal(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new Local(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "MacroLocal");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Head(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
@@ -359,7 +359,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new DestructiveReplace(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "DestructiveReplace");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Atomize(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new Atom(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Atom");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Stringify(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
