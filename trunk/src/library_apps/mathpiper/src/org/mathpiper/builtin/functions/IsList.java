@@ -37,3 +37,32 @@ public class IsList extends BuiltinFunction
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), UtilityFunctions.internalIsList(result));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsList",categories="User Functions;Predicates;Built In"
+*CMD IsList --- test for a list
+*CORE
+*CALL
+	IsList(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is a list. A list is a sequence
+between curly braces, e.g. {{2, 3, 5}}.
+
+*E.G.
+
+	In> IsList({2,3,5});
+	Out> True;
+	In> IsList(2+3+5);
+	Out> False;
+
+*SEE IsFunction
+%/mathpiper_docs
+*/

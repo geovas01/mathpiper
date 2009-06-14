@@ -65,5 +65,5 @@ an empty string if the default pretty printer is used.
 	Result> ""
 
 *SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderSet
-%mathpiper_docs
+%/mathpiper_docs
 */

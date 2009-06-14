@@ -67,3 +67,73 @@ public class ToFile extends BuiltinFunction
     }
 }
 
+
+
+/*
+%mathpiper_docs,name="ToFile",categories="User Functions;Input/Output;Built In"
+*CMD ToFile --- connect current output to a file
+*CORE
+*CALL
+	ToFile(name) body
+
+*PARMS
+
+{name} -- string, the name of the file to write the result to
+
+{body} -- expression to be evaluated
+
+*DESC
+
+The current output is connected to the file "name". Then the expression
+"body" is evaluated. Everything that the commands in "body" print
+to the current output, ends up in the file "name". Finally, the
+file is closed and the result of evaluating "body" is returned.
+
+If the file is opened again, the old contents will be overwritten.
+This is a limitation of {ToFile}: one cannot append to a file that has already been created.
+
+*E.G. notest
+
+Here is how one can create a file with C code to evaluate an expression:
+
+	In> ToFile("expr1.c") WriteString(
+	  CForm(Sqrt(x-y)*Sin(x)) );
+	Out> True;
+The file {expr1.c} was created in the current working directory and it
+contains the line
+	sqrt(x-y)*sin(x)
+
+As another example, take a look at the following command:
+
+	In> [ Echo("Result:");  \
+	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
+	Result:
+
+	     3    5      7       9
+	    x    x      x       x
+	x - -- + --- - ---- + ------
+	    6    120   5040   362880
+
+	Out> True;
+
+Now suppose one wants to send the output of this command to a
+file. This can be achieved as follows:
+
+	In> ToFile("out") [ Echo("Result:");  \
+	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
+	Out> True;
+
+After this command the file {out} contains:
+
+
+	Result:
+
+	     3    5      7       9
+	    x    x      x       x
+	x - -- + --- - ---- + ------
+	    6    120   5040   362880
+
+
+*SEE FromFile, ToString, Echo, Write, WriteString, PrettyForm, Taylor
+%/mathpiper_docs
+*/

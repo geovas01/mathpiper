@@ -83,3 +83,45 @@ public class LazyAnd extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="And",categories="User Functions;Predicates;Built In"
+*CMD And --- logical conjunction
+*CORE
+*CALL
+	a1 And a2
+Precedence:
+*EVAL OpPrecedence("And")
+
+	And(a1, a2, a3, ..., aN)
+
+*PARMS
+
+{a}1, ..., {a}N -- boolean values (may evaluate to {True} or {False})
+
+*DESC
+
+This function returns {True} if all arguments are true. The
+{And} operation is "lazy", i.e. it returns {False} as soon as a {False} argument
+is found (from left to right). If an argument other than {True} or
+{False} is encountered a new {And} expression is returned with all
+arguments that didn't evaluate to {True} or {False} yet.
+
+*E.G.
+
+	In> True And False
+	Out> False;
+	In> And(True,True)
+	Out> True;
+	In> False And a
+	Out> False;
+	In> True And a
+	Out> And(a);
+	In> And(True,a,True,b)
+	Out> b And a;
+
+*SEE Or, Not
+%/mathpiper_docs
+*/

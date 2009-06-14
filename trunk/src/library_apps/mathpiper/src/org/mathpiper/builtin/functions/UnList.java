@@ -40,3 +40,41 @@ public class UnList extends BuiltinFunction
         UtilityFunctions.internalTail(getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="UnList",categories="User Functions;Lists (Operations);Built In"
+*CMD UnList --- convert a list to a function application
+*CORE
+*CALL
+	UnList(list)
+
+*PARMS
+
+{list} -- list to be converted
+
+*DESC
+
+This command converts a list to a function application. The first
+entry of "list" is treated as a function atom, and the following entries
+are the arguments to this function. So the function referred to in the
+first element of "list" is applied to the other elements.
+
+Note that "list" is evaluated before the function application is
+formed, but the resulting expression is left unevaluated. The functions {UnList()} and {Hold()} both stop the process of evaluation.
+
+*E.G.
+
+	In> UnList({Cos, x});
+	Out> Cos(x);
+	In> UnList({f});
+	Out> f();
+	In> UnList({Taylor,x,0,5,Cos(x)});
+	Out> Taylor(x,0,5)Cos(x);
+	In> Eval(%);
+	Out> 1-x^2/2+x^4/24;
+
+*SEE List, Listify, Hold
+%/mathpiper_docs
+*/

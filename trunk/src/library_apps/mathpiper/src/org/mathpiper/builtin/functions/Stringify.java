@@ -43,3 +43,29 @@ public class Stringify extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="String",categories="User Functions;String Manipulation;Built In"
+*CMD String --- convert atom to string
+*CORE
+*CALL
+	String(atom)
+
+*PARMS
+
+{atom} -- an atom
+
+*DESC
+
+{String} is the inverse of {Atom}: turns {atom} into {"atom"}.
+
+*E.G.
+
+	In> String(a)
+	Out> "a";
+
+*SEE Atom
+%/mathpiper_docs
+*/

@@ -78,5 +78,5 @@ Write does not write a newline, so the {Out>} prompt
 immediately follows the output of {Write}.
 
 *SEE Echo, WriteString
-%mathpiper_docs
+%/mathpiper_docs
 */

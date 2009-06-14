@@ -39,3 +39,29 @@ public class LispReadListed extends BuiltinFunction
         parser.parse(getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="LispReadListed",categories="User Functions;Input/Output;Built In"
+*CMD LispReadListed --- read expressions in LISP syntax
+*CORE
+*CALL
+	LispReadListed()
+
+*DESC
+
+The function {LispReadListed} reads a LISP expression and returns
+it in a list, instead of the form usual to MathPiper (expressions).
+The result can be thought of as applying {Listify} to {LispRead}.
+The function {LispReadListed} is more useful for reading arbitrary LISP expressions, because the
+first object in a list can be itself a list (this is never the case for MathPiper expressions where the first object in a list is always a function atom).
+
+*E.G. notest
+
+	In> FromString("(+ a b)")LispReadListed()
+	Out> {+,a,b};
+
+*SEE FromFile, FromString, Read, ReadToken, FullForm, LispRead
+%/mathpiper_docs
+*/

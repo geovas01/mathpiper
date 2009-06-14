@@ -46,3 +46,36 @@ public class Not extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Not",categories="User Functions;Predicates;Built In"
+*CMD Not --- logical negation
+*CORE
+*CALL
+	Not expr
+
+*PARMS
+
+{expr} -- a boolean expression
+
+*DESC
+
+Not returns the logical negation of the argument expr. If {expr} is
+{False} it returns {True}, and if {expr} is {True}, {Not expr} returns {False}.
+If the argument is neither {True} nor {False}, it returns the entire
+expression with evaluated arguments.
+
+*E.G.
+
+	In> Not True
+	Out> False;
+	In> Not False
+	Out> True;
+	In> Not(a)
+	Out> Not a;
+
+*SEE And, Or
+%/mathpiper_docs
+*/

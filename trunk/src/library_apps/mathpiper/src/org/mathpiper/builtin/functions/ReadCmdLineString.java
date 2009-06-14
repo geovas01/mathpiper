@@ -36,3 +36,65 @@ public class ReadCmdLineString extends BuiltinFunction
         throw new EvaluationException("Function not yet supported",-1);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="ReadCmdLineString",categories="User Functions;Input/Output;Built In"
+*CMD ReadCmdLineString --- read an expression from command line and return in string
+*CORE
+*CALL
+	ReadCmdLineString(prompt)
+
+*PARMS
+
+{prompt} -- string representing the prompt shown on screen
+
+*DESC
+
+This function allows for interactive input similar to the command line.
+When using this function, the history from the command line is also available.
+
+The result is returned in a string, so it still needs to be parsed.
+
+This function will typically be used in situations where one wants a custom
+read-eval-print loop.
+
+
+*E.G. notest
+
+The following defines a function that when invoked keeps asking
+for an expression (the <i>read</i> step), and then takes
+the derivative of it (the <i>eval</i> step) and then
+uses PrettyForm to display the result (the <i>print</i> step).
+
+	In> ReEvPr() := \
+	In>   While(True) [ \
+	In>     PrettyForm(Deriv(x) \
+	In>      FromString(ReadCmdLineString("Deriv> "):";")Read()); \
+	In> ];
+	Out> True;
+
+Then one can invoke the command, from which the following interaction
+might follow:
+
+	In> ReEvPr()
+	Deriv> Sin(a^2*x/b)
+
+	   /  2     \
+	   | a  * x |    2
+	Cos| ------ | * a  * b
+	   \   b    /
+	----------------------
+	           2
+	          b
+
+	Deriv> Sin(x)
+
+	Cos( x )
+
+	Deriv>
+
+*SEE Read, LispRead, LispReadListed
+%/mathpiper_docs
+*/

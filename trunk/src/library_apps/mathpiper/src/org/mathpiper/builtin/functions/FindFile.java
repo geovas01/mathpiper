@@ -49,3 +49,29 @@ public class FindFile extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(filename)));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="FindFile",categories="User Functions;Input/Output;Built In"
+*CMD FindFile --- find a file in the current path
+*CORE
+*CALL
+	FindFile(name)
+
+*PARMS
+
+{name} -- string, name of the file or directory to find
+
+*DESC
+
+The result of this command is the full path to the file that would be
+opened when the command {Load(name)} would be
+invoked. This means that the input directories are subsequently
+searched for a file called "name". If such a file is not found, {FindFile} returns an empty string.
+
+{FindFile("")} returns the name of the default directory (the first one on the search path).
+
+*SEE Load, DefaultDirectory
+%/mathpiper_docs
+*/

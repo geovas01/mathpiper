@@ -43,3 +43,55 @@ public class ReadToken extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, result));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="ReadToken",categories="User Functions;Input/Output;Built In"
+*CMD ReadToken --- read a token from current input
+*CORE
+*CALL
+	ReadToken()
+
+*DESC
+
+Read a token from the current input, and return it unevaluated.
+The returned object is a MathPiper atom (not a string).
+When
+the end of an input file is encountered, the token atom {EndOfFile} is returned.
+
+A token is for computer languages what a word is for human languages:
+it is the smallest unit in which a command can be divided, so that the
+semantics (that is the meaning) of the command is in some sense a
+combination of the semantics of the tokens. Hence {a := foo} consists of three tokens, namely {a}, {:=}, and {foo}.
+
+The parsing of the string depends on the syntax of the language.
+The part of the kernel that does the parsing is the "tokenizer".
+MathPiper can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives {DefaultTokenizer} or {XmlTokenizer}.
+Setting a tokenizer is a global action that affects all {ReadToken} calls.
+
+*E.G. notest
+
+	In> FromString("a := Sin(x)") While \
+	  ((tok := ReadToken()) != EndOfFile) \
+	  Echo(tok);
+	a
+	:=
+	Sin
+	(
+	x
+	)
+	Out> True;
+
+We can read some junk too:
+	In> FromString("-$3")ReadToken();
+	Out> -$;
+The result is an atom with the string representation {-$}.
+MathPiper assumes that {-$} is an operator symbol yet to be defined.
+The "{3}" will be in the next token.
+(The results will be different if a non-default tokenizer is selected.)
+
+
+*SEE FromFile, FromString, Read, LispRead, DefaultTokenizer
+%/mathpiper_docs
+*/

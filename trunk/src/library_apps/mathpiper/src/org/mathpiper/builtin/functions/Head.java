@@ -33,3 +33,33 @@ public class Head extends BuiltinFunction
         UtilityFunctions.internalNth(getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1), 1);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Head",categories="User Functions;Lists (Operations);Built In"
+*CMD Head --- the first element of a list
+*CORE
+*CALL
+	Head(list)
+
+*PARMS
+
+{list} -- a list
+
+*DESC
+
+This function returns the first element of a list. If it is applied to
+a general expression, it returns the first operand. An error is
+returned if "list" is an atom.
+
+*E.G.
+
+	In> Head({a,b,c})
+	Out> a;
+	In> Head(f(a,b,c));
+	Out> a;
+
+*SEE Tail, Length
+%/mathpiper_docs
+*/

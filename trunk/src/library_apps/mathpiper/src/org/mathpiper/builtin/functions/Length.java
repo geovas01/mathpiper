@@ -61,3 +61,32 @@ public class Length extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Length",categories="User Functions;Lists (Operations);Built In"
+*CMD Length --- the length of a list or string
+*CORE
+*CALL
+	Length(object)
+
+*PARMS
+
+{object} -- a list, array or string
+
+*DESC
+
+Length returns the length of a list.
+This function also works on strings and arrays.
+
+*E.G.
+
+	In> Length({a,b,c})
+	Out> 3;
+	In> Length("abcdef");
+	Out> 6;
+
+*SEE Head, Tail, Nth, Count
+%/mathpiper_docs
+*/

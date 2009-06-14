@@ -81,5 +81,5 @@ in the environment it is used in.
 	Out> 21;
 
 *SEE TraceStack, TraceExp
-%mathpiper_docs
+%/mathpiper_docs
 */

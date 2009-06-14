@@ -89,5 +89,5 @@ can be useful in the {~/.MathPiperrc} file.
 	Out> x-x^3/6+x^5/120
 
 *SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderGet
-%mathpiper_docs
+%/mathpiper_docs
 */

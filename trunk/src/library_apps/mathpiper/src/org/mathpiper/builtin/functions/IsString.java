@@ -38,3 +38,32 @@ public class IsString extends BuiltinFunction
                 UtilityFunctions.internalIsString(result.getCons().string()));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsString",categories="User Functions;Predicates;Built In"
+*CMD IsString --- test for an string
+*CORE
+*CALL
+	IsString(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is a string. A string is a text
+within quotes, e.g. {"duh"}.
+
+*E.G.
+
+	In> IsString("duh");
+	Out> True;
+	In> IsString(duh);
+	Out> False;
+
+*SEE IsAtom, IsNumber
+%/mathpiper_docs
+*/

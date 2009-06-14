@@ -65,5 +65,5 @@ an empty string if the default pretty printer is used.
 	Result> ""
 
 *SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReaderSet, PrettyReaderGet, PrettyPrinterSet
-%mathpiper_docs
+%/mathpiper_docs
 */

@@ -46,3 +46,34 @@ public class IsBound extends BuiltinFunction
         UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsBound",categories="User Functions;Predicates;Built In"
+*CMD IsBound --- test for a bound variable
+*CORE
+*CALL
+	IsBound(var)
+
+*PARMS
+
+{var} -- variable to test
+
+*DESC
+
+This function tests whether the variable "var" is bound, i.e. whether
+it has been assigned a value. The argument "var" is not evaluated.
+
+*E.G.
+
+	In> IsBound(x);
+	Out> False;
+	In> x := 5;
+	Out> 5;
+	In> IsBound(x);
+	Out> True;
+
+*SEE IsAtom
+%/mathpiper_docs
+*/

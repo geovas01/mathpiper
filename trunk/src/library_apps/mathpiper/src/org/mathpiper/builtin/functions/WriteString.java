@@ -82,5 +82,5 @@ WriteString. Note that Write and WriteString do not write a newline,
 so the {Out>} prompt immediately follows the output.
 
 *SEE Echo, Write
-%mathpiper_docs
+%/mathpiper_docs
 */

@@ -42,3 +42,49 @@ public class GetExactBits extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(numberToReturn));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="GetExactBitsN",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+*CMD GetExactBitsN --- manipulate precision of floating-point numbers
+*CORE
+*CALL
+	GetExactBitsN(x)
+
+*PARMS
+{x} -- an expression evaluating to a floating-point number
+
+
+*DESC
+Each floating-point number in MathPiper has an internal precision counter that stores the number of exact bits in the mantissa.
+The number of exact bits is automatically updated after each arithmetic operation to reflect the gain or loss of precision due to round-off.
+The functions {GetExactBitsN} queries the precision flags of individual number objects.
+
+{GetExactBitsN(x)} returns an integer number $n$ such that {x} represents a real number in the interval [$x*(1-2^(-n))$, $x*(1+2^(-n))$] if $x!=0$ and in the interval [$-2^(-n)$, $2^(-n)$] if $x=0$.
+The integer $n$ is always nonnegative unless {x} is zero (a "floating zero").
+A floating zero can have a negative value of the number $n$ of exact bits.
+
+This function is only meaningful for floating-point numbers.
+(All integers are always exact.)
+For integer {x}, the function {GetExactBitsN} returns the bit count of {x}.
+
+*REM FIXME - these examples currently do not work because of bugs
+
+*E.G.
+The default precision of 10 decimals corresponds to 33 bits:
+	In> GetExactBitsN(1000.123)
+	Out> 33;
+	In> x:=SetExactBits(10., 20)
+	Out> 10.;
+	In> GetExactBitsN(x)
+	Out> 20;
+Prepare a "floating zero" representing an interval [-4, 4]:
+	In> x:=SetExactBits(0., -2)
+	Out> 0.;
+	In> x=0
+	Out> True;
+
+*SEE BuiltinPrecisionSet, BuiltinPrecisionGet, SetExactBitsN
+%/mathpiper_docs
+*/

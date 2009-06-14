@@ -55,3 +55,36 @@ public class StringMidGet extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, str));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="StringMidGet",categories="User Functions;String Manipulation;Built In"
+*CMD StringMidGet --- retrieve a substring
+*CORE
+*CALL
+	StringMidGet(index,length,string)
+
+*PARMS
+
+{index} -- index of substring to get
+
+{length} -- length of substring to get
+
+{string} -- string to get substring from
+
+*DESC
+
+{StringMidGet} returns a part of a string. Substrings can also be
+accessed using the {[]} operator.
+
+*E.G.
+
+	In> StringMidGet(3,2,"abcdef")
+	Out> "cd";
+	In> "abcdefg"[2 .. 4]
+	Out> "bcd";
+
+*SEE StringMidSet, Length
+%/mathpiper_docs
+*/

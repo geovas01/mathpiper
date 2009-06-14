@@ -37,3 +37,32 @@ public class IsFunction extends BuiltinFunction
                 result.getCons().getSublistPointer() != null);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsFunction",categories="User Functions;Predicates;Built In"
+*CMD IsFunction --- test for a composite object
+*CORE
+*CALL
+	IsFunction(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is a composite object, i.e. not an
+atom. This includes not only obvious functions such as {f(x)}, but also expressions such as {x+5} and lists.
+
+*E.G.
+
+	In> IsFunction(x+5);
+	Out> True;
+	In> IsFunction(x);
+	Out> False;
+
+*SEE IsAtom, IsList, Type
+%/mathpiper_docs
+*/

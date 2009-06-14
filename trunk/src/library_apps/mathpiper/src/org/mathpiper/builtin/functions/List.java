@@ -49,3 +49,35 @@ import org.mathpiper.lisp.cons.SubListCons;
 			getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(allPointer.getCons()));
 		}
 	}
+
+
+
+/*
+%mathpiper_docs,name="List",categories="User Functions;Lists (Operations);Built In"
+*CMD List --- construct a list
+*CORE
+*CALL
+	List(expr1, expr2, ...)
+
+*PARMS
+
+{expr1}, {expr2} -- expressions making up the list
+
+*DESC
+
+A list is constructed whose first entry is "expr1", the second entry
+is "expr2", and so on. This command is equivalent to the expression
+"{expr1, expr2, ...}".
+
+*E.G.
+
+	In> List();
+	Out> {};
+	In> List(a,b);
+	Out> {a,b};
+	In> List(a,{1,2},d);
+	Out> {a,{1,2},d};
+
+*SEE UnList, Listify
+%/mathpiper_docs
+*/

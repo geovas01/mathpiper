@@ -47,3 +47,31 @@ public class DefLoad extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="DefLoad",categories="User Functions;Input/Output;Built In"
+*CMD DefLoad --- load a {.def} file
+*CORE
+*CALL
+	DefLoad(name)
+
+*PARMS
+
+{name} -- string, name of the file (without {.def} suffix)
+
+*DESC
+
+The suffix {.def} is appended to "name" and the
+file with this name is loaded. It should contain a list of functions,
+terminated by a closing brace \} (the end-of-list delimiter). This
+tells the system to load the file "name" as soon as the user calls
+one of the functions named in the file (if not done so already). This
+allows for faster startup times, since not all of the rules databases
+need to be loaded, just the descriptions on which files to load for
+which functions.
+
+*SEE Load, Use, DefaultDirectory
+%/mathpiper_docs
+*/

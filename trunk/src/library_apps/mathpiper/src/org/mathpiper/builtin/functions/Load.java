@@ -48,3 +48,25 @@ public class Load extends BuiltinFunction
          
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Load",categories="User Functions;Input/Output;Built In"
+*CMD Load --- evaluate all expressions in a file
+*CORE
+*CALL
+	Load(name)
+
+*PARMS
+
+{name} -- string, name of the file to load
+
+*DESC
+
+The file "name" is opened. All expressions in the file are read and
+evaluated. {Load} always returns {true}.
+
+*SEE Use, DefLoad, DefaultDirectory, FindFile
+%/mathpiper_docs
+*/

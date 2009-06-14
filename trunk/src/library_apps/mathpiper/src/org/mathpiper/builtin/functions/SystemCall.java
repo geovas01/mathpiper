@@ -95,5 +95,5 @@ Check that a file exists:
 	Out> False;
 
 *SEE Secure
-%mathpiper_docs
+%/mathpiper_docs
 */
