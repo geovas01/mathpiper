@@ -67,7 +67,7 @@ import org.mathpiper.builtin.functions.Equals;
 import org.mathpiper.builtin.functions.Eval;
 import org.mathpiper.builtin.functions.Exit;
 import org.mathpiper.builtin.functions.ExitRequested;
-import org.mathpiper.builtin.functions.ExplodeTag;
+import org.mathpiper.builtin.functions.XmlExplodeTag;
 import org.mathpiper.builtin.functions.ExtraInfoGet;
 import org.mathpiper.builtin.functions.ExtraInfoSet;
 import org.mathpiper.builtin.functions.Fac;
@@ -119,8 +119,8 @@ import org.mathpiper.builtin.functions.IsPostFix;
 import org.mathpiper.builtin.functions.IsPreFix;
 import org.mathpiper.builtin.functions.IsPromptShown;
 import org.mathpiper.builtin.functions.IsString;
-import org.mathpiper.builtin.functions.LazyAnd;
-import org.mathpiper.builtin.functions.LazyOr;
+import org.mathpiper.builtin.functions.And;
+import org.mathpiper.builtin.functions.Or;
 import org.mathpiper.builtin.functions.LeftPrecedence;
 import org.mathpiper.builtin.functions.Length;
 import org.mathpiper.builtin.functions.LessThan;
@@ -440,16 +440,16 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new Not(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Not");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LazyAnd(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "AndN");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LazyAnd(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "And");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LazyOr(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "OrN");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LazyOr(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "Or");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Equals(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
@@ -755,7 +755,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new XmlTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "XmlTokenizer");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ExplodeTag(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new XmlExplodeTag(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "XmlExplodeTag");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new BuiltinAssoc(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

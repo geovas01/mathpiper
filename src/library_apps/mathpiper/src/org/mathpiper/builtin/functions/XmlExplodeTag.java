@@ -31,7 +31,7 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
  *
  *  
  */
-public class ExplodeTag extends BuiltinFunction
+public class XmlExplodeTag extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
