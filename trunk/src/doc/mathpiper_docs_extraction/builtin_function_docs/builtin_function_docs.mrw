@@ -1,1902 +1,32 @@
 
 
-/*
-%mathpiper_docs,name="FromFile"
-*CMD FromFile --- connect current input to a file
-*CORE
-*CALL
-	FromFile(name) body
 
-*PARMS
 
-{name} - string, the name of the file to read
 
-{body} - expression to be evaluated
 
-*DESC
 
-The current input is connected to the file "name". Then the expression
-"body" is evaluated. If some functions in "body" try to read
-from current input, they will now read from the file "name". Finally, the
-file is closed and the result of evaluating "body" is returned.
 
-*E.G. notest
 
-Suppose that the file {foo} contains
 
-	2 + 5;
 
-Then we can have the following dialogue:
 
-	In> FromFile("foo") res := Read();
-	Out> 2+5;
-	In> FromFile("foo") res := ReadToken();
-	Out> 2;
 
-*SEE ToFile, FromString, Read, ReadToken
-%mathpiper_docs
-*/
 
 
 
-/*
-%mathpiper_docs,name="FromString"
-*CMD FromString --- connect current input to a string
-*CORE
-*CALL
-	FromString(str) body;
 
-*PARMS
 
-{str} -- a string containing the text to parse
 
-{body} -- expression to be evaluated
 
-*DESC
 
-The commands in "body" are executed, but everything that is read
-from the current input is now read from the string "str". The
-result of "body" is returned.
 
-*E.G.
 
-	In> FromString("2+5; this is never read") \
-	  res := Read();
-	Out> 2+5;
-	In> FromString("2+5; this is never read") \
-	  res := Eval(Read());
-	Out> 7;
 
-*SEE ToString, FromFile, Read, ReadToken
-%mathpiper_docs
-*/
 
 
 
-/*
-%mathpiper_docs,name="ToFile"
-*CMD ToFile --- connect current output to a file
-*CORE
-*CALL
-	ToFile(name) body
 
-*PARMS
 
-{name} -- string, the name of the file to write the result to
-
-{body} -- expression to be evaluated
-
-*DESC
-
-The current output is connected to the file "name". Then the expression
-"body" is evaluated. Everything that the commands in "body" print
-to the current output, ends up in the file "name". Finally, the
-file is closed and the result of evaluating "body" is returned.
-
-If the file is opened again, the old contents will be overwritten.
-This is a limitation of {ToFile}: one cannot append to a file that has already been created.
-
-*E.G. notest
-
-Here is how one can create a file with C code to evaluate an expression:
-
-	In> ToFile("expr1.c") WriteString(
-	  CForm(Sqrt(x-y)*Sin(x)) );
-	Out> True;
-The file {expr1.c} was created in the current working directory and it
-contains the line
-	sqrt(x-y)*sin(x)
-
-As another example, take a look at the following command:
-
-	In> [ Echo("Result:");  \
-	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
-	Result:
-	
-	     3    5      7       9
-	    x    x      x       x
-	x - -- + --- - ---- + ------
-	    6    120   5040   362880
-	
-	Out> True;
-
-Now suppose one wants to send the output of this command to a
-file. This can be achieved as follows:
-
-	In> ToFile("out") [ Echo("Result:");  \
-	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
-	Out> True;
-
-After this command the file {out} contains:
-
-	
-	Result:
-	
-	     3    5      7       9
-	    x    x      x       x
-	x - -- + --- - ---- + ------
-	    6    120   5040   362880
-	
-
-*SEE FromFile, ToString, Echo, Write, WriteString, PrettyForm, Taylor
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="ToString"
-*CMD ToString --- connect current output to a string
-*CORE
-*CALL
-	ToString() body
-
-*PARMS
-
-{body} -- expression to be evaluated
-
-*DESC
-
-The commands in "body" are executed. Everything that is printed on
-the current output, by {Echo} for instance, is
-collected in a string and this string is returned.
-
-*E.G.
-
-	In> str := ToString() [ WriteString(  \
-	  "The square of 8 is "); Write(8^2); ];
-	Out> "The square of 8 is  64";
-
-*SEE FromFile, ToString, Echo, Write, WriteString
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Read"
-*CMD Read --- read an expression from current input
-*CORE
-*CALL
-	Read()
-
-*DESC
-
-Read an expression from the current input, and return it unevaluated. When
-the end of an input file is encountered, the token atom {EndOfFile} is returned.
-
-*E.G.
-
-	In> FromString("2+5;") Read();
-	Out> 2+5;
-	In> FromString("") Read();
-	Out> EndOfFile;
-
-*SEE FromFile, FromString, LispRead, ReadToken, Write
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Read"
-*CMD Read --- read an expression from current input
-*CORE
-*CALL
-	Read()
-
-*DESC
-
-Read an expression from the current input, and return it unevaluated. When
-the end of an input file is encountered, the token atom {EndOfFile} is returned.
-
-*E.G.
-
-	In> FromString("2+5;") Read();
-	Out> 2+5;
-	In> FromString("") Read();
-	Out> EndOfFile;
-
-*SEE FromFile, FromString, LispRead, ReadToken, Write
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="ToStdout"
-*CMD ToStdout --- select initial output stream for output
-*CORE
-*CALL
-	ToStdout() body
-
-*PARMS
-
-{body} -- expression to be evaluated
-
-*DESC
-
-When using {ToString} or {ToFile}, it might happen that something needs to be
-written to the standard default initial output (typically the screen). {ToStdout} can be used to select this stream.
-
-*EG
-
-	In> ToString()[Echo("aaaa");ToStdout()Echo("bbbb");];
-	bbbb
-	Out> "aaaa
-	"
-
-*SEE ToString, ToFile
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="ReadCmdLineString"
-*CMD ReadCmdLineString --- read an expression from command line and return in string
-*CORE
-*CALL
-	ReadCmdLineString(prompt)
-
-*PARMS
-
-{prompt} -- string representing the prompt shown on screen
-
-*DESC
-
-This function allows for interactive input similar to the command line.
-When using this function, the history from the command line is also available.
-
-The result is returned in a string, so it still needs to be parsed.
-
-This function will typically be used in situations where one wants a custom 
-read-eval-print loop. 
-
-
-*E.G. notest
-
-The following defines a function that when invoked keeps asking
-for an expression (the <i>read</i> step), and then takes 
-the derivative of it (the <i>eval</i> step) and then 
-uses PrettyForm to display the result (the <i>print</i> step).
-
-	In> ReEvPr() := \
-	In>   While(True) [ \
-	In>     PrettyForm(Deriv(x) \
-	In>      FromString(ReadCmdLineString("Deriv> "):";")Read()); \
-	In> ];
-	Out> True;
-
-Then one can invoke the command, from which the following interaction
-might follow:
-
-	In> ReEvPr()
-	Deriv> Sin(a^2*x/b)
-	
-	   /  2     \         
-	   | a  * x |    2    
-	Cos| ------ | * a  * b
-	   \   b    /         
-	----------------------
-	           2          
-	          b           
-	
-	Deriv> Sin(x)
-	
-	Cos( x )
-	
-	Deriv> 
-
-*SEE Read, LispRead, LispReadListed
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="LispRead;LispReadListed"
-*CMD LispRead --- read expressions in LISP syntax
-*CMD LispReadListed --- read expressions in LISP syntax
-*CORE
-*CALL
-	LispRead()
-	LispReadListed()
-
-*DESC
-
-The function {LispRead} reads an expression in the LISP syntax from the current input, and returns
-it unevaluated. When the end of an input file is encountered, the
-special token atom {EndOfFile} is returned.
-
-The MathPiper expression {a+b} is written in the LISP syntax as {(+ a b)}. The advantage of this syntax is that it is
-less ambiguous than the infix operator grammar that MathPiper uses by
-default.
-
-The function {LispReadListed} reads a LISP expression and returns
-it in a list, instead of the form usual to MathPiper (expressions).
-The result can be thought of as applying {Listify} to {LispRead}.
-The function {LispReadListed} is more useful for reading arbitrary LISP expressions, because the 
-first object in a list can be itself a list (this is never the case for MathPiper expressions where the first object in a list is always a function atom).
-
-*E.G. notest
-
-	In> FromString("(+ a b)") LispRead();
-	Out> a+b;
-	In> FromString("(List (Sin x) (- (Cos x)))") \
-	  LispRead();
-	Out> {Sin(x),-Cos(x)};
-	In> FromString("(+ a b)")LispRead()
-	Out> a+b;
-	In> FromString("(+ a b)")LispReadListed()
-	Out> {+,a,b};
-
-*SEE FromFile, FromString, Read, ReadToken, FullForm
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="ReadToken"
-*CMD ReadToken --- read a token from current input
-*CORE
-*CALL
-	ReadToken()
-
-*DESC
-
-Read a token from the current input, and return it unevaluated.
-The returned object is a MathPiper atom (not a string).
-When
-the end of an input file is encountered, the token atom {EndOfFile} is returned.
-
-A token is for computer languages what a word is for human languages:
-it is the smallest unit in which a command can be divided, so that the
-semantics (that is the meaning) of the command is in some sense a
-combination of the semantics of the tokens. Hence {a := foo} consists of three tokens, namely {a}, {:=}, and {foo}.
-
-The parsing of the string depends on the syntax of the language.
-The part of the kernel that does the parsing is the "tokenizer".
-MathPiper can parse its own syntax (the default tokenizer) or it can be instructed to parse XML or C++ syntax using the directives {DefaultTokenizer} or {XmlTokenizer}.
-Setting a tokenizer is a global action that affects all {ReadToken} calls.
-
-*E.G. notest
-
-	In> FromString("a := Sin(x)") While \
-	  ((tok := ReadToken()) != EndOfFile) \
-	  Echo(tok);
-	a
-	:=
-	Sin
-	(
-	x
-	)
-	Out> True;
-
-We can read some junk too:
-	In> FromString("-$3")ReadToken();
-	Out> -$;
-The result is an atom with the string representation {-$}.
-MathPiper assumes that {-$} is an operator symbol yet to be defined.
-The "{3}" will be in the next token.
-(The results will be different if a non-default tokenizer is selected.)
-
-
-*SEE FromFile, FromString, Read, LispRead, DefaultTokenizer
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Load"
-*CMD Load --- evaluate all expressions in a file
-*CORE
-*CALL
-	Load(name)
-
-*PARMS
-
-{name} -- string, name of the file to load
-
-*DESC
-
-The file "name" is opened. All expressions in the file are read and
-evaluated. {Load} always returns {true}.
-
-*SEE Use, DefLoad, DefaultDirectory, FindFile
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Use"
-*CMD Use --- load a file, but not twice
-*CORE
-*CALL
-	Use(name)
-
-*PARMS
-
-{name} -- string, name of the file to load
-
-*DESC
-
-If the file "name" has been loaded before, either by an earlier call
-to {Use} or via the {DefLoad}
-mechanism, nothing happens. Otherwise all expressions in the file are
-read and evaluated. {Use} always returns {true}.
-
-The purpose of this function is to make sure that the file will at
-least have been loaded, but is not loaded twice.
-
-*SEE Load, DefLoad, DefaultDirectory
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="DefLoad"
-*CMD DefLoad --- load a {.def} file
-*CORE
-*CALL
-	DefLoad(name)
-
-*PARMS
-
-{name} -- string, name of the file (without {.def} suffix)
-
-*DESC
-
-The suffix {.def} is appended to "name" and the
-file with this name is loaded. It should contain a list of functions,
-terminated by a closing brace \} (the end-of-list delimiter). This
-tells the system to load the file "name" as soon as the user calls
-one of the functions named in the file (if not done so already). This
-allows for faster startup times, since not all of the rules databases
-need to be loaded, just the descriptions on which files to load for
-which functions.
-
-*SEE Load, Use, DefaultDirectory
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="FindFile"
-*CMD FindFile --- find a file in the current path
-*CORE
-*CALL
-	FindFile(name)
-
-*PARMS
-
-{name} -- string, name of the file or directory to find
-
-*DESC
-
-The result of this command is the full path to the file that would be
-opened when the command {Load(name)} would be
-invoked. This means that the input directories are subsequently
-searched for a file called "name". If such a file is not found, {FindFile} returns an empty string.
-
-{FindFile("")} returns the name of the default directory (the first one on the search path).
-
-*SEE Load, DefaultDirectory
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="PatchLoad"
-*CMD PatchLoad --- execute commands between {<?} and {?>} in file
-*CORE
-*CALL
-	PatchLoad(name)
-
-*PARMS
-
-{name} -- string, name of the file to "patch"
-
-*DESC
-
-{PatchLoad} loads in a file and outputs the contents to the current
-output. The file can contain blocks delimited by {<?} and {?>}
-(meaning "MathPiper Begin" and "MathPiper End"). The piece of text between
-such delimiters is treated as a separate file with MathPiper instructions,
-which is then loaded and executed. All output of write statements
-in that block will be written to the same current output.
-
-This is similar to the way PHP works. You can have a static text file
-with dynamic content generated by MathPiper.
-
-*SEE PatchString, Load
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="XmlExplodeTag"
-*CMD XmlExplodeTag --- convert XML strings to tag objects
-*CORE
-*CALL
-	XmlExplodeTag(xmltext)
-*PARMS
-
-{xmltext} -- string containing some XML tokens
-
-*DESC
-
-{XmlExplodeTag} parses the first XML token in {xmltext}
-and returns a MathPiper expression.
-
-The following subset of XML syntax is supported currently:
-
-*	{<TAG [options]>} -- an opening tag
-*	{</TAG [options]>} -- a closing tag
-*	{<TAG [options] />} -- an open/close tag
-*	plain (non-tag) text
-
-The tag options take the form {paramname="value"}.
-
-If given an XML tag, {XmlExplodeTag} returns a structure of the form {XmlTag(name,params,type)}.
-In the returned object,
-{name} is the (capitalized) tag name, {params} is an assoc list with
-the options (key fields capitalized), and type can be either "Open", "Close" or "OpenClose".
-
-If given a plain text string, the same string is returned.
-
-
-*E.G.
-	In> XmlExplodeTag("some plain text")
-	Out> "some plain text";
-	In> XmlExplodeTag("<a name=\"blah blah\"
-	  align=\"left\">")
-	Out> XmlTag("A",{{"ALIGN","left"},
-	  {"NAME","blah blah"}},"Open");
-	In> XmlExplodeTag("</p>")
-	Out> XmlTag("P",{},"Close");
-	In> XmlExplodeTag("<br/>")
-	Out> XmlTag("BR",{},"OpenClose");
-
-*SEE XmlTokenizer
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="DefaultTokenizer;XmlTokenizer"
-*CMD DefaultTokenizer --- select the default syntax tokenizer for parsing the input
-*CMD XmlTokenizer --- select an XML syntax tokenizer for parsing the input
-*CORE
-*CALL
-	DefaultTokenizer()
-	XmlTokenizer()
-
-*DESC
-
-A "tokenizer" is an internal routine in the kernel that parses the input into MathPiper expressions.
-This affects all input typed in by a user at the prompt and also the input redirected from files or strings using {FromFile} and {FromString} and read using {Read} or {ReadToken}.
-
-The MathPiper environment currently supports some experimental tokenizers for 
-various syntaxes. {DefaultTokenizer} switches to the tokenizer used for
-default MathPiper syntax. {XmlTokenizer} switches to an XML syntax.
-Note that setting the tokenizer is a global side effect.
-One typically needs
-to switch back to the default tokenizer when finished reading the special syntax.
-
-Care needs to be taken when kernel errors are raised during a non-default tokenizer operation (as with any global change in the environment).
-Errors need to be
-caught with the {TrapError} function. The error handler code should re-instate
-the default tokenizer,
-or else the user will be unable to continue the session
-(everything a user types will be parsed using a non-default tokenizer).
-
-When reading XML syntax, the supported formats are the same as those of {XmlExplodeTag}.
-The parser does not validate anything in the XML input.
-After an XML token has been read in, it can be converted into an
-MathPiper expression with {XmlExplodeTag}.
-Note that when reading XML, any plain text between tags is returned as one token.
-Any malformed XML will be treated as plain text.
-
-
-*EG notest
-
-	In> [XmlTokenizer(); q:=ReadToken(); \
-	  DefaultTokenizer();q;]
-	<a>Out> <a>;
-
-Note that:
-*	1. after switching to {XmlTokenizer} the {In>} prompt disappeared; the user typed {<a>} and the {Out>} prompt with the resulting expression appeared.
-*	2. The resulting expression is an atom with the string representation {<a>};
-it is <i>not</i> a string.
-
-*SEE OMRead, TrapError, XmlExplodeTag, ReadToken, FromFile, FromString
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Head"
-*CMD Head --- the first element of a list
-*CORE
-*CALL
-	Head(list)
-
-*PARMS
-
-{list} -- a list
-
-*DESC
-
-This function returns the first element of a list. If it is applied to
-a general expression, it returns the first operand. An error is
-returned if "list" is an atom.
-
-*E.G.
-
-	In> Head({a,b,c})
-	Out> a;
-	In> Head(f(a,b,c));
-	Out> a;
-
-*SEE Tail, Length
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Tail"
-*CMD Tail --- returns a list without its first element
-*CORE
-*CALL
-	Tail(list)
-
-*PARMS
-
-{list} -- a list
-
-*DESC
-
-This function returns "list" without its first element.
-
-*E.G.
-
-	In> Tail({a,b,c})
-	Out> {b,c};
-
-*SEE Head, Length
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Length"
-*CMD Length --- the length of a list or string
-*CORE
-*CALL
-	Length(object)
-
-*PARMS
-
-{object} -- a list, array or string
-
-*DESC
-
-Length returns the length of a list.
-This function also works on strings and arrays.
-
-*E.G.
-
-	In> Length({a,b,c})
-	Out> 3;
-	In> Length("abcdef");
-	Out> 6;
-
-*SEE Head, Tail, Nth, Count
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="DestructiveReverse"
-*CMD DestructiveReverse --- reverse a list destructively
-*CORE
-*CALL
-	DestructiveReverse(list)
-
-*PARMS
-
-{list} -- list to reverse
-
-*DESC
-
-This command reverses "list" in place, so that the original is
-destroyed. This means that any variable bound to "list" will now have
-an undefined content, and should not be used any more. 
-The reversed list is returned.
-
-Destructive commands are faster than their nondestructive
-counterparts. {Reverse} is the non-destructive version of
-this function.
-
-*E.G.
-
-	In> lst := {a,b,c,13,19};
-	Out> {a,b,c,13,19};
-	In> revlst := DestructiveReverse(lst);
-	Out> {19,13,c,b,a};
-	In> lst;
-	Out> {a};
-
-*SEE FlatCopy, Reverse
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="List"
-*CMD List --- construct a list
-*CORE
-*CALL
-	List(expr1, expr2, ...)
-
-*PARMS
-
-{expr1}, {expr2} -- expressions making up the list
-
-*DESC
-
-A list is constructed whose first entry is "expr1", the second entry
-is "expr2", and so on. This command is equivalent to the expression
-"{expr1, expr2, ...}".
-
-*E.G.
-
-	In> List();
-	Out> {};
-	In> List(a,b);
-	Out> {a,b};
-	In> List(a,{1,2},d);
-	Out> {a,{1,2},d};
-
-*SEE UnList, Listify
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="UnList"
-*CMD UnList --- convert a list to a function application
-*CORE
-*CALL
-	UnList(list)
-
-*PARMS
-
-{list} -- list to be converted
-
-*DESC
-
-This command converts a list to a function application. The first
-entry of "list" is treated as a function atom, and the following entries
-are the arguments to this function. So the function referred to in the
-first element of "list" is applied to the other elements.
-
-Note that "list" is evaluated before the function application is
-formed, but the resulting expression is left unevaluated. The functions {UnList()} and {Hold()} both stop the process of evaluation.
-
-*E.G.
-
-	In> UnList({Cos, x});
-	Out> Cos(x);
-	In> UnList({f});
-	Out> f();
-	In> UnList({Taylor,x,0,5,Cos(x)});
-	Out> Taylor(x,0,5)Cos(x);
-	In> Eval(%);
-	Out> 1-x^2/2+x^4/24;
-
-*SEE List, Listify, Hold
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Listify"
-*CMD Listify --- convert a function application to a list
-*CORE
-*CALL
-	Listify(expr)
-
-*PARMS
-
-{expr} -- expression to be converted
-
-*DESC
-
-The parameter "expr" is expected to be a compound object, i.e. not
-an atom. It is evaluated and then converted to a list. The first entry
-in the list is the top-level operator in the evaluated expression and
-the other entries are the arguments to this operator. Finally, the
-list is returned.
-
-*E.G.
-
-	In> Listify(Cos(x));
-	Out> {Cos,x};
-	In> Listify(3*a);
-	Out> {*,3,a};
-
-*SEE List, UnList, IsAtom
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Concat"
-*CMD Concat --- concatenate lists
-*CORE
-*CALL
-	Concat(list1, list2, ...)
-
-*PARMS
-
-{list1}, {list2}, ... -- lists to concatenate
-
-*DESC
-
-The lists "list1", "list2", ... are evaluated and
-concatenated. The resulting big list is returned.
-
-*E.G.
-
-	In> Concat({a,b}, {c,d});
-	Out> {a,b,c,d};
-	In> Concat({5}, {a,b,c}, {{f(x)}});
-	Out> {5,a,b,c,{f(x)}};
-
-*SEE ConcatStrings, :, Insert
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Delete"
-*CMD Delete --- delete an element from a list
-*CORE
-*CALL
-	Delete(list, n)
-
-*PARMS
-
-{list} -- list from which an element should be removed
-
-{n} -- index of the element to remove
-
-*DESC
-
-This command deletes the n-th element from "list". The first
-parameter should be a list, while "n" should be a positive integer
-less than or equal to the length of "list". The entry with index
-"n" is removed (the first entry has index 1), and the resulting list
-is returned.
-
-*E.G.
-
-	In> Delete({a,b,c,d,e,f}, 4);
-	Out> {a,b,c,e,f};
-
-*SEE DestructiveDelete, Insert, Replace
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Insert"
-*CMD Insert --- insert an element into a list
-*CORE
-*CALL
-	Insert(list, n, expr)
-
-*PARMS
-
-{list} -- list in which "expr" should be inserted
-
-{n} -- index at which to insert
-
-{expr} -- expression to insert in "list"
-
-*DESC
-
-The expression "expr" is inserted just before the n-th entry in
-"list". The first parameter "list" should be a list, while "n"
-should be a positive integer less than or equal to the length of
-"list" plus one. The expression "expr" is placed between the
-entries in "list" with entries "n-1" and "n". There are two
-border line cases: if "n" is 1, the expression "expr" is placed in
-front of the list (just as by the {:} operator); if "n"
-equals the length of "list" plus one, the expression "expr" is
-placed at the end of the list (just as by {Append}). In any
-case, the resulting list is returned.
-
-*E.G.
-
-	In> Insert({a,b,c,d}, 4, x);
-	Out> {a,b,c,x,d};
-	In> Insert({a,b,c,d}, 5, x);
-	Out> {a,b,c,d,x};
-	In> Insert({a,b,c,d}, 1, x);
-	Out> {x,a,b,c,d};
-
-*SEE DestructiveInsert, :, Append, Delete, Remove
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="DestructiveDelete"
-*CMD DestructiveDelete --- delete an element destructively from a list
-*CORE
-*CALL
-	DestructiveDelete(list, n)
-
-*PARMS
-
-{list} -- list from which an element should be removed
-
-{n} -- index of the element to remove
-
-*DESC
-
-This is the destructive counterpart of {Delete}. This
-command yields the same result as the corresponding call to
-{Delete}, but the original list is modified. So if a
-variable is bound to "list", it will now be bound to the list with
-the n-th entry removed.
-
-Destructive commands run faster than their nondestructive counterparts
-because the latter copy the list before they alter it.
-
-*E.G.
-
-	In> lst := {a,b,c,d,e,f};
-	Out> {a,b,c,d,e,f};
-	In> Delete(lst, 4);
-	Out> {a,b,c,e,f};
-	In> lst;
-	Out> {a,b,c,d,e,f};
-	In> DestructiveDelete(lst, 4);
-	Out> {a,b,c,e,f};
-	In> lst;
-	Out> {a,b,c,e,f};
-
-*SEE Delete, DestructiveInsert, DestructiveReplace
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="DestructiveInsert"
-*CMD DestructiveInsert --- insert an element destructively into a list
-*CORE
-*CALL
-	DestructiveInsert(list, n, expr)
-
-*PARMS
-
-{list} -- list in which "expr" should be inserted
-
-{n} -- index at which to insert
-
-{expr} -- expression to insert in "list"
-
-*DESC
-
-This is the destructive counterpart of {Insert}. This
-command yields the same result as the corresponding call to
-{Insert}, but the original list is modified. So if a
-variable is bound to "list", it will now be bound to the list with
-the expression "expr" inserted.
-
-Destructive commands run faster than their nondestructive counterparts
-because the latter copy the list before they alter it.
-
-*E.G.
-
-	In> lst := {a,b,c,d};
-	Out> {a,b,c,d};
-	In> Insert(lst, 2, x);
-	Out> {a,x,b,c,d};
-	In> lst;
-	Out> {a,b,c,d};
-	In> DestructiveInsert(lst, 2, x);
-	Out> {a,x,b,c,d};
-	In> lst;
-	Out> {a,x,b,c,d};
-
-*SEE Insert, DestructiveDelete, DestructiveReplace
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Replace"
-*CMD Replace --- replace an entry in a list
-
-*CORE
-
-*CALL
-	Replace(list, n, expr)
-
-*PARMS
-
-{list} -- list of which an entry should be replaced
-
-{n} -- index of entry to replace
-
-{expr} -- expression to replace the n-th entry with
-
-*DESC
-
-The n-th entry of "list" is replaced by the expression
-"expr". This is equivalent to calling {Delete} and
-{Insert} in sequence. To be precise, the expression
-{Replace(list, n, expr)} has the same result as the
-expression {Insert(Delete(list, n), n, expr)}.
-
-*E.G.
-
-	In> Replace({a,b,c,d,e,f}, 4, x);
-	Out> {a,b,c,x,e,f};
-
-*SEE Delete, Insert, DestructiveReplace
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="DestructiveReplace"
-*CMD DestructiveReplace --- replace an entry destructively in a list
-
-*CORE
-
-*CALL
-	DestructiveReplace(list, n, expr)
-
-*PARMS
-
-{list} -- list of which an entry should be replaced
-
-{n} -- index of entry to replace
-
-{expr} -- expression to replace the n-th entry with
-
-*DESC
-
-This is the destructive counterpart of {Replace}. This
-command yields the same result as the corresponding call to
-{Replace}, but the original list is modified. So if a
-variable is bound to "list", it will now be bound to the list with
-the expression "expr" inserted.
-
-Destructive commands run faster than their nondestructive counterparts
-because the latter copy the list before they alter it.
-
-*E.G.
-
-	In> lst := {a,b,c,d,e,f};
-	Out> {a,b,c,d,e,f};
-	In> Replace(lst, 4, x);
-	Out> {a,b,c,x,e,f};
-	In> lst;
-	Out> {a,b,c,d,e,f};
-	In> DestructiveReplace(lst, 4, x);
-	Out> {a,b,c,x,e,f};
-	In> lst;
-	Out> {a,b,c,x,e,f};
-
-*SEE Replace, DestructiveDelete, DestructiveInsert
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="FlatCopy"
-*CMD FlatCopy --- copy the top level of a list
-*CORE
-*CALL
-	FlatCopy(list)
-
-*PARMS
-
-{list} -- list to be copied
-
-*DESC
-
-A copy of "list" is made and returned. The list is not recursed
-into, only the first level is copied. This is useful in combination
-with the destructive commands that actually modify lists in place (for
-efficiency).
-
-*E.G.
-
-The following shows a possible way to define a command that reverses a
-list nondestructively.
-
-	In> reverse(l_IsList) <-- DestructiveReverse \
-	  (FlatCopy(l));
-	Out> True;
-	In> lst := {a,b,c,d,e};
-	Out> {a,b,c,d,e};
-	In> reverse(lst);
-	Out> {e,d,c,b,a};
-	In> lst;
-	Out> {a,b,c,d,e};
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Type"
-*CMD Type --- return the type of an expression
-*CORE
-*CALL
-	Type(expr)
-
-*PARMS
-
-{expr} -- expression to examine
-
-*DESC
-
-The type of the expression "expr" is represented as a string and
-returned. So, if "expr" is a list, the string {"List"} is returned. In general, the top-level
-operator of "expr" is returned. If the argument "expr" is an atom,
-the result is the empty string {""}.
-
-*E.G.
-
-	In> Type({a,b,c});
-	Out> "List";
-	In> Type(a*(b+c));
-	Out> "*";
-	In> Type(123);
-	Out> "";
-
-*SEE IsAtom, NrArgs
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="SetExactBits;GetExactBits"
-*CMD SetExactBits --- manipulate precision of floating-point numbers
-*CMD GetExactBits --- manipulate precision of floating-point numbers
-*CORE
-*CALL
-	GetExactBits(x)
-	SetExactBits(x,bits)
-
-*PARMS
-{x} -- an expression evaluating to a floating-point number
-
-{bits} -- integer, number of bits 
-
-*DESC
-Each floating-point number in MathPiper has an internal precision counter that stores the number of exact bits in the mantissa.
-The number of exact bits is automatically updated after each arithmetic operation to reflect the gain or loss of precision due to round-off.
-The functions {GetExactBits}, {SetExactBits} allow to query or set the precision flags of individual number objects.
-
-{GetExactBits(x)} returns an integer number $n$ such that {x} represents a real number in the interval [$x*(1-2^(-n))$, $x*(1+2^(-n))$] if $x!=0$ and in the interval [$-2^(-n)$, $2^(-n)$] if $x=0$.
-The integer $n$ is always nonnegative unless {x} is zero (a "floating zero").
-A floating zero can have a negative value of the number $n$ of exact bits.
-
-These functions are only meaningful for floating-point numbers.
-(All integers are always exact.)
-For integer {x}, the function {GetExactBits} returns the bit count of {x}
-and the function {SetExactBits} returns the unmodified integer {x}.
-
-*REM FIXME - these examples currently do not work because of bugs
-
-*E.G.
-The default precision of 10 decimals corresponds to 33 bits:
-	In> GetExactBits(1000.123)
-	Out> 33;
-	In> x:=SetExactBits(10., 20)
-	Out> 10.;
-	In> GetExactBits(x)
-	Out> 20;
-Prepare a "floating zero" representing an interval [-4, 4]:
-	In> x:=SetExactBits(0., -2)
-	Out> 0.;
-	In> x=0
-	Out> True;
-
-*SEE BuiltinPrecisionSet, BuiltinPrecisionGet
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Not"
-*CMD Not --- logical negation
-*CORE
-*CALL
-	Not expr
-
-*PARMS
-
-{expr} -- a boolean expression
-
-*DESC
-
-Not returns the logical negation of the argument expr. If {expr} is
-{False} it returns {True}, and if {expr} is {True}, {Not expr} returns {False}.
-If the argument is neither {True} nor {False}, it returns the entire
-expression with evaluated arguments.
-
-*E.G.
-
-	In> Not True
-	Out> False;
-	In> Not False
-	Out> True;
-	In> Not(a)
-	Out> Not a;
-
-*SEE And, Or
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="And",categories="User Functions;Predicates;Built In"
-*CMD And --- logical conjunction
-*CORE
-*CALL
-	a1 And a2
-Precedence:
-*EVAL OpPrecedence("And")
-
-	And(a1, a2, a3, ..., aN)
-
-*PARMS
-
-{a}1, ..., {a}N -- boolean values (may evaluate to {True} or {False})
-
-*DESC
-
-This function returns {True} if all arguments are true. The
-{And} operation is "lazy", i.e. it returns {False} as soon as a {False} argument
-is found (from left to right). If an argument other than {True} or
-{False} is encountered a new {And} expression is returned with all
-arguments that didn't evaluate to {True} or {False} yet.
-
-*E.G.
-
-	In> True And False
-	Out> False;
-	In> And(True,True)
-	Out> True;
-	In> False And a
-	Out> False;
-	In> True And a
-	Out> And(a);
-	In> And(True,a,True,b)
-	Out> b And a;
-
-*SEE Or, Not
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Or"
-*CMD Or --- logical disjunction
-*CORE
-*CALL
-	a1 Or a2
-Precedence:
-*EVAL OpPrecedence("Or")
-	Or(a1, a2, a3, ..., aN)
-
-*PARMS
-
-{a}1, ..., {a}N -- boolean expressions (may evaluate to {True} or {False})
-
-*DESC
-
-This function returns {True} if an argument is encountered
-that is true (scanning from left to right). The
-{Or} operation is "lazy", i.e. it returns {True} as soon as a {True} argument
-is found (from left to right). If an argument other than {True} or
-{False} is encountered, an unevaluated {Or} expression is returned with all
-arguments that didn't evaluate to {True} or {False} yet.
-
-*E.G.
-
-	In> True Or False
-	Out> True;
-	In> False Or a
-	Out> Or(a);
-	In> Or(False,a,b,True)
-	Out> True;
-
-*SEE And, Not
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="IsFunction"
-*CMD IsFunction --- test for a composite object
-*CORE
-*CALL
-	IsFunction(expr)
-
-*PARMS
-
-{expr} -- expression to test
-
-*DESC
-
-This function tests whether "expr" is a composite object, i.e. not an
-atom. This includes not only obvious functions such as {f(x)}, but also expressions such as {x+5} and lists.
-
-*E.G.
-
-	In> IsFunction(x+5);
-	Out> True;
-	In> IsFunction(x);
-	Out> False;
-
-*SEE IsAtom, IsList, Type
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="IsAtom"
-*CMD IsAtom --- test for an atom
-*CORE
-*CALL
-	IsAtom(expr)
-
-*PARMS
-
-{expr} -- expression to test
-
-*DESC
-
-This function tests whether "expr" is an atom. Numbers, strings, and
-variables are all atoms.
-
-*E.G.
-
-	In> IsAtom(x+5);
-	Out> False;
-	In> IsAtom(5);
-	Out> True;
-
-*SEE IsFunction, IsNumber, IsString
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="IsString"
-*CMD IsString --- test for an string
-*CORE
-*CALL
-	IsString(expr)
-
-*PARMS
-
-{expr} -- expression to test
-
-*DESC
-
-This function tests whether "expr" is a string. A string is a text
-within quotes, e.g. {"duh"}.
-
-*E.G.
-
-	In> IsString("duh");
-	Out> True;
-	In> IsString(duh);
-	Out> False;
-
-*SEE IsAtom, IsNumber
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="IsNumber"
-*CMD IsNumber --- test for a number
-*CORE
-*CALL
-	IsNumber(expr)
-
-*PARMS
-
-{expr} -- expression to test
-
-*DESC
-
-This function tests whether "expr" is a number. There are two kinds
-of numbers, integers (e.g. 6) and reals (e.g. -2.75 or 6.0). Note that a
-complex number is represented by the {Complex}
-function, so {IsNumber} will return {False}.
-
-*E.G.
-
-	In> IsNumber(6);
-	Out> True;
-	In> IsNumber(3.25);
-	Out> True;
-	In> IsNumber(I);
-	Out> False;
-	In> IsNumber("duh");
-	Out> False;
-
-*SEE IsAtom, IsString, IsInteger, IsPositiveNumber, IsNegativeNumber, Complex
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="IsList"
-*CMD IsList --- test for a list
-*CORE
-*CALL
-	IsList(expr)
-
-*PARMS
-
-{expr} -- expression to test
-
-*DESC
-
-This function tests whether "expr" is a list. A list is a sequence
-between curly braces, e.g. {{2, 3, 5}}.
-
-*E.G.
-
-	In> IsList({2,3,5});
-	Out> True;
-	In> IsList(2+3+5);
-	Out> False;
-
-*SEE IsFunction
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="IsBound"
-*CMD IsBound --- test for a bound variable
-*CORE
-*CALL
-	IsBound(var)
-
-*PARMS
-
-{var} -- variable to test
-
-*DESC
-
-This function tests whether the variable "var" is bound, i.e. whether
-it has been assigned a value. The argument "var" is not evaluated.
-
-*E.G.
-
-	In> IsBound(x);
-	Out> False;
-	In> x := 5;
-	Out> 5;
-	In> IsBound(x);
-	Out> True;
-
-*SEE IsAtom
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="StringMidSet"
-*CMD StringMidSet --- change a substring
-*CORE
-*CALL
-	StringMidSet(index,substring,string)
-
-*PARMS
-
-{index} -- index of substring to get
-
-{substring} -- substring to store
-
-{string} -- string to store substring in.
-
-*DESC
-
-Set (change) a part of a string. It leaves the original alone, returning
-a new changed copy.
-
-*E.G.
-
-	In> StringMidSet(3,"XY","abcdef")
-	Out> "abXYef";
-
-*SEE StringMidGet, Length
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="StringMidGet"
-*CMD StringMidGet --- retrieve a substring
-*CORE
-*CALL
-	StringMidGet(index,length,string)
-
-*PARMS
-
-{index} -- index of substring to get
-
-{length} -- length of substring to get
-
-{string} -- string to get substring from
-
-*DESC
-
-{StringMidGet} returns a part of a string. Substrings can also be
-accessed using the {[]} operator.
-
-*E.G.
-
-	In> StringMidGet(3,2,"abcdef")
-	Out> "cd";
-	In> "abcdefg"[2 .. 4]
-	Out> "bcd";
-
-*SEE StringMidSet, Length
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="String;Atom"
-*CMD String --- convert atom to string
-*CMD Atom --- convert string to atom
-*CORE
-*CALL
-	Atom("string")
-	String(atom)
-
-*PARMS
-
-{atom} -- an atom
-
-{"string"} -- a string
-
-*DESC
-
-Returns an atom with the string representation given
-as the evaluated argument. Example: {Atom("foo");} returns
-{foo}.
-
-{String} is the inverse of {Atom}: turns {atom} into {"atom"}.
-
-*E.G.
-
-	In> String(a)
-	Out> "a";
-	In> Atom("a")
-	Out> a;
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="ConcatStrings"
-*CMD ConcatStrings --- concatenate strings
-*CORE
-*CALL
-	ConcatStrings(strings)
-
-*PARMS
-
-{strings} -- one or more strings
-
-*DESC
-
-Concatenates strings.
-
-*E.G.
-
-	In> ConcatStrings("a","b","c")
-	Out> "abc";
-
-*SEE :
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="PatchString"
-*CMD PatchString --- execute commands between {<?} and {?>} in strings
-*CORE
-*CALL
-	PatchString(string)
-
-*PARMS
-
-{string} -- a string to patch
-
-*DESC
-
-This function does the same as PatchLoad, but it works on a string
-in stead of on the contents of a text file. See PatchLoad for more
-details.
-
-*E.G.
-
-	In> PatchString("Two plus three \
-	  is <? Write(2+3); ?> ");
-	Out> "Two plus three is 5 ";
-
-*SEE PatchLoad
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Set"
-*CMD Set --- assignment
-*CORE
-*CALL
-	Set(var, exp)
-
-*PARMS
-
-{var} -- variable which should be assigned
-
-{exp} -- expression to assign to the variable
-
-*DESC
-
-The expression "exp" is evaluated and assigned it to the variable
-named "var". The first argument is not evaluated. The value True
-is returned.
-
-The statement {Set(var, exp)} is equivalent to {var := exp}, but the {:=} operator
-has more uses, e.g. changing individual entries in a list.
-
-*E.G.
-
-	In> Set(a, Sin(x)+3);
-	Out> True;
-	In> a;
-	Out> Sin(x)+3;
-
-*SEE Clear, :=
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Clear"
-*CMD Clear --- undo an assignment
-*CORE
-*CALL
-	Clear(var, ...)
-
-*PARMS
-
-{var} -- name of variable to be cleared
-
-*DESC
-
-All assignments made to the variables listed as arguments are
-undone. From now on, all these variables remain unevaluated (until a
-subsequent assignment is made). The result of the expression is
-True.
-
-*E.G.
-
-	In> a := 5;
-	Out> 5;
-	In> a^2;
-	Out> 25;
-	
-	In> Clear(a);
-	Out> True;
-	In> a^2;
-	Out> a^2;
-
-*SEE Set, :=
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="Local"
-*CMD Local --- declare new local variables
-*CORE
-*CALL
-	Local(var, ...)
-
-*PARMS
-
-{var} -- name of variable to be declared as local
-
-*DESC
-
-All variables in the argument list are declared as local
-variables. The arguments are not evaluated. The value True is
-returned.
-
-By default, all variables in MathPiper are global. This means that the
-variable has the same value everywhere. But sometimes it is useful to
-have a private copy of some variable, either to prevent the outside
-world from changing it or to prevent accidental changes to the outside
-world. This can be achieved by declaring the variable local. Now only
-expressions within the {Prog} block (or its
-syntactic equivalent, the {[  ]} block) can access
-and change it. Functions called within this block cannot access the
-local copy unless this is specifically allowed with {UnFence}.
-
-*E.G.
-
-	In> a := 3;
-	Out> 3;
-	
-	In> [ a := 4; a; ];
-	Out> 4;
-	In> a;
-	Out> 4;
-	
-	In> [ Local(a); a := 5; a; ];
-	Out> 5;
-	In> a;
-	Out> 4;
-
-In the first block, {a} is not declared local and
-hence defaults to be a global variable. Indeed, changing the variable
-inside the block also changes the value of {a}
-outside the block. However, in the second block {a}
-is defined to be local and now the value outside the block stays the
-same, even though {a} is assigned the value 5 inside
-the block.
-
-*SEE LocalSymbols, Prog, [], UnFence
-%mathpiper_docs
-*/
-
-
-
-/*
-%mathpiper_docs,name="SetGlobalLazyVariable"
-*CMD SetGlobalLazyVariable --- global variable is to be evaluated lazily
-*CORE
-*CALL
-	SetGlobalLazyVariable(var,value)
-
-*PARMS
-
-{var} -- variable (held argument)
-
-{value} -- value to be set to (evaluated before it is assigned)
-
-*DESC
-
-{SetGlobalLazyVariable} enforces that a global variable will re-evaluate
-when used. This functionality doesn't survive if {Clear(var)}
-is called afterwards.
-
-Places where this is used include the global variables {%} and {I}.
-
-The use of lazy in the name stems from the concept of lazy evaluation.
-The object the global variable is bound to will only be evaluated when
-called. The {SetGlobalLazyVariable} property only holds once: after 
-that, the result of evaluation is stored in the global variable, and it won't be reevaluated again:
-
-	In> SetGlobalLazyVariable(a,Hold(Taylor(x,0,30)Sin(x)))
-	Out> True
-
-Then the first time you call {a} it evaluates {Taylor(...)} and assigns the result to {a}. The next time
-you call {a} it immediately returns the result.
-{SetGlobalLazyVariable} is called for {%} each time {%} changes.
-
-The following example demonstrates the sequence of execution:
-
-	In> SetGlobalLazyVariable(test,Hold(Write("hello")))
-	Out> True
-
-The text "hello" is not written out to screen yet. However, evaluating
-the variable {test} forces the expression to be evaluated:
-
-	In> test
-	"hello"Out> True
-
-*E.G.
-
-	In> Set(a,Hold(2+3))
-	Out> True
-	In> a
-	Out> 2+3
-	In> SetGlobalLazyVariable(a,Hold(2+3))
-	Out> True
-	In> a
-	Out> 5
-
-
-*SEE Set, Clear, Local, %, I
-%mathpiper_docs
-*/
 
 
 
@@ -1919,7 +49,7 @@ Introduce a comment block in a source file, similar to C++ comments.
 
 	a+b; // get result
 	a + /* add them */ b;
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -1946,7 +76,7 @@ arguments in order and return the result of the last evaluated expression.
 {Prog(a,b);} is the same as typing {[a;b;];} and is very useful for writing out
 function bodies. The {[ ... ]} construct is a syntactically nicer version of the
 {Prog} call; it is converted into {Prog(...)} during the parsing stage.
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2019,7 +149,7 @@ Note that, due to a current parser limitation, a function atom that is declared 
 	CommandLine(1) : Error parsing expression
 
 *SEE IsBodied, OpPrecedence
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2058,7 +188,7 @@ Check whether the function with given name {"op"} has been declared as a
 	Out> True;
 
 *SEE Bodied, OpPrecedence
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2089,7 +219,7 @@ For infix operators, right precedence can differ from left precedence. Bodied fu
 	Out> 6;
 	In> OpLeftPrecedence("!")
 	Out> 0;
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2114,7 +244,7 @@ not implemented. (All infix operators are by default left-associative until
 they are declared to be right-associative.)
 
 *SEE OpPrecedence
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2147,7 +277,7 @@ the same as {a-b-c}.
 Note that the left and right precedence of an infix operator does not affect the way MathPiper interprets expressions typed by the user. You cannot make MathPiper parse {a-b-c} as {a-(b-c)} unless you declare the operator "{-}" to be right-associative.
 
 *SEE OpPrecedence, OpLeftPrecedence, OpRightPrecedence, RightAssociative
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2179,7 +309,7 @@ with different number of arguments.
 
 
 *SEE MacroRuleBase, RuleBaseListed, MacroRuleBaseListed, HoldArg, Retract
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2254,7 +384,7 @@ The function {f} now appears to occupy all arities greater than 3:
 
 
 *SEE RuleBase, Retract, Echo
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2288,7 +418,7 @@ a different number of arguments.
 
 Rules with a low precedence value will be tried before rules with a high value, so
 a rule with precedence 0 will be tried before a rule with precedence 1.
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2319,7 +449,7 @@ The {parameter} must be an atom from the list of symbolic
 arguments used when calling {RuleBase}.
 
 *SEE RuleBase, HoldArgNr, RuleBaseArgList
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2345,7 +475,7 @@ the same name but different arities are not affected.
 Assignment {:=} of a function does this to the function being (re)defined.
 
 *SEE RuleBaseArgList, RuleBase, :=
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2371,7 +501,7 @@ function. This is useful for defining macro-like
 procedures (looping and such).
 
 The standard library functions {For} and {ForEach} use {UnFence}.
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2394,7 +524,7 @@ Returns a list of atoms, symbolic parameters specified in the {RuleBase} call
 for the function named {"operator"} with the specific {arity}.
 
 *SEE RuleBase, HoldArgNr, HoldArg
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2418,7 +548,7 @@ rules based on parameters.
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro versions!
 
 *SEE Set, Clear, Local, RuleBase, Rule, Backquoting
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2492,7 +622,7 @@ the first argument of {Set} would be unevaluated.
 
 
 *SEE MacroSet, MacroLocal, MacroRuleBase, Hold, HoldArg, DefMacroRuleBase
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2599,7 +729,7 @@ a variable {a} from the calling environment.
 	Out> 10;
 
 *SEE RuleBase, Backquoting, DefMacroRuleBaseListed
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2623,7 +753,7 @@ This does the same as {DefMacroRuleBase} (define a macro), but with a variable
 number of arguments, similar to {RuleBaseListed}.
 
 *SEE RuleBase, RuleBaseListed, Backquoting, DefMacroRuleBase
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2702,7 +832,7 @@ examples).
 	Out> False;
 
 *SEE Assoc, :=
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2733,7 +863,7 @@ This means that functions that are not listed in {.def} files will not be found 
 	Out> "integrate.rep/code.ys";
 
 *SEE Vi
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2757,7 +887,7 @@ when e.g. a script is sent over the
 Internet to be evaluated on a remote computer, which is potentially unsafe.
 
 *SEE SystemCall
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2801,7 +931,7 @@ There is no effect if we type some spaces first:
 	Out> restart;
 
 *SEE Exit
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2836,7 +966,7 @@ form respectively.
 	
 
 *SEE SetGlobalLazyVariable
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2855,7 +985,7 @@ form respectively.
 of boolean expressions such as {2 < 3} or {True And False}.
 
 *SEE And, Or, Not
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2873,7 +1003,7 @@ of boolean expressions such as {2 < 3} or {True And False}.
 End of file marker when reading from file. If a file
 contains the expression {EndOfFile;} the
 operation will stop reading the file at that point.
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2900,7 +1030,7 @@ Thus {Infinity*2} will return {Infinity}, and {a < Infinity} will evaluate to {T
 	Out> Infinity;
 	In> 2<Infinity
 	Out> True;
-%mathpiper_docs
+%/mathpiper_docs
 */
 
 
@@ -2931,6 +1061,6 @@ Most functions also return {Undefined} when evaluated on it.
 	Out> Undefined;
 
 *SEE Infinity
-%mathpiper_docs
+%/mathpiper_docs
 */
 
