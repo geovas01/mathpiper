@@ -28,7 +28,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class ClearVar extends BuiltinFunction
+public class Clear extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -52,3 +52,39 @@ public class ClearVar extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Clear",categories="User Functions;Variables;Built In"
+*CMD Clear --- undo an assignment
+*CORE
+*CALL
+	Clear(var, ...)
+
+*PARMS
+
+{var} -- name of variable to be cleared
+
+*DESC
+
+All assignments made to the variables listed as arguments are
+undone. From now on, all these variables remain unevaluated (until a
+subsequent assignment is made). The result of the expression is
+True.
+
+*E.G.
+
+	In> a := 5;
+	Out> 5;
+	In> a^2;
+	Out> 25;
+
+	In> Clear(a);
+	Out> True;
+	In> a^2;
+	Out> a^2;
+
+*SEE Set, :=
+%/mathpiper_docs
+*/

@@ -28,7 +28,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class NewLocal extends BuiltinFunction
+public class Local extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -53,3 +53,59 @@ public class NewLocal extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Local",categories="User Functions;Variables;Built In"
+*CMD Local --- declare new local variables
+*CORE
+*CALL
+	Local(var, ...)
+
+*PARMS
+
+{var} -- name of variable to be declared as local
+
+*DESC
+
+All variables in the argument list are declared as local
+variables. The arguments are not evaluated. The value True is
+returned.
+
+By default, all variables in MathPiper are global. This means that the
+variable has the same value everywhere. But sometimes it is useful to
+have a private copy of some variable, either to prevent the outside
+world from changing it or to prevent accidental changes to the outside
+world. This can be achieved by declaring the variable local. Now only
+expressions within the {Prog} block (or its
+syntactic equivalent, the {[  ]} block) can access
+and change it. Functions called within this block cannot access the
+local copy unless this is specifically allowed with {UnFence}.
+
+*E.G.
+
+	In> a := 3;
+	Out> 3;
+
+	In> [ a := 4; a; ];
+	Out> 4;
+	In> a;
+	Out> 4;
+
+	In> [ Local(a); a := 5; a; ];
+	Out> 5;
+	In> a;
+	Out> 4;
+
+In the first block, {a} is not declared local and
+hence defaults to be a global variable. Indeed, changing the variable
+inside the block also changes the value of {a}
+outside the block. However, in the second block {a}
+is defined to be local and now the value outside the block stays the
+same, even though {a} is assigned the value 5 inside
+the block.
+
+*SEE LocalSymbols, Prog, [], UnFence
+%/mathpiper_docs
+*/

@@ -56,3 +56,30 @@ public class ConcatenateStrings extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, strBuffer.toString()));
     }
 }
+
+
+
+
+/*
+%mathpiper_docs,name="ConcatStrings",categories="User Functions;String Manipulation;Built In"
+*CMD ConcatStrings --- concatenate strings
+*CORE
+*CALL
+	ConcatStrings(strings)
+
+*PARMS
+
+{strings} -- one or more strings
+
+*DESC
+
+Concatenates strings.
+
+*E.G.
+
+	In> ConcatStrings("a","b","c")
+	Out> "abc";
+
+*SEE :
+%/mathpiper_docs
+*/

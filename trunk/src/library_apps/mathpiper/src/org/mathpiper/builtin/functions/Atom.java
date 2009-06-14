@@ -18,18 +18,57 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
  *  
  */
-public class SetVar extends BuiltinFunction
+public class Atom extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalSetVar(aEnvironment, aStackTop, false, false);
+        ConsPointer evaluated = new ConsPointer();
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+
+        // Get operator
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        String orig = evaluated.getCons().string();
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
     }
 }
+
+
+
+
+/*
+%mathpiper_docs,name="Atom"
+*CMD Atom --- convert string to atom
+*CORE
+*CALL
+	Atom("string")
+
+*PARMS
+
+{"string"} -- a string
+
+*DESC
+
+Returns an atom with the string representation given
+as the evaluated argument. Example: {Atom("foo");} returns
+{foo}.
+
+
+*E.G.
+
+	In> Atom("a")
+	Out> a;
+
+*SEE String
+%/mathpiper_docs
+*/

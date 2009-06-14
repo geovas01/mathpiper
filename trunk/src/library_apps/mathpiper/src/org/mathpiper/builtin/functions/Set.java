@@ -18,27 +18,53 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.UtilityFunctions;
 
 /**
  *
  *  
  */
-public class Atomize extends BuiltinFunction
+public class Set extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-
-        // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
-        String orig = evaluated.getCons().string();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
+        UtilityFunctions.internalSetVar(aEnvironment, aStackTop, false, false);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Set",categories="User Functions;Variables;Built In"
+*CMD Set --- assignment
+*CORE
+*CALL
+	Set(var, exp)
+
+*PARMS
+
+{var} -- variable which should be assigned
+
+{exp} -- expression to assign to the variable
+
+*DESC
+
+The expression "exp" is evaluated and assigned it to the variable
+named "var". The first argument is not evaluated. The value True
+is returned.
+
+The statement {Set(var, exp)} is equivalent to {var := exp}, but the {:=} operator
+has more uses, e.g. changing individual entries in a list.
+
+*E.G.
+
+	In> Set(a, Sin(x)+3);
+	Out> True;
+	In> a;
+	Out> Sin(x)+3;
+
+*SEE Clear, :=
+%/mathpiper_docs
+*/

@@ -97,3 +97,32 @@ public class PatchString extends BuiltinFunction {
         return oper.toString();
     }
 }//end class.
+
+
+
+/*
+%mathpiper_docs,name="PatchString",categories="User Functions;String Manipulation;Built In"
+*CMD PatchString --- execute commands between {<?} and {?>} in strings
+*CORE
+*CALL
+	PatchString(string)
+
+*PARMS
+
+{string} -- a string to patch
+
+*DESC
+
+This function does the same as PatchLoad, but it works on a string
+in stead of on the contents of a text file. See PatchLoad for more
+details.
+
+*E.G.
+
+	In> PatchString("Two plus three \
+	  is <? Write(2+3); ?> ");
+	Out> "Two plus three is 5 ";
+
+*SEE PatchLoad
+%/mathpiper_docs
+*/
