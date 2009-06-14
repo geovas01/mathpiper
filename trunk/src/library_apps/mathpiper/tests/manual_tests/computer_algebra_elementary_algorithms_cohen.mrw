@@ -10,7 +10,7 @@ CASCompare(expressions) :=
     [
         If(IsList(e), [answer := e[2]; e := e[1];]);
         
-        Echo("#",count ,"Problem:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
+        Echo("#",count ,"Exercise:   ",e, If(IsBound(answer),ToString()[WriteString("  Answer: " );Write(answer);Clear(answer);],"") );
         
         
         //Echo("MathPiper:    ",Simplify(Eval(FromString(e:";") Read())));
@@ -62,49 +62,49 @@ CASCompare(expressions);
       Side Effects:
       pp.55 exercises. 1a  
       
-      #1 Problem:   x^2*x^3  Answer: "x^5"
+      #1 Exercise:   x^2*x^3  Answer: "x^5"
       MathPiper:    x^5 
-      Maxima:(%o689) x^5
+      Maxima:(%o700) x^5
        
-      #2 Problem:   x^(1/2)*x^(1/3)  Answer: "x^(5/6)"
+      #2 Exercise:   x^(1/2)*x^(1/3)  Answer: "x^(5/6)"
       MathPiper:    Sqrt(x)*x^(1/3) 
-      Maxima:(%o690) x^(5/6)
+      Maxima:(%o701) x^(5/6)
        
-      #3 Problem:   x^a*x^b  Answer: "x^(a+b)"
+      #3 Exercise:   x^a*x^b  Answer: "x^(a+b)"
       MathPiper:    x^(b+a) 
-      Maxima:(%o691) x^(b+a)
+      Maxima:(%o702) x^(b+a)
        
-      #4 Problem:   (x^2)^3  Answer: "x^6"
+      #4 Exercise:   (x^2)^3  Answer: "x^6"
       MathPiper:    x^6 
-      Maxima:(%o692) x^6
+      Maxima:(%o703) x^6
        
-      #5 Problem:   (x^a)^2  Answer: "x^(2*a)"
+      #5 Exercise:   (x^a)^2  Answer: "x^(2*a)"
       MathPiper:    x^a^2 
-      Maxima:(%o693) x^(2*a)
+      Maxima:(%o704) x^(2*a)
        
-      #6 Problem:   (x^2)^(1/2)  Answer: "|x|"
+      #6 Exercise:   (x^2)^(1/2)  Answer: "|x|"
       MathPiper:    Sqrt(x^2) 
-      Maxima:(%o694) abs(x)
+      Maxima:(%o705) abs(x)
        
-      #7 Problem:   (x^(1/2))^2  Answer: "x"
+      #7 Exercise:   (x^(1/2))^2  Answer: "x"
       MathPiper:    x 
-      Maxima:(%o695) x
+      Maxima:(%o706) x
        
-      #8 Problem:   (x^2)^a  Answer: "x^(2*a)"
+      #8 Exercise:   (x^2)^a  Answer: "x^(2*a)"
       MathPiper:    x^2^a 
-      Maxima:(%o696) abs(x)^(2*a)
+      Maxima:(%o707) abs(x)^(2*a)
        
-      #9 Problem:   (x*y)^2  Answer: "x^2*y^2"
+      #9 Exercise:   (x*y)^2  Answer: "x^2*y^2"
       MathPiper:    (x*y)^2 
-      Maxima:(%o697) x^2*y^2
+      Maxima:(%o708) x^2*y^2
        
-      #10 Problem:   (x*y)^(1/3)  Answer: "x^(1/3)*y^(1/3)"
+      #10 Exercise:   (x*y)^(1/3)  Answer: "x^(1/3)*y^(1/3)"
       MathPiper:    (x*y)^(1/3) 
-      Maxima:(%o698) x^(1/3)*y^(1/3)
+      Maxima:(%o709) x^(1/3)*y^(1/3)
        
-      #11 Problem:   (x*y)^a  Answer: "x^a*y^a"
+      #11 Exercise:   (x*y)^a  Answer: "x^a*y^a"
       MathPiper:    (x*y)^a 
-      Maxima:(%o699) (x*y)^a
+      Maxima:(%o710) (x*y)^a
 .   %/output
 
 
