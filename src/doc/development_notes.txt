@@ -11,7 +11,7 @@ D(x)u;
     %output,preserve="false"
       Result: Deriv(x)Exp(x)+y(x)^4==4*x^2+y(x)
 .   %/output
-+Functions cannot be cleared by the Clear() function but they need to be.
++Functions cannot be cleared by the Clear() function but perhaps they should be?  For example Clear(f) will clear all arities of f().
 +Add commas to first example in worksheet_demo_1.mrw
 +Add a Range() function which is similar to Python's range();
 +This produces a parsing error: 
