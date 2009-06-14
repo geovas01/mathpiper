@@ -59,14 +59,14 @@ CharacteristicEquation;
 Check;,categories="User Functions;Built In"
 ChiSquareTest;
 Cholesky;
-Clear;,categories="User Functions;Variables;Built In"
+Clear;
 ClearError;,categories="User Functions"
 ClearErrors;,categories="User Functions"
 Coef;
 CoFactor;
 Complex;
-Concat;,categories="User Functions;Lists (Operations);Built In"
-ConcatStrings;,categories="User Functions;String Manipulation;Built In"
+Concat;
+ConcatStrings;
 Conjugate;
 Contains;
 Content;
@@ -84,18 +84,18 @@ CurrentLine;,categories="User Functions;Built In"
 Cyclotomic;
 D;
 Decimal;
-DefaultTokenizer;,categories="User Functions;Input/Output;Built In"
-DefLoad;,categories="User Functions;Input/Output;Built In"
+DefaultTokenizer;
+DefLoad;
 DefMacroRuleBase;,categories="User Functions;Built In"
 DefMacroRuleBaseListed;,categories="User Functions;Built In"
 Degree;
-Delete;,categories="User Functions;Lists (Operations);Built In"
+Delete;
 Denom;
 DestructiveAppend;
-DestructiveDelete;,categories="User Functions;Lists (Operations);Built In"
-DestructiveInsert;,categories="User Functions;Lists (Operations);Built In"
-DestructiveReplace;,categories="User Functions;Lists (Operations);Built In"
-DestructiveReverse;,categories="User Functions;Lists (Operations);Built In"
+DestructiveDelete;
+DestructiveInsert;
+DestructiveReplace;
+DestructiveReverse;
 Determinant;
 Diagonal;
 DiagonalMatrix;
@@ -135,18 +135,18 @@ False;,categories="User Functions;Constants (System)"
 FermatNumber;
 FillList;
 Find;
-FindFile;,categories="User Functions;Input/Output;Built In"
+FindFile;
 FindFunction;,categories="User Functions;Built In"
 FindRealRoots;
-FlatCopy;,categories="User Functions;Lists (Operations);Built In"
+FlatCopy;
 Flatten;
 Floor;
 FloorN;,categories="User Functions;Numeric;Built In"
 For;
 ForEach;
 FromBase;
-FromFile;,categories="User Functions;Input/Output;Built In"
-FromString;,categories="User Functions;Input/Output;Built In"
+FromFile;
+FromString;
 FullForm;
 FuncList;
 FuncListArith;
@@ -161,7 +161,6 @@ GaussianNorm;,categories="User Functions;Number Theory"
 Gcd;,categories="User Functions;Numbers (Operations);Built In"
 GcdN;,categories="User Functions;Numeric;Built In"
 GenericTypeName;,categories="User Functions;Built In"
-GetExactBitsN;,categories="User Functions;Numeric"
 GlobalPop;,categories="User Functions;Lists (Operations)"
 GlobalPush;,categories="User Functions;Lists (Operations)"
 GoldenRatio;,categories="User Functions;Constants (Mathematical)"
@@ -174,7 +173,7 @@ HasExprSome;,categories="User Functions;Predicates"
 HasFunc;,categories="User Functions;Predicates"
 HasFuncArith;,categories="User Functions;Predicates"
 HasFuncSome;,categories="User Functions;Predicates"
-Head;,categories="User Functions;Lists (Operations);Built In"
+Head;
 HeapSort;,categories="User Functions;Lists (Operations)"
 HessianMatrix;,categories="User Functions;Matrices (Special)"
 HilbertInverseMatrix;,categories="User Functions;Matrices (Special)"
@@ -191,7 +190,7 @@ Infinity;,categories="User Functions;Constants (Mathematical)"
 Infix;,categories="User Functions;Built In"
 InNumericMode;,categories="User Functions"
 InProduct;,categories="User Functions;Linear Algebra"
-Insert;,categories="User Functions;Lists (Operations);Built In"
+Insert;
 Integrate;,categories="User Functions;Calculus Related (Symbolic)"
 Intersection;,categories="User Functions;Lists (Operations)"
 IntLog;,categories="User Functions"
@@ -201,10 +200,10 @@ InVerboseMode;,categories="User Functions"
 Inverse;,categories="User Functions;Linear Algebra"
 InverseTaylor;,categories="User Functions;Series"
 IsAmicablePair;,categories="User Functions;Number Theory;Predicates"
-IsAtom;,categories="User Functions;Predicates;Built In"
+IsAtom;
 IsBodied;,categories="User Functions;Predicates;Built In"
 IsBoolean;,categories="User Functions;Predicates"
-IsBound;,categories="User Functions;Predicates;Built In"
+IsBound;
 IsCarmichaelNumber;,categories="User Functions;Number Theory;Predicates"
 IsCFormable;,categories="User Functions;Input/Output;Predicates"
 IsComposite;,categories="User Functions;Number Theory;Predicates"
@@ -215,7 +214,7 @@ IsError;,categories="User Functions;Predicates"
 IsEven;,categories="User Functions;Predicates"
 IsEvenFunction;,categories="User Functions;Predicates"
 IsFreeOf;,categories="User Functions;Predicates"
-IsFunction;,categories="User Functions;Predicates;Built In"
+IsFunction;
 IsGaussianInteger;,categories="User Functions;Predicates"
 IsGaussianPrime;,categories="User Functions;Number Theory;Predicates"
 IsGaussianUnit;,categories="User Functions;Number Theory;Predicates"
@@ -225,7 +224,7 @@ IsIdempotent;,categories="User Functions;Matrices (Predicates);Predicates"
 IsInfinity;,categories="User Functions;Predicates"
 IsInfix;,categories="User Functions;Predicates;Built In"
 IsIrregularPrime;,categories="User Functions;Number Theory;Predicates"
-IsList;,categories="User Functions;Predicates;Built In"
+IsList;
 IsLowerTriangular;,categories="User Functions;Matrices (Predicates);Predicates"
 IsMatrix;,categories="User Functions;Matrices (Predicates);Predicates"
 IsNegativeInteger;,categories="User Functions;Predicates"
@@ -234,7 +233,7 @@ IsNegativeReal;,categories="User Functions;Predicates"
 IsNonObject;,categories="User Functions;Predicates"
 IsNonZeroInteger;,categories="User Functions;Predicates"
 IsNotZero;,categories="User Functions;Predicates"
-IsNumber;,categories="User Functions;Predicates;Built In"
+IsNumber;
 IsNumericList;,categories="User Functions;Predicates"
 IsOdd;,categories="User Functions;Predicates"
 IsOddFunction;,categories="User Functions;Predicates"
@@ -254,7 +253,7 @@ IsSkewSymmetric;,categories="User Functions;Matrices (Predicates);Predicates"
 IsSmallPrime;,categories="User Functions;Number Theory;Predicates"
 IsSquareFree;,categories="User Functions;Number Theory;Predicates"
 IsSquareMatrix;,categories="User Functions;Matrices (Predicates);Predicates"
-IsString;,categories="User Functions;Predicates;Built In"
+IsString;
 IsSymmetric;,categories="User Functions;Matrices (Predicates);Predicates"
 IsTwinPrime;,categories="User Functions;Number Theory;Predicates"
 IsUnitary;,categories="User Functions;Matrices (Predicates);Predicates"
@@ -272,19 +271,19 @@ Lcm;,categories="User Functions;Numbers (Operations)"
 LeadingCoef;,categories="User Functions;Polynomials (Operations)"
 LeftPrecedence;,categories="User Functions;Built In"
 LegendreSymbol;,categories="User Functions;Number Theory"
-Length;,categories="User Functions;Lists (Operations);Built In"
+Length;
 LessThan;,categories="User Functions;Built In"
 LeviCivita;,categories="User Functions;Combinatorics"
 Limit;,categories="User Functions;Calculus Related (Symbolic)"
-LispRead;,categories="User Functions;Input/Output;Built In"
-LispReadListed;,categories="User Functions;Input/Output;Built In"
-List;,categories="User Functions;Lists (Operations);Built In"
-Listify;,categories="User Functions;Lists (Operations);Built In"
+LispRead;
+LispReadListed;
+List;
+Listify;
 Ln;,categories="User Functions;Calculus Related (Symbolic)"
 LnCombine;,categories="User Functions;Expression Simplification"
 LnExpand;,categories="User Functions;Expression Simplification"
-Load;,categories="User Functions;Input/Output;Built In"
-Local;,categories="User Functions;Variables;Built In"
+Load;
+Local;
 LocalSymbols;,categories="User Functions;Variables;Built In"
 LogN;,categories="User Functions;Numeric"
 LogicTest;,categories="User Functions"
@@ -320,7 +319,7 @@ NFunction;,categories="User Functions;Functional Operators"
 Nl;,categories="User Functions;Input/Output"
 NonN;,categories="User Functions"
 Normalize;,categories="User Functions;Linear Algebra"
-Not;,categories="User Functions;Predicates;Built In"
+Not;
 NotN;,categories="User Functions;Numeric;Built In"
 NrArgs;,categories="User Functions;Lists (Operations)"
 Nth;,categories="User Functions;Lists (Operations);Built In"
@@ -338,7 +337,7 @@ OMRead;,categories="User Functions;Input/Output"
 OpLeftPrecedence;,categories="User Functions;Built In"
 OpPrecedence;,categories="User Functions;Built In"
 OpRightPrecedence;,categories="User Functions;Built In"
-Or;,categories="User Functions;Predicates;Built In"
+Or;
 OrN;,categories="User Functions;Numeric;Built In"
 OrthoG;,categories="User Functions;Polynomials (Special)"
 OrthogonalBasis;,categories="User Functions;Linear Algebra"
@@ -359,8 +358,8 @@ OrthoUSum;,categories="User Functions;Polynomials (Special)"
 Outer;,categories="User Functions;Linear Algebra"
 PAdicExpand;,categories="User Functions;Number Theory"
 Partition;,categories="User Functions;Lists (Operations)"
-PatchLoad;,categories="User Functions;Input/Output;Built In"
-PatchString;,categories="User Functions;String Manipulation;Built In"
+PatchLoad;
+PatchString;
 PDF;,categories="User Functions;Probability & Statistics"
 Permutations;,categories="User Functions;Combinatorics"
 Pi;,categories="User Functions;Constants (Mathematical)"
@@ -391,11 +390,11 @@ RandomSeed;,categories="User Functions;Numbers (Random)"
 RandVerifyArithmetic;,categories="User Functions"
 Rationalize;,categories="User Functions;Numbers (Operations)"
 Re;,categories="User Functions;Numbers (Complex)"
-Read;,categories="User Functions;Input/Output;Built In"
-ReadCmdLineString;,categories="User Functions;Input/Output;Built In"
-ReadToken;,categories="User Functions;Input/Output;Built In"
+Read;
+ReadCmdLineString;
+ReadToken;
 RemoveDuplicates;,categories="User Functions;Lists (Operations)"
-Replace;,categories="User Functions;Lists (Operations);Built In"
+Replace;
 ReturnsCoreError;,categories="User Functions"
 ReturnsError;,categories="User Functions"
 ReturnsErrorTableau;,categories="User Functions"
@@ -416,9 +415,8 @@ RuleBaseArgList;,categories="User Functions;Built In;Built In"
 RuleBaseListed;,categories="User Functions;Built In"
 Secure;,categories="User Functions;Built In"
 Select;,categories="User Functions;Lists (Operations)"
-Set;,categories="User Functions;Variables;Built In"
-SetExactBitsN;,categories="User Functions;Numeric;Built In"
-SetGlobalLazyVariable;,categories="User Functions;Variables;Built In"
+Set;
+SetGlobalLazyVariable;
 ShiftLeft;,categories="User Functions;Built In"
 ShiftRight;,categories="User Functions;Built In"
 Sign;,categories="User Functions;Calculus Related (Symbolic)"
@@ -436,9 +434,9 @@ SquareFree;,categories="User Functions;Polynomials (Operations)"
 SquareFreeDivisorsList;,categories="User Functions;Number Theory"
 StirlingNumber1;,categories="User Functions;Number Theory"
 StirlingNumber2;,categories="User Functions;Number Theory"
-String;,categories="User Functions;String Manipulation;Built In"
-StringMidGet;,categories="User Functions;String Manipulation;Built In"
-StringMidSet;,categories="User Functions;String Manipulation;Built In"
+String;
+StringMidGet;
+StringMidSet;
 Subfactorial;,categories="User Functions;Combinatorics"
 Subst;
 SubtractN;,categories="User Functions;Numeric;Built In"
@@ -451,7 +449,7 @@ SylvesterMatrix;,categories="User Functions;Matrices (Special)"
 SystemCall;
 Table;,categories="User Functions;Lists (Operations)"
 TableForm;,categories="User Functions;Lists (Operations)"
-Tail;,categories="User Functions;Lists (Operations);Built In"
+Tail;
 Take;,categories="User Functions;Lists (Operations)"
 Tan;,categories="User Functions;Calculus Related (Symbolic)"
 Taylor;,categories="User Functions;Series"
@@ -463,9 +461,9 @@ TeXForm;,categories="User Functions;Input/Output"
 Time;,categories="User Functions;Control Flow;Built In"
 ToBase;,categories="User Functions;Numbers (Operations);Built In"
 ToeplitzMatrix;,categories="User Functions;Matrices (Special)"
-ToFile;,categories="User Functions;Input/Output;Built In"
-ToStdout;,categories="User Functions;Input/Output;Built In"
-ToString;,categories="User Functions;Input/Output;Built In"
+ToFile;
+ToStdout;
+ToString;
 Trace;,categories="User Functions;Linear Algebra"
 TraceExp;,categories="User Functions;Control Flow"
 TraceRule;
@@ -475,13 +473,13 @@ TrapError;,categories="User Functions;Built In"
 TrigSimpCombine;,categories="User Functions;Expression Simplification"
 True;,categories="User Functions;Constants (System)"
 TruncRadian;,categories="User Functions"
-Type;,categories="User Functions;Lists (Operations);Built In"
+Type;
 Undefined;,categories="User Functions;Constants (Mathematical)"
 UnFence;,categories="User Functions;Built In"
 UnFlatten;,categories="User Functions;Lists (Operations)"
 Union;,categories="User Functions;Lists (Operations)"
 UniqueConstant;,categories="User Functions;Variables"
-UnList;,categories="User Functions;Lists (Operations);Built In"
+UnList;
 Until;,categories="User Functions;Control Flow"
 Use;
 V;,categories="User Functions;Input/Output"
@@ -498,8 +496,8 @@ WithValue;,categories="User Functions;Control Flow"
 Write;
 WriteString;
 WronskianMatrix;,categories="User Functions;Matrices (Special)"
-XmlExplodeTag;,categories="User Functions;Input/Output;Built In"
-XmlTokenizer;,categories="User Functions;Input/Output;Built In"
+XmlExplodeTag;
+XmlTokenizer;
 ZeroMatrix;,categories="User Functions;Linear Algebra"
 ZeroVector;,categories="User Functions;Linear Algebra"
 Zeta;,categories="User Functions;Special"
@@ -547,7 +545,7 @@ GenericTypeName;,categories="Programmer Functions;Native Objects;Built In"
 GetCoreError;,categories="Programmer Functions;Error Reporting;Built In"
 GetError;,categories="Programmer Functions;Error Reporting"
 GetErrorTableau;,categories="Programmer Functions;Error Reporting"
-GetExactBitsN;,categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+GetExactBitsN;
 GetTime;,categories="Programmer Functions;Built In"
 GreaterThan;,categories="Programmer Functions;Built In;Built In"
 GuessRational;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
@@ -600,7 +598,7 @@ RuleBase;,categories="Programmer Functions;Programming;Built In"
 RuleBaseArgList;,categories="Programmer Functions;Programming;Built In"
 RuleBaseListed;,categories="Programmer Functions;Programming;Built In"
 Secure;,categories="Programmer Functions;Programming;Built In"
-SetExactBitsN;,categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+SetExactBitsN;
 ShiftLeft;,categories="Programmer Functions;Built In;Built In"
 ShiftRight;,categories="Programmer Functions;Built In;Built In"
 SumTaylorNum;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
