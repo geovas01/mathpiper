@@ -33,3 +33,35 @@ public class Delete extends BuiltinFunction
         UtilityFunctions.internalDelete(aEnvironment, aStackTop, false);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Delete",categories="User Functions;Lists (Operations);Built In"
+*CMD Delete --- delete an element from a list
+*CORE
+*CALL
+	Delete(list, n)
+
+*PARMS
+
+{list} -- list from which an element should be removed
+
+{n} -- index of the element to remove
+
+*DESC
+
+This command deletes the n-th element from "list". The first
+parameter should be a list, while "n" should be a positive integer
+less than or equal to the length of "list". The entry with index
+"n" is removed (the first entry has index 1), and the resulting list
+is returned.
+
+*E.G.
+
+	In> Delete({a,b,c,d,e,f}, 4);
+	Out> {a,b,c,e,f};
+
+*SEE DestructiveDelete, Insert, Replace
+%/mathpiper_docs
+*/

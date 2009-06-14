@@ -41,3 +41,28 @@ public class Read extends BuiltinFunction
         parser.parse(getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Read",categories="User Functions;Input/Output;Built In"
+*CMD Read --- read an expression from current input
+*CORE
+*CALL
+	Read()
+
+*DESC
+
+Read an expression from the current input, and return it unevaluated. When
+the end of an input file is encountered, the token atom {EndOfFile} is returned.
+
+*E.G.
+
+	In> FromString("2+5;") Read();
+	Out> 2+5;
+	In> FromString("") Read();
+	Out> EndOfFile;
+
+*SEE FromFile, FromString, LispRead, ReadToken, Write
+%/mathpiper_docs
+*/

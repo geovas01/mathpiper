@@ -38,3 +38,36 @@ public class LispRead extends BuiltinFunction
         parser.parse(getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="LispRead",categories="User Functions;Input/Output;Built In"
+*CMD LispRead --- read expressions in LISP syntax
+*CORE
+*CALL
+	LispRead()
+
+*DESC
+
+The function {LispRead} reads an expression in the LISP syntax from the current input, and returns
+it unevaluated. When the end of an input file is encountered, the
+special token atom {EndOfFile} is returned.
+
+The MathPiper expression {a+b} is written in the LISP syntax as {(+ a b)}. The advantage of this syntax is that it is
+less ambiguous than the infix operator grammar that MathPiper uses by
+default.
+
+*E.G. notest
+
+	In> FromString("(+ a b)") LispRead();
+	Out> a+b;
+	In> FromString("(List (Sin x) (- (Cos x)))") \
+	  LispRead();
+	Out> {Sin(x),-Cos(x)};
+	In> FromString("(+ a b)")LispRead()
+	Out> a+b;
+
+*SEE FromFile, FromString, Read, ReadToken, FullForm, LispReadListed
+%/mathpiper_docs
+*/

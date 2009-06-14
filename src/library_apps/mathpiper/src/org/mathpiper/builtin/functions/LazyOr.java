@@ -83,3 +83,41 @@ public class LazyOr extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Or",categories="User Functions;Predicates;Built In"
+*CMD Or --- logical disjunction
+*CORE
+*CALL
+	a1 Or a2
+Precedence:
+*EVAL OpPrecedence("Or")
+	Or(a1, a2, a3, ..., aN)
+
+*PARMS
+
+{a}1, ..., {a}N -- boolean expressions (may evaluate to {True} or {False})
+
+*DESC
+
+This function returns {True} if an argument is encountered
+that is true (scanning from left to right). The
+{Or} operation is "lazy", i.e. it returns {True} as soon as a {True} argument
+is found (from left to right). If an argument other than {True} or
+{False} is encountered, an unevaluated {Or} expression is returned with all
+arguments that didn't evaluate to {True} or {False} yet.
+
+*E.G.
+
+	In> True Or False
+	Out> True;
+	In> False Or a
+	Out> Or(a);
+	In> Or(False,a,b,True)
+	Out> True;
+
+*SEE And, Not
+%/mathpiper_docs
+*/

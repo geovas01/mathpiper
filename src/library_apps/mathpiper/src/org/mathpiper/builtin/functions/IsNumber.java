@@ -37,3 +37,38 @@ public class IsNumber extends BuiltinFunction
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), result.getCons().getNumber(aEnvironment.getPrecision()) != null);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsNumber",categories="User Functions;Predicates;Built In"
+*CMD IsNumber --- test for a number
+*CORE
+*CALL
+	IsNumber(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is a number. There are two kinds
+of numbers, integers (e.g. 6) and reals (e.g. -2.75 or 6.0). Note that a
+complex number is represented by the {Complex}
+function, so {IsNumber} will return {False}.
+
+*E.G.
+
+	In> IsNumber(6);
+	Out> True;
+	In> IsNumber(3.25);
+	Out> True;
+	In> IsNumber(I);
+	Out> False;
+	In> IsNumber("duh");
+	Out> False;
+
+*SEE IsAtom, IsString, IsInteger, IsPositiveNumber, IsNegativeNumber, Complex
+%/mathpiper_docs
+*/

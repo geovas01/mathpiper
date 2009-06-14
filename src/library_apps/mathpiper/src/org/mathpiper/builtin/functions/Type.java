@@ -52,3 +52,36 @@ public class Type extends BuiltinFunction
         return;
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Type",categories="User Functions;Lists (Operations);Built In"
+*CMD Type --- return the type of an expression
+*CORE
+*CALL
+	Type(expr)
+
+*PARMS
+
+{expr} -- expression to examine
+
+*DESC
+
+The type of the expression "expr" is represented as a string and
+returned. So, if "expr" is a list, the string {"List"} is returned. In general, the top-level
+operator of "expr" is returned. If the argument "expr" is an atom,
+the result is the empty string {""}.
+
+*E.G.
+
+	In> Type({a,b,c});
+	Out> "List";
+	In> Type(a*(b+c));
+	Out> "*";
+	In> Type(123);
+	Out> "";
+
+*SEE IsAtom, NrArgs
+%/mathpiper_docs
+*/

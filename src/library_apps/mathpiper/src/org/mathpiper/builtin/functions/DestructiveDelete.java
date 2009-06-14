@@ -33,3 +33,46 @@ public class DestructiveDelete extends BuiltinFunction
         UtilityFunctions.internalDelete(aEnvironment, aStackTop, true);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="DestructiveDelete",categories="User Functions;Lists (Operations);Built In"
+*CMD DestructiveDelete --- delete an element destructively from a list
+*CORE
+*CALL
+	DestructiveDelete(list, n)
+
+*PARMS
+
+{list} -- list from which an element should be removed
+
+{n} -- index of the element to remove
+
+*DESC
+
+This is the destructive counterpart of {Delete}. This
+command yields the same result as the corresponding call to
+{Delete}, but the original list is modified. So if a
+variable is bound to "list", it will now be bound to the list with
+the n-th entry removed.
+
+Destructive commands run faster than their nondestructive counterparts
+because the latter copy the list before they alter it.
+
+*E.G.
+
+	In> lst := {a,b,c,d,e,f};
+	Out> {a,b,c,d,e,f};
+	In> Delete(lst, 4);
+	Out> {a,b,c,e,f};
+	In> lst;
+	Out> {a,b,c,d,e,f};
+	In> DestructiveDelete(lst, 4);
+	Out> {a,b,c,e,f};
+	In> lst;
+	Out> {a,b,c,e,f};
+
+*SEE Delete, DestructiveInsert, DestructiveReplace
+%/mathpiper_docs
+*/

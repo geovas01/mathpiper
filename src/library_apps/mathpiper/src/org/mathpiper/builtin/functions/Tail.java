@@ -40,3 +40,29 @@ public class Tail extends BuiltinFunction
         getResult(aEnvironment, aStackTop).getCons().getSublistPointer().setCons(head.getCons());
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Tail",categories="User Functions;Lists (Operations);Built In"
+*CMD Tail --- returns a list without its first element
+*CORE
+*CALL
+	Tail(list)
+
+*PARMS
+
+{list} -- a list
+
+*DESC
+
+This function returns "list" without its first element.
+
+*E.G.
+
+	In> Tail({a,b,c})
+	Out> {b,c};
+
+*SEE Head, Length
+%/mathpiper_docs
+*/

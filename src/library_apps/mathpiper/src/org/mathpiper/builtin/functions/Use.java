@@ -69,5 +69,5 @@ The purpose of this function is to make sure that the file will at
 least have been loaded, but is not loaded twice.
 
 *SEE Load, DefLoad, DefaultDirectory
-%mathpiper_docs
+%/mathpiper_docs
 */

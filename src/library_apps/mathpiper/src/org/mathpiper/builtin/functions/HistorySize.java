@@ -70,5 +70,5 @@ can be useful in the {~/.MathPiperrc} file.
 	In> quit
 
 *SEE quit
-%mathpiper_docs
+%/mathpiper_docs
 */

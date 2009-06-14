@@ -34,3 +34,41 @@ public class DefaultTokenizer extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="DefaultTokenizer",categories="User Functions;Input/Output;Built In"
+*CMD DefaultTokenizer --- select the default syntax tokenizer for parsing the input
+*CORE
+*CALL
+	DefaultTokenizer()
+
+*DESC
+
+A "tokenizer" is an internal routine in the kernel that parses the input into MathPiper expressions.
+This affects all input typed in by a user at the prompt and also the input redirected from files or strings using {FromFile} and {FromString} and read using {Read} or {ReadToken}.
+
+The MathPiper environment currently supports some experimental tokenizers for
+various syntaxes. {DefaultTokenizer} switches to the tokenizer used for
+default MathPiper syntax.
+Note that setting the tokenizer is a global side effect.
+One typically needs
+to switch back to the default tokenizer when finished reading the special syntax.
+
+Care needs to be taken when kernel errors are raised during a non-default tokenizer operation (as with any global change in the environment).
+Errors need to be
+caught with the {TrapError} function. The error handler code should re-instate
+the default tokenizer,
+or else the user will be unable to continue the session
+(everything a user types will be parsed using a non-default tokenizer).
+
+
+*EG notest
+
+	In>
+
+
+*SEE OMRead, TrapError, XmlExplodeTag, ReadToken, FromFile, FromString, XmlTokenizer
+%/mathpiper_docs
+*/

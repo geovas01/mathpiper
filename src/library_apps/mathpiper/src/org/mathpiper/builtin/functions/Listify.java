@@ -39,3 +39,35 @@ public class Listify extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Listify",categories="User Functions;Lists (Operations);Built In"
+*CMD Listify --- convert a function application to a list
+*CORE
+*CALL
+	Listify(expr)
+
+*PARMS
+
+{expr} -- expression to be converted
+
+*DESC
+
+The parameter "expr" is expected to be a compound object, i.e. not
+an atom. It is evaluated and then converted to a list. The first entry
+in the list is the top-level operator in the evaluated expression and
+the other entries are the arguments to this operator. Finally, the
+list is returned.
+
+*E.G.
+
+	In> Listify(Cos(x));
+	Out> {Cos,x};
+	In> Listify(3*a);
+	Out> {*,3,a};
+
+*SEE List, UnList, IsAtom
+%/mathpiper_docs
+*/

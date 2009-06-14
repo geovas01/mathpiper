@@ -33,3 +33,39 @@ public class Replace extends BuiltinFunction
         UtilityFunctions.internalReplace(aEnvironment, aStackTop, false);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Replace",categories="User Functions;Lists (Operations);Built In"
+*CMD Replace --- replace an entry in a list
+
+*CORE
+
+*CALL
+	Replace(list, n, expr)
+
+*PARMS
+
+{list} -- list of which an entry should be replaced
+
+{n} -- index of entry to replace
+
+{expr} -- expression to replace the n-th entry with
+
+*DESC
+
+The n-th entry of "list" is replaced by the expression
+"expr". This is equivalent to calling {Delete} and
+{Insert} in sequence. To be precise, the expression
+{Replace(list, n, expr)} has the same result as the
+expression {Insert(Delete(list, n), n, expr)}.
+
+*E.G.
+
+	In> Replace({a,b,c,d,e,f}, 4, x);
+	Out> {a,b,c,x,e,f};
+
+*SEE Delete, Insert, DestructiveReplace
+%/mathpiper_docs
+*/

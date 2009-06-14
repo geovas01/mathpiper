@@ -98,5 +98,5 @@ Hence a better implementation would be
 	In> mysign(_x)_IsNumber(N(x)) <-- If \
 	  (IsPositiveReal(x), 1, -1);
 	Out> True;
-%mathpiper_docs
+%/mathpiper_docs
 */

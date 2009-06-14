@@ -59,3 +59,34 @@ public class StringMidSet extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, str));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="StringMidSet",categories="User Functions;String Manipulation;Built In"
+*CMD StringMidSet --- change a substring
+*CORE
+*CALL
+	StringMidSet(index,substring,string)
+
+*PARMS
+
+{index} -- index of substring to get
+
+{substring} -- substring to store
+
+{string} -- string to store substring in.
+
+*DESC
+
+Set (change) a part of a string. It leaves the original alone, returning
+a new changed copy.
+
+*E.G.
+
+	In> StringMidSet(3,"XY","abcdef")
+	Out> "abXYef";
+
+*SEE StringMidGet, Length
+%/mathpiper_docs
+*/

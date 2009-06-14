@@ -37,3 +37,40 @@ public class FlatCopy extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="FlatCopy",categories="User Functions;Lists (Operations);Built In"
+*CMD FlatCopy --- copy the top level of a list
+*CORE
+*CALL
+	FlatCopy(list)
+
+*PARMS
+
+{list} -- list to be copied
+
+*DESC
+
+A copy of "list" is made and returned. The list is not recursed
+into, only the first level is copied. This is useful in combination
+with the destructive commands that actually modify lists in place (for
+efficiency).
+
+*E.G.
+
+The following shows a possible way to define a command that reverses a
+list nondestructively.
+
+	In> reverse(l_IsList) <-- DestructiveReverse \
+	  (FlatCopy(l));
+	Out> True;
+	In> lst := {a,b,c,d,e};
+	Out> {a,b,c,d,e};
+	In> reverse(lst);
+	Out> {e,d,c,b,a};
+	In> lst;
+	Out> {a,b,c,d,e};
+%/mathpiper_docs
+*/

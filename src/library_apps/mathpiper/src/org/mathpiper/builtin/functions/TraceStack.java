@@ -97,5 +97,5 @@ causing Yacas to flood its stack:
 	size as needed.
 
 *SEE TraceExp, TraceRule
-%mathpiper_docs
+%/mathpiper_docs
 */

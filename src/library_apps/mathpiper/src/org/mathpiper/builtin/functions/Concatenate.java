@@ -56,3 +56,32 @@ public class Concatenate extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(all.getCons()));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Concat",categories="User Functions;Lists (Operations);Built In"
+*CMD Concat --- concatenate lists
+*CORE
+*CALL
+	Concat(list1, list2, ...)
+
+*PARMS
+
+{list1}, {list2}, ... -- lists to concatenate
+
+*DESC
+
+The lists "list1", "list2", ... are evaluated and
+concatenated. The resulting big list is returned.
+
+*E.G.
+
+	In> Concat({a,b}, {c,d});
+	Out> {a,b,c,d};
+	In> Concat({5}, {a,b,c}, {{f(x)}});
+	Out> {5,a,b,c,{f(x)}};
+
+*SEE ConcatStrings, :, Insert
+%/mathpiper_docs
+*/

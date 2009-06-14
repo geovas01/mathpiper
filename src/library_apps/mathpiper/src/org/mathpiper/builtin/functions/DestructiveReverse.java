@@ -38,3 +38,40 @@ public class DestructiveReverse extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(reversed.getCons()));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="DestructiveReverse",categories="User Functions;Lists (Operations);Built In"
+*CMD DestructiveReverse --- reverse a list destructively
+*CORE
+*CALL
+	DestructiveReverse(list)
+
+*PARMS
+
+{list} -- list to reverse
+
+*DESC
+
+This command reverses "list" in place, so that the original is
+destroyed. This means that any variable bound to "list" will now have
+an undefined content, and should not be used any more.
+The reversed list is returned.
+
+Destructive commands are faster than their nondestructive
+counterparts. {Reverse} is the non-destructive version of
+this function.
+
+*E.G.
+
+	In> lst := {a,b,c,13,19};
+	Out> {a,b,c,13,19};
+	In> revlst := DestructiveReverse(lst);
+	Out> {19,13,c,b,a};
+	In> lst;
+	Out> {a};
+
+*SEE FlatCopy, Reverse
+%/mathpiper_docs
+*/

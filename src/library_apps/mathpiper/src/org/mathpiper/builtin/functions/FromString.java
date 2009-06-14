@@ -66,3 +66,37 @@ public class FromString extends BuiltinFunction
     //Return the getResult
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="FromString",categories="User Functions;Input/Output;Built In"
+*CMD FromString --- connect current input to a string
+*CORE
+*CALL
+	FromString(str) body;
+
+*PARMS
+
+{str} -- a string containing the text to parse
+
+{body} -- expression to be evaluated
+
+*DESC
+
+The commands in "body" are executed, but everything that is read
+from the current input is now read from the string "str". The
+result of "body" is returned.
+
+*E.G.
+
+	In> FromString("2+5; this is never read") \
+	  res := Read();
+	Out> 2+5;
+	In> FromString("2+5; this is never read") \
+	  res := Eval(Read());
+	Out> 7;
+
+*SEE ToString, FromFile, Read, ReadToken
+%/mathpiper_docs
+*/

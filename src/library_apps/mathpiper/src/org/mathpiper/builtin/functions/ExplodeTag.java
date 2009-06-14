@@ -152,3 +152,53 @@ public class ExplodeTag extends BuiltinFunction
 
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="XmlExplodeTag",categories="User Functions;Input/Output;Built In"
+*CMD XmlExplodeTag --- convert XML strings to tag objects
+*CORE
+*CALL
+	XmlExplodeTag(xmltext)
+*PARMS
+
+{xmltext} -- string containing some XML tokens
+
+*DESC
+
+{XmlExplodeTag} parses the first XML token in {xmltext}
+and returns a MathPiper expression.
+
+The following subset of XML syntax is supported currently:
+
+*	{<TAG [options]>} -- an opening tag
+*	{</TAG [options]>} -- a closing tag
+*	{<TAG [options] />} -- an open/close tag
+*	plain (non-tag) text
+
+The tag options take the form {paramname="value"}.
+
+If given an XML tag, {XmlExplodeTag} returns a structure of the form {XmlTag(name,params,type)}.
+In the returned object,
+{name} is the (capitalized) tag name, {params} is an assoc list with
+the options (key fields capitalized), and type can be either "Open", "Close" or "OpenClose".
+
+If given a plain text string, the same string is returned.
+
+
+*E.G.
+	In> XmlExplodeTag("some plain text")
+	Out> "some plain text";
+	In> XmlExplodeTag("<a name=\"blah blah\"
+	  align=\"left\">")
+	Out> XmlTag("A",{{"ALIGN","left"},
+	  {"NAME","blah blah"}},"Open");
+	In> XmlExplodeTag("</p>")
+	Out> XmlTag("P",{},"Close");
+	In> XmlExplodeTag("<br/>")
+	Out> XmlTag("BR",{},"OpenClose");
+
+*SEE XmlTokenizer
+%/mathpiper_docs
+*/

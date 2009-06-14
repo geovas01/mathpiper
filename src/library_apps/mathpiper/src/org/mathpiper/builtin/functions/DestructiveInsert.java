@@ -33,3 +33,48 @@ public class DestructiveInsert extends BuiltinFunction
         UtilityFunctions.internalInsert(aEnvironment, aStackTop, true);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="DestructiveInsert",categories="User Functions;Lists (Operations);Built In"
+*CMD DestructiveInsert --- insert an element destructively into a list
+*CORE
+*CALL
+	DestructiveInsert(list, n, expr)
+
+*PARMS
+
+{list} -- list in which "expr" should be inserted
+
+{n} -- index at which to insert
+
+{expr} -- expression to insert in "list"
+
+*DESC
+
+This is the destructive counterpart of {Insert}. This
+command yields the same result as the corresponding call to
+{Insert}, but the original list is modified. So if a
+variable is bound to "list", it will now be bound to the list with
+the expression "expr" inserted.
+
+Destructive commands run faster than their nondestructive counterparts
+because the latter copy the list before they alter it.
+
+*E.G.
+
+	In> lst := {a,b,c,d};
+	Out> {a,b,c,d};
+	In> Insert(lst, 2, x);
+	Out> {a,x,b,c,d};
+	In> lst;
+	Out> {a,b,c,d};
+	In> DestructiveInsert(lst, 2, x);
+	Out> {a,x,b,c,d};
+	In> lst;
+	Out> {a,x,b,c,d};
+
+*SEE Insert, DestructiveDelete, DestructiveReplace
+%/mathpiper_docs
+*/

@@ -69,3 +69,42 @@ public class FromFile extends BuiltinFunction
     //Return the getResult
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="FromFile",categories="User Functions;Input/Output;Built In"
+*CMD FromFile --- connect current input to a file
+*CORE
+*CALL
+	FromFile(name) body
+
+*PARMS
+
+{name} - string, the name of the file to read
+
+{body} - expression to be evaluated
+
+*DESC
+
+The current input is connected to the file "name". Then the expression
+"body" is evaluated. If some functions in "body" try to read
+from current input, they will now read from the file "name". Finally, the
+file is closed and the result of evaluating "body" is returned.
+
+*E.G. notest
+
+Suppose that the file {foo} contains
+
+	2 + 5;
+
+Then we can have the following dialogue:
+
+	In> FromFile("foo") res := Read();
+	Out> 2+5;
+	In> FromFile("foo") res := ReadToken();
+	Out> 2;
+
+*SEE ToFile, FromString, Read, ReadToken
+%/mathpiper_docs
+*/

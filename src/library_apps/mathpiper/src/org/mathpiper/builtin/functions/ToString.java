@@ -53,3 +53,31 @@ public class ToString extends BuiltinFunction
     }
 }
 
+
+
+/*
+%mathpiper_docs,name="ToString",categories="User Functions;Input/Output;Built In"
+*CMD ToString --- connect current output to a string
+*CORE
+*CALL
+	ToString() body
+
+*PARMS
+
+{body} -- expression to be evaluated
+
+*DESC
+
+The commands in "body" are executed. Everything that is printed on
+the current output, by {Echo} for instance, is
+collected in a string and this string is returned.
+
+*E.G.
+
+	In> str := ToString() [ WriteString(  \
+	  "The square of 8 is "); Write(8^2); ];
+	Out> "The square of 8 is  64";
+
+*SEE FromFile, ToString, Echo, Write, WriteString
+%/mathpiper_docs
+*/

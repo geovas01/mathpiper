@@ -80,5 +80,5 @@ can be useful in the {~/.MathPiperrc} file.
 	Out> True;
 
 *SEE Load, Use, DefLoad, FindFile
-%mathpiper_docs
+%/mathpiper_docs
 */

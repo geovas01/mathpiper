@@ -44,3 +44,32 @@ public class ToStdout extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="ToStdout",categories="User Functions;Input/Output;Built In"
+*CMD ToStdout --- select initial output stream for output
+*CORE
+*CALL
+	ToStdout() body
+
+*PARMS
+
+{body} -- expression to be evaluated
+
+*DESC
+
+When using {ToString} or {ToFile}, it might happen that something needs to be
+written to the standard default initial output (typically the screen). {ToStdout} can be used to select this stream.
+
+*EG
+
+	In> ToString()[Echo("aaaa");ToStdout()Echo("bbbb");];
+	bbbb
+	Out> "aaaa
+	"
+
+*SEE ToString, ToFile
+%/mathpiper_docs
+*/

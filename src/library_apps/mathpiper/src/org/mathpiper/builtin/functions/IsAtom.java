@@ -38,3 +38,32 @@ public class IsAtom extends BuiltinFunction
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), s != null);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsAtom",categories="User Functions;Predicates;Built In"
+*CMD IsAtom --- test for an atom
+*CORE
+*CALL
+	IsAtom(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is an atom. Numbers, strings, and
+variables are all atoms.
+
+*E.G.
+
+	In> IsAtom(x+5);
+	Out> False;
+	In> IsAtom(5);
+	Out> True;
+
+*SEE IsFunction, IsNumber, IsString
+%/mathpiper_docs
+*/
