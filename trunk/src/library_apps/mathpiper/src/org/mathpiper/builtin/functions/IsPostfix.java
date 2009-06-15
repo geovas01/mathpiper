@@ -15,21 +15,52 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.InfixOperator;
+import org.mathpiper.lisp.UtilityFunctions;
 
 /**
  *
  *  
  */
-public class PreFix extends BuiltinFunction
+public class IsPostfix extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), op != null);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsPostfix",categories="User Functions;Predicates;Built In"
+*CMD IsPostfix --- check for function syntax
+*CORE
+*CALL
+	IsPostfix("op")
+
+*PARMS
+
+{"op"} -- string, the name of a function
+
+*DESC
+
+Check whether the function with given name {"op"} has been declared as a
+"bodied", infix, postfix, or prefix operator, and  return {True} or {False}.
+
+*E.G.
+
+	In> IsPostfix("!");
+	Out> True;
+
+*SEE Bodied, OpPrecedence,IsBodied,IsInfix,IsPrefix
+%/mathpiper_docs
+*/

@@ -20,32 +20,47 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.InfixOperator;
-import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.UtilityFunctions;
 
 /**
  *
  *  
  */
-public class GetRightPrecedence extends BuiltinFunction
+public class IsPrefix extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
-        if (op == null)
-        {   // bodied, infix and prefix operators have right precedence
-
-            op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
-            if (op == null)
-            {   // or maybe it's a bodied function
-
-                op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                LispError.check(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
-            }
-        }
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iRightPrecedence));
+        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), op != null);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsPrefix",categories="User Functions;Predicates;Built In"
+*CMD IsPrefix --- check for function syntax
+*CORE
+*CALL
+	IsPrefix("op")
+
+*PARMS
+
+{"op"} -- string, the name of a function
+
+*DESC
+
+Check whether the function with given name {"op"} has been declared as a
+"bodied", infix, postfix, or prefix operator, and  return {True} or {False}.
+
+*E.G.
+
+	In> IsPrefix("-")
+	Result> True
+
+*SEE Bodied, OpPrecedence,IsBodied,IsInfix,IsPostfix
+%/mathpiper_docs
+*/

@@ -32,3 +32,78 @@ public class RulebaseListed extends BuiltinFunction
         org.mathpiper.lisp.UtilityFunctions.internalRuleDatabase(aEnvironment, aStackTop, true);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="RuleBaseListed",categories="User Functions;Built In"
+*CMD RuleBaseListed --- define function with variable number of arguments
+*CORE
+*CALL
+	RuleBaseListed("name", params)
+
+*PARMS
+
+{"name"} -- string, name of function
+
+{params} -- list of arguments to function
+
+*DESC
+
+The command {RuleBaseListed} defines a new function. It essentially works the
+same way as {RuleBase}, except that it declares a new function with a variable
+number of arguments. The list of parameters {params} determines the smallest
+number of arguments that the new function will accept. If the number of
+arguments passed to the new function is larger than the number of parameters in
+{params}, then the last argument actually passed to the new function will be a
+list containing all the remaining arguments.
+
+A function defined using {RuleBaseListed} will appear to have the arity equal
+to the number of parameters in the {param} list, and it can accept any number
+of arguments greater or equal than that. As a consequence, it will be impossible to define a new function with the same name and with a greater arity.
+
+The function body will know that the function is passed more arguments than the
+length of the {param} list, because the last argument will then be a list. The
+rest then works like a {RuleBase}-defined function with a fixed number of
+arguments. Transformation rules can be defined for the new function as usual.
+
+
+*E.G.
+
+The definitions
+
+	RuleBaseListed("f",{a,b,c})
+	10 # f(_a,_b,{_c,_d}) <--
+	  Echo({"four args",a,b,c,d});
+	20 # f(_a,_b,c_IsList) <--
+	  Echo({"more than four args",a,b,c});
+	30 # f(_a,_b,_c) <-- Echo({"three args",a,b,c});
+give the following interaction:
+
+	In> f(A)
+	Out> f(A);
+	In> f(A,B)
+	Out> f(A,B);
+	In> f(A,B,C)
+	three args A B C
+	Out> True;
+	In> f(A,B,C,D)
+	four args A B C D
+	Out> True;
+	In> f(A,B,C,D,E)
+	more than four args A B {C,D,E}
+	Out> True;
+	In> f(A,B,C,D,E,E)
+	more than four args A B {C,D,E,E}
+	Out> True;
+
+The function {f} now appears to occupy all arities greater than 3:
+
+	In> RuleBase("f", {x,y,z,t});
+	CommandLine(1) : Rule base with this arity
+	  already defined
+
+
+*SEE RuleBase, Retract, Echo
+%/mathpiper_docs
+*/

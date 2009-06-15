@@ -32,3 +32,35 @@ public class Rulebase extends BuiltinFunction
         org.mathpiper.lisp.UtilityFunctions.internalRuleDatabase(aEnvironment, aStackTop, false);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="RuleBase",categories="User Functions;Built In"
+*CMD RuleBase --- define function with a fixed number of arguments
+*CORE
+*CALL
+	RuleBase(name,params)
+
+*PARMS
+
+{name} -- string, name of function
+
+{params} -- list of arguments to function
+
+*DESC
+Define a new rules table entry for a
+function "name", with {params} as the parameter list. Name can be
+either a string or simple atom.
+
+In the context of the transformation rule declaration facilities
+this is a useful function in that it allows the stating of argument
+names that can he used with HoldArg.
+
+Functions can be overloaded: the same function can be defined
+with different number of arguments.
+
+
+*SEE MacroRuleBase, RuleBaseListed, MacroRuleBaseListed, HoldArg, Retract
+%/mathpiper_docs
+*/
