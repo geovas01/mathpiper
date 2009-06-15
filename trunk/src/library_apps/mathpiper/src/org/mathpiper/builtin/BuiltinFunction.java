@@ -127,11 +127,11 @@ import org.mathpiper.builtin.functions.LessThan;
 import org.mathpiper.builtin.functions.Listify;
 import org.mathpiper.builtin.functions.Load;
 import org.mathpiper.builtin.functions.LocalSymbols;
-import org.mathpiper.builtin.functions.MacroNewRule;
+import org.mathpiper.builtin.functions.MacroRule;
 import org.mathpiper.builtin.functions.MacroNewRulePattern;
 import org.mathpiper.builtin.functions.MacroRulebase;
 import org.mathpiper.builtin.functions.MacroRulebaseListed;
-import org.mathpiper.builtin.functions.MacroSetVar;
+import org.mathpiper.builtin.functions.MacroSet;
 import org.mathpiper.builtin.functions.MathIsSmall;
 import org.mathpiper.builtin.functions.MathNegate;
 import org.mathpiper.builtin.functions.MathSign;
@@ -296,7 +296,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new Set(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "Set");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroSetVar(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new MacroSet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "MacroSet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Clear(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
@@ -425,7 +425,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new Rule(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "Rule");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroNewRule(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new MacroRule(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MacroRule");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new UnFence(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

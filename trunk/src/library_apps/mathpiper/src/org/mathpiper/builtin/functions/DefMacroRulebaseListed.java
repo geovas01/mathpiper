@@ -32,3 +32,27 @@ public class DefMacroRulebaseListed extends BuiltinFunction
         org.mathpiper.lisp.UtilityFunctions.internalDefMacroRuleBase(aEnvironment, aStackTop, true);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="DefMacroRuleBaseListed",categories="User Functions;Built In"
+*CMD DefMacroRuleBaseListed --- define macro with variable number of arguments
+*CORE
+*CALL
+	DefMacroRuleBaseListed("name", params)
+
+*PARMS
+
+{"name"} -- string, name of function
+
+{params} -- list of arguments to function
+
+*DESC
+
+This does the same as {DefMacroRuleBase} (define a macro), but with a variable
+number of arguments, similar to {RuleBaseListed}.
+
+*SEE RuleBase, RuleBaseListed, Backquoting, DefMacroRuleBase
+%/mathpiper_docs
+*/

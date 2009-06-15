@@ -58,3 +58,29 @@ public class Retract extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Retract",categories="User Functions;Built In"
+*CMD Retract --- erase rules for a function
+*CORE
+*CALL
+	Retract("function",arity)
+
+*PARMS
+{"function"} -- string, name of function
+
+{arity} -- positive integer
+
+*DESC
+
+Remove a rulebase for the function named {"function"} with the specific {arity}, if it exists at all. This will make
+MathPiper forget all rules defined for a given function. Rules for functions with
+the same name but different arities are not affected.
+
+Assignment {:=} of a function does this to the function being (re)defined.
+
+*SEE RuleBaseArgList, RuleBase, :=
+%/mathpiper_docs
+*/
