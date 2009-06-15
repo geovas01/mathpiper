@@ -15,32 +15,54 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.InfixOperator;
-import org.mathpiper.lisp.LispError;
 
 /**
  *
  *  
  */
-public class GetLeftPrecedence extends BuiltinFunction
+public class Rule extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
-        if (op == null)
-        {  // infix and postfix operators have left precedence
-
-            op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
-            LispError.check(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
-        }
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iLeftPrecedence));
+        org.mathpiper.lisp.UtilityFunctions.internalNewRule(aEnvironment, aStackTop);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Rule",categories="User Functions;Built In"
+*CMD Rule --- define a rewrite rule
+*CORE
+*CALL
+	Rule("operator", arity,
+	  precedence, predicate) body
+*PARMS
+
+{"operator"} -- string, name of function
+
+{arity}, {precedence} -- integers
+
+{predicate} -- function returning boolean
+
+{body} -- expression, body of rule
+
+*DESC
+
+Define a rule for the function "operator" with
+"arity", "precedence", "predicate" and
+"body". The "precedence" goes from low to high: rules with low precedence will be applied first.
+
+The arity for a rules database equals the number of arguments. Different
+rules data bases can be built for functions with the same name but with
+a different number of arguments.
+
+Rules with a low precedence value will be tried before rules with a high value, so
+a rule with precedence 0 will be tried before a rule with precedence 1.
+%/mathpiper_docs
+*/

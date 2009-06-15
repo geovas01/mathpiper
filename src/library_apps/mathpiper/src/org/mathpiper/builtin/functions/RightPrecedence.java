@@ -48,3 +48,34 @@ public class RightPrecedence extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="RightPrecedence",categories="User Functions;Built In"
+*CMD RightPrecedence --- set operator precedence
+*CORE
+*CALL
+	RightPrecedence("op",precedence)
+
+*PARMS
+
+{"op"} -- string, the name of a function
+
+{precedence} -- nonnegative integer
+
+*DESC
+
+{"op"} should be an infix operator. This function call tells the
+infix expression printer to bracket the right hand side of
+the expression if its precedence is larger than precedence.
+
+This functionality was required in order to display expressions like {a-(b-c)}
+correctly. Thus, {a+b+c} is the same as {a+(b+c)}, but {a-(b-c)} is not
+the same as {a-b-c}.
+
+Note that the right precedence of an infix operator does not affect the way MathPiper interprets expressions typed by the user. You cannot make MathPiper parse {a-b-c} as {a-(b-c)} unless you declare the operator "{-}" to be right-associative.
+
+*SEE OpPrecedence, OpLeftPrecedence, OpRightPrecedence, RightAssociative, LeftPrecedence
+%/mathpiper_docs
+*/

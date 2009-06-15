@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class InFix extends BuiltinFunction
+public class Infix extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -33,3 +33,41 @@ public class InFix extends BuiltinFunction
         UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Infix",categories="User Functions;Built In"
+*CMD Infix --- define function syntax (infix operator)
+*CORE
+*CALL
+	Infix("op")
+	Infix("op", precedence)
+
+*PARMS
+
+{"op"} -- string, the name of a function
+
+{precedence} -- nonnegative integer (evaluated)
+
+*DESC
+
+Declares a special syntax for the function to be parsed as an  infix operator.
+
+"Infix" functions must have two arguments and are syntactically placed between their arguments.
+Names of infix functions can be arbitrary, although for reasons of readability they are usually made of non-alphabetic characters.
+
+Function name can be any string but meaningful usage and readability would
+require it to be either made up entirely of letters or entirely of non-letter
+characters (such as "+", ":" etc.).
+Precedence is optional (will be set to 0 by default).
+
+*E.G.
+	In> Infix("##", 5)
+	Out> True;
+	In> a ## b ## c
+	Out> a##b##c;
+
+*SEE IsBodied, OpPrecedence, Bodied, Postfix, Prefix
+%/mathpiper_docs
+*/

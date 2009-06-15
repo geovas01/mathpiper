@@ -25,23 +25,24 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class Bodied extends BuiltinFunction
+public class Prefix extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+        UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="Bodied",categories="User Functions;Built In"
-*CMD Bodied --- define function syntax (bodied function)
+%mathpiper_docs,name="Prefix"
+*CMD Prefix --- define function syntax (prefix operator)
 *CORE
 *CALL
-	Bodied("op", precedence)
+	Prefix("op")
+	Prefix("op", precedence)
 
 *PARMS
 
@@ -51,16 +52,7 @@ public class Bodied extends BuiltinFunction
 
 *DESC
 
-Declares a special syntax for the function to be parsed as a bodied operator.
-
-"Bodied" functions have all arguments except the first one inside parentheses and the last argument outside, for example:
-	For(pre, condition, post) statement;
-Here the function {For} has 4 arguments and the last argument is placed outside the parentheses.
-The {precedence} of a "bodied" function refers to how tightly the last argument is bound to the parentheses.
-This makes a difference when the last argument contains other operators.
-For example, when taking the derivative
-	D(x) Sin(x)+Cos(x)
-both {Sin} and {Cos} are under the derivative because the bodied function {D} binds less tightly than the infix operator "{+}".
+"Prefix" functions must have one argument and are syntactically placed before their argument.
 
 Function name can be any string but meaningful usage and readability would
 require it to be either made up entirely of letters or entirely of non-letter
@@ -68,8 +60,21 @@ characters (such as "+", ":" etc.).
 Precedence is optional (will be set to 0 by default).
 
 *E.G.
-	In> todo
+	In> YY x := x+1;
+	CommandLine(1) : Error parsing expression
 
-*SEE IsBodied, OpPrecedence, Infix, Postfix, Prefix
+	In> Prefix("YY", 2)
+	Out> True;
+	In> YY x := x+1;
+	Out> True;
+	In> YY YY 2*3
+	Out> 12;
+
+Note that, due to a current parser limitation, a function atom that is declared prefix cannot be used by itself as an argument.
+
+	In> YY
+	CommandLine(1) : Error parsing expression
+
+*SEE IsBodied, OpPrecedence, Bodied, Infix, Postfix
 %/mathpiper_docs
 */

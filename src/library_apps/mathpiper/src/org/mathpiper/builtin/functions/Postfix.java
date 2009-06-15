@@ -26,7 +26,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class PostFix extends BuiltinFunction
+public class Postfix extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -41,3 +41,38 @@ public class PostFix extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Postfix"
+*CMD Postfix --- define function syntax (postfix operator)
+*CORE
+*CALL
+	Postfix("op")
+	Postfix("op", precedence)
+
+*PARMS
+
+{"op"} -- string, the name of a function
+
+{precedence} -- nonnegative integer (evaluated)
+
+*DESC
+
+Declares a special syntax for the function to be parsed as a bodied, infix, postfix,
+or prefix operator.
+
+"Postfix" functions must have one argument and are syntactically placed after their argument.
+
+Function name can be any string but meaningful usage and readability would
+require it to be either made up entirely of letters or entirely of non-letter
+characters (such as "+", ":" etc.).
+Precedence is optional (will be set to 0 by default).
+
+*E.G.
+	In> todo
+
+*SEE IsBodied, OpPrecedence, Bodied, Infix, Prefix
+%/mathpiper_docs
+*/

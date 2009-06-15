@@ -40,3 +40,28 @@ public class RightAssociative extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="RightAssociative",categories="Programmer Functions;Programming;Built In"
+*CMD RightAssociative --- declare associativity
+*CORE
+*CALL
+	RightAssociative("op")
+
+*PARMS
+
+{"op"} -- string, the name of a function
+
+*DESC
+This makes the operator right-associative. For example:
+	RightAssociative("*")
+would make multiplication right-associative. Take care not to abuse this
+function, because the reverse, making an infix operator left-associative, is
+not implemented. (All infix operators are by default left-associative until
+they are declared to be right-associative.)
+
+*SEE OpPrecedence
+%/mathpiper_docs
+*/

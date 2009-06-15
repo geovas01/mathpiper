@@ -26,7 +26,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class ProgBody extends BuiltinFunction
+public class Prog extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -55,3 +55,30 @@ public class ProgBody extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Prog;[;]",categories="Programmer Functions;Programming;Built In"
+*CMD Prog --- block of statements
+*CMD [ --- beginning of block of statements
+*CMD ] --- end of block of statements
+*CORE
+*CALL
+	Prog(statement1, statement2, ...)
+	[ statement1; statement2; ... ]
+
+*PARMS
+
+{statement1}, {statement2} -- expressions
+
+*DESC
+
+The {Prog} and the {[ ... ]} construct have the same effect: they evaluate all
+arguments in order and return the result of the last evaluated expression.
+
+{Prog(a,b);} is the same as typing {[a;b;];} and is very useful for writing out
+function bodies. The {[ ... ]} construct is a syntactically nicer version of the
+{Prog} call; it is converted into {Prog(...)} during the parsing stage.
+%/mathpiper_docs
+*/

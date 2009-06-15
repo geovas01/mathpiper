@@ -37,3 +37,32 @@ public class IsBodied extends BuiltinFunction
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), op != null);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="IsBodied",categories="User Functions;Predicates;Built In"
+*CMD IsBodied --- check for function syntax
+*CORE
+*CALL
+	IsBodied("op")
+
+*PARMS
+
+{"op"} -- string, the name of a function
+
+*DESC
+
+Check whether the function with given name {"op"} has been declared as a
+"bodied", operator, and  return {True} or {False}.
+
+*E.G.
+
+	In> IsBodied("While");
+	Out> True;
+	In> IsBodied("Sin");
+	Out> False;
+
+*SEE Bodied, OpPrecedence,IsInfix,IsPostfix,IsPrefix
+%/mathpiper_docs
+*/

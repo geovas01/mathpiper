@@ -95,28 +95,28 @@ import org.mathpiper.builtin.functions.GenPatternMatches;
 import org.mathpiper.builtin.functions.GenericTypeName;
 import org.mathpiper.builtin.functions.GetCoreError;
 import org.mathpiper.builtin.functions.GetExactBits;
-import org.mathpiper.builtin.functions.GetLeftPrecedence;
-import org.mathpiper.builtin.functions.GetPrecedence;
-import org.mathpiper.builtin.functions.GetRightPrecedence;
+import org.mathpiper.builtin.functions.OpLeftPrecedence;
+import org.mathpiper.builtin.functions.OpPrecedence;
+import org.mathpiper.builtin.functions.OpRightPrecedence;
 import org.mathpiper.builtin.functions.GreaterThan;
 import org.mathpiper.builtin.functions.Head;
 import org.mathpiper.builtin.functions.HistorySize;
 import org.mathpiper.builtin.functions.HoldArg;
 import org.mathpiper.builtin.functions.If;
 import org.mathpiper.builtin.functions.InDebugMode;
-import org.mathpiper.builtin.functions.InFix;
+import org.mathpiper.builtin.functions.Infix;
 import org.mathpiper.builtin.functions.Insert;
 import org.mathpiper.builtin.functions.IsAtom;
 import org.mathpiper.builtin.functions.IsBodied;
 import org.mathpiper.builtin.functions.IsBound;
 import org.mathpiper.builtin.functions.IsFunction;
 import org.mathpiper.builtin.functions.IsGeneric;
-import org.mathpiper.builtin.functions.IsInFix;
+import org.mathpiper.builtin.functions.IsInfix;
 import org.mathpiper.builtin.functions.IsInteger;
 import org.mathpiper.builtin.functions.IsList;
 import org.mathpiper.builtin.functions.IsNumber;
-import org.mathpiper.builtin.functions.IsPostFix;
-import org.mathpiper.builtin.functions.IsPreFix;
+import org.mathpiper.builtin.functions.IsPostfix;
+import org.mathpiper.builtin.functions.IsPrefix;
 import org.mathpiper.builtin.functions.IsPromptShown;
 import org.mathpiper.builtin.functions.IsString;
 import org.mathpiper.builtin.functions.And;
@@ -139,19 +139,19 @@ import org.mathpiper.builtin.functions.MaxEvalDepth;
 import org.mathpiper.builtin.functions.Mod;
 import org.mathpiper.builtin.functions.Multiply;
 import org.mathpiper.builtin.functions.Local;
-import org.mathpiper.builtin.functions.NewRule;
+import org.mathpiper.builtin.functions.Rule;
 import org.mathpiper.builtin.functions.NewRulePattern;
 import org.mathpiper.builtin.functions.Not;
 import org.mathpiper.builtin.functions.Nth;
 import org.mathpiper.builtin.functions.PatchLoad;
 import org.mathpiper.builtin.functions.PatchString;
-import org.mathpiper.builtin.functions.PostFix;
-import org.mathpiper.builtin.functions.PreFix;
+import org.mathpiper.builtin.functions.Postfix;
+import org.mathpiper.builtin.functions.Prefix;
 import org.mathpiper.builtin.functions.PrettyPrinterGet;
 import org.mathpiper.builtin.functions.PrettyPrinterSet;
 import org.mathpiper.builtin.functions.PrettyReaderGet;
 import org.mathpiper.builtin.functions.PrettyReaderSet;
-import org.mathpiper.builtin.functions.ProgBody;
+import org.mathpiper.builtin.functions.Prog;
 import org.mathpiper.builtin.functions.Hold;
 import org.mathpiper.builtin.functions.Read;
 import org.mathpiper.builtin.functions.ReadCmdLineString;
@@ -371,7 +371,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new FlatCopy(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "FlatCopy");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ProgBody(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Prog(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "Prog");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new While(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
@@ -389,13 +389,13 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new GetCoreError(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "GetCoreError");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PreFix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new Prefix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Prefix");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new InFix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new Infix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Infix");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PostFix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new Postfix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Postfix");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Bodied(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
@@ -422,7 +422,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new HoldArg(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "HoldArg");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new NewRule(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new Rule(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "Rule");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new MacroNewRule(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
@@ -587,22 +587,22 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new IsBodied(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsBodied");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new IsInFix(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new IsInfix(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsInfix");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new IsPreFix(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new IsPrefix(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsPrefix");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new IsPostFix(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new IsPostfix(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsPostfix");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GetPrecedence(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new OpPrecedence(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "OpPrecedence");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GetLeftPrecedence(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new OpLeftPrecedence(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "OpLeftPrecedence");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GetRightPrecedence(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new OpRightPrecedence(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "OpRightPrecedence");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new BuiltinPrecisionGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
