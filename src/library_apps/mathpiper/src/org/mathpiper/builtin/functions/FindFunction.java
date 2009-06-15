@@ -63,3 +63,34 @@ public class FindFunction extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="FindFunction",categories="User Functions;Built In"
+*CMD FindFunction --- find the library file where a function is defined
+*CORE
+*CALL
+	FindFunction(function)
+
+*PARMS
+
+{function} -- string, the name of a function
+
+*DESC
+
+This function is useful for quickly finding the file where a standard library
+function is defined. It is likely to only be useful for developers. The
+function {FindFunction} scans the {.def} files that were loaded at start-up.
+This means that functions that are not listed in {.def} files will not be found with {FindFunction}.
+
+*E.G.
+
+	In> FindFunction("Sum")
+	Out> "sums.rep/code.ys";
+	In> FindFunction("Integrate")
+	Out> "integrate.rep/code.ys";
+
+*SEE Vi
+%/mathpiper_docs
+*/

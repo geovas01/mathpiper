@@ -47,3 +47,29 @@ public class UnFence extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="UnFence",categories="User Functions;Built In"
+*CMD UnFence --- change local variable scope for a function
+*CORE
+*CALL
+	UnFence("operator",arity)
+
+*PARMS
+{"operator"} -- string, name of function
+
+{arity} -- positive integers
+
+*DESC
+
+When applied to a user function, the bodies
+defined for the rules for "operator" with given
+arity can see the local variables from the calling
+function. This is useful for defining macro-like
+procedures (looping and such).
+
+The standard library functions {For} and {ForEach} use {UnFence}.
+%/mathpiper_docs
+*/

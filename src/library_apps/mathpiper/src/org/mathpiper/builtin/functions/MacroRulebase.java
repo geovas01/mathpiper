@@ -32,3 +32,22 @@ import org.mathpiper.lisp.Environment;
 			org.mathpiper.lisp.UtilityFunctions.internalRuleDatabase(aEnvironment, aStackTop, false);
 		}
 	}
+
+
+
+/*
+%mathpiper_docs,name="MacroRuleBase",categories="Programmer Functions;Programming;Built In"
+*CMD MacroRuleBase --- define rules in functions
+*CORE
+*DESC
+
+This function has the same effect as its non-macro counterpart, except
+that its arguments are evaluated before the required action is performed.
+This is useful in macro-like procedures or in functions that need to define new
+rules based on parameters.
+
+Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
+
+*SEE Set, Clear, Local, RuleBase, Rule, Backquoting, MacroSet, MacroClear, MacroLocal, MacroRuleBaseListed, MacroRule
+%/mathpiper_docs
+*/

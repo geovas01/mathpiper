@@ -44,3 +44,27 @@ public class Secure extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Secure",categories="User Functions;Built In"
+*CMD Secure --- guard the host OS
+*CORE
+*CALL
+	Secure(body)
+
+*PARMS
+
+{body} -- expression
+
+*DESC
+
+{Secure} evaluates {body} in a "safe" environment, where files cannot be opened
+and system calls are not allowed. This can help protect the system
+when e.g. a script is sent over the
+Internet to be evaluated on a remote computer, which is potentially unsafe.
+
+*SEE SystemCall
+%/mathpiper_docs
+*/

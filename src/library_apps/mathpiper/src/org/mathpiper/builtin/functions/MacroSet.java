@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class MacroSetVar extends BuiltinFunction
+public class MacroSet extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -33,3 +33,22 @@ public class MacroSetVar extends BuiltinFunction
         UtilityFunctions.internalSetVar(aEnvironment, aStackTop, true, false);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="MacroSet",categories="Programmer Functions;Programming;Built In"
+*CMD MacroSet --- define rules in functions
+*CORE
+*DESC
+
+This function has the same effect as its non-macro counterpart, except
+that its arguments are evaluated before the required action is performed.
+This is useful in macro-like procedures or in functions that need to define new
+rules based on parameters.
+
+Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
+
+*SEE Set, Clear, Local, RuleBase, Rule, Backquoting, MacroClear, MacroLocal, MacroRuleBase, MacroRuleBaseListed, MacroRule
+%/mathpiper_docs
+*/

@@ -24,7 +24,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class MacroNewRule extends BuiltinFunction
+public class MacroRule extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -32,3 +32,22 @@ public class MacroNewRule extends BuiltinFunction
         org.mathpiper.lisp.UtilityFunctions.internalNewRule(aEnvironment, aStackTop);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="MacroRule",categories="Programmer Functions;Programming;Built In"
+*CMD MacroRule --- define rules in functions
+*CORE
+*DESC
+
+This function has the same effect as its non-macro counterpart, except
+that its arguments are evaluated before the required action is performed.
+This is useful in macro-like procedures or in functions that need to define new
+rules based on parameters.
+
+Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
+
+*SEE Set, Clear, Local, RuleBase, Rule, Backquoting, MacroSet, MacroClear, MacroLocal, MacroRuleBase, MacroRuleBaseListed
+%/mathpiper_docs
+*/

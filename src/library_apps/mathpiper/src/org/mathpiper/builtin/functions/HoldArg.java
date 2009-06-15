@@ -44,3 +44,34 @@ public class HoldArg extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="HoldArg",categories="User Functions;Built In"
+*CMD HoldArg --- mark argument as not evaluated
+*CORE
+*CALL
+	HoldArg("operator",parameter)
+
+*PARMS
+
+{"operator"} -- string, name of a function
+
+{parameter} -- atom, symbolic name of parameter
+
+*DESC
+Specify that parameter should
+not be evaluated before used. This will be
+declared for all arities of "operator", at the moment
+this function is called, so it is best called
+after all {RuleBase} calls for this operator.
+"operator" can be a string or atom specifying the
+function name.
+
+The {parameter} must be an atom from the list of symbolic
+arguments used when calling {RuleBase}.
+
+*SEE RuleBase, HoldArgNr, RuleBaseArgList
+%/mathpiper_docs
+*/

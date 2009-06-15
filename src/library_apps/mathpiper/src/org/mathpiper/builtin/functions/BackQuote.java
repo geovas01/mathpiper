@@ -38,3 +38,77 @@ public class BackQuote extends BuiltinFunction
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), result);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="`;Backquoting",categories="Programmer Functions;Programming"
+*A {`}
+*CMD Backquoting --- macro expansion (LISP-style backquoting)
+*CORE
+*CALL
+	`(expression)
+
+*PARMS
+
+{expression} -- expression containing "{@var}" combinations to substitute the value of variable "{var}"
+
+*DESC
+
+Backquoting is a macro substitution mechanism. A backquoted {expression}
+is evaluated in two stages: first, variables prefixed by {@} are evaluated
+inside an expression, and second, the new expression is evaluated.
+
+To invoke this functionality, a backquote {`} needs to be placed in front of
+an expression. Parentheses around the expression are needed because the
+backquote binds tighter than other operators.
+
+The expression should contain some variables (assigned atoms) with the special
+prefix operator {@}. Variables prefixed by {@} will be evaluated even if they
+are inside function arguments that are normally not evaluated (e.g. functions
+declared with {HoldArg}). If the {@var} pair is in place of a function name,
+e.g. "{@f(x)}", then at the first stage of evaluation the function name itself
+is replaced, not the return value of the function (see example); so at the
+second stage of evaluation, a new function may be called.
+
+One way to view backquoting is to view it as a parametric expression
+generator. {@var} pairs get substituted with the value of the variable {var}
+even in contexts where nothing would be evaluated. This effect can be also
+achieved using {UnList} and {Hold} but the resulting code is much more
+difficult to read and maintain.
+
+This operation is relatively slow since a new expression is built
+before it is evaluated, but nonetheless backquoting is a powerful mechanism
+that sometimes allows to greatly simplify code.
+
+*E.G.
+
+This example defines a function that automatically evaluates to a number as
+soon as the argument is a number (a lot of functions  do this only when inside
+a {N(...)} section).
+
+	In> Decl(f1,f2) := \
+	In>   `(@f1(x_IsNumber) <-- N(@f2(x)));
+	Out> True;
+	In> Decl(nSin,Sin)
+	Out> True;
+	In> Sin(1)
+	Out> Sin(1);
+	In> nSin(1)
+	Out> 0.8414709848;
+
+This example assigns the expression {func(value)} to variable {var}. Normally
+the first argument of {Set} would be unevaluated.
+
+	In> SetF(var,func,value) := \
+	In>     `(Set(@var,@func(@value)));
+	Out> True;
+	In> SetF(a,Sin,x)
+	Out> True;
+	In> a
+	Out> Sin(x);
+
+
+*SEE MacroSet, MacroLocal, MacroRuleBase, Hold, HoldArg, DefMacroRuleBase
+%/mathpiper_docs
+*/

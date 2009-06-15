@@ -58,3 +58,26 @@ public class RulebaseArgList extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="RuleBaseArgList",categories="User Functions;Built In;Built In"
+*CMD RuleBaseArgList --- obtain list of arguments
+*CORE
+*CALL
+	RuleBaseArgList("operator", arity)
+
+*PARMS
+{"operator"} -- string, name of function
+
+{arity} -- integer
+
+*DESC
+
+Returns a list of atoms, symbolic parameters specified in the {RuleBase} call
+for the function named {"operator"} with the specific {arity}.
+
+*SEE RuleBase, HoldArgNr, HoldArg
+%/mathpiper_docs
+*/
