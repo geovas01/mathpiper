@@ -49,10 +49,22 @@ public class RunTestSuite {
                 String output;
 
                 mathPiper = Interpreters.newSynchronousInterpreter();
+
+                
+                //Optional initialization code.
+                /*
+                evaluationResponse = mathPiper.evaluate("10 # Factors(p_IsRational)_(Denom(p) != 1) <-- {{Factor(Numer(p)) / Factor(Denom(p)) , 1}};");
+                output = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects() + "\nException:" + evaluationResponse.getExceptionMessage();
+                if (evaluationResponse.isExceptionThrown()) {
+                    output = output + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber();
+                }
+                System.out.println("Initialization response: " + output);
+                */
+
                 output = "\n***** Beginning of tests. *****\n";
                 output = "\n***** " + new java.util.Date() + " *****\n";
                 output += "***** Using a new interpreter instance for each test file. *****\n";
-                 output += "***** MathPiper version: " + org.mathpiper.Version.version + " *****\n";
+                output += "***** MathPiper version: " + org.mathpiper.Version.version + " *****\n";
                 System.out.print(output);
                 logFile.write(output);
 
@@ -69,15 +81,11 @@ public class RunTestSuite {
 
                         evaluationResponse = mathPiper.evaluate("Load(\"tests/scripts/" + scriptName + "\");");
                         output = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects() + "\nException:" + evaluationResponse.getExceptionMessage();
-                        if(evaluationResponse.isExceptionThrown())
-                        {
+                        if (evaluationResponse.isExceptionThrown()) {
                             output = output + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber();
                         }
                         System.out.println(output);
-                        if(evaluationResponse.isExceptionThrown())
-                        {
-                            //break;
-                        }
+
 
                         logFile.write(output);
                     } else {
