@@ -3,6 +3,9 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Simplify should return better output when simplifying functions:
+In> Simplify(G(1))
+Result> (Abs(G(1))*G(1))/Abs(G(1))
 + := is at a higher precedence than /: which causes problems when assigning simplified results to variables.
 +Rulebase.java and MacroRulebase.java (and related functions) have identical code and should be refactored.
 +Unassigned functions can't be used in calculations, but they should be able to.
