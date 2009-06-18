@@ -1,402 +1,7 @@
 
 
 
-*CMD TruncRadian --- remainder modulo $2*Pi$
-*STD
-*CALL
-	TruncRadian(r)
-
-*PARMS
-
-{r} -- a number
-
-*DESC
-
-{TruncRadian} calculates $Mod(r,2*Pi)$, returning a value between $0$
-and $2*Pi$. This function is used in the trigonometry functions, just
-before doing a numerical calculation using a Taylor series. It greatly
-speeds up the calculation if the value passed is a large number.
-
-The library uses the formula
-$$TruncRadian(r) = r - Floor( r/(2*Pi) )*2*Pi$$,
-where $r$ and $2*Pi$ are calculated with twice the precision used in the
-environment to make sure there is no rounding error in the significant
-digits.
-
-*E.G.
-
-	In> 2*Internal'Pi()
-	Out> 6.283185307;
-	In> TruncRadian(6.28)
-	Out> 6.28;
-	In> TruncRadian(6.29)
-	Out> 0.0068146929;
-
-*SEE Sin, Cos, Tan
-
-
-*CMD Builtin'Precision'Set --- set the precision
-*CORE
-*CALL
-	Builtin'Precision'Set(n)
-
-*PARMS
-
-{n} -- integer, new value of precision
-
-*DESC
-
-This command sets the number of decimal digits to be used in calculations.
-All subsequent floating point operations will allow for
-at least {n} digits of mantissa.
-
-This is not the number of digits after the decimal point.
-For example, {123.456} has 3 digits after the decimal point and 6 digits of mantissa.
-The number {123.456} is adequately computed by specifying {Builtin'Precision'Set(6)}.
-
-The call {Builtin'Precision'Set(n)} will not guarantee that all results are precise to {n} digits.
-
-When the precision is changed, all variables containing previously calculated values
-remain unchanged.
-The {Builtin'Precision'Set} function only makes all further calculations proceed with a different precision.
-
-Also, when typing floating-point numbers, the current value of {Builtin'Precision'Set} is used to implicitly determine the number of precise digits in the number.
-
-*E.G.
-
-	In> Builtin'Precision'Set(10)
-	Out> True;
-	In> N(Sin(1))
-	Out> 0.8414709848;
-	In> Builtin'Precision'Set(20)
-	Out> True;
-	In> x:=N(Sin(1))
-	Out> 0.84147098480789650665;
-
-The value {x} is not changed by a {Builtin'Precision'Set()} call:
-
-	In> [ Builtin'Precision'Set(10); x; ]
-	Out> 0.84147098480789650665;
-
-The value {x} is rounded off to 10 digits after an arithmetic operation:
-
-	In> x+0.
-	Out> 0.8414709848;
-
-In the above operation, {0.} was interpreted as a number which is precise to 10 digits (the user does not need to type {0.0000000000} for this to happen).
-So the result of {x+0.} is precise only to 10 digits.
-
-*SEE Builtin'Precision'Get, N
-
-*CMD Builtin'Precision'Get --- get the current precision
-*CORE
-*CALL
-	Builtin'Precision'Get()
-
-*DESC
-
-This command returns the current precision, as set by {Builtin'Precision'Set}.
-
-*E.G.
-
-	In> Builtin'Precision'Get();
-	Out> 10;
-	In> Builtin'Precision'Set(20);
-	Out> True;
-	In> Builtin'Precision'Get();
-	Out> 20;
-
-*SEE Builtin'Precision'Set, N
-
-
-
-
-			Error reporting
-
-*INTRO
-This chapter contains commands useful for reporting errors to the user.
-
-*CMD Check --- report "hard" errors
-*CMD TrapError --- trap "hard" errors
-*CMD GetCoreError --- get "hard" error string
-*CORE
-*CALL
-	Check(predicate,"error text")
-	TrapError(expression,errorHandler)
-	GetCoreError()
-
-*PARMS
-
-{predicate} -- expression returning {True} or {False}
-
-{"error text"} -- string to print on error
-
-{expression} -- expression to evaluate (causing potential error)
-
-{errorHandler} -- expression to be called to handle error
-
-*DESC
-If {predicate} does not evaluate to {True},
-the current operation will be stopped, the string {"error text"} will be printed, and control will be returned immediately to the command line. This facility can be used to assure that some condition
-is satisfied during evaluation of expressions (guarding
-against critical internal errors).
-
-A "soft" error reporting facility that does not stop the execution is provided by the function {Assert}.
-
-*EG
-
-	In> [Check(1=0,"bad value"); Echo(OK);]
-	In function "Check" : 
-	CommandLine(1) : "bad value"
-
-Note that {OK} is not printed.
-
-TrapError evaluates its argument {expression}, returning the
-result of evaluating {expression}. If an error occurs,
-{errorHandler} is evaluated, returning its return value in stead.
-
-GetCoreError returns a string describing the core error.
-TrapError and GetCoreError can be used in combination to write
-a custom error handler. 
-
-
-*SEE Assert
-
-*CMD Assert --- signal "soft" custom error
-*STD
-*CALL
-	Assert("str", expr) pred
-	Assert("str") pred
-	Assert() pred
-Precedence:
-*EVAL OpPrecedence("Assert")
-
-*PARMS
-
-{pred} -- predicate to check
-
-{"str"} -- string to classify the error
-
-{expr} -- expression, error object
-
-*DESC
-
-{Assert} is a global error reporting mechanism. It can be used to check for
-errors and report them. An error is considered to occur when the predicate
-{pred} evaluates to anything except {True}. In this case, the function returns
-{False} and an error object is created and posted to the global error tableau.
-Otherwise the function returns {True}.
-
-Unlike the "hard" error function {Check}, the function {Assert} does not stop
-the execution of the program.
-
-The error object consists of the string {"str"} and an arbitrary
-expression {expr}. The string should be used to classify the kind of error that
-has occurred, for example "domain" or "format". The error object can be any expression that might be useful for handling the error later;
-for example, a list of erroneous values and explanations.
-The association list of error objects is currently obtainable through
-the function {GetErrorTableau()}.
-
-If the parameter {expr} is missing, {Assert} substitutes {True}. If both optional parameters {"str"} and {expr} are missing, {Assert} creates an error of class {"generic"}.
-
-Errors can be handled by a
-custom error handler in the portion of the code that is able to handle a certain class of
-errors. The functions {IsError}, {GetError} and {ClearError} can be used.
-
-Normally, all errors posted to the error tableau during evaluation of an expression should
-be eventually printed to the screen. This is the behavior of prettyprinters
-{DefaultPrint}, {Print}, {PrettyForm} and {TeXForm} (but not of the
-inline prettyprinter, which is enabled by default); they call
-{DumpErrors} after evaluating the expression. 
-
-*E.G.
-
-	In> Assert("bad value", "must be zero") 1=0
-	Out> False;
-	In> Assert("bad value", "must be one") 1=1
-	Out> True;
-	In> IsError()
-	Out> True;
-	In> IsError("bad value")
-	Out> True;
-	In> IsError("bad file")
-	Out> False;
-	In> GetError("bad value");
-	Out> "must be zero";
-	In> DumpErrors()
-	Error: bad value: must be zero
-	Out> True;
-No more errors left:
-	In> IsError()
-	Out> False;
-	In> DumpErrors()
-	Out> True;
-
-*SEE IsError, DumpErrors, Check, GetError, ClearError, ClearErrors, GetErrorTableau
-
-*CMD DumpErrors --- simple error handlers
-*CMD ClearErrors --- simple error handlers
-*STD
-*CALL
-	DumpErrors()
-	ClearErrors()
-
-*DESC
-
-{DumpErrors} is a simple error handler for the global error reporting mechanism. It prints all errors posted using {Assert} and clears the error tableau.
-
-{ClearErrors} is a trivial error handler that does nothing except it clears the tableau.
-
-*SEE Assert, IsError
-
-*CMD IsError --- check for custom error
-*STD
-*CALL
-	IsError()
-	IsError("str")
-
-*PARMS
-
-{"str"} -- string to classify the error
-
-*DESC
-
-{IsError()} returns {True} if any custom errors have been reported using {Assert}.
-The second form takes a parameter {"str"} that designates the class of the
-error we are interested in. It returns {True} if any errors of the given class
-{"str"} have been reported.
-
-*SEE GetError, ClearError, Assert, Check
-
-
-*CMD GetError --- custom errors handlers
-*CMD ClearError --- custom errors handlers
-*CMD GetErrorTableau --- custom errors handlers
-*STD
-*CALL
-	GetError("str")
-	ClearError("str")
-	GetErrorTableau()
-
-*PARMS
-
-{"str"} -- string to classify the error
-
-*DESC
-
-These functions can be used to create a custom error handler.
-
-{GetError} returns the error object if a custom error of class {"str"} has been
-reported using {Assert}, or {False} if no errors of this class have been
-reported.
-
-{ClearError("str")} deletes the same error object that is returned by
-{GetError("str")}. It deletes at most one error object. It returns {True} if an
-object was found and deleted, and {False} otherwise.
-
-{GetErrorTableau()} returns the entire association list of currently reported errors.
-
-*E.G.
-
-	In> x:=1
-	Out> 1;
-	In> Assert("bad value", {x,"must be zero"}) x=0
-	Out> False;
-	In> GetError("bad value")
-	Out> {1, "must be zero"};
-	In> ClearError("bad value");
-	Out> True;
-	In> IsError()
-	Out> False;
-
-*SEE IsError, Assert, Check, ClearErrors
-
-*CMD CurrentFile --- return current input file
-*CMD CurrentLine --- return current line number on input
-*CORE
-*CALL
-	CurrentFile()
-	CurrentLine()
-
-*DESC
-
-The functions {CurrentFile} and {CurrentLine} return a string
-with the file name of the current file and the current line 
-of input respectively.
-
-These functions are most useful in batch file calculations, where
-there is a need to determine at which line an error occurred.
-One can define a function 
-
-	tst() := Echo({CurrentFile(),CurrentLine()});
-which can then be inserted into the input file at various places,
-to see how far the interpreter reaches before an error occurs.
-
-*SEE Echo
-
-
-
-
-
-
-			Built-in (core) functions
-
-*INTRO
-Yacas comes with a small core of built-in functions and a large library of
-user-defined functions. Some of these core functions are documented in this
-chapter.
-
-
-
-
-It is important for a developer to know which functions are built-in and cannot
-be redefined or {Retract}-ed. Also, core functions may be somewhat faster to
-execute than functions defined in the script library. All core functions are
-listed in the file {corefunctions.h} in the {src/} subdirectory of the Yacas
-source tree. The declarations typically look like this:
-
-	SetCommand(LispSubtract, "MathSubtract");
-Here {LispSubtract} is the Yacas internal name for the function and {MathSubtract} is the name visible to the Yacas language.
-Built-in bodied functions and infix operators are declared in the same file.
-
-
-
-
-
-*CMD MathNot --- built-in logical "not"
-*CORE
-*CALL
-	MathNot(expression)
-
-*DESC
-
-Returns "False" if "expression" evaluates
-to "True", and vice versa.
-
-*CMD MathAnd --- built-in logical "and"
-
-*CALL
-	MathAnd(...)
-
-*DESC
-Lazy logical {And}: returns {True} if all args evaluate to
-{True}, and does this by looking at first, and then at the
-second argument, until one is {False}.
-If one of the arguments is {False}, {And} immediately returns {False} without
-evaluating the rest. This is faster, but also means that none of the
-arguments should cause side effects when they are evaluated.
-
-*CMD MathOr --- built-in logical "or"
-*CORE
-*CALL
-	MathOr(...)
-
-{MathOr} is the basic logical "or" function. Similarly to {And}, it is
-lazy-evaluated. {And(...)} and {Or(...)} do also exist, defined in the script
-library. You can redefine them as infix operators yourself, so you have the
-choice of precedence. In the standard scripts they are in fact declared as
-infix operators, so you can write {expr1 And expr}.
-
+%mathpiper_docs,name=""
 *CMD BitAnd --- bitwise and operation
 *CMD BitOr --- bitwise or operation
 *CMD BitXor --- bitwise xor operation
@@ -410,6 +15,10 @@ infix operators, so you can write {expr1 And expr}.
 These functions return bitwise "and", "or" and "xor"
 of two numbers.
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD Equals --- check equality
 *CORE
 *CALL
@@ -421,6 +30,10 @@ Compares evaluated {a} and {b} recursively
 "True" if the expressions would be printed exactly
 the same, and "False" otherwise.
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD GreaterThan --- comparison predicate
 *CMD LessThan --- comparison predicate
 *CORE
@@ -438,6 +51,8 @@ Comparing numbers or strings (lexicographically).
 	Out> False;
 	In> LessThan("a","b")
 	Out> True;
+
+%/mathpiper_docs
 
 
 *A {MathExp}
@@ -509,11 +124,11 @@ Note that all functions, such as the {MathPower}, {MathSqrt}, {MathAdd} etc., ac
 The resulting values may be integers or floats.
 If the mathematical result is an exact integer, then the integer is returned.
 For example, {MathSqrt(25)} returns the integer {5}, and {MathPower(2,3)} returns the integer {8}.
-In such cases, the integer result is returned even if the calculation requires more digits than set by {Builtin'Precision'Set}.
+In such cases, the integer result is returned even if the calculation requires more digits than set by {BuiltinPrecisionSet}.
 However, when the result is mathematically not an integer, the functions return a floating-point result which is correct only to the current precision.
 
 *EG
-	In> Builtin'Precision'Set(10)
+	In> BuiltinPrecisionSet(10)
 	Out> True
 	In> Sqrt(10)
 	Out> Sqrt(10)
@@ -545,6 +160,10 @@ FastArcSin(x)
 Versions of these functions using the C++ library. These
 should then at least be faster than the arbitrary precision versions.
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD ShiftLeft --- built-in bitwise shift left operation
 *CMD ShiftRight --- built-in bitwise shift right operation
 *CORE
@@ -558,6 +177,10 @@ Shift bits to the left or to the right.
 
 
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD IsPromptShown --- test for the Yacas prompt option
 *CORE
 *CALL
@@ -566,6 +189,10 @@ Shift bits to the left or to the right.
 Returns {False} if Yacas has been started with the option to suppress the prompt, and {True} otherwise.
 
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD GetTime --- measure the time taken by an evaluation
 *CORE
 *CALL
@@ -593,6 +220,10 @@ Therefore, any CPU-intensive processes running alongside Yacas will not signific
 *INTRO Generic objects are objects that are implemented in C++, but
 can be accessed through the Yacas interpreter.
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD IsGeneric --- check for generic object
 *CORE
 *CALL
@@ -601,6 +232,10 @@ can be accessed through the Yacas interpreter.
 *DESC
 Returns {True} if an object is of a generic object type.
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD GenericTypeName --- get type name
 *CORE
 *CALL
@@ -612,42 +247,58 @@ the name of a generic object.
 
 EG
 
-	In> GenericTypeName(Array'Create(10,1))
+	In> GenericTypeName(ArrayCreate(10,1))
 	Out> "Array";
 
-*CMD Array'Create --- create array
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
+*CMD ArrayCreate --- create array
 *CORE
 *CALL
-	Array'Create(size,init)
+	ArrayCreate(size,init)
 
 *DESC
 Creates an array with {size} elements, all initialized to the
 value {init}.
 
-*CMD Array'Size --- get array size
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
+*CMD ArraySize --- get array size
 *CORE
 *CALL
-	Array'Size(array)
+	ArraySize(array)
 
 *DESC
 Returns the size of an array (number of elements in the array).
 
-*CMD Array'Get --- fetch array element
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
+*CMD ArrayGet --- fetch array element
 *CORE
 *CALL
-	Array'Get(array,index)
+	ArrayGet(array,index)
 
 *DESC
 Returns the element at position index in the array passed. Arrays are treated
 as base-one, so {index} set to 1 would return the first element.
 
 Arrays can also be accessed through the {[]} operators. So
-{array[index]} would return the same as {Array'Get(array, index)}.
+{array[index]} would return the same as {ArrayGet(array, index)}.
 
-*CMD Array'Set --- set array element
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
+*CMD ArraySet --- set array element
 *CORE
 *CALL
-	Array'Set(array,index,element)
+	ArraySet(array,index,element)
 
 *DESC
 Sets the element at position index in the array passed to the value
@@ -655,20 +306,28 @@ passed in as argument to element. Arrays are treated
 as base-one, so {index} set to 1 would set first element.
 
 Arrays can also be accessed through the {[]} operators. So
-{array[index] := element} would do the same as {Array'Set(array, index,element)}.
+{array[index] := element} would do the same as {ArraySet(array, index,element)}.
 
-*CMD Array'CreateFromList --- convert list to array
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
+*CMD ArrayCreateFromList --- convert list to array
 *CORE
 *CALL
-	Array'CreateFromList(list)
+	ArrayCreateFromList(list)
 
 *DESC
 Creates an array from the contents of the list passed in.
 
-*CMD Array'ToList --- convert array to list
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
+*CMD ArrayToList --- convert array to list
 *CORE
 *CALL
-	Array'ToList(array)
+	ArrayToList(array)
 
 *DESC
 Creates a list from the contents of the array passed in.
@@ -694,6 +353,10 @@ execution of the Yacas script that uses these testing commands, since they are
 meant to be used in test scripts.
 
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD Verify --- verifying equivalence of two expressions
 *CMD TestYacas --- verifying equivalence of two expressions
 *CMD LogicVerify --- verifying equivalence of two expressions
@@ -784,6 +447,10 @@ used for testing the logic theorem prover in Yacas.
 *SEE Simplify, CanProve, KnownFailure
 
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD KnownFailure --- Mark a test as a known failure
 *STD
 *CALL
@@ -817,6 +484,10 @@ Yacas and type {make test}.
 
 *SEE Verify, TestYacas, LogicVerify
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD RoundTo --- Round a real-valued result to a set number of digits
 *STD
 *CALL
@@ -845,6 +516,10 @@ using the {Verify} command.
 
 
 
+%/mathpiper_docs
+
+
+%mathpiper_docs,name=""
 *CMD VerifyArithmetic --- Special purpose arithmetic verifiers
 *CMD RandVerifyArithmetic --- Special purpose arithmetic verifiers
 *CMD VerifyDiv --- Special purpose arithmetic verifiers
@@ -894,20 +569,4 @@ $$ u = v*Div(u,v) + Mod(u,v) $$.
 
 *SEE Verify
 
-*INCLUDE glossary.chapt
-
-
-*REM GNU General Public License
-
-			GNU General Public License
-*INTRO This chapter contains the GNU General Public License (GPL).
-This information is important for everyone using or modifying the Yacas source code or binaries.
-
-*A license
-*A licence
-
-*INCLUDE GPL.chapt
-
-
-*REM GNU Free Documentation License
-*INCLUDE FDL.chapt
+%/mathpiper_docs
