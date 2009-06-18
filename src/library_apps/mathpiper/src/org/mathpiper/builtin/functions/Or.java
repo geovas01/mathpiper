@@ -108,6 +108,10 @@ that is true (scanning from left to right). The
 is found (from left to right). If an argument other than {True} or
 {False} is encountered, an unevaluated {Or} expression is returned with all
 arguments that didn't evaluate to {True} or {False} yet.
+ {And(...)} and {Or(...)} do also exist, defined in the script
+library. You can redefine them as infix operators yourself, so you have the
+choice of precedence. In the standard scripts they are in fact declared as
+infix operators, so you can write {expr1 And expr}.
 
 *E.G.
 

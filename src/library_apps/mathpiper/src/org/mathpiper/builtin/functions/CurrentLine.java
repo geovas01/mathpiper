@@ -34,3 +34,30 @@ public class CurrentLine extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + aEnvironment.iInputStatus.lineNumber()));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="CurrentLine",categories="Programmer Functions;Error Reporting;Built In"
+*CMD CurrentLine --- return current line number on input
+*CORE
+*CALL
+	CurrentLine()
+
+*DESC
+
+The function {CurrentLine} returns a string
+with the current line of the input file.
+
+These functions are most useful in batch file calculations, where
+there is a need to determine at which line an error occurred.
+One can define a function
+
+	tst() := Echo({CurrentFile(),CurrentLine()});
+which can then be inserted into the input file at various places,
+to see how far the interpreter reaches before an error occurs.
+
+*SEE Echo, CurrentFile
+
+%/mathpiper_docs
+*/

@@ -438,25 +438,25 @@ public abstract class BuiltinFunction
                 "NotN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Not(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Not");
+                "Not"); //Alias.
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "AndN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "And");
+                "And"); //Alias.
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "OrN");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "Or");
+                "Or"); //Alias.
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Equals(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Equals");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Equals(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "=");
+                "="); //Alias.
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new LessThan(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "LessThan");

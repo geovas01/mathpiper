@@ -44,3 +44,64 @@ public class BuiltinPrecisionSet extends BuiltinFunction
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="BuiltinPrecisionSet",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+*CMD BuiltinPrecisionSet --- set the precision
+*CORE
+*CALL
+	BuiltinPrecisionSet(n)
+
+*PARMS
+
+{n} -- integer, new value of precision
+
+*DESC
+
+This command sets the number of decimal digits to be used in calculations.
+All subsequent floating point operations will allow for
+at least {n} digits of mantissa.
+
+This is not the number of digits after the decimal point.
+For example, {123.456} has 3 digits after the decimal point and 6 digits of mantissa.
+The number {123.456} is adequately computed by specifying {BuiltinPrecisionSet(6)}.
+
+The call {BuiltinPrecisionSet(n)} will not guarantee that all results are precise to {n} digits.
+
+When the precision is changed, all variables containing previously calculated values
+remain unchanged.
+The {BuiltinPrecisionSet} function only makes all further calculations proceed with a different precision.
+
+Also, when typing floating-point numbers, the current value of {BuiltinPrecisionSet} is used to implicitly determine the number of precise digits in the number.
+
+*E.G.
+
+	In> BuiltinPrecisionSet(10)
+	Out> True;
+	In> N(Sin(1))
+	Out> 0.8414709848;
+	In> BuiltinPrecisionSet(20)
+	Out> True;
+	In> x:=N(Sin(1))
+	Out> 0.84147098480789650665;
+
+The value {x} is not changed by a {BuiltinPrecisionSet()} call:
+
+	In> [ BuiltinPrecisionSet(10); x; ]
+	Out> 0.84147098480789650665;
+
+The value {x} is rounded off to 10 digits after an arithmetic operation:
+
+	In> x+0.
+	Out> 0.8414709848;
+
+In the above operation, {0.} was interpreted as a number which is precise to 10 digits (the user does not need to type {0.0000000000} for this to happen).
+So the result of {x+0.} is precise only to 10 digits.
+
+*SEE BuiltinPrecisionGet, N
+
+%/mathpiper_docs
+*/
+

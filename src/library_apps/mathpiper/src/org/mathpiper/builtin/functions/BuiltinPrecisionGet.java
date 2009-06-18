@@ -35,3 +35,30 @@ public class BuiltinPrecisionGet extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + aEnvironment.getPrecision()));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="BuiltinPrecisionGet",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+*CMD BuiltinPrecisionGet --- get the current precision
+*CORE
+*CALL
+	BuiltinPrecisionGet()
+
+*DESC
+
+This command returns the current precision, as set by {BuiltinPrecisionSet}.
+
+*E.G.
+
+	In> BuiltinPrecisionGet();
+	Out> 10;
+	In> BuiltinPrecisionSet(20);
+	Out> True;
+	In> BuiltinPrecisionGet();
+	Out> 20;
+
+*SEE BuiltinPrecisionSet, N
+
+%/mathpiper_docs
+*/

@@ -33,3 +33,27 @@ public class GetCoreError extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(aEnvironment.iError)));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="GetCoreError",categories="Programmer Functions;Built In"
+*CMD GetCoreError --- get "hard" error string
+*CORE
+*CALL
+	GetCoreError()
+
+*DESC
+
+GetCoreError returns a string describing the core error.
+TrapError and GetCoreError can be used in combination to write
+a custom error handler error reporting facility that does not stop the execution is provided by the function {Assert}.
+
+*EG
+
+	In>
+
+*SEE Assert, Check, TrapError
+
+%/mathpiper_docs
+*/

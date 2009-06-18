@@ -41,3 +41,33 @@ public class TrapError extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="TrapError",categories="Programmer Functions;Error Reporting;Built In"
+*CMD TrapError --- trap "hard" errors
+*CORE
+*CALL
+	TrapError(expression,errorHandler)
+
+*PARMS
+
+{expression} -- expression to evaluate (causing potential error)
+
+{errorHandler} -- expression to be called to handle error
+
+*DESC
+TrapError evaluates its argument {expression}, returning the
+result of evaluating {expression}. If an error occurs,
+{errorHandler} is evaluated, returning its return value in stead.
+
+*EG
+
+	In>
+
+
+*SEE Assert, Check, GetCoreError
+
+%/mathpiper_docs
+*/
