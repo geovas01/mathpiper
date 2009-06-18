@@ -12,7 +12,7 @@
 	<property name="master.compile.target" value="1.5" />
 	<property name="master.compile.debug" value="false" />
 	<property environment="env" />
-	<property name="version" value=".75a" />
+	<property name="version" value=".75b" />
 	
 	
 	<!-- Set top directories -->
