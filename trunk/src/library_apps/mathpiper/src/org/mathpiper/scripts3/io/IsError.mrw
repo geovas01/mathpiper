@@ -15,3 +15,28 @@ IsError(error'class_IsString) <--
 ];
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="IsError",categories="Programmer Functions;Error Reporting"
+*CMD IsError --- check for custom error
+*STD
+*CALL
+	IsError()
+	IsError("str")
+
+*PARMS
+
+{"str"} -- string to classify the error
+
+*DESC
+
+{IsError()} returns {True} if any custom errors have been reported using {Assert}.
+The second form takes a parameter {"str"} that designates the class of the
+error we are interested in. It returns {True} if any errors of the given class
+{"str"} have been reported.
+
+*SEE GetError, ClearError, Assert, Check
+
+%/mathpiper_docs

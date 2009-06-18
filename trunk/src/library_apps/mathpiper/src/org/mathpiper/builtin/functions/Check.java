@@ -44,3 +44,39 @@ public class Check extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(pred.getCons());
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Check",categories="Programmer Functions;Error Reporting;Built In"
+*CMD Check --- report "hard" errors
+*CORE
+*CALL
+	Check(predicate,"error text")
+
+*PARMS
+
+{predicate} -- expression returning {True} or {False}
+
+{"error text"} -- string to print on error
+
+*DESC
+If {predicate} does not evaluate to {True},
+the current operation will be stopped, the string {"error text"} will be printed, and control will be returned immediately to the command line. This facility can be used to assure that some condition
+is satisfied during evaluation of expressions (guarding
+against critical internal errors).
+
+A "soft" error reporting facility that does not stop the execution is provided by the function {Assert}.
+
+*EG
+
+	In> [Check(1=0,"bad value"); Echo(OK);]
+	In function "Check" :
+	CommandLine(1) : "bad value"
+
+Note that {OK} is not printed.
+
+*SEE Assert, TrapError, GetCoreError
+
+%/mathpiper_docs
+*/

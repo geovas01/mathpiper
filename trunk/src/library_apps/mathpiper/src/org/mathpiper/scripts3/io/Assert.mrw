@@ -20,3 +20,80 @@
 (Assert() _predicate) <-- Assert("generic", True) predicate;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Assert",categories="Programmer Functions;Error Reporting"
+*CMD Assert --- signal "soft" custom error
+*STD
+*CALL
+	Assert("str", expr) pred
+	Assert("str") pred
+	Assert() pred
+Precedence:
+*EVAL OpPrecedence("Assert")
+
+*PARMS
+
+{pred} -- predicate to check
+
+{"str"} -- string to classify the error
+
+{expr} -- expression, error object
+
+*DESC
+
+{Assert} is a global error reporting mechanism. It can be used to check for
+errors and report them. An error is considered to occur when the predicate
+{pred} evaluates to anything except {True}. In this case, the function returns
+{False} and an error object is created and posted to the global error tableau.
+Otherwise the function returns {True}.
+
+Unlike the "hard" error function {Check}, the function {Assert} does not stop
+the execution of the program.
+
+The error object consists of the string {"str"} and an arbitrary
+expression {expr}. The string should be used to classify the kind of error that
+has occurred, for example "domain" or "format". The error object can be any expression that might be useful for handling the error later;
+for example, a list of erroneous values and explanations.
+The association list of error objects is currently obtainable through
+the function {GetErrorTableau()}.
+
+If the parameter {expr} is missing, {Assert} substitutes {True}. If both optional parameters {"str"} and {expr} are missing, {Assert} creates an error of class {"generic"}.
+
+Errors can be handled by a
+custom error handler in the portion of the code that is able to handle a certain class of
+errors. The functions {IsError}, {GetError} and {ClearError} can be used.
+
+Normally, all errors posted to the error tableau during evaluation of an expression should
+be eventually printed to the screen. This is the behavior of prettyprinters
+{DefaultPrint}, {Print}, {PrettyForm} and {TeXForm} (but not of the
+inline prettyprinter, which is enabled by default); they call
+{DumpErrors} after evaluating the expression.
+
+*E.G.
+
+	In> Assert("bad value", "must be zero") 1=0
+	Out> False;
+	In> Assert("bad value", "must be one") 1=1
+	Out> True;
+	In> IsError()
+	Out> True;
+	In> IsError("bad value")
+	Out> True;
+	In> IsError("bad file")
+	Out> False;
+	In> GetError("bad value");
+	Out> "must be zero";
+	In> DumpErrors()
+	Error: bad value: must be zero
+	Out> True;
+No more errors left:
+	In> IsError()
+	Out> False;
+	In> DumpErrors()
+	Out> True;
+
+*SEE IsError, DumpErrors, Check, GetError, ClearError, ClearErrors, GetErrorTableau
+
+%/mathpiper_docs

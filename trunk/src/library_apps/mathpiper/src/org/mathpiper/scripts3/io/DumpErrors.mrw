@@ -36,3 +36,20 @@ DumpErrors() <--
 ];
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="DumpErrors",categories="Programmer Functions;Error Reporting"
+*CMD DumpErrors --- simple error handlers
+*STD
+*CALL
+	DumpErrors()
+
+*DESC
+
+{DumpErrors} is a simple error handler for the global error reporting mechanism. It prints all errors posted using {Assert} and clears the error tableau.
+
+*SEE Assert, IsError, ClearErrors
+
+%/mathpiper_docs

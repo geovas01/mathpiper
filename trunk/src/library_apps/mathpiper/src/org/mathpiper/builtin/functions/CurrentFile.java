@@ -34,3 +34,30 @@ public class CurrentFile extends BuiltinFunction
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(aEnvironment.iInputStatus.fileName())));
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="CurrentFile",categories="Programmer Functions;Error Reporting;Built In"
+*CMD CurrentFile --- return current input file
+*CORE
+*CALL
+	CurrentFile()
+
+*DESC
+
+The functions {CurrentFile} returns a string
+with the file name of the current file .
+
+This function is most useful in batch file calculations, where
+there is a need to determine at which line an error occurred.
+One can define a function
+
+	tst() := Echo({CurrentFile(),CurrentLine()});
+which can then be inserted into the input file at various places,
+to see how far the interpreter reaches before an error occurs.
+
+*SEE Echo, CurrentLine
+
+%/mathpiper_docs
+*/
