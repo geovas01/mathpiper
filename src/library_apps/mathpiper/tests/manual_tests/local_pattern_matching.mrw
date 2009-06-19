@@ -1,0 +1,61 @@
+%mathpiper
+E := A(x,y) + B(x,y,z);
+F := Deriv(z) E;
+Echo("F: ",F);
+//G := ( F /: { (Deriv(_var)(_w))_(IsFreeOf(var,w)) <- 0 } );
+
+//G := ( (Deriv(z)A(x,y)) /:  {(Deriv(_var)(_w))_(IsFreeOf(var,w)) <- Echo("KALI ",,,var,,,w)}  );
+G := ( (Deriv(z)A(x,y)) /:  {(Deriv(_var)(_w)) <- Echo("KALI ",,,var,,,w)}  );
+                                         // (Deriv(_var)(_x / _y))_(IsFreeOf(var,y)) <-- (Deriv(var) x) / y;
+//WriteString("E = ");  Echo(E);
+//WriteString("F = ");  Echo(F);
+WriteString("G = ");  Echo(G);
+
+
+/*
+1 # (Deriv(_var)(_w))_(IsFreeOf(var,w)) <-- 0;
+G := Eval(F) ;
+WriteString("G = ");  Echo(G);NewLine();
+*/
+
+%/mathpiper
+
+
+
+%mathpiper
+
+(b + c) * (d + e) /: {(x_IsAtom + _y) ,True , Echo(x,,,y)};
+
+%/mathpiper
+
+
+
+
+%mathpiper
+
+a /: {(_x ) <- Echo("AA ",,,x)};
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,output="trace"
+TraceOn();
+G := ( (Deriv(z)A(x,y)) /:  {(Deriv(_var)(_w))_(IsFreeOf(var,w)) <- Echo("KALI ",,,var,,,w)}  );
+TraceOff();
+%/mathpiper
+
+
+
+
+
+
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
