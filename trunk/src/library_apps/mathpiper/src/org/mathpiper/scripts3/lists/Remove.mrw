@@ -1,0 +1,37 @@
+%mathpiper,def="Remove"
+
+Remove(list, expression) :=
+[
+   Local(result);
+   Set(result,{});
+   ForEach(item,list)
+   If(item != expression, DestructiveAppend(result,item));
+   result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Remove"
+*CMD Remove --- remove all occurrences of an expression from a list
+*STD
+*CALL
+	Remove(list, expr)
+
+*PARMS
+
+{list} -- list to act on
+
+{expr} -- expression to look for in "list"
+
+*DESC
+
+This command removes all elements that match a given expression from a given list and returns the resulting list.
+
+*E.G.
+
+    In> Remove({a,b,a,b,c,a,c},a)
+    Result> {b,b,c,c}
+
+%/mathpiper_docs
