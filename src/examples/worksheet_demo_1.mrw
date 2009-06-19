@@ -1,4 +1,4 @@
-/*  v 1.07.
+/*  v 1.08.
     This is a MathRider worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -16,11 +16,12 @@
 x := 1;
 While(x < 100) 
 [
-  Write(x);
+  Write(x,,);
   x := x + 1;  
 ];
 
 %/mathpiper
+
 
 
 
