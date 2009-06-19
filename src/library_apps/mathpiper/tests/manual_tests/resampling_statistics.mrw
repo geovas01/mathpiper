@@ -1,0 +1,25 @@
+%mathpiper
+
+trials := {};
+ForEach(trial, 1 .. 500)
+[
+    child1 := RandomInteger(2);
+    child2 := RandomInteger(2);
+    
+    trials := Append( trials, {child1, child2} );
+];
+
+Echo("Trials :", trials);
+
+oneBoy := Count(trials, {1,0}) + Count(trials, {0,1});
+
+twoBoys := Count(trials, {1,1});
+
+Echo("One boy: ", oneBoy);
+
+Echo("Two boys: ", twoBoys);
+
+N(twoBoys/ 500);
+
+
+%/mathpiper
