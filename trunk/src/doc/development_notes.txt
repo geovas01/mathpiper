@@ -3,6 +3,14 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++  This is an /: example that is not documented anywhere:
+OdeLeftHandSideEq(e) /:
+    {
+      y <- yyy(0),
+      y' <- yyy(1),
+      y'' <- yyy(2),
+      y(_n) <- yyy(n)
+    };
 + Simplify should return better output when simplifying functions:
 In> Simplify(G(1))
 Result> (Abs(G(1))*G(1))/Abs(G(1))
