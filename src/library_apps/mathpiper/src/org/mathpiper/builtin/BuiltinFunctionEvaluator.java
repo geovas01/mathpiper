@@ -30,12 +30,15 @@ import org.mathpiper.lisp.cons.SubListCons;
 public class BuiltinFunctionEvaluator extends Evaluator {
     // FunctionFlags can be ORed when passed to the constructor of this function
 
-    public static int Function = 0;    // Function: evaluate arguments
+    public static int Function = 0;    // Function: evaluate arguments. todo:tk:not used.
     public static int Macro = 1;       // Function: don't evaluate arguments
-    public static int Fixed = 0;     // fixed number of arguments
+    public static int Fixed = 0;     // fixed number of arguments. todo:tk:not used.
     public static int Variable = 2;  // variable number of arguments
+    
     BuiltinFunction iCalledBuiltinFunction;
+    
     int iNumberOfArguments;
+    
     int iFlags;
 
     public BuiltinFunctionEvaluator(BuiltinFunction aCalledBuiltinFunction, int aNumberOfArguments, int aFlags) {
@@ -54,43 +57,50 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             argumentsPointer.setCons(null);
         }
 
-        if ((iFlags & Variable) == 0) {
+        if ((iFlags & Variable) == 0) { //This function has a fixed number of arguments.
+
+            //1 is being added to the number of arguments to take into account
+            // the function name that is at the beginning of the argument list.
             LispError.checkNumberOfArguments(iNumberOfArguments + 1, aArgumentsPointer, aEnvironment);
         }
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
 
-        // Push a place holder for the getResult: push full expression so it is available for error reporting
+        // Push a place holder for the result: push full expression so it is available for error reporting
         aEnvironment.iArgumentStack.pushArgumentOnStack(aArgumentsPointer.getCons());
 
         ConsTraverser argumentsConsTraverser = new ConsTraverser(aArgumentsPointer);
+
+        //Strip the function name from the head of the list.
         argumentsConsTraverser.goNext();
 
         int i;
         int numberOfArguments = iNumberOfArguments;
 
-        if ((iFlags & Variable) != 0) {
+        if ((iFlags & Variable) != 0) {//This function has a  variable number of arguments.
             numberOfArguments--;
         }
 
         // Walk over all arguments, evaluating them as necessary *****************************************************
-        if ((iFlags & Macro) != 0) {
+        if ((iFlags & Macro) != 0) {//This is a macro, not a function.
 
             for (i = 0; i < numberOfArguments; i++) {
+                //Push all arguments on the stack.
                 LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.getCons().copy(false));
                 argumentsConsTraverser.goNext();
             }
 
-            if ((iFlags & Variable) != 0) {
+            if ((iFlags & Variable) != 0) {//This function has a variable number of arguments.
                 ConsPointer head = new ConsPointer();
                 head.setCons(aEnvironment.iListAtom.copy(false));
                 head.getCons().getRestPointer().setCons(argumentsConsTraverser.getCons());
                 aEnvironment.iArgumentStack.pushArgumentOnStack(SubListCons.getInstance(head.getCons()));
             }//end if.
 
-        } else {
+        } else {//This is a function, not a macro.
             ConsPointer argumentPointer = new ConsPointer();
+
             for (i = 0; i < numberOfArguments; i++) {
                 LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
                 LispError.check(argumentsConsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
@@ -133,7 +143,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
 
         /*Trace code */  // todo:tk:This section of code generates illegal argument errors.
-     /*   if (isTraced()) {
+        if (isTraced()) {
 
                 ConsPointer[] argumentsFromStack = aEnvironment.iArgumentStack.getElements(this.iNumberOfArguments);
 
@@ -145,8 +155,9 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
                     iter2.goNext();
                 }//end if.
-        }//end if.*/
+        }//end if.
 
+        
         iCalledBuiltinFunction.evaluate(aEnvironment, stackTop);
         aResultPointer.setCons(aEnvironment.iArgumentStack.getElement(stackTop).getCons());
 
