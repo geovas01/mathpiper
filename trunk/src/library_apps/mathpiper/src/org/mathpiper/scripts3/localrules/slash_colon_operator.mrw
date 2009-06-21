@@ -4,6 +4,8 @@
 [
   MacroSubstitute(expression,"LocPredicate","LocChange");
 ];
+
+
 10 # (_expression /: _patterns) <--
 [
   Set(patterns, LocProcess(patterns));
