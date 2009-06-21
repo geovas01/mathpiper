@@ -25,6 +25,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.SubListCons;
 
 public class BuiltinFunctionEvaluator extends Evaluator {
@@ -34,11 +35,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
     public static int Macro = 1;       // Function: don't evaluate arguments
     public static int Fixed = 0;     // fixed number of arguments. todo:tk:not used.
     public static int Variable = 2;  // variable number of arguments
-    
     BuiltinFunction iCalledBuiltinFunction;
-    
     int iNumberOfArguments;
-    
     int iFlags;
 
     public BuiltinFunctionEvaluator(BuiltinFunction aCalledBuiltinFunction, int aNumberOfArguments, int aFlags) {
@@ -48,14 +46,24 @@ public class BuiltinFunctionEvaluator extends Evaluator {
     }
 
     public void evaluate(Environment aEnvironment, ConsPointer aResultPointer, ConsPointer aArgumentsPointer) throws Exception {
-
+        ConsPointer[] argumentsResultPointerArray = null;
         /*Trace code*/
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-            Evaluator.traceShowEnter(aEnvironment, argumentsPointer,"builtin");
+            Evaluator.traceShowEnter(aEnvironment, argumentsPointer, "builtin");
             argumentsPointer.setCons(null);
-        }
+
+            //Creat an array which holds pointers to each argument.  This will be used for printing the arguments.
+            if (iNumberOfArguments == 0) {
+                argumentsResultPointerArray = null;
+            } else {
+                LispError.lispAssert(iNumberOfArguments > 0);
+                argumentsResultPointerArray = new ConsPointer[iNumberOfArguments];
+            }//end if.
+        }//end if.
+
+
 
         if ((iFlags & Variable) == 0) { //This function has a fixed number of arguments.
 
@@ -91,7 +99,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 argumentsConsTraverser.goNext();
             }
 
-            if ((iFlags & Variable) != 0) {//This function has a variable number of arguments.
+            if ((iFlags & Variable) != 0) {//This macro has a variable number of arguments.
                 ConsPointer head = new ConsPointer();
                 head.setCons(aEnvironment.iListAtom.copy(false));
                 head.getCons().getRestPointer().setCons(argumentsConsTraverser.getCons());
@@ -105,11 +113,17 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
                 LispError.check(argumentsConsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentPointer, argumentsConsTraverser.getPointer());
+
+                if (isTraced() && argumentsResultPointerArray != null) {
+                    argumentsResultPointerArray[i] = new ConsPointer();
+                    argumentsResultPointerArray[i].setCons(argumentPointer.getCons().copy(false));
+                }
+
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentPointer.getCons());
                 argumentsConsTraverser.goNext();
-            }
+            }//end for.
 
-            if ((iFlags & Variable) != 0) {
+            if ((iFlags & Variable) != 0) {//This function has a variable number of arguments.
 
                 //LispString res;
 
@@ -142,29 +156,33 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         }//end else.
 
 
-        /*Trace code */  // todo:tk:This section of code generates illegal argument errors.
-        if (isTraced()) {
+        /*Trace code */ 
+        if (isTraced() && argumentsResultPointerArray != null) {
 
-                ConsPointer[] argumentsFromStack = aEnvironment.iArgumentStack.getElements(this.iNumberOfArguments);
+            ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
-                //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
-                ConsPointer iter2 = new ConsPointer(aArgumentsPointer.getCons());
-                iter2.goNext();
-                for (int index = 0; i < iNumberOfArguments; i++) {
-                    Evaluator.traceShowArg(aEnvironment, iter2, argumentsFromStack[index]);
+            traceArgumentPointer.goNext();
+            for (i = 0; i < iNumberOfArguments; i++) {
 
-                    iter2.goNext();
-                }//end if.
+                if (argumentsResultPointerArray[i] == null) {
+                    argumentsResultPointerArray[i] = new ConsPointer(AtomCons.getInstance(aEnvironment, "NULL"));
+                }
+
+                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[i]);
+
+                traceArgumentPointer.goNext();
+            }//end for.
+
         }//end if.
 
-        
+
         iCalledBuiltinFunction.evaluate(aEnvironment, stackTop);
         aResultPointer.setCons(aEnvironment.iArgumentStack.getElement(stackTop).getCons());
 
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-            Evaluator.traceShowLeave(aEnvironment, aResultPointer, argumentsPointer,"builtin");
+            Evaluator.traceShowLeave(aEnvironment, aResultPointer, argumentsPointer, "builtin");
             argumentsPointer.setCons(null);
         }//end if.
 
