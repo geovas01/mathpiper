@@ -29,7 +29,7 @@ import org.mathpiper.lisp.Evaluator;
 /**
  * A function (usually mathematical) which is defined by one or more rules.
  * This is the basic class which implements functions.  Evaluation is done
- * by consulting a set of rewritng rules.  The body of the getFirstPointer rule that
+ * by consulting a set of rewritng rules.  The body of the first rule that
  * matches is evaluated and its result is returned as the function's result.
  */
 public class SingleArityBranchingUserFunction extends Evaluator {
