@@ -48,7 +48,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 /// evaluate the function with some arguments.
     boolean iFenced = true;
 
-    protected String functionType = "user";
+    protected String functionType = "**** user rulebase";
 
     /**
      * Constructor.
@@ -241,7 +241,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[parameterIndex]);
 
                 traceArgumentPointer.goNext();
-            }//end if.
+            }//end for.
         }//end if.
 
         return argumentsResultPointerArray;
