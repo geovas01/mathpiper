@@ -162,7 +162,9 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
             traceArgumentPointer.goNext();
-            for (i = 0; i < iNumberOfArguments; i++) {
+
+
+            for (i = 0; i < numberOfArguments; i++) {
 
                 if (argumentsResultPointerArray[i] == null) {
                     argumentsResultPointerArray[i] = new ConsPointer(AtomCons.getInstance(aEnvironment, "NULL"));
