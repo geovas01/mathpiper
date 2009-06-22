@@ -87,7 +87,9 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
         if ((iFlags & Variable) != 0) {//This function has a  variable number of arguments.
             numberOfArguments--;
-        }
+        }//end if.
+
+        ConsPointer argumentResultPointer = new ConsPointer();
 
         // Walk over all arguments, evaluating them as necessary *****************************************************
         if ((iFlags & Macro) != 0) {//This is a macro, not a function.
@@ -95,6 +97,12 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             for (i = 0; i < numberOfArguments; i++) {
                 //Push all arguments on the stack.
                 LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
+
+                if (isTraced() && argumentsResultPointerArray != null) {
+                    argumentsResultPointerArray[i] = new ConsPointer();
+                    argumentsResultPointerArray[i].setCons(argumentsConsTraverser.getCons().copy(false));
+                }
+
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.getCons().copy(false));
                 argumentsConsTraverser.goNext();
             }
@@ -107,19 +115,18 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             }//end if.
 
         } else {//This is a function, not a macro.
-            ConsPointer argumentPointer = new ConsPointer();
 
             for (i = 0; i < numberOfArguments; i++) {
                 LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
                 LispError.check(argumentsConsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentPointer, argumentsConsTraverser.getPointer());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentResultPointer, argumentsConsTraverser.getPointer());
 
                 if (isTraced() && argumentsResultPointerArray != null) {
                     argumentsResultPointerArray[i] = new ConsPointer();
-                    argumentsResultPointerArray[i].setCons(argumentPointer.getCons().copy(false));
+                    argumentsResultPointerArray[i].setCons(argumentResultPointer.getCons().copy(false));
                 }
 
-                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentPointer.getCons());
+                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer.getCons());
                 argumentsConsTraverser.goNext();
             }//end for.
 
@@ -141,14 +148,14 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 printf("before %s\n",res.String());
                  */
 
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentPointer, listPointer);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentResultPointer, listPointer);
 
                 /*
                 PrintExpression(res, arg,aEnvironment,100);
                 printf("after %s\n",res.String());
                  */
 
-                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentPointer.getCons());
+                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer.getCons());
             //printf("Leave\n");
                                     /*Trace code */
 
@@ -166,9 +173,9 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
             for (i = 0; i < numberOfArguments; i++) {
 
-                if (argumentsResultPointerArray[i] == null) {
+          /*      if (argumentsResultPointerArray[i] == null) {
                     argumentsResultPointerArray[i] = new ConsPointer(AtomCons.getInstance(aEnvironment, "NULL"));
-                }
+                }*/
 
                 Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[i]);
 
