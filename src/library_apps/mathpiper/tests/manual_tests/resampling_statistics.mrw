@@ -1,25 +1,189 @@
 %mathpiper
 
-trials := {};
-ForEach(trial, 1 .. 500)
+boysAndGirls := {};
+ForEach(trial, 1 .. 100)
 [
-    child1 := RandomInteger(2);
-    child2 := RandomInteger(2);
+    child1 := Round(Random());
+    child2 := Round(Random());
     
-    trials := Append( trials, {child1, child2} );
+    boysAndGirls := Append( boysAndGirls, {child1, child2} );
 ];
 
-Echo("Trials :", trials);
+boysOnly := Remove(boysAndGirls,{0,0});
 
-oneBoy := Count(trials, {1,0}) + Count(trials, {0,1});
+Echo("Trials :", boysOnly);
 
-twoBoys := Count(trials, {1,1});
+oneBoy := Count(boysOnly, {1,0}) + Count(boysOnly, {0,1});
+
+twoBoys := Count(boysOnly, {1,1});
 
 Echo("One boy: ", oneBoy);
 
 Echo("Two boys: ", twoBoys);
 
-N(twoBoys/ 500);
+Echo("At least one boy: ", Length(boysOnly),N( (oneBoy + twoBoys)/Length(boysAndGirls)));
+
+
+N(twoBoys/ Length(boysOnly));
 
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: 0
+      
+      Side Effects:
+      Trials :Remove({{1,1},{1,0},{1,0},{0,0},{0,1},{0,1},{0,1},{0,0},{0,0},{1,1},{0,1},{1,0},{1,0},{0,0},{1,1},{1,1},{0,0},{0,0},{0,1},{1,0},{1,0},{1,1},{0,1},{0,0},{1,1},{1,1},{1,1},{1,0},{1,1},{1,0},{0,1},{0,1},{0,0},{0,0},{0,1},{0,0},{1,0},{1,0},{0,0},{0,1},{1,0},{1,0},{0,0},{1,1},{0,0},{0,1},{0,0},{0,0},{0,1},{1,1},{0,1},{1,0},{1,1},{1,1},{1,1},{1,1},{0,0},{1,0},{0,1},{1,1},{1,1},{1,0},{1,1},{1,0},{1,1},{0,0},{1,0},{1,1},{0,0},{1,1},{1,0},{0,1},{1,1},{1,0},{0,0},{1,0},{1,1},{1,1},{1,0},{0,0},{0,1},{0,0},{1,0},{1,0},{1,1},{1,0},{0,0},{1,1},{0,1},{1,1},{0,1},{0,0},{0,1},{1,0},{1,0},{0,0},{0,1},{1,0},{1,0},{0,1}},{0,0}) 
+      One boy: 0 
+      Two boys: 0 
+      At least one boy: 2 0
+.   %/output
+
+
+
+
+
+%mathpiper
+
+Retract("Repeat",*);
+
+/*RuleBase("Repeat",{iterations});
+
+
+10 # Repeat(iterations_isNumber, body) <--
+[
+    index := 1;
+    
+    While( index < iterations )
+    [
+        body;
+    ];
+
+];
+
+*/
+
+
+TemplateFunction("Repeat",{iterations,body})
+[
+    While (iterations > 0)
+    [
+        Eval(body);
+        iterations--;
+    ];
+    True;
+];
+UnFence("Repeat",2);
+HoldArgNr("Repeat",2,1);
+HoldArgNr("Repeat",2,2);
+
+Bodied("Repeat", 60000);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper
+RandomInteger(first, last) :=
+[
+    difference := last - first;
+
+    Round(Random() * difference) + first;
+];
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper
+
+Retract("RandomPick",*);
+
+
+10 # RandomPick(list_IsList) <--
+[
+    pickPosition := RandomInteger(Length(list)) + 1;
+
+    list[pickPosition];
+];
+
+
+
+
+Retract("Shuffle",*);
+
+
+10 # Shuffle(list_IsList) <--
+[
+    n := Length(list);
+    
+    While(n > 1)
+    [
+        k := RandomInteger(1,n);
+        tmp := list[k];
+        list[k] := list[n];
+        list[n] := tmp;
+        n--;
+    ];      
+    
+    list;
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,title="Gold example on pp.82 chapter 6."
+
+ships := {{gold, gold}, {gold, silver}, {silver, silver}};
+
+score := {};
+
+
+Repeat(1000)
+[
+    ship := RandomPick(ships);
+    
+    ship := Shuffle(ship);
+    
+    If(Count(ship,gold) = 2, score := Append(score,success) );
+    
+     If(Count(ship,silver) = 1,
+            If(ship[1] = gold, score := Append(score,failure)) 
+     );
+    
+    
+
+];
+initialGoldCount := Length(score);
+goldGoldCount := Count(score,success);
+
+result := N(goldGoldCount/initialGoldCount);
+
+Echo(initialGoldCount,,,goldGoldCount,,,result);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      525 , 345 , 0.6571428571
+.   %/output
+
+
