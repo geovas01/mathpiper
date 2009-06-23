@@ -74,7 +74,7 @@ TemplateFunction("Repeat",{iterations,body})
     True;
 ];
 UnFence("Repeat",2);
-HoldArgNr("Repeat",2,1);
+//HoldArgNr("Repeat",2,1);
 HoldArgNr("Repeat",2,2);
 
 Bodied("Repeat", 60000);
@@ -184,6 +184,144 @@ Echo(initialGoldCount,,,goldGoldCount,,,result);
       
       Side Effects:
       525 , 345 , 0.6571428571
+.   %/output
+
+
+
+
+%mathpiper,title="Three door problem pp.83 chapter 6."
+
+firstPickScore := {};
+secondPickScore := {};
+
+
+Repeat(1000)
+[
+    doors := Shuffle( {empty, prize, empty} );
+    
+    firstPick := doors[1];
+    
+    If(doors[2] = empty, secondPick := doors[3], secondPick := doors[2]);
+    
+    firstPickScore := Append(firstPickScore, firstPick);
+    secondPickScore := Append(secondPickScore, secondPick);
+];
+
+Echo("First Pick: ", Count(firstPickScore,prize));
+Echo("Second Pick: ", Count(secondPickScore,prize));
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      First Pick: 247 
+      Second Pick: 753
+.   %/output
+
+
+
+
+%mathpiper
+
+Shuffle( { empty, prize, empty});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {empty,empty,prize}
+.   %/output
+
+
+
+
+%mathpiper,title="Two of a kind problem pp.85 chapter 6."
+
+pairsCount := 0;
+
+deck := Concat(1 .. 13, 1 .. 13, 1 .. 13, 1 .. 13);
+
+trials := 100;
+
+Repeat(trials)
+[
+    deck := Shuffle(deck);
+    
+    hand := Take(deck,5);
+    
+    //Echo(hand);
+    
+    handPairCount := 0;
+    ForEach(card,1 .. 13)
+    
+    [
+        If(Count(hand,card) = 2, handPairCount := handPairCount + 1);
+    ];
+    
+    If(handPairCount = 1, pairsCount := pairsCount + 1);
+
+];
+
+
+Echo("Probability of a single pair: ", N(pairsCount/trials) );
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Probability of a single pair: 0.44
+.   %/output
+
+
+
+
+%mathpiper,title="Two pairs vs. three of a kind problem pp.90 chapter 6."
+
+pairsCount := 0;
+threeOfAKindCount := 0;
+
+deck := Concat(1 .. 13, 1 .. 13, 1 .. 13, 1 .. 13);
+
+trials := 1000;
+
+Repeat(trials)
+[
+
+    deck := Shuffle(deck);
+
+    hand := Take(deck,5);
+    
+    //Echo(hand);
+    
+    handPairCount := 0;
+    handThreeOfAKindCount := 0;
+    ForEach(card,1 .. 13)
+    
+    [
+        If(Count(hand,card) = 2, handPairCount := handPairCount + 1);
+        If(Count(hand,card) = 3, handThreeOfAKindCount := handThreeOfAKindCount + 1);
+    ];
+    
+    If(handPairCount = 2, pairsCount := pairsCount + 1);
+    If(handThreeOfAKindCount = 1, threeOfAKindCount := threeOfAKindCount + 1);
+
+];
+
+Echo("Probability of two pairs: ", N(pairsCount/trials) );
+Echo("Probability of three of a kind: ", N(threeOfAKindCount/trials) );
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Probability of two pairs: 0.038 
+      Probability of three of a kind: 0.019
 .   %/output
 
 
