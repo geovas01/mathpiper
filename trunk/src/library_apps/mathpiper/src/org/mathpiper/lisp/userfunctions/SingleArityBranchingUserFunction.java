@@ -193,14 +193,14 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-             String function = "";
+             String functionName = "";
             if (argumentsPointer.getCons().getSublistPointer() != null) {
                 ConsPointer sub = argumentsPointer.getCons().getSublistPointer();
                 if (sub.getCons().string() != null) {
-                    function = sub.getCons().string();
+                    functionName = sub.getCons().string();
                 }
             }//end function.
-            if (function.equalsIgnoreCase("DefinePattern")) {
+            if (Evaluator.isTraceFunction(functionName)) {
                 showFlag = true;
             Evaluator.traceShowEnter(aEnvironment, argumentsPointer, functionType);
             }

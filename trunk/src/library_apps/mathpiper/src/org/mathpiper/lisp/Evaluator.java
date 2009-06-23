@@ -18,6 +18,7 @@
 package org.mathpiper.lisp;
 
 // class EvalFuncBase defines the interface to 'something that can
+import java.util.List;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -33,6 +34,7 @@ public abstract class Evaluator {
     public static boolean VERBOSE_DEBUG = false;
     private static int evalDepth = 0;
     public static boolean iTraced = false;
+    private static List traceFunctionList = null;
     UserStackInformation iBasicInfo = new UserStackInformation();
 
     public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
@@ -223,5 +225,25 @@ public abstract class Evaluator {
     }
 
     public void showStack(Environment aEnvironment, MathPiperOutputStream aOutput) {
+    }//end method.
+
+
+    public static void setTraceFunctionList(List traceFunctionList) {
+        Evaluator.traceFunctionList = traceFunctionList;
     }
-};
+
+    public static boolean isTraceFunction(String functionName)
+    {
+        if(! (traceFunctionList == null) )
+        {
+            return traceFunctionList.contains(functionName);
+        }
+        else
+        {
+            return true;
+        }//end else.
+
+    }//end method.
+
+    
+}//end class.

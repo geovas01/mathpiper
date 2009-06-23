@@ -20,8 +20,8 @@ package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 
 /**
  *
@@ -32,7 +32,7 @@ public class TraceOff extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         SingleArityBranchingUserFunction.traceOff();
+         Evaluator.traceOff();
          aEnvironment.write("Tracing is off.\n");
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
