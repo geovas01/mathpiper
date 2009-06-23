@@ -237,7 +237,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
             traceArgumentPointer.goNext();
-            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+            for (parameterIndex = 0; parameterIndex < argumentsResultPointerArray.length; parameterIndex++) {
                 Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[parameterIndex]);
 
                 traceArgumentPointer.goNext();
