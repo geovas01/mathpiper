@@ -80,7 +80,7 @@ public class Trace extends BuiltinFunction
 *CMD Trace --- trace the given functions which are evaluated in the given expression
 *CORE
 *CALL
-	Trace("function_name,function_name,function_name;...")
+	Trace("function_name,function_name,function_name,...")
 
 *PARMS
 
