@@ -199,6 +199,7 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.functions.optional.Trace;
+import org.mathpiper.builtin.functions.optional.TraceExcept;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 
@@ -850,6 +851,9 @@ public abstract class BuiltinFunction
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Trace(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "Trace");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new TraceExcept(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                "TraceExcept");
     }//end method.
 
 
