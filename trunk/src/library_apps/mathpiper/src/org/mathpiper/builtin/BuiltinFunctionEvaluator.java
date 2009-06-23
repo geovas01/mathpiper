@@ -38,6 +38,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
     BuiltinFunction iCalledBuiltinFunction;
     int iNumberOfArguments;
     int iFlags;
+    boolean showFlag = false;
 
     public BuiltinFunctionEvaluator(BuiltinFunction aCalledBuiltinFunction, int aNumberOfArguments, int aFlags) {
         iCalledBuiltinFunction = aCalledBuiltinFunction;
@@ -51,7 +52,20 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-            Evaluator.traceShowEnter(aEnvironment, argumentsPointer, "builtin");
+
+            String function = "";
+            if (argumentsPointer.getCons().getSublistPointer() != null) {
+                ConsPointer sub = argumentsPointer.getCons().getSublistPointer();
+                if (sub.getCons().string() != null) {
+                    function = sub.getCons().string();
+                }
+            }//end function.
+            if (function.equalsIgnoreCase("DefinePattern")) {
+                showFlag = true;
+                Evaluator.traceShowEnter(aEnvironment, argumentsPointer, "builtin");
+            } else {
+                showFlag = false;
+            }//end else.
             argumentsPointer.setCons(null);
 
             //Creat an array which holds pointers to each argument.  This will be used for printing the arguments.
@@ -164,7 +178,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
 
         /*Trace code */
-        if (isTraced() && argumentsResultPointerArray != null) {
+        if (isTraced() && argumentsResultPointerArray != null && showFlag == true) {
 
             ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
@@ -197,7 +211,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         iCalledBuiltinFunction.evaluate(aEnvironment, stackTop);
         aResultPointer.setCons(aEnvironment.iArgumentStack.getElement(stackTop).getCons());
 
-        if (isTraced()) {
+        if (isTraced() && showFlag == true) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
             Evaluator.traceShowLeave(aEnvironment, aResultPointer, argumentsPointer, "builtin");

@@ -50,7 +50,50 @@ public abstract class Evaluator {
             }
         }// end for.
 
-    }
+    }//end method.
+
+    public static void traceShowEnter(Environment aEnvironment, ConsPointer aExpression, String extraInfo) throws Exception {
+        for (int i = 0; i < evalDepth; i++) {
+            // aEnvironment.iEvalDepth; i++) {
+            if (TRACE_TO_STANDARD_OUT) {
+                System.out.print("    ");
+            } else {
+                aEnvironment.write("    ");
+            }
+        }
+        if (TRACE_TO_STANDARD_OUT) {
+            System.out.print("Enter<" + extraInfo + ">{(");
+        } else {
+            aEnvironment.write("Enter<" + extraInfo + ">{(");
+        }
+
+        String function = "";
+        if (aExpression.getCons().getSublistPointer() != null) {
+            ConsPointer sub = aExpression.getCons().getSublistPointer();
+            if (sub.getCons().string() != null) {
+                function = sub.getCons().string();
+            }
+        }
+        if (TRACE_TO_STANDARD_OUT) {
+            System.out.print(function);
+        } else {
+            aEnvironment.write(function);
+        }//end else.
+
+        if (TRACE_TO_STANDARD_OUT) {
+            System.out.print(",");
+        } else {
+            aEnvironment.write(",");
+        }
+        traceShowExpression(aEnvironment, aExpression);
+
+        if (TRACE_TO_STANDARD_OUT) {
+            System.out.print(");\n");
+        } else {
+            aEnvironment.write(");\n");
+        }
+        evalDepth++;
+    }//end method.
 
     public static void traceShowArg(Environment aEnvironment, ConsPointer aParam, ConsPointer aValue) throws Exception {
         for (int i = 0; i < evalDepth; i++) {
@@ -78,77 +121,7 @@ public abstract class Evaluator {
         } else {
             aEnvironment.write(");\n");
         }
-    }
-
-    public static void traceShowEnter(Environment aEnvironment, ConsPointer aExpression, String extraInfo) throws Exception {
-        for (int i = 0; i < evalDepth; i++) {
-            // aEnvironment.iEvalDepth; i++) {
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print("    ");
-            } else {
-                aEnvironment.write("    ");
-            }
-        }
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("Enter<" + extraInfo + ">{(");
-        } else {
-            aEnvironment.write("Enter<" + extraInfo + ">{(");
-        }
-        {
-            String function = "";
-            if (aExpression.getCons().getSublistPointer() != null) {
-                ConsPointer sub = aExpression.getCons().getSublistPointer();
-                if (sub.getCons().string() != null) {
-                    function = sub.getCons().string();
-                }
-            }
-            if (TRACE_TO_STANDARD_OUT) {
-                System.out.print(function);
-            } else {
-                aEnvironment.write(function);
-            }
-        }
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",");
-        } else {
-            aEnvironment.write(",");
-        }
-        traceShowExpression(aEnvironment, aExpression);
-        /*if (TRACE_TO_STANDARD_OUT) {
-        System.out.print(",");
-        } else {
-        aEnvironment.write(",");
-        }
-        if (DEBUG) {
-        if (TRACE_TO_STANDARD_OUT) {
-        System.out.print(",");
-        } else {
-        aEnvironment.write(",");
-        }
-        } else {
-        if (TRACE_TO_STANDARD_OUT) {
-        System.out.print("");
-        } else {
-        aEnvironment.write("");
-        }
-        if (TRACE_TO_STANDARD_OUT) {
-        System.out.print(",");
-        } else {
-        aEnvironment.write(",");
-        }
-        if (TRACE_TO_STANDARD_OUT) {
-        System.out.print("0");
-        } else {
-        aEnvironment.write("0");
-        }
-        }*/
-        if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(");\n");
-        } else {
-            aEnvironment.write(");\n");
-        }
-        evalDepth++;
-    }
+    }//end method.
 
     public static void traceShowExpression(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         StringBuffer outString = new StringBuffer();
@@ -182,7 +155,7 @@ public abstract class Evaluator {
             if (sub.getCons().string() != null) {
                 function = sub.getCons().string();
             }
-        }
+        }//end function.
 
         ruleDump = ruleDump.replace("\n", "");
 
@@ -198,8 +171,7 @@ public abstract class Evaluator {
     }//end method.
 
     public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression, String extraInfo) throws Exception {
-        if(evalDepth != 0)
-        {
+        if (evalDepth != 0) {
             evalDepth--;
         }
         for (int i = 0; i < evalDepth; i++) {

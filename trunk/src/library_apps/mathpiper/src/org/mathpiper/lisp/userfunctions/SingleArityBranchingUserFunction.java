@@ -48,6 +48,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 /// evaluate the function with some arguments.
     boolean iFenced = true;
 
+    boolean showFlag = false;
+
     protected String functionType = "**** user rulebase";
 
     /**
@@ -122,7 +124,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 if (matches) {
                     
                     /* Rule dump trace code. */
-                    if (isTraced()) {
+                    if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
                         argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
                         String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(thisRule, aEnvironment, this);
@@ -134,7 +136,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
 
                     /*Leave trace code */
-                    if (isTraced()) {
+                    if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer2 = new ConsPointer();
                         argumentsPointer2.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
                         Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType);
@@ -167,7 +169,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
 
             /* Trace code */
-            if (isTraced()) {
+            if (isTraced() && showFlag) {
                 ConsPointer argumentsPointer3 = new ConsPointer();
                 argumentsPointer3.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
                 Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType);
@@ -191,7 +193,21 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
+             String function = "";
+            if (argumentsPointer.getCons().getSublistPointer() != null) {
+                ConsPointer sub = argumentsPointer.getCons().getSublistPointer();
+                if (sub.getCons().string() != null) {
+                    function = sub.getCons().string();
+                }
+            }//end function.
+            if (function.equalsIgnoreCase("DefinePattern")) {
+                showFlag = true;
             Evaluator.traceShowEnter(aEnvironment, argumentsPointer, functionType);
+            }
+            else
+            {
+                 showFlag = false;
+            }//
             argumentsPointer.setCons(null);
         }
 
@@ -232,7 +248,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }//end for.
 
         /*Argument trace code */
-        if (isTraced()) {
+        if (isTraced() && showFlag) {
             //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
             ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
