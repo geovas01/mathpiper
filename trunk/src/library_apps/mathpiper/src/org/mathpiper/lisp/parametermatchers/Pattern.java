@@ -46,7 +46,6 @@ import java.util.*;
  */
 public class Pattern {
     /// List of parameter matches, one for every parameter.
-
     protected List iParamMatchers = new ArrayList(); //CDeletingArrayGrower<PatternParameter*> iParamMatchers;
 
     /// List of variables appearing in the pattern.
