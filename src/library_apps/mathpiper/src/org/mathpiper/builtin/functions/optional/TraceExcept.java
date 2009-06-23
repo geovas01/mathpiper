@@ -84,12 +84,13 @@ public class TraceExcept extends BuiltinFunction
 
 *DESC
 
-Outputs a trace of all the functions which are evaluated in the given expression except those which are listed in the given string
+Outputs a trace of all the functions which are evaluated in the given expression except those which are listed in the given string.  An empty
+function list string means trace all of the functions which are evaluated in the given expression.
 
 
 *E.G.
 
-In> In> TraceExcept("",2+3-6) //Trace
+In> In> TraceExcept("",2+3-6) //An empty function list means trace all functions.
 Result> True<In
 Side Effects>
 Enter<**** user rulebase>{(-,2+3-6);
