@@ -53,14 +53,14 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
 
-            String function = "";
+            String functionName = "";
             if (argumentsPointer.getCons().getSublistPointer() != null) {
                 ConsPointer sub = argumentsPointer.getCons().getSublistPointer();
                 if (sub.getCons().string() != null) {
-                    function = sub.getCons().string();
+                    functionName = sub.getCons().string();
                 }
             }//end function.
-            if (function.equalsIgnoreCase("DefinePattern")) {
+            if (Evaluator.isTraceFunction(functionName)) {
                 showFlag = true;
                 Evaluator.traceShowEnter(aEnvironment, argumentsPointer, "builtin");
             } else {
@@ -112,7 +112,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 //Push all arguments on the stack.
                 LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
 
-                if (isTraced() && argumentsResultPointerArray != null) {
+                if (isTraced() && argumentsResultPointerArray != null  && showFlag) {
                     argumentsResultPointerArray[i] = new ConsPointer();
                     argumentsResultPointerArray[i].setCons(argumentsConsTraverser.getCons().copy(false));
                 }
@@ -135,7 +135,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 LispError.check(argumentsConsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentResultPointer, argumentsConsTraverser.getPointer());
 
-                if (isTraced() && argumentsResultPointerArray != null) {
+                if (isTraced() && argumentsResultPointerArray != null  && showFlag) {
                     argumentsResultPointerArray[i] = new ConsPointer();
                     argumentsResultPointerArray[i].setCons(argumentResultPointer.getCons().copy(false));
                 }

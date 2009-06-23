@@ -82,7 +82,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
                 if (matches) {
                     /* Rule dump trace code. */
-                    if (isTraced()) {
+                    if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
                         argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
                         String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(thisRule, aEnvironment, this);
@@ -132,7 +132,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
         //FINISH:
 
         /*Leave trace code */
-        if (isTraced()) {
+        if (isTraced() && showFlag) {
             ConsPointer tr = new ConsPointer();
             tr.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
             LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr, "macro");
