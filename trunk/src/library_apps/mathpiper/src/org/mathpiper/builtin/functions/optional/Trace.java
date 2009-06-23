@@ -60,13 +60,13 @@ public class Trace extends BuiltinFunction
 
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
-        ConsPointer evaluated = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, bodyPointer);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), bodyPointer);
         Evaluator.traceOff();
         Evaluator.setTraceFunctionList(null);
 
 
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+       // UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+
 
     }//end method.
 
@@ -77,10 +77,10 @@ public class Trace extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="Trace"
-*CMD Trace --- trace an expression
+*CMD Trace --- trace the given functions which are evaluated in the given expression
 *CORE
 *CALL
-	Trace("function_name;function_name;function_name;...")
+	Trace("function_name,function_name,function_name;...")
 
 *PARMS
 
@@ -88,7 +88,7 @@ public class Trace extends BuiltinFunction
 
 *DESC
 
-Outputs a trace of all the functions listed in the parameter
+Outputs a trace of the functions which are listed in the given string and are evaluated in the given expression
 
 
 *E.G.
@@ -104,6 +104,9 @@ Enter<**** user rulebase>{(Factors,Factors(p));
         **** Rule in function (FactorizeInt) matched: Precedence: 3, Parameters: arg1<hold=false>, Predicates: (Pattern) IsInteger(n), True,     Variables: n,    Types: Variable, Body: [    Local(small'powers);    n:=Abs(n);    If(Gcd(ProductPrimesTo257(),n)>1,small'powers:=TrialFactorize(n,257),small'powers:={n});    n:=small'powers[1];    If(n=1,Tail(small'powers),[        If(InVerboseMode(),Echo({"FactorizeInt: Info: remaining number ",n}));        SortFactorList(PollardCombineLists(Tail(small'powers),PollardRhoFactorize(n)));]);]
     Leave<**** user rulebase>}(FactorizeInt(p)->{{2,3}});
 Leave<**** user rulebase>}(Factors(p)->{{2,3}});
+
+
+ *SEE TraceExcept
 
 %/mathpiper_docs
 */

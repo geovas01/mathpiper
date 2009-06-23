@@ -35,6 +35,7 @@ public abstract class Evaluator {
     private static int evalDepth = 0;
     public static boolean iTraced = false;
     private static List traceFunctionList = null;
+    private static List traceExceptFunctionList = null;
     UserStackInformation iBasicInfo = new UserStackInformation();
 
     public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
@@ -232,11 +233,20 @@ public abstract class Evaluator {
         Evaluator.traceFunctionList = traceFunctionList;
     }
 
+
+   public static void setTraceExceptFunctionList(List traceExceptFunctionList) {
+        Evaluator.traceExceptFunctionList = traceExceptFunctionList;
+    }
+
     public static boolean isTraceFunction(String functionName)
     {
         if(! (traceFunctionList == null) )
         {
             return traceFunctionList.contains(functionName);
+        }
+        else if(! (traceExceptFunctionList == null))
+        {
+            return ! traceExceptFunctionList.contains(functionName);
         }
         else
         {
