@@ -163,24 +163,33 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         }//end else.
 
 
-        /*Trace code */ 
+        /*Trace code */
         if (isTraced() && argumentsResultPointerArray != null) {
 
             ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
             traceArgumentPointer.goNext();
 
+            if ((iFlags & Variable) != 0) {//This function has a  variable number of arguments.
 
-            for (i = 0; i < numberOfArguments; i++) {
+                while (traceArgumentPointer.getCons() != null) {
+                    Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, traceArgumentPointer);
+                    traceArgumentPointer.goNext();
+                }//end while.
 
-          /*      if (argumentsResultPointerArray[i] == null) {
+            } else {
+                for (i = 0; i < argumentsResultPointerArray.length; i++) {
+
+                    /*      if (argumentsResultPointerArray[i] == null) {
                     argumentsResultPointerArray[i] = new ConsPointer(AtomCons.getInstance(aEnvironment, "NULL"));
-                }*/
+                    }*/
 
-                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[i]);
+                    Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[i]);
 
-                traceArgumentPointer.goNext();
-            }//end for.
+                    traceArgumentPointer.goNext();
+                }//end for.
+
+            }
 
         }//end if.
 
