@@ -114,9 +114,9 @@ public abstract class Evaluator {
         }
         traceShowExpression(aEnvironment, aParam);
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("->");
+            System.out.print(" -> ");
         } else {
-            aEnvironment.write("->");
+            aEnvironment.write(" -> ");
         }
         traceShowExpression(aEnvironment, aValue);
         if (TRACE_TO_STANDARD_OUT) {
@@ -192,9 +192,9 @@ public abstract class Evaluator {
         }
         traceShowExpression(aEnvironment, aExpression);
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print("->");
+            System.out.print(" -> ");
         } else {
-            aEnvironment.write("->");
+            aEnvironment.write(" -> ");
         }
         traceShowExpression(aEnvironment, aResult);
         if (TRACE_TO_STANDARD_OUT) {
