@@ -47,9 +47,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 /// via an associated hash table. When obtained, they can be used to
 /// evaluate the function with some arguments.
     boolean iFenced = true;
-
     boolean showFlag = false;
-
     protected String functionType = "**** user rulebase";
 
     /**
@@ -59,7 +57,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
      * @throws java.lang.Exception
      */
     public SingleArityBranchingUserFunction(ConsPointer aParameters) throws Exception {
-        // iParameterList and #iParameters are setCons from \a aParameters.
+        // iParameterList and #iParameters are set from \a aParameters.
         iParameterList.setCons(aParameters.getCons());
 
         ConsTraverser parameterTraverser = new ConsTraverser(aParameters);
@@ -97,7 +95,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         // Create a new local variables frame that has the same fenced state as this function.
         aEnvironment.pushLocalFrame(fenced());
 
-       
+
 
         try {
             // define the local variables.
@@ -110,19 +108,19 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             // walk the rules database, returning the evaluated result if the
             // predicate is true.
             int numberOfRules = iBranchRules.size();
-	    
+
             UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
-	    
+
             for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
                 Branch thisRule = ((Branch) iBranchRules.get(parameterIndex));
                 LispError.lispAssert(thisRule != null);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
-		
+
                 boolean matches = thisRule.matches(aEnvironment, argumentsResultPointerArray);
-		
+
                 if (matches) {
-                    
+
                     /* Rule dump trace code. */
                     if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
@@ -132,7 +130,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     }
 
                     userStackInformation.iSide = 1;
-		    
+
                     aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
 
                     /*Leave trace code */
@@ -151,9 +149,9 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     parameterIndex--;
                 }
             }//end for.
-	    
-	    
-	    // No predicate was true: return a new expression with the evaluated
+
+
+            // No predicate was true: return a new expression with the evaluated
             // arguments.
             ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.getCons().copy(false));
@@ -183,17 +181,15 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }
     }
 
-
-    protected ConsPointer[] evaluateArguments(Environment aEnvironment, ConsPointer aArgumentsPointer) throws Exception
-    {
-         int arity = arity();
+    protected ConsPointer[] evaluateArguments(Environment aEnvironment, ConsPointer aArgumentsPointer) throws Exception {
+        int arity = arity();
         int parameterIndex;
 
         /*Enter trace code*/
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-             String functionName = "";
+            String functionName = "";
             if (argumentsPointer.getCons().getSublistPointer() != null) {
                 ConsPointer sub = argumentsPointer.getCons().getSublistPointer();
                 if (sub.getCons().string() != null) {
@@ -202,11 +198,9 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             }//end function.
             if (Evaluator.isTraceFunction(functionName)) {
                 showFlag = true;
-            Evaluator.traceShowEnter(aEnvironment, argumentsPointer, functionType);
-            }
-            else
-            {
-                 showFlag = false;
+                Evaluator.traceShowEnter(aEnvironment, argumentsPointer, functionType);
+            } else {
+                showFlag = false;
             }//
             argumentsPointer.setCons(null);
         }
@@ -250,13 +244,16 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         /*Argument trace code */
         if (isTraced() && showFlag) {
             //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
-            ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
+            //ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
-            traceArgumentPointer.goNext();
+            //ConsTransverser traceArgumentPointer new ConsTraverser(this.iParameterList);
+            ConsPointer traceParameterPointer = new ConsPointer(this.iParameterList.getCons());
+
+            //traceArgumentPointer.goNext();
             for (parameterIndex = 0; parameterIndex < argumentsResultPointerArray.length; parameterIndex++) {
-                Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[parameterIndex]);
+                Evaluator.traceShowArg(aEnvironment, traceParameterPointer, argumentsResultPointerArray[parameterIndex]);
 
-                traceArgumentPointer.goNext();
+                traceParameterPointer.goNext();
             }//end for.
         }//end if.
 
