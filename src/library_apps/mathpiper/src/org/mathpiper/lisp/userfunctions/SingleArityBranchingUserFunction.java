@@ -242,7 +242,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }//end for.
 
         /*Argument trace code */
-        if (isTraced() && showFlag) {
+        if (isTraced() && argumentsResultPointerArray != null && showFlag) {
             //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
             //ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
