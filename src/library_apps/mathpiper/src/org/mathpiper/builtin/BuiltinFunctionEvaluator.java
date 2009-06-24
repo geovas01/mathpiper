@@ -184,10 +184,11 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
             traceArgumentPointer.goNext();
 
+            int parameterIndex = 1;
             if ((iFlags & Variable) != 0) {//This function has a  variable number of arguments.
 
                 while (traceArgumentPointer.getCons() != null) {
-                    Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, traceArgumentPointer);
+                    Evaluator.traceShowArg(aEnvironment, new ConsPointer(AtomCons.getInstance(aEnvironment, "parameter" + parameterIndex++ )), traceArgumentPointer);
                     traceArgumentPointer.goNext();
                 }//end while.
 
@@ -198,7 +199,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                     argumentsResultPointerArray[i] = new ConsPointer(AtomCons.getInstance(aEnvironment, "NULL"));
                     }*/
 
-                    Evaluator.traceShowArg(aEnvironment, traceArgumentPointer, argumentsResultPointerArray[i]);
+                    Evaluator.traceShowArg(aEnvironment, new ConsPointer(AtomCons.getInstance(aEnvironment, "parameter" + parameterIndex++ )), argumentsResultPointerArray[i]);
 
                     traceArgumentPointer.goNext();
                 }//end for.
