@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Allow semicolons to be placed after expressions that are inside of function calls.  This will cause less confusion
+and also makes it easier to add code like Time(); to code temporarily.
 +  This is an /: example that is not documented anywhere:
 OdeLeftHandSideEq(e) /:
     {
