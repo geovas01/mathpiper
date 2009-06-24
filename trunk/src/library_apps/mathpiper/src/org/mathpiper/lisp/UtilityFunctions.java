@@ -1139,6 +1139,7 @@ public class UtilityFunctions {
             }
 
             String body = UtilityFunctions.printExpression(branch.getBodyPointer(), aEnvironment, 0);
+            body = body.replace(",", ", ");
             //System.out.println(data);
 
             String substitutedMacroBody = "";
@@ -1152,7 +1153,7 @@ public class UtilityFunctions {
 
             dumpResult.append("Precedence: " + precedence + ", ");
             dumpResult.append("\n" + "Parameters: " + parameters + ", ");
-            dumpResult.append("\n" + "Predicates: " + predicate + ", ");
+            dumpResult.append("\n" + "Predicates: " + predicate + ",    ");
 
             if (userFunction instanceof MacroUserFunction) {
                 dumpResult.append("\n" + "Body: \n" + body + ", ");
