@@ -84,9 +84,9 @@ public abstract class Evaluator {
         }//end else.
 
         if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",");
+            System.out.print(", ");
         } else {
-            aEnvironment.write(",");
+            aEnvironment.write(", ");
         }
         traceShowExpression(aEnvironment, aExpression);
 
