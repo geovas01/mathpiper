@@ -76,11 +76,13 @@ public class TraceExcept extends BuiltinFunction
 *CMD TraceExcept --- trace all the functions but the given functions an expression
 *CORE
 *CALL
-	TraceExcept("function_name,function_name,function_name,...")
+	TraceExcept("function_name,function_name,function_name,...", expression))
 
 *PARMS
 
 {"function_name,function_name,function_name,..."} -- a string which contains the names of functions not to trace separated by commas.
+
+{expression} -- an expression to trace.
 
 *DESC
 
