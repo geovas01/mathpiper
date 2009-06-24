@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++There may be a bug in the tracing code that results in a null pointer if a space is written by either Write or WriteString.
+I applied argumentsResultPointerArray != null in the argument trace code of SingleArityBranchingUserfunction.java instead of locating the problem for now.
 +Allow semicolons to be placed after expressions that are inside of function calls.  This will cause less confusion
 and also makes it easier to add code like Time(); to code temporarily.
 +  This is an /: example that is not documented anywhere:
