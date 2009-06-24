@@ -1119,7 +1119,7 @@ public class UtilityFunctions {
                 /*if (predicate.contains(",")) {
                 predicate = predicate.substring(0, predicate.lastIndexOf(","));
                 }*/
-                predicate += "\n    Variables: " + patternVariables + ",";
+                predicate += "\n    Variables: " + patternVariables + ", ";
                 predicate += "\n    Types: " + parameterTypes;
 
 
