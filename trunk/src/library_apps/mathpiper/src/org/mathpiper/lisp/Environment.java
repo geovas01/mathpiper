@@ -54,9 +54,7 @@ import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.localvariables.LocalVariable;
 import org.mathpiper.lisp.localvariables.LocalVariableFrame;
 
-
-public class Environment
-{
+public class Environment {
 
     public Evaluator iLispExpressionEvaluator = new LispExpressionEvaluator();
     private int iPrecision = 10;
@@ -105,8 +103,7 @@ public class Environment
     public String iPrettyReader = null;
     public String iPrettyPrinter = null;
 
-    public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception
-    {
+    public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;
         iInitialOutput = aCurrentOutput;
         iCurrentOutput = aCurrentOutput;
@@ -138,188 +135,170 @@ public class Environment
         pushLocalFrame(true);
     }
 
-    public TokenMap getTokenHash()
-    {
+    public TokenMap getTokenHash() {
         return iTokenHash;
     }
 
-
-
-    public Map getGlobalState()
-    {
+    public Map getGlobalState() {
         return iGlobalState;
     }
 
-    public Map getUserFunctions()
-    {
+    public Map getUserFunctions() {
         return iUserFunctions;
     }
-    
-   public Map getBuiltinFunctions()
-    {
+
+    public Map getBuiltinFunctions() {
         return iBuiltinFunctions;
     }
 
-    public int getPrecision()
-    {
+    public int getPrecision() {
         return iPrecision;
     }
 
-    public void setPrecision(int aPrecision) throws Exception
-    {
+    public void setPrecision(int aPrecision) throws Exception {
         iPrecision = aPrecision;    // getPrecision in decimal digits
     }
 
-
-    public void setGlobalVariable(String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception
-    {
+    public void setGlobalVariable(String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception {
         ConsPointer localVariable = findLocalVariable(aVariable);
-        if (localVariable != null)
-        {
+        if (localVariable != null) {
             localVariable.setCons(aValue.getCons());
             return;
         }
         GlobalVariable globalVariable = new GlobalVariable(aValue);
         iGlobalState.setAssociation(globalVariable, aVariable);
-        if (aGlobalLazyVariable)
-        {
+        if (aGlobalLazyVariable) {
             globalVariable.setEvalBeforeReturn(true);
         }
     }
 
-    public void getGlobalVariable(String aVariable, ConsPointer aResult) throws Exception
-    {
+    public void getGlobalVariable(String aVariable, ConsPointer aResult) throws Exception {
         aResult.setCons(null);
         ConsPointer localVariable = findLocalVariable(aVariable);
-        if (localVariable != null)
-        {
+        if (localVariable != null) {
             aResult.setCons(localVariable.getCons());
             return;
         }
         GlobalVariable globalVariable = (GlobalVariable) iGlobalState.lookUp(aVariable);
-        if (globalVariable != null)
-        {
-            if (globalVariable.iEvalBeforeReturn)
-            {
+        if (globalVariable != null) {
+            if (globalVariable.iEvalBeforeReturn) {
                 iLispExpressionEvaluator.evaluate(this, aResult, globalVariable.iValue);
                 globalVariable.iValue.setCons(aResult.getCons());
                 globalVariable.iEvalBeforeReturn = false;
                 return;
-            } else
-            {
+            } else {
                 aResult.setCons(globalVariable.iValue.getCons());
                 return;
             }
         }
     }
 
-
-        public ConsPointer findLocalVariable(String aVariable) throws Exception
-    {
+    public ConsPointer findLocalVariable(String aVariable) throws Exception {
         LispError.check(iLocalVariablesFrame != null, LispError.KLispErrInvalidStack);
         //    check(iLocalsList.iFirst != null,KLispErrInvalidStack);
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
-        while (localVariable != null)
-        {
-            if (localVariable.iVariable == aVariable)
-            {
+        while (localVariable != null) {
+            if (localVariable.iVariable == aVariable) {
                 return localVariable.iValue;
             }
             localVariable = localVariable.iNext;
         }
         return null;
     }//end method.
-        
 
-    public void unsetLocalVariable(String aString) throws Exception
-    {
+    public String getLocalVariables() throws Exception {
+        LispError.check(iLocalVariablesFrame != null, LispError.KLispErrInvalidStack);
+        //    check(iLocalsList.iFirst != null,KLispErrInvalidStack);
+
+        LocalVariable localVariable = iLocalVariablesFrame.iFirst;
+
+        StringBuilder localVariablesStringBuilder = new StringBuilder();
+
+        localVariablesStringBuilder.append("Local variables: ");
+
+        while (localVariable != null) {
+            localVariablesStringBuilder.append(localVariable.iVariable);
+
+            localVariablesStringBuilder.append(" -> ");
+
+            localVariablesStringBuilder.append(localVariable.iValue.toString().trim());
+
+            localVariablesStringBuilder.append(", ");
+
+            localVariable = localVariable.iNext;
+        }//end while.
+
+        return localVariablesStringBuilder.toString();
+
+    }//end method.
+
+    public void unsetLocalVariable(String aString) throws Exception {
         ConsPointer localVariable = findLocalVariable(aString);
-        if (localVariable != null)
-        {
+        if (localVariable != null) {
             localVariable.setCons(null);
             return;
         }
         iGlobalState.release(aString);
     }
 
-
-    public void newLocalVariable(String aVariable, Cons aValue) throws Exception
-    {
+    public void newLocalVariable(String aVariable, Cons aValue) throws Exception {
         LispError.lispAssert(iLocalVariablesFrame != null);
         iLocalVariablesFrame.add(new LocalVariable(aVariable, aValue));
     }
 
-
-    public void pushLocalFrame(boolean aFenced)
-    {
-        if (aFenced)
-        {
+    public void pushLocalFrame(boolean aFenced) {
+        if (aFenced) {
             LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesFrame, null);
             iLocalVariablesFrame = newLocalVariableFrame;
-        } else
-        {
+        } else {
             LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesFrame, iLocalVariablesFrame.iFirst);
             iLocalVariablesFrame = newLocalVariableFrame;
         }
     }
 
-    public void popLocalFrame() throws Exception
-    {
+    public void popLocalFrame() throws Exception {
         LispError.lispAssert(iLocalVariablesFrame != null);
         LocalVariableFrame nextLocalVariableFrame = iLocalVariablesFrame.iNext;
         iLocalVariablesFrame.delete();
         iLocalVariablesFrame = nextLocalVariableFrame;
     }
 
-
-
-
-
-    public int getUniqueId()
-    {
+    public int getUniqueId() {
         return iLastUniqueId++;
     }
 
-    public void holdArgument(String aOperator, String aVariable) throws Exception
-    {
+    public void holdArgument(String aOperator, String aVariable) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
         LispError.check(multipleArityUserFunc != null, LispError.KLispErrInvalidArg);
         multipleArityUserFunc.holdArgument(aVariable);
     }
 
-    public void retractFunction(String aOperator, int aArity) throws Exception
-    {
+    public void retractFunction(String aOperator, int aArity) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-        if (multipleArityUserFunc != null)
-        {
+        if (multipleArityUserFunc != null) {
             multipleArityUserFunc.deleteRulebaseEntry(aArity);
         }
     }
 
-    public SingleArityBranchingUserFunction getUserFunction(ConsPointer aArguments) throws Exception
-    {
+    public SingleArityBranchingUserFunction getUserFunction(ConsPointer aArguments) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aArguments.getCons().string());
-        if (multipleArityUserFunc != null)
-        {
+        if (multipleArityUserFunc != null) {
             int arity = UtilityFunctions.listLength(aArguments) - 1;
             return multipleArityUserFunc.getUserFunction(arity);
         }
         return null;
     }
 
-    public SingleArityBranchingUserFunction getUserFunction(String aName, int aArity) throws Exception
-    {
+    public SingleArityBranchingUserFunction getUserFunction(String aName, int aArity) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aName);
-        if (multipleArityUserFunc != null)
-        {
+        if (multipleArityUserFunc != null) {
             return multipleArityUserFunc.getUserFunction(aArity);
         }
         return null;
     }
 
-    public void unFenceRule(String aOperator, int aArity) throws Exception
-    {
+    public void unFenceRule(String aOperator, int aArity) throws Exception {
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
 
         LispError.check(multiUserFunc != null, LispError.KLispErrInvalidArg);
@@ -328,14 +307,12 @@ public class Environment
         userFunc.unFence();
     }
 
-    public MultipleArityUserFunction getMultipleArityUserFunction(String aOperator) throws Exception
-    {
+    public MultipleArityUserFunction getMultipleArityUserFunction(String aOperator) throws Exception {
         // Find existing multiuser func.
         MultipleArityUserFunction multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
 
         // If none exists, add one to the user functions list
-        if (multipleArityUserFunction == null)
-        {
+        if (multipleArityUserFunction == null) {
             MultipleArityUserFunction newMultipleArityUserFunction = new MultipleArityUserFunction();
             iUserFunctions.setAssociation(newMultipleArityUserFunction, aOperator);
             multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
@@ -344,17 +321,14 @@ public class Environment
         return multipleArityUserFunction;
     }
 
-    public void declareRulebase(String aOperator, ConsPointer aParametersPointer, boolean aListed) throws Exception
-    {
+    public void declareRulebase(String aOperator, ConsPointer aParametersPointer, boolean aListed) throws Exception {
         MultipleArityUserFunction multipleArityUserFunction = getMultipleArityUserFunction(aOperator);
 
         // add an operator with this arity to the multiuserfunc.
         SingleArityBranchingUserFunction newBranchingUserFunction;
-        if (aListed)
-        {
+        if (aListed) {
             newBranchingUserFunction = new ListedBranchingUserFunction(aParametersPointer);
-        } else
-        {
+        } else {
             newBranchingUserFunction = new SingleArityBranchingUserFunction(aParametersPointer);
         }
         multipleArityUserFunction.addRulebaseEntry(newBranchingUserFunction);
@@ -362,8 +336,7 @@ public class Environment
 
     public void defineRule(String aOperator, int aArity,
             int aPrecedence, ConsPointer aPredicate,
-            ConsPointer aBody) throws Exception
-    {
+            ConsPointer aBody) throws Exception {
         // Find existing multiuser func.
         MultipleArityUserFunction multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
         LispError.check(multipleArityUserFunction != null, LispError.KLispErrCreatingRule);
@@ -373,34 +346,28 @@ public class Environment
         LispError.check(userFunction != null, LispError.KLispErrCreatingRule);
 
         // Declare a new evaluation rule
-        if (UtilityFunctions.isTrue(this, aPredicate))
-        {
+        if (UtilityFunctions.isTrue(this, aPredicate)) {
             //        printf("FastPredicate on %s\n",aOperator->String());
             userFunction.declareRule(aPrecedence, aBody);
-        } else
-        {
+        } else {
             userFunction.declareRule(aPrecedence, aPredicate, aBody);
         }
     }
 
-    public void declareMacroRulebase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception
-    {
+    public void declareMacroRulebase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = getMultipleArityUserFunction(aOperator);
 
         MacroUserFunction newMacroUserFunction;
 
-        if (aListed)
-        {
+        if (aListed) {
             newMacroUserFunction = new ListedMacroUserFunction(aParameters);
-        } else
-        {
+        } else {
             newMacroUserFunction = new MacroUserFunction(aParameters);
         }
         multipleArityUserFunc.addRulebaseEntry(newMacroUserFunction);
     }
 
-    public void defineRulePattern(String aOperator, int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception
-    {
+    public void defineRulePattern(String aOperator, int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // Find existing multiuser func.
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
         LispError.check(multipleArityUserFunc != null, LispError.KLispErrCreatingRule);
@@ -412,14 +379,13 @@ public class Environment
         // Declare a new evaluation rule
         userFunction.declarePattern(aPrecedence, aPredicate, aBody);
     }
-    
+
     /**
      * Write data to the current output.
      * @param aString
      * @throws java.lang.Exception
      */
-    public void write(String aString) throws Exception
-    {
+    public void write(String aString) throws Exception {
         iCurrentOutput.write(aString);
     }
 }
