@@ -3,6 +3,13 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ The expression printer does not place spaces on either side of logical operators:
+In> p Or q
+Result> pOrq
+In> FullForm(p Or q)
+Result> pOrq
+Side Effects>
+(Or p q )
 +Change the fold output for halting a calculation so it is not an error fold.
 +There may be a bug in the tracing code that results in a null pointer if a space is written by either Write or WriteString.
 I applied argumentsResultPointerArray != null in the argument trace code of SingleArityBranchingUserfunction.java instead of locating the problem for now.
