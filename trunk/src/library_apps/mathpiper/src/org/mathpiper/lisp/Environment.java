@@ -222,7 +222,7 @@ public class Environment {
 
             localVariablesStringBuilder.append(" -> ");
 
-            localVariablesStringBuilder.append(localVariable.iValue.toString().replace(" ","").replace("\n", "") );
+            localVariablesStringBuilder.append(localVariable.iValue.toString().trim().replace("  ","").replace("\n", "") );
 
             localVariablesStringBuilder.append(", ");
 
