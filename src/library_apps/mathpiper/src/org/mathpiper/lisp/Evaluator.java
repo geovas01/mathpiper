@@ -202,9 +202,9 @@ public abstract class Evaluator {
         if(localVariables != null)
         {
             if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",    " + localVariables + ");\n");
+            System.out.print(",    " + localVariables );
         } else {
-            aEnvironment.write(",    " + localVariables + ");\n");
+            aEnvironment.write(",    " + localVariables );
         }//end else.
 
         }//end if.
