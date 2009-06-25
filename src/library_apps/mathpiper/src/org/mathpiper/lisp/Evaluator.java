@@ -173,7 +173,7 @@ public abstract class Evaluator {
         }
     }//end method.
 
-    public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression, String extraInfo) throws Exception {
+    public static void traceShowLeave(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression, String extraInfo, String localVariables) throws Exception {
         if (evalDepth != 0) {
             evalDepth--;
         }
@@ -196,12 +196,24 @@ public abstract class Evaluator {
         } else {
             aEnvironment.write(" -> ");
         }
+
         traceShowExpression(aEnvironment, aResult);
+
+        if(localVariables != null)
+        {
+            if (TRACE_TO_STANDARD_OUT) {
+            System.out.print(",    " + localVariables + ");\n");
+        } else {
+            aEnvironment.write(",    " + localVariables + ");\n");
+        }//end else.
+
+        }//end if.
+
         if (TRACE_TO_STANDARD_OUT) {
             System.out.print(");\n");
         } else {
             aEnvironment.write(");\n");
-        }
+        }//end else.
     }//end method.
 
     public static boolean isTraced() {

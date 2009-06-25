@@ -137,7 +137,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer2 = new ConsPointer();
                         argumentsPointer2.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                        Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType);
+                        String localVariables = aEnvironment.getLocalVariables();
+                        Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType, localVariables);
                         argumentsPointer2.setCons(null);
                     }//end if.
 
@@ -170,7 +171,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             if (isTraced() && showFlag) {
                 ConsPointer argumentsPointer3 = new ConsPointer();
                 argumentsPointer3.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
-                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType);
+                String localVariables = aEnvironment.getLocalVariables();
+                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType, localVariables);
                 argumentsPointer3.setCons(null);
             }
 
