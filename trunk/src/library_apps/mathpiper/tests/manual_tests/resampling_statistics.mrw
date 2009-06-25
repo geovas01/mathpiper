@@ -325,3 +325,217 @@ Echo("Probability of three of a kind: ", N(threeOfAKindCount/trials) );
 .   %/output
 
 
+
+
+%mathpiper,title="Birthday match from page 97 chapter 7."
+
+birthdayMatchCounter := 0;
+trials := 100;
+Repeat(trials)
+[
+    birthdays := RandomIntegerVector(25,1,365);
+
+    dayCounter := 1;
+    While(dayCounter <= 365)
+    [
+        If(Count(birthdays,dayCounter) >= 2, [birthdayMatchCounter := birthdayMatchCounter + 1; dayCounter := 366;]);
+        dayCounter := dayCounter + 1;
+    ];
+
+];
+    
+    
+    Echo(birthdayMatchCounter,,,trials);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      56 , 100
+.   %/output
+
+
+
+
+
+
+%mathpiper
+
+Retract("RandomSymbol",*);
+
+//RuleBase("RandomSymbol",{list});
+
+
+RandomSymbol(list) :=
+[
+
+    Local(element);
+    
+    fractions := 0;
+    
+    symbols := {};
+    
+    lastWeight := 0;
+    
+    
+    ForEach(element,list)
+    [
+        If(IsRational(element[2]),fraction := element[2], fraction := element[1]);
+
+        fractions := fractions + fraction;
+        
+    ];
+    
+    If(fractions != 1, 
+        [
+            Echo("Error: The fractions must sum to 1."); False;
+        ],
+        [
+            ForEach(element,list)
+            [
+                If(IsRational(element[2]),[fraction := element[2];symbol := element[1];], [fraction := element[1];symbol := element[2];]);
+
+                symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(fraction)}} );
+            ];
+             
+            randomNumber := Random();
+            
+            ForEach(symbolData,symbols)
+            [
+            //Echo(symbol[2][1],randomNumber);
+                If(randomNumber >= symbolData[2][1] And randomNumber <= symbolData[2][2], result := symbolData[1] );
+            ];
+            
+            result;
+        ]
+        
+    );
+        
+
+];
+
+HoldArg("RandomSymbol",list);
+
+RandomSymbol({girl*1/2, boy*1/2});
+
+lst := Table(RandomSymbol({girl*52/100, 48/100*boy}),x,0,100,1) ;
+
+
+Echo(Count(lst,girl),,,Count(lst,boy));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      57 , 44
+.   %/output
+
+
+
+
+
+%mathpiper
+RandomIntegerVector(list, count) :=
+[
+    If(RandomSymbol(list = True), Table(RandomSymbol(list),x,1,count,1), False );
+];
+
+HoldArg("RandomIntegerVector",list);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title="Three daughters example pp.97 chapter 7."
+
+trials := 100;
+
+successes := 0;
+
+Repeat(trials)
+[
+    sample := RandomSymbolVector({boy*1/2, girl*1/2},4);
+    //Echo(sample);
+    
+    If(Count(sample,girl) = 3, successes := successes + 1);
+    
+];
+
+Echo(successes,,,trials);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      0 , 100
+.   %/output
+
+
+
+%mathpiper,title="5 shot basketball example pp.102 chapter 7."
+
+trials := 100;
+
+successes := 0;
+
+Repeat(trials)
+[
+    sample := Table(RandomSymbol({hit*1/4, miss*3/4}),x,1,5,1);
+    //Echo(sample);
+    
+    If(Count(sample,hit) >= 3, successes := successes + 1);
+    
+];
+
+Echo(successes,,,trials);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      7 , 100
+.   %/output
+
+
+
+
+%mathpiper,title="Archery example pp.104 chapter 7."
+
+trials := 100;
+
+successes := 0;
+
+Repeat(trials)
+[
+    sample := Table(RandomSymbol({black*10/100, white*60/100, miss*30/100}),x,1,3,1);
+    //Echo(sample);
+    
+    If(Count(sample,black)= 1 And Count(sample,white) = 2, successes := successes + 1);
+    
+];
+
+Echo(successes,,,trials);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      11 , 100
+.   %/output
+
+
+
+//NOTE: The random symbol functions need to be fixed so that they take both immediate lists
+// and lists that are bound to variables.
