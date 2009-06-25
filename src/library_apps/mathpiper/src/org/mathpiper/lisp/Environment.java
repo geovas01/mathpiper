@@ -229,7 +229,7 @@ public class Environment {
             localVariable = localVariable.iNext;
         }//end while.
 
-        return localVariablesStringBuilder.toString();
+        return localVariablesStringBuilder.toString().replace("\n", " ");
 
     }//end method.
 
