@@ -222,14 +222,14 @@ public class Environment {
 
             localVariablesStringBuilder.append(" -> ");
 
-            localVariablesStringBuilder.append(localVariable.iValue.toString().trim());
+            localVariablesStringBuilder.append(localVariable.iValue.toString().replace(" ","").replace("\n", "") );
 
             localVariablesStringBuilder.append(", ");
 
             localVariable = localVariable.iNext;
         }//end while.
 
-        return localVariablesStringBuilder.toString().replace("\n", " ");
+        return localVariablesStringBuilder.toString();
 
     }//end method.
 
