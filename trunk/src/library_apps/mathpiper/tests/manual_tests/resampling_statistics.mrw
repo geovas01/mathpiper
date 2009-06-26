@@ -382,7 +382,9 @@ RandomSymbol(list) :=
     
     ForEach(element,list)
     [
-        If(IsRational(element[2]),fraction := element[2], fraction := element[1]);
+        //If(IsRational(element[2]),fraction := element[2], fraction := element[1]);
+        
+        fraction := element[2];
 
         fractions := fractions + fraction;
         
@@ -395,8 +397,9 @@ RandomSymbol(list) :=
         [
             ForEach(element,list)
             [
-                If(IsRational(element[2]),[fraction := element[2];symbol := element[1];], [fraction := element[1];symbol := element[2];]);
-
+                //If(IsRational(element[2]),[fraction := element[2];symbol := element[1];], [fraction := element[1];symbol := element[2];]);
+                fraction := element[2];
+                symbol := element[1];
                 symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(fraction)}} );
             ];
              
@@ -416,11 +419,11 @@ RandomSymbol(list) :=
 
 ];
 
-HoldArg("RandomSymbol",list);
+
 
 RandomSymbol({girl*1/2, boy*1/2});
 
-lst := Table(RandomSymbol({girl*52/100, 48/100*boy}),x,0,100,1) ;
+lst := Table(RandomSymbol({ {girl,52/100}, {boy,48/100} }),x,0,100,1) ;
 
 
 Echo(Count(lst,girl),,,Count(lst,boy));
@@ -431,7 +434,8 @@ Echo(Count(lst,girl),,,Count(lst,boy));
       Result: True
       
       Side Effects:
-      57 , 44
+      Error: The fractions must sum to 1.
+      52 , 49
 .   %/output
 
 
@@ -439,12 +443,12 @@ Echo(Count(lst,girl),,,Count(lst,boy));
 
 
 %mathpiper
-RandomIntegerVector(list, count) :=
+RandomSymbolVector(list, count) :=
 [
-    If(RandomSymbol(list = True), Table(RandomSymbol(list),x,1,count,1), False );
+    If(IsList(list)= True, Table(RandomSymbol(list),x,1,count,1), False );
 ];
 
-HoldArg("RandomIntegerVector",list);
+
 
 %/mathpiper
 
@@ -463,7 +467,7 @@ successes := 0;
 
 Repeat(trials)
 [
-    sample := RandomSymbolVector({boy*1/2, girl*1/2},4);
+    sample := RandomSymbolVector( {{boy,1/2}, {girl,1/2} },4);
     //Echo(sample);
     
     If(Count(sample,girl) = 3, successes := successes + 1);
@@ -477,7 +481,7 @@ Echo(successes,,,trials);
       Result: True
       
       Side Effects:
-      0 , 100
+      24 , 100
 .   %/output
 
 
@@ -490,7 +494,8 @@ successes := 0;
 
 Repeat(trials)
 [
-    sample := Table(RandomSymbol({hit*1/4, miss*3/4}),x,1,5,1);
+    //sample := Table(RandomSymbol({{hit,1/4}, {miss,3/4} }),x,1,5,1);
+    sample := RandomSymbolVector({{hit,1/4}, {miss,3/4}},5);
     //Echo(sample);
     
     If(Count(sample,hit) >= 3, successes := successes + 1);
@@ -504,7 +509,7 @@ Echo(successes,,,trials);
       Result: True
       
       Side Effects:
-      7 , 100
+      6 , 100
 .   %/output
 
 
@@ -518,7 +523,8 @@ successes := 0;
 
 Repeat(trials)
 [
-    sample := Table(RandomSymbol({black*10/100, white*60/100, miss*30/100}),x,1,3,1);
+    //sample := Table(RandomSymbol({ {black,10/100}, {white,60/100}, {miss,30/100} }),x,1,3,1);
+    sample := RandomSymbolVector({{black,10/100}, {white,60/100}, {miss,30/100}},3);
     //Echo(sample);
     
     If(Count(sample,black)= 1 And Count(sample,white) = 2, successes := successes + 1);
@@ -532,10 +538,98 @@ Echo(successes,,,trials);
       Result: True
       
       Side Effects:
-      11 , 100
+      13 , 100
 .   %/output
 
 
 
-//NOTE: The random symbol functions need to be fixed so that they take both immediate lists
-// and lists that are bound to variables.
+
+
+%mathpiper
+Mean(list) :=
+[
+    N(Add(list)/Length(list));
+
+];
+
+Median(list) :=
+[
+    list2 := HeapSort(list,"<");
+    length := Length(list);
+    
+    If(IsEven(length),
+        [   
+            //Even.
+            result := N(( list2[Div(length,2)] + list2[Div(length,2)+1])/2);
+        ],
+        [
+            //Odd.
+            result :=  list2[Div(length,2)+1];
+        ]
+    );
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+                 
+%mathpiper
+Mode(list) :=
+[
+    list2 := RemoveDuplicates(list);
+    //Note: not finished yet.
+
+];
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper
+
+sample := {};
+trials := 100;
+Repeat(trials)
+[
+    handleLength := RandomSymbol({{10.0,20/100},{10.1,30/100},{10.2,30/100},{10.3,20/100}});
+    headLength := RandomSymbol({{2.0,20/100},{2.1,20/100},{2.2,30/100},{2.3,20/100},{2.4,10/100}});
+    
+    totalLength := handleLength + headLength;
+    
+    sample := Append(sample, totalLength);
+    
+];
+
+
+givenLength := 12.4;
+overOrEqual := 0;
+ForEach(element, sample)
+[
+    If(element >= givenLength, overOrEqual := overOrEqual + 1);
+
+];
+
+mean := Mean(sample);
+
+Echo(overOrEqual,,,trials,,,mean);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      44 , 100 , 12.321
+.   %/output
+
+
