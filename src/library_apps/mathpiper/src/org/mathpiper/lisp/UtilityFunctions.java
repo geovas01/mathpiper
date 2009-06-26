@@ -601,6 +601,7 @@ public class UtilityFunctions {
                 return new StandardFileInputStream(aFileName, aInputStatus);
             }
         } catch (Exception e) {
+            //MathPiper eats this exception because returning null indicates to higher level code that the file was not found.
         }
         return null;
 
