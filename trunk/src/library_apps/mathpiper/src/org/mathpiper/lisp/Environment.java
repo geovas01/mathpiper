@@ -222,7 +222,15 @@ public class Environment {
 
             localVariablesStringBuilder.append(" -> ");
 
-            localVariablesStringBuilder.append(localVariable.iValue.toString().trim().replace("  ","").replace("\n", "") );
+            String value = localVariable.iValue.toString();
+            if(value != null)
+            {
+                localVariablesStringBuilder.append(value.trim().replace("  ","").replace("\n", "") );
+            }
+            else
+            {
+                localVariablesStringBuilder.append("unbound");
+            }//end else.
 
             localVariablesStringBuilder.append(", ");
 
