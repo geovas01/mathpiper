@@ -1,22 +1,22 @@
 %mathpiper,def="<--"
 
-RuleBase("<--",{patternleft,patternright});
+RuleBase("<--",{leftOperand,rightOperand});
 
 
 
-Rule("<--",2,1,Equals(Type(patternleft),"#"))
+Rule("<--",2,1,Equals(Type(leftOperand),"#"))
 [
-  DefinePattern(patternleft[2],patternright,patternleft[1],True);
+  DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
 ];
 
 
 
-Rule("<--",2,2,IsFunction(patternleft))
+Rule("<--",2,2,IsFunction(leftOperand))
 [
- DefinePattern(patternleft,patternright,0,True);
+ DefinePattern(leftOperand,rightOperand,0,True);
 ];
 
-HoldArg("<--",patternleft);
-HoldArg("<--",patternright);
+HoldArg("<--",leftOperand);
+HoldArg("<--",rightOperand);
 
 %/mathpiper

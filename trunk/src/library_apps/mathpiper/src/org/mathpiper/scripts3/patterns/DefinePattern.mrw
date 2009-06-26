@@ -13,22 +13,30 @@ Rule("DefinePattern",4,9,Equals(Type(leftOperand),"_"))
 
 Rule("DefinePattern",4,10,True)
 [
-      Local(patternflat,patternvars, patt, patternoper,arity);
-      Set(patternflat, Listify(leftOperand));
-      Set(patternvars, Tail(patternflat));
-      Set(patternoper,String(Head(patternflat)));
-      Set(arity,Length(patternvars));
-      DefLoadFunction(patternoper);
+      Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);
+      
+      Set(patternFlat, Listify(leftOperand)); //Turn the pattern into a list.
+      
+      Set(patternVariables, Tail(patternFlat)); //Remove the function name from the list.
+      
+      Set(patternOperator,String(Head(patternFlat))); //Obtain the function name.
+      
+      Set(arity,Length(patternVariables)); //Obtain the arity of the function.
+      
+      DefLoadFunction(patternOperator);  //Load the function if it exists.
     
-      If(Not(RuleBaseDefined(patternoper,arity)),
+      /*
+            If the function does not exist, create it.
+      */
+      If(Not(RuleBaseDefined(patternOperator,arity)),
          [
-          MacroRuleBase(patternoper,MakeVector(arg,arity));
+          MacroRuleBase(patternOperator,MakeVector(arg,arity));
          ]
         );
     
-      Set(patt,Pattern'Create(patternvars,postPredicate));
+      Set(pattern,Pattern'Create(patternVariables,postPredicate));
     
-      MacroRulePattern(patternoper,arity,rulePrecedence, patt)rightOperand;
+      MacroRulePattern(patternOperator,arity,rulePrecedence, pattern)rightOperand;
     
       True;
 ];
