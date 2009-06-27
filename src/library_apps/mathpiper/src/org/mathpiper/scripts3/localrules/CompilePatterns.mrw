@@ -60,7 +60,7 @@ UnFence("LocChange",1);
 /*
     40 # LocProcessSingle(pat_IsFunction <- _exp) <-- { {pat[0],Pattern'Create(pat,True)},exp };
     todo:tk:this rule was not handling post predicates so I replaced it with a new version that does.
-    I suspect that the other rules for this Rulebase have problems too.
+    I suspect that the other rules for this Rulebase have problems too. 
 */
 40 # LocProcessSingle(pat_IsFunction <- _exp) <-- 
 [
