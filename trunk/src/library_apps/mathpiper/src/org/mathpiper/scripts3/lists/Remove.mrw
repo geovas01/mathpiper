@@ -11,6 +11,10 @@ Remove(list, expression) :=
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 %mathpiper_docs,name="Remove"

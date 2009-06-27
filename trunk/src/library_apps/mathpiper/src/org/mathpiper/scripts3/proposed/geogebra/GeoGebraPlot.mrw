@@ -68,6 +68,7 @@ Retract("GeoGebraPlot",*);
 
 %mathpiper
 Retract("GeoGebraPoint",*);
+
 10 # GeoGebraPoint(name_IsString, x_IsNumber, y_IsNumber)  <--
 [
     command := PatchString("<?Write(Atom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
@@ -80,5 +81,49 @@ Retract("GeoGebraPoint",*);
     %output,preserve="false"
       Result: True
 .   %/output
+
+
+
+
+
+
+%mathpiper
+
+// Histogram[{1, 2, 3, 4},{1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0}]
+GeoGebraHistogram(classBoundaries, data) := 
+[
+    //todo:tk: a check must be made to make sure that all data items fit into the class boundaries.
+    // If they don't, GeoGebra will not accept them.
+    
+    command := PatchString("Histogram[<?Write(classBoundaries)?>,<?Write(data)?>]");
+    JavaCall("geogebra", "evalCommand", command);
+];
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper
+classBoundaries := N(Table(x,x,14,20,1/4));
+
+E := N({16+3/8, 16+3/8, 17+1/8, 16, 14+3/8, 17+1/4, 16+5/8, 16, 17, 17+1/4, 17, 15+7/8, 16+5/8, 16+1/8, 17+1/8, 16+7/8, 16+3/8, 16+3/8, 16+7/8, 17+1/8, 17, 16+3/4, 17+1/4, 17+1/8, 15+3/8});
+
+D := N({18+1/4, 19+1/4, 18+1/4, 15+5/8, 17+5/8, 17+1/2, 17+1/8, 17+1/8, 17+1/2, 14+1/2, 17+3/8, 16+7/8, 17+3/4, 18+7/8, 14+7/8, 19+1/4, 18+1/8, 16+1/4, 16+1/8, 16+3/4, 17+1/4, 17+3/8, 17+1/8, 17+1/2, 16+5/8});
+GeoGebraHistogram(classBoundaries,Concat(D,E));
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
+.   %/output
+
+
+
 
 
