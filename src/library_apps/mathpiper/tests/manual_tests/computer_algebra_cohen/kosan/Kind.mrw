@@ -1,0 +1,71 @@
+%mathpiper
+
+/*
+This is the beginnings of a Kind function which will return:
+
+1) If u is an atomic expression, return the type of the expression.
+
+2) If u is a compund expression, return the operator at the root of the
+    expression tree.
+    
+pp.104 "Computer Algebra And Symbolic Computation: Elementary Algorithms" Cohen.
+
+*/
+Retract("Kind",*);
+
+RuleBase("Kind",{u});
+
+//HoldArg("Kind",u);
+
+
+
+10 # Kind(_u) <--
+[
+    Write(u,,);
+    
+    Local(result);
+    
+    if(IsInteger(u))
+    [
+        result := integer;
+        Echo(1);
+    ]
+    else if(IsString(u))
+    [
+        result := string;
+        Echo(2);
+    ]
+    else if(IsList(u))
+    [
+        result := list;
+        Echo(3);
+    ]
+    else if(Not IsBound(Eval(u)))
+    [
+        result := symbol;
+        Echo(10);
+    ]
+    else
+    [
+    ];
+    
+
+    result;
+];
+
+
+Kind({3});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: list
+      
+      Side Effects:
+      {3},3
+.   %/output
+
+
+
+
+
