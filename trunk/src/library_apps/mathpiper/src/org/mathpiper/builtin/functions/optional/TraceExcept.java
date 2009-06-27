@@ -36,14 +36,17 @@ public class TraceExcept extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer functionListPointer = new ConsPointer();
-        functionListPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
+        ConsPointer functionListPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
         ConsPointer bodyPointer = getArgumentPointer(aEnvironment, aStackTop, 2);
 
         // Get function list.
         LispError.checkArgument(aEnvironment, aStackTop, functionListPointer.getCons() != null, 1);
-        String functionNamesString = functionListPointer.getCons().string();
+        ConsPointer result = new ConsPointer();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result , functionListPointer);
+        String functionNamesString = result.getCons().string();
+
+
         LispError.checkArgument(aEnvironment, aStackTop, functionNamesString != null, 1);
 
 
