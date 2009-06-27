@@ -2,23 +2,38 @@
 E := A(x,y) + B(x,y,z);
 F := Deriv(z) E;
 Echo("F: ",F);
-//G := ( F /: { (Deriv(_var)(_w))_(IsFreeOf(var,w)) <- 0 } );
+G := ( F /: { (Deriv(_var)(_w))_(IsFreeOf(var,w)) <- 0 } );
 
 //G := ( (Deriv(z)A(x,y)) /:  {(Deriv(_var)(_w))_(IsFreeOf(var,w)) <- Echo("KALI ",,,var,,,w)}  );
-G := ( (Deriv(z)A(x,y)) /:  {(Deriv(_var)(_w)) <- Echo("KALI ",,,var,,,w)}  );
+//G := ( (Deriv(z)A(x,y)) /:  {(Deriv(_var)(_w)) <- Echo("KALI ",,,var,,,w)}  );
                                          // (Deriv(_var)(_x / _y))_(IsFreeOf(var,y)) <-- (Deriv(var) x) / y;
 //WriteString("E = ");  Echo(E);
 //WriteString("F = ");  Echo(F);
 WriteString("G = ");  Echo(G);
 
-
-/*
-1 # (Deriv(_var)(_w))_(IsFreeOf(var,w)) <-- 0;
+/*1 # (Deriv(_var)(_w))_(IsFreeOf(var,w)) <-- 0;
 G := Eval(F) ;
 WriteString("G = ");  Echo(G);NewLine();
 */
 
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      F: (Deriv(z)A(x,y))+(Deriv(z)B(x,y,z)) 
+      G = 0+(Deriv(z)B(x,y,z))
+.   %/output
+
+
+      F: (Deriv(z)A(x,y))+(Deriv(z)B(x,y,z)) 
+      G = (Deriv(z)A(x,y))+(Deriv(z)B(x,y,z))
+
+      F: (Deriv(z)A(x,y))+(Deriv(z)B(x,y,z)) 
+      G = 0+(Deriv(z)B(x,y,z)) 
+      G = Deriv(z)B(x,y,z)
 
 
 
@@ -35,397 +50,69 @@ WriteString("G = ");  Echo(G);NewLine();
 
 %mathpiper,output="trace"
 
-(b + c) * (d + e) /: {(x_IsAtom + _y) <- Echo(x,,,y)};
+//(b + c) * (d + e) /: {(x_IsAtom + _y) <- Echo(x,,,y)};
 
-TraceOn();
-(b + c) * (d + e) /: {(x_IsAtom + _y) <- Echo(x,,,y)};
-TraceOff();
+Retract("LocProcessSingle",*);
 
-%/mathpiper
-
-
-
-
-
-%mathpiper
-
-a /: {(_x ) <- Echo("AA ",,,x)};
-
-%/mathpiper
-
-
-(b + c) * (d + e) /: {(x_IsAtom + _y)_ (True)<- Echo(x,,,y)};
-
-10 # Test(x_IsInteger)_(IsZero(x)) <-- Hello
-
+40 # LocProcessSingle(pat_IsFunction <- _exp) <-- 
+[
+    Local(justPattern, postPredicate);
+    
+    If(Type(pat) = "_",
+        [
+            justPattern := pat[1];
+            postPredicate := pat[2];
+        ],
+        [
+            justPattern := pat;
+            postPredicate := True;
+        ]
+    );
+    
+    { {justPattern[0],Pattern'Create(justPattern,postPredicate)},exp };
+];
 
 
+//TraceExcept("MacroLocal,ApplyPure,Apply,MapSingle,+,ForEach,*,++,>=,<=,:=,IsUniVar,IsNumber,IsNegativeNumber,For,IsInfinity,IsMatrix,IsNonObject,SubtractN,-,MathSign,IsGeneric,Or,IsString,AbsN,UnFence,LocalSymbols,GreaterThan,Retract,=,UnList,Hold,Equals,IsFunction,Listify,Head,Nth,MathNth,Type,Prog,And,NotEquals,Local,Tail,DefLoadFunction,Not,IsInteger,Set,String,Length,If,List,MakeVector,IsList,LessThan,While,DestructiveReverse,MacroSet,Eval,DestructiveInsert,AddN,IsAtom,Atom,ConcatStrings",  (b + c) * (d + e) /: {(x_IsAtom + _y)_(IsZero(0)) <- Echo(x,,,y)} );
 
-%mathpiper,output="trace"
- //(b + c) * (d + e) /: {{(x_IsAtom + _y) ,Hold(IsZero(0)) , Hold(Echo(x,,,y))}};
-
-//G := ( (Deriv(z)A(x,y)) /:  {(Deriv(_var)(_w))_(IsFreeOf(var,w)) <- Echo("KALI ",,,var,,,w)}  );
- //exp := (b + c) * (d + e) /: {{(x_IsAtom + _y) ,Hold(IsZero(0)) , Hold(Echo(x,,,y))}};
- 
-TraceExcept("++,>=,<=,:=,IsNumber,IsNegativeNumber,For,IsInfinity,IsMatrix,IsNonObject,SubtractN,-,MathSign,IsGeneric,Or,IsString,AbsN,UnFence,LocalSymbols,GreaterThan,Retract,=,UnList,Hold,Equals,IsFunction,Listify,Head,Nth,MathNth,Type,Prog,And,NotEquals,Local,Tail,DefLoadFunction,Not,IsInteger,Set,String,Length,If,List,MakeVector,IsList,LessThan,While,DestructiveReverse,MacroSet,Eval,DestructiveInsert,AddN,IsAtom,Atom,ConcatStrings",  (b + c) * (d + e) /: {{(x_IsAtom + _y) ,Hold(IsZero(0)) , Hold(Echo(x,,,y))}} );
 
 %/mathpiper
 
     %mathpiper_trace,preserve="false"
-      Result: True*True
-      
-      Side Effects:
-      Enter<**** user rulebase>{(/:, (b+c)*(d+e)/:{{x_IsAtom+_y,Hold(IsZero(0)),Hold(Echo(x,,,y))}});
-          Enter<**** user rulebase>{(*, (b+c)*(d+e));
-              Enter<**** user rulebase>{(+, b+c);
-                  Arg(arg1 -> b);
-                  Arg(arg2 -> c);
-              Leave<**** user rulebase>}(b+c -> b+c);
-              Enter<**** user rulebase>{(+, d+e);
-                  Arg(arg1 -> d);
-                  Arg(arg2 -> e);
-              Leave<**** user rulebase>}(d+e -> d+e);
-              Arg(arg1 -> b+c);
-              Arg(arg2 -> d+e);
-          Leave<**** user rulebase>}((b+c)*(d+e) -> (b+c)*(d+e));
-          Enter<**** user rulebase>{(+, x_IsAtom+_y);
-              Arg(arg1 -> x_IsAtom);
-              Arg(arg2 -> _y);
-          Leave<**** user rulebase>}(x_IsAtom+_y -> x_IsAtom+_y);
-          Arg(arg1 -> (b+c)*(d+e));
-          Arg(arg2 -> {{x_IsAtom+_y,IsZero(0),Echo(x,,,y)}});
-          **** Rule in function (/:) matched: Precedence: 10, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) True,     Variables: expression, patterns,     Types: Variable, Variable,    Body: [    Set(patterns, LocProcess(patterns));    MacroSubstitute(expression, "LocPredicate", "LocChange");]
-          Enter<**** user rulebase>{(LocProcess, LocProcess(patterns));
-              Arg(patterns -> {{x_IsAtom+_y,IsZero(0),Echo(x,,,y)}});
-              **** Rule in function (LocProcess) matched: Precedence: 1025, Parameters: patterns<hold=false>, Predicates: None.,    Body: [    MapSingle("LocProcessSingle", patterns);]
-              Enter<**** user rulebase>{(MapSingle, MapSingle(LocProcessSingle,patterns));
-                  Arg($func17 -> LocProcessSingle);
-                  Arg($list17 -> {{x_IsAtom+_y,IsZero(0),Echo(x,,,y)}});
-                  **** Rule in function (MapSingle) matched: Precedence: 1025, Parameters: $func17<hold=false>, $list17<hold=false>, Predicates: None.,    Body: [    Local(mapsingleresult);    mapsingleresult:={};    ForEach(mapsingleitem, $list17)[        DestructiveInsert(mapsingleresult, 1, Apply($func17, {mapsingleitem}));];    DestructiveReverse(mapsingleresult);]
-                  Enter<**** user rulebase>{(ForEach, ForEach(mapsingleitem,$list17)[    DestructiveInsert(mapsingleresult,1,Apply($func17,{mapsingleitem}));]);
-                      Arg($item21 -> mapsingleitem);
-                      Arg($list21 -> {{x_IsAtom+_y,IsZero(0),Echo(x,,,y)}});
-                      Arg($body21 -> [    DestructiveInsert(mapsingleresult,1,Apply($func17,{mapsingleitem}));]);
-                      **** Rule in function (ForEach) matched: Precedence: 1025, Parameters: $item21<hold=true>, $list21<hold=false>, $body21<hold=true>, Predicates: None.,    Body: [    If(Equals(IsGeneric($list21), True)AndEquals(GenericTypeName($list21), "Array"), `ForEachInArray(@$item21, $list21, @$body21), [        Local(foreachtail);        MacroLocal($item21);        Set(foreachtail, $list21);        While(NotEquals(foreachtail, {}))[            MacroSet($item21, Head(foreachtail));            Eval($body21);            Set(foreachtail, Tail(foreachtail));];]);]
-                      Enter<builtin>{(MacroLocal, MacroLocal($item21));
-                          Arg(parameter1 -> $item21);
-                      Leave<builtin>}(MacroLocal($item21) -> True);
-                      Enter<**** user rulebase>{(Apply, Apply($func17,{mapsingleitem}));
-                          Arg(arg1 -> LocProcessSingle);
-                          Arg(arg2 -> {{x_IsAtom+_y,IsZero(0),Echo(x,,,y)}});
-                          **** Rule in function (Apply) matched: Precedence: 10, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsString(applyoper)OrIsList(applyoper),     Variables: applyoper, applyargs,     Types: Variable, Variable,    Body: ApplyPure(applyoper, applyargs)
-                          Enter<builtin>{(ApplyPure, ApplyPure(applyoper,applyargs));
-                              Arg(parameter1 -> LocProcessSingle);
-                              Arg(parameter2 -> {{x_IsAtom+_y,IsZero(0),Echo(x,,,y)}});
-                              Enter<**** user rulebase>{(LocProcessSingle, LocProcessSingle({x_IsAtom+_y,IsZero(0),Echo(x,,,y)}));
-                                  Enter<**** user rulebase>{(+, x_IsAtom+_y);
-                                      Arg(arg1 -> x_IsAtom);
-                                      Arg(arg2 -> _y);
-                                  Leave<**** user rulebase>}(x_IsAtom+_y -> x_IsAtom+_y);
-                                  Enter<**** user rulebase>{(IsZero, IsZero(0));
-                                      Arg(arg1 -> 0);
-                                      **** Rule in function (IsZero) matched: Precedence: 10, Parameters: arg1<hold=false>, Predicates: (Pattern) IsNumber(x), True,     Variables: x,     Types: Variable,    Body: MathSign(x)=0OrAbsN(x)<PowerN(10, -BuiltinPrecisionGet())
-                                  Leave<**** user rulebase>}(IsZero(0) -> True);
-                                  Enter<**** user rulebase>{(Echo, Echo({x,,,y}));
-                                      Arg(args -> {x,,,y});
-                                      **** Rule in function (Echo) matched: Precedence: 10, Parameters: args<hold=false>, Predicates: (Pattern) IsList(list), True,     Variables: list,     Types: Variable,    Body: [    ForEach(item, list)EchoInternal(item);    NewLine();]
-                                      Enter<**** user rulebase>{(ForEach, ForEach(item,list)EchoInternal(item));
-                                          Arg($item21 -> item);
-                                          Arg($list21 -> {x,,,y});
-                                          Arg($body21 -> EchoInternal(item));
-                                          **** Rule in function (ForEach) matched: Precedence: 1025, Parameters: $item21<hold=true>, $list21<hold=false>, $body21<hold=true>, Predicates: None.,    Body: [    If(Equals(IsGeneric($list21), True)AndEquals(GenericTypeName($list21), "Array"), `ForEachInArray(@$item21, $list21, @$body21), [        Local(foreachtail);        MacroLocal($item21);        Set(foreachtail, $list21);        While(NotEquals(foreachtail, {}))[            MacroSet($item21, Head(foreachtail));            Eval($body21);            Set(foreachtail, Tail(foreachtail));];]);]
-                                          Enter<builtin>{(MacroLocal, MacroLocal($item21));
-                                              Arg(parameter1 -> $item21);
-                                          Leave<builtin>}(MacroLocal($item21) -> True);
-                                          Enter<**** user rulebase>{(EchoInternal, EchoInternal(item));
-                                              Arg(arg1 -> x);
-                                              **** Rule in function (EchoInternal) matched: Precedence: 20, Parameters: arg1<hold=false>, Predicates: (Pattern) True,     Variables: item,     Types: Variable,    Body: [    Write(item);    Space();]
-                                              Enter<builtin>{(Write, Write(item));
-                                                  Arg(parameter1 -> item);
-      x                                        Leave<builtin>}(Write(item) -> True);
-                                              Enter<**** user rulebase>{(Space, Space());
-                                                  **** Rule in function (Space) matched: Precedence: 1025, Parameters: , Predicates: None.,    Body: WriteN(" ", 1)
-                                                  Enter<**** user rulebase>{(WriteN, WriteN( ,1));
-                                                      Arg(string ->  );
-                                                      Arg(n -> 1);
-                                                      **** Rule in function (WriteN) matched: Precedence: 1025, Parameters: string<hold=false>, n<hold=false>, Predicates: None.,    Body: [    Local(i);    For(i:=1, i<=n, i++)WriteString(string);    True;]
-                                                      Enter<**** user rulebase>{(<, n<m);
-                                                          Arg(arg1 -> 1);
-                                                          Arg(arg2 -> 1);
-                                                          **** Rule in function (<) matched: Precedence: 5, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(n), IsNumber(m), True,     Variables: n, m,     Types: Variable, Variable,    Body: LessThan(n-m, 0)
-                                                      Leave<**** user rulebase>}(n<m -> False);
-                                                      Enter<builtin>{(WriteString, WriteString(string));
-                                                          Arg(parameter1 ->  );
-                                                       Leave<builtin>}(WriteString(string) -> True);
-                                                      Enter<**** user rulebase>{(<, n<m);
-                                                          Arg(arg1 -> 1);
-                                                          Arg(arg2 -> 2);
-                                                          **** Rule in function (<) matched: Precedence: 5, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(n), IsNumber(m), True,     Variables: n, m,     Types: Variable, Variable,    Body: LessThan(n-m, 0)
-                                                      Leave<**** user rulebase>}(n<m -> True);
-                                                  Leave<**** user rulebase>}(WriteN( ,1) -> True);
-                                              Leave<**** user rulebase>}(Space() -> True);
-                                          Leave<**** user rulebase>}(EchoInternal(item) -> True);
-                                          Enter<**** user rulebase>{(EchoInternal, EchoInternal(item));
-                                              Arg(arg1 -> ,);
-                                              **** Rule in function (EchoInternal) matched: Precedence: 20, Parameters: arg1<hold=false>, Predicates: (Pattern) True,     Variables: item,     Types: Variable,    Body: [    Write(item);    Space();]
-                                              Enter<builtin>{(Write, Write(item));
-                                                  Arg(parameter1 -> item);
-      ,                                        Leave<builtin>}(Write(item) -> True);
-                                              Enter<**** user rulebase>{(Space, Space());
-                                                  **** Rule in function (Space) matched: Precedence: 1025, Parameters: , Predicates: None.,    Body: WriteN(" ", 1)
-                                                  Enter<**** user rulebase>{(WriteN, WriteN( ,1));
-                                                      Arg(string ->  );
-                                                      Arg(n -> 1);
-                                                      **** Rule in function (WriteN) matched: Precedence: 1025, Parameters: string<hold=false>, n<hold=false>, Predicates: None.,    Body: [    Local(i);    For(i:=1, i<=n, i++)WriteString(string);    True;]
-                                                      Enter<**** user rulebase>{(<, n<m);
-                                                          Arg(arg1 -> 1);
-                                                          Arg(arg2 -> 1);
-                                                          **** Rule in function (<) matched: Precedence: 5, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(n), IsNumber(m), True,     Variables: n, m,     Types: Variable, Variable,    Body: LessThan(n-m, 0)
-                                                      Leave<**** user rulebase>}(n<m -> False);
-                                                      Enter<builtin>{(WriteString, WriteString(string));
-                                                          Arg(parameter1 ->  );
-                                                       Leave<builtin>}(WriteString(string) -> True);
-                                                      Enter<**** user rulebase>{(<, n<m);
-                                                          Arg(arg1 -> 1);
-                                                          Arg(arg2 -> 2);
-                                                          **** Rule in function (<) matched: Precedence: 5, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(n), IsNumber(m), True,     Variables: n, m,     Types: Variable, Variable,    Body: LessThan(n-m, 0)
-                                                      Leave<**** user rulebase>}(n<m -> True);
-                                                  Leave<**** user rulebase>}(WriteN( ,1) -> True);
-                                              Leave<**** user rulebase>}(Space() -> True);
-                                          Leave<**** user rulebase>}(EchoInternal(item) -> True);
-                                          Enter<**** user rulebase>{(EchoInternal, EchoInternal(item));
-                                              Arg(arg1 -> y);
-                                              **** Rule in function (EchoInternal) matched: Precedence: 20, Parameters: arg1<hold=false>, Predicates: (Pattern) True,     Variables: item,     Types: Variable,    Body: [    Write(item);    Space();]
-                                              Enter<builtin>{(Write, Write(item));
-                                                  Arg(parameter1 -> item);
-      y                                        Leave<builtin>}(Write(item) -> True);
-                                              Enter<**** user rulebase>{(Space, Space());
-                                                  **** Rule in function (Space) matched: Precedence: 1025, Parameters: , Predicates: None.,    Body: WriteN(" ", 1)
-                                                  Enter<**** user rulebase>{(WriteN, WriteN( ,1));
-                                                      Arg(string ->  );
-                                                      Arg(n -> 1);
-                                                      **** Rule in function (WriteN) matched: Precedence: 1025, Parameters: string<hold=false>, n<hold=false>, Predicates: None.,    Body: [    Local(i);    For(i:=1, i<=n, i++)WriteString(string);    True;]
-                                                      Enter<**** user rulebase>{(<, n<m);
-                                                          Arg(arg1 -> 1);
-                                                          Arg(arg2 -> 1);
-                                                          **** Rule in function (<) matched: Precedence: 5, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(n), IsNumber(m), True,     Variables: n, m,     Types: Variable, Variable,    Body: LessThan(n-m, 0)
-                                                      Leave<**** user rulebase>}(n<m -> False);
-                                                      Enter<builtin>{(WriteString, WriteString(string));
-                                                          Arg(parameter1 ->  );
-                                                       Leave<builtin>}(WriteString(string) -> True);
-                                                      Enter<**** user rulebase>{(<, n<m);
-                                                          Arg(arg1 -> 1);
-                                                          Arg(arg2 -> 2);
-                                                          **** Rule in function (<) matched: Precedence: 5, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(n), IsNumber(m), True,     Variables: n, m,     Types: Variable, Variable,    Body: LessThan(n-m, 0)
-                                                      Leave<**** user rulebase>}(n<m -> True);
-                                                  Leave<**** user rulebase>}(WriteN( ,1) -> True);
-                                              Leave<**** user rulebase>}(Space() -> True);
-                                          Leave<**** user rulebase>}(EchoInternal(item) -> True);
-                                      Leave<**** user rulebase>}(ForEach(item,list)EchoInternal(item) -> True);
-                                      Enter<**** user rulebase>{(NewLine, NewLine());
-                                          **** Rule in function (NewLine) matched: Precedence: 1025, Parameters: , Predicates: None.,    Body: WriteN(Nl(), 1)
-                                          Enter<**** user rulebase>{(WriteN, WriteN(Nl(),1));
-                                              Enter<**** user rulebase>{(Nl, Nl());
-                                                  **** Rule in function (Nl) matched: Precedence: 1025, Parameters: , Predicates: None.,    Body: ""
-                                              Leave<**** user rulebase>}(Nl() -> );
-                                              Arg(string -> );
-                                              Arg(n -> 1);
-                                              **** Rule in function (WriteN) matched: Precedence: 1025, Parameters: string<hold=false>, n<hold=false>, Predicates: None.,    Body: [    Local(i);    For(i:=1, i<=n, i++)WriteString(string);    True;]
-                                              Enter<**** user rulebase>{(<, n<m);
-                                                  Arg(arg1 -> 1);
-                                                  Arg(arg2 -> 1);
-                                                  **** Rule in function (<) matched: Precedence: 5, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(n), IsNumber(m), True,     Variables: n, m,     Types: Variable, Variable,    Body: LessThan(n-m, 0)
-                                              Leave<**** user rulebase>}(n<m -> False);
-                                              Enter<builtin>{(WriteString, WriteString(string));
-                                                  Arg(parameter1 -> );
-      
-                                              Leave<builtin>}(WriteString(string) -> True);
-                                              Enter<**** user rulebase>{(<, n<m);
-                                                  Arg(arg1 -> 1);
-                                                  Arg(arg2 -> 2);
-                                                  **** Rule in function (<) matched: Precedence: 5, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(n), IsNumber(m), True,     Variables: n, m,     Types: Variable, Variable,    Body: LessThan(n-m, 0)
-                                              Leave<**** user rulebase>}(n<m -> True);
-                                          Leave<**** user rulebase>}(WriteN(Nl(),1) -> True);
-                                      Leave<**** user rulebase>}(NewLine() -> True);
-                                  Leave<**** user rulebase>}(Echo({x,,,y}) -> True);
-                                  Arg(arg1 -> {x_IsAtom+_y,True,True});
-                                  **** Rule in function (LocProcessSingle) matched: Precedence: 10, Parameters: arg1<hold=false>, Predicates: (Pattern) True,     Variables: pat, post, exp,     Types: Sublist,    Body: {{pat[0], Pattern'Create(pat, post)}, exp}
-                                  Enter<builtin>{(Pattern'Create, Pattern'Create(pat,post));
-                                      Arg(parameter1 -> x_IsAtom+_y);
-                                      Arg(parameter2 -> True);
-                                  Leave<builtin>}(Pattern'Create(pat,post) -> Pattern);
-                              Leave<**** user rulebase>}(LocProcessSingle({x_IsAtom+_y,IsZero(0),Echo(x,,,y)}) -> {{+,Pattern},True});
-                          Leave<builtin>}(ApplyPure(applyoper,applyargs) -> {{+,Pattern},True});
-                      Leave<**** user rulebase>}(Apply($func17,{mapsingleitem}) -> {{+,Pattern},True});
-                  Leave<**** user rulebase>}(ForEach(mapsingleitem,$list17)[    DestructiveInsert(mapsingleresult,1,Apply($func17,{mapsingleitem}));] -> True);
-              Leave<**** user rulebase>}(MapSingle(LocProcessSingle,patterns) -> {{{+,Pattern},True}});
-          Leave<**** user rulebase>}(LocProcess(patterns) -> {{{+,Pattern},True}});
-          Enter<**** user rulebase>{(MacroSubstitute, MacroSubstitute(expression,LocPredicate,LocChange));
-              Arg(body -> (b+c)*(d+e));
-              Arg(predicate -> LocPredicate);
-              Arg(change -> LocChange);
-              **** Rule in function (MacroSubstitute) matched: Precedence: 1025, Parameters: body<hold=false>, predicate<hold=true>, change<hold=true>, Predicates: None.,    Body: [    `MacroSubstitute(Hold(@body));]
-              Enter<builtin>{(`, `MacroSubstitute(Hold(@body)));
-                  Arg(parameter1 -> MacroSubstitute(Hold(@body)));
-                  Enter<**** user rulebase>{(MacroSubstitute, MacroSubstitute(Hold((b+c)*(d+e))));
-                      Arg(body -> (b+c)*(d+e));
-                      Enter<builtin>{(`, `ApplyPure(predicate,{Hold(Hold(@body))}));
-                          Arg(parameter1 -> ApplyPure(predicate,{Hold(Hold(@body))}));
-                          Enter<builtin>{(ApplyPure, ApplyPure(predicate,{Hold(Hold((b+c)*(d+e)))}));
-                              Arg(parameter1 -> LocPredicate);
-                              Arg(parameter2 -> {Hold((b+c)*(d+e))});
-                              Enter<**** user rulebase>{(LocPredicate, LocPredicate(Hold((b+c)*(d+e))));
-                                  Arg(arg1 -> (b+c)*(d+e));
-                                  **** Rule in function (LocPredicate) matched: Precedence: 10, Parameters: arg1<hold=false>, Predicates: (Pattern) IsFunction(exp), True,     Variables: exp,     Types: Variable,    Body: [    Local(tr, result, head);    tr:=patterns;    result:=False;    While(tr!={})[        Set(head, Head(Head(tr)));        If(NotIsAtom(head)Andexp[0]=head[1]AndPattern'Matches(head[2], exp), [            Set($LocResult10, Eval(Head(Tail(Head(tr)))));            Set(result, True);            Set(tr, {});], [            Set(tr, Tail(tr));]);];    result;]
-                                  Enter<**** user rulebase>{(!=, tr!={});
-                                      Arg(aLeft -> {{{+,Pattern},True}});
-                                      Arg(aRight -> {});
-                                      **** Rule in function (!=) matched: Precedence: 1025, Parameters: aLeft<hold=false>, aRight<hold=false>, Predicates: None.,    Body: NotaLeft=aRight
-                                  Leave<**** user rulebase>}(tr!={} -> True);
-                                  Enter<**** user rulebase>{(!=, tr!={});
-                                      Arg(aLeft -> {});
-                                      Arg(aRight -> {});
-                                      **** Rule in function (!=) matched: Precedence: 1025, Parameters: aLeft<hold=false>, aRight<hold=false>, Predicates: None.,    Body: NotaLeft=aRight
-                                  Leave<**** user rulebase>}(tr!={} -> False);
-                              Leave<**** user rulebase>}(LocPredicate(Hold((b+c)*(d+e))) -> False);
-                          Leave<builtin>}(ApplyPure(predicate,{Hold(Hold((b+c)*(d+e)))}) -> False);
-                      Leave<builtin>}(`ApplyPure(predicate,{Hold(Hold(@body))}) -> False);
-                      Enter<builtin>{(`, `IsFunction(Hold(@body)));
-                          Arg(parameter1 -> IsFunction(Hold(@body)));
-                      Leave<builtin>}(`IsFunction(Hold(@body)) -> True);
-                      **** Rule in function (MacroSubstitute) matched: Precedence: 2, Parameters: body<hold=false>, Predicates: `IsFunction(Hold(@body)),    Body: [    `ApplyPure("MacroMapArgs", {Hold(Hold(@body)), "MacroSubstitute"});]
-                      Enter<builtin>{(`, `ApplyPure(MacroMapArgs,{Hold(Hold(@body)),MacroSubstitute}));
-                          Arg(parameter1 -> ApplyPure(MacroMapArgs,{Hold(Hold(@body)),MacroSubstitute}));
-                          Enter<builtin>{(ApplyPure, ApplyPure(MacroMapArgs,{Hold(Hold((b+c)*(d+e))),MacroSubstitute}));
-                              Arg(parameter1 -> MacroMapArgs);
-                              Arg(parameter2 -> {Hold((b+c)*(d+e)),MacroSubstitute});
-                              Enter<macro>{(MacroMapArgs, MacroMapArgs(Hold((b+c)*(d+e)),MacroSubstitute));
-                                  Arg(expr -> Hold((b+c)*(d+e)));
-                                  Arg(oper -> MacroSubstitute);
-                                  **** Rule in function (MacroMapArgs) matched: Precedence: 1025, Parameters: expr<hold=true>, oper<hold=true>, Predicates: None.,    Body: [    Local(ex, tl, op);    Set(op, @oper);    Set(ex, Listify(@expr));    Set(tl, Tail(ex));    UnList(Concat({ex[1]}, `MacroMapSingle(@op, Hold(@tl))));], Substituted Macro Body: [    Local(ex,tl,op);    Set(op,"MacroSubstitute");    Set(ex,Listify(Hold((b+c)*(d+e))));    Set(tl,Tail(ex));    UnList(Concat({ex[1]},`MacroMapSingle(@op,Hold(@tl))));]
-                                  Enter<builtin>{(Concat, Concat({ex[1]},`MacroMapSingle(@op,Hold(@tl))));
-                                      Enter<builtin>{(`, `MacroMapSingle(@op,Hold(@tl)));
-                                          Arg(parameter1 -> MacroMapSingle(@op,Hold(@tl)));
-                                          Enter<**** user rulebase>{(MacroMapSingle, MacroMapSingle(MacroSubstitute,Hold({b+c,d+e})));
-                                              Arg($func14 -> MacroSubstitute);
-                                              Arg($list14 -> {b+c,d+e});
-                                              **** Rule in function (MacroMapSingle) matched: Precedence: 1025, Parameters: $func14<hold=false>, $list14<hold=false>, Predicates: None.,    Body: [    Local(mapsingleresult);    mapsingleresult:={};    ForEach(mapsingleitem, $list14)[        DestructiveInsert(mapsingleresult, 1, `ApplyPure($func14, {Hold(Hold(@mapsingleitem))}));];    DestructiveReverse(mapsingleresult);]
-                                              Enter<**** user rulebase>{(ForEach, ForEach(mapsingleitem,$list14)[    DestructiveInsert(mapsingleresult,1,`ApplyPure($func14,{Hold(Hold(@mapsingleitem))}));]);
-                                                  Arg($item21 -> mapsingleitem);
-                                                  Arg($list21 -> {b+c,d+e});
-                                                  Arg($body21 -> [    DestructiveInsert(mapsingleresult,1,`ApplyPure($func14,{Hold(Hold(@mapsingleitem))}));]);
-                                                  **** Rule in function (ForEach) matched: Precedence: 1025, Parameters: $item21<hold=true>, $list21<hold=false>, $body21<hold=true>, Predicates: None.,    Body: [    If(Equals(IsGeneric($list21), True)AndEquals(GenericTypeName($list21), "Array"), `ForEachInArray(@$item21, $list21, @$body21), [        Local(foreachtail);        MacroLocal($item21);        Set(foreachtail, $list21);        While(NotEquals(foreachtail, {}))[            MacroSet($item21, Head(foreachtail));            Eval($body21);            Set(foreachtail, Tail(foreachtail));];]);]
-                                                  Enter<builtin>{(MacroLocal, MacroLocal($item21));
-                                                      Arg(parameter1 -> $item21);
-                                                  Leave<builtin>}(MacroLocal($item21) -> True);
-                                                  Enter<builtin>{(`, `ApplyPure($func14,{Hold(Hold(@mapsingleitem))}));
-                                                      Arg(parameter1 -> ApplyPure($func14,{Hold(Hold(@mapsingleitem))}));
-                                                      Enter<builtin>{(ApplyPure, ApplyPure($func14,{Hold(Hold(b+c))}));
-                                                          Arg(parameter1 -> MacroSubstitute);
-                                                          Arg(parameter2 -> {Hold(b+c)});
-                                                          Enter<**** user rulebase>{(MacroSubstitute, MacroSubstitute(Hold(b+c)));
-                                                              Arg(body -> b+c);
-                                                              Enter<builtin>{(`, `ApplyPure(predicate,{Hold(Hold(@body))}));
-                                                                  Arg(parameter1 -> ApplyPure(predicate,{Hold(Hold(@body))}));
-                                                                  Enter<builtin>{(ApplyPure, ApplyPure(predicate,{Hold(Hold(b+c))}));
-                                                                      Arg(parameter1 -> LocPredicate);
-                                                                      Arg(parameter2 -> {Hold(b+c)});
-                                                                      Enter<**** user rulebase>{(LocPredicate, LocPredicate(Hold(b+c)));
-                                                                          Arg(arg1 -> b+c);
-                                                                          **** Rule in function (LocPredicate) matched: Precedence: 10, Parameters: arg1<hold=false>, Predicates: (Pattern) IsFunction(exp), True,     Variables: exp,     Types: Variable,    Body: [    Local(tr, result, head);    tr:=patterns;    result:=False;    While(tr!={})[        Set(head, Head(Head(tr)));        If(NotIsAtom(head)Andexp[0]=head[1]AndPattern'Matches(head[2], exp), [            Set($LocResult10, Eval(Head(Tail(Head(tr)))));            Set(result, True);            Set(tr, {});], [            Set(tr, Tail(tr));]);];    result;]
-                                                                          Enter<**** user rulebase>{(!=, tr!={});
-                                                                              Arg(aLeft -> {{{+,Pattern},True}});
-                                                                              Arg(aRight -> {});
-                                                                              **** Rule in function (!=) matched: Precedence: 1025, Parameters: aLeft<hold=false>, aRight<hold=false>, Predicates: None.,    Body: NotaLeft=aRight
-                                                                          Leave<**** user rulebase>}(tr!={} -> True);
-                                                                          Enter<builtin>{(Pattern'Matches, Pattern'Matches(head[2],exp));
-                                                                              Arg(parameter1 -> Pattern);
-                                                                              Arg(parameter2 -> b+c);
-                                                                          Leave<builtin>}(Pattern'Matches(head[2],exp) -> True);
-                                                                          Enter<**** user rulebase>{(!=, tr!={});
-                                                                              Arg(aLeft -> {});
-                                                                              Arg(aRight -> {});
-                                                                              **** Rule in function (!=) matched: Precedence: 1025, Parameters: aLeft<hold=false>, aRight<hold=false>, Predicates: None.,    Body: NotaLeft=aRight
-                                                                          Leave<**** user rulebase>}(tr!={} -> False);
-                                                                      Leave<**** user rulebase>}(LocPredicate(Hold(b+c)) -> True);
-                                                                  Leave<builtin>}(ApplyPure(predicate,{Hold(Hold(b+c))}) -> True);
-                                                              Leave<builtin>}(`ApplyPure(predicate,{Hold(Hold(@body))}) -> True);
-                                                              **** Rule in function (MacroSubstitute) matched: Precedence: 1, Parameters: body<hold=false>, Predicates: `ApplyPure(predicate,{Hold(Hold(@body))})=True,    Body: [    `ApplyPure(change, {Hold(Hold(@body))});]
-                                                              Enter<builtin>{(`, `ApplyPure(change,{Hold(Hold(@body))}));
-                                                                  Arg(parameter1 -> ApplyPure(change,{Hold(Hold(@body))}));
-                                                                  Enter<builtin>{(ApplyPure, ApplyPure(change,{Hold(Hold(b+c))}));
-                                                                      Arg(parameter1 -> LocChange);
-                                                                      Arg(parameter2 -> {Hold(b+c)});
-                                                                      Enter<**** user rulebase>{(LocChange, LocChange(Hold(b+c)));
-                                                                          Arg(arg1 -> b+c);
-                                                                          **** Rule in function (LocChange) matched: Precedence: 0, Parameters: arg1<hold=false>, Predicates: (Pattern) True,     Variables: exp,     Types: Variable,    Body: $LocResult10
-                                                                      Leave<**** user rulebase>}(LocChange(Hold(b+c)) -> True);
-                                                                  Leave<builtin>}(ApplyPure(change,{Hold(Hold(b+c))}) -> True);
-                                                              Leave<builtin>}(`ApplyPure(change,{Hold(Hold(@body))}) -> True);
-                                                          Leave<**** user rulebase>}(MacroSubstitute(Hold(b+c)) -> True);
-                                                      Leave<builtin>}(ApplyPure($func14,{Hold(Hold(b+c))}) -> True);
-                                                  Leave<builtin>}(`ApplyPure($func14,{Hold(Hold(@mapsingleitem))}) -> True);
-                                                  Enter<builtin>{(`, `ApplyPure($func14,{Hold(Hold(@mapsingleitem))}));
-                                                      Arg(parameter1 -> ApplyPure($func14,{Hold(Hold(@mapsingleitem))}));
-                                                      Enter<builtin>{(ApplyPure, ApplyPure($func14,{Hold(Hold(d+e))}));
-                                                          Arg(parameter1 -> MacroSubstitute);
-                                                          Arg(parameter2 -> {Hold(d+e)});
-                                                          Enter<**** user rulebase>{(MacroSubstitute, MacroSubstitute(Hold(d+e)));
-                                                              Arg(body -> d+e);
-                                                              Enter<builtin>{(`, `ApplyPure(predicate,{Hold(Hold(@body))}));
-                                                                  Arg(parameter1 -> ApplyPure(predicate,{Hold(Hold(@body))}));
-                                                                  Enter<builtin>{(ApplyPure, ApplyPure(predicate,{Hold(Hold(d+e))}));
-                                                                      Arg(parameter1 -> LocPredicate);
-                                                                      Arg(parameter2 -> {Hold(d+e)});
-                                                                      Enter<**** user rulebase>{(LocPredicate, LocPredicate(Hold(d+e)));
-                                                                          Arg(arg1 -> d+e);
-                                                                          **** Rule in function (LocPredicate) matched: Precedence: 10, Parameters: arg1<hold=false>, Predicates: (Pattern) IsFunction(exp), True,     Variables: exp,     Types: Variable,    Body: [    Local(tr, result, head);    tr:=patterns;    result:=False;    While(tr!={})[        Set(head, Head(Head(tr)));        If(NotIsAtom(head)Andexp[0]=head[1]AndPattern'Matches(head[2], exp), [            Set($LocResult10, Eval(Head(Tail(Head(tr)))));            Set(result, True);            Set(tr, {});], [            Set(tr, Tail(tr));]);];    result;]
-                                                                          Enter<**** user rulebase>{(!=, tr!={});
-                                                                              Arg(aLeft -> {{{+,Pattern},True}});
-                                                                              Arg(aRight -> {});
-                                                                              **** Rule in function (!=) matched: Precedence: 1025, Parameters: aLeft<hold=false>, aRight<hold=false>, Predicates: None.,    Body: NotaLeft=aRight
-                                                                          Leave<**** user rulebase>}(tr!={} -> True);
-                                                                          Enter<builtin>{(Pattern'Matches, Pattern'Matches(head[2],exp));
-                                                                              Arg(parameter1 -> Pattern);
-                                                                              Arg(parameter2 -> d+e);
-                                                                          Leave<builtin>}(Pattern'Matches(head[2],exp) -> True);
-                                                                          Enter<**** user rulebase>{(!=, tr!={});
-                                                                              Arg(aLeft -> {});
-                                                                              Arg(aRight -> {});
-                                                                              **** Rule in function (!=) matched: Precedence: 1025, Parameters: aLeft<hold=false>, aRight<hold=false>, Predicates: None.,    Body: NotaLeft=aRight
-                                                                          Leave<**** user rulebase>}(tr!={} -> False);
-                                                                      Leave<**** user rulebase>}(LocPredicate(Hold(d+e)) -> True);
-                                                                  Leave<builtin>}(ApplyPure(predicate,{Hold(Hold(d+e))}) -> True);
-                                                              Leave<builtin>}(`ApplyPure(predicate,{Hold(Hold(@body))}) -> True);
-                                                              **** Rule in function (MacroSubstitute) matched: Precedence: 1, Parameters: body<hold=false>, Predicates: `ApplyPure(predicate,{Hold(Hold(@body))})=True,    Body: [    `ApplyPure(change, {Hold(Hold(@body))});]
-                                                              Enter<builtin>{(`, `ApplyPure(change,{Hold(Hold(@body))}));
-                                                                  Arg(parameter1 -> ApplyPure(change,{Hold(Hold(@body))}));
-                                                                  Enter<builtin>{(ApplyPure, ApplyPure(change,{Hold(Hold(d+e))}));
-                                                                      Arg(parameter1 -> LocChange);
-                                                                      Arg(parameter2 -> {Hold(d+e)});
-                                                                      Enter<**** user rulebase>{(LocChange, LocChange(Hold(d+e)));
-                                                                          Arg(arg1 -> d+e);
-                                                                          **** Rule in function (LocChange) matched: Precedence: 0, Parameters: arg1<hold=false>, Predicates: (Pattern) True,     Variables: exp,     Types: Variable,    Body: $LocResult10
-                                                                      Leave<**** user rulebase>}(LocChange(Hold(d+e)) -> True);
-                                                                  Leave<builtin>}(ApplyPure(change,{Hold(Hold(d+e))}) -> True);
-                                                              Leave<builtin>}(`ApplyPure(change,{Hold(Hold(@body))}) -> True);
-                                                          Leave<**** user rulebase>}(MacroSubstitute(Hold(d+e)) -> True);
-                                                      Leave<builtin>}(ApplyPure($func14,{Hold(Hold(d+e))}) -> True);
-                                                  Leave<builtin>}(`ApplyPure($func14,{Hold(Hold(@mapsingleitem))}) -> True);
-                                              Leave<**** user rulebase>}(ForEach(mapsingleitem,$list14)[    DestructiveInsert(mapsingleresult,1,`ApplyPure($func14,{Hold(Hold(@mapsingleitem))}));] -> True);
-                                          Leave<**** user rulebase>}(MacroMapSingle(MacroSubstitute,Hold({b+c,d+e})) -> {True,True});
-                                      Leave<builtin>}(`MacroMapSingle(@op,Hold(@tl)) -> {True,True});
-                                      Arg(parameter1 -> {ex[1]});
-                                      Arg(parameter2 -> `MacroMapSingle(@op,Hold(@tl)));
-                                  Leave<builtin>}(Concat({ex[1]},`MacroMapSingle(@op,Hold(@tl))) -> {*,True,True});
-                              Leave<macro>}(MacroMapArgs(Hold((b+c)*(d+e)),MacroSubstitute) -> True*True);
-                          Leave<builtin>}(ApplyPure(MacroMapArgs,{Hold(Hold((b+c)*(d+e))),MacroSubstitute}) -> True*True);
-                      Leave<builtin>}(`ApplyPure(MacroMapArgs,{Hold(Hold(@body)),MacroSubstitute}) -> True*True);
-                  Leave<**** user rulebase>}(MacroSubstitute(Hold((b+c)*(d+e))) -> True*True);
-              Leave<builtin>}(`MacroSubstitute(Hold(@body)) -> True*True);
-          Leave<**** user rulebase>}(MacroSubstitute(expression,LocPredicate,LocChange) -> True*True);
-      Leave<**** user rulebase>}((b+c)*(d+e)/:{{x_IsAtom+_y,Hold(IsZero(0)),Hold(Echo(x,,,y))}} -> True*True);
+      Result: True
 .   %/mathpiper_trace
+
+
+
+
+
+
+
+%mathpiper,output="trace"
+
+//(b + c) * (d + e) /: {(x_IsAtom + _y) <- Echo(x,,,y)};
+
+Retract("LocProcessSingle",*);
+
+40 # LocProcessSingle(pat_IsFunction <- _exp) <-- 
+[
+    { {pat[0],Pattern'Create(pat,True)},exp };
+];
+
+//10 # LocProcessSingle({_pat,_post,_exp}) <-- { {pat[0],Pattern'Create(pat,post)},exp };
+
+//20 # LocProcessSingle({pat_IsFunction,_exp}) <-- { {pat[0],Pattern'Create(pat,True)},exp };
+
+//30 # LocProcessSingle({pat_IsAtom,_exp}) <-- { pat,exp };
+
+//50 # LocProcessSingle(pat_IsAtom <- _exp) <-- { pat,exp };
+
+TraceExcept("MacroLocal,ApplyPure,Apply,MapSingle,+,ForEach,*,++,>=,<=,:=,IsUniVar,IsNumber,IsNegativeNumber,For,IsInfinity,IsMatrix,IsNonObject,SubtractN,-,MathSign,IsGeneric,Or,IsString,AbsN,UnFence,LocalSymbols,GreaterThan,Retract,=,UnList,Hold,Equals,IsFunction,Listify,Head,Nth,MathNth,Type,Prog,And,NotEquals,Local,Tail,DefLoadFunction,Not,IsInteger,Set,String,Length,If,List,MakeVector,IsList,LessThan,While,DestructiveReverse,MacroSet,Eval,DestructiveInsert,AddN,IsAtom,Atom,ConcatStrings",  (b + c) * (d + e) /: {(x_IsAtom + _y) <- Echo(x,,,y)} );
+
+
+%/mathpiper
+
+
 
 
 
