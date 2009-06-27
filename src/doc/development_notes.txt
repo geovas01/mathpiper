@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ The *mathrider task does not pick up MathPiper version changes for some reason.
 + The expression printer does not place spaces on either side of logical operators:
 In> p Or q
 Result> pOrq
