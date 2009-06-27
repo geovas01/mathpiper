@@ -156,7 +156,7 @@ Enter<**** user rulebase>{(-,2+3-6);
 Leave<**** user rulebase>}(2+3-6->-1);
 
 
- *SEE Trace
+ *SEE TraceSome
 
 %/mathpiper_docs
 */

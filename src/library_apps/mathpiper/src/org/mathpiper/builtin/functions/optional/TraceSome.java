@@ -31,7 +31,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *
  */
-public class Trace extends BuiltinFunction
+public class TraceSome extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -77,11 +77,11 @@ public class Trace extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Trace"
-*CMD Trace --- trace the given functions which are evaluated in the given expression
+%mathpiper_docs,name="TraceSome"
+*CMD TraceSome --- trace the given functions which are evaluated in the given expression
 *CORE
 *CALL
-	Trace("function_name,function_name,function_name,...", expression)
+	TraceSome("function_name,function_name,function_name,...", expression)
 
 *PARMS
 
@@ -96,7 +96,7 @@ Outputs a trace of the functions which are listed in the given string and are ev
 
 *E.G.
 
-In> Trace("Factors,FactorizeInt",Factor(8))
+In> TraceSome("Factors,FactorizeInt",Factor(8))
 Result> True
 Side Effects>
 Enter<**** user rulebase>{(Factors,Factors(p));

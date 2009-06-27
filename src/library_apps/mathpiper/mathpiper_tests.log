@@ -1,5 +1,5 @@
 
-***** Wed Jun 17 17:36:16 EDT 2009 *****
+***** Fri Jun 26 23:50:25 EDT 2009 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .75c *****
 
@@ -172,7 +172,7 @@ Test suite for Check linear algebra :
 --Inverse
 --SolveMatrix
 --Trace
-Exception:
+Exception:In function "Trace" : expected 2 arguments, got 1 Source file: tests/scripts/linalg.mpt Line number: 107
 ===========================
 lists.mpt: 
 
@@ -905,7 +905,7 @@ Side Effects:
 ******************
 tests/scripts/sums.mpt: 339 
 
-$pp12382
+$pp12268
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
@@ -930,7 +930,7 @@ Result: True
 
 Side Effects:
 ---- Trace
-Exception:
+Exception:In function "Trace" : expected 2 arguments, got 1 Source file: tests/scripts/trace.mpt Line number: 7
 ===========================
 transforms.mpt: 
 
