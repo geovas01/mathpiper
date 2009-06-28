@@ -335,14 +335,14 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 					
 					
-				try  //todo:tk:This code is a hack to prevent a second fold update occurring before the first update is finished.
+				/*try  //todo:tk:This code is a hack to prevent a second fold update occurring before the first update is finished.
 				{
 					
 					Thread.sleep(400);
 				}
 				catch(InterruptedException e)
 				{
-				}
+				}*/
 				
 	System.out.println("<shift><enter> Received response from ASync.");
 					
@@ -424,7 +424,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 					output_fold_type = "%output";
 				}
-	//Sy	stem.out.println("Out> " + evaluationResponse);
+	//System.out.println("Out> " + evaluationResponse);
 			if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 			{
 				result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
@@ -458,7 +458,27 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 				//System.out.println(tempFilePath);
         	
-				asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");");
+				//Evaluation has been moved to the displayResult() method.
+				//asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");");
+				//System.out.println("XXXXX submitted evaluation.");
+				new Thread(new Runnable() {
+
+				public void run()
+				{
+					//Note:MathPiper evaluation was moved here to prevent late posting of "Processing..." output fold message.
+				try  
+				{
+					
+					Thread.sleep(200);
+				}
+				catch(InterruptedException e)
+				{
+				}
+					asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");");
+					System.out.println("XXXXX submitted evaluation. ");
+				}//end run.
+				
+			}).start();
 				
 			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
 			//wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(true);
@@ -1325,6 +1345,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		}//end if/else
 
 //===================================================================================
+
+				
 				//Determine how many lines are in the result.
 				numberOfLines = 0;
 				charIndex = 0;
@@ -1367,6 +1389,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 				void displayResult()
 				{
+
 					//Buffer update needs to be done later in the AWT thread because of needing
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()
@@ -1467,13 +1490,22 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 							textArea.collapseFold();
 						}//end if.
 						
+						
+
 						buffer.save(view,null);
-					}
+						
+
+					}//end run method.
+
 					VFSManager.runInAWTThread(this);
+					
+
 				
 				}//end method.
 				
 				displayResult();
+				
+
 							
 
     } 
