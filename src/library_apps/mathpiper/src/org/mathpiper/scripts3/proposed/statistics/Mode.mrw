@@ -1,0 +1,21 @@
+%mathpiper,title="Mode"
+Mode(list) :=
+[
+    
+    Local(mostFrequent, highestFrequency, currentElementCount);
+    
+    highestFrequency := 0;
+    
+    noDuplicatesList := RemoveDuplicates(list);
+    
+    ForEach(element, noDuplicatesList)
+    [
+        If( (currentElementCount := Count(list, element)) > highestFrequency,[ mostFrequent := element; highestFrequency := currentElementCount;] );
+    ];
+    
+    mostFrequent;
+
+];
+
+%/mathpiper
+

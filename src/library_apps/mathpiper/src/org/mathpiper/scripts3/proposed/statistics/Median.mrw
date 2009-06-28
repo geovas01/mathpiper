@@ -1,0 +1,21 @@
+%mathpiper
+
+Median(list) :=
+[
+    list2 := HeapSort(list,"<");
+    length := Length(list);
+    
+    If(IsEven(length),
+        [   
+            //Even.
+            result := N(( list2[Div(length,2)] + list2[Div(length,2)+1])/2);
+        ],
+        [
+            //Odd.
+            result :=  list2[Div(length,2)+1];
+        ]
+    );
+
+];
+
+%/mathpiper

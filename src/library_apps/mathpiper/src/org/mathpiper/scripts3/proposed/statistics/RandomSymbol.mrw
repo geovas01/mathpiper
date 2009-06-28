@@ -1,0 +1,50 @@
+%mathpiper,title="RandomSymbol"
+
+Retract("RandomSymbol",*);
+
+RandomSymbol(list) :=
+[
+
+    Local(element);
+    
+    fractions := 0;
+    
+    symbols := {};
+    
+    lastWeight := 0;
+    
+    ForEach(element,list)
+    [        
+        fraction := element[2];
+
+        fractions := fractions + fraction;
+    ];
+    
+    If(fractions != 1, 
+        [
+            Echo("Error: The fractions must sum to 1."); False;
+        ],
+        [
+            ForEach(element,list)
+            [
+                fraction := element[2];
+                symbol := element[1];
+                symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(fraction)}} );
+            ];
+             
+            randomNumber := Random();
+            
+            ForEach(symbolData,symbols)
+            [
+                If(randomNumber >= symbolData[2][1] And randomNumber <= symbolData[2][2], result := symbolData[1] );
+            ];
+            
+            result;
+        ]
+        
+    );
+        
+
+];
+
+%/mathpiper

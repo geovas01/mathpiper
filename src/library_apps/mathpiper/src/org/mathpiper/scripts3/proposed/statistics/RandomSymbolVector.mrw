@@ -1,0 +1,7 @@
+%mathpiper,title="RamdomSymbolVector"
+RandomSymbolVector(list, count) :=
+[
+    If(IsList(list)= True, Table(RandomSymbol(list),x,1,count,1), False );
+];
+
+%/mathpiper

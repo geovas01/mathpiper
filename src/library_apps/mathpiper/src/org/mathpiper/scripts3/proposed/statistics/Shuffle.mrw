@@ -1,0 +1,22 @@
+%mathpiper
+
+Retract("Shuffle",*);
+
+
+10 # Shuffle(list_IsList) <--
+[
+    n := Length(list);
+    
+    While(index > 1)
+    [
+        randomIndex := RandomInteger(1,index);
+        tempoary := list[randomIndex];
+        list[randomIndex] := list[index];
+        list[index] := tempoary;
+        index--;
+    ];      
+    
+    list;
+];
+
+%/mathpiper
