@@ -1,3 +1,20 @@
+
+%mathpiper
+
+Use("org/mathpiper/scripts/proposed.rep/statistics.mpi");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
 %mathpiper,title="two boys."
 
 boysAndGirls := {};
@@ -29,109 +46,18 @@ N(twoBoys/ Length(boysOnly));
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: 0.2666666667
+      
+      Side Effects:
+      Trials :{{1,1},{1,0},{1,1},{0,1},{0,1},{1,1},{1,0},{1,0},{1,0},{0,1},{1,0},{0,1},{1,1},{0,1},{1,0},{0,1},{1,1},{1,1},{1,0},{1,1},{1,0},{1,0},{1,0},{1,1},{0,1},{1,1},{0,1},{0,1},{1,1},{1,0},{0,1},{1,0},{1,0},{1,0},{1,0},{0,1},{1,0},{1,0},{1,0},{0,1},{1,1},{0,1},{1,1},{1,0},{0,1},{1,0},{1,1},{1,0},{1,0},{0,1},{0,1},{1,1},{1,1},{0,1},{1,0},{1,0},{0,1},{1,1},{0,1},{1,0},{0,1},{0,1},{1,0},{0,1},{1,1},{1,0},{1,0},{0,1},{1,1},{1,1},{1,1},{0,1},{1,0},{0,1},{1,0}} 
+      One boy: 55 
+      Two boys: 20 
+      At least one boy: 75 0.75
+.   %/output
 
 
 
-
-
-%mathpiper,title="Repeat"
-
-Retract("Repeat",*);
-
-/*RuleBase("Repeat",{iterations});
-
-
-10 # Repeat(iterations_isNumber, body) <--
-[
-    index := 1;
-    
-    While( index < iterations )
-    [
-        body;
-    ];
-
-];
-
-*/
-
-
-TemplateFunction("Repeat",{iterations,body})
-[
-    Local(break, count, infiniteLoopFlag);
-    infiniteLoopFlag := False;
-    If(IsInteger(iterations),True,[iterations := 1; infiniteLoopFlag := True;]);
-    break := False;
-    count := 0;
-    While (iterations > 0 And break != True)
-    [
-        Eval(body);
-        If(infiniteLoopFlag = False, iterations-- );
-        count++;
-    ];
-    count;
-];
-UnFence("Repeat",2);
-//HoldArgNr("Repeat",2,1);
-HoldArgNr("Repeat",2,2);
-
-Bodied("Repeat", 60000);
-
-%/mathpiper
-
-
-
-
-%mathpiper,title="RandomInteger"
-RandomInteger(first, last) :=
-[
-    difference := last - first;
-
-    Round(Random() * difference) + first;
-];
-
-
-
-%/mathpiper
-
-
-
-
-%mathpiper,title="RandomPick"
-
-Retract("RandomPick",*);
-
-
-10 # RandomPick(list_IsList) <--
-[
-    pickPosition := RandomInteger(Length(list)) + 1;
-
-    list[pickPosition];
-];
-
-
-
-
-Retract("Shuffle",*);
-
-
-10 # Shuffle(list_IsList) <--
-[
-    n := Length(list);
-    
-    While(n > 1)
-    [
-        k := RandomInteger(1,n);
-        tmp := list[k];
-        list[k] := list[n];
-        list[n] := tmp;
-        n--;
-    ];      
-    
-    list;
-];
-
-
-%/mathpiper
 
 
 
@@ -167,6 +93,17 @@ Echo(initialGoldCount,,,goldGoldCount,,,result);
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      534 , 370 , 0.6928838951
+.   %/output
+
+
+
+
+
 
 
 
@@ -195,15 +132,15 @@ Echo("Second Pick: ", Count(secondPickScore,prize));
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      First Pick: 258 
+      Second Pick: 742
+.   %/output
 
 
-
-
-%mathpiper,title="Shuffle"
-
-Shuffle( { empty, prize, empty});
-
-%/mathpiper
 
 
 
@@ -240,6 +177,17 @@ Repeat(trials)
 Echo("Probability of a single pair: ", N(pairsCount/trials) );
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Probability of a single pair: 0.34
+.   %/output
+
+
+
+
 
 
 
@@ -282,6 +230,17 @@ Echo("Probability of three of a kind: ", N(threeOfAKindCount/trials) );
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Probability of two pairs: 0.044 
+      Probability of three of a kind: 0.023
+.   %/output
+
+
+
+
 
 
 
@@ -289,7 +248,7 @@ Echo("Probability of three of a kind: ", N(threeOfAKindCount/trials) );
 %mathpiper,title="Birthday match from page 97 chapter 7."
 
 birthdayMatchCounter := 0;
-trials := 100;
+trials := 10;
 Repeat(trials)
 [
     birthdays := RandomIntegerVector(25,1,365);
@@ -308,95 +267,14 @@ Repeat(trials)
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      3 , 10
+.   %/output
 
 
-
-
-
-
-%mathpiper,title="RandomSymbol"
-
-Retract("RandomSymbol",*);
-
-//RuleBase("RandomSymbol",{list});
-
-
-RandomSymbol(list) :=
-[
-
-    Local(element);
-    
-    fractions := 0;
-    
-    symbols := {};
-    
-    lastWeight := 0;
-    
-    
-    ForEach(element,list)
-    [
-        //If(IsRational(element[2]),fraction := element[2], fraction := element[1]);
-        
-        fraction := element[2];
-
-        fractions := fractions + fraction;
-        
-    ];
-    
-    If(fractions != 1, 
-        [
-            Echo("Error: The fractions must sum to 1."); False;
-        ],
-        [
-            ForEach(element,list)
-            [
-                //If(IsRational(element[2]),[fraction := element[2];symbol := element[1];], [fraction := element[1];symbol := element[2];]);
-                fraction := element[2];
-                symbol := element[1];
-                symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(fraction)}} );
-            ];
-             
-            randomNumber := Random();
-            
-            ForEach(symbolData,symbols)
-            [
-            //Echo(symbol[2][1],randomNumber);
-                If(randomNumber >= symbolData[2][1] And randomNumber <= symbolData[2][2], result := symbolData[1] );
-            ];
-            
-            result;
-        ]
-        
-    );
-        
-
-];
-
-
-
-RandomSymbol({{girl,1/2}, {boy,1/2}});
-
-lst := Table(RandomSymbol({ {girl,52/100}, {boy,48/100} }),x,0,100,1) ;
-
-
-Echo(Count(lst,girl),,,Count(lst,boy));
-
-%/mathpiper
-
-
-
-
-
-
-%mathpiper,title="RamdomSymbolVector"
-RandomSymbolVector(list, count) :=
-[
-    If(IsList(list)= True, Table(RandomSymbol(list),x,1,count,1), False );
-];
-
-
-
-%/mathpiper
 
 
 
@@ -418,7 +296,17 @@ Repeat(trials)
 ];
 
 Echo(successes,,,trials);
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      21 , 100
+.   %/output
+
+
 
 
 
@@ -431,16 +319,24 @@ successes := 0;
 
 Repeat(trials)
 [
-    //sample := Table(RandomSymbol({{hit,1/4}, {miss,3/4} }),x,1,5,1);
     sample := RandomSymbolVector({{hit,1/4}, {miss,3/4}},5);
-    //Echo(sample);
     
     If(Count(sample,hit) >= 3, successes := successes + 1);
     
 ];
 
 Echo(successes,,,trials);
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      15 , 100
+.   %/output
+
+
 
 
 
@@ -454,126 +350,26 @@ successes := 0;
 
 Repeat(trials)
 [
-    //sample := Table(RandomSymbol({ {black,10/100}, {white,60/100}, {miss,30/100} }),x,1,3,1);
     sample := RandomSymbolVector({{black,10/100}, {white,60/100}, {miss,30/100}},3);
-    //Echo(sample);
     
     If(Count(sample,black)= 1 And Count(sample,white) = 2, successes := successes + 1);
     
 ];
 
 Echo(successes,,,trials);
-%/mathpiper
-
-
-
-
-
-
-%mathpiper,title="Mean and Median"
-Mean(list) :=
-[
-    N(Add(list)/Length(list));
-
-];
-
-Median(list) :=
-[
-    list2 := HeapSort(list,"<");
-    length := Length(list);
-    
-    If(IsEven(length),
-        [   
-            //Even.
-            result := N(( list2[Div(length,2)] + list2[Div(length,2)+1])/2);
-        ],
-        [
-            //Odd.
-            result :=  list2[Div(length,2)+1];
-        ]
-    );
-
-];
 
 %/mathpiper
 
     %output,preserve="false"
       Result: True
+      
+      Side Effects:
+      16 , 100
 .   %/output
 
 
 
 
-
-                 
-%mathpiper,title="Mode"
-Mode(list) :=
-[
-    
-    Local(mostFrequent, highestFrequency, currentElementCount);
-    
-    highestFrequency := 0;
-    
-    noDuplicatesList := RemoveDuplicates(list);
-    
-    ForEach(element, noDuplicatesList)
-    [
-        If( (currentElementCount := Count(list, element)) > highestFrequency,[ mostFrequent := element; highestFrequency := currentElementCount;] );
-    ];
-    
-    mostFrequent;
-
-];
-
-
-Mode({3,4,5,4,3,2,3,4,5,6,7,8,5,6,5,4,5,6,7,3,3,3});
-%/mathpiper
-
-
-
-
-
-%mathpiper,title="Quartile"
-
-Retract("Quartile",*);
-
-Quartile(list) :=
-[
-    sortedList := HeapSort(list,"<");
-    
-    secondQuartile := Median(sortedList);
-    
-    If(IsOdd(Length(sortedList)),
-    [   
-        secondQuartileIndex := Find(sortedList, secondQuartile);
-        
-        leftList := Take(sortedList, secondQuartileIndex-1);
-        rightList := Take(sortedList, -(Length(sortedList) - (secondQuartileIndex) ) );
-    ],
-    [
-
-        leftList := Take(sortedList, Length(sortedList)/2);
-        rightList := Take(sortedList, -Length(sortedList)/2);
-    ]
-    );
-    
-    firstQuartile := Median(leftList);
-    
-    thirdQuartile := Median(rightList);
-    
-    interquartileRange := thirdQuartile - firstQuartile;
-    
-    {firstQuartile, secondQuartile, thirdQuartile, interquartileRange};
-
-];
-
-
-Quartile({6, 47, 49, 15, 42, 41, 7, 39, 43, 40, 36});
-%/mathpiper
-
-    %output,preserve="false"
-      Result: {15,40,43,28}
-.   %/output
 
 
 
@@ -608,31 +404,23 @@ Echo(overOrEqual,,,trials,,,mean);
 
 %/mathpiper
 
-    %error,preserve="false"
-      Result: Expecting a ] close bracket for program block, but got ; instead. Error near line 579
-.   %/error
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      38 , 100 , 12.343
+.   %/output
 
 
 
 
 
-
-%mathpiper,title="Break"
-
-Retract("Break",*);
-
-
-
-Break() := [break := True;];
-
-UnFence("Break",0);
-%/mathpiper
 
 
 
 %mathpiper,title="Flipping pennies pp.110 chapter 7."
 
-trials := 100;
+trials := 5;
 emptyCount := 0;
 
 Repeat(trials)
@@ -645,7 +433,6 @@ Repeat(trials)
         flip := RandomSymbol({{head,1/2},{tail,1/2}});
         
         If(flip = head, [stack1++; stack2--;], [stack1--; stack2++;] );
-        //Echo(flip, stack1,stack2);
         
         If(stack1 = 0 Or stack2 = 0, Break() );
         
@@ -656,45 +443,43 @@ Repeat(trials)
     
 ];
 
-{emptyCount,,,trials};
+{emptyCount,trials};
 
 
 %/mathpiper
 
-
-
+    %output,preserve="false"
+      Result: {3,5}
+.   %/output
 
 
 
 
 
 %mathpiper
-Repeat(10)
-[
-    Echo(hello);
-    Break();
 
-];
+2+3;
 
 %/mathpiper
 
 
 
 
-%mathpiper
 
-Test() :=
-[
-    If(IsOdd(True), True, False);
 
-];
 
-RuleBase("Test",{});
 
-%/mathpiper
 
-    %error,preserve="false"
-      Result: Rule base with this arity already defined. Error near line 684
-.   %/error
+
+
+
+
+
+
+
+
+
+
+
 
 
