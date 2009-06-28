@@ -5,7 +5,7 @@ Retract("Shuffle",*);
 
 10 # Shuffle(list_IsList) <--
 [
-    n := Length(list);
+    index := Length(list);
     
     While(index > 1)
     [
