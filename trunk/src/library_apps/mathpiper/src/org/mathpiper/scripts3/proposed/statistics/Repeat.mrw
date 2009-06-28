@@ -1,0 +1,44 @@
+%mathpiper,title="Repeat"
+
+Retract("Repeat",*);
+
+/*RuleBase("Repeat",{iterations});
+
+
+10 # Repeat(iterations_isNumber, body) <--
+[
+    index := 1;
+    
+    While( index < iterations )
+    [
+        body;
+    ];
+
+];
+
+*/
+
+
+TemplateFunction("Repeat",{iterations,body})
+[
+    Local(break, count, infiniteLoopFlag);
+    infiniteLoopFlag := False;
+    If(IsInteger(iterations),True,[iterations := 1; infiniteLoopFlag := True;]);
+    break := False;
+    count := 0;
+    While (iterations > 0 And break != True)
+    [
+        Eval(body);
+        If(infiniteLoopFlag = False, iterations-- );
+        count++;
+    ];
+    count;
+];
+UnFence("Repeat",2);
+//HoldArgNr("Repeat",2,1);
+HoldArgNr("Repeat",2,2);
+
+Bodied("Repeat", 60000);
+
+%/mathpiper
+

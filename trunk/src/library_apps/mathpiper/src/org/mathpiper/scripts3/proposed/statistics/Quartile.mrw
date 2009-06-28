@@ -1,0 +1,36 @@
+%mathpiper,title="Quartile"
+
+Retract("Quartile",*);
+
+Quartile(list) :=
+[
+    sortedList := HeapSort(list,"<");
+    
+    secondQuartile := Median(sortedList);
+    
+    If(IsOdd(Length(sortedList)),
+    [   
+        secondQuartileIndex := Find(sortedList, secondQuartile);
+        
+        leftList := Take(sortedList, secondQuartileIndex-1);
+        rightList := Take(sortedList, -(Length(sortedList) - (secondQuartileIndex) ) );
+    ],
+    [
+
+        leftList := Take(sortedList, Length(sortedList)/2);
+        rightList := Take(sortedList, -Length(sortedList)/2);
+    ]
+    );
+    
+    firstQuartile := Median(leftList);
+    
+    thirdQuartile := Median(rightList);
+    
+    interquartileRange := thirdQuartile - firstQuartile;
+    
+    {firstQuartile, secondQuartile, thirdQuartile, interquartileRange};
+
+];
+
+%/mathpiper
+

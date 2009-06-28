@@ -1,0 +1,13 @@
+%mathpiper,title="RandomPick"
+
+Retract("RandomPick",*);
+
+
+10 # RandomPick(list_IsList) <--
+[
+    pickPosition := RandomInteger(Length(list)) + 1;
+
+    list[pickPosition];
+];
+
+%/mathpiper
