@@ -1,4 +1,4 @@
-%mathpiper
+%mathpiper,title="two boys."
 
 boysAndGirls := {};
 ForEach(trial, 1 .. 100)
@@ -43,7 +43,7 @@ N(twoBoys/ Length(boysOnly));
 
 
 
-%mathpiper
+%mathpiper,title="Repeat"
 
 Retract("Repeat",*);
 
@@ -87,7 +87,7 @@ Bodied("Repeat", 60000);
 
 
 
-%mathpiper
+%mathpiper,title="RandomInteger"
 RandomInteger(first, last) :=
 [
     difference := last - first;
@@ -105,7 +105,7 @@ RandomInteger(first, last) :=
 
 
 
-%mathpiper
+%mathpiper,title="RandomPick"
 
 Retract("RandomPick",*);
 
@@ -224,7 +224,7 @@ Echo("Second Pick: ", Count(secondPickScore,prize));
 
 
 
-%mathpiper
+%mathpiper,title="Shuffle"
 
 Shuffle( { empty, prize, empty});
 
@@ -361,7 +361,7 @@ Repeat(trials)
 
 
 
-%mathpiper
+%mathpiper,title="RandomSymbol"
 
 Retract("RandomSymbol",*);
 
@@ -442,7 +442,7 @@ Echo(Count(lst,girl),,,Count(lst,boy));
 
 
 
-%mathpiper
+%mathpiper,title="RamdomSymbolVector"
 RandomSymbolVector(list, count) :=
 [
     If(IsList(list)= True, Table(RandomSymbol(list),x,1,count,1), False );
@@ -545,7 +545,7 @@ Echo(successes,,,trials);
 
 
 
-%mathpiper
+%mathpiper,title="Mean and Median"
 Mean(list) :=
 [
     N(Add(list)/Length(list));
@@ -580,22 +580,83 @@ Median(list) :=
 
 
                  
-%mathpiper
+%mathpiper,title="Mode"
 Mode(list) :=
 [
-    list2 := RemoveDuplicates(list);
-    //Note: not finished yet.
+    
+    Local(mostFrequent, highestFrequency, currentElementCount);
+    
+    highestFrequency := 0;
+    
+    noDuplicatesList := RemoveDuplicates(list);
+    
+    ForEach(element, noDuplicatesList)
+    [
+        If( (currentElementCount := Count(list, element)) > highestFrequency,[ mostFrequent := element; highestFrequency := currentElementCount;] );
+    ];
+    
+    mostFrequent;
 
 ];
+
+
+Mode({3,4,5,4,3,2,3,4,5,6,7,8,5,6,5,4,5,6,7,3,3,3});
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Result: 3
 .   %/output
 
 
 
-%mathpiper
+
+%mathpiper,title="Quartile"
+
+Retract("Quartile",*);
+
+Quartile(list) :=
+[
+    sortedList := HeapSort(list,"<");
+    
+    secondQuartile := Median(sortedList);
+    
+    If(IsOdd(sortedList),
+    [   
+        Echo(1);
+        /*secondQuartileIndex := Find(sortedList, secondQuartile);
+        
+        leftList := Take(sortedList, secondQuartileIndex-1);
+        rightList := Take(sortedList, -(Length(sortedList) - (secondQuartileIndex) ) );*/
+    ],
+    [
+        Echo(2);
+        /*leftList := Take(sortedList, Length(sortedList)/2);
+        rightList := Take(sortedList, -Length(sortedList)/2);*/
+    ]
+    );
+    
+    //firstQuartile := Median(leftList);
+    
+    //thirdQuartile := Median(rightList);
+    
+    {firstQuartile, secondQuartile, thirdQuartile};
+
+];
+
+
+Quartile({6, 47, 49, 15, 42, 41, 7, 39, 43, 40, 36});
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {firstQuartile,40,thirdQuartile}
+      
+      Side Effects:
+      2
+.   %/output
+
+
+
+%mathpiper,title="Sum of hammers and handle lengths pp. 108"
 
 sample := {};
 trials := 100;
@@ -625,11 +686,8 @@ Echo(overOrEqual,,,trials,,,mean);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      44 , 100 , 12.321
-.   %/output
+    %error,preserve="false"
+      Result: Expecting a ] close bracket for program block, but got ; instead. Error near line 662
+.   %/error
 
 
