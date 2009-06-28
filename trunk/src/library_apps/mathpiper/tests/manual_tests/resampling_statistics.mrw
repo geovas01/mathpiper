@@ -29,15 +29,6 @@ N(twoBoys/ Length(boysOnly));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 0
-      
-      Side Effects:
-      Trials :Remove({{1,1},{1,0},{1,0},{0,0},{0,1},{0,1},{0,1},{0,0},{0,0},{1,1},{0,1},{1,0},{1,0},{0,0},{1,1},{1,1},{0,0},{0,0},{0,1},{1,0},{1,0},{1,1},{0,1},{0,0},{1,1},{1,1},{1,1},{1,0},{1,1},{1,0},{0,1},{0,1},{0,0},{0,0},{0,1},{0,0},{1,0},{1,0},{0,0},{0,1},{1,0},{1,0},{0,0},{1,1},{0,0},{0,1},{0,0},{0,0},{0,1},{1,1},{0,1},{1,0},{1,1},{1,1},{1,1},{1,1},{0,0},{1,0},{0,1},{1,1},{1,1},{1,0},{1,1},{1,0},{1,1},{0,0},{1,0},{1,1},{0,0},{1,1},{1,0},{0,1},{1,1},{1,0},{0,0},{1,0},{1,1},{1,1},{1,0},{0,0},{0,1},{0,0},{1,0},{1,0},{1,1},{1,0},{0,0},{1,1},{0,1},{1,1},{0,1},{0,0},{0,1},{1,0},{1,0},{0,0},{0,1},{1,0},{1,0},{0,1}},{0,0}) 
-      One boy: 0 
-      Two boys: 0 
-      At least one boy: 2 0
-.   %/output
 
 
 
@@ -66,12 +57,18 @@ Retract("Repeat",*);
 
 TemplateFunction("Repeat",{iterations,body})
 [
-    While (iterations > 0)
+    Local(break, count, infiniteLoopFlag);
+    infiniteLoopFlag := False;
+    If(IsInteger(iterations),True,[iterations := 1; infiniteLoopFlag := True;]);
+    break := False;
+    count := 0;
+    While (iterations > 0 And break != True)
     [
         Eval(body);
-        iterations--;
+        If(infiniteLoopFlag = False, iterations-- );
+        count++;
     ];
-    True;
+    count;
 ];
 UnFence("Repeat",2);
 //HoldArgNr("Repeat",2,1);
@@ -81,9 +78,6 @@ Bodied("Repeat", 60000);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -99,9 +93,6 @@ RandomInteger(first, last) :=
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -142,9 +133,6 @@ Retract("Shuffle",*);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -179,12 +167,6 @@ Echo(initialGoldCount,,,goldGoldCount,,,result);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      525 , 345 , 0.6571428571
-.   %/output
 
 
 
@@ -213,13 +195,6 @@ Echo("Second Pick: ", Count(secondPickScore,prize));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      First Pick: 247 
-      Second Pick: 753
-.   %/output
 
 
 
@@ -230,9 +205,6 @@ Shuffle( { empty, prize, empty});
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {empty,empty,prize}
-.   %/output
 
 
 
@@ -269,12 +241,6 @@ Echo("Probability of a single pair: ", N(pairsCount/trials) );
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      Probability of a single pair: 0.44
-.   %/output
 
 
 
@@ -316,13 +282,6 @@ Echo("Probability of three of a kind: ", N(threeOfAKindCount/trials) );
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      Probability of two pairs: 0.038 
-      Probability of three of a kind: 0.019
-.   %/output
 
 
 
@@ -349,12 +308,6 @@ Repeat(trials)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      56 , 100
-.   %/output
 
 
 
@@ -421,7 +374,7 @@ RandomSymbol(list) :=
 
 
 
-RandomSymbol({girl*1/2, boy*1/2});
+RandomSymbol({{girl,1/2}, {boy,1/2}});
 
 lst := Table(RandomSymbol({ {girl,52/100}, {boy,48/100} }),x,0,100,1) ;
 
@@ -430,13 +383,6 @@ Echo(Count(lst,girl),,,Count(lst,boy));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      Error: The fractions must sum to 1.
-      52 , 49
-.   %/output
 
 
 
@@ -452,9 +398,6 @@ RandomSymbolVector(list, count) :=
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -477,12 +420,6 @@ Repeat(trials)
 Echo(successes,,,trials);
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      24 , 100
-.   %/output
 
 
 
@@ -505,12 +442,6 @@ Repeat(trials)
 Echo(successes,,,trials);
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      6 , 100
-.   %/output
 
 
 
@@ -534,12 +465,6 @@ Repeat(trials)
 Echo(successes,,,trials);
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      13 , 100
-.   %/output
 
 
 
@@ -579,6 +504,7 @@ Median(list) :=
 
 
 
+
                  
 %mathpiper,title="Mode"
 Mode(list) :=
@@ -603,9 +529,6 @@ Mode(list) :=
 Mode({3,4,5,4,3,2,3,4,5,6,7,8,5,6,5,4,5,6,7,3,3,3});
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 3
-.   %/output
 
 
 
@@ -620,26 +543,27 @@ Quartile(list) :=
     
     secondQuartile := Median(sortedList);
     
-    If(IsOdd(sortedList),
+    If(IsOdd(Length(sortedList)),
     [   
-        Echo(1);
-        /*secondQuartileIndex := Find(sortedList, secondQuartile);
+        secondQuartileIndex := Find(sortedList, secondQuartile);
         
         leftList := Take(sortedList, secondQuartileIndex-1);
-        rightList := Take(sortedList, -(Length(sortedList) - (secondQuartileIndex) ) );*/
+        rightList := Take(sortedList, -(Length(sortedList) - (secondQuartileIndex) ) );
     ],
     [
-        Echo(2);
-        /*leftList := Take(sortedList, Length(sortedList)/2);
-        rightList := Take(sortedList, -Length(sortedList)/2);*/
+
+        leftList := Take(sortedList, Length(sortedList)/2);
+        rightList := Take(sortedList, -Length(sortedList)/2);
     ]
     );
     
-    //firstQuartile := Median(leftList);
+    firstQuartile := Median(leftList);
     
-    //thirdQuartile := Median(rightList);
+    thirdQuartile := Median(rightList);
     
-    {firstQuartile, secondQuartile, thirdQuartile};
+    interquartileRange := thirdQuartile - firstQuartile;
+    
+    {firstQuartile, secondQuartile, thirdQuartile, interquartileRange};
 
 ];
 
@@ -648,11 +572,9 @@ Quartile({6, 47, 49, 15, 42, 41, 7, 39, 43, 40, 36});
 %/mathpiper
 
     %output,preserve="false"
-      Result: {firstQuartile,40,thirdQuartile}
-      
-      Side Effects:
-      2
+      Result: {15,40,43,28}
 .   %/output
+
 
 
 
@@ -687,7 +609,92 @@ Echo(overOrEqual,,,trials,,,mean);
 %/mathpiper
 
     %error,preserve="false"
-      Result: Expecting a ] close bracket for program block, but got ; instead. Error near line 662
+      Result: Expecting a ] close bracket for program block, but got ; instead. Error near line 579
+.   %/error
+
+
+
+
+
+
+%mathpiper,title="Break"
+
+Retract("Break",*);
+
+
+
+Break() := [break := True;];
+
+UnFence("Break",0);
+%/mathpiper
+
+
+
+%mathpiper,title="Flipping pennies pp.110 chapter 7."
+
+trials := 100;
+emptyCount := 0;
+
+Repeat(trials)
+[
+    stack1 := 10;
+    stack2 := 10;
+    
+    iterations := Repeat(200)
+    [
+        flip := RandomSymbol({{head,1/2},{tail,1/2}});
+        
+        If(flip = head, [stack1++; stack2--;], [stack1--; stack2++;] );
+        //Echo(flip, stack1,stack2);
+        
+        If(stack1 = 0 Or stack2 = 0, Break() );
+        
+    ];
+    
+    //Echo({stack1,,,stack2,,,iterations});
+    If(stack1 = 0 Or stack2 = 0, emptyCount++);
+    
+];
+
+{emptyCount,,,trials};
+
+
+%/mathpiper
+
+
+
+
+
+
+
+
+%mathpiper
+Repeat(10)
+[
+    Echo(hello);
+    Break();
+
+];
+
+%/mathpiper
+
+
+
+
+%mathpiper
+
+Test() :=
+[
+    If(IsOdd(True), True, False);
+
+];
+
+RuleBase("Test",{});
+
+%/mathpiper
+
+    %error,preserve="false"
+      Result: Rule base with this arity already defined. Error near line 684
 .   %/error
 
 
