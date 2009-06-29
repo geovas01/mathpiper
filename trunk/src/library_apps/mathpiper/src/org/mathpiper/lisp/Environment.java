@@ -335,9 +335,9 @@ public class Environment {
         // add an operator with this arity to the multiuserfunc.
         SingleArityBranchingUserFunction newBranchingUserFunction;
         if (aListed) {
-            newBranchingUserFunction = new ListedBranchingUserFunction(aParametersPointer);
+            newBranchingUserFunction = new ListedBranchingUserFunction(aParametersPointer, aOperator);
         } else {
-            newBranchingUserFunction = new SingleArityBranchingUserFunction(aParametersPointer);
+            newBranchingUserFunction = new SingleArityBranchingUserFunction(aParametersPointer, aOperator);
         }
         multipleArityUserFunction.addRulebaseEntry(newBranchingUserFunction);
     }
@@ -362,15 +362,15 @@ public class Environment {
         }
     }
 
-    public void declareMacroRulebase(String aOperator, ConsPointer aParameters, boolean aListed) throws Exception {
-        MultipleArityUserFunction multipleArityUserFunc = getMultipleArityUserFunction(aOperator);
+    public void declareMacroRulebase(String aFunctionName, ConsPointer aParameters, boolean aListed) throws Exception {
+        MultipleArityUserFunction multipleArityUserFunc = getMultipleArityUserFunction(aFunctionName);
 
         MacroUserFunction newMacroUserFunction;
 
         if (aListed) {
-            newMacroUserFunction = new ListedMacroUserFunction(aParameters);
+            newMacroUserFunction = new ListedMacroUserFunction(aParameters, aFunctionName);
         } else {
-            newMacroUserFunction = new MacroUserFunction(aParameters);
+            newMacroUserFunction = new MacroUserFunction(aParameters, aFunctionName);
         }
         multipleArityUserFunc.addRulebaseEntry(newMacroUserFunction);
     }

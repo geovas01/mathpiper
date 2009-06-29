@@ -28,9 +28,9 @@ import org.mathpiper.lisp.cons.SubListCons;
 public class ListedMacroUserFunction extends MacroUserFunction
 {
 
-	public ListedMacroUserFunction(ConsPointer  aParameters) throws Exception
+	public ListedMacroUserFunction(ConsPointer  aParameters, String functionName) throws Exception
 	{
-		super(aParameters);
+		super(aParameters, functionName);
 	}
 	
 	public boolean isArity(int aArity)

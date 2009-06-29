@@ -30,8 +30,8 @@ import org.mathpiper.lisp.cons.SubListCons;
 
 public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
-    public MacroUserFunction(ConsPointer aParameters) throws Exception {
-        super(aParameters);
+    public MacroUserFunction(ConsPointer aParameters, String functionName) throws Exception {
+        super(aParameters, functionName);
         ConsTraverser parameterTraverser = new ConsTraverser(aParameters);
         int i = 0;
         while (parameterTraverser.getCons() != null) {
