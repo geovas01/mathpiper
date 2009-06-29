@@ -17,6 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.userfunctions;
 
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -35,7 +36,16 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
         ConsTraverser parameterTraverser = new ConsTraverser(aParameters);
         int i = 0;
         while (parameterTraverser.getCons() != null) {
-            LispError.check(parameterTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
+
+            //LispError.check(parameterTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
+            try{
+                LispError.check(parameterTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
+            }catch(EvaluationException ex)
+            {
+                throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
+            }//end catch.
+
+
             ((FunctionParameter) iParameters.get(i)).iHold = true;
             parameterTraverser.goNext();
             i++;
