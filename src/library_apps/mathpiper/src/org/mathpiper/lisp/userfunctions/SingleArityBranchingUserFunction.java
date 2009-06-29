@@ -24,6 +24,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubListCons;
 import java.util.*;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Evaluator;
 
 /**
@@ -49,7 +50,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     boolean iFenced = true;
     boolean showFlag = false;
     protected String functionType = "**** user rulebase";
-    private String functionName;
+    protected String functionName;
 
     /**
      * Constructor.
@@ -65,7 +66,14 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         ConsTraverser parameterTraverser = new ConsTraverser(aParameters);
 
         while (parameterTraverser.getCons() != null) {
-            LispError.check(parameterTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
+
+            try{
+                LispError.check(parameterTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
+            }catch(EvaluationException ex)
+            {
+                throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
+            }//end catch.
+
             FunctionParameter parameter = new FunctionParameter(parameterTraverser.getCons().string(), false);
             iParameters.add(parameter);
             parameterTraverser.goNext();
