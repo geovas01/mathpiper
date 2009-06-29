@@ -27,9 +27,9 @@ import org.mathpiper.lisp.cons.SubListCons;
 
 public class ListedBranchingUserFunction extends SingleArityBranchingUserFunction
 {
-	public ListedBranchingUserFunction(ConsPointer  aParameters) throws Exception
+	public ListedBranchingUserFunction(ConsPointer  aParameters, String functionName) throws Exception
 	{
-		super(aParameters);
+		super(aParameters, functionName);
 	}
 	
 	public boolean isArity(int aArity)

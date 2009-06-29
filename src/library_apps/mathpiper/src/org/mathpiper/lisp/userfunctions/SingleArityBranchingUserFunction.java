@@ -49,6 +49,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     boolean iFenced = true;
     boolean showFlag = false;
     protected String functionType = "**** user rulebase";
+    private String functionName;
 
     /**
      * Constructor.
@@ -56,7 +57,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
      * @param aParameters linked list constaining the names of the arguments
      * @throws java.lang.Exception
      */
-    public SingleArityBranchingUserFunction(ConsPointer aParameters) throws Exception {
+    public SingleArityBranchingUserFunction(ConsPointer aParameters, String functionName) throws Exception {
+        this.functionName = functionName;
         // iParameterList and #iParameters are set from \a aParameters.
         iParameterList.setCons(aParameters.getCons());
 
