@@ -123,7 +123,7 @@ public class Pattern {
 
         {
             // setCons the local variables.
-            aEnvironment.pushLocalFrame(false);
+            aEnvironment.pushLocalFrame(false, "Pattern");
             try {
                 setPatternVariables(aEnvironment, argumentsPointer);
 
@@ -168,7 +168,7 @@ public class Pattern {
 
         {
             // setCons the local variables.
-            aEnvironment.pushLocalFrame(false);
+            aEnvironment.pushLocalFrame(false, "Pattern");
             try {
                 setPatternVariables(aEnvironment, arguments);
 

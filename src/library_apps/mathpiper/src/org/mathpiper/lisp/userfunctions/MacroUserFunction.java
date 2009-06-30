@@ -66,7 +66,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
         ConsPointer substitutedBodyPointer = new ConsPointer();
 
         //Create a new local variable frame that is unfenced (false = unfenced).
-        aEnvironment.pushLocalFrame(false);
+        aEnvironment.pushLocalFrame(false, this.functionName);
 
         try {
             // define the local variables.

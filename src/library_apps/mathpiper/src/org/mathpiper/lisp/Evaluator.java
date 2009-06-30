@@ -18,11 +18,14 @@
 package org.mathpiper.lisp;
 
 // class EvalFuncBase defines the interface to 'something that can
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.localvariables.LocalVariableFrame;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.stacks.UserStackInformation;
 
@@ -95,6 +98,31 @@ public abstract class Evaluator {
         } else {
             aEnvironment.write(");\n");
         }
+
+        if (traceFunctionList != null) {
+            //Trace stack frames.
+            List<String> functionsOnStack = new ArrayList();
+            LocalVariableFrame localVariableFrame = aEnvironment.iLocalVariablesFrame;
+            while (localVariableFrame != null) {
+                functionsOnStack.add(localVariableFrame.getFunctionName());
+                localVariableFrame = localVariableFrame.iNext;
+            }//end while
+            Collections.reverse(functionsOnStack);
+            StringBuilder functionsDump = new StringBuilder();
+            functionsDump.append("(Function Call Stack: ");
+            for(String functionName: functionsOnStack)
+            {
+                functionsDump.append(functionName + ", ");
+            }//end for.
+            functionsDump.append(")\n");
+            if (TRACE_TO_STANDARD_OUT) {
+                System.out.print(functionsDump.toString());
+            } else {
+                aEnvironment.write(functionsDump.toString());
+            }//end else.
+        }//end if.
+
+
         evalDepth++;
     }//end method.
 
@@ -199,13 +227,12 @@ public abstract class Evaluator {
 
         traceShowExpression(aEnvironment, aResult);
 
-        if(localVariables != null)
-        {
+        if (localVariables != null) {
             if (TRACE_TO_STANDARD_OUT) {
-            System.out.print(",    " + localVariables );
-        } else {
-            aEnvironment.write(",    " + localVariables );
-        }//end else.
+                System.out.print(",    " + localVariables);
+            } else {
+                aEnvironment.write(",    " + localVariables);
+            }//end else.
 
         }//end if.
 
@@ -240,32 +267,22 @@ public abstract class Evaluator {
     public void showStack(Environment aEnvironment, MathPiperOutputStream aOutput) {
     }//end method.
 
-
     public static void setTraceFunctionList(List traceFunctionList) {
         Evaluator.traceFunctionList = traceFunctionList;
     }
 
-
-   public static void setTraceExceptFunctionList(List traceExceptFunctionList) {
+    public static void setTraceExceptFunctionList(List traceExceptFunctionList) {
         Evaluator.traceExceptFunctionList = traceExceptFunctionList;
     }
 
-    public static boolean isTraceFunction(String functionName)
-    {
-        if(! (traceFunctionList == null) )
-        {
+    public static boolean isTraceFunction(String functionName) {
+        if (!(traceFunctionList == null)) {
             return traceFunctionList.contains(functionName);
-        }
-        else if(! (traceExceptFunctionList == null))
-        {
-            return ! traceExceptFunctionList.contains(functionName);
-        }
-        else
-        {
+        } else if (!(traceExceptFunctionList == null)) {
+            return !traceExceptFunctionList.contains(functionName);
+        } else {
             return true;
         }//end else.
 
     }//end method.
-
-    
 }//end class.

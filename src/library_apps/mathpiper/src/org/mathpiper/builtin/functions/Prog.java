@@ -32,7 +32,7 @@ public class Prog extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Allow accessing previous locals.
-        aEnvironment.pushLocalFrame(false);
+        aEnvironment.pushLocalFrame(false, "Prog");
         try
         {
             UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

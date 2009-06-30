@@ -23,12 +23,14 @@ package org.mathpiper.lisp.localvariables;
         public LocalVariableFrame iNext;
         public LocalVariable iFirst;
         LocalVariable iLast;
+        private String functionName;
 
-        public LocalVariableFrame(LocalVariableFrame aNext, LocalVariable aFirst)
+        public LocalVariableFrame(LocalVariableFrame aNext, LocalVariable aFirst, String functionName)
         {
             iNext = aNext;
             iFirst = aFirst;
             iLast = aFirst;
+            this.functionName = functionName;
         }
 
         public void add(LocalVariable aNew)
@@ -46,6 +48,12 @@ package org.mathpiper.lisp.localvariables;
                 next = t.iNext;
                 t = next;
             }
-        }
+        }//end method.
 
+    public String getFunctionName() {
+        return functionName;
     }
+
+     
+
+    }//end class
