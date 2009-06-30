@@ -24,16 +24,13 @@ HoldArgNr("Repeat",2,2);
 
 
 
-
-
-
 RuleBase("Repeat",{body});
 20 # Repeat(_body) <--
 [
     Local(break, count);
     break := False;
     count := 0;
-    While (break != True And count != 15)
+    While (break != True)
     [
         Eval(body);
         count++;
@@ -47,36 +44,9 @@ HoldArgNr("Repeat",1,1);
 
 
 
-
-
-/*
-TemplateFunction("Repeat",{iterations,body})
-[
-    Local(break, count, infiniteLoopFlag);
-    infiniteLoopFlag := False;
-    If(IsInteger(iterations),True,[iterations := 1; infiniteLoopFlag := True;]);
-    break := False;
-    count := 0;
-    While (iterations > 0 And break != True)
-    [
-        Eval(body);
-        If(infiniteLoopFlag = False, iterations-- );
-        count++;
-    ];
-    count;
-];
-UnFence("Repeat",2);
-//HoldArgNr("Repeat",2,1);
-HoldArgNr("Repeat",2,2);*/
-
 Bodied("Repeat", 60000);
 
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
 
 
 
