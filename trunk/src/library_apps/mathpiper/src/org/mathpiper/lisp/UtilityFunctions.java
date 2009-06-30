@@ -225,7 +225,7 @@ public class UtilityFunctions {
         LispError.check(oper2.getCons().getSublistPointer().getCons() != null, LispError.KLispErrInvalidArg);
         oper2.setCons(oper2.getCons().getSublistPointer().getCons().getRestPointer().getCons());
 
-        aEnvironment.pushLocalFrame(false);
+        aEnvironment.pushLocalFrame(false, "Pure");
         try {
             while (oper2.getCons() != null) {
                 LispError.check(args2.getCons() != null, LispError.KLispErrInvalidArg);

@@ -132,7 +132,7 @@ public class Environment {
 
         BuiltinFunction.addFunctions(this);
 
-        pushLocalFrame(true);
+        pushLocalFrame(true, "<START>");
     }
 
     public TokenMap getTokenHash() {
@@ -255,12 +255,12 @@ public class Environment {
         iLocalVariablesFrame.add(new LocalVariable(aVariable, aValue));
     }
 
-    public void pushLocalFrame(boolean aFenced) {
+    public void pushLocalFrame(boolean aFenced, String functionName) {
         if (aFenced) {
-            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesFrame, null);
+            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesFrame, null, functionName);
             iLocalVariablesFrame = newLocalVariableFrame;
         } else {
-            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesFrame, iLocalVariablesFrame.iFirst);
+            LocalVariableFrame newLocalVariableFrame = new LocalVariableFrame(iLocalVariablesFrame, iLocalVariablesFrame.iFirst, functionName);
             iLocalVariablesFrame = newLocalVariableFrame;
         }
     }

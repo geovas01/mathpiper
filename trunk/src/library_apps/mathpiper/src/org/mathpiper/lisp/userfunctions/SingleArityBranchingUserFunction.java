@@ -103,7 +103,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         int parameterIndex;
 
         // Create a new local variables frame that has the same fenced state as this function.
-        aEnvironment.pushLocalFrame(fenced());
+        aEnvironment.pushLocalFrame(fenced(), this.functionName);
 
 
 
