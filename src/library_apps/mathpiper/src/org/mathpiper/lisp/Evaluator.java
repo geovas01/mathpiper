@@ -109,7 +109,7 @@ public abstract class Evaluator {
             }//end while
             Collections.reverse(functionsOnStack);
             StringBuilder functionsDump = new StringBuilder();
-            functionsDump.append("(Function Call Stack: ");
+            functionsDump.append("(User Function Call Stack: ");
             for(String functionName: functionsOnStack)
             {
                 functionsDump.append(functionName + ", ");
