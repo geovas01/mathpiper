@@ -456,11 +456,50 @@ Repeat(trials)
 
 
 
-%mathpiper
+%mathpiper,title="capacirators example pp. 112 chapter 7."
 
-2+3;
+daysToEmptyList := {};
+trials := 50;
+Repeat(trials)
+[
+    warehouseCount := 12;
+    
+    dayCounter := 0;
+    
+    daysToEmpty := Repeat()
+    [
+        morning := RandomSymbol({{used,6/10},{not_used,4/10}});
+        If(morning = used, warehouseCount--);
+        If(warehouseCount = 0, Break());
+        
+        afternoon := RandomSymbol({{used,6/10},{not_used,4/10}});
+        If(afternoon = used, warehouseCount--);
+        If(warehouseCount = 0, Break());
+        
+        
+        If(Mod(dayCounter,3) = 0, warehouseCount := warehouseCount + 2);
+        
+        //Echo(warehouseCount, dayCounter, Mod(dayCounter,3));
+        
+        dayCounter++;
+    
+    ];
+    
+    daysToEmptyList := Append(daysToEmptyList, daysToEmpty);
+    
+];
+
+Echo("Average days to empty: ", Mean(daysToEmptyList));
+
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Average days to empty: 22.62
+.   %/output
 
 
 
