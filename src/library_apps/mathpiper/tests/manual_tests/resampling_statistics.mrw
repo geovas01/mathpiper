@@ -136,8 +136,8 @@ Echo("Second Pick: ", Count(secondPickScore,prize));
       Result: True
       
       Side Effects:
-      First Pick: 258 
-      Second Pick: 742
+      First Pick: 234 
+      Second Pick: 766
 .   %/output
 
 
@@ -164,7 +164,6 @@ Repeat(trials)
     
     handPairCount := 0;
     ForEach(card,1 .. 13)
-    
     [
         If(Count(hand,card) = 2, handPairCount := handPairCount + 1);
     ];
@@ -182,10 +181,8 @@ Echo("Probability of a single pair: ", N(pairsCount/trials) );
       Result: True
       
       Side Effects:
-      Probability of a single pair: 0.34
+      Probability of a single pair: 0.39
 .   %/output
-
-
 
 
 
@@ -248,7 +245,7 @@ Echo("Probability of three of a kind: ", N(threeOfAKindCount/trials) );
 %mathpiper,title="Birthday match from page 97 chapter 7."
 
 birthdayMatchCounter := 0;
-trials := 10;
+trials := 50;
 Repeat(trials)
 [
     birthdays := RandomIntegerVector(25,1,365);
@@ -271,12 +268,41 @@ Repeat(trials)
       Result: True
       
       Side Effects:
-      3 , 10
+      34 , 50
 .   %/output
 
 
 
 
+
+
+
+%mathpiper,title="Birthday the same as August 1st"
+
+birthdayMatchCounter := 0;
+
+trials := 1000;
+Repeat(trials)
+[
+    targetPersonBirthday := 213;
+    
+    birthdays := RandomIntegerVector(25,1,365);
+
+    If( Contains(birthdays, targetPersonBirthday), birthdayMatchCounter++);
+
+];
+    
+    
+    Echo(birthdayMatchCounter,,,trials,,,N(birthdayMatchCounter/trials));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      62 , 1000 , 0.062
+.   %/output
 
 
 
@@ -420,7 +446,7 @@ Echo(overOrEqual,,,trials,,,mean);
 
 %mathpiper,title="Flipping pennies pp.110 chapter 7."
 
-trials := 5;
+trials := 2;
 emptyCount := 0;
 
 Repeat(trials)
@@ -438,7 +464,7 @@ Repeat(trials)
         
     ];
     
-    //Echo({stack1,,,stack2,,,iterations});
+    Echo({stack1,,,stack2,,,iterations});
     If(stack1 = 0 Or stack2 = 0, emptyCount++);
     
 ];
@@ -449,7 +475,11 @@ Repeat(trials)
 %/mathpiper
 
     %output,preserve="false"
-      Result: {3,5}
+      Result: {2,2}
+      
+      Side Effects:
+      0 , 20 , 120 
+      0 , 20 , 146
 .   %/output
 
 
@@ -498,7 +528,7 @@ Echo("Average days to empty: ", Mean(daysToEmptyList));
       Result: True
       
       Side Effects:
-      Average days to empty: 22.62
+      Average days to empty: 21.96
 .   %/output
 
 
