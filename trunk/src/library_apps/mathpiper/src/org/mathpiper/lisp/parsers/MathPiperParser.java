@@ -42,7 +42,7 @@ public class MathPiperParser extends Parser
     boolean iError;
     boolean iEndOfFile;
     String iLookAhead;
-    public ConsPointer iResult = new ConsPointer();
+    public ConsPointer iSExpressionResult = new ConsPointer();
 
     public MathPiperParser(MathPiperTokenizer aTokenizer,
             MathPiperInputStream aInput,
@@ -66,7 +66,7 @@ public class MathPiperParser extends Parser
     public void parse(ConsPointer aResult) throws Exception
     {
         parse();
-        aResult.setCons(iResult.getCons());
+        aResult.setCons(iSExpressionResult.getCons());
     }
 
     public void parse() throws Exception
@@ -74,7 +74,7 @@ public class MathPiperParser extends Parser
         readToken();
         if (iEndOfFile)
         {
-            iResult.setCons(iEnvironment.iEndOfFileAtom.copy(true));
+            iSExpressionResult.setCons(iEnvironment.iEndOfFileAtom.copy(true));
             return;
         }
 
@@ -94,7 +94,7 @@ public class MathPiperParser extends Parser
 
         if (iError)
         {
-            iResult.setCons(null);
+            iSExpressionResult.setCons(null);
         }
         LispError.check(!iError, LispError.KLispErrInvalidExpression);
     }
@@ -353,8 +353,8 @@ public class MathPiperParser extends Parser
     void combine(int aNrArgsToCombine) throws Exception
     {
         ConsPointer subList = new ConsPointer();
-        subList.setCons(SubListCons.getInstance(iResult.getCons()));
-        ConsTraverser consTraverser = new ConsTraverser(iResult);
+        subList.setCons(SubListCons.getInstance(iSExpressionResult.getCons()));
+        ConsTraverser consTraverser = new ConsTraverser(iSExpressionResult);
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)
         {
@@ -375,15 +375,15 @@ public class MathPiperParser extends Parser
 
         UtilityFunctions.internalReverseList(subList.getCons().getSublistPointer().getCons().getRestPointer(),
                 subList.getCons().getSublistPointer().getCons().getRestPointer());
-        iResult.setCons(subList.getCons());
+        iSExpressionResult.setCons(subList.getCons());
     }
 
     void insertAtom(String aString) throws Exception
     {
         ConsPointer ptr = new ConsPointer();
         ptr.setCons(AtomCons.getInstance(iEnvironment, aString));
-        ptr.getCons().getRestPointer().setCons(iResult.getCons());
-        iResult.setCons(ptr.getCons());
+        ptr.getCons().getRestPointer().setCons(iSExpressionResult.getCons());
+        iSExpressionResult.setCons(ptr.getCons());
     }
 
     void fail() throws Exception // called when parsing fails, raising an exception
