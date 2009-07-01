@@ -43,7 +43,7 @@ public class InterpreterTest implements ResponseListener
        // System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
          
         
-        response = interpreter.evaluate("Load(\"/home/tkosan/NetBeansProjects/mathpiper/tests/manual_tests/myMatch_new.mpi\");");
+        response = interpreter.evaluate("Load(\"/home/tkosan/NetBeansProjects/test.mpi\");");
         System.out.println("Load test: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
         
        /* response = interpreter.evaluate("3+3;");

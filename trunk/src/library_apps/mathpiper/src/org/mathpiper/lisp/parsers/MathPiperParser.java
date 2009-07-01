@@ -149,6 +149,12 @@ public class MathPiperParser extends Parser
                 if (op == null)
                 {
                     //printf("op [%s]\n",iLookAhead.String());
+                    if(iLookAhead.equals(""))
+                    {
+
+                       LispError.raiseError("Expression must end with a semi-colon (;)",iEnvironment);
+                        return;
+                    }
                     if (MathPiperTokenizer.isSymbolic(iLookAhead.charAt(0)))
                     {
                         int origlen = iLookAhead.length();
