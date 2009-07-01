@@ -6,8 +6,8 @@
  * (since they are defined as local symbols).
  */
 
+LocalSymbols(result,nr,ii)
 TemplateFunction("Table",{body,var,count'from,count'to,step})
-  LocalSymbols(result,nr,ii)
   [
     MacroLocal(var);
     result:={};
