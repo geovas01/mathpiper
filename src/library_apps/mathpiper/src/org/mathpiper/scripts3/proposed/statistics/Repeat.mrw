@@ -4,9 +4,12 @@ Retract("Repeat",*);
 
 RuleBase("Repeat",{iterations,body});
 
+LocalSymbols(count, iterations)[
+
 10 # Repeat(iterations_IsNumber, _body) <--
 [
-    Local(break, count);
+    
+    Local(break);
     break := False;
     count := 0;
     While (iterations > 0 And break != True)
@@ -16,10 +19,9 @@ RuleBase("Repeat",{iterations,body});
         count++;
     ];
     count;
+
 ];
 
-UnFence("Repeat",2);
-HoldArgNr("Repeat",2,2);
 
 
 
@@ -37,8 +39,10 @@ RuleBase("Repeat",{body});
     ];
     count;
 ];
+];
 
-
+UnFence("Repeat",2);
+HoldArgNr("Repeat",2,2);
 UnFence("Repeat",1);
 HoldArgNr("Repeat",1,1);
 
@@ -47,6 +51,5 @@ HoldArgNr("Repeat",1,1);
 Bodied("Repeat", 60000);
 
 %/mathpiper
-
 
 
