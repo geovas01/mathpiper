@@ -474,19 +474,38 @@ Echo("Average days to empty: ", Mean(daysToEmptyList));
 
 
 
+%mathpiper,title="Random walk example chapter 8."
 
+targetPositions := {{3,2}, {-1,-4}};
 
+successCount := 0;
 
+trials := 500;
+Repeat(trials)
+[
+    currentPosition := {0,0};
+    walkPath := {};
+    Repeat(11)
+    [
+    
+        
+        step:= RandomSymbol({{{1,0},1/4},{{-1,0},1/4},{{0,1},1/4},{{0,-1},1/4}});
+        
+        currentPosition := currentPosition + step;
+        
+        //walkPath := Append(walkPath,currentPosition);
+        
+        If(Contains(targetPositions, currentPosition), [successCount++; Break();]);
+        
+    ];
+    //Echo(walkPath);
+];
 
+{successCount, trials, N(successCount/trials)};
+%/mathpiper
 
-
-
-
-
-
-
-
-
-
+    %output,preserve="false"
+      Result: {44,500,0.088}
+.   %/output
 
 
