@@ -98,17 +98,20 @@ public class MultipleArityUserFunction
 	/// Delete user function with given arity.  If arity is -1 then delete all functions regardless of arity.
 	public  void deleteRulebaseEntry(int aArity) throws Exception
 	{
+        if(aArity == -1) //Retract all functions regardless of arity.
+        {
+            iFunctions.clear();
+            return;
+        }//end if.
+
 		int ruleIndex;
 		//Find function body with the right arity
 		int numberOfRules =iFunctions.size();
 		for (ruleIndex=0; ruleIndex<numberOfRules; ruleIndex++)
 		{
 			LispError.lispAssert(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)) != null);
-            if(aArity == -1) //Retract all functions regardless of arity.
-            {
-                iFunctions.remove(ruleIndex);
-            }
-            else if (((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aArity))
+
+            if (((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aArity))
 			{
 				iFunctions.remove(ruleIndex);
 				return;
