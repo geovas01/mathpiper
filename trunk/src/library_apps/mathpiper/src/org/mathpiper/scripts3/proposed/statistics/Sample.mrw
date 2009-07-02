@@ -1,0 +1,20 @@
+%mathpiper,title="RandomPick"
+
+Retract("Sample",*);
+
+
+10 # Sample(list_IsList, amount_IsInteger) <--
+[
+    Local(result);
+    list := Shuffle(list);
+
+    result := Take(list, amount);
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
