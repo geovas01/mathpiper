@@ -3,6 +3,7 @@ package netscape.javascript;
 import java.applet.Applet;
 import org.mathrider.GeoGebraXMLParse;
 import geogebra.GeoGebraApplet;
+import org.mathpiper.interpreters.EvaluationResponse;
 
 public class JSObject{
 	private org.mathpiper.interpreters.Interpreter synchronousInterpreter;
@@ -44,7 +45,25 @@ public class JSObject{
 
 		//System.out.println("AAAAAA: " + methodName + ",  " + args.length + ", " + args[0]);
 		String objectName = (String) args[0];
-
+		
+		EvaluationResponse evaluationResponse = synchronousInterpreter.evaluate("GeoGebra()[\"updateObjects\"];");
+		String result = evaluationResponse.getResult();
+		//System.out.println("BBBBB: " + result);
+		result = result.replace("\"","");
+		String[] geogebraObjects = result.split(",");
+		
+		boolean update = false;
+		
+		for(String object : geogebraObjects)
+		{
+			if(object.equals(objectName))
+			{
+				update = true;
+			}//end if.
+		}//end for.
+		
+		if(update)
+		{
 		if(methodName.equalsIgnoreCase("GeoGebraAddListener") || methodName.equalsIgnoreCase("GeoGebraUpdateListener"))
 		{
 			String independentXML = applet.getXML(objectName);
@@ -122,6 +141,7 @@ public class JSObject{
 
 		 //System.out.println("QQQQQ: " + response.getResult() + "YYYY " + response.getExceptionMessage());
 	}*/
+		}//end if.
 
 		return "True";
 	}
@@ -130,4 +150,3 @@ public class JSObject{
 		return "True";
 	}
 }
-

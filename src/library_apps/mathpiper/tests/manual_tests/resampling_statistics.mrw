@@ -5,9 +5,7 @@ Use("org/mathpiper/scripts/proposed.rep/statistics.mpi");
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
+
 
 
 
@@ -46,15 +44,6 @@ N(twoBoys/ Length(boysOnly));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 0.2666666667
-      
-      Side Effects:
-      Trials :{{1,1},{1,0},{1,1},{0,1},{0,1},{1,1},{1,0},{1,0},{1,0},{0,1},{1,0},{0,1},{1,1},{0,1},{1,0},{0,1},{1,1},{1,1},{1,0},{1,1},{1,0},{1,0},{1,0},{1,1},{0,1},{1,1},{0,1},{0,1},{1,1},{1,0},{0,1},{1,0},{1,0},{1,0},{1,0},{0,1},{1,0},{1,0},{1,0},{0,1},{1,1},{0,1},{1,1},{1,0},{0,1},{1,0},{1,1},{1,0},{1,0},{0,1},{0,1},{1,1},{1,1},{0,1},{1,0},{1,0},{0,1},{1,1},{0,1},{1,0},{0,1},{0,1},{1,0},{0,1},{1,1},{1,0},{1,0},{0,1},{1,1},{1,1},{1,1},{0,1},{1,0},{0,1},{1,0}} 
-      One boy: 55 
-      Two boys: 20 
-      At least one boy: 75 0.75
-.   %/output
 
 
 
@@ -93,12 +82,6 @@ Echo(initialGoldCount,,,goldGoldCount,,,result);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      534 , 370 , 0.6928838951
-.   %/output
 
 
 
@@ -136,9 +119,11 @@ Echo("Second Pick: ", Count(secondPickScore,prize));
       Result: True
       
       Side Effects:
-      First Pick: 234 
-      Second Pick: 766
+      First Pick: 247 
+      Second Pick: 753
 .   %/output
+
+
 
 
 
@@ -181,8 +166,9 @@ Echo("Probability of a single pair: ", N(pairsCount/trials) );
       Result: True
       
       Side Effects:
-      Probability of a single pair: 0.39
+      Probability of a single pair: 0.52
 .   %/output
+
 
 
 
@@ -231,9 +217,10 @@ Echo("Probability of three of a kind: ", N(threeOfAKindCount/trials) );
       Result: True
       
       Side Effects:
-      Probability of two pairs: 0.044 
-      Probability of three of a kind: 0.023
+      Probability of two pairs: 0.052 
+      Probability of three of a kind: 0.028
 .   %/output
+
 
 
 
@@ -264,12 +251,6 @@ Repeat(trials)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      34 , 50
-.   %/output
 
 
 
@@ -297,12 +278,6 @@ Repeat(trials)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      62 , 1000 , 0.062
-.   %/output
 
 
 
@@ -325,12 +300,6 @@ Echo(successes,,,trials);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      21 , 100
-.   %/output
 
 
 
@@ -355,12 +324,6 @@ Echo(successes,,,trials);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      15 , 100
-.   %/output
 
 
 
@@ -386,12 +349,6 @@ Echo(successes,,,trials);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      16 , 100
-.   %/output
 
 
 
@@ -430,12 +387,6 @@ Echo(overOrEqual,,,trials,,,mean);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      38 , 100 , 12.343
-.   %/output
 
 
 
@@ -474,13 +425,6 @@ Repeat(trials)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {2,2}
-      
-      Side Effects:
-      0 , 20 , 120 
-      0 , 20 , 146
-.   %/output
 
 
 
@@ -524,12 +468,6 @@ Echo("Average days to empty: ", Mean(daysToEmptyList));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      Average days to empty: 21.96
-.   %/output
 
 
 
