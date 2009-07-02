@@ -3,7 +3,12 @@ Retract("GeoGebraPlot",*);
 //MacroRuleBase("GeoGebraPlot",{function});
 //HoldArg("GeoGebraPlot",function);
 
-20 # GeoGebraPlot(function_IsFunction)_(Not IsList(function)) <--
+RuleBaseListed("GeoGebraPlot",{arg1,arg2});
+
+
+5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,{});
+
+20 # GeoGebraPlot(function_IsFunction, options_IsList)_(Not IsList(function)) <--
 [
     function2 := (Subst(==,=) function);
     
@@ -13,8 +18,9 @@ Retract("GeoGebraPlot",*);
 ];
 
 
-10 # GeoGebraPlot(list_IsList)_(IsEven(Length(list)And IsNumericList(list)) )  <--
+10 # GeoGebraPlot(list_IsList, options_IsList)_(IsEven(Length(list)And IsNumericList(list)) )  <--
 [
+    Write(options);
     Local();
     length := Length(list);
     index := 1;
@@ -31,8 +37,8 @@ Retract("GeoGebraPlot",*);
         
         
         code := PatchString(template);
-        //Echo(code);
-        JavaCall("geogebra","evalXML",code);
+        Echo(code);
+        //JavaCall("geogebra","evalXML",code);
        
         labelIndex++;
     ];
@@ -40,7 +46,7 @@ Retract("GeoGebraPlot",*);
 ];
 
 
-5 # GeoGebraPlot(list_IsList)_(IsMatrix(IsInteger,list)) <--
+5 # GeoGebraPlot(list_IsList, options_IsList)_(IsMatrix(IsInteger,list)) <--
 [
     flatList := {};
     
@@ -54,11 +60,14 @@ Retract("GeoGebraPlot",*);
 
 ];
 
+HoldArg("GeoGebraPlot",arg2);
+
 %/mathpiper
 
     %output,preserve="false"
       Result: True
 .   %/output
+
 
 
 
@@ -78,9 +87,6 @@ Retract("GeoGebraPoint",*);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -100,9 +106,34 @@ GeoGebraHistogram(classBoundaries, data) :=
 ];
 %/mathpiper
 
-    %output,preserve="false"
+
+
+
+
+//************************************************************************************************
+
+
+
+%mathpiper,output="trace"
+
+
+TraceSome("GeoGebraPlot", GeoGebraPlot({5,5,10,10},test1=3,test2));
+
+%/mathpiper
+
+    %mathpiper_trace,preserve="false"
       Result: True
-.   %/output
+      
+      Side Effects:
+      Enter<**** user rulebase>{(GeoGebraPlot, GeoGebraPlot({5,5,10,10},{test1=3,test2}));
+          (User Function Call Stack: <START>, )
+          Arg(arg1 -> {5,5,10,10});
+          Arg(arg2 -> {test1=3,test2});
+          **** Rule in function (GeoGebraPlot) matched: Precedence: 10, Parameters: arg1<hold=false>, arg2<hold=true>, Predicates: (Pattern) IsList(list), IsList(options), IsEven(Length(list)AndIsNumericList(list)),     Variables: list, options,     Types: Variable, Variable,    Body: [    Write(options);    Local();    length:=Length(list);    index:=1;    labelIndex:=1;    template:="<element type="point" label="A<?Write(labelIndex)?>"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="<?Write(x)?>" y="<?Write(y)?>" z="1.0"/>	<pointSize val="3"/></element>";    While(index<length+1)[        x:=list[index];        index++;        y:=list[index];        index++;        code:=PatchString(template);        Echo(code);        labelIndex++;];]
+      {test1=3,test2}<element type="point" label="A1"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="5" y="5" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A2"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="10" y="10" z="1.0"/>	<pointSize val="3"/></element>
+      Leave<**** user rulebase>}(GeoGebraPlot({5,5,10,10},{test1=3,test2}) -> True,    Local variables: options -> (List (= test1 3 )test2 ), list -> (List 5 5 10 10 ), arg2 -> (List (= test1 3 )test2 ), arg1 -> (List 5 5 10 10 ), );
+.   %/mathpiper_trace
 
 
 
@@ -119,9 +150,8 @@ GeoGebraHistogram(classBoundaries,Concat(D,E));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: true
-.   %/output
+
+
 
 
 
