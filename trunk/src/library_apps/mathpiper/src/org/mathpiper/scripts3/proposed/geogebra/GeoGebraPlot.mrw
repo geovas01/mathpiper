@@ -6,31 +6,34 @@ Retract("GeoGebraPlot",*);
 RuleBaseListed("GeoGebraPlot",{arg1,arg2});
 
 
+
 5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,{});  //Handle single argument call.
 
 
 20 # GeoGebraPlot(function_IsFunction, options_IsList)_(Not IsList(function)) <--
 [
-   Echo("options: ", options);
     function2 := (Subst(==,=) function);
     
     command := ConcatStrings(ToString()Write(function2));
     
-    //JavaCall("geogebra","evalCommand",command);
+    JavaCall("geogebra","evalCommand",command);
 ];
 
 
 
 
-10 # GeoGebraPlot(list_IsList, options_IsList)_(IsEven(Length(list)And IsNumericList(list)) )  <--
+10 # GeoGebraPlot(list_IsList, _options)_(IsEven(Length(list)And IsNumericList(list)) )  <--
 [
+Write(options);
+    If(IsList(options), options := OptionListToAssociativeList(options), options := OptionListToAssociativeList({options}));
     Write(options);
     Local();
     length := Length(list);
     index := 1;
     labelIndex := 1;
-    template := "<element type=\"point\" label=\"A<?Write(labelIndex)?>\"> <show object=\"true\" label=\"false\"/><objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>	<layer val=\"0\"/>	<animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>	<coords x=\"<?Write(x)?>\" y=\"<?Write(y)?>\" z=\"1.0\"/>	<pointSize val=\"3\"/></element>";
-
+    pointTemplate := "<element type=\"point\" label=\"A<?Write(labelIndex)?>\"> <show object=\"true\" label=\"false\"/><objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>	<layer val=\"0\"/>	<animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>	<coords x=\"<?Write(x)?>\" y=\"<?Write(y)?>\" z=\"1.0\"/>	<pointSize val=\"3\"/></element>";
+    segmentTemplate1 := "<command name=\"Segment\"><input a0=\"A1\" a1=\"A2\"/><output a0=\"a\"/>";
+    segmentTemplate2 := "<element type=\"segment\" label=\"a<?Write(labelIndex-1)?>\"><lineStyle thickness=\"2\" type=\"0\"/><show object=\"true\" label=\"false\"/><layer val=\"0\"/><coords x=\"-1.0\" y=\"1.0\" z=\"0.0\"/><lineStyle thickness=\"2\" type=\"0\"/><eqnStyle style=\"implicit\"/><outlyingIntersections val=\"false\"/><keepTypeOnTransform val=\"true\"/></element>";
     
     While(index < length+1)
     [
@@ -40,9 +43,20 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
         index++;
         
         
-        code := PatchString(template);
-        //Echo(code);
-        //JavaCall("geogebra","evalXML",code);
+        code := PatchString(pointTemplate);
+        JavaCall("geogebra","evalXML",code);
+        
+        If(options["lines"] = "True" And labelIndex > 1,
+        [
+            
+            command := PatchString("a<?Write(labelIndex-1)?> = Segment[A<?Write(labelIndex-1)?>,A<?Write(labelIndex)?>]");
+            JavaCall("geogebra", "evalCommand", command);
+
+            
+            code := PatchString(segmentTemplate2);
+            JavaCall("geogebra","evalXML",code);
+        ]
+        );
        
         labelIndex++;
     ];
@@ -50,7 +64,7 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
 ];
 
 
-5 # GeoGebraPlot(list_IsList, options_IsList)_(IsMatrix(IsInteger,list)) <--
+5 # GeoGebraPlot(list_IsList, _options)_(IsMatrix(IsInteger,list)) <--
 [
     flatList := {};
     
@@ -60,11 +74,32 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
         DestructiveAppend(flatList, subList[2]);
     ];
     
-    GeoGebraPlot(flatList);
+    GeoGebraPlot(flatList, options);
 
 ];
 
-HoldArg("GeoGebraPlot",arg2);
+//HoldArg("GeoGebraPlot",arg2);
+
+
+
+OptionListToAssociativeList(optionList) :=
+[
+    associativeList := {};
+    
+    ForEach(option, optionList)
+    [
+        If(option[0] = ->,
+        [
+            If(IsString(option[1]), key := option[1], key := String(option[1]));
+            If(IsString(option[2]), value := option[2], value := String(option[2]));
+            
+            associativeList := {key, value} : associativeList;
+        
+        ]);
+    
+    ];
+    associativeList;
+];
 
 %/mathpiper
 
@@ -100,8 +135,8 @@ Retract("GeoGebraPoint",*);
 
 
 
-
 %mathpiper
+
 
 // Histogram[{1, 2, 3, 4},{1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0}]
 GeoGebraHistogram(classBoundaries, data) := 
@@ -118,7 +153,48 @@ GeoGebraHistogram(classBoundaries, data) :=
 
 
 
+
+
 //************************************************************************************************
+
+
+%mathpiper,title=""
+
+
+
+
+OptionListToAssociativeList({ lines -> True, labels -> False });
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {{"labels","False"},{"lines","True"}}
+.   %/output
+
+
+
+
+%mathpiper,title=""
+//GeoGebraPlot({1,1,2,2,3,3,4,4,5,5,6,6}, lines -> True);
+GeoGebraPlot({{0,0}, {0,-1},{0,-2},{1,-2},{1,-1},{2,-1},{3,-1},{4,-1},{4,-2},{5,-2},{6,-2},{6,-1},{6,-2},{7,-2},{7,-1},{8,-1},{8,0},{8,-1},{9,-1},{8,-1},{7,-1}},lines -> True, labels -> False);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,title=""
+command := PatchString("a1 = Segment[A1,A2]");
+JavaCall("geogebra","evalCommand",command);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
+.   %/output
+
 
 
 
