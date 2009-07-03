@@ -1,24 +1,28 @@
 %mathpiper
-Retract("GeoGebraPlot",*);
-//MacroRuleBase("GeoGebraPlot",{function});
-//HoldArg("GeoGebraPlot",function);
+Retract("GPlot",*);
+//MacroRuleBase("GPlot",{function});
+//HoldArg("GPlot",function);
 
-RuleBaseListed("GeoGebraPlot",{arg1,arg2});
+RuleBaseListed("GPlot",{arg1,arg2});
 
 
-5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,{});
+5 # GPlot(_arg1) <-- GPlot(arg1,{});  //Handle single argument call.
 
-20 # GeoGebraPlot(function_IsFunction, options_IsList)_(Not IsList(function)) <--
+
+20 # GPlot(function_IsFunction, options_IsList)_(Not IsList(function)) <--
 [
+   Echo("options: ", options);
     function2 := (Subst(==,=) function);
     
     command := ConcatStrings(ToString()Write(function2));
     
-    JavaCall("geogebra","evalCommand",command);
+    //JavaCall("geogebra","evalCommand",command);
 ];
 
 
-10 # GeoGebraPlot(list_IsList, options_IsList)_(IsEven(Length(list)And IsNumericList(list)) )  <--
+
+
+10 # GPlot(list_IsList, options_IsList)_(IsEven(Length(list)And IsNumericList(list)) )  <--
 [
     Write(options);
     Local();
@@ -37,7 +41,7 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
         
         
         code := PatchString(template);
-        Echo(code);
+        //Echo(code);
         //JavaCall("geogebra","evalXML",code);
        
         labelIndex++;
@@ -46,7 +50,7 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
 ];
 
 
-5 # GeoGebraPlot(list_IsList, options_IsList)_(IsMatrix(IsInteger,list)) <--
+5 # GPlot(list_IsList, options_IsList)_(IsMatrix(IsInteger,list)) <--
 [
     flatList := {};
     
@@ -56,11 +60,11 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
         DestructiveAppend(flatList, subList[2]);
     ];
     
-    GeoGebraPlot(flatList);
+    GPlot(flatList);
 
 ];
 
-HoldArg("GeoGebraPlot",arg2);
+HoldArg("GPlot",arg2);
 
 %/mathpiper
 
@@ -76,9 +80,9 @@ HoldArg("GeoGebraPlot",arg2);
 
 
 %mathpiper
-Retract("GeoGebraPoint",*);
+Retract("GPoint",*);
 
-10 # GeoGebraPoint(name_IsString, x_IsNumber, y_IsNumber)  <--
+10 # GPoint(name_IsString, x_IsNumber, y_IsNumber)  <--
 [
     command := PatchString("<?Write(Atom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
     
@@ -86,6 +90,10 @@ Retract("GeoGebraPoint",*);
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
@@ -96,7 +104,7 @@ Retract("GeoGebraPoint",*);
 %mathpiper
 
 // Histogram[{1, 2, 3, 4},{1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0}]
-GeoGebraHistogram(classBoundaries, data) := 
+GHistogram(classBoundaries, data) := 
 [
     //todo:tk: a check must be made to make sure that all data items fit into the class boundaries.
     // If they don't, GeoGebra will not accept them.
@@ -117,22 +125,21 @@ GeoGebraHistogram(classBoundaries, data) :=
 %mathpiper,output="trace"
 
 
-TraceSome("GeoGebraPlot", GeoGebraPlot({5,5,10,10},test1=3,test2));
+//TraceSome("GPlot", GPlot({5,5,10,10},test1=3,test2));
+
+tmp := 7;
+list := {test1->3,test2};
+//GPlot({5,5,10,10},test1->3,tmp -> 3);
+GPlot(x^2,test1->3,tmp -> 3);
+//GPlot({5,5,10,10},lst);
 
 %/mathpiper
 
     %mathpiper_trace,preserve="false"
-      Result: True
+      Result: "x^2"
       
       Side Effects:
-      Enter<**** user rulebase>{(GeoGebraPlot, GeoGebraPlot({5,5,10,10},{test1=3,test2}));
-          (User Function Call Stack: <START>, )
-          Arg(arg1 -> {5,5,10,10});
-          Arg(arg2 -> {test1=3,test2});
-          **** Rule in function (GeoGebraPlot) matched: Precedence: 10, Parameters: arg1<hold=false>, arg2<hold=true>, Predicates: (Pattern) IsList(list), IsList(options), IsEven(Length(list)AndIsNumericList(list)),     Variables: list, options,     Types: Variable, Variable,    Body: [    Write(options);    Local();    length:=Length(list);    index:=1;    labelIndex:=1;    template:="<element type="point" label="A<?Write(labelIndex)?>"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="<?Write(x)?>" y="<?Write(y)?>" z="1.0"/>	<pointSize val="3"/></element>";    While(index<length+1)[        x:=list[index];        index++;        y:=list[index];        index++;        code:=PatchString(template);        Echo(code);        labelIndex++;];]
-      {test1=3,test2}<element type="point" label="A1"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="5" y="5" z="1.0"/>	<pointSize val="3"/></element>
-      <element type="point" label="A2"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="10" y="10" z="1.0"/>	<pointSize val="3"/></element>
-      Leave<**** user rulebase>}(GeoGebraPlot({5,5,10,10},{test1=3,test2}) -> True,    Local variables: options -> (List (= test1 3 )test2 ), list -> (List 5 5 10 10 ), arg2 -> (List (= test1 3 )test2 ), arg1 -> (List 5 5 10 10 ), );
+      options: {test1->3,tmp->3}
 .   %/mathpiper_trace
 
 
@@ -145,7 +152,7 @@ classBoundaries := N(Table(x,x,14,20,1/4));
 E := N({16+3/8, 16+3/8, 17+1/8, 16, 14+3/8, 17+1/4, 16+5/8, 16, 17, 17+1/4, 17, 15+7/8, 16+5/8, 16+1/8, 17+1/8, 16+7/8, 16+3/8, 16+3/8, 16+7/8, 17+1/8, 17, 16+3/4, 17+1/4, 17+1/8, 15+3/8});
 
 D := N({18+1/4, 19+1/4, 18+1/4, 15+5/8, 17+5/8, 17+1/2, 17+1/8, 17+1/8, 17+1/2, 14+1/2, 17+3/8, 16+7/8, 17+3/4, 18+7/8, 14+7/8, 19+1/4, 18+1/8, 16+1/4, 16+1/8, 16+3/4, 17+1/4, 17+3/8, 17+1/8, 17+1/2, 16+5/8});
-GeoGebraHistogram(classBoundaries,Concat(D,E));
+GHistogram(classBoundaries,Concat(D,E));
 
 
 %/mathpiper
