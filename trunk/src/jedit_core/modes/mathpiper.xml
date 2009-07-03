@@ -45,7 +45,7 @@
 
 
 		<SEQ TYPE="OPERATOR">=</SEQ>
-        <SEQ TYPE="OPERATOR">:=</SEQ>
+		<SEQ TYPE="KEYWORD4">:=</SEQ>
 		<SEQ TYPE="OPERATOR">!</SEQ>
 		<SEQ TYPE="OPERATOR">&gt;=</SEQ>
 		<SEQ TYPE="OPERATOR">&lt;=</SEQ>

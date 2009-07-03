@@ -5,6 +5,10 @@ Use("org/mathpiper/scripts/proposed.rep/statistics.mpi");
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 
@@ -474,7 +478,7 @@ Echo("Average days to empty: ", Mean(daysToEmptyList));
 
 
 
-%mathpiper,title="Random walk example chapter 8."
+%mathpiper,title="Random walk example at the end of chapter 7."
 
 targetPositions := {{3,2}, {-1,-4}};
 
@@ -507,5 +511,221 @@ Repeat(trials)
     %output,preserve="false"
       Result: {44,500,0.088}
 .   %/output
+
+
+
+
+%mathpiper,title="case 1 example pp. 119 chapter 8."
+
+balls := {1,2,3,4,5,6};
+
+successCount := 0;
+
+trials := 1000;
+Repeat(trials)
+[
+    sample := Sample(balls,3);
+    
+    If(sample = {1,2,3}, successCount++);
+];
+
+Echo(successCount,,,trials,,,N(successCount/trials));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      36 , 5000 , 0.0072
+.   %/output
+
+
+
+
+%mathpiper,title="case 2 example pp. 120 chapter 8."
+
+balls := {1,2,3,4,5,6};
+
+successCount := 0;
+
+trials := 1000;
+Repeat(trials)
+[
+    sample := Sample(balls,3);
+    
+    If(IsSubset({1,2,3},sample), successCount++);
+];
+
+Echo(successCount,,,trials,,,N(successCount/trials));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      49 , 1000 , 0.049
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="case 3 example pp. 121 chapter 8."
+
+balls := {1,2,3,4,5,6};
+
+successCount := 0;
+
+trials := 1000;
+Repeat(trials)
+[
+    sample := Sample(balls,3);
+    
+    If( (IsOdd(sample[1]) And IsEven(sample[2])) Or (IsOdd(sample[2]) And IsEven(sample[3])), successCount++);
+];
+
+Echo(successCount,,,trials,,,N(successCount/trials));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      588 , 1000 , 0.588
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="case 4 example pp. 120 chapter 8."
+
+balls := {1,2,3,4,5,6};
+
+successCount := 0;
+
+trials := 1000;
+Repeat(trials)
+[
+    sample := Sample(balls,3);
+    
+    If(Length(Select("IsOdd",sample)) = 2, successCount++);
+];
+
+Echo(successCount,,,trials,,,N(successCount/trials));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      423 , 1000 , 0.423
+.   %/output
+
+
+
+
+
+%mathpiper,title="case 5a example pp. 121 chapter 8."
+
+balls := {1,2,3,4,5,6};
+
+successCount := 0;
+
+trials := 1000;
+Repeat(trials)
+[
+    sample := Sample(balls,3);
+    
+    If(sample[1] = 1 Or sample[2] = 2 Or sample[3] = 3, successCount++);
+];
+
+Echo(successCount,,,trials,,,N(successCount/trials));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      421 , 1000 , 0.421
+.   %/output
+
+
+
+
+%mathpiper,title="case 5b example pp. 121 chapter 8."
+
+balls := {1,2,3,4,5,6};
+
+successCount := 0;
+
+trials := 10000;
+Repeat(trials)
+[
+    sample := Sample(balls,6);
+    
+    If(sample = {1,2,3,4,5,6}, successCount++);
+];
+
+Echo(successCount,,,trials,,,N(successCount/trials));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      19 , 10000 , 0.0019
+.   %/output
+
+
+
+
+
+
+
+
+%mathpiper,title="example 8-1 50 girls and boys pp. 122."
+
+class := Concat(FillList(boy,25), FillList(girl,25));
+
+successCount := 0;
+
+trials := 100;
+
+Repeat(trials)
+[
+    class := Shuffle(class);
+    
+    sample := Take(class,5);
+    
+    If(Count(sample,girl) = 4, successCount++);
+];
+
+
+Echo(successCount,,,trials,,,N(successCount/trials));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      16 , 100 , 0.16
+.   %/output
+
+
+
+
+
+
+
+
 
 
