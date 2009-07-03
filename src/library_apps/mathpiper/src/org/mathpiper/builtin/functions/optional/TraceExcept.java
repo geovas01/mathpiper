@@ -19,13 +19,12 @@
 package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 /**
  *
@@ -34,6 +33,16 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class TraceExcept extends BuiltinFunction
 {
 
+    private TraceExcept()
+    {
+    }
+
+    public TraceExcept(Environment aEnvironment)
+    {
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceExcept");
+    }//end constructor.
+
+    
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
