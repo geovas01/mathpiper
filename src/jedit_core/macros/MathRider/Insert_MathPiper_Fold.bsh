@@ -39,11 +39,11 @@ void insert_mathpiper_fold()
 	
 	
 	indent = textArea.getLineText(line);
-	text =  indent + "%mathpiper\n" + indent + "\n" + indent + "%/mathpiper\n\n";
+	text =  indent + "%mathpiper,title=\"\"\n" + indent + "\n" + indent + "%/mathpiper\n\n";
 
 	buffer.insertIndented(offset, text);
 	
-    textArea.setCaretPosition(offset + indent.length() + 10);
+    textArea.setCaretPosition(offset + indent.length() + 19);
 }
 
 insert_mathpiper_fold();

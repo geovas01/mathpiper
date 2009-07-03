@@ -36,11 +36,11 @@ void insert_group_fold()
 		--offset;
 	}
 
-	text = "%group,description=\"\"\n\n%/group\n\n";
+	text = "%group,title=\"\"\n\n%/group\n\n";
 
 	buffer.insert(offset, text);
 	
-    textArea.setCaretPosition(offset + 21);
+    textArea.setCaretPosition(offset + 15);
 }
 
 insert_group_fold();
