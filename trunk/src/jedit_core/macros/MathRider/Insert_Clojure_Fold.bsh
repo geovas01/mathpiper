@@ -36,11 +36,11 @@ void insert_clojure_fold()
 		--offset;
 	}
 
-	text = "%clojure\n\n%/clojure\n\n";
+	text = "%clojure,title=\"\"\n\n%/clojure\n\n";
 
 	buffer.insert(offset, text);
 	
-    textArea.setCaretPosition(offset + 8);
+    textArea.setCaretPosition(offset + 17);
 }
 
 insert_clojure_fold();

@@ -39,11 +39,11 @@ void insert_group_fold()
 	
 	
 	indent = textArea.getLineText(line);
-	text =  indent + "%geogebra\n" + indent + "\n" + indent + "%/geogebra\n\n";
+	text =  indent + "%geogebra,title=\"\"\n" + indent + "\n" + indent + "%/geogebra\n\n";
 
 	buffer.insertIndented(offset, text);
 	
-    textArea.setCaretPosition(offset + indent.length() + 9);
+    textArea.setCaretPosition(offset + indent.length() + 18);
 }
 
 insert_group_fold();

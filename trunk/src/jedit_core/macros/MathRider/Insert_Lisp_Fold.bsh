@@ -36,11 +36,11 @@ void insert_lisp_fold()
 		--offset;
 	}
 
-	text = "%lisp\n\n%/lisp\n\n";
+	text = "%lisp,title=\"\"\n\n%/lisp\n\n";
 
 	buffer.insert(offset, text);
 	
-    textArea.setCaretPosition(offset + 5);
+    textArea.setCaretPosition(offset + 14);
 }
 
 insert_lisp_fold();
