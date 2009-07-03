@@ -35,13 +35,13 @@ MathPi() :=
       BuiltinPrecisionSet(curprec+2);
   //		Echo("Iteration ", k, " setting precision to ", BuiltinPrecisionGet());
   //		Echo("old result=", CosN(result));
-      /*Time*/([
+      /*Time()*/[
       delta := CosN(result);
-      ]);
-      /*Time*/([
+      ];
+      /*Time()*/[
       deltasq := MultiplyN(delta,delta);
-      ]);
-      result := /*Time*/(result + delta*(1 + deltasq*(1/6 + deltasq*(3/40 + deltasq*(5/112 + deltasq*(35/1152 + (deltasq*63)/2816))))));
+      ];
+      result := /*Time()*/result + delta*(1 + deltasq*(1/6 + deltasq*(3/40 + deltasq*(5/112 + deltasq*(35/1152 + (deltasq*63)/2816)))));
     ];
   //	Echo({"Method 3, using Pi/2 and order", order, ":", k, "iterations"});
   ]);

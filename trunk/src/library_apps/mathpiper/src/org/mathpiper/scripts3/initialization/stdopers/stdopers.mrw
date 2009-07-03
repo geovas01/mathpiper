@@ -50,6 +50,8 @@ Bodied("Integrate",60000);
 
 Bodied("Limit",60000);
 
+Bodied("Time", 60000);
+
 /* functional operators */
 Infix(":",70);
 RightAssociative(":");
