@@ -1,6 +1,6 @@
 #jEdit properties
 #Mon Oct 27 20:45:09 EST 2008
-view.style.keyword4=color\:\#000000 bgColor\:\#dbf7d2 style\:b
+view.style.keyword4=color\:\#cc0033 style\:b
 buffer.maxLineLen=132
 view.wrapGuide=false
 plugin-blacklist.ConfigurableFoldHandler.jar=false
