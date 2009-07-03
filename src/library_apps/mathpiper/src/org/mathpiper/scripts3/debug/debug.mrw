@@ -216,7 +216,6 @@ Macro(Time,{expression})
 
 
 
-
 // ClearScreenString : the ascii escape codes to clear the screen
 ClearScreenString := CharString(27):"[2J":CharString(27):"[1;1H";
 
@@ -326,12 +325,12 @@ probably more useful  for all but very simple expressions.
 *CMD Time --- measure the time taken by a function
 *STD
 *CALL
-	Time(expr)
+	Time()expr
 *PARMS
 {expr} -- any expression
 *DESC
 
-The function {Time(expr)} evaluates the expression {expr} and prints the time in seconds needed for the evaluation.
+The function {Time()expr} evaluates the expression {expr} and prints the time in seconds needed for the evaluation.
 The time is printed to the current output stream.
 The built-in function {GetTime} is used for timing.
 
@@ -339,7 +338,7 @@ The result is the "user time" as reported by the OS, not the real ("wall clock")
 Therefore, any CPU-intensive processes running alongside Yacas will not significantly affect the result of {Time}.
 
 *EG notest
-	In> Time(N(MathLog(1000),40))
+	In> Time() N(MathLog(1000),40)
 	0.34 seconds taken
 	Out> 6.9077552789821370520539743640530926228033;
 

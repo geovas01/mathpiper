@@ -52,7 +52,7 @@ it has recently been proven that there are infinitely many of them.
 
 	In> IsCarmichaelNumber(561)
 	Out> True;
-	In> Time(Select(IsCarmichaelNumber,1 .. 10000))
+	In> Time() Select(IsCarmichaelNumber,1 .. 10000)
 	504.19 seconds taken
 	Out> {561,1105,1729,2465,2821,6601,8911};
 
