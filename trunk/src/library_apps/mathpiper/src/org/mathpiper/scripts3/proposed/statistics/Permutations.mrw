@@ -1,0 +1,29 @@
+%mathpiper,title=""
+
+Permutations(n, r) :=
+[
+    n! /(n-r)!;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
+
+a := Permutations(12,5);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 95040
+.   %/output
+
+
