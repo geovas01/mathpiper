@@ -9,7 +9,34 @@ GeoGebraHistogram(classBoundaries, data) :=
     command := PatchString("Histogram[<?Write(classBoundaries)?>,<?Write(data)?>]");
     JavaCall("geogebra", "evalCommand", command);
 ];
+
+
+
+
+GeoGebraHistogram(data) := 
+[
+    Local(command, classBoundaries, noDuplicatesSorted, largestValue, smallestValue, x, numberOfUniqueValues);
+    
+    noDuplicatesSorted := HeapSort(RemoveDuplicates(data), "<" );
+    
+    smallestValue := Floor(noDuplicatesSorted[1]);
+    
+    numberOfUniqueValues := Length(noDuplicatesSorted);
+    
+    largestValue := Ceil(noDuplicatesSorted[Length(noDuplicatesSorted)]);
+    
+    classBoundaries := N(Table(x,x,smallestValue-.5,largestValue+.5,1));
+    
+    command := PatchString("Histogram[<?Write(classBoundaries)?>,<?Write(data)?>]");
+    JavaCall("geogebra", "evalCommand", command);
+];
+
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
@@ -20,6 +47,33 @@ GeoGebraHistogram({1, 2, 3, 4}, {1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: true
+.   %/output
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+GeoGebraHistogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
+.   %/output
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+GeoGebraHistogram(N({16+3/8, 16+3/8, 17+1/8, 16, 14+3/8, 17+1/4, 16+5/8, 16, 17, 17+1/4, 17, 15+7/8, 16+5/8, 16+1/8, 17+1/8, 16+7/8, 16+3/8, 16+3/8, 16+7/8, 17+1/8, 17, 16+3/4, 17+1/4, 17+1/8, 15+3/8}));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
+.   %/output
 
 
 
