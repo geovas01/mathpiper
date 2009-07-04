@@ -35,7 +35,7 @@ HoldArg("Manipulate",symbolicEquation);
 
 
 
-%mathpiper,scope="nobuild",subtype="test"
+%mathpiper,scope="nobuild",subtype="manual_test"
 
 Clear(equ,a);
 
