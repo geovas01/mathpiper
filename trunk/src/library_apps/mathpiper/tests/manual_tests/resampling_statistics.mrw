@@ -2,15 +2,13 @@
 %mathpiper
 
 Use("org/mathpiper/scripts/proposed.rep/statistics.mpi");
+Use("org/mathpiper/scripts/proposed.rep/geogebra.mpi");
 
 %/mathpiper
 
     %output,preserve="false"
       Result: True
 .   %/output
-
-
-
 
 
 
@@ -397,8 +395,6 @@ Echo(overOrEqual,,,trials,,,mean);
 
 
 
-
-
 %mathpiper,title="Flipping pennies pp.110 chapter 7."
 
 trials := 2;
@@ -694,7 +690,7 @@ Echo(successCount,,,trials,,,N(successCount/trials));
 
 class := Concat(FillList(boy,25), FillList(girl,25));
 
-successCount := 0;
+samples := {};
 
 trials := 100;
 
@@ -704,18 +700,31 @@ Repeat(trials)
     
     sample := Take(class,5);
     
-    If(Count(sample,girl) = 4, successCount++);
+    samples := Count(sample,girl) : samples;
+    
 ];
 
+successCount := Count(samples,4);
 
 Echo(successCount,,,trials,,,N(successCount/trials));
+
 %/mathpiper
 
     %output,preserve="false"
       Result: True
       
       Side Effects:
-      16 , 100 , 0.16
+      14 , 100 , 0.14
+.   %/output
+
+
+%mathpiper,title="Extra code for example 8-1"
+GeoGebraHistogram(samples);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
 .   %/output
 
 
@@ -723,7 +732,262 @@ Echo(successCount,,,trials,,,N(successCount/trials));
 
 
 
+%mathpiper,title="Example 8-2 9 spades pp. 125"
+
+samples := {};
+
+trials := 50;
+
+deck := Concat(FillList(spades,13), FillList(diamonds,13), FillList(hearts,13), FillList(clubs,13));
+//test := {};
+counter := 0;
+Repeat(trials)
+[
+
+    Time() (deck := Shuffle(deck));
+    
+    Time() (hand := Take(deck,13));
+    
+    //test := Count(hand, spades) : test;
+    
+    Time() (If(Count(hand, spades) = 9, Count(hand, clubs) : samples));
+    
+    SysOut("Trial # ",,, counter);
+    counter++;
+];
+
+samples;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {}
+      
+      Side Effects:
+      0.196182196 seconds taken
+      0.003409093 seconds taken
+      3.71556E-4 seconds taken
+      Trial # ,0
+      0.270504771 seconds taken
+      0.002852877 seconds taken
+      3.59543E-4 seconds taken
+      Trial # ,1
+      0.232552461 seconds taken
+      0.003025803 seconds taken
+      4.91124E-4 seconds taken
+      Trial # ,2
+      0.18674664 seconds taken
+      0.002800635 seconds taken
+      5.84711E-4 seconds taken
+      Trial # ,3
+      0.144181453 seconds taken
+      0.002856508 seconds taken
+      3.90273E-4 seconds taken
+      Trial # ,4
+      0.15071301 seconds taken
+      0.002329067 seconds taken
+      3.41942E-4 seconds taken
+      Trial # ,5
+      0.142227015 seconds taken
+      0.00416729 seconds taken
+      3.84127E-4 seconds taken
+      Trial # ,6
+      0.182585496 seconds taken
+      0.002817397 seconds taken
+      3.90832E-4 seconds taken
+      Trial # ,7
+      0.146306863 seconds taken
+      0.002676038 seconds taken
+      4.86933E-4 seconds taken
+      Trial # ,8
+      0.157542369 seconds taken
+      0.00298306 seconds taken
+      5.5873E-4 seconds taken
+      Trial # ,9
+      0.144787117 seconds taken
+      0.002928025 seconds taken
+      5.58171E-4 seconds taken
+      Trial # ,10
+      0.19398471 seconds taken
+      0.003252089 seconds taken
+      4.45867E-4 seconds taken
+      Trial # ,11
+      0.126095914 seconds taken
+      0.002978032 seconds taken
+      4.50616E-4 seconds taken
+      Trial # ,12
+      0.155209112 seconds taken
+      0.017256383 seconds taken
+      6.58184E-4 seconds taken
+      Trial # ,13
+      0.12783133 seconds taken
+      0.002287162 seconds taken
+      3.7407E-4 seconds taken
+      Trial # ,14
+      0.123423229 seconds taken
+      0.002998985 seconds taken
+      7.60153E-4 seconds taken
+      Trial # ,15
+      0.132079915 seconds taken
+      0.003122744 seconds taken
+      3.83009E-4 seconds taken
+      Trial # ,16
+      0.154205353 seconds taken
+      0.003402388 seconds taken
+      3.69321E-4 seconds taken
+      Trial # ,17
+      0.273602651 seconds taken
+      0.003052064 seconds taken
+      6.57905E-4 seconds taken
+      Trial # ,18
+      0.197815365 seconds taken
+      0.00413628 seconds taken
+      3.66248E-4 seconds taken
+      Trial # ,19
+      0.211756243 seconds taken
+      0.026068676 seconds taken
+      3.77981E-4 seconds taken
+      Trial # ,20
+      0.122327558 seconds taken
+      0.003274439 seconds taken
+      4.65701E-4 seconds taken
+      Trial # ,21
+      0.139593719 seconds taken
+      0.003125537 seconds taken
+      4.99226E-4 seconds taken
+      Trial # ,22
+      0.125312295 seconds taken
+      0.003133638 seconds taken
+      4.07314E-4 seconds taken
+      Trial # ,23
+      0.150976172 seconds taken
+      0.00491487 seconds taken
+      8.35301E-4 seconds taken
+      Trial # ,24
+      0.131557502 seconds taken
+      0.003217168 seconds taken
+      4.74083E-4 seconds taken
+      Trial # ,25
+      0.142815637 seconds taken
+      0.002634413 seconds taken
+      3.58146E-4 seconds taken
+      Trial # ,26
+      0.128298987 seconds taken
+      0.004599747 seconds taken
+      6.78298E-4 seconds taken
+      Trial # ,27
+      0.127720702 seconds taken
+      0.002722413 seconds taken
+      3.52E-4 seconds taken
+      Trial # ,28
+      0.129313363 seconds taken
+      0.003920052 seconds taken
+      4.22959E-4 seconds taken
+      Trial # ,29
+      0.123562352 seconds taken
+      0.002716825 seconds taken
+      3.70438E-4 seconds taken
+      Trial # ,30
+      0.126950772 seconds taken
+      0.004046045 seconds taken
+      3.70159E-4 seconds taken
+      Trial # ,31
+      0.127420384 seconds taken
+      0.003145093 seconds taken
+      4.12622E-4 seconds taken
+      Trial # ,32
+      0.12940276 seconds taken
+      0.003184483 seconds taken
+      3.94743E-4 seconds taken
+      Trial # ,33
+      0.127820435 seconds taken
+      0.003433956 seconds taken
+      4.86375E-4 seconds taken
+      Trial # ,34
+      0.129989985 seconds taken
+      0.003815569 seconds taken
+      4.50057E-4 seconds taken
+      Trial # ,35
+      0.14947626 seconds taken
+      0.003012115 seconds taken
+      5.24369E-4 seconds taken
+      Trial # ,36
+      0.127108613 seconds taken
+      0.003920889 seconds taken
+      3.83009E-4 seconds taken
+      Trial # ,37
+      0.13388182 seconds taken
+      0.003318858 seconds taken
+      7.46463E-4 seconds taken
+      Trial # ,38
+      0.115837627 seconds taken
+      0.003154033 seconds taken
+      4.7967E-4 seconds taken
+      Trial # ,39
+      0.124911965 seconds taken
+      0.002796165 seconds taken
+      5.6767E-4 seconds taken
+      Trial # ,40
+      0.143460691 seconds taken
+      0.004712051 seconds taken
+      5.55657E-4 seconds taken
+      Trial # ,41
+      0.133247382 seconds taken
+      0.002995632 seconds taken
+      5.64038E-4 seconds taken
+      Trial # ,42
+      0.125499749 seconds taken
+      0.003563861 seconds taken
+      7.88369E-4 seconds taken
+      Trial # ,43
+      0.126653807 seconds taken
+      0.00321214 seconds taken
+      4.48381E-4 seconds taken
+      Trial # ,44
+      0.137511332 seconds taken
+      0.003920889 seconds taken
+      3.73791E-4 seconds taken
+      Trial # ,45
+      0.139429174 seconds taken
+      0.003025804 seconds taken
+      4.06755E-4 seconds taken
+      Trial # ,46
+      0.129456677 seconds taken
+      0.003884013 seconds taken
+      5.07607E-4 seconds taken
+      Trial # ,47
+      0.119643418 seconds taken
+      0.004542477 seconds taken
+      3.69879E-4 seconds taken
+      Trial # ,48
+      0.125229604 seconds taken
+      0.003352102 seconds taken
+      4.77156E-4 seconds taken
+      Trial # ,49
+.   %/output
 
 
+
+%mathpiper,title="Extra code for example 8-2"
+//The probability of obtaining 9 spades seems to be very low.
+
+N( (Combinations(13,9) * Combinations(39,4)) / Combinations(52,13) );
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.00009261135311
+.   %/output
+
+
+
+%mathpiper,title="Extra code for example 8-2"
+GeoGebraHistogram(test);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
+.   %/output
 
 
