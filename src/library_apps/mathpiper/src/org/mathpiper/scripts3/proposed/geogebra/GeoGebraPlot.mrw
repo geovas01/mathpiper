@@ -1,7 +1,5 @@
 %mathpiper
 Retract("GeoGebraPlot",*);
-//MacroRuleBase("GeoGebraPlot",{function});
-//HoldArg("GeoGebraPlot",function);
 
 RuleBaseListed("GeoGebraPlot",{arg1,arg2});
 
@@ -12,9 +10,11 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
 
 20 # GeoGebraPlot(function_IsFunction, options_IsList)_(Not IsList(function)) <--
 [
-    function2 := (Subst(==,=) function);
+    Local(command);
     
-    command := ConcatStrings(ToString()Write(function2));
+    function := (Subst(==,=) function);
+    
+    command := ConcatStrings(ToString()Write(function));
     
     JavaCall("geogebra","evalCommand",command);
 ];
@@ -24,16 +24,19 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
 
 10 # GeoGebraPlot(list_IsList, _options)_(IsEven(Length(list)And IsNumericList(list)) )  <--
 [
-Write(options);
     If(IsList(options), options := OptionListToAssociativeList(options), options := OptionListToAssociativeList({options}));
-    Write(options);
-    Local();
+
+    Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y);
+    
     length := Length(list);
+    
     index := 1;
+    
     labelIndex := 1;
+    
     pointTemplate := "<element type=\"point\" label=\"A<?Write(labelIndex)?>\"> <show object=\"true\" label=\"false\"/><objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>	<layer val=\"0\"/>	<animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>	<coords x=\"<?Write(x)?>\" y=\"<?Write(y)?>\" z=\"1.0\"/>	<pointSize val=\"3\"/></element>";
-    segmentTemplate1 := "<command name=\"Segment\"><input a0=\"A1\" a1=\"A2\"/><output a0=\"a\"/>";
-    segmentTemplate2 := "<element type=\"segment\" label=\"a<?Write(labelIndex-1)?>\"><lineStyle thickness=\"2\" type=\"0\"/><show object=\"true\" label=\"false\"/><layer val=\"0\"/><coords x=\"-1.0\" y=\"1.0\" z=\"0.0\"/><lineStyle thickness=\"2\" type=\"0\"/><eqnStyle style=\"implicit\"/><outlyingIntersections val=\"false\"/><keepTypeOnTransform val=\"true\"/></element>";
+    segmentCommandTemplate := "<command name=\"Segment\"><input a0=\"A1\" a1=\"A2\"/><output a0=\"a\"/>";
+    segmentElementTemplate := "<element type=\"segment\" label=\"a<?Write(labelIndex-1)?>\"><lineStyle thickness=\"2\" type=\"0\"/><show object=\"true\" label=\"false\"/><layer val=\"0\"/><coords x=\"-1.0\" y=\"1.0\" z=\"0.0\"/><lineStyle thickness=\"2\" type=\"0\"/><eqnStyle style=\"implicit\"/><outlyingIntersections val=\"false\"/><keepTypeOnTransform val=\"true\"/></element>";
     
     
     //todo:tk: this does not seem to be working JavaCall("geogebra", "setRepaintingActive", "false");
@@ -56,7 +59,7 @@ Write(options);
             JavaCall("geogebra", "evalCommand", command);
 
             
-            code := PatchString(segmentTemplate2);
+            code := PatchString(segmentElementTemplate);
             JavaCall("geogebra","evalXML",code);
         ]
         );
@@ -71,6 +74,8 @@ Write(options);
 
 5 # GeoGebraPlot(list_IsList, _options)_(IsMatrix(IsInteger,list)) <--
 [
+    Local(flatList);
+    
     flatList := {};
     
     ForEach(subList,list)
@@ -86,102 +91,16 @@ Write(options);
 //HoldArg("GeoGebraPlot",arg2);
 
 
-
-OptionListToAssociativeList(optionList) :=
-[
-    associativeList := {};
-    
-    ForEach(option, optionList)
-    [
-        If(option[0] = ->,
-        [
-            If(IsString(option[1]), key := option[1], key := String(option[1]));
-            If(IsString(option[2]), value := option[2], value := String(option[2]));
-            
-            associativeList := {key, value} : associativeList;
-        
-        ]);
-    
-    ];
-    associativeList;
-];
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-
-
-
-
-
-
-%mathpiper
-Retract("GeoGebraPoint",*);
-
-10 # GeoGebraPoint(name_IsString, x_IsNumber, y_IsNumber)  <--
-[
-    command := PatchString("<?Write(Atom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
-    
-    JavaCall("geogebra","evalCommand",command);
-];
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-
-
-
-
-%mathpiper
-
-
-// Histogram[{1, 2, 3, 4},{1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0}]
-GeoGebraHistogram(classBoundaries, data) := 
-[
-    //todo:tk: a check must be made to make sure that all data items fit into the class boundaries.
-    // If they don't, GeoGebra will not accept them.
-    
-    command := PatchString("Histogram[<?Write(classBoundaries)?>,<?Write(data)?>]");
-    JavaCall("geogebra", "evalCommand", command);
-];
 %/mathpiper
 
 
 
 
 
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
 
-
-//************************************************************************************************
-
-
-%mathpiper,title=""
-
-
-
-
-OptionListToAssociativeList({ lines -> True, labels -> False });
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: {{"labels","False"},{"lines","True"}}
-.   %/output
-
-
-
-
-%mathpiper,title=""
 GeoGebraPlot({1,1,2,2,3,3,4,4,5,5,6,6}, lines -> True);
-//GeoGebraPlot({{0,0}, {0,-1},{0,-2},{1,-2},{1,-1},{2,-1},{3,-1},{4,-1},{4,-2},{5,-2},{6,-2},{6,-1},{6,-2},{7,-2},{7,-1},{8,-1},{8,0},{8,-1},{9,-1},{8,-1},{7,-1}},lines -> True, labels -> False);
+
 %/mathpiper
 
     %output,preserve="false"
@@ -190,55 +109,32 @@ GeoGebraPlot({1,1,2,2,3,3,4,4,5,5,6,6}, lines -> True);
 
 
 
-%mathpiper,title=""
-command := PatchString("a1 = Segment[A1,A2]");
-JavaCall("geogebra","evalCommand",command);
+
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
+
+GeoGebraPlot({{0,0}, {0,-1},{0,-2},{1,-2},{1,-1},{2,-1},{3,-1},{4,-1},{4,-2},{5,-2},{6,-2},{6,-1},{6,-2},{7,-2},{7,-1},{8,-1},{8,0},{8,-1},{9,-1},{8,-1},{7,-1}},lines -> True, labels -> False);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
+GeoGebraPlot(Hold(f(x) = x^2));
+
+GeoGebraPlot(x^3);
 
 %/mathpiper
 
     %output,preserve="false"
       Result: true
 .   %/output
-
-
-
-
-%mathpiper,output="trace"
-
-
-//TraceSome("GeoGebraPlot", GeoGebraPlot({5,5,10,10},test1=3,test2));
-
-tmp := 7;
-list := {test1->3,test2};
-//GeoGebraPlot({5,5,10,10},test1->3,tmp -> 3);
-GeoGebraPlot(x^2,test1->3,tmp -> 3);
-//GeoGebraPlot({5,5,10,10},lst);
-
-%/mathpiper
-
-    %mathpiper_trace,preserve="false"
-      Result: "x^2"
-      
-      Side Effects:
-      options: {test1->3,tmp->3}
-.   %/mathpiper_trace
-
-
-
-
-
-%mathpiper
-classBoundaries := N(Table(x,x,14,20,1/4));
-
-E := N({16+3/8, 16+3/8, 17+1/8, 16, 14+3/8, 17+1/4, 16+5/8, 16, 17, 17+1/4, 17, 15+7/8, 16+5/8, 16+1/8, 17+1/8, 16+7/8, 16+3/8, 16+3/8, 16+7/8, 17+1/8, 17, 16+3/4, 17+1/4, 17+1/8, 15+3/8});
-
-D := N({18+1/4, 19+1/4, 18+1/4, 15+5/8, 17+5/8, 17+1/2, 17+1/8, 17+1/8, 17+1/2, 14+1/2, 17+3/8, 16+7/8, 17+3/4, 18+7/8, 14+7/8, 19+1/4, 18+1/8, 16+1/4, 16+1/8, 16+3/4, 17+1/4, 17+3/8, 17+1/8, 17+1/2, 16+5/8});
-GeoGebraHistogram(classBoundaries,Concat(D,E));
-
-
-%/mathpiper
-
-
 
 
 
