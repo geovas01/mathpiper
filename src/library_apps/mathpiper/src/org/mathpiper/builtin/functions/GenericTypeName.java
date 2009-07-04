@@ -38,4 +38,25 @@ public class GenericTypeName extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons().getGeneric() != null, 1);
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, evaluated.getCons().getGeneric().typeName()));
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="GenericTypeName",categories="User Functions;Built In"
+*CMD GenericTypeName --- get type name
+*CORE
+*CALL
+	GenericTypeName(object)
+
+*DESC
+Returns a string representation of
+the name of a generic object.
+
+*E.G.
+
+	In> GenericTypeName(ArrayCreate(10,1))
+	Out> "Array";
+
+%/mathpiper_docs
+*/

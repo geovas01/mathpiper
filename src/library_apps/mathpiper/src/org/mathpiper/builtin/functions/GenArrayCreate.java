@@ -48,4 +48,20 @@ public class GenArrayCreate extends BuiltinFunction
         Array array = new Array(size, initarg.getCons());
         getResult(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(array));
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="ArrayCreate",categories="User Functions;Built In"
+*CMD ArrayCreate --- create array
+*CORE
+*CALL
+	ArrayCreate(size,init)
+
+*DESC
+Creates an array with {size} elements, all initialized to the
+value {init}.
+
+%/mathpiper_docs
+*/
