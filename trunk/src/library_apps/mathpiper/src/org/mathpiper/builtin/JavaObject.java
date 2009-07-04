@@ -37,6 +37,7 @@ public class JavaObject extends BuiltinContainer {
     // Narrow a type from String to the
     // narrowest possible type
     protected Object narrow(String argstring) {
+	    //System.out.println("XXXXXXX argstring: " + argstring);
         // Try integer
         try {
             return Integer.valueOf(argstring);
@@ -53,7 +54,7 @@ public class JavaObject extends BuiltinContainer {
         if (argstring.equalsIgnoreCase("true")) {
             return Boolean.TRUE;
         } else if (argstring.equalsIgnoreCase("false")) {
-            return Boolean.FALSE;
+            return  Boolean.FALSE;
         }
 
         // Give up -- it's a string
@@ -90,7 +91,11 @@ public class JavaObject extends BuiltinContainer {
             if (types[i] == Integer.class) {
                 types[i] = int.class;
             }
-        }
+	    
+	    if (types[i] == Boolean.class) {
+                types[i] = boolean.class;
+            }
+        }//end for.
 
         return types;
     }
@@ -114,6 +119,14 @@ public class JavaObject extends BuiltinContainer {
         try {
             // Find the specified class
             Class clas = Class.forName(className);
+	   
+/*
+System.out.println("XXXXX " + methodName);
+for(Object ob:types)
+{
+	System.out.println("XXXXX " + ob.toString());
+}
+*/
 
             // Find the specified method
             Method method = clas.getDeclaredMethod(methodName, types);
