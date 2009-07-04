@@ -805,7 +805,7 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new ReadCmdLineString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ReadCmdLineString");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.Time(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.GetTime(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "GetTime");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new FileSize(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
