@@ -86,12 +86,12 @@ import org.mathpiper.builtin.functions.FromString;
 import org.mathpiper.builtin.functions.FullForm;
 import org.mathpiper.builtin.functions.GarbageCollect;
 import org.mathpiper.builtin.functions.Gcd;
-import org.mathpiper.builtin.functions.GenArrayCreate;
-import org.mathpiper.builtin.functions.GenArrayGet;
-import org.mathpiper.builtin.functions.GenArraySet;
-import org.mathpiper.builtin.functions.GenArraySize;
-import org.mathpiper.builtin.functions.GenPatternCreate;
-import org.mathpiper.builtin.functions.GenPatternMatches;
+import org.mathpiper.builtin.functions.ArrayCreate;
+import org.mathpiper.builtin.functions.ArrayGet;
+import org.mathpiper.builtin.functions.ArraySet;
+import org.mathpiper.builtin.functions.ArraySize;
+import org.mathpiper.builtin.functions.PatternCreate;
+import org.mathpiper.builtin.functions.PatternMatches;
 import org.mathpiper.builtin.functions.GenericTypeName;
 import org.mathpiper.builtin.functions.GetCoreError;
 import org.mathpiper.builtin.functions.GetExactBits;
@@ -634,16 +634,16 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new GenericTypeName(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "GenericTypeName");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GenArrayCreate(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new ArrayCreate(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ArrayCreate");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GenArraySize(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new ArraySize(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ArraySize");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GenArrayGet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new ArrayGet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ArrayGet");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GenArraySet(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new ArraySet(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ArraySet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new CustomEval(), 4, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
@@ -682,10 +682,10 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new StringMidSet(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "StringMidSet");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GenPatternCreate(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new PatternCreate(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Pattern'Create");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GenPatternMatches(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new PatternMatches(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Pattern'Matches");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new RulebaseDefined(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

@@ -31,7 +31,7 @@ import org.mathpiper.lisp.UtilityFunctions;
  *
  *  
  */
-public class GenPatternMatches extends BuiltinFunction
+public class PatternMatches extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

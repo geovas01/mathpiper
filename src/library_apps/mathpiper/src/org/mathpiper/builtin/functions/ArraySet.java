@@ -21,16 +21,16 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.Array;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.UtilityFunctions;
 
 /**
  *
  *  
  */
-public class GenArraySize extends BuiltinFunction
+public class ArraySet extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -41,7 +41,19 @@ public class GenArraySize extends BuiltinFunction
         BuiltinContainer gen = evaluated.getCons().getGeneric();
         LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1);
         LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
-        int size = ((Array) gen).size();
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
+
+        ConsPointer sizearg = new ConsPointer();
+        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().string() != null, 2);
+
+        int size = Integer.parseInt(sizearg.getCons().string(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
+
+        ConsPointer obj = new ConsPointer();
+        obj.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+        ((Array) gen).setElement(size, obj.getCons());
+        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
 }
