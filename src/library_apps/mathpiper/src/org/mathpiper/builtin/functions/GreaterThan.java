@@ -34,4 +34,28 @@ public class GreaterThan extends BuiltinFunction
     {
         compare.Compare(aEnvironment, aStackTop);
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="GreaterThan"
+*CMD GreaterThan --- comparison predicate
+*CORE
+*CALL
+	GreaterThan(a,b)
+
+*PARMS
+{a}, {b} -- numbers or strings
+*DESC
+Comparing numbers or strings (lexicographically).
+
+*EG
+	In> GreaterThan(1,1)
+	Out> False;
+	In> GreaterThan("b","a")
+	Out> True;
+
+*SEE LessThan, Equals
+%/mathpiper_docs
+*/

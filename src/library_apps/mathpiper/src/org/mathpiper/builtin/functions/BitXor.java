@@ -37,4 +37,23 @@ public class BitXor extends BuiltinFunction
         z.bitXor(x, y);
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="BitXor",categories="User Functions;Built In"
+*CMD BitXor --- bitwise xor operation
+*CORE
+*CALL
+	BitXor(n,m)
+
+*DESC
+This function returns the bitwise "xor"
+of two numbers.
+
+*SEE BitAnd, BitOr
+
+%/mathpiper_docs
+*/

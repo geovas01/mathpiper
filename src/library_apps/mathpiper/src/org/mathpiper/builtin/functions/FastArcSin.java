@@ -38,4 +38,26 @@ public class FastArcSin extends BuiltinFunction
         z.setTo(result);
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper,name="FastArcSin",categories="Programmer Functions;Built In"
+*CMD FastArcSin --- double-precision math functions
+*CORE
+*CALL
+	FastArcSin(x)
+
+*PARMS
+{a} -- a number
+
+*DESC
+This function uses the Java math library. It
+should be faster than the arbitrary precision version.
+
+*SEE FastLog, FastPower
+
+%/mathpiper_docs
+*/

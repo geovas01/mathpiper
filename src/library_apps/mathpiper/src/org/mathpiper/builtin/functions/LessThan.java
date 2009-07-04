@@ -34,4 +34,29 @@ public class LessThan extends BuiltinFunction
     {
         compare.Compare(aEnvironment, aStackTop);
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="LessThan"
+*CMD LessThan --- comparison predicate
+*CORE
+*CALL
+	LessThan(a,b)
+
+*PARMS
+{a}, {b} -- numbers or strings
+*DESC
+Comparing numbers or strings (lexicographically).
+
+*EG
+	In> LessThan(1,1)
+	Out> False;
+	In> LessThan("a","b")
+	Out> True;
+
+*SEE GreaterThan, Equals
+%/mathpiper_docs
+*/

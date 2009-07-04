@@ -35,4 +35,19 @@ public class IsPromptShown extends BuiltinFunction
 
         throw new EvaluationException("Function not yet supported",-1);
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="IsPromptShown",categories="User Functions;Predicates;Built In"
+*CMD IsPromptShown --- test for the Yacas prompt option
+*CORE
+*CALL
+	IsPromptShown()
+
+*DESC
+Returns {False} if Yacas has been started with the option to suppress the prompt, and {True} otherwise.
+
+%/mathpiper_docs
+*/

@@ -38,4 +38,26 @@ public class FastLog extends BuiltinFunction
         z.setTo(result);
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper,name="FastLog",categories="Programmer Functions;Built In"
+*CMD FastLog --- double-precision natural logarithm
+*CORE
+*CALL
+	FastLog(x)
+
+*PARMS
+{a} -- a number
+
+*DESC
+This function uses the Java math library. It
+should be faster than the arbitrary precision version.
+
+*SEE FastPower, FastArcSin
+
+%/mathpiper_docs
+*/

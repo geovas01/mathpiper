@@ -39,4 +39,25 @@ public class FastPower extends BuiltinFunction
         z.setTo(result);
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper,name="FastPower",categories="Programmer Functions;Built In"
+*CMD FastPower --- double-precision math function
+*CORE
+*CALL
+	FastPower(x,y)
+
+*PARMS
+{a} -- a number
+
+*DESC
+This function uses the Java math library. It
+should be faster than the arbitrary precision version.
+
+*SEE FastLog, FastArcSin
+
+%/mathpiper_docs
+*/

@@ -38,4 +38,22 @@ public class ShiftLeft extends BuiltinFunction
         z.shiftLeft(x, (int) nrToShift);
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="ShiftLeft",categories="User Functions;Built In"
+*CMD ShiftLeft --- built-in bitwise shift left operation
+*CORE
+*CALL
+	ShiftLeft(expr,bits)
+
+*DESC
+
+Shift bits to the left.
+
+*SEE ShiftRight
+%/mathpiper_docs
+*/
