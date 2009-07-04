@@ -542,7 +542,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
                 html.append("\n</pre></tr>\n</table>\n<p>\n\n");
             } else if (line.startsWith("*SEE")) {
 
-                line = lines[x].trim();
+                //line = lines[x].trim();
+                line = line.substring(4,line.length());
 
                 html.append("<h5>\nSee also:\n</h5>" + line + "\n");
 
