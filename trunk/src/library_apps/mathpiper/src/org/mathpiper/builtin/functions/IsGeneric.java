@@ -36,4 +36,19 @@ public class IsGeneric extends BuiltinFunction
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), evaluated.getCons().getGeneric() != null);
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="IsGeneric",categories="User Functions;Predicates;Built In"
+*CMD IsGeneric --- check for generic object
+*CORE
+*CALL
+	IsGeneric(object)
+
+*DESC
+Returns {True} if an object is of a generic object type.
+
+%/mathpiper_docs
+*/
