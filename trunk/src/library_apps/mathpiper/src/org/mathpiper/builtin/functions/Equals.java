@@ -39,4 +39,25 @@ public class Equals extends BuiltinFunction
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop),
                 UtilityFunctions.internalEquals(aEnvironment, evaluated1, evaluated2));
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="Equals",categories="User Functions;Built In"
+*CMD Equals --- check equality
+*CORE
+*CALL
+	Equals(a,b)
+
+*DESC
+Compares evaluated {a} and {b} recursively
+(stepping into expressions). So "Equals(a,b)" returns
+"True" if the expressions would be printed exactly
+the same, and "False" otherwise.
+
+*SEE GreaterThan, LessThan
+
+%/mathpiper_docs
+*/

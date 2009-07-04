@@ -36,4 +36,23 @@ public class BitAnd extends BuiltinFunction
         z.bitAnd(x, y);
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="BitAnd",categories="User Functions;Built In"
+*CMD BitAnd --- bitwise and operation
+*CORE
+*CALL
+	BitAnd(n,m)
+
+
+*DESC
+This function returns the bitwise "and"
+of two numbers.
+
+*SEE BitOr, BitXor
+
+%/mathpiper_docs
+*/

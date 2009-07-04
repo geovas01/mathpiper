@@ -37,5 +37,24 @@ public class BitOr extends BuiltinFunction
         z.bitOr(x, y);
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="BitOr",categories="User Functions;Built In"
+*CMD BitOr --- bitwise or operation
+*CORE
+*CALL
+	BitOr(n,m)
+
+*DESC
+This function returns the bitwise "or"
+of two numbers.
+
+*SEE BitAnd, BitXor
+
+%/mathpiper_docs
+*/
 

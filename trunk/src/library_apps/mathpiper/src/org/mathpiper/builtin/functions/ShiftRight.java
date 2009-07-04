@@ -38,4 +38,22 @@ public class ShiftRight extends BuiltinFunction
         z.shiftRight(x, (int) nrToShift);
         getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="ShiftRight",categories="User Functions;Built In"
+*CMD ShiftRight --- built-in bitwise shift right operation
+*CORE
+*CALL
+	ShiftRight(expr,bits)
+
+*DESC
+
+Shift bits to the right.
+
+*SEE ShiftLeft
+%/mathpiper_docs
+*/
