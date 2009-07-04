@@ -19,41 +19,49 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.Array;
-import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
 
 /**
  *
  *  
  */
-public class GenArraySet extends BuiltinFunction
+public class ArrayCreate extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-
-        BuiltinContainer gen = evaluated.getCons().getGeneric();
-        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
-
         ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().string() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().string() != null, 1);
 
         int size = Integer.parseInt(sizearg.getCons().string(), 10);
-        LispError.checkArgument(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
 
-        ConsPointer obj = new ConsPointer();
-        obj.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        ((Array) gen).setElement(size, obj.getCons());
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        ConsPointer initarg = new ConsPointer();
+        initarg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+
+        Array array = new Array(size, initarg.getCons());
+        getResult(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(array));
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="ArrayCreate",categories="User Functions;Built In"
+*CMD ArrayCreate --- create array
+*CORE
+*CALL
+	ArrayCreate(size,init)
+
+*DESC
+Creates an array with {size} elements, all initialized to the
+value {init}.
+
+%/mathpiper_docs
+*/

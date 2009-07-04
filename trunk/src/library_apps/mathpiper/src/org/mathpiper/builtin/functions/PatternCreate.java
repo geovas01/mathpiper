@@ -30,7 +30,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class GenPatternCreate extends BuiltinFunction
+public class PatternCreate extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
