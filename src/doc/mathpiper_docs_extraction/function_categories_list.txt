@@ -40,9 +40,9 @@ BinomialDistribution;
 BinSplitData;
 BinSplitFinal;
 BinSplitNum;
-BitAnd;,categories="User Functions;Built In"
-BitOr;,categories="User Functions;Built In"
-BitXor;,categories="User Functions;Built In"
+BitAnd;
+BitOr;
+BitXor;
 Bodied;
 BracketRational;
 BubbleSort;
@@ -115,7 +115,7 @@ EigenValues;
 EigenVectors;
 Eliminate;
 EndOfFile;,categories="User Functions;Constants (System)"
-Equals;,categories="User Functions;Built In"
+Equals;
 Euler;
 Eulerian;
 Eval;
@@ -245,7 +245,7 @@ IsPostfix;
 IsPrefix;
 IsPrime;,categories="User Functions;Number Theory;Predicates"
 IsPrimePower;,categories="User Functions;Number Theory;Predicates"
-IsPromptShown;,categories="User Functions;Predicates;Built In"
+IsPromptShown;
 IsQuadraticResidue;,categories="User Functions;Number Theory;Predicates"
 IsRational;,categories="User Functions;Numbers (Predicates);Predicates"
 IsScalar;,categories="User Functions;Matrices (Predicates);Predicates"
@@ -417,8 +417,8 @@ Secure;
 Select;,categories="User Functions;Lists (Operations)"
 Set;
 SetGlobalLazyVariable;
-ShiftLeft;,categories="User Functions;Built In"
-ShiftRight;,categories="User Functions;Built In"
+ShiftLeft;
+ShiftRight;
 Sign;,categories="User Functions;Calculus Related (Symbolic)"
 Simplify;,categories="User Functions;Expression Simplification"
 Sin;,categories="User Functions;Calculus Related (Symbolic)"
@@ -538,7 +538,7 @@ DumpErrors;
 Equals;,categories="Programmer Functions;Built In"
 ExtraInfo'Get;,categories="Programmer Functions;Programming;Built In"
 ExtraInfoSet;,categories="Programmer Functions;Programming;Built In"
-Fast...;,categories="Programmer Functions;Built In"
+Fast...;
 FindFunction;,categories="Programmer Functions;Programming;Built In"
 GarbageCollect;,categories="Programmer Functions;Programming;Built In"
 GenericTypeName;,categories="Programmer Functions;Native Objects;Built In"
