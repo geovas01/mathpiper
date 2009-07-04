@@ -117,7 +117,7 @@ Retract("CheckEquationSolution",*);
 
 ///////////////////////////////////////////////////////////////////////////////
 
-%mathpiper,scope="nobuild",subtype="test"
+%mathpiper,scope="nobuild",subtype="manual_test"
 
 Clear(eqns1,eqns2,eqns3,eqns4,eqns5,solution);
 
