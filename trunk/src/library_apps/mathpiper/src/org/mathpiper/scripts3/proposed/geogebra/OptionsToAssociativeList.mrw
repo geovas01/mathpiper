@@ -1,0 +1,35 @@
+%mathpiper,title=""
+OptionListToAssociativeList(optionList) :=
+[
+    Local(associativeList, key, value);
+    
+    associativeList := {};
+    
+    ForEach(option, optionList)
+    [
+        If(option[0] = ->,
+        [
+            If(IsString(option[1]), key := option[1], key := String(option[1]));
+            If(IsString(option[2]), value := option[2], value := String(option[2]));
+            
+            associativeList := {key, value} : associativeList;
+        
+        ]);
+    
+    ];
+    associativeList;
+];
+
+%/mathpiper
+
+
+
+
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
+
+OptionListToAssociativeList({ lines -> True, labels -> False });
+
+%/mathpiper
+
+
+

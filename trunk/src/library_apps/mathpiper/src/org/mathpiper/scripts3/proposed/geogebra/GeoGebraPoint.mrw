@@ -1,0 +1,13 @@
+%mathpiper
+Retract("GeoGebraPoint",*);
+
+10 # GeoGebraPoint(name_IsString, x_IsNumber, y_IsNumber)  <--
+[
+    Local(command);
+    
+    command := PatchString("<?Write(Atom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
+    
+    JavaCall("geogebra","evalCommand",command);
+];
+
+%/mathpiper
