@@ -15,4 +15,4 @@ ArrayCreateFromList(list):=
   result;
 ];
 
-/%mathpiper
+%/mathpiper
