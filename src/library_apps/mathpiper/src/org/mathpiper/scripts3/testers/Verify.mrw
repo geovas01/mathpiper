@@ -73,3 +73,97 @@ Macro("Verify", {a,b,message})
 
 
 %/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="Verify",categories="User Functions"
+*CMD Verify --- verifying equivalence of two expressions
+*STD
+*CALL
+	Verify(question,answer)
+
+*PARMS
+
+{question} -- expression to check for
+
+{answer} -- expected result after evaluation
+
+
+*DESC
+
+The command {Verify} can be used to verify that an
+expression is <I>equivalent</I> to  a correct answer after evaluation.
+It returns {True} or {False}.
+
+For some calculations, the demand that two expressions
+are <I>identical</I> syntactically is too stringent. The
+MathPiper system might change at various places in the future,
+but $ 1+x $ would still be equivalent, from a mathematical
+point of view, to $ x+1 $.
+
+The general problem of deciding that two expressions $ a $ and $ b $
+are equivalent, which is the same as saying that $ a-b=0 $ ,
+is generally hard to decide on. The following commands solve
+this problem by having domain-specific comparisons.
+
+The comparison commands do the following comparison types:
+
+*	{Verify} -- verify for literal equality.
+This is the fastest and simplest comparison, and can be
+used, for example, to test that an expression evaluates to $ 2 $.
+*	{TestMathPiper} -- compare two expressions after simplification as
+multivariate polynomials. If the two arguments are equivalent
+multivariate polynomials, this test succeeds. {TestMathPiper} uses {Simplify}. Note: {TestMathPiper} currently should not be used to test equality of lists.
+*	{LogicVerify} -- Perform a test by using {CanProve} to verify that from
+{question} the expression {answer} follows. This test command is
+used for testing the logic theorem prover in MathPiper.
+*	{LogicTest} -- Generate a truth table for the two expressions and compare these two tables. They should be the same if the two expressions are logically the same.
+
+*E.G.
+	In> Verify(1+2,3)
+	Out> True;
+
+	In> Verify(x*(1+x),x^2+x)
+	******************
+	x*(x+1) evaluates to x*(x+1) which differs
+	  from x^2+x
+	******************
+	Out> False;
+
+	In> TestMathPiper(x*(1+x),x^2+x)
+	Out> True;
+
+	In> Verify(a And c Or b And Not c,a Or b)
+	******************
+	 a And c Or b And Not c evaluates to  a And c
+	  Or b And Not c which differs from  a Or b
+	******************
+	Out> False;
+
+	In> LogicVerify(a And c Or b And Not c,a Or b)
+	Out> True;
+
+	In> LogicVerify(a And c Or b And Not c,b Or a)
+	Out> True;
+
+	In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or B)
+	Out> True
+
+	In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or C)
+	******************
+	CommandLine: 1
+
+	$TrueFalse4({A,B,C},Not(Not A And Not B))
+	 evaluates to
+	{{{False,False},{True,True}},{{True,True},{True,True}}}
+	 which differs from
+	{{{False,True},{False,True}},{{True,True},{True,True}}}
+	******************
+	Out> False
+
+*SEE Simplify, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
+
+%/mathpiper_docs

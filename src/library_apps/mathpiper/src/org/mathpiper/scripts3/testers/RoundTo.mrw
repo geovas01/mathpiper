@@ -25,3 +25,34 @@ Macro(NumericEqual,{left,right,precision})
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="RoundTo",categories="User Functions"
+*CMD RoundTo --- Round a real-valued result to a set number of digits
+*STD
+*CALL
+	RoundTo(number,precision)
+
+*PARMS
+
+{number} -- number to round off
+
+{precision} -- precision to use for round-off
+
+*DESC
+
+The function {RoundTo} rounds a floating point number to a
+specified precision, allowing for testing for correctness
+using the {Verify} command.
+
+*E.G.
+
+	In> N(RoundTo(Exp(1),30),30)
+	Out> 2.71828182110230114951959786552;
+	In> N(RoundTo(Exp(1),20),20)
+	Out> 2.71828182796964237096;
+
+*SEE Verify, VerifyArithmetic, VerifyDiv
+
+%/mathpiper_docs

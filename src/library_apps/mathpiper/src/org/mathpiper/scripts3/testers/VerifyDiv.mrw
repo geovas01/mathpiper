@@ -10,3 +10,33 @@ VerifyDiv(_u,_v) <--
 ];
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="VerifyDiv",categories="User Functions"
+*CMD VerifyDiv --- Special purpose arithmetic verifiers
+*STD
+*CALL
+	VerifyDiv(u,v)
+
+*PARMS
+
+{u}, {v} -- integer arguments
+
+*DESC
+
+{VerifyDiv(u,v)} checks that
+$$ u = v*Div(u,v) + Mod(u,v) $$.
+
+
+*E.G.
+
+	In> VerifyDiv(x^2+2*x+3,x+1)
+	Out> True;
+	In> VerifyDiv(3,2)
+	Out> True;
+
+*SEE Verify, VerifyArithmetic, RandVerifyArithmetic, VerifyDiv, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
+
+%/mathpiper_docs

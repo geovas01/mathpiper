@@ -55,4 +55,23 @@ public class ArrayGet extends BuiltinFunction
 
         getResult(aEnvironment, aStackTop).setCons(object.copy(false));
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="ArrayGet"
+*CMD ArrayGet --- fetch array element
+*CORE
+*CALL
+	ArrayGet(array,index)
+
+*DESC
+Returns the element at position index in the array passed. Arrays are treated
+as base-one, so {index} set to 1 would return the first element.
+
+Arrays can also be accessed through the {[]} operators. So
+{array[index]} would return the same as {ArrayGet(array, index)}.
+
+%/mathpiper_docs
+*/

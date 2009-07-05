@@ -13,3 +13,41 @@ LocalSymbols(f1,f2)
 ];
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="VerifyArithmetic",categories="User Functions"
+*CMD VerifyArithmetic --- Special purpose arithmetic verifiers
+*STD
+*CALL
+	VerifyArithmetic(x,n,m)
+
+*PARMS
+
+{x}, {n}, {m} -- integer arguments
+
+*DESC
+
+The command {VerifyArithmetic} tests a
+mathematic equality which should hold, testing that the
+result returned by the system is mathematically correct
+according to a mathematically provable theorem.
+
+{VerifyArithmetic} verifies for an arbitrary set of numbers
+$ x $, $ n $ and $ m $ that
+$$ (x^n-1)*(x^m-1) = x^(n+m)-(x^n)-(x^m)+1 $$.
+
+The left and right side represent two ways to arrive at the
+same result, and so an arithmetic module actually doing the
+calculation does the calculation in two different ways.
+The results should be exactly equal.
+
+*E.G.
+
+	In> VerifyArithmetic(100,50,60)
+	Out> True;
+
+*SEE Verify, VerifyArithmetic, RandVerifyArithmetic, VerifyDiv, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
+
+%/mathpiper_docs

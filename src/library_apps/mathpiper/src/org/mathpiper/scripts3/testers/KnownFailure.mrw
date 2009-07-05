@@ -10,3 +10,42 @@ Function("KnownFailure",{expr})
 HoldArg("KnownFailure",expr);
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="KnownFailure",categories="User Functions"
+*CMD KnownFailure --- Mark a test as a known failure
+*STD
+*CALL
+	KnownFailure(test)
+
+*PARMS
+
+{test} -- expression that should return {False} on failure
+
+*DESC
+
+The command {KnownFailure} marks a test as known to fail
+by displaying a message to that effect on screen.
+
+This might be used by developers when they have no time
+to fix the defect, but do not wish to alarm users who download
+MathPiper and type {make test}.
+
+*E.G.
+
+	In> KnownFailure(Verify(1,2))
+	Known failure:
+	******************
+	 1 evaluates to  1 which differs from  2
+	******************
+	Out> False;
+	In> KnownFailure(Verify(1,1))
+	Known failure:
+	Failure resolved!
+	Out> True;
+
+*SEE Verify, TestMathPiper, LogicVerify, LogicTest
+
+%/mathpiper_docs

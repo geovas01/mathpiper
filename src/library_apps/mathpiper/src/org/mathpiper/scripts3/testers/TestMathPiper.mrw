@@ -75,3 +75,33 @@ HoldArg("TestMathPiper", ans);
 
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="TestMathPiper",categories="User Functions"
+*CMD TestMathPiper --- verifying equivalence of two expressions
+*STD
+*CALL
+	TestMathPiper(question,answer)
+
+*PARMS
+
+{question} -- expression to check for
+
+{answer} -- expected result after evaluation
+
+*DESC
+
+The command {TestMathPiper} can be used to verify that an
+expression is <I>equivalent</I> to  a correct answer after evaluation.
+It returns {True} or {False}.
+
+*E.G.
+	In> TestMathPiper(x*(1+x),x^2+x)
+	Out> True;
+
+
+*SEE Simplify, CanProve, KnownFailure, Verify, LogicVerify, LogicTest
+
+%/mathpiper_docs

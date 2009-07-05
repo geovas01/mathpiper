@@ -10,3 +10,30 @@ RandVerifyArithmetic(_n)<--
 ];
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="RandVerifyArithmetic",categories="User Functions"
+*CMD RandVerifyArithmetic --- Special purpose arithmetic verifiers
+*STD
+*CALL
+	RandVerifyArithmetic(n)
+
+*PARMS
+
+{n} -- integer arguments
+
+*DESC
+
+{RandVerifyArithmetic(n)} calls {VerifyArithmetic} with
+random values, {n} times.
+
+*E.G.
+
+	In> RandVerifyArithmetic(4)
+	Out> True;
+
+*SEE Verify, VerifyArithmetic, RandVerifyArithmetic, VerifyDiv, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
+
+%/mathpiper_docs
