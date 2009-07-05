@@ -65,7 +65,7 @@
 		<buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts3/"
                  outputScriptsDirectory="${build.classes.dir}/org/mathpiper/scripts/"
 		 outputDocsDirectory="${build.classes.dir}/org/mathpiper/ui/gui/help/data/"
-		 baseDirectory="${src.dir}/"/>
+		 baseDirectory="${basedir}/"/>
       
       </target>
 	
