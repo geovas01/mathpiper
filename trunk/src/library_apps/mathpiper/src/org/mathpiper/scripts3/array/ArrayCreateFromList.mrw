@@ -16,3 +16,17 @@ ArrayCreateFromList(list):=
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ArrayCreateFromList",categories="User Functions"
+*CMD ArrayCreateFromList --- convert list to array
+*CALL
+	ArrayCreateFromList(list)
+
+*DESC
+Creates an array from the contents of the list passed in.
+
+%/mathpiper_docs

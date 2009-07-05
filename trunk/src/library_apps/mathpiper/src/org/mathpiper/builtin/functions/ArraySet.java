@@ -56,4 +56,24 @@ public class ArraySet extends BuiltinFunction
         ((Array) gen).setElement(size, obj.getCons());
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="ArraySet"
+*CMD ArraySet --- set array element
+*CORE
+*CALL
+	ArraySet(array,index,element)
+
+*DESC
+Sets the element at position index in the array passed to the value
+passed in as argument to element. Arrays are treated
+as base-one, so {index} set to 1 would set first element.
+
+Arrays can also be accessed through the {[]} operators. So
+{array[index] := element} would do the same as {ArraySet(array, index,element)}.
+
+%/mathpiper_docs
+*/

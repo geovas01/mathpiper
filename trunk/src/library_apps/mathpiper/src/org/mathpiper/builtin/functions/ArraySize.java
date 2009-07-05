@@ -44,4 +44,19 @@ public class ArraySize extends BuiltinFunction
         int size = ((Array) gen).size();
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
     }
-}
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="ArraySize",categories="User Functions;Built In"
+*CMD ArraySize --- get array size
+*CORE
+*CALL
+	ArraySize(array)
+
+*DESC
+Returns the size of an array (number of elements in the array).
+
+%/mathpiper_docs
+*/
