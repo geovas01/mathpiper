@@ -53,7 +53,7 @@ public class ArrayCreate extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ArrayCreate",categories="User Functions;Built In"
+%mathpiper_docs,name="ArrayCreate",categories="Programmer Functions;Native Objects;Built In"
 *CMD ArrayCreate --- create array
 *CORE
 *CALL

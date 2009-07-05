@@ -36,7 +36,7 @@ public class DefMacroRulebase extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DefMacroRuleBase",categories="User Functions;Built In"
+%mathpiper_docs,name="DefMacroRuleBase",categories="Programmer Functions;Programming;Built In"
 *CMD DefMacroRuleBase --- define a function as a macro
 *CORE
 *CALL

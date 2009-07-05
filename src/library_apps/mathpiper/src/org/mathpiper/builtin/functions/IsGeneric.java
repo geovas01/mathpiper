@@ -41,7 +41,7 @@ public class IsGeneric extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsGeneric",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="IsGeneric",categories="Programmer Functions;Native Objects;Built In"
 *CMD IsGeneric --- check for generic object
 *CORE
 *CALL

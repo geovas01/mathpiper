@@ -36,7 +36,7 @@ public class DefMacroRulebaseListed extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DefMacroRuleBaseListed",categories="User Functions;Built In"
+%mathpiper_docs,name="DefMacroRuleBaseListed",categories="Programmer Functions;Programming;Built In"
 *CMD DefMacroRuleBaseListed --- define macro with variable number of arguments
 *CORE
 *CALL

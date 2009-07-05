@@ -40,7 +40,7 @@ public class IsPromptShown extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsPromptShown",categories="User Functions;Predicates;Built In"
+%mathpiper_docs,name="IsPromptShown",categories="Programmer Functions;Built In"
 *CMD IsPromptShown --- test for the Yacas prompt option
 *CORE
 *CALL

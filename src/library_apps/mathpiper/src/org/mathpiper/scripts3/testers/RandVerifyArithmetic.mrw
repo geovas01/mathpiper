@@ -14,7 +14,7 @@ RandVerifyArithmetic(_n)<--
 
 
 
-%mathpiper_docs,name="RandVerifyArithmetic",categories="User Functions"
+%mathpiper_docs,name="RandVerifyArithmetic",categories="Programmer Functions;Testing"
 *CMD RandVerifyArithmetic --- Special purpose arithmetic verifiers
 *STD
 *CALL

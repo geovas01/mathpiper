@@ -23,7 +23,7 @@ LocalSymbols(TrueFalse)
 
 
 
-%mathpiper_docs,name="LogicTest",categories="User Functions"
+%mathpiper_docs,name="LogicTest",categories="Programmer Functions;Testing"
 *CMD LogicTest --- verifying equivalence of two expressions
 *STD
 *CALL

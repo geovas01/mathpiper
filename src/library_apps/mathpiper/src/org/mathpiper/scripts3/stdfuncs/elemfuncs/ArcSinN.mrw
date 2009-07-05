@@ -1,17 +1,31 @@
-%mathpiper,def="TanN"
+%mathpiper,def="ArcSinN"
 
-Defun("TanN",{x})DivideN(SinN(x),CosN(x));
+Defun("ArcSinN",{int1})
+[
+  Local(result,eps);
+	Set(result,FastArcSin(int1));
+  Local(x,q,s,c);
+  Set(q,SubtractN(SinN(result),int1));
+  Set(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
+  While(GreaterThan(AbsN(q),eps))
+  [
+		Set(s,SubtractN(int1,SinN(result)));
+    Set(c,CosN(result));
+    Set(q,DivideN(s,c));
+    Set(result,AddN(result,q));
+  ];
+  result;
+];
 
 %/mathpiper
 
 
 
 
-
-%mathpiper_docs,name="TanN",categories="Programmer Functions;Built In"
-*CMD TanN --- tangent (arbitrary-precision math function)
+%mathpiper_docs,name="ArcSinN",categories="Programmer Functions;Built In"
+*CMD ArcSinN --- inverse sine (arbitrary-precision math function)
 *CALL
-	TanN(x)
+	ArcSinN(x)
 
 *DESC
 

@@ -21,7 +21,7 @@ ArrayCreateFromList(list):=
 
 
 
-%mathpiper_docs,name="ArrayCreateFromList",categories="User Functions"
+%mathpiper_docs,name="ArrayCreateFromList",categories="Programmer Functions;Native Objects"
 *CMD ArrayCreateFromList --- convert list to array
 *CALL
 	ArrayCreateFromList(list)

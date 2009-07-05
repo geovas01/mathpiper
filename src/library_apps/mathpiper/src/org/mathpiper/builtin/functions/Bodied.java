@@ -37,7 +37,7 @@ public class Bodied extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Bodied",categories="User Functions;Built In"
+%mathpiper_docs,name="Bodied",categories="Programmer Functions;Programming;Built In"
 *CMD Bodied --- define function syntax (bodied function)
 *CORE
 *CALL

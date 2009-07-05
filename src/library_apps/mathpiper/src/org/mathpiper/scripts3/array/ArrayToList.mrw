@@ -7,7 +7,7 @@ ArrayToList(array):= (array[1 .. ArraySize(array) ]);
 
 
 
-%mathpiper_docs,name="ArrayToList",categories="User Functions"
+%mathpiper_docs,name="ArrayToList",categories="Programmer Functions;Native Objects"
 *CMD ArrayToList --- convert array to list
 *CORE
 *CALL

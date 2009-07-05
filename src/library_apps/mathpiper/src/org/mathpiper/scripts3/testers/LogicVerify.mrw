@@ -11,7 +11,7 @@ Function("LogicVerify",{aLeft,aRight})
 
 
 
-%mathpiper_docs,name="LogicVerify",categories="User Functions"
+%mathpiper_docs,name="LogicVerify",categories="Programmer Functions;Testing"
 *CMD LogicVerify --- verifying equivalence of two expressions
 *STD
 *CALL
