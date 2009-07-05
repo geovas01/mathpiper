@@ -28,7 +28,7 @@ Macro(NumericEqual,{left,right,precision})
 
 
 
-%mathpiper_docs,name="RoundTo",categories="User Functions"
+%mathpiper_docs,name="RoundTo",categories="Programmer Functions;Testing"
 *CMD RoundTo --- Round a real-valued result to a set number of digits
 *STD
 *CALL

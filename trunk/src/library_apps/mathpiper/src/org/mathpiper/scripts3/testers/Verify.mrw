@@ -79,7 +79,7 @@ Macro("Verify", {a,b,message})
 
 
 
-%mathpiper_docs,name="Verify",categories="User Functions"
+%mathpiper_docs,name="Verify",categories="Programmer Functions;Testing"
 *CMD Verify --- verifying equivalence of two expressions
 *STD
 *CALL

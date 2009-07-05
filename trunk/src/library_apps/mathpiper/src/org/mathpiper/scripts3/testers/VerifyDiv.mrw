@@ -14,7 +14,7 @@ VerifyDiv(_u,_v) <--
 
 
 
-%mathpiper_docs,name="VerifyDiv",categories="User Functions"
+%mathpiper_docs,name="VerifyDiv",categories="Programmer Functions;Testing"
 *CMD VerifyDiv --- Special purpose arithmetic verifiers
 *STD
 *CALL

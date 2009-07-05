@@ -17,7 +17,7 @@ LocalSymbols(f1,f2)
 
 
 
-%mathpiper_docs,name="VerifyArithmetic",categories="User Functions"
+%mathpiper_docs,name="VerifyArithmetic",categories="Programmer Functions;Testing"
 *CMD VerifyArithmetic --- Special purpose arithmetic verifiers
 *STD
 *CALL

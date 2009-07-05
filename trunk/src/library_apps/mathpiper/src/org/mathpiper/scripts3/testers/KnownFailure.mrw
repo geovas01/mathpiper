@@ -14,7 +14,7 @@ HoldArg("KnownFailure",expr);
 
 
 
-%mathpiper_docs,name="KnownFailure",categories="User Functions"
+%mathpiper_docs,name="KnownFailure",categories="Programmer Functions;Testing"
 *CMD KnownFailure --- Mark a test as a known failure
 *STD
 *CALL

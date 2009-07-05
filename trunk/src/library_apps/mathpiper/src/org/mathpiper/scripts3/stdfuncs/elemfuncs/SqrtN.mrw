@@ -78,7 +78,15 @@ integer result is returned even if the calculation requires more digits than set
 the functions return a floating-point result which is correct only to the current precision.
 
 *E.G.
-	In>
-	Result>
+	In> BuiltinPrecisionSet(10)
+	Out> True
+	In> Sqrt(10)
+	Out> Sqrt(10)
+	In> SqrtN(10)
+	Out> 3.16227766
+	In> SqrtN(490000*2^150)
+	Out> 26445252304070013196697600
+	In> SqrtN(490000*2^150+1)
+	Out> 0.264452523e26
 
 %/mathpiper_docs

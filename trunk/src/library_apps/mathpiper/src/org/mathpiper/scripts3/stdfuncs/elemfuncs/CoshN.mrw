@@ -1,6 +1,6 @@
-%mathpiper,def="TanN"
+%mathpiper,def=""
 
-Defun("TanN",{x})DivideN(SinN(x),CosN(x));
+//Not implemented in scripts. todo:tk.
 
 %/mathpiper
 
@@ -8,10 +8,11 @@ Defun("TanN",{x})DivideN(SinN(x),CosN(x));
 
 
 
-%mathpiper_docs,name="TanN",categories="Programmer Functions;Built In"
-*CMD TanN --- tangent (arbitrary-precision math function)
+
+%mathpiper_docs,name="CoshN",categories="Programmer Functions;Built In"
+*CMD CoshN --- hyperbolic cosine (arbitrary-precision math function)
 *CALL
-	TanN(x)
+	CoshN(x)
 
 *DESC
 
