@@ -373,6 +373,8 @@ public class Build {
     private void processMRWFile(File mrwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws IOException {
         List<Fold> folds = scanSourceFile(mrwFile);
 
+        boolean hasDocs = false;
+
         for (Fold fold : folds) {
 
             String foldType = fold.getType();
@@ -402,14 +404,19 @@ public class Build {
                 }//end if.
 
             } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
-                System.out.println("        **** Contains docs *****");
-
+                //System.out.println("        **** Contains docs *****");
+                hasDocs = true;
                 processMathPiperDocsFold(fold);
 
             }//end if.
 
 
         }//end subpackage for.
+
+        if(!hasDocs)
+        {
+             System.out.println("        ^^^^ Does not contain docs ^^^^");
+        }
     }//end method.
 
     private void processMathPiperDocsFold(Fold fold) throws IOException {
@@ -553,20 +560,29 @@ public class Build {
                 System.out.println(javaFileName);
 
                 List<Fold> folds = scanSourceFile(javaFile);
+
+                boolean hasDocs = false;
+
                 for (Fold fold : folds) {
 
                     String foldType = fold.getType();
                     if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
-                        System.out.println("        **** Contains docs *****  " + javaFileName);
+                       // System.out.println("        **** Contains docs *****  " + javaFileName);
+                        hasDocs = true;
+
                         try {
                             processMathPiperDocsFold(fold);
                         } catch (java.io.IOException e) {
                             e.printStackTrace();
                         }
-                    }//end if
+                    }//end if.
+
                 }//end for
 
-                int x2 = 0;
+                 if(!hasDocs)
+                {
+                    System.out.println("    ^^^^ Does not contain docs ^^^^  ");// + javaFileName);
+                }
 
 
 
