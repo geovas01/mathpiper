@@ -20,12 +20,12 @@ ArcTan;
 ArcTanN;,categories="User Functions;Numeric"
 ArcTanhN;,categories="User Functions;Numeric"
 Arg;
-ArrayCreate;,categories="User Functions;Built In"
-ArrayCreateFromList;,categories="User Functions"
-ArrayGet;,categories="User Functions;Built In"
-ArraySet;,categories="User Functions;Built In"
-ArraySize;,categories="User Functions;Built In"
-ArrayToList;,categories="User Functions"
+ArrayCreate;
+ArrayCreateFromList;
+ArrayGet;
+ArraySet;
+ArraySize;
+ArrayToList;
 Assert;
 Assoc;
 AssocDelete;
@@ -160,7 +160,7 @@ GaussianGcd;,categories="User Functions;Number Theory"
 GaussianNorm;,categories="User Functions;Number Theory"
 Gcd;,categories="User Functions;Numbers (Operations);Built In"
 GcdN;,categories="User Functions;Numeric;Built In"
-GenericTypeName;,categories="User Functions;Built In"
+GenericTypeName;
 GlobalPop;,categories="User Functions;Lists (Operations)"
 GlobalPush;,categories="User Functions;Lists (Operations)"
 GoldenRatio;,categories="User Functions;Constants (Mathematical)"
@@ -218,7 +218,7 @@ IsFunction;
 IsGaussianInteger;,categories="User Functions;Predicates"
 IsGaussianPrime;,categories="User Functions;Number Theory;Predicates"
 IsGaussianUnit;,categories="User Functions;Number Theory;Predicates"
-IsGeneric;,categories="User Functions;Predicates;Built In"
+IsGeneric;
 IsHermitian;,categories="User Functions;Matrices (Predicates);Predicates"
 IsIdempotent;,categories="User Functions;Matrices (Predicates);Predicates"
 IsInfinity;,categories="User Functions;Predicates"
@@ -263,7 +263,7 @@ IsZero;,categories="User Functions;Numbers (Predicates);Predicates"
 IsZeroVector;,categories="User Functions;Predicates"
 JacobianMatrix;,categories="User Functions;Matrices (Special)"
 JacobiSymbol;,categories="User Functions;Number Theory"
-KnownFailure;,categories="User Functions"
+KnownFailure;
 LagrangeInterpolant;,categories="User Functions;Series"
 LambertW;,categories="User Functions;Special"
 LaplaceTransform;,categories="User Functions;Transforms"
@@ -286,8 +286,8 @@ Load;
 Local;
 LocalSymbols;,categories="User Functions;Variables;Built In"
 LogN;,categories="User Functions;Numeric"
-LogicTest;,categories="User Functions"
-LogicVerify;,categories="User Functions"
+LogicTest;
+LogicVerify;
 Macro;,categories="User Functions;Control Flow"
 MakeVector;,categories="User Functions;Lists (Operations)"
 Map;,categories="User Functions;Lists (Operations)"
@@ -387,7 +387,7 @@ RandomIntegerMatrix;,categories="User Functions;Numbers (Random)"
 RandomIntegerVector;,categories="User Functions;Numbers (Random)"
 RandomPoly;,categories="User Functions;Numbers (Random)"
 RandomSeed;,categories="User Functions;Numbers (Random)"
-RandVerifyArithmetic;,categories="User Functions"
+RandVerifyArithmetic;
 Rationalize;,categories="User Functions;Numbers (Operations)"
 Re;,categories="User Functions;Numbers (Complex)"
 Read;
@@ -408,7 +408,7 @@ Rng;,categories="User Functions;Numbers (Random)"
 RngCreate;,categories="User Functions;Numbers (Random)"
 RngSeed;,categories="User Functions;Numbers (Random)"
 Round;,categories="User Functions;Numbers (Operations)"
-RoundTo;,categories="User Functions"
+RoundTo;
 Rule;
 RuleBase;
 RuleBaseArgList;
@@ -456,7 +456,7 @@ Taylor;,categories="User Functions;Series"
 TanN;,categories="User Functions;Numeric"
 TanhN;,categories="User Functions;Numeric"
 tDistribution;,categories="User Functions;Probability & Statistics"
-TestMathPiper;,categories="User Functions"
+TestMathPiper;
 TeXForm;,categories="User Functions;Input/Output"
 Time;,categories="User Functions;Control Flow;Built In"
 ToBase;,categories="User Functions;Numbers (Operations);Built In"
@@ -487,9 +487,9 @@ VandermondeMatrix;,categories="User Functions;Matrices (Special)"
 VarList;,categories="User Functions;Lists (Operations)"
 VarListArith;,categories="User Functions;Lists (Operations)"
 VarListSome;,categories="User Functions;Lists (Operations)"
-Verify;,categories="User Functions"
-VerifyArithmetic;,categories="User Functions"
-VerifyDiv;,categories="User Functions"
+Verify;
+VerifyArithmetic;
+VerifyDiv;
 Where;,categories="User Functions;Functional Operators"
 While;
 WithValue;,categories="User Functions;Control Flow"
@@ -505,22 +505,22 @@ Zeta;,categories="User Functions;Special"
 "
 "
 "
-AndN;,category="Built In"
-ArrayCreate;,categories="Programmer Functions;Native Objects;Built In"
-ArrayCreateFromList;,categories="Programmer Functions;Native Objects"
-ArrayGet;,categories="Programmer Functions;Native Objects;Built In"
-ArraySet;,categories="Programmer Functions;Native Objects;Built In"
-ArraySize;,categories="Programmer Functions;Native Objects;Built In"
-ArrayToList;,categories="Programmer Functions;Native Objects"
+AndN;
+ArrayCreate;
+ArrayCreateFromList;
+ArrayGet;
+ArraySet;
+ArraySize;
+ArrayToList;
 Assert;
 Backquoting;
 BinSplitData;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
 BinSplitFinal;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
 BinSplitNum;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
-BitAnd;,categories="Programmer Functions;Built In"
-BitOr;,categories="Programmer Functions;Built In"
-BitXor;,categories="Programmer Functions;Built In"
-Bodied;,categories="Programmer Functions;Programming;Built In"
+BitAnd;
+BitOr;
+BitXor;
+Bodied;
 BracketRational;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
 BuiltinPrecisionGet;
 BuiltinPrecisionSet;
@@ -532,49 +532,49 @@ ContFracEval;
 ContFracList;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
 CurrentFile;
 CurrentLine;
-DefMacroRuleBase;,categories="Programmer Functions;Programming;Built In"
-DefMacroRuleBaseListed;,categories="Programmer Functions;Programming;Built In"
+DefMacroRuleBase;
+DefMacroRuleBaseListed;
 DumpErrors;
-Equals;,categories="Programmer Functions;Built In"
+Equals;
 ExtraInfo'Get;,categories="Programmer Functions;Programming;Built In"
 ExtraInfoSet;,categories="Programmer Functions;Programming;Built In"
 Fast...;
 FindFunction;,categories="Programmer Functions;Programming;Built In"
 GarbageCollect;,categories="Programmer Functions;Programming;Built In"
-GenericTypeName;,categories="Programmer Functions;Native Objects;Built In"
+GenericTypeName;
 GetCoreError;,categories="Programmer Functions;Error Reporting;Built In"
 GetError;
 GetErrorTableau;
 GetExactBitsN;
-GetTime;,categories="Programmer Functions;Built In"
-GreaterThan;,categories="Programmer Functions;Built In;Built In"
+GetTime;
+GreaterThan;
 GuessRational;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
-HoldArg;,categories="Programmer Functions;Programming;Built In"
-HoldArgNr;,categories="Programmer Functions;Programming"
-Infix;,categories="Programmer Functions;Programming;Built In"
+HoldArg;
+HoldArgNr;
+Infix;
 InNumericMode;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
 IntLog;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
 IntNthRoot;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
 IntPowerNum;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
-IsBodied;,categories="Programmer Functions;Programming;Built In"
+IsBodied;
 IsError;
-IsGeneric;,categories="Programmer Functions;Native Objects;Built In"
-IsInfix;,categories="Programmer Functions;Programming;Built In"
-IsPostfix;,categories="Programmer Functions;Programming;Built In"
-IsPrefix;,categories="Programmer Functions;Programming;Built In"
-IsPromptShown;,categories="Programmer Functions;Built In"
-KnownFailure;,categories="Programmer Functions;Testing"
+IsGeneric;
+IsInfix;
+IsPostfix;
+IsPrefix;
+IsPromptShown;
+KnownFailure;
 LeftPrecedence;,categories="Programmer Functions;Programming;Built In"
-LessThan;,categories="Programmer Functions;Built In"
-LogicTest;,categories="Programmer Functions;Testing"
-LogicVerify;,categories="Programmer Functions;Testing"
+LessThan;
+LogicTest;
+LogicVerify;
 MacroClear;
 MacroLocal;
 MacroRule;
 MacroRuleBase;
 MacroRuleBaseListed;
 MacroSet;
-Math...;,categories="Programmer Functions;Built In"
+Math...;
 MultiplyNum;,categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
 NearRational;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
 NewtonNum;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
@@ -588,8 +588,8 @@ OrN;,categories="Programmer Functions;Built In"
 Postfix;,categories="Programmer Functions;Programming;Built In"
 Prefix;,categories="Programmer Functions;Programming;Built In"
 Prog;
-RandVerifyArithmetic;,categories="Programmer Functions;Testing"
-Retract;,categories="Programmer Functions;Programming;Built In"
+RandVerifyArithmetic;
+Retract;
 RightAssociative;
 RightPrecedence;,categories="Programmer Functions;Programming;Built In"
 RoundTo;,categories="Programmer Functions;Testing"
@@ -602,7 +602,7 @@ SetExactBitsN;
 ShiftLeft;,categories="Programmer Functions;Built In;Built In"
 ShiftRight;,categories="Programmer Functions;Built In;Built In"
 SumTaylorNum;,categories="Programmer Functions;Numerical (Arbitrary Precision)"
-TestMathPiper;,categories="Programmer Functions;Testing"
+TestMathPiper;
 TrapError;
 TruncRadian;
 UnFence;,categories="Programmer Functions;Programming;Built In"

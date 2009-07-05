@@ -537,8 +537,10 @@ public class Build {
 
     private void processBuiltinDocs() {
         // try {
-
+	System.out.println("***** Processing built in docs...");
+	
         File builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/");
+	
         if (builtinFunctionsSourceDir.exists()) {
             java.io.File[] javaFilesDirectory = builtinFunctionsSourceDir.listFiles(new java.io.FilenameFilter() {
                 public boolean accept(java.io.File file, String name) {

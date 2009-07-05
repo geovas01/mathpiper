@@ -5,14 +5,16 @@ Retract("Shuffle",*);
 
 10 # Shuffle(list_IsList) <--
 [
+    Local(index, randomIndex, temporary);
+    
     index := Length(list);
     
     While(index > 1)
     [
         randomIndex := RandomInteger(1,index);
-        tempoary := list[randomIndex];
+        temporary := list[randomIndex];
         list[randomIndex] := list[index];
-        list[index] := tempoary;
+        list[index] := temporary;
         index--;
     ];      
     
