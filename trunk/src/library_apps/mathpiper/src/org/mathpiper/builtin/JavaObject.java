@@ -63,13 +63,11 @@ public class JavaObject extends BuiltinContainer {
     }
 
     // Narrow the the arguments
-    public static Object[] narrow(String argstrings[],
-            int startIndex) {
-        Object narrowed[] =
-                new Object[argstrings.length - startIndex];
+    public static Object[] narrow(String argstrings[]) {
+        Object narrowed[] = new Object[argstrings.length];
 
         for (int i = 0; i < narrowed.length; ++i) {
-            narrowed[i] = narrow(argstrings[startIndex + i]);
+            narrowed[i] = narrow(argstrings[i]);
         }
 
         return narrowed;
@@ -112,7 +110,7 @@ public class JavaObject extends BuiltinContainer {
        //String methodName = parameters[0];
 
         // Narrow the arguments
-        Object args[] = narrow(parameters, 1);
+        Object args[] = narrow(parameters);
         Class types[] = getTypes(args);
 
         try {
@@ -151,7 +149,7 @@ public class JavaObject extends BuiltinContainer {
 
 
         // Narrow the arguments
-        Object args[] = narrow(parameters, 1);
+        Object args[] = narrow(parameters);
         Class types[] = getTypes(args);
 
         try {
