@@ -17,6 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import org.mathpiper.builtin.ArgumentList;
@@ -36,7 +37,7 @@ public class JavaObject extends BuiltinContainer {
 
     // Narrow a type from String to the
     // narrowest possible type
-    protected Object narrow(String argstring) {
+    public static Object narrow(String argstring) {
 	    //System.out.println("XXXXXXX argstring: " + argstring);
         // Try integer
         try {
@@ -62,7 +63,7 @@ public class JavaObject extends BuiltinContainer {
     }
 
     // Narrow the the arguments
-    protected Object[] narrow(String argstrings[],
+    public static Object[] narrow(String argstrings[],
             int startIndex) {
         Object narrowed[] =
                 new Object[argstrings.length - startIndex];
@@ -76,7 +77,7 @@ public class JavaObject extends BuiltinContainer {
 
     // Get an array of the types of the give
     // array of objects
-    protected Class[] getTypes(Object objs[]) {
+    public static Class[] getTypes(Object objs[]) {
         Class types[] = new Class[objs.length];
 
         for (int i = 0; i < objs.length; ++i) {
@@ -100,9 +101,55 @@ public class JavaObject extends BuiltinContainer {
         return types;
     }
 
-    public String execute(String line[]) throws Exception {
 
-        if (line.length < 1) {
+    public static JavaObject instantiate(String className, String[] parameters) throws Exception
+    {
+           if (parameters.length < 1) {
+            throw new Exception(
+                    "Syntax error: must specify at least a method name");
+        }
+
+        // The first two tokens are the class and method
+        //String className = line[0];
+        //String className = javaObject.getClass().getName();
+
+       //String methodName = parameters[0];
+
+        // Narrow the arguments
+        Object args[] = narrow(parameters, 1);
+        Class types[] = getTypes(args);
+
+        try {
+            // Find the specified class
+            Class clas = Class.forName(className);
+
+            Constructor constructor = clas.getConstructor(types);
+
+            Object newObject = constructor.newInstance(args);
+
+            JavaObject newObjectWrapper = new JavaObject(newObject);
+
+
+        } catch (ClassNotFoundException cnfe) {
+            throw new Exception(
+                    "Can't find class " + className);
+        } catch (InstantiationException nsme) {
+            throw new Exception(
+                    "Can't instantiate " + className);
+        } catch (IllegalAccessException iae) {
+            throw new Exception(
+                    "Not allowed to instantiate " + className);
+        } catch (InvocationTargetException ite) {
+            // If the method itself throws an exception, we want to save it
+            throw (Exception) new Exception(
+                    "Exception while executing command").initCause(ite);
+        }//end catch.
+        return null;
+    }
+
+    public String execute(String parameters[]) throws Exception {
+
+        if (parameters.length < 1) {
             throw new Exception(
                     "Syntax error: must specify at least a method name");
         }
@@ -110,10 +157,10 @@ public class JavaObject extends BuiltinContainer {
         // The first two tokens are the class and method
         //String className = line[0];
         String className = javaObject.getClass().getName();
-        String methodName = line[0];
+        String methodName = parameters[0];
 
         // Narrow the arguments
-        Object args[] = narrow(line, 1);
+        Object args[] = narrow(parameters, 1);
         Class types[] = getTypes(args);
 
         try {
@@ -154,8 +201,9 @@ for(Object ob:types)
             // If the method itself throws an exception, we want to save it
             throw (Exception) new Exception(
                     "Exception while executing command").initCause(ite);
-        }
-    }
+        }//end catch.
+        
+    }//end class
 
     public String typeName() {
         return javaObject.getClass().getName();
