@@ -48,7 +48,7 @@ public class Length extends BuiltinFunction
             getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }
-        BuiltinContainer gen = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getGeneric();
+        BuiltinContainer gen = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getJavaObject();
         if (gen != null)
         {
             if (gen.typeName().equals("\"Array\""))

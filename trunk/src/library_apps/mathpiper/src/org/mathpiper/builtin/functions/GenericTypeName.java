@@ -35,8 +35,8 @@ public class GenericTypeName extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons().getGeneric() != null, 1);
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, evaluated.getCons().getGeneric().typeName()));
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons().getJavaObject() != null, 1);
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, evaluated.getCons().getJavaObject().typeName()));
     }
 }//end class.
 

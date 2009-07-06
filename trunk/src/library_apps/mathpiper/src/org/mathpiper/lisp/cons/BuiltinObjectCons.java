@@ -44,7 +44,7 @@ public class BuiltinObjectCons extends Cons
             return iCarBuiltin;
         }
 	
-	public BuiltinContainer getGeneric()
+	public BuiltinContainer getJavaObject()
 	{
 		return iCarBuiltin;
 	}

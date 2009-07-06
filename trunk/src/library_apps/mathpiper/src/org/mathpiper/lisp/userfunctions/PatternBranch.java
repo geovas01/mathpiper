@@ -39,7 +39,7 @@ public class PatternBranch extends Branch {
     /// Constructor.
      * 
      * @param aPrecedence precedence of the rule
-     * @param aPredicate getGeneric object of type PatternContainer
+     * @param aPredicate getJavaObject object of type PatternContainer
      * @param aBody body of the rule
      */
     public PatternBranch(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
@@ -47,7 +47,7 @@ public class PatternBranch extends Branch {
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
 
-        BuiltinContainer gen = aPredicate.getCons().getGeneric();
+        BuiltinContainer gen = aPredicate.getCons().getJavaObject();
         LispError.check(gen != null, LispError.KLispErrInvalidArg);
         LispError.check(gen.typeName().equals("\"Pattern\""), LispError.KLispErrInvalidArg);
 

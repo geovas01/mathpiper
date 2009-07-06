@@ -48,20 +48,20 @@ public class JavaCall extends BuiltinFunction {
 			argumentCons = consTraverser.getPointer().getCons();
 			ConsPointer result = new ConsPointer();
 
-			String argumentConsString = argumentCons.string();
+			String methodName = argumentCons.string();
 
             //Strip leading and trailing quotes.
-            argumentConsString = argumentConsString.substring(1,argumentConsString.length());
-            argumentConsString = argumentConsString.substring(0,argumentConsString.length()-1);
+            methodName = methodName.substring(1,methodName.length());
+            methodName = methodName.substring(0,methodName.length()-1);
 
 			// argumentConsString = argumentConsString.replace("\"", "");
-			aEnvironment.getGlobalVariable(argumentConsString, result);
+			aEnvironment.getGlobalVariable(methodName, result);
 
 			BuiltinContainer builtinContainer;
 
 			if (result.getCons() != null) {
 
-				builtinContainer = result.getCons().getGeneric();
+				builtinContainer = result.getCons().getJavaObject();
 
 				if (builtinContainer != null) {
 
@@ -69,6 +69,7 @@ public class JavaCall extends BuiltinFunction {
 					consTraverser.goNext();
 
 					ArrayList argumentArrayList = new ArrayList();
+
 					while (consTraverser.getCons() != null) {
 						argumentCons = consTraverser.getPointer().getCons();
 
