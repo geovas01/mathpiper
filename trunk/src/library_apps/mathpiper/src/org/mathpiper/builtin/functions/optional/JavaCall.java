@@ -48,14 +48,14 @@ public class JavaCall extends BuiltinFunction {
 			argumentCons = consTraverser.getPointer().getCons();
 			ConsPointer result = new ConsPointer();
 
-			String methodName = argumentCons.string();
+			String objectName = argumentCons.string();
 
             //Strip leading and trailing quotes.
-            methodName = methodName.substring(1,methodName.length());
-            methodName = methodName.substring(0,methodName.length()-1);
+            objectName = objectName.substring(1,objectName.length());
+            objectName = objectName.substring(0,objectName.length()-1);
 
 			// argumentConsString = argumentConsString.replace("\"", "");
-			aEnvironment.getGlobalVariable(methodName, result);
+			aEnvironment.getGlobalVariable(objectName, result);
 
 			BuiltinContainer builtinContainer;
 
@@ -66,6 +66,13 @@ public class JavaCall extends BuiltinFunction {
 				if (builtinContainer != null) {
 
 					//System.out.println(argumentCons);
+					consTraverser.goNext();
+                    argumentCons = consTraverser.getPointer().getCons();
+                    String methodName = argumentCons.string();
+                    //Strip leading and trailing quotes.
+                    methodName = methodName.substring(1,methodName.length());
+                    methodName = methodName.substring(0,methodName.length()-1);
+
 					consTraverser.goNext();
 
 					ArrayList argumentArrayList = new ArrayList();
@@ -86,7 +93,7 @@ public class JavaCall extends BuiltinFunction {
 					}//end while.
 
 
-					String response = builtinContainer.execute((String[]) argumentArrayList.toArray(new String[0]));
+					String response = builtinContainer.execute(methodName, (String[]) argumentArrayList.toArray(new String[0]));
 					//System.out.println("XXXXXXXXXXX: " + response);
 
 					if(response == null)
