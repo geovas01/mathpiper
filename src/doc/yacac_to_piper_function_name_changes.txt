@@ -38,7 +38,7 @@ Atom -> StringToAtom
 Equals -> IsEqual
 LessThan -> IsLessThan
 GreaterThan -> IsGreaterThan
-
+MM -> InternalForm
 
 
 ============================= Changes that have already been done.
