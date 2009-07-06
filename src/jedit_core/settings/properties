@@ -177,6 +177,7 @@ error-list.height=273
 search.replace.value=
 vfs.browser.extendedState=0
 jung.dock-position=right
+jfreechart.dock-position=right
 geogebra.y=50
 geogebra.x=50
 helpviewer.extendedState=0
