@@ -104,10 +104,6 @@ public class JavaObject extends BuiltinContainer {
 
     public static JavaObject instantiate(String className, String[] parameters) throws Exception
     {
-           if (parameters.length < 1) {
-            throw new Exception(
-                    "Syntax error: must specify at least a method name");
-        }
 
         // The first two tokens are the class and method
         //String className = line[0];
@@ -148,11 +144,6 @@ public class JavaObject extends BuiltinContainer {
     }
 
     public String execute(String methodName, String parameters[]) throws Exception {
-
-        if (parameters.length < 1) {
-            throw new Exception(
-                    "Syntax error: must specify at least a method name");
-        }
 
         // The first two tokens are the class and method
         //String className = line[0];
