@@ -7,7 +7,7 @@ Retract("GeoGebraPoint",*);
     
     command := PatchString("<?Write(Atom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
     
-    JavaCall("geogebra","evalCommand",command);
+    JavaCall(geogebra,"evalCommand",command);
 ];
 
 %/mathpiper
