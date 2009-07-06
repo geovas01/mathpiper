@@ -849,6 +849,9 @@ public abstract class BuiltinFunction
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.JavaCall(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "JavaCall");
         aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.JavaNew(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                "JavaNew");
+        aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new TraceSome(aEnvironment), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "TraceSome");
         aEnvironment.getBuiltinFunctions().setAssociation(

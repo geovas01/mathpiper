@@ -123,6 +123,7 @@ public class JavaObject extends BuiltinContainer {
 
             JavaObject newObjectWrapper = new JavaObject(newObject);
 
+            return newObjectWrapper;
 
         } catch (ClassNotFoundException cnfe) {
             throw new Exception(
@@ -138,7 +139,8 @@ public class JavaObject extends BuiltinContainer {
             throw (Exception) new Exception(
                     "Exception while executing command").initCause(ite);
         }//end catch.
-        return null;
+
+        
     }
 
     public String execute(String methodName, String parameters[]) throws Exception {
