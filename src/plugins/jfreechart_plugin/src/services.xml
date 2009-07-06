@@ -1,0 +1,7 @@
+<!DOCTYPE SERVICES SYSTEM "services.dtd">
+
+<SERVICES>
+	<SERVICE CLASS="console.Shell" NAME="JFreeChart">
+                new org.mathrider.jfreechartplugin.JFreeChartShell();
+        </SERVICE>
+</SERVICES>
