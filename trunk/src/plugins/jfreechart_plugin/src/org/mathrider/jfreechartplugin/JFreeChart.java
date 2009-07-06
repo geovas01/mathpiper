@@ -74,7 +74,7 @@ public class JFreeChart extends JPanel
 		//JLabel testLabel = new JLabel("TEST");
 		//this.add(testLabel);
 		
-		JPanel panel  = HistogramDemo1.createDemoPanel();
+		JPanel panel  = HistogramExample1.createDemoPanel();
 		this.add(panel);
 
 		if (floating)
