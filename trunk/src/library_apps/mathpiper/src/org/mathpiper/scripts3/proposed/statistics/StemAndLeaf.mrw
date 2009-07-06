@@ -1,7 +1,866 @@
-%mathpiper
 
-//StemAndLeaf(
+%mathpiper
+//Obtained from http://math.uc.edu/~pelikan/probandstat/stem.htm
+
+
+trunc(x):= [
+
+  If(x < 0, s := -1, s := 1);
+s* Floor(Abs(x));
+];
+
+
+
+
+intlabels(y1,y2,tnumint) := [
+    diff :=y2-y1;
+    x := intervals(diff,tnumint);
+    bot := trunc(y1/x)*x;
+  yy = bot;
+  L = [];
+  //i = 0;
+  xx = 0;
+  breakLoop := False;
+  While (yy-x < y2 Or breakLoop = True) [
+      L := Append(L, yy);
+    yy := yy + x;
+    //i++;
+    xx++;
+    If (xx > 100, breakLoop := True);
+  ];
+  L[i] = yy;
+	L;
+];
+
+
+
+
+intervals(diff, NumCats) := [
+    t4 := trunc(N(Ln(diff))) * 0.4342945;
+  t4 = Power(10,t4);
+  T := [];
+  T := N(t4/10 : t4/5 : t4/2 : t4 : T);
+
+  
+  A := [];
+  
+  For (i := 0,i < 4, i++) [
+      A := Append(A,trunc(diff/T[i]) +1);
+  ];
+  
+  D := AbsN(10 - A[0]);
+  
+  index := 1;
+  For (i := 1, i < 4, i++) 
+  [
+    if (A[i] <= 25) [
+      if (A[i] > 2) [
+      XX := AbsN(NumCats - A[i]);
+	if (XX < D) [
+        D := XX;
+	  index = i+1;
+	];
+      ];
+    ];
+  ];
+  T[index-1];
+];
+
+
+
+
+
+stemandleaf(x) :=
+[
+  Echo("Stem and Leaf Display");
+  didzero := False;
+   N := x.length;
+  
+  if (N<20)
+    [
+      tNumInt := 5;
+    ] 
+  else 
+    [
+      if (N < 100) 
+	[
+	  tNumInt := 10;
+	] 
+      else 
+	[
+	  if (N < 150) 
+	    [
+	      tNumInt := 15;
+	    ] 
+	  else
+	    [
+	      tNumInt := 20;
+	    ];
+	];
+    ];
+   theMax := x[N-1];
+   theMin := x[0];
+  alldone := False;
+  if (theMax - theMin < 10) 
+  [
+     ratio := 1000/(theMax - theMin);
+    ratio := Math.max(ratio,1000);
+    ratio := trunc(Math.log(ratio) * 0.4342945);
+    ratio := Math.pow(10,ratio);
+    For ( i := 0, i < N , i++) 
+      [
+            x[i] := x[i] * ratio;
+      ];
+  ]
+  else 
+    [
+      	ratio := 1;
+    ];
+   zcount := 0; 	
+  theMin := x[0];
+   abMin := Math.abs(theMin);
+  theMax := x[N-1];
+   Y := intervals(theMax-theMin,tNumInt);
+   indexA := index +0;
+  if (indexA= 2) 
+    [
+      Y := Y * 5;
+       ncats :=5 ;
+       newz := 1;
+    ] 
+  else 
+    [
+      if(indexA=3) 
+	[
+	  Y := Y * 2;
+	   ncats := 2;
+	] 
+      else 
+	[
+	   ncats := 1;
+	   newz := 0; 
+	];
+    ];
+
+   cutoffs := intlabels(x[0], x[N-1], tNumInt);
+  theMax := ratio * Round(theMax);
+   nc := cutoffs.length;
+   xx8:=0;
+  While (cutoffs[nc-2] > theMax) 
+    [
+      nc--;
+    ];
+  theMax := cutoffs[nc-2];
+  if (Y > AbsN(theMax)) 
+    [
+      nc++;
+      While(Y > AbsN(theMax)) 
+	[
+	  xx8++;
+	  if(xx8>100)[break;];
+	  if (nc > Length(cutoffs)) 
+	    [
+	       temp := cutoffs[nc-2] - cutoffs[nc - 3];
+	      temp := temp + cutoffs[nc-2];
+	      cutoffs[nc-1] := temp;
+	    ];
+	  theMax := cutoffs[nc-1];
+	  nc++;
+	];
+    ];
+   base := trunc(theMax/Y);
+   leftover := Round(theMax - base * Y);
+  While (AbsN(leftover) > 10) 
+    [
+      leftover := AbsN(Round(leftover/10));
+    ];
+   theMax2 := Max(theMax,abMin);
+   t4 := trunc(theMax2/base);
+  t4 := trunc(N(Ln(t4) * .4342945));
+  t4 := Power(10,t4);
+   t3 := t4/10;
+  if (indexA = 2) 
+    [
+      if (leftover >= 8)
+	[
+	   newz := 1;
+	]
+    else 
+      [
+	if (leftover >= 6)  
+	  [
+	     newz := 0;
+	  ]
+	else 
+	  [
+	    if (leftover >= 4) 
+	      [
+		 newz := 4;
+	      ] 
+	    else 
+	      [
+		if (leftover >= 2) 
+		  [
+		     newz := 3;
+		  ] 
+		else 
+		  [
+		     newz := 2; 
+		  ];
+	      ];
+	  ];
+      ];
+    ]
+  else 
+    [
+    if (indexA = 3) 
+      [
+	if (leftover >=5) 
+	  [
+	     newz := 1;
+	  ] 
+	else 
+	  [
+	     newz := 0;
+	  ];
+      ];
+    ];
+   start := False;
+   LN := 1;
+   LN2 := 0;
+   nn := N;
+   cur := cutoffs[nc-2];
+   count := nc-2;
+   base2 :=base;
+   newline := True;
+   stems := {base2};
+   leaves := {""};
+
+ 
+  For ( i := nn-1, i >= 0 , i--) 
+    [
+     it := x[i];
+     dd := Round(it/t3) * t3;
+     b := trunc(dd/t4);
+     L := dd-t4*b;
+    leftover := AbsN(Round(L/t3));
+    While (leftover >= 10)
+      [
+	    leftover := Round(leftover/10);
+      ];
+    if (it >=0) 
+      [
+	     tt := t3;
+      ]
+    else 
+      [
+        tt := -t3;
+      ];
+      
+     xz := b * t4 + leftover * tt;
+     
+    if (it<0)
+      [
+	    if (xz > 0 ) 
+          [
+            xz := xz * -1;
+          ];
+          xz := xz - .00001;
+      ];
+      
+    if (xz<cur) 
+    [
+	    newline := True;
+        While (xz<cur)
+         [
+	          LN ++;
+              if (start) 
+              [
+	              LN2++;
+                  leaves  := Append(leaves, "");
+              ];
+              temp := trunc(LN/ncats);
+              temp := LN - temp*ncats;
+              
+              if(temp = newz)
+              [
+                if (base2 = 0) 
+                [
+                    if (didzero)
+                    [
+                base2 := base2 - 1;
+                    ] 
+                    else 
+                    [
+                        didzero := 1;
+                    ];
+               ]
+               else 
+                [
+            base2 := base2 - 1;
+                ];
+          ];
+	
+          count := count - 1;
+          
+          if (count < 0)
+          [
+            cur := xz -1000;
+          ] 
+          else 
+          [
+            cur := cutoffs[count];
+          ];
+          
+          if (base2 = 0)
+          [
+	            zcount ++;
+                if ( ((indexA = 2) And (zcount >=6)) Or ((indexA = 3) And (zcount >=3)) Or ((indexA = 1) And (zcount >1)) Or ((indexA = 4) And (zcount >1))) 
+                 [
+                    stems := Append(stems,"-" : String(base2));
+                 ] 
+                 else 
+                 [
+                        stems := Append(stems, String(base2));
+                 ];
+          ] 
+          else 
+          [
+	            stems := Append(stems, String(base2));
+          ];
+	
+	   ];//end While.
+      
+      
+      ];//end if
+      
+    start := True;
+    leftover := String(leftover);
+    
+    if (it>=0) 
+      [
+     
+  leaves[LN2] := leftover : "" : leaves[LN2];
+     
+      ]
+    else 
+      [
+            leaves[LN2] := leaves[LN2] : "" : leftover;
+      ];
+    ];
+  
+  For ( i := 0, i < N , i++) [
+    x[i] := x[i] / ratio;
+  ];
+  
+
+  Echo("Stems Leaves");
+    For (i:=0, i<leaves.length, i++)[
+        test := " " : stems[i];
+    
+      While (test.length < 8) 
+       [
+            test := " " : test;
+       ];
+       test := test : "|";
+       Echo(test :  leaves[i]);
+      
+    ];
+  
+
+  
+];
+
+	
+	
 %/mathpiper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Stem and Leaf Plot</title>
+
+
+<script>
+var index = 0;
+var T = new Array(4);
+var nw = "";
+var mean = 0;
+var Delimiters=new Array();
+Delimiters[0]=' ';
+Delimiters[1]='\n';
+Delimiters[2]=',';
+Delimiters[3]='\t';
+Delimiters[4]='\r';
+var x=new Array();
+function main()
+{
+  nw = window.open("","Output", "toolbar,resizeable,scrollbars,menubar");    
+  nw.document.write("<HTML><HEAD><TITLE>Stem and Leaf Plot  Output</TITLE></head><BODY BGCOLOR='#FFFFFF' >");
+  //Parse the data from the field data 
+  ParseString(document.theform.data.value );//Now x has the data
+  x=bsort(x);//Macs and Bill G's product don't do array.sort()
+  stemandleaf(x);
+  nw.document.write("</body></html>");
+  nw.document.close();
+}
+function compare (a,b) {
+  return a-b;
+}
+
+function ParseString(string)
+{
+  i=0;
+  ii=0;
+  temp="";
+  while(i<string.length)
+    {
+      c=string.charAt(i);
+      while((c == Delimiters[0] ||  c == Delimiters[1] || c == Delimiters[2] || c == Delimiters[3] || c == Delimiters[4]) && i<string.length)
+	{
+	  i++;
+	  c=string.charAt(i);
+	}
+      temp="";
+      while(c != Delimiters[0] &&  c != Delimiters[1] && c !=
+	    Delimiters[2] && c != Delimiters[3] && c != Delimiters[4] && i<string.length)
+	{ 
+	  temp =temp+c;
+	  i++;
+	  c=string.charAt(i);
+	}     
+      x[ii]=temp;
+      ii++;
+    }
+  for(i=0;i<x.length;i++) x[i]=parseFloat(x[i]);
+}
+
+function trunc(x) {
+  var s = (x<0)?-1:1;
+  return s*Math.floor(Math.abs(x));
+}
+
+
+function intlabels(y1,y2,tnumint){
+  var diff =y2-y1;
+  var x= intervals(diff,tnumint);
+  var bot = trunc(y1/x)*x;
+  var yy = bot;
+  L = new Array();
+  var i = 0;
+  var xx = 0;
+  while (yy-x < y2) {
+    L[i] = yy;
+    yy += x;
+    i++;
+    xx++;
+    if (xx > 100) {break};
+  }
+  L[i] = yy;
+	return L;
+}
+function intervals(diff, NumCats) {
+  var t4 = trunc(Math.log(diff) * 0.4342945);
+  t4 = Math.pow(10,t4);
+  T[3]= t4;
+  T[2] = t4/2;
+  T[1] = t4/5;
+  T[0] = t4/10;
+  
+  var A = new Array(4);
+  
+  for (i = 0;i < 4; i++) {
+		A[i] = trunc(diff/T[i]) +1;
+  }
+  var D = Math.abs(10 - A[0]);
+  index = 1;
+  for (i = 1; i < 4; i++) {
+    if (A[i] <= 25) {
+      if (A[i] > 2) {
+	XX = Math.abs(NumCats - A[i]);
+	if (XX < D) {
+	  D = XX;
+	  index = i+1;
+	}
+      }
+    }
+  }
+  return T[index-1];
+}
+
+function stemandleaf(x) 
+{
+  nw.document.write("<b>Stem and Leaf Display</b>");
+  var didzero = false;
+  var N = x.length;
+  
+  if (N<20)
+    {
+      tNumInt = 5;
+    } 
+  else 
+    {
+      if (N < 100) 
+	{
+	  tNumInt = 10;
+	} 
+      else 
+	{
+	  if (N < 150) 
+	    {
+	      tNumInt = 15;
+	    } 
+	  else
+	    {
+	      tNumInt = 20;
+	    }
+	}
+    }
+  var theMax = x[N-1];
+  var theMin = x[0];
+  alldone = false;
+  if (theMax - theMin < 10) {
+    var ratio = 1000/(theMax - theMin);
+    ratio = Math.max(ratio,1000);
+    ratio = trunc(Math.log(ratio) * 0.4342945);
+    ratio = Math.pow(10,ratio);
+    for (var i = 0; i < N ; i++) 
+      {
+	x[i] *= ratio;
+      }
+  } 
+  else 
+    {
+      var	ratio = 1;
+    }
+  var zcount = 0; 	
+  theMin = x[0];
+  var abMin = Math.abs(theMin);
+  theMax = x[N-1];
+  var Y = intervals(theMax-theMin,tNumInt);
+  var indexA = index +0;
+  if (indexA== 2) 
+    {
+      Y *= 5;
+      var ncats =5 ;
+      var newz = 1;
+    } 
+  else 
+    {
+      if(indexA==3) 
+	{
+	  Y *= 2;
+	  var ncats = 2;
+	} 
+      else 
+	{
+	  var ncats = 1;
+	  var newz = 0; 
+	}
+    }
+
+  var cutoffs = intlabels(x[0], x[N-1], tNumInt);
+  theMax = ratio * Math.round(theMax);
+  var nc = cutoffs.length;
+  var xx8=0;
+  while (cutoffs[nc-2] > theMax) 
+    {
+      nc--;
+    }
+  theMax = cutoffs[nc-2];
+  if (Y > Math.abs(theMax)) 
+    {
+      nc++;
+      while(Y > Math.abs(theMax)) 
+	{
+	  xx8++;
+	  if(xx8>100){break;}
+	  if (nc > cutoffs.length) 
+	    {
+	      var temp = cutoffs[nc-2] - cutoffs[nc - 3];
+	      temp += cutoffs[nc-2];
+	      cutoffs[nc-1] = temp;
+	    }
+	  theMax = cutoffs[nc-1];
+	  nc++;
+	}
+    }
+  var base = trunc(theMax/Y);
+  var leftover = Math.round(theMax - base * Y);
+  while (Math.abs(leftover) > 10) 
+    {
+      leftover = Math.abs(Math.round(leftover/10));
+    }
+  var theMax2 = Math.max(theMax,abMin);
+  var t4 = trunc(theMax2/base);
+  t4 = trunc(Math.log(t4) * .4342945);
+  t4 = Math.pow(10,t4);
+  var t3 = t4/10;
+  if (indexA == 2) 
+    {
+      if (leftover >= 8)
+	{
+	  var newz = 1;
+	}
+    else 
+      {
+	if (leftover >= 6)  
+	  {
+	    var newz = 0;
+	  }
+	else 
+	  {
+	    if (leftover >= 4) 
+	      {
+		var newz = 4;
+	      } 
+	    else 
+	      {
+		if (leftover >= 2) 
+		  {
+		    var newz = 3;
+		  } 
+		else 
+		  {
+		    var newz = 2; 
+		  }
+	      }
+	  }
+      }
+    }
+  else 
+    {
+    if (indexA == 3) 
+      {
+	if (leftover >=5) 
+	  {
+	    var newz = 1;
+	  } 
+	else 
+	  {
+	    var newz = 0;
+	  }
+      }
+    }
+  var start = false;
+  var LN = 1;
+  var LN2 = 0;
+  var nn = N;
+  var cur = cutoffs[nc-2];
+  var count = nc-2;
+  var base2=base;
+  var newline = true;
+  var stems = new Array();
+  var leaves = new Array();
+  stems[0] = base2;
+  leaves[0] = "";
+ 
+  for (var i = nn-1; i >= 0 ; i--) 
+    {
+    var it = x[i];
+    var dd = Math.round(it/t3) * t3;
+    var b = trunc(dd/t4);
+    var L = dd-t4*b;
+    leftover = Math.abs(Math.round(L/t3));
+    while (leftover >= 10)
+      {
+	leftover = Math.round(leftover/10);
+      }
+    if (it >=0) 
+      {
+	var tt = t3;
+      }
+    else 
+      {
+      var tt = -t3;
+      }
+    var xz = b * t4 + leftover * tt;
+    if (it<0)
+      {
+	if (xz > 0 ) 
+	  {
+	    xz = xz * -1;
+	  }
+	xz -= .00001;
+      }
+    if (xz<cur) 
+      {
+	newline = true;
+      while (xz<cur)
+	{
+	  LN ++;
+	  if (start) 
+	    {
+	      LN2++;
+	      leaves[LN2] = "";
+	    }
+	  var temp = trunc(LN/ncats);
+	  temp = LN - temp*ncats;
+	if(temp == newz)
+	  {
+	  if (base2 == 0) 
+	    {
+	    if (didzero)
+	      {
+		base2 -= 1;
+	      } 
+	    else 
+	      {
+		didzero = 1;
+	      }
+	  } 
+	  else 
+	    {
+	      base2 -= 1;
+	    }
+	  }
+	
+	count -= 1;
+	if (count < 0)
+	  {
+	    cur = xz -1000;
+	  } 
+	else 
+	  {
+   	    cur = cutoffs[count];
+	  }
+	if (base2 == 0)
+	  {
+	    zcount ++;
+	    if ( ((indexA == 2) && (zcount >=6)) || ((indexA == 3) && (zcount >=3)) || ((indexA == 1) && (zcount >1)) || ((indexA == 4) && (zcount >1))) {
+	      stems[LN2] = "-" + base2;
+	    } 
+	    else 
+	      {
+		stems[LN2] = base2;
+	      }
+	  } 
+	else 
+	  {
+	    stems[LN2] = base2;
+	  }
+	
+	}
+      
+      
+      }
+    start = true;
+    leftover += "";
+    if (it>=0) 
+      {
+     
+      leaves[LN2] = leftover + "" + leaves[LN2];
+     
+      }
+    else 
+      {
+	leaves[LN2] = leaves[LN2] + "" + leftover;
+      }
+    }
+  
+  for (var i = 0; i < N ; i++) {
+    x[i] /= ratio;
+  }
+  
+  nw.document.write ("<br> <pre>");
+  nw.document.write ("   Stems Leaves" + "<br>")
+    for (i=0;i<leaves.length; i++){
+      var test = " " + stems[i];
+      while (test.length < 8) {
+	test = " " + test}
+      test += "|";
+      nw.document.write(test +  leaves[i] + "<br>");
+      
+    }
+  
+  nw.document.write ("</pre>");
+  nw.document.write("<FONT SIZE='-1'><p> Multiply stems by " + t4/ratio + ". ")
+    nw.document.write("Multiply leaves by " + t3/ratio + " if stem is positve or by -" + t3/ratio + " if stem is negative.<p></font><p><p>");
+  
+}
+
+	
+	
+function bsort(x) 
+{
+  var N = x.length -1;
+  var done = false;
+  while (done == false) 
+    {
+      done = true;
+      for (i=0; i<N; i++) 
+	{
+	  if (x[i] > x[i+1]) 
+	    {
+	      var t = x[i];
+	      x[i] = x[i+1];
+	      x[i+1] = t;
+	      done = false;
+	    }
+	}
+      N--;
+    }
+  
+  return x;
+}
+
+
+function clear()
+{
+document.theform.data.value="";
+}
+</script>
+
+  </head>
+
+  <body>
+
+      <h1>Stem and Leaf Plot</h1>
+
+<p> This page contains JavaScript that will make a Stem-and-Leaf plot of the data you
+paste or type into the text area below. Separate the different values by spaces, commas, or newlines
+ as you enter them. Then hit the "Compute" button and your browser will open a new window and display the plot. When you are done looking at the new window minimize it or close it with controls from its pull-down menus.</p>
+
+<p>Note that Microsoft has implemented a <b>different</b> version of scripting language in their Internet Explorer browser. Very likely, the JavaScript program on this page will <b>not work</b> in Microsoft's browser. To the best of my knowledge, the script does work in Netscape's internet browser 3.0.</p>
+
+<FORM name="theform">
+<TextArea NAME="data" ROWS=10 COLS=50></TEXTAREA><br>
+<INPUT type="button" NAME="calc" Value="Compute" onClick=main();>
+<!--<IMPUT type="button" NAME="Clear" Value="Clear" onClick=clear();><br>-->
+</FORM>
+<p>
+<FONT size='-1'> The code in this page for the "hard" part of making the plot was borrowed from Lane's Hyperstat. All I've done is parsed the imput data differently.</FONT>
+</p>
+<hr>If you find errors in this program please send email:
+      <address><a href="mailto:pelikan@spelikan.csm.uc.edu">Stephan Pelikan</a></address>
+<!-- Created: Tue Sep 30 14:54:56 EDT 1997 -->
+<!-- hhmts start -->
+
+Last modified: Tue Sep 30 17:09:00 EDT 1997
+<!-- hhmts end -->
+  </body>
+</html>
+
+
+
+
+
+
+
 
 
 
