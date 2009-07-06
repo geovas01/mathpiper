@@ -1,0 +1,28 @@
+<!-- Action definition file for JFreeChart plugin -->
+
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+	<ACTION NAME="jfreechart.choose-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME).chooseFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="jfreechart.save-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME).saveFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="jfreechart.copy-to-buffer">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME).copyToBuffer();
+		</CODE>
+	</ACTION>
+</ACTIONS>
+

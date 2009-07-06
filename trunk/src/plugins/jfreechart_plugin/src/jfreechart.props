@@ -1,0 +1,81 @@
+# Properties file for JFreeChart plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.name=JFreeChart
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.docs=index.html
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin..longdescription=description.html
+#}}}
+
+
+
+
+jfreechart.shell.msg.info=\nJFreeChart Shell \n\
+
+
+jfreechart.shell.msg.usage=JFreeChart, a computer algebra system for beginners.
+
+
+
+# plugin menu
+plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.menu=jfreechart
+#	- \
+#	piper.choose-file \
+#	piper.save-file \
+#	piper.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+jfreechart.label=jfreechart
+
+# action labels for actions supplied by actions.xml
+jfreechart.choose-file.label=Choose notepad file
+jfreechart.save-file.label=Save notepad file
+jfreechart.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.jfreechart.option-pane=jfreechart
+
+# Option pane activation BeanShell snippet
+options.jfreechart.code=new org.mathrider.jfreechartplugin.JFreeChartOptionPane();
+
+# Option pane labels
+options.jfreechart.label=jfreechart
+options.jfreechart.file=File:
+options.jfreechart.choose-file=Choose
+options.jfreechart.choose-file.title=Choose a notepad file
+options.jfreechart.choose-font=Font:
+options.jfreechart.show-filepath.title=Display notepad file path
+
+# window title
+jfreechart.title=JFreeChart
+
+# window toolbar buttons
+jfreechart.choose-file.icon=Open.png
+jfreechart.save-file.icon=Save.png
+jfreechart.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.jfreechart.show-filepath=true
+options.jfreechart.font=Monospaced
+options.jfreechart.fontstyle=0
+options.jfreechart.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.jfreechart.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
