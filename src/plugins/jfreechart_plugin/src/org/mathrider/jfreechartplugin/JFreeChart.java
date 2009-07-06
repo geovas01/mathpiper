@@ -16,6 +16,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JLabel;
 
 import org.gjt.sp.jedit.EBComponent;
 import org.gjt.sp.jedit.EBMessage;
@@ -50,8 +51,6 @@ public class JFreeChart extends JPanel
 
 	private boolean floating;
 
-	private JFreeChartTextArea textArea;
-
 	private JFreeChartToolPanel toolPanel;
     // }}}
 
@@ -68,32 +67,22 @@ public class JFreeChart extends JPanel
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
-		if (jEdit.getSettingsDirectory() != null) {
-			this.filename = jEdit.getProperty(JFreeChartPlugin.OPTION_PREFIX
-					+ "filepath");
-			if (this.filename == null || this.filename.length() == 0) {
-				this.filename = new String(jEdit.getSettingsDirectory()
-						+ File.separator + "qn.txt");
-				jEdit.setProperty(
-						JFreeChartPlugin.OPTION_PREFIX + "filepath",
-						this.filename);
-			}
-			this.defaultFilename = this.filename;
-		}
 
-		this.toolPanel = new JFreeChartToolPanel(this);
-		add(BorderLayout.NORTH, this.toolPanel);
+		//this.toolPanel = new JFreeChartToolPanel(this);
+		//add(BorderLayout.NORTH, this.toolPanel);
+		
+		//JLabel testLabel = new JLabel("TEST");
+		//this.add(testLabel);
+		
+		JPanel panel  = HistogramDemo1.createDemoPanel();
+		this.add(panel);
 
 		if (floating)
 			this.setPreferredSize(new Dimension(500, 250));
 
-		textArea = new JFreeChartTextArea();
-		textArea.setFont(JFreeChartOptionPane.makeFont());
 
-		JScrollPane pane = new JScrollPane(textArea);
-		add(BorderLayout.CENTER, pane);
 
-		readFile();
+
 	}
     // }}}
 
@@ -101,16 +90,11 @@ public class JFreeChart extends JPanel
     
     // {{{ focusOnDefaultComponent
 	public void focusOnDefaultComponent() {
-		textArea.requestFocus();
+		//textArea.requestFocus();
 	}
     // }}}
 
-    // {{{ getFileName
-	public String getFilename() {
-		return filename;
-	}
-    // }}}
-
+ 
 	// EBComponent implementation
 	
     // {{{ handleMessage
@@ -123,19 +107,7 @@ public class JFreeChart extends JPanel
     
     // {{{ propertiesChanged
 	private void propertiesChanged() {
-		String propertyFilename = jEdit
-				.getProperty(JFreeChartPlugin.OPTION_PREFIX + "filepath");
-		if (!StandardUtilities.objectsEqual(defaultFilename, propertyFilename)) {
-			saveFile();
-			toolPanel.propertiesChanged();
-			defaultFilename = propertyFilename;
-			filename = defaultFilename;
-			readFile();
-		}
-		Font newFont = JFreeChartOptionPane.makeFont();
-		if (!newFont.equals(textArea.getFont())) {
-			textArea.setFont(newFont);
-		}
+
 	}
     // }}}
 
@@ -151,7 +123,7 @@ public class JFreeChart extends JPanel
      
     // {{{ removeNotify
 	public void removeNotify() {
-		saveFile();
+		//saveFile();
 		super.removeNotify();
 		EditBus.removeFromBus(this);
 	}
@@ -159,38 +131,17 @@ public class JFreeChart extends JPanel
     
 	// PiperActions implementation
 
-    // {{{
-	public void saveFile() {
-		if (filename == null || filename.length() == 0)
-			return;
-		try {
-			FileWriter out = new FileWriter(filename);
-			out.write(textArea.getText());
-			out.close();
-		} catch (IOException ioe) {
-			Log.log(Log.ERROR, JFreeChart.class,
-					"Could not write notepad text to " + filename);
-		}
-	}
-    // }}}
+
     
     // {{{ chooseFile
 	public void chooseFile() {
-		String[] paths = GUIUtilities.showVFSFileDialog(view, null,
-				JFileChooser.OPEN_DIALOG, false);
-		if (paths != null && !paths[0].equals(filename)) {
-			saveFile();
-			filename = paths[0];
-			toolPanel.propertiesChanged();
-			readFile();
-		}
+
 	}
     // }}}
 
     // {{{ copyToBuffer
 	public void copyToBuffer() {
-		jEdit.newFile(view);
-		view.getEditPane().getTextArea().setText(textArea.getText());
+
 	}
     // }}}
     // {{{ readFile()
@@ -198,26 +149,17 @@ public class JFreeChart extends JPanel
 	 * Helper method
 	 */
 	private void readFile() {
-		if (filename == null || filename.length() == 0)
-			return;
 
-		BufferedReader bf = null;
-		try {
-			bf = new BufferedReader(new FileReader(filename));
-			StringBuffer sb = new StringBuffer(2048);
-			String str;
-			while ((str = bf.readLine()) != null) {
-				sb.append(str).append('\n');
-			}
-			bf.close();
-			textArea.setText(sb.toString());
-		} catch (FileNotFoundException fnf) {
-			Log.log(Log.ERROR, JFreeChart.class, "notepad file " + filename
-					+ " does not exist");
-		} catch (IOException ioe) {
-			Log.log(Log.ERROR, JFreeChart.class,
-					"could not read notepad file " + filename);
-		}
+	}
+    // }}}
+    
+    public void saveFile()
+    {
+    }
+
+   // {{{ getFileName
+	public String getFilename() {
+		return filename;
 	}
     // }}}
  

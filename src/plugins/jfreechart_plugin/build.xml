@@ -2,9 +2,9 @@
 
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
 
-<project name="abcl_plugin" default="dist" basedir=".">
+<project name="jfreechart_plugin" default="dist" basedir=".">
 	<description>
-		Build file for the ABCL plugin.
+		Build file for the JFreeChart plugin.
 	</description>
 	
 	<property name="version" value=".50" />
@@ -73,7 +73,7 @@
 			</fileset>
 		</copy>
 		
-		<jar jarfile="${build.dir}/dist/abcl_plugin.jar">
+		<jar jarfile="${build.dir}/dist/jfreechart_plugin.jar">
 			<fileset dir="${build.classes.dir}">
 				<include name="**/*.class"/>
 				<include name="**/*.props"/>
@@ -84,14 +84,14 @@
 				<include name="services.xml"/>
 			</fileset>
 			<manifest> 
-				<section name="abcl_plugin" >
+				<section name="jfreechart_plugin" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
 			</manifest>
 		</jar>
 		
-		<mkdir dir="${examples.dir}/abcl" />
-		<copy todir="${examples.dir}/abcl">
+		<mkdir dir="${examples.dir}/jfreechart" />
+		<copy todir="${examples.dir}/jfreechart">
 			<fileset dir="./examples" >
 				<include name="**/*" />
 			</fileset>
