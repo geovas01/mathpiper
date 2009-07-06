@@ -16,7 +16,7 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
     
     command := ConcatStrings(ToString()Write(function));
     
-    JavaCall("geogebra","evalCommand",command);
+    JavaCall(geogebra,"evalCommand",command);
 ];
 
 
@@ -39,7 +39,7 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
     segmentElementTemplate := "<element type=\"segment\" label=\"a<?Write(labelIndex-1)?>\"><lineStyle thickness=\"2\" type=\"0\"/><show object=\"true\" label=\"false\"/><layer val=\"0\"/><coords x=\"-1.0\" y=\"1.0\" z=\"0.0\"/><lineStyle thickness=\"2\" type=\"0\"/><eqnStyle style=\"implicit\"/><outlyingIntersections val=\"false\"/><keepTypeOnTransform val=\"true\"/></element>";
     
     
-    //todo:tk: this does not seem to be working JavaCall("geogebra", "setRepaintingActive", "false");
+    //todo:tk: this does not seem to be working JavaCall(geogebra, "setRepaintingActive", "false");
     
     While(index < length+1)
     [
@@ -50,24 +50,24 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
         
         
         code := PatchString(pointTemplate);
-        JavaCall("geogebra","evalXML",code);
+        JavaCall(geogebra,"evalXML",code);
         
         If(options["lines"] = "True" And labelIndex > 1,
         [
             
             command := PatchString("a<?Write(labelIndex-1)?> = Segment[A<?Write(labelIndex-1)?>,A<?Write(labelIndex)?>]");
-            JavaCall("geogebra", "evalCommand", command);
+            JavaCall(geogebra, "evalCommand", command);
 
             
             code := PatchString(segmentElementTemplate);
-            JavaCall("geogebra","evalXML",code);
+            JavaCall(geogebra,"evalXML",code);
         ]
         );
        
         labelIndex++;
     ]; //end while.
     
-     //todo:tk: this does not seem to be working  JavaCall("geogebra", "setRepaintingActive", "true");
+     //todo:tk: this does not seem to be working  JavaCall(geogebra, "setRepaintingActive", "true");
 
 ];
 

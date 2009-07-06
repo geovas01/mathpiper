@@ -7,7 +7,7 @@ GeoGebraHistogram(classBoundaries, data) :=
     // If they don't, GeoGebra will not accept them.
     
     command := PatchString("Histogram[<?Write(classBoundaries)?>,<?Write(data)?>]");
-    JavaCall("geogebra", "evalCommand", command);
+    JavaCall(geogebra, "evalCommand", command);
 ];
 
 
@@ -28,7 +28,7 @@ GeoGebraHistogram(data) :=
     classBoundaries := N(Table(x,x,smallestValue-.5,largestValue+.5,1));
     
     command := PatchString("Histogram[<?Write(classBoundaries)?>,<?Write(data)?>]");
-    JavaCall("geogebra", "evalCommand", command);
+    JavaCall(geogebra, "evalCommand", command);
 ];
 
 
@@ -61,7 +61,7 @@ GeoGebraHistogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
 %/mathpiper
 
     %output,preserve="false"
-      Result: true
+      Result: GeoGebraHistogram({1.0,1.1,1.1,1.2,1.7,2.2,2.5,4.0})
 .   %/output
 
 
