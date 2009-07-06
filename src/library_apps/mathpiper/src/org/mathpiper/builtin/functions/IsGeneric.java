@@ -34,7 +34,7 @@ public class IsGeneric extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), evaluated.getCons().getGeneric() != null);
+        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), evaluated.getCons().getJavaObject() != null);
     }
 }//end class.
 

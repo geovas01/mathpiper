@@ -84,10 +84,10 @@ public class MathPiperPrinter extends LispPrinter
 			return;
 		}
 
-		if (aExpression.getCons().getGeneric() != null)
+		if (aExpression.getCons().getJavaObject() != null)
 		{
 			//TODO display genericclass
-			WriteToken(aOutput,aExpression.getCons().getGeneric().typeName());
+			WriteToken(aOutput,aExpression.getCons().getJavaObject().typeName());
 			return;
 		}
 

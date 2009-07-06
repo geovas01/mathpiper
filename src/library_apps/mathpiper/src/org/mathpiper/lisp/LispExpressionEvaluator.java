@@ -60,7 +60,7 @@ public class LispExpressionEvaluator extends Evaluator {
      * corresponding evaluator is called if there is a check. If
      * all fails, ReturnUnEvaluated() is called.</p>
      * <li value="3"><p>
-     * Otherwise (ie. if aExpression is a getGeneric object), it is
+     * Otherwise (ie. if aExpression is a getJavaObject object), it is
      * copied in aResult.</p>
      * </ol>
      * 

@@ -38,7 +38,7 @@ public class PatternMatches extends BuiltinFunction
     {
         ConsPointer pattern = new ConsPointer();
         pattern.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        BuiltinContainer gen = pattern.getCons().getGeneric();
+        BuiltinContainer gen = pattern.getCons().getJavaObject();
         LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1);
         LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), 1);
 
