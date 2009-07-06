@@ -147,7 +147,7 @@ public class JavaObject extends BuiltinContainer {
         return null;
     }
 
-    public String execute(String parameters[]) throws Exception {
+    public String execute(String methodName, String parameters[]) throws Exception {
 
         if (parameters.length < 1) {
             throw new Exception(
@@ -157,7 +157,7 @@ public class JavaObject extends BuiltinContainer {
         // The first two tokens are the class and method
         //String className = line[0];
         String className = javaObject.getClass().getName();
-        String methodName = parameters[0];
+
 
         // Narrow the arguments
         Object args[] = narrow(parameters, 1);
