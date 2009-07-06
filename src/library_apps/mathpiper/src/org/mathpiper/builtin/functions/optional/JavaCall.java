@@ -44,18 +44,8 @@ public class JavaCall extends BuiltinFunction {
 
 			Cons argumentCons;
 
-			//Obtain the name of the variable that the desired Java object is bound to.
+			//Obtain the Java object to call.
 			argumentCons = consTraverser.getPointer().getCons();
-			//ConsPointer result = new ConsPointer();
-
-			//String objectName = argumentCons.string();
-
-            //Strip leading and trailing quotes.
-            //objectName = objectName.substring(1,objectName.length());
-            //objectName = objectName.substring(0,objectName.length()-1);
-
-			// argumentConsString = argumentConsString.replace("\"", "");
-			//aEnvironment.getGlobalVariable(objectName, result);
 
 			BuiltinContainer builtinContainer;
 
@@ -65,7 +55,7 @@ public class JavaCall extends BuiltinFunction {
 
 				if (builtinContainer != null) {
 
-					//System.out.println(argumentCons);
+
 					consTraverser.goNext();
                     argumentCons = consTraverser.getPointer().getCons();
                     String methodName = argumentCons.string();
