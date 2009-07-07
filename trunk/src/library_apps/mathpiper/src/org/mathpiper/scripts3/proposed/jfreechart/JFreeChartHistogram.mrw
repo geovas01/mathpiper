@@ -1,0 +1,70 @@
+  %mathpiper,title=""
+  
+  Retract("JFreeChartHistogram",*);
+  
+  JFreeChartHistogram(data) :=
+  [
+      histogramDataset := JavaNew("org.jfree.data.statistics.HistogramDataset");
+      doubleArray := JavaCall("java.lang.reflect.Array","newInstance","java.lang.Double",String(Length(data)) );
+      x := 0;
+      While(x < Length(data))
+      [
+          JavaCall("java.lang.reflect.Array","setDouble",doubleArray, x, data[x+1] );
+      ];
+  
+  ];
+  
+  
+  %/mathpiper
+
+      %output,preserve="false"
+        Result: True
+.     %/output
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+JFreeChartHistogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: [Ljava.lang.Double;
+.   %/output
+
+
+JavaCall("java.lang.reflect.Array","setDouble",doubleArray, 0, 33.2);
+
+JavaCall("java.lang.reflect.Array","newInstance","java.lang.Double","3");
+
+ 	private static IntervalXYDataset createDataset() {
+		HistogramDataset dataset = new HistogramDataset();
+		String samplesString = "16.375,16.375,17.125,16,14.375,17.25,16.625,16,17,17.25,17,15.875,16.625,16.125,17.125,16.875,16.375,16.375,16.875,17.125,17,16.75,17.25,17.125,15.375";
+		String[] samples = samplesString.split(",");
+		double[] values = new double[samples.length];
+		int i = 0;
+		for (String sample:samples) {
+			values[i] = Float.parseFloat(sample);
+			i++;
+		}
+		dataset.addSeries("Pile E", values, 20, 14.0, 20.0);
+  
+  
+  
+  import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.StandardXYBarPainter;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.xy.IntervalXYDataset;
+  
+  
+  
+  
+
+
