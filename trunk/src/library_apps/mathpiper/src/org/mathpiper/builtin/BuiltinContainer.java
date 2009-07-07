@@ -34,6 +34,6 @@ public abstract class BuiltinContainer
 	public abstract String send(ArgumentList aArgList);
 	public abstract String typeName();
     public abstract Object getJavaObject();
-    public abstract String execute(String methodName, String [] arguments) throws Exception;
+    public abstract JavaObject execute(String methodName, String [] arguments) throws Exception;
 }
 

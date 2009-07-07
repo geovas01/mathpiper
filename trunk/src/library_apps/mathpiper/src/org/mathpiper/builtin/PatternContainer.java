@@ -66,7 +66,7 @@ public class PatternContainer extends BuiltinContainer
 		return null;
 	}
 
-	public String execute(String methodName, String[] arguemnts) throws Exception
+	public JavaObject execute(String methodName, String[] arguemnts) throws Exception
 	{
 		return null;
 	}

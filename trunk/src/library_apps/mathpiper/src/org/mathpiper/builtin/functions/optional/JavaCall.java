@@ -20,9 +20,10 @@ package org.mathpiper.builtin.functions.optional;
 import java.util.ArrayList;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
-import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.ConsTraverser;
@@ -33,80 +34,87 @@ import org.mathpiper.lisp.cons.ConsTraverser;
  */
 public class JavaCall extends BuiltinFunction {
 
-	//private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
-	public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-		ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer();
-		if (subList != null) {
-			ConsTraverser consTraverser = new ConsTraverser(subList);
+    //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+        ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer();
+        if (subList != null) {
+            ConsTraverser consTraverser = new ConsTraverser(subList);
 
-			//Skip past List type.
-			consTraverser.goNext();
+            //Skip past List type.
+            consTraverser.goNext();
 
-			Cons argumentCons;
+            //Obtain the Java object to call.
+            Cons argumentCons = consTraverser.getPointer().getCons();
 
-			//Obtain the Java object to call.
-			argumentCons = consTraverser.getPointer().getCons();
+            BuiltinContainer builtinContainer;
 
-			BuiltinContainer builtinContainer;
-
-			if (argumentCons != null) {
-
-				builtinContainer = argumentCons.getJavaObject();
-
-				if (builtinContainer != null) {
+            if (argumentCons != null) {
 
 
-					consTraverser.goNext();
+                String firstArgumentString = argumentCons.string();
+
+                if (UtilityFunctions.internalIsString(firstArgumentString)) {
+                    //Strip leading and trailing quotes.
+                    firstArgumentString = firstArgumentString.substring(1, firstArgumentString.length());
+                    firstArgumentString = firstArgumentString.substring(0, firstArgumentString.length() - 1);
+                    Object clas = Class.forName(firstArgumentString);
+                    builtinContainer = new JavaObject(clas);
+                } else {
+                    builtinContainer = argumentCons.getJavaObject();
+                }//end else.
+
+
+                if (builtinContainer != null) {
+
+
+                    consTraverser.goNext();
                     argumentCons = consTraverser.getPointer().getCons();
                     String methodName = argumentCons.string();
                     //Strip leading and trailing quotes.
-                    methodName = methodName.substring(1,methodName.length());
-                    methodName = methodName.substring(0,methodName.length()-1);
+                    methodName = methodName.substring(1, methodName.length());
+                    methodName = methodName.substring(0, methodName.length() - 1);
 
-					consTraverser.goNext();
+                    consTraverser.goNext();
 
-					ArrayList argumentArrayList = new ArrayList();
+                    ArrayList argumentArrayList = new ArrayList();
 
-					while (consTraverser.getCons() != null) {
-						argumentCons = consTraverser.getPointer().getCons();
+                    while (consTraverser.getCons() != null) {
+                        argumentCons = consTraverser.getPointer().getCons();
 
-						String argumentString = argumentCons.string();
+                        String argumentString = argumentCons.string();
 
                         //Strip leading and trailing quotes.
-						argumentString = argumentString.substring(1,argumentString.length());
-                        argumentString = argumentString.substring(0,argumentString.length()-1);
+                        argumentString = argumentString.substring(1, argumentString.length());
+                        argumentString = argumentString.substring(0, argumentString.length() - 1);
 
-						argumentArrayList.add(argumentString);
+                        argumentArrayList.add(argumentString);
 
-						consTraverser.goNext();
+                        consTraverser.goNext();
 
-					}//end while.
+                    }//end while.
 
 
-					String response = builtinContainer.execute(methodName, (String[]) argumentArrayList.toArray(new String[0]));
-					//System.out.println("XXXXXXXXXXX: " + response);
+                    JavaObject response = builtinContainer.execute(methodName, (String[]) argumentArrayList.toArray(new String[0]));
+                    //System.out.println("XXXXXXXXXXX: " + response);
 
-					if(response == null)
-					{
-						UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+                    if (response == null) {
+                        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
                         return;
-					}
-                    else if(response.equalsIgnoreCase(""))
-                    {
+                    } /*else if (response.equalsIgnoreCase("")) {
                         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
                         return;
-                    }
-					getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, response));
+                    }*/
+                    getResult(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(response));
 
-					return;
+                    return;
 
-				}//end if.
+                }//end if.
 
-			}//end if.
+            }//end if.
 
-		}//end if.
+        }//end if.
 
-		UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
 
-	}//end method.
+    }//end method.
 }
