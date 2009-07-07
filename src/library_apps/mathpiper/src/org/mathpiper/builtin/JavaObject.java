@@ -38,7 +38,7 @@ public class JavaObject extends BuiltinContainer {
     // Narrow a type from String to the
     // narrowest possible type
     public static Object narrow(String argstring) {
-	    //System.out.println("XXXXXXX argstring: " + argstring);
+        //System.out.println("XXXXXXX argstring: " + argstring);
         // Try integer
         try {
             return Integer.valueOf(argstring);
@@ -55,7 +55,15 @@ public class JavaObject extends BuiltinContainer {
         if (argstring.equalsIgnoreCase("true")) {
             return Boolean.TRUE;
         } else if (argstring.equalsIgnoreCase("false")) {
-            return  Boolean.FALSE;
+            return Boolean.FALSE;
+        }
+
+        //Try  class
+        try{
+             Object clas = Class.forName(argstring);
+             return clas;
+        }catch (ClassNotFoundException cnfe)
+        {
         }
 
         // Give up -- it's a string
@@ -90,8 +98,8 @@ public class JavaObject extends BuiltinContainer {
             if (types[i] == Integer.class) {
                 types[i] = int.class;
             }
-	    
-	    if (types[i] == Boolean.class) {
+
+            if (types[i] == Boolean.class) {
                 types[i] = boolean.class;
             }
         }//end for.
@@ -99,15 +107,13 @@ public class JavaObject extends BuiltinContainer {
         return types;
     }
 
-
-    public static JavaObject instantiate(String className, String[] parameters) throws Exception
-    {
+    public static JavaObject instantiate(String className, String[] parameters) throws Exception {
 
         // The first two tokens are the class and method
         //String className = line[0];
         //String className = javaObject.getClass().getName();
 
-       //String methodName = parameters[0];
+        //String methodName = parameters[0];
 
         // Narrow the arguments
         Object args[] = narrow(parameters);
@@ -140,31 +146,39 @@ public class JavaObject extends BuiltinContainer {
                     "Exception while executing command").initCause(ite);
         }//end catch.
 
-        
+
     }
 
-    public String execute(String methodName, String parameters[]) throws Exception {
+    public JavaObject execute(String methodName, String parameters[]) throws Exception {
 
-        // The first two tokens are the class and method
-        //String className = line[0];
+
         String className = javaObject.getClass().getName();
 
-
-        // Narrow the arguments
-        Object args[] = narrow(parameters);
-        Class types[] = getTypes(args);
-
         try {
-            // Find the specified class
-            Class clas = Class.forName(className);
-	   
-/*
-System.out.println("XXXXX " + methodName);
-for(Object ob:types)
-{
-	System.out.println("XXXXX " + ob.toString());
-}
-*/
+            Class clas;
+            if (className.equals("java.lang.Class")) {
+                clas = (Class) this.javaObject;
+                className = clas.getName();
+            } else {
+                clas = Class.forName(className);
+            }
+
+
+            // Narrow the arguments
+            Object args[] = narrow(parameters);
+            Class types[] = getTypes(args);
+
+
+
+
+
+            /*
+            System.out.println("XXXXX " + methodName);
+            for(Object ob:types)
+            {
+            System.out.println("XXXXX " + ob.toString());
+            }
+             */
 
             // Find the specified method
             Method method = clas.getDeclaredMethod(methodName, types);
@@ -172,13 +186,9 @@ for(Object ob:types)
             // Invoke the method on the narrowed arguments
             Object retval = method.invoke(javaObject, args);
 
-            // Return the result of the invocation
-            if (retval == null) {
-                //The method returned void.
-                return "";
-            } else {
-                return retval.toString();
-            }
+
+                return new JavaObject(retval);
+            
         } catch (ClassNotFoundException cnfe) {
             throw new Exception(
                     "Can't find class " + className);
@@ -193,7 +203,7 @@ for(Object ob:types)
             throw (Exception) new Exception(
                     "Exception while executing command").initCause(ite);
         }//end catch.
-        
+
     }//end class
 
     public String typeName() {
