@@ -80,13 +80,13 @@ public class MathPiperParser extends Parser
 
         readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
 
-        if (iLookAhead != iEnvironment.iEndStatementAtom.string())
+        if (iLookAhead != iEnvironment.iEndStatementAtom.first())
         {
             fail();
         }
         if (iError)
         {
-            while (iLookAhead.length() > 0 && iLookAhead != iEnvironment.iEndStatementAtom.string())
+            while (iLookAhead.length() > 0 && iLookAhead != iEnvironment.iEndStatementAtom.first())
             {
                 readToken();
             }
@@ -126,21 +126,21 @@ public class MathPiperParser extends Parser
         for (;;)
         {
             //Handle special case: a[b]. a is matched with lowest precedence!!
-            if (iLookAhead == iEnvironment.iProgOpenAtom.string())
+            if (iLookAhead == iEnvironment.iProgOpenAtom.first())
             {
                 // Match opening bracket
                 matchToken(iLookAhead);
                 // Read "index" argument
                 readExpression(MathPiperPrinter.KMaxPrecedence);
                 // Match closing bracket
-                if (iLookAhead != iEnvironment.iProgCloseAtom.string())
+                if (iLookAhead != iEnvironment.iProgCloseAtom.first())
                 {
                     LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead.",iEnvironment);
                     return;
                 }
                 matchToken(iLookAhead);
                 // Build into Ntn(...)
-                String theOperator = (String) iEnvironment.iNthAtom.string();
+                String theOperator = (String) iEnvironment.iNthAtom.first();
                 insertAtom(theOperator);
                 combine(2);
             } else
@@ -236,47 +236,47 @@ public class MathPiperParser extends Parser
                 combine(1);
             }
         } // Else parse brackets
-        else if (iLookAhead == iEnvironment.iBracketOpenAtom.string())
+        else if (iLookAhead == iEnvironment.iBracketOpenAtom.first())
         {
             matchToken(iLookAhead);
             readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
-            matchToken( (String) iEnvironment.iBracketCloseAtom.string());
+            matchToken( (String) iEnvironment.iBracketCloseAtom.first());
         } //parse lists
-        else if (iLookAhead == iEnvironment.iListOpenAtom.string())
+        else if (iLookAhead == iEnvironment.iListOpenAtom.first())
         {
             int nrargs = 0;
             matchToken(iLookAhead);
-            while (iLookAhead != iEnvironment.iListCloseAtom.string())
+            while (iLookAhead != iEnvironment.iListCloseAtom.first())
             {
                 readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                 nrargs++;
 
-                if (iLookAhead == iEnvironment.iCommaAtom.string())
+                if (iLookAhead == iEnvironment.iCommaAtom.first())
                 {
                     matchToken(iLookAhead);
-                } else if (iLookAhead != iEnvironment.iListCloseAtom.string())
+                } else if (iLookAhead != iEnvironment.iListCloseAtom.first())
                 {
                     LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead.",iEnvironment);
                     return;
                 }
             }
             matchToken(iLookAhead);
-            String theOperator = (String) iEnvironment.iListAtom.string();
+            String theOperator = (String) iEnvironment.iListAtom.first();
             insertAtom(theOperator);
             combine(nrargs);
 
         } // parse prog bodies
-        else if (iLookAhead == iEnvironment.iProgOpenAtom.string())
+        else if (iLookAhead == iEnvironment.iProgOpenAtom.first())
         {
             int nrargs = 0;
 
             matchToken(iLookAhead);
-            while (iLookAhead != iEnvironment.iProgCloseAtom.string())
+            while (iLookAhead != iEnvironment.iProgCloseAtom.first())
             {
                 readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                 nrargs++;
 
-                if (iLookAhead == iEnvironment.iEndStatementAtom.string())
+                if (iLookAhead == iEnvironment.iEndStatementAtom.first())
                 {
                     matchToken(iLookAhead);
                 } else
@@ -286,7 +286,7 @@ public class MathPiperParser extends Parser
                 }
             }
             matchToken(iLookAhead);
-            String theOperator = (String) iEnvironment.iProgAtom.string();
+            String theOperator = (String) iEnvironment.iProgAtom.first();
             insertAtom(theOperator);
 
             combine(nrargs);
@@ -297,19 +297,19 @@ public class MathPiperParser extends Parser
             matchToken(iLookAhead);
 
             int nrargs = -1;
-            if (iLookAhead == iEnvironment.iBracketOpenAtom.string())
+            if (iLookAhead == iEnvironment.iBracketOpenAtom.first())
             {
                 nrargs = 0;
                 matchToken(iLookAhead);
-                while (iLookAhead != iEnvironment.iBracketCloseAtom.string())
+                while (iLookAhead != iEnvironment.iBracketCloseAtom.first())
                 {
                     readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                     nrargs++;
 
-                    if (iLookAhead == iEnvironment.iCommaAtom.string())
+                    if (iLookAhead == iEnvironment.iCommaAtom.first())
                     {
                         matchToken(iLookAhead);
-                    } else if (iLookAhead != iEnvironment.iBracketCloseAtom.string())
+                    } else if (iLookAhead != iEnvironment.iBracketCloseAtom.first())
                     {
                         LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead.",iEnvironment);
                         return;

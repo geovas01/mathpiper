@@ -40,7 +40,7 @@ public class XmlExplodeTag extends BuiltinFunction
         out.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, out, 1);
 
-        String str = (String) out.getCons().string();
+        String str = (String) out.getCons().first();
         int strInd = 0;
         strInd++;
         if (str.charAt(strInd) != '<')

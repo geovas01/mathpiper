@@ -51,7 +51,7 @@ public class FromBase extends BuiltinFunction
         ConsPointer fromNum = new ConsPointer();
         fromNum.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         String str2;
-        str2 =  (String) fromNum.getCons().string();
+        str2 =  (String) fromNum.getCons().first();
         LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2);
 
         // Added, unquote a string

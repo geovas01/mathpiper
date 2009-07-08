@@ -52,8 +52,8 @@ abstract public class LexCompare2
         {
             String str1;
             String str2;
-            str1 =  (String) result1.getCons().string();
-            str2 = (String) result2.getCons().string();
+            str1 =  (String) result1.getCons().first();
+            str2 = (String) result2.getCons().first();
             LispError.checkArgument(aEnvironment, aStackTop, str1 != null, 1);
             LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2);
             // the getPrecision argument is ignored in "lex" functions

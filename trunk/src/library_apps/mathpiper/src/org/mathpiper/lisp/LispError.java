@@ -247,7 +247,7 @@ public class LispError
             return "Error in compiled code. ";
         } else
         {
-            String string = (String) aArguments.getCons().string();
+            String string = (String) aArguments.getCons().first();
             if (string != null)
             {
                 return "In function \"" + string + "\" : ";
@@ -294,7 +294,7 @@ public class LispError
 
     public static void checkIsString(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsString( (String) evaluated.getCons().string()), aArgNr, "argument is not a string.");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsString( (String) evaluated.getCons().first()), aArgNr, "argument is not a string.");
     }
 
     public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription) throws Exception

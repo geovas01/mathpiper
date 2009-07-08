@@ -43,7 +43,7 @@ public class Clear extends BuiltinFunction
             while (consTraverser.getCons() != null)
             {
                 String str;
-                str =  (String) consTraverser.getCons().string();
+                str =  (String) consTraverser.getCons().first();
                 LispError.checkArgument(aEnvironment, aStackTop, str != null, nr);
                 aEnvironment.unsetLocalVariable(str);
                 consTraverser.goNext();

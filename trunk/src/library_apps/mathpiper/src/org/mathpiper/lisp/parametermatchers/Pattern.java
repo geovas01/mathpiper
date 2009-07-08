@@ -214,8 +214,8 @@ public class Pattern {
             return new Number(aPattern.getNumber(aEnvironment.getPrecision()));
         }
         // Deal with atoms
-        if (aPattern.string() != null) {
-            return new Atom( (String) aPattern.string());
+        if (aPattern.first() instanceof String) {
+            return new Atom( (String) aPattern.first());
         }
 
         // Else it must be a sublist
@@ -229,10 +229,10 @@ public class Pattern {
             // variable matcher here...
             if (num > 1) {
                 Cons head = sublist.getCons();
-                if (head.string() == aEnvironment.getTokenHash().lookUp("_")) {
+                if (((String) head.first()) == aEnvironment.getTokenHash().lookUp("_")) {
                     Cons second = head.getRestPointer().getCons();
-                    if (second.string() != null) {
-                        int index = lookUp( (String) second.string());
+                    if (second.first() instanceof String) {
+                        int index = lookUp( (String) second.first());
 
                         // Make a predicate for the type, if needed
                         if (num > 2) {
@@ -245,7 +245,7 @@ public class Pattern {
                                 third.setCons(second.getRestPointer().getCons().copy(false));
                             }
 
-                            String str = (String) second.string();
+                            String str = (String) second.first();
                             Cons last = third.getCons();
                             while (last.getRestPointer().getCons() != null) {
                                 last = last.getRestPointer().getCons();

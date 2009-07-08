@@ -32,13 +32,13 @@ import org.mathpiper.lisp.Evaluator;
 
 /**
  *  The basic evaluator for Lisp expressions.
- * 
+ *
  */
 public class LispExpressionEvaluator extends Evaluator {
 
     /**
      * <p>
-     * First, the evaluation depth is checked. An error is raised if the maximum evaluation 
+     * First, the evaluation depth is checked. An error is raised if the maximum evaluation
      * depth is exceeded.  The next step is the actual evaluation.  aExpression is a
      * Cons, so we can distinguish three cases:</p>
      * <ol>
@@ -63,11 +63,11 @@ public class LispExpressionEvaluator extends Evaluator {
      * Otherwise (ie. if aExpression is a getJavaObject object), it is
      * copied in aResult.</p>
      * </ol>
-     * 
+     *
      * <p>
      * Note: The result of this operation must be a unique (copied)
      * element! Eg. its Next might be set...</p>
-     * 
+     *
      * @param aEnvironment  the Lisp environment, in which the evaluation should take place
      * @param aResult             the result of the evaluation
      * @param aExpression     the expression to evaluate
@@ -86,10 +86,11 @@ public class LispExpressionEvaluator extends Evaluator {
             }
         }
 
-        String str = (String) aExpression.getCons().string();
+
 
         // evaluate an atom: find the bound value (treat it as a variable)
-        if (str != null) {
+        if ( aExpression.getCons().first() instanceof String) {
+            String str = (String) aExpression.getCons().first();
             if (str.charAt(0) == '\"') {
                 aResult.setCons(aExpression.getCons().copy(false));
                 aEnvironment.iEvalDepth--;
@@ -108,15 +109,15 @@ public class LispExpressionEvaluator extends Evaluator {
             return;
         }
         {
-            
+
 
             if ( aExpression.getCons().first() instanceof ConsPointer) {
                 ConsPointer subList = (ConsPointer) aExpression.getCons().first();
                 Cons head = subList.getCons();
                 if (head != null) {
-                    if (head.string() != null) {
+                    if (head.first() instanceof String) {
                         {
-                            BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.string());
+                            BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.first());
                             // Try to find a built-in command
                             if (evaluator != null) {
                                 evaluator.evaluate(aEnvironment, aResult, subList);
@@ -161,8 +162,8 @@ public class LispExpressionEvaluator extends Evaluator {
         userFunc = (SingleArityBranchingUserFunction) aEnvironment.getUserFunction(subList);
         if (userFunc != null) {
             return userFunc;
-        } else if (head.string() != null) {
-            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( (String) head.string());
+        } else if (head.first() instanceof String) {
+            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( (String) head.first());
             if (multiUserFunc.iFileToOpen != null) {
                 DefFile def = multiUserFunc.iFileToOpen;
 
@@ -178,9 +179,9 @@ public class LispExpressionEvaluator extends Evaluator {
                         #endif
                         aEnvironment.write(buf);*/
                         if (TRACE_TO_STANDARD_OUT) {
-                            System.out.print("Debug> Loading file" + def.iFileName + " for function " + head.string() + "\n");
+                            System.out.print("Debug> Loading file" + def.iFileName + " for function " + head.first() + "\n");
                         } else {
-                            aEnvironment.write("Debug> Loading file" + def.iFileName + " for function " + head.string() + "\n");
+                            aEnvironment.write("Debug> Loading file" + def.iFileName + " for function " + head.first() + "\n");
                         }
 
                         int debugBreakpoint = 0;
@@ -440,6 +441,6 @@ public class LispExpressionEvaluator extends Evaluator {
     defaultEval.Eval(aEnvironment, result, iError);
     }
 
-    
+
      */
 }//end class.

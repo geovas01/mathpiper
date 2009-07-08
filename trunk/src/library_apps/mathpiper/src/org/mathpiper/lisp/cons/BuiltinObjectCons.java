@@ -49,10 +49,7 @@ public class BuiltinObjectCons extends Cons
 		return iCarBuiltin;
 	}
 	
-	public String string()
-	{
-		return null;
-	}
+
 	
 	public Cons copy(boolean aRecursed)
 	{

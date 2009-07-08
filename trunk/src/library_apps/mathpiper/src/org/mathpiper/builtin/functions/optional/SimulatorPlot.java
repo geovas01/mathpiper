@@ -39,8 +39,8 @@ public class SimulatorPlot extends BuiltinFunction
          
          Cons xCons = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
          Cons yCons = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
-         int xValue = Integer.parseInt( (String) xCons.string());
-         int yValue = Integer.parseInt( (String) yCons.string());
+         int xValue = Integer.parseInt( (String) xCons.first());
+         int yValue = Integer.parseInt( (String) yCons.first());
          simulator.plotPoint(xValue,yValue);
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }

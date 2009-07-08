@@ -43,9 +43,13 @@ public class LocalSymbolSubstitute implements Substitute
 	}
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
-		String name = (String) aElement.getCons().string();
-		if (name == null)
+		
+		if (!(aElement.getCons().first() instanceof String))
+        {
 			return false;
+        }//end if.
+
+        String name = (String) aElement.getCons().first();
 
 		int i;
 		for (i=0;i<iNumberOfNames;i++)

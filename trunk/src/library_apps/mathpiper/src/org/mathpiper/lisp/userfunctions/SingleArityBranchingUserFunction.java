@@ -68,13 +68,13 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         while (parameterTraverser.getCons() != null) {
 
             try{
-                LispError.check(parameterTraverser.getCons().string() != null, LispError.KLispErrCreatingUserFunction);
+                LispError.check(parameterTraverser.getCons().first() instanceof String, LispError.KLispErrCreatingUserFunction);
             }catch(EvaluationException ex)
             {
                 throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
             }//end catch.
 
-            FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.getCons().string(), false);
+            FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.getCons().first(), false);
             iParameters.add(parameter);
             parameterTraverser.goNext();
         }
@@ -204,8 +204,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             String functionName = "";
             if (argumentsPointer.getCons().first() instanceof ConsPointer) {
                 ConsPointer sub = (ConsPointer) argumentsPointer.getCons().first();
-                if (sub.getCons().string() != null) {
-                    functionName = (String) sub.getCons().string();
+                if (sub.getCons().first() instanceof String) {
+                    functionName = (String) sub.getCons().first();
                 }
             }//end function.
             if (Evaluator.isTraceFunction(functionName)) {

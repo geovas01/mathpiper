@@ -33,7 +33,7 @@ public class DefaultDirectory extends BuiltinFunction
     {
         // Get file name
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
+        String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
         aEnvironment.iInputDirectories.add(oper);
