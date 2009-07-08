@@ -40,7 +40,7 @@ public class FileSize extends BuiltinFunction
         ConsPointer fnameObject = new ConsPointer();
         fnameObject.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, fnameObject, 1);
-        String fname = UtilityFunctions.internalUnstringify(fnameObject.getCons().string());
+        String fname = UtilityFunctions.internalUnstringify(  (String) fnameObject.getCons().string());
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(fname);
 
         long fileSize = 0;

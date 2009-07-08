@@ -53,7 +53,7 @@ public class JavaCall extends BuiltinFunction {
             if (argumentCons != null) {
 
 
-                String firstArgumentString = argumentCons.string();
+                String firstArgumentString = (String) argumentCons.string();
 
                 if (UtilityFunctions.internalIsString(firstArgumentString)) {
                     //Strip leading and trailing quotes.
@@ -71,7 +71,7 @@ public class JavaCall extends BuiltinFunction {
 
                     consTraverser.goNext();
                     argumentCons = consTraverser.getPointer().getCons();
-                    String methodName = argumentCons.string();
+                    String methodName = (String) argumentCons.string();
                     //Strip leading and trailing quotes.
                     methodName = methodName.substring(1, methodName.length());
                     methodName = methodName.substring(0, methodName.length() - 1);
@@ -83,7 +83,7 @@ public class JavaCall extends BuiltinFunction {
                     while (consTraverser.getCons() != null) {
                         argumentCons = consTraverser.getPointer().getCons();
 
-                        String argumentString = argumentCons.string();
+                        String argumentString = (String) argumentCons.string();
 
                         //Strip leading and trailing quotes.
                         argumentString = argumentString.substring(1, argumentString.length());

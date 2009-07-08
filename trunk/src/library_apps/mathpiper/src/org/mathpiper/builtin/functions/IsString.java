@@ -35,7 +35,7 @@ public class IsString extends BuiltinFunction
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop),
-                UtilityFunctions.internalIsString(result.getCons().string()));
+                UtilityFunctions.internalIsString(  (String) result.getCons().string()));
     }
 }
 

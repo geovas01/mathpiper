@@ -140,7 +140,7 @@ public class MathPiperParser extends Parser
                 }
                 matchToken(iLookAhead);
                 // Build into Ntn(...)
-                String theOperator = iEnvironment.iNthAtom.string();
+                String theOperator = (String) iEnvironment.iNthAtom.string();
                 insertAtom(theOperator);
                 combine(2);
             } else
@@ -240,7 +240,7 @@ public class MathPiperParser extends Parser
         {
             matchToken(iLookAhead);
             readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
-            matchToken(iEnvironment.iBracketCloseAtom.string());
+            matchToken( (String) iEnvironment.iBracketCloseAtom.string());
         } //parse lists
         else if (iLookAhead == iEnvironment.iListOpenAtom.string())
         {
@@ -261,7 +261,7 @@ public class MathPiperParser extends Parser
                 }
             }
             matchToken(iLookAhead);
-            String theOperator = iEnvironment.iListAtom.string();
+            String theOperator = (String) iEnvironment.iListAtom.string();
             insertAtom(theOperator);
             combine(nrargs);
 
@@ -286,7 +286,7 @@ public class MathPiperParser extends Parser
                 }
             }
             matchToken(iLookAhead);
-            String theOperator = iEnvironment.iProgAtom.string();
+            String theOperator = (String) iEnvironment.iProgAtom.string();
             insertAtom(theOperator);
 
             combine(nrargs);

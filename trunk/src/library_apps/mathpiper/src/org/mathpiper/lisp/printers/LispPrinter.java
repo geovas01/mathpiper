@@ -42,7 +42,7 @@ public class LispPrinter
 		while (iter.getCons() != null)
 		{
 			// if String not null pointer: print string
-			String string = iter.getCons().string();
+			String string = (String) iter.getCons().string();
 
 			if (string != null)
 			{

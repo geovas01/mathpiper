@@ -45,7 +45,7 @@ public class ApplyPure extends BuiltinFunction
         if (oper.getCons().string() != null)
         {
             UtilityFunctions.internalApplyString(aEnvironment, getResult(aEnvironment, aStackTop),
-                    oper.getCons().string(),
+                    (String) oper.getCons().string(),
                     ((ConsPointer) args.getCons().first()).getCons().getRestPointer());
         } else
         {   // Apply a pure function {args,body}.

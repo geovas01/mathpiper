@@ -74,7 +74,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
             }//end catch.
 
-            FunctionParameter parameter = new FunctionParameter(parameterTraverser.getCons().string(), false);
+            FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.getCons().string(), false);
             iParameters.add(parameter);
             parameterTraverser.goNext();
         }
@@ -205,7 +205,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             if (argumentsPointer.getCons().first() instanceof ConsPointer) {
                 ConsPointer sub = (ConsPointer) argumentsPointer.getCons().first();
                 if (sub.getCons().string() != null) {
-                    functionName = sub.getCons().string();
+                    functionName = (String) sub.getCons().string();
                 }
             }//end function.
             if (Evaluator.isTraceFunction(functionName)) {

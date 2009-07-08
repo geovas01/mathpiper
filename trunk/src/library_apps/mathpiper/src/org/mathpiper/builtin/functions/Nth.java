@@ -32,7 +32,7 @@ public class Nth extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
-        str = getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string();
+        str = (String) getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, str != null, 2);
         LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
         int index = Integer.parseInt(str);
