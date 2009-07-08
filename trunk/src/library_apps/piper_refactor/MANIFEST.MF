@@ -1,2 +1,0 @@
-Main-Class: org/mathrider/piper/PiperConsole
-Class-Path: piper.jar
