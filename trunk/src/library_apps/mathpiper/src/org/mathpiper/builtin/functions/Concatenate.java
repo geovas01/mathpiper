@@ -40,12 +40,12 @@ public class Concatenate extends BuiltinFunction
         tail.goNext();
         int arg = 1;
 
-        ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer());
+        ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first());
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {
             LispError.checkIsList(aEnvironment, aStackTop, consTraverser.getPointer(), arg);
-            UtilityFunctions.internalFlatCopy(tail.getPointer(), consTraverser.getPointer().getCons().getSublistPointer().getCons().getRestPointer());
+            UtilityFunctions.internalFlatCopy(tail.getPointer(), ((ConsPointer) consTraverser.getPointer().getCons().first()).getCons().getRestPointer());
             while (tail.getCons() != null)
             {
                 tail.goNext();

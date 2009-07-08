@@ -36,8 +36,10 @@ public class JavaCall extends BuiltinFunction {
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        ConsPointer subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer();
-        if (subList != null) {
+
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof ConsPointer) {
+
+            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
             ConsTraverser consTraverser = new ConsTraverser(subList);
 
             //Skip past List type.
@@ -101,8 +103,8 @@ public class JavaCall extends BuiltinFunction {
                         UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
                         return;
                     } /*else if (response.equalsIgnoreCase("")) {
-                        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
-                        return;
+                    UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+                    return;
                     }*/
                     getResult(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(response));
 

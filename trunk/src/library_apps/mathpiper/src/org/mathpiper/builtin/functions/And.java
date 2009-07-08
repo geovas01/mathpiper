@@ -37,7 +37,7 @@ public class And extends BuiltinFunction
         int nrnogos = 0;
         ConsPointer evaluated = new ConsPointer();
 
-        ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer());
+        ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first());
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {

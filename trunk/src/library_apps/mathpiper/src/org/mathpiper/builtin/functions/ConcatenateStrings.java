@@ -22,6 +22,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -35,7 +36,7 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
         int arg = 1;
 
-        ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer());
+        ConsTraverser consTraverser = new ConsTraverser( (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() );
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {

@@ -21,6 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -39,7 +40,7 @@ public class Prog extends BuiltinFunction
 
             // Evaluate args one by one.
 
-            ConsTraverser consTraverser = new ConsTraverser(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer());
+            ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first());
             consTraverser.goNext();
             while (consTraverser.getCons() != null)
             {

@@ -56,8 +56,8 @@ public class ConsTraverser
 	public void goSub() throws Exception
 	{
 		LispError.check(iPointer.getCons() != null,LispError.KLispErrInvalidArg);
-		LispError.check(iPointer.getCons().getSublistPointer() != null,LispError.KLispErrNotList);
-		iPointer = iPointer.getCons().getSublistPointer();
+		LispError.check(iPointer.getCons().first() instanceof ConsPointer,LispError.KLispErrNotList);
+		iPointer = (ConsPointer) iPointer.getCons().first();
 	}
 
 };

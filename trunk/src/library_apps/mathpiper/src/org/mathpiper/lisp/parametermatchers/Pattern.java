@@ -219,10 +219,10 @@ public class Pattern {
         }
 
         // Else it must be a sublist
-        if (aPattern.getSublistPointer() != null) {
+        if (aPattern.first() instanceof ConsPointer) {
             // See if it is a variable template:
-            ConsPointer sublist = aPattern.getSublistPointer();
-            LispError.lispAssert(sublist != null);
+            ConsPointer sublist = (ConsPointer) aPattern.first();
+            //LispError.lispAssert(sublist != null);
 
             int num = UtilityFunctions.listLength(sublist);
 
@@ -239,8 +239,8 @@ public class Pattern {
                             ConsPointer third = new ConsPointer();
 
                             Cons predicate = second.getRestPointer().getCons();
-                            if (predicate.getSublistPointer() != null) {
-                                UtilityFunctions.internalFlatCopy(third, predicate.getSublistPointer());
+                            if ( (predicate.first() instanceof ConsPointer)) {
+                                UtilityFunctions.internalFlatCopy(third, (ConsPointer) predicate.first());
                             } else {
                                 third.setCons(second.getRestPointer().getCons().copy(false));
                             }

@@ -39,10 +39,6 @@ public class SubListCons extends Cons
         }
         
         
-	public ConsPointer getSublistPointer()
-	{
-		return iCar;
-	}
         
         
 	public String string()
