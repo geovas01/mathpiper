@@ -67,9 +67,10 @@ public class MathPiperPrinter extends LispPrinter
 	{
 		LispError.lispAssert(aExpression.getCons() != null);
 
-		String string = (String) aExpression.getCons().string();
-		if (string != null)
+		String string;
+		if (aExpression.getCons().first() instanceof String)
 		{
+            string = (String) aExpression.getCons().first();
 			boolean bracket=false;
 			if (iPrecedence<KMaxPrecedence &&
 			                string.charAt(0) == '-' &&
@@ -100,7 +101,7 @@ public class MathPiperPrinter extends LispPrinter
 		else
 		{
 			int length = UtilityFunctions.listLength(subList);
-			string = (String) subList.getCons().string();
+			string = (String) subList.getCons().first();
 			InfixOperator prefix  = (InfixOperator)iPrefixOperators.lookUp(string);
 			InfixOperator infix   = (InfixOperator)iInfixOperators.lookUp(string);
 			InfixOperator postfix = (InfixOperator)iPostfixOperators.lookUp(string);
@@ -158,7 +159,7 @@ public class MathPiperPrinter extends LispPrinter
 			else
 			{
 				ConsTraverser consTraverser = new ConsTraverser(subList.getCons().getRestPointer());
-				if (string == iCurrentEnvironment.iListAtom.string())
+				if (string == iCurrentEnvironment.iListAtom.first())
 				{
 					WriteToken(aOutput,"{");
 					while (consTraverser.getCons() != null)
@@ -170,7 +171,7 @@ public class MathPiperPrinter extends LispPrinter
 					}
 					WriteToken(aOutput,"}");
 				}
-				else if (string == iCurrentEnvironment.iProgAtom.string())  // Program block brackets.
+				else if (string == iCurrentEnvironment.iProgAtom.first())  // Program block brackets.
 				{
 					WriteToken(aOutput,"[");
                     aOutput.write("\n");
@@ -189,7 +190,7 @@ public class MathPiperPrinter extends LispPrinter
                     aOutput.write("\n");
                     spaces.delete(0, 4);
 				}
-				else if (string == iCurrentEnvironment.iNthAtom.string())
+				else if (string == iCurrentEnvironment.iNthAtom.first())
 				{
 					Print(consTraverser.getPointer(), aOutput, 0);
 					consTraverser.goNext();

@@ -54,14 +54,10 @@ public class AtomCons extends Cons
         return iCar;
     }
 
-    public Object string()
-    {
-        return iCar;
-    }
     
         /*public String toString()
         {
-            return string();
+            return first();
         }*/
 
     public Cons copy(boolean aRecursed)

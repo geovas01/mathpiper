@@ -40,11 +40,7 @@ public class SubListCons extends Cons
         
         
         
-        
-	public Object string()
-	{
-		return null;
-	}
+
         
         /*
          public String toString()

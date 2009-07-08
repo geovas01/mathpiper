@@ -40,7 +40,7 @@ public class DefLoad extends BuiltinFunction
 
         // Get file name
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
-        String orig =  (String) evaluated.getCons().string();
+        String orig =  (String) evaluated.getCons().first();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         UtilityFunctions.loadDefFile(aEnvironment, orig);

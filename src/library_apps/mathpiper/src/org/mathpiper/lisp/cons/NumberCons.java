@@ -76,9 +76,12 @@ public class NumberCons extends Cons {
         return new NumberCons(iCarBigNumber, iCarStringNumber);
     }
 
-    public Object first() {
+    /*public Object first() {
         return iCarBigNumber;
-    }
+    }*/
+
+
+
 
 
     /**
@@ -87,7 +90,7 @@ public class NumberCons extends Cons {
      * @return string representation of the number
      * @throws java.lang.Exception
      */
-    public String string() throws Exception {
+    public Object first() throws Exception {
         if (iCarStringNumber == null) {
             LispError.lispAssert(iCarBigNumber != null);  // either the string is null or the number but not both.
 
@@ -100,7 +103,7 @@ public class NumberCons extends Cons {
     public String toString() {
         String stringRepresentation = null;
         try {
-            stringRepresentation = string();
+            stringRepresentation = (String) first();
 
         } catch (Exception e) {
             e.printStackTrace();  //Todo:fixme.

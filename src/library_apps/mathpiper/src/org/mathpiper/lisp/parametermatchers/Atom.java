@@ -42,7 +42,7 @@ public class Atom extends PatternParameter
 				if (!aExpression.getCons().getNumber(0).isInt())
 					return false;
 
-		return (iString == aExpression.getCons().string());
+		return (iString == aExpression.getCons().first());
 	}
 
     public String getType()

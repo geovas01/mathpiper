@@ -56,8 +56,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             String functionName = "";
             if (argumentsPointer.getCons().first() instanceof ConsPointer) {
                 ConsPointer sub = (ConsPointer) argumentsPointer.getCons().first();
-                if (sub.getCons().string() != null) {
-                    functionName = (String) sub.getCons().string();
+                if (sub.getCons().first() instanceof String) {
+                    functionName = (String) sub.getCons().first();
                 }
             }//end function.
             if (Evaluator.isTraceFunction(functionName)) {

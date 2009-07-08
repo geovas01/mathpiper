@@ -47,15 +47,15 @@ public class BackQuoteSubstitute implements Substitute
 		Cons ptr = ((ConsPointer) aElement.getCons().first()).getCons();
 		if (ptr == null) return false;
 
-		if (ptr.string() == null) return false;
+		if (!( ptr.first() instanceof String)) return false;
 
-		if (ptr.string().equals("`"))
+		if (ptr.first().equals("`"))
 		{
 			aResult.setCons(aElement.getCons());
 			return true;
 		}
 
-		if (!ptr.string().equals("@"))
+		if (!ptr.first().equals("@"))
 			return false;
 
 		ptr = ptr.getRestPointer().getCons();
@@ -63,7 +63,7 @@ public class BackQuoteSubstitute implements Substitute
 		if (ptr == null)
 			return false;
 
-		if (ptr.string() != null)
+		if (ptr.first() instanceof String)
 		{
 			ConsPointer cur = new ConsPointer();
 			cur.setCons(ptr);

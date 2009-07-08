@@ -44,12 +44,12 @@ public class Type extends BuiltinFunction
         ConsPointer subList = (ConsPointer) evaluated.getCons().first();
         Cons head = null;
         head = subList.getCons();
-        if (head.string() == null)
+        if (!( head.first() instanceof String))
         {
             getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
             return;
         }
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify((String) head.string())));
+        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify((String) head.first())));
         return;
     }
 }

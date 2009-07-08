@@ -41,11 +41,12 @@ public class LispPrinter
 		int item = 0;
 		while (iter.getCons() != null)
 		{
-			// if String not null pointer: print string
-			String string = (String) iter.getCons().string();
 
-			if (string != null)
+			
+
+			if (iter.getCons().first() instanceof String)
 			{
+                String string = (String) iter.getCons().first();
 				aOutput.write(string);
 				aOutput.putChar(' ');
 			}

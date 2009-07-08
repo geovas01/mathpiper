@@ -42,10 +42,10 @@ public class ApplyPure extends BuiltinFunction
         LispError.check(aEnvironment, aStackTop, ((ConsPointer) args.getCons().first()).getCons() != null, 2);
 
         // Apply a pure string
-        if (oper.getCons().string() != null)
+        if (oper.getCons().first() instanceof String)
         {
             UtilityFunctions.internalApplyString(aEnvironment, getResult(aEnvironment, aStackTop),
-                    (String) oper.getCons().string(),
+                    (String) oper.getCons().first(),
                     ((ConsPointer) args.getCons().first()).getCons().getRestPointer());
         } else
         {   // Apply a pure function {args,body}.

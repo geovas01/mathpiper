@@ -53,7 +53,7 @@ public class BuiltinAssoc extends BuiltinFunction
 
         while (t != null)
         {
-            if (t.first() != null)
+            if (t.first() instanceof ConsPointer)
             {
                 Cons sub =((ConsPointer)  t.first()).getCons();
                 if (sub != null)

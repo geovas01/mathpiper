@@ -77,8 +77,8 @@ public abstract class Evaluator {
 		String function = "";
 		if (aExpression.getCons().first() instanceof ConsPointer) {
 			ConsPointer sub = (ConsPointer) aExpression.getCons().first();
-			if (sub.getCons().string() != null) {
-				function = (String) sub.getCons().string();
+			if (sub.getCons().first() instanceof String) {
+				function = (String) sub.getCons().first();
 			}
 		}
 		if (TRACE_TO_STANDARD_OUT) {
@@ -192,8 +192,8 @@ public abstract class Evaluator {
 		String function = "";
 		if (aExpression.getCons().first() instanceof ConsPointer) {
 			ConsPointer sub = (ConsPointer) aExpression.getCons().first();
-			if (sub.getCons().string() != null) {
-				function = (String) sub.getCons().string();
+			if (sub.getCons().first() instanceof String) {
+				function = (String) sub.getCons().first();
 			}
 		}//end function.
 

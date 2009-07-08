@@ -41,7 +41,7 @@ public class Length extends BuiltinFunction
             getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }
-        String string =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
+        String string =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
         if (UtilityFunctions.internalIsString(string))
         {
             int num = string.length() - 2;

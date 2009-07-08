@@ -38,7 +38,7 @@ public class SetPlotWidth extends BuiltinFunction
          org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame) consPointer.getCons().getJavaObject().getJavaObject();
 
          Cons redCons = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
-         int plotWidth = Integer.parseInt( (String) redCons.string());
+         int plotWidth = Integer.parseInt( (String) redCons.first());
 
          simulator.setPlotWidth(plotWidth);
          UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
