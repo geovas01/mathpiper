@@ -40,7 +40,7 @@ public class RunTestSuite {
         try {
 
             logFile = new java.io.FileWriter("./mathpiper_tests.log");
-
+            int exceptionCount = 0;
 
 
             BufferedReader scriptNames = new BufferedReader(new InputStreamReader(java.lang.ClassLoader.getSystemResource("tests/scripts/test_index.txt").openStream()));
@@ -67,7 +67,7 @@ public class RunTestSuite {
                 output += "***** MathPiper version: " + org.mathpiper.Version.version + " *****\n";
                 System.out.print(output);
                 logFile.write(output);
-
+                
                 while (scriptNames.ready()) {
 
 
@@ -83,6 +83,7 @@ public class RunTestSuite {
                         output = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects() + "\nException:" + evaluationResponse.getExceptionMessage();
                         if (evaluationResponse.isExceptionThrown()) {
                             output = output + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber();
+                            exceptionCount++;
                         }
                         System.out.println(output);
 
@@ -101,9 +102,11 @@ public class RunTestSuite {
                 System.out.println("\nProblem finding test scripts.\n");
             }
 
-            String output = "\n\n***** Tests complete *****\n\n";
+            String output = "\n\n***** Tests complete *****\n\nException Count: " + exceptionCount + "\n\n";
             System.out.print(output);
             logFile.write(output);
+
+
             logFile.close();
 
         } catch (java.io.IOException e) {
