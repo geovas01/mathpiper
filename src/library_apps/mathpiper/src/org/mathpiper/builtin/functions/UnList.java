@@ -22,6 +22,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -33,10 +34,10 @@ public class UnList extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer() != null, 1);
-        Cons subList = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getSublistPointer().getCons();
-        LispError.checkArgument(aEnvironment, aStackTop, subList != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, subList.string() == aEnvironment.iListAtom.string(), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof ConsPointer, 1);
+        Cons atom = ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first()).getCons();
+        LispError.checkArgument(aEnvironment, aStackTop, atom != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, atom.string() == aEnvironment.iListAtom.string(), 1);
         UtilityFunctions.internalTail(getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
     }
 }

@@ -49,7 +49,7 @@ public class PatternMatches extends BuiltinFunction
 
         ConsTraverser consTraverser = new ConsTraverser(list);
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons().getSublistPointer() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons().first() instanceof ConsPointer, 2);
         consTraverser.goSub();
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2);
         consTraverser.goNext();

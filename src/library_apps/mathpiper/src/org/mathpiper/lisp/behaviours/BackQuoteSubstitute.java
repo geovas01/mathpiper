@@ -42,9 +42,9 @@ public class BackQuoteSubstitute implements Substitute
 	}
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
-		if (aElement.getCons().getSublistPointer() == null) return false;
+		if (! (aElement.getCons().first() instanceof ConsPointer)) return false;
 
-		Cons ptr = aElement.getCons().getSublistPointer().getCons();
+		Cons ptr = ((ConsPointer) aElement.getCons().first()).getCons();
 		if (ptr == null) return false;
 
 		if (ptr.string() == null) return false;
@@ -72,7 +72,7 @@ public class BackQuoteSubstitute implements Substitute
 		}
 		else
 		{
-			ptr = ptr.getSublistPointer().getCons();
+			ptr = ((ConsPointer) ptr.first()).getCons();
 			ConsPointer cur = new ConsPointer();
 			cur.setCons(ptr);
 			ConsPointer args = new ConsPointer();

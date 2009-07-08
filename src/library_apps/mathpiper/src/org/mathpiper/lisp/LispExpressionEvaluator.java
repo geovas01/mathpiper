@@ -108,9 +108,10 @@ public class LispExpressionEvaluator extends Evaluator {
             return;
         }
         {
-            ConsPointer subList = aExpression.getCons().getSublistPointer();
+            
 
-            if (subList != null) {
+            if ( aExpression.getCons().first() instanceof ConsPointer) {
+                ConsPointer subList = (ConsPointer) aExpression.getCons().first();
                 Cons head = subList.getCons();
                 if (head != null) {
                     if (head.string() != null) {

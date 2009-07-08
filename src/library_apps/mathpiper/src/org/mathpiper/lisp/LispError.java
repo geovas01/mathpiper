@@ -325,7 +325,7 @@ public class LispError
                 error = error + "\n";
 
                 throw new EvaluationException(error,-1);
-            }
+            }//end else.
         }
     }
 }

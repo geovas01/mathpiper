@@ -50,14 +50,14 @@ public class LispPrinter
 				aOutput.putChar(' ');
 			}
 			// else print "(", print sublist, and print ")"
-			else if (iter.getCons().getSublistPointer() != null)
+			else if (iter.getCons().first() instanceof ConsPointer)
 			{
 				if (item != 0)
 				{
 					indent(aOutput,aDepth+1);
 				}
 				aOutput.write("(");
-				printExpression((iter.getCons().getSublistPointer()),aOutput, aEnvironment,aDepth+1);
+				printExpression(((ConsPointer) iter.getCons().first()),aOutput, aEnvironment,aDepth+1);
 				aOutput.write(")");
 				item=0;
 			}

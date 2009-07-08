@@ -91,7 +91,7 @@ public class MathPiperPrinter extends LispPrinter
 			return;
 		}
 
-		ConsPointer subList = aExpression.getCons().getSublistPointer();
+		ConsPointer subList = (ConsPointer) aExpression.getCons().first();
 		LispError.check(subList!=null, LispError.KLispErrUnprintableToken);
 		if (subList.getCons() == null)
 		{

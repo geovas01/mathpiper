@@ -34,7 +34,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     public abstract ConsPointer getRestPointer();
 
-    abstract Object first();
+    public abstract Object first();
 
     /**
      * Return string representation, or NULL if the object doesn't have one.
@@ -42,14 +42,6 @@ public abstract class Cons //Note:tk:was MathPiperObject.
      *  simple atom. This method returns NULL by default.
      */
     public abstract String string() throws Exception;
-
-    /**
-     *  If this object is a list, return a pointer to it.
-     *  Default behaviour is to return NULL.
-     */
-    public ConsPointer getSublistPointer() {
-        return null;
-    }
 
     public BuiltinContainer getJavaObject() {
         return null;
@@ -81,8 +73,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         }
 
         //So, no strings.
-        ConsPointer iter1 = getSublistPointer();
-        ConsPointer iter2 = aOther.getSublistPointer();
+        ConsPointer iter1 = (ConsPointer) first();
+        ConsPointer iter2 = (ConsPointer) aOther.first();
         if (!(iter1 != null && iter2 != null)) {
             return false;
         }
