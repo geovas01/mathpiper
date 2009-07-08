@@ -34,7 +34,7 @@ public class RightAssociative extends BuiltinFunction
     {
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        String orig = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
+        String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         aEnvironment.iInfixOperators.setRightAssociative(UtilityFunctions.getSymbolName(aEnvironment, orig));
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

@@ -41,7 +41,7 @@ public class SubListCons extends Cons
         
         
         
-	public String string()
+	public Object string()
 	{
 		return null;
 	}

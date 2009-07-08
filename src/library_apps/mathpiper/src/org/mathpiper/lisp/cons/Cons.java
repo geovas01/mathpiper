@@ -41,7 +41,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
      *  the string representation is only relevant if the object is a
      *  simple atom. This method returns NULL by default.
      */
-    public abstract String string() throws Exception;
+    public abstract Object string() throws Exception;
 
     public BuiltinContainer getJavaObject() {
         return null;

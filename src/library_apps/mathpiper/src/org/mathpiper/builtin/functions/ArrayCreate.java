@@ -40,7 +40,7 @@ public class ArrayCreate extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 1);
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().string() != null, 1);
 
-        int size = Integer.parseInt(sizearg.getCons().string(), 10);
+        int size = Integer.parseInt( (String) sizearg.getCons().string(), 10);
 
         ConsPointer initarg = new ConsPointer();
         initarg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());

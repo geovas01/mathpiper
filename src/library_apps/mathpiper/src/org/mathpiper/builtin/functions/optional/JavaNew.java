@@ -48,7 +48,7 @@ public class JavaNew extends BuiltinFunction {
 
             if (argumentCons != null) {
 
-                String fullyQualifiedClassName = argumentCons.string();
+                String fullyQualifiedClassName = (String) argumentCons.string();
                 //Strip leading and trailing quotes.
                 fullyQualifiedClassName = fullyQualifiedClassName.substring(1, fullyQualifiedClassName.length());
                 fullyQualifiedClassName = fullyQualifiedClassName.substring(0, fullyQualifiedClassName.length() - 1);
@@ -60,7 +60,7 @@ public class JavaNew extends BuiltinFunction {
                 while (consTraverser.getCons() != null) {
                     argumentCons = consTraverser.getPointer().getCons();
 
-                    String argumentString = argumentCons.string();
+                    String argumentString = (String) argumentCons.string();
 
                     //Strip leading and trailing quotes.
                     argumentString = argumentString.substring(1, argumentString.length());

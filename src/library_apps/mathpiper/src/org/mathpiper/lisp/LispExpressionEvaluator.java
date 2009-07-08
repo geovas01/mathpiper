@@ -86,7 +86,7 @@ public class LispExpressionEvaluator extends Evaluator {
             }
         }
 
-        String str = aExpression.getCons().string();
+        String str = (String) aExpression.getCons().string();
 
         // evaluate an atom: find the bound value (treat it as a variable)
         if (str != null) {
@@ -116,7 +116,7 @@ public class LispExpressionEvaluator extends Evaluator {
                 if (head != null) {
                     if (head.string() != null) {
                         {
-                            BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(head.string());
+                            BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.string());
                             // Try to find a built-in command
                             if (evaluator != null) {
                                 evaluator.evaluate(aEnvironment, aResult, subList);
@@ -162,7 +162,7 @@ public class LispExpressionEvaluator extends Evaluator {
         if (userFunc != null) {
             return userFunc;
         } else if (head.string() != null) {
-            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction(head.string());
+            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( (String) head.string());
             if (multiUserFunc.iFileToOpen != null) {
                 DefFile def = multiUserFunc.iFileToOpen;
 

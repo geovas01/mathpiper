@@ -43,7 +43,7 @@ public class LocalSymbolSubstitute implements Substitute
 	}
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
-		String name = aElement.getCons().string();
+		String name = (String) aElement.getCons().string();
 		if (name == null)
 			return false;
 

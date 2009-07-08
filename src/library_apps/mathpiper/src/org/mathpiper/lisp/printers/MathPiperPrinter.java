@@ -67,7 +67,7 @@ public class MathPiperPrinter extends LispPrinter
 	{
 		LispError.lispAssert(aExpression.getCons() != null);
 
-		String string = aExpression.getCons().string();
+		String string = (String) aExpression.getCons().string();
 		if (string != null)
 		{
 			boolean bracket=false;
@@ -100,7 +100,7 @@ public class MathPiperPrinter extends LispPrinter
 		else
 		{
 			int length = UtilityFunctions.listLength(subList);
-			string = subList.getCons().string();
+			string = (String) subList.getCons().string();
 			InfixOperator prefix  = (InfixOperator)iPrefixOperators.lookUp(string);
 			InfixOperator infix   = (InfixOperator)iInfixOperators.lookUp(string);
 			InfixOperator postfix = (InfixOperator)iPostfixOperators.lookUp(string);

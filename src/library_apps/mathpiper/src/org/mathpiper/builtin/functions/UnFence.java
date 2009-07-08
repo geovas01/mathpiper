@@ -33,13 +33,13 @@ public class UnFence extends BuiltinFunction
     {
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        String orig = getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
+        String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         // The arity
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2).getCons() != null, 2);
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string() != null, 2);
-        int arity = Integer.parseInt(getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string(), 10);
+        int arity = Integer.parseInt( (String) getArgumentPointer(aEnvironment, aStackTop, 2).getCons().string(), 10);
 
         aEnvironment.unFenceRule(UtilityFunctions.getSymbolName(aEnvironment, orig), arity);
 

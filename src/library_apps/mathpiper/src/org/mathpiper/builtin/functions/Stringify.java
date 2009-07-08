@@ -37,7 +37,7 @@ public class Stringify extends BuiltinFunction
 
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
-        String orig = evaluated.getCons().string();
+        String orig = (String) evaluated.getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));

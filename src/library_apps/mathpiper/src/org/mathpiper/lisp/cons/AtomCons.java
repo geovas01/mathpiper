@@ -54,7 +54,7 @@ public class AtomCons extends Cons
         return iCar;
     }
 
-    public String string()
+    public Object string()
     {
         return iCar;
     }

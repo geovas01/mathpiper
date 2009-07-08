@@ -41,7 +41,7 @@ public class ConcatenateStrings extends BuiltinFunction
         while (consTraverser.getCons() != null)
         {
             LispError.checkIsString(aEnvironment, aStackTop, consTraverser.getPointer(), arg);
-            String thisString = consTraverser.getCons().string();
+            String thisString =  (String) consTraverser.getCons().string();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);
             consTraverser.goNext();

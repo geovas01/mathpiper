@@ -38,7 +38,7 @@ public class BuiltinPrecisionSet extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons().string() != null, 1);
 
-        int ind = Integer.parseInt(index.getCons().string(), 10);
+        int ind = Integer.parseInt( (String) index.getCons().string(), 10);
         LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 1);
         aEnvironment.setPrecision(ind);
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

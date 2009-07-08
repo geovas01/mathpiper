@@ -215,7 +215,7 @@ public class Pattern {
         }
         // Deal with atoms
         if (aPattern.string() != null) {
-            return new Atom(aPattern.string());
+            return new Atom( (String) aPattern.string());
         }
 
         // Else it must be a sublist
@@ -232,7 +232,7 @@ public class Pattern {
                 if (head.string() == aEnvironment.getTokenHash().lookUp("_")) {
                     Cons second = head.getRestPointer().getCons();
                     if (second.string() != null) {
-                        int index = lookUp(second.string());
+                        int index = lookUp( (String) second.string());
 
                         // Make a predicate for the type, if needed
                         if (num > 2) {
@@ -245,7 +245,7 @@ public class Pattern {
                                 third.setCons(second.getRestPointer().getCons().copy(false));
                             }
 
-                            String str = second.string();
+                            String str = (String) second.string();
                             Cons last = third.getCons();
                             while (last.getRestPointer().getCons() != null) {
                                 last = last.getRestPointer().getCons();

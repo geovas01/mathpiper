@@ -37,7 +37,7 @@ public class RulebaseArgList extends BuiltinFunction
     {
         ConsPointer name = new ConsPointer();
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        String orig = name.getCons().string();
+        String orig = (String) name.getCons().string();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
@@ -46,7 +46,7 @@ public class RulebaseArgList extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().string() != null, 2);
 
-        int arity = Integer.parseInt(sizearg.getCons().string(), 10);
+        int arity = Integer.parseInt( (String) sizearg.getCons().string(), 10);
 
         SingleArityBranchingUserFunction userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity);
         LispError.check(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
