@@ -62,7 +62,7 @@ public class JavaCall extends BuiltinFunction {
                     Object clas = Class.forName(firstArgumentString);
                     builtinContainer = new JavaObject(clas);
                 } else {
-                    builtinContainer = argumentCons.getJavaObject();
+                    builtinContainer = (BuiltinContainer) argumentCons.first();
                 }//end else.
 
 

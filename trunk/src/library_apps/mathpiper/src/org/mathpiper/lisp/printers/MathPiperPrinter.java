@@ -18,6 +18,7 @@
 
 package org.mathpiper.lisp.printers;
 
+import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -85,10 +86,10 @@ public class MathPiperPrinter extends LispPrinter
 			return;
 		}
 
-		if (aExpression.getCons().getJavaObject() != null)
+		if (aExpression.getCons().first() instanceof BuiltinContainer)
 		{
 			//TODO display genericclass
-			WriteToken(aOutput,aExpression.getCons().getJavaObject().typeName());
+			WriteToken(aOutput, ((BuiltinContainer) aExpression.getCons().first()).typeName());
 			return;
 		}
 

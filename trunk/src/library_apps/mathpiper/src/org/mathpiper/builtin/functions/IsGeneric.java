@@ -18,6 +18,7 @@
 
 package org.mathpiper.builtin.functions;
 
+import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -34,7 +35,7 @@ public class IsGeneric extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), evaluated.getCons().getJavaObject() != null);
+        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), evaluated.getCons().first() instanceof BuiltinContainer);
     }
 }//end class.
 
