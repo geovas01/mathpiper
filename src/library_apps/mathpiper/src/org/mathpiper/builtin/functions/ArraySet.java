@@ -38,7 +38,7 @@ public class ArraySet extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        BuiltinContainer gen = evaluated.getCons().getJavaObject();
+        BuiltinContainer gen = (BuiltinContainer) evaluated.getCons().first();
         LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1);
         LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
 

@@ -23,10 +23,10 @@ import org.mathpiper.builtin.BuiltinContainer;
 
 /**
  * Class Cons is the base object class that can be put in
- *  linked lists. It either has a pointer to a string, obtained through
- *  first(), or it is a holder for a sublist, obtainable through getSubList(),
- *  or it is a getJavaObject object, in which case getJavaObject() returns non-NULL.
- *  Only one of these three functions should return a non-NULL value.
+ *  linked lists. It either has a pointer to a string
+ * or it is a holder for a sublist, ,
+ *  or it is a Java object.  All of these values are obtainable
+ * using first();
  *  It is a reference-counted object. ConsPointer handles the reference counting. ap.
  */
 public abstract class Cons //Note:tk:was MathPiperObject.
@@ -36,16 +36,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     public abstract Object first() throws Exception;
 
-    /**
-     * Return string representation, or NULL if the object doesn't have one.
-     *  the string representation is only relevant if the object is a
-     *  simple atom. This method returns NULL by default.
-     */
-    //public abstract Object first() throws Exception;
 
-    public BuiltinContainer getJavaObject() {
-        return null;
-    }
 
     /**
      * If this is a number, return a BigNumber representation of it.
