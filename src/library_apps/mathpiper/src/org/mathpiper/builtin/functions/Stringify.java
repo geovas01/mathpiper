@@ -17,6 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions;
 
+import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
@@ -37,7 +38,18 @@ public class Stringify extends BuiltinFunction
 
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
-        String orig = (String) evaluated.getCons().first();
+
+        String orig = null;
+        if(evaluated.getCons().first() instanceof String)
+        {
+                 orig = (String) evaluated.getCons().first();
+        }
+        else if(evaluated.getCons().first() instanceof BuiltinContainer)
+        {
+            BuiltinContainer container = (BuiltinContainer) evaluated.getCons().first();
+            orig = container.getJavaObject().toString();
+        }
+        
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));
