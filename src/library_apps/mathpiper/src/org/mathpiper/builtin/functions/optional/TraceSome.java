@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispError;
@@ -32,15 +33,14 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
  */
 public class TraceSome extends BuiltinFunction
 {
-    
-    private TraceSome()
-    {
-    }
 
-    public TraceSome(Environment aEnvironment)
+    public void plugIn(Environment aEnvironment)
     {
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                "TraceSome");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceSome");
-    }//end constructor.
+    }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {

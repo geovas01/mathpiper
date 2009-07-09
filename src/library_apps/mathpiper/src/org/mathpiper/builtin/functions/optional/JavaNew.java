@@ -19,6 +19,7 @@ package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -33,7 +34,12 @@ import org.mathpiper.lisp.cons.ConsTraverser;
  */
 public class JavaNew extends BuiltinFunction {
 
-    //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
+    public void plugIn(Environment aEnvironment) {
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                "JavaNew");
+    }//end method.
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
         if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof ConsPointer) {
@@ -62,8 +68,8 @@ public class JavaNew extends BuiltinFunction {
                     Object argument = argumentCons.first();
 
                     if (argument instanceof String) {
-                        argument = ((String)argument).substring(1, ((String)argument).length());
-                        argument = ((String)argument).substring(0, ((String)argument).length() - 1);
+                        argument = ((String) argument).substring(1, ((String) argument).length());
+                        argument = ((String) argument).substring(0, ((String) argument).length() - 1);
                     }
 
                     argumentArrayList.add(argument);

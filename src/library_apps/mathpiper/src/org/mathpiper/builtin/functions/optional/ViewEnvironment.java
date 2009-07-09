@@ -19,6 +19,7 @@
 package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
 
@@ -28,6 +29,13 @@ import org.mathpiper.lisp.UtilityFunctions;
  */
 public class ViewEnvironment extends BuiltinFunction
 {
+
+    public void plugIn(Environment aEnvironment)
+    {
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "ViewEnvironment");
+    }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
