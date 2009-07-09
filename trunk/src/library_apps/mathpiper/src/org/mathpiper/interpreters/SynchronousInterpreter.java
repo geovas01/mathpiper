@@ -85,7 +85,7 @@ class SynchronousInterpreter implements Interpreter
                 {
                     java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(zipFileName));
                //System.out.println("XXXX " + z);
-                    UtilityFunctions.zipFile = z;
+                    UtilityFunctions.zipFile = z; //todo:tk:a better way needs to be found to do this.
                 } catch (Exception e)
                 {
                     System.out.println("Failed to find mathpiper.jar");
