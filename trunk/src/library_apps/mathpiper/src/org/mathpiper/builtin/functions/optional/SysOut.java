@@ -18,6 +18,7 @@
 package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -30,7 +31,12 @@ import org.mathpiper.lisp.cons.ConsTraverser;
  */
 public class SysOut extends BuiltinFunction {
     
-    //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
+    public void plugIn(Environment aEnvironment)
+    {
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                "SysOut");
+    }//end method.
 
 
 

@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
@@ -32,6 +33,12 @@ import org.mathpiper.lisp.UtilityFunctions;
 public class SimulatorPlot extends BuiltinFunction
 {
 
+    public void plugIn(Environment aEnvironment)
+    {
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "SimulatorPlot");
+    }//end method.
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          ConsPointer consPointer = new ConsPointer();

@@ -19,6 +19,7 @@
 package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -30,6 +31,12 @@ import org.mathpiper.lisp.cons.Cons;
  */
 public class MacroExpand extends BuiltinFunction
 {
+    public void plugIn(Environment aEnvironment)
+    {
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                "MacroExpand");
+    }//end method.
     //todo:tk:this function is not complete yet.  It currently only expands backquoted expressions.
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {

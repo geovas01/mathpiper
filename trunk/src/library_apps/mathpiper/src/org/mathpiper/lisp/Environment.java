@@ -128,9 +128,12 @@ public class Environment {
 
         iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
-        //mc.addFunctions(this);
+        //mc.addCoreFunctions(this);
 
-        BuiltinFunction.addFunctions(this);
+        //System.out.println("Classpath: " + System.getProperty("java.class.path"));
+        
+        BuiltinFunction.addCoreFunctions(this);
+        BuiltinFunction.addOptionalFunctions(this);
 
         pushLocalFrame(true, "<START>");
     }

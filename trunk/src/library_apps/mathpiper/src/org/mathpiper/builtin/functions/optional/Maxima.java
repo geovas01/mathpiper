@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.UtilityFunctions;
 
 /**
@@ -164,6 +165,13 @@ public class Maxima extends BuiltinFunction {
         return response;
 
     }//end method
+
+    public void plugIn(Environment aEnvironment)
+    {
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "Maxima");
+    }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         ConsPointer expressionPointerr = new ConsPointer();

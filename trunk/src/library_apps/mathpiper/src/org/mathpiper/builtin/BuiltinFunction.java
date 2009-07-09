@@ -15,9 +15,14 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import org.mathpiper.builtin.functions.Abs;
 import org.mathpiper.builtin.functions.Add;
 import org.mathpiper.builtin.functions.ApplyPure;
@@ -198,41 +203,122 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
-import org.mathpiper.builtin.functions.optional.TraceSome;
-import org.mathpiper.builtin.functions.optional.TraceExcept;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
+public abstract class BuiltinFunction {
 
-public abstract class BuiltinFunction
-{
-	public abstract void evaluate(Environment aEnvironment,int aStackTop) throws Exception;
+    public static void addOptionalFunctions(Environment aEnvironment) {
 
-	public static ConsPointer getResult(Environment aEnvironment,int aStackTop) throws Exception
-	{
-		return aEnvironment.iArgumentStack.getElement(aStackTop);
-	}
-	
-	public static ConsPointer getArgumentPointer(Environment aEnvironment,int aStackTop, int argumentPosition)  throws Exception
-	{
-		return aEnvironment.iArgumentStack.getElement(aStackTop+argumentPosition);
-	}
 
-	public static ConsPointer getArgumentPointer(ConsPointer cur, int n) throws Exception
-	{
-		LispError.lispAssert(n>=0);
 
-		ConsPointer loop = cur;
-		while(n != 0)
-		{
-			n--;
-			loop = loop.getCons().getRestPointer();
-		}
-		return loop;
-	}
-        
-        
-     public static void addFunctions(Environment aEnvironment)
-    {
+
+        for (String s : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
+            if (s.equals("mathpiper.jar")) {
+                try {
+                    java.util.zip.ZipFile zip = new java.util.zip.ZipFile(new File(s));
+                    Enumeration fileEnteries = zip.entries();
+
+                    while (fileEnteries.hasMoreElements()) {
+                        ZipEntry ze = (ZipEntry) fileEnteries.nextElement();
+                        String fileName = ze.getName();
+                        if (fileName.contains("org/mathpiper/builtin/functions/optional/")) {
+                            fileName = fileName.replace("/", ".");
+                            if (fileName.endsWith(".class")) {
+                                fileName = fileName.substring(0, fileName.length() - 6);
+                                //System.out.println(fileName);
+                                try {
+                                    Class functionClass = Class.forName(fileName);
+                                    BuiltinFunction function = (BuiltinFunction) functionClass.newInstance();
+                                    function.plugIn(aEnvironment);
+                                } catch (ClassNotFoundException cnfe) {
+                                    System.out.println("Class not found: " + fileName);
+                                } catch (InstantiationException ie) {
+                                    System.out.println("Can not instantiate class: " + fileName);
+                                } catch (IllegalAccessException iae) {
+                                    System.out.println("Illegal access of class: " + fileName);
+                                }
+                            }
+                        }
+                    }//end for.
+                } catch (ZipException ze) {
+                    System.out.println("Error opening " + s);
+                } catch (IOException ioe) {
+                    System.out.println("Error opening " + s);
+                }
+
+
+                break;
+            } else {
+                File packageDirectoryFile = new File(s + "/org/mathpiper/builtin/functions/optional");
+                if (packageDirectoryFile.exists()) {
+                    java.io.File[] packageDirectoryContentsArray = packageDirectoryFile.listFiles(new java.io.FilenameFilter() {
+
+                        public boolean accept(java.io.File file, String name) {
+                            if (name.startsWith(".")) {
+                                return (false);
+                            } else {
+                                return (true);
+                            }
+                        }
+                    });
+
+                    Arrays.sort(packageDirectoryContentsArray);
+
+                    for (File file : packageDirectoryContentsArray) {
+                        String fileName = file.getPath();
+                        fileName = fileName.substring(s.length() + 1, fileName.length());
+                        fileName = fileName.replace("/", ".");
+                        fileName = fileName.substring(0, fileName.length() - 6);
+                        //System.out.println(path);
+                        try {
+                            Class functionClass = Class.forName(fileName);
+                            BuiltinFunction function = (BuiltinFunction) functionClass.newInstance();
+                            function.plugIn(aEnvironment);
+                        } catch (ClassNotFoundException cnfe) {
+                            System.out.println("Class not found: " + fileName);
+                        } catch (InstantiationException ie) {
+                            System.out.println("Can not instantiate class: " + fileName);
+                        } catch (IllegalAccessException iae) {
+                            System.out.println("Illegal access of class: " + fileName);
+                        }
+
+
+
+                    }//end for.
+
+                }//end if
+                break;
+            }//end if/else
+        }//end for.
+
+
+    }//end method.
+
+    public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
+
+    public static ConsPointer getResult(Environment aEnvironment, int aStackTop) throws Exception {
+        return aEnvironment.iArgumentStack.getElement(aStackTop);
+    }
+
+    public static ConsPointer getArgumentPointer(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
+        return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition);
+    }
+
+    public static ConsPointer getArgumentPointer(ConsPointer cur, int n) throws Exception {
+        LispError.lispAssert(n >= 0);
+
+        ConsPointer loop = cur;
+        while (n != 0) {
+            n--;
+            loop = loop.getCons().getRestPointer();
+        }
+        return loop;
+    }
+
+    public void plugIn(Environment aEnvironment) {
+    }//end method.
+
+    public static void addCoreFunctions(Environment aEnvironment) {
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "While");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Rule");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "MacroRule");
@@ -810,54 +896,10 @@ public abstract class BuiltinFunction
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new FileSize(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "FileSize");
-	
-        //Note:tk:The functions below this point need to have documentation created for them.
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.TraceOn(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "TraceOn");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.TraceOff(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "TraceOff");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.ViewEnvironment(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ViewEnvironment");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.ViewSimulator(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ViewSimulator");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.SimulatorPlot(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "SimulatorPlot");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.SetPlotColor(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "SetPlotColor");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.SetPlotWidth(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "SetPlotWidth");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.SysOut(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "SysOut");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.CurrentTime(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "CurrentTime");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.Maxima(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Maxima");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.MacroExpand(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "MacroExpand");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.JavaCall(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "JavaCall");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.optional.JavaNew(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "JavaNew");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new TraceSome(aEnvironment), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "TraceSome");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new TraceExcept(aEnvironment), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "TraceExcept");
+
+
     }//end method.
-
-
 }//end class.
