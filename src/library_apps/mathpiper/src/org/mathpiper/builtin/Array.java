@@ -36,7 +36,7 @@ public class Array extends BuiltinContainer
 		return null;
 	}
 
-	public JavaObject execute(String methodName, String[] arguemnts) throws Exception
+	public JavaObject execute(String methodName, Object[] arguemnts) throws Exception
 	{
 		return null;
 	}

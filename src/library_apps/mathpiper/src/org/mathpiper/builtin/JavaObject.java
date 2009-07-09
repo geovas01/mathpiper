@@ -37,41 +37,49 @@ public class JavaObject extends BuiltinContainer {
 
     // Narrow a type from String to the
     // narrowest possible type
-    public static Object narrow(String argstring) {
+    public static Object narrow(Object argument) {
         //System.out.println("XXXXXXX argstring: " + argstring);
-        // Try integer
-        try {
-            return Integer.valueOf(argstring);
-        } catch (NumberFormatException nfe) {
-        }
+        if (argument instanceof String) {
 
-        // Try double
-        try {
-            return Double.valueOf(argstring);
-        } catch (NumberFormatException nfe) {
-        }
+            String argstring = (String) argument;
+            // Try integer
+            try {
+                return Integer.valueOf(argstring);
+            } catch (NumberFormatException nfe) {
+            }
 
-        // Try boolean
-        if (argstring.equalsIgnoreCase("true")) {
-            return Boolean.TRUE;
-        } else if (argstring.equalsIgnoreCase("false")) {
-            return Boolean.FALSE;
-        }
+            // Try double
+            try {
+                return Double.valueOf(argstring);
+            } catch (NumberFormatException nfe) {
+            }
 
-        //Try  class
-        try{
-             Object clas = Class.forName(argstring);
-             return clas;
-        }catch (ClassNotFoundException cnfe)
-        {
-        }
+            // Try boolean
+            if (argstring.equalsIgnoreCase("true")) {
+                return Boolean.TRUE;
+            } else if (argstring.equalsIgnoreCase("false")) {
+                return Boolean.FALSE;
+            }
+
+            // Try null
+            if (argstring.equals("null")) {
+                return null;
+            }
+
+            //Try  class
+            try {
+                Object clas = Class.forName(argstring);
+                return clas;
+            } catch (ClassNotFoundException cnfe) {
+            }
+        }//end if
 
         // Give up -- it's a string
-        return argstring;
+        return argument;
     }
 
     // Narrow the the arguments
-    public static Object[] narrow(String argstrings[]) {
+    public static Object[] narrow(Object argstrings[]) {
         Object narrowed[] = new Object[argstrings.length];
 
         for (int i = 0; i < narrowed.length; ++i) {
@@ -87,33 +95,38 @@ public class JavaObject extends BuiltinContainer {
         Class types[] = new Class[objs.length];
 
         for (int i = 0; i < objs.length; ++i) {
-            types[i] = objs[i].getClass();
 
-            // Convert wrapper types (like Double)
-            // to primitive types (like double)
+            if (objs[i] == null) {
+                //types[i] = Class.forName("java.awt.Component");
+                            try {
+                types[i] = Class.forName("java.awt.Component");
 
-            if (types[i] == Double.class) {
-                types[i] = double.class;
+            } catch (ClassNotFoundException cnfe) {
             }
-            if (types[i] == Integer.class) {
-                types[i] = int.class;
-            }
+            } else {
+                types[i] = objs[i].getClass();
 
-            if (types[i] == Boolean.class) {
-                types[i] = boolean.class;
-            }
+                // Convert wrapper types (like Double)
+                // to primitive types (like double)
+
+                if (types[i] == Double.class) {
+                    types[i] = double.class;
+                }
+                if (types[i] == Integer.class) {
+                    types[i] = int.class;
+                }
+
+                if (types[i] == Boolean.class) {
+                    types[i] = boolean.class;
+                }
+
+            }//end if.
         }//end for.
 
         return types;
     }
 
-    public static JavaObject instantiate(String className, String[] parameters) throws Exception {
-
-        // The first two tokens are the class and method
-        //String className = line[0];
-        //String className = javaObject.getClass().getName();
-
-        //String methodName = parameters[0];
+    public static JavaObject instantiate(String className, Object[] parameters) throws Exception {
 
         // Narrow the arguments
         Object args[] = narrow(parameters);
@@ -149,7 +162,7 @@ public class JavaObject extends BuiltinContainer {
 
     }
 
-    public JavaObject execute(String methodName, String parameters[]) throws Exception {
+    public JavaObject execute(String methodName, Object parameters[]) throws Exception {
 
 
         String className = javaObject.getClass().getName();
@@ -181,14 +194,14 @@ public class JavaObject extends BuiltinContainer {
              */
 
             // Find the specified method
-            Method method = clas.getDeclaredMethod(methodName, types);
+
+            Method method = clas.getMethod(methodName, types);
 
             // Invoke the method on the narrowed arguments
             Object retval = method.invoke(javaObject, args);
 
+            return new JavaObject(retval);
 
-                return new JavaObject(retval);
-            
         } catch (ClassNotFoundException cnfe) {
             throw new Exception(
                     "Can't find class " + className);

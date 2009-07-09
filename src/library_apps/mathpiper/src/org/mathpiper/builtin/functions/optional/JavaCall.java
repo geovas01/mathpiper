@@ -48,20 +48,21 @@ public class JavaCall extends BuiltinFunction {
             //Obtain the Java object to call.
             Cons argumentCons = consTraverser.getPointer().getCons();
 
-            BuiltinContainer builtinContainer;
+            BuiltinContainer builtinContainer = null;
 
             if (argumentCons != null) {
 
 
-                String firstArgumentString = (String) argumentCons.first();
 
-                if (UtilityFunctions.internalIsString(firstArgumentString)) {
+
+                if (argumentCons.first() instanceof String) {
+                    String firstArgumentString = (String) argumentCons.first();
                     //Strip leading and trailing quotes.
                     firstArgumentString = firstArgumentString.substring(1, firstArgumentString.length());
                     firstArgumentString = firstArgumentString.substring(0, firstArgumentString.length() - 1);
                     Object clas = Class.forName(firstArgumentString);
                     builtinContainer = new JavaObject(clas);
-                } else {
+                } else if (argumentCons.first() instanceof BuiltinContainer) {
                     builtinContainer = (BuiltinContainer) argumentCons.first();
                 }//end else.
 
@@ -83,20 +84,24 @@ public class JavaCall extends BuiltinFunction {
                     while (consTraverser.getCons() != null) {
                         argumentCons = consTraverser.getPointer().getCons();
 
-                        String argumentString = (String) argumentCons.first();
+                        Object argument = argumentCons.first();
 
-                        //Strip leading and trailing quotes.
-                        argumentString = argumentString.substring(1, argumentString.length());
-                        argumentString = argumentString.substring(0, argumentString.length() - 1);
+                        if (argument instanceof String) {
+                            if (argument instanceof String) {
+                                argument = ((String) argument).substring(1, ((String) argument).length());
+                                argument = ((String) argument).substring(0, ((String) argument).length() - 1);
+                            }
+                        }
 
-                        argumentArrayList.add(argumentString);
+                        argumentArrayList.add(argument);
 
                         consTraverser.goNext();
 
                     }//end while.
 
 
-                    JavaObject response = builtinContainer.execute(methodName, (String[]) argumentArrayList.toArray(new String[0]));
+                    // JavaObject response = builtinContainer.execute(methodName, (String[]) argumentArrayList.toArray(new String[0]));
+                    JavaObject response = builtinContainer.execute(methodName, (Object[]) argumentArrayList.toArray(new Object[0]));
                     //System.out.println("XXXXXXXXXXX: " + response);
 
                     if (response == null) {
