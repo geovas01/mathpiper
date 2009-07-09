@@ -211,9 +211,11 @@ public abstract class BuiltinFunction {
 
 
 
-
-        for (String s : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
-            if (s.equals("mathpiper.jar")) {
+	System.out.println("MATHPIPER: " + System.getProperty("java.class.path"));
+        
+	for (String s : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
+	    System.out.println("MATHPIPER: " + s);
+            if (s.endsWith("mathpiper.jar")) {
                 try {
                     java.util.zip.ZipFile zip = new java.util.zip.ZipFile(new File(s));
                     Enumeration fileEnteries = zip.entries();
@@ -248,7 +250,7 @@ public abstract class BuiltinFunction {
 
 
                 break;
-            } else {
+            } else if(! s.endsWith(".jar")){
                 File packageDirectoryFile = new File(s + "/org/mathpiper/builtin/functions/optional");
                 if (packageDirectoryFile.exists()) {
                     java.io.File[] packageDirectoryContentsArray = packageDirectoryFile.listFiles(new java.io.FilenameFilter() {
@@ -285,9 +287,9 @@ public abstract class BuiltinFunction {
 
 
                     }//end for.
-
+		     break;
                 }//end if
-                break;
+
             }//end if/else
         }//end for.
 

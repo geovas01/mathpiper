@@ -18,7 +18,7 @@
   %/mathpiper
 
       %output,preserve="false"
-        Result: True
+        Result: True   JavaCall( JavaNew("java.lang.String","Hello"),"toUpperCase")    JavaCall("javax.swing.JOptionPane","showMessageDialog","null","hello")
 .     %/output
 
 
