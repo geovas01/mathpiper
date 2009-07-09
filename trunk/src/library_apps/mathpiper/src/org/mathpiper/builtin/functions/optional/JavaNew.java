@@ -35,7 +35,7 @@ public class JavaNew extends BuiltinFunction {
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        
+
         if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof ConsPointer) {
 
             ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
@@ -59,21 +59,21 @@ public class JavaNew extends BuiltinFunction {
 
                 while (consTraverser.getCons() != null) {
                     argumentCons = consTraverser.getPointer().getCons();
+                    Object argument = argumentCons.first();
 
-                    String argumentString = (String) argumentCons.first();
+                    if (argument instanceof String) {
+                        argument = ((String)argument).substring(1, ((String)argument).length());
+                        argument = ((String)argument).substring(0, ((String)argument).length() - 1);
+                    }
 
-                    //Strip leading and trailing quotes.
-                    argumentString = argumentString.substring(1, argumentString.length());
-                    argumentString = argumentString.substring(0, argumentString.length() - 1);
-
-                    argumentArrayList.add(argumentString);
+                    argumentArrayList.add(argument);
 
                     consTraverser.goNext();
 
                 }//end while.
 
 
-                JavaObject response = JavaObject.instantiate(fullyQualifiedClassName, (String[]) argumentArrayList.toArray(new String[0]));
+                JavaObject response = JavaObject.instantiate(fullyQualifiedClassName, (Object[]) argumentArrayList.toArray(new Object[0]));
                 //System.out.println("XXXXXXXXXXX: " + response);
 
                 if (response == null) {
