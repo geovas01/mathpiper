@@ -35,10 +35,10 @@ public class FromBase extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get the base to convert to:
-        // Evaluate car argument, and store getResult in oper
+        // Evaluate car argument, and store getTopOfStackPointer in oper
         ConsPointer oper = new ConsPointer();
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        // check that getResult is a number, and that it is in fact an integer
+        // check that getTopOfStackPointer is a number, and that it is in fact an integer
         BigNumber num = oper.getCons().getNumber(aEnvironment.getPrecision());
         LispError.checkArgument(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
@@ -60,7 +60,7 @@ public class FromBase extends BuiltinFunction
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);
-        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }
 

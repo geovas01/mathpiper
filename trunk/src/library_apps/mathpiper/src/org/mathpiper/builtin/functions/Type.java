@@ -38,7 +38,7 @@ public class Type extends BuiltinFunction
         
         if (!( evaluated.car() instanceof ConsPointer))
         {
-            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
             return;
         }
         ConsPointer subList = (ConsPointer) evaluated.car();
@@ -46,10 +46,10 @@ public class Type extends BuiltinFunction
         head = subList.getCons();
         if (!( head.car() instanceof String))
         {
-            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
             return;
         }
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify((String) head.car())));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify((String) head.car())));
         return;
     }
 }

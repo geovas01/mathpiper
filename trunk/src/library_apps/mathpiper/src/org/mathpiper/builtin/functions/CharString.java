@@ -37,6 +37,6 @@ public class CharString extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, str != null, 2);
         LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + asciiCode + "\""));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + asciiCode + "\""));
     }
 }

@@ -71,7 +71,6 @@ public class ConsPointer {
         iCons = (Cons) iCons.car();
     }
 
-
     public String toString() {
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();
@@ -80,8 +79,7 @@ public class ConsPointer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return out.toString();
+    }//end method.
 
-    }
-}
+}//end class.

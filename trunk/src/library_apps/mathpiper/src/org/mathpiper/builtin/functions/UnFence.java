@@ -44,7 +44,7 @@ public class UnFence extends BuiltinFunction
         aEnvironment.unFenceRule(UtilityFunctions.getSymbolName(aEnvironment, orig), arity);
 
         // Return true
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

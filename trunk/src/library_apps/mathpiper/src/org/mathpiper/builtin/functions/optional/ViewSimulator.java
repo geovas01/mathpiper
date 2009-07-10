@@ -45,6 +45,6 @@ public class ViewSimulator extends BuiltinFunction
          org.mathpiper.ui.gui.simulator.SimulatorFrame  simulator = new org.mathpiper.ui.gui.simulator.SimulatorFrame();
          JavaObject javaObject = new JavaObject(simulator);
          aEnvironment.setGlobalVariable("Simulator", new ConsPointer(BuiltinObjectCons.getInstance(javaObject)), false);
-         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

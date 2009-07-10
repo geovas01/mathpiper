@@ -53,7 +53,7 @@ public class FromString extends BuiltinFunction
         try
         {
             // Evaluate the body
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
         } catch (Exception e)
         {
             throw e;
@@ -63,7 +63,7 @@ public class FromString extends BuiltinFunction
             aEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
 
-    //Return the getResult
+    //Return the getTopOfStackPointer
     }
 }
 

@@ -38,7 +38,7 @@ public class Div extends BuiltinFunction
 
             BigNumber z = new BigNumber(aEnvironment.getPrecision());
             z.divide(x, y, aEnvironment.getPrecision());
-            getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         } else
         {

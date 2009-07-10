@@ -42,7 +42,7 @@ public class Use extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         UtilityFunctions.internalUse(aEnvironment, orig);
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

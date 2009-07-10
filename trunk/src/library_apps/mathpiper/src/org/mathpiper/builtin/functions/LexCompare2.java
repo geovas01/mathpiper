@@ -62,6 +62,6 @@ abstract public class LexCompare2
                     aEnvironment.getPrecision());
         }
 
-        UtilityFunctions.internalBoolean(aEnvironment, BuiltinFunction.getResult(aEnvironment, aStackTop), cmp);
+        UtilityFunctions.putBooleanInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop), cmp);
     }
 }

@@ -37,7 +37,7 @@ public class ExtraInfoSet extends BuiltinFunction
         ConsPointer info = new ConsPointer();
         info.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        getResult(aEnvironment, aStackTop).setCons(object.getCons().setExtraInfo(info));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(object.getCons().setExtraInfo(info));
     }
 }
 

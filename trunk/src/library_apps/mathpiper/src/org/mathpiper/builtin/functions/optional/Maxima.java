@@ -195,16 +195,16 @@ public class Maxima extends BuiltinFunction {
                 response = response.substring(1);
             }
 
-            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, response));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, response));
         } catch (Throwable t) {
             t.printStackTrace();
-            UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+            UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         }
         }
         else
         {
             aEnvironment.write("Maxima is not installed.");
-            UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+            UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         }
 
 

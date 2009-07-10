@@ -57,7 +57,7 @@ public class FromFile extends BuiltinFunction
             LispError.check(aEnvironment, aStackTop, input != null, LispError.KLispErrFileNotFound);
 
             // Evaluate the body
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
         } catch (Exception e)
         {
             throw e;
@@ -66,7 +66,7 @@ public class FromFile extends BuiltinFunction
             aEnvironment.iCurrentInput = previous;
             aEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
-    //Return the getResult
+    //Return the getTopOfStackPointer
     }
 }
 

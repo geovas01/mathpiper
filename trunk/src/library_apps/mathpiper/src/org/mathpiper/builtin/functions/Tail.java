@@ -33,11 +33,11 @@ public class Tail extends BuiltinFunction
     {
         ConsPointer first = new ConsPointer();
         UtilityFunctions.internalTail(first, getArgumentPointer(aEnvironment, aStackTop, 1));
-        UtilityFunctions.internalTail(getResult(aEnvironment, aStackTop), first);
+        UtilityFunctions.internalTail(getTopOfStackPointer(aEnvironment, aStackTop), first);
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
-        head.cdr().setCons(((ConsPointer) getResult(aEnvironment, aStackTop).car()).getCons());
-        ((ConsPointer) getResult(aEnvironment, aStackTop).car()).setCons(head.getCons());
+        head.cdr().setCons(((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).getCons());
+        ((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).setCons(head.getCons());
     }
 }
 

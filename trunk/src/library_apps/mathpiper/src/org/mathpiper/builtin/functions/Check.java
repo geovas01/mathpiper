@@ -41,7 +41,7 @@ public class Check extends BuiltinFunction
             LispError.checkIsString(aEnvironment, aStackTop, evaluated, 2);
             throw new Exception( (String) evaluated.car());
         }
-        getResult(aEnvironment, aStackTop).setCons(pred.getCons());
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(pred.getCons());
     }
 }
 

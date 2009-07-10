@@ -298,7 +298,7 @@ public abstract class BuiltinFunction {
 
     public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
 
-    public static ConsPointer getResult(Environment aEnvironment, int aStackTop) throws Exception {
+    public static ConsPointer getTopOfStackPointer(Environment aEnvironment, int aStackTop) throws Exception {
         return aEnvironment.iArgumentStack.getElement(aStackTop);
     }
 

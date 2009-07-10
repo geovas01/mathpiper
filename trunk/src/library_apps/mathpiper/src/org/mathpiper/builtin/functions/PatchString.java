@@ -63,7 +63,7 @@ public class PatchString extends BuiltinFunction {
             resultStringBuilder.append(unpatchedString);
         }
 
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, resultStringBuilder.toString()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, resultStringBuilder.toString()));
     }
 
     private String lispEvaluate(Environment aEnvironment, String inputExpression) throws Exception {

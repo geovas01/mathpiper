@@ -31,6 +31,6 @@ public class InDebugMode extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

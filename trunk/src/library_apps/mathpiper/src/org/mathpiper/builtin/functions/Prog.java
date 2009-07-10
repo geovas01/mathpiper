@@ -36,7 +36,7 @@ public class Prog extends BuiltinFunction
         aEnvironment.pushLocalFrame(false, "Prog");
         try
         {
-            UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+            UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
             // Evaluate args one by one.
 
@@ -44,7 +44,7 @@ public class Prog extends BuiltinFunction
             consTraverser.goNext();
             while (consTraverser.getCons() != null)
             {
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), consTraverser.getPointer());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), consTraverser.getPointer());
                 consTraverser.goNext();
             }
         } catch (Exception e)

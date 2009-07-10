@@ -44,7 +44,7 @@ public class ApplyPure extends BuiltinFunction
         // Apply a pure string
         if (oper.car() instanceof String)
         {
-            UtilityFunctions.internalApplyString(aEnvironment, getResult(aEnvironment, aStackTop),
+            UtilityFunctions.internalApplyString(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
                     (String) oper.car(),
                     ((ConsPointer) args.car()).cdr());
         } else
@@ -54,7 +54,7 @@ public class ApplyPure extends BuiltinFunction
             args2.setCons(((ConsPointer) args.car()).cdr().getCons());
             LispError.checkArgument(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, 1);
             LispError.checkArgument(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, 1);
-            UtilityFunctions.internalApplyPure(oper, args2, getResult(aEnvironment, aStackTop), aEnvironment);
+            UtilityFunctions.internalApplyPure(oper, args2, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment);
         }
     }
 }

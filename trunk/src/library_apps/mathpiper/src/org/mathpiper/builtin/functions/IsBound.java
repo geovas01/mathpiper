@@ -40,11 +40,11 @@ public class IsBound extends BuiltinFunction
             aEnvironment.getGlobalVariable(str, val);
             if (val.getCons() != null)
             {
-                UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+                UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                 return;
             }
         }
-        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

@@ -40,16 +40,16 @@ public class If extends BuiltinFunction
 
         if (UtilityFunctions.isTrue(aEnvironment, predicate))
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 2));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 2));
         } else
         {
             LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isFalse(aEnvironment, predicate), 1);
             if (nrArguments == 4)
             {
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 3));
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 3));
             } else
             {
-                UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+                UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
             }
         }
     }

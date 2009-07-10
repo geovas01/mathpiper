@@ -50,6 +50,6 @@ public class SimulatorPlot extends BuiltinFunction
          int xValue = Integer.parseInt( (String) xCons.car());
          int yValue = Integer.parseInt( (String) yCons.car());
          simulator.plotPoint(xValue,yValue);
-         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

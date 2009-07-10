@@ -46,7 +46,7 @@ public class PrettyPrinterSet extends BuiltinFunction
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyPrinter = (String) oper.car();
         }
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

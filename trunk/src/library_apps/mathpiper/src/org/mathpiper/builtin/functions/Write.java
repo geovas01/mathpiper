@@ -44,7 +44,7 @@ public class Write extends BuiltinFunction
                 consTraverser.goNext();
             }
         }
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

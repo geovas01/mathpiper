@@ -55,7 +55,7 @@ public class Retract extends BuiltinFunction
             aEnvironment.retractFunction(oper, arity);
         }
   
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

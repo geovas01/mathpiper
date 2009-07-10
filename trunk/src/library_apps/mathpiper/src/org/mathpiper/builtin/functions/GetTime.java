@@ -49,7 +49,7 @@ public class GetTime extends BuiltinFunction
         double timeDiff;
         timeDiff = endtime - starttime;
         timeDiff /= 1000000000.0;
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + timeDiff));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + timeDiff));
     }
 }
 

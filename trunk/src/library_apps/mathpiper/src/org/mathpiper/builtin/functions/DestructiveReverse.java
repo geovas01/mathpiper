@@ -35,7 +35,7 @@ public class DestructiveReverse extends BuiltinFunction
         ConsPointer reversed = new ConsPointer();
         reversed.setCons(aEnvironment.iListAtom.copy(false));
         UtilityFunctions.internalReverseList(reversed.cdr(), ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).cdr());
-        getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(reversed.getCons()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SubListCons.getInstance(reversed.getCons()));
     }
 }
 

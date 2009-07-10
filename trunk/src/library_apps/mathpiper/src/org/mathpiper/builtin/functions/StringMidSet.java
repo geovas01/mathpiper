@@ -56,7 +56,7 @@ public class StringMidSet extends BuiltinFunction
         str = str + replace.substring(1, replace.length() - 1);
         //System.out.println("from="+from+replace.length()-2);
         str = str + orig.substring(from + replace.length() - 2, orig.length());
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, str));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, str));
     }
 }
 

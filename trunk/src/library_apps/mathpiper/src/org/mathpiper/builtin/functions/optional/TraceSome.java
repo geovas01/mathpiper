@@ -69,12 +69,12 @@ public class TraceSome extends BuiltinFunction
 
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), bodyPointer);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), bodyPointer);
         Evaluator.traceOff();
         Evaluator.setTraceFunctionList(null);
 
 
-       // UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+       // UtilityFunctions.internalTrue(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
 
     }//end method.

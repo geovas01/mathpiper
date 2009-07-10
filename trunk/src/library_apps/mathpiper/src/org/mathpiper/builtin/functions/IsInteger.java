@@ -39,10 +39,10 @@ public class IsInteger extends BuiltinFunction
         BigNumber num = result.getCons().getNumber(aEnvironment.getPrecision());
         if (num == null)
         {
-            UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+            UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         } else
         {
-            UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), num.isInt());
+            UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), num.isInt());
         }
     }
 }

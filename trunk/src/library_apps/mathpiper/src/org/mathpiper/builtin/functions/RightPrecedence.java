@@ -45,7 +45,7 @@ public class RightPrecedence extends BuiltinFunction
         int ind = Integer.parseInt ( (String) index.car(), 10);
 
         aEnvironment.iInfixOperators.setRightPrecedence(UtilityFunctions.getSymbolName(aEnvironment, orig), ind);
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

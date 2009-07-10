@@ -59,7 +59,7 @@ public class SysOut extends BuiltinFunction {
         System.out.println(output);
         aEnvironment.iCurrentOutput.write(output);
         aEnvironment.iCurrentOutput.write("\n");
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
     }//end method.
 

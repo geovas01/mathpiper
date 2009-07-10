@@ -57,6 +57,6 @@ public class PatternMatches extends BuiltinFunction
         ConsPointer ptr = consTraverser.getPointer();
         LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2);
         boolean matches = patclass.matches(aEnvironment, ptr);
-        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), matches);
+        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), matches);
     }
 }

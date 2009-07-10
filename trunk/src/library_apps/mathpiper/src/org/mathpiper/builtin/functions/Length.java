@@ -38,14 +38,14 @@ public class Length extends BuiltinFunction
         if (subList instanceof ConsPointer)
         {
             int num = UtilityFunctions.listLength(((ConsPointer)subList).cdr());
-            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }
         String string =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         if (UtilityFunctions.internalIsString(string))
         {
             int num = string.length() - 2;
-            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }
         
@@ -55,7 +55,7 @@ public class Length extends BuiltinFunction
             if (gen.typeName().equals("\"Array\""))
             {
                 int size = ((Array) gen).size();
-                getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
+                getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
                 return;
             }
         //  CHK_ISLIST_CORE(aEnvironment,aStackTop,getArgumentPointer(aEnvironment, aStackTop, 1),1);

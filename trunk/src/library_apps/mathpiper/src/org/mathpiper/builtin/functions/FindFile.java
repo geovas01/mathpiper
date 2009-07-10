@@ -46,7 +46,7 @@ public class FindFile extends BuiltinFunction
         String oper = UtilityFunctions.internalUnstringify(orig);
 
         String filename = UtilityFunctions.internalFindFile(oper, aEnvironment.iInputDirectories);
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(filename)));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(filename)));
     }
 }
 

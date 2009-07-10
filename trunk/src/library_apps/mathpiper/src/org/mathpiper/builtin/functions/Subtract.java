@@ -38,7 +38,7 @@ public class Subtract extends BuiltinFunction
             BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
             BigNumber z = new BigNumber(x);
             z.negate(x);
-            getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         } else
         {
@@ -48,7 +48,7 @@ public class Subtract extends BuiltinFunction
             yneg.negate(y);
             BigNumber z = new BigNumber(aEnvironment.getPrecision());
             z.add(x, yneg, aEnvironment.getPrecision());
-            getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         }
     }
