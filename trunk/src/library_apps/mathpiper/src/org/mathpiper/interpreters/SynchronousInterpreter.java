@@ -298,6 +298,10 @@ class SynchronousInterpreter implements Interpreter
                 {
                     errorLineNumber = environment.iInputStatus.lineNumber();
                 }
+                else
+                {
+                    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
+                }
                 evaluationResponse.setLineNumber(errorLineNumber);
                 evaluationResponse.setSourceFileName(environment.iInputStatus.fileName());
             }
