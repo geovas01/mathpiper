@@ -18,7 +18,7 @@
 
 package org.mathpiper.lisp.parsers;
 
-import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.lisp.cons.ListCons;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
@@ -97,7 +97,7 @@ public class Parser
 		{
 			ConsPointer subList = new ConsPointer();
 			parseList(subList);
-			aResult.setCons(SublistCons.getInstance(subList.getCons()));
+			aResult.setCons(ListCons.getInstance(subList.getCons()));
 			return;
 		}
 		// else make a simple atom, and return it.

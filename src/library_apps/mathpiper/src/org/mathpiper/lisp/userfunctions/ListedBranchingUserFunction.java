@@ -22,7 +22,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.lisp.cons.ListCons;
 
 
 public class ListedBranchingUserFunction extends SingleArityBranchingUserFunction
@@ -64,7 +64,7 @@ public class ListedBranchingUserFunction extends SingleArityBranchingUserFunctio
 			ConsPointer head = new ConsPointer();
 			head.setCons(aEnvironment.iListAtom.copy(false));
 			head.cdr().setCons(consTraverser.getCons());
-			ptr.setCons(SublistCons.getInstance(head.getCons()));
+			ptr.setCons(ListCons.getInstance(head.getCons()));
 		}
 		super.evaluate(aEnvironment, aResult, newArgs);
 	}

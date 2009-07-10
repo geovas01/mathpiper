@@ -40,22 +40,24 @@ public class JFreeChartHistogram extends BuiltinFunction {
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer argumentPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        ConsPointer argument = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        Cons argumentListCons = argumentPointer.getCons();
+        //Cons argumentListCons = argumentPointer.getCons();
 
-        if (argumentListCons.type().equals("Sublist")) {
+        //if (argumentListCons.type().equals("Sublist")) {
 
-            ConsPointer dataSubList = (ConsPointer) argumentListCons.car();
+            //ConsPointer dataSubList = (ConsPointer) argumentListCons.car();
 
             //Skip past List type.
-            dataSubList.goNext();
+            //dataSubList.goNext();
 
+            argument.goSub(); //Select sublist.
 
+            ConsPointer dataSubList = (ConsPointer) argument.car();
 
-            LispError.check(dataSubList.type().equals("Sublist"), LispError.NOT_A_LIST);
+            LispError.check(dataSubList.type() == Cons.LIST, LispError.NOT_A_LIST);
             ConsPointer dataListPointer = (ConsPointer) dataSubList.car();
-            LispError.check(dataListPointer.type().equals("Atom"), LispError.NOT_A_LIST);
+            LispError.check(dataListPointer.type() == Cons.ATOM, LispError.NOT_A_LIST);
             String type = (String) dataListPointer.getCons().car();
             LispError.check(type.equals("List"), LispError.NOT_A_LIST);
 
@@ -102,12 +104,12 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
             return;
 
-        }//end if.
+        //}//end if.
 
 
 
 
-        UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        //UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
     }//end method.
 }

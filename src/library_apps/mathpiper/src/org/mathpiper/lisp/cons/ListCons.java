@@ -20,19 +20,17 @@ package org.mathpiper.lisp.cons;
 
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.*;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.printers.LispPrinter;
 
 
-public class SublistCons extends Cons
+public class ListCons extends Cons
 {
 	ConsPointer iCar = new ConsPointer();
         ConsPointer iCdr = new ConsPointer();
 	
-	public static SublistCons getInstance(Cons aSubList)
+	public static ListCons getInstance(Cons aSubList)
 	{
-		return new SublistCons(aSubList);
+		return new ListCons(aSubList);
 	}
    
         
@@ -56,7 +54,7 @@ public class SublistCons extends Cons
 	{
 		//TODO recursed copy needs to be implemented still
 		LispError.lispAssert(aRecursed == false);
-		Cons copied = new SublistCons(iCar.getCons());
+		Cons copied = new ListCons(iCar.getCons());
 		return copied;
 	}
         
@@ -65,7 +63,7 @@ public class SublistCons extends Cons
 	{
 		//TODO FIXME
 		/*
-		    Cons* result = NEW LispAnnotatedObject<SublistCons>(this);
+		    Cons* result = NEW LispAnnotatedObject<ListCons>(this);
 		    result->SetExtraInfo(aData);
 		    return result;
 		*/
@@ -73,7 +71,7 @@ public class SublistCons extends Cons
 	}
         
         
-	SublistCons(Cons aSubList)
+	ListCons(Cons aSubList)
 	{
 		iCar.setCons(aSubList);
 	}
@@ -95,9 +93,9 @@ public class SublistCons extends Cons
     }//end method.
 
 
-    public String type()
+    public int type()
     {
-        return "Sublist";
+        return Cons.LIST;
     }//end method.
 	
 }

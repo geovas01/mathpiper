@@ -27,7 +27,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.lisp.cons.ListCons;
 import org.mathpiper.lisp.InfixOperator;
 import org.mathpiper.lisp.collections.OperatorMap;
 
@@ -353,7 +353,7 @@ public class MathPiperParser extends Parser
     void combine(int aNrArgsToCombine) throws Exception
     {
         ConsPointer subList = new ConsPointer();
-        subList.setCons(SublistCons.getInstance(iSExpressionResult.getCons()));
+        subList.setCons(ListCons.getInstance(iSExpressionResult.getCons()));
         ConsTraverser consTraverser = new ConsTraverser(iSExpressionResult);
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)

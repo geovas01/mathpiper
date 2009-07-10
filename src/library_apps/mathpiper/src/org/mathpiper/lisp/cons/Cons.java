@@ -31,12 +31,17 @@ import org.mathpiper.builtin.BuiltinContainer;
  */
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
+    public static final int ATOM = 1;
+    public static final int NUMBER = 2;
+    public static final int LIST = 3;
+    public static final int OBJECT = 4;
+
 
     public abstract ConsPointer cdr();
 
     public abstract Object car() throws Exception;
 
-    public abstract String type();
+    public abstract int type();
 
 
 

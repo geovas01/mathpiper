@@ -1,262 +1,106 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="mathpiper" default="default" basedir=".">
+    <description>Builds, tests, and runs the project mathpiper.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <import file="nbproject/profiler-build-impl.xml"/>
+    <!--
 
-<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
 
-<project id="mathpiper" name="mathpiper" default="dist" basedir="." >
-	<description>
-		Build file for MathPiper.
-	</description>
-	
-	<!-- <property name="version" value=".58" /> -->
-	<property name="build.classes.dir" value="${build.dir}/classes" />
-	
-	
-	<target id="noop" name="noop" description="Do nothing." />
-	
-	<target name="init">
-		<tstamp>
-			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
-		</tstamp>
-		<mkdir dir="${build.dir}" />
-		<mkdir dir="${build.classes.dir}" />
-	</target>
-	
-	<target name="compile" depends="init"
-		description="Compiles the application" >
-		<!--<echo message="${compile.source}." />
-		<echo message="${src.dir}." />
-		<echo message="${build.classes.dir}." />-->
-	
-		<javac 
-			source="${compile.source}"
-			target="${compile.target}" 
-			srcdir="${src.dir}"
-			destdir="${build.classes.dir}"
-			debug="off"
-			deprecation="on"
-			optimize="off">
-			<classpath refid="build_classpath" />
-			<include name="**/*.java" />
-		</javac>
-		
-	</target>
-	
-	
-	<target name="buildscripts" depends="">
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="mathpiper-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+    
+   	<target name="buildscripts2" >
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
 		<taskdef name="buildscripts"
               classname="org.mathpiper.test.Build"
               classpath="${build.classes.dir}"  />
 
-	      <buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts2/"
-                 outputScriptsDirectory="${build.classes.dir}/org/mathpiper/scripts/"/>
+      <buildscripts scriptsDirectory="${basedir}/src/org/mathpiper/scripts2/"
+                 outputDirectory="${basedir}/build/classes/org/mathpiper/scripts/"/>
       
       </target>
 
-
-
+	
+	
+	
    	<target name="buildscripts3" >
-		<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/help/data" />
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
 		<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"  />
 
-		<buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts3/"
-                 outputScriptsDirectory="${build.classes.dir}/org/mathpiper/scripts/"
-		 outputDocsDirectory="${build.classes.dir}/org/mathpiper/ui/gui/help/data/"
+      <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts3/"
+                 outputScriptsDirectory="${basedir}/build/classes/org/mathpiper/scripts/"
+		 outputDocsDirectory="${basedir}/build/classes/org/mathpiper/ui/gui/help/data/"
 		 baseDirectory="${basedir}/"/>
       
       </target>
-	
-	
-	<target id="dist" name="dist" depends="compile,buildscripts3" >
-	
-		<!--<copy todir="${build.classes.dir}/org/mathpiper/scripts">
-			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" >
-				<include name="*.rep/**/*" />
-			</fileset>
-		</copy>-->
-		
-		<mkdir dir="${build.classes.dir}/tests" />
-		<mkdir dir="${build.classes.dir}/tests/scripts" />
-		<copy todir="${build.classes.dir}/tests/scripts">
-			<fileset dir="${mathpiper.dir}/tests/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
-		
-		<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/calculator/resources" />
-		<copy todir="${build.classes.dir}/org/mathpiper/ui/gui/calculator/resources">
-			<fileset dir="${mathpiper.dir}/src/org/mathpiper/ui/gui/calculator/resources" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
-		
-		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.classes.dir}"/>
-		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.classes.dir}"/>
-		
-		<!--<copy file="${mathpiper.dir}/mathpiper.properties" todir="${build.classes.dir}">
-			<filterset>
-	               
-		       	   <filter token="VERSION" value="${version}" />
-	               
-			 </filterset>
-		</copy>-->
-	
-		<mkdir dir="${build.dir}/dist" />
-		
-		<jar jarfile="${build.dir}/dist/mathpiper.jar"
-			basedir="${build.classes.dir}" update="true"
-			manifest="${mathpiper.dir}/resources/MANIFEST.MF">
-			<!--<manifest> 
-				<section name="mathpiper" >
-					<attribute name="Build-Date" value="${build.time}"/>
-				</section>
-			</manifest>-->
-			<include name="**/*" />
-			<exclude name="**/*.bat,**/*.sh" />
-		</jar> 
-	</target>
-	
-	
-	
-	
-	<target id="geogebra_dist" name="geogebra_dist" depends="init" >
-	
-	<!--  
-	cvs -z3 -d:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra co -P geogebra
-	export CVSROOT=:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra
-	cvs commit -m "The code is now compatible with Java 1.4."
-	cvs import -m "This is a stripped-down version of MathPiper.  An example of how to use MathPiper can be found in the org/mathpiper/HowToUse.java file." geogebra/org/mathpiper/scripts MATHPIPER V0_63
-	
-	Edit BuiltinFunctionInitialize to remove functions at the bottom of the file.
-	Edit Interpreters to remove references to AsynchronousInterpreter.
-	
-	-->
-		
-		<delete dir="${build.dir}/geogebra_dist" />
-	
-		<!--<copy todir="${build.classes.dir}">
-			<fileset dir="${mathpiper.dir}/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>-->
-		
-
-		
-
-		<mkdir dir="${build.dir}/geogebra_dist" />
-		<mkdir dir="${build.dir}/geogebra_dist/src" />
-		
-		<copy todir="${build.dir}/geogebra_dist/src">
-			<fileset dir="${mathpiper.dir}/src/" >
-				<include name="org/mathpiper/Version.java" />
-				<include name="org/mathpiper/HowToUse.java" />
-				<include name="org/mathpiper/builtin/" />
-				<include name="org/mathpiper/exceptions/" />
-				<include name="org/mathpiper/interpreters/" />
-				<include name="org/mathpiper/io/" />
-				<include name="org/mathpiper/lisp/" />
-				<include name="org/mathpiper/parametermatchers/" />
-				<include name="org/mathpiper/printers/" />
-				<include name="org/mathpiper/ui/text/consoles/" />
-				<exclude name="org/mathpiper/builtin/functions/ViewEnvironment.java" />
-				<exclude name="org/mathpiper/builtin/functions/Plot.java" />
-				<exclude name="org/mathpiper/builtin/functions/ViewSimulator.java" />
-				<exclude name="org/mathpiper/interpreters/AsynchronousInterpreter.java" />
-			</fileset>
-		</copy>
-		
-		
-		
-		
-		<copy todir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts">
-			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" includes="*/rep/**/*" />
-			<filterchain>
-			<filterreader classname="org.apache.tools.ant.filters.StripJavaComments">
-			<!--<param name="foo" value="bar"/>-->
-			</filterreader>
-			<!--<scriptfilter language="beanshell">
-			if (self.getToken().indexOf("bad") != -1) {
-				self.setToken(null);
-				}
-			</scriptfilter>-->
-			</filterchain>
-		</copy>
-		
-		
-	<!--	<mkdir dir="${build.dir}/geogebra_dist/classes" />
-		
-		<copy todir="${build.dir}/geogebra_dist/classes">
-			<fileset dir="${build.dir}/geogebra_dist/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
-		
-		
-		<javac 
-			source="1.4"
-			target="1.4" 
-			srcdir="${build.dir}/geogebra_dist"
-			destdir="${build.dir}/geogebra_dist/classes"
-			debug="off"
-			deprecation="on"
-			optimize="off">
-			<include name="**/*.java" />
-		</javac>
-		
-		<jar jarfile="${build.dir}/geogebra_dist/mathpiper.jar"
-			basedir="${build.dir}/geogebra_dist/classes" update="true" >
-			<include name="**/*" />
-
-		</jar> -->
-
-	</target>
-	
-	<target id="geogebra_compile" name="geogebra_compile" >
-	      <mkdir dir="${build.dir}/geogebra_dist/build" />
-	      
-			<javac 
-			source="1.4"
-			target="1.4" 
-			srcdir="${build.dir}/geogebra_dist/src"
-			destdir="${build.dir}/geogebra_dist/build"
-			debug="off"
-			deprecation="on"
-			optimize="off">
-			<!--<classpath refid="build_classpath" />-->
-			<include name="**/*.java" />
-		</javac>
-		
-		
-		<mkdir dir="${build.dir}/geogebra_dist/build/org/mathpiper/scripts" />
-		<copy todir="${build.dir}/geogebra_dist/build/org/mathpiper/scripts">
-			<fileset dir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
-
-	</target>
-
-
+      
+    
+      <target name="-post-compile-test"  depends="buildscripts3">
+      </target>
 </project>
-
-<!-- {{{ License.
-/*
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
- }}} -->
-
