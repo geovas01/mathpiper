@@ -20,7 +20,8 @@ package org.mathpiper.builtin;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import org.mathpiper.builtin.ArgumentList;
+import java.util.List;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 public class JavaObject extends BuiltinContainer {
 
@@ -221,10 +222,19 @@ public class JavaObject extends BuiltinContainer {
 
     public String typeName() {
         return javaObject.getClass().getName();
-    }
+    }//end method.
 
     public Object getJavaObject() {
         return javaObject;
-    }
-}
+    }//end method.
+
+
+    public static List toJavaList(ConsPointer lispList)
+    {
+            return null;
+    }//end method.
+
+
+
+}//end class.
 
