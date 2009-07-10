@@ -18,6 +18,7 @@
 package org.mathpiper.lisp.cons;
 
 import org.mathpiper.io.StringOutput;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.printers.LispPrinter;
 
@@ -29,72 +30,58 @@ import org.mathpiper.lisp.printers.LispPrinter;
  *  to the next object, and in diverse parts of the built-in internal
  *  functions to hold temporary values.
  */
-public class ConsPointer
-{
+public class ConsPointer {
 
     Cons iCons;
 
-    public Object car() throws Exception
-    {
+    public Object car() throws Exception {
         return iCons.car();
     }
 
-    public ConsPointer cdr()
-    {
+    public ConsPointer cdr() {
         return iCons.cdr();
     }
 
-    public ConsPointer()
-    {
+    public ConsPointer() {
         iCons = null;
     }
-    
-    public ConsPointer(Cons aCons)
-    {
+
+    public ConsPointer(Cons aCons) {
         iCons = aCons;
     }
 
-   public void setCons(Cons aNext)
-    {
+    public void setCons(Cons aNext) {
         iCons = aNext;
     }
 
-    public Cons getCons()
-    {
+    public Cons getCons() {
         return iCons;
     }
 
-    public void goNext()
-    {
+
+    //iPointer = (iPointer.cdr());
+    public void goNext() throws Exception {
+        LispError.check(iCons != null, LispError.KLispErrListNotLongEnough);
         iCons = iCons.cdr().iCons;
     }
-    
-    /* note:tk:removing to avoid confusion in the debugger.
-     public String toString()
-    {
-        if(iCons != null)
-        {
-            return iCons.toString();
-        }
-        else
-        {
-            return "Empty.";
-        }
-    }*/
 
-    public String toString()
-    {
+    public void goSub() throws Exception {
+        LispError.check(iCons != null, LispError.KLispErrInvalidArg);
+        LispError.check(iCons.car() instanceof ConsPointer, LispError.KLispErrNotList);
+        iCons = (Cons) iCons.car();
+    }
+
+
+    public String toString() {
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();
-        try{
-        printer.print(this, out, null);
-        }catch(Exception e)
-        {
+        try {
+            printer.print(this, out, null);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return out.toString();
 
     }
-    
 }
