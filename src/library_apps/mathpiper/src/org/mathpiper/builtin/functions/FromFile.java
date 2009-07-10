@@ -34,7 +34,7 @@ public class FromFile extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
         ConsPointer evaluated = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
@@ -54,7 +54,7 @@ public class FromFile extends BuiltinFunction
                     UtilityFunctions.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
             aEnvironment.iCurrentInput = input;
             // Open file
-            LispError.check(aEnvironment, aStackTop, input != null, LispError.KLispErrFileNotFound);
+            LispError.check(aEnvironment, aStackTop, input != null, LispError.FILE_NOT_FOUND);
 
             // Evaluate the body
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));

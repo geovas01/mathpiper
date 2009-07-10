@@ -38,9 +38,9 @@ public class Fac extends BuiltinFunction
         ConsPointer arg = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
-//        LispError.check(arg.type().equals("Number"), LispError.KLispErrInvalidArg);
+//        LispError.check(arg.type().equals("Number"), LispError.INVALID_ARGUMENT);
         int nr = (int) ((BigNumber) arg.getCons().getNumber(0)).toLong();
-        LispError.check(nr >= 0, LispError.KLispErrInvalidArg);
+        LispError.check(nr >= 0, LispError.INVALID_ARGUMENT);
         BigNumber fac = new BigNumber("1", 10, 10);
         int i;
         for (i = 2; i <= nr; i++)

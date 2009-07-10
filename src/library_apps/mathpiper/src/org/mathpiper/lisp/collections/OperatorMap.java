@@ -33,21 +33,21 @@ public class OperatorMap extends Map // <InfixOperator>
 	public void setRightAssociative(String aString) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
-		LispError.check(op != null,LispError.KLispErrNotAnInFixOperator);
+		LispError.check(op != null,LispError.NOT_AN_INFIX_OPERATOR);
 		op.setRightAssociative();
 	}
 	
 	public void setLeftPrecedence(String aString,int aPrecedence) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
-		LispError.check(op != null,LispError.KLispErrNotAnInFixOperator);
+		LispError.check(op != null,LispError.NOT_AN_INFIX_OPERATOR);
 		op.setLeftPrecedence(aPrecedence);
 	}
 	
 	public void setRightPrecedence(String aString,int aPrecedence) throws Exception
 	{
 		InfixOperator op = (InfixOperator)lookUp(aString);
-		LispError.check(op != null,LispError.KLispErrNotAnInFixOperator);
+		LispError.check(op != null,LispError.NOT_AN_INFIX_OPERATOR);
 		op.setRightPrecedence(aPrecedence);
 	}
 	

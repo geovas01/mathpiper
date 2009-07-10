@@ -34,7 +34,7 @@ public class BuiltinObjectCons extends Cons
 	{
 		LispError.lispAssert(aClass!=null);
 		BuiltinObjectCons self = new BuiltinObjectCons(aClass);
-		LispError.check(self!=null,LispError.KLispErrNotEnoughMemory);
+		LispError.check(self!=null,LispError.NOT_ENOUGH_MEMORY);
 		return self;
 	}
     

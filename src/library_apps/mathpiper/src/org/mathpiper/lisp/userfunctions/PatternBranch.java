@@ -48,8 +48,8 @@ public class PatternBranch extends Branch {
         iPredicate.setCons(aPredicate.getCons());
 
         BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
-        LispError.check(gen != null, LispError.KLispErrInvalidArg);
-        LispError.check(gen.typeName().equals("\"Pattern\""), LispError.KLispErrInvalidArg);
+        LispError.check(gen != null, LispError.INVALID_ARGUMENT);
+        LispError.check(gen.typeName().equals("\"Pattern\""), LispError.INVALID_ARGUMENT);
 
         iPatternClass = (PatternContainer) gen;
         iBody.setCons(aBody.getCons());

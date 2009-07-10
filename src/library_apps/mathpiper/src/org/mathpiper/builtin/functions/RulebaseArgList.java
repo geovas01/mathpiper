@@ -49,7 +49,7 @@ public class RulebaseArgList extends BuiltinFunction
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
         SingleArityBranchingUserFunction userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity);
-        LispError.check(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
+        LispError.check(aEnvironment, aStackTop, userFunc != null, LispError.INVALID_ARGUMENT);
 
         ConsPointer list = userFunc.argList();
         ConsPointer head = new ConsPointer();

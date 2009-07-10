@@ -72,7 +72,7 @@ public class Parser
 			//Get token.
 			token = iTokenizer.nextToken(iInput,iEnvironment.getTokenHash());
 			// if token is empty string, error!
-			LispError.check(token.length() > 0,LispError.KInvalidToken); //TODO FIXME
+			LispError.check(token.length() > 0,LispError.INVALID_TOKEN); //TODO FIXME
 			// if token is ")" return result.
 			if (token == iEnvironment.getTokenHash().lookUp(")"))
 			{

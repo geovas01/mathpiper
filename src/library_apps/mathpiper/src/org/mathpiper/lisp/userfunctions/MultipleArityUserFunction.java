@@ -89,8 +89,8 @@ public class MultipleArityUserFunction
 		{
 			LispError.lispAssert(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)) != null);
 			LispError.lispAssert(aNewFunction != null);
-			LispError.check(!((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.KLispErrArityAlreadyDefined);
-			LispError.check(!aNewFunction.isArity(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).arity()),LispError.KLispErrArityAlreadyDefined);
+			LispError.check(!((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.ARITY_ALREADY_DEFINED);
+			LispError.check(!aNewFunction.isArity(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).arity()),LispError.ARITY_ALREADY_DEFINED);
 		}
 		iFunctions.add(aNewFunction);
 	}

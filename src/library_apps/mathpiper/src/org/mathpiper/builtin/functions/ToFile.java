@@ -35,7 +35,7 @@ public class ToFile extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.KLispErrSecurityBreach);
+        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
 
         ConsPointer evaluated = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
@@ -48,7 +48,7 @@ public class ToFile extends BuiltinFunction
 
         // Open file for writing
         FileOutputStream localFP = new FileOutputStream(oper);
-        LispError.check(aEnvironment, aStackTop, localFP != null, LispError.KLispErrFileNotFound);
+        LispError.check(aEnvironment, aStackTop, localFP != null, LispError.FILE_NOT_FOUND);
         StandardFileOutputStream newOutput = new StandardFileOutputStream(localFP);
 
         MathPiperOutputStream previous = aEnvironment.iCurrentOutput;

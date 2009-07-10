@@ -52,7 +52,7 @@ public class FileSize extends BuiltinFunction
             MathPiperInputStream newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
                     UtilityFunctions.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
-            LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+            LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
             fileSize = newInput.startPtr().length();
         } catch (Exception e)
         {
