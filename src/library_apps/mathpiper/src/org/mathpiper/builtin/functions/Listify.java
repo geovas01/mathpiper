@@ -36,7 +36,7 @@ public class Listify extends BuiltinFunction
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
         head.cdr().setCons(((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons());
-        getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
     }
 }
 

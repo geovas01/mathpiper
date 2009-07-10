@@ -34,6 +34,6 @@ public class CurrentTime extends BuiltinFunction
     {
         long currentTime = System.nanoTime();
 
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + currentTime));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + currentTime));
     }
 }

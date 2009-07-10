@@ -35,10 +35,10 @@ public class ToBase extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get the base to convert to:
-        // Evaluate car argument, and store getResult in oper
+        // Evaluate car argument, and store getTopOfStackPointer in oper
         ConsPointer oper = new ConsPointer();
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        // check that getResult is a number, and that it is in fact an integer
+        // check that getTopOfStackPointer is a number, and that it is in fact an integer
         BigNumber num = oper.getCons().getNumber(aEnvironment.getPrecision());
         LispError.checkArgument(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
@@ -55,7 +55,7 @@ public class ToBase extends BuiltinFunction
         str = x.numToString(aEnvironment.getPrecision(), base);
         // Get unique string from hash table, and create an atom from it.
 
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(str)));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(str)));
     }
 }
 

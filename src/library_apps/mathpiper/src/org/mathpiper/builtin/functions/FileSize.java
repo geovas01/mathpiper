@@ -61,6 +61,6 @@ public class FileSize extends BuiltinFunction
         {
             aEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + fileSize));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + fileSize));
     }
 }

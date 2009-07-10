@@ -46,7 +46,7 @@ public class OpRightPrecedence extends BuiltinFunction
                 LispError.check(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
             }
         }
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iRightPrecedence));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iRightPrecedence));
     }
 }
 

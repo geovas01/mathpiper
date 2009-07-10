@@ -63,13 +63,13 @@ public class BuiltinAssoc extends BuiltinFunction
                     temp.setCons(sub);
                     if (UtilityFunctions.internalEquals(aEnvironment, key, temp))
                     {
-                        getResult(aEnvironment, aStackTop).setCons(t);
+                        getTopOfStackPointer(aEnvironment, aStackTop).setCons(t);
                         return;
                     }
                 }
             }
             t = t.cdr().getCons();
         }
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
     }
 }

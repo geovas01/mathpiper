@@ -34,7 +34,7 @@ public class IsAtom extends BuiltinFunction
     {
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), result.car() instanceof String);
+        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), result.car() instanceof String);
     }
 }
 

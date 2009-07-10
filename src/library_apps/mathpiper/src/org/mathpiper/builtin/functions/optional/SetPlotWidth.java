@@ -50,6 +50,6 @@ public class SetPlotWidth extends BuiltinFunction
          int plotWidth = Integer.parseInt( (String) redCons.car());
 
          simulator.setPlotWidth(plotWidth);
-         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

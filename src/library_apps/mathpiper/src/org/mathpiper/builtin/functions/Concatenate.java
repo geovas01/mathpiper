@@ -53,7 +53,7 @@ public class Concatenate extends BuiltinFunction
             consTraverser.goNext();
             arg++;
         }
-        getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(all.getCons()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SubListCons.getInstance(all.getCons()));
     }
 }
 

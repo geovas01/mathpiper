@@ -39,7 +39,7 @@ public class Atom extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig =  (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
     }
 }
 

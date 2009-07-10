@@ -55,6 +55,6 @@ public class DefLoadFunction extends BuiltinFunction
                 }//end if.
             }//end if.
         }//end if.
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

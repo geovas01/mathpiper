@@ -113,13 +113,13 @@ public class JavaCall extends BuiltinFunction {
                     //System.out.println("XXXXXXXXXXX: " + response);
 
                     if (response == null) {
-                        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+                        UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                         return;
                     } /*else if (response.equalsIgnoreCase("")) {
-                    UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+                    UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                     return;
                     }*/
-                    getResult(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(response));
+                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(response));
 
                     return;
 
@@ -129,7 +129,7 @@ public class JavaCall extends BuiltinFunction {
 
         }//end if.
 
-        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
     }//end method.
 }

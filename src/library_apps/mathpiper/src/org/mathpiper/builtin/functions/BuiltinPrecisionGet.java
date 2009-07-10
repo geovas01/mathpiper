@@ -32,7 +32,7 @@ public class BuiltinPrecisionGet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // decimal getPrecision
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + aEnvironment.getPrecision()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + aEnvironment.getPrecision()));
     }
 }
 

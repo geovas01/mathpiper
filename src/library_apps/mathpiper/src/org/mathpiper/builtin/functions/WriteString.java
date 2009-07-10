@@ -47,7 +47,7 @@ public class WriteString extends BuiltinFunction
         // pass last printed character to the current printer
         aEnvironment.iCurrentPrinter.rememberLastChar(str.charAt(nr - 1));  // hacky hacky
 
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

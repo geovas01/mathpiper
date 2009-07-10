@@ -37,7 +37,7 @@ public class DefaultDirectory extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
         aEnvironment.iInputDirectories.add(oper);
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

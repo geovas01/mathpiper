@@ -44,7 +44,7 @@ public class IsString extends BuiltinFunction
         else{
             resultBoolean = false;
         }
-        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), resultBoolean);
+        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), resultBoolean);
                 
     }
 }

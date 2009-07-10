@@ -33,6 +33,6 @@ public class MathIsSmall extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
-        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), x.isSmall());
+        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), x.isSmall());
     }
 }

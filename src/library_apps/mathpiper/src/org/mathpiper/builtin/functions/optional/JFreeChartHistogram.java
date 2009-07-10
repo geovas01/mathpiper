@@ -48,18 +48,13 @@ public class JFreeChartHistogram extends BuiltinFunction {
         ConsPointer argumentPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         Cons argumentListCons = argumentPointer.getCons();
-
-        Object argument1 = argumentListCons.car();
         
-        if (argument1 instanceof ConsPointer) {
+        if (argumentListCons.car() instanceof ConsPointer) {
 
-            ConsPointer dataSubList = (ConsPointer) argument1;
+            ConsPointer dataSubList = (ConsPointer) argumentListCons.car();
 
             //Skip past List type.
             dataSubList.goNext();
-
-            //Obtain the Java object to call.
-            //Cons argumentsCons = dataSubList.getCons();
 
             if(dataSubList.car() instanceof ConsPointer)
             {
@@ -67,7 +62,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
                  if(dataListPointer.car() instanceof String)
                  {
-
+                    
                  }
 
                     dataListPointer.goNext();
@@ -101,13 +96,14 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
                     Object response = null;
                     if (response == null) {
-                        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+                        ConsPointer topOfStackPointer = getTopOfStackPointer(aEnvironment, aStackTop);
+                        UtilityFunctions.putFalseInPointer(aEnvironment, topOfStackPointer);
                         return;
                     } /*else if (response.equalsIgnoreCase("")) {
-                    UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+                    UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                     return;
                     }*/
-                    getResult(aEnvironment, aStackTop).setCons(null);
+                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(null);
 
                     return;
 
@@ -116,7 +112,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
   
 
 
-        UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
     }//end method.
 }

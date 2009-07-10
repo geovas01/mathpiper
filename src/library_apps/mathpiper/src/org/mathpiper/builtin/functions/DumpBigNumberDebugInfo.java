@@ -34,6 +34,6 @@ public class DumpBigNumberDebugInfo extends BuiltinFunction
     {
         BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
         x.dumpDebugInfo(aEnvironment.iCurrentOutput);
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

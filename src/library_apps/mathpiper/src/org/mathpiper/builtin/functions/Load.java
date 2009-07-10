@@ -44,7 +44,7 @@ public class Load extends BuiltinFunction
 
         UtilityFunctions.internalLoad(aEnvironment, orig);
         
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
          
     }
 }

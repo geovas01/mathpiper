@@ -56,7 +56,7 @@ public class ToFile extends BuiltinFunction
 
         try
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
         } catch (Exception e)
         {
             throw e;

@@ -45,7 +45,7 @@ public class XmlExplodeTag extends BuiltinFunction
         strInd++;
         if (str.charAt(strInd) != '<')
         {
-            getResult(aEnvironment, aStackTop).setCons(out.getCons());
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(out.getCons());
             return;
         }
         LispError.checkArgument(aEnvironment, aStackTop, str.charAt(strInd) == '<', 1);
@@ -148,7 +148,7 @@ public class XmlExplodeTag extends BuiltinFunction
         info.cdr().setCons(tp);
         tg.cdr().setCons(info);
         xm.cdr().setCons(tg);
-        getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(xm));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SubListCons.getInstance(xm));
 
     }
 }

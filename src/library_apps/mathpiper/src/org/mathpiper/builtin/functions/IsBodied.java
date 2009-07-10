@@ -34,7 +34,7 @@ public class IsBodied extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop), op != null);
+        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), op != null);
     }
 }
 

@@ -38,13 +38,13 @@ public class ExtraInfoGet extends BuiltinFunction
         ConsPointer result = object.getCons().getExtraInfoPointer();
         if (result == null)
         {
-            UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+            UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         } else if (result.getCons() == null)
         {
-            UtilityFunctions.internalFalse(aEnvironment, getResult(aEnvironment, aStackTop));
+            UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         } else
         {
-            getResult(aEnvironment, aStackTop).setCons(result.getCons());
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(result.getCons());
         }
     }
 }

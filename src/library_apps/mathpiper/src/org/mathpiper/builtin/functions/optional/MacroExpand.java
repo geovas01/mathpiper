@@ -48,6 +48,6 @@ public class MacroExpand extends BuiltinFunction
         UtilityFunctions.substitute(result, argument, behaviour);
         String substitutedResult = UtilityFunctions.printExpression(result, aEnvironment, 0);
         aEnvironment.write(substitutedResult);
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

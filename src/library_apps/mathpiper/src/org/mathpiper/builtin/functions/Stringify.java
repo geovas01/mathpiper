@@ -52,7 +52,7 @@ public class Stringify extends BuiltinFunction
         
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));
     }
 }
 

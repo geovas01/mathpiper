@@ -20,7 +20,7 @@ import org.mathpiper.lisp.Environment;
 			BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
 			BigNumber z = new BigNumber(aEnvironment.getPrecision());
 			z.floor(x);
-			getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+			getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
 		}
 	}//end class.
 

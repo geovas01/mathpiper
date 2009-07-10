@@ -30,7 +30,7 @@ public class Head extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalNth(getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1), 1);
+        UtilityFunctions.internalNth(getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1), 1);
     }
 }
 

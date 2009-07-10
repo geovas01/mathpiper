@@ -53,6 +53,6 @@ public class SetPlotColor extends BuiltinFunction
          int greenValue = Integer.parseInt( (String) greenCons.car());
          int blueValue = Integer.parseInt( (String) blueCons.car());
          simulator.setColor(redValue, greenValue, blueValue);
-         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

@@ -46,7 +46,7 @@ import org.mathpiper.lisp.cons.SubListCons;
 				tail.goNext();
 				consTraverser.goNext();
 			}
-			getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(allPointer.getCons()));
+			getTopOfStackPointer(aEnvironment, aStackTop).setCons(SubListCons.getInstance(allPointer.getCons()));
 		}
 	}
 

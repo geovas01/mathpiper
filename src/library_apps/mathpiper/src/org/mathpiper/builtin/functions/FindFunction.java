@@ -54,13 +54,13 @@ public class FindFunction extends BuiltinFunction
             /*DefFile def = multiUserFunc.iFileToOpen;
             if (def != null)
             {
-                getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, def.iFileName));
+                getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, def.iFileName));
                 return;
             }*/
-            getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, multiUserFunc.iFileLocation));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, multiUserFunc.iFileLocation));
             return;
         }
-        getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
     }
 }
 

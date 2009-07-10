@@ -36,7 +36,7 @@ public class LispReadListed extends BuiltinFunction
                 aEnvironment);
         parser.iListed = true;
         // Read expression
-        parser.parse(getResult(aEnvironment, aStackTop));
+        parser.parse(getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

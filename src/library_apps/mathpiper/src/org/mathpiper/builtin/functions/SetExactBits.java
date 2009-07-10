@@ -42,7 +42,7 @@ public class SetExactBits extends BuiltinFunction
         {
             z.setPrecision((int) (UtilityFunctions.bitsToDigits((long) (y.toDouble()), 10)));
         }
-        getResult(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }
 

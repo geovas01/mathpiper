@@ -41,7 +41,7 @@ public class HoldArg extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, tohold != null, 2);
         aEnvironment.holdArgument(UtilityFunctions.getSymbolName(aEnvironment, orig), tohold);
         // Return true
-        UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
+        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

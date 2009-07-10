@@ -33,7 +33,7 @@ public class IsFunction extends BuiltinFunction
     {
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        UtilityFunctions.internalBoolean(aEnvironment, getResult(aEnvironment, aStackTop),
+        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
                 result.car() instanceof ConsPointer);
     }
 }

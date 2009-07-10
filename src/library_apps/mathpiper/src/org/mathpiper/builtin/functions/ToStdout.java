@@ -34,7 +34,7 @@ public class ToStdout extends BuiltinFunction
         aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
         try
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
         } catch (Exception e)
         {
             throw e;
