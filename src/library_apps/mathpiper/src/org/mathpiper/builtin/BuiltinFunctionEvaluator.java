@@ -23,7 +23,6 @@ import org.mathpiper.builtin.BuiltinFunction;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.SubListCons;
@@ -91,7 +90,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         // Push a place holder for the result: push full expression so it is available for error reporting
         aEnvironment.iArgumentStack.pushArgumentOnStack(aArgumentsPointer.getCons());
 
-        ConsTraverser argumentsConsTraverser = new ConsTraverser(aArgumentsPointer);
+        ConsPointer argumentsConsTraverser = new ConsPointer(aArgumentsPointer.getCons());
 
         //Strip the function name from the head of the list.
         argumentsConsTraverser.goNext();
@@ -132,8 +131,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
             for (i = 0; i < numberOfArguments; i++) {
                 LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-                LispError.check(argumentsConsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentResultPointer, argumentsConsTraverser.getPointer());
+                LispError.check(argumentsConsTraverser != null, LispError.KLispErrWrongNumberOfArgs);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentResultPointer, argumentsConsTraverser);
 
                 if (isTraced() && argumentsResultPointerArray != null  && showFlag) {
                     argumentsResultPointerArray[i] = new ConsPointer();
