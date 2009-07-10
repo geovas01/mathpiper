@@ -82,4 +82,9 @@ public class ConsPointer {
         return out.toString();
     }//end method.
 
+    public String type()
+    {
+        return iCons.type();
+    }//end method.
+
 }//end class.

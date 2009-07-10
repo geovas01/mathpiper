@@ -36,6 +36,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     public abstract Object car() throws Exception;
 
+    public abstract String type();
+
 
 
     /**

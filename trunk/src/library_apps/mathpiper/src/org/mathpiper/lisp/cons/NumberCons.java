@@ -155,5 +155,12 @@ public class NumberCons extends Cons {
 
     public ConsPointer cdr() {
         return iCdr;
-    }
-}
+    }//end method.
+
+
+    public String type()
+    {
+        return "Number";
+    }//end method.
+
+}//end class.

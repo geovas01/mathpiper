@@ -92,5 +92,11 @@ public class SubListCons extends Cons
         }
         return out.toString();
     }//end method.
+
+
+    public String type()
+    {
+        return "SubList";
+    }//end method.
 	
 }

@@ -49,18 +49,18 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
         Cons argumentListCons = argumentPointer.getCons();
         
-        if (argumentListCons.car() instanceof ConsPointer) {
+        if (argumentListCons.type().equals("SubList")) {
 
             ConsPointer dataSubList = (ConsPointer) argumentListCons.car();
 
             //Skip past List type.
             dataSubList.goNext();
 
-            if(dataSubList.car() instanceof ConsPointer)
+            if(dataSubList.type().equals("SubList"))
             {
                  ConsPointer dataListPointer = (ConsPointer) dataSubList.car();
 
-                 if(dataListPointer.car() instanceof String)
+                 if(dataListPointer.type().equals("Atom"))
                  {
                     
                  }
