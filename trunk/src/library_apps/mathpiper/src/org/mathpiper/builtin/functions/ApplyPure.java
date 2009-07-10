@@ -38,22 +38,22 @@ public class ApplyPure extends BuiltinFunction
         ConsPointer args = new ConsPointer();
         args.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        LispError.checkArgument(aEnvironment, aStackTop, args.getCons().car() instanceof ConsPointer, 2);
-        LispError.check(aEnvironment, aStackTop, ((ConsPointer) args.getCons().car()).getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, args.car() instanceof ConsPointer, 2);
+        LispError.check(aEnvironment, aStackTop, ((ConsPointer) args.car()).getCons() != null, 2);
 
         // Apply a pure string
-        if (oper.getCons().car() instanceof String)
+        if (oper.car() instanceof String)
         {
             UtilityFunctions.internalApplyString(aEnvironment, getResult(aEnvironment, aStackTop),
-                    (String) oper.getCons().car(),
-                    ((ConsPointer) args.getCons().car()).getCons().cdr());
+                    (String) oper.car(),
+                    ((ConsPointer) args.car()).cdr());
         } else
         {   // Apply a pure function {args,body}.
 
             ConsPointer args2 = new ConsPointer();
-            args2.setCons(((ConsPointer) args.getCons().car()).getCons().cdr().getCons());
-            LispError.checkArgument(aEnvironment, aStackTop, oper.getCons().car() instanceof ConsPointer, 1);
-            LispError.checkArgument(aEnvironment, aStackTop, ((ConsPointer) oper.getCons().car()).getCons() != null, 1);
+            args2.setCons(((ConsPointer) args.car()).cdr().getCons());
+            LispError.checkArgument(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, 1);
+            LispError.checkArgument(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, 1);
             UtilityFunctions.internalApplyPure(oper, args2, getResult(aEnvironment, aStackTop), aEnvironment);
         }
     }

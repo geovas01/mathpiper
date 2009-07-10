@@ -36,9 +36,9 @@ public class MaxEvalDepth extends BuiltinFunction
         ConsPointer index = new ConsPointer();
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().car() instanceof String, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1);
 
-        int ind = Integer.parseInt( (String) index.getCons().car(), 10);
+        int ind = Integer.parseInt( (String) index.car(), 10);
         aEnvironment.iMaxEvalDepth = ind;
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }

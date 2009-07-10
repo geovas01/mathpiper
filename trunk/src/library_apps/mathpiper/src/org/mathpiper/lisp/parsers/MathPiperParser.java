@@ -370,11 +370,11 @@ public class MathPiperParser extends Parser
             fail();
             return;
         }
-        subList.getCons().cdr().setCons(consTraverser.getCons().cdr().getCons());
-        consTraverser.getCons().cdr().setCons(null);
+        subList.cdr().setCons(consTraverser.cdr().getCons());
+        consTraverser.cdr().setCons(null);
 
-        UtilityFunctions.internalReverseList(((ConsPointer) subList.getCons().car()).getCons().cdr(),
-                ((ConsPointer) subList.getCons().car()).getCons().cdr());
+        UtilityFunctions.internalReverseList(((ConsPointer) subList.car()).cdr(),
+                ((ConsPointer) subList.car()).cdr());
         iSExpressionResult.setCons(subList.getCons());
     }
 
@@ -382,7 +382,7 @@ public class MathPiperParser extends Parser
     {
         ConsPointer ptr = new ConsPointer();
         ptr.setCons(AtomCons.getInstance(iEnvironment, aString));
-        ptr.getCons().cdr().setCons(iSExpressionResult.getCons());
+        ptr.cdr().setCons(iSExpressionResult.getCons());
         iSExpressionResult.setCons(ptr.getCons());
     }
 

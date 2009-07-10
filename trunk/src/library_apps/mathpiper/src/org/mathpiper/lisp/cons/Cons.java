@@ -76,8 +76,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
                 return false;
             }
 
-            iter1 = iter1.getCons().cdr();
-            iter2 = iter2.getCons().cdr();
+            iter1 = iter1.cdr();
+            iter2 = iter2.cdr();
         }
         //One list longer than the other?
         if (iter1.getCons() == null && iter2.getCons() == null) {

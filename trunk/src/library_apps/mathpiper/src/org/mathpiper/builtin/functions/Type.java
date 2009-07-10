@@ -36,12 +36,12 @@ public class Type extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         
-        if (!( evaluated.getCons().car() instanceof ConsPointer))
+        if (!( evaluated.car() instanceof ConsPointer))
         {
             getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
             return;
         }
-        ConsPointer subList = (ConsPointer) evaluated.getCons().car();
+        ConsPointer subList = (ConsPointer) evaluated.car();
         Cons head = null;
         head = subList.getCons();
         if (!( head.car() instanceof String))

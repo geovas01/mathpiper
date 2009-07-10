@@ -37,16 +37,16 @@ public class RulebaseArgList extends BuiltinFunction
     {
         ConsPointer name = new ConsPointer();
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        String orig = (String) name.getCons().car();
+        String orig = (String) name.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().car() instanceof String, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2);
 
-        int arity = Integer.parseInt( (String) sizearg.getCons().car(), 10);
+        int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
         SingleArityBranchingUserFunction userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity);
         LispError.check(aEnvironment, aStackTop, userFunc != null, LispError.KLispErrInvalidArg);
@@ -54,7 +54,7 @@ public class RulebaseArgList extends BuiltinFunction
         ConsPointer list = userFunc.argList();
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
-        head.getCons().cdr().setCons(list.getCons());
+        head.cdr().setCons(list.getCons());
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
     }
 }

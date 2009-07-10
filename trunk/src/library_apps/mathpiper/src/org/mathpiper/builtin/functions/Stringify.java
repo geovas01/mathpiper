@@ -40,13 +40,13 @@ public class Stringify extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
 
         String orig = null;
-        if(evaluated.getCons().car() instanceof String)
+        if(evaluated.car() instanceof String)
         {
-                 orig = (String) evaluated.getCons().car();
+                 orig = (String) evaluated.car();
         }
-        else if(evaluated.getCons().car() instanceof BuiltinContainer)
+        else if(evaluated.car() instanceof BuiltinContainer)
         {
-            BuiltinContainer container = (BuiltinContainer) evaluated.getCons().car();
+            BuiltinContainer container = (BuiltinContainer) evaluated.car();
             orig = container.getJavaObject().toString();
         }
         

@@ -44,7 +44,7 @@ public class PrettyPrinterSet extends BuiltinFunction
             oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons());
             oper.goNext();
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
-            aEnvironment.iPrettyPrinter = (String) oper.getCons().car();
+            aEnvironment.iPrettyPrinter = (String) oper.car();
         }
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }

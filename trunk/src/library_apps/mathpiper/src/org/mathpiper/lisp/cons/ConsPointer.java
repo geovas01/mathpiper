@@ -34,6 +34,16 @@ public class ConsPointer
 
     Cons iCons;
 
+    public Object car() throws Exception
+    {
+        return iCons.car();
+    }
+
+    public ConsPointer cdr()
+    {
+        return iCons.cdr();
+    }
+
     public ConsPointer()
     {
         iCons = null;

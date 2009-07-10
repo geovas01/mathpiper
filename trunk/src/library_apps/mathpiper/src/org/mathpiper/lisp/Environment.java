@@ -293,7 +293,7 @@ public class Environment {
     }
 
     public SingleArityBranchingUserFunction getUserFunction(ConsPointer aArguments) throws Exception {
-        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp( (String) aArguments.getCons().car());
+        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp( (String) aArguments.car());
         if (multipleArityUserFunc != null) {
             int arity = UtilityFunctions.listLength(aArguments) - 1;
             return multipleArityUserFunc.getUserFunction(arity);

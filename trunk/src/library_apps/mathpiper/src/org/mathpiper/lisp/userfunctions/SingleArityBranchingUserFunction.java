@@ -68,13 +68,13 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         while (parameterTraverser.getCons() != null) {
 
             try{
-                LispError.check(parameterTraverser.getCons().car() instanceof String, LispError.KLispErrCreatingUserFunction);
+                LispError.check(parameterTraverser.car() instanceof String, LispError.KLispErrCreatingUserFunction);
             }catch(EvaluationException ex)
             {
                 throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
             }//end catch.
 
-            FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.getCons().car(), false);
+            FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.car(), false);
             iParameters.add(parameter);
             parameterTraverser.goNext();
         }
@@ -167,11 +167,11 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.getCons().copy(false));
             if (arity == 0) {
-                full.getCons().cdr().setCons(null);
+                full.cdr().setCons(null);
             } else {
-                full.getCons().cdr().setCons(argumentsResultPointerArray[0].getCons());
+                full.cdr().setCons(argumentsResultPointerArray[0].getCons());
                 for (parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].getCons().cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
+                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
             aResult.setCons(SubListCons.getInstance(full.getCons()));
@@ -202,10 +202,10 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
             String functionName = "";
-            if (argumentsPointer.getCons().car() instanceof ConsPointer) {
-                ConsPointer sub = (ConsPointer) argumentsPointer.getCons().car();
-                if (sub.getCons().car() instanceof String) {
-                    functionName = (String) sub.getCons().car();
+            if (argumentsPointer.car() instanceof ConsPointer) {
+                ConsPointer sub = (ConsPointer) argumentsPointer.car();
+                if (sub.car() instanceof String) {
+                    functionName = (String) sub.car();
                 }
             }//end function.
             if (Evaluator.isTraceFunction(functionName)) {

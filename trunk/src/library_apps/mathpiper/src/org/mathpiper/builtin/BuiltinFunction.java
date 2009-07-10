@@ -312,7 +312,7 @@ public abstract class BuiltinFunction {
         ConsPointer loop = cur;
         while (n != 0) {
             n--;
-            loop = loop.getCons().cdr();
+            loop = loop.cdr();
         }
         return loop;
     }

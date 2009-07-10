@@ -54,10 +54,10 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
 
             String functionName = "";
-            if (argumentsPointer.getCons().car() instanceof ConsPointer) {
-                ConsPointer sub = (ConsPointer) argumentsPointer.getCons().car();
-                if (sub.getCons().car() instanceof String) {
-                    functionName = (String) sub.getCons().car();
+            if (argumentsPointer.car() instanceof ConsPointer) {
+                ConsPointer sub = (ConsPointer) argumentsPointer.car();
+                if (sub.car() instanceof String) {
+                    functionName = (String) sub.car();
                 }
             }//end function.
             if (Evaluator.isTraceFunction(functionName)) {
@@ -124,7 +124,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             if ((iFlags & Variable) != 0) {//This macro has a variable number of arguments.
                 ConsPointer head = new ConsPointer();
                 head.setCons(aEnvironment.iListAtom.copy(false));
-                head.getCons().cdr().setCons(argumentsConsTraverser.getCons());
+                head.cdr().setCons(argumentsConsTraverser.getCons());
                 aEnvironment.iArgumentStack.pushArgumentOnStack(SubListCons.getInstance(head.getCons()));
             }//end if.
 
@@ -152,7 +152,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
                 ConsPointer head = new ConsPointer();
                 head.setCons(aEnvironment.iListAtom.copy(false));
-                head.getCons().cdr().setCons(argumentsConsTraverser.getCons());
+                head.cdr().setCons(argumentsConsTraverser.getCons());
                 ConsPointer listPointer = new ConsPointer();
                 listPointer.setCons(SubListCons.getInstance(head.getCons()));
 
