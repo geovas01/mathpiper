@@ -68,4 +68,9 @@ public class BuiltinObjectCons extends Cons
     public ConsPointer cdr() {
         return iCdr;
     }
+
+    public String type()
+    {
+        return "BuiltinObject";
+    }//end method.
 };

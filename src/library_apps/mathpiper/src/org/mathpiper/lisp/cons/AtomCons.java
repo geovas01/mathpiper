@@ -85,6 +85,11 @@ public class AtomCons extends Cons
     {
         return iCar;
     }//end method.
+
+    public String type()
+    {
+        return "Atom";
+    }//end method.
    
 
 }//end class.
