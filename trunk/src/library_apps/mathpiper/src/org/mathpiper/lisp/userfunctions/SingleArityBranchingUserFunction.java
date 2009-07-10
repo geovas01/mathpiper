@@ -20,7 +20,6 @@ package org.mathpiper.lisp.userfunctions;
 import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SubListCons;
 import java.util.*;
@@ -63,7 +62,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         // iParameterList and #iParameters are set from \a aParameters.
         iParameterList.setCons(aParameters.getCons());
 
-        ConsTraverser parameterTraverser = new ConsTraverser(aParameters);
+        ConsPointer parameterTraverser = new ConsPointer(aParameters.getCons());
 
         while (parameterTraverser.getCons() != null) {
 
@@ -217,7 +216,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             argumentsPointer.setCons(null);
         }
 
-        ConsTraverser argumentsTraverser = new ConsTraverser(aArgumentsPointer);
+        ConsPointer argumentsTraverser = new ConsPointer(aArgumentsPointer.getCons());
 
         //Strip the function name from the head of the list.
         argumentsTraverser.goNext();
@@ -245,10 +244,10 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 //If the parameter is not on hold:
 
                 //Verify that the pointer to the arguments is not null.
-                LispError.check(argumentsTraverser.getPointer() != null, LispError.KLispErrWrongNumberOfArgs);
+                LispError.check(argumentsTraverser != null, LispError.KLispErrWrongNumberOfArgs);
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[parameterIndex], argumentsTraverser.getPointer());
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[parameterIndex], argumentsTraverser);
             }
             argumentsTraverser.goNext();
         }//end for.
