@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.lisp.cons.ListCons;
 
 /**
  *
@@ -46,7 +46,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 				tail.goNext();
 				consTraverser.goNext();
 			}
-			getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(allPointer.getCons()));
+			getTopOfStackPointer(aEnvironment, aStackTop).setCons(ListCons.getInstance(allPointer.getCons()));
 		}
 	}
 

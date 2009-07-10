@@ -158,9 +158,9 @@ public class NumberCons extends Cons {
     }//end method.
 
 
-    public String type()
+    public int type()
     {
-        return "Number";
+        return Cons.NUMBER;
     }//end method.
 
 }//end class.

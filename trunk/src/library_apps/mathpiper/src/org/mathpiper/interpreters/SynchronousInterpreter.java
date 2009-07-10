@@ -257,7 +257,7 @@ class SynchronousInterpreter implements Interpreter {
             }
         } catch (Exception exception) {
             //Uncomment this for debugging();
-            //exception.printStackTrace();
+            exception.printStackTrace();
 
 
             if (exception instanceof EvaluationException) {

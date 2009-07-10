@@ -68,7 +68,7 @@ public class ConsPointer {
     public void goSub() throws Exception {
         LispError.check(iCons != null, LispError.INVALID_ARGUMENT);
         LispError.check(iCons.car() instanceof ConsPointer, LispError.NOT_A_LIST);
-        iCons = (Cons) iCons.car();
+        iCons = ((ConsPointer)iCons.car()).getCons();
     }
 
     public String toString() {
@@ -82,7 +82,7 @@ public class ConsPointer {
         return out.toString();
     }//end method.
 
-    public String type()
+    public int type()
     {
         return iCons.type();
     }//end method.

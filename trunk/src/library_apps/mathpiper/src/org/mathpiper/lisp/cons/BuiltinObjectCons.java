@@ -69,8 +69,8 @@ public class BuiltinObjectCons extends Cons
         return iCdr;
     }
 
-    public String type()
+    public int type()
     {
-        return "BuiltinObject";
+        return Cons.OBJECT;
     }//end method.
 };
