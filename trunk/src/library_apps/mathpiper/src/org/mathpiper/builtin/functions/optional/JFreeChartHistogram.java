@@ -55,24 +55,29 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
             ConsPointer dataSubList = (ConsPointer) argument1;
 
-            ConsTraverser consTraverser = new ConsTraverser(dataSubList);
-
             //Skip past List type.
-            consTraverser.goNext();
+            dataSubList.goNext();
 
             //Obtain the Java object to call.
-            Cons argumentCons = consTraverser.getPointer().getCons();
+            Cons argumentsCons = dataSubList.getCons();
 
+            if(argumentsCons.car() instanceof ConsPointer)
+            {
+                 ConsPointer dataListPointer = (ConsPointer) argumentsCons.car();
 
+                 if(dataListPointer.getCons().car() instanceof String)
+                 {
 
-                    consTraverser.goNext();
+                 }
+
+                    dataListPointer.goNext();
 
                     ArrayList argumentArrayList = new ArrayList();
 
-                    while (consTraverser.getCons() != null) {
-                        argumentCons = consTraverser.getPointer().getCons();
+                    while (dataListPointer.getCons() != null) {
+                        argumentsCons = dataListPointer.getCons();
 
-                        Object argument = argumentCons.car();
+                        Object argument = argumentsCons.car();
 
                         if (argument instanceof String) {
                             if (argument instanceof String) {
@@ -83,9 +88,16 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
                         argumentArrayList.add(argument);
 
-                        consTraverser.goNext();
+                        dataListPointer.goNext();
 
                     }//end while.
+
+                    }//end if.
+
+
+
+
+
 
                     Object response = null;
                     if (response == null) {
