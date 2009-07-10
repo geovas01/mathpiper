@@ -40,7 +40,7 @@ public class Prog extends BuiltinFunction
 
             // Evaluate args one by one.
 
-            ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first());
+            ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car());
             consTraverser.goNext();
             while (consTraverser.getCons() != null)
             {

@@ -50,14 +50,14 @@ public class ConsTraverser
 	public void goNext() throws Exception
 	{
 		LispError.check(iPointer.getCons() != null,LispError.KLispErrListNotLongEnough);
-		iPointer = (iPointer.getCons().getRestPointer());
+		iPointer = (iPointer.getCons().cdr());
 	}
 	
 	public void goSub() throws Exception
 	{
 		LispError.check(iPointer.getCons() != null,LispError.KLispErrInvalidArg);
-		LispError.check(iPointer.getCons().first() instanceof ConsPointer,LispError.KLispErrNotList);
-		iPointer = (ConsPointer) iPointer.getCons().first();
+		LispError.check(iPointer.getCons().car() instanceof ConsPointer,LispError.KLispErrNotList);
+		iPointer = (ConsPointer) iPointer.getCons().car();
 	}
 
 };

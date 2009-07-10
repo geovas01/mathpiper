@@ -33,7 +33,7 @@ public class DefaultDirectory extends BuiltinFunction
     {
         // Get file name
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+        String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
         aEnvironment.iInputDirectories.add(oper);
@@ -61,7 +61,7 @@ to the file name before trying to load the file.
 This means that "path" should end with a forward slash (under Unix-like
 operating systems).
 
-MathPiper first tries to load a file from the current
+MathPiper car tries to load a file from the current
 directory, and otherwise it tries to load from
 directories defined with this function, in the
 order they are defined. Note there will be at least one directory

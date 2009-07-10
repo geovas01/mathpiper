@@ -44,7 +44,7 @@ public class PrettyReaderSet extends BuiltinFunction
             oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons());
             oper.goNext();
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
-            aEnvironment.iPrettyReader = (String) oper.getCons().first();
+            aEnvironment.iPrettyReader = (String) oper.getCons().car();
         }
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));
     }

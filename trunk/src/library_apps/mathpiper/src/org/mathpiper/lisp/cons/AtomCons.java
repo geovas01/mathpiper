@@ -49,7 +49,7 @@ public class AtomCons extends Cons
         return self;
     }
     
-    public Object first()
+    public Object car()
     {
         return iCar;
     }
@@ -57,7 +57,7 @@ public class AtomCons extends Cons
     
         /*public String toString()
         {
-            return first();
+            return car();
         }*/
 
     public Cons copy(boolean aRecursed)
@@ -77,7 +77,7 @@ public class AtomCons extends Cons
         return null;
     }
 
-    public ConsPointer getRestPointer() {
+    public ConsPointer cdr() {
         return iCdr;
     }
 

@@ -32,7 +32,7 @@ public class WriteString extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+        String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
         LispError.checkArgument(aEnvironment, aStackTop, str != null, 1);
         LispError.checkArgument(aEnvironment, aStackTop, str.charAt(0) == '\"', 1);
         LispError.checkArgument(aEnvironment, aStackTop, str.charAt(str.length() - 1) == '\"', 1);

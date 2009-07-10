@@ -38,7 +38,7 @@ public class ArrayGet extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        BuiltinContainer gen = (BuiltinContainer) evaluated.getCons().first();
+        BuiltinContainer gen = (BuiltinContainer) evaluated.getCons().car();
         LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1);
         LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1);
 
@@ -46,9 +46,9 @@ public class ArrayGet extends BuiltinFunction
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().first() instanceof String, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons().car() instanceof String, 2);
 
-        int size = Integer.parseInt( (String) sizearg.getCons().first(), 10);
+        int size = Integer.parseInt( (String) sizearg.getCons().car(), 10);
 
         LispError.checkArgument(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2);
         Cons object = ((Array) gen).getElement(size);
@@ -68,7 +68,7 @@ public class ArrayGet extends BuiltinFunction
 
 *DESC
 Returns the element at position index in the array passed. Arrays are treated
-as base-one, so {index} set to 1 would return the first element.
+as base-one, so {index} set to 1 would return the car element.
 
 Arrays can also be accessed through the {[]} operators. So
 {array[index]} would return the same as {ArrayGet(array, index)}.

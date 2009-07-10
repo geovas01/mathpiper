@@ -33,9 +33,9 @@ public class Local extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof ConsPointer) {
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car() instanceof ConsPointer) {
 
-            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
             
             ConsTraverser consTraverser = new ConsTraverser(subList);
             consTraverser.goNext();
@@ -43,7 +43,7 @@ public class Local extends BuiltinFunction
             int nr = 1;
             while (consTraverser.getCons() != null)
             {
-                String variable = (String) consTraverser.getCons().first();
+                String variable = (String) consTraverser.getCons().car();
                 LispError.checkArgument(aEnvironment, aStackTop, variable != null, nr);
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocalVariable(variable, null);
@@ -99,7 +99,7 @@ local copy unless this is specifically allowed with {UnFence}.
 	In> a;
 	Out> 4;
 
-In the first block, {a} is not declared local and
+In the car block, {a} is not declared local and
 hence defaults to be a global variable. Indeed, changing the variable
 inside the block also changes the value of {a}
 outside the block. However, in the second block {a}

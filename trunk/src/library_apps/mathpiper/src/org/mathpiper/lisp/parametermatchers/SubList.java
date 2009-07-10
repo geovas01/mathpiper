@@ -39,7 +39,7 @@ public class SubList extends PatternParameter
 	                               ConsPointer  aExpression,
 	                               ConsPointer[]  arguments) throws Exception
 	{
-		if (!(aExpression.getCons().first() instanceof ConsPointer))
+		if (!(aExpression.getCons().car() instanceof ConsPointer))
 			return false;
 		int i;
 

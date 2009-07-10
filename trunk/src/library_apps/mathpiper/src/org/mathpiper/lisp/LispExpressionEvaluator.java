@@ -89,8 +89,8 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
         // evaluate an atom: find the bound value (treat it as a variable)
-        if ( aExpression.getCons().first() instanceof String) {
-            String str = (String) aExpression.getCons().first();
+        if ( aExpression.getCons().car() instanceof String) {
+            String str = (String) aExpression.getCons().car();
             if (str.charAt(0) == '\"') {
                 aResult.setCons(aExpression.getCons().copy(false));
                 aEnvironment.iEvalDepth--;
@@ -111,13 +111,13 @@ public class LispExpressionEvaluator extends Evaluator {
         {
 
 
-            if ( aExpression.getCons().first() instanceof ConsPointer) {
-                ConsPointer subList = (ConsPointer) aExpression.getCons().first();
+            if ( aExpression.getCons().car() instanceof ConsPointer) {
+                ConsPointer subList = (ConsPointer) aExpression.getCons().car();
                 Cons head = subList.getCons();
                 if (head != null) {
-                    if (head.first() instanceof String) {
+                    if (head.car() instanceof String) {
                         {
-                            BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.first());
+                            BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.car());
                             // Try to find a built-in command
                             if (evaluator != null) {
                                 evaluator.evaluate(aEnvironment, aResult, subList);
@@ -139,7 +139,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         ConsPointer oper = new ConsPointer();
                         ConsPointer args2 = new ConsPointer();
                         oper.setCons(subList.getCons());
-                        args2.setCons(subList.getCons().getRestPointer().getCons());
+                        args2.setCons(subList.getCons().cdr().getCons());
                         UtilityFunctions.internalApplyPure(oper, args2, aResult, aEnvironment);
                         aEnvironment.iEvalDepth--;
                         return;
@@ -162,8 +162,8 @@ public class LispExpressionEvaluator extends Evaluator {
         userFunc = (SingleArityBranchingUserFunction) aEnvironment.getUserFunction(subList);
         if (userFunc != null) {
             return userFunc;
-        } else if (head.first() instanceof String) {
-            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( (String) head.first());
+        } else if (head.car() instanceof String) {
+            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( (String) head.car());
             if (multiUserFunc.iFileToOpen != null) {
                 DefFile def = multiUserFunc.iFileToOpen;
 
@@ -179,9 +179,9 @@ public class LispExpressionEvaluator extends Evaluator {
                         #endif
                         aEnvironment.write(buf);*/
                         if (TRACE_TO_STANDARD_OUT) {
-                            System.out.print("Debug> Loading file" + def.iFileName + " for function " + head.first() + "\n");
+                            System.out.print("Debug> Loading file" + def.iFileName + " for function " + head.car() + "\n");
                         } else {
-                            aEnvironment.write("Debug> Loading file" + def.iFileName + " for function " + head.first() + "\n");
+                            aEnvironment.write("Debug> Loading file" + def.iFileName + " for function " + head.car() + "\n");
                         }
 
                         int debugBreakpoint = 0;

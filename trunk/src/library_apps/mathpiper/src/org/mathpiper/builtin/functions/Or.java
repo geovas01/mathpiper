@@ -38,7 +38,7 @@ public class Or extends BuiltinFunction
 
         ConsPointer evaluated = new ConsPointer();
 
-        ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first());
+        ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car());
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {
@@ -53,7 +53,7 @@ public class Or extends BuiltinFunction
                 nrnogos++;
 
                 ptr.setCons(evaluated.getCons().copy(false));
-                ptr.getCons().getRestPointer().setCons(nogos.getCons());
+                ptr.getCons().cdr().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
             }
             consTraverser.goNext();
@@ -72,7 +72,7 @@ public class Or extends BuiltinFunction
                 nogos.setCons(ptr.getCons());
 
                 ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
-                ptr.getCons().getRestPointer().setCons(nogos.getCons());
+                ptr.getCons().cdr().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
                 getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(nogos.getCons()));
             }

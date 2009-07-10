@@ -33,9 +33,9 @@ public class IsBound extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof String)
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car() instanceof String)
         {
-            String str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+            String str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
             ConsPointer val = new ConsPointer();
             aEnvironment.getGlobalVariable(str, val);
             if (val.getCons() != null)

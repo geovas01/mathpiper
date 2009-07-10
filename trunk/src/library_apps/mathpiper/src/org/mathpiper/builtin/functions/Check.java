@@ -39,7 +39,7 @@ public class Check extends BuiltinFunction
             ConsPointer evaluated = new ConsPointer();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));
             LispError.checkIsString(aEnvironment, aStackTop, evaluated, 2);
-            throw new Exception( (String) evaluated.getCons().first());
+            throw new Exception( (String) evaluated.getCons().car());
         }
         getResult(aEnvironment, aStackTop).setCons(pred.getCons());
     }

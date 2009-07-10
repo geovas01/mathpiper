@@ -36,7 +36,7 @@ import org.mathpiper.lisp.cons.SubListCons;
 			allPointer.setCons(aEnvironment.iListAtom.copy(false));
 			ConsTraverser tail = new ConsTraverser(allPointer);
 			tail.goNext();
-			ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first());
+			ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car());
 			consTraverser.goNext();
 			while (consTraverser.getCons() != null)
 			{
@@ -65,7 +65,7 @@ import org.mathpiper.lisp.cons.SubListCons;
 
 *DESC
 
-A list is constructed whose first entry is "expr1", the second entry
+A list is constructed whose car entry is "expr1", the second entry
 is "expr2", and so on. This command is equivalent to the expression
 "{expr1, expr2, ...}".
 

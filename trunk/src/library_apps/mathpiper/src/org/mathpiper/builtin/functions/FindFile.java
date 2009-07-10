@@ -41,7 +41,7 @@ public class FindFile extends BuiltinFunction
 
         // Get file name
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
-        String orig = (String)  evaluated.getCons().first();
+        String orig = (String)  evaluated.getCons().car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         String oper = UtilityFunctions.internalUnstringify(orig);
 
@@ -70,7 +70,7 @@ opened when the command {Load(name)} would be
 invoked. This means that the input directories are subsequently
 searched for a file called "name". If such a file is not found, {FindFile} returns an empty string.
 
-{FindFile("")} returns the name of the default directory (the first one on the search path).
+{FindFile("")} returns the name of the default directory (the car one on the search path).
 
 *SEE Load, DefaultDirectory
 %/mathpiper_docs

@@ -30,7 +30,7 @@ import org.mathpiper.lisp.Evaluator;
 /**
  * A function (usually mathematical) which is defined by one or more rules.
  * This is the basic class which implements functions.  Evaluation is done
- * by consulting a set of rewritng rules.  The body of the first rule that
+ * by consulting a set of rewritng rules.  The body of the car rule that
  * matches is evaluated and its result is returned as the function's result.
  */
 public class SingleArityBranchingUserFunction extends Evaluator {
@@ -68,13 +68,13 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         while (parameterTraverser.getCons() != null) {
 
             try{
-                LispError.check(parameterTraverser.getCons().first() instanceof String, LispError.KLispErrCreatingUserFunction);
+                LispError.check(parameterTraverser.getCons().car() instanceof String, LispError.KLispErrCreatingUserFunction);
             }catch(EvaluationException ex)
             {
                 throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
             }//end catch.
 
-            FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.getCons().first(), false);
+            FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.getCons().car(), false);
             iParameters.add(parameter);
             parameterTraverser.goNext();
         }
@@ -167,11 +167,11 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.getCons().copy(false));
             if (arity == 0) {
-                full.getCons().getRestPointer().setCons(null);
+                full.getCons().cdr().setCons(null);
             } else {
-                full.getCons().getRestPointer().setCons(argumentsResultPointerArray[0].getCons());
+                full.getCons().cdr().setCons(argumentsResultPointerArray[0].getCons());
                 for (parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].getCons().getRestPointer().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
+                    argumentsResultPointerArray[parameterIndex].getCons().cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
             aResult.setCons(SubListCons.getInstance(full.getCons()));
@@ -202,10 +202,10 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SubListCons.getInstance(aArgumentsPointer.getCons()));
             String functionName = "";
-            if (argumentsPointer.getCons().first() instanceof ConsPointer) {
-                ConsPointer sub = (ConsPointer) argumentsPointer.getCons().first();
-                if (sub.getCons().first() instanceof String) {
-                    functionName = (String) sub.getCons().first();
+            if (argumentsPointer.getCons().car() instanceof ConsPointer) {
+                ConsPointer sub = (ConsPointer) argumentsPointer.getCons().car();
+                if (sub.getCons().car() instanceof String) {
+                    functionName = (String) sub.getCons().car();
                 }
             }//end function.
             if (Evaluator.isTraceFunction(functionName)) {

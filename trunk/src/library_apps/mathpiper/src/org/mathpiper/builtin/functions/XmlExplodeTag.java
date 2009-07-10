@@ -40,7 +40,7 @@ public class XmlExplodeTag extends BuiltinFunction
         out.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, out, 1);
 
-        String str = (String) out.getCons().first();
+        String str = (String) out.getCons().car();
         int strInd = 0;
         strInd++;
         if (str.charAt(strInd) != '<')
@@ -114,10 +114,10 @@ public class XmlExplodeTag extends BuiltinFunction
                 Cons ls = AtomCons.getInstance(aEnvironment, "List");
                 Cons nm = AtomCons.getInstance(aEnvironment, name);
                 Cons vl = AtomCons.getInstance(aEnvironment, value);
-                nm.getRestPointer().setCons(vl);
-                ls.getRestPointer().setCons(nm);
+                nm.cdr().setCons(vl);
+                ls.cdr().setCons(nm);
                 Cons newinfo = SubListCons.getInstance(ls);
-                newinfo.getRestPointer().setCons(info);
+                newinfo.cdr().setCons(info);
                 info = newinfo;
             }
             while (str.charAt(strInd) == ' ')
@@ -138,16 +138,16 @@ public class XmlExplodeTag extends BuiltinFunction
         }
         {
             Cons ls = AtomCons.getInstance(aEnvironment, "List");
-            ls.getRestPointer().setCons(info);
+            ls.cdr().setCons(info);
             info = SubListCons.getInstance(ls);
         }
 
         Cons xm = AtomCons.getInstance(aEnvironment, "XmlTag");
         Cons tg = AtomCons.getInstance(aEnvironment, tag);
         Cons tp = AtomCons.getInstance(aEnvironment, type);
-        info.getRestPointer().setCons(tp);
-        tg.getRestPointer().setCons(info);
-        xm.getRestPointer().setCons(tg);
+        info.cdr().setCons(tp);
+        tg.cdr().setCons(info);
+        xm.cdr().setCons(tg);
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(xm));
 
     }
@@ -167,7 +167,7 @@ public class XmlExplodeTag extends BuiltinFunction
 
 *DESC
 
-{XmlExplodeTag} parses the first XML token in {xmltext}
+{XmlExplodeTag} parses the car XML token in {xmltext}
 and returns a MathPiper expression.
 
 The following subset of XML syntax is supported currently:

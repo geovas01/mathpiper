@@ -35,14 +35,14 @@ public class RightPrecedence extends BuiltinFunction
     {
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+        String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         ConsPointer index = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, index, getArgumentPointer(aEnvironment, aStackTop, 2));
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().first() instanceof String, 2);
-        int ind = Integer.parseInt ( (String) index.getCons().first(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().car() instanceof String, 2);
+        int ind = Integer.parseInt ( (String) index.getCons().car(), 10);
 
         aEnvironment.iInfixOperators.setRightPrecedence(UtilityFunctions.getSymbolName(aEnvironment, orig), ind);
         UtilityFunctions.internalTrue(aEnvironment, getResult(aEnvironment, aStackTop));

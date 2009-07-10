@@ -33,7 +33,7 @@ public class SubListCons extends Cons
 	}
     ConsPointer iCdr = new ConsPointer();
         
-        public Object first()
+        public Object car()
         {
             return iCar;
         }
@@ -75,7 +75,7 @@ public class SubListCons extends Cons
 		iCar.setCons(aSubList);
 	}
 
-    public ConsPointer getRestPointer() {
+    public ConsPointer cdr() {
         return iCdr;
     }
 	

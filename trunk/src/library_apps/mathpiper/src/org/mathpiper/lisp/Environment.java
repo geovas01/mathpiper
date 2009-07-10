@@ -110,9 +110,9 @@ public class Environment {
         iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
         iTrueAtom = AtomCons.getInstance(this, "True");
-        iTrueString = (String) iTrueAtom.first();
+        iTrueString = (String) iTrueAtom.car();
         iFalseAtom = AtomCons.getInstance(this, "False");
-        iFalseString = (String) iFalseAtom.first();
+        iFalseString = (String) iFalseAtom.car();
         iEndOfFileAtom = AtomCons.getInstance(this, "EndOfFile");
         iEndStatementAtom = AtomCons.getInstance(this, ";");
         iProgOpenAtom = AtomCons.getInstance(this, "[");
@@ -293,7 +293,7 @@ public class Environment {
     }
 
     public SingleArityBranchingUserFunction getUserFunction(ConsPointer aArguments) throws Exception {
-        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp( (String) aArguments.getCons().first());
+        MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp( (String) aArguments.getCons().car());
         if (multipleArityUserFunc != null) {
             int arity = UtilityFunctions.listLength(aArguments) - 1;
             return multipleArityUserFunc.getUserFunction(arity);
