@@ -44,7 +44,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
         Cons argumentListCons = argumentPointer.getCons();
 
-        if (argumentListCons.type().equals("SubList")) {
+        if (argumentListCons.type().equals("Sublist")) {
 
             ConsPointer dataSubList = (ConsPointer) argumentListCons.car();
 
@@ -53,7 +53,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
 
 
-            LispError.check(dataSubList.type().equals("SubList"), LispError.NOT_A_LIST);
+            LispError.check(dataSubList.type().equals("Sublist"), LispError.NOT_A_LIST);
             ConsPointer dataListPointer = (ConsPointer) dataSubList.car();
             LispError.check(dataListPointer.type().equals("Atom"), LispError.NOT_A_LIST);
             String type = (String) dataListPointer.getCons().car();

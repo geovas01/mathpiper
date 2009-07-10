@@ -20,7 +20,7 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.cons.ConsTraverser;
-import org.mathpiper.lisp.cons.SubListCons;
+import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
@@ -183,7 +183,7 @@ public class UtilityFunctions {
     public static void returnUnEvaluated(ConsPointer aResult, ConsPointer aArguments, Environment aEnvironment) throws Exception {
         ConsPointer full = new ConsPointer();
         full.setCons(aArguments.getCons().copy(false));
-        aResult.setCons(SubListCons.getInstance(full.getCons()));
+        aResult.setCons(SublistCons.getInstance(full.getCons()));
 
         ConsTraverser consTraverser = new ConsTraverser(aArguments);
         consTraverser.goNext();
@@ -206,7 +206,7 @@ public class UtilityFunctions {
                 AtomCons.getInstance(aEnvironment, getSymbolName(aEnvironment, aOperator));
         head.cdr().setCons(aArgs.getCons());
         ConsPointer body = new ConsPointer();
-        body.setCons(SubListCons.getInstance(head));
+        body.setCons(SublistCons.getInstance(head));
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
     }
 
@@ -286,7 +286,7 @@ public class UtilityFunctions {
         ConsPointer iter = (ConsPointer) aArg.car();
 
         LispError.check(iter.getCons() != null, LispError.INVALID_ARGUMENT);
-        aResult.setCons(SubListCons.getInstance(iter.cdr().getCons()));
+        aResult.setCons(SublistCons.getInstance(iter.cdr().getCons()));
     }
 
     public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception {
@@ -469,7 +469,7 @@ public class UtilityFunctions {
                     oldListPointer = oldListPointer.cdr();
                     next = next.cdr();
                 }
-                aTarget.setCons(SubListCons.getInstance(newList.getCons()));
+                aTarget.setCons(SublistCons.getInstance(newList.getCons()));
             } else {
                 aTarget.setCons(object.copy(false));
             }
@@ -880,7 +880,7 @@ public class UtilityFunctions {
         ConsPointer next = new ConsPointer();
         next.setCons(consTraverser.cdr().getCons());
         consTraverser.getPointer().setCons(next.getCons());
-        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
+        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
 
     public static void internalInsert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
@@ -912,7 +912,7 @@ public class UtilityFunctions {
         toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         toInsert.cdr().setCons(consTraverser.getCons());
         consTraverser.getPointer().setCons(toInsert.getCons());
-        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
+        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
 
     public static void internalReplace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
@@ -947,7 +947,7 @@ public class UtilityFunctions {
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getPointer().getCons() != null, 2);
         toInsert.cdr().setCons(consTraverser.getPointer().cdr().getCons());
         consTraverser.getPointer().setCons(toInsert.getCons());
-        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
+        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
 
     /**
