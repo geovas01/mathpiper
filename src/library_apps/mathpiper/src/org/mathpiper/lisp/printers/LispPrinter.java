@@ -44,21 +44,21 @@ public class LispPrinter
 
 			
 
-			if (iter.getCons().car() instanceof String)
+			if (iter.car() instanceof String)
 			{
-                String string = (String) iter.getCons().car();
+                String string = (String) iter.car();
 				aOutput.write(string);
 				aOutput.putChar(' ');
 			}
 			// else print "(", print sublist, and print ")"
-			else if (iter.getCons().car() instanceof ConsPointer)
+			else if (iter.car() instanceof ConsPointer)
 			{
 				if (item != 0)
 				{
 					indent(aOutput,aDepth+1);
 				}
 				aOutput.write("(");
-				printExpression(((ConsPointer) iter.getCons().car()),aOutput, aEnvironment,aDepth+1);
+				printExpression(((ConsPointer) iter.car()),aOutput, aEnvironment,aDepth+1);
 				aOutput.write(")");
 				item=0;
 			}
@@ -66,7 +66,7 @@ public class LispPrinter
 			{
 				aOutput.write("[BuiltinObject]");
 			}
-			iter = (iter.getCons().cdr());
+			iter = (iter.cdr());
 			item++;
 		} // print rest element
 	}

@@ -46,8 +46,8 @@ public class BuiltinAssoc extends BuiltinFunction
         Cons t;
 
         //check that it is a compound object
-        LispError.checkArgument(aEnvironment, aStackTop, list.getCons().car()  instanceof ConsPointer, 2);
-        t = ((ConsPointer) list.getCons().car()).getCons();
+        LispError.checkArgument(aEnvironment, aStackTop, list.car()  instanceof ConsPointer, 2);
+        t = ((ConsPointer) list.car()).getCons();
         LispError.checkArgument(aEnvironment, aStackTop, t != null, 2);
         t = t.cdr().getCons();
 

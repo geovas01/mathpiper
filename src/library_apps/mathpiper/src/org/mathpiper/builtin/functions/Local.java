@@ -33,9 +33,9 @@ public class Local extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car() instanceof ConsPointer) {
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer) {
 
-            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
+            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
             ConsTraverser consTraverser = new ConsTraverser(subList);
             consTraverser.goNext();
@@ -43,7 +43,7 @@ public class Local extends BuiltinFunction
             int nr = 1;
             while (consTraverser.getCons() != null)
             {
-                String variable = (String) consTraverser.getCons().car();
+                String variable = (String) consTraverser.car();
                 LispError.checkArgument(aEnvironment, aStackTop, variable != null, nr);
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocalVariable(variable, null);

@@ -36,7 +36,7 @@ import org.mathpiper.lisp.cons.SubListCons;
 			allPointer.setCons(aEnvironment.iListAtom.copy(false));
 			ConsTraverser tail = new ConsTraverser(allPointer);
 			tail.goNext();
-			ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car());
+			ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
 			consTraverser.goNext();
 			while (consTraverser.getCons() != null)
 			{

@@ -89,8 +89,8 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
         // evaluate an atom: find the bound value (treat it as a variable)
-        if ( aExpression.getCons().car() instanceof String) {
-            String str = (String) aExpression.getCons().car();
+        if ( aExpression.car() instanceof String) {
+            String str = (String) aExpression.car();
             if (str.charAt(0) == '\"') {
                 aResult.setCons(aExpression.getCons().copy(false));
                 aEnvironment.iEvalDepth--;
@@ -111,8 +111,8 @@ public class LispExpressionEvaluator extends Evaluator {
         {
 
 
-            if ( aExpression.getCons().car() instanceof ConsPointer) {
-                ConsPointer subList = (ConsPointer) aExpression.getCons().car();
+            if ( aExpression.car() instanceof ConsPointer) {
+                ConsPointer subList = (ConsPointer) aExpression.car();
                 Cons head = subList.getCons();
                 if (head != null) {
                     if (head.car() instanceof String) {
@@ -139,7 +139,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         ConsPointer oper = new ConsPointer();
                         ConsPointer args2 = new ConsPointer();
                         oper.setCons(subList.getCons());
-                        args2.setCons(subList.getCons().cdr().getCons());
+                        args2.setCons(subList.cdr().getCons());
                         UtilityFunctions.internalApplyPure(oper, args2, aResult, aEnvironment);
                         aEnvironment.iEvalDepth--;
                         return;

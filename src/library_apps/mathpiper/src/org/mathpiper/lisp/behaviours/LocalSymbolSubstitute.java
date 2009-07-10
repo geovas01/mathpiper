@@ -44,12 +44,12 @@ public class LocalSymbolSubstitute implements Substitute
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
 		
-		if (!(aElement.getCons().car() instanceof String))
+		if (!(aElement.car() instanceof String))
         {
 			return false;
         }//end if.
 
-        String name = (String) aElement.getCons().car();
+        String name = (String) aElement.car();
 
 		int i;
 		for (i=0;i<iNumberOfNames;i++)

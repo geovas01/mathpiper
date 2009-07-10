@@ -69,9 +69,9 @@ public class MathPiperPrinter extends LispPrinter
 		LispError.lispAssert(aExpression.getCons() != null);
 
 		String string;
-		if (aExpression.getCons().car() instanceof String)
+		if (aExpression.car() instanceof String)
 		{
-            string = (String) aExpression.getCons().car();
+            string = (String) aExpression.car();
 			boolean bracket=false;
 			if (iPrecedence<KMaxPrecedence &&
 			                string.charAt(0) == '-' &&
@@ -86,14 +86,14 @@ public class MathPiperPrinter extends LispPrinter
 			return;
 		}
 
-		if (aExpression.getCons().car() instanceof BuiltinContainer)
+		if (aExpression.car() instanceof BuiltinContainer)
 		{
 			//TODO display genericclass
-			WriteToken(aOutput, ((BuiltinContainer) aExpression.getCons().car()).typeName());
+			WriteToken(aOutput, ((BuiltinContainer) aExpression.car()).typeName());
 			return;
 		}
 
-		ConsPointer subList = (ConsPointer) aExpression.getCons().car();
+		ConsPointer subList = (ConsPointer) aExpression.car();
 		LispError.check(subList!=null, LispError.KLispErrUnprintableToken);
 		if (subList.getCons() == null)
 		{
@@ -102,7 +102,7 @@ public class MathPiperPrinter extends LispPrinter
 		else
 		{
 			int length = UtilityFunctions.listLength(subList);
-			string = (String) subList.getCons().car();
+			string = (String) subList.car();
 			InfixOperator prefix  = (InfixOperator)iPrefixOperators.lookUp(string);
 			InfixOperator infix   = (InfixOperator)iInfixOperators.lookUp(string);
 			InfixOperator postfix = (InfixOperator)iPostfixOperators.lookUp(string);
@@ -129,16 +129,16 @@ public class MathPiperPrinter extends LispPrinter
 
 				if (prefix != null)
 				{
-					right = subList.getCons().cdr();
+					right = subList.cdr();
 				}
 				else if (infix != null)
 				{
-					left  = subList.getCons().cdr();
-					right = subList.getCons().cdr().getCons().cdr();
+					left  = subList.cdr();
+					right = subList.cdr().cdr();
 				}
 				else if (postfix != null)
 				{
-					left = subList.getCons().cdr();
+					left = subList.cdr();
 				}
 
 				if (iPrecedence < op.iPrecedence)
@@ -159,7 +159,7 @@ public class MathPiperPrinter extends LispPrinter
 			}
 			else
 			{
-				ConsTraverser consTraverser = new ConsTraverser(subList.getCons().cdr());
+				ConsTraverser consTraverser = new ConsTraverser(subList.cdr());
 				if (string == iCurrentEnvironment.iListAtom.car())
 				{
 					WriteToken(aOutput,"{");

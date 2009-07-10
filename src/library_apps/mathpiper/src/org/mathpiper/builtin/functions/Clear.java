@@ -33,9 +33,9 @@ public class Clear extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car() instanceof ConsPointer) {
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer) {
 
-            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
+            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
             ConsTraverser consTraverser = new ConsTraverser(subList);
             consTraverser.goNext();
@@ -43,7 +43,7 @@ public class Clear extends BuiltinFunction
             while (consTraverser.getCons() != null)
             {
                 String str;
-                str =  (String) consTraverser.getCons().car();
+                str =  (String) consTraverser.car();
                 LispError.checkArgument(aEnvironment, aStackTop, str != null, nr);
                 aEnvironment.unsetLocalVariable(str);
                 consTraverser.goNext();

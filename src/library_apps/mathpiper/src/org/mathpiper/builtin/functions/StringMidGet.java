@@ -36,19 +36,19 @@ public class StringMidGet extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
-        String orig = (String) evaluated.getCons().car();
+        String orig = (String) evaluated.car();
 
         ConsPointer index = new ConsPointer();
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().car() instanceof String, 1);
-        int from = Integer.parseInt( (String) index.getCons().car(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1);
+        int from = Integer.parseInt( (String) index.car(), 10);
         LispError.checkArgument(aEnvironment, aStackTop, from > 0, 1);
 
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().car() instanceof String, 2);
-        int count = Integer.parseInt( (String) index.getCons().car(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2);
+        int count = Integer.parseInt( (String) index.car(), 10);
 
 
         String str = "\"" + orig.substring(from, from + count) + "\"";

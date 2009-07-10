@@ -36,8 +36,8 @@ public class Tail extends BuiltinFunction
         UtilityFunctions.internalTail(getResult(aEnvironment, aStackTop), first);
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
-        head.getCons().cdr().setCons(((ConsPointer) getResult(aEnvironment, aStackTop).getCons().car()).getCons());
-        ((ConsPointer) getResult(aEnvironment, aStackTop).getCons().car()).setCons(head.getCons());
+        head.cdr().setCons(((ConsPointer) getResult(aEnvironment, aStackTop).car()).getCons());
+        ((ConsPointer) getResult(aEnvironment, aStackTop).car()).setCons(head.getCons());
     }
 }
 

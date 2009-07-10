@@ -36,6 +36,16 @@ public class ConsTraverser
 	{
 		iPointer = aPtr;
 	}
+
+     public Object car() throws Exception
+    {
+        return iPointer.car();
+    }
+
+    public ConsPointer cdr()
+    {
+        return iPointer.cdr();
+    }
 	
 	public Cons getCons()
 	{
@@ -50,14 +60,14 @@ public class ConsTraverser
 	public void goNext() throws Exception
 	{
 		LispError.check(iPointer.getCons() != null,LispError.KLispErrListNotLongEnough);
-		iPointer = (iPointer.getCons().cdr());
+		iPointer = (iPointer.cdr());
 	}
 	
 	public void goSub() throws Exception
 	{
 		LispError.check(iPointer.getCons() != null,LispError.KLispErrInvalidArg);
-		LispError.check(iPointer.getCons().car() instanceof ConsPointer,LispError.KLispErrNotList);
-		iPointer = (ConsPointer) iPointer.getCons().car();
+		LispError.check(iPointer.car() instanceof ConsPointer,LispError.KLispErrNotList);
+		iPointer = (ConsPointer) iPointer.car();
 	}
 
 };

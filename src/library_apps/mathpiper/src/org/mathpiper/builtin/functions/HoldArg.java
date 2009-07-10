@@ -33,11 +33,11 @@ public class HoldArg extends BuiltinFunction
     {
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
+        String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
         // The arguments
-        String tohold =  (String) getArgumentPointer(aEnvironment, aStackTop, 2).getCons().car();
+        String tohold =  (String) getArgumentPointer(aEnvironment, aStackTop, 2).car();
         LispError.checkArgument(aEnvironment, aStackTop, tohold != null, 2);
         aEnvironment.holdArgument(UtilityFunctions.getSymbolName(aEnvironment, orig), tohold);
         // Return true
