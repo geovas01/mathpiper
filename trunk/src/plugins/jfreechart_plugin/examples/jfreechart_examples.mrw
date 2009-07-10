@@ -1,12 +1,5 @@
-To execute these lisp folds, place the cursor inside
-of a fold and press <shift><enter>.
+%mathpiper
 
-%lisp
-(+ 2 3)
-%/lisp
+Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
 
-
-
-%lisp
-(union '(a b c) '(c b s))
-%/lisp
+%/mathpiper
