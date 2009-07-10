@@ -32,10 +32,10 @@ public class Listify extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof ConsPointer, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car() instanceof ConsPointer, 1);
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
-        head.getCons().getRestPointer().setCons(((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first()).getCons());
+        head.getCons().cdr().setCons(((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car()).getCons());
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(head.getCons()));
     }
 }
@@ -56,7 +56,7 @@ public class Listify extends BuiltinFunction
 *DESC
 
 The parameter "expr" is expected to be a compound object, i.e. not
-an atom. It is evaluated and then converted to a list. The first entry
+an atom. It is evaluated and then converted to a list. The car entry
 in the list is the top-level operator in the evaluated expression and
 the other entries are the arguments to this operator. Finally, the
 list is returned.

@@ -42,28 +42,28 @@ public class BackQuoteSubstitute implements Substitute
 	}
 	public boolean matches(ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
-		if (! (aElement.getCons().first() instanceof ConsPointer)) return false;
+		if (! (aElement.getCons().car() instanceof ConsPointer)) return false;
 
-		Cons ptr = ((ConsPointer) aElement.getCons().first()).getCons();
+		Cons ptr = ((ConsPointer) aElement.getCons().car()).getCons();
 		if (ptr == null) return false;
 
-		if (!( ptr.first() instanceof String)) return false;
+		if (!( ptr.car() instanceof String)) return false;
 
-		if (ptr.first().equals("`"))
+		if (ptr.car().equals("`"))
 		{
 			aResult.setCons(aElement.getCons());
 			return true;
 		}
 
-		if (!ptr.first().equals("@"))
+		if (!ptr.car().equals("@"))
 			return false;
 
-		ptr = ptr.getRestPointer().getCons();
+		ptr = ptr.cdr().getCons();
 
 		if (ptr == null)
 			return false;
 
-		if (ptr.first() instanceof String)
+		if (ptr.car() instanceof String)
 		{
 			ConsPointer cur = new ConsPointer();
 			cur.setCons(ptr);
@@ -72,14 +72,14 @@ public class BackQuoteSubstitute implements Substitute
 		}
 		else
 		{
-			ptr = ((ConsPointer) ptr.first()).getCons();
+			ptr = ((ConsPointer) ptr.car()).getCons();
 			ConsPointer cur = new ConsPointer();
 			cur.setCons(ptr);
 			ConsPointer args = new ConsPointer();
-			args.setCons(ptr.getRestPointer().getCons());
+			args.setCons(ptr.cdr().getCons());
 			ConsPointer result = new ConsPointer();
 			iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, result, cur);
-			result.getCons().getRestPointer().setCons(args.getCons());
+			result.getCons().cdr().setCons(args.getCons());
 			ConsPointer result2 = new ConsPointer();
 			result2.setCons(SubListCons.getInstance(result.getCons()));
 			UtilityFunctions.substitute(aResult, result2,this);

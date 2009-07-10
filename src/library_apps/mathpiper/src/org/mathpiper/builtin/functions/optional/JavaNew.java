@@ -42,9 +42,9 @@ public class JavaNew extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof ConsPointer) {
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car() instanceof ConsPointer) {
 
-            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
             ConsTraverser consTraverser = new ConsTraverser(subList);
 
             //Skip past List type.
@@ -54,7 +54,7 @@ public class JavaNew extends BuiltinFunction {
 
             if (argumentCons != null) {
 
-                String fullyQualifiedClassName = (String) argumentCons.first();
+                String fullyQualifiedClassName = (String) argumentCons.car();
                 //Strip leading and trailing quotes.
                 fullyQualifiedClassName = fullyQualifiedClassName.substring(1, fullyQualifiedClassName.length());
                 fullyQualifiedClassName = fullyQualifiedClassName.substring(0, fullyQualifiedClassName.length() - 1);
@@ -65,7 +65,7 @@ public class JavaNew extends BuiltinFunction {
 
                 while (consTraverser.getCons() != null) {
                     argumentCons = consTraverser.getPointer().getCons();
-                    Object argument = argumentCons.first();
+                    Object argument = argumentCons.car();
 
                     if (argument instanceof String) {
                         argument = ((String) argument).substring(1, ((String) argument).length());

@@ -36,8 +36,8 @@ public class Tail extends BuiltinFunction
         UtilityFunctions.internalTail(getResult(aEnvironment, aStackTop), first);
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
-        head.getCons().getRestPointer().setCons(((ConsPointer) getResult(aEnvironment, aStackTop).getCons().first()).getCons());
-        ((ConsPointer) getResult(aEnvironment, aStackTop).getCons().first()).setCons(head.getCons());
+        head.getCons().cdr().setCons(((ConsPointer) getResult(aEnvironment, aStackTop).getCons().car()).getCons());
+        ((ConsPointer) getResult(aEnvironment, aStackTop).getCons().car()).setCons(head.getCons());
     }
 }
 
@@ -45,7 +45,7 @@ public class Tail extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="Tail",categories="User Functions;Lists (Operations);Built In"
-*CMD Tail --- returns a list without its first element
+*CMD Tail --- returns a list without its car element
 *CORE
 *CALL
 	Tail(list)
@@ -56,7 +56,7 @@ public class Tail extends BuiltinFunction
 
 *DESC
 
-This function returns "list" without its first element.
+This function returns "list" without its car element.
 
 *E.G.
 

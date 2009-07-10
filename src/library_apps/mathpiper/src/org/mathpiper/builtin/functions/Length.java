@@ -34,14 +34,14 @@ public class Length extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Object subList =getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+        Object subList =getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
         if (subList instanceof ConsPointer)
         {
-            int num = UtilityFunctions.listLength(((ConsPointer)subList).getCons().getRestPointer());
+            int num = UtilityFunctions.listLength(((ConsPointer)subList).getCons().cdr());
             getResult(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }
-        String string =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+        String string =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
         if (UtilityFunctions.internalIsString(string))
         {
             int num = string.length() - 2;
@@ -49,9 +49,9 @@ public class Length extends BuiltinFunction
             return;
         }
         
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof BuiltinContainer)
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car() instanceof BuiltinContainer)
         {
-            BuiltinContainer gen = (BuiltinContainer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first();
+            BuiltinContainer gen = (BuiltinContainer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car();
             if (gen.typeName().equals("\"Array\""))
             {
                 int size = ((Array) gen).size();

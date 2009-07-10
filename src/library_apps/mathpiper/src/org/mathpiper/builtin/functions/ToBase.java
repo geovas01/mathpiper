@@ -35,7 +35,7 @@ public class ToBase extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get the base to convert to:
-        // Evaluate first argument, and store getResult in oper
+        // Evaluate car argument, and store getResult in oper
         ConsPointer oper = new ConsPointer();
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         // check that getResult is a number, and that it is in fact an integer
@@ -44,7 +44,7 @@ public class ToBase extends BuiltinFunction
         // check that the base is an integer between 2 and 32
         LispError.checkArgument(aEnvironment, aStackTop, num.isInt(), 1);
 
-        // Get a short platform integer from the first argument
+        // Get a short platform integer from the car argument
         int base = (int) (num.toLong());
 
         // Get the number to convert

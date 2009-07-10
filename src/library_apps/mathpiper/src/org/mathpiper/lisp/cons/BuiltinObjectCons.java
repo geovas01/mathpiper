@@ -39,7 +39,7 @@ public class BuiltinObjectCons extends Cons
 	}
     
         
-        public Object first()
+        public Object car()
         {
             return iCarBuiltin;
         }
@@ -65,7 +65,7 @@ public class BuiltinObjectCons extends Cons
 		iCarBuiltin = aClass;
 	}
 
-    public ConsPointer getRestPointer() {
+    public ConsPointer cdr() {
         return iCdr;
     }
 };

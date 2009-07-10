@@ -26,15 +26,15 @@ import org.mathpiper.builtin.BuiltinContainer;
  *  linked lists. It either has a pointer to a string
  * or it is a holder for a sublist, ,
  *  or it is a Java object.  All of these values are obtainable
- * using first();
+ * using car();
  *  It is a reference-counted object. ConsPointer handles the reference counting. ap.
  */
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
 
-    public abstract ConsPointer getRestPointer();
+    public abstract ConsPointer cdr();
 
-    public abstract Object first() throws Exception;
+    public abstract Object car() throws Exception;
 
 
 
@@ -59,13 +59,13 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     public boolean isEqual(Cons aOther) throws Exception {
         // iCdr line handles the fact that either one is a string
-        if (first() != aOther.first()) {
+        if (car() != aOther.car()) {
             return false;
         }
 
         //So, no strings.
-        ConsPointer iter1 = (ConsPointer) first();
-        ConsPointer iter2 = (ConsPointer) aOther.first();
+        ConsPointer iter1 = (ConsPointer) car();
+        ConsPointer iter2 = (ConsPointer) aOther.car();
         if (!(iter1 != null && iter2 != null)) {
             return false;
         }
@@ -76,8 +76,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
                 return false;
             }
 
-            iter1 = iter1.getCons().getRestPointer();
-            iter2 = iter2.getCons().getRestPointer();
+            iter1 = iter1.getCons().cdr();
+            iter2 = iter2.getCons().cdr();
         }
         //One list longer than the other?
         if (iter1.getCons() == null && iter2.getCons() == null) {

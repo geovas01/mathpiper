@@ -33,7 +33,7 @@ public class FlatCopy extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer copied = new ConsPointer();
-        UtilityFunctions.internalFlatCopy(copied, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first());
+        UtilityFunctions.internalFlatCopy(copied, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car());
         getResult(aEnvironment, aStackTop).setCons(SubListCons.getInstance(copied.getCons()));
     }
 }
@@ -54,7 +54,7 @@ public class FlatCopy extends BuiltinFunction
 *DESC
 
 A copy of "list" is made and returned. The list is not recursed
-into, only the first level is copied. This is useful in combination
+into, only the car level is copied. This is useful in combination
 with the destructive commands that actually modify lists in place (for
 efficiency).
 

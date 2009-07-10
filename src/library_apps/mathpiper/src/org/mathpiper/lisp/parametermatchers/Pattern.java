@@ -214,14 +214,14 @@ public class Pattern {
             return new Number(aPattern.getNumber(aEnvironment.getPrecision()));
         }
         // Deal with atoms
-        if (aPattern.first() instanceof String) {
-            return new Atom( (String) aPattern.first());
+        if (aPattern.car() instanceof String) {
+            return new Atom( (String) aPattern.car());
         }
 
         // Else it must be a sublist
-        if (aPattern.first() instanceof ConsPointer) {
+        if (aPattern.car() instanceof ConsPointer) {
             // See if it is a variable template:
-            ConsPointer sublist = (ConsPointer) aPattern.first();
+            ConsPointer sublist = (ConsPointer) aPattern.car();
             //LispError.lispAssert(sublist != null);
 
             int num = UtilityFunctions.listLength(sublist);
@@ -229,29 +229,29 @@ public class Pattern {
             // variable matcher here...
             if (num > 1) {
                 Cons head = sublist.getCons();
-                if (((String) head.first()) == aEnvironment.getTokenHash().lookUp("_")) {
-                    Cons second = head.getRestPointer().getCons();
-                    if (second.first() instanceof String) {
-                        int index = lookUp( (String) second.first());
+                if (((String) head.car()) == aEnvironment.getTokenHash().lookUp("_")) {
+                    Cons second = head.cdr().getCons();
+                    if (second.car() instanceof String) {
+                        int index = lookUp( (String) second.car());
 
                         // Make a predicate for the type, if needed
                         if (num > 2) {
                             ConsPointer third = new ConsPointer();
 
-                            Cons predicate = second.getRestPointer().getCons();
-                            if ( (predicate.first() instanceof ConsPointer)) {
-                                UtilityFunctions.internalFlatCopy(third, (ConsPointer) predicate.first());
+                            Cons predicate = second.cdr().getCons();
+                            if ( (predicate.car() instanceof ConsPointer)) {
+                                UtilityFunctions.internalFlatCopy(third, (ConsPointer) predicate.car());
                             } else {
-                                third.setCons(second.getRestPointer().getCons().copy(false));
+                                third.setCons(second.cdr().getCons().copy(false));
                             }
 
-                            String str = (String) second.first();
+                            String str = (String) second.car();
                             Cons last = third.getCons();
-                            while (last.getRestPointer().getCons() != null) {
-                                last = last.getRestPointer().getCons();
+                            while (last.cdr().getCons() != null) {
+                                last = last.cdr().getCons();
                             }
 
-                            last.getRestPointer().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, str));
+                            last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, str));
 
                             ConsPointer pred = new ConsPointer();
                             pred.setCons(org.mathpiper.lisp.cons.SubListCons.getInstance(third.getCons()));

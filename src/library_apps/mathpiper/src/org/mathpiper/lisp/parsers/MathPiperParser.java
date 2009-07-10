@@ -80,13 +80,13 @@ public class MathPiperParser extends Parser
 
         readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
 
-        if (iLookAhead != iEnvironment.iEndStatementAtom.first())
+        if (iLookAhead != iEnvironment.iEndStatementAtom.car())
         {
             fail();
         }
         if (iError)
         {
-            while (iLookAhead.length() > 0 && iLookAhead != iEnvironment.iEndStatementAtom.first())
+            while (iLookAhead.length() > 0 && iLookAhead != iEnvironment.iEndStatementAtom.car())
             {
                 readToken();
             }
@@ -126,21 +126,21 @@ public class MathPiperParser extends Parser
         for (;;)
         {
             //Handle special case: a[b]. a is matched with lowest precedence!!
-            if (iLookAhead == iEnvironment.iProgOpenAtom.first())
+            if (iLookAhead == iEnvironment.iProgOpenAtom.car())
             {
                 // Match opening bracket
                 matchToken(iLookAhead);
                 // Read "index" argument
                 readExpression(MathPiperPrinter.KMaxPrecedence);
                 // Match closing bracket
-                if (iLookAhead != iEnvironment.iProgCloseAtom.first())
+                if (iLookAhead != iEnvironment.iProgCloseAtom.car())
                 {
                     LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead.",iEnvironment);
                     return;
                 }
                 matchToken(iLookAhead);
                 // Build into Ntn(...)
-                String theOperator = (String) iEnvironment.iNthAtom.first();
+                String theOperator = (String) iEnvironment.iNthAtom.car();
                 insertAtom(theOperator);
                 combine(2);
             } else
@@ -236,47 +236,47 @@ public class MathPiperParser extends Parser
                 combine(1);
             }
         } // Else parse brackets
-        else if (iLookAhead == iEnvironment.iBracketOpenAtom.first())
+        else if (iLookAhead == iEnvironment.iBracketOpenAtom.car())
         {
             matchToken(iLookAhead);
             readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
-            matchToken( (String) iEnvironment.iBracketCloseAtom.first());
+            matchToken( (String) iEnvironment.iBracketCloseAtom.car());
         } //parse lists
-        else if (iLookAhead == iEnvironment.iListOpenAtom.first())
+        else if (iLookAhead == iEnvironment.iListOpenAtom.car())
         {
             int nrargs = 0;
             matchToken(iLookAhead);
-            while (iLookAhead != iEnvironment.iListCloseAtom.first())
+            while (iLookAhead != iEnvironment.iListCloseAtom.car())
             {
                 readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                 nrargs++;
 
-                if (iLookAhead == iEnvironment.iCommaAtom.first())
+                if (iLookAhead == iEnvironment.iCommaAtom.car())
                 {
                     matchToken(iLookAhead);
-                } else if (iLookAhead != iEnvironment.iListCloseAtom.first())
+                } else if (iLookAhead != iEnvironment.iListCloseAtom.car())
                 {
                     LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead.",iEnvironment);
                     return;
                 }
             }
             matchToken(iLookAhead);
-            String theOperator = (String) iEnvironment.iListAtom.first();
+            String theOperator = (String) iEnvironment.iListAtom.car();
             insertAtom(theOperator);
             combine(nrargs);
 
         } // parse prog bodies
-        else if (iLookAhead == iEnvironment.iProgOpenAtom.first())
+        else if (iLookAhead == iEnvironment.iProgOpenAtom.car())
         {
             int nrargs = 0;
 
             matchToken(iLookAhead);
-            while (iLookAhead != iEnvironment.iProgCloseAtom.first())
+            while (iLookAhead != iEnvironment.iProgCloseAtom.car())
             {
                 readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                 nrargs++;
 
-                if (iLookAhead == iEnvironment.iEndStatementAtom.first())
+                if (iLookAhead == iEnvironment.iEndStatementAtom.car())
                 {
                     matchToken(iLookAhead);
                 } else
@@ -286,7 +286,7 @@ public class MathPiperParser extends Parser
                 }
             }
             matchToken(iLookAhead);
-            String theOperator = (String) iEnvironment.iProgAtom.first();
+            String theOperator = (String) iEnvironment.iProgAtom.car();
             insertAtom(theOperator);
 
             combine(nrargs);
@@ -297,19 +297,19 @@ public class MathPiperParser extends Parser
             matchToken(iLookAhead);
 
             int nrargs = -1;
-            if (iLookAhead == iEnvironment.iBracketOpenAtom.first())
+            if (iLookAhead == iEnvironment.iBracketOpenAtom.car())
             {
                 nrargs = 0;
                 matchToken(iLookAhead);
-                while (iLookAhead != iEnvironment.iBracketCloseAtom.first())
+                while (iLookAhead != iEnvironment.iBracketCloseAtom.car())
                 {
                     readExpression(MathPiperPrinter.KMaxPrecedence);  // least precedence
                     nrargs++;
 
-                    if (iLookAhead == iEnvironment.iCommaAtom.first())
+                    if (iLookAhead == iEnvironment.iCommaAtom.car())
                     {
                         matchToken(iLookAhead);
-                    } else if (iLookAhead != iEnvironment.iBracketCloseAtom.first())
+                    } else if (iLookAhead != iEnvironment.iBracketCloseAtom.car())
                     {
                         LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead.",iEnvironment);
                         return;
@@ -370,11 +370,11 @@ public class MathPiperParser extends Parser
             fail();
             return;
         }
-        subList.getCons().getRestPointer().setCons(consTraverser.getCons().getRestPointer().getCons());
-        consTraverser.getCons().getRestPointer().setCons(null);
+        subList.getCons().cdr().setCons(consTraverser.getCons().cdr().getCons());
+        consTraverser.getCons().cdr().setCons(null);
 
-        UtilityFunctions.internalReverseList(((ConsPointer) subList.getCons().first()).getCons().getRestPointer(),
-                ((ConsPointer) subList.getCons().first()).getCons().getRestPointer());
+        UtilityFunctions.internalReverseList(((ConsPointer) subList.getCons().car()).getCons().cdr(),
+                ((ConsPointer) subList.getCons().car()).getCons().cdr());
         iSExpressionResult.setCons(subList.getCons());
     }
 
@@ -382,7 +382,7 @@ public class MathPiperParser extends Parser
     {
         ConsPointer ptr = new ConsPointer();
         ptr.setCons(AtomCons.getInstance(iEnvironment, aString));
-        ptr.getCons().getRestPointer().setCons(iSExpressionResult.getCons());
+        ptr.getCons().cdr().setCons(iSExpressionResult.getCons());
         iSExpressionResult.setCons(ptr.getCons());
     }
 

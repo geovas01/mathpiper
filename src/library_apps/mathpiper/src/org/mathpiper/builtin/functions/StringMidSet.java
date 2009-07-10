@@ -36,19 +36,19 @@ public class StringMidSet extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
-        String orig = (String) evaluated.getCons().first();
+        String orig = (String) evaluated.getCons().car();
         ConsPointer index = new ConsPointer();
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().first() instanceof String, 1);
-        int from = Integer.parseInt( (String) index.getCons().first(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons().car() instanceof String, 1);
+        int from = Integer.parseInt( (String) index.getCons().car(), 10);
 
         LispError.checkArgument(aEnvironment, aStackTop, from > 0, 1);
 
         ConsPointer ev2 = new ConsPointer();
         ev2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, ev2, 2);
-        String replace =(String)  ev2.getCons().first();
+        String replace =(String)  ev2.getCons().car();
 
         LispError.check(aEnvironment, aStackTop, from + replace.length() - 2 < orig.length(), LispError.KLispErrInvalidArg);
         String str;

@@ -56,7 +56,7 @@ public class ConsPointer
 
     public void goNext()
     {
-        iCons = iCons.getRestPointer().iCons;
+        iCons = iCons.cdr().iCons;
     }
     
     /* note:tk:removing to avoid confusion in the debugger.

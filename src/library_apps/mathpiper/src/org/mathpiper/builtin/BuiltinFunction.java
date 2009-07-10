@@ -211,10 +211,10 @@ public abstract class BuiltinFunction {
 
 
 
-	System.out.println("MATHPIPER: " + System.getProperty("java.class.path"));
-        
-	for (String s : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
-	    System.out.println("MATHPIPER: " + s);
+        //System.out.println("MATHPIPER: " + System.getProperty("java.class.path"));
+
+        for (String s : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
+            // System.out.println("MATHPIPER: " + s);
             if (s.endsWith("mathpiper.jar")) {
                 try {
                     java.util.zip.ZipFile zip = new java.util.zip.ZipFile(new File(s));
@@ -250,7 +250,7 @@ public abstract class BuiltinFunction {
 
 
                 break;
-            } else if(! s.endsWith(".jar")){
+            } else if (!s.endsWith(".jar")) {
                 File packageDirectoryFile = new File(s + "/org/mathpiper/builtin/functions/optional");
                 if (packageDirectoryFile.exists()) {
                     java.io.File[] packageDirectoryContentsArray = packageDirectoryFile.listFiles(new java.io.FilenameFilter() {
@@ -287,7 +287,7 @@ public abstract class BuiltinFunction {
 
 
                     }//end for.
-		     break;
+                    break;
                 }//end if
 
             }//end if/else
@@ -312,7 +312,7 @@ public abstract class BuiltinFunction {
         ConsPointer loop = cur;
         while (n != 0) {
             n--;
-            loop = loop.getCons().getRestPointer();
+            loop = loop.getCons().cdr();
         }
         return loop;
     }

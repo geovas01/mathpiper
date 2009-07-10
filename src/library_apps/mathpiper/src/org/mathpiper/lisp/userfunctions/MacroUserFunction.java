@@ -37,9 +37,9 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
         int i = 0;
         while (parameterTraverser.getCons() != null) {
 
-            //LispError.check(parameterTraverser.getCons().first() != null, LispError.KLispErrCreatingUserFunction);
+            //LispError.check(parameterTraverser.getCons().car() != null, LispError.KLispErrCreatingUserFunction);
             try{
-                LispError.check(parameterTraverser.getCons().first() instanceof String, LispError.KLispErrCreatingUserFunction);
+                LispError.check(parameterTraverser.getCons().car() instanceof String, LispError.KLispErrCreatingUserFunction);
             }catch(EvaluationException ex)
             {
                 throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
@@ -130,11 +130,11 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
             ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.getCons().copy(false));
             if (arity == 0) {
-                full.getCons().getRestPointer().setCons(null);
+                full.getCons().cdr().setCons(null);
             } else {
-                full.getCons().getRestPointer().setCons(argumentsResultPointerArray[0].getCons());
+                full.getCons().cdr().setCons(argumentsResultPointerArray[0].getCons());
                 for (parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].getCons().getRestPointer().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
+                    argumentsResultPointerArray[parameterIndex].getCons().cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
             aResult.setCons(SubListCons.getInstance(full.getCons()));

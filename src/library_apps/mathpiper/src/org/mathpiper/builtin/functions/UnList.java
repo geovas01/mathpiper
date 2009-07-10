@@ -34,10 +34,10 @@ public class UnList extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first() instanceof ConsPointer, 1);
-        Cons atom = ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().first()).getCons();
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car() instanceof ConsPointer, 1);
+        Cons atom = ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).getCons().car()).getCons();
         LispError.checkArgument(aEnvironment, aStackTop, atom != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, atom.first() == aEnvironment.iListAtom.first(), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, atom.car() == aEnvironment.iListAtom.car(), 1);
         UtilityFunctions.internalTail(getResult(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
     }
 }
@@ -57,10 +57,10 @@ public class UnList extends BuiltinFunction
 
 *DESC
 
-This command converts a list to a function application. The first
+This command converts a list to a function application. The car
 entry of "list" is treated as a function atom, and the following entries
 are the arguments to this function. So the function referred to in the
-first element of "list" is applied to the other elements.
+car element of "list" is applied to the other elements.
 
 Note that "list" is evaluated before the function application is
 formed, but the resulting expression is left unevaluated. The functions {UnList()} and {Hold()} both stop the process of evaluation.

@@ -36,9 +36,9 @@ public class IsString extends BuiltinFunction
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         boolean resultBoolean ;
-         if( result.getCons().first() instanceof String  )
+         if( result.getCons().car() instanceof String  )
          {
-             resultBoolean = UtilityFunctions.internalIsString(   (String) result.getCons().first() );
+             resultBoolean = UtilityFunctions.internalIsString(   (String) result.getCons().car() );
 
          }
         else{
