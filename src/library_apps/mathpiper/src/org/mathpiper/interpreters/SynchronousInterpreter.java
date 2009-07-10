@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.interpreters;
 
@@ -40,8 +39,7 @@ import org.mathpiper.io.StringOutput;
  * 
  * 
  */
-class SynchronousInterpreter implements Interpreter
-{
+class SynchronousInterpreter implements Interpreter {
 
     private Environment environment = null;
     MathPiperTokenizer tokenizer = null;
@@ -55,12 +53,10 @@ class SynchronousInterpreter implements Interpreter
     MathPiperOutputStream sideEffectsStream;
     private static SynchronousInterpreter singletonInstance;
 
-    private SynchronousInterpreter(String docBase)
-    {
+    private SynchronousInterpreter(String docBase) {
         sideEffectsStream = new StringOutput();
 
-        try
-        {
+        try {
             environment = new Environment(sideEffectsStream);
             tokenizer = new MathPiperTokenizer();
             printer = new MathPiperPrinter(environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
@@ -69,91 +65,83 @@ class SynchronousInterpreter implements Interpreter
             environment.iCurrentInput = new CachedStandardFileInputStream(environment.iInputStatus);
 
 
-         if(docBase != null)
-         {
+            if (docBase != null) {
 
 
-            if (docBase.substring(0, 4).equals("file"))
-            {
-                int pos = docBase.lastIndexOf("/");
-                String zipFileName = docBase.substring(0, pos + 1) + "mathpiper.jar";
-                //zipFileName = zipFileName.substring(6,zipFileName.length());
-                //zipFileName = "file://" + zipFileName.substring(5,zipFileName.length());
-                zipFileName = zipFileName.substring(5,zipFileName.length());
+                if (docBase.substring(0, 4).equals("file")) {
+                    int pos = docBase.lastIndexOf("/");
+                    String zipFileName = docBase.substring(0, pos + 1) + "mathpiper.jar";
+                    //zipFileName = zipFileName.substring(6,zipFileName.length());
+                    //zipFileName = "file://" + zipFileName.substring(5,zipFileName.length());
+                    zipFileName = zipFileName.substring(5, zipFileName.length());
 
-               try
-                {
-                    java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(zipFileName));
-               //System.out.println("XXXX " + z);
-                    UtilityFunctions.zipFile = z; //todo:tk:a better way needs to be found to do this.
-                } catch (Exception e)
-                {
-                    System.out.println("Failed to find mathpiper.jar");
-                    System.out.println("" + zipFileName + " : \n");
-                    System.out.println(e.toString());
+                    try {
+                        java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(zipFileName));
+                        //System.out.println("XXXX " + z);
+                        UtilityFunctions.zipFile = z; //todo:tk:a better way needs to be found to do this.
+                    } catch (Exception e) {
+                        System.out.println("Failed to find mathpiper.jar");
+                        System.out.println("" + zipFileName + " : \n");
+                        System.out.println(e.toString());
+                    }
                 }
-            }
-            if (docBase.startsWith("http"))
-            {
-                //jar:http://www.xs4all.nl/~apinkus/interpreter.jar!/
-                int pos = docBase.lastIndexOf("/");
-                String scriptBase = "jar:" + docBase.substring(0, pos + 1) + "mathpiper.jar!/";
+                if (docBase.startsWith("http")) {
+                    //jar:http://www.xs4all.nl/~apinkus/interpreter.jar!/
+                    int pos = docBase.lastIndexOf("/");
+                    String scriptBase = "jar:" + docBase.substring(0, pos + 1) + "mathpiper.jar!/";
 
 
-                evaluate("DefaultDirectory(\"" + scriptBase + "\");");
+                    evaluate("DefaultDirectory(\"" + scriptBase + "\");");
 
 
-            }
-            else if (docBase.startsWith("jar:"))
-            {
-            	// used by GeoGebra
-                //eg docBase = "jar:http://www.geogebra.org/webstart/alpha/geogebra_cas.jar!/";
-                evaluate("DefaultDirectory(\"" + docBase + "\");");
-            	
+                } else if (docBase.startsWith("jar:")) {
+                    // used by GeoGebra
+                    //eg docBase = "jar:http://www.geogebra.org/webstart/alpha/geogebra_cas.jar!/";
+                    evaluate("DefaultDirectory(\"" + docBase + "\");");
+
+                }
+
             }
 
-         }
 
-
-          /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("initialization.rep/mathpiperinit.mpi");
+            /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("initialization.rep/mathpiperinit.mpi");
 
             //StdFileInput.setPath(pathParent + File.separator);
 
 
             if (detectURL != null)
             {
-                detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.mpi
+            detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.mpi
 
-                if (detect.indexOf('!') != -1)
-                {
-                    archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
+            if (detect.indexOf('!') != -1)
+            {
+            archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
 
-                    try
-                    {
-                        String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaMathPiper/piper.jar";
+            try
+            {
+            String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaMathPiper/piper.jar";
 
-                        java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
-                        UtilityFunctions.zipFile = z;
-                        inZipFile = true;
-                    } catch (Exception e)
-                    {
-                        System.out.println("Failed to find mathpiper.jar" + e.toString());
-                    }
-                } else
-                {
-                    pathParent = new File(detectURL.getPath()).getParent();
-                    addScriptsDirectory(pathParent);
-                }
+            java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
+            UtilityFunctions.zipFile = z;
+            inZipFile = true;
+            } catch (Exception e)
+            {
+            System.out.println("Failed to find mathpiper.jar" + e.toString());
+            }
             } else
             {
-                System.out.println("Cannot find org/mathpiper/scripts/initialization.rep/mathpiperinit.mpi.");
+            pathParent = new File(detectURL.getPath()).getParent();
+            addScriptsDirectory(pathParent);
+            }
+            } else
+            {
+            System.out.println("Cannot find org/mathpiper/scripts/initialization.rep/mathpiperinit.mpi.");
             }*/
 
 
             EvaluationResponse evaluationResponse = evaluate("Load(\"org/mathpiper/scripts/initialization.rep/mathpiperinit.mpi\");");
-            
-            if(evaluationResponse.isExceptionThrown())
-            {
+
+            if (evaluationResponse.isExceptionThrown()) {
                 System.out.println(evaluationResponse.getExceptionMessage() + " Source file name: " + evaluationResponse.getSourceFileName() + " Near line number: " + evaluationResponse.getLineNumber());
             }
 
@@ -165,51 +153,41 @@ class SynchronousInterpreter implements Interpreter
         }
     }//end constructor.
 
-    private SynchronousInterpreter()
-    {
+    private SynchronousInterpreter() {
         this(null);
     }
 
-    static SynchronousInterpreter newInstance()
-    {
+    static SynchronousInterpreter newInstance() {
         return new SynchronousInterpreter();
     }
 
-    static SynchronousInterpreter newInstance(String docBase)
-    {
+    static SynchronousInterpreter newInstance(String docBase) {
         return new SynchronousInterpreter(docBase);
     }
 
-    static SynchronousInterpreter getInstance()
-    {
-        if (singletonInstance == null)
-        {
+    static SynchronousInterpreter getInstance() {
+        if (singletonInstance == null) {
             singletonInstance = new SynchronousInterpreter();
         }
         return singletonInstance;
     }
 
-    static SynchronousInterpreter getInstance(String docBase)
-    {
-        if (singletonInstance == null)
-        {
+    static SynchronousInterpreter getInstance(String docBase) {
+        if (singletonInstance == null) {
             singletonInstance = new SynchronousInterpreter(docBase);
         }
         return singletonInstance;
     }
 
-    public synchronized EvaluationResponse evaluate(String inputExpression)
-    {
+    public synchronized EvaluationResponse evaluate(String inputExpression) {
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
-        if (inputExpression.length() == 0)
-        {
+        if (inputExpression.length() == 0) {
             //return (String) "";
             evaluationResponse.setResult("Empty Input");
             return evaluationResponse;
         }
         String resultString = "";
-        try
-        {
+        try {
             environment.iEvalDepth = 0;
             environment.iLispExpressionEvaluator.resetStack();
 
@@ -217,8 +195,7 @@ class SynchronousInterpreter implements Interpreter
             //iError = null;
 
             ConsPointer inputExpressionPointer = new ConsPointer();
-            if (environment.iPrettyReader != null)
-            {
+            if (environment.iPrettyReader != null) {
                 InputStatus someStatus = new InputStatus();
                 StringBuffer inp = new StringBuffer();
                 inp.append(inputExpression);
@@ -228,16 +205,13 @@ class SynchronousInterpreter implements Interpreter
 
                 MathPiperInputStream previous = environment.iCurrentInput;
                 environment.iCurrentInput = newInput;
-                try
-                {
+                try {
                     ConsPointer args = new ConsPointer();
                     UtilityFunctions.internalApplyString(environment, inputExpressionPointer,
                             environment.iPrettyReader,
                             args);
-                } catch (Exception exception)
-                {
-                    if (exception instanceof EvaluationException)
-                    {
+                } catch (Exception exception) {
+                    if (exception instanceof EvaluationException) {
                         EvaluationException mpe = (EvaluationException) exception;
                         int errorLineNumber = mpe.getLineNumber();
                         evaluationResponse.setLineNumber(errorLineNumber);
@@ -245,8 +219,7 @@ class SynchronousInterpreter implements Interpreter
                     evaluationResponse.setException(exception);
                     evaluationResponse.setExceptionMessage(exception.getMessage());
 
-                } finally
-                {
+                } finally {
                     environment.iCurrentInput = previous;
                     environment.iInputStatus.restoreFrom(oldstatus);
                 }
@@ -267,41 +240,36 @@ class SynchronousInterpreter implements Interpreter
             ConsPointer result = new ConsPointer();
             environment.iLispExpressionEvaluator.evaluate(environment, result, inputExpressionPointer);
 
-            String percent = (String)environment.getTokenHash().lookUp("%");
+            String percent = (String) environment.getTokenHash().lookUp("%");
             environment.setGlobalVariable(percent, result, true);
 
             StringBuffer string_out = new StringBuffer();
             MathPiperOutputStream output = new StringOutputStream(string_out);
 
-            if (environment.iPrettyPrinter != null)
-            {
+            if (environment.iPrettyPrinter != null) {
                 ConsPointer nonresult = new ConsPointer();
                 UtilityFunctions.internalApplyString(environment, nonresult, environment.iPrettyPrinter, result);
                 resultString = string_out.toString();
-            } else
-            {
+            } else {
                 printer.rememberLastChar(' ');
                 printer.print(result, output, environment);
                 resultString = string_out.toString();
             }
-        } catch (Exception exception)
-        {
+        } catch (Exception exception) {
             //Uncomment this for debugging();
             //exception.printStackTrace();
 
 
-            if (exception instanceof EvaluationException)
-            {
+            if (exception instanceof EvaluationException) {
                 EvaluationException mpe = (EvaluationException) exception;
                 int errorLineNumber = mpe.getLineNumber();
-                if(errorLineNumber == -1)
-                {
+                if (errorLineNumber == -1) {
                     errorLineNumber = environment.iInputStatus.lineNumber();
+                    if (errorLineNumber == -1) {
+                        errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
+                    }
                 }
-                else
-                {
-                    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
-                }
+
                 evaluationResponse.setLineNumber(errorLineNumber);
                 evaluationResponse.setSourceFileName(environment.iInputStatus.fileName());
             }
@@ -314,15 +282,12 @@ class SynchronousInterpreter implements Interpreter
 
         String sideEffects = sideEffectsStream.toString();
 
-        if (sideEffects != null && sideEffects.length() != 0)
-        {
+        if (sideEffects != null && sideEffects.length() != 0) {
             evaluationResponse.setSideEffects(sideEffects);
         }
 
-        try
-        {
-            if (inputExpression.trim().startsWith("Load"))
-            {
+        try {
+            if (inputExpression.trim().startsWith("Load")) {
                 ConsPointer loadResult = new ConsPointer();
                 environment.getGlobalVariable("LoadResult", loadResult);
                 StringBuffer string_out = new StringBuffer();
@@ -334,46 +299,40 @@ class SynchronousInterpreter implements Interpreter
                 evaluationResponse.setResult(loadResultString);
                 //environment.iGlobalState.release("LoadResult");
             }
-        } catch (Exception e)
-        {
-		evaluationResponse.setExceptionMessage(e.getMessage());
-		evaluationResponse.setException(e);
+        } catch (Exception e) {
+            evaluationResponse.setExceptionMessage(e.getMessage());
+            evaluationResponse.setException(e);
         }
 
 
         return evaluationResponse;
     }
 
-    public void haltEvaluation()
-    {
-        synchronized(environment){
-        environment.iEvalDepth = environment.iMaxEvalDepth + 100;
+    public void haltEvaluation() {
+        synchronized (environment) {
+            environment.iEvalDepth = environment.iMaxEvalDepth + 100;
         }
     }
 
-    public Environment getEnvironment()
-    {
+    public Environment getEnvironment() {
         return environment;
     }
 
     /*public java.util.zip.ZipFile getScriptsZip()
     {
-        return UtilityFunctions.zipFile;
+    return UtilityFunctions.zipFile;
     }//end method.*/
-
-    public void addScriptsDirectory(String directory)
-    {
+    public void addScriptsDirectory(String directory) {
         String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
 
         evaluate(toEvaluate);  //Note:tk:some exception handling needs to happen here..
 
     }//addScriptsDirectory.
 
-    public void addResponseListener(ResponseListener listener)
-    {
+    public void addResponseListener(ResponseListener listener) {
     }
 
-    public void removeResponseListener(ResponseListener listener)
-    {
+    public void removeResponseListener(ResponseListener listener) {
     }
 }// end class.
+
