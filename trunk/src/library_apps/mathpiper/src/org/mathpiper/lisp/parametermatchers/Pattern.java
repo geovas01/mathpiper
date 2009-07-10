@@ -211,7 +211,7 @@ public class Pattern {
         if (aPattern == null) {
             return null;
         }
-        //LispError.check(aPattern.type().equals("Number"), LispError.KLispErrInvalidArg);
+        //LispError.check(aPattern.type().equals("Number"), LispError.INVALID_ARGUMENT);
         if (aPattern.getNumber(aEnvironment.getPrecision()) != null) {
             return new Number((BigNumber) aPattern.getNumber(aEnvironment.getPrecision()));
         }
@@ -336,7 +336,7 @@ public class Pattern {
                 aEnvironment.write(strout);
                 aEnvironment.write("\n");
 
-                LispError.check(isTrue, LispError.KLispErrNonBooleanPredicateInPattern);
+                LispError.check(isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN);
             }
         }
         return true;

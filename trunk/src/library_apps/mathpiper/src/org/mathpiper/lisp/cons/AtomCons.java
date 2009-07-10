@@ -45,7 +45,7 @@ public class AtomCons extends Cons
             self = new AtomCons((String)aEnvironment.getTokenHash().lookUp(aString));
         }
         
-        LispError.check(self != null, LispError.KLispErrNotEnoughMemory);
+        LispError.check(self != null, LispError.NOT_ENOUGH_MEMORY);
         return self;
     }
     

@@ -50,7 +50,7 @@ public class StringMidSet extends BuiltinFunction
         LispError.checkIsString(aEnvironment, aStackTop, ev2, 2);
         String replace =(String)  ev2.car();
 
-        LispError.check(aEnvironment, aStackTop, from + replace.length() - 2 < orig.length(), LispError.KLispErrInvalidArg);
+        LispError.check(aEnvironment, aStackTop, from + replace.length() - 2 < orig.length(), LispError.INVALID_ARGUMENT);
         String str;
         str = orig.substring(0, from);
         str = str + replace.substring(1, replace.length() - 1);

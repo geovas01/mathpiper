@@ -479,9 +479,9 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void mod(BigNumber aY, BigNumber aZ) throws Exception {
-        LispError.check(aY.javaBigInteger != null, LispError.KLispErrNotInteger);
-        LispError.check(aZ.javaBigInteger != null, LispError.KLispErrNotInteger);
-        //TODO fixme    LispError.check(!IsZero(aZ),LispError.KLispErrInvalidArg);
+        LispError.check(aY.javaBigInteger != null, LispError.NOT_AN_INTEGER);
+        LispError.check(aZ.javaBigInteger != null, LispError.NOT_AN_INTEGER);
+        //TODO fixme    LispError.check(!IsZero(aZ),LispError.INVALID_ARGUMENT);
         javaBigInteger = aY.javaBigInteger.mod(aZ.javaBigInteger);
         javaBigDecimal = null;
     }

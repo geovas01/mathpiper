@@ -69,7 +69,7 @@ public class MathPiperTokenizer {
                 aInput.next(); //consume *
                 while (true) {
                     while (aInput.next() != '*' && !aInput.endOfStream());
-                    LispError.check(!aInput.endOfStream(), LispError.KLispErrCommentToEndOfFile);
+                    LispError.check(!aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE);
                     if (aInput.peek() == '/') {
                         aInput.next();  // consume /
                         redo = true;
@@ -93,11 +93,11 @@ public class MathPiperTokenizer {
                 while (aInput.peek() != '\"') {
                     if (aInput.peek() == '\\') {
                         aInput.next();
-                        LispError.check(!aInput.endOfStream(), LispError.KLispErrParsingInput);
+                        LispError.check(!aInput.endOfStream(), LispError.PARSING_INPUT);
                     }
                     //TODO FIXME is following append char correct?
                     aResult = aResult + ((char) aInput.next());
-                    LispError.check(!aInput.endOfStream(), LispError.KLispErrParsingInput);
+                    LispError.check(!aInput.endOfStream(), LispError.PARSING_INPUT);
                 }
                 //TODO FIXME is following append char correct?
                 aResult = aResult + ((char) aInput.next()); // consume the close quote

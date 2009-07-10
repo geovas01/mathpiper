@@ -109,7 +109,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
             for (i = 0; i < numberOfArguments; i++) {
                 //Push all arguments on the stack.
-                LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
+                LispError.check(argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS);
 
                 if (isTraced() && argumentsResultPointerArray != null  && showFlag) {
                     argumentsResultPointerArray[i] = new ConsPointer();
@@ -130,8 +130,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         } else {//This is a function, not a macro.
 
             for (i = 0; i < numberOfArguments; i++) {
-                LispError.check(argumentsConsTraverser.getCons() != null, LispError.KLispErrWrongNumberOfArgs);
-                LispError.check(argumentsConsTraverser != null, LispError.KLispErrWrongNumberOfArgs);
+                LispError.check(argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS);
+                LispError.check(argumentsConsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS);
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentResultPointer, argumentsConsTraverser);
 
                 if (isTraced() && argumentsResultPointerArray != null  && showFlag) {

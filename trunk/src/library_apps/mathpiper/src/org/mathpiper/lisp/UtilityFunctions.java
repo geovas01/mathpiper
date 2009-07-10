@@ -200,7 +200,7 @@ public class UtilityFunctions {
 
     public static void internalApplyString(Environment aEnvironment, ConsPointer aResult,
             String aOperator, ConsPointer aArgs) throws Exception {
-        LispError.check(internalIsString(aOperator), LispError.KLispErrNotString);
+        LispError.check(internalIsString(aOperator), LispError.NOT_A_STRING);
 
         Cons head =
                 AtomCons.getInstance(aEnvironment, getSymbolName(aEnvironment, aOperator));
@@ -211,34 +211,34 @@ public class UtilityFunctions {
     }
 
     public static void internalApplyPure(ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
-        LispError.check(oper.car() instanceof ConsPointer, LispError.KLispErrInvalidArg);
-        LispError.check(((ConsPointer) oper.car()).getCons() != null, LispError.KLispErrInvalidArg);
+        LispError.check(oper.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
+        LispError.check(((ConsPointer) oper.car()).getCons() != null, LispError.INVALID_ARGUMENT);
         ConsPointer oper2 = new ConsPointer();
         oper2.setCons(((ConsPointer) oper.car()).cdr().getCons());
-        LispError.check(oper2.getCons() != null, LispError.KLispErrInvalidArg);
+        LispError.check(oper2.getCons() != null, LispError.INVALID_ARGUMENT);
 
         ConsPointer body = new ConsPointer();
         body.setCons(oper2.cdr().getCons());
-        LispError.check(body.getCons() != null, LispError.KLispErrInvalidArg);
+        LispError.check(body.getCons() != null, LispError.INVALID_ARGUMENT);
 
-        LispError.check(oper2.car() instanceof ConsPointer, LispError.KLispErrInvalidArg);
-        LispError.check(((ConsPointer) oper2.car()).getCons() != null, LispError.KLispErrInvalidArg);
+        LispError.check(oper2.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
+        LispError.check(((ConsPointer) oper2.car()).getCons() != null, LispError.INVALID_ARGUMENT);
         oper2.setCons(((ConsPointer) oper2.car()).cdr().getCons());
 
         aEnvironment.pushLocalFrame(false, "Pure");
         try {
             while (oper2.getCons() != null) {
-                LispError.check(args2.getCons() != null, LispError.KLispErrInvalidArg);
+                LispError.check(args2.getCons() != null, LispError.INVALID_ARGUMENT);
 
                 String var = (String) oper2.car();
-                LispError.check(var != null, LispError.KLispErrInvalidArg);
+                LispError.check(var != null, LispError.INVALID_ARGUMENT);
                 ConsPointer newly = new ConsPointer();
                 newly.setCons(args2.getCons().copy(false));
                 aEnvironment.newLocalVariable(var, newly.getCons());
                 oper2.setCons(oper2.cdr().getCons());
                 args2.setCons(args2.cdr().getCons());
             }
-            LispError.check(args2.getCons() == null, LispError.KLispErrInvalidArg);
+            LispError.check(args2.getCons() == null, LispError.INVALID_ARGUMENT);
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
         } catch (EvaluationException e) {
             throw e;
@@ -265,27 +265,27 @@ public class UtilityFunctions {
     }
 
     public static void internalNth(ConsPointer aResult, ConsPointer aArg, int n) throws Exception {
-        LispError.check(aArg.getCons() != null, LispError.KLispErrInvalidArg);
-        LispError.check(aArg.car() instanceof ConsPointer, LispError.KLispErrInvalidArg);
-        LispError.check(n >= 0, LispError.KLispErrInvalidArg);
+        LispError.check(aArg.getCons() != null, LispError.INVALID_ARGUMENT);
+        LispError.check(aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
+        LispError.check(n >= 0, LispError.INVALID_ARGUMENT);
         ConsTraverser consTraverser = new ConsTraverser((ConsPointer) aArg.car());
 
         while (n > 0) {
-            LispError.check(consTraverser.getCons() != null, LispError.KLispErrInvalidArg);
+            LispError.check(consTraverser.getCons() != null, LispError.INVALID_ARGUMENT);
             consTraverser.goNext();
             n--;
         }
-        LispError.check(consTraverser.getCons() != null, LispError.KLispErrInvalidArg);
+        LispError.check(consTraverser.getCons() != null, LispError.INVALID_ARGUMENT);
         aResult.setCons(consTraverser.getCons().copy(false));
     }
 
     public static void internalTail(ConsPointer aResult, ConsPointer aArg) throws Exception {
-        LispError.check(aArg.getCons() != null, LispError.KLispErrInvalidArg);
-        LispError.check(aArg.car() instanceof ConsPointer, LispError.KLispErrInvalidArg);
+        LispError.check(aArg.getCons() != null, LispError.INVALID_ARGUMENT);
+        LispError.check(aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
 
         ConsPointer iter = (ConsPointer) aArg.car();
 
-        LispError.check(iter.getCons() != null, LispError.KLispErrInvalidArg);
+        LispError.check(iter.getCons() != null, LispError.INVALID_ARGUMENT);
         aResult.setCons(SubListCons.getInstance(iter.cdr().getCons()));
     }
 
@@ -366,7 +366,7 @@ public class UtilityFunctions {
         if (isTrue(aEnvironment, aExpression)) {
             putFalseInPointer(aEnvironment, aResult);
         } else {
-            LispError.check(isFalse(aEnvironment, aExpression), LispError.KLispErrInvalidArg);
+            LispError.check(isFalse(aEnvironment, aExpression), LispError.INVALID_ARGUMENT);
             putTrueInPointer(aEnvironment, aResult);
         }
     }
@@ -387,8 +387,8 @@ public class UtilityFunctions {
         if (aExpression1.getCons() == aExpression2.getCons()) {
             return true;
         }
-        //LispError.check(aExpression1.type().equals("Number"), LispError.KLispErrInvalidArg);
-        //LispError.check(aExpression2.type().equals("Number"), LispError.KLispErrInvalidArg);
+        //LispError.check(aExpression1.type().equals("Number"), LispError.INVALID_ARGUMENT);
+        //LispError.check(aExpression2.type().equals("Number"), LispError.INVALID_ARGUMENT);
         BigNumber n1 = (BigNumber) aExpression1.getCons().getNumber(aEnvironment.getPrecision());
         BigNumber n2 = (BigNumber) aExpression2.getCons().getNumber(aEnvironment.getPrecision());
         if (!(n1 == null && n2 == null)) {
@@ -477,10 +477,10 @@ public class UtilityFunctions {
     }
 
     public static String internalUnstringify(String aOriginal) throws Exception {
-        LispError.check(aOriginal != null, LispError.KLispErrInvalidArg);
-        LispError.check(aOriginal.charAt(0) == '\"', LispError.KLispErrInvalidArg);
+        LispError.check(aOriginal != null, LispError.INVALID_ARGUMENT);
+        LispError.check(aOriginal.charAt(0) == '\"', LispError.INVALID_ARGUMENT);
         int nrc = aOriginal.length() - 1;
-        LispError.check(aOriginal.charAt(nrc) == '\"', LispError.KLispErrInvalidArg);
+        LispError.check(aOriginal.charAt(nrc) == '\"', LispError.INVALID_ARGUMENT);
         return aOriginal.substring(1, nrc);
     }
 
@@ -501,7 +501,7 @@ public class UtilityFunctions {
                 // Read expression
                 parser.parse(readIn);
 
-                LispError.check(readIn.getCons() != null, LispError.KLispErrReadingFile);
+                LispError.check(readIn.getCons() != null, LispError.READING_FILE);
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()) == eof) {
                     endoffile = true;
@@ -538,7 +538,7 @@ public class UtilityFunctions {
         /*java.io.MathPiperInputStream scriptStream = Scripts.getScriptStream(oper);
         if (scriptStream != null) {
         newInput = new StandardFileInputStream(scriptStream, aEnvironment.iInputStatus);
-        LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+        LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
         doInternalLoad(aEnvironment, newInput);
         } else {*/
 //System.out.println("Loading: " + oper);
@@ -546,7 +546,7 @@ public class UtilityFunctions {
         if (fileURL != null) //File is on the classpath.
         {
             newInput = new StandardFileInputStream(new InputStreamReader(fileURL.openStream()), aEnvironment.iInputStatus);
-            LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+            LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
             doInternalLoad(aEnvironment, newInput);
         } else { //File may be in the filesystem.
             try {
@@ -554,7 +554,7 @@ public class UtilityFunctions {
                 newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
                         openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
-                LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+                LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
                 doInternalLoad(aEnvironment, newInput);
             } catch (Exception e) {
                 throw e;
@@ -706,7 +706,7 @@ public class UtilityFunctions {
         /* java.io.MathPiperInputStream scriptStream = Scripts.getScriptStream(flatfile);
         if (scriptStream != null) {
         newInput = new StandardFileInputStream(scriptStream, aEnvironment.iInputStatus);
-        LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+        LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
         doLoadDefFile(aEnvironment, newInput, def);
         } else {*/
 //System.out.println("Loading: " + flatfile);
@@ -714,14 +714,14 @@ public class UtilityFunctions {
         if (fileURL != null) //File is on the classpath.
         {
             newInput = new StandardFileInputStream(new InputStreamReader(fileURL.openStream()), aEnvironment.iInputStatus);
-            LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+            LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
             doLoadDefFile(aEnvironment, newInput, def);
 
         } else //File may be in the filesystem.
         {
             newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
                     openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
-            LispError.check(newInput != null, LispError.KLispErrFileNotFound);
+            LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
             doLoadDefFile(aEnvironment, newInput, def);
         }
 
@@ -782,7 +782,7 @@ public class UtilityFunctions {
      * @throws java.lang.Exception
      */
     public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception {
-        //LispError.check(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).type().equals("Number"), LispError.KLispErrInvalidArg);
+        //LispError.check(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).type().equals("Number"), LispError.INVALID_ARGUMENT);
         BigNumber x =(BigNumber) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).getCons().getNumber(aEnvironment.getPrecision());
         LispError.checkArgument(aEnvironment, aStackTop, x != null, aArgNr);
         return x;
@@ -876,7 +876,7 @@ public class UtilityFunctions {
             consTraverser.goNext();
             ind--;
         }
-        LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.KLispErrListNotLongEnough);
+        LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.NOT_LONG_ENOUGH);
         ConsPointer next = new ConsPointer();
         next.setCons(consTraverser.cdr().getCons());
         consTraverser.getPointer().setCons(next.getCons());

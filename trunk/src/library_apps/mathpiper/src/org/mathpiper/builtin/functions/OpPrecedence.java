@@ -46,7 +46,7 @@ public class OpPrecedence extends BuiltinFunction
                 {  // or maybe it's a bodied function
 
                     op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                    LispError.check(aEnvironment, aStackTop, op != null, LispError.KLispErrIsNotInFix);
+                    LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
                 }
             }
         }

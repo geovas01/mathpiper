@@ -61,13 +61,13 @@ public class ConsPointer {
 
     //iPointer = (iPointer.cdr());
     public void goNext() throws Exception {
-        LispError.check(iCons != null, LispError.KLispErrListNotLongEnough);
+        LispError.check(iCons != null, LispError.NOT_LONG_ENOUGH);
         iCons = iCons.cdr().iCons;
     }
 
     public void goSub() throws Exception {
-        LispError.check(iCons != null, LispError.KLispErrInvalidArg);
-        LispError.check(iCons.car() instanceof ConsPointer, LispError.KLispErrNotList);
+        LispError.check(iCons != null, LispError.INVALID_ARGUMENT);
+        LispError.check(iCons.car() instanceof ConsPointer, LispError.NOT_A_LIST);
         iCons = (Cons) iCons.car();
     }
 

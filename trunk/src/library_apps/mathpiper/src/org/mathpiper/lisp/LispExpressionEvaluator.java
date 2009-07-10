@@ -79,9 +79,9 @@ public class LispExpressionEvaluator extends Evaluator {
             aEnvironment.iEvalDepth++;
             if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
                 if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
-                    LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.KLispErrUserInterrupt);
+                    LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT);
                 } else {
-                    LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.KLispErrMaxRecurseDepthReached);
+                    LispError.check(aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED);
                 }
             }
         }
@@ -330,7 +330,7 @@ public class LispExpressionEvaluator extends Evaluator {
     {
     ShowStack(aEnvironment, *aEnvironment.CurrentOutput());
     CHK2(aEnvironment.iEvalDepth<aEnvironment.iMaxEvalDepth,
-    KLispErrMaxRecurseDepthReached);
+    MAXIMUM_RECURSE_DEPTH_REACHED);
     }
 
     LispPtr getSubList = aExpression.SubList();

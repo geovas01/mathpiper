@@ -37,9 +37,9 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
         int i = 0;
         while (parameterTraverser.getCons() != null) {
 
-            //LispError.check(parameterTraverser.car() != null, LispError.KLispErrCreatingUserFunction);
+            //LispError.check(parameterTraverser.car() != null, LispError.CREATING_USER_FUNCTION);
             try{
-                LispError.check(parameterTraverser.car() instanceof String, LispError.KLispErrCreatingUserFunction);
+                LispError.check(parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION);
             }catch(EvaluationException ex)
             {
                 throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
