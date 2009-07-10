@@ -18,9 +18,11 @@
 
 package org.mathpiper.lisp.cons;
 
+import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.printers.LispPrinter;
 
 
 public class SubListCons extends Cons
@@ -77,6 +79,18 @@ public class SubListCons extends Cons
 
     public ConsPointer cdr() {
         return iCdr;
-    }
+    }//end method.
+
+
+    public String toString() {
+        StringOutput out = new StringOutput();
+        LispPrinter printer = new LispPrinter();
+        try {
+            printer.print(new ConsPointer(this), out, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return out.toString();
+    }//end method.
 	
 }
