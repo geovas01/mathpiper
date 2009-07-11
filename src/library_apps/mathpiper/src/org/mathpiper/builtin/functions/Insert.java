@@ -30,7 +30,7 @@ public class Insert extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalInsert(aEnvironment, aStackTop, false);
+        UtilityFunctions.insert(aEnvironment, aStackTop, false);
     }
 }
 

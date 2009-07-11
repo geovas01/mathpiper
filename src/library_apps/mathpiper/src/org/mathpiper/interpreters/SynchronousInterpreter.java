@@ -207,7 +207,7 @@ class SynchronousInterpreter implements Interpreter {
                 environment.iCurrentInput = newInput;
                 try {
                     ConsPointer args = new ConsPointer();
-                    UtilityFunctions.internalApplyString(environment, inputExpressionPointer,
+                    UtilityFunctions.applyString(environment, inputExpressionPointer,
                             environment.iPrettyReader,
                             args);
                 } catch (Exception exception) {
@@ -248,7 +248,7 @@ class SynchronousInterpreter implements Interpreter {
 
             if (environment.iPrettyPrinter != null) {
                 ConsPointer nonresult = new ConsPointer();
-                UtilityFunctions.internalApplyString(environment, nonresult, environment.iPrettyPrinter, result);
+                UtilityFunctions.applyString(environment, nonresult, environment.iPrettyPrinter, result);
                 resultString = string_out.toString();
             } else {
                 printer.rememberLastChar(' ');
@@ -257,7 +257,7 @@ class SynchronousInterpreter implements Interpreter {
             }
         } catch (Exception exception) {
             //Uncomment this for debugging();
-            exception.printStackTrace();
+            //exception.printStackTrace();
 
 
             if (exception instanceof EvaluationException) {

@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.UtilityFunctions;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
@@ -250,13 +251,13 @@ public class JavaObject extends BuiltinContainer {
         return javaList;
     }//end method.
 
-    public static List toJavaDoubleArray(ConsPointer lispList) throws Exception {
+    public static double[] toJavaDoubleArray(ConsPointer lispList) throws Exception {
         LispError.check(lispList.type() == Cons.ATOM, LispError.NOT_A_LIST);
         String type = (String) lispList.getCons().car();
         LispError.check(type.equals("List"), LispError.NOT_A_LIST);
         lispList.goNext();
 
-        ArrayList javaList = new ArrayList();
+        double[] values = new double[UtilityFunctions.listLength(lispList)];
 
         while (lispList.getCons() != null) {
 
@@ -271,14 +272,11 @@ public class JavaObject extends BuiltinContainer {
                 LispError.raiseError("Can not convert into a double" );
             }
 
-            javaList.add(item);
 
-
-            lispList.goNext();
 
         }//end while.
-
-        return javaList;
+     return null;
     }//end method.
+
 }//end class.
 

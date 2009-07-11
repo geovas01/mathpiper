@@ -140,7 +140,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         ConsPointer args2 = new ConsPointer();
                         oper.setCons(subList.getCons());
                         args2.setCons(subList.cdr().getCons());
-                        UtilityFunctions.internalApplyPure(oper, args2, aResult, aEnvironment);
+                        UtilityFunctions.applyPure(oper, args2, aResult, aEnvironment);
                         aEnvironment.iEvalDepth--;
                         return;
                     }
@@ -191,7 +191,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
                 multiUserFunc.iFileToOpen = null;
-                UtilityFunctions.internalUse(aEnvironment, def.iFileName);
+                UtilityFunctions.use(aEnvironment, def.iFileName);
 
                 if (DEBUG) {
                     //extern int VERBOSE_DEBUG;

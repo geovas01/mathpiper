@@ -30,7 +30,7 @@ public class DestructiveReplace extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalReplace(aEnvironment, aStackTop, true);
+        UtilityFunctions.replace(aEnvironment, aStackTop, true);
     }
 }
 

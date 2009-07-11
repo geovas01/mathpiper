@@ -27,7 +27,7 @@ public class ExpressionSubstitute
 	throws Exception
 	{
 
-		if (UtilityFunctions.internalEquals(iEnvironment, aElement, iToMatch))
+		if (UtilityFunctions.equals(iEnvironment, aElement, iToMatch))
 		{
 			aResult.setCons(iToReplaceWith.getCons().copy(false));
 

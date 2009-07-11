@@ -30,6 +30,6 @@ public class NewRulePattern extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.UtilityFunctions.internalNewRulePattern(aEnvironment, aStackTop, false);
+        org.mathpiper.lisp.UtilityFunctions.newRulePattern(aEnvironment, aStackTop, false);
     }
 }

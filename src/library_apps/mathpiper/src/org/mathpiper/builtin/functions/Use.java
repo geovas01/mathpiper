@@ -41,7 +41,7 @@ public class Use extends BuiltinFunction
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
-        UtilityFunctions.internalUse(aEnvironment, orig);
+        UtilityFunctions.use(aEnvironment, orig);
         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

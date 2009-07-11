@@ -154,7 +154,7 @@ public class UtilityFunctions {
     }
 
     public static int listLength(ConsPointer aOriginal) throws Exception {
-        ConsTraverser consTraverser = new ConsTraverser(aOriginal);
+        ConsPointer consTraverser = new ConsPointer(aOriginal.getCons());
         int length = 0;
         while (consTraverser.getCons() != null) {
             consTraverser.goNext();
@@ -163,7 +163,7 @@ public class UtilityFunctions {
         return length;
     }
 
-    public static void internalReverseList(ConsPointer aResult, ConsPointer aOriginal) {
+    public static void reverseList(ConsPointer aResult, ConsPointer aOriginal) {
         //ConsPointer iter = new ConsPointer(aOriginal);
         ConsPointer iter = new ConsPointer();
         iter.setCons(aOriginal.getCons());
@@ -198,9 +198,9 @@ public class UtilityFunctions {
         full.cdr().setCons(null);
     }
 
-    public static void internalApplyString(Environment aEnvironment, ConsPointer aResult,
+    public static void applyString(Environment aEnvironment, ConsPointer aResult,
             String aOperator, ConsPointer aArgs) throws Exception {
-        LispError.check(internalIsString(aOperator), LispError.NOT_A_STRING);
+        LispError.check(isString(aOperator), LispError.NOT_A_STRING);
 
         Cons head =
                 AtomCons.getInstance(aEnvironment, getSymbolName(aEnvironment, aOperator));
@@ -210,7 +210,7 @@ public class UtilityFunctions {
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
     }
 
-    public static void internalApplyPure(ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
+    public static void applyPure(ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
         LispError.check(oper.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
         LispError.check(((ConsPointer) oper.car()).getCons() != null, LispError.INVALID_ARGUMENT);
         ConsPointer oper2 = new ConsPointer();
@@ -264,7 +264,7 @@ public class UtilityFunctions {
         }
     }
 
-    public static void internalNth(ConsPointer aResult, ConsPointer aArg, int n) throws Exception {
+    public static void nth(ConsPointer aResult, ConsPointer aArg, int n) throws Exception {
         LispError.check(aArg.getCons() != null, LispError.INVALID_ARGUMENT);
         LispError.check(aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
         LispError.check(n >= 0, LispError.INVALID_ARGUMENT);
@@ -279,7 +279,7 @@ public class UtilityFunctions {
         aResult.setCons(consTraverser.getCons().copy(false));
     }
 
-    public static void internalTail(ConsPointer aResult, ConsPointer aArg) throws Exception {
+    public static void tail(ConsPointer aResult, ConsPointer aArg) throws Exception {
         LispError.check(aArg.getCons() != null, LispError.INVALID_ARGUMENT);
         LispError.check(aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
 
@@ -302,7 +302,7 @@ public class UtilityFunctions {
 
     if (expressionString == aEnvironment.iTrueString) {
     return true;
-    } else if (internalIsList(aExpression)) {
+    } else if (isList(aExpression)) {
     if (listLength(aExpression.car()) == 1) {
     //Empty list.
     return false;
@@ -322,7 +322,7 @@ public class UtilityFunctions {
         return aExpression.car() instanceof String && ((String) aExpression.car()) == aEnvironment.iFalseString;
 
     /* Code which returns True for everything except False and {};
-    return aExpression.car() == aEnvironment.iFalseString || (internalIsList(aExpression) && (listLength(aExpression.car()) == 1));
+    return aExpression.car() == aEnvironment.iFalseString || (isList(aExpression) && (listLength(aExpression.car()) == 1));
      */
     }
 
@@ -334,7 +334,7 @@ public class UtilityFunctions {
         }
     }
 
-    public static boolean internalIsList(ConsPointer aPtr) throws Exception {
+    public static boolean isList(ConsPointer aPtr) throws Exception {
         if (aPtr.getCons() == null) {
             return false;
         }
@@ -351,7 +351,7 @@ public class UtilityFunctions {
         return true;
     }
 
-    public static boolean internalIsString(String aOriginal) {
+    public static boolean isString(String aOriginal) {
         if (aOriginal != null) {
             if (aOriginal.charAt(0) == '\"') {
                 if (aOriginal.charAt(aOriginal.length() - 1) == '\"') {
@@ -362,7 +362,7 @@ public class UtilityFunctions {
         return false;
     }
 
-    public static void internalNot(ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
+    public static void not(ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         if (isTrue(aEnvironment, aExpression)) {
             putFalseInPointer(aEnvironment, aResult);
         } else {
@@ -371,7 +371,7 @@ public class UtilityFunctions {
         }
     }
 
-    public static void internalFlatCopy(ConsPointer aResult, ConsPointer aOriginal) throws Exception {
+    public static void flatCopy(ConsPointer aResult, ConsPointer aOriginal) throws Exception {
         ConsTraverser orig = new ConsTraverser(aOriginal);
         ConsTraverser res = new ConsTraverser(aResult);
 
@@ -382,7 +382,7 @@ public class UtilityFunctions {
         }
     }
 
-    public static boolean internalEquals(Environment aEnvironment, ConsPointer aExpression1, ConsPointer aExpression2) throws Exception {
+    public static boolean equals(Environment aEnvironment, ConsPointer aExpression1, ConsPointer aExpression2) throws Exception {
         // Handle pointers to same, or null
         if (aExpression1.getCons() == aExpression2.getCons()) {
             return true;
@@ -430,7 +430,7 @@ public class UtilityFunctions {
 
             while (consTraverser1.getCons() != null && consTraverser2.getCons() != null) {
                 // compare two list elements
-                if (!internalEquals(aEnvironment, consTraverser1.getPointer(), consTraverser2.getPointer())) {
+                if (!equals(aEnvironment, consTraverser1.getPointer(), consTraverser2.getPointer())) {
                     return false;
                 }
 
@@ -476,7 +476,7 @@ public class UtilityFunctions {
         }//end matches if.
     }
 
-    public static String internalUnstringify(String aOriginal) throws Exception {
+    public static String unstringify(String aOriginal) throws Exception {
         LispError.check(aOriginal != null, LispError.INVALID_ARGUMENT);
         LispError.check(aOriginal.charAt(0) == '\"', LispError.INVALID_ARGUMENT);
         int nrc = aOriginal.length() - 1;
@@ -525,8 +525,8 @@ public class UtilityFunctions {
      * @param aFileName
      * @throws java.lang.Exception
      */
-    public static void internalLoad(Environment aEnvironment, String aFileName) throws Exception {
-        String oper = internalUnstringify(aFileName);
+    public static void load(Environment aEnvironment, String aFileName) throws Exception {
+        String oper = unstringify(aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(oper);
 
@@ -569,11 +569,11 @@ public class UtilityFunctions {
 
     }
 
-    public static void internalUse(Environment aEnvironment, String aFileName) throws Exception {
+    public static void use(Environment aEnvironment, String aFileName) throws Exception {
         DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
         if (!def.isLoaded()) {
             def.setLoaded();
-            internalLoad(aEnvironment, aFileName);
+            load(aEnvironment, aFileName);
         }
     }
 
@@ -633,7 +633,7 @@ public class UtilityFunctions {
         return f;
     }
 
-    public static String internalFindFile(String aFileName, InputDirectories aInputDirectories) throws Exception {
+    public static String findFile(String aFileName, InputDirectories aInputDirectories) throws Exception {
         InputStatus inputStatus = new InputStatus();
         String othername = aFileName;
         int i = 0;
@@ -690,7 +690,7 @@ public class UtilityFunctions {
     public static void loadDefFile(Environment aEnvironment, String aFileName) throws Exception {
         LispError.lispAssert(aFileName != null);
 
-        String flatfile = internalUnstringify(aFileName) + ".def";
+        String flatfile = unstringify(aFileName) + ".def";
         DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(flatfile);
@@ -834,7 +834,7 @@ public class UtilityFunctions {
      * @param aGlobalLazyVariable
      * @throws java.lang.Exception
      */
-    public static void internalSetVar(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable) throws Exception {
+    public static void setVar(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable) throws Exception {
         String variableString = null;
         if (aMacroMode) {
             ConsPointer result = new ConsPointer();
@@ -852,7 +852,7 @@ public class UtilityFunctions {
         UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static void internalDelete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
+    public static void delete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsList(aEnvironment, aStackTop, evaluated, 1);
@@ -861,7 +861,7 @@ public class UtilityFunctions {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            UtilityFunctions.internalFlatCopy(copied, (ConsPointer) evaluated.car());
+            UtilityFunctions.flatCopy(copied, (ConsPointer) evaluated.car());
         }
 
         ConsPointer index = new ConsPointer();
@@ -883,7 +883,7 @@ public class UtilityFunctions {
         BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(ListCons.getInstance(copied.getCons()));
     }
 
-    public static void internalInsert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
+    public static void insert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsList(aEnvironment, aStackTop, evaluated, 1);
@@ -892,7 +892,7 @@ public class UtilityFunctions {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            UtilityFunctions.internalFlatCopy(copied, (ConsPointer) evaluated.car());
+            UtilityFunctions.flatCopy(copied, (ConsPointer) evaluated.car());
         }
 
         ConsPointer index = new ConsPointer();
@@ -915,7 +915,7 @@ public class UtilityFunctions {
         BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(ListCons.getInstance(copied.getCons()));
     }
 
-    public static void internalReplace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
+    public static void replace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         // Ok, so lets not check if it is a list, but it needs to be at least a 'function'
@@ -931,7 +931,7 @@ public class UtilityFunctions {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            UtilityFunctions.internalFlatCopy(copied, (ConsPointer) evaluated.car());
+            UtilityFunctions.flatCopy(copied, (ConsPointer) evaluated.car());
         }
         LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 2);
 
@@ -954,7 +954,7 @@ public class UtilityFunctions {
      *Implements the MathPiper functions RuleBase and MacroRuleBase .
      * The real work is done by Environment.declareRulebase().
      */
-    public static void internalRuleDatabase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void ruleDatabase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         //TESTARGS(3);
 
         // Get operator
@@ -977,7 +977,7 @@ public class UtilityFunctions {
         UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static void internalNewRule(Environment aEnvironment, int aStackTop) throws Exception {
+    public static void newRule(Environment aEnvironment, int aStackTop) throws Exception {
         //TESTARGS(6);
 
         int arity;
@@ -1019,7 +1019,7 @@ public class UtilityFunctions {
         UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static void internalDefMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void defMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         // Get operator
         ConsPointer args = new ConsPointer();
         ConsPointer body = new ConsPointer();
@@ -1041,7 +1041,7 @@ public class UtilityFunctions {
         UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static void internalNewRulePattern(Environment aEnvironment, int aStackTop, boolean aMacroMode) throws Exception {
+    public static void newRulePattern(Environment aEnvironment, int aStackTop, boolean aMacroMode) throws Exception {
         int arity;
         int precedence;
 

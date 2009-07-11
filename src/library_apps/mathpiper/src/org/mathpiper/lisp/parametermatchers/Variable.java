@@ -64,7 +64,7 @@ public class Variable extends PatternParameter
 		}
 		else
 		{
-			if (UtilityFunctions.internalEquals(aEnvironment, aExpression, arguments[iVarIndex]))
+			if (UtilityFunctions.equals(aEnvironment, aExpression, arguments[iVarIndex]))
 			{
 				//            LogPrintf("Matched var %d\n",iVarIndex);
 				return true;

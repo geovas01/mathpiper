@@ -39,7 +39,7 @@ public class DefLoadFunction extends BuiltinFunction
         namePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String)  namePointer.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.internalUnstringify(orig);
+        String oper = UtilityFunctions.unstringify(orig);
 
         MultipleArityUserFunction multiUserFunction =
                 aEnvironment.getMultipleArityUserFunction((String)aEnvironment.getTokenHash().lookUp(oper));
@@ -51,7 +51,7 @@ public class DefLoadFunction extends BuiltinFunction
                 if (!def.iIsLoaded)
                 {
                     multiUserFunction.iFileToOpen = null;
-                    UtilityFunctions.internalUse(aEnvironment, def.iFileName);
+                    UtilityFunctions.use(aEnvironment, def.iFileName);
                 }//end if.
             }//end if.
         }//end if.

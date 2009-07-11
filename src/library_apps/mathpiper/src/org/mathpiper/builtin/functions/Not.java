@@ -36,7 +36,7 @@ public class Not extends BuiltinFunction
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         if (UtilityFunctions.isTrue(aEnvironment, evaluated) || UtilityFunctions.isFalse(aEnvironment, evaluated))
         {
-            UtilityFunctions.internalNot(getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment, evaluated);
+            UtilityFunctions.not(getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment, evaluated);
         } else
         {
             ConsPointer ptr = new ConsPointer();

@@ -30,7 +30,7 @@ public class Set extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalSetVar(aEnvironment, aStackTop, false, false);
+        UtilityFunctions.setVar(aEnvironment, aStackTop, false, false);
     }
 }
 

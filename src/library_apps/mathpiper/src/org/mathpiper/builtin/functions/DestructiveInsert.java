@@ -30,7 +30,7 @@ public class DestructiveInsert extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalInsert(aEnvironment, aStackTop, true);
+        UtilityFunctions.insert(aEnvironment, aStackTop, true);
     }
 }
 

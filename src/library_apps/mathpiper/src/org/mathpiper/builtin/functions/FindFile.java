@@ -43,9 +43,9 @@ public class FindFile extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = (String)  evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.internalUnstringify(orig);
+        String oper = UtilityFunctions.unstringify(orig);
 
-        String filename = UtilityFunctions.internalFindFile(oper, aEnvironment.iInputDirectories);
+        String filename = UtilityFunctions.findFile(oper, aEnvironment.iInputDirectories);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(filename)));
     }
 }
