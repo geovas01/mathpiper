@@ -61,7 +61,7 @@ public class BuiltinAssoc extends BuiltinFunction
                     sub = sub.cdr().getCons();
                     ConsPointer temp = new ConsPointer();
                     temp.setCons(sub);
-                    if (UtilityFunctions.internalEquals(aEnvironment, key, temp))
+                    if (UtilityFunctions.equals(aEnvironment, key, temp))
                     {
                         getTopOfStackPointer(aEnvironment, aStackTop).setCons(t);
                         return;

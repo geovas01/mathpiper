@@ -242,7 +242,7 @@ public class Pattern {
 
                             Cons predicate = second.cdr().getCons();
                             if ( (predicate.car() instanceof ConsPointer)) {
-                                UtilityFunctions.internalFlatCopy(third, (ConsPointer) predicate.car());
+                                UtilityFunctions.flatCopy(third, (ConsPointer) predicate.car());
                             } else {
                                 third.setCons(second.cdr().getCons().copy(false));
                             }

@@ -30,7 +30,7 @@ public class Replace extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalReplace(aEnvironment, aStackTop, false);
+        UtilityFunctions.replace(aEnvironment, aStackTop, false);
     }
 }
 

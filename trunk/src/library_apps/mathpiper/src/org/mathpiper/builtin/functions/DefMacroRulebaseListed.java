@@ -29,7 +29,7 @@ public class DefMacroRulebaseListed extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.UtilityFunctions.internalDefMacroRuleBase(aEnvironment, aStackTop, true);
+        org.mathpiper.lisp.UtilityFunctions.defMacroRuleBase(aEnvironment, aStackTop, true);
     }
 }
 

@@ -373,7 +373,7 @@ public class MathPiperParser extends Parser
         subList.cdr().setCons(consTraverser.cdr().getCons());
         consTraverser.cdr().setCons(null);
 
-        UtilityFunctions.internalReverseList(((ConsPointer) subList.car()).cdr(),
+        UtilityFunctions.reverseList(((ConsPointer) subList.car()).cdr(),
                 ((ConsPointer) subList.car()).cdr());
         iSExpressionResult.setCons(subList.getCons());
     }

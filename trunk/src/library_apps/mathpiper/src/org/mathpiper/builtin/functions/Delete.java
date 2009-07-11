@@ -30,7 +30,7 @@ public class Delete extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalDelete(aEnvironment, aStackTop, false);
+        UtilityFunctions.delete(aEnvironment, aStackTop, false);
     }
 }
 

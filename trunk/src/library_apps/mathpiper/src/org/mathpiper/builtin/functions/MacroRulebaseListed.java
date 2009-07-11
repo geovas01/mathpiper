@@ -16,7 +16,7 @@ import org.mathpiper.lisp.Environment;
 	{
 		public void evaluate(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			org.mathpiper.lisp.UtilityFunctions.internalRuleDatabase(aEnvironment, aStackTop, true);
+			org.mathpiper.lisp.UtilityFunctions.ruleDatabase(aEnvironment, aStackTop, true);
 		}
 	}
 

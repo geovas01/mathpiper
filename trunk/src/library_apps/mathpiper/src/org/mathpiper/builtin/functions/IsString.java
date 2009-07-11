@@ -38,7 +38,7 @@ public class IsString extends BuiltinFunction
         boolean resultBoolean ;
          if( result.car() instanceof String  )
          {
-             resultBoolean = UtilityFunctions.internalIsString(   (String) result.car() );
+             resultBoolean = UtilityFunctions.isString(   (String) result.car() );
 
          }
         else{

@@ -32,8 +32,8 @@ public class Tail extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer first = new ConsPointer();
-        UtilityFunctions.internalTail(first, getArgumentPointer(aEnvironment, aStackTop, 1));
-        UtilityFunctions.internalTail(getTopOfStackPointer(aEnvironment, aStackTop), first);
+        UtilityFunctions.tail(first, getArgumentPointer(aEnvironment, aStackTop, 1));
+        UtilityFunctions.tail(getTopOfStackPointer(aEnvironment, aStackTop), first);
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
         head.cdr().setCons(((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).getCons());

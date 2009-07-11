@@ -57,7 +57,7 @@ public class FromBase extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2);
 
         // Added, unquote a string
-        LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.internalIsString(str2), 2);
+        LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isString(str2), 2);
         str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
 
         // convert using correct base

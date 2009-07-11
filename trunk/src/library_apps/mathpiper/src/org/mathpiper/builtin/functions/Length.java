@@ -42,7 +42,7 @@ public class Length extends BuiltinFunction
             return;
         }
         String string =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        if (UtilityFunctions.internalIsString(string))
+        if (UtilityFunctions.isString(string))
         {
             int num = string.length() - 2;
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));

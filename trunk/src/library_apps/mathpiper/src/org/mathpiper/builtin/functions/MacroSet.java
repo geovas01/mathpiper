@@ -30,7 +30,7 @@ public class MacroSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.internalSetVar(aEnvironment, aStackTop, true, false);
+        UtilityFunctions.setVar(aEnvironment, aStackTop, true, false);
     }
 }
 

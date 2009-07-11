@@ -284,12 +284,12 @@ public class LispError
 
     public static void checkIsList(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsList(evaluated), aArgNr, "argument is not a list.");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.isList(evaluated), aArgNr, "argument is not a list.");
     }
 
     public static void checkIsString(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.internalIsString( (String) evaluated.car()), aArgNr, "argument is not a string.");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, UtilityFunctions.isString( (String) evaluated.car()), aArgNr, "argument is not a string.");
     }
 
     public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription) throws Exception

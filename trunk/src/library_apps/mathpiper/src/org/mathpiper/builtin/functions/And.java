@@ -67,7 +67,7 @@ public class And extends BuiltinFunction
             {
                 ConsPointer ptr = new ConsPointer();
 
-                UtilityFunctions.internalReverseList(ptr, nogos);
+                UtilityFunctions.reverseList(ptr, nogos);
                 nogos.setCons(ptr.getCons());
 
                 ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));

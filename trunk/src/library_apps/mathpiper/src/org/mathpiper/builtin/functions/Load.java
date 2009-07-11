@@ -42,7 +42,7 @@ public class Load extends BuiltinFunction
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
-        UtilityFunctions.internalLoad(aEnvironment, orig);
+        UtilityFunctions.load(aEnvironment, orig);
         
         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
          

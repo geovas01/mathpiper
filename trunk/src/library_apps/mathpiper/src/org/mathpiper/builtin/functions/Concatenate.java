@@ -45,7 +45,7 @@ public class Concatenate extends BuiltinFunction
         while (consTraverser.getCons() != null)
         {
             LispError.checkIsList(aEnvironment, aStackTop, consTraverser.getPointer(), arg);
-            UtilityFunctions.internalFlatCopy(tail.getPointer(), ((ConsPointer) consTraverser.getPointer().car()).cdr());
+            UtilityFunctions.flatCopy(tail.getPointer(), ((ConsPointer) consTraverser.getPointer().car()).cdr());
             while (tail.getCons() != null)
             {
                 tail.goNext();
