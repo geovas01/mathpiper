@@ -19,12 +19,12 @@ package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 
 import org.mathpiper.lisp.Environment;
 
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *Corresponds to the MathPiper function AddN.
@@ -40,17 +40,17 @@ public class Add extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int length = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x;
-            x = UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+            x = Utility.getNumber(aEnvironment, aStackTop, 1);
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(x));
             return;
         } else
         {
-            BigNumber x = UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
-            BigNumber y = UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
+            BigNumber x = Utility.getNumber(aEnvironment, aStackTop, 1);
+            BigNumber y = Utility.getNumber(aEnvironment, aStackTop, 2);
             int bin = aEnvironment.getPrecision();
             BigNumber z = new BigNumber(bin);
             z.add(x, y, aEnvironment.getPrecision());

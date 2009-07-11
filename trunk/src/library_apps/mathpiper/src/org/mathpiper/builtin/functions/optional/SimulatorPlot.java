@@ -24,7 +24,7 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -50,6 +50,6 @@ public class SimulatorPlot extends BuiltinFunction
          int xValue = Integer.parseInt( (String) xCons.car());
          int yValue = Integer.parseInt( (String) yCons.car());
          simulator.plotPoint(xValue,yValue);
-         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

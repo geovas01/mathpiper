@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.Environment;
 
 /**
@@ -30,7 +30,7 @@ public class Infix extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+        Utility.multiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
     }
 }
 

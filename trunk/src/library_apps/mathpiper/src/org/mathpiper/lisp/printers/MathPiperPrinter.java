@@ -20,7 +20,7 @@ package org.mathpiper.lisp.printers;
 
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
@@ -101,7 +101,7 @@ public class MathPiperPrinter extends LispPrinter
 		}
 		else
 		{
-			int length = UtilityFunctions.listLength(subList);
+			int length = Utility.listLength(subList);
 			string = (String) subList.car();
 			InfixOperator prefix  = (InfixOperator)iPrefixOperators.lookUp(string);
 			InfixOperator infix   = (InfixOperator)iInfixOperators.lookUp(string);

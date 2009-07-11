@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
@@ -36,7 +36,7 @@ public class Prog extends BuiltinFunction
         aEnvironment.pushLocalFrame(false, "Prog");
         try
         {
-            UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
             // Evaluate args one by one.
 

@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -38,15 +38,15 @@ public class While extends BuiltinFunction
         ConsPointer predicate = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, arg1);
 
-        while (UtilityFunctions.isTrue(aEnvironment, predicate))
+        while (Utility.isTrue(aEnvironment, predicate))
         {
             ConsPointer evaluated = new ConsPointer();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, arg2);
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, arg1);
 
         }
-        LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isFalse(aEnvironment, predicate), 1);
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

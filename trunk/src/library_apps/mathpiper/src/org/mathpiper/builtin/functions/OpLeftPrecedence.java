@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.InfixOperator;
@@ -34,11 +34,11 @@ public class OpLeftPrecedence extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+        InfixOperator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
         if (op == null)
         {  // infix and postfix operators have left precedence
 
-            op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+            op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
             LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
         }
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iLeftPrecedence));

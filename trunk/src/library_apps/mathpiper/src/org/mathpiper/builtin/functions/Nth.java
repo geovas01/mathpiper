@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -34,8 +34,8 @@ public class Nth extends BuiltinFunction
         String str;
         str = (String) getArgumentPointer(aEnvironment, aStackTop, 2).car();
         LispError.checkArgument(aEnvironment, aStackTop, str != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
+        LispError.checkArgument(aEnvironment, aStackTop, Utility.isNumber(str, false), 2);
         int index = Integer.parseInt(str);
-        UtilityFunctions.nth(getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1), index);
+        Utility.nth(getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1), index);
     }
 }

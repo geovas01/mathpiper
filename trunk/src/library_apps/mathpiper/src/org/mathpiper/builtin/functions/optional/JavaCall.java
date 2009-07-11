@@ -23,7 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -113,10 +113,10 @@ public class JavaCall extends BuiltinFunction {
                     //System.out.println("XXXXXXXXXXX: " + response);
 
                     if (response == null) {
-                        UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                         return;
                     } /*else if (response.equalsIgnoreCase("")) {
-                    UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                    Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                     return;
                     }*/
                     getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(response));
@@ -129,7 +129,7 @@ public class JavaCall extends BuiltinFunction {
 
         }//end if.
 
-        UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
     }//end method.
 }

@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
@@ -230,10 +230,10 @@ public class JavaObject extends BuiltinContainer {
         return javaObject;
     }//end method.
 
-    public static List toJavaList(ConsPointer lispList) throws Exception {
-        LispError.check(lispList.type() == Cons.ATOM, LispError.NOT_A_LIST);
-        String type = (String) lispList.getCons().car();
-        LispError.check(type.equals("List"), LispError.NOT_A_LIST);
+
+    public static List LispListToJavaList(ConsPointer lispList) throws Exception {
+        LispError.check(Utility.isList(lispList), LispError.NOT_A_LIST);
+        
         lispList.goNext();
 
         ArrayList javaList = new ArrayList();
@@ -250,32 +250,33 @@ public class JavaObject extends BuiltinContainer {
 
         return javaList;
     }//end method.
+    public static double[] LispListToJavaDoubleArray(ConsPointer lispList) throws Exception {
+        LispError.check(Utility.isList(lispList), LispError.NOT_A_LIST);
 
-    public static double[] toJavaDoubleArray(ConsPointer lispList) throws Exception {
-        LispError.check(lispList.type() == Cons.ATOM, LispError.NOT_A_LIST);
-        String type = (String) lispList.getCons().car();
-        LispError.check(type.equals("List"), LispError.NOT_A_LIST);
         lispList.goNext();
 
-        double[] values = new double[UtilityFunctions.listLength(lispList)];
+        double[] values = new double[Utility.listLength(lispList)];
 
+        int index = 0;
         while (lispList.getCons() != null) {
 
             Object item = lispList.car();
 
-
             LispError.check(item instanceof String, LispError.INVALID_ARGUMENT);
             String itemString = (String) item;
+
             try {
-                item = Double.valueOf(itemString);
+                values[index++] = Double.parseDouble(itemString);
             } catch (NumberFormatException nfe) {
                 LispError.raiseError("Can not convert into a double" );
-            }
+            }//end try/catch.
 
-
+            lispList.goNext();
 
         }//end while.
-     return null;
+
+        return values;
+        
     }//end method.
 
 }//end class.

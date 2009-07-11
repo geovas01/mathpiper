@@ -134,7 +134,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
                         argumentsPointer.setCons(ListCons.getInstance(aArgumentsPointer.getCons()));
-                        String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(thisRule, aEnvironment, this);
+                        String ruleDump = org.mathpiper.lisp.Utility.dumpRule(thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
                     }
 

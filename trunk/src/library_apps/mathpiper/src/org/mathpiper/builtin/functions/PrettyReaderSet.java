@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -33,7 +33,7 @@ public class PrettyReaderSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
             aEnvironment.iPrettyReader = null;
@@ -46,7 +46,7 @@ public class PrettyReaderSet extends BuiltinFunction
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyReader = (String) oper.car();
         }
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

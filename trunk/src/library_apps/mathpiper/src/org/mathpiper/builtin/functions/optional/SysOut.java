@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.ConsTraverser;
 
@@ -59,7 +59,7 @@ public class SysOut extends BuiltinFunction {
         System.out.println(output);
         aEnvironment.iCurrentOutput.write(output);
         aEnvironment.iCurrentOutput.write("\n");
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
     }//end method.
 

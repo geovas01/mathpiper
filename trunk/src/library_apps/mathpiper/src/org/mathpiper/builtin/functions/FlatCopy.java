@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ListCons;
 
 /**
@@ -33,7 +33,7 @@ public class FlatCopy extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer copied = new ConsPointer();
-        UtilityFunctions.flatCopy(copied, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
+        Utility.flatCopy(copied, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(ListCons.getInstance(copied.getCons()));
     }
 }

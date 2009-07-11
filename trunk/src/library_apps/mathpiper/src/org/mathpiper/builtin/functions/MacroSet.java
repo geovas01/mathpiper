@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.Environment;
 
 /**
@@ -30,7 +30,7 @@ public class MacroSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.setVar(aEnvironment, aStackTop, true, false);
+        Utility.setVar(aEnvironment, aStackTop, true, false);
     }
 }
 

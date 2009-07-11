@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -44,7 +44,7 @@ public class ApplyPure extends BuiltinFunction
         // Apply a pure string
         if (oper.car() instanceof String)
         {
-            UtilityFunctions.applyString(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
+            Utility.applyString(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
                     (String) oper.car(),
                     ((ConsPointer) args.car()).cdr());
         } else
@@ -54,7 +54,7 @@ public class ApplyPure extends BuiltinFunction
             args2.setCons(((ConsPointer) args.car()).cdr().getCons());
             LispError.checkArgument(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, 1);
             LispError.checkArgument(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, 1);
-            UtilityFunctions.applyPure(oper, args2, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment);
+            Utility.applyPure(oper, args2, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment);
         }
     }
 }

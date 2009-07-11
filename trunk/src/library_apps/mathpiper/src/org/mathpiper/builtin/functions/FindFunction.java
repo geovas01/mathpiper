@@ -24,7 +24,7 @@ import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 /**
@@ -45,7 +45,7 @@ public class FindFunction extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig =  (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.unstringify(orig);
+        String oper = Utility.unstringify(orig);
 
         MultipleArityUserFunction multiUserFunc =
                 aEnvironment.getMultipleArityUserFunction((String)aEnvironment.getTokenHash().lookUp(oper));

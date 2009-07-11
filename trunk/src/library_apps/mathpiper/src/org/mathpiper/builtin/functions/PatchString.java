@@ -24,7 +24,7 @@ import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.parsers.MathPiperParser;
@@ -87,7 +87,7 @@ public class PatchString extends BuiltinFunction {
 
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, inputExpressionPointer);
 
-            String resultString = UtilityFunctions.printExpression(result, aEnvironment, 0);
+            String resultString = Utility.printExpression(result, aEnvironment, 0);
 
         } catch (Exception e) {
             throw e;

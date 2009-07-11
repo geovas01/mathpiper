@@ -295,7 +295,7 @@ public class Environment {
     public SingleArityBranchingUserFunction getUserFunction(ConsPointer aArguments) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp( (String) aArguments.car());
         if (multipleArityUserFunc != null) {
-            int arity = UtilityFunctions.listLength(aArguments) - 1;
+            int arity = Utility.listLength(aArguments) - 1;
             return multipleArityUserFunc.getUserFunction(arity);
         }
         return null;
@@ -357,7 +357,7 @@ public class Environment {
         LispError.check(userFunction != null, LispError.CREATING_RULE);
 
         // Declare a new evaluation rule
-        if (UtilityFunctions.isTrue(this, aPredicate)) {
+        if (Utility.isTrue(this, aPredicate)) {
             //        printf("FastPredicate on %s\n",aOperator->String());
             userFunction.declareRule(aPrecedence, aBody);
         } else {

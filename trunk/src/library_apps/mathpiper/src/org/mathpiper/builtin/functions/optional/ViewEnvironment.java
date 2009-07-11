@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions.optional;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -41,6 +41,6 @@ public class ViewEnvironment extends BuiltinFunction
     {
          org.mathpiper.ui.gui.EnvironmentViewer viewer = new org.mathpiper.ui.gui.EnvironmentViewer();
          viewer.getViewerFrame(aEnvironment);
-         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

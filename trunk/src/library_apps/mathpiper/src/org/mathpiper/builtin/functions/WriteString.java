@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -47,7 +47,7 @@ public class WriteString extends BuiltinFunction
         // pass last printed character to the current printer
         aEnvironment.iCurrentPrinter.rememberLastChar(str.charAt(nr - 1));  // hacky hacky
 
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

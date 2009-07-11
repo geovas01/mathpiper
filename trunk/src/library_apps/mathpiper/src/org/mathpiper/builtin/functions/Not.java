@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ListCons;
 
 /**
@@ -34,9 +34,9 @@ public class Not extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        if (UtilityFunctions.isTrue(aEnvironment, evaluated) || UtilityFunctions.isFalse(aEnvironment, evaluated))
+        if (Utility.isTrue(aEnvironment, evaluated) || Utility.isFalse(aEnvironment, evaluated))
         {
-            UtilityFunctions.not(getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment, evaluated);
+            Utility.not(getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment, evaluated);
         } else
         {
             ConsPointer ptr = new ConsPointer();

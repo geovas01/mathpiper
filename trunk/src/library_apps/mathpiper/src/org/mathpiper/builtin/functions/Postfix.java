@@ -18,9 +18,9 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -31,13 +31,13 @@ public class Postfix extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 2)
         {
-            UtilityFunctions.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+            Utility.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
         } else
         {
-            UtilityFunctions.multiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+            Utility.multiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
         }
     }
 }

@@ -18,7 +18,7 @@
 package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
@@ -226,7 +226,7 @@ public class Pattern {
             ConsPointer sublist = (ConsPointer) aPattern.car();
             //LispError.lispAssert(sublist != null);
 
-            int num = UtilityFunctions.listLength(sublist);
+            int num = Utility.listLength(sublist);
 
             // variable matcher here...
             if (num > 1) {
@@ -242,7 +242,7 @@ public class Pattern {
 
                             Cons predicate = second.cdr().getCons();
                             if ( (predicate.car() instanceof ConsPointer)) {
-                                UtilityFunctions.flatCopy(third, (ConsPointer) predicate.car());
+                                Utility.flatCopy(third, (ConsPointer) predicate.car());
                             } else {
                                 third.setCons(second.cdr().getCons().copy(false));
                             }
@@ -318,21 +318,21 @@ public class Pattern {
         for (i = 0; i < iPredicates.size(); i++) {
             ConsPointer pred = new ConsPointer();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, ((ConsPointer) iPredicates.get(i)));
-            if (UtilityFunctions.isFalse(aEnvironment, pred)) {
+            if (Utility.isFalse(aEnvironment, pred)) {
                 return false;
             }
 
 
             // If the result is not False, it should be True, else probably something is wrong (the expression returned unevaluated)
-            boolean isTrue = UtilityFunctions.isTrue(aEnvironment, pred);
+            boolean isTrue = Utility.isTrue(aEnvironment, pred);
             if (!isTrue) {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
                 String strout;
                 aEnvironment.write("The predicate\n\t");
-                strout = UtilityFunctions.printExpression(((ConsPointer) iPredicates.get(i)), aEnvironment, 60);
+                strout = Utility.printExpression(((ConsPointer) iPredicates.get(i)), aEnvironment, 60);
                 aEnvironment.write(strout);
                 aEnvironment.write("\nevaluated to\n\t");
-                strout = UtilityFunctions.printExpression(pred, aEnvironment, 60);
+                strout = Utility.printExpression(pred, aEnvironment, 60);
                 aEnvironment.write(strout);
                 aEnvironment.write("\n");
 

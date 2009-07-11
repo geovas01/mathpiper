@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 
 /**
@@ -38,7 +38,7 @@ public class RulebaseDefined extends BuiltinFunction
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String) name.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.unstringify(orig);
+        String oper = Utility.unstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
@@ -48,6 +48,6 @@ public class RulebaseDefined extends BuiltinFunction
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
         SingleArityBranchingUserFunction userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity);
-        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), userFunc != null);
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), userFunc != null);
     }
 }

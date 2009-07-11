@@ -18,7 +18,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.Environment;
 
 /**
@@ -30,7 +30,7 @@ public class DestructiveInsert extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        UtilityFunctions.insert(aEnvironment, aStackTop, true);
+        Utility.insert(aEnvironment, aStackTop, true);
     }
 }
 

@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -32,8 +32,8 @@ public class Tail extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer first = new ConsPointer();
-        UtilityFunctions.tail(first, getArgumentPointer(aEnvironment, aStackTop, 1));
-        UtilityFunctions.tail(getTopOfStackPointer(aEnvironment, aStackTop), first);
+        Utility.tail(first, getArgumentPointer(aEnvironment, aStackTop, 1));
+        Utility.tail(getTopOfStackPointer(aEnvironment, aStackTop), first);
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy(false));
         head.cdr().setCons(((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).getCons());

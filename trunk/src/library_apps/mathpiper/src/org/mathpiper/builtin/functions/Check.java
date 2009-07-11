@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -34,7 +34,7 @@ public class Check extends BuiltinFunction
     {
         ConsPointer pred = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, getArgumentPointer(aEnvironment, aStackTop, 1));
-        if (!UtilityFunctions.isTrue(aEnvironment, pred))
+        if (!Utility.isTrue(aEnvironment, pred))
         {
             ConsPointer evaluated = new ConsPointer();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));

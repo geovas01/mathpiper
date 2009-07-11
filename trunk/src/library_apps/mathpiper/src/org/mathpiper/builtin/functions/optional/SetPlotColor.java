@@ -24,7 +24,7 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -53,6 +53,6 @@ public class SetPlotColor extends BuiltinFunction
          int greenValue = Integer.parseInt( (String) greenCons.car());
          int blueValue = Integer.parseInt( (String) blueCons.car());
          simulator.setColor(redValue, greenValue, blueValue);
-         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

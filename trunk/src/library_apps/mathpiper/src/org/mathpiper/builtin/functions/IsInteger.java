@@ -23,7 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.NumberCons;
 
 /**
@@ -42,10 +42,10 @@ public class IsInteger extends BuiltinFunction
         BigNumber num = (BigNumber) result.getCons().getNumber(aEnvironment.getPrecision());
         if (num == null)
         {
-            UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         } else
         {
-            UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), num.isInt());
+            Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), num.isInt());
         }
     }
 }

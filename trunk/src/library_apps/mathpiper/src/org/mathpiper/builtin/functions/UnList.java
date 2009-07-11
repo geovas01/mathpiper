@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
@@ -38,7 +38,7 @@ public class UnList extends BuiltinFunction
         Cons atom = ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons();
         LispError.checkArgument(aEnvironment, aStackTop, atom != null, 1);
         LispError.checkArgument(aEnvironment, aStackTop, atom.car() == aEnvironment.iListAtom.car(), 1);
-        UtilityFunctions.tail(getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+        Utility.tail(getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
     }
 }
 

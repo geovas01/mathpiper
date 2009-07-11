@@ -26,7 +26,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -40,7 +40,7 @@ public class FileSize extends BuiltinFunction
         ConsPointer fnameObject = new ConsPointer();
         fnameObject.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, fnameObject, 1);
-        String fname = UtilityFunctions.unstringify(  (String) fnameObject.car());
+        String fname = Utility.unstringify(  (String) fnameObject.car());
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(fname);
 
         long fileSize = 0;
@@ -50,7 +50,7 @@ public class FileSize extends BuiltinFunction
         {
             // Open file
             MathPiperInputStream newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
-                    UtilityFunctions.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+                    Utility.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
             LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
             fileSize = newInput.startPtr().length();

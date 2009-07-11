@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -38,10 +38,10 @@ public class ExtraInfoGet extends BuiltinFunction
         ConsPointer result = object.getCons().getExtraInfoPointer();
         if (result == null)
         {
-            UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         } else if (result.getCons() == null)
         {
-            UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         } else
         {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(result.getCons());

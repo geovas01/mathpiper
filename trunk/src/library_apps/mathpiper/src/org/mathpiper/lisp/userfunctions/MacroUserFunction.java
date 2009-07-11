@@ -20,7 +20,7 @@ package org.mathpiper.lisp.userfunctions;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
@@ -95,7 +95,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                     if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
                         argumentsPointer.setCons(ListCons.getInstance(aArgumentsPointer.getCons()));
-                        String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(thisRule, aEnvironment, this);
+                        String ruleDump = org.mathpiper.lisp.Utility.dumpRule(thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
                     }
                     userStackInformation.iSide = 1;
@@ -103,7 +103,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                     BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
 
                     ConsPointer originalBodyPointer =  thisRule.getBodyPointer();
-                    UtilityFunctions.substitute(substitutedBodyPointer,originalBodyPointer, backQuoteSubstitute);
+                    Utility.substitute(substitutedBodyPointer,originalBodyPointer, backQuoteSubstitute);
                     //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                     break;
                 }

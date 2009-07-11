@@ -18,7 +18,7 @@
 
 package org.mathpiper.lisp.parametermatchers;
 
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
@@ -64,7 +64,7 @@ public class Variable extends PatternParameter
 		}
 		else
 		{
-			if (UtilityFunctions.equals(aEnvironment, aExpression, arguments[iVarIndex]))
+			if (Utility.equals(aEnvironment, aExpression, arguments[iVarIndex]))
 			{
 				//            LogPrintf("Matched var %d\n",iVarIndex);
 				return true;

@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.InfixOperator;
@@ -34,15 +34,15 @@ public class OpRightPrecedence extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+        InfixOperator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
         if (op == null)
         {   // bodied, infix and prefix operators have right precedence
 
-            op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+            op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
             if (op == null)
             {   // or maybe it's a bodied function
 
-                op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+                op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
                 LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
             }
         }

@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -44,8 +44,8 @@ public class RightPrecedence extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2);
         int ind = Integer.parseInt ( (String) index.car(), 10);
 
-        aEnvironment.iInfixOperators.setRightPrecedence(UtilityFunctions.getSymbolName(aEnvironment, orig), ind);
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        aEnvironment.iInfixOperators.setRightPrecedence(Utility.getSymbolName(aEnvironment, orig), ind);
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

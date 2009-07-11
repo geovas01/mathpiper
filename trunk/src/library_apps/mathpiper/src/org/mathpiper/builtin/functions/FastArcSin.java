@@ -32,7 +32,7 @@ public class FastArcSin extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x;
-        x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+        x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         double result = Math.asin(x.toDouble());
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.setTo(result);

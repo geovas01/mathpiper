@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.behaviours.LocalSymbolSubstitute;
 
 /**
@@ -34,7 +34,7 @@ public class LocalSymbols extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int numberOfArguments = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int numberOfArguments = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         int numberOfSymbols = numberOfArguments - 2;
 
         String atomNames[] = new String[numberOfSymbols];
@@ -53,7 +53,7 @@ public class LocalSymbols extends BuiltinFunction
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
         ConsPointer result = new ConsPointer();
-        UtilityFunctions.substitute(result, getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
+        Utility.substitute(result, getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), result);
     }
 }

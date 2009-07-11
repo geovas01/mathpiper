@@ -19,7 +19,7 @@
 package org.mathpiper.lisp.behaviours;
 
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ListCons;
@@ -82,7 +82,7 @@ public class BackQuoteSubstitute implements Substitute
 			result.cdr().setCons(args.getCons());
 			ConsPointer result2 = new ConsPointer();
 			result2.setCons(ListCons.getInstance(result.getCons()));
-			UtilityFunctions.substitute(aResult, result2,this);
+			Utility.substitute(aResult, result2,this);
 			return true;
 		}
 		//      return false;

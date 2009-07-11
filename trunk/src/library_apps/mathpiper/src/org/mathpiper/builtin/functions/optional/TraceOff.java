@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -43,6 +43,6 @@ public class TraceOff extends BuiltinFunction
     {
          Evaluator.traceOff();
          aEnvironment.write("Tracing is off.\n");
-         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

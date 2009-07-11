@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -37,7 +37,7 @@ public class SystemCall extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.unstringify(orig);
+        String oper = Utility.unstringify(orig);
         String ls_str;
         Process ls_proc = Runtime.getRuntime().exec(oper);
         // getCons its output (your input) stream

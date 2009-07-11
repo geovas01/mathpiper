@@ -49,7 +49,7 @@ public class ToBase extends BuiltinFunction
         int base = (int) (num.toLong());
 
         // Get the number to convert
-        BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
         // convert using correct base
         String str;

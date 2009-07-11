@@ -23,7 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -37,12 +37,12 @@ public class Length extends BuiltinFunction
         Object subList =getArgumentPointer(aEnvironment, aStackTop, 1).car();
         if (subList instanceof ConsPointer)
         {
-            int num = UtilityFunctions.listLength(((ConsPointer)subList).cdr());
+            int num = Utility.listLength(((ConsPointer)subList).cdr());
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }
         String string =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        if (UtilityFunctions.isString(string))
+        if (Utility.isString(string))
         {
             int num = string.length() - 2;
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));

@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -37,7 +37,7 @@ public class Subst extends BuiltinFunction
         to.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         body.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         org.mathpiper.lisp.behaviours.ExpressionSubstitute behaviour = new org.mathpiper.lisp.behaviours.ExpressionSubstitute(aEnvironment, from, to);
-        UtilityFunctions.substitute(getTopOfStackPointer(aEnvironment, aStackTop), body, behaviour);
+        Utility.substitute(getTopOfStackPointer(aEnvironment, aStackTop), body, behaviour);
     }
 }
 
