@@ -339,34 +339,24 @@ public class Utility {
 
     public static boolean isList(ConsPointer aPtr) throws Exception {
         /**
-         * todo:tk:I changed this method to work with lists that do not use NestedListCons.
-         * I am currently not sure why non nested lists were not supported in Yacas.
+         * todo:tk: I am currently not sure why non nested lists are not supported in Yacas.
          */
-
         if (aPtr.getCons() == null) {
             return false;
-        }//end if.
-
-        /* if (!(aPtr.car() instanceof ConsPointer)) {
-        return false;
+        }
+        if (!(aPtr.car() instanceof ConsPointer)) {
+            return false;
         }
         if (((ConsPointer) aPtr.car()).getCons() == null) {
-        return false;
+            return false;
         //TODO this StrEqual is far from perfect. We could pass in a Environment object...
         }
-         * */
-        if (aPtr.type() == Utility.ATOM) {
-            if (((String) aPtr.car()).equals("List")) {
-                return true;
-            }
-        }//end if.
+        if (!((ConsPointer) aPtr.car()).car().equals("List")) {
+            return false;
+        }
+        return true;
 
-        if (aPtr.car() instanceof ConsPointer && ((ConsPointer) aPtr.car()).car().equals("List")) {
-            return true;
-        }//end if.
-
-        return false;
-    }
+    }//end method.
 
     public static boolean isString(String aOriginal) {
         if (aOriginal != null) {
