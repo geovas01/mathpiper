@@ -24,7 +24,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.ListCons;
+import org.mathpiper.lisp.cons.NestedListCons;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 /**
@@ -116,7 +116,7 @@ public class XmlExplodeTag extends BuiltinFunction
                 Cons vl = AtomCons.getInstance(aEnvironment, value);
                 nm.cdr().setCons(vl);
                 ls.cdr().setCons(nm);
-                Cons newinfo = ListCons.getInstance(ls);
+                Cons newinfo = NestedListCons.getInstance(ls);
                 newinfo.cdr().setCons(info);
                 info = newinfo;
             }
@@ -139,7 +139,7 @@ public class XmlExplodeTag extends BuiltinFunction
         {
             Cons ls = AtomCons.getInstance(aEnvironment, "List");
             ls.cdr().setCons(info);
-            info = ListCons.getInstance(ls);
+            info = NestedListCons.getInstance(ls);
         }
 
         Cons xm = AtomCons.getInstance(aEnvironment, "XmlTag");
@@ -148,7 +148,7 @@ public class XmlExplodeTag extends BuiltinFunction
         info.cdr().setCons(tp);
         tg.cdr().setCons(info);
         xm.cdr().setCons(tg);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(ListCons.getInstance(xm));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(NestedListCons.getInstance(xm));
 
     }
 }

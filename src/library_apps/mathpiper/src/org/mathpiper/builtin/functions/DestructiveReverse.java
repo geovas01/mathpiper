@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ListCons;
+import org.mathpiper.lisp.cons.NestedListCons;
 
 /**
  *
@@ -35,7 +35,7 @@ public class DestructiveReverse extends BuiltinFunction
         ConsPointer reversed = new ConsPointer();
         reversed.setCons(aEnvironment.iListAtom.copy(false));
         Utility.reverseList(reversed.cdr(), ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).cdr());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(ListCons.getInstance(reversed.getCons()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(NestedListCons.getInstance(reversed.getCons()));
     }
 }
 

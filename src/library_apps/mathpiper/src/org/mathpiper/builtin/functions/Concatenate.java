@@ -23,7 +23,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ListCons;
+import org.mathpiper.lisp.cons.NestedListCons;
 
 /**
  *
@@ -53,7 +53,7 @@ public class Concatenate extends BuiltinFunction
             consTraverser.goNext();
             arg++;
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(ListCons.getInstance(all.getCons()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(NestedListCons.getInstance(all.getCons()));
     }
 }
 

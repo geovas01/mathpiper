@@ -24,7 +24,7 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
 //import org.mathpiper.lisp.AtomCons;
 import org.mathpiper.lisp.Environment;
-//import org.mathpiper.lisp.ListCons;
+//import org.mathpiper.lisp.NestedListCons;
 import java.util.*;
 import org.mathpiper.builtin.BigNumber;
 
@@ -205,7 +205,7 @@ public class Pattern {
     /// - If \a aPattern is a list of another form, this function
     ///   calls itself on any of the entries in this list. The
     ///   resulting PatternParameter objects are collected in a
-    ///   ListCons, which is returned.
+    ///   NestedListCons, which is returned.
     /// - Otherwise, this function returns #null.
     protected PatternParameter makeParamMatcher(Environment aEnvironment, Cons aPattern) throws Exception {
         if (aPattern == null) {
@@ -256,7 +256,7 @@ public class Pattern {
                             last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, str));
 
                             ConsPointer pred = new ConsPointer();
-                            pred.setCons(org.mathpiper.lisp.cons.ListCons.getInstance(third.getCons()));
+                            pred.setCons(org.mathpiper.lisp.cons.NestedListCons.getInstance(third.getCons()));
 
                             iPredicates.add(pred);
                         }

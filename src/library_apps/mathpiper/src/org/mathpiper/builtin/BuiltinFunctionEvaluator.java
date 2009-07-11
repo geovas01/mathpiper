@@ -25,7 +25,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.AtomCons;
-import org.mathpiper.lisp.cons.ListCons;
+import org.mathpiper.lisp.cons.NestedListCons;
 
 public class BuiltinFunctionEvaluator extends Evaluator {
     // FunctionFlags can be ORed when passed to the constructor of this function
@@ -50,7 +50,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         /*Trace code*/
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
-            argumentsPointer.setCons(ListCons.getInstance(aArgumentsPointer.getCons()));
+            argumentsPointer.setCons(NestedListCons.getInstance(aArgumentsPointer.getCons()));
 
             String functionName = "";
             if (argumentsPointer.car() instanceof ConsPointer) {
@@ -124,7 +124,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 ConsPointer head = new ConsPointer();
                 head.setCons(aEnvironment.iListAtom.copy(false));
                 head.cdr().setCons(argumentsConsTraverser.getCons());
-                aEnvironment.iArgumentStack.pushArgumentOnStack(ListCons.getInstance(head.getCons()));
+                aEnvironment.iArgumentStack.pushArgumentOnStack(NestedListCons.getInstance(head.getCons()));
             }//end if.
 
         } else {//This is a function, not a macro.
@@ -153,7 +153,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 head.setCons(aEnvironment.iListAtom.copy(false));
                 head.cdr().setCons(argumentsConsTraverser.getCons());
                 ConsPointer listPointer = new ConsPointer();
-                listPointer.setCons(ListCons.getInstance(head.getCons()));
+                listPointer.setCons(NestedListCons.getInstance(head.getCons()));
 
 
                 /*
@@ -213,7 +213,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
         if (isTraced() && showFlag == true) {
             ConsPointer argumentsPointer = new ConsPointer();
-            argumentsPointer.setCons(ListCons.getInstance(aArgumentsPointer.getCons()));
+            argumentsPointer.setCons(NestedListCons.getInstance(aArgumentsPointer.getCons()));
             String localVariables = aEnvironment.getLocalVariables();
             Evaluator.traceShowLeave(aEnvironment, aResultPointer, argumentsPointer, "builtin", localVariables);
             argumentsPointer.setCons(null);

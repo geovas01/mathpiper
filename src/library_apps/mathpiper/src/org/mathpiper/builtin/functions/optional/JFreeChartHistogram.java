@@ -46,14 +46,16 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
 
 
-            argument.goSub();  //Select sublist.
-            argument.goNext(); //Strip List designator.
+            //argument.goSub();  //Select sublist.
+           
 
             //ConsPointer dataSubList = (ConsPointer) argument.car();
 
             LispError.check(Utility.isList(argument), LispError.NOT_A_LIST);
+
+            //argument.goSub();
             //ConsPointer dataListPointer = (ConsPointer) argument.car();
-            double[] dataValues =  JavaObject.LispListToJavaDoubleArray((ConsPointer) argument.car());
+            double[] dataValues =  JavaObject.LispListToJavaDoubleArray((ConsPointer) ((ConsPointer)argument.car()).cdr().car());
 
 
 
