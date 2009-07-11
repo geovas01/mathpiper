@@ -23,14 +23,14 @@ import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.printers.LispPrinter;
 
 
-public class ListCons extends Cons
+public class NestedListCons extends Cons
 {
 	ConsPointer iCar = new ConsPointer();
         ConsPointer iCdr = new ConsPointer();
 	
-	public static ListCons getInstance(Cons aSubList)
+	public static NestedListCons getInstance(Cons aSubList)
 	{
-		return new ListCons(aSubList);
+		return new NestedListCons(aSubList);
 	}
    
         
@@ -54,7 +54,7 @@ public class ListCons extends Cons
 	{
 		//TODO recursed copy needs to be implemented still
 		LispError.lispAssert(aRecursed == false);
-		Cons copied = new ListCons(iCar.getCons());
+		Cons copied = new NestedListCons(iCar.getCons());
 		return copied;
 	}
         
@@ -63,7 +63,7 @@ public class ListCons extends Cons
 	{
 		//TODO FIXME
 		/*
-		    Cons* result = NEW LispAnnotatedObject<ListCons>(this);
+		    Cons* result = NEW LispAnnotatedObject<NestedListCons>(this);
 		    result->SetExtraInfo(aData);
 		    return result;
 		*/
@@ -71,7 +71,7 @@ public class ListCons extends Cons
 	}
         
         
-	ListCons(Cons aSubList)
+	NestedListCons(Cons aSubList)
 	{
 		iCar.setCons(aSubList);
 	}
@@ -95,7 +95,7 @@ public class ListCons extends Cons
 
     public int type()
     {
-        return Utility.LIST;
+        return Utility.NESTED_LIST;
     }//end method.
 	
 }
