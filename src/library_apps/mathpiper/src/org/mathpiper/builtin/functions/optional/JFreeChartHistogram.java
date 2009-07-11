@@ -17,8 +17,10 @@
 package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.UtilityFunctions;
@@ -42,50 +44,16 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
         ConsPointer argument = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        //Cons argumentListCons = argumentPointer.getCons();
-
-        //if (argumentListCons.type().equals("Sublist")) {
-
-            //ConsPointer dataSubList = (ConsPointer) argumentListCons.car();
-
-            //Skip past List type.
-            //dataSubList.goNext();
-
-            argument.goSub(); //Select sublist.
-
-            ConsPointer dataSubList = (ConsPointer) argument.car();
-
-            LispError.check(dataSubList.type() == Cons.LIST, LispError.NOT_A_LIST);
-            ConsPointer dataListPointer = (ConsPointer) dataSubList.car();
-            LispError.check(dataListPointer.type() == Cons.ATOM, LispError.NOT_A_LIST);
-            String type = (String) dataListPointer.getCons().car();
-            LispError.check(type.equals("List"), LispError.NOT_A_LIST);
 
 
-            dataListPointer.goNext();
+            argument.goSub();  //Select sublist.
+            argument.goNext(); //Strip List designator.
 
-            ArrayList argumentArrayList = new ArrayList();
+            //ConsPointer dataSubList = (ConsPointer) argument.car();
 
-            while (dataListPointer.getCons() != null) {
-                //argumentsCons = dataListPointer.getCons();
-
-                // Object argument = argumentsCons.car();
-
-                /*if (argument instanceof String) {
-                if (argument instanceof String) {
-                argument = ((String) argument).substring(1, ((String) argument).length());
-                argument = ((String) argument).substring(0, ((String) argument).length() - 1);
-                }
-                }*/
-
-                //argumentArrayList.add(argument);
-
-                dataListPointer.goNext();
-
-            }//end while.
-
-
-
+            LispError.check(argument.type() == Cons.LIST, LispError.NOT_A_LIST);
+            ConsPointer dataListPointer = (ConsPointer) argument.car();
+            List javaList =  JavaObject.toJavaList(dataListPointer);
 
 
 
