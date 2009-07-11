@@ -250,17 +250,20 @@ public class JavaObject extends BuiltinContainer {
 
         return javaList;
     }//end method.
-    public static double[] LispListToJavaDoubleArray(ConsPointer lispList) throws Exception {
-        LispError.check(Utility.isList(lispList), LispError.NOT_A_LIST);
 
-        lispList.goNext();
 
-        double[] values = new double[Utility.listLength(lispList)];
+
+    public static double[] LispListToJavaDoubleArray(ConsPointer lispListPointer) throws Exception {
+        LispError.check(Utility.isList(lispListPointer), LispError.NOT_A_LIST);
+
+        lispListPointer.goNext(); //Remove List designator.
+
+        double[] values = new double[Utility.listLength(lispListPointer)];
 
         int index = 0;
-        while (lispList.getCons() != null) {
+        while (lispListPointer.getCons() != null) {
 
-            Object item = lispList.car();
+            Object item = lispListPointer.car();
 
             LispError.check(item instanceof String, LispError.INVALID_ARGUMENT);
             String itemString = (String) item;
@@ -271,7 +274,7 @@ public class JavaObject extends BuiltinContainer {
                 LispError.raiseError("Can not convert into a double" );
             }//end try/catch.
 
-            lispList.goNext();
+            lispListPointer.goNext();
 
         }//end while.
 
