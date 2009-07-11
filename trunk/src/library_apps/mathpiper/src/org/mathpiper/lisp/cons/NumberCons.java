@@ -160,7 +160,7 @@ public class NumberCons extends Cons {
 
     public int type()
     {
-        return Cons.NUMBER;
+        return Utility.NUMBER;
     }//end method.
 
 }//end class.
