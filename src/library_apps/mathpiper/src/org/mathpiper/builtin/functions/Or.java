@@ -22,7 +22,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.NestedListCons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 /**
  *
@@ -74,7 +74,7 @@ public class Or extends BuiltinFunction
                 ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
                 ptr.cdr().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(NestedListCons.getInstance(nogos.getCons()));
+                getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(nogos.getCons()));
             }
         //aEnvironment.CurrentPrinter().Print(getTopOfStackPointer(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
         } else

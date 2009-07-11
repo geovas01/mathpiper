@@ -22,7 +22,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.NestedListCons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 /** Substitute behaviour for backquote mechanism as in LISP.
  * When typing `(...) all occurrences of @a will be
@@ -81,7 +81,7 @@ public class BackQuoteSubstitute implements Substitute
 			iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, result, cur);
 			result.cdr().setCons(args.getCons());
 			ConsPointer result2 = new ConsPointer();
-			result2.setCons(NestedListCons.getInstance(result.getCons()));
+			result2.setCons(SublistCons.getInstance(result.getCons()));
 			Utility.substitute(aResult, result2,this);
 			return true;
 		}
