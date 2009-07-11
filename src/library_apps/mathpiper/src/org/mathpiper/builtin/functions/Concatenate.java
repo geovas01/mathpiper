@@ -22,7 +22,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ListCons;
 
 /**
@@ -45,7 +45,7 @@ public class Concatenate extends BuiltinFunction
         while (consTraverser.getCons() != null)
         {
             LispError.checkIsList(aEnvironment, aStackTop, consTraverser.getPointer(), arg);
-            UtilityFunctions.flatCopy(tail.getPointer(), ((ConsPointer) consTraverser.getPointer().car()).cdr());
+            Utility.flatCopy(tail.getPointer(), ((ConsPointer) consTraverser.getPointer().car()).cdr());
             while (tail.getCons() != null)
             {
                 tail.goNext();

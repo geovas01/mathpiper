@@ -42,7 +42,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.GlobalVariable;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.parametermatchers.PatternParameter;
 import org.mathpiper.lisp.parametermatchers.Pattern;
@@ -446,7 +446,7 @@ public class EnvironmentViewer implements ActionListener {
             String name = (String) table.getValueAt(row, 0);
             GlobalVariable o = (GlobalVariable) table.getValueAt(row, 1);
             try {
-                String data = UtilityFunctions.printExpression(o.getValue(), iEnvironment, 0);
+                String data = Utility.printExpression(o.getValue(), iEnvironment, 0);
                 //System.out.println(data);
                 textArea.append(name + ": " + data + "\n");
                 textArea.setCaretPosition(textArea.getDocument().getLength());
@@ -510,7 +510,7 @@ public class EnvironmentViewer implements ActionListener {
 
                     Branch branchRuleBase = (Branch) rulesIterator.next();
 
-                    String ruleDump = org.mathpiper.lisp.UtilityFunctions.dumpRule(branchRuleBase, iEnvironment, userFunction);
+                    String ruleDump = org.mathpiper.lisp.Utility.dumpRule(branchRuleBase, iEnvironment, userFunction);
                     textArea.append(ruleDump);
                     textArea.append("\n");
                     textArea.setCaretPosition(textArea.getDocument().getLength());

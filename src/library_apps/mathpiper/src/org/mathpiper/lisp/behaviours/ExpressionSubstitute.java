@@ -1,6 +1,6 @@
 package org.mathpiper.lisp.behaviours;
 
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
@@ -27,7 +27,7 @@ public class ExpressionSubstitute
 	throws Exception
 	{
 
-		if (UtilityFunctions.equals(iEnvironment, aElement, iToMatch))
+		if (Utility.equals(iEnvironment, aElement, iToMatch))
 		{
 			aResult.setCons(iToReplaceWith.getCons().copy(false));
 

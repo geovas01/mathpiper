@@ -32,7 +32,7 @@ public class FastIsPrime extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         //TODO fixme this routine should actually be called SlowIsPrime ;-)
-        BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         long n = x.toLong();
         long result = 1;
 

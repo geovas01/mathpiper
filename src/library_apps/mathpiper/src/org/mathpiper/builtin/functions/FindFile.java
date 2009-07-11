@@ -23,7 +23,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -43,9 +43,9 @@ public class FindFile extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = (String)  evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.unstringify(orig);
+        String oper = Utility.unstringify(orig);
 
-        String filename = UtilityFunctions.findFile(oper, aEnvironment.iInputDirectories);
+        String filename = Utility.findFile(oper, aEnvironment.iInputDirectories);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(filename)));
     }
 }

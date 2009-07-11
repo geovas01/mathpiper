@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -33,15 +33,15 @@ public class BitsToDigits extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
-        BigNumber y = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
         long result = 0;  // initialize just in case
 
         if (x.isInt() && x.isSmall() && y.isInt() && y.isSmall())
         {
             // bits_to_digits uses unsigned long, see numbers.h
             int base = (int) y.toDouble();
-            result = UtilityFunctions.bitsToDigits((long) (x.toDouble()), base);
+            result = Utility.bitsToDigits((long) (x.toDouble()), base);
         } else
         {
             throw new EvaluationException("BitsToDigits: error: arguments (" + x.toDouble() + ", " + y.toDouble() + ") must be small integers",-1);

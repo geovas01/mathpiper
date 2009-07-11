@@ -24,7 +24,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -54,7 +54,7 @@ public class ArraySet extends BuiltinFunction
         ConsPointer obj = new ConsPointer();
         obj.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         ((Array) gen).setElement(size, obj.getCons());
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }//end class.
 

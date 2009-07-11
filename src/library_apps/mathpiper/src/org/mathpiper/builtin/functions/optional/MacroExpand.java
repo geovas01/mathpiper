@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
 /**
@@ -45,9 +45,9 @@ public class MacroExpand extends BuiltinFunction
         ConsPointer argument = getArgumentPointer(aEnvironment, aStackTop, 1);
         Cons argumentCons = argument.getCons();
         argument = ((ConsPointer) argumentCons.car()).cdr();
-        UtilityFunctions.substitute(result, argument, behaviour);
-        String substitutedResult = UtilityFunctions.printExpression(result, aEnvironment, 0);
+        Utility.substitute(result, argument, behaviour);
+        String substitutedResult = Utility.printExpression(result, aEnvironment, 0);
         aEnvironment.write(substitutedResult);
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

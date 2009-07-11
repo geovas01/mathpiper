@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ListCons;
 
 /**
@@ -42,11 +42,11 @@ public class And extends BuiltinFunction
         while (consTraverser.getCons() != null)
         {
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, consTraverser.getPointer());
-            if (UtilityFunctions.isFalse(aEnvironment, evaluated))
+            if (Utility.isFalse(aEnvironment, evaluated))
             {
-                UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                 return;
-            } else if (!UtilityFunctions.isTrue(aEnvironment, evaluated))
+            } else if (!Utility.isTrue(aEnvironment, evaluated))
             {
                 ConsPointer ptr = new ConsPointer();
                 nrnogos++;
@@ -67,7 +67,7 @@ public class And extends BuiltinFunction
             {
                 ConsPointer ptr = new ConsPointer();
 
-                UtilityFunctions.reverseList(ptr, nogos);
+                Utility.reverseList(ptr, nogos);
                 nogos.setCons(ptr.getCons());
 
                 ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy(false));
@@ -79,7 +79,7 @@ public class And extends BuiltinFunction
             }
         } else
         {
-            UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
         }
     }
 }

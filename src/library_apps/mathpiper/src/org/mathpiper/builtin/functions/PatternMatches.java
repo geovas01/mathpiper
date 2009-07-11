@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -57,6 +57,6 @@ public class PatternMatches extends BuiltinFunction
         ConsPointer ptr = consTraverser.getPointer();
         LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2);
         boolean matches = patclass.matches(aEnvironment, ptr);
-        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), matches);
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), matches);
     }
 }

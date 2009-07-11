@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.InfixOperator;
@@ -34,18 +34,18 @@ public class OpPrecedence extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        InfixOperator op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+        InfixOperator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
         if (op == null)
         {  // also need to check for a postfix or prefix operator
 
-            op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+            op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
             if (op == null)
             {
-                op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+                op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
                 if (op == null)
                 {  // or maybe it's a bodied function
 
-                    op = UtilityFunctions.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+                    op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
                     LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
                 }
             }

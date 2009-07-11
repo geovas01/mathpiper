@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -32,18 +32,18 @@ public class Subtract extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int length = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
-            BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+            BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
             BigNumber z = new BigNumber(x);
             z.negate(x);
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         } else
         {
-            BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
-            BigNumber y = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
+            BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+            BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
             BigNumber yneg = new BigNumber(y);
             yneg.negate(y);
             BigNumber z = new BigNumber(aEnvironment.getPrecision());

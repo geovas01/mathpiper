@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -35,9 +35,9 @@ public class DefaultDirectory extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.unstringify(orig);
+        String oper = Utility.unstringify(orig);
         aEnvironment.iInputDirectories.add(oper);
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

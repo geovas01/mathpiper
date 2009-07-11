@@ -29,7 +29,7 @@ public class MacroRule extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.UtilityFunctions.newRule(aEnvironment, aStackTop);
+        org.mathpiper.lisp.Utility.newRule(aEnvironment, aStackTop);
     }
 }
 

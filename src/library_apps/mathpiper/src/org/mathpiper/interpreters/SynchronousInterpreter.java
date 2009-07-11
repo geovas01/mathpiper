@@ -23,7 +23,7 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
@@ -78,7 +78,7 @@ class SynchronousInterpreter implements Interpreter {
                     try {
                         java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(zipFileName));
                         //System.out.println("XXXX " + z);
-                        UtilityFunctions.zipFile = z; //todo:tk:a better way needs to be found to do this.
+                        Utility.zipFile = z; //todo:tk:a better way needs to be found to do this.
                     } catch (Exception e) {
                         System.out.println("Failed to find mathpiper.jar");
                         System.out.println("" + zipFileName + " : \n");
@@ -122,7 +122,7 @@ class SynchronousInterpreter implements Interpreter {
             String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaMathPiper/piper.jar";
 
             java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
-            UtilityFunctions.zipFile = z;
+            Utility.zipFile = z;
             inZipFile = true;
             } catch (Exception e)
             {
@@ -207,7 +207,7 @@ class SynchronousInterpreter implements Interpreter {
                 environment.iCurrentInput = newInput;
                 try {
                     ConsPointer args = new ConsPointer();
-                    UtilityFunctions.applyString(environment, inputExpressionPointer,
+                    Utility.applyString(environment, inputExpressionPointer,
                             environment.iPrettyReader,
                             args);
                 } catch (Exception exception) {
@@ -248,7 +248,7 @@ class SynchronousInterpreter implements Interpreter {
 
             if (environment.iPrettyPrinter != null) {
                 ConsPointer nonresult = new ConsPointer();
-                UtilityFunctions.applyString(environment, nonresult, environment.iPrettyPrinter, result);
+                Utility.applyString(environment, nonresult, environment.iPrettyPrinter, result);
                 resultString = string_out.toString();
             } else {
                 printer.rememberLastChar(' ');
@@ -320,7 +320,7 @@ class SynchronousInterpreter implements Interpreter {
 
     /*public java.util.zip.ZipFile getScriptsZip()
     {
-    return UtilityFunctions.zipFile;
+    return Utility.zipFile;
     }//end method.*/
     public void addScriptsDirectory(String directory) {
         String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";

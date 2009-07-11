@@ -49,7 +49,7 @@ import org.mathpiper.lisp.userfunctions.MacroUserFunction;
 import org.mathpiper.lisp.userfunctions.PatternBranch;
 import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 
-public class UtilityFunctions {
+public class Utility {
 
     static int log2_table_size = 32;    // A lookup table of Ln(n)/Ln(2) for n = 1 .. 32.
     // With this we don't have to use math.h if all we need is to convert the number of digits from one base to another. This is also faster.
@@ -799,8 +799,8 @@ public class UtilityFunctions {
         LispError.checkArgument(aEnvironment, aStackTop, precedence.car() instanceof String, 2);
         int prec = Integer.parseInt((String) precedence.car(), 10);
         LispError.checkArgument(aEnvironment, aStackTop, prec <= MathPiperPrinter.KMaxPrecedence, 2);
-        aOps.setOperator(prec, UtilityFunctions.getSymbolName(aEnvironment, orig));
-        UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
+        aOps.setOperator(prec, Utility.getSymbolName(aEnvironment, orig));
+        Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
     public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
@@ -808,8 +808,8 @@ public class UtilityFunctions {
         LispError.checkArgument(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
         String orig = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        aOps.setOperator(aPrecedence, UtilityFunctions.getSymbolName(aEnvironment, orig));
-        UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
+        aOps.setOperator(aPrecedence, Utility.getSymbolName(aEnvironment, orig));
+        Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
     public static InfixOperator operatorInfo(Environment aEnvironment, int aStackTop, OperatorMap aOperators) throws Exception {
@@ -822,7 +822,7 @@ public class UtilityFunctions {
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         //
-        InfixOperator op = (InfixOperator) aOperators.lookUp(UtilityFunctions.getSymbolName(aEnvironment, orig));
+        InfixOperator op = (InfixOperator) aOperators.lookUp(Utility.getSymbolName(aEnvironment, orig));
         return op;
     }
 
@@ -844,12 +844,12 @@ public class UtilityFunctions {
             variableString = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
         }
         LispError.checkArgument(aEnvironment, aStackTop, variableString != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, !UtilityFunctions.isNumber(variableString, true), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, !Utility.isNumber(variableString, true), 1);
 
         ConsPointer result = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
         aEnvironment.setGlobalVariable(variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
-        UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
     public static void delete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
@@ -861,7 +861,7 @@ public class UtilityFunctions {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            UtilityFunctions.flatCopy(copied, (ConsPointer) evaluated.car());
+            Utility.flatCopy(copied, (ConsPointer) evaluated.car());
         }
 
         ConsPointer index = new ConsPointer();
@@ -892,7 +892,7 @@ public class UtilityFunctions {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            UtilityFunctions.flatCopy(copied, (ConsPointer) evaluated.car());
+            Utility.flatCopy(copied, (ConsPointer) evaluated.car());
         }
 
         ConsPointer index = new ConsPointer();
@@ -931,7 +931,7 @@ public class UtilityFunctions {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            UtilityFunctions.flatCopy(copied, (ConsPointer) evaluated.car());
+            Utility.flatCopy(copied, (ConsPointer) evaluated.car());
         }
         LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 2);
 
@@ -970,11 +970,11 @@ public class UtilityFunctions {
         LispError.checkIsList(aEnvironment, aStackTop, argsPointer, 2);
 
         // Finally define the rule database.
-        aEnvironment.declareRulebase(UtilityFunctions.getSymbolName(aEnvironment, functionName),
+        aEnvironment.declareRulebase(Utility.getSymbolName(aEnvironment, functionName),
                 ((ConsPointer) argsPointer.car()).cdr(), aListed);
 
         // Return true
-        UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
     public static void newRule(Environment aEnvironment, int aStackTop) throws Exception {
@@ -1009,14 +1009,14 @@ public class UtilityFunctions {
         precedence = Integer.parseInt((String) pr.car(), 10);
 
         // Finally define the rule base
-        aEnvironment.defineRule(UtilityFunctions.getSymbolName(aEnvironment, orig),
+        aEnvironment.defineRule(Utility.getSymbolName(aEnvironment, orig),
                 arity,
                 precedence,
                 predicate,
                 body);
 
         // Return true
-        UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
     public static void defMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
@@ -1034,11 +1034,11 @@ public class UtilityFunctions {
         LispError.checkIsList(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
-        aEnvironment.declareMacroRulebase(UtilityFunctions.getSymbolName(aEnvironment, orig),
+        aEnvironment.declareMacroRulebase(Utility.getSymbolName(aEnvironment, orig),
                 ((ConsPointer) args.car()).cdr(), aListed);
 
         // Return true
-        UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
     public static void newRulePattern(Environment aEnvironment, int aStackTop, boolean aMacroMode) throws Exception {
@@ -1071,14 +1071,14 @@ public class UtilityFunctions {
         precedence = Integer.parseInt((String) precedencePointer.car(), 10);
 
         // Finally define the rule base
-        aEnvironment.defineRulePattern(UtilityFunctions.getSymbolName(aEnvironment, orig),
+        aEnvironment.defineRulePattern(Utility.getSymbolName(aEnvironment, orig),
                 arity,
                 precedence,
                 predicatePointer,
                 bodyPointer);
 
         // Return true
-        UtilityFunctions.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
     public static String dumpRule(Branch branch, Environment aEnvironment, SingleArityBranchingUserFunction userFunction) {
@@ -1091,7 +1091,7 @@ public class UtilityFunctions {
             if (predicatePointerString == null || predicatePointerString.equalsIgnoreCase("Empty.")) {
                 predicate = "None.";
             } else {
-                predicate = UtilityFunctions.printExpression(predicatePointer1, aEnvironment, 0);
+                predicate = Utility.printExpression(predicatePointer1, aEnvironment, 0);
             }
 
             if (predicate.equalsIgnoreCase("\"Pattern\"")) {
@@ -1126,7 +1126,7 @@ public class UtilityFunctions {
                 Iterator patternPredicatesIterator = pattern.getPredicates().iterator();
                 while (patternPredicatesIterator.hasNext()) {
                     ConsPointer predicatePointer = (ConsPointer) patternPredicatesIterator.next();
-                    String patternPredicate = UtilityFunctions.printExpression(predicatePointer, aEnvironment, 0);
+                    String patternPredicate = Utility.printExpression(predicatePointer, aEnvironment, 0);
                     predicate += patternPredicate + ", ";
                 }
                 /*if (predicate.contains(",")) {
@@ -1151,7 +1151,7 @@ public class UtilityFunctions {
                 parameters = parameters.substring(0, parameters.lastIndexOf(","));
             }
 
-            String body = UtilityFunctions.printExpression(branch.getBodyPointer(), aEnvironment, 0);
+            String body = Utility.printExpression(branch.getBodyPointer(), aEnvironment, 0);
             body = body.replace(",", ", ");
             //System.out.println(data);
 
@@ -1160,8 +1160,8 @@ public class UtilityFunctions {
             if (userFunction instanceof MacroUserFunction) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
                 ConsPointer substitutedBodyPointer = new ConsPointer();
-                UtilityFunctions.substitute(substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
-                substitutedMacroBody = UtilityFunctions.printExpression(substitutedBodyPointer, aEnvironment, 0);
+                Utility.substitute(substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
+                substitutedMacroBody = Utility.printExpression(substitutedBodyPointer, aEnvironment, 0);
             }
 
             dumpResult.append("Precedence: " + precedence + ", ");

@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -32,12 +32,12 @@ public class GetExactBits extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        BigNumber numberToCheck = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber numberToCheck = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber numberToReturn = new BigNumber(aEnvironment.getPrecision());
         numberToReturn.setTo(
                 (numberToCheck.isInt())
                 ? numberToCheck.bitCount() // for integers, return the bit count
-                : UtilityFunctions.digitsToBits((long) (numberToCheck.getPrecision()), 10) // for floats, return the getPrecision
+                : Utility.digitsToBits((long) (numberToCheck.getPrecision()), 10) // for floats, return the getPrecision
                 );
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(numberToReturn));
     }

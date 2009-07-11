@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -39,7 +39,7 @@ public class Retract extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.getSymbolName(aEnvironment, orig);
+        String oper = Utility.getSymbolName(aEnvironment, orig);
 
         ConsPointer arityPointer = new ConsPointer();
         arityPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
@@ -55,7 +55,7 @@ public class Retract extends BuiltinFunction
             aEnvironment.retractFunction(oper, arity);
         }
   
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

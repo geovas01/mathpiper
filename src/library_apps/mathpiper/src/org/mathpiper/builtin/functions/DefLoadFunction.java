@@ -23,7 +23,7 @@ import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 /**
@@ -39,7 +39,7 @@ public class DefLoadFunction extends BuiltinFunction
         namePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String)  namePointer.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.unstringify(orig);
+        String oper = Utility.unstringify(orig);
 
         MultipleArityUserFunction multiUserFunction =
                 aEnvironment.getMultipleArityUserFunction((String)aEnvironment.getTokenHash().lookUp(oper));
@@ -51,10 +51,10 @@ public class DefLoadFunction extends BuiltinFunction
                 if (!def.iIsLoaded)
                 {
                     multiUserFunction.iFileToOpen = null;
-                    UtilityFunctions.use(aEnvironment, def.iFileName);
+                    Utility.use(aEnvironment, def.iFileName);
                 }//end if.
             }//end if.
         }//end if.
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

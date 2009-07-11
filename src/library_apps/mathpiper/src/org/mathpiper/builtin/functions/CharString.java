@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -35,7 +35,7 @@ public class CharString extends BuiltinFunction
         String str;
         str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, str != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isNumber(str, false), 2);
+        LispError.checkArgument(aEnvironment, aStackTop, Utility.isNumber(str, false), 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + asciiCode + "\""));
     }

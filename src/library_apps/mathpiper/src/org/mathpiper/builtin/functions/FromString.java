@@ -24,7 +24,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -42,7 +42,7 @@ public class FromString extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig =  (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        String oper = UtilityFunctions.unstringify(orig);
+        String oper = Utility.unstringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
         aEnvironment.iInputStatus.setTo("String");

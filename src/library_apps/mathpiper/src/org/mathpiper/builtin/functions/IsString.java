@@ -21,7 +21,7 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -38,13 +38,13 @@ public class IsString extends BuiltinFunction
         boolean resultBoolean ;
          if( result.car() instanceof String  )
          {
-             resultBoolean = UtilityFunctions.isString(   (String) result.car() );
+             resultBoolean = Utility.isString(   (String) result.car() );
 
          }
         else{
             resultBoolean = false;
         }
-        UtilityFunctions.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), resultBoolean);
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), resultBoolean);
                 
     }
 }

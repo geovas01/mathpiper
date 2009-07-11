@@ -19,7 +19,7 @@ package org.mathpiper.lisp.parsers;
 
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
@@ -373,7 +373,7 @@ public class MathPiperParser extends Parser
         subList.cdr().setCons(consTraverser.cdr().getCons());
         consTraverser.cdr().setCons(null);
 
-        UtilityFunctions.reverseList(((ConsPointer) subList.car()).cdr(),
+        Utility.reverseList(((ConsPointer) subList.car()).cdr(),
                 ((ConsPointer) subList.car()).cdr());
         iSExpressionResult.setCons(subList.getCons());
     }

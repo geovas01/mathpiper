@@ -31,8 +31,8 @@ public class ShiftLeft extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        BigNumber x = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 1);
-        BigNumber n = org.mathpiper.lisp.UtilityFunctions.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber n = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
         long nrToShift = n.toLong();
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.shiftLeft(x, (int) nrToShift);

@@ -23,7 +23,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -51,7 +51,7 @@ public class FromFile extends BuiltinFunction
         {
             aEnvironment.iInputStatus.setTo(hashedname);
             MathPiperInputStream input = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
-                    UtilityFunctions.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
+                    Utility.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
             aEnvironment.iCurrentInput = input;
             // Open file
             LispError.check(aEnvironment, aStackTop, input != null, LispError.FILE_NOT_FOUND);

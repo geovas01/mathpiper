@@ -22,7 +22,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -51,7 +51,7 @@ public class Local extends BuiltinFunction
                 nr++;
             }
         }
-        UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 

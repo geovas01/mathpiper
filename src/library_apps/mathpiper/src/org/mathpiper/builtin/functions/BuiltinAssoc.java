@@ -24,7 +24,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -61,7 +61,7 @@ public class BuiltinAssoc extends BuiltinFunction
                     sub = sub.cdr().getCons();
                     ConsPointer temp = new ConsPointer();
                     temp.setCons(sub);
-                    if (UtilityFunctions.equals(aEnvironment, key, temp))
+                    if (Utility.equals(aEnvironment, key, temp))
                     {
                         getTopOfStackPointer(aEnvironment, aStackTop).setCons(t);
                         return;

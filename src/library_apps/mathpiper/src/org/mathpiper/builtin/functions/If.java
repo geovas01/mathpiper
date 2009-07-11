@@ -21,7 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -32,24 +32,24 @@ public class If extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = UtilityFunctions.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         LispError.check(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.WRONG_NUMBER_OF_ARGUMENTS);
 
         ConsPointer predicate = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, getArgumentPointer(aEnvironment, aStackTop, 1));
 
-        if (UtilityFunctions.isTrue(aEnvironment, predicate))
+        if (Utility.isTrue(aEnvironment, predicate))
         {
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 2));
         } else
         {
-            LispError.checkArgument(aEnvironment, aStackTop, UtilityFunctions.isFalse(aEnvironment, predicate), 1);
+            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
             if (nrArguments == 4)
             {
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 3));
             } else
             {
-                UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
             }
         }
     }

@@ -23,7 +23,7 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
@@ -51,9 +51,9 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
             //ConsPointer dataSubList = (ConsPointer) argument.car();
 
-            LispError.check(argument.type() == Cons.LIST, LispError.NOT_A_LIST);
-            ConsPointer dataListPointer = (ConsPointer) argument.car();
-            List javaList =  JavaObject.toJavaList(dataListPointer);
+            LispError.check(Utility.isList(argument), LispError.NOT_A_LIST);
+            //ConsPointer dataListPointer = (ConsPointer) argument.car();
+            double[] dataValues =  JavaObject.LispListToJavaDoubleArray((ConsPointer) argument.car());
 
 
 
@@ -62,10 +62,10 @@ public class JFreeChartHistogram extends BuiltinFunction {
             Object response = null;
             if (response == null) {
                 ConsPointer topOfStackPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-                UtilityFunctions.putFalseInPointer(aEnvironment, topOfStackPointer);
+                Utility.putFalseInPointer(aEnvironment, topOfStackPointer);
                 return;
             } /*else if (response.equalsIgnoreCase("")) {
-            UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
             return;
             }*/
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(null);
@@ -77,7 +77,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
 
 
-        //UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        //Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
     }//end method.
 }

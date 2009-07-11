@@ -20,7 +20,7 @@ package org.mathpiper.lisp.userfunctions;
 import java.util.Iterator;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  * A rule with a predicate (the rule matches if the predicate evaluates to True.).
@@ -57,7 +57,7 @@ class RuleBranch extends Branch
     {
         ConsPointer pred = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, iPredicate);
-        return UtilityFunctions.isTrue(aEnvironment, pred);
+        return Utility.isTrue(aEnvironment, pred);
     }
 
     /// Access #iPrecedence.

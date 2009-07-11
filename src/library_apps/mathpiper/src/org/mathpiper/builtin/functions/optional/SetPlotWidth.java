@@ -24,7 +24,7 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -50,6 +50,6 @@ public class SetPlotWidth extends BuiltinFunction
          int plotWidth = Integer.parseInt( (String) redCons.car());
 
          simulator.setPlotWidth(plotWidth);
-         UtilityFunctions.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
