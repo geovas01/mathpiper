@@ -14,7 +14,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.builtin.functions.optional;
+package org.mathpiper.builtin.functions.plugins.jfreechart;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -51,7 +51,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        /*try {
+        try {
             Class clas = Class.forName("org.jfree.data.statistics.HistogramDataset");
             HistogramDataset dataSet = (HistogramDataset) clas.newInstance();
 
@@ -62,10 +62,10 @@ public class JFreeChartHistogram extends BuiltinFunction {
                     null,
                     null,
                     dataSet,
-                    null, //PlotOrientation.VERTICAL,
+                    PlotOrientation.VERTICAL,
                     true,
                     true,
-                    false);*/
+                    false);
 
 
 
@@ -110,9 +110,9 @@ public class JFreeChartHistogram extends BuiltinFunction {
             ConsPointer topOfStackPointer = getTopOfStackPointer(aEnvironment, aStackTop);
             Utility.putTrueInPointer(aEnvironment, topOfStackPointer);
 
-        /*} catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
-        }*/
+        }
 
     }//end method.
 }
