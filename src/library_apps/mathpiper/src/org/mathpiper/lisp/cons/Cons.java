@@ -17,10 +17,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.cons;
 
-import org.mathpiper.lisp.*;
-import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.builtin.BuiltinContainer;
-
 /**
  * Class Cons is the base object class that can be put in
  *  linked lists. It either has a pointer to a string
@@ -31,11 +27,6 @@ import org.mathpiper.builtin.BuiltinContainer;
  */
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
-    public static final int ATOM = 1;
-    public static final int NUMBER = 2;
-    public static final int LIST = 3;
-    public static final int OBJECT = 4;
-
 
     public abstract ConsPointer cdr();
 

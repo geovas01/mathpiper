@@ -95,7 +95,7 @@ public class ListCons extends Cons
 
     public int type()
     {
-        return Cons.LIST;
+        return Utility.LIST;
     }//end method.
 	
 }

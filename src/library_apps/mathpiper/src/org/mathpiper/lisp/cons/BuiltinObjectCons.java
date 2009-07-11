@@ -71,6 +71,6 @@ public class BuiltinObjectCons extends Cons
 
     public int type()
     {
-        return Cons.OBJECT;
+        return Utility.OBJECT;
     }//end method.
 };

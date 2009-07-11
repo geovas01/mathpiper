@@ -88,7 +88,7 @@ public class AtomCons extends Cons
 
     public int type()
     {
-        return Cons.ATOM;
+        return Utility.ATOM;
     }//end method.
    
 
