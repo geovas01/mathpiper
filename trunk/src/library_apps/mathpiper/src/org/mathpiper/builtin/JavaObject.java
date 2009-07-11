@@ -13,14 +13,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 public class JavaObject extends BuiltinContainer {
@@ -34,7 +36,6 @@ public class JavaObject extends BuiltinContainer {
     public String send(ArgumentList aArgList) {
         return null;
     }
-
 
     // Narrow a type from String to the
     // narrowest possible type
@@ -99,11 +100,11 @@ public class JavaObject extends BuiltinContainer {
 
             if (objs[i] == null) {
                 //types[i] = Class.forName("java.awt.Component");
-                            try {
-                types[i] = Class.forName("java.awt.Component");
+                try {
+                    types[i] = Class.forName("java.awt.Component");
 
-            } catch (ClassNotFoundException cnfe) {
-            }
+                } catch (ClassNotFoundException cnfe) {
+                }
             } else {
                 types[i] = objs[i].getClass();
 
@@ -228,13 +229,56 @@ public class JavaObject extends BuiltinContainer {
         return javaObject;
     }//end method.
 
+    public static List toJavaList(ConsPointer lispList) throws Exception {
+        LispError.check(lispList.type() == Cons.ATOM, LispError.NOT_A_LIST);
+        String type = (String) lispList.getCons().car();
+        LispError.check(type.equals("List"), LispError.NOT_A_LIST);
+        lispList.goNext();
 
-    public static List toJavaList(ConsPointer lispList)
-    {
-            return null;
+        ArrayList javaList = new ArrayList();
+
+        while (lispList.getCons() != null) {
+
+            Object item = lispList.car();
+            item = narrow(item);
+            javaList.add(item);
+
+            lispList.goNext();
+
+        }//end while.
+
+        return javaList;
     }//end method.
 
+    public static List toJavaDoubleArray(ConsPointer lispList) throws Exception {
+        LispError.check(lispList.type() == Cons.ATOM, LispError.NOT_A_LIST);
+        String type = (String) lispList.getCons().car();
+        LispError.check(type.equals("List"), LispError.NOT_A_LIST);
+        lispList.goNext();
+
+        ArrayList javaList = new ArrayList();
+
+        while (lispList.getCons() != null) {
+
+            Object item = lispList.car();
 
 
+            LispError.check(item instanceof String, LispError.INVALID_ARGUMENT);
+            String itemString = (String) item;
+            try {
+                item = Double.valueOf(itemString);
+            } catch (NumberFormatException nfe) {
+                LispError.raiseError("Can not convert into a double" );
+            }
+
+            javaList.add(item);
+
+
+            lispList.goNext();
+
+        }//end while.
+
+        return javaList;
+    }//end method.
 }//end class.
 

@@ -48,7 +48,7 @@ public class ArgumentStack
 
     public void raiseStackOverflowError() throws Exception
     {
-        LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.",null);
+        LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.");
     }
 
     public void pushArgumentOnStack(Cons aCons) throws Exception

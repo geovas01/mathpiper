@@ -195,15 +195,10 @@ public class LispError
         }
     }
 
-    public static void raiseError(String str,Environment aEnvironment) throws Exception
+    public static void raiseError(String str) throws Exception
     {
-        int lineNumber = -1;  
-        if(aEnvironment != null)
-        {
-                lineNumber = aEnvironment.iInputStatus.lineNumber();
-        }
         
-        throw new EvaluationException(str,lineNumber);
+        throw new EvaluationException(str,-1);
     }
 
     public static void checkNumberOfArguments(int n, ConsPointer aArguments, Environment aEnvironment) throws Exception
