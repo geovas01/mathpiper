@@ -19,7 +19,7 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.cons.ConsTraverser;
-import org.mathpiper.lisp.cons.NestedListCons;
+import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
@@ -52,7 +52,7 @@ public class Utility {
 
     public static final int ATOM = 1;
     public static final int NUMBER = 2;
-    public static final int NESTED_LIST = 3;
+    public static final int SUBLIST = 3;
     public static final int OBJECT = 4;
     static int log2_table_size = 32;    // A lookup table of Ln(n)/Ln(2) for n = 1 .. 32.
     // With this we don't have to use math.h if all we need is to convert the number of digits from one base to another. This is also faster.
@@ -186,7 +186,7 @@ public class Utility {
     public static void returnUnEvaluated(ConsPointer aResult, ConsPointer aArguments, Environment aEnvironment) throws Exception {
         ConsPointer full = new ConsPointer();
         full.setCons(aArguments.getCons().copy(false));
-        aResult.setCons(NestedListCons.getInstance(full.getCons()));
+        aResult.setCons(SublistCons.getInstance(full.getCons()));
 
         ConsTraverser consTraverser = new ConsTraverser(aArguments);
         consTraverser.goNext();
@@ -209,7 +209,7 @@ public class Utility {
                 AtomCons.getInstance(aEnvironment, getSymbolName(aEnvironment, aOperator));
         head.cdr().setCons(aArgs.getCons());
         ConsPointer body = new ConsPointer();
-        body.setCons(NestedListCons.getInstance(head));
+        body.setCons(SublistCons.getInstance(head));
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
     }
 
@@ -289,7 +289,7 @@ public class Utility {
         ConsPointer iter = (ConsPointer) aArg.car();
 
         LispError.check(iter.getCons() != null, LispError.INVALID_ARGUMENT);
-        aResult.setCons(NestedListCons.getInstance(iter.cdr().getCons()));
+        aResult.setCons(SublistCons.getInstance(iter.cdr().getCons()));
     }
 
     public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception {
@@ -476,7 +476,7 @@ public class Utility {
                     oldListPointer = oldListPointer.cdr();
                     next = next.cdr();
                 }
-                aTarget.setCons(NestedListCons.getInstance(newList.getCons()));
+                aTarget.setCons(SublistCons.getInstance(newList.getCons()));
             } else {
                 aTarget.setCons(object.copy(false));
             }
@@ -887,7 +887,7 @@ public class Utility {
         ConsPointer next = new ConsPointer();
         next.setCons(consTraverser.cdr().getCons());
         consTraverser.getPointer().setCons(next.getCons());
-        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(NestedListCons.getInstance(copied.getCons()));
+        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
 
     public static void insert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
@@ -919,7 +919,7 @@ public class Utility {
         toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         toInsert.cdr().setCons(consTraverser.getCons());
         consTraverser.getPointer().setCons(toInsert.getCons());
-        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(NestedListCons.getInstance(copied.getCons()));
+        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
 
     public static void replace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
@@ -954,7 +954,7 @@ public class Utility {
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getPointer().getCons() != null, 2);
         toInsert.cdr().setCons(consTraverser.getPointer().cdr().getCons());
         consTraverser.getPointer().setCons(toInsert.getCons());
-        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(NestedListCons.getInstance(copied.getCons()));
+        BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
 
     /**

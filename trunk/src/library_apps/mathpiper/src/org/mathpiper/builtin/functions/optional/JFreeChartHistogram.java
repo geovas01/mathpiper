@@ -43,7 +43,8 @@ public class JFreeChartHistogram extends BuiltinFunction {
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
         ConsPointer argument = getArgumentPointer(aEnvironment, aStackTop, 1);
-
+        
+        LispError.check(Utility.isList(argument), LispError.NOT_A_LIST);
 
 
             //argument.goSub();  //Select sublist.

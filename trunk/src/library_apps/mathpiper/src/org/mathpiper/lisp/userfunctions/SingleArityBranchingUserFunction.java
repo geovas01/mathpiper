@@ -21,7 +21,7 @@ import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.NestedListCons;
+import org.mathpiper.lisp.cons.SublistCons;
 import java.util.*;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Evaluator;
@@ -133,7 +133,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     /* Rule dump trace code. */
                     if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
-                        argumentsPointer.setCons(NestedListCons.getInstance(aArgumentsPointer.getCons()));
+                        argumentsPointer.setCons(SublistCons.getInstance(aArgumentsPointer.getCons()));
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
                     }
@@ -145,7 +145,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     /*Leave trace code */
                     if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer2 = new ConsPointer();
-                        argumentsPointer2.setCons(NestedListCons.getInstance(aArgumentsPointer.getCons()));
+                        argumentsPointer2.setCons(SublistCons.getInstance(aArgumentsPointer.getCons()));
                         String localVariables = aEnvironment.getLocalVariables();
                         Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType, localVariables);
                         argumentsPointer2.setCons(null);
@@ -173,13 +173,13 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
-            aResult.setCons(NestedListCons.getInstance(full.getCons()));
+            aResult.setCons(SublistCons.getInstance(full.getCons()));
 
 
             /* Trace code */
             if (isTraced() && showFlag) {
                 ConsPointer argumentsPointer3 = new ConsPointer();
-                argumentsPointer3.setCons(NestedListCons.getInstance(aArgumentsPointer.getCons()));
+                argumentsPointer3.setCons(SublistCons.getInstance(aArgumentsPointer.getCons()));
                 String localVariables = aEnvironment.getLocalVariables();
                 Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType, localVariables);
                 argumentsPointer3.setCons(null);
@@ -199,7 +199,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         /*Enter trace code*/
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
-            argumentsPointer.setCons(NestedListCons.getInstance(aArgumentsPointer.getCons()));
+            argumentsPointer.setCons(SublistCons.getInstance(aArgumentsPointer.getCons()));
             String functionName = "";
             if (argumentsPointer.car() instanceof ConsPointer) {
                 ConsPointer sub = (ConsPointer) argumentsPointer.car();

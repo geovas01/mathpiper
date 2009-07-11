@@ -22,7 +22,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.NestedListCons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 
 public class ListedMacroUserFunction extends MacroUserFunction
@@ -65,7 +65,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 			ConsPointer head = new ConsPointer();
 			head.setCons(aEnvironment.iListAtom.copy(false));
 			head.cdr().setCons(consTraverser.getCons());
-			ptr.setCons(NestedListCons.getInstance(head.getCons()));
+			ptr.setCons(SublistCons.getInstance(head.getCons()));
 		}
 		super.evaluate(aEnvironment, aResult, newArgs);
 	}
