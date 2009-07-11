@@ -16,16 +16,25 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.optional;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
+
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.StandardXYBarPainter;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.xy.IntervalXYDataset;
 
 /**
  *
@@ -42,45 +51,68 @@ public class JFreeChartHistogram extends BuiltinFunction {
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer argument = getArgumentPointer(aEnvironment, aStackTop, 1);
-        
-        LispError.check(Utility.isList(argument), LispError.NOT_A_LIST);
+        /*try {
+            Class clas = Class.forName("org.jfree.data.statistics.HistogramDataset");
+            HistogramDataset dataSet = (HistogramDataset) clas.newInstance();
 
-
-            //argument.goSub();  //Select sublist.
-           
-
-            //ConsPointer dataSubList = (ConsPointer) argument.car();
-
-            LispError.check(Utility.isList(argument), LispError.NOT_A_LIST);
-
-            //argument.goSub();
-            //ConsPointer dataListPointer = (ConsPointer) argument.car();
-            double[] dataValues =  JavaObject.LispListToJavaDoubleArray((ConsPointer) ((ConsPointer)argument.car()).cdr().car());
-
-
-
-
-
-            Object response = null;
-            if (response == null) {
-                ConsPointer topOfStackPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-                Utility.putFalseInPointer(aEnvironment, topOfStackPointer);
-                return;
-            } /*else if (response.equalsIgnoreCase("")) {
-            Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-            return;
-            }*/
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(null);
-
-            return;
-
-        //}//end if.
+            clas = Class.forName("org.jfree.chart.ChartFactory;");
+            ChartFactory factory = (ChartFactory) clas.newInstance();
+          JFreeChart chart = factory.createHistogram(
+                    "Wood Pile Samples",
+                    null,
+                    null,
+                    dataSet,
+                    null, //PlotOrientation.VERTICAL,
+                    true,
+                    true,
+                    false);*/
 
 
 
+            ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        //Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            LispError.check(Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT);
+
+            argumentsPointer.goSub();
+            argumentsPointer.goNext();
+
+            LispError.check(Utility.isList(argumentsPointer), LispError.NOT_A_LIST);
+
+            ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car();
+
+            double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
+
+            argumentsPointer.goNext();
+
+            while (argumentsPointer.getCons() != null) {
+                //Obtain -> operator.
+                ConsPointer optionPointer = (ConsPointer) argumentsPointer.car();
+                LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
+                String operator = (String) optionPointer.car();
+                LispError.check(operator.equals("->"), LispError.INVALID_ARGUMENT);
+
+                //Obtain key.
+                optionPointer.goNext();
+                LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
+                String key = (String) optionPointer.car();
+
+                //Obtain value.
+                optionPointer.goNext();
+                LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
+                String value = (String) optionPointer.car();
+
+                argumentsPointer.goNext();
+
+            }//end while
+
+
+
+            ConsPointer topOfStackPointer = getTopOfStackPointer(aEnvironment, aStackTop);
+            Utility.putTrueInPointer(aEnvironment, topOfStackPointer);
+
+        /*} catch (Exception e) {
+            System.out.println(e);
+        }*/
 
     }//end method.
 }

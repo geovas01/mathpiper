@@ -284,7 +284,7 @@ public class LispError
 
     public static void checkIsList(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isList(evaluated), aArgNr, "argument is not a list.");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isSublist(evaluated), aArgNr, "argument is not a list.");
     }
 
     public static void checkIsString(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception

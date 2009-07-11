@@ -305,7 +305,7 @@ public class Utility {
 
         if (expressionString == aEnvironment.iTrueString) {
         return true;
-        } else if (isList(aExpression)) {
+        } else if (isSublist(aExpression)) {
         if (listLength(aExpression.car()) == 1) {
         //Empty list.
         return false;
@@ -325,7 +325,7 @@ public class Utility {
         return aExpression.car() instanceof String && ((String) aExpression.car()) == aEnvironment.iFalseString;
 
         /* Code which returns True for everything except False and {};
-        return aExpression.car() == aEnvironment.iFalseString || (isList(aExpression) && (listLength(aExpression.car()) == 1));
+        return aExpression.car() == aEnvironment.iFalseString || (isSublist(aExpression) && (listLength(aExpression.car()) == 1));
          */
     }
 
@@ -337,7 +337,8 @@ public class Utility {
         }
     }
 
-    public static boolean isList(ConsPointer aPtr) throws Exception {
+
+    public static boolean isSublist(ConsPointer aPtr) throws Exception {
         /**
          * todo:tk: I am currently not sure why non nested lists are not supported in Yacas.
          */
@@ -357,6 +358,31 @@ public class Utility {
         return true;
 
     }//end method.
+
+
+    public static boolean isList(ConsPointer aPtr) throws Exception {
+        /**
+         * todo:tk: I am currently not sure why non nested lists are not supported in Yacas.
+         */
+        if (aPtr.getCons() == null) {
+            return false;
+        }
+
+        if(aPtr.type() == Utility.ATOM)
+        {
+            if(((String) aPtr.car()).equalsIgnoreCase("List"))
+            {
+                 return true;
+            }//end if.
+        }//end if.
+
+        if (isSublist(aPtr)) {
+            return true;
+        }//end if.
+        return false;
+
+    }//end method.
+
 
     public static boolean isString(String aOriginal) {
         if (aOriginal != null) {
