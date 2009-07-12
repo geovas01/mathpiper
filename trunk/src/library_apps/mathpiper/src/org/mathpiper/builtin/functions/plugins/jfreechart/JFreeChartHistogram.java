@@ -100,10 +100,9 @@ public class JFreeChartHistogram extends BuiltinFunction {
                     true, //legend.
                     true,//tool tips.
                     false);//urls.
+	 
 // create and display a frame...
-ChartFrame frame = new ChartFrame("Test", chart);
-frame.pack();
-frame.setVisible(true);
+//ChartFrame frame = new ChartFrame("Test", chart);frame.pack();frame.setVisible(true);
 
 
                 if (chart == null) {
