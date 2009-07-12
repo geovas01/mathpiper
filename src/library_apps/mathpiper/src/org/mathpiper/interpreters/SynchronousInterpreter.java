@@ -241,8 +241,7 @@ class SynchronousInterpreter implements Interpreter {
             ConsPointer result = new ConsPointer();
             environment.iLispExpressionEvaluator.evaluate(environment, result, inputExpressionPointer); //*** The main valuation happens here.
 
-            if(result.type() == Utility.OBJECT)
-            {
+            if (result.type() == Utility.OBJECT) {
                 JavaObject javaObject = (JavaObject) result.car();
                 evaluationResponse.setObject(javaObject.getObject());
             }//end if.
@@ -305,12 +304,15 @@ class SynchronousInterpreter implements Interpreter {
                 //GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
                 evaluationResponse.setResult(loadResultString);
                 //environment.iGlobalState.release("LoadResult");
+                if (loadResult.type() == Utility.OBJECT) {
+                    JavaObject javaObject = (JavaObject) loadResult.car();
+                    evaluationResponse.setObject(javaObject.getObject());
+                }//end if.
             }
         } catch (Exception e) {
             evaluationResponse.setExceptionMessage(e.getMessage());
             evaluationResponse.setException(e);
         }
-
 
         return evaluationResponse;
     }
