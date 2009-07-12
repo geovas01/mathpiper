@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++Perhaps change the ResponseListener interface to something more specific like MathPiperResponseListener and response() and remove() to
+mathPiperResponse() and removeFromListenerList().
 +There is a local variables bug (in := I think).  When an associative list is bound to lst, the list is not updated:
 %mathpiper,output="trace"
 lst := {};
