@@ -18,7 +18,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.interpreters;
 
-import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -31,9 +30,6 @@ import org.mathpiper.lisp.Environment;
  */
 class AsynchronousInterpreter implements Interpreter
 {
-
-    private ArrayList<ResponseListener> removeListeners;
-    private ArrayList<ResponseListener> responseListeners;
     private static AsynchronousInterpreter singletonInstance;
     private SynchronousInterpreter interpreter;
     private String expression;
@@ -41,8 +37,6 @@ class AsynchronousInterpreter implements Interpreter
     private AsynchronousInterpreter(SynchronousInterpreter interpreter)
     {
         this.interpreter = interpreter;
-        responseListeners = new ArrayList<ResponseListener>();
-        removeListeners = new ArrayList<ResponseListener>();
     }//end constructor.
 
     static AsynchronousInterpreter newInstance()
@@ -94,41 +88,15 @@ class AsynchronousInterpreter implements Interpreter
 
     public void addResponseListener(ResponseListener listener)
     {
-        responseListeners.add(listener);
+	    interpreter.addResponseListener(listener);
     }//end method.
 
     public void removeResponseListener(ResponseListener listener)
     {
-        responseListeners.remove(listener);
+	    interpreter.removeResponseListener(listener);
     }//end method.
 
-    protected void notifyListeners(EvaluationResponse response)
-    {
-        //notify listeners.
-        for (ResponseListener listener : responseListeners)
-        {
-            listener.response(response);
 
-            if (listener.remove())
-            {
-                removeListeners.add(listener);
-            }//end if.
-        }//end for.
-
-
-        //Remove certain listeners.
-        for (ResponseListener listener : removeListeners)
-        {
-
-            if (listener.remove())
-            {
-                responseListeners.remove(listener);
-            }//end if.
-        }//end for.
-
-        removeListeners.clear();
-
-    }//end method.
 
     public void addScriptsDirectory(String dir)
     {
@@ -186,7 +154,6 @@ class AsynchronousInterpreter implements Interpreter
                 evaluationResponse.setExceptionMessage(e.getMessage());
             }
 
-            notifyListeners(evaluationResponse);
         }//done.
     }//EvaluationTask.
 
