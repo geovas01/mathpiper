@@ -29,6 +29,7 @@ import org.gjt.sp.jedit.gui.DockableWindowManager;
 import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
+
 // }}}
 
 // {{{ Piper class
@@ -38,9 +39,9 @@ import org.gjt.sp.util.StandardUtilities;
  *
  */
 public class JFreeChart extends JPanel
-    implements EBComponent, JFreeChartActions, DefaultFocusComponent {
+	implements EBComponent, JFreeChartActions, DefaultFocusComponent {
 
-    // {{{ Instance Variables
+	// {{{ Instance Variables
 	//private static final long serialVersionUID = 6412255692894321789L;
 
 	private String filename;
@@ -52,9 +53,9 @@ public class JFreeChart extends JPanel
 	private boolean floating;
 
 	private JFreeChartToolPanel toolPanel;
-    // }}}
+	// }}}
 
-    // {{{ Constructor
+	// {{{ Constructor
 	/**
 	 * 
 	 * @param view the current jedit window
@@ -70,10 +71,10 @@ public class JFreeChart extends JPanel
 
 		//this.toolPanel = new JFreeChartToolPanel(this);
 		//add(BorderLayout.NORTH, this.toolPanel);
-		
+
 		//JLabel testLabel = new JLabel("TEST");
 		//this.add(testLabel);
-		
+
 		JPanel panel  = HistogramExample1.createDemoPanel();
 		this.add(panel);
 
@@ -81,88 +82,94 @@ public class JFreeChart extends JPanel
 			this.setPreferredSize(new Dimension(500, 250));
 
 
+		org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+		org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\");");
 
+		if(response.isExceptionThrown())
+		{
+			System.out.println(response.getExceptionMessage());
+		}
 
-	}
-    // }}}
+	}//end constructor
+	// }}}
 
-    // {{{ Member Functions
-    
-    // {{{ focusOnDefaultComponent
+	// {{{ Member Functions
+
+	// {{{ focusOnDefaultComponent
 	public void focusOnDefaultComponent() {
 		//textArea.requestFocus();
 	}
-    // }}}
+	// }}}
 
- 
+
 	// EBComponent implementation
-	
-    // {{{ handleMessage
+
+	// {{{ handleMessage
 	public void handleMessage(EBMessage message) {
 		if (message instanceof PropertiesChanged) {
 			propertiesChanged();
 		}
 	}
-    // }}}
-    
-    // {{{ propertiesChanged
+	// }}}
+
+	// {{{ propertiesChanged
 	private void propertiesChanged() {
 
 	}
-    // }}}
+	// }}}
 
 	// These JComponent methods provide the appropriate points
 	// to subscribe and unsubscribe this object to the EditBus.
 
-    // {{{ addNotify
+	// {{{ addNotify
 	public void addNotify() {
 		super.addNotify();
 		EditBus.addToBus(this);
 	}
-     // }}}
-     
-    // {{{ removeNotify
+	// }}}
+
+	// {{{ removeNotify
 	public void removeNotify() {
 		//saveFile();
 		super.removeNotify();
 		EditBus.removeFromBus(this);
 	}
-    // }}}
-    
+	// }}}
+
 	// PiperActions implementation
 
 
-    
-    // {{{ chooseFile
+
+	// {{{ chooseFile
 	public void chooseFile() {
 
 	}
-    // }}}
+	// }}}
 
-    // {{{ copyToBuffer
+	// {{{ copyToBuffer
 	public void copyToBuffer() {
 
 	}
-    // }}}
-    // {{{ readFile()
+	// }}}
+	// {{{ readFile()
 	/**
 	 * Helper method
 	 */
 	private void readFile() {
 
 	}
-    // }}}
-    
-    public void saveFile()
-    {
-    }
+	// }}}
 
-   // {{{ getFileName
+	public void saveFile()
+	{
+	}
+
+	// {{{ getFileName
 	public String getFilename() {
 		return filename;
 	}
-    // }}}
- 
+	// }}}
+
 }
 // }}}
 
