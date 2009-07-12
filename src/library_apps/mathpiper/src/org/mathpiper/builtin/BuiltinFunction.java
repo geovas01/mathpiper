@@ -19,8 +19,10 @@ package org.mathpiper.builtin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import org.mathpiper.builtin.functions.Abs;
@@ -202,19 +204,18 @@ import org.mathpiper.builtin.functions.XmlTokenizer;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 public abstract class BuiltinFunction {
 
-    public static void addOptionalFunctions(Environment aEnvironment) {
-
-
+    public static synchronized List addOptionalFunctions(Environment aEnvironment, String functionsPath) {
 
         //System.out.println("MATHPIPER: " + System.getProperty("java.class.path"));
+        List failList = new ArrayList();
 
         for (String s : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
-            // System.out.println("MATHPIPER: " + s);
+
+            //System.out.println("MATHPIPER: " + s);
             if (s.endsWith("mathpiper.jar")) {
                 try {
                     java.util.zip.ZipFile zip = new java.util.zip.ZipFile(new File(s));
@@ -223,7 +224,7 @@ public abstract class BuiltinFunction {
                     while (fileEnteries.hasMoreElements()) {
                         ZipEntry ze = (ZipEntry) fileEnteries.nextElement();
                         String fileName = ze.getName();
-                        if (fileName.contains("org/mathpiper/builtin/functions/optional/")) {
+                        if (fileName.contains(functionsPath)) {
                             fileName = fileName.replace("/", ".");
                             if (fileName.endsWith(".class")) {
                                 fileName = fileName.substring(0, fileName.length() - 6);
@@ -251,8 +252,10 @@ public abstract class BuiltinFunction {
 
                 break;
             } else if (!s.endsWith(".jar")) {
-                File packageDirectoryFile = new File(s + "/org/mathpiper/builtin/functions/optional");
+                File packageDirectoryFile = new File(s + "/" + functionsPath.substring(0,functionsPath.length()-1));
                 if (packageDirectoryFile.exists()) {
+
+                    //System.out.println("package directory found");
                     java.io.File[] packageDirectoryContentsArray = packageDirectoryFile.listFiles(new java.io.FilenameFilter() {
 
                         public boolean accept(java.io.File file, String name) {
@@ -271,10 +274,12 @@ public abstract class BuiltinFunction {
                         fileName = fileName.substring(s.length() + 1, fileName.length());
                         fileName = fileName.replace("/", ".");
                         fileName = fileName.substring(0, fileName.length() - 6);
-                        //System.out.println(path);
+                        //System.out.println(fileName);
                         try {
                             Class functionClass = Class.forName(fileName);
+                            //System.out.println("function " + functionClass);
                             BuiltinFunction function = (BuiltinFunction) functionClass.newInstance();
+                            //System.out.println("function " + function);
                             function.plugIn(aEnvironment);
                         } catch (ClassNotFoundException cnfe) {
                             System.out.println("Class not found: " + fileName);
@@ -282,9 +287,10 @@ public abstract class BuiltinFunction {
                             System.out.println("Can not instantiate class: " + fileName);
                         } catch (IllegalAccessException iae) {
                             System.out.println("Illegal access of class: " + fileName);
+                        } catch (NoClassDefFoundError ncdfe) {
+                            //System.out.println("Class not found: " + fileName);
+                            failList.add(fileName);
                         }
-
-
 
                     }//end for.
                     break;
@@ -293,7 +299,7 @@ public abstract class BuiltinFunction {
             }//end if/else
         }//end for.
 
-
+            return failList;
     }//end method.
 
     public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;

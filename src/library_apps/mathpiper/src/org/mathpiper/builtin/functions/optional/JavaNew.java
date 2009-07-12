@@ -87,9 +87,8 @@ public class JavaNew extends BuiltinFunction {
                     return;
                 } else {
                     getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(response));
-
                     return;
-                }
+                }//end if/else.
 
 
 

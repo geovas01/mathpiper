@@ -33,6 +33,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
 
 import org.mathpiper.io.CachedStandardFileInputStream;
 import java.io.*;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.StringOutput;
 
 /**
@@ -142,7 +143,7 @@ class SynchronousInterpreter implements Interpreter {
             EvaluationResponse evaluationResponse = evaluate("Load(\"org/mathpiper/scripts/initialization.rep/mathpiperinit.mpi\");");
 
             if (evaluationResponse.isExceptionThrown()) {
-                System.out.println(evaluationResponse.getExceptionMessage() + " Source file name: " + evaluationResponse.getSourceFileName() + " Near line number: " + evaluationResponse.getLineNumber());
+                System.out.println(evaluationResponse.getExceptionMessage() + "   Source file name: " + evaluationResponse.getSourceFileName() + "   Near line number: " + evaluationResponse.getLineNumber());
             }
 
 
@@ -238,7 +239,13 @@ class SynchronousInterpreter implements Interpreter {
             }
 
             ConsPointer result = new ConsPointer();
-            environment.iLispExpressionEvaluator.evaluate(environment, result, inputExpressionPointer);
+            environment.iLispExpressionEvaluator.evaluate(environment, result, inputExpressionPointer); //*** The main valuation happens here.
+
+            if(result.type() == Utility.OBJECT)
+            {
+                JavaObject javaObject = (JavaObject) result.car();
+                evaluationResponse.setObject(javaObject.getObject());
+            }//end if.
 
             String percent = (String) environment.getTokenHash().lookUp("%");
             environment.setGlobalVariable(percent, result, true);

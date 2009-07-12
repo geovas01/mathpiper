@@ -77,11 +77,11 @@ public class Maxima extends BuiltinFunction {
             t.printStackTrace();
         }
         maximaInstalled = true;
-        System.out.println("Maxima is initialized");
+        System.out.println("M+");
         }
         else
         {
-            System.out.println("Maxima is not installed");
+            System.out.println("M-");
         }
 
 

@@ -226,10 +226,10 @@ public class JavaObject extends BuiltinContainer {
         return javaObject.getClass().getName();
     }//end method.
 
-    public Object getJavaObject() {
+
+    public Object getObject() {
         return javaObject;
     }//end method.
-
 
     public static List LispListToJavaList(ConsPointer lispList) throws Exception {
         LispError.check(Utility.isList(lispList), LispError.NOT_A_LIST);
@@ -271,7 +271,7 @@ public class JavaObject extends BuiltinContainer {
             try {
                 values[index++] = Double.parseDouble(itemString);
             } catch (NumberFormatException nfe) {
-                LispError.raiseError("Can not convert into a double" );
+                LispError.raiseError("Can not convert into a double." );
             }//end try/catch.
 
             lispListPointer.goNext();

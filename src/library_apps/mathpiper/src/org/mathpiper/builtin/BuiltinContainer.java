@@ -13,27 +13,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin;
-
-import org.mathpiper.builtin.ArgumentList;
-
 
 /**
  * Abstract class which can be put inside a org.mathpiper.lisp.BuiltinObject.
  * 
  * 
  */
-public abstract class BuiltinContainer
-{
-	public  BuiltinContainer()
-	{
-	}
-	public abstract String send(ArgumentList aArgList);
-	public abstract String typeName();
-    public abstract Object getJavaObject();
-    public abstract JavaObject execute(String methodName, Object [] arguments) throws Exception;
+public abstract class BuiltinContainer {
+
+    public BuiltinContainer() {
+    }
+
+    public abstract String send(ArgumentList aArgList);
+
+    public abstract String typeName();
+
+    public abstract Object getObject();
+
+    public abstract JavaObject execute(String methodName, Object[] arguments) throws Exception;
 }
 

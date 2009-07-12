@@ -39,7 +39,7 @@ public class PatternBranch extends Branch {
     /// Constructor.
      * 
      * @param aPrecedence precedence of the rule
-     * @param aPredicate getJavaObject object of type PatternContainer
+     * @param aPredicate getObject object of type PatternContainer
      * @param aBody body of the rule
      */
     public PatternBranch(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {

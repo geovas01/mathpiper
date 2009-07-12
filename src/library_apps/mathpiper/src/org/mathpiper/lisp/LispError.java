@@ -289,7 +289,7 @@ public class LispError
 
     public static void checkIsString(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isString( (String) evaluated.car()), aArgNr, "argument is not a string.");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isString( evaluated.car()), aArgNr, "argument is not a string.");
     }
 
     public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription) throws Exception

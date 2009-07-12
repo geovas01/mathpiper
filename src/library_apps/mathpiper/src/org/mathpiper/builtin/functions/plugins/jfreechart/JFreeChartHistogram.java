@@ -26,15 +26,12 @@ import org.mathpiper.lisp.cons.ConsPointer;
 
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.StandardXYBarPainter;
-import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.statistics.HistogramDataset;
-import org.jfree.data.xy.IntervalXYDataset;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 
 /**
  *
@@ -46,28 +43,11 @@ public class JFreeChartHistogram extends BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "Histogram");
+        System.out.println("JFC plugin initialized.");
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-
-        try {
-            Class clas = Class.forName("org.jfree.data.statistics.HistogramDataset");
-            HistogramDataset dataSet = (HistogramDataset) clas.newInstance();
-
-            clas = Class.forName("org.jfree.chart.ChartFactory;");
-            ChartFactory factory = (ChartFactory) clas.newInstance();
-          JFreeChart chart = factory.createHistogram(
-                    "Wood Pile Samples",
-                    null,
-                    null,
-                    dataSet,
-                    PlotOrientation.VERTICAL,
-                    true,
-                    true,
-                    false);
-
-
 
             ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
@@ -103,16 +83,39 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
                 argumentsPointer.goNext();
 
-            }//end while
+            }//end while 
 
 
 
-            ConsPointer topOfStackPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-            Utility.putTrueInPointer(aEnvironment, topOfStackPointer);
 
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+             HistogramDataset dataSet = new HistogramDataset();
+             dataSet.addSeries("Pile E", dataValues, 10);
+
+         JFreeChart chart = ChartFactory.createHistogram(
+                    "Test", //title.
+                    null, //x axis label.
+                    null, //y axis label.
+                    dataSet, //
+                    PlotOrientation.VERTICAL, //orientation.
+                    true, //legend.
+                    true,//tool tips.
+                    false);//urls.
+// create and display a frame...
+ChartFrame frame = new ChartFrame("Test", chart);
+frame.pack();
+frame.setVisible(true);
+
+
+                if (chart == null) {
+                    Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                    return;
+                } else {
+                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(new JavaObject(new ChartPanel(chart))));
+                    return;
+                }//end if/else.
+
 
     }//end method.
-}
+
+
+}//end class.

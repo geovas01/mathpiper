@@ -47,7 +47,7 @@ public class Stringify extends BuiltinFunction
         else if(evaluated.car() instanceof BuiltinContainer)
         {
             BuiltinContainer container = (BuiltinContainer) evaluated.car();
-            orig = container.getJavaObject().toString();
+            orig = container.getObject().toString();
         }
         
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
