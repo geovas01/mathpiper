@@ -39,7 +39,7 @@ import org.gjt.sp.util.StandardUtilities;
  *
  */
 public class JFreeChart extends JPanel
-	implements EBComponent, JFreeChartActions, DefaultFocusComponent {
+	implements EBComponent, JFreeChartActions, DefaultFocusComponent , org.mathpiper.interpreters.ResponseListener{
 
 	// {{{ Instance Variables
 	//private static final long serialVersionUID = 6412255692894321789L;
@@ -53,6 +53,8 @@ public class JFreeChart extends JPanel
 	private boolean floating;
 
 	private JFreeChartToolPanel toolPanel;
+	
+	private static JFreeChart jFreeChart;
 	// }}}
 
 	// {{{ Constructor
@@ -84,15 +86,48 @@ public class JFreeChart extends JPanel
 
 		org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 		org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\");");
-
+		synchronousInterpreter.addResponseListener(this); 
+		
 		if(response.isExceptionThrown())
 		{
 			System.out.println(response.getExceptionMessage());
 		}
+		
+		jFreeChart = this;
 
 	}//end constructor
 	// }}}
 
+	
+	public static JPanel getJFreeChart()
+	{
+		return jFreeChart;
+	}//end method.
+	
+	
+	public void response(org.mathpiper.interpreters.EvaluationResponse response)
+	{
+	System.out.println("TTTTTTTTTTTT " + response + "   " + response.getObject());
+			//JFreeChart handler.
+			if(response.getObject() != null)
+			{
+				Object object = response.getObject();
+				if(object instanceof org.jfree.chart.ChartPanel)
+				{	
+					JPanel newChart = (JPanel) object;
+					this.removeAll();
+					this.add(newChart);
+				}//end if.//
+			}//end if.*/
+			
+	    
+	}//end method.
+	
+	public boolean remove()
+	{
+		return false;
+	};
+	
 	// {{{ Member Functions
 
 	// {{{ focusOnDefaultComponent

@@ -331,9 +331,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				//org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
 				org.mathpiper.interpreters.ResponseListener responseListener = new org.mathpiper.interpreters.ResponseListener(){
 					
-				response(evaluationResponse)
+				response (evaluationResponse)
 				{
-					
 					
 				/*try  //todo:tk:This code is a hack to prevent a second fold update occurring before the first update is finished.
 				{
@@ -344,11 +343,12 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 				}*/
 				
-	System.out.println("<shift><enter> Received response from ASync.");
+				System.out.println("<shift><enter> Received response.");
 					
 				//result = evaluationResponse[2];
 				result = evaluationResponse.getResult();//("load_result");
 
+			
 				if(evaluationResponse.isExceptionThrown())//containsKey("error_message")) //evaluationResponse[3] != null) //Error.
 				{
 					//result = evaluationResponse[3] + ";Error near line: " + evaluationResponse[4];
@@ -439,7 +439,23 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
 			//wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(false);
 			
+			
+
+			
+			
 			displayResult();
+			
+			//JFreeChart handler.
+			/*if(evaluationResponse.getObject() != null)
+			{
+				Object object = evaluationResponse.getObject();
+				if(object instanceof org.jfree.chart.ChartPanel)
+				{
+						jFreeChart = org.mathrider.jfreechartplugin.JFreeChart.getJFreeChart();
+						jFreeChart.removeAll();
+						jFreeChart.add(object);
+				}//end if.//
+			}//end if.*/
 
 				}//end method.
 				
@@ -475,7 +491,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				{
 				}
 					asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");");
-					System.out.println("XXXXX submitted evaluation. ");
+					System.out.println("<shift><enter> submitted evaluation request. ");
 				}//end run.
 				
 			}).start();
