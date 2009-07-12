@@ -33,6 +33,7 @@ JFreeChartHistogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
       Result: [Ljava.lang.Double;
 .   %/output
 
+Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0},line -> True, title -> "Test histogram");
 
 JavaCall("java.lang.reflect.Array","setDouble",doubleArray, 0, 33.2);
 
