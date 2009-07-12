@@ -16,6 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.plugins.jfreechart;
 
+import java.util.HashMap;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
@@ -39,11 +40,22 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
  */
 public class JFreeChartHistogram extends BuiltinFunction {
 
+    private HashMap defaultOptions;
+
     public void plugIn(Environment aEnvironment) {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "Histogram");
-        System.out.println("JFC plugin initialized.");
+
+        defaultOptions = new HashMap();
+        defaultOptions.put("title",null);
+        defaultOptions.put("xAxisLabel",null);
+        defaultOptions.put("yAxisLabel",null);
+        defaultOptions.put("seriesTitle","Data");
+        defaultOptions.put("plotOrientation",PlotOrientation.VERTICAL);
+        defaultOptions.put("legend",true);
+        defaultOptions.put("toolTips",true);
+
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
@@ -64,6 +76,8 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
             argumentsPointer.goNext();
 
+            HashMap userOptions = (HashMap) defaultOptions.clone();
+
             while (argumentsPointer.getCons() != null) {
                 //Obtain -> operator.
                 ConsPointer optionPointer = (ConsPointer) argumentsPointer.car();
@@ -81,28 +95,29 @@ public class JFreeChartHistogram extends BuiltinFunction {
                 LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
                 String value = (String) optionPointer.car();
 
+                userOptions.put(key, value);
+
                 argumentsPointer.goNext();
 
             }//end while 
 
 
 
-
              HistogramDataset dataSet = new HistogramDataset();
-             dataSet.addSeries("Pile E", dataValues, 10);
+             dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, 10);
 
          JFreeChart chart = ChartFactory.createHistogram(
-                    "Test", //title.
-                    null, //x axis label.
-                    null, //y axis label.
+                    (String) userOptions.get("seriesTitle"), //title.
+                    (String) userOptions.get("xAxisLabel"), //x axis label.
+                    (String) userOptions.get("yAxisLabel"), //y axis label.
                     dataSet, //
-                    PlotOrientation.VERTICAL, //orientation.
-                    true, //legend.
-                    true,//tool tips.
+                    (PlotOrientation) userOptions.get("plotOrientation"), //orientation.
+                    ((Boolean) userOptions.get("legend")).booleanValue(), //legend.
+                    ((Boolean) userOptions.get("toolTips")).booleanValue(),//tool tips.
                     false);//urls.
 	 
-// create and display a frame...
-//ChartFrame frame = new ChartFrame("Test", chart);frame.pack();frame.setVisible(true);
+// create and display a frame...  Import("org/mathpiper/builtin/functions/plugins/jfreechart/")
+//ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);
 
 
                 if (chart == null) {
