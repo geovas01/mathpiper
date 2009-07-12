@@ -562,7 +562,7 @@ public class Utility {
                 else {
                     ConsPointer result = new ConsPointer();
                     aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, readIn);
-                    aEnvironment.setGlobalVariable("LoadResult", result, false);//Note:tk:added to make getTopOfStackPointer of executing Loaded code available.
+                    aEnvironment.setGlobalVariable("LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
                 }
             }
         } catch (Exception e) {
