@@ -17,8 +17,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import java.util.List;
 import org.mathpiper.lisp.stacks.ArgumentStack;
-import org.mathpiper.lisp.LispExpressionEvaluator;
 import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.collections.Map;
 import org.mathpiper.lisp.collections.TokenMap;
@@ -49,7 +49,6 @@ import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
 import org.mathpiper.lisp.userfunctions.ListedMacroUserFunction;
 
 import org.mathpiper.lisp.printers.MathPiperPrinter;
-import org.mathpiper.lisp.Evaluator;
 
 import org.mathpiper.lisp.localvariables.LocalVariable;
 import org.mathpiper.lisp.localvariables.LocalVariableFrame;
@@ -133,7 +132,7 @@ public class Environment {
         //System.out.println("Classpath: " + System.getProperty("java.class.path"));
         
         BuiltinFunction.addCoreFunctions(this);
-        BuiltinFunction.addOptionalFunctions(this);
+        List failList = BuiltinFunction.addOptionalFunctions(this, "org/mathpiper/builtin/functions/optional/");
 
         pushLocalFrame(true, "<START>");
     }

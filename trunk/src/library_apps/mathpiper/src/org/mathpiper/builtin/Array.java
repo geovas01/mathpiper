@@ -61,7 +61,7 @@ public class Array extends BuiltinContainer
 		iArray.setElement(aItem-1,aObject);
 	}
 
-    public Object getJavaObject()
+    public Object getObject()
     {
         return null;
     }

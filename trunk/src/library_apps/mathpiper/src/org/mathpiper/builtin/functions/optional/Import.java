@@ -1,3 +1,4 @@
+
 /* {{{ License.
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -15,44 +16,54 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.optional;
 
-import org.mathpiper.builtin.BuiltinContainer;
+import java.util.List;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
-import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
  *
  */
-public class SetPlotColor extends BuiltinFunction
+public class Import extends BuiltinFunction
 {
 
     public void plugIn(Environment aEnvironment)
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "SetPlotColor");
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "Import");
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         ConsPointer consPointer = new ConsPointer();
-         aEnvironment.getGlobalVariable("Simulator", consPointer);
-         org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame) ((BuiltinContainer)consPointer.car()).getObject();
 
-         Cons redCons = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
-         Cons greenCons = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
-         Cons blueCons = getArgumentPointer(aEnvironment, aStackTop, 3).getCons();
-         int redValue = Integer.parseInt( (String) redCons.car());
-         int greenValue = Integer.parseInt( (String) greenCons.car());
-         int blueValue = Integer.parseInt( (String) blueCons.car());
-         simulator.setColor(redValue, greenValue, blueValue);
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-    }
-}
+        ConsPointer pathPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+
+
+        LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1);
+
+        String path = Utility.stripEndQuotes((String) pathPointer.car());
+
+        List failList = BuiltinFunction.addOptionalFunctions(aEnvironment, path);
+
+        if(failList.isEmpty())
+        {
+            Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            return;
+        }
+        else
+        {
+            aEnvironment.write("Could not load " + path);
+            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        }//end if/else
+
+    }//end method.
+
+}//end class.
+

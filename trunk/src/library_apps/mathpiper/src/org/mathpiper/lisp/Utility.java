@@ -384,16 +384,36 @@ public class Utility {
     }//end method.
 
 
-    public static boolean isString(String aOriginal) {
-        if (aOriginal != null) {
-            if (aOriginal.charAt(0) == '\"') {
-                if (aOriginal.charAt(aOriginal.length() - 1) == '\"') {
+    public static boolean isString(Object aOriginal) {
+
+        if(! (aOriginal instanceof String))
+        {
+            return false;
+        }//end if.
+
+        String stringVersion = (String) aOriginal;
+
+        if (stringVersion != null) {
+            if (stringVersion.charAt(0) == '\"') {
+                if (stringVersion.charAt(stringVersion.length() - 1) == '\"') {
                     return true;
                 }
             }
         }
         return false;
-    }
+    }//end method
+
+
+
+    public static String stripEndQuotes(String aOriginal)
+    {
+        aOriginal = aOriginal.substring(1, aOriginal.length());
+        aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
+
+        return aOriginal;
+    }//end method.
+
+
 
     public static void not(ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         if (isTrue(aEnvironment, aExpression)) {

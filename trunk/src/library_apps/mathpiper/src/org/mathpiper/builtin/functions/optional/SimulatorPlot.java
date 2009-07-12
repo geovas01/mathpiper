@@ -43,7 +43,7 @@ public class SimulatorPlot extends BuiltinFunction
     {
          ConsPointer consPointer = new ConsPointer();
          aEnvironment.getGlobalVariable("Simulator", consPointer);
-         org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame)  ((BuiltinContainer)consPointer.car()).getJavaObject();
+         org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame)  ((BuiltinContainer)consPointer.car()).getObject();
          
          Cons xCons = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
          Cons yCons = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();

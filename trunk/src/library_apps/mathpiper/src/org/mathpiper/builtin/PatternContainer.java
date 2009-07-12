@@ -76,7 +76,7 @@ public class PatternContainer extends BuiltinContainer
 		return "\"Pattern\"";
 	}
 
-     public Object getJavaObject()
+     public Object getObject()
     {
         return null;
     }
