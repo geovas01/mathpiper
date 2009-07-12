@@ -33,6 +33,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
 
 import org.mathpiper.io.CachedStandardFileInputStream;
 import java.io.*;
+import java.util.ArrayList;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.StringOutput;
 
@@ -41,6 +42,8 @@ import org.mathpiper.io.StringOutput;
  * 
  */
 class SynchronousInterpreter implements Interpreter {
+    private ArrayList<ResponseListener> removeListeners;
+    private ArrayList<ResponseListener> responseListeners;
 
     private Environment environment = null;
     MathPiperTokenizer tokenizer = null;
@@ -55,6 +58,9 @@ class SynchronousInterpreter implements Interpreter {
     private static SynchronousInterpreter singletonInstance;
 
     private SynchronousInterpreter(String docBase) {
+	responseListeners = new ArrayList<ResponseListener>();
+        removeListeners = new ArrayList<ResponseListener>();
+	
         sideEffectsStream = new StringOutput();
 
         try {
@@ -313,6 +319,8 @@ class SynchronousInterpreter implements Interpreter {
             evaluationResponse.setExceptionMessage(e.getMessage());
             evaluationResponse.setException(e);
         }
+	
+	notifyListeners(evaluationResponse);
 
         return evaluationResponse;
     }
@@ -339,9 +347,41 @@ class SynchronousInterpreter implements Interpreter {
     }//addScriptsDirectory.
 
     public void addResponseListener(ResponseListener listener) {
+	    responseListeners.add(listener);
     }
 
     public void removeResponseListener(ResponseListener listener) {
+	    responseListeners.remove(listener);
     }
+    
+    
+    protected void notifyListeners(EvaluationResponse response)
+    {
+        //notify listeners.
+        for (ResponseListener listener : responseListeners)
+        {
+            listener.response(response);
+
+            if (listener.remove())
+            {
+                removeListeners.add(listener);
+            }//end if.
+        }//end for.
+
+
+        //Remove certain listeners.
+        for (ResponseListener listener : removeListeners)
+        {
+
+            if (listener.remove())
+            {
+                responseListeners.remove(listener);
+            }//end if.
+        }//end for.
+
+        removeListeners.clear();
+
+    }//end method.
+    
 }// end class.
 
