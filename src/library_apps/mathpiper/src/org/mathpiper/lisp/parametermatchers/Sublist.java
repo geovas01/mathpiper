@@ -24,12 +24,12 @@ import org.mathpiper.lisp.Environment;
 
 
 /// Class for matching against a list of PatternParameter objects.
-public class SubList extends PatternParameter
+public class Sublist extends PatternParameter
 {
 	protected PatternParameter[] iMatchers;
 	protected int iNrMatchers;
 	
-	public SubList(PatternParameter[] aMatchers, int aNrMatchers)
+	public Sublist(PatternParameter[] aMatchers, int aNrMatchers)
 	{
 		iMatchers = aMatchers;
 		iNrMatchers = aNrMatchers;

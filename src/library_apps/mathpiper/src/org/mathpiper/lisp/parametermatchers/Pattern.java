@@ -274,7 +274,7 @@ public class Pattern {
                 LispError.lispAssert(matchers[i] != null);
                 consTraverser.goNext();
             }
-            return new SubList(matchers, num);
+            return new Sublist(matchers, num);
         }
 
         return null;
