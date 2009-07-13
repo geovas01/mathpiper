@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin;
 
@@ -231,8 +230,12 @@ public abstract class BuiltinFunction {
                                 //System.out.println(fileName);
                                 try {
                                     Class functionClass = Class.forName(fileName);
-                                    BuiltinFunction function = (BuiltinFunction) functionClass.newInstance();
-                                    function.plugIn(aEnvironment);
+                                    
+                                    Object functionObject = functionClass.newInstance();
+                                    if (functionObject instanceof BuiltinFunction) {
+                                        BuiltinFunction function = (BuiltinFunction) functionObject;
+                                        function.plugIn(aEnvironment);
+                                    }//end if.
                                 } catch (ClassNotFoundException cnfe) {
                                     System.out.println("Class not found: " + fileName);
                                 } catch (InstantiationException ie) {
@@ -252,7 +255,7 @@ public abstract class BuiltinFunction {
 
                 break;
             } else if (!s.endsWith(".jar")) {
-                File packageDirectoryFile = new File(s + "/" + functionsPath.substring(0,functionsPath.length()-1));
+                File packageDirectoryFile = new File(s + "/" + functionsPath.substring(0, functionsPath.length() - 1));
                 if (packageDirectoryFile.exists()) {
 
                     //System.out.println("package directory found");
@@ -277,10 +280,12 @@ public abstract class BuiltinFunction {
                         //System.out.println(fileName);
                         try {
                             Class functionClass = Class.forName(fileName);
-                            //System.out.println("function " + functionClass);
-                            BuiltinFunction function = (BuiltinFunction) functionClass.newInstance();
-                            //System.out.println("function " + function);
-                            function.plugIn(aEnvironment);
+
+                            Object functionObject = functionClass.newInstance();
+                            if (functionObject instanceof BuiltinFunction) {
+                                BuiltinFunction function = (BuiltinFunction) functionObject;
+                                function.plugIn(aEnvironment);
+                            }//end if.
                         } catch (ClassNotFoundException cnfe) {
                             System.out.println("Class not found: " + fileName);
                         } catch (InstantiationException ie) {
@@ -299,7 +304,7 @@ public abstract class BuiltinFunction {
             }//end if/else
         }//end for.
 
-            return failList;
+        return failList;
     }//end method.
 
     public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
@@ -911,3 +916,4 @@ public abstract class BuiltinFunction {
 
     }//end method.
 }//end class.
+
