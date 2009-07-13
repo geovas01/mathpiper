@@ -52,7 +52,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
         defaultOptions.put("xAxisLabel",null);
         defaultOptions.put("yAxisLabel",null);
         defaultOptions.put("seriesTitle","Data");
-        defaultOptions.put("plotOrientation",PlotOrientation.VERTICAL);
+        defaultOptions.put("orientation", PlotOrientation.VERTICAL);
         defaultOptions.put("legend",true);
         defaultOptions.put("toolTips",true);
 
@@ -96,7 +96,24 @@ public class JFreeChartHistogram extends BuiltinFunction {
                 String value = (String) optionPointer.car();
 
                 value = Utility.stripEndQuotes(value);
-                userOptions.put(key, value);
+                if(key.equals("orientation"))
+                {
+                    if(value.equals("vertical"))
+                    {
+                        userOptions.put(key, PlotOrientation.VERTICAL);
+                    }else if(value.equals("horizontal"))
+                    {
+                        userOptions.put(key, PlotOrientation.HORIZONTAL);
+                    }
+                    else
+                    {
+                        userOptions.put(key, PlotOrientation.VERTICAL);
+                    }//end if/else.
+                }
+                else
+                {
+                    userOptions.put(key, value);
+                }//end else.
 
                 argumentsPointer.goNext();
 
@@ -112,7 +129,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
                     (String) userOptions.get("xAxisLabel"), //x axis label.
                     (String) userOptions.get("yAxisLabel"), //y axis label.
                     dataSet, //
-                    (PlotOrientation) userOptions.get("plotOrientation"), //orientation.
+                    (PlotOrientation) userOptions.get("orientation"), //orientation.
                     ((Boolean) userOptions.get("legend")).booleanValue(), //legend.
                     ((Boolean) userOptions.get("toolTips")).booleanValue(),//tool tips.
                     false);//urls.

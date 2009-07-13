@@ -1,2 +1,2 @@
 Import("org/mathpiper/builtin/functions/plugins/jfreechart/");
-Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0},seriesTitle -> hello);
+Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0}, xAxisLabel -> "X Axis", orientation -> "horizontal");
