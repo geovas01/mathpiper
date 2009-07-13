@@ -58,7 +58,7 @@ public class Console {
 
     String evaluate(String input) {
         //return (String) interpreter.evaluate(input);
-        EvaluationResponse response = interpreter.evaluate(input);
+        EvaluationResponse response = interpreter.evaluate(input, true);
         String responseString = "Result> " + response.getResult() + "\n";
 
 

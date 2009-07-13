@@ -1,5 +1,6 @@
 #jEdit properties
 #Mon Oct 27 20:45:09 EST 2008
+view.toolbar=new-file open-file close-buffer save - print page-setup - undo redo cut copy paste - find find-next - unsplit split-horizontal split-vertical - buffer-options global-options - help
 view.style.keyword4=color\:\#cc0033 style\:b
 buffer.maxLineLen=132
 view.wrapGuide=false

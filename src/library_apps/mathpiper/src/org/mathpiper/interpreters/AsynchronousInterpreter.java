@@ -55,7 +55,7 @@ class AsynchronousInterpreter implements Interpreter
         return singletonInstance;
     }
 
-        static AsynchronousInterpreter newInstance(String docBase)
+     static AsynchronousInterpreter newInstance(String docBase)
     {
         SynchronousInterpreter interpreter = SynchronousInterpreter.newInstance(docBase);
         return new AsynchronousInterpreter(interpreter);
@@ -70,12 +70,15 @@ class AsynchronousInterpreter implements Interpreter
         }
         return singletonInstance;
     }
+    
+    public synchronized EvaluationResponse evaluate(String inputExpression) {
+	    return this.evaluate(inputExpression, false);
+    }//end method.
 
-    public EvaluationResponse evaluate(String expression)
+    public EvaluationResponse evaluate(String expression, boolean notifyEvaluationListeners)
     {
 
-
-        FutureTask task = new EvaluationTask(new Evaluator(expression));
+        FutureTask task = new EvaluationTask(new Evaluator(expression, notifyEvaluationListeners));
         ExecutorService es = Executors.newSingleThreadExecutor();
         es.submit(task);
 
@@ -117,15 +120,17 @@ class AsynchronousInterpreter implements Interpreter
     {
 
         private String expression;
+	private boolean notifyEvaluationListeners;
 
-        public Evaluator(String expression)
+        public Evaluator(String expression, boolean notifyEvaluationListeners)
         {
             this.expression = expression;
+	    this.notifyEvaluationListeners = notifyEvaluationListeners;
         }
 
         public EvaluationResponse call() throws Exception
         {
-            EvaluationResponse evaluationResponse = interpreter.evaluate(expression);
+            EvaluationResponse evaluationResponse = interpreter.evaluate(expression, notifyEvaluationListeners);
             return evaluationResponse;
         }
     } // MyCallable

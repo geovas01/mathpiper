@@ -65,7 +65,7 @@ public class MathPiperShell extends Shell
 		EvaluationResponse response;
 		
 
-			response = interpreter.evaluate(command);
+			response = interpreter.evaluate(command, true);
 			
 			output.print(java.awt.Color.BLUE,"Result> " + response.getResult());
 
