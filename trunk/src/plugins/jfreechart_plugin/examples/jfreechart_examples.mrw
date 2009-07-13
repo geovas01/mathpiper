@@ -8,3 +8,25 @@ of charts will work.
 Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
 
 %/mathpiper
+
+
+
+
+%mathpiper
+
+Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2}, seriesTitle -> "Options Example", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis");
+
+%/mathpiper
+
+
+
+
+
+%mathpiper
+
+Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2}, orientation -> "horizontal");
+
+%/mathpiper
+
+
+
