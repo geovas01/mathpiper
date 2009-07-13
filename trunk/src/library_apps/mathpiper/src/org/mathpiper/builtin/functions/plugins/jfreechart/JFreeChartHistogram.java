@@ -95,6 +95,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
                 LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
                 String value = (String) optionPointer.car();
 
+                value = Utility.stripEndQuotes(value);
                 userOptions.put(key, value);
 
                 argumentsPointer.goNext();
