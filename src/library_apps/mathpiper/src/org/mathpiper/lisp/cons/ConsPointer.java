@@ -50,6 +50,10 @@ public class ConsPointer {
         iCons = aCons;
     }
 
+    public ConsPointer(ConsPointer aConsPointer) {
+        iCons = aConsPointer.getCons();
+    }
+
     public void setCons(Cons aNext) {
         iCons = aNext;
     }

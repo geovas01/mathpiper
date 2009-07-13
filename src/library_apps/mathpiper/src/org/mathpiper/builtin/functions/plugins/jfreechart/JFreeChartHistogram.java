@@ -17,6 +17,7 @@
 package org.mathpiper.builtin.functions.plugins.jfreechart;
 
 import java.util.HashMap;
+import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
@@ -27,7 +28,6 @@ import org.mathpiper.lisp.cons.ConsPointer;
 
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -40,7 +40,7 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
  */
 public class JFreeChartHistogram extends BuiltinFunction {
 
-    private HashMap defaultOptions;
+    private Map defaultOptions;
 
     public void plugIn(Environment aEnvironment) {
         aEnvironment.getBuiltinFunctions().setAssociation(
@@ -48,106 +48,60 @@ public class JFreeChartHistogram extends BuiltinFunction {
                 "Histogram");
 
         defaultOptions = new HashMap();
-        defaultOptions.put("title",null);
-        defaultOptions.put("xAxisLabel",null);
-        defaultOptions.put("yAxisLabel",null);
-        defaultOptions.put("seriesTitle","Data");
+        defaultOptions.put("title", null);
+        defaultOptions.put("xAxisLabel", null);
+        defaultOptions.put("yAxisLabel", null);
+        defaultOptions.put("seriesTitle", "");
         defaultOptions.put("orientation", PlotOrientation.VERTICAL);
-        defaultOptions.put("legend",true);
-        defaultOptions.put("toolTips",true);
+        defaultOptions.put("legend", true);
+        defaultOptions.put("toolTips", true);
 
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-            ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-            LispError.check(Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT);
+        LispError.check(Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT);
 
-            argumentsPointer.goSub();
-            argumentsPointer.goNext();
+        argumentsPointer.goSub(); //Go to sub list.
 
-            LispError.check(Utility.isList(argumentsPointer), LispError.NOT_A_LIST);
+        argumentsPointer.goNext(); //Strip List tag.
 
-            ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car();
+        LispError.check(Utility.isList(argumentsPointer), LispError.NOT_A_LIST);
 
-            double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
+        ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 
-            argumentsPointer.goNext();
+        ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
 
-            HashMap userOptions = (HashMap) defaultOptions.clone();
+        Map userOptions = Utility.optionsListToJavaMap(optionsPointer, defaultOptions);
 
-            while (argumentsPointer.getCons() != null) {
-                //Obtain -> operator.
-                ConsPointer optionPointer = (ConsPointer) argumentsPointer.car();
-                LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
-                String operator = (String) optionPointer.car();
-                LispError.check(operator.equals("->"), LispError.INVALID_ARGUMENT);
+        HistogramDataset dataSet = JFreeChartUtility.listToHistogramDataset(dataListPointer, userOptions);
 
-                //Obtain key.
-                optionPointer.goNext();
-                LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
-                String key = (String) optionPointer.car();
+        JFreeChart chart = ChartFactory.createHistogram(
+                (String) userOptions.get("seriesTitle"), //title.
+                (String) userOptions.get("xAxisLabel"), //x axis label.
+                (String) userOptions.get("yAxisLabel"), //y axis label.
+                dataSet, //
+                (PlotOrientation) userOptions.get("orientation"), //orientation.
+                ((Boolean) userOptions.get("legend")).booleanValue(), //legend.
+                ((Boolean) userOptions.get("toolTips")).booleanValue(),//tool tips.
+                false);//urls.
 
-                //Obtain value.
-                optionPointer.goNext();
-                LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
-                String value = (String) optionPointer.car();
-
-                value = Utility.stripEndQuotes(value);
-                if(key.equals("orientation"))
-                {
-                    if(value.equals("vertical"))
-                    {
-                        userOptions.put(key, PlotOrientation.VERTICAL);
-                    }else if(value.equals("horizontal"))
-                    {
-                        userOptions.put(key, PlotOrientation.HORIZONTAL);
-                    }
-                    else
-                    {
-                        userOptions.put(key, PlotOrientation.VERTICAL);
-                    }//end if/else.
-                }
-                else
-                {
-                    userOptions.put(key, value);
-                }//end else.
-
-                argumentsPointer.goNext();
-
-            }//end while 
-
-
-
-             HistogramDataset dataSet = new HistogramDataset();
-             dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, 10);
-
-         JFreeChart chart = ChartFactory.createHistogram(
-                    (String) userOptions.get("seriesTitle"), //title.
-                    (String) userOptions.get("xAxisLabel"), //x axis label.
-                    (String) userOptions.get("yAxisLabel"), //y axis label.
-                    dataSet, //
-                    (PlotOrientation) userOptions.get("orientation"), //orientation.
-                    ((Boolean) userOptions.get("legend")).booleanValue(), //legend.
-                    ((Boolean) userOptions.get("toolTips")).booleanValue(),//tool tips.
-                    false);//urls.
-	 
 // create and display a frame...  Import("org/mathpiper/builtin/functions/plugins/jfreechart/")
 //ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);
 
 
-                if (chart == null) {
-                    Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-                    return;
-                } else {
-                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(new JavaObject(new ChartPanel(chart))));
-                    return;
-                }//end if/else.
+        if (chart == null) {
+            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            return;
+        } else {
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(new JavaObject(new ChartPanel(chart))));
+            return;
+        }//end if/else.
 
 
     }//end method.
-
-
 }//end class.
+

@@ -17,14 +17,16 @@
 package org.mathpiper.lisp;
 
 import org.mathpiper.lisp.collections.OperatorMap;
-import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import org.jfree.chart.plot.PlotOrientation;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
@@ -337,7 +339,6 @@ public class Utility {
         }
     }
 
-
     public static boolean isSublist(ConsPointer aPtr) throws Exception {
         /**
          * todo:tk: I am currently not sure why non nested lists are not supported in Yacas.
@@ -350,7 +351,7 @@ public class Utility {
         }
         if (((ConsPointer) aPtr.car()).getCons() == null) {
             return false;
-        //TODO this StrEqual is far from perfect. We could pass in a Environment object...
+            //TODO this StrEqual is far from perfect. We could pass in a Environment object...
         }
         if (!((ConsPointer) aPtr.car()).car().equals("List")) {
             return false;
@@ -358,7 +359,6 @@ public class Utility {
         return true;
 
     }//end method.
-
 
     public static boolean isList(ConsPointer aPtr) throws Exception {
         /**
@@ -368,11 +368,9 @@ public class Utility {
             return false;
         }
 
-        if(aPtr.type() == Utility.ATOM)
-        {
-            if(((String) aPtr.car()).equalsIgnoreCase("List"))
-            {
-                 return true;
+        if (aPtr.type() == Utility.ATOM) {
+            if (((String) aPtr.car()).equalsIgnoreCase("List")) {
+                return true;
             }//end if.
         }//end if.
 
@@ -383,11 +381,72 @@ public class Utility {
 
     }//end method.
 
+    
+    public static boolean isNestedList(ConsPointer clientListPointer) throws Exception {
+
+        ConsPointer listPointer = new ConsPointer(clientListPointer);
+
+        listPointer.goNext(); //Strip List tag.
+
+        while (listPointer.getCons() != null) {
+            if (listPointer.car() instanceof ConsPointer && isList((ConsPointer) listPointer.car())) {
+                listPointer.goNext();
+            } else {
+                return false;
+            }
+        }//end while.
+        return true;
+    }//end method.
+
+
+
+
+    public static Map optionsListToJavaMap(ConsPointer argumentsPointer, Map defaultOptions) throws Exception {
+
+        Map userOptions = (Map) ((HashMap) defaultOptions).clone();
+
+        while (argumentsPointer.getCons() != null) {
+            //Obtain -> operator.
+            ConsPointer optionPointer = (ConsPointer) argumentsPointer.car();
+            LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
+            String operator = (String) optionPointer.car();
+            LispError.check(operator.equals("->"), LispError.INVALID_ARGUMENT);
+
+            //Obtain key.
+            optionPointer.goNext();
+            LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
+            String key = (String) optionPointer.car();
+
+            //Obtain value.
+            optionPointer.goNext();
+            LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
+            String value = (String) optionPointer.car();
+
+            value = Utility.stripEndQuotes(value);
+            if (key.equals("orientation")) {
+                if (value.equals("vertical")) {
+                    userOptions.put(key, PlotOrientation.VERTICAL);
+                } else if (value.equals("horizontal")) {
+                    userOptions.put(key, PlotOrientation.HORIZONTAL);
+                } else {
+                    userOptions.put(key, PlotOrientation.VERTICAL);
+                }//end if/else.
+                } else {
+                userOptions.put(key, value);
+            }//end else.
+
+            argumentsPointer.goNext();
+
+        }//end while
+
+        return userOptions;
+    }//end method.
+
+
 
     public static boolean isString(Object aOriginal) {
 
-        if(! (aOriginal instanceof String))
-        {
+        if (!(aOriginal instanceof String)) {
             return false;
         }//end if.
 
@@ -404,15 +463,12 @@ public class Utility {
     }//end method
 
 
-
-    public static String stripEndQuotes(String aOriginal)
-    {
+    public static String stripEndQuotes(String aOriginal) {
         aOriginal = aOriginal.substring(1, aOriginal.length());
         aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
 
         return aOriginal;
     }//end method.
-
 
 
     public static void not(ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
