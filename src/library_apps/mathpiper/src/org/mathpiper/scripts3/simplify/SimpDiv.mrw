@@ -1,0 +1,5 @@
+%mathpiper,def="SimpDiv",scope="private"
+
+RuleBase("SimpDiv",{x,y});
+
+%/mathpiper
