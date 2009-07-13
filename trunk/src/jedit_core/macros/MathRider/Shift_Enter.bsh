@@ -374,7 +374,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				else if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
 		//System.out.println("XXXXXXXXX " +  evaluationResponse.getResult()  );
-					evaluationResponse = synchronousInterpreter.evaluate("TeXForm(Hold(" + evaluationResponse.getResult() + "));");
+					evaluationResponse = synchronousInterpreter.evaluate("TeXForm(Hold(" + evaluationResponse.getResult() + "));", false);
 		//System.out.println("MMMMMMM " +  evaluationResponse.getResult() );
 					result = evaluationResponse.getResult().replace("\"$","");
 					result = result.replace("$\"","");
@@ -384,31 +384,31 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
-					evaluationResponse = synchronousInterpreter.evaluate("OMForm(" + evaluationResponse.getResult() + ");");
+					evaluationResponse = synchronousInterpreter.evaluate("OMForm(" + evaluationResponse.getResult() + ");", false);
 					result = evaluationResponse.getResult();//("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
 				{	
-					evaluationResponse = synchronousInterpreter.evaluate("PrettyForm(Hold(" + evaluationResponse.getResult() + "));");
+					evaluationResponse = synchronousInterpreter.evaluate("PrettyForm(Hold(" + evaluationResponse.getResult() + "));", false);
 					result = evaluationResponse.getResult();//("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("c") )
 				{	
-					evaluationResponse = synchronousInterpreter.evaluate("CForm(" + evaluationResponse.getResult() + ");");
+					evaluationResponse = synchronousInterpreter.evaluate("CForm(" + evaluationResponse.getResult() + ");", false);
 					result = evaluationResponse.getResult();
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
 				{	
-					evaluationResponse = synchronousInterpreter.evaluate("FullForm(" + evaluationResponse.getResult() + ");");
+					evaluationResponse = synchronousInterpreter.evaluate("FullForm(" + evaluationResponse.getResult() + ");", false);
 					result = evaluationResponse.getResult();//("result");
 					output_fold_type = "%output";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("table") )
 				{	
-					evaluationResponse = synchronousInterpreter.evaluate("TableForm(" + evaluationResponse.getResult() + ");");
+					evaluationResponse = synchronousInterpreter.evaluate("TableForm(" + evaluationResponse.getResult() + ");", false);
 					result = evaluationResponse.getResult();//("result");
 					output_fold_type = "%output";
 				}
@@ -490,7 +490,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				catch(InterruptedException e)
 				{
 				}
-					asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");");
+					asynchronousInterpreter.evaluate("Load(\""+tempFilePath+"\");", true);
 					System.out.println("<shift><enter> submitted evaluation request. ");
 				}//end run.
 				

@@ -170,7 +170,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
-                        interpreter.evaluate("[" + code + "];");
+                        interpreter.evaluate("[" + code + "];",true);
                         button1.setEnabled(true);
 
                     }//end if.

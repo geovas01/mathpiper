@@ -107,13 +107,13 @@ public class JFreeChart extends JPanel
 	
 	public void response(org.mathpiper.interpreters.EvaluationResponse response)
 	{
-	System.out.println("TTTTTTTTTTTT " + response + "   " + response.getObject());
 			//JFreeChart handler.
 			if(response.getObject() != null)
 			{
 				Object object = response.getObject();
 				if(object instanceof org.jfree.chart.ChartPanel)
 				{	
+					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jfreechart" );
 					JPanel newChart = (JPanel) object;
 					this.removeAll();
 					this.add(newChart);

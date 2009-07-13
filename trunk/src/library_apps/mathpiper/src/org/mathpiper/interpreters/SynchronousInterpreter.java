@@ -187,6 +187,10 @@ class SynchronousInterpreter implements Interpreter {
     }
 
     public synchronized EvaluationResponse evaluate(String inputExpression) {
+	    return this.evaluate(inputExpression, false);
+    }//end method.
+		    
+    public synchronized EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners) {
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
         if (inputExpression.length() == 0) {
             //return (String) "";
@@ -320,7 +324,10 @@ class SynchronousInterpreter implements Interpreter {
             evaluationResponse.setException(e);
         }
 	
-	notifyListeners(evaluationResponse);
+	if(notifyEvaluationListeners)
+	{
+		notifyListeners(evaluationResponse);
+	}//end if.
 
         return evaluationResponse;
     }
