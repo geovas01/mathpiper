@@ -620,9 +620,13 @@ public class Utility {
                     aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, readIn);
                     aEnvironment.setGlobalVariable("LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
                 }
-            }
+            }//end while.
+
+            
+            
         } catch (Exception e) {
-            throw e;
+            EvaluationException ee = new EvaluationException(e.getMessage(),aEnvironment.iCurrentInput.iStatus.lineNumber());
+            throw ee;
         } finally {
             aEnvironment.iCurrentInput = previous;
         }
