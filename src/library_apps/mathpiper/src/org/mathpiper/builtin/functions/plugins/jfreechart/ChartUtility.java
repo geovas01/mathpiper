@@ -23,7 +23,7 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 
-public class JFreeChartUtility {
+public class ChartUtility {
     
     public static HistogramDataset listToHistogramDataset(ConsPointer dataListPointer, Map userOptions) throws Exception{
 

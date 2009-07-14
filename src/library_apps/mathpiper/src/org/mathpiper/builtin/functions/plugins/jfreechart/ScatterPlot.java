@@ -38,14 +38,14 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
  *
  *
  */
-public class JFreeChartHistogram extends BuiltinFunction {
+public class ScatterPlot extends BuiltinFunction {
 
     private Map defaultOptions;
 
     public void plugIn(Environment aEnvironment) {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "Histogram");
+                "ScatterPlot");
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);
@@ -77,7 +77,7 @@ public class JFreeChartHistogram extends BuiltinFunction {
 
         Map userOptions = Utility.optionsListToJavaMap(optionsPointer, defaultOptions);
 
-        HistogramDataset dataSet = JFreeChartUtility.listToHistogramDataset(dataListPointer, userOptions);
+        HistogramDataset dataSet = ChartUtility.listToHistogramDataset(dataListPointer, userOptions);
 
         JFreeChart chart = ChartFactory.createHistogram(
                 (String) userOptions.get("seriesTitle"), //title.
