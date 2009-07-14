@@ -28,9 +28,14 @@ import org.mathpiper.lisp.cons.ConsPointer;
 
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.StandardXYBarPainter;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.statistics.HistogramDataset;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 
@@ -89,8 +94,19 @@ public class Histogram extends BuiltinFunction {
                 ((Boolean) userOptions.get("toolTips")).booleanValue(),//tool tips.
                 false);//urls.
 
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setDomainPannable(true);
+        plot.setRangePannable(true);
+        plot.setForegroundAlpha(0.85f);
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();
+        renderer.setDrawBarOutline(true);
+        renderer.setBarPainter(new StandardXYBarPainter());
+        renderer.setShadowVisible(false);
+
 // create and display a frame...  Import("org/mathpiper/builtin/functions/plugins/jfreechart/")
-//ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);
+ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);
 
 
         if (chart == null) {

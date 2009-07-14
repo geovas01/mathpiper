@@ -17,6 +17,10 @@
 
 package org.mathpiper.builtin.functions.plugins.jfreechart;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import org.jfree.data.statistics.HistogramDataset;
 import org.mathpiper.builtin.JavaObject;
@@ -31,6 +35,8 @@ public class ChartUtility {
 
         if (Utility.isNestedList(dataListPointer)) {
 
+           List dataSeriesList = new ArrayList();
+           List seriesTotalList = new ArrayList();
            dataListPointer.goNext(); //Strip List tag.
            int seriesIndex = 1;
             while(dataListPointer.getCons() != null)
@@ -41,11 +47,42 @@ public class ChartUtility {
                  {
                      seriesTitle =(String) userOptions.get("series" + seriesIndex + "Title");
                  }
-                 dataSet.addSeries(seriesTitle, dataValues, 10);
+                  dataSeriesList.add(seriesTitle);
+                  dataSeriesList.add(dataValues);
+                  int index = 0;
+                  while(index < dataValues.length)
+                  {
+                        seriesTotalList.add(dataValues[index++]);
+                  }//end while
                  seriesIndex++;
                  dataListPointer.goNext();
-            }
-        } else {
+            }//end while.
+
+
+            double min = Double.MAX_VALUE;
+            double max = Double.MIN_VALUE;
+            int index = 0;
+            while(index < seriesTotalList.size())
+            {
+                Double value = (Double) seriesTotalList.get(index);
+                if(value < min) min = value;
+                if(value > max) max = value;
+                index++;
+            }//end while
+            min = Math.floor(min);
+            max = Math.floor(max);
+
+
+           int seriesIndex2 = 0;
+           while(seriesIndex  > 1)
+           {
+               String seriesTitle = (String) dataSeriesList.get(seriesIndex2++);
+               double[] dataValues = (double[]) dataSeriesList.get(seriesIndex2++);
+               dataSet.addSeries(seriesTitle, dataValues, 10, min, max);
+               seriesIndex--;
+           }//end while.
+
+        } else {//Just a single series.
             double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
             dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, 10);
             //argumentsPointer.goNext();
