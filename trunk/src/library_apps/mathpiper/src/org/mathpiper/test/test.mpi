@@ -3,6 +3,13 @@ Import("org/mathpiper/builtin/functions/plugins/jfreechart/");
 //Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0}, xAxisLabel -> "X Axis", orientation -> "horizontal");
 //Histogram({{1,2,3},{4,5,6}}, xAxisLabel -> "X Axis");
 
-a := {1,2,3};
-b := {4,5,6};
-Histogram({a,b},xAxisLabel -> "X", series1Title -> "Series1");
+
+//a := {1,2,3};
+//b := {4,5,6};
+//Histogram({a,b},xAxisLabel -> "X", series1Title -> "Series1");
+
+
+pileESamples := {16.375,16.375,17.125,16,14.375,17.25,16.625,16,17,17.25,17,15.875,16.625,16.125,17.125,16.875,16.375,16.375,16.875,17.125,17,16.75,17.25,17.125,15.375};
+pileDSamples := {18.25,19.25,18.25,15.625,17.625,17.5,17.125,17.125,17.5,14.5,17.375,16.875,17.75,18.875,14.875,19.25,18.125,16.25,16.125,16.75,17.25,17.375,17.125,17.5,16.625};
+
+Histogram({pileDSamples, pileESamples}, series1Title -> "Pile D", series2Title -> "Pile E");
