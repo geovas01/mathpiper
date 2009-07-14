@@ -30,22 +30,21 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.statistics.HistogramDataset;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 
-/**
- *
- *
- */
+
 public class ScatterPlot extends BuiltinFunction {
 
     private Map defaultOptions;
 
     public void plugIn(Environment aEnvironment) {
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        /*aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "ScatterPlot");
+                "ScatterPlot");*/
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);
@@ -88,6 +87,18 @@ public class ScatterPlot extends BuiltinFunction {
                 ((Boolean) userOptions.get("legend")).booleanValue(), //legend.
                 ((Boolean) userOptions.get("toolTips")).booleanValue(),//tool tips.
                 false);//urls.
+
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setDomainCrosshairVisible(true);
+        plot.setDomainCrosshairLockedOnData(true);
+        plot.setRangeCrosshairVisible(true);
+        plot.setRangeCrosshairLockedOnData(true);
+        plot.setDomainZeroBaselineVisible(true);
+        plot.setRangeZeroBaselineVisible(true);
+        plot.setDomainPannable(true);
+        plot.setRangePannable(true);
+        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
+        domainAxis.setAutoRangeIncludesZero(false);
 
 // create and display a frame...  Import("org/mathpiper/builtin/functions/plugins/jfreechart/")
 //ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);

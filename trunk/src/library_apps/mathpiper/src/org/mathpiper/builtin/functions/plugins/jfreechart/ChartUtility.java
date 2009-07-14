@@ -18,11 +18,10 @@
 package org.mathpiper.builtin.functions.plugins.jfreechart;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.xy.XYDataset;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -90,5 +89,42 @@ public class ChartUtility {
         return dataSet;
 
     }//end method.
+
+
+
+
+    public static XYDataset listToXYDataset(ConsPointer dataListPointer, Map userOptions) throws Exception{
+
+        XYDataset dataSet = new HistogramDataset();
+
+        if (Utility.isNestedList(dataListPointer)) {
+
+           List dataSeriesList = new ArrayList();
+           dataListPointer.goNext(); //Strip List tag.
+           int seriesIndex = 1;
+            while(dataListPointer.getCons() != null)
+            {
+                 double[] dataValues = JavaObject.LispListToJavaDoubleArray((ConsPointer) dataListPointer.car());
+                 String seriesTitle = "";
+                 if(userOptions.containsKey("series" + seriesIndex + "Title"))
+                 {
+                     seriesTitle =(String) userOptions.get("series" + seriesIndex + "Title");
+                 }
+                 //dataSet.addSeries(seriesTitle, dataValues);
+                 seriesIndex++;
+                 dataListPointer.goNext();
+            }//end while.
+
+
+
+        } else {//Just a single series.
+            double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
+            //dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, 10);
+            //argumentsPointer.goNext();
+        }//end if/else
+        return dataSet;
+
+    }//end method.
+
 
 }//end class
