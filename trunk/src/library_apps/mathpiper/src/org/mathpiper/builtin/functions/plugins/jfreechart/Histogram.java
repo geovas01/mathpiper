@@ -85,7 +85,7 @@ public class Histogram extends BuiltinFunction {
         HistogramDataset dataSet = ChartUtility.listToHistogramDataset(dataListPointer, userOptions);
 
         JFreeChart chart = ChartFactory.createHistogram(
-                (String) userOptions.get("seriesTitle"), //title.
+                (String) userOptions.get("series"), //title.
                 (String) userOptions.get("xAxisLabel"), //x axis label.
                 (String) userOptions.get("yAxisLabel"), //y axis label.
                 dataSet, //
