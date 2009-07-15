@@ -284,12 +284,11 @@ OdeTest(_e,_solution) <--
   e;
 ];
 
-
 %/mathpiper
 
 
 
-%mathpiper_docs,name="OdeSolve"
+%mathpiper_docs,name="OdeSolve",categories="User Functions;Differential Equations"
 *CMD OdeSolve --- general ODE solver
 *STD
 *CALL
@@ -327,7 +326,7 @@ may be entered as {y(n)}, where {n} is any integer.
 
 
 
-%mathpiper_docs,name="OdeTest"
+%mathpiper_docs,name="OdeTest",categories="User Functions;Differential Equations"
 *CMD OdeTest --- test the solution of an ODE
 *STD
 *CALL
@@ -356,7 +355,7 @@ on a function.
 
 
 
-%mathpiper_docs,name="OdeOrder"
+%mathpiper_docs,name="OdeOrder",categories="User Functions;Differential Equations"
 *CMD OdeOrder --- return order of an ODE
 *STD
 *CALL

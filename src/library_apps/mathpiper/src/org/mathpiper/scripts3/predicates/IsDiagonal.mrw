@@ -24,7 +24,7 @@ IsDiagonal(A_IsMatrix) <--
 
 
 
-%mathpiper_docs,name="IsDiagonal"
+%mathpiper_docs,name="IsDiagonal",categories="User Functions;Matrices (Predicates)"
 *CMD IsDiagonal --- test for a diagonal matrix
 *STD
 *CALL

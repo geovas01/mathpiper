@@ -94,7 +94,7 @@ Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=Length(x[1]);
 
 
 
-%mathpiper_docs,name="IsScalar"
+%mathpiper_docs,name="IsScalar",categories="User Functions;Matrices (Predicates)"
 *CMD IsScalar --- test for a scalar
 *STD
 *CALL
@@ -123,7 +123,7 @@ Something is considered to be a scalar if it's not a list.
 
 
 
-%mathpiper_docs,name="IsVector"
+%mathpiper_docs,name="IsVector",categories="User Functions;Matrices (Predicates)"
 *CMD IsVector --- test for a vector
 *STD
 *CALL
@@ -161,7 +161,7 @@ the vector {expr}, {False} otherwise.
 
 
 
-%mathpiper_docs,name="IsMatrix"
+%mathpiper_docs,name="IsMatrix",categories="User Functions;Matrices (Predicates)"
 *CMD IsMatrix --- test for a matrix
 *STD
 *CALL
@@ -202,7 +202,7 @@ the matrix {expr}, {False} otherwise.
 
 
 
-%mathpiper_docs,name="IsSquareMatrix"
+%mathpiper_docs,name="IsSquareMatrix",categories="User Functions;Matrices (Predicates)"
 *CMD IsSquareMatrix --- test for a square matrix
 *STD
 *CALL

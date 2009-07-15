@@ -6,7 +6,7 @@ IsOrthogonal(A_IsMatrix) <-- (Transpose(A)*A=Identity(Length(A)));
 
 
 
-%mathpiper_docs,name="IsOrthogonal"
+%mathpiper_docs,name="IsOrthogonal",categories="User Functions;Matrices (Predicates)"
 *CMD IsOrthogonal --- test for an orthogonal matrix
 *STD
 *CALL

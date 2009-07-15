@@ -43,7 +43,7 @@ public class Mod extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="ModN",categories="Programmer Functions;Built In"
-*CMD ModN --- remainder of division, or x mod y (arbitrary-precision math function)
+*CMD ModN --- remainder of division or x mod y (arbitrary-precision math function)
 *CORE
 *CALL
 	ModN(x,y)    ()
