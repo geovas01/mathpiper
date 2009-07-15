@@ -24,8 +24,6 @@ import org.mathpiper.builtin.BuiltinFunction;
 
 public class LispError
 {
-   public static final int MAXIMUM_NUMBER_OF_ERRORS = 30;
-
     public static final int NONE = 0;
     public static final int INVALID_ARGUMENT = 1;
     public static final int WRONG_NUMBER_OF_ARGUMENTS = 2;
@@ -57,6 +55,8 @@ public class LispError
     public static final int NON_BOOLEAN_PREDICATE_IN_PATTERN = 28;
     public static final int GENERIC_FORMAT = 29;
     public static final int LIST_LENGTHS_MUST_BE_EQUAL = 30;
+
+    public static final int MAXIMUM_NUMBER_OF_ERRORS = 31;
 
     
 
@@ -203,8 +203,7 @@ public class LispError
     }
 
     public static void raiseError(String str) throws Exception
-    {
-        
+    {        
         throw new EvaluationException(str,-1);
     }
 
