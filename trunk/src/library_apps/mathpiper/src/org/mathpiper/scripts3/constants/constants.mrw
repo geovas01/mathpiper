@@ -140,7 +140,9 @@ CachedConstant(CacheOfConstantsN, Catalan, CatalanConstNum() );
 
 
 
-%mathpiper_docs,name="I"
+
+
+%mathpiper_docs,name="I",categories="User Functions;Constants (Mathematical)"
 *CMD I --- imaginary unit
 *STD
 *CALL
@@ -163,7 +165,7 @@ root of -1. It evaluates to {Complex(0,1)}.
 
 
 
-%mathpiper_docs,name="Pi"
+%mathpiper_docs,name="Pi",categories="User Functions;Constants (Mathematical)"
 *CMD Pi --- mathematical constant, $pi$
 
 *STD
@@ -193,7 +195,7 @@ This is a "cached constant" which is recalculated only when precision is increas
 
 
 
-%mathpiper_docs,name="GoldenRatio"
+%mathpiper_docs,name="GoldenRatio",categories="User Functions;Constants (Mathematical)"
 *CMD GoldenRatio --- the Golden Ratio
 *STD
 *CALL
@@ -267,7 +269,7 @@ The low-level numerical computations are performed by the routine {CatalanConstN
 
 
 
-%mathpiper_docs,name="gamma"
+%mathpiper_docs,name="gamma",categories="User Functions;Constants (Mathematical)"
 *CMD gamma --- Euler's constant $gamma$
 *STD
 *CALL
