@@ -1,7 +1,0 @@
-%mathpiper,def="Csch"
-
-100 # 1/Csch(_x)	<-- Sinh(x);
-
-100 # Csch(_x)		<-- 1/Sinh(x);
-
-%/mathpiper

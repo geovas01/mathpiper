@@ -1,5 +1,0 @@
-%mathpiper,def="IsComplexII",scope="private"
-
-IsComplexII(_c) <-- (ImII(c) != 0);
-
-%/mathpiper

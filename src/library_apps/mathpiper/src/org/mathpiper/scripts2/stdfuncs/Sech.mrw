@@ -1,9 +1,0 @@
-%mathpiper,def="Sech"
-
-100 # Sech(_x)		<-- 1/Cosh(x);
-
-100 # 1/Sech(_x)	<-- Cosh(x);
-
-
-
-%/mathpiper
