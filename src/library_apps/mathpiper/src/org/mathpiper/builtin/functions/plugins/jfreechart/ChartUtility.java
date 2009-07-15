@@ -108,7 +108,7 @@ public class ChartUtility {
                 seriesTitle = (String) userOptions.get("series" + seriesIndex + "Title");
             }
 
-            LispError.check(dataXValues.length == dataYValues.length, LispError.INVALID_ARGUMENT);
+            LispError.check(dataXValues.length == dataYValues.length, LispError.LIST_LENGTHS_MUST_BE_EQUAL);
 
             dataSet.addSeries(seriesTitle, new double[][]{dataXValues, dataYValues});
 
