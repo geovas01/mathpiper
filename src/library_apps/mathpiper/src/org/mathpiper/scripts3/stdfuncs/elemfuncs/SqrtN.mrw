@@ -58,7 +58,7 @@ SqrtN(x) := MathSqrt1(x);	// to have another function is easier for debugging
 
 
 %mathpiper_docs,name="SqrtN",categories="Programmer Functions;Built In"
-*CMD SqrtN --- square root, x must be >= 0 (arbitrary-precision math function)
+*CMD SqrtN --- square root (x must be >= 0) (arbitrary-precision math function)
 *CALL
 	SqrtN(x)
 

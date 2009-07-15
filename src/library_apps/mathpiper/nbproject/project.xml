@@ -9,7 +9,6 @@
                 <root id="src.examples.dir"/>
                 <root id="src.tests.dir"/>
                 <root id="src.src.dir"/>
-                <root id="src.scripts2.dir"/>
                 <root id="src.scripts3.dir"/>
             </source-roots>
             <test-roots/>
