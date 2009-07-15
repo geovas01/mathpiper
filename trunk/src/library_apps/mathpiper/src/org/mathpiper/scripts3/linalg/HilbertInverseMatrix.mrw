@@ -7,7 +7,7 @@ HilbertInverseMatrix(n):=GenMatrix({{i,j},
 
 
 
-%mathpiper_docs,name="HilbertInverseMatrix"
+%mathpiper_docs,name="HilbertInverseMatrix",categories="User Functions;Matrices (Special)"
 *CMD HilbertInverseMatrix --- create a Hilbert inverse matrix
 *STD
 *CALL

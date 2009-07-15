@@ -45,7 +45,7 @@ Function("SylvesterMatrix",{poly1, poly2, var})
 
 
 
-%mathpiper_docs,name="SylvesterMatrix"
+%mathpiper_docs,name="SylvesterMatrix",categories="User Functions;Matrices (Special)"
 *CMD SylvesterMatrix --- calculate the Sylvester matrix of two polynomials
 *STD
 *CALL
