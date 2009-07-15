@@ -8,7 +8,7 @@ HessianMatrix(f,v):=GenMatrix({{i,j}, Deriv(v[i]) Deriv(v[j]) f},Length(v),Lengt
 
 
 
-%mathpiper_docs,name="HessianMatrix"
+%mathpiper_docs,name="HessianMatrix",categories="User Functions;Matrices (Special)"
 *CMD HessianMatrix --- create the Hessian matrix
 *STD
 *CALL

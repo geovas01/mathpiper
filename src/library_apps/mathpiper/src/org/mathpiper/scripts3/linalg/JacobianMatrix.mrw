@@ -8,7 +8,7 @@ JacobianMatrix(f,v):=GenMatrix({{i,j},Deriv(v[j])f[i]},Length(f),Length(f));
 
 
 
-%mathpiper_docs,name="JacobianMatrix"
+%mathpiper_docs,name="JacobianMatrix",categories="User Functions;Matrices (Special)"
 *CMD JacobianMatrix --- calculate the Jacobian matrix of $n$ functions in $n$ variables
 *STD
 *CALL
