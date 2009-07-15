@@ -28,12 +28,13 @@ import org.mathpiper.lisp.cons.ConsPointer;
 
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.xy.XYDataset;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 
 
@@ -42,9 +43,9 @@ public class ScatterPlot extends BuiltinFunction {
     private Map defaultOptions;
 
     public void plugIn(Environment aEnvironment) {
-        /*aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "ScatterPlot");*/
+                "ScatterPlot");
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);
@@ -76,10 +77,10 @@ public class ScatterPlot extends BuiltinFunction {
 
         Map userOptions = Utility.optionsListToJavaMap(optionsPointer, defaultOptions);
 
-        HistogramDataset dataSet = ChartUtility.listToHistogramDataset(dataListPointer, userOptions);
+        XYDataset dataSet = ChartUtility.listToXYDataset(dataListPointer, userOptions);
 
-        JFreeChart chart = ChartFactory.createHistogram(
-                (String) userOptions.get("seriesTitle"), //title.
+        JFreeChart chart = ChartFactory.createScatterPlot(
+                (String) userOptions.get("title"), //title.
                 (String) userOptions.get("xAxisLabel"), //x axis label.
                 (String) userOptions.get("yAxisLabel"), //y axis label.
                 dataSet, //
