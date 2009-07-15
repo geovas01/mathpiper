@@ -18,7 +18,7 @@ Defun("PowerN", {x,y})
 
 
 %mathpiper_docs,name="PowerN",categories="Programmer Functions;Built In"
-*CMD PowerN --- power, x^y (arbitrary-precision math function)
+*CMD PowerN --- power x^y (arbitrary-precision math function)
 *CALL
 	PowerN(x,y)
 
