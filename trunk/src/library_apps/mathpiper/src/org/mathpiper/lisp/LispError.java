@@ -24,6 +24,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 
 public class LispError
 {
+   public static final int MAXIMUM_NUMBER_OF_ERRORS = 30;
 
     public static final int NONE = 0;
     public static final int INVALID_ARGUMENT = 1;
@@ -55,7 +56,9 @@ public class LispError
     public static final int USER_INTERRUPT = 27;
     public static final int NON_BOOLEAN_PREDICATE_IN_PATTERN = 28;
     public static final int GENERIC_FORMAT = 29;
-    public static final int MAXIMUM_NUMBER_OF_ERRORS = 30;
+    public static final int LIST_LENGTHS_MUST_BE_EQUAL = 30;
+
+    
 
     public static String errorString(int aError) throws Exception
     {
@@ -181,6 +184,10 @@ public class LispError
             if (aError == GENERIC_FORMAT)
             {
                 return "Generic format.";
+            }
+            if (aError == LIST_LENGTHS_MUST_BE_EQUAL)
+            {
+                return "List lengths must be equal.";
             }
         }
         return "Unspecified Error.";
