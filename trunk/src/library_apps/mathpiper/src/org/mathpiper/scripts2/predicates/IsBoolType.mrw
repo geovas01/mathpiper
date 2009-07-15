@@ -1,7 +1,0 @@
-%mathpiper,def="IsBoolType"
-
-0 # IsBoolType(True) <-- True;
-0 # IsBoolType(False) <-- True;
-1 # IsBoolType(_anythingelse) <-- False;
-
-%/mathpiper

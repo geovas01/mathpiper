@@ -1,7 +1,0 @@
-%mathpiper,def="Cot"
-
-100 # 1/Cot(_x)		<-- Tan(x);
-
-100 # Cot(_x)		<-- 1/Tan(x);
-
-%/mathpiper

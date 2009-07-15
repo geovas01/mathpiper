@@ -1,9 +1,0 @@
-%mathpiper,def="Coth"
-
-100 # 1/Coth(_x)	<-- Tanh(x);
-
-100 # Coth(_x)		<-- 1/Tanh(x);
-
-100 # Coth(_x)*Sinh(_x) <-- Cosh(x);
-
-%/mathpiper

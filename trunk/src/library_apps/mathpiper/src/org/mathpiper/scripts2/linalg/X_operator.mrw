@@ -1,5 +1,0 @@
-%mathpiper,def="X"
-
-x X y := CrossProduct(x,y);
-
-%/mathpiper

@@ -1,9 +1,0 @@
-%mathpiper,def="."
-
-//////
-// dot product for vectors and matrices (dr)
-//////
-
-_x . _y <-- Dot(x,y);
-
-%/mathpiper
