@@ -17,7 +17,7 @@ Defun("MathPi",{})
 		Set(initialPrec, FloorN(DivideN(AddN(initialPrec,2),3)));
   ];
 	Set(curPrec, initialPrec);
-  While (NotN(GreaterThan(curPrec, aPrecision)))
+  While (Not(GreaterThan(curPrec, aPrecision)))
   [
  		// start of iteration code
     // Get Sin(result)
