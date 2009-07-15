@@ -426,6 +426,13 @@ public class Build {
             if (fold.getAttributes().containsKey("name")) {
                 functionNamesString = (String) fold.getAttributes().get("name");
 
+                /*
+                if(functionNamesString.equals("OdeTest"))
+                {
+                    int xxx = 1;
+                }
+                 */
+
                 String[] functionNames = functionNamesString.split(";");
 
                 for (String functionName : functionNames) {
@@ -539,7 +546,7 @@ public class Build {
         // try {
 	System.out.println("***** Processing built in docs...");
 	
-        File builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/");
+        File builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/core");
 	
         if (builtinFunctionsSourceDir.exists()) {
             java.io.File[] javaFilesDirectory = builtinFunctionsSourceDir.listFiles(new java.io.FilenameFilter() {

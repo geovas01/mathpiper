@@ -51,7 +51,7 @@ public class Div extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="DivN",categories="Programmer Functions;Built In"
-*CMD DivN --- integer division, result is an integer (arbitrary-precision math function)
+*CMD DivN --- integer division result is an integer (arbitrary-precision math function)
 *CORE
 *CALL
 	DivN(x,y)    ()

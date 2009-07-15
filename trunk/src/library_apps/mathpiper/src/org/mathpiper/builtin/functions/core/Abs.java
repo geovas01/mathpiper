@@ -46,7 +46,7 @@ public class Abs extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="AbsN",categories="Programmer Functions;Built In"
-*CMD AbsN --- absolute value of x, or |x| (arbitrary-precision math function)
+*CMD AbsN --- absolute value of x or |x| (arbitrary-precision math function)
 *CORE
 *CALL
 	AbsN(x)

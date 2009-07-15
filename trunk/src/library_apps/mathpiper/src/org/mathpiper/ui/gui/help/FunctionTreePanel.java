@@ -301,7 +301,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
         populateNode(programmerFunctionsNode, programmerFunctionsDescriptions);
         mathpiperFunctionsRootNode.add(programmerFunctionsNode);
 
-        populateNode(mathpiperFunctionsRootNode, operatorsDescriptions);
+        populateNode(operatorsNode, operatorsDescriptions);
+        mathpiperFunctionsRootNode.add(operatorsNode);
 
         functionsTree = new FunctionInfoTree(mathpiperFunctionsRootNode);
 
