@@ -349,7 +349,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
     public void valueChanged(TreeSelectionEvent e) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) functionsTree.getLastSelectedPathComponent();
-        System.out.println("XXXXX");
+        //System.out.println("XXXXX");
         if (node == null) //Nothing is selected.
         {
             return;
@@ -370,6 +370,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
                 documentFile.seek(startIndex);
                 documentFile.read(documentationData, 0, length);
                 String documentationDataString = new String(documentationData);
+
+                documentationDataString = documentationDataString.replace("$", "");
+
                 String html = textToHtml(documentationDataString);
                 editorPane.setText(html);
                 //editorPane.validate();
