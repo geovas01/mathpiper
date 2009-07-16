@@ -19,7 +19,7 @@ HoldArg("MapSingle",func);
 
 
 
-%mathpiper_docs,name="MapSingle"
+%mathpiper_docs,name="MapSingle",categories="User Functions;Lists (Operations)"
 *CMD MapSingle --- apply a unary function to all entries in a list
 *STD
 *CALL

@@ -6,7 +6,7 @@ Function("PopFront",{stack}) Pop(stack,1);
 
 
 
-%mathpiper_docs,name="PopFront"
+%mathpiper_docs,name="PopFront",categories="User Functions;Lists (Operations)"
 *CMD PopFront --- remove an element from the top of a stack
 *STD
 *CALL

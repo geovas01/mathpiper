@@ -25,7 +25,7 @@ MatrixPower(x_IsSquareMatrix, n_IsNegativeInteger) <--
 
 
 
-%mathpiper_docs,name="MatrixPower"
+%mathpiper_docs,name="MatrixPower",categories="User Functions;Linear Algebra"
 *CMD MatrixPower --- get nth power of a square matrix
 *STD
 *CALL

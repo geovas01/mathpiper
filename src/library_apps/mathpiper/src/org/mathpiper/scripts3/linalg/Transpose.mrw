@@ -14,7 +14,7 @@ Transpose(matrix_IsList)_(Length(Dimensions(matrix))>1) <--
 
 
 
-%mathpiper_docs,name="Transpose"
+%mathpiper_docs,name="Transpose",categories="User Functions;Linear Algebra"
 *CMD Transpose --- get transpose of a matrix
 *STD
 *CALL

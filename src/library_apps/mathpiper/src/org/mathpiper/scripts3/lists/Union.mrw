@@ -9,7 +9,7 @@ Function("Union",{list1,list2})
 
 
 
-%mathpiper_docs,name="Union"
+%mathpiper_docs,name="Union",categories="User Functions;Lists (Operations)"
 *CMD Union --- return the union of two lists
 *STD
 *CALL

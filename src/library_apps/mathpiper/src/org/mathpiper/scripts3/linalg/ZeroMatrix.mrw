@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="ZeroMatrix"
+%mathpiper_docs,name="ZeroMatrix",categories="User Functions;Linear Algebra"
 *CMD ZeroMatrix --- make a zero matrix
 *STD
 *CALL

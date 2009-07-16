@@ -18,7 +18,7 @@
 
 
 
-%mathpiper_docs,name="PrintList"
+%mathpiper_docs,name="PrintList",categories="User Functions;Lists (Operations)"
 *CMD PrintList --- print list with padding
 *STD
 *CALL

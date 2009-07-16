@@ -6,7 +6,7 @@ Minor(matrix,i,j) := CoFactor(matrix,i,j)*(-1)^(i+j);
 
 
 
-%mathpiper_docs,name="Minor"
+%mathpiper_docs,name="Minor",categories="User Functions;Linear Algebra"
 *CMD Minor --- get principal minor of a matrix
 *STD
 *CALL

@@ -21,7 +21,7 @@ LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
 
 
 
-%mathpiper_docs,name="Map"
+%mathpiper_docs,name="Map",categories="User Functions;Lists (Operations)"
 *CMD Map --- apply an $n$-ary function to all entries in a list
 *STD
 *CALL

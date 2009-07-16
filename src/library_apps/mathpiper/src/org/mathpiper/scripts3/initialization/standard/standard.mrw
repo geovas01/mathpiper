@@ -356,7 +356,7 @@ it will return {False}.
 
 
 
-%mathpiper_docs,name="Nth"
+%mathpiper_docs,name="Nth",categories="User Functions;Lists (Operations)"
 *CMD Nth --- return the $n$-th element of a list
 *CORE
 *CALL
@@ -398,7 +398,7 @@ An alternative but equivalent form of {Nth(list, n)} is
 
 
 
-%mathpiper_docs,name="NrArgs"
+%mathpiper_docs,name="NrArgs",categories="User Functions;Lists (Operations)"
 *CMD NrArgs --- return number of top-level arguments
 *STD
 *CALL
@@ -428,7 +428,7 @@ that would lead to an error.
 
 
 
-%mathpiper_docs,name="TableForm"
+%mathpiper_docs,name="TableForm",categories="User Functions;Lists (Operations)"
 *CMD TableForm --- print each entry in a list on a line
 *STD
 *CALL
