@@ -7,7 +7,7 @@ ToeplitzMatrix(N):=GenMatrix({{i,j},N[Abs(i-j)+1]}, Length(N), Length(N) );
 
 
 
-%mathpiper_docs,name="ToeplitzMatrix"
+%mathpiper_docs,name="ToeplitzMatrix",categories="User Functions;Matrices (Special)"
 *CMD ToeplitzMatrix --- create a Toeplitz matrix
 *STD
 *CALL

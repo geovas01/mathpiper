@@ -18,7 +18,7 @@
 
 
 
-%mathpiper_docs,name="ArcTanN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="ArcTanN",categories="User Functions;Numeric"
 *CMD ArcTanN --- inverse tangent (arbitrary-precision math function)
 *CALL
 	ArcTanN(x)

@@ -22,7 +22,7 @@ Defun("ArcSinN",{int1})
 
 
 
-%mathpiper_docs,name="ArcSinN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="ArcSinN",categories="User Functions;Numeric"
 *CMD ArcSinN --- inverse sine (arbitrary-precision math function)
 *CALL
 	ArcSinN(x)

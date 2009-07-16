@@ -42,7 +42,7 @@ public class Multiply extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MultiplyN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="MultiplyN",categories="User Functions;Numeric;Built In"
 *CMD MultiplyN --- multiply two numbers (arbitrary-precision math function)
 *CORE
 *CALL

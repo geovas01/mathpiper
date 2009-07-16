@@ -8,7 +8,7 @@
 
 
 
-%mathpiper_docs,name="ArcTanhN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="ArcTanhN",categories="User Functions;Numeric"
 *CMD ArcTanhN --- inverse hyperbolic tangent (arbitrary-precision math function)
 *CALL
 	ArcTanhN(x)  ()

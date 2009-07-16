@@ -44,7 +44,7 @@
 
 
 
-%mathpiper_docs,name="Floor",categories="User Functions;Numbers (Operations);Built In"
+%mathpiper_docs,name="Floor",categories="User Functions;Numbers (Operations)"
 *CMD Floor --- round a number downwards
 *STD
 *CALL

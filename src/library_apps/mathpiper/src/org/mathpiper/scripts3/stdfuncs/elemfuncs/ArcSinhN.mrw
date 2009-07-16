@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="ArcSinhN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="ArcSinhN",categories="User Functions;Numeric"
 *CMD ArcSinhN --- inverse hyperbolic sine (arbitrary-precision math function)
 *CALL
 	ArcSinhN(x)

@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="SinhN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="SinhN",categories="User Functions;Numeric"
 *CMD SinhN --- hyperbolic sine (arbitrary-precision math function)
 *CALL
 	SinhN(x)

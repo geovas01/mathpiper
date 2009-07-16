@@ -16,7 +16,7 @@ Defun("ExpN", {x})
 
 
 
-%mathpiper_docs,name="ExpN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="ExpN",categories="User Functions;Numeric"
 *CMD ExpN --- exponential (base 2.718)...(arbitrary-precision math function)
 *CALL
 	ExpN(x)

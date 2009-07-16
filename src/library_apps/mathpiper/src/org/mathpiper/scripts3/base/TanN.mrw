@@ -8,7 +8,7 @@ Defun("TanN",{x})DivideN(SinN(x),CosN(x));
 
 
 
-%mathpiper_docs,name="TanN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="TanN",categories="User Functions;Numeric"
 *CMD TanN --- tangent (arbitrary-precision math function)
 *CALL
 	TanN(x)

@@ -8,7 +8,7 @@ WronskianMatrix(f,v):=GenMatrix({{i,j}, Deriv(v,i-1) f[j]}, Length(f), Length(f)
 
 
 
-%mathpiper_docs,name="WronskianMatrix"
+%mathpiper_docs,name="WronskianMatrix",categories="User Functions;Matrices (Special)"
 *CMD WronskianMatrix --- create the Wronskian matrix
 *STD
 *CALL

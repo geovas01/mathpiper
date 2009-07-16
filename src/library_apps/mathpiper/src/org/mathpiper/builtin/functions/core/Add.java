@@ -63,7 +63,7 @@ public class Add extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="AddN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="AddN",categories="User Functions;Numeric"
 *CMD AddN --- add two numbers (arbitrary-precision math function)
 *CORE
 *CALL

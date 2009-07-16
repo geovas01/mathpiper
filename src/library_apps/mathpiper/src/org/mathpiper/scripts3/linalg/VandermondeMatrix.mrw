@@ -18,7 +18,7 @@ Function("VandermondeMatrix",{vector})[
 
 
 
-%mathpiper_docs,name="VandermondeMatrix"
+%mathpiper_docs,name="VandermondeMatrix",categories="User Functions;Matrices (Special)"
 *CMD VandermondeMatrix --- create the Vandermonde matrix
 *STD
 *CALL
