@@ -1,5 +1,11 @@
-%mathpiper,def="GcdN"
+%mathpiper,def=""
 
+/*
+todo:tk:this function was accidently shadowed by a built in function when the names of all MathXXX functions
+were changed to XXXN.  However, I checked JYacas and GcdN was not used anyplace in the scripts anyway
+so the shadowing did not seem to cause any harm.  I am commenting this function out until a reason
+can be found to uncomment it.
+*/
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
  *  It is assumed that the arguments are real (not complex) floating-point or integer numbers. (The {InNumericMode()} flag does not have to be set.)
@@ -8,7 +14,7 @@
  *  If a better optimized version of these functions is available through the kernel,
  *  then the kernel version will automatically shadow these functions.
  *  These implementations are not necessarily the best optimized versions.
- */
+
 
 /// GcdN(x,y). Compute the GCD of two integers using the binary Euclidean algorithm.
 5 # GcdN(x_IsNegativeInteger, y_IsInteger) <-- GcdN(-x, y);
@@ -35,5 +41,6 @@
 	];
 	x;
 ];
+ */
 
 %/mathpiper
