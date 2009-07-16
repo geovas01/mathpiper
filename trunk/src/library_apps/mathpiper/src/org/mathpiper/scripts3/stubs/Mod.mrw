@@ -50,13 +50,11 @@
 %/mathpiper
 
 
-%mathpiper_docs,name="Div;Mod",categories="User Functions;Numbers (Operations);Built In"
-*CMD Div --- Determine divisor of two mathematical objects
+%mathpiper_docs,name="Mod",categories="User Functions;Numbers (Operations)"
 *CMD Mod --- Determine remainder of two mathematical objects after dividing one by the other
 
 *STD
 *CALL
-	Div(x,y)
 	Mod(x,y)
 
 *PARMS
@@ -65,8 +63,7 @@
 
 *DESC
 
-{Div} performs integer division and {Mod} returns the remainder after division. {Div} and
-{Mod} are also defined for polynomials.
+{Mod} returns the remainder after division.  {Mod} is also defined for polynomials.
 
 If {Div(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
@@ -77,5 +74,5 @@ If {Div(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy 
 	In> Mod(5,3)
 	Out> 2;
 
-*SEE Gcd, Lcm
+*SEE Gcd, Lcm, Div
 %/mathpiper_docs
