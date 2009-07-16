@@ -28,7 +28,7 @@ Function("SolveMatrix",{matrix,vector})
 
 
 
-%mathpiper_docs,name="SolveMatrix"
+%mathpiper_docs,name="SolveMatrix",categories="User Functions;Linear Algebra"
 *CMD SolveMatrix --- solve a linear system
 *STD
 *CALL

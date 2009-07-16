@@ -26,7 +26,7 @@ Rule("Take", 2, 2, range < 0)
 
 
 
-%mathpiper_docs,name="Take"
+%mathpiper_docs,name="Take",categories="User Functions;Lists (Operations)"
 *CMD Take --- take a sublist from a list, dropping the rest
 *STD
 *CALL

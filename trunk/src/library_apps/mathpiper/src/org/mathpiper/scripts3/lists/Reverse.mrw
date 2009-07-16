@@ -7,7 +7,7 @@ Reverse(list):=DestructiveReverse(FlatCopy(list));
 
 
 
-%mathpiper_docs,name="Reverse"
+%mathpiper_docs,name="Reverse",categories="User Functions;Lists (Operations)"
 *CMD Reverse --- return the reversed list (without touching the original)
 *STD
 *CALL

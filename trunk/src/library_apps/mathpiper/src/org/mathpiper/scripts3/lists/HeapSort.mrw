@@ -42,7 +42,7 @@ HeapSort(list, compare) := HeapSort(list, ArrayCreate(Length(list), 0), 1, Lengt
 
 
 
-%mathpiper_docs,name="HeapSort"
+%mathpiper_docs,name="HeapSort",categories="User Functions;Lists (Operations)"
 *CMD BubbleSort --- sort a list
 *CMD HeapSort --- sort a list
 *STD

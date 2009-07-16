@@ -12,7 +12,7 @@ Function("Pop",{stack,index})
 
 
 
-%mathpiper_docs,name="Pop"
+%mathpiper_docs,name="Pop",categories="User Functions;Lists (Operations)"
 *CMD Pop --- remove an element from a stack
 *STD
 *CALL

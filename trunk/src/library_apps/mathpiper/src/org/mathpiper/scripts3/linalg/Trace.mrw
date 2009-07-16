@@ -6,7 +6,7 @@ Trace(matrix_IsList) <-- Tr(matrix);
 
 
 
-%mathpiper_docs,name="Trace"
+%mathpiper_docs,name="Trace",categories="User Functions;Linear Algebra"
 *CMD Trace --- trace of a matrix
 *STD
 *CALL

@@ -29,7 +29,7 @@ UnFence("Table",5);
 
 
 
-%mathpiper_docs,name="Table"
+%mathpiper_docs,name="Table",categories="User Functions;Lists (Operations)"
 *CMD Table --- evaluate while some variable ranges over interval
 *STD
 *CALL

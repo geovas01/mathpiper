@@ -20,7 +20,7 @@ LocalSymbols(predicate,list,result,item)
 
 
 
-%mathpiper_docs,name="Select"
+%mathpiper_docs,name="Select",categories="User Functions;Lists (Operations)"
 *CMD Select --- select entries satisfying some predicate
 *STD
 *CALL

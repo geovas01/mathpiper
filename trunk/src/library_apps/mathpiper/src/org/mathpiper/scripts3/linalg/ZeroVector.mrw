@@ -15,7 +15,7 @@ Function("ZeroVector",{n})
 
 
 
-%mathpiper_docs,name="ZeroVector"
+%mathpiper_docs,name="ZeroVector",categories="User Functions;Linear Algebra"
 *CMD ZeroVector --- create a vector with all zeroes
 *STD
 *CALL

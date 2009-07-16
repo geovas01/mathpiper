@@ -17,7 +17,7 @@ Function("Sparsity",{matrix})
 
 
 
-%mathpiper_docs,name="Sparsity"
+%mathpiper_docs,name="Sparsity",categories="User Functions;Linear Algebra"
 *CMD Sparsity --- get the sparsity of a matrix
 *STD
 *CALL

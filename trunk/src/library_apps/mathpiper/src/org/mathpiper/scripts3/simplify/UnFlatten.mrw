@@ -8,7 +8,7 @@
 
 
 
-%mathpiper_docs,name="UnFlatten"
+%mathpiper_docs,name="UnFlatten",categories="User Functions;Lists (Operations)"
 *CMD UnFlatten --- inverse operation of Flatten
 *STD
 *CALL

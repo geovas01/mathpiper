@@ -12,7 +12,7 @@ Partition(lst, len):=
 
 
 
-%mathpiper_docs,name="Partition"
+%mathpiper_docs,name="Partition",categories="User Functions;Lists (Operations)"
 *CMD Partition --- partition a list in sublists of equal length
 *STD
 *CALL
