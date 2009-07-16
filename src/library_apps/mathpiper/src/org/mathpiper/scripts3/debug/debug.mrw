@@ -264,7 +264,7 @@ DebugShowCode():=
 
 
 
-%mathpiper_docs,name="TraceExp"
+%mathpiper_docs,name="TraceExp",categories="User Functions;Control Flow"
 *CMD TraceExp --- evaluate with tracing enabled
 *CORE
 *CALL
@@ -321,7 +321,7 @@ probably more useful  for all but very simple expressions.
 
 
 
-%mathpiper_docs,name="Time"
+%mathpiper_docs,name="Time",categories="User Functions;Control Flow"
 *CMD Time --- measure the time taken by a function
 *STD
 *CALL

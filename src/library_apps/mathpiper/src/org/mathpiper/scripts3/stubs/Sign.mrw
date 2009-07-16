@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="Sign"
+%mathpiper_docs,name="Sign",categories="User Functions;Calculus Related (Symbolic)"
 *CMD Sign --- sign of a number
 *STD
 *CALL

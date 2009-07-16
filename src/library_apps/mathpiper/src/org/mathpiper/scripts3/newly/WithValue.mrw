@@ -14,7 +14,7 @@ TemplateFunction("WithValue",{var,val,expr})
 
 
 
-%mathpiper_docs,name="WithValue"
+%mathpiper_docs,name="WithValue",categories="User Functions;Control Flow"
 *CMD WithValue --- temporary assignment during an evaluation
 *STD
 *CALL
