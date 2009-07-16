@@ -12,7 +12,7 @@ LogN(x) := Internal'LnNum(x);
 
 
 
-%mathpiper_docs,name="LogN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="LogN",categories="User Functions;Numeric"
 *CMD LogN --- natural logarithm for x > 0 (arbitrary-precision math function)
 *CALL
 	LogN(x)

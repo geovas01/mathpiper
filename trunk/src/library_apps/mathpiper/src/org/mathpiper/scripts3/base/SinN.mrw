@@ -8,7 +8,7 @@ Defun("SinN",{x})Trigonometry(x,1.0,x,x);
 
 
 
-%mathpiper_docs,name="SinN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="SinN",categories="User Functions;Numeric"
 *CMD SinN --- sine (arbitrary-precision math function)
 *CALL
 	SinN(x)

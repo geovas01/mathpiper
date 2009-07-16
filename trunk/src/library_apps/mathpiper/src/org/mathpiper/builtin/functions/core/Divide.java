@@ -59,7 +59,7 @@ public class Divide extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DivideN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="DivideN",categories="User Functions;Numeric;Built In"
 *CMD DivideN --- divide two numbers (arbitrary-precision math function)
 *CORE
 *CALL

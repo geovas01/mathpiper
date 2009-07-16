@@ -8,7 +8,7 @@ Defun("CosN",{x})Trigonometry(x,0.0,1.0,1.0);
 
 
 
-%mathpiper_docs,name="CosN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="CosN",categories="User Functions;Numeric"
 *CMD CosN --- cosine (arbitrary-precision math function)
 *CALL
 	CosN(x)

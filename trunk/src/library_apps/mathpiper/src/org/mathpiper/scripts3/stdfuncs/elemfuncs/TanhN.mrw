@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="TanhN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="TanhN",categories="User Functions;Numeric"
 *CMD TanhN ---  hyperbolic tangent (arbitrary-precision math function)
 *CALL
 	TanhN(x)

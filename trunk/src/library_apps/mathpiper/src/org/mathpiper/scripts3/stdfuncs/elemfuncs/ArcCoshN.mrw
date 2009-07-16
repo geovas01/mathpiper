@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="ArcCoshN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="ArcCoshN",categories="User Functions;Numeric"
 *CMD ArcCoshN --- inverse hyperbolic cosine (arbitrary-precision math function)
 *CALL
 	ArcCoshN(x)

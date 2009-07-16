@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="CoshN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="CoshN",categories="User Functions;Numeric"
 *CMD CoshN --- hyperbolic cosine (arbitrary-precision math function)
 *CALL
 	CoshN(x)

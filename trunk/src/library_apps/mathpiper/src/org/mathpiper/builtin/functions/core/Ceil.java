@@ -43,7 +43,7 @@ public class Ceil extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="CeilN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="CeilN",categories="User Functions;Numeric;Built In"
 *CMD CeilN --- natural logarithm for x > 0 (arbitrary-precision math function)
 *CORE
 *CALL

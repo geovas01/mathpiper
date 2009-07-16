@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Environment;
 
 
 /*
-%mathpiper_docs,name="FloorN",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="FloorN",categories="User Functions;Numeric;Built In"
 *CMD FloorN --- largest integer not larger than x (arbitrary-precision math function)
 *CORE
 *CALL
