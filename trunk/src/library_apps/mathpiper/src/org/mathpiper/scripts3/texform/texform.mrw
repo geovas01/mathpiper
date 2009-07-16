@@ -360,7 +360,7 @@ Function ("TeXFormPrintMatrix", {M})
 
 
 
-%mathpiper_docs,name="TeXForm"
+%mathpiper_docs,name="TeXForm",categories="User Functions;Input/Output"
 *CMD TeXForm --- export expressions to $LaTeX$
 *STD
 *CALL

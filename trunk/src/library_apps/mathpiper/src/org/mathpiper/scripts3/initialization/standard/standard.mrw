@@ -316,7 +316,7 @@ neither rational nor numeric, the function returns unevaluated.
 
 
 
-%mathpiper_docs,name="V;InVerboseMode"
+%mathpiper_docs,name="V;InVerboseMode",categories="User Functions;Input/Output"
 *CMD V, InVerboseMode --- set verbose output mode
 *STD
 *CALL

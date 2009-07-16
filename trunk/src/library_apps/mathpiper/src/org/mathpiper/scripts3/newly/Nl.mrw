@@ -8,7 +8,7 @@ Nl():=
 
 
 
-%mathpiper_docs,name="Nl"
+%mathpiper_docs,name="Nl",categories="User Functions;Input/Output"
 *CMD Nl --- the newline character
 *STD
 *CALL

@@ -706,7 +706,7 @@ Use("org/mathpiper/scripts/functional.rep/om.mpi");
 
 
 
-%mathpiper_docs,name="OMForm;OMRead"
+%mathpiper_docs,name="OMForm;OMRead",categories="User Functions;Input/Output"
 *CMD OMForm --- convert Yacas expression to OpenMath
 *CMD OMRead --- convert expression from OpenMath to Yacas expression
 *STD
@@ -768,7 +768,7 @@ name as it has in Yacas.
 
 
 
-%mathpiper_docs,name="OMDef"
+%mathpiper_docs,name="OMDef",categories="User Functions;Input/Output"
 *CMD OMDef --- define translations from Yacas to OpenMath and vice-versa.
 *STD
 *CALL

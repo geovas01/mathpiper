@@ -44,7 +44,7 @@ UnFence("Where",2);
 
 
 
-%mathpiper_docs,name="Where"
+%mathpiper_docs,name="Where",categories="User Functions;Functional Operators"
 *CMD Where --- substitute result into expression
 *STD
 *CALL
