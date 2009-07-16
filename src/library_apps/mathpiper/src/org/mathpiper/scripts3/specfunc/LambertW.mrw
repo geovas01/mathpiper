@@ -50,7 +50,7 @@ The function has real values for real $x >= -Exp(-1)$. (This point is a logarith
 
 
 
-%mathpiper_docs,name="LambertW"
+%mathpiper_docs,name="LambertW",categories="User Functions;Special"
 *CMD LambertW --- Lambert's $W$ function
 
 *STD

@@ -7,7 +7,7 @@ NewLine(n):= WriteN(Nl(),n);
 
 
 
-%mathpiper_docs,name="NewLine"
+%mathpiper_docs,name="NewLine",categories="User Functions;Input/Output"
 *CMD NewLine --- print one or more newline characters
 *STD
 *CALL

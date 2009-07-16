@@ -22,7 +22,7 @@
 
 
 
-%mathpiper_docs,name="Gamma"
+%mathpiper_docs,name="Gamma",categories="User Functions;Special"
 *CMD Gamma --- Euler's Gamma function
 *STD
 *CALL

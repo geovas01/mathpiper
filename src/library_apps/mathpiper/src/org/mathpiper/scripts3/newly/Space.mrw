@@ -7,7 +7,7 @@ Space(n):= WriteN(" ",n);
 
 
 
-%mathpiper_docs,name="Space"
+%mathpiper_docs,name="Space",categories="User Functions;Input/Output"
 *CMD Space --- print one or more spaces
 *STD
 *CALL

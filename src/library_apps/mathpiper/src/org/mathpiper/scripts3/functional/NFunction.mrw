@@ -34,7 +34,7 @@ NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
 
 
 
-%mathpiper_docs,name="NFunction"
+%mathpiper_docs,name="NFunction",categories="User Functions;Functional Operators"
 *CMD NFunction --- make wrapper for numeric functions
 *STD
 *CALL

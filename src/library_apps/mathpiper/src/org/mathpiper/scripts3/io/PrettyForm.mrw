@@ -445,7 +445,7 @@ HoldArg("EvalFormula",f);
 
 
 
-%mathpiper_docs,name="PrettyForm"
+%mathpiper_docs,name="PrettyForm",categories="User Functions;Input/Output"
 *CMD PrettyForm --- print an expression nicely with ASCII art
 *STD
 *CALL
@@ -479,7 +479,7 @@ complex than a simple number.
 
 
 
-%mathpiper_docs,name=""
+%mathpiper_docs,name="EvalFormula",categories="User Functions;Input/Output"
 *CMD EvalFormula --- print an evaluation nicely with ASCII art
 *STD
 *CALL

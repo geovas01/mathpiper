@@ -21,7 +21,7 @@
 
 
 
-%mathpiper_docs,name="Zeta"
+%mathpiper_docs,name="Zeta",categories="User Functions;Special"
 *CMD Zeta --- Riemann's Zeta function
 
 *STD

@@ -214,7 +214,7 @@ Plot2D'adaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
 
 
 
-%mathpiper_docs,name="Plot2D"
+%mathpiper_docs,name="Plot2D",categories="User Functions;Input/Output"
 *CMD Plot2D --- adaptive two-dimensional plotting
 *STD
 *CALL
