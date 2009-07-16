@@ -11,7 +11,7 @@ Function("Subfactorial",{n})
 
 
 
-%mathpiper_docs,name="Subfactorial"
+%mathpiper_docs,name="Subfactorial",categories="User Functions;Combinatorics"
 *CMD !  --- factorial
 *CMD !!  --- factorial and related functions
 *CMD ***  --- factorial and related functions

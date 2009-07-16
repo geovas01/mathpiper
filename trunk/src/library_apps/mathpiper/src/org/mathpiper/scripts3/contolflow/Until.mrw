@@ -17,7 +17,7 @@ HoldArgNr("Until",2,2);
 
 
 
-%mathpiper_docs,name="Until"
+%mathpiper_docs,name="Until",categories="User Functions;Control Flow"
 *CMD Until --- loop until a condition is met
 *STD
 *CALL

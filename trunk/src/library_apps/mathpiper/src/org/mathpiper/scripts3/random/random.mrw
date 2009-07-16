@@ -300,14 +300,13 @@ Function("Random5",{}) RandomLCG(18014398509481984,2783377640906189,0);
 Function("Random",{}) Random3();
 
 
-
-
-
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Random;RandomSeed"
+
+
+%mathpiper_docs,name="Random;RandomSeed",categories="User Functions;Numbers (Random)"
 *CMD Random, RandomSeed --- (pseudo-) random number generator
 *STD
 *CALL
@@ -331,7 +330,9 @@ Each seed value will result in the same sequence of pseudo-random numbers.
 
 
 
-%mathpiper_docs,name="RngCreate;RngSeed;Rng"
+
+
+%mathpiper_docs,name="RngCreate;RngSeed;Rng",categories="User Functions;Numbers (Random)"
 *CMD RngCreate --- manipulate random number generators as objects
 *CMD RngSeed --- manipulate random number generators as objects
 *CMD Rng --- manipulate random number generators as objects
@@ -410,7 +411,7 @@ The generator {r1} can be re-initialized with seed 1 again to obtain the same se
 
 
 
-%mathpiper_docs,name="RandomIntegerMatrix"
+%mathpiper_docs,name="RandomIntegerMatrix",categories="User Functions;Numbers (Random)"
 *CMD RandomIntegerMatrix --- generate a matrix of random integers
 
 *STD
@@ -455,7 +456,7 @@ are uniformly distributed in this interval.
 
 
 
-%mathpiper_docs,name="RandomIntegerVector"
+%mathpiper_docs,name="RandomIntegerVector",categories="User Functions;Numbers (Random)"
 *CMD RandomIntegerVector --- generate a vector of random integers
 
 *STD
@@ -487,7 +488,7 @@ are uniformly distributed in this interval.
 
 
 
-%mathpiper_docs,name="RandomPoly"
+%mathpiper_docs,name="RandomPoly",categories="User Functions;Numbers (Random)"
 *CMD RandomPoly --- construct a random polynomial
 *STD
 *CALL

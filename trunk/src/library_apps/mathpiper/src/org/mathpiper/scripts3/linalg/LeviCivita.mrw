@@ -35,7 +35,7 @@ Function("LeviCivita",{indices})
 
 
 
-%mathpiper_docs,name="LeviCivita"
+%mathpiper_docs,name="LeviCivita",categories="User Functions;Combinatorics"
 *CMD LeviCivita --- totally anti-symmetric Levi-Civita symbol
 *STD
 *CALL

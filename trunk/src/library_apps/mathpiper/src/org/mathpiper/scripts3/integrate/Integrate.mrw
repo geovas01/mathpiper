@@ -102,7 +102,7 @@
 
 
 
-%mathpiper_docs,name="Integrate"
+%mathpiper_docs,name="Integrate",categories="User Functions;Calculus Related (Symbolic)"
 *CMD Integrate --- integration
 
 *STD

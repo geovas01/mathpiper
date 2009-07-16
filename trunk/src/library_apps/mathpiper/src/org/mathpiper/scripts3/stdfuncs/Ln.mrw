@@ -20,7 +20,7 @@ Ln(xlist_IsList) <-- MapSingle("Ln",xlist);
 
 
 
-%mathpiper_docs,name="Ln"
+%mathpiper_docs,name="Ln",categories="User Functions;Calculus Related (Symbolic)"
 *CMD Ln --- natural logarithm
 *STD
 *CALL

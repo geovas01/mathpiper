@@ -22,7 +22,7 @@
 
 
 
-%mathpiper_docs,name="Simplify"
+%mathpiper_docs,name="Simplify",categories="User Functions;Expression Simplification"
 *CMD Simplify --- try to simplify an expression
 *STD
 *CALL

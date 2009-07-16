@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,name="LnExpand"
+%mathpiper_docs,name="LnExpand",categories="User Functions;Expression Simplification"
 *CMD LnExpand --- expand a logarithmic expression using standard logarithm rules
 *STD
 *CALL

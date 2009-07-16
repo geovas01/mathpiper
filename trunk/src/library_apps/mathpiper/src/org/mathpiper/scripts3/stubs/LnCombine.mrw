@@ -73,7 +73,7 @@ LnCombine(_a) <-- DoLnCombine(CanonicalAdd(a));
 
 
 
-%mathpiper_docs,name="LnCombine"
+%mathpiper_docs,name="LnCombine",categories="User Functions;Expression Simplification"
 *CMD LnCombine --- combine logarithmic expressions using standard logarithm rules
 *STD
 *CALL
