@@ -1,0 +1,96 @@
+%mathpiper,def="Simplify"
+
+10 # Simplify(expr_IsList) <-- MapSingle("Simplify",expr);
+
+15 # Simplify(Complex(_r,_i)) <-- Complex(Simplify(r),Simplify(i));
+
+20 # Simplify((_xex) == (_yex)) <-- (Simplify(xex-yex) == 0);
+
+20 # Simplify((_xex) > (_yex)) <-- (Simplify(xex-yex) > 0);
+20 # Simplify((_xex) < (_yex)) <-- (Simplify(xex-yex) < 0);
+20 # Simplify((_xex) >= (_yex)) <-- (Simplify(xex-yex) >= 0);
+20 # Simplify((_xex) <= (_yex)) <-- (Simplify(xex-yex) <= 0);
+20 # Simplify((_xex) !== (_yex)) <-- (Simplify(xex-yex) !== 0);
+
+// conditionals
+25 # Simplify(if (_a) _b) <-- "if" @ {Simplify(a), Simplify(b)};
+25 # Simplify(_a else _b) <-- "else" @ {Simplify(a), Simplify(b)};
+
+
+//Testing with Simplify(1+1/x)  
+50 # Simplify(_expr) <-- 
+[
+    Local(s,g);
+
+    s := MultiSimp(Eval(expr));
+
+    If(IsRationalFunction(s) And ( Type(Numer(s)) != "Numer") And ( Type(Denom(s)) != "Denom"),
+    [
+        Echo("s ",s);
+        Echo("Numer(s) ", Numer(s));
+        Echo("Denom(s) ", Denom(s));
+        g := Gcd(Numer(s),Denom(s));
+        Echo("g ",g);
+        If( InVerboseMode(),
+          [
+             Show(10,expr);
+             Show(11,s);
+             Show(12,Equals(s,expr));
+             Show(13,g);
+             NewLine();
+           ]
+        );
+
+        If( s=expr,
+              [
+                  If( Equals(Numer(expr),-Denom(expr)), s := -1 );
+                  /* And here one can put other simplifications, as they are developed */
+              ],
+              [
+                  s := Simplify((Numer(expr)/g))/Simplify(Denom(expr)/g);
+
+                  If(InVerboseMode(),Tell(14,s));
+              ]
+          );
+          s;
+    ],
+    [
+        s;
+    ]
+    );
+];
+
+
+10 # IsRationalFunction(x_IsRationalOrNumber) <-- False;
+15 # IsRationalFunction(_x)_(Type(x)="/") <-- True;
+60000 # IsRationalFunction(_x) <-- False;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Simplify",categories="User Functions;Expression Simplification"
+*CMD Simplify --- try to simplify an expression
+*STD
+*CALL
+	Simplify(expr)
+
+*PARMS
+
+{expr} -- expression to simplify
+
+*DESC
+
+This function tries to simplify the expression {expr} as much
+as possible. It does this by grouping powers within terms, and then
+grouping similar terms.
+
+*E.G.
+
+	In> a*b*a^2/b-a^3
+	Out> (b*a^3)/b-a^3;
+	In> Simplify(a*b*a^2/b-a^3)
+	Out> 0;
+
+*SEE TrigSimpCombine, RadSimp
+%/mathpiper_docs
