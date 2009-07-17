@@ -36,6 +36,7 @@ import java.io.*;
 import java.util.ArrayList;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.StringOutput;
+import org.mathpiper.lisp.Evaluator;
 
 /**
  * 
@@ -275,7 +276,9 @@ class SynchronousInterpreter implements Interpreter {
             //Uncomment this for debugging();
             //exception.printStackTrace();
 
-
+            Evaluator.DEBUG = false;
+            Evaluator.VERBOSE_DEBUG = false;
+            
             if (exception instanceof EvaluationException) {
                 EvaluationException mpe = (EvaluationException) exception;
                 int errorLineNumber = mpe.getLineNumber();
