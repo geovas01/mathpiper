@@ -19,7 +19,7 @@ IsError(error'class_IsString) <--
 
 
 
-%mathpiper_docs,name="IsError",categories="Programmer Functions;Error Reporting"
+%mathpiper_docs,name="IsError",categories="Programmer Functions;Error Reporting;Predicates"
 *CMD IsError --- check for custom error
 *STD
 *CALL

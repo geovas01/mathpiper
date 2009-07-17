@@ -25,7 +25,7 @@ IsRationalOrNumber(_x) <-- (IsNumber(x) Or IsRationalNumeric(x));
 
 
 
-%mathpiper_docs,name="IsRational",categories="User Functions;Numbers (Predicates)"
+%mathpiper_docs,name="IsRational",categories="User Functions;Numbers (Predicates);Predicates"
 *CMD IsRational --- test whether argument is a rational
 *STD
 *CALL

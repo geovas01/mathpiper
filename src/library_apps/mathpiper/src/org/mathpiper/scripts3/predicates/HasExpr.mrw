@@ -18,15 +18,11 @@
 
 
 
-%mathpiper_docs,name="HasExpr"
+%mathpiper_docs,name="HasExpr",categories="User Functions;Predicates"
 *CMD HasExpr --- check for expression containing a subexpression
-*CMD HasExprArith --- check for expression containing a subexpression
-*CMD HasExprSome --- check for expression containing a subexpression
 *STD
 *CALL
 	HasExpr(expr, x)
-	HasExprArith(expr, x)
-	HasExprSome(expr, x, list)
 
 *PARMS
 
@@ -34,15 +30,11 @@
 
 {x} -- a subexpression to be found
 
-{list} -- list of function atoms to be considered "transparent"
+
 
 *DESC
 
 The command {HasExpr} returns {True} if the expression {expr} contains a literal subexpression {x}. The expression is recursively traversed.
-
-The command {HasExprSome} does the same, except it only looks at arguments of a given {list} of functions. All other functions become "opaque" (as if they do not contain anything).
-
-{HasExprArith} is defined through {HasExprSome} to look only at arithmetic operations {+}, {-}, {*}, {/}.
 
 Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {Atom("+")} to obtain the unevaluated atom "{+}".
 
@@ -54,12 +46,6 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 	Out> True;
 	In> HasExpr(x+y*Cos(Ln(z)/z), z/Ln(z))
 	Out> False;
-	In> HasExprArith(x+y*Cos(Ln(x)/x), z)
-	Out> False;
-	In> HasExprSome({a+b*2,c/d},c/d,{List})
-	Out> True;
-	In> HasExprSome({a+b*2,c/d},c,{List})
-	Out> False;
 
-*SEE FuncList, VarList, HasFunc
+*SEE HasExprArith, HasExprSome, FuncList, VarList, HasFunc
 %/mathpiper_docs

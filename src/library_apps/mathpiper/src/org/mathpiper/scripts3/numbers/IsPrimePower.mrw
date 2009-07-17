@@ -10,7 +10,7 @@
 
 
 
-%mathpiper_docs,name="IsPrimePower",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsPrimePower",categories="User Functions;Number Theory;Predicates"
 *CMD IsPrimePower --- test for a power of a prime number
 *STD
 *CALL

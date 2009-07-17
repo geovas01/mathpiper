@@ -12,7 +12,7 @@ IsNegativeReal(_r) <--
 
 
 
-%mathpiper_docs,name="IsNegativeReal"
+%mathpiper_docs,name="IsNegativeReal",categories="User Functions;Predicates"
 *CMD IsNegativeReal --- test for a numerically negative value
 *STD
 *CALL

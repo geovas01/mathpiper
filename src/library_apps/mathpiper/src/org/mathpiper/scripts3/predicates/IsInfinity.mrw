@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,name="IsInfinity"
+%mathpiper_docs,name="IsInfinity",categories="User Functions;Predicates"
 *CMD IsInfinity --- test for an infinity
 *STD
 *CALL

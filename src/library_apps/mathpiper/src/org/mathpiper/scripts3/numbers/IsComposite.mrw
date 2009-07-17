@@ -7,7 +7,7 @@
 
 
 
-%mathpiper_docs,name="IsComposite",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsComposite",categories="User Functions;Number Theory;Predicates"
 *CMD IsComposite --- test for a composite number
 *STD
 *CALL

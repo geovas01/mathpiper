@@ -6,7 +6,7 @@ IsGaussianUnit(z_IsGaussianInteger) <-- GaussianNorm(z)=1;
 
 
 
-%mathpiper_docs,name="IsGaussianUnit",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsGaussianUnit",categories="User Functions;Number Theory;Predicates"
 *CMD IsGaussianUnit ---  test for a Gaussian unit
 *STD
 *CALL

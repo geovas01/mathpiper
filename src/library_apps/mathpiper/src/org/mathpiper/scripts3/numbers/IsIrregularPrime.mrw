@@ -25,7 +25,7 @@
 
 
 
-%mathpiper_docs,name="IsIrregularPrime",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsIrregularPrime",categories="User Functions;Number Theory;Predicates"
 *CMD IsIrregularPrime --- test for an irregular prime
 *STD
 *CALL

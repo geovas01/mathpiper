@@ -7,7 +7,7 @@
 
 
 
-%mathpiper_docs,name="IsCoprime",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsCoprime",categories="User Functions;Number Theory;Predicates"
 *CMD IsCoprime --- test if integers are coprime 
 *STD
 *CALL

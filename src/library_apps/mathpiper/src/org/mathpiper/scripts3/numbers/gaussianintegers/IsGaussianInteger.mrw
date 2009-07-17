@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,name="IsGaussianInteger"
+%mathpiper_docs,name="IsGaussianInteger",categories="User Functions;Predicates"
 *CMD IsGaussianInteger ---  test for a Gaussian integer
 *STD
 *CALL

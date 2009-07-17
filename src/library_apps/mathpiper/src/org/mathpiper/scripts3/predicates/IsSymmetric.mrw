@@ -6,7 +6,7 @@ IsSymmetric(A_IsMatrix) <-- (Transpose(A)=A);
 
 
 
-%mathpiper_docs,name="IsSymmetric",categories="User Functions;Matrices (Predicates)"
+%mathpiper_docs,name="IsSymmetric",categories="User Functions;Matrices (Predicates);Predicates"
 *CMD IsSymmetric --- test for a symmetric matrix
 *STD
 *CALL

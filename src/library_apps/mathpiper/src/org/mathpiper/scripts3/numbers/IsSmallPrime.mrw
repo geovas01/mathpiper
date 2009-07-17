@@ -10,7 +10,7 @@ The largest prime number in the table is returned by FastIsPrime(0). */
 
 
 
-%mathpiper_docs,name="IsSmallPrime",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsSmallPrime",categories="User Functions;Number Theory;Predicates"
 *CMD IsPrime --- test for a prime number
 *CMD IsSmallPrime --- test for a (small) prime number
 *STD

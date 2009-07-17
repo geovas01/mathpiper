@@ -54,7 +54,7 @@ LocalSymbols(CFormAllFunctions) [
 
 
 
-%mathpiper_docs,name="IsCFormable",categories="User Functions;Input/Output"
+%mathpiper_docs,name="IsCFormable",categories="User Functions;Input/Output;Predicates"
 *CMD IsCFormable --- check possibility to export expression to C++ code
 *STD
 *CALL

@@ -6,7 +6,7 @@ IsTwinPrime(n_IsPositiveInteger)	<-- (IsPrime(n) And IsPrime(n+2));
 
 
 
-%mathpiper_docs,name="IsTwinPrime",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsTwinPrime",categories="User Functions;Number Theory;Predicates"
 *CMD IsTwinPrime --- test for a twin prime
 *STD
 *CALL

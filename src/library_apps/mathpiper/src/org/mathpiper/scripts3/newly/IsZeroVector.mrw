@@ -6,7 +6,7 @@ Function("IsZeroVector",{aList}) aList = ZeroVector(Length(aList));
 
 
 
-%mathpiper_docs,name="IsZeroVector"
+%mathpiper_docs,name="IsZeroVector",categories="User Functions;Predicates"
 *CMD IsZeroVector --- test whether list contains only zeroes
 *STD
 *CALL

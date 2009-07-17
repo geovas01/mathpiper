@@ -11,7 +11,7 @@ IsPositiveReal(_r) <--
 
 
 
-%mathpiper_docs,name="IsPositiveReal"
+%mathpiper_docs,name="IsPositiveReal",categories="User Functions;Predicates"
 *CMD IsPositiveReal --- test for a numerically positive value
 *STD
 *CALL

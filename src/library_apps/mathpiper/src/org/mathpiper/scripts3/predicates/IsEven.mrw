@@ -6,7 +6,7 @@ IsEven(n) := IsInteger(n) And ( BitAnd(n,1)  = 0 );
 
 
 
-%mathpiper_docs,name="IsEven"
+%mathpiper_docs,name="IsEven",categories="User Functions;Predicates"
 *CMD IsEven --- test for an even integer
 *STD
 *CALL
