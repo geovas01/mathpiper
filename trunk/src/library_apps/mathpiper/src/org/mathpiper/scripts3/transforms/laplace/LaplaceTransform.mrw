@@ -69,7 +69,7 @@ LapTranDef( Erf(Sqrt(_t)),		1/(Sqrt(s+1)*s) );
 
 
 
-%mathpiper_docs,name="LaplaceTransform"
+%mathpiper_docs,name="LaplaceTransform",categories="User Functions;Transforms"
 *CMD LaplaceTransform --- Laplace Transform
 *STD
 *CALL

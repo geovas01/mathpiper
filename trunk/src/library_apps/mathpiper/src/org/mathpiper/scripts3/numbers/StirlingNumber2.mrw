@@ -8,7 +8,7 @@
 
 
 %mathpiper_docs,name="StirlingNumber2",categories="User Functions;Number Theory"
-*CMD StirlingNumber2 --- return the {n,m}th Stirling Number of the second kind
+*CMD StirlingNumber2 --- return the {n m}th Stirling Number of the second kind
 *STD
 *CALL
         StirlingNumber1(n,m)

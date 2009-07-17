@@ -250,7 +250,7 @@ LocalSymbols(x)
 
 
 
-%mathpiper_docs,name="Solve"
+%mathpiper_docs,name="Solve",categories="User Functions;Solvers (Symbolic)"
 *CMD Solve --- solve an equation
 *STD
 *CALL

@@ -11,7 +11,7 @@ UniqueConstant() <--
 
 
 
-%mathpiper_docs,name="UniqueConstant"
+%mathpiper_docs,name="UniqueConstant",categories="User Functions;Variables"
 *CMD UniqueConstant --- create a unique identifier
 *STD
 *CALL

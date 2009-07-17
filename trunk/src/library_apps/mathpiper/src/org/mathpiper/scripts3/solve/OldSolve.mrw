@@ -162,7 +162,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
 
 
-%mathpiper_docs,name="OldSolve"
+%mathpiper_docs,name="OldSolve",categories="User Functions;Solvers (Symbolic)"
 *CMD OldSolve --- old version of {Solve}
 *STD
 *CALL

@@ -1,7 +1,7 @@
 
 
 %mathpiper_docs,name="quit;restart",categories="User Functions;Built In"
-*CMD quit --- stop MathPiper from running, from the command line
+*CMD quit --- stop MathPiper from running (from the command line)
 *CMD restart --- restart MathPiper (to start with a clean slate)
 *CORE
 *CALL

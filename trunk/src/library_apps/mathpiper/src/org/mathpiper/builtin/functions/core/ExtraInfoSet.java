@@ -44,7 +44,7 @@ public class ExtraInfoSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ExtraInfoSet;ExtraInfoGet",categories="User Functions"
+%mathpiper_docs,name="ExtraInfoSet;ExtraInfoGet",categories="Programmer Functions;Programming"
 *A object properties
 *CMD ExtraInfoGet/Set --- annotate objects with additional information
 *CORE

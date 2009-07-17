@@ -22,12 +22,10 @@
 
 
 
-%mathpiper_docs,name="MaximumBound"
-*CMD MinimumBound --- return lower bounds on the absolute values of real roots of a polynomial
+%mathpiper_docs,name="MaximumBound",categories="User Functions;Solvers (Numeric)"
 *CMD MaximumBound --- return upper bounds on the absolute values of real roots of a polynomial
 *STD
 *CALL
-	MinimumBound(p)
 	MaximumBound(p)
 
 *PARMS
@@ -36,7 +34,7 @@
 
 *DESC
 
-Return minimum and maximum bounds for the absolute values of the real
+Return maximum bounds for the absolute values of the real
 roots of a polynomial {p}. The polynomial has to be converted to one with
 rational coefficients first, and be made square-free.
 The polynomial must use the variable {x}.
@@ -45,14 +43,10 @@ The polynomial must use the variable {x}.
 
 	In> p:=SquareFree(Rationalize((x-3.1)*(x+6.23)))
 	Out> (-40000*x^2-125200*x+772520)/870489;
-	In> MinimumBound(p)
-	Out> 5000000000/2275491039;
-	In> N(%)
-	Out> 2.1973279236;
 	In> MaximumBound(p)
 	Out> 10986639613/1250000000;
 	In> N(%)
 	Out> 8.7893116904;
 
-*SEE SquareFree, NumRealRoots, FindRealRoots, Factor
+*SEE MinimumBound, SquareFree, NumRealRoots, FindRealRoots, Factor
 %/mathpiper_docs

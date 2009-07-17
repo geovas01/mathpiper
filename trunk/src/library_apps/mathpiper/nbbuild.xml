@@ -11,7 +11,7 @@
     <description>Builds, tests, and runs the project mathpiper.</description>
     <import file="nbproject/build-impl.xml"/>
 
-    <import file="nbproject/profiler-build-impl.xml"/>    <import file="nbproject/profiler-build-impl.xml"/>
+    <!-- <import file="nbproject/profiler-build-impl.xml"/>    <import file="nbproject/profiler-build-impl.xml"/> -->
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -89,7 +89,7 @@
 	
 	
 	
-   	<target name="buildscripts3" >
+   	<target name="buildscripts3"  depends="init">
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
 	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
 		<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"  />

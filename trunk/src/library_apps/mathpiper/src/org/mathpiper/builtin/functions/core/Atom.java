@@ -47,7 +47,7 @@ public class Atom extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Atom"
+%mathpiper_docs,name="Atom",categories="User Functions;String Manipulation"
 *CMD Atom --- convert string to atom
 *CORE
 *CALL

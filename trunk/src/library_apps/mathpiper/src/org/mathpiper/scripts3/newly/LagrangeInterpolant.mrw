@@ -25,7 +25,7 @@ LagrangeInterpolant(list_IsList,_values,_var) <--
 
 
 
-%mathpiper_docs,name="LagrangeInterpolant"
+%mathpiper_docs,name="LagrangeInterpolant",categories="User Functions;Series"
 *CMD LagrangeInterpolant --- polynomial interpolation
 *STD
 *CALL

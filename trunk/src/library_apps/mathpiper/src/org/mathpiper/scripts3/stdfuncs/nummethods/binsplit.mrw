@@ -49,7 +49,7 @@ BinSplitCombine({_P1, _Q1, _B1, _T1}, {_P2, _Q2, _B2, _T2}) <-- {P1*P2, Q1*Q2, B
 
 
 
-%mathpiper_docs,name="BinSplitNum;BinSplitData;BinSplitFinal",categories="User Functions"
+%mathpiper_docs,name="BinSplitNum;BinSplitData;BinSplitFinal",categories="User Functions;Series"
 *CMD BinSplitNum --- computations of series by the binary splitting method
 *CMD BinSplitData --- computations of series by the binary splitting method
 *CMD BinSplitFinal --- computations of series by the binary splitting method

@@ -12,7 +12,7 @@ NumRealRoots(_p) <--
 
 
 
-%mathpiper_docs,name="NumRealRoots"
+%mathpiper_docs,name="NumRealRoots",categories="User Functions;Solvers (Numeric)"
 *CMD NumRealRoots --- return the number of real roots of a polynomial
 *STD
 *CALL

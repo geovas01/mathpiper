@@ -29,7 +29,7 @@ HoldArg("Sum",sumbody'arg);
 
 
 
-%mathpiper_docs,name="Sum"
+%mathpiper_docs,name="Sum",categories="User Functions;Series"
 *CMD Sum --- find sum of a sequence
 *STD
 *CALL

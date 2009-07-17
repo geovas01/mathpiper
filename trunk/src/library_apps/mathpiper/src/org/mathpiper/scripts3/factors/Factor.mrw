@@ -9,7 +9,7 @@
 
 
 %mathpiper_docs,name="Factor",categories="User Functions;Number Theory"
-*CMD Factor --- factorization, in pretty form
+*CMD Factor --- factorization (in pretty form)
 *STD
 *CALL
 	Factor(x)
