@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,name="IsQuadraticResidue",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsQuadraticResidue",categories="User Functions;Number Theory;Predicates"
 *CMD IsQuadraticResidue --- functions related to finite groups
 *STD
 *CALL

@@ -6,7 +6,7 @@ IsNegativeInteger(x):= IsInteger(x) And x < 0;
 
 
 
-%mathpiper_docs,name="IsNegativeInteger"
+%mathpiper_docs,name="IsNegativeInteger",categories="User Functions;Predicates"
 *CMD IsNegativeInteger --- test for a negative integer
 *STD
 *CALL

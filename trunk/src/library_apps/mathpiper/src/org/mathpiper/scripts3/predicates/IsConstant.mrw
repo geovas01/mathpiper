@@ -6,7 +6,7 @@ IsConstant(_n) <-- (VarList(n) = {});
 
 
 
-%mathpiper_docs,name="IsConstant"
+%mathpiper_docs,name="IsConstant",categories="User Functions;Predicates"
 *CMD IsConstant --- test for a constant
 *STD
 *CALL

@@ -464,7 +464,7 @@ printing every element in the list on a separate line.
 
 
 
-%mathpiper_docs,name="IsNonObject"
+%mathpiper_docs,name="IsNonObject",categories="User Functions;Predicates"
 *CMD IsNonObject --- test whether argument is not an {Object()}
 *STD
 *CALL

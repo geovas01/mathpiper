@@ -6,7 +6,7 @@ IsIdempotent(A_IsMatrix) <-- (A^2 = A);
 
 
 
-%mathpiper_docs,name="IsIdempotent",categories="User Functions;Matrices (Predicates)"
+%mathpiper_docs,name="IsIdempotent",categories="User Functions;Matrices (Predicates);Predicates"
 *CMD IsIdempotent --- test for an idempotent matrix
 *STD
 *CALL

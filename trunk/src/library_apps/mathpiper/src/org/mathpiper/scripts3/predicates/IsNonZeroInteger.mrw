@@ -6,7 +6,7 @@ IsNonZeroInteger(x) := (IsInteger(x) And x != 0);
 
 
 
-%mathpiper_docs,name="IsNonZeroInteger"
+%mathpiper_docs,name="IsNonZeroInteger",categories="User Functions;Predicates"
 *CMD IsNonZeroInteger --- test for a nonzero integer
 *STD
 *CALL

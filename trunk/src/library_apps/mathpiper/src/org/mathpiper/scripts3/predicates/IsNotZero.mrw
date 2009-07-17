@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,name="IsNotZero"
+%mathpiper_docs,name="IsNotZero",categories="User Functions;Predicates"
 *CMD IsNotZero --- test for a nonzero number
 *STD
 *CALL

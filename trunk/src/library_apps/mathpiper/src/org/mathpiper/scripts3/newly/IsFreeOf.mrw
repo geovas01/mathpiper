@@ -19,7 +19,7 @@
 
 
 
-%mathpiper_docs,name="IsFreeOf"
+%mathpiper_docs,name="IsFreeOf",categories="User Functions;Predicates"
 *CMD IsFreeOf --- test whether expression depends on variable
 *STD
 *CALL

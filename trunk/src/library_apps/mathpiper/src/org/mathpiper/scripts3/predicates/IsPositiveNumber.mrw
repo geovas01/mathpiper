@@ -6,7 +6,7 @@ IsPositiveNumber(x):= IsNumber(x) And x > 0;
 
 
 
-%mathpiper_docs,name="IsPositiveNumber"
+%mathpiper_docs,name="IsPositiveNumber",categories="User Functions;Predicates"
 *CMD IsPositiveNumber --- test for a positive number
 *STD
 *CALL

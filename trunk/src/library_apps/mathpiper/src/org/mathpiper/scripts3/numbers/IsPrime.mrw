@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="IsPrime",categories="User Functions;Number Theory"
+%mathpiper_docs,name="IsPrime",categories="User Functions;Number Theory;Predicates"
 *CMD IsPrime --- test for a prime number
 *CMD IsSmallPrime --- test for a (small) prime number
 *STD

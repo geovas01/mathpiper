@@ -6,13 +6,11 @@ IsLowerTriangular(A_IsMatrix) <-- (IsUpperTriangular(Transpose(A)));
 
 
 
-%mathpiper_docs,name="IsLowerTriangular",categories="User Functions;Matrices (Predicates)"
+%mathpiper_docs,name="IsLowerTriangular",categories="User Functions;Matrices (Predicates);Predicates"
 *CMD IsLowerTriangular --- test for a lower triangular matrix
-*CMD IsUpperTriangular --- test for an upper triangular matrix
 *STD
 *CALL
 	IsLowerTriangular(A)
-	IsUpperTriangular(A)
 
 *PARMS
 
@@ -20,23 +18,19 @@ IsLowerTriangular(A_IsMatrix) <-- (IsUpperTriangular(Transpose(A)));
 
 *DESC
 
-A lower/upper triangular matrix is a square matrix which has all zero entries above/below the diagonal.
+A lower triangular matrix is a square matrix which has all zero entries below the diagonal.
 
 {IsLowerTriangular(A)} returns {True} if {A} is a lower triangular matrix and {False} otherwise.
-{IsUpperTriangular(A)} returns {True} if {A} is an upper triangular matrix and {False} otherwise.
 
 *E.G.
-	In> IsUpperTriangular(Identity(5))
-	Out> True;
 	In> IsLowerTriangular(Identity(5))
 	Out> True;
 	In> IsLowerTriangular({{1,2},{0,1}})
 	Out> False;
-	In> IsUpperTriangular({{1,2},{0,1}})
-	Out> True;
+
 A non-square matrix cannot be triangular:
-	In> IsUpperTriangular({{1,2,3},{0,1,2}})
+	In> IsLowerTriangular({{1,2,3},{0,1,2}})
 	Out> False;
 
-*SEE IsDiagonal
+*SEE IsUpperTriangle, IsDiagonal
 %/mathpiper_docs
