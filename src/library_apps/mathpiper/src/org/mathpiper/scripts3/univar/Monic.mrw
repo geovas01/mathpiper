@@ -13,7 +13,7 @@
 
 
 
-%mathpiper_docs,name="Monic"
+%mathpiper_docs,name="Monic",categories="User Functions;Polynomials (Operations)"
 *CMD Monic --- monic part of a polynomial
 *STD
 *CALL

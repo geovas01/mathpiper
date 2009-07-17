@@ -21,7 +21,7 @@ Horner(_e,_v) <--
 
 
 
-%mathpiper_docs,name="Horner"
+%mathpiper_docs,name="Horner",categories="User Functions;Polynomials (Operations)"
 *CMD Horner --- convert a polynomial into the Horner form
 *STD
 *CALL

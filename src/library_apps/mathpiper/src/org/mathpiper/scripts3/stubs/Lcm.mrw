@@ -16,7 +16,7 @@
 
 
 
-%mathpiper_docs,name="Lcm"
+%mathpiper_docs,name="Lcm",categories="User Functions;Numbers (Operations)"
 *CMD Lcm --- least common multiple
 *STD
 *CALL

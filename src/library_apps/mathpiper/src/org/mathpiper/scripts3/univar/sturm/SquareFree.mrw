@@ -22,7 +22,7 @@ SquareFree(_p) <--
 
 
 
-%mathpiper_docs,name="SquareFree"
+%mathpiper_docs,name="SquareFree",categories="User Functions;Polynomials (Operations)"
 *CMD SquareFree --- return the square-free part of polynomial
 *STD
 *CALL

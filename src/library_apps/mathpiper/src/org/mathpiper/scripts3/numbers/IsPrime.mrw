@@ -1,4 +1,4 @@
-%mathpiper,def="IsPrime"
+%mathpiper,def="IsPrime",categories="User Functions;Number Theory"
 
 2 # IsPrime(_n)_(Not IsInteger(n) Or n<=1) <-- False;
 3 # IsPrime(n_IsInteger)_(n<=FastIsPrime(0)) <-- IsSmallPrime(n);
@@ -15,7 +15,7 @@
 
 
 
-%mathpiper_docs,name="IsPrime"
+%mathpiper_docs,name="IsPrime",categories="User Functions;Number Theory"
 *CMD IsPrime --- test for a prime number
 *CMD IsSmallPrime --- test for a (small) prime number
 *STD

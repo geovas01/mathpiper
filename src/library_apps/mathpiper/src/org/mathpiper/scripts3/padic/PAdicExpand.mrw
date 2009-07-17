@@ -50,7 +50,7 @@ Expand(x); /* TODO no idea why this is needed! Mod/Div/UniVariate thing :-( */
 
 
 
-%mathpiper_docs,name="PAdicExpand"
+%mathpiper_docs,name="PAdicExpand",categories="User Functions;Number Theory"
 *CMD PAdicExpand --- p-adic expansion
 *STD
 *CALL

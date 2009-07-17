@@ -25,7 +25,7 @@
 
 
 
-%mathpiper_docs,name="Moebius"
+%mathpiper_docs,name="Moebius",categories="User Functions;Number Theory"
 *CMD Moebius --- the Moebius function
 *STD 
 *CALL

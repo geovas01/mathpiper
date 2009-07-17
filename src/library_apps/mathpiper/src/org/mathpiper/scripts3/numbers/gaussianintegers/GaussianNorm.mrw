@@ -6,7 +6,7 @@ GaussianNorm(z_IsGaussianInteger) <-- Re(z)^2+Im(z)^2;
 
 
 
-%mathpiper_docs,name="GaussianNorm"
+%mathpiper_docs,name="GaussianNorm",categories="User Functions;Number Theory"
 *CMD GaussianNorm --- norm of a Gaussian integer
 *STD
 *CALL

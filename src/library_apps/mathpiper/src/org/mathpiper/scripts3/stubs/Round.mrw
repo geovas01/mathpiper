@@ -14,7 +14,7 @@
 
 
 
-%mathpiper_docs,name="Round"
+%mathpiper_docs,name="Round",categories="User Functions;Numbers (Operations)"
 *CMD Round --- round a number to the nearest integer
 *STD
 *CALL

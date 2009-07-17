@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="GaussianGcd"
+%mathpiper_docs,name="GaussianGcd",categories="User Functions;Number Theory"
 *CMD GaussianGcd --- greatest common divisor in Gaussian integers
 *STD
 *CALL

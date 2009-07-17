@@ -204,7 +204,7 @@ UnFence("else",2);
 
 
 
-%mathpiper_docs,name="N"
+%mathpiper_docs,name="N",categories="User Functions;Numbers (Operations)"
 *CMD N --- try determine numerical approximation of expression
 
 *STD
@@ -254,7 +254,7 @@ be evaluated after switching to numeric mode.
 
 
 
-%mathpiper_docs,name="Numer"
+%mathpiper_docs,name="Numer",categories="User Functions;Numbers (Operations)"
 *CMD Numer --- numerator of an expression
 *STD
 *CALL
