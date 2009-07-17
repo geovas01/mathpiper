@@ -13,7 +13,7 @@
 
 
 %mathpiper_docs,name="StirlingNumber1",categories="User Functions;Number Theory"
-*CMD StirlingNumber1 --- return the {n,m}th Stirling Number of the first kind
+*CMD StirlingNumber1 --- return the {n m}th Stirling Number of the first kind
 *STD
 *CALL
 	StirlingNumber1(n,m)

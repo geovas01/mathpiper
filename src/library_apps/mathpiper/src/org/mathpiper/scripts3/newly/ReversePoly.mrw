@@ -53,7 +53,7 @@ ReversePoly(_f,_g,_var,_newvar,_degree) <--
 
 
 
-%mathpiper_docs,name="ReversePoly"
+%mathpiper_docs,name="ReversePoly",categories="User Functions;Series"
 *CMD ReversePoly --- solve $h(f(x)) = g(x) + O(x^n)$ for $h$
 *STD
 *CALL

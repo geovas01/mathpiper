@@ -58,7 +58,7 @@
 
 
 
-%mathpiper_docs,name="PDF"
+%mathpiper_docs,name="PDF",categories="User Functions;Probability & Statistics"
 *CMD PDF --- probability density function
 *STD
 *CALL

@@ -130,7 +130,7 @@ Function("PSolve",{uni,var})
 
 
 
-%mathpiper_docs,name="PSolve"
+%mathpiper_docs,name="PSolve",categories="User Functions;Solvers (Symbolic)"
 *CMD PSolve --- solve a polynomial equation
 *STD
 *CALL

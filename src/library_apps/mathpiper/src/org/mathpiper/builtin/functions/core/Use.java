@@ -49,7 +49,7 @@ public class Use extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="Use",categories="User Functions;Control Flow;Input/Output;Built In"
-*CMD Use --- load a file, but not twice
+*CMD Use --- load a file (but not twice)
 *CORE
 *CALL
 	Use(name)

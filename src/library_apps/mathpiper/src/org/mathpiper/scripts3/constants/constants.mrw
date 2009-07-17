@@ -166,7 +166,7 @@ root of -1. It evaluates to {Complex(0,1)}.
 
 
 %mathpiper_docs,name="Pi",categories="User Functions;Constants (Mathematical)"
-*CMD Pi --- mathematical constant, $pi$
+*CMD Pi --- mathematical constant $pi$
 
 *STD
 *CALL
@@ -305,7 +305,7 @@ Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in Yacas.
 
 
 
-%mathpiper_docs,name="CachedConstant",categories="User Functions"
+%mathpiper_docs,name="CachedConstant",categories="User Functions;Constants (Mathematical)"
 *CMD CachedConstant --- precompute multiple-precision constants
 *STD
 *CALL

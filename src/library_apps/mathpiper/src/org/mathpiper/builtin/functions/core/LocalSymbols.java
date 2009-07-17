@@ -56,4 +56,40 @@ public class LocalSymbols extends BuiltinFunction
         Utility.substitute(result, getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), result);
     }
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="LocalSymbols",categories="User Functions;Variables;Built In"
+*CMD LocalSymbols --- create unique local symbols with given prefix
+*STD
+*CALL
+	LocalSymbols(var1, var2, ...) body
+
+*PARMS
+
+{var1}, {var2}, ... -- atoms, symbols to be made local
+
+{body} -- expression to execute
+
+*DESC
+
+Given the symbols passed as the first arguments to LocalSymbols a set of local
+symbols will be created, and creates unique ones for them, typically of the
+form {$<symbol><number>}, where {symbol} was the symbol entered by the user,
+and {number} is a unique number. This scheme was used to ensure that a generated
+symbol can not accidentally be entered by a user.
+
+This is useful in cases where a guaranteed free variable is needed,
+for example, in the macro-like functions ({For}, {While}, etc.).
+
+*E.G. notest
+
+	In> LocalSymbols(a,b)a+b
+	Out> $a6+ $b6;
+
+*SEE UniqueConstant
+%/mathpiper_docs
+*/

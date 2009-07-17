@@ -119,7 +119,7 @@
 
 
 
-%mathpiper_docs,name="MatrixSolve"
+%mathpiper_docs,name="MatrixSolve",categories="User Functions;Solvers (Symbolic)"
 *CMD MatrixSolve --- solve a system of equations
 *STD
 *CALL

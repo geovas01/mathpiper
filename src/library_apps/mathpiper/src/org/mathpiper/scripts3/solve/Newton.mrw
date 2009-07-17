@@ -35,7 +35,7 @@ Function("Newton",{function,variable,initial,accuracy,min,max})
 
 
 
-%mathpiper_docs,name="Newton"
+%mathpiper_docs,name="Newton",categories="User Functions;Solvers (Numeric)
 *CMD Newton --- solve an equation numerically with Newton's method
 *STD
 *CALL

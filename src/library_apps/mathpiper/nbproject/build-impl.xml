@@ -79,6 +79,7 @@ is divided into following sections:
                 <available file="${src.tests.dir}"/>
                 <available file="${src.src.dir}"/>
                 <available file="${src.scripts3.dir}"/>
+                <available file="${src.mathpiper.dir}"/>
             </or>
         </condition>
         <condition property="netbeans.home+have.tests">
@@ -136,6 +137,7 @@ is divided into following sections:
         <fail unless="src.tests.dir">Must set src.tests.dir</fail>
         <fail unless="src.src.dir">Must set src.src.dir</fail>
         <fail unless="src.scripts3.dir">Must set src.scripts3.dir</fail>
+        <fail unless="src.mathpiper.dir">Must set src.mathpiper.dir</fail>
         <fail unless="build.dir">Must set build.dir</fail>
         <fail unless="dist.dir">Must set dist.dir</fail>
         <fail unless="build.classes.dir">Must set build.classes.dir</fail>
@@ -156,7 +158,7 @@ is divided into following sections:
     </target>
     <target name="-init-macrodef-javac">
         <macrodef name="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${src.examples.dir}:${src.tests.dir}:${src.src.dir}:${src.scripts3.dir}" name="srcdir"/>
+            <attribute default="${src.examples.dir}:${src.tests.dir}:${src.src.dir}:${src.scripts3.dir}:${src.mathpiper.dir}" name="srcdir"/>
             <attribute default="${build.classes.dir}" name="destdir"/>
             <attribute default="${javac.classpath}" name="classpath"/>
             <attribute default="${includes}" name="includes"/>
@@ -183,7 +185,7 @@ is divided into following sections:
             </sequential>
         </macrodef>
         <macrodef name="depend" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${src.examples.dir}:${src.tests.dir}:${src.src.dir}:${src.scripts3.dir}" name="srcdir"/>
+            <attribute default="${src.examples.dir}:${src.tests.dir}:${src.src.dir}:${src.scripts3.dir}:${src.mathpiper.dir}" name="srcdir"/>
             <attribute default="${build.classes.dir}" name="destdir"/>
             <attribute default="${javac.classpath}" name="classpath"/>
             <sequential>
@@ -356,7 +358,7 @@ is divided into following sections:
                 <include name="*"/>
             </dirset>
         </pathconvert>
-        <j2seproject3:depend srcdir="${src.examples.dir}:${src.tests.dir}:${src.src.dir}:${src.scripts3.dir}:${build.generated.subdirs}"/>
+        <j2seproject3:depend srcdir="${src.examples.dir}:${src.tests.dir}:${src.src.dir}:${src.scripts3.dir}:${src.mathpiper.dir}:${build.generated.subdirs}"/>
     </target>
     <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-compile-depend" if="have.sources" name="-do-compile">
         <j2seproject3:javac gensrcdir="${build.generated.sources.dir}"/>
@@ -365,6 +367,7 @@ is divided into following sections:
             <fileset dir="${src.tests.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${src.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${src.scripts3.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
+            <fileset dir="${src.mathpiper.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
     </target>
     <target name="-post-compile">
@@ -379,7 +382,7 @@ is divided into following sections:
     <target depends="init,deps-jar,-pre-pre-compile" name="-do-compile-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
         <j2seproject3:force-recompile/>
-        <j2seproject3:javac excludes="" gensrcdir="${build.generated.sources.dir}" includes="${javac.includes}" sourcepath="${src.examples.dir}:${src.tests.dir}:${src.src.dir}:${src.scripts3.dir}"/>
+        <j2seproject3:javac excludes="" gensrcdir="${build.generated.sources.dir}" includes="${javac.includes}" sourcepath="${src.examples.dir}:${src.tests.dir}:${src.src.dir}:${src.scripts3.dir}:${src.mathpiper.dir}"/>
     </target>
     <target name="-post-compile-single">
         <!-- Empty placeholder for easier customization. -->
@@ -553,6 +556,9 @@ is divided into following sections:
                 <filename name="**/*.java"/>
             </fileset>
             <fileset dir="${src.scripts3.dir}" excludes="${excludes}" includes="${includes}">
+                <filename name="**/*.java"/>
+            </fileset>
+            <fileset dir="${src.mathpiper.dir}" excludes="${excludes}" includes="${includes}">
                 <filename name="**/*.java"/>
             </fileset>
             <fileset dir="${build.generated.sources.dir}" erroronmissingdir="false">

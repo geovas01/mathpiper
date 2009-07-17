@@ -15,7 +15,7 @@ Function("InverseTaylor",{var,val,degree,func})
 
 
 
-%mathpiper_docs,name="InverseTaylor"
+%mathpiper_docs,name="InverseTaylor",categories="User Functions;Series"
 *CMD InverseTaylor --- Taylor expansion of inverse
 *STD
 *CALL

@@ -23,7 +23,7 @@ ContFracEval(list_IsList) <-- ContFracEval(list, 0);
 
 
 
-%mathpiper_docs,name="ContFracEval",categories="User Functions"
+%mathpiper_docs,name="ContFracEval",categories="User Functions;Numbers (Operations)"
 *CMD ContFracList --- manipulate continued fractions
 *CMD ContFracEval --- manipulate continued fractions
 *STD

@@ -61,7 +61,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
 
 
 
-%mathpiper_docs,name="Taylor"
+%mathpiper_docs,name="Taylor",categories="User Functions;Series"
 *CMD Taylor --- univariate Taylor series expansion
 *STD
 *CALL

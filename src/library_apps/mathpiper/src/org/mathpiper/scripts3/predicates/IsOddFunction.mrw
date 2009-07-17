@@ -7,7 +7,7 @@ IsOddFunction(f,x):= (f = Eval(-Subst(x,-x)f));
 
 
 %mathpiper_docs,name="IsOddFunction",categories="User Functions;Predicates"
-*CMD IsOddFunction --- Return true if function is an odd function, False otherwise
+*CMD IsOddFunction --- Return true if function is an odd function (False otherwise)
 
 *STD
 *CALL

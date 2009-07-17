@@ -7,7 +7,7 @@ IsEvenFunction(f,x):= (f = Eval(Subst(x,-x)f));
 
 
 %mathpiper_docs,name="IsEvenFunction",categories="User Functions;Predicates"
-*CMD IsEvenFunction --- Return true if function is an even function, False otherwise
+*CMD IsEvenFunction --- Return true if function is an even function (False otherwise)
 
 *STD
 *CALL
