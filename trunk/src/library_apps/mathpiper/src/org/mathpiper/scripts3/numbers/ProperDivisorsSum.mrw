@@ -11,7 +11,7 @@
 
 
 
-%mathpiper_docs,name="ProperDivisorsSum"
+%mathpiper_docs,name="ProperDivisorsSum",categories="User Functions;Number Theory"
 *CMD ProperDivisorsSum --- the sum of proper divisors
 *STD 
 *CALL

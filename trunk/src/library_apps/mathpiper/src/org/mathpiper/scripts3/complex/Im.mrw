@@ -9,7 +9,7 @@
 
 
 
-%mathpiper_docs,name="Im"
+%mathpiper_docs,name="Im",categories="User Functions;Numbers (Complex)"
 *CMD Im --- imaginary part of a complex number
 *STD
 *CALL

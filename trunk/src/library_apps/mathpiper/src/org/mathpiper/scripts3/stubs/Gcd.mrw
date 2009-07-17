@@ -62,7 +62,7 @@
 
 
 
-%mathpiper_docs,name="Gcd"
+%mathpiper_docs,name="Gcd",categories="User Functions;Numbers (Operations)"
 *CMD Gcd --- greatest common divisor
 *STD
 *CALL

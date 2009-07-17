@@ -22,7 +22,7 @@ k-th primitive roots of the identity */
 
 
 
-%mathpiper_docs,name="RamanujanSum"
+%mathpiper_docs,name="RamanujanSum",categories="User Functions;Number Theory"
 *CMD RamanujanSum --- compute the "Ramanujan sum"
 *STD
 *CALL

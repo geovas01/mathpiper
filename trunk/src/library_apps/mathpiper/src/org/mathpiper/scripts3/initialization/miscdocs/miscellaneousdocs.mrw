@@ -116,7 +116,7 @@ operation will stop reading the file at that point.
 
 
 
-%mathpiper_docs,name="Infinity",categories="User Functions;Constants (Mathematicsl)"
+%mathpiper_docs,name="Infinity",categories="User Functions;Constants (Mathematical)"
 
 *CMD Infinity --- constant representing mathematical infinity
 *STD

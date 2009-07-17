@@ -50,7 +50,7 @@ by factoring its norm */
 
 
 
-%mathpiper_docs,name="GaussianFactors"
+%mathpiper_docs,name="GaussianFactors",categories="User Functions;Number Theory"
 *CMD GaussianFactors --- factorization in Gaussian integers
 *STD
 *CALL

@@ -15,35 +15,19 @@
 
 
 
-%mathpiper_docs,name="LegendreSymbol"
-*CMD IsQuadraticResidue --- functions related to finite groups
+%mathpiper_docs,name="LegendreSymbol",categories="User Functions;Number Theory"
 *CMD LegendreSymbol --- functions related to finite groups
-*CMD JacobiSymbol --- functions related to finite groups
 *STD
 *CALL
-	IsQuadraticResidue(m,n)
 	LegendreSymbol(m,n)
-	JacobiSymbol(m,n)
 
 *PARMS
 {m}, {n} -- integers, $n$ must be odd and positive
 
 *DESC
 
-A number $m$ is a "quadratic residue modulo $n$" if there exists a number $k$ such that $k^2:=Mod(m,n)$.
-
 The Legendre symbol ($m$/$n$) is defined as $+1$ if $m$ is a quadratic residue modulo $n$ and $-1$ if it is a non-residue.
 The Legendre symbol is equal to $0$ if $m/n$ is an integer.
-
-
-The Jacobi symbol $[m/n;]$ is defined as the product of the Legendre symbols of the prime factors $f[i]$ of $n=f[1]^p[1]*...*f[s]^p[s]$,
-$$ [m/n;] := [m/f[1];]^p[1]*...*[m/f[s];]^p[s] $$.
-(Here we used the same notation $[a/b;]$ for the Legendre and the Jacobi symbols; this is confusing but seems to be the current practice.)
-The Jacobi symbol is equal to $0$ if $m$, $n$ are not mutually prime (have a common factor).
-The Jacobi symbol and the Legendre symbol have values $+1$, $-1$ or $0$.
-If $n$ is prime, then the Jacobi symbol is the same as the Legendre symbol.
-
-The Jacobi symbol can be efficiently computed without knowing the full factorization of the number $n$.
 
 *E.G.
 
@@ -54,5 +38,5 @@ The Jacobi symbol can be efficiently computed without knowing the full factoriza
 	In> JacobiSymbol(7,15)
 	Out> -1;
 
-*SEE Gcd
+*SEE Gcd, JacobiSymbol, IsQuadraticResidue
 %/mathpiper_docs

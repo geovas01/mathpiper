@@ -7,7 +7,7 @@ Function("Rationalize",{a'number})
 
 
 
-%mathpiper_docs,name="Rationalize"
+%mathpiper_docs,name="Rationalize",categories="User Functions;Numbers (Operations)"
 *CMD Rationalize --- convert floating point numbers to fractions
 *STD
 *CALL

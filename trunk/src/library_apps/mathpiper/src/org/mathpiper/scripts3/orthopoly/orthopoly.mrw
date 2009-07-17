@@ -513,7 +513,7 @@ the Horner scheme. The list of coefficients starts with the $0$-th power.
 
 
 
-%mathpiper_docs,name="OrthoP"
+%mathpiper_docs,name="OrthoP",categories="User Functions;Polynomials (Special)"
 *CMD OrthoP --- Legendre and Jacobi orthogonal polynomials
 *STD
 *CALL
@@ -621,7 +621,7 @@ Most of the work is performed by the internal function {OrthoPoly}.
 
 
 
-%mathpiper_docs,name="OrthoH"
+%mathpiper_docs,name="OrthoH",categories="User Functions;Polynomials (Special)"
 *CMD OrthoH --- Hermite orthogonal polynomials
 *STD
 *CALL
@@ -660,7 +660,7 @@ Most of the work is performed by the internal function {OrthoPoly}.
 
 
 
-%mathpiper_docs,name="OrthoG"
+%mathpiper_docs,name="OrthoG",categories="User Functions;Polynomials (Special)"
 *CMD OrthoG --- Gegenbauer orthogonal polynomials
 *STD
 *CALL
@@ -714,7 +714,7 @@ Most of the work is performed by the internal function {OrthoPoly}.
 
 
 
-%mathpiper_docs,name="OrthoL"
+%mathpiper_docs,name="OrthoL",categories="User Functions;Polynomials (Special)"
 *CMD OrthoL --- Laguerre orthogonal polynomials
 *STD
 *CALL
@@ -767,7 +767,7 @@ Most of the work is performed by the internal function {OrthoPoly}.
 
 
 
-%mathpiper_docs,name="OrthoT;OrthoU"
+%mathpiper_docs,name="OrthoT;OrthoU",categories="User Functions;Polynomials (Special)"
 *CMD OrthoT --- Chebyshev polynomials
 *CMD OrthoU --- Chebyshev polynomials
 *STD
@@ -816,7 +816,7 @@ $U(1,x) = 2*x$.
 
 
 
-%mathpiper_docs,name="OrthoPSum;OrthoHSum;OrthoLSum;OrthoGSum;OrthoTSum;OrthoUSum"
+%mathpiper_docs,name="OrthoPSum;OrthoHSum;OrthoLSum;OrthoGSum;OrthoTSum;OrthoUSum",categories="User Functions;Polynomials (Special)"
 *CMD OrthoPSum --- sums of series of orthogonal polynomials
 *CMD OrthoHSum --- sums of series of orthogonal polynomials
 *CMD OrthoLSum --- sums of series of orthogonal polynomials
@@ -865,7 +865,7 @@ Most of the work is performed by the internal function {OrthoPolySum}. The indiv
 
 
 
-%mathpiper_docs,name="OrthoPoly"
+%mathpiper_docs,name="OrthoPoly",categories="User Functions;Polynomials (Special)"
 *CMD OrthoPoly --- internal function for constructing orthogonal polynomials
 *STD
 *CALL
@@ -906,7 +906,7 @@ polynomial expression.
 
 
 
-%mathpiper_docs,name="OrthoPolySum"
+%mathpiper_docs,name="OrthoPolySum",categories="User Functions;Polynomials (Special)"
 *CMD OrthoPolySum --- internal function for computing series of orthogonal polynomials
 *STD
 *CALL

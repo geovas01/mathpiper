@@ -20,7 +20,7 @@
 
 
 
-%mathpiper_docs,name="LeadingCoef"
+%mathpiper_docs,name="LeadingCoef",categories="User Functions;Polynomials (Operations)"
 *CMD LeadingCoef --- leading coefficient of a polynomial
 *STD
 *CALL

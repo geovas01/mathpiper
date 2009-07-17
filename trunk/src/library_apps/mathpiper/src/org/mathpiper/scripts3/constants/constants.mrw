@@ -142,7 +142,7 @@ CachedConstant(CacheOfConstantsN, Catalan, CatalanConstNum() );
 
 
 
-%mathpiper_docs,name="I",categories="User Functions;Constants (Mathematical)"
+%mathpiper_docs,name="I",categories="User Functions;Constants (Mathematical);Numbers (Complex)"
 *CMD I --- imaginary unit
 *STD
 *CALL

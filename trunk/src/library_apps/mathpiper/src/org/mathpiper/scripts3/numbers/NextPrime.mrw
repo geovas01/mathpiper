@@ -11,7 +11,7 @@
 
 
 
-%mathpiper_docs,name="NextPrime"
+%mathpiper_docs,name="NextPrime",categories="User Functions;Number Theory"
 *CMD NextPrime --- generate a prime following a number
 *STD
 *CALL

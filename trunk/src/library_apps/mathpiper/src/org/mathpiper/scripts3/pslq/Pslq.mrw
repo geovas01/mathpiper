@@ -333,7 +333,7 @@ Echo("************** H[i][j] = ",H[i][j]);
 
 
 
-%mathpiper_docs,name="Pslq"
+%mathpiper_docs,name="Pslq",categories="User Functions;Numbers (Operations)"
 *CMD Pslq --- search for integer relations between reals
 *STD
 *CALL

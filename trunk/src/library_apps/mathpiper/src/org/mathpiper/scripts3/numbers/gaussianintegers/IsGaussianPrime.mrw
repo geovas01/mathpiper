@@ -26,7 +26,7 @@ Function("IsGaussianPrime",{x})
 
 
 
-%mathpiper_docs,name="IsGaussianPrime"
+%mathpiper_docs,name="IsGaussianPrime",categories="User Functions;Number Theory"
 *CMD IsGaussianPrime ---  test for a Gaussian prime
 *STD
 *CALL

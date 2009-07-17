@@ -8,7 +8,7 @@
 
 
 
-%mathpiper_docs,name="PrimitivePart"
+%mathpiper_docs,name="PrimitivePart",categories="User Functions;Polynomials (Operations)"
 *CMD PrimitivePart --- primitive part of a univariate polynomial
 *STD
 *CALL

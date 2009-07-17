@@ -22,7 +22,7 @@ SquareFreeDivisorsList(n_IsPositiveInteger) <--
 
 
 
-%mathpiper_docs,name="SquareFreeDivisorsList"
+%mathpiper_docs,name="SquareFreeDivisorsList",categories="User Functions;Number Theory"
 *CMD SquareFreeDivisorsList --- the list of square-free divisors
 *STD
 *CALL

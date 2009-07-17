@@ -48,7 +48,7 @@ Function() Max(l1, l2, l3, ...);
 
 
 
-%mathpiper_docs,name="Max"
+%mathpiper_docs,name="Max",categories="User Functions;Numbers (Operations)"
 *CMD Max --- maximum of a number of values
 *STD
 *CALL
