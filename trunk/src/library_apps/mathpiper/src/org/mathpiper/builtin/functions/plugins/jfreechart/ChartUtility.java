@@ -55,7 +55,6 @@ public class ChartUtility {
                 dataListPointer.goNext();
             }//end while.
 
-
             double min = Double.MAX_VALUE;
             double max = Double.MIN_VALUE;
             int index = 0;
@@ -69,8 +68,8 @@ public class ChartUtility {
                 }
                 index++;
             }//end while
-            min = Math.floor(min);
-            max = Math.floor(max);
+            min = Math.floor(min) - .5;
+            max = Math.floor(max) + .5;
 
 
             int seriesIndex2 = 0;
@@ -82,13 +81,32 @@ public class ChartUtility {
             }//end while.
 
         } else {//Just a single series.
+            int numberOfBins = 10;
+            Double numberOfBinsDouble = (Double) userOptions.get("numberOfBins");
+            if(numberOfBinsDouble != null)
+            {
+                numberOfBins = (int) numberOfBinsDouble.doubleValue();
+            }//end if.
+
+            Double binMinimum = (Double) userOptions.get("binMinimum");
+            Double binMaximum = (Double) userOptions.get("binMaximum");
+
             double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
-            dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, 10);
+            if(binMinimum != null && binMaximum != null)
+            {
+                dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, numberOfBins, binMinimum, binMaximum);
+            }
+            else
+            {
+                dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, numberOfBins);
+            }
             //argumentsPointer.goNext();
         }//end if/else
         return dataSet;
 
     }//end method.
+
+
 
     public static XYDataset listToXYDataset(ConsPointer dataListPointer, Map userOptions) throws Exception {
 
