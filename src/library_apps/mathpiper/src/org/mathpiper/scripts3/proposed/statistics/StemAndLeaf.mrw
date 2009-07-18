@@ -375,6 +375,10 @@ stemandleaf(x) :=
 	
 %/mathpiper
 
+    %output,preserve="false"
+            Result: True
+.   %/output
+
 
 
 
