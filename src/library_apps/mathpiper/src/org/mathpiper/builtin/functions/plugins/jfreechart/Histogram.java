@@ -109,7 +109,7 @@ public class Histogram extends BuiltinFunction {
         renderer.setShadowVisible(false);
 
 //create and display a frame...  Import("org/mathpiper/builtin/functions/plugins/jfreechart/")
-ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);
+//ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);
 
 
         if (chart == null) {
