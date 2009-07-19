@@ -177,15 +177,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 Environment environment = interpreter.getEnvironment();
                 this.currentOutput = environment.iCurrentOutput;
                 environment.iCurrentOutput = this;
-
-                
-
             }
             else
             {
                 Environment environment = interpreter.getEnvironment();
                 environment.iCurrentOutput = this.currentOutput;
-
             }//end if/else.
         }//end if.
     }//end method.
@@ -193,10 +189,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     public void putChar(char aChar) throws Exception
     {
-        if(rawOutputTextArea != null)
+        if(rawOutputTextArea != null && currentOutput != null)
         {
             this.rawOutputTextArea.append("" + aChar);
             this.rawOutputTextArea.setCaretPosition(this.rawOutputTextArea.getDocument().getLength());
+            this.currentOutput.putChar(aChar);
         }//end if.
     }//end method.
 
