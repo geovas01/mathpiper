@@ -174,9 +174,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         {
             if(ie.getStateChange() == ItemEvent.SELECTED)
             {
-                System.out.println("XXX");
-
-
                 Environment environment = interpreter.getEnvironment();
                 this.currentOutput = environment.iCurrentOutput;
                 environment.iCurrentOutput = this;
@@ -186,7 +183,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             }
             else
             {
-                System.out.println("RRR");
                 Environment environment = interpreter.getEnvironment();
                 environment.iCurrentOutput = this.currentOutput;
 
