@@ -1,7 +1,11 @@
 %mathpiper,def="Show"
-Macro("Show",{id})    [SysOut(<<,@id,>>);];
-Macro("Show",{id,x})  [SysOut(<<,@id,>>,Hold(@x),Eval(@x));];
+Macro("Show",{id})    [SysOut("<< ",@id," >>");];
+Macro("Show",{id,x})  [SysOut("<< ",@id," >> ",Hold(@x),":  ",Eval(@x));];
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 %mathpiper_docs,name="Show"
 *CMD Show --- debug routine using SysOut to print ID and (optional) variable(s)
@@ -21,7 +25,7 @@ Macro("Show",{id,x})  [SysOut(<<,@id,>>,Hold(@x),Eval(@x));];
 
 If passed a single item, {Show} will display it using SysOut().  
 The dispayed value will be enclosed with << >> (see below).
-ID need not, and probably should not, be quoted.
+If ID consists of more than one word, it should be quoted.
 
 If there are two arguments, the first should be an ID as above, and the second 
 should be a list of variables which are bound to values at the place where
@@ -49,20 +53,19 @@ output will usually be available.
 	In> Show(ID1)
 	Result> True
 	Side Effects>
-	<<ID1>>
+	<< ID1 >>
 	In> Show(ID2,{var1})
 	Result> True
 	Side Effects>
-	<<ID2>>{var1}{123}
+	<< ID2 >> {var1}:  {123}
 	In> Show(ID3,{var1,var2})
 	Result> True
 	Side Effects>
-	<<ID3>>{var1,var2}{123,a string}
+	<< ID3 >> {var1,var2}:  {123,a string}
 	In> Show(ID4,{var1,var2,var3})
 	Result> True
 	Side Effects>
-	<<ID4>>{var1,var2,var3}{123,a string,Sin(x)+Exp(x)}
-
+	<< ID4 >> {var1,var2,var3}:  {123,a string,Sin(x)+Exp(x)}
 
 *SEE Tell
 %/mathpiper_docs
