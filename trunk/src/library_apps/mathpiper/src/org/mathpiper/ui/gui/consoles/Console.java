@@ -23,14 +23,18 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
@@ -38,13 +42,18 @@ import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.ResponseListener;
+import org.mathpiper.io.MathPiperOutputStream;
+import org.mathpiper.lisp.Environment;
 
-public class Console extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener {
+public class Console extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
     private JButton button1,  button2,  button3;
+    private JCheckBox rawOutputCheckBox;
+    private JTextArea rawOutputTextArea;
     private JTextArea textArea;
+    private MathPiperOutputStream currentOutput;
     private JScrollPane typePane;
     private char[] typedKey = new char[1];
     private JPanel buttons;
@@ -67,6 +76,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         buttons = new JPanel();
 
         Box guiBox = new Box(BoxLayout.Y_AXIS);
+
         textArea = new JTextArea(30, 20);
         textArea.append("MathPiper version " + org.mathpiper.Version.version + ".\n");
         textArea.append("Enter an expression after any In> prompt and press <shift><enter> to evaluate it.\n");
@@ -89,7 +99,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
         textArea.addKeyListener(this);
         typePane = new JScrollPane(textArea);
-        guiBox.add(typePane);
+        //guiBox.add(typePane);
 
         Box ioBox = new Box(BoxLayout.Y_AXIS);
 
@@ -105,12 +115,30 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         button3.addActionListener(this);
         buttons.add(button3);*/
 
+        rawOutputCheckBox = new JCheckBox("Raw Output");
+        rawOutputCheckBox.addItemListener(this);
+        buttons.add(rawOutputCheckBox);
+        this.rawOutputTextArea = new JTextArea();
+
+
+
+
         ioBox.add(buttons);
 
 
         this.add(ioBox, BorderLayout.NORTH);
 
-        this.add(guiBox, BorderLayout.CENTER);
+        //this.add(guiBox, BorderLayout.CENTER);
+
+
+
+
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, typePane, new JScrollPane(rawOutputTextArea));
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setDividerLocation(400);
+
+        this.add(splitPane);
 
 
     }//Constructor.
@@ -136,7 +164,52 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         //typeArea.setFont(bitstreamVera);
         }
 
-    }
+    }//end method.
+
+    public void itemStateChanged(ItemEvent ie)
+    {
+        Object source = ie.getSource();
+
+        if(source == rawOutputCheckBox)
+        {
+            if(ie.getStateChange() == ItemEvent.SELECTED)
+            {
+                System.out.println("XXX");
+
+
+                Environment environment = interpreter.getEnvironment();
+                this.currentOutput = environment.iCurrentOutput;
+                environment.iCurrentOutput = this;
+
+                
+
+            }
+            else
+            {
+                System.out.println("RRR");
+                Environment environment = interpreter.getEnvironment();
+                environment.iCurrentOutput = this.currentOutput;
+
+            }//end if/else.
+        }//end if.
+    }//end method.
+
+
+    public void putChar(char aChar) throws Exception
+    {
+        if(rawOutputTextArea != null)
+        {
+            this.rawOutputTextArea.append("" + aChar);
+            this.rawOutputTextArea.setCaretPosition(this.rawOutputTextArea.getDocument().getLength());
+        }//end if.
+    }//end method.
+
+    public void write(String aString) throws Exception {
+        int i;
+        for (i = 0; i < aString.length(); i++) {
+            putChar(aString.charAt(i));
+        }
+    }//end method.
 
     public void keyPressed(KeyEvent e) {
     }
@@ -373,7 +446,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }
 
 
-    }
+    }//end method.
 
     public static void main(String[] args) {
         Console console = new Console();
