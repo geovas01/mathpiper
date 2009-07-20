@@ -1,8 +1,0 @@
-%mathpiper
-Mean(list) :=
-[
-    N(Add(list)/Length(list));
-
-];
-
-%/mathpiper
