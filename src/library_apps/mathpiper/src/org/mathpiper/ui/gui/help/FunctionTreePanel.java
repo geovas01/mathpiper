@@ -19,13 +19,12 @@ package org.mathpiper.ui.gui.help;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,6 +60,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private JTree functionsTree;
     private Map documentationIndex;
     private RandomAccessFile documentFile;
+    private URL documentationURL;
     private JEditorPane editorPane;
     private StringBuilder seeFunctionsBuilder = new StringBuilder();
     private ClassLoader classLoader;
@@ -73,11 +73,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         URL fileURL = classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/function_categories.txt");
         if (fileURL != null) //File is on the classpath.
         {
-            System.out.println("Found categories file.");
+            //System.out.println("Found categories file.");
             loadCategories(fileURL);
             loadDocumentationIndex(classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation_index.txt"));
-            this.openDocumentationFile(classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation.txt"));
-
+            //this.openDocumentationFile(classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation.txt"));
+            documentationURL = classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation.txt");
+//System.out.println(documentationURL);
 
             this.populateUserFunctionNode();
             this.populateProgrammerFunctionNode();
@@ -155,7 +156,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }//end finally.
+        }//end finally. 
 
     }//end method.
 
@@ -346,15 +347,23 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     private void openDocumentationFile(URL url) {
 
-        try {
-            //documentationReader = new InputStreamReader(url.openStream());
-            documentFile = new RandomAccessFile(new File(url.toURI()), "r");
+        //System.out.println("openDocumentationFile: " + url);
 
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+       /* try {
+
+
+            docsStream = new BufferedInputStream(url.openStream());
+
+            //documentFile = new RandomAccessFile(new File(url.toURI()), "r");
+
+       // } catch (URISyntaxException e) {
+            //e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }//end method.
 
     public void valueChanged(TreeSelectionEvent e) {
@@ -385,11 +394,20 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             int endIndex = Integer.parseInt(functionIndexes[1]);
             int length = endIndex - startIndex;
             byte[] documentationData = new byte[length];
-            System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
+            //char[] documentationData = new char[length];
+            //System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
             try {
 
-                documentFile.seek(startIndex);
-                documentFile.read(documentationData, 0, length);
+                //documentFile.seek(startIndex);
+                //documentFile.read(documentationData, 0, length);
+
+       // System.out.print("docsurl: " + documentationURL);
+                BufferedInputStream docsStream = new BufferedInputStream(documentationURL.openStream());
+                docsStream.skip(startIndex);
+                docsStream.read(documentationData,0,length);
+                docsStream.close();
+
+
                 String documentationDataString = new String(documentationData);
 
                 documentationDataString = documentationDataString.replace("$", "");
@@ -597,7 +615,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             String urlString = url.toString();
             String functionName = urlString.substring(7,urlString.length());
-            System.out.println(functionName);
+            //System.out.println(functionName);
             viewFunction(functionName);
 
 
