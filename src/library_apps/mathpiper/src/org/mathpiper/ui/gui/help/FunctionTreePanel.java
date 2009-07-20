@@ -42,11 +42,13 @@ import javax.swing.JSplitPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
+public class FunctionTreePanel extends JPanel implements TreeSelectionListener, HyperlinkListener {
 
     private JScrollPane docsScrollPane;
     private String[][] userFunctionsDescriptions;
@@ -60,17 +62,21 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
     private Map documentationIndex;
     private RandomAccessFile documentFile;
     private JEditorPane editorPane;
+    private StringBuilder seeFunctionsBuilder = new StringBuilder();
+    private ClassLoader classLoader;
 
-    public FunctionTreePanel() {
+    public FunctionTreePanel(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+
         this.setLayout(new BorderLayout());
 
-        URL fileURL = java.lang.ClassLoader.getSystemResource("org/mathpiper/ui/gui/help/data/function_categories.txt");
+        URL fileURL = classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/function_categories.txt");
         if (fileURL != null) //File is on the classpath.
         {
             System.out.println("Found categories file.");
             loadCategories(fileURL);
-            loadDocumentationIndex(java.lang.ClassLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation_index.txt"));
-            this.openDocumentationFile(java.lang.ClassLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation.txt"));
+            loadDocumentationIndex(classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation_index.txt"));
+            this.openDocumentationFile(classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation.txt"));
 
 
             this.populateUserFunctionNode();
@@ -91,7 +97,10 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
 
             editorPane = new JEditorPane();
+            editorPane.setEditable(false);
             editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+            editorPane.addHyperlinkListener(this);
+
             //JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
             docsScrollPane = new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -359,6 +368,17 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
         Object nodeInfo = node.getUserObject();
         if (node.isLeaf()) {
             String functionName = nodeInfo.toString();
+            viewFunction(functionName);
+        } else {
+            //toolPanel.sourceButtonEnabled(false);
+            //Note:tk:Perhaps display top of chapter here?
+        }
+    }//end method.
+
+
+
+    private void viewFunction(String functionName)
+    {
             String functionIndexesString = (String) this.documentationIndex.get(functionName);
             String[] functionIndexes = functionIndexesString.split(",");
             int startIndex = Integer.parseInt(functionIndexes[0]);
@@ -386,19 +406,14 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
                     }
                 });
 
-
-
-
-            //functionInfo = nodeInfo;
-            //displayFunctionDocs(functionInfo.toString());
+                //functionInfo = nodeInfo;
+                //displayFunctionDocs(functionInfo.toString());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        } else {
-            //toolPanel.sourceButtonEnabled(false);
-            //Note:tk:Perhaps display top of chapter here?
-        }
     }//end method.
+
+
 
     private String applyBold(String line) {
         line = line.replaceAll("\\{", "<b><tt>");
@@ -406,6 +421,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
         return line;
     }//end method.
 
+
+    
     private String textToHtml(String s) {
 //s = "*CMD D --- take derivative of expression with respect to variable\n*STD\n*CALL\n	D(variable) expression\n	D(list) expression\n	D(variable,n) expression\n\n*PARMS\n\n{variable} -- variable\n\n{list} -- a list of variables\n\n{expression} -- expression to take derivatives of\n\n{n} -- order of derivative\n\n*DESC\n\nThis function calculates the derivative of the expression {expr} with\nrespect to the variable {var} and returns it. If the third calling\nformat is used, the {n}-th derivative is determined. Yacas knows\nhow to differentiate standard functions such as {Ln}\nand {Sin}.\n\nThe {D} operator is threaded in both {var} and\n{expr}. This means that if either of them is a list, the function is\napplied to each entry in the list. The results are collected in\nanother list which is returned. If both {var} and {expr} are a\nlist, their lengths should be equal. In this case, the first entry in\nthe list {expr} is differentiated with respect to the first entry in\nthe list {var}, the second entry in {expr} is differentiated with\nrespect to the second entry in {var}, and so on.\n\nThe {D} operator returns the original function if $n=0$, a common\nmathematical idiom that simplifies many formulae.\n\n*E.G.\n\n	In> D(x)Sin(x*y)\n	Out> y*Cos(x*y);\n	In> D({x,y,z})Sin(x*y)\n	Out> {y*Cos(x*y),x*Cos(x*y),0};\n	In> D(x,2)Sin(x*y)\n	Out> -Sin(x*y)*y^2;\n	In> D(x){Sin(x),Cos(x)}\n	Out> {Cos(x),-Sin(x)};\n\n*SEE Integrate, Taylor, Diverge, Curl\n";
 
@@ -547,9 +564,18 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
             } else if (line.startsWith("*SEE")) {
 
                 //line = lines[x].trim();
-                line = line.substring(4,line.length());
+                line = line.substring(4, line.length());
+                line = line.replace(" ", "");
 
-                html.append("<h5>\nSee also:\n</h5>" + line + "\n");
+                String[] seeFunctions = line.split(",");
+
+                for (String seeFunction : seeFunctions) {
+                    seeFunctionsBuilder.append("<a href=\"http://" + seeFunction + "\">" + seeFunction + "</a>, ");
+                }
+
+                html.append("<h5>\nSee also:\n</h5>" + seeFunctionsBuilder.toString() + "\n");
+
+                seeFunctionsBuilder.delete(0, seeFunctionsBuilder.length());
 
             }
 
@@ -563,15 +589,29 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener {
 
     }//end method.
 
+    public void hyperlinkUpdate(HyperlinkEvent event) {
+        //System.out.println(event.toString());
+        URL url = event.getURL();
+//System.out.println("YYYPiperDocsYYY: " + url.getPath() + " reference: " + url.getRef() + " query: " + url.getQuery() );
+        if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+
+            String urlString = url.toString();
+            String functionName = urlString.substring(7,urlString.length());
+            System.out.println(functionName);
+            viewFunction(functionName);
 
 
+
+        }//end if.  + getRef())
+
+    }//end method.
 
     public static void main(String[] args) {
 
         JFrame frame = new javax.swing.JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        JPanel helpPanel = new FunctionTreePanel();
+        JPanel helpPanel = new FunctionTreePanel(FunctionTreePanel.class.getClassLoader());
 
 
         Container contentPane = frame.getContentPane();
