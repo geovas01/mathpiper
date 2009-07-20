@@ -42,6 +42,7 @@ import org.mathpiper.io.JarFileInputStream;
 import org.mathpiper.io.StandardFileInputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
+import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.parametermatchers.PatternParameter;
 import org.mathpiper.lisp.userfunctions.Branch;
@@ -381,7 +382,6 @@ public class Utility {
 
     }//end method.
 
-    
     public static boolean isNestedList(ConsPointer clientListPointer) throws Exception {
 
         ConsPointer listPointer = new ConsPointer(clientListPointer);
@@ -397,9 +397,6 @@ public class Utility {
         }//end while.
         return true;
     }//end method.
-
-
-
 
     public static Map optionsListToJavaMap(ConsPointer argumentsPointer, Map defaultOptions) throws Exception {
 
@@ -419,21 +416,30 @@ public class Utility {
 
             //Obtain value.
             optionPointer.goNext();
-            LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
-            String value = (String) optionPointer.car();
-
-            value = Utility.stripEndQuotes(value);
-            if (key.equals("orientation")) {
-                if (value.equals("vertical")) {
-                    userOptions.put(key, PlotOrientation.VERTICAL);
-                } else if (value.equals("horizontal")) {
-                    userOptions.put(key, PlotOrientation.HORIZONTAL);
+            LispError.check(optionPointer.type() == Utility.ATOM || optionPointer.type() == Utility.NUMBER, LispError.INVALID_ARGUMENT);
+            if (optionPointer.type() == Utility.ATOM) {
+                String value = (String) optionPointer.car();
+                value = Utility.stripEndQuotes(value);
+                if (key.equals("orientation")) {
+                    if (value.equals("vertical")) {
+                        userOptions.put(key, PlotOrientation.VERTICAL);
+                    } else if (value.equals("horizontal")) {
+                        userOptions.put(key, PlotOrientation.HORIZONTAL);
+                    } else {
+                        userOptions.put(key, PlotOrientation.VERTICAL);
+                    }//end if/else.
                 } else {
-                    userOptions.put(key, PlotOrientation.VERTICAL);
-                }//end if/else.
-                } else {
+                    userOptions.put(key, value);
+                }//ende else.
+            } else //Number
+            {
+                NumberCons numberCons = (NumberCons) optionPointer.getCons();
+                BigNumber bigNumber = (BigNumber) numberCons.getNumber(10);
+                Double value = bigNumber.toDouble();
                 userOptions.put(key, value);
-            }//end else.
+            }//end if/else.
+
+
 
             argumentsPointer.goNext();
 
@@ -441,8 +447,6 @@ public class Utility {
 
         return userOptions;
     }//end method.
-
-
 
     public static boolean isString(Object aOriginal) {
 
@@ -462,14 +466,15 @@ public class Utility {
         return false;
     }//end method
 
-
     public static String stripEndQuotes(String aOriginal) {
-        aOriginal = aOriginal.substring(1, aOriginal.length());
-        aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
+
+        if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
+            aOriginal = aOriginal.substring(1, aOriginal.length());
+            aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
+        }//end if.
 
         return aOriginal;
     }//end method.
-
 
     public static void not(ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         if (isTrue(aEnvironment, aExpression)) {
@@ -622,10 +627,10 @@ public class Utility {
                 }
             }//end while.
 
-            
-            
+
+
         } catch (Exception e) {
-            EvaluationException ee = new EvaluationException(e.getMessage(),aEnvironment.iCurrentInput.iStatus.lineNumber());
+            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iCurrentInput.iStatus.lineNumber());
             throw ee;
         } finally {
             aEnvironment.iCurrentInput = previous;
