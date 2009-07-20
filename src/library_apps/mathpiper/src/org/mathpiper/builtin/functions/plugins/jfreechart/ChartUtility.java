@@ -76,12 +76,12 @@ public class ChartUtility {
             while (seriesIndex > 1) {
                 String seriesTitle = (String) dataSeriesList.get(seriesIndex2++);
                 double[] dataValues = (double[]) dataSeriesList.get(seriesIndex2++);
-                dataSet.addSeries(seriesTitle, dataValues, 10, min, max);
+                dataSet.addSeries(seriesTitle, dataValues, 15, min, max);
                 seriesIndex--;
             }//end while.
 
         } else {//Just a single series.
-            int numberOfBins = 10;
+            int numberOfBins = 15;
             Double numberOfBinsDouble = (Double) userOptions.get("numberOfBins");
             if(numberOfBinsDouble != null)
             {
