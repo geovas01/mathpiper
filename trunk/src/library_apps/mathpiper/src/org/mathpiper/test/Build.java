@@ -436,6 +436,14 @@ public class Build {
                 String[] functionNames = functionNamesString.split(";");
 
                 for (String functionName : functionNames) {
+                //DataOutputStream individualDocumentationFile = null;
+                    /*
+                    try{
+             individualDocumentationFile =  new DataOutputStream(new java.io.FileOutputStream(outputDocsDirectory + functionName));
+                    }catch(Exception ex)
+                    {
+                        ex.printStackTrace();
+                    }*/
 
                     documentationIndexFile.write(functionName + ",");
                     documentationIndexFile.write(documentationOffset + ",");
@@ -443,6 +451,8 @@ public class Build {
                     String contents = fold.getContents();
                     byte[] contentsBytes = contents.getBytes();
                     documentationFile.write(contentsBytes, 0, contentsBytes.length);
+            //individualDocumentationFile.write(contentsBytes, 0, contentsBytes.length);
+            //individualDocumentationFile.close();
 
                     documentationOffset = documentationOffset + contents.length();
                     documentationIndexFile.write(documentationOffset + "\n");
