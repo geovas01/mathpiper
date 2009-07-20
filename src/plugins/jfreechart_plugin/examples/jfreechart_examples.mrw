@@ -12,6 +12,7 @@ Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
 
 
 
+
 %mathpiper
 
 Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2}, seriesTitle -> "Options Example", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis");
@@ -21,11 +22,13 @@ Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2}, seriesTitle -> "Options
 
 
 
+
 %mathpiper
 
 Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2}, orientation -> "horizontal");
 
 %/mathpiper
+
 
 
 
@@ -42,6 +45,7 @@ Histogram({pileDSamples, pileESamples}, title -> "Wood Piles", series1Title -> "
 
 
 
+
 %mathpiper,title=""
 
 claim := 1 .. 40;
@@ -49,6 +53,7 @@ days := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26
 ScatterPlot({claim, days}, title -> "Scatter Plot", series1Title -> "Series 1", xAxisLabel -> "Claim", yAxisLabel -> "Days");
 
 %/mathpiper
+
 
 
 
@@ -62,6 +67,16 @@ ScatterPlot({claim, days1, claim, days2}, title -> "Scatter Plot", series1Title 
 
 %/mathpiper
 
+
+
+
+
+%mathpiper,title=""
+
+dieRoles := RandomIntegerVector(1000,1,6);
+Histogram(dieRoles, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6);
+
+%/mathpiper
 
 
 
