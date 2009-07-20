@@ -134,7 +134,7 @@ public class CalculatorPanel extends javax.swing.JPanel
 
         setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("MathRider Mathematics Computing Engironment (http://mathrider.org)");
+        jLabel1.setText("MathRider Mathematics Computing Environment (http://mathrider.org)");
         add(jLabel1, java.awt.BorderLayout.NORTH);
 
         jLabel2.setText("V.01");
