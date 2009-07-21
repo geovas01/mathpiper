@@ -1,13 +1,14 @@
 %mathpiper,def="Show"
 Macro("Show",{id})    [SysOut("<< ",@id," >>");];
-Macro("Show",{id,x})  [SysOut("<< ",@id," >> ",Hold(@x),":  ",Eval(@x));];
+Macro("Show",{id,x})  [SysOut("<< ",@id," >> ",Hold(@x),": ",Eval(@x));];
 %/mathpiper
 
     %output,preserve="false"
       Result: True
 .   %/output
 
-%mathpiper_docs,name="Show"
+%mathpiper_docs,name="Show",categories="Programmer Functions;Testing"
+
 *CMD Show --- debug routine using SysOut to print ID and (optional) variable(s)
 
 *STD

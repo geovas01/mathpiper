@@ -1,13 +1,14 @@
 %mathpiper,def="Tell"
 Macro("Tell",{id})    [Echo(<<,@id,>>);];
-Macro("Tell",{id,x})  [Echo(<<,@id,>>,Hold(@x),":  ",Eval(@x));];
+Macro("Tell",{id,x})  [Echo(<<,@id,>>,Hold(@x),": ",Eval(@x));];
 %/mathpiper
 
     %output,preserve="false"
       Result: True
 .   %/output
 
-%mathpiper_docs,name="Tell"
+%mathpiper_docs,name="Tell",categories="Programmer Functions;Testing"
+
 *CMD Tell --- debug routine using Echo to print ID and (optional) variable(s)
 
 *STD
