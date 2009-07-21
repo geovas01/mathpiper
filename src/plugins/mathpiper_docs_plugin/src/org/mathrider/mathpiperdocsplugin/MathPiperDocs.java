@@ -85,7 +85,7 @@ public class MathPiperDocs extends JPanel
 		super(new BorderLayout());
 		piperDocs = this;
 		
-		bshInterpreter = new Interpreter();
+		//bshInterpreter = new Interpreter();
 		
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
@@ -110,10 +110,21 @@ public class MathPiperDocs extends JPanel
         
 		//hotEqn.setStub(stub);
 		
-		editorPane = new JEditorPane();
-		editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+		
+		
+		//editorPane = new JEditorPane();
+		//editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+		
+		
 		//JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
-		docsScrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		
+		ClassLoader classLoader = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader();
+		
+		org.mathpiper.ui.gui.help.FunctionTreePanel helpPanel = new org.mathpiper.ui.gui.help.FunctionTreePanel(classLoader);
+		
+		add(BorderLayout.CENTER,helpPanel);
+		
+		//docsScrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		//JPanel spacerPanel = new JPanel();
 		//spacerPanel.setBackground(java.awt.Color.WHITE);
 		//spacerPanel.add(new JLabel(" "));
@@ -122,7 +133,7 @@ public class MathPiperDocs extends JPanel
 		
 		//add(BorderLayout.CENTER,docsScrollPane);
 		
-		initDocViewer();
+		//initDocViewer();
 	
 // Initialize and start the applet
        // hotEqn.init();
@@ -208,7 +219,7 @@ public class MathPiperDocs extends JPanel
     // }}}
     
 	
-    // {{{ initDocViewer()
+   /* // {{{ initDocViewer()
 	public void initDocViewer() {
 	
 		try
@@ -261,9 +272,9 @@ public class MathPiperDocs extends JPanel
 		}
 
 	}//end method.
-    // }}}
+    // }}}*/
 
-	
+
 	
 	// MathPiperDocsActions implementation
 
@@ -272,7 +283,7 @@ public class MathPiperDocs extends JPanel
 	public void source()
 	{
 		try {
-			bshInterpreter.eval( "source();" );
+			//bshInterpreter.eval( "source();" );
 		
 		}
 		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
@@ -287,7 +298,7 @@ public class MathPiperDocs extends JPanel
 	public void collapse()
 	{
 		try {
-			bshInterpreter.eval( "collapse();" );
+			//bshInterpreter.eval( "collapse();" );
 		
 		}
 		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
@@ -308,7 +319,7 @@ public class MathPiperDocs extends JPanel
 	public void back() 
 	{
 		try {
-			bshInterpreter.eval( "back();" );
+			//bshInterpreter.eval( "back();" );
 		
 		}
 		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
@@ -324,7 +335,7 @@ public class MathPiperDocs extends JPanel
 	public void forward() 
 	{
 		try {
-			bshInterpreter.eval( "forward();" );
+			//bshInterpreter.eval( "forward();" );
 		
 		}
 		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
@@ -338,7 +349,7 @@ public class MathPiperDocs extends JPanel
 	public void home() 
 	{
 		try {
-			bshInterpreter.eval( "home();" );
+			//bshInterpreter.eval( "home();" );
 		
 		}
 		catch(Exception e) //Note: add proper exception handling here and everywhere Exception is caught.
