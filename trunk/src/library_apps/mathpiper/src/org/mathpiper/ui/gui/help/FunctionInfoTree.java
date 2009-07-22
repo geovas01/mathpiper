@@ -36,26 +36,27 @@ public class FunctionInfoTree extends JTree {
             super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf,
                     row, hasFocus);
 
+            if (value instanceof FunctionInfoNode) {
+                FunctionInfoNode functionInfoNode = (FunctionInfoNode) value;
+                Object userObject = functionInfoNode.getUserObject();
 
-            FunctionInfoNode functionInfoNode = (FunctionInfoNode) value;
-            Object userObject = functionInfoNode.getUserObject();
+                if (!(userObject instanceof String)) {
 
-            if (!(userObject instanceof String)) {
-                
-                FunctionInfo functionInfo = (FunctionInfo) userObject;
+                    FunctionInfo functionInfo = (FunctionInfo) userObject;
 
-                String scope = functionInfo.getScope();
+                    String scope = functionInfo.getScope();
 
-                if (scope.equals("private")) {
-                    //this.setTextSelectionColor(Color.RED);
-                    //this.setTextNonSelectionColor(Color.RED);
-                    this.setForeground(Color.RED);
-                } else {
-                    //this.setTextSelectionColor(Color.BLACK);
-                    //this.setTextNonSelectionColor(Color.BLACK);
-                    this.setForeground(Color.BLACK);
-                }
+                    if (scope.equals("private")) {
+                        //this.setTextSelectionColor(Color.RED);
+                        //this.setTextNonSelectionColor(Color.RED);
+                        this.setForeground(Color.RED);
+                    } else {
+                        //this.setTextSelectionColor(Color.BLACK);
+                        //this.setTextNonSelectionColor(Color.BLACK);
+                        this.setForeground(Color.BLACK);
+                    }
 
+                }//end if.
             }//end if.
 
 
@@ -74,6 +75,12 @@ public class FunctionInfoTree extends JTree {
 
     public FunctionInfoTree(FunctionInfoNode node) {
         super(node);
+        this.setCellRenderer(renderer);
+    }
+
+
+    public FunctionInfoTree(TreeModel model) {
+        super(model);
         this.setCellRenderer(renderer);
     }
 

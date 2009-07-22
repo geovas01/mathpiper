@@ -336,7 +336,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         populateNode(operatorsNode, operatorsData);
         mathpiperFunctionsRootNode.add(operatorsNode);
 
-        functionsTree = new FunctionInfoTree(mathpiperFunctionsRootNode);
+        FunctionInfoTreeModel model = new FunctionInfoTreeModel(mathpiperFunctionsRootNode);
+
+        model.hidePrivateFunctions(true);
+
+        functionsTree = new FunctionInfoTree(model);
+
 
     }//end method.
 
@@ -819,9 +824,14 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             Object source = ie.getSource();
 
             if (source == showPrivateFunctionsCheckBox) {
+                FunctionInfoTreeModel model = (FunctionInfoTreeModel)functionsTree.getModel();
                 if (ie.getStateChange() == ItemEvent.SELECTED) {
+                    model.hidePrivateFunctions(true);
+
                 } else {
+                    model.hidePrivateFunctions(false);
                 }//end if/else.
+                model.reload();
             }//end if.
         }//end method.
     }//end class.
