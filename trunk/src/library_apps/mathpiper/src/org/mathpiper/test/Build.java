@@ -375,12 +375,16 @@ public class Build {
 
         boolean hasDocs = false;
 
+        String scopeAttribute = "public";
+        String scope = "public";
+
         for (Fold fold : folds) {
 
             String foldType = fold.getType();
+
             if (foldType.equalsIgnoreCase("%mathpiper")) {
 
-                String scopeAttribute = "";
+                
                 if (fold.getAttributes().containsKey("scope")) {
                     scopeAttribute = (String) fold.getAttributes().get("scope");
                 }
@@ -401,12 +405,15 @@ public class Build {
                             }//end if.
                         }//end if.
                     }//end if.
+
+                    scope = scopeAttribute;
                 }//end if.
+
 
             } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
                 //System.out.println("        **** Contains docs *****");
                 hasDocs = true;
-                processMathPiperDocsFold(fold);
+                processMathPiperDocsFold(fold, scope);
 
             }//end if.
 
@@ -419,7 +426,7 @@ public class Build {
         }
     }//end method.
 
-    private void processMathPiperDocsFold(Fold fold) throws IOException {
+    private void processMathPiperDocsFold(Fold fold, String scope) throws IOException {
         if (documentationFile != null) {
 
             String functionNamesString = "";
@@ -503,7 +510,8 @@ public class Build {
                         if (functionCategoryName.equalsIgnoreCase("")) {
                             functionCategoryName = "Uncategorized";
                         }
-                        CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, description, categories);
+                        CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, scope, description, categories);
+
                         functionCategoriesList.add(categoryEntry);
 
                     }//end if.
@@ -528,12 +536,14 @@ public class Build {
 
         private String categoryName;
         private String functionName;
+        private String scope;
         private String description;
         private String categories;
 
-        public CategoryEntry(String categoryName, String functionName, String description, String categories) {
+        public CategoryEntry(String categoryName, String functionName, String scope, String description, String categories) {
             this.categoryName = categoryName;
             this.functionName = functionName;
+            this.scope = scope;
             this.description = description;
             this.categories = categories;
         }
@@ -548,9 +558,12 @@ public class Build {
         }//end method.
 
         public String toString() {
-            return categoryName + "," + functionName + "," + description + "," + categories;
+            return categoryName + "," + functionName + "," + scope + "," + description + "," + categories;
         }//end method.
     }//end class.
+
+
+
 
     private void processBuiltinDocs() {
         // try {
@@ -590,7 +603,7 @@ public class Build {
                         hasDocs = true;
 
                         try {
-                            processMathPiperDocsFold(fold);
+                            processMathPiperDocsFold(fold, "public");
                         } catch (java.io.IOException e) {
                             e.printStackTrace();
                         }
