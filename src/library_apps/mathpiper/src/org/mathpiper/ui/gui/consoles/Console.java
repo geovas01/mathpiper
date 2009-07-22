@@ -13,9 +13,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.consoles;
+
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -32,6 +32,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -45,11 +46,12 @@ import org.mathpiper.interpreters.ResponseListener;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Environment;
 
+
 public class Console extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
-    private JButton button1,  button2,  button3;
+    private JButton haltButton, helpButton, button2, button3;
     private JCheckBox rawOutputCheckBox;
     private JTextArea rawOutputTextArea;
     private JTextArea textArea;
@@ -63,9 +65,19 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private StringBuilder inputLines;
     private int responseInsertionOffset = -1;
     private boolean encounteredIn = false;
+    private String helpMessage =
+            "Press <enter> after an expression to create an additional input line and to append a hidden ;.\n\n" +
+            "Press <shift><enter> after any input line in a group of input lines to execute them all.\n\n" +
+            "Type In> on the left edge of any line to create your own input prompt.\n\n" +
+            "Press <enter> after an empty In> to erase the In>.\n" +
+            "Any line in a group that ends with a \\ will not have a ; appended to it.\n\n" +
+            "Pressing <ctrl><enter> at the end of a line automatically appends a \\ to the line.\n\n" +
+            "The console window is an editable text area, so you can add text to it and remove text from \n" +
+            "it as needed.";
+
 
     public Console() {
-      
+
         inputLines = new StringBuilder();
 
 
@@ -74,18 +86,14 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         //keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
 
         buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons,BoxLayout.X_AXIS));
 
         Box guiBox = new Box(BoxLayout.Y_AXIS);
 
         textArea = new JTextArea(30, 20);
         textArea.append("MathPiper version " + org.mathpiper.Version.version + ".\n");
         textArea.append("Enter an expression after any In> prompt and press <shift><enter> to evaluate it.\n");
-        textArea.append("Press <enter> after an expression to create an additional input line and to append a hidden ;.\n");
-        textArea.append("Press <shift><enter> after any input line in a group of input lines to execute them all.\n");
-        textArea.append("Type In> on the left edge of any line to create your own input prompt.\n");
-        textArea.append("Press <enter> after an empty In> to erase the In>.\n");
-        textArea.append("Any line in a group that ends with a \\ will not have a ; appended to it.\n");
-        textArea.append("Pressing <ctrl><enter> at the end of a line automatically appends a \\ to the line.\n");
+
 
         textArea.append("\nIn> ");
         textArea.setCaretPosition(textArea.getDocument().getLength());
@@ -103,11 +111,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
         Box ioBox = new Box(BoxLayout.Y_AXIS);
 
-        button1 = new JButton("Halt Calculation");
-        button1.setEnabled(false);
-        //button1.setBackground(Color.green);
-        button1.addActionListener(this);
-        buttons.add(button1);
+        haltButton = new JButton("Halt Calculation");
+        haltButton.setEnabled(false);
+        haltButton.addActionListener(this);
+        buttons.add(haltButton);
+
         /*button2 = new JButton("Font--");
         button2.addActionListener(this);
         buttons.add(button2);
@@ -120,7 +128,12 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         buttons.add(rawOutputCheckBox);
         this.rawOutputTextArea = new JTextArea();
 
+        buttons.add(Box.createGlue());
 
+
+        helpButton = new JButton("Help");
+        helpButton.addActionListener(this);
+        buttons.add(helpButton);
 
 
         ioBox.add(buttons);
@@ -129,7 +142,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         this.add(ioBox, BorderLayout.NORTH);
 
         //this.add(guiBox, BorderLayout.CENTER);
-
 
 
 
@@ -143,43 +155,43 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     }//Constructor.
 
+
     public void setFontSize(float fontSize) {
         this.fontSize = fontSize;
-    //bitstreamVera = bitstreamVera.deriveFont(fontSize);
-    //typeArea.setFont(bitstreamVera);
+        //bitstreamVera = bitstreamVera.deriveFont(fontSize);
+        //typeArea.setFont(bitstreamVera);
     }//end method.
+
 
     public void actionPerformed(ActionEvent event) {
         Object src = event.getSource();
 
-        if (src == button1) {
+        if (src == haltButton) {
             interpreter.haltEvaluation();
         } else if (src == button2) {
             this.fontSize -= 2;
-        //bitstreamVera = bitstreamVera.deriveFont(fontSize);
-        //typeArea.setFont(bitstreamVera);
+            //bitstreamVera = bitstreamVera.deriveFont(fontSize);
+            //typeArea.setFont(bitstreamVera);
         } else if (src == button3) {
             this.fontSize += 2;
-        //bitstreamVera = bitstreamVera.deriveFont(fontSize);
-        //typeArea.setFont(bitstreamVera);
+            //bitstreamVera = bitstreamVera.deriveFont(fontSize);
+            //typeArea.setFont(bitstreamVera);
+        } else if (src == helpButton) {
+            JOptionPane.showMessageDialog(this, this.helpMessage);
         }
 
     }//end method.
 
-    public void itemStateChanged(ItemEvent ie)
-    {
+
+    public void itemStateChanged(ItemEvent ie) {
         Object source = ie.getSource();
 
-        if(source == rawOutputCheckBox)
-        {
-            if(ie.getStateChange() == ItemEvent.SELECTED)
-            {
+        if (source == rawOutputCheckBox) {
+            if (ie.getStateChange() == ItemEvent.SELECTED) {
                 Environment environment = interpreter.getEnvironment();
                 this.currentOutput = environment.iCurrentOutput;
                 environment.iCurrentOutput = this;
-            }
-            else
-            {
+            } else {
                 Environment environment = interpreter.getEnvironment();
                 environment.iCurrentOutput = this.currentOutput;
             }//end if/else.
@@ -187,15 +199,14 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     }//end method.
 
 
-    public void putChar(char aChar) throws Exception
-    {
-        if(rawOutputTextArea != null && currentOutput != null)
-        {
+    public void putChar(char aChar) throws Exception {
+        if (rawOutputTextArea != null && currentOutput != null) {
             this.rawOutputTextArea.append("" + aChar);
             this.rawOutputTextArea.setCaretPosition(this.rawOutputTextArea.getDocument().getLength());
             this.currentOutput.putChar(aChar);
         }//end if.
     }//end method.
+
 
     public void write(String aString) throws Exception {
         int i;
@@ -204,11 +215,14 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }
     }//end method.
 
+
     public void keyPressed(KeyEvent e) {
     }
 
+
     public void keyReleased(KeyEvent e) {
     }
+
 
     public void keyTyped(KeyEvent e) {
 
@@ -236,8 +250,8 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
-                        interpreter.evaluate("[" + code + "];",true);
-                        button1.setEnabled(true);
+                        interpreter.evaluate("[" + code + "];", true);
+                        haltButton.setEnabled(true);
 
                     }//end if.
                 } else {
@@ -267,15 +281,15 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
 
-            //input.delete(0, input.length());
-            // typeArea.append(response.getResult());
+                //input.delete(0, input.length());
+                // typeArea.append(response.getResult());
 
             } catch (BadLocationException ex) {
                 System.out.println(ex.getMessage() + " , " + ex.offsetRequested());
             }
 
-        //typeArea.append(new String(typedKey));
-        //typeArea.setCaretPosition( typeArea.getDocument().getLength() );
+            //typeArea.append(new String(typedKey));
+            //typeArea.setCaretPosition( typeArea.getDocument().getLength() );
         } else if ((int) key == 22) {
             try {
                 String clipBoard = (String) java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().getData(java.awt.datatransfer.DataFlavor.stringFlavor);
@@ -285,7 +299,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     for (int x = 0; x < chars.length; x++) {
                         //buffer.put((int) chars[x]);
                     }//end for.
-                //setReceiveDataRegisterFull(true);
+                    //setReceiveDataRegisterFull(true);
                 }//end if.
 
             } catch (NullPointerException ev) {
@@ -305,14 +319,15 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             }
 
             input.append(key);
-        //typeArea.append(Character.toString(key));
-        //buffer.put((int) key);
-        //setReceiveDataRegisterFull(true);
+            //typeArea.append(Character.toString(key));
+            //buffer.put((int) key);
+            //setReceiveDataRegisterFull(true);
         }
     }//end method.
 
+
     public void response(EvaluationResponse response) {
-        
+
         String output = "Result: " + response.getResult().trim();
 
         if (!response.getSideEffects().equalsIgnoreCase("")) {
@@ -330,31 +345,39 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         final String finalOutput = output;
         try {
             if (textArea.getLineOfOffset(responseInsertionOffset) == textArea.getLineCount()) {
-                         SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    button1.setEnabled(false);
-                    textArea.append(finalOutput);
-                }
-            });
-                
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run() {
+                        haltButton.setEnabled(false);
+                        textArea.append(finalOutput);
+                    }
+
+
+                });
+
                 //textArea.setCaretPosition( textArea.getDocument().getLength() );
             } else {
-                         SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    button1.setEnabled(false);
-                     textArea.insert(finalOutput, responseInsertionOffset);
-                }
-            });
-               
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    public void run() {
+                        haltButton.setEnabled(false);
+                        textArea.insert(finalOutput, responseInsertionOffset);
+                    }
+
+
+                });
+
             }//end if/else.
         } catch (BadLocationException ex) {
             System.out.println(ex);
         }
     }//end method.
 
+
     public boolean remove() {
         return true;
     }
+
 
     private void clearPreviousResponse() {
 
@@ -387,6 +410,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             return;
         }
     }//end method.
+
 
     private void captureInputLines(int lineNumber) {
 
@@ -440,6 +464,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
     }//end method.
+
 
     public static void main(String[] args) {
         Console console = new Console();
