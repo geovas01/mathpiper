@@ -92,8 +92,7 @@ public class MathPiperDocs extends JPanel
 
 
 
-		this.toolPanel = new MathPiperDocsToolPanel(this);
-		add(BorderLayout.NORTH, this.toolPanel);
+
 
 		if (floating)
 			this.setPreferredSize(new Dimension(500, 250));
@@ -123,6 +122,10 @@ public class MathPiperDocs extends JPanel
 		org.mathpiper.ui.gui.help.FunctionTreePanel helpPanel = new org.mathpiper.ui.gui.help.FunctionTreePanel(classLoader);
 		
 		add(BorderLayout.CENTER,helpPanel);
+		
+		
+		
+		add(BorderLayout.NORTH, helpPanel.getToolPanel());
 		
 		//docsScrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		//JPanel spacerPanel = new JPanel();
