@@ -51,7 +51,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
-    private JButton haltButton, helpButton, button2, button3;
+    private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, button2, button3;
     private JCheckBox rawOutputCheckBox;
     private JTextArea rawOutputTextArea;
     private JTextArea textArea;
@@ -73,7 +73,8 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             "Any line in a group that ends with a \\ will not have a ; appended to it.\n\n" +
             "Pressing <ctrl><enter> at the end of a line automatically appends a \\ to the line.\n\n" +
             "The console window is an editable text area, so you can add text to it and remove text from \n" +
-            "it as needed.";
+            "it as needed.\n\n" +
+            "The Raw Output checkbox sends all side effects output to the raw output text area.";
 
 
     public Console() {
@@ -127,8 +128,20 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         rawOutputCheckBox.addItemListener(this);
         buttons.add(rawOutputCheckBox);
         this.rawOutputTextArea = new JTextArea();
+        rawOutputTextArea.setEditable(false);
+        rawOutputTextArea.setText("Raw output text area.\n\n");
 
         buttons.add(Box.createGlue());
+
+
+        clearConsoleButton = new JButton("Clear");
+        clearConsoleButton.addActionListener(this);
+        buttons.add(clearConsoleButton);
+
+
+        clearRawButton = new JButton("Clear Raw");
+        clearRawButton.addActionListener(this);
+        buttons.add(clearRawButton);
 
 
         helpButton = new JButton("Help");
@@ -178,6 +191,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             //typeArea.setFont(bitstreamVera);
         } else if (src == helpButton) {
             JOptionPane.showMessageDialog(this, this.helpMessage);
+        } else if (src == clearConsoleButton) {
+            this.textArea.setText("");
+        }else if (src == clearRawButton) {
+            this.rawOutputTextArea.setText("");
         }
 
     }//end method.
