@@ -21,6 +21,7 @@ package org.mathpiper.ui.gui.help;
 public class FunctionInfo
 {
 	private String name;
+        private String scope;
 	private String description;
 
 	public FunctionInfo()
@@ -31,7 +32,18 @@ public class FunctionInfo
 	{
 		this.name = name;
 		this.description = description;
+                this.scope = "public";
 	}//end constructor.
+
+
+        public FunctionInfo(String name, String scope, String description)
+	{
+		this.name = name;
+                this.scope = scope;
+		this.description = description;
+
+	}//end constructor.
+
 
 	public void setName(String name)
 	{
@@ -46,6 +58,11 @@ public class FunctionInfo
 	public String getDescription()
 	{
 		return description;
+	}//end method.
+
+	public String getScope()
+	{
+		return scope;
 	}//end method.
 
 

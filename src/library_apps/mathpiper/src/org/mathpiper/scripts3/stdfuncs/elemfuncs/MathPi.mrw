@@ -49,3 +49,29 @@ MathPi() :=
 ];
 
 %/mathpiper
+
+
+
+
+
+
+
+%mathpiper_docs,name="MathPi",categories="User Functions;Numeric"
+*CMD MathPi --- The constant Pi.
+*CALL
+	MathPi()
+
+*DESC
+
+The constant Pi. Using a simple method, solve Cos(x)=0.
+iterate x := x + Cos(x) + 1/6 *Cos(x)^3 + ... to converge to x=Pi/2
+
+It is assumed that the arguments are real (not complex) floating-point or integer numbers. (The {InNumericMode()} flag does not have to be set.)
+The result is an exact integer or a floating-point number correct to BuiltinPrecisionGet() digits.
+
+If a better optimized version of this function is available through the kernel,
+then the kernel version will automatically shadow this function.
+This implementation is not necessarily the best optimized version.
+
+
+%/mathpiper_docs

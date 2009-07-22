@@ -13,74 +13,122 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
 package org.mathpiper.ui.gui.help;
 
+
+import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JTree;
+import javax.swing.UIManager;
 import javax.swing.tree.*;
 
-public class FunctionInfoTree extends JTree
-{
-	public FunctionInfoTree()
-	{
-		super();
-	}
 
-	public FunctionInfoTree(DefaultMutableTreeNode node)
-	{
-		super(node);
-	}
+public class FunctionInfoTree extends JTree {
 
-	public void setNode(DefaultMutableTreeNode node)
-	{
-		setModel(new DefaultTreeModel(node));
-	}//end method.
+    private DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer() {
 
-	public String getToolTipText(java.awt.event.MouseEvent e)
-	{
-		DefaultMutableTreeNode node = null;
-		FunctionInfo functionInfo = null;
-		String tip = null;
-		TreePath path = getPathForLocation(e.getX(), e.getY());
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree, Object value,
+                boolean sel, boolean expanded, boolean leaf, int row,
+                boolean hasFocus) {
 
-		if (path != null) {
-			node = (DefaultMutableTreeNode)path.getLastPathComponent();
-			functionInfo = (FunctionInfo) node.getUserObject();
-			tip = functionInfo.getDescription();
-		}
-
-		return tip == null ? null : tip;
-
-	}//end method.
+            super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf,
+                    row, hasFocus);
 
 
-	// If expand is true, expands all nodes in the tree.
-	// Otherwise, collapses all nodes in the tree.
-	public void collapseAll() {
-		TreeNode root = (TreeNode)this.getModel().getRoot();
+            FunctionInfoNode functionInfoNode = (FunctionInfoNode) value;
+            Object userObject = functionInfoNode.getUserObject();
 
-		// Traverse tree from root
-		expandAll(this, new TreePath(root), false);
-	}
-	private void expandAll(JTree tree, TreePath parent, boolean expand) {
-		// Traverse children
-		TreeNode node = (TreeNode)parent.getLastPathComponent();
-		if (node.getChildCount() >= 0) {
-			for (java.util.Enumeration e=node.children(); e.hasMoreElements(); ) {
-				TreeNode n = (TreeNode)e.nextElement();
-				TreePath path = parent.pathByAddingChild(n);
-				expandAll(tree, path, expand);
-			}
-		}
+            if (!(userObject instanceof String)) {
+                
+                FunctionInfo functionInfo = (FunctionInfo) userObject;
 
-		// Expansion or collapse must be done bottom-up
-		if (expand) {
-			tree.expandPath(parent);
-		} else {
-			tree.collapsePath(parent);
-		}
-	}
+                String scope = functionInfo.getScope();
+
+                if (scope.equals("private")) {
+                    //this.setTextSelectionColor(Color.RED);
+                    //this.setTextNonSelectionColor(Color.RED);
+                    this.setForeground(Color.RED);
+                } else {
+                    //this.setTextSelectionColor(Color.BLACK);
+                    //this.setTextNonSelectionColor(Color.BLACK);
+                    this.setForeground(Color.BLACK);
+                }
+
+            }//end if.
+
+
+            return this;
+        }
+
+
+    };
+
+
+    public FunctionInfoTree() {
+        super();
+        this.setCellRenderer(renderer);
+    }
+
+
+    public FunctionInfoTree(FunctionInfoNode node) {
+        super(node);
+        this.setCellRenderer(renderer);
+    }
+
+
+    public void setNode(FunctionInfoNode node) {
+        setModel(new FunctionInfoTreeModel(node));
+    }//end method.
+
+
+    public String getToolTipText(java.awt.event.MouseEvent e) {
+        FunctionInfoNode node = null;
+        FunctionInfo functionInfo = null;
+        String tip = null;
+        TreePath path = getPathForLocation(e.getX(), e.getY());
+
+        if (path != null) {
+            node = (FunctionInfoNode) path.getLastPathComponent();
+            functionInfo = (FunctionInfo) node.getUserObject();
+            tip = functionInfo.getDescription();
+        }
+
+        return tip == null ? null : tip;
+
+    }//end method.
+
+
+    // If expand is true, expands all nodes in the tree.
+    // Otherwise, collapses all nodes in the tree.
+    public void collapseAll() {
+        FunctionInfoNode root = (FunctionInfoNode) this.getModel().getRoot();
+
+        // Traverse tree from root
+        expandAll(this, new TreePath(root), false);
+    }
+
+
+    private void expandAll(JTree tree, TreePath parent, boolean expand) {
+        // Traverse children
+        FunctionInfoNode node = (FunctionInfoNode) parent.getLastPathComponent();
+        if (node.getChildCount() >= 0) {
+            for (java.util.Enumeration e = node.children(); e.hasMoreElements();) {
+                TreeNode n = (TreeNode) e.nextElement();
+                TreePath path = parent.pathByAddingChild(n);
+                expandAll(tree, path, expand);
+            }
+        }
+
+        // Expansion or collapse must be done bottom-up
+        if (expand) {
+            tree.expandPath(parent);
+        } else {
+            tree.collapsePath(parent);
+        }
+    }
+
 
 }//end class
 
