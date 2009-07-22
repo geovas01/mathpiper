@@ -75,7 +75,9 @@ public class CalculatorPanel extends javax.swing.JPanel
     
     private void initComponents2()
     {
-	 consoleInternalFrame = new javax.swing.JInternalFrame();
+	
+        /*
+        consoleInternalFrame = new javax.swing.JInternalFrame();
         Container contentPane = consoleInternalFrame.getContentPane();
         contentPane.add(new org.mathpiper.ui.gui.consoles.Console(), BorderLayout.CENTER);
         consoleInternalFrame.setIconifiable(true);
@@ -84,6 +86,7 @@ public class CalculatorPanel extends javax.swing.JPanel
         consoleInternalFrame.setBounds(0, 320, 430, 275);
         consoleInternalFrame.setVisible(true);
        jDesktopPane1.add(consoleInternalFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
+       */
 
     }//end method.
 
