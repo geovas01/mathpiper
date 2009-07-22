@@ -20,7 +20,6 @@ package org.mathpiper.ui.gui.help;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTree;
-import javax.swing.UIManager;
 import javax.swing.tree.*;
 
 
@@ -36,9 +35,9 @@ public class FunctionInfoTree extends JTree {
             super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf,
                     row, hasFocus);
 
-            if (value instanceof FunctionInfoNode) {
-                FunctionInfoNode functionInfoNode = (FunctionInfoNode) value;
-                Object userObject = functionInfoNode.getUserObject();
+            if (value instanceof DefaultMutableTreeNode) {
+                DefaultMutableTreeNode DefaultMutableTreeNode = (DefaultMutableTreeNode) value;
+                Object userObject = DefaultMutableTreeNode.getUserObject();
 
                 if (!(userObject instanceof String)) {
 
@@ -73,7 +72,7 @@ public class FunctionInfoTree extends JTree {
     }
 
 
-    public FunctionInfoTree(FunctionInfoNode node) {
+    public FunctionInfoTree(DefaultMutableTreeNode node) {
         super(node);
         this.setCellRenderer(renderer);
     }
@@ -85,19 +84,19 @@ public class FunctionInfoTree extends JTree {
     }
 
 
-    public void setNode(FunctionInfoNode node) {
-        setModel(new FunctionInfoTreeModel(node));
+    public void setNode(DefaultMutableTreeNode node) {
+        setModel(new DefaultTreeModel(node));
     }//end method.
 
 
     public String getToolTipText(java.awt.event.MouseEvent e) {
-        FunctionInfoNode node = null;
+        DefaultMutableTreeNode node = null;
         FunctionInfo functionInfo = null;
         String tip = null;
         TreePath path = getPathForLocation(e.getX(), e.getY());
 
         if (path != null) {
-            node = (FunctionInfoNode) path.getLastPathComponent();
+            node = (DefaultMutableTreeNode) path.getLastPathComponent();
             functionInfo = (FunctionInfo) node.getUserObject();
             tip = functionInfo.getDescription();
         }
@@ -110,7 +109,7 @@ public class FunctionInfoTree extends JTree {
     // If expand is true, expands all nodes in the tree.
     // Otherwise, collapses all nodes in the tree.
     public void collapseAll() {
-        FunctionInfoNode root = (FunctionInfoNode) this.getModel().getRoot();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) this.getModel().getRoot();
 
         // Traverse tree from root
         expandAll(this, new TreePath(root), false);
@@ -119,7 +118,7 @@ public class FunctionInfoTree extends JTree {
 
     private void expandAll(JTree tree, TreePath parent, boolean expand) {
         // Traverse children
-        FunctionInfoNode node = (FunctionInfoNode) parent.getLastPathComponent();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0) {
             for (java.util.Enumeration e = node.children(); e.hasMoreElements();) {
                 TreeNode n = (TreeNode) e.nextElement();
