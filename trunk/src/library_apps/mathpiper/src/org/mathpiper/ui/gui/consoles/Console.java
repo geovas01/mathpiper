@@ -53,6 +53,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private StringBuilder input = new StringBuilder();
     private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, button2, button3;
     private JCheckBox rawOutputCheckBox;
+    private JCheckBox showRawOutputCheckBox;
     private JTextArea rawOutputTextArea;
     private JTextArea textArea;
     private MathPiperOutputStream currentOutput;
@@ -65,6 +66,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private StringBuilder inputLines;
     private int responseInsertionOffset = -1;
     private boolean encounteredIn = false;
+    private JSplitPane splitPane;
+    private int splitPaneDividerLocation = 400;
+    private JScrollPane rawOutputCheckBoxScrollPane;
+
     private String helpMessage =
             "Press <enter> after an expression to create an additional input line and to append a hidden ;.\n\n" +
             "Press <shift><enter> after any input line in a group of input lines to execute them all.\n\n" +
@@ -131,6 +136,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         rawOutputTextArea.setEditable(false);
         rawOutputTextArea.setText("Raw output text area.\n\n");
 
+
+        showRawOutputCheckBox = new JCheckBox("Show Raw Output");
+        showRawOutputCheckBox.addItemListener(this);
+        buttons.add(showRawOutputCheckBox);
+
         buttons.add(Box.createGlue());
 
 
@@ -157,11 +167,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         //this.add(guiBox, BorderLayout.CENTER);
 
 
-
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, typePane, new JScrollPane(rawOutputTextArea));
+        rawOutputCheckBoxScrollPane = new JScrollPane(rawOutputTextArea);
+        splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, typePane, null);
         splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(400);
+        splitPane.setDividerLocation(splitPaneDividerLocation);
 
         this.add(splitPane);
 
@@ -212,7 +221,17 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 Environment environment = interpreter.getEnvironment();
                 environment.iCurrentOutput = this.currentOutput;
             }//end if/else.
-        }//end if.
+        }
+        else if (source == showRawOutputCheckBox) {
+            if (ie.getStateChange() == ItemEvent.SELECTED) {
+                splitPane.add(rawOutputCheckBoxScrollPane);
+                splitPane.setDividerLocation(splitPaneDividerLocation);
+                splitPane.revalidate();
+            } else {
+                splitPane.remove(2);
+                splitPane.revalidate();
+            }//end if/else.
+        }
     }//end method.
 
 
