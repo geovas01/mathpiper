@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.jfreechartplugin;
+package org.mathrider.mathpipercalcplugin;
 
 // {{{ imports
 import java.awt.BorderLayout;
@@ -38,8 +38,8 @@ import org.gjt.sp.util.StandardUtilities;
  * Piper - a dockable JPanel, a demonstration of a jEdit plugin.
  *
  */
-public class JFreeChart extends JPanel
-	implements EBComponent, JFreeChartActions, DefaultFocusComponent , org.mathpiper.interpreters.ResponseListener{
+public class MathPiperCalc extends JPanel
+	implements EBComponent, MathPiperCalcActions, DefaultFocusComponent {
 
 	// {{{ Instance Variables
 	//private static final long serialVersionUID = 6412255692894321789L;
@@ -52,9 +52,9 @@ public class JFreeChart extends JPanel
 
 	private boolean floating;
 
-	private JFreeChartToolPanel toolPanel;
+	private MathPiperCalcToolPanel toolPanel;
 	
-	private static JFreeChart jFreeChart;
+	private static MathPiperCalc jFreeChart;
 	// }}}
 
 	// {{{ Constructor
@@ -65,33 +65,26 @@ public class JFreeChart extends JPanel
 	 * 	which can be DockableWindowManager.FLOATING, TOP, BOTTOM, LEFT, RIGHT, etc.
 	 * 	see @ref DockableWindowManager for possible values.
 	 */
-	public JFreeChart(View view, String position) {
+	public MathPiperCalc(View view, String position) {
 		super(new BorderLayout());
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
 
-		//this.toolPanel = new JFreeChartToolPanel(this);
+		//this.toolPanel = new MathPiperCalcToolPanel(this);
 		//add(BorderLayout.NORTH, this.toolPanel);
 
 		//JLabel testLabel = new JLabel("TEST");
 		//this.add(testLabel);
 
-		JPanel panel  = HistogramExample1.createDemoPanel();
+		JPanel panel  = new org.mathpiper.ui.gui.calculator.CalculatorPanel();
 		this.add(panel);
 
-		if (floating)
-			this.setPreferredSize(new Dimension(500, 250));
-
-
-		org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
-		org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\");");
-		synchronousInterpreter.addResponseListener(this); 
 		
-		if(response.isExceptionThrown())
-		{
-			System.out.println(response.getExceptionMessage());
-		}
+		
+		if (floating) this.setPreferredSize(new Dimension(500, 250));
+
+
 		
 		jFreeChart = this;
 
@@ -99,30 +92,13 @@ public class JFreeChart extends JPanel
 	// }}}
 
 	
-	public static JPanel getJFreeChart()
+	public static JPanel getMathPiperCalc()
 	{
 		return jFreeChart;
 	}//end method.
 	
 	
-	public void response(org.mathpiper.interpreters.EvaluationResponse response)
-	{
-			//JFreeChart handler.
-			if(response.getObject() != null)
-			{
-				Object object = response.getObject();
-				if(object instanceof org.jfree.chart.ChartPanel)
-				{	
-					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jfreechart" );
-					JPanel newChart = (JPanel) object;
-					this.removeAll();
-					this.add(newChart);
-					this.revalidate();
-				}//end if.//
-			}//end if.*/
-			
-	    
-	}//end method.
+
 	
 	public boolean remove()
 	{

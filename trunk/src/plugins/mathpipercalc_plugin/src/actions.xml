@@ -1,0 +1,28 @@
+<!-- Action definition file for MathPiperCalc plugin -->
+
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+	<ACTION NAME="mathpipercalc.choose-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.NAME).chooseFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="mathpipercalc.save-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.NAME).saveFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="mathpipercalc.copy-to-buffer">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.NAME).copyToBuffer();
+		</CODE>
+	</ACTION>
+</ACTIONS>
+

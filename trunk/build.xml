@@ -341,9 +341,27 @@
 		<copy file="${plugins.build.dir}/jfreechart_plugin/dist/jfreechart_plugin.jar" todir="${plugins.jars.dir}"/>
 	</target>
 	
+	
+	
+	
+	<target id="mathpipercalc_plugin" name="mathpipercalc_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/mathpipercalc_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/mathpipercalc_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/mathpipercalc_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/mathpipercalc_plugin/dist/mathpipercalc_plugin.jar" todir="${plugins.jars.dir}"/>
+	</target>
+	
+	
+	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
-		geogebra_plugin, hoteqn_plugin, abcl_plugin, u6502_plugin, jung_plugin, jfreechart_plugin" />
+		geogebra_plugin, hoteqn_plugin, abcl_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, mathpipercalc_plugin" />
 	
 	
 	

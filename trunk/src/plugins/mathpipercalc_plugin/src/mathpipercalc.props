@@ -1,0 +1,81 @@
+# Properties file for MathPiperCalc plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.activate=startup
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.name=MathPiperCalc
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.docs=index.html
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin..longdescription=description.html
+#}}}
+
+
+
+
+mathpipercalc.shell.msg.info=\nMathPiperCalc Shell \n\
+
+
+mathpipercalc.shell.msg.usage=MathPiperCalc, a computer algebra system for beginners.
+
+
+
+# plugin menu
+plugin.org.mathrider.mathpipercalcplugin.MathPiperCalcPlugin.menu=mathpipercalc
+#	- \
+#	piper.choose-file \
+#	piper.save-file \
+#	piper.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+mathpipercalc.label=mathpipercalc
+
+# action labels for actions supplied by actions.xml
+mathpipercalc.choose-file.label=Choose notepad file
+mathpipercalc.save-file.label=Save notepad file
+mathpipercalc.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.mathpipercalc.option-pane=mathpipercalc
+
+# Option pane activation BeanShell snippet
+options.mathpipercalc.code=new org.mathrider.mathpipercalcplugin.MathPiperCalcOptionPane();
+
+# Option pane labels
+options.mathpipercalc.label=mathpipercalc
+options.mathpipercalc.file=File:
+options.mathpipercalc.choose-file=Choose
+options.mathpipercalc.choose-file.title=Choose a notepad file
+options.mathpipercalc.choose-font=Font:
+options.mathpipercalc.show-filepath.title=Display notepad file path
+
+# window title
+mathpipercalc.title=MathPiperCalc
+
+# window toolbar buttons
+mathpipercalc.choose-file.icon=Open.png
+mathpipercalc.save-file.icon=Save.png
+mathpipercalc.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.mathpipercalc.show-filepath=true
+options.mathpipercalc.font=Monospaced
+options.mathpipercalc.fontstyle=0
+options.mathpipercalc.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.mathpipercalc.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
