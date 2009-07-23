@@ -1090,27 +1090,91 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				output_fold_type = "%error ";
 			}
 			
-					/*
-					if(returnFlag == false)
-					{
-						errorLine = foldStartLine + lineIndex+2;
-						result = "Error on line " + errorLine + ".";
-						output_fold_type = "%error";
-						
-						filePath = textArea.getBuffer().getPath();
-			    	
-						errorSource.clear();
-                	
-						errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, "Hello" ) );
-			    	
-						jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
-						
-						break;      
-					}//end if.
-					*/
 
 		}//end else
 		//end %html }}}
+
+		
+	///{{{ *** %mathpiper_docs ***
+		else if(foldType.equalsIgnoreCase("%mathpiper_docs")) 
+		{
+						
+			result = "";
+			output_fold_type = "%output";
+			
+			try 
+			{   
+				frame = new javax.swing.JFrame(); 
+				contentPane = frame.getContentPane();
+				contentPane.setLayout(new java.awt.BorderLayout());
+				JEditorPane editorPane = new JEditorPane();
+				editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+				JScrollPane editorScrollPane = new JScrollPane(editorPane);
+				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				editorPane.setEditable(false);
+				htmlText = org.mathpiper.ui.gui.help.FunctionTreePanel.textToHtml(codeText);
+				editorPane.setText(htmlText);
+				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
+				
+				
+				//{{{Experimental screen capture code.
+				button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
+				button.setToolTipText("Save image of this window.");
+				ActionListener actionListener = new java.awt.event.ActionListener() {
+					
+					public void actionPerformed(ActionEvent evt) 
+					{
+						String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
+				
+						if (paths != null ) 
+						{
+							String fileName = paths[0];
+							java.io.File exportImageFile = new File(fileName);
+							try
+							{
+								org.mathrider.library.ScreenCapture.createImage(editorPane, fileName);
+							}
+							catch (java.io.IOException ioe)
+							{
+								ioe.printStackTrace();
+							}//end try/catch.
+						}//end if.
+					}//end method.
+				};//end anonymous.
+        		
+				button.addActionListener( actionListener);
+				
+				
+				toolPanel = new javax.swing.JPanel();
+				toolPanel.add(button);
+				contentPane.add(toolPanel, java.awt.BorderLayout.NORTH);
+				
+				//}}}*/
+
+				
+				
+
+				frame.pack();
+				frame.setAlwaysOnTop(false);
+				frame.setTitle("MathRider");
+				xsize = Integer.parseInt(foldProperties.get("width"));
+				ysize = Integer.parseInt(foldProperties.get("height"));
+				frame.setSize(new Dimension(xsize, ysize));
+				frame.setResizable(true);
+				//frame.setPreferredSize(new Dimension(400, 400));
+				frame.setLocationRelativeTo(null);
+				frame.show();
+
+
+			}catch(Exception e) 
+			{
+				result = e.getMessage();
+				output_fold_type = "%error ";
+			}
+			
+
+		}//end else
+		//end %mathpiper_docs }}}
 
 		
 	///{{{ *** %uasm65 ***
