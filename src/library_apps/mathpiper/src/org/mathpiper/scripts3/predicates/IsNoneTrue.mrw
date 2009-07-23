@@ -1,0 +1,40 @@
+%mathpiper,def="IsNoneTrue"
+
+10 # IsNoneTrue(lst_IsList,pred_IsString) <-- Not Apply("Or",(MapSingle(pred,lst)));
+
+20 # IsNoneTrue(_lst,_pred) <-- True;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+%mathpiper_docs,name="IsNoneTrue",categories="User Functions;Predicates"
+
+*CMD IsNoneTrue --- Check if NO element of list {lst} satisfies predicate {pred}
+
+*STD
+*CALL
+	IsNoneTrue(lst,pred)
+
+*PARMS
+
+{lst} -- a list
+
+{pred} -- the name of the predicate (as string, with quotes) to be tested
+
+*DESC
+
+The command {IsNoneTrue} returns {True} if NO element of the list {lst} satisfies the predicate {pred}.
+It returns {False} if at least one element of the list satisfies the predicate.
+It also returns {True} if {lst} is not a list, or if {pred} is not a predicate.
+
+*E.G.
+
+    In> IsNoneTrue({1,0,5},"IsNegativeInteger")
+    Result: True
+    In> IsNoneTrue({-1,-1,5},"IsPositiveInteger")
+    Result: False
+    
+%/mathpiper_docs
