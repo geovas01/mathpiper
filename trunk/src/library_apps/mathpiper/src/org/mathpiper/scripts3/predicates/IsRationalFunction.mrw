@@ -54,24 +54,42 @@ numerator and denominator be polynomials.
 
 *E.G.
 
-    IsRationalFunction(3,x)     :  False 
-    IsRationalFunction(3)       :  False 
-    IsRationalFunction(3.5,x)   :  False
-    IsRationalFunction(3.5)     :  False 
-    IsRationalFunction(3/5,x)   :  False 
-    IsRationalFunction(3/5)     :  False 
-    IsRationalFunction(x,y)     :  False 
-    IsRationalFunction(x)       :  False 
-    IsRationalFunction(x/y,x)   :  True 
-    IsRationalFunction(x/y)     :  True 
-    IsRationalFunction(x/5,x)   :  True 
-    IsRationalFunction(x/5)     :  True 
-    IsRationalFunction(5/x,x)   :  True 
-    IsRationalFunction(5/x)     :  True 
-    IsRationalFunction(5/y,x)   :  False 
-    IsRationalFunction(5/y)     :  True 
-    IsRationalFunction(1-1/x,x) :  False 
-    IsRationalFunction(1-1/x)   :  False
+	In> IsRationalFunction(3,x)  
+	Out> False
+	In> IsRationalFunction(3)      
+	Out> False;
+    In> IsRationalFunction(3.5,x)
+    Out>  False
+    In> IsRationalFunction(3.5)
+    Out>  False 
+    In> IsRationalFunction(3/5,x)
+    Out>  False 
+    In> IsRationalFunction(3/5)
+    Out>  False 
+    In> IsRationalFunction(x,y)
+    Out>  False 
+    In> IsRationalFunction(x)
+    Out>  False 
+    In> IsRationalFunction(x/y,x)
+    Out>  True 
+    In> IsRationalFunction(x/y)
+    Out>  True 
+    In> IsRationalFunction(x/5,x)
+    Out>  True 
+    In> IsRationalFunction(x/5)
+    Out>  True 
+    In> IsRationalFunction(5/x,x)
+    Out>  True 
+    In> IsRationalFunction(5/x)
+    Out>  True 
+    In> IsRationalFunction(5/y,x)
+    Out>  False 
+    In> IsRationalFunction(5/y)
+    Out>  True 
+    In> IsRationalFunction(1-1/x,x)
+    Out>  False 
+    In> IsRationalFunction(1-1/x)
+    Out>  False
 
 %/mathpiper_docs
 
@@ -99,29 +117,7 @@ Tell(19,IsRationalFunction(1-1/x));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      << 1 >> IsRationalFunction(3,x) :  False 
-      << 2 >> IsRationalFunction(3.5,x) :  False 
-      << 3 >> IsRationalFunction(3/5,x) :  False 
-      << 4 >> IsRationalFunction(x,y) :  False 
-      << 5 >> IsRationalFunction(x/y,x) :  True 
-      << 6 >> IsRationalFunction(x/5,x) :  True 
-      << 7 >> IsRationalFunction(5/x,x) :  True 
-      << 8 >> IsRationalFunction(5/y,x) :  False 
-      << 9 >> IsRationalFunction(1-1/x,x) :  False 
-      << 11 >> IsRationalFunction(3) :  False 
-      << 12 >> IsRationalFunction(3.5) :  False 
-      << 13 >> IsRationalFunction(3/5) :  False 
-      << 14 >> IsRationalFunction(x) :  False 
-      << 15 >> IsRationalFunction(x/y) :  True 
-      << 16 >> IsRationalFunction(x/5) :  True 
-      << 17 >> IsRationalFunction(5/x) :  True 
-      << 18 >> IsRationalFunction(5/y) :  True 
-      << 19 >> IsRationalFunction(1-1/x) :  False
-.   %/output
+
 
 
 
