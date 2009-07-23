@@ -137,11 +137,11 @@ public class CalculatorPanel extends javax.swing.JPanel
 
         setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("MathRider Mathematics Computing Environment (http://mathrider.org)");
-        add(jLabel1, java.awt.BorderLayout.NORTH);
+        //jLabel1.setText("MathRider Mathematics Computing Environment (http://mathrider.org)");
+        //add(jLabel1, java.awt.BorderLayout.NORTH);
 
-        jLabel2.setText("V.01");
-        add(jLabel2, java.awt.BorderLayout.SOUTH);
+        //jLabel2.setText("V.01");
+        //add(jLabel2, java.awt.BorderLayout.SOUTH);
 
         jDesktopPane1.setBackground(new java.awt.Color(238, 236, 242));
         jDesktopPane1.setAutoscrolls(true);
