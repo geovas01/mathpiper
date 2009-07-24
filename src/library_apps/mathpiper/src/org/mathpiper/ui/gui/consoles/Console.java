@@ -75,7 +75,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private int historyIndex = -1;
     private boolean lowHistoryIndexHit = false;
     private boolean highHistoryIndexHit = false;
-
     private String helpMessage =
             "Press <enter> after an expression to create an additional input line and to append a hidden ;.\n\n" +
             "Press <shift><enter> after any input line in a group of input lines to execute them all.\n\n" +
@@ -98,7 +97,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         //keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
 
         buttons = new JPanel();
-        buttons.setLayout(new BoxLayout(buttons,BoxLayout.X_AXIS));
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 
         Box guiBox = new Box(BoxLayout.Y_AXIS);
 
@@ -208,7 +207,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             JOptionPane.showMessageDialog(this, this.helpMessage);
         } else if (src == clearConsoleButton) {
             this.textArea.setText("");
-        }else if (src == clearRawButton) {
+        } else if (src == clearRawButton) {
             this.rawOutputTextArea.setText("");
         }
 
@@ -227,8 +226,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 Environment environment = interpreter.getEnvironment();
                 environment.iCurrentOutput = this.currentOutput;
             }//end if/else.
-        }
-        else if (source == showRawOutputCheckBox) {
+        } else if (source == showRawOutputCheckBox) {
             if (ie.getStateChange() == ItemEvent.SELECTED) {
                 splitPane.add(rawOutputCheckBoxScrollPane);
                 splitPane.setDividerLocation(splitPaneDividerLocation);
@@ -259,53 +257,69 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
     public void keyPressed(KeyEvent e) {
-        int keyCode = (int)e.getKeyCode();
+        int keyCode = (int) e.getKeyCode();
 
-        if(keyCode == KeyEvent.VK_CONTROL)
-        {
+        if (keyCode == KeyEvent.VK_CONTROL) {
             this.controlKeyDown = true;
         }//end if.
 
 
-        if(keyCode == KeyEvent.VK_UP && this.controlKeyDown)
-        {
+        if (keyCode == KeyEvent.VK_UP && this.controlKeyDown) {
             System.out.println("up");
 
-            if(! history.empty() && historyIndex != history.size()-1)
-            {
-                
+            if (!history.empty() && historyIndex != history.size() - 1) {
 
-                    historyIndex++;
-                    System.out.println(history.get(historyIndex));
+
+                historyIndex++;
+                System.out.println(history.get(historyIndex));
+
+                try {
+                    int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
+                    int lineStartOffset = textArea.getLineStartOffset(lineNumber);
+                    int lineEndOffset = textArea.getLineEndOffset(lineNumber);
+
+                    textArea.replaceRange("In>" + (String) history.get(historyIndex), lineStartOffset, lineEndOffset);
+
+                } catch (BadLocationException ble) {
+                    //Eat exception.
+                }
 
 
             }//end if.
 
         }//end if.
-        
+
 
     }//end method.
 
 
     public void keyReleased(KeyEvent e) {
-        int keyCode = (int)e.getKeyCode();
+        int keyCode = (int) e.getKeyCode();
 
-        if(keyCode == KeyEvent.VK_CONTROL)
-        {
+        if (keyCode == KeyEvent.VK_CONTROL) {
             this.controlKeyDown = false;
         }//end if.
 
 
-        if(keyCode == KeyEvent.VK_DOWN && this.controlKeyDown)
-        {
+        if (keyCode == KeyEvent.VK_DOWN && this.controlKeyDown) {
             System.out.println("down");
 
-            if(! history.empty() && historyIndex != 0)
-            {
+            if (!history.empty() && historyIndex != 0) {
 
 
-                    historyIndex--;
-                    System.out.println(history.get(historyIndex));
+                historyIndex--;
+                System.out.println(history.get(historyIndex));
+
+                try {
+                    int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
+                    int lineStartOffset = textArea.getLineStartOffset(lineNumber);
+                    int lineEndOffset = textArea.getLineEndOffset(lineNumber);
+
+                    textArea.replaceRange("In>" + (String) history.get(historyIndex), lineStartOffset, lineEndOffset);
+
+                } catch (BadLocationException ble) {
+                    //Eat exception.
+                }
 
             }//end if.
         }//end if.
@@ -313,8 +327,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     }//end method.
 
 
-
-    public void keyTyped(KeyEvent e) {  
+    public void keyTyped(KeyEvent e) {
 
         char key = e.getKeyChar();
 
@@ -340,7 +353,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                     //System.out.println(code);
 
-                    history.push(code);
+                    history.push(code.substring(0,code.length()-1));
 
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
