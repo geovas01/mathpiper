@@ -39,7 +39,7 @@ public class RunTestSuite {
     public void test() {
         try {
 
-            logFile = new java.io.FileWriter("./mathpiper_tests.log");
+            logFile = new java.io.FileWriter("./tests/mathpiper_tests.log");
             int exceptionCount = 0;
 
 

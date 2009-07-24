@@ -5,7 +5,6 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>mathpiper</name>
             <source-roots>
-                <root id="src.mathpiper.dir"/>
                 <root id="src.tests.dir"/>
                 <root id="src.src.dir"/>
             </source-roots>
