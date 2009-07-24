@@ -196,7 +196,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Constants (System)", "System related constants.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Control Flow", "Controls the order in which statements or function calls are executed.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Differential Equations", "In this section, some facilities for solving differential equations are described. Currently only simple equations without auxiliary conditions are supported.")));
-        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Simplification", "This section describes the functions offered that allow simplification of expressions.")));
+        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Manipulation", "This section describes functions which allow expressions to be manipulated.")));
+        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Expression Simplification", "This section describes function that allow simplification of expressions.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Functional Operators", "These operators can help the user to program in the style of functional programming languages such as Miranda or Haskell.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Input/Output", "Functions for input, output, and plotting.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Linear Algebra", "Functions used to manipulate vectors (represented as lists) and matrices (represented as lists of lists).")));
