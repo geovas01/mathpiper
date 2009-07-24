@@ -39,7 +39,7 @@ results.
 
 The last result is because {Exp(x)} cannot be
 numerically approximated if {x} is not known. Hence
-Yacas can not determine the sign of this expression.
+MathPiper can not determine the sign of this expression.
 
 *SEE IsPositiveReal, IsNegativeNumber, N
 %/mathpiper_docs

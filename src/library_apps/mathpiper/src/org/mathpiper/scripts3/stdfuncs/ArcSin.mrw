@@ -45,13 +45,13 @@ instance, the value of $ArcSin(x)$ is a number $y$ such that
 $Sin(y)$ equals $x$.
 
 Note that the number $y$ is not unique. For instance, $Sin(0)$ and
-$Sin(Pi)$ both equal 0, so what should $ArcSin(0)$ be? In Yacas,
+$Sin(Pi)$ both equal 0, so what should $ArcSin(0)$ be? In MathPiper,
 it is agreed that the value of $ArcSin(x)$ should be in the interval
 [-$Pi$/2,$Pi$/2]. 
 
-Usually, Yacas leaves this function alone unless it is forced to do
+Usually, MathPiper leaves this function alone unless it is forced to do
 a numerical evaluation by the {N} function. If the
-argument is -1, 0, or 1 however, Yacas will simplify the
+argument is -1, 0, or 1 however, MathPiper will simplify the
 expression. If the argument is complex,  the expression will be
 rewritten using the {Ln} function.
 

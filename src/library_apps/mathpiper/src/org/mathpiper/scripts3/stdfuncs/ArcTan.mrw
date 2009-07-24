@@ -46,12 +46,12 @@ instance, the value of $ArcTan(x)$ is a number $y$ such that
 $Tan(y)$ equals $x$.
 
 Note that the number $y$ is not unique. For instance, $Tan(0)$ and
-$Tan(2*Pi)$ both equal 0, so what should $ArcTan(0)$ be? In Yacas,
+$Tan(2*Pi)$ both equal 0, so what should $ArcTan(0)$ be? In MathPiper,
 it is agreed that the value of $ArcTan(x)$ should be in the interval
 [-$Pi$/2,$Pi$/2]. 
 
-Usually, Yacas leaves this function alone unless it is forced to do
-a numerical evaluation by the {N} function. Yacas will try to simplify
+Usually, MathPiper leaves this function alone unless it is forced to do
+a numerical evaluation by the {N} function. MathPiper will try to simplify
 as much as possible while keeping the result exact. If the argument is 
 complex,  the expression will be rewritten using the {Ln} function.
 

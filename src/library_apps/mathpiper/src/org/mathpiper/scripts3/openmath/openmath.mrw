@@ -707,8 +707,8 @@ Use("org/mathpiper/scripts/functional.rep/om.mpi");
 
 
 %mathpiper_docs,name="OMForm;OMRead",categories="User Functions;Input/Output"
-*CMD OMForm --- convert Yacas expression to OpenMath
-*CMD OMRead --- convert expression from OpenMath to Yacas expression
+*CMD OMForm --- convert MathPiper expression to OpenMath
+*CMD OMRead --- convert expression from OpenMath to MathPiper expression
 *STD
 *CALL
 	OMForm(expression)
@@ -722,12 +722,12 @@ Use("org/mathpiper/scripts/functional.rep/om.mpi");
 
 {OMForm} prints an OpenMath representation of the input parameter {expression}
 to standard output. {OMRead} reads an OpenMath expression from standard
-input and returns a normal Yacas expression that matches the input OpenMath
+input and returns a normal MathPiper expression that matches the input OpenMath
 expression.
 
-If a Yacas symbol does not have a mapping defined by {OMDef}, it is translated
-to and from OpenMath as the OpenMath symbol in the CD "yacas" with the same
-name as it has in Yacas.
+If a MathPiper symbol does not have a mapping defined by {OMDef}, it is translated
+to and from OpenMath as the OpenMath symbol in the CD "mathpiper" with the same
+name as it has in MathPiper.
 
 *EG notest
 
@@ -753,7 +753,7 @@ name as it has in Yacas.
 	In> OMForm(NotDefinedInOpenMath(2+3))
 	<OMOBJ>
 	  <OMA>
-	    <OMS cd="yacas" name="NotDefinedInOpenMath"/>
+	    <OMS cd="mathpiper" name="NotDefinedInOpenMath"/>
 	    <OMA>
 	      <OMS cd="arith1" name="plus"/>
 	      <OMI>2</OMI>
@@ -769,33 +769,33 @@ name as it has in Yacas.
 
 
 %mathpiper_docs,name="OMDef",categories="User Functions;Input/Output"
-*CMD OMDef --- define translations from Yacas to OpenMath and vice-versa.
+*CMD OMDef --- define translations from MathPiper to OpenMath and vice-versa.
 *STD
 *CALL
-	OMDef(yacasForm, cd, name)
-	OMDef(yacasForm, cd, name, yacasToOM)
-	OMDef(yacasForm, cd, name, yacasToOM, omToYacas)
+	OMDef(mathpiperForm, cd, name)
+	OMDef(mathpiperForm, cd, name, mathpiperToOM)
+	OMDef(mathpiperForm, cd, name, mathpiperToOM, omToMathPiper)
 
 *PARMS
 
-{yacasForm} -- string with the name of a Yacas symbol, or a Yacas expression
+{mathpiperForm} -- string with the name of a MathPiper symbol, or a MathPiper expression
 
 {cd} -- OpenMath Content Dictionary for the symbol
 
 {name} -- OpenMath name for the symbol
 
-{yacasToOM} -- rule for translating an application of that symbol in Yacas into an OpenMath expression
+{mathpiperToOM} -- rule for translating an application of that symbol in MathPiper into an OpenMath expression
 
-{omToYacas} -- rule for translating an OpenMath expression into an application of this symbol in Yacas
+{omToMathPiper} -- rule for translating an OpenMath expression into an application of this symbol in MathPiper
 
 *DESC
 
-{OMDef} defines the translation rules for symbols between the Yacas
+{OMDef} defines the translation rules for symbols between the MathPiper
 representation and {OpenMath}.
-The first parameter, {yacasForm}, can be a string or an expression. The
-difference is that when giving an expression only the {omToYacas} translation
+The first parameter, {mathpiperForm}, can be a string or an expression. The
+difference is that when giving an expression only the {omToMathPiper} translation
 is defined, and it uses the exact expression given. This is used for {OpenMath}
-symbols that must be translated into a whole subexpression in Yacas, such
+symbols that must be translated into a whole subexpression in MathPiper, such
 as {set1:emptyset} which gets translated to an empty list as follows:
 	In> OMDef( {}, "set1","emptyset" )
 	Out> True
@@ -804,21 +804,21 @@ as {set1:emptyset} which gets translated to an empty list as follows:
 	In> IsList(%)
 	Out> True
 Otherwise, a symbol that is not inside an application (OMA) gets translated to
-the Yacas atom with the given name:
+the MathPiper atom with the given name:
 	In> OMDef( "EmptySet", "set1","emptyset" )
 	Warning: the mapping for set1:emptyset was already defined as {} , but is redefined now as EmptySet
 	Out> True
 	In> FromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
 	Out> EmptySet
 
-The definitions for the symbols in the Yacas
+The definitions for the symbols in the MathPiper
 library are in the {*.rep} script subdirectories. In those modules for which
 the mappings are defined, there is a file called {om.ys} that contains the
 {OMDef} calls. Those files are loaded in {openmath.rep/om.ys}, so any new
 file must be added to the list there, at the end of the file.
 
 A rule is represented as a list of expressions. Since both OM and
-Yacas expressions are actually lists, the syntax is the same in both
+MathPiper expressions are actually lists, the syntax is the same in both
 directions. There are two template forms that are expanded before the
 translation:
 
@@ -837,13 +837,13 @@ They can appear anywhere in the rule as expressions or subexpressions.
 
 Finally, several alternative rules can be specified by joining them with
 the {|} symbol, and each of them can be annotated with a post-predicate
-applied with the underscore {_} symbol, in the style of Yacas' simplification
+applied with the underscore {_} symbol, in the style of MathPiper' simplification
 rules. Only the first alternative rule that matches is applied, so the more
 specific rules must be written first.
 
 There are special symbols recognized by {OMForm} to output {OpenMath}
-constructs that have no specific parallel in Yacas, such as an OpenMath
-symbol having a {CD} and {name}: Yacas symbols have only a name.
+constructs that have no specific parallel in MathPiper, such as an OpenMath
+symbol having a {CD} and {name}: MathPiper symbols have only a name.
 Those special symbols are:
 
 *	{OMS(cd, name)}: {<OMS cd="cd" name="name">}
@@ -852,9 +852,9 @@ Those special symbols are:
 *	{OMBVAR(x y ...)}: {<OMBVAR>x y ...</OMBVAR>}
 *	{OME(...)}: {<OME>...</OME>}
 
-When translating from OpenMath to Yacas, we just store unknown symbols as
+When translating from OpenMath to MathPiper, we just store unknown symbols as
 {OMS("cd", "name")}. This way we don't have to bother defining bogus symbols
-for concepts that Yacas does not handle, and we can evaluate expressions that
+for concepts that MathPiper does not handle, and we can evaluate expressions that
 contain them.
 
 *E.G. notest

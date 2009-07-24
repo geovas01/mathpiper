@@ -43,11 +43,11 @@ CanProve(_proposition)      <-- CanProveAux( proposition );
 
 *DESC
 
-Yacas has a small built-in propositional logic theorem prover.
+MathPiper has a small built-in propositional logic theorem prover.
 It can be invoked with a call to {CanProve}.
 
 An example of a proposition is: "if a implies b and b implies c then
-a implies c". Yacas supports the following logical operations:
+a implies c". MathPiper supports the following logical operations:
 
 {Not} :     negation, read as "not"
 
@@ -61,7 +61,7 @@ The abovementioned proposition would be represented by the following expression,
 
 	( (a=>b) And (b=>c) ) => (a=>c)
 
-Yacas can prove that is correct by applying {CanProve}
+MathPiper can prove that is correct by applying {CanProve}
 to it:
 
 	In> CanProve(( (a=>b) And (b=>c) ) => (a=>c))

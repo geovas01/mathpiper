@@ -284,7 +284,7 @@ This is a "cached constant" which is recalculated only when precision is increas
 The numerical value of the constant can also be obtained as {N(gamma)}.
 The low-level numerical computations are performed by the routine {GammaConstNum}.
 
-Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in Yacas.
+Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPiper.
 
 *E.G.
 

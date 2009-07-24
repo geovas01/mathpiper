@@ -43,12 +43,12 @@ instance, the value of $ArcCos(x)$ is a number $y$ such that
 $Cos(y)$ equals $x$.
 
 Note that the number $y$ is not unique. For instance, $Cos(Pi/2)$ and
-$Cos(3*Pi/2)$ both equal 0, so what should $ArcCos(0)$ be? In Yacas,
+$Cos(3*Pi/2)$ both equal 0, so what should $ArcCos(0)$ be? In MathPiper,
 it is agreed that the value of $ArcCos(x)$ should be in the interval [0,$Pi$] .
 
-Usually, Yacas leaves this function alone unless it is forced to do
+Usually, MathPiper leaves this function alone unless it is forced to do
 a numerical evaluation by the {N} function. If the
-argument is -1, 0, or 1 however, Yacas will simplify the
+argument is -1, 0, or 1 however, MathPiper will simplify the
 expression. If the argument is complex,  the expression will be
 rewritten using the {Ln} function.
 

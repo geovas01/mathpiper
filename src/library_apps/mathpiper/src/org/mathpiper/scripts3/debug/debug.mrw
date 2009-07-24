@@ -335,7 +335,7 @@ The time is printed to the current output stream.
 The built-in function {GetTime} is used for timing.
 
 The result is the "user time" as reported by the OS, not the real ("wall clock") time.
-Therefore, any CPU-intensive processes running alongside Yacas will not significantly affect the result of {Time}.
+Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {Time}.
 
 *EG notest
 	In> Time() N(MathLog(1000),40)
