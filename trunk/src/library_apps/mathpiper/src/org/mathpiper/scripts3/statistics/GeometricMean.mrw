@@ -1,5 +1,5 @@
 %mathpiper,def="GeometricMean"
 
-GeometricMean(x) := Factorize(x)^(1/Length(x));
+GeometricMean(x) := Product(x)^(1/Length(x));
 
 %/mathpiper

@@ -8,7 +8,7 @@
   perms:=Permutations(indices);
   result:=0;
   ForEach(item,perms)
-     result:=result+Factorize(i,1,Length(matrix),matrix[i][item[i] ])*
+     result:=result+Product(i,1,Length(matrix),matrix[i][item[i] ])*
                     LeviCivita(item);
   result;
 ];

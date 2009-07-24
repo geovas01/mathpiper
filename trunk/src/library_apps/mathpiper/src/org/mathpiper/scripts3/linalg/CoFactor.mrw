@@ -9,7 +9,7 @@ Function("CoFactor",{matrix,ii,jj})
   ForEach(item,perms)
      If(item[ii] = jj,
        result:=result+
-         Factorize(i,1,Length(matrix),
+         Product(i,1,Length(matrix),
          If(ii=i,1,matrix[i][item[i] ])
                   )*LeviCivita(item));
   result;

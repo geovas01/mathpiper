@@ -95,7 +95,7 @@ MultiPrimitivePart(MultiNomial(vars_IsList,_terms))
 
 10 # MultiLeadingMono(MultiNomial(_vars,{})) <-- 0;
 20 # MultiLeadingMono(MultiNomial(_vars,_terms))
-   <-- Factorize(vars^(MultiDegree(MultiNomial(vars,terms))));
+   <-- Product(vars^(MultiDegree(MultiNomial(vars,terms))));
 
 20 # MultiLeadingTerm(_m) <-- MultiLeadingCoef(m) * MultiLeadingMono(m);
 

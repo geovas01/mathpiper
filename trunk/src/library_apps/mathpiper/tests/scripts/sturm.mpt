@@ -37,7 +37,7 @@ TryRandomRoots(deg,coefmin,coefmax):=
   coefs:=RemoveDuplicates(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
   deg:=Length(coefs)-1;
   mult:=1+Abs(Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1));
-  p:=Factorize((x-coefs)^mult);
+  p:=Product((x-coefs)^mult);
   p:=Rationalize(p);
 Echo("Test polynom ",p);
 Echo("minimum ",MinimumBound(p));

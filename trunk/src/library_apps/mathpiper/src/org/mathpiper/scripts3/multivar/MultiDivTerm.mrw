@@ -13,7 +13,7 @@ MultiS(_g,_h,MultiNomial(_vars,_terms)) <--
 
   gamma :=Max(MultiDegree(g),MultiDegree(h));
   Local(result,topterm);
-  topterm := MM(Factorize(vars^gamma));
+  topterm := MM(Product(vars^gamma));
 
   result :=
     MultiDivTerm(topterm,MultiLT(g))*g -
