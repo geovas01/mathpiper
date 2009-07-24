@@ -1,0 +1,25 @@
+%mathpiper,title=""
+
+ProbabilityMassFunction(sampleSize, numberOfSuccesses, probabilityOfSuccess) :=
+[
+    N(Combinations(sampleSize, numberOfSuccesses) * probabilityOfSuccess^numberOfSuccesses * (1-probabilityOfSuccess)^(sampleSize - numberOfSuccesses));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
+
+a := ProbabilityMassFunction(25,1,.01);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.1964195352
+.   %/output
