@@ -2,6 +2,9 @@
 
 Combinations(n, r) :=
 [
+    //n represents an n element set.
+    //r represents a number of elements taken from n.
+    
     n! /(r! *(n-r)!);
 ];
 
