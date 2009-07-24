@@ -73,8 +73,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private Stack history = new java.util.Stack();
     private boolean controlKeyDown = false;
     private int historyIndex = -1;
-    private boolean lowHistoryIndexHit = false;
-    private boolean highHistoryIndexHit = false;
+
     private String helpMessage =
             "Press <enter> after an expression to create an additional input line and to append a hidden ;.\n\n" +
             "Press <shift><enter> after any input line in a group of input lines to execute them all.\n\n" +
@@ -82,6 +81,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             "Press <enter> after an empty In> to erase the In>.\n" +
             "Any line in a group that ends with a \\ will not have a ; appended to it.\n\n" +
             "Pressing <ctrl><enter> at the end of a line automatically appends a \\ to the line.\n\n" +
+            "Use <ctrl><up arrow> and <ctrl><down arrow> to navigate through the command line history.\n\n" +
             "The console window is an editable text area, so you can add text to it and remove text from \n" +
             "it as needed.\n\n" +
             "The Raw Output checkbox sends all side effects output to the raw output text area.";
@@ -265,20 +265,20 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
         if (keyCode == KeyEvent.VK_UP && this.controlKeyDown) {
-            System.out.println("up");
+            //System.out.println("up");
 
             if (!history.empty() && historyIndex != history.size() - 1) {
 
 
                 historyIndex++;
-                System.out.println(history.get(historyIndex));
+                //System.out.println(history.get((history.size()-1) - historyIndex));
 
                 try {
                     int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber);
 
-                    textArea.replaceRange("In>" + (String) history.get(historyIndex), lineStartOffset, lineEndOffset);
+                    textArea.replaceRange("In>" + (String) history.get((history.size()-1) - historyIndex), lineStartOffset, lineEndOffset);
 
                 } catch (BadLocationException ble) {
                     //Eat exception.
@@ -302,26 +302,41 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
         if (keyCode == KeyEvent.VK_DOWN && this.controlKeyDown) {
-            System.out.println("down");
+            //System.out.println("down");
 
-            if (!history.empty() && historyIndex != 0) {
+            if (!history.empty() && (! (historyIndex < 1) ) ) {
 
 
                 historyIndex--;
-                System.out.println(history.get(historyIndex));
+                //System.out.println(history.get((history.size()-1) - historyIndex));
 
                 try {
                     int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber);
 
-                    textArea.replaceRange("In>" + (String) history.get(historyIndex), lineStartOffset, lineEndOffset);
+                    textArea.replaceRange("In>" + (String) history.get((history.size()-1) - historyIndex), lineStartOffset, lineEndOffset);
 
                 } catch (BadLocationException ble) {
                     //Eat exception.
                 }
 
-            }//end if.
+            }else if(!history.empty() && historyIndex == 0)
+            {
+                try {
+                    int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
+                    int lineStartOffset = textArea.getLineStartOffset(lineNumber);
+                    int lineEndOffset = textArea.getLineEndOffset(lineNumber);
+
+                    textArea.replaceRange("In>", lineStartOffset, lineEndOffset);
+
+                    this.historyIndex = -1;
+
+                } catch (BadLocationException ble) {
+                    //Eat exception.;
+                }
+
+            }//end else.
         }//end if.
 
     }//end method.
@@ -354,6 +369,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     //System.out.println(code);
 
                     history.push(code.substring(0,code.length()-1));
+                    this.historyIndex = -1;
 
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
@@ -580,10 +596,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         Container contentPane = frame.getContentPane();
         contentPane.add(console, BorderLayout.CENTER);
         //frame.setAlwaysOnTop(true);
-        frame.setSize(new Dimension(600, 600));
+        frame.setSize(new Dimension(700, 600));
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         //frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(600, 600));
+        frame.setPreferredSize(new Dimension(700, 600));
         frame.setLocationRelativeTo(null); // added
         frame.pack();
         frame.setVisible(true);
