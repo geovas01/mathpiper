@@ -553,11 +553,11 @@ HoldArgNr("OMPathSelect", 2, 2);
      Local(cdTable, piperform);
      cdTable := OMSymbolReverse()[ omcd ];
      If(cdTable != Empty, piperform := cdTable[ omname ]);
-     // We can not optimize here by checking first whether the CD is "piper"
+     // We can not optimize here by checking first whether the CD is mathpiper
      // and avoiding the table lookup then, because for some symbols the
      // OM name have to be different from the MathPiper name (e.g. "/@").
      If(piperform = Empty,
-        If(cd = "piper", Atom(omname), OMS(omcd, omname)),
+        If(cd = mathpiper, Atom(omname), OMS(omcd, omname)),
         If(IsString(piperform), Atom(piperform), piperform));
      ]
     );
@@ -678,9 +678,9 @@ OMDef( "Or"   ,  "logic1", "or"    );
 OMDef( "True" ,  "logic1", "true"  );
 //[20010916 AGP ] Xor is not available in MathPiper.
 //     "Xor"  ,  "logic1", "xor"   );
-OMDef( "&" ,  "piper", "bitwise_and" );
-OMDef( "|" ,  "piper", "bitwise_or"  );
-OMDef( "%" ,  "piper", "bitwise_xor" );
+OMDef( "&" ,  mathpiper, "bitwise_and" );
+OMDef( "|" ,  mathpiper, "bitwise_or"  );
+OMDef( "%" ,  mathpiper, "bitwise_xor" );
 OMDef( "/" , "arith1", "divide");// This definition is for OM arith1:divide to MathPiper. In all other cases, the next one will be used.
 OMDef( "/" , "nums1", "rational", {$, _1, _2}_(IsRational(_1/_2)) | {OMS("arith1", "divide"), _1, _2}, {/, _1, _2});
 OMDef( "-" ,  "arith1", "unary_minus");
