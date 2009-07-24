@@ -1,6 +1,6 @@
-%mathpiper,def=""
+%mathpiper,def="EquationRight"
 
-EquRight(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
+EquationRight(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
 [
     Local(listForm);
     
@@ -13,15 +13,15 @@ EquRight(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
 
 
 
-%mathpiper_docs,name="EquRight",categories=""
-*CMD EquRight --- return the right side of a symbolic equation
+%mathpiper_docs,name="EquationRight",categories="User Functions;Expression Manipulation"
+*CMD EquationRight --- return the right side of a symbolic equation
 *STD
 *CALL
-	EquRight(e)
+	EquationRight(equation)
 	
 *PARMS
 
-{e} -- symbolic equation.
+{equation} -- symbolic equation.
 
 
 *DESC
@@ -33,8 +33,9 @@ function returns the right side of a symbolic equation.
 
 	In> e := y^2 == 4*p*x
 	Result> y^2==4*p*x
-	In> EquRight(e)
+
+	In> EquationRight(e)
 	Result> 4*p*x
 
-*SEE ==, EquLeft
+*SEE ==, EquationLeft
 %/mathpiper_docs

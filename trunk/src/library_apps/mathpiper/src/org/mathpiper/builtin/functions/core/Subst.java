@@ -43,7 +43,7 @@ public class Subst extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Subst",categories="User Functions;Control Flow;Built In"
+%mathpiper_docs,name="Subst",categories="User Functions;Expression Manipulation;Built In"
 *CMD Subst --- perform a substitution
 *CORE
 *CALL
