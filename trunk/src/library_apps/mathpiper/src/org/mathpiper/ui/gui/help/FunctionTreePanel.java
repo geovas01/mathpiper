@@ -463,11 +463,14 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     }//end method.
 
 
-    public static String textToHtml(String s) {
+    public static String textToHtml(String scriptCode) {
 //s = "*CMD D --- take derivative of expression with respect to variable\n*STD\n*CALL\n	D(variable) expression\n	D(list) expression\n	D(variable,n) expression\n\n*PARMS\n\n{variable} -- variable\n\n{list} -- a list of variables\n\n{expression} -- expression to take derivatives of\n\n{n} -- order of derivative\n\n*DESC\n\nThis function calculates the derivative of the expression {expr} with\nrespect to the variable {var} and returns it. If the third calling\nformat is used, the {n}-th derivative is determined. Yacas knows\nhow to differentiate standard functions such as {Ln}\nand {Sin}.\n\nThe {D} operator is threaded in both {var} and\n{expr}. This means that if either of them is a list, the function is\napplied to each entry in the list. The results are collected in\nanother list which is returned. If both {var} and {expr} are a\nlist, their lengths should be equal. In this case, the first entry in\nthe list {expr} is differentiated with respect to the first entry in\nthe list {var}, the second entry in {expr} is differentiated with\nrespect to the second entry in {var}, and so on.\n\nThe {D} operator returns the original function if $n=0$, a common\nmathematical idiom that simplifies many formulae.\n\n*E.G.\n\n	In> D(x)Sin(x*y)\n	Out> y*Cos(x*y);\n	In> D({x,y,z})Sin(x*y)\n	Out> {y*Cos(x*y),x*Cos(x*y),0};\n	In> D(x,2)Sin(x*y)\n	Out> -Sin(x*y)*y^2;\n	In> D(x){Sin(x),Cos(x)}\n	Out> {Cos(x),-Sin(x)};\n\n*SEE Integrate, Taylor, Diverge, Curl\n";
 
+        scriptCode = scriptCode.replace("&", "&amp;");
+        scriptCode = scriptCode.replace("<", "&lt;");
+        scriptCode = scriptCode.replace(">", "&gt;");
 
-        String[] lines = s.split("\n");
+        String[] lines = scriptCode.split("\n");
 
         StringBuilder html = new StringBuilder();
 
