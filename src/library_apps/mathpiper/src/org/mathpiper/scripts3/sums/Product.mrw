@@ -1,6 +1,6 @@
-%mathpiper,def="Factorize"
+%mathpiper,def="Product"
 
-Function("Factorize",{sumvar,sumfrom,sumto,sumbody})
+Function("Product",{sumvar,sumfrom,sumto,sumbody})
 [
    Local(sumi,sumsum);
    sumsum:=1;
@@ -12,11 +12,11 @@ Function("Factorize",{sumvar,sumfrom,sumto,sumbody})
        ];
    sumsum;
 ];
-UnFence("Factorize",4);
-HoldArg("Factorize",sumvar);
-HoldArg("Factorize",sumbody);
+UnFence("Product",4);
+HoldArg("Product",sumvar);
+HoldArg("Product",sumbody);
 
-Factorize(sumlist_IsList) <--
+Product(sumlist_IsList) <--
 [
    Local(sumi,sumsum);
    sumsum:=1;
@@ -31,12 +31,12 @@ Factorize(sumlist_IsList) <--
 
 
 
-%mathpiper_docs,name="Factorize",categories="User Functions;Series"
-*CMD Factorize --- product of a list of values
+%mathpiper_docs,name="Product",categories="User Functions;Series"
+*CMD Product --- product of a list of values
 *STD
 *CALL
-	Factorize(list)
-	Factorize(var, from, to, body)
+	Product(list)
+	Product(var, from, to, body)
 
 *PARMS
 
@@ -52,7 +52,7 @@ Factorize(sumlist_IsList) <--
 
 *DESC
 
-The first form of the {Factorize} command simply
+The first form of the {Product} command simply
 multiplies all the entries in "list" and returns their product.
 
 If the second calling sequence is used, the expression "body" is
@@ -63,9 +63,9 @@ returned. Obviously, "to" should be greater than or equal to
 
 *E.G.
 
-	In> Factorize({1,2,3,4});
+	In> Product({1,2,3,4});
 	Out> 24;
-	In> Factorize(i, 1, 4, i);
+	In> Product(i, 1, 4, i);
 	Out> 24;
 
 *SEE Sum, Apply

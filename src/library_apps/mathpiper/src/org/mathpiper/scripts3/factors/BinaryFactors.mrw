@@ -246,7 +246,7 @@ BinaryFactors(expr):=
   result:=Fct(coefs,uni[2]);
 //  Echo(result,list);
 //  Echo((Add(list*x^(0 .. (Length(list)-1)))));
-//  Factorize(x-result)*(Add(list*x^(0 .. (Length(list)-1))));
+//  Product(x-result)*(Add(list*x^(0 .. (Length(list)-1))));
   result;
 ];
 

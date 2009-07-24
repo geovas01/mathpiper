@@ -1,5 +1,5 @@
 
-Verify(Factorize(i,1,3,i),6);
+Verify(Product(i,1,3,i),6);
 
 Verify( Sum(k,1,n,k), n*(n+1)/2 );
 Verify( Simplify(Sum(k,1,n,k^3)), Simplify( (n*(n+1))^2 / 4 ) );
