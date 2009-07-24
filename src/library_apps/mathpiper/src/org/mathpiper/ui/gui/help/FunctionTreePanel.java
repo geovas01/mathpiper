@@ -114,6 +114,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             treePanel.setLayout(new BorderLayout());
             treePanel.add(functionsTree);
             treeViewScrollPane = new JScrollPane(treePanel);
+            treeViewScrollPane.getVerticalScrollBar().setUnitIncrement(60);
+            treeViewScrollPane.getVerticalScrollBar().setBlockIncrement(180);
 
 
 
