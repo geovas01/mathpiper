@@ -27,6 +27,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Stack;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -69,6 +70,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private JSplitPane splitPane;
     private int splitPaneDividerLocation = 400;
     private JScrollPane rawOutputCheckBoxScrollPane;
+    private Stack history = new java.util.Stack();
+    private boolean controlKeyDown = false;
+    private int historyIndex = -1;
+    private boolean lowHistoryIndexHit = false;
+    private boolean highHistoryIndexHit = false;
 
     private String helpMessage =
             "Press <enter> after an expression to create an additional input line and to append a hidden ;.\n\n" +
@@ -253,16 +259,65 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
     public void keyPressed(KeyEvent e) {
-    }
+        int keyCode = (int)e.getKeyCode();
+
+        if(keyCode == KeyEvent.VK_CONTROL)
+        {
+            this.controlKeyDown = true;
+        }//end if.
+
+
+        if(keyCode == KeyEvent.VK_UP && this.controlKeyDown)
+        {
+            System.out.println("up");
+
+            if(! history.empty() && historyIndex != history.size()-1)
+            {
+                
+
+                    historyIndex++;
+                    System.out.println(history.get(historyIndex));
+
+
+            }//end if.
+
+        }//end if.
+        
+
+    }//end method.
 
 
     public void keyReleased(KeyEvent e) {
-    }
+        int keyCode = (int)e.getKeyCode();
+
+        if(keyCode == KeyEvent.VK_CONTROL)
+        {
+            this.controlKeyDown = false;
+        }//end if.
 
 
-    public void keyTyped(KeyEvent e) {
+        if(keyCode == KeyEvent.VK_DOWN && this.controlKeyDown)
+        {
+            System.out.println("down");
+
+            if(! history.empty() && historyIndex != 0)
+            {
+
+
+                    historyIndex--;
+                    System.out.println(history.get(historyIndex));
+
+            }//end if.
+        }//end if.
+
+    }//end method.
+
+
+
+    public void keyTyped(KeyEvent e) {  
 
         char key = e.getKeyChar();
+
         //System.out.println((int)key);
 
         if ((int) key == 10) {
@@ -275,14 +330,17 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 if (e.isShiftDown()) {
 
                     captureInputLines(lineNumber);
+
                     clearPreviousResponse();
 
 
-
                     String code = inputLines.toString().replaceAll(";;", ";").trim();
+
                     code = code.replaceAll("\\\\", "");
 
                     //System.out.println(code);
+
+                    history.push(code);
 
                     if (code.length() > 0) {
                         interpreter.addResponseListener(this);
