@@ -219,12 +219,12 @@ UnFence("else",2);
 
 *DESC
 
-The function {N} instructs {Yacas} to try to coerce an expression in to a numerical approximation to the
+The function {N} instructs {MathPiper} to try to coerce an expression in to a numerical approximation to the
 expression {expr}, using {prec} digits precision if the second calling
 sequence is used, and the default precision otherwise. This overrides the normal
 behaviour, in which expressions are kept in symbolic form (eg. {Sqrt(2)} instead of {1.41421}).
 
-Application of the {N} operator will make Yacas
+Application of the {N} operator will make MathPiper
 calculate floating point representations of functions whenever
 possible. In addition, the variable {Pi} is bound to
 the value of $Pi$ calculated at the current precision.
@@ -330,7 +330,7 @@ neither rational nor numeric, the function returns unevaluated.
 *DESC
 
 The function {V(expression)} will evaluate the expression in 
-verbose mode. Various parts of Yacas can show extra information
+verbose mode. Various parts of MathPiper can show extra information
 about the work done while doing a calculation when using {V}.
 
 In verbose mode, {InVerboseMode()} will return {True}, otherwise
@@ -504,7 +504,7 @@ In fact, the result is always {True}.
 The variable with name "var" is incremented, i.e. the number 1 is
 added to it. The expression {x++} is equivalent to
 the assignment {x := x + 1}, except that the
-assignment returns the new value of {x} while {x++} always returns true. In this respect, Yacas' {++} differs from the corresponding operator in the
+assignment returns the new value of {x} while {x++} always returns true. In this respect, MathPiper' {++} differs from the corresponding operator in the
 programming language C.
 
 *E.G.
@@ -538,7 +538,7 @@ subtracted from it. The expression {x--} is
 equivalent to the assignment {x := x - 1}, except
 that the assignment returns the new value of {x}
 while {x--} always returns true. In this respect,
-Yacas' {--} differs from the corresponding operator
+MathPiper' {--} differs from the corresponding operator
 in the programming language C.
 
 *E.G.
@@ -572,7 +572,7 @@ in the programming language C.
 *DESC
 
 When in numeric mode, {InNumericMode()} will return {True}, else it will
-return {False}. {Yacas} is in numeric mode when evaluating an expression
+return {False}. {MathPiper} is in numeric mode when evaluating an expression
 with the function {N}. Thus when calling {N(expr)}, {InNumericMode()} will
 return {True} while {expr} is being evaluated.
 

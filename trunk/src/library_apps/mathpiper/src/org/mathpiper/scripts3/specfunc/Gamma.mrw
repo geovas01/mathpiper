@@ -38,7 +38,7 @@
 
 {Gamma(x)} is an interface to Euler's Gamma function $Gamma(x)$. It returns exact values on integer and half-integer arguments. {N(Gamma(x)} takes a numeric parameter and always returns a floating-point number in the current precision.
 
-Note that Euler's constant $gamma<=>0.57722$ is the lowercase {gamma} in Yacas.
+Note that Euler's constant $gamma<=>0.57722$ is the lowercase {gamma} in MathPiper.
 
 *E.G.
 

@@ -79,7 +79,7 @@ In most cases these will be short integers that are simple to determine.
 The binary splitting method will work also for non-integer coefficients, but the calculation will take much longer in that case.
 
 Note: the binary splitting method outperforms the straightforward summation only if the multiplication of integers is faster than quadratic in the number of digits.
-See <*the algorithm documentation|yacasdoc://Algo/3/14/*> for more information.
+See <*the algorithm documentation|mathpiperdoc://Algo/3/14/*> for more information.
 
 The two other functions are low-level functions that allow a finer control over the calculation.
 The use of the low-level routines allows checkpointing or parallelization of a binary splitting calculation.

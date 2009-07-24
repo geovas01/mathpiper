@@ -320,7 +320,7 @@ Function("Random",{}) Random3();
 
 The function {Random} returns a random number, uniformly distributed in the
 interval between 0 and 1. The same sequence of random numbers is
-generated in every Yacas session.
+generated in every MathPiper session.
 
 The random number generator can be initialized by calling {RandomSeed} with an integer value.
 Each seed value will result in the same sequence of pseudo-random numbers.

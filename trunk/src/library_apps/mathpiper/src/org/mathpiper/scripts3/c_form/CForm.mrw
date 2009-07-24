@@ -240,7 +240,7 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 
 *DESC
 
-{CForm} returns a string containing C++ code that attempts to implement the Yacas expression {expr}. Currently the exporter handles most expression types but not all.
+{CForm} returns a string containing C++ code that attempts to implement the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
 
 *EG
 

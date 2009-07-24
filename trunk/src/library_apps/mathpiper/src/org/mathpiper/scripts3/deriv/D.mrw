@@ -58,7 +58,7 @@ HoldArg("D",aFunc);
 
 This function calculates the derivative of the expression {expr} with
 respect to the variable {var} and returns it. If the third calling
-format is used, the {n}-th derivative is determined. Yacas knows
+format is used, the {n}-th derivative is determined. MathPiper knows
 how to differentiate standard functions such as {Ln}
 and {Sin}.
 

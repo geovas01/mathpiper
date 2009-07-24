@@ -69,11 +69,11 @@ LocalSymbols(CFormAllFunctions) [
 
 *DESC
 
-{IsCFormable} returns {True} if the Yacas expression {expr} can be exported
+{IsCFormable} returns {True} if the MathPiper expression {expr} can be exported
 into C++ code. This is a check whether the C++ exporter {CForm} can be safely
 used on the expression.
 
-A Yacas expression is considered exportable if it contains only functions that can be translated into C++ (e.g. {UnList} cannot be exported). All variables and constants are considered exportable.
+A MathPiper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. {UnList} cannot be exported). All variables and constants are considered exportable.
 
 The verbose option prints names of functions that are not exportable.
 

@@ -333,7 +333,7 @@ Various plotting options can be specified.
 Output can be directed to a plotting program (the default is to use
 {data}), to a list of values.
 
-The function parameter {f(x,y)} must evaluate to a Yacas expression containing
+The function parameter {f(x,y)} must evaluate to a MathPiper expression containing
 at most two variables. (The variables do not have to be called {x} and {y}.)
 Also, {N(f(x,y))} must evaluate to a real (not complex) numerical value when given numerical values of the arguments {x}, {y}.
 If the function {f(x,y)} does not satisfy these requirements, an error is raised.
@@ -349,7 +349,7 @@ Data files are created in a temporary directory {/tmp/plot.tmp/} unless otherwis
 File names
 and other information is printed if {InVerboseMode()} returns {True} on using {V()}.
 
-The current algorithm uses Newton-Cotes cubatures and some heuristics for error estimation (see <*yacasdoc://Algo/3/1/*>).
+The current algorithm uses Newton-Cotes cubatures and some heuristics for error estimation (see <*mathpiperdoc://Algo/3/1/*>).
 The initial rectangular grid of {xpoints+1}*{ypoints+1} points is refined within any rectangle where the integral
 of $f(x,y)$ is not approximated to the given precision by
 the existing grid.

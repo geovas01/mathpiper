@@ -372,7 +372,7 @@ Function ("TeXFormPrintMatrix", {M})
 
 *DESC
 
-{TeXForm} returns a string containing a $LaTeX$ representation of the Yacas expression {expr}. Currently the exporter handles most expression types but not all.
+{TeXForm} returns a string containing a $LaTeX$ representation of the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
 
 *EG
 
