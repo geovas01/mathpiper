@@ -588,7 +588,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                         break;
                     }
                     if (line.equalsIgnoreCase("")) {
-                        html.append("\n<br />\n");
+                        html.append("<br />\n");
                         continue;
                     }
 
@@ -599,7 +599,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     html.append("\n");
                 }//end while.
 
-                html.append("\n</pre></tr>\n</table>\n<p>\n\n");
+                html.append("\n</pre></tr>\n</table>\n<p>\n");
             } else if (line.startsWith("*SEE")) {
 
                 //line = lines[x].trim();
