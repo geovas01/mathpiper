@@ -1,4 +1,4 @@
-%mathpiper,def="Add"
+%mathpiper,def="Add",scope="private"
 
 Function() Add(val, ...);
 
