@@ -1,4 +1,4 @@
-%mathpiper,def="",scope="private"
+%mathpiper,def="",scope="nobuild",subtype="manual_test"
 
 /*
   Tests MathPiper's Randomnumber generator
