@@ -199,3 +199,5 @@ search.find.value=\\n+%end
 plugins=plugin-options -
 mathpiperdocs.height=299
 help-menu=help
+next-paragraph.shortcut=
+prev-paragraph.shortcut=
