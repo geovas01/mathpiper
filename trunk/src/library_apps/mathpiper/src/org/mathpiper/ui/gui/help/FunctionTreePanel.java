@@ -587,7 +587,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                         break;
                     }//end if.
 
-                    line = lines[x].trim();
+                    line = lines[x];
+
+                    line = line.replace("/%", "%");
 
                     if (line.startsWith("*")) {
                         x--;

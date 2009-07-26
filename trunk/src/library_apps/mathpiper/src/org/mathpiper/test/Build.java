@@ -300,7 +300,7 @@ public class Build {
             String line;
             //Read File Line By Line
             while ((line = br.readLine()) != null) {
-                line = line.trim();
+                //line = line.trim();
                 //System.out.println(line);
 
                 if (line.startsWith("%/")) {

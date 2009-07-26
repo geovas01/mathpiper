@@ -28,11 +28,12 @@ CumulativePlot(samples);
 
 
 
-ForEach(i, 1 .. 10)
+x := 1;
+
+While(x <= 10)
 [
+    Echo(x);
 
-    Echo(i);
+    If(x = 5, Break());
 
-    If(i = 5, Break());
-
-];
+    x++;
