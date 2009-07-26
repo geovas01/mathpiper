@@ -28,7 +28,7 @@
 DecimalFindPeriod(_list) <--
 [
   Local(period,nr,reversed,first,i);
-  reversed:=Tail(DestructiveReverse(FlatCopy(Tail(list))));
+  reversed:=Rest(DestructiveReverse(FlatCopy(Rest(list))));
   nr:=Length(reversed)>>1;
   period:=1;
   first:=reversed[1];

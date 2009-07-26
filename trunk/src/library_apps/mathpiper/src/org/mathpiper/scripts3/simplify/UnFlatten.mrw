@@ -2,7 +2,7 @@
 
 10 # UnFlatten({},_op,_identity) <-- identity;
 20 # UnFlatten(list_IsList,_op,_identity) <--
-     Apply(op,{First(list),UnFlatten(Tail(list),op,identity)});
+     Apply(op,{First(list),UnFlatten(Rest(list),op,identity)});
 
 %/mathpiper
 

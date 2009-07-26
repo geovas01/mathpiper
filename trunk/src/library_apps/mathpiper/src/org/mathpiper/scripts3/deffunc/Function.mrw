@@ -37,7 +37,7 @@ Rule("Function",1,2047,
 )
 [
 	Local(args);
-	Set(args,Tail(Listify(oper)));
+	Set(args,Rest(Listify(oper)));
 	DestructiveDelete(args,Length(args));	// remove trailing "..."
 	If(RuleBaseDefined(Type(oper),Length(args)),
 		False,	// do nothing
@@ -52,7 +52,7 @@ Rule("Function",1,2048,
 )
 [
 	Local(args);
-	Set(args,Tail(Listify(oper)));
+	Set(args,Rest(Listify(oper)));
 	If(RuleBaseDefined(Type(oper),Length(args)),
 		False,	// do nothing
 		MacroRuleBase(Type(oper),args)

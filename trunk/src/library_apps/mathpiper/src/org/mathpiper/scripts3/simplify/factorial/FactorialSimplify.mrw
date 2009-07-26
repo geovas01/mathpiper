@@ -192,7 +192,7 @@ LocalSymbols(n,d,c)
     terms:=FactorialFlattenAddition(x);
 //Echo("terms is ",terms);
     common := First(terms);
-    tail:=Tail(terms);
+    tail:=Rest(terms);
     While (tail != {})
     [
       Local(n,d,c);
@@ -200,7 +200,7 @@ LocalSymbols(n,d,c)
 
 //Echo(common, " ",First(tail)," ",c);
       common := c;
-      tail:=Tail(tail);
+      tail:=Rest(tail);
     ];
     Local(i,j);
 

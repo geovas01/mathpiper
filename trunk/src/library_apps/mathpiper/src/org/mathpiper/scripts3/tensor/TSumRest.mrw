@@ -6,7 +6,7 @@
 10 # TSumRest({}) <-- 1;
 20 # TSumRest(_list) <--
 [
-   TSumSimplify(TList(First(list),Tail(list)));
+   TSumSimplify(TList(First(list),Rest(list)));
 ];
 
 UnFence("TSumRest",1); 

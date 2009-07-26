@@ -21,7 +21,7 @@ RuleBase("TSum",{indices,body});
       For(i:=1,i<=Ndim,i++)
       [
         MacroSet(index,i);
-        sum:=sum+Eval(TSum(Tail(indices))body);
+        sum:=sum+Eval(TSum(Rest(indices))body);
       ];
       sum;
     ];

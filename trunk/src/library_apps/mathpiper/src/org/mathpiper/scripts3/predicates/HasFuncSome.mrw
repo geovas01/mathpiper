@@ -11,7 +11,7 @@
 // first deal with functions that do not belong to the list: return top level function
 15 # HasFuncSome(expr_IsFunction, atom_IsAtom, _look'list)_(Not Contains(look'list, Atom(Type(expr)))) <-- Equals(First(Listify(expr)), atom);
 // function belongs to the list - check its arguments
-20 # HasFuncSome(expr_IsFunction, atom_IsAtom, _look'list) <-- Equals(First(Listify(expr)), atom) Or ListHasFuncSome(Tail(Listify(expr)), atom, look'list);
+20 # HasFuncSome(expr_IsFunction, atom_IsAtom, _look'list) <-- Equals(First(Listify(expr)), atom) Or ListHasFuncSome(Rest(Listify(expr)), atom, look'list);
 
 %/mathpiper
 

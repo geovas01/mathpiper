@@ -80,9 +80,9 @@ TeXFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is eq
 /* Lists: make sure to have matrices processed before them. Enveloping precedence is irrelevant because lists are always bracketed. List items are never bracketed. Note that TeXFormFinishList({a,b}) generates ",a,b" */
 
 100 # TeXForm(x_IsList, _p)_(Length(x)=0) <-- TeXFormBracketIf(True, "");
-110 # TeXForm(x_IsList, _p) <-- TeXFormBracketIf(True, ConcatStrings(TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Tail(x)) ) );
+110 # TeXForm(x_IsList, _p) <-- TeXFormBracketIf(True, ConcatStrings(TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Rest(x)) ) );
 100 # TeXFormFinishList(x_IsList)_(Length(x)=0) <-- "";
-110 # TeXFormFinishList(x_IsList) <-- ConcatStrings(", ", TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Tail(x)));
+110 # TeXFormFinishList(x_IsList) <-- ConcatStrings(", ", TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Rest(x)));
 
 /* Replace operations */
 
@@ -198,7 +198,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 200 # TeXForm(x_IsFunction, _p) _ (IsBodied(Type(x))) <-- [
 	Local(func, args, last'arg);
 	func := Type(x);
-	args := Tail(Listify(x));
+	args := Rest(Listify(x));
 	last'arg := PopBack(args);
 	TeXFormBracketIf(p<OpPrecedence(func), ConcatStrings(
 	  TeXFormTeXify(func), TeXForm(args, TeXFormMaxPrec()),  TeXForm(last'arg, OpPrecedence(func))
@@ -206,10 +206,10 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 ];
 
 /* Unknown infix function : already done above
-210 # TeXForm(x_IsFunction, _p)_(IsInfix(Type(x))) <-- ConcatStrings(TeXFormTeXify(Type(x)), TeXForm(Tail(Listify(x)), TeXFormMaxPrec()) );
+210 # TeXForm(x_IsFunction, _p)_(IsInfix(Type(x))) <-- ConcatStrings(TeXFormTeXify(Type(x)), TeXForm(Rest(Listify(x)), TeXFormMaxPrec()) );
 */
 /* Unknown function that is not prefix, infix or postfix */
-220 # TeXForm(x_IsFunction, _p) <-- ConcatStrings(TeXFormTeXify(Type(x)), TeXForm(Tail(Listify(x)), TeXFormMaxPrec()) );
+220 # TeXForm(x_IsFunction, _p) <-- ConcatStrings(TeXFormTeXify(Type(x)), TeXForm(Rest(Listify(x)), TeXFormMaxPrec()) );
 
 	/* Never bracket Sqrt or its arguments */
 100 # TeXForm(Sqrt(_x), _p) <-- ConcatStrings("\\sqrt{", TeXForm(x, TeXFormMaxPrec()), "}");

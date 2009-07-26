@@ -11,7 +11,7 @@ RemoveDuplicates(
 	Concat(
 		{First(Listify(expr))},
 		Apply("Concat",
-			MapSingle("FuncList", Tail(Listify(expr)))
+			MapSingle("FuncList", Rest(Listify(expr)))
 		)
 	)
 );

@@ -6,11 +6,11 @@
 [
   Local(result,args);
   result:=False;
-  args:=Tail(Listify(body));
+  args:=Rest(Listify(body));
   While(args != {})
   [
     result:=ContainsExpression(First(args),expr);
-    args:=Tail(args);
+    args:=Rest(args);
     if (result = True) (args:={});
   ];
   result;

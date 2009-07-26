@@ -15,7 +15,7 @@ VarListAll(_expr) <-- VarListAll(expr,"IsVariable");
 20 # VarListAll(expr_IsFunction,_filter) <--
 [
   Local(item,result, flatlist);
-  Set(flatlist,Tail(Listify(expr)));
+  Set(flatlist,Rest(Listify(expr)));
   Set(result,{});
   ForEach(item,flatlist)
     Set(result,Concat(result,VarListAll(item,filter)));

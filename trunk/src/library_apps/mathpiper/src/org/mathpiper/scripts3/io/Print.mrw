@@ -58,7 +58,7 @@
 20 # Print(_x,_n)_(Type(x) = "Prog") <--
 [
   WriteString("[");
-  PrintArgProg(Tail(Listify(x)));
+  PrintArgProg(Rest(Listify(x)));
   WriteString("]");
 ];
 20 # Print(_x,_n)_(Type(x) = "Nth") <--
@@ -73,7 +73,7 @@
  [
    Write(x[0]);
    WriteString("(");
-   PrintArg(Tail(Listify(x)));
+   PrintArg(Rest(Listify(x)));
    WriteString(")");
  ];
 
@@ -84,14 +84,14 @@
 20 # PrintArg(_list) <--
 [
   Print(First(list),60000);
-  PrintArgComma(Tail(list));
+  PrintArgComma(Rest(list));
 ];
 10 # PrintArgComma({}) <-- True;
 20 # PrintArgComma(_list) <--
 [
   WriteString(",");
   Print(First(list),60000);
-  PrintArgComma(Tail(list));
+  PrintArgComma(Rest(list));
 ];
 
 
@@ -107,7 +107,7 @@
 [
    Print(First(list),60000);
    WriteString(";");
-   PrintArgProg(Tail(list));
+   PrintArgProg(Rest(list));
 ];
 
 

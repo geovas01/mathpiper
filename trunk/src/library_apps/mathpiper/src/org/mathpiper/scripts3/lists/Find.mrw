@@ -10,7 +10,7 @@ Function("Find",{list,element})
     If(Equals(First(list), element),
       Set(result, count)
       );
-    Set(list,Tail(list));
+    Set(list,Rest(list));
     Set(count,AddN(count,1));
   ];
   result;

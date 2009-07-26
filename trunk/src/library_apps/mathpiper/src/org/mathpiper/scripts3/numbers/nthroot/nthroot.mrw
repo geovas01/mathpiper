@@ -86,7 +86,7 @@ Function("NthRoot'List",{n})
    [
       Local(p,xx);
       p:=Select({{xx},First(xx)=n},NthRoot'Table);
-      If(Length(p)=1,Tail(p[1]),List());
+      If(Length(p)=1,Rest(p[1]),List());
    ],
    List());
 ];
@@ -99,7 +99,7 @@ Function("NthRoot'Restore",{m,n})
    [
       Local(r,xx);
       r:=Select({{xx},First(xx)=m},p);
-      If(Length(r)=1,First(Tail(r[1])),List());
+      If(Length(r)=1,First(Rest(r[1])),List());
    ],
    List());
 ];

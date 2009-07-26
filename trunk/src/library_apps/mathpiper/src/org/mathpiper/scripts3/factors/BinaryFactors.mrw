@@ -128,7 +128,7 @@ Function(Fct,{poly,var})
 //  Set(testpoly,Mkc(Div(polynom,Monic(Gcd(polynom,Deriv(var)polynom))),var));
   Local(deriv);
   // First determine a derivative of the original polynomial
-  deriv:=Tail(poly);
+  deriv:=Rest(poly);
   [
     Local(i);
     For (i:=1,i<=Length(deriv),i++)
@@ -277,7 +277,7 @@ MkfactD(numer,denom):=
       ];
       r[i] := r[1] + numer[1];
 
-      Set(numer, Tail(numer));
+      Set(numer, Rest(numer));
       i++;
     ];
   ]);

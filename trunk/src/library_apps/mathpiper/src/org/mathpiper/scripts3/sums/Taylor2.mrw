@@ -314,7 +314,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 	 While (lps[2] != {} And lps[2][1] = 0)
 	 [
 	    lps[1] := lps[1] + 1;
-	    lps[2] := Tail(lps[2]);
+	    lps[2] := Rest(lps[2]);
 	 ];
 
 	 /* get result */

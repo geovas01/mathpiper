@@ -17,7 +17,7 @@ Rule("DefinePattern",4,10,True)
       
       Set(patternFlat, Listify(leftOperand)); //Turn the pattern into a list.
       
-      Set(patternVariables, Tail(patternFlat)); //Remove the function name from the list.
+      Set(patternVariables, Rest(patternFlat)); //Remove the function name from the list.
       
       Set(patternOperator,String(First(patternFlat))); //Obtain the function name.
       

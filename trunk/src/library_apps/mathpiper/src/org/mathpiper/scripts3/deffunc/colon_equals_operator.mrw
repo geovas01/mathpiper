@@ -58,9 +58,9 @@ Rule(":=",2,10,IsFunction(aLeftAssign) And (First(Listify(aLeftAssign)) = Nth))
 
  Local(lst);
  Set(lst,(Listify(aLeftAssign)));
- Set(lst,Tail(lst));
+ Set(lst,Rest(lst));
  Set(frst, Eval(First(lst)));
- Set(lst,Tail(lst));
+ Set(lst,Rest(lst));
  Set(scnd, Eval(First(lst)));
 
  AssignArray(frst,scnd,Eval(aRightAssign));
@@ -71,7 +71,7 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom(":=")
 [
   Local(oper,args,arity);
   Set(oper,String(aLeftAssign[0]));
-  Set(args,Tail(Listify(aLeftAssign)));
+  Set(args,Rest(Listify(aLeftAssign)));
   If(
 	And(GreaterThan(Length(args), 1), Equals( MathNth(args, Length(args)), Atom("...") )),
 	// function with variable number of arguments

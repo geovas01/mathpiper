@@ -11,7 +11,7 @@ Function("FindPredicate",{list,predicate})
     If(Apply(predicate,{First(list)}),
       Set(result, count)
       );
-    Set(list,Tail(list));
+    Set(list,Rest(list));
     Set(count,AddN(count,1));
   ];
   result;

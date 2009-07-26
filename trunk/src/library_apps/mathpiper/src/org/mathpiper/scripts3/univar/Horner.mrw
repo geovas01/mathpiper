@@ -11,7 +11,7 @@ Horner(_e,_v) <--
   [
     result := result*v;
     result := result+First(coefs);
-    coefs  := Tail(coefs);
+    coefs  := Rest(coefs);
   ];
   result:=result*v^uni[2];
   result;

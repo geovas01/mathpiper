@@ -4,7 +4,7 @@ TemplateFunction("MapArgs",{expr,oper})
 [
   Set(expr,Listify(expr));
    UnList(Concat({expr[1]},
-     Apply("MapSingle",{oper,Tail(expr)})
+     Apply("MapSingle",{oper,Rest(expr)})
    ) );
 ];
 UnFence("MapArgs",2);

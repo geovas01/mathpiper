@@ -24,7 +24,7 @@ DumpErrors() <--
 					Echo(error'word, error'object[1]),
 					[
 						Echo(error'word, error'object[1], ": ",
-							PrintList(Tail(error'object)));
+							PrintList(Rest(error'object)));
 					]
 				);
 			],

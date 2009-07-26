@@ -33,7 +33,7 @@ PartFracExpand(_g,_f) <--
     Add(divlist),
     [
       result:=divlist[1];
-      ForEach(item,Tail(divlist))
+      ForEach(item,Rest(divlist))
       [
         result:=UnList({Atom("+"),result,item});
       ];

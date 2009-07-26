@@ -15,7 +15,7 @@ TemplateFunction("ForEach",{item,list,body})
       [
         MacroSet(item,First(foreachtail));
         Eval(body);
-        Set(foreachtail,Tail(foreachtail));
+        Set(foreachtail,Rest(foreachtail));
       ];
     ]);
 ];

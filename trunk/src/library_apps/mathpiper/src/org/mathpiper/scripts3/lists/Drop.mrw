@@ -16,7 +16,7 @@ Rule("Drop", 2, 1, IsList(range))
     Concat(Take(lst,range[1]-1), Drop(lst, range[2]));
 
 Rule("Drop", 2, 2, range >= 0)
-    If( range = 0 Or lst = {}, lst, Drop( Tail(lst), range-1 ));
+    If( range = 0 Or lst = {}, lst, Drop( Rest(lst), range-1 ));
 
 Rule("Drop", 2, 2, range < 0)
     Take( lst, Length(lst) + range );

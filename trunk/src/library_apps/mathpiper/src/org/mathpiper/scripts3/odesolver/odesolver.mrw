@@ -206,7 +206,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 	// in decreasing order
 	coefs:=Reverse(Listify(h)[3]);
 	While( First(coefs) = 0 )[
-		coefs:=Tail(coefs);
+		coefs:=Rest(coefs);
 	];
 	Length(coefs)-1;
 ];

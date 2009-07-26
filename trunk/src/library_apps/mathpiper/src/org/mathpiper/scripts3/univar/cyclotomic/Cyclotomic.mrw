@@ -80,7 +80,7 @@ CyclotomicDivisorsList(n_IsPositiveInteger) <--
  Local(nFactors,f,result,oldresult,x);
  nFactors:= Factors(n);
  result := {{1,nFactors[1][1],1}};
- nFactors := Tail(nFactors);
+ nFactors := Rest(nFactors);
  ForEach (f,nFactors)
     [
       oldresult := result;

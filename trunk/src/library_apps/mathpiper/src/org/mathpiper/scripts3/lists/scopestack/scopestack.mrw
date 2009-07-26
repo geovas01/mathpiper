@@ -55,7 +55,7 @@ AddToStack(stack,element)  :=
   DestructiveInsert(stack[1][1],1,{element,{}});
 ];
 
-DropOneFrame(_stack) <-- {Tail(stack[1]),Tail(stack[2])};
+DropOneFrame(_stack) <-- {Rest(stack[1]),Rest(stack[2])};
 
 10 # IsOnStack({{},{}},_element) <-- False;
 11 # IsOnStack(_stack,_element)_(stack[1][1][element] != Empty) <-- True;
