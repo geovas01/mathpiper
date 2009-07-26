@@ -12,10 +12,10 @@
 	Local(factorization);
 	factorization := TrialFactorize(n, n);	// TrialFactorize will limit to Sqrt(n) automatically
 	If(
-		Head(factorization) = 1,	// all factors were smaller than Sqrt(n)
+		First(factorization) = 1,	// all factors were smaller than Sqrt(n)
 		Tail(factorization),
 		// the first element needs to be replaced
-		Concat(Tail(factorization), {{Head(factorization),1}})
+		Concat(Tail(factorization), {{First(factorization),1}})
 	);
 ];
 */

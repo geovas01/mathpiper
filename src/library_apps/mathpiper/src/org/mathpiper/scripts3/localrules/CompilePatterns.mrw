@@ -10,9 +10,9 @@ LocalSymbols(LocResult) [
     result:=False;
     While (tr != {})
     [
-      If (Head(Head(tr)) = exp,
+      If (First(First(tr)) = exp,
       [
-        Set(LocResult,Eval(Head(Tail(Head(tr)))));
+        Set(LocResult,Eval(First(Tail(First(tr)))));
         result := True;
         tr:={};
       ],
@@ -30,10 +30,10 @@ LocalSymbols(LocResult) [
     result:=False;
     While (tr != {})
     [
-      Set(head, Head(Head(tr)));
+      Set(head, First(First(tr)));
       If (Not(IsAtom(head)) And exp[0]=head[1] And Pattern'Matches(head[2], exp),
       [
-        Set(LocResult,Eval(Head(Tail(Head(tr)))));
+        Set(LocResult,Eval(First(Tail(First(tr)))));
         Set(result, True);
         Set(tr,{});
       ],

@@ -9,9 +9,9 @@
 // a function contains itself, or maybe an argument contains it
 
 // first deal with functions that do not belong to the list: return top level function
-15 # HasFuncSome(expr_IsFunction, atom_IsAtom, _look'list)_(Not Contains(look'list, Atom(Type(expr)))) <-- Equals(Head(Listify(expr)), atom);
+15 # HasFuncSome(expr_IsFunction, atom_IsAtom, _look'list)_(Not Contains(look'list, Atom(Type(expr)))) <-- Equals(First(Listify(expr)), atom);
 // function belongs to the list - check its arguments
-20 # HasFuncSome(expr_IsFunction, atom_IsAtom, _look'list) <-- Equals(Head(Listify(expr)), atom) Or ListHasFuncSome(Tail(Listify(expr)), atom, look'list);
+20 # HasFuncSome(expr_IsFunction, atom_IsAtom, _look'list) <-- Equals(First(Listify(expr)), atom) Or ListHasFuncSome(Tail(Listify(expr)), atom, look'list);
 
 %/mathpiper
 

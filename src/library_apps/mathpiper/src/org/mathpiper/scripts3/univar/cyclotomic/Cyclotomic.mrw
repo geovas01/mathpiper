@@ -40,7 +40,7 @@ Function("SubstituteInUniVar",{p,k})
   DestructiveAppend(NL,If(IsEven(i),c,-c));
   i--;
  ];
- UniVariate(Head(p),0,NL);
+ UniVariate(First(p),0,NL);
 ];
 
 

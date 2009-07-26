@@ -7,7 +7,7 @@ Function("Find",{list,element})
   Set(count, 1);
   While(And(result<0, Not(Equals(list, {}))))
   [
-    If(Equals(Head(list), element),
+    If(Equals(First(list), element),
       Set(result, count)
       );
     Set(list,Tail(list));

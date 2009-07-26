@@ -17,7 +17,7 @@ Rule("Take", 2, 1, IsList(range))
 
 Rule("Take", 2, 2, range >= 0)
     If( Length(lst)=0 Or range=0, {},
-        Concat({Head(lst)}, Take(Tail(lst), range-1)));
+        Concat({First(lst)}, Take(Tail(lst), range-1)));
 
 Rule("Take", 2, 2, range < 0)
     Drop( lst, Length(lst) + range );

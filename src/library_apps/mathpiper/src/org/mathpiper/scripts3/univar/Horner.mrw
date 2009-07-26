@@ -10,7 +10,7 @@ Horner(_e,_v) <--
   While(coefs != {})
   [
     result := result*v;
-    result := result+Head(coefs);
+    result := result+First(coefs);
     coefs  := Tail(coefs);
   ];
   result:=result*v^uni[2];

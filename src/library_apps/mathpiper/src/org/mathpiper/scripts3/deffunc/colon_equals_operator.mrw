@@ -52,16 +52,16 @@ Rule("AssignArray",3,2,True)
 ];
 
 // a[x] := ... assigns to an array element
-Rule(":=",2,10,IsFunction(aLeftAssign) And (Head(Listify(aLeftAssign)) = Nth))
+Rule(":=",2,10,IsFunction(aLeftAssign) And (First(Listify(aLeftAssign)) = Nth))
 [
  Local(frst,scnd);
 
  Local(lst);
  Set(lst,(Listify(aLeftAssign)));
  Set(lst,Tail(lst));
- Set(frst, Eval(Head(lst)));
+ Set(frst, Eval(First(lst)));
  Set(lst,Tail(lst));
- Set(scnd, Eval(Head(lst)));
+ Set(scnd, Eval(First(lst)));
 
  AssignArray(frst,scnd,Eval(aRightAssign));
 ];

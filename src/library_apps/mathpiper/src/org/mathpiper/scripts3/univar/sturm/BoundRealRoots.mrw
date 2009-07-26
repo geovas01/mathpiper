@@ -43,7 +43,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
 //Echo("Work start = ",work);
     While(work != {})
     [
-      {a,b,Va,Vb} := Head(work);
+      {a,b,Va,Vb} := First(work);
       work := Tail(work);
       c:=(a+b)/2;
 //Echo(a,b,c);

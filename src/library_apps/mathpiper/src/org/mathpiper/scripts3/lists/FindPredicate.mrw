@@ -8,7 +8,7 @@ Function("FindPredicate",{list,predicate})
   Set(count, 1);
   While(And(result<0, Not(Equals(list, {}))))
   [
-    If(Apply(predicate,{Head(list)}),
+    If(Apply(predicate,{First(list)}),
       Set(result, count)
       );
     Set(list,Tail(list));

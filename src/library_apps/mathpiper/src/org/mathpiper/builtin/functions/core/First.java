@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class Head extends BuiltinFunction
+public class First extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -37,11 +37,11 @@ public class Head extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Head",categories="User Functions;Lists (Operations);Built In"
-*CMD Head --- the first element of a list
+%mathpiper_docs,name="First",categories="User Functions;Lists (Operations);Built In"
+*CMD First --- the first element of a list
 *CORE
 *CALL
-	Head(list)
+	First(list)
 
 *PARMS
 
@@ -55,9 +55,9 @@ returned if "list" is an atom.
 
 *E.G.
 
-	In> Head({a,b,c})
+	In> First({a,b,c})
 	Out> a;
-	In> Head(f(a,b,c));
+	In> First(f(a,b,c));
 	Out> a;
 
 *SEE Tail, Length

@@ -10,7 +10,7 @@
 20 # FW(_list) <--
 [
   Local(result);
-  result:=FWatom(Head(list));
+  result:=FWatom(First(list));
   ForEach(item,Tail(list))
   [
    result := UnList({ Atom("*"),result,FWatom(item)});

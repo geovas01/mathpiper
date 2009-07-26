@@ -191,14 +191,14 @@ LocalSymbols(n,d,c)
     Local(terms,common,tail);
     terms:=FactorialFlattenAddition(x);
 //Echo("terms is ",terms);
-    common := Head(terms);
+    common := First(terms);
     tail:=Tail(terms);
     While (tail != {})
     [
       Local(n,d,c);
-      {n,d,c} := FactorialDivideTerms(common,Head(tail));
+      {n,d,c} := FactorialDivideTerms(common,First(tail));
 
-//Echo(common, " ",Head(tail)," ",c);
+//Echo(common, " ",First(tail)," ",c);
       common := c;
       tail:=Tail(tail);
     ];

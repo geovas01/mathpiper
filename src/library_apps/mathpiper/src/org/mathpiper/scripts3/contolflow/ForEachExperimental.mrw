@@ -17,7 +17,7 @@ LocalSymbols(foreachtail)
     Set(foreachtail,@L);
     While(Not(Equals(foreachtail,{})))
     [
-      Set(@i,Head(foreachtail));
+      Set(@i,First(foreachtail));
       @B;
       Set(foreachtail,Tail(foreachtail));
     ];
