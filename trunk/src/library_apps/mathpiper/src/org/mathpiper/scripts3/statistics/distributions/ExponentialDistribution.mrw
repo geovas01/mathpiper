@@ -6,3 +6,20 @@
 ExponentialDistribution(l_IsRationalOrNumber)_(l<0) <-- Undefined;
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="ExponentialDistribution",categories="User Functions;Statistics & Probability"
+*CMD ExponentialDistribution --- Exponential distribution
+*STD
+*CALL
+	ExponentialDistribution(lambda)
+
+*PARMS
+
+{lambda} -- number, the rate parameter
+
+
+*SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ContinuousUniformDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs

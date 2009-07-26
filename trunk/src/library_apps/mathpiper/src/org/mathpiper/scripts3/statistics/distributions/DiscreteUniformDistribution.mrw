@@ -7,3 +7,21 @@ DiscreteUniformDistribution(a_IsRationalOrNumber, b_IsRationalOrNumber)_(a>=b)
    <-- Undefined;
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="DiscreteUniformDistribution",categories="User Functions;Statistics & Probability"
+*CMD DiscreteUniformDistribution --- Discrete uniform distribution
+*STD
+*CALL
+	DiscreteUniformDistribution(a, b)
+
+*PARMS
+
+{a} -- number, lower range value
+{b} -- number, upper range value
+
+
+*SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs

@@ -6,3 +6,25 @@
 ChiSquareDistribution(m_IsRationalOrNumber)_(m<=0) <-- Undefined;
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="ChiSquareDistribution",categories="User Functions;Statistics & Probability"
+*CMD ChiSquareDistribution --- Chi square distribution
+*STD
+*CALL
+	ChiSquareDistribution(p)
+
+*PARMS
+
+{p} -- number, probability of an event in a single trial
+
+*DESC
+A random variable has a ChiSquare distribution with probability {p} if
+it can be interpreted as an indicator of an event, where {p} is the
+probability to observe the event in a single trial.
+
+Numerical value of {p} must satisfy $0<p<1$.
+
+*SEE BinomialDistribution, BernoulliDistribution, DiscreteUniformDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs

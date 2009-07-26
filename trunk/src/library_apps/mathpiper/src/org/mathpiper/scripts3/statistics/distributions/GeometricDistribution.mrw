@@ -6,3 +6,20 @@
 GeometricDistribution(p_IsRationalOrNumber)_(p<0 Or p>1) <-- Undefined;
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="GeometricDistribution",categories="User Functions;Statistics & Probability"
+*CMD GeometricDistribution --- Geometric distribution
+*STD
+*CALL
+	GeometricDistribution(p)
+
+*PARMS
+
+{p} -- number, probability of an event in a single trial
+
+
+*SEE BinomialDistribution, BernoulliDistribution, DiscreteUniformDistribution, ChiSquareDistribution, ContinuousUniformDistribution, ExponentionalDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs
