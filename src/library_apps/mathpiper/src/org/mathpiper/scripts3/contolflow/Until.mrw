@@ -65,5 +65,5 @@ construct in the programming language C.
 	 9  362880
 	Out> True;
 
-*SEE While, For, Break
+*SEE While, For, ForEach, Break
 %/mathpiper_docs

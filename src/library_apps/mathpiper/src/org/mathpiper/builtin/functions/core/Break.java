@@ -43,7 +43,8 @@ public class Break extends BuiltinFunction
 *CMD Break --- Break out of a loop
 *CORE
 *CALL
-	Break()
+
+    Break()
 
 
 *DESC
@@ -53,7 +54,31 @@ cause the loop to end early.
 
 *E.G.
 
+/%mathpiper
 
+x := 1;
+
+While(x <= 10)
+[
+    Echo(x);
+
+    If(x = 5, Break());
+
+    x++;
+];
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+
+      Side Effects:
+      1
+      2
+      3
+      4
+      5
+.   /%/output
 
 *SEE While, Until, For, ForEach
 %/mathpiper_docs
