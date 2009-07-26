@@ -31,7 +31,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
 
   While(And(LessThan(curl,curr),left != {}))
   [
-    DestructiveAppend(result,Head(left));
+    DestructiveAppend(result,First(left));
     Set(left,Tail(left));
     Set(curl,AddN(curl,1));
   ];
@@ -42,7 +42,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
   ];
   While(And(LessThan(curr,curl), right != {}))
   [
-    DestructiveAppend(result,Head(right));
+    DestructiveAppend(result,First(right));
     Set(right,Tail(right));
     Set(curr,AddN(curr,1));
   ];
@@ -53,18 +53,18 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
   ];
   While(And(left != {}, right != {}))
   [
-    DestructiveAppend(result,Head(left)+Head(right));
+    DestructiveAppend(result,First(left)+First(right));
     Set(left, Tail(left));
     Set(right, Tail(right));
   ];
   While(left != {})
   [
-    DestructiveAppend(result,Head(left));
+    DestructiveAppend(result,First(left));
     Set(left, Tail(left));
   ];
   While(right != {})
   [
-    DestructiveAppend(result,Head(right));
+    DestructiveAppend(result,First(right));
     Set(right, Tail(right));
   ];
 

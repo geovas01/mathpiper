@@ -83,14 +83,14 @@
 
 20 # PrintArg(_list) <--
 [
-  Print(Head(list),60000);
+  Print(First(list),60000);
   PrintArgComma(Tail(list));
 ];
 10 # PrintArgComma({}) <-- True;
 20 # PrintArgComma(_list) <--
 [
   WriteString(",");
-  Print(Head(list),60000);
+  Print(First(list),60000);
   PrintArgComma(Tail(list));
 ];
 
@@ -105,7 +105,7 @@
 10 # PrintArgProg({}) <-- True;
 20 # PrintArgProg(_list) <--
 [
-   Print(Head(list),60000);
+   Print(First(list),60000);
    WriteString(";");
    PrintArgProg(Tail(list));
 ];

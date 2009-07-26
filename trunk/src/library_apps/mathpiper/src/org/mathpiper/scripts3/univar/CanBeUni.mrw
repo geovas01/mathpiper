@@ -13,7 +13,7 @@ Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
  */
 10 # CanBeUni({},_expression) <-- True;
 20 # CanBeUni(var_IsList,_expression) <--
-    CanBeUni(Head(var),expression) And CanBeUni(Tail(var),expression);
+    CanBeUni(First(var),expression) And CanBeUni(Tail(var),expression);
 
 /* Atom can always be a polynom to any variable */
 30 # CanBeUni(_var,expression_IsAtom) <-- True;

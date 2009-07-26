@@ -59,7 +59,7 @@ Rule(LoadPackages, 1, 1, True)
 [
 	If(Equals(packages,{}), True,
 	[
-		DefLoad(Head(packages));
+		DefLoad(First(packages));
 		LoadPackages(Tail(packages));
 	]);
 ];

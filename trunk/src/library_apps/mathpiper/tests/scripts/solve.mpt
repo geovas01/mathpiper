@@ -39,7 +39,7 @@ HoldArgNr("VerifySolve", 2, 1);
   i := 0;
   While(i < Length(e2) And Not found) [
     i++;
-    found := VerifySolve'Equal(Head(e1), e2[i]);
+    found := VerifySolve'Equal(First(e1), e2[i]);
   ];
   If (found, VerifySolve'Equal(Tail(e1), Delete(e2, i)), False);
 ];

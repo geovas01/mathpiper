@@ -9,7 +9,7 @@ LocalSymbols(TrueFalse)
   30 # TrueFalse(var_IsList,_expr) <--
   `[
     Local(t,h);
-    Set(h,Head(@var));
+    Set(h,First(@var));
     Set(t,Tail(@var));
     TrueFalse(h,TrueFalse(t,@expr));
   ];

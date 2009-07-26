@@ -175,7 +175,7 @@ FSimpFactor(flist):=
   [
     Local(term);
 FLog("simpfact",flist);
-    term:=Head(flist);
+    term:=First(flist);
     flist:=Tail(flist);
     FProcessTerm(term);
   ];

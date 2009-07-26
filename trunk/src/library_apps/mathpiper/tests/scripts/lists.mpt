@@ -50,7 +50,7 @@ Verify(Table(i!,i,1,4,1),{1,2,6,24});
 Verify(Permutations({a,b,c}),{{a,b,c},{a,c,b},{c,a,b},{b,a,c},{b,c,a},{c,b,a}});
 
 Testing("ListOperations");
-Verify(Head({a,b,c}),a);
+Verify(First({a,b,c}),a);
 Verify(Tail({a,b,c}),{b,c});
 Verify(DestructiveReverse({a,b,c}),{c,b,a});
 Verify(UnList({a,b,c}),a(b,c));

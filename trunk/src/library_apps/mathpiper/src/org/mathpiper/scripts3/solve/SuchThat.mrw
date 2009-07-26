@@ -9,7 +9,7 @@
   args:=Tail(Listify(body));
   While(args != {})
   [
-    result:=ContainsExpression(Head(args),expr);
+    result:=ContainsExpression(First(args),expr);
     args:=Tail(args);
     if (result = True) (args:={});
   ];

@@ -1,6 +1,6 @@
 %mathpiper,def="ListHasFuncSome",scope="private"
 
 19 # ListHasFuncSome({}, _atom, _look'list) <-- False;
-20 # ListHasFuncSome(expr_IsList, atom_IsAtom, _look'list) <-- HasFuncSome(Head(expr), atom, look'list) Or ListHasFuncSome(Tail(expr), atom, look'list);
+20 # ListHasFuncSome(expr_IsList, atom_IsAtom, _look'list) <-- HasFuncSome(First(expr), atom, look'list) Or ListHasFuncSome(Tail(expr), atom, look'list);
 
 %/mathpiper

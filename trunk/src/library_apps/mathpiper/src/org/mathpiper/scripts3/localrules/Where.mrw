@@ -18,7 +18,7 @@ UnFence("Where",2);
      <--
      [
        Local(head,rest);
-       head:=Head(list);
+       head:=First(list);
        rest:=Tail(list);
        rest:= `(@body Where @rest);
        `(@body Where @head) : rest;
@@ -30,7 +30,7 @@ UnFence("Where",2);
        Local(head,rest);
        While (list != {})
        [
-          head:=Head(list);
+          head:=First(list);
           body := `(@body Where @head);
           list:=Tail(list);
         ];

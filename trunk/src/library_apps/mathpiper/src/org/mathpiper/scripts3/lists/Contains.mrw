@@ -6,7 +6,7 @@ Function("Contains",{list,element})
   Set(result,False);
   While(And(Not(result), Not(Equals(list, {}))))
   [
-    If(Equals(Head(list),element),
+    If(Equals(First(list),element),
       Set(result, True),
       Set(list, Tail(list))
       );

@@ -48,7 +48,7 @@ Usage:
 10 # EvaluateHornerScheme({}, _x) <-- 0;
 /* Strictly speaking, the following rule is not needed, but it doesn't hurt */
 10 # EvaluateHornerScheme({_coeffs}, _x) <-- coeffs;
-20 # EvaluateHornerScheme(coeffs_IsList, _x) <-- Head(coeffs)+x*EvaluateHornerScheme(Tail(coeffs), x);
+20 # EvaluateHornerScheme(coeffs_IsList, _x) <-- First(coeffs)+x*EvaluateHornerScheme(Tail(coeffs), x);
 
 /* Plain polynomials */
 // some are computed by general routines, and some are replaced by more efficient routines below

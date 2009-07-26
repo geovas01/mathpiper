@@ -114,7 +114,7 @@ Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) = 4 )
     a4:=Coef(uni,0)/coef4;
 
     /* y1 = 2q, with q as above. */
-    y1:=Head(PSolve(y^3-a2*y^2+(a1*a3-4*a4)*y+(4*a2*a4-a3^2-a1^2*a4),y));
+    y1:=First(PSolve(y^3-a2*y^2+(a1*a3-4*a4)*y+(4*a2*a4-a3^2-a1^2*a4),y));
     t := Sqrt(y1^2/4-a4);
     If(t=0, s:=Sqrt(y1+a1^2/4-a2), s:=(a1*y1-2*a3)/(4*t));
     Concat(PSolve(z^2+(a1/2+s)*z+y1/2+t,z),

@@ -105,7 +105,7 @@ import org.mathpiper.builtin.functions.core.OpLeftPrecedence;
 import org.mathpiper.builtin.functions.core.OpPrecedence;
 import org.mathpiper.builtin.functions.core.OpRightPrecedence;
 import org.mathpiper.builtin.functions.core.GreaterThan;
-import org.mathpiper.builtin.functions.core.Head;
+import org.mathpiper.builtin.functions.core.First;
 import org.mathpiper.builtin.functions.core.HistorySize;
 import org.mathpiper.builtin.functions.core.HoldArg;
 import org.mathpiper.builtin.functions.core.If;
@@ -412,8 +412,8 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new Local(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "MacroLocal");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Head(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Head");
+                new BuiltinFunctionEvaluator(new First(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "First");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Nth(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MathNth");

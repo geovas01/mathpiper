@@ -9,7 +9,7 @@
 20 # PrintList(list_IsList, padding_IsString) <-- ToString() [
 	Local(i);
 	ForEach(i, list) [
-		If(Not(Equals(i, Head(list))), WriteString(padding));
+		If(Not(Equals(i, First(list))), WriteString(padding));
 		If (IsString(i), WriteString(i), If(IsList(i), WriteString("{" : PrintList(i, padding) : "}"), Write(i)));
 	];
 ];

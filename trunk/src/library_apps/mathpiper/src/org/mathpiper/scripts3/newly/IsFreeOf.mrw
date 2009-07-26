@@ -1,10 +1,10 @@
 %mathpiper,def="IsFreeOf"
 
 1 # IsFreeOf({},_expr) <-- True;
-2 # IsFreeOf(var_IsList, _expr) <-- And(IsFreeOf(Head(var),expr), IsFreeOf(Tail(var),expr));
+2 # IsFreeOf(var_IsList, _expr) <-- And(IsFreeOf(First(var),expr), IsFreeOf(Tail(var),expr));
 
 4 # IsFreeOf(_var,{}) <-- True;
-5 # IsFreeOf(_var,expr_IsList) <-- And(IsFreeOf(var,Head(expr)), IsFreeOf(var,Tail(expr)));
+5 # IsFreeOf(_var,expr_IsList) <-- And(IsFreeOf(var,First(expr)), IsFreeOf(var,Tail(expr)));
 
 /* Accept any variable. */
 10 # IsFreeOf(_expr,_expr) <-- False;
