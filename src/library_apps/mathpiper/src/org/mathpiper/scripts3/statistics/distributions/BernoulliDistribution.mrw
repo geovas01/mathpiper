@@ -26,5 +26,5 @@ probability to observe the event in a single trial.
 
 Numerical value of {p} must satisfy $0<p<1$.
 
-*SEE BinomialDistribution
+*SEE BinomialDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
 %/mathpiper_docs

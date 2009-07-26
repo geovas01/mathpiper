@@ -6,3 +6,21 @@
 PoissonDistribution(l_IsRationalOrNumber)_(l<=0) <-- Undefined;
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PoissonDistribution",categories="User Functions;Statistics & Probability"
+*CMD PoissonDistribution --- Poisson distribution
+*STD
+*CALL
+	PoissonDistribution(lambda)
+
+*PARMS
+
+{lambda} -- number, the expected number of occurrences that occur during the given interval
+
+
+*SEE BinomialDistribution, BernoulliDistribution, DiscreteUniformDistribution, ChiSquareDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs

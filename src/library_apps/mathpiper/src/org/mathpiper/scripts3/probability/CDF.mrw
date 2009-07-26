@@ -7,6 +7,7 @@
    -- BinomialDistribution(p,n)
    -- DiscreteUniformDistribution(a,b)
    -- PoissonDistribution(l)
+   -- Hypergeometric(N, M)
    2. Continuous distributions
    -- ExponentialDistribution(l)
    -- NormalDistrobution(a,s)
@@ -40,8 +41,8 @@
 10 # CDF(PoissonDistribution(_l), x_IsNumber)_(x<=0) <-- 0;
 10 # CDF(PoissonDistribution(_l), _x) <-- Sum @ {i,0,x-1,PDF(PoissonDistribution(l),i)};
 
-10 # CDF( ChiSquareDistribution(_m), _x) <-- IncompleteGamma(x/2,m/2)/Gamma(x/2);
-10 # CDF( DiscreteDistribution( dom_IsList, prob_IsList), _x)   <--
+10 # CDF(ChiSquareDistribution(_m), _x) <-- IncompleteGamma(x/2,m/2)/Gamma(x/2);
+10 # CDF(DiscreteDistribution( dom_IsList, prob_IsList), _x)   <--
       [
 	 Local(i,cdf,y);
 
@@ -51,5 +52,7 @@
 	 While(y<x) [cdf:=cdf+prob[i];i++;];
 	 cdf;
       ];
+
+10 # CDF(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- (Bin(M,x) * Bin(N-M, n-x))/Bin(N,n);
 
 %/mathpiper

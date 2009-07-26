@@ -32,18 +32,18 @@
 10 # PDF(DiscreteUniformDistribution(_a,_b), x_IsNumber) <-- If(x<a Or x>b, 0 ,1/(b-a+1));
 11 # PDF(DiscreteUniformDistribution(_a,_b), _x) <-- Hold(If(x<a Or x>b, 0 ,1/(b-a+1)));
 
-10 # PDF( PoissonDistribution(_l), n_IsNumber) <-- If(n<0,0,Exp(-l)*l^n/n!);
+10 # PDF(PoissonDistribution(_l), n_IsNumber) <-- If(n<0,0,Exp(-l)*l^n/n!);
 11 # PDF(PoissonDistribution(_l),_n) <-- Exp(-l)*l^n/n!;
 
 10 # PDF(GeometricDistribution(_p),_n) <--If(n<0,0,p*(1-p)^n);
 
 10 # PDF(ExponentialDistribution(_l), _x) <-- If(x<0,0,l*Exp(-l*x));
 
-10 # PDF(NormalDistribution(_a,_s),_x) <-- Exp(-(x-a)^2/(2*s))/Sqrt(2*Pi*s);
+10 # PDF(NormalDistribution(_m,_s),_x) <-- Exp(-(x-m)^2/(2*s))/Sqrt(2*Pi*s);
 
 10 # PDF(ContinuousUniformDistribution(_a,_b),x)_(a<b) <-- If(x<a Or x>b,0,1/(b-a));
 
-10 # PDF( DiscreteDistribution( dom_IsList, prob_IsList), _x)_( Length(dom)=Length(prob) And Simplify(Add(prob))=1) <--
+10 # PDF(DiscreteDistribution( dom_IsList, prob_IsList), _x)_( Length(dom)=Length(prob) And Simplify(Add(prob))=1) <--
     [
       Local(i);
       i:=Find(dom,x);

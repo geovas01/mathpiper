@@ -30,8 +30,10 @@ independent. Then the number of trials when the event occurred
 is distributed according to the binomial distribution. The probability
 of that is {BinomialDistribution}{(p,n)}.
 
+Describes the number of successes for draws with replacement.
+
 Numerical value of {p} must satisfy $0<p<1$. Numerical value
 of {n} must be a positive integer. 
 
-*SEE BernoulliDistribution
+*SEE BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
 %/mathpiper_docs

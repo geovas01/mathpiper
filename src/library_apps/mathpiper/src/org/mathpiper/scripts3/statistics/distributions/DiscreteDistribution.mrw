@@ -1,25 +1,25 @@
-%mathpiper,def="NormalDistribution"
+%mathpiper,def="DiscreteDistribution"
 
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-NormalDistribution( _m , s2_IsRationalOrNumber)_(s2<=0) <-- Undefined;
+DiscreteDistribution( dom_IsRationalOrNumber , prob_IsRationalOrNumber) <-- Undefined;
 
 %/mathpiper
 
 
 
 
-%mathpiper_docs,name="NormalDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="DiscreteDistribution",categories="User Functions;Statistics & Probability"
 *CMD ContinuousUniformDistribution --- Discrete uniform distribution
 *STD
 *CALL
-	NormalDistribution(mean, sigma)
+	DiscreteDistribution(dom, prob)
 
 *PARMS
 
-{mean} -- Number, the mean of the distribution
-{sigma} -- Number, the standard deviation of the distribution
+{dom} -- list
+{prob} -- list
 
 
 *SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution

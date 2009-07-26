@@ -1,0 +1,33 @@
+%mathpiper,def="HypergeometricDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+HypergeometricDistribution(N_IsRationalOrNumber, M_IsRationalOrNumber)_(M > N Or n > N)
+   <-- Undefined;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="HypergeometricDistribution",categories="User Functions;Statistics & Probability"
+*CMD HypergeometricDistribution --- Hypergeometric distribution
+*STD
+*CALL
+	HypergeometricDistribution(N, M, n)
+
+*PARMS
+
+{N} -- number, a finite population
+{M} -- number of items from N that fall into a class of interest
+{n} -- number of items drawn from N
+
+*DESC
+
+A discrete probability distribution that describes the number of successes in a sequence of
+draws from a finite population without replacement.
+
+
+*SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs
