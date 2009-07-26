@@ -176,7 +176,7 @@ FSimpFactor(flist):=
     Local(term);
 FLog("simpfact",flist);
     term:=First(flist);
-    flist:=Tail(flist);
+    flist:=Rest(flist);
     FProcessTerm(term);
   ];
 FLog("simpfact",flist);
@@ -316,7 +316,7 @@ Rule("FProcessTerm",1,5,Length(t)>1)
   y:=t[2];
   news:=TrigSimpCombineB(x,y);
   /* Drop one term */
-  t:=Tail(t);
+  t:=Rest(t);
   term1:=FlatCopy(t);
   term2:=FlatCopy(t);
   term1[1]:=news[1];

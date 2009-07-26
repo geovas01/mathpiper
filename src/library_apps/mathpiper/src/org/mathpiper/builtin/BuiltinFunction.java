@@ -185,7 +185,7 @@ import org.mathpiper.builtin.functions.core.Stringify;
 import org.mathpiper.builtin.functions.core.Subst;
 import org.mathpiper.builtin.functions.core.Subtract;
 import org.mathpiper.builtin.functions.core.SystemCall;
-import org.mathpiper.builtin.functions.core.Tail;
+import org.mathpiper.builtin.functions.core.Rest;
 import org.mathpiper.builtin.functions.core.ToBase;
 import org.mathpiper.builtin.functions.core.ToFile;
 import org.mathpiper.builtin.functions.core.ToStdout;
@@ -418,8 +418,8 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new Nth(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MathNth");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Tail(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Tail");
+                new BuiltinFunctionEvaluator(new Rest(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "Rest");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new DestructiveReverse(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "DestructiveReverse");

@@ -12,12 +12,12 @@ LocalSymbols(LocResult) [
     [
       If (First(First(tr)) = exp,
       [
-        Set(LocResult,Eval(First(Tail(First(tr)))));
+        Set(LocResult,Eval(First(Rest(First(tr)))));
         result := True;
         tr:={};
       ],
       [
-        tr := Tail(tr);
+        tr := Rest(tr);
       ]);
     ];
     result;
@@ -33,12 +33,12 @@ LocalSymbols(LocResult) [
       Set(head, First(First(tr)));
       If (Not(IsAtom(head)) And exp[0]=head[1] And Pattern'Matches(head[2], exp),
       [
-        Set(LocResult,Eval(First(Tail(First(tr)))));
+        Set(LocResult,Eval(First(Rest(First(tr)))));
         Set(result, True);
         Set(tr,{});
       ],
       [
-        Set(tr, Tail(tr));
+        Set(tr, Rest(tr));
       ]);
     ];
     result;

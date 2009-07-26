@@ -60,6 +60,6 @@ returned if "list" is an atom.
 	In> First(f(a,b,c));
 	Out> a;
 
-*SEE Tail, Length
+*SEE Rest, Length
 %/mathpiper_docs
 */

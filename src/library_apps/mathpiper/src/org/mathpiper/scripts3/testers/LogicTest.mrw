@@ -10,7 +10,7 @@ LocalSymbols(TrueFalse)
   `[
     Local(t,h);
     Set(h,First(@var));
-    Set(t,Tail(@var));
+    Set(t,Rest(@var));
     TrueFalse(h,TrueFalse(t,@expr));
   ];
 

@@ -4,7 +4,7 @@ RuleBase("DoFlatten",{doflattenx});
 UnFence("DoFlatten",1);
 
 10 # DoFlatten(_doflattenx)_(Type(doflattenx)=flattenoper) <--
-     Apply("Concat",MapSingle("DoFlatten",Tail(Listify(doflattenx))));
+     Apply("Concat",MapSingle("DoFlatten",Rest(Listify(doflattenx))));
 20 # DoFlatten(_doflattenx) <-- { doflattenx };
 
 

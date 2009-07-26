@@ -12,9 +12,9 @@
 10 # ContFracEval({{_n, _m}}, _rest) <-- n+m+rest;
 15 # ContFracEval({_n}, _rest) <-- n+rest;
 /// Continued fractions with nontrivial numerators
-20 # ContFracEval(list_IsList, _rest)_(IsList(First(list))) <-- First(First(list)) + Tail(First(list)) / ContFracEval(Tail(list), rest);
+20 # ContFracEval(list_IsList, _rest)_(IsList(First(list))) <-- First(First(list)) + Rest(First(list)) / ContFracEval(Rest(list), rest);
 /// Continued fractions with unit numerators
-30 # ContFracEval(list_IsList, _rest) <-- First(list) + 1 / ContFracEval(Tail(list), rest);
+30 # ContFracEval(list_IsList, _rest) <-- First(list) + 1 / ContFracEval(Rest(list), rest);
 
 /// evaluate continued fraction: main interface
 ContFracEval(list_IsList) <-- ContFracEval(list, 0);

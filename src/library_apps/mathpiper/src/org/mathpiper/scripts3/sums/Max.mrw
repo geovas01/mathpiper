@@ -37,7 +37,7 @@ Function() Max(l1, l2, l3, ...);
 [
   Local(result);
   result:= list[1];
-  ForEach(item,Tail(list)) result:=Max(result,item);
+  ForEach(item,Rest(list)) result:=Max(result,item);
   result;
 ];
 

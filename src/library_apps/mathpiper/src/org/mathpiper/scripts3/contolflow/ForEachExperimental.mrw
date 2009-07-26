@@ -19,7 +19,7 @@ LocalSymbols(foreachtail)
     [
       Set(@i,First(foreachtail));
       @B;
-      Set(foreachtail,Tail(foreachtail));
+      Set(foreachtail,Rest(foreachtail));
     ];
   ];
 ];

@@ -111,7 +111,7 @@ LocalSymbols(omindent) [
      OMEcho("<OME>");
      OMIndent();
      OMEcho("<OMS cd=\"":cd:"\" name=\"":name:"\"/>");
-     ForEach(i, Tail(function)) OMFormExpression(i);
+     ForEach(i, Rest(function)) OMFormExpression(i);
      OMUndent();
      OMEcho("</OME>");
      ];

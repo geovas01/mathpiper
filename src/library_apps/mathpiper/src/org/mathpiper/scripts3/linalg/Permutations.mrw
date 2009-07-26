@@ -20,7 +20,7 @@ Function("Permutations",{result,list})
       ];
     ];
     newresult:=DestructiveReverse(newresult);
-    Permutations(newresult,Tail(list));
+    Permutations(newresult,Rest(list));
   ]);
 ];
 

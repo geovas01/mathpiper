@@ -22,7 +22,7 @@
   While(curl<curr And left != {})
   [
     DestructiveAppend(result,First(left));
-    left:=Tail(left);
+    left:=Rest(left);
     curl++;
   ];
   While(curl<curr)
@@ -33,7 +33,7 @@
   While(curr<curl And right != {})
   [
     DestructiveAppend(result,-First(right));
-    right:=Tail(right);
+    right:=Rest(right);
     curr++;
   ];
   While(curr<curl)
@@ -44,20 +44,20 @@
   While(left != {} And right != {})
   [
     DestructiveAppend(result,First(left)-First(right));
-    left  := Tail(left);
-    right := Tail(right);
+    left  := Rest(left);
+    right := Rest(right);
   ];
 
 
   While(left != {})
   [
     DestructiveAppend(result,First(left));
-    left  := Tail(left);
+    left  := Rest(left);
   ];
   While(right != {})
   [
     DestructiveAppend(result,-First(right));
-    right := Tail(right);
+    right := Rest(right);
   ];
 
   UniVariate(aLeft[1],from,result);

@@ -6,7 +6,7 @@ Macro("MacroMapArgs",{expr,oper})
   Local(ex,tl,op);
   Set(op,@oper);
   Set(ex,Listify(@expr));
-  Set(tl,Tail(ex));
+  Set(tl,Rest(ex));
 
    UnList(Concat({ex[1]},
      `MacroMapSingle(@op,Hold(@tl)))

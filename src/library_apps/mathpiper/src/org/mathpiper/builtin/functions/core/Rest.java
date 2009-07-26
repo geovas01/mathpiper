@@ -26,7 +26,7 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class Tail extends BuiltinFunction
+public class Rest extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -44,11 +44,11 @@ public class Tail extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Tail",categories="User Functions;Lists (Operations);Built In"
-*CMD Tail --- returns a list without its car element
+%mathpiper_docs,name="Rest",categories="User Functions;Lists (Operations);Built In"
+*CMD Rest --- returns a list without its car element
 *CORE
 *CALL
-	Tail(list)
+	Rest(list)
 
 *PARMS
 
@@ -60,9 +60,9 @@ This function returns "list" without its car element.
 
 *E.G.
 
-	In> Tail({a,b,c})
+	In> Rest({a,b,c})
 	Out> {b,c};
 
-*SEE Head, Length
+*SEE First, Length
 %/mathpiper_docs
 */

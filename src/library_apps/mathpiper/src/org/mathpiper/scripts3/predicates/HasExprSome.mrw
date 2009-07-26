@@ -8,12 +8,12 @@ HasExprSome(_expr, _atom, _look'list) _ Equals(expr, atom) <-- True;
 // we test for lists now because lists are also functions
 // first take care of the empty list:
 19 # HasExprSome({}, _atom, _look'list) <-- False;
-20 # HasExprSome(expr_IsList, _atom, _look'list) <-- HasExprSome(First(expr), atom, look'list) Or HasExprSome(Tail(expr), atom, look'list);
+20 # HasExprSome(expr_IsList, _atom, _look'list) <-- HasExprSome(First(expr), atom, look'list) Or HasExprSome(Rest(expr), atom, look'list);
 // a function contains an atom if one of its arguments contains it
 // first deal with functions that do not belong to the list: return False since we have already checked it at #15
 25 # HasExprSome(expr_IsFunction, _atom, _look'list)_(Not Contains(look'list, Atom(Type(expr)))) <-- False;
 // a function contains an atom if one of its arguments contains it
-30 # HasExprSome(expr_IsFunction, _atom, _look'list) <-- HasExprSome(Tail(Listify(expr)), atom, look'list);
+30 # HasExprSome(expr_IsFunction, _atom, _look'list) <-- HasExprSome(Rest(Listify(expr)), atom, look'list);
 
 %/mathpiper
 

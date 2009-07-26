@@ -8,7 +8,7 @@ Function("Contains",{list,element})
   [
     If(Equals(First(list),element),
       Set(result, True),
-      Set(list, Tail(list))
+      Set(list, Rest(list))
       );
   ];
   result;

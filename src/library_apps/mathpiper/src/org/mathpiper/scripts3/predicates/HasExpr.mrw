@@ -10,9 +10,9 @@
 // we test for lists now because lists are also functions
 // first take care of the empty list:
 19 # HasExpr({}, _atom) <-- False;
-20 # HasExpr(expr_IsList, _atom) <-- HasExpr(First(expr), atom) Or HasExpr(Tail(expr), atom);
+20 # HasExpr(expr_IsList, _atom) <-- HasExpr(First(expr), atom) Or HasExpr(Rest(expr), atom);
 // a function contains an atom if one of its arguments contains it
-30 # HasExpr(expr_IsFunction, _atom) <-- HasExpr(Tail(Listify(expr)), atom);
+30 # HasExpr(expr_IsFunction, _atom) <-- HasExpr(Rest(Listify(expr)), atom);
 
 %/mathpiper
 

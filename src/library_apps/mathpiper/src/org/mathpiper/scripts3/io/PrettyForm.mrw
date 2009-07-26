@@ -177,7 +177,7 @@ AlignBase(i1,i2):=
 
         MoveOper(item2,comma[1]+comma[3]+1,SubtractN(base,(item2[7])));
         Set(newitem, MakeOper(0,0,AddN(item2[1],item2[3]),Max(item1[4],item2[4]),"Func",{item1,comma,item2},base));
-        BuildArgs(newitem:Tail(Tail(any)));
+        BuildArgs(newitem:Rest(Rest(any)));
       ];
 
 
@@ -341,7 +341,7 @@ Rule("BracketOn",3,2,True)
 [
   Local(head,args,all);
   Set(head, Formula(f[0]));
-  Set(all, Tail(Listify(f)));
+  Set(all, Rest(Listify(f)));
 
   Set(args, FormulaBracket(BuildArgs(MapSingle("Formula",Apply("Hold",{all})))));
   AlignBase(head,args);

@@ -10,7 +10,7 @@ ArrayCreateFromList(list):=
   [
     result[i]:=First(list);
     i++;
-    list:=Tail(list);
+    list:=Rest(list);
   ];
   result;
 ];

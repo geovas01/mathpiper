@@ -19,7 +19,7 @@ UnFence("Where",2);
      [
        Local(head,rest);
        head:=First(list);
-       rest:=Tail(list);
+       rest:=Rest(list);
        rest:= `(@body Where @rest);
        `(@body Where @head) : rest;
      ];
@@ -32,7 +32,7 @@ UnFence("Where",2);
        [
           head:=First(list);
           body := `(@body Where @head);
-          list:=Tail(list);
+          list:=Rest(list);
         ];
         body;
      ];

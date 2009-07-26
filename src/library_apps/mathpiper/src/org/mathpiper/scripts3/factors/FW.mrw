@@ -11,7 +11,7 @@
 [
   Local(result);
   result:=FWatom(First(list));
-  ForEach(item,Tail(list))
+  ForEach(item,Rest(list))
   [
    result := UnList({ Atom("*"),result,FWatom(item)});
   ];

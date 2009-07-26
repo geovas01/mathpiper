@@ -41,7 +41,7 @@ HoldArgNr("VerifySolve", 2, 1);
     i++;
     found := VerifySolve'Equal(First(e1), e2[i]);
   ];
-  If (found, VerifySolve'Equal(Tail(e1), Delete(e2, i)), False);
+  If (found, VerifySolve'Equal(Rest(e1), Delete(e2, i)), False);
 ];
 
 40 # VerifySolve'Equal(_l1 == _r1, _l2 == _r2) 

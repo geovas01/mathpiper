@@ -44,7 +44,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
     While(work != {})
     [
       {a,b,Va,Vb} := First(work);
-      work := Tail(work);
+      work := Rest(work);
       c:=(a+b)/2;
 //Echo(a,b,c);
       Vc := SturmVariations(S,c);
