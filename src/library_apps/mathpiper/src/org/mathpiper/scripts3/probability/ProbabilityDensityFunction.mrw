@@ -75,5 +75,5 @@ probability for a random variable with distribution {dist} to take a
 value of {x}. If {dist} is a continuous distribution, then {ProbabilityDensityFunction}
 returns the density function at point $x$.
 
-*SEE CumulativeDistributionFunction
+*SEE CumulativeDistributionFunction, Expectation
 %/mathpiper_docs

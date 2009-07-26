@@ -31,5 +31,23 @@
 10 # Expectation( DiscreteDistribution( dom_IsList, prob_IsList))_( Length(dom)=Length(prob) And Simplify(Sum(prob))=1) <-- Sum @ {i,1,Length(dom),dom[i]*prob[i]};
 
 
-
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="Expectation",categories="User Functions;Statistics & Probability"
+*CMD Expectation --- expectation function
+*STD
+*CALL
+	Expectation(p)
+        Expectation(p,n)
+
+*PARMS
+{p} -- number, probability of an event in a single trial
+
+{n} -- number of trials
+
+
+*SEE CumulativeDistributionFunction, ProbabilityDensityFunction
+%/mathpiper_docs

@@ -56,3 +56,21 @@
 10 # CumulativeDistributionFunction(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- (Bin(M,x) * Bin(N-M, n-x))/Bin(N,n);
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="CumulativeDistributionFunction",categories="User Functions;Statistics & Probability"
+*CMD CumulativeDistributionFunction --- cumulative distribution function
+*STD
+*CALL
+	CumulativeDistributionFunction(dist,x)
+
+*PARMS
+{dist} -- a distribution type
+
+{x} -- a value of random variable
+
+
+*SEE ProbabilityDensityFunction, Expectation
+%/mathpiper_docs
