@@ -34,28 +34,26 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.StandardXYBarPainter;
-import org.jfree.chart.renderer.xy.XYBarRenderer;
-import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.xy.IntervalXYDataset;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 
 /**
  *
  *
  */
-public class Histogram extends BuiltinFunction {
+public class CumulativePlot extends BuiltinFunction {
 
     private Map defaultOptions;
 
     public void plugIn(Environment aEnvironment) {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "Histogram");
+                "CumulativePlot");
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);
         defaultOptions.put("xAxisLabel", null);
-        defaultOptions.put("yAxisLabel", null);
+        defaultOptions.put("yAxisLabel", "Cumulative Frequency");
         defaultOptions.put("seriesTitle", "");
         defaultOptions.put("orientation", PlotOrientation.VERTICAL);
         defaultOptions.put("legend", true);
@@ -82,16 +80,18 @@ public class Histogram extends BuiltinFunction {
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
-
+        
         Map userOptions = Utility.optionsListToJavaMap(optionsPointer, defaultOptions);
 
 
+        IntervalXYDataset dataSet = ChartUtility.listToCumulativeDataset(dataListPointer, userOptions);
 
-        HistogramDataset dataSet = ChartUtility.listToHistogramDataset(dataListPointer, userOptions);
+        //createXYBarChart(java.lang.String title, java.lang.String xAxisLabel, boolean dateAxis, java.lang.String yAxisLabel, IntervalXYDataset dataset, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls)
 
-        JFreeChart chart = ChartFactory.createHistogram(
+        JFreeChart chart = ChartFactory.createXYBarChart(
                 (String) userOptions.get("title"), //title.
                 (String) userOptions.get("xAxisLabel"), //x axis label.
+                false,
                 (String) userOptions.get("yAxisLabel"), //y axis label.
                 dataSet, //
                 (PlotOrientation) userOptions.get("orientation"), //orientation.
@@ -100,15 +100,17 @@ public class Histogram extends BuiltinFunction {
                 false);//urls.
 
         XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setDomainCrosshairVisible(true);
+        plot.setDomainCrosshairLockedOnData(true);
+        plot.setRangeCrosshairVisible(true);
+        plot.setRangeCrosshairLockedOnData(true);
+        plot.setDomainZeroBaselineVisible(true);
+        plot.setRangeZeroBaselineVisible(true);
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
-        plot.setForegroundAlpha(0.85f);
-        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(true);
-        renderer.setBarPainter(new StandardXYBarPainter());
-        renderer.setShadowVisible(false);
+        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
+        domainAxis.setAutoRangeIncludesZero(false);
+
 
 //create and display a frame...  Import("org/mathpiper/builtin/functions/plugins/jfreechart/")
 //ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);

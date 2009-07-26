@@ -428,7 +428,10 @@ public class Utility {
                     } else {
                         userOptions.put(key, PlotOrientation.VERTICAL);
                     }//end if/else.
-                } else {
+                } else if(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false") )
+                {
+                    userOptions.put(key,Boolean.parseBoolean(value));
+                }else {
                     userOptions.put(key, value);
                 }//ende else.
             } else //Number
