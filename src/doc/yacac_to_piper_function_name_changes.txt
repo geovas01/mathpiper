@@ -42,6 +42,8 @@ MM -> InternalForm
 
 ============================= Changes that have already been done.
 //Changed these function names.
+CDF -> CumulativeDistributionFunction
+PDF -> ProbabilityDensityFunction
 Head -> First
 Tail -> Rest
 Add -> Sum
