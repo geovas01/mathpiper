@@ -68,5 +68,5 @@ equivalent to {init; While(pred) [body; incr;]}.
 	 10  3628800
 	Out> True;
 
-*SEE While, Until, ForEach
+*SEE While, Until, ForEach, Break
 %/mathpiper_docs
