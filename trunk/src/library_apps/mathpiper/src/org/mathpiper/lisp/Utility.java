@@ -97,6 +97,12 @@ public class Utility {
     public static java.util.zip.ZipFile zipFile = null;
 
     public static boolean isNumber(String ptr, boolean aAllowFloat) {
+
+        if(ptr.length() == 0)
+        {
+            return false;
+        }//end if.
+        
         int pos = 0;
         if (ptr.charAt(pos) == '-' || ptr.charAt(pos) == '+') {
             pos++;
