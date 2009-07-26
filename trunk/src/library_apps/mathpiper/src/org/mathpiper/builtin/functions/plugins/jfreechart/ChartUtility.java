@@ -16,16 +16,20 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.plugins.jfreechart;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.xy.DefaultXYDataset;
+import org.jfree.data.xy.XYBarDataset;
 import org.jfree.data.xy.XYDataset;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
+
 
 public class ChartUtility {
 
@@ -55,54 +59,135 @@ public class ChartUtility {
                 dataListPointer.goNext();
             }//end while.
 
-            double min = Double.MAX_VALUE;
-            double max = Double.MIN_VALUE;
+            double minimumValue = Double.MAX_VALUE;
+            double maximumValue = Double.MIN_VALUE;
             int index = 0;
             while (index < seriesTotalList.size()) {
                 Double value = (Double) seriesTotalList.get(index);
-                if (value < min) {
-                    min = value;
+                if (value < minimumValue) {
+                    minimumValue = value;
                 }
-                if (value > max) {
-                    max = value;
+                if (value > maximumValue) {
+                    maximumValue = value;
                 }
                 index++;
             }//end while
-            min = Math.floor(min) - .5;
-            max = Math.floor(max) + .5;
+            minimumValue = Math.floor(minimumValue) - .5;
+            maximumValue = Math.floor(maximumValue) + .5;
 
 
             int seriesIndex2 = 0;
             while (seriesIndex > 1) {
                 String seriesTitle = (String) dataSeriesList.get(seriesIndex2++);
                 double[] dataValues = (double[]) dataSeriesList.get(seriesIndex2++);
-                dataSet.addSeries(seriesTitle, dataValues, 15, min, max);
+                dataSet.addSeries(seriesTitle, dataValues, 15, minimumValue, maximumValue);
                 seriesIndex--;
             }//end while.
 
         } else {//Just a single series.
             int numberOfBins = 15;
             Double numberOfBinsDouble = (Double) userOptions.get("numberOfBins");
-            if(numberOfBinsDouble != null)
-            {
+            if (numberOfBinsDouble != null) {
                 numberOfBins = (int) numberOfBinsDouble.doubleValue();
             }//end if.
+
+
+            double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
+
 
             Double binMinimum = (Double) userOptions.get("binMinimum");
             Double binMaximum = (Double) userOptions.get("binMaximum");
 
-            double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
-            if(binMinimum != null && binMaximum != null)
-            {
+
+
+            if (binMinimum != null && binMaximum != null) {
                 dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, numberOfBins, binMinimum, binMaximum);
-            }
-            else
-            {
+            } else {
                 dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, numberOfBins);
             }
             //argumentsPointer.goNext();
         }//end if/else
         return dataSet;
+
+    }//end method.
+
+
+    public static XYBarDataset listToCumulativeDataset(ConsPointer dataListPointer, Map userOptions) throws Exception {
+
+        LispError.check(!Utility.isNestedList(dataListPointer), LispError.INVALID_ARGUMENT);
+
+
+        int numberOfBins = 15;
+
+        Double numberOfBinsDouble = (Double) userOptions.get("numberOfBins");
+        if (numberOfBinsDouble != null) {
+            numberOfBins = (int) numberOfBinsDouble.doubleValue();
+        }//end if.
+
+
+        double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
+
+
+        Arrays.sort(dataValues);
+
+        double minimumValue = Math.floor(dataValues[0]);
+        double maximumValue = Math.floor(dataValues[dataValues.length - 1]);
+
+
+        double[] cumulativeValues = new double[numberOfBins];
+        double[] binLabels = new double[numberOfBins];
+
+        double step = (maximumValue - minimumValue) / numberOfBins;
+
+        int binIndex = 0;
+
+        double binStartValue = minimumValue;
+
+        int valuesInBinCount = 0;
+
+        int index = 0;
+
+        double binEndValue = 0;
+
+
+
+        for (binEndValue = minimumValue + step; Math.floor(binEndValue) <= maximumValue; binEndValue = binEndValue + step, binStartValue = binStartValue + step ){
+
+
+            while ( index != dataValues.length && (Math.floor(dataValues[index]) <= Math.floor(binEndValue))) {
+                valuesInBinCount++;
+                index++;
+            }//end for.
+
+            double binAverageValue = (binEndValue - binStartValue) / 2;
+
+            double binLabelValue = binStartValue + binAverageValue;
+
+            //System.out.println("bin start: " + binStartValue + "   bin end: " + binEndValue + "   bin label: " + binLabelValue);
+
+            binLabels[binIndex] = binLabelValue;
+
+            cumulativeValues[binIndex] = valuesInBinCount;
+
+
+            binIndex++;
+
+        }//end for.
+
+        double[][] combinedValues = new double[][]{binLabels, cumulativeValues};
+
+
+        //Double binMinimum = (Double) userOptions.get("binMinimum");
+        //Double binMaximum = (Double) userOptions.get("binMaximum");
+        String seriesTitle = (String) userOptions.get("seriesTitle");
+
+
+        DefaultXYDataset dataSet = new DefaultXYDataset();
+        dataSet.addSeries(seriesTitle, combinedValues);
+
+        //argumentsPointer.goNext();
+
+        return new XYBarDataset(dataSet, step);
 
     }//end method.
 
@@ -133,8 +218,6 @@ public class ChartUtility {
             seriesIndex++;
             dataListPointer.goNext();
         }//end while.
-
-
 
 
         return dataSet;
