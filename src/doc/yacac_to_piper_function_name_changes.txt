@@ -18,7 +18,7 @@ etc.
 
 //In general, spell function names out completely.
 RulebaseArgs -> RulebaseArguments
-EquRight -> EquationRight
+
 etc.
 
 
@@ -32,7 +32,6 @@ UnList -> ListToFunction
 FindRealRoots -> RealRootsFind
 NumRealRoots -> RealRootsNum
 Clear -> Unbind (or perhaps IsAssigned and Unassign?)
-Factorize -> Product (There is a minor conflict with the intrinsic function "Product" already present, but I think this conflict can easily be resolved by adding a new definition of Product" with a different predicate. Sherm)
 String -> AtomToString
 Atom -> StringToAtom
 Equals -> IsEqual
@@ -43,6 +42,12 @@ MM -> InternalForm
 
 ============================= Changes that have already been done.
 //Changed these function names.
+Head -> First
+Tail -> Rest
+Add -> Sum
+Factorize -> Product
+EquRight -> EquationRight
+EquLeft -> EquationLeft
 MathAbs -> AbsN
 MathAdd -> AddN
 MathAnd -> AndN
