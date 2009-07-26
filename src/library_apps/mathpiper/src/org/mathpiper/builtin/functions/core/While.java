@@ -18,6 +18,7 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.exceptions.BreakException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -38,14 +39,23 @@ public class While extends BuiltinFunction
         ConsPointer predicate = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, arg1);
 
+        ConsPointer evaluated = new ConsPointer();
+
+        try{
         while (Utility.isTrue(aEnvironment, predicate))
         {
-            ConsPointer evaluated = new ConsPointer();
+            
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, arg2);
+
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, arg1);
 
-        }
+        }//end while.
         LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
+        }catch (BreakException be)
+        {
+            //eat exception.
+        }
+
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
@@ -92,6 +102,6 @@ all other loop commands are based. It is equivalent to the {while} command in th
 	 9  362880
 	Out> True;
 
-*SEE Until, For
+*SEE Until, For, ForEach, Break
 %/mathpiper_docs
 */
