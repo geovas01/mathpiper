@@ -47,15 +47,15 @@ ProbabilityDensityFunction(BinomialDistribution(.1,15),0);
 .   /%/output
 
 
-%mathpiper,title=""
+/%mathpiper,title=""
 
 CumulativeDistributionFunction(BinomialDistribution(.1,15),2);
 
-%/mathpiper
+/%/mathpiper
 
-    %output,preserve="false"
+    /%output,preserve="false"
       Result: 0.8159389308
-.   %/output
+.   /%/output
 
 *SEE BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
 %/mathpiper_docs
