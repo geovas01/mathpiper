@@ -35,5 +35,32 @@ Describes the number of successes for draws with replacement.
 Numerical value of {p} must satisfy $0<p<1$. Numerical value
 of {n} must be a positive integer. 
 
+*E.G.
+/%mathpiper,title=""
+
+ProbabilityDensityFunction(BinomialDistribution(.1,15),0);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 0.2058911321
+.   /%/output
+
+
+%mathpiper,title=""
+
+CumulativeDistributionFunction(BinomialDistribution(.1,15),2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.8159389308
+.   %/output
+
 *SEE BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
