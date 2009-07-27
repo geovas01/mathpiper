@@ -22,6 +22,8 @@
   TODO: Should domain contain numbers only?
 */
 
+Retract("ProbabilityDensityFunction", *);
+
 10 # ProbabilityDensityFunction(BernoulliDistribution(_p),0) <-- p;
 10 # ProbabilityDensityFunction(BernoulliDistribution(_p),1) <-- 1-p;
 10 # ProbabilityDensityFunction(BernoulliDistribution(_p),x_IsNumber)_(x != 0 And x != 1) <-- 0;
@@ -54,7 +56,13 @@
 
 10 # ProbabilityDensityFunction(tDistribution(_m),x) <-- Gamma((m+1)/2)*(1+x^2/m)^(-(m+1)/2)/Gamma(m/2)/Sqrt(Pi*m);
 
+10 # ProbabilityDensityFunction(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- N((Bin(M,x) * Bin(N-M, n-x))/Bin(N,n));
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 

@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-HypergeometricDistribution(N_IsRationalOrNumber, M_IsRationalOrNumber)_(M > N Or n > N)
+HypergeometricDistribution(N_IsRationalOrNumber, M_IsRationalOrNumber, n_IsRationalOrNumber)_(M > N Or n > N)
    <-- Undefined;
 
 %/mathpiper
@@ -26,8 +26,38 @@ HypergeometricDistribution(N_IsRationalOrNumber, M_IsRationalOrNumber)_(M > N Or
 *DESC
 
 A discrete probability distribution that describes the number of successes in a sequence of
-draws from a finite population without replacement.
+draws from a finite population without replacement.  The hypergeometric distribution is the
+probability model which is used for selecting a random sample of n items without replacement 
+from a lot of N items, M of which are nonconforming or defective.
 
+*E.G.
+
+/%mathpiper,title=""
+
+ProbabilityDensityFunction(HypergeometricDistribution(100,5,10),0);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 0.5837523670
+.   /%/output
+
+
+
+/%mathpiper,title=""
+
+CumulativeDistributionFunction(HypergeometricDistribution(100,5,10),1);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 0.9231432779
+.   /%/output
 
 *SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
