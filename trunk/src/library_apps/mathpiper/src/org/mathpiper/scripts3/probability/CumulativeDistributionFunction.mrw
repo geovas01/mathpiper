@@ -7,7 +7,7 @@
    -- BinomialDistribution(p,n)
    -- DiscreteUniformDistribution(a,b)
    -- PoissonDistribution(l)
-   -- Hypergeometric(N, M)
+   -- HypergeometricDistribution(N, M)
    2. Continuous distributions
    -- ExponentialDistribution(l)
    -- NormalDistrobution(a,s)
@@ -25,6 +25,8 @@
 
 
 /* Evaluates Cumulative probability function CumulativeDistributionFunction(x)=Pr(X<x) */
+
+Retract("CumulativeDistributionFunction", *);
 
 10 # CumulativeDistributionFunction(BernoulliDistribution(_p), x_IsNumber) <-- If(x<=0,0,If(x>0 And x<=1, p,1));
 11 # CumulativeDistributionFunction(BernoulliDistribution(_p), _x) <-- Hold(If(x<=0,0,If(x>0 And x<=1, p,1)));
@@ -53,9 +55,16 @@
 	 cdf;
       ];
 
-10 # CumulativeDistributionFunction(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- (Bin(M,x) * Bin(N-M, n-x))/Bin(N,n);
+10 # CumulativeDistributionFunction(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- 
+[
+    N(Sum @ {i,0,x,ProbabilityDensityFunction(HypergeometricDistribution(N, M, n),i)});
+];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
