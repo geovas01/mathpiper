@@ -38,6 +38,7 @@ Copyright (C) 2008 Ted Kosan
 	    <SEQ TYPE="LABEL">*CALL</SEQ>
 	    <SEQ TYPE="LABEL">*PARMS</SEQ>
 	    <SEQ TYPE="LABEL">*DESC</SEQ>
+	    <SEQ TYPE="LABEL">*E.G.</SEQ>
 	    <SEQ TYPE="LABEL">*SEE</SEQ>
 
 	</RULES>
