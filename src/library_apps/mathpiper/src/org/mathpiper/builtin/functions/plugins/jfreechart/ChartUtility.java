@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.xy.DefaultXYDataset;
+import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYBarDataset;
 import org.jfree.data.xy.XYDataset;
 import org.mathpiper.builtin.JavaObject;
@@ -193,7 +194,7 @@ public class ChartUtility {
 
 
 
-    public static XYDataset listToXYDataset(ConsPointer dataListPointer, Map userOptions) throws Exception {
+    public static DefaultXYDataset listToXYDataset(ConsPointer dataListPointer, Map userOptions) throws Exception {
 
         LispError.check(Utility.isNestedList(dataListPointer), LispError.INVALID_ARGUMENT);
 
@@ -206,7 +207,7 @@ public class ChartUtility {
             dataListPointer.goNext();
             double[] dataYValues = JavaObject.LispListToJavaDoubleArray((ConsPointer) dataListPointer.car());
 
-            String seriesTitle = "";
+            String seriesTitle = "series" + seriesIndex;
             if (userOptions.containsKey("series" + seriesIndex + "Title")) {
                 seriesTitle = (String) userOptions.get("series" + seriesIndex + "Title");
             }
@@ -223,5 +224,27 @@ public class ChartUtility {
         return dataSet;
 
     }//end method.
+
+
+
+    public static IntervalXYDataset listToIntervalXYDataset(ConsPointer dataListPointer, Map userOptions) throws Exception {
+
+        DefaultXYDataset xYDataset = listToXYDataset(dataListPointer, userOptions);
+
+        int seriesCount = xYDataset.getSeriesCount();
+        LispError.check(seriesCount != 0, LispError.INVALID_ARGUMENT);
+
+        //int seriesItemCount =  xYDataset.getItemCount(0);
+
+        //double lowXValue = xYDataset.getXValue(0, 0);
+
+        //double highXValue = xYDataset.getXValue(0, seriesItemCount-1);
+
+        double barWidth = xYDataset.getXValue(0, 1) - xYDataset.getXValue(0, 0);
+
+        return new XYBarDataset(xYDataset, barWidth);
+    }//end method.
+
+
 }//end class
 
