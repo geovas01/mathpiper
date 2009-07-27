@@ -40,7 +40,7 @@ public class Break extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="Break",categories="User Functions;Control Flow;Built In"
-*CMD Break --- Break out of a loop
+*CMD Break --- break out of a loop
 *CORE
 *CALL
 
