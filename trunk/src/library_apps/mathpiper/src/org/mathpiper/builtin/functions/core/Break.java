@@ -46,11 +46,10 @@ public class Break extends BuiltinFunction
 
     Break()
 
-
 *DESC
 
 If Break is executed inside of a While, Until, For, or ForEach loop, it will
-cause the loop to end early.
+cause the loop to be exited.
 
 *E.G.
 
