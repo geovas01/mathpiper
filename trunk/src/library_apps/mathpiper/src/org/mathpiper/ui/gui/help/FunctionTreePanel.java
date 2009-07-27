@@ -489,6 +489,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             } else if (line.startsWith("*STD")) {
                 html.append("<h5 align=right>Standard library</h5><h5>\n\n");
+            } else if (line.startsWith("*CORE")) {
+                html.append("<h5 align=right>Built in function</h5><h5>\n\n");
             } else if (line.startsWith("*CALL")) {
                 html.append("Calling format:\n</h5>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>\n");
 
