@@ -31,9 +31,9 @@ Retract("CumulativeDistributionFunction", *);
 10 # CumulativeDistributionFunction(BernoulliDistribution(_p), x_IsNumber) <-- If(x<=0,0,If(x>0 And x<=1, p,1));
 11 # CumulativeDistributionFunction(BernoulliDistribution(_p), _x) <-- Hold(If(x<=0,0,If(x>0 And x<=1, p,1)));
 
-10 # CumulativeDistributionFunction(BinomialDistribution(_p,_n),m_IsNumber)_(m<=0) <-- 0;
+10 # CumulativeDistributionFunction(BinomialDistribution(_p,_n),m_IsNumber)_(m<0) <-- 0;
 10 # CumulativeDistributionFunction(BinomialDistribution(_p,n_IsInteger),m_IsNumber)_(m>n) <-- 1;
-10 # CumulativeDistributionFunction(BinomialDistribution(_p,_n),_m) <-- Sum @ { i, 0, m-1, ProbabilityDensityFunction(BinomialDistribution(p,n),i)};
+10 # CumulativeDistributionFunction(BinomialDistribution(_p,_n),_m) <-- Sum @ { i, 0, Floor(m), ProbabilityDensityFunction(BinomialDistribution(p,n),i)};
 
 10 # CumulativeDistributionFunction(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(x<=a) <-- 0;
 10 # CumulativeDistributionFunction(DiscreteUniformDistribution( a_IsNumber, b_IsNumber), x_IsNumber)_(x>b) <-- 1;
