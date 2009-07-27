@@ -488,11 +488,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 html.append("<h3>\n<hr>" + line + "\n</h3>\n\n");
 
             } else if (line.startsWith("*STD")) {
-                html.append("<h5 align=right>Standard library</h5><h5>\n\n");
+                html.append("<h4 align=right>Standard library</h4>\n\n");
             } else if (line.startsWith("*CORE")) {
-                html.append("<h5 align=right>Built in function</h5><h5>\n\n");
+                html.append("<h4 align=right>Built in function</h4>\n\n");
             } else if (line.startsWith("*CALL")) {
-                html.append("Calling format:\n</h5>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>\n");
+                html.append("<h4> Calling format:\n</h4>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>\n");
 
                 while (true) {
                     x++;
@@ -518,7 +518,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 html.append("</pre></tr>\n</table>\n<p>\n\n");
             } else if (line.startsWith("*PARMS")) {
-                html.append("<h5>\nParameters:\n</h5>\n");
+                html.append("<h4>\nParameters:\n</h4>\n");
 
                 while (true) {
                     x++;
@@ -548,7 +548,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 html.append("\n<p>\n\n");
             } else if (line.startsWith("*DESC")) {
-                html.append("<h5>\nDescription:\n</h5>\n");
+                html.append("<h4>\nDescription:\n</h4>\n");
 
                 while (true) {
                     x++;
@@ -577,9 +577,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     html.append("\n");
                 }//end while.
 
-                html.append("\n<p>\n\n");
+                html.append("\n");
             } else if (line.startsWith("*E.G.")) {
-                html.append("<h5>\nExamples:\n</h5>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>");
+                html.append("<h4>\nExamples:\n</h4>\n<table cellpadding=\"0\" width=\"100%\">\n<tr><td width=100% bgcolor=\"#DDDDEE\"><pre>");
 
                 while (true) {
                     x++;
@@ -622,7 +622,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     seeFunctionsBuilder.append("<a href=\"http://" + seeFunction + "\">" + seeFunction + "</a>, ");
                 }
 
-                html.append("<h5>\nSee also:\n</h5>" + seeFunctionsBuilder.toString() + "\n");
+                html.append("<h4>\nSee also:\n</h4>" + seeFunctionsBuilder.toString() + "\n");
 
                 seeFunctionsBuilder.delete(0, seeFunctionsBuilder.length());
 
