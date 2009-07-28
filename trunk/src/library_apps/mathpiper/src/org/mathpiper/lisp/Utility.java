@@ -390,7 +390,7 @@ public class Utility {
 
     public static boolean isNestedList(ConsPointer clientListPointer) throws Exception {
 
-        ConsPointer listPointer = new ConsPointer(clientListPointer);
+        ConsPointer listPointer = new ConsPointer(clientListPointer.getCons());
 
         listPointer.goNext(); //Strip List tag.
 

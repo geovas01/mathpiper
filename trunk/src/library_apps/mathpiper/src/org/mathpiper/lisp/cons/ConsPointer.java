@@ -50,9 +50,10 @@ public class ConsPointer {
         iCons = aCons;
     }
 
-    public ConsPointer(ConsPointer aConsPointer) {
-        iCons = aConsPointer.getCons();
-    }
+    //public ConsPointer(ConsPointer aConsPointer) {
+    //    iCons = aConsPointer.getCons();
+    //    }//todo:tk:I am removing this until a mechanism is developed to traverse
+    //    conses which does not destroy the original ConsPointer's pointer. See Utility.flatCopy.
 
     public void setCons(Cons aNext) {
         iCons = aNext;
