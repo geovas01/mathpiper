@@ -166,3 +166,37 @@ BarChart({domain, sample1, domain, sample2, domain, sample3});
 
 
 
+
+
+%mathpiper,title=""
+
+domain := 0 .. 15;
+
+sample1 := {};
+ForEach(x, 0 .. 15)
+[
+    probability := ProbabilityDensityFunction(BinomialDistribution(.1,15),x);
+    sample1 := Append(sample1, probability);
+];
+
+
+sample2 := {};
+ForEach(x, 0 .. 15)
+[
+    probability := ProbabilityDensityFunction(BinomialDistribution(.5,15),x);
+    sample2 := Append(sample2, probability);
+];
+
+sample3 := {};
+ForEach(x, 0 .. 15)
+[
+    probability := ProbabilityDensityFunction(BinomialDistribution(.9,15),x);
+    sample3 := Append(sample3, probability);
+];
+
+LineChart({domain, sample1, domain, sample2, domain, sample3});
+
+%/mathpiper
+
+
+
