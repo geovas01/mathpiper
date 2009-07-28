@@ -73,7 +73,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private Stack history = new java.util.Stack();
     private boolean controlKeyDown = false;
     private int historyIndex = -1;
-
     private String helpMessage =
             "Press <enter> after an expression to create an additional input line and to append a hidden ;.\n\n" +
             "Press <shift><enter> after any input line in a group of input lines to execute them all.\n\n" +
@@ -278,7 +277,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber);
 
-                    textArea.replaceRange("In>" + (String) history.get((history.size()-1) - historyIndex), lineStartOffset, lineEndOffset);
+                    textArea.replaceRange("In>" + (String) history.get((history.size() - 1) - historyIndex), lineStartOffset, lineEndOffset);
 
                 } catch (BadLocationException ble) {
                     //Eat exception.
@@ -304,7 +303,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         if (keyCode == KeyEvent.VK_DOWN && this.controlKeyDown) {
             //System.out.println("down");
 
-            if (!history.empty() && (! (historyIndex < 1) ) ) {
+            if (!history.empty() && (!(historyIndex < 1))) {
 
 
                 historyIndex--;
@@ -315,14 +314,13 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber);
 
-                    textArea.replaceRange("In>" + (String) history.get((history.size()-1) - historyIndex), lineStartOffset, lineEndOffset);
+                    textArea.replaceRange("In>" + (String) history.get((history.size() - 1) - historyIndex), lineStartOffset, lineEndOffset);
 
                 } catch (BadLocationException ble) {
                     //Eat exception.
                 }
 
-            }else if(!history.empty() && historyIndex == 0)
-            {
+            } else if (!history.empty() && historyIndex == 0) {
                 try {
                     int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber);
@@ -368,7 +366,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                     //System.out.println(code);
 
-                    history.push(code.substring(0,code.length()-1));
+                    history.push(code.substring(0, code.length() - 1));
                     this.historyIndex = -1;
 
                     if (code.length() > 0) {
@@ -586,6 +584,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }
 
 
+    }//end method.
+
+
+    public void setHaltButtonEnabledState(boolean state) {
+        this.haltButton.setEnabled(state);
     }//end method.
 
 
