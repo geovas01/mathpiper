@@ -344,6 +344,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				}*/
 				
 				System.out.println("<shift><enter> Received response.");
+				wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
 					
 				//result = evaluationResponse[2];
 				result = evaluationResponse.getResult();//("load_result");
@@ -497,7 +498,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			}).start();
 				
 			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
-			//wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(true);
+			wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
 			
 			output_fold_type = "%output";
 			result = "Processing...";
