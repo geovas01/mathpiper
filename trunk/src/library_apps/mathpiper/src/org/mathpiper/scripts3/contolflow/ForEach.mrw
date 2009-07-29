@@ -13,18 +13,6 @@ TemplateFunction("ForEach",{item,listOrString,body})
 
       MacroLocal(item);
       
-      If(IsList(listOrString),
-      [
-          Local(foreachtail);
-          Set(foreachtail,listOrString);
-          While(Not(Equals(foreachtail,{})))
-          [
-            MacroSet(item,First(foreachtail));
-            Eval(body);
-            Set(foreachtail,Rest(foreachtail));
-          ];
-      ]);
-      
       If(IsString(listOrString),
       [
           
@@ -42,6 +30,16 @@ TemplateFunction("ForEach",{item,listOrString,body})
              index++;
           ];
 
+      ],
+      [
+          Local(foreachtail);
+          Set(foreachtail,listOrString);
+          While(Not(Equals(foreachtail,{})))
+          [
+            MacroSet(item,First(foreachtail));
+            Eval(body);
+            Set(foreachtail,Rest(foreachtail));
+          ];
       ]);
     ]);
 ];
