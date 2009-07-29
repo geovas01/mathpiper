@@ -4,7 +4,7 @@ Function("CoFactor",{matrix,ii,jj})
 [
   Local(perms,indices,result);
   indices:=Table(i,i,1,Length(matrix),1);
-  perms:=PermuteList(indices);
+  perms:=Permute(indices);
   result:=0;
   ForEach(item,perms)
      If(item[ii] = jj,

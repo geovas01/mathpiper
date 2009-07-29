@@ -63,5 +63,5 @@ to -1.
 	In> LeviCivita({2,2,3})
 	Out> 0;
 
-*SEE PermuteList
+*SEE Permute
 %/mathpiper_docs

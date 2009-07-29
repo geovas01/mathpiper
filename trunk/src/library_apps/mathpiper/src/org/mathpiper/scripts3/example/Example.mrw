@@ -63,7 +63,7 @@ passed in.
 "Selecting a sublist from a list.
 "
   },
-  {PermuteList({a,b,c}),
+  {Permute({a,b,c}),
 "Generate all permutations of a list.
 "
   },
