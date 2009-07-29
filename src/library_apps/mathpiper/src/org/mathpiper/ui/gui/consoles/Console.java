@@ -18,6 +18,7 @@ package org.mathpiper.ui.gui.consoles;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -123,6 +124,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
         haltButton = new JButton("Halt Calculation");
         haltButton.setEnabled(false);
+        haltButton.setForeground(Color.RED);
         haltButton.addActionListener(this);
         buttons.add(haltButton);
 
@@ -589,6 +591,9 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     public void setHaltButtonEnabledState(boolean state) {
         this.haltButton.setEnabled(state);
+
+
+
     }//end method.
 
 
