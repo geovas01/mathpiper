@@ -5,7 +5,7 @@ Retract("RandomPick",*);
 
 10 # RandomPick(list_IsList) <--
 [
-    pickPosition := RandomInteger(Length(list)) + 1;
+    pickPosition := RandomInteger(Length(list));
 
     list[pickPosition];
 ];
