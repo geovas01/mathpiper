@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ 10 # xxx <-- notation does not work if Bodied is executed before the function is defined.  See the Repeat function.
 +This input produces messed up output when executed at the bottom of the GUI console:
 In> FactorPolynomialOverIntegers(2.3*x^2-1.5*x+.8,x)
 Result: FactorPolynomialOverIntegers(2.3*x^2-1.5*x+.8,x)
