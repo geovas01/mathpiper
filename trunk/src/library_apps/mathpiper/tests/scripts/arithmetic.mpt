@@ -25,7 +25,7 @@ VerifyArithmetic(10,50,80);
 VerifyArithmetic(10000,50,88);
 
 Verify(4!,24);
-Verify(Bin(2,1),2);
+Verify(BinomialCoefficient(2,1),2);
 
 NextTest("Testing math stuff");
 Verify(1*a,a);

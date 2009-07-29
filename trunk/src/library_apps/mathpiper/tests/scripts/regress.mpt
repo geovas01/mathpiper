@@ -194,7 +194,7 @@ RoundTo(N(ArcSin(0.0000000321232123),50),50)
 
 Verify(Internal'LnNum(1), 0);
 
-Verify(Bin(0,0),1 );
+Verify(BinomialCoefficient(0,0),1 );
 
 Verify(0|1, 1);
 Verify(0&1, 0);

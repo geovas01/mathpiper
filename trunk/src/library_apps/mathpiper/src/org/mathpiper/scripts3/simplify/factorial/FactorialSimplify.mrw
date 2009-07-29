@@ -18,7 +18,7 @@
 FactorialNormalForm(x):=
 [
   // Substitute binomials
-  x:=(x/:{Bin(_n,_m)<- (n!)/((m!)*(n-m)!)});
+  x:=(x/:{BinomialCoefficient(_n,_m)<- (n!)/((m!)*(n-m)!)});
   // Expand expression as much as possible so that the terms become
   // simple rationals.
 
@@ -288,10 +288,10 @@ are integers.
 
 	In> FactorialSimplify( (n-k+1)! / (n-k)! )
 	Out> n+1-k
-	In> FactorialSimplify(n! / Bin(n,k))
+	In> FactorialSimplify(n! / BinomialCoefficient(n,k))
 	Out> k! *(n-k)!
 	In> FactorialSimplify(2^(n+1)/2^n)
 	Out> 2
 
-*SEE Simplify, !, Bin
+*SEE Simplify, !, BinomialCoefficient
 %/mathpiper_docs

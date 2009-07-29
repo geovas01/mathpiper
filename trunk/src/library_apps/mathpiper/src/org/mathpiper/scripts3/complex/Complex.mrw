@@ -92,9 +92,9 @@
   ii:=0;
   For(count:=1,count<=n,count:=count+2) [
     sign:=If(IsZero(Mod(count-1,4)),1,-1);
-    ii:=ii+sign*Bin(n,count)*i^count*r^(n-count);
+    ii:=ii+sign*BinomialCoefficient(n,count)*i^count*r^(n-count);
     If(count<n,
-      rr:=rr-sign*Bin(n,count+1)*i^(count+1)*r^(n-count-1));
+      rr:=rr-sign*BinomialCoefficient(n,count+1)*i^(count+1)*r^(n-count-1));
   ];
   Complex(rr,ii);
 ];
