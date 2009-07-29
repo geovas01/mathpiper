@@ -1,0 +1,31 @@
+%mathpiper,def="StringToList"
+
+Retract("StringToList", *);
+
+10 # StringToList(string_IsString)_(Length(string) = 0) <-- {};
+
+
+20 # StringToList(string_IsString) <--
+[
+    Local(resultList);
+    
+    resultList := {};
+    
+    ForEach(character, string)
+    [
+        resultList := Append(resultList, character);
+    ];
+    
+    resultList;
+
+];
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
