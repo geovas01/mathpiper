@@ -92,9 +92,11 @@ HoldArgNr("Repeat",1,1);
 *DESC
 
 The first version of Repeat executes {body} the number of times
-which are specified by {count}.  The second version of Repeat
+which are specified by {count}.  The second version
 executes {body} indefinitely and the only way to exit the loop
 is to execute the Break function inside of {body}.
+
+Repeat returns the number of times it looped as a result.
 
 *E.G.
 /%mathpiper
@@ -117,11 +119,12 @@ Repeat(4)
 .   /%/output
 
 
+
 /%mathpiper
 
 x := 1;
 
-Repeat()
+loopCount := Repeat()
 [
     Echo(x);
 
@@ -130,16 +133,19 @@ Repeat()
     x := x + 1;
 ];
 
+Echo("Loop count: ", loopCount);
+
 /%/mathpiper
 
-    %output,preserve="false"
-      Result: 2
+    /%output,preserve="false"
+      Result: True
 
       Side Effects:
       1
       2
       3
-.   %/output
+      Loop count: 2
+.   /%/output
 
 *SEE While, For, ForEach, Break
 %/mathpiper_docs
