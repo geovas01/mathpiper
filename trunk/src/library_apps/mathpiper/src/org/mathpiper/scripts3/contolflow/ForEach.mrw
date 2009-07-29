@@ -1,22 +1,48 @@
 %mathpiper,def="ForEach"
 
+Retract("ForEach" , *);
+
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
-TemplateFunction("ForEach",{item,list,body})
+TemplateFunction("ForEach",{item,listOrString,body})
 [
-  If(And(Equals(IsGeneric(list),True),
-         Equals(GenericTypeName(list),"Array")
+  If(And(Equals(IsGeneric(listOrString),True),
+         Equals(GenericTypeName(listOrString),"Array")
          ),
-    `ForEachInArray(@item,list,@body),
+    `ForEachInArray(@item,listOrString,@body),
     [
-      Local(foreachtail);
+
       MacroLocal(item);
-      Set(foreachtail,list);
-      While(Not(Equals(foreachtail,{})))
+      
+      If(IsList(listOrString),
       [
-        MacroSet(item,First(foreachtail));
-        Eval(body);
-        Set(foreachtail,Rest(foreachtail));
-      ];
+          Local(foreachtail);
+          Set(foreachtail,listOrString);
+          While(Not(Equals(foreachtail,{})))
+          [
+            MacroSet(item,First(foreachtail));
+            Eval(body);
+            Set(foreachtail,Rest(foreachtail));
+          ];
+      ]);
+      
+      If(IsString(listOrString),
+      [
+          
+          Local(index, stringLength);
+          
+          stringLength := Length(listOrString);
+          
+          index := 1;
+          While(index <= stringLength )
+          [
+             MacroSet(item,listOrString[index] );
+             
+             Eval(body);
+             
+             index++;
+          ];
+
+      ]);
     ]);
 ];
 UnFence("ForEach",3);
@@ -25,26 +51,31 @@ HoldArgNr("ForEach",3,3);
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 %mathpiper_docs,name="ForEach",categories="User Functions;Control Flow"
-*CMD ForEach --- loop over all entries in list
+*CMD ForEach --- loop over all entries in a list or a string
 *STD
 *CALL
-	ForEach(var, list) body
+	ForEach(var, list_or_string) body
 
 *PARMS
 
 {var} -- looping variable
 
-{list} -- list of values to assign to "var"
+{list} -- list of values or string of characters to assign to "var"
 
 {body} -- expression to evaluate with different values of "var"
 
 *DESC
 
 The expression "body" is evaluated multiple times. The first time,
-"var" has the value of the first element of "list", then it gets
+"var" has the value of the first element of "list" or the first
+character in "string", then it gets
 the value of the second element and so on. {ForEach}
 returns {True}.
 
@@ -56,7 +87,17 @@ returns {True}.
 	 5  120
 	 7  5040
 	 11  39916800
-	Out> True;
+	 Out> True;
+    
+    
+     In> ForEach(i,"Hello") Echo(i)
+     Result: True
+     Side Effects:
+     H
+     e
+     l
+     l
+     o
 
 *SEE For, While, Until, Break
 %/mathpiper_docs
