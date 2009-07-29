@@ -30,6 +30,7 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 import org.mathrider.mathpiperplugin.MathPiperInterpreter;
+import org.mathpiper.ui.gui.consoles.Console;
 
 // }}}
 
@@ -58,6 +59,8 @@ public class MathPiper extends JPanel
 	private MathPiperToolPanel toolPanel;
 	
 	private JButton haltCurrentExecutionButton;
+	
+	private Console console;
 
     // }}}
 
@@ -107,28 +110,33 @@ public class MathPiper extends JPanel
 			}
 		});*/
 		
-		JScrollPane pane = new JScrollPane(haltCurrentExecutionButton);
-		javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
-		buttonPanel.setBackground(new java.awt.Color(255,255,255));
-		JButton haltCurrentExecutionButton =  org.mathpiper.ui.gui.controlpanel.HaltButton.getInstance();
-		buttonPanel.add(haltCurrentExecutionButton);
+		//JScrollPane pane = new JScrollPane(haltCurrentExecutionButton);
+		//javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
+		//buttonPanel.setBackground(new java.awt.Color(255,255,255));
+		
+		
+		//JButton haltCurrentExecutionButton =  org.mathpiper.ui.gui.controlpanel.HaltButton.getInstance();
+		//buttonPanel.add(haltCurrentExecutionButton);
 		//add(BorderLayout.NORTH, buttonPanel);
 		
 		//add(BorderLayout.CENTER, new org.mathpiper.ui.gui.calculator.CalculatorPanel() );
-		add(BorderLayout.CENTER, new org.mathpiper.ui.gui.consoles.Console() );
 		
+		console = new org.mathpiper.ui.gui.consoles.Console();
+		
+		add(BorderLayout.CENTER, console );
 		
 
 		//readFile();
 	}
     // }}}
+    
 
     // {{{ Member Functions
     
     // {{{ focusOnDefaultComponent
     public void setHaltButtonState(boolean state)
     {
-	    haltCurrentExecutionButton.setEnabled(state);
+	    console.setHaltButtonEnabledState(state);
     }
         // }}}
     

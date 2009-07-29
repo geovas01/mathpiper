@@ -1,21 +1,42 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 package org.mathrider.mathpiperplugin;
 
-import org.gjt.sp.jedit.EditPlugin;
+import org.gjt.sp.jedit.*;
+import org.gjt.sp.jedit.gui.DockableWindowManager;
+
+
 
 /**
  * The Piper plugin
  * 
  * @author Ted Kosan
  */
-public class MathPiperPlugin extends EditPlugin {
+public class MathPiperPlugin extends EditPlugin implements EBComponent{
 	public static final String NAME = "mathpiper";
 	public static final String OPTION_PREFIX = "options.mathpiper.";
 	
-	//public void start()
-	//{
-	//	//System.out.println("XXXXXXXXXXXXXXXXXXXXXXX  loading MathPiperPlugin");
-	//}
+	public void start()
+	{
+		
+		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+		//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "mathpiper" );
+		//System.out.println("************************************************MathPiper plugin started...");
+		EditBus.addToBus(this);
+		
+	}//end method.
+	
+	
+	public void handleMessage(EBMessage msg)
+	{
+		//System.out.println("************************************************MathPiper plugin received editor message... "+ msg);
+		if (msg instanceof org.gjt.sp.jedit.msg.EditorStarted) {
+			//System.out.println("************************************************MathPiper plugin received editor started message...");
+			jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+		}//*/
+
+	}
+	
+	
 }//end class.
 
 /* {{{ License.
