@@ -79,23 +79,23 @@ returns {True}.
 
 *E.G. notest
 
-	 In> ForEach(i,{2,3,5,7,11}) Echo({i, i!});
-	 2  2
-	 3  6
-	 5  120
-	 7  5040
-	 11  39916800
-	 Out> True;
-    
-    
-     In> ForEach(i,"Hello") Echo(i)
-     Result: True
-     Side Effects:
-     H
-     e
-     l
-     l
-     o
+    In> ForEach(i,{2,3,5,7,11}) Echo({i, i!});
+    2  2
+    3  6
+    5  120
+    7  5040
+    11  39916800
+    Out> True;
+
+
+    In> ForEach(i,"Hello") Echo(i)
+    Result: True
+    Side Effects:
+    H
+    e
+    l
+    l
+    o
 
 *SEE For, While, Until, Break
 %/mathpiper_docs
