@@ -1,6 +1,6 @@
 %mathpiper,def="RandomInteger" 
 //todo:tk:this function should be placed into another package and also listed in a def file.
 
-RandomInteger(n) := FloorN(Random()*n);
+RandomInteger(n) := CeilN(Random()*n);
 
 %/mathpiper

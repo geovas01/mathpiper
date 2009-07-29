@@ -39,7 +39,7 @@ PollardRhoPolynomial(_x) <-- x^2+1;
   [
   	restarts--;
     /* Pick a random value between 1 and n-1 */
-    x:= RandomInteger(n-1)+1;
+    x:= RandomInteger(n-1);
 
     /* Initialize loop */
     gcd:=1; y:=x;
