@@ -97,7 +97,49 @@ executes {body} indefinitely and the only way to exit the loop
 is to execute the Break function inside of {body}.
 
 *E.G.
+/%mathpiper
 
+Repeat(4)
+[
+    Echo("Hello");
+];
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 4
+
+      Side Effects:
+      Hello
+      Hello
+      Hello
+      Hello
+.   /%/output
+
+
+/%mathpiper
+
+x := 1;
+
+Repeat()
+[
+    Echo(x);
+
+    If(x = 3, Break());
+
+    x := x + 1;
+];
+
+/%/mathpiper
+
+    %output,preserve="false"
+      Result: 2
+
+      Side Effects:
+      1
+      2
+      3
+.   %/output
 
 *SEE While, For, ForEach, Break
 %/mathpiper_docs
