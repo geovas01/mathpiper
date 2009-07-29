@@ -97,9 +97,18 @@ public class FunctionInfoTree extends JTree {
 
         if (path != null) {
             node = (DefaultMutableTreeNode) path.getLastPathComponent();
-            functionInfo = (FunctionInfo) node.getUserObject();
-            tip = functionInfo.getDescription();
-        }
+            Object object = node.getUserObject();
+            if(object instanceof FunctionInfo)
+            {
+                functionInfo = (FunctionInfo) object;
+                tip = functionInfo.getDescription();
+            }
+            else
+            {
+                tip = (String) object;
+            }//end if/else.
+            
+        }//end if.
 
         return tip == null ? null : tip;
 
