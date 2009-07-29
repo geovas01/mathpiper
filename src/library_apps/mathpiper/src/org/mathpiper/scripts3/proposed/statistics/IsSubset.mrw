@@ -1,0 +1,24 @@
+%mathpiper
+
+Retract("IsSubset",*);
+
+IsSubset(bigList, littleList) :=
+[
+    Local(result);
+    result := True;
+    
+    ForEach(element, littleList)
+    [
+        If(Not Contains(bigList,element), result := False);
+    ];
+
+    result;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
