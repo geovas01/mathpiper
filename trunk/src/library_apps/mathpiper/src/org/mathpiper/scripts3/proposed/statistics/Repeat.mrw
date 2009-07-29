@@ -1,23 +1,41 @@
-%mathpiper,title="Repeat"
+%mathpiper,def="Repeat"
+
+
 
 Retract("Repeat",*);
 
+
+/*
+    These variables need to be declared as local symbols because
+    body is unfenced and expressions in the body could see them
+    otherwise.
+*/
+LocalSymbols(count, iterations, body)[
+
+
 RuleBase("Repeat",{iterations,body});
 
-LocalSymbols(count, iterations)[
+/*
+  A Rule function needed to be used here because 10 # xxx <--
+  notation did not work if Bodied was executed before the
+  function was defined.  Bodied is evaluated in stdopers.mrw
+  because it needs to be evaluated for the parser to parse
+  Retract correctly.
+*/
 
-10 # Repeat(iterations_IsNumber, _body) <--
+Rule("Repeat",2,10,IsInteger(iterations) And iterations > 0)
 [
-    
-    Local(break);
-    break := False;
+    Local(count);
+
     count := 0;
-    While (iterations > 0 And break != True)
+
+    While (iterations > 0)
     [
         Eval(body);
         iterations--;
         count++;
     ];
+
     count;
 
 ];
@@ -27,19 +45,23 @@ LocalSymbols(count, iterations)[
 
 
 RuleBase("Repeat",{body});
-20 # Repeat(_body) <--
+
+
+Rule("Repeat",1,20,True)
 [
-    Local(break, count);
-    break := False;
+    Local(count);
+
     count := 0;
-    While (break != True)
+    While (True)
     [
         Eval(body);
         count++;
     ];
+
     count;
 ];
-];
+
+];//end LocalSymbols
 
 UnFence("Repeat",2);
 HoldArgNr("Repeat",2,2);
@@ -48,8 +70,34 @@ HoldArgNr("Repeat",1,1);
 
 
 
-Bodied("Repeat", 60000);
-
 %/mathpiper
 
 
+
+
+
+%mathpiper_docs,name="Repeat",categories="User Functions;Control Flow"
+*CMD Repeat --- loop a specified number of times or loop indefinitely
+*STD
+*CALL
+	Repeat(count) body
+        Repeat() body
+
+*PARMS
+
+{count} -- a positive integer, the number of times to loop
+
+{body} -- expression to loop over
+
+*DESC
+
+The first version of Repeat executes {body} the number of times
+which are specified by {count}.  The second version of Repeat
+executes {body} indefinitely and the only way to exit the loop
+is to execute the Break function inside of {body}.
+
+*E.G.
+
+
+*SEE While, For, ForEach, Break
+%/mathpiper_docs

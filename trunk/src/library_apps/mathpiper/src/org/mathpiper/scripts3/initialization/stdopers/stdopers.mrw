@@ -52,6 +52,8 @@ Bodied("Limit",60000);
 
 Bodied("Time", 60000);
 
+Bodied("Repeat", 60000);
+
 Infix("->",600);
 
 /* functional operators */
