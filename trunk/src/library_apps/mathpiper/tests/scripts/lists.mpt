@@ -47,7 +47,7 @@ Verify(VarList(x*Cos(x)),{x});
 ];
 
 Verify(Table(i!,i,1,4,1),{1,2,6,24});
-Verify(Permutations({a,b,c}),{{a,b,c},{a,c,b},{c,a,b},{b,a,c},{b,c,a},{c,b,a}});
+Verify(PermuteList({a,b,c}),{{a,b,c},{a,c,b},{c,a,b},{b,a,c},{b,c,a},{c,b,a}});
 
 Testing("ListOperations");
 Verify(First({a,b,c}),a);

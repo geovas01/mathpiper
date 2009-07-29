@@ -41,5 +41,5 @@ returned.
 	In> Partition(1 .. 11, 3);
 	Out> {{1,2,3},{4,5,6},{7,8,9}};
 
-*SEE Take, Permutations
+*SEE Take, PermuteList
 %/mathpiper_docs
