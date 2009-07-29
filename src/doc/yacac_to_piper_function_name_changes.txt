@@ -42,14 +42,20 @@ MM -> InternalForm
 
 ============================= Changes that have already been done.
 //Changed these function names.
-CDF -> CumulativeDistributionFunction
-PDF -> ProbabilityDensityFunction
-Head -> First
-Tail -> Rest
-Add -> Sum
-Factorize -> Product
-EquRight -> EquationRight
+
 EquLeft -> EquationLeft
+EquRight -> EquationRight
+Factorize -> Product
+Add -> Sum
+Tail -> Rest
+Head -> First
+PDF -> ProbabilityDensityFunction
+CDF -> CumulativeDistributionFunction
+Bin -> BinomialCoefficient and the synonym Combinations has been added for BinomialCoefficient.
+
+
+
+
 MathAbs -> AbsN
 MathAdd -> AddN
 MathAnd -> AndN
