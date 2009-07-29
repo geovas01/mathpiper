@@ -14,7 +14,7 @@ OMDef( "Max", "minmax1","max",
          "</OMS>", "</OMA>" },
        ($):_1 );
 OMDef( "!", "integer1","factorial" );
-OMDef( "Bin", "combinat1","binomial" );
+OMDef( "BinomialCoefficient", "combinat1","binomial" );
 OMDef( "!!",  mathpiper,"double_factorial" );
 OMDef( "***", mathpiper,"partial_factorial" );
 OMDef( "Add", mathpiper,"Add" );

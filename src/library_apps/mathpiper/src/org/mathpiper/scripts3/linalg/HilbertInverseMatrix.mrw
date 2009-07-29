@@ -1,7 +1,7 @@
 %mathpiper,def="HilbertInverseMatrix"
 
 HilbertInverseMatrix(n):=GenMatrix({{i,j},
-	(-1)^(i+j)*(i+j-1)*Bin(n+i-1,n-j)*Bin(n+j-1,n-i)*Bin(i+j-2,i-1)^2},n,n);
+	(-1)^(i+j)*(i+j-1)*BinomialCoefficient(n+i-1,n-j)*BinomialCoefficient(n+j-1,n-i)*BinomialCoefficient(i+j-2,i-1)^2},n,n);
 
 %/mathpiper
 

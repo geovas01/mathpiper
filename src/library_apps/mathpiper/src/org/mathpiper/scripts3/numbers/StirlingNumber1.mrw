@@ -3,10 +3,10 @@
 10 # StirlingNumber1(n_IsInteger,0) <-- If(n=0,1,0);
 10 # StirlingNumber1(n_IsInteger,1) <-- (-1)^(n-1)*(n-1)!;
 10 # StirlingNumber1(n_IsInteger,2) <-- (-1)^n*(n-1)! * HarmonicNumber(n-1);
-10 # StirlingNumber1(n_IsInteger,n-1) <-- -Bin(n,2);
+10 # StirlingNumber1(n_IsInteger,n-1) <-- -BinomialCoefficient(n,2);
 10 # StirlingNumber1(n_IsInteger,3) <-- (-1)^(n-1)*(n-1)! * (HarmonicNumber(n-1)^2 - HarmonicNumber(n-1,2))/2;
 20 # StirlingNumber1(n_IsInteger,m_IsInteger) <--
-	Sum(k,0,n-m,(-1)^k*Bin(k+n-1,k+n-m)*Bin(2*n-m,n-k-m)*StirlingNumber2(k-m+n,k));
+	Sum(k,0,n-m,(-1)^k*BinomialCoefficient(k+n-1,k+n-m)*BinomialCoefficient(2*n-m,n-k-m)*StirlingNumber2(k-m+n,k));
 
 %/mathpiper
 

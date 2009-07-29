@@ -67,5 +67,5 @@ The factorial functions terminate and print an error message if the arguments ar
 	Out> 1334961;
 
 
-*SEE Bin, Product, Gamma, !!, ***, Subfactorial
+*SEE BinomialCoefficient, Product, Gamma, !!, ***, Subfactorial
 %/mathpiper_docs

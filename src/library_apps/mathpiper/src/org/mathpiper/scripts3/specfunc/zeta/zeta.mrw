@@ -59,7 +59,7 @@ Internal'ZetaNumCoeffEj(j,n) := [
 	Local(k);
 	2^n-If(j<n,
 		0,
-		Sum(k,0,j-n,Bin(n,k))	// this is suboptimal but ok for now
+		Sum(k,0,j-n,BinomialCoefficient(n,k))	// this is suboptimal but ok for now
 	);
 ];
 

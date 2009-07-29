@@ -1,6 +1,6 @@
 %mathpiper,def="Eulerian"
 
-Eulerian(n_IsInteger,k_IsInteger) <-- Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n);
+Eulerian(n_IsInteger,k_IsInteger) <-- Sum(j,0,k+1,(-1)^j*BinomialCoefficient(n+1,j)*(k-j+1)^n);
 
 %/mathpiper
 
@@ -19,7 +19,7 @@ Eulerian(n_IsInteger,k_IsInteger) <-- Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n);
 *DESC
 
 The Eulerian numbers can be viewed as a generalization of the binomial coefficients,
-and are given explicitly by $$ Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n) $$ .
+and are given explicitly by $$ Sum(j,0,k+1,(-1)^j*BinomialCoefficient(n+1,j)*(k-j+1)^n) $$ .
 
 *E.G.
 
@@ -28,5 +28,5 @@ and are given explicitly by $$ Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n) $$ .
 	In> Eulerian(10,9)
 	Out> 1;
 
-*SEE Bin
+*SEE BinomialCoefficient
 %/mathpiper_docs

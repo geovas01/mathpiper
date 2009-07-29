@@ -3,7 +3,7 @@
 CatalanNumber(_n) <--
 [
 	Check( IsPositiveInteger(n), "CatalanNumber: Error: argument must be positive" );
-	Bin(2*n,n)/(n+1);
+	BinomialCoefficient(2*n,n)/(n+1);
 ];
 
 %/mathpiper
@@ -21,7 +21,7 @@ CatalanNumber(_n) <--
 
 *DESC
 
-This function returns the {n}-th Catalan number, defined as $Bin(2*n,n)/(n+1)$.
+This function returns the {n}-th Catalan number, defined as $BinomialCoefficient(2*n,n)/(n+1)$.
 
 *E.G.
 
@@ -30,5 +30,5 @@ This function returns the {n}-th Catalan number, defined as $Bin(2*n,n)/(n+1)$.
 	In> CatalanNumber(5)
 	Out> 42;
 
-*SEE Bin
+*SEE BinomialCoefficient
 %/mathpiper_docs
