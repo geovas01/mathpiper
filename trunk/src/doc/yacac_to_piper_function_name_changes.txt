@@ -52,7 +52,7 @@ Head -> First
 PDF -> ProbabilityDensityFunction
 CDF -> CumulativeDistributionFunction
 Bin -> BinomialCoefficient and the synonym Combinations has been added for BinomialCoefficient.
-
+Permutations -> PermuteList.
 
 
 
