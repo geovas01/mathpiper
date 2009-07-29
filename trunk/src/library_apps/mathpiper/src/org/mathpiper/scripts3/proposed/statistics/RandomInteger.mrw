@@ -1,9 +1,0 @@
-%mathpiper,title="RandomInteger"
-RandomInteger(first, last) :=
-[
-    difference := last - first;
-
-    Round(Random() * difference) + first;
-];
-
-%/mathpiper

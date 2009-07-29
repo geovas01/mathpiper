@@ -1,0 +1,39 @@
+%mathpiper,def="RandomIntegerVector"
+
+RandomIntegerVector(_count,_coefmin,_coefmax) <--
+  Table(FloorN(coefmin+Random()*(coefmax+1-coefmin)),i,1,count,1);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="RandomIntegerVector",categories="User Functions;Numbers (Random)"
+*CMD RandomIntegerVector --- generate a vector of random integers
+
+*STD
+
+*CALL
+	RandomIntegerVector(nr, from, to)
+
+*PARMS
+
+{nr} -- number of integers to generate
+
+{from} -- lower bound
+
+{to} -- upper bound
+
+*DESC
+
+This function generates a list with "nr" random integers. All
+entries lie between "from" and "to", including the boundaries, and
+are uniformly distributed in this interval.
+
+*E.G.
+
+	In> RandomIntegerVector(4,-3,3)
+	Out> {0,3,2,-2};
+
+*SEE Random, RandomPoly, RandomInteger, RandomIntegerMatrix
+%/mathpiper_docs
