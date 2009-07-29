@@ -1,0 +1,34 @@
+%mathpiper,def="ListToString"
+
+
+Retract("ListToString", *);
+
+
+10 # ListToString(list_IsList)_(Length(list) = 0) <-- "";
+
+
+
+20 # ListToString(list_IsList) <--
+[
+    Local(resultString, character);
+    
+    resultString := "";
+    
+    ForEach(element, list)
+    [
+        If(IsString(element), character := element, character := String(element));
+        
+        resultString := resultString : character;
+    ];
+    
+    resultString;
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
