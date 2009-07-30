@@ -85,13 +85,10 @@ public class JFreeChart extends JPanel
 
 
 		org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
-		org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\");");
+		//org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\");");
+		
 		synchronousInterpreter.addResponseListener(this); 
 		
-		if(response.isExceptionThrown())
-		{
-			System.out.println(response.getExceptionMessage());
-		}
 		
 		jFreeChart = this;
 

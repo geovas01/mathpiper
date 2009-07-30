@@ -1,15 +1,43 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 package org.mathrider.jfreechartplugin;
 
-import org.gjt.sp.jedit.EditPlugin;
+import org.gjt.sp.jedit.*;
 
 /**
  * 
  * @author Ted Kosan
  */
-public class JFreeChartPlugin extends EditPlugin {
+public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 	public static final String NAME = "jfreechart";
 	public static final String OPTION_PREFIX = "options.jfreechart.";
+	
+	
+	public void start()
+	{
+		
+		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+		//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "mathpiper" );
+		//System.out.println("************************************************MathPiper plugin started...");
+		EditBus.addToBus(this);
+		
+	}//end method.
+	
+	
+	public void handleMessage(EBMessage msg)
+	{
+		//System.out.println("************************************************MathPiper plugin received editor message... "+ msg);
+		if (msg instanceof org.gjt.sp.jedit.msg.EditorStarted) {
+			//System.out.println("************************************************MathPiper plugin received editor started message...");
+			org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+			org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("[Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\"); Plot2DOutputs()[\"default\"] := \"jfreechart\";];");
+			if(response.isExceptionThrown())
+			{
+				System.out.println(response.getExceptionMessage());
+			}//end if.
+		}//*/
+
+	}//end method.
+	
 }//end class.
 
 /* {{{ License.

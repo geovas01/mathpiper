@@ -225,6 +225,10 @@ Plot2D'adaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 

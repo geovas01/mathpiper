@@ -16,13 +16,13 @@ OptionsListToHash(list) :=
 				String(item[2]),
 				item[2]
 			),
-			Echo({"ListToHash: Error: item ", item, " is not of the format a -> b."})
+			Echo({"OptionsListToHash: Error: item ", item, " is not of the format a -> b."})
 		);
         
 	result;
 ];
 
-HoldArgNr("ListToHash", 1, 1);
+HoldArgNr("OptionsListToHash", 1, 1);
 
 %/mathpiper
 
