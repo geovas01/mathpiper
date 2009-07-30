@@ -1,26 +1,32 @@
-%mathpiper,def="ListToHash"
+%mathpiper,def="OptionsListToHash"
 
 /// utility function: convert options lists of the form
 /// "{key=value, key=value}" into a hash of the same form.
 /// The argument list is kept unevaluated using "HoldArgNr()".
-/// Note that symbolic values of type atom are automatically converted to strings, e.g. ListToHash(a=b) returns {{"a", "b"}}
-ListToHash(list) :=
+/// Note that symbolic values of type atom are automatically converted to strings, e.g. ListToHash({a -> b}) returns {{"a", "b"}}
+OptionsListToHash(list) :=
 [
 	Local(item, result);
 	result := {};
 	ForEach(item, list)
 		If(
-			IsFunction(item) And (Type(item) = "=" Or Type(item) = "==") And IsAtom(item[1]),
+			IsFunction(item) And (Type(item) = "->" ) And IsAtom(item[1]),
 			result[String(item[1])] := If(
 				IsAtom(item[2]) And Not IsNumber(item[2]) And Not IsString(item[2]),
 				String(item[2]),
 				item[2]
 			),
-			Echo({"ListToHash: Error: item ", item, " is not of the format a=b or a==b"})
+			Echo({"ListToHash: Error: item ", item, " is not of the format a -> b."})
 		);
+        
 	result;
 ];
 
 HoldArgNr("ListToHash", 1, 1);
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+

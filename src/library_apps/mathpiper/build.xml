@@ -85,13 +85,7 @@
 				<include name="**/*" />
 			</fileset>
 		</copy>
-		
-		<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/calculator/resources" />
-		<copy todir="${build.classes.dir}/org/mathpiper/ui/gui/calculator/resources">
-			<fileset dir="${mathpiper.dir}/src/org/mathpiper/ui/gui/calculator/resources" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
+
 		
 		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.classes.dir}"/>
 		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.classes.dir}"/>
