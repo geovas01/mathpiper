@@ -38,10 +38,26 @@ LocalSymbols(predicate,list,result,item)
 the entries for which the predicate "pred" returns
 {True} when applied to this entry.
 
+The {Lambda} function can be used in place of a predicate function
+if desired.
+
 *E.G.
 
-	In> Select("IsInteger",{a,b,2,c,3,d,4,e,f})
-	Out> {2,3,4};
+In> Select("IsInteger",{a,b,2,c,3,d,4,e,f})
+Out> {2,3,4};
 
-*SEE Length, Find, Count
+
+/%mathpiper
+
+list := {1,-3,2,-6,-4,3};
+
+Select(Lambda({i}, i > 0 ),list);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: {1,2,3}
+.   /%/output
+
+*SEE Length, Find, Count, Lambda
 %/mathpiper_docs
