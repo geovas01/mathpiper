@@ -23,7 +23,7 @@
 
 
 
-%mathpiper_docs,name="!!"
+%mathpiper_docs,name="!!",categories="Operators"
 *CMD !  --- factorial
 *CMD !!  --- factorial and related functions
 *CMD ***  --- factorial and related functions
