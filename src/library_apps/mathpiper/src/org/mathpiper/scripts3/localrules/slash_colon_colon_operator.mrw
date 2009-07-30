@@ -23,7 +23,7 @@
 
 
 
-%mathpiper_docs,name="/::"
+%mathpiper_docs,name="/::",categories="Operators"
 *CMD /: --- local simplification rules
 *CMD /:: --- local simplification rules
 *STD

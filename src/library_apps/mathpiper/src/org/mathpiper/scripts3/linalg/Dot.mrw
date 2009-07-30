@@ -113,5 +113,5 @@ vector or a matrix.
 	In> {{1,2},{3,4}} . {{5,6},{7,8}}
 	Out> {{19,22},{43,50}};
 
-*SEE Outer, Cross, IsScalar, IsVector, IsMatrix
+*SEE Outer, Cross, IsScalar, IsVector, IsMatrix, .
 %/mathpiper_docs

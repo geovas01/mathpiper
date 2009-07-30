@@ -96,7 +96,7 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom(":=")
 
 
 
-%mathpiper_docs,name=":="
+%mathpiper_docs,name=":=",categories="Operators"
 *CMD := --- assign a variable or a list; define a function
 *STD
 *CALL

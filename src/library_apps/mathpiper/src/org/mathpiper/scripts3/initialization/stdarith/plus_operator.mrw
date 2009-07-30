@@ -71,7 +71,7 @@ SumListSide(_x, y_IsList) <--
 
 
 
-%mathpiper_docs
+%mathpiper_docs,name="+",categories="Operators"
 *CMD + --- arithmetic addition
 *STD
 *CALL

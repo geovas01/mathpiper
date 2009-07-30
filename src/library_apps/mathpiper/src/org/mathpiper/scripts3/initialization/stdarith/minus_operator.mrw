@@ -71,7 +71,7 @@ LocalSymbols(x,y,xarg,yarg)
 %/mathpiper
 
 
-%mathpiper_docs
+%mathpiper_docs,name="-",categories="Operators"
 *CMD - --- arithmetic subtraction or negation
 *STD
 *CALL
