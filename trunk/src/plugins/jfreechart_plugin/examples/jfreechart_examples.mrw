@@ -13,6 +13,7 @@ Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0});
 
 
 
+
 %mathpiper
 
 Histogram({1.0, 1.1, 1.1, 1.2, 1.7, 2.2, 2.5, 4.0, 4.2}, seriesTitle -> "Options Example", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis");
@@ -195,6 +196,26 @@ ForEach(x, 0 .. 15)
 ];
 
 LineChart({domain, sample1, domain, sample2, domain, sample3});
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title=""
+
+Plot2D(x^2);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title=""
+
+Plot2D({x, x^2});
 
 %/mathpiper
 
