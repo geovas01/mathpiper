@@ -238,8 +238,8 @@ Plot2D'adaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
 *CALL
 	Plot2D(f(x))
 	Plot2D(f(x), a:b)
-	Plot2D(f(x), a:b, option=value)
-	Plot2D(f(x), a:b, option=value, ...)
+	Plot2D(f(x), a:b, option -> value)
+	Plot2D(f(x), a:b, option -> value, ...)
 	Plot2D(list, ...)
 
 *PARMS
@@ -287,7 +287,7 @@ the existing grid.
 Default plotting range is {-5:5}. Range can also be specified as {x= -5:5} (note the mandatory space separating "{=}" and "{-}");
 currently the variable name {x} is ignored in this case.
 
-Options are of the form {option=value}. Currently supported option names
+Options are of the form {option -> value}. Currently supported option names
 are: "points", "precision", "depth", "output", "filename", "yrange". Option values
 are either numbers or special unevaluated atoms such as {data}.
 If you need to use the names of these atoms
@@ -324,5 +324,9 @@ singularities.)
 
 *SEE V, NFunction, Plot3DS
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
 
 
