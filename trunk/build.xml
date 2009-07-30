@@ -12,7 +12,7 @@
 	<property name="master.compile.target" value="1.5" />
 	<property name="master.compile.debug" value="false" />
 	<property environment="env" />
-	<property name="version" value=".76" />
+	<property name="version" value=".76a" />
 	
 	
 	<!-- Set top directories -->
@@ -361,7 +361,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
-		geogebra_plugin, hoteqn_plugin, abcl_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, mathpipercalc_plugin" />
+		geogebra_plugin, hoteqn_plugin, abcl_plugin, u6502_plugin, jung_plugin, jfreechart_plugin" />
 	
 	
 	

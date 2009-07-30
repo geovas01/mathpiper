@@ -1,17 +1,27 @@
-%mathpiper,def=""
+%mathpiper,def="Plot2DOutputs"
 
 //////////////////////////////////////////////////
 /// Backends for 2D plotting
 //////////////////////////////////////////////////
 
+
 /// List of all defined backends and their symbolic labels.
 /// Add any new backends here
-Plot2D'outputs() := {
-	{"default", "geogebra"},
-	{"data", "Plot2D'data"},
-	{"java", "Plot2D'java"},
-    {"geogebra", "Plot2D'geogebra"},
+
+LocalSymbols(options)
+[
+    options  := {
+	{"default", "data"},
+	{"data", "Plot2DData"},
+	{"java", "Plot2DJava"},
+    {"geogebra", "Plot2DGeoGebra"},
+    {"jfreechart", "Plot2DJFreeChart"},
 };
+    
+
+Plot2DOutputs() := options;
+
+];
 
 /*
 	How backends work:
@@ -25,10 +35,10 @@ Plot2D'outputs() := {
 */
 
 /// trivial backend: return data list (do not confuse with Plot2D'get'data() defined in the main code which is the middle-level plotting routine)
-Plot2D'data(values_IsList, _options'hash) <-- values;
+Plot2DData(values_IsList, _options'hash) <-- values;
 
 /// The Java back-end generates a call-list that the Java graph plotter can handle
-Plot2D'java(values_IsList, _options'hash) <--
+Plot2DJava(values_IsList, _options'hash) <--
 [
   Local(result,count);
   count := 0;
@@ -61,7 +71,7 @@ Plot2D'java(values_IsList, _options'hash) <--
 
 
 //GeoGebra backend.
-Plot2D'geogebra(values_IsList, _options'hash) <--
+Plot2DGeogebra(values_IsList, _options'hash) <--
 [
   Local(result,count);
   count := 0;
@@ -84,21 +94,49 @@ Plot2D'geogebra(values_IsList, _options'hash) <--
 
 
 
+
+//JFreeChart backend.
+Retract("Plot2DJFreeChart", *);
+Plot2DJFreeChart(values_IsList, _options'hash) <--
+[
+  Local(result,count, rangeList, domainList, allProcessedFunctionData);
+  count := 0;
+  result:="";
+  
+
+  allProcessedFunctionData := {};
+
+  ForEach(function,values)
+  [
+  
+    rangeList := {};
+  
+    domainList := {};
+
+    function := Select(Lambda({item},item[2] != Undefined),function);
+
+    ForEach(item,function)
+    [
+        rangeList := Append(rangeList, item[1]);
+      
+        domainList := Append(domainList, item[2]);
+    ];
+    
+    allProcessedFunctionData := Append(allProcessedFunctionData, rangeList);
+    allProcessedFunctionData := Append(allProcessedFunctionData, domainList);
+    
+  ];
+
+
+  LineChart(allProcessedFunctionData);
+
+];
+
+
+
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
-
-%mathpiper,scope="nobuild"
-Retract("Plot2D'geogebra",2);
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
