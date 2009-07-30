@@ -33,7 +33,7 @@ parameters. Upon application, the formal parameters are assigned the
 values in "arglist" (the second parameter of {Apply}) and the "body" is evaluated.
 
 Another way to define a pure function is with the Lambda construct.
-Here, in stead of passing in "{varlist,body}", one can pass in
+Here, instead of passing in "{varlist,body}", one can pass in
 "Lambda(varlist,body)". Lambda has the advantage that its arguments
 are not evaluated (using lists can have undesirable effects because
 lists are evaluated). Lambda can be used everywhere a pure function
@@ -47,10 +47,13 @@ An shorthand for {Apply} is provided by the {@} operator.
 
 	In> Apply("+", {5,9});
 	Out> 14;
+
 	In> Apply({{x,y}, x-y^2}, {Cos(a), Sin(a)});
 	Out> Cos(a)-Sin(a)^2;
+
 	In>  Apply(Lambda({x,y}, x-y^2), {Cos(a), Sin(a)});
 	Out> Cos(a)-Sin(a)^2
+
 	In>  Lambda({x,y}, x-y^2) @ {Cos(a), Sin(a)}
 	Out> Cos(a)-Sin(a)^2
 
