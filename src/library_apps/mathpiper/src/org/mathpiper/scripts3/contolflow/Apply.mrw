@@ -57,5 +57,5 @@ An shorthand for {Apply} is provided by the {@} operator.
 	In>  Lambda({x,y}, x-y^2) @ {Cos(a), Sin(a)}
 	Out> Cos(a)-Sin(a)^2
 
-*SEE Map, MapSingle, @
+*SEE Map, MapSingle, @, Lambda
 %/mathpiper_docs
