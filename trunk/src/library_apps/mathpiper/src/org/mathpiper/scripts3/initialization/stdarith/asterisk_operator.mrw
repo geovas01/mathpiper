@@ -102,7 +102,7 @@
 %/mathpiper
 
 
-%mathpiper_docs
+%mathpiper_docs,name="*",categories="Operators"
 *CMD * --- arithmetic multiplication
 *STD
 *CALL

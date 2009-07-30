@@ -72,7 +72,7 @@
 %/mathpiper
 
 
-%mathpiper_docs
+%mathpiper_docs,name="/",categories="Operators"
 *CMD / --- arithmetic division
 *STD
 *CALL

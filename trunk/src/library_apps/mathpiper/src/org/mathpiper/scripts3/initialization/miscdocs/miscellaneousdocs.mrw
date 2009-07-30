@@ -192,3 +192,30 @@ Introduce a comment block in a source file, similar to C++ comments.
 	a+b; // get result
 	a + /* add them */ b;
 %/mathpiper_docs
+
+
+
+
+%mathpiper_docs,name="[;]",categories="Operators"
+*CMD [ --- beginning of block of statements
+*CMD ] --- end of block of statements
+*CORE
+*CALL
+
+	[ statement1; statement2; ... ]
+
+*PARMS
+
+{statement1}, {statement2} -- expressions
+
+*DESC
+
+The {Prog} and the {[ ... ]} construct have the same effect: they evaluate all
+arguments in order and return the result of the last evaluated expression.
+
+{Prog(a,b);} is the same as typing {[a;b;];} and is very useful for writing out
+function bodies. The {[ ... ]} construct is a syntactically nicer version of the
+{Prog} call; it is converted into {Prog(...)} during the parsing stage.
+
+*SEE Prog
+%/mathpiper_docs

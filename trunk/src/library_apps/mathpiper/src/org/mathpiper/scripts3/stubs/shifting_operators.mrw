@@ -13,7 +13,7 @@ n_IsInteger >> m_IsInteger <-- ShiftRight(n,m);
 %/mathpiper
 
 
-%mathpiper_docs,name="<<;>>"
+%mathpiper_docs,name="<<;>>",categories="Operators"
 *CMD << --- binary shift left operator
 *CMD >> --- binary shift right operator
 *STD

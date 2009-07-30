@@ -521,7 +521,7 @@ programming language C.
 
 
 
-%mathpiper_docs,name="--"
+%mathpiper_docs,name="--",categories="Operators"
 *CMD -- --- decrement variable
 *STD
 *CALL

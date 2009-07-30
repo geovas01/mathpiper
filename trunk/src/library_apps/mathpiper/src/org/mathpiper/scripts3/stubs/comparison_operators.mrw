@@ -85,7 +85,7 @@ Function("!=",{aLeft,aRight}) Not(aLeft=aRight);
 
 
 
-%mathpiper_docs,name="<"
+%mathpiper_docs,name="<",categories="Operators"
 *CMD < --- test for "less than"
 *STD
 *CALL
@@ -121,7 +121,7 @@ coerce the arguments passed to this comparison operator to a real value before m
 
 
 
-%mathpiper_docs,name=">"
+%mathpiper_docs,name=">",categories="Operators"
 *CMD > --- test for "greater than"
 *STD
 *CALL
@@ -158,7 +158,7 @@ coerce the arguments passed to this comparison operator to a real value before m
 
 
 
-%mathpiper_docs,name="<="
+%mathpiper_docs,name="<=",categories="Operators"
 *CMD <= --- test for "less or equal"
 *STD
 *CALL
@@ -196,7 +196,7 @@ coerce the arguments passed to this comparison operator to a real value before m
 
 
 
-%mathpiper_docs,name=">="
+%mathpiper_docs,name=">=",categories="Operators"
 *CMD >= --- test for "greater or equal"
 *STD
 *CALL
@@ -234,7 +234,7 @@ coerce the arguments passed to this comparison operator to a real value before m
 
 
 
-%mathpiper_docs,name="!="
+%mathpiper_docs,name="!=",categories="Operators"
 *CMD != --- test for "not equal"
 *STD
 *CALL
@@ -267,7 +267,7 @@ The expression {e1 != e2} is equivalent to {Not(e1 = e2)}.
 
 
 
-%mathpiper_docs,name="="
+%mathpiper_docs,name="=",categories="Operators"
 *CMD = --- test for equality of expressions
 *STD
 *CALL

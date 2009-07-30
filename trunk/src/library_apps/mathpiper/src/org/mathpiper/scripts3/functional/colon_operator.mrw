@@ -22,8 +22,8 @@ UnFence(":",2);
 
 
 
-%mathpiper_docs,name=":"
-*CMD : --- prepend item to list, or concatenate strings
+%mathpiper_docs,name=":",categories="Operators"
+*CMD : --- prepend item to a list or concatenate strings
 *STD
 *CALL
 	item : list

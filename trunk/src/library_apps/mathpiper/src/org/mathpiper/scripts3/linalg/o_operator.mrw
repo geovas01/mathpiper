@@ -3,3 +3,24 @@
 _x o _y <-- Outer(x,y);
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="o",categories="Operators"
+*CMD o --- get outer tensor product
+*STD
+*CALL
+	t1 o t2
+Precedence:
+*EVAL OpPrecedence("o")
+
+*PARMS
+
+{t1,t2} -- tensor lists (currently only vectors are supported)
+
+*DESC
+
+See the {Outer} function for more information.
+
+*SEE Outer
+%/mathpiper_docs

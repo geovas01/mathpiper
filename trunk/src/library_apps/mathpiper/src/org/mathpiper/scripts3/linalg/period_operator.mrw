@@ -7,3 +7,25 @@
 _x . _y <-- Dot(x,y);
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name=".",categories="Operators"
+*CMD . --- get dot product of tensors
+*STD
+*CALL
+	t1 . t2
+Precedence:
+*EVAL OpPrecedence(".")
+
+*PARMS
+
+{t1,t2} -- tensor lists (currently only vectors and matrices are supported)
+
+*DESC
+
+See the {Dot} function for more information.
+
+*SEE Dot
+%/mathpiper_docs

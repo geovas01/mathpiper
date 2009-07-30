@@ -12,7 +12,7 @@
 
 
 
-%mathpiper_docs,name=".."
+%mathpiper_docs,name="..",categories="Operators"
 *CMD .. --- construct a list of consecutive integers
 
 *STD
