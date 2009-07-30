@@ -136,6 +136,10 @@ Plot2DJFreeChart(values_IsList, _options'hash) <--
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 
