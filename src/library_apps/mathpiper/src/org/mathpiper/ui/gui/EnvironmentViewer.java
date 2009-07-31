@@ -27,6 +27,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
@@ -40,14 +41,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.parametermatchers.PatternParameter;
-import org.mathpiper.lisp.parametermatchers.Pattern;
-import org.mathpiper.lisp.userfunctions.FunctionParameter;
-import org.mathpiper.lisp.userfunctions.PatternBranch;
 import org.mathpiper.lisp.userfunctions.Branch;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
@@ -63,6 +58,7 @@ public class EnvironmentViewer implements ActionListener {
     private JTextArea textArea = new JTextArea(4, 8);
     private List tables = new ArrayList();
     private JFrame frame;
+    private FunctionNameComparator functionNameComparator = new FunctionNameComparator();
 
     public EnvironmentViewer() {
         super();
@@ -227,7 +223,7 @@ public class EnvironmentViewer implements ActionListener {
             private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
-                Collections.sort(keyList);
+                Collections.sort(keyList, functionNameComparator);
 
                 // for (int i = 0; i < a_index + 1; i++) {
                 //         retval = e.next();
@@ -287,7 +283,7 @@ public class EnvironmentViewer implements ActionListener {
             private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
-                Collections.sort(keyList);
+                Collections.sort(keyList, functionNameComparator);
 
                 // for (int i = 0; i < a_index + 1; i++) {
                 //         retval = e.next();
@@ -347,7 +343,7 @@ public class EnvironmentViewer implements ActionListener {
             private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(map.keySet());
-                Collections.sort(keyList);
+                Collections.sort(keyList, functionNameComparator);
 
                 // for (int i = 0; i < a_index + 1; i++) {
                 //         retval = e.next();
@@ -407,7 +403,7 @@ public class EnvironmentViewer implements ActionListener {
             private String getKey(int a_index) {
                 String retval = "";
                 ArrayList keyList = new ArrayList(m_hash.keySet());
-                Collections.sort(keyList);
+                Collections.sort(keyList, functionNameComparator);
 
                 // for (int i = 0; i < a_index + 1; i++) {
                 //         retval = e.next();
@@ -549,4 +545,13 @@ public class EnvironmentViewer implements ActionListener {
 
         }//end method.
     } //end class.
+
+
+    private class FunctionNameComparator implements Comparator<String>{
+
+        public int compare(String s1, String s2) {
+            return s1.compareToIgnoreCase(s2);
+        }//end method.
+    }//end class.
+
 }//end class.
