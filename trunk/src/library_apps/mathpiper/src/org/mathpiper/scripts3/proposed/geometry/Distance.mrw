@@ -16,7 +16,7 @@ Distance(PointA_IsPoint,PointB_IsPoint) <--
 
 
 
-%mathpiper_docs,name="Distance",categories=""
+%mathpiper_docs,name="Distance"
 *CMD Distance --- returns the distance between two points
 *STD
 *CALL
