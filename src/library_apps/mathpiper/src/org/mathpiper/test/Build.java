@@ -550,7 +550,7 @@ public class Build {
 
         public int compareTo(Object o) {
             CategoryEntry categoryEntry = (CategoryEntry) o;
-            return this.functionName.compareTo(categoryEntry.getFunctionName());
+            return this.functionName.compareToIgnoreCase(categoryEntry.getFunctionName());
         }//end method.
 
         public String getFunctionName() {

@@ -291,9 +291,14 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         boolean endFlag = false;
 
         while (endFlag != true) {
+
             String[] functionData = new String[4];
+
             if (userFuncDescIndex != userFunctionsData.length && progFuncDescIndex != programmerFunctionsData.length) {
+
                 if (userFunctionsData[userFuncDescIndex][0].compareToIgnoreCase(programmerFunctionsData[progFuncDescIndex][0]) == 0) {
+                    //If the same function is in the user function list and the programmer function list, skip the one in the
+                    //user function list and use the one which is in the programmer function list.
                     userFuncDescIndex++;
                 }//end if.
 
@@ -333,7 +338,10 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 endFlag = true;
             }
         }//end while.
+
+
     }//end method.
+
 
 
     public void createTree() {
@@ -349,7 +357,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         DefaultMutableTreeNode mathpiperFunctionsRootNode = new DefaultMutableTreeNode(new FunctionInfo("MathPiper Functions                                           ", "All MathPiper functions and constants."));
 
-        populateNode(mathpiperFunctionsRootNode, (String[][]) allFunctions.toArray(new String[allFunctions.size()][]));
+        String[][] allFunctionsArray = (String[][])allFunctions.toArray(new String[allFunctions.size()][]);
+        
+        populateNode(mathpiperFunctionsRootNode, allFunctionsArray );
 
         populateNode(userFunctionsNode, userFunctionsData);
         mathpiperFunctionsRootNode.add(userFunctionsNode);
