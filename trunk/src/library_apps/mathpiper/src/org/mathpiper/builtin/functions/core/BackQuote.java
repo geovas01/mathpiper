@@ -42,7 +42,7 @@ public class BackQuote extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="`;Backquoting",categories="Programmer Functions;Programming"
+%mathpiper_docs,name="`",categories="Operators"
 *A {`}
 *CMD Backquoting --- macro expansion (LISP-style backquoting)
 *CORE
