@@ -39,7 +39,7 @@ import org.gjt.sp.util.StandardUtilities;
  *
  */
 public class JFreeChart extends JPanel
-	implements EBComponent, JFreeChartActions, DefaultFocusComponent , org.mathpiper.interpreters.ResponseListener{
+	implements EBComponent, JFreeChartActions, DefaultFocusComponent{
 
 	// {{{ Instance Variables
 	//private static final long serialVersionUID = 6412255692894321789L;
@@ -77,17 +77,17 @@ public class JFreeChart extends JPanel
 		//JLabel testLabel = new JLabel("TEST");
 		//this.add(testLabel);
 
-		JPanel panel  = HistogramExample1.createDemoPanel();
-		this.add(panel);
+		//JPanel panel  = HistogramExample1.createDemoPanel();
+		this.add(JFreeChartPlugin.getChartPanel());
 
 		if (floating)
 			this.setPreferredSize(new Dimension(500, 250));
 
 
-		org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+		//org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 		//org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\");");
 		
-		synchronousInterpreter.addResponseListener(this); 
+		//synchronousInterpreter.addResponseListener(this); 
 		
 		
 		jFreeChart = this;
@@ -102,29 +102,6 @@ public class JFreeChart extends JPanel
 	}//end method.
 	
 	
-	public void response(org.mathpiper.interpreters.EvaluationResponse response)
-	{
-			//JFreeChart handler.
-			if(response.getObject() != null)
-			{
-				Object object = response.getObject();
-				if(object instanceof org.jfree.chart.ChartPanel)
-				{	
-					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jfreechart" );
-					JPanel newChart = (JPanel) object;
-					this.removeAll();
-					this.add(newChart);
-					this.revalidate();
-				}//end if.//
-			}//end if.*/
-			
-	    
-	}//end method.
-	
-	public boolean remove()
-	{
-		return false;
-	};
 	
 	// {{{ Member Functions
 

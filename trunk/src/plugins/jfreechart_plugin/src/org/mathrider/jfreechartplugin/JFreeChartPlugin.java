@@ -2,6 +2,8 @@
 package org.mathrider.jfreechartplugin;
 
 import org.gjt.sp.jedit.*;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 
 /**
  * 
@@ -11,14 +13,19 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 	public static final String NAME = "jfreechart";
 	public static final String OPTION_PREFIX = "options.jfreechart.";
 	
+	private static JPanel chartPanel;
+	
 	
 	public void start()
 	{
+		chartPanel = new ChartPanel();
 		
 		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
 		//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "mathpiper" );
 		//System.out.println("************************************************MathPiper plugin started...");
-		EditBus.addToBus(this);
+		
+		
+		//EditBus.addToBus(this);
 		
 	}//end method.
 	
@@ -28,14 +35,69 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 		//System.out.println("************************************************MathPiper plugin received editor message... "+ msg);
 		if (msg instanceof org.gjt.sp.jedit.msg.EditorStarted) {
 			//System.out.println("************************************************MathPiper plugin received editor started message...");
+			
+			/*org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+			org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("[Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\"); Plot2DOutputs()[\"default\"] := \"jfreechart\";];");
+			if(response.isExceptionThrown())
+			{
+				System.out.println(response.getExceptionMessage());
+			}//end if.*/
+			
+			
+		}//*/
+
+	}//end method.
+	
+	
+	private class ChartPanel extends JPanel implements org.mathpiper.interpreters.ResponseListener {
+		
+		public ChartPanel()
+		{
+			super(new BorderLayout());
+			
+			this.add(HistogramExample1.createDemoPanel());
+			
 			org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("[Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\"); Plot2DOutputs()[\"default\"] := \"jfreechart\";];");
 			if(response.isExceptionThrown())
 			{
 				System.out.println(response.getExceptionMessage());
 			}//end if.
-		}//*/
-
+		
+			synchronousInterpreter.addResponseListener(this); 
+		}//end consstructor
+			
+		public void response(org.mathpiper.interpreters.EvaluationResponse response)
+		{
+			//JFreeChart handler.
+			if(response.getObject() != null)
+			{
+				Object object = response.getObject();
+				if(object instanceof org.jfree.chart.ChartPanel)
+				{	
+					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jfreechart" );
+					JPanel newChart = (JPanel) object;
+					this.removeAll();
+					this.add(newChart);
+					this.revalidate();
+				}//end if.//
+			}//end if.*/
+		    
+		}//end method.
+		
+		
+		public boolean remove()
+		{
+			return false;
+		};
+	
+	
+	}//end class.
+	
+	
+	public static JPanel getChartPanel()
+	{
+		return chartPanel;
 	}//end method.
 	
 }//end class.
