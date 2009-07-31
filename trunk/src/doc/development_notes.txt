@@ -6,10 +6,7 @@ Development notes.
 +This function (along with barcharts) provide good examples of the need to move the position of the
 y axis along the x axis in GeoGebra:Exp(-(x-40)^2/4)/Sqrt(4*Pi) .
 +This code causes MathPiper to hang:
-%mathpiper,title=""
-f := (ProbabilityDensityFunction(NormalDistribution(40, 2),x));
-Integrate(x,-Infinity,35) f;
-%/mathpiper
+Integrate(x,30,35)Exp(-(x-40)^2/4)/Sqrt(4*Pi)  and  Integrate(x,-Infinity,35)Exp(-(x-40)^2/4)/Sqrt(4*Pi)
 + 10 # xxx <-- notation does not work if Bodied is executed before the function is defined.  See the Repeat function.
 +This input produces messed up output when executed at the bottom of the GUI console:
 In> FactorPolynomialOverIntegers(2.3*x^2-1.5*x+.8,x)
