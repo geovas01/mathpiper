@@ -126,6 +126,7 @@ import org.mathpiper.builtin.functions.core.IsPrefix;
 import org.mathpiper.builtin.functions.core.IsPromptShown;
 import org.mathpiper.builtin.functions.core.IsString;
 import org.mathpiper.builtin.functions.core.And;
+import org.mathpiper.builtin.functions.core.ExpressionToString;
 import org.mathpiper.builtin.functions.core.Or;
 import org.mathpiper.builtin.functions.core.LeftPrecedence;
 import org.mathpiper.builtin.functions.core.Length;
@@ -465,6 +466,9 @@ public abstract class BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Stringify(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "String");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new ExpressionToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "ExpressionToString");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new CharString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "CharString");
