@@ -343,7 +343,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     }//end method.
 
 
-
     public void createTree() {
 
         this.populateUserFunctionNodeWithCategories();
@@ -357,9 +356,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         DefaultMutableTreeNode mathpiperFunctionsRootNode = new DefaultMutableTreeNode(new FunctionInfo("MathPiper Functions                                           ", "All MathPiper functions and constants."));
 
-        String[][] allFunctionsArray = (String[][])allFunctions.toArray(new String[allFunctions.size()][]);
-        
-        populateNode(mathpiperFunctionsRootNode, allFunctionsArray );
+        String[][] allFunctionsArray = (String[][]) allFunctions.toArray(new String[allFunctions.size()][]);
+
+        populateNode(mathpiperFunctionsRootNode, allFunctionsArray);
 
         populateNode(userFunctionsNode, userFunctionsData);
         mathpiperFunctionsRootNode.add(userFunctionsNode);
@@ -431,39 +430,49 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     }//end method.
 
 
-    private void viewFunction(String functionName, boolean save) {
-        String functionIndexesString = (String) this.documentationIndex.get(functionName);
-        String[] functionIndexes = functionIndexesString.split(",");
-        int startIndex = Integer.parseInt(functionIndexes[0]);
-        int endIndex = Integer.parseInt(functionIndexes[1]);
-        int length = endIndex - startIndex;
-        byte[] documentationData = new byte[length];
-        //char[] documentationData = new char[length];
-        //System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
-        try {
+    public boolean viewFunction(String functionName, boolean save) {
 
-            //documentFile.seek(startIndex);
-            //documentFile.read(documentationData, 0, length);
+        if (this.documentationIndex.containsKey(functionName)) {
+            
+            String functionIndexesString = (String) this.documentationIndex.get(functionName);
+            String[] functionIndexes = functionIndexesString.split(",");
+            int startIndex = Integer.parseInt(functionIndexes[0]);
+            int endIndex = Integer.parseInt(functionIndexes[1]);
+            int length = endIndex - startIndex;
+            byte[] documentationData = new byte[length];
+            //char[] documentationData = new char[length];
+            //System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
+            try {
 
-            // System.out.print("docsurl: " + documentationURL);
-            BufferedInputStream docsStream = new BufferedInputStream(documentationURL.openStream());
-            docsStream.skip(startIndex);
-            docsStream.read(documentationData, 0, length);
-            docsStream.close();
+                //documentFile.seek(startIndex);
+                //documentFile.read(documentationData, 0, length);
+
+                // System.out.print("docsurl: " + documentationURL);
+                BufferedInputStream docsStream = new BufferedInputStream(documentationURL.openStream());
+                docsStream.skip(startIndex);
+                docsStream.read(documentationData, 0, length);
+                docsStream.close();
 
 
-            String documentationDataString = new String(documentationData);
+                String documentationDataString = new String(documentationData);
 
-            documentationDataString = documentationDataString.replace("$", "");
+                documentationDataString = documentationDataString.replace("$", "");
 
-            String html = textToHtml(documentationDataString);
+                String html = textToHtml(documentationDataString);
 
-            setPage(functionName, html, save);
+                setPage(functionName, html, save);
 
-            //functionInfo = nodeInfo;
-            //displayFunctionDocs(functionInfo.toString());
+                //functionInfo = nodeInfo;
+                //displayFunctionDocs(functionInfo.toString());
             } catch (IOException ex) {
-            ex.printStackTrace();
+                ex.printStackTrace();
+            }//end catch.
+
+            return true;
+
+
+        } else {
+            return false;
         }
     }//end method.
 
