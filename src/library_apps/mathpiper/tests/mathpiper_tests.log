@@ -1,5 +1,5 @@
 
-***** Wed Jul 29 16:28:18 EDT 2009 *****
+***** Fri Jul 31 22:48:00 EDT 2009 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .76b *****
 
@@ -681,7 +681,7 @@ Side Effects:
 ******************
 tests/scripts/plots.mpt: 6 
 
-ToString()Write(Plot2D(a,-1:1,output=data,points=4,depth=0))
+ToString()Write(Plot2D(a,-1:1,output->data,points->4,depth->0))
  evaluates to 
 "{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
  which differs from 
@@ -690,7 +690,7 @@ ToString()Write(Plot2D(a,-1:1,output=data,points=4,depth=0))
 ******************
 tests/scripts/plots.mpt: 7 
 
-ToString()Write(Plot2D(b,b=-1:1,output=data,points=4))
+ToString()Write(Plot2D(b,b->-1:1,output->data,points->4))
  evaluates to 
 "{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
  which differs from 
@@ -699,7 +699,7 @@ ToString()Write(Plot2D(b,b=-1:1,output=data,points=4))
 ******************
 tests/scripts/plots.mpt: 14 
 
-ToString()Write(Plot3DS(a,-1:1,-1:1,output=data,points=2))
+ToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2))
  evaluates to 
 "{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
  which differs from 
@@ -708,7 +708,7 @@ ToString()Write(Plot3DS(a,-1:1,-1:1,output=data,points=2))
 ******************
 tests/scripts/plots.mpt: 14 
 
-ToString()Write(Plot3DS(x1,x1=-1:1,x2=-1:1,output=data,points=2))
+ToString()Write(Plot3DS(x1,x1->-1:1,x2->-1:1,output->data,points->2))
  evaluates to 
 "{{{-1,-1,0.1011417762},{-1,0,0.1011417762},{-1,1,0.1011417762},{0,-1,0.1011417762},{0,0,0.1011417762},{0,1,0.1011417762},{1,-1,0.1011417762},{1,0,0.1011417762},{1,1,0.1011417762}}}"
  which differs from 
@@ -905,7 +905,7 @@ Side Effects:
 ******************
 tests/scripts/sums.mpt: 339 
 
-$pp2089
+$pp2090
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 

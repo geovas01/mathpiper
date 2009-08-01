@@ -23,7 +23,7 @@ New interface allows creating many RNG objects:
 
 	r1:=RngCreate();	// create a default RNG object, assign structure to r1
 	r2:=RngCreate(12345);	// create RNG object with given seed
-	r3:=RngCreate(seed==0, engine==advanced, dist==gauss); 	// extended options: specify seed, type of RNG engine and the type of statistical distribution
+	r3:=RngCreate(seed->0, engine->advanced, dist->gauss); 	// extended options: specify seed, type of RNG engine and the type of statistical distribution
 	Rng(r1); Rng(r1); Rng(r2);	// generate some floating-point numbers
 	RngSeed(r1, 12345);	// r1 is re-initialized with given seed, r2 is unaffected
 
@@ -39,11 +39,11 @@ and state is a "RNG state object", e.g. a list of all numbers that specify the c
 RngSeed(r1, seed) expects an integer seed.
 It will re-initialize the RNG object r1 with the given seed.
 
-The "RNG engine API": calling RngCreate with engine==SomeEngine expects that:
+The "RNG engine API": calling RngCreate with engine->SomeEngine expects that:
 	SomeEngine(seed_IsInteger) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
 	SomeEngine(state1_IsList) will update the RNG state object state1 and return the pair {new state object, new number}.
 
-The "RNG distribution adaptor API": calling RngCreate with distribution==SomeDist expects that:
+The "RNG distribution adaptor API": calling RngCreate with distribution->SomeDist expects that:
 	SomeDist(r1) will update the RNG object r1 and return the pair {new state object, new number}. r1 is a full RNG object, not just a state object.
 
 
@@ -93,16 +93,16 @@ Function() Rng(r);
 
 RngCreate() <-- RngCreate(0);
 
-10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {Atom("seed") == a'seed});
+10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {Atom("seed") -> a'seed});
 
 // a single option given: convert explicitly to a list
-20 # RngCreate(_key == _value) <-- (RngCreate @ {{key == value}});
-20 # RngCreate(_key = _value) <-- (RngCreate @ {{key == value}});
+20 # RngCreate(_key -> _value) <-- (RngCreate @ {{key -> value}});
+20 # RngCreate(_key = _value) <-- (RngCreate @ {{key -> value}});
 
 // expect a list of options
 30 # RngCreate(options_IsList) <--
 [
-	options := ListToHash @ {options};
+	options := OptionsListToHash @ {options};
 	// check options and assign defaults
 	If(
 		options["seed"] = Empty Or options["seed"] <= 0,
@@ -340,7 +340,7 @@ Each seed value will result in the same sequence of pseudo-random numbers.
 *CALL
 	RngCreate()
 	RngCreate(init)
-	RngCreate(option==value,...)
+	RngCreate(option->value,...)
 	RngSeed(r, init)
 	Rng(r)
 	
