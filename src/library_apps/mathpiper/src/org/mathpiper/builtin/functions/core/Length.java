@@ -88,6 +88,6 @@ This function also works on strings and arrays.
 	In> Length("abcdef");
 	Out> 6;
 
-*SEE Head, Tail, Nth, Count
+*SEE First, Rest, Nth, Count
 %/mathpiper_docs
 */

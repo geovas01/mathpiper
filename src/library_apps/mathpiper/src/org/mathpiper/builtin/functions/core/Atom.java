@@ -69,6 +69,6 @@ as the evaluated argument. Example: {Atom("foo");} returns
 	In> Atom("a")
 	Out> a;
 
-*SEE String
+*SEE String, ExpressionToString
 %/mathpiper_docs
 */
