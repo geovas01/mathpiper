@@ -200,8 +200,18 @@ public class LispError
             String errorMessage = errorString(aError);//"LispError number "+aError+" (//TODO FIXME still need to port over the string table)";
             throw new EvaluationException(errorMessage,-1);
         }
-    }
+    }//end method.
 
+
+    public static void check(boolean hastobetrue, String aErrorMessage) throws Exception
+    {
+        if (!hastobetrue)
+        {
+            throw new EvaluationException(aErrorMessage,-1);
+        }
+    }//end method.
+
+    
     public static void raiseError(String str) throws Exception
     {        
         throw new EvaluationException(str,-1);

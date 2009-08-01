@@ -160,15 +160,9 @@ public class Pattern {
         }
 
 
-        /*
-        if(iParamMatchers.size() != aArguments.length)
-        {
-            LispError.raiseError("Listed function definitions need at least two parameters.");
-        }//end method.
-         * */
-
         
         for (i = 0; i < iParamMatchers.size(); i++) {
+            LispError.check(i < aArguments.length, "Listed function definitions need at least two parameters.");
             PatternParameter patternParameter = (PatternParameter) iParamMatchers.get(i);
             ConsPointer argument = aArguments[i];
             if (! patternParameter.argumentMatches(aEnvironment, argument, arguments)) {
