@@ -112,7 +112,7 @@ r2:=RngCreate(12345);	// create RNG object with given seed
  f();
 RandomSeed(12345);	// initialize the global RNG with the same seed
  f();
-r3:=RngCreate(seed=12345, engine=advanced, dist=gauss);	// test advanced options
+r3:=RngCreate(seed->12345, engine->advanced, dist->gauss);	// test advanced options
  f();
 Rng(r1); f();
 Rng(r1); f();

@@ -30,7 +30,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 /// interface routines
 1 # Plot3DS(_func) <-- ("Plot3DS" @ {func, -5:5, -5:5});
 2 # Plot3DS(_func, _xrange, _yrange) <-- ("Plot3DS" @ {func, xrange, yrange, {}});
-3 # Plot3DS(_func, _xrange, _yrange, option_IsFunction) _ (Type(option) = "=" Or Type(option) = "==") <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
+3 # Plot3DS(_func, _xrange, _yrange, option_IsFunction) _ (Type(option) = "->" ) <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
 
 /// Plot a single function
 5 # Plot3DS(_func, _xrange, _yrange, options'list_IsList)_(Not IsList(func)) <-- ("Plot3DS" @ {{func}, xrange, yrange, options'list});
@@ -42,7 +42,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	Local(var, func, xdelta, ydelta, options'hash, cx, cy, fc, all'values, dummy);
 	// this will be a list of all computed values
 	all'values := {};
-	options'hash := "ListToHash" @ {options'list};
+	options'hash := "OptionsListToHash" @ {options'list};
 	// this will be a string - name of independent variable
 	options'hash["xname"] := "";
 	options'hash["yname"] := "";
@@ -50,7 +50,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	options'hash["zname"] := {};
 	// parse range
 	If (
-		Type(xrange) = "=" Or Type(xrange) = "==",	// variable also specified -- ignore for now, store in options
+		Type(xrange) = "->",	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
 			options'hash["xname"] := String(xrange[1]);
@@ -58,7 +58,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		]
 	);
 	If (
-		Type(yrange) = "=" Or Type(yrange) = "==",	// variable also specified -- ignore for now, store in options
+		Type(yrange) = "->" ,	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
 			options'hash["yname"] := String(yrange[1]);
@@ -308,8 +308,8 @@ y1	11  31  21
 *CALL
 	Plot3DS(f(x,y))
 	Plot3DS(f(x,y), a:b, c:d)
-	Plot3DS(f(x,y), a:b, c:d, option=value)
-	Plot3DS(f(x,y), a:b, c:d, option=value, ...)
+	Plot3DS(f(x,y), a:b, c:d, option->value)
+	Plot3DS(f(x,y), a:b, c:d, option->value, ...)
 	Plot3DS(list, ...)
 
 *PARMS
@@ -359,7 +359,7 @@ A range can also be specified with a variable name, e.g. {x= -5:5} (note the man
 The variable name {x} should be the same as that used in the function {f(x,y)}.
 If ranges are not given with variable names, the first variable encountered in the function {f(x,y)} is associated with the first of the two ranges.
 
-Options are of the form {option=value}. Currently supported option names
+Options are of the form {option->value}. Currently supported option names
 are "points", "xpoints", "ypoints", "precision", "depth", "output", "filename", "xrange", "yrange", "zrange". Option values
 are either numbers or special unevaluated atoms such as {data}.
 If you need to use the names of these atoms
