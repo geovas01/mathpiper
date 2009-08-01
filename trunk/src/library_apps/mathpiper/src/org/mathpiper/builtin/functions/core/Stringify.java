@@ -78,6 +78,6 @@ public class Stringify extends BuiltinFunction
 	In> String(a)
 	Out> "a";
 
-*SEE Atom
+*SEE Atom, ExpressionToString
 %/mathpiper_docs
 */
