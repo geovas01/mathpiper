@@ -64,9 +64,11 @@ public class MathPiperDocs extends JPanel
 
 	private MathPiperDocsToolPanel toolPanel;
 	
-	private static MathPiperDocs piperDocs;
+	private static MathPiperDocs mathPiperDocs;
 	
 	private JEditorPane editorPane;
+	
+	private org.mathpiper.ui.gui.help.FunctionTreePanel helpPanel;
 	
 	Interpreter bshInterpreter;
 	
@@ -83,7 +85,7 @@ public class MathPiperDocs extends JPanel
 	 */
 	public MathPiperDocs(View view, String position) {
 		super(new BorderLayout());
-		piperDocs = this;
+		mathPiperDocs = this;
 		
 		//bshInterpreter = new Interpreter();
 		
@@ -119,7 +121,7 @@ public class MathPiperDocs extends JPanel
 		
 		ClassLoader classLoader = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader();
 		
-		org.mathpiper.ui.gui.help.FunctionTreePanel helpPanel = new org.mathpiper.ui.gui.help.FunctionTreePanel(classLoader);
+		helpPanel = new org.mathpiper.ui.gui.help.FunctionTreePanel(classLoader);
 		
 		add(BorderLayout.CENTER,helpPanel);
 		
@@ -152,12 +154,18 @@ public class MathPiperDocs extends JPanel
     // }}}
 
     // {{{ Member Functions
+    
+    
+    public boolean viewFunction(String functionName)
+    {
+    	return helpPanel.viewFunction(functionName, true);
+    }//end method.
 	
 	
 	// {{{ getMathPiperDocs
 	public static MathPiperDocs getMathPiperDocs()
 	{	
-		return MathPiperDocs.piperDocs;  
+		return MathPiperDocs.mathPiperDocs;  
 	}//end method
 	// }}}
     
