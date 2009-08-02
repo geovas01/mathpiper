@@ -34,8 +34,8 @@ Retract("ProbabilityDensityFunction", *);
 10 # ProbabilityDensityFunction(DiscreteUniformDistribution(_a,_b), x_IsNumber) <-- If(x<a Or x>b, 0 ,1/(b-a+1));
 11 # ProbabilityDensityFunction(DiscreteUniformDistribution(_a,_b), _x) <-- Hold(If(x<a Or x>b, 0 ,1/(b-a+1)));
 
-10 # ProbabilityDensityFunction(PoissonDistribution(_l), n_IsNumber) <-- If(n<0,0,N(Exp(-l)*l^n/n!));
-11 # ProbabilityDensityFunction(PoissonDistribution(_l),_n) <-- N(Exp(-l)*l^n/n!);
+10 # ProbabilityDensityFunction(PoissonDistribution(_l), n_IsNumber) <-- If(n<0,0,Exp(-l)*l^n/n!);
+11 # ProbabilityDensityFunction(PoissonDistribution(_l),_n) <-- Exp(-l)*l^n/n!;
 
 10 # ProbabilityDensityFunction(GeometricDistribution(_p),_n) <--If(n<0,0,p*(1-p)^n);
 
@@ -56,7 +56,7 @@ Retract("ProbabilityDensityFunction", *);
 
 10 # ProbabilityDensityFunction(tDistribution(_m),x) <-- Gamma((m+1)/2)*(1+x^2/m)^(-(m+1)/2)/Gamma(m/2)/Sqrt(Pi*m);
 
-10 # ProbabilityDensityFunction(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- N((BinomialCoefficient(M,x) * BinomialCoefficient(N-M, n-x))/BinomialCoefficient(N,n));
+10 # ProbabilityDensityFunction(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- (BinomialCoefficient(M,x) * BinomialCoefficient(N-M, n-x))/BinomialCoefficient(N,n);
 
 %/mathpiper
 
