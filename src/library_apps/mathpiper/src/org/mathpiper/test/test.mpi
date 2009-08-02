@@ -98,11 +98,12 @@ rooms := Append(rooms,livingRoom);
 
 kitchen["n"] := livingRoom;
 
-//livingRoom["s"] := kitchen;
+livingRoom["s"] := kitchen;
 
-NewLine();
-NewLine();
 Write(rooms);
 NewLine();
+Write(kitchen);
 NewLine();
-Write(FullForm(rooms));
+Write(livingRoom,Nl());
+Write(rooms, Nl());
+
