@@ -17,6 +17,8 @@
 package org.mathpiper.lisp.printers;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Utility;
@@ -27,7 +29,6 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.InfixOperator;
 import org.mathpiper.lisp.collections.OperatorMap;
-import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 
 
@@ -42,6 +43,8 @@ public class MathPiperPrinter extends LispPrinter {
     char iPrevLastChar;
     Environment iCurrentEnvironment;
 
+    private List<Cons> visitedList = new ArrayList<Cons>();
+
 
     public MathPiperPrinter(OperatorMap aPrefixOperators,
             OperatorMap aInfixOperators,
@@ -55,38 +58,15 @@ public class MathPiperPrinter extends LispPrinter {
     }
 
 
-    private void clearVisited(ConsPointer consPointer) throws Exception
-    {
-
-        consPointer.getCons().setVisited(false);
-        
-        if(consPointer.getCons()== null)
-        {
-            return;
-        }//end if
-
-
-        if(consPointer.car() != null && consPointer.car() instanceof Cons)
-        {
-            clearVisited((ConsPointer)consPointer.car());
-        }//end if.
-
-
-        if(consPointer.cdr().getCons() != null)
-        {
-            clearVisited((ConsPointer)consPointer.cdr());
-        }//end if.
-
-    }//end method.
 
 
     public void print(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         iCurrentEnvironment = aEnvironment;
 
-        //Reset all visited flags.
-        //clearVisited(aExpression);
 
         Print(aExpression, aOutput, KMaxPrecedence);
+
+        visitedList.clear();
     }
 
 
@@ -188,16 +168,18 @@ public class MathPiperPrinter extends LispPrinter {
                 ConsTraverser consTraverser = new ConsTraverser(subList.cdr());
                 if (string == iCurrentEnvironment.iListAtom.car()) {
 
-                    AtomCons atomCons = (AtomCons) subList.getCons();
-                    if (atomCons.isVisited()) {
-                            WriteToken(aOutput, "{CYCLE}");
+                    Cons atomCons = (Cons) subList.getCons();
+                    if (visitedList.contains(atomCons)) {
+                            WriteToken(aOutput, "{LIST}");
                             return;
 
                     } else {
-
+                        visitedList.add(atomCons);
                         WriteToken(aOutput, "{");
                         while (consTraverser.getCons() != null) {
-                                                    atomCons.setVisited(true);
+
+
+
                             Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
                             consTraverser.goNext();
                             if (consTraverser.getCons() != null) {

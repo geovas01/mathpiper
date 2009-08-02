@@ -88,14 +88,21 @@ rooms := {};
 
 
 kitchen := {};
+kitchen["name"] := "kitchen";
 rooms := Append(rooms,kitchen);
 
 
 livingRoom := {};
+livingRoom["name"] := "living room";
 rooms := Append(rooms,livingRoom);
 
 kitchen["n"] := livingRoom;
 
 livingRoom["s"] := kitchen;
 
-rooms;
+Write(rooms);
+NewLine();
+Write(kitchen);
+NewLine();
+Write(livingRoom,Nl());
+Write(rooms);
