@@ -43,7 +43,7 @@ public class MathPiperPrinter extends LispPrinter {
     char iPrevLastChar;
     Environment iCurrentEnvironment;
 
-    private List<Cons> visitedList = new ArrayList<Cons>();
+    private List<Cons> visitedLists = new ArrayList<Cons>();
 
 
     public MathPiperPrinter(OperatorMap aPrefixOperators,
@@ -66,7 +66,7 @@ public class MathPiperPrinter extends LispPrinter {
 
         Print(aExpression, aOutput, KMaxPrecedence);
 
-        visitedList.clear();
+        visitedLists.clear();
     }
 
 
@@ -169,23 +169,24 @@ public class MathPiperPrinter extends LispPrinter {
                 if (string == iCurrentEnvironment.iListAtom.car()) {
 
                     Cons atomCons = (Cons) subList.getCons();
-                    if (visitedList.contains(atomCons)) {
-                            WriteToken(aOutput, "{LIST}");
+                    if (visitedLists.contains(atomCons)) {
+                            WriteToken(aOutput, "{CYCLE_LIST}");
                             return;
 
                     } else {
-                        visitedList.add(atomCons);
+
+                        visitedLists.add(atomCons);
+
                         WriteToken(aOutput, "{");
+
                         while (consTraverser.getCons() != null) {
-
-
-
                             Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
                             consTraverser.goNext();
                             if (consTraverser.getCons() != null) {
                                 WriteToken(aOutput, ",");
                             }
-                        }
+                        }//end while.
+
                         WriteToken(aOutput, "}");
 
                     }//end else.
