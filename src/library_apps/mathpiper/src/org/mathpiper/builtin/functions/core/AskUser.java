@@ -18,33 +18,44 @@
 
 package org.mathpiper.builtin.functions.core;
 
+import javax.swing.JOptionPane;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.AtomCons;
 
 /**
  *
  *  
  */
-public class ReadCmdLineString extends BuiltinFunction
+public class AskUser extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.write("Function not yet implemented : LispReadCmdLineString");//TODO FIXME
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        String messageString = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        LispError.checkArgument(aEnvironment, aStackTop, messageString != null, 1);
 
-        throw new EvaluationException("Function not yet supported",-1);
-    }
-}
+
+        messageString = Utility.stripEndQuotes(messageString);
+
+        String userInputString = JOptionPane.showInputDialog(messageString);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + userInputString + "\""));
+    }//end method.
+
+}//end class.
 
 
 
 /*
-%mathpiper_docs,name="ReadCmdLineString",categories="User Functions;Input/Output;Built In"
-*CMD ReadCmdLineString --- read an expression from command line and return in string
+%mathpiper_docs,name="AskUser",categories="User Functions;Input/Output;Built In"
+*CMD AskUser --- read an expression from command line and return in string
 *CORE
 *CALL
-	ReadCmdLineString(prompt)
+	AskUser(prompt)
 
 *PARMS
 
@@ -71,7 +82,7 @@ uses PrettyForm to display the result (the <i>print</i> step).
 	In> ReEvPr() := \
 	In>   While(True) [ \
 	In>     PrettyForm(Deriv(x) \
-	In>      FromString(ReadCmdLineString("Deriv> "):";")Read()); \
+	In>      FromString(AskUser("Deriv> "):";")Read()); \
 	In> ];
 	Out> True;
 
