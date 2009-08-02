@@ -66,6 +66,7 @@ LineChart({domain, sample1, domain, sample2, domain, sample3});
 */
 
 
+/*
 Retract("Test",*);
 
 Function() Test(x, ...);
@@ -78,3 +79,23 @@ Test(_x, _options ) <--
 ];
 
 Test(2);
+
+*/
+
+
+rooms := {};
+
+
+
+kitchen := {};
+rooms := Append(rooms,kitchen);
+
+
+livingRoom := {};
+rooms := Append(rooms,livingRoom);
+
+kitchen["n"] := livingRoom;
+
+livingRoom["s"] := kitchen;
+
+rooms;

@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.InfixOperator;
 import org.mathpiper.lisp.collections.OperatorMap;
-import org.mathpiper.lisp.printers.LispPrinter;
+import org.mathpiper.lisp.cons.SublistCons;
 
 
 public class MathPiperPrinter extends LispPrinter {
@@ -66,6 +66,23 @@ public class MathPiperPrinter extends LispPrinter {
 
 
     void Print(ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
+
+        if(aExpression.type() == Utility.SUBLIST)
+        {
+            SublistCons subListCons = (SublistCons) aExpression.getCons();
+
+            if(subListCons.isVisited())
+            {
+                WriteToken(aOutput, "{CYCLE}");
+                return;
+            }
+            else
+            {
+                subListCons.setVisited(true);
+            }
+
+        }//end if.
+
         LispError.lispAssert(aExpression.getCons() != null);
 
         String string;
