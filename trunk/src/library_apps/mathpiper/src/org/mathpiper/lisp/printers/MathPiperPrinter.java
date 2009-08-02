@@ -27,6 +27,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.InfixOperator;
 import org.mathpiper.lisp.collections.OperatorMap;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
@@ -56,6 +57,15 @@ public class MathPiperPrinter extends LispPrinter {
 
     public void print(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         iCurrentEnvironment = aEnvironment;
+
+        //Reset all visited flags.
+        ConsTraverser consTraverser = new ConsTraverser(aExpression);
+        while(consTraverser.getCons()!= null)
+        {
+            consTraverser.getCons().setVisited(false);
+            consTraverser.goNext();
+        }
+
         Print(aExpression, aOutput, KMaxPrecedence);
     }
 
@@ -66,22 +76,6 @@ public class MathPiperPrinter extends LispPrinter {
 
 
     void Print(ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
-
-        if(aExpression.type() == Utility.SUBLIST)
-        {
-            SublistCons subListCons = (SublistCons) aExpression.getCons();
-
-            if(subListCons.isVisited())
-            {
-                WriteToken(aOutput, "{CYCLE}");
-                return;
-            }
-            else
-            {
-                subListCons.setVisited(true);
-            }
-
-        }//end if.
 
         LispError.lispAssert(aExpression.getCons() != null);
 
@@ -173,15 +167,26 @@ public class MathPiperPrinter extends LispPrinter {
             } else {
                 ConsTraverser consTraverser = new ConsTraverser(subList.cdr());
                 if (string == iCurrentEnvironment.iListAtom.car()) {
-                    WriteToken(aOutput, "{");
-                    while (consTraverser.getCons() != null) {
-                        Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
-                        consTraverser.goNext();
-                        if (consTraverser.getCons() != null) {
-                            WriteToken(aOutput, ",");
+
+                    AtomCons atomCons = (AtomCons) subList.getCons();
+                    if (atomCons.isVisited()) {
+                            WriteToken(aOutput, "{CYCLE}");
+                            return;
+
+                    } else {
+
+                        WriteToken(aOutput, "{");
+                        while (consTraverser.getCons() != null) {
+                                                    atomCons.setVisited(true);
+                            Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                            consTraverser.goNext();
+                            if (consTraverser.getCons() != null) {
+                                WriteToken(aOutput, ",");
+                            }
                         }
-                    }
-                    WriteToken(aOutput, "}");
+                        WriteToken(aOutput, "}");
+
+                    }//end else.
                 } else if (string == iCurrentEnvironment.iProgAtom.car()) // Program block brackets.
                 {
                     WriteToken(aOutput, "[");
