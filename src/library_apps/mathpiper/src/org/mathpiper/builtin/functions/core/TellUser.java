@@ -27,9 +27,9 @@ import org.mathpiper.lisp.cons.AtomCons;
 
 /**
  *
- *  
+ *
  */
-public class AskUser extends BuiltinFunction
+public class TellUser extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -41,9 +41,9 @@ public class AskUser extends BuiltinFunction
 
         messageString = Utility.stripEndQuotes(messageString);
 
-        String userInputString = JOptionPane.showInputDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + userInputString + "\""));
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }//end method.
 
 }//end class.
@@ -51,22 +51,21 @@ public class AskUser extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="AskUser",categories="User Functions;Input/Output;Built In"
-*CMD AskUser --- displays an input dialog to the user
+%mathpiper_docs,name="TellUser",categories="User Functions;Input/Output;Built In"
+*CMD AskUser --- displays a message to the user in a dialog.
 *CORE
 *CALL
-	AskUser(message)
+	TellUser(message)
 
 *PARMS
 
-{message} -- a message which indicates what kind of input to enter
+{message} -- a message to display to the user
 
 *DESC
 
-This function allows information to be obtained from the user in the
-form of a string.  A GUI dialog box will be displayed which the user
-can use to enter their input.
+This function allows a message to be displayed to the user.  The message will be
+displayed in a GUI dialog box.
 
-*SEE TellUser
+*SEE AskUser
 %/mathpiper_docs
 */

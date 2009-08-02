@@ -187,6 +187,7 @@ import org.mathpiper.builtin.functions.core.Subst;
 import org.mathpiper.builtin.functions.core.Subtract;
 import org.mathpiper.builtin.functions.core.SystemCall;
 import org.mathpiper.builtin.functions.core.Rest;
+import org.mathpiper.builtin.functions.core.TellUser;
 import org.mathpiper.builtin.functions.core.ToBase;
 import org.mathpiper.builtin.functions.core.ToFile;
 import org.mathpiper.builtin.functions.core.ToStdout;
@@ -907,6 +908,9 @@ public abstract class BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new AskUser(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "AskUser");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new TellUser(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "TellUser");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.GetTime(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "GetTime");
