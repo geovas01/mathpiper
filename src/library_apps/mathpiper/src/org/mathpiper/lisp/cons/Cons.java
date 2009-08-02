@@ -27,6 +27,7 @@ package org.mathpiper.lisp.cons;
  */
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
+    private boolean visited = false;
 
     public abstract ConsPointer cdr();
 
@@ -83,5 +84,16 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         }
         return false;
     }//end method.
+
+
+    //end method.
+    public boolean isVisited() {
+        return visited;
+    }
+
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
     
 }//end class.

@@ -27,8 +27,6 @@ public class SublistCons extends Cons
 {
 	ConsPointer iCar = new ConsPointer();
         ConsPointer iCdr = new ConsPointer();
-
-        private boolean visited = false;
 	
 	public static SublistCons getInstance(Cons aSubList)
 	{
@@ -100,15 +98,6 @@ public class SublistCons extends Cons
         return Utility.SUBLIST;
     }//end method.
 
-
-    public boolean isVisited() {
-        return visited;
-    }
-
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
 
 
     
