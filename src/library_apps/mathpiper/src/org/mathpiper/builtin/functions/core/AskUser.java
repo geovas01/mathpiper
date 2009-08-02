@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 
 import javax.swing.JOptionPane;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.exceptions.BreakException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
@@ -43,6 +44,11 @@ public class AskUser extends BuiltinFunction
 
         String userInputString = JOptionPane.showInputDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 
+        if(userInputString == null)
+        {
+            throw new BreakException();
+        }//end method.
+
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + userInputString + "\""));
     }//end method.
 
@@ -65,7 +71,8 @@ public class AskUser extends BuiltinFunction
 
 This function allows information to be obtained from the user in the
 form of a string.  A GUI dialog box will be displayed which the user
-can use to enter their input.
+can use to enter their input.  If the user selects the cancel button,
+the Break() function will be executed.
 
 *SEE TellUser
 %/mathpiper_docs
