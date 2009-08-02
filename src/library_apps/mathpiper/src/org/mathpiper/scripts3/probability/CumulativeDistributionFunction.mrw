@@ -57,7 +57,7 @@ Retract("CumulativeDistributionFunction", *);
 
 10 # CumulativeDistributionFunction(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- 
 [
-    N(Sum @ {i,0,x,ProbabilityDensityFunction(HypergeometricDistribution(N, M, n),i)});
+    Sum @ {i,0,x,ProbabilityDensityFunction(HypergeometricDistribution(N, M, n),i)};
 ];
 
 %/mathpiper
