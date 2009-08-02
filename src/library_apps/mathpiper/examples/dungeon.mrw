@@ -1,0 +1,77 @@
+%mathpiper,title=""
+
+
+
+
+
+//Kitchen.
+kitchen := {};
+kitchen["name"] := "kitchen";
+kitchen["description"] :=
+"
+You are in a bright white room which has a sink on its
+east wall which has cupboards above and below it. A table
+with 4 chairs is in the center of the room and a refridgerator is
+in its north west corner. Sitting on the table is 
+a piece of paper with writing on it.
+
+There is an exit to the north.
+
+";
+
+
+//Dining room.
+diningRoom := {};
+diningRoom["name"] := "dining room";
+diningRoom["description"] := 
+"
+You are in a large rectangular room with a high ceiling.
+There is an oak table in the center of the room with 12 
+chairs around it.  There is a crystal chandelier above
+the table. 
+
+There is an exit to the south.
+
+";
+
+
+
+
+//Connect the rooms together.
+kitchen["n"] := diningRoom;
+diningRoom["s"] := kitchen;
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+%mathpiper
+
+
+currentRoom := diningRoom;
+
+While( True )
+[
+    
+    userInput := AskUser(currentRoom["description"] : Nl(): "Which direction (n,s,e,w,ne,se,sw,nw,q to quit)?");
+    
+    
+    If(userInput = "q", Break());
+
+    
+    If(currentRoom[userInput] != Empty, currentRoom := currentRoom[userInput], TellUser("There is no exit in that direction."));
+    
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
