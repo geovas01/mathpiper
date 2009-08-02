@@ -84,7 +84,7 @@ public class MathPiperPrinter extends LispPrinter {
         iCurrentEnvironment = aEnvironment;
 
         //Reset all visited flags.
-        clearVisited(aExpression);
+        //clearVisited(aExpression);
 
         Print(aExpression, aOutput, KMaxPrecedence);
     }
