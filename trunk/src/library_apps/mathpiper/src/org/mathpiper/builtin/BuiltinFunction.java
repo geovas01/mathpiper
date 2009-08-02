@@ -161,7 +161,7 @@ import org.mathpiper.builtin.functions.core.PrettyReaderSet;
 import org.mathpiper.builtin.functions.core.Prog;
 import org.mathpiper.builtin.functions.core.Hold;
 import org.mathpiper.builtin.functions.core.Read;
-import org.mathpiper.builtin.functions.core.ReadCmdLineString;
+import org.mathpiper.builtin.functions.core.AskUser;
 import org.mathpiper.builtin.functions.core.LispRead;
 import org.mathpiper.builtin.functions.core.LispReadListed;
 import org.mathpiper.builtin.functions.core.ReadToken;
@@ -905,8 +905,8 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new IsPromptShown(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsPromptShown");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ReadCmdLineString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ReadCmdLineString");
+                new BuiltinFunctionEvaluator(new AskUser(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "AskUser");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.GetTime(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "GetTime");

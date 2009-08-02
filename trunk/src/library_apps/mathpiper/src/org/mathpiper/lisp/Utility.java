@@ -16,6 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -50,6 +51,7 @@ import org.mathpiper.lisp.userfunctions.FunctionParameter;
 import org.mathpiper.lisp.userfunctions.MacroUserFunction;
 import org.mathpiper.lisp.userfunctions.PatternBranch;
 import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
+
 
 public class Utility {
 
@@ -96,13 +98,13 @@ public class Utility {
     };
     public static java.util.zip.ZipFile zipFile = null;
 
+
     public static boolean isNumber(String ptr, boolean aAllowFloat) {
 
-        if(ptr.length() == 0)
-        {
+        if (ptr.length() == 0) {
             return false;
         }//end if.
-        
+
         int pos = 0;
         if (ptr.charAt(pos) == '-' || ptr.charAt(pos) == '+') {
             pos++;
@@ -165,6 +167,7 @@ public class Utility {
         return true;
     }
 
+
     public static int listLength(ConsPointer aOriginal) throws Exception {
         ConsPointer consTraverser = new ConsPointer(aOriginal.getCons());
         int length = 0;
@@ -174,6 +177,7 @@ public class Utility {
         }
         return length;
     }
+
 
     public static void reverseList(ConsPointer aResult, ConsPointer aOriginal) {
         //ConsPointer iter = new ConsPointer(aOriginal);
@@ -191,6 +195,7 @@ public class Utility {
         }
         aResult.setCons(previous.getCons());
     }
+
 
     public static void returnUnEvaluated(ConsPointer aResult, ConsPointer aArguments, Environment aEnvironment) throws Exception {
         ConsPointer full = new ConsPointer();
@@ -210,6 +215,7 @@ public class Utility {
         full.cdr().setCons(null);
     }
 
+
     public static void applyString(Environment aEnvironment, ConsPointer aResult,
             String aOperator, ConsPointer aArgs) throws Exception {
         LispError.check(isString(aOperator), LispError.NOT_A_STRING);
@@ -221,6 +227,7 @@ public class Utility {
         body.setCons(SublistCons.getInstance(head));
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
     }
+
 
     public static void applyPure(ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
         LispError.check(oper.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
@@ -260,13 +267,16 @@ public class Utility {
 
     }
 
+
     public static void putTrueInPointer(Environment aEnvironment, ConsPointer aResult) throws Exception {
         aResult.setCons(aEnvironment.iTrueAtom.copy(false));
     }
 
+
     public static void putFalseInPointer(Environment aEnvironment, ConsPointer aResult) throws Exception {
         aResult.setCons(aEnvironment.iFalseAtom.copy(false));
     }
+
 
     public static void putBooleanInPointer(Environment aEnvironment, ConsPointer aResult, boolean aValue) throws Exception {
         if (aValue) {
@@ -275,6 +285,7 @@ public class Utility {
             putFalseInPointer(aEnvironment, aResult);
         }
     }
+
 
     public static void nth(ConsPointer aResult, ConsPointer aArg, int n) throws Exception {
         LispError.check(aArg.getCons() != null, LispError.INVALID_ARGUMENT);
@@ -291,6 +302,7 @@ public class Utility {
         aResult.setCons(consTraverser.getCons().copy(false));
     }
 
+
     public static void tail(ConsPointer aResult, ConsPointer aArg) throws Exception {
         LispError.check(aArg.getCons() != null, LispError.INVALID_ARGUMENT);
         LispError.check(aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT);
@@ -300,6 +312,7 @@ public class Utility {
         LispError.check(iter.getCons() != null, LispError.INVALID_ARGUMENT);
         aResult.setCons(SublistCons.getInstance(iter.cdr().getCons()));
     }
+
 
     public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null);
@@ -329,6 +342,7 @@ public class Utility {
 
     }//end method.
 
+
     public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null);
         return aExpression.car() instanceof String && ((String) aExpression.car()) == aEnvironment.iFalseString;
@@ -338,6 +352,7 @@ public class Utility {
          */
     }
 
+
     public static String getSymbolName(Environment aEnvironment, String aSymbol) {
         if (aSymbol.charAt(0) == '\"') {
             return aEnvironment.getTokenHash().lookUpUnStringify(aSymbol);
@@ -345,6 +360,7 @@ public class Utility {
             return (String) aEnvironment.getTokenHash().lookUp(aSymbol);
         }
     }
+
 
     public static boolean isSublist(ConsPointer aPtr) throws Exception {
         /**
@@ -367,6 +383,7 @@ public class Utility {
 
     }//end method.
 
+
     public static boolean isList(ConsPointer aPtr) throws Exception {
         /**
          * todo:tk: I am currently not sure why non nested lists are not supported in Yacas.
@@ -388,6 +405,7 @@ public class Utility {
 
     }//end method.
 
+
     public static boolean isNestedList(ConsPointer clientListPointer) throws Exception {
 
         ConsPointer listPointer = new ConsPointer(clientListPointer.getCons());
@@ -403,6 +421,7 @@ public class Utility {
         }//end while.
         return true;
     }//end method.
+
 
     public static Map optionsListToJavaMap(ConsPointer argumentsPointer, Map defaultOptions) throws Exception {
 
@@ -434,10 +453,9 @@ public class Utility {
                     } else {
                         userOptions.put(key, PlotOrientation.VERTICAL);
                     }//end if/else.
-                } else if(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false") )
-                {
-                    userOptions.put(key,Boolean.parseBoolean(value));
-                }else {
+                } else if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+                    userOptions.put(key, Boolean.parseBoolean(value));
+                } else {
                     userOptions.put(key, value);
                 }//ende else.
             } else //Number
@@ -457,6 +475,7 @@ public class Utility {
         return userOptions;
     }//end method.
 
+
     public static boolean isString(Object aOriginal) {
 
         if (!(aOriginal instanceof String)) {
@@ -475,15 +494,20 @@ public class Utility {
         return false;
     }//end method
 
-    public static String stripEndQuotes(String aOriginal) {
 
-        if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
-            aOriginal = aOriginal.substring(1, aOriginal.length());
-            aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
-        }//end if.
+    public static String stripEndQuotes(String aOriginal) throws Exception {
+
+        LispError.check(aOriginal.startsWith("\""), "String is missing left quote character.");
+
+        LispError.check(aOriginal.endsWith("\""), "String is missing right quote character.");
+
+        aOriginal = aOriginal.substring(1, aOriginal.length());
+        
+        aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
 
         return aOriginal;
     }//end method.
+
 
     public static void not(ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         if (isTrue(aEnvironment, aExpression)) {
@@ -493,6 +517,7 @@ public class Utility {
             putTrueInPointer(aEnvironment, aResult);
         }
     }
+
 
     public static void flatCopy(ConsPointer aResult, ConsPointer aOriginal) throws Exception {
         ConsTraverser orig = new ConsTraverser(aOriginal);
@@ -504,6 +529,7 @@ public class Utility {
             res.goNext();
         }
     }
+
 
     public static boolean equals(Environment aEnvironment, ConsPointer aExpression1, ConsPointer aExpression2) throws Exception {
         // Handle pointers to same, or null
@@ -572,6 +598,7 @@ public class Utility {
         return false;
     }
 
+
     public static void substitute(ConsPointer aTarget, ConsPointer aSource, Substitute aBehaviour) throws Exception {
         Cons object = aSource.getCons();
         LispError.lispAssert(object != null);
@@ -599,6 +626,7 @@ public class Utility {
         }//end matches if.
     }
 
+
     public static String unstringify(String aOriginal) throws Exception {
         LispError.check(aOriginal != null, LispError.INVALID_ARGUMENT);
         LispError.check(aOriginal.charAt(0) == '\"', LispError.INVALID_ARGUMENT);
@@ -606,6 +634,7 @@ public class Utility {
         LispError.check(aOriginal.charAt(nrc) == '\"', LispError.INVALID_ARGUMENT);
         return aOriginal.substring(1, nrc);
     }
+
 
     private static void doInternalLoad(Environment aEnvironment, MathPiperInputStream aInput) throws Exception {
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
@@ -645,6 +674,7 @@ public class Utility {
             aEnvironment.iCurrentInput = previous;
         }
     }
+
 
     /**
      * Searches for a file on the classpath then in the default directories.  If the file is found, it is loaded.
@@ -696,6 +726,7 @@ public class Utility {
 
     }
 
+
     public static void use(Environment aEnvironment, String aFileName) throws Exception {
         DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
         if (!def.isLoaded()) {
@@ -703,6 +734,7 @@ public class Utility {
             load(aEnvironment, aFileName);
         }
     }
+
 
     public static String printExpression(ConsPointer aExpression,
             Environment aEnvironment,
@@ -722,6 +754,7 @@ public class Utility {
         }
         return result.toString();
     }
+
 
     public static MathPiperInputStream openInputFile(String aFileName, InputStatus aInputStatus) throws Exception {//Note:tk:primary method for file opening.
         try {
@@ -746,6 +779,7 @@ public class Utility {
         //return new StandardFileInputStream(aFileName, aInputStatus);
     }
 
+
     public static MathPiperInputStream openInputFile(Environment aEnvironment,
             InputDirectories aInputDirectories, String aFileName,
             InputStatus aInputStatus) throws Exception {
@@ -759,6 +793,7 @@ public class Utility {
         }
         return f;
     }
+
 
     public static String findFile(String aFileName, InputDirectories aInputDirectories) throws Exception {
         InputStatus inputStatus = new InputStatus();
@@ -778,6 +813,7 @@ public class Utility {
         }
         return "";
     }
+
 
     private static void doLoadDefFile(Environment aEnvironment, MathPiperInputStream aInput, DefFile def) throws Exception {
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
@@ -813,6 +849,7 @@ public class Utility {
             aEnvironment.iCurrentInput = previous;
         }
     }
+
 
     public static void loadDefFile(Environment aEnvironment, String aFileName) throws Exception {
         LispError.lispAssert(aFileName != null);
@@ -860,10 +897,12 @@ public class Utility {
 
     // lookup table for transforming the number of digits
     // report the table size
+
     int log2TableRange() {
         return log2_table_size;
     }
     // table look-up of small integer logarithms, for converting the number of digits to binary and back
+
 
     static double log2TableLookup(int n) throws Exception {
         if (n <= log2_table_size && n >= 2) {
@@ -872,6 +911,7 @@ public class Utility {
             throw new EvaluationException("log2_table_lookup: error: invalid argument " + n, -1);
         }
     }
+
 
     /**
      * Convert the number of digits in given base to the number of bits.  To make sure there is no hysteresis, the returned
@@ -885,6 +925,7 @@ public class Utility {
     public static long digitsToBits(long digits, int base) throws Exception {
         return (long) Math.ceil(((double) digits) * log2TableLookup(base));
     }
+
 
     /**
      * Convert the  number of bits in a given base to the number of digits.  To make sure there is no hysteresis, the returned
@@ -900,6 +941,7 @@ public class Utility {
     }
 
     //************************* The following methods were taken from the Functions class.
+
     /**
      * Construct a {@link BigNumber}.
      * @param aEnvironment the current {@link Environment}.
@@ -914,6 +956,7 @@ public class Utility {
         LispError.checkArgument(aEnvironment, aStackTop, x != null, aArgNr);
         return x;
     }
+
 
     public static void multiFix(Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
         // Get operator
@@ -930,6 +973,7 @@ public class Utility {
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
+
     public static void singleFix(int aPrecedence, Environment aEnvironment, int aStackTop, OperatorMap aOps) throws Exception {
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
@@ -938,6 +982,7 @@ public class Utility {
         aOps.setOperator(aPrecedence, Utility.getSymbolName(aEnvironment, orig));
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
+
 
     public static InfixOperator operatorInfo(Environment aEnvironment, int aStackTop, OperatorMap aOperators) throws Exception {
         // Get operator
@@ -952,6 +997,7 @@ public class Utility {
         InfixOperator op = (InfixOperator) aOperators.lookUp(Utility.getSymbolName(aEnvironment, orig));
         return op;
     }
+
 
     /**
      * Sets a variable in the current {@link Environment}.
@@ -978,6 +1024,7 @@ public class Utility {
         aEnvironment.setGlobalVariable(variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
+
 
     public static void delete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
         ConsPointer evaluated = new ConsPointer();
@@ -1010,6 +1057,7 @@ public class Utility {
         BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
 
+
     public static void insert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
@@ -1041,6 +1089,7 @@ public class Utility {
         consTraverser.getPointer().setCons(toInsert.getCons());
         BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
+
 
     public static void replace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
         ConsPointer evaluated = new ConsPointer();
@@ -1077,6 +1126,7 @@ public class Utility {
         BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(copied.getCons()));
     }
 
+
     /**
      *Implements the MathPiper functions RuleBase and MacroRuleBase .
      * The real work is done by Environment.declareRulebase().
@@ -1103,6 +1153,7 @@ public class Utility {
         // Return true
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
+
 
     public static void newRule(Environment aEnvironment, int aStackTop) throws Exception {
         //TESTARGS(6);
@@ -1146,6 +1197,7 @@ public class Utility {
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
+
     public static void defMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         // Get operator
         ConsPointer args = new ConsPointer();
@@ -1167,6 +1219,7 @@ public class Utility {
         // Return true
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
+
 
     public static void newRulePattern(Environment aEnvironment, int aStackTop, boolean aMacroMode) throws Exception {
         int arity;
@@ -1207,6 +1260,7 @@ public class Utility {
         // Return true
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
+
 
     public static String dumpRule(Branch branch, Environment aEnvironment, SingleArityBranchingUserFunction userFunction) {
         StringBuilder dumpResult = new StringBuilder();
