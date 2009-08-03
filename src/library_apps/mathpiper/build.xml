@@ -52,7 +52,7 @@
 	      <buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts2/"
                  outputScriptsDirectory="${build.classes.dir}/org/mathpiper/scripts/"/>
       
-      </target>
+        </target>
 
 
 
@@ -142,12 +142,20 @@
 
 		<mkdir dir="${build.dir}/geogebra_dist" />
 		<mkdir dir="${build.dir}/geogebra_dist/src" />
+		<mkdir dir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts" />
+		
+
+		
+
+		
 		
 		<copy todir="${build.dir}/geogebra_dist/src">
 			<fileset dir="${mathpiper.dir}/src/" >
 				<include name="org/mathpiper/Version.java" />
 				<include name="org/mathpiper/HowToUse.java" />
 				<include name="org/mathpiper/builtin/" />
+				<exclude name="org/mathpiper/builtin/functions/optional/" />
+				<exclude name="org/mathpiper/builtin/functions/plugins/" />
 				<include name="org/mathpiper/exceptions/" />
 				<include name="org/mathpiper/interpreters/" />
 				<include name="org/mathpiper/io/" />
@@ -155,29 +163,30 @@
 				<include name="org/mathpiper/parametermatchers/" />
 				<include name="org/mathpiper/printers/" />
 				<include name="org/mathpiper/ui/text/consoles/" />
-				<exclude name="org/mathpiper/builtin/functions/ViewEnvironment.java" />
-				<exclude name="org/mathpiper/builtin/functions/Plot.java" />
-				<exclude name="org/mathpiper/builtin/functions/ViewSimulator.java" />
-				<exclude name="org/mathpiper/interpreters/AsynchronousInterpreter.java" />
+				<include name="org/mathpiper/ui/gui/consoles/" />
+
 			</fileset>
 		</copy>
-		
-		
-		
+
+
+
 		
 		<copy todir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts">
-			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" includes="*/rep/**/*" />
+			<fileset dir="${build.dir}/classes/org/mathpiper/scripts" includes="*.rep/**/*" />
 			<filterchain>
-			<filterreader classname="org.apache.tools.ant.filters.StripJavaComments">
-			<!--<param name="foo" value="bar"/>-->
-			</filterreader>
-			<!--<scriptfilter language="beanshell">
-			if (self.getToken().indexOf("bad") != -1) {
+				<filterreader classname="org.apache.tools.ant.filters.StripJavaComments">
+				<!--<param name="foo" value="bar"/>-->
+				</filterreader>
+				<!--<scriptfilter language="beanshell">
+				if (self.getToken().indexOf("bad") != -1) {
 				self.setToken(null);
 				}
-			</scriptfilter>-->
+				</scriptfilter>-->
 			</filterchain>
-		</copy>
+		</copy>		
+		
+
+
 		
 		
 	<!--	<mkdir dir="${build.dir}/geogebra_dist/classes" />
@@ -208,12 +217,21 @@
 
 	</target>
 	
-	<target id="geogebra_compile" name="geogebra_compile" >
+	<target id="geogebra_compile" name="geogebra_compile" depends="geogebra_dist" >
+	
+	      <delete dir="${build.dir}/geogebra_dist/build" />
+	      
+	      
 	      <mkdir dir="${build.dir}/geogebra_dist/build" />
 	      
+	      
+	      <mkdir dir="${build.dir}/geogebra_dist/build/org/mathpiper/test" />
+	      <copy file="${src.dir}/org/mathpiper/test/RunTestSuite.java" todir="${build.dir}/geogebra_dist/src/org/mathpiper/test"/>
+	     
+	      
 			<javac 
-			source="1.4"
-			target="1.4" 
+			source="1.5"
+			target="1.5" 
 			srcdir="${build.dir}/geogebra_dist/src"
 			destdir="${build.dir}/geogebra_dist/build"
 			debug="off"
@@ -224,12 +242,28 @@
 		</javac>
 		
 		
+		<delete dir="${build.dir}/geogebra_dist/src/org/mathpiper/test" />
+		
+		
+		<!-- Copy MathPiper scripts -->
 		<mkdir dir="${build.dir}/geogebra_dist/build/org/mathpiper/scripts" />
 		<copy todir="${build.dir}/geogebra_dist/build/org/mathpiper/scripts">
 			<fileset dir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
+		
+		
+		
+		<!-- Copy test scripts -->
+		<mkdir dir="${build.dir}/geogebra_dist/build/tests" />
+		<copy todir="${build.dir}/geogebra_dist/build/tests">
+			<fileset dir="${mathpiper.dir}/tests" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.dir}/geogebra_dist/build"/>
+		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.dir}/geogebra_dist/build"/>
 
 	</target>
 
