@@ -83,7 +83,7 @@ public class Histogram extends BuiltinFunction {
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
 
-        Map userOptions = Utility.optionsListToJavaMap(optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(optionsPointer, defaultOptions);
 
 
 

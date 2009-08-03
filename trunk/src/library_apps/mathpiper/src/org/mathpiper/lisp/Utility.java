@@ -27,7 +27,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import org.jfree.chart.plot.PlotOrientation;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
@@ -445,15 +444,7 @@ public class Utility {
             if (optionPointer.type() == Utility.ATOM) {
                 String value = (String) optionPointer.car();
                 value = Utility.stripEndQuotes(value);
-                if (key.equals("orientation")) {
-                    if (value.equals("vertical")) {
-                        userOptions.put(key, PlotOrientation.VERTICAL);
-                    } else if (value.equals("horizontal")) {
-                        userOptions.put(key, PlotOrientation.HORIZONTAL);
-                    } else {
-                        userOptions.put(key, PlotOrientation.VERTICAL);
-                    }//end if/else.
-                } else if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+                if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
                     userOptions.put(key, Boolean.parseBoolean(value));
                 } else {
                     userOptions.put(key, value);
@@ -496,14 +487,11 @@ public class Utility {
 
 
     public static String stripEndQuotes(String aOriginal) throws Exception {
-
-        LispError.check(aOriginal.startsWith("\""), "String is missing left quote character.");
-
-        LispError.check(aOriginal.endsWith("\""), "String is missing right quote character.");
-
-        aOriginal = aOriginal.substring(1, aOriginal.length());
-        
-        aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
+    //If there are not quotes on both ends of the string then return without any changes.
+        if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
+            aOriginal = aOriginal.substring(1, aOriginal.length());
+            aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
+        }//end if.
 
         return aOriginal;
     }//end method.

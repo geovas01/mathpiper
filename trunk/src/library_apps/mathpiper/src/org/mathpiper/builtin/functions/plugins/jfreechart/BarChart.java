@@ -79,7 +79,7 @@ public class BarChart extends BuiltinFunction {
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
 
-        Map userOptions = Utility.optionsListToJavaMap(optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(optionsPointer, defaultOptions);
 
         IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(dataListPointer, userOptions);
 
@@ -111,7 +111,7 @@ public class BarChart extends BuiltinFunction {
         renderer.setMargin(0.10);
 
         // create and display a frame...  Import("org/mathpiper/builtin/functions/plugins/jfreechart/")
-        //ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);
+        // ChartFrame frame = new ChartFrame(null, chart);frame.pack();frame.setVisible(true);
 
 
         if (chart == null) {

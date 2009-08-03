@@ -79,7 +79,7 @@ public class LineChart extends BuiltinFunction {
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
 
-        Map userOptions = Utility.optionsListToJavaMap(optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(optionsPointer, defaultOptions);
 
         IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(dataListPointer, userOptions);
 
