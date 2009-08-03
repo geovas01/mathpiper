@@ -311,7 +311,7 @@ neither rational nor numeric, the function returns unevaluated.
 	In> Denom(5)
 	Out> 1;
 
-*SEE Numer, IsRational, IsNumber
+*SEE Numerator, IsRational, IsNumber
 %/mathpiper_docs
 
 
