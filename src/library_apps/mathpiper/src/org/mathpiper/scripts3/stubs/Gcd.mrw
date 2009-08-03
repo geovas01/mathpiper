@@ -17,7 +17,7 @@
 
 5 # Gcd(n_IsRational,m_IsRational) <--
 [
-  Gcd(Numer(n),Numer(m))/Lcm(Denom(n),Denom(m));
+  Gcd(Numerator(n),Numerator(m))/Lcm(Denom(n),Denom(m));
 ];
 
 

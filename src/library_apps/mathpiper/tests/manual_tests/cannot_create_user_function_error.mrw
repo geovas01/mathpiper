@@ -24,12 +24,12 @@
 
     s := MultiSimp(Eval(expr));
 
-    If(IsRationalFunction(s) And ( Type(Numer(s)) != "Numer") And ( Type(Denom(s)) != "Denom"),
+    If(IsRationalFunction(s) And ( Type(Numerator(s)) != "Numer") And ( Type(Denom(s)) != "Denom"),
     [
         Echo("s ",s);
-        Echo("Numer(s) ", Numer(s));
+        Echo("Numerator(s) ", Numerator(s));
         Echo("Denom(s) ", Denom(s));
-        g := Gcd(Numer(s),Denom(s));
+        g := Gcd(Numerator(s),Denom(s));
         Echo("g ",g);
         If( InVerboseMode(),
           [
@@ -43,11 +43,11 @@
 
         If( s=expr,
               [
-                  If( Equals(Numer(expr),-Denom(expr)), s := -1 );
+                  If( Equals(Numerator(expr),-Denom(expr)), s := -1 );
                   /* And here one can put other simplifications, as they are developed */
               ],
               [
-                  s := Simplify((Numer(expr)/g))/Simplify(Denom(expr)/g);
+                  s := Simplify((Numerator(expr)/g))/Simplify(Denom(expr)/g);
 
                   If(InVerboseMode(),Tell(14,s));
               ]

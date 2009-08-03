@@ -39,7 +39,7 @@ HalfIntegerFactorial(n_IsOdd) _ (n<0)  <--
 //HalfIntegerFactorial(n_IsOdd) _ (n= -1)  <-- Sqrt(Pi);
 
 /* Want to also compute (2.5)! */
-40 # (n_IsRationalOrNumber)! _(Denom(Rationalize(n))=2) <-- HalfIntegerFactorial(Numer(Rationalize(n)));
+40 # (n_IsRationalOrNumber)! _(Denom(Rationalize(n))=2) <-- HalfIntegerFactorial(Numerator(Rationalize(n)));
 
 /// partial factorial
 n1_IsRationalOrNumber *** n2_IsRationalOrNumber <--

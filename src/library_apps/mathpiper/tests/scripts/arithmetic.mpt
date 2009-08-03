@@ -16,7 +16,7 @@ Verify(IsRational(2/5),True);
 Verify(IsRational(-2/5),True);
 Verify(IsRational(2.0/5),False);
 Verify(IsRational(Pi/2),False);
-Verify(Numer(2/5),2);
+Verify(Numerator(2/5),2);
 Verify(Denom(2/5),5);
 
 VerifyArithmetic(10,5,8);

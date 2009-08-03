@@ -35,9 +35,9 @@
 10 # Ceil (x_IsNumber) <-- CeilN (x);
 10 # Round(x_IsNumber) <-- FloorN(x+0.5);
 
-20 # Floor(x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- FloorN(N(x));
-20 # Ceil (x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- CeilN (N(x));
-20 # Round(x_IsRational) _ (IsNumber(Numer(x)) And IsNumber(Denom(x))) <-- FloorN(N(x+0.5));
+20 # Floor(x_IsRational) _ (IsNumber(Numerator(x)) And IsNumber(Denom(x))) <-- FloorN(N(x));
+20 # Ceil (x_IsRational) _ (IsNumber(Numerator(x)) And IsNumber(Denom(x))) <-- CeilN (N(x));
+20 # Round(x_IsRational) _ (IsNumber(Numerator(x)) And IsNumber(Denom(x))) <-- FloorN(N(x+0.5));
 */
 
 %/mathpiper
