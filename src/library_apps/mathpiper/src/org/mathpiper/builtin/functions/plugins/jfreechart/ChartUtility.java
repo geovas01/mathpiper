@@ -19,20 +19,44 @@ package org.mathpiper.builtin.functions.plugins.jfreechart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYBarDataset;
-import org.jfree.data.xy.XYDataset;
+import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.NumberCons;
 
 
 public class ChartUtility {
+
+
+    public static Map optionsListToJavaMap(ConsPointer argumentsPointer, Map defaultOptions) throws Exception {
+
+        Map userOptions = Utility.optionsListToJavaMap(argumentsPointer, defaultOptions);
+
+
+        if (userOptions.containsKey("orientation")) {
+                    if (userOptions.get("orientation").equals("vertical")) {
+                        userOptions.put("orientation", PlotOrientation.VERTICAL);
+                    } else if (userOptions.get("orientation").equals("horizontal")) {
+                        userOptions.put("orientation", PlotOrientation.HORIZONTAL);
+                    } else {
+                        userOptions.put("orientation", PlotOrientation.VERTICAL);
+                    }//end if/else.
+                }
+
+        return userOptions;
+    }//end method.
+
+
 
     public static HistogramDataset listToHistogramDataset(ConsPointer dataListPointer, Map userOptions) throws Exception {
 
