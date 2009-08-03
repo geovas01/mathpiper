@@ -15,7 +15,7 @@ BernoulliFracPart(n_IsEven)_(n>=2) <-- [
 		If(Mod(n, p-1)=0, sum := sum + 1/p);
 	// for negative Bernoulli numbers, let's change sign
 	// Mod(n/2, 2) is 0 for negative Bernoulli numbers and 1 for positive ones
-	Div(Numerator(sum), Denom(sum)) - sum
+	Div(Numerator(sum), Denominator(sum)) - sum
 		 + Mod(n/2,2);	// we'll return a negative number if the Bernoulli itself is negative -- slightly against our definitions in the manual
 		//+ 1;	// this would be exactly like the manual says
 ];
