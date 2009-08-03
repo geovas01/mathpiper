@@ -203,6 +203,7 @@ LineChart({domain, sample1, domain, sample2, domain, sample3});
 
 %mathpiper,title=""
 
+Clear(x);
 Plot2D(x^2);
 
 %/mathpiper
@@ -213,6 +214,7 @@ Plot2D(x^2);
 
 %mathpiper,title=""
 
+Clear(x);
 Plot2D({x, x^2});
 
 %/mathpiper
