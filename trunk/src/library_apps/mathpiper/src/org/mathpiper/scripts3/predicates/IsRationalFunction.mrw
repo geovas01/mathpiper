@@ -10,7 +10,7 @@ Retract("IsRationalFunction",*);
 
 15 # IsRationalFunction(_expr,_x)_(Type(expr)="/") <-- 
 [
-    If( Contains(VarList(Numerator(expr)),x) Or Contains(VarList(Denom(expr)),x),
+    If( Contains(VarList(Numerator(expr)),x) Or Contains(VarList(Denominator(expr)),x),
         True,
         False
       );

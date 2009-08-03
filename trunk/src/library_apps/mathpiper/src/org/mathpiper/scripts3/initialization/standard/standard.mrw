@@ -67,8 +67,8 @@ Function("NrArgs",{aLeft}) Length(Listify(aLeft))-1;
 
 1 # Numerator(_x / _y)      <-- x;
 2 # Numerator(x_IsNumber)   <-- x;
-1 # Denom(_x / _y)      <-- y;
-2 # Denom(x_IsNumber)   <-- 1;
+1 # Denominator(_x / _y)      <-- y;
+2 # Denominator(x_IsNumber)   <-- 1;
 
 /* Implementation of numeric mode */
 LocalSymbols(Numeric) [
@@ -280,16 +280,16 @@ rational nor numeric, the function returns unevaluated.
 	In> Numerator(5)
 	Out> 5;
 
-*SEE Denom, IsRational, IsNumber
+*SEE Denominator, IsRational, IsNumber
 %/mathpiper_docs
 
 
 
-%mathpiper_docs,name="Denom",categories="User Functions;Numbers (Operations)"
-*CMD Denom --- denominator of an expression
+%mathpiper_docs,name="Denominator",categories="User Functions;Numbers (Operations)"
+*CMD Denominator --- denominator of an expression
 *STD
 *CALL
-	Denom(expr)
+	Denominator(expr)
 
 *PARMS
 
@@ -304,11 +304,11 @@ neither rational nor numeric, the function returns unevaluated.
 
 *E.G.
 
-	In> Denom(2/7)
+	In> Denominator(2/7)
 	Out> 7;
-	In> Denom(a / x^2)
+	In> Denominator(a / x^2)
 	Out> x^2;
-	In> Denom(5)
+	In> Denominator(5)
 	Out> 1;
 
 *SEE Numerator, IsRational, IsNumber

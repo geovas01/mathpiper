@@ -91,7 +91,7 @@ Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
     {
       (x_IsOdd + y_IsEven) <- m1,
       (x_IsEven + y_IsOdd) <- m2,
-      (x_IsRational + y_IsAtom)_(Denom(x) = 2) <- m3,
+      (x_IsRational + y_IsAtom)_(Denominator(x) = 2) <- m3,
     };
 
     %output,preserve="false"

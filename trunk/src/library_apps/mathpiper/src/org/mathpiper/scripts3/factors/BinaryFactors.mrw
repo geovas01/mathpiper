@@ -97,7 +97,7 @@ Function(Fct,{poly,var})
   ];
 
   Local(unrat);
-  Set(unrat,Lcm(MapSingle("Denom",poly)));
+  Set(unrat,Lcm(MapSingle("Denominator",poly)));
   Set(poly,unrat*poly);
 
   Local(origdegree);

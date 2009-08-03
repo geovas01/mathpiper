@@ -19,16 +19,16 @@ Function() MultiplyNum(x);
 [
 	If(
         Type(y) = "/",  // IsRational(y), changed by Nobbi before redefinition of IsRational
-		DivideN(Numerator(x)*Numerator(y), Denom(x)*Denom(y)),
+		DivideN(Numerator(x)*Numerator(y), Denominator(x)*Denominator(y)),
 		// y is floating-point
 		// avoid multiplication or division by 1
 		If(
 			Numerator(x)=1,
-			DivideN(y, Denom(x)),
+			DivideN(y, Denominator(x)),
 			If(
-				Denom(x)=1,
+				Denominator(x)=1,
 				MultiplyN(y, Numerator(x)),
-				DivideN(MultiplyN(y, Numerator(x)), Denom(x))
+				DivideN(MultiplyN(y, Numerator(x)), Denominator(x))
 			)
 		)
 	);

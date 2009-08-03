@@ -53,5 +53,5 @@ number, i.e. an integer or a fraction of integers.
 	In> IsRational(x + 1/x)
 	Out> False;
 
-*SEE Numerator, Denom
+*SEE Numerator, Denominator
 %/mathpiper_docs

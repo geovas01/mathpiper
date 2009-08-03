@@ -7,9 +7,9 @@
 [
   Local(n1,n2,m1,m2,sgn1,sgn2);
   n1:=Numerator(n);
-  n2:=Denom(n);
+  n2:=Denominator(n);
   m1:=Numerator(m);
-  m2:=Denom(m);
+  m2:=Denominator(m);
   sgn1 := Sign(n1*m2);
   sgn2 := Sign(m1*n2);
   sgn1*sgn2*Floor(DivideN(sgn1*n1*m2,sgn2*m1*n2));
