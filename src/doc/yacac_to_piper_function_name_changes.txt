@@ -43,6 +43,7 @@ MM -> InternalForm
 ============================= Changes that have already been done.
 //Changed these function names.
 
+
 EquLeft -> EquationLeft
 EquRight -> EquationRight
 Factorize -> Product
@@ -53,6 +54,8 @@ PDF -> ProbabilityDensityFunction
 CDF -> CumulativeDistributionFunction
 Bin -> BinomialCoefficient and the synonym Combinations has been added for BinomialCoefficient.
 Permutations -> PermuteList.
+Numer -> Numerator
+Denom -> Denominator
 
 
 
