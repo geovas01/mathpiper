@@ -147,5 +147,5 @@ Echo("Loop count: ", loopCount);
       Loop count: 2
 .   /%/output
 
-*SEE While, For, ForEach, Break
+*SEE While, For, ForEach, Break, Continue
 %/mathpiper_docs

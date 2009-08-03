@@ -13,26 +13,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.core;
 
+
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.exceptions.BreakException;
+import org.mathpiper.exceptions.ContinueException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 
+
 /**
  *
  *  
  */
-public class While extends BuiltinFunction
-{
+public class While extends BuiltinFunction {
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
-    {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         ConsPointer arg1 = getArgumentPointer(aEnvironment, aStackTop, 1);
         ConsPointer arg2 = getArgumentPointer(aEnvironment, aStackTop, 2);
 
@@ -41,39 +41,52 @@ public class While extends BuiltinFunction
 
         ConsPointer evaluated = new ConsPointer();
 
-        try{
-        while (Utility.isTrue(aEnvironment, predicate))
-        {
-            
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, arg2);
+        try {
+            while (Utility.isTrue(aEnvironment, predicate)) {
 
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, arg1);
+                int beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                int beforeEvaluationDepth = aEnvironment.iEvalDepth;
 
-        }//end while.
-        LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
-        }catch (BreakException be)
-        {
-            //eat exception.
+                try {
+
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, arg2);
+
+                } catch (ContinueException ce) {
+                    aEnvironment.iArgumentStack.popTo(beforeStackTop);
+                    aEnvironment.iEvalDepth = beforeEvaluationDepth;
+                    Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                }//end continue catch.
+
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, arg1);
+
+            }//end while.
+
+            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
+
+        } catch (BreakException be) {
+            //Eat exception.
         }
 
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
+
+
 }
 
 /*
 %mathpiper_docs,name="While",categories="User Functions;Control Flow;Built In"
-*CMD While --- loop while a condition is met
-*CORE
-*CALL
-	While(pred) body
+ *CMD While --- loop while a condition is met
+ *CORE
+ *CALL
+While(pred) body
 
-*PARMS
+ *PARMS
 
 {pred} -- predicate deciding whether to keep on looping
 
 {body} -- expression to loop over
 
-*DESC
+ *DESC
 
 Keep on evaluating "body" while "pred" evaluates to {True}. More precisely, {While}
 evaluates the predicate "pred", which should evaluate to either {True} or {False}. If the result is {True}, the expression "body" is evaluated and then
@@ -84,24 +97,24 @@ returns {True}.
 In particular, if "pred" immediately evaluates to {False}, the body is never executed. {While} is the fundamental looping construct on which
 all other loop commands are based. It is equivalent to the {while} command in the programming language C.
 
-*E.G. notest
+ *E.G. notest
 
-	In> x := 0;
-	Out> 0;
-	In> While (x! < 10^6) \
-	  [ Echo({x, x!}); x++; ];
-	 0  1
-	 1  1
-	 2  2
-	 3  6
-	 4  24
-	 5  120
-	 6  720
-	 7  5040
-	 8  40320
-	 9  362880
-	Out> True;
+In> x := 0;
+Out> 0;
+In> While (x! < 10^6) \
+[ Echo({x, x!}); x++; ];
+0  1
+1  1
+2  2
+3  6
+4  24
+5  120
+6  720
+7  5040
+8  40320
+9  362880
+Out> True;
 
-*SEE Until, For, ForEach, Break
+ *SEE Until, For, ForEach, Break, Continue
 %/mathpiper_docs
-*/
+ */

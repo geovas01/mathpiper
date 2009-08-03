@@ -6,6 +6,6 @@
 package org.mathpiper.exceptions;
 
 
-public class BreakException extends Exception{
+public class ContinueException extends Exception{
 
 }
