@@ -41,11 +41,14 @@ public class While extends BuiltinFunction {
 
         ConsPointer evaluated = new ConsPointer();
 
+        int beforeStackTop = -1;
+        int beforeEvaluationDepth = -1;
+        
         try {
             while (Utility.isTrue(aEnvironment, predicate)) {
 
-                int beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                int beforeEvaluationDepth = aEnvironment.iEvalDepth;
+                beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                beforeEvaluationDepth = aEnvironment.iEvalDepth;
 
                 try {
 
@@ -64,7 +67,8 @@ public class While extends BuiltinFunction {
             LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
 
         } catch (BreakException be) {
-            //Eat exception.
+              aEnvironment.iArgumentStack.popTo(beforeStackTop);
+              aEnvironment.iEvalDepth = beforeEvaluationDepth;
         }
 
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
