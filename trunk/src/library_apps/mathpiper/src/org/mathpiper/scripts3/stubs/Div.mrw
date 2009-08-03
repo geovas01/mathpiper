@@ -6,9 +6,9 @@
 2 # Div(n_IsRationalOrNumber,m_IsRationalOrNumber) <--
 [
   Local(n1,n2,m1,m2,sgn1,sgn2);
-  n1:=Numer(n);
+  n1:=Numerator(n);
   n2:=Denom(n);
-  m1:=Numer(m);
+  m1:=Numerator(m);
   m2:=Denom(m);
   sgn1 := Sign(n1*m2);
   sgn2 := Sign(m1*n2);

@@ -1,6 +1,6 @@
 %mathpiper
 
-10 # Factors(p_IsRational)_(Denom(p) != 1) <-- {{Factor(Numer(p)) / Factor(Denom(p)) , 1}};
+10 # Factors(p_IsRational)_(Denom(p) != 1) <-- {{Factor(Numerator(p)) / Factor(Denom(p)) , 1}};
 
 %/mathpiper
 

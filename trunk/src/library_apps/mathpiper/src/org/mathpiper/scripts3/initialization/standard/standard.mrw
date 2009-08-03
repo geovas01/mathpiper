@@ -65,8 +65,8 @@ Function("NrArgs",{aLeft}) Length(Listify(aLeft))-1;
 10 # IsNonObject(Object(_x)) <-- False;
 20 # IsNonObject(_x)         <-- True;
 
-1 # Numer(_x / _y)      <-- x;
-2 # Numer(x_IsNumber)   <-- x;
+1 # Numerator(_x / _y)      <-- x;
+2 # Numerator(x_IsNumber)   <-- x;
 1 # Denom(_x / _y)      <-- y;
 2 # Denom(x_IsNumber)   <-- 1;
 
@@ -254,11 +254,11 @@ be evaluated after switching to numeric mode.
 
 
 
-%mathpiper_docs,name="Numer",categories="User Functions;Numbers (Operations)"
-*CMD Numer --- numerator of an expression
+%mathpiper_docs,name="Numerator",categories="User Functions;Numbers (Operations)"
+*CMD Numerator --- numerator of an expression
 *STD
 *CALL
-	Numer(expr)
+	Numerator(expr)
 
 *PARMS
 
@@ -273,11 +273,11 @@ rational nor numeric, the function returns unevaluated.
 
 *E.G.
 
-	In> Numer(2/7)
+	In> Numerator(2/7)
 	Out> 2;
-	In> Numer(a / x^2)
+	In> Numerator(a / x^2)
 	Out> a;
-	In> Numer(5)
+	In> Numerator(5)
 	Out> 5;
 
 *SEE Denom, IsRational, IsNumber

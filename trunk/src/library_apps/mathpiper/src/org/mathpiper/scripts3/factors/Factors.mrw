@@ -2,7 +2,7 @@
 
 /* New factorization : split between integers and polynomials. */
 10 # Factors(p_IsInteger) <-- FactorizeInt(p);
-10 # Factors(p_IsRational)_(Denom(p) != 1) <-- {{Factor(Numer(p)) /Factor(Denom(p)) , 1}}; //Added to handle rational numbers with denominators that are not 1.
+10 # Factors(p_IsRational)_(Denom(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denom(p)) , 1}}; //Added to handle rational numbers with denominators that are not 1.
 20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  BinaryFactors(p);
 30 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
 

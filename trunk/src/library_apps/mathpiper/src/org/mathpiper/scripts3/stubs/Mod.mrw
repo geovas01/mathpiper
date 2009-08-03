@@ -18,9 +18,9 @@
 5 # Mod(n_IsRationalOrNumber,m_IsRationalOrNumber)/*_(n>0 And m>0)*/ <--
 [
   Local(n1,n2,m1,m2);
-  n1:=Numer(n);
+  n1:=Numerator(n);
   n2:=Denom(n);
-  m1:=Numer(m);
+  m1:=Numerator(m);
   m2:=Denom(m);
   Mod(n1*m2,m1*n2)/(n2*m2);
 ];
