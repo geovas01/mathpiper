@@ -437,6 +437,7 @@ public class Utility {
             optionPointer.goNext();
             LispError.check(optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT);
             String key = (String) optionPointer.car();
+            key = Utility.stripEndQuotes(key);
 
             //Obtain value.
             optionPointer.goNext();
