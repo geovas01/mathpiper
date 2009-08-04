@@ -317,12 +317,13 @@ public class Environment {
         userFunc.unFence();
     }
 
-    public MultipleArityUserFunction getMultipleArityUserFunction(String aOperator) throws Exception {
-        // Find existing multiuser func.
+    public MultipleArityUserFunction getMultipleArityUserFunction(String aOperator, boolean create) throws Exception {
+        // Find existing multiuser func.  Todo:tk:a user function name is added to the list even if a non-existing function
+        // is being executed or looked for by FindFunction();
         MultipleArityUserFunction multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
 
         // If none exists, add one to the user functions list
-        if (multipleArityUserFunction == null) {
+        if (multipleArityUserFunction == null && create == true) {
             MultipleArityUserFunction newMultipleArityUserFunction = new MultipleArityUserFunction();
             iUserFunctions.setAssociation(newMultipleArityUserFunction, aOperator);
             multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
@@ -332,7 +333,7 @@ public class Environment {
     }
 
     public void declareRulebase(String aOperator, ConsPointer aParametersPointer, boolean aListed) throws Exception {
-        MultipleArityUserFunction multipleArityUserFunction = getMultipleArityUserFunction(aOperator);
+        MultipleArityUserFunction multipleArityUserFunction = getMultipleArityUserFunction(aOperator, true);
 
         // add an operator with this arity to the multiuserfunc.
         SingleArityBranchingUserFunction newBranchingUserFunction;
@@ -365,7 +366,7 @@ public class Environment {
     }
 
     public void declareMacroRulebase(String aFunctionName, ConsPointer aParameters, boolean aListed) throws Exception {
-        MultipleArityUserFunction multipleArityUserFunc = getMultipleArityUserFunction(aFunctionName);
+        MultipleArityUserFunction multipleArityUserFunc = getMultipleArityUserFunction(aFunctionName, true);
 
         MacroUserFunction newMacroUserFunction;
 

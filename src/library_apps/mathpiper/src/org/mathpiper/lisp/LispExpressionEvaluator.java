@@ -163,7 +163,7 @@ public class LispExpressionEvaluator extends Evaluator {
         if (userFunc != null) {
             return userFunc;
         } else if (head.car() instanceof String) {
-            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( (String) head.car());
+            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( (String) head.car(), true);
             if (multiUserFunc.iFileToOpen != null) {
                 DefFile def = multiUserFunc.iFileToOpen;
 

@@ -823,7 +823,7 @@ public class Utility {
                 } // Else evaluate
                 else {
                     String str = token;
-                    MultipleArityUserFunction multiUser = aEnvironment.getMultipleArityUserFunction(str);
+                    MultipleArityUserFunction multiUser = aEnvironment.getMultipleArityUserFunction(str, true);
                     if (multiUser.iFileToOpen != null) {
                         throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, -1);
                     }
