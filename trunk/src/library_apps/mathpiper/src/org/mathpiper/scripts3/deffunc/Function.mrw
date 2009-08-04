@@ -4,9 +4,7 @@
  * with only one rule.
  */
 RuleBase("Function",{oper,args,body});
-HoldArg("Function",oper);
-HoldArg("Function",args);
-HoldArg("Function",body);
+
 
 
 // function with variable number of arguments: Function("func",{x,y, ...})body;
@@ -59,6 +57,10 @@ Rule("Function",1,2048,
 	);
 ];
 
+
+HoldArg("Function",oper);
+HoldArg("Function",args);
+HoldArg("Function",body);
 
 %/mathpiper
 
