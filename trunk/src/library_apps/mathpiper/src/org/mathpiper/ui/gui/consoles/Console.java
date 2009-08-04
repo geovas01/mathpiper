@@ -208,6 +208,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             JOptionPane.showMessageDialog(this, this.helpMessage);
         } else if (src == clearConsoleButton) {
             this.textArea.setText("");
+            this.textArea.append("In> ");
         } else if (src == clearRawButton) {
             this.rawOutputTextArea.setText("");
         }
