@@ -25,20 +25,20 @@ Plot2DOutputs() := options;
 
 /*
 	How backends work:
-	Plot2D'<backend>(values, options'hash)
-	options'hash is a hash that contains all plotting options:
+	Plot2D'<backend>(values, optionsHash)
+	optionsHash is a hash that contains all plotting options:
 	["xrange"] - a list of {x1, x2}, ["xname"] - name of the variable to plot, ["yname"] - array of string representations of the function(s), and perhaps other options relevant to the particular backend.
 	{values} is a list of lists of pairs of the form {{{x1, y1}, {x2, y2}, ...}, {{x1, z1}, {x2, z2}, ...}, ...} corresponding to the functions y(x), z(x), ... to be plotted. The abscissa points x[i] are not the same for all functions.
-	The backend should prepare the graph of the function(s). The "datafile" backend Plot2D'datafile(values, options'hash) may be used to output all data to file(s), in which case the file name should be given by the value options'hash["filename"]. Multiple files are created with names obtained by appending numbers to the filename.
+	The backend should prepare the graph of the function(s). The "datafile" backend Plot2D'datafile(values, optionsHash) may be used to output all data to file(s), in which case the file name should be given by the value optionsHash["filename"]. Multiple files are created with names obtained by appending numbers to the filename.
 	Note that the "data" backend does not do anything and simply returns the data.
 	The backend Plot2D'datafile takes care not to write "Infinity" or "Undefined" data points (it just ignores them). Custom backends should either use Plot2D'datafile or take care of this themselves.
 */
 
 /// trivial backend: return data list (do not confuse with Plot2D'get'data() defined in the main code which is the middle-level plotting routine)
-Plot2DData(values_IsList, _options'hash) <-- values;
+Plot2DData(values_IsList, _optionsHash) <-- values;
 
 /// The Java back-end generates a call-list that the Java graph plotter can handle
-Plot2DJava(values_IsList, _options'hash) <--
+Plot2DJava(values_IsList, _optionsHash) <--
 [
   Local(result,count);
   count := 0;
@@ -71,7 +71,7 @@ Plot2DJava(values_IsList, _options'hash) <--
 
 
 //GeoGebra backend.
-Plot2DGeogebra(values_IsList, _options'hash) <--
+Plot2DGeogebra(values_IsList, _optionsHash) <--
 [
   Local(result,count);
   count := 0;
@@ -97,38 +97,61 @@ Plot2DGeogebra(values_IsList, _options'hash) <--
 
 //JFreeChart backend.
 Retract("Plot2DJFreeChart", *);
-Plot2DJFreeChart(values_IsList, _options'hash) <--
+Plot2DJFreeChart(values_IsList, _optionsHash) <--
 [
-  Local(result,count, rangeList, domainList, allProcessedFunctionData);
-  count := 0;
-  result:="";
-  
-
-  allProcessedFunctionData := {};
-
-  ForEach(function,values)
-  [
-  
-    rangeList := {};
-  
-    domainList := {};
-
-    function := Select(Lambda({item},item[2] != Undefined),function);
-
-    ForEach(item,function)
+    Local(rangeList, domainList, function, allProcessedFunctionData, lineChartCallListForm);
+    
+    
+    
+    //Remove Plot2D's options so that they don't get passed through to LineChart();
+    ForEach(name, {"xrange", "xname", "yname", "output", "precision", "points", "depth"})
     [
-        rangeList := Append(rangeList, item[1]);
-      
-        domainList := Append(domainList, item[2]);
+        AssocDelete(optionsHash, name);
     ];
     
-    allProcessedFunctionData := Append(allProcessedFunctionData, rangeList);
-    allProcessedFunctionData := Append(allProcessedFunctionData, domainList);
     
-  ];
+    
+    //Convert {x,y} pairs into {x,x,x,...} {y,y,y,...} form.
+    allProcessedFunctionData := {};
+    
+    ForEach(function,values)
+    [
+        rangeList := {};
+        
+        domainList := {};
+        
+        function := Select(Lambda({item},item[2] != Undefined),function);
+        
+        ForEach(item,function)
+        [
+            rangeList := Append(rangeList, item[1]);
+          
+            domainList := Append(domainList, item[2]);
+        ];
+        
+        allProcessedFunctionData := Append(allProcessedFunctionData, rangeList);
+        allProcessedFunctionData := Append(allProcessedFunctionData, domainList);
+    
+    ];
 
 
-  LineChart(allProcessedFunctionData);
+    
+    //Put LineChart() function call into list form so it can be manipulated.
+    lineChartCallListForm := {LineChart, allProcessedFunctionData };
+    
+    
+    
+    //Add any options to the list.
+    ForEach(key, AssocIndices(optionsHash))
+    [
+        lineChartCallListForm := Append(lineChartCallListForm, Apply("->", {key, optionsHash[key]}));
+    ];
+    
+    
+    
+    //Call the LineChart() function.
+    Eval(UnList(lineChartCallListForm));
+    
 
 ];
 
@@ -139,8 +162,5 @@ Plot2DJFreeChart(values_IsList, _options'hash) <--
     %output,preserve="false"
       Result: True
 .   %/output
-
-
-
 
 
