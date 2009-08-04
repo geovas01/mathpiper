@@ -156,7 +156,6 @@ vfs.browser.modified.width=100
 view.style.comment4=color\:\#0000cc bgColor\:\#e7e7ff
 view.style.comment3=color\:\#0000cc bgColor\:\#dbffdb
 hypersearch-results.multi=false
-u6502.dock-position=right
 geogebra.extendedState=0
 log-viewer.y=50
 log-viewer.x=50
