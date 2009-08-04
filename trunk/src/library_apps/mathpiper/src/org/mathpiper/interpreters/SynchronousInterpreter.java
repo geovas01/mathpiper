@@ -278,6 +278,8 @@ class SynchronousInterpreter implements Interpreter {
 
             Evaluator.DEBUG = false;
             Evaluator.VERBOSE_DEBUG = false;
+            Evaluator.TRACE_TO_STANDARD_OUT = false;
+            Evaluator.iTraced = false;
             
             if (exception instanceof EvaluationException) {
                 EvaluationException mpe = (EvaluationException) exception;
