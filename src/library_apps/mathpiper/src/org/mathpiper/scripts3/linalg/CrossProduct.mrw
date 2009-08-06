@@ -8,7 +8,7 @@ Function("CrossProduct",{aLeft,aRight})
   Check(length = Length(aRight),"OutProduct: error, vectors not of the same dimension");
 
   Local(perms);
-  perms := Permute({1,2,3});
+  perms := PermutationsList({1,2,3});
 
   Local(result);
   result:=ZeroVector(3);

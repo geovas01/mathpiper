@@ -5,7 +5,7 @@ Function("SolveMatrix",{matrix,vector})
   Local(perms,indices,inv,det,n);
   n:=Length(matrix);
   indices:=Table(i,i,1,n,1);
-  perms:=Permute(indices);
+  perms:=PermutationsList(indices);
   inv:=ZeroVector(n);
   det:=0;
   ForEach(item,perms)
