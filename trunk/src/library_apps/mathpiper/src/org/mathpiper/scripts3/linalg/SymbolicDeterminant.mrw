@@ -5,7 +5,7 @@
   Local(perms,indices,result);
   Check((IsMatrix(matrix)),"Determinant: Argument must be a matrix");
   indices:=Table(i,i,1,Length(matrix),1);
-  perms:=Permute(indices);
+  perms:=PermutationsList(indices);
   result:=0;
   ForEach(item,perms)
      result:=result+Product(i,1,Length(matrix),matrix[i][item[i] ])*

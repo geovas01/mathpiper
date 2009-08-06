@@ -1,4 +1,4 @@
-%mathpiper,def="BinomialCoefficient;Combinations"
+%mathpiper,def="Combinations;BinomialCoefficient"
 
 /* Binomials -- now using partial factorial for speed */
 // BinomialCoefficient(n,m) = BinomialCoefficient(n, n-m)
@@ -13,41 +13,42 @@ Combinations(n,m) := BinomialCoefficient(n,m);
 
 
 
-%mathpiper_docs,name="BinomialCoefficient;Combinations",categories="User Functions;Combinatorics"
-*CMD BinomialCoefficient/Combinations --- binomial coefficient/combinations
+%mathpiper_docs,name="Combinations;BinomialCoefficient",categories="User Functions;Combinatorics"
+*CMD Combinations/BinomialCoefficient --- combinations/ binomial coefficient
 *STD
 *CALL
-	BinomialCoefficient(n, m)
-        Combinations(n, m)
+        Combinations(n, r)
+	BinomialCoefficient(n, r)
 
 *PARMS
 
-{n}, {m} -- integers
+{n} -- integer - total number of objects
+{r} -- integer - number of objects chosen
 
 *DESC
 
 These functions are actually two names for a single function.
 
+In combinatorics, the function is thought of as being the number of ways
+to choose "r" objects out of a total of "n" objects if order is
+not taken into account.
+
 In mathematics the function is called the binomial coefficient function
-and it is thought of as the coefficient of the x^m term in the polynomial expansion
+and it is thought of as the coefficient of the x^r term in the polynomial expansion
 of the binomial power (1 + x)^n.
 
 The binomial coefficient is defined to be zero
-if "m" is negative or greater than "n"; {BinomialCoefficient(0,0)}=1.
+if "r" is negative or greater than "n"; {BinomialCoefficient(0,0)}=1.
 
-
-
-In combinatorics, the function is thought of as being the number of ways
-to choose "m" objects out of a total of "n" objects if order is
-not taken into account. 
 
 *E.G.
+
+        In> Combinations(10, 4)
+	Out> 210;
 
 	In> BinomialCoefficient(10, 4)
 	Out> 210;
 
-        In> Combinations(10, 4)
-	Out> 210;;
 
-*SEE !, Eulerian
+*SEE CombinationsAll, Permutations, PermutationsAll, !, Eulerian
 %/mathpiper_docs

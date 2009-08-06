@@ -1,4 +1,4 @@
-%mathpiper,title=""
+%mathpiper,def="Permutations"
 
 Permutations(n, r) :=
 [
@@ -13,17 +13,26 @@ Permutations(n, r) :=
 
 
 
+%mathpiper_docs,name="Permutations",categories="User Functions;Combinatorics"
+*CMD Permutations --- number of permutations
+*STD
+*CALL
+	Combinations(n, r)
 
+*PARMS
 
+{n} -- integer - total number of objects
+{r} -- integer - number of objects chosen
 
-%mathpiper,title="",scope="nobuild",subtype="manual_test"
+*DESC
 
-a := Permutations(12,5);
+In combinatorics, the function is thought of as being the number of ways
+to choose "r" objects out of a total of "n" objects if order is taken into account.
 
-%/mathpiper
+*E.G.
 
-    %output,preserve="false"
-      Result: 95040
-.   %/output
+In> Permutations(10,3)
+Result> 720
 
-
+*SEE PermutationsAll, Combinations, CombinationaAll, LeviCivita
+%/mathpiper_docs

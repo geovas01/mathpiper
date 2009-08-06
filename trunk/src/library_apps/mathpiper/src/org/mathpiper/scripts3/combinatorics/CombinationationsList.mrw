@@ -1,0 +1,25 @@
+%mathpiper,def=""
+
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="CombinationsList",categories="User Functions;Combinatorics"
+*CMD CombinationsList --- get all permutations of a list
+*STD
+*CALL
+	CombinationsList(list)
+
+*PARMS
+
+{list} -- a list of elements
+
+*DESC
+
+CombinationsList returns a list with all the permutations of
+the original list.
+
+
+*SEE Permutations, Combinations, CombinationsList, LeviCivita
+%/mathpiper_docs

@@ -1,6 +1,6 @@
-%mathpiper,def="Permute"
+%mathpiper,def="PermutationsList"
 
-Function("Permute",{result,list})
+Function("PermutationsList",{result,list})
 [
   If (Length(list) = 0,
   [
@@ -20,25 +20,25 @@ Function("Permute",{result,list})
       ];
     ];
     newresult:=DestructiveReverse(newresult);
-    Permute(newresult,Rest(list));
+    PermutationsList(newresult,Rest(list));
   ]);
 ];
 
 
-Function("Permute",{list})
+Function("PermutationsList",{list})
 [
-  Permute({{}},list);
+  PermutationsList({{}},list);
 ];
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Permute",categories="User Functions;Combinatorics"
-*CMD Permute --- get all permutations of a list
+%mathpiper_docs,name="PermutationsList",categories="User Functions;Combinatorics"
+*CMD PermutationsList --- get all permutations of a list
 *STD
 *CALL
-	Permute(list)
+	PermutationsList(list)
 
 *PARMS
 
@@ -46,14 +46,14 @@ Function("Permute",{list})
 
 *DESC
 
-Permute returns a list with all the permutations of
+PermutationsList returns a list with all the permutations of
 the original list.
 
 *E.G.
 
-	In> Permute({a,b,c})
+	In> PermutationsList({a,b,c})
 	Out> {{a,b,c},{a,c,b},{c,a,b},{b,a,c},
 	{b,c,a},{c,b,a}};
 
-*SEE LeviCivita
+*SEE Permutations, Combinations, CombinationsAll, LeviCivita
 %/mathpiper_docs
