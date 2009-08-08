@@ -56,6 +56,8 @@ Bin -> BinomialCoefficient and the synonym Combinations has been added for Binom
 Permutations -> PermuteList.
 Numer -> Numerator
 Denom -> Denominator
+Time -> EchoTime
+GetTime -> Time
 
 
 
