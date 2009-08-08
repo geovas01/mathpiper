@@ -78,7 +78,7 @@ public class ToBase extends BuiltinFunction
 
 *DESC
 
-In Yacas, all numbers are written in decimal notation (base 10).
+In MathPiper, all numbers are written in decimal notation (base 10).
 The two functions {FromBase}, {ToBase} convert numbers between base 10 and a different base.
 Numbers in non-decimal notation are represented by strings.
 

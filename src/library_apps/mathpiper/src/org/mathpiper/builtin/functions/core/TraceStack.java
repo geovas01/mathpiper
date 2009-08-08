@@ -56,7 +56,7 @@ TraceStack shows the calling stack after an error occurred.
 It shows the last few items on the stack, not to flood the screen.
 These are usually the only items of interest on the stack.
 This is probably by far the most useful debugging function in
-Yacas. It shows the last few things it did just after an error
+MathPiper. It shows the last few things it did just after an error
 was generated somewhere.
 
 For each stack frame, it shows if the function evaluated was a
@@ -70,7 +70,7 @@ down the evaluation code.
 *E.G. notest
 
 Here is an example of a function calling itself recursively,
-causing Yacas to flood its stack:
+causing MathPiper to flood its stack:
 
 	In> f(x):=f(Sin(x))
 	Out> True;
