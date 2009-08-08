@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ The double click selection of words in the Console does not work with {hello,there}.  The whole list is selected.
 +This function (along with barcharts) provide good examples of the need to move the position of the
 y axis along the x axis in GeoGebra:Exp(-(x-40)^2/4)/Sqrt(4*Pi) .
 +This code causes MathPiper to hang:
