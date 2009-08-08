@@ -28,16 +28,16 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
  *
  *  
  */
-public class GetTime extends BuiltinFunction
+public class Time extends BuiltinFunction
 {
 
-     private GetTime()
+     private Time()
     {
     }
 
-    public GetTime(Environment aEnvironment)
+    public Time(Environment aEnvironment)
     {
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "GetTime");
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Time");
     }//end constructor.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -56,26 +56,26 @@ public class GetTime extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="GetTime",categories="Programmer Functions;Built In"
-*CMD GetTime --- measure the time taken by an evaluation
+%mathpiper_docs,name="Time",categories="Programmer Functions;Built In"
+*CMD Time --- measure the time taken by an evaluation
 *CORE
 *CALL
-	GetTime() expr
+	Time() expr
 *PARMS
 {expr} -- any expression
 *DESC
-The function {GetTime() expr} evaluates the expression {expr} and returns the time needed for the evaluation.
+The function {Time() expr} evaluates the expression {expr} and returns the time needed for the evaluation.
 The result is returned as a floating-point number of seconds.
 The value of the expression {expr} is lost.
 
 The result is the "user time" as reported by the OS, not the real ("wall clock") time.
-Therefore, any CPU-intensive processes running alongside Yacas will not significantly affect the result of {GetTime}.
+Therefore, any CPU-intensive processes running alongside Yacas will not significantly affect the result of {Time}.
 
 *EG
-	In> GetTime() Simplify((a*b)/(b*a))
+	In> Time() Simplify((a*b)/(b*a))
 	Out> 0.09;
 
-*SEE Time
+*SEE EchoTime
 
 %/mathpiper_docs
 */

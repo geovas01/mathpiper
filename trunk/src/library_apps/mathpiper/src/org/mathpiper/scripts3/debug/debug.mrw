@@ -1,4 +1,4 @@
-%mathpiper,def="TraceExp;Debug;Profile;DebugRun;DebugStep;DebugStepOver;DebugBreakAt;DebugRemoveBreakAt;DebugStop;DebugVerbose;DebugAddBreakpoint;BreakpointsClear;DebugCallstack;DebugBreakIf;DebugLocals;Time;DebugShowCode"
+%mathpiper,def="TraceExp;Debug;Profile;DebugRun;DebugStep;DebugStepOver;DebugBreakAt;DebugRemoveBreakAt;DebugStop;DebugVerbose;DebugAddBreakpoint;BreakpointsClear;DebugCallstack;DebugBreakIf;DebugLocals;EchoTime;DebugShowCode"
 
 /* def file definitions
 TraceExp
@@ -16,7 +16,7 @@ BreakpointsClear
 DebugCallstack
 DebugBreakIf
 DebugLocals
-Time
+EchoTime
 DebugShowCode
 */
 
@@ -207,10 +207,10 @@ Macro(Profile,{expression})
 ];
 
 /// Measure the time taken by evaluation and print results.
-Macro(Time,{expression})
+Macro(EchoTime,{expression})
 [
 	Local(result);
-	Echo(GetTime()Set(result, @expression), "seconds taken");
+	Echo(Time()Set(result, @expression), "seconds taken");
 	result;
 ];
 
@@ -321,26 +321,26 @@ probably more useful  for all but very simple expressions.
 
 
 
-%mathpiper_docs,name="Time",categories="User Functions;Control Flow"
-*CMD Time --- measure the time taken by a function
+%mathpiper_docs,name="EchoTime",categories="User Functions;Control Flow"
+*CMD EchoTime --- measure the time taken by a function and echos it
 *STD
 *CALL
-	Time()expr
+	EchoTime()expr
 *PARMS
 {expr} -- any expression
 *DESC
 
-The function {Time()expr} evaluates the expression {expr} and prints the time in seconds needed for the evaluation.
+The function {EchoTime()expr} evaluates the expression {expr} and prints the time in seconds needed for the evaluation.
 The time is printed to the current output stream.
-The built-in function {GetTime} is used for timing.
+The built-in function {Time} is used for timing.
 
 The result is the "user time" as reported by the OS, not the real ("wall clock") time.
-Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {Time}.
+Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {EchoTime}.
 
 *EG notest
-	In> Time() N(MathLog(1000),40)
+	In> EchoTime() N(MathLog(1000),40)
 	0.34 seconds taken
 	Out> 6.9077552789821370520539743640530926228033;
 
-*SEE GetTime
+*SEE Time
 %/mathpiper_docs
