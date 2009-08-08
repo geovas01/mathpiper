@@ -50,7 +50,7 @@ Bodied("Integrate",60000);
 
 Bodied("Limit",60000);
 
-Bodied("Time", 60000);
+Bodied("EchoTime", 60000);
 
 Bodied("Repeat", 60000);
 
