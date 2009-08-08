@@ -17,7 +17,7 @@ Permutations(n, r) :=
 *CMD Permutations --- number of permutations
 *STD
 *CALL
-	Combinations(n, r)
+	Permutations(n, r)
 
 *PARMS
 
