@@ -69,7 +69,7 @@ The result is returned as a floating-point number of seconds.
 The value of the expression {expr} is lost.
 
 The result is the "user time" as reported by the OS, not the real ("wall clock") time.
-Therefore, any CPU-intensive processes running alongside Yacas will not significantly affect the result of {Time}.
+Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {Time}.
 
 *EG
 	In> Time() Simplify((a*b)/(b*a))
