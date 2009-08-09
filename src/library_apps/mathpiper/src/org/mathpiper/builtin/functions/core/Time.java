@@ -18,6 +18,7 @@
 
 package org.mathpiper.builtin.functions.core;
 
+import java.math.BigDecimal;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
@@ -42,13 +43,13 @@ public class Time extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        long starttime = System.nanoTime();
+        BigDecimal startTime = new BigDecimal(System.nanoTime());
         ConsPointer res = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, res, getArgumentPointer(aEnvironment, aStackTop, 1));
-        long endtime = System.nanoTime();
-        double timeDiff;
-        timeDiff = endtime - starttime;
-        timeDiff /= 1000000000.0;
+        BigDecimal endTime = new BigDecimal(System.nanoTime());
+        BigDecimal timeDiff;
+        timeDiff = endTime.subtract(startTime);
+        timeDiff = timeDiff.movePointLeft(10);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + timeDiff));
     }
 }
