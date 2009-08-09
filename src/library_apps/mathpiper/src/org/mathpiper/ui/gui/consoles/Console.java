@@ -463,26 +463,26 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             output += "\nException: " + response.getExceptionMessage();
         }
 
-        try {
+        //try {
 
-            int insertionPointLine = textArea.getLineOfOffset(responseInsertionOffset);
+            //int insertionPointLine = textArea.getLineOfOffset(responseInsertionOffset);
 
-            int lineCount = textArea.getLineCount();
+            //int lineCount = textArea.getLineCount();
 
-            if (!encounteredIn) {
+        if (!encounteredIn) {
 
-                if (noLinesBetweenInAndEndOfTextArea == true) {
-                    output = "\n" + output + "\n\nIn> ";
-                } else {
-                    output = output + "\n\nIn> ";
-                }//end if/else.
+            if (noLinesBetweenInAndEndOfTextArea == true) {
+                output = "\n" + output + "\n\nIn> ";
+            } else {
+                output = output + "\n\nIn> ";
+            }//end if/else.
 
-            }//end if.
+        }//end if.
 
             final String finalOutput = output;
 
 
-            if (insertionPointLine == lineCount - 1) {
+            /*if (insertionPointLine == lineCount - 1) {
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run() {
@@ -494,7 +494,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 });
 
                 //textArea.setCaretPosition( textArea.getDocument().getLength() );
-            } else {
+            } else {*/
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run() {
@@ -505,10 +505,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                 });
 
-            }//end if/else.
-        } catch (BadLocationException ex) {
-            System.out.println(ex);
-        }
+           // }//end if/else.
+        //} catch (BadLocationException ex) {
+        //    System.out.println(ex);
+        //}
     }//end method.
 
 
