@@ -555,7 +555,7 @@ public class BigNumber {
            // }
            if(javaBigDecimal.precision() > aPrecision)
            {
-               javaBigDecimal = new BigDecimal(javaBigDecimal.toString(),new MathContext(aPrecision));
+               javaBigDecimal = new BigDecimal(javaBigDecimal.toPlainString(),new MathContext(aPrecision));
            }
 
         }
