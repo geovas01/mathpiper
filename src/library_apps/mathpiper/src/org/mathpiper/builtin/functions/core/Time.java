@@ -44,12 +44,19 @@ public class Time extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigDecimal startTime = new BigDecimal(System.nanoTime());
+
         ConsPointer res = new ConsPointer();
+
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, res, getArgumentPointer(aEnvironment, aStackTop, 1));
+
         BigDecimal endTime = new BigDecimal(System.nanoTime());
+
         BigDecimal timeDiff;
+
         timeDiff = endTime.subtract(startTime);
-        timeDiff = timeDiff.movePointLeft(10);
+
+        timeDiff = timeDiff.movePointLeft(9);
+        
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + timeDiff));
     }
 }
