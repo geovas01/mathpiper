@@ -547,7 +547,14 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
                     textArea.insert(Color.RED, finalException, finalExceptionOffset);
                 }
 
-                textArea.insert(Color.BLACK, "\nIn> ", insertInOffset);
+
+                if (!encounteredIn) {
+
+                    textArea.insert(Color.BLACK, "\n\nIn> ", insertInOffset);
+
+                }//end if.
+
+                
 
 
 
