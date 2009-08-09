@@ -1,0 +1,46 @@
+%mathpiper,def="WeightedMean"
+
+Retract("WeightedMean", *);
+
+10 # WeightedMean(values_IsList, weights_IsList)_(Length(values) = Length(weights)) <--
+[
+
+    N(Sum(values * weights)/Sum(weights));
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="WeightedMean",categories="User Functions;Statistics & Probability"
+*CMD WeightedMean --- weighted mean
+*STD
+*CALL 
+	WeightedMean(values, weights)
+
+*PARMS
+
+{values} -- list, the values.
+{weights} -- list, the respective weights to associate with the values.
+
+*DESC 
+This function allows more weight to be associated to certain values and
+less weight to others when calculating their mean.
+
+*E.G.
+In> WeightedMean({92, 87, 76}, {50, 40, 10})
+Result: 88.4
+
+*SEE Mean, Mode, GeometricMean
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
