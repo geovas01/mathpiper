@@ -60,6 +60,7 @@ import org.mathpiper.lisp.Environment;
 public class ColorConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
     private final Color green = new Color(59, 179, 0);
+    private final Color purple = new Color(153, 0, 153);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
     private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, button2, button3;
@@ -114,8 +115,8 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         //textArea = new JTextArea(30, 20);
         textArea = new ColorPane();
 
-        textArea.append(Color.BLACK, "MathPiper version " + org.mathpiper.Version.version + ".\n");
-        textArea.append(Color.BLACK, "Enter an expression after any In> prompt and press <shift><enter> to evaluate it.\n");
+        textArea.append(purple, "MathPiper version " + org.mathpiper.Version.version + ".\n");
+        textArea.append(purple, "Enter an expression after any In> prompt and press <shift><enter> to evaluate it.\n");
 
 
         textArea.append(Color.BLACK, "\nIn> ");
