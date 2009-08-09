@@ -193,7 +193,7 @@ public class BigNumber {
         if (javaBigInteger != null) {
             return javaBigInteger.toString(aBase);
         } else {
-            String result = javaBigDecimal.toString();
+            String result = javaBigDecimal.toPlainString();
             result = result.replace("+", "");
             //System.out.println("BigNumResult: " + result);
             /*
