@@ -59,6 +59,7 @@ import org.mathpiper.lisp.Environment;
 
 public class ColorConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
+    private final Color green = new Color(59, 179, 0);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
     private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, button2, button3;
@@ -482,18 +483,21 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
         String sideEffects = null;
         int sideEffectsOffset = 0;
+        int sideEffectsLength = 0;
         if (!response.getSideEffects().equalsIgnoreCase("")) {
             sideEffectsOffset = responseOffset + result.length();
             sideEffects = "Side Effects:\n" + response.getSideEffects() + "\n";
+            sideEffectsLength = sideEffects.length();
         }
 
 
         String exception = null;
         int exceptionOffset = 0;
+        int exceptionLength = 0;
         if (response.isExceptionThrown()) {
             exceptionOffset = responseOffset + result.length() + sideEffectsOffset;
-
             exception = "\nException: " + response.getExceptionMessage() + "\n";
+            exceptionLength = exception.length();
         }
 
 
@@ -507,7 +511,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
         final int finalSideEffectsOffset = sideEffectsOffset;
         final int finalExceptionOffset = exceptionOffset;
-        final int insertInOffset = responseOffset + result.length() + sideEffectsOffset + exceptionOffset;
+        final int insertInOffset = responseOffset + result.length() + sideEffectsLength + exceptionLength;
 
 
 
@@ -534,10 +538,15 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
                 textArea.insert(Color.BLUE, finalResult, responseOffset);
 
-                if(finalSideEffects != null)
-                {
-                    textArea.insert(Color.GREEN, finalSideEffects, finalSideEffectsOffset);
+                if (finalSideEffects != null) {
+                    textArea.insert(green, finalSideEffects, finalSideEffectsOffset);
                 }
+
+                if (finalException != null) {
+                    textArea.insert(Color.RED, finalException, finalExceptionOffset);
+                }
+
+                textArea.insert(Color.BLACK, "\nIn> ", insertInOffset);
 
 
 
@@ -803,7 +812,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
 
     public static void main(String[] args) {
-        Console console = new Console();
+        ColorConsole console = new ColorConsole();
 
         JFrame frame = new javax.swing.JFrame();
         Container contentPane = frame.getContentPane();
