@@ -3,7 +3,6 @@
 <PERSPECTIVE>
 
 <BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">./examples/u6502/u6502_examples.mrw</BUFFER>
-<BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">./examples/abcl/abcl_examples.mrw</BUFFER>
 <BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">./examples/jfreechart/jfreechart_examples.mrw</BUFFER>
 <BUFFER AUTORELOAD="TRUE" AUTORELOAD_DIALOG="TRUE">./examples/worksheet_demo_1.mrw</BUFFER>
 <VIEW PLAIN="FALSE"><PANES>
