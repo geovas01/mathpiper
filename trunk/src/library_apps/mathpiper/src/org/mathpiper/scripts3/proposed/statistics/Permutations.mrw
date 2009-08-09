@@ -1,5 +1,11 @@
 %mathpiper,def="Permutations"
 
+Permutations(n) :=
+[
+    n!;
+];
+
+
 Permutations(n, r) :=
 [
     n! /(n-r)!;
@@ -7,9 +13,6 @@ Permutations(n, r) :=
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -17,7 +20,8 @@ Permutations(n, r) :=
 *CMD Permutations --- number of permutations
 *STD
 *CALL
-	Permutations(n, r)
+	Permutations(n)
+        Permutations(n, r)
 
 *PARMS
 
@@ -26,10 +30,15 @@ Permutations(n, r) :=
 
 *DESC
 
-In combinatorics, the function is thought of as being the number of ways
+In combinatorics, this function is thought of as being the number of ways
 to choose "r" objects out of a total of "n" objects if order is taken into account.
 
+The single parameter version of the function is a convenience function for
+calculating the number of ways to choose "n" objects out of "n" objects.
+
 *E.G.
+In> Permutations(5)
+Result> 120
 
 In> Permutations(10,3)
 Result> 720
