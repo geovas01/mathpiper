@@ -465,9 +465,12 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
     public void response(EvaluationResponse response) {
 
+        final int caretPosition = responseInsertionOffset;
+
         int offsetIndex = responseInsertionOffset;
 
         final int initialOffset = offsetIndex;
+
         String extraNewline = "";
         if (!encounteredIn) {
 
@@ -476,10 +479,10 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
                 offsetIndex++;
             }
 
-        }//end if.
+        }//end if.*/
 
         final int responseOffset = offsetIndex;
-        String result = "Result: " + response.getResult().trim() + "\n";
+        String result = "Result: " + response.getResult().trim();
 
 
         String sideEffects = null;
@@ -487,7 +490,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         int sideEffectsLength = 0;
         if (!response.getSideEffects().equalsIgnoreCase("")) {
             sideEffectsOffset = responseOffset + result.length();
-            sideEffects = "Side Effects:\n" + response.getSideEffects() + "\n";
+            sideEffects = "\nSide Effects:\n" + response.getSideEffects();
             sideEffectsLength = sideEffects.length();
         }
 
@@ -497,7 +500,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         int exceptionLength = 0;
         if (response.isExceptionThrown()) {
             exceptionOffset = responseOffset + result.length() + sideEffectsOffset;
-            exception = "\nException: " + response.getExceptionMessage() + "\n";
+            exception = "\nException: " + response.getExceptionMessage();
             exceptionLength = exception.length();
         }
 
@@ -535,9 +538,9 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
                 haltButton.setEnabled(false);
 
 
-                textArea.insert(Color.BLACK, finalExtraNewline, initialOffset);
+                textArea.insert(Color.BLACK, finalExtraNewline, initialOffset); //finalExtraNewline
 
-                textArea.insert(Color.BLUE, finalResult, responseOffset);
+                textArea.insert(Color.BLUE,  finalResult, responseOffset);
 
                 if (finalSideEffects != null) {
                     textArea.insert(green, finalSideEffects, finalSideEffectsOffset);
@@ -552,7 +555,12 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
                     textArea.insert(Color.BLACK, "\n\nIn> ", insertInOffset);
 
-                }//end if.
+                }
+                else
+                {
+                    textArea.setCaretPosition(caretPosition-1);
+                }
+
 
                 
 
@@ -687,8 +695,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         public void insert(Color c, String str, int pos) {
 
             StyleContext sc = StyleContext.getDefaultStyleContext();
-            AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                    StyleConstants.Foreground, c);
+            AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
             setCaretPosition(pos); // place caret at the end (with no selection)
             setCharacterAttributes(aset, false);
             replaceSelection(str);
