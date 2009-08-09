@@ -540,7 +540,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
                 textArea.insert(Color.BLACK, finalExtraNewline, initialOffset); //finalExtraNewline
 
-                textArea.insert(Color.BLUE,  finalResult, responseOffset);
+                textArea.insert(Color.BLUE, finalResult, responseOffset);
 
                 if (finalSideEffects != null) {
                     textArea.insert(green, finalSideEffects, finalSideEffectsOffset);
@@ -555,14 +555,12 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
                     textArea.insert(Color.BLACK, "\n\nIn> ", insertInOffset);
 
-                }
-                else
-                {
-                    textArea.setCaretPosition(caretPosition-1);
+                } else {
+                    textArea.setCaretPosition(caretPosition - 1);
                 }
 
 
-                
+
 
 
 
@@ -584,7 +582,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
     private void clearPreviousResponse() {
 
         try {
-            int lineNumber = textArea.getLineOfOffset(responseInsertionOffset);
+            int lineNumber = textArea.getLineOfOffset(responseInsertionOffset - 1);
 
             if (responseInsertionOffset == -1 || lineNumber == textArea.getLineCount()) {
                 encounteredIn = false;
@@ -593,22 +591,24 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
             String line = "";
             int lineStartOffset = 0;
+            int lineEndOffset = 0;
 
             do {
 
                 lineNumber++;
                 lineStartOffset = textArea.getLineStartOffset(lineNumber);
-                int lineEndOffset = textArea.getLineEndOffset(lineNumber);
+                lineEndOffset = textArea.getLineEndOffset(lineNumber);
                 line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
 
             } while (!line.startsWith("In>") && lineNumber < textArea.getLineCount());
 
-            textArea.replaceRange("\n\n", responseInsertionOffset, lineStartOffset);
+            textArea.replaceRange("\n\n\n", responseInsertionOffset - 1, lineStartOffset);
             encounteredIn = line.startsWith("In>");
             return;
 
         } catch (BadLocationException ex) {
             encounteredIn = false;
+            textArea.replaceRange("\n\n\n", responseInsertionOffset, textArea.getDocument().getLength());
             return;
         }
     }//end method.
