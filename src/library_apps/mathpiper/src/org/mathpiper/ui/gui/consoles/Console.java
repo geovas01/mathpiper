@@ -68,6 +68,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private StringBuilder inputLines;
     private int responseInsertionOffset = -1;
     private boolean encounteredIn = false;
+    private boolean noLinesBetweenInAndEndOfTextArea = false;
     private JSplitPane splitPane;
     private int splitPaneDividerLocation = 400;
     private JScrollPane rawOutputCheckBoxScrollPane;
@@ -462,13 +463,26 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             output += "\nException: " + response.getExceptionMessage();
         }
 
-        if (!encounteredIn) {
-            output = "\n" + output + "\n\nIn> ";
-        }
-
-        final String finalOutput = output;
         try {
-            if (textArea.getLineOfOffset(responseInsertionOffset) == textArea.getLineCount()) {
+
+            int insertionPointLine = textArea.getLineOfOffset(responseInsertionOffset);
+
+            int lineCount = textArea.getLineCount();
+
+            if (!encounteredIn) {
+
+                if (noLinesBetweenInAndEndOfTextArea == true) {
+                    output = "\n" + output + "\n\nIn> ";
+                } else {
+                    output = output + "\n\nIn> ";
+                }//end if/else.
+
+            }//end if.
+
+            final String finalOutput = output;
+
+
+            if (insertionPointLine == lineCount - 1) {
                 SwingUtilities.invokeLater(new Runnable() {
 
                     public void run() {
@@ -562,6 +576,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
                 //Scan forwards to first line that does not start with In>.
                 boolean pastInputLines = false;
+                noLinesBetweenInAndEndOfTextArea = false;
                 do {
                     lineNumber++;
                     lineStartOffset = textArea.getLineStartOffset(lineNumber);
@@ -584,6 +599,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             }//end if.
 
         } catch (BadLocationException ex) {
+            noLinesBetweenInAndEndOfTextArea = true;
         }
 
 
