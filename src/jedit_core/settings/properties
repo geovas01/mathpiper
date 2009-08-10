@@ -200,3 +200,4 @@ mathpiperdocs.height=299
 help-menu=help
 next-paragraph.shortcut=
 prev-paragraph.shortcut=
+code2html.show-gutter=false
