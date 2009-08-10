@@ -76,7 +76,7 @@ import org.mathpiper.builtin.functions.core.ExitRequested;
 import org.mathpiper.builtin.functions.core.XmlExplodeTag;
 import org.mathpiper.builtin.functions.core.ExtraInfoGet;
 import org.mathpiper.builtin.functions.core.ExtraInfoSet;
-import org.mathpiper.builtin.functions.core.Fac;
+import org.mathpiper.builtin.functions.core.Factorial;
 import org.mathpiper.builtin.functions.core.FastArcSin;
 import org.mathpiper.builtin.functions.core.FastIsPrime;
 import org.mathpiper.builtin.functions.core.FastLog;
@@ -816,7 +816,7 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new FastIsPrime(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "FastIsPrime");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Fac(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new Factorial(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MathFac");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new ApplyPure(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
