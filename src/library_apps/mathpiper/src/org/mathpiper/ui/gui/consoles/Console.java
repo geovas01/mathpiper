@@ -281,7 +281,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber);
 
-                    textArea.replaceRange("In>" + (String) history.get((history.size() - 1) - historyIndex), lineStartOffset, lineEndOffset);
+                    textArea.replaceRange("In> " + (String) history.get((history.size() - 1) - historyIndex), lineStartOffset, lineEndOffset);
 
                 } catch (BadLocationException ble) {
                     //Eat exception.
@@ -318,7 +318,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber);
 
-                    textArea.replaceRange("In>" + (String) history.get((history.size() - 1) - historyIndex), lineStartOffset, lineEndOffset);
+                    textArea.replaceRange("In> " + (String) history.get((history.size() - 1) - historyIndex), lineStartOffset, lineEndOffset);
 
                 } catch (BadLocationException ble) {
                     //Eat exception.
@@ -330,7 +330,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     int lineStartOffset = textArea.getLineStartOffset(lineNumber);
                     int lineEndOffset = textArea.getLineEndOffset(lineNumber);
 
-                    textArea.replaceRange("In>", lineStartOffset, lineEndOffset);
+                    textArea.replaceRange("In> ", lineStartOffset, lineEndOffset);
 
                     this.historyIndex = -1;
 
