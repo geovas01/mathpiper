@@ -46,9 +46,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -71,9 +73,10 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
     private MathPiperOutputStream currentOutput;
     private JScrollPane typePane;
     private char[] typedKey = new char[1];
-    private JPanel buttons;
+    private JPanel consoleButtons;
+    private JPanel rawButtons;
     private boolean deleteFlag = false;
-    private float fontSize = 12;
+    private int fontSize = 12;
     private Font bitstreamVera;
     private StringBuilder inputLines;
     private int responseInsertionOffset = -1;
@@ -81,7 +84,8 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
     private boolean noLinesBetweenInAndEndOfTextArea = false;
     private JSplitPane splitPane;
     private int splitPaneDividerLocation = 400;
-    private JScrollPane rawOutputCheckBoxScrollPane;
+    private JScrollPane rawOutputScrollPane;
+    private JPanel rawOutputPanel;
     private Stack history = new java.util.Stack();
     private boolean controlKeyDown = false;
     private int historyIndex = -1;
@@ -107,10 +111,16 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
         //keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
 
-        buttons = new JPanel();
-        buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
+        consoleButtons = new JPanel();
+        consoleButtons.setLayout(new BoxLayout(consoleButtons, BoxLayout.X_AXIS));
 
-        Box guiBox = new Box(BoxLayout.Y_AXIS);
+
+        rawOutputPanel = new JPanel();
+        rawOutputPanel.setLayout(new BorderLayout());
+        rawButtons = new JPanel();
+        rawButtons.setLayout(new BoxLayout(rawButtons, BoxLayout.X_AXIS));
+
+      
 
         //textArea = new JTextArea(30, 20);
         textArea = new ColorPane();
@@ -133,60 +143,63 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         typePane = new JScrollPane(textArea);
         //guiBox.add(typePane);
 
-        Box ioBox = new Box(BoxLayout.Y_AXIS);
+
 
         haltButton = new JButton("Halt Calculation");
         haltButton.setEnabled(false);
         haltButton.setForeground(Color.RED);
         haltButton.addActionListener(this);
-        buttons.add(haltButton);
+        consoleButtons.add(haltButton);
 
-        /*button2 = new JButton("Font--");
+        button2 = new JButton("Font-");
         button2.addActionListener(this);
-        buttons.add(button2);
-        button3 = new JButton("Font++");
+        consoleButtons.add(button2);
+        button3 = new JButton("Font+");
         button3.addActionListener(this);
-        buttons.add(button3);*/
+        consoleButtons.add(button3);
 
-        rawOutputCheckBox = new JCheckBox("Raw Output");
+        rawOutputCheckBox = new JCheckBox("Raw Side Effects");
         rawOutputCheckBox.addItemListener(this);
-        buttons.add(rawOutputCheckBox);
+        rawButtons.add(rawOutputCheckBox);
         this.rawOutputTextArea = new JTextArea();
         rawOutputTextArea.setEditable(false);
         rawOutputTextArea.setText("Raw output text area.\n\n");
 
 
-        showRawOutputCheckBox = new JCheckBox("Show Raw Output");
+        showRawOutputCheckBox = new JCheckBox("Show Raw");
         showRawOutputCheckBox.addItemListener(this);
-        buttons.add(showRawOutputCheckBox);
+        consoleButtons.add(showRawOutputCheckBox);
 
-        buttons.add(Box.createGlue());
+        consoleButtons.add(Box.createGlue());
 
 
         clearConsoleButton = new JButton("Clear");
         clearConsoleButton.addActionListener(this);
-        buttons.add(clearConsoleButton);
+        consoleButtons.add(clearConsoleButton);
 
 
         clearRawButton = new JButton("Clear Raw");
         clearRawButton.addActionListener(this);
-        buttons.add(clearRawButton);
+        rawButtons.add(clearRawButton);
 
 
         helpButton = new JButton("Help");
         helpButton.addActionListener(this);
-        buttons.add(helpButton);
+        consoleButtons.add(helpButton);
 
 
-        ioBox.add(buttons);
 
+        this.add(consoleButtons, BorderLayout.NORTH);
 
-        this.add(ioBox, BorderLayout.NORTH);
+        this.rawOutputPanel.add(rawButtons, BorderLayout.NORTH);
 
         //this.add(guiBox, BorderLayout.CENTER);
 
 
-        rawOutputCheckBoxScrollPane = new JScrollPane(rawOutputTextArea);
+        rawOutputScrollPane = new JScrollPane(rawOutputTextArea);
+        rawOutputPanel.add(rawOutputScrollPane);
+
+
         splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, typePane, null);
         splitPane.setOneTouchExpandable(true);
         splitPane.setDividerLocation(splitPaneDividerLocation);
@@ -197,11 +210,6 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
     }//Constructor.
 
 
-    public void setFontSize(float fontSize) {
-        this.fontSize = fontSize;
-        //bitstreamVera = bitstreamVera.deriveFont(fontSize);
-        //typeArea.setFont(bitstreamVera);
-    }//end method.
 
 
     public void actionPerformed(ActionEvent event) {
@@ -211,12 +219,15 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
             interpreter.haltEvaluation();
         } else if (src == button2) {
             this.fontSize -= 2;
+
             //bitstreamVera = bitstreamVera.deriveFont(fontSize);
             //typeArea.setFont(bitstreamVera);
+            this.setJTextPaneFont(textArea, fontSize);
         } else if (src == button3) {
             this.fontSize += 2;
             //bitstreamVera = bitstreamVera.deriveFont(fontSize);
             //typeArea.setFont(bitstreamVera);
+            this.setJTextPaneFont(textArea, fontSize);
         } else if (src == helpButton) {
             JOptionPane.showMessageDialog(this, this.helpMessage);
         } else if (src == clearConsoleButton) {
@@ -243,7 +254,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
             }//end if/else.
         } else if (source == showRawOutputCheckBox) {
             if (ie.getStateChange() == ItemEvent.SELECTED) {
-                splitPane.add(rawOutputCheckBoxScrollPane);
+                splitPane.add(rawOutputPanel);
                 splitPane.setDividerLocation(splitPaneDividerLocation);
                 splitPane.revalidate();
             } else {
@@ -560,10 +571,6 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
                 }
 
 
-
-
-
-
             }//end method.
 
 
@@ -694,11 +701,23 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
         public void insert(Color c, String str, int pos) {
 
-            StyleContext sc = StyleContext.getDefaultStyleContext();
-            AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+                    Font font = getFont();
+
+        MutableAttributeSet attrs = getInputAttributes();
+
+
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, fontSize);
+        StyleConstants.setForeground(attrs, c);
+
+            //StyleContext sc = StyleContext.getDefaultStyleContext();
+         //MutableAttributeSet aset = this.getInputAttributes();
+            //AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
             setCaretPosition(pos); // place caret at the end (with no selection)
-            setCharacterAttributes(aset, false);
+         setCharacterAttributes(attrs, false);
             replaceSelection(str);
+
+
 
         }
 
@@ -824,6 +843,25 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
 
     }//end class
+
+
+
+    public void setJTextPaneFont(JTextPane textPane, int fontSize) {
+
+        Font font = textPane.getFont();
+
+        MutableAttributeSet attrs = textPane.getInputAttributes();
+
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, fontSize);
+
+        StyledDocument doc = textPane.getStyledDocument();
+
+
+        doc.setCharacterAttributes(0, doc.getLength() + 1, attrs, false);
+    }//end method.
+
+
 
 
     public static void main(String[] args) {
