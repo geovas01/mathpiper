@@ -27,13 +27,50 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class DumpBigNumberDebugInfo extends BuiltinFunction
+public class DumpNumber extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-        x.dumpDebugInfo(aEnvironment.iCurrentOutput);
+
+        x.dumpNumber(aEnvironment.iCurrentOutput);
+
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-    }
-}
+
+    }//end method.
+
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="DumpNumber",categories="Programmer Functions;Numerical (Arbitrary Precision);Built In"
+*CMD DumpNumber --- prints the implementation details of a number
+*CORE
+*CALL
+	DumpNumber(x)
+
+*PARAMS
+ * 
+{x} -- an integer or decimal number.
+
+
+*DESC
+
+This function prints the implementation details of an integer or decimal number.
+
+*E.G.
+In> DumpNumber(42)
+Result> True
+Side Effects>
+BigInteger: 42
+
+In> DumpNumber(42.2343)
+Result> True
+Side Effects>
+BigDecimal: 42.2343   Precision: 6   Unscaled Value: 422343   Scale: 4
+
+%/mathpiper_docs
+*/

@@ -68,7 +68,7 @@ import org.mathpiper.builtin.functions.core.DestructiveReverse;
 import org.mathpiper.builtin.functions.core.DigitsToBits;
 import org.mathpiper.builtin.functions.core.Div;
 import org.mathpiper.builtin.functions.core.Divide;
-import org.mathpiper.builtin.functions.core.DumpBigNumberDebugInfo;
+import org.mathpiper.builtin.functions.core.DumpNumber;
 import org.mathpiper.builtin.functions.core.Equals;
 import org.mathpiper.builtin.functions.core.Eval;
 import org.mathpiper.builtin.functions.core.Exit;
@@ -876,8 +876,8 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new BackQuote(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "`");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DumpBigNumberDebugInfo(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MathDebugInfo");
+                new BuiltinFunctionEvaluator(new DumpNumber(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "DumpNumber");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new InDebugMode(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "InDebugMode");
