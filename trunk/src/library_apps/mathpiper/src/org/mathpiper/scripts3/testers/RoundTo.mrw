@@ -3,28 +3,46 @@
 /* Functions that aid in testing */
 
 /* Round to specified number of digits */
-10 # RoundTo(x_IsNumber, prec_IsPositiveInteger) <--
+10 # RoundTo(x_IsNumber, precision_IsPositiveInteger) <--
 [
   Local(oldPrec,result);
+
   oldPrec:=BuiltinPrecisionGet();
-  BuiltinPrecisionSet(prec);
-  Set(result,DivideN( Round( MultiplyN(x, 10^prec) ), 10^prec ));
+
+  BuiltinPrecisionSet(precision);
+
+  Set(result,DivideN( Round( MultiplyN(x, 10^precision) ), 10^precision ));
+
   BuiltinPrecisionSet(oldPrec);
+
   result;
 ];
+
+
+
 // complex numbers too
-10 # RoundTo(Complex(r_IsNumber, i_IsNumber), prec_IsPositiveInteger) <-- Complex(RoundTo(r, prec), RoundTo(i, prec));
+10 # RoundTo(Complex(r_IsNumber, i_IsNumber), precision_IsPositiveInteger) <-- Complex(RoundTo(r, precision), RoundTo(i, precision));
+
+
+
 
 // Infinities, rounding does not apply.
-20 # RoundTo( Infinity,prec_IsPositiveInteger) <--  Infinity;
-20 # RoundTo(-Infinity,prec_IsPositiveInteger) <-- -Infinity;
+20 # RoundTo( Infinity,precision_IsPositiveInteger) <--  Infinity;
+
+20 # RoundTo(-Infinity,precision_IsPositiveInteger) <-- -Infinity;
+
+
+
 
 Macro(NumericEqual,{left,right,precision})
 [
   Verify(RoundTo((@left)-(@right),@precision),0);
 ];
 
+
 %/mathpiper
+
+
 
 
 
