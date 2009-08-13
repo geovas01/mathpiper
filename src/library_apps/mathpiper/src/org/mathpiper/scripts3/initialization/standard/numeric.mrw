@@ -17,23 +17,23 @@
 LocalSymbols(numericMode)
 [
 
-  Set(numericMode,False);
+  Set(numericMode, False);
 
 
   // N function: evaluate numerically with given precision.
-  LocalSymbols(previousNumericMode, previousDigits, numericResult) Macro("N",{expression,digits})
+  LocalSymbols(previousNumericMode, previousPrecision, numericResult) Macro("N",{expression, precision})
   [ 
     // we were in non-numeric mode
 
-    Local(previousNumericMode, previousDigits, numericResult,errorString);
+    Local(previousNumericMode, previousPrecision, numericResult, errorString);
 
-    Set(previousDigits, BuiltinPrecisionGet());
+    Set(previousPrecision, BuiltinPrecisionGet());
 
-    BuiltinPrecisionSet(@digits);
+    BuiltinPrecisionSet(@precision);
 
     AssignCachedConstantsN();
 
-    Set(previousNumericMode,numericMode);
+    Set(previousNumericMode, numericMode);
 
     Set(numericMode, True);
 
@@ -49,7 +49,7 @@ LocalSymbols(numericMode)
         ClearCachedConstantsN();
     ]);
 
-    BuiltinPrecisionSet(previousDigits);
+    BuiltinPrecisionSet(previousPrecision);
 
     Check(errorString="",errorString);
 
@@ -61,15 +61,15 @@ LocalSymbols(numericMode)
 
 
   // N function: evaluate numerically with default precision.
-  LocalSymbols(digits,heldExpression) Macro("N",{expression})
+  LocalSymbols(precision,heldExpression) Macro("N",{expression})
   [
-    Local(digits,heldExpression);
+    Local(precision, heldExpression);
 
-    Set(digits,BuiltinPrecisionGet());
+    Set(precision, BuiltinPrecisionGet());
 
-    Set(heldExpression,Hold(@expression));
+    Set(heldExpression, Hold(@expression));
 
-    `N(@heldExpression,@digits);
+    `N(@heldExpression, @precision);
   ];
 
 
