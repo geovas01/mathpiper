@@ -61,7 +61,7 @@ import org.mathpiper.lisp.Environment;
 
 public class ColorConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
-    private final Color green = new Color(59, 179, 0);
+    private final Color green = new Color(0, 130, 0);
     private final Color purple = new Color(153, 0, 153);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
