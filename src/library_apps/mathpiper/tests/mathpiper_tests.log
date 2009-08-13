@@ -1,5 +1,5 @@
 
-***** Sat Aug 08 22:20:16 EDT 2009 *****
+***** Wed Aug 12 21:29:56 EDT 2009 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .76b *****
 
@@ -309,15 +309,6 @@ tests/scripts/numerics.mpt: 24
 RoundTo(N(ArcCos(2),9)-Complex(0,-1.316957897),9)
  evaluates to 
 Complex(0,0.000000007)
- which differs from 
-0
-******************
-******************
-tests/scripts/numerics.mpt: 25 
-
-RoundTo(N(ArcTan(2*I),12)-N(Complex(1.57079632679,0.54930614433),12),11)
- evaluates to 
--0.00000000021
  which differs from 
 0
 ******************
