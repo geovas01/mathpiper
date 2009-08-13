@@ -492,11 +492,11 @@ public class BigNumber {
      * @param aOutput
      * @throws java.lang.Exception
      */
-    public void dumpDebugInfo(MathPiperOutputStream aOutput) throws Exception {
+    public void dumpNumber(MathPiperOutputStream aOutput) throws Exception {
         if (javaBigInteger != null) {
-            aOutput.write("integer: " + javaBigInteger.toString() + "\n");
+            aOutput.write("BigInteger: " + javaBigInteger.toString() + "\n");
         } else {
-            aOutput.write("decimal: " + javaBigDecimal.unscaledValue() + " scale " + javaBigDecimal.scale() +"   \n");
+            aOutput.write("BigDecimal: " + javaBigDecimal.toPlainString() + "   Precision: " + javaBigDecimal.precision()  + "   Unscaled Value: " + javaBigDecimal.unscaledValue() + "   Scale: " + javaBigDecimal.scale() + ".\n");
         }
     }
 
@@ -504,10 +504,10 @@ public class BigNumber {
 
     public String toString() {
         if (javaBigInteger != null) {
-            return ("Integer: " + javaBigInteger.toString() + "   \n");
+            return ("BigInteger: " + javaBigInteger.toString() + "   \n");
         } else {
 
-            return ("BigDecimal: " + javaBigDecimal.toString() + "  Decimal: " + javaBigDecimal.unscaledValue() + "  Scale: " + javaBigDecimal.scale() +"   \n");
+            return ("BigDecimal: " + javaBigDecimal.toPlainString() + "   Precision: " + javaBigDecimal.precision()  + "   Unscaled Value: " + javaBigDecimal.unscaledValue() + "   Scale: " + javaBigDecimal.scale() + ".\n");
         }
     }
 
