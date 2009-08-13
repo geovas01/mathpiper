@@ -1,0 +1,36 @@
+%mathpiper,def="NrArgs"
+
+Function("NrArgs",{aLeft}) Length(Listify(aLeft))-1;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="NrArgs",categories="User Functions;Lists (Operations)"
+*CMD NrArgs --- return number of top-level arguments
+*STD
+*CALL
+	NrArgs(expr)
+
+*PARMS
+
+{expr} -- expression to examine
+
+*DESC
+
+This function evaluates to the number of top-level arguments of the
+expression "expr". The argument "expr" may not be an atom, since
+that would lead to an error.
+
+*E.G.
+
+	In> NrArgs(f(a,b,c))
+	Out> 3;
+	In> NrArgs(Sin(x));
+	Out> 1;
+	In> NrArgs(a*(b+c));
+	Out> 2;
+
+*SEE Type, Length
+%/mathpiper_docs

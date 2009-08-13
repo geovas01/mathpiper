@@ -1,0 +1,32 @@
+%mathpiper,def="=="
+
+RuleBase("==",{left,right});
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="==",categories="Operators"
+*CMD == --- symbolic equality operator
+*STD
+*CALL
+    expression == expression
+
+*PARMS
+
+{expression} -- an expression
+
+*DESC
+
+This operator is used to symbolically represent the equality
+of two expressions as opposed to the = operator which performs
+a comparison operation on two expressions.
+
+*E.G.
+
+In> Solve(y == m*x + b, x)
+Result: {x==(y-b)/m}
+
+*SEE !==
+%/mathpiper_docs

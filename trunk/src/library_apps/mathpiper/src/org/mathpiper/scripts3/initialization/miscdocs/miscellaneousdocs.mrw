@@ -41,7 +41,7 @@ There is no effect if we type some spaces first:
 
 
 
-%mathpiper_docs,name="%",categories="Operators"
+%mathpiper_docs,name="%_v2",categories="Operators"
 *CMD % --- previous result
 *CORE
 *CALL

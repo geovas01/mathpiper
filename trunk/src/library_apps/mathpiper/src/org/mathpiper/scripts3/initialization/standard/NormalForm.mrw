@@ -1,0 +1,26 @@
+%mathpiper,def="NormalForm"
+
+RuleBase("NormalForm",{expression});
+Rule("NormalForm",1,1000,True) expression;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="NormalForm",categories="User Functions;Lists (Operations)"
+*CMD NormalForm --- return expression in normal form
+*STD
+*CALL
+	NormalForm(expression)
+
+*PARMS
+
+{expression} -- an expression
+
+*DESC
+
+This functions returns an expression in normal form.
+
+
+%/mathpiper_docs

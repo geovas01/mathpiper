@@ -1,0 +1,28 @@
+%mathpiper,def="!=="
+
+RuleBase("!==",{left,right});
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="!==",categories="Operators"
+*CMD !== --- symbolic inequality operator
+*STD
+*CALL
+    expression !== expression
+
+*PARMS
+
+{expression} -- an expression
+
+*DESC
+
+This operator is used to symbolically represent the inequality
+of two expressions as opposed to the != operator which performs
+a comparison operation on two expressions.
+
+
+*SEE ==
+%/mathpiper_docs

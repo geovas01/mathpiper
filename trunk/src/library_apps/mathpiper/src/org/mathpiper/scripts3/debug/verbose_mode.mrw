@@ -1,0 +1,68 @@
+%mathpiper,def="V;InVerboseMode"
+
+LocalSymbols(Verbose) [
+
+  Set(Verbose,False);
+
+
+  Function("V",{aNumberBody})
+  [
+    Local(prevVerbose,result);
+    Set(prevVerbose,Verbose);
+    Set(Verbose,True);
+    Set(result,Eval(aNumberBody));
+    Set(Verbose,prevVerbose);
+    result;
+  ];
+
+
+  Function("InVerboseMode",{}) Verbose;
+
+]; // LocalSymbols(Verbose)
+
+HoldArg("V",aNumberBody);
+UnFence("V",1);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="V;InVerboseMode",categories="User Functions;Input/Output"
+*CMD V, InVerboseMode --- set verbose output mode
+*STD
+*CALL
+	V(expression)
+	InVerboseMode()
+
+*PARMS
+
+{expression} -- expression to be evaluated in verbose mode
+
+*DESC
+
+The function {V(expression)} will evaluate the expression in
+verbose mode. Various parts of MathPiper can show extra information
+about the work done while doing a calculation when using {V}.
+
+In verbose mode, {InVerboseMode()} will return {True}, otherwise
+it will return {False}.
+
+*E.G. notest
+
+	In> OldSolve({x+2==0},{x})
+	Out> {{-2}};
+	In> V(OldSolve({x+2==0},{x}))
+	Entering OldSolve
+	From  x+2==0  it follows that  x  = -2
+	   x+2==0  simplifies to  True
+	Leaving OldSolve
+	Out> {{-2}};
+	In> InVerboseMode()
+	Out> False
+	In> V(InVerboseMode())
+	Out> True
+
+*SEE Echo, N, OldSolve
+%/mathpiper_docs

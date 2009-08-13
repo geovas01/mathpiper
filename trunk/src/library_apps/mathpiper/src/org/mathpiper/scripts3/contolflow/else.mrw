@@ -1,0 +1,45 @@
+%mathpiper,def="else"
+
+RuleBase("else",{ifthen,otherwise});
+
+0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = True) <-- Eval(body);
+
+0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = False) <-- Eval(otherwise);
+
+1 # (if (_predicate) _body else _otherwise) <--
+    UnList({Atom("else"),
+            UnList({Atom("if"), (Eval(predicate)), body}),
+            otherwise});
+
+HoldArg("else",ifthen);
+
+HoldArg("else",otherwise);
+
+UnFence("else",2);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="else",categories="User Functions;Control Flow"
+*CMD else --- branch point
+*STD
+*CALL
+    if(predicate) body else otherwise)
+
+*PARMS
+
+{predicate} -- predicate to test
+
+{body} -- expression to evaluate if the predicate is {True}.
+
+{otherwise} -- expression to evaluate if the predicate if {False}.
+
+*DESC
+
+(This description under in development.)
+
+
+*SEE If, if
+%/mathpiper_docs
