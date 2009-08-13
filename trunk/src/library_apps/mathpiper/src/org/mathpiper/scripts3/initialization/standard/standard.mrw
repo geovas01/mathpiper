@@ -14,58 +14,91 @@
 
 
 /* Implementation of numeric mode */
-LocalSymbols(Numeric) [
-  Set(Numeric,False);
+LocalSymbols(numericMode)
+[
+
+  Set(numericMode,False);
 
 
+  // N function: evaluate numerically with given precision.
+  LocalSymbols(previousNumericMode, previousDigits, numericResult) Macro("N",{expression,digits})
+  [ 
+    // we were in non-numeric mode
 
-  // evaluate numerically with given precision
-  LocalSymbols(prev'Numeric, prev'digits, numeric'result) Macro("N",{expr,digits})
-  [ // we were in non-numeric mode
-      Local(prev'Numeric, prev'digits, numeric'result,errorString);
-      Set(prev'digits, BuiltinPrecisionGet());
-      BuiltinPrecisionSet(@digits);
-      AssignCachedConstantsN();
-      Set(prev'Numeric,Numeric);
-      Set(Numeric, True);
-      Set(errorString,"");
-      TrapError(Set(numeric'result, Eval(@expr)),Set(errorString,GetCoreError()));
-      Set(Numeric,prev'Numeric);
-      If(Not Numeric,[
-          // clear constants
-          ClearCachedConstantsN();
-      ]);
-      BuiltinPrecisionSet(prev'digits);
-      Check(errorString="",errorString);
-      numeric'result;
+    Local(previousNumericMode, previousDigits, numericResult,errorString);
+
+    Set(previousDigits, BuiltinPrecisionGet());
+
+    BuiltinPrecisionSet(@digits);
+
+    AssignCachedConstantsN();
+
+    Set(previousNumericMode,numericMode);
+
+    Set(numericMode, True);
+
+    Set(errorString,"");
+
+    TrapError(Set(numericResult, Eval(@expression)),Set(errorString,GetCoreError()));
+
+    Set(numericMode,previousNumericMode);
+
+    If(Not numericMode,
+    [
+        // clear constants
+        ClearCachedConstantsN();
+    ]);
+
+    BuiltinPrecisionSet(previousDigits);
+
+    Check(errorString="",errorString);
+
+    numericResult;
+
   ];
 
-  LocalSymbols(dig,ex) Macro("N",{expr})
+
+
+
+  // N function: evaluate numerically with default precision.
+  LocalSymbols(digits,heldExpression) Macro("N",{expression})
   [
-    Local(dig,ex);
-    Set(dig,BuiltinPrecisionGet());
-    Set(ex,Hold(@expr));
-    `N(@ex,@dig);
+    Local(digits,heldExpression);
+
+    Set(digits,BuiltinPrecisionGet());
+
+    Set(heldExpression,Hold(@expression));
+
+    `N(@heldExpression,@digits);
   ];
 
 
 
 
 
-
-  LocalSymbols(result) Macro("NonN",{expr})
+  // NoN function.
+  LocalSymbols(result) Macro("NonN",{expression})
   [
     Local(result);
-    GlobalPush(Numeric);
-    Numeric := False;
-    result := (@expr);
-    Numeric := GlobalPop();
+
+    GlobalPush(numericMode);
+
+    numericMode := False;
+
+    result := (@expression);
+
+    numericMode := GlobalPop();
+
     result;
   ];
 
-  Function("InNumericMode",{}) Numeric;
 
-]; //LocalSymbols(Numeric)
+  // InNumericMode function.
+  Function("InNumericMode",{}) numericMode;
+
+
+
+]; //LocalSymbols(numericMode)
 
 
 
@@ -126,17 +159,6 @@ be evaluated after switching to numeric mode.
 
 *SEE Pi
 %/mathpiper_docs
-
-
-
-
-
-
-
-
-
-
-
 
 
 
