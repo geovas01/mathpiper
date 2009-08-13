@@ -1,7 +1,7 @@
 
-***** Wed Aug 12 21:29:56 EDT 2009 *****
+***** Wed Aug 12 23:43:01 EDT 2009 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .76b *****
+***** MathPiper version: .76c *****
 
 ===========================
 arithmetic.mpt: 
@@ -896,7 +896,7 @@ Side Effects:
 ******************
 tests/scripts/sums.mpt: 339 
 
-$pp2090
+$pp2091
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 

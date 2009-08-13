@@ -1,4 +1,6 @@
-%mathpiper,def="Nth;NrArgs;IsNonObject;Numer;Denom;NormalForm;++;--;==;!==;+-;/-;*-;^-;:=-;:=+;&;|;%;if;else;N;NonN;InNumericMode;V;InVerboseMode"
+%mathpiper,def="N;NonN;InNumericMode"
+
+//"+-;/-;*-;^-;:=-;:=+" These were in the def list.
 
 /* See the documentation on the assignment of the precedence of the rules.
  */
@@ -6,69 +8,10 @@
 /* Some very basic functions that are used always any way... */
 
 
-/* Implementation of Nth that allows extending. */
-RuleBase("Nth",{alist,aindex});
-Rule("Nth",2,10,
-    And(Equals(IsFunction(alist),True),
-            Equals(IsInteger(aindex),True),
-            Not(Equals(First(Listify(alist)),Nth))
-            ))
-     MathNth(alist,aindex);
 
 
 
 
-Rule("Nth",2,14,
-     And(Equals(IsString(alist),True),IsList(aindex))
-    )
-[
-  Local(result);
-  result:="";
-  ForEach(i,aindex) [ result := result : StringMidGet(i,1,alist); ];
-  result;
-];
-
-Rule("Nth",2,15,Equals(IsString(alist),True))
-[
-  StringMidGet(aindex,1,alist);
-];
-
-
-Rule("Nth",2,20,Equals(IsList(aindex),True))
-[
-  Map({{ii},alist[ii]},{aindex});
-];
-
-Rule("Nth",2,30,
-   And(
-           Equals(IsGeneric(alist),True),
-           Equals(GenericTypeName(alist),"Array"),
-           Equals(IsInteger(aindex),True)
-          )
-    )
-[
-  ArrayGet(alist,aindex);
-];
-
-
-
-Rule("Nth",2,40,Equals(IsString(aindex),True))
-[
-  Local(as);
-  as := Assoc(aindex,alist);
-  If (Not(Equals(as,Empty)),Set(as,Nth(as,2)));
-  as;
-];
-
-Function("NrArgs",{aLeft}) Length(Listify(aLeft))-1;
-
-10 # IsNonObject(Object(_x)) <-- False;
-20 # IsNonObject(_x)         <-- True;
-
-1 # Numerator(_x / _y)      <-- x;
-2 # Numerator(x_IsNumber)   <-- x;
-1 # Denominator(_x / _y)      <-- y;
-2 # Denominator(x_IsNumber)   <-- 1;
 
 /* Implementation of numeric mode */
 LocalSymbols(Numeric) [
@@ -124,74 +67,15 @@ LocalSymbols(Numeric) [
 
 ]; //LocalSymbols(Numeric)
 
-LocalSymbols(Verbose) [
-  Set(Verbose,False);
-  Function("V",{aNumberBody})
-  [
-    Local(prevVerbose,result);
-    Set(prevVerbose,Verbose);
-    Set(Verbose,True);
-    Set(result,Eval(aNumberBody));
-    Set(Verbose,prevVerbose);
-    result;
-  ];
-  Function("InVerboseMode",{}) Verbose;
-
-]; // LocalSymbols(Verbose)
-HoldArg("V",aNumberBody);
-UnFence("V",1);
-
-Function("++",{aVar})
-[
-   MacroSet(aVar,AddN(Eval(aVar),1));
-];
-UnFence("++",1);
-HoldArg("++",aVar);
-
-
-Function("--",{aVar})
-[
-   MacroSet(aVar,SubtractN(Eval(aVar),1));
-];
-UnFence("--",1);
-HoldArg("--",aVar);
 
 
 
 
-RuleBase("NormalForm",{expression});
-Rule("NormalForm",1,1000,True) expression;
-
-
-
-
-RuleBase("==",{left,right});
-RuleBase("!==",{left,right});
-
-
-a_IsNonNegativeInteger & b_IsNonNegativeInteger <-- BitAnd(a,b);
-a_IsNonNegativeInteger | b_IsNonNegativeInteger <-- BitOr(a,b);
-a_IsNonNegativeInteger % b_IsPositiveInteger <-- Mod(a,b);
-
-RuleBase("if",{predicate,body});
-(if(True) _body) <-- Eval(body);
-HoldArg("if",body);
-UnFence("if",2);
-
-RuleBase("else",{ifthen,otherwise});
-0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = True) <--
-     Eval(body);
-0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = False) <--
-     Eval(otherwise);
-1 # (if (_predicate) _body else _otherwise) <--
-    UnList({Atom("else"),
-            UnList({Atom("if"), (Eval(predicate)), body}),
-            otherwise});
-HoldArg("else",ifthen);
-HoldArg("else",otherwise);
-UnFence("else",2);
 
 %/mathpiper
+
+
+
 
 
 
@@ -245,272 +129,19 @@ be evaluated after switching to numeric mode.
 
 
 
-%mathpiper_docs,name="Numerator",categories="User Functions;Numbers (Operations)"
-*CMD Numerator --- numerator of an expression
-*STD
-*CALL
-	Numerator(expr)
 
-*PARMS
 
-{expr} -- expression to determine numerator of
 
-*DESC
 
-This function determines the numerator of the rational expression
-"expr" and returns it. As a special case, if its argument is numeric
-but not rational, it returns this number. If "expr" is neither
-rational nor numeric, the function returns unevaluated.
 
-*E.G.
 
-	In> Numerator(2/7)
-	Out> 2;
-	In> Numerator(a / x^2)
-	Out> a;
-	In> Numerator(5)
-	Out> 5;
 
-*SEE Denominator, IsRational, IsNumber
-%/mathpiper_docs
 
 
 
-%mathpiper_docs,name="Denominator",categories="User Functions;Numbers (Operations)"
-*CMD Denominator --- denominator of an expression
-*STD
-*CALL
-	Denominator(expr)
 
-*PARMS
 
-{expr} -- expression to determine denominator of
 
-*DESC
-
-This function determines the denominator of the rational expression
-"expr" and returns it. As a special case, if its argument is numeric
-but not rational, it returns {1}. If "expr" is
-neither rational nor numeric, the function returns unevaluated.
-
-*E.G.
-
-	In> Denominator(2/7)
-	Out> 7;
-	In> Denominator(a / x^2)
-	Out> x^2;
-	In> Denominator(5)
-	Out> 1;
-
-*SEE Numerator, IsRational, IsNumber
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="V;InVerboseMode",categories="User Functions;Input/Output"
-*CMD V, InVerboseMode --- set verbose output mode
-*STD
-*CALL
-	V(expression)
-	InVerboseMode()
-
-*PARMS
-
-{expression} -- expression to be evaluated in verbose mode
-
-*DESC
-
-The function {V(expression)} will evaluate the expression in 
-verbose mode. Various parts of MathPiper can show extra information
-about the work done while doing a calculation when using {V}.
-
-In verbose mode, {InVerboseMode()} will return {True}, otherwise
-it will return {False}.
-
-*E.G. notest
-
-	In> OldSolve({x+2==0},{x})
-	Out> {{-2}};
-	In> V(OldSolve({x+2==0},{x}))
-	Entering OldSolve
-	From  x+2==0  it follows that  x  = -2 
-	   x+2==0  simplifies to  True 
-	Leaving OldSolve
-	Out> {{-2}};
-	In> InVerboseMode()
-	Out> False
-	In> V(InVerboseMode())
-	Out> True
-
-*SEE Echo, N, OldSolve
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="Nth",categories="User Functions;Lists (Operations)"
-*CMD Nth --- return the $n$-th element of a list
-*CORE
-*CALL
-	Nth(list, n)
-
-*PARMS
-
-{list} -- list to choose from
-
-{n} -- index of entry to pick
-
-*DESC
-
-The entry with index "n" from "list" is returned. The first entry
-has index 1. It is possible to pick several entries of the list by
-taking "n" to be a list of indices.
-
-More generally, {Nth} returns the n-th operand of the
-expression passed as first argument.
-
-An alternative but equivalent form of {Nth(list, n)} is
-{list[n]}.
-
-*E.G.
-
-	In> lst := {a,b,c,13,19};
-	Out> {a,b,c,13,19};
-	In> Nth(lst, 3);
-	Out> c;
-	In> lst[3];
-	Out> c;
-	In> Nth(lst, {3,4,1});
-	Out> {c,13,a};
-	In> Nth(b*(a+c), 2);
-	Out> a+c;
-
-*SEE Select, Nth
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="NrArgs",categories="User Functions;Lists (Operations)"
-*CMD NrArgs --- return number of top-level arguments
-*STD
-*CALL
-	NrArgs(expr)
-
-*PARMS
-
-{expr} -- expression to examine
-
-*DESC
-
-This function evaluates to the number of top-level arguments of the
-expression "expr". The argument "expr" may not be an atom, since
-that would lead to an error.
-
-*E.G.
-
-	In> NrArgs(f(a,b,c))
-	Out> 3;
-	In> NrArgs(Sin(x));
-	Out> 1;
-	In> NrArgs(a*(b+c));
-	Out> 2;
-
-*SEE Type, Length
-%/mathpiper_docs
-
-
-
-
-
-
-
-%mathpiper_docs,name="IsNonObject",categories="User Functions;Predicates"
-*CMD IsNonObject --- test whether argument is not an {Object()}
-*STD
-*CALL
-	IsNonObject(expr)
-
-*PARMS
-
-{expr} -- the expression to examine
-
-*DESC
-
-This function returns {True} if "expr" is not of
-the form {Object(...)} and {False}
-otherwise.
-
-*HEAD Bugs
-
-In fact, the result is always {True}.
-
-*SEE Object
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="++",categories="Operators"
-*CMD ++ --- increment variable
-*STD
-*CALL
-	var++
-
-*PARMS
-
-{var} -- variable to increment
-
-*DESC
-
-The variable with name "var" is incremented, i.e. the number 1 is
-added to it. The expression {x++} is equivalent to
-the assignment {x := x + 1}, except that the
-assignment returns the new value of {x} while {x++} always returns true. In this respect, MathPiper' {++} differs from the corresponding operator in the
-programming language C.
-
-*E.G.
-
-	In> x := 5;
-	Out> 5;
-	In> x++;
-	Out> True;
-	In> x;
-	Out> 6;
-
-*SEE --, :=
-%/mathpiper_docs
-
-
-
-%mathpiper_docs,name="--",categories="Operators"
-*CMD -- --- decrement variable
-*STD
-*CALL
-	var--
-
-*PARMS
-
-{var} -- variable to decrement
-
-*DESC
-
-The variable with name "var" is decremented, i.e. the number 1 is
-subtracted from it. The expression {x--} is
-equivalent to the assignment {x := x - 1}, except
-that the assignment returns the new value of {x}
-while {x--} always returns true. In this respect,
-MathPiper' {--} differs from the corresponding operator
-in the programming language C.
-
-*E.G.
-
-	In> x := 5;
-	Out> 5;
-	In> x--;
-	Out> True;
-	In> x;
-	Out> 4;
-
-*SEE ++, :=
-%/mathpiper_docs
 
 
 

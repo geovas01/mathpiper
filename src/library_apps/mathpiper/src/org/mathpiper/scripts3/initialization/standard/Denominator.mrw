@@ -1,0 +1,37 @@
+%mathpiper,def="Denominator"
+
+1 # Denominator(_x / _y)      <-- y;
+2 # Denominator(x_IsNumber)   <-- 1;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Denominator",categories="User Functions;Numbers (Operations)"
+*CMD Denominator --- denominator of an expression
+*STD
+*CALL
+	Denominator(expr)
+
+*PARMS
+
+{expr} -- expression to determine denominator of
+
+*DESC
+
+This function determines the denominator of the rational expression
+"expr" and returns it. As a special case, if its argument is numeric
+but not rational, it returns {1}. If "expr" is
+neither rational nor numeric, the function returns unevaluated.
+
+*E.G.
+
+	In> Denominator(2/7)
+	Out> 7;
+	In> Denominator(a / x^2)
+	Out> x^2;
+	In> Denominator(5)
+	Out> 1;
+
+*SEE Numerator, IsRational, IsNumber
+%/mathpiper_docs

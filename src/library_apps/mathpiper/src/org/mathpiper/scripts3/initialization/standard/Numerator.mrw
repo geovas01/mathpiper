@@ -1,0 +1,38 @@
+%mathpiper,def="Numerator"
+
+1 # Numerator(_x / _y)      <-- x;
+2 # Numerator(x_IsNumber)   <-- x;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="Numerator",categories="User Functions;Numbers (Operations)"
+*CMD Numerator --- numerator of an expression
+*STD
+*CALL
+	Numerator(expr)
+
+*PARMS
+
+{expr} -- expression to determine numerator of
+
+*DESC
+
+This function determines the numerator of the rational expression
+"expr" and returns it. As a special case, if its argument is numeric
+but not rational, it returns this number. If "expr" is neither
+rational nor numeric, the function returns unevaluated.
+
+*E.G.
+
+	In> Numerator(2/7)
+	Out> 2;
+	In> Numerator(a / x^2)
+	Out> a;
+	In> Numerator(5)
+	Out> 5;
+
+*SEE Denominator, IsRational, IsNumber
+%/mathpiper_docs
