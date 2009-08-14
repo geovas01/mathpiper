@@ -58,12 +58,14 @@ public class LispPrinter {
                     indent(aOutput, aDepth + 1);
                 }
 
+                /*
                 Cons atomCons = (Cons) consWalker.getCons();
                 if (visitedLists.contains(atomCons)) {
                     aOutput.write("(CYCLE_LIST)");
 
                 } else {
-                    visitedLists.add(atomCons);
+                    visitedLists.add(atomCons);*/
+
                     if (item != 0) {
                         indent(aOutput, aDepth + 1);
                     }
@@ -71,7 +73,7 @@ public class LispPrinter {
                     printExpression(((ConsPointer) consWalker.car()), aOutput, aEnvironment, aDepth + 1);
                     aOutput.write(")");
                     item = 0;
-                }
+                //}
 
 
             } else {
