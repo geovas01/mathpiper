@@ -43,7 +43,7 @@ public class MathPiperPrinter extends LispPrinter {
     char iPrevLastChar;
     Environment iCurrentEnvironment;
 
-    private List<Cons> visitedLists = new ArrayList<Cons>();
+    //private List<Cons> visitedLists = new ArrayList<Cons>();
 
 
     public MathPiperPrinter(OperatorMap aPrefixOperators,
@@ -66,7 +66,7 @@ public class MathPiperPrinter extends LispPrinter {
 
         Print(aExpression, aOutput, KMaxPrecedence);
 
-        visitedLists.clear();
+        //visitedLists.clear();
     }
 
 
