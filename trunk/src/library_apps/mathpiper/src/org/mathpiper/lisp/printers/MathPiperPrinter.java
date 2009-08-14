@@ -168,6 +168,7 @@ public class MathPiperPrinter extends LispPrinter {
                 ConsTraverser consTraverser = new ConsTraverser(subList.cdr());
                 if (string == iCurrentEnvironment.iListAtom.car()) {
 
+                    /*
                     Cons atomCons = (Cons) subList.getCons();
                     if (visitedLists.contains(atomCons)) {
                             WriteToken(aOutput, "{CYCLE_LIST}");
@@ -175,7 +176,7 @@ public class MathPiperPrinter extends LispPrinter {
 
                     } else {
 
-                        visitedLists.add(atomCons);
+                        visitedLists.add(atomCons);*/
 
                         WriteToken(aOutput, "{");
 
@@ -189,7 +190,7 @@ public class MathPiperPrinter extends LispPrinter {
 
                         WriteToken(aOutput, "}");
 
-                    }//end else.
+                   // }//end else.
                 } else if (string == iCurrentEnvironment.iProgAtom.car()) // Program block brackets.
                 {
                     WriteToken(aOutput, "[");
