@@ -1,0 +1,71 @@
+%mathpiper,def="IsPolynomialOverIntegers"
+
+Retract("IsPolynomialOverIntegers",*);
+
+10 # IsPolynomialOverIntegers(expr_IsFunction) <-- 
+[
+    Local(x);
+    x := VarList(expr)[1];
+    IsPolynomialOverIntegers(expr,x);
+];
+
+15 # IsPolynomialOverIntegers(_expr) <-- False;
+
+
+10 # IsPolynomialOverIntegers(_expr,_var)_(CanBeUni(var,expr)) <--
+[
+    If( AllSatisfy("IsInteger",Coef(expr,var,0 .. Degree(expr,var))),
+        True,
+        False
+      );
+];
+
+15 # IsPolynomialOverIntegers(_expr,_var) <-- False;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+%mathpiper_docs,name="IsPolynomialOverIntegers",categories="User Functions;Predicates"
+
+*CMD IsPolynomialOverIntegers --- Check if {expr} is a polynomial in variable {var}, all of whose coefficients are integers
+
+*STD
+*CALL
+    IsPolynomialOverIntegers(expr,var)
+
+*PARMS
+
+{expr} -- an algebraic expression which may be a polynomial
+
+{var} -- a variable name which might be used in {expr}
+
+*DESC
+
+The command {IsPolynomialOverIntegers} returns {True} if {expr} is a polynomial in {var} and all of its coefficients are integers.
+It returns {False} if {expr} is not a polynomial in {var} or if any of its coefficients are not integers.
+
+This can be important, since many factoring theorems are applicable to such polynomials but not others.
+
+*E.G.
+
+In> IsPolynomialOverIntegers(2*x^3-3*x^2+5*x-14,x)
+Result: True 
+
+In> IsPolynomialOverIntegers(2.0*x^3-3*x^2+5*x-14,x)
+Result: False
+
+In> IsPolynomialOverIntegers(y^2-4)
+Result: True
+        NOTE: if variable name is omitted, a reasonable default is taken.
+
+In> IsPolynomialOverIntegers(x^2-a^2)
+Result: False
+        NOTE: the unbound variable 'a' need not be an integer.
+
+%/mathpiper_docs
+
+
