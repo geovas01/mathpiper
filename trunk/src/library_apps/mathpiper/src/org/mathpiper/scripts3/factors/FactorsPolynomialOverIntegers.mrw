@@ -1,0 +1,179 @@
+%mathpiper,def="FactorsPolynomialOverIntegers",scope="private"
+
+Retract("FactorsPolynomialOverIntegers",*);
+
+10 # FactorsPolynomialOverIntegers(_expr)_IsPolynomialOverIntegers(expr) <--
+[
+    Local(x);
+    x := VarList(expr)[1];
+    FactorsPolynomialOverIntegers(expr,x);
+
+];
+
+15 # FactorsPolynomialOverIntegers(_expr) <-- expr;
+
+
+10 # FactorsPolynomialOverIntegers(_expr,_var)_(IsPolynomialOverIntegers(expr,var)) <--
+[
+    factorsList := BinaryFactors(expr);
+    /*  
+     *  BinaryFactors is the internal MathPiper function that
+     *  creates a double list of factors and their multiplicities
+     */
+    If(InVerboseMode(), [Tell(1,{expr,var});  Tell(2,factorsList);]);
+    
+    // By transposing factorsList (which has the form of a list of 
+    // lists, hence a matrix), we convert it into a form which has 
+    // a list of all the factors first, followed by a list of all 
+    // the corresponding multiplicities.
+    
+    factListTransp := Transpose(factorsList);
+    factrs := factListTransp[1];
+    multiplicities := factListTransp[2];
+    If(InVerboseMode(),[Tell(3,factListTransp);Tell(4,factrs);Tell(5,multiplicities);]);
+        
+    // Now, these factors are probably all in "monic" form, with the 
+    // coefficient of the highest power of x in each factor being 
+    // equal to 1, and all the "normalizing" factors being combined 
+    // into a new leading numeric factor.  We want to undo this
+    // monic-ization.  The function Together() will accomplish this 
+    // for each separate factor, while leaving untouched factors 
+    // which do not need changing.
+    
+    factrsUnMonic := MapSingle("Together",factrs);
+        
+    // The result of this step is that each factor which had been 
+    // "normalized" to a monic has now be un-normalized into a 
+    // rational function consisting of a non-monic polynomial 
+    // divided by a number.  Now we just collect all the non-monic 
+    // polynomials into one list, and all the normalizing denominators
+    // into another.
+    
+    {polyFactors,normalizations}:=Transpose(MapSingle("GetNumerDenom",factrsUnMonic));
+    If(InVerboseMode(),[Tell(6,factrsUnMonic);Tell(7,polyFactors);Tell(8,normalizations);]);
+        
+    // The next step is to make sure that each of the normalizing 
+    // numbers is raised to the power of its corresponding 
+    // multiplicity. Then all these powers of numbers are 
+    // multiplied together, to form the overall normilizing 
+    // divisor which must be used to remove the extra factor (if 
+    // any) introduced during the monic-ization process.  All this 
+    // is condensed into one line of Functional code
+            
+    normDivisor := Product(Map("^",{normalizations,multiplicities}));
+    
+    //  Notice that normDivisors is exactly equal in value to the
+    // 'extra' numeric factor introduced by the monic-ization, if
+    // any was indeed so introduced (it doesn't happen under all
+    // circumstances).  I believe this will always be true, but I 
+    // have not taken the time to prove it.  So I proceed in a 
+    // more general way.
+    
+    polyFactors[1] := Simplify(polyFactors[1]/normDivisor);
+    
+    // We can now replace the first sub-list in factListTransp by
+    // the un-monic-ized version
+    
+    factListTransp[1] := polyFactors;
+    factList := Transpose(factListTransp);
+    If(InVerboseMode(),[Tell(9,normDivisor);Tell(10,polyFactors);
+                        Tell(11,factListTransp);Tell(12,factList);]);
+    
+    // If one of the factors is 1, it is redundent, and can be removed.
+    
+    n := Find(factList,{1,1});
+    If( n > 0,DestructiveDelete(factList,n));
+    If(InVerboseMode(),Tell(13,factList));
+    
+    // .... and that is (supposedly) the answer.
+    result := factList;
+    
+    // However, let's find out if any of the factors needs more treatment.
+    tr := Transpose(result);
+    degrees := {};
+    ForEach(r,tr[1]) [ 
+        Local(d);
+        d := Degree(r,var);
+        degrees := d:degrees; 
+        If(d > 2,Echo("  Factor ",r," can be reduced further"));
+    ];
+    
+    result;
+];
+
+15 # FactorsPolynomialOverIntegers(_expr,_var) <-- expr;
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper_docs,name="FactorsPolynomialOverIntegers",categories="User Functions;Factors"
+*CMD Factors --- factorization of univariate polynomials over the integers 
+*STD
+*CALL
+	FactorsPolynomialOverIntegers(poly,x)
+
+*PARMS
+
+{poly} -- a polynomial which is univariate w.r.t. variable x
+{x}    -- variable of the polynomial
+
+*DESC
+
+This function decomposes the polynomial {poly}, considered as univariate
+in the variable {x}, into a product of irreducible polynomials.
+
+This function is specialized for polynomials in {x} whose coefficients 
+are all integers.  In such a case, it is often customary to expect the 
+irreducible polynomial factors to be given in a form which also has
+only integer coefficients.  However, the standard MathPiper function 
+Factors() follows a different convention, which returns the constituant
+polynomial factors in a {monic} form.  This means that the results may 
+have rational, rather than integer, coefficients.  
+
+The present function offers an alternative which is guaranted to return
+polynomial factors with integer coefficients.  But it works only for 
+input {polynomials}, not {numbers}, and only for polynomials all of whose
+coefficients are integers.  For any other input, this function will simply
+return the input expression unevaluated.
+
+The factorization is returned as a list of pairs. The first member of
+each pair is the factor, while the second member denotes the power to
+which this factor should be raised. So the factorization
+$poly = p1^n1 * ... * p9^n9$
+is returned as {{{p1,n1}, ..., {p9,n9}}}.
+
+NOTE: If you want the factorization to be expressed in the nominal
+form    $poly = p1^n1 * ... * p9^n9$,
+just apply the function FW() to the result returned by the present
+function.
+
+*E.G.
+
+In> u:=Expand((2*x-3)^2*(3*x+5)^3)
+Result: 108*x^5+216*x^4-477*x^3-985*x^2+525*x+1125
+
+In> FactorsPolynomialOverIntegers(u,x)
+Result: {{2*x-3,2},{3*x+5,3}}
+
+In> FW(%)
+Result: (2*x-3)^2*(3*x+5)^3
+
+In> FactorsPolynomialOverIntegers(y^2-4)
+Result: {{y+2,1},{y-2,1}}
+
+In> FactorsPolynomialOverIntegers(u)
+Result: {{x^4+x^2+1,1}}
+Side Effects:
+Factor x^4+x^2+1  can be reduced further
+        NOTE:  This quartic polynomial over the integers MUST be reducible to
+        a product of irreducible quadratics.  The present function recognizes
+        this fact, but is not yet prepared to proceed further.
+        
+*SEE Factor, Factors, FW
+%/mathpiper_docs
+
