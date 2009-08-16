@@ -12,7 +12,7 @@ LocalSymbols(ZoomInOnce)
     
         Local(numbers, stepAmount, zoomIndexes, nextZoomIndex, outputWidth, numbersString, output, randomStep, randomZoomNumber, iteration);
         
-        iteration := 0;
+        iteration := 1;
         
         While(iteration <= times)
         [
@@ -42,13 +42,11 @@ LocalSymbols(ZoomInOnce)
             
             If(randomStep = 1, nextZoomIndex := randomZoomNumber + 1, nextZoomIndex := 3*(randomStep-1) + randomZoomNumber + 1);
          
-            If(iteration > 0, Echo(ListToString(FillList("-", outputWidth-3)))); 
+            If(iteration > 1, Echo(ListToString(FillList("-", outputWidth-3)))); 
             
             Echo(numbersString);
             
-            Space(nextZoomIndex);
-            Echo("|");
-            
+            If(iteration != times,[Space(nextZoomIndex);Echo("|");]);
             
             lowValue := numbers[randomStep];
             
