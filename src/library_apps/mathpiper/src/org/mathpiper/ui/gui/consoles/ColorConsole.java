@@ -373,7 +373,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
         //System.out.println((int)key);
 
-        if ((int) key == 10) {
+        if ((int) key == e.VK_ENTER) { //== 10) {
             try {
                 int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
                 String line = "";
@@ -438,7 +438,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
             //typeArea.append(new String(typedKey));
             //typeArea.setCaretPosition( typeArea.getDocument().getLength() );
-        } else if ((int) key == 22) {
+       /* } else if ((int) key == 22) {
             try {
                 String clipBoard = (String) java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().getData(java.awt.datatransfer.DataFlavor.stringFlavor);
 
@@ -458,11 +458,11 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
                 ev.printStackTrace();
             } catch (java.io.IOException ev) {
                 ev.printStackTrace();
-            }
+            }//*/
         } else {
             //System.out.println(key);
             //registers[0] = (int) key;
-            if ((int) key == 8) {
+            if ((int) key == e.VK_BACK_SPACE) {  //== 8) {
                 deleteFlag = true;
             }
 
