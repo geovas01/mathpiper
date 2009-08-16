@@ -373,7 +373,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
         //System.out.println((int)key);
 
-        if ((int) key == e.VK_ENTER) { //== 10) {
+        if ((int) key == e.VK_ENTER || (int) key == 13) { //== 10) {
             try {
                 int lineNumber = textArea.getLineOfOffset(textArea.getCaretPosition());
                 String line = "";
