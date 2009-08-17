@@ -21,30 +21,43 @@
 
 
 %mathpiper_docs,name="RandomInteger",categories="User Functions;Numbers (Random)"
-*CMD RandomInteger --- generate a random integer between 1 and a given upper bound
+*CMD RandomInteger --- generate a random integer
 
 *STD
 
 *CALL
 	RandomInteger(upper_bound)
+        RandomInteger(lower_bound, upper_bound
 
 *PARMS
+
+{lower_bound} -- the smallest integer that can be generated
 
 {upper_bound} -- the largest integer that can be generated
 
 
 *DESC
 
-This function generates a random integer between 1 and the given upper
-bound integer (inclusive).
+The single argument version of this function generates a random integer between
+1 and the given upper bound integer (inclusive).  The two argument version of
+the function generates a random integer between a lower bound integer and an
+upper bound integer (both inclusive).
 
 *E.G.
-    In> RandomInteger(5)
-    Result> 4
+In> RandomInteger(5)
+Result> 4
 
-    In> Repeat(10) Write(RandomInteger(5),,)
-    Result> 10
-    Side Effects>4,3,5,1,2,2,3,5,3,3,
+In> Repeat(10) Write(RandomInteger(5),,)
+Result> 10
+Side Effects>4,3,5,1,2,2,3,5,3,3,
 
-*SEE Random, RandomPoly, RandomInteger, RandomIntegerVector, RandomIntegerMatrix
+In> RandomInteger(5,10)
+Result: 5
+
+In> In> Repeat(10) Write(RandomInteger(5, 10),,)
+Result: 10<In
+Side Effects:
+8,9,9,5,6,8,9,10,8,7,
+
+*SEE Random, RandomPoly, RandomIntegerVector, RandomIntegerMatrix
 %/mathpiper_docs
