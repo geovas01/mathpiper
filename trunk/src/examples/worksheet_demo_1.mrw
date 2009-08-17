@@ -1,4 +1,4 @@
-/*  v 1.08.
+/*  v 1.09.
     This is a MathRider worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -10,7 +10,7 @@
     in the Folding menu at the top of the window.
 */
 
-%mathpiper,description="loop"
+%mathpiper,title="loop"
 //Loop demonstration.
 
 x := 1;
@@ -28,7 +28,7 @@ While(x < 100)
 
 
 
-%mathpiper,description="series"
+%mathpiper,title="series"
 //Automatically generate a sequence of numbers.
 
 1 .. 100;
@@ -40,7 +40,7 @@ While(x < 100)
 
 
 
-%mathpiper,description="factors"
+%mathpiper,title="factors"
 //Factor each of the following into prime factors: 8,11,14,18,24,29.
 
 a := {8,11,14,18,24,29};
