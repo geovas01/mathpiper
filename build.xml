@@ -522,7 +522,7 @@
 	</target>	
 	
 	
-	<target name="dist_linux" depends=""
+	<target name="dist_unix_mac" depends=""
 		description="Archives the application for distribution." >
 
 		<exec executable="tar">
@@ -531,7 +531,7 @@
 		 <arg value="--exclude=win_run.bat"/>
 		 <arg value="--exclude=win_run.bat.with_jre"/>
 		    <arg value="-cf"/>
-		    <arg value="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2"/>
+		    <arg value="${dist.build.dir}/mathrider_unix_mac_dist_v${version}_beta.tar.bz2"/>
 		   <arg value="-C"/>
 		    <arg value="${master.build.dir}"/>
 		    <arg value="mathrider"/>
@@ -542,11 +542,11 @@
 	
 		
 	
-	<target name="*dist" depends="clean, *mathrider, all-plugins-dist, dist_clean, dist_linux, dist_windows" >
+	<target name="*dist" depends="clean, *mathrider, all-plugins-dist, dist_clean, dist_unix_mac, dist_windows" >
 		
 		
-		<exec executable="md5sum"  output ="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2.md5" >
-			 <arg value="${dist.build.dir}/mathrider_linux_dist_v${version}_beta.tar.bz2"/>
+		<exec executable="md5sum"  output ="${dist.build.dir}/mathrider_unix_mac_dist_v${version}_beta.tar.bz2.md5" >
+			 <arg value="${dist.build.dir}/mathrider_unix_mac_dist_v${version}_beta.tar.bz2"/>
 			
 		</exec>
 		
@@ -563,7 +563,7 @@
 	
 	<!-- 
 	chmod +x -R mathrider.
-	tar cjfp mathrider_linux_dist_v.10.tar.bz2 mathrider/
+	tar cjfp mathrider_unix_mac_dist_v.10.tar.bz2 mathrider/
 	-->
 	
 	
