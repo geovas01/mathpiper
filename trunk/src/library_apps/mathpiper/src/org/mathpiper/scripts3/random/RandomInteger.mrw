@@ -27,7 +27,7 @@
 
 *CALL
 	RandomInteger(upper_bound)
-        RandomInteger(lower_bound, upper_bound
+        RandomInteger(lower_bound, upper_bound)
 
 *PARMS
 
@@ -54,8 +54,8 @@ Side Effects>4,3,5,1,2,2,3,5,3,3,
 In> RandomInteger(5,10)
 Result: 5
 
-In> In> Repeat(10) Write(RandomInteger(5, 10),,)
-Result: 10<In
+In> Repeat(10) Write(RandomInteger(5, 10),,)
+Result: 10
 Side Effects:
 8,9,9,5,6,8,9,10,8,7,
 
